@@ -1,0 +1,30 @@
+/* CSS3 Media Query Syntax */
+@media [not|only] [all|print|screen|speech] [and (conditional_1)] [and (expression...)] [and (conditional_n)] {
+	/* ===> SEE: https://www.w3.org/TR/CSS2/media.html */
+
+  /* CSS styles here; */
+
+}
+
+
+@media only screen and (min-width:1025px) {
+	/* Devices whose screen's width is greater-than or equal-to 1025px */
+    .classname {
+        /* styles here */
+    }
+}
+
+
+@media only screen and (max-width:1024px) {
+	/* Devices whose screen's width is less-than or equal-to 1024px */
+    .classname {
+        /* other styles here */
+    }
+}
+
+
+/*
+
+	<link rel="stylesheet" type="text/css" media="screen and (max-device-width: 480px) and (resolution: 163dpi)" href="shetland.css" />
+
+*/

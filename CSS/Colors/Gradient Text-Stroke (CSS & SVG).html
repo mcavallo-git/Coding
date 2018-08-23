@@ -1,0 +1,39 @@
+<!--  CSS (WebKit)  -->
+<style>
+	body {
+		padding: 50px;
+	}
+	
+	h1 {
+			font: 100px sans-serif;
+			font-weight: bold;
+			
+			/* Warning: no fallback */
+			background: -webkit-linear-gradient(top, red, blue);
+			-webkit-background-clip: text;
+			-webkit-text-stroke: 4px transparent;
+			color: white; /* same as background */
+	}
+
+</style>
+<h1>CSS</h1>
+
+
+<!--  SVG  -->
+<svg width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <linearGradient id="gradient" y1="0" y2="1">
+   <stop stop-color="#ff0000" offset="0"/>
+   <stop stop-color="#0000ff" offset="1"/>
+  </linearGradient>
+ </defs>
+ <g>
+  <text id="text" y="85" font-family="sans-serif" font-size="100" font-weight="bold" stroke-width="2" stroke="url(#gradient)" fill="none">SVG</text>
+ </g>
+</svg>
+
+
+<!-- NOTES  -->
+<!--  CSS Gradient Text-Stroke requires compatible w/ WebKit & requires a solid background  -->
+<!--  SVG Gradeint Text-Stroke requires an HTML-5 compatible browser & allows any background  -->
+<!--  Reference: https://jsfiddle.net/simurai/JFMmK/  -->

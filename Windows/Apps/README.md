@@ -3,4 +3,4 @@
 
 ***
 
-#### [Classic Shell](https://www.classicshell.net/)
+#### [Classic Shell](https://www.fosshub.com/Classic-Shell.html)

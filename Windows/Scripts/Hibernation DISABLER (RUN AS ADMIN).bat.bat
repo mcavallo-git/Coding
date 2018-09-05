@@ -1,0 +1,1 @@
+powercfg.exe /hibernate off

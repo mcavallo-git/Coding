@@ -8,7 +8,8 @@
 #### Notifications (Bottom Right)
 ##### Right Click ##### Don't show number of new notifications
 ***
-#### Hide Recycle-Bin from Desktop
+#### Put Recycle-Bin on Start-Menu, Remove from Desktop
+##### Drag & drop the Recycle Bin from the Desktop into the Start Menu -> Right-click & rename the new shortcut from "Recycle Bin - shortcut" to "Recycle Bin"
 ##### Start Menu -> type "desktop icon" -> Select "Themes and Related Settings" -> On the right, select "desktop icon settings" -> uncheck "Recycle Bin" -> Hit "Ok"
 ***
 #### Show Hidden Files/Folders, Show File Extensions

@@ -5,6 +5,10 @@
 
 #### [Classic Shell](https://www.fosshub.com/Classic-Shell.html)
 
+#### [Git](https://git-scm.com/downloads)
+
+#### [GitHub Desktop](https://desktop.github.com/)
+
 #### [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html)
 
 #### [Postman](https://www.getpostman.com/apps)

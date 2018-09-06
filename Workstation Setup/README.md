@@ -1,7 +1,7 @@
-# Workstation Setup
+# Workstation Setup (Windows)
 ***
 
-## Windows - Applications
+## Applications
 
 ### Classic Shell
 ##### [(mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml)
@@ -30,7 +30,7 @@
 ##### [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
 ***
 
-## Windows - Environment
+## Environment
 ***
 ### Taskbar (Bottom Bar)
 ##### Unpin Edge, Unpin MS-Store, Hide Cortana, Hide People, Hide Ink, Hide Task-View Button
@@ -77,7 +77,7 @@
 ##### Start Menu -> type "clear" -> select "Adjust ClearType text" -> Enable ClearType and click next through all the screens until complete
 ***
 
-## Windows - Shortcuts
+## Shortcuts
 ***
 #### Pinned Items, Taskbar (Win10)
 ###### Path:  "%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"

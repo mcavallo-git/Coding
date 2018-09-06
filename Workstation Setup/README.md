@@ -1,4 +1,7 @@
-# Windows Applications
+# Workstation Setup
+***
+
+## Windows - Applications
 ***
 #### Classic Shell :::  [(mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml)  :::  [(mirror-2)](https://www.fosshub.com/Classic-Shell.html)  :::  
 ***
@@ -15,11 +18,7 @@
 #### Effective File Search (EFS)  :::  [(mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download)  :::  [(mirror-2)](https://effective-file-search.en.lo4d.com/download)
 ***
 
-
-
-# Windows 10 Config(s)
-***
-# Windows Native Settings
+## Windows - Environment
 ***
 #### Taskbar (Bottom Bar)
 ##### Unpin Edge, Unpin MS-Store, Hide Cortana, Hide People, Hide Ink, Hide Task-View Button
@@ -65,7 +64,8 @@
 #### Enable ClearType
 ##### Start Menu -> type "clear" -> select "Adjust ClearType text" -> Enable ClearType and click next through all the screens until complete
 ***
-# Windows Shortcuts
+
+## Windows - Shortcuts
 ***
 #### Pinned Items, Taskbar (Win10)
 ###### Path:  "%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"

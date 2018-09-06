@@ -15,4 +15,4 @@
 
 #### [Visual Studio Code (VS Code)](https://mobaxterm.mobatek.net/download-home-edition.html)
 
-#### Effective File Search (EFS)  :::  [EFS (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download)   [EFS (mirror-2)](https://effective-file-search.en.lo4d.com/download)
+#### Effective File Search (EFS)  :::  [EFS (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download)  :::  [EFS (mirror-2)](https://effective-file-search.en.lo4d.com/download)

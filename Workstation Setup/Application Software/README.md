@@ -3,7 +3,7 @@
 
 ***
 
-#### [Classic Shell](https://www.fosshub.com/Classic-Shell.html)
+#### Classic Shell :::  [(mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml)  :::  [(mirror-2)](https://www.fosshub.com/Classic-Shell.html)  :::  
 
 #### [Git](https://git-scm.com/downloads)
 

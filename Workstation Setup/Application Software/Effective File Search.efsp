@@ -12,7 +12,7 @@ Folder5=C:\Users\*\Documents\GitHub\boneal_github\web_files_nodejs\
 Folder6=C:\Users\*\Documents\GitHub\boneal_github\web_files_nodejs\*\
 Include subdirectories=0
 Search in=2
-Autosearch=1
+Autosearch=0
 Active page=2
 [Containing text]
 Line=sg_regex

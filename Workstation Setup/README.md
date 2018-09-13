@@ -3,32 +3,22 @@
 
 ## Applications
 
-### Classic Shell
-##### [(mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml)
-##### [(mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 
-### Git - Git SCM
-##### [Download (source)](https://git-scm.com/downloads)
+App Name | Option 1 | Option A
+--- | --- | ---
+**Classic Shell** | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
+**Effective File Search (EFS)** | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
+**Git**<br/>*Git SCM* | [Download (source)](https://git-scm.com/downloads) |
+**Git**<br/>*GitHub Desktop* | [Download (source)](https://desktop.github.com) |
+**Git**<br/>*Tortoise Git* | [Download (source)](https://tortoisegit.org/download) |
+**MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
+**Postman** | [Download (source)](https://www.getpostman.com/apps) |
+**Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
+**Visual Studio Code (VS Code)** | [Download (source)](https://code.visualstudio.com/download) |
 
-### Git - GitHub Desktop
-##### [Download (source)](https://desktop.github.com)
 
-### Git - Tortoise Git (for Merge Conflicts)
-##### [Download (source)](https://tortoisegit.org/download)
-
-### MobaXterm
-##### [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html)
-
-### Postman
-##### [Download (source)](https://www.getpostman.com/apps)
-
-### Visual Studio Code (VS Code)
-##### [Download (source)](https://code.visualstudio.com/download)
-
-### Effective File Search (EFS)
-##### [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download)
-##### [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
 ***
+
 
 ## Environment
 ***

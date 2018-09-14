@@ -19,7 +19,7 @@ App Name | Option 1 | Option A
 
 ***
 
-## Applications - HTTP Sources :(
+## Applications <sub> Non-HTTPS Sources :(</sub>
 
 App Name | Option 1 | Option A
 --- | --- | ---

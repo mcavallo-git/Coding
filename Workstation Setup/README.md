@@ -6,6 +6,7 @@
 
 App Name | Option 1 | Option A
 --- | --- | ---
+**AirParrot** | [Download (mirror)](https://airparrot.en.softonic.com/download) |
 **Classic Shell** | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 **Effective File Search (EFS)** | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
 **Git** <sub>*Git SCM*</sub>  | [Download (source)](https://git-scm.com/downloads) |
@@ -15,7 +16,6 @@ App Name | Option 1 | Option A
 **Postman** | [Download (source)](https://www.getpostman.com/apps) |
 **Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
 **Visual Studio Code (VS Code)** | [Download (source)](https://code.visualstudio.com/download) |
-
 
 ***
 

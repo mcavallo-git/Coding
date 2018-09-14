@@ -21,6 +21,8 @@ App Name | Option 1 | Option A
 
 ## Applications - HTTP Sources :(
 
+App Name | Option 1 | Option A
+--- | --- | ---
 **AirParrot** | [Download (mirror)](http://www.airsquirrels.com/airparrot/download/) |
 
 

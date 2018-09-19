@@ -1,35 +1,15 @@
 [General]
 Application=Effective File Search
 [Main]
-Name=""
-Folder=C:\Users\*\Documents\
-Folders Count=6
-Folder1=C:\Users\*\Documents\GitHub\boneal_github
-Folder2=C:\Users\*\Documents\GitHub\boneal_github\web_files
-Folder3=C:\Users\*\Documents\GitHub\boneal_github\web_files\public_boneal
-Folder4=C:\Users\*\Documents\GitHub\boneal_github\web_files\public_sg\*\
-Folder5=C:\Users\*\Documents\GitHub\boneal_github\web_files_nodejs\
-Folder6=C:\Users\*\Documents\GitHub\boneal_github\web_files_nodejs\*\
+Folder=C:\Users\*\Documents\GitHub\boneal_github\web_files
+Folders Count=4
+Folder1=C:\Users\*\Documents\GitHub\boneal_github\web_files\public_boneal
+Folder2=C:\Users\*\Documents\GitHub\boneal_github\web_files\public_sg\*\
+Folder3=C:\Users\*\Documents\GitHub\boneal_github\web_files_nodejs\
+Folder4=C:\Users\*\Documents\GitHub\boneal_github\web_files_nodejs\*\
 Include subdirectories=0
 Search in=2
 Autosearch=0
-Active page=2
-[Containing text]
-Line=sg_regex
-Text line=1
-Case sensitive=0
-Whole words=0
-Unicode=0
-Hex=0
-RegEx=0
-Boolean1=0
-Not1=0
-Line1=
-Boolean2=0
-Not2=0
-Line2=
-Boolean3=0
-Not3=0
-Line3=
+Active page=0
 [Dialogs]
 Logical expression operator=0

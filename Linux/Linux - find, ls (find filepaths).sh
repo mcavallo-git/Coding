@@ -7,7 +7,7 @@
 
 # Count the number # of files in a given directory
 find -L "/home/user/directory" -type 'f' -name "*" | wc -l; 
-# Count-up the total number of [files unique file-extension] in a given directory (note: case-insensitive --> a.k.a. it doesn't combine PDF and pdf under the same #)
+# Count-up the total number of [files per file-extension] in a given directory (note: case-insensitive --> a.k.a. it doesn't combine PDF and pdf under the same #)
 find -L "/home/user/directory" -type f | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn
 
 

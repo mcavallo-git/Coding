@@ -1,26 +1,78 @@
-#!/bin/bash
-
-# Linux - find (scripts to perform lookups in linux)
-#  |
-#  |-->  Note: the argument "-L" is used to dereference symbolic links
-#
-
-# Count the number # of files in a given directory 
-find -L "/home/user/directory" -type 'f' -name "*" | wc -l; 
-# Count-up the total number of [files per file-extension] in a given directory (note: case-insensitive --> a.k.a. it doesn't combine PDF and pdf under the same #)
-find -L "/home/user/directory" -type f | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn
+# [find(1) - Linux man linux](https://linux.die.net/man/1/find)
+***
 
 
-# Find paths modified in the last 120 minutes (uses negative 120)
-find -L "/home/user/directory" -mmin -120 -ls;
-# Find paths modified in the last 2 minutes (uses negative 2)
-find -L "/home/user/directory" -mmin -2 -ls;
-# Find paths modified in the last 2 days (uses negative 2)
-find -L "/home/user/directory" -mtime -2 -ls;
-# Find files modified LATER THAN epoch time '1298589405', i.e. since [1970-01-01 00:00:00 + 1298589405s]
-find -L "/home/user/directory" -type 'f' -newermt "$(date --date=@1298589405 +'%Y-%m-%d %H:%M:%S')";
-# Find files modified NO LATER THAN  epoch time '1298589405', i.e. since [1970-01-01 00:00:00] + [1298589405 seconds]
-find -L "/home/user/directory" -type 'f' -not -newermt "$(date --date=@1298589405 +'%Y-%m-%d %H:%M:%S')";
+### Search a given directory for any files whose basename matches a given substring
+```
+find "/var/log" -type 'f' -name "*error*";
+```
+***
 
-# Show files in a directory (with modified time shown in epoch format & most recent values at the bottom)
-ls -aHltr --time-style=+"%s" "/home/user/directory"";
+
+### Get the total number of files within a given directory & its sub-directories
+```
+find "/var/log" -type 'f' -name "*" | wc -l;
+```
+***
+
+
+### Get the total number of EACH file-extension within a given directory & its sub-directories
+#####   |--> note: extensions are case-insensitive, ex) "PDF" and "pdf" are separated
+```
+find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn;
+```
+***
+
+
+### Find files modified in the last X minutes
+```
+find "/var/log" -mtime -120 -ls;
+```
+***
+
+
+### Find files modified since Epoch timestamp
+```
+find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
+```
+***
+
+
+### Find files modified since given point-in-time
+```
+find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
+```
+##### Robustify
+```
+modified_SINCE="3 minutes ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
+modified_SINCE="06/01/2018"; # "MM/DD/YYYY" (previous date)
+modified_SINCE="Fri Sep 21 13:30:18 UTC-4 2018"; # specific date-time with relative timezone (UTC-4===EST)
+modified_SINCE="@1537551572"; # epoch timestamp (in seconds)
+find "/var/log" -type 'f' -newermt "$(date --date="${modified_SINCE}" +'%Y-%m-%d %H:%M:%S')";
+```
+***
+
+
+### Find files modified NO LATER THAN given point-in-time
+```
+find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
+```
+##### Robustify
+```
+modified_NO_LATER_THAN="3 months ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
+modified_NO_LATER_THAN="06/01/2018"; # "MM/DD/YYYY" (previous date)
+modified_NO_LATER_THAN="Fri Sep 21 13:30:18 UTC-4 2018"; # specific date-time with relative timezone (UTC-4===EST)
+modified_NO_LATER_THAN="@1537551572"; # epoch timestamp (in seconds)
+find "/var/log" -type 'f' -not -newermt "$(date --date="${modified_NO_LATER_THAN}" +'%Y-%m-%d %H:%M:%S')";
+```
+***
+
+
+### Find files modified BETWEEN two points-in-time
+##### (Combining the last-two use cases)
+```
+modified_AFTER="2018-09-21 10:05:18";
+modified_NO_LATER_THAN="2018-09-21 13:37:19";
+find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTER}" ! -newermt "${modified_NO_LATER_THAN}"
+```
+***

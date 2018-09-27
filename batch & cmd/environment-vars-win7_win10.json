@@ -115,21 +115,21 @@
                 "%WINDIR%": "Refers to the Windows folder located on the system drive."
             },
             "Win-7, Win-10, Server-2008 Vars": {
-                "%%AllUsersProfile%": "Open the All User's Profile C:\\ProgramData",
-                "%%AppData%": "Opens AppData folder C:\\Users\\Username\\AppData\\Roaming",
-                "%%CommonProgramFiles%": "C:\\Program Files\\Common Files",
-                "%%CommonProgramFiles(x86)%": "C:\\Program Files (x86)\\Common Files",
-                "%%HomeDrive%": "Opens your home drive C:\\ ",
-                "%%LOGONSERVER%": "Current Active-directory Logon-Server",
-                "%%LocalAppData%": "Opens local AppData folder C:\\Users\\Username\\AppData\\Local",
-                "%%ProgramData%": "C:\\ProgramData",
-                "%%ProgramFiles%": "C:\\Program Files or C:\\Program Files (x86)",
-                "%%ProgramFiles(x86)%": "C:\\Program Files (x86)",
-                "%%Public%": "C:\\Users\\Public",
-                "%%SystemDrive%": "C:",
-                "%%SystemRoot%": "Opens Windows folder C:\\Windows",
-                "%%Temp%": "Opens temporary file Folder C:\\Users\\Username\\AppData\\Local\\Temp",
-                "%%UserProfile%": "Opens your user's profile C:\\Users\\Username"
+                "%AllUsersProfile%": "Open the All User's Profile C:\\ProgramData",
+                "%AppData%": "Opens AppData folder C:\\Users\\Username\\AppData\\Roaming",
+                "%CommonProgramFiles%": "C:\\Program Files\\Common Files",
+                "%CommonProgramFiles(x86)%": "C:\\Program Files (x86)\\Common Files",
+                "%HomeDrive%": "Opens your home drive C:\\ ",
+                "%LOGONSERVER%": "Current Active-directory Logon-Server",
+                "%LocalAppData%": "Opens local AppData folder C:\\Users\\Username\\AppData\\Local",
+                "%ProgramData%": "C:\\ProgramData",
+                "%ProgramFiles%": "C:\\Program Files or C:\\Program Files (x86)",
+                "%ProgramFiles(x86)%": "C:\\Program Files (x86)",
+                "%Public%": "C:\\Users\\Public",
+                "%SystemDrive%": "C:",
+                "%SystemRoot%": "Opens Windows folder C:\\Windows",
+                "%Temp%": "Opens temporary file Folder C:\\Users\\Username\\AppData\\Local\\Temp",
+                "%UserProfile%": "Opens your user's profile C:\\Users\\Username"
             }
         }
     ]

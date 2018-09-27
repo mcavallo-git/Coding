@@ -13,23 +13,23 @@
 
 ### Vim - Basic Shortcuts
 
-Intended Outcome | Environment | Command | Command (cont.) | Command (cont.)
+Intended Outcome | Environment | Keystroke | (cont.) | (cont.) |
 --- | --- | --- | --- | ---
 Open file with Vim | Linux Bash | ```vim "~/some/really long/file path";``` | | 
-Stop editing<br>(Leave 'insert' mode) | Vim (while running) | Press "Esc" | | 
-Start editing<br>(Enter 'insert' mode) | Vim (while running) | Press "Esc" | Type "i" | Press "Enter"<br>(or send "\n")
-Save changes to file | Vim (while running) | Press "Esc" | Type ":w" | Press "Enter"<br>(or send "\n")
-Exit Vim | Vim (while running) | Press "Esc" | Type ":q" | Press "Enter"<br>(or send "\n")
-Save changes &<br>Exit Vim | Vim (while running) | Press "Esc" | Type ":wq" | Press "Enter"<br>(or send "\n")
+Stop editing<br>(Leave 'insert' mode) | Vim (while running) | Esc | | 
+Start editing<br>(Enter 'insert' mode) | Vim (while running) | Esc | i | Enter
+Save changes to file | Vim (while running) | Esc | :w | Enter
+Exit Vim | Vim (while running) | Esc | :q | Enter
+Save changes &<br>Exit Vim | Vim (while running) | Esc | :wq | Enter
 
 ***
 
 ### Vim - Advanced Shortcuts
 
-Intended Outcome | Environment | Command | Command (cont.)
---- | --- | --- | ---
-Delete all lines in file | Vim (while running) | Press "Esc" | Type ":1,$d" | Press "Enter"<br>(or send "\n")
-Remove all blank lines (aka any<br>lines with only spaces, tabs, & newlines) | Vim (while running) | Press "Esc" | Type ":g/^$/d" | Press "Enter"<br>(or send "\n")
+Intended Outcome | Environment | Keystroke | (cont.) | (cont.) |
+--- | --- | --- | --- | ---
+Delete all lines in file | Vim (while running) | Esc | :1,$d | Enter
+Remove all blank lines (aka any<br>lines with only spaces, tabs, & newlines) | Vim (while running) | Esc | :g/^$/d | Enter
 
 ***
 

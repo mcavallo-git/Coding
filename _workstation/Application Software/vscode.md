@@ -3,14 +3,18 @@
 
 ***
 
-### [VS-Code - Key Bindings](https://code.visualstudio.com/docs/getstarted/keybindings)
+### [VS-Code - Key Bindings (Hotkeys)]
+
+##### [VSCode - Key Bindings Documentation] (https://code.visualstudio.com/docs/getstarted/keybindings)
+
+##### [VSCode - Default Windows Key Bindings](https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf)
 
 *** 
 
-###  [Bracket matching](https://code.visualstudio.com/docs/editor/editingevolved#_bracket-matching
+###  [Bracket Matching](https://code.visualstudio.com/docs/editor/editingevolved#_bracket-matching
 
-##### Go to matching { or } block while editing code
+##### Jump to the matching bracket for selected   {  or  }
 
-##### Default:   Ctrl + Shift + \
+##### Default Hotkey:   Ctrl + Shift + \
 
 ***

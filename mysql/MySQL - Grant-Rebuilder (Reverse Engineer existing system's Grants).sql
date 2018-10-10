@@ -10,8 +10,9 @@ SET @SPECIFIC_USER := ''; /* Show grants for one, specific user (set to '' to sh
 
 -- CREATE VIEW `some_database`.grant_query_rebuilder AS
 
-/* [Database.Table.Column]-Specific Grants */
+/* Column-Specific Grants */
 SELECT
+	'COLUMN_SPECIFIC' AS 'Scope',
 	gcl.User AS 'User-Account(s) Affected',
 	IF(gcl.Host='%',"ALL",gcl.Host) AS 'Remote-IP(s) Affected',
 	CONCAT("`",gcl.Db,"`") AS 'Database(s) Affected',
@@ -29,8 +30,9 @@ GROUP BY CONCAT(gcl.Host,gcl.Db,gcl.User,gcl.Table_name,gcl.Column_priv)
 
 UNION
 
-/* [Database.Table]-Specific Grants */
+/* Table-Specific Grants */
 SELECT
+	'TABLE_SPECIFIC' AS 'Scope',
 	gtb.User AS 'User-Account(s) Affected',
 	IF(gtb.Host='%',"ALL",gtb.Host) AS 'Remote-IP(s) Affected',
 	CONCAT("`",gtb.Db,"`") AS 'Database(s) Affected',
@@ -50,6 +52,7 @@ UNION
 
 /* Database-Specific Grants */
 SELECT
+	'DATABASE_SPECIFIC' AS 'Scope',
 	gdb.User AS 'User-Account(s) Affected',
 	IF(gdb.Host='%',"ALL",gdb.Host) AS 'Remote-IP(s) Affected',
 	CONCAT("`",gdb.Db,"`") AS 'Database(s) Affected',
@@ -89,6 +92,7 @@ UNION
 
 /* User-Specific Grants */
 SELECT
+	'USER_SPECIFIC' AS 'Scope',
 	usr.User AS 'User-Account(s) Affected',
 	IF(usr.Host='%',"ALL",usr.Host) AS 'Remote-IP(s) Affected',
 	"ALL" AS 'Database(s) Affected',

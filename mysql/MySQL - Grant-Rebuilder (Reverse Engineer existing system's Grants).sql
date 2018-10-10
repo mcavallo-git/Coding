@@ -17,6 +17,8 @@ SELECT
 				 "ON `",gcl.Db,"`.`",gcl.Table_name,"` ",
 				 "TO '",gcl.User,"'@'",gcl.Host,"';") AS 'GRANT Statement (Reconstructed)'
 FROM mysql.columns_priv gcl
+WHERE true
+-- AND gcl.User IN ('some_user') /* Show only for a set of MySQL Users */
 GROUP BY CONCAT(gcl.Db,gcl.Table_name,gcl.User,gcl.Host)
 /* SELECT * FROM mysql.columns_priv */
 
@@ -35,6 +37,7 @@ SELECT
 	) AS 'GRANT Statement (Reconstructed)'
 FROM mysql.tables_priv gtb
 WHERE gtb.Table_priv!=''
+-- AND gtb.User IN ('some_user') /* Show only for a set of MySQL Users */
 /* SELECT * FROM mysql.tables_priv */
 
 UNION
@@ -72,6 +75,7 @@ SELECT
 	) AS 'GRANT Statement (Reconstructed)'
 FROM mysql.db gdb
 WHERE gdb.Db != ''
+-- AND gdb.User IN ('some_user') /* Show only for a set of MySQL Users */
 /* SELECT * FROM mysql.db */
 
 UNION
@@ -144,7 +148,7 @@ SELECT
 	) AS 'GRANT Statement (Reconstructed)'
 FROM mysql.user usr
 WHERE usr.Password != ''
--- AND usr.User != '' /* Select based-on MySQL Username */
+-- AND usr.User IN ('some_user') /* Show only for a set of MySQL Users */
 
 /* SELECT * FROM mysql.user usr */
 

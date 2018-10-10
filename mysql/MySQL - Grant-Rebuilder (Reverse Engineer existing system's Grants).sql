@@ -1,26 +1,27 @@
 /* Get All Grants/Permissions for MySQL Instance */
 
--- DROP VIEW boneal_dev.grant_query_rebuilder
+-- DROP VIEW `some_database`.grant_query_rebuilder
 
--- SELECT * FROM boneal_dev.grant_query_rebuilder
+-- SELECT * FROM `some_database`.grant_query_rebuilder
 
--- CREATE VIEW boneal_dev.grant_query_rebuilder AS
+-- CREATE VIEW `some_database`.grant_query_rebuilder AS
 
 /* [Database.Table.Column]-Specific Grants */
 SELECT
 	CONCAT("`",gcl.Db,"`") AS 'Database(s) Affected',
--- TEST COMMENT
 	CONCAT("`",gcl.Table_name,"`") AS 'Table(s) Affected',
+	CONCAT(UPPER(gcl.Column_priv)," (",GROUP_CONCAT(gcl.Column_name ORDER BY gcl.Column_name SEPARATOR ", "),") ") AS 'Column(s) Affected',
 	gcl.User AS 'User-Account(s) Affected',
-	IF(gcl.Host='%','ALL',gcl.Host) AS 'Remote-IP(s) Affected',
-	CONCAT("GRANT ",UPPER(gcl.Column_priv)," (",GROUP_CONCAT(gcl.Column_name),") ",
+	IF(gcl.Host='%',"ALL",gcl.Host) AS 'Remote-IP(s) Affected',
+	CONCAT("GRANT ",UPPER(gcl.Column_priv)," (",
+					GROUP_CONCAT(gcl.Column_name ORDER BY gcl.Column_name),") ",
 				 "ON `",gcl.Db,"`.`",gcl.Table_name,"` ",
 				 "TO '",gcl.User,"'@'",gcl.Host,"';") AS 'GRANT Statement (Reconstructed)'
-FROM mysql.columns_priv gcl
+FROM `mysql`.columns_priv gcl
 WHERE true
--- AND gcl.User IN ('some_user') /* Show only for a set of MySQL Users */
-GROUP BY CONCAT(gcl.Db,gcl.Table_name,gcl.User,gcl.Host)
-/* SELECT * FROM mysql.columns_priv */
+AND gcl.User IN ('some_user') /* Show only for a set of MySQL Users */
+GROUP BY CONCAT(gcl.Host,gcl.Db,gcl.User,gcl.Table_name,gcl.Column_priv)
+/* SELECT * FROM `mysql`.columns_priv */
 
 UNION
 
@@ -28,17 +29,18 @@ UNION
 SELECT
 	CONCAT("`",gtb.Db,"`") AS 'Database(s) Affected',
 	CONCAT("`",gtb.Table_name,"`") AS 'Table(s) Affected',
+	"ALL" AS 'Column(s) Affected',
 	gtb.User AS 'User-Account(s) Affected',
-	IF(gtb.Host='%','ALL',gtb.Host) AS 'Remote-IP(s) Affected',
+	IF(gtb.Host='%',"ALL",gtb.Host) AS 'Remote-IP(s) Affected',
 	CONCAT(
 		"GRANT ",UPPER(gtb.Table_priv)," ",
 		"ON `",gtb.Db,"`.`",gtb.Table_name,"` ",
 		"TO '",gtb.User,"'@'",gtb.Host,"';"
 	) AS 'GRANT Statement (Reconstructed)'
-FROM mysql.tables_priv gtb
+FROM `mysql`.tables_priv gtb
 WHERE gtb.Table_priv!=''
--- AND gtb.User IN ('some_user') /* Show only for a set of MySQL Users */
-/* SELECT * FROM mysql.tables_priv */
+AND gtb.User IN ('some_user') /* Show only for a set of MySQL Users */
+/* SELECT * FROM `mysql`.tables_priv */
 
 UNION
 
@@ -46,8 +48,9 @@ UNION
 SELECT
 	CONCAT("`",gdb.Db,"`") AS 'Database(s) Affected',
 	"ALL" AS 'Table(s) Affected',
+	"ALL" AS 'Column(s) Affected',
 	gdb.User AS 'User-Account(s) Affected',
-	IF(gdb.Host='%','ALL',gdb.Host) AS 'Remote-IP(s) Affected',
+	IF(gdb.Host='%',"ALL",gdb.Host) AS 'Remote-IP(s) Affected',
 	CONCAT(
 		'GRANT ',
 		CONCAT_WS(',',
@@ -73,10 +76,10 @@ SELECT
 		),
 		" ON `",gdb.Db,"`.* TO '",gdb.User,"'@'",gdb.Host,"';"
 	) AS 'GRANT Statement (Reconstructed)'
-FROM mysql.db gdb
+FROM `mysql`.db gdb
 WHERE gdb.Db != ''
--- AND gdb.User IN ('some_user') /* Show only for a set of MySQL Users */
-/* SELECT * FROM mysql.db */
+AND gdb.User IN ('some_user') /* Show only for a set of MySQL Users */
+/* SELECT * FROM `mysql`.db */
 
 UNION
 
@@ -84,8 +87,9 @@ UNION
 SELECT
 	"ALL" AS 'Database(s) Affected',
 	"ALL" AS 'Table(s) Affected',
+	"ALL" AS 'Column(s) Affected',
 	usr.User AS 'User-Account(s) Affected',
-	IF(usr.Host='%','ALL',usr.Host) AS 'Remote-IP(s) Affected',
+	IF(usr.Host='%',"ALL",usr.Host) AS 'Remote-IP(s) Affected',
 	CONCAT(
 		"GRANT ",
 		IF((usr.Select_priv='N')&(usr.Insert_priv='N')&(usr.Update_priv='N')&(usr.Delete_priv='N')&(usr.Create_priv='N')&(usr.Drop_priv='N')&(usr.Reload_priv='N')&(usr.Shutdown_priv='N')&(usr.Process_priv='N')&(usr.File_priv='N')&(usr.References_priv='N')&(usr.Index_priv='N')&(usr.Alter_priv='N')&(usr.Show_db_priv='N')&(usr.Super_priv='N')&(usr.Create_tmp_table_priv='N')&(usr.Lock_tables_priv='N')&(usr.Execute_priv='N')&(usr.Repl_slave_priv='N')&(usr.Repl_client_priv='N')&(usr.Create_view_priv='N')&(usr.Show_view_priv='N')&(usr.Create_routine_priv='N')&(usr.Alter_routine_priv='N')&(usr.Create_user_priv='N')&(usr.Event_priv='N')&(usr.Trigger_priv='N')&(usr.Create_tablespace_priv='N')&(usr.Grant_priv='N'),
@@ -146,14 +150,14 @@ SELECT
 		"MAX_USER_CONNECTIONS ",usr.max_user_connections,
 		";"
 	) AS 'GRANT Statement (Reconstructed)'
-FROM mysql.user usr
+FROM `mysql`.user usr
 WHERE usr.Password != ''
--- AND usr.User IN ('some_user') /* Show only for a set of MySQL Users */
+AND usr.User IN ('some_user') /* Show only for a set of MySQL Users */
 
-/* SELECT * FROM mysql.user usr */
+/* SELECT * FROM `mysql`.user usr */
 
 	/* To-Do (1): Procedure/Routine-Specific Grants*/
-	/* SELECT * FROM mysql.procs_priv gpr */
+	/* SELECT * FROM `mysql`.procs_priv gpr */
 	
 	/* To-Do (2): ??? Host-Specific Grants ??? */
-	/* SELECT * FROM mysql.host ghs */
+	/* SELECT * FROM `mysql`.host ghs */

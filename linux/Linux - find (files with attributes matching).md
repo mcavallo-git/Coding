@@ -106,3 +106,12 @@ find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTE
 
 ```
 ***
+
+
+### Determine a file's encoding (utf-8, ascii, etc.)
+```
+
+file -bi '/var/log/nginx/error.log'
+
+```
+***

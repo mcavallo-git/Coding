@@ -106,3 +106,12 @@ find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTE
 
 ```
 ***
+
+### Delete items within a directory older than X days
+#####  ex) Cleanup Jenkins Directory
+```
+
+find /var/lib/jenkins/workspace/ -maxdepth 1 -type d -mtime +30 -exec rm -rf {} \;
+
+```
+***

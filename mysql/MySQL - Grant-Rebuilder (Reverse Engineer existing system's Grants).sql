@@ -12,7 +12,6 @@ SET @SPECIFIC_USER := ''; /* Show grants for one, specific user (set to '' to sh
 
 /* Column-Specific Grants */
 SELECT
-	'COLUMN_SPECIFIC' AS 'Scope',
 	gcl.User AS 'User-Account(s) Affected',
 	IF(gcl.Host='%',"ALL",gcl.Host) AS 'Remote-IP(s) Affected',
 	CONCAT("`",gcl.Db,"`") AS 'Database(s) Affected',
@@ -21,7 +20,9 @@ SELECT
 	CONCAT("GRANT ",UPPER(gcl.Column_priv)," (",
 					GROUP_CONCAT(gcl.Column_name ORDER BY UPPER(gcl.Column_name)),") ",
 				 "ON `",gcl.Db,"`.`",gcl.Table_name,"` ",
-				 "TO '",gcl.User,"'@'",gcl.Host,"';") AS 'GRANT Statement (Reconstructed)'
+				 "TO '",gcl.User,"'@'",gcl.Host,"';") AS 'GRANT Statement (Reconstructed)',
+	'TABLE_SPECIFIC' AS 'Scope',
+	NOW() AS 'Timestamp'
 FROM `mysql`.columns_priv gcl
 WHERE true
 AND (gcl.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user','show_all')))
@@ -32,7 +33,6 @@ UNION
 
 /* Table-Specific Grants */
 SELECT
-	'TABLE_SPECIFIC' AS 'Scope',
 	gtb.User AS 'User-Account(s) Affected',
 	IF(gtb.Host='%',"ALL",gtb.Host) AS 'Remote-IP(s) Affected',
 	CONCAT("`",gtb.Db,"`") AS 'Database(s) Affected',
@@ -42,7 +42,9 @@ SELECT
 		"GRANT ",UPPER(gtb.Table_priv)," ",
 		"ON `",gtb.Db,"`.`",gtb.Table_name,"` ",
 		"TO '",gtb.User,"'@'",gtb.Host,"';"
-	) AS 'GRANT Statement (Reconstructed)'
+	) AS 'GRANT Statement (Reconstructed)',
+	'TABLE_SPECIFIC' AS 'Scope',
+	NOW() AS 'Timestamp'
 FROM `mysql`.tables_priv gtb
 WHERE gtb.Table_priv!=''
 AND (gtb.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user','show_all')))
@@ -52,7 +54,6 @@ UNION
 
 /* Database-Specific Grants */
 SELECT
-	'DATABASE_SPECIFIC' AS 'Scope',
 	gdb.User AS 'User-Account(s) Affected',
 	IF(gdb.Host='%',"ALL",gdb.Host) AS 'Remote-IP(s) Affected',
 	CONCAT("`",gdb.Db,"`") AS 'Database(s) Affected',
@@ -82,7 +83,9 @@ SELECT
 			IF(gdb.Trigger_priv='Y','TRIGGER',NULL)
 		),
 		" ON `",gdb.Db,"`.* TO '",gdb.User,"'@'",gdb.Host,"';"
-	) AS 'GRANT Statement (Reconstructed)'
+	) AS 'GRANT Statement (Reconstructed)',
+	'TABLE_SPECIFIC' AS 'Scope',
+	NOW() AS 'Timestamp'
 FROM `mysql`.db gdb
 WHERE gdb.Db != ''
 AND (gdb.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user','show_all')))
@@ -92,7 +95,6 @@ UNION
 
 /* User-Specific Grants */
 SELECT
-	'USER_SPECIFIC' AS 'Scope',
 	usr.User AS 'User-Account(s) Affected',
 	IF(usr.Host='%',"ALL",usr.Host) AS 'Remote-IP(s) Affected',
 	"ALL" AS 'Database(s) Affected',
@@ -157,7 +159,9 @@ SELECT
 		"MAX_UPDATES_PER_HOUR ",usr.max_updates," ",
 		"MAX_USER_CONNECTIONS ",usr.max_user_connections,
 		";"
-	) AS 'GRANT Statement (Reconstructed)'
+	) AS 'GRANT Statement (Reconstructed)',
+	'TABLE_SPECIFIC' AS 'Scope',
+	NOW() AS 'Timestamp'
 FROM `mysql`.user usr
 WHERE usr.Password != ''
 AND (usr.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user','show_all')))
@@ -167,8 +171,11 @@ AND (usr.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user',
 	/* To-Do (1): Show User-Permissions
 	/* SELECT * FROM information_schema.user_privileges privs */
 
-	/* To-Do (2): Procedure/Routine-Specific Grants*/
+	/* To-Do (2): Function Specific Grants ? */
+	/* SELECT * FROM `mysql`.procs_priv gpr */
+
+	/* To-Do (3): Procedure/Routine-Specific Grants*/
 	/* SELECT * FROM `mysql`.procs_priv gpr */
 	
-	/* To-Do (3): ??? Host-Specific Grants ??? */
+	/* To-Do (4): ??? Host-Specific Grants ??? */
 	/* SELECT * FROM `mysql`.host ghs */

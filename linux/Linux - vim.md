@@ -33,5 +33,5 @@ Remove all blank lines (aka any<br>lines with only spaces, tabs, & newlines) | V
 
 ***
 
-##### References
-######  :g/^$/d  -  2018-06-18 from user 'soulmerge' on [Stack Overflow](https://stackoverflow.com/questions/706076/vim-delete-blank-lines]
+##### Reference(s)
+######  :g/^$/d  -  Cited on 2018-06-18  -  Thanks to user 'soulmerge' on [Stack Overflow](https://stackoverflow.com/questions/706076]

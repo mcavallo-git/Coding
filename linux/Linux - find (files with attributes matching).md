@@ -13,7 +13,7 @@ find "/var/log" -type 'f' -name "*error*"; <-- files
 
 find "/var/log" -type 'd' -iname "*error*"; # -type d <-- directories
 
-find "/var/log" -type "f" -printf "%p %A@\n" # <-- show results' fullpath (%p) & last-modified date in Unix time (%A@)
+find "/var/log" -type "f" -printf "%p %A@\n"; # <-- show results' fullpath (%p) & last-modified date in Unix time (%A@)
 
 ```
 ***

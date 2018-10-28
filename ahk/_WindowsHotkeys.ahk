@@ -62,19 +62,17 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-;    ACTION:    Types the current datetime for on-the-fly timestamping
-;    HOTKEY:    Win + D
+;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  20181026-013709  ]
+;    HOTKEY:    Shift + Win + D
 ;
 +#D::
-	; Type the current datetime as:  20180829-002441
 	SetKeyDelay, 0, -1
   formattime,formatted_timestamp,,yyyyMMdd-HHmmss
   send %formatted_timestamp%
 	Return
-; Shift + Alt + D  ||  Win + D
-+!D::
+;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  2018-10-26_01-37-09  ]
+;    HOTKEY:    Win + D
 #D::
-	; Type the current datetime as:  2018-10-26_01-37-09
 	SetKeyDelay, 0, -1
   formattime,formatted_timestamp,,yyyy-MM-dd_HH-mm-ss
   send %formatted_timestamp%

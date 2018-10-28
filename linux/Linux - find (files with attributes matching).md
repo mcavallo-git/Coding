@@ -1,3 +1,4 @@
+
 # [find(1) - Linux man linux](https://linux.die.net/man/1/find)
 ***
 
@@ -5,7 +6,14 @@
 ### Search a given directory for any files whose basename matches a given substring
 ```
 
-find "/var/log" -type 'f' -name "*error*";
+
+find "/var/log" -type 'f' -iname "*error*"; # -iname <-- case insensitive
+
+find "/var/log" -type 'f' -name "*error*"; <-- files
+
+find "/var/log" -type 'd' -iname "*error*"; # -type d <-- directories
+
+find "/var/log" -type "f" -printf "%p %A@\n" # <-- show results' fullpath (%p) & last-modified date in Unix time (%A@)
 
 ```
 ***

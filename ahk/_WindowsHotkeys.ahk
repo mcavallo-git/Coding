@@ -174,6 +174,43 @@
 			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
 			If (Floor(%BoundsLeft%) < Floor(MonitorWorkAreaLeft)) {
 				; Widths
+				BoundsLeft := MonitorWorkAreaLeft
+				BoundsRight := MonitorWorkAreaRight
+				; Heights
+				BoundsTop := MonitorWorkAreaTop
+				BoundsBottom := MonitorWorkAreaBottom
+			}
+		}
+		; Widths
+		BoundsWidthFull := BoundsRight-BoundsLeft
+		BoundsWidthHalf := Floor(BoundsWidthFull/2)
+		BoundsCenterHoriz := BoundsLeft + BoundsWidthHalf
+		; Heights
+		BoundsHeightFull := BoundsBottom-BoundsTop
+		BoundsHeightHalf := Floor(BoundsHeightFull/2)
+		BoundsCenterVert := BoundsTop + BoundsHeightHalf
+
+		; SetTitleMatchMode - Sets the matching behavior of the WinTitle parameter in commands such as WinWait.
+		; 1: A window's title must start with the specified WinTitle to be a match.
+		; 2: A window's title can contain WinTitle anywhere inside it to be a match. 
+		; 3: A window's title must exactly match WinTitle to be a match.
+		SetTitleMatchMode, 1
+
+		WinTitle=Supplier Gateway (localhost)
+		IfWinNotExist,%WinTitle%
+		{
+			; Need to run the program, as no window was found for it (yet)
+			WorkingDir=%BonealGitHub%/web_files_nodejs
+			Target="C:\Program Files\Git\git-bash.exe"
+			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev skip-install '%WinTitle%'; sleep 60;"
+			Run, %Target% %InlineArgs%, %WorkingDir%
+			; Wait for the script to start & change its window title to match the var %WinTitle% (for targeting purposes)
+			WinWait,%WinTitle%,,3
+		}
+		; Move the window to occupy the left-half of the Right-Most monitor
+		WinMove,%WinTitle%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+		WinActivate,%WinTitle%
+		Send {Lwin up}{Lwin down}{left}{Lwin up} ; Snap Window to the Left-Half of current Monitor
 		; WinMove,%WinTitle%,,1913,0,974,1047
 		Sleep 100
 

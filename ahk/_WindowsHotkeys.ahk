@@ -119,32 +119,78 @@
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #J::   ; Win+J -- Run Git Bash + Node.JS Server Startup (Boneal)
+	BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/boneal_github
+	if ((!FileExist(BonealGitHub)) || (!InStr(FileExist(BonealGitHub), "D"))) {
+		MsgBox, 
+		(LTrim
+			Error - Required directory not-found:
+			%BonealGitHub%
+		)
+	} else {
 
-	; Windows sets some weird values for its spacing
-	FixLeft = -7
-	FixTop = 0
-	FixWidth = 14
-	FixHeight = 7
+		; Windows sets some weird values for its spacing
+		FixLeft = -7
+		FixTop = 0
+		FixWidth = 14
+		FixHeight = 7
 
-	; Prep Monitor Widths/Heights
-	SysGet, MonitorCount, MonitorCount , N
-	BoundsLeft = 0
-	BoundsRight = 0
-	BoundsTop = 0
-	BoundsBottom = 0
-	BoundsCenterHoriz = 0
-	BoundsCenterVert = 0
-	Loop, %MonitorCount% {
-		SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
-		; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
-		If (Floor(%BoundsLeft%) < Floor(MonitorWorkAreaLeft)) {
-			; Widths
-			BoundsLeft := MonitorWorkAreaLeft
-			BoundsRight := MonitorWorkAreaRight
-			; Heights
-			BoundsTop := MonitorWorkAreaTop
-			BoundsBottom := MonitorWorkAreaBottom
+		; Prep Monitor Widths/Heights
+		SysGet, MonitorCount, MonitorCount , N
+		BoundsLeft = 0
+		BoundsRight = 0
+		BoundsTop = 0
+		BoundsBottom = 0
+		BoundsCenterHoriz = 0
+		BoundsCenterVert = 0
+		Loop, %MonitorCount% {
+			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
+			If (Floor(%BoundsLeft%) < Floor(MonitorWorkAreaLeft)) {
+				; Widths
+				BoundsLeft := MonitorWorkAreaLeft
+				BoundsRight := MonitorWorkAreaRight
+				; Heights
+				BoundsTop := MonitorWorkAreaTop
+				BoundsBottom := MonitorWorkAreaBottom
+			}
 		}
+
+		; Windows sets some weird values for its spacing
+		FixLeft = -7
+		FixTop = 0
+		FixWidth = 14
+		FixHeight = 7
+
+		; Prep Monitor Widths/Heights
+		SysGet, MonitorCount, MonitorCount , N
+		BoundsLeft = 0
+		BoundsRight = 0
+		BoundsTop = 0
+		BoundsBottom = 0
+		BoundsCenterHoriz = 0
+		BoundsCenterVert = 0
+		Loop, %MonitorCount% {
+			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
+			If (Floor(%BoundsLeft%) < Floor(MonitorWorkAreaLeft)) {
+				; Widths
+		; WinMove,%WinTitle%,,1913,0,974,1047
+		Sleep 100
+
+		WinTitle=Postman
+		IfWinNotExist,%WinTitle%
+		{
+			Target="C:/Users/%A_UserName%/AppData/Local/Postman/Update.exe"
+			InlineArgs= --processStart Postman.exe
+			Run, %Target% %InlineArgs%
+			WinWait,%WinTitle%,,30
+		}
+		; Move the window to occupy the right-half of the Right-Most monitor
+		WinMove,%WinTitle%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+		; WinMove,%WinTitle%,,2873,0,974,1047
+		Sleep 2000
+		WinActivate,%WinTitle%
+		Send {Lwin up}{Lwin down}{right}{Lwin up} ; Snap Window to the Right-Half of current Monitor
 	}
 	; Widths
 	BoundsWidthFull := BoundsRight-BoundsLeft

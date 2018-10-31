@@ -1,6 +1,8 @@
-#!/bin/bash
+
+# [ssh-keygen(1) - Linux man page](https://linux.die.net/man/1/ssh-keygen)
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------- #
+#!/bin/bash
 
 #####      SSH-KEY CREATION & APPLICATION      #####
 START_TIMESTAMP="$(date +'%m%d%Y_%H%M%S')";

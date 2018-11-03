@@ -202,7 +202,8 @@
 			; Need to run the program, as no window was found for it (yet)
 			WorkingDir=%BonealGitHub%/web_files_nodejs
 			Target="C:\Program Files\Git\git-bash.exe"
-			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev skip-install '%WinTitle%'; sleep 60;"
+			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev '%WinTitle%'; sleep 60;"
+			; InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev skip-install '%WinTitle%'; sleep 60;"
 			Run, %Target% %InlineArgs%, %WorkingDir%
 			; Wait for the script to start & change its window title to match the var %WinTitle% (for targeting purposes)
 			WinWait,%WinTitle%,,3

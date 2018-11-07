@@ -573,8 +573,8 @@ ActiveWindow_Maximize() {
 	}
 	; Move the window to occupy the left-half of the Right-Most monitor
 	WinMove,%WinTitle%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-	WinActivate,%WinTitle%
-	Send #{left}{Lwin up} ; Snap Window to the Left-Half of current Monitor
+	; WinActivate,%WinTitle%
+	; Send #{left}{Lwin up} ; Snap Window to the Left-Half of current Monitor
 	; WinMove,%WinTitle%,,1913,0,974,1047
 	Sleep 100
 
@@ -589,9 +589,9 @@ ActiveWindow_Maximize() {
 	; Move the window to occupy the right-half of the Right-Most monitor
 	WinMove,%WinTitle%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
 	; WinMove,%WinTitle%,,2873,0,974,1047
-	Sleep 2000
-	WinActivate,%WinTitle%
-	Send #{right}{Lwin up} ; Snap Window to the Right-Half of current Monitor
+	; Sleep 2000
+	; WinActivate,%WinTitle%
+	; Send #{right}{Lwin up} ; Snap Window to the Right-Half of current Monitor
 	Return
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

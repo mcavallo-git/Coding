@@ -54,9 +54,20 @@
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #z::
-	WinGetActiveStats, Title, Width, Height, X, Y
+	WinGetActiveStats, Title, Width, Height, Left, Top
 	WinGetText, WinText, A
-	MsgBox, 0, Active Window Specs, Title:`n   [%Title%]   `n`nDimensions: `n   Width (%Width%)     Height (%Height%)   `n`nPosition: `n   X (%X%)     Y (%Y%) `n`n`n ==> WinMove,,,%X%,%Y%,%Width%,%Height%
+	MsgBox, 0, Active Window Specs,
+		(LTrim
+			➣ Title:   %Title%
+
+			➣ Left:   %Left%
+			➣ Top:    %Top%
+			
+			➣ Width:  %Width%
+			➣ Height: %Height%
+
+			➣ WinMove,,,%Left%,%Top%,%Width%,%Height%
+		)
 	; MsgBox, 0, Active Window Specs, Title:`n   [%Title%]   `n`nDimensions: `n   Width (%Width%)     Height (%Height%)   `n`nPosition: `n   X (%X%)     Y (%Y%)
 	; MsgBox, 0, Active Window Specs, Title:`n`n`n ==> WinMove,,,%X%,%Y%,%Width%,%Height%
 	Return
@@ -411,11 +422,9 @@ ActiveWindow_Maximize() {
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
+; --- ***    DevOps Scripts    *** ---
 ;
-; --- ***    DEVOPS-SPECIFIC SCRIPTS    *** ---
-;
-;
-#J::   ; Win+J -- Run Git Bash + Node.JS Server Startup (Boneal)
+#J::   ; Win+J -- Startup Node.JS (Git-Bash) && Postman
 	BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/boneal_github
 	if ((!FileExist(BonealGitHub)) || (!InStr(FileExist(BonealGitHub), "D"))) {
 		MsgBox, 
@@ -425,85 +434,155 @@ ActiveWindow_Maximize() {
 		)
 	} else {
 
-		; Windows sets some weird values for its spacing
-		FixLeft = -7
-		FixTop = 0
-		FixWidth = 14
-		FixHeight = 7
+		; Windows sets some weird values for its bounds when a window is maximized
+		Increment_Left := -7
+		Increment_Top := 0
+		Increment_Width := 14
+		Increment_Height := 7
 
 		; Prep Monitor Widths/Heights
 		SysGet, MonitorCount, MonitorCount , N
-		BoundsLeft = 0
-		BoundsRight = 0
-		BoundsTop = 0
-		BoundsBottom = 0
+		BoundsLeft = -1
+		BoundsRight = -1
+		BoundsTop = -1
+		BoundsBottom = -1
 		BoundsCenterHoriz = 0
 		BoundsCenterVert = 0
 		Loop, %MonitorCount% {
 			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
 			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
-			If (Floor(%BoundsLeft%) < Floor(MonitorWorkAreaLeft)) {
+			If (BoundsLeft < MonitorWorkAreaLeft)
+			{
+				; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
 				; Widths
 				BoundsLeft := MonitorWorkAreaLeft
 				BoundsRight := MonitorWorkAreaRight
 				; Heights
 				BoundsTop := MonitorWorkAreaTop
 				BoundsBottom := MonitorWorkAreaBottom
+
+			} Else {
+				; MsgBox, Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)
+
 			}
 		}
 		; Widths
-		BoundsWidthFull := BoundsRight-BoundsLeft
+		BoundsWidthFull := (BoundsRight - BoundsLeft)
 		BoundsWidthHalf := Floor(BoundsWidthFull/2)
-		BoundsCenterHoriz := BoundsLeft + BoundsWidthHalf
+		BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
 		; Heights
-		BoundsHeightFull := BoundsBottom-BoundsTop
+		BoundsHeightFull := (BoundsBottom - BoundsTop)
 		BoundsHeightHalf := Floor(BoundsHeightFull/2)
-		BoundsCenterVert := BoundsTop + BoundsHeightHalf
-
-		; SetTitleMatchMode - Sets the matching behavior of the WinTitle parameter in commands such as WinWait.
-		; 1: A window's title must start with the specified WinTitle to be a match.
-		; 2: A window's title can contain WinTitle anywhere inside it to be a match. 
-		; 3: A window's title must exactly match WinTitle to be a match.
+		BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
+		
 		SetTitleMatchMode, 1
 
-		WinTitle=Supplier Gateway (localhost)
-		IfWinNotExist,%WinTitle%
+		WinTitle_Postman=Postman
+		WinTitle_NodeJS=Supplier Gateway (localhost)
+
+		; Start Postman
+		IfWinNotExist,%WinTitle_Postman%
+		{
+			; Need to run the program, as no window was found for it (yet)
+			Target="C:/Users/%A_UserName%/AppData/Local/Postman/Update.exe"
+			InlineArgs= --processStart Postman.exe
+			Run, %Target% %InlineArgs%
+		}
+
+		Sleep 100
+
+		; Start Node.JS in Git-Bash
+		IfWinNotExist,%WinTitle_NodeJS%
 		{
 			; Need to run the program, as no window was found for it (yet)
 			WorkingDir=%BonealGitHub%/web_files_nodejs
 			Target="C:\Program Files\Git\git-bash.exe"
-			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev '%WinTitle%'; sleep 60;"
-			; InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev skip-install '%WinTitle%'; sleep 60;"
+			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev '%WinTitle_NodeJS%'; sleep 60;"
 			Run, %Target% %InlineArgs%, %WorkingDir%
-			; Wait for the script to start & change its window title to match the var %WinTitle% (for targeting purposes)
-			WinWait,%WinTitle%,,3
 		}
-		; Move the window to occupy the left-half of the Right-Most monitor
-		WinMove,%WinTitle%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		; WinActivate,%WinTitle%
-		; Send {Lwin up}{Lwin down}{left}{Lwin up} ; Snap Window to the Left-Half of current Monitor
-		; WinMove,%WinTitle%,,1913,0,974,1047
-		Sleep 100
 
-		WinTitle=Postman
-		IfWinNotExist,%WinTitle%
-		{
-			Target="C:/Users/%A_UserName%/AppData/Local/Postman/Update.exe"
-			InlineArgs= --processStart Postman.exe
-			Run, %Target% %InlineArgs%
-			WinWait,%WinTitle%,,30
-		}
+		; Wait for the script(s)/program(s) to start before moving them around
+		WinWait,%WinTitle_Postman%,,5
+		WinWait,%WinTitle_NodeJS%,,3
 		; Move the window to occupy the right-half of the Right-Most monitor
-		WinMove,%WinTitle%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		; WinMove,%WinTitle%,,2873,0,974,1047
-		Sleep 2000
-		; WinActivate,%WinTitle%
-		; Send {Lwin up}{Lwin down}{right}{Lwin up} ; Snap Window to the Right-Half of current Monitor
+		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+		WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
+		; Move the window to occupy the left-half of the Right-Most monitor
+		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+		WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
+
 	}
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;	----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+#K::   ; Win+K -- Bring-to-Foreground:  Node.JS (Git-Bash) && Postman
+	; Windows sets some weird values for its bounds when a window is maximized
+	Increment_Left := -7
+	Increment_Top := 0
+	Increment_Width := 14
+	Increment_Height := 7
 
+	; Prep Monitor Widths/Heights
+	SysGet, MonitorCount, MonitorCount , N
+	BoundsLeft = -1
+	BoundsRight = -1
+	BoundsTop = -1
+	BoundsBottom = -1
+	BoundsCenterHoriz = 0
+	BoundsCenterVert = 0
+	Loop, %MonitorCount% {
+		SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+		If (BoundsLeft < MonitorWorkAreaLeft)
+		{
+			; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
+			; Widths
+			BoundsLeft := MonitorWorkAreaLeft
+			BoundsRight := MonitorWorkAreaRight
+			; Heights
+			BoundsTop := MonitorWorkAreaTop
+			BoundsBottom := MonitorWorkAreaBottom
+
+		}
+	}
+	; Widths
+	BoundsWidthFull := (BoundsRight - BoundsLeft)
+	BoundsWidthHalf := Floor(BoundsWidthFull/2)
+	BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
+	; Heights
+	BoundsHeightFull := (BoundsBottom - BoundsTop)
+	BoundsHeightHalf := Floor(BoundsHeightFull/2)
+	BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
+	
+	SetTitleMatchMode, 1
+	WinTitle_NodeJS=Supplier Gateway (localhost)
+	IfWinExist,%WinTitle_NodeJS%
+	{
+		; Move the window to occupy the left-half of the Right-Most monitor
+		WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
+		; WinMove,%WinTitle_NodeJS%,,0,0,960,1040 ;; (1st Monitor, Left, Theoretical)
+		; WinMove,%WinTitle_NodeJS%,,1913,0,974,1047 (2nd Monitor, Left, Actual?)
+		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+		; WinActivate,%WinTitle_NodeJS%
+		; Send {Lwin up}{Lwin down}{left}{Lwin up} ; Snap Window to the Left-Half of current Monitor
+
+	}
+
+	WinTitle_Postman=Postman
+	IfWinExist,%WinTitle_Postman%
+	{
+		; Move the window to occupy the right-half of the Right-Most monitor
+		WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
+		; WinMove,%WinTitle_Postman%,,960,0,960,1040 (1st Monitor, Right, Theoretical)
+		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+		; WinActivate,%WinTitle_Postman%
+	; Send {Lwin up}{Lwin down}{right}{Lwin up} ; Snap Window to the Right-Half of current Monitor
+	}
+	Return
+
+;
+;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
   ;                                  ;
  ;;;                                ;;;
 ;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
@@ -633,7 +712,7 @@ ActiveWindow_Maximize() {
 
 
 ; MsgBox has tons of options for confirmations on popups ( Manual @ https://autohotkey.com/docs/commands/MsgBox.htm )
-; #z::
+; ...::
 	; WinGetActiveStats, Title, Width, Height, X, Y
 	; WinGetText, WinText, A
 	; MsgBox, 4, , WinTitle `n%Title%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10  ; 10-second timeout.
@@ -678,3 +757,8 @@ ActiveWindow_Maximize() {
 
 ; Exit:
 ; ExitApp
+
+; SetTitleMatchMode - Sets the matching behavior of the WinTitle parameter in commands such as WinWait.
+; 1: A window's title must start with the specified WinTitle to be a match.
+; 2: A window's title can contain WinTitle anywhere inside it to be a match. 
+; 3: A window's title must exactly match WinTitle to be a match.

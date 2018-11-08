@@ -366,7 +366,8 @@ WheelRight::
 ;
 #f::
 	; Verify that Effective File Search exists
-	exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
+	; exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
+	exe_filepath := "C:`\ISO`\Effective File Search.efsp"
 	if (FileExist(exe_filepath)) {
 		Run, %exe_filepath%
 	} else {

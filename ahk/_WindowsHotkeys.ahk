@@ -21,6 +21,11 @@
 ;
 #Persistent
 ;
+;
+;
+VSCode=C:\ISO\VSCode\Code.lnk
+; |-> SHORTCUT TO:    "%PROGRAMFILES%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\boneal_github"
+;
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -87,28 +92,21 @@
 ;
 #V::
 	SetTitleMatchMode, 2
-
+	; Get a timestamp for 'now'
+	; formattime,formatted_timestamp,,yyyyMMdd-HHmmss
 	ExePath_GitHub=%A_MyDocuments%\GitHub
 	RepoName=boneal_github
 	; RunAs, A_UserName
 	VSC_WinTitle=Visual Studio Code
 	VSC_ProcessName=Code.exe 
 	VSC_WorkspaceToOpen=%ExePath_GitHub%\%RepoName%
-
-	; VSC_FullCommand=%VSC_ProcessName% %VSC_WorkspaceToOpen%
-	VSC_FullCommand=C:\ISO\VSCode\Code.lnk
-	; Get a timestamp for 'now'
-	formattime,formatted_timestamp,,yyyyMMdd-HHmmss
-	; A_Temp
-	; C:\ISO\VSCode\Code.lnk
-	; "%PROGRAMFILES%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\boneal_github"
-
+	; VSCode ;;; Globally defined
 	WinTitle=%RepoName% - %VSC_WinTitle%
 	IfWinNotExist,"%WinTitle%"
 	{
 		If ProcessExists(VSC_ProcessName) {
 			;; Start VS-Code (as it wasn't found, already) - get PID
-			RunWait,%VSC_FullCommand%,,Hide
+			RunWait,%VSCode%,,Hide
 		} Else {
 			;; VS-Code already running
 		}

@@ -116,12 +116,12 @@
 	; WinActivate, "%WinTitle%"
 	SysGet, MonitorCount, MonitorCount , N
 	if (A_OSVersion = "WIN_7") {
-		Msgbox, AAA
+		; Msgbox, AAA
 		WinMove,%WinTitle%,,-8,-8,1936,1056
 		; 		Win10, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,-8,-8,1936,1056     ; w/ taskbar
 		; 		Win10, Maximized, Right-Mon  -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
 	} Else {
-		Msgbox, BBB
+		; Msgbox, BBB
 		WinMove,%WinTitle%,,0,0,1920,1040
 		;		Win7, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
 
@@ -132,7 +132,6 @@
 		; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2873,0,974,1047   ; w/ taskbar
 	}
 	WinActivate,%WinTitle%
-
 	; WinGet, WinPID, PID, %WinTitle_VSCode%
 	; WinGet, ProcessName, ProcessName, %WinTitle_VSCode%
 	; WinGet, ProcessPath, ProcessPath, %WinTitle_VSCode%
@@ -683,10 +682,14 @@ ActiveWindow_Maximize() {
 					WinMove,%WinTitle_Postman%,,2880,0,960,1080
 					;
 					;		Win7
-					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle_NodeJS%,,0,0,960,1040     ; w/ taskbar
-					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle_Postman%,,960,0,960,1040  ; w/ taskbar
-					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle_NodeJS%,,1920,0,960,1080
-					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2880,0,960,1080
+					;			Left-Mon (Mon-1)
+					; 			Left-Snap   -->  WinMove,%WinTitle%,,0,0,960,1040       ; w/ taskbar
+					; 			Right-Snap  -->  WinMove,%WinTitle%,,960,0,960,1040     ; w/ taskbar
+					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ left-taskbar
+					; 		Right-Mon (Mon-2)
+					; 			Left-Snap   -->  WinMove,%WinTitle%,,1920,0,960,1080       ; w/ no taskbar
+					; 			Right-Snap  -->  WinMove,%WinTitle%,,2880,0,960,1080     ; w/ no taskbar
+					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ no taskbar
 					;
 				} Else {
 					; Msgbox, BBB
@@ -694,10 +697,10 @@ ActiveWindow_Maximize() {
 					WinMove,%WinTitle_Postman%,,2873,0,974,1047
 					;
 					;		Win10
-					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle_NodeJS%,,-7,0,974,1047      ; w/ taskbar
-					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle_Postman%,,953,0,974,1047    ; w/ taskbar
-					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle_NodeJS%,,1913,0,974,1047    ; w/ taskbar
-					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2873,0,974,1047   ; w/ taskbar
+					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle%,,-7,0,974,1047      ; w/ taskbar
+					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
+					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle%,,1913,0,974,1047    ; w/ taskbar
+					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
 					;
 					; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
 				}

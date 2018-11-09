@@ -53,12 +53,23 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-#z::
+;
+;		ACTION:  Show active window's location & dimension specs in a popup message-box
+;
+#Z::
 	WinGetActiveStats, Title, Width, Height, Left, Top
 	WinGetText, WinText, A
+	WinGet, WinPID, PID, A
+	WinGet, WinPID, PID, A
+	WinGet, ProcessName, ProcessName, A
+	WinGet, ProcessPath, ProcessPath, A
 	MsgBox, 0, Active Window Specs,
 		(LTrim
-			➣ Title:   %Title%
+
+			➣ WinTitle:   %WinTitle%
+			➣ WinPID:   %WinPID%
+			➣ ProcessName:   %ProcessName%
+			➣ ProcessPath:   %ProcessPath%
 
 			➣ Left:   %Left%
 			➣ Top:    %Top%
@@ -74,6 +85,78 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
+#V::
+	SetTitleMatchMode, 2
+
+	ExePath_GitHub=%A_MyDocuments%\GitHub
+	RepoName=boneal_github
+	; RunAs, A_UserName
+	VSC_WinTitle=Visual Studio Code
+	VSC_ProcessName=Code.exe 
+	VSC_WorkspaceToOpen=%ExePath_GitHub%\%RepoName%
+
+	; VSC_FullCommand=%VSC_ProcessName% %VSC_WorkspaceToOpen%
+	VSC_FullCommand=C:\ISO\VSCode\Code.lnk
+	; Get a timestamp for 'now'
+	formattime,formatted_timestamp,,yyyyMMdd-HHmmss
+	; A_Temp
+	; C:\ISO\VSCode\Code.lnk
+	; "%PROGRAMFILES%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\boneal_github"
+
+	WinTitle=%RepoName% - %VSC_WinTitle%
+	IfWinNotExist,"%WinTitle%"
+	{
+		If ProcessExists(VSC_ProcessName) {
+			;; Start VS-Code (as it wasn't found, already) - get PID
+			RunWait,%VSC_FullCommand%,,Hide
+		} Else {
+			;; VS-Code already running
+		}
+	}
+	; WinActivate, "%WinTitle%"
+	SysGet, MonitorCount, MonitorCount , N
+	if (A_OSVersion = "WIN_7") {
+		Msgbox, AAA
+		WinMove,%WinTitle%,,-8,-8,1936,1056
+		; 		Win10, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,-8,-8,1936,1056     ; w/ taskbar
+		; 		Win10, Maximized, Right-Mon  -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
+	} Else {
+		Msgbox, BBB
+		WinMove,%WinTitle%,,0,0,1920,1040
+		;		Win7, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
+
+		;		Win10
+		; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle_NodeJS%,,-7,0,974,1047      ; w/ taskbar
+		; 		Right-half, Left-Mon   -->  WinMove,%WinTitle_Postman%,,953,0,974,1047    ; w/ taskbar
+		; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle_NodeJS%,,1913,0,974,1047    ; w/ taskbar
+		; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2873,0,974,1047   ; w/ taskbar
+	}
+	WinActivate,%WinTitle%
+
+	; WinGet, WinPID, PID, %WinTitle_VSCode%
+	; WinGet, ProcessName, ProcessName, %WinTitle_VSCode%
+	; WinGet, ProcessPath, ProcessPath, %WinTitle_VSCode%
+	; MsgBox, 0, %A_OSVersion%
+	; MsgBox, 0, Active Window Specs,
+	; 	(LTrim
+
+	; 		➣ A_Temp:   %A_Temp%
+
+	; 		➣ WinTitle:   %WinTitle%
+
+	; 		➣ ProcessName:   %ProcessName%
+
+	; 		➣ ProcessPath:   %ProcessPath%
+
+	; 		➣ WinPID:   %WinPID%
+
+	; 	)
+		
+	Return
+
+;
+;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  20181026-013709  ]
 ;    HOTKEY:    Shift + Win + D
 ;
@@ -82,8 +165,10 @@
   formattime,formatted_timestamp,,yyyyMMdd-HHmmss
   send %formatted_timestamp%
 	Return
+;
 ;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  2018-10-26_01-37-09  ]
 ;    HOTKEY:    Win + D
+;
 #D::
 	SetKeyDelay, 0, -1
   formattime,formatted_timestamp,,yyyy-MM-dd_HH-mm-ss
@@ -116,7 +201,7 @@
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 !SC03D::   ; Alt+F3
-	; Win10 Download & Delete Recordings from XBox Win10 App
+	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
 		MouseClick, Left, 861, 947
@@ -128,7 +213,7 @@
 	}
 	Return
 !SC03C::   ; Alt+F3
-	; Win10 Download & Delete Recordings from XBox Win10 App
+	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
 		MouseClick, Left, 861, 947
@@ -367,15 +452,23 @@ WheelRight::
 #f::
 	; Verify that Effective File Search exists
 	; exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
+	efs=\Effective File Search.efsp
+	; iso=C:\ISO
 	exe_filepath := "C:`\ISO`\Effective File Search.efsp"
+	exe_filepath2=%A_MyDocuments%%efs%
+	; MsgBox, % exe_filepath2
 	if (FileExist(exe_filepath)) {
 		Run, %exe_filepath%
-	} else {
-		; If EFS does NOT exist, offer user the URL to download it
-		exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
-		MsgBox, 4, Download EFS?, Effective File Search not found`n`nDownload EFS Now?
-		IfMsgBox Yes
-			Run, chrome.exe %exe_download_url%
+	} Else {
+		if (FileExist(exe_filepath2)) {
+			Run, %exe_filepath2%
+		} else {
+			; If EFS does NOT exist, offer user the URL to download it
+			exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
+			MsgBox, 4, Download EFS?, Effective File Search not found`n`nDownload EFS Now?
+			IfMsgBox Yes
+				Run, chrome.exe %exe_download_url%
+		}
 	}
 	Return
 ;
@@ -409,7 +502,7 @@ ActiveWindow_ToggleRestoreMaximize() {
 	}
 	Return
 }
-
+;
 ;// FUNCTION:    Only maximize active window if it isn't maximized already
 ActiveWindow_Maximize() {
 	WinGet, WinState, MinMax, A
@@ -423,10 +516,12 @@ ActiveWindow_Maximize() {
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-; --- ***    DevOps Scripts    *** ---
+; --- ***    DevOps    *** ---
 ;
 #J::   ; Win+J -- Startup Node.JS (Git-Bash) && Postman
 	BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/boneal_github
+	WinTitle_NodeJS=Supplier Gateway (localhost)
+	WinTitle_Postman=Postman
 	if ((!FileExist(BonealGitHub)) || (!InStr(FileExist(BonealGitHub), "D"))) {
 		MsgBox, 
 		(LTrim
@@ -435,7 +530,7 @@ ActiveWindow_Maximize() {
 		)
 	} else {
 
-		; Windows sets some weird values for its bounds when a window is maximized
+		; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
 		Increment_Left := -7
 		Increment_Top := 0
 		Increment_Width := 14
@@ -501,28 +596,42 @@ ActiveWindow_Maximize() {
 			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev '%WinTitle_NodeJS%'; sleep 60;"
 			Run, %Target% %InlineArgs%, %WorkingDir%
 		}
-
+		;
 		; Wait for the script(s)/program(s) to start before moving them around
-		WinWait,%WinTitle_Postman%,,5
-		WinWait,%WinTitle_NodeJS%,,3
+		; WinWait,%WinTitle_Postman%,,5
+		; WinWait,%WinTitle_NodeJS%,,3
 		; Move the window to occupy the right-half of the Right-Most monitor
 		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
+		; WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
 		; Move the window to occupy the left-half of the Right-Most monitor
 		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
-
+		; WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
+		;
 	}
 	Return
 ;
 ;	----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #K::   ; Win+K -- Bring-to-Foreground:  Node.JS (Git-Bash) && Postman
+	;
+	WinTitle_NodeJS=Supplier Gateway (localhost)
+	WinTitle_Postman=Postman
+	; MsgBox, A_OSVersion = %A_OSVersion%
+	;
 	; Windows sets some weird values for its bounds when a window is maximized
-	Increment_Left := -7
-	Increment_Top := 0
-	Increment_Width := 14
-	Increment_Height := 7
+	if (A_OSVersion = "WIN_7") {
+		; Windows 7 OS
+		Increment_Left := 0
+		Increment_Top := 0
+		Increment_Width := 0
+		Increment_Height := 0
+	} else {
+		; Non Windows-7 OS
+		Increment_Left := -7
+		Increment_Top := 0
+		Increment_Width := 14
+		Increment_Height := 7
+	}
 
 	; Prep Monitor Widths/Heights
 	SysGet, MonitorCount, MonitorCount , N
@@ -546,50 +655,98 @@ ActiveWindow_Maximize() {
 
 		}
 	}
+
 	; Widths
 	BoundsWidthFull := (BoundsRight - BoundsLeft)
 	BoundsWidthHalf := Floor(BoundsWidthFull/2)
 	BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
+
 	; Heights
 	BoundsHeightFull := (BoundsBottom - BoundsTop)
 	BoundsHeightHalf := Floor(BoundsHeightFull/2)
 	BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-	
 	SetTitleMatchMode, 1
-	WinTitle_NodeJS=Supplier Gateway (localhost)
 	IfWinExist,%WinTitle_NodeJS%
 	{
-		; Move the window to occupy the left-half of the Right-Most monitor
-		WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
-		; WinMove,%WinTitle_NodeJS%,,0,0,960,1040 ;; (1st Monitor, Left, Theoretical)
-		; WinMove,%WinTitle_NodeJS%,,1913,0,974,1047 (2nd Monitor, Left, Actual?)
-		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		; WinActivate,%WinTitle_NodeJS%
-		; Send {Lwin up}{Lwin down}{left}{Lwin up} ; Snap Window to the Left-Half of current Monitor
-
-	}
-
-	WinTitle_Postman=Postman
-	IfWinExist,%WinTitle_Postman%
-	{
-		; Move the window to occupy the right-half of the Right-Most monitor
-		WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
-		; WinMove,%WinTitle_Postman%,,960,0,960,1040 (1st Monitor, Right, Theoretical)
-		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		; WinActivate,%WinTitle_Postman%
-	; Send {Lwin up}{Lwin down}{right}{Lwin up} ; Snap Window to the Right-Half of current Monitor
+		IfWinExist,%WinTitle_Postman%
+		{
+			;
+			; SIMULATE: Snap Left / Snap Right
+			;
+			if (MonitorCount = 2) {
+				;
+				; 2-Monitors
+				;
+				if (A_OSVersion = "WIN_7") {
+					; Msgbox, AAA
+					WinMove,%WinTitle_NodeJS%,,1920,0,960,1080
+					WinMove,%WinTitle_Postman%,,2880,0,960,1080
+					;
+					;		Win7
+					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle_NodeJS%,,0,0,960,1040     ; w/ taskbar
+					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle_Postman%,,960,0,960,1040  ; w/ taskbar
+					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle_NodeJS%,,1920,0,960,1080
+					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2880,0,960,1080
+					;
+				} Else {
+					; Msgbox, BBB
+					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
+					WinMove,%WinTitle_Postman%,,2873,0,974,1047
+					;
+					;		Win10
+					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle_NodeJS%,,-7,0,974,1047      ; w/ taskbar
+					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle_Postman%,,953,0,974,1047    ; w/ taskbar
+					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle_NodeJS%,,1913,0,974,1047    ; w/ taskbar
+					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2873,0,974,1047   ; w/ taskbar
+					;
+					; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+				}
+			} Else {
+				; Not-2-Monitors (Assumes 1)
+				if (A_OSVersion = "WIN_7") {
+					; Win-7, 1-Monitor
+					; Msgbox, CCC
+					WinMove,%WinTitle_NodeJS%,,0,0,960,1040
+					WinMove,%WinTitle_Postman%,,960,0,960,1040
+				} Else {
+					; Win-10, 1-Monitor
+					; Msgbox, DDD
+					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
+					WinMove,%WinTitle_Postman%,,2873,0,974,1047
+				}
+			}
+			WinActivate,%WinTitle_NodeJS%
+			WinActivate,%WinTitle_Postman%
+		} Else {
+			; Msgbox, EEE
+		}
+	} Else {
+		; Msgbox, FFF
 	}
 	Return
 
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
+; ProcessExists (method)
+;   |--> Compact method of checking whether a process exists or not
+;   |--> Thanks to user "Menixator" from the Autohotkey Forums (https://autohotkey.com/board/topic/98317-if-process-exist-command)
+;
+ProcessExists(Name){
+	return ProcessExist(Name)
+}
+ProcessExist(Name){
+	Process,Exist,%Name%
+	return Errorlevel
+}
+;
+; If ProcessExists("explorer.exe")
+; 	MsgBox Explorer.exe exists.
+;
+; If !ProcessExists("this_will_not_exist.exe")
+; 	MsgBox Ofcourse it doesn't exist.
+;
+;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

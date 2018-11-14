@@ -23,7 +23,6 @@
 ;
 ;
 ;
-VSCode=C:\ISO\VSCode\Code.lnk
 ; |-> SHORTCUT TO:    "%PROGRAMFILES%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\boneal_github"
 ;
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
@@ -94,32 +93,25 @@ VSCode=C:\ISO\VSCode\Code.lnk
 	SetTitleMatchMode, 2
 	; Get a timestamp for 'now'
 	; formattime,formatted_timestamp,,yyyyMMdd-HHmmss
-	ExePath_GitHub=%A_MyDocuments%\GitHub
-	RepoName=boneal_github
+	GitHubFullpath=%A_MyDocuments%\GitHub
+	GitHubMainRepo=boneal_github
 	; RunAs, A_UserName
 	VSC_WinTitle=Visual Studio Code
-	VSC_ProcessName=Code.exe 
-	VSC_WorkspaceToOpen=%ExePath_GitHub%\%RepoName%
-	; VSCode ;;; Globally defined
-	WinTitle=%RepoName% - %VSC_WinTitle%
+	VSC_ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
+	VSC_WorkspaceFullpath=%GitHubFullpath%\%GitHubMainRepo%
+	VSC_RunWithWorkspace=%VSC_ExeFullpath% %VSC_WorkspaceFullpath%
+	WinTitle=%GitHubMainRepo% - %VSC_WinTitle%
 	IfWinNotExist,"%WinTitle%"
 	{
-		If ProcessExists(VSC_ProcessName) {
-			;; Start VS-Code (as it wasn't found, already) - get PID
-			RunWait,%VSCode%,,Hide
-		} Else {
-			;; VS-Code already running
-		}
+		RunWait,%VSC_RunWithWorkspace%,,Hide
 	}
 	; WinActivate, "%WinTitle%"
 	SysGet, MonitorCount, MonitorCount , N
 	if (A_OSVersion = "WIN_7") {
-		; Msgbox, AAA
 		WinMove,%WinTitle%,,-8,-8,1936,1056
 		; 		Win10, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,-8,-8,1936,1056     ; w/ taskbar
 		; 		Win10, Maximized, Right-Mon  -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
 	} Else {
-		; Msgbox, BBB
 		WinMove,%WinTitle%,,0,0,1920,1040
 		;		Win7, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
 
@@ -725,28 +717,6 @@ ActiveWindow_Maximize() {
 		; Msgbox, FFF
 	}
 	Return
-
-;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-; ProcessExists (method)
-;   |--> Compact method of checking whether a process exists or not
-;   |--> Thanks to user "Menixator" from the Autohotkey Forums (https://autohotkey.com/board/topic/98317-if-process-exist-command)
-;
-ProcessExists(Name){
-	return ProcessExist(Name)
-}
-ProcessExist(Name){
-	Process,Exist,%Name%
-	return Errorlevel
-}
-;
-; If ProcessExists("explorer.exe")
-; 	MsgBox Explorer.exe exists.
-;
-; If !ProcessExists("this_will_not_exist.exe")
-; 	MsgBox Ofcourse it doesn't exist.
-;
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

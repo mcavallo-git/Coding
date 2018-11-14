@@ -506,7 +506,10 @@ ActiveWindow_Maximize() {
 ; --- ***    DevOps    *** ---
 ;
 #J::   ; Win+J -- Startup Node.JS (Git-Bash) && Postman
-	BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/boneal_github
+
+	; BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/boneal_github
+	BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/supplier_gateway
+
 	WinTitle_NodeJS=Supplier Gateway (localhost)
 	WinTitle_Postman=Postman
 	if ((!FileExist(BonealGitHub)) || (!InStr(FileExist(BonealGitHub), "D"))) {
@@ -578,7 +581,10 @@ ActiveWindow_Maximize() {
 		IfWinNotExist,%WinTitle_NodeJS%
 		{
 			; Need to run the program, as no window was found for it (yet)
-			WorkingDir=%BonealGitHub%/web_files_nodejs
+
+			; WorkingDir=%BonealGitHub%/web_files_nodejs
+			WorkingDir=%BonealGitHub%/rest-api
+			
 			Target="C:\Program Files\Git\git-bash.exe"
 			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev '%WinTitle_NodeJS%'; sleep 60;"
 			Run, %Target% %InlineArgs%, %WorkingDir%

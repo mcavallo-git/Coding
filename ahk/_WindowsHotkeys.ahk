@@ -17,13 +17,11 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
+; Global Settings
+;
 #SingleInstance force
 ;
 #Persistent
-;
-;
-;
-; |-> SHORTCUT TO:    "%PROGRAMFILES%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\boneal_github"
 ;
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
 ;

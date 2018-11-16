@@ -88,59 +88,53 @@
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #V::
+	; Set Path to VSCode Executable
+	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
+	
+	; Set Path to VSCode Workspace
+	VSCode_Workspace=%A_MyDocuments%\GitHub
+	
+	; Runtime Variables
+	SplitPath, VSCode_Workspace, Workspace_Basename
+	WinTitle=%Workspace_Basename% - Visual Studio Code
 	SetTitleMatchMode, 2
-	; Get a timestamp for 'now'
-	; formattime,formatted_timestamp,,yyyyMMdd-HHmmss
-	GitHubFullpath=%A_MyDocuments%\GitHub
-	GitHubMainRepo=boneal_github
-	; RunAs, A_UserName
-	VSC_WinTitle=Visual Studio Code
-	VSC_ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
-	VSC_WorkspaceFullpath=%GitHubFullpath%\%GitHubMainRepo%
-	VSC_RunWithWorkspace=%VSC_ExeFullpath% %VSC_WorkspaceFullpath%
-	WinTitle=%GitHubMainRepo% - %VSC_WinTitle%
-	IfWinNotExist,"%WinTitle%"
+	IfWinNotExist,"%Workspace_Basename% - %WinTitle%"
 	{
-		RunWait,%VSC_RunWithWorkspace%,,Hide
+		RunWait,%VSCode_Executable% %VSCode_Workspace%,,Hide
 	}
-	; WinActivate, "%WinTitle%"
-	SysGet, MonitorCount, MonitorCount , N
+	; SysGet, MonitorCount, MonitorCount, N
 	if (A_OSVersion = "WIN_7") {
 		WinMove,%WinTitle%,,-8,-8,1936,1056
-		; 		Win10, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,-8,-8,1936,1056     ; w/ taskbar
-		; 		Win10, Maximized, Right-Mon  -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
+		;		Win7, Monitor 1
+		;		Win7
+		; 		Left-half  -->  WinMove,%WinTitle%,,-8,-8,1936,1056       ; w/ taskbar
+		; 		Right-half -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
 	} Else {
 		WinMove,%WinTitle%,,0,0,1920,1040
-		;		Win7, Maximized, Left-Mon   -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
-
-		;		Win10
-		; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle_NodeJS%,,-7,0,974,1047      ; w/ taskbar
-		; 		Right-half, Left-Mon   -->  WinMove,%WinTitle_Postman%,,953,0,974,1047    ; w/ taskbar
-		; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle_NodeJS%,,1913,0,974,1047    ; w/ taskbar
-		; 		Right-half, Right-Mon  -->  WinMove,%WinTitle_Postman%,,2873,0,974,1047   ; w/ taskbar
+		;		Win10, Monitor 1
+		; 		Maximized  -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
+		; 		Left-half  -->  WinMove,%WinTitle%,,-7,0,974,1047     ; w/ taskbar
+		; 		Right-half -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
+		;		Win10, Monitor 2
+		; 		Left-half  -->  WinMove,%WinTitle%,,1913,0,974,1047   ; w/ taskbar
+		; 		Right-half -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
 	}
 	WinActivate,%WinTitle%
-	; WinGet, WinPID, PID, %WinTitle_VSCode%
-	; WinGet, ProcessName, ProcessName, %WinTitle_VSCode%
-	; WinGet, ProcessPath, ProcessPath, %WinTitle_VSCode%
-	; MsgBox, 0, %A_OSVersion%
+	;
+	; WinGet, WinPID, PID, %WinTitle%
+	; WinGet, ProcessName, ProcessName, %WinTitle%
+	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
 	; MsgBox, 0, Active Window Specs,
 	; 	(LTrim
-
 	; 		➣ A_Temp:   %A_Temp%
-
+	; 		➣ A_OSVersion:   %A_OSVersion%
 	; 		➣ WinTitle:   %WinTitle%
-
 	; 		➣ ProcessName:   %ProcessName%
-
 	; 		➣ ProcessPath:   %ProcessPath%
-
 	; 		➣ WinPID:   %WinPID%
-
 	; 	)
-		
+	;
 	Return
-
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;

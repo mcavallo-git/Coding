@@ -90,10 +90,8 @@
 #V::
 	; Set Path to VSCode Executable
 	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
-	
 	; Set Path to VSCode Workspace
 	VSCode_Workspace=%A_MyDocuments%\GitHub
-	
 	; Runtime Variables
 	SplitPath, VSCode_Workspace, Workspace_Basename
 	WinTitle=%Workspace_Basename% - Visual Studio Code
@@ -120,7 +118,6 @@
 		; 		Right-half -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
 	}
 	WinActivate,%WinTitle%
-	;
 	; WinGet, WinPID, PID, %WinTitle%
 	; WinGet, ProcessName, ProcessName, %WinTitle%
 	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
@@ -133,7 +130,6 @@
 	; 		➣ ProcessPath:   %ProcessPath%
 	; 		➣ WinPID:   %WinPID%
 	; 	)
-	;
 	Return
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

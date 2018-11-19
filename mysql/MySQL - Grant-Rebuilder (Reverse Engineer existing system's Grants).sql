@@ -1,14 +1,18 @@
-/* Get All Grants/Permissions for MySQL Instance */
+
+/*
+	Name:      MySQL Grant Rebuilder
+	Author:    MCavallo   https://github.com/mcavallo-git
+	Purpose:   Reverse-engineer MySQL instance's user permissions (grants)
+*/
 
 SET @SPECIFIC_USER := ''; /* Show grants for one, specific user (set to '' to show all) */
 
--- SHOW GRANTS FOR 'some_username';
-
--- DROP VIEW `some_database`.grant_query_rebuilder
-
--- SELECT * FROM `some_database`.grant_query_rebuilder
-
--- CREATE VIEW `some_database`.grant_query_rebuilder AS
+/*
+-- Remove the block-comment around these lines to create this lookup as a MySQL VIEW
+DROP VIEW `some_database`.grant_rebuilder; 
+SELECT * FROM `some_database`.grant_rebuilder;
+CREATE VIEW `some_database`.grant_rebuilder AS
+*/
 
 /* Column-Specific Grants */
 SELECT

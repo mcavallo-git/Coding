@@ -1,0 +1,8 @@
+
+Using Notepad++ or VSCode
+
+Find:
+^\s*\'((?!\').+)\'\s*=>\s*\'((?!\').+)\'.*$
+
+Replace With:
+  "$1": "$2",

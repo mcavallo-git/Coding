@@ -118,6 +118,7 @@
 		; 		Right-half -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
 	}
 	WinActivate,%WinTitle%
+	ActiveWindow_Maximize()
 	; WinGet, WinPID, PID, %WinTitle%
 	; WinGet, ProcessName, ProcessName, %WinTitle%
 	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
@@ -482,9 +483,9 @@ ActiveWindow_ToggleRestoreMaximize() {
 ;
 ;// FUNCTION:    Only maximize active window if it isn't maximized already
 ActiveWindow_Maximize() {
-	WinGet, WinState, MinMax, A
+	WinGet, WinState, MinMax, WinTitle
 	if (WinState<=0) { ; Window is not maximized - maximize it
-		WinMaximize A
+		WinMaximize WinTitle
 	}
 	Return
 }

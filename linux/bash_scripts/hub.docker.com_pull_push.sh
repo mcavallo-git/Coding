@@ -5,7 +5,7 @@ ERRORS_FOUND=0;
 
 if [ ! -n "${1}" ]; then echo   "Error in ${0}: Parameter #1 empty/unset (ACTION_PULL_OR_PUSH) "; ERRORS_FOUND=1;  else ACTION_PULL_OR_PUSH="${1}"; fi;
 if [ ! -n "${2}" ]; then echo   "Error in ${0}: Parameter #2 empty/unset (LOCAL_IMAGE)"; ERRORS_FOUND=1;           else LOCAL_IMAGE="${2}";         fi;
-if [ ! -n "${3}" ]; then echo "Error in ${0}: Parameter #3 empty/unset (DOCKERHUB_IMAGE) "; ERRORS_FOUND=1;        else DOCKERHUB_IMAGE="${3}";     fi; fi;
+if [ ! -n "${3}" ]; then echo   "Error in ${0}: Parameter #3 empty/unset (DOCKERHUB_IMAGE) "; ERRORS_FOUND=1;      else DOCKERHUB_IMAGE="${3}";     fi;
 if [ ! -n "${4}" ]; then echo "Warning in ${0}: Parameter #4 empty/unset (DOCKERHUB_USER)";                        else DOCKERHUB_USER="${4}";      fi;
 if [ ! -n "${5}" ]; then echo "Warning in ${0}: Parameter #5 empty/unset (DOCKERHUB_PASS)";                        else DOCKERHUB_PASS="${5}";      fi;
 

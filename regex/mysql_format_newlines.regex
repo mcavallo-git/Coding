@@ -1,0 +1,6 @@
+
+Find:
+((?:SELECT)|(?:FROM)|(?:(?:LEFT|INNER|OUTER) JOIN)|(?:GROUP BY)|(?:WHERE)|(?:AND)|(?:OR))
+
+Replace with:
+\n$1

@@ -155,7 +155,7 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-#SC03B::   ; Win+F1 -- Edit this Script (the one you're reading right now)
+#SC03B::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
 	Run, edit "%A_ScriptFullPath%"
 	; if (FileExist("C:\Program Files\Microsoft VS Code\Code.exe")) {
 	; 	Run "C:\Program Files\Microsoft VS Code\Code.exe" ".\_WindowsHotkeys.ahk"
@@ -165,7 +165,7 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-#SC03C::   ; Win+F2 -- Show all (current) Window Titles
+#SC03C::   ; #F2 / Win+F2 -- Show all (current) Window Titles
 	WinGet, Window, List
 	Loop %Window% {
 		Id:=Window%A_Index%

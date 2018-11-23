@@ -16,6 +16,7 @@ grep -rnl "/etc/nginx" -e "worker_processes";
 grep -rnl "/etc/nginx" -e "load_module";
 grep -rnl "/usr/local/lib/node_modules/npm" -e "cookie-parser";
 grep -rnl "/var/lib/jenkins" -e "progress-bar-striped";
+grep -rnl "/var/cache/jenkins" -e "_yuiResizeMonitor";
 
 TMP_FILE="/root/tmp_files_list"; grep -rnl "/" -e "ip-172-31-30-110" > "${TMP_FILE}"; cat "${TMP_FILE}" | grep -v "Invalid" | grep -v "argument";
 grep -rnl "/" --exclude-dir="lxcfs" --regexp="ip-172-31-30-110";

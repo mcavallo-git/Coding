@@ -167,7 +167,8 @@ SELECT
 	'TABLE_SPECIFIC' AS 'Scope',
 	NOW() AS 'Timestamp'
 FROM `mysql`.user usr
-WHERE usr.Password != ''
+-- WHERE usr.Password != '' /* MySQL 5.6- */
+WHERE usr.authentication_string != '' /* MySQL 5.7+ */
 AND (usr.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user','show_all')))
 
 /* SELECT * FROM `mysql`.user usr */

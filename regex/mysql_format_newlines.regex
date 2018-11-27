@@ -1,6 +1,6 @@
 
 Find:
-((?:SELECT\s)|(?:,)|(?:FROM\s)|(?:(?:LEFT|INNER|OUTER)\sJOIN\s)|(?:GROUP\sBY\s)|(?:WHERE\s)|(?:AND\s)|(?:OR\s))
+\s+((?:SELECT)|(?:,)|(?:FROM)|(?:(?:LEFT|INNER|OUTER)\s+JOIN)|(?:GROUP\s+BY)|(?:WHERE)|(?:AND)|(?:OR))\s+
 
 Replace with:
-\n$1
+\n$1\ 

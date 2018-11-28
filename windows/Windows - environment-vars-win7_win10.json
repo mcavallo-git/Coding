@@ -9,6 +9,7 @@
 			"%AppData%": "Opens AppData folder C:\\Users\\Username\\AppData\\Roaming",
 			"%CommonProgramFiles%": "C:\\Program Files\\Common Files",
 			"%CommonProgramFiles(x86)%": "C:\\Program Files (x86)\\Common Files",
+			"%COMPUTERNAME%": "Displays the system's Hostname (same as just calling 'hostname')",
 			"%HomeDrive%": "Opens your home drive C:\\ ",
 			"%LOGONSERVER%": "Current Active-directory Logon-Server",
 			"%LocalAppData%": "Opens local AppData folder C:\\Users\\Username\\AppData\\Local",

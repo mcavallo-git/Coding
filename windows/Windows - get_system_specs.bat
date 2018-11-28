@@ -52,9 +52,9 @@ REM **********************
 	REM  \*/*\   Get the hostname (computer name)
 	FOR /f "tokens=2 delims==" %%I in ('wmic computersystem get name /format:list') do set "hostname=%%I"
 	REM set date=date /T
-	set output_file=.\SystemSpecsWMIC___%hostname%___%domain%.txt
+	SET output_file=.\SystemSpecsWMIC___%hostname%___%domain%.txt
 	CALL :SETUP_DATETIME
-	echo SYSTEM INFO FOR PC [%hostname%] RAN [%dt_spaces%] BY [%username%] > %output_file%
+	ECHO SYSTEM INFO FOR PC [%hostname%] RAN [%dt_spaces%] BY [%username%] > %output_file%
 	EXIT /b
 
 : SETUP_DATETIME

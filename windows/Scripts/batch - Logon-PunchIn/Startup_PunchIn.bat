@@ -31,7 +31,7 @@ FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_USERNAME%') DO (
 REM	 Determine if [target-user] is logged-in or not
 IF NOT %USER_SESSION_ID%==NOTFOUND (
 
-	IF [%1] == [] (
+	IF [%1] != [] (
 		ECHO %1| clip
 	)
 	

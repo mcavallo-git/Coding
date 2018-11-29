@@ -19,7 +19,6 @@ REM	 Optionally, target specific domain\username (instead of self)
 REM SET TARGET_USERNAME=user_name
 REM SET TARGET_USERDOMAIN=company_name
 
-
 REM	 Find Session-ID tied to [target-user]
 SET USER_SESSION_ID=NOTFOUND
 FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_USERNAME%') DO (
@@ -29,9 +28,9 @@ FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_USERNAME%') DO (
 )
 
 REM	 Determine if [target-user] is logged-in or not
-IF NOT %USER_SESSION_ID%==NOTFOUND (
+IF NOT "%USER_SESSION_ID%"=="NOTFOUND" (
 
-	IF [%1] != [] (
+	IF NOT "%1"=="" (
 		ECHO %1| clip
 	)
 	

@@ -15,7 +15,7 @@ SET TARGET_USERDOMAIN=%USERDOMAIN%
 
 SET SECONDS_TO_CLOSE_SAGE_PUNCHIN_AFTER=180
 
-REM	 Optionally, target specific domain\username (instead of self)
+REM	Optionally, target specific domain\username (instead of self)
 REM SET TARGET_USERNAME=user_name
 REM SET TARGET_USERDOMAIN=company_name
 
@@ -45,14 +45,11 @@ IF NOT "%USER_SESSION_ID%"=="NOTFOUND" (
 		TIMEOUT /T %SECONDS_TO_CLOSE_SAGE_PUNCHIN_AFTER% > NUL
 	
 		REM	 Safely end SAGE sessions which were started by [target-user]
+		ECHO "Killing Images equal to '%SAGE_PROCESS_NAME%' for User: '%TARGET_USERDOMAIN%\%TARGET_USERNAME%'"
 		TASKKILL /FI "USERNAME eq %TARGET_USERDOMAIN%\%TARGET_USERNAME%" /FI "IMAGENAME eq %SAGE_PROCESS_NAME%"
 	
 	)
 
 )
-
-REM	 Allow any boot-up processes (for this user's session) to complete before forcing logoff
-REM	 	(Handler for login followed by immediate logoff scenario)
-TIMEOUT /T 30
 
 EXIT

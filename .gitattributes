@@ -110,7 +110,7 @@ TODO         text
 .browserslistrc    text
 .editorconfig  text
 .env           text
-.gitattributes text eol=lf
+.gitattributes text
 .gitconfig     text
 .gitignore     text
 .htaccess      text

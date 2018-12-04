@@ -4,6 +4,10 @@
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
+	"[typescript]": {
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
 	"breadcrumbs.enabled": true,
 	"breadcrumbs.filePath": "on",
 	"breadcrumbs.symbolPath": "off",
@@ -73,6 +77,7 @@
 	"search.useIgnoreFiles": false,
 	"terminal.integrated.copyOnSelection": true,
 	"terminal.integrated.cursorBlinking": true,
+	"typescript.format.insertSpaceAfterConstructor": true,
 	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,
 	"update.showReleaseNotes": false,
 	"window.closeWhenEmpty": true,

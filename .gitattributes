@@ -17,6 +17,7 @@
 
 ## SOURCE CODE
 *.bat      text eol=crlf
+*.cmd      text eol=crlf
 *.coffee   text
 *.css      text
 *.htm      text diff=html
@@ -24,7 +25,7 @@
 *.inc      text
 *.ini      text
 *.js       text
-*.json     text
+*.json     text eol=lf
 *.jsx      text
 *.less     text
 *.od       text

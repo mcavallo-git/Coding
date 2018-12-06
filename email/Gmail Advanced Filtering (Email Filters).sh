@@ -40,7 +40,7 @@
 	Matches:		"___Logs_Sage___" OR (from:("masreader@mail.com"|"boneal@boneal.com"|"boneal.net@boneal.com") AND subject:("MAS PO Import"|"Receipt of Goods Import Issues"|"Vendor Open POs Log"|"MAS to Boneal.net Quick Update Log"|"MAS to Boneal.net Shipment Update Log"|"Shipping/Packing List issues"|"Shipment Import Issues"|"Shipments for"))
 			  Do this: Skip Inbox, Apply label "Logs/Logs-Sage"
 				
-	Matches:		"___BNet_Tasks___" OR (from:("boneal.net@boneal.com") AND subject:("Boneal.Net Bugs & Requests System Updates"|"Task-System Updates") OR ("Your Boneal Net Task has"|"This task has been assigned to"|"approve or reject this task"))
+	Matches:		"___BNet_Tasks___" OR (from:("boneal.net@boneal.com") AND (subject:("Task-System Updates") OR ("Your Boneal Net Task has"|"This task has been assigned to"|"approve or reject this task") OR ("Boneal.Net Bugs & Requests")))
 				Do this: Skip Inbox, Apply label "_BNET/Tasks"
 				
 	Matches:		"___AWS___" OR (from:("Amazon Web Services") AND to:("programmers@boneal.com"))

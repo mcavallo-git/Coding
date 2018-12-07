@@ -34,7 +34,7 @@
 	Matches:		"___Starred_Items___" OR (filename:("ics"))
 			  Do this: Star it
 				
-	Matches:		"___Logs_BNet___"  OR (from:("boneal@boneal.com"|"boneal.net@boneal.com"|"boneal@www.boneal.net") AND subject:("PO Total Verification"|"Backlogs & Late Sales Orders for"|"EMAIL VALIDATION ISSUES"|"upd_mas_pos.php?t="|"upd_mas_consign.php"|"Shipments for"|"No Signature on PO"|"characters in trimToFitMas():"|"Unknown column 'name_pref' in 'field list'"|"Unable to connect to server eft.tempursealy.com") | ("Unable to connect to server eft.tempursealy.com"))
+	Matches:		"___Logs_BNet___"  OR (from:("boneal@boneal.com"|"boneal.net@boneal.com"|"boneal@www.boneal.net") AND (subject:("WMS Error Log"|"PO Total Verification"|"Backlogs & Late Sales Orders for"|"EMAIL VALIDATION ISSUES"|"upd_mas_pos.php?t="|"upd_mas_consign.php"|"Shipments for"|"No Signature on PO"|"characters in trimToFitMas():"|"Unknown column 'name_pref' in 'field list'"|"Unable to connect to server eft.tempursealy.com"|"MAS/Boneal.net Vendor and Customer Issues") OR ("Unable to Initialize the connection"))
 			  Do this: Skip Inbox, Apply label "Logs/Logs-BNet"
 	
 	Matches:		"___Logs_Sage___" OR (from:("masreader@mail.com"|"boneal@boneal.com"|"boneal.net@boneal.com") AND subject:("MAS PO Import"|"Receipt of Goods Import Issues"|"Vendor Open POs Log"|"MAS to Boneal.net Quick Update Log"|"MAS to Boneal.net Shipment Update Log"|"Shipping/Packing List issues"|"Shipment Import Issues"|"Shipments for"))

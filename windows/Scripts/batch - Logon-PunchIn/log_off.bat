@@ -3,18 +3,19 @@ SETLOCAL ENABLEDELAYEDEXPANSION
 
 REM		Created by Matt Cavallo <mcavallo@boneal.com>
 REM		Creation Date: [ 2016-09-29 ]
-REM		Last Updated:	[ 2018-11-28 ]
+REM		Updated:	[ 2018-11-28 ]
+REM		Updated:	[ 2018-12-12 ] - Generalized IMAGENAME_TO_KILL as parameter #1
 
-SET TARGET_HOSTNAME=%COMPUTERNAME%
-SET SAGE_PUNCHIN_BNL=C:\ISO\BNL-Time.lnk
-SET SAGE_PROCESS_NAME=pvxwin32.exe
+SET IMAGENAME_TO_KILL=
+IF NOT "%1"=="" (
+	SET IMAGENAME_TO_KILL=%1
+)
 
-SET TARGET_USERNAME=%USERNAME%
-SET TARGET_USERDOMAIN=%USERDOMAIN%
+SET RUNTIME_USERNAME=%USERNAME%
+SET RUNTIME_USERDOMAIN=%USERDOMAIN%
 
-REM	Optionally, target specific domain\username (instead of self)
-REM SET TARGET_USERNAME=user_name
-REM SET TARGET_USERDOMAIN=company_name
+SET TARGET_USERNAME=%RUNTIME_USERNAME%
+SET TARGET_USERDOMAIN=%RUNTIME_USERDOMAIN%
 
 REM	 Find Session-ID tied to [target-user]
 SET USER_SESSION_ID=NOTFOUND
@@ -27,6 +28,17 @@ FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_USERNAME%') DO (
 REM	 Determine if [target-user] is logged-in or not
 IF NOT %USER_SESSION_ID%==NOTFOUND (
 
+	REM	 Safely end processes for sessions started by runtime-user
+	IF NOT "%IMAGENAME_TO_KILL%"=="" (
+		TASKKILL /FI "USERNAME eq %TARGET_USERDOMAIN%\%TARGET_USERNAME%" /FI "IMAGENAME eq %IMAGENAME_TO_KILL%"
+		REM Wait 1 second
+			TIMEOUT /T 1 > NUL
+	)
+
+	REM	Lock the remote user-session, Wait 1 second, then Kill the RDP Session
+	REM *** Note that this 'wait exactly 1 second' is so that we show (during that second) the remote PC being locked before cutting the video feed to the user's remote desktop & closing it for-them (Next Step)
+	REM *** This gives the power to the user's visual inspection because it does exactly the same action as what they're used to when locking/logging-off of a PC
+	
 	REM	 Lock the Session for [target-user] (acts exactly the same as them selecting 'lock' from the start menu)
 		RUNDLL32 USER32.DLL,LockWorkStation
 
@@ -35,13 +47,6 @@ IF NOT %USER_SESSION_ID%==NOTFOUND (
 
 	REM	 Kill the RDP Session (Closes the Remote-Deskop window on the Client's End)
 		TSDISCON %USER_SESSION_ID%
-
-	REM	Lock the remote user-session, Wait 1 second, then Kill the RDP Session
-	REM *** Note that this 'wait exactly 1 second' is so that we show (during that second) the remote PC being locked before cutting the video feed to the user's remote desktop & closing it for-them (Next Step)
-	REM *** This gives the power to the user's visual inspection because it does exactly the same action as what they're used to when locking/logging-off of a PC
-
-	REM	 Safely end SAGE sessions which were started by [target-user]
-	TASKKILL /FI "USERNAME eq %TARGET_USERDOMAIN%\%TARGET_USERNAME%" /FI "IMAGENAME eq %SAGE_PROCESS_NAME%"
 
 	ECHO.
 	ECHO LOGGING OFF

@@ -7,9 +7,9 @@
 bing.com,
 live.com,
 microsoft.com,
-windows.com,
 microsoftonline.com,
 office365.com,
+windows.com,
 xbox.com
 
 ```

@@ -96,21 +96,21 @@
 	"zenMode.hideTabs": true,
 	"files.exclude": {
 		"**/*.{lnk}": true,
-		"**/{node_modules,dist,not_automated,}/**": true,
+		"**/{node_modules,dist,not_automated}/**": true,
 		"**/web_files/{app,artisan,bin,bootstrap,config,css,database,fonts,index.php,images,js,public,readme.md,resources,routes,server.php,smtp_logs,sql_views,src,storage,tests,vendor}/**": true,
 		"**/web_files/*.{example,js,json,lock,txt,xml}": true,
 		"**/web_files/public_boneal/{archived_programs,includes,phpMyEdit}/**": true
 	},
 	"files.watcherExclude": {
 		"**/*.{lnk}": true,
-		"**/{node_modules,dist,not_automated,}/**": true,
+		"**/{node_modules,dist,not_automated}/**": true,
 		"**/web_files/{app,artisan,bin,bootstrap,config,css,database,fonts,index.php,images,js,public,readme.md,resources,routes,server.php,smtp_logs,sql_views,src,storage,tests,vendor}/**": true,
 		"**/web_files/*.{example,js,json,lock,txt,xml}": true,
 		"**/web_files/public_boneal/{archived_programs,includes,phpMyEdit}/**": true
 	},
 	"search.exclude": {
 		"**/*.{lnk}": true,
-		"**/{node_modules,dist,not_automated,}/**": true,
+		"**/{node_modules,dist,not_automated}/**": true,
 		"**/web_files/{app,artisan,bin,bootstrap,config,css,database,fonts,index.php,images,js,public,readme.md,resources,routes,server.php,smtp_logs,sql_views,src,storage,tests,vendor}/**": true,
 		"**/web_files/*.{example,js,json,lock,txt,xml}": true,
 		"**/web_files/public_boneal/{archived_programs,includes,phpMyEdit}/**": true

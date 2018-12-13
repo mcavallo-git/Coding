@@ -1,0 +1,95 @@
+[
+	{
+		"key": "ctrl+alt+r",
+		"command": "workbench.action.reloadWindow"
+	},
+	{
+		"key": "ctrl+shift+p",
+		"command": "workbench.action.showCommands"
+	},
+	{
+		"key": "ctrl+shift+p",
+		"command": "-workbench.action.showCommands"
+	},
+	{
+		"key": "ctrl+shift+p ctrl+alt+p",
+		"when": "inFilesPicker && inQuickOpen",
+		"command": "workbench.action.quickOpenNavigatePreviousInFilePicker"
+	},
+	{
+		"key": "ctrl+shift+p",
+		"when": "inFilesPicker && inQuickOpen",
+		"command": "-workbench.action.quickOpenNavigatePreviousInFilePicker"
+	},
+	{
+		"key": "ctrl+shift+,",
+		"when": "editorTextFocus && !editorReadonly",
+		"command": "-editor.action.inPlaceReplace.up"
+	},
+	{
+		"key": "ctrl+q",
+		"when": "editorTextFocus && !editorReadonly",
+		"command": "editor.action.commentLine"
+	},
+	{
+		"key": "ctrl+shift+,",
+		"command": "workbench.action.openGlobalKeybindingsFile"
+	},
+	{
+		"key": "ctrl+shift+d",
+		"command": "-workbench.view.debug"
+	},
+	{
+		"key": "ctrl+shift+e",
+		"command": "workbench.files.action.collapseExplorerFolders"
+	},
+	{
+		"key": "ctrl+shift+e",
+		"when": "editorTextFocus && editorLangId == 'sql'",
+		"command": "-extension.disconnect"
+	},
+	{
+		"key": "ctrl+shift+e",
+		"command": "-workbench.view.explorer"
+	},
+	{
+		"key": "ctrl+shift+e",
+		"when": "inFilesPicker && inQuickOpen",
+		"command": "-workbench.action.quickOpenNavigatePreviousInFilePicker"
+	},
+	{
+		"key": "ctrl+shift+e",
+		"when": "editorTextFocus && editorLangId == 'sql'",
+		"command": "-extension.runQuery"
+	},
+	{
+		"key": "ctrl+b",
+		"command": "-workbench.action.toggleSidebarVisibility"
+	},
+	{
+		"key": "ctrl+shift+d",
+		"when": "editorTextFocus && editorLangId == 'sql'",
+		"command": "-extension.disconnect"
+	},
+	{
+		"key": "ctrl+shift+d",
+		"command": "workbench.action.toggleSidebarVisibility"
+	},
+	{
+		"key": "ctrl+r",
+		"command": "workbench.action.quickOpen"
+	},
+	{
+		"key": "ctrl+p",
+		"command": "-workbench.action.quickOpen"
+	},
+	{
+		"key": "ctrl+r",
+		"command": "-workbench.action.openRecent"
+	},
+	{
+		"key": "ctrl+r",
+		"command": "-workbench.action.quickOpenNavigateNextInRecentFilesPicker",
+		"when": "inQuickOpen && inRecentFilesPicker"
+	}
+]

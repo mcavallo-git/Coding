@@ -3,11 +3,16 @@
 
 ```
 bing.com,
+hotmail.com,
 live.com,
 microsoft.com,
 microsoftonline.com,
+msn.com,
 office365.com,
+onmicrosoft.com,
+passport.net,
 windows.com,
+windowsazure.com,
 xbox.com
 ```
 

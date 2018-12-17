@@ -60,10 +60,9 @@ REM	 Determine if [target-user] is logged-in or not
 IF NOT "%USER_SESSION_ID%"=="NOTFOUND" (
 
 	IF NOT "%3"=="" (
-		SET CLIPBOARD_TEXT=%3
-		ECHO %CLIPBOARD_TEXT%| clip
-		ECHO  CLIPBOARD_TEXT:     %CLIPBOARD_TEXT%   (Param #3)
+		ECHO  CLIPBOARD_TEXT:     %3   (Param #3)
 		ECHO.
+		ECHO %3| clip
 	) ELSE (
 		ECHO  Nothing copied to the Clipboard        (Param #3)
 		ECHO.

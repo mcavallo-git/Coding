@@ -6,8 +6,15 @@
 ;  Official List of Autohotkey Buttons (Mouse, Keyboard, etc)
 ;           https://autohotkey.com/docs/KeyList.htm
 ;
-;    # Windows-Key        ! Alt        + Shift        ^ Control
-;    < Left Mod Key                             > Right Mod Key
+;  Modifiers:
+;    #  Windows-Key
+;    !  Alt-Key
+;    +  Shift-Key
+;    ^  Control-Key
+;
+;  Specific Modifiers:
+;    < Only the Left Modifier on the Keyboard   (<#, <!, <+, <^)
+;    > Only the Right Modifier on the Keyboard  (>#, >!, >+, >^)
 ;
 ;
 ;  Variables and Expressions  :::  https://autohotkey.com/docs/Variables.htm#BuiltIn
@@ -215,8 +222,7 @@
 ;    ACTION:    FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;    HOTKEY:    Windows-Key + [
 ;
-<#[::
->#[::
+#[::
 	CoordMode,Mouse,Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
@@ -246,8 +252,7 @@
 ;    ACTION:    FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Extend" monitors
 ;    HOTKEY:    Windows-Key + ]
 ;
-<#]::
->#]::
+#]::
 	CoordMode,Mouse,Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1

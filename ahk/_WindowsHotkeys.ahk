@@ -34,6 +34,11 @@
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
+USER_DESKTOP=%USERPROFILE%\Desktop
+USER_DOCUMENTS=%USERPROFILE%/Documents
+;
+;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ;    ACTION:    Refresh This Script
 ;                 --> Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
@@ -147,8 +152,8 @@
 ;
 +#D::
 	SetKeyDelay, 0, -1
-  formattime,formatted_timestamp,,yyyyMMdd-HHmmss
-  send %formatted_timestamp%
+  FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+  Send %TIMESTAMP%
 	Return
 ;
 ;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  2018-10-26_01-37-09  ]
@@ -156,18 +161,14 @@
 ;
 #D::
 	SetKeyDelay, 0, -1
-  formattime,formatted_timestamp,,yyyy-MM-dd_HH-mm-ss
-  send %formatted_timestamp%
+  FormatTime,TIMESTAMP,,yyyy-MM-dd_HH-mm-ss
+  Send %TIMESTAMP%
 	Return
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #SC03B::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
-	Run, edit "%A_ScriptFullPath%"
-	; if (FileExist("C:\Program Files\Microsoft VS Code\Code.exe")) {
-	; 	Run "C:\Program Files\Microsoft VS Code\Code.exe" ".\_WindowsHotkeys.ahk"
-	; 	Run, edit "%A_ScriptFullPath%"
-	; }
+	Run, Edit "%A_ScriptFullPath%"
 	Return
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -298,7 +299,7 @@
 ;    ACTION:    Opens "View Network Connections" (in the Control Panel)
 ;    HOTKEY:    Windows-Key + N
 ;
-#n::
+#N::
 	Run "c:\windows\system32\ncpa.cpl"
 	Return
 ;
@@ -307,7 +308,7 @@
 ;    ACTION:    Opens "Programs & Features" in the Control Panel
 ;    HOTKEY:    Windows-Key + O
 ;
-#o::
+#O::
 	Run "c:\windows\system32\appwiz.cpl"
 	Return
 ;
@@ -422,7 +423,7 @@ WheelRight::
 ;    ACTION:    Chrome - Open a New Instance of Google Chrome
 ;    HOTKEY:    Windows-Key + C
 ;
-#c::
+#C::
 	url_to_open = www.google.com
 	Run % "chrome.exe" ( winExist("ahk_class Chrome_WidgetWin_1") ? " --new-window " : " " ) url_to_open
 	Return
@@ -432,7 +433,7 @@ WheelRight::
 ;    ACTION:    Effective File Search - Open a new Instance of EFS
 ;    HOTKEY:    Windows-Key + F
 ;
-#f::
+#F::
 	; Verify that Effective File Search exists
 	; exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
 	efs=\Effective File Search.efsp
@@ -503,16 +504,23 @@ ActiveWindow_Maximize() {
 ;
 #J::   ; Win+J -- Startup Node.JS (Git-Bash) && Postman
 
-	; BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/boneal_github
-	BonealGitHub=C:/Users/%A_UserName%/Documents/GitHub/supplier_gateway
+	SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
+
+	POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
+	GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
+	
+	SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
+	SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
+	SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
+	SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
 
 	WinTitle_NodeJS=Supplier Gateway (localhost)
 	WinTitle_Postman=Postman
-	if ((!FileExist(BonealGitHub)) || (!InStr(FileExist(BonealGitHub), "D"))) {
+	if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
 		MsgBox, 
 		(LTrim
 			Error - Required directory not-found:
-			%BonealGitHub%
+			%SG_REPO%
 		)
 	} else {
 
@@ -566,9 +574,9 @@ ActiveWindow_Maximize() {
 		IfWinNotExist,%WinTitle_Postman%
 		{
 			; Need to run the program, as no window was found for it (yet)
-			Target="C:/Users/%A_UserName%/AppData/Local/Postman/Update.exe"
-			InlineArgs= --processStart Postman.exe
-			Run, %Target% %InlineArgs%
+			POSTMAN_ARGS= --processStart Postman.exe
+			; POSTMAN_ARGS=--processStart Postman.exe
+			Run, %POSTMAN_EXE% %POSTMAN_ARGS%
 		}
 
 		Sleep 100
@@ -576,14 +584,14 @@ ActiveWindow_Maximize() {
 		; Start Node.JS in Git-Bash
 		IfWinNotExist,%WinTitle_NodeJS%
 		{
-			; Need to run the program, as no window was found for it (yet)
 
-			; WorkingDir=%BonealGitHub%/web_files_nodejs
-			WorkingDir=%BonealGitHub%/rest-api
-			
-			Target="C:\Program Files\Git\git-bash.exe"
-			InlineArgs=-c "%WorkingDir%/_start_server.sh start-dev '%WinTitle_NodeJS%'; sleep 60;"
-			Run, %Target% %InlineArgs%, %WorkingDir%
+			GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
+			GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
+			GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
+
+			Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
+			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
+			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
 		}
 		;
 		; Wait for the script(s)/program(s) to start before moving them around
@@ -598,6 +606,169 @@ ActiveWindow_Maximize() {
 		;
 	}
 	Return
+;
+;	----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+#T::   ; Win+T -- Get Windows Environment Variables (output to desktop)
+
+	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+	Logfile_EnvVars=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%.log.txt
+	Logfile_EnvVars_Timestamp=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%-%TIMESTAMP%.log.txt
+
+	KnownWinEnvVars=
+	(LTrim
+	==========================================================================
+
+	*** Variables for Current Session ***
+
+	TIMESTAMP = %TIMESTAMP%
+
+	--------------------------------------------------------------------------
+
+	*** Windows Environment Variables (Long-standing) ***
+
+	COMPUTERNAME         %COMPUTERNAME%
+	USERNAME             %USERNAME%
+	USERDOMAIN           %USERDOMAIN%
+	LOGONSERVER          %LOGONSERVER%
+	
+	ALLUSERSPROFILE      %ALLUSERSPROFILE%
+	APPDATA              %APPDATA%
+	COMMONPROGRAMFILES   %COMMONPROGRAMFILES%
+	HOMEDRIVE            %HOMEDRIVE%
+	HOMEPATH             %HOMEPATH%
+	LOCALAPPDATA         %LOCALAPPDATA%
+	PROGRAMDATA          %PROGRAMDATA%
+	PROGRAMFILES         %PROGRAMFILES%
+	PUBLIC               %PUBLIC%
+	SYSTEMDRIVE          %SYSTEMDRIVE%
+	SYSTEMROOT           %SYSTEMROOT%
+	TEMP                 %TEMP%
+	TMP                  %TMP%
+	USERPROFILE          %USERPROFILE%
+	WINDIR               %WINDIR%
+
+	--------------------------------------------------------------------------
+
+	*** Windows Environment Variables (Newer, Win10/Server2016) ***
+
+	ALLUSERSAPPDATA = [%ALLUSERSAPPDATA%]
+	CSIDL_ADMINTOOLS = [%CSIDL_ADMINTOOLS%]
+	CSIDL_ALTSTARTUP = [%CSIDL_ALTSTARTUP%]
+	CSIDL_APPDATA = [%CSIDL_APPDATA%]
+	CSIDL_BITBUCKET = [%CSIDL_BITBUCKET%]
+	CSIDL_CDBURN_AREA = [%CSIDL_CDBURN_AREA%]
+	CSIDL_COMMON_ADMINTOOLS = [%CSIDL_COMMON_ADMINTOOLS%]
+	CSIDL_COMMON_ALTSTARTUP = [%CSIDL_COMMON_ALTSTARTUP%]
+	CSIDL_COMMON_APPDATA = [%CSIDL_COMMON_APPDATA%]
+	CSIDL_COMMON_DESKTOPDIRECTORY = [%CSIDL_COMMON_DESKTOPDIRECTORY%]
+	CSIDL_COMMON_DOCUMENTS = [%CSIDL_COMMON_DOCUMENTS%]
+	CSIDL_COMMON_FAVORITES = [%CSIDL_COMMON_FAVORITES%]
+	CSIDL_COMMON_MUSIC = [%CSIDL_COMMON_MUSIC%]
+	CSIDL_COMMON_PICTURES = [%CSIDL_COMMON_PICTURES%]
+	CSIDL_COMMON_PROGRAMS = [%CSIDL_COMMON_PROGRAMS%]
+	CSIDL_COMMON_STARTMENU = [%CSIDL_COMMON_STARTMENU%]
+	CSIDL_COMMON_STARTUP = [%CSIDL_COMMON_STARTUP%]
+	CSIDL_COMMON_TEMPLATES = [%CSIDL_COMMON_TEMPLATES%]
+	CSIDL_COMMON_VIDEO = [%CSIDL_COMMON_VIDEO%]
+	CSIDL_CONNECTIONS = [%CSIDL_CONNECTIONS%]
+	CSIDL_CONTACTS = [%CSIDL_CONTACTS%]
+	CSIDL_CONTROLS = [%CSIDL_CONTROLS%]
+	CSIDL_COOKIES = [%CSIDL_COOKIES%]
+	CSIDL_DEFAULT_APPDATA = [%CSIDL_DEFAULT_APPDATA%]
+	CSIDL_DEFAULT_CONTACTS = [%CSIDL_DEFAULT_CONTACTS%]
+	CSIDL_DEFAULT_COOKIES = [%CSIDL_DEFAULT_COOKIES%]
+	CSIDL_DEFAULT_DESKTOP = [%CSIDL_DEFAULT_DESKTOP%]
+	CSIDL_DEFAULT_DOWNLOADS = [%CSIDL_DEFAULT_DOWNLOADS%]
+	CSIDL_DEFAULT_FAVORITES = [%CSIDL_DEFAULT_FAVORITES%]
+	CSIDL_DEFAULT_HISTORY = [%CSIDL_DEFAULT_HISTORY%]
+	CSIDL_DEFAULT_INTERNET_CACHE = [%CSIDL_DEFAULT_INTERNET_CACHE%]
+	CSIDL_DEFAULT_LOCAL_APPDATA = [%CSIDL_DEFAULT_LOCAL_APPDATA%]
+	CSIDL_DEFAULT_MYDOCUMENTS = [%CSIDL_DEFAULT_MYDOCUMENTS%]
+	CSIDL_DEFAULT_MYMUSIC = [%CSIDL_DEFAULT_MYMUSIC%]
+	CSIDL_DEFAULT_MYPICTURES = [%CSIDL_DEFAULT_MYPICTURES%]
+	CSIDL_DEFAULT_MYVIDEO = [%CSIDL_DEFAULT_MYVIDEO%]
+	CSIDL_DEFAULT_PERSONAL = [%CSIDL_DEFAULT_PERSONAL%]
+	CSIDL_DEFAULT_PROGRAMS = [%CSIDL_DEFAULT_PROGRAMS%]
+	CSIDL_DEFAULT_QUICKLAUNCH = [%CSIDL_DEFAULT_QUICKLAUNCH%]
+	CSIDL_DEFAULT_RECENT = [%CSIDL_DEFAULT_RECENT%]
+	CSIDL_DEFAULT_SENDTO = [%CSIDL_DEFAULT_SENDTO%]
+	CSIDL_DEFAULT_STARTMENU = [%CSIDL_DEFAULT_STARTMENU%]
+	CSIDL_DEFAULT_STARTUP = [%CSIDL_DEFAULT_STARTUP%]
+	CSIDL_DEFAULT_TEMPLATES = [%CSIDL_DEFAULT_TEMPLATES%]
+	CSIDL_DESKTOP = [%CSIDL_DESKTOP%]
+	CSIDL_DESKTOPDIRECTORY = [%CSIDL_DESKTOPDIRECTORY%]
+	CSIDL_DRIVES = [%CSIDL_DRIVES%]
+	CSIDL_FAVORITES = [%CSIDL_FAVORITES%]
+	CSIDL_FONTS = [%CSIDL_FONTS%]
+	CSIDL_HISTORY = [%CSIDL_HISTORY%]
+	CSIDL_INTERNET = [%CSIDL_INTERNET%]
+	CSIDL_INTERNET_CACHE = [%CSIDL_INTERNET_CACHE%]
+	CSIDL_LOCAL_APPDATA = [%CSIDL_LOCAL_APPDATA%]
+	CSIDL_MYDOCUMENTS = [%CSIDL_MYDOCUMENTS%]
+	CSIDL_MYMUSIC = [%CSIDL_MYMUSIC%]
+	CSIDL_MYPICTURES = [%CSIDL_MYPICTURES%]
+	CSIDL_MYVIDEO = [%CSIDL_MYVIDEO%]
+	CSIDL_NETHOOD = [%CSIDL_NETHOOD%]
+	CSIDL_NETWORK = [%CSIDL_NETWORK%]
+	CSIDL_PERSONAL = [%CSIDL_PERSONAL%]
+	CSIDL_PLAYLISTS = [%CSIDL_PLAYLISTS%]
+	CSIDL_PRINTERS = [%CSIDL_PRINTERS%]
+	CSIDL_PRINTHOOD = [%CSIDL_PRINTHOOD%]
+	CSIDL_PROFILE = [%CSIDL_PROFILE%]
+	CSIDL_PROGRAM_FILES = [%CSIDL_PROGRAM_FILES%]
+	CSIDL_PROGRAM_FILES_COMMON = [%CSIDL_PROGRAM_FILES_COMMON%]
+	CSIDL_PROGRAM_FILES_COMMONX86 = [%CSIDL_PROGRAM_FILES_COMMONX86%]
+	CSIDL_PROGRAM_FILESX86 = [%CSIDL_PROGRAM_FILESX86%]
+	CSIDL_PROGRAMS = [%CSIDL_PROGRAMS%]
+	CSIDL_RECENT = [%CSIDL_RECENT%]
+	CSIDL_RESOURCES = [%CSIDL_RESOURCES%]
+	CSIDL_SENDTO = [%CSIDL_SENDTO%]
+	CSIDL_STARTMENU = [%CSIDL_STARTMENU%]
+	CSIDL_STARTUP = [%CSIDL_STARTUP%]
+	CSIDL_SYSTEM = [%CSIDL_SYSTEM%]
+	CSIDL_TEMPLATES = [%CSIDL_TEMPLATES%]
+	CSIDL_WINDOWS = [%CSIDL_WINDOWS%]
+	DEFAULTUSERPROFILE = [%DEFAULTUSERPROFILE%]
+	PROFILESFOLDER = [%PROFILESFOLDER%]
+	SYSTEM = [%SYSTEM%]
+	SYSTEM16 = [%SYSTEM16%]
+	SYSTEM32 = [%SYSTEM32%]
+	SYSTEMPROFILE = [%SYSTEMPROFILE%]
+	USERSID = [%USERSID%]
+
+	--------------------------------------------------------------------------
+
+	*** Autohotkey Variables ***
+
+	A_AhkVersion: %A_AhkVersion%
+	A_AhkPath: %A_AhkPath%
+	A_IsUnicode: %A_IsUnicode%
+	A_IsCompiled: %A_IsCompiled%
+	
+	A_WorkingDir: %A_WorkingDir%
+	A_ScriptDir: %A_ScriptDir%
+
+	A_ScriptName: %A_ScriptName%
+	A_ScriptFullPath: %A_ScriptFullPath%
+
+	A_LineFile: %A_LineFile%
+	A_LineNumber: %A_LineNumber%
+
+	A_ThisLabel: %A_ThisLabel%
+	A_ThisFunc: %A_ThisFunc%
+
+	==========================================================================
+	)
+
+	; Removed: [%COMMONPROGRAMFILES(x86)%, %PROGRAMFILES(X86)%] <-- Autohotkey throws an error if you attempt to reference variable whose name includes one or more parenthesis
+	
+	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
+	
+	Run, Edit "%Logfile_EnvVars_Timestamp%"
+
+	Return
+
 ;
 ;	----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;

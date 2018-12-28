@@ -24,6 +24,24 @@
 				
 	Matches:		"___Spam_Blocker___" OR ("unsubscribe" -{"receipt" OR "inactive numbers can expire"}) OR (from:("Valvoline"|"*@pandora.com"|"*@spotify.com"|"*@*.express.com"|"*@wish.com"|"American Home Shield"|"Asana") OR subject:("your iCloud storage") AND -"your receipt") OR (subject:("change"|"changes"|"changing"|"update"|"updates"|"updating") AND subject:("terms"))
 			  Do this: Skip Inbox, Mark as read, Apply label "Filters/Spam_Blocker"
+
+	Matches:		"___Size_1_KB_to_10_KB___" OR (larger_than:10240 AND smaller_than:102400)
+			  Do this: Apply label "DiskSpace/_10_KB_to_100_KB"
+
+	Matches:		"___Size_10_KB_to_100_KB___" OR (larger_than:10239 AND smaller_than:102400)
+			  Do this: Apply label "DiskSpace/_10_KB_to_100_KB"
+
+	Matches:		"___Size_100_KB_to_1_MB___" OR (larger_than:102399 AND smaller_than:1048576)
+			  Do this: Apply label "DiskSpace/_100_KB_to_1_MB"
+
+	Matches:		"___Size_1_MB_to_5_MB___" OR (larger_than:1048575 AND smaller_than:5242880)
+			  Do this: Apply label "DiskSpace/1_MB_to_5_MB"
+
+	Matches:		"___Size_5_MB_to_10_MB___" OR (larger_than:5242879 AND smaller_than:10238976)
+			  Do this: Apply label "DiskSpace/5_MB_to_10_MB"
+				
+	Matches:		"___Size_10_MB_and_up___" OR (larger_than:10238975)
+			  Do this: Apply label "DiskSpace/10_MB_and_up"
 				
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------- #

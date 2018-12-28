@@ -13,7 +13,7 @@
 	Matches:		"___SmartHome___" OR (from:("*@wink.com"|"*@ecobee.com"|"*@smartthings.com") AND subject:("hub firmware update"|"has not been detected"|"has reconnected"|"Reminder"))
 			  Do this: Skip Inbox, Apply label "Smarthome"
 	
-	Matches:		"___Orders_by_Subject___" OR (subject:("order"|"ship"|"package"|"payment"|"purchase") AND subject:("authorized"|"confirmation"|"notification"|"receipt"|"received")) OR "your receipt"
+	Matches:		"___Orders_by_Subject___" OR (subject:("order"|"ship"|"package"|"payment"|"purchase") AND subject:("authorized"|"confirmation"|"notification"|"receipt"|"received")) OR ("your receipt") OR (subject:("🚚 ORDER UPDATE:"|"✅ ORDER CONFIRMED:"))
 			  Do this: Skip Inbox, Apply label "Orders"
 
 	Matches:		"___Orders_by_Sender___" OR from:("webbillpay"|"Citizens One"|"Wells Fargo"|"*@paypal.com"|"*@etsy.com"|"*@notify.wellsfargo.com"|"*@amazon.com"|"*@newegg.com"|"ts-noreply@google.com"|"*@em.kirklands.com"|"*@polarbearcoolers.com"|"*@prepobsessed.com"|"*@crownclub.regmovies.com"|"*@homedepot.com")

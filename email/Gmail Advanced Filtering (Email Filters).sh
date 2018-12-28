@@ -30,18 +30,21 @@
 #
 #				Work Acct
 #
-				
+
 	Matches:		"___Starred_Items___" OR (filename:("ics"))
 			  Do this: Star it
 				
-	Matches:		"___Logs_BNet___"  OR (from:("boneal@boneal.com"|"boneal.net@boneal.com"|"boneal@www.boneal.net") AND (subject:("WMS Error Log"|"PO Total Verification"|"Backlogs & Late Sales Orders for"|"EMAIL VALIDATION ISSUES"|"upd_mas_pos.php?t="|"upd_mas_consign.php"|"Shipments for"|"No Signature on PO"|"characters in trimToFitMas():"|"Unknown column 'name_pref' in 'field list'"|"Unable to connect to server eft.tempursealy.com"|"MAS/Boneal.net Vendor and Customer Issues") OR ("Unable to Initialize the connection"))
+	Matches:		"___Logs_PHP___" OR (from:("boneal@www.boneal.net"|"boneal@mdev.boneal.net"|"boneal@dev.boneal.net"|"boneal@rdev.boneal.net") AND (subject:("PHP error_log message")))
+			  Do this: Apply label "Logs/Logs-PHP", Never send it to Spam
+
+	Matches:		"___Logs_BNet___" OR (from:("boneal@boneal.com"|"boneal.net@boneal.com"|"boneal@www.boneal.net") AND (subject:("WMS Error Log"|"PO Total Verification"|"Backlogs & Late Sales Orders for"|"EMAIL VALIDATION ISSUES"|"upd_mas_pos.php?t="|"upd_mas_consign.php"|"Shipments for"|"No Signature on PO"|"characters in trimToFitMas():"|"Unknown column 'name_pref' in 'field list'"|"Unable to connect to server eft.tempursealy.com"|"MAS/Boneal.net Vendor and Customer Issues") OR ("Unable to Initialize the connection"))
 			  Do this: Skip Inbox, Apply label "Logs/Logs-BNet"
 	
 	Matches:		"___Logs_Sage___" OR (from:("masreader@mail.com"|"boneal@boneal.com"|"boneal.net@boneal.com") AND subject:("MAS PO Import"|"Receipt of Goods Import Issues"|"Vendor Open POs Log"|"MAS to Boneal.net Quick Update Log"|"MAS to Boneal.net Shipment Update Log"|"Shipping/Packing List issues"|"Shipment Import Issues"|"Shipments for"))
-			  Do this: Skip Inbox, Apply label "Logs/Logs-Sage"
+			  Do this: Skip Inbox, Apply label "Logs/Logs-Sage", Never send it to Spam
 				
-	Matches:		"___BNet_Tasks___" OR (from:("boneal.net@boneal.com") AND (subject:("Task-System Updates") OR ("Your Boneal Net Task has"|"This task has been assigned to"|"approve or reject this task") OR ("Boneal.Net Bugs & Requests")))
-				Do this: Skip Inbox, Apply label "_BNET/Tasks"
+	Matches:		"___Logs_Enhancements___" OR (from:("boneal.net@boneal.com") AND (subject:("Task-System Updates") OR ("Your Boneal Net Task has"|"This task has been assigned to"|"approve or reject this task"|"Task Status Complete") OR ("Boneal.Net Bugs & Requests")))
+				Do this: Skip Inbox, Apply label "Logs/Logs-Enhancements", Never send it to Spam
 				
 	Matches:		"___AWS___" OR (from:("Amazon Web Services") AND to:("programmers@boneal.com"))
 			  Do this: Skip Inbox, Apply label "_AWS"
@@ -60,7 +63,7 @@
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 #
 #				Spam Acct
-											
+
 	Matches: 		"___Starred_Items___" OR (from:("*@noip.com") AND subject:("confirm your hostname") OR from:("notifications@p.pinger.com")
 				Do this: Star it
 
@@ -74,11 +77,8 @@
 #
 #				Notes
 
-
-COMBINE BIG FILTER SEARCHES ALL-TOGETHER IN THE "Has the words" FIELD
-
-
-### Useful search operators you can access from the basic dialog include:
+# !!! COMBINE BIG FILTER SEARCHES ALL-TOGETHER IN THE "Has the words" FIELD
+#       --> Useful search operators you can access from the basic dialog include:
 
 Has the words {
 
@@ -100,27 +100,32 @@ Has the words {
 
 }
 
+#  Constructing Searches
+#   --> To put together more complicated searches, you’ll need to know the basics.
+
+( ) # Brackets allow you to group search terms. For example, searching for subject:(how geek) would only return messages with the words “how” and “geek” in their subject field. If you search for subject:how geek, you’d get messages with “how” in their subject and “geek” anywhere in the message.
+
+OR  # OR, which must be in capital letters, allows you to search for one term or another. For example, subject:(how OR geek) would return messages with the word “how” or the word “geek” in their titles. You can also combine other terms with the OR. For example, from:howtogeek.com OR has:attachment would search for messages that are either from howtogeek.com or have attachments.
+
+" " # Quotes allow you to search for an exact phrase, just like in Google. Searching for "exact phrase" only returns messages that contain the exact phrase. You can combine this with other operators. For example, subject:”exact phrase” only returns messages that have “exact phrase” in their subject field.
+
+ -  # The hyphen, or minus sign, allows to search for messages that don’t contain a specific term. For example, search for -from:howtogeek.com and you’ll only see messages that aren’t from howtogeek.com.
 
 
 
-### Constructing Searches
-To put together more complicated searches, you’ll need to know the basics.
+#  Hidden Search Tricks
+#   --> You can access many search operators from the search options dialog, but some are hidden. Here’s a list of the hidden ones:
 
-( ) - Brackets allow you to group search terms. For example, searching for subject:(how geek) would only return messages with the words “how” and “geek” in their subject field. If you search for subject:how geek, you’d get messages with “how” in their subject and “geek” anywhere in the message.
-OR  - OR, which must be in capital letters, allows you to search for one term or another. For example, subject:(how OR geek) would return messages with the word “how” or the word “geek” in their titles. You can also combine other terms with the OR. For example, from:howtogeek.com OR has:attachment would search for messages that are either from howtogeek.com or have attachments.
-" " - Quotes allow you to search for an exact phrase, just like in Google. Searching for "exact phrase" only returns messages that contain the exact phrase. You can combine this with other operators. For example, subject:”exact phrase” only returns messages that have “exact phrase” in their subject field.
- -  - The hyphen, or minus sign, allows to search for messages that don’t contain a specific term. For example, search for -from:howtogeek.com and you’ll only see messages that aren’t from howtogeek.com.
+list: # The list: operator allows you to search for messages on a mailing list. For example, list:authors@example.com would return all messages on the authors@example.com mailing list.
 
+filename: # The filename: operator lets you search for a specific file attachment. For example, file:example.pdf would return emails with a file named example.pdf attached.
 
-### Hidden Search Tricks
-You can access many search operators from the search options dialog, but some are hidden. Here’s a list of the hidden ones:
+is:important, label:important # If you use Gmail’s priority inbox, you can use the is:important or label:important operators to search only important or unimportant emails.
 
-list: – The list: operator allows you to search for messages on a mailing list. For example, list:authors@example.com would return all messages on the authors@example.com mailing list.
-filename: – The filename: operator lets you search for a specific file attachment. For example, file:example.pdf would return emails with a file named example.pdf attached.
-is:important, label:important – If you use Gmail’s priority inbox, you can use the is:important or label:important operators to search only important or unimportant emails.
-has:yellow-star, has:red-star, has:green-check, etc. – If you use different types of stars (see the Stars section on Gmail’s general settings pane), you can search for messages with a specific type of star.
+has:yellow-star, has:red-star, has:green-check, etc. # If you use different types of stars (see the Stars section on Gmail’s general settings pane), you can search for messages with a specific type of star.
 
+cc:, bcc: # The cc: and bcc: features let you search for messages where a specific address was carbon copied or blind carbon copied. For example, cc:user@example.com returns messages where user@example.com was carbon copied. You can’t use the bcc: operator to search for messages where you were blind carbon copied, only messages where you bcc’d other people.
 
-cc:, bcc: – The cc: and bcc: features let you search for messages where a specific address was carbon copied or blind carbon copied. For example, cc:user@example.com returns messages where user@example.com was carbon copied. You can’t use the bcc: operator to search for messages where you were blind carbon copied, only messages where you bcc’d other people.
-deliveredto: – The deliveredto: operator looks for messages delivered to a specific address. For example, if you have multiple accounts in the same Gmail inbox, you can use this operator to find the messages sent to a specific address. Use deliveredto:email@example.com to find messages delivered to email@example.com.
+deliveredto: # The deliveredto: operator looks for messages delivered to a specific address. For example, if you have multiple accounts in the same Gmail inbox, you can use this operator to find the messages sent to a specific address. Use deliveredto:email@example.com to find messages delivered to email@example.com.
 
+#--------------------------------------------------------------------------------------------------------------------------------------------------------------------- #

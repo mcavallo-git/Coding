@@ -1,0 +1,16 @@
+<!-- MCavallo, CSS: vertical-align -->
+<!-- Note that the vertical-align css style must be applied to all SIBLING elements for the alignment to function as-intended -->
+
+<!-- Example: -->
+<div style="text-align:center;">
+	<div style="text-align:center;  display:inline-block; border:2px dotted blue; padding:25px 5px; ">
+		<hr />
+		<div style="text-align:center; display:inline-block; vertical-align:middle; border:2px dotted green; padding:25px;">✓&nbsp;</div>
+		<div style="text-align:center; display:inline-block; vertical-align:middle; border:2px dotted red; padding:25px;">this<br />div<br />should<br />be<br />vertically<br />aligned</div>
+		<div style="text-align:center; display:inline-block; vertical-align:middle; border:2px dotted green; padding:25px;">this<br />div<br />too<br />✓&nbsp;</div>
+		<hr />
+	</div>
+</div>
+
+<!-- "vertical-align is intended to set the alignment of sibling elements ("elements set next to each other on a line") - not from parent to child." -->
+<!--    ^-- Thanks to Stack Overflow user "DACrosby" on post: http://stackoverflow.com/questions/29442034/vertical-align-with-middle-of-capital-letters-instead-of-lowercase-letters -->

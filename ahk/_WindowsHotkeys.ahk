@@ -147,22 +147,81 @@ USER_DOCUMENTS=%USERPROFILE%/Documents
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  20181026-013709  ]
+GetTimezoneOffset() {
+	RET_VAL := ""
+	T1 := A_Now
+	T2 := A_NowUTC
+	EnvSub, T1, %T2%, M
+	MINUTES_DIFF := T1
+
+	; SetFormat, float, 2.0
+	TZ_SIGN := ""
+	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
+	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
+	; +/- Timezone ahead/behind UTC determination
+	if (TZ_QUOTIENT<0.0) {
+		TZ_SIGN := "-"
+		TZ_QUOTIENT *= -1
+	} else {
+		TZ_SIGN := "+"
+	}
+	; Hours - Left-Pad with Zeroes
+	if (Abs(TZ_QUOTIENT) < 10) {
+		TZ_QUOTIENT = 0%TZ_QUOTIENT%
+	}
+	; Minutes - Left-Pad with Zeroes
+	if (Abs(TZ_REMAINDER) < 10) {
+		TZ_REMAINDER = 0%TZ_REMAINDER%
+	}
+
+	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
+	RET_VAL := StrReplace(RET_VAL, ".", "")
+
+	; TZ_REMAINDER := "GMT +" Floor(T1/60)
+	Return %RET_VAL%
+}
+
+; Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
+GetTimezoneOffset_P() {
+	RET_VAL := ""
+	TZ_OFFSET := GetTimezoneOffset()
+	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
+	Return %RET_VAL%
+}
+
+;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+;    ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
+;    HOTKEY:    Win + G
+;
+#G::
+	TZ_OFFSET := GetTimezoneOffset()
+  Send %TZ_OFFSET%
+	Return
+	Return
+;
+;    ACTION:  On-the-fly Timestamp w/ format: [  2018-10-26_01-37-09  ]
 ;    HOTKEY:    Shift + Win + D
+;        OR:     Ctrl + Win + D
+;    HOTKEY:      Alt + Win + D
 ;
 +#D::
+^#D::
+!#D::
 	SetKeyDelay, 0, -1
-  FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+  FormatTime,TIMESTAMP,,yyyy-MM-dd_HH-mm-ss
   Send %TIMESTAMP%
 	Return
 ;
-;    ACTION:    Type a timestamp (on-the-fly) w/ format: [  2018-10-26_01-37-09  ]
+;    ACTION:  On-the-fly Timestamp w/ format: [  20181026-013709-0500  ]
 ;    HOTKEY:    Win + D
 ;
 #D::
 	SetKeyDelay, 0, -1
-  FormatTime,TIMESTAMP,,yyyy-MM-dd_HH-mm-ss
-  Send %TIMESTAMP%
+  FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+	TZ_OFFSET_P := GetTimezoneOffset_P()
+	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
+  Send %RET_VAL%
 	Return
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

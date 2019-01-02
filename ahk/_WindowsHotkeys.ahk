@@ -191,15 +191,6 @@ GetTimezoneOffset_P() {
 
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-;    ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
-;    HOTKEY:    Win + G
-;
-#G::
-	TZ_OFFSET := GetTimezoneOffset()
-  Send %TZ_OFFSET%
-	Return
-	Return
-;
 ;    ACTION:  On-the-fly Timestamp w/ format: [  2018-10-26_01-37-09  ]
 ;    HOTKEY:    Shift + Win + D
 ;        OR:     Ctrl + Win + D
@@ -222,6 +213,15 @@ GetTimezoneOffset_P() {
 	TZ_OFFSET_P := GetTimezoneOffset_P()
 	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
   Send %RET_VAL%
+	Return
+;
+;    ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
+;    HOTKEY:    Win + G
+;
+#G::
+	TZ_OFFSET := GetTimezoneOffset()
+  Send %TZ_OFFSET%
+	Return
 	Return
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

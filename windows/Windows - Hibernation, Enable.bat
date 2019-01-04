@@ -1,1 +1,0 @@
-powercfg.exe /hibernate on

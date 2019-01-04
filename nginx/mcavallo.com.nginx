@@ -9,18 +9,30 @@ server {
 		return 302 https://www.github.com/mcavallo-git;
 	}
 }
-server {
-	listen 80;
-	server_name ~^(?!cashapp)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
-	location / {
-		return 302 https://www.paypal.me/cavalol;
-	}
-}
+#==--  cashapp.cavallo.cash
 server {
 	listen 80;
 	server_name ~^cashapp\.cavallo\.cash$;
 	location / {
 		return 302 https://cash.me/mcavallo;
+	}
+}
+#==--  venmo.cavallo.cash
+server {
+	listen 80;
+	server_name ~^venmo\.cavallo\.cash$;
+	location / {
+		return 302 https://venmo.com/Cavalol;
+	}
+}
+#==--  cavallo.cash
+#==--  pay.cavallo.cash
+#==--  paypal.cavallo.cash
+server {
+	listen 80;
+	server_name ~^(?!cashapp|venmo)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
+	location / {
+		return 302 https://www.paypal.me/cavalol;
 	}
 }
 #
@@ -39,18 +51,7 @@ server {
 		return 302 https://www.github.com/mcavallo-git;
 	}
 }
-#==--  cavallo.cash
-server {
-	listen 443 ssl http2;
-	listen [::]:443 ssl http2;
-	server_name ~^(?!cashapp)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
-	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
-	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
-	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
-	location / { # Paypal - Note: https://paypal.me/cavalol/25 will request $25
-		return 302 https://www.paypal.me/cavalol;
-	}
-}
+#==--  cashapp.cavallo.cash
 server {
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
@@ -58,8 +59,34 @@ server {
 	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
-	location / { # Cashapp
+	location / {
 		return 302 https://cash.me/mcavallo;
+	}
+}
+#==--  venmo.cavallo.cash
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name ~^venmo\.cavallo\.cash$;
+	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
+	location / {
+		return 302 https://venmo.com/Cavalol;
+	}
+}
+#==--  cavallo.cash
+#==--  pay.cavallo.cash
+#==--  paypal.cavallo.cash
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name ~^(?!cashapp|venmo)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
+	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
+	location / {
+		return 302 https://www.paypal.me/cavalol; # Note: https://paypal.me/cavalol/25 will request $25
 	}
 }
 #==--  cavallo.lol
@@ -131,11 +158,13 @@ server {
 # http://cashapp.cavallo.cash
 # http://pay.cavallo.cash
 # http://paypal.cavallo.cash
+# http://venmo.cavallo.cash
 # http://www.cavallo.cash
 # https://cavallo.cash
 # https://cashapp.cavallo.cash
 # https://pay.cavallo.cash
 # https://paypal.cavallo.cash
+# https://venmo.cavallo.cash
 # https://www.cavallo.cash
 #
 # http://cavallo.lol

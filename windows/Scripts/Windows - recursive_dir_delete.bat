@@ -1,11 +1,11 @@
 
 @ECHO  OFF
 	SET FolderToDelete=%programdata%\LabTech Client\Cache\
-	CALL:DeleteIfExists "%FolderToDelete%"
+	CALL:recursive_dir_delete "%FolderToDelete%"
 	TIMEOUT /T 10
 	EXIT
 
-	: DeleteIfExists
+	: recursive_dir_delete
 	ECHO.
 	ECHO  In Runtime:
 	ECHO  DeleteIfExists %1

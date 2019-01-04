@@ -7,15 +7,15 @@ REM /* MAKE A SCHEDULED TASK TO RUN THIS EVERY [X] MINUTES TO KEEP SERVICE ALIVE
 	set service2="ltsvcmon"
 	set tray="LTTray.exe"
 
-	Call:Stop_Tray_If_Services_Are_Stopped %tray% %service1% %service2%
+	Call:stop_tray_if_services_are_stopped %tray% %service1% %service2%
 	
-	Call:Start_Service_If_Stopped %service1%
+	Call:service_start_if_stopped %service1%
 
-	Call:Start_Service_If_Stopped %service2%
+	Call:service_start_if_stopped %service2%
 	
 	Exit
 
-: Start_Service_If_Stopped
+: service_start_if_stopped
 	sc query %1 | findstr "RUNNING" > nul
 	echo.
 	if not ERRORLEVEL 1 (
@@ -28,7 +28,7 @@ REM /* MAKE A SCHEDULED TASK TO RUN THIS EVERY [X] MINUTES TO KEEP SERVICE ALIVE
 	rem timeout 5
 	Exit /B
 	
-: Stop_Tray_If_Services_Are_Stopped
+: stop_tray_if_services_are_stopped
 	sc query %2 | findstr "RUNNING" > nul
 	if ERRORLEVEL 1 (
 		sc query %3 | findstr "RUNNING" > nul

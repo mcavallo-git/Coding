@@ -1,49 +1,13 @@
 # --------------------------------------------------------------------------------------------------------- #
-# vvv   HTTP   vvv
+#  vvv HTTP / HTTPS
 #
-#==--  cashapp.cavallo.cash
+#==--  cashapp.cavallo.cash:443
 server {
 	listen 80;
-	server_name ~^cashapp\.cavallo\.cash$;
-	location / {
-		return 302 https://cash.me/mcavallo;
-	}
-}
-#==--  venmo.cavallo.cash
-server {
-	listen 80;
-	server_name ~^venmo\.cavallo\.cash$;
-	location / {
-		return 302 https://venmo.com/Cavalol;
-	}
-}
-#==--  cavallo.cash
-#==--  pay.cavallo.cash
-#==--  paypal.cavallo.cash
-server {
-	listen 80;
-	server_name ~^(?!cashapp|venmo)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
-	location / {
-		return 302 https://www.paypal.me/cavalol;
-	}
-}
-#==--  mcavallo.com, cavallo.cash, cavallo.lol, cavallo.network, cavallo.tech
-server {
-	listen 80;
-	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?(mcavallo\.com)|(cavallo\.(lol|network|tech))$;
-	location / {
-		return 302 https://www.github.com/mcavallo-git;
-	}
-}
-#
-# --------------------------------------------------------------------------------------------------------- #
-#  vvv HTTPS
-#
-#==--  cashapp.cavallo.cash
-server {
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^cashapp\.cavallo\.cash$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
@@ -51,11 +15,13 @@ server {
 		return 302 https://cash.me/mcavallo;
 	}
 }
-#==--  venmo.cavallo.cash
+#==--  venmo.cavallo.cash:443
 server {
+	listen 80;
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^venmo\.cavallo\.cash$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
@@ -63,13 +29,15 @@ server {
 		return 302 https://venmo.com/Cavalol;
 	}
 }
-#==--  cavallo.cash
-#==--  pay.cavallo.cash
-#==--  paypal.cavallo.cash
+#==--  cavallo.cash:443
+#==--  pay.cavallo.cash:443
+#==--  paypal.cavallo.cash:443
 server {
+	listen 80;
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^(?!cashapp|venmo)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
@@ -77,11 +45,13 @@ server {
 		return 302 https://www.paypal.me/cavalol; # Note: https://paypal.me/cavalol/25 will request $25
 	}
 }
-#==--  cavallo.lol
+#==--  cavallo.lol:443
 server {
+	listen 80;
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.lol$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/cavallo.lol/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.lol/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.lol/chain.pem";
@@ -89,11 +59,13 @@ server {
 		return 302 https://www.github.com/mcavallo-git;
 	}
 }
-#==--  cavallo.network
+#==--  cavallo.network:443
 server {
+	listen 80;
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.network$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/cavallo.network/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.network/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.network/chain.pem";
@@ -101,11 +73,13 @@ server {
 		return 302 https://www.github.com/mcavallo-git;
 	}
 }
-#==--  cavallo.tech
+#==--  cavallo.tech:443
 server {
+	listen 80;
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.tech$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/cavallo.tech/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.tech/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.tech/chain.pem";
@@ -113,11 +87,13 @@ server {
 		return 302 https://www.github.com/mcavallo-git;
 	}
 }
-#==--  mcavallo.com
+#==--  mcavallo.com:443
 server {
+	listen 80;
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
 	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?mcavallo\.com$;
+	if ($scheme != "https") { return 301 https://$host$request_uri; } # Force HTTP request-upgrade to HTTPS(443)
 	ssl_certificate "/etc/letsencrypt/live/mcavallo.com/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/mcavallo.com/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/mcavallo.com/chain.pem";

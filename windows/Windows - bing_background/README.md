@@ -1,11 +1,7 @@
 
 
-### (1/5) - Create folder "C:\BingBackground"
+### (1/3) - Create folder "C:\ISO\BingBackground"
 
-### (2/5) - Download "BingBackground" from GitHub
+### (2/3) - Place all items from "BingBackground" into "C:\ISO\BingBackground" directory
 
-### (3/5) - Place all items from "BingBackground" into "C:\BingBackground" directory
-
-### (4/5) - Run "Task Scheduler" (type into start menu)
-
-### (5/5) - Import "C:\BingBackground\BingBackground.xml" as a new task & set your user as the owner
+### (3/3) - Place Shortcut to "C:\ISO\BingBackground\set_bing_background.bat" in your start menu's "Startup" directory

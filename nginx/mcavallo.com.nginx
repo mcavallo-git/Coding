@@ -3,10 +3,24 @@
 #
 #==--  mcavallo.com, cavallo.cash, cavallo.lol, cavallo.network, cavallo.tech
 server {
-  listen 80;
-  server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?(mcavallo\.com)|(cavallo\.(cash|lol|network|tech))$;
+	listen 80;
+	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?(mcavallo\.com)|(cavallo\.(cash|lol|network|tech))$;
 	location / {
 		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+server {
+	listen 80;
+	server_name ~^(?!cashapp)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
+	location / {
+		return 302 https://www.paypal.me/cavalol;
+	}
+}
+server {
+	listen 80;
+	server_name ~^cashapp\.cavallo\.cash$;
+	location / {
+		return 302 https://cash.me/mcavallo;
 	}
 }
 #
@@ -17,7 +31,6 @@ server {
 server {
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
-	# server_name ~^(www\.)?mcavallo\.com$;   # server_name ~^(www\.)?(mcavallo\.com)|(cavallo\.(cash|lol|network|tech));
 	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?mcavallo\.com$;
 	ssl_certificate "/etc/letsencrypt/live/mcavallo.com/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/mcavallo.com/privkey.pem";
@@ -30,12 +43,23 @@ server {
 server {
 	listen 443 ssl http2;
 	listen [::]:443 ssl http2;
-	server_name ~^(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
+	server_name ~^(?!cashapp)(?:(\w[\-\.]?)*[\w\-]\.)?cavallo\.cash$;
 	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
 	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
 	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
-	location / {
-		return 302 https://www.github.com/mcavallo-git;
+	location / { # Paypal - Note: https://paypal.me/cavalol/25 will request $25
+		return 302 https://www.paypal.me/cavalol;
+	}
+}
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name ~^cashapp\.cavallo\.cash$;
+	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
+	location / { # Cashapp
+		return 302 https://cash.me/mcavallo;
 	}
 }
 #==--  cavallo.lol
@@ -78,7 +102,14 @@ server {
 # --------------------------------------------------------------------------------------------------------- #
 #  vvv Certs
 #
-# certbot --nginx -d cavallo.cash -d www.cavallo.cash;
+# certbot --nginx \
+# -d cavallo.cash \
+# -d cashapp.cavallo.cash \
+# -d pay.cavallo.cash \
+# -d paypal.cavallo.cash \
+# -d venmo.cavallo.cash \
+# -d www.cavallo.cash \
+# ;
 #
 # certbot --nginx -d cavallo.lol -d www.cavallo.lol;
 #
@@ -91,18 +122,34 @@ server {
 # --------------------------------------------------------------------------------------------------------- #
 #  vvv Debug
 #
+# http://mcavallo.com
+# http://www.mcavallo.com
 # https://mcavallo.com
 # https://www.mcavallo.com
 #
+# http://cavallo.cash
+# http://cashapp.cavallo.cash
+# http://pay.cavallo.cash
+# http://paypal.cavallo.cash
+# http://www.cavallo.cash
 # https://cavallo.cash
+# https://cashapp.cavallo.cash
+# https://pay.cavallo.cash
+# https://paypal.cavallo.cash
 # https://www.cavallo.cash
 #
+# http://cavallo.lol
+# http://www.cavallo.lol
 # https://cavallo.lol
 # https://www.cavallo.lol
 #
+# http://cavallo.network
+# http://www.cavallo.network
 # https://cavallo.network
 # https://www.cavallo.network
 #
+# http://cavallo.tech
+# http://www.cavallo.tech
 # https://cavallo.tech
 # https://www.cavallo.tech
 #

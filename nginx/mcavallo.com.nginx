@@ -1,0 +1,98 @@
+# --------------------------------------------------------------------------------------------------------- #
+# vvv   HTTP   vvv
+#
+#==--  mcavallo.com, cavallo.cash, cavallo.lol, cavallo.network, cavallo.tech
+server {
+  listen 80;
+  server_name "~^((\w(\-|\.)?)+(\w\.)?)?(mcavallo\.com)|(cavallo\.(cash|lol|network|tech))";
+	location / {
+		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+#
+#  ^^^   HTTP    ^^^
+# --------------------------------------------------------------------------------------------------------- #
+#  vvv   HTTPS   vvv
+#
+#==--  mcavallo.com
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name "~^(www\.)?mcavallo\.com";   # server_name "~^(www\.)?(mcavallo\.com)|(cavallo\.(cash|lol|network|tech))";
+	ssl_certificate "/etc/letsencrypt/live/mcavallo.com/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/mcavallo.com/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/mcavallo.com/chain.pem";
+	location / {
+		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+#==--  cavallo.cash
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name "~^(www\.)?cavallo\.com";
+	ssl_certificate "/etc/letsencrypt/live/cavallo.cash/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.cash/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.cash/chain.pem";
+	location / {
+		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+#==--  cavallo.lol
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name "~^(www\.)?cavallo\.com";
+	ssl_certificate "/etc/letsencrypt/live/cavallo.lol/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.lol/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.lol/chain.pem";
+	location / {
+		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+#==--  cavallo.network
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name "~^(www\.)?cavallo\.com";
+	ssl_certificate "/etc/letsencrypt/live/cavallo.network/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.network/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.network/chain.pem";
+	location / {
+		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+#==--  cavallo.tech
+server {
+	listen 443 ssl http2;
+	listen [::]:443 ssl http2;
+	server_name "~^(www\.)?cavallo\.com";
+	ssl_certificate "/etc/letsencrypt/live/cavallo.tech/fullchain.pem";
+	ssl_certificate_key "/etc/letsencrypt/live/cavallo.tech/privkey.pem";
+	ssl_trusted_certificate "/etc/letsencrypt/live/cavallo.tech/chain.pem";
+	location / {
+		return 302 https://www.github.com/mcavallo-git;
+	}
+}
+#
+#  ^^^   HTTPS   ^^^
+# --------------------------------------------------------------------------------------------------------- #
+#
+# ### Create LetsEncrypt Certs
+# certbot --nginx -d cavallo.cash -d www.cavallo.cash
+# certbot --nginx -d cavallo.lol -d www.cavallo.lol
+# certbot --nginx -d cavallo.network -d www.cavallo.network
+# certbot --nginx -d cavallo.tech -d www.cavallo.tech
+# certbot --nginx -d mcavallo.com -d www.mcavallo.com
+#
+# --------------------------------------------------------------------------------------------------------- #
+# ### Test Sites
+#
+# https://www.mcavallo.com
+# https://www.cavallo.cash
+# https://www.cavallo.lol
+# https://www.cavallo.network
+# https://www.cavallo.tech
+#
+# --------------------------------------------------------------------------------------------------------- #
+#

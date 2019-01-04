@@ -10,9 +10,8 @@ server {
 	}
 }
 #
-#  ^^^   HTTP    ^^^
 # --------------------------------------------------------------------------------------------------------- #
-#  vvv   HTTPS   vvv
+#  vvv HTTPS
 #
 #==--  mcavallo.com
 server {
@@ -75,24 +74,35 @@ server {
 	}
 }
 #
-#  ^^^   HTTPS   ^^^
 # --------------------------------------------------------------------------------------------------------- #
+#  vvv Certs
 #
-# ### Create LetsEncrypt Certs
-# certbot --nginx -d cavallo.cash -d www.cavallo.cash
-# certbot --nginx -d cavallo.lol -d www.cavallo.lol
-# certbot --nginx -d cavallo.network -d www.cavallo.network
-# certbot --nginx -d cavallo.tech -d www.cavallo.tech
-# certbot --nginx -d mcavallo.com -d www.mcavallo.com
+# certbot --nginx -d cavallo.cash -d www.cavallo.cash;
+#
+# certbot --nginx -d cavallo.lol -d www.cavallo.lol;
+#
+# certbot --nginx -d cavallo.network -d www.cavallo.network;
+#
+# certbot --nginx -d cavallo.tech -d www.cavallo.tech;
+#
+# certbot --nginx -d mcavallo.com -d www.mcavallo.com;
 #
 # --------------------------------------------------------------------------------------------------------- #
-# ### Test Sites
+#  vvv Debug
 #
+# https://mcavallo.com
 # https://www.mcavallo.com
+#
+# https://cavallo.cash
 # https://www.cavallo.cash
+#
+# https://cavallo.lol
 # https://www.cavallo.lol
+#
+# https://cavallo.network
 # https://www.cavallo.network
+#
+# https://cavallo.tech
 # https://www.cavallo.tech
 #
 # --------------------------------------------------------------------------------------------------------- #
-#

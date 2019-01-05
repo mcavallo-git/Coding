@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "e2408b3e-44d1-4ec5-aa69-64c801797cdb",
+		"name": "Vendor APIs (GFL)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/login + /api/v1/listing",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "010e025e-ed92-48f6-ba75-dfa0bba1a7a1",
+						"exec": [
+							"",
+							"// Pre-request Script",
+							"// NOTE: Postman Sandbox API reference: \"Global functions (pm.*)\"",
+							"// NOTE: https://learning.getpostman.com/docs/postman/scripts/postman_sandbox_api_reference/",
+							"var token_url = \"https://production-gameflip.fingershock.com/login\";",
+							"pm.sendRequest({",
+							"\turl: token_url,",
+							"\tmethod: 'POST'",
+							"}, function (err, res_login) {",
+							"\t",
+							"\tlet login_json = res_login.json();",
+							"\t// pm.environment.set(\"access_token\", login_json.data.access_token);",
+							"",
+							"\t//==-- Test 1",
+							"\tpm.test(\"Pre-request Script - pm.expect(res_login).to.have.property('code', 200);\", function () {",
+							"\t\t// res_login.to.have.status(200);",
+							"\t\tpm.expect(res_login).to.have.property('code', 200);",
+							"\t});",
+							"\t//==-- Test 2",
+							"\tpm.test(\"Pre-request Script - res_login.to.be.json\", function () {",
+							"\t\tpm.expect(res_login).to.be.json;",
+							"\t});",
+							"\t//==-- Test 3",
+							"\tpm.test(\"Pre-request Script - res_login.to.not.have.jsonBody('error');\", function () {",
+							"\t\tpm.expect(res_login).to.not.have.jsonBody('error');",
+							"\t});",
+							"\t//==-- Test 4",
+							"\tpm.test('Pre-request Script - check JSON response again against schema_pm_response', function() {",
+							"\t\tvar schema_pm_response = {",
+							"\t\t\t\"required\": [\"status\",\"data\"],",
+							"\t\t\t\"properties\": {",
+							"\t\t\t\t\"status\": {",
+							"\t\t\t\t\t\"type\": \"string\",",
+							"\t\t\t\t\t\"minimum\": 2,",
+							"\t\t\t\t\t\"maximum\": 1000",
+							"\t\t\t\t},",
+							"\t\t\t\t\"data\": {",
+							"\t\t\t\t\t\"type\": \"object\"",
+							"\t\t\t\t}",
+							"\t\t\t}",
+							"\t\t};",
+							"\t\tpm.expect(tv4.validate(login_json, schema_pm_response)).to.be.true;",
+							"\t});",
+							"\t//==-- Test 5",
+							"\tpm.test('Pre-request Script - check JSON response against schema_pm_data', function() {",
+							"\t\tvar json_data = login_json.data;",
+							"\t\tvar schema_pm_data = {",
+							"\t\t\t\"required\": [\"access_token\",\"me\"],",
+							"\t\t\t\"properties\": {",
+							"\t\t\t\t\"access_token\": {",
+							"\t\t\t\t\t\"type\": \"string\",",
+							"\t\t\t\t\t\"minimum\": 10,",
+							"\t\t\t\t\t\"maximum\": 1000",
+							"\t\t\t\t},",
+							"\t\t\t\t\"me\": {",
+							"\t\t\t\t\t\"type\": \"string\",",
+							"\t\t\t\t\t\"minLength\": 10,",
+							"\t\t\t\t\t\"maxLength\": 1000",
+							"\t\t\t\t}",
+							"\t\t\t}",
+							"\t\t};",
+							"\t\tpm.expect(tv4.validate(login_json.data, schema_pm_data)).to.be.true;",
+							"\t});",
+							"\t//==-- Place token in environment var for later-use",
+							"\tlet response = login_json;",
+							"\tif (response.hasOwnProperty('data')) {",
+							"\t\tif (response.data.hasOwnProperty('access_token')) {",
+							"\t\t\t\tpostman.setEnvironmentVariable('gfl_access_token', response.data.access_token);",
+							"\t\t\t\tconsole.log(\"Set environment Variable \\\"gfl_access_token\\\" to value \\\"{{gfl_access_token}}\\\"\");",
+							"\t\t}",
+							"\t\tif (response.data.hasOwnProperty('me')) {",
+							"\t\t\t\tpostman.setEnvironmentVariable('gfl_me', response.data.me);",
+							"\t\t\t\tconsole.log(\"Set environment Variable \\\"gfl_me\\\" to value \\\"{{gfl_me}}\\\"\");",
+							"\t\t}",
+							"\t}",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Gameflip {{gfl_access_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://production-gameflip.fingershock.com/api/v1/listing?limit=50&category=GIFTCARD&platform=xbox_live_gold&status=onsale&digital_deliverable=code&shipping_within_days=0,0&sort=onsale:desc&price=400,3500&accept_currency=USD",
+					"protocol": "https",
+					"host": [
+						"production-gameflip",
+						"fingershock",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"listing"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "50"
+						},
+						{
+							"key": "category",
+							"value": "GIFTCARD"
+						},
+						{
+							"key": "platform",
+							"value": "xbox_live_gold"
+						},
+						{
+							"key": "status",
+							"value": "onsale"
+						},
+						{
+							"key": "digital_deliverable",
+							"value": "code"
+						},
+						{
+							"key": "shipping_within_days",
+							"value": "0,0"
+						},
+						{
+							"key": "sort",
+							"value": "onsale:desc"
+						},
+						{
+							"key": "price",
+							"value": "400,3500"
+						},
+						{
+							"key": "accept_currency",
+							"value": "USD"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

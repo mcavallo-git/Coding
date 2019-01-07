@@ -1,4 +1,4 @@
-﻿;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+﻿;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ;            >>>   _WindowsHotkeys.ahk, by Cavalol   <<<
 ;         AutoHotkey DL: https://autohotkey.com/download/
@@ -22,7 +22,7 @@
 ;  Run/RunWait  :::  https://autohotkey.com/docs/commands/Run.htm
 ;  SysGet  :::  https://autohotkey.com/docs/commands/SysGet.htm
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Global Settings
 ;
@@ -32,17 +32,14 @@
 ;
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 USER_DESKTOP=%USERPROFILE%\Desktop
 USER_DOCUMENTS=%USERPROFILE%/Documents
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Refresh This Script
-;                 --> Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
-;
-;    HOTKEY:    Win + Esc
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   HOTKEY:  Win + Esc
+;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 #Escape::
 	Reload
@@ -51,23 +48,8 @@ USER_DOCUMENTS=%USERPROFILE%/Documents
 	IfMsgBox, Yes, Edit
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-; Debugging Hotkey (Call a function with this)
-; +`::
-	; CoordMode,Mouse,Screen
-	; SetDefaultMouseSpeed, 0
-	; Loop 200 {
-		; x_loc = 830
-		; y_loc = 637
-		; MouseClick, Left, %x_loc%, %y_loc%
-		; Sleep 10
-	; }
-	; Return
-;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   HOTKEY:  Win + Z
 ;		ACTION:  Show active window's location & dimension specs in a popup message-box
 ;
 #Z::
@@ -97,55 +79,23 @@ USER_DOCUMENTS=%USERPROFILE%/Documents
 	; MsgBox, 0, Active Window Specs, Title:`n`n`n ==> WinMove,,,%X%,%Y%,%Width%,%Height%
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   HOTKEY:  Win + V
+;		ACTION:  Open Program (see below)
 ;
 #V::
-	; Set Path to VSCode Executable
-	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
-	; Set Path to VSCode Workspace
-	VSCode_Workspace=%A_MyDocuments%\GitHub
-	; Runtime Variables
-	SplitPath, VSCode_Workspace, Workspace_Basename
-	WinTitle=%Workspace_Basename% - Visual Studio Code
-	SetTitleMatchMode, 2
-	IfWinNotExist,"%Workspace_Basename% - %WinTitle%"
-	{
-		RunWait,%VSCode_Executable% %VSCode_Workspace%,,Hide
-	}
-	; SysGet, MonitorCount, MonitorCount, N
-	if (A_OSVersion = "WIN_7") {
-		WinMove,%WinTitle%,,-8,-8,1936,1056
-		;		Win7, Monitor 1
-		;		Win7
-		; 		Left-half  -->  WinMove,%WinTitle%,,-8,-8,1936,1056       ; w/ taskbar
-		; 		Right-half -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
-	} Else {
-		WinMove,%WinTitle%,,0,0,1920,1040
-		;		Win10, Monitor 1
-		; 		Maximized  -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
-		; 		Left-half  -->  WinMove,%WinTitle%,,-7,0,974,1047     ; w/ taskbar
-		; 		Right-half -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
-		;		Win10, Monitor 2
-		; 		Left-half  -->  WinMove,%WinTitle%,,1913,0,974,1047   ; w/ taskbar
-		; 		Right-half -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
-	}
-	WinActivate,%WinTitle%
-	ActiveWindow_Maximize()
-	; WinGet, WinPID, PID, %WinTitle%
-	; WinGet, ProcessName, ProcessName, %WinTitle%
-	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
-	; MsgBox, 0, Active Window Specs,
-	; 	(LTrim
-	; 		➣ A_Temp:   %A_Temp%
-	; 		➣ A_OSVersion:   %A_OSVersion%
-	; 		➣ WinTitle:   %WinTitle%
-	; 		➣ ProcessName:   %ProcessName%
-	; 		➣ ProcessPath:   %ProcessPath%
-	; 		➣ WinPID:   %WinPID%
-	; 	)
+	OpenVSCode()
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   HOTKEY:  Win + Alt + V
+;		ACTION:  Open Program (see below)
+;
+#!V::
+	OpenVisualStudio()
+	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 GetTimezoneOffset() {
 	RET_VAL := ""
@@ -188,13 +138,13 @@ GetTimezoneOffset_P() {
 	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
 	Return %RET_VAL%
 }
-
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-;    ACTION:  On-the-fly Timestamp w/ format: [  2018-10-26_01-37-09  ]
-;    HOTKEY:    Shift + Win + D
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+;  ACTION:  On-the-fly Timestamp w/ format: [  2018-10-26_01-37-09  ]
+;  HOTKEY:  Shift + Win + D
 ;        OR:     Ctrl + Win + D
-;    HOTKEY:      Alt + Win + D
+;  HOTKEY:    Alt + Win + D
 ;
 +#D::
 ^#D::
@@ -204,8 +154,8 @@ GetTimezoneOffset_P() {
   Send %TIMESTAMP%
 	Return
 ;
-;    ACTION:  On-the-fly Timestamp w/ format: [  20181026-013709-0500  ]
-;    HOTKEY:    Win + D
+;  ACTION:  On-the-fly Timestamp w/ format: [  20181026-013709-0500  ]
+;  HOTKEY:  Win + D
 ;
 #D::
 	SetKeyDelay, 0, -1
@@ -215,8 +165,8 @@ GetTimezoneOffset_P() {
   Send %RET_VAL%
 	Return
 ;
-;    ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
-;    HOTKEY:    Win + G
+;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
+;  HOTKEY:  Win + G
 ;
 #G::
 	TZ_OFFSET := GetTimezoneOffset()
@@ -224,13 +174,13 @@ GetTimezoneOffset_P() {
 	Return
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #SC03B::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
 	Run, Edit "%A_ScriptFullPath%"
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #SC03C::   ; #F2 / Win+F2 -- Show all (current) Window Titles
 	WinGet, Window, List
@@ -243,7 +193,7 @@ GetTimezoneOffset_P() {
 	MsgBox %tList%
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 !SC03D::   ; Alt+F3
 	; Win10 Download & Delete Recordings via XBox Win10 App
@@ -270,17 +220,15 @@ GetTimezoneOffset_P() {
 	}
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Fn Key (X1 Carbon)
+;  ACTION:  Set Fn to perform CTRL action, instead
 ;
-;    ACTION:    Set Fn to perform CTRL action, instead
-;    HOTKEY:    Fn Key (X1 Carbon)
 ;SC163::   ;"Fn" Key
-	
-	;Return
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
-;    HOTKEY:    Windows-Key + [
+;Return
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + [
+;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;
 #[::
 	CoordMode,Mouse,Screen
@@ -307,10 +255,9 @@ GetTimezoneOffset_P() {
 	Sleep 250
 	Send {Escape}
 	Return
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Extend" monitors
-;    HOTKEY:    Windows-Key + ]
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + ]
+;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Extend" monitors
 ;
 #]::
 	CoordMode,Mouse,Screen
@@ -337,10 +284,9 @@ GetTimezoneOffset_P() {
 	Send {Escape}
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Output cursor location
-;    HOTKEY:    Windows-Key + Right-Click
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + Right-Click
+;  ACTION:  Output cursor location
 ;
 #RButton::
 			CoordMode,Mouse,Screen
@@ -353,122 +299,109 @@ GetTimezoneOffset_P() {
 	)
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Opens "View Network Connections" (in the Control Panel)
-;    HOTKEY:    Windows-Key + N
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + N
+;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ;
 #N::
 	Run "c:\windows\system32\ncpa.cpl"
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Opens "Programs & Features" in the Control Panel
-;    HOTKEY:    Windows-Key + O
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + O
+;  ACTION:  Opens "Programs & Features" in the Control Panel
 ;
 #O::
 	Run "c:\windows\system32\appwiz.cpl"
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Keyboard-Command for a Mouse-Left-Click
-;    HOTKEY:    Windows-Key + ` (Tilde)
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + ` (Tilde)
+;  ACTION:  Keyboard-Command for a Mouse-Left-Click
 ;
 #`::
 	MouseClick, Left
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Keyboard-Command for a Mouse-Right-Click
-;    HOTKEY:    Alt + ` (Tilde)
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Alt + ` (Tilde)
+;  ACTION:  Keyboard-Command for a Mouse-Right-Click
 ;
 !`::
 	MouseClick, Right
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Disable the "Caps Lock" Key from normal-use
-;    HOTKEY:    Caps Lock
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Caps Lock
+;  ACTION:  Disable the "Caps Lock" Key from normal-use
 ;
 CapsLock::
 	SetCapsLockState, Off
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Scroll up 10 wheel clicks
-;    HOTKEY:    Caps Lock + w
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Caps Lock + w
+;  ACTION:  Scroll up 10 wheel clicks
 ;
 CapsLock & w::
 	MouseClick,WheelUp,,,10,0,D,R
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Scroll down 10 wheel clicks
-;    HOTKEY:    Caps Lock + s
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Caps Lock + s
+;  ACTION:  Scroll down 10 wheel clicks
 ;
 CapsLock & s::
 	MouseClick,WheelDown,,,10,0,D,R
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Scroll down 15 wheel clicks
-;    HOTKEY:    Alt + Mouse-Wheel-Down
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Alt + Mouse-Wheel-Down
+;  ACTION:  Scroll down 15 wheel clicks
 ;
 !WheelDown::
 	MouseClick,WheelDown,,,15,0,D,R
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Scroll up 15 wheel clicks
-;    HOTKEY:    Alt + Mouse-Wheel-Up
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Alt + Mouse-Wheel-Up
+;  ACTION:  Scroll up 15 wheel clicks
 ;
 !WheelUp::
 	MouseClick,WheelUp,,,15,0,D,R
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Scroll to Bottom (Ctrl+End)
-;    HOTKEY:    Mouse-Wheel-Click-Hold + Mouse-Wheel-Down
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Mouse-Wheel-Click-Hold + Mouse-Wheel-Down
+;  ACTION:  Scroll to Bottom (Ctrl+End)
 ;
 ; MButton & WheelDown::
 	; MouseClick,WheelDown,,,50,0,D,R ; Previously "Super Scroll Down"
 	; Send ^{End}
 	; Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Scroll to Top (Ctrl+Home)
-;    HOTKEY:    Mouse-Wheel-Click-Hold + Mouse-Wheel-Down
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Mouse-Wheel-Click-Hold + Mouse-Wheel-Down
+;  ACTION:  Scroll to Top (Ctrl+Home)
 ;
 ; MButton & WheelUp::
 	; MouseClick,WheelUp,,,50,0,D,R
 	; Send ^{Home}
 	; Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Restores Mouse-Middle-Click to normal operation
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Mouse-Middle-Click
+;  ACTION:  Restores Mouse-Middle-Click to normal operation
 ;               AutoHotkey otherwise tries to lump the click with related actions,
 ;                  then drops the click (forgets it) it if none are found.
-;    HOTKEY:    Mouse-Middle-Click
 ;
 ; MButton::
 	; MouseClick,Middle
 	; Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Change Tabs Left or Right
-;    HOTKEY:    "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
+;  ACTION:  Change Tabs Left or Right
 ;
 WheelLeft::
 	Send ^{PgUp}
@@ -477,20 +410,18 @@ WheelRight::
 	Send ^{PgDn}
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Chrome - Open a New Instance of Google Chrome
-;    HOTKEY:    Windows-Key + C
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + C
+;  ACTION:  Chrome - Open a New Instance of Google Chrome
 ;
 #C::
-	url_to_open = www.google.com
-	Run % "chrome.exe" ( winExist("ahk_class Chrome_WidgetWin_1") ? " --new-window " : " " ) url_to_open
+	OpenVisualStudio()
+	; OpenChrome()
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Effective File Search - Open a new Instance of EFS
-;    HOTKEY:    Windows-Key + F
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + F
+;  ACTION:  Effective File Search - Open a new Instance of EFS
 ;
 #F::
 	; Verify that Effective File Search exists
@@ -515,10 +446,9 @@ WheelRight::
 	}
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;    ACTION:    Maximize Current Window
-;    HOTKEY:    Left-Shift + Right-Shift
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Left-Shift + Right-Shift
+;  ACTION:  Maximize Current Window
 ;
 ; VKA0 & VKA1::     ;VKA1 = RShift
 ; VKA1 & VKA0::     ;VKA0 = LShift
@@ -530,51 +460,26 @@ RShift & LShift::
 LShift & RShift::
 	ActiveWindow_ToggleRestoreMaximize()
 	Return
-	
-;// FUNCTION:    Toggle Active Window:  "Maximized" / "Non-Maximized"
-ActiveWindow_ToggleRestoreMaximize() {
-	WinGet, WinState, MinMax, A
-	WinGet, WinStyle, Style, A
-	; WinGet, OutputVar, MinMax 
-	if (WinState>0) { ; Window is maximized - restore it
-		WinRestore A
-	} else if (WinState=0) { ; Window is neither maximized nor minimized - maximize it
-		WinMaximize A
-	} else if (WinState<0) { ; Window is minimized - restore it, I guess?
-		WinRestore A
-	}
-	Return
-}
 ;
-;// FUNCTION:    Only maximize active window if it isn't maximized already
-ActiveWindow_Maximize() {
-	WinGet, WinState, MinMax, WinTitle
-	if (WinState<=0) { ; Window is not maximized - maximize it
-		WinMaximize WinTitle
-	}
-	Return
-}
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  Win+J - [DevOps] - Startup Node.JS (Git-Bash) && Postman
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-; --- ***    DevOps    *** ---
-;
-#J::   ; Win+J -- Startup Node.JS (Git-Bash) && Postman
-
+#J::
+	; - -
 	SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
-
+	; - -
 	POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
 	GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
-	
+	; - -
 	SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
 	SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
 	SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
 	SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
-
+	; - -
 	WinTitle_NodeJS=Supplier Gateway (localhost)
 	WinTitle_Postman=Postman
+	; - -
 	if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
 		MsgBox, 
 		(LTrim
@@ -582,13 +487,11 @@ ActiveWindow_Maximize() {
 			%SG_REPO%
 		)
 	} else {
-
 		; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
 		Increment_Left := -7
 		Increment_Top := 0
 		Increment_Width := 14
 		Increment_Height := 7
-
 		; Prep Monitor Widths/Heights
 		SysGet, MonitorCount, MonitorCount , N
 		BoundsLeft = -1
@@ -609,10 +512,8 @@ ActiveWindow_Maximize() {
 				; Heights
 				BoundsTop := MonitorWorkAreaTop
 				BoundsBottom := MonitorWorkAreaBottom
-
 			} Else {
 				; MsgBox, Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)
-
 			}
 		}
 		; Widths
@@ -623,12 +524,11 @@ ActiveWindow_Maximize() {
 		BoundsHeightFull := (BoundsBottom - BoundsTop)
 		BoundsHeightHalf := Floor(BoundsHeightFull/2)
 		BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-		
 		SetTitleMatchMode, 1
-
+		; - -
 		WinTitle_Postman=Postman
 		WinTitle_NodeJS=Supplier Gateway (localhost)
-
+		; - -
 		; Start Postman
 		IfWinNotExist,%WinTitle_Postman%
 		{
@@ -637,17 +537,15 @@ ActiveWindow_Maximize() {
 			; POSTMAN_ARGS=--processStart Postman.exe
 			Run, %POSTMAN_EXE% %POSTMAN_ARGS%
 		}
-
+		; - -
 		Sleep 100
-
+		; - -
 		; Start Node.JS in Git-Bash
 		IfWinNotExist,%WinTitle_NodeJS%
 		{
-
 			GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
 			GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
 			GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
-
 			Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
@@ -667,13 +565,14 @@ ActiveWindow_Maximize() {
 	Return
 ;
 ;	----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  Win+T - [DevOps] - Get Windows Environment Variables (output to desktop)
 ;
-#T::   ; Win+T -- Get Windows Environment Variables (output to desktop)
-
+#T::
+	; - -
 	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
 	Logfile_EnvVars=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%.log.txt
 	Logfile_EnvVars_Timestamp=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%-%TIMESTAMP%.log.txt
-
+	; - -
 	KnownWinEnvVars=
 	(LTrim
 	==========================================================================
@@ -709,95 +608,6 @@ ActiveWindow_Maximize() {
 
 	--------------------------------------------------------------------------
 
-	*** Windows Environment Variables (Newer, Win10/Server2016) ***
-
-	ALLUSERSAPPDATA = [%ALLUSERSAPPDATA%]
-	CSIDL_ADMINTOOLS = [%CSIDL_ADMINTOOLS%]
-	CSIDL_ALTSTARTUP = [%CSIDL_ALTSTARTUP%]
-	CSIDL_APPDATA = [%CSIDL_APPDATA%]
-	CSIDL_BITBUCKET = [%CSIDL_BITBUCKET%]
-	CSIDL_CDBURN_AREA = [%CSIDL_CDBURN_AREA%]
-	CSIDL_COMMON_ADMINTOOLS = [%CSIDL_COMMON_ADMINTOOLS%]
-	CSIDL_COMMON_ALTSTARTUP = [%CSIDL_COMMON_ALTSTARTUP%]
-	CSIDL_COMMON_APPDATA = [%CSIDL_COMMON_APPDATA%]
-	CSIDL_COMMON_DESKTOPDIRECTORY = [%CSIDL_COMMON_DESKTOPDIRECTORY%]
-	CSIDL_COMMON_DOCUMENTS = [%CSIDL_COMMON_DOCUMENTS%]
-	CSIDL_COMMON_FAVORITES = [%CSIDL_COMMON_FAVORITES%]
-	CSIDL_COMMON_MUSIC = [%CSIDL_COMMON_MUSIC%]
-	CSIDL_COMMON_PICTURES = [%CSIDL_COMMON_PICTURES%]
-	CSIDL_COMMON_PROGRAMS = [%CSIDL_COMMON_PROGRAMS%]
-	CSIDL_COMMON_STARTMENU = [%CSIDL_COMMON_STARTMENU%]
-	CSIDL_COMMON_STARTUP = [%CSIDL_COMMON_STARTUP%]
-	CSIDL_COMMON_TEMPLATES = [%CSIDL_COMMON_TEMPLATES%]
-	CSIDL_COMMON_VIDEO = [%CSIDL_COMMON_VIDEO%]
-	CSIDL_CONNECTIONS = [%CSIDL_CONNECTIONS%]
-	CSIDL_CONTACTS = [%CSIDL_CONTACTS%]
-	CSIDL_CONTROLS = [%CSIDL_CONTROLS%]
-	CSIDL_COOKIES = [%CSIDL_COOKIES%]
-	CSIDL_DEFAULT_APPDATA = [%CSIDL_DEFAULT_APPDATA%]
-	CSIDL_DEFAULT_CONTACTS = [%CSIDL_DEFAULT_CONTACTS%]
-	CSIDL_DEFAULT_COOKIES = [%CSIDL_DEFAULT_COOKIES%]
-	CSIDL_DEFAULT_DESKTOP = [%CSIDL_DEFAULT_DESKTOP%]
-	CSIDL_DEFAULT_DOWNLOADS = [%CSIDL_DEFAULT_DOWNLOADS%]
-	CSIDL_DEFAULT_FAVORITES = [%CSIDL_DEFAULT_FAVORITES%]
-	CSIDL_DEFAULT_HISTORY = [%CSIDL_DEFAULT_HISTORY%]
-	CSIDL_DEFAULT_INTERNET_CACHE = [%CSIDL_DEFAULT_INTERNET_CACHE%]
-	CSIDL_DEFAULT_LOCAL_APPDATA = [%CSIDL_DEFAULT_LOCAL_APPDATA%]
-	CSIDL_DEFAULT_MYDOCUMENTS = [%CSIDL_DEFAULT_MYDOCUMENTS%]
-	CSIDL_DEFAULT_MYMUSIC = [%CSIDL_DEFAULT_MYMUSIC%]
-	CSIDL_DEFAULT_MYPICTURES = [%CSIDL_DEFAULT_MYPICTURES%]
-	CSIDL_DEFAULT_MYVIDEO = [%CSIDL_DEFAULT_MYVIDEO%]
-	CSIDL_DEFAULT_PERSONAL = [%CSIDL_DEFAULT_PERSONAL%]
-	CSIDL_DEFAULT_PROGRAMS = [%CSIDL_DEFAULT_PROGRAMS%]
-	CSIDL_DEFAULT_QUICKLAUNCH = [%CSIDL_DEFAULT_QUICKLAUNCH%]
-	CSIDL_DEFAULT_RECENT = [%CSIDL_DEFAULT_RECENT%]
-	CSIDL_DEFAULT_SENDTO = [%CSIDL_DEFAULT_SENDTO%]
-	CSIDL_DEFAULT_STARTMENU = [%CSIDL_DEFAULT_STARTMENU%]
-	CSIDL_DEFAULT_STARTUP = [%CSIDL_DEFAULT_STARTUP%]
-	CSIDL_DEFAULT_TEMPLATES = [%CSIDL_DEFAULT_TEMPLATES%]
-	CSIDL_DESKTOP = [%CSIDL_DESKTOP%]
-	CSIDL_DESKTOPDIRECTORY = [%CSIDL_DESKTOPDIRECTORY%]
-	CSIDL_DRIVES = [%CSIDL_DRIVES%]
-	CSIDL_FAVORITES = [%CSIDL_FAVORITES%]
-	CSIDL_FONTS = [%CSIDL_FONTS%]
-	CSIDL_HISTORY = [%CSIDL_HISTORY%]
-	CSIDL_INTERNET = [%CSIDL_INTERNET%]
-	CSIDL_INTERNET_CACHE = [%CSIDL_INTERNET_CACHE%]
-	CSIDL_LOCAL_APPDATA = [%CSIDL_LOCAL_APPDATA%]
-	CSIDL_MYDOCUMENTS = [%CSIDL_MYDOCUMENTS%]
-	CSIDL_MYMUSIC = [%CSIDL_MYMUSIC%]
-	CSIDL_MYPICTURES = [%CSIDL_MYPICTURES%]
-	CSIDL_MYVIDEO = [%CSIDL_MYVIDEO%]
-	CSIDL_NETHOOD = [%CSIDL_NETHOOD%]
-	CSIDL_NETWORK = [%CSIDL_NETWORK%]
-	CSIDL_PERSONAL = [%CSIDL_PERSONAL%]
-	CSIDL_PLAYLISTS = [%CSIDL_PLAYLISTS%]
-	CSIDL_PRINTERS = [%CSIDL_PRINTERS%]
-	CSIDL_PRINTHOOD = [%CSIDL_PRINTHOOD%]
-	CSIDL_PROFILE = [%CSIDL_PROFILE%]
-	CSIDL_PROGRAM_FILES = [%CSIDL_PROGRAM_FILES%]
-	CSIDL_PROGRAM_FILES_COMMON = [%CSIDL_PROGRAM_FILES_COMMON%]
-	CSIDL_PROGRAM_FILES_COMMONX86 = [%CSIDL_PROGRAM_FILES_COMMONX86%]
-	CSIDL_PROGRAM_FILESX86 = [%CSIDL_PROGRAM_FILESX86%]
-	CSIDL_PROGRAMS = [%CSIDL_PROGRAMS%]
-	CSIDL_RECENT = [%CSIDL_RECENT%]
-	CSIDL_RESOURCES = [%CSIDL_RESOURCES%]
-	CSIDL_SENDTO = [%CSIDL_SENDTO%]
-	CSIDL_STARTMENU = [%CSIDL_STARTMENU%]
-	CSIDL_STARTUP = [%CSIDL_STARTUP%]
-	CSIDL_SYSTEM = [%CSIDL_SYSTEM%]
-	CSIDL_TEMPLATES = [%CSIDL_TEMPLATES%]
-	CSIDL_WINDOWS = [%CSIDL_WINDOWS%]
-	DEFAULTUSERPROFILE = [%DEFAULTUSERPROFILE%]
-	PROFILESFOLDER = [%PROFILESFOLDER%]
-	SYSTEM = [%SYSTEM%]
-	SYSTEM16 = [%SYSTEM16%]
-	SYSTEM32 = [%SYSTEM32%]
-	SYSTEMPROFILE = [%SYSTEMPROFILE%]
-	USERSID = [%USERSID%]
-
-	--------------------------------------------------------------------------
-
 	*** Autohotkey Variables ***
 
 	A_AhkVersion: %A_AhkVersion%
@@ -819,19 +629,14 @@ ActiveWindow_Maximize() {
 
 	==========================================================================
 	)
-
-	; Removed: [%COMMONPROGRAMFILES(x86)%, %PROGRAMFILES(X86)%] <-- Autohotkey throws an error if you attempt to reference variable whose name includes one or more parenthesis
-	
+	; - -
 	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
-	
 	Run, Edit "%Logfile_EnvVars_Timestamp%"
-
 	Return
-
 ;
 ;	----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-#K::   ; Win+K -- Bring-to-Foreground:  Node.JS (Git-Bash) && Postman
+;  Win+K - [DevOps] - Bring-to-Foreground:  Node.JS (Git-Bash) && Postman
+#K::
 	;
 	WinTitle_NodeJS=Supplier Gateway (localhost)
 	WinTitle_Postman=Postman
@@ -851,7 +656,6 @@ ActiveWindow_Maximize() {
 		Increment_Width := 14
 		Increment_Height := 7
 	}
-
 	; Prep Monitor Widths/Heights
 	SysGet, MonitorCount, MonitorCount , N
 	BoundsLeft = -1
@@ -871,15 +675,12 @@ ActiveWindow_Maximize() {
 			; Heights
 			BoundsTop := MonitorWorkAreaTop
 			BoundsBottom := MonitorWorkAreaBottom
-
 		}
 	}
-
 	; Widths
 	BoundsWidthFull := (BoundsRight - BoundsLeft)
 	BoundsWidthHalf := Floor(BoundsWidthFull/2)
 	BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
-
 	; Heights
 	BoundsHeightFull := (BoundsBottom - BoundsTop)
 	BoundsHeightHalf := Floor(BoundsHeightFull/2)
@@ -948,9 +749,97 @@ ActiveWindow_Maximize() {
 	}
 	Return
 ;
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  @  OpenChrome - Opens the application "Visual Studio Code"
+OpenChrome() {
+	OPEN_TO_URL = www.google.com
+	Run % "chrome.exe" ( winExist("ahk_class Chrome_WidgetWin_1") ? " --new-window " : " " ) OPEN_TO_URL
+	return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  @  OpenVisualStudio - Opens the application "Visual Studio Code"
+OpenVisualStudio() {
+	TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
+	Run % TargetExe
+	return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  @  OpenVSCode - Opens the application "Visual Studio Code"
+OpenVSCode() {
+	; Set Path to VSCode Executable
+	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
+	; Set Path to VSCode Workspace
+	VSCode_Workspace=%A_MyDocuments%\GitHub
+	; Runtime Variables
+	SplitPath, VSCode_Workspace, Workspace_Basename
+	WinTitle=%Workspace_Basename% - Visual Studio Code
+	SetTitleMatchMode, 2
+	IfWinNotExist,"%Workspace_Basename% - %WinTitle%"
+	{
+		RunWait,%VSCode_Executable% %VSCode_Workspace%,,Hide
+	}
+	; SysGet, MonitorCount, MonitorCount, N
+	if (A_OSVersion = "WIN_7") {
+		WinMove,%WinTitle%,,-8,-8,1936,1056
+		;		Win7, Monitor 1
+		;		Win7
+		; 		Left-half  -->  WinMove,%WinTitle%,,-8,-8,1936,1056       ; w/ taskbar
+		; 		Right-half -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
+	} Else {
+		WinMove,%WinTitle%,,0,0,1920,1040
+		;		Win10, Monitor 1
+		; 		Maximized  -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
+		; 		Left-half  -->  WinMove,%WinTitle%,,-7,0,974,1047     ; w/ taskbar
+		; 		Right-half -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
+		;		Win10, Monitor 2
+		; 		Left-half  -->  WinMove,%WinTitle%,,1913,0,974,1047   ; w/ taskbar
+		; 		Right-half -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
+	}
+	WinActivate,%WinTitle%
+	ActiveWindow_Maximize()
+	; WinGet, WinPID, PID, %WinTitle%
+	; WinGet, ProcessName, ProcessName, %WinTitle%
+	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
+	; MsgBox, 0, Active Window Specs,
+	; 	(LTrim
+	; 		➣ A_Temp:   %A_Temp%
+	; 		➣ A_OSVersion:   %A_OSVersion%
+	; 		➣ WinTitle:   %WinTitle%
+	; 		➣ ProcessName:   %ProcessName%
+	; 		➣ ProcessPath:   %ProcessPath%
+	; 		➣ WinPID:   %WinPID%
+	; 	)
+	Return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   @ ActiveWindow_ToggleRestoreMaximize - Toggle Active Window:  "Maximized" / "Non-Maximized"
+ActiveWindow_ToggleRestoreMaximize() {
+	WinGet, WinState, MinMax, A
+	WinGet, WinStyle, Style, A
+	; WinGet, OutputVar, MinMax 
+	if (WinState>0) { ; Window is maximized - restore it
+		WinRestore A
+	} else if (WinState=0) { ; Window is neither maximized nor minimized - maximize it
+		WinMaximize A
+	} else if (WinState<0) { ; Window is minimized - restore it, I guess?
+		WinRestore A
+	}
+	Return
+}
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   @ ActiveWindow_Maximize - Only maximize active window if it isn't maximized already
+ActiveWindow_Maximize() {
+	WinGet, WinState, MinMax, WinTitle
+	if (WinState<=0) { ; Window is not maximized - maximize it
+		WinMaximize WinTitle
+	}
+	Return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 	
 	
@@ -994,18 +883,18 @@ ActiveWindow_Maximize() {
 
 
 
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   ----------------------------------------------------------------   Community-Created Scripts   -----------------------------------------------------------------
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   --------------------------------------------------------   Notes-to-Self  (Documentation / Training)   ---------------------------------------------------------
-;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ; *** TO GET KEY-CODES:
 ;
@@ -1091,9 +980,7 @@ ActiveWindow_Maximize() {
 ;
 
 ; Menu, tray, add  ; Creates a separator line.
-
 ; Menu, tray, add, "Lineage-2", MenuHandler  ; Creates a new menu item.
-
 ; return
 
 ; MenuHandler:

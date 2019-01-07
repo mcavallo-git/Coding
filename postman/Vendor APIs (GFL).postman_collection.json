@@ -17,7 +17,8 @@
 							"// Pre-request Script",
 							"// NOTE: Postman Sandbox API reference: \"Global functions (pm.*)\"",
 							"// NOTE: https://learning.getpostman.com/docs/postman/scripts/postman_sandbox_api_reference/",
-							"var token_url = \"https://production-gameflip.fingershock.com/login\";",
+							"var scheme_fqdn = pm.variables.get('scheme_fqdn');",
+							"var token_url = scheme_fqdn+\"/login\";",
 							"pm.sendRequest({",
 							"\turl: token_url,",
 							"\tmethod: 'POST'",
@@ -108,12 +109,9 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "https://production-gameflip.fingershock.com/api/v1/listing?limit=50&category=GIFTCARD&platform=xbox_live_gold&status=onsale&digital_deliverable=code&shipping_within_days=0,0&sort=onsale:desc&price=400,3500&accept_currency=USD",
-					"protocol": "https",
+					"raw": "{{scheme_fqdn}}/api/v1/listing?limit=50&category=GIFTCARD&platform=xbox_live_gold&status=onsale&digital_deliverable=code&shipping_within_days=0,0&sort=onsale:desc&price=400,3500&accept_currency=USD",
 					"host": [
-						"production-gameflip",
-						"fingershock",
-						"com"
+						"{{scheme_fqdn}}"
 					],
 					"path": [
 						"api",
@@ -161,6 +159,36 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c72fa6fb-8416-4897-80c9-b27bc9fef443",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "b65405d6-0b38-4ef8-836c-10df33ea32a5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "d6c91eb6-7618-48a4-93d1-cba3f6a3e9e0",
+			"key": "scheme_fqdn",
+			"value": "https://production-gameflip.fingershock.com",
+			"type": "string"
 		}
 	]
 }

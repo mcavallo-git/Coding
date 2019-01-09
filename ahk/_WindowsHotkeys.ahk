@@ -154,7 +154,7 @@ GetTimezoneOffset_P() {
   Send %TIMESTAMP%
 	Return
 ;
-;  ACTION:  On-the-fly Timestamp w/ format: [  20181026-013709-0500  ]
+;  ACTION:  type a TIMESTAMP
 ;  HOTKEY:  Win + D
 ;
 #D::
@@ -162,6 +162,25 @@ GetTimezoneOffset_P() {
   FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
 	TZ_OFFSET_P := GetTimezoneOffset_P()
 	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
+  Send %RET_VAL%
+	Return
+;
+;  ACTION:  type the COMPUTERNAME
+;  HOTKEY:  Win + H
+;
+#H::
+	SetKeyDelay, 0, -1
+	RET_VAL = %COMPUTERNAME%
+  Send %RET_VAL%
+	Return
+;
+;  ACTION:  type the DOMAIN-USERNAME
+;  HOTKEY:  Win + U
+;
+#U::
+	SetKeyDelay, 0, -1
+	; RET_VAL = %USERNAME%
+	RET_VAL = %USERDOMAIN%-%USERNAME%
   Send %RET_VAL%
 	Return
 ;

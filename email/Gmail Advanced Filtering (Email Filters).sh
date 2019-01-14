@@ -88,8 +88,8 @@
 	Matches:		"___Forward_to_Main___" OR from:("*@homedepot.com")
 			  Do this: Skip Inbox, Mark as read, Forward to [main account]
 			
-	Matches:		"___Spam_Blocker___" OR ("unsubscribe" -{"receipt"|"inactive numbers can expire"}) OR (from:("bing@e.microsoft.com"|"*@dropboxmail.com"|"*@pandora.com"|"*@spotify.com"|"*@e.express.com"|"xboxliverewards@e.helloworldmail.com") OR subject:("Your iCloud storage is almost full.") OR "Updates to our Terms of Service and Privacy Policy")
-			  Do this: Skip Inbox, Mark as read, Apply label "Filters/Spam_Blocker"
+	Matches:		"___Spam_Blocker___" OR ("unsubscribe" -{"receipt"|"inactive numbers can expire"}) OR (from:("*@*instagram.com"|"bing@e.microsoft.com"|"*@dropboxmail.com"|"*@pandora.com"|"*@spotify.com"|"*@e.express.com"|"xboxliverewards@e.helloworldmail.com") OR subject:("Your iCloud storage is almost full.") OR "Updates to our Terms of Service and Privacy Policy")
+			  Do this: Skip Inbox, Apply label "Filters/Spam_Blocker"
 
 #--------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 #

@@ -1,0 +1,65 @@
+SYSTEM INFO FOR PC [1JAN19SOFT10] RAN [2019-01-14 11:43:12] BY [BONEAL\mcavallo] 
+ 
+ 
+             -- OPERATING SYSTEM -- 
+Caption                   OSArchitecture  Version     
+Microsoft Windows 10 Pro  64-bit          10.0.17763  
+ 
+ 
+             -- PC NAME / MODEL -- 
+Manufacturer             Model      Name          SystemType    
+Intel(R) Client Systems  NUC8i7BEH  1JAN19SOFT10  x64-based PC  
+ 
+ 
+             -- USERNAME / DOMAIN -- 
+Domain     PartOfDomain  PrimaryOwnerName  UserName         
+BONEAL.US  TRUE          computer          BONEAL\mcavallo  
+ 
+ 
+             -- MOTHERBOARD INFO -- 
+Manufacturer       Product  SerialNumber  
+Intel Corporation  NUC8BEB  GEBE84200DZ1  
+ 
+ 
+             -- MOBO RAM LIMITS / SLOTS -- 
+MaxCapacity  MemoryDevices  
+33554432     2              
+ 
+             -- RAM MODULES (CAPACITY IN BYTES) -- 
+BankLabel         Capacity     DeviceLocator  Speed  Tag                
+Memory Channel A  17179869184  SODIMM1        2400   Physical Memory 0  
+ 
+ 
+             -- PROCESSOR CORE INFO -- 
+Name                                      NumberOfCores  NumberOfLogicalProcessors  
+Intel(R) Core(TM) i7-8559U CPU @ 2.70GHz  4              8                          
+ 
+             -- PROCESSOR CACHE, CLOCK INFO -- 
+CurrentClockSpeed  L2CacheSize  L3CacheSize  MaxClockSpeed  Name                                      
+2712               1024         8192         2712           Intel(R) Core(TM) i7-8559U CPU @ 2.70GHz  
+ 
+ 
+             -- STORAGE DEVICES (SIZE IN BYTES) -- 
+Caption                    Index  Size          
+Samsung SSD 970 EVO 500GB  0      500105249280  
+ 
+ 
+             -- GRAPHICS INFO -- 
+AdapterRAM  Description                         DriverVersion   Name                                
+            DisplayLink USB Device              8.3.2008.0      DisplayLink USB Device              
+            DisplayLink USB Device              8.3.2008.0      DisplayLink USB Device              
+1073741824  Intel(R) Iris(R) Plus Graphics 655  24.20.100.6286  Intel(R) Iris(R) Plus Graphics 655  
+            DisplayLink USB Device              8.3.2008.0      DisplayLink USB Device              
+            DisplayLink USB Device              8.3.2008.0      DisplayLink USB Device              
+ 
+ 
+             -- NIC INFO -- 
+DefaultIPGateway  Description                               DHCPServer  Index  IPAddress                                     MACAddress         
+                  TeamViewer VPN Adapter                                1                                                    00:FF:A1:FA:54:4E  
+                  Intel(R) Wireless-AC 9560                             2                                                    38:BA:F8:2B:36:0D  
+{"10.1.10.1"}     Intel(R) Ethernet Connection (6) I219-V   10.1.10.1   3      {"10.1.10.183", "fe80::d8c5:f895:fc68:5e44"}  94:C6:91:A6:2F:61  
+                  Bluetooth Device (Personal Area Network)              5                                                    38:BA:F8:2B:36:11  
+                  WAN Miniport (IP)                                     11                                                   1A:30:20:52:41:53  
+                  WAN Miniport (IPv6)                                   12                                                   1C:92:20:52:41:53  
+                  WAN Miniport (Network Monitor)                        13                                                   1E:F7:20:52:41:53  
+                  DisplayLink Network Adapter NCM                       15                                                   9C:EB:E8:30:2D:97  

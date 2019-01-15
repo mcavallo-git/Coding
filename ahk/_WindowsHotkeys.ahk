@@ -38,6 +38,12 @@ USER_DESKTOP=%USERPROFILE%\Desktop
 USER_DOCUMENTS=%USERPROFILE%/Documents
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+; Setup a group for targeting [Windows Explorer] windows
+GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
+GroupAdd, Explorer, ahk_class CabinetWClass
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
@@ -141,27 +147,34 @@ GetTimezoneOffset_P() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-;  ACTION:  On-the-fly Timestamp w/ format: [  2018-10-26_01-37-09  ]
-;  HOTKEY:  Shift + Win + D
-;        OR:     Ctrl + Win + D
-;  HOTKEY:    Alt + Win + D
-;
+; Timestamp		:::		Shift + Win + D
+; Timestamp		:::		Ctrl + Win + D
 +#D::
 ^#D::
+	SetKeyDelay, 0, -1
+  FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+	TZ_OFFSET_P := GetTimezoneOffset_P()
+	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
+  Send %RET_VAL%
+	Return
+;
+; Timestamp		:::		Alt + Win + D
 !#D::
 	SetKeyDelay, 0, -1
   FormatTime,TIMESTAMP,,yyyy-MM-dd_HH-mm-ss
   Send %TIMESTAMP%
 	Return
 ;
-;  ACTION:  type a TIMESTAMP
-;  HOTKEY:  Win + D
-;
+; Timestamp		:::		Win + D
 #D::
 	SetKeyDelay, 0, -1
-  FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
-	TZ_OFFSET_P := GetTimezoneOffset_P()
-	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
+	if WinActive("ahk_group Explorer") { ; If using Explorer
+		time_format = yyyy-MM-dd_HH-mm-ss
+	} else {
+		time_format = yyyy-MM-dd HH:mm:ss
+	}
+  FormatTime,TIMESTAMP,,%time_format%
+	RET_VAL = %TIMESTAMP%
   Send %RET_VAL%
 	Return
 ;

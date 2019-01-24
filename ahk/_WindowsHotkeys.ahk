@@ -808,7 +808,7 @@ OpenVSCode() {
 	SplitPath, VSCode_Workspace, Workspace_Basename
 	WinTitle=%Workspace_Basename% - Visual Studio Code
 	SetTitleMatchMode, 2
-	IfWinNotExist,"%Workspace_Basename% - %WinTitle%"
+	IfWinNotExist,%WinTitle%
 	{
 		RunWait,%VSCode_Executable% %VSCode_Workspace%,,Hide
 	}

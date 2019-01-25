@@ -801,36 +801,30 @@ OpenVisualStudio() {
 ;  @  OpenVSCode - Opens the application "Visual Studio Code"
 OpenVSCode() {
 	; Set Path to VSCode Executable
-	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
+	VSCode_Dir=C:\Program Files\Microsoft VS Code
+	VSCode_Exe=%VSCode_Dir%\Code.exe
 	; Set Path to VSCode Workspace
-	VSCode_Workspace=%A_MyDocuments%\GitHub
+	Repos_Dirname=GitHub
+	GitHub_Dir=%A_MyDocuments%\%Repos_Dirname%
 	; Runtime Variables
-	SplitPath, VSCode_Workspace, Workspace_Basename
-	WinTitle=%Workspace_Basename% - Visual Studio Code
+	WinTitle=%Repos_Dirname% - Visual Studio Code
 	SetTitleMatchMode, 2
-	IfWinNotExist,%WinTitle%
-	{
-		RunWait,%VSCode_Executable% %VSCode_Workspace%,,Hide
+	if !WinExist(WinTitle) {
+		; MsgBox,0,AHK-Log,VSCode-Window NOT found
+		Run, %VSCode_Exe% %GitHub_Dir%,,Hide,WinPID
+		WinWait,%WinTitle%,,15
 	}
 	; SysGet, MonitorCount, MonitorCount, N
-	if (A_OSVersion = "WIN_7") {
-		WinMove,%WinTitle%,,-8,-8,1936,1056
-		;		Win7, Monitor 1
-		;		Win7
-		; 		Left-half  -->  WinMove,%WinTitle%,,-8,-8,1936,1056       ; w/ taskbar
-		; 		Right-half -->  WinMove,%WinTitle%,,1912,-8,1936,1096     ; w/ taskbar
-	} Else {
-		WinMove,%WinTitle%,,0,0,1920,1040
-		;		Win10, Monitor 1
-		; 		Maximized  -->  WinMove,%WinTitle%,,0,0,1920,1040     ; w/ taskbar
-		; 		Left-half  -->  WinMove,%WinTitle%,,-7,0,974,1047     ; w/ taskbar
-		; 		Right-half -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
-		;		Win10, Monitor 2
-		; 		Left-half  -->  WinMove,%WinTitle%,,1913,0,974,1047   ; w/ taskbar
-		; 		Right-half -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
+	; WinPID := WinExist(WinTitle)
+	if (WinExist(WinTitle)) {
+		if (A_OSVersion = "WIN_7") {
+			WinMove,%WinTitle%,,-8,-8,1936,1056
+		} Else {
+			WinMove,%WinTitle%,,0,0,1920,1040
+		}
+		WinActivate,%WinTitle%
+		WinMaximize,%WinTitle%
 	}
-	WinActivate,%WinTitle%
-	ActiveWindow_Maximize()
 	; WinGet, WinPID, PID, %WinTitle%
 	; WinGet, ProcessName, ProcessName, %WinTitle%
 	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
@@ -864,9 +858,9 @@ ActiveWindow_ToggleRestoreMaximize() {
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   @ ActiveWindow_Maximize - Only maximize active window if it isn't maximized already
 ActiveWindow_Maximize() {
-	WinGet, WinState, MinMax, WinTitle
+	WinGet, WinState, MinMax, A
 	if (WinState<=0) { ; Window is not maximized - maximize it
-		WinMaximize WinTitle
+		WinMaximize A
 	}
 	Return
 }

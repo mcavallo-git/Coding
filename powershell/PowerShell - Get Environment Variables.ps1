@@ -2,4 +2,4 @@
 Get-ChildItem Env:
 
 # Get Single Environment variable (via powershell)
-$Env:Username
+Write-Host $Env:Username

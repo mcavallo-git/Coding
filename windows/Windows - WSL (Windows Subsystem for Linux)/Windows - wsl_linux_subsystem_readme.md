@@ -1,24 +1,28 @@
-# Install WSL
-
-
-### [Install the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-the-windows-subsystem-for-linux)
-#### Open PowerShell as Administrator and run:
-```
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-```
-##### Restart your computer when prompted.
+# **WSL**
+##### *Windows Subsystem for Linux*
+##### **Required: Windows 10**
 ***
 
 
-### [Install your Linux Distribution of Choice](https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-your-linux-distribution-of-choice)
-
-##### Open the Microsoft Store and choose your favorite Linux distribution.
-
-##### The following links will open the Windows store page for each distribution:
+#### Enable WSL Open PowerShell as Administrator and run:
 ```
-Ubuntu
-OpenSUSE
-SLES
-Kali Linux
-Debian GNU/Linux
+
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+
 ```
+##### Restart your computer when prompted
+
+***
+
+### Select Linux 'Flavor'
+##### **Required: Windows 10 Build 16215 or later**
+##### *Downloads from the Microsoft Store*
+[Ubuntu](https://www.microsoft.com/store/p/ubuntu/9nblggh4msv6)
+[OpenSUSE](https://www.microsoft.com/store/apps/9njvjts82tjx)
+[SLES](https://www.microsoft.com/store/apps/9p32mwbh6cns)
+[Kali Linux](https://www.microsoft.com/store/apps/9PKR34TNCV07)
+[Debian GNU/Linux](https://www.microsoft.com/store/apps/9MSVKQC78PK6)
+
+***
+
+##### *WSL, 2019-01-04, pulled from https://docs.microsoft.com/en-us/windows/wsl/install-win10#install-the-windows-subsystem-for-linux*

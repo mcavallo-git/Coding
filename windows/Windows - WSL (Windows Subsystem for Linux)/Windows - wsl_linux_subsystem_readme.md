@@ -1,8 +1,6 @@
-# **WSL**
-##### *Windows Subsystem for Linux*
-##### **Required: Windows 10**
+# WSL <sub><sub>Windows Subsystem for Linux</sub></sub>
 ***
-
+### **Requires Windows 10**
 
 #### Enable WSL Open PowerShell as Administrator and run:
 ```
@@ -15,13 +13,15 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 ***
 
 ### Select Linux 'Flavor'
-##### **Required: Windows 10 Build 16215 or later**
-##### *Downloads from the Microsoft Store*
-[Ubuntu](https://www.microsoft.com/store/p/ubuntu/9nblggh4msv6)
-[OpenSUSE](https://www.microsoft.com/store/apps/9njvjts82tjx)
-[SLES](https://www.microsoft.com/store/apps/9p32mwbh6cns)
-[Kali Linux](https://www.microsoft.com/store/apps/9PKR34TNCV07)
-[Debian GNU/Linux](https://www.microsoft.com/store/apps/9MSVKQC78PK6)
+##### **Requires Windows 10 Build 16215 or later**
+
+Flavor | Microsoft Store Hyperlink
+--- | ---
+Ubuntu | https://www.microsoft.com/store/p/ubuntu/9nblggh4msv6
+OpenSUSE | https://www.microsoft.com/store/apps/9njvjts82tjx
+SLES | https://www.microsoft.com/store/apps/9p32mwbh6cns
+Kali Linux | https://www.microsoft.com/store/apps/9PKR34TNCV07
+Debian GNU/Linux | https://www.microsoft.com/store/apps/9MSVKQC78PK6
 
 ***
 

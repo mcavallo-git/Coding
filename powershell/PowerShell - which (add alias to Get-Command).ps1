@@ -4,8 +4,11 @@
 
 # ${Split-Path} = (${Env:Path}).Split(';');
 
-${System-Environment-Vars} = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;
-${User-Environment-Vars} = Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment';
+${Env-System} = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name PATH).path;
+
+
+${Env-User} = Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment';
+
 
 
 

@@ -83,7 +83,7 @@ REM powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 6c2993b0-8f48-481f
 REM REM Processor performance core parking decrease policy
 REM powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 71021b41-c749-4d21-be74-a00f335d582b %attrib%
 REM Maximum processor frequency
-powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 75b0ae3f-bce0-45a7-8c89-c9611c25e100 %attrib%
+REM powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 75b0ae3f-bce0-45a7-8c89-c9611c25e100 %attrib%
 REM REM Processor idle promote threshold
 REM powercfg -attributes 54533251-82be-4824-96c1-47b60b740d00 7b224883-b3cc-4d79-819f-8374152cbe7c %attrib%
 REM REM Processor performance history count

@@ -7,7 +7,7 @@ Write-Host ${secret_base64};
 
 #  DECODE  :::  Base64 - Decode/Decoding a String (via PowerShell):
 $secret_base64 = "UwBvAG0AZQAgAHMAZQBjAHIAZQB0ACwAIABpAC4AZQAuACAAYQAgAHAAYQBzAHMAdwBvAHIAZAAsACAAdABvAGsAZQBuACwAIABlAHQAYwAuAA==";
-$secret_plaintext = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String(${secret_base64}))
+$secret_plaintext = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String(${secret_base64}));
 Write-Host ${secret_plaintext};
 
 

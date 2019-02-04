@@ -204,12 +204,11 @@ GetTimezoneOffset_P() {
 	TZ_OFFSET := GetTimezoneOffset()
   Send %TZ_OFFSET%
 	Return
-	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 #SC03B::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
-	Run, Edit "%A_ScriptFullPath%"
+	Run Notepad %A_ScriptFullPath%
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -178,6 +178,19 @@ GetTimezoneOffset_P() {
   Send %RET_VAL%
 	Return
 ;
+;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
+;  HOTKEY:  Win + P
+;
+#P::
+	SetKeyDelay, 0, -1
+	MsgBox, 4,, Type the Clipboard? (Yes/No)
+	IfMsgBox Yes
+		Send %Clipboard%
+	else {
+		MsgBox Skipped
+	}
+	Return
+;
 ;  ACTION:  type the COMPUTERNAME
 ;  HOTKEY:  Win + H
 ;

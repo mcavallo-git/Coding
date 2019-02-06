@@ -158,12 +158,16 @@ GetTimezoneOffset_P() {
   Send %RET_VAL%
 	Return
 ;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ; Timestamp		:::		Alt + Win + D
 !#D::
 	SetKeyDelay, 0, -1
   FormatTime,TIMESTAMP,,yyyy-MM-dd_HH-mm-ss
   Send %TIMESTAMP%
 	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Timestamp		:::		Win + D
 #D::
@@ -178,9 +182,10 @@ GetTimezoneOffset_P() {
   Send %RET_VAL%
 	Return
 ;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
 ;  HOTKEY:  Win + P
-;
 #P::
 	SetKeyDelay, 0, -1
 	MsgBox, 4,, Type the Clipboard? (Yes/No)
@@ -191,18 +196,20 @@ GetTimezoneOffset_P() {
 	}
 	Return
 ;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ;  ACTION:  type the COMPUTERNAME
 ;  HOTKEY:  Win + H
-;
 #H::
 	SetKeyDelay, 0, -1
 	RET_VAL = %COMPUTERNAME%
   Send %RET_VAL%
 	Return
 ;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ;  ACTION:  type the DOMAIN-USERNAME
 ;  HOTKEY:  Win + U
-;
 #U::
 	SetKeyDelay, 0, -1
 	; RET_VAL = %USERNAME%
@@ -210,9 +217,10 @@ GetTimezoneOffset_P() {
   Send %RET_VAL%
 	Return
 ;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
 ;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
 ;  HOTKEY:  Win + G
-;
 #G::
 	TZ_OFFSET := GetTimezoneOffset()
   Send %TZ_OFFSET%
@@ -220,6 +228,8 @@ GetTimezoneOffset_P() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
+;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
+;  HOTKEY:  Win + G
 #SC03B::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
 	Run Notepad %A_ScriptFullPath%
 	Return

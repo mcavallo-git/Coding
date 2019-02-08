@@ -469,8 +469,8 @@ WheelRight::
 ;  ACTION:  Chrome - Open a New Instance of Google Chrome
 ;
 #C::
-	OpenVisualStudio()
-	; OpenChrome()
+	; OpenVisualStudio()
+	OpenChrome()
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

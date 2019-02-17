@@ -249,7 +249,8 @@ GetTimezoneOffset_P() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-!SC03D::   ; Alt+F3
+	Return
+!SC03C::   ; Win + F2
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
@@ -261,18 +262,17 @@ GetTimezoneOffset_P() {
 		Sleep 7500
 	}
 	Return
-!SC03C::   ; Alt+F3
+!SC03D::   ; Win + F3
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
 		MouseClick, Left, 861, 947
-		Sleep 30000
+		Sleep 90000
 		MouseClick, Left, 1420, 905
 		Sleep 1000
 		MouseClick, Left, 848, 575
 		Sleep 7500
 	}
-	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Fn Key (X1 Carbon)

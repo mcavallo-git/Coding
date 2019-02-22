@@ -23,7 +23,7 @@ function GitCloneRepo {
 	cd ($Env:Tmp);
 	git clone ($AbsoluteUri);
 	$ReurnVal = $?;
-	
+
 	Return $ReurnVal;
 }
 
@@ -31,5 +31,5 @@ Export-ModuleMember -Function "GitCloneRepo";
 
 
 # Import-Module ("...\GetJsonFromTarget.psm1");
+
 # Get-Module "GetJsonFromTarget";
-# GitCloneRepo -Target https://git.mcavallo.com

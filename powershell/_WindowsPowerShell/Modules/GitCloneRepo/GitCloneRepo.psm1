@@ -15,20 +15,24 @@ function GitCloneRepo {
 
 	##\ Example showing... just all around the handheld repo
 
-	$WebRequest = [System.Net.WebRequest]::Create($Target);
+	$WebRequest = [System.Net.WebRequest]::Create("https://git.mcavallo.com");
 	$Response = $WebRequest.GetResponse();
 	$Response.StatusCode;
-	$AbsoluteUri = $Response.ResponseUri.AbsoluteUri;
+	$ResolvedUri = $Response.ResponseUri.AbsoluteUri;
+
+	# rm .\Coding -Force -Recurse
 
 	cd ($Env:Tmp);
-	git clone ($AbsoluteUri);
+	Write-Host "------";
+	$git_clone = (git clone ($ResolvedUri));
 	$ReurnVal = $?;
+	Write-Host "------";
 
 	Return $ReurnVal;
+	
 }
 
 Export-ModuleMember -Function "GitCloneRepo";
-
 
 # Import-Module ("...\GetJsonFromTarget.psm1");
 

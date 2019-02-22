@@ -1,0 +1,1 @@
+git clone $( curl -Ls -o /dev/null -w %{url_effective} "https://git.mcavallo.com" );

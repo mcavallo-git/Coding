@@ -230,27 +230,13 @@ GetTimezoneOffset_P() {
 ;
 ;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
 ;  HOTKEY:  Win + G
-#SC03B::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
+#F1::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
 	Run Notepad %A_ScriptFullPath%
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-#SC03C::   ; #F2 / Win+F2 -- Show all (current) Window Titles
-	WinGet, Window, List
-	Loop %Window% {
-		Id:=Window%A_Index%
-		WinGetTitle, TVar , % "ahk_id " Id
-		Window%A_Index%:=TVar ;use this if you want an array
-		tList.=TVar "`n" ;use this if you just want the list
-	}
-	MsgBox %tList%
-	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-	Return
-!SC03C::   ; Win + F2
+#F2::   ; Win + F2
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
@@ -262,7 +248,10 @@ GetTimezoneOffset_P() {
 		Sleep 7500
 	}
 	Return
-!SC03D::   ; Win + F3
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+#SC03D::   ; Win + F3
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
@@ -275,11 +264,25 @@ GetTimezoneOffset_P() {
 	}
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
++#F2::   ; +#F2 / [ Shift + Win + F2 ] -- Show all (current) Window Titles
+	WinGet, Window, List
+	Loop %Window% {
+		Id:=Window%A_Index%
+		WinGetTitle, TVar , % "ahk_id " Id
+		Window%A_Index%:=TVar ;use this if you want an array
+		tList.=TVar "`n" ;use this if you just want the list
+	}
+	MsgBox %tList%
+	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Fn Key (X1 Carbon)
 ;  ACTION:  Set Fn to perform CTRL action, instead
 ;
 ;SC163::   ;"Fn" Key
 ;Return
+;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + [
 ;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors

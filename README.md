@@ -1,2 +1,2 @@
 ### Coding
-##### Scripts ranging from Server Configurations to Workstation Personalization
+##### Open Source Scripts ranging from [ Server Configurations ] down to [ Workstation Personalizations ]

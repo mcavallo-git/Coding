@@ -5,7 +5,7 @@ function GitCloneRepo {
 		[string]$Target,
 
 		[Parameter(Mandatory=$false)]
-		[switch]$echo = $false
+		[switch]$Echo = $false
 
 	)
 
@@ -15,7 +15,7 @@ function GitCloneRepo {
 
 	##\ Example showing... just all around the handheld repo
 
-	$WebRequest = [System.Net.WebRequest]::Create("https://git.mcavallo.com");
+	$WebRequest = [System.Net.WebRequest]::Create("https://git.boneal.net/public");
 	$Response = $WebRequest.GetResponse();
 	$Response.StatusCode;
 	$ResolvedUri = $Response.ResponseUri.AbsoluteUri;
@@ -34,6 +34,6 @@ function GitCloneRepo {
 
 Export-ModuleMember -Function "GitCloneRepo";
 
-# Import-Module ("...\GetJsonFromTarget.psm1");
+# Import-Module ("GitCloneRepo\GitCloneRepo.psm1");
 
-# Get-Module "GetJsonFromTarget";
+# Get-Module "GitCloneRepo";

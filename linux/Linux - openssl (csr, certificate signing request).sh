@@ -13,6 +13,10 @@ state="New York";
 
 country="US";
 
+days_valid=365;
+
+key_size=4096;
+
 output_dir="$Home";
 
 ## --------------- MODIFY LINES ABOVE THIS COMMENT TO MATCH YOUR NEEDS --------------- ##
@@ -23,9 +27,10 @@ openssl req \
 -new \
 -sha256 \
 -nodes \
--newkey rsa:4096 \
--out "./${domain_name}_certificateSigningRequest_getSignedByCA.csr" \
--keyout "./${domain_name}_privateKey_keepAndUseAfterDCV.key" \
+-newkey rsa:${key_size} \
+-days ${days_valid} \
+-out "${out_unique}/${domain_name}_certificateSigningRequest_getSignedByCA.csr" \
+-keyout "${out_unique}/${domain_name}_privateKey_keepAndUseAfterDCV.key" \
 -config <(
 cat <<-EOF
 [req]

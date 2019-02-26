@@ -13,6 +13,12 @@ state="New York";
 
 country="US";
 
+output_dir="$Home";
+
+## --------------- MODIFY LINES ABOVE THIS COMMENT TO MATCH YOUR NEEDS --------------- ##
+
+out_unique="${output_dir}/${domain_name}_csr_$(date +'%Y%m%d%H%M%S')";
+mkdir -p "${out_unique}";
 openssl req \
 -new \
 -sha256 \

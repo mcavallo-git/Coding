@@ -14,6 +14,7 @@ App Name | Option 1 | Option A
 **Git** <sub>*Tortoise Git*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Postman** | [Download (source)](https://www.getpostman.com/apps) |
+**PowerShell & PowerShell Core** | [Download (source)](https://github.com/PowerShell/PowerShell/releases) |
 **Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
 **Visual Studio Code (VS Code)** | [Download (source)](https://code.visualstudio.com/download) |
 

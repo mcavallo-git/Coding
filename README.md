@@ -23,7 +23,7 @@ App Name | Option 1 | Option A
 ***
 ### PowerShell
 
-**[PowerShell / PowerShell Core](https://github.com/PowerShell/PowerShell/releases)**
+**[PowerShell Core](https://github.com/PowerShell/PowerShell/releases)**
 **[Azure CLI](https://www.powershellgallery.com/packages/az)**
 **[Azure RM](https://www.powershellgallery.com/packages/AzureRM)**
 **[PlatyPS (Docs)](https://www.powershellgallery.com/packages/platyPS)**

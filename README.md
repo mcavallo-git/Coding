@@ -5,6 +5,7 @@
 
 App Name | Option 1 | Option A
 --- | --- | ---
+**Azure CLI** | [Download (source)](https://aka.ms/installazurecliwindows) |
 **AirParrot** | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **Classic Shell** | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 **Cryptomator** | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
@@ -14,11 +15,16 @@ App Name | Option 1 | Option A
 **Git** <sub>*Tortoise Git*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Postman** | [Download (source)](https://www.getpostman.com/apps) |
-**PowerShell & PowerShell Core** | [Download (source)](https://github.com/PowerShell/PowerShell/releases) |
 **Reflector** | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
 **Visual Studio Code (VS Code)** | [Download (source)](https://code.visualstudio.com/download) |
 
 
 ***
+### PowerShell
+
+**[PowerShell / PowerShell Core](https://github.com/PowerShell/PowerShell/releases)**
+**[Azure CLI](https://www.powershellgallery.com/packages/az)**
+**[Azure RM](https://www.powershellgallery.com/packages/AzureRM)**
+**[PlatyPS (Docs)](https://www.powershellgallery.com/packages/platyPS)**
 

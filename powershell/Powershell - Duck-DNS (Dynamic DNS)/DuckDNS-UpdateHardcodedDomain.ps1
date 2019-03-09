@@ -26,7 +26,23 @@
 #
 
 
-PowerShell -WindowStyle Minimized "[System.Net.WebRequest]::Create('https://www.duckdns.org/update?domains='+$(Get-Content '~\duck_dns\user')+'&token='+$(Get-Content '~\duck_dns\token')+'&ip=').GetResponse().StatusCode; Start-Sleep 1; Exit;";
+
+$ddns=($(Get-Content ((${Env:USERPROFILE})+('\.duck-dns\secret.json'))) | ConvertFrom-Json);
+
+$DatUrl=('https://www.duckdns.org/update?domains='+([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($ddns.domains)))+'&token='+([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($ddns.token)))+'&ip='); $DatUrl;
+
+([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($ddns.domains)))
+([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String($ddns.token)))
+
+[System.Net.WebRequest]::Create('https://www.duckdns.org/update?domains='+B64D($ddns.domains)+'&token='+B64D($ddns.token)+'&ip='+B64D($ddns.ip)).GetResponse().StatusCode;
+
+Start-Sleep 1;
+
+Exit;
+
+# Get-Content '~\duck_dns\user'
+
+# -------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # Domain Names, Base64
 $DuckDns_DomainsBase64="encoded_domain(s)";

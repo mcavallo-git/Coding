@@ -11,15 +11,14 @@
 ###### * Run the following script in PowerShell to create your credentials 'secret' file, specific for the DDNS scheduled task, and secured to your user directory
 ```
 
-$domains='subdomains';
+$domains='Paste_Subdomain_Here';
+$token='Paste_Token_Here';
 
-$token='12345678-1234-1234-1234-123456789012';
+# Credentials Step 1.1 - Lock access permissions to this user (as well as any over-riding admins on this PC, as is tradition)
+New-Item -ItemType "Directory" -Path (($Home)+("/.duck-dns")) -ErrorAction SilentlyContinue;
 
-New-Item -ItemType "Directory" -Path (($path_destination)+("/")) | Out-Null;
-
-Write-Host ([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes((('https://www.duckdns.org/update?domains=')+($domains)+('&token=')+($token)+('&ip=')))));
-
-New-Item -ItemType "Directory" -Path (($path_destination)+("/")) | Out-Null;
+# Credentials Step 1.2 - Output the encoded string into the secret credentials file
+[IO.File]::WriteAllText((($Home)+("/.duck-dns/secret")),([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes((('https://www.duckdns.org/update?domains=')+($domains)+('&token=')+($token)+('&ip='))))));
 
 ```
 ***

@@ -15,6 +15,8 @@ $domains='subdomains';
 
 $token='12345678-1234-1234-1234-123456789012';
 
+New-Item -ItemType "Directory" -Path (($path_destination)+("/")) | Out-Null;
+
 Write-Host ([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes((('https://www.duckdns.org/update?domains=')+($domains)+('&token=')+($token)+('&ip=')))));
 
 New-Item -ItemType "Directory" -Path (($path_destination)+("/")) | Out-Null;
@@ -24,11 +26,14 @@ New-Item -ItemType "Directory" -Path (($path_destination)+("/")) | Out-Null;
 
 ## 2 - Create the Scheduled Task
 
-Name:  DDNS Updater
 
 ###### "General" Tab
 ```
-			Description: Duck DNS Updater
+Name:  DDNS Updater
+
+Description: Duck DNS Updater
+
+When running this task, use the following user account: SYSTEM   (i.e. NT AUTHORITY\SYSTEM)
 
 ☑ Run whether this user is logged in or not
 ```

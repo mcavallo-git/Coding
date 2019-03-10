@@ -1,1 +1,1 @@
-PowerShell -WindowStyle Hidden "[System.Net.WebRequest]::Create('https://www.duckdns.org/update?domains='+$(Get-Content '~\duck_dns\user')+'&token='+$(Get-Content '~\duck_dns\token')+'&ip=').GetResponse().StatusCode; Start-Sleep 1; Exit;"
+PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:\Users'))) { If (Test-Path (($LocalUser.FullName)+('\.duck-dns\secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('\.duck-dns\secret'))))))).GetResponse(); } } Exit 0;"

@@ -1,7 +1,3 @@
 #!/bin/sh
 
-domains="SUBDOMAIN_HERE";
-
-token="TOKEN_HERE";
-
-curl --max-time 1 --connect-timeout 1 "https://www.duckdns.org/update?verbose=true&domains=${domains}&token=${token}&ip=" && echo "";
+if [ -f ~/.duck-dns/secret ]; then curl --max-time 10 --connect-timeout 10 "$(cat ~/.duck-dns/secret | base64 --decode)" && echo ""; fi;

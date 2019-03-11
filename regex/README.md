@@ -1,11 +1,14 @@
-# Regular Expressions Quick Start
-	
+# Regex Basics
 
+
+
+***	
 ### Essential Mindset
 ###### Regular expressions ('regex patterns') bring to the table a means of defining exact templates which cookie-cut their way through anything built from characters, be it user-entered input, a nine-million-line log file, or any other string, regex will attempt to parse out of it whatever your predefined pattern tells it to parse out of it. But, with power comes responsibility, and developers who know regex understand when and where it is needed. Most major programming languages contain prebuilt methods which allow developers to search/parse strings for 99% of parsing tasks, therefore regex is usually only found where it is vital for its exactness. If you're still reading this, thanks for letting me ramble on! This starts at the beginning, regex's syntax
 
 
 
+***
 ### General Syntax
 * Regex reads left-to-right - If a program had the string "Jack is an awesome apprentice" and tested it against the simple, one-character regex pattern ```a```, only the first "a" after the "J" in "Jack" would be matched, and the following "a" in "an", "awesome", and "apprentice" would be ignored, because we didn't explicitly tell it to look for more than just "a". This is like opening an IDE's search-tool and using the "find once" option, once, from the beginning of the string
 * ```(? ... )``` The parenthesis opened with a question mark as the FIRST character can balloon into a heap full of methods which are uniquely powerful - the overarching categories these methods fall into are [ Lookarounds ], [ Non-Capturing Groups ] & [ Inline Modifiers ]. Really, just get ready to look up exactly what you see from time to time.
@@ -14,6 +17,9 @@
 * That's it, you're a pro. Nah the rest is so detailed I figured leave them in their exact categories. Keep reading for more.
 
 
+
+
+***
 ### Shorthand Character Classes
 
 ```\d```  matches one "digit" character  -  shorthand for ```[0-9]```
@@ -31,6 +37,8 @@
 					Note: Using . does not match line-breaks, use (?:\r)?\n, instead
 
 
+
+***
 ### Non-Printable Characters
 
 ```\t```  matches tab characters (ASCII 0x09)
@@ -57,6 +65,7 @@
 
 
 
+***
 ### Anchors
 ###### Anchors do not match any characters/etc., but rather are used as landmarks in regex. These allow you to write expressions such as "match LINES in this string which start with 'foobar'", or "match WORDS in this string which end in 'bar'"
 ###### Note: JavaScript and XPath treat CRLF pairs as two line breaks
@@ -73,38 +82,25 @@
 ```\Z```  landmark for "the end of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
 
 
+
 ***
 ### Tokens
 ###### A Regex "Token" is a single 'target', such as a single character, a group of characters, or even a group of expressions, depending on the methods used
 
-```()```    Define a new "Token"
-						Allows combining of multiple expressions/characters into one statement, which may be acted on by regex methods such as "+" and "?". Returned as a "Capture Group" in the output(s) from the regex match
+```()```    Define a new "Token"  -  Allows combining of multiple expressions/characters into one statement, which may be acted on by regex methods such as "+" and "?". Returned as a "Capture Group" in the output(s) from the regex match
+
+```(?:)```  Non-Capture Subpattern  -  Syntax (?:RegexHere)  -  Excludes token from returned capture groups, i.e. whatever is matched within the given (?:) expression, even though it's enclosed by (), it won't appear in the list of matches (capture groups) returned
+
+```?```     Preceding Token is 'Optional'. Note: The question mark is a 'greedy' metacharacter because its FIRST execution looks for matches WITH the token, then falls back to matched WITHOUT the token - Action 1/2: Try to Match the requiring the Preceding Token, exactly 1 time. Action 2/2: If [Action 1] failed to find a match, try to Match without requiring the Preceding Token.  -  Ex:   colou?r matches "colour" or "color"
+
+```+```     Match the Preceding Token one-or-more times  -  Ex:   ```A+```  matches one-or-more "A" characters, i.e. [ "A", "AA", "AAA", ... ]
+
+```*```     Match the Preceding Token 0-or-more times  -  possibly shorthand for ```?+```  -  Ex:   ```A*```  matches 0-or-more "A" characters, i.e. [ "", "A", "AA", "AAA", ... ]
+
+```{X}```   Match the Preceding Token (exactly) "X" times  -  Ex:   ```[1-9][0-9]{3}```    -  matches a number between 1000 and 9999
 
 
-```(?:)```  Non-Capture Subpattern  -  Syntax (?:RegexHere)
-						Excludes token from returned capture groups, i.e. whatever is matched within the given (?:) expression, even though it's enclosed by (), it won't appear in the
-									list of matches (capture groups) returned
-
-
-```?```     Preceding Token is 'Optional' 
-						Note: The question mark is a 'greedy' metacharacter because its FIRST execution looks for matches WITH the token, then falls back to matched WITHOUT the token
-							Action 1 - Try to Match the Preceding Token exactly 1 time
-							Action 2 (If [Action 1] failed to find a match) - Try to Match without the Preceding Token
-									Ex:   colou?r matches "colour" or "color"
-
-
-```+```     Match the Preceding Token one-or-more times
-									Ex:   ```A+```  matches one-or-more "A" characters, i.e. [ "A", "AA", "AAA", ... ]
-
-```*```     Match the Preceding Token 0-or-more times  -  possibly shorthand for ```?+```
-									Ex:   ```A*```  matches 0-or-more "A" characters, i.e. [ "", "A", "AA", "AAA", ... ]
-
-```{X}```   Match the Preceding Token (exactly) "X" times
-									Ex:   ```[1-9][0-9]{3}```    -  matches a number between 1000 and 9999
-
-
-```{X,Y}``` Match the Preceding Token at-least "X" times and at-most "Y" times
-									Ex:    ```[1-9][0-9]{2,4}```  -  matches a number greater-than-or-equal-to 100 99999
+```{X,Y}``` Match the Preceding Token at-least "X" times and at-most "Y" times  -  Ex:    ```[1-9][0-9]{2,4}```  -  matches a number greater-than-or-equal-to 100 99999
 
 
 
@@ -130,37 +126,11 @@
 ***
 ### Character Classes (or "Character Sets")
 
-```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional
-						```[xyz]```  matches "x", "y", or "z" SINGLE character
+```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional  -  ```[xyz]```  matches "x", "y", or "z" SINGLE character
 
-					A "character class" matches only one out of several characters.
-					To match an a or an e, use [ae].
-					You could use this in gr[ae]y to match either gray or grey.
-					A character class matches only a single character.
-					gr[ae]y does not match graay, graey or any such thing.
-					The order of the characters inside a character class does not matter.
+```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
 
-					You can use a hyphen inside a character class to specify a range of characters.
-					[0-9] matches a single digit between 0 and 9.
-					You can use more than one range.
-					[0-9a-fA-F] matches a single hexadecimal digit, case insensitively.
-					You can combine ranges and single characters.
-					[0-9a-fxA-FX] matches a hexadecimal digit or the letter X.
-
-					Typing a caret after the opening square bracket negates the character class.
-					The result is that the character class matches any character that is not in the character class.
-					q[^x] matches qu in question.
-					It does not match Iraq since there is no character after the q for the negated character class to match.
-	
-	
-```[xyz]```   Character Class - Matches any single character in a given set
-               |
-							 |-->  [a-zA-Z0-9]   is equivalent to   [abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]
-	
-	
-```[^xyz]```  Negated Character Class - Matches any single character NOT a given set
-               |
-							 |--> [^xyz]   matches anything other than x, y, or z
+```[^xyz]```  Negated Character Class - Matches any single character NOT a given set   -   Ex:   ```[^xyz]```   matches anything other than characters "x", "y", or "z"
 
 
 

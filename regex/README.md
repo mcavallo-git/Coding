@@ -22,16 +22,16 @@
 ***
 ### Shorthand Character Classes
 
-```\d```  matches one "digit" character  -  shorthand for ```[0-9]```
-```\D```  matches one non "digit" character  -  shorthand for ```^\d```
+* ```\d```  matches one "digit" character  -  shorthand for ```[0-9]```
+* ```\D```  matches one non "digit" character  -  shorthand for ```^\d```
 	
-```\w```  matches one "word", or ASCII, character  -  shorthand for ```[A-Za-z0-9_]```
-```\W```  matches one non "word" character  -  shorthand for ```[^\w]```
+* ```\w```  matches one "word", or ASCII, character  -  shorthand for ```[A-Za-z0-9_]```
+* ```\W```  matches one non "word" character  -  shorthand for ```[^\w]```
 	
-```\s```  matches one "whitespace" character   -  shorthand for ```[ \t\r\n\f]```
-```\S```  matches one non "whitespace" character  -  shorthand for ```[^\s]```
+* ```\s```  matches one "whitespace" character   -  shorthand for ```[ \t\r\n\f]```
+* ```\S```  matches one non "whitespace" character  -  shorthand for ```[^\s]```
 
-```.```   matches one "wildcard" character, which is any single character EXCEPT line-break characters
+* ```.```   matches one "wildcard" character, which is any single character EXCEPT line-break characters
 					Note: Most applications have a "dot matches all" or "single line" mode that makes the dot match any single character, including line breaks
 					Note: Use the dot sparingly - gr.y matches gray, grey, gr%y, etc. - Often, a character class or negated character class is faster and more precise
 					Note: Using . does not match line-breaks, use (?:\r)?\n, instead
@@ -41,27 +41,27 @@
 ***
 ### Non-Printable Characters
 
-```\t```  matches tab characters (ASCII 0x09)
-```\ ```  matches spaces
+* ```\t```  matches tab characters (ASCII 0x09)
+* ```\ ```  matches spaces
 
-```\n```         matches LFs (Line Feeds) (0x0A)
-```\r\n```       matches CRLFs (Carriage Returns) (0x0D)
-```(?:\r)?\n```  matches LFs && CRLFs (0x0A) - Usually ```$``` should be used here, instead
+* ```\n```         matches LFs (Line Feeds) (0x0A)
+* ```\r\n```       matches CRLFs (Carriage Returns) (0x0D)
+* ```(?:\r)?\n```  matches LFs && CRLFs (0x0A) - Usually ```$``` should be used here, instead
 
 
-```\a```  matches bell, 0x07 (Exotic Non-Printable Character)
-```\e```  matches escape, 0x1B (Exotic Non-Printable Character)
-```\f```  matches form feed, 0x0C (Exotic Non-Printable Character)
-```\v```  matches vertical tab, 0x0B (Exotic Non-Printable Character)
+* ```\a```  matches bell, 0x07 (Exotic Non-Printable Character)
+* ```\e```  matches escape, 0x1B (Exotic Non-Printable Character)
+* ```\f```  matches form feed, 0x0C (Exotic Non-Printable Character)
+* ```\v```  matches vertical tab, 0x0B (Exotic Non-Printable Character)
 
-```\uFFFF```    matches unicode characters (if your application supports unicode) (1/2)
-```\x{FFFF}```  matches unicode characters (if your application supports unicode) (2/2)
+* ```\uFFFF```    matches unicode characters (if your application supports unicode) (1/2)
+* ```\x{FFFF}```  matches unicode characters (if your application supports unicode) (2/2)
 
-```\u20AC```    matches the euro currency sign (if your application supports unicode) (1/2)
-```\x{20AC}```  matches the euro currency sign (if your application supports unicode) (2/2)
+* ```\u20AC```    matches the euro currency sign (if your application supports unicode) (1/2)
+* ```\x{20AC}```  matches the euro currency sign (if your application supports unicode) (2/2)
 
-```\xFF```  matches a specific character by its hexadecimal index in the character set (if your application does not support Unicode)
-```\xA9```  matches the copyright symbol in the Latin-1 character set
+* ```\xFF```  matches a specific character by its hexadecimal index in the character set (if your application does not support Unicode)
+* ```\xA9```  matches the copyright symbol in the Latin-1 character set
 
 
 
@@ -71,15 +71,15 @@
 ###### Note: JavaScript and XPath treat CRLF pairs as two line breaks
 ###### Note: Neither ^ nor $ match [ in-the-middle-of a CRLF pair ]
 
-```\b```  landmark for a word boundary, which is the position [ after a "word" character" ] and [ before a non "word" character ]
+* ```\b```  landmark for a word boundary, which is the position [ after a "word" character" ] and [ before a non "word" character ]
 					Note: \b also matches at the start and/or end of the string if the first and/or last characters in the string are word characters
-```\B```  landmark for a non-word boundary, which is [ the position between two word-characters ] or [ the position between two non-word-characters ] - Essentially, \B matches at every position where \b cannot match
+* ```\B```  landmark for a non-word boundary, which is [ the position between two word-characters ] or [ the position between two non-word-characters ] - Essentially, \B matches at every position where \b cannot match
 
-```^```   landmark for "the start of a line", which is the position [ in-the-middle-of-and-after ] every CRLF
-```$```   landmark for "the end of a line", which is the position [ before-and-in-the-middle-of ] every CRLF
+* ```^```   landmark for "the start of a line", which is the position [ in-the-middle-of-and-after ] every CRLF
+* ```$```   landmark for "the end of a line", which is the position [ before-and-in-the-middle-of ] every CRLF
 
-```\A```  landmark for "the start of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
-```\Z```  landmark for "the end of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
+* ```\A```  landmark for "the start of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
+* ```\Z```  landmark for "the end of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
 
 
 
@@ -87,38 +87,38 @@
 ### Tokens
 ###### A Regex "Token" is a single 'target', such as a single character, a group of characters, or even a group of expressions, depending on the methods used
 
-```()```    Define a new "Token"  -  Allows combining of multiple expressions/characters into one statement, which may be acted on by regex methods such as "+" and "?". Returned as a "Capture Group" in the output(s) from the regex match
+* ```()```    Define a new "Token"  -  Allows combining of multiple expressions/characters into one statement, which may be acted on by regex methods such as "+" and "?". Returned as a "Capture Group" in the output(s) from the regex match
 
-```(?:)```  Non-Capture Subpattern  -  Syntax (?:RegexHere)  -  Excludes token from returned capture groups, i.e. whatever is matched within the given (?:) expression, even though it's enclosed by (), it won't appear in the list of matches (capture groups) returned
+* ```(?:)```  Non-Capture Subpattern  -  Syntax (?:RegexHere)  -  Excludes token from returned capture groups, i.e. whatever is matched within the given (?:) expression, even though it's enclosed by (), it won't appear in the list of matches (capture groups) returned
 
-```?```     Preceding Token is 'Optional'. Note: The question mark is a 'greedy' metacharacter because its FIRST execution looks for matches WITH the token, then falls back to matched WITHOUT the token - Action 1/2: Try to Match the requiring the Preceding Token, exactly 1 time. Action 2/2: If [Action 1] failed to find a match, try to Match without requiring the Preceding Token.  -  Ex:   colou?r matches "colour" or "color"
+* ```?```     Preceding Token is 'Optional'. Note: The question mark is a 'greedy' metacharacter because its FIRST execution looks for matches WITH the token, then falls back to matched WITHOUT the token - Action 1/2: Try to Match the requiring the Preceding Token, exactly 1 time. Action 2/2: If [Action 1] failed to find a match, try to Match without requiring the Preceding Token.  -  Ex:   colou?r matches "colour" or "color"
 
-```+```     Match the Preceding Token one-or-more times  -  Ex:   ```A+```  matches one-or-more "A" characters, i.e. [ "A", "AA", "AAA", ... ]
+* ```+```     Match the Preceding Token one-or-more times  -  Ex:   ```A+```  matches one-or-more "A" characters, i.e. [ "A", "AA", "AAA", ... ]
 
-```*```     Match the Preceding Token 0-or-more times  -  possibly shorthand for ```?+```  -  Ex:   ```A*```  matches 0-or-more "A" characters, i.e. [ "", "A", "AA", "AAA", ... ]
+* ```*```     Match the Preceding Token 0-or-more times  -  possibly shorthand for ```?+```  -  Ex:   ```A*```  matches 0-or-more "A" characters, i.e. [ "", "A", "AA", "AAA", ... ]
 
-```{X}```   Match the Preceding Token (exactly) "X" times  -  Ex:   ```[1-9][0-9]{3}```    -  matches a number between 1000 and 9999
+* ```{X}```   Match the Preceding Token (exactly) "X" times  -  Ex:   ```[1-9][0-9]{3}```    -  matches a number between 1000 and 9999
 
 
-```{X,Y}``` Match the Preceding Token at-least "X" times and at-most "Y" times  -  Ex:    ```[1-9][0-9]{2,4}```  -  matches a number greater-than-or-equal-to 100 99999
+* ```{X,Y}``` Match the Preceding Token at-least "X" times and at-most "Y" times  -  Ex:    ```[1-9][0-9]{2,4}```  -  matches a number greater-than-or-equal-to 100 99999
 
 
 
 ***
 ### Reserved Characters
 ###### These following are special characters, or "metacharacters", in regex. If a regular expression is to search for any of the search-criteria, they must be escaped (by preceding them with a single backslash). Most of them are errors when used alone
-```\```  the backslash \
-```^```  the caret ^
-```$```  the dollar sign $
-```.```  the period or dot .   (wildcard character, i.e. match 'any single character')
-```|```  the vertical bar or pipe symbol |   (match preceding token 'or' following token. Ex: [ cat|dog food ] matches the strings "cat food" and "dog food")
-```?```  the question mark ?   (Preceding Token is 'optional')
-```*```  the asterisk or star *   ( match the Preceding Token '0-or-more times')
-```+```  Match the Preceding Token one-or-more times
-```(```  the opening parenthesis (
-```)```  the closing parenthesis ) 
-```[```  the opening square bracket [
-```{```  the opening curly brace {
+* ```\```  the backslash \
+* ```^```  the caret ^
+* ```$```  the dollar sign $
+* ```.```  the period or dot .   (wildcard character, i.e. match 'any single character')
+* ```|```  the vertical bar or pipe symbol |   (match preceding token 'or' following token. Ex: [ cat|dog food ] matches the strings "cat food" and "dog food")
+* ```?```  the question mark ?   (Preceding Token is 'optional')
+* ```*```  the asterisk or star *   ( match the Preceding Token '0-or-more times')
+* ```+```  Match the Preceding Token one-or-more times
+* ```(```  the opening parenthesis (
+* ```)```  the closing parenthesis ) 
+* ```[```  the opening square bracket [
+* ```{```  the opening curly brace {
 ###### If you want to use any of these characters as a literal in a regex, you need to escape them with a backslash - i.e. ```1+1=2``` matches one-or-more "1" followed by "1=2", and ```1\+1=2``` matches "1+1=2"
 
 
@@ -126,19 +126,19 @@
 ***
 ### Character Classes (or "Character Sets")
 
-```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional  -  ```[xyz]```  matches "x", "y", or "z" SINGLE character
+* ```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional  -  ```[xyz]```  matches "x", "y", or "z" SINGLE character
 
-```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
+* ```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
 
-```[^xyz]```  Negated Character Class - Matches any single character NOT a given set   -   Ex:   ```[^xyz]```   matches anything other than characters "x", "y", or "z"
+* ```[^xyz]```  Negated Character Class - Matches any single character NOT a given set   -   Ex:   ```[^xyz]```   matches anything other than characters "x", "y", or "z"
 
 
 
 ***
 ### Lookaround
 
-```?=```    Lookahead   (or "Positive Lookahead", subcategory of "LookArounds")  -  Syntax:  (?=RegexHere)
-```?!```    Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
+* ```?=```    Lookahead   (or "Positive Lookahead", subcategory of "LookArounds")  -  Syntax:  (?=RegexHere)
+* ```?!```    Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
 						Positive Lookaheads assert that what immediately follows the current position in the string is "RegexHere"
 						Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
 								Ex:   ```q(?=u)```   -   matches a "q" followed by a "u"
@@ -146,8 +146,8 @@
 								Ex:   ```^((?!foobar).)*$``` Match all lines which do NOT have the word 'foobar' anywhere in them
 								Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```  -  matches "hello" and "hello123", but skips "ignoreme" and "ignoreme2"
 
-```?<=```   Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
-```?<!```   Negative Lookbehind   (subcategory of "LookArounds")  -  Syntax:  (?<!RegexHere)
+* ```?<=```   Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
+* ```?<!```   Negative Lookbehind   (subcategory of "LookArounds")  -  Syntax:  (?<!RegexHere)
 						Positive Lookbehinds assert that what immediately precedes the current position in the string is "RegexHere"
 						Negative Lookbehinds assert that what immediately precedes the current position in the string is NOT "RegexHere"
 								Ex: (?<=q)u   -   matches a "u" preceded by a "q"
@@ -160,24 +160,24 @@
 ### Capture Groups
 ###### Capture Groups set many special global variables
 ###### Use these variables to format the output of your expression the way you want. i.e. Use them to control the returned value(s) from a given expression-match function
-```$n```  The [ nth ] Capture Group's returned value.
+* ```$n```  The [ nth ] Capture Group's returned value.
 					Note: If no match was found (or if given group doesn't exist in expression), value is equal to a blank string, i.e. "";
 								Ex: $1  -  The [ 1st ] Capture Group's returned match
 								Ex: $2  -  The [ 2nd ] Capture Group's returned match
-```$~```  is equivalent to ::last_match
-```$&```  'lastMatch' property (static). JS:  "RegExp.lastMatch" or "RegExp['$&']"   contains the complete matched text
-```$````  contains string before match
-```$'```  contains string after match
-```$+```  contains last Capture Groups
+* ```$~```  is equivalent to ::last_match
+* ```$&```  'lastMatch' property (static). JS:  "RegExp.lastMatch" or "RegExp['$&']"   contains the complete matched text
+* ```$````  contains string before match
+* ```$'```  contains string after match
+* ```$+```  contains last Capture Groups
 
 
 
 ***
 ### Javascript-Specific Regex
-```/g```     'Global' (apply action to all matches, not just the first match)
-```/i```     'Case Insensitive' (case-sensitivity is enabled by-default in regex)
-```/m```     'Case Insensitive' (/m enables "multi-line mode". In this mode, the caret and dollar match before and after newlines in the subject string.
-```\XYZ\```  Hardcode a regex formula (XYZ in this example) as a string-literal - Note: If you have a variable string, use ``` var dat_string="XYZ"; var regex_test = new RegExp(dat_string);```
+* ```/g```     'Global' (apply action to all matches, not just the first match)
+* ```/i```     'Case Insensitive' (case-sensitivity is enabled by-default in regex)
+* ```/m```     'Case Insensitive' (/m enables "multi-line mode". In this mode, the caret and dollar match before and after newlines in the subject string.
+* ```\XYZ\```  Hardcode a regex formula (XYZ in this example) as a string-literal - Note: If you have a variable string, use ``` var dat_string="XYZ"; var regex_test = new RegExp(dat_string);```
 
 
 
@@ -185,23 +185,23 @@
 ### Inline Modifiers
 ###### Normally, matching modes are specified outside the regular expression. In a programming language, you pass them as a flag to the regex constructor or append them to the regex literal - In an application, you'd toggle the appropriate buttons or checkboxes.
 
-```(?i)```  makes the regex case insensitive.
-```(?c)```  makes the regex case sensitive. Only supported by Tcl.
-```(?x)```  turn on free-spacing mode.
-```(?t)```  turn off free-spacing mode. Only supported by Tcl.
-```(?xx)``` turn on free-spacing mode, also in character classes. Supported by Perl 5.26 and PCRE2 10.30.
-```(?s)```  for "single line mode" makes the dot match all characters, including line breaks. Not supported by Ruby or JavaScript. In Tcl, (?s) also makes the caret and dollar match at the start and end of the string only.
-```(?m)```  for "multi-line mode" makes the caret and dollar match at the start and end of each line in the subject string. In Ruby, (?m) makes the dot match all characters, without affecting the caret and dollar which always match at the start and end of each line in Ruby. In Tcl, (?m) also prevents the dot from matching line breaks.
-```(?p)```  in Tcl makes the caret and dollar match at the start and the end of each line, and makes the dot match line breaks.
-```(?w)```  in Tcl makes the caret and dollar match only at the start and the end of the subject string, and prevents the dot from matching line breaks.
-```(?n)```  turns all unnamed groups into non-capturing groups. Only supported by .NET, XRegExp, and the JGsoft flavor. In Tcl, (?n) is the same as (?m).
-```(?J)```  allows duplicate group names. Only supported by PCRE and languages that use it such as Delphi, PHP and R.
-```(?U)```  turns on "ungreedy mode", which switches the syntax for greedy and lazy quantifiers. So (?U)a* is lazy and (?U)a*? is greedy. Only supported by PCRE and languages that use it. It's use is strongly discouraged because it confuses the meaning of the standard quantifier syntax.
-	(?d) corresponds with UNIX_LINES in Java, which makes the dot, caret, and dollar treat only the newline character \n as a line break, instead of recognizing all line break characters from the Unicode standard. Whether they match or don't match (at) line breaks depends on (?s) and (?m).
-```(?b)```  makes Tcl interpret the regex as a POSIX BRE.
-```(?e)```  makes Tcl interpret the regex as a POSIX ERE.
-```(?q)```  makes Tcl interpret the regex as a literal string (minus the (?q) characters).
-```(?X)```  makes escaping letters with a backslash an error if that combination is not a valid regex token. Only supported by PCRE and languages that use it.
+* ```(?i)```  makes the regex case insensitive.
+* ```(?c)```  makes the regex case sensitive. Only supported by Tcl.
+* ```(?x)```  turn on free-spacing mode.
+* ```(?t)```  turn off free-spacing mode. Only supported by Tcl.
+* ```(?xx)``` turn on free-spacing mode, also in character classes. Supported by Perl 5.26 and PCRE2 10.30.
+* ```(?s)```  for "single line mode" makes the dot match all characters, including line breaks. Not supported by Ruby or JavaScript. In Tcl, (?s) also makes the caret and dollar match at the start and end of the string only.
+* ```(?m)```  for "multi-line mode" makes the caret and dollar match at the start and end of each line in the subject string. In Ruby, (?m) makes the dot match all characters, without affecting the caret and dollar which always match at the start and end of each line in Ruby. In Tcl, (?m) also prevents the dot from matching line breaks.
+* ```(?p)```  in Tcl makes the caret and dollar match at the start and the end of each line, and makes the dot match line breaks.
+* ```(?w)```  in Tcl makes the caret and dollar match only at the start and the end of the subject string, and prevents the dot from matching line breaks.
+* ```(?n)```  turns all unnamed groups into non-capturing groups. Only supported by .NET, XRegExp, and the JGsoft flavor. In Tcl, (?n) is the same as (?m).
+* ```(?J)```  allows duplicate group names. Only supported by PCRE and languages that use it such as Delphi, PHP and R.
+* ```(?U)```  turns on "ungreedy mode", which switches the syntax for greedy and lazy quantifiers. So (?U)a* is lazy and (?U)a*? is greedy. Only supported by PCRE and languages that use it. It's use is strongly discouraged because it confuses the meaning of the standard quantifier syntax.
+* ```(?d)``` corresponds with UNIX_LINES in Java, which makes the dot, caret, and dollar treat only the newline character \n as a line break, instead of recognizing all line break  characters from the Unicode standard. Whether they match or don't match (at) line breaks depends on (?s) and (?m).
+* ```(?b)```  makes Tcl interpret the regex as a POSIX BRE.
+* ```(?e)```  makes Tcl interpret the regex as a POSIX ERE.
+* ```(?q)```  makes Tcl interpret the regex as a literal string (minus the (?q) characters).
+* ```(?X)```  makes escaping letters with a backslash an error if that combination is not a valid regex token. Only supported by PCRE and languages that use it.
 
 
 

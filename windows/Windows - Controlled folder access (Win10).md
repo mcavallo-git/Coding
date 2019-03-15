@@ -23,7 +23,7 @@ Add Cryptomator.exe to Controlled folder access' exclusions list
 
 ***
 ### Detailed Walkthrough
-* Perform a start-menu search for "Ransomware protection", then clicking it to open its settings page
+* Perform a start-menu search for ```Ransomware protection``` then clicking it to open its settings page
 * Select "Allow an app through Controlled folder access"
 * Select "+ Add an allowed app", then "Browse all apps"
 * Browse to ```%ProgramFiles%\Cryptomator``` and double click ```Cryptomator.exe``` to add it to Controlled folder access' exclusions list

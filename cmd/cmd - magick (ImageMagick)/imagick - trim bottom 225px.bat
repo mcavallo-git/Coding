@@ -1,7 +1,7 @@
 @ECHO OFF
 REM		!!! Prerequisite !!! 
 REM			ImageMagick" must be installed for this script to function as-intended
-REM			( Download URL:  https://www.imagemagick.org/script/download.php#windows )
+REM			https://www.imagemagick.org/script/download.php#windows
 ECHO.
 
 REM		Trim the following off each side of the image:
@@ -12,7 +12,6 @@ SET TrimLeft=0
 
 REM		Width to Resize-To
 SET ResizeToWidth=1000
-
 
 REM		Input & Output Directories
 SET "INPUT_DIR=__TO_BE_TRIMMED"

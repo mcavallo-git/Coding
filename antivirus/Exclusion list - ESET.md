@@ -4,7 +4,7 @@
 
 ***
 ## Location in-software
-``` "Advanced Setup" -> "Detection Engine" (Left) -> "Basic" (Right) -> "Exclusions" -> "Edit") ```
+``` "Advanced Setup" -"Detection Engine" (Left) -"Basic" (Right) -"Exclusions" -"Edit") ```
 
 ***
 ### Precursor
@@ -12,21 +12,25 @@
 
 ***
 ### Exclusion list - AV-Collision Avoidance
-> %PROGRAMFILES%\Malwarebytes\*
-> %PROGRAMFILES(X86)%\Malwarebytes' Anti-Malware\*
-> %PROGRAMFILES(X86)%\Malwarebytes Anti-Exploit\*
+```
+%PROGRAMFILES%\Malwarebytes\*
+%PROGRAMFILES(X86)%\Malwarebytes' Anti-Malware\*
+%PROGRAMFILES(X86)%\Malwarebytes Anti-Exploit\*
+```
 
 ***
 ### Exclusion list - General
-> %LOCALAPPDATA%\GitHubDesktop\*
-> %ONEDRIVE%\*
-> %ONEDRIVECOMMERCIAL%\*
-> %PROGRAMFILES%\Git\*
-> %PROGRAMFILES%\Mailbird\*
-> %PROGRAMFILES%\nodejs\*
-> %PROGRAMFILES%\Microsoft VS Code\*
-> %PROGRAMFILES(X86)%\efs\*
-> %PROGRAMFILES(X86)%\Mailbird\*
-> %PROGRAMFILES(X86)%\Microsoft Office\*
-> %USERPROFILE%\Dropbox\*
-> %USERPROFILE%\Documents\GitHub\*
+```
+%LOCALAPPDATA%\GitHubDesktop\*
+%ONEDRIVE%\*
+%ONEDRIVECOMMERCIAL%\*
+%PROGRAMFILES%\Git\*
+%PROGRAMFILES%\Mailbird\*
+%PROGRAMFILES%\nodejs\*
+%PROGRAMFILES%\Microsoft VS Code\*
+%PROGRAMFILES(X86)%\efs\*
+%PROGRAMFILES(X86)%\Mailbird\*
+%PROGRAMFILES(X86)%\Microsoft Office\*
+%USERPROFILE%\Dropbox\*
+%USERPROFILE%\Documents\GitHub\*
+```

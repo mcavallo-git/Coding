@@ -16,9 +16,8 @@
 %PROGRAMFILES(X86)%\Malwarebytes' Anti-Malware\*
 %PROGRAMFILES(X86)%\Malwarebytes Anti-Exploit\*
 
-
 ***
-### General Exclusions
+### Exclusion list - General
 %LOCALAPPDATA%\GitHubDesktop\*
 %ONEDRIVE%\*
 %ONEDRIVECOMMERCIAL%\*
@@ -31,4 +30,5 @@
 %PROGRAMFILES(X86)%\Microsoft Office\*
 %USERPROFILE%\Dropbox\*
 %USERPROFILE%\Documents\GitHub\*
+
 

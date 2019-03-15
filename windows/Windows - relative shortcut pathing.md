@@ -37,3 +37,5 @@ powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -Comma
 ```
 
 
+***
+* If you have a shortcut which opens in a browser, you have completed this tutorial! Otherwise, if you don't have firefox installed etc. tinker with it to fix and learn it! You got this

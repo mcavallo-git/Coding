@@ -11,12 +11,14 @@ REM		takeown /f  :::  Specifies the file name or directory name pattern. You can
 
 
 REM Recursively take ownership over a directory (and all subcontents within)
+
 set DirPathToOwn="C:\path\to\folder\to\own"
 takeown /f %DirPathToOwn% /r
 
 
 
 REM Recursively take ownership over an entire disk parition volume (and all subcontents within)
+
 set VolumeToOwn="E:"
 takeown /f %VolumeToOwn% /r
 

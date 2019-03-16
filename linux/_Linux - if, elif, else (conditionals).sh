@@ -144,11 +144,8 @@ done;
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 #
-# ADDITIONAL DOCUMENTATION - SEE:  https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
+# Integer/String Conditionals   (greater/equal/less/etc.)
 #
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-#
-###  Integer/String Conditionals (greater/equal/less/etc.)
 #
 #  <
 #				if [ $A -lt $B ]     :::  True if $A is less-than $B
@@ -202,9 +199,11 @@ done;
 #				if [ -n $A ]      :::  True if A is a string and is NOT null (greater than zero length)
 #
 #
+#
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 #
-###  Filepath Conditionals (such as whether path exists or not, readable, writeable, etc.)
+# Filepath Conditionals   (whether path exists or not, is readable, is writeable, etc.)
+#
 #
 #			-a FILE  :::  True if file exists.
 #			-b FILE  :::  True if file exists and is a block special file.
@@ -232,11 +231,17 @@ done;
 #
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 #
-#
 # Citation(s)
 #		
 #		www.tldp.org
 #		"7.3. Other Comparison Operators" (Integer/String Conditionals)
-#			https://www.tldp.org/LDP/abs/html/comparison-ops.html
+#		 https://www.tldp.org/LDP/abs/html/comparison-ops.html
+#
+#		
+#		www.gnu.org
+#		"6.4 Bash Conditional Expressions"
+#		 https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
+#
+#
 #
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #

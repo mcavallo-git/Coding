@@ -2,8 +2,18 @@
 # Creating Certificates via Certbot (Software) through LetsEncrypt (Free SSL/TLS Certificate Authority/Provider)
 
 ***
+#### NGINX User(s) only - Creating a new NGinx host quickly:
+```
+DN="example1.com"; NG="/etc/nginx/sites-available/${DN}.nginx"; echo "" > ${NG}; vi ${NG}; ln -sf ${NG} /etc/nginx/sites-enabled/${DN}; /reload_nginx;
+```
+
+
+***
 #### To create a new HTTPS cert (in this example, for use through NGINX, a web server), use the syntax:
-```certbot --nginx -d www.example.com;```
+```
+certbot --nginx -d www.example1.com;
+
+```
 
 
 ***
@@ -60,4 +70,6 @@ certbot revoke --cert-path "/etc/letsencrypt/live/${FQDN}/fullchain.pem"; # Make
 certbot delete --cert-name "${FQDN}"; # Allow certbot to remove any files no longer needed for the domain being removed
 
 find "/etc/letsencrypt/" -name "*${FQDN}*"; # Double-Check to make sure the domain is fully removed, otherwise remove the related items
+
+unlink "/etc/nginx/sites-enabled/${FQDN}";
 ```

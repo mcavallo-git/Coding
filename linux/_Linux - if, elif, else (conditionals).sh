@@ -1,4 +1,4 @@
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # Determine if ${VAR} isset && not empty
 #    NOTE: -n  returns true if a variable has been instantiated AND contains a value (is not empty, i.e. VAR="" will fail, VAR="a" will pass)
@@ -9,7 +9,7 @@ else
 	echo "VAR IS INDEED EMPTY";
 fi;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # isset() using parameter expansion's ${[varname]+x}
 if [ -z ${var+x} ]; then
@@ -18,7 +18,7 @@ else # Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/ques
 	echo "var is set to '${var}'";
 fi;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # if !empty() for TWO variables
 if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not empty
@@ -28,7 +28,7 @@ else
 	echo "VAR(S) NOT SET";
 fi;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # For string comparison, use:
 if [ "${s1}" == "${s2}" ]; then
@@ -37,7 +37,7 @@ else
 	echo "strings are NOT equal";
 fi;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # if HAYSTACK (string) CONTAINS NEEDLE (substring) - i.e. perform a case insensitive substring comparison
 if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # NEEDLE found in haystack
@@ -46,7 +46,7 @@ else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/ques
 	echo "NEEDLE \"${NEEDLE}\" NOT FOUND IN HAYSTACK \"${HAYSTACK}\"";
 fi;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # GENERAL IF / ELSE-IF STATEMENT
 #   --> Check if a valid-first-argument was passed to current script --> fail-out otherwise
@@ -68,7 +68,7 @@ else
 fi;
 exit 0;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # Determine if a given Linux-Command exists
 COMMAND_LOOKUP="docker";
@@ -84,7 +84,7 @@ else
 fi;
 IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # Determine if a given Linux-User exists
 DOES_USER_EXIST="partsupload";
@@ -95,7 +95,7 @@ else # no user-id tied to given username in this environment
 echo "USER \"${DOES_USER_EXIST}\" does NOT exist";
 fi;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # Get a NON-EMPTY response string from the user running a given script
 #   NOTE: allows spaces and zero
@@ -113,7 +113,7 @@ else
 fi;
 
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 	# Single-Line Conditionals
 	
@@ -126,7 +126,7 @@ OS_IS_CENTOS=$(if [[ $(cat /etc/*release | grep -i centos | wc -l) -gt 0 ]]; the
 # (single-line example) Is this Linux Distribution "Ubuntu"? (return 1 if true, 0 if false)
 OS_IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; then echo "1"; else echo "0"; fi; );
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 
 # Get all SSH-Enabled users on the server
 ALL_LINUX_USERS=$(cut -d: -f1 /etc/passwd);
@@ -142,11 +142,69 @@ for EACH_SSH_USER in ${ALL_LINUX_USERS}; do
 	fi;
 done;
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
 #
 # ADDITIONAL DOCUMENTATION - SEE:  https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
 #
-###  FILE-BASED CONDITIONALS
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+#
+###  Integer/String Conditionals (greater/equal/less/etc.)
+#
+#  <
+#				if [ $A -lt $B ]     :::  True if $A is less-than $B
+#				if (("$A" < "$B"))   :::  True if $A is less-than $B
+#				if [[ "$A" < "$B" ]] :::  True if $A, as a string, has a lesser ASCII-value than $B does, also as a string
+#				if [ "$A" \< "$B" ]  :::  Same as previous? --> Note that the "<" needs to be escaped within a [ ] construct
+#
+#
+#  <=
+#				if [ $A -le $B ]     :::  True if $A is less-than or equal-to $B
+#				if (("$A" <= "$B"))  :::  True if $A is less-than or equal-to $B
+#
+#
+#  > 
+#				if [ $A -gt $B ]    :::  True if $A is greater-than $B
+#				if (("$A" > "$B"))  :::  True if $A is greater-than $B
+#				if [[ "$A" > "$B" ]] :::  True if $A, as a string, has a greater ASCII-value than $B does, also as a string
+#				if [ "$A" \> "$B" ]  :::  Same as previous? --> Note that the ">" needs to be escaped within a [ ] construct
+#	
+#
+#  >=
+#				if [ $A -ge $B ]    :::  True if $A is greater-than or equal-to $B
+#				if (("$A" >= "$B")) :::  True if $A is greater-than or equal-to $B
+#
+#
+#  =
+#				if [ $A -eq $B ]    :::  True if $A is equal-to $B
+#				if [ "$A" = "$B" ]  :::  True if $A is equal-to $B 
+#				    ^----^-^----^
+#						NOTE: every bit of whitespace in this equation is essential, almost like padding
+#						THIS IS NOT EQUIVALENT TO: if [ "$A"="$B" ]  <-- improper equality conditional syntax (missing a space on each side of the equal-sign)
+#
+#
+#  ==
+#				if [[ $A == z* ]]    :::  True if $A starts with an "z" (pattern matching).
+#				if [[ $a == "z*" ]]  :::  True if $a is equal to z* (literal matching).
+#				if [ $a == z* ]      :::  File globbing and word splitting take place.
+#				if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
+#
+#
+#  !=
+#				if [ $A -ne $B ]    :::  True if $A not equal-to $B
+#				if [ "$A" != "$B" ] :::  True if $A not equal-to $B (can also pattern match, see equals, above)
+#
+#
+#  null
+#				if [ -z $A ]      :::  True if A is a string and is null (has zero length)
+#
+#
+#  not-null
+#				if [ -n $A ]      :::  True if A is a string and is NOT null (greater than zero length)
+#
+#
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+#
+###  Filepath Conditionals (such as whether path exists or not, readable, writeable, etc.)
 #
 #			-a FILE  :::  True if file exists.
 #			-b FILE  :::  True if file exists and is a block special file.
@@ -170,4 +228,15 @@ done;
 #			-O FILE  :::  True if file exists and is owned by the effective user id.
 #			-S FILE  :::  True if file exists and is a socket.
 #
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+#
+#
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+#
+#
+# Citation(s)
+#		
+#		www.tldp.org
+#		"7.3. Other Comparison Operators" (Integer/String Conditionals)
+#			https://www.tldp.org/LDP/abs/html/comparison-ops.html
+#
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #

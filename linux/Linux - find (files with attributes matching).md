@@ -26,7 +26,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 
-### Locate all files with a specific file-extension in a specific directory (and subdirectories)
+### File Extension (Single) - Locate all files with a specific file-extension in a specific directory (and subdirectories)
 ```
 FIND_EXTENSION="pdf";
 
@@ -43,7 +43,7 @@ echo -e "\nFound $(echo "${HOMEDIR_FILES}" | wc -l) files with a '.${FIND_EXTENS
 
 
 
-### Same as previous - But find files matching at least one extension requested
+### File Extensions (Many) - Same as previous - But find files matching at least one extension requested
 ```
 # Current user's home-directory
 LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)";

@@ -27,6 +27,22 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 ```
 ***
 
+### Locate all files with the file-extension of ".pdf" in a given directory & its sub-directories
+```
+
+FIND_EXTENSION="pdf";
+
+LOOK_IN_HOME_DIR="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
+
+HOMEDIR_FILES=$(find "${LOOK_IN_HOME_DIR}" -type 'f' -iname "*.${FIND_EXTENSION}");
+
+echo "${HOMEDIR_FILES}";
+
+echo -e "\nFound $(echo "${HOMEDIR_FILES}" | wc -l) files with a '.${FIND_EXTENSION}' extension in the directory '${LOOK_IN_HOME_DIR}'\n";
+
+```
+***
+
 
 ### Get the total number of EACH file-extension within a given directory & its sub-directories
 ##### --> Note: extensions are case-insensitive, ex) "PDF" and "pdf" are separated

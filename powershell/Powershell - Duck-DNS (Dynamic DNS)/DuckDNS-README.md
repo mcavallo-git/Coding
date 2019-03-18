@@ -42,13 +42,13 @@ New-Item -ItemType "Directory" -Path (($Home)+("/.duck-dns")) -ErrorAction Silen
 
 ###### "Trigger" Tab
 ```
-			On a Schedule
-			Daily
-			Starting [TODAY] @ 12:01:30 AM
-			☑ Synchronize across time zones
-			Recur every 1 days
-			Repeat task every 5 minutes for a duration of 1436 minutes (4 minutes short-of a full 24 hours)
-			Stop task if it runs longer than 10 seconds
+On a Schedule
+Daily
+Starting [TODAY] @ 12:01:30 AM
+☑ Synchronize across time zones
+Recur every 1 days
+Repeat task every 5 minutes for a duration of 1436 minutes (4 minutes short-of a full 24 hours)
+Stop task if it runs longer than 10 seconds
 ```
 ***
 

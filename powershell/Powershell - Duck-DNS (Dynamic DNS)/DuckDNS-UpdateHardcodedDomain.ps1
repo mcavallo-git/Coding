@@ -1,2 +1,2 @@
 
-#### Refer to README.md
+#### Refer to DuckDNS-README.md

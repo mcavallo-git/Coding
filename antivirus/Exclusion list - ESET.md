@@ -39,4 +39,5 @@
 ### Exclusion list - Process Exclusions
 ```
 C:\Program Files\PowerShell\6\pwsh.exe
+C:\Program Files\Git\cmd\git.exe
 ```

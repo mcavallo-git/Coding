@@ -28,9 +28,15 @@
 %PROGRAMFILES%\Mailbird\*
 %PROGRAMFILES%\nodejs\*
 %PROGRAMFILES%\Microsoft VS Code\*
+%PROGRAMFILES%\PowerShell\*
 %PROGRAMFILES(X86)%\efs\*
 %PROGRAMFILES(X86)%\Mailbird\*
 %PROGRAMFILES(X86)%\Microsoft Office\*
 %USERPROFILE%\Dropbox\*
 %USERPROFILE%\Documents\GitHub\*
+```
+
+### Exclusion list - Process Exclusions
+```
+C:\Program Files\PowerShell\6\pwsh.exe
 ```

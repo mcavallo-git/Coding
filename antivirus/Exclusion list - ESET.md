@@ -22,14 +22,21 @@
 ### Exclusion list - General
 ```
 %LOCALAPPDATA%\GitHubDesktop\*.*
+```
+```
 %ONEDRIVE%\*.*
 %ONEDRIVECOMMERCIAL%\*.*
+```
+```
 %PROGRAMFILES%\Git\*.*
 %PROGRAMFILES%\Mailbird\*.*
 %PROGRAMFILES%\nodejs\*.*
 %PROGRAMFILES%\Microsoft VS Code\*.*
 %PROGRAMFILES%\PowerShell\*.*
+```
+```
 %PROGRAMFILES(X86)%\efs\*.*
+%PROGRAMFILES(X86)%\FileZilla FTP Client\*.*
 %PROGRAMFILES(X86)%\Mailbird\*.*
 %PROGRAMFILES(X86)%\Microsoft Office\*.*
 %USERPROFILE%\Dropbox\*.*

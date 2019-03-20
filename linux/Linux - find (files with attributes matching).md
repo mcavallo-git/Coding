@@ -1,43 +1,42 @@
 
 # [find(1) - Linux man linux](https://linux.die.net/man/1/find)
+
+
+
 ***
+### Basic 'find' (file-search) examples
+```find "/var/log" -type 'f' -name "*error*";```   *-name 'search'   ### case-sensitive search*
+
+```find "/var/log" -type 'f' -iname "*error*";```   *-iname 'search'   ### case-insensitive search*
+
+```find "/var/log" -type 'd' -iname "*error*";```   *-type d   ### directories*
+
+```find "/var/log" -type "f" -printf "%p %A@\n";``` *show results' fullpath (%p) & last-modified date in Unix time (%A@)*
 
 
 
-### Search a given directory for any files whose basename matches a given substring
-```
-find "/var/log" -type 'f' -iname "*error*"; # -iname <-- case insensitive
 
-find "/var/log" -type 'f' -name "*error*"; <-- files
-
-find "/var/log" -type 'd' -iname "*error*"; # -type d <-- directories
-
-find "/var/log" -type "f" -printf "%p %A@\n"; # <-- show results' fullpath (%p) & last-modified date in Unix time (%A@)
-```
 ***
-
-
-
 ### Get the total number of files within a given directory & its sub-directories
 ```
 find "/var/log" -type 'f' -name "*" | wc -l;
 ```
+
+
+
 ***
-
-
-
 ### File Extension (Single) - Locate all files with a specific file-extension in a specific directory (and subdirectories)
 ```
 FIND_EXTENSION="pdf";
 
-# Current user's home-directory
-LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)";
+LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
 
 HOMEDIR_FILES=$(find "${LOOK_IN_DIRECTORY}" -type 'f' -iname "*.${FIND_EXTENSION}");
 
 echo "${HOMEDIR_FILES}";
 
 echo -e "\nFound $(echo "${HOMEDIR_FILES}" | wc -l) files with a '.${FIND_EXTENSION}' extension in the directory '${LOOK_IN_DIRECTORY}'\n";
+
 ```
 ***
 
@@ -45,46 +44,41 @@ echo -e "\nFound $(echo "${HOMEDIR_FILES}" | wc -l) files with a '.${FIND_EXTENS
 
 ### File Extensions (Many) - Same as previous - But find files matching at least one extension requested
 ```
-# Current user's home-directory
-LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)";
+LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
 
 GENERIC_WEB_FILES=$(find "${LOOK_IN_DIRECTORY}" -type 'f' \( -iname \*.html -o -iname \*.css -o -iname \*.jpg -o -iname \*.png -o -iname \*.gif -o -iname \*.woff2 \));
 
 echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least one extension in '${LOOK_IN_DIRECTORY}'\n";
+
 ```
+
+
+
 ***
-
-
-
 ### Get the total number of EACH file-extension within a given directory & its sub-directories
 ##### --> Note: extensions are case-insensitive, ex) "PDF" and "pdf" are separated
 ```
 find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn;
 ```
+
+
+
 ***
-
-
-
 ### Find files modified in the last X minutes
-```
-find "/var/log" -mtime -120 -ls;
-```
+```find "/var/log" -mtime -120 -ls;```
+
+
+
 ***
-
-
-
 ### Find files modified since Epoch timestamp
-```
-find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
-```
+```find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";```
+
+
+
+
 ***
-
-
-
 ### Find files modified since given point-in-time
-```
-find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
-```
+```find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";```
 ## --> Robustify
 ```
 modified_SINCE="3 minutes ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
@@ -97,10 +91,10 @@ modified_SINCE="@1537551572"; # epoch timestamp (in seconds)
 
 find "/var/log" -type 'f' -newermt "$(date --date="${modified_SINCE}" +'%Y-%m-%d %H:%M:%S')";
 ```
+
+
+
 ***
-
-
-
 ### Find files modified NO LATER THAN given point-in-time
 ```
 find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
@@ -117,10 +111,10 @@ modified_NO_LATER_THAN="@1537551572"; # epoch timestamp (in seconds)
 
 find "/var/log" -type 'f' -not -newermt "$(date --date="${modified_NO_LATER_THAN}" +'%Y-%m-%d %H:%M:%S')";
 ```
+
+
+
 ***
-
-
-
 ### Find files modified BETWEEN two points-in-time
 #####  --> Note: combines the previous two models of [since] and [not-after]
 ```
@@ -130,17 +124,16 @@ modified_NO_LATER_THAN="2018-09-21 13:37:19";
 
 find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTER}" ! -newermt "${modified_NO_LATER_THAN}"
 ```
+
+
+
 ***
-
-
 ### Determine a file's encoding (utf-8, ascii, etc.)
-```
-file -bi '/var/log/nginx/error.log'
-```
+```file -bi '/var/log/nginx/error.log'```
+
+
+
 ***
-
-
-
 ### Delete items within a directory older than X days
 #####  ex) Cleanup NGINX Logs
 ```
@@ -150,6 +143,7 @@ KEEP_NEWER_THAN_DAYS=7;
 
 find ${DIRECTORY_TO_CLEAN} -maxdepth 1 -type f -mtime +${KEEP_NEWER_THAN_DAYS} -exec rm -v -- '{}' \;
 ```
+
+
+
 ***
-
-

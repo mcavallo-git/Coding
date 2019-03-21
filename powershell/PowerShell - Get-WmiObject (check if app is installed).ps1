@@ -3,11 +3,15 @@
 # https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/install
 
 
-
-
-# Check .NET Core Runtime Version (if-installed):
+# Check if dotnet's Runtime (dotnet.dll) is installed (get version if-so):
 (Get-ChildItem -Path (Get-Command dotnet).Path.Replace('dotnet.exe', 'shared\Microsoft.NETCore.App')).Name;
+	$DownloadUrl_dotnetRuntime = "https://dotnet.microsoft.com/download/thank-you/dotnet-runtime-2.1.9-windows-x64-installer";
+
+# Check if dotnet's SDK is installed (get version if-so):
 (Get-ChildItem -Path (Get-Command dotnet).Path.Replace('dotnet.exe', 'sdk')).Name;
+	$DownloadUrl_dotnetSDK = "https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.1.505-windows-x64-installer";
+
+
 
 
 

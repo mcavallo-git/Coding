@@ -17,6 +17,15 @@
 
 
 ***
+### Find Folders within another directory which match a given, case-insensitive string (no recursion)
+```
+find '.' -type 'd' -iname 'matched_name' -maxdepth 1 | wc -l;
+```
+
+
+
+### Get the total number of files within a given directory & its sub-directories
+***
 ### Get the total number of files within a given directory & its sub-directories
 ```
 find "/var/log" -type 'f' -name "*" | wc -l;

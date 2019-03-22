@@ -9,4 +9,6 @@ $user = Get-WmiObject -Query $query -Namespace "root\Directory\LDAP";
 
 $user;
 
+# $user.DS_userPrincipalName;
 # $user.DS_mail;
+# $user.DS_name;

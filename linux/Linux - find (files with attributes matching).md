@@ -19,7 +19,7 @@
 ***
 ### Find Folders within another directory which match a given, case-insensitive string (no recursion)
 ```
-find '.' -type 'd' -iname 'matched_name' -maxdepth 1 | wc -l;
+find '.' -type 'd' -iname '*matched_name*' -maxdepth 1 | wc -l;
 ```
 
 

@@ -1,7 +1,8 @@
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # Determine if ${VAR} isset && not empty
 #    NOTE: -n  returns true if a variable has been instantiated AND contains a value (is not empty, i.e. VAR="" will fail, VAR="a" will pass)
+#
 VAR="hello"
 if [ -n "${VAR}" ]; then
 	echo "VAR is not empty";
@@ -9,18 +10,20 @@ else
 	echo "VAR IS INDEED EMPTY";
 fi;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # isset() using parameter expansion's ${[varname]+x}
+#
 if [ -z ${var+x} ]; then
 	echo "var is unset";
 else # Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515
 	echo "var is set to '${var}'";
 fi;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # if !empty() for TWO variables
+#
 if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not empty
 	FQDN="${SUBDOMAIN}.${DOMAIN}";
 	echo "${FQDN}";
@@ -28,28 +31,31 @@ else
 	echo "VAR(S) NOT SET";
 fi;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # For string comparison, use:
+#
 if [ "${s1}" == "${s2}" ]; then
 	echo "strings ARE equal ";
 else
 	echo "strings are NOT equal";
 fi;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # if HAYSTACK (string) CONTAINS NEEDLE (substring) - i.e. perform a case insensitive substring comparison
+#
 if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # NEEDLE found in haystack
 	echo "HAYSTACK \"${HAYSTACK}\" CONTAINS NEEDLE \"${NEEDLE}\"";
 else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665
 	echo "NEEDLE \"${NEEDLE}\" NOT FOUND IN HAYSTACK \"${HAYSTACK}\"";
 fi;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # GENERAL IF / ELSE-IF STATEMENT
 #   --> Check if a valid-first-argument was passed to current script --> fail-out otherwise
+#
 if [ -n "$0" ]; then
 	DK_CMD="${0}";
 	if [[ "${DK_CMD}" == "/bash_rfq" ]] || [[ "${DK_CMD}" == "/brfq" ]]; then
@@ -68,9 +74,10 @@ else
 fi;
 exit 0;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # Determine if a given Linux-Command exists
+#
 COMMAND_LOOKUP="docker";
 COMMAND_FOUND=0;
 echo ""
@@ -84,9 +91,10 @@ else
 fi;
 IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # Determine if a given Linux-User exists
+#
 DOES_USER_EXIST="partsupload";
 if [ -n "$(id -u ${DOES_USER_EXIST})" ]; then # user-id exists in this environment
 # if [[ $(id -u ${DOES_USER_EXIST}) =~ ^-?[0-9]+$ ]]; then
@@ -95,10 +103,11 @@ else # no user-id tied to given username in this environment
 echo "USER \"${DOES_USER_EXIST}\" does NOT exist";
 fi;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # Get a NON-EMPTY response string from the user running a given script
 #   NOTE: allows spaces and zero
+#
 echo "";
 echo "Did you enter a non-empty string?";
 read -p "Your response:  " -t 20 -r;
@@ -113,10 +122,11 @@ else
 fi;
 
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------------------
+#
+# Single-Line Conditionals
+#
 
-	# Single-Line Conditionals
-	
 # (single-line example) Check for error & exit
 ERROR_CODE=$?; if [ ${ERROR_CODE} -ne 0 ]; then echo "$(date +'%D  %r') EXITING WITH ERROR_CODE=${ERROR_CODE}"; exit 1; else echo "$(date +'%D  %r') EXITING WITH ERROR_CODE=${ERROR_CODE}"; exit 0; fi;
 
@@ -126,9 +136,10 @@ OS_IS_CENTOS=$(if [[ $(cat /etc/*release | grep -i centos | wc -l) -gt 0 ]]; the
 # (single-line example) Is this Linux Distribution "Ubuntu"? (return 1 if true, 0 if false)
 OS_IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; then echo "1"; else echo "0"; fi; );
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
+# -------------------------------------------------------------
+#
 # Get all SSH-Enabled users on the server
+#
 ALL_LINUX_USERS=$(cut -d: -f1 /etc/passwd);
 for EACH_SSH_USER in ${ALL_LINUX_USERS}; do
 	DIR_USER_HOME=$(eval echo ~${EACH_SSH_USER});
@@ -142,7 +153,7 @@ for EACH_SSH_USER in ${ALL_LINUX_USERS}; do
 	fi;
 done;
 
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------------------
 #
 # Integer/String Conditionals   (greater/equal/less/etc.)
 #
@@ -200,7 +211,7 @@ done;
 #
 #
 #
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------------------
 #
 # Filepath Conditionals   (whether path exists or not, is readable, is writeable, etc.)
 #
@@ -229,7 +240,7 @@ done;
 #
 #
 #
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------------------
 #
 # Citation(s)
 #		
@@ -244,4 +255,4 @@ done;
 #
 #
 #
-# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# -------------------------------------------------------------

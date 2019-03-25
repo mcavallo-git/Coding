@@ -43,12 +43,12 @@ fi;
 
 # -------------------------------------------------------------
 #
-# if HAYSTACK (string) CONTAINS NEEDLE (substring) - i.e. perform a case insensitive substring comparison
+# if Haystack (string) contains Needle (substring) - i.e. perform a case insensitive substring comparison
 #
-if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # NEEDLE found in haystack
-	echo "HAYSTACK \"${HAYSTACK}\" CONTAINS NEEDLE \"${NEEDLE}\"";
+if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # Needle found in haystack
+	echo "Haystack \"${HAYSTACK}\" contains Needle \"${NEEDLE}\"";
 else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665
-	echo "NEEDLE \"${NEEDLE}\" NOT FOUND IN HAYSTACK \"${HAYSTACK}\"";
+	echo "Needle \"${NEEDLE}\" not found in Haystack \"${HAYSTACK}\"";
 fi;
 
 # -------------------------------------------------------------

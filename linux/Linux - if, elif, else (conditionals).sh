@@ -59,12 +59,12 @@ fi;
 #
 if [ -n "$0" ]; then
 	DK_CMD="${0}";
-	if [[ "${DK_CMD}" == "/bash_rfq" ]] || [[ "${DK_CMD}" == "/brfq" ]]; then
-		echo "rfq";
-	elif [[ "${DK_CMD}" == "/bash_mdev" ]] || [[ "${DK_CMD}" == "/bmdev" ]]; then
-		echo "mdev";
-	elif [[ "${DK_CMD}" == "/bash_dev" ]] || [[ "${DK_CMD}" == "/bdev" ]]; then
-		echo "dev";
+	if [[ "${DK_CMD}" == "/bash_production" ]] || [[ "${DK_CMD}" == "/bashprod" ]]; then
+		echo "Production";
+	elif [[ "${DK_CMD}" == "/bash_development" ]] || [[ "${DK_CMD}" == "/bashdev" ]]; then
+		echo "Development";
+	elif [[ "${DK_CMD}" == "/bash_quality_assurance" ]] || [[ "${DK_CMD}" == "/bashqa" ]]; then
+		echo "Quality Assurance";
 	else
 		echo "\n\n$ 0: Un-handled Bash Command: \"${0}\"\n\n";
 		exit 1;

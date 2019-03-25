@@ -53,8 +53,9 @@ fi;
 
 # -------------------------------------------------------------
 #
-# GENERAL IF / ELSE-IF STATEMENT
-#   --> Check if a valid-first-argument was passed to current script --> fail-out otherwise
+# If ... {...}  Else-If ... {...} Else-If ... {...} Else {...}
+#
+#		Example: Check if a valid-first-argument was passed to current script, fail-out otherwise
 #
 if [ -n "$0" ]; then
 	DK_CMD="${0}";

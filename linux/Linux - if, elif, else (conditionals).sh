@@ -14,7 +14,7 @@ fi;
 # isset() using parameter expansion's ${[varname]+x}
 if [ -z ${var+x} ]; then
 	echo "var is unset";
-else # Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515/how-to-check-if-a-variable-is-set-in-bash
+else # Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515
 	echo "var is set to '${var}'";
 fi;
 
@@ -42,7 +42,7 @@ fi;
 # if HAYSTACK (string) CONTAINS NEEDLE (substring) - i.e. perform a case insensitive substring comparison
 if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # NEEDLE found in haystack
 	echo "HAYSTACK \"${HAYSTACK}\" CONTAINS NEEDLE \"${NEEDLE}\"";
-else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665/how-do-i-compare-two-string-variables-in-an-if-statement-in-bash
+else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665
 	echo "NEEDLE \"${NEEDLE}\" NOT FOUND IN HAYSTACK \"${HAYSTACK}\"";
 fi;
 

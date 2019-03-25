@@ -10,6 +10,8 @@ else
 	echo "VAR IS INDEED EMPTY";
 fi;
 
+
+
 # -------------------------------------------------------------
 #
 # isset() using parameter expansion's ${[varname]+x}
@@ -19,6 +21,8 @@ if [ -z ${var+x} ]; then
 else # Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515
 	echo "var is set to '${var}'";
 fi;
+
+
 
 # -------------------------------------------------------------
 #
@@ -31,6 +35,8 @@ else
 	echo "VAR(S) NOT SET";
 fi;
 
+
+
 # -------------------------------------------------------------
 #
 # String comparison
@@ -40,6 +46,8 @@ if [ "${s1}" == "${s2}" ]; then
 else
 	echo "strings are NOT equal";
 fi;
+
+
 
 # -------------------------------------------------------------
 #
@@ -51,11 +59,14 @@ else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/ques
 	echo "Needle \"${NEEDLE}\" not found in Haystack \"${HAYSTACK}\"";
 fi;
 
+
+
 # -------------------------------------------------------------
 #
 # If ... {...}  Else-If ... {...} Else-If ... {...} Else {...}
 #
-#		Example: Check if a valid-first-argument was passed to current script, fail-out otherwise
+#		Example File: /bash_x
+#		Example Desc:  Check if a valid-first-argument was passed to current script, fail-out otherwise
 #
 if [ -n "$0" ]; then
 	DK_CMD="${0}";
@@ -75,6 +86,8 @@ else
 fi;
 exit 0;
 
+
+
 # -------------------------------------------------------------
 #
 # Determine if a given Linux-Command exists
@@ -92,6 +105,8 @@ else
 fi;
 IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
+
+
 # -------------------------------------------------------------
 #
 # Determine if a given Linux-User exists
@@ -103,6 +118,8 @@ echo "USER \"${DOES_USER_EXIST}\" EXISTS!";
 else # no user-id tied to given username in this environment
 echo "USER \"${DOES_USER_EXIST}\" does NOT exist";
 fi;
+
+
 
 # -------------------------------------------------------------
 #
@@ -123,6 +140,7 @@ else
 fi;
 
 
+
 # -------------------------------------------------------------
 #
 # Single-Line Conditionals
@@ -136,6 +154,8 @@ OS_IS_CENTOS=$(if [[ $(cat /etc/*release | grep -i centos | wc -l) -gt 0 ]]; the
 
 # (single-line example) Is this Linux Distribution "Ubuntu"? (return 1 if true, 0 if false)
 OS_IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; then echo "1"; else echo "0"; fi; );
+
+
 
 # -------------------------------------------------------------
 #
@@ -153,6 +173,8 @@ for EACH_SSH_USER in ${ALL_LINUX_USERS}; do
 		echo "User [${EACH_SSH_USER}] is NOT an SSH-User";
 	fi;
 done;
+
+
 
 # -------------------------------------------------------------
 #

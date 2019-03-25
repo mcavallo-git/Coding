@@ -33,7 +33,7 @@ fi;
 
 # -------------------------------------------------------------
 #
-# For string comparison, use:
+# String comparison
 #
 if [ "${s1}" == "${s2}" ]; then
 	echo "strings ARE equal ";

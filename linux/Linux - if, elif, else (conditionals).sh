@@ -1,20 +1,22 @@
 # -------------------------------------------------------------
 #
-# Determine if ${VAR} isset && not empty
-#    NOTE: -n  returns true if a variable has been instantiated AND contains a value (is not empty, i.e. VAR="" will fail, VAR="a" will pass)
+#		If [ Not-Null ]
 #
 VAR="hello"
 if [ -n "${VAR}" ]; then
-	echo "VAR is not empty";
+	echo "VAR has a value of \"${VAR}\"";
 else
-	echo "VAR IS INDEED EMPTY";
+	echo "VAR is null/unset";
 fi;
 
 
 
 # -------------------------------------------------------------
 #
-# isset() using parameter expansion's ${[varname]+x}
+#	If [ Null/Unset ]
+#
+#		Note
+#			Uses parameter expansion:  ${<varname>+x}
 #
 if [ -z ${var+x} ]; then
 	echo "var is unset";
@@ -26,7 +28,7 @@ fi;
 
 # -------------------------------------------------------------
 #
-# if !empty() for TWO variables
+#		If [ Not-Null ]
 #
 if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not empty
 	FQDN="${SUBDOMAIN}.${DOMAIN}";
@@ -39,7 +41,7 @@ fi;
 
 # -------------------------------------------------------------
 #
-# String comparison
+#		If [ String == String ]
 #
 if [ "${s1}" == "${s2}" ]; then
 	echo "strings ARE equal ";
@@ -51,7 +53,10 @@ fi;
 
 # -------------------------------------------------------------
 #
-# if Haystack (string) contains Needle (substring) - i.e. perform a case insensitive substring comparison
+# 	If [ Needle-in-Haystack ]
+#
+#		Note
+#			Perform a case insensitive substring comparison
 #
 if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # Needle found in haystack
 	echo "Haystack \"${HAYSTACK}\" contains Needle \"${NEEDLE}\"";

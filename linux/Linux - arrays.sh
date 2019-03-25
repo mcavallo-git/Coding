@@ -62,7 +62,7 @@ done;
 
 #  -------------------------------------------------------------
 #
-#	Reference Arrays as variables whose names are built from other arrays' string-values.
+#	Reference Arrays as variables whose variable-names are built from other arrays' string-values.
 #	Then, combine all arrays and find unique items amongst their net result;
 #
 

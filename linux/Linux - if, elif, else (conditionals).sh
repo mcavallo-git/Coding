@@ -1,12 +1,15 @@
 # -------------------------------------------------------------
 #
-#		If [ Not-Null ]
+#	If [ Not Null/Unset ]
 #
+#	Example
+#		Determine if [string] variable has a value using [ -n ] comparator
+
 VAR="hello"
 if [ -n "${VAR}" ]; then
 	echo "VAR has a value of \"${VAR}\"";
 else
-	echo "VAR is null/unset";
+	echo "VAR is Null/Unset";
 fi;
 
 
@@ -15,12 +18,14 @@ fi;
 #
 #	If [ Null/Unset ]
 #
-#		Note
-#			Uses parameter expansion:  ${<varname>+x}
+#	Example
+#		Determine if variable is-set using parameter expansion:  ${<varname>+x}
+#		( Citation: Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515 )
 #
+
 if [ -z ${var+x} ]; then
-	echo "var is unset";
-else # Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515
+	echo "var is Null/Unset";
+else
 	echo "var is set to '${var}'";
 fi;
 
@@ -30,6 +35,7 @@ fi;
 #
 #		If [ Not-Null ]
 #
+
 if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not empty
 	FQDN="${SUBDOMAIN}.${DOMAIN}";
 	echo "${FQDN}";
@@ -44,23 +50,25 @@ fi;
 #		If [ String == String ]
 #
 if [ "${s1}" == "${s2}" ]; then
-	echo "strings ARE equal ";
+	echo "Strings ARE equal ";
 else
-	echo "strings are NOT equal";
+	echo "Strings are NOT equal";
 fi;
 
 
 
 # -------------------------------------------------------------
 #
-# 	If [ Needle-in-Haystack ]
+#	If [ Needle-in-Haystack ]
 #
-#		Note
-#			Perform a case insensitive substring comparison
+#	Example
+#		Perform a case-insensitive substring comparison
+#		( Citation: Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665 )
 #
+
 if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # Needle found in haystack
 	echo "Haystack \"${HAYSTACK}\" contains Needle \"${NEEDLE}\"";
-else # Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665
+else
 	echo "Needle \"${NEEDLE}\" not found in Haystack \"${HAYSTACK}\"";
 fi;
 
@@ -68,7 +76,29 @@ fi;
 
 # -------------------------------------------------------------
 #
-# If ... {...}  Else-If ... {...} Else-If ... {...} Else {...}
+#	If [ String passes regex test ]
+#
+#
+#	Example
+#		Check to see if string is a date in 'yyyymmdd' format
+#		( Citation: Thanks to user 'fedorqui' on stackoverflow - https://stackoverflow.com/questions/21112707 )
+#
+
+StringToTest="20190331";
+if [[ ${StringToTest} =~ ^[0-9]{4}(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$ ]]; then
+	echo "Valid Date: \"${StringToTest}\"";
+else
+	echo "Invalid Date: \"${StringToTest}\"";
+fi;
+
+
+
+# -------------------------------------------------------------
+#
+#	If [...] Then {...}
+#	Else-If [...] Then {...}
+#	Else-If [...] Then {...}
+#	Else {...}
 #
 #		Example File: /bash_x
 #		Example Desc:  Check if a valid-first-argument was passed to current script, fail-out otherwise

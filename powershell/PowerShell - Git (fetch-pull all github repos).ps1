@@ -26,32 +26,47 @@ $GitHubReposParentDir = (($Home)+("\Documents\GitHub"));
 
 $RepoFullpathsArr = @();
 
-ForEach ($EachRepoDir in ((Get-ChildItem -Directory -Name -Path ($GitHubReposParentDir)).GetEnumerator())) {
+ForEach ($EachRepoDirBasename in ((Get-ChildItem -Directory -Name -Path ($GitHubReposParentDir)).GetEnumerator())) {
 	
-	$CurrentRepoFullpath = (($GitHubReposParentDir)+("\")+($EachRepoDir));
+	$EachRepoDirFullpath = (($GitHubReposParentDir)+("\")+($EachRepoDirBasename));
 
-	Set-Location -Path $CurrentRepoFullpath;
+	Set-Location -Path $EachRepoDirFullpath;
 
 	$CheckGitStatus = (git status);
 
 	If ($CheckGitStatus -ne $null) {
 
-		$RepoFullpathsArr += $CurrentRepoFullpath;
+		$RepoFullpathsArr += $EachRepoDirBasename;
 
 	}
 
 }
 
-# Do Each Fetch-Pull separately, from the base of their working-tree
+If ($RepoFullpathsArr.Length -gt 0) {
 
-ForEach ($EachRepoFullpath in $RepoFullpathsArr) {
+	# Do Each Fetch-Pull separately, from the base of their working-tree
 
-	Write-Host "Attempting to fetch/pull repo w/ local fullpath:  $EachRepoFullpath";
+	Write-Host (("Found ")+($RepoFullpathsArr.Length)+(" git-repositories in directory `"$GitHubReposParentDir`":"));
 
-	Set-Location -Path $EachRepoFullpath;
+	ForEach ($EachRepoDirBasename in $RepoFullpathsArr) {
 
-	git fetch;
+		$EachRepoDirFullpath = (($GitHubReposParentDir)+("\")+($EachRepoDirBasename));
 
-	git pull;
+		Set-Location -Path $EachRepoDirFullpath;
+
+		Write-Host "Fetching updates for git-repo `"$EachRepoDirBasename`"";
+		git fetch;
+
+		Write-Host "Pulling updates for git-repo `"$EachRepoDirBasename`"";
+		git pull;
+
+	}
+
+} Else {
+
+	Write-Host "No Repositories found in: `"$GitHubReposParentDir`"";
 
 }
+
+Write-Host -NoNewLine "Press any key to continue...";
+$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

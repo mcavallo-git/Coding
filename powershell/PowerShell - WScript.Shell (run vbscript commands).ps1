@@ -37,19 +37,15 @@ $Shell.SendKeys($TypeIntoStartMenu);
 
 #
 #	WScript.Shell - Popup
-#		-->	Show a confirmation yes/no/cancel message (which [ times-out & returns -1 ] after 5 seconds)
+#		-->	Show a popup message
+#
+
+# Ex: Show a popup which [ times-out & returns -1 ] after 5 seconds, and has options yes/no/cancel (setting 3)
 (New-Object -ComObject WScript.Shell).Popup("Demo Message", 5, "Hello World", 3);
-#
-#
+
+
 
 # ---------------------------------------------------------------------------------------------------------- #
-
-
-
-
-
-
-
 #
 #	Citations (other)
 #

@@ -1,6 +1,4 @@
-
 # ---------------------------------------------------------------------------------------------------------------------- #
-#
 #	PowerShell
 #		--> set ConsoleColor
 #
@@ -14,8 +12,7 @@ Write-Host "PASS" -ForegroundColor green;
 
 
 # ---------------------------------------------------------------------------------------------------------------------- #
-#
-# Windows System.ConsoleColors
+# Color Options
 #		--> PowerShell has a limited set of 16 color options
 #		--> The $color object, below, displays interchangeable values, either or which (index-int or color-string) may be used
 #	
@@ -36,6 +33,7 @@ $colors[12] = "Red";
 $colors[13] = "Magenta";
 $colors[14] = "Yellow";
 $colors[15] = "White";
+
 
 
 # ---------------------------------------------------------------------------------------------------------------------- #

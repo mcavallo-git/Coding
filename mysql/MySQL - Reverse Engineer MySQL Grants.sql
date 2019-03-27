@@ -1,8 +1,8 @@
 
 /*
-	Name:      MySQL Grant Rebuilder
-	Author:    MCavallo   https://github.com/mcavallo-git
+	Script:    MySQL Grant Rebuilder
 	Purpose:   Reverse-engineer MySQL instance's user permissions (grants)
+	Author:    MCavallo   https://github.com/mcavallo-git
 */
 
 SET @SPECIFIC_USER := ''; /* Show grants for one, specific user (set to '' to show all) */

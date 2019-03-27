@@ -1,4 +1,5 @@
-
+# Note: SendKeys is incompatible with OS-Specific keystrokes, and as-such, cannot send [ the Windows-Key ] or [ the Macintosh-Key ]
+# Note: SendKeys cannot send the Print-Screen key, {PRTSC} to applications
 
 
 $oWscript = New-Object -ComObject WScript.Shell;
@@ -8,9 +9,9 @@ $oWscript.Popup("Demo Message", 5, "Hello World", 3);
 (New-Object -ComObject WScript.Shell).Popup("Demo Message", 5, "Hello World", 3)
 
 (New-Object -ComObject WScript.Shell).SendKeys('^{ESC}')
-# Send Keypress: [ Enter ]
-(New-Object -ComObject WScript.Shell).SendKeys('^{ESC}')
-(New-Object -ComObject WScript.Shell).SendKeys('#')
+
+# Soln: Simulate a start-menu keypress by opening the start-menu with 'CTRL+ESC'
+(New-Object -ComObject WScript.Shell).SendKeys('^{ESC}');
 
 
 
@@ -39,12 +40,21 @@ $oWscript.Popup("Demo Message", 5, "Hello World", 3);
 
 
 
+
+
+
+
+
+
+
 #
 #	Citations
-#		
-#		CMD / Batch Script  :::  Thanks to Stack Overflow user 'tinyfiledialogs' on the forum: https://stackoverflow.com/questions/13115508
 #
-#		PowerShell Script  :::  Thanks to Reddit user [No username (deleted)] on the forum: https://www.reddit.com/r/vbscript/comments/4gyu4u
+#		(SendKeys, General) docs.microsoft.com "SendKeys statement": https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sendkeys-statement
 #
-#		VB Script  :::  Thanks to Neowin user 'kimsland' on the forum: https://www.reddit.com/r/vbscript/comments/4gyu4u
+#		(CMD / Batch Script) Thanks to Stack Overflow user 'tinyfiledialogs' on the forum: https://stackoverflow.com/questions/13115508
+#
+#		(PowerShell Script) Thanks to Reddit user [No username (deleted)] on the forum: https://www.reddit.com/r/vbscript/comments/4gyu4u
+#
+#		(VB Script) Thanks to Neowin user 'kimsland' on the forum: https://www.reddit.com/r/vbscript/comments/4gyu4u
 #

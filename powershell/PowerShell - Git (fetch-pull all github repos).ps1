@@ -46,7 +46,9 @@ If ($RepoFullpathsArr.Length -gt 0) {
 
 	# Do Each Fetch-Pull separately, from the base of their working-tree
 
-	Write-Host (("Found ")+($RepoFullpathsArr.Length)+(" git-repositories in directory `"$GitHubReposParentDir`":"));
+	$VerbiageRepositoryCount = If(RepoFullpathsArr.Length -eq 1) { "repository" } Else { "repositories" };
+	
+	Write-Host (("Found ")+($RepoFullpathsArr.Length)+(" git ")+($VerbiageRepositoryCount)+(" in directory `"$GitHubReposParentDir`":"));
 
 	ForEach ($EachRepoDirBasename in $RepoFullpathsArr) {
 
@@ -64,7 +66,7 @@ If ($RepoFullpathsArr.Length -gt 0) {
 
 } Else {
 
-	Write-Host "No Repositories found in: `"$GitHubReposParentDir`"";
+	Write-Host "No git repositories found in: `"$GitHubReposParentDir`"";
 
 }
 

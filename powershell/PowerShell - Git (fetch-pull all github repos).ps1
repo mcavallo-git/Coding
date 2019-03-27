@@ -4,11 +4,6 @@
 
 $CommandName="git";
 
-# $Revertable_ErrorActionPreference=$ErrorActionPreference;
-# $ErrorActionPreference='SilentlyContinue';
-# 	$GetCommand = (Get-Command $CommandName);
-# $ErrorActionPreference=$Revertable_ErrorActionPreference;
-
 If((Get-Command $CommandName -ErrorAction SilentlyContinue) -eq $null) {
 
 	## Fail - Command [ $CommandName ] not found Locally
@@ -46,6 +41,8 @@ ForEach ($EachRepoDir in ((Get-ChildItem -Directory -Name -Path ($GitHubReposPar
 	}
 
 }
+
+# Do Each Fetch-Pull separately, from the base of their working-tree
 
 ForEach ($EachRepoFullpath in $RepoFullpathsArr) {
 

@@ -38,23 +38,31 @@ $EnvAll.GetType();
 $EnvAll.Path;
 $EnvAll.Path.Split(';');
 
-### GetType:
-#
-# $EnvAll.GetType().FullName;
-
-
 ### Indices
 #
-# 		$EnvSystem.ComSpec;
-# 		$EnvSystem.OS;
-# 		$EnvSystem.Path;
-# 			$EnvSystem.Path.Split(';');
-# 		$EnvSystem.TEMP;
-# 		$EnvSystem.TMP;
-# 		$EnvSystem.windir;
 #
-# 		$EnvUser.Path;
-# 			$EnvUser.Path.Split(';');
-# 		$EnvUser.TEMP;
-# 		$EnvUser.TMP;
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
 #

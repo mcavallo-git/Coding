@@ -13,7 +13,7 @@ $CommandName = "powershell.exe";
 
 $PowerShellExe_Filepath = (Get-Command -Name $CommandName).Source;
 
-Write-Host (("`n`nSource of Command `"")+($CommandName)+("`":`n")); Write-Host (($PowerShellExe_Filepath)+("`n`n")) -ForegroundColor green;
+Write-Host (("`n`nSource of `"")+($CommandName)+("`":`n")); Write-Host (($PowerShellExe_Filepath)+("`n`n")) -ForegroundColor green;
 
 
 

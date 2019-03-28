@@ -1,97 +1,74 @@
-
-
-# $NamePartialMatch = "ApplicationFrameHost";
-# $NamePartialMatch = "Chrome";
 $NamePartialMatch = "chrome";
 
-$ProcessMatches = Get-WmiObject Win32_Process -Filter (("Name like '%")+($NamePartialMatch)+("%'"));
+$LiveProcs = (Get-Process -Name $NamePartialMatch | Select * | Where { $_.Id -ne 0 });
 
-# $ParentProcesses = @();
+$UniqueProcs = @();
 
-$ParentProcesses = @{};
+ForEach ($EachProc In $LiveProcs) {
 
-ForEach ($EachItem In $ProcessMatches) {
+	If (($EachProc.Name).contains($NamePartialMatch)) {
 
-	$EachProcess = $EachItem;
+		If (($EachProc.Id) -eq 0) {
 
-	If (($EachProcess.Name).contains($NamePartialMatch) -eq $true) {
+			# Ignore processes which have Id=0
 
-		If ($EachProcess.ProcessId -ne 0) {
+		} Else {
 
-			# While (($EachProcess.ParentProcessId -ne 0) -And ($EachProcess.Description -inotmatch "System Idle Process")) {
-			While ($EachProcess.Path -eq $null) {
-				
-				If ($EachProcess.ParentProcessId -eq 0) {
+			$ProcessIsUnique = $true;
+
+			ForEach ($UniqProc In $UniqueProcs) {
+
+				If (($EachProc.Id) -eq ($UniqProc.Id)) {
+
+					$ProcessIsUnique = $false;
 
 					Break;
 					
-				} Else {
-					
-					$EachProcess = Get-WmiObject Win32_Process -Filter (("ProcessId = '")+($ProcessId.ParentProcessId)+("'"));
-
 				}
 
 			}
 
+			If ($ProcessIsUnique -eq $true) {
 
-			If ($EachProcess.ProcessId -ne 0) {
-
-				$ProcessIsUnique = $true;
-
-				ForEach ($EachUniqueProcess In ($ParentProcesses.GetEnumerator())) {
-
-					If (($EachProcess.Value).ProcessId -eq ($EachUniqueProcess.Value).ProcessId) {
-
-						$ProcessIsUnique = $false;
-
-					}
-					
-				}
-
-				if ($ProcessIsUnique -eq $true) {
-					
-					# $EachProcess
-
-					$ParentProcesses[([String]$EachProcess.ProcessId)] = $EachProcess;
-
-				}
-				
-				$EachProcess;
-				
-				# $EachProcess.Vaue.CommandLine;
+				$UniqueProcs += $EachProc;
 
 			}
-
 		}
-
 	}
 }
 
-ForEach ($EachProcess In $ParentProcesses.GetEnumerator()) {
-	# $CommandExists = EnsureCommandExists -Name ($RequiredCommand.Name) -OnErrorShowUrl ($RequiredCommand.Value);
+If ($UniqueProcs.Count -gt 0) {
 
-	# Write-Host "`nShowing Matched Process: ";
-	$EachProc = @{};
+	$UniqueProcs | Format-Table -Autosize -Property Id, Name, Description;
 
-	$EachProc.NDX = $EachProcess.Name;
+	Write-Host "`n   !!  WARNING  !!  " -ForegroundColor Red -NoNewline;
+	Write-Host "This action will end all processes listed above" -ForegroundColor Yellow;
 
-	$EachProc.PID = $EachProcess.Value.ProcessId;
+	Write-Host "`n   --  CONFIRM  --  " -ForegroundColor Red -NoNewline;
+	Write-Host "Are you sure? ( y / n ): " -ForegroundColor Yellow -NoNewline;
 
-	$EachProc.CommandLine = $EachProcess.Vaue.CommandLine;
+	$confirmation = Read-Host;
 
-	$EachProc.Name = $EachProcess.Value.Name;
+	If ($confirmation -eq 'y') {
 
-	$EachProc.Path = $EachProcess.Value.Path;
+		ForEach ($UniqProc In $UniqueProcs) {
+			$EachUniqPID = ($UniqProc.Id);
 
-	$EachProc.Fullpath = $EachProcess.Vaue.ExecutablePath;
+			Write-Host "   Stopping PID $EachUniqPID" -ForegroundColor Yellow;
 
-	# $EachProc | Format-Table;
-	$EachProcess.Vaue.CommandLine
+			Stop-Process -Id ($EachUniqPID);
+
+		}
+
+	} Else {
+
+		Write-Host "`n   No Action Taken" -ForegroundColor Yellow;
+
+	}
+
+	Write-Host "`n`n";
 
 }
-
-Write-Host (("`n`n--- Matched ")+($ParentProcesses.Count)+(" Processes ---`n`n"));
-
 
 
 # Batch Script:
@@ -107,3 +84,12 @@ Write-Host (("`n`n--- Matched ")+($ParentProcesses.Count)+(" Processes ---`n`n")
 # DEL "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\Send to OneNote*"
 # REM Step 3/3 - Kill Startup-Directory QuickNote(s)
 # DEL "%USERPROFILE%\Documents\OneNote Notebooks\Quick Notes*.one"
+
+
+# ---------------------------------------------------------------------------------------------------------------------- #
+#
+# Citation(s)
+#
+#		docs.microsoft.com, "Stop-Process"
+#			https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process
+#

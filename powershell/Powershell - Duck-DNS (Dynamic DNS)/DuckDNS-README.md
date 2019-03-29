@@ -11,12 +11,8 @@
 * ##### Updates DNS Provider's target-hostname's A-Record to the current-device's WAN-IPv4 (if needed)
 ***
 
-### Note(s)
-#### Dynamic DNS is commonly written as "DDNS" or "DynDNS"
-***
 
-
-### DDNS via Duck DNS
+# Method 1 - Duck DNS
 ###### Resolve DNS A-Record lookups for [ a Static, Custom Hostname ] to [ the WAN-IPv4 (Dynamic) of a given workstation ]
 ***
 
@@ -90,4 +86,8 @@ PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:\Users'))) { If (
 ### Popular DDNS providers:
 ##### [Duck DNS](https://duckdns.org) - Up-to 5 DDNS subdomains per (free) account (donation-based model)
 ##### [No-IP](https://www.noip.com/remote-access) - Up-to 3 DDNS subdomains per (free) account. Requires user to complete one captcha, per-subdomain, per-month, or No-IP deletes it.
+***
+
+### Note(s)
+#### Dynamic DNS is commonly written as "DDNS" or "DynDNS"
 ***

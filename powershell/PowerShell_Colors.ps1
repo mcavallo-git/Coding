@@ -27,7 +27,8 @@ Foreach ($DatSetting In $ColorSets.GetEnumerator()) {
 	
 	$DatName = $DatSetting.Name;
 	
-	$DatUpdated = $DatSetting.Value;
+	# $DatUpdated = $DatSetting.Value;
+	$DatUpdated = "Red";
 
 	If ($DatUpdated -ne $DatCurrent) {
 

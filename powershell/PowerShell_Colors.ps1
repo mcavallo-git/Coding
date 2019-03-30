@@ -29,12 +29,6 @@ Foreach ($DatSetting In $ColorSets.GetEnumerator()) {
 	
 	$DatUpdated = $DatSetting.Value;
 
-	Write-Host -NoNewLine "Updating variable $HOST.PrivateData[$DatName]";
-
-	Write-Host -NoNewLine "from";
-
-	Write-Host -NoNewLine $DatCurrent -ForegroundColor $DatCurrent;
-
 	If ($DatUpdated -ne $DatCurrent) {
 
 		Write-Host -NoNewLine "Updating variable `$HOST.PrivateData.$DatName ";
@@ -51,13 +45,17 @@ Foreach ($DatSetting In $ColorSets.GetEnumerator()) {
 
 			$DatCurrent = $HOST.PrivateData[$DatName];
 
-			Write-Host -NoNewLine "from "; Write-Host -NoNewLine $DatCurrent -ForegroundColor $DatCurrent;
+			Write-Host -NoNewLine "from [ ";
+				Write-Host -NoNewLine $DatCurrent -ForegroundColor $DatCurrent;
+			Write-Host -NoNewLine " ]";
 			
 		}
 
 		If ($DatUpdated -ne $null) {
 
-			Write-Host -NoNewLine "to"; Write-Host -NoNewLine $DatUpdated -ForegroundColor $DatUpdated;
+			Write-Host -NoNewLine "to [ ";
+				Write-Host -NoNewLine $DatUpdated -ForegroundColor $DatUpdated;
+			Write-Host -NoNewLine " ]";
 
 		}
 

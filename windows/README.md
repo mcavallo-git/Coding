@@ -1,8 +1,5 @@
 # Workstation Setup (Windows)
 ***
-
-
-
 ## Environment
 ***
 ### Taskbar (Bottom Bar)

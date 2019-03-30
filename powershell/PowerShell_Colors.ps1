@@ -25,16 +25,24 @@ $HOST.PrivateData.ProgressBackgroundColor = "DarkCyan";
 
 Foreach ($DatSetting In $ColorSets) {
 	
+	Write-Host -NoNewLine "Updating variable $HOST.PrivateData[$DatSettingName]";
 	$DatSettingName = $DatSetting.Value;
-	$DatSettingCurrent = $HOST.PrivateData[$DatSettingName];
+	
+	Write-Host -NoNewLine "from";
+	Write-Host -NoNewLine $DatSettingCurrent -ForegroundColor $DatSettingCurrent;
+	If ( $HOST.PrivateData[$DatSettingName] -ne $null ) {
+		$DatSettingCurrent = $HOST.PrivateData[$DatSettingName];
+	}
 	$DatSettingUpdated = $DatSetting.Value;
 
 	If ($DatSettingUpdated -ne $DatSettingCurrent) {
 
 		Write-Host -NoNewLine "Updating variable $HOST.PrivateData[$DatSettingName]";
-		Write-Host -NoNewLine "from";
+
 		Write-Host -NoNewLine $DatSettingCurrent -ForegroundColor $DatSettingCurrent;
+		
 		Write-Host -NoNewLine "to";
+
 		Write-Host -NoNewLine $DatSettingUpdated; -ForegroundColor $DatSettingUpdated;
 
 	}

@@ -11,18 +11,6 @@ $ColorSets.VerboseBackgroundColor = "Black";
 $ColorSets.ProgressForegroundColor = "Yellow";
 $ColorSets.ProgressBackgroundColor = "DarkCyan";
 
-
-# $HOST.PrivateData.ErrorForegroundColor = "Red";
-# $HOST.PrivateData.ErrorBackgroundColor = "Black";
-# $HOST.PrivateData.WarningForegroundColor = "Yellow";
-# $HOST.PrivateData.WarningBackgroundColor = "Black";
-# $HOST.PrivateData.DebugForegroundColor = "Yellow";
-# $HOST.PrivateData.DebugBackgroundColor = "Black";
-# $HOST.PrivateData.VerboseForegroundColor = "Yellow";
-# $HOST.PrivateData.VerboseBackgroundColor = "Black";
-# $HOST.PrivateData.ProgressForegroundColor = "Yellow";
-# $HOST.PrivateData.ProgressBackgroundColor = "DarkCyan";
-
 Foreach ($DatSetting In $ColorSets.GetEnumerator()) {
 	
 	$DatName = $DatSetting.Name;

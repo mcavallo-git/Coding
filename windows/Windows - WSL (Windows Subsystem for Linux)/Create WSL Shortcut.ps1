@@ -14,6 +14,9 @@ $Needle_LinuxDistros = @{
 	Ubuntu    = @("Ubuntu","UbuntuonWindows","CanonicalGroupLimited")
 };
 
+Write-Host "`$Needle_LinuxDistros :";
+$Needle_LinuxDistros;
+
 $Regex_LinuxDistros = @{
 	Alpine    = "[a-z0-9]{13}\.(Alpine)WSL_[a-z0-9]{13}";
 	Debian    = "[0-9]{5}SUSE.(openSUSE)Leap[0-9\.]{4}_[a-z0-9]{13}";
@@ -23,9 +26,16 @@ $Regex_LinuxDistros = @{
 	Ubuntu    = "TheDebianProject\.(DebianGNU)Linux_[a-z0-9]{13}";
 };
 
+Write-Host "`$Regex_LinuxDistros :";
+$Regex_LinuxDistros;
+
 $LocalDistros_Resolved = @();
 
-ForEach ($EachLocalDir In $Haystack_LocalDirs.Path) {
+ForEach ($EachLocalDir In $Haystack_LocalDirs) {
+
+
+	Write-Host "`$EachLocalDir :";
+	$EachLocalDir;
 
 	$Distro_Basename = ($EachLocalDir.Split('\'))[-3];
 	
@@ -38,23 +48,13 @@ ForEach ($EachLocalDir In $Haystack_LocalDirs.Path) {
 		If (($Distro_Basename -match $RegexTest) -eq $true) {
 			
 			$LocalDistros_Resolved += @{
+				Shortcut_Location = (($PSScriptRoot)+("/Linux Files (")+($Distro_Name)+(").lnk"));
 				Shortcut_Target = "${EachLocalDir}";
 				Shortcut_Arguments = "";
-				Shortcut_Location = (($PSScriptRoot)+("/")+($Distro_Name)+(" Files (Shortcut).lnk"));
 				Shortcut_WorkingDir = "%cd%";
 			}
 		}
 	}
-
-
-
-	$NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($Set_Location);
-	$NewShortcut.TargetPath=($Set_Target);
-	$NewShortcut.Arguments=($Set_Arguments);
-	$NewShortcut.WorkingDirectory=($Set_WorkingDir);
-	$NewShortcut.Save();
-	$NewShortcut.FullName; # Show the filepath of the newly-created shortcut
-
 }
 
 ForEach ($EachResolvedArr In $LocalDistros_Resolved) {

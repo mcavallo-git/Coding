@@ -5,20 +5,23 @@
 #!/bin/bash
 
 #####      SSH-KEY CREATION & APPLICATION      #####
-START_TIMESTAMP="$(date +'%m%d%Y_%H%M%S')";
+START_TIMESTAMP="$(date +'%Y%m%d_%H%M%S')";
 
 
 IP_WHITELIST="";
 
+
 KEY_PASSPHRASE="";
 
-KEY_COMMENT="created_${START_TIMESTAMP}";
+
+KEY_COMMENT="created_${START_TIMESTAMP}_by_$(whoami)_on_$(hostname)";
+
+
 
 # Select output user directory
 echo "";
 read -p "  Create SSH-Key for which User?:  " -t 60 -r;
 USER_NAME="${REPLY}";
-
 
 
 # Check for valid data-entry
@@ -30,8 +33,7 @@ if [ -z "${USER_NAME}" ]; then
 fi;
 
 
-
-# Check if User already-exists
+# Check if selected user exists
 USER_PASSWD_INFO="$(getent passwd ${USER_NAME})";
 if [ -z "${USER_PASSWD_INFO}" ]; then
 	echo "";
@@ -39,7 +41,6 @@ if [ -z "${USER_PASSWD_INFO}" ]; then
 	echo "";
 	exit 1;
 fi;
-
 
 
 # Check if User's home-directory exists
@@ -52,30 +53,34 @@ if [ ! -d "${USER_HOME}" ]; then
 fi;
 
 
-
 # Runtime variables
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
 USER_HOME="$(eval echo ~${USER_NAME})";
-KEY_SAVE_TO_DIR="${USER_HOME}/ssh_created_keys";
-	KEY_FULLPATH="${KEY_SAVE_TO_DIR}/${USER_NAME}_ssh_${START_TIMESTAMP}";
-	PRIVATE_KEY_PATH="${KEY_FULLPATH}_private.pem";
-	PUBLIC_KEY_PATH="${KEY_FULLPATH}_public.pub";
+KEY_UID="${USER_NAME}_ssh_${START_TIMESTAMP}";
+
+KEY_OUTPUT_PARENT="${USER_HOME}/ssh_created_keys";
+	KEY_OUTPUT_DIR="${KEY_OUTPUT_PARENT}/${KEY_UID}";
+		KEY_ABSPATH_NOEXT="${KEY_OUTPUT_DIR}/${KEY_UID}";
+
+PRIVATE_KEY_PATH="${KEY_ABSPATH_NOEXT}_private.pem";
+PUBLIC_KEY_PATH="${KEY_ABSPATH_NOEXT}_public.pub";
  
 
-
 # Create the directory to save the keys in
-mkdir -p "${KEY_SAVE_TO_DIR}" && chown "${USER_NAME}:${USER_NAME}" "${KEY_SAVE_TO_DIR}" && chmod 700 "${KEY_SAVE_TO_DIR}";
-
+mkdir -p "${KEY_OUTPUT_DIR}" && chown "${USER_NAME}:${USER_NAME}" "${KEY_OUTPUT_DIR}" && chmod 700 "${KEY_OUTPUT_DIR}";
 
 
 # Create the SSH-keypair
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
 if [ -n "$KEY_COMMENT" ]; then # var is not empty
-	ssh-keygen -q -t rsa -b 2048 -f "${KEY_FULLPATH}" -N "${KEY_PASSPHRASE}" -C "${KEY_COMMENT}";
-else # var is empty
-	ssh-keygen -q -t rsa -b 2048 -f "${KEY_FULLPATH}" -N "${KEY_PASSPHRASE}";
-fi;
 
+	ssh-keygen -q -t rsa -b 2048 -f "${KEY_ABSPATH_NOEXT}" -N "${KEY_PASSPHRASE}" -C "${KEY_COMMENT}";
+
+else # var is empty
+
+	ssh-keygen -q -t rsa -b 2048 -f "${KEY_ABSPATH_NOEXT}" -N "${KEY_PASSPHRASE}";
+
+fi;
 
 
 # Add an IP whitelist to the public key (if variable is not blank)
@@ -88,12 +93,10 @@ else # var is empty
 fi;
 
 
-
 # Name the keys as-intended
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
-mv "${KEY_FULLPATH}" "${PRIVATE_KEY_PATH}";
-cat "${KEY_FULLPATH}.pub" >> "${PUBLIC_KEY_PATH}" && rm "${KEY_FULLPATH}.pub";
-
+mv "${KEY_ABSPATH_NOEXT}" "${PRIVATE_KEY_PATH}";
+cat "${KEY_ABSPATH_NOEXT}.pub" >> "${PUBLIC_KEY_PATH}" && rm "${KEY_ABSPATH_NOEXT}.pub";
 
 
 # ADD TO:  /etc/ssh/authorized_keys/${USER_NAME}  ??
@@ -103,7 +106,6 @@ ETC_SSH_AUTHKEYS="/etc/ssh/authorized_keys";
 echo "";
 read -p "  ADD KEY TO  \"${ETC_SSH_AUTHKEYS_USERNAME}\"  ? ( Y/N )" -n 1 -r;
 APPEND_TO_ETC_SSH_AUTHKEYS="${REPLY}";
-
 
 
 if [[ "${APPEND_TO_ETC_SSH_AUTHKEYS}" == "y" ]] || [[ "${APPEND_TO_ETC_SSH_AUTHKEYS}" == "Y" ]]; then
@@ -116,8 +118,6 @@ if [[ "${APPEND_TO_ETC_SSH_AUTHKEYS}" == "y" ]] || [[ "${APPEND_TO_ETC_SSH_AUTHK
 	mkdir -p "${ETC_SSH_AUTHKEYS}" && chown "root:root" "${ETC_SSH_AUTHKEYS}" && chmod 755 "${ETC_SSH_AUTHKEYS}";
 	cat "${PUBLIC_KEY_PATH}" >> "${ETC_SSH_AUTHKEYS_USERNAME}" && chown "${USER_NAME}:${USER_NAME}" "${ETC_SSH_AUTHKEYS_USERNAME}" && chmod 600 "${ETC_SSH_AUTHKEYS_USERNAME}";
 	
-
-
 else
 	
 	echo "";
@@ -145,16 +145,13 @@ else
 		echo "    Skipped Userhome-Authkey";
 	fi;
 	
-
-
 fi;
-
 
 
 # Exported Keys - [chmod] and [chown] as-intended
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
-chmod 600 "${PRIVATE_KEY_PATH}" "${PUBLIC_KEY_PATH}" && chown "${USER_NAME}:${USER_NAME}" "${PRIVATE_KEY_PATH}";
-chown "${USER_NAME}:${USER_NAME}" "${PUBLIC_KEY_PATH}";
+chmod 600 "${PRIVATE_KEY_PATH}" && chown "${USER_NAME}:${USER_NAME}" "${PRIVATE_KEY_PATH}";
+chmod 600 "${PUBLIC_KEY_PATH}" && chown "${USER_NAME}:${USER_NAME}" "${PUBLIC_KEY_PATH}";
 
 echo ""
 echo "  SSH-Keypair created!";
@@ -169,7 +166,6 @@ echo "  Script Complete - exiting ...";
 echo "";
 
 exit;
-
 
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------- #

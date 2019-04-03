@@ -19,11 +19,11 @@ $Needle_LinuxDistros;
 
 $Regex_LinuxDistros = @{
 	Alpine    = "[a-z0-9]{13}\.(Alpine)WSL_[a-z0-9]{13}";
-	Debian    = "[0-9]{5}SUSE.(openSUSE)Leap[0-9\.]{4}_[a-z0-9]{13}";
-	Kali      = "[0-9]{5}SUSE.(SUSE)LinuxEnterpriseServer[0-9SP]{5}_[a-z0-9]{13}";
-	openSUSE  = "CanonicalGroupLimited\.(Ubuntu)onWindows_[a-z0-9]{13}";
-	SUSE      = "(Kali)Linux\.[A-Z0-9]{13}_[a-z0-9]{13}";
-	Ubuntu    = "TheDebianProject\.(DebianGNU)Linux_[a-z0-9]{13}";
+	openSUSE  = "[0-9]{5}SUSE.(openSUSE)Leap[0-9\.]{4}_[a-z0-9]{13}";
+	SUSE      = "[0-9]{5}SUSE.(SUSE)LinuxEnterpriseServer[0-9SP]{5}_[a-z0-9]{13}";
+	Ubuntu    = "CanonicalGroupLimited\.(Ubuntu)onWindows_[a-z0-9]{13}";
+	Kali      = "(Kali)Linux\.[A-Z0-9]{13}_[a-z0-9]{13}";
+	Debian    = "TheDebianProject\.(DebianGNU)Linux_[a-z0-9]{13}";
 };
 
 Write-Host "`$Regex_LinuxDistros :";

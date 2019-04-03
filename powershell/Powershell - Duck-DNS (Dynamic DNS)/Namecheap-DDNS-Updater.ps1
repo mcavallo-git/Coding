@@ -28,11 +28,21 @@ $nc_updateUrl = (("https://dynamicdns.park-your-domain.com/update?host=")+($nc_h
 
 
 # ----------------------------------------------------------------------------------------------------------------------------------------
-#  DECODE  :::  Base64 - Decode/Decoding a String (via PowerShell):
+#		DDNS Update - Read-in the user-secret & update related DDNS host(s)
 
-$nc_updateUrl = [System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content -Path (($Home)+("/.namecheap/secret")))));
-
-Write-Host $nc_updateUrl;
+ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) {
+	If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) {
+		[System.Net.WebRequest]::Create(
+			[System.Text.Encoding]::Unicode.GetString(
+				[System.Convert]::FromBase64String(
+					(Get-Content(
+						(($LocalUser.FullName)+('/.namecheap/secret')))
+					)
+				)
+			)
+		).GetResponse();
+	}
+}
 
 
 

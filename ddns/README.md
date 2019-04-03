@@ -1,4 +1,4 @@
-# DDNS - Resolving a static Hostname to a dynamic IP
+# [DDNS - Resolving a static Hostname to a dynamic IP](https://github.com/mcavallo-git/Coding/blob/master/ddns/README.md)
 ###### Resolve DNS A-Record lookups for [ a Static, Custom Hostname ] to [ the WAN-IPv4 (Dynamic) of a given workstation ]
 
 ### Script Requirements:

@@ -22,6 +22,8 @@
 ### Exclusion list - General
 ```
 %LOCALAPPDATA%\GitHubDesktop\*.*
+%LOCALAPPDATA%\Programs\Microsoft VS Code\*.*
+%LOCALAPPDATA%\Programs\Git\*.*
 ```
 ```
 %ONEDRIVE%\*.*

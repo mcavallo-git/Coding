@@ -4,7 +4,7 @@
 ***
 ## NGINX - Creating a new NGINX host:
 ```
-DN="example1.com"; NG="/etc/nginx/sites-available/${DN}.nginx"; echo "" > ${NG}; vi ${NG}; ln -sf ${NG} /etc/nginx/sites-enabled/${DN}; /reload_nginx;
+DN="example1.com"; NG="/etc/nginx/sites-available/${DN}.nginx"; echo "" > ${NG}; vi ${NG}; ln -sf ${NG} /etc/nginx/sites-enabled/${DN}; nginx -t && sleep 1 && service nginx start;
 ```
 
 

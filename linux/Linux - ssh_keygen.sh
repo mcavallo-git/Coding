@@ -22,7 +22,7 @@ USER_NAME="${REPLY}";
 
 
 # Check for valid data-entry
-if [ ! -n "${USER_NAME}" ]; then
+if [ -z "${USER_NAME}" ]; then
 	echo "";
 	echo "  ERROR - Empty or Null response detected - exiting ...";
 	echo "";
@@ -33,7 +33,7 @@ fi;
 
 # Check if User already-exists
 USER_PASSWD_INFO="$(getent passwd ${USER_NAME})";
-if [ ! -n "${USER_PASSWD_INFO}" ]; then
+if [ -z "${USER_PASSWD_INFO}" ]; then
 	echo "";
 	echo "  ERROR - User \"${USER_NAME}\" not found - exiting ...";
 	echo "";

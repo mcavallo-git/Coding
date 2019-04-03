@@ -2,17 +2,25 @@
 # Creating Certificates via Certbot (Software) through LetsEncrypt (Free SSL/TLS Certificate Authority/Provider)
 
 ***
-#### NGINX User(s) only - Creating a new NGinx host quickly:
+## NGINX - Creating a new NGINX host:
 ```
-DN="example1.com"; NG="/etc/nginx/sites-available/${DN}.nginx"; echo "" > ${NG}; vi ${NG}; ln -sf ${NG} /etc/nginx/sites-enabled/${DN}; /reload_nginx;
+DN="example1.com"; NG="/etc/nginx/sites-available/${DN}.nginx"; echo "" > ${NG}; vi ${NG}; ln -sf ${NG} /etc/nginx/sites-enabled/${DN}; nginx -t && sleep 1 && service nginx start;
 ```
 
 
 ***
-#### To create a new HTTPS cert (in this example, for use through NGINX, a web server), use the syntax:
+## Certbot - Create a new HTTPS  Cert covering One domain
+##### For use through NGINX (web server), use the syntax:
 ```
 certbot --nginx -d www.example1.com;
 
+```
+
+***
+## Certbot - Create a new HTTPS Cert covering Multiple domains
+#### To create a new HTTPS Certificate covering multiple Domains/Subdomains (all on the same certificate), just pass additional "-d" arguments into certbot, one for each (sub)domain:
+```
+certbot --nginx -d example1.com -d www.example1.com;
 ```
 
 
@@ -23,11 +31,6 @@ certbot --nginx -d www.example1.com;
 ## Use the argument "--dry-run" with certbot until you're for-sure ready to perform your certificate verification
 
 
-***
-#### To create a new HTTPS Certificate covering multiple (sub)domains, all on the same certificate, just pass additional "-d" arguments into certbot, one for each (sub)domain:
-```certbot --nginx -d example1.com -d www.example1.com;```
-
-
 - Congratulations! Your certificate and chain have been saved at:
 /etc/letsencrypt/live/example1.com/fullchain.pem
 
@@ -36,7 +39,7 @@ Your key file has been saved at:
 
 
 ***
-NOTE: The 'live' directory points to the most up-to-date cert held in the 'archive' directory (symbolic link)
+NOTE: The 'live' directory points to the most up-to-date cert held in the '/etc/letsencrypt/archive' directory, by default (symbolic link)
 ```/etc/letsencrypt/live/example1.com/...```
 ...holds symbolic links to...
 ```/etc/letsencrypt/archive/example1.com/...```

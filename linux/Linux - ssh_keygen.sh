@@ -14,10 +14,12 @@ KEY_PASSPHRASE="";
 
 KEY_COMMENT="created_${START_TIMESTAMP}";
 
-
+# Select output user directory
 echo "";
 read -p "  Create SSH-Key for which User?:  " -t 60 -r;
 USER_NAME="${REPLY}";
+
+
 
 # Check for valid data-entry
 if [ ! -n "${USER_NAME}" ]; then
@@ -26,6 +28,8 @@ if [ ! -n "${USER_NAME}" ]; then
 	echo "";
 	exit 1;
 fi;
+
+
 
 # Check if User already-exists
 USER_PASSWD_INFO="$(getent passwd ${USER_NAME})";
@@ -36,6 +40,8 @@ if [ ! -n "${USER_PASSWD_INFO}" ]; then
 	exit 1;
 fi;
 
+
+
 # Check if User's home-directory exists
 USER_HOME="$(echo ${USER_PASSWD_INFO} | cut -d: -f6)";
 if [ ! -d "${USER_HOME}" ]; then
@@ -45,6 +51,8 @@ if [ ! -d "${USER_HOME}" ]; then
 	exit 1;
 fi;
 
+
+
 # Runtime variables
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
 USER_HOME="$(eval echo ~${USER_NAME})";
@@ -53,8 +61,12 @@ KEY_SAVE_TO_DIR="${USER_HOME}/ssh_created_keys";
 	PRIVATE_KEY_PATH="${KEY_FULLPATH}_private.pem";
 	PUBLIC_KEY_PATH="${KEY_FULLPATH}_public.pub";
  
-	# Create the directory to save the keys in
+
+
+# Create the directory to save the keys in
 mkdir -p "${KEY_SAVE_TO_DIR}" && chown "${USER_NAME}:${USER_NAME}" "${KEY_SAVE_TO_DIR}" && chmod 700 "${KEY_SAVE_TO_DIR}";
+
+
 
 # Create the SSH-keypair
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
@@ -63,6 +75,8 @@ if [ -n "$KEY_COMMENT" ]; then # var is not empty
 else # var is empty
 	ssh-keygen -q -t rsa -b 2048 -f "${KEY_FULLPATH}" -N "${KEY_PASSPHRASE}";
 fi;
+
+
 
 # Add an IP whitelist to the public key (if variable is not blank)
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
@@ -73,10 +87,14 @@ else # var is empty
 	IP_RESTRICTION_MSG="ANY IP";
 fi;
 
+
+
 # Name the keys as-intended
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
 mv "${KEY_FULLPATH}" "${PRIVATE_KEY_PATH}";
 cat "${KEY_FULLPATH}.pub" >> "${PUBLIC_KEY_PATH}" && rm "${KEY_FULLPATH}.pub";
+
+
 
 # ADD TO:  /etc/ssh/authorized_keys/${USER_NAME}  ??
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
@@ -85,6 +103,8 @@ ETC_SSH_AUTHKEYS="/etc/ssh/authorized_keys";
 echo "";
 read -p "  ADD KEY TO  \"${ETC_SSH_AUTHKEYS_USERNAME}\"  ? ( Y/N )" -n 1 -r;
 APPEND_TO_ETC_SSH_AUTHKEYS="${REPLY}";
+
+
 
 if [[ "${APPEND_TO_ETC_SSH_AUTHKEYS}" == "y" ]] || [[ "${APPEND_TO_ETC_SSH_AUTHKEYS}" == "Y" ]]; then
 	
@@ -96,6 +116,8 @@ if [[ "${APPEND_TO_ETC_SSH_AUTHKEYS}" == "y" ]] || [[ "${APPEND_TO_ETC_SSH_AUTHK
 	mkdir -p "${ETC_SSH_AUTHKEYS}" && chown "root:root" "${ETC_SSH_AUTHKEYS}" && chmod 755 "${ETC_SSH_AUTHKEYS}";
 	cat "${PUBLIC_KEY_PATH}" >> "${ETC_SSH_AUTHKEYS_USERNAME}" && chown "${USER_NAME}:${USER_NAME}" "${ETC_SSH_AUTHKEYS_USERNAME}" && chmod 600 "${ETC_SSH_AUTHKEYS_USERNAME}";
 	
+
+
 else
 	
 	echo "";
@@ -123,7 +145,11 @@ else
 		echo "    Skipped Userhome-Authkey";
 	fi;
 	
+
+
 fi;
+
+
 
 # Exported Keys - [chmod] and [chown] as-intended
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
@@ -143,6 +169,8 @@ echo "  Script Complete - exiting ...";
 echo "";
 
 exit;
+
+
 
 # ---------------------------------------------------------------------------------------------------------------------------------------------------- #
 

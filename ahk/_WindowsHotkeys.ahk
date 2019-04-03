@@ -251,7 +251,8 @@ GetTimezoneOffset_P() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-#SC03D::   ; Win + F3
+; #SC03D::   ; Win + F3
+#F3::   ; Win + F3
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {

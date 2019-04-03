@@ -56,18 +56,24 @@ fi;
 # Runtime variables
 #  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
 USER_HOME="$(eval echo ~${USER_NAME})";
-KEY_UID="${USER_NAME}_ssh_${START_TIMESTAMP}";
+KEY_UID="ssh_key_${USER_NAME}_${START_TIMESTAMP}";
 
-KEY_OUTPUT_PARENT="${USER_HOME}/ssh_created_keys";
-	KEY_OUTPUT_DIR="${KEY_OUTPUT_PARENT}/${KEY_UID}";
-		KEY_ABSPATH_NOEXT="${KEY_OUTPUT_DIR}/${KEY_UID}";
+KEY_OUTPUT_DIR="${USER_HOME}/ssh_created_keys/${START_TIMESTAMP}";
+	KEY_ABSPATH_NOEXT="${KEY_OUTPUT_DIR}/${KEY_UID}";
 
 PRIVATE_KEY_PATH="${KEY_ABSPATH_NOEXT}_private.pem";
 PUBLIC_KEY_PATH="${KEY_ABSPATH_NOEXT}_public.pub";
- 
 
-# Create the directory to save the keys in
-mkdir -p "${KEY_OUTPUT_DIR}" && chown "${USER_NAME}:${USER_NAME}" "${KEY_OUTPUT_DIR}" && chmod 700 "${KEY_OUTPUT_DIR}";
+# Create the output directory
+mkdir -p "${KEY_OUTPUT_DIR}";
+
+# Set permissions on output directory
+chown "${USER_NAME}:${USER_NAME}" "${KEY_OUTPUT_DIR}";
+chmod 700 "${KEY_OUTPUT_DIR}";
+
+# Set permissions on output directory's parent-directory
+chown "${USER_NAME}:${USER_NAME}" "$(dirname ${KEY_OUTPUT_DIR})";
+chmod 700 "$(dirname ${KEY_OUTPUT_DIR})";
 
 
 # Create the SSH-keypair
@@ -104,7 +110,7 @@ cat "${KEY_ABSPATH_NOEXT}.pub" >> "${PUBLIC_KEY_PATH}" && rm "${KEY_ABSPATH_NOEX
 ETC_SSH_AUTHKEYS="/etc/ssh/authorized_keys";
 	ETC_SSH_AUTHKEYS_USERNAME="${ETC_SSH_AUTHKEYS}/${USER_NAME}";
 echo "";
-read -p "  ADD KEY TO  \"${ETC_SSH_AUTHKEYS_USERNAME}\"  ? ( Y/N )" -n 1 -r;
+read -p "  ADD KEY TO  \"${ETC_SSH_AUTHKEYS_USERNAME}\"  ? ( Y/N ) " -n 1 -r;
 APPEND_TO_ETC_SSH_AUTHKEYS="${REPLY}";
 
 
@@ -131,7 +137,7 @@ else
 	# Check if user wants to append the new public-key onto "${USER_HOME}/.ssh/authorized_keys"
 	#  |--> (DO NOT EDIT VARS ON THE FOLLOWING LINES --> INSTEAD, EDIT THEIR DEPENDENCIES AT THE TOP)
 	echo "";
-	read -p "  ADD KEY TO  \"${USERHOME_SSH_AUTHKEY}\"  ? ( Y/N )" -n 1 -r;
+	read -p "  ADD KEY TO  \"${USERHOME_SSH_AUTHKEY}\"  ? ( Y/N ) " -n 1 -r;
 	APPEND_TO_USERHOME_SSH_AUTHKEY="${REPLY}";
 	
 	if [[ "${APPEND_TO_USERHOME_SSH_AUTHKEY}" == "y" ]] || [[ "${APPEND_TO_USERHOME_SSH_AUTHKEY}" == "Y" ]]; then

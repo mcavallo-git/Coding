@@ -78,7 +78,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 ```DDNS Updater```
 
 *Description*
-```Duck DNS Updater```
+```DDNS Updater```
 
 *When running this task, use the following user account*
 ```SYSTEM    (i.e. NT AUTHORITY\SYSTEM)```

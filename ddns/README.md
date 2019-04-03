@@ -70,7 +70,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 
 
 
-## 2 - Create the Scheduled Task
+# 2.0 - Create the Scheduled Task
 
 
 ### "General" Tab

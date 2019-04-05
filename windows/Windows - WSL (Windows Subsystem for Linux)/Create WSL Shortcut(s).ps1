@@ -14,8 +14,8 @@ $Needle_LinuxDistros = @{
 	Ubuntu    = @("Ubuntu","UbuntuonWindows","CanonicalGroupLimited")
 };
 
-Write-Host "`$Needle_LinuxDistros :";
-$Needle_LinuxDistros;
+# Write-Host "`$Needle_LinuxDistros :";
+# $Needle_LinuxDistros;
 
 $Regex_LinuxDistros = @{
 	Alpine    = "[a-z0-9]{13}\.(Alpine)WSL_[a-z0-9]{13}";
@@ -29,8 +29,8 @@ $Regex_LinuxDistros = @{
 # CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc
 # CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc
 
-Write-Host "`$Regex_LinuxDistros :";
-$Regex_LinuxDistros;
+# Write-Host "`$Regex_LinuxDistros :";
+# $Regex_LinuxDistros;
 
 $LocalDistros_Resolved = @();
 

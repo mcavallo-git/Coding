@@ -3,35 +3,47 @@
 # Latest installs @ https://www.ubnt.com/download/unifi/
 #
 # Script requires to run as sudoer (root)
-FAIL_MSG="";if [ "$(whoami)" != "root" ]; then
-	FAIL_MSG="${FAIL_MSG} Must run ${0} as root-user.";
-fi;
-
-# fail-out if any startup errors were found
-if [ -n "${FAIL_MSG}" ]; then
-	echo -e "\nERROR: Must run ${0} as root-user. Exiting...";
+#
+if [ "$(whoami)" != "root" ]; then
+	echo -e "\Fail - Must run ${0} as user 'roor'.\nExiting after 60s...";
+	sleep 60;
 	exit 1;
 fi;
-
-if [ "$(whoami)" != "root" ]; then
-
-	echo
-
+#
+#
+# ---------------------------------------------------------------------------------------------------------------------------------- #
+#
+#
+if [ "$(which unifi)" == ""]; then
+	#
+	#	Install the 'unifi' package
+	#
+	UNIFI_INSTALL_VERSION="5.10.20";
+	UNIFI_INSTALL_SCRIPT="https://get.glennr.nl/unifi/5.10.20/D8/unifi-5.10.20.sh"; # Unifi v5.10.20, Debian 8 (Raspi 3)
+	#
+	apt-get -y install ca-certificates;
+	wget "${UNIFI_INSTALL_SCRIPT}";
+	chmod 0700 $(basename "${UNIFI_INSTALL_SCRIPT}");
+	./$(basename "${UNIFI_INSTALL_SCRIPT}");
+	#
+else
+	#
+	#	Update the 'unifi' package
+	#
+	UNIFI_UPDATE_SCRIPT="https://get.glennr.nl/unifi/update/unifi-update.sh"; 
+	apt-get -y install ca-certificates;
+	wget "${UNIFI_UPDATE_SCRIPT}";
+	chmod 0700 $(basename "${UNIFI_UPDATE_SCRIPT}");
+	./$(basename "${UNIFI_UPDATE_SCRIPT}");
+	#
 fi;
-
-
-STATIC_PKG_NAME="unifi_sysvinit_all.deb";
-
-cd "/tmp/";
-
-sudo dpkg -i "${STATIC_PKG_NAME}";
-
-
-
-
-
-apt-get -y update;
-
-echo "unifi unifi/has_backup boolean true" | debconf-set-selections
-
-DEBIAN_FRONTEND=noninteractive apt-get install --only-upgrade unifi && service unifi restart
+#
+#
+# ---------------------------------------------------------------------------------------------------------------------------------- #
+#
+#	Citation(s)
+#
+# 	Thanks to user 'AmazedMender16' (on the community.ubnt.com foums) or his awesome Unifi install & update scripts
+# 		--> https://community.ubnt.com/t5/UniFi-Wireless/UniFi-Installation-Scripts-UniFi-Easy-Update-Scripts-Ubuntu-18/td-p/2375150
+#
+# ---------------------------------------------------------------------------------------------------------------------------------- #

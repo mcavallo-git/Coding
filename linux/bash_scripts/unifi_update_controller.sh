@@ -1,28 +1,37 @@
 #!/bin/sh
 #
-# > # Find latest firmware @ https://www.ubnt.com/download/unifi/
+# Latest installs @ https://www.ubnt.com/download/unifi/
+#
+# Script requires to run as sudoer (root)
+FAIL_MSG="";if [ "$(whoami)" != "root" ]; then
+	FAIL_MSG="${FAIL_MSG} Must run ${0} as root-user.";
+fi;
 
+# fail-out if any startup errors were found
+if [ -n "${FAIL_MSG}" ]; then
+	echo -e "\nERROR: Must run ${0} as root-user. Exiting...";
+	exit 1;
+fi;
 
+if [ "$(whoami)" != "root" ]; then
+
+	echo
+
+fi;
 
 
 STATIC_PKG_NAME="unifi_sysvinit_all.deb";
 
-MOST_RECENT_VERSION="5.10.20";
-
-URL_UPDATE="https://dl.ubnt.com/unifi/${MOST_RECENT_VERSION}/${STATIC_PKG_NAME}";
-
-
-
-
 cd "/tmp/";
 
-wget "${URL_UPDATE}";
+sudo dpkg -i "${STATIC_PKG_NAME}";
 
-sudo dpkg -i "${STATIC_PKG_NAME}"
 
-apt -y update;
 
-apt -f -y install;
 
-# apt -y upgrade;
 
+apt-get -y update;
+
+echo "unifi unifi/has_backup boolean true" | debconf-set-selections
+
+DEBIAN_FRONTEND=noninteractive apt-get install --only-upgrade unifi && service unifi restart

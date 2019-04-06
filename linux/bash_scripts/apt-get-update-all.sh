@@ -41,7 +41,8 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 
 	echo "";
 	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y dist-upgrade";
-	sudo apt -y dist-upgrade;
+	time sudo apt-get dist-upgrade;
+
 
 	echo "";
 	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y --autoremove";
@@ -60,8 +61,10 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 	sudo ldconfig;
 
 	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip install --upgrade pip;";
-	sudo pip install --upgrade pip;
+	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip install --upgrade pip;";
+	# sudo pip install --upgrade pip;
+	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo python -m pip install --upgrade pip;";
+	sudo python -m pip install --upgrade pip
 
 	echo "";
 	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip list --outdated;";

@@ -41,7 +41,7 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 
 	echo "";
 	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y dist-upgrade";
-	time sudo apt-get dist-upgrade;
+	sudo apt -y dist-upgrade;
 
 
 	echo "";
@@ -60,19 +60,17 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo ldconfig";
 	sudo ldconfig;
 
-	echo "";
-	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip install --upgrade pip;";
-	# sudo pip install --upgrade pip;
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo python -m pip install --upgrade pip;";
-	sudo python -m pip install --upgrade pip
+	# echo "";
+	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo python -m pip install --upgrade pip;";
+	# sudo python -m pip install --upgrade pip;
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip list --outdated;";
-	sudo pip list --outdated;
+	# echo "";
+	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip list --outdated;";
+	# sudo pip list --outdated;
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;";
-	sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;
+	# echo "";
+	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;";
+	# sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;
 
 	UBUNTU_REBOOT_REQD_IF_EXISTS="/var/run/reboot-required";
 	if [ -f "${UBUNTU_REBOOT_REQD_IF_EXISTS}" ]; then
@@ -93,7 +91,6 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Finished \"${THIS_SCRIPT}\"";
 	echo "";
 	echo "===== ------------------------------------------------------------ =====";
-
 
 fi;
 

@@ -1,4 +1,6 @@
-scriptdir = WScript.ScriptFullName.substring(0,WScript.ScriptFullName.lastIndexOf(WScript.ScriptName)-1)
+scriptdir = CreateObject("Scripting.FileSystemObject").GetParentFolderName(WScript.ScriptFullName)
+
+Wscript.Echo scriptdir
 
 '
 ' Citation(s)

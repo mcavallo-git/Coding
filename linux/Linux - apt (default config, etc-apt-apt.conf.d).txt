@@ -1,0 +1,20 @@
+
+# ---------------------------------------------------------------------- #
+
+### The problem with:
+
+apt-get --yes install $something
+
+###	is that it will ask for a manual confirmation if the package signature owner's public-key is not in the keyring, or some other conditions. to be sure it does not ask a confirmation just do this:
+
+apt-get --yes --force-yes install $something
+
+# ---------------------------------------------------------------------- #
+
+### If you want to have these settings permanent, create a file in /etc/apt/apt.conf.d/, like /etc/apt/apt.conf.d/90defaultyes with the following content:
+
+APT::Get::Assume-Yes "true";
+
+APT::Get::force-yes "true";
+
+# ---------------------------------------------------------------------- #

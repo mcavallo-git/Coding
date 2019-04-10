@@ -1,26 +1,58 @@
-@echo OFF
+@ECHO OFF
 REM
 REM
-REM    W32tm  :::  Windows Time Service
-REM    	|
-REM    	|--> Can query external NTP server(s) as well as modify local workstation NTP config
+REM		W32TM  :::  Windows Time Service
+REM		|
+REM		|--> Can query external NTP server(s) as well as modify local workstation NTP config
 REM
 
+REM
+REM	View current workstation's NTP Configuration
+W32TM /query /configuration
+
+REM
+REM	View current workstation's NTP Status (Server shown next to 'source: ....')
+W32TM /query /status
+
+REM
+REM	View peers (which the time-server is syncing to)
+W32TM /query /peers
 
 REM NTP host to query the current workstation's time against (hostname or IP)
-set NTP_HOST=time.google.com
+SET NTP_SERVER=time.google.com
 
 
-REM --> grab the [ response delay ] from the NTP server
-ping %NTP_HOST% -n 1
+REM --> Grab the [ response delay ] from the NTP server
+PING %NTP_SERVER% -n 1
 
 
-REM --> grab the [ current time ] from the NTP server
-W32tm /stripchart /computer:%NTP_HOST% /dataonly /samples:5
+REM --> Grab the [ current time ] from the NTP server
+W32TM /stripchart /computer:%NTP_SERVER% /dataonly /samples:5
+
+W32TM /resync /force
 
 PAUSE
 
 EXIT
+
+@ECHO OFF
+REM
+REM		W32TM  :::  Windows Time Service
+REM		|
+REM		|--> Updating a workstation's NTP Server (aka update the server which a workstation syncs its time-to)
+REM
+
+
+SET NEW_NTP_SERVER=time.google.com
+
+REG ADD HKLM\SYSTEM\CurrentControlSet\Services\w32time\Parameters /v NtpServer /t REG_SZ /d "%NTP_SERVER%,0x9 NtpServer1,0x9 NtpServer2,0x9 " /f >nul 2>&1
+
+NET STOP W32TIME
+
+NET START W32TIME
+
+EXIT
+
 
 REM 
 REM   NTP-Server - Response testing, 2019-03-15 12:02:39

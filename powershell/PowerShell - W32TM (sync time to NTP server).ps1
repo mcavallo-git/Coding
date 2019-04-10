@@ -17,7 +17,7 @@ $AfterUpdate_CheckTimeDelta = $true;
 
 $NtpPeers = @();
 $NtpPeers += "time.google.com";
-$NtpPeers += "pool.ntp.org";
+$NtpPeers += "north-america.pool.ntp.org";
 $NtpPeers += "time.windows.com";
 
 
@@ -31,19 +31,23 @@ $ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncI
 
 
 If ($BeforeUpdate_CheckTimeDelta -eq $true) {
+	Write-Host "`n`n  Before Update to NTP-Config...`n   |";
 	ForEach ($EachPeer In $NtpPeers) {
 		$DeltaTimeToPeer = (W32TM /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
-		Write-Host (("[Before Update to NTP-Config]  Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
+		Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
 	}
+	Write-Host "`n`n";
 }
 
 
 #		--------------------------------------------------------------------------------------------------------------------------------
 
 
+
 NET STOP W32TIME;
 #  |
 #  |-->  Stop the Windows Time Service
+
 
 
 W32TM /config /syncfromflags:manual /manualpeerlist:"$ManualPeerList";
@@ -52,14 +56,17 @@ W32TM /config /syncfromflags:manual /manualpeerlist:"$ManualPeerList";
 #  |-->  /manualpeerlist  ->  "Set the manual peer list to peers, which is a space-delimited list of Domain Name System (DNS) and/or IP addresses"
 
 
+
 NET START W32TIME;
 #  |
 #  |-->  Start the Windows Time Service
 
 
+
 W32TM /config /update;
 #  |
 #  |-->  /update  -->  "Notify the time service that the configuration has changed, causing the changes to take effect"
+
 
 
 W32TM /resync /rediscover;
@@ -68,13 +75,16 @@ W32TM /resync /rediscover;
 #  |-->  /rediscover  -->  "Redetect the network configuration and rediscover network sources; Then, resynchronize"
 
 
+
 #		--------------------------------------------------------------------------------------------------------------------------------
 
 If ($AfterUpdate_CheckTimeDelta -eq $true) {
+	Write-Host "`n`n  After Update to NTP-Config...`n   |";
 	ForEach ($EachPeer In $NtpPeers) {
 		$DeltaTimeToPeer = (W32TM /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
-		Write-Host (("[After Update to NTP-Config]  Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
+		Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
 	}
+	Write-Host "`n`n";
 }
 
 

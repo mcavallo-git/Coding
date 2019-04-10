@@ -3,7 +3,7 @@
 # Decimal --> Hexadecimal
 
 $Value_Base10 = (Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%y%m%d%H%M%S");
-$Value_Base16 = [Convert]::ToString($Value_Base10, 16);
+$Value_Base16 = (("0x")+([Convert]::ToString($Value_Base10, 16)));
 Write-Host "`n`n Value in Base-10: $Value_Base10 `n`n Value in Base-16: $Value_Base16 `n`n";
 
 

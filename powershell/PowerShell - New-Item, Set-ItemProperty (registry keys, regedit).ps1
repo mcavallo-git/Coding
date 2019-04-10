@@ -4,7 +4,7 @@ $RegEdits = @();
 $RegEdits += @{
 	Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
 	Props = @(
-		@{ Name="NoWindowMinimizingShortcuts";  Type="REG_DWORD";  Value="1"; }
+		@{ Value="1"; Name="NoWindowMinimizingShortcuts";  Type="DWord"; Description="Enables (0) or Disables (1) `"Aero Shake`" in Windows 10"; }
 	)
 };
 
@@ -28,17 +28,17 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 		If ((Test-Path -Path ($EachRegEdit.Path)) -eq $true) {
 			# Skip creating registry key if it already exists
-			Write-Host (("`n`n  Found Registry Key `"")+($EachRegEdit.Path)+("`" (no need to create)`n`n"));
+			Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`" (Already up to date)"));
 		} Else {
 			# Create missing key in the registry
-			Write-Host (("`n`n  Creating Registry Key `"")+($EachRegEdit.Path)+("`" `n`n"));
+			Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" "));
 			New-Item -Path ($EachRegEdit.Path);
 		}
 
 		Foreach ($EachProp In $EachRegEdit.Props) {
-			Write-Host (("`n`n  Checking Property `"")+($EachProp.Name)+("`" on Key`"")+($EachRegEdit.Path)+("`":"));
-	
+
 			# Check for each key-property
+			# Write-Host (("`n`n  Checking for `"")+($EachRegEdit.Path)+("`" --> `"")+($EachProp.Name)+("`"...`n`n"));
 			$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
 			$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
 			$last_exit_code = If($?){0}Else{1};
@@ -50,22 +50,23 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 				If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 					# Existing key-property found with correct value
-					Write-Host (("`n`n  Found Existing Property `"")+($EachProp.Name)+("`" on Key `"")+($EachRegEdit.Path)+("`" with correct Value of `"")+($EachProp.Value)+("`" `n`n"));
+					Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of `"")+($EachProp.Value)+("`" (Already up to date)"));
 
 				} Else {
 					# Modify the value of an existing property on an existing registry key
-					Write-Host (("`n`n  Updating Property `"")+($EachProp.Name)+("`" on Key `"")+($EachRegEdit.Path)+("`" from `"")+($EachProp.LastValue)+("`" to `"")+($EachProp.Value)+("`" `n`n"));
+					Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value `"")+($EachProp.LastValue)+("`" to Value `"")+($EachProp.Value)+("`""));
 					Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
-					
+
 				}
 			} Else {
 				# Add the missing property to the Registry Key
-				Write-Host (("`n`n  Adding Property `"")+($EachProp.Name)+("`" to Key `"")+($EachRegEdit.Path)+("`" with Value `"")+($EachProp.Value)+("`" `n`n"));
+				Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value `"")+($EachProp.Value)+("`""));
 				New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 				Write-Host " `n`n";
 
 			}
 			
+			Write-Host (("        (")+($EachProp.Description)+(")`n`n"));
 		}
 
 
@@ -73,5 +74,5 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 }
 
-Write-Host -NoNewLine " Press any key to exit...";
+Write-Host -NoNewLine "`n`n  Press any key to exit...";
 $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

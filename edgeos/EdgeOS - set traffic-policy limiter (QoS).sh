@@ -8,9 +8,9 @@
 
 
 configure
-set traffic­policy limiter limit1 class 1 bandwidth 1mbit
-set traffic­policy limiter limit1 class 1 match match1 ip protocol icmp
-set traffic­policy limiter limit1 default bandwidth 10mbit
+set traffic-­policy limiter limit1 class 1 bandwidth 1mbit
+set traffic-­policy limiter limit1 class 1 match match1 ip protocol icmp
+set traffic-­policy limiter limit1 default bandwidth 10mbit
 set interfaces ethernet eth0 traffic­policy in limit1
 commit 
 

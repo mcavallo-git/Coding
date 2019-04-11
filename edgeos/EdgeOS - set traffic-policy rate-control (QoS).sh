@@ -7,6 +7,7 @@
 #
 
 
+configure
 set traffic-policy rate-control rate1 bandwidth 1mbit
 set interfaces ethernet eth0 traffic-policy out rate1
 commit

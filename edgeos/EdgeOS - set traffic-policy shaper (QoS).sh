@@ -7,6 +7,7 @@
 #
 
 
+configure
 set traffic­policy shaper shaper1 bandwidth 100mbit
 set traffic­policy shaper shaper1 default bandwidth 60mbit
 set traffic­policy shaper shaper1 class 2 bandwidth 20mbit

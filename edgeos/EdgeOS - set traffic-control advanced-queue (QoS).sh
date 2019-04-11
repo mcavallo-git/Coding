@@ -1,13 +1,8 @@
-
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
-#		Setting up QoS using 'Fair Queueing' FQ_CODEL
+#	EdgeOS - Advanced Queue'ing (QoS) - https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
 #
 #		"Follow these steps to limit the rate for one LAN device and file-transfer application. Use HFQ (Host Fairness Queueing) to explicitly and automatically limit the rate for each of the devices in the configured subnet. Allow burst for file-transfer traffic in a short time."
-#
-#
-#		Citation: Using Ubiquiti's guide:  https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
-#
 #
 
 
@@ -69,14 +64,9 @@ set traffic-control advanced-queue filters match 299 target 299
 commit ; save
 
 
-
-
-
-
-
 # --------------------------------------------------------------------------------------------------------------------------------------------------------------------
 #
-#		Other 3rd-Party Guides:
+#		Other Guide(s):
 #
 #		https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
 #

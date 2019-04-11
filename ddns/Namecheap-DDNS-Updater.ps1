@@ -3,13 +3,16 @@
 #### Refer to "README.md"
 #
 # ----------------------------------------------------------------------------------------------------------------------------------------
-#
-# Single Line (for use w/ Task Scheduler):
-#
+#	Single Line (for use w/ Task Scheduler):
+
+
 PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) { If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.namecheap/secret'))))))).GetResponse();}} Exit 0;"
-#
+
+
 # ----------------------------------------------------------------------------------------------------------------------------------------
-#
+# Expanded (same as single line, above)
+
+
 # PowerShell -Command "
 ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) {
 	If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) {
@@ -26,10 +29,12 @@ ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) {
 }
 Exit 0;
 # "
-#
+
+
 # ----------------------------------------------------------------------------------------------------------------------------------------
-#		Creating the Credentials file(s) - Read-in the user-specific hostname/domain-name/token from the credentials file(s), below
-#
+#	Creating the Credentials file(s) - Read-in the user-specific hostname/domain-name/token from the credentials file(s), below
+
+
 $nc_host = Get-Content -Path (($Home)+("/.namecheap/host"));
 $nc_domain = Get-Content -Path (($Home)+("/.namecheap/domain"));
 $nc_token = Get-Content -Path (($Home)+("/.namecheap/token"));
@@ -39,10 +44,12 @@ $nc_urlPlaintext = (("https://dynamicdns.park-your-domain.com/update?host=")+($n
 
 $nc_urlBase64 = [Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes($nc_urlPlaintext));
 
-# Credentials - Output the base-64 encoded string into the final url-file
-[IO.File]::WriteAllText((($Home)+("/.namecheap/secret")),($nc_urlBase64));
+New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyContinue; # Credentials - Ensure that parent-directory exists
 
-$nc_urlBase64;
+[IO.File]::WriteAllText(("$HOME/.namecheap/secret"),($nc_urlBase64)); # Credentials - Output the base-64 encoded string into the final url-file
+
+
+# ----------------------------------------------------------------------------------------------------------------------------------------
 
 #
 #	Example_URL

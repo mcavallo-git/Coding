@@ -10,17 +10,16 @@ $RegEdits += @{
 
 
 
-If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-	# Current session does not have Admin-Rights --> open a new session (or request credentials to open a new session) which does
+If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrattor")) {
+	#
+	# Current session does not have Admin-Rights (required)
+	#		--> Re-run this script as admin (if current user is not an admin, request admin credentials)
+	#
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 	Exit;
 
 } Else {
-	#
-	#	Example:
-	#
 	# 		New-Item --> Can be used to create new registry keys (assuming the current powershell session is running with elevated privileges)
-	#
 	#			Set-ItemProperty --> Can be used to create new registry values (DWord 32-bit, etc.)
 	#
 

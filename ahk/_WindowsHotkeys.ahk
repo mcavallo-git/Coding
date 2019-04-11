@@ -147,12 +147,20 @@ GetTimezoneOffset_P() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-; Timestamp		:::		Shift + Win + D
-; Timestamp		:::		Ctrl + Win + D
+; Timestamp		:::		Win + Shift + D
+; Timestamp		:::		Win + Ctrl + D
+; Timestamp		:::		Win + Alt + D
 +#D::
 ^#D::
+!#D::
 	SetKeyDelay, 0, -1
-  FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+	if WinActive("ahk_group Explorer") { ; If using Explorer
+		time_format = yyyy-MM-dd_HH-mm-ss
+	} else {
+		time_format = yyyy-MM-dd HH:mm:ss
+	}
+	; time_format = yyyyMMdd-HHmmss
+	FormatTime,TIMESTAMP,,%time_format%
 	TZ_OFFSET_P := GetTimezoneOffset_P()
 	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
   Send %RET_VAL%
@@ -160,23 +168,10 @@ GetTimezoneOffset_P() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
-; Timestamp		:::		Alt + Win + D
-!#D::
-	SetKeyDelay, 0, -1
-  FormatTime,TIMESTAMP,,yyyy-MM-dd_HH-mm-ss
-  Send %TIMESTAMP%
-	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
 ; Timestamp		:::		Win + D
 #D::
 	SetKeyDelay, 0, -1
-	if WinActive("ahk_group Explorer") { ; If using Explorer
-		time_format = yyyy-MM-dd_HH-mm-ss
-	} else {
-		time_format = yyyy-MM-dd HH:mm:ss
-	}
+	time_format = yyyy-MM-dd_HH-mm-ss
   FormatTime,TIMESTAMP,,%time_format%
 	RET_VAL = %TIMESTAMP%
   Send %RET_VAL%

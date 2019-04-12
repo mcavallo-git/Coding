@@ -1,11 +1,9 @@
 #!/bin/bash
 
 
-
 # Update package-repos & install sslscan:
 >		apt update -y;
 >		apt install -y sslscan;
-
 
 
 # Use sslscan to scan a hostname & test its current cipher configuration

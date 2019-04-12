@@ -1,6 +1,6 @@
 
 ## [Duo Security](https://duo.com/)
-*#### Cloud-Based Multifactor Authentication (MFA)*
+##### *Cloud-Based Multifactor Authentication (MFA)*
 
 ***
 

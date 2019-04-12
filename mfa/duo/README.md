@@ -1,6 +1,5 @@
 
-## [Duo Security](https://duo.com)
-##### *Cloud-Based Multifactor Authentication (MFA)*
+## [Duo Security](https://duo.com) <sub><i>Cloud-Based Multifactor Authentication (MFA)</i></sub>
 <sub><i> https://duo.com </i></sub>
 
 ***

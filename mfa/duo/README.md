@@ -1,10 +1,6 @@
 
-<div style="font-size:24px; font-weight:700;">
-	<a href="https://duo.com/" rel="nofollow" class="rich-diff-level-zero">Duo Security</a>
-</div>
-<div style="font-size:16px; font-weight:500; font-style:italic;">
-	Cloud-Based Multifactor Authentication (MFA)
-</div>
+## [Duo Security](https://duo.com/)
+*#### Cloud-Based Multifactor Authentication (MFA)*
 
 ***
 

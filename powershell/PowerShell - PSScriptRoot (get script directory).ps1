@@ -1,9 +1,8 @@
 
-Write-Host (("`n")+("-"*60)+("`n")+ ("(PowerShell version 3)"))
+$ReversePathLookups = @();
 
-$PSScript_Commands = @();
-
-$PSScript_Commands += @{
+# Running Script - Fullpath
+$ReversePathLookups += @{
 	Description = "Fullpath of the PowerShell script currently being executed";
 	Commands = @(
 		@{
@@ -19,7 +18,8 @@ $PSScript_Commands += @{
 	)
 };
 
-$PSScript_Commands += @{
+# Running Script - Parent directort
+$ReversePathLookups += @{
 	Description = "Dirname (parent directory) of the PowerShell script currently being executed";
 	Commands = @(
 		@{
@@ -35,10 +35,28 @@ $PSScript_Commands += @{
 	)
 };
 
-$PSScript_Commands
+# Working-Path / Working-Directory
+$ReversePathLookups += @{
+	Description = "Working-Path / Working-Directory (directory of the current PowerShell session)";
+	Commands = @(
+		@{
+			Command = "(Get-Item -Path `".\`").FullName;";
+			CurrentValue = (Get-Item -Path ".\").FullName;
+			MinimumPowerShellVersion = '??';
+		}
+	)
+};
 
-# (Get-Item -Path ".\").FullName
-
+ForEach ($EachLookup In $ReversePathLookups) {
+	Write-Host (("`n")+("-"*60)+("`n"));
+	Write-Host (("  Description: ")+($EachLookup.Description));
+	ForEach ($EachCommand In $EachLookup.Commands) {
+		Write-Host "";
+		ForEach ($EachProperty In $EachCommand.GetEnumerator()) {
+			Write-Host (("    ")+($EachProperty.Name)+(": ")+($EachProperty.Value));
+		}
+	}
+}
 Write-Host (("`n")+("-"*60)+("`n"));
 
 

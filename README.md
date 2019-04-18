@@ -17,6 +17,7 @@ App Name | Option 1 | Option A
 **Postman** | [Download (source)](https://www.getpostman.com/apps) |
 **Reflector** | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
+**YubiKey** <sub>*Manager*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 **Visual Studio Code (VS Code)** | [Download (source)](https://code.visualstudio.com/download) |
 
 

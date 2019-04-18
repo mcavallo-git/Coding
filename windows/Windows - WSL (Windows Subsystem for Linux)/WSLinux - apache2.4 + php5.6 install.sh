@@ -20,7 +20,7 @@ service apache2 status; service apache2 stop;
 # ------------------------------------------------------------
 
 # Determine the Windows User who is hosting this WSL instance
-"./WSLinux - determine host username.sh";
+source "./WSLinux - determine host username.sh";
 WSL_HOST_USERNAME="${EXACT_MATCH}";
 
 # Create webroot-directory within the Windows filesystem - symlink it to

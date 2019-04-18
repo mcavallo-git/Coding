@@ -19,14 +19,14 @@ fi;
 #	If [ Null/Unset ]
 #
 #	Example
-#		Determine if variable is-set using parameter expansion:  ${<varname>+x}
+#		Use parameter expansion to determine if a given VAR has been instantiated:  ${<VAR>+x}
 #		( Citation: Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515 )
 #
 
-if [ -z ${var+x} ]; then
-	echo "var is Null/Unset";
+if [ -z ${VAR+x} ]; then
+	echo "VAR is Null/Unset";
 else
-	echo "var is set to '${var}'";
+	echo "VAR is set to '${VAR}'";
 fi;
 
 
@@ -216,56 +216,75 @@ done;
 # Integer/String Conditionals   (greater/equal/less/etc.)
 #
 #
-#  <
-#				if [ $A -lt $B ]     :::  True if $A is less-than $B
-#				if (("$A" < "$B"))   :::  True if $A is less-than $B
-#				if [[ "$A" < "$B" ]] :::  True if $A, as a string, has a lesser ASCII-value than $B does, also as a string
-#				if [ "$A" \< "$B" ]  :::  Same as previous? --> Note that the "<" needs to be escaped within a [ ] construct
+#
+#  <		Integers:
+#					if [ $A -lt $B ]     :::  True if $A is less than $B
+#					if (("$A" < "$B"))   :::  True if $A is less than $B
+#					if [[ "$A" < "$B" ]] :::  True if $A, as a string, has a lesser ASCII value than $B does, also as a string
+#					if [ "$A" \< "$B" ]  :::  Same as previous? --> Note that the "<" needs to be escaped within a [ ] construct
+#  <		Floats/Doubles:
+#					if [ $(echo "$A < $B" | bc) -eq 1 ]; then echo "$A IS less than $B"; else echo "$A is NOT less than $B"; fi;
 #
 #
-#  <=
-#				if [ $A -le $B ]     :::  True if $A is less-than or equal-to $B
-#				if (("$A" <= "$B"))  :::  True if $A is less-than or equal-to $B
+#
+#  <=		Integers:
+#					if [ $A -le $B ]     :::  True if $A is less than or equal to $B
+#					if (("$A" <= "$B"))  :::  True if $A is less than or equal to $B
+#  <=		Floats/Doubles:
+#					if [ $(echo "$A <= $B" | bc) -eq 1 ]; then echo "$A IS less than or equal to $B"; else echo "$A is NOT less than or equal to $B"; fi;
 #
 #
-#  > 
-#				if [ $A -gt $B ]    :::  True if $A is greater-than $B
-#				if (("$A" > "$B"))  :::  True if $A is greater-than $B
-#				if [[ "$A" > "$B" ]] :::  True if $A, as a string, has a greater ASCII-value than $B does, also as a string
-#				if [ "$A" \> "$B" ]  :::  Same as previous? --> Note that the ">" needs to be escaped within a [ ] construct
+#
+#  >		Integers:
+#					if [ $A -gt $B ]     :::  True if $A (as an int) is greater than $B (as an int)
+#					if [ "$A" -gt "$B" ] :::  True if $A (as an int) is greater than $B (as an int)
+#					if (("$A" > "$B"))   :::  True if $A is greater than $B
+#					if [[ "$A" > "$B" ]] :::  True if $A (as a string) is greater than $B (as a string) - the greater ASCII value trumps
+#					if [ "$A" \> "$B" ]  :::  Same as previous? --> Note that the ">" needs to be escaped within a [ ] construct
+#  >		Floats/Doubles:
+#					if [ $(echo "$A > $B" | bc) -eq 1 ]; then echo "$A IS greater than $B"; else echo "$A is NOT greater than $B"; fi;
 #	
 #
-#  >=
-#				if [ $A -ge $B ]    :::  True if $A is greater-than or equal-to $B
-#				if (("$A" >= "$B")) :::  True if $A is greater-than or equal-to $B
+#
+#  >=		Integers:
+#					if [ $A -ge $B ]    :::  True if $A is greater than or equal to $B
+#					if (("$A" >= "$B")) :::  True if $A is greater than or equal to $B
+#  >=		Floats/Doubles:
+#					if [ $(echo "$A <= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A is NOT greater than or equal to $B"; fi;
 #
 #
-#  =
-#				if [ $A -eq $B ]    :::  True if $A is equal-to $B
-#				if [ "$A" = "$B" ]  :::  True if $A is equal-to $B 
-#				    ^----^-^----^
-#						NOTE: every bit of whitespace in this equation is essential, almost like padding
-#						THIS IS NOT EQUIVALENT TO: if [ "$A"="$B" ]  <-- improper equality conditional syntax (missing a space on each side of the equal-sign)
+#
+#  =		Integers:
+#					if [ $A -eq $B ]    :::  True if $A is equal to $B
+#					if [ "$A" = "$B" ]  :::  True if $A is equal to $B 
+#					    ^----^-^----^
+#							NOTE: every bit of whitespace in this equation is essential, almost like padding - NOT EQUIVALENT TO:  if [ "$A"="$B" ]  <-- invalid spacing (padding)
 #
 #
-#  ==
-#				if [[ $A == z* ]]    :::  True if $A starts with an "z" (pattern matching).
-#				if [[ $a == "z*" ]]  :::  True if $a is equal to z* (literal matching).
-#				if [ $a == z* ]      :::  File globbing and word splitting take place.
-#				if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
+#
+#  ==		Integers:
+#					if [[ $A == z* ]]    :::  True if $A starts with an "z" (pattern matching).
+#					if [[ $a == "z*" ]]  :::  True if $a is equal to z* (literal matching).
+#					if [ $a == z* ]      :::  File globbing and word splitting take place.
+#					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
+#  ==		Floats/Doubles:
+#					if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A is NOT equal to $B"; fi;
 #
 #
-#  !=
-#				if [ $A -ne $B ]    :::  True if $A not equal-to $B
-#				if [ "$A" != "$B" ] :::  True if $A not equal-to $B (can also pattern match, see equals, above)
+#
+#  !=		Integers:
+#					if [ $A -ne $B ]    :::  True if $A not equal to $B
+#					if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see equals, above)
+#  !=		Floats/Doubles:
+#					if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A is NOT a different value than $B"; fi;
 #
 #
 #  null
-#				if [ -z $A ]      :::  True if A is a string and is null (has zero length)
+#					if [ -z $A ]      :::  True if A is a string and is null (has zero length)
 #
 #
 #  not-null
-#				if [ -n $A ]      :::  True if A is a string and is NOT null (greater than zero length)
+#					if [ -n $A ]      :::  True if A is a string and is NOT null (non-zero string-length)
 #
 #
 #
@@ -285,7 +304,7 @@ done;
 #			-k FILE  :::  True if file exists and its "sticky" bit is set.
 #			-p FILE  :::  True if file exists and is a named pipe (FIFO).
 #			-r FILE  :::  True if file exists and is readable.
-#			-s FILE  :::  True if file exists and has a size greater than zero.
+#			-s FILE  :::  True if file exists and has a non-zero filesize.
 #			-t FD    :::  True if file descriptor fd is open and refers to a terminal.
 #			-u FILE  :::  True if file exists and its set-user-id bit is set.
 #			-w FILE  :::  True if file exists and is writable.

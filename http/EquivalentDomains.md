@@ -1,5 +1,5 @@
 # Equivalent Domains
-###### Domains which shares account-access with separate domains, different than themself (not just subdomain)
+###### Domains which share account-access with other domains (specified here)
 
 
 ***

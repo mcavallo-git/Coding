@@ -17,18 +17,22 @@ apt-get install -y php5.6;
 # Make sure Apache Webserver isn't running, yet
 service apache2 status; service apache2 stop;
 
-# -----------------------------------------------------------
+# ------------------------------------------------------------
 
-# Determine the WSL Host (Windows Username)
-WSL_HOST_USERNAME="foobar";
+# Determine the Windows User who is hosting this WSL instance
+"./WSLinux - determine host username.sh";
+WSL_HOST_USERNAME="${EXACT_MATCH}";
 
 # Create webroot-directory within the Windows filesystem - symlink it to
 # the WSL instance (allows for simplified access/modification of code)
-APACHE_WEBROOT="/mnt/c/Users/${WSL_HOST_USERNAME}/Documents/server";
-mkdir -p "${APACHE_WEBROOT}";
-ln -sf "${APACHE_WEBROOT}" "/var/www/devroot";
 
-# -----------------------------------------------------------
+APACHE_WEBROOT_WINDOWS="/mnt/c/Users/${WSL_HOST_USERNAME}/Documents/server";
+APACHE_WEBROOT_WSL="/var/www/apache2_webroot";
+
+mkdir -p "${APACHE_WEBROOT_WINDOWS}";
+ln -sf "${APACHE_WEBROOT_WINDOWS}" "${APACHE_WEBROOT_WSL}";
+
+# ------------------------------------------------------------
 #
 # Update Apache's configuration to refer to the newly created webroot-directory
 #
@@ -38,7 +42,7 @@ APACHE_VHOST_CONF="/etc/apache2/sites-available/000-default.conf";
 #
 ln -sf "${APACHE_VHOST_CONF}" "/etc/apache2/sites-enabled/000-default.conf";
 
-# -----------------------------------------------------------
+# ------------------------------------------------------------
 
 # Add additional files to be included into apache's runtime config
 #	( virtual hosts, additional configs, etc. )
@@ -50,8 +54,6 @@ ln -sf "${APACHE_VHOST_CONF}" "/etc/apache2/sites-enabled/000-default.conf";
 WSL_DIRNAME="CanonicalGroupLimited.UbuntuonWindows_12abcd3efghij";
 
 WSL_ROOT_PATH="/mnt/c/Users/${WSL_HOST_USERNAME}/AppData/Local/Packages/${WSL_DIRNAME}/LocalState/rootfs/";
-
-
 
 # ------------------------------------------------------------
 

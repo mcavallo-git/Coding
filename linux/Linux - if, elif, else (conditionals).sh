@@ -1,4 +1,4 @@
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #	If [ Not Null/Unset ]
 #
@@ -14,7 +14,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #	If [ Null/Unset ]
 #
@@ -31,7 +31,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #		If [ Not-Null ]
 #
@@ -45,7 +45,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #		If [ String == String ]
 #
@@ -57,7 +57,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #	If [ Needle-in-Haystack ]
 #
@@ -74,7 +74,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #	If [ String passes regex test ]
 #
@@ -93,7 +93,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #	If [...] Then {...}
 #	Else-If [...] Then {...}
@@ -123,7 +123,7 @@ exit 0;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Determine if a given Linux-Command exists
 #
@@ -142,7 +142,7 @@ IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Determine if a given Linux-User exists
 #
@@ -156,7 +156,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Get a NON-EMPTY response string from the user running a given script
 #   NOTE: allows spaces and zero
@@ -176,7 +176,7 @@ fi;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Single-Line Conditionals
 #
@@ -192,7 +192,7 @@ OS_IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; the
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Get all SSH-Enabled users on the server
 #
@@ -205,17 +205,20 @@ for EACH_SSH_USER in ${ALL_LINUX_USERS}; do
 	if [ -d "${DIR_SSH_HOME}" ] || [ -f "${FILE_SSH_ETC}" ]; then
 		echo "User [${EACH_SSH_USER}] IS an SSH-User";
 	else
-		echo "User [${EACH_SSH_USER}] is NOT an SSH-User";
+		echo "User [${EACH_SSH_USER}] ISNT an SSH-User";
 	fi;
 done;
 
 
 
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
-# Integer/String Conditionals   (greater/equal/less/etc.)
+#	Comparing two values directly (which is greater, etc.)
 #
+#	Includes logic for [ Integers ],
+#		[ Floats/Doubles ], and [ Strings (ASCII) ]
 #
+# ------------------------------------------------------------
 #
 #  <		Integers:
 #					if [ $A -lt $B ]     :::  True if $A is less than $B
@@ -223,7 +226,7 @@ done;
 #					if [[ "$A" < "$B" ]] :::  True if $A, as a string, has a lesser ASCII value than $B does, also as a string
 #					if [ "$A" \< "$B" ]  :::  Same as previous? --> Note that the "<" needs to be escaped within a [ ] construct
 #  <		Floats/Doubles:
-#					if [ $(echo "$A < $B" | bc) -eq 1 ]; then echo "$A IS less than $B"; else echo "$A is NOT less than $B"; fi;
+#					if [ $(echo "$A < $B" | bc) -eq 1 ]; then echo "$A IS less than $B"; else echo "$A ISNT less than $B"; fi;
 #
 #
 #
@@ -231,7 +234,7 @@ done;
 #					if [ $A -le $B ]     :::  True if $A is less than or equal to $B
 #					if (("$A" <= "$B"))  :::  True if $A is less than or equal to $B
 #  <=		Floats/Doubles:
-#					if [ $(echo "$A <= $B" | bc) -eq 1 ]; then echo "$A IS less than or equal to $B"; else echo "$A is NOT less than or equal to $B"; fi;
+#					if [ $(echo "$A <= $B" | bc) -eq 1 ]; then echo "$A IS less than or equal to $B"; else echo "$A ISNT less than or equal to $B"; fi;
 #
 #
 #
@@ -242,7 +245,7 @@ done;
 #					if [[ "$A" > "$B" ]] :::  True if $A (as a string) is greater than $B (as a string) - the greater ASCII value trumps
 #					if [ "$A" \> "$B" ]  :::  Same as previous? --> Note that the ">" needs to be escaped within a [ ] construct
 #  >		Floats/Doubles:
-#					if [ $(echo "$A > $B" | bc) -eq 1 ]; then echo "$A IS greater than $B"; else echo "$A is NOT greater than $B"; fi;
+#					if [ $(echo "$A > $B" | bc) -eq 1 ]; then echo "$A IS greater than $B"; else echo "$A ISNT greater than $B"; fi;
 #	
 #
 #
@@ -250,15 +253,7 @@ done;
 #					if [ $A -ge $B ]    :::  True if $A is greater than or equal to $B
 #					if (("$A" >= "$B")) :::  True if $A is greater than or equal to $B
 #  >=		Floats/Doubles:
-#					if [ $(echo "$A <= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A is NOT greater than or equal to $B"; fi;
-#
-#
-#
-#  =		Integers:
-#					if [ $A -eq $B ]    :::  True if $A is equal to $B
-#					if [ "$A" = "$B" ]  :::  True if $A is equal to $B 
-#					    ^----^-^----^
-#							NOTE: every bit of whitespace in this equation is essential, almost like padding - NOT EQUIVALENT TO:  if [ "$A"="$B" ]  <-- invalid spacing (padding)
+#					if [ $(echo "$A >= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A ISNT greater than or equal to $B"; fi;
 #
 #
 #
@@ -268,7 +263,14 @@ done;
 #					if [ $a == z* ]      :::  File globbing and word splitting take place.
 #					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
 #  ==		Floats/Doubles:
-#					if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A is NOT equal to $B"; fi;
+#					if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A ISNT equal to $B"; fi;
+#
+#
+#
+#  =		Integers:
+#					if [ $A -eq $B ]    :::  True if $A is equal to $B
+#					if [ "$A" = "$B" ]  :::  True if $A is equal to $B 
+#					    ^----^-^----^----- this syntax is extremely sensitive regarding spacing - note the above command is NOT equivalent to:  if [ "$A"="$B" ]  <-- invalid spacing (padding)
 #
 #
 #
@@ -276,7 +278,10 @@ done;
 #					if [ $A -ne $B ]    :::  True if $A not equal to $B
 #					if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see equals, above)
 #  !=		Floats/Doubles:
-#					if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A is NOT a different value than $B"; fi;
+#					if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A ISNT a different value than $B"; fi;
+#
+#
+# ------------------------------------------------------------
 #
 #
 #  null
@@ -284,11 +289,11 @@ done;
 #
 #
 #  not-null
-#					if [ -n $A ]      :::  True if A is a string and is NOT null (non-zero string-length)
+#					if [ -n $A ]      :::  True if A is a string and ISNT null (non-zero string-length)
 #
 #
 #
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Filepath Conditionals   (whether path exists or not, is readable, is writeable, etc.)
 #
@@ -317,7 +322,7 @@ done;
 #
 #
 #
-# -------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # Citation(s)
 #		
@@ -332,4 +337,4 @@ done;
 #
 #
 #
-# -------------------------------------------------------------
+# ------------------------------------------------------------

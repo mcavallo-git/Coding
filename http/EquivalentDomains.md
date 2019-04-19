@@ -85,3 +85,14 @@ mysubwaycard.com,
 subway.com
 ```
 
+
+***
+## Equivalent Domains (use-case specific)
+
+
+***
+### Go365
+```
+go365.com,
+humana.com
+```

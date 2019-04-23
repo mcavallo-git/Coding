@@ -40,10 +40,8 @@ $HttpRequest.Response = (`
 		-Headers ($HttpRequest.HttpHeaders) `
 );
 
-# $HttpRequest.Response | Format-List;
-# $HttpRequest.Response.values | Format-List;
-
 $Region_MatchAnyOf = @();
+# $Region_MatchAnyOf += "_"; # Items with a blank 'region'
 # $Region_MatchAnyOf += "australiacentral";
 # $Region_MatchAnyOf += "australiacentral2";
 # $Region_MatchAnyOf += "australiaeast";
@@ -62,7 +60,7 @@ $Region_MatchAnyOf = @();
 # $Region_MatchAnyOf += "easteurope";
 $Region_MatchAnyOf += "eastus";
 $Region_MatchAnyOf += "eastus2";
-# $Region_MatchAnyOf += "eastus2euap";
+$Region_MatchAnyOf += "eastus2euap";
 # $Region_MatchAnyOf += "japaneast";
 # $Region_MatchAnyOf += "japanwest";
 # $Region_MatchAnyOf += "koreacentral";
@@ -89,60 +87,75 @@ $Region_MatchAnyOf += "eastus2";
 # $Region_MatchAnyOf += "westus";
 # $Region_MatchAnyOf += "westus2";
 
+$Service_MatchAnyOf = @();
+# $Service_MatchAnyOf += "_"; # Items with a blank 'systemService'
+# $Service_MatchAnyOf += "AzureApiManagement";
+$Service_MatchAnyOf += "AzureAppService";
+# $Service_MatchAnyOf += "AzureAppServiceManagement";
+# $Service_MatchAnyOf += "AzureBackup";
+$Service_MatchAnyOf += "AzureConnectors";
+# $Service_MatchAnyOf += "AzureContainerRegistry";
+# $Service_MatchAnyOf += "AzureCosmosDB";
+# $Service_MatchAnyOf += "AzureDataLake";
+# $Service_MatchAnyOf += "AzureEventHub";
+# $Service_MatchAnyOf += "AzureKeyVault";
+# $Service_MatchAnyOf += "AzureMachineLearning";
+# $Service_MatchAnyOf += "AzureMonitor";
+$Service_MatchAnyOf += "AzureServiceBus";
+# $Service_MatchAnyOf += "AzureSQL";
+# $Service_MatchAnyOf += "AzureStorage";
+# $Service_MatchAnyOf += "BatchNodeManagement";
+# $Service_MatchAnyOf += "GatewayManager";             # ?? possibly ??
+# $Service_MatchAnyOf += "MicrosoftContainerRegistry";
+# $Service_MatchAnyOf += "ServiceFabric";              # ?? possibly ??
+
 $RegionCIDR = @{};
 
 ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 
 	# Regions
 	$EachRegion = $EachAzItem.region;
+	If ($EachRegion.Length -eq 0) { # Items with a blank "region"
+		$EachRegion = '_';
+		# Continue; # Skip blank regions
+	}
 
-	If ($EachRegion.Length -eq 0) {
+	# East-US Servers, Only
+	If ($Region_MatchAnyOf.Contains($EachRegion)) {
+		
 
-		# Skip items with a blank "region"
-		# $EachRegion = '_';
-
-	} Else {
-
-		# East-US Servers, Only
-		If ($Region_MatchAnyOf.Contains($EachRegion)) {
-			
-
-			If ($RegionCIDR[$EachRegion] -eq $null) {
-				$RegionCIDR[$EachRegion] = @{};
-			}
-
-			# Regions -> Services
-			$EachSystemService = $EachAzItem.systemService;
-
-			If ($EachSystemService.Length -eq 0) {
-
-				# Skip items with a blank "systemService"
-				# $EachSystemService = '_';
-
-			} Else {
-
-				If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
-					$RegionCIDR[$EachRegion][$EachSystemService] = @();
-				}
-				If ($RegionCIDR[$EachRegion]['_AllServices'] -eq $null) {
-					$RegionCIDR[$EachRegion]['_AllServices'] = @();
-				}
-				
-				# Regions -> Services -> CIDRs
-				ForEach ($EachCIDR In $EachAzItem.addressPrefixes) {
-					if (!($RegionCIDR[$EachRegion][$EachSystemService].Contains($EachCIDR))) {
-						$RegionCIDR[$EachRegion][$EachSystemService] += $EachCIDR;
-					}
-					if (!($RegionCIDR[$EachRegion]['_AllServices'].Contains($EachCIDR))) {
-						$RegionCIDR[$EachRegion]['_AllServices'] += $EachCIDR;
-					}
-
-				}
-
-			}
-			
+		If ($RegionCIDR[$EachRegion] -eq $null) {
+			$RegionCIDR[$EachRegion] = @{};
 		}
 
+		# Regions -> Services
+		$EachSystemService = $EachAzItem.systemService;
+		If ($EachSystemService.Length -eq 0) { # Items with a blank "systemService"
+			$EachSystemService = '_';
+			# Continue; # Skip blank services
+		}
+
+		If ($Service_MatchAnyOf.Contains($EachSystemService)) {
+
+			If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
+				$RegionCIDR[$EachRegion][$EachSystemService] = @();
+			}
+			If ($RegionCIDR[$EachRegion]['_AllServices'] -eq $null) {
+				$RegionCIDR[$EachRegion]['_AllServices'] = @();
+			}
+			
+			# Regions -> Services -> CIDRs
+			ForEach ($EachCIDR In $EachAzItem.addressPrefixes) {
+				if (!($RegionCIDR[$EachRegion][$EachSystemService].Contains($EachCIDR))) {
+					$RegionCIDR[$EachRegion][$EachSystemService] += $EachCIDR;
+				}
+				if (!($RegionCIDR[$EachRegion]['_AllServices'].Contains($EachCIDR))) {
+					$RegionCIDR[$EachRegion]['_AllServices'] += $EachCIDR;
+				}
+
+			}
+		}
+	
 	}
 	
 }

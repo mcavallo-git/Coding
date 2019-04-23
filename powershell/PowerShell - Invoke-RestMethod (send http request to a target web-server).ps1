@@ -10,7 +10,24 @@ $HttpRequest.HttpHeaders = New-Object "System.Collections.Generic.Dictionary[[St
 # $HttpRequest.HttpHeaders.Add("X-API-KEY", 'some_user')
 # $HttpRequest.HttpHeaders.Add("USER_AGENT", 'some_user')
 
-$HttpRequest.Url = "https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20190415.json";
+#
+# "Public IP address prefix"
+# https://docs.microsoft.com/en-us/azure/virtual-network/public-ip-address-prefix
+#			-match 'href="https://www.microsoft.com/download/details.aspx?id=56519"'
+#			-match 'href="confirmation.aspx?id=56519"'
+#				--> output_azure_ipv4.json
+
+$LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y%m%d");
+
+# $HttpRequest.Url = (
+# 	"https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20190415.json"
+# );
+
+$HttpRequest.Url = (
+	("https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_")+($LastMondaysDate)+(".json")
+);
+
+Write-Host $HttpRequest.Url;
 
 $HttpRequest.Response = (`
 	Invoke-RestMethod `
@@ -18,40 +35,85 @@ $HttpRequest.Response = (`
 		-Headers ($HttpRequest.HttpHeaders) `
 );
 
+# $HttpRequest.Response | Format-List;
+# $HttpRequest.Response.values | Format-List;
+
 $RegionCIDR = @{};
 
-ForEach ($EachAzItem In (($HttpResponse.Response).values.properties)) {
+ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
+
 	$EachRegion = $EachAzItem.region;
-	If ($RegionCIDR[$EachRegion] -eq $null) {
-	# If (!($RegionCIDR.PSobject.Properties.name -match "$EachRegion")) {
-		$RegionCIDR[$EachRegion] = @();
+
+	# East-US Servers, Only
+	If ($EachRegion.Contains("eastus")) {
+		
+		# Regions
+		If ($RegionCIDR[$EachRegion] -eq $null) {
+			$RegionCIDR[$EachRegion] = @{};
+		}
+
+		# Regions -> Services
+		$EachSystemService = $EachAzItem.systemService;
+		If ($EachSystemService.Length -eq 0) {
+			$EachSystemService = '_NoService';
+		}
+
+		If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
+			$RegionCIDR[$EachRegion][$EachSystemService] = @();
+		}
+		If ($RegionCIDR[$EachRegion]['_All_Azure_Services'] -eq $null) {
+			$RegionCIDR[$EachRegion]['_All_Azure_Services'] = @();
+		}
+		
+		# Regions -> Services -> CIDRs
+		ForEach ($EachCIDR In $EachAzItem.addressPrefixes) {
+			if (!($RegionCIDR[$EachRegion][$EachSystemService].Contains($EachCIDR))) {
+				$RegionCIDR[$EachRegion][$EachSystemService] += $EachCIDR;
+			}
+			if (!($RegionCIDR[$EachRegion]['_All_Azure_Services'].Contains($EachCIDR))) {
+				$RegionCIDR[$EachRegion]['_All_Azure_Services'] += $EachCIDR;
+			}
+		}
+		
 	}
 	
-	ForEach ($EachCIDR In $EachAzItem.addressPrefixes) {
-		if (!($RegionCIDR[$EachRegion].Contains($EachCIDR))) {
-			$RegionCIDR[$EachRegion] += $EachCIDR;
-		}
-	}
 }
 
-# $CurrentDirname = (Get-Item -Path ".\").FullName;
+# Create parent-directory on the Desktop
+$OutputParentParentDir = ("${HOME}/Desktop/AzureCIDR");
+If (!(Test-Path $OutputParentParentDir)) {
+	New-Item -ItemType "Directory" -Path (($OutputParentParentDir)+("/")) | Out-Null;
+}
 
-$OutputDir = (("${HOME}/Desktop/AzRegions_")+(Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d%H%M%S"));
-New-Item -ItemType "Directory" -Path (($OutputDir)+("/")) | Out-Null;
+# Create base-directory
+$OutputParentDir = (($OutputParentParentDir)+("/")+(Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d%H%M%S"));
+If (!(Test-Path $OutputParentDir)) {
+	New-Item -ItemType "Directory" -Path (($OutputParentDir)+("/")) | Out-Null;
+}
 
+# Output the contents of the array into each file
 ForEach ($EachRegion In (($RegionCIDR).GetEnumerator())) {
-	If ($EachRegion.Name.Contains("eastus")) {
-		$OutputFile = (("${OutputDir}/microsoft_azure_region_")+($EachRegion.Name)+(".conf"));
-		
-		Set-Content -Path ("${OutputFile}") -Value ("");
-		ForEach ($EachCIDR In $EachRegion.Value) {
+	# Create base-directory
+	$OutputDir = (($OutputParentDir)+("/")+($EachRegion.Name));
+	If (!(Test-Path $OutputDir)) {
+		New-Item -ItemType "Directory" -Path (($OutputDir)+("/")) | Out-Null;
+	}
+	ForEach ($EachService In ($EachRegion.Value.GetEnumerator())) {
+		$OutputFile = (("${OutputDir}/azure")+(".")+($EachRegion.Name)+(".")+($EachService.Name)+(".")+("conf"));
+		If (!(Test-Path $OutputFile)) {
+			Set-Content -Path ("${OutputFile}") -Value ("");
+		}
+		ForEach ($EachCIDR In $EachService.Value) {
 			Add-Content -Path ("${OutputFile}") -Value (("allow ")+($EachCIDR)+(";"));
 			# Write-Host "Adding `"$EachCIDR`" to `"$OutputFile`"";
 		}
-		Write-Host (($EachRegion.Name)+(" - Found [ ")+($EachRegion.Value.Length)+(" ] unique IPv4 ranges (CIDR notation)"));
+		Write-Host (($EachRegion.Name)+(" - ")+($EachService.Name)+(" - Found [ ")+($EachService.Value.Length)+(" ] unique IPv4 ranges (CIDR notation)"));
+		
 	}
 }
 
 
 
-Start "${OutputDir}";
+Start "${OutputParentDir}";
+
+# $CurrentDirname = (Get-Item -Path ".\").FullName;

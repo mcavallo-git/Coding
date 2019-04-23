@@ -43,6 +43,52 @@ $HttpRequest.Response = (`
 # $HttpRequest.Response | Format-List;
 # $HttpRequest.Response.values | Format-List;
 
+$Region_MatchAnyOf = @();
+# $Region_MatchAnyOf += "australiacentral";
+# $Region_MatchAnyOf += "australiacentral2";
+# $Region_MatchAnyOf += "australiaeast";
+# $Region_MatchAnyOf += "australiasoutheast";
+# $Region_MatchAnyOf += "brazilne";
+# $Region_MatchAnyOf += "brazilse";
+# $Region_MatchAnyOf += "brazilsouth";
+# $Region_MatchAnyOf += "canadacentral";
+# $Region_MatchAnyOf += "canadaeast";
+# $Region_MatchAnyOf += "centralfrance";
+# $Region_MatchAnyOf += "centralindia";
+# $Region_MatchAnyOf += "centralus";
+# $Region_MatchAnyOf += "centraluseuap";
+# $Region_MatchAnyOf += "chilec";
+# $Region_MatchAnyOf += "eastasia";
+# $Region_MatchAnyOf += "easteurope";
+$Region_MatchAnyOf += "eastus";
+$Region_MatchAnyOf += "eastus2";
+# $Region_MatchAnyOf += "eastus2euap";
+# $Region_MatchAnyOf += "japaneast";
+# $Region_MatchAnyOf += "japanwest";
+# $Region_MatchAnyOf += "koreacentral";
+# $Region_MatchAnyOf += "koreas2";
+# $Region_MatchAnyOf += "koreasouth";
+# $Region_MatchAnyOf += "northcentralus";
+# $Region_MatchAnyOf += "northeurope";
+# $Region_MatchAnyOf += "northeurope2";
+# $Region_MatchAnyOf += "southafricanorth";
+# $Region_MatchAnyOf += "southafricawest";
+# $Region_MatchAnyOf += "southcentralus";
+# $Region_MatchAnyOf += "southeastasia";
+# $Region_MatchAnyOf += "southfrance";
+# $Region_MatchAnyOf += "southindia";
+# $Region_MatchAnyOf += "uaecentral";
+# $Region_MatchAnyOf += "uaenorth";
+# $Region_MatchAnyOf += "uknorth";
+# $Region_MatchAnyOf += "uksouth";
+# $Region_MatchAnyOf += "uksouth2";
+# $Region_MatchAnyOf += "ukwest";
+# $Region_MatchAnyOf += "westcentralus";
+# $Region_MatchAnyOf += "westeurope";
+# $Region_MatchAnyOf += "westindia";
+# $Region_MatchAnyOf += "westus";
+# $Region_MatchAnyOf += "westus2";
+
 $RegionCIDR = @{};
 
 ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
@@ -50,14 +96,15 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 	# Regions
 	$EachRegion = $EachAzItem.region;
 
-	If ($EachSystemService.Length -eq 0) {
+	If ($EachRegion.Length -eq 0) {
 
-		# Skip items with a blank "systemService" property
+		# Skip items with a blank "region"
 		# $EachRegion = '_';
+
 	} Else {
 
 		# East-US Servers, Only
-		If ($EachRegion.Contains("eastus")) {
+		If ($Region_MatchAnyOf.Contains($EachRegion)) {
 			
 
 			If ($RegionCIDR[$EachRegion] -eq $null) {
@@ -69,7 +116,7 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 
 			If ($EachSystemService.Length -eq 0) {
 
-				# Skip items with a blank "systemService" property
+				# Skip items with a blank "systemService"
 				# $EachSystemService = '_';
 
 			} Else {
@@ -77,8 +124,8 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 				If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
 					$RegionCIDR[$EachRegion][$EachSystemService] = @();
 				}
-				If ($RegionCIDR[$EachRegion]['_All'] -eq $null) {
-					$RegionCIDR[$EachRegion]['_All'] = @();
+				If ($RegionCIDR[$EachRegion]['_AllServices'] -eq $null) {
+					$RegionCIDR[$EachRegion]['_AllServices'] = @();
 				}
 				
 				# Regions -> Services -> CIDRs
@@ -86,8 +133,8 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 					if (!($RegionCIDR[$EachRegion][$EachSystemService].Contains($EachCIDR))) {
 						$RegionCIDR[$EachRegion][$EachSystemService] += $EachCIDR;
 					}
-					if (!($RegionCIDR[$EachRegion]['_All'].Contains($EachCIDR))) {
-						$RegionCIDR[$EachRegion]['_All'] += $EachCIDR;
+					if (!($RegionCIDR[$EachRegion]['_AllServices'].Contains($EachCIDR))) {
+						$RegionCIDR[$EachRegion]['_AllServices'] += $EachCIDR;
 					}
 
 				}
@@ -95,6 +142,7 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 			}
 			
 		}
+
 	}
 	
 }
@@ -113,6 +161,7 @@ If (!(Test-Path $OutputDir)) {
 
 # Output the contents of the array into each file
 ForEach ($EachRegion In (($RegionCIDR).GetEnumerator())) {
+	Write-Host (("`n")+($EachRegion.Name));
 	ForEach ($EachService In ($EachRegion.Value.GetEnumerator())) {
 		$OutputFile = (("${OutputDir}/azure")+(".")+($EachService.Name)+(".")+($EachRegion.Name)+(".")+("conf"));
 		If (!(Test-Path $OutputFile)) {

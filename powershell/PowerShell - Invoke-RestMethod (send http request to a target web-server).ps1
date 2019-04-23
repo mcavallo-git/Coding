@@ -60,7 +60,7 @@ $Region_MatchAnyOf = @();
 # $Region_MatchAnyOf += "easteurope";
 $Region_MatchAnyOf += "eastus";
 $Region_MatchAnyOf += "eastus2";
-$Region_MatchAnyOf += "eastus2euap";
+# $Region_MatchAnyOf += "eastus2euap";
 # $Region_MatchAnyOf += "japaneast";
 # $Region_MatchAnyOf += "japanwest";
 # $Region_MatchAnyOf += "koreacentral";
@@ -176,7 +176,15 @@ If (!(Test-Path $OutputDir)) {
 ForEach ($EachRegion In (($RegionCIDR).GetEnumerator())) {
 	Write-Host (("`n")+($EachRegion.Name));
 	ForEach ($EachService In ($EachRegion.Value.GetEnumerator())) {
-		$OutputFile = (("${OutputDir}/azure")+(".")+($EachService.Name)+(".")+($EachRegion.Name)+(".")+("conf"));
+		$OutputFile = (
+			("${OutputDir}/azure") +
+			(".") +
+			($EachRegion.Name) +
+			(".") +
+			($EachService.Name) +
+			(".") +
+			("conf")
+		);
 		If (!(Test-Path $OutputFile)) {
 			Set-Content -Path ("${OutputFile}") -Value ("");
 		}

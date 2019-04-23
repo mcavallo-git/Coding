@@ -16,6 +16,11 @@ $HttpRequest.HttpHeaders = New-Object "System.Collections.Generic.Dictionary[[St
 #			-match 'href="https://www.microsoft.com/download/details.aspx?id=56519"'
 #			-match 'href="confirmation.aspx?id=56519"'
 #				--> output_azure_ipv4.json
+#
+#	https://www.microsoft.com/en-us/download/details.aspx?id=41653
+#		-match 'href="confirmation.aspx?id=41653"'    ( Full-URL: https://www.microsoft.com/en-us/download/confirmation.aspx?id=41653 )
+#				--> output_azure_ipv4.json
+#
 
 $LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y%m%d");
 
@@ -42,39 +47,54 @@ $RegionCIDR = @{};
 
 ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 
+	# Regions
 	$EachRegion = $EachAzItem.region;
 
-	# East-US Servers, Only
-	If ($EachRegion.Contains("eastus")) {
-		
-		# Regions
-		If ($RegionCIDR[$EachRegion] -eq $null) {
-			$RegionCIDR[$EachRegion] = @{};
-		}
+	If ($EachSystemService.Length -eq 0) {
 
-		# Regions -> Services
-		$EachSystemService = $EachAzItem.systemService;
-		If ($EachSystemService.Length -eq 0) {
-			$EachSystemService = '_';
-		}
+		# Skip items with a blank "systemService" property
+		# $EachRegion = '_';
+	} Else {
 
-		If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
-			$RegionCIDR[$EachRegion][$EachSystemService] = @();
-		}
-		If ($RegionCIDR[$EachRegion]['_All_Azure_Services'] -eq $null) {
-			$RegionCIDR[$EachRegion]['_All_Azure_Services'] = @();
-		}
-		
-		# Regions -> Services -> CIDRs
-		ForEach ($EachCIDR In $EachAzItem.addressPrefixes) {
-			if (!($RegionCIDR[$EachRegion][$EachSystemService].Contains($EachCIDR))) {
-				$RegionCIDR[$EachRegion][$EachSystemService] += $EachCIDR;
+		# East-US Servers, Only
+		If ($EachRegion.Contains("eastus")) {
+			
+
+			If ($RegionCIDR[$EachRegion] -eq $null) {
+				$RegionCIDR[$EachRegion] = @{};
 			}
-			if (!($RegionCIDR[$EachRegion]['_All_Azure_Services'].Contains($EachCIDR))) {
-				$RegionCIDR[$EachRegion]['_All_Azure_Services'] += $EachCIDR;
+
+			# Regions -> Services
+			$EachSystemService = $EachAzItem.systemService;
+
+			If ($EachSystemService.Length -eq 0) {
+
+				# Skip items with a blank "systemService" property
+				# $EachSystemService = '_';
+
+			} Else {
+
+				If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
+					$RegionCIDR[$EachRegion][$EachSystemService] = @();
+				}
+				If ($RegionCIDR[$EachRegion]['_All'] -eq $null) {
+					$RegionCIDR[$EachRegion]['_All'] = @();
+				}
+				
+				# Regions -> Services -> CIDRs
+				ForEach ($EachCIDR In $EachAzItem.addressPrefixes) {
+					if (!($RegionCIDR[$EachRegion][$EachSystemService].Contains($EachCIDR))) {
+						$RegionCIDR[$EachRegion][$EachSystemService] += $EachCIDR;
+					}
+					if (!($RegionCIDR[$EachRegion]['_All'].Contains($EachCIDR))) {
+						$RegionCIDR[$EachRegion]['_All'] += $EachCIDR;
+					}
+
+				}
+
 			}
+			
 		}
-		
 	}
 	
 }

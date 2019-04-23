@@ -55,7 +55,7 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 		# Regions -> Services
 		$EachSystemService = $EachAzItem.systemService;
 		If ($EachSystemService.Length -eq 0) {
-			$EachSystemService = '_NoService';
+			$EachSystemService = '_';
 		}
 
 		If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
@@ -80,26 +80,21 @@ ForEach ($EachAzItem In ($HttpRequest.Response.values.properties)) {
 }
 
 # Create parent-directory on the Desktop
-$OutputParentParentDir = ("${HOME}/Desktop/AzureCIDR");
-If (!(Test-Path $OutputParentParentDir)) {
-	New-Item -ItemType "Directory" -Path (($OutputParentParentDir)+("/")) | Out-Null;
-}
-
-# Create base-directory
-$OutputParentDir = (($OutputParentParentDir)+("/")+(Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d%H%M%S"));
+$OutputParentDir = ("${HOME}/Desktop/AzureCIDR");
 If (!(Test-Path $OutputParentDir)) {
 	New-Item -ItemType "Directory" -Path (($OutputParentDir)+("/")) | Out-Null;
 }
 
+# Create base-directory
+$OutputDir = (($OutputParentDir)+("/")+(Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d%H%M%S"));
+If (!(Test-Path $OutputDir)) {
+	New-Item -ItemType "Directory" -Path (($OutputDir)+("/")) | Out-Null;
+}
+
 # Output the contents of the array into each file
 ForEach ($EachRegion In (($RegionCIDR).GetEnumerator())) {
-	# Create base-directory
-	$OutputDir = (($OutputParentDir)+("/")+($EachRegion.Name));
-	If (!(Test-Path $OutputDir)) {
-		New-Item -ItemType "Directory" -Path (($OutputDir)+("/")) | Out-Null;
-	}
 	ForEach ($EachService In ($EachRegion.Value.GetEnumerator())) {
-		$OutputFile = (("${OutputDir}/azure")+(".")+($EachRegion.Name)+(".")+($EachService.Name)+(".")+("conf"));
+		$OutputFile = (("${OutputDir}/azure")+(".")+($EachService.Name)+(".")+($EachRegion.Name)+(".")+("conf"));
 		If (!(Test-Path $OutputFile)) {
 			Set-Content -Path ("${OutputFile}") -Value ("");
 		}
@@ -114,6 +109,6 @@ ForEach ($EachRegion In (($RegionCIDR).GetEnumerator())) {
 
 
 
-Start "${OutputParentDir}";
+Start "${OutputDir}";
 
 # $CurrentDirname = (Get-Item -Path ".\").FullName;

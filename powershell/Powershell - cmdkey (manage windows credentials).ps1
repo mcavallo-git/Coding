@@ -3,12 +3,11 @@
 # cmdkey  :::  Creates, lists, and deletes stored user names and passwords or credentials  :::  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/cmdkey
 #
 
-$CredentialMatches = $Null;
+$CredentialMatches = @();
 
 $Haystack = (cmdkey /list);
 
-# $RegexPattern = '^\s*Target:\s*([^:])+:target=(.+)\s*$';
-$RegexPattern = '^\s*Target:\s*([^:])+:target=(git:https:\/\/\w+)\s*$';
+$RegexPattern = '^\s*Target:\s*([^:]+):target=(git\:https\:\/\/[a-zA-Z0-9\/\-\@\.]+)\s*$';
 
 $NeedlesFound = 0;
 
@@ -18,10 +17,13 @@ ForEach ($EachLine in $Haystack) {
 		If ($CredentialMatches -eq $Null) {
 			$CredentialMatches = @{};
 		}
-		If ($CredentialMatches[$Needle.Groups[1].Value] -eq $Null) {
-			$CredentialMatches[$Needle.Groups[1].Value] = @();
+		If ($CredentialMatches -eq $Null) {
+			$CredentialMatches = @();
 		}
-		$CredentialMatches[$Needle.Groups[1].Value] += $Needle.Groups[2].Value;
+		$CredentialMatches += @{
+			Type = $Needle.Groups[1].Value;
+			Target = $Needle.Groups[2].Value;
+		}
 		$NeedlesFound++;
 		# Break;
 	}
@@ -35,10 +37,10 @@ If ($NeedlesFound -eq 0) {
 
 } Else {
 
-	Write-Host (("`n  Found [ ")+($NeedlesFound)+(" ] matching Windows Credentials.`n")) -ForegroundColor Yellow;
+	Write-Host (("`n  Matched [ ")+($NeedlesFound)+(" ] Windows-Credentials.`n")) -ForegroundColor Yellow;
 	# $CredentialMatches | Format-List;
-	ForEach ($EachLine in $Haystack) {
-		$EachLine | Format-List;
+	ForEach ($EachCredential in $CredentialMatches) {
+		Write-Host (("    [ ")+($EachCredential.Type)+(" ]   ")+($EachCredential.Target));
 	}
 
 	Write-Host (("`n  Proceed with deleting above Windows Credential(s)? (Y/N)`n")) -ForegroundColor Yellow;

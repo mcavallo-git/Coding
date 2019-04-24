@@ -1,0 +1,13 @@
+
+//
+// Regex
+// PHP - Replace PHP Object-indexing with Array-indexing, e.g. replace $a->b with $a['b']
+//
+
+
+// Find:
+((?<!database_call)\-\>)(\w+)(\W)
+
+
+// Replacement:
+['$2']$3

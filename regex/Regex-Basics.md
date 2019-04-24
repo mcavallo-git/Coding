@@ -126,7 +126,7 @@
 ***
 ### Character Classes (or "Character Sets")
 
-* ```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional  -  ```[xyz]```  matches "x", "y", or "z" SINGLE character
+* ```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional  -  ```[xyz]```  matches "x", "y", or "z" as SINGLE characters
 
 * ```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
 

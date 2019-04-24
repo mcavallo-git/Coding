@@ -6,7 +6,10 @@
 $CredentialMatches = $Null;
 
 $Haystack = (cmdkey /list);
-$RegexPattern = '^\s*Target:\s*([^:])+:target=(.+)\s*$';
+
+# $RegexPattern = '^\s*Target:\s*([^:])+:target=(.+)\s*$';
+$RegexPattern = '^\s*Target:\s*([^:])+:target=(git:https:\/\/.+)\s*$';
+
 ForEach ($EachLine in $Haystack){
 	$Needle = [Regex]::Match($EachLine, $RegexPattern);
 	If ($Needle.Success -eq $True) {

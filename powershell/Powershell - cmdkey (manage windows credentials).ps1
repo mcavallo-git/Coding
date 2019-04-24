@@ -50,7 +50,7 @@ If ($NeedlesFound -eq 0) {
 	$UserAgreed_BeginDeletingCredentials = $False;
 
 	If ($UserAgreed_BeginDeletingCredentials -eq $True) {
-		# cmdkey /del:($_ -replace " ","" -replace "Target:","");
+		cmdkey /del:($_ -replace " ","" -replace "Target:","");
 	}
 
 }

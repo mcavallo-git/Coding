@@ -1,0 +1,13 @@
+
+//
+// Regex
+// PHP - Lowercase the first letter in each object's property name
+//
+
+
+// Find:
+(incoming_json\-\>)(\w+)(\W)
+
+
+// Replacement:
+$1\l$2$3

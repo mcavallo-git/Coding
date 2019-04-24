@@ -1,0 +1,11 @@
+
+// Regex
+// Auto-Resolve git repository merge-conflicts
+// !!!  WARNING  !!!  This should only be done in a development repo
+
+
+// Find:
+^(?:[ \t]*<<<<<<<[ \t]*)(.+)(?:[ \t]*\r?\n)(?:(?:[ \t]*(?!=======).*\r?\n)*)(?:[ \t]*=======[ \t]*\r?\n)((?:[ \t]*(?!>>>>>>>).*\r?\n)*)(?:[ \t]*>>>>>>>[ \t]*)(.+)(?:[ \t]*\n)?$
+
+// Replacement:
+$2

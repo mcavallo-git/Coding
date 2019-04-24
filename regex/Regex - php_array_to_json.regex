@@ -1,8 +1,8 @@
 
-Using Notepad++ or VSCode
+// Using Notepad++ or VSCode
 
-Find:
+// Find:
 ^\s*\'((?!\').+)\'\s*=>\s*\'((?!\').+)\'.*$
 
-Replace With:
+// Replacement:
   "$1": "$2",

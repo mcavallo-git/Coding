@@ -1,6 +1,9 @@
 
-Find:
+// Regex
+// Format a MySQL query with newlines
+
+// Find:
 \s+((?:SELECT)|(?:,)|(?:FROM)|(?:(?:LEFT|INNER|OUTER)\s+JOIN)|(?:GROUP\s+BY)|(?:WHERE)|(?:AND)|(?:OR))\s+
 
-Replace with:
+// Replacement:
 \n$1\ 

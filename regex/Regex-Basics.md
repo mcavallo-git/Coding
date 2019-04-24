@@ -207,6 +207,57 @@
 
 ***
 ### Assorted Examples
+###### Thanks to StackOverflow user [ Armfoot ] on forum [ https://stackoverflow.com/questions/20742076 ]
+
+* Capitalize words (note that \s also matches new lines, i.e. "venuS" => "VenuS")
+Find: ```(\s)([a-z])```
+Replacement: ```$1\u$2```
+
+* Remove-Capitalization from words
+Find: ```(\s)([A-Z])```
+Replacement: ```$1\l$2```
+
+* Remove Camel-Case (e.g. cAmelCAse => camelcAse => camelcase)
+Find: ```([a-z])([A-Z])```
+Replacement: ```$1\l$2```
+
+* Lowercase letters within words (e.g. LowerCASe => Lowercase)
+Find: ```(\w)([A-Z]+)```
+Replacement: ```$1\L$2```
+Alternate Replacement: ```\L$0```
+
+* Uppercase letters within words (e.g. upperCASe => uPPERCASE)
+Find: ```(\w)([A-Z]+)```
+Replacement: ```$1\U$2```
+
+* Uppercase previous (e.g. upperCase => UPPERCase)
+Find: ```(\w+)([A-Z])```
+Replacement: ```\U$1$2```
+
+* Lowercase previous (e.g. LOWERCase => lowerCase)
+Find: ```(\w+)([A-Z])```
+Replacement: ```\L$1$2```
+
+* Uppercase the rest (e.g. upperCase => upperCASE)
+Find: ```([A-Z])(\w+)```
+Replacement: ```$1\U$2```
+
+* Lowercase the rest (e.g. lOWERCASE => lOwercase)
+Find: ```([A-Z])(\w+)```
+Replacement: ```$1\L$2```
+
+* Shift-right-uppercase (e.g. Case => cAse => caSe => casE)
+Find: ```([a-z\s])([A-Z])(\w)```
+Replacement: ```$1\l$2\u$3```
+
+* Shift-left-uppercase (e.g. CasE => CaSe => CAse => Case)
+Find: ```(\w)([A-Z])([a-z\s])```
+Replacement: ```\u$1\l$2$3```
+
+
+
+***
+### Assorted Examples
 
 * ```<[A-Za-z][A-Za-z0-9]*>``` or ```<[A-Za-z0-9]+>``` Match an HTML tag without any attributes
 
@@ -226,3 +277,5 @@
 ###### * Non-Capture Subpatterns, https://stackoverflow.com/questions/3705842/what-does-do-in-regex
 
 ###### * Capture Groups, https://ruby-doc.org/core-2.1.1/Regexp.html
+
+###### * Uppercase/Lowercase Capture-Groups, https://stackoverflow.com/questions/20742076/regex-replace-uppercase-with-lowercase-letters

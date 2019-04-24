@@ -206,7 +206,7 @@
 
 
 ***
-### Assorted Examples
+### Modifying Output (upper-casing, lower-casing, etc.)
 ###### Thanks to StackOverflow user [ Armfoot ] on forum [ https://stackoverflow.com/questions/20742076 ]
 
 * Capitalize words (note that \s also matches new lines, i.e. "venuS" => "VenuS")
@@ -278,4 +278,4 @@ Replacement: ```\u$1\l$2$3```
 
 ###### * Capture Groups, https://ruby-doc.org/core-2.1.1/Regexp.html
 
-###### * Uppercase/Lowercase Capture-Groups, https://stackoverflow.com/questions/20742076/regex-replace-uppercase-with-lowercase-letters
+###### * Modifying Output (upper-casing, lower-casing, etc.), https://stackoverflow.com/questions/20742076

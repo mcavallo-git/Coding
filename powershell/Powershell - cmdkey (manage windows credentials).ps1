@@ -8,9 +8,11 @@ $CredentialMatches = $Null;
 $Haystack = (cmdkey /list);
 
 # $RegexPattern = '^\s*Target:\s*([^:])+:target=(.+)\s*$';
-$RegexPattern = '^\s*Target:\s*([^:])+:target=(git:https:\/\/.+)\s*$';
+$RegexPattern = '^\s*Target:\s*([^:])+:target=(git:https:\/\/\w+)\s*$';
 
-ForEach ($EachLine in $Haystack){
+$NeedlesFound = 0;
+
+ForEach ($EachLine in $Haystack) {
 	$Needle = [Regex]::Match($EachLine, $RegexPattern);
 	If ($Needle.Success -eq $True) {
 		If ($CredentialMatches -eq $Null) {
@@ -20,21 +22,24 @@ ForEach ($EachLine in $Haystack){
 			$CredentialMatches[$Needle.Groups[1].Value] = @();
 		}
 		$CredentialMatches[$Needle.Groups[1].Value] += $Needle.Groups[2].Value;
+		$NeedlesFound++;
 		# Break;
 	}
 }
 
 Write-Host "`n`n";
 
-If ($CredentialMatches -eq $Null) {
+If ($NeedlesFound -eq 0) {
 
 	Write-Host ("No matches found");
 
 } Else {
 
-	Write-Host (("`n  Found [ ")+($CredentialMatches.Length)+(" ] matching Windows Credentials.`n")) -ForegroundColor Yellow;
-
-	$CredentialMatches | Format-List;
+	Write-Host (("`n  Found [ ")+($NeedlesFound)+(" ] matching Windows Credentials.`n")) -ForegroundColor Yellow;
+	# $CredentialMatches | Format-List;
+	ForEach ($EachLine in $Haystack) {
+		$EachLine | Format-List;
+	}
 
 	Write-Host (("`n  Proceed with deleting above Windows Credential(s)? (Y/N)`n")) -ForegroundColor Yellow;
 

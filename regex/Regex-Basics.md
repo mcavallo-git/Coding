@@ -31,10 +31,9 @@
 * ```\s```  matches one "whitespace" character   -  shorthand for ```[ \t\r\n\f]```
 * ```\S```  matches one non "whitespace" character  -  shorthand for ```[^\s]```
 
-* ```.```   matches one "wildcard" character, which is any single character EXCEPT line-break characters
-					Note: Most applications have a "dot matches all" or "single line" mode that makes the dot match any single character, including line breaks
-					Note: Use the dot sparingly - gr.y matches gray, grey, gr%y, etc. - Often, a character class or negated character class is faster and more precise
-					Note: Using . does not match line-breaks, use (?:\r)?\n, instead
+* ```.```   refer to 'Reserved Characters' section
+
+* Note: Perl-Style regular expressions syntax considers the following characters as 'Special' characters, which the dot wildcard will likely NOT match: .|*+?()[]{-\^$
 
 
 
@@ -104,8 +103,16 @@
 
 
 
+
 ***
-### Reserved Characters
+### Character Classes (or 'Character Sets')
+* ```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
+* ```[^xyz]```  Negated Character Class - Matches any single character NOT a given set   -   Ex:   ```[^xyz]```   matches anything other than characters "x", "y", or "z"
+
+
+
+***
+### Metacharacters (e.g. 'Reserved Characters')
 ###### These following are special characters, or "metacharacters", in regex. If a regular expression is to search for any of the search-criteria, they must be escaped (by preceding them with a single backslash). Most of them are errors when used alone
 * ```\```  the backslash \
 * ```^```  the caret ^
@@ -124,13 +131,13 @@
 
 
 ***
-### Character Classes (or "Character Sets")
+### Character Escaping (esp. Metacharacters)
+* Escaping in Regex is done by prepending a backslash ```\``` before a given character
+* In Perl-Style regular expressions (very common regex engine), certain metacharacters may or may-not be required depending on whether the current position in the regex falls within the bounds of a character class or not
+* The following scenarios require that their corresponding metacharacters be escaped
+* Outside character classes:   .^$|*+?()[{\
+* Inside character classes:    ]^-\
 
-* ```[]```  matches any, single character (or expression) between the braces. Essentially one, massive 'or' conditional  -  ```[xyz]```  matches "x", "y", or "z" as SINGLE characters
-
-* ```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
-
-* ```[^xyz]```  Negated Character Class - Matches any single character NOT a given set   -   Ex:   ```[^xyz]```   matches anything other than characters "x", "y", or "z"
 
 
 
@@ -257,11 +264,11 @@ Replacement: ```\u$1\l$2$3```
 
 
 ***
-### Assorted Examples
+### Assorted Use-Cases
 
 * ```<[A-Za-z][A-Za-z0-9]*>``` or ```<[A-Za-z0-9]+>``` Match an HTML tag without any attributes
 
-* ```^(@@[0-9a-zA-Z\_]{1,100})(\ )+(!?\ ){1}``` Match lines [ starting with "@@" ], followed by [ 1 to 100 word-characters], followed by [ one space character ], NOT followed by [ one space character ]  -  Used to help parse specific variable settings out of sets of database exports from MySQL
+* ```^(@@[0-9a-zA-Z\_]{1,100})(\ )+(!?\ ){1}``` Match lines [ starting with "@@" ], followed by [ 1 to 100 word-characters], followed by [ one space character ], NOT followed by [ one space character ]  -  Used while searching MySQL exports for specific variable settings
 
 
 

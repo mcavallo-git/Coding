@@ -3,13 +3,13 @@
 
 ## Using Host: [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/43/11/how-do-i-set-up-a-host-for-dynamic-dns)
 
-### Create a new [ A record ] under a Domain (of your selection) on [Namecheap](https://www.namecheap.com) (requires Namecheap to be the DNS provider for given Domain)
+### [Namecheap] - Create a new [ A record ] under a Domain (of your selection) on [Namecheap](https://www.namecheap.com) (requires Namecheap to be the DNS provider for given Domain)
 * ###### Browse to https://www.namecheap.com and login with your username/password (and preferably OTP)
 * ###### After logging in, browse to https://www.namecheap.com/domains/list and select "Manage" to the right of the domain you wish to create the DDNS subdomain under
 * ###### Select "Advanced DNS" on the top-right, scroll down, and make sure 'Dynamic DNS' is turned ON.
 * ###### Add a new record of type "A + Dynamic-DNS Record", select a new "host" name to-be-updated
 
-### Create a local credentials-file (auto-generated via PowerShell)
+### [Namecheap] - Create a local credentials-file (auto-generated via PowerShell)
 * ###### Open a text-editor and copy-paste the script (below) into it
 * ###### Copy the NameCheap subdomain & paste it into the script, below (e.g. copy your subdomain and paste it over "subdomain")
 * ###### Copy the NameCheap domain & paste it into the script, below (e.g. copy your domain name and paste it over "domain.com")
@@ -38,12 +38,12 @@ New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyC
 
 ## Using Host: [Duck DNS](https://www.duckdns.org)
 
-### Create a new [ subdomain ] on [Duck DNS](https://www.duckdns.org)
+### [Duck DNS] - Create a new [ subdomain ] on [Duck DNS](https://www.duckdns.org)
 * ###### Browse to https://www.duckdns.org and login through a supported third-party account (they support multiple methods of logging in, such as Google, GitHub, and more)
 * ###### Once you've logged in, find the "domains" section on the [Duck DNS Domains page](https://www.duckdns.org/domains)
 * ###### In the field with placeholder="sub domain", enter your desired subdomain-name & click "add domain"
 
-### Create a local credentials-file (auto-generated via PowerShell)
+### [Duck DNS] - Create a local credentials-file (auto-generated via PowerShell)
 * ###### Open a text-editor and copy-paste the script (below) into it
 * ###### Browse to the [Duck DNS Domains page](https://www.duckdns.org/domains)
 * ###### Copy the Duck DNS "token" value & paste it into the script, below (e.g. copy your token and paste it over "token")

@@ -14,8 +14,8 @@ $RegexPattern = (('^\s*Target:\s*([^:]+):target=(')+($Needle)+('[a-zA-Z0-9\/\-\@
 $NeedlesFound = 0;
 
 ForEach ($EachLine in $Haystack) {
-	$Needle = [Regex]::Match($EachLine, $RegexPattern);
-	If ($Needle.Success -eq $True) {
+	$NeedleResults = [Regex]::Match($EachLine, $RegexPattern);
+	If ($NeedleResults.Success -eq $True) {
 		If ($CredentialMatches -eq $Null) {
 			$CredentialMatches = @{};
 		}
@@ -23,8 +23,8 @@ ForEach ($EachLine in $Haystack) {
 			$CredentialMatches = @();
 		}
 		$CredentialMatches += @{
-			Type = $Needle.Groups[1].Value;
-			Target = $Needle.Groups[2].Value;
+			Type = $NeedleResults.Groups[1].Value;
+			Target = $NeedleResults.Groups[2].Value;
 		}
 		$NeedlesFound++;
 		# Break;

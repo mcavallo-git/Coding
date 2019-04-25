@@ -1,19 +1,7 @@
 # [DDNS - Resolving a static Hostname to a dynamic IP](https://github.com/mcavallo-git/Coding/blob/master/ddns/README.md)
-###### Resolve DNS A-Record lookups for [ a Static, Custom Hostname ] to [ the WAN-IPv4 (Dynamic) of a given workstation ]
+###### Resolve DNS A-Record lookups for [ a Static, Custom Hostname ] to resolve to [ the WAN-IPv4 (Dynamic or Static) for a given workstation ]
 
-### Script Requirements:
-* ##### Is intended to be run from specific, trusted device(s), only
-* ##### Commmunicates with external sources (URL) via secure protocols, only
-* ##### Securely stores/caches all credential-data needed for script
-* ##### Securely passes Authentication/Authorization data when validating itself to DNS Provider(s)
-* ##### Checks DNS Provider user's owned-hostnames for the target-hostname
-* ##### Checks DNS Provider user's permissions for hostname A-Record modification/creation
-* ##### Checks DNS Provider's target-hostname's A-Record to avoid attempting-to-update-it-the-value-it-already-is
-* ##### Updates DNS Provider's target-hostname's A-Record to the current-device's WAN-IPv4 (if needed)
-***
-
-
-# 1.1 - Namecheap
+# Setup a DDNS hostname through [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/43/11/how-do-i-set-up-a-host-for-dynamic-dns) & Sync to Workstation's IPv4
 
 ## Create Credentials
 #### Before creating the scheduled task, we must first create a Namecheap ddns-record to update. This may be done by performing the following steps:
@@ -45,7 +33,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyC
 ***
 
 
-# 1.2 - Duck DNS
+# Setup a DDNS hostname through [Duck DNS](https://www.duckdns.org) & Sync to Workstation's IPv4
 
 ## Create Credentials
 #### Before creating the scheduled task, we must first create a Duck-DNS FQDN to update. This may be done by performing the following steps:
@@ -59,10 +47,10 @@ New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyC
 $domains='Paste_Subdomain_Here';
 $token='Paste_Token_Here';
 
-# Credentials Step 1.1 - Lock access permissions to this user (as well as any over-riding admins on this PC, as is tradition)
+# Credentials - Lock access permissions to this user (as well as any over-riding admins on this PC, as is tradition)
 New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyContinue;
 
-# Credentials Step 1.2 - Output the encoded string into the secret credentials file
+# Credentials - Output the encoded string into the secret credentials file
 [IO.File]::WriteAllText((($Home)+("/.duck-dns/secret")),([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes((('https://www.duckdns.org/update?domains=')+($domains)+('&token=')+($token)+('&ip='))))));
 
 ```
@@ -70,7 +58,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 
 
 
-# 2.0 - Create the Scheduled Task
+# Step 2 - Create the Scheduled Task
 
 
 ### "General" Tab
@@ -114,4 +102,15 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 ```
 PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) { If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.namecheap/secret'))))))).GetResponse();} If (Test-Path (($LocalUser.FullName)+('/.duck-dns/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.duck-dns/secret'))))))).GetResponse();}} Exit 0;"
 ```
+***
+
+### Side-Note: Original goal(s) for DDNS script:
+* ##### Is intended to be run from specific, trusted device(s), only
+* ##### Commmunicates with external sources (URL) via secure protocols, only
+* ##### Securely stores/caches all credential-data needed for script
+* ##### Securely passes Authentication/Authorization data when validating itself to DNS Provider(s)
+* ##### Checks DNS Provider user's owned-hostnames for the target-hostname
+* ##### Checks DNS Provider user's permissions for hostname A-Record modification/creation
+* ##### Checks DNS Provider's target-hostname's A-Record to avoid attempting-to-update-it-the-value-it-already-is
+* ##### Updates DNS Provider's target-hostname's A-Record to the current-device's WAN-IPv4 (if needed)
 ***

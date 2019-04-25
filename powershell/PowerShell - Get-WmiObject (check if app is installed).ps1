@@ -13,10 +13,7 @@
 
 
 
-
-
-# Check [ dotnet ] directly, via --info command
-dotnet --info;
+# Parse the version out-of [ dotnet --info ]'s returned string 
 $DotNet_InfoVersion = ((dotnet --info)[1]).Replace(' Version:   ',''); $DotNet_InfoVersion;
 
 
@@ -28,9 +25,9 @@ $AppName_MatchesAllOf += ".NET Core";
 
 $AppName_Filter = (("Name LIKE '%")+($AppName_MatchesAllOf -Join ("%"))+"%'");
 
-$DotNetCoreApps = (Get-WmiObject -Class Win32_Product -Filter $AppName_Filter);
+$AppMatches = (Get-WmiObject -Class Win32_Product -Filter $AppName_Filter);
 
-$DotNetCoreApps | Sort-Object Name | Format-Table Name;
+$AppMatches | Sort-Object Name | Format-Table Name;
 
 
 

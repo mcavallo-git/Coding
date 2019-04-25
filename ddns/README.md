@@ -1,5 +1,4 @@
-# DDNS Setup
-### [Sync Workstation IPv4 to a Static Hostname](https://github.com/mcavallo-git/Coding/blob/master/ddns/README.md)
+# Windows - Sync WAN-IPv4 to a Static DDNS Hostname](https://github.com/mcavallo-git/Coding/blob/master/ddns/README.md)
 ###### Resolve DNS A-Record lookups for [ a Static, Custom Hostname ] to resolve to [ the WAN-IPv4 (Dynamic or Static) for a given workstation ]
 
 ## Using Host: [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/43/11/how-do-i-set-up-a-host-for-dynamic-dns)

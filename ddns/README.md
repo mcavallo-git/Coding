@@ -9,7 +9,7 @@
 * ###### Select "Advanced DNS" on the top-right, scroll down, and make sure 'Dynamic DNS' is turned ON.
 * ###### Add a new record of type "A + Dynamic-DNS Record", select a new "host" name to-be-updated
 
-### Sync Workstation IPv4 to [Namecheap](https://www.namecheap.com) subdomain
+### Create a local credentials-file (auto-generated via PowerShell)
 * ###### Open a text-editor and copy-paste the script (below) into it
 * ###### Copy the NameCheap subdomain & paste it into the script, below (e.g. copy your subdomain and paste it over "subdomain")
 * ###### Copy the NameCheap domain & paste it into the script, below (e.g. copy your domain name and paste it over "domain.com")
@@ -43,7 +43,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyC
 * ###### Once you've logged in, find the "domains" section on the [Duck DNS Domains page](https://www.duckdns.org/domains)
 * ###### In the field with placeholder="sub domain", enter your desired subdomain-name & click "add domain"
 
-### Sync Workstation IPv4 to [Duck DNS](https://www.duckdns.org) subdomain
+### Create a local credentials-file (auto-generated via PowerShell)
 * ###### Open a text-editor and copy-paste the script (below) into it
 * ###### Browse to the [Duck DNS Domains page](https://www.duckdns.org/domains)
 * ###### Copy the Duck DNS "token" value & paste it into the script, below (e.g. copy your token and paste it over "token")
@@ -68,7 +68,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 
 
 
-# Create a Scheduled Task
+## Create a local Scheduled Task
 
 ### Open "Task Scheduler" and click "Create Task..."
 

@@ -38,7 +38,7 @@ ForEach ($EachLine in $Haystack) {
 	}
 }
 
-Write-Host "`n`n";
+Write-Host "`n";
 
 If ($NeedlesFound -eq 0) {
 
@@ -52,7 +52,7 @@ If ($NeedlesFound -eq 0) {
 		Write-Host (("    [ ")+($EachCredential.Type)+(" ]   ")+($EachCredential.Target));
 	}
 
-	Write-Host -NoNewLine (("`n`nDelete [ ")+($NeedlesFound)+(" ] matched item(s)? (Y/N)`n")) -ForegroundColor Yellow;
+	Write-Host -NoNewLine (("`nDelete [ ")+($NeedlesFound)+(" ] matched item(s)? (Y/N)`n")) -ForegroundColor Yellow;
 	$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 	If ($UserKeyPress.Character -eq 'y') {
@@ -65,9 +65,9 @@ If ($NeedlesFound -eq 0) {
 }
 
 
-Write-Host -NoNewLine "`n`nPress any key to exit...";
+Write-Host -NoNewLine "`nPress any key to exit...";
 $KeyPressExit = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-Write-Host "`n`n";
+Write-Host "`n";
 
 
 

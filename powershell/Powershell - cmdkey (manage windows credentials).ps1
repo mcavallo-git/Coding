@@ -7,14 +7,20 @@ $CredentialMatches = @();
 
 $Haystack = (cmdkey /list);
 
-$Needle="git:https\://";
+$NameQuery="git:https://";
 
-$RegexPattern = (('^\s*Target:\s*([^:]+):target=(')+($Needle)+('[a-zA-Z0-9\/\-\@\.]+)\s*$'));
+$CredentialType="Generic";
+# $CredentialType="Generic Certificate";
+# $CredentialType="Domain Password";
+
+$RegexName = (('^\s*Target:\s*([^:]+):target=(')+($NameQuery)+('[a-zA-Z0-9\/\-\@\.]+)\s*$'));
+$RegexType = (('^\s*Type:\s*')+($CredentialType)+('$'));
 
 $NeedlesFound = 0;
 
 ForEach ($EachLine in $Haystack) {
-	$NeedleResults = [Regex]::Match($EachLine, $RegexPattern);
+	$EachLine;
+	$NeedleResults = [Regex]::Match($EachLine, $RegexName);
 	If ($NeedleResults.Success -eq $True) {
 		If ($CredentialMatches -eq $Null) {
 			$CredentialMatches = @{};
@@ -35,11 +41,11 @@ Write-Host "`n`n";
 
 If ($NeedlesFound -eq 0) {
 
-	Write-Host (("Found [ 0 ] Windows-Credentials matching `"")+($Needle)+("`" "));
+	Write-Host (("Found [ 0 ] Windows-Credentials matching `"")+($NameQuery)+("`" "));
 
 } Else {
 
-	Write-Host (("`nMatched [ ")+($NeedlesFound)+(" ] Windows-Credentials matching `"")+($Needle)+("`"`n")) -ForegroundColor Yellow;
+	Write-Host (("`nMatched [ ")+($NeedlesFound)+(" ] Windows-Credentials matching `"")+($NameQuery)+("`"`n")) -ForegroundColor Yellow;
 	# $CredentialMatches | Format-List;
 	ForEach ($EachCredential in $CredentialMatches) {
 		Write-Host (("    [ ")+($EachCredential.Type)+(" ]   ")+($EachCredential.Target));

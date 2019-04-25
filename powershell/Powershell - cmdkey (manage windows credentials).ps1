@@ -55,7 +55,10 @@ If ($NeedlesFound -eq 0) {
 
 }
 
-Write-Host "`n`n";
+Write-Host "`n`nClosing after 60s...`n`n";
+
+Start-Sleep -Seconds 60
+
 
 #
 #	Citation(s)

@@ -122,15 +122,12 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 ***
 
 ### Note: This script intends to:
-* ##### Be run from specific, trusted device(s), only
-* ##### Commmunicate with external sources (URL) via secure protocols, only
-* ##### Securely store/cache any credential-data used during runtime
-* ##### Securely pass authentication/authorization data while accessing any external providers
+* ##### Use secure methods/protocols to store/cache/pass authentication & authorization data to external DDNS provider(s)
+* ##### Use recurring, time-based triggers to update a controlled hostname's A Record with the live (current) WAN-IPv4 for a given Workstation
 ***
 
 ### Note: This script may eventually (to-do):
-* ##### Check DNS Provider user's owned-hostnames for the target-hostname
-* ##### Check DNS Provider user's permissions for hostname A-Record modification/creation
-* ##### Check DNS Provider's target-hostname's A-Record to avoid attempting-to-update-it-the-value-it-already-is
-* ##### Updates DNS Provider's target-hostname's A-Record to the current-device's WAN-IPv4 (if needed)
+* ##### Check DNS Provider-user's owned-hostnames to validate write-access for given hostname beofre attemtping to update it
+* ##### Check current A-Record of target-hostname to avoid excessive updates
+* ##### Contain a method of which un-sets/invalidates associated hostname(s) when the Workstation tied to aforementioned is shut down (or 'deactivated')
 ***

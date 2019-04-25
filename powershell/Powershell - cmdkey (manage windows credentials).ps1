@@ -8,6 +8,7 @@ $CredentialMatches = @();
 $Haystack = (cmdkey /list);
 
 $NameQuery="git:https://";
+$NameQuery="TERMSRV";
 
 $CredentialType="Generic";
 # $CredentialType="Generic Certificate";
@@ -51,21 +52,23 @@ If ($NeedlesFound -eq 0) {
 		Write-Host (("    [ ")+($EachCredential.Type)+(" ]   ")+($EachCredential.Target));
 	}
 
-	Write-Host (("`nProceed with deleting above Windows Credential(s)? (Y/N)`n")) -ForegroundColor Yellow;
+	Write-Host -NoNewLine (("`n`nDelete [ ")+($NeedlesFound)+(" ] matched item(s)? (Y/N)`n")) -ForegroundColor Yellow;
+	$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
-	# !!! PERFORM "y/n" USER-INPUT CHECK TO CONFIRM DELETION OF CREDENTIALS !!!
-
-	$UserAgreed_BeginDeletingCredentials = $False;
-
-	If ($UserAgreed_BeginDeletingCredentials -eq $True) {
+	If ($UserKeyPress.Character -eq 'y') {
+		Write-Host (("Deleting [ ")+($NeedlesFound)+(" ] credentials")) -ForegroundColor Magenta;
 		cmdkey /del:($_ -replace " ","" -replace "Target:","");
+	} Else {
+		Write-Host "No Action Taken" -ForegroundColor Green;
 	}
 
 }
 
-Write-Host "`n`nClosing after 60s...`n`n";
 
-Start-Sleep -Seconds 60
+Write-Host -NoNewLine "`n`nPress any key to exit...";
+$KeyPressExit = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+Write-Host "`n`n";
+
 
 
 #

@@ -72,7 +72,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 
 ### Open "Task Scheduler" and click "Create Task..."
 
-* "General" Tab
+##### "General" Tab
 *Name*
 ```DDNS Updater```
 
@@ -86,7 +86,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 ```☑    (checked)```
 ***
 
-* "Trigger" Tab
+##### "Trigger" Tab
 ```
 On a Schedule
 Daily
@@ -99,7 +99,7 @@ Stop task if it runs longer than 10 seconds
 ***
 
 
-* "Actions" Tab
+##### "Actions" Tab
 ```
 Action:  Start a program
 
@@ -115,8 +115,10 @@ PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) { If (
 ```
 ***
 
-###### Note: You may inspect the final Powershell command being-run by locating it under the "Action" tab:
+* Save the task by clicking "OK" at the bottom
+* You may manually fire-off the scheduled task by locating it in "Task Scheduler" -> "Task Scheduler Library", right-clicking "DDNS Updater" (or your name of choice), and selecting "Run"
 
+## Done (End of Guide)
 
 
 ### Note: Script Action Summary

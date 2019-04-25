@@ -121,16 +121,14 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 ## Done (End of Guide)
 ***
 
-### Note: Script Action Summary
-##### This script intends to:
+### Note: This script intends to:
 * ##### Be run from specific, trusted device(s), only
 * ##### Commmunicate with external sources (URL) via secure protocols, only
 * ##### Securely store/cache any credential-data used during runtime
 * ##### Securely pass authentication/authorization data while accessing any external providers
 ***
 
-### Note: Script Goals (To-Do)
-##### This script may eventually (once upgraded):
+### Note: This script may eventually (to-do):
 * ##### Check DNS Provider user's owned-hostnames for the target-hostname
 * ##### Check DNS Provider user's permissions for hostname A-Record modification/creation
 * ##### Check DNS Provider's target-hostname's A-Record to avoid attempting-to-update-it-the-value-it-already-is

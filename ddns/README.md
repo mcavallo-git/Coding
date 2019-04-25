@@ -115,9 +115,11 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 * ### Save the task by clicking "OK" at the bottom
 * ### You may run the scheduled task manually by opening "Task Scheduler", selecting "Task Scheduler Library" (on the left), & right-click->"Run" on the task-name ("DDNS Updater")
 * ### You may inspect the final Powershell command being-run by viewing it outside of "Edit" mode, within "Task Scheduler", under the "Action" tab
+***
+
 
 ## Done (End of Guide)
-
+***
 
 ### Note: Script Action Summary
 ##### This script intends to:
@@ -125,6 +127,7 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 * ##### Commmunicate with external sources (URL) via secure protocols, only
 * ##### Securely store/cache any credential-data used during runtime
 * ##### Securely pass authentication/authorization data while accessing any external providers
+***
 
 ### Note: Script Goals (To-Do)
 ##### This script may eventually (once upgraded):

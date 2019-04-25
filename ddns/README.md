@@ -1,22 +1,26 @@
-# [DDNS - Resolving a static Hostname to a dynamic IP](https://github.com/mcavallo-git/Coding/blob/master/ddns/README.md)
+# [DDNS Setup -> Sync Workstation's IPv4 to a Static Hostname](https://github.com/mcavallo-git/Coding/blob/master/ddns/README.md)
 ###### Resolve DNS A-Record lookups for [ a Static, Custom Hostname ] to resolve to [ the WAN-IPv4 (Dynamic or Static) for a given workstation ]
 
-# Setup a DDNS hostname through [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/43/11/how-do-i-set-up-a-host-for-dynamic-dns) & Sync to Workstation's IPv4
+## Using Host: [Namecheap](https://www.namecheap.com/support/knowledgebase/article.aspx/43/11/how-do-i-set-up-a-host-for-dynamic-dns)
 
-## Create Credentials
-#### Before creating the scheduled task, we must first create a Namecheap ddns-record to update. This may be done by performing the following steps:
-
+### Create a new [ A record ] under a Domain (of your selection) on [Namecheap](https://www.namecheap.com) (requires Namecheap to be the DNS provider for given Domain)
 * ###### Browse to https://www.namecheap.com and login with your username/password (and preferably OTP)
 * ###### After logging in, browse to https://www.namecheap.com/domains/list and select "Manage" to the right of the domain you wish to create the DDNS subdomain under
 * ###### Select "Advanced DNS" on the top-right, scroll down, and make sure 'Dynamic DNS' is turned ON.
 * ###### Add a new record of type "A + Dynamic-DNS Record", select a new "host" name to-be-updated
-* ###### Copy the (newly created) host into the script, below (without domain)
-* ###### Copy the domain name into the script, below
-* ###### Copy the password next to "Dynamic DNS Password" into the script, below
-* ###### Run the following script in PowerShell to create your credentials 'secret' file, specific for the DDNS scheduled task, and secured to your user directory
+
+### Sync Workstation IPv4 to [Namecheap](https://www.namecheap.com) subdomain
+* ###### Open a text-editor and copy-paste the script (below) into it
+* ###### Copy the NameCheap subdomain & paste it into the script, below (e.g. copy your subdomain and paste it over "subdomain")
+* ###### Copy the NameCheap domain & paste it into the script, below (e.g. copy your domain name and paste it over "domain.com")
+* ###### Copy the NameCheap password (next to "Dynamic DNS Password") & paste it into the script, below (e.g. copy your Password and paste it over "password")
+* ###### Copy your entire script (including respective Namecheap credentials) & paste it into a PowerShell terminal (e.g. open 'PowerShell.exe' and copy-paste your script into it)
 ```
 
-$nc_host   = "host";
+# Namecheap Credentials Setup
+# Note: This script uses native PowerShell methods to create a Namecheap credentials-file with filename "secret" in the directory ".namecheap" within your user directory
+
+$nc_host   = "subdomain";
 $nc_domain = "domain.com";
 $nc_token  = "password";
 $nc_ip     = "";
@@ -32,20 +36,26 @@ New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyC
 ```
 ***
 
+## Using Host: [Duck DNS](https://www.duckdns.org)
 
-# Setup a DDNS hostname through [Duck DNS](https://www.duckdns.org) & Sync to Workstation's IPv4
-
-## Create Credentials
-#### Before creating the scheduled task, we must first create a Duck-DNS FQDN to update. This may be done by performing the following steps:
-
+### Create a new [ subdomain ] on [Duck DNS](https://www.duckdns.org)
 * ###### Browse to https://www.duckdns.org and login through a supported third-party account (they support multiple methods of logging in, such as Google, GitHub, and more)
-* ###### After logging in, find your "token" and copy/paste it into the respective variable (named 'token')
-* ###### After pasting your token, select / create a new Duck DNS subdomain and copy/paste it into the respective variable (named 'domains', multiple may be updated at once via a comma-delimited string)
-* ###### Run the following script in PowerShell to create your credentials 'secret' file, specific for the DDNS scheduled task, and secured to your user directory
+* ###### Once you've logged in, find the "domains" section on the [Duck DNS Domains page](https://www.duckdns.org/domains)
+* ###### In the field with placeholder="sub domain", enter your desired subdomain-name & click "add domain"
+
+### Sync Workstation IPv4 to [Duck DNS](https://www.duckdns.org) subdomain
+* ###### Open a text-editor and copy-paste the script (below) into it
+* ###### Browse to the [Duck DNS Domains page](https://www.duckdns.org/domains)
+* ###### Copy the Duck DNS "token" value & paste it into the script, below (e.g. copy your token and paste it over "token")
+* ###### Copy the Duck DNS subdomain-name (located under the 'domains' table) & paste it into the script, below (e.g. copy your subdomain and paste it over "subdomain")
+* ###### Copy your entire script (including respective Duck DNS credentials) & paste it into a PowerShell terminal (e.g. open 'PowerShell.exe' and copy-paste your script into it)
 ```
 
-$domains='Paste_Subdomain_Here';
-$token='Paste_Token_Here';
+# Duck DNS Credentials Setup
+# Note: This script uses native PowerShell methods to create a Duck DNS credentials-file with filename "secret" in the directory ".duck-dns" within your user directory
+
+$domains="subdomain";
+$token="token";
 
 # Credentials - Lock access permissions to this user (as well as any over-riding admins on this PC, as is tradition)
 New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyContinue;
@@ -58,10 +68,11 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 
 
 
-# Step 2 - Create the Scheduled Task
+# Create a Scheduled Task
 
+### Open "Task Scheduler" and click "Create Task..."
 
-### "General" Tab
+* "General" Tab
 *Name*
 ```DDNS Updater```
 
@@ -75,7 +86,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 ```☑    (checked)```
 ***
 
-###### "Trigger" Tab
+* "Trigger" Tab
 ```
 On a Schedule
 Daily
@@ -88,7 +99,7 @@ Stop task if it runs longer than 10 seconds
 ***
 
 
-###### "Actions" Tab
+* "Actions" Tab
 ```
 Action:  Start a program
 
@@ -98,19 +109,27 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 ```
 ***
 
-###### Once created, the final command being run should show under the action tab as:
+###### Note: You may inspect the final Powershell command being-run by locating it under the "Action" tab:
 ```
 PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) { If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.namecheap/secret'))))))).GetResponse();} If (Test-Path (($LocalUser.FullName)+('/.duck-dns/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.duck-dns/secret'))))))).GetResponse();}} Exit 0;"
 ```
 ***
 
-### Side-Note: Original goal(s) for DDNS script:
-* ##### Is intended to be run from specific, trusted device(s), only
-* ##### Commmunicates with external sources (URL) via secure protocols, only
-* ##### Securely stores/caches all credential-data needed for script
-* ##### Securely passes Authentication/Authorization data when validating itself to DNS Provider(s)
-* ##### Checks DNS Provider user's owned-hostnames for the target-hostname
-* ##### Checks DNS Provider user's permissions for hostname A-Record modification/creation
-* ##### Checks DNS Provider's target-hostname's A-Record to avoid attempting-to-update-it-the-value-it-already-is
+###### Note: You may inspect the final Powershell command being-run by locating it under the "Action" tab:
+
+
+
+### Note: Script Action Summary
+##### This script intends to:
+* ##### Be run from specific, trusted device(s), only
+* ##### Commmunicate with external sources (URL) via secure protocols, only
+* ##### Securely store/cache any credential-data used during runtime
+* ##### Securely pass authentication/authorization data while accessing any external providers
+
+### Note: Script Goals (To-Do)
+##### This script may eventually (once upgraded):
+* ##### Check DNS Provider user's owned-hostnames for the target-hostname
+* ##### Check DNS Provider user's permissions for hostname A-Record modification/creation
+* ##### Check DNS Provider's target-hostname's A-Record to avoid attempting-to-update-it-the-value-it-already-is
 * ##### Updates DNS Provider's target-hostname's A-Record to the current-device's WAN-IPv4 (if needed)
 ***

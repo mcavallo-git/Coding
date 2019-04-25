@@ -38,7 +38,7 @@ New-Item -ItemType "Directory" -Path ("$HOME/.namecheap") -ErrorAction SilentlyC
 
 ## Using Host: [Duck DNS](https://www.duckdns.org)
 
-### [Duck DNS] - Create a new [ subdomain ] on [Duck DNS](https://www.duckdns.org)
+### [Duck DNS] - Create a new [ subdomain ] on the [Duck DNS Domains page](https://www.duckdns.org/domains)
 * ###### Browse to https://www.duckdns.org and login through a supported third-party account (they support multiple methods of logging in, such as Google, GitHub, and more)
 * ###### Once you've logged in, find the "domains" section on the [Duck DNS Domains page](https://www.duckdns.org/domains)
 * ###### In the field with placeholder="sub domain", enter your desired subdomain-name & click "add domain"

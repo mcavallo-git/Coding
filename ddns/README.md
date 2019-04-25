@@ -68,9 +68,12 @@ New-Item -ItemType "Directory" -Path ("$HOME/.duck-dns") -ErrorAction SilentlyCo
 
 
 
-## Create a local Scheduled Task
+##  Create a local Scheduled Task
 
-### Open "Task Scheduler" and click "Create Task..."
+* ### Open "Task Scheduler"
+* ### Click "Create Task..." (on the right)
+* ### In the newly opened window, locate the tab-names at the top, and fill in each tab's values with the respective tab-values, below:
+***
 
 ##### "General" Tab
 *Name*
@@ -109,14 +112,9 @@ Add arguments (NOT optional):		-Command "ForEach ($LocalUser In (Get-ChildItem (
 ```
 ***
 
-###### Note: You may inspect the final Powershell command being-run by locating it under the "Action" tab:
-```
-PowerShell -Command "ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) { If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.namecheap/secret'))))))).GetResponse();} If (Test-Path (($LocalUser.FullName)+('/.duck-dns/secret'))) { [System.Net.WebRequest]::Create([System.Text.Encoding]::Unicode.GetString([System.Convert]::FromBase64String((Get-Content((($LocalUser.FullName)+('/.duck-dns/secret'))))))).GetResponse();}} Exit 0;"
-```
-***
-
-* Save the task by clicking "OK" at the bottom
-* You may manually fire-off the scheduled task by locating it in "Task Scheduler" -> "Task Scheduler Library", right-clicking "DDNS Updater" (or your name of choice), and selecting "Run"
+* ### Save the task by clicking "OK" at the bottom
+* ### You may run the scheduled task manually by opening "Task Scheduler", selecting "Task Scheduler Library" (on the left), & right-click->"Run" on the task-name ("DDNS Updater")
+* ### You may inspect the final Powershell command being-run by viewing it outside of "Edit" mode, within "Task Scheduler", under the "Action" tab
 
 ## Done (End of Guide)
 

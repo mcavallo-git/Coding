@@ -1,19 +1,24 @@
-Exit
+Exit;
+
+# Inspect all configured PowerShell execution policies
+# Note: -List will display execution-policies for the current [ session ], [ local ], & [ domain ] environments
+Get-ExecutionPolicy -List;
 
 
-
-### Allow Powershell (.ps1) Scripts to run locally
-
-Set-ExecutionPolicy RemoteSigned -Force
-
-
-
-### Disallow Powershell (.ps1) Scripts from running locally
-
-Set-ExecutionPolicy Restricted -Force
+# Setting PowerShell execution-policy defaults
+#   To see the list of parameter & possible-values, refer to: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy#parameters
+Set-ExecutionPolicy -ExecutionPolicy "Default" -Scope "LocalMachine" -Force; # Default policies: "Restricted" for Windows clients, "RemoteSigned" for Windows servers
+Set-ExecutionPolicy -ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; # Allow Powershell (.ps1) Scripts to run for the current-user
 
 
+# Disallow Powershell (.ps1) Scripts from running locally
+Set-ExecutionPolicy -ExecutionPolicy "Restricted" -Force;
 
-### Check the status of whether-or-not PowerShell scripts can run locally (or not)
 
-Get-ExecutionPolicy
+#
+#	Citation(s)
+#
+#		docs.microsoft.com
+#			"Set-ExecutionPolicy   Sets the PowerShell execution policies for Windows computers."
+#			 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy
+#

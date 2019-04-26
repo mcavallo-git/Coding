@@ -5,11 +5,11 @@
 
 $CredentialMatches = @();
 
-$TargetStartsWith="TERMSRV";
-$TargetContains="remote";
+# $TargetStartsWith="TERMSRV";
+$TargetContains="test.123";
 
-$Haystack = (cmdkey /list:"$TargetStartsWith*");
-$FullHaystack = (cmdkey /list);
+# $Haystack = (cmdkey /list:"$TargetStartsWith*");
+$Haystack = (cmdkey /list);
 $SelectedArray = $Haystack;
 
 $NeedlesFound = 0;
@@ -67,33 +67,45 @@ Write-Host "`n";
 
 If ($NeedlesFound -eq 0) {
 
-	Write-Host (("Found [ 0 ] Windows-Credentials whose target starts with `"")+($TargetStartsWith)+("`" "));
+	Write-Host (("Found [ 0 ] Windows-Credentials with `"")+($TargetContains)+("`" in their target"));
 
 } Else {
 
 	Write-Host "`n";
 	$DeletePrepMsg = (("This will delete the following [ ")+($NeedlesFound)+(" ] credential(s):"));
-	Write-Host ((" "*($DeletePrepMsg.Length))+("`n")+($DeletePrepMsg)+("`n")+((" "*($DeletePrepMsg.Length)+("`n")))) -BackgroundColor Magenta -ForegroundColor White;
+	Write-Host ($DeletePrepMsg) -BackgroundColor DarkRed -ForegroundColor White;
 	# $CredentialMatches | Format-List;
 	ForEach ($EachCredential in $CredentialMatches) {
 		Write-Host (("  Type:`"")+($EachCredential.Type)+("`", Target:`"")+($EachCredential.Target)+("`"  "));
 	}
 	
-	Write-Host -NoNewLine "`n`nIf you're sure you want to delete these credentials, press 'y': " -ForegroundColor Yellow;
-	$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-	Write-Host (($UserKeyPress.Character)+("`n"));
+	# First Confirmation step
+	$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
+	$FirstConfirmKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList)); # removed 'n'
+	Write-Host -NoNewLine (("`nAre you sure you want to delete these credentials? Press '")+($FirstConfirmKey)+("' : ")) -ForegroundColor Yellow;
+	$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
+	If (($UserKeyPress.Character) -eq ($FirstConfirmKey)) {
 
-	If ($UserKeyPress.Character -eq 'y') {
+		# $ConfirmKeyList2 = $ConfirmKeyList.Replace([string]$FirstConfirmKey,"");
+
+		# Second Confirmation step (since we're deleting credentials)
+		$SecondConfirmKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfirmKey,"")));
+		Write-Host -NoNewLine (("`nReally really sure? Press '")+($SecondConfirmKey)+("' : ")) -ForegroundColor Yellow;
+		$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
+		If (($UserKeyPress.Character) -eq ($SecondConfirmKey)) {
 		ForEach ($EachCredential in $CredentialMatches) {
-			$EachTarget = $EachCredential.Target;
-			$EachType = $EachCredential.Type;
-			Write-Host "  Deleting $EachType w/ Target `"$EachTarget`"..." -ForegroundColor Magenta;
-			# cmdkey /delete:($EachTarget);
+				$EachTarget = $EachCredential.Target;
+				$EachType = $EachCredential.Type;
+				Write-Host "  Deleting $EachType w/ Target `"$EachTarget`"...";
+				Write-Host "cmdkey /delete:(`"$EachTarget`");";
+				# cmdkey /delete:($EachTarget);
+			}
+		} Else {
+			Write-Host "`nNo Action Taken" -ForegroundColor Green;
 		}
 	} Else {
 		Write-Host "`nNo Action Taken" -ForegroundColor Green;
 	}
-
 }
 
 

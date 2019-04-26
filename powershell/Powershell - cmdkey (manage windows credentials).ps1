@@ -53,7 +53,7 @@ If ($NeedlesFound -ne 0) {
 	$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 	$FirstConfirmKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 	Write-Host -NoNewLine ("Are you sure you want to delete these credentials?") -BackgroundColor Black -ForegroundColor Yellow;
-	Write-Host -NoNewLine (" If so, type the letter [ ") -ForegroundColor Yellow;
+	Write-Host -NoNewLine ("  To confirm, type the letter [ ") -ForegroundColor Yellow;
 	Write-Host -NoNewLine ($FirstConfirmKey) -ForegroundColor Green;
 	Write-Host -NoNewLine (" ]:  ") -ForegroundColor Yellow;
 	$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
@@ -62,7 +62,7 @@ If ($NeedlesFound -ne 0) {
 		# Second Confirmation step (since we're deleting credentials)
 		$SecondConfirmKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfirmKey,"")));
 		Write-Host -NoNewLine ("Really really sure?") -BackgroundColor Black -ForegroundColor Yellow;
-		Write-Host -NoNewLine (" If so, type the letter [ ") -ForegroundColor Yellow;
+		Write-Host -NoNewLine ("  To confirm, type the letter [ ") -ForegroundColor Yellow;
 		Write-Host -NoNewLine ($SecondConfirmKey) -ForegroundColor Green;
 		Write-Host -NoNewLine (" ]:  ") -ForegroundColor Yellow;
 		$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

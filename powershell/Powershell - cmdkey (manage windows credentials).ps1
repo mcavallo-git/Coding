@@ -65,13 +65,24 @@ If ($NeedlesFound -ne 0) {
 		Write-Host -NoNewLine (" If so, type the letter [ ") -ForegroundColor Yellow;
 		Write-Host -NoNewLine ($SecondConfirmKey) -ForegroundColor Green;
 		Write-Host -NoNewLine (" ]:  ") -ForegroundColor Yellow;
-		$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
+		$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		Write-Host (($UserKeyPress.Character)+("`n"));
 		If (($UserKeyPress.Character) -eq ($SecondConfirmKey)) {
-		ForEach ($EachCredential in $CredentialMatches) {
-				$EachTarget = $EachCredential.Target;
+			ForEach ($EachCredential in $CredentialMatches) {
+				$EachTarget = ((($EachCredential.Target).Split(" ")[0])+("*"));
 				$EachType = $EachCredential.Type;
-				Write-Host -NoNewLine "Deleting $EachType w/ Target `"$EachTarget`"...";
-				cmdkey /delete:($EachTarget);
+				$OneRecordMatched = (((cmdkey /list:($EachTarget)).Length -le 8) -and ((cmdkey /list:($EachTarget)).Length -ge 6));
+				If ($OneRecordMatched -eq $True) {
+					Write-Host "Deleting $EachType w/ Target `"$EachTarget`"...";
+					Write-Host "cmdkey /delete:(`"$EachTarget`")";
+					cmdkey /delete:("$EachTarget");
+					$last_exit_code = If($?){0}Else{1};
+					If ($last_exit_code -ne 0) {
+						Write-Host (("Fail - Unable to delete $EachType credential w/ Target `"")+($EachCredential.Target)+("`"")) -BackgroundColor Black -ForegroundColor Red;
+					}
+				} Else {
+					Write-Host (("Fail - Unable to delete $EachType credential w/ Target `"")+($EachCredential.Target)+("`"")) -BackgroundColor Black -ForegroundColor Red;
+				}
 			}
 		} Else {
 			Write-Host "No Action Taken" -ForegroundColor Green;

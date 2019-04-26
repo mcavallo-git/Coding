@@ -1,4 +1,23 @@
 
+#   Black
+#   DarkBlue
+#   DarkGreen
+#   DarkCyan
+#   DarkRed
+#   DarkMagenta
+#   DarkYellow
+#   Gray
+#   DarkGray
+#   Blue
+#   Green
+#   Cyan
+#   Red
+#   Magenta
+#   Yellow
+#   White
+
+
+
 $ColorSets = @{};
 $ColorSets.ErrorForegroundColor = "Red";
 $ColorSets.ErrorBackgroundColor = "Black";
@@ -54,4 +73,11 @@ Foreach ($DatSetting In $ColorSets.GetEnumerator()) {
 
 }
 
-# $HOST.PrivateData
+#
+#	Citation(s)
+#
+#
+#		docs.microsoft.com
+#			"Write-Host"
+#			 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-host
+#

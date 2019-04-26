@@ -5,7 +5,7 @@
 
 $CredentialMatches = @();
 
-$TargetStartsWith="TERMSRV";
+$TargetContains="github";
 
 $Haystack = (cmdkey /list);
 $SelectedArray = $Haystack;

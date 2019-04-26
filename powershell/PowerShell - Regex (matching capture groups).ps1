@@ -40,7 +40,7 @@ If ($Needle.Success -ne $False) {
 
 $Haystack = (az --version);
 
-$RegexPattern = '^(azure\-cli)\s*\(?(\d+)\.(\d+)\.(\d+)\)?\s*\*?$';
+$RegexPattern = '^azure\-cli\s*\(?(\d+)\.(\d+)\.(\d+)\)?\s*\*?$';
 
 ForEach ($EachLine in $Haystack){
 	$Needle = [Regex]::Match($EachLine, $RegexPattern);

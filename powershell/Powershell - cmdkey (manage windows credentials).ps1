@@ -15,8 +15,8 @@ $LineNumber = 0;
 ForEach ($EachLine in $SelectedArray) {
 	If ($EachLine.StartsWith("    Target: ") -eq $True) {
 		$NextLine = $SelectedArray[$LineNumber+1];
-		$EachTarget = $EachLine.Replace("    Target: ","");
-		$EachType = $NextLine.Replace("    Type: ","");
+		$EachTarget = $EachLine -Split ":target=" | Select -Skip 1 -First 1;
+		$EachType = ($NextLine.Replace("    Type: ","")).Trim();
 		If ($EachTarget.Contains($TargetContains)) {
 			$CredentialMatches += @{
 				Type = $EachType;
@@ -29,7 +29,7 @@ ForEach ($EachLine in $SelectedArray) {
 	$LineNumber++;
 }
 
-Write-Host "`n";
+Write-Host "";
 
 Write-Host -NoNewLine "Found [ ";
 Write-Host -NoNewLine ($NeedlesFound) -ForegroundColor Green;
@@ -44,17 +44,15 @@ If ($NeedlesFound -ne 0) {
 
 	Write-Host "";
 	$DeletePrepMsg = (("This will delete the following [ ")+($NeedlesFound)+(" ] credential(s):"));
-	Write-Host ($DeletePrepMsg) -BackgroundColor Yellow -ForegroundColor Black;
-	Write-Host "";
 	ForEach ($EachCredential in $CredentialMatches) {
-		Write-Host (("  Type:`"")+($EachCredential.Type)+("`", Target:`"")+($EachCredential.Target)+("`"  "));
+		Write-Host (("  [ ")+($EachCredential.Type)+(" ]  ")+($EachCredential.Target));
 	}
 	Write-Host "";
 	
 	# First Confirmation step
 	$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 	$FirstConfirmKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
-	Write-Host -NoNewLine ("Are you sure you want to delete these credentials?") -BackgroundColor Yellow -ForegroundColor Black;
+	Write-Host -NoNewLine ("Are you sure you want to delete these credentials?") -BackgroundColor Black -ForegroundColor Yellow;
 	Write-Host -NoNewLine (" If so, type the letter [ ") -ForegroundColor Yellow;
 	Write-Host -NoNewLine ($FirstConfirmKey) -ForegroundColor Green;
 	Write-Host -NoNewLine (" ]:  ") -ForegroundColor Yellow;
@@ -63,7 +61,7 @@ If ($NeedlesFound -ne 0) {
 
 		# Second Confirmation step (since we're deleting credentials)
 		$SecondConfirmKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfirmKey,"")));
-		Write-Host -NoNewLine ("Really really sure?") -BackgroundColor Yellow -ForegroundColor Black;
+		Write-Host -NoNewLine ("Really really sure?") -BackgroundColor Black -ForegroundColor Yellow;
 		Write-Host -NoNewLine (" If so, type the letter [ ") -ForegroundColor Yellow;
 		Write-Host -NoNewLine ($SecondConfirmKey) -ForegroundColor Green;
 		Write-Host -NoNewLine (" ]:  ") -ForegroundColor Yellow;

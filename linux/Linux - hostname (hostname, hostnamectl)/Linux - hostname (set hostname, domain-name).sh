@@ -61,10 +61,10 @@ else
 	RESOLVER_4="https://bot.whatismyipaddress.com";
 
 	# Attempt to resolve WAN IPv4
-	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_1}"); fi; RESOLVER_USED="${RESOLVER_1}";
-	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_2}"); fi; RESOLVER_USED="${RESOLVER_2}";
-	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_3}"); fi; RESOLVER_USED="${RESOLVER_3}";
-	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_4}"); fi; RESOLVER_USED="${RESOLVER_4}";
+	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_1}"); fi; RESOLVER_USED="${RESOLVER_1}";
+	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_2}"); fi; RESOLVER_USED="${RESOLVER_2}";
+	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_3}"); fi; RESOLVER_USED="${RESOLVER_3}";
+	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_4}"); fi; RESOLVER_USED="${RESOLVER_4}";
 
 	# Verify WAN IPv4
 	if [ -n "${SET_WAN_IPv4}" ]; then

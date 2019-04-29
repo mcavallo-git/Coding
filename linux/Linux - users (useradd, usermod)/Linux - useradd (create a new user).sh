@@ -6,10 +6,9 @@
 #
 # ------------------------------------------------------------
 
-
 # User Info
-USER_NAME="cavalol";
-USER_ID="500";
+USER_NAME="newuser";
+USER_ID="1234";
 USER_SHELL="/bin/bash";
 
 # User Directory-Info

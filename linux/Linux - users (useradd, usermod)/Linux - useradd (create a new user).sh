@@ -46,7 +46,7 @@ elif [ "${CREATE_GROUP}" == "1" ] && [ "$(getent group ${GROUP_ID} 2>/dev/null)"
 	echo "If this is desired, please set \$CREATE_GROUP to \"0\" and re-run this script.";
 	exit 1;
 
-elif [ "${CREATE_USERHOME}" == "1" ] && [ -d "${DIR_USER_HOME}"]; then
+elif [ "${CREATE_USERHOME}" == "1" ] && [ -d "${DIR_USER_HOME}" ]; then
 
 	echo "Home Directory already exists: \"${DIR_USER_HOME}\".";
 	echo "If you still want to use this directory, set \$CREATE_USERHOME to \"0\" and re-run this script.";

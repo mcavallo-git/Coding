@@ -41,7 +41,6 @@ else
 	elif [[ "${THIS_WAN_IP}" == "13.59.148.38" ]];   then THIS_HOST="aws-5";  #  aws-5
 	elif [[ "${THIS_WAN_IP}" == "54.236.236.117" ]]; then THIS_HOST="aws-6";  #  aws-6
 	elif [[ "${THIS_WAN_IP}" == "54.210.52.140" ]];  then THIS_HOST="aws-7";  #  aws-7
-	elif [[ "${THIS_WAN_IP}" == "104.211.5.215" ]];  then THIS_HOST="azure_bnet-uat";  #  azure_bnet-uat
 	else echo "ERROR - Unhandled/Unknown WAN-IP: \"${THIS_WAN_IP}\"";
 	fi;
 

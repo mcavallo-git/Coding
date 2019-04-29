@@ -8,8 +8,8 @@
 
 
 # User Info
-USER_NAME="uname";
-USER_ID="1234";
+USER_NAME="cavalol";
+USER_ID="500";
 USER_SHELL="/bin/bash";
 
 # User Directory-Info
@@ -36,12 +36,12 @@ if [ "$(whoami)" != "root" ]; then
 	echo "Must run \"${0}\" as user 'root'.";
 	exit 1;
 
-elif [ "$(id ${USER_ID} 2>/dev/null; echo $?)" != "0" ]; then
+elif [ "$(id ${USER_ID} 2>/dev/null)" != "" ]; then
 
 	echo "User ID \"${USER_ID}\" already taken, please choose another and re-run this script.";
 	exit 1;
 
-elif [ "${CREATE_GROUP}" == "1" ] && [ "$(id ${GROUP_ID} 2>/dev/null; echo $?)" != "0" ]; then
+elif [ "${CREATE_GROUP}" == "1" ] && [ "$(getent group ${GROUP_ID} 2>/dev/null)" != "" ]; then
 
 	echo "Group ID \"${GROUP_ID}\" already taken, please choose another and re-run this script.";
 	echo "If this is desired, please set \$CREATE_GROUP to \"0\" and re-run this script.";

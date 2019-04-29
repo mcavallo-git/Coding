@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# ------------------------------------------------------------
+#
+#	Script must be run w/ sudo privileges (e.g. as root user)
+#
+# ------------------------------------------------------------
+
+
 # User Info
 USER_NAME="uname";
 USER_ID="1234";
@@ -47,4 +54,40 @@ else
 		chown "${USER_ID}" "${DIR_USER_SSH}";
 	fi;
 
+	exit 0;
+
 fi;
+
+
+
+# ------------------------------------------------------------
+#
+# Make user a sudoer (able to run as root using 'sudo' command)
+#
+
+SUDOER_FILEPATH="/etc/sudoers.d/${USER_NAME}";
+
+# Add user to 'sudo' group (sudoers)
+usermod -aG sudo "${USER_NAME}";
+
+# Choice 1/2: Require a password when user runs 'sudo' commands
+echo "${USER_NAME} ALL=(ALL) ALL" > "${SUDOER_FILEPATH}";
+chmod 440 "${SUDOER_FILEPATH}";
+
+# Choice 1/2: No password required for user to run 'sudo' commands
+echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" > "${SUDOER_FILEPATH}";
+chmod 440 "${SUDOER_FILEPATH}";
+
+
+
+# ------------------------------------------------------------
+#
+# Additional (more technical) SSH privileges, such as disallow root direct-login, etc.
+#
+
+vi "/etc/ssh/sshd_config";
+
+
+
+# ------------------------------------------------------------
+

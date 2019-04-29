@@ -215,10 +215,35 @@ done;
 #
 #	Comparing two values directly (which is greater, etc.)
 #
-#	Includes logic for [ Integers ],
-#		[ Floats/Doubles ], and [ Strings (ASCII) ]
+#	Includes logic for Integers, Floats/Doubles, and Strings (ASCII)
 #
 # ------------------------------------------------------------
+#
+#
+#
+#  ==		Strings:
+#					if [ "$A" == "$B" ]  :::  True if $A is equal to $B
+#  ==		Integers:
+#					if [ $A -eq $B ]     :::  True if $A is equal to $B
+#					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
+#					if [ $a == z* ]      :::  File globbing and word splitting take place.
+#					if [[ $A == z* ]]    :::  True if $A starts with an "z" (string pattern matching).
+#					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
+#					if [[ $a == "z*" ]]  :::  True if $a is equal to z* (literal matching).
+#  ==		Floats/Doubles:
+#					if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A ISNT equal to $B"; fi;
+#
+#
+#
+#  !=		Strings:
+#					if [ "$A" != "$B" ] :::  True if $A not equal to $B
+#  !=		Integers:
+#					if [ $A -ne $B ]    :::  True if $A not equal to $B
+#					if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see '==' section, above)
+#  !=		Floats/Doubles:
+#					if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A ISNT a different value than $B"; fi;
+#
+#
 #
 #  <		Integers:
 #					if [ $A -lt $B ]     :::  True if $A is less than $B
@@ -255,30 +280,6 @@ done;
 #  >=		Floats/Doubles:
 #					if [ $(echo "$A >= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A ISNT greater than or equal to $B"; fi;
 #
-#
-#
-#  ==		Integers:
-#					if [[ $A == z* ]]    :::  True if $A starts with an "z" (pattern matching).
-#					if [[ $a == "z*" ]]  :::  True if $a is equal to z* (literal matching).
-#					if [ $a == z* ]      :::  File globbing and word splitting take place.
-#					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching).
-#  ==		Floats/Doubles:
-#					if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A ISNT equal to $B"; fi;
-#
-#
-#
-#  =		Integers:
-#					if [ $A -eq $B ]    :::  True if $A is equal to $B
-#					if [ "$A" = "$B" ]  :::  True if $A is equal to $B 
-#					    ^----^-^----^----- this syntax is extremely sensitive regarding spacing - note the above command is NOT equivalent to:  if [ "$A"="$B" ]  <-- invalid spacing (padding)
-#
-#
-#
-#  !=		Integers:
-#					if [ $A -ne $B ]    :::  True if $A not equal to $B
-#					if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see equals, above)
-#  !=		Floats/Doubles:
-#					if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A ISNT a different value than $B"; fi;
 #
 #
 # ------------------------------------------------------------

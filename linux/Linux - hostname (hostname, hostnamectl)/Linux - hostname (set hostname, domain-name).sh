@@ -5,19 +5,20 @@ if [ "$(whoami)" != "root" ]; then
 	echo "Must run \"${0}\" as user 'root'.";
 	exit 1;
 
-elif [ ! -n "${NEW_HOSTNAME}" ]; then
-	# Required variable empty: NEW_HOSTNAME
-	echo "Variable \${NEW_HOSTNAME} is empty";
-	echo "Please set the variable to your desired hostname's value, then re-run this script.";
-	echo "  ( e.g. NEW_HOSTNAME=[your-desired-hostname]; )";
+elif [ ! -n "${SET_HOSTNAME}" ]; then
+	# Required variable empty: SET_HOSTNAME
+	echo "Variable \${SET_HOSTNAME} is empty";
+	echo "Please set variable to your desired value and re-run this script.";
+	echo "  ( e.g. SET_HOSTNAME=[your_value]; )";
 	exit 1;
 
-elif [ ! -n "${NEW_DOMAIN}" ]; then
-	# Required variable empty: NEW_HOSTNAME
-	echo "Variable \${NEW_DOMAIN} is empty";
-	echo "Please set the variable to your desired hostname's value, then re-run this script.";
-	echo "  ( e.g. NEW_DOMAIN=[your-desired-domain]; )";
+elif [ ! -n "${SET_DOMAIN}" ]; then
+	# Required variable empty: SET_HOSTNAME
+	echo "Variable \${SET_DOMAIN} is empty";
+	echo "Please set variable to your desired value and re-run this script.";
+	echo "  ( e.g. SET_DOMAIN=[your_value]; )";
 	exit 1;
+
 else 
 
 	DRY_RUN=1;
@@ -42,12 +43,16 @@ else
 		echo "DRY-RUN MODE ACTIVE";
 	fi;
 
-	# get linux distro
+	# ------------------------------------------------------------
+
+	# Determine Linux distro
 	IS_CENTOS=$(if [[ $(cat /etc/*release | grep -i centos | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
 	IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
 	IS_ALPINE=$(if [[ $(cat /etc/*release | grep -i alpine | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
 	IS_DEBIAN=$(if [[ $(cat /etc/*release | grep -i debian | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
 	THIS_LINUX_DISTRO="$(if [[ ${IS_CENTOS} -gt 0 ]]; then echo CENTOS; elif [[ ${IS_UBUNTU} -gt 0 ]]; then echo UBUNTU; elif [[ ${IS_ALPINE} -gt 0 ]]; then echo ALPINE; elif [[ ${IS_DEBIAN} -gt 0 ]]; then echo DEBIAN; else echo UNKNOWN; fi; )";
+
+	# ------------------------------------------------------------
 
 	# External server(s) to resolve WAN-IP through
 	RESOLVER_1="https://icanhazip.com";
@@ -55,36 +60,55 @@ else
 	RESOLVER_3="https://ident.me";
 	RESOLVER_4="https://bot.whatismyipaddress.com";
 
-	# Determine WAN IPv4
-	WAN_IP=$(curl -L -s "${RESOLVER_1}" | curl -L -s "${RESOLVER_2}" | curl -L -s "${RESOLVER_3}" | curl -L -s "${RESOLVER_4}");
+	# Attempt to resolve WAN IPv4
+	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_1}"); fi; RESOLVER_USED="${RESOLVER_1}";
+	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_2}"); fi; RESOLVER_USED="${RESOLVER_2}";
+	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_3}"); fi; RESOLVER_USED="${RESOLVER_3}";
+	if [ -n "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_4}"); fi; RESOLVER_USED="${RESOLVER_4}";
 
+	# Verify WAN IPv4
+	if [ -n "${SET_WAN_IPv4}" ]; then
+		echo "Resolved WAN IPv4 to: \"${SET_WAN_IPv4}\"";
+	else 
+		echo "Unable to resolve WAN IPv4.";
+		echo "If you wish to manually set it, please set \${SET_WAN_IPv4} to your desired value and re-run this script.";
+		exit 1;
+	fi;
+
+	# ------------------------------------------------------------
 	# Determine LAN IPv4
-	MY_LAN_IPV4=$(ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.');
+	SET_LAN_IPv4=$(ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.');
 
-	# Verify values
-	if [ ! -n "${MY_LAN_IPV4}" ]; then exit 1; fi; # error-out if ${MY_LAN_IPV4} is empty
-	if [ ! -n "${WAN_IP}" ]; then exit 1; fi; # error-out if ${WAN_IP} is empty
-	if [ ! -n "${NEW_HOSTNAME}" ]; then exit 1; fi; # error-out if ${NEW_HOSTNAME} is empty
-	if [ ! -n "${NEW_DOMAIN}" ]; then exit 1; fi; # error-out if ${NEW_DOMAIN} is empty
+	# Verify LAN IPv4
+	if [ -n "${SET_LAN_IPv4}" ]; then
+		echo "Resolved LAN IPv4 to: \"${SET_LAN_IPv4}\"";
+	else 
+		echo "Unable to resolve LAN IPv4.";
+		echo "If you wish to manually set it, please set \${SET_LAN_IPv4} to your desired value and re-run this script.";
+		exit 1;
+	fi;
 
 	echo "";
-	echo "SET HOSTNAME TO \"${NEW_HOSTNAME}\"";
-	echo "SET DOMAIN TO \"${NEW_DOMAIN}\"";
-	echo "CURRENT WAN IP: [${WAN_IP}]";
-	echo "CURRENT LAN IP: [${MY_LAN_IPV4}]";
+	echo "Setting Hostname to \"${SET_HOSTNAME}\"";
+	echo "Setting Domain to \"${SET_DOMAIN}\"";
+	echo "";
 
+	# ------------------------------------------------------------
 	# /etc/hostname
+	#
 	HOSTNAME_FILE="/etc/hostname";
 	if [[ -f "${HOSTNAME_FILE}" ]]; then
 		if [[ "${DRY_RUN}" == "0" ]]; then # NOT a dry-run
-			echo "${NEW_HOSTNAME}" > "${HOSTNAME_FILE}";
+			echo "${SET_HOSTNAME}" > "${HOSTNAME_FILE}";
 		else # dry-run
 			echo "";
 			echo "APPLY HOSTNAME VIA [ ${HOSTNAME_FILE} ]";
 		fi;
 	fi;
 
+	# ------------------------------------------------------------
 	# /etc/hosts
+	#
 	HOSTS_FILE="/etc/hosts";
 	if [[ -f "${HOSTS_FILE}" ]]; then
 		if [[ "${DRY_RUN}" == "0" ]]; then # NOT a dry-run
@@ -92,10 +116,10 @@ else
 			echo "HOSTS FILE (BEFORE-EDITS)" && cat "${HOSTS_FILE}";
 			TEMP_HOSTS="${HOSTS_FILE}_TEMP";
 			cp -f "${HOSTS_FILE}" "${TEMP_HOSTS}";
-			sed_1="/^${WAN_IP}/c\ ";
-			sed_2="/^${MY_LAN_IPV4}/c\ ";
+			sed_1="/^${SET_WAN_IPv4}/c\ ";
+			sed_2="/^${SET_LAN_IPv4}/c\ ";
 			sed --in-place --expression="${sed_1}" --expression="${sed_2}" "${TEMP_HOSTS}";
-			sed_3="/^127.0.0.1/c\127.0.0.1 localhost localhost.localdomain\n${WAN_IP} ${NEW_HOSTNAME}.${NEW_DOMAIN} ${NEW_HOSTNAME}";
+			sed_3="/^127.0.0.1/c\127.0.0.1 localhost localhost.localdomain\n${SET_WAN_IPv4} ${SET_HOSTNAME}.${SET_DOMAIN} ${SET_HOSTNAME}";
 			sed --in-place --expression="${sed_3}" "${TEMP_HOSTS}";
 			sed_whitespace_only='/^\s*$/d';
 			sed --in-place --expression="${sed_whitespace_only}" "${TEMP_HOSTS}"; # Remove whitespace-only lines
@@ -108,17 +132,21 @@ else
 		fi;
 	fi;
 
+	# ------------------------------------------------------------
 	# centos 6
+	#
 	if [[ -f "/etc/sysconfig/network" ]]; then
 		if [[ "${DRY_RUN}" == "0" ]]; then # NOT a dry-run
-			sed --in-place --expression="/^HOSTNAME=/c\HOSTNAME=${NEW_HOSTNAME}.${NEW_DOMAIN}" "/etc/sysconfig/network";
+			sed --in-place --expression="/^HOSTNAME=/c\HOSTNAME=${SET_HOSTNAME}.${SET_DOMAIN}" "/etc/sysconfig/network";
 		else # dry-run
 			echo "";
 			echo "APPLY HOSTNAME VIA [ /etc/sysconfig/network ]";
 		fi;
 	fi;
 
+	# ------------------------------------------------------------
 	# debian 7 / slackware / ubuntu 14.04
+	#
 	if [[ -f "/etc/init.d/hostname.sh" ]]; then
 		if [[ "${DRY_RUN}" == "0" ]]; then # NOT a dry-run
 			/etc/init.d/hostname.sh;
@@ -128,10 +156,12 @@ else
 		fi;
 	fi;
 
+	# ------------------------------------------------------------
 	# arch / centos 7 / debian 8 / fedora / ubuntu 16.04 and above
+	#
 	if [[ $(hostnamectl | wc -l) -gt 0 ]]; then
 		if [[ "${DRY_RUN}" == "0" ]]; then # NOT a dry-run
-			hostnamectl set-hostname "${NEW_HOSTNAME}";
+			hostnamectl set-hostname "${SET_HOSTNAME}";
 		else # dry-run
 			echo "";
 			echo "APPLY HOSTNAME VIA [ hostnamectl ]";
@@ -139,7 +169,9 @@ else
 	fi;
 
 
+	# ------------------------------------------------------------
 	# Apply Changes
+	#
 	if [[ -f "/etc/init.d/network" ]]; then # centos distros
 		if [[ "${DRY_RUN}" == "0" ]]; then # NOT a dry-run
 			echo "RESTART REQUIRED FOR [ /etc/init.d/network ]";
@@ -178,7 +210,15 @@ else
 	fi;
 fi;
 
-# References
-#   https://jblevins.org/log/hostname
-#   https://support.rackspace.com/how-to/centos-hostname-change/
-#   https://www.linode.com/docs/getting-started/#setting-the-hostname
+
+
+# ------------------------------------------------------------
+#
+#	Citation(s)
+#
+#			https://jblevins.org/log/hostname
+#
+#			https://support.rackspace.com/how-to/centos-hostname-change/
+#
+#			https://www.linode.com/docs/getting-started/#setting-the-hostname
+#

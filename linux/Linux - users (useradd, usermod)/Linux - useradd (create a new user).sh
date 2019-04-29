@@ -4,8 +4,10 @@
 USER_NAME="uname";
 USER_ID="1234";
 USER_SHELL="/bin/bash";
-USER_HOME="/home/${USER_NAME}";
-CREATE_USERHOME="1";
+
+# User Directory-Info
+DIR_USER_HOME="/home/${USER_NAME}"; CREATE_USERHOME="1";
+DIR_USER_SSH="${DIR_USER_HOME}/.ssh"; CREATE_USERSSH="1";
 
 # Primary Group Info
 GROUP_NAME="${USER_NAME}";
@@ -26,9 +28,9 @@ elif [ "${CREATE_GROUP}" == "1" ] && [ "$(id ${GROUP_ID} 2>/dev/null; echo $?)" 
 	echo "If this is desired, please set \$CREATE_GROUP to \"0\" and re-run this script.";
 	exit 1;
 
-elif [ "${CREATE_USERHOME}" == "1" ] && [ -d "${USER_HOME}"]; then
+elif [ "${CREATE_USERHOME}" == "1" ] && [ -d "${DIR_USER_HOME}"]; then
 
-	echo "Home Directory already exists: \"${USER_HOME}\".";
+	echo "Home Directory already exists: \"${DIR_USER_HOME}\".";
 	echo "If you still want to use this directory, set \$CREATE_USERHOME to \"0\" and re-run this script.";
 	exit 1;
 
@@ -36,9 +38,15 @@ else
 
 	groupadd --gid "${GROUP_ID}" "${GROUP_NAME}";
 
-	useradd --create-home --uid "${USER_ID}" --gid "${GROUP_ID}" --home-dir "${USER_HOME}" --shell "${USER_SHELL}" "${USER_NAME}";
+	useradd --create-home --uid "${USER_ID}" --gid "${GROUP_ID}" --home-dir "${DIR_USER_HOME}" --shell "${USER_SHELL}" "${USER_NAME}";
+
+	if [ "${CREATE_USERSSH}" == "1" ]; then
+		# Create user's SSH directory "~/.ssh"
+		mkdir -p "${DIR_USER_SSH}";
+		chmod 700 "${DIR_USER_SSH}";
+		chown -R "${USER_ID}:${GROUP_ID}" "${DIR_USER_SSH}";
+	fi;
+
 
 
 fi;
-
-

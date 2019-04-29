@@ -19,7 +19,7 @@ DIR_USER_SSH="${DIR_USER_HOME}/.ssh"; CREATE_USERSSH="1";
 GROUP_NAME="${USER_NAME}"; CREATE_GROUP="1";
 GROUP_ID="${USER_ID}";
 
-# Options - Sudo
+# Options - Password
 SET_USER_PASSWORD="0";
 
 # Options - Sudo

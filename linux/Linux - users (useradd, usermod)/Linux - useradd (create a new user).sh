@@ -17,17 +17,25 @@ DIR_USER_HOME="/home/${USER_NAME}"; CREATE_USERHOME="1";
 DIR_USER_SSH="${DIR_USER_HOME}/.ssh"; CREATE_USERSSH="1";
 
 # Primary Group Info
-GROUP_NAME="${USER_NAME}";
+GROUP_NAME="${USER_NAME}"; CREATE_GROUP="1";
 GROUP_ID="${USER_ID}";
-CREATE_GROUP="1";
+
+# Additional Options
+ADD_USER_TO_SUDOERS="1"; SUDO_REQUIRES_PASS="0";
 
 #	------------------------------------------------------------
 #	   Set values above (Values below are based off of them)
 # ------------------------------------------------------------
 
-if [ "$(id ${USER_ID} 2>/dev/null; echo $?)" != "0" ]; then
+if [ "$(whoami)" != "root" ]; then
+
+	echo "Must run \"${0}\" as user 'root'.";
+	exit 1;
+
+elif [ "$(id ${USER_ID} 2>/dev/null; echo $?)" != "0" ]; then
 
 	echo "User ID \"${USER_ID}\" already taken, please choose another and re-run this script.";
+	exit 1;
 
 elif [ "${CREATE_GROUP}" == "1" ] && [ "$(id ${GROUP_ID} 2>/dev/null; echo $?)" != "0" ]; then
 
@@ -54,40 +62,33 @@ else
 		chown "${USER_ID}" "${DIR_USER_SSH}";
 	fi;
 
+
+	# Make user a sudoer (able to run as root using 'sudo' command)
+	if [ "${ADD_USER_TO_SUDOERS}" == "1" ]; then
+
+		SUDOER_FILEPATH="/etc/sudoers.d/${USER_NAME}";
+
+		# Add user to 'sudo' group (sudoers)
+		usermod -aG sudo "${USER_NAME}";
+
+		if [ "${SUDO_REQUIRES_PASS}" == "0" ]; then
+
+			# Choice 1/2: No password required for user to run 'sudo' commands
+			echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" > "${SUDOER_FILEPATH}";
+			chmod 440 "${SUDOER_FILEPATH}";
+
+		else
+
+			# Choice 2/2: Require a password when user runs 'sudo' commands
+			echo "${USER_NAME} ALL=(ALL) ALL" > "${SUDOER_FILEPATH}";
+			chmod 440 "${SUDOER_FILEPATH}";
+
+		fi;
+
+		# Refer to "/etc/ssh/sshd_config" for more-advanced SSH config
+
+	fi;
+
 	exit 0;
 
 fi;
-
-
-
-# ------------------------------------------------------------
-#
-# Make user a sudoer (able to run as root using 'sudo' command)
-#
-
-SUDOER_FILEPATH="/etc/sudoers.d/${USER_NAME}";
-
-# Add user to 'sudo' group (sudoers)
-usermod -aG sudo "${USER_NAME}";
-
-# Choice 1/2: Require a password when user runs 'sudo' commands
-echo "${USER_NAME} ALL=(ALL) ALL" > "${SUDOER_FILEPATH}";
-chmod 440 "${SUDOER_FILEPATH}";
-
-# Choice 1/2: No password required for user to run 'sudo' commands
-echo "${USER_NAME} ALL=(ALL) NOPASSWD:ALL" > "${SUDOER_FILEPATH}";
-chmod 440 "${SUDOER_FILEPATH}";
-
-
-
-# ------------------------------------------------------------
-#
-# Additional (more technical) SSH privileges, such as disallow root direct-login, etc.
-#
-
-vi "/etc/ssh/sshd_config";
-
-
-
-# ------------------------------------------------------------
-

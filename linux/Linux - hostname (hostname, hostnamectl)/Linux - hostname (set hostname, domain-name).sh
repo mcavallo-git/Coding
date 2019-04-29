@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# ------------------------------------------------------------
+### This script updates a Linux instance's hostname & domain
+
+### To run in 'dry-run' mode:
+# >   DRY_RUN="1" && SET_HOSTNAME="HOSTNAME" && SET_DOMAIN="DOMAIN" && source "./set_hostname.sh";
+
+### To run in 'live' mode:
+# >   DRY_RUN="0" && SET_HOSTNAME="HOSTNAME" && SET_DOMAIN="DOMAIN" && source "./set_hostname.sh";
+
+# ------------------------------------------------------------
+
 echo "";
 if [ "$(whoami)" != "root" ]; then
 

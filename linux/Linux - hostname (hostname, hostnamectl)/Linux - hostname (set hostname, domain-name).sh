@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "";
 if [ "$(whoami)" != "root" ]; then
 
 	echo "Must run \"${0}\" as user 'root'.";
@@ -105,7 +106,6 @@ else
 
 	SET_FQDN="${SET_HOSTNAME}.${SET_DOMAIN}";
 	
-	echo "";
 	echo "Set Hostname: \"${SET_HOSTNAME}\"";
 	echo "Set Domain: \"${SET_DOMAIN}\"";
 	echo "Combined (FQDN): \"${SET_FQDN}\"";
@@ -226,8 +226,7 @@ else
 		fi;
 	fi;
 fi;
-
-
+echo "";
 
 # ------------------------------------------------------------
 #

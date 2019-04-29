@@ -3,10 +3,12 @@
 echo "";
 if [ "$(whoami)" != "root" ]; then
 
+	# Require elevated privileges (e.g. require "root" user)
 	echo "Must run \"${0}\" as user 'root'.";
 	exit 1;
 
 elif [ ! -n "${SET_HOSTNAME}" ]; then
+
 	# Required variable empty: SET_HOSTNAME
 	echo "Variable \${SET_HOSTNAME} is empty";
 	echo "Please set variable to your desired value and re-run this script.";
@@ -14,6 +16,7 @@ elif [ ! -n "${SET_HOSTNAME}" ]; then
 	exit 1;
 
 elif [ ! -n "${SET_DOMAIN}" ]; then
+
 	# Required variable empty: SET_HOSTNAME
 	echo "Variable \${SET_DOMAIN} is empty";
 	echo "Please set variable to your desired value and re-run this script.";
@@ -21,6 +24,10 @@ elif [ ! -n "${SET_DOMAIN}" ]; then
 	exit 1;
 
 else
+
+	# ------------------------------------------------------------
+	# Determine Dry-Run mode
+	#
 
 	if [ -n "${DRY_RUN}" ]; then
 		if [ "${DRY_RUN}" != "1" ] && [ "${DRY_RUN}" != "0" ]; then
@@ -44,24 +51,10 @@ else
 		DRY_RUN=1;
 	fi;
 
-	if [[ "${DRY_RUN}" == "0" ]]; then
-		echo "NOT RUNNING IN DRY-RUN MODE";
-		echo "HOSTNAME / DOMAIN-NAME CHANGES WILL BE MADE";
-		read -p "CONFIRM CHANGES TO HOST-NAME / DOMAIN-NAME ( Y/N )" -n 1 -r
-		echo "";
-		if [[ $REPLY =~ ^[Yy]$ ]]; then
-			echo "CONFIRMED - PROCEEDING WITH CHANGES TO HOST-NAME / DOMAIN-NAME";
-		else
-			echo "CANCELLED - EXITING";
-			exit 1;
-		fi;
-	else
-		echo "DRY-RUN MODE ACTIVE";
-	fi;
-
 	# ------------------------------------------------------------
-
 	# Determine Linux distro
+	#
+
 	IS_CENTOS=$(if [[ $(cat /etc/*release | grep -i centos | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
 	IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
 	IS_ALPINE=$(if [[ $(cat /etc/*release | grep -i alpine | wc -l) -gt 0 ]]; then echo 1; else echo 0; fi; );
@@ -109,6 +102,27 @@ else
 	echo "Set Hostname: \"${SET_HOSTNAME}\"";
 	echo "Set Domain: \"${SET_DOMAIN}\"";
 	echo "Combined (FQDN): \"${SET_FQDN}\"";
+
+	# ------------------------------------------------------------
+	#	If Dry-Run mode is off, require user to confirm changes
+	#
+
+	echo "";
+	if [[ "${DRY_RUN}" == "0" ]]; then
+		echo "NOT RUNNING IN DRY-RUN MODE";
+		echo "HOSTNAME / DOMAIN-NAME CHANGES WILL BE SET TO VALUES SHOWN ABOVE";
+		read -p "CONFIRM CHANGES TO HOST-NAME / DOMAIN-NAME ( y/n )" -n 1 -r
+		echo "";
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			echo "CONFIRMED - PROCEEDING WITH CHANGES TO HOST-NAME / DOMAIN-NAME";
+		else
+			echo "CANCELLED - EXITING";
+			exit 1;
+		fi;
+	else
+		echo "DRY-RUN MODE ACTIVE";
+	fi;
+	echo "";
 
 	# ------------------------------------------------------------
 	# /etc/hostname

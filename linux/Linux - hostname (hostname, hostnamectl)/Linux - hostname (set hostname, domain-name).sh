@@ -19,13 +19,28 @@ elif [ ! -n "${SET_DOMAIN}" ]; then
 	echo "  ( e.g. SET_DOMAIN=[your_value]; )";
 	exit 1;
 
-else 
+else
 
-	DRY_RUN=1;
-	if [[ -n "$1" ]]; then
-		if [[ "$1" == "0" ]]; then
-			DRY_RUN=0;
+	if [ -n "${DRY_RUN}" ]; then
+		if [ "${DRY_RUN}" != "1" ] && [ "${DRY_RUN}" != "0" ]; then
+			echo "Invalid value set for \$DRY_RUN";
+			echo "Please set to \"1\" for dry-run, \"0\" for live-run";
+			echo "";
+			echo "RESETTING \$DRY_RUN to \"1\"";
+			DRY_RUN=1;
 		fi;
+	elif [ -n "$1" ]; then
+		if [ "$1" == "0" ]; then
+			DRY_RUN=0;
+		else
+			echo "Invalid value set for \$1";
+			echo "Please set to \"1\" for dry-run, \"0\" for live-run";
+			echo "";
+			echo "RESETTING \$DRY_RUN to \"1\"";
+			DRY_RUN=1;
+		fi;
+	else
+		DRY_RUN=1;
 	fi;
 
 	if [[ "${DRY_RUN}" == "0" ]]; then
@@ -88,10 +103,12 @@ else
 		exit 1;
 	fi;
 
+	SET_FQDN="${SET_HOSTNAME}.${SET_DOMAIN}";
+	
 	echo "";
-	echo "Setting Hostname to \"${SET_HOSTNAME}\"";
-	echo "Setting Domain to \"${SET_DOMAIN}\"";
-	echo "";
+	echo "Set Hostname: \"${SET_HOSTNAME}\"";
+	echo "Set Domain: \"${SET_DOMAIN}\"";
+	echo "Combined (FQDN): \"${SET_FQDN}\"";
 
 	# ------------------------------------------------------------
 	# /etc/hostname

@@ -20,8 +20,12 @@ DIR_USER_SSH="${DIR_USER_HOME}/.ssh"; CREATE_USERSSH="1";
 GROUP_NAME="${USER_NAME}"; CREATE_GROUP="1";
 GROUP_ID="${USER_ID}";
 
-# Additional Options
-ADD_USER_TO_SUDOERS="1"; SUDO_REQUIRES_PASS="0";
+# Options - Sudo
+SET_USER_PASSWORD="0";
+
+# Options - Sudo
+ADD_USER_TO_SUDOERS="1";
+SUDO_REQUIRES_PASS="0";
 
 #	------------------------------------------------------------
 #	   Set values above (Values below are based off of them)
@@ -89,6 +93,13 @@ else
 
 	fi;
 
+
+	if [ "${SET_USER_PASSWORD}" != "0" ]; then
+		passwd "${USER_NAME}";
+		#				[Enter password] > ENTER
+		#			[Confirm password] > ENTER
+	fi;
+	
 	exit 0;
 
 fi;

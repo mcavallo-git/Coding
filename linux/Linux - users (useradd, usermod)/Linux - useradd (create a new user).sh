@@ -40,13 +40,11 @@ else
 
 	useradd --create-home --uid "${USER_ID}" --gid "${GROUP_ID}" --home-dir "${DIR_USER_HOME}" --shell "${USER_SHELL}" "${USER_NAME}";
 
-	if [ "${CREATE_USERSSH}" == "1" ]; then
+	if [ "${CREATE_USERSSH}" == "1" ] && [ ! -d "${DIR_USER_SSH}" ]; then
 		# Create user's SSH directory "~/.ssh"
-		mkdir -p "${DIR_USER_SSH}";
-		chmod 700 "${DIR_USER_SSH}";
-		chown -R "${USER_ID}:${GROUP_ID}" "${DIR_USER_SSH}";
+		mkdir "${DIR_USER_SSH}";
+		chmod 0700 "${DIR_USER_SSH}";
+		chown "${USER_ID}" "${DIR_USER_SSH}";
 	fi;
-
-
 
 fi;

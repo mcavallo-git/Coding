@@ -25,7 +25,7 @@ SELECT
 					GROUP_CONCAT(gcl.Column_name ORDER BY UPPER(gcl.Column_name)),") ",
 				 "ON `",gcl.Db,"`.`",gcl.Table_name,"` ",
 				 "TO '",gcl.User,"'@'",gcl.Host,"';") AS 'GRANT Statement (Reconstructed)',
-	'TABLE_SPECIFIC' AS 'Scope',
+	CONCAT_WS(", ","SERVER","DATABASE","TABLE","COLUMN") AS 'Scope',
 	NOW() AS 'Timestamp'
 FROM `mysql`.columns_priv gcl
 WHERE true
@@ -47,7 +47,7 @@ SELECT
 		"ON `",gtb.Db,"`.`",gtb.Table_name,"` ",
 		"TO '",gtb.User,"'@'",gtb.Host,"';"
 	) AS 'GRANT Statement (Reconstructed)',
-	'TABLE_SPECIFIC' AS 'Scope',
+	CONCAT_WS(", ","SERVER","DATABASE","TABLE") AS 'Scope',
 	NOW() AS 'Timestamp'
 FROM `mysql`.tables_priv gtb
 WHERE gtb.Table_priv!=''
@@ -88,7 +88,7 @@ SELECT
 		),
 		" ON `",gdb.Db,"`.* TO '",gdb.User,"'@'",gdb.Host,"';"
 	) AS 'GRANT Statement (Reconstructed)',
-	'TABLE_SPECIFIC' AS 'Scope',
+	CONCAT_WS(", ","SERVER","DATABASE") AS 'Scope',
 	NOW() AS 'Timestamp'
 FROM `mysql`.db gdb
 WHERE gdb.Db != ''
@@ -164,7 +164,7 @@ SELECT
 		"MAX_USER_CONNECTIONS ",usr.max_user_connections,
 		";"
 	) AS 'GRANT Statement (Reconstructed)',
-	'TABLE_SPECIFIC' AS 'Scope',
+	CONCAT_WS(", ","SERVER") AS 'Scope',
 	NOW() AS 'Timestamp'
 FROM `mysql`.user usr
 -- WHERE usr.Password != '' /* MySQL 5.6- */

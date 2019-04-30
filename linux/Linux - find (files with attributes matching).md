@@ -37,11 +37,11 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 ### File Extension (Single) - Locate all files with a specific file-extension in a specific directory (and subdirectories)
 ```
 
-# File Basename matching:
+# File basename matching:
 BASENAME_MUST_BE_EXACTLY="";
 BASENAME_MUST_CONTAIN="";
 
-# Extension matching:
+# File extension matching:
 EXTENSION_MUST_BE_EXACTLY=".pdf";
 EXTENSION_MUST_START_WITH="pdf";
 EXTENSION_MUST_CONTAIN="pdf";

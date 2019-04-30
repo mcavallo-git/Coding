@@ -73,6 +73,8 @@ PATTERN_FULL="${PATTERN_NAME/**/*}${PATTERN_EXT/**/*}";
 
 MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -iname "${PATTERN_FULL}");
 
+echo "${MATCHES_LIST}";
+
 echo -e "\nSearch results for directory \"${SEARCH_IN_DIRECTORY}\":\n  Found ${#MATCHES_LIST[@]} files matching \"${PATTERN_FULL}\"\n\n";
 
 ```

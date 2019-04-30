@@ -73,9 +73,16 @@ PATTERN_FULL="${PATTERN_NAME/**/*}${PATTERN_EXT/**/*}";
 
 MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -iname "${PATTERN_FULL}");
 
+COUNT_MATCHES=$(echo "$MATCHES_LIST" | wc -l);
+
 echo "${MATCHES_LIST}";
 
-echo -e "\nSearch results for directory \"${SEARCH_IN_DIRECTORY}\":\n  Found ${#MATCHES_LIST[@]} files matching \"${PATTERN_FULL}\"\n\n";
+echo -e "\n\n";
+echo "	Found ${COUNT_MATCHES} results";
+echo -e "\n\n";
+echo "  Directory: \"${SEARCH_IN_DIRECTORY}\"";
+echo "   Filename: \"${PATTERN_FULL}\"";
+echo -e "\n\n";
 
 ```
 ***

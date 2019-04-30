@@ -59,7 +59,7 @@ set traffic-policy shaper client-down default bandwidth '100%'
 set traffic-policy shaper client-down default burst '1k'
 set traffic-policy shaper client-down default ceiling '100%'
 set traffic-policy shaper client-down default queue-type 'fair-queue'
-set interfaces ethernet eth1 traffic-policy out client-down
+set interfaces ethernet eth1 traffic-policy out 'client-down'
 commit
 save
 

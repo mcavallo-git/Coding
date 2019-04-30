@@ -69,7 +69,12 @@ else
 	PATTERN_EXT=".${EXTENSION_MUST_START_WITH//[.]/}*${EXTENSION_MUST_CONTAIN}*${EXTENSION_MUST_END_WITH}";
 fi;
 
-PATTERN_FULL="${PATTERN_NAME/**/*}${PATTERN_EXT/**/*}";
+PATTERN_FULL="${PATTERN_NAME}${PATTERN_EXT}";
+
+# Replace all back-to-back asterisks '**' with single asterisks '*' in the final glob-pattern
+while [ -n "$(echo \"${PATTERN_FULL}\" | grep '\*\*')" ]; do
+	PATTERN_FULL="${PATTERN_FULL//'**'/*}";
+done;
 
 MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -iname "${PATTERN_FULL}");
 
@@ -78,10 +83,14 @@ COUNT_MATCHES=$(echo "$MATCHES_LIST" | wc -l);
 echo "${MATCHES_LIST}";
 
 echo -e "\n\n";
+
 echo "	Found ${COUNT_MATCHES} results";
+
 echo -e "\n\n";
 echo "  Directory: \"${SEARCH_IN_DIRECTORY}\"";
-echo "   Filename: \"${PATTERN_FULL}\"";
+echo "   Filename: \"${PATTERN_NAME}\"";
+echo "  Extension: \"${PATTERN_EXT}\"";
+echo "   Combined: \"${PATTERN_FULL}\"";
 echo -e "\n\n";
 
 ```

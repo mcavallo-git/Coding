@@ -36,15 +36,45 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 ***
 ### File Extension (Single) - Locate all files with a specific file-extension in a specific directory (and subdirectories)
 ```
-FIND_EXTENSION="pdf";
 
-LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
+# Search for files whose basename matches:
+BASENAME_MUST_BE_EXACTLY="";
+BASENAME_MUST_CONTAIN="";
 
-HOMEDIR_FILES=$(find "${LOOK_IN_DIRECTORY}" -type 'f' -iname "*.${FIND_EXTENSION}");
+# Search for files with extension matching:
+EXTENSION_MUST_BE_EXACTLY=".pdf";
+EXTENSION_MUST_START_WITH="pdf";
+EXTENSION_MUST_CONTAIN="pdf";
+EXTENSION_MUST_END_WITH="pdf";
 
-echo "${HOMEDIR_FILES}";
+	ALLOW_SIMILAR_EXTENSIONS="1";
 
-echo -e "\nFound $(echo "${HOMEDIR_FILES}" | wc -l) files with a '.${FIND_EXTENSION}' extension in the directory '${LOOK_IN_DIRECTORY}'\n";
+SEARCH_IN_DIRECTORY="${HOME}";
+
+# ----- SET VALUES ABOVE ----- #
+
+PATTERN_NAME="";
+if [ -n "${BASENAME_MUST_BE_EXACTLY}" ]; then
+	PATTERN_NAME="${BASENAME_MUST_BE_EXACTLY}";
+elif [ -n "${BASENAME_MUST_CONTAIN}" ]; then
+	PATTERN_NAME="*${BASENAME_MUST_CONTAIN}*";
+fi;
+
+PATTERN_EXT="";
+if [ -n "${EXTENSION_MUST_BE_EXACTLY}" ]; then
+	PATTERN_EXT="${EXTENSION_MUST_BE_EXACTLY}";
+else
+	if [ -z "${EXTENSION_MUST_START_WITH}" ]; then EXTENSION_MUST_START_WITH="*"; fi;
+	if [ -z "${EXTENSION_MUST_CONTAIN}" ]; then EXTENSION_MUST_CONTAIN="*"; fi;
+	if [ -z "${EXTENSION_MUST_END_WITH}" ]; then EXTENSION_MUST_END_WITH="*"; fi;
+	PATTERN_EXT=".${EXTENSION_MUST_START_WITH//[.]/}*${EXTENSION_MUST_CONTAIN}*${EXTENSION_MUST_END_WITH}";
+fi;
+
+PATTERN_FULL="${PATTERN_NAME/**/*}${PATTERN_EXT/**/*}";
+
+MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -iname "${PATTERN_FULL}");
+
+echo -e "\nSearch results for directory \"${SEARCH_IN_DIRECTORY}\":\n  Found ${#MATCHES_LIST[@]} files matching \"${PATTERN_FULL}\"\n\n";
 
 ```
 ***

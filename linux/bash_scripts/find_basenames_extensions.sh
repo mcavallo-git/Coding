@@ -26,9 +26,15 @@ EXTENSION_MUST_END_WITH="";
 
 
 
+
 # Parent-Directory to search within:
 
 SEARCH_IN_DIRECTORY="${HOME}";
+
+
+# Extra option(s)
+
+CASE_SENSITIVE_SEARCHING="0";
 
 
 
@@ -63,7 +69,12 @@ while [ -n "$(echo \"${PATTERN_FULL}\" | grep '\*\*')" ]; do
 	PATTERN_FULL="${PATTERN_FULL//'**'/*}";
 done;
 
-MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -iname "${PATTERN_FULL}");
+MATCHES_LIST="";
+if [ "${CASE_SENSITIVE_SEARCHING}" == "1" ]; then
+	MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -name "${PATTERN_FULL}");
+else
+	MATCHES_LIST=$(find "${SEARCH_IN_DIRECTORY}" -type 'f' -iname "${PATTERN_FULL}");
+fi;
 
 COUNT_MATCHES=$(echo "$MATCHES_LIST" | wc -l);
 

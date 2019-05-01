@@ -1,4 +1,5 @@
 #!/bin/bash
+# ------------------------------------------------------------
 
 
 # File basename matching:
@@ -10,7 +11,6 @@ BASENAME_MUST_START_WITH="";
 BASENAME_MUST_CONTAIN="";
 
 BASENAME_MUST_END_WITH="";
-
 
 
 
@@ -26,10 +26,10 @@ EXTENSION_MUST_END_WITH="";
 
 
 
-
 # Parent-Directory to search within:
 
 SEARCH_IN_DIRECTORY="${HOME}";
+
 
 
 # Extra option(s)

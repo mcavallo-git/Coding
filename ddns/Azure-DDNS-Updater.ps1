@@ -8,9 +8,9 @@
 #		 https://docs.microsoft.com/en-us/cli/azure/network/nsg/rule
 
 
-$Az  = (JsonDecoder -InputObject (Get-Content "${HOME}\.ddns\azure_nsg.json"));
+$Az = (JsonDecoder -InputObject (Get-Content "${HOME}\.ddns\azure_nsg.json"));
 
-$DDNS_UIDS  = (JsonDecoder -InputObject (Get-Content "${HOME}\.ddns\cidr_ddns.json"));
+$DDNS_UIDS = (JsonDecoder -InputObject (Get-Content "${HOME}\.ddns\cidr_ddns.json"));
 
 $ResolvedIPv4s = @();
 
@@ -35,11 +35,8 @@ $DDNS_UIDS | ForEach {
 if ($ResolvedIPv4s.Length -eq 0)  {
 	Write-Host "No results returned valid IPv4 data (DDNS_UIDS.IPv4.Length===0)";
 } else {
-	# $Az.NsgSourceAddressPrefixes = ($ResolvedIPv4s -join " ");
-	$Az.NsgSourceAddressPrefixes = $ResolvedIPv4s;
 
-
-	$Az.NsgShowRuleDDNS = `
+	$NsgShowRuleDDNS = `
 		JsonDecoder -InputObject (
 			az network nsg rule show `
 			--subscription ($Az.Subscription) `
@@ -48,12 +45,11 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 			--name ($Az.NsgRuleName) `
 		);
 		
-	Write-Host ($Az.NsgShowRuleDDNS);
-	$Az.NsgShowRuleDDNS;
+	# $NsgShowRuleDDNS;
 
-	if (($Az.NsgShowRuleDDNS) -eq $null) {
+	if (($NsgShowRuleDDNS) -eq $null) {
 		
-		$Az.NsgRuleCreate = `
+		$NsgRuleCreate = `
 			JsonDecoder -InputObject ( `
 				az network nsg rule create `
 					--subscription ($Az.Subscription) `
@@ -67,13 +63,13 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--destination-port-ranges ("*") `
 					--direction ("Inbound") `
 					--protocol ("*") `
-					--source-address-prefixes ($Az.NsgSourceAddressPrefixes) `
+					--source-address-prefixes ($ResolvedIPv4s) `
 					--source-port-ranges ("*") `
 		);
 
 	} else {
 
-		$Az.NsgRuleUpdate = `
+		$NsgRuleUpdate = `
 			JsonDecoder -InputObject ( `
 				az network nsg rule update `
 					--subscription ($Az.Subscription) `
@@ -87,7 +83,7 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--destination-port-ranges ("*") `
 					--direction ("Inbound") `
 					--protocol ("*") `
-					--source-address-prefixes ($Az.NsgSourceAddressPrefixes) `
+					--source-address-prefixes ($ResolvedIPv4s) `
 					--source-port-ranges ("*") `
 			);
 

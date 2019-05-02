@@ -114,5 +114,5 @@ echo -e "Exiting ${THIS_SCRIPT}   -   $(date +'%D  %r')\n"
 exit 0;
 
 #
-# Version 2.0.1  :::  Released 2019-03-29  :::  ./edgerouter_fw_upgrade.sh "https://dl.ubnt.com/firmwares/edgemax/v2.0.x/ER-e100.v2.0.1.5174691.tar"
+# Version 2.0.1  :::  Released 2019-03-29  :::  ./edgerouter_fw_upgrader.sh "https://dl.ubnt.com/firmwares/edgemax/v2.0.x/ER-e100.v2.0.1.5174691.tar"
 #

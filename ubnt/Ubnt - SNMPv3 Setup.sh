@@ -9,7 +9,7 @@
 # <encKey> = a long, complex key used for encryption (key should be separate from authKey!)
 
 
-
+configure
 set service snmp listen-address <intIP> port <snmpPort>
 set service snmp v3 view <viewName>
 set service snmp v3 view <viewName> oid 1
@@ -25,6 +25,8 @@ set service snmp v3 user <userName> group <groupName>
 set service snmp v3 user <userName> mode ro
 set service snmp v3 user <userName> privacy plaintext-key <encKey>
 set service snmp v3 user <userName> privacy type aes
+commit
+save
 
 
 #

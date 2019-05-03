@@ -75,4 +75,15 @@ sudo service ssh restart
 
 
 
+### Setup login_duo (via login_duo.conf) to automatically send push-notifications w/o user having to choose each time
+vi "/etc/duo/login_duo.conf";
+
+##  Before:
+;pushinfo = yes
+
+##  After:
+pushinfo = yes
+autopush = yes
+prompts = 1
+
 

@@ -107,7 +107,7 @@ auth optional /usr/lib/x86_64-linux-gnu/security/am_cap.so
 
 
 
-### Setup pam_duo (via pam.conf) to automatically send push-notifications w/o user having to choose each time
+### Setup pam_duo (via pam_duo.conf) to automatically send push-notifications w/o user having to choose each time
 vi "/etc/duo/pam_duo.conf";
 
 ##  Before:

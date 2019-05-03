@@ -45,6 +45,10 @@ vi "/etc/ssh/sshd_config"
 PubkeyAuthentication yes
 PasswordAuthentication no
 AuthenticationMethods publickey
+ChallengeResponseAuthentication yes
+UseDNS no
+PermitTunnel no
+AllowTcpForwarding no
 
 # ------------------------------------------------------------
 
@@ -95,6 +99,8 @@ auth optional /usr/lib/x86_64-linux-gnu/security/am_cap.so
 # NOTE: This command will return a URL hyperlink
 # ^^^>>> on your MOBILE, browse to this url (not desktop)
 
-cat "/etc/duo/pam_duo.conf" > "/etc/duo/login_duo.conf" && "/usr/sbin/login_duo";
+cat "/etc/duo/pam_duo.conf" > "/etc/duo/login_duo.conf";
+
+chmod 4755 "/usr/sbin/login_duo" && "/usr/sbin/login_duo";
 
 # ------------------------------------------------------------

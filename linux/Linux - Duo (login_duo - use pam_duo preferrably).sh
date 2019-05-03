@@ -12,11 +12,11 @@ vi /etc/duo/pam_duo.conf
 #
 #		[duo]
 #		; Duo integration key
-#		ikey = INTEGRATION_KEY
+#		ikey = [INTEGRATION-KEY-HERE]
 #		; Duo secret key
-#		skey = SECRET_KEY
+#		skey = [SECRET-KEY-HERE]
 #		; Duo API host
-#		host = API_HOSTNAME
+#		host = [HOST-API-HERE]
 #		; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
 #		; this mode will allow login without 2FA.
 #		; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting

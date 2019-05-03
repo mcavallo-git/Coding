@@ -7,22 +7,22 @@ apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-de
 
 
 # Install duo_unix
-wget https://dl.duosecurity.com/duo_unix-latest.tar.gz
-tar zxf duo_unix-latest.tar.gz
-cd duo_unix-1.11.1
-./configure --with-pam --prefix=/usr && make && sudo make install
-
+mkdir -p "${HOME}/pam_duo_install" && cd "${HOME}/pam_duo_install";
+wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz";
+tar zxf "duo_unix-latest.tar.gz";
+cd "duo_unix-1.11.1";
+./configure --with-pam --prefix=/usr && make && sudo make install;
 
 vi "/etc/duo/pam_duo.conf";
 
 
 # [duo]
 # ; Duo integration key
-# ikey = ...
+# ikey = [INTEGRATION-KEY-HERE]
 # ; Duo secret key
-# skey = ...
+# skey = [SECRET-KEY-HERE]
 # ; Duo API host
-# host = api-....duosecurity.com
+# host = [HOST-API-HERE]
 # ; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
 # ; this mode will allow login without 2FA.
 # ; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting

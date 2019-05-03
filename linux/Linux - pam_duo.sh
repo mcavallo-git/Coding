@@ -66,20 +66,45 @@ vi "/etc/pam.d/common-auth";
 
 ### Ubuntu 18.04
 ### SSH Public Key Authentication via PAM
-### --> /etc/pam.d/sshd
+vi "/etc/pam.d/sshd";
+
 
 ## Prep
-
+find / -name 'pam_duo.so'
+find / -name 'pam_deny.so'
 find / -name 'pam_permit.so'
-
+find / -name 'pam_cap.so'
 
 ##  Before:
-
 @include common-auth
+
+
+##  After:
+#@include common-auth
+auth [success=1 default=ignore] /usr/lib64/security/pam_duo.so
+auth requisite /usr/lib/x86_64-linux-gnu/security/pam_deny.so
+auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
+
+
+
+
+### System-wide Authentication
+
+vi "/etc/pam.d/common-auth";
+
+##  Before:
+auth [success=1 default=ignore] pam_unix.so nullok_secure
+auth requisite pam_deny.so
+auth required pam_permit.so
+
 
 ##  After:
 
-#@include common-auth
-auth  [success=1 default=ignore] /usr/lib64/security/pam_duo.so
-auth  requisite pam_deny.so
-auth  required pam_permit.so
+# auth  [success=1 default=ignore] pam_unix.so nullok_secure
+auth requisite pam_unix.so nullok_secure
+auth [success=1 default=ignore] /usr/lib64/security/pam_duo.so
+auth requisite /usr/lib/x86_64-linux-gnu/security/pam_deny.so
+auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
+auth required /usr/lib/x86_64-linux-gnu/security/am_cap.so
+
+

@@ -105,6 +105,5 @@ auth requisite pam_unix.so nullok_secure
 auth [success=1 default=ignore] /usr/lib64/security/pam_duo.so
 auth requisite /usr/lib/x86_64-linux-gnu/security/pam_deny.so
 auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
-auth required /usr/lib/x86_64-linux-gnu/security/am_cap.so
-
+auth optional /usr/lib/x86_64-linux-gnu/security/am_cap.so
 

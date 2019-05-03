@@ -64,20 +64,19 @@ vi "/etc/pam.d/common-auth";
 # auth required "/usr/lib64/security/pam_duo.so";
 
 
+
 ### Ubuntu 18.04
 ### SSH Public Key Authentication via PAM
-vi "/etc/pam.d/sshd";
-
 
 ## Prep
 find / -name 'pam_duo.so'
 find / -name 'pam_deny.so'
 find / -name 'pam_permit.so'
 find / -name 'pam_cap.so'
+vi "/etc/pam.d/sshd";
 
 ##  Before:
 @include common-auth
-
 
 ##  After:
 #@include common-auth
@@ -87,9 +86,10 @@ auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
 
 
 
-
 ### System-wide Authentication
 
+## Prep
+find / -name 'common-auth'
 vi "/etc/pam.d/common-auth";
 
 ##  Before:
@@ -97,13 +97,24 @@ auth [success=1 default=ignore] pam_unix.so nullok_secure
 auth requisite pam_deny.so
 auth required pam_permit.so
 
-
 ##  After:
-
 # auth  [success=1 default=ignore] pam_unix.so nullok_secure
 auth requisite pam_unix.so nullok_secure
 auth [success=1 default=ignore] /usr/lib64/security/pam_duo.so
 auth requisite /usr/lib/x86_64-linux-gnu/security/pam_deny.so
 auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
 auth optional /usr/lib/x86_64-linux-gnu/security/am_cap.so
+
+
+
+### Setup pam_duo (via pam.conf) to automatically send push-notifications w/o user having to choose each time
+vi "/etc/duo/pam_duo.conf";
+
+##  Before:
+;pushinfo = yes
+
+##  After:
+pushinfo = yes
+autopush = yes
+prompts = 1
 

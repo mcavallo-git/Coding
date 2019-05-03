@@ -1,6 +1,5 @@
 
-### using guide
-# https://duo.com/docs/loginduo
+# Folliwng Guide:  https://duo.com/docs/loginduo
 
 apt-get install -y zlib1g-dev
 apt-get install -y gcc

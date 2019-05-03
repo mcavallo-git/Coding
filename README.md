@@ -13,13 +13,16 @@ App Name | Option 1 | Option A
 **Git** <sub>*Git SCM*</sub>  | [Download (source)](https://git-scm.com/downloads) |
 **Git** <sub>*GitHub Desktop*</sub>  | [Download (source)](https://desktop.github.com) |
 **Git** <sub>*Tortoise Git*</sub> | [Download (source)](https://tortoisegit.org/download) |
-**MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Postman** | [Download (source)](https://www.getpostman.com/apps) |
 **Reflector** | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
 **YubiKey** <sub>*Manager*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 **Visual Studio Code (VS Code)** | [Download (source)](https://code.visualstudio.com/download) |
 
+App Name | Option 1 | Option A
+--- | --- | ---
+**MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
+**Termius (All-Platforms)** | [Download (source)](https://www.termius.com/windows) |
 
 ***
 ### PowerShell

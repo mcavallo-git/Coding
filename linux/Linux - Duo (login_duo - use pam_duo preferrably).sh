@@ -1,11 +1,7 @@
 
 # Folliwng Guide:  https://duo.com/docs/loginduo
 
-apt-get install -y zlib1g-dev
-apt-get install -y gcc
-apt-get install -y libssl-dev
-apt-get install -y libpam-dev
-apt-get install -y make
+apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev
 
 wget https://dl.duosecurity.com/duo_unix-latest.tar.gz
 tar zxf duo_unix-latest.tar.gz

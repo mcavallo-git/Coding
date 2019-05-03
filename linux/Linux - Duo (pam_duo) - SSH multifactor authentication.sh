@@ -3,11 +3,7 @@
 
 # TO INSTALL:  pam_duo
 
-apt-get install -y zlib1g-dev
-apt-get install -y gcc
-apt-get install -y libssl-dev
-apt-get install -y libpam-dev
-apt-get install -y make
+apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev
 
 
 # Install duo_unix

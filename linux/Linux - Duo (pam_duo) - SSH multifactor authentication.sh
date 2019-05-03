@@ -3,63 +3,50 @@
 
 # TO INSTALL:  pam_duo
 
-apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev
+# ------------------------------------------------------------
 
+apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev
 
 # Install duo_unix
 mkdir -p "${HOME}/pam_duo_install" && cd "${HOME}/pam_duo_install";
 wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz";
-tar zxf "duo_unix-latest.tar.gz";
-cd "duo_unix-1.11.1";
+tar zxf "duo_unix-latest.tar.gz" && cd "duo_unix-1.11.1";
 ./configure --with-pam --prefix=/usr && make && sudo make install;
+
+# ------------------------------------------------------------
+
 
 vi "/etc/duo/pam_duo.conf";
 
+### At the top of pam_duo.conf, set:
 
-# [duo]
-# ; Duo integration key
-# ikey = [INTEGRATION-KEY-HERE]
-# ; Duo secret key
-# skey = [SECRET-KEY-HERE]
-# ; Duo API host
-# host = [HOST-API-HERE]
-# ; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
-# ; this mode will allow login without 2FA.
-# ; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting
-# ; enabled may result in you being locked out of your system.
-# failmode = safe
-# ; Send command for Duo Push authentication
-# ;pushinfo = yes
+[duo]
+; Duo integration key
+ikey = [INTEGRATION-KEY-HERE]
+; Duo secret key
+skey = [SECRET-KEY-HERE]
+; Duo API host
+host = [HOST-API-HERE]
+
+## At the bottom of pam_duo.conf, set:
+pushinfo = yes
+autopush = yes
+prompts = 1
+## ^-- This sets up automatic push-notifications whenever user attempts to BASH-into the environment
 
 
+# ------------------------------------------------------------
 
-# vvv Add this to "/etc/ssh/sshd_config" for public-key based authentication
+# Configure "/etc/ssh/sshd_config" with the following settings (for public-key based authentication):
 
+vi "/etc/ssh/sshd_config"
 
 # Public Key Authentication
 PubkeyAuthentication yes
 PasswordAuthentication no
-AuthenticationMethods publickey,keyboard-interactive
+AuthenticationMethods publickey
 
-
-
-# Meed to find the pam file, first
-
-cd /lib64/security
-
-find '/' -name 'pam_duo.so'
-
-## Found:   /usr/lib64/security/pam_duo.so
-##  -->  auth required /usr/lib64/security/pam_duo.so;
-
-# Edit the PAM Configuration file
-vi "/etc/pam.d/sshd";
-vi "/etc/pam.d/common-auth";
-
-
-# auth required "/usr/lib64/security/pam_duo.so";
-
-
+# ------------------------------------------------------------
 
 ### Ubuntu 18.04
 ### SSH Public Key Authentication via PAM
@@ -80,7 +67,7 @@ auth [success=1 default=ignore] /usr/lib64/security/pam_duo.so
 auth requisite /usr/lib/x86_64-linux-gnu/security/pam_deny.so
 auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
 
-
+# ------------------------------------------------------------
 
 ### System-wide Authentication
 
@@ -101,16 +88,13 @@ auth requisite /usr/lib/x86_64-linux-gnu/security/pam_deny.so
 auth required /usr/lib/x86_64-linux-gnu/security/pam_permit.so
 auth optional /usr/lib/x86_64-linux-gnu/security/am_cap.so
 
+# ------------------------------------------------------------
 
+# Finally, connect the application to your duo
 
-### Setup pam_duo (via pam_duo.conf) to automatically send push-notifications w/o user having to choose each time
-vi "/etc/duo/pam_duo.conf";
+# NOTE: This command will return a URL hyperlink
+# ^^^>>> on your MOBILE, browse to this url (not desktop)
 
-##  Before:
-;pushinfo = yes
+cat "/etc/duo/pam_duo.conf" > "/etc/duo/login_duo.conf" && "/usr/sbin/login_duo";
 
-##  After:
-pushinfo = yes
-autopush = yes
-prompts = 1
-
+# ------------------------------------------------------------

@@ -260,45 +260,48 @@ else
 	echo "${DASHES}"; cat "${FILE_ETH0_BUILDER}"; echo "${DASHES}";
 	
 	SystemResolveConf="/etc/systemd/resolved.conf";
-	echo "Updating Hostname-Resolving Service \"systemd-resolve\" via associated config-file \"${SystemResolveConf}\" ...";
+	if [ -f "${SystemResolveConf}" ]; then
 
-	CAN_USE_SYSRESOLVE_STATUS="$(systemd-resolve --help | grep status)";
-	if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
-		# Show "systemd-resolve --status" command's output BEFORE-EDITS (shows live DNS setup)
-		echo "";
-		echo "Calling [systemd-resolve --status] (BEFORE EDITS)";
-		echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
-	else
+		echo "Updating Hostname-Resolving Service \"systemd-resolve\" via associated config-file \"${SystemResolveConf}\" ...";
+		CAN_USE_SYSRESOLVE_STATUS="$(systemd-resolve --help | grep status)";
+		if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
+			# Show "systemd-resolve --status" command's output BEFORE-EDITS (shows live DNS setup)
+			echo "";
+			echo "Calling [systemd-resolve --status] (BEFORE EDITS)";
+			echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
+		fi;
+		
 		echo "";
 		echo "Calling [cat \"${SystemResolveConf}\";] (BEFORE EDITS)";
 		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
-	fi;
 
-	sed_DNS_001="/^DNS=/c\DNS=\"${DNS_NAMESRVR_1}\"";
-	sed_DNS_002="/^#DNS=/c\DNS=\"${DNS_NAMESRVR_1}\"";
-	sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=\"${DNS_NAMESRVR_2}\"";
-	sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=\"${DNS_NAMESRVR_2}\"";
-	sed --in-place \
-	--expression="${sed_DNS_001}" \
-	--expression="${sed_DNS_002}" \
-	--expression="${sed_DNS_003}" \
-	--expression="${sed_DNS_004}" \
-	"${SystemResolveConf}";
+		sed_DNS_001="/^DNS=/c\DNS=\"${DNS_NAMESRVR_1}\"";
+		sed_DNS_002="/^#DNS=/c\DNS=\"${DNS_NAMESRVR_1}\"";
+		sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=\"${DNS_NAMESRVR_2}\"";
+		sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=\"${DNS_NAMESRVR_2}\"";
+		sed --in-place \
+		--expression="${sed_DNS_001}" \
+		--expression="${sed_DNS_002}" \
+		--expression="${sed_DNS_003}" \
+		--expression="${sed_DNS_004}" \
+		"${SystemResolveConf}";
 
-	# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
-	echo "";
-	echo "Restarting service via [service systemd-resolved restart]";
-	echo "${DASHES}"; service systemd-resolved restart; echo "${DASHES}";
-
-	if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
 		# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
 		echo "";
-		echo "Calling [systemd-resolve --status] (AFTER EDITS)";
-		echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
-	else
+		echo "Restarting service via [service systemd-resolved restart]";
+		echo "${DASHES}"; service systemd-resolved restart; echo "${DASHES}";
+
+		if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
+			# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
+			echo "";
+			echo "Calling [systemd-resolve --status] (AFTER EDITS)";
+			echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
+		fi;
+		
 		echo "";
 		echo "Calling [cat \"${SystemResolveConf}\";] (AFTER EDITS)";
 		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
+
 	fi;
 
 fi;

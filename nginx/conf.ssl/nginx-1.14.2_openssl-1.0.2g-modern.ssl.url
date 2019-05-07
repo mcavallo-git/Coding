@@ -1,0 +1,5 @@
+[{000214A0-0000-0000-C000-000000000046}]
+Prop3=19,11
+[InternetShortcut]
+IDList=
+URL=https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=nginx-1.14.0&openssl=1.0.2g&hsts=yes&profile=modern

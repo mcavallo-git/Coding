@@ -66,6 +66,7 @@ certbot certificates
 ## Revoking/Deleting LetsEncrypt Certificates via Certbot
 If, for whatever reason, you wish to remove a given domain's certificate, Certbot has you covered with the below approach:
 ```
+
 FQDN="example1.com";
 
 certbot revoke --cert-path "/etc/letsencrypt/live/${FQDN}/fullchain.pem"; # Make sure to revoke FIRST, so that 
@@ -75,4 +76,5 @@ certbot delete --cert-name "${FQDN}"; # Allow certbot to remove any files no lon
 find "/etc/letsencrypt/" -name "*${FQDN}*"; # Double-Check to make sure the domain is fully removed, otherwise remove the related items
 
 unlink "/etc/nginx/sites-enabled/${FQDN}";
+
 ```

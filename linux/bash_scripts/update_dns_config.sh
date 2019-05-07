@@ -305,17 +305,18 @@ else
 		if [ -d "${SystemNetworkConfDir}" ]; then
 			echo "";
 			echo "Searching directory for config-files: \"${SystemNetworkConfDir}\"...";
-			for network_file in "${SystemNetworkConfDir}/*"; do
-				if [ -f "${network_file}" ]; then
-					echo "Applying DNS Configuration to Network File: \"${network_file}\"";
-					sed --in-place --expression="${sed_001}" --expression="${sed_002}" --expression="${sed_003}" --expression="${sed_004}" "${network_file}";
+			for EachNetworkFile in ${SystemNetworkConfDir}/*; do
+				echo "Found file \"${EachNetworkFile}\"";
+				if [ -f "${EachNetworkFile}" ]; then
+					echo "Applying DNS Configuration to Network File: \"${EachNetworkFile}\"";
+					sed --in-place --expression="${sed_001}" --expression="${sed_002}" --expression="${sed_003}" --expression="${sed_004}" "${EachNetworkFile}";
 				fi;
 			done;
 		fi;
 
 		# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
 		echo "";
-		echo "Restarting service via [service systemd-resolved restart]";
+		echo "Restarting local DNS resolution-service via [service systemd-resolved restart;]";
 		echo "${DASHES}"; service systemd-resolved restart; echo "${DASHES}";
 		
 		echo "";

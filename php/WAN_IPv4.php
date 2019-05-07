@@ -17,6 +17,6 @@ foreach ($IP_RESOLVERS as $EACH_RESOLVER) {
 	}
 }
 
-echo "WAN_IPv4=[$WAN_IPv4]"
+echo "WAN_IPv4=[$WAN_IPv4]";
 
 ?>

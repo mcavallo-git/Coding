@@ -10,7 +10,7 @@
 #
 
 # Exit on-errors
-echo -e "\nCalling [set -e;]"; set -e;
+# echo -e "\nCalling [set -e;]"; set -e;
 
 # DNS SERVER OPTIONS
 	OPEN_NIC_DNS_1="128.52.130.209"; # https://servers.opennic.org/
@@ -275,10 +275,10 @@ else
 		echo "Calling [cat \"${SystemResolveConf}\";] (BEFORE EDITS)";
 		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
 
-		sed_DNS_001="/^DNS=/c\DNS=\"${DNS_NAMESRVR_1}\"";
-		sed_DNS_002="/^#DNS=/c\DNS=\"${DNS_NAMESRVR_1}\"";
-		sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=\"${DNS_NAMESRVR_2}\"";
-		sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=\"${DNS_NAMESRVR_2}\"";
+		sed_DNS_001="/^DNS=/c\DNS=${DNS_NAMESRVR_1}";
+		sed_DNS_002="/^#DNS=/c\DNS=${DNS_NAMESRVR_1}";
+		sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=${DNS_NAMESRVR_2}";
+		sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=${DNS_NAMESRVR_2}";
 		sed --in-place \
 		--expression="${sed_DNS_001}" \
 		--expression="${sed_DNS_002}" \

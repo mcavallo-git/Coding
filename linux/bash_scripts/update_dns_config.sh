@@ -265,3 +265,8 @@ fi;
 echo "";
 echo "Calling [cat \"${FILE_NETWORK_RESOLVER}\"]";
 echo "${DASHES}"; cat "${FILE_NETWORK_RESOLVER}"; echo "${DASHES}";
+
+# show "systemd-resolve --status" command's output, which is updated live DNS config (Ubuntu 18+?)
+echo "";
+echo "Calling [systemd-resolve --status]";
+echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";

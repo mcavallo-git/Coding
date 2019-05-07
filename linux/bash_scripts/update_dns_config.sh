@@ -53,7 +53,7 @@ if [ "${IS_LINUX}" != "1" ]; then echo ""; echo "ERROR:  Must run in a Linux-bas
 
 # Network default-filepaths
 FILE_DNS_BUILDER="/etc/resolvconf/resolv.conf.d/base";
-FILE_ETH0_BUILDER="";
+FILE_ETH0_BUILDER="/etc/network/interfaces.d/50-cloud-init.cfg"; # AWS default cloud-config
 FILE_NETWORK_RESOLVER="/etc/resolv.conf";
 
 # Backup-filepaths
@@ -66,12 +66,6 @@ else
 	mkdir -p "${BACKUP_CONFIGS_DIR}";
 fi;
 chmod 700 "${BACKUP_CONFIGS_DIR}"; chown "root:root" "${BACKUP_CONFIGS_DIR}";
-
-# Check if AWS-network
-AWS_ETH0_BUILDER="/etc/network/interfaces.d/50-cloud-init.cfg";
-if [ -f "${AWS_ETH0_BUILDER}" ]; then
-	FILE_ETH0_BUILDER="${AWS_ETH0_BUILDER}";
-fi;
 
 # Backup necesarry config file(s), if-existent
 FILE_TO_BACKUP="${FILE_NETWORK_RESOLVER}";
@@ -165,10 +159,10 @@ else
 	echo "DNS_SEARCH_DOMAIN = \"${DNS_SEARCH_DOMAIN}\"";
 	echo "${DASHES}";
 
-	# Create the eth0 config file (if-needbe)
-	if [ ! -f "${FILE_ETH0_BUILDER}" ]; then
+	# Create the eth0 config file (if it is a valid filepath yet doesnt exist)
+	if [ -n "${FILE_ETH0_BUILDER}" ] && [ ! -f "${FILE_ETH0_BUILDER}" ]; then
 		echo "";
-		echo "Calling [touch \"${FILE_ETH0_BUILDER}\";]...";
+		echo "Calling [echo \"\" > \"${FILE_ETH0_BUILDER}\";]...";
 		echo "" > "${FILE_ETH0_BUILDER}";
 	fi;
 

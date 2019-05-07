@@ -69,9 +69,15 @@ IS_WINDOWS_WSL=$(if [[ "$(< /proc/version)" == *@(Microsoft|WSL)* ]]; then echo 
 if [ "${IS_LINUX}" != "1" ]; then echo ""; echo "ERROR:  Must run in a Linux-based environment"; exit 1; fi;
 
 # Network default-filepaths
-FILE_DNS_BUILDER="/etc/resolvconf/resolv.conf.d/base";
+ETC_RESOLVCONF="/etc/resolv.conf"; # Final output which is-built-from/pulls-from from multiple sources 
+FILE_DNS_BUILDER_BASE="/etc/resolvconf/resolv.conf.d/base";
+FILE_DNS_BUILDER_TAIL="/etc/resolvconf/resolv.conf.d/base";
+FILE_NETWORK_RESOLVER="${FILE_DNS_BUILDER_BASE}";
+FILE_NETWORK_RESOLVER="${FILE_DNS_BUILDER_TAIL}";
 FILE_ETH0_BUILDER="/etc/network/interfaces.d/50-cloud-init.cfg"; # AWS default cloud-config
-FILE_NETWORK_RESOLVER="/etc/resolv.conf";
+if [ "${IS_WINDOWS_WSL}" == "1" ]; then
+	FILE_NETWORK_RESOLVER="${ETC_RESOLVCONF}"; # Windows subsystem for linux - wipe all of resolver (for testing-only as it is rebuilt on WSL-close, or 'shut down' from its perspective)
+fi;
 
 # Backup-filepaths
 BACKUP_CONFIGS_DIR="/root/backup/update_dns_config";
@@ -85,7 +91,7 @@ fi;
 chmod 700 "${BACKUP_CONFIGS_DIR}"; chown "root:root" "${BACKUP_CONFIGS_DIR}";
 
 # Backup necesarry config file(s), if-existent
-FILE_TO_BACKUP="${FILE_NETWORK_RESOLVER}";
+FILE_TO_BACKUP="${ETC_RESOLVCONF}";
 if [ -f "${FILE_TO_BACKUP}" ]; then
 	BASENAME_TO_BACKUP=$(basename "${FILE_TO_BACKUP}");
 	echo ""; echo "Calling [cp -f \"${FILE_TO_BACKUP}\" \"${BACKUP_CONFIGS_DIR}/${START_TIMESTAMP}_${BASENAME_TO_BACKUP}.bak\";]...";
@@ -98,18 +104,15 @@ if [ -f "${FILE_TO_BACKUP}" ]; then
 	cp -f "${FILE_TO_BACKUP}" "${BACKUP_CONFIGS_DIR}/${START_TIMESTAMP}_${BASENAME_TO_BACKUP}.bak";
 fi;
 
+# Setup the nameserver info to make it (eventually) into resolv.conf
+echo "" > "${FILE_NETWORK_RESOLVER}";
+if [ -n "${DNS_NAMESRVR_1}" ]; then echo "nameserver ${DNS_NAMESRVR_1}" >> "${FILE_NETWORK_RESOLVER}"; fi;
+if [ -n "${DNS_NAMESRVR_2}" ]; then echo "nameserver ${DNS_NAMESRVR_2}" >> "${FILE_NETWORK_RESOLVER}"; fi;
+if [ -n "${DNS_NAMESRVR_3}" ]; then echo "nameserver ${DNS_NAMESRVR_3}" >> "${FILE_NETWORK_RESOLVER}"; fi;
+if [ -n "${DNS_SEARCH_DOMAIN}" ]; then echo "search ${DNS_SEARCH_DOMAIN}" >> "${FILE_NETWORK_RESOLVER}"; fi;
+echo "" >> "${FILE_NETWORK_RESOLVER}";
 
-if [ "${IS_WINDOWS_WSL}" == "1" ]; then
-
-	# Windows subsystem for linux - wipe all of resolver (it gets rebuilt every time WSL is opened)
-	echo "" > "${FILE_NETWORK_RESOLVER}";
-	if [ -n "${DNS_NAMESRVR_1}" ]; then echo "nameserver ${DNS_NAMESRVR_1}" >> "${FILE_NETWORK_RESOLVER}"; fi;
-	if [ -n "${DNS_NAMESRVR_2}" ]; then echo "nameserver ${DNS_NAMESRVR_2}" >> "${FILE_NETWORK_RESOLVER}"; fi;
-	if [ -n "${DNS_NAMESRVR_3}" ]; then echo "nameserver ${DNS_NAMESRVR_3}" >> "${FILE_NETWORK_RESOLVER}"; fi;
-	if [ -n "${DNS_SEARCH_DOMAIN}" ]; then echo "search ${DNS_SEARCH_DOMAIN}" >> "${FILE_NETWORK_RESOLVER}"; fi;
-	echo "" >> "${FILE_NETWORK_RESOLVER}";
-
-else
+if [ "${IS_WINDOWS_WSL}" != "1" ]; then
 
 	#
 	# Required package:
@@ -161,10 +164,10 @@ else
 		echo ""; exit 1;
 	fi;
 
-	# show "${FILE_NETWORK_RESOLVER}" file (configuration before-start)
+	# show "${ETC_RESOLVCONF}" file (configuration before-start)
 	echo "";
-	echo "Calling [cat \"${FILE_NETWORK_RESOLVER}\"]";
-	echo "${DASHES}"; cat "${FILE_NETWORK_RESOLVER}"; echo "${DASHES}";
+	echo "Calling [cat \"${ETC_RESOLVCONF}\"]";
+	echo "${DASHES}"; cat "${ETC_RESOLVCONF}"; echo "${DASHES}";
 
 	# show DNS_NAMESRVR_1,2,3 & Domain-search vars
 	echo "";
@@ -195,6 +198,8 @@ else
 	DNS_LOOKUP_1=$(cat ${FILE_ETH0_BUILDER} | grep ${DNS_NAMESRVR_1});
 	DNS_LOOKUP_2=$(cat ${FILE_ETH0_BUILDER} | grep ${DNS_NAMESRVR_2});
 	DNS_LOOKUP_3=$(cat ${FILE_ETH0_BUILDER} | grep ${DNS_NAMESRVR_3});
+
+	REFRESH_DNS_FILE="0";
 
 	ACTION_DOMAIN_RESOLUTION="";
 	DOMAIN_RESOLUTION_CONFIGURED="$(cat ${FILE_ETH0_BUILDER} | grep 'search ')";
@@ -231,7 +236,7 @@ else
 
 		else
 			echo "";
-			echo "Skipping Setting: Local domain-name resolution (${FILE_NETWORK_RESOLVER} setting 'search ...')";
+			echo "Skipping Setting: Local domain-name resolution (${ETC_RESOLVCONF} setting 'search ...')";
 			echo "Skip Reason: Required variable 'DNS_SEARCH_DOMAIN' is undefined/empty (holds domain-name string)";
 
 		fi;
@@ -250,32 +255,9 @@ else
 			sed --in-place --expression="${SED_DNS_NAMESERVERS}" "${FILE_ETH0_BUILDER}";
 		fi;
 		
-		# take down the main network interface & bring it back up (in one statement)
-		echo "";
-		echo "Calling [ifdown -a && ifup -a;]...";
-		echo "(takes down the main network interface & bring it back up, in one statement)...";
-		echo "${DASHES}"; ifdown -a && ifup -a; echo "${DASHES}";
-		
-		# give the (virtual) NIC a few seconds to grab a connection
-		sleep 5;
-		
-		# refresh the resolvconf DNS file
-		echo "";
-		echo "Calling [resolvconf -u]...";
-		echo "${DASHES}"; resolvconf -u; echo "${DASHES}";
-		echo "";
-		
+		REFRESH_DNS_FILE="1";
+
 	fi;
-
-	# verify the configuration tied to eth0
-	echo "";
-	echo "Calling [ifconfig eth0]...";
-	echo "${DASHES}"; ifconfig eth0; echo "${DASHES}";
-
-	# show the "/etc/network/interfaces/..." file, which should contain all DNS update logic
-	echo "";
-	echo "Calling [cat \"${FILE_ETH0_BUILDER}\"]";
-	echo "${DASHES}"; cat "${FILE_ETH0_BUILDER}"; echo "${DASHES}";
 	
 	SystemResolveConf="/etc/systemd/resolved.conf";
 	SystemNetworkConfDir="/etc/systemd/network";
@@ -306,35 +288,66 @@ else
 			echo "";
 			echo "Searching directory for config-files: \"${SystemNetworkConfDir}\"...";
 			for EachNetworkFile in ${SystemNetworkConfDir}/*; do
-				echo "Found file \"${EachNetworkFile}\"";
 				if [ -f "${EachNetworkFile}" ]; then
 					echo "Applying DNS Configuration to Network File: \"${EachNetworkFile}\"";
 					sed --in-place --expression="${sed_001}" --expression="${sed_002}" --expression="${sed_003}" --expression="${sed_004}" "${EachNetworkFile}";
+				else
+					echo "Skipping item with invalid filetype: \"${EachNetworkFile}\"";
 				fi;
 			done;
 		fi;
+		REFRESH_DNS_FILE="1";
+	fi;
 
-		# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
+
+	if [ "${REFRESH_DNS_FILE}" == "1" ]; then
+		# take down the main network interface & bring it back up (in one statement)
 		echo "";
-		echo "Restarting local DNS resolution-service via [service systemd-resolved restart;]";
-		echo "${DASHES}"; service systemd-resolved restart; echo "${DASHES}";
+		echo "Calling [ifdown -a && ifup -a;]...";
+		echo "(takes down the main network interface & bring it back up, in one statement)...";
+		echo "${DASHES}"; ifdown -a && ifup -a; echo "${DASHES}";
 		
+		# give the (virtual) NIC a few seconds to grab a connection
+		sleep 5;
+		
+		# refresh the resolvconf DNS file
 		echo "";
-		echo "Calling [cat \"${SystemResolveConf}\";] (AFTER EDITS)";
-		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
+		echo "Calling [resolvconf -u]...";
+		echo "${DASHES}"; resolvconf -u; echo "${DASHES}";
+		echo "";
 
-		if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
+		if [ -f "${SystemResolveConf}" ]; then
 			# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
 			echo "";
-			echo "Calling [systemd-resolve --status] (AFTER EDITS)";
-			echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
-		fi;
+			echo "Restarting local DNS resolution-service via [service systemd-resolved restart;]";
+			echo "${DASHES}"; service systemd-resolved restart; echo "${DASHES}";
+			
+			echo "";
+			echo "Calling [cat \"${SystemResolveConf}\";]";
+			echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
 
+			if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
+				# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
+				echo "";
+				echo "Calling [systemd-resolve --status]";
+				echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
+			fi;
+		fi;
 	fi;
 
 fi;
 
-# show "${FILE_NETWORK_RESOLVER}" file, which is the LIVE linux config-file (which is dynamically filled-in by network/interface configs)
+# verify the configuration tied to eth0
 echo "";
-echo "Calling [cat \"${FILE_NETWORK_RESOLVER}\"]";
-echo "${DASHES}"; cat "${FILE_NETWORK_RESOLVER}"; echo "${DASHES}";
+echo "Calling [ifconfig eth0]...";
+echo "${DASHES}"; ifconfig eth0; echo "${DASHES}";
+
+# show the "/etc/network/interfaces/..." file, which should contain all DNS update logic
+echo "";
+echo "Calling [cat \"${FILE_ETH0_BUILDER}\"]";
+echo "${DASHES}"; cat "${FILE_ETH0_BUILDER}"; echo "${DASHES}";
+
+# show "${ETC_RESOLVCONF}" file, which is the LIVE linux config-file (which is dynamically filled-in by network/interface configs)
+echo "";
+echo "Calling [cat \"${ETC_RESOLVCONF}\"]";
+echo "${DASHES}"; cat "${ETC_RESOLVCONF}"; echo "${DASHES}";

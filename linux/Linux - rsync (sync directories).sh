@@ -11,6 +11,8 @@ DESTINATION_DIR="etc/nginx";
 
 rsync -a --chown="${NEW_OWNER}:${NEW_GROUP}" "${SOURCE_DIR}/" "${DESTINATION_DIR}"; # rync -a === rsync -rlptgoD
 
+find "${DESTINATION_DIR}" -type d -print0 | xargs -0 chmod 0755; # directories
+find "${DESTINATION_DIR}" -type f -print0 | xargs -0 chmod 0644; # files
 
 
 

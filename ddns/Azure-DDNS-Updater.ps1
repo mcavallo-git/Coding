@@ -12,6 +12,8 @@ $Az = (JsonDecoder -InputObject (Get-Content "${HOME}\.ddns\azure_nsg.json"));
 
 $DDNS_UIDS = (JsonDecoder -InputObject (Get-Content "${HOME}\.ddns\cidr_ddns.json"));
 
+$ReturnedVal = '';
+
 $ResolvedIPv4s = @();
 
 $DDNS_UIDS | ForEach {
@@ -33,7 +35,9 @@ $DDNS_UIDS | ForEach {
 };
 
 if ($ResolvedIPv4s.Length -eq 0)  {
-	Write-Host "No results returned valid IPv4 data (DDNS_UIDS.IPv4.Length===0)";
+
+	$ReturnedVal = "No results returned valid IPv4 data (DDNS_UIDS.IPv4.Length===0)";
+	
 } else {
 
 	$NsgShowRuleDDNS = `
@@ -66,7 +70,9 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--source-address-prefixes ($ResolvedIPv4s) `
 					--source-port-ranges ("*") `
 		);
-
+		
+		$ReturnedVal = $NsgRuleCreate;
+		
 	} else {
 
 		$NsgRuleUpdate = `
@@ -86,9 +92,12 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--source-address-prefixes ($ResolvedIPv4s) `
 					--source-port-ranges ("*") `
 			);
-
+		$ReturnedVal = $NsgRuleUpdate;
 	}
 
 }
 
-$Az;
+$Output_Filepath = ("C:\ISO\DDNS\Logs\Azure-DDNS-Updater.$(Get-Date -UFormat '%Y-%m-%d (%a)').log");
+
+Get-Date -UFormat '%Y-%m-%d %H:%M:%S' | Out-File -Append -FilePath ("$Output_Filepath");
+$ReturnedVal | Out-File -Append -FilePath ("$Output_Filepath");

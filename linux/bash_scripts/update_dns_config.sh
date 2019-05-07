@@ -116,7 +116,7 @@ else
 		echo ""; echo "Please install required package via:";
 		echo ""; echo "  > apt -y update; apt -y install \"${REQUIRED_PACKAGE_NAME}\";";
 		echo ""; echo "  > reboot;";
-		echo "" exit 1;
+		echo ""; exit 1;
 	fi;
 
 	#
@@ -136,7 +136,7 @@ else
 		echo ""; echo "Please install required package via:";
 		echo ""; echo "  > apt -y update; apt -y install \"${REQUIRED_PACKAGE_NAME}\";";
 		echo ""; echo "  > reboot;";
-		echo "" exit 1;
+		echo ""; exit 1;
 	fi;
 	REQUIRED_PACKAGE_NAME="ifupdown";
 	REQUIRED_METHOD_NAME="ifdown";
@@ -147,7 +147,7 @@ else
 		echo ""; echo "Please install required package via:";
 		echo ""; echo "  > apt -y update; apt -y install \"${REQUIRED_PACKAGE_NAME}\";";
 		echo ""; echo "  > reboot;";
-		echo "" exit 1;
+		echo ""; exit 1;
 	fi;
 
 	# show "${FILE_NETWORK_RESOLVER}" file (configuration before-start)

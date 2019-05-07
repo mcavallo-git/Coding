@@ -9,7 +9,7 @@ $IP_RESOLVERS[] = "https://bot.whatismyipaddress.com";
 $WAN_IPv4 = '';
 foreach ($IP_RESOLVERS as $EACH_RESOLVER) {
 	if (empty($WAN_IPv4)) {
-		$RESOLVED_IPv4 = file_get_contents($EACH_RESOLVER);
+		$RESOLVED_IPv4 = trim(file_get_contents($EACH_RESOLVER));
 		if (!empty($RESOLVED_IPv4)) {
 			$WAN_IPv4 = $RESOLVED_IPv4;
 			break;

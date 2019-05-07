@@ -10,8 +10,7 @@
 #
 
 # Exit on-errors
-echo ""; echo "Calling [set -e;]";
-set -e;
+echo -e "\nCalling [set -e;]"; set -e;
 
 # DNS SERVER OPTIONS
 	OPEN_NIC_DNS_1="128.52.130.209"; # https://servers.opennic.org/

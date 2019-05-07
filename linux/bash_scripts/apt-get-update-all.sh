@@ -4,7 +4,7 @@
 #
 # Create/Edit this script:    APT_UPDATER="/root/apt-get-update-all.sh" && sudo vi "${APT_UPDATER}" && sudo ln -sf "${APT_UPDATER}" /update_now;
 #
-# Execute/Run this script:    APT_UPDATER="/root/apt-get-update-all.sh" && sudo chmod 700 "${APT_UPDATER}" && sudo "${APT_UPDATER}";
+# Execute/Run this script:    /update_now;
 #
 
 if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
@@ -19,6 +19,7 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 
 	# Make sure that Logfile directory exists
 	mkdir -p "${LOGFILE_DIRNAME}";
+	chmod 0700 "${LOGFILE_DIRNAME}";
 
 	echo " " > "${LOGFILE_FULLPATH}" && \
 	chmod 0600 "${LOGFILE_FULLPATH}";
@@ -27,70 +28,126 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 	exec > >(tee -a "${LOGFILE_FULLPATH}" );
 	exec 2>&1;
 
-	echo "===== ------------------------------------------------------------ =====";
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Starting \"${THIS_SCRIPT}\"";
+	echo "# ------------------------------------------------------------- #";
+	
+	echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Starting \"${THIS_SCRIPT}\"\n";
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt list --upgradable";
-	sudo apt list --upgradable;
+	echo "# ------------------------------------------------------------- #";
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y update";
-	sudo apt -y update;
+	comm="apt-get"; 
+	if [ -z "$(which $comm)" ]; then
+		echo "Command \"$comm\" not found";
+	else
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Command \"$comm\" resolved to $(which $comm)";
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y dist-upgrade";
-	sudo apt -y dist-upgrade;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm list --upgradable";
+		sudo $comm list --upgradable;
 
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y update";
+		sudo $comm -y update;
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y --autoremove";
-	sudo apt -y autoremove;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y dist-upgrade";
+		sudo $comm -y dist-upgrade;
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt -y --clean";
-	sudo apt -y clean;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y autoremove";
+		sudo $comm -y autoremove;
+		
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y clean";
+		sudo $comm -y clean;
+	fi;
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo updatedb";
-	sudo updatedb;
+	echo "# ------------------------------------------------------------- #";
 
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo ldconfig";
-	sudo ldconfig;
+	comm="yum";
+	if [ -z "$(which $comm)" ]; then
+		echo "Command \"$comm\" not found";
+	else
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Command \"$comm\" resolved to $(which $comm)";
 
-	# echo "";
-	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo python -m pip install --upgrade pip;";
-	# sudo python -m pip install --upgrade pip;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm list --upgradable";
+		sudo $comm check-update;
 
-	# echo "";
-	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip list --outdated;";
-	# sudo pip list --outdated;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y update";
+		sudo $comm -y update;
 
-	# echo "";
-	# echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;";
-	# sudo pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install -U;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y update";
+		sudo $comm -y upgrade;
+		
+		# echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y autoremove";
+		# sudo $comm -y autoremove;
+		
+		# echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y clean";
+		# sudo $comm -y clean;
+	fi;
 
-	UBUNTU_REBOOT_REQD_IF_EXISTS="/var/run/reboot-required";
-	if [ -f "${UBUNTU_REBOOT_REQD_IF_EXISTS}" ]; then
+	echo "# ------------------------------------------------------------- #";
+
+	comm="updatedb";
+	if [ -z "$(which $comm)" ]; then
+		echo "Command \"$comm\" not found";
+	else
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Command \"$comm\" resolved to $(which $comm)";
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm";
+		sudo $comm;
+	fi;
+
+	echo "# ------------------------------------------------------------- #";
+
+	comm="ldconfig";
+
+	if [ -z "$(which $comm)" ]; then
+		echo "Command \"$comm\" not found";
+	else
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Command \"$comm\" resolved to $(which $comm)";
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm";
+		sudo $comm;
+	fi;
+
+	echo "# ------------------------------------------------------------- #";
+
+	comm="pip";
+	if [ "skip $comm" == "skip $comm" ]; then
+			echo "Skipping \"$comm\"";
+	else 
+		if [ -z "$(which $comm)" ]; then
+			echo "Command \"$comm\" not found";
+		else
+			echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Command \"$comm\" resolved to $(which $comm)";
+
+			echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm install --upgrade $comm;";
+			sudo $comm install --upgrade $comm;
+			
+			# Update pip modules - 'newer' version of pip (version??)
+			echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 sudo -H $comm install -U;";
+			sudo $comm list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H $comm install -U;
+
+			# Update pip modules - 'older' version of pip (version??)
+			echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 sudo -H $comm install -U;";
+			sudo $comm freeze --local | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 sudo -H $comm install -U;
+		fi;
+	fi;
+
+	echo "# ------------------------------------------------------------- #";
+
+	UBUNTU_REBOOT_REQUIRED_IF_EXISTS="/var/run/reboot-required";
+	if [ -f "${UBUNTU_REBOOT_REQUIRED_IF_EXISTS}" ]; then
+
 		# The File '/var/run/reboot-required' is an Ubuntu native, and signifies that at least one recent update requires a reboot to fully complete their install/update.
 		# If we find that ^ file on our current host (after running updates), then the system is in the reboot preparation phase -> set it just to restart after 2 minutes
-		echo "";
-		echo " ($(date '+%Y-%m-%d %H:%M:%S'))   REBOOT REQUIRED TO FINALIZE AT LEAST ONE UPDATE - SETTING A RESTART FOR 2 MINUTES FROM NOW";
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   REBOOT REQUIRED TO FINALIZE ONE OR MORE UPDATES - SETTING A RESTART FOR 2 MINUTES FROM NOW";
 
 		# Schedule the system restart/reboot (NOT reset)
 		SCHEDULED_RESTART_TIME=$(date -d "$(date +%H):$(date +%M) 2 minutes" +'%H:%M');
-		echo "";
-		echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > shutdown -r \"${SCHEDULED_RESTART_TIME}\"";
-		shutdown -r "${SCHEDULED_RESTART_TIME}";
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo shutdown -r \"${SCHEDULED_RESTART_TIME}\"";
+		sudo shutdown -r "${SCHEDULED_RESTART_TIME}";
+
 	fi;
 
 	# Pretty-Print exit msg
-	echo "";
-	echo " ($(date '+%Y-%m-%d %H:%M:%S'))   Finished \"${THIS_SCRIPT}\"";
-	echo "";
-	echo "===== ------------------------------------------------------------ =====";
+	echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Finished \"${THIS_SCRIPT}\"\n";
+	
+	echo "# ------------------------------------------------------------- #";
+
 
 fi;
 

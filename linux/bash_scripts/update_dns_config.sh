@@ -278,6 +278,8 @@ else
 	echo "${DASHES}"; cat "${FILE_ETH0_BUILDER}"; echo "${DASHES}";
 	
 	SystemResolveConf="/etc/systemd/resolved.conf";
+	SystemNetworkConfDir="/etc/systemd/network";
+
 	if [ -f "${SystemResolveConf}" ]; then
 
 		echo "Updating Hostname-Resolving Service \"systemd-resolve\" via associated config-file \"${SystemResolveConf}\" ...";
@@ -286,7 +288,7 @@ else
 		echo "";
 		echo "Calling [cat \"${SystemResolveConf}\";] (BEFORE EDITS)";
 		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
-		
+
 		if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
 			# Show "systemd-resolve --status" command's output BEFORE-EDITS (shows live DNS setup)
 			echo "";
@@ -294,16 +296,22 @@ else
 			echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
 		fi;
 
-		sed_DNS_001="/^DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
-		sed_DNS_002="/^#DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
-		sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=${DNS_FALLBACK_1} ${DNS_FALLBACK_2} ${DNS_FALLBACK_3}";
-		sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=${DNS_FALLBACK_1} ${DNS_FALLBACK_2} ${DNS_FALLBACK_3}";
-		sed --in-place \
-		--expression="${sed_DNS_001}" \
-		--expression="${sed_DNS_002}" \
-		--expression="${sed_DNS_003}" \
-		--expression="${sed_DNS_004}" \
-		"${SystemResolveConf}";
+		sed_001="/^DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
+		sed_002="/^#DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
+		sed_003="/^FallbackDNS=/c\FallbackDNS=${DNS_FALLBACK_1} ${DNS_FALLBACK_2} ${DNS_FALLBACK_3}";
+		sed_004="/^#FallbackDNS=/c\FallbackDNS=${DNS_FALLBACK_1} ${DNS_FALLBACK_2} ${DNS_FALLBACK_3}";
+
+		sed --in-place --expression="${sed_001}" --expression="${sed_002}" --expression="${sed_003}" --expression="${sed_004}" "${SystemResolveConf}";
+		if [ -d "${SystemNetworkConfDir}" ]; then
+			echo "";
+			echo "Searching directory for config-files: \"${SystemNetworkConfDir}\"...";
+			for network_file in "${SystemNetworkConfDir}/*"; do
+				if [ -f "${network_file}" ]; then
+					echo "Applying DNS Configuration to Network File: \"${network_file}\"";
+					sed --in-place --expression="${sed_001}" --expression="${sed_002}" --expression="${sed_003}" --expression="${sed_004}" "${network_file}";
+				fi;
+			done;
+		fi;
 
 		# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
 		echo "";

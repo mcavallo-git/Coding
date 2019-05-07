@@ -282,16 +282,17 @@ else
 
 		echo "Updating Hostname-Resolving Service \"systemd-resolve\" via associated config-file \"${SystemResolveConf}\" ...";
 		CAN_USE_SYSRESOLVE_STATUS="$(systemd-resolve --help | grep status)";
+		
+		echo "";
+		echo "Calling [cat \"${SystemResolveConf}\";] (BEFORE EDITS)";
+		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
+		
 		if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
 			# Show "systemd-resolve --status" command's output BEFORE-EDITS (shows live DNS setup)
 			echo "";
 			echo "Calling [systemd-resolve --status] (BEFORE EDITS)";
 			echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
 		fi;
-		
-		echo "";
-		echo "Calling [cat \"${SystemResolveConf}\";] (BEFORE EDITS)";
-		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
 
 		sed_DNS_001="/^DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
 		sed_DNS_002="/^#DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
@@ -308,6 +309,10 @@ else
 		echo "";
 		echo "Restarting service via [service systemd-resolved restart]";
 		echo "${DASHES}"; service systemd-resolved restart; echo "${DASHES}";
+		
+		echo "";
+		echo "Calling [cat \"${SystemResolveConf}\";] (AFTER EDITS)";
+		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
 
 		if [ -n "${CAN_USE_SYSRESOLVE_STATUS}" ]; then
 			# Show "systemd-resolve --status" command's output AFTER-EDITS (shows live DNS setup)
@@ -315,10 +320,6 @@ else
 			echo "Calling [systemd-resolve --status] (AFTER EDITS)";
 			echo "${DASHES}"; systemd-resolve --status; echo "${DASHES}";
 		fi;
-		
-		echo "";
-		echo "Calling [cat \"${SystemResolveConf}\";] (AFTER EDITS)";
-		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
 
 	fi;
 

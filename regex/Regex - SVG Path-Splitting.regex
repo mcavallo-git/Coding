@@ -1,0 +1,83 @@
+# ------------------------------------------------------------
+#
+#  Regex: SVG Path-Splitting
+#  	Designed to simplify SVG modification
+#
+#                                MCavallo, 2019-05-06_20-15-01
+# ------------------------------------------------------------
+
+
+
+### Find:
+
+((?:[aAcChHlLmMqQsSvV]\ (?:[0-9e\-\.\,]+\ )+(?=[aAcChHlLmMqQsSvVzZ]))+)([Zz])
+
+
+### Replace with:
+
+\n$1$2\n
+
+
+
+# ------------------------------------------------------------
+#
+#		SVG Path Components
+#
+
+### Close Path
+	Z
+		z
+
+### Move-To
+	M x y
+		m dx dy
+
+### Line-To
+	L x y
+		l dx dy
+
+### Horizontal-Line
+	H x	
+		h dx
+
+### Vertical-Line
+	V y
+		v dy
+
+### Bezier Curves (Cubic)
+	C x1 y1, x2 y2, x y
+		c dx1 dy1, dx2 dy2, dx dy
+
+### Bezier Curves (Relative)
+	S x2 y2, x y
+		s dx2 dy2, dx dy
+
+### Bezier Curves (Quadratic)
+	Q x1 y1, x y
+		q dx1 dy1, dx dy
+
+### Arcs
+	A rx ry x-axis-rotation large-arc-flag sweep-flag x y
+		a rx ry x-axis-rotation large-arc-flag sweep-flag dx dy
+
+
+
+# ------------------------------------------------------------
+#
+#		SVG Optimization
+#
+
+### SVGOMG is an awesome, free online service
+
+###  Check it out at:
+
+		https://jakearchibald.github.io/svgomg/
+
+
+
+# ------------------------------------------------------------
+#
+#	Citation(s)
+#		developer.mozilla.org  :::  "Paths"  :::  https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+#
+# ------------------------------------------------------------

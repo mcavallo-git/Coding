@@ -40,8 +40,8 @@ if [ "$(date +%u)" == "0" ] || [ "${0}" == "/update_now" ]; then
 	else
 		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Command \"$comm\" resolved to $(which $comm)";
 
-		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm list --upgradable";
-		sudo $comm list --upgradable;
+		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo apt list --upgradable";
+		sudo apt list --upgradable;
 
 		echo -e "\n ($(date '+%Y-%m-%d %H:%M:%S'))   Calling  > sudo $comm -y update";
 		sudo $comm -y update;

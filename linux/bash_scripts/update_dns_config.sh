@@ -12,21 +12,39 @@
 # Exit on-errors
 # echo -e "\nCalling [set -e;]"; set -e;
 
-# DNS SERVER OPTIONS
-	OPEN_NIC_DNS_1="128.52.130.209"; # https://servers.opennic.org/
-	OPEN_NIC_DNS_2="192.99.85.244";  # https://servers.opennic.org/
-	OPEN_NIC_DNS_3="172.98.193.42";  # https://servers.opennic.org/
-	OPEN_NIC_DNS_4="198.206.14.241"; # https://servers.opennic.org/
-		GOOGLE_DNS_1="8.8.8.8";        # https://developers.google.com/speed/public-dns/
-		GOOGLE_DNS_2="8.8.4.4";        # https://developers.google.com/speed/public-dns/
-			CLOUDFARE_DNS_1="1.1.1.1";   # https://www.cloudflare.com/dns/
-			CLOUDFARE_DNS_2="1.0.0.1";   # https://www.cloudflare.com/dns/
+# ------------------------------------------------------------
+#
+#		DNS SERVER OPTIONS
 
-			
-# HOSTS/IPS TO TARGET AS DNS NAMESERVERS 
+# OPEN_NIC_DNS_1="128.52.130.209"; # https://servers.opennic.org/
+# OPEN_NIC_DNS_2="192.99.85.244";  # https://servers.opennic.org/
+# OPEN_NIC_DNS_3="172.98.193.42";  # https://servers.opennic.org/
+# OPEN_NIC_DNS_4="198.206.14.241"; # https://servers.opennic.org/
+
+GOOGLE_DNS_1="8.8.8.8";       # https://developers.google.com/speed/public-dns/
+GOOGLE_DNS_2="8.8.4.4";       # https://developers.google.com/speed/public-dns/
+
+CLOUDFARE_DNS_1="1.1.1.1";    # https://www.cloudflare.com/dns/
+CLOUDFARE_DNS_2="1.0.0.1";    # https://www.cloudflare.com/dns/
+
+OPEN_DNS_1="208.67.222.222";  # https://use.opendns.com/
+OPEN_DNS_2="208.67.220.220";  # https://use.opendns.com/
+
+VERISIGN_DNS_1="64.6.64.6";   # https://www.verisign.com/en_US/security-services/public-dns/index.xhtml
+VERISIGN_DNS_2="64.6.65.6";   # https://www.verisign.com/en_US/security-services/public-dns/index.xhtml
+
+# ------------------------------------------------------------
+#
+#		SELECTED DNS SERVERS (HOSTS/IPS TO TARGET AS DNS NAMESERVERS)
+
 DNS_NAMESRVR_1="${GOOGLE_DNS_1}";
 DNS_NAMESRVR_2="${GOOGLE_DNS_2}";
 DNS_NAMESRVR_3="${CLOUDFARE_DNS_1}";
+DNS_FALLBACK_1="${OPEN_DNS_1}";
+DNS_FALLBACK_2="${CLOUDFARE_DNS_2}";
+DNS_FALLBACK_3="${VERISIGN_DNS_1}";
+
+# ------------------------------------------------------------
 
 # DNS "SEARCH": TAKES A SET OF ONE OR MORE DOMAINS AND TRIES CONCATENATING EACH OF THEM
 # WITH THE LOCAL ENVIRONMENT'S HOSTNAME (to try and resolve dns query) BEFORE REVERTING TO
@@ -275,10 +293,10 @@ else
 		echo "Calling [cat \"${SystemResolveConf}\";] (BEFORE EDITS)";
 		echo "${DASHES}"; cat "${SystemResolveConf}"; echo "${DASHES}";
 
-		sed_DNS_001="/^DNS=/c\DNS=${DNS_NAMESRVR_1}";
-		sed_DNS_002="/^#DNS=/c\DNS=${DNS_NAMESRVR_1}";
-		sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=${DNS_NAMESRVR_2}";
-		sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=${DNS_NAMESRVR_2}";
+		sed_DNS_001="/^DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
+		sed_DNS_002="/^#DNS=/c\DNS=${DNS_NAMESRVR_1} ${DNS_NAMESRVR_2} ${DNS_NAMESRVR_3}";
+		sed_DNS_003="/^FallbackDNS=/c\FallbackDNS=${DNS_FALLBACK_1} ${DNS_FALLBACK_2} ${DNS_FALLBACK_3}";
+		sed_DNS_004="/^#FallbackDNS=/c\FallbackDNS=${DNS_FALLBACK_1} ${DNS_FALLBACK_2} ${DNS_FALLBACK_3}";
 		sed --in-place \
 		--expression="${sed_DNS_001}" \
 		--expression="${sed_DNS_002}" \

@@ -13,19 +13,6 @@ ufw default allow outgoing; # allow all outgoing requests, by default
 ufw logging on; ufw enable; # enable logging and enable ufw itself
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 #
 # Citation(s)
 #

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 HOSTS_ALLOW=/etc/ufw-dynamic-hosts.allow
 IPS_ALLOW=/var/tmp/ufw-dynamic-ips.allow
 
@@ -65,7 +64,7 @@ done;
 
 
 
-# The content of /etc/ufw-dynamic-hosts.allow could look like this:
+# The content of "/etc/ufw-dynamic-hosts.allow" could look like this:
 # tcp:22:yourpc.no-ip.org
 
 

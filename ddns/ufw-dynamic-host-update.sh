@@ -63,19 +63,16 @@ do
 done;
 
 
-
 # The content of "/etc/ufw-dynamic-hosts.allow" could look like this:
 # tcp:22:yourpc.no-ip.org
 
-
-
 # and a crontab entry for executing the script every five minutes could look like this:
-# */5 * * * * /usr/local/sbin/ufw-dynamic-host-update > /dev/null
-
-
+# crontab -e
+# */5 * * * * /usr/local/sbin/ufw-dynamic-host-update  2>&1 > /dev/null
 
 #
 # Citation(s)
 #
 #		Thanks to stackoverflow user "Force" on forum: https://superuser.com/questions/646958/ufw-rules-for-specific-host-dynamic-dns
+#		Original script from https://notepad2.blogspot.com/2012/06/shell-script-update-ufw-rules-for-hosts.html
 #

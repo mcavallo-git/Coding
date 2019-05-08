@@ -1,0 +1,78 @@
+#!/bin/bash
+
+HOSTS_ALLOW=/etc/ufw-dynamic-hosts.allow
+IPS_ALLOW=/var/tmp/ufw-dynamic-ips.allow
+
+add_rule() {
+	local proto=$1
+	local port=$2
+	local ip=$3
+	local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}"
+	local rule=$(ufw status numbered | grep $regex)
+	if [ -z "$rule" ]; then
+		ufw allow proto ${proto} from ${ip} to any port ${port}
+	else
+		echo "rule already exists. nothing to do."
+	fi
+}
+
+delete_rule() {
+	local proto=$1
+	local port=$2
+	local ip=$3
+	local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}"
+	local rule=$(ufw status numbered | grep $regex)
+	if [ -n "$rule" ]; then
+		ufw delete allow proto ${proto} from ${ip} to any port ${port}
+	else
+		echo "rule does not exist. nothing to do."
+	fi
+}
+
+
+sed '/^[[:space:]]*$/d' ${HOSTS_ALLOW} | sed '/^[[:space:]]*#/d' | while read line
+do
+	proto=$(echo ${line} | cut -d: -f1)
+	port=$(echo ${line} | cut -d: -f2)
+	host=$(echo ${line} | cut -d: -f3)
+	
+	if [ -f ${IPS_ALLOW} ]; then
+	  old_ip=$(cat ${IPS_ALLOW} | grep ${host} | cut -d: -f2)
+	fi
+
+	ip=$(dig +short $host | tail -n 1)
+
+	if [ -z ${ip} ]; then
+		if [ -n "${old_ip}" ]; then
+			delete_rule $proto $port $old_ip
+		fi
+		echo "Failed to resolve the ip address of ${host}." 1>&2
+		exit 1
+	fi
+
+	if [ -n "${old_ip}" ]; then
+		if [ ${ip} != ${old_ip} ]; then
+			delete_rule $proto $port $old_ip
+		fi
+	fi
+	add_rule $proto $port $ip
+	if [ -f ${IPS_ALLOW} ]; then
+	  sed -i.bak /^${host}*/d ${IPS_ALLOW}
+	fi
+	echo "${host}:${ip}" >> ${IPS_ALLOW}
+done;
+
+
+# The content of "/etc/ufw-dynamic-hosts.allow" could look like this:
+# tcp:22:yourpc.no-ip.org
+
+# and a crontab entry for executing the script every five minutes could look like this:
+# crontab -e
+# */5 * * * * /usr/local/sbin/ufw-dynamic-host-update  2>&1 > /dev/null
+
+#
+# Citation(s)
+#
+#		Thanks to stackoverflow user "Force" on forum: https://superuser.com/questions/646958/ufw-rules-for-specific-host-dynamic-dns
+#		Original script from https://notepad2.blogspot.com/2012/06/shell-script-update-ufw-rules-for-hosts.html
+#

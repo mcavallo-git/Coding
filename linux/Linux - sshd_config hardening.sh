@@ -62,15 +62,19 @@ X11Forwarding yes
 
 X11DisplayOffset 10
 
+
+#####   SFTP-ONLY USERS (NO SSH)
 #
 # Subsystem sftp internal-sftp -l INFO
+#
 # Match Group sftp_jailed_users
 # 		ForceCommand internal-sftp
 # 		ChrootDirectory %h
 # 		X11Forwarding no
 # 		AllowAgentForwarding no
 # 		AllowTcpForwarding no
-# 
+
+
 #
 #	Citation(s)
 #

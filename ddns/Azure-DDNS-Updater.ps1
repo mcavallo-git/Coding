@@ -63,7 +63,7 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--priority ($Az.NsgRulePriority) `
 					--access ("Allow") `
 					--description ($Az.NsgRuleName) `
-					--destination-address-prefixes ("VirtualNetwork") `
+					--destination-address-prefixes ("*") `
 					--destination-port-ranges ("*") `
 					--direction ("Inbound") `
 					--protocol ("*") `
@@ -85,7 +85,7 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--priority ($Az.NsgRulePriority) `
 					--access ("Allow") `
 					--description ($Az.NsgRuleName) `
-					--destination-address-prefixes ("VirtualNetwork") `
+					--destination-address-prefixes ("*") `
 					--destination-port-ranges ("*") `
 					--direction ("Inbound") `
 					--protocol ("*") `

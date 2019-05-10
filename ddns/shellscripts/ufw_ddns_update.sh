@@ -1,5 +1,13 @@
 #!/bin/bash
-
+#
+# ------------------------------------------------------------
+#
+#	Place this file at:
+#
+#		/usr/local/sbin/ufw-dynamic-host-update
+#
+# ------------------------------------------------------------
+#
 # Require that this script be run with root access
 if [ "$(whoami)" != "root" ]; then
 	echo "Error - ${0} requires root access. Run as user \"root\" or with the \"sudo\" command.";
@@ -11,68 +19,74 @@ else
 	IPS_ALLOW=/var/tmp/ufw-dynamic-ips.allow
 
 	add_rule() {
-		local proto=$1
-		local port=$2
-		local ip=$3
-		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}"
-		local rule=$(ufw status numbered | grep $regex)
+		local proto=$1;
+		local port=$2;
+		local ip=$3;
+		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}";
+		local rule=$(ufw status numbered | grep $regex);
 		if [ -z "$rule" ]; then
-			ufw allow proto ${proto} from ${ip} to any port ${port}
+			ufw allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "rule already exists. nothing to do."
-		fi
+			echo "Rule \"${proto}/${port} ALLOW IN ${ip}\" already exists - Skipping create-rule event.";
+		fi;
 	}
 
 	delete_rule() {
-		local proto=$1
-		local port=$2
-		local ip=$3
-		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}"
-		local rule=$(ufw status numbered | grep $regex)
+		local proto=$1;
+		local port=$2;
+		local ip=$3;
+		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}";
+		local rule=$(ufw status numbered | grep $regex);
 		if [ -n "$rule" ]; then
-			ufw delete allow proto ${proto} from ${ip} to any port ${port}
+			ufw delete allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "rule does not exist. nothing to do."
-		fi
+			echo "Rule \"${proto}/${port} ALLOW IN ${ip}\" not found - Skipping create-rule event.";
+
+		fi;
 	}
 
-	sed '/^[[:space:]]*$/d' ${HOSTS_ALLOW} | sed '/^[[:space:]]*#/d' | while read line
-	do
-		proto=$(echo ${line} | cut -d: -f1)
-		port=$(echo ${line} | cut -d: -f2)
-		host=$(echo ${line} | cut -d: -f3)
+	sed '/^[[:space:]]*$/d' ${HOSTS_ALLOW} | sed '/^[[:space:]]*#/d' | while read line;	do
+		proto=$(echo ${line} | cut -d: -f1);
+		port=$(echo ${line} | cut -d: -f2);
+		host=$(echo ${line} | cut -d: -f3);
 		
 		if [ -f ${IPS_ALLOW} ]; then
-			old_ip=$(cat ${IPS_ALLOW} | grep ${host} | cut -d: -f2)
-		fi
+			old_ip=$(cat ${IPS_ALLOW} | grep ${host} | cut -d: -f2);
+		fi;
 
-		ip=$(dig +short $host | tail -n 1)
+		ip=$(dig +short $host | tail -n 1);
 
 		if [ -z ${ip} ]; then
 			if [ -n "${old_ip}" ]; then
-				delete_rule $proto $port $old_ip
-			fi
-			echo "Failed to resolve the ip address of ${host}." 1>&2
-			exit 1
-		fi
+				delete_rule $proto $port $old_ip;
+			fi;
+			echo "Failed to resolve the ip address of ${host}." 1>&2;
+			exit 1;
+		fi;
 
 		if [ -n "${old_ip}" ]; then
 			if [ ${ip} != ${old_ip} ]; then
-				delete_rule $proto $port $old_ip
-			fi
-		fi
-		add_rule $proto $port $ip
+				delete_rule $proto $port $old_ip;
+			fi;
+		fi;
+
+		add_rule $proto $port $ip;
+
 		if [ -f ${IPS_ALLOW} ]; then
-			sed -i.bak /^${host}*/d ${IPS_ALLOW}
-		fi
-		echo "${host}:${ip}" >> ${IPS_ALLOW}
+			sed -i.bak /^${host}*/d ${IPS_ALLOW};
+		fi;
+
+		echo "${host}:${ip}" >> ${IPS_ALLOW};
+		
 	done;
 
 fi;
-
+#
 # ------------------------------------------------------------
 #
 # The content of "/etc/ufw-dynamic-hosts.allow" should match the format:
+#	
+#		vi "/etc/ufw-dynamic-hosts.allow";	
 #
 #		tcp:22:yourpc.no-ip.org
 #

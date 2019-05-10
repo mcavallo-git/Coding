@@ -3,8 +3,6 @@
 # Linux - UFW
 #           (e.g. "Uncomplicated Firewall")
 #
-
-
 # ------------------------------------------------------------
 #
 # General Ruleset
@@ -26,7 +24,9 @@ ufw enable; # enable ufw module
 
 # ------------------------------------------------------------
 
+ufw status numbered; # List UFW rules by-ID
 
+ufw delete RULE_ID;  # Delete UFW rules by-ID
 
 
 

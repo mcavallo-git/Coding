@@ -1,4 +1,14 @@
-# --------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
+#
+# Linux - UFW
+#           (e.g. "Uncomplicated Firewall")
+#
+
+
+# ------------------------------------------------------------
+#
+# General Ruleset
+#
 
 ufw allow 22/tcp;  # allow ssh-requests (22)
 
@@ -10,16 +20,33 @@ ufw default deny incoming;  # deny other incoming requests, by default
 
 ufw default allow outgoing; # allow all outgoing requests, by default
 
-ufw logging on; ufw enable; # enable logging and enable ufw itself
+ufw logging on; # enable logging
+
+ufw enable; # enable ufw module
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
 #		Documentation
-#			--> ?
+#			--> https://manpages.ubuntu.com/manpages/trusty/man8/ufw.8.html
 #
 #		Forum
 #			--> https://www.digitalocean.com/community/tutorials/ufw-essentials-common-firewall-rules-and-commands
 #			--> https://www.digitalocean.com/community/tutorials/how-to-set-up-a-firewall-with-ufw-on-ubuntu-18-04
 #
+# ------------------------------------------------------------

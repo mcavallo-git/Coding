@@ -62,13 +62,14 @@ do
 	echo "${host}:${ip}" >> ${IPS_ALLOW}
 done;
 
-
+#
 # The content of "/etc/ufw-dynamic-hosts.allow" could look like this:
 # tcp:22:yourpc.no-ip.org
-
-# and a crontab entry for executing the script every five minutes could look like this:
+#
+# and a crontab entry for executing the script every three minutes could look like this:
 # crontab -e
-# */5 * * * * /usr/local/sbin/ufw-dynamic-host-update  2>&1 > /dev/null
+# */3 * * * * /usr/local/sbin/ufw-dynamic-host-update  2>&1 > /dev/null
+#
 
 #
 # Citation(s)

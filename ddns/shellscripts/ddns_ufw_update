@@ -11,7 +11,7 @@
 # Require that this script be run with root access
 #
 if [ "$(whoami)" != "root" ]; then
-	echo "Error - ${0} requires root access. Run as user \"root\" or with the \"sudo\" command.";
+	echo "$(date +'%Y-%m-%d %H:%M:%S') | Error - ${0} requires root access. Run as user \"root\" or with the \"sudo\" command.";
 	exit 1;
 #
 # ------------------------------------------------------------
@@ -20,17 +20,10 @@ else
 
 	# Log all shell output & error output to logfile
 	LOGDIR="/var/log/ddns_ufw_update"; mkdir -p "${LOGDIR}";
-	LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Y_wk%U')";
+	# LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Ywk%U')";
+	LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Y-%m-%d')";
 	exec > >(tee -a "${LOGFILE}" );
 	exec 2>&1;
-
-	# Start off with runtime start-datetime
-	echo -e "\n$(date +'%Y-%m-%d %H:%M:%S')  :::  Running [ ${0} ]...";
-
-	# Set ownership & privileges for the logging directory & sub-contents
-	chown -R "syslog:adm" "${LOGDIR}";
-	find "${LOGDIR}" -type d -print0 | xargs -0 chmod 0750; # directories 
-	find "${LOGDIR}" -type f -print0 | xargs -0 chmod 0640; # files
 
 	# Files to pull data in-from
 	HOSTS_WHITELIST="/etc/ddns_ufw_update.whitelist";
@@ -43,10 +36,10 @@ else
 		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}";
 		local rule=$(ufw status numbered | grep $regex);
 		if [ -z "$rule" ]; then
-			echo "✓ Creating Rule:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✓ Creating Rule:   ${proto}/${port} ALLOW IN ${ip}";
 			ufw allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "… No action - Rule already exists:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already exists:   ${proto}/${port} ALLOW IN ${ip}";
 		fi;
 	}
 
@@ -57,10 +50,10 @@ else
 		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}";
 		local rule=$(ufw status numbered | grep $regex);
 		if [ -n "$rule" ]; then
-			echo "✘ Deleting Rule:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✘ Deleting Rule:   ${proto}/${port} ALLOW IN ${ip}";
 			ufw delete allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "… No action - Rule already deleted:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already deleted:   ${proto}/${port} ALLOW IN ${ip}";
 		fi;
 	}
 
@@ -79,7 +72,7 @@ else
 			if [ -n "${old_ip}" ]; then
 				delete_rule $proto $port $old_ip;
 			fi;
-			echo "Failed to resolve the ip address of ${host}." 1>&2;
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | Failed to resolve the ip address of ${host}." 1>&2;
 			exit 1;
 		fi;
 
@@ -99,6 +92,11 @@ else
 		
 	done;
 
+	# Set ownership & privileges for the logging directory & sub-contents
+	chown -R "syslog:adm" "${LOGDIR}";
+	find "${LOGDIR}" -type d -print0 | xargs -0 chmod 0750; # directories 
+	find "${LOGDIR}" -type f -print0 | xargs -0 chmod 0640; # files
+	
 fi;
 
 #

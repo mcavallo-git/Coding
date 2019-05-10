@@ -24,6 +24,7 @@ ufw logging on; # enable logging
 
 ufw enable; # enable ufw module
 
+# ------------------------------------------------------------
 
 
 

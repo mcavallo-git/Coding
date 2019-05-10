@@ -29,7 +29,6 @@ delete_rule() {
 	fi
 }
 
-
 sed '/^[[:space:]]*$/d' ${HOSTS_ALLOW} | sed '/^[[:space:]]*#/d' | while read line
 do
 	proto=$(echo ${line} | cut -d: -f1)
@@ -62,18 +61,31 @@ do
 	echo "${host}:${ip}" >> ${IPS_ALLOW}
 done;
 
+# ------------------------------------------------------------
 #
-# The content of "/etc/ufw-dynamic-hosts.allow" could look like this:
-# tcp:22:yourpc.no-ip.org
+# The content of "/etc/ufw-dynamic-hosts.allow" should match the format:
 #
-# and a crontab entry for executing the script every three minutes could look like this:
-# crontab -e
-# */3 * * * * /usr/local/sbin/ufw-dynamic-host-update  2>&1 > /dev/null
+#		tcp:22:yourpc.no-ip.org
 #
-
+# ------------------------------------------------------------
+#
+# A crontab entry for executing the script every three minutes could look like this:
+#
+#		crontab -e
+#		*/3 * * * * /usr/local/sbin/ufw-dynamic-host-update  2>&1 > /dev/null
+#
+# ------------------------------------------------------------
+#
+#	Setting up this file can be done via:
+#
+#		vi "/usr/local/sbin/ufw-dynamic-host-update";
+#		chmod 0755 "/usr/local/sbin/ufw-dynamic-host-update";
+#
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
 #		Thanks to stackoverflow user "Force" on forum: https://superuser.com/questions/646958/ufw-rules-for-specific-host-dynamic-dns
 #		Original script from https://notepad2.blogspot.com/2012/06/shell-script-update-ufw-rules-for-hosts.html
 #
+# ------------------------------------------------------------

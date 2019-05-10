@@ -28,17 +28,6 @@ ufw status numbered; # List UFW rules by-ID
 
 ufw delete RULE_ID;  # Delete UFW rules by-ID
 
-
-
-
-
-
-
-
-
-
-
-
 # ------------------------------------------------------------
 #
 # Citation(s)

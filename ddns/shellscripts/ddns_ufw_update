@@ -36,10 +36,10 @@ else
 		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}";
 		local rule=$(ufw status numbered | grep $regex);
 		if [ -z "$rule" ]; then
-			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✓ Creating Rule:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✓ Creating Rule: ${proto}/${port} ALLOW IN ${ip}";
 			ufw allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already exists:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already exists: ${proto}/${port} ALLOW IN ${ip}";
 		fi;
 	}
 
@@ -50,10 +50,10 @@ else
 		local regex="${port}\/${proto}.*ALLOW.*IN.*${ip}";
 		local rule=$(ufw status numbered | grep $regex);
 		if [ -n "$rule" ]; then
-			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✘ Deleting Rule:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✘ Deleting Rule: ${proto}/${port} ALLOW IN ${ip}";
 			ufw delete allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already deleted:   ${proto}/${port} ALLOW IN ${ip}";
+			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already deleted: ${proto}/${port} ALLOW IN ${ip}";
 		fi;
 	}
 
@@ -96,7 +96,7 @@ else
 	chown -R "syslog:adm" "${LOGDIR}";
 	find "${LOGDIR}" -type d -print0 | xargs -0 chmod 0750; # directories 
 	find "${LOGDIR}" -type f -print0 | xargs -0 chmod 0640; # files
-	
+
 fi;
 
 #

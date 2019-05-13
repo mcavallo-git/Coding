@@ -24,8 +24,8 @@ App Name | Source 1 | Source A
 ### PowerShell
 
 **[PowerShell Core (Windows/Linux)](https://github.com/PowerShell/PowerShell/releases)**
-**[AWS CLI](https://aws.amazon.com/powershell)**
-**[Azure CLI](https://www.powershellgallery.com/packages/az)**
+**[Cloud Management - AWS CLI](https://aws.amazon.com/powershell)**
+**[Cloud Management - Azure CLI](https://www.powershellgallery.com/packages/az)**
 
 ***
 #### External Link: [Reddit.com, "What application do you always install on your computer and recommend to everyone?"](https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/)

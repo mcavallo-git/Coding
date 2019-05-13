@@ -85,7 +85,22 @@ function NetworkToBinary ($network)
 	return (($a[0] -shl 24) + ($a[1] -shl 16) + ($a[2] -shl 8) + $a[3]);
 }
 
-checkSubnet "10.165.255.166/32" "10.165.255.0/24";
+function IpInSubnet ([string]$addr1, [string]$addr2)
+{
+	return (CheckSubnet ($addr1) ($addr2)).Condition;
+}
+
+# Test-Case:  Is   [ 10.165.255.166 ]   in   [ 10.165.255.0/24 ]   ?
+# Expecting:  $True
+IpInSubnet "10.165.255.166" "10.165.255.0/24";
+
+# Test-Case:  Is   [ 172.168.0.45 ]   in   [ 172.168.0.0/16 ]   ?
+# Expecting:  $True
+IpInSubnet "172.168.0.45/32" "172.168.0.0/16";
+
+# Test-Case:  Is   [ 10.0.0.65 ]   in   [ 10.0.0.32/27 ]   ?
+# Expecting:  $False
+IpInSubnet "192.168.0.65/32" "192.168.0.32/27";
 
 #
 #	Citation(s)

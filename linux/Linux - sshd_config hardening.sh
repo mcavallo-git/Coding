@@ -36,6 +36,8 @@ MaxStartups 5:30:10
 
 PasswordAuthentication no
 
+PermitEmptyPasswords no
+
 PermitRootLogin no
 
 PermitUserEnvironment no
@@ -69,11 +71,11 @@ X11DisplayOffset 10
 Subsystem sftp internal-sftp -l INFO
 
 Match Group sftp_jailed_users
-		ForceCommand internal-sftp
-		ChrootDirectory %h
-		X11Forwarding no
-		AllowAgentForwarding no
-		AllowTcpForwarding no
+	ForceCommand internal-sftp
+	ChrootDirectory %h
+	X11Forwarding no
+	AllowAgentForwarding no
+	AllowTcpForwarding no
 
 #
 #	Citation(s)

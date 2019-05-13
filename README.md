@@ -1,7 +1,7 @@
 # Coding
 
 ***
-## Workstation Software (primarily windows-apps)
+## Workstation Software (Windows)
 
 App Name | Option 1 | Option A
 --- | --- | ---

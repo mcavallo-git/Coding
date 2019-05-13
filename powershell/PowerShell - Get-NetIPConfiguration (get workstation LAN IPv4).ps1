@@ -1,17 +1,16 @@
 
-### DEPRECATED - USE POWERSHELL METHOD "Test-Connection", INSTEAD
+### FOR LAN IPv4 - USE POWERSHELL METHOD "Test-Connection", INSTEAD
 
-<#
-	$ThisIPv4_LAN = (
-		Get-NetIPConfiguration |
-		Where-Object {
-			$_.IPv4DefaultGateway -ne $null -and
-			$_.NetAdapter.Status -ne "Disconnected"
-		}
-	).IPv4Address.IPAddress;
 
-	$ThisIPv4_LAN;
-#>
+$ThisIPv4_LAN = (
+	Get-NetIPConfiguration |
+	Where-Object {
+		$_.IPv4DefaultGateway -ne $null -and
+		$_.NetAdapter.Status -ne "Disconnected"
+	}
+).IPv4Address.IPAddress;
+
+$ThisIPv4_LAN;
 
 #
 #	Citation(s)

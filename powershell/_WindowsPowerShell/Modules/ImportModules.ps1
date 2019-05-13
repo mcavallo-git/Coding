@@ -1,23 +1,21 @@
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
-
-#  Azure Portal - Cloud Shell Sync
-#
-#   --|> SYNC THIS SCRIPT ( Step 1 of 2 ): Log into the Azure Cloud Shell at [ https://shell.azure.com ]
+# ------------------------------------------------------------
+#  PowerShell Modules Sync
+# ------------------------------------------------------------
 #
 if ($false) {
+	#
+#   --|> SYNC THIS SCRIPT: Copy-Paste the following line of code to sync to your PowerShell of choice, be it Windows, Linux (e.g. PowerShell Core), or Browser-based (e.g. Azure's Cloud Shell)
 #
-#   --|> SYNC THIS SCRIPT ( Step 2 of 2 ): With the following line of code: Copy it, Paste it into Azure's Cloud Shell, Run it by hitting *Enter* after Paste
-
-Set-Location -Path ($Home); Remove-Item ("./boneal_public") -Force -Recurse -ErrorAction SilentlyContinue; git clone "https://github.com/bonealnet/boneal_public.git"; . "./boneal_public/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
+Set-Location -Path ($Home); Remove-Item ("./boneal_public") -Force -Recurse -ErrorAction SilentlyContinue; git clone "https://github.com/mcavallo-git/Coding.git"; . "./boneal_public/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
 
 }
-
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+#
+# ------------------------------------------------------------
 
 $psm1 = @{};
 $psm1.verbosity = 0;
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 
 ## Determine if we just ran this script (before updating it) or not
 If ($Env:UpdatedCodebase -eq $null) {
@@ -26,7 +24,7 @@ If ($Env:UpdatedCodebase -eq $null) {
 	$psm1.iteration = 2;
 }
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 
 # Detect the current runtime operating-system
 #  --> Note that "Powershell Core" began at version 6.0 (for Linux & MacOS), therefore any version
@@ -52,7 +50,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 
 }
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @("platyPS");
@@ -78,7 +76,7 @@ If ($psm1.iteration -eq 1) {
 	Write-Host (("`nTask - ImportModules (Pass ")+($psm1.iteration)+("/2) - Importing Git-Repository Module(s)...")) -ForegroundColor green;
 }
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 
 $ThisScript          = @{};
 $ThisScript.Dirname  = ($PSScriptRoot);
@@ -87,7 +85,7 @@ $ThisScript.Command  = (($ThisScript.Path).MyCommand);
 $ThisScript.Basename = (($ThisScript.Command).Name);
 # $ThisScript | Format-List;
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 # Ensure that [Powershell's Modules directory] exists
 #
@@ -117,7 +115,7 @@ For ($i=0; $i -lt $PSMod_ParentDirs.length; $i++) {
 }
 If ($psm1.verbosity -ne 0) { Write-Host (("Info - PowerShell Modules directory's fullpath: ")+($psm1.fullpath)); }
 
-# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 # Update each module from the Git-Repository
 #

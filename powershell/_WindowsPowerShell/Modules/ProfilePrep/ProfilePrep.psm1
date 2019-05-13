@@ -63,10 +63,11 @@ function ProfilePrep {
 	}
 	
 	$Pro = @();
-	$Pro += "New-Alias grep Select-String;";
-	$Pro += "New-Alias which Get-Command;";
-	$Pro += "If (Test-Path ((`$Home)+('/boneal_public'))) { Set-Location -Path ((`$Home)+('/boneal_public')); git reset --hard 'origin/master'; git pull; } Else { Set-Location -Path (`$Home); git clone 'https://github.com/bonealnet/boneal_public.git'; } . ((`$Home)+('/boneal_public/powershell/_WindowsPowerShell/Modules/ImportModules.ps1'));";
-	$Pro += "Set-Location -Path ('$HOME');";
+	$Pro += 'New-Alias grep Select-String;';
+	$Pro += 'New-Alias which Get-Command;';
+	$Pro += '$GitSyncOwner="bonealnet"; $GitSyncRepo="boneal_public"; If (Test-Path "${HOME}/${GitSyncRepo}") { Set-Location "${HOME}/${GitSyncRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GitSyncOwner}/${GitSyncRepo}.git"; } . "${HOME}/${GitSyncRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";';
+	# $Pro += "If (Test-Path ((`$Home)+('/boneal_public'))) { Set-Location -Path ((`$Home)+('/boneal_public')); git reset --hard 'origin/master'; git pull; } Else { Set-Location -Path (`$Home); git clone 'https://github.com/bonealnet/boneal_public.git'; } . ((`$Home)+('/boneal_public/powershell/_WindowsPowerShell/Modules/ImportModules.ps1'));";
+	$Pro += 'Set-Location "${HOME}";';
 
 	### Overwrite $Profile content
 	If ($PSBoundParameters.ContainsKey("OverwriteProfile")) {

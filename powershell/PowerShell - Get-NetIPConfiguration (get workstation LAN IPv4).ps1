@@ -7,7 +7,8 @@ $LAN_NetworkConfig = (
 		$_.IPv4DefaultGateway -ne $null -and
 		$_.NetAdapter.Status -ne "Disconnected"
 	}
-).IPv4Address.IPAddress;
+);
+# ).IPv4Address.IPAddress;
 
 $LAN_NetworkConfig;
 

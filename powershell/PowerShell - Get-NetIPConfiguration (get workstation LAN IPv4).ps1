@@ -14,7 +14,9 @@ $NetworkConnections = (
 # $NetworkConnections = Get-NetIPConfiguration;
 $NetworkConnections | ForEach {
 	Write-Host "----------------------";
-	$_ | Format-List;
+	# $_ | Format-List;
+	$_.InterfaceAlias;
+	$_.IPv4Address.IPAddress;
 	Write-Host "======================";
 };
 

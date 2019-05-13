@@ -1,8 +1,7 @@
 
-### FOR LAN IPv4 - USE POWERSHELL METHOD "Test-Connection", INSTEAD
+### FOR ACQUIRING LAN IPv4 - USE POWERSHELL METHOD "Test-Connection", INSTEAD
 
-
-$ThisIPv4_LAN = (
+$LAN_NetworkConfig = (
 	Get-NetIPConfiguration |
 	Where-Object {
 		$_.IPv4DefaultGateway -ne $null -and
@@ -10,7 +9,7 @@ $ThisIPv4_LAN = (
 	}
 ).IPv4Address.IPAddress;
 
-$ThisIPv4_LAN;
+$LAN_NetworkConfig;
 
 #
 #	Citation(s)

@@ -1,6 +1,4 @@
 
-
-
 $ThisIPv4_LAN = (Test-Connection -ComputerName($env:COMPUTERNAME) -Count (1)).IPV4Address.IPAddressToString;
 
 $ThisIPv4_LAN;

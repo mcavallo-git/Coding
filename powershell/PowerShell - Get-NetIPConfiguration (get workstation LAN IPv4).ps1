@@ -1,16 +1,22 @@
 
 ### FOR ACQUIRING LAN IPv4 - USE POWERSHELL METHOD "Test-Connection", INSTEAD
 
-$LAN_NetworkConfig = (
+$NameMustContain = "Intel";
+
+$NetworkConnections = (
 	Get-NetIPConfiguration |
 	Where-Object {
 		$_.IPv4DefaultGateway -ne $null -and
-		$_.NetAdapter.Status -ne "Disconnected"
+		$_.NetAdapter.Status -ne "Disconnected" -and
+		($_.InterfaceDescription.Contains($NameMustContain) -or $_.InterfaceAlias.Contains($NameMustContain))
 	}
 );
-# ).IPv4Address.IPAddress;
-
-$LAN_NetworkConfig;
+# $NetworkConnections = Get-NetIPConfiguration;
+$NetworkConnections | ForEach {
+	Write-Host "----------------------";
+	$_ | Format-List;
+	Write-Host "======================";
+};
 
 #
 #	Citation(s)

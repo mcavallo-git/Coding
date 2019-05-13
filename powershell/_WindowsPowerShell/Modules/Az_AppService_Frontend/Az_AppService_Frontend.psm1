@@ -1,0 +1,690 @@
+#
+#	Az_AppService_Frontend `
+#		-SubscriptionID ($az.subscription) `
+#		-ResourceGroup ($az.group.name) `
+#		-AppServicePlanName ($az.appservice.plan.name) `
+#		-Epithet ($az.epithet) `
+#		-KeyVault_Git ($az.secrets.git.vault) `
+#		-Vault_GitPullUrl443 ($az.secrets.git.clone_url_https) `
+#		-Vault_GitPullUrl22 ($az.secrets.git.clone_url_ssh) `
+#		-Vault_GitBranch ($az.secrets.git.branch) `
+#		-Vault_GitPullUser ($az.secrets.git.username) `
+#		-Vault_GitPullPass ($az.secrets.git.usertoken) `
+#		-Vault_WebAppPortHttps ($az.secrets.git.project_https_port) `
+#		-Vault_FrontendProject ($az.secrets.git.buildpath_frontend_dotnet) `
+#		-Vault_FrontendProject_Angular ($az.secrets.git.buildpath_frontend_angular) `
+#	;
+#
+function Az_AppService_Frontend {
+	Param(
+
+		[Parameter(Mandatory=$true)]
+		[String]$SubscriptionID	= "",
+		
+		[Parameter(Mandatory=$true)]
+		[String]$ResourceGroup = "",
+
+		[Parameter(Mandatory=$true)]
+		[String]$AppServicePlanName = "",
+
+		[String]$StartTimestamp = (Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d-%H%M%S"),
+
+		[String]$Epithet = (("bis-")+($StartTimestamp)),
+
+		[String]$Sku = "Developer",
+
+		[String]$KeyVault_Git,
+			[String]$Vault_GitBranch,
+			[String]$Vault_GitPullUser,
+			[String]$Vault_GitPullPass,
+			[String]$Vault_GitPullUrl22,
+			[String]$Vault_GitPullUrl443,
+			[String]$Vault_WebAppPortHttps,
+			[String]$Vault_FrontendProject,
+			[String]$Vault_FrontendProject_Angular,
+
+		[String]$ConnectionString_AzureWebJobsDashboard="DefaultEndpointsProtocol=https;AccountName=[myaccount];AccountKey=[mykey];",
+		[String]$ConnectionString_AzureWebJobsStorage="DefaultEndpointsProtocol=https;AccountName=[myaccount];AccountKey=[mykey];",
+		
+		[Switch]$Quiet
+	)
+
+	# Fail-out if any required modules are not found within the current scope
+	$RequireModule="BombOut"; 
+	if (!(Get-Module ($RequireModule))) {
+		Write-Host (("`n`nRequired Module not found: `"")+($RequireModule)+("`"`n`n"));
+		Start-Sleep -Seconds 60;
+		Exit 1;
+	}
+
+	# ------------------------------------------------------------- #
+
+	$az = @{};
+	
+	$az.account = @{};
+	
+	$az.group = @{};
+
+	$az.keyvault = @{};
+
+	$az.secrets = @{};
+
+	$az.sql = @{};
+
+	$az.webapp = @{};
+
+	$az.webapp.config = @{};
+	$az.webapp.connection_string = @{};
+	$az.webapp.deployment = @{};
+	$az.webapp.git = @{};
+	$az.webapp.keyvault = @{};
+	$az.webapp.https = @{};
+	$az.webapp.cors = @{};
+
+	# ------------------------------------------------------------- #
+	#### Web App (Backend)
+
+	$az.epithet = ($Epithet);
+
+	$az.subscription = ($SubscriptionID);
+
+	$az.group.name = ($ResourceGroup);
+
+	$az.keyvault.name = ($KeyVault_Git);
+
+	$az.webapp.plan = ($AppServicePlanName);
+
+	$az.webapp.name = ($az.epithet);
+
+	$az.webapp.fqdn_web = (("https://")+($az.epithet)+(".azurewebsites.net"));
+	$az.webapp.fqdn_api = (("https://")+($az.epithet)+("-api.azurewebsites.net"));
+	
+	$az.webapp.fqdn_kudu_web = (($az.webapp.fqdn_web).Replace(".azurewebsites.net", "scm.azurewebsites.net"));
+	$az.webapp.fqdn_kudu_api = (($az.webapp.fqdn_api).Replace(".azurewebsites.net", "scm.azurewebsites.net"));
+
+	$az.webapp.connection_string.type = "SQLAzure";
+
+	$az.webapp.connection_string.AzureWebJobsDashboard = (("AzureWebJobsDashboard=")+($ConnectionString_AzureWebJobsDashboard));
+	$az.webapp.connection_string.AzureWebJobsStorage = (("AzureWebJobsStorage=")+($ConnectionString_AzureWebJobsStorage));
+	
+	$az.webapp.git.branch = $null;
+	$az.webapp.git.appType = "AspNetCore";
+	$az.webapp.git.repoType = "vsts";
+	$az.webapp.git.token = "some_token";
+
+	$az.webapp.deployment.desc = "App Service Deployment Credentials";
+	$az.webapp.deployment.user = (("bnl-")+(([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes((Get-Random -SetSeed (Get-Random))))).Substring(0,20)));
+	# Wait for a random amount of time so that we increase the millisecond gap between user & password string-generation (expert mode guessing)
+	Start-Sleep -Milliseconds (Get-Random -Minimum (Get-Random -Minimum 50 -Maximum 499) -Maximum (Get-Random -Minimum 500 -Maximum 949));
+	$az.webapp.deployment.pass = ((([Convert]::ToBase64String([System.Text.Encoding]::Unicode.GetBytes(("PASS!")+(Get-Random -SetSeed (Get-Random))))).Substring(0,20))+("aA1!"));
+	$az.webapp.deployment.setuser = @{};	## Filled-in by:	[ az webapp deployment user set ... ]
+
+	# ------------------------------------------------------------- #
+
+	# Azure Subscription Info/Defaults
+	$CommandDescription = "Requesting current session's Azure Subscription-Info";
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.account.show = `
+		az account show `
+		| ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut `
+		-ExitCode ($az.account.exit_code) `
+		-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccessJSON ($az.account.show);
+
+	# ------------------------------------------------------------- #
+
+	# Get Secret [ Git Username ]
+	$SecretName = $Vault_GitPullUser;
+	$CommandDescription = ("Acquiring secret `"")+($SecretName)+("`"...");
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+
+	# Get Secret [ Git Password ]
+	$SecretName = $Vault_GitPullPass;
+	$CommandDescription = (("Acquiring secret `"")+($SecretName)+("`"..."));
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+
+	# Get Secret [ Git Url (HTTPS) ]
+	$SecretName = $Vault_GitPullUrl443;
+	$CommandDescription = (("Acquiring secret `"")+($SecretName)+("`"..."));
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+
+	# Get Secret [ Git Branch ]
+	$SecretName = $Vault_GitBranch;
+	$CommandDescription = (("Acquiring secret `"")+($SecretName)+("`"..."));
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+
+	# Sql Secret [ App Service HTTPS Port ]
+	$SecretName = $Vault_WebAppPortHttps;
+	$CommandDescription = (("Acquiring secret `"")+($SecretName)+("`"..."));
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+
+	# Sql Secret [ Frontend App Service Build-Path ]
+	$SecretName = $Vault_FrontendProject;
+	$CommandDescription = (("Acquiring secret `"")+($SecretName)+("`"..."));
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+
+	# Sql Secret [ Frontend App Service Build-Path ]
+	$SecretName = $Vault_FrontendProject_Angular;
+	$CommandDescription = (("Acquiring secret `"")+($SecretName)+("`"..."));
+	$az.secrets[$SecretName] = az keyvault secret show --subscription ($az.subscription) --vault-name ($az.keyvault.name) --name ($SecretName) | ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+	BombOut -NoAzLogout -ExitCode ($last_exit_code) -MessageOnError (('Error while [') + ($CommandDescription) + (']')) -MessageOnSuccess (("Acquired secret `"")+($SecretName)+("`"")); 
+
+	$az.secrets[$SecretName] = $az.secrets[$SecretName].value;
+
+	# ------------------------------------------------------------- #
+	#
+	#		Create App Service
+	#
+	
+	$UseLocalGitRepo = $false;
+
+	If ($UseLocalGitRepo -eq $true) {
+		# Create a App Service with local Git-deployment enabled
+
+		$CommandDescription = (("Creating App Service `"")+($az.webapp.name)+("`""));
+		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+		$az.webapp.create = `
+			az webapp create `
+				--resource-group ($az.group.name) `
+				--plan ($az.webapp.plan) `
+				--name ($az.webapp.name) `
+				--deployment-local-git `
+			| ConvertFrom-Json;
+		$last_exit_code = If($?){0}Else{1};
+
+		# Bomb-out on errors
+		BombOut -NoAzLogout `
+			-ExitCode ($last_exit_code) `
+			-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+			-MessageOnSuccessJSON ($az.webapp.create);
+
+	} Else {
+		# Create a App Service with local Git-deployment disabled (then enable the Kudu build server)
+
+		$CommandDescription = (("Creating App Service `"")+($az.webapp.name)+("`""));
+		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+		$az.webapp.create = `
+			az webapp create `
+				--resource-group ($az.group.name) `
+				--plan ($az.webapp.plan) `
+				--name ($az.webapp.name) `
+			| ConvertFrom-Json;
+		$last_exit_code = If($?){0}Else{1};
+
+		# Bomb-out on errors
+		BombOut -NoAzLogout `
+			-ExitCode ($last_exit_code) `
+			-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+			-MessageOnSuccessJSON ($az.webapp.create);
+
+		# Enable Kudu build server
+		$CommandDescription = (("Enabling Kudu build-server for `"")+($az.webapp.name)+("`""));
+		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+		$az.webapp.enable_kudu = `
+			az webapp deployment source config-local-git `
+				--name ($az.webapp.name) `
+				--resource-group ($az.group.name) `
+				--subscription ($az.subscription) `
+			| ConvertFrom-Json;
+			# --verbose `
+		$last_exit_code = If($?){0}Else{1};
+
+		# Bomb-out on errors
+		BombOut -NoAzLogout `
+			-ExitCode ($last_exit_code) `
+			-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+			-MessageOnSuccessJSON ($az.webapp.enable_kudu);
+		
+	}
+
+	# ------------------------------------------------------------- #
+	#		Kudu Build-Server   (Git deployment-credentials)
+	#
+	#			az webapp deployment user set ...
+	#				--> https://docs.microsoft.com/en-us/cli/azure/webapp/deployment/user
+	#
+	# ------------------------------------------------------------- #
+	#
+	#	Kudu - Read Kudu's default deployment-credentials
+	#
+	$CommandDescription = (("Reading default deployment-credentials for App Service `"")+($az.webapp.name)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.deployment.getuser = `
+		JsonDecoder -InputObject (`
+			az webapp deployment list-publishing-credentials `
+				--name ($az.webapp.name) `
+				--resource-group ($az.group.name) `
+				--subscription ($az.subscription) `
+		);
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut -NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccessJSON ($az.webapp.deployment.getuser);
+
+	#	Kudu - Set Git deployment-credentials
+	$CommandDescription = (("Setting default deployment-credentials for subscription `"")+($az.subscription)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.deployment.setuser = `
+		JsonDecoder -InputObject (`
+			az webapp deployment user set `
+				--subscription ($az.subscription) `
+				--user-name ($az.webapp.deployment.user) `
+				--password ($az.webapp.deployment.pass) `
+		);
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut -NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccessJSON ($az.webapp.deployment.setuser);
+
+	# ------------------------------------------------------------- #
+	#		App Service Config. -> General
+	#
+	#			az webapp config appsettings ...
+	#			--> https://docs.microsoft.com/en-us/cli/azure/webapp/config?view=azure-cli-latest#az-webapp-config-set
+	#
+
+	$CommandDescription = (("Setting general-config. options for App Service `"")+($az.webapp.name)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.config.set = `
+	az webapp config set `
+		--name ($az.webapp.name) `
+		--resource-group ($az.group.name) `
+		--subscription ($az.subscription) `
+		--http20-enabled "false" `
+		--min-tls-version "1.2" `
+		--ftps-state "FtpsOnly" `
+		| ConvertFrom-Json;
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut `
+		-NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Fail - Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccessJSON ($az.webapp.config.set);
+
+	# ------------------------------------------------------------- #
+	#
+	#	App Service Config. -> Connection Strings (Databases, Storage, etc.)
+	#
+	#		az webapp config connection-string set  -->  https://docs.microsoft.com/en-us/cli/azure/webapp/config/connection-string
+	#
+	# ------------------------------------------------------------- #
+	#
+	# Connection String:   "AzureWebJobsDashboard"
+	#		--> Optional storage account connection string for storing logs and displaying them in the Monitor tab in the portal.
+	#		--> https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#azurewebjobsdashboard
+	#
+
+	$CommandDescription = (("Configuring Connection String `"AzureWebJobsDashboard`" for App Service `"")+($az.webapp.name)+("`""));
+
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.connection_string.SetConnectionDashboard = `
+	JsonDecoder -InputObject ( `
+		az webapp config connection-string set `
+			--name ($az.webapp.name) `
+			--resource-group ($az.group.name) `
+			--connection-string-type ($az.webapp.connection_string.type) `
+			--settings ($az.webapp.connection_string.AzureWebJobsDashboard) `
+	);
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut -NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccess ('Pass - ( Credentials hidden )');
+
+	# ------------------------------------------------------------- #
+	#
+	# Connection String:   "AzureWebJobsStorage"
+	#		--> The Azure Functions runtime uses this storage account connection string for all functions except for HTTP triggered functions
+	#		--> https://docs.microsoft.com/en-us/azure/azure-functions/functions-app-settings#azurewebjobsstorage
+	#
+
+	$CommandDescription = (("Configuring Connection String `"AzureWebJobsStorage`" for App Service `"")+($az.webapp.name)+("`""));
+
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.connection_string.SetConnectionStorage = `
+	JsonDecoder -InputObject ( `
+		az webapp config connection-string set `
+			--name ($az.webapp.name) `
+			--resource-group ($az.group.name) `
+			--connection-string-type ($az.webapp.connection_string.type) `
+			--settings ($az.webapp.connection_string.AzureWebJobsStorage) `
+	);
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut -NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccess ('Pass - ( Credentials hidden )');
+	
+	# ------------------------------------------------------------- #
+
+	# Git Schema
+	$git = @{};
+	$git.local = @{};
+	$git.remote = @{};
+
+		# Git Source-Remote (to push-to)
+		$git.remote.source = @{};
+		$git.remote.source.url = ($az.secrets[$Vault_GitPullUrl443]);
+		$git.remote.source.branch = ($az.secrets[$Vault_GitBranch]);
+		$git.remote.source.reponame = [System.IO.Path]::GetFileNameWithoutExtension(([System.Uri]$git.remote.source.url).Segments[-1]);
+		$git.remote.source.ref_uid = (("src")+($StartTimestamp)+("repo"));
+
+		# Git Destination-Remote (to push-to)
+		$git.remote.destination = @{};
+		$git.remote.destination.url = (("https://")+($az.webapp.name)+(".scm.azurewebsites.net/")+($az.webapp.name)+(".git"));
+		$git.remote.destination.fqdn = ([System.Uri]($git.remote.destination.url)).Host;
+		$git.remote.destination.reponame = [System.IO.Path]::GetFileNameWithoutExtension(([System.Uri]$git.remote.destination.url).Segments[-1]);
+		$git.remote.destination.ref_uid = (("webapp")+($StartTimestamp));
+		$git.remote.destination.branch = "master";
+		$git.remote.destination.commit_msg = (("Instantiating WebApp [ ")+($az.epithet)+(" ] "));
+		
+		# Build the username & token into one single url-request to push-to (which deploys into the App Service)
+		$git.remote.destination.inline_creds_url = (("https://")+($az.webapp.deployment.user)+(":")+($az.webapp.deployment.pass)+("@")+($az.webapp.name)+(".scm.azurewebsites.net/")+($az.webapp.name)+(".git"));
+
+		# Git Schema - Local
+		$git.local.desc = "Web App - .NET Core";
+		$git.local.parent_dir = (($Home)+("/git"));
+		$git.local.reponame = ($git.remote.source.reponame);
+		$git.local.work_tree = (($git.local.parent_dir)+("/")+($git.local.reponame));
+	
+	# Make sure the parent directory to the git-repo exists
+	if ((Test-Path -Path ($git.local.parent_dir)) -eq $false) {
+		Write-Host (("`nTask - Creating git parent-directory at `"")+($git.local.parent_dir)+("`""));
+		New-Item -ItemType "Directory" -Path ($git.local.parent_dir);
+	}
+
+	# ------------------------------------------------------------- #
+
+	$dotnet = @{};
+	$dotnet.publish = @{};
+
+	$dotnet.publish.reponame = ($git.local.reponame);
+	
+	$dotnet.publish.parent_abs = ($git.local.work_tree);
+
+	$dotnet.publish.project_rel = ($az.secrets[$Vault_FrontendProject]);
+	$dotnet.publish.project_abs = (($dotnet.publish.parent_abs)+("/")+($dotnet.publish.project_rel));
+
+	$dotnet.publish.csproj_rel = (($dotnet.publish.project_rel)+("/")+($dotnet.publish.project_rel)+(".csproj"));
+	$dotnet.publish.csproj_abs = (($dotnet.publish.parent_abs)+("/")+($dotnet.publish.csproj_rel));
+
+	$dotnet.publish.angular_project_rel = ($az.secrets[$Vault_FrontendProject_Angular]);
+	$dotnet.publish.angular_proj_abs = (($dotnet.publish.project_abs)+("/")+($dotnet.publish.angular_project_rel));
+	
+	# $dotnet.publish.configuration = "Debug";
+	# $dotnet.publish.configuration = "Production";
+
+	$dotnet.publish.output = (($dotnet.publish.parent_abs)+("/published_")+($StartTimestamp));
+	$dotnet.publish.push_directory = (($dotnet.publish.output)+("/ClientApp/dist"));
+
+	# ------------------------------------------------------------- #
+
+	###-- Configure the App Service default build-path
+	#
+	#	az webapp config appsettings
+	#		https://docs.microsoft.com/en-us/cli/azure/webapp/config/appsettings?view=azure-cli-latest
+	#
+	# Configurable settings
+	#		https://github.com/projectkudu/kudu/wiki/Configurable-settings
+	#
+	# docs.microsoft.com - "To customize your deployment, include a .deployment file in the repository root"
+	#		https://docs.microsoft.com/en-us/azure/app-service/deploy-local-git
+	#
+
+	$CommandDescription = (("Configuring [ Application Settings ] for App Service `"")+($az.webapp.name)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.appSettings = @{};
+	$az.webapp.appSettings.baseUrl = (($az.webapp.fqdn_api)+("/api"));
+	$az.webapp.appSettings.MobileAppsManagement_EXTENSION_VERSION = "latest";
+	$az.webapp.appSettings.MSDEPLOY_RENAME_LOCKED_FILES = "1";
+	$az.webapp.appSettings.WEBSITE_RUN_FROM_PACKAGE = "0";
+	$az.webapp.appSettings.WEBSITE_TIME_ZONE = "Eastern Standard Time";
+
+	$az.webapp.setAppSettings = @{};
+	$last_exit_code = 0;
+	ForEach ($appSetting In (($az.webapp.appSettings).GetEnumerator())) {
+		
+		$az.webapp.setAppSettings[$appSetting.Name] = `
+			az webapp config appsettings set `
+				--name ($az.webapp.name) `
+				--resource-group ($az.group.name) `
+				--subscription ($az.subscription) `
+				--settings (($appSetting.Name)+("=")+($appSetting.Value)) `
+			| ConvertFrom-Json;
+			
+		$last_exit_code += If($?){0}Else{1};
+
+	}
+
+	# Bomb-out on errors
+	BombOut -NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccessJSON ($ConfigWebapp);
+
+	# ------------------------------------------------------------- #
+	#	App Service CORS Configuration
+	#			
+	#		az webapp cors add ...
+	#			--> https://docs.microsoft.com/en-us/cli/azure/webapp/cors?view=azure-cli-latest#az-webapp-cors-add
+	#		
+	#		general overview of CORS
+	#			--> https://www.html5rocks.com/en/tutorials/cors
+	#
+
+	$CommandDescription = (("Setting [ CORS Configuration ] for `"")+($az.webapp.name)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+	$az.webapp.cors.add = `
+	JsonDecoder -InputObject (`
+		az webapp cors add  `
+			--name ($az.webapp.name) `
+			--resource-group ($az.group.name) `
+			--subscription ($az.subscription) `
+			--allowed-origins "*" `
+	);
+		#	--allowed-origins ($az.webapp.fqdn_web) ($az.webapp.fqdn_api) `
+	$last_exit_code = If($?){0}Else{1};
+
+	# Bomb-out on errors
+	BombOut `
+		-NoAzLogout `
+		-ExitCode ($last_exit_code) `
+		-MessageOnError (('Fail - Error thrown while [')+($CommandDescription)+(']')) `
+		-MessageOnSuccessJSON ($az.webapp.cors.add);
+
+	# ------------------------------------------------------------- #
+
+	# Git Pull from the Source-Repo
+	
+	# Build the username & token into one single url-request to pull from the git-repo with
+	$git.remote.source.inline_creds_url = (("https://")+($az.secrets[$Vault_GitPullUser])+(":")+($az.secrets[$Vault_GitPullPass])+("@")+(($git.remote.source.url).Replace("https://","")));
+
+	Set-Location -Path ($git.local.parent_dir);
+
+	## Clone the Source-Repo
+	$git.remote.destination.clone = `
+		GitCloneRepo `
+			-Url ($git.remote.source.inline_creds_url) `
+			-LocalDirname ($git.local.parent_dir) `
+			-SkipResolveUrl `
+			-Quiet;
+	
+	# ------------------------------------------------------------- #
+
+	$ng = @{};
+	$ng.env_dir_rel = ("src/environments");
+	$ng.env_dir_abs = (($dotnet.publish.angular_proj_abs)+("/")+($ng.env_dir_rel));
+	$ng.env_prod = @{};
+	$ng.env_prod.rel = ("environment.prod.ts");
+	$ng.env_prod.abs = (($ng.env_dir_abs)+("/")+($ng.env_prod.rel));
+	$ng.env_prod_bak = @{};
+	$ng.env_prod_bak.rel = ("environment-bak.prod.bak.ts");
+	$ng.env_prod_bak.abs = (($ng.env_dir_abs)+("/")+($ng.env_prod_bak.rel));
+
+	$CommandDescription = (("Updating contents for Angular environment-file: `"")+($ng.env_prod.abs)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+	
+	$env_pre_contents = (Get-Content -Path ($ng.env_prod.abs));
+
+	# Backup file-contents
+	Set-Content -Path ($ng.env_prod_bak.abs) -Value ($env_pre_contents);
+
+	$env_replaced_contents = @();
+	ForEach ($each_content_row In $env_pre_contents) {
+		# Replace the baseUrl in the environment.*ts file
+		If ($each_content_row.Contains('baseUrl')) {
+			$each_content_row = ($each_content_row -Replace ("'https://.*'"), (("'")+($az.webapp.appSettings.baseUrl)+("'")));
+			# $each_content_row = ($each_content_row -Replace ("baseUrl:\s*'http.*'"), (("baseUrl: '")+($az.webapp.appSettings.baseUrl)+("'")));
+		}
+		$env_replaced_contents += $each_content_row;
+	}
+	Set-Content -Path ($ng.env_prod.abs) -Value ($env_replaced_contents);
+
+	Write-Host "`n";
+	Write-Host (("Configuring Angular environment-defaults in `"")+($ng.env_prod.abs)+("`""))
+	Write-Host "--> File-Contents (Pre-Config)  :"; Write-Host ($env_pre_contents | Out-String); Write-Host "`n";
+	Write-Host "--> File-Contents (Post-Config) :"; Write-Host ($env_replaced_contents | Out-String); Write-Host "`n";
+	Write-Host "`n";
+
+	# ------------------------------------------------------------- #
+
+	$CommandDescription = (("Publishing `"")+($dotnet.publish.project_abs)+("`""));
+	Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+	
+	# Push Codebase to App Service (caught by the Kudu build server running in Azure App Services)
+
+	$PublishBeforePush = $true;
+
+	Set-Location -Path ($git.local.work_tree);
+	git config --global user.email ($az.account.show.user.name);
+	git config --global user.name ($az.account.show.user.name);
+		
+	If ($PublishBeforePush -eq $true) {
+
+		Set-Location -Path ($dotnet.publish.angular_proj_abs);
+		npm cache clean --force;
+		
+		# Publish the App Service
+		Set-Location -Path ($dotnet.publish.parent_abs);
+
+		# Note: calling [ dotnet publish ... ] will automatically perform dotnet restore & dotnet build (unless specifically commanded to not do-so)
+		dotnet publish ($dotnet.publish.csproj_abs) `
+			--output ($dotnet.publish.output) `
+			--verbosity detailed `
+		;
+		#	--framework ("netcoreapp2.1") `
+		#	--runtime ("win-x86") `
+
+		# Setup Repo inside of the compiled code directory (push only those files)
+		Set-Location -Path ($dotnet.publish.push_directory);
+
+		git init;
+		git add .;
+		git commit -m ($git.remote.destination.commit_msg);
+		git remote add origin ($git.remote.destination.inline_creds_url);
+
+		$CommandDescription = (("Pushing Compiled Code to App Service `"")+($az.webapp.name)+("`"'s Kudu Build-Server"));
+		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+
+		git push origin master;
+
+	} Else {
+
+		$appSettingProject_Name = "PROJECT";
+
+		$appSettingProject_Value = $dotnet.publish.csproj_rel;
+
+		$az.webapp.setAppSettings[$appSettingProject_Name] = `
+			az webapp config appsettings set `
+				--name ($az.webapp.name) `
+				--resource-group ($az.group.name) `
+				--subscription ($az.subscription) `
+				--settings (($appSettingProject_Name)+("=")+($appSettingProject_Value)) `
+			| ConvertFrom-Json;
+		$last_exit_code = If($?){0}Else{1};
+
+		Set-Location -Path ($dotnet.publish.angular_proj_abs);
+		npm cache clean --force;
+		npm i -g npm;
+		# Redirect current code-repo so we can push to separate remote git-repo
+
+
+		Set-Location -Path ($git.local.work_tree);
+		
+		git remote add ($git.remote.destination.ref_uid) ($git.remote.destination.inline_creds_url);
+		git add -A;
+		git commit -m ($git.remote.destination.commit_msg);
+
+		$CommandDescription = (("Pushing Full Repo to App Service `"")+($az.webapp.name)+("`"'s Kudu Build-Server"));
+		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
+		
+		git push ($git.remote.destination.ref_uid) ($git.remote.destination.branch);
+		
+	}
+
+	# ------------------------------------------------------------- #
+
+}
+
+Export-ModuleMember -Function "Az_AppService_Frontend";

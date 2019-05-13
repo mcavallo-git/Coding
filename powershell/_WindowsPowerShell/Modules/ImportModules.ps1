@@ -2,12 +2,16 @@
 #  PowerShell Modules Sync
 # ------------------------------------------------------------
 #
+$GithubOwner="mcavallo-git";
+$GithubRepo="Coding";
+#
 if ($false) {
 	#
-#   --|> SYNC THIS SCRIPT: Copy-Paste the following line of code to sync to your PowerShell of choice, be it Windows, Linux (e.g. PowerShell Core), or Browser-based (e.g. Azure's Cloud Shell)
-#
-Set-Location -Path ($Home); Remove-Item ("./boneal_public") -Force -Recurse -ErrorAction SilentlyContinue; git clone "https://github.com/mcavallo-git/Coding.git"; . "./boneal_public/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
-
+	#	Enable Auto-Sync to GitHub.com
+	#		--|> Copy-Paste the following line of code to sync to your PowerShell of choice
+	#		--|> Note: Built for compatibility between Windows, Linux (e.g. PowerShell Core), & Browser-based (e.g. Azure's Cloud Shell) Terminals
+	#
+	$GithubOwner="mcavallo-git"; $GithubRepo="Coding"; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
 }
 #
 # ------------------------------------------------------------
@@ -316,14 +320,14 @@ If ($Env:UpdatedCodebase -eq $null) {
 
 	$RepoUpdate = `
 		GitCloneRepo `
-			-Url "https://github.com/bonealnet/boneal_public" `
+			-Url "https://github.com/${GithubOwner}/${GithubRepo}" `
 			-LocalDirname (($Home));
 
 	$Env:UpdatedCodebase = $true;
 	
 	Set-Location -Path ($Home);
 
-	. "./boneal_public/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
+	. "./${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
 
 
 } Else {
@@ -332,6 +336,8 @@ If ($Env:UpdatedCodebase -eq $null) {
 
 	ProfilePrep `
 		-OverwriteProfile `
+		-GithubOwner (${GithubOwner}) `
+		-GithubRepo (${GithubRepo}) `
 		-Quiet;
 
 	$CheckCommand_dotnet = `

@@ -311,21 +311,21 @@ If ($Env:UpdatedCodebase -eq $null) {
 
 	# Iteration 1/2: Upon login, before [ updating from git-repo ]
 
-	$CheckCommand_git = `
+	$CommandExists.git = `
 		EnsureCommandExists `
-			-Name "git" `
-			-OnErrorShowUrl "https://git-scm.com/downloads" `
+			-Name ("git") `
+			-OnErrorShowUrl ("https://git-scm.com/downloads") `
 			-Quiet;
 
 
 	$RepoUpdate = `
 		GitCloneRepo `
-			-Url "https://github.com/${GithubOwner}/${GithubRepo}" `
-			-LocalDirname (($Home));
+			-Url ("https://github.com/${GithubOwner}/${GithubRepo}") `
+			-LocalDirname ("${HOME}");
 
 	$Env:UpdatedCodebase = $true;
 	
-	Set-Location -Path ($Home);
+	Set-Location ("${HOME}");
 
 	. "./${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
 
@@ -340,10 +340,10 @@ If ($Env:UpdatedCodebase -eq $null) {
 		-GithubRepo (${GithubRepo}) `
 		-Quiet;
 
-	$CheckCommand_dotnet = `
+	$CommandExists.dotnet = `
 		EnsureCommandExists `
-			-Name "dotnet" `
-			-OnErrorShowUrl "https://dotnet.microsoft.com/download/archives" `
+			-Name ("dotnet") `
+			-OnErrorShowUrl ("https://dotnet.microsoft.com/download/archives") `
 			-Quiet;
 
 	$Env:UpdatedCodebase = $null;

@@ -1,25 +1,28 @@
 # Windows Security - Items to add to Windows Defender's Exclusion List
 
 # 
-$LocalAppData=(${Env:LocalAppData}); # LocalAppData
-$ProgFilesX64=((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
-$ProgFilesX86=((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86
-$SystemDrive=(${Env:SystemDrive}); # SystemDrive
-$System32=((${Env:SystemRoot})+("\System32")); # System32
+$LocalAppData = (${Env:LocalAppData}); # LocalAppData
+$ProgFilesX64 = ((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
+$ProgFilesX86 = ((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86
+$SystemDrive = (${Env:SystemDrive}); # SystemDrive
+$System32 = ((${Env:SystemRoot})+("\System32")); # System32
+$UserProfile = (${Env:USERPROFILE}); # UserProfile
 
 # Windows Defender Exclusions-list --> Processes
 $ExclusionProcesses = @();
-$ExclusionProcesses += ("Autohotkey.exe");
-$ExclusionProcesses += ("Code.exe");
-$ExclusionProcesses += ("Cryptomator.exe");
-$ExclusionProcesses += ("Dropbox.exe");
-$ExclusionProcesses += ("filezilla.exe");
-$ExclusionProcesses += ("GitHubDesktop.exe");
-$ExclusionProcesses += ("Git.exe");
-$ExclusionProcesses += ("Greenshot.exe");
-$ExclusionProcesses += ("lync.exe");
-$ExclusionProcesses += ("MobaXterm.exe");
-$ExclusionProcesses += ("Motty.exe");
+$ExclusionProcesses += ((${ProgFilesX64})+("\AutoHotkey\AutoHotkey.exe"));
+$ExclusionProcesses += ((${ProgFilesX64})+("\Microsoft VS Code\Code.exe"));
+$ExclusionProcesses += ((${ProgFilesX64})+("\Cryptomator\Cryptomator.exe"));
+$ExclusionProcesses += ((${ProgFilesX86})+("\Dropbox\Client\Dropbox.exe"));
+$ExclusionProcesses += ((${ProgFilesX86})+("\Mobatek\MobaXterm\MobaXterm.exe"));
+$ExclusionProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\lync.exe"));
+$ExclusionProcesses += ((${ProgFilesX64})+("\FileZilla FTP Client\filezilla.exe"));
+$ExclusionProcesses += ((${ProgFilesX64})+("\Git\cmd\git.exe"));
+$ExclusionProcesses += ((${ProgFilesX64})+("\Git\git-bash.exe"));
+$ExclusionProcesses += ((${ProgFilesX64})+("\Greenshot\Greenshot.exe"));
+$ExclusionProcesses += ((${LocalAppData})+("\Dropbox\Client\Dropbox.exe"));
+$ExclusionProcesses += ((${LocalAppData})+("\GitHubDesktop\GitHubDesktop.exe"));
+$ExclusionProcesses += ((${UserProfile})+("\Documents\MobaXterm\slash\bin\Motty.exe"));
 
 # Windows Defender Exclusions-list --> Filepaths
 $ExclusionPaths = @();

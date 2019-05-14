@@ -1,15 +1,33 @@
-# Windows Security - Exclusions Script
-#		--> Add paths (single files and/or entire directories) to Windows Security's Exclusion List
+# Windows Security - Items to add to Windows Defender's Exclusion List
 
-# Define list of filepaths to create exclusions-for
+# 
+$LocalAppData=(${Env:LocalAppData}); # LocalAppData
+$ProgFilesX64=((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
+$ProgFilesX86=((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86
+$SystemDrive=(${Env:SystemDrive}); # SystemDrive
+$System32=((${Env:SystemRoot})+("\System32")); # System32
+
+# Windows Defender Exclusions-list --> Processes
+$ExclusionProcesses = @();
+$ExclusionProcesses += ("Autohotkey.exe");
+$ExclusionProcesses += ("Code.exe");
+$ExclusionProcesses += ("Cryptomator.exe");
+$ExclusionProcesses += ("Dropbox.exe");
+$ExclusionProcesses += ("filezilla.exe");
+$ExclusionProcesses += ("GitHubDesktop.exe");
+$ExclusionProcesses += ("Git.exe");
+$ExclusionProcesses += ("Greenshot.exe");
+$ExclusionProcesses += ("lync.exe");
+$ExclusionProcesses += ("MobaXterm.exe");
+$ExclusionProcesses += ("Motty.exe");
+
+# Windows Defender Exclusions-list --> Filepaths
 $ExclusionPaths = @();
-
-$LocalAppData=(${Env:LocalAppData}); # LocalAppData Path(s)
+# -- LocalAppData
 $ExclusionPaths += ((${LocalAppData})+("\Google\Google Apps Sync"));
 $ExclusionPaths += ((${LocalAppData})+("\GitHubDesktop"));
 $ExclusionPaths += ((${LocalAppData})+("\Microsoft\OneDrive"));
-
-$ProgFilesX64=((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64 Path(s)
+# -- ProgFilesX64
 $ExclusionPaths += ((${ProgFilesX64})+("\7-Zip"));
 $ExclusionPaths += ((${ProgFilesX64})+("\AirParrot 2"));
 $ExclusionPaths += ((${ProgFilesX64})+("\AutoHotkey"));
@@ -27,8 +45,7 @@ $ExclusionPaths += ((${ProgFilesX64})+("\Microsoft Office 15"));
 $ExclusionPaths += ((${ProgFilesX64})+("\Microsoft VS Code"));
 $ExclusionPaths += ((${ProgFilesX64})+("\NVIDIA Corporation"));
 $ExclusionPaths += ((${ProgFilesX64})+("\paint.net"));
-
-$ProgFilesX86=((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86 Path(s)
+# -- ProgFilesX86
 $ExclusionPaths += ((${ProgFilesX86})+("\Dropbox"));
 $ExclusionPaths += ((${ProgFilesX86})+("\efs"));
 $ExclusionPaths += ((${ProgFilesX86})+("\GIGABYTE"));
@@ -45,13 +62,11 @@ $ExclusionPaths += ((${ProgFilesX86})+("\Razer Chroma SDK"));
 $ExclusionPaths += ((${ProgFilesX86})+("\Reflector 3"));
 $ExclusionPaths += ((${ProgFilesX86})+("\Splashtop"));
 $ExclusionPaths += ((${ProgFilesX86})+("\WinDirStat"));
-
-$SystemDrive=(${Env:SystemDrive}); # SystemDrive Path(s)
+# -- SystemDrive
 $ExclusionPaths += ((${SystemDrive})+("\BingBackground"));
 $ExclusionPaths += ((${SystemDrive})+("\ISO\BingBackground"));
 $ExclusionPaths += ((${SystemDrive})+("\ISO\QuickNoteSniper"));
-
-$System32=((${Env:SystemRoot})+("\System32")); # System32 Path(s)
+# -- System32
 $ExclusionPaths += ((${System32})+("\wbem\WmiPrvSE.exe")); # Windows Management Instrumentation Provider
 $ExclusionPaths += ((${System32})+("\DbxSvc.exe")); # Dropbox
 
@@ -70,14 +85,18 @@ If (${Env:OneDriveCommercial} -ne $null) {
 	$ExclusionPaths += (${Env:OneDriveCommercial}).replace("OneDrive - ","");
 }
 
-# Add each exclusion (only if the path exits, per item)
-ForEach ($EachExclusionPath In ($ExclusionPaths | Select-Object -Unique)) {
-	If (($EachExclusionPath -ne $null) -And (Test-Path $EachExclusionPath)) {
-		Write-Host (("Adding Exclusion   [ ")+($EachExclusionPath)+(" ]"));
-		Add-MpPreference -ExclusionPath ($EachExclusionPath);
+# Add the exclusions
+ForEach ($EachFilepath In ($ExclusionPaths | Select-Object -Unique)) {
+	If (($EachFilepath -ne $null) -And (Test-Path $EachFilepath)) {
+		Write-Host (("Adding Exclusion (Filepath)   [ ")+($EachFilepath)+(" ]"));
+		Add-MpPreference -ExclusionPath ($EachFilepath);
 	} Else {
-		Write-Host (("Skipping Exclusion (path doesn't exist)   [ ")+($EachExclusionPath)+(" ]"));
+		Write-Host (("Skipping Exclusion (Filepath doesn't exist)   [ ")+($EachFilepath)+(" ]"));
 	}
+}
+ForEach ($EachProcess In ($ExclusionProcesses | Select-Object -Unique)) {
+	Write-Host (("Adding Exclusion (Process)   [ ")+($EachProcess)+(" ]"));
+	Add-MpPreference -ExclusionProcess ($EachProcess);
 }
 
 # Review the list of exclusions
@@ -91,5 +110,11 @@ Write-Host "`n";
 #
 # Citation(s)
 #
-#		docs.microsoft.com  :::  "Configure and validate exclusions based on file extension and folder location"  :::  https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
+#		docs.microsoft.com
+#			"Add-MpPreference"
+#			 https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference?view=win10-ps
+#
+#		docs.microsoft.com
+#			"Configure and validate exclusions based on file extension and folder location"
+#			 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
 #

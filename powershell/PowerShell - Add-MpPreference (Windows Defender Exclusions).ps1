@@ -1,6 +1,6 @@
 # Windows Security - Items to add to Windows Defender's Exclusion List
 
-# User / Windows Directories
+# User / System Directories
 $LocalAppData = (${Env:LocalAppData}); # LocalAppData
 $ProgFilesX64 = ((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
 $ProgFilesX86 = ((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86
@@ -47,7 +47,6 @@ $ExclusionProcesses += ((${System32})+("\DriverStore\FileRepository\igdlh64.inf_
 $ExclusionProcesses += ((${System32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe"));  # (INTEL)
 # -- PROCESSES -- UserProfile
 $ExclusionProcesses += ((${UserProfile})+("\Documents\MobaXterm\slash\bin\Motty.exe"));
-
 
 
 # **** FILEPATH EXCLUSIONS

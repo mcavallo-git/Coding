@@ -81,33 +81,33 @@ else
 	RESOLVER_4="https://bot.whatismyipaddress.com";
 
 	# Attempt to resolve WAN IPv4
-	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_1}"); fi; RESOLVER_USED="${RESOLVER_1}";
-	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_2}"); fi; RESOLVER_USED="${RESOLVER_2}";
-	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_3}"); fi; RESOLVER_USED="${RESOLVER_3}";
-	if [ -z "${SET_WAN_IPv4}" ]; then SET_WAN_IPv4=$(curl -4 -L -s "${RESOLVER_4}"); fi; RESOLVER_USED="${RESOLVER_4}";
+	if [ -z "${THIS_IPv4_WAN}" ]; then THIS_IPv4_WAN=$(curl -4 -L -s "${RESOLVER_1}"); fi; RESOLVER_USED="${RESOLVER_1}";
+	if [ -z "${THIS_IPv4_WAN}" ]; then THIS_IPv4_WAN=$(curl -4 -L -s "${RESOLVER_2}"); fi; RESOLVER_USED="${RESOLVER_2}";
+	if [ -z "${THIS_IPv4_WAN}" ]; then THIS_IPv4_WAN=$(curl -4 -L -s "${RESOLVER_3}"); fi; RESOLVER_USED="${RESOLVER_3}";
+	if [ -z "${THIS_IPv4_WAN}" ]; then THIS_IPv4_WAN=$(curl -4 -L -s "${RESOLVER_4}"); fi; RESOLVER_USED="${RESOLVER_4}";
 
 	# Verify WAN IPv4
-	if [ -n "${SET_WAN_IPv4}" ]; then
-		echo "Resolved WAN IPv4 to: \"${SET_WAN_IPv4}\"";
+	if [ -n "${THIS_IPv4_WAN}" ]; then
+		echo "Resolved WAN IPv4 to: \"${THIS_IPv4_WAN}\"";
 	else 
 		echo "Unable to resolve WAN IPv4.";
-		echo "If you wish to manually set it, please set \${SET_WAN_IPv4} to your desired value and re-run this script.";
+		echo "If you wish to manually set it, please set \${THIS_IPv4_WAN} to your desired value and re-run this script.";
 		exit 1;
 	fi;
 
 	# ------------------------------------------------------------
 	# Determine LAN IPv4
-	SET_LAN_IPv4=$(ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.');
+	THIS_IPv4_LAN=$(ip addr show eth0 | grep inet | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.');
 
 	# Verify LAN IPv4
-	if [ -n "${SET_LAN_IPv4}" ]; then
-		echo "Resolved LAN IPv4 to: \"${SET_LAN_IPv4}\"";
+	if [ -n "${THIS_IPv4_LAN}" ]; then
+		echo "Resolved LAN IPv4 to: \"${THIS_IPv4_LAN}\"";
 	else 
 		echo "Unable to resolve LAN IPv4.";
-		echo "If you wish to manually set it, please set \${SET_LAN_IPv4} to your desired value and re-run this script.";
+		echo "If you wish to manually set it, please set \${THIS_IPv4_LAN} to your desired value and re-run this script.";
 		exit 1;
 	fi;
-
+	
 	SET_FQDN="${SET_HOSTNAME}.${SET_DOMAIN}";
 	
 	echo "Set Hostname: \"${SET_HOSTNAME}\"";
@@ -158,10 +158,10 @@ else
 			echo "HOSTS FILE (BEFORE-EDITS)" && cat "${HOSTS_FILE}";
 			TEMP_HOSTS="${HOSTS_FILE}_TEMP";
 			cp -f "${HOSTS_FILE}" "${TEMP_HOSTS}";
-			sed_1="/^${SET_WAN_IPv4}/c\ ";
-			sed_2="/^${SET_LAN_IPv4}/c\ ";
+			sed_1="/^${THIS_IPv4_WAN}/c\ ";
+			sed_2="/^${THIS_IPv4_LAN}/c\ ";
 			sed --in-place --expression="${sed_1}" --expression="${sed_2}" "${TEMP_HOSTS}";
-			sed_3="/^127.0.0.1/c\127.0.0.1 localhost localhost.localdomain\n${SET_WAN_IPv4} ${SET_HOSTNAME}.${SET_DOMAIN} ${SET_HOSTNAME}";
+			sed_3="/^127.0.0.1/c\127.0.0.1 localhost localhost.localdomain\n${THIS_IPv4_WAN} ${SET_HOSTNAME}.${SET_DOMAIN} ${SET_HOSTNAME}";
 			sed --in-place --expression="${sed_3}" "${TEMP_HOSTS}";
 			sed_whitespace_only='/^\s*$/d';
 			sed --in-place --expression="${sed_whitespace_only}" "${TEMP_HOSTS}"; # Remove whitespace-only lines

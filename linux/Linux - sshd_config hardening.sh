@@ -48,6 +48,8 @@ PrintLastLog yes
 
 PrintMotd no
 
+Protocol 2
+
 PubkeyAuthentication yes
 
 StrictModes yes
@@ -58,11 +60,13 @@ SyslogFacility AUTH
 
 UseDNS no
 
+UseLogin no
+
 UsePAM yes
 
-X11Forwarding yes
-
 X11DisplayOffset 10
+
+X11Forwarding yes
 
 #####   SFTP-ONLY USERS (NO SSH)
 #

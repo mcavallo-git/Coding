@@ -1,9 +1,10 @@
 #!/bin/bash
 
 number_of_live_dockers=$(docker ps --quiet | awk '{print $1}' | wc -l);
-number_of_docker_containers=$(docker ps --all --quiet | awk '{print $1}' | wc -l);
-number_of_docker_images_to_prune=$(docker images --all | grep -v 'IMAGE' | grep -v 'centos' | grep -v  'openjdk' | grep -v  'postgres' | grep -v  'sonarqube' | awk '{print $3}' | wc -l);
-number_of_docker_networks=$(docker network ls --format='{{.ID}}  {{.Name}}' | grep -v 'bridge' | grep -v 'host' | grep -v 'none' | awk '{print $1}' | wc -l);
+count_containers=$(docker ps --all --quiet | awk '{print $1}' | wc -l);
+count_prunable_images=$(docker images --all | grep -v 'IMAGE' | awk '{print $3}' | wc -l);
+count_prunable_skipOS_images=$(docker images --all | grep -v 'IMAGE' | grep -v 'centos' | grep -v  'openjdk' | grep -v  'postgres' | grep -v  'sonarqube' | awk '{print $3}' | wc -l);
+count_networks=$(docker network ls --format='{{.ID}}  {{.Name}}' | grep -v 'bridge' | grep -v 'host' | grep -v 'none' | awk '{print $1}' | wc -l);
 
 # Dockers Instances - Stop all Instances currently running
 printf "[ $number_of_live_dockers ] Instances Running - ";
@@ -17,8 +18,8 @@ else
 fi
 
 # Docker Containers - Remove all Containers stored Locally
-printf "[ $number_of_docker_containers ] Containers Stored Locally - ";
-if [ $number_of_docker_containers -gt 0 ];
+printf "[ $count_containers ] Containers Stored Locally - ";
+if [ $count_containers -gt 0 ];
 then
     printf "Performing REMOVE on all Local Containers...\n";
     docker rm --force $(docker ps --all --quiet)
@@ -28,8 +29,8 @@ else
 fi
 
 # Prune Images
-printf "[ $number_of_docker_images_to_prune ] Dangling Images - ";
-if [ $number_of_docker_images_to_prune -gt 0 ];
+printf "[ $count_prunable_images ] Dangling Images - ";
+if [ $count_prunable_images -gt 0 ];
 then
     printf "Performing PRUNE on all Dangling Images...\n";
     # docker rmi --force $(docker images --all | grep -v 'IMAGE' | grep -v 'centos' | grep -v  'openjdk' | grep -v  'postgres' | grep -v  'sonarqube' | awk '{print $3}');
@@ -41,8 +42,8 @@ fi
 
 
 # Prune Networks
-printf "[ ${number_of_docker_networks} ] Networks Stored Locally - ";
-if [ $number_of_docker_networks -gt 0 ];
+printf "[ ${count_networks} ] Networks Stored Locally - ";
+if [ $count_networks -gt 0 ];
 then
 	printf "PRUNING the following Networks:\n";
 	docker network ls --format='{{.ID}}  {{.Name}}' | grep -v 'bridge' | grep -v 'host' | grep -v 'none'

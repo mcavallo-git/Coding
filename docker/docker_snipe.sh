@@ -23,8 +23,9 @@ else
 	
 	docker_ps_count=$(docker ps | grep ${bash_arg1} | awk '{print $1}' | wc -l);
 	docker_ps_all_count=$(docker ps --all | grep ${bash_arg1} | awk '{print $1}' | wc -l);
-	docker_images_all_count=$(docker images --all | grep ${bash_arg1} | grep -v 'centos' | grep -v 'node' | awk '{print $3}' | wc -l);
 	docker_networks_all_count=$(docker network ls --format='{{.ID}}  {{.Name}}' | grep ${bash_arg1} | awk '{print $1}' | wc -l);
+	docker_images_all_count=$(docker images --all | grep ${bash_arg1} | awk '{print $3}' | wc -l);
+	docker_images_skipOS_count=$(docker images --all | grep ${bash_arg1} | grep -v 'centos' | grep -v 'node' | awk '{print $3}' | wc -l);
 	
 	HEAD_TEXT="matching \"${bash_arg1}\" stored locally - ";
 	
@@ -55,7 +56,8 @@ else
 	if [ $docker_images_all_count -gt 0 ]; then
 		printf "FORCE-REMOVING via \"docker rmi --force ...\":\n";
 		docker images --all | grep ${bash_arg1};
-		docker rmi --force $(docker images --all | grep ${bash_arg1} | grep -v 'centos' | grep -v 'node' | awk '{print $3}');
+		# docker rmi --force $(docker images --all | grep ${bash_arg1} | grep -v 'centos' | grep -v 'node' | awk '{print $3}');
+		docker rmi --force $(docker images --all | grep ${bash_arg1} | awk '{print $3}');
 		printf "\n";
 	else
 		printf "No Action Necessary\n";
@@ -74,12 +76,12 @@ else
 	
 	# Prune System
 	printf "[ - ] Clean-Up & Exit - ";
-	printf "Running generic sweep \"docker system prune -f\":\n";
-	docker system prune -f;
+	printf "Running generic sweep \"docker system prune --filter 'label=\"${bash_arg1}\"' --force\":\n";
+	docker system prune --force --filter 'label="'${bash_arg1}'"' --force;
 	echo "";
 	
-fi
+fi;
 	
 # Footer
-echo -e "\n$(date +'%r, %B %d, %Y (%A)')\n✓ Finished ${THIS_SCRIPT}"
-exit 0
+echo -e "\n$(date +'%r, %B %d, %Y (%A)')\n✓ Finished ${THIS_SCRIPT}";
+exit 0;

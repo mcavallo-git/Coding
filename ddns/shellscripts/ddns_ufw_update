@@ -25,6 +25,13 @@ else
 	exec > >(tee -a "${LOGFILE}" );
 	exec 2>&1;
 
+	# "Verbose-ness", e.g. Log Output-Level
+	if [ -n "${VERBOSITY}" ] && (("${VERBOSITY}" >= "1")); then
+		VERBOSE="1";
+	else
+		VERBOSE="0";
+	fi;
+
 	# Files to pull data in-from
 	HOSTS_WHITELIST="/etc/ddns_ufw_update.whitelist";
 	OLD_ALLOWEDS="/etc/ddns_ufw_update.resolved";
@@ -39,7 +46,7 @@ else
 			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✓ Creating Rule: ${proto}/${port} ALLOW IN ${ip}";
 			ufw allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already exists: ${proto}/${port} ALLOW IN ${ip}";
+			if [ "$VERBOSE" == "1" ]; then echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already exists: ${proto}/${port} ALLOW IN ${ip}"; fi;
 		fi;
 	}
 
@@ -53,7 +60,7 @@ else
 			echo "$(date +'%Y-%m-%d %H:%M:%S') | ✘ Deleting Rule: ${proto}/${port} ALLOW IN ${ip}";
 			ufw delete allow proto ${proto} from ${ip} to any port ${port};
 		else
-			echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already deleted: ${proto}/${port} ALLOW IN ${ip}";
+			if [ "$VERBOSE" == "1" ]; then echo "$(date +'%Y-%m-%d %H:%M:%S') | … No action - Rule already deleted: ${proto}/${port} ALLOW IN ${ip}"; fi;
 		fi;
 	}
 

@@ -1,14 +1,12 @@
-#!/bin/bash
-
+#
 # SSHD_CONF="/etc/ssh/sshd_config";
+#
+# See the sshd_config(5) manpage for details
+#
 
 AddressFamily inet
 
-AllowGroups cavalol
-
 AllowTcpForwarding no
-
-AllowUsers cavalol
 
 AuthenticationMethods publickey,keyboard-interactive
 
@@ -24,11 +22,11 @@ IgnoreRhosts yes
 
 HostbasedAuthentication no
 
-LoginGraceTime 30
+LoginGraceTime 60
 
 LogLevel INFO
 
-MaxAuthTries 5
+MaxAuthTries 1
 
 MaxSessions 5
 
@@ -82,6 +80,7 @@ Match Group sftp_jailed_users
 #
 # Documentation
 #		--> https://linux.die.net/man/5/sshd_config
+#		--> https://freebsd.org/cgi/man.cgi?sshd_config(5)
 #
 #
 #	Discussion

@@ -20,8 +20,8 @@ else
 
 	# Log all shell output & error output to logfile
 	LOGDIR="/var/log/ddns_ufw_update"; mkdir -p "${LOGDIR}";
-	# LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Ywk%U')";
-	LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Y-%m-%d')";
+	LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Ywk%U')";
+	# LOGFILE="${LOGDIR}/$(date +'ddns_ufw_update_%Y-%m-%d')";
 	exec > >(tee -a "${LOGFILE}" );
 	exec 2>&1;
 

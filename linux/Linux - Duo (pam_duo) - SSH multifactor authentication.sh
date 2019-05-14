@@ -5,7 +5,7 @@
 
 # ------------------------------------------------------------
 
-apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev
+apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev;
 
 # Install duo_unix
 mkdir -p "${HOME}/pam_duo_install" && cd "${HOME}/pam_duo_install";

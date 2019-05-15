@@ -9,7 +9,7 @@ $FilezillaSiteSettings = ("${Env:USERPROFILE}\AppData\Roaming\FileZilla\sitemana
 $Haystack = (Get-Content ("${FilezillaSiteSettings}"));
 
 # Define the "Pitchfork", e.g. the regex pattern which helps us parse through the "Haystack" to find the "Needle"
-$Pitchfork_RegexDeprecatedKeys = (('<Keyfile>([\w\:\\\-_\.]+(?:.ssh|_SSH)[\w\:\\\-_\.]*(?:boneal|bnl)[\w\:\\\-_\.]*\.pem)</Keyfile>'));
+$Pitchfork_RegexDeprecatedKeys = (('<Keyfile>([a-zA-Z]\:[\w\s\\\-_\.\,\(\)]+(?:.ssh|_SSH)[\w\s\\\-_\.\,\(\)]*(?:boneal|bnl)[\w\s\\\-_\.\,\(\)]*\.pem)</Keyfile>'));
 
 # Define the "Needle", e.g. the matches returned from the regex (the output from the "Pitchfork" pitching through the "Haystack")
 $Needle = [Regex]::Match(${Haystack}, ${Pitchfork_RegexDeprecatedKeys}); # Parse through the "Haystack", looking for the "Needle"

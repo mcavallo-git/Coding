@@ -14,6 +14,8 @@ $ExclusionProcesses = @();
 # -- PROCESSES -- LocalAppData
 $ExclusionProcesses += ((${LocalAppData})+("\Dropbox\Client\Dropbox.exe"));
 $ExclusionProcesses += ((${LocalAppData})+("\GitHubDesktop\GitHubDesktop.exe"));
+$ExclusionProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.5\GitHubDesktop.exe"));
+$ExclusionProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.5\resources\app\git\mingw64\bin\git.exe"));
 # -- PROCESSES -- ProgFiles X64
 $ExclusionProcesses += ((${ProgFilesX64})+("\AutoHotkey\AutoHotkey.exe"));
 $ExclusionProcesses += ((${ProgFilesX64})+("\Classic Shell\ClassicStartMenu.exe"));

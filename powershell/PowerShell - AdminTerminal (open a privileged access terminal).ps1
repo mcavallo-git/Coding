@@ -16,7 +16,7 @@ Start-Sleep 3;
 
 # Relaunch the script with administrator privileges
 Function AdminTerminal {
-	If ((RuntimeUserIsPrivileged) -eq $True) {
+	If ((RuntimeUserIsPrivileged) -eq $False) {
 		Write-Host "Opening Privileged-Access Terminal...";
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 		Start-Sleep 10;

@@ -1,10 +1,7 @@
 
 
 # Determine if runtime user is a privilged user (or not)
-Function RuntimeUserIsPrivileged {
-	Param (
-
-	)
+Function RuntimeUserIsPrivileged() {
 	$ReturnedVal;
 	If (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 		$ReturnedVal = $true;
@@ -17,7 +14,7 @@ Function RuntimeUserIsPrivileged {
 
 
 # Relaunch the script with administrator privileges
-Function AdminTerminal {
+Function AdminTerminal() {
 	If (RuntimeUserIsPrivileged -eq $true) {
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 		Exit;

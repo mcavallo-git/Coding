@@ -17,7 +17,7 @@ Function RuntimeUserIsPrivileged {
 
 
 # Relaunch the script with administrator privileges
-Function RelaunchScriptAsAdmin {
+Function AdminTerminal {
 	If (RuntimeUserIsPrivileged -eq $true) {
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 		Exit;
@@ -28,7 +28,7 @@ Function RelaunchScriptAsAdmin {
 
 
 # Run the function
-RelaunchScriptAsAdmin;
+AdminTerminal;
 
 
 #

@@ -2,7 +2,7 @@
 # Determine if Runtime-User is an Administrator
 #		--> Note: The SID (Security Identifier) value "S-1-5-32-544" refers to the "Administrator" user, and is static across Windows installs
 #		--> Note: This is what happens a user right-clicks & selects "Run as Administrator" on a given executable in Windows
-function RunningAsAdministrator {
+Function RunningAsAdministrator {
 	Param(
 	)
 	$ReturnedVal = $Null;
@@ -19,7 +19,7 @@ function RunningAsAdministrator {
 }
 
 # Determine if the Runtime-User is part of the "Administrators" Local UserGroup
-function UserCanEscalatePrivileges {
+Function UserCanEscalatePrivileges {
 	Param(
 	)
 	$ReturnedVal = $Null;
@@ -35,7 +35,7 @@ function UserCanEscalatePrivileges {
 }
 
 # If needed, Relaunch the script with escalated (administrator) privileges
-function PrivilegeEscalation {
+Function PrivilegeEscalation {
 	Param (
 
 		[Boolean]$SkipExit = $False,

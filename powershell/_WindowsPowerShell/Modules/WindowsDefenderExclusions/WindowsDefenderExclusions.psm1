@@ -32,7 +32,11 @@ function WindowsDefenderExclusions {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
-		PrivilegeEscalation -Command WindowsDefenderExclusions -SkipExit;
+		$CommandString = "WindowsDefenderExclusions -SkipExit";
+		If ($PSBoundParameters.ContainsKey('Verbose')) { 
+			$CommandString += " -Verbose";
+		}
+		PrivilegeEscalation -Command ("${CommandString}");
 	} Else {
 		#
 		# ------------------------------------------------------------

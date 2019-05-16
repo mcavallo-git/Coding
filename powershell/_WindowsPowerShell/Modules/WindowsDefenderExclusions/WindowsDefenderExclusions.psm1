@@ -25,13 +25,15 @@ function WindowsDefenderExclusions {
 	)
 
 	# Require Escalated Privileges
-	$PSCommandArgs = @();
-	$i=0;
-	While ($i -lt $args.Length) {
-		$PSCommandArgs += $args[$i];
-		$i++;
+	If ((RunningAsAdministrator) -eq ($False)) {
+		$PSCommandArgs = @();
+		$i=0;
+		While ($i -lt $args.Length) {
+			$PSCommandArgs += $args[$i];
+			$i++;
+		}
+		PrivilegeEscalation -CommandArgs $PSCommandArgs -CommandPath $PSCommandPath;
 	}
-	PrivilegeEscalation -CommandArgs $PSCommandArgs -CommandPath $PSCommandPath;
 
 	#
 	# ------------------------------------------------------------

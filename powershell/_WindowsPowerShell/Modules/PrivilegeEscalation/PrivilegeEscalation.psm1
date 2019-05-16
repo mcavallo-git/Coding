@@ -39,8 +39,7 @@ Function PrivilegeEscalation {
 		[Parameter(Mandatory=$true)]
 		$CommandPath,
 		
-		[Parameter(Mandatory=$true)]
-		$CommandArgs,
+		$CommandArgs = "",
 
 		[Boolean]$SkipExit = $False,
 

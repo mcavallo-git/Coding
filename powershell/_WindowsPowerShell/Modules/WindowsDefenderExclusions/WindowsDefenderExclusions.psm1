@@ -25,7 +25,12 @@ function WindowsDefenderExclusions {
 	)
 
 	# Require Escalated Privileges
-	PrivilegeEscalation -CommandArgs $PSCommandArgs -CommandPath $PSCommandPath;
+	If ($PSCommandArgs -eq $Null) {
+		$CommandArgs = "";
+	} Else {
+		$CommandArgs = $PSCommandArgs;
+	}
+	PrivilegeEscalation -CommandArgs $CommandArgs -CommandPath $PSCommandPath;
 
 	#
 	# ------------------------------------------------------------

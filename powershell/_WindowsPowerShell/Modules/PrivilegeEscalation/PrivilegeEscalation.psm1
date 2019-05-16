@@ -52,7 +52,7 @@ Function PrivilegeEscalation {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 				Write-Host "`nPrivilegeEscalation  :::  Escalating privileges...`n" -BackgroundColor Black -ForegroundColor Green;
 			}
-			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
+			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$CommandPath`" $CommandArgs" -Verb RunAs;
 			If ($SkipExit -eq $False) {
 				Exit;
 			}

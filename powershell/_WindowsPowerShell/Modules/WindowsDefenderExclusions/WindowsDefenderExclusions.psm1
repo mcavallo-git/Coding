@@ -202,15 +202,17 @@ function WindowsDefenderExclusions {
 		#		APPLY THE EXCLUSIONS
 		#
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-			If (($_ -ne $null) -And (Test-Path $_)) {
+			If ($_ -ne $null) {
 				Add-MpPreference -ExclusionPath "$_";
 				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion (for filepath)   [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 				} Else {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+					If (Test-Path $_) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+					} Else {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+					}
 				}
-			} Else {
-				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
 			}
 		}
 		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
@@ -220,19 +222,20 @@ function WindowsDefenderExclusions {
 			} Else {
 				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
 			}
-
 		}
 		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-			If (($_ -ne $null) -And (Test-Path $_)) {
+			# If (($_ -ne $null) -And (Test-Path $_)) {
+			If ($_ -ne $null) {
 				Add-MpPreference -ExclusionProcess "$_";
 				If ($? -eq $True) {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 				} Else {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+					If (Test-Path $_) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+					} Else {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+					}
 				}
-
-			} Else {
-				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
 			}
 		}
 		#

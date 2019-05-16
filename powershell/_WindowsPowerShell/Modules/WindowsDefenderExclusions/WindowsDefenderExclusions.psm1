@@ -32,7 +32,7 @@ function WindowsDefenderExclusions {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
-		PrivilegeEscalation -CommandArgs $PSCommandArgs -CommandPath $PSCommandPath -SkipExit;
+		PrivilegeEscalation -Command WindowsDefenderExclusions -SkipExit;
 	} Else {
 		#
 		# ------------------------------------------------------------

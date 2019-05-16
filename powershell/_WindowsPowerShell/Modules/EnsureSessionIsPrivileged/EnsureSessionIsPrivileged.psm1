@@ -37,8 +37,8 @@ Function UserCanEscalatePrivileges {
 # If needed, Relaunch the script with escalated (administrator) privileges
 Function PrivilegeEscalation {
 	Param (
-		[Boolean] $SkipExit = $False,
-		[Switch] $Quiet
+		[Boolean]$SkipExit = $False,
+		[Switch]$Quiet
 	)
 	If ((RunningAsAdministrator) -eq ($False)) {
 		If ((UserCanEscalatePrivileges) -eq ($True)) {

@@ -123,7 +123,10 @@ function WindowsDefenderExclusions {
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Git\cmd\git.exe"));
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Git\git-bash.exe"));
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Greenshot\Greenshot.exe"));
+	$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\CefSharp.BrowserSubprocess.exe"));
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\Mailbird.exe"));
+	$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\MailbirdUpdater.exe"));
+	$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\sqlite3.exe"));
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbam.exe"));
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamtray.exe"));
 	$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamservice.exe"));

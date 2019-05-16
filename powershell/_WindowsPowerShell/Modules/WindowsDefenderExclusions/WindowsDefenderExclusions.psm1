@@ -147,7 +147,6 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamservice.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Microsoft VS Code\Code.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Microsoft VS Code\*\rg.exe"));
-		# $ExcludedProcesses += ((${ProgFilesX64})+("\Microsoft VS Code\resources\app\node_modules.asar.unpacked\vscode-ripgrep\bin\rg.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\Display.NvContainer\NVDisplay.Container.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NvContainer\nvcontainer.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\ShadowPlay\nvsphelper64.exe"));

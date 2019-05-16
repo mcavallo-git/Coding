@@ -3,7 +3,7 @@
 #		--> Note: The SID (Security Identifier) value "S-1-5-32-544" refers to the "Administrator" user, and is static across Windows installs
 #		--> Note: This is what happens a user right-clicks & selects "Run as Administrator" on a given executable in Windows
 Function RunningAsAdministrator {
-	Param (
+	Param(
 	)
 	$ReturnedVal = $Null;
 	$AdminSID = "S-1-5-32-544";
@@ -20,7 +20,7 @@ Function RunningAsAdministrator {
 
 # Determine if the Runtime-User is part of the "Administrators" Local UserGroup
 Function UserCanEscalatePrivileges {
-	Param (
+	Param(
 	)
 	$ReturnedVal = $Null;
 	$Haystack = ((Get-LocalGroupMember -Group "Administrators").Name);
@@ -37,8 +37,11 @@ Function UserCanEscalatePrivileges {
 # If needed, Relaunch the script with escalated (administrator) privileges
 Function PrivilegeEscalation {
 	Param (
-		[Boolean] $SkipExit = $False
-		[Switch] $Quiet
+
+		[Boolean]$SkipExit = $False,
+
+		[Switch]$Quiet
+
 	)
 	If ((RunningAsAdministrator) -eq ($False)) {
 		If ((UserCanEscalatePrivileges) -eq ($True)) {
@@ -54,6 +57,7 @@ Function PrivilegeEscalation {
 				Write-Host "`nPrivilegeEscalation  :::  Error (User lacks sufficient privilege to perform escalation)`n" -BackgroundColor Black -ForegroundColor Red;
 			}
 		}
+	} Else {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 			Write-Host "`nPrivilegeEscalation  ::: Skipped (session is already running as Administrator)`n" -BackgroundColor Black -ForegroundColor Yellow;
 		}
@@ -61,8 +65,8 @@ Function PrivilegeEscalation {
 }
 
 Export-ModuleMember -Function "PrivilegeEscalation";
-Export-ModuleMember -Function "RunningAsAdministrator";
-Export-ModuleMember -Function "UserCanEscalatePrivileges";
+# Export-ModuleMember -Function "RunningAsAdministrator";
+# Export-ModuleMember -Function "UserCanEscalatePrivileges";
 
 
 

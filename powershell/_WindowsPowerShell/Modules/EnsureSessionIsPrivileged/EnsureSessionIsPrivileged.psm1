@@ -61,8 +61,8 @@ Function PrivilegeEscalation {
 }
 
 Export-ModuleMember -Function "PrivilegeEscalation";
-Export-ModuleMember -Function "RunningAsAdministrator";
-Export-ModuleMember -Function "UserCanEscalatePrivileges";
+# Export-ModuleMember -Function "RunningAsAdministrator";
+# Export-ModuleMember -Function "UserCanEscalatePrivileges";
 
 
 

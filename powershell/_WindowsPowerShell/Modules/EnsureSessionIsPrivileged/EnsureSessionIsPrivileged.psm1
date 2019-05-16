@@ -2,7 +2,7 @@
 # Determine if Runtime-User is an Administrator
 #		--> Note: The SID (Security Identifier) value "S-1-5-32-544" refers to the "Administrator" user, and is static across Windows installs
 #		--> Note: This is what happens a user right-clicks & selects "Run as Administrator" on a given executable in Windows
-Function RunningAsAdministrator {
+function RunningAsAdministrator {
 	Param(
 	)
 	$ReturnedVal = $Null;
@@ -19,7 +19,7 @@ Function RunningAsAdministrator {
 }
 
 # Determine if the Runtime-User is part of the "Administrators" Local UserGroup
-Function UserCanEscalatePrivileges {
+function UserCanEscalatePrivileges {
 	Param(
 	)
 	$ReturnedVal = $Null;
@@ -35,13 +35,13 @@ Function UserCanEscalatePrivileges {
 }
 
 # If needed, Relaunch the script with escalated (administrator) privileges
-Function PrivilegeEscalation {
+function PrivilegeEscalation {
 	Param (
 
 		[Boolean]$SkipExit = $False,
 
 		[Switch]$Quiet
-		
+
 	)
 	If ((RunningAsAdministrator) -eq ($False)) {
 		If ((UserCanEscalatePrivileges) -eq ($True)) {
@@ -57,6 +57,7 @@ Function PrivilegeEscalation {
 				Write-Host "`nPrivilegeEscalation  :::  Error (User lacks sufficient privilege to perform escalation)`n" -BackgroundColor Black -ForegroundColor Red;
 			}
 		}
+	} Else {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 			Write-Host "`nPrivilegeEscalation  ::: Skipped (session is already running as Administrator)`n" -BackgroundColor Black -ForegroundColor Yellow;
 		}

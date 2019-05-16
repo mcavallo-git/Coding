@@ -23,10 +23,8 @@ Function UserCanEscalatePrivileges {
 	Param(
 	)
 	$ReturnedVal = $Null;
-	$Haystack = ((Get-LocalGroupMember -Group "Administrators").Name);
-	$RegexPattern = (('^')+([Regex]::Escape(([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).Identities.Name))+('$'));
-	$Needle = [Regex]::Match($Haystack,$RegexPattern);
-	If ($Needle.Success -eq $True) {
+	$RuntimeUserName = (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).Identities.Name);
+	If (((Get-LocalGroupMember -Group "Administrators").Name).Contains($RuntimeUserName)) {
 		$ReturnedVal = $True;
 	} Else {
 		$ReturnedVal = $False;

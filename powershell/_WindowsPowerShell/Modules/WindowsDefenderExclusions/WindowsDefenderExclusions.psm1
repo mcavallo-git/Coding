@@ -204,19 +204,19 @@ function WindowsDefenderExclusions {
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
 			If (($_ -ne $null) -And (Test-Path $_)) {
 				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Adding Exclusion (Filepath)   [ ")+($_)+(" ]")); }
-				Add-MpPreference -ExclusionPath ($_);
+				Add-MpPreference -ExclusionPath "$_";
 			} Else {
 				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (Filepath doesn't exist)   [ ")+($_)+(" ]")); }
 			}
 		}
 		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
 			If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Adding Exclusion (Extension)   [ ")+($_)+(" ]")); }
-			Add-MpPreference -ExclusionExtension ($_);
+			Add-MpPreference -ExclusionExtension "$_";
 		}
 		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
 			If (($_ -ne $null) -And (Test-Path $_)) {
 				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Adding Exclusion (Process)   [ ")+($_)+(" ]")); }
-				Add-MpPreference -ExclusionProcess ($_);
+				Add-MpPreference -ExclusionProcess "$_";
 			} Else {
 				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (Process doesn't exist)   [ ")+($_)+(" ]")); }
 			}

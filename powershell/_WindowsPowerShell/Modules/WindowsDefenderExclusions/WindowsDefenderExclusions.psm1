@@ -208,8 +208,12 @@ function WindowsDefenderExclusions {
 			Add-MpPreference -ExclusionExtension ($_);
 		}
 		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-			If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Adding Exclusion (Process)   [ ")+($_)+(" ]")); }
-			Add-MpPreference -ExclusionProcess ($_);
+			If (($_ -ne $null) -And (Test-Path $_)) {
+				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Adding Exclusion (Process)   [ ")+($_)+(" ]")); }
+				Add-MpPreference -ExclusionProcess ($_);
+			} Else {
+				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (Process doesn't exist)   [ ")+($_)+(" ]")); }
+			}
 		}
 		#
 		# ------------------------------------------------------------

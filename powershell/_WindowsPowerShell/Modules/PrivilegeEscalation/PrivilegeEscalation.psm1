@@ -38,10 +38,6 @@ Function PrivilegeEscalation {
 
 		[Parameter(Mandatory=$true)]
 		$Command,
-		# $CommandPath,
-		
-		$CommandArgs = "",
-
 
 		[Switch]$SkipExit,
 
@@ -53,7 +49,6 @@ Function PrivilegeEscalation {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 				Write-Host "`nPrivilegeEscalation  :::  Escalating privileges...`n" -BackgroundColor Black -ForegroundColor Green;
 			}
-			# Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$CommandPath $CommandArgs`"" -Verb RunAs;
 			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$Command`"" -Verb RunAs;
 			# Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$CommandPath`" $CommandArgs" -Verb RunAs;
 			If (!($PSBoundParameters.ContainsKey('SkipExit'))) {

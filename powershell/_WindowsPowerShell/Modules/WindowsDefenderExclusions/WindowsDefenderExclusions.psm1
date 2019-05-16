@@ -23,6 +23,10 @@ function WindowsDefenderExclusions {
 		[Switch]$Verbose
 
 	)
+
+	# Require Escalated Privileges
+	PrivilegeEscalation;
+
 	#
 	# ------------------------------------------------------------
 	#

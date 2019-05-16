@@ -36,6 +36,12 @@ Function UserCanEscalatePrivileges {
 Function PrivilegeEscalation {
 	Param (
 
+		[Parameter(Mandatory=$true)]
+		$CommandPath,
+		
+		[Parameter(Mandatory=$true)]
+		$CommandArgs,
+
 		[Boolean]$SkipExit = $False,
 
 		[Switch]$Quiet

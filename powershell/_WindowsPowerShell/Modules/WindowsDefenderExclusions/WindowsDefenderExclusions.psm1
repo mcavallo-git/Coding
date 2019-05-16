@@ -222,6 +222,8 @@ function WindowsDefenderExclusions {
 			Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
 			Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
 			Write-Host "`n";
+			Write-Host "`nClosing after 60s...";
+			Write-Host "`n";
 			Start-Sleep 60;
 		}
 		#

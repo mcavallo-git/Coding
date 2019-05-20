@@ -59,7 +59,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @("platyPS");
 If ($psm1.iteration -eq 1) {
-	Write-Host (("`nTask - Import gallery powershell modules (pass ")+($psm1.iteration)+("/2)...")) -ForegroundColor green;
+	Write-Host (("`nTask - Import powershell modules (pass ")+($psm1.iteration)+("/2) - microsoft gallery modules")) -ForegroundColor green;
 	Foreach ($EachGalleryModule In ($PSGalleryModules)) {
 		If (!(Get-Module -ListAvailable -Name ($EachGalleryModule))) {
 			Install-Module -Name ($EachGalleryModule) -Scope CurrentUser -Force;
@@ -77,7 +77,7 @@ If ($psm1.iteration -eq 1) {
 		}
 	}
 } ElseIf ($psm1.iteration -eq 2) {
-	Write-Host (("`nTask - Import git repository powershell modules (pass ")+($psm1.iteration)+("/2)...")) -ForegroundColor green;
+	Write-Host (("`nTask - Import powershell modules (pass ")+($psm1.iteration)+("/2) - git repository modules")) -ForegroundColor green;
 }
 
 # ------------------------------------------------------------

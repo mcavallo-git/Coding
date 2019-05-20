@@ -57,21 +57,18 @@ function GitCloneRepo {
 		
 	} Else {
 
-		# Attempt to resolve any URL-Redirects
+		# Attempt to resolve any git repository url redirects
 		$ResolvedUrl = [System.Net.HttpWebRequest]::Create($Url).GetResponse().ResponseUri.AbsoluteUri;
 
 		$ResolvedExitCode = If($?){0}Else{1};
 		If ($ResolvedExitCode -ne 0) {
-			# # Failed to resolve Url
-			# Write-Host (("Fail - Unable to resolve Git-Repo Url: ") + ($Url));
-			# Start-Sleep -Seconds 60;
-			# Exit 1;
-			$ResolvedUrl = $Url
+			# Unable to resolve git repository url
+			$ResolvedUrl = $Url;
 		}
 
 		# Determine if Git-Repo Url is forwarded or not
 		If ($ResolvedUrl -ne $Url) {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Pass - Resolved git repository url from `"${Url}`" to `"${ResolvedUrl}`""; }
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Pass - Resolved git repository url to `"${ResolvedUrl}`" from `"${Url}`""; }
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Pass - Resolved git repository url to `"${ResolvedUrl}`""; }
 		}
@@ -90,13 +87,20 @@ function GitCloneRepo {
 	
 	
 	If ((Test-Path -Path ($Repo.ConfigFile_Fullpath)) -eq $true) {
+
 		# Repo exists & has a "/.git/config" file in it - try to reset it
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Task - Resetting local git repository to branch `"origin/${GitBranch}`""; }
 		Set-Location -Path ($WorkingTreeFullpath);
+		$CommandDescription = "Resetting local git repository to branch `"origin/${GitBranch}`"";
 		$Repo.ResetHead = (git reset --hard "origin/${GitBranch}");
 		$Repo.ResetExitCode = If($?){0}Else{1};
-		$Repo.Pull = (git pull);
-		$Repo.PullExitCode = If($?){0}Else{1};
+		If ($Repo.CloneExitCode -ne 0) {
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Fail - Error thrown while [")+($CommandDescription)+("]")); }
+		} Else {
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Success while [")+($CommandDescription)+("]")); }
+		}
+		# $Repo.Pull = (git pull);
+		# $Repo.PullExitCode = If($?){0}Else{1};
+
 
 	} Else {
 

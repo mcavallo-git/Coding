@@ -95,10 +95,10 @@ function GitCloneRepo {
 		$CommandDescription = "Resetting local git repository to branch `"origin/${GitBranch}`"";
 		$Repo.ResetHead = (git reset --hard "origin/${GitBranch}");
 		$Repo.ResetExitCode = If($?){0}Else{1};
-		If ($Repo.ResetExitCode -eq 0) {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Success while [")+($CommandDescription)+("]")); }
-		} Else {
+		If ($Repo.ResetExitCode -ne 0) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Fail - Error thrown while [")+($CommandDescription)+("]")); }
+		} Else {
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Success while [")+($CommandDescription)+("]")); }
 		}
 		# $Repo.Pull = (git pull);
 		# $Repo.PullExitCode = If($?){0}Else{1};

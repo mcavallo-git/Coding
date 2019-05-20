@@ -1,4 +1,4 @@
-function ProfileStartupSync {
+function ProfileSync {
 	Param(
 
 		[String]$MessageOnSuccess = 'Pass - Startup scripts configured (see $Profile)',
@@ -89,4 +89,4 @@ function ProfileStartupSync {
 
 }
 
-Export-ModuleMember -Function "ProfileStartupSync";
+Export-ModuleMember -Function "ProfileSync";

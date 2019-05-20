@@ -276,7 +276,7 @@ Foreach ($file In ($psm1.git_modules)) {
 
 		} Else {
 			
-			$RequiredModules_FirstIteration = @("EnsureCommandExists","GitCloneRepo","ProfileStartupSync");
+			$RequiredModules_FirstIteration = @("EnsureCommandExists","GitCloneRepo","ProfileSync");
 
 			# If [ we've already updated the codebase (iteration 2) ] or [ we are on a module which is required to update the codebase ]
 			If (($Env:UpdatedCodebase -eq $true) -or (($RequiredModules_FirstIteration -match ($file.BaseName)) -eq ($file.BaseName))) {
@@ -334,7 +334,7 @@ If ($Env:UpdatedCodebase -eq $null) {
 
 	# Iteration 2/2 - Upon login, after [ updating from git-repo ], which applies [ Modules to be used throughout the user's session ]
 
-	ProfileStartupSync `
+	ProfileSync `
 		-OverwriteProfile `
 		-GithubOwner (${GithubOwner}) `
 		-GithubRepo (${GithubRepo}) `

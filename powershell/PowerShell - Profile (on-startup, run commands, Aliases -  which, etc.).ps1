@@ -1,2 +1,2 @@
 
-## Refer to local file "_WindowsPowerShell/ProfileStartupSync/ProfileStartupSync.psm1"
+## Refer to local file "_WindowsPowerShell/ProfileSync/ProfileSync.psm1"

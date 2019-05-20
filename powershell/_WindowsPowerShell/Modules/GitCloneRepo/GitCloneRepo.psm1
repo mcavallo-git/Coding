@@ -23,7 +23,7 @@ function GitCloneRepo {
 
 		$DefaultDirname = (($TmpDir)+("/")+("GitCloneRepo"));
 
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Defaulting Git ParentDir to: ")+($DefaultDirname)); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Defaulting git repository's parent directory to `"")+($DefaultDirname)+("`"")); }
 
 		$LocalDirname = $DefaultDirname;
 		
@@ -41,7 +41,7 @@ function GitCloneRepo {
 
 	# Determine if we need to create repository's parent-directory
 	If ($Repo.ParentDirExists -eq $false) {
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Creating repo parent-directory: ") + ($Repo.ParentDir)); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Creating git repository's parent directory `"")+($Repo.ParentDir)+("`"")); }
 		New-Item -ItemType "Directory" -Path (($Repo.ParentDir)+("/")) | Out-Null;
 	} Else {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) { <# Write-Host (("Skip - No need to create repo parent-directory (already exists): ") + ($Repo.ParentDir)); #> }
@@ -58,8 +58,6 @@ function GitCloneRepo {
 	} Else {
 
 		# Attempt to resolve any URL-Redirects
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Resolving Git-Repo Url: ") + ($Url)); }
-		
 		$ResolvedUrl = [System.Net.HttpWebRequest]::Create($Url).GetResponse().ResponseUri.AbsoluteUri;
 
 		$ResolvedExitCode = If($?){0}Else{1};
@@ -73,9 +71,9 @@ function GitCloneRepo {
 
 		# Determine if Git-Repo Url is forwarded or not
 		If ($ResolvedUrl -ne $Url) {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Git-Repo Url forwarded to source: ") + ($ResolvedUrl)); }
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Pass - Resolved git repository url from `"${Url}`" to `"${ResolvedUrl}`""; }
 		} Else {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Git-Repo Url exists as source: ") + ($ResolvedUrl)); }
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Pass - Resolved git repository url to `"${ResolvedUrl}`""; }
 		}
 
 	}
@@ -93,7 +91,7 @@ function GitCloneRepo {
 	
 	If ((Test-Path -Path ($Repo.ConfigFile_Fullpath)) -eq $true) {
 		# Repo exists & has a "/.git/config" file in it - try to reset it
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Task - Resetting local git-repository to branch `"origin/${GitBranch}`""; }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Task - Resetting local git repository to branch `"origin/${GitBranch}`""; }
 		Set-Location -Path ($WorkingTreeFullpath);
 		$Repo.ResetHead = (git reset --hard "origin/${GitBranch}");
 		$Repo.ResetExitCode = If($?){0}Else{1};
@@ -154,13 +152,13 @@ function GitCloneRepo {
 		# Optional - Revert to specific commit SHA hash (revert the repository to a speicifc revision/point-in-time)
 		$CommitSHA = $CommitSHA.Trim();
 		If (($PSBoundParameters.ContainsKey('CommitSHA')) -and ($CommitSHA.Length -eq "40")) {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Reverting Repository to commit SHA: `"")+($CommitSHA)+("`"")); }
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Reverting local git repository to commit SHA `"")+($CommitSHA)+("`"")); }
 			Set-Location -Path ($WorkingTreeFullpath);
 			$Repo.ResetHead = (git reset --hard "$CommitSHA");
 		}
 
 		# Successfully found (at least one) repo which exists
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Updated local git repo: `"")+($WorkingTreeFullpath)+("`"")); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Pass - Updated local git repository `"")+($WorkingTreeFullpath)+("`"")); }
 
 		
 		# Get the absolute path to this git working-tree via linux sh/bash command

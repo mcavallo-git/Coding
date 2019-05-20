@@ -68,7 +68,7 @@ function ProfileSync {
 	
 	$Pro = @();
 
-	$Pro += 'Write-Host "Loading personal and system profiles...";';
+	$Pro += 'Write-Host "Loading personal and system profiles...`n";';
 
 	$Pro += 'New-Alias grep Select-String;';
 

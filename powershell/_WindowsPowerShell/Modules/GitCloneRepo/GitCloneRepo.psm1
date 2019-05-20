@@ -93,7 +93,7 @@ function GitCloneRepo {
 	
 	If ((Test-Path -Path ($Repo.ConfigFile_Fullpath)) -eq $true) {
 		# Repo exists & has a "/.git/config" file in it - try to reset it
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Task - Resetting Local Git-Repository to Branch `"origin/${GitBranch}`""; }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Task - Resetting local git-repository to branch `"origin/${GitBranch}`""; }
 		Set-Location -Path ($WorkingTreeFullpath);
 		$Repo.ResetHead = (git reset --hard "origin/${GitBranch}");
 		$Repo.ResetExitCode = If($?){0}Else{1};

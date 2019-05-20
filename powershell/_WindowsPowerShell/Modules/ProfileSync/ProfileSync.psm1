@@ -69,7 +69,7 @@ function ProfileSync {
 	$Pro = @();
 	$Pro += 'New-Alias grep Select-String;';
 	$Pro += 'New-Alias which Get-Command;';
-	$Pro += (('$GithubOwner="')+(${GithubOwner})+('"; $GithubRepo="')+(${GithubRepo})+('";')+(' Write-Host "`nSyncing git-repository: `"https://github.com/${GithubOwner}/${GithubRepo}.git`"`n"; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";'));
+	$Pro += (('$GithubOwner="')+(${GithubOwner})+('"; $GithubRepo="')+(${GithubRepo})+('";')+(' Write-Host "Syncing git-repository: `"https://github.com/${GithubOwner}/${GithubRepo}.git`"`n"; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";'));
 	$Pro += 'Set-Location "${HOME}";';
 
 	### Overwrite $Profile content

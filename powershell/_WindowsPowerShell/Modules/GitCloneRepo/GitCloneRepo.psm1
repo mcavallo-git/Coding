@@ -44,7 +44,7 @@ function GitCloneRepo {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Creating repo parent-directory: ") + ($Repo.ParentDir)); }
 		New-Item -ItemType "Directory" -Path (($Repo.ParentDir)+("/")) | Out-Null;
 	} Else {
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Skip - No need to create repo parent-directory (already exists): ") + ($Repo.ParentDir)); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { <# Write-Host (("Skip - No need to create repo parent-directory (already exists): ") + ($Repo.ParentDir)); #> }
 	}
 
 	Set-Location -Path ($Repo.ParentDir);

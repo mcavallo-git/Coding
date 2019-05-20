@@ -16,6 +16,8 @@ function GitCloneRepo {
 
 	)
 	
+	If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Attempting to clone git repository `"${Url}`" ")); }
+
 	# Default the parent-dir to temp-dir (when no dir is passed via parameter specification)
 	If (!($PSBoundParameters.ContainsKey('LocalDirname'))) {
 
@@ -23,7 +25,7 @@ function GitCloneRepo {
 
 		$DefaultDirname = (($TmpDir)+("/")+("GitCloneRepo"));
 
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Defaulting git repository's parent directory to `"")+($DefaultDirname)+("`"")); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Info - Defaulting git repository's parent directory to `"")+($DefaultDirname)+("`"")); }
 
 		$LocalDirname = $DefaultDirname;
 		
@@ -41,7 +43,7 @@ function GitCloneRepo {
 
 	# Determine if we need to create repository's parent-directory
 	If ($Repo.ParentDirExists -eq $false) {
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Creating git repository's parent directory `"")+($Repo.ParentDir)+("`"")); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Info - Creating git repository's parent directory `"")+($Repo.ParentDir)+("`"")); }
 		New-Item -ItemType "Directory" -Path (($Repo.ParentDir)+("/")) | Out-Null;
 	} Else {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) { <# Write-Host (("Skip - No need to create repo parent-directory (already exists): ") + ($Repo.ParentDir)); #> }

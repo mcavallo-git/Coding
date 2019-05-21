@@ -13,7 +13,8 @@
 # ------------------------------------------------------------
 
 #
-# Locate all files named "config" who have the parent directory ".git" which is located somewhere under the current-user's "${HOME}" directory
+# Find all Git-Repo directories within the current user's "${HOME}" directory
+#		|--> Does this by locating all files named "config" whose the parent directory is named ".git", all of which is located within the current user's "${HOME}" directory
 #
 Get-ChildItem -Path "${HOME}" -Filter "config" -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent.FullName; }
 

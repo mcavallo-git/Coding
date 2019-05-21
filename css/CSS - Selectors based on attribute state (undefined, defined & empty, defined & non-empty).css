@@ -1,0 +1,34 @@
+
+/* Select [ ALL divs ] */
+div
+{
+	border: 1px solid gray;
+	height: 100px;
+	margin: 10px;
+	width: 100px;
+}
+
+
+/* Select divs where [ the attribute IS-DEFINED ] & [ the attribute-value is EITHER non-empty or empty ] */
+div[data-attr]
+{
+	height: 50px !important;
+}
+
+/* Select divs where [ the attribute IS-DEFINED ] & [ the attribute-value is NON-EMPTY ] */
+div:not([data-attr=''])
+{
+	background: green;
+}
+
+/* Select divs where [ the attribute IS-DEFINED ] & [ the attribute-value is EMPTY ] */
+div[data-attr='']
+{
+	background: red;
+}
+
+/* Select divs where [ the attribute is NOT-DEFINED ] */
+div:not([data-attr])
+{
+	background: blue;
+}

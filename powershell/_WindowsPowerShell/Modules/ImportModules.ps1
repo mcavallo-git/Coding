@@ -125,7 +125,7 @@ If ($psm1.verbosity -ne 0) { Write-Host (("Info - PowerShell Modules directory's
 # Update each module from the git repository
 #
 
-If (Test-Path -PathType Container -Path ($PSScriptRoot) -eq $false) {
+If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 
 	If ($psm1.verbosity -ne 0) { Write-Host ("Fail - Missing git source directory: ${PSScriptRoot}"); }
 	Start-Sleep -Seconds 60;

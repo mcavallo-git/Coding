@@ -55,8 +55,8 @@ function GitSyncAll {
 	} Else {
 		### Do not recurse & only use the directories 1-level-deep within the given base-directory
 		ForEach ($EachDir in ((Get-ChildItem -Directory -Path (${Directory})).GetEnumerator())) {
-			$EachRepoDirFullpath = (${EachDir}.FullName);
-			Set-Location -Path $EachRepoDirFullpath;
+			${EachRepoDirFullpath} = (${EachDir}.FullName);
+			Set-Location -Path ${EachRepoDirFullpath};
 			If (Test-Path -PathType Container -Path ("${EachRepoDirFullpath}/.git")) {
 				If (Test-Path -PathType Leaf -Path ("${EachRepoDirFullpath}/.git/config")) {
 					$GitStatus = (git status);
@@ -107,26 +107,34 @@ function GitSyncAll {
 				
 			}
 
-			Set-Location -Path $EachRepoDirFullpath;
-			Write-Host -NoNewline "Fetching/Pulling Repo ";
-			Write-Host -NoNewline "$EachRepoDirBasename" -ForegroundColor Magenta;
-			Write-Host -NoNewline ((" ...") + ((" ").PadRight((35-$EachRepoDirBasename.Length), ' ')));
+			Set-Location -Path ${EachRepoDirFullpath};
 
-			$fetcher = (git fetch);
-			$ReposFetched += $EachRepoDirBasename;
-			
+			# $GitSyncPadding = 35;
+			$GitSyncPadding = 20;
+
 			If ($Action -eq "Pull") {
 				# Pull Repositories
+
+				Write-Host -NoNewline "Fetching/Pulling Updates for Repo ";
+				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
+				Write-Host -NoNewline ((" ...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
+				$fetcher = (git fetch);
+				$ReposFetched += ${EachRepoDirBasename};
 				$puller = (git pull);
+				$ReposPulled += ${EachRepoDirBasename};
 				If ($puller -is [String]) {
 					Write-Host ($puller) -ForegroundColor Green;
 				} Else {
 					ForEach ($EachLine In $puller) {
-						Write-Host ($EachLine) -ForegroundColor Yellow;
+						Write-Host ($EachLine);
 					}
-					$ReposPulled += $EachRepoDirBasename;
 				}
 			} ElseIf ($Action -eq "Fetch") {
+				Write-Host -NoNewline "Fetching Updates for Repo ";
+				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
+				Write-Host -NoNewline ((" ...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
+				$fetcher = (git fetch);
+				$ReposFetched += ${EachRepoDirBasename};
 				# Fetch Updates, Only
 				Write-Host "Fetched updates for ${EachRepoDirBasename}" -ForegroundColor Green;
 

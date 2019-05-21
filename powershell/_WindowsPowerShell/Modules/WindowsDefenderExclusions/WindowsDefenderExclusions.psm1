@@ -152,6 +152,7 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\Mailbird.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\MailbirdUpdater.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\sqlite3.exe"));
+		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\x64\CefSharp.BrowserSubprocess.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbam.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamtray.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamservice.exe"));
@@ -198,6 +199,7 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\WPFUI\Framework\Razer Synapse 3 Host\Razer Synapse 3.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Software Updater\SSUService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Server\SRService.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Client for STP\strwinclt.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Unigine\Heaven Benchmark 4.0\bin\Heaven.exe"));
 		# -- PROCESSES -- Sys32
 		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox

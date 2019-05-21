@@ -172,7 +172,7 @@ function GitCloneRepo {
 		$WorkingTree_WindowsPath = (pwd);
 		$WorkingTree_UnixPath = If ($CanUse_sh -eq $true){ (sh -c "pwd") } Else { (bash -c "pwd") };
 
-		# Remove amateurish non-case-sensitive directires (in Windows) while in a linux-based environment
+		# Remove amateurish non-case-sensitive directories (in Windows) while in a linux-based environment
 		$RelPath_InvalidDir = (($Repo.RepoBasename)+(".DTO"));
 		$RelPath_CorrectDir = (($Repo.RepoBasename)+(".Dto"));
 		

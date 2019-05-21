@@ -42,12 +42,21 @@ function WindowsDefenderExclusions {
 		# ------------------------------------------------------------
 		#
 		# User/System Directories
+
 		$LocalAppData = (${Env:LocalAppData}); # LocalAppData
+
 		$ProgFilesX64 = ((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
+
 		$ProgFilesX86 = ((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86
-		$SystemDrive = (${Env:SystemDrive}); # SystemDrive
-		$WinSystem32 = ((${Env:SystemRoot})+("\System32")); # System32
+
+		$SysDrive = (${Env:SystemDrive}); # C:\
+
+		$SysRoot = (${Env:SystemRoot}); # C:\Windows
+
+		$Sys32 = ((${Env:SystemRoot})+("\System32")); # C:\Windows\System32
+
 		$UserProfile = (${Env:USERPROFILE}); # UserProfile
+		
 		#
 		# ------------------------------------------------------------
 		# -- FILEPATHS -- LocalAppData
@@ -89,13 +98,14 @@ function WindowsDefenderExclusions {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Reflector 3"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Splashtop"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\WinDirStat"));
-		# -- FILEPATHS -- SystemDrive
-		$ExcludedFilepaths += ((${SystemDrive})+("\BingBackground"));
-		$ExcludedFilepaths += ((${SystemDrive})+("\ISO\BingBackground"));
-		$ExcludedFilepaths += ((${SystemDrive})+("\ISO\QuickNoteSniper"));
-		# -- FILEPATHS -- System32
-		$ExcludedFilepaths += ((${WinSystem32})+("\wbem\WmiPrvSE.exe")); # Windows Management Instrumentation Provider
-		$ExcludedFilepaths += ((${WinSystem32})+("\DbxSvc.exe")); # Dropbox
+		# -- FILEPATHS -- Sys32
+		# -
+		# -- FILEPATHS -- SysDrive
+		$ExcludedFilepaths += ((${SysDrive})+("\BingBackground"));
+		$ExcludedFilepaths += ((${SysDrive})+("\ISO\BingBackground"));
+		$ExcludedFilepaths += ((${SysDrive})+("\ISO\QuickNoteSniper"));
+		# -- FILEPATHS -- SysRoot
+		# -
 		# -- FILEPATHS -- UserProfile
 		$UserProfile=(${Env:UserProfile});
 		$ExcludedFilepaths += ((${UserProfile})+("\Dropbox"));
@@ -189,10 +199,15 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Software Updater\SSUService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Server\SRService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Unigine\Heaven Benchmark 4.0\bin\Heaven.exe"));
-		# -- PROCESSES -- System32
-		$ExcludedProcesses += ((${WinSystem32})+("\DbxSvc.exe"));  # (DROPBOX)
-		$ExcludedProcesses += ((${WinSystem32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe"));  # (INTEL)
-		$ExcludedProcesses += ((${WinSystem32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe"));  # (INTEL)
+		# -- PROCESSES -- Sys32
+		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\wbem\WmiPrvSE.exe")); # "WMI Provider Host", e.g. Windows Management Instrumentation Provider Host
+		# -- PROCESSES -- SysDrive
+		# -
+		# -- PROCESSES -- SysRoot
+		$ExcludedProcesses += ((${SysRoot})+("\explorer.exe"));
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += ((${UserProfile})+("\Documents\MobaXterm\slash\bin\Motty.exe"));
 		#

@@ -109,9 +109,7 @@ function GitSyncAll {
 			}
 
 			Set-Location -Path ${EachRepoDirFullpath};
-
-			# $GitSyncPadding = 35;
-			$GitSyncPadding = (${EachRepoDirBasename}.Length + 5);
+			$GitSyncPadding = ((${EachRepoDirBasename}.Length)+(2));
 
 			If ($Action -eq "Pull") {
 				# Pull Repositories

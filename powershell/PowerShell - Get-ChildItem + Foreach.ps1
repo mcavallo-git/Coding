@@ -1,5 +1,10 @@
-ForEach ($EachItem In ((Get-ChildItem -File -Path ($Home) -Include ("*\GitHub\*") -Recurse).GetEnumerator())) {
-Write-Host "EachItem.FullName"; $EachItem.FullName;
+
+# ForEach ($EachItem In ((Get-ChildItem -File -Path ($Home) -Include ("*GitHub*") -Recurse).GetEnumerator())) {
+# $EachItem.FullName;
+# }
+
+Get-ChildItem -File -Path ($Home) -Include ("*GitHub*") -Recurse | Foreach-Object {
+$_.FullName;
 }
 
 #

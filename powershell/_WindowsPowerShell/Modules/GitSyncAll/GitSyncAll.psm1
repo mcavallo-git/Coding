@@ -13,7 +13,7 @@ function GitSyncAll {
 		[Parameter(Mandatory=$true)]
 		[String]$Directory = ("${HOME}/Documents/GitHub"),
 
-		[Int]$Depth = 256,
+		[Int]$Depth = 250,
 
 		[ValidateSet("Fetch","Pull")]
 		[String]$Action = "Pull",

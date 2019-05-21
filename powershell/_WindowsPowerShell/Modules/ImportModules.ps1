@@ -137,9 +137,9 @@ If ($psm1.verbosity -ne 0) { Write-Host ("Pass - Located powershell modules dire
 
 # Git Modules (along with their respectively named directories) to copy into a given machine's PowerShell Modules Directory
 Write-Host "Searching `"${PSScriptRoot}`" for PowerShell Modules...";
-$PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; } );
-$GitModulesFileInfoArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue");
-$GitModulesFullpathsArr
+# $PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; } );
+$PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue");
+# $GitModulesFullpathsArr
 
 Foreach ($EachModule In $PowerShellModulesArr) {
 	If ($psm1.verbosity -ne 0) { Write-Host (" "); }

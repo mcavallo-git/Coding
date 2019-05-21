@@ -1,37 +1,41 @@
-
-# ForEach ($EachItem In ((Get-ChildItem -File -Path ($Home) -Include ("*GitHub*") -Recurse).GetEnumerator())) {
-# $EachItem.FullName;
-# }
-
-Get-ChildItem -File -Path ($Home) -Include ("*GitHub*") -Recurse | Foreach-Object {
-$_.FullName;
-}
-
 #
-# Get-ChildItem switch-parameter "-Directory" returns items with type "System.IO.FileSystemInfo.DirectoryInfo"
+# ------------------------------------------------------------
 #
-# Get-ChildItem switch-parameter "-File" returns items with type "System.IO.FileSystemInfo.FileInfo"
+#	Get-ChildItem
+#		
+#		Parameters
+#				-Directory		returns items with type "System.IO.FileSystemInfo.DirectoryInfo"   (see "DirectoryInfo Class", below)
+#				-File					returns items with type "System.IO.FileSystemInfo.FileInfo"   (see "FileInfo Class", below)
+#				-Filter				used to perform narrowed, more-specific searches than -Include (second-stage matching, essentially)
+#				-Force				searches for hidden & non-hidden items   (may vary depending on provider - see "About Providers", below)
+#				-Include			used to perform general searches, commonly with wildcards
 #
-
+# ------------------------------------------------------------
 
 #
+# Locate all files named "config" who have the parent directory ".git" which is located somewhere under the current-user's "${HOME}" directory
 #
-#
-#
-#		https://docs.microsoft.com/en-us/dotnet/api/system.io.directoryinfo
-#
+Get-ChildItem -Path "${HOME}" -Filter "config" -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent.FullName; }
+
+
+
+# ------------------------------------------------------------
 #
 #	Citation(s)
-#		
-#		Icon file "GitSyncAll.ico" thanks-to:  https://docs.microsoft.com/en-us/dotnet/api/system.io.directoryinfo
-
 #
-
-#		docs.microsoft.com
+#
+#		Source: docs.microsoft.com
+#
 #			"DirectoryInfo Class"
-#		 	 https://docs.microsoft.com/en-us/dotnet/api/system.io.directoryinfo
+#		 		 https://docs.microsoft.com/en-us/dotnet/api/system.io.directoryinfo
 #
-#		docs.microsoft.com
 #			"FileInfo Class"
-#		 	 https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo
+#		 		 https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo
 #
+#			"About Providers"
+#		 		 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers
+#
+#			"About Wildcards" (using the -Filter parameter)
+#		 		 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_wildcards
+#
+# ------------------------------------------------------------

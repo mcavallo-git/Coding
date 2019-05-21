@@ -45,6 +45,7 @@ function GitSyncAll {
 
 
 	### Only go to a given depth to find Git-Repo directories within the ${Directory}
+	Write-Host "Searching for Git-Repositories within directory `"${Directory}`" (Depth = ${Depth})...";
 	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
 
 

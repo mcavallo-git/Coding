@@ -16,8 +16,7 @@ function GitSyncAll {
 		[Int]$Depth = 256,
 
 		[ValidateSet("Fetch","Pull")]
-		[String]$Action = "Pull";
-
+		[String]$Action = "Pull",
 
 		[ValidateSet("SSH","HTTPS")]
 		[String]$SetOriginNotation = "SSH",

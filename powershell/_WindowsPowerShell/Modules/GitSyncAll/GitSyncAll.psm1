@@ -10,63 +10,69 @@ function GitSyncAll {
 	#
 	Param(
 
-		[String]$Directory = (($HOME)+("/Documents/GitHub")),
+		[Parameter(Mandatory=$true)]
+		[String]$Directory = ("${HOME}/Documents/GitHub"),
 
-		[Boolean]$SSH_UrlNotation = $true
+		[Int]$Depth = 256,
+
+		[ValidateSet("Fetch","Pull")]
+		[String]$Action = "Pull";
+
+
+		[ValidateSet("SSH","HTTPS")]
+		[String]$SetOriginNotation = "SSH",
+
+		[Switch]$Quiet
+
 	
 	)
-		
+	
+	$Depth_GitConfigFile = ($Depth+2);
+
 	$CommandName="git";
 
 	$Dashes = "`n--------------------------------`n";
 
-	If((Get-Command $CommandName -ErrorAction SilentlyContinue) -eq $null) {
-
+	If((Get-Command $CommandName -ErrorAction "SilentlyContinue") -eq $null) {
 		## Fail - Command [ $CommandName ] not found Locally
-
 		$OnErrorShowUrl="https://git-scm.com/downloads";
-
 		Write-Host (("Fail - Command [ ")+($CommandName)+(" ] not found locally")) -ForegroundColor red;
-
 		Write-Host (("Info - For troubleshooting, download references, etc. please visit Url: ")+($OnErrorShowUrl)) -ForegroundColor green;
 		Start ($OnErrorShowUrl);
 		Write-Host -NoNewLine "Press any key to close this window...";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		Exit 1;
-
 	}
-
 	## Command [ $CommandName ] Exists Locally
 
-	$GitHubReposParentDir = (($Home)+("\Documents\GitHub"));
 
-	$RepoFullpathsArr = @();
+	### Only go to a given depth to find Git-Repo directories within the ${Directory}
+	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
 
-	ForEach ($EachRepoDirBasename in ((Get-ChildItem -Directory -Name -Path ($GitHubReposParentDir)).GetEnumerator())) {
-		
-		$EachRepoDirFullpath = (($GitHubReposParentDir)+("\")+($EachRepoDirBasename));
 
-		Set-Location -Path $EachRepoDirFullpath;
-
-		If (Test-Path -PathType Container -Path (($EachRepoDirFullpath)+("/.git"))) {
-
-			If (Test-Path -PathType Leaf -Path (($EachRepoDirFullpath)+("/.git/config"))) {
-
-				$GitStatus = (git status);
-
-				If ($GitStatus -ne $null) {
-
-					$RepoFullpathsArr += $EachRepoDirBasename;
-
+	<#
+	If ($PSBoundParameters.ContainsKey('Recurse') -Eq $True) {
+		### Only go to a given depth to find Git-Repo directories within the ${Directory}
+		$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
+	} Else {
+		### Do not recurse & only use the directories 1-level-deep within the given base-directory
+		ForEach ($EachDir in ((Get-ChildItem -Directory -Path (${Directory})).GetEnumerator())) {
+			$EachRepoDirFullpath = (${EachDir}.FullName);
+			Set-Location -Path $EachRepoDirFullpath;
+			If (Test-Path -PathType Container -Path ("${EachRepoDirFullpath}/.git")) {
+				If (Test-Path -PathType Leaf -Path ("${EachRepoDirFullpath}/.git/config")) {
+					$GitStatus = (git status);
+					If ($GitStatus -ne $null) {
+						$RepoFullpathsArr += Get-Item "${EachRepoDirFullpath}";
+					}
 				}
-
 			}
-
 		}
-
 	}
+	#>
 
-	$ReposUpdated = @();
+	$ReposFetched = @();
+	$ReposPulled = @();
 
 	If ($RepoFullpathsArr.Length -gt 0) {
 
@@ -74,17 +80,18 @@ function GitSyncAll {
 
 		$VerbiageRepositoryCount = If($RepoFullpathsArr.Length -eq 1) { "repository" } Else { "repositories" };
 		
-		Write-Host (("`nFound ")+($RepoFullpathsArr.Length)+(" git ")+($VerbiageRepositoryCount)+(" in `"$GitHubReposParentDir`"`n"));
+		Write-Host (("`nFound ")+($RepoFullpathsArr.Length)+(" git ")+($VerbiageRepositoryCount)+(" in `"${Directory}`"`n"));
 
-		ForEach ($EachRepoDirBasename in $RepoFullpathsArr) {
+		ForEach ($EachRepoDir in $RepoFullpathsArr) {
 
-			$EachRepoDirFullpath = (($GitHubReposParentDir)+("\")+($EachRepoDirBasename));
+			$EachRepoDirBasename = (${EachRepoDir}.Name);
+			$EachRepoDirFullpath = (${EachRepoDir}.FullName);
 
-			If ($SSH_UrlNotation -eq $true) {
+			If ($SetOriginNotation -eq "SSH") {
 
 				$GitConfig = @{};
 
-				$GitConfig.Path = (($EachRepoDirFullpath)+("/.git/config"));
+				$GitConfig.Path = ("${EachRepoDirFullpath}/.git/config");
 
 				$GitConfig.Regex = @{};
 				$GitConfig.Regex.HTTPS = '(\s*url\ =\ )(https\:\/\/)(github\.com)(\/)(.+)';
@@ -102,77 +109,53 @@ function GitSyncAll {
 				
 			}
 
-
 			Set-Location -Path $EachRepoDirFullpath;
-
 			Write-Host -NoNewline "Fetching/Pulling Repo ";
 			Write-Host -NoNewline "$EachRepoDirBasename" -ForegroundColor Magenta;
 			Write-Host -NoNewline ((" ...") + ((" ").PadRight((35-$EachRepoDirBasename.Length), ' ')));
 
 			$fetcher = (git fetch);
-
-			$puller = (git pull);
-
-			If ($SSH_UrlNotation -eq $true) {
-
-				# Revert Git-Config file's Urls to HTTPS notation
-				# If ($GitConfig.Content.FoundUrlHTTPS -eq $true) {
-				# 	Set-Content -Path ($GitConfig.Path) -Value ($GitConfig.Content.HTTPS);
-				# }
-				
-			}
-
-			If ($puller -is [String]) {
-
-				Write-Host ($puller) -ForegroundColor green;
+			$ReposFetched += $EachRepoDirBasename;
+			
+			If ($Action -eq "Pull") {
+				# Pull Repositories
+				$puller = (git pull);
+				If ($puller -is [String]) {
+					Write-Host ($puller) -ForegroundColor Green;
+				} Else {
+					ForEach ($EachLine In $puller) {
+						Write-Host ($EachLine) -ForegroundColor Yellow;
+					}
+					$ReposPulled += $EachRepoDirBasename;
+				}
+			} ElseIf ($Action -eq "Fetch") {
+				# Fetch Updates, Only
+				Write-Host "Fetched updates for ${EachRepoDirBasename}" -ForegroundColor Green;
 
 			} Else {
-				
-				ForEach ($EachLine In $puller) {
-					Write-Host ($EachLine) -ForegroundColor Yellow;
-				}
-
-				$ReposUpdated += $EachRepoDirBasename;
+				Write-Host "Unhandled Value for Parameter `$Action: `"${Action}`" " -BackgroundColor Black -ForegroundColor Red;
 
 			}
-			
 		}
-
 		Write-Host "";
 
 	} Else {
-
-		Write-Host "No git repositories found in: `"$GitHubReposParentDir`"`n" -ForegroundColor Magenta;
-
+		Write-Host "No git repositories found in: `"${Directory}`"`n" -ForegroundColor Magenta;
 	}
 
 	Write-Host "`n`n  All Repositories Synced  `n`n" -ForegroundColor green;
-
 	Write-Host -NoNewLine "  Closing in ";
-	
-	$SecondsTilAutoExit=30;
-
+	$SecondsTilAutoExit = 30;
 	While ($SecondsTilAutoExit -gt 0) {
-				
 		Write-Host -NoNewLine ($SecondsTilAutoExit);
-
 		$MillisecondsRemaining = 1000;
-
 		While ($MillisecondsRemaining -gt 0) {
-
 			$WaitMilliseconds = 250;
-
 			$MillisecondsRemaining -= $WaitMilliseconds;
-
 			[Threading.Thread]::Sleep($WaitMilliseconds);
-
 			Write-Host -NoNewLine ".";
 		}
-
-		# Write-Host -NoNewLine "`n";
-
 		$SecondsTilAutoExit--;
-
 	}
 
 }

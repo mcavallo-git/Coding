@@ -138,8 +138,8 @@ function WindowsDefenderExclusions {
 		# -- PROCESSES -- LocalAppData
 		$ExcludedProcesses += ((${LocalAppData})+("\Dropbox\Client\Dropbox.exe"));
 		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\GitHubDesktop.exe"));
-		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.5\GitHubDesktop.exe"));
-		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.5\resources\app\git\mingw64\bin\git.exe"));
+		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\GitHubDesktop.exe"));
+		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\resources\app\git\mingw64\bin\git.exe"));
 		# -- PROCESSES -- ProgFiles X64
 		$ExcludedProcesses += ((${ProgFilesX64})+("\AutoHotkey\AutoHotkey.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Classic Shell\ClassicStartMenu.exe"));

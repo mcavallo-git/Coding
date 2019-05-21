@@ -10,8 +10,7 @@ function GitSyncAll {
 	#
 	Param(
 
-		[Parameter(Mandatory=$true)]
-		[String]$Directory = ("${HOME}/Documents/GitHub"),
+		[String]$Directory = ("${HOME}"),
 
 		[Int]$Depth = 250,
 

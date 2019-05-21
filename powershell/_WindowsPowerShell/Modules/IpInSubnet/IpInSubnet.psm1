@@ -1,3 +1,17 @@
+#
+# ------------------------------------------------------------
+#
+
+function IpInSubnet ([string]$Address1, [string]$Address2)
+{
+	return (CheckSubnet ($Address1) ($Address2)).Condition;
+}
+Export-ModuleMember -Function "IpInSubnet";
+
+#
+# ------------------------------------------------------------
+#
+
 function CheckSubnet ([string]$addr1, [string]$addr2)
 {
 	# Separate the network address and lenght
@@ -31,76 +45,104 @@ function CheckSubnet ([string]$addr1, [string]$addr2)
 		CheckNetworkToNetwork $unetwork1 $unetwork2;
 	}
 }
+Export-ModuleMember -Function "CheckSubnet";
+
+#
+# ------------------------------------------------------------
+#
 
 function CheckNetworkToSubnet ([uint32]$un2, [uint32]$ma2, [uint32]$un1)
 {
 	$ReturnArray = "" | Select-Object -Property Condition,Direction
 	If ($un2 -eq ($ma2 -band $un1)) {
 		$ReturnArray.Condition = $True;
-		$ReturnArray.Direction = "Addr1ToAddr2";
+		$ReturnArray.Direction = "Address1ToAddress2";
 		return $ReturnArray;
 	} Else {
 		$ReturnArray.Condition = $False;
-		$ReturnArray.Direction = "Addr1ToAddr2";
+		$ReturnArray.Direction = "Address1ToAddress2";
 		return $ReturnArray;
 	}
 }
+Export-ModuleMember -Function "CheckNetworkToSubnet";
+
+#
+# ------------------------------------------------------------
+#
 
 function CheckSubnetToNetwork ([uint32]$un1, [uint32]$ma1, [uint32]$un2)
 {
 	$ReturnArray = "" | Select-Object -Property Condition,Direction
 	If ($un1 -eq ($ma1 -band $un2)) {
 		$ReturnArray.Condition = $True;
-		$ReturnArray.Direction = "Addr2ToAddr1";
+		$ReturnArray.Direction = "Address2ToAddress1";
 		return $ReturnArray;
 	} Else {
 		$ReturnArray.Condition = $False;
-		$ReturnArray.Direction = "Addr2ToAddr1";
+		$ReturnArray.Direction = "Address2ToAddress1";
 		return $ReturnArray;
 	}
 }
+Export-ModuleMember -Function "CheckSubnetToNetwork";
+
+#
+# ------------------------------------------------------------
+#
 
 function CheckNetworkToNetwork ([uint32]$un1, [uint32]$un2)
 {
 	$ReturnArray = "" | Select-Object -Property Condition,Direction;
 	If ($un1 -eq $un2) {
 		$ReturnArray.Condition = $True;
-		$ReturnArray.Direction = "Addr1ToAddr2";
+		$ReturnArray.Direction = "Address1ToAddress2";
 		return $ReturnArray
 	} Else {
 		$ReturnArray.Condition = $False;
-		$ReturnArray.Direction = "Addr1ToAddr2";
+		$ReturnArray.Direction = "Address1ToAddress2";
 		return $ReturnArray;
 	}
 }
+Export-ModuleMember -Function "CheckNetworkToNetwork";
+
+#
+# ------------------------------------------------------------
+#
 
 function SubToBinary ([int]$sub)
 {
 	return ((-bnot [uint32]0) -shl (32 - $sub));
 }
+Export-ModuleMember -Function "SubToBinary";
+
+#
+# ------------------------------------------------------------
+#
 
 function NetworkToBinary ($network)
 {
 	$a = [uint32[]]$network.split('.');
 	return (($a[0] -shl 24) + ($a[1] -shl 16) + ($a[2] -shl 8) + $a[3]);
 }
+Export-ModuleMember -Function "NetworkToBinary";
 
-function IpInSubnet ([string]$addr1, [string]$addr2)
-{
-	return (CheckSubnet ($addr1) ($addr2)).Condition;
-}
+#
+# ------------------------------------------------------------
+#
 
-# Test-Case:  Is   [ 10.165.255.166 ]   in   [ 10.165.255.0/24 ]   ?
-# Expecting:  $True
-IpInSubnet "10.165.255.166" "10.165.255.0/24";
 
-# Test-Case:  Is   [ 172.168.0.45 ]   in   [ 172.168.0.0/16 ]   ?
-# Expecting:  $True
-IpInSubnet "172.168.0.45/32" "172.168.0.0/16";
-
-# Test-Case:  Is   [ 10.0.0.65 ]   in   [ 10.0.0.32/27 ]   ?
-# Expecting:  $False
-IpInSubnet "192.168.0.65/32" "192.168.0.32/27";
+#
+# Example:  Is   [ 10.165.255.166 ]   in   [ 10.165.255.0/24 ]   ?
+# Command:  IpInSubnet "10.165.255.166" "10.165.255.0/24";
+# Expect:   $True
+#
+# Example:  Is   [ 172.168.0.45 ]   in   [ 172.168.0.0/16 ]   ?
+# Command:  IpInSubnet "172.168.0.45/32" "172.168.0.0/16";
+# Expect:   $True
+#
+# Example:  Is   [ 10.0.0.65 ]   in   [ 10.0.0.32/27 ]   ?
+# Command:  IpInSubnet "192.168.0.65/32" "192.168.0.32/27";
+# Expect:   $False
+#
 
 #
 #	Citation(s)

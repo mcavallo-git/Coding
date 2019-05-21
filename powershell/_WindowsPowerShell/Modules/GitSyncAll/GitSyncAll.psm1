@@ -114,9 +114,9 @@ function GitSyncAll {
 			If ($Action -eq "Pull") {
 				# Pull Repositories
 
-				Write-Host -NoNewline "Fetching/Pulling Updates for Repo ";
+				Write-Host -NoNewline "Fetching & pulling updates for git repo `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
-				Write-Host -NoNewline (("...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
+				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
 				$puller = (git pull);
@@ -129,9 +129,9 @@ function GitSyncAll {
 					}
 				}
 			} ElseIf ($Action -eq "Fetch") {
-				Write-Host -NoNewline "Fetching Updates for Repo ";
+				Write-Host -NoNewline "Fetching updates for git repo `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
-				Write-Host -NoNewline (("...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
+				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
 				# Fetch Updates, Only

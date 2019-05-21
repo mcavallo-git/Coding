@@ -114,7 +114,7 @@ function GitSyncAll {
 			If ($Action -eq "Pull") {
 				# Pull Repositories
 
-				Write-Host -NoNewline "Fetching & pulling updates for repository `"";
+				Write-Host -NoNewline "Fetching + pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
@@ -128,6 +128,7 @@ function GitSyncAll {
 						Write-Host ($EachLine);
 					}
 				}
+				Write-Host "Fetch + pull complete." -ForegroundColor Green;
 			} ElseIf ($Action -eq "Fetch") {
 				Write-Host -NoNewline "Fetching updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
@@ -135,7 +136,7 @@ function GitSyncAll {
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
 				# Fetch Updates, Only
-				Write-Host "Fetched updates for ${EachRepoDirBasename}" -ForegroundColor Green;
+				Write-Host "Fetch complete." -ForegroundColor Green;
 
 			} Else {
 				Write-Host "Unhandled Value for Parameter `$Action: `"${Action}`" " -BackgroundColor Black -ForegroundColor Red;

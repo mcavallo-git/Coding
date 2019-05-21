@@ -45,7 +45,7 @@ function GitSyncAll {
 
 
 	### Only go to a given depth to find Git-Repo directories within the ${Directory}
-	Write-Host "Searching `"${Directory}`" for Git Repositories...";
+	Write-Host "Searching `"${Directory}`" for git repositories...";
 	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
 
 
@@ -114,7 +114,7 @@ function GitSyncAll {
 			If ($Action -eq "Pull") {
 				# Pull Repositories
 
-				Write-Host -NoNewline "Fetching & pulling updates for git repo `"";
+				Write-Host -NoNewline "Fetching & pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
@@ -129,7 +129,7 @@ function GitSyncAll {
 					}
 				}
 			} ElseIf ($Action -eq "Fetch") {
-				Write-Host -NoNewline "Fetching updates for git repo `"";
+				Write-Host -NoNewline "Fetching updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);

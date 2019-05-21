@@ -48,28 +48,6 @@ function GitSyncAll {
 	Write-Host "Searching `"${Directory}`" for git repositories...";
 	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
 
-
-	<#
-	If ($PSBoundParameters.ContainsKey('Recurse') -Eq $True) {
-		### Only go to a given depth to find Git-Repo directories within the ${Directory}
-		$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
-	} Else {
-		### Do not recurse & only use the directories 1-level-deep within the given base-directory
-		ForEach ($EachDir in ((Get-ChildItem -Directory -Path (${Directory})).GetEnumerator())) {
-			${EachRepoDirFullpath} = (${EachDir}.FullName);
-			Set-Location -Path ${EachRepoDirFullpath};
-			If (Test-Path -PathType Container -Path ("${EachRepoDirFullpath}/.git")) {
-				If (Test-Path -PathType Leaf -Path ("${EachRepoDirFullpath}/.git/config")) {
-					$GitStatus = (git status);
-					If ($GitStatus -ne $null) {
-						$RepoFullpathsArr += Get-Item "${EachRepoDirFullpath}";
-					}
-				}
-			}
-		}
-	}
-	#>
-
 	$ReposFetched = @();
 	$ReposPulled = @();
 

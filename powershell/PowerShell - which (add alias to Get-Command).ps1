@@ -22,6 +22,7 @@
 #
 #	Citation(s)
 #
-#		docs.microsoft.com, "New-Alias"
-#			https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-alias?view=powershell-6
+#		docs.microsoft.com
+#			"New-Alias"
+#			 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-alias
 #

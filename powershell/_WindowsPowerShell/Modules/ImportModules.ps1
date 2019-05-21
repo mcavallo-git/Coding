@@ -155,152 +155,129 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		}
 	}
 	
-	$path_source = $EachModule.FullName;
+	$ModuleFile = $EachModule.FullName;
+	$ModuleDirectory = $EachModule.Directory.FullName;
 
-	$path_destination = $path_source.Replace(${PSScriptRoot}, $psm1.fullpath);
+	$StartupModuleFile = $ModuleFile.Replace(${PSScriptRoot}, $psm1.fullpath);
+	$StartupModuleDirectory = $ModuleDirectory.Replace(${PSScriptRoot}, $psm1.fullpath);
 
-	$path_destination_exists = Test-Path -Path ($path_destination);
+	# Module parent-directory - Create if not-found in destination
+	If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
+		
+		# Create directory
+		If ($psm1.verbosity -ne 0) { Write-Host (("Task - Create directory for Module: ") + ($EachModule.Name)+("")); }
 
-	$source_is_file = Test-Path -PathType Leaf -Path ($path_source);
-	$source_is_dir = Test-Path -PathType Container -Path ($path_source);
+		New-Item -ItemType "Directory" -Path (($StartupModuleDirectory)+("/")) | Out-Null;
 
-	If ($source_is_dir -eq $true) {
+		If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 
-		# Directories - Create any not-found in Destination
-		If ($path_destination_exists -eq $false) {
-			
-			# Create directory
-			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Create directory for Module: ") + ($EachModule.Name)+("")); }
-
-			New-Item -ItemType "Directory" -Path (($path_destination)+("/")) | Out-Null;
-
-			$path_destination_exists = Test-Path -PathType Container -Path ($path_destination);
-
-			If ($path_destination_exists -eq $false) {
-
-				# Error - Unable to create directory
-				If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to create directory for Module: ") + ($EachModule.Name)); }
-				Start-Sleep -Seconds 60;
-				Exit 1;
-
-			} Else {
-
-				# Directory successfully created
-				If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Directory created for Module: ") + ($EachModule.Name)); }
-
-			}
+			# Error - Unable to create directory
+			If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to create directory for Module: ") + ($EachModule.Name)); }
+			Start-Sleep -Seconds 60;
+			Exit 1;
 
 		} Else {
 
-			# Directory already exists
-			If ($psm1.verbosity -ne 0) { Write-Host (("Skip - Directory already exists for Module: ") + ($EachModule.Name)+("")); }
+			# Directory successfully created
+			If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Directory created for Module: ") + ($EachModule.Name)); }
 
 		}
 
-	} ElseIf ($source_is_file -eq $false) {
+	}
 
-		# Item which is neither a file nor a directory
-		If ($psm1.verbosity -ne 0) { Write-Host (("Skip - Invalid item (non-file, non-directory): ") + ($path_source)+("")); }
+	# Item which is a file
+	If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
+		
+		# Create the destination if it doesn't exist, yet
+		If ($psm1.verbosity -ne 0) { Write-Host (("Task - Creating Module: ") + ($EachModule.Name)); }
+
+		Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
+
+		
+		# Check for failure to copy item(s)
+		If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
+
+			# Error - Unable to create Module
+			If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to create Module: ") + ($EachModule.Name)); }
+			Start-Sleep -Seconds 60;
+			Exit 1;
+
+		} Else {
+
+			# Module successfully created
+			If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Module created: ") + ($EachModule.Name)); }
+
+		}
 
 	} Else {
 
-		# Item which is a file
-		If ($path_destination_exists -eq $false) {
-			
-			# Create the destination if it doesn't exist, yet
-			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Creating Module: ") + ($EachModule.Name)); }
+		# Files - Copy / Update any not-found in Destination
+		$path_source_last_write = [datetime](Get-ItemProperty -Path $ModuleFile -Name LastWriteTime).lastwritetime;
+		$path_destination_last_write = [datetime](Get-ItemProperty -Path $StartupModuleFile -Name LastWriteTime).lastwritetime;
 
-			Copy-Item -Path ($path_source) -Destination ($path_destination) -Force;
+		If ($path_source_last_write -gt $path_destination_last_write) {
 
-			$path_destination_exists = Test-Path -PathType Leaf -Path ($path_destination);
-			
+			# If the source file has a new revision, then update the destination file with said changes
+			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Updating Module: ") + ($EachModule.Name)); }
+
+			Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
+
 			# Check for failure to copy item(s)
-			If ($path_destination_exists -eq $false) {
+			If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
-				# Error - Unable to create Module
-				If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to create Module: ") + ($EachModule.Name)); }
+				# Error - Couldn't update/overwrite a file, etc.
+				If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to be update Module: ") + ($EachModule.Name)); }
 				Start-Sleep -Seconds 60;
 				Exit 1;
 
 			} Else {
 
-				# Module successfully created
-				If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Module created: ") + ($EachModule.Name)); }
-
+				# File copied from source to destination successfully
+				If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Module updated: ") + ($EachModule.Name)); }
 			}
-
 		} Else {
 
-			# Files - Copy / Update any not-found in Destination
-			$path_source_last_write = [datetime](Get-ItemProperty -Path $path_source -Name LastWriteTime).lastwritetime;
-			$path_destination_last_write = [datetime](Get-ItemProperty -Path $path_destination -Name LastWriteTime).lastwritetime;
+			# No updates necessary
+			If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Module already up-to-date: ") + ($EachModule.Name)); }
 
-			If ($path_source_last_write -gt $path_destination_last_write) {
+		}
+	}
 
-				# If the source file has a new revision, then update the destination file with said changes
-				If ($psm1.verbosity -ne 0) { Write-Host (("Task - Updating Module: ") + ($EachModule.Name)); }
+	$psm1.ImportModules = @{};
+	$psm1.ImportModules.Dirname = ($PSScriptRoot);
+	$psm1.ImportModules.Basename = ($MyInvocation.MyCommand.Name);
 
-				Copy-Item -Path ($path_source) -Destination ($path_destination) -Force;
-
-				$path_destination_exists = Test-Path -PathType Leaf -Path ($path_destination);
-
-				# Check for failure to copy item(s)
-				If ($path_destination_exists -eq $false) {
-
-					# Error - Couldn't update/overwrite a file, etc.
-					If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to be update Module: ") + ($EachModule.Name)); }
-					Start-Sleep -Seconds 60;
-					Exit 1;
-
-				} Else {
-
-					# File copied from source to destination successfully
-					If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Module updated: ") + ($EachModule.Name)); }
-				}
-			} Else {
-
-				# No updates necessary
-				If ($psm1.verbosity -ne 0) { Write-Host (("Pass - Module already up-to-date: ") + ($EachModule.Name)); }
-
-			}
+	If (($EachModule.Name) -eq ($psm1.ImportModules.Basename)) {
+		# Dont let a file include itself... that causes infinite loops~!
+		If ($psm1.verbosity -ne 0) {
+			Write-Host (("Skip - Avoiding self-import: ") + ($EachModule.Name));
 		}
 
-		$psm1.ImportModules = @{};
-		$psm1.ImportModules.Dirname = ($PSScriptRoot);
-		$psm1.ImportModules.Basename = ($MyInvocation.MyCommand.Name);
+	} Else {
+		
+		$RequiredModules_FirstIteration = @("EnsureCommandExists","GitCloneRepo","ProfileSync");
 
-		If (($EachModule.Name) -eq ($psm1.ImportModules.Basename)) {
-			# Dont let a file include itself... that causes infinite loops~!
-			If ($psm1.verbosity -ne 0) {
-				Write-Host (("Skip - Avoiding self-import: ") + ($EachModule.Name));
-			}
+		# If [ we've already updated the codebase (iteration 2) ] or [ we are on a module which is required to update the codebase ]
+		If (($Env:UpdatedCodebase -eq $true) -or (($RequiredModules_FirstIteration -match ($EachModule.Name)) -eq ($EachModule.Name))) {
 
-		} Else {
+			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
+			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Importing Module (caching onto RAM): ") + ($EachModule.Name)); }
 			
-			$RequiredModules_FirstIteration = @("EnsureCommandExists","GitCloneRepo","ProfileSync");
+			Import-Module ($StartupModuleFile);
 
-			# If [ we've already updated the codebase (iteration 2) ] or [ we are on a module which is required to update the codebase ]
-			If (($Env:UpdatedCodebase -eq $true) -or (($RequiredModules_FirstIteration -match ($EachModule.Name)) -eq ($EachModule.Name))) {
+			$import_exit_code = If($?){0}Else{1};
+			
+			If ($import_exit_code -ne 0) {
 
-				# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
-				If ($psm1.verbosity -ne 0) { Write-Host (("Task - Importing Module (caching onto RAM): ") + ($EachModule.Name)); }
-				
-				Import-Module ($path_destination);
+				# Failed Module Import
+				Write-Host (("Fail - Exit-Code [ ") + ($import_exit_code) + (" ] returned from Import-Module: ") + ($EachModule.Name));
+				Start-Sleep -Seconds 60;
+				Exit 1;
 
-				$import_exit_code = If($?){0}Else{1};
-				
-				If ($import_exit_code -ne 0) {
+			} Else {
+				# Successful Module Import
+				Write-Host (("Pass - Module imported (cached onto RAM): ") + ($EachModule.Name));
 
-					# Failed Module Import
-					Write-Host (("Fail - Exit-Code [ ") + ($import_exit_code) + (" ] returned from Import-Module: ") + ($EachModule.Name));
-					Start-Sleep -Seconds 60;
-					Exit 1;
-
-				} Else {
-					# Successful Module Import
-					Write-Host (("Pass - Module imported (cached onto RAM): ") + ($EachModule.Name));
-
-				}
 			}
 		}
 	}

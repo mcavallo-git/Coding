@@ -78,15 +78,13 @@ $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UForm
 
 For ($ipv4_third_val=1; $ipv4_third_val -le 255; $ipv4_third_val++) {
 
+	Write-Host "";
+
 	For ($ipv4_fourth_val=1; $ipv4_fourth_val -le 25; $ipv4_fourth_val++) {
 
 		$EachIPv4 = "192.168.${ipv4_third_val}.${ipv4_fourth_val}";
 
-		Write-Host "${EachIPv4}" -NoNewLine;
-
-		If ($ipv4_fourth_val -Eq 1) {
-			Write-Host " (Gateway)" -NoNewLine;
-		}
+		Write-Host "${EachIPv4}  |  " -NoNewLine;
 
 		# $Measure_TestConn = Measure-Command {
 		# 	$TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") -InformationAction ("Ignore") 6> $Null);
@@ -97,9 +95,6 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 255; $ipv4_third_val++) {
 			$TestComputerConn = (Test-ComputerConnection -ComputerName ("${EachIPv4}"));
 		};
 		$TotalMilliseconds_TestComputerConn += $Measure_TestConn.TotalMilliseconds;
-
-		Write-Host "  |  " -NoNewLine;
-
 
 		# If (($TestConn -Eq $True)) {
 		If (($TestComputerConn.Online -Eq $True)) {

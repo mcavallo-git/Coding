@@ -76,43 +76,33 @@ $TotalMilliseconds_DnsLookupHostname = 0.0;
 $LogFile_IPv4Addresses = ("${HOME}/Desktop/NetworkDevice.IPv4Addresses.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 
-# Set-Content -Path ("${LogFile_IPv4Addresses}") -Value ("");
-# Set-Content -Path ("${LogFile_Hostnames}") -Value ("");
+For ($ipv4_third_val=1; $ipv4_third_val -le 255; $ipv4_third_val++) {
 
-For ($ipv4_third_val=1; $ipv4_third_val -le 11; $ipv4_third_val++) {
-
-	$SubnetGatewayExists = $False;
-
-	For ($ipv4_fourth_val=1; $ipv4_fourth_val -le 1; $ipv4_fourth_val++) {
-
-		If (($SubnetGatewayExists -Eq $True) -Or ($ipv4_fourth_val -Eq 1)) {
-
+	For ($ipv4_fourth_val=1; $ipv4_fourth_val -le 25; $ipv4_fourth_val++) {
 
 		$EachIPv4 = "192.168.${ipv4_third_val}.${ipv4_fourth_val}";
 
-		Write-Host "${EachIPv4}  |  " -NoNewLine;
+		Write-Host "${EachIPv4}" -NoNewLine;
+
+		If ($ipv4_fourth_val -Eq 1) {
+			Write-Host " (Gateway)" -NoNewLine;
+		}
 
 		# $Measure_TestConn = Measure-Command {
 		# 	$TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") -InformationAction ("Ignore") 6> $Null);
 		# };
 		# $TotalMilliseconds_TestConn += $Measure_TestConn.TotalMilliseconds;
-		# Write-Host "TestConn: " -NoNewLine; $TestConn;
-		# Write-Host "Measure_TestConn.TotalMilliseconds: " -NoNewLine; $Measure_TestConn.TotalMilliseconds;
-		# Write-Host "";
 
 		$Measure_TestComputerConn = Measure-Command {
 			$TestComputerConn = (Test-ComputerConnection -ComputerName ("${EachIPv4}"));
 		};
 		$TotalMilliseconds_TestComputerConn += $Measure_TestConn.TotalMilliseconds;
-		
+
+		Write-Host "  |  " -NoNewLine;
+
+
 		# If (($TestConn -Eq $True)) {
 		If (($TestComputerConn.Online -Eq $True)) {
-
-			If ($ipv4_fourth_val -Eq 1) {
-				$SubnetGatewayExists = $True;
-			}
-
-			Write-Host "Exists" -ForegroundColor ("Green");
 
 			Write-Host "Exists" -ForegroundColor ("Green");
 
@@ -123,9 +113,6 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 11; $ipv4_third_val++) {
 				# $Measure_TestNetConn = Measure-Command {
 				# 	$TestNetConn = (Test-NetConnection -InformationLevel ("Detailed") -ComputerName ("${EachIPv4}"));
 				# };
-				# Write-Host "TestNetConn: " -NoNewLine; $TestNetConn | Format-List;
-				# Write-Host "Measure_TestNetConn.TotalMilliseconds: " -NoNewLine; $Measure_TestNetConn.TotalMilliseconds;
-				# Write-Host "";
 
 				$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = ("SilentlyContinue");
 				$Measure_DnsLookupHostname = Measure-Command {
@@ -137,15 +124,15 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 11; $ipv4_third_val++) {
 				If (($DnsLookupHostname -Ne $Null) -And ($DnsLookupSuccess -Eq $True)) {
 					If ($DnsLookupHostname.HostName -Ne $Null) {
 						Add-Content -Path ("${LogFile_Hostnames}") -Value ($DnsLookupHostname.HostName);
-						# Write-Host "DnsLookupHostname.HostName: " -NoNewLine; $DnsLookupHostname.HostName | Format-List;
-						# Write-Host "Measure_DnsLookupHostname.TotalMilliseconds: " -NoNewLine; $Measure_DnsLookupHostname.TotalMilliseconds;
-						# Write-Host "";
 					}
 				}
 
 			}
 		} Else {
 			Write-Host "No-Response" -ForegroundColor ("Red");
+			If ($ipv4_fourth_val -Eq 1) {
+				Break;
+			}
 		}
 
 	}

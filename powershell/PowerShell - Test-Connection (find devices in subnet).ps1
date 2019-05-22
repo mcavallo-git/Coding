@@ -79,8 +79,14 @@ $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UForm
 # Set-Content -Path ("${LogFile_IPv4Addresses}") -Value ("");
 # Set-Content -Path ("${LogFile_Hostnames}") -Value ("");
 
-For ($ipv4_third_val=1; $ipv4_third_val -le 10; $ipv4_third_val++) {
-	For ($ipv4_fourth_val=1; $ipv4_fourth_val -le 10; $ipv4_fourth_val++) {
+For ($ipv4_third_val=1; $ipv4_third_val -le 11; $ipv4_third_val++) {
+
+	$SubnetGatewayExists = $False;
+
+	For ($ipv4_fourth_val=1; $ipv4_fourth_val -le 1; $ipv4_fourth_val++) {
+
+		If (($SubnetGatewayExists -Eq $True) -Or ($ipv4_fourth_val -Eq 1)) {
+
 
 		$EachIPv4 = "192.168.${ipv4_third_val}.${ipv4_fourth_val}";
 
@@ -98,12 +104,15 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 10; $ipv4_third_val++) {
 			$TestComputerConn = (Test-ComputerConnection -ComputerName ("${EachIPv4}"));
 		};
 		$TotalMilliseconds_TestComputerConn += $Measure_TestConn.TotalMilliseconds;
-		# Write-Host "TestComputerConn: " -NoNewLine; $TestComputerConn | Format-List;
-		# Write-Host "Measure_TestComputerConn.TotalMilliseconds: " -NoNewLine; $Measure_TestComputerConn.TotalMilliseconds;
-		# Write-Host "";
-
+		
 		# If (($TestConn -Eq $True)) {
 		If (($TestComputerConn.Online -Eq $True)) {
+
+			If ($ipv4_fourth_val -Eq 1) {
+				$SubnetGatewayExists = $True;
+			}
+
+			Write-Host "Exists" -ForegroundColor ("Green");
 
 			Write-Host "Exists" -ForegroundColor ("Green");
 

@@ -104,7 +104,8 @@ function GitSyncAll {
 						Write-Host ($EachLine);
 					}
 				}
-				Write-Host "Fetch + pull complete." -ForegroundColor Green;
+				# Write-Host "Fetch + pull complete." -ForegroundColor Green;
+				
 			} ElseIf ($Action -eq "Fetch") {
 				# Fetch updates, only (no pull)
 				Write-Host -NoNewline "Fetching updates for repository `"";

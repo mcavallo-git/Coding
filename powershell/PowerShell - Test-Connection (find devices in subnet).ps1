@@ -80,7 +80,8 @@ Set-Content -Path ("${LogFile_Hostnames}") -Value ("");
 	$EachIPv4 = "192.168.10.1";
 
 	# $Measure_TestConn = Measure-Command { $TestConn = (Test-Connection -Quiet -Count (1) -ComputerName ("${EachIPv4}")); };
-	$Measure_TestConn = Measure-Command { $TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") 6> $null); };
+	# $Measure_TestConn = Measure-Command { $TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") 6> $null); };
+	$Measure_TestConn = Measure-Command { $TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") -InformationAction ("Ignore")); };
 	Write-Host "TestConn: " -NoNewLine; $TestConn;
 	Write-Host "Measure_TestConn.TotalMilliseconds: " -NoNewLine; $Measure_TestConn.TotalMilliseconds;
 	Write-Host "";

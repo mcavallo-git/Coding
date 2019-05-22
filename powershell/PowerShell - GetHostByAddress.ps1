@@ -1,2 +1,1 @@
-
-[System.Net.Dns]::GetHostByAddress("127.0.0.1")
+[System.Net.Dns]::GetHostByAddress("8.8.8.8")

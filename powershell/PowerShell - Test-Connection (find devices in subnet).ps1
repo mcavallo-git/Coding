@@ -85,7 +85,7 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 20; $ipv4_third_val++) {
 		$EachIPv4 = "192.168.${ipv4_third_val}.${ipv4_fourth_val}";
 
 		$Measure_TestConn = Measure-Command {
-			$TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") -InformationAction ("Ignore"));
+			$TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") -InformationAction ("Ignore") 6> $Null);
 		};
 		$TotalMilliseconds_TestConn += $Measure_TestConn.TotalMilliseconds;
 		Write-Host "TestConn: " -NoNewLine; $TestConn;

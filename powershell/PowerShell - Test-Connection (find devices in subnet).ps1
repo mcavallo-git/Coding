@@ -31,6 +31,7 @@ $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UForm
 
 Function Test-ComputerConnection
 {
+	# FUNCTION REQUIREMENTS --> POWERSHELL v6+
 	<#	
 		.SYNOPSIS
 			Test-ComputerConnection sends a ping to the specified computer or IP Address specified in the ComputerName parameter.

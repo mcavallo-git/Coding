@@ -76,13 +76,25 @@ $TotalMilliseconds_DnsLookupHostname = 0.0;
 $LogFile_IPv4Addresses = ("${HOME}/Desktop/NetworkDevice.IPv4Addresses.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 
-For ($ipv4_third_val=1; $ipv4_third_val -le 255; $ipv4_third_val++) {
+$ipv4_val1 = 192; $ipv4_val1_subnet2 = 10;
+$ipv4_val2 = 168; $ipv4_val2_subnet2 = 2;
+$ipv4_val3_start = 1; $ipv4_val3_max = 255;
+$ipv4_val4_start = 1; $ipv4_val4_max = 255;
+
+
+For ($ipv4_val3=$ipv4_val3_start; $ipv4_val3 -Le $ipv4_val3_max; $ipv4_val3++) {
+
+	If (($ipv4_val1 -Eq 192) -And ($ipv4_val3 -Ge ($ipv4_val3_max-1))) {
+		$ipv4_val1 = $ipv4_val1_subnet2;
+		$ipv4_val2 = $ipv4_val2_subnet2;
+		$ipv4_val3 = $ipv4_val3_start;
+	}
 
 	Write-Host "";
 
-	For ($ipv4_fourth_val=1; $ipv4_fourth_val -le 255; $ipv4_fourth_val++) {
+	For ($ipv4_val4=$ipv4_val4_start; $ipv4_val4 -Le $ipv4_val4_max; $ipv4_val4++) {
 
-		$EachIPv4 = "192.168.${ipv4_third_val}.${ipv4_fourth_val}";
+		$EachIPv4 = "${ipv4_val1}.${ipv4_val2}.${ipv4_val3}.${ipv4_val4}";
 
 		Write-Host "${EachIPv4}  |  " -NoNewLine;
 
@@ -125,7 +137,7 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 255; $ipv4_third_val++) {
 			}
 		} Else {
 			Write-Host "No-Response" -ForegroundColor ("Red");
-			If ($ipv4_fourth_val -Eq 1) {
+			If ($ipv4_val4 -Eq 1) {
 				Break;
 			}
 		}

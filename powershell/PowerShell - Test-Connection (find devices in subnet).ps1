@@ -1,34 +1,4 @@
 
-# $ErrorActionPreference = ("SilentlyContinue");
-
-$LogFile_IPv4Addresses = ("${HOME}/Desktop/NetworkDevice.IPv4Addresses.$(Get-Date -UFormat '%Y-%m-%d (%a)').log");
-$LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UFormat '%Y-%m-%d (%a)').log");
-
-# For ($i=0; $i -le 20; $i++) {
-
-	$EachIPv4 = "192.168.10.1";
-
-	$TestConn = (Test-Connection -Quiet -ErrorAction ("SilentlyContinue") -Count (1) -ComputerName ("${EachIPv4}"));
-	Write-Host "TestConn: " -NoNewLine; $TestConn;
-
-	$TestComputerConn = (Test-ComputerConnection -ComputerName ("${EachIPv4}"));
-	Write-Host "TestComputerConn: " -NoNewLine; $TestComputerConn | Format-List;
-	
-	If ($TestConn -Eq $True) {
-		
-		Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("$EachIPv4}");
-
-		$TestNetConn = (Test-NetConnection -InformationLevel ("Quiet") -ErrorAction ("SilentlyContinue") -ComputerName ("${EachIPv4}"));
-		Write-Host "TestNetConn: " -NoNewLine; $TestNetConn | Format-List;
-
-		$DnsLookupHostname = ([System.Net.Dns]::GetHostByAddress("${EachIPv4}")); $DnsLookupSuccess = $?;
-		Write-Host "DnsLookupHostname: " -NoNewLine; $DnsLookupHostname | Format-List;
-
-	}
-
-# }
-
-
 Function Test-ComputerConnection
 {
 	# FUNCTION REQUIREMENTS --> POWERSHELL v6+
@@ -77,23 +47,19 @@ Function Test-ComputerConnection
 	}
 	Process
 	{
-		$ping = new-object system.net.networkinformation.ping
-		try
-		{
+		$ping = New-Object system.net.networkinformation.ping;
+
+		Try {
 			$reply = $ping.Send($ComputerName,$timeout,$buffer,$options)	
-		}
-		catch
-		{
+		} Catch {
 			$ErrorMessage = $_.Exception.Message
 		}
-		if ($reply.status -eq "Success")
-		{
+		
+		If ($reply.status -eq "Success") {
 			$props = @{ComputerName=$ComputerName
 						Online=$True
 			}
-		}
-		else
-		{
+		} Else {
 			$props = @{ComputerName=$ComputerName
 						Online=$False			
 			}
@@ -102,6 +68,48 @@ Function Test-ComputerConnection
 	}
 	End{};
 }
+
+$LogFile_IPv4Addresses = ("${HOME}/Desktop/NetworkDevice.IPv4Addresses.$(Get-Date -UFormat '%Y-%m-%d (%a)').log");
+$LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UFormat '%Y-%m-%d (%a)').log");
+
+Set-Content -Path ("${LogFile_IPv4Addresses}") -Value ("");
+Set-Content -Path ("${LogFile_Hostnames}") -Value ("");
+
+# For ($i=0; $i -le 20; $i++) {
+
+	$EachIPv4 = "192.168.10.1";
+
+	# $Measure_TestConn = Measure-Command { $TestConn = (Test-Connection -Quiet -Count (1) -ComputerName ("${EachIPv4}")); };
+	$Measure_TestConn = Measure-Command { $TestConn = (Test-Connection -Quiet -Ping -Count (1) -ComputerName ("${EachIPv4}") -ErrorAction ("SilentlyContinue") 6> $null); };
+	Write-Host "TestConn: " -NoNewLine; $TestConn;
+	Write-Host "Measure_TestConn.TotalMilliseconds: " -NoNewLine; $Measure_TestConn.TotalMilliseconds;
+	Write-Host "";
+
+	$Measure_TestComputerConn = Measure-Command { $TestComputerConn = (Test-ComputerConnection -ComputerName ("${EachIPv4}")); };
+	Write-Host "TestComputerConn: " -NoNewLine; $TestComputerConn | Format-List;
+	Write-Host "Measure_TestComputerConn.TotalMilliseconds: " -NoNewLine; $Measure_TestComputerConn.TotalMilliseconds;
+	Write-Host "";
+
+	If ($TestConn -Eq $True) {
+		
+		Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("$EachIPv4}");
+
+		$Measure_TestNetConn = Measure-Command { $TestNetConn = (Test-NetConnection -InformationLevel ("Detailed") -ComputerName ("${EachIPv4}")); };
+		Write-Host "TestNetConn: " -NoNewLine; $TestNetConn | Format-List;
+		Write-Host "Measure_TestNetConn.TotalMilliseconds: " -NoNewLine; $Measure_TestNetConn.TotalMilliseconds;
+		Write-Host "";
+
+		$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = ("SilentlyContinue");
+		$Measure_DnsLookupHostname = Measure-Command { $DnsLookupHostname = ([System.Net.Dns]::GetHostByAddress("${EachIPv4}")); $DnsLookupSuccess = $?; };
+		$ErrorActionPreference = $Revertable_ErrorActionPreference;
+
+		Write-Host "DnsLookupHostname: " -NoNewLine; $DnsLookupHostname | Format-List;
+		Write-Host "Measure_DnsLookupHostname.TotalMilliseconds: " -NoNewLine; $Measure_DnsLookupHostname.TotalMilliseconds;
+		Write-Host "";
+
+	}
+
+# }
 
 #
 #	Citation(s)

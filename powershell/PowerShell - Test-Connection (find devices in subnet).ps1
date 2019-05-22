@@ -143,12 +143,12 @@ For ($ipv4_third_val=1; $ipv4_third_val -le 10; $ipv4_third_val++) {
 }
 
 # Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("`nTotalMilliseconds_TestConn = [ ${TotalMilliseconds_TestConn} ]");
-Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("`nTotalMilliseconds_TestComputerConn = [ ${TotalMilliseconds_TestComputerConn} ]");
-Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("`nTotalMilliseconds_DnsLookupHostname = [ ${TotalMilliseconds_DnsLookupHostname} ]");
+# Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("`nTotalMilliseconds_TestComputerConn = [ ${TotalMilliseconds_TestComputerConn} ]");
+# Add-Content -Path ("${LogFile_IPv4Addresses}") -Value ("`nTotalMilliseconds_DnsLookupHostname = [ ${TotalMilliseconds_DnsLookupHostname} ]");
 
 # Add-Content -Path ("${LogFile_Hostnames}") -Value ("`nTotalMilliseconds_TestConn = [ ${TotalMilliseconds_TestConn} ]");
-Add-Content -Path ("${LogFile_Hostnames}") -Value ("`nTotalMilliseconds_TestComputerConn = [ ${TotalMilliseconds_TestComputerConn} ]");
-Add-Content -Path ("${LogFile_Hostnames}") -Value ("`nTotalMilliseconds_DnsLookupHostname = [ ${TotalMilliseconds_DnsLookupHostname} ]");
+# Add-Content -Path ("${LogFile_Hostnames}") -Value ("`nTotalMilliseconds_TestComputerConn = [ ${TotalMilliseconds_TestComputerConn} ]");
+# Add-Content -Path ("${LogFile_Hostnames}") -Value ("`nTotalMilliseconds_DnsLookupHostname = [ ${TotalMilliseconds_DnsLookupHostname} ]");
 
 
 

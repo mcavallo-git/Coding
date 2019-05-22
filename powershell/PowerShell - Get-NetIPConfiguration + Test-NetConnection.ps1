@@ -17,12 +17,36 @@ ForEach-Object {
 
 	Write-Host "------------------------------------------------------------";
 
-	Test-NetConnection -ComputerName ("google.com") -ConstrainInterface ($_.InterfaceIndex) -DiagnoseRouting -InformationLevel "Detailed";
+	$ConstrainInterface = (Test-NetConnection -ComputerName ("google.com") -ConstrainInterface ($_.InterfaceIndex) -DiagnoseRouting -InformationLevel "Detailed");
+	$ConstrainInterface | Format-List;
 
 	Write-Host "";
 
-	Test-NetConnection -ComputerName ("google.com") -TraceRoute;
 	
+	$TraceRoute = (Test-NetConnection -ComputerName ("google.com") -TraceRoute -InformationLevel "Detailed");
+	$TraceRoute | Format-List;
+	
+	Write-Host "";
+
+	$TraceRoute.TraceRoute | Foreach-Object {
+
+		# Lookup the hostname of each traceroute hop
+		$ErrorActionPrefBackup = $ErrorActionPreference;
+		$ErrorActionPreference = ("SilentlyContinue");
+		$DnsLookupHostname = ([System.Net.Dns]::GetHostByAddress($_)); $DnsLookupSuccess = $?;
+		$ErrorActionPreference = ("${ErrorActionPrefBackup}");
+
+		Write-Host "Hostname Resolution" -NoNewLine;
+		Write-Host " | " -NoNewLine;
+		Write-Host "IPv4 `"$_`"" -NoNewLine;
+		Write-Host " | " -NoNewLine;
+		If ($DnsLookupSuccess -Eq $False) {
+			Write-Host "Unable to resolve hostname" -ForeGroundColor ("Red");
+		} Else {
+			Write-Host ($DnsLookupHostname.HostName) -ForeGroundColor ("Green");
+			# $DnsLookupHostname.GetType();
+		}
+	}
 	Write-Host "";
 
 };

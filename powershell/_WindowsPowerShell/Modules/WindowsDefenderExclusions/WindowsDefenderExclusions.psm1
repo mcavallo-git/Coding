@@ -201,6 +201,7 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Server\SRService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Client for STP\strwinclt.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Unigine\Heaven Benchmark 4.0\bin\Heaven.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\WinDirStat\windirstat.exe"));
 		# -- PROCESSES -- Sys32
 		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe")); # INTEL

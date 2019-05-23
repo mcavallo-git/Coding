@@ -11,7 +11,21 @@
 #										|->"About your pc"
 #													|-> "Version" <-- Ignore any numbers after the first period
 #													|-> "System type" <-- x86 or x64 processor/os architecture
-#																^-- Look for a downloadable exe from aforementioned URL matching both your "Version" and "System type"
+#																^-- Look for a downloadable exe from aforementioned URL matching both your "Version" and "System type", otherwise, go with highest versioned file which is not WS2016 (Server 2016)
 #
 
 # Get-IpamAddress -AddressFamily IPv4 -AddressCategory Private -AddressSpace "Default"
+
+
+
+
+
+
+
+
+#
+# Citation(s)
+#
+#		"MASTERING WINDOWS SERVER 2016 - Install and Configure IP Address Management (IPAM) 2016 – Part 1"
+#		 https://nedimmehic.org/2017/05/23/install-and-configure-ip-address-management-ipam-2016-part-1/
+#

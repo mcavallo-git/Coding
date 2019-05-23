@@ -77,11 +77,27 @@ $LogFile_IPv4Addresses = ("${HOME}/Desktop/NetworkDevice.IPv4Addresses.$(Get-Dat
 $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 
 $private_network_cidr = @();
-$private_network_cidr += "10.0.0.0/8";
-$private_network_cidr += "172.16.0.0/12";
-$private_network_cidr += "192.168.0.0/16";
+$private_network_cidr += "192.168.0.0/16"; # 192.168.0.1  ->  192.168.255.254
+$private_network_cidr += "172.16.0.0/12";  #  172.16.0.1  ->  172.31.255.254
+$private_network_cidr += "10.0.0.0/8";     #    10.0.0.1  ->  10.255.255.254
 
-$ipv4_ranges = @();
+$private_network_ipv4_ranges = @();
+$private_network_ipv4_ranges += @{ ip1 = @{ min=192; max=192; }; ip2 = @{ min=168; max=168; }; ip3 = @{ min=0; max=255; }; ip4 = @{ min=1; max=254; }; };
+$private_network_ipv4_ranges += @{ ip1 = @{ min=172; max=172; }; ip2 = @{ min=16; max=31; }; ip3 = @{ min=0; max=255; }; ip4 = @{ min=1; max=254; }; };
+$private_network_ipv4_ranges += @{ ip1 = @{ min=10; max=10; }; ip2 = @{ min=0; max=255; }; ip3 = @{ min=0; max=255; }; ip4 = @{ min=1; max=254; }; };
+
+$private_network_ipv4_ranges | Foreach-Object {
+	For ($ip1 = $_.ip1.min; $ip1 -le $_.ip1.max; $ip1++) {
+		For ($ip2 = $_.ip2.min; $ip2 -le $_.ip2.max; $ip2++) {
+			For ($ip3 = $_.ip3.min; $ip3 -le $_.ip3.max; $ip3++) {
+				For ($ip4 = $_.ip4.min; $ip4 -le $_.ip4.max; $ip4++) {
+					$EachIPv4 = "${ip1}.${ip2}.${ip3}.${ip4}";
+					Write-Host "${EachIPv4}";
+				}
+			}
+		}
+	}
+}
 
 $ipv4_val1 = 192; $ipv4_val1_subnet2 = 10;
 $ipv4_val2 = 168; $ipv4_val2_subnet2 = 2;

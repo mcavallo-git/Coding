@@ -76,6 +76,13 @@ $TotalMilliseconds_DnsLookupHostname = 0.0;
 $LogFile_IPv4Addresses = ("${HOME}/Desktop/NetworkDevice.IPv4Addresses.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 $LogFile_Hostnames = ("${HOME}/Desktop/NetworkDevice.Hostnames.$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S').log");
 
+$private_network_cidr = @();
+$private_network_cidr += "10.0.0.0/8";
+$private_network_cidr += "172.16.0.0/12";
+$private_network_cidr += "192.168.0.0/16";
+
+$ipv4_ranges = @();
+
 $ipv4_val1 = 192; $ipv4_val1_subnet2 = 10;
 $ipv4_val2 = 168; $ipv4_val2_subnet2 = 2;
 $ipv4_val3_start = 1; $ipv4_val3_max = 255;
@@ -158,6 +165,9 @@ For ($ipv4_val3=$ipv4_val3_start; $ipv4_val3 -Le $ipv4_val3_max; $ipv4_val3++) {
 #
 #	Citation(s)
 #
-#		Test-ComputerConnection
+#		"Test-ComputerConnection"
 #				|--> Original code provided by Reddit user [ Kreloc ] on forum [ https://www.reddit.com/r/PowerShell/comments/3rnrj9 ]
+#
+#		"Best Current Practice ::: Address Allocation for Private Internets"
+#			https://tools.ietf.org/html/rfc1918
 #

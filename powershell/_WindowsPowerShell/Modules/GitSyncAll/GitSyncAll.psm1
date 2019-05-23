@@ -90,7 +90,7 @@ function GitSyncAll {
 
 			If ($Action -eq "Pull") {
 				# Fetch + pull repositories
-				Write-Host -NoNewline "Fetching + pulling updates for repository `"";
+				Write-Host -NoNewline "Pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);

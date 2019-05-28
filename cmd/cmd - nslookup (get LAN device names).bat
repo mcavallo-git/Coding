@@ -2,6 +2,6 @@
 
 SET SUBNET=192.168.0.
 
-FOR /L %%N IN (1,1,254) DO @nslookup %SUBNET%%%N %SUBNET%1 >> DeviceNamesLAN.txt
+FOR /L %%N IN (1,1,254) DO @nslookup %SUBNET%%%N %SUBNET%1 >> DeviceHostnamesLAN.txt
 
 TIMEOUT -T 60

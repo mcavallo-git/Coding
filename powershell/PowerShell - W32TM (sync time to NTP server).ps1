@@ -1,4 +1,4 @@
-#		--------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #		W32TM  :::  Windows Time Service
 #		|
@@ -21,13 +21,14 @@ $NtpPeers += "north-america.pool.ntp.org";
 $NtpPeers += "time.windows.com";
 
 
-#		--------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 
 
 $Ntp_SetSyncInterval_3600s=",0x9";
 
 
 $ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
+$ManualPeerList="time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
 
 
 If ($BeforeUpdate_CheckTimeDelta -eq $true) {
@@ -40,7 +41,7 @@ If ($BeforeUpdate_CheckTimeDelta -eq $true) {
 }
 
 
-#		--------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 
 
 
@@ -50,11 +51,11 @@ NET STOP W32TIME;
 
 
 
-W32TM /config /syncfromflags:manual /manualpeerlist:"$ManualPeerList";
+W32TM /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
+W32TM /config /manualpeerlist:"time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
 #  |
-#  |-->  /syncfromflags  ->  "Sets what sources the NTP client should synchronize from"
-#  |-->  /manualpeerlist  ->  "Set the manual peer list to peers, which is a space-delimited list of Domain Name System (DNS) and/or IP addresses"
-
+#  |-->  /syncfromflags   -->  "Sets what sources the NTP client should synchronize from"
+#  |-->  /manualpeerlist  -->  "Set the manual peer list to peers, which is a space-delimited list of Domain Name System (DNS) and/or IP addresses"
 
 
 NET START W32TIME;
@@ -74,9 +75,19 @@ W32TM /resync /rediscover;
 #  |-->  /resync  -->  "Tell a computer that it should resynchronize its clock as soon as possible, discarding all accumulated error stats"
 #  |-->  /rediscover  -->  "Redetect the network configuration and rediscover network sources; Then, resynchronize"
 
+# ------------------------------------------------------------
+#
+#		Or if an all-in-one command is desired:
+#
+#
 
+# In an Admin PowerShell prompt, enter:
 
-#		--------------------------------------------------------------------------------------------------------------------------------
+NET STOP W32TIME; W32TM /config /manualpeerlist:"time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; W32TM /config /update; W32TM /resync /rediscover;
+
+#
+#
+# ------------------------------------------------------------
 
 If ($AfterUpdate_CheckTimeDelta -eq $true) {
 	Write-Host "`n`n  After Update to NTP-Config...`n   |";

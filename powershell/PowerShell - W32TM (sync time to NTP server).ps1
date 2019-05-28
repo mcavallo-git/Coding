@@ -106,3 +106,12 @@ If ($WaitForKeypress -eq $true) {
 
 
 Exit;
+
+# ------------------------------------------------------------
+#
+#	Citation(s)
+#
+#		Google Public NTP (developers.google.com) | 
+#			"Configuring Clients" | https://developers.google.com/time/guides
+#
+# ------------------------------------------------------------

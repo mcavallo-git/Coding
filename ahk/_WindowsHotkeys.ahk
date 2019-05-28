@@ -98,7 +98,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;		ACTION:  Open Program (see below)
 ;
 #-::
-	StringToType := StringRepeat("-",60)
+	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
 	Return
 ;
@@ -446,34 +446,6 @@ CapsLock & s::
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Mouse-Wheel-Click-Hold + Mouse-Wheel-Down
-;  ACTION:  Scroll to Bottom (Ctrl+End)
-;
-; MButton & WheelDown::
-	; MouseClick,WheelDown,,,50,0,D,R ; Previously "Super Scroll Down"
-	; Send ^{End}
-	; Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Mouse-Wheel-Click-Hold + Mouse-Wheel-Down
-;  ACTION:  Scroll to Top (Ctrl+Home)
-;
-; MButton & WheelUp::
-	; MouseClick,WheelUp,,,50,0,D,R
-	; Send ^{Home}
-	; Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Mouse-Middle-Click
-;  ACTION:  Restores Mouse-Middle-Click to normal operation
-;               AutoHotkey otherwise tries to lump the click with related actions,
-;                  then drops the click (forgets it) it if none are found.
-;
-; MButton::
-	; MouseClick,Middle
-	; Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
 ;  ACTION:  Change Tabs Left or Right
 ;
@@ -489,8 +461,15 @@ WheelRight::
 ;  ACTION:  Chrome - Open a New Instance of Google Chrome
 ;
 #C::
-	; OpenVisualStudio()
-	OpenChrome()
+	; OpenChrome()
+	; Loop 99 {
+	Loop 49 {
+	; Loop 24 {
+		Send {TAB}
+		Sleep 10
+		Send {SPACE}
+		Sleep 10
+	}
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

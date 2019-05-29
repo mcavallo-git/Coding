@@ -18,14 +18,15 @@ $ReversePathLookups += @{
 	Description = "Running Script Parent-Dir";
 	Commands = @(
 		@{
-			Command = "`$PSScriptRoot";
-			CurrentValue = ($PSScriptRoot);
-			MinimumPowerShellVersion = 3.0;
-		},
-		@{
 			Command = "Split-Path `$MyInvocation.MyCommand.Path -Parent";
 			CurrentValue = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 			MinimumPowerShellVersion = 2.0;
+		}
+		,
+		@{
+			Command = "`$PSScriptRoot";
+			CurrentValue = ($PSScriptRoot);
+			MinimumPowerShellVersion = 3.0;
 		}
 	)
 };

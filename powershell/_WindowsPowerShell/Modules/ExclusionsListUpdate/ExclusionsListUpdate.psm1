@@ -7,11 +7,14 @@
 #
 # ------------------------------------------------------------
 #
-function WindowsDefenderExclusions {
+function ExclusionsListUpdate {
 	Param(
 
 		[ValidateSet("Add","Get","Remove")]
 		[String]$Action = "Add",
+
+		[ValidateSet("Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
+		[String]$AntiVirusSoftware = "Windows Defender",
 
 		[String[]]$ExcludedFilepaths = @(),
 
@@ -32,7 +35,7 @@ function WindowsDefenderExclusions {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
-		$CommandString = "WindowsDefenderExclusions -SkipExit";
+		$CommandString = "ExclusionsListUpdate -SkipExit";
 		If ($PSBoundParameters.ContainsKey('Verbose')) { 
 			$CommandString += " -Verbose";
 		}
@@ -222,39 +225,41 @@ function WindowsDefenderExclusions {
 		#
 		#		APPLY THE EXCLUSIONS
 		#
-		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-			If ($_ -ne $null) {
-				Add-MpPreference -ExclusionPath "$_";
-				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
-				} Else {
-					If (Test-Path $_) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+		If ($AntiVirusSoftware -eq "Windows Defender") {
+			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+				If ($_ -ne $null) {
+					Add-MpPreference -ExclusionPath "$_";
+					If ($? -eq $True) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+						If (Test-Path $_) {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+						} Else {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+						}
 					}
 				}
 			}
-		}
-		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-			Add-MpPreference -ExclusionExtension "$_";
-			If ($? -eq $True) {
-				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
-			} Else {
-				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
-			}
-		}
-		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-			# If (($_ -ne $null) -And (Test-Path $_)) {
-			If ($_ -ne $null) {
-				Add-MpPreference -ExclusionProcess "$_";
+			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+				Add-MpPreference -ExclusionExtension "$_";
 				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 				} Else {
-					If (Test-Path $_) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+				}
+			}
+			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+				# If (($_ -ne $null) -And (Test-Path $_)) {
+				If ($_ -ne $null) {
+					Add-MpPreference -ExclusionProcess "$_";
+					If ($? -eq $True) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						If (Test-Path $_) {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+						} Else {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						}
 					}
 				}
 			}
@@ -264,15 +269,17 @@ function WindowsDefenderExclusions {
 		#
 		#		REVIEW FINAL EXCLUSIONS-LIST
 		#
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
-			$LiveMpPreference = Get-MpPreference;
-			Write-Host "`nExclusions - File Extensions:"; If ($LiveMpPreference.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionExtension; } `
-			Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
-			Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
-			Write-Host "`n";
-			Write-Host "`nClosing after 60s...";
-			Write-Host "`n";
-			Start-Sleep 60;
+		If ($AntiVirusSoftware -eq "Windows Defender") {
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+				$LiveMpPreference = Get-MpPreference;
+				Write-Host "`nExclusions - File Extensions:"; If ($LiveMpPreference.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionExtension; } `
+				Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
+				Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
+				Write-Host "`n";
+				Write-Host "`nClosing after 60s...";
+				Write-Host "`n";
+				Start-Sleep 60;
+			}
 		}
 		#
 		# ------------------------------------------------------------
@@ -280,7 +287,7 @@ function WindowsDefenderExclusions {
 	}
 }
 
-Export-ModuleMember -Function "WindowsDefenderExclusions";
+Export-ModuleMember -Function "ExclusionsListUpdate";
 
 #
 # Citation(s)

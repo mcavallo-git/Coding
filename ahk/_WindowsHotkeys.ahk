@@ -463,8 +463,8 @@ WheelRight::
 #C::
 	; OpenChrome()
 	; Loop 99 {
-	Loop 49 {
-	; Loop 24 {
+	; Loop 49 {
+	Loop 24 {
 		Send {TAB}
 		Sleep 10
 		Send {SPACE}

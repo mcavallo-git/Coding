@@ -257,7 +257,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
 		MouseClick, Left, 861, 947
-		Sleep 30000
+		Sleep 10000
 		MouseClick, Left, 1420, 905
 		Sleep 1000
 		MouseClick, Left, 848, 575

@@ -311,6 +311,6 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 #		stackoverflow
 #
 #			"How to monitor Windows Defender real time protection?"
-#			https://superuser.com/questions/1256548
+#			https://superuser.com/questions/1256548 (pulled 2019-05-29_05-57-37)
 #
 # ------------------------------------------------------------

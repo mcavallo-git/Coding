@@ -3,7 +3,7 @@ $ReversePathLookups = @();
 
 # Session Working Path/Dir
 $ReversePathLookups += @{
-	Description = "Working-Path / Working-Directory of the current session";
+	Description = "Session Working Path/Dir";
 	Commands = @(
 		@{
 			Command = "(Get-Item -Path `".\`").FullName;";
@@ -15,7 +15,7 @@ $ReversePathLookups += @{
 
 # Running Script Parent-Dir
 $ReversePathLookups += @{
-	Description = "Dirname / parent directory of the script currently being executed";
+	Description = "Running Script Parent-Dir";
 	Commands = @(
 		@{
 			Command = "`$PSScriptRoot";
@@ -32,7 +32,7 @@ $ReversePathLookups += @{
 
 # Running Script Fullpath
 $ReversePathLookups += @{
-	Description = "Fullpath of the script currently being executed";
+	Description = "Running Script Fullpath";
 	Commands = @(
 		@{
 			Command = "`$PSCommandPath";
@@ -50,11 +50,11 @@ $ReversePathLookups += @{
 Clear-Host;
 ForEach ($EachLookup In $ReversePathLookups) {
 	Write-Host (("`n")+("-"*60)+("`n"));
-	Write-Host ((" *** ")+($EachLookup.Description)+("`n"));
+	Write-Host (("  ")+($EachLookup.Description)+("`n"));
 	ForEach ($EachCommand In $EachLookup.Commands) {
-		Write-Host "    " -NoNewLine;
-		Write-Host $EachCommand.Command -NoNewLine -ForegroundColor "Green";
-		Write-Host (("   -->   ")+($EachCommand.CurrentValue)+("   (requires PowerShell ")+($EachCommand.MinimumPowerShellVersion)+("+)`n"));
+		Write-Host (("    ")+($EachCommand.Command)) -ForegroundColor "Green";
+		Write-Host (("      ")+($EachCommand.CurrentValue));
+		Write-Host (("      (requires PowerShell ")+($EachCommand.MinimumPowerShellVersion)+("+)`n"));
 		# Write-Host "";
 		# ForEach ($EachProperty In $EachCommand.GetEnumerator()) {
 		# 	Write-Host (("    ")+($EachProperty.Name)+(": ")+($EachProperty.Value));

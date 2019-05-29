@@ -207,6 +207,9 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\dwm.exe")); # "Desktop Window Manager"
+		$ExcludedProcesses += ((${Sys32})+("\mmc.exe")); # "Microsoft Management Console" (Task Scheduler, namely)
+		$ExcludedProcesses += ((${Sys32})+("\wbem\unsecapp.exe")); # WMI external calls
 		$ExcludedProcesses += ((${Sys32})+("\wbem\WmiPrvSE.exe")); # "WMI Provider Host", e.g. Windows Management Instrumentation Provider Host
 		# -- PROCESSES -- SysDrive
 		# -

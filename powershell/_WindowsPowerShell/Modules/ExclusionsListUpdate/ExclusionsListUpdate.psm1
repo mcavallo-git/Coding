@@ -289,18 +289,28 @@ function ExclusionsListUpdate {
 
 Export-ModuleMember -Function "ExclusionsListUpdate";
 
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
+#	------------------------------------------------------------
+#
 #		docs.microsoft.com
+#
 #			"Add-MpPreference"
-#			 https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference?view=win10-ps
+#			https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference?view=win10-ps
 #
-#		docs.microsoft.com
 #			"Configure Windows Defender Antivirus exclusions on Windows Server"
-#			 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus
+#			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus
 #
-#		docs.microsoft.com
 #			"Configure and validate exclusions based on file extension and folder location"
-#			 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
+#			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
 #
+# ------------------------------------------------------------
+#
+#		stackoverflow
+#
+#			"How to monitor Windows Defender real time protection?"
+#			https://superuser.com/questions/1256548
+#
+# ------------------------------------------------------------

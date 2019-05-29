@@ -1,7 +1,19 @@
 
 $ReversePathLookups = @();
 
-# Running Script - Parent Directory
+# Session Working Path/Dir
+$ReversePathLookups += @{
+	Description = "Working-Path / Working-Directory of the current session";
+	Commands = @(
+		@{
+			Command = "(Get-Item -Path `".\`").FullName;";
+			CurrentValue = (Get-Item -Path ".\").FullName;
+			MinimumPowerShellVersion = 3.0;
+		}
+	)
+};
+
+# Running Script Parent-Dir
 $ReversePathLookups += @{
 	Description = "Dirname / parent directory of the script currently being executed";
 	Commands = @(
@@ -18,19 +30,7 @@ $ReversePathLookups += @{
 	)
 };
 
-# Working-Path / Working-Directory
-$ReversePathLookups += @{
-	Description = "Working-Path / Working-Directory of the current session";
-	Commands = @(
-		@{
-			Command = "(Get-Item -Path `".\`").FullName;";
-			CurrentValue = (Get-Item -Path ".\").FullName;
-			MinimumPowerShellVersion = 3.0;
-		}
-	)
-};
-
-# Running Script - Fullpath
+# Running Script Fullpath
 $ReversePathLookups += @{
 	Description = "Fullpath of the script currently being executed";
 	Commands = @(

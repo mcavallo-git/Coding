@@ -60,18 +60,25 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #Z::
 	WinGetActiveStats, Title, Width, Height, Left, Top
+	WinGetTitle, WinTitle, A
 	WinGetText, WinText, A
+	WinGet, WinID, ID, A
 	WinGet, WinPID, PID, A
-	WinGet, WinPID, PID, A
-	WinGet, ProcessName, ProcessName, A
-	WinGet, ProcessPath, ProcessPath, A
+	WinGetClass, WinClass, A
+	WinGet, WinProcessName, ProcessName, A
+	WinGet, WinProcessPath, ProcessPath, A
+	WinGet, ProcessControlNames, ControlList, A	; Get all control names in this window
+
 	MsgBox, 0, Active Window Specs,
 		(LTrim
 
 			➣ WinTitle:   %WinTitle%
+			➣ WinID:   %WinID%
 			➣ WinPID:   %WinPID%
-			➣ ProcessName:   %ProcessName%
-			➣ ProcessPath:   %ProcessPath%
+			➣ WinClass:   %WinClass%
+			➣ WinProcessName:   %WinProcessName%
+			➣ WinProcessPath:   %WinProcessPath%
+			➣ ProcessControlNames:   %ProcessControlNames%
 
 			➣ Left:   %Left%
 			➣ Top:    %Top%
@@ -308,27 +315,48 @@ StringRepeat(StrToRepeat, Multiplier) {
 	CoordMode,Mouse,Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	; MsgBox, % substr(a_osversion, 1, 100)
-	Sleep 250
-	Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
-	Sleep 1000
+	SetTitleMatchMode, 1
+	SysGet, MonitorCountBefore, MonitorCount
+	SysGet, ViewportWidthBefore, 78
+	SysGet, ViewportHeightBefore, 79
 	if (A_OSVersion="WIN_7") {
 		; Windows7 - Duplicate Monitors
 		x_loc = 874
 		y_loc = 520
+		Sleep 1000
 		MouseClick, Left, %x_loc%, %y_loc%
 	} else if (substr(A_OSVersion, 1, 4)="10.0") {
 		; Windows10 - Duplicate Monitors
-		x_loc = 1740
-		; x_loc = 180
-		y_loc = 213
-		MouseClick, Left, %x_loc%, %y_loc%
-		; Title=Project
-		; ControlClick, x%x_loc% y%y_loc%, %Title%
+		x_loc := (A_ScreenWidth - 20)
+		y_loc = 210
+		Active_MustMatchTitle := "Project"
+		Active_MustMatchClass := "Windows.UI.Core.CoreWindow"
+		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
+		StartMilliseconds := A_TickCount
+		Loop {
+			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
+			WinGetTitle, WinTitle, A
+			WinGetClass, WinClass, A
+			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
+				; Windows-Projection menu detected --> select "Duplicate"
+				Sleep 50
+				MouseClick, Left, %x_loc%, %y_loc%
+				Send {Escape}
+				Break
+			} Else If (LoopingForMilliseconds > 10000) {
+				MsgBox, 
+				(LTrim
+					Error - Unable to locate Projection window
+				)
+				Break
+			} Else {
+				Sleep 10
+			}
+		}
 	}
-	Sleep 250
-	Send {Escape}
 	Return
+
+;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + ]
 ;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Extend" monitors
@@ -337,25 +365,45 @@ StringRepeat(StrToRepeat, Multiplier) {
 	CoordMode,Mouse,Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	; MsgBox, % substr(a_osversion, 1, 100)
-	Sleep 250
-	Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
-	Sleep 1000
+	SetTitleMatchMode, 1
+	SysGet, MonitorCountBefore, MonitorCount
+	SysGet, ViewportWidthBefore, 78
+	SysGet, ViewportHeightBefore, 79
 	if (A_OSVersion="WIN_7") {
 		; Windows7 - Extend Monitors
 		x_loc = 1044
 		y_loc = 520
+		Sleep 1000
 		MouseClick, Left, %x_loc%, %y_loc%
 	} else if (substr(A_OSVersion, 1, 4)="10.0") {
 		; Windows10 - Extend Monitors
-		x_loc = 1740
+		Active_MustMatchTitle := "Project"
+		Active_MustMatchClass := "Windows.UI.Core.CoreWindow"
+		x_loc := (A_ScreenWidth - 20)
 		y_loc = 315
-		MouseClick, Left, %x_loc%, %y_loc%
-		; Title=Project
-		; ControlClick, x%x_loc% y%y_loc%, %Title%
+		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
+		StartMilliseconds := A_TickCount
+		Loop {
+			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
+			WinGetTitle, WinTitle, A
+			WinGetClass, WinClass, A
+			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
+				; Windows-Projection menu detected --> select "Extend"
+				Sleep 50
+				MouseClick, Left, %x_loc%, %y_loc%
+				Send {Escape}
+				Break
+			} Else If (LoopingForMilliseconds > 10000) {
+				MsgBox, 
+				(LTrim
+					Error - Unable to locate Projection window
+				)
+				Break
+			} Else {
+				Sleep 10
+			}
+		}
 	}
-	Sleep 250
-	Send {Escape}
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -363,8 +411,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  ACTION:  Output cursor location
 ;
 #RButton::
-			CoordMode,Mouse,Screen
-			MouseGetPos, MouseX, MouseY
+	CoordMode,Mouse,Screen
+	MouseGetPos, MouseX, MouseY
 	MsgBox,
 	(LTrim
 	Pointer Location
@@ -884,6 +932,21 @@ ActiveWindow_Maximize() {
 		WinMaximize A
 	}
 	Return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+get_ahk_id_from_title(WinTitle,ExcludeTitle) {
+	SetTitleMatchMode, 2
+	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
+	return_ahk_id=ahk_id %output_var%
+	return return_ahk_id
+}
+get_ahk_id_from_pid(WinPid) {
+	SetTitleMatchMode, 2
+	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
+	return_ahk_id=ahk_id %output_var%
+	return return_ahk_id
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

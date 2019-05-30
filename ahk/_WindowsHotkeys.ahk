@@ -202,13 +202,13 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;
 ;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
 ;  HOTKEY:  Win + P
-#P::
++#P::
 	SetKeyDelay, 0, -1
 	MsgBox, 4,, Type the Clipboard? (Yes/No)
 	IfMsgBox Yes
 		Send %Clipboard%
 	else {
-		MsgBox Skipped
+		; MsgBox Skipped
 	}
 	Return
 ;

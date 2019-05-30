@@ -191,6 +191,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\POWERPNT.EXE"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\WINWORD.EXE"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Mobatek\MobaXterm\MobaXterm.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Notepad++\notepad++.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\NVIDIA Corporation\NvNode\NVIDIA Web Helper.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\Razer Central.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\Razer Updater.exe"));
@@ -200,6 +201,11 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\Service\Razer Synapse Service.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\UserProcess\Razer Synapse Service Process.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\WPFUI\Framework\Razer Synapse 3 Host\Razer Synapse 3.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzChromaAppManager.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKClient.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKClientS.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKServer.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Software Updater\SSUService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Server\SRService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Client for STP\strwinclt.exe"));
@@ -207,15 +213,24 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\WinDirStat\windirstat.exe"));
 		# -- PROCESSES -- Sys32
 		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHDCPSvc.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHeciSvc.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHeciSvc.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\dwm.exe")); # "Desktop Window Manager"
+		$ExcludedProcesses += ((${Sys32})+("\fontdrvhost.exe"));
+		$ExcludedProcesses += ((${Sys32})+("\lsass.exe"));
 		$ExcludedProcesses += ((${Sys32})+("\mmc.exe")); # "Microsoft Management Console" (Task Scheduler, namely)
+		$ExcludedProcesses += ((${Sys32})+("\SearchIndexer.exe"));
+		$ExcludedProcesses += ((${Sys32})+("\taskmgr.exe"));
 		$ExcludedProcesses += ((${Sys32})+("\wbem\unsecapp.exe")); # WMI external calls
 		$ExcludedProcesses += ((${Sys32})+("\wbem\WmiPrvSE.exe")); # "WMI Provider Host", e.g. Windows Management Instrumentation Provider Host
 		# -- PROCESSES -- SysDrive
-		# -
+		$ExcludedProcesses += ((${SysDrive})+("\ProgramData\Microsoft\Windows Defender\Platform\4.18.1904.1-0\MsMpEng.exe"));
+		$ExcludedProcesses += ((${SysDrive})+("\ProgramData\Microsoft\Windows Defender\Platform\4.18.1904.1-0\NisSrv.exe"));
 		# -- PROCESSES -- SysRoot
 		$ExcludedProcesses += ((${SysRoot})+("\explorer.exe"));
 		# -- PROCESSES -- UserProfile

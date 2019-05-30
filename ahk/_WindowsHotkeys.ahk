@@ -320,12 +320,18 @@ StringRepeat(StrToRepeat, Multiplier) {
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
 	if (A_OSVersion="WIN_7") {
+		
 		; Windows7 - Duplicate Monitors
 		x_loc = 874
 		y_loc = 520
 		Sleep 1000
+		MouseGetPos, MouseX, MouseY
 		MouseClick, Left, %x_loc%, %y_loc%
+		Sleep 1
+		MouseMove, %MouseX%, %MouseY%
+		
 	} else if (substr(A_OSVersion, 1, 4)="10.0") {
+
 		; Windows10 - Duplicate Monitors
 		x_loc := (A_ScreenWidth - 20)
 		y_loc = 210
@@ -340,8 +346,11 @@ StringRepeat(StrToRepeat, Multiplier) {
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
 				; Windows-Projection menu detected --> select "Duplicate"
 				Sleep 50
+				MouseGetPos, MouseX, MouseY
 				MouseClick, Left, %x_loc%, %y_loc%
-				Send {Escape}
+				Sleep 1
+				MouseClick, Left, 50, %A_ScreenHeight%
+				MouseMove, %MouseX%, %MouseY%
 				Break
 			} Else If (LoopingForMilliseconds > 10000) {
 				MsgBox, 
@@ -353,7 +362,17 @@ StringRepeat(StrToRepeat, Multiplier) {
 				Sleep 10
 			}
 		}
+
 	}
+
+	SysGet, MonitorCountAfter, MonitorCount
+	SysGet, ViewportWidthAfter, 78
+	SysGet, ViewportHeightAfter, 79
+	If (ViewportWidthAfter >= ViewportWidthBefore) {
+		; Screen did net-width did not shrink --> try ...
+
+	}
+
 	Return
 
 ;
@@ -370,12 +389,18 @@ StringRepeat(StrToRepeat, Multiplier) {
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
 	if (A_OSVersion="WIN_7") {
+
 		; Windows7 - Extend Monitors
 		x_loc = 1044
 		y_loc = 520
 		Sleep 1000
+		MouseGetPos, MouseX, MouseY
 		MouseClick, Left, %x_loc%, %y_loc%
+		Sleep 1
+		MouseMove, %MouseX%, %MouseY%
+
 	} else if (substr(A_OSVersion, 1, 4)="10.0") {
+
 		; Windows10 - Extend Monitors
 		Active_MustMatchTitle := "Project"
 		Active_MustMatchClass := "Windows.UI.Core.CoreWindow"
@@ -390,8 +415,12 @@ StringRepeat(StrToRepeat, Multiplier) {
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
 				; Windows-Projection menu detected --> select "Extend"
 				Sleep 50
+				MouseGetPos, MouseX, MouseY
 				MouseClick, Left, %x_loc%, %y_loc%
-				Send {Escape}
+				MouseMove, %MouseX%, %MouseY%
+				Sleep 1
+				MouseClick, Left, 50, %A_ScreenHeight%
+				MouseMove, %MouseX%, %MouseY%
 				Break
 			} Else If (LoopingForMilliseconds > 10000) {
 				MsgBox, 
@@ -403,7 +432,17 @@ StringRepeat(StrToRepeat, Multiplier) {
 				Sleep 10
 			}
 		}
+
 	}
+
+	SysGet, MonitorCountAfter, MonitorCount
+	SysGet, ViewportWidthAfter, 78
+	SysGet, ViewportHeightAfter, 79
+	If (ViewportWidthAfter <= ViewportWidthBefore) {
+		; Screen net-width did not extend --> try ...
+
+	}
+
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -319,24 +319,24 @@ StringRepeat(StrToRepeat, Multiplier) {
 	SysGet, MonitorCountBefore, MonitorCount
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
-	if (A_OSVersion="WIN_7") {
-		
+
+	MouseGetPos, MouseX, MouseY
+
+	If (A_OSVersion="WIN_7") {
+
 		; Windows7 - Duplicate Monitors
 		x_loc = 874
 		y_loc = 520
+		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 1000
-		MouseGetPos, MouseX, MouseY
 		MouseClick, Left, %x_loc%, %y_loc%
 		Sleep 1
-		MouseMove, %MouseX%, %MouseY%
 		
-	} else if (substr(A_OSVersion, 1, 4)="10.0") {
+	} Else If (substr(A_OSVersion, 1, 4)="10.0") {
 
 		; Windows10 - Duplicate Monitors
 		x_loc := (A_ScreenWidth - 20)
 		y_loc = 210
-		Active_MustMatchTitle := "Project"
-		Active_MustMatchClass := "Windows.UI.Core.CoreWindow"
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		StartMilliseconds := A_TickCount
 		Loop {
@@ -346,13 +346,24 @@ StringRepeat(StrToRepeat, Multiplier) {
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
 				; Windows-Projection menu detected --> select "Duplicate"
 				Sleep 50
-				MouseGetPos, MouseX, MouseY
 				MouseClick, Left, %x_loc%, %y_loc%
-				Sleep 1
-				MouseClick, Left, 50, %A_ScreenHeight%
-				MouseMove, %MouseX%, %MouseY%
+				; Wait until the new monitor layout is loaded
+				Loop 500 {
+					Sleep 10
+					SysGet, MonitorCountAfter, MonitorCount
+					If (MonitorCountAfter != MonitorCountBefore) {
+						Break
+					}
+				}
+				WinGetTitle, WinTitle, A
+				WinGetClass, WinClass, A
+				If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
+					WinClose, A
+				} Else {
+					; MouseClick, Left, 50, A_ScreenHeight
+				}
 				Break
-			} Else If (LoopingForMilliseconds > 10000) {
+			} Else If (LoopingForMilliseconds > 2000) {
 				MsgBox, 
 				(LTrim
 					Error - Unable to locate Projection window
@@ -362,17 +373,13 @@ StringRepeat(StrToRepeat, Multiplier) {
 				Sleep 10
 			}
 		}
-
 	}
+
+	MouseMove, %MouseX%, %MouseY%
 
 	SysGet, MonitorCountAfter, MonitorCount
 	SysGet, ViewportWidthAfter, 78
 	SysGet, ViewportHeightAfter, 79
-	If (ViewportWidthAfter >= ViewportWidthBefore) {
-		; Screen did net-width did not shrink --> try ...
-
-	}
-
 	Return
 
 ;
@@ -388,22 +395,22 @@ StringRepeat(StrToRepeat, Multiplier) {
 	SysGet, MonitorCountBefore, MonitorCount
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
-	if (A_OSVersion="WIN_7") {
+
+	MouseGetPos, MouseX, MouseY
+
+	If (A_OSVersion="WIN_7") {
 
 		; Windows7 - Extend Monitors
 		x_loc = 1044
 		y_loc = 520
+		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 1000
-		MouseGetPos, MouseX, MouseY
 		MouseClick, Left, %x_loc%, %y_loc%
 		Sleep 1
-		MouseMove, %MouseX%, %MouseY%
 
-	} else if (substr(A_OSVersion, 1, 4)="10.0") {
+	} Else If (substr(A_OSVersion, 1, 4)="10.0") {
 
 		; Windows10 - Extend Monitors
-		Active_MustMatchTitle := "Project"
-		Active_MustMatchClass := "Windows.UI.Core.CoreWindow"
 		x_loc := (A_ScreenWidth - 20)
 		y_loc = 315
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
@@ -413,16 +420,26 @@ StringRepeat(StrToRepeat, Multiplier) {
 			WinGetTitle, WinTitle, A
 			WinGetClass, WinClass, A
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-				; Windows-Projection menu detected --> select "Extend"
+				; Windows-Projection menu detected --> select "Duplicate"
 				Sleep 50
-				MouseGetPos, MouseX, MouseY
 				MouseClick, Left, %x_loc%, %y_loc%
-				MouseMove, %MouseX%, %MouseY%
-				Sleep 1
-				MouseClick, Left, 50, %A_ScreenHeight%
-				MouseMove, %MouseX%, %MouseY%
+				; Wait until the new monitor layout is loaded
+				Loop 500 {
+					Sleep 10
+					SysGet, MonitorCountAfter, MonitorCount
+					If (MonitorCountAfter != MonitorCountBefore) {
+						Break
+					}
+				}
+				WinGetTitle, WinTitle, A
+				WinGetClass, WinClass, A
+				If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
+					WinClose, A
+				} Else {
+					; MouseClick, Left, 50, A_ScreenHeight
+				}
 				Break
-			} Else If (LoopingForMilliseconds > 10000) {
+			} Else If (LoopingForMilliseconds > 2000) {
 				MsgBox, 
 				(LTrim
 					Error - Unable to locate Projection window
@@ -432,16 +449,9 @@ StringRepeat(StrToRepeat, Multiplier) {
 				Sleep 10
 			}
 		}
-
 	}
 
-	SysGet, MonitorCountAfter, MonitorCount
-	SysGet, ViewportWidthAfter, 78
-	SysGet, ViewportHeightAfter, 79
-	If (ViewportWidthAfter <= ViewportWidthBefore) {
-		; Screen net-width did not extend --> try ...
-
-	}
+	MouseMove, %MouseX%, %MouseY%
 
 	Return
 ;
@@ -459,6 +469,20 @@ StringRepeat(StrToRepeat, Multiplier) {
 	➣Y_loc:   %MouseY%
 	)
 	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + L
+;  ACTION:  Lock the Computer & Show Screensaver
+;
+#End::
+#L::
+	DllCall("LockWorkStation")  ; Lock the Computer
+	SendMessage,0x112,0xF170,2,,Program Manager  ; 0x112 is WM_SYSCOMMAND, 0xF170 is SC_MONITORPOWER
+	; Note for the above: Use -1 in place of 2 to turn the monitor on
+	; Use 1 in place of 2 to activate the monitor's low-power mode
+	Return
+; 
+; Citation: https://autohotkey.com/docs/commands/PostMessage.htm
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + N

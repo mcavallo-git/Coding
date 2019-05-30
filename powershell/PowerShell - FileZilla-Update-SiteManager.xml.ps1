@@ -2,7 +2,8 @@
 $NewUser = "USERNAME";
 $NewKey = "${Env:USERPROFILE}\.ssh\azure\KEYNAME.pem";
 
-# FileZilla Saved Sites, usernames, & any additional locally-saved settings
+# Local-config files containing for ssh usernames, hostnames, private-key filepaths, etc.
+$MobaXtermSiteSettings = ("${Env:USERPROFILE}\Documents\MobaXterm\MobaXterm.ini");
 $FilezillaSiteSettings = ("${Env:USERPROFILE}\AppData\Roaming\FileZilla\sitemanager.xml");
 
 # Define the "Haystack", e.g. the string to parse (may have newlines aplenty)

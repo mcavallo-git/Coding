@@ -472,14 +472,18 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + L
-;  ACTION:  Lock the Computer & Show Screensaver
+;  ACTION:  Lock the Computer & put monitor(s) into 
 ;
 #End::
 #L::
 	DllCall("LockWorkStation")  ; Lock the Computer
-	SendMessage,0x112,0xF170,2,,Program Manager  ; 0x112 is WM_SYSCOMMAND, 0xF170 is SC_MONITORPOWER
-	; Note for the above: Use -1 in place of 2 to turn the monitor on
-	; Use 1 in place of 2 to activate the monitor's low-power mode
+	Sleep 1000
+	SendMessage,0x112,0xF170,2,,Program Manager 
+	; 0x112 = WM_SYSCOMMAND
+	; 0xF170 = SC_MONITORPOWER
+	;            |-->  -1 = turn the monitor(s) on
+	;            |-->   1 = activate low-power-mode on the monitor(s)
+	;            |-->   2 = turn the monitor(s) off
 	Return
 ; 
 ; Citation: https://autohotkey.com/docs/commands/PostMessage.htm

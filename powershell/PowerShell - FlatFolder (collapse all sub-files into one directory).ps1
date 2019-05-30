@@ -1,0 +1,1 @@
+(Get-ChildItem -Path "$PSScriptRoot" -File -Recurse).FullName | Foreach-Object { Copy-Item $_ "$PSScriptRoot"; }

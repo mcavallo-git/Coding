@@ -7,11 +7,14 @@
 #
 # ------------------------------------------------------------
 #
-function WindowsDefenderExclusions {
+function ExclusionsListUpdate {
 	Param(
 
 		[ValidateSet("Add","Get","Remove")]
 		[String]$Action = "Add",
+
+		[ValidateSet("Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
+		[String]$AntiVirusSoftware = "Windows Defender",
 
 		[String[]]$ExcludedFilepaths = @(),
 
@@ -32,7 +35,7 @@ function WindowsDefenderExclusions {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
-		$CommandString = "WindowsDefenderExclusions -SkipExit";
+		$CommandString = "ExclusionsListUpdate -SkipExit";
 		If ($PSBoundParameters.ContainsKey('Verbose')) { 
 			$CommandString += " -Verbose";
 		}
@@ -188,6 +191,7 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\POWERPNT.EXE"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\WINWORD.EXE"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Mobatek\MobaXterm\MobaXterm.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Notepad++\notepad++.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\NVIDIA Corporation\NvNode\NVIDIA Web Helper.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\Razer Central.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\Razer Updater.exe"));
@@ -197,6 +201,11 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\Service\Razer Synapse Service.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\UserProcess\Razer Synapse Service Process.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\WPFUI\Framework\Razer Synapse 3 Host\Razer Synapse 3.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzChromaAppManager.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKClient.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKClientS.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKServer.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Software Updater\SSUService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Server\SRService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Client for STP\strwinclt.exe"));
@@ -204,12 +213,24 @@ function WindowsDefenderExclusions {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\WinDirStat\windirstat.exe"));
 		# -- PROCESSES -- Sys32
 		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHDCPSvc.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHeciSvc.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHeciSvc.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
+		$ExcludedProcesses += ((${Sys32})+("\dwm.exe")); # "Desktop Window Manager"
+		$ExcludedProcesses += ((${Sys32})+("\fontdrvhost.exe"));
+		$ExcludedProcesses += ((${Sys32})+("\lsass.exe"));
+		$ExcludedProcesses += ((${Sys32})+("\mmc.exe")); # "Microsoft Management Console" (Task Scheduler, namely)
+		$ExcludedProcesses += ((${Sys32})+("\SearchIndexer.exe"));
+		$ExcludedProcesses += ((${Sys32})+("\taskmgr.exe"));
+		$ExcludedProcesses += ((${Sys32})+("\wbem\unsecapp.exe")); # WMI external calls
 		$ExcludedProcesses += ((${Sys32})+("\wbem\WmiPrvSE.exe")); # "WMI Provider Host", e.g. Windows Management Instrumentation Provider Host
 		# -- PROCESSES -- SysDrive
-		# -
+		$ExcludedProcesses += ((${SysDrive})+("\ProgramData\Microsoft\Windows Defender\Platform\4.18.1904.1-0\MsMpEng.exe"));
+		$ExcludedProcesses += ((${SysDrive})+("\ProgramData\Microsoft\Windows Defender\Platform\4.18.1904.1-0\NisSrv.exe"));
 		# -- PROCESSES -- SysRoot
 		$ExcludedProcesses += ((${SysRoot})+("\explorer.exe"));
 		# -- PROCESSES -- UserProfile
@@ -219,39 +240,41 @@ function WindowsDefenderExclusions {
 		#
 		#		APPLY THE EXCLUSIONS
 		#
-		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-			If ($_ -ne $null) {
-				Add-MpPreference -ExclusionPath "$_";
-				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
-				} Else {
-					If (Test-Path $_) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+		If ($AntiVirusSoftware -eq "Windows Defender") {
+			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+				If ($_ -ne $null) {
+					Add-MpPreference -ExclusionPath "$_";
+					If ($? -eq $True) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+						If (Test-Path $_) {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+						} Else {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+						}
 					}
 				}
 			}
-		}
-		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-			Add-MpPreference -ExclusionExtension "$_";
-			If ($? -eq $True) {
-				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
-			} Else {
-				If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
-			}
-		}
-		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-			# If (($_ -ne $null) -And (Test-Path $_)) {
-			If ($_ -ne $null) {
-				Add-MpPreference -ExclusionProcess "$_";
+			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+				Add-MpPreference -ExclusionExtension "$_";
 				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 				} Else {
-					If (Test-Path $_) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+				}
+			}
+			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+				# If (($_ -ne $null) -And (Test-Path $_)) {
+				If ($_ -ne $null) {
+					Add-MpPreference -ExclusionProcess "$_";
+					If ($? -eq $True) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						If (Test-Path $_) {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+						} Else {
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						}
 					}
 				}
 			}
@@ -261,15 +284,17 @@ function WindowsDefenderExclusions {
 		#
 		#		REVIEW FINAL EXCLUSIONS-LIST
 		#
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
-			$LiveMpPreference = Get-MpPreference;
-			Write-Host "`nExclusions - File Extensions:"; If ($LiveMpPreference.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionExtension; } `
-			Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
-			Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
-			Write-Host "`n";
-			Write-Host "`nClosing after 60s...";
-			Write-Host "`n";
-			Start-Sleep 60;
+		If ($AntiVirusSoftware -eq "Windows Defender") {
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+				$LiveMpPreference = Get-MpPreference;
+				Write-Host "`nExclusions - File Extensions:"; If ($LiveMpPreference.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionExtension; } `
+				Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
+				Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
+				Write-Host "`n";
+				Write-Host "`nClosing after 60s...";
+				Write-Host "`n";
+				Start-Sleep 60;
+			}
 		}
 		#
 		# ------------------------------------------------------------
@@ -277,20 +302,30 @@ function WindowsDefenderExclusions {
 	}
 }
 
-Export-ModuleMember -Function "WindowsDefenderExclusions";
+Export-ModuleMember -Function "ExclusionsListUpdate";
 
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
+#	------------------------------------------------------------
+#
 #		docs.microsoft.com
+#
 #			"Add-MpPreference"
-#			 https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference?view=win10-ps
+#			https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference?view=win10-ps
 #
-#		docs.microsoft.com
 #			"Configure Windows Defender Antivirus exclusions on Windows Server"
-#			 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus
+#			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus
 #
-#		docs.microsoft.com
 #			"Configure and validate exclusions based on file extension and folder location"
-#			 https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
+#			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
 #
+# ------------------------------------------------------------
+#
+#		stackoverflow
+#
+#			"How to monitor Windows Defender real time protection?"
+#			https://superuser.com/questions/1256548 (pulled 2019-05-29_05-57-37)
+#
+# ------------------------------------------------------------

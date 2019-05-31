@@ -212,6 +212,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Unigine\Heaven Benchmark 4.0\bin\Heaven.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\WinDirStat\windirstat.exe"));
 		# -- PROCESSES -- Sys32
+		$ExcludedProcesses += ((${Sys32})+("\ApplicationFrameHost.exe")); # XB1
+		$ExcludedProcesses += ((${Sys32})+("\BackgroundTransferHost.exe")); # XB1
 		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
 		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHDCPSvc.exe")); # INTEL
@@ -224,6 +226,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${Sys32})+("\fontdrvhost.exe"));
 		$ExcludedProcesses += ((${Sys32})+("\lsass.exe"));
 		$ExcludedProcesses += ((${Sys32})+("\mmc.exe")); # "Microsoft Management Console" (Task Scheduler, namely)
+		$ExcludedProcesses += ((${Sys32})+("\RuntimeBroker.exe")); # XB1
 		$ExcludedProcesses += ((${Sys32})+("\SearchIndexer.exe"));
 		$ExcludedProcesses += ((${Sys32})+("\taskmgr.exe"));
 		$ExcludedProcesses += ((${Sys32})+("\wbem\unsecapp.exe")); # WMI external calls

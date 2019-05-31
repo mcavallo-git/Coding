@@ -165,6 +165,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA Share.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NvTelemetry\NvTelemetryContainer.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\TortoiseGit\bin\TGitCache.exe"));
+		$ExcludedProcesses += ((${ProgFilesX64})+("\WindowsApps\Microsoft.XboxApp_48.53.21003.0_x64__8wekyb3d8bbwe\XboxApp.exe"));
 		# -- PROCESSES -- ProgFiles X86
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Dropbox\Client\Dropbox.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Thunderbolt Software\tbtsvc.exe"));

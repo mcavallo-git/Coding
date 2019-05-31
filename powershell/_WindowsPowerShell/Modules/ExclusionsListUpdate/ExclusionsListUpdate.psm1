@@ -122,10 +122,8 @@ function ExclusionsListUpdate {
 			$ExcludedFilepaths += ${Env:OneDriveCommercial}; 
 			$ExcludedFilepaths += (${Env:OneDriveCommercial}).replace("OneDrive - ","");
 		}
-		#
 		# ------------------------------------------------------------
-		#
-		# -- Extensions   (e.g. File Types)
+		# -- EXTENSIONS   (e.g. File Types)
 		$ExcludedExtensions += (".avhd");
 		$ExcludedExtensions += (".avhdx");
 		$ExcludedExtensions += (".iso");
@@ -135,9 +133,7 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions += (".vmcx");
 		$ExcludedExtensions += (".vmrs");
 		$ExcludedExtensions += (".vsv");
-		#
 		# ------------------------------------------------------------
-		#
 		# -- PROCESSES -- LocalAppData
 		$ExcludedProcesses += ((${LocalAppData})+("\Dropbox\Client\Dropbox.exe"));
 		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\GitHubDesktop.exe"));
@@ -238,7 +234,6 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${SysRoot})+("\explorer.exe"));
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += ((${UserProfile})+("\Documents\MobaXterm\slash\bin\Motty.exe"));
-		#
 		# ------------------------------------------------------------
 		#
 		#		APPLY THE EXCLUSIONS

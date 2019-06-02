@@ -1,0 +1,4 @@
+
+// ENTIRE URL REGEX  ---  preg_match('/\A(https?:\/\/)?((www|(m|c)?dev)\.)?(boneal)\.(me|net)(.*)/', $_SERVER['REQUEST_URI'])
+
+// SERVER_ADDR REGEX   --- preg_match('/\A((www|(m|c)?dev)\.)?(boneal)\.(net|org|me)\Z/', $_SERVER['SERVER_ADDR'])

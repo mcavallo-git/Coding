@@ -1,0 +1,15 @@
+EMAIL:
+
+([\._a-zA-Z0-9-]+)(@[_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+\b)+
+
+preg_match("/([\._a-zA-Z0-9-]+)(@[\.\B_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+\b)/i", $input_line, $output_array);
+
+
+
+
+
+PHONE:
+
+\b(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b
+
+

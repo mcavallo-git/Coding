@@ -36,14 +36,9 @@ if [ -z "${GREP_IPV6_LO}" ]; then
 	RELOAD_SYSCTL="1";
 fi;
 
-
+# Read-in new values into sysctl service and also apply values on every boot henceforth
 if [ -n "${RELOAD_SYSCTL}" ]; then
-
-	echo "$(date +'%Y-%m-%d %H:%M:%S') Performing required restart of SysCtl service...";
-
 	chmod 0644 "${CONF_DISABLE_IPV6}";
 	chown root:root "${CONF_DISABLE_IPV6}";
-
-	sudo sysctl -p;
-
+	sysctl --system;
 fi;

@@ -1,0 +1,7 @@
+# Microsoft Office - Temporary files (while documents are open)
+**/~$*.doc
+**/~$*.docx
+**/~$*.docm
+**/~$*.xls
+**/~$*.xlsx
+**/~$*.xlsm

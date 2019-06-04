@@ -182,3 +182,54 @@ done;
 
 
 ***
+### Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)
+```
+
+## GREATER-THAN
+filesize_GREATER_THAN="1048576c";
+find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
+
+
+## LESS-THAN
+filesize_LESS_THAN="1048576c";
+find '/var/log' -type 'f' -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
+
+## BETWEEN
+filesize_GREATER_THAN="0c";
+filesize_LESS_THAN="1048576c";
+find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
+
+```
+
+#### Note - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:
+```
+
+man find
+
+'...
+      
+     -size n[cwbkMG]
+      'b' for 512-byte blocks (default)
+      'c' for bytes
+      'w' for two-byte words
+      'k' for Kibibytes (KiB, 1024 bytes)
+      'M' for Mebibytes (MiB, 1048576 bytes)
+      'G' for Gibibytes (GiB, 1073741824 bytes)
+      
+       The size does not count indirect blocks, but it does count blocks in sparse files that are not actually
+       allocated.  Bear in mind that the `%k' and `%b' format specifiers of -printf handle sparse  files  dif‐
+       ferently.  The `b' suffix always denotes 512-byte blocks and never 1024-byte blocks, which is different
+       to the behaviour of -ls.
+      
+       The + and - prefixes signify greater than and less than, as usual; i.e., an exact size of n units  does
+       not  match.   Bear  in  mind  that  the size is rounded up to the next unit. Therefore -size -1M is not
+       equivalent to -size -1048576c.  The former only matches empty files, the latter matches files from 0 to
+       1,048,575 bytes.
+      
+...'
+
+```
+
+
+
+***

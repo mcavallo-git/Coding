@@ -145,5 +145,21 @@ find ${DIRECTORY_TO_CLEAN} -maxdepth 1 -type f -mtime +${KEEP_NEWER_THAN_DAYS} -
 ```
 
 
+***
+### Update any files-found which match the source-file's exact same filename & extension
+#####  ex) phpMyAdmin login logo
+```
+
+# Show the results which will be overwritten
+PMA_LOGO_LOGIN="/var/www/html/themes/original/img/logo_right.png" && \
+find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${PMA_LOGO_LOGIN})/*" -exec echo '{}' \;
+
+# Overwrite the results w/ source-file
+PMA_LOGO_LOGIN="/var/www/html/themes/original/img/logo_right.png" && \
+find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${PMA_LOGO_LOGIN})/*" -exec cp -f "${PMA_LOGO_LOGIN}" '{}' \;
+
+```
+
+
 
 ***

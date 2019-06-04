@@ -163,3 +163,22 @@ find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${P
 
 
 ***
+### Perform multiple actions within a for-loop on any items matching given find-command
+#####  ex) phpMyAdmin css searching (for specific class declaration)
+```
+
+GREP_STRING=".all100";
+for EACH_FILE in $(find "/" -name "*.css*"); do
+	GREP_RESULTS="$(cat ${EACH_FILE} | grep -n ${GREP_STRING})";
+	if [ -n "${GREP_RESULTS}" ]; then
+		echo -e "\n------------------------------------------------------------";
+		echo "${EACH_FILE}";
+		echo "${GREP_RESULTS}";
+	fi;
+done;
+
+```
+
+
+
+***

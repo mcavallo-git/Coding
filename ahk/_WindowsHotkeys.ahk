@@ -345,7 +345,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 			WinGetClass, WinClass, A
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
 				; Windows-Projection menu detected --> select "Duplicate"
-				Sleep 50
+				Sleep 250
 				MouseClick, Left, %x_loc%, %y_loc%
 				; Wait until the new monitor layout is loaded
 				Loop 500 {
@@ -421,7 +421,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 			WinGetClass, WinClass, A
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
 				; Windows-Projection menu detected --> select "Duplicate"
-				Sleep 50
+				Sleep 250
 				MouseClick, Left, %x_loc%, %y_loc%
 				; Wait until the new monitor layout is loaded
 				Loop 500 {

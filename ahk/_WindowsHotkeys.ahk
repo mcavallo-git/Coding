@@ -219,52 +219,50 @@ StringRepeat(StrToRepeat, Multiplier) {
 ; Timestamp		:::		Win + Ctrl + D
 ; Timestamp		:::		Win + Alt + D
 #D::
-+#D::
 ^#D::
 !#D::
-	; CoordMode,Mouse,Screen
-	; SetDefaultMouseSpeed, 0
++#D::
++^#D::
++!#D::
+
 	SetKeyDelay, 0, -1
-	; SetControlDelay, -1
-	; SetTitleMatchMode, 1
+		
+	TimezoneOffset := GetTimezoneOffset_P()
+
+	Needle_Win := "#D"
+	Needle_AltWin := "!#D"
+	Needle_CtrlWin := "^#D"
+
+	; StringGetPos, pos, file, \, R%A_Index%
+        ; if ErrorLevel
 	
-	msgbox, %A_ThisHotkey%
+	If InStr(A_ThisHotkey, Needle_Win) { ; Win
+		dat_format=yyyy-MM-dd_HH-mm-ss
 
-	If (A_ThisHotkey=="#D") {
+	} Else If InStr(A_ThisHotkey, Needle_AltWin) { ; Alt + Win
+		dat_format=yyyy.MM.dd-HH.mm.ss
 
-		time_format=yyyy-MM-dd_HH-mm-ss
-
-	} Else If (A_ThisHotkey=="#^d") {
-
-		time_format=yyyyMMdd-HHmmss
+	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) { ; Ctrl + Win
+		dat_format=yyyyMMdd-HHmmss
 
 	} Else {
-
-		If WinActive("ahk_group Explorer") { ; If using Explorer
-			time_format=yyyy-MM-dd_HH-mm-ss
-		} else {
-			time_format=yyyy-MM-dd HH:mm:ss
-		}
-
+		dat_format=yyyy-MM-dd_HH-mm-ss
 	}
-	; time_format = yyyyMMdd-HHmmss
-	FormatTime,TIMESTAMP,,%time_format%
-	TZ_OFFSET_P := GetTimezoneOffset_P()
-	RET_VAL = %TIMESTAMP%%TZ_OFFSET_P%
-  Send %RET_VAL%
+
+	If WinActive("ahk_group Explorer") {
+		dat_format := StrReplace(dat_format, ":", "-")
+	}
+
+	FormatTime, DatTimestamp, , %dat_format%
+
+	Keys = %DatTimestamp%
+	If (InStr(A_ThisHotkey, "+")) { ; Shift - concat the timezone onto the output timestamp
+		Keys = %DatTimestamp%%TZ_OFFSET_P%
+	}
+
+  Send %Keys%
+
 	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-; Timestamp		:::		Win + D
-; #D::
-; 	SetKeyDelay, 0, -1
-; 	time_format = yyyy-MM-dd_HH-mm-ss
-;   FormatTime,TIMESTAMP,,%time_format%
-; 	RET_VAL = %TIMESTAMP%
-;   ; Send %RET_VAL%
-;   SendInput %RET_VAL%
-; 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;

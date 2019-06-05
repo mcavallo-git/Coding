@@ -600,32 +600,44 @@ CapsLock::
 ;
 #WheelUp::
 #WheelDown::
+
+	VOLUME_INCREMENT := 5
+
 	If (A_ThisHotkey=="#WheelUp") {
 		; Volume up
-		SoundSet,+4
+		SoundSet,+VOLUME_INCREMENT
 	} Else If (A_ThisHotkey=="#WheelDown") {
 		; Volume Down
-		SoundSet,-4
+		SoundSet,-VOLUME_INCREMENT
 	}
 	SoundGet,MasterVolume
 	MasterVolume := Round(MasterVolume)
+	If (MasterVolume < 100) {
+		MasterVolume := Round(MasterVolume - Mod(MasterVolume,VOLUME_INCREMENT))
+	}
 
-	VolumeBarsCount := Round(MasterVolume/2)
-	VolumeSpacesCount := Round((100-MasterVolume)/2)
+	BAR_TO_PERCENT_RATIO := 2
 
-	VolumeBars := StringRepeat("|",VolumeBarsCount)
-	VolumeSpaces := StringRepeat(" ",VolumeSpacesCount)
+	VolumeBarsCount := Round(MasterVolume/BAR_TO_PERCENT_RATIO)
+	VolumeSpacesCount := Round((100-MasterVolume)/BAR_TO_PERCENT_RATIO)
+
+	VolumeBars := StringRepeat("⬛️",VolumeBarsCount)
+	VolumeSpaces := StringRepeat("⬜️",VolumeSpacesCount)
+	; VolumeBars := StringRepeat("|",VolumeBarsCount)
+	; VolumeSpaces := StringRepeat(" ",VolumeSpacesCount)
+
+	; ▪️▫️◾️◽️◼️◻️⬛️⬜️🔳🔲
 
 	VolumeBarsAndSpaces := VolumeBars VolumeSpaces
 
-	StringTrimRight, LeftFinalBars, VolumeBarsAndSpaces, (StrLen(VolumeBarsAndSpaces)/2)
-	StringTrimLeft, RightFinalBars, VolumeBarsAndSpaces, (StrLen(VolumeBarsAndSpaces)/2)
+	StringTrimRight, LeftFinalBars, VolumeBarsAndSpaces, ((StrLen(VolumeBarsAndSpaces)/BAR_TO_PERCENT_RATIO)+2)
+	StringTrimLeft, RightFinalBars, VolumeBarsAndSpaces, ((StrLen(VolumeBarsAndSpaces)/BAR_TO_PERCENT_RATIO)+2)
 
 	; if (Abs(MasterVolume) < 100) {
 	; 	MasterVolume = %MasterVolume%
 	; }
 
-	ToolTip, 🔈  %LeftFinalBars%[ %MasterVolume%`% ]%RightFinalBars%  🔊
+	ToolTip, 🔈  %LeftFinalBars%[   %MasterVolume%`%   ]%RightFinalBars%  🔊
 
 	ClearTooltip(750)
 

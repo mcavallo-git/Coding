@@ -82,7 +82,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Gui, Font, s10, Fira Code
 	Gui, Color, 1E1E1E
 	
-	Gui, Add, ListView, r4 w700 gMyListView, Key|Val
+	GUI_ROWCOUNT := 12
+	GUI_WIDTH := 1000
+
+	Gui, Add, ListView, r%GUI_ROWCOUNT% w%GUI_WIDTH% gMyListView, Key|Val
 
 	LV_Add("", "Title", WinTitle)
 	LV_Add("", "Class", WinClass)
@@ -104,10 +107,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 	MyListView:
 	if (A_GuiEvent = "DoubleClick") {
+		Gui, Destroy
 		; LV_GetText(RowText, A_EventInfo)  ; Get the text from the row's first field.
 		; ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
 	}
-	
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

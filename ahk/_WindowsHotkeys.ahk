@@ -256,7 +256,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 	FormatTime, DatTimestamp, , %dat_format%
 
 	Keys = %DatTimestamp%
-	If (InStr(A_ThisHotkey, "+")) { ; Shift - concat the timezone onto the output timestamp
+	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
 		Keys = %DatTimestamp%%TZ_OFFSET_P%
 	}
 

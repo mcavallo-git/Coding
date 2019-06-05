@@ -205,8 +205,10 @@ GetTimezoneOffset_P() {
 ; Repeat a string a given number of times
 StringRepeat(StrToRepeat, Multiplier) {
 	ReturnedVal := ""
-	Loop, %Multiplier% {
-		ReturnedVal .= StrToRepeat
+	If (Multiplier > 0) {
+		Loop, %Multiplier% {
+			ReturnedVal .= StrToRepeat
+		}
 	}
 	Return ReturnedVal
 }
@@ -607,8 +609,26 @@ CapsLock::
 	}
 	SoundGet,MasterVolume
 	MasterVolume := Round(MasterVolume)
-	ToolTip, %MasterVolume% Volume
+
+	VolumeBarsCount := Round(MasterVolume/2)
+	VolumeSpacesCount := Round((100-MasterVolume)/2)
+
+	VolumeBars := StringRepeat("|",VolumeBarsCount)
+	VolumeSpaces := StringRepeat(" ",VolumeSpacesCount)
+
+	VolumeBarsAndSpaces := VolumeBars VolumeSpaces
+
+	StringTrimRight, LeftFinalBars, VolumeBarsAndSpaces, (StrLen(VolumeBarsAndSpaces)/2)
+	StringTrimLeft, RightFinalBars, VolumeBarsAndSpaces, (StrLen(VolumeBarsAndSpaces)/2)
+
+	; if (Abs(MasterVolume) < 100) {
+	; 	MasterVolume = %MasterVolume%
+	; }
+
+	ToolTip, 🔈  %LeftFinalBars%[%MasterVolume%`%]%RightFinalBars%  🔊
+
 	ClearTooltip(750)
+
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

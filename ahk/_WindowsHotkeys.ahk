@@ -625,7 +625,7 @@ CapsLock::
 	; 	MasterVolume = %MasterVolume%
 	; }
 
-	ToolTip, 🔈  %LeftFinalBars%[%MasterVolume%`%]%RightFinalBars%  🔊
+	ToolTip, 🔈  %LeftFinalBars%[ %MasterVolume%`% ]%RightFinalBars%  🔊
 
 	ClearTooltip(750)
 

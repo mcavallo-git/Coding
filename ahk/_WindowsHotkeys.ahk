@@ -27,20 +27,37 @@
 ; Global Settings
 ;
 DetectHiddenWindows, On
+; 
 #Persistent
+; 
 #SingleInstance force
+; 
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 USER_DESKTOP=%USERPROFILE%\Desktop
+; 
 USER_DOCUMENTS=%USERPROFILE%/Documents
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Setup a group for targeting [Windows Explorer] windows
-GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
-GroupAdd, Explorer, ahk_class CabinetWClass
+; GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
+; GroupAdd, Explorer, ahk_class CabinetWClass
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+;	Tooltip clearing tool(s)
+;
+RemoveToolTip:
+	ToolTip
+	return
+;
+ClearTooltip(Timeout) {
+	SetTimer, RemoveToolTip, -%Timeout%
+	return
+}
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + Esc
@@ -53,6 +70,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	IfMsgBox, Yes, Edit
 	Return
 ;
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + Z
 ;		ACTION:  Show active window's location & dimension specs in a popup message-box
@@ -562,32 +580,47 @@ CapsLock::
 ;  HOTKEY:  Caps Lock + w
 ;  ACTION:  Scroll up 10 wheel clicks
 ;
-CapsLock & w::
-	MouseClick,WheelUp,,,10,0,D,R
-	Return
+; CapsLock & w::
+; 	MouseClick,WheelUp,,,10,0,D,R
+; 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Caps Lock + s
 ;  ACTION:  Scroll down 10 wheel clicks
 ;
-CapsLock & s::
-	MouseClick,WheelDown,,,10,0,D,R
+; CapsLock & s::
+; 	MouseClick,WheelDown,,,10,0,D,R
+; 	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Win + Mouse-Wheel Up/Down
+;  ACTION:  Turn computer volume up/down
+;
+#WheelUp::
+#WheelDown::
+	If (A_ThisHotkey=="#WheelUp") {
+		; Volume up
+		SoundSet,+4
+	} Else If (A_ThisHotkey=="#WheelDown") {
+		; Volume Down
+		SoundSet,-4
+	}
+	SoundGet,MasterVolume
+	MasterVolume := Round(MasterVolume)
+	ToolTip, %MasterVolume% Volume
+	ClearTooltip(750)
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Alt + Mouse-Wheel-Down
-;  ACTION:  Scroll down 15 wheel clicks
-;
-!WheelDown::
-	MouseClick,WheelDown,,,15,0,D,R
-	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Alt + Mouse-Wheel-Up
-;  ACTION:  Scroll up 15 wheel clicks
+;  HOTKEY:  Alt + Mouse-Wheel Up/Down
+;  ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
 ;
 !WheelUp::
 	MouseClick,WheelUp,,,15,0,D,R
+	Return
+;
+!WheelDown::
+	MouseClick,WheelDown,,,15,0,D,R
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

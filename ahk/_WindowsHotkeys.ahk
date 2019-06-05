@@ -43,8 +43,8 @@ USER_DOCUMENTS=%USERPROFILE%/Documents
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Setup a group for targeting [Windows Explorer] windows
-; GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
-; GroupAdd, Explorer, ahk_class CabinetWClass
+GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
+GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
@@ -218,14 +218,34 @@ StringRepeat(StrToRepeat, Multiplier) {
 ; Timestamp		:::		Win + Shift + D
 ; Timestamp		:::		Win + Ctrl + D
 ; Timestamp		:::		Win + Alt + D
+#D::
 +#D::
 ^#D::
 !#D::
+	; CoordMode,Mouse,Screen
+	; SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
-	if WinActive("ahk_group Explorer") { ; If using Explorer
-		time_format = yyyy-MM-dd_HH-mm-ss
-	} else {
-		time_format = yyyy-MM-dd HH:mm:ss
+	; SetControlDelay, -1
+	; SetTitleMatchMode, 1
+	
+	msgbox, %A_ThisHotkey%
+
+	If (A_ThisHotkey=="#D") {
+
+		time_format=yyyy-MM-dd_HH-mm-ss
+
+	} Else If (A_ThisHotkey=="#^d") {
+
+		time_format=yyyyMMdd-HHmmss
+
+	} Else {
+
+		If WinActive("ahk_group Explorer") { ; If using Explorer
+			time_format=yyyy-MM-dd_HH-mm-ss
+		} else {
+			time_format=yyyy-MM-dd HH:mm:ss
+		}
+
 	}
 	; time_format = yyyyMMdd-HHmmss
 	FormatTime,TIMESTAMP,,%time_format%
@@ -237,14 +257,14 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Timestamp		:::		Win + D
-#D::
-	SetKeyDelay, 0, -1
-	time_format = yyyy-MM-dd_HH-mm-ss
-  FormatTime,TIMESTAMP,,%time_format%
-	RET_VAL = %TIMESTAMP%
-  ; Send %RET_VAL%
-  SendInput %RET_VAL%
-	Return
+; #D::
+; 	SetKeyDelay, 0, -1
+; 	time_format = yyyy-MM-dd_HH-mm-ss
+;   FormatTime,TIMESTAMP,,%time_format%
+; 	RET_VAL = %TIMESTAMP%
+;   ; Send %RET_VAL%
+;   SendInput %RET_VAL%
+; 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
@@ -437,6 +457,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1
+	
 	SysGet, MonitorCountBefore, MonitorCount
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
@@ -598,48 +619,40 @@ CapsLock::
 ;  HOTKEY:  Win + Mouse-Wheel Up/Down
 ;  ACTION:  Turn computer volume up/down
 ;
+#MButton::
 #WheelUp::
 #WheelDown::
 
+	MuteIcon=🔇
+
 	VolumeLevel_Increment := 4
 
-	VolumeLevel_SetUpperLimit := 75
+	Volume_ForceUpperLimit := 25
 
-	VolumeLevel_Max := 100
+	SoundGet, VolumeLevel_BeforeEdits
 
-	SoundGet, VolumeLevel_BeforeEdit, MASTER, VOLUME, 1
-	VolumeLevel_BeforeEdit := Round(VolumeLevel_Set)
-	If (A_ThisHotkey=="#WheelUp") {
-		; Volume up
-		; SoundSet,+VolumeLevel_Increment
-		VolumeLevel_Set := VolumeLevel_BeforeEdit + VolumeLevel_Increment
-		If ( VolumeLevel_Set > VolumeLevel_SetUpperLimit ) {
-			VolumeLevel_Set := VolumeLevel_SetUpperLimit
-		}
-	} Else If (A_ThisHotkey=="#WheelDown") {
-		; Volume Down
-		; SoundSet,-VolumeLevel_Increment
-		VolumeLevel_Set := VolumeLevel_BeforeEdit - VolumeLevel_Increment
-		If ( VolumeLevel_Set < 0 ) {
-			VolumeLevel_Set := 0
-		}
+	VolumeLevel_BeforeEdits := Round(VolumeLevel_BeforeEdits)
+
+	If (A_ThisHotkey=="#MButton") { ; Volume mute
+		SoundSet, +1, , MUTE
+
+	} Else If (A_ThisHotkey=="#WheelUp") { ; Volume up
+		SoundSet,+%VolumeLevel_Increment%
+
+	} Else If (A_ThisHotkey=="#WheelDown") { ; Volume Down
+		SoundSet,-%VolumeLevel_Increment%
+		
 	}
+	
+	SoundGet, VolumeLevel_AfterEdits
+	SoundGet, MasterMute, , MUTE
 
-	SoundSet, VolumeLevel_Set, MASTER, VOLUME, 1
-	SoundGet, VolumeLevel, MASTER, VOLUME, 1
-
-	VolumeLevel := Round(VolumeLevel)
-	If (VolumeLevel < 100) {
-		VolumeLevel= %VolumeLevel%
-		If (VolumeLevel < 10) {
-			VolumeLevel= %VolumeLevel%
-		}
-	}
+	VolumeLevel_AfterEdits := Round(VolumeLevel_AfterEdits)
 
 	DingbatCount_MaxVolume := 20
 
-	VolumeBarsCount := Round(VolumeLevel/BAR_TO_PERCENT_RATIO)
-	VolumeSpacesCount := Round((100-VolumeLevel)/BAR_TO_PERCENT_RATIO)
+	VolumeBarsCount := Round( ( VolumeLevel_AfterEdits/100 ) * DingbatCount_MaxVolume)
+	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
 
 	VolumeBars := StringRepeat("⬛️",VolumeBarsCount)
 	VolumeSpaces := StringRepeat("⬜️",VolumeSpacesCount)
@@ -654,12 +667,17 @@ CapsLock::
 
 	StringTrimRight, FinalVolume_LeftHalf, FinalVolumeBars, TrimCount
 	StringTrimLeft, FinalVolume_RightHalf, FinalVolumeBars, TrimCount
+	
+	FinalVolume_Centered=%VolumeLevel_AfterEdits%`%
 
-	; if (Abs(VolumeLevel) < 100) {
-	; 	VolumeLevel = %VolumeLevel%
-	; }
-
-	ToolTip, 🔈  %FinalVolume_LeftHalf%[   %VolumeLevel%`%   ]%FinalVolume_RightHalf%  🔊
+	Padding_CenterLeft := A_Space A_Space A_Space A_Space A_Space A_Space
+	Padding_CenterRight := Padding_CenterLeft
+	If ( MasterMute == "On") {
+		Padding_CenterLeft := A_Space MuteIcon A_Space
+		Padding_CenterRight := A_Space MuteIcon A_Space
+	}
+	
+	ToolTip, 🔈  %FinalVolume_LeftHalf%[%Padding_CenterLeft%%FinalVolume_Centered%%Padding_CenterRight%]%FinalVolume_RightHalf%  🔊
 
 	ClearTooltip(750)
 

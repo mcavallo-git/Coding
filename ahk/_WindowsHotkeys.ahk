@@ -26,10 +26,9 @@
 ;
 ; Global Settings
 ;
-#SingleInstance force
-;
+DetectHiddenWindows, On
 #Persistent
-;
+#SingleInstance force
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,6 +58,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;		ACTION:  Show active window's location & dimension specs in a popup message-box
 ;
 #Z::
+
 	WinGetActiveStats, Title, Width, Height, Left, Top
 	WinGetTitle, WinTitle, A
 	WinGetText, WinText, A
@@ -67,29 +67,47 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	WinGetClass, WinClass, A
 	WinGet, WinProcessName, ProcessName, A
 	WinGet, WinProcessPath, ProcessPath, A
-	WinGet, ProcessControlNames, ControlList, A	; Get all control names in this window
+	WinGet, ControlNames, ControlList, A	; Get all control names in this window
+	
+	; Create the ListView with two columns
+	
+	; Gui, MyGui:Add, Text,, Text for about-box.
 
-	MsgBox, 0, Active Window Specs,
-		(LTrim
 
-			➣ WinTitle:   %WinTitle%
-			➣ WinID:   %WinID%
-			➣ WinPID:   %WinPID%
-			➣ WinClass:   %WinClass%
-			➣ WinProcessName:   %WinProcessName%
-			➣ WinProcessPath:   %WinProcessPath%
-			➣ ProcessControlNames:   %ProcessControlNames%
+	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
+	Gui, Font, s10, Tahoma
+	Gui, Font, s10, Consolas
+	Gui, Font, s10, Courier New
+	Gui, Font, s10, Open Sans
+	Gui, Font, s10, Fira Code
+	Gui, Color, 1E1E1E
+	
+	Gui, Add, ListView, r4 w700 gMyListView, Key|Val
 
-			➣ Left:   %Left%
-			➣ Top:    %Top%
-			
-			➣ Width:  %Width%
-			➣ Height: %Height%
+	LV_Add("", "Title", WinTitle)
+	LV_Add("", "Class", WinClass)
+	LV_Add("", "ProcessName", WinProcessName)
+	LV_Add("", "ProcessPath", WinProcessPath)
+	LV_Add("", "ControlName(s)", ControlNames)
+	LV_Add("", "ID", WinID)
+	LV_Add("", "PID", WinPID)
+	LV_Add("", "Left", Left)
+	LV_Add("", "Top", Top)
+	LV_Add("", "Width", Width)
+	LV_Add("", "Height", Height)
+	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
 
-			➣ WinMove,,,%Left%,%Top%,%Width%,%Height%
-		)
-	; MsgBox, 0, Active Window Specs, Title:`n   [%Title%]   `n`nDimensions: `n   Width (%Width%)     Height (%Height%)   `n`nPosition: `n   X (%X%)     Y (%Y%)
-	; MsgBox, 0, Active Window Specs, Title:`n`n`n ==> WinMove,,,%X%,%Y%,%Width%,%Height%
+	LV_ModifyCol()  ; Auto-size each column to fit its contents.
+
+	; Display the window and return. The script will be notified whenever the user double clicks a row.
+	Gui, Show
+
+	MyListView:
+	if (A_GuiEvent = "DoubleClick") {
+		; LV_GetText(RowText, A_EventInfo)  ; Get the text from the row's first field.
+		; ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
+	}
+	
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -327,6 +345,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 		; Windows7 - Duplicate Monitors
 		x_loc = 874
 		y_loc = 520
+		Send {Escape}
+		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 1000
 		MouseClick, Left, %x_loc%, %y_loc%
@@ -337,6 +357,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 		; Windows10 - Duplicate Monitors
 		x_loc := (A_ScreenWidth - 20)
 		y_loc = 210
+		Send {Escape}
+		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		StartMilliseconds := A_TickCount
 		Loop {
@@ -403,6 +425,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 		; Windows7 - Extend Monitors
 		x_loc = 1044
 		y_loc = 520
+		Send {Escape}
+		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 1000
 		MouseClick, Left, %x_loc%, %y_loc%
@@ -413,6 +437,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 		; Windows10 - Extend Monitors
 		x_loc := (A_ScreenWidth - 20)
 		y_loc = 315
+		Send {Escape}
+		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		StartMilliseconds := A_TickCount
 		Loop {
@@ -434,7 +460,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 				WinGetTitle, WinTitle, A
 				WinGetClass, WinClass, A
 				If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-					WinClose, A
+					; WinClose, A ; WinClose seems to glitch Windows 10 
+					Send {Escape}
 				} Else {
 					; MouseClick, Left, 50, A_ScreenHeight
 				}
@@ -963,7 +990,7 @@ OpenVSCode() {
 	}
 	; WinGet, WinPID, PID, %WinTitle%
 	; WinGet, ProcessName, ProcessName, %WinTitle%
-	; WinGet, ProcessPath, ProcessPath, %WinTitle_%
+	; WinGet, ProcessPath, ProcessPath, %WinTitle%
 	; MsgBox, 0, Active Window Specs,
 	; 	(LTrim
 	; 		➣ A_Temp:   %A_Temp%

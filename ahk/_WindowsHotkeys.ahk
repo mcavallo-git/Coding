@@ -630,8 +630,8 @@ CapsLock::
 
 	VolumeBarsAndSpaces := VolumeBars VolumeSpaces
 
-	StringTrimRight, LeftFinalBars, VolumeBarsAndSpaces, ((StrLen(VolumeBarsAndSpaces)/BAR_TO_PERCENT_RATIO)+2)
-	StringTrimLeft, RightFinalBars, VolumeBarsAndSpaces, ((StrLen(VolumeBarsAndSpaces)/BAR_TO_PERCENT_RATIO)+2)
+	StringTrimRight, LeftFinalBars, VolumeBarsAndSpaces, ((StrLen(VolumeBarsAndSpaces)/2)+2)
+	StringTrimLeft, RightFinalBars, VolumeBarsAndSpaces, ((StrLen(VolumeBarsAndSpaces)/2)+2)
 
 	; if (Abs(MasterVolume) < 100) {
 	; 	MasterVolume = %MasterVolume%

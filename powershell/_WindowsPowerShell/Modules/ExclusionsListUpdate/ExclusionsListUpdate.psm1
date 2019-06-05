@@ -146,6 +146,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX64})+("\FileZilla FTP Client\filezilla.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Git\cmd\git.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Git\git-bash.exe"));
+		$ExcludedProcesses += ((${ProgFilesX64})+("\Git\mingw64\bin\git.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Greenshot\Greenshot.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\CefSharp.BrowserSubprocess.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\Mailbird.exe"));

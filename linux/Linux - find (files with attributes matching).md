@@ -141,7 +141,13 @@ DIRECTORY_TO_CLEAN="/var/log/nginx/";
 
 KEEP_NEWER_THAN_DAYS=7;
 
-find ${DIRECTORY_TO_CLEAN} -maxdepth 1 -type f -mtime +${KEEP_NEWER_THAN_DAYS} -exec rm -v -- '{}' \;
+find ${DIRECTORY_TO_CLEAN} \
+-type f \
+-mtime +${KEEP_NEWER_THAN_DAYS} \
+-exec printf "$(date +'%Y-%m-%d %H:%M:%S') $(whoami)@$(hostname) | " \; \
+-exec rm -v -- '{}' \; \
+;
+
 ```
 
 

@@ -20,9 +20,9 @@ umount -d "/dev/xvda1"
 
 
 
-
+# ------------------------------------------------------------
 #
-# AWS | EBS (EC2) Encryption at Rest
+# Disk-Encryption at Rest, AWS EBS Volumes
 #  |
 #  |--> Overview: Create a snapshot of unencrypted volume - find the snapshot -> create volume -> select "enrcypted". While EC2 is off, find the old partition/volume's mount-path, then indiana jones the new volume onto the EC2 instance by first unmounting the old volume, then mounting the new volume @ the same mount-path. Done.
 #
@@ -34,9 +34,9 @@ umount -d "/dev/xvda1"
 # 	6. Detach the original (unencrypted) EBS volume
 # 	7. Attach your new (encrypted) EBS volume, making sure to match the device name (/dev/sda1, etc.)
 #	
-
+# ------------------------------------------------------------
 #
-# AWS | RDS Encryption at Rest
+# Encryption at Rest, AWS RDS Volumes
 #  |
 #  |--> Overview: Create a snapshot of unencrypted volume - find the snapshot -> restore snapshot -> select "enrcypted". Apply security groups. Point services to new hostname. Done.
 #
@@ -45,7 +45,7 @@ umount -d "/dev/xvda1"
 # 	3. Restore Database from the Encrypted Snapshot
 # 	4. Redirect Traffic to new DB
 #
-
+# ------------------------------------------------------------
 
 #
 #	Citation(s)

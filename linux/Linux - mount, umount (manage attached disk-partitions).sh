@@ -17,6 +17,7 @@ umount -d "/dev/xvda1"
 # ^^ did this via AWS console
 #    shutdown EC2 Instance - volumes -> detach volume
 #    volume->attach volume - /dev/sda1
+#
 
 
 
@@ -46,10 +47,10 @@ umount -d "/dev/xvda1"
 # 	4. Redirect Traffic to new DB
 #
 # ------------------------------------------------------------
-
 #
 #	Citation(s)
 #
 #		https://serverfault.com/questions/778759/how-to-convert-a-unencrypted-ebs-to-be-encrypted
 #
 #
+# ------------------------------------------------------------

@@ -1,12 +1,26 @@
 #!/bin/bash
-
-
+#
 # ------------------------------------------------------------
 #
-# Example: Search file-contents matching wildcard-search (...*) matching given string(s)
+#   grep    print lines matching a pattern
+#    ...
+#      options
+#        -r     perform a recursive search
+#        -n     get line number where a match was found
+#        -l     (lower-case L) show the file name, not the result itself
+#    ...
+#      options (cont.)
+#        -R     perform a recursive search AND follow sym-links
+#        -w     match whole word only
+#        -i     ignore case (perform a case-insensitive search)
+#
+# ------------------------------------------------------------
+#
+# Example: Search syslogs for crontab edits
 #
 
-grep -rn /data/var/log/syslog* -e cron -e REPLACE
+grep -rn /var/log/syslog* --regexp='crontab' | sort --numeric-sort;
+
 
 
 # ------------------------------------------------------------
@@ -17,16 +31,9 @@ grep -rn /data/var/log/syslog* -e cron -e REPLACE
 docker_instances_running=$(sudo docker ps --all | grep -c  '\<Up .* hours\>'); echo "docker_instances_running: ${docker_instances_running}";
 
 
+
 # ------------------------------------------------------------
-#
-#   grep    print lines matching a pattern
-#     -r     perform a recursive search
-#     -R     perform a recursive search AND follow sym-links
-#     -n     get line number where a match was found
-#     -w     match whole word only
-#     -l     (lower-case L) show the file name, not the result itself
-#     -i     ignore case (perform a case-insensitive search)
-#
+
 
 grep -rnl "/var/lib" -e "saveLog";
 grep -rnl "/var/lib" -e "/var/lib/php/session";

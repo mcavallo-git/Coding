@@ -8,7 +8,9 @@
 # General Ruleset
 #
 
-ufw allow 22/tcp;  # allow ssh-requests (22)
+ufw allow 22/tcp;  # allow ssh/sftp-requests (22)
+
+ufw allow 24/tcp;  # allow sftp-requests (24)
 
 ufw allow 80/tcp;  # allow web-requests (80)
 

@@ -1,5 +1,24 @@
 #!/bin/bash
 
+
+# ------------------------------------------------------------
+#
+# Example: Search file-contents matching wildcard-search (...*) matching given string(s)
+#
+
+grep -rn /data/var/log/syslog* -e cron -e REPLACE
+
+
+# ------------------------------------------------------------
+#
+# Example: Search [docker ps] to count the number of containers running
+#
+
+docker_instances_running=$(sudo docker ps --all | grep -c  '\<Up .* hours\>'); echo "docker_instances_running: ${docker_instances_running}";
+
+
+# ------------------------------------------------------------
+#
 #   grep    print lines matching a pattern
 #     -r     perform a recursive search
 #     -R     perform a recursive search AND follow sym-links
@@ -7,6 +26,7 @@
 #     -w     match whole word only
 #     -l     (lower-case L) show the file name, not the result itself
 #     -i     ignore case (perform a case-insensitive search)
+#
 
 grep -rnl "/var/lib" -e "saveLog";
 grep -rnl "/var/lib" -e "/var/lib/php/session";

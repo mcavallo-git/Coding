@@ -619,11 +619,13 @@ CapsLock::
 ;
 #MButton::
 #WheelUp::
++#WheelUp::
 #WheelDown::
++#WheelDown::
 
 	MuteIcon=🔇
 
-	VolumeLevel_Increment := 4
+	VolumeLevel_Increment := 2
 
 	Volume_ForceUpperLimit := 25
 
@@ -637,7 +639,15 @@ CapsLock::
 	} Else If (A_ThisHotkey=="#WheelUp") { ; Volume up
 		SoundSet,+%VolumeLevel_Increment%
 
+	} Else If (A_ThisHotkey=="+#WheelUp") { ; Volume up
+		VolumeLevel_Increment := ( VolumeLevel_Increment * 3 )
+		SoundSet,+%VolumeLevel_Increment%
+
 	} Else If (A_ThisHotkey=="#WheelDown") { ; Volume Down
+		SoundSet,-%VolumeLevel_Increment%
+
+	} Else If (A_ThisHotkey=="+#WheelDown") { ; Volume Down
+		VolumeLevel_Increment := ( VolumeLevel_Increment * 3 )
 		SoundSet,-%VolumeLevel_Increment%
 		
 	}

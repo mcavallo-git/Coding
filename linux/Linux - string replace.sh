@@ -1,2 +1,20 @@
+#!/bin/bash
+# ------------------------------------------------------------
+#
+#	Linux - bash completionisms - string char replacement, string substring replacement
+#
+# ------------------------------------------------------------
+#
 
-test="build-dev-api"; echo "${test//-/_}";
+HAYSTACK="this example, that example";
+NEEDLE="th";
+REPLACEMENT="d";
+echo "${HAYSTACK//${NEEDLE}/${REPLACEMENT}}";
+
+#
+# ------------------------------------------------------------
+#
+
+# test="build-dev-api"; echo "${test//-/_}";
+
+# ------------------------------------------------------------

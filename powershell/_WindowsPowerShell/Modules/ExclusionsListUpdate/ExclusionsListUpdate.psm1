@@ -171,6 +171,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX64})+("\WindowsApps\AppUp.IntelGraphicsExperience_1.100.1244.0_x64__8j3eq9eme6ctt\IGCC.exe"));
 		# -- PROCESSES -- ProgFiles X86
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Dropbox\Client\Dropbox.exe"));
+		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Driver and Support Assistant\DSAService.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Thunderbolt Software\tbtsvc.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Thunderbolt Software\Thunderbolt.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\ie_extract.exe"));

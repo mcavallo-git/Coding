@@ -144,6 +144,7 @@ ClearTooltip(Timeout) {
 ;		ACTION:  Open Program (see below)
 ;
 #-::
+#NumpadSub::
 	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
 	Return

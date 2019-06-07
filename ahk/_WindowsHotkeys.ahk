@@ -371,6 +371,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;
 #[::
+#]::
+
 	CoordMode,Mouse,Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
@@ -383,9 +385,16 @@ StringRepeat(StrToRepeat, Multiplier) {
 
 	If (A_OSVersion="WIN_7") {
 
-		; Windows7 - Duplicate Monitors
-		x_loc = 874
-		y_loc = 520
+		; Windows7
+
+		If (A_ThisHotkey=="^#[") { ; Duplicate Monitors
+			x_loc := 874
+			y_loc := 520
+		} Else If (A_ThisHotkey=="^#]") { ; Extend Monitors
+			x_loc := 1044
+			y_loc := 520
+		}
+
 		Send {Escape}
 		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
@@ -395,21 +404,34 @@ StringRepeat(StrToRepeat, Multiplier) {
 		
 	} Else If (substr(A_OSVersion, 1, 4)="10.0") {
 
-		; Windows10 - Duplicate Monitors
-		x_loc := (A_ScreenWidth - 20)
-		y_loc = 210
-		Send {Escape}
+		; Windows10
+
+		If (A_ThisHotkey=="^#[") { ; Duplicate Monitors
+			x_loc := (A_ScreenWidth - 20)
+			y_loc := 210
+		} Else If (A_ThisHotkey=="^#]") { ; Extend Monitors
+			x_loc := (A_ScreenWidth - 20)
+			y_loc := 315
+		}
+
 		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
+
 		StartMilliseconds := A_TickCount
+
 		Loop {
+
 			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
+
 			WinGetTitle, WinTitle, A
 			WinGetClass, WinClass, A
+
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-				; Windows-Projection menu detected --> select "Duplicate"
-				Sleep 500
+
+				; Windows-Projection menu detected --> select related option (duplicate/extend)
+				Sleep 250
 				MouseClick, Left, %x_loc%, %y_loc%
+
 				; Wait until the new monitor layout is loaded
 				Loop 500 {
 					Sleep 10
@@ -418,22 +440,32 @@ StringRepeat(StrToRepeat, Multiplier) {
 						Break
 					}
 				}
-				WinGetTitle, WinTitle, A
-				WinGetClass, WinClass, A
-				If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-					WinClose, A
-				} Else {
-					; MouseClick, Left, 50, A_ScreenHeight
-				}
+
+				; WinGetTitle, WinTitle, A
+				; WinGetClass, WinClass, A
+				; If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
+				; 	Send {Escape}
+				; } Else {
+				; 	MouseClick, Left, 50, A_ScreenHeight
+				; }
+				Sleep 500
+				Send {Escape}
+				Sleep 10
+
 				Break
+
 			} Else If (LoopingForMilliseconds > 2000) {
+
 				MsgBox, 
 				(LTrim
 					Error - Unable to locate Projection window
 				)
 				Break
+
 			} Else {
+
 				Sleep 10
+
 			}
 		}
 	}
@@ -443,86 +475,9 @@ StringRepeat(StrToRepeat, Multiplier) {
 	SysGet, MonitorCountAfter, MonitorCount
 	SysGet, ViewportWidthAfter, 78
 	SysGet, ViewportHeightAfter, 79
-	Return
-
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Windows-Key + ]
-;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Extend" monitors
-;
-#]::
-	CoordMode,Mouse,Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	SetTitleMatchMode, 1
-	
-	SysGet, MonitorCountBefore, MonitorCount
-	SysGet, ViewportWidthBefore, 78
-	SysGet, ViewportHeightBefore, 79
-
-	MouseGetPos, MouseX, MouseY
-
-	If (A_OSVersion="WIN_7") {
-
-		; Windows7 - Extend Monitors
-		x_loc = 1044
-		y_loc = 520
-		Send {Escape}
-		Sleep 250
-		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
-		Sleep 1000
-		MouseClick, Left, %x_loc%, %y_loc%
-		Sleep 1
-
-	} Else If (substr(A_OSVersion, 1, 4)="10.0") {
-
-		; Windows10 - Extend Monitors
-		x_loc := (A_ScreenWidth - 20)
-		y_loc = 315
-		Send {Escape}
-		Sleep 250
-		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
-		StartMilliseconds := A_TickCount
-		Loop {
-			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
-			WinGetTitle, WinTitle, A
-			WinGetClass, WinClass, A
-			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-				; Windows-Projection menu detected --> select "Duplicate"
-				Sleep 500
-				MouseClick, Left, %x_loc%, %y_loc%
-				; Wait until the new monitor layout is loaded
-				Loop 500 {
-					Sleep 10
-					SysGet, MonitorCountAfter, MonitorCount
-					If (MonitorCountAfter != MonitorCountBefore) {
-						Break
-					}
-				}
-				WinGetTitle, WinTitle, A
-				WinGetClass, WinClass, A
-				If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-					; WinClose, A ; WinClose seems to glitch Windows 10 
-					Send {Escape}
-				} Else {
-					; MouseClick, Left, 50, A_ScreenHeight
-				}
-				Break
-			} Else If (LoopingForMilliseconds > 2000) {
-				MsgBox, 
-				(LTrim
-					Error - Unable to locate Projection window
-				)
-				Break
-			} Else {
-				Sleep 10
-			}
-		}
-	}
-
-	MouseMove, %MouseX%, %MouseY%
 
 	Return
+
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + Right-Click

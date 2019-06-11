@@ -311,7 +311,7 @@ function ExclusionsListUpdate {
 		# 		If ($_.AddDir -ne "") {
 		# 			$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 		# 		}{
-		ForEach ($ProcessesObj in $ExcludedProcesses)
+		ForEach ($ProcessesObj in $ExcludedProcesses) {
 			If ($ProcessesObj -ne $null) {
 
 				Write-Host "`$ProcessesObj :"; $ProcessesObj | Format-List;
@@ -332,6 +332,7 @@ function ExclusionsListUpdate {
 					# -Depth (${Depth_GitConfigFile}) 
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "FoundProcesses:"; $FoundProcesses; }
+					
 					# If ($AntiVirusSoftware -eq "Windows Defender") {
 					# 	Add-MpPreference -ExclusionProcess "$_";
 					# 	If ($? -eq $True) {

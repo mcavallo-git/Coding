@@ -18,15 +18,17 @@ function ExclusionsListUpdate {
 		[String]$AntiVirusSoftware,
 
 		[String[]]$ExcludedFilepaths = @(),
-
 		[String[]]$ExcludedProcesses = @(),
-
 		[String[]]$ExcludedExtensions = @(),
 
 		[Switch]$Quiet,
 		[Switch]$Verbose
 
 	)
+
+	$FoundFilepaths = @();
+	$FoundExtensions = @();
+	$FoundProcesses = @();
 
 	# Require Escalated Privileges
 	If ((RunningAsAdministrator) -eq ($False)) {
@@ -246,6 +248,9 @@ function ExclusionsListUpdate {
 		#
 		If ($AntiVirusSoftware -eq "Windows Defender") {
 			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+				If (($_ -ne $null) -And (Test-Path $_)) {
+					$FoundFilepaths += $_;
+				}
 				If ($_ -ne $null) {
 					Add-MpPreference -ExclusionPath "$_";
 					If ($? -eq $True) {
@@ -260,6 +265,9 @@ function ExclusionsListUpdate {
 				}
 			}
 			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+				If ($_ -ne $null) {
+					$FoundExtensions += $_;
+				}
 				Add-MpPreference -ExclusionExtension "$_";
 				If ($? -eq $True) {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
@@ -268,7 +276,9 @@ function ExclusionsListUpdate {
 				}
 			}
 			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-				# If (($_ -ne $null) -And (Test-Path $_)) {
+				If (($_ -ne $null) -And (Test-Path $_)) {
+					$FoundProcesses += $_;
+				}
 				If ($_ -ne $null) {
 					Add-MpPreference -ExclusionProcess "$_";
 					If ($? -eq $True) {
@@ -282,6 +292,19 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
+		} Else {
+			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+			}
+			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+			}
+			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+			}
+			Write-Host "`nClosing after 60s...";
+			Write-Host "`n";
+			Start-Sleep 60;
 		}
 		#
 		# ------------------------------------------------------------
@@ -295,14 +318,14 @@ function ExclusionsListUpdate {
 				Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
 				Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
 			} Else {
-				$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+				$FoundFilepaths | Select-Object -Unique | ForEach-Object {
+					Write-Host "$_";
 				}
-				$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+				$FoundExtensions | Select-Object -Unique | ForEach-Object {
+					Write-Host "$_";
 				}
-				$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+				$FoundProcesses | Select-Object -Unique | ForEach-Object {
+					Write-Host "$_";
 				}
 			}
 			Write-Host "`n";

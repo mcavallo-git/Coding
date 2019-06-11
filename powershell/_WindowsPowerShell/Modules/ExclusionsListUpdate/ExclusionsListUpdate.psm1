@@ -312,19 +312,27 @@ function ExclusionsListUpdate {
 				}
 				$Each_Basename = $_.Basename;
 				$Each_Parent = If (($_.Parent -ne $null) -And ($_.Parent -ne ""))  { $_.Parent } Else { "" };
+				$Each_Depth = If (($_.Depth -ne $null) -And ($_.Depth -ne ""))  { [Int]$_.Depth } Else { "" };
 
 				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
-
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
-
 					If ($Each_Parent -eq "") {
-						# Matching on [ top level directory ] & [ basename ]
-						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
-						# -Depth (${Depth_GitConfigFile}) 
+						If ($Each_Depth -eq "") {
+							# Matching on [ top level directory ] & [ basename ]
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+						} Else {
+							# Matching on [ top level directory ], [ basename ] & [ depth ]
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+						}
 					} Else {
-						# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
-						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
-						# -Depth (${Depth_GitConfigFile}) 
+						If ($Each_Depth -eq "") {
+							# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
+						} Else {
+							# Matching on [ top level directory ], [ basename ], [ parent directory name ] & [ depth ]
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
+
+						}
 					}
 				}
 			}

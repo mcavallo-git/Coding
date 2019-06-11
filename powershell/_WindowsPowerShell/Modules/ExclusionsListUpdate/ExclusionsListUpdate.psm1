@@ -301,16 +301,25 @@ function ExclusionsListUpdate {
 		}
 		# Determine which process(es) exist locally
 		# $ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-		$ExcludedProcesses | ForEach {
+		# $ExcludedProcesses | ForEach-Object {
+		# 	If ($_ -ne $null) {
 
-			If ($_ -ne $null) {
+		# 		Write-Host "`$_ :"; $_ | Format-List;
 
-				Write-Host "`$_ :"; $_ | Format-List;
+		# 		$Each_Dirname = $_.Dirname;
+		# 		$Each_Basename = $_.Basename;
+		# 		If ($_.AddDir -ne "") {
+		# 			$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
+		# 		}{
+		ForEach ($ProcessesObj in $ExcludedProcesses)
+			If ($ProcessesObj -ne $null) {
 
-				$Each_Dirname = $_.Dirname;
-				$Each_Basename = $_.Basename;
-				If ($_.AddDir -ne "") {
-					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
+				Write-Host "`$ProcessesObj :"; $ProcessesObj | Format-List;
+
+				$Each_Dirname = $ProcessesObj.Dirname;
+				$Each_Basename = $ProcessesObj.Basename;
+				If ($ProcessesObj.AddDir -ne "") {
+					$Each_Dirname = (($ProcessesObj.Dirname)+("\")+($ProcessesObj.AddDir));
 				}
 				If (Test-Path $Each_Dirname) {
 

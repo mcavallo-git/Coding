@@ -312,7 +312,7 @@ function ExclusionsListUpdate {
 			$ImportContents = BuildImport_ESET -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 
 			$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\ExclusionsImport"));
-			$ImportBasename = ("Import-Into-")+($AntiVirusSoftware)+("___ExclusionsList")+(Get-Date -UFormat "%Y%m%d%H%M%S")+(".xml"));
+			$ImportBasename = (("Import-Into-")+($AntiVirusSoftware)+("___ExclusionsList")+(Get-Date -UFormat "%Y%m%d%H%M%S")+(".xml"));
 			$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
 
 			If ((Test-Path -Path ($ImportDirname)) -eq $false) {
@@ -321,7 +321,7 @@ function ExclusionsListUpdate {
 			Set-Content -Path ($ImportFilepath) -Value ($ImportContents);
 			
 			# Open the containing directory for the user
-			Explorer.exe "${ImportDirname}";
+			Explorer.exe "$ImportDirname";
 
 		}
 		#

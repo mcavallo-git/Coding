@@ -30,8 +30,6 @@ function ExclusionsListUpdate {
 	$FoundExtensions = @();
 	$FoundProcesses = @();
 
-	Start-Sleep -Seconds 60;
-
 	# Require Escalated Privileges
 	If ((RunningAsAdministrator) -eq ($False)) {
 		$PSCommandArgs = @();
@@ -51,6 +49,9 @@ function ExclusionsListUpdate {
 		}
 		PrivilegeEscalation -Command ("${CommandString}");
 	} Else {
+
+		Start-Sleep -Seconds 60;
+
 		#
 		# ------------------------------------------------------------
 		#

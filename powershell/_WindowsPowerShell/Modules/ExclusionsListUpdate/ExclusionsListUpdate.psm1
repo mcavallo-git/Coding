@@ -158,113 +158,111 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions += (".vsv");
 		# ------------------------------------------------------------
 		# -- PROCESSES -- LocalAppData
-		$ExcludedProcesses += ((${LocalAppData})+("\Dropbox\Client\Dropbox.exe"));
-		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\GitHubDesktop.exe"));
-		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\GitHubDesktop.exe"));
-		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\resources\app\git\mingw64\bin\git.exe"));
-		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\resources\app\git\mingw64\bin\git-lfs.exe"));
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Dropbox"; Parent=""; Basename="Dropbox.exe"; };
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="GitHubDesktop.exe"; };
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="GitHubDesktop.exe"; };
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="git.exe"; };
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="git-bash.exe"; };
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="git-lfs.exe"; };
 		# -- PROCESSES -- ProgFiles X64
-		$ExcludedProcesses += ((${ProgFilesX64})+("\AutoHotkey\AutoHotkey.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Classic Shell\ClassicStartMenu.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Cryptomator\Cryptomator.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\FileZilla FTP Client\filezilla.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Git\cmd\git.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Git\git-bash.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Git\mingw64\bin\git.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Greenshot\Greenshot.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\CefSharp.BrowserSubprocess.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\Mailbird.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\MailbirdUpdater.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\sqlite3.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Mailbird\x64\CefSharp.BrowserSubprocess.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbam.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamtray.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Malwarebytes\Anti-Malware\mbamservice.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Microsoft VS Code\Code.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\Microsoft VS Code\resources\app\node_modules.asar.unpacked\vscode-ripgrep\bin\rg.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\Display.NvContainer\NVDisplay.Container.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NvContainer\nvcontainer.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\ShadowPlay\nvsphelper64.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA GeForce Experience.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA Notification.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NVIDIA GeForce Experience\NVIDIA Share.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\NVIDIA Corporation\NvTelemetry\NvTelemetryContainer.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\TortoiseGit\bin\TGitCache.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\WindowsApps\Microsoft.XboxApp_48.53.21003.0_x64__8wekyb3d8bbwe\XboxApp.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\WindowsApps\AppUp.IntelGraphicsExperience_1.100.1244.0_x64__8j3eq9eme6ctt\GCP.ML.BackgroundSysTray\IGCCTray.exe"));
-		$ExcludedProcesses += ((${ProgFilesX64})+("\WindowsApps\AppUp.IntelGraphicsExperience_1.100.1244.0_x64__8j3eq9eme6ctt\IGCC.exe"));
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Parent=""; Basename="AutoHotkey.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Parent=""; Basename="ClassicStartMenu.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Cryptomator"; Parent=""; Basename="Cryptomator.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="FileZilla FTP Client"; Parent=""; Basename="filezilla.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Parent=""; Basename="git.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Parent=""; Basename="git-lfs.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Parent=""; Basename="git-bash.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Greenshot"; Parent=""; Basename="Greenshot.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Parent=""; Basename="CefSharp.BrowserSubprocess.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Parent=""; Basename="Mailbird.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Parent=""; Basename="MailbirdUpdater.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Parent=""; Basename="sqlite3.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Parent=""; Basename="CefSharp.BrowserSubprocess.exe"; }; # Mailbird\x64\
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Parent=""; Basename="mbam.exe"; }; # Malwarebytes
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Parent=""; Basename="mbamtray.exe"; }; # Malwarebytes
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Parent=""; Basename="mbamservice.exe"; }; # Malwarebytes
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Parent=""; Basename="Code.exe"; }; # VS Code
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Parent=""; Basename="rg.exe"; }; # VS Code
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="NVDisplay.Container.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="nvcontainer.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="nvsphelper64.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="NVIDIA GeForce Experience.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="NVIDIA Notification.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="NVIDIA Share.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Parent=""; Basename="NvTelemetryContainer.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="TortoiseGit"; Parent=""; Basename="TGitCache.exe"; }; # TortoiseGit
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Parent=""; Basename="XboxApp.exe"; }; # Microsoft XB1
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Parent=""; Basename="IGCCTray.exe"; }; # Intel Graphics
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Parent=""; Basename="IGCC.exe"; }; # Intel Graphics
 		# -- PROCESSES -- ProgFiles X86
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Dropbox\Client\Dropbox.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Driver and Support Assistant\DSAService.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Thunderbolt Software\tbtsvc.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Intel\Thunderbolt Software\Thunderbolt.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\ie_extract.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\lastpass.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\LastPassBroker.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\nplastpass.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\WinBioStandalone.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\LastPass\wlandecrypt.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\lync.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\EXCEL.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\lync.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\lync99.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\lynchtmlconv.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\MSACCESS.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\ONENOTE.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\ONENOTEM.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\OUTLOOK.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\POWERPNT.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Microsoft Office\root\Office16\WINWORD.EXE"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Mobatek\MobaXterm\MobaXterm.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Notepad++\notepad++.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\NVIDIA Corporation\NvNode\NVIDIA Web Helper.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\Razer Central.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\Razer Updater.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\Razer Central\RazerCentralService.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\GMS\GameManagerService.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Razer Services\GMS\GameManagerServiceStartup.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\Service\Razer Synapse Service.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\UserProcess\Razer Synapse Service Process.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer\Synapse3\WPFUI\Framework\Razer Synapse 3 Host\Razer Synapse 3.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzChromaAppManager.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKClient.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKClientS.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKServer.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Razer Chroma SDK\bin\RzSDKService.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Software Updater\SSUService.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Server\SRService.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Client for STP\strwinclt.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\Unigine\Heaven Benchmark 4.0\bin\Heaven.exe"));
-		$ExcludedProcesses += ((${ProgFilesX86})+("\WinDirStat\windirstat.exe"));
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Parent=""; Basename="Dropbox.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Parent=""; Basename="DSAService.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Parent=""; Basename="tbtsvc.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Parent=""; Basename="Thunderbolt.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="LastPass"; Parent=""; Basename="ie_extract.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="LastPass"; Parent=""; Basename="lastpass.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="LastPass"; Parent=""; Basename="LastPassBroker.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="LastPass"; Parent=""; Basename="nplastpass.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="LastPass"; Parent=""; Basename="WinBioStandalone.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="LastPass"; Parent=""; Basename="wlandecrypt.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="lync.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="EXCEL.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="lync.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="lync99.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="lynchtmlconv.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="MSACCESS.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="ONENOTE.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="ONENOTEM.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="OUTLOOK.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="POWERPNT.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Parent=""; Basename="WINWORD.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Parent=""; Basename="MobaXterm.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Notepad++"; Parent=""; Basename="notepad++.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="NVIDIA Corporation"; Parent=""; Basename="NVIDIA Web Helper.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="Razer Central.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="Razer Updater.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="RazerCentralService.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="GameManagerService.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="GameManagerServiceStartup.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="Razer Synapse Service.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="Razer Synapse Service Process.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Parent=""; Basename="Razer Synapse 3.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer Chroma SDK"; Parent=""; Basename="RzChromaAppManager.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer Chroma SDK"; Parent=""; Basename="RzSDKClient.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer Chroma SDK"; Parent=""; Basename="RzSDKClientS.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer Chroma SDK"; Parent=""; Basename="RzSDKServer.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer Chroma SDK"; Parent=""; Basename="RzSDKService.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop"; Parent=""; Basename="SSUService.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop"; Parent=""; Basename="SRService.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop"; Parent=""; Basename="strwinclt.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Unigine"; Parent=""; Basename="Heaven.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="WinDirStat"; Parent=""; Basename="windirstat.exe"; };
 		# -- PROCESSES -- ProgData
 		# $ExcludedProcesses += ((${ProgData})+("\..."));
 		# -- PROCESSES -- Sys32
-		$ExcludedProcesses += ((${Sys32})+("\ApplicationFrameHost.exe")); # XB1
-		$ExcludedProcesses += ((${Sys32})+("\BackgroundTransferHost.exe")); # XB1
-		$ExcludedProcesses += ((${Sys32})+("\DbxSvc.exe")); # Dropbox
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHDCPSvc.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\IntelCpHeciSvc.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\igfxEM.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHDCPSvc.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\igdlh64.inf_amd64_8a9535cd18c90bc3\IntelCpHeciSvc.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\DriverStore\FileRepository\ki131074.inf_amd64_6371bf46cc74b27d\igfxEM.exe")); # INTEL
-		$ExcludedProcesses += ((${Sys32})+("\dwm.exe")); # "Desktop Window Manager"
-		$ExcludedProcesses += ((${Sys32})+("\fontdrvhost.exe"));
-		$ExcludedProcesses += ((${Sys32})+("\lsass.exe"));
-		$ExcludedProcesses += ((${Sys32})+("\mmc.exe")); # "Microsoft Management Console" (Task Scheduler, namely)
-		$ExcludedProcesses += ((${Sys32})+("\RuntimeBroker.exe")); # XB1
-		$ExcludedProcesses += ((${Sys32})+("\SearchIndexer.exe"));
-		$ExcludedProcesses += ((${Sys32})+("\taskmgr.exe"));
-		$ExcludedProcesses += ((${Sys32})+("\wbem\unsecapp.exe")); # WMI external calls
-		$ExcludedProcesses += ((${Sys32})+("\wbem\WmiPrvSE.exe")); # "WMI Provider Host", e.g. Windows Management Instrumentation Provider Host
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="ApplicationFrameHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="BackgroundTransferHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="DbxSvc.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Parent=""; Basename="igfxEM.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Parent=""; Basename="IntelCpHDCPSvc.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Parent=""; Basename="IntelCpHeciSvc.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Parent=""; Basename="igfxEM.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="dwm.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="fontdrvhost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="lsass.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="mmc.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="RuntimeBroker.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="SearchIndexer.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Parent=""; Basename="taskmgr.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Parent=""; Basename="unsecapp.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Parent=""; Basename="WmiPrvSE.exe"; };
 		# -- PROCESSES -- SysDrive
-		$ExcludedProcesses += ((${SysDrive})+("\ProgramData\Microsoft\Windows Defender\Platform\4.18.1904.1-0\MsMpEng.exe"));
-		$ExcludedProcesses += ((${SysDrive})+("\ProgramData\Microsoft\Windows Defender\Platform\4.18.1904.1-0\NisSrv.exe"));
+		$ExcludedProcesses += @{ Dirname=${SysDrive}; AddDir="ProgramData\Microsoft\Windows Defender\Platform"; Parent=""; Basename="MsMpEng.exe"; };
+		$ExcludedProcesses += @{ Dirname=${SysDrive}; AddDir="ProgramData\Microsoft\Windows Defender\Platform"; Parent=""; Basename="NisSrv.exe"; };
 		# -- PROCESSES -- SysRoot
-		$ExcludedProcesses += ((${SysRoot})+("\explorer.exe"));
+		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir=""; Parent=""; Basename="explorer.exe"; };
 		# -- PROCESSES -- UserProfile
-		$ExcludedProcesses += ((${UserProfile})+("\Documents\MobaXterm\slash\bin\Motty.exe"));
+		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir="Documents\MobaXterm"; Parent=""; Basename="Motty.exe"; };
 		# ------------------------------------------------------------
 		#
 		#		APPLY THE EXCLUSIONS
@@ -301,25 +299,42 @@ function ExclusionsListUpdate {
 				}
 			}
 		}
+		# Determine which process(es) exist locally
 		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $null) {
-				If (Test-Path $_) {
-					$FoundProcesses += $_;
+
+				$Each_Dirname = $_.Dirname;
+				$Each_Basename = $_.Basename;
+				If ($_.AddDir -ne "") {
+					$Each_Dirname = (($Each_Dirname)+("\")+($_.AddDir));
 				}
-				If ($AntiVirusSoftware -eq "Windows Defender") {
-					Add-MpPreference -ExclusionProcess "$_";
-					If ($? -eq $True) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
-					} Else {
-						If (Test-Path $_) {
-							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
-						} Else {
-							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
-						}
+				If (Test-Path $Each_Dirname) {
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+						Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"...";
 					}
+					$FoundProcesses = Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+						| Where-Object { ($Parent -Eq "") -Eq ($_.Directory.Name -Eq "$Parent") } `
+						| Foreach-Object { $_.FullName; } `
+					;
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+						Write-Host "FoundProcesses:"; $FoundProcesses;
+					}
+					# If ($AntiVirusSoftware -eq "Windows Defender") {
+					# 	Add-MpPreference -ExclusionProcess "$_";
+					# 	If ($? -eq $True) {
+					# 		If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
+					# 	} Else {
+					# 		If (Test-Path $_) {
+					# 			If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+					# 		} Else {
+					# 			If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+					# 		}
+					# 	}
+					# }
 				}
 			}
 		}
+
 		# ESET Exclusions --> Construct an Import-file which contains all exclusions
 		$ImportFilepath = $null;
 		If ($AntiVirusSoftware -eq "ESET") {

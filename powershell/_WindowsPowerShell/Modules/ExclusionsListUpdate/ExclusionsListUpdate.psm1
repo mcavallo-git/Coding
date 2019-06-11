@@ -448,11 +448,11 @@ function BuildImport_ESET {
 		}
 
 		Write-Host "`n`n";
-		Write-Host "Rows_Start:"; $Rows_Start.Keys | Sort | Foreach { $Rows_Start[$_] };
-		Write-Host "`n`n";
+		# Write-Host "Rows_Start:"; $Rows_Start.Keys | Sort | Foreach { $Rows_Start[$_] };
+		# Write-Host "`n`n";
 		Write-Host "Rows_Between:"; $Rows_Between.Keys | Sort | Foreach { $Rows_Between[$_] };
-		Write-Host "`n`n";
-		Write-Host "Rows_End:"; $Rows_End.Keys | Sort | Foreach { $Rows_End[$_] };
+		# Write-Host "`n`n";
+		# Write-Host "Rows_End:"; $Rows_End.Keys | Sort | Foreach { $Rows_End[$_] };
 		Write-Host "`n`n";
 
 		#
@@ -488,7 +488,7 @@ function BuildImport_ESET {
 		Set-Content -Path ($ImportFilepath) -Value ($Contents_ESET_Import);
 		
 		# Open the containing directory for the user
-		Explorer.exe "$ImportDirname";
+		# Explorer.exe "$ImportDirname";
 
 	}
 }

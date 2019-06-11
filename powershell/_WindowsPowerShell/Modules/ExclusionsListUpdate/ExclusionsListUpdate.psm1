@@ -419,8 +419,9 @@ function BuildImport_ESET {
 		}
 		$Rows_New = $Rows_NewArr -join "\r?\n";
 
-		$Regex_StartFilepaths = '     <ITEM NAME="ScannerExcludes" DELETE="1">';
-		$Regex_EndFilepaths = '     <\/ITEM>';
+		$Regex_StartFilepaths = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
+		$Regex_EndFilepaths = '^     <\/ITEM>$';
+
 		$FoundStart = $False;
 		$FoundEnd = $False;
 		$Rows_Start = @{};

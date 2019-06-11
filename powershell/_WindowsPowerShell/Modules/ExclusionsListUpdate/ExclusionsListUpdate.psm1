@@ -314,9 +314,7 @@ function ExclusionsListUpdate {
 
 					Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { (($Parent -Eq "") -Or ($_.Directory.Name -Eq "$Parent")) } | Foreach-Object { $FoundProcesses += $_.FullName; };
 					# -Depth (${Depth_GitConfigFile}) 
-
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "FoundProcesses:"; $FoundProcesses; }
-					
+					#
 					# If ($AntiVirusSoftware -eq "Windows Defender") {
 					# 	Add-MpPreference -ExclusionProcess "$_";
 					# 	If ($? -eq $True) {
@@ -329,6 +327,7 @@ function ExclusionsListUpdate {
 					# 		}
 					# 	}
 					# }
+					#
 				}
 			}
 		}

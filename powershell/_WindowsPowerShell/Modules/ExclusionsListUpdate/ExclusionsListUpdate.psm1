@@ -14,8 +14,8 @@ function ExclusionsListUpdate {
 		[String]$Action = "Add",
 
 		[ValidateSet("", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
-		# [String]$AntiVirusSoftware = "Windows Defender",
-		[String]$AntiVirusSoftware,
+		[String]$AntiVirusSoftware = "Windows Defender",
+		# [String]$AntiVirusSoftware,
 
 		[String[]]$ExcludedFilepaths = @(),
 		$ExcludedProcesses = @(),

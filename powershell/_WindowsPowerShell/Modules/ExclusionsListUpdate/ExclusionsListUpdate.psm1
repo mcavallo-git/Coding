@@ -321,7 +321,8 @@ function ExclusionsListUpdate {
 			Set-Content -Path ($ImportFilepath) -Value ($ImportContents);
 			
 			# Open the containing directory for the user
-			Explorer.exe $ImportDirname;
+			Explorer.exe "${ImportDirname}";
+
 		}
 		#
 		# ------------------------------------------------------------

@@ -339,16 +339,42 @@ function ExclusionsListUpdate {
 		}
 
 		# ------------------------------------------------------------
-
-		# ESET Exclusions --> Construct an Import-file which contains all exclusions
-		$ImportFilepath = $null;
+		#
+		#		REVIEW FINAL EXCLUSIONS-LIST (before applying them)
+		#
+		#
+		#
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+			Write-Host "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Host "None"; } Else { $FoundExtensions; }
+			Write-Host "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Host "None"; } Else { $FoundFilepaths; }
+			Write-Host "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Host "None"; } Else { $FoundProcesses; }
+			Write-Host "`n";
+			$WaitCloseSeconds = 60;
+			Write-Host "`nClosing after ${WaitCloseSeconds}s...";
+			Write-Host "`n";
+			Start-Sleep -Seconds ${WaitCloseSeconds};
+		}
+		#
+		#
+		#
+		# ------------------------------------------------------------
+		#
+		# ESET Exclusions 
+		#		Construct an Import-file which contains all exclusions
+		#
 		If ($AntiVirusSoftware -eq "ESET") {
-
 			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
-
 			ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 
-		} ElseIf ($AntiVirusSoftware -eq "Windows Defender") {
+		} 
+
+		# ------------------------------------------------------------
+		#
+		# Windows Defender Exclusions
+		#		Apply directly via PowerShell built-in command(s)
+		#
+		If ($AntiVirusSoftware -eq "Windows Defender") {
+
 			$FoundProcesses | ForEach-Object {
 				Add-MpPreference -ExclusionProcess "$_";
 				If ($? -eq $True) {
@@ -361,39 +387,13 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
+
+			$LiveWD = Get-MpPreference;
+			Write-Host "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionPath; }
+			Write-Host "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionProcess; }
+			Write-Host "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionExtension; }
+
 		}
-		#
-		# ------------------------------------------------------------
-		#
-		#		REVIEW FINAL EXCLUSIONS-LIST
-		#
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
-			If ($AntiVirusSoftware -eq "Windows Defender") {
-				$LiveMpPreference = Get-MpPreference;
-				Write-Host "`nExclusions - File Extensions:"; If ($LiveMpPreference.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionExtension; } `
-				Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
-				Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
-			} Else {
-				Write-Host "`nExclusions - Found Filepaths:"; If ($FoundFilepaths -eq $Null) { Write-Host "None"; } Else { $FoundFilepaths; } `
-				Write-Host "`nExclusions - Found Extensions:"; If ($FoundExtensions -eq $Null) { Write-Host "None"; } Else { $FoundExtensions; } `
-				Write-Host "`nExclusions - Found Processes:"; If ($FoundProcesses -eq $Null) { Write-Host "None"; } Else { $FoundProcesses; } `
-			}
-			Write-Host "`n";
-			If ($ImportFilepath -ne $null) {
-				Write-Host "";
-				Write-Host "Exlusions output to filepath: " -ForegroundColor "Red" -BackgroundColor "Black";
-				Write-Host "`n";
-				Write-Host (("      ")+($ImportFilepath)+("      ")) -ForegroundColor "Yellow" -BackgroundColor "Black";
-				Write-Host "`n";
-				Write-Host (("Open ")+($AntiVirusSoftware)+(" and Import the exclusions file (above)")) -ForegroundColor "Red" -BackgroundColor "Black";
-				Write-Host "`n`n";
-			}
-			$WaitCloseSeconds = 60;
-			Write-Host "`nClosing after ${WaitCloseSeconds}s...";
-			Write-Host "`n";
-			Start-Sleep -Seconds ${WaitCloseSeconds};
-		}
-		#
 		# ------------------------------------------------------------
 		#
 	}
@@ -409,8 +409,7 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 function ESET_ExportModifier {
 	Param(
 
-		[Parameter(Mandatory=$true)]
-		[String[]]$PreExportFilepath,
+		[String]$PreExportFilepath,
 		
 		[String[]]$ESET_ExcludeFilepaths = @(),
 
@@ -421,10 +420,13 @@ function ESET_ExportModifier {
 	)
 
 	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {
+
 		Write-Host "";
 		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Red");
-		Write-Host "    File not found: `$PreExportFilepath = `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
+		Write-Host "    Please go to ESET and Export current config to: `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "";
+		Return 1;
+
 	} Else {
 		
 
@@ -593,6 +595,7 @@ function ESET_ExportModifier {
 
 		# 
 		# ------------------------------------------------------------
+		Return 0;
 	}
 }
 Export-ModuleMember -Function "ESET_ExportModifier";

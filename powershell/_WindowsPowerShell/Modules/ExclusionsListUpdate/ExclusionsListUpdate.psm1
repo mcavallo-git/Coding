@@ -428,6 +428,7 @@ function BuildImport_ESET {
 		$Rows_Between = "";
 		$Rows_End = "";
 		$FileRow = 0;
+		
 		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
 			If ($FoundStart -eq $False) {
 				$Rows_Start = (($Rows_Start)+("`n")+($_));
@@ -446,6 +447,8 @@ function BuildImport_ESET {
 			}
 			$FileRow++;
 		}
+		Write-Host "`n`n";
+		Write-Host "Contents_ESET_Import:"; $Contents_ESET_Import;
 		Write-Host "`n`n";
 		Write-Host "Rows_Start:"; $Rows_Start;
 		Write-Host "`n`n";

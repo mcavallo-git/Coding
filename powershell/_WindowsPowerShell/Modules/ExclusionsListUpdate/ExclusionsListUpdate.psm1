@@ -528,7 +528,7 @@ function ESET_ExportModifier {
 		#
 		# Determine start/end - Filepath Exclusions --> Replace Inbetween
 		$i_RowNum = 0;
-		$Contents_ESET_Import | Select-Object | ForEach-Object {
+		$Contents_ESET_Import.Split([Environment]::NewLine) | Select-Object | ForEach-Object {
 			If ($FoundStart_Filepaths -eq $null) {
 				$RowsStart_Filepaths = (($RowsStart_Filepaths)+("`n")+($_));
 				If (([Regex]::Match($_, $RegexStart_Filepaths)).Success -eq $True) {

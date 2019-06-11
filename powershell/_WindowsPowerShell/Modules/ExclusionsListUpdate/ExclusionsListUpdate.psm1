@@ -448,7 +448,7 @@ function BuildImport_ESET {
 			If ($i_FilepathName_Base10 -eq $null) { $i_FilepathName_Base10=1; }; 
 			# \*
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$NewRowsBetween += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />')+("`n"));
+			$NewRowsBetween += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
 			$NewRowsBetween += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
 			$NewRowsBetween += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
 			$NewRowsBetween += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />')+("`n"));

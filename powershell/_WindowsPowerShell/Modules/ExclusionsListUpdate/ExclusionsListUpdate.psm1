@@ -275,13 +275,13 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $null) {
 				$FoundExtensions += $_;
-			}
-			If ($AntiVirusSoftware -eq "Windows Defender") {
-				Add-MpPreference -ExclusionExtension "$_";
-				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
-				} Else {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+				If ($AntiVirusSoftware -eq "Windows Defender") {
+					Add-MpPreference -ExclusionExtension "$_";
+					If ($? -eq $True) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
+					} Else {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+					}
 				}
 			}
 		}

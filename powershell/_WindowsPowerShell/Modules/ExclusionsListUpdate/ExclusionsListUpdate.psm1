@@ -383,6 +383,7 @@ function BuildImport_ESET {
 		Write-Host "    File not found: `$PreExportFilepath = `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "";
 	} Else {
+
 		$Contents_ESET_Import = Get-Content -Path ("$PreExportFilepath");
 
 		#
@@ -429,7 +430,7 @@ function BuildImport_ESET {
 		$Rows_End = "";
 		$FileRow = 0;
 		
-		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
+		$Contents_ESET_Import | Select-Object | ForEach-Object {
 			If ($FoundStart -eq $False) {
 				$Rows_Start = (($Rows_Start)+("`n")+($_));
 				If (([Regex]::Match($_, $Regex_StartFilepaths)).Success -eq $True) {

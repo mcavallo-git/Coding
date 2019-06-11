@@ -518,7 +518,7 @@ function BuildImport_ESET {
 		Set-Content -Path ($ImportFilepath) -Value ($Contents_ESET_Import);
 		
 		# Open the containing directory for the user
-		# Explorer.exe "$ImportDirname";
+		Explorer.exe "$ImportDirname";
 
 	}
 }

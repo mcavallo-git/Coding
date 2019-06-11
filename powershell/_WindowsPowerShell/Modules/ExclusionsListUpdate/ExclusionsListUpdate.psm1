@@ -58,6 +58,8 @@ function ExclusionsListUpdate {
 
 		$LocalAppData = (${Env:LocalAppData}); # LocalAppData
 
+		$ProgData = ((${Env:SystemDrive})+("\ProgramData")); # ProgData
+
 		$ProgFilesX64 = ((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
 
 		$ProgFilesX86 = ((${Env:SystemDrive})+("\Program Files (x86)")); # ProgFilesX86
@@ -76,6 +78,8 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${LocalAppData})+("\Google\Google Apps Sync"));
 		$ExcludedFilepaths += ((${LocalAppData})+("\GitHubDesktop"));
 		$ExcludedFilepaths += ((${LocalAppData})+("\Microsoft\OneDrive"));
+		$ExcludedFilepaths += ((${LocalAppData})+("\Programs\Git"));
+		$ExcludedFilepaths += ((${LocalAppData})+("\Programs\Git\mingw64"));
 		# -- FILEPATHS -- ProgFiles X64
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\7-Zip"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\AirParrot 2"));
@@ -92,9 +96,12 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Mailbird"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft Office 15"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft VS Code"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\nodejs"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\NVIDIA Corporation"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\paint.net"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\PowerShell"));
 		# -- FILEPATHS -- ProgFiles X86
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Common Files\Sage"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Dropbox"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\efs"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\GIGABYTE"));
@@ -109,11 +116,17 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Razer"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Razer Chroma SDK"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Reflector 3"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Sage Payment Solutions"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\SAP BusinessObjects"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Splashtop"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\WinDirStat"));
+		# -- FILEPATHS -- ProgData
+		$ExcludedFilepaths += ((${ProgData})+("\Sage"));
+		$ExcludedFilepaths += ((${ProgData})+("\Sage Software"));
 		# -- FILEPATHS -- Sys32
 		# -
 		# -- FILEPATHS -- SysDrive
+		$ExcludedFilepaths += ((${SysDrive})+("\Sage"));
 		$ExcludedFilepaths += ((${SysDrive})+("\BingBackground"));
 		$ExcludedFilepaths += ((${SysDrive})+("\ISO\BingBackground"));
 		$ExcludedFilepaths += ((${SysDrive})+("\ISO\QuickNoteSniper"));
@@ -223,6 +236,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Splashtop\Splashtop Remote\Client for STP\strwinclt.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\Unigine\Heaven Benchmark 4.0\bin\Heaven.exe"));
 		$ExcludedProcesses += ((${ProgFilesX86})+("\WinDirStat\windirstat.exe"));
+		# -- PROCESSES -- ProgData
+		# $ExcludedProcesses += ((${ProgData})+("\..."));
 		# -- PROCESSES -- Sys32
 		$ExcludedProcesses += ((${Sys32})+("\ApplicationFrameHost.exe")); # XB1
 		$ExcludedProcesses += ((${Sys32})+("\BackgroundTransferHost.exe")); # XB1
@@ -404,59 +419,58 @@ function BuildImport_ESET {
 		#
 		# ESET - Filepath Exclusions
 		#
-		$Rows_NewArr = @();
+		$NewRowsBetween = "";
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
 			If ($i_FilepathName_Base10 -eq $null) { $i_FilepathName_Base10=1; }; 
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$Rows_NewArr+=(('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />'));
-			$Rows_NewArr += '       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />';
-			$Rows_NewArr += '       <NODE NAME="Infiltration" TYPE="string" VALUE="" />';		
-			$Rows_NewArr+=(('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />'));
-			$Rows_NewArr += '       <NODE NAME="Flags" TYPE="number" VALUE="0" />';
-			$Rows_NewArr += '       <NODE NAME="Hash" TYPE="string" VALUE="" />';
-			$Rows_NewArr += '       <NODE NAME="Description" TYPE="string" VALUE="" />';
-			$Rows_NewArr += '      </ITEM>';
+			$NewRowsBetween += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />')+("`n"));
+			$NewRowsBetween += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
+			$NewRowsBetween += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
+			$NewRowsBetween += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />')+("`n"));
+			$NewRowsBetween += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*.*" />')+("`n"));
+			$NewRowsBetween += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
+			$NewRowsBetween += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
+			$NewRowsBetween += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
+			$NewRowsBetween += (('      </ITEM>')+("`n"));
 			$i_FilepathName_Base10++;
 		}
-		$Rows_New = $Rows_NewArr -join "\r?\n";
 
-		$Regex_StartFilepaths = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
-		$Regex_EndFilepaths = '^     </ITEM>$';
-
+		$RowsStart = "";
+		$RowsBetween = "";
+		$RowsEnd = "";
 		$FoundStart = $False;
 		$FoundEnd = $False;
-		$Rows_Start = "";
-		$Rows_Between = "";
-		$Rows_End = "";
-		$FileRow = 0;
-		
+		$RegexStart = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
+		$RegexEnd = '^     </ITEM>$';
 		$Contents_ESET_Import | Select-Object | ForEach-Object {
 			If ($FoundStart -eq $False) {
-				$Rows_Start = (($Rows_Start)+("`n")+($_));
-				If (([Regex]::Match($_, $Regex_StartFilepaths)).Success -eq $True) {
+				$RowsStart = (($RowsStart)+("`n")+($_));
+				If (([Regex]::Match($_, $RegexStart)).Success -eq $True) {
 					$FoundStart = $True;
 				}
 			} Else {
 				If ($FoundEnd -eq $True) {
-					$Rows_End = (($Rows_End)+("`n")+($_));
-				} ElseIf (([Regex]::Match($_, $Regex_EndFilepaths)).Success -eq $True) {
-					$Rows_End = (($Rows_End)+("`n")+($_));
+					$RowsEnd = (($RowsEnd)+("`n")+($_));
+				} ElseIf (([Regex]::Match($_, $RegexEnd)).Success -eq $True) {
+					$RowsEnd = (($RowsEnd)+("`n")+($_));
 					$FoundEnd = $True;
 				} Else {
-					$Rows_Between = (($Rows_Between)+("`n")+($_));
+					$RowsBetween = (($RowsBetween)+("`n")+($_));
 				}
 			}
-			$FileRow++;
 		}
+		$Contents_ESET_Import = (($RowsStart)+("`n")+($NewRowsBetween)+("`n")+($RowsEnd));
 		# Write-Host "`n`n";
 		# Write-Host "Contents_ESET_Import:"; $Contents_ESET_Import;
-		Write-Host "`n`n";
-		Write-Host "Rows_Start:"; $Rows_Start;
-		Write-Host "`n`n";
-		Write-Host "Rows_Between:"; $Rows_Between;
-		Write-Host "`n`n";
-		Write-Host "Rows_End:"; $Rows_End;
-		Write-Host "`n`n";
+		# Write-Host "`n`n";
+		# Write-Host "Rows_Start:"; $RowsStart;
+		# Write-Host "`n`n";
+		# Write-Host "Rows_Between:"; $RowsBetween;
+		# Write-Host "`n`n";
+		# Write-Host "NewRowsBetween:"; $NewRowsBetween;
+		# Write-Host "`n`n";
+		# Write-Host "Rows_End:"; $RowsEnd;
+		# Write-Host "`n`n";
 
 		#
 		# ------------------------------------------------------------

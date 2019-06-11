@@ -305,12 +305,7 @@ function ExclusionsListUpdate {
 		# ESET Exclusions --> Construct an Import-file which contains all exclusions
 		$ImportFilepath = $null;
 		If ($AntiVirusSoftware -eq "ESET") {
-			$ESET_ImportContents = `
-				BuildImport_ESET `
-				-ESET_ExcludeFilepaths ($FoundFilepaths) `
-				-ESET_ExcludeExtensions ($FoundExtensions) `
-				-ESET_ExcludeProcesses ($FoundProcesses) `
-			;
+			$ESET_ImportContents = BuildImport_ESET -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 			$ImportFilepath = ((${Env:USERPROFILE})+("\Desktop\ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
 			Set-Content -Path ($ImportFilepath) -Value ($ESET_ImportContents);
 		}

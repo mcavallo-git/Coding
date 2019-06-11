@@ -410,7 +410,6 @@ function BuildImport_ESET {
 		#
 		$RowsStart = "";
 		$RowsBetween = "";
-		$NewRowsBetween = "";
 		$RowsEnd = "";
 		$FoundStart = $False;
 		$FoundEnd = $False;
@@ -433,6 +432,7 @@ function BuildImport_ESET {
 				}
 			}
 		}
+		$NewRowsBetween = "";
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
 			# \*.*
@@ -456,7 +456,6 @@ function BuildImport_ESET {
 		#
 		$RowsStart = "";
 		$RowsBetween = "";
-		$NewRowsBetween = "";
 		$RowsEnd = "";
 		$FoundStart = $False;
 		$FoundEnd = $False;
@@ -479,6 +478,7 @@ function BuildImport_ESET {
 				}
 			}
 		}
+		$NewRowsBetween = "";
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
 			# \*
@@ -512,8 +512,12 @@ function BuildImport_ESET {
 		#
 		#
 		#
-		# ------------------------------------------------------------		#
+		# ------------------------------------------------------------
+		#
 		# ESET - Extension Exclusions
+		#
+		#
+		#
 		$ESET_ExclExt_Content = @();
 		$ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {
 			$ESET_ExclExt_Content += '        <ITEM NAME="ExcludeExtensions" DELETE="1">';
@@ -524,22 +528,17 @@ function BuildImport_ESET {
 		}
 		$ReturnedStringArr += $ESET_ExclExt_Content;
 		#
+		#
+		#
 		# ------------------------------------------------------------
 		#
-		# ESET - Footer-Items
-		$ReturnedStringArr += '  </ITEM>';
-		$ReturnedStringArr += ' </PRODUCT>';
-		$ReturnedStringArr += '</ESET>';
-
-		$ReturnedString = $ReturnedStringArr -join "`n";
-
 		$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
 		$ImportBasename = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
 		$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
 		If ((Test-Path -Path ($ImportDirname)) -eq $false) {
 			New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;
 		}
-
+		
 		Set-Content -Path ($ImportFilepath) -Value ($Contents_ESET_Import);
 		
 		# Open the containing directory for the user

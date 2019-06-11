@@ -335,6 +335,7 @@ function ExclusionsListUpdate {
 
 		# ------------------------------------------------------------
 		# REMOVE AFTER DONE DEBUGGING
+		Write-Host "`n`n`$FoundProcesses:`n"; $FoundProcesses | Format-List; Write-Host "`n`n";
 		Write-Host "`n`n`$FoundProcesses:`n"; $FoundProcesses; Write-Host "`n`n";
 		$WaitCloseSeconds = 60;
 		Write-Host "`nClosing after ${WaitCloseSeconds}s...";

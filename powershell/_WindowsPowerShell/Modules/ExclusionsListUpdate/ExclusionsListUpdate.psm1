@@ -448,14 +448,14 @@ function BuildImport_ESET {
 			}
 			$FileRow++;
 		}
+		# Write-Host "`n`n";
+		# Write-Host "Contents_ESET_Import:"; $Contents_ESET_Import;
 		Write-Host "`n`n";
-		Write-Host "Contents_ESET_Import:"; $Contents_ESET_Import;
-		# Write-Host "`n`n";
-		# Write-Host "Rows_Start:"; $Rows_Start;
-		# Write-Host "`n`n";
-		# Write-Host "Rows_Between:"; $Rows_Between;
-		# Write-Host "`n`n";
-		# Write-Host "Rows_End:"; $Rows_End;
+		Write-Host "Rows_Start:"; $Rows_Start;
+		Write-Host "`n`n";
+		Write-Host "Rows_Between:"; $Rows_Between;
+		Write-Host "`n`n";
+		Write-Host "Rows_End:"; $Rows_End;
 		Write-Host "`n`n";
 
 		#

@@ -300,7 +300,8 @@ function ExclusionsListUpdate {
 			}
 		}
 		# Determine which process(es) exist locally
-		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+		# $ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+		$ExcludedProcesses | ForEach-Object {
 
 			If ($_ -ne $null) {
 

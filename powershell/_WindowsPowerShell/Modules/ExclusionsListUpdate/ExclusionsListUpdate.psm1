@@ -315,6 +315,9 @@ function ExclusionsListUpdate {
 			If ($ProcessesObj -ne $null) {
 
 				Write-Host "`$ProcessesObj :"; $ProcessesObj | Format-List;
+				Write-Host "`$ProcessesObj.Dirname :"; $ProcessesObj.Dirname;
+				Write-Host "`$ProcessesObj.AddDir :"; $ProcessesObj.AddDir;
+				Write-Host "`$ProcessesObj.Basename :"; $ProcessesObj.Basename;
 
 				$Each_Dirname = $ProcessesObj.Dirname;
 				$Each_Basename = $ProcessesObj.Basename;

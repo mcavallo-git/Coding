@@ -429,13 +429,13 @@ function BuildImport_ESET {
 		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
 			If ($FoundStart -eq $False) {
 				$Rows_Start += $_;
-				If (([Regex]::Match((Get-Content -Path ($_)), $Regex_StartFilepaths)).Success -eq $True) {
+				If (([Regex]::Match($_, $Regex_StartFilepaths)).Success -eq $True) {
 					$FoundStart = $True;
 				}
 			} Else {
 				If ($FoundEnd -eq $True) {
 					$Rows_End = $_;
-				} ElseIf (([Regex]::Match((Get-Content -Path ($_)), $Regex_EndFilepaths)).Success -eq $True) {
+				} ElseIf (([Regex]::Match($_, $Regex_EndFilepaths)).Success -eq $True) {
 					$Rows_End = $_;
 					$FoundEnd = $True;
 				} Else {

@@ -423,9 +423,9 @@ function BuildImport_ESET {
 		$Regex_EndFilepaths = '     <\/ITEM>';
 		$FoundStart = $False;
 		$FoundEnd = $False;
-		$Rows_Start = @();
-		$Rows_Between = @();
-		$Rows_End = @();
+		$Rows_Start = @{};
+		$Rows_Between = @{};
+		$Rows_End = @{};
 		$FileRow = 0;
 		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
 			If ($FoundStart -eq $False) {

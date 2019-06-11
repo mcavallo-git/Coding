@@ -251,6 +251,7 @@ function ExclusionsListUpdate {
 		#
 		#		APPLY THE EXCLUSIONS
 		#
+		Start-Sleep -Seconds 60;
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $null) {
 				If (Test-Path $_) {

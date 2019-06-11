@@ -527,13 +527,12 @@ function ESET_ExportModifier {
 			}
 			$i_RowNum++;
 		}
-		$Contents_ESET_Import = (($RowsStart_Processes)+("`n")+($RowsBetween_Processes)+("`n")+($RowsEnd_Processes));
+		# $Contents_ESET_Import = (($RowsStart_Processes)+("`n")+($RowsBetween_Processes)+("`n")+($RowsEnd_Processes));
+		$Contents_ESET_Import = (($RowsStart_Processes)+("`n")+($RowsReplaced_Processes)+("`n")+($RowsEnd_Processes));
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
-
-		Write-Host "RowsBetween_Processes:"; $RowsBetween_Processes;
 		#
 		#
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
@@ -563,6 +562,7 @@ function ESET_ExportModifier {
 			}
 			$i_RowNum++;
 		}
+		# $Contents_ESET_Import = (($RowsStart_Filepaths)+("`n")+($RowsBetween_Filepaths)+("`n")+($RowsEnd_Filepaths));
 		$Contents_ESET_Import = (($RowsStart_Filepaths)+("`n")+($RowsReplaced_Filepaths)+("`n")+($RowsEnd_Filepaths));
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");

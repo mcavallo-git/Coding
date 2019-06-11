@@ -508,8 +508,8 @@ function BuildImport_ESET {
 
 		$ReturnedString = $ReturnedStringArr -join "`n";
 
-		$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S"));
-		$ImportBasename = "eset-import.xml";
+		$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
+		$ImportBasename = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
 		$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
 		If ((Test-Path -Path ($ImportDirname)) -eq $false) {
 			New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;

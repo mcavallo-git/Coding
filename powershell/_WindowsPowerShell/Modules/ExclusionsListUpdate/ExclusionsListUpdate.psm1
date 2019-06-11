@@ -417,7 +417,55 @@ function BuildImport_ESET {
 		#
 		# ------------------------------------------------------------
 		#
+		# ESET - Process Exclusions
+		#
+		#
+		#
+		$RowsStart = "";
+		$RowsBetween = "";
+		$NewRowsBetween = "";
+		$RowsEnd = "";
+		$FoundStart = $False;
+		$FoundEnd = $False;
+		$RegexStart = '^       <ITEM NAME="appSources" DELETE="1">$';
+		$RegexEnd = '^       </ITEM>$';
+		$Contents_ESET_Import | Select-Object | ForEach-Object {
+			If ($FoundStart -eq $False) {
+				$RowsStart = (($RowsStart)+("`n")+($_));
+				If (([Regex]::Match($_, $RegexStart)).Success -eq $True) {
+					$FoundStart = $True;
+				}
+			} Else {
+				If ($FoundEnd -eq $True) {
+					$RowsEnd = (($RowsEnd)+("`n")+($_));
+				} ElseIf (([Regex]::Match($_, $RegexEnd)).Success -eq $True) {
+					$RowsEnd = (($RowsEnd)+("`n")+($_));
+					$FoundEnd = $True;
+				} Else {
+					$RowsBetween = (($RowsBetween)+("`n")+($_));
+				}
+			}
+		}
+		$i_FilepathName_Base10 = 1;
+		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
+			# \*.*
+			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
+			$NewRowsBetween += (('        <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
+			$i_FilepathName_Base10++;
+		}
+		$Contents_ESET_Import = (($RowsStart)+("`n")+($NewRowsBetween)+("`n")+($RowsEnd));
+		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
+		#
+		#
+		#
+		# ------------------------------------------------------------
+		#
 		# ESET - Filepath Exclusions
+		#
+		#
 		#
 		$RowsStart = "";
 		$RowsBetween = "";
@@ -444,8 +492,8 @@ function BuildImport_ESET {
 				}
 			}
 		}
+		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
-			If ($i_FilepathName_Base10 -eq $null) { $i_FilepathName_Base10=1; }; 
 			# \*
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
 			$NewRowsBetween += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
@@ -469,16 +517,15 @@ function BuildImport_ESET {
 			$NewRowsBetween += (('      </ITEM>')+("`n"));
 			$i_FilepathName_Base10++;
 		}
-
 		$Contents_ESET_Import = (($RowsStart)+("`n")+($NewRowsBetween)+("`n")+($RowsEnd));
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
-
 		#
-		# ------------------------------------------------------------
 		#
+		#
+		# ------------------------------------------------------------		#
 		# ESET - Extension Exclusions
 		$ESET_ExclExt_Content = @();
 		$ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {

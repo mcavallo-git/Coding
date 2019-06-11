@@ -434,9 +434,9 @@ function BuildImport_ESET {
 				}
 			} Else {
 				If ($FoundEnd -eq $True) {
-					$Rows_End = @_;
+					$Rows_End = $_;
 				} ElseIf (([Regex]::Match((Get-Content -Path ($_)), $Regex_EndFilepaths)).Success -eq $True) {
-					$Rows_End = @_;
+					$Rows_End = $_;
 					$FoundEnd = $True;
 				} Else {
 					$Rows_Between = $_;

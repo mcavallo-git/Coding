@@ -426,8 +426,6 @@ function BuildImport_ESET {
 		$Rows_Start = @();
 		$Rows_Between = @();
 		$Rows_End = @();
-		# $VersionMinLevels.Keys | Sort | Foreach {
-		# 	$EachKey = [Int]$_;
 		$FileRow = 0;
 		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
 			If ($FoundStart -eq $False) {

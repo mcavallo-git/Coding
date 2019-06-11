@@ -436,9 +436,9 @@ function ESET_ExportModifier {
 		#
 		# ESET - Filepath Exclusions
 		#
+		$RowsReplaced_Filepaths = "";
 		$RowsStart_Filepaths = "";
 		$RowsBetween_Filepaths = "";
-		$RowsReplaced_Filepaths = "";
 		$RowsEnd_Filepaths = "";
 		$FoundStart_Filepaths = $null;
 		$FoundEnd_Filepaths = $null;
@@ -499,7 +499,7 @@ function ESET_ExportModifier {
 					$FoundStart_Processes = $i_RowNum;
 				}
 			} Else {
-				If ($FoundEnd_Processes -eq $True) {
+				If ($FoundEnd_Processes -ne $null) {
 					$RowsEnd_Processes = (($RowsEnd_Processes)+("`n")+($_));
 				} ElseIf (([Regex]::Match($_, $RegexEnd_Processes)).Success -eq $True) {
 					$RowsEnd_Processes = (($RowsEnd_Processes)+("`n")+($_));
@@ -515,9 +515,10 @@ function ESET_ExportModifier {
 			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
-
+		#
+		#
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
-
+		#
 		#
 		# ------------------------------------------------------------
 		#
@@ -532,7 +533,7 @@ function ESET_ExportModifier {
 					$FoundStart_Filepaths = $i_RowNum;
 				}
 			} Else {
-				If ($FoundEnd_Filepaths -eq $True) {
+				If ($FoundEnd_Filepaths -ne $null) {
 					$RowsEnd_Filepaths = (($RowsEnd_Filepaths)+("`n")+($_));
 				} ElseIf (([Regex]::Match($_, $RegexEnd_Filepaths)).Success -eq $True) {
 					$RowsEnd_Filepaths = (($RowsEnd_Filepaths)+("`n")+($_));
@@ -548,9 +549,11 @@ function ESET_ExportModifier {
 			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
-
+		#
+		#
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
-		
+		#
+		#
 		#
 		# ------------------------------------------------------------
 		#

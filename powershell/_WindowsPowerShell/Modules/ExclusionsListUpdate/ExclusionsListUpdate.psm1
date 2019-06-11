@@ -312,7 +312,7 @@ function ExclusionsListUpdate {
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 
-					$FoundProcesses = (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($Parent -Eq "") -Or ($_.Directory.Name -Eq "$Parent") } | Foreach-Object { $_.FullName; });
+					Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($Parent -Eq "") -Or ($_.Directory.Name -Eq "$Parent") } | Foreach-Object { $FoundProcesses += $_.FullName; };
 					# -Depth (${Depth_GitConfigFile}) 
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "FoundProcesses:"; $FoundProcesses; }

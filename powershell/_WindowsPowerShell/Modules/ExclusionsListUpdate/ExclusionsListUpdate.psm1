@@ -304,7 +304,7 @@ function ExclusionsListUpdate {
 
 			If ($_ -ne $null) {
 
-				Write-Host "`$_ :"; $_;
+				Write-Host "`$_ :"; $_ | Format-List;
 
 				$Each_Dirname = $_.Dirname;
 				$Each_Basename = $_.Basename;

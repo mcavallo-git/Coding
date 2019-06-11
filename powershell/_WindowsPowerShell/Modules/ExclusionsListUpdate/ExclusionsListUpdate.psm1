@@ -281,6 +281,16 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
+		} Else {
+			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+				Write-Host "$_";
+			}
+			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+				Write-Host "$_";
+			}
+			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+				Write-Host "$_";
+			}
 		}
 		#
 		# ------------------------------------------------------------

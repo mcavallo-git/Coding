@@ -311,9 +311,9 @@ function ExclusionsListUpdate {
 		# 		If ($_.AddDir -ne "") {
 		# 			$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 		# 		}{
-		& { ForEach ($ProcessesObj in $ExcludedProcesses) {
+		$ExcludedProcesses | ForEach {
+			$ProcessesObj = $_;
 			If ($ProcessesObj.Basename -ne $null) {
-
 				Write-Host "`$ProcessesObj :"; $ProcessesObj | Format-List;
 				Write-Host "`$ProcessesObj.Dirname :"; $ProcessesObj.Dirname;
 				Write-Host "`$ProcessesObj.AddDir :"; $ProcessesObj.AddDir;
@@ -350,7 +350,10 @@ function ExclusionsListUpdate {
 					# }
 				}
 			}
-		} }
+		}
+
+		Start-Sleep 60; Exit;
+		# ------------------------------------------------------------
 
 		# ESET Exclusions --> Construct an Import-file which contains all exclusions
 		$ImportFilepath = $null;

@@ -532,6 +532,8 @@ function ESET_ExportModifier {
 			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
+
+		Write-Host "RowsBetween_Processes:"; $RowsBetween_Processes;
 		#
 		#
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);

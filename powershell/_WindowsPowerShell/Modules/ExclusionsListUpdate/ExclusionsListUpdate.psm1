@@ -282,33 +282,33 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
-		} Else {
-			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
-			}
-			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
-			}
-			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
-			}
 		}
 		#
 		# ------------------------------------------------------------
 		#
 		#		REVIEW FINAL EXCLUSIONS-LIST
 		#
-		If ($AntiVirusSoftware -eq "Windows Defender") {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
+			If ($AntiVirusSoftware -eq "Windows Defender") {
 				$LiveMpPreference = Get-MpPreference;
 				Write-Host "`nExclusions - File Extensions:"; If ($LiveMpPreference.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionExtension; } `
 				Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
 				Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
-				Write-Host "`n";
-				Write-Host "`nClosing after 60s...";
-				Write-Host "`n";
-				Start-Sleep 60;
+			} Else {
+				$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+				}
+				$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+				}
+				$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
+				}
 			}
+			Write-Host "`n";
+			Write-Host "`nClosing after 60s...";
+			Write-Host "`n";
+			Start-Sleep 60;
 		}
 		#
 		# ------------------------------------------------------------

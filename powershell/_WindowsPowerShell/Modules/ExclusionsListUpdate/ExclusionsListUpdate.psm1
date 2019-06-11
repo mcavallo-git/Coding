@@ -42,7 +42,7 @@ function ExclusionsListUpdate {
 		}
 		$CommandString = "ExclusionsListUpdate -SkipExit";
 		If ($PSBoundParameters.ContainsKey('AntiVirusSoftware')) { 
-			$CommandString += ((" -AntiVirusSoftware (`"")+($AntiVirusSoftware)+("`")"));
+			$CommandString += ((" -AntiVirusSoftware ")+($AntiVirusSoftware));
 		}
 		If ($PSBoundParameters.ContainsKey('Quiet')) { 
 			$CommandString += " -Quiet";
@@ -52,7 +52,7 @@ function ExclusionsListUpdate {
 		PrivilegeEscalation -Command ("${CommandString}");
 
 	} Else {
-		
+
 		#
 		# ------------------------------------------------------------
 		#

@@ -13,7 +13,7 @@ function ExclusionsListUpdate {
 		[ValidateSet("Add","Get","Remove")]
 		[String]$Action = "Add",
 
-		[ValidateSet("", "Defender", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
+		[ValidateSet("", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
 		# [String]$AntiVirusSoftware = "Windows Defender",
 		[String]$AntiVirusSoftware,
 
@@ -246,12 +246,12 @@ function ExclusionsListUpdate {
 		#
 		#		APPLY THE EXCLUSIONS
 		#
-		If ($AntiVirusSoftware -eq "Windows Defender") {
-			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-				If (($_ -ne $null) -And (Test-Path $_)) {
+		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
+			If ($_ -ne $null) {
+				If (Test-Path $_) {
 					$FoundFilepaths += $_;
 				}
-				If ($_ -ne $null) {
+				If ($AntiVirusSoftware -eq "Windows Defender") {
 					Add-MpPreference -ExclusionPath "$_";
 					If ($? -eq $True) {
 						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
@@ -264,10 +264,12 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
-			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-				If ($_ -ne $null) {
-					$FoundExtensions += $_;
-				}
+		}
+		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
+			If ($_ -ne $null) {
+				$FoundExtensions += $_;
+			}
+			If ($AntiVirusSoftware -eq "Windows Defender") {
 				Add-MpPreference -ExclusionExtension "$_";
 				If ($? -eq $True) {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
@@ -275,11 +277,13 @@ function ExclusionsListUpdate {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
 				}
 			}
-			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-				If (($_ -ne $null) -And (Test-Path $_)) {
+		}
+		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+			If ($_ -ne $null) {
+				If (Test-Path $_) {
 					$FoundProcesses += $_;
 				}
-				If ($_ -ne $null) {
+				If ($AntiVirusSoftware -eq "Windows Defender") {
 					Add-MpPreference -ExclusionProcess "$_";
 					If ($? -eq $True) {
 						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
@@ -292,19 +296,6 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
-		} Else {
-			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
-			}
-			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
-			}
-			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
-			}
-			Write-Host "`nClosing after 60s...";
-			Write-Host "`n";
-			Start-Sleep 60;
 		}
 		#
 		# ------------------------------------------------------------
@@ -318,15 +309,9 @@ function ExclusionsListUpdate {
 				Write-Host "`nExclusions - Processes:"; If ($LiveMpPreference.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionProcess; } `
 				Write-Host "`nExclusions - Paths:"; If ($LiveMpPreference.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveMpPreference.ExclusionPath; } `
 			} Else {
-				$FoundFilepaths | Select-Object -Unique | ForEach-Object {
-					Write-Host "$_";
-				}
-				$FoundExtensions | Select-Object -Unique | ForEach-Object {
-					Write-Host "$_";
-				}
-				$FoundProcesses | Select-Object -Unique | ForEach-Object {
-					Write-Host "$_";
-				}
+				Write-Host "`nExclusions - Found Filepaths:"; If ($FoundFilepaths -eq $Null) { Write-Host "None"; } Else { $FoundFilepaths; } `
+				Write-Host "`nExclusions - Found Extensions:"; If ($FoundExtensions -eq $Null) { Write-Host "None"; } Else { $FoundExtensions; } `
+				Write-Host "`nExclusions - Found Processes:"; If ($FoundProcesses -eq $Null) { Write-Host "None"; } Else { $FoundProcesses; } `
 			}
 			Write-Host "`n";
 			Write-Host "`nClosing after 60s...";

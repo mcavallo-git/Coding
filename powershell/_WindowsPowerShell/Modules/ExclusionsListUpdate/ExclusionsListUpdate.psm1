@@ -326,7 +326,7 @@ function ExclusionsListUpdate {
 
 			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
 
-BuildImport_ESET `
+ESET_ExportModifier `
 -PreExportFilepath ($PreExportFilepath) `
 -ESET_ExcludeFilepaths ($FoundFilepaths) `
 -ESET_ExcludeExtensions ($FoundExtensions) `
@@ -378,7 +378,7 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 #
 #
 #
-function BuildImport_ESET {
+function ESET_ExportModifier {
 	Param(
 
 		[Parameter(Mandatory=$true)]
@@ -394,7 +394,7 @@ function BuildImport_ESET {
 
 	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {
 		Write-Host "";
-		Write-Host "  Error in function `"BuildImport_ESET`"  " -BackgroundColor ("Black") -ForegroundColor ("Red");
+		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "    File not found: `$PreExportFilepath = `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "";
 	} Else {
@@ -532,9 +532,11 @@ function BuildImport_ESET {
 		#
 		# ------------------------------------------------------------
 		#
+
 		$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
 		$ImportBasename = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
 		$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
+		
 		If ((Test-Path -Path ($ImportDirname)) -eq $false) {
 			New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;
 		}
@@ -546,7 +548,7 @@ function BuildImport_ESET {
 
 	}
 }
-Export-ModuleMember -Function "BuildImport_ESET";
+Export-ModuleMember -Function "ESET_ExportModifier";
 
 
 

@@ -469,7 +469,7 @@ function BuildImport_ESET {
 			$NewRowsBetween += (('      </ITEM>')+("`n"));
 			$i_FilepathName_Base10++;
 		}
-		$Contents_ESET_Import = (($RowsStart.Trim())+($NewRowsBetween.Trim())+($RowsEnd.Trim()));
+		$Contents_ESET_Import = (($RowsStart.Trim())+("`n")+($NewRowsBetween.Trim())+("`n")+($RowsEnd.Trim()));
 
 		#
 		# ------------------------------------------------------------

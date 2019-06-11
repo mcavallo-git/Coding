@@ -301,7 +301,10 @@ function ExclusionsListUpdate {
 		}
 		# Determine which process(es) exist locally
 		$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
+
 			If ($_ -ne $null) {
+
+				Write-Host "`$_ :"; $_;
 
 				$Each_Dirname = $_.Dirname;
 				$Each_Basename = $_.Basename;

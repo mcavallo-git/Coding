@@ -308,7 +308,7 @@ function ExclusionsListUpdate {
 					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
 				$Each_Basename = $_.Basename;
-				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")); {
+				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 

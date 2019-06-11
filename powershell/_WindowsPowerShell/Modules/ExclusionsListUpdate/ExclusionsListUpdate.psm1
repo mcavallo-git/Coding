@@ -406,19 +406,6 @@ function BuildImport_ESET {
 		#
 		# ESET - Process Exclusions
 		#
-
-		$ESET_ExclProc_Content = @();
-		$ESET_ExclProc_Content += '     <ITEM NAME="ExcludedProcesses" DELETE="1">';
-		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
-			$ESET_ExclProc_Content += (('      <NODE NAME="1" TYPE="string" VALUE="')+($_)+('" />'));
-		}
-		$ESET_ExclProc_Content += $ESET_ExclProc_Content;
-
-		#
-		# ------------------------------------------------------------
-		#
-		# ESET - Process Exclusions
-		#
 		#
 		#
 		$RowsStart = "";
@@ -427,8 +414,8 @@ function BuildImport_ESET {
 		$RowsEnd = "";
 		$FoundStart = $False;
 		$FoundEnd = $False;
-		$RegexStart = '^       <ITEM NAME="appSources" DELETE="1">$';
-		$RegexEnd = '^       </ITEM>$';
+		$RegexStart = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
+		$RegexEnd = '^     </ITEM>$';
 		$Contents_ESET_Import | Select-Object | ForEach-Object {
 			If ($FoundStart -eq $False) {
 				$RowsStart = (($RowsStart)+("`n")+($_));
@@ -450,7 +437,7 @@ function BuildImport_ESET {
 		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
 			# \*.*
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$NewRowsBetween += (('        <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
+			$NewRowsBetween += (('      <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
 			$i_FilepathName_Base10++;
 		}
 		$Contents_ESET_Import = (($RowsStart)+("`n")+($NewRowsBetween)+("`n")+($RowsEnd));

@@ -311,7 +311,7 @@ function ExclusionsListUpdate {
 				-ESET_ExcludeExtensions ($FoundExtensions) `
 				-ESET_ExcludeProcesses ($FoundProcesses) `
 			;
-			$ImportFilepath = ((${Env:USERPROFILE})+("/Desktop/ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
+			$ImportFilepath = ((${Env:USERPROFILE})+("\Desktop\ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
 			Set-Content -Path ($ImportFilepath) -Value ($ESET_ImportContents);
 		}
 		#

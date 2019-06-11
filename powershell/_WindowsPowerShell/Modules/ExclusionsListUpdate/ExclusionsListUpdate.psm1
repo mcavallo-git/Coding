@@ -297,6 +297,18 @@ function ExclusionsListUpdate {
 				}
 			}
 		}
+		# ESET Exclusions --> Construct an Import-file which contains all exclusions
+		$ImportFilepath = $null;
+		If ($AntiVirusSoftware -eq "ESET") {
+			$ESET_ImportContents = `
+				BuildImport_ESET `
+				-ESET_ExcludeFilepaths ($FoundFilepaths) `
+				-ESET_ExcludeExtensions ($FoundExtensions) `
+				-ESET_ExcludeProcesses ($FoundProcesses) `
+			;
+			$ImportFilepath = ((${Env:USERPROFILE})+("/Desktop/ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
+			Set-Content -Path ($ImportFilepath) -Value ($ESET_ImportContents);
+		}
 		#
 		# ------------------------------------------------------------
 		#
@@ -314,6 +326,14 @@ function ExclusionsListUpdate {
 				Write-Host "`nExclusions - Found Processes:"; If ($FoundProcesses -eq $Null) { Write-Host "None"; } Else { $FoundProcesses; } `
 			}
 			Write-Host "`n";
+			If ($ImportFilepath -ne $null) {
+				Write-Host "";
+				Write-Host "Exlusions output to filepath: " -ForegroundColor "Yellow" -BackgroundColor "Black";
+				Write-Host (("  |-->   ")+($ImportFilepath)) -ForegroundColor "Yellow" -BackgroundColor "Black";
+				Write-Host "";
+				Write-Host (("Open ")+($AntiVirusSoftware)+(" and Import the exclusions file (above)")) -ForegroundColor "Red" -BackgroundColor "Black";
+				Write-Host "`n`n";
+			}
 			Write-Host "`nClosing after 60s...";
 			Write-Host "`n";
 			Start-Sleep 60;
@@ -323,8 +343,82 @@ function ExclusionsListUpdate {
 		#
 	}
 }
-
 Export-ModuleMember -Function "ExclusionsListUpdate";
+
+function BuildImport_ESET {
+	Param(
+
+		[String[]]$ESET_ExcludeFilepaths = @(),
+
+		[String[]]$ESET_ExcludeProcesses = @(),
+
+		[String[]]$ESET_ExcludeExtensions = @()
+
+	)
+	#
+	# ------------------------------------------------------------
+	#
+	# ESET - Header-Items
+	$ReturnedStringArr = @();
+	$ReturnedStringArr += '<?xml version="1.0" encoding="utf-8"?>';
+	$ReturnedStringArr += '<ESET>';
+	$ReturnedStringArr += ' <PRODUCT NAME="endpoint" VERSION="7.0.2091">';
+	$ReturnedStringArr += '  <ITEM NAME="antispams">';
+	#
+	# ------------------------------------------------------------
+	#
+	# ESET - Process Exclusions
+	$ReturnedStringArr += '   <ITEM NAME="01000101">';
+	$ReturnedStringArr += '    <ITEM NAME="settings">';
+	$ReturnedStringArr += '     <ITEM NAME="ExcludedProcesses" DELETE="1">';
+	$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
+		$ReturnedStringArr += (('      <NODE NAME="1" TYPE="string" VALUE="')+($_)+('" />'));
+	}
+	$ReturnedStringArr += '     </ITEM>';
+	$ReturnedStringArr += '    </ITEM>';
+	$ReturnedStringArr += '   </ITEM>';
+	#
+	# ------------------------------------------------------------
+	#
+	# ESET - Filepath Exclusions
+	$ReturnedStringArr += '   <ITEM NAME="01000600">';
+	$ReturnedStringArr += '    <ITEM NAME="settings">';
+	$ReturnedStringArr += '     <ITEM NAME="ScannerExcludes" DELETE="1">';
+	$i_FilepathName_Base10 = 1;
+	$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
+		$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
+		$ReturnedStringArr+=(('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />'));
+		$ReturnedStringArr += '       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />';
+		$ReturnedStringArr += '       <NODE NAME="Infiltration" TYPE="string" VALUE="" />';		
+		$ReturnedStringArr+=(('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />'));
+		$ReturnedStringArr += '       <NODE NAME="Flags" TYPE="number" VALUE="0" />';
+		$ReturnedStringArr += '       <NODE NAME="Hash" TYPE="string" VALUE="" />';
+		$ReturnedStringArr += '       <NODE NAME="Description" TYPE="string" VALUE="" />';
+		$ReturnedStringArr += '      </ITEM>';
+		$i_FilepathName_Base10++;
+	}
+	$ReturnedStringArr += '     </ITEM>';
+	$ReturnedStringArr += '    </ITEM>';
+	$ReturnedStringArr += '   </ITEM>';
+	#
+	# ------------------------------------------------------------
+	#
+	# ESET - Extension Exclusions
+	# $ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {
+	#
+	# }
+	#
+	# ------------------------------------------------------------
+	#
+	# ESET - Footer-Items
+	$ReturnedStringArr += '  </ITEM>';
+	$ReturnedStringArr += ' </PRODUCT>';
+	$ReturnedStringArr += '</ESET>';
+	$ReturnedString = $ReturnedStringArr -join "`n";
+}
+Export-ModuleMember -Function "BuildImport_ESET";
+
+
 
 # ------------------------------------------------------------
 #

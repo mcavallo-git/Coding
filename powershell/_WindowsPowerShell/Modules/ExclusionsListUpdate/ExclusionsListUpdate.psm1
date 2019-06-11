@@ -308,12 +308,20 @@ function ExclusionsListUpdate {
 					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
 				$Each_Basename = $_.Basename;
+				$Each_Parent = If (($_.Parent -ne $null) -And ($_.Parent -ne ""))  { $_.Parent } Else { "" };
+
 				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 
-					$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
-					# Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { (($Parent -Eq "") -Or ($_.Directory.Name -Eq "$Parent")) } | Foreach-Object { $FoundProcesses += $_.FullName; $_.FullName; };
+					If ($Each_Parent -eq "") {
+						# Matching on [ top level directory ] & [ basename ]
+						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+					} Else {
+						# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
+						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
+
+					}
 					# -Depth (${Depth_GitConfigFile}) 
 					#
 					# If ($AntiVirusSoftware -eq "Windows Defender") {

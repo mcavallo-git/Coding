@@ -158,7 +158,12 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions += (".vsv");
 		# ------------------------------------------------------------
 		# -- PROCESSES -- LocalAppData
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Dropbox"; Parent=""; Basename="Dropbox.exe"; };
+		$ExcludedProcesses += @{
+			Dirname=${LocalAppData};
+			AddDir="Dropbox";
+			Parent="";
+			Basename="Dropbox.exe";
+		};
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="GitHubDesktop.exe"; };
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="GitHubDesktop.exe"; };
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Parent=""; Basename="git.exe"; };

@@ -438,7 +438,9 @@ function BuildImport_ESET {
 	$ReturnedStringArr += '  </ITEM>';
 	$ReturnedStringArr += ' </PRODUCT>';
 	$ReturnedStringArr += '</ESET>';
+
 	$ReturnedString = $ReturnedStringArr -join "`n";
+	Return $ReturnedString;
 }
 Export-ModuleMember -Function "BuildImport_ESET";
 

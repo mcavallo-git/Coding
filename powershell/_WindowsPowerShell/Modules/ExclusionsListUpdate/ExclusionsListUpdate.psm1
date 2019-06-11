@@ -356,7 +356,13 @@ BuildImport_ESET `
 	}
 }
 Export-ModuleMember -Function "ExclusionsListUpdate";
-
+#
+#
+#
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#
+#
+#
 function BuildImport_ESET {
 	Param(
 
@@ -378,6 +384,7 @@ function BuildImport_ESET {
 		Write-Host "";
 	} Else {
 		$Contents_ESET_Import = Get-Content -Path ("$PreExportFilepath");
+
 		#
 		# ------------------------------------------------------------
 		#
@@ -396,43 +403,54 @@ function BuildImport_ESET {
 		#
 		# ESET - Filepath Exclusions
 		#
-		$ESET_ExclPath_Content = @();
-		$ESET_ExclPath_Content += '     <ITEM NAME="ScannerExcludes" DELETE="1">';
-		$i_FilepathName_Base10 = 1;
+		$Rows_NewArr = @();
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
+			If ($i_FilepathName_Base10 -eq $null) { $i_FilepathName_Base10=1; }; 
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$ESET_ExclPath_Content+=(('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />'));
-			$ESET_ExclPath_Content += '       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />';
-			$ESET_ExclPath_Content += '       <NODE NAME="Infiltration" TYPE="string" VALUE="" />';		
-			$ESET_ExclPath_Content+=(('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />'));
-			$ESET_ExclPath_Content += '       <NODE NAME="Flags" TYPE="number" VALUE="0" />';
-			$ESET_ExclPath_Content += '       <NODE NAME="Hash" TYPE="string" VALUE="" />';
-			$ESET_ExclPath_Content += '       <NODE NAME="Description" TYPE="string" VALUE="" />';
-			$ESET_ExclPath_Content += '      </ITEM>';
+			$Rows_NewArr+=(('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />'));
+			$Rows_NewArr += '       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />';
+			$Rows_NewArr += '       <NODE NAME="Infiltration" TYPE="string" VALUE="" />';		
+			$Rows_NewArr+=(('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />'));
+			$Rows_NewArr += '       <NODE NAME="Flags" TYPE="number" VALUE="0" />';
+			$Rows_NewArr += '       <NODE NAME="Hash" TYPE="string" VALUE="" />';
+			$Rows_NewArr += '       <NODE NAME="Description" TYPE="string" VALUE="" />';
+			$Rows_NewArr += '      </ITEM>';
 			$i_FilepathName_Base10++;
 		}
-		$ESET_ExclPath_Content += '     </ITEM>';
-		$RegexReplacement_Filepaths = $ESET_ExclPath_Content -join "\r?\n";
+		$Rows_New = $Rows_NewArr -join "\r?\n";
 
-		$NeedleRegex_FilepathsArr = @();
-		# $NeedleRegex_FilepathsArr += '^(.+)';
-		$NeedleRegex_FilepathsArr += '     <ITEM NAME="ScannerExcludes" DELETE="1">';
-		$NeedleRegex_FilepathsArr += '      <ITEM NAME="[0-9A-F]+" />';
-		$NeedleRegex_FilepathsArr += '       .+';
-		$NeedleRegex_FilepathsArr += '      </ITEM>+';
-		$NeedleRegex_FilepathsArr += '     </ITEM>';
-		# $NeedleRegex_FilepathsArr += '(.+)$';
-		
-		$NeedleRegex_Filepaths = $NeedleRegex_FilepathsArr -join "\r?\n";
-
-		$Needle_Filepaths = [Regex]::Match($Contents_ESET_Import, $NeedleRegex_Filepaths); # Parse through the "Haystack", looking for the "Needle"
-		Write-Host (("`$Needle_Filepaths.Success = ")+($Needle_Filepaths.Success));
-		If ($Needle_Filepaths.Success -ne $False) {
-			Write-Host "`n`n`$Needle_Filepaths.Groups[0].Value:"; $Needle_Filepaths.Groups[0].Value;
-			Write-Host "`n`n`$Needle_Filepaths.Groups[1].Value:"; $Needle_Filepaths.Groups[1].Value;
-			Write-Host "`n`n`$Needle_Filepaths.Groups[2].Value:"; $Needle_Filepaths.Groups[2].Value;
-			Write-Host "`n`n`$Needle_Filepaths.Groups[3].Value:"; $Needle_Filepaths.Groups[3].Value;
+		$Regex_StartFilepaths = '     <ITEM NAME="ScannerExcludes" DELETE="1">';
+		$Regex_EndFilepaths = '     <\/ITEM>';
+		$FoundStart = $False;
+		$FoundEnd = $False;
+		$Rows_Start = @();
+		$Rows_Between = @();
+		$Rows_End = @();
+		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
+			If ($FoundStart -eq $False) {
+				$Rows_Start += $_;
+				If (([Regex]::Match((Get-Content -Path ($_)), $Regex_StartFilepaths)).Success -eq $True) {
+					$FoundStart = $True;
+				}
+			} Else {
+				If ($FoundEnd -eq $True) {
+					$Rows_End = @_;
+				} ElseIf (([Regex]::Match((Get-Content -Path ($_)), $Regex_EndFilepaths)).Success -eq $True) {
+					$Rows_End = @_;
+					$FoundEnd = $True;
+				} Else {
+					$Rows_Between = $_;
+				}
+			}
 		}
+
+		Write-Host "`n`n";
+		Write-Host "Rows_Start:"; $Rows_Start;
+		Write-Host "`n`n";
+		Write-Host "Rows_Between:"; $Rows_Between;
+		Write-Host "`n`n";
+		Write-Host "Rows_End:"; $Rows_End;
+		Write-Host "`n`n";
 
 		#
 		# ------------------------------------------------------------

@@ -360,7 +360,7 @@ BuildImport_ESET `
 				Write-Host (("Open ")+($AntiVirusSoftware)+(" and Import the exclusions file (above)")) -ForegroundColor "Red" -BackgroundColor "Black";
 				Write-Host "`n`n";
 			}
-			$WaitCloseSeconds = 180;
+			$WaitCloseSeconds = 60;
 			Write-Host "`nClosing after ${WaitCloseSeconds}s...";
 			Write-Host "`n";
 			Start-Sleep -Seconds ${WaitCloseSeconds};

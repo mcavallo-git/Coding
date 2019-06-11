@@ -318,6 +318,14 @@ function ExclusionsListUpdate {
 			If ((Test-Path -Path ($ImportDirname)) -eq $false) {
 				New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;
 			}
+
+			Write-Host "`n`n";
+			Write-Host "ImportContents:";
+			Write-Host "------------------------------------------------------------";
+			$ImportContents;
+			Write-Host "------------------------------------------------------------";
+			Write-Host "`n`n";
+
 			Set-Content -Path ($ImportFilepath) -Value ($ImportContents);
 			
 			# Open the containing directory for the user

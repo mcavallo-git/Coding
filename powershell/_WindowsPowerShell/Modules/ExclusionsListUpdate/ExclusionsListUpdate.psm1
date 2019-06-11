@@ -44,7 +44,7 @@ function ExclusionsListUpdate {
 		}
 		If ($PSBoundParameters.ContainsKey('Quiet')) { 
 			$CommandString += " -Quiet";
-		} Else If ($PSBoundParameters.ContainsKey('Verbose')) { 
+		} ElseIf ($PSBoundParameters.ContainsKey('Verbose')) { 
 			$CommandString += " -Verbose";
 		}
 		PrivilegeEscalation -Command ("${CommandString}");

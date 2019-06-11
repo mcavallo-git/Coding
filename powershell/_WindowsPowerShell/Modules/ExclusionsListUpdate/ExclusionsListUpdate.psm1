@@ -472,18 +472,8 @@ function BuildImport_ESET {
 				}
 			}
 		}
-		$Contents_ESET_Import = (($RowsStart)+($NewRowsBetween)+($RowsEnd));
-		# Write-Host "`n`n";
-		# Write-Host "Contents_ESET_Import:"; $Contents_ESET_Import;
-		# Write-Host "`n`n";
-		# Write-Host "Rows_Start:"; $RowsStart;
-		# Write-Host "`n`n";
-		# Write-Host "Rows_Between:"; $RowsBetween;
-		# Write-Host "`n`n";
-		# Write-Host "NewRowsBetween:"; $NewRowsBetween;
-		# Write-Host "`n`n";
-		# Write-Host "Rows_End:"; $RowsEnd;
-		# Write-Host "`n`n";
+
+		$Contents_ESET_Import = (($RowsStart.Trim())+("`n")+($NewRowsBetween.Trim())+("`n")+($RowsEnd));
 
 		#
 		# ------------------------------------------------------------

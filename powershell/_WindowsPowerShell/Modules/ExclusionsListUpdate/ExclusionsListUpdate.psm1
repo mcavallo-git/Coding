@@ -149,6 +149,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\GitHubDesktop.exe"));
 		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\GitHubDesktop.exe"));
 		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\resources\app\git\mingw64\bin\git.exe"));
+		$ExcludedProcesses += ((${LocalAppData})+("\GitHubDesktop\app-1.6.6\resources\app\git\mingw64\bin\git-lfs.exe"));
 		# -- PROCESSES -- ProgFiles X64
 		$ExcludedProcesses += ((${ProgFilesX64})+("\AutoHotkey\AutoHotkey.exe"));
 		$ExcludedProcesses += ((${ProgFilesX64})+("\Classic Shell\ClassicStartMenu.exe"));
@@ -306,30 +307,16 @@ function ExclusionsListUpdate {
 		}
 		# ESET Exclusions --> Construct an Import-file which contains all exclusions
 		$ImportFilepath = $null;
-		$ImportContents = $null;
 		If ($AntiVirusSoftware -eq "ESET") {
 
-			$ImportContents = BuildImport_ESET -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
+			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
 
-			$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\ExclusionsImport"));
-			$ImportBasename = (("Import-Into-")+($AntiVirusSoftware)+("___ExclusionsList")+(Get-Date -UFormat "%Y%m%d%H%M%S")+(".xml"));
-			$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
-
-			If ((Test-Path -Path ($ImportDirname)) -eq $false) {
-				New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;
-			}
-
-			Write-Host "`n`n";
-			Write-Host "ImportContents:";
-			Write-Host "------------------------------------------------------------";
-			$ImportContents;
-			Write-Host "------------------------------------------------------------";
-			Write-Host "`n`n";
-
-			Set-Content -Path ($ImportFilepath) -Value ($ImportContents);
-			
-			# Open the containing directory for the user
-			Explorer.exe "$ImportDirname";
+BuildImport_ESET `
+-PreExportFilepath ($PreExportFilepath) `
+-ESET_ExcludeFilepaths ($FoundFilepaths) `
+-ESET_ExcludeExtensions ($FoundExtensions) `
+-ESET_ExcludeProcesses ($FoundProcesses) `
+;
 
 		}
 		#
@@ -358,9 +345,10 @@ function ExclusionsListUpdate {
 				Write-Host (("Open ")+($AntiVirusSoftware)+(" and Import the exclusions file (above)")) -ForegroundColor "Red" -BackgroundColor "Black";
 				Write-Host "`n`n";
 			}
-			Write-Host "`nClosing after 60s...";
+			$WaitCloseSeconds = 180;
+			Write-Host "`nClosing after ${WaitCloseSeconds}s...";
 			Write-Host "`n";
-			Start-Sleep 60;
+			Start-Sleep -Seconds ${WaitCloseSeconds};
 		}
 		#
 		# ------------------------------------------------------------
@@ -372,6 +360,9 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 function BuildImport_ESET {
 	Param(
 
+		[Parameter(Mandatory=$true)]
+		[String[]]$PreExportFilepath,
+		
 		[String[]]$ESET_ExcludeFilepaths = @(),
 
 		[String[]]$ESET_ExcludeProcesses = @(),
@@ -379,68 +370,106 @@ function BuildImport_ESET {
 		[String[]]$ESET_ExcludeExtensions = @()
 
 	)
-	#
-	# ------------------------------------------------------------
-	#
-	# ESET - Header-Items
-	$ReturnedStringArr = @();
-	$ReturnedStringArr += '<?xml version="1.0" encoding="utf-8"?>';
-	$ReturnedStringArr += '<ESET>';
-	$ReturnedStringArr += ' <PRODUCT NAME="endpoint" VERSION="7.0.2091">';
-	$ReturnedStringArr += '  <ITEM NAME="antispams">';
-	#
-	# ------------------------------------------------------------
-	#
-	# ESET - Process Exclusions
-	$ReturnedStringArr += '   <ITEM NAME="01000101">';
-	$ReturnedStringArr += '    <ITEM NAME="settings">';
-	$ReturnedStringArr += '     <ITEM NAME="ExcludedProcesses" DELETE="1">';
-	$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
-		$ReturnedStringArr += (('      <NODE NAME="1" TYPE="string" VALUE="')+($_)+('" />'));
-	}
-	$ReturnedStringArr += '     </ITEM>';
-	$ReturnedStringArr += '    </ITEM>';
-	$ReturnedStringArr += '   </ITEM>';
-	#
-	# ------------------------------------------------------------
-	#
-	# ESET - Filepath Exclusions
-	$ReturnedStringArr += '   <ITEM NAME="01000600">';
-	$ReturnedStringArr += '    <ITEM NAME="settings">';
-	$ReturnedStringArr += '     <ITEM NAME="ScannerExcludes" DELETE="1">';
-	$i_FilepathName_Base10 = 1;
-	$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
-		$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-		$ReturnedStringArr+=(('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />'));
-		$ReturnedStringArr += '       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />';
-		$ReturnedStringArr += '       <NODE NAME="Infiltration" TYPE="string" VALUE="" />';		
-		$ReturnedStringArr+=(('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />'));
-		$ReturnedStringArr += '       <NODE NAME="Flags" TYPE="number" VALUE="0" />';
-		$ReturnedStringArr += '       <NODE NAME="Hash" TYPE="string" VALUE="" />';
-		$ReturnedStringArr += '       <NODE NAME="Description" TYPE="string" VALUE="" />';
-		$ReturnedStringArr += '      </ITEM>';
-		$i_FilepathName_Base10++;
-	}
-	$ReturnedStringArr += '     </ITEM>';
-	$ReturnedStringArr += '    </ITEM>';
-	$ReturnedStringArr += '   </ITEM>';
-	#
-	# ------------------------------------------------------------
-	#
-	# ESET - Extension Exclusions
-	# $ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {
-	#
-	# }
-	#
-	# ------------------------------------------------------------
-	#
-	# ESET - Footer-Items
-	$ReturnedStringArr += '  </ITEM>';
-	$ReturnedStringArr += ' </PRODUCT>';
-	$ReturnedStringArr += '</ESET>';
 
-	$ReturnedString = $ReturnedStringArr -join "`n";
-	Return $ReturnedString;
+	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {
+		Write-Host "";
+		Write-Host "  Error in function `"BuildImport_ESET`"  " -BackgroundColor ("Black") -ForegroundColor ("Red");
+		Write-Host "    File not found: `$PreExportFilepath = `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
+		Write-Host "";
+	} Else {
+		$Contents_ESET_Import = Get-Content -Path ("$PreExportFilepath");
+		#
+		# ------------------------------------------------------------
+		#
+		# ESET - Process Exclusions
+		#
+
+		$ESET_ExclProc_Content = @();
+		$ESET_ExclProc_Content += '     <ITEM NAME="ExcludedProcesses" DELETE="1">';
+		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
+			$ESET_ExclProc_Content += (('      <NODE NAME="1" TYPE="string" VALUE="')+($_)+('" />'));
+		}
+		$ESET_ExclProc_Content += $ESET_ExclProc_Content;
+
+		#
+		# ------------------------------------------------------------
+		#
+		# ESET - Filepath Exclusions
+		#
+		$ESET_ExclPath_Content = @();
+		$ESET_ExclPath_Content += '     <ITEM NAME="ScannerExcludes" DELETE="1">';
+		$i_FilepathName_Base10 = 1;
+		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
+			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
+			$ESET_ExclPath_Content+=(('      <ITEM NAME="')+($i_FilepathName_Base16)+('" />'));
+			$ESET_ExclPath_Content += '       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />';
+			$ESET_ExclPath_Content += '       <NODE NAME="Infiltration" TYPE="string" VALUE="" />';		
+			$ESET_ExclPath_Content+=(('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />'));
+			$ESET_ExclPath_Content += '       <NODE NAME="Flags" TYPE="number" VALUE="0" />';
+			$ESET_ExclPath_Content += '       <NODE NAME="Hash" TYPE="string" VALUE="" />';
+			$ESET_ExclPath_Content += '       <NODE NAME="Description" TYPE="string" VALUE="" />';
+			$ESET_ExclPath_Content += '      </ITEM>';
+			$i_FilepathName_Base10++;
+		}
+		$ESET_ExclPath_Content += '     </ITEM>';
+		$RegexReplacement_Filepaths = $ESET_ExclPath_Content -join "\r?\n";
+
+		$NeedleRegex_FilepathsArr = @();
+		# $NeedleRegex_FilepathsArr += '^(.+)';
+		$NeedleRegex_FilepathsArr += '     <ITEM NAME="ScannerExcludes" DELETE="1">';
+		$NeedleRegex_FilepathsArr += '      <ITEM NAME="[0-9A-F]+" />';
+		$NeedleRegex_FilepathsArr += '       .+';
+		$NeedleRegex_FilepathsArr += '      </ITEM>+';
+		$NeedleRegex_FilepathsArr += '     </ITEM>';
+		# $NeedleRegex_FilepathsArr += '(.+)$';
+		
+		$NeedleRegex_Filepaths = $NeedleRegex_FilepathsArr -join "\r?\n";
+
+		$Needle_Filepaths = [Regex]::Match($Contents_ESET_Import, $NeedleRegex_Filepaths); # Parse through the "Haystack", looking for the "Needle"
+		Write-Host (("`$Needle_Filepaths.Success = ")+($Needle_Filepaths.Success));
+		If ($Needle_Filepaths.Success -ne $False) {
+			Write-Host "`n`n`$Needle_Filepaths.Groups[0].Value:"; $Needle_Filepaths.Groups[0].Value;
+			Write-Host "`n`n`$Needle_Filepaths.Groups[1].Value:"; $Needle_Filepaths.Groups[1].Value;
+			Write-Host "`n`n`$Needle_Filepaths.Groups[2].Value:"; $Needle_Filepaths.Groups[2].Value;
+			Write-Host "`n`n`$Needle_Filepaths.Groups[3].Value:"; $Needle_Filepaths.Groups[3].Value;
+		}
+
+		#
+		# ------------------------------------------------------------
+		#
+		# ESET - Extension Exclusions
+		$ESET_ExclExt_Content = @();
+		$ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {
+			$ESET_ExclExt_Content += '        <ITEM NAME="ExcludeExtensions" DELETE="1">';
+			$ESET_ExclExt_Content += '         <NODE NAME="1" TYPE="string" VALUE="iso" />';
+			$ESET_ExclExt_Content += '         <NODE NAME="2" TYPE="string" VALUE="avhd" />';
+			$ESET_ExclExt_Content += '         <NODE NAME="3" TYPE="string" VALUE="avhdx" />';
+			$ESET_ExclExt_Content += '        </ITEM>';
+		}
+		$ReturnedStringArr += $ESET_ExclExt_Content;
+		#
+		# ------------------------------------------------------------
+		#
+		# ESET - Footer-Items
+		$ReturnedStringArr += '  </ITEM>';
+		$ReturnedStringArr += ' </PRODUCT>';
+		$ReturnedStringArr += '</ESET>';
+
+		$ReturnedString = $ReturnedStringArr -join "`n";
+
+		$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S"));
+		$ImportBasename = "eset-import.xml";
+		$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
+		If ((Test-Path -Path ($ImportDirname)) -eq $false) {
+			New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;
+		}
+
+		Set-Content -Path ($ImportFilepath) -Value ($Contents_ESET_Import);
+		
+		# Open the containing directory for the user
+		Explorer.exe "$ImportDirname";
+
+	}
 }
 Export-ModuleMember -Function "BuildImport_ESET";
 

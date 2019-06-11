@@ -352,7 +352,12 @@ function ExclusionsListUpdate {
 			}
 		}
 
-		Start-Sleep 60; Exit;
+		# ------------------------------------------------------------
+		# REMOVE AFTER DONE DEBUGGING
+		$WaitCloseSeconds = 60;
+		Write-Host "`nClosing after ${WaitCloseSeconds}s...";
+		Write-Host "`n";
+		Start-Sleep -Seconds ${WaitCloseSeconds};
 		# ------------------------------------------------------------
 
 		# ESET Exclusions --> Construct an Import-file which contains all exclusions

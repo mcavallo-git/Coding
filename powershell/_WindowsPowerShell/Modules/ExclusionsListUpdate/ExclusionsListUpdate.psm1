@@ -420,7 +420,7 @@ function BuildImport_ESET {
 		$Rows_New = $Rows_NewArr -join "\r?\n";
 
 		$Regex_StartFilepaths = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
-		$Regex_EndFilepaths = '^     <\/ITEM>$';
+		$Regex_EndFilepaths = '^     </ITEM>$';
 
 		$FoundStart = $False;
 		$FoundEnd = $False;
@@ -446,7 +446,6 @@ function BuildImport_ESET {
 			}
 			$FileRow++;
 		}
-
 		Write-Host "`n`n";
 		Write-Host "Rows_Start:"; $Rows_Start;
 		Write-Host "`n`n";

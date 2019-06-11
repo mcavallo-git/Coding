@@ -312,16 +312,16 @@ function ExclusionsListUpdate {
 					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
 				If (Test-Path $Each_Dirname) {
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
-						Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"...";
-					}
+
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
+
 					$FoundProcesses = Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
-						| Where-Object { ($Parent -Eq "") -Eq ($_.Directory.Name -Eq "$Parent") } `
+						| Where-Object { ($Parent -Eq "") -Or ($_.Directory.Name -Eq "$Parent") } `
 						| Foreach-Object { $_.FullName; } `
 					;
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { 
-						Write-Host "FoundProcesses:"; $FoundProcesses;
-					}
+					# -Depth (${Depth_GitConfigFile}) 
+
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "FoundProcesses:"; $FoundProcesses; }
 					# If ($AntiVirusSoftware -eq "Windows Defender") {
 					# 	Add-MpPreference -ExclusionProcess "$_";
 					# 	If ($? -eq $True) {
@@ -344,12 +344,7 @@ function ExclusionsListUpdate {
 
 			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
 
-ESET_ExportModifier `
--PreExportFilepath ($PreExportFilepath) `
--ESET_ExcludeFilepaths ($FoundFilepaths) `
--ESET_ExcludeExtensions ($FoundExtensions) `
--ESET_ExcludeProcesses ($FoundProcesses) `
-;
+			ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 
 		}
 		#

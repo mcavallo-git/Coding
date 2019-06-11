@@ -492,7 +492,7 @@ function ESET_ExportModifier {
 		#		--> Process Exclusions
 		#
 		$i_RowNum = 0;
-		$Contents_ESET_Import | Select-Object | ForEach-Object {
+		Get-Content -Path ($Filepath_ESET_Import) | Select-Object | ForEach-Object {
 			If ($FoundStart_Processes -eq $null) {
 				$RowsStart_Processes = (($RowsStart_Processes)+("`n")+($_));
 				If (([Regex]::Match($_, $RegexStart_Processes)).Success -eq $True) {
@@ -517,7 +517,6 @@ function ESET_ExportModifier {
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
 
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
-		$Contents_ESET_Import = Get-Content -Path ("$Filepath_ESET_Import");
 
 		#
 		# ------------------------------------------------------------
@@ -526,7 +525,7 @@ function ESET_ExportModifier {
 		#		--> Filepath Exclusions
 		#
 		$i_RowNum = 0;
-		$Contents_ESET_Import.Split([Environment]::NewLine) | Select-Object | ForEach-Object {
+		Get-Content -Path ($Filepath_ESET_Import) | Select-Object | ForEach-Object {
 			If ($FoundStart_Filepaths -eq $null) {
 				$RowsStart_Filepaths = (($RowsStart_Filepaths)+("`n")+($_));
 				If (([Regex]::Match($_, $RegexStart_Filepaths)).Success -eq $True) {
@@ -551,7 +550,6 @@ function ESET_ExportModifier {
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
 
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
-		$Contents_ESET_Import = Get-Content -Path ("$Filepath_ESET_Import");
 		
 		#
 		# ------------------------------------------------------------

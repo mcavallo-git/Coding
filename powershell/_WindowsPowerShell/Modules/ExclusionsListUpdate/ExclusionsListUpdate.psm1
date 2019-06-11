@@ -301,7 +301,7 @@ function ExclusionsListUpdate {
 			}
 		}
 		# Determine which process(es) exist locally
-		$ExcludedProcesses | ForEach {
+		$ExcludedProcesses | ForEach-Object {
 			If ($_ -ne $null) {
 				$Each_Dirname = $_.Dirname;
 				If ($_.AddDir -ne "") {
@@ -317,26 +317,15 @@ function ExclusionsListUpdate {
 					If ($Each_Parent -eq "") {
 						# Matching on [ top level directory ] & [ basename ]
 						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+						# -Depth (${Depth_GitConfigFile}) 
+
 					} Else {
 						# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
 						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
+						# -Depth (${Depth_GitConfigFile}) 
+
 
 					}
-					# -Depth (${Depth_GitConfigFile}) 
-					#
-					# If ($AntiVirusSoftware -eq "Windows Defender") {
-					# 	Add-MpPreference -ExclusionProcess "$_";
-					# 	If ($? -eq $True) {
-					# 		If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
-					# 	} Else {
-					# 		If (Test-Path $_) {
-					# 			If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
-					# 		} Else {
-					# 			If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
-					# 		}
-					# 	}
-					# }
-					#
 				}
 			}
 		}
@@ -360,6 +349,19 @@ function ExclusionsListUpdate {
 
 			ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 
+		} ElseIf ($AntiVirusSoftware -eq "Windows Defender") {
+			$FoundProcesses | ForEach-Object {
+				Add-MpPreference -ExclusionProcess "$_";
+				If ($? -eq $True) {
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
+				} Else {
+					If (Test-Path $_) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+					} Else {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+					}
+				}
+			}
 		}
 		#
 		# ------------------------------------------------------------

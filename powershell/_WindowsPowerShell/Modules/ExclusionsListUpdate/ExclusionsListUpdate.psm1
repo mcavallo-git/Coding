@@ -306,7 +306,8 @@ function ExclusionsListUpdate {
 		$ImportFilepath = $null;
 		If ($AntiVirusSoftware -eq "ESET") {
 			$ESET_ImportContents = BuildImport_ESET -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
-			$ImportFilepath = ((${Env:USERPROFILE})+("\Desktop\ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
+			# $ImportFilepath = ((${Env:USERPROFILE})+("\Desktop\ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
+			$ImportFilepath = "C:\Users\mcavallo\Desktop\Import.xml";
 			Set-Content -Path ($ImportFilepath) -Value ($ESET_ImportContents);
 		}
 		#

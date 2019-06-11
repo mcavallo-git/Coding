@@ -30,8 +30,6 @@ function ExclusionsListUpdate {
 	$FoundExtensions = @();
 	$FoundProcesses = @();
 
-	Start-Sleep -Seconds 3;
-
 	# Require Escalated Privileges
 	If ((RunningAsAdministrator) -eq ($False)) {
 		$PSCommandArgs = @();
@@ -310,8 +308,7 @@ function ExclusionsListUpdate {
 		$ImportFilepath = $null;
 		If ($AntiVirusSoftware -eq "ESET") {
 			$ESET_ImportContents = BuildImport_ESET -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
-			# $ImportFilepath = ((${Env:USERPROFILE})+("\Desktop\ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
-			$ImportFilepath = "C:\Users\mcavallo\Desktop\Import.xml";
+			$ImportFilepath = ((${Env:USERPROFILE})+("\Desktop\ESET-Exclusions-Import-")+(Get-Date -UFormat "%Y%m%d_%H%M%S")+(".xml"));
 			Set-Content -Path ($ImportFilepath) -Value ($ESET_ImportContents);
 		}
 		#
@@ -333,9 +330,10 @@ function ExclusionsListUpdate {
 			Write-Host "`n";
 			If ($ImportFilepath -ne $null) {
 				Write-Host "";
-				Write-Host "Exlusions output to filepath: " -ForegroundColor "Yellow" -BackgroundColor "Black";
-				Write-Host (("  |-->   ")+($ImportFilepath)) -ForegroundColor "Yellow" -BackgroundColor "Black";
-				Write-Host "";
+				Write-Host "Exlusions output to filepath: " -ForegroundColor "Red" -BackgroundColor "Black";
+				Write-Host "`n";
+				Write-Host (("      ")+($ImportFilepath)+("      ")) -ForegroundColor "Yellow" -BackgroundColor "Black";
+				Write-Host "`n";
 				Write-Host (("Open ")+($AntiVirusSoftware)+(" and Import the exclusions file (above)")) -ForegroundColor "Red" -BackgroundColor "Black";
 				Write-Host "`n`n";
 			}

@@ -472,7 +472,7 @@ function BuildImport_ESET {
 				}
 			}
 		}
-		$Contents_ESET_Import = (($RowsStart)+("`n")+($NewRowsBetween)+("`n")+($RowsEnd));
+		$Contents_ESET_Import = (($RowsStart)+($NewRowsBetween)+($RowsEnd));
 		# Write-Host "`n`n";
 		# Write-Host "Contents_ESET_Import:"; $Contents_ESET_Import;
 		# Write-Host "`n`n";

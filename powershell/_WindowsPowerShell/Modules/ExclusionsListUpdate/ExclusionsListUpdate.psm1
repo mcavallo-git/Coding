@@ -283,13 +283,13 @@ function ExclusionsListUpdate {
 			}
 		} Else {
 			$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-				Write-Host "$_";
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
 			}
 			$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-				Write-Host "$_";
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
 			}
 			$ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-				Write-Host "$_";
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "$_"; }
 			}
 		}
 		#

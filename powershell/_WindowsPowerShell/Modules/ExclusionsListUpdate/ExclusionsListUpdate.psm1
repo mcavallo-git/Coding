@@ -430,18 +430,18 @@ function BuildImport_ESET {
 		$FileRow = 0;
 		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
 			If ($FoundStart -eq $False) {
-				$Rows_Start += (($_)+("`n"));
+				$Rows_Start = (($Rows_Start)+("`n")+($_));
 				If (([Regex]::Match($_, $Regex_StartFilepaths)).Success -eq $True) {
 					$FoundStart = $True;
 				}
 			} Else {
 				If ($FoundEnd -eq $True) {
-					$Rows_End += (($_)+("`n"));
+					$Rows_End = (($Rows_End)+("`n")+($_));
 				} ElseIf (([Regex]::Match($_, $Regex_EndFilepaths)).Success -eq $True) {
-					$Rows_End += (($_)+("`n"));
+					$Rows_End = (($Rows_End)+("`n")+($_));
 					$FoundEnd = $True;
 				} Else {
-					$Rows_Between += (($_)+("`n"));
+					$Rows_Between = (($Rows_Between)+("`n")+($_));
 				}
 			}
 			$FileRow++;

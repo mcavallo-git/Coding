@@ -309,7 +309,7 @@ function ExclusionsListUpdate {
 				$Each_Dirname = $_.Dirname;
 				$Each_Basename = $_.Basename;
 				If ($_.AddDir -ne "") {
-					$Each_Dirname = (($Each_Dirname)+("\")+($_.AddDir));
+					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
 				If (Test-Path $Each_Dirname) {
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { 

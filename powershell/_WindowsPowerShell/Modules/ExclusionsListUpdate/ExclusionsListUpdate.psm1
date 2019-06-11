@@ -398,14 +398,22 @@ function ESET_ExportModifier {
 		Write-Host "    File not found: `$PreExportFilepath = `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "";
 	} Else {
+		
 
-		$Contents_ESET_Export = Get-Content -Path ("$PreExportFilepath");
+		$Dirname_ESET_Import = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
+		$Basename_ESET_Import = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
+		$Filepath_ESET_Import = (($Dirname_ESET_Import)+("\")+($Basename_ESET_Import));
+		
+		If ((Test-Path -Path ($Dirname_ESET_Import)) -eq $false) {
+			New-Item -ItemType "Directory" -Path ($Dirname_ESET_Import) | Out-Null;
+		}
+
+		Set-Content -Path ($Filepath_ESET_Import) -Value (Get-Content -Path ("$PreExportFilepath"));
 
 		#
 		# ------------------------------------------------------------
 		#
 		# ESET - Process Exclusions
-		#
 		#
 		$RowsReplaced_Processes = "";
 		$RowsStart_Processes = "";
@@ -416,7 +424,6 @@ function ESET_ExportModifier {
 		$RegexStart_Processes = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
 		$RegexEnd_Processes = '^     </ITEM>$';
 		#
-		#
 		# Prebuilt String - Process Exclusions
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
@@ -425,12 +432,9 @@ function ESET_ExportModifier {
 			$i_FilepathName_Base10++;
 		}
 		#
-		#
-		#
 		# ------------------------------------------------------------
 		#
 		# ESET - Filepath Exclusions
-		#
 		#
 		$RowsStart_Filepaths = "";
 		$RowsBetween_Filepaths = "";
@@ -440,7 +444,6 @@ function ESET_ExportModifier {
 		$FoundEnd_Filepaths = $null;
 		$RegexStart_Filepaths = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
 		$RegexEnd_Filepaths = '^     </ITEM>$';
-		#
 		#
 		# Prebuilt String - Filepath Exclusions
 		$i_FilepathName_Base10 = 1;
@@ -469,13 +472,9 @@ function ESET_ExportModifier {
 			$i_FilepathName_Base10++;
 		}
 		#
-		#
-		#
 		# ------------------------------------------------------------
 		#
 		# ESET - Extension Exclusions
-		#
-		#
 		#
 		# $ESET_ExclExt_Content = @();
 		# $ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {
@@ -487,18 +486,11 @@ function ESET_ExportModifier {
 		# }
 		# $ReturnedStringArr += $ESET_ExclExt_Content;
 		#
-		#
-		#
 		# ------------------------------------------------------------
 		#
-		#	Parse the contents of the exported ESET config-file
-		#		--> Replace with updated exclusions
+		#	Parse the contents of the ESET config-file
+		#		--> Process Exclusions
 		#
-		#
-		$Contents_ESET_Import = $Contents_ESET_Export;
-		#
-		#
-		# Determine start/end - Process Exclusions --> Replace Inbetween
 		$i_RowNum = 0;
 		$Contents_ESET_Import | Select-Object | ForEach-Object {
 			If ($FoundStart_Processes -eq $null) {
@@ -518,15 +510,21 @@ function ESET_ExportModifier {
 			}
 			$i_RowNum++;
 		}
-
 		$Contents_ESET_Import = (($RowsStart_Processes)+("`n")+($RowsBetween_Processes)+("`n")+($RowsEnd_Processes));
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
+
+		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
+		$Contents_ESET_Import = Get-Content -Path ("$Filepath_ESET_Import");
+
 		#
+		# ------------------------------------------------------------
 		#
-		# Determine start/end - Filepath Exclusions --> Replace Inbetween
+		#	Parse the contents of the ESET config-file
+		#		--> Filepath Exclusions
+		#
 		$i_RowNum = 0;
 		$Contents_ESET_Import.Split([Environment]::NewLine) | Select-Object | ForEach-Object {
 			If ($FoundStart_Filepaths -eq $null) {
@@ -546,29 +544,24 @@ function ESET_ExportModifier {
 			}
 			$i_RowNum++;
 		}
-
 		$Contents_ESET_Import = (($RowsStart_Filepaths)+("`n")+($RowsReplaced_Filepaths)+("`n")+($RowsEnd_Filepaths));
 		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
+				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
 
+		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
+		$Contents_ESET_Import = Get-Content -Path ("$Filepath_ESET_Import");
+		
 		#
 		# ------------------------------------------------------------
 		#
-		$ImportDirname = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
-		$ImportBasename = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
-		$ImportFilepath = (($ImportDirname)+("\")+($ImportBasename));
-		
-		If ((Test-Path -Path ($ImportDirname)) -eq $false) {
-			New-Item -ItemType "Directory" -Path ($ImportDirname) | Out-Null;
-		}
-		
-		Set-Content -Path ($ImportFilepath) -Value ($Contents_ESET_Import);
-		
-		# Open the containing directory for the user
-		Explorer.exe "$ImportDirname";
+		# 	Show the directory containing the import-file
 
+		Explorer.exe "$Dirname_ESET_Import";
+
+		# 
+		# ------------------------------------------------------------
 	}
 }
 Export-ModuleMember -Function "ESET_ExportModifier";

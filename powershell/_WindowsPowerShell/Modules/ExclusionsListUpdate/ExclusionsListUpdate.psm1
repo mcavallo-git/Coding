@@ -303,18 +303,12 @@ function ExclusionsListUpdate {
 		# Determine which process(es) exist locally
 		$ExcludedProcesses | ForEach {
 			If ($_ -ne $null) {
-
-				Write-Host "`n`n`$_  | Format-List:"; $_ | Format-List;
-				Write-Host "`n`n`$_  | Format-Table:"; $_ | Format-Table;
-				Write-Host "`n`n`$_.Keys:"; $_.Keys;
-
 				$Each_Dirname = $_.Dirname;
 				If ($_.AddDir -ne "") {
 					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
 				$Each_Basename = $_.Basename;
-
-				If (Test-Path $Each_Dirname) {
+				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")); {
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 
@@ -342,8 +336,10 @@ function ExclusionsListUpdate {
 			}
 		}
 
+
 		# ------------------------------------------------------------
 		# REMOVE AFTER DONE DEBUGGING
+		Write-Host "`n`n`$FoundProcesses:`n"; $FoundProcesses; Write-Host "`n`n";
 		$WaitCloseSeconds = 60;
 		Write-Host "`nClosing after ${WaitCloseSeconds}s...";
 		Write-Host "`n";

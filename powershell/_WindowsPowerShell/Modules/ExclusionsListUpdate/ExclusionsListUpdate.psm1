@@ -312,7 +312,7 @@ function ExclusionsListUpdate {
 		# 			$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 		# 		}{
 		ForEach ($ProcessesObj in $ExcludedProcesses) {
-			If ($ProcessesObj -ne $null) {
+			If ($ProcessesObj.Basename -ne $null) {
 
 				Write-Host "`$ProcessesObj :"; $ProcessesObj | Format-List;
 				Write-Host "`$ProcessesObj.Dirname :"; $ProcessesObj.Dirname;

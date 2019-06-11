@@ -300,35 +300,19 @@ function ExclusionsListUpdate {
 			}
 		}
 		# Determine which process(es) exist locally
-		# $ExcludedProcesses | Select-Object -Unique | ForEach-Object {
-		# $ExcludedProcesses | ForEach-Object {
-		# 	If ($_ -ne $null) {
-
-		# 		Write-Host "`$_ :"; $_ | Format-List;
-
-		# 		$Each_Dirname = $_.Dirname;
-		# 		$Each_Basename = $_.Basename;
-		# 		If ($_.AddDir -ne "") {
-		# 			$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
-		# 		}{
-		$ExcludedProcesses | Format-List;
-
 		$ExcludedProcesses | ForEach {
-			$ProcessesObj = $_;
-			$ProcessesObj = $_;
-			If ($ProcessesObj -ne $null) {
+			If ($_ -ne $null) {
 
-				Write-Host "`$ProcessesObj | Format-Table:"; $ProcessesObj | Format-Table;
-				Write-Host "`$ProcessesObj.GetType():"; $ProcessesObj.GetType();
-				Write-Host "`$ProcessesObj.Dirname:"; $ProcessesObj.Dirname;
-				Write-Host "`$ProcessesObj.AddDir:"; $ProcessesObj.AddDir;
-				Write-Host "`$ProcessesObj.Basename:"; $ProcessesObj.Basename;
+				Write-Host "`n`n`$_  | Format-List:"; $_ | Format-List;
+				Write-Host "`n`n`$_  | Format-Table:"; $_ | Format-Table;
+				Write-Host "`n`n`$_.Keys:"; $_.Keys;
 
-				$Each_Dirname = $ProcessesObj.Dirname;
-				$Each_Basename = $ProcessesObj.Basename;
-				If ($ProcessesObj.AddDir -ne "") {
-					$Each_Dirname = (($ProcessesObj.Dirname)+("\")+($ProcessesObj.AddDir));
+				$Each_Dirname = $_.Dirname;
+				If ($_.AddDir -ne "") {
+					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
+				$Each_Basename = $_.Basename;
+
 				If (Test-Path $Each_Dirname) {
 
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }

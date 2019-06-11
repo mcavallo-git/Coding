@@ -426,30 +426,34 @@ function BuildImport_ESET {
 		$Rows_Start = @();
 		$Rows_Between = @();
 		$Rows_End = @();
+		# $VersionMinLevels.Keys | Sort | Foreach {
+		# 	$EachKey = [Int]$_;
+		$FileRow = 0;
 		$Contents_ESET_Import | Select-Object -Unique | ForEach-Object {
 			If ($FoundStart -eq $False) {
-				$Rows_Start += $_;
+				$Rows_Start[$FileRow] += $_;
 				If (([Regex]::Match($_, $Regex_StartFilepaths)).Success -eq $True) {
 					$FoundStart = $True;
 				}
 			} Else {
 				If ($FoundEnd -eq $True) {
-					$Rows_End += $_;
+					$Rows_End[$FileRow] += $_;
 				} ElseIf (([Regex]::Match($_, $Regex_EndFilepaths)).Success -eq $True) {
-					$Rows_End += $_;
+					$Rows_End[$FileRow] += $_;
 					$FoundEnd = $True;
 				} Else {
-					$Rows_Between += $_;
+					$Rows_Between[$FileRow] += $_;
 				}
 			}
+			$FileRow++;
 		}
 
 		Write-Host "`n`n";
-		Write-Host "Rows_Start:"; $Rows_Start;
+		Write-Host "Rows_Start:"; $Rows_Start.Keys | Sort | Foreach { $Rows_Start[$_] };
 		Write-Host "`n`n";
-		Write-Host "Rows_Between:"; $Rows_Between;
+		Write-Host "Rows_Between:"; $Rows_Between.Keys | Sort | Foreach { $Rows_Between[$_] };
 		Write-Host "`n`n";
-		Write-Host "Rows_End:"; $Rows_End;
+		Write-Host "Rows_End:"; $Rows_End.Keys | Sort | Foreach { $Rows_End[$_] };
 		Write-Host "`n`n";
 
 		#

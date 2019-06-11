@@ -318,27 +318,15 @@ function ExclusionsListUpdate {
 						# Matching on [ top level directory ] & [ basename ]
 						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
 						# -Depth (${Depth_GitConfigFile}) 
-
 					} Else {
 						# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
 						$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
 						# -Depth (${Depth_GitConfigFile}) 
-
-
 					}
 				}
 			}
 		}
 
-
-		# ------------------------------------------------------------
-		# REMOVE AFTER DONE DEBUGGING
-		Write-Host "`n`n`$FoundProcesses:`n"; $FoundProcesses | Format-List; Write-Host "`n`n";
-		Write-Host "`n`n`$FoundProcesses:`n"; $FoundProcesses; Write-Host "`n`n";
-		$WaitCloseSeconds = 60;
-		Write-Host "`nClosing after ${WaitCloseSeconds}s...";
-		Write-Host "`n";
-		Start-Sleep -Seconds ${WaitCloseSeconds};
 		# ------------------------------------------------------------
 
 		# ESET Exclusions --> Construct an Import-file which contains all exclusions

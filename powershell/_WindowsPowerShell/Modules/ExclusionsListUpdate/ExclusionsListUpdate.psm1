@@ -177,6 +177,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git*.exe"; }; # Git, GitHubDesktop
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="software_reporter_tool.exe"; };
 		# -- PROCESSES -- ProgFiles X64
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="7-Zip"; Depth="2"; Parent=""; Basename="7z*.exe"; }; # AutoHotkey
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="Ahk2Exe.exe"; }; # AutoHotkey
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey*.exe"; }; # AutoHotkey
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth=""; Parent=""; Basename="ClassicStartMenu.exe"; };  # Classic Shell
@@ -228,6 +229,10 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Depth=""; Parent=""; Basename="MobaXterm.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Notepad++"; Depth=""; Parent=""; Basename="notepad++.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NVIDIA Web Helper.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor"; Depth="3"; Parent=""; Basename="PRTG*.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor"; Depth="3"; Parent=""; Basename="paessler*.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor"; Depth="3"; Parent=""; Basename="python*.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor\Sensor System"; Depth="2"; Parent=""; Basename="*"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="CefSharp.BrowserSubprocess.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="GameManagerService*.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="Razer*.exe"; };
@@ -236,6 +241,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop"; Depth=""; Parent=""; Basename="SRService.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop"; Depth=""; Parent=""; Basename="SSUService.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop"; Depth=""; Parent=""; Basename="strwinclt.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="TeamViewer"; Depth="1"; Parent=""; Basename="TeamViewer*.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Unigine"; Depth=""; Parent=""; Basename="Heaven.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="WinDirStat"; Depth="1"; Parent=""; Basename="windirstat.exe"; };
 		# -- PROCESSES -- ProgData

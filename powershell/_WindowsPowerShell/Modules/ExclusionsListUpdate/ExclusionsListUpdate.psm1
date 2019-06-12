@@ -313,7 +313,6 @@ function ExclusionsListUpdate {
 				$Each_Basename = $_.Basename;
 				$Each_Parent = If (($_.Parent -ne $null) -And ($_.Parent -ne ""))  { $_.Parent } Else { "" };
 				$Each_Depth = If (($_.Depth -ne $null) -And ($_.Depth -ne ""))  { [Int]$_.Depth } Else { "" };
-
 				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 					If ($Each_Parent -eq "") {
@@ -331,7 +330,6 @@ function ExclusionsListUpdate {
 						} Else {
 							# Matching on [ top level directory ], [ basename ], [ parent directory name ] & [ depth ]
 							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
-
 						}
 					}
 				}
@@ -365,17 +363,14 @@ function ExclusionsListUpdate {
 		If ($AntiVirusSoftware -eq "ESET") {
 			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
 			ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
-
-		} 
-
+		}
 		# ------------------------------------------------------------
 		#
 		# Windows Defender Exclusions
 		#		Apply directly via PowerShell built-in command(s)
 		#
 		If ($AntiVirusSoftware -eq "Windows Defender") {
-
-			$FoundProcesses | ForEach-Object {
+			$FoundProcesses | Select-Object -Unique | ForEach-Object {
 				Add-MpPreference -ExclusionProcess "$_";
 				If ($? -eq $True) {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
@@ -387,13 +382,12 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
-
 			$LiveWD = Get-MpPreference;
 			Write-Host "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionPath; }
 			Write-Host "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionProcess; }
 			Write-Host "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionExtension; }
-
 		}
+		#
 		# ------------------------------------------------------------
 		#
 	}
@@ -408,38 +402,26 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 #
 function ESET_ExportModifier {
 	Param(
-
 		[String]$PreExportFilepath,
-		
 		[String[]]$ESET_ExcludeFilepaths = @(),
-
 		[String[]]$ESET_ExcludeProcesses = @(),
-
 		[String[]]$ESET_ExcludeExtensions = @()
-
 	)
 
 	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {
-
 		Write-Host "";
 		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "    Please go to ESET and Export current config to: `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
 		Write-Host "";
 		Return 1;
-
 	} Else {
-		
-
 		$Dirname_ESET_Import = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
 		$Basename_ESET_Import = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
 		$Filepath_ESET_Import = (($Dirname_ESET_Import)+("\")+($Basename_ESET_Import));
-		
 		If ((Test-Path -Path ($Dirname_ESET_Import)) -eq $false) {
 			New-Item -ItemType "Directory" -Path ($Dirname_ESET_Import) | Out-Null;
 		}
-
 		Set-Content -Path ($Filepath_ESET_Import) -Value (Get-Content -Path ("$PreExportFilepath"));
-
 		#
 		# ------------------------------------------------------------
 		#
@@ -582,10 +564,7 @@ function ESET_ExportModifier {
 				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
 		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
 		#
-		#
 		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
-		#
-		#
 		#
 		# ------------------------------------------------------------
 		#

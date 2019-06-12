@@ -404,6 +404,10 @@ function ExclusionsListUpdate {
 				Write-Host "";
 
 			} Else {
+				
+				Write-Host "";
+				Write-Host ("MalwarebytesAssistant: "+($MalwarebytesAssistant));
+				Write-Host "";
 
 				# Found Exclusions tool/utility - add any/all exclusions
 				$FoundProcesses | Select-Object -Unique | ForEach-Object {

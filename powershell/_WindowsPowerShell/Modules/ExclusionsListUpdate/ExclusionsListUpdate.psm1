@@ -411,7 +411,7 @@ function ExclusionsListUpdate {
 
 				# Found Exclusions tool/utility - add any/all exclusions
 				$FoundProcesses | Select-Object -Unique | ForEach-Object {
-					$MalwarebytesAssistant --exclusions add "$_";
+					$MalwarebytesAssistant --exclusions add "$_"
 				}
 
 			}

@@ -2,16 +2,27 @@
 
 #------------------------------------------------------------
 #
-# View all running processes
+# view all running processes
 
 ps aux;
-# ^-- NOTE: this is NOT the same as [ ps -aux ] - do not add any dashes to the arguments list of 'aux'
+# ^-- this is NOT the same as [ ps -aux ] - do not add any dashes to the arguments list of 'aux'
+#
+# ------------------------------------------------------------
+#
+#	get the absolute path (of a running process)
+
+sudo ls -l /proc/PID/exe;
+#
+# ------------------------------------------------------------
+#
+#	get the working directory (of a running process)
+
+pwdx $pid;
 #
 # ------------------------------------------------------------
 #
 # Determine linux-user running a given process
 #
-
 # Ex) Determine user running the Jenkins service
 
 PS_AUX_COMMAND_CONTAINS="jenkins.war";
@@ -55,5 +66,9 @@ echo "";
 #	Citation(s)
 #
 #		Thanks to StackOverflow user [ Sebastian Smolorz ] on forum [ https://stackoverflow.com/questions/17733671 ] ( determine jenkins service's runtime user )
+#
+#		Thanks to StackOverflow user [ akira ] on forum [ https://superuser.com/questions/103309 ] ( absolute path of a running process )
+#
+#		Thanks to StackOverflow user [ seenu ] on forum [ https://superuser.com/questions/103309 ] ( working directory of a running process )
 #
 # ------------------------------------------------------------

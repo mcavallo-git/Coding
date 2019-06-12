@@ -38,7 +38,7 @@ function ExclusionsListUpdate {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
-		$CommandString = "ExclusionsListUpdate -SkipExit";
+		$CommandString = "ExclusionsListUpdate";
 		If ($PSBoundParameters.ContainsKey('AntiVirusSoftware')) { 
 			$CommandString += ((" -AntiVirusSoftware ")+($AntiVirusSoftware));
 		}

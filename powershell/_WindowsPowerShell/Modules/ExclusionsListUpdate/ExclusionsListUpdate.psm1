@@ -358,6 +358,7 @@ function ExclusionsListUpdate {
 		#
 		If ($AntiVirusSoftware -eq "Windows Defender") {
 			$FoundProcesses | Select-Object -Unique | ForEach-Object {
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Adding Defender Process-Exclusion: `"$_`"..."; }
 				Add-MpPreference -ExclusionProcess "$_";
 				If ($? -eq $True) {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }

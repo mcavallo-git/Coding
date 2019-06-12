@@ -146,7 +146,7 @@ IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 #
 # Determine if a given Linux-User exists
 #
-DOES_USER_EXIST="partsupload";
+DOES_USER_EXIST="ubuntu";
 if [ -n "$(id -u ${DOES_USER_EXIST})" ]; then # user-id exists in this environment
 # if [[ $(id -u ${DOES_USER_EXIST}) =~ ^-?[0-9]+$ ]]; then
 echo "USER \"${DOES_USER_EXIST}\" EXISTS!";

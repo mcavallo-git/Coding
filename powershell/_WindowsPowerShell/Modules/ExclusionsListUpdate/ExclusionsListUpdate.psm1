@@ -168,33 +168,18 @@ function ExclusionsListUpdate {
 		# ------------------------------------------------------------
 		# -- PROCESSES -- LocalAppData
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Dropbox"; Depth=""; Parent=""; Basename="Dropbox.exe"; };
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="GitHubDesktop.exe"; };
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git.exe"; };
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-bash.exe"; };
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-*.exe"; };
-		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-fast-import.exe"; };
-		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-http-fetch.exe"; };
-		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-http-push.exe"; };
-		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-receive-pack.exe"; };
-		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-remote-http.exe"; };
-		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git-remote-https.exe"; };
+		# $ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="GitHubDesktop.exe"; };
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth=""; Parent=""; Basename="git*.exe"; };
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="software_reporter_tool.exe"; };
 		# -- PROCESSES -- ProgFiles X64
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="Ahk2Exe.exe"; }; # AutoHotkey
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey.exe"; }; # AutoHotkey
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkeyA32.exe"; }; # AutoHotkey
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkeyU32.exe"; }; # AutoHotkey
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkeyU64.exe"; }; # AutoHotkey
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey*.exe"; }; # AutoHotkey
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth=""; Parent=""; Basename="ClassicStartMenu.exe"; };  # Classic Shell
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Cryptomator"; Depth=""; Parent=""; Basename="Cryptomator.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Dolby"; Depth=""; Parent=""; Basename="DolbyDAX2API.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="FileZilla FTP Client"; Depth=""; Parent=""; Basename="filezilla.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="bash.exe"; };
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="git.exe"; };
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="git-bash.exe"; };
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="git-gui.exe"; };
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="git-lfs.exe"; };
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="gitk.exe"; };
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="git*.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth=""; Parent=""; Basename="sh.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Greenshot"; Depth=""; Parent=""; Basename="Greenshot.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Depth=""; Parent=""; Basename="CefSharp.BrowserSubprocess.exe"; };

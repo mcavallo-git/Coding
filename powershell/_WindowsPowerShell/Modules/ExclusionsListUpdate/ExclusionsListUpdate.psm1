@@ -351,10 +351,6 @@ function ExclusionsListUpdate {
 			Write-Host "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Host "None"; } Else { $FoundFilepaths; }
 			Write-Host "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Host "None"; } Else { $FoundProcesses; }
 			Write-Host "`n";
-			$WaitCloseSeconds = 60;
-			Write-Host "`nClosing after ${WaitCloseSeconds}s...";
-			Write-Host "`n";
-			Start-Sleep -Seconds ${WaitCloseSeconds};
 		}
 		#
 		#
@@ -394,6 +390,10 @@ function ExclusionsListUpdate {
 		#
 		# ------------------------------------------------------------
 		#
+		$WaitCloseSeconds = 60;
+		Write-Host "`nClosing after ${WaitCloseSeconds}s...";
+		Write-Host "`n";
+		Start-Sleep -Seconds ${WaitCloseSeconds};
 	}
 }
 Export-ModuleMember -Function "ExclusionsListUpdate";

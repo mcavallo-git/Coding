@@ -34,6 +34,12 @@ function ExclusionsListUpdate {
 		$AntiVirusSoftware = "Windows Defender";
 	}
 
+	Write-Host "";
+	Write-Host "  Exclusions List Update  " -BackgroundColor ("Black") -ForegroundColor ("Green");
+	Write-Host "";
+	Write-Host "  Antivirus Software:  `"${AntiVirusSoftware}`"" -BackgroundColor ("Black") -ForegroundColor ("Green");
+	Write-Host "";
+
 	
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
@@ -409,7 +415,7 @@ function ESET_ExportModifier {
 		Write-Host "";
 		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
 		Write-Host "";
-		Write-Host "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
+		Write-Host "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `n`n    `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
 		Write-Host "";
 		Return 1;
 	} Else {

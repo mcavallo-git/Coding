@@ -26,8 +26,6 @@ function ExclusionsListUpdate {
 
 	)
 
-Start-Sleep 3;
-
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
 	$FoundProcesses = @();
@@ -42,7 +40,7 @@ Start-Sleep 3;
 		}
 		$CommandString = "ExclusionsListUpdate";
 		If ($PSBoundParameters.ContainsKey('AntiVirusSoftware')) { 
-			$CommandString += ((" -AntiVirusSoftware ")+($AntiVirusSoftware));
+			$CommandString += ((" -AntiVirusSoftware '")+($AntiVirusSoftware)+("'"));
 		}
 		If ($PSBoundParameters.ContainsKey('Quiet')) { 
 			$CommandString += " -Quiet";

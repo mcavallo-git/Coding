@@ -26,12 +26,6 @@ function ExclusionsListUpdate {
 
 	)
 
-	If ($AntiVirusSoftware -eq $Null) {
-		$AntiVirusSoftware = "Windows Defender";
-	} ElseIf ($AntiVirusSoftware -eq "Defender") {
-		$AntiVirusSoftware = "Windows Defender";
-	}
-
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
 	$FoundProcesses = @();
@@ -201,7 +195,6 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="IGCC.exe"; }; # Intel Graphics
 		# -- PROCESSES -- ProgFiles X86
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth=""; Parent=""; Basename="Dropbox.exe"; };
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="chrome.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="chrome.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Depth=""; Parent=""; Basename="DSAService.exe"; };
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Depth=""; Parent=""; Basename="tbtsvc.exe"; };
@@ -404,10 +397,15 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 #
 function ESET_ExportModifier {
 	Param(
+
 		[String]$PreExportFilepath,
+
 		[String[]]$ESET_ExcludeFilepaths = @(),
+
 		[String[]]$ESET_ExcludeProcesses = @(),
+
 		[String[]]$ESET_ExcludeExtensions = @()
+
 	)
 
 	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {

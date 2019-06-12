@@ -37,7 +37,7 @@ function ExclusionsListUpdate {
 	$MalwarebytesAntiMalware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiMalware')) { $True } Else { $False };
 	$MalwarebytesAntiRansomware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiRansomware')) { $True } Else { $False };
 	$MalwarebytesAntiExploit = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiExploit')) { $True } Else { $False };
-	$WindowsDefender = If (($PSBoundParameters.ContainsKey('Defender') -Or ($PSBoundParameters.ContainsKey('Defender'))) { $True } Else { $False };
+	$WindowsDefender = If (($PSBoundParameters.ContainsKey('Defender')) -Or ($PSBoundParameters.ContainsKey('Defender'))) { $True } Else { $False };
 
 	Write-Host "";
 	Write-Host "  Exclusions List Update  " -BackgroundColor ("Black") -ForegroundColor ("Green");
@@ -389,8 +389,12 @@ function ExclusionsListUpdate {
 		# Malwarebytes Anti-Ransomware
 		#		Use [ malwarebytes_assistant.exe --exclusions add "FILEPATH" ] to add exclusions
 		#
-		If ($ESET -eq $True) {
+		If ($MalwarebytesAntiRansomware -eq $True) {
+			
 			$MalwarebytesAssistant = (Get-ChildItem -Path ((${ProgFilesX64})+("\Malwarebytes")) -Filter ("malwarebytes_assistant.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+
+			$MalwarebytesAssistant = (Get-ChildItem -Path ((${Env:SystemDrive})+("\Program Files")+("\Malwarebytes")) -Filter ("malwarebytes_assistant.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+
 			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
 			$ExitCode = ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 		}

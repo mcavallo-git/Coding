@@ -13,33 +13,42 @@ function ExclusionsListUpdate {
 		[ValidateSet("Add","Get","Remove")]
 		[String]$Action = "Add",
 
-		[ValidateSet($Null, "", "Defender", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
-		[String]$AntiVirusSoftware,
+		[Switch]$ESET,
 
-		[String[]]$ExcludedFilepaths = @(),
+		[Switch]$MalwarebytesAntiMalware,
+
+		[Switch]$MalwarebytesAntiRansomware,
+
+		[Switch]$MalwarebytesAntiExploit,
+
+		[Switch]$WindowsDefender,
+		[Switch]$Defender, 
+
+		$ExcludedFilepaths = @(),
 		$ExcludedProcesses = @(),
-		# [String[]]$ExcludedProcesses = @(),
-		[String[]]$ExcludedExtensions = @(),
+		$ExcludedExtensions = @(),
 
 		[Switch]$Quiet,
 		[Switch]$Verbose
 
 	)
 
-	If ($AntiVirusSoftware -eq $Null) {
-		$AntiVirusSoftware = "Windows Defender";
-	} ElseIf ($AntiVirusSoftware -eq "") {
-		$AntiVirusSoftware = "Windows Defender";
-	} ElseIf ($AntiVirusSoftware -eq "Defender") {
-		$AntiVirusSoftware = "Windows Defender";
-	}
+	$ESET = If ($PSBoundParameters.ContainsKey('ESET')) { $True } Else { $False };
+	$MalwarebytesAntiMalware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiMalware')) { $True } Else { $False };
+	$MalwarebytesAntiRansomware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiRansomware')) { $True } Else { $False };
+	$MalwarebytesAntiExploit = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiExploit')) { $True } Else { $False };
+	$WindowsDefender = If (($PSBoundParameters.ContainsKey('Defender') -Or ($PSBoundParameters.ContainsKey('Defender'))) { $True } Else { $False };
 
 	Write-Host "";
 	Write-Host "  Exclusions List Update  " -BackgroundColor ("Black") -ForegroundColor ("Green");
 	Write-Host "";
-	Write-Host "  Antivirus Software:  `"${AntiVirusSoftware}`"  " -BackgroundColor ("Black") -ForegroundColor ("Green");
+	Write-Host "  Antivirus Software:  " -BackgroundColor ("Black") -ForegroundColor ("Green");
+	If ($ESET -eq $True) { Write-Host "    ESET    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
+	If ($MalwarebytesAntiMalware -eq $True) { Write-Host "    MalwarebytesAntiMalware    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
+	If ($MalwarebytesAntiRansomware -eq $True) { Write-Host "    MalwarebytesAntiRansomware    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
+	If ($MalwarebytesAntiExploit -eq $True) { Write-Host "    MalwarebytesAntiExploit    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
+	If ($WindowsDefender -eq $True) { Write-Host "    WindowsDefender    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
 	Write-Host "";
-
 	
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
@@ -54,14 +63,14 @@ function ExclusionsListUpdate {
 			$i++;
 		}
 		$CommandString = "ExclusionsListUpdate";
-		If ($PSBoundParameters.ContainsKey('AntiVirusSoftware')) { 
-			$CommandString += ((" -AntiVirusSoftware '")+($AntiVirusSoftware)+("'"));
-		}
-		If ($PSBoundParameters.ContainsKey('Quiet')) { 
-			$CommandString += " -Quiet";
-		} ElseIf ($PSBoundParameters.ContainsKey('Verbose')) { 
-			$CommandString += " -Verbose";
-		}
+		If ($ESET -eq $True) {                           $CommandString += " -ESET"; }
+		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString += " -MalwarebytesAntiMalware"; }
+		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString += " -MalwarebytesAntiRansomware"; }
+		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString += " -MalwarebytesAntiExploit"; }
+		If ($WindowsDefender -eq $True) {                $CommandString += " -WindowsDefender"; }
+		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString += " -Quiet"; }
+		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString += " -Verbose"; }
+		
 		PrivilegeEscalation -Command ("${CommandString}");
 
 	} Else {
@@ -126,6 +135,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\LastPass"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Mailbird"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Malwarebytes Anti-Exploit"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Malwarebytes' Anti-Malware"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft Office"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft OneDrive"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Mobatek"));
@@ -291,7 +301,7 @@ function ExclusionsListUpdate {
 				If (Test-Path $_) {
 					$FoundFilepaths += $_;
 				}
-				If ($AntiVirusSoftware -eq "Windows Defender") {
+				If ($WindowsDefender -eq $True) {
 					Add-MpPreference -ExclusionPath "$_";
 					If ($? -eq $True) {
 						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
@@ -308,7 +318,7 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $Null) {
 				$FoundExtensions += $_;
-				If ($AntiVirusSoftware -eq "Windows Defender") {
+				If ($WindowsDefender -eq $True) {
 					Add-MpPreference -ExclusionExtension "$_";
 					If ($? -eq $True) {
 						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
@@ -370,7 +380,17 @@ function ExclusionsListUpdate {
 		# ESET Exclusions 
 		#		Construct an Import-file which contains all exclusions
 		#
-		If ($AntiVirusSoftware -eq "ESET") {
+		If ($ESET -eq $True) {
+			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
+			$ExitCode = ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
+		}
+		# ------------------------------------------------------------
+		#
+		# Malwarebytes Anti-Ransomware
+		#		Use [ malwarebytes_assistant.exe --exclusions add "FILEPATH" ] to add exclusions
+		#
+		If ($ESET -eq $True) {
+			$MalwarebytesAssistant = (Get-ChildItem -Path ((${ProgFilesX64})+("\Malwarebytes")) -Filter ("malwarebytes_assistant.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
 			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
 			$ExitCode = ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 		}
@@ -379,7 +399,7 @@ function ExclusionsListUpdate {
 		# Windows Defender Exclusions
 		#		Apply directly via PowerShell built-in command(s)
 		#
-		If ($AntiVirusSoftware -eq "Windows Defender") {
+		If ($WindowsDefender -eq $True) {
 			$FoundProcesses | Select-Object -Unique | ForEach-Object {
 				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Adding Defender Process-Exclusion: `"$_`"..."; }
 				Add-MpPreference -ExclusionProcess "$_";

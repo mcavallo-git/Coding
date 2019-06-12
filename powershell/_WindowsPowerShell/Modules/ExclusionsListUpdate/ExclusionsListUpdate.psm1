@@ -390,13 +390,27 @@ function ExclusionsListUpdate {
 		#		Use [ malwarebytes_assistant.exe --exclusions add "FILEPATH" ] to add exclusions
 		#
 		If ($MalwarebytesAntiRansomware -eq $True) {
+
+			$MBAR_SearchDirname = ((${ProgFilesX64})+("\Malwarebytes"));
+			$MBAR_FindBasename = "malwarebytes_assistant.exe";
+
+			$MalwarebytesAssistant = (Get-ChildItem -Path ("${MBAR_SearchDirname}") -Filter ("${MBAR_FindBasename}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
 			
-			$MalwarebytesAssistant = (Get-ChildItem -Path ((${ProgFilesX64})+("\Malwarebytes")) -Filter ("malwarebytes_assistant.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+			If ($MalwarebytesAssistant -eq $Null) {
+				
+				# Cannot find Exclusions tool/utility
+				Write-Host "";
+				Write-Host (("  Error - Unable to find Exclusions utility `"")+($MBAR_FindBasename)+("`" in directory `"")+($MBAR_SearchDirname)+("`"  ")) -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host "";
 
-			$MalwarebytesAssistant = (Get-ChildItem -Path ((${Env:SystemDrive})+("\Program Files")+("\Malwarebytes")) -Filter ("malwarebytes_assistant.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+			} Else {
 
-			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
-			$ExitCode = ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
+				# Found Exclusions tool/utility - add any/all exclusions
+				$FoundProcesses | Select-Object -Unique | ForEach-Object {
+					$MalwarebytesAssistant --exclusions add "$_";
+				}
+
+			}
 		}
 		# ------------------------------------------------------------
 		#

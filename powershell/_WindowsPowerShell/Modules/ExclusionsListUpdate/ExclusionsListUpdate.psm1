@@ -26,7 +26,7 @@ function ExclusionsListUpdate {
 
 	)
 
-Start-Sleep 60;
+Start-Sleep 3;
 
 	$FoundFilepaths = @();
 	$FoundExtensions = @();

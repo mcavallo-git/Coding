@@ -14,7 +14,7 @@ function ExclusionsListUpdate {
 		[String]$Action = "Add",
 
 		[ValidateSet("Defender", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
-		[String]$AntiVirusSoftware = "Windows Defender",
+		[String]$AntiVirusSoftware,
 
 		[String[]]$ExcludedFilepaths = @(),
 		$ExcludedProcesses = @(),
@@ -26,7 +26,9 @@ function ExclusionsListUpdate {
 
 	)
 
-	If ($AntiVirusSoftware -eq "Defender") {
+	If ($AntiVirusSoftware -eq $Null) {
+		$AntiVirusSoftware = "Windows Defender";
+	} ElseIf ($AntiVirusSoftware -eq "Defender") {
 		$AntiVirusSoftware = "Windows Defender";
 	}
 
@@ -137,12 +139,12 @@ function ExclusionsListUpdate {
 		$UserProfile=(${Env:UserProfile});
 		$ExcludedFilepaths += ((${UserProfile})+("\Dropbox"));
 		# -- FILEPATHS (Environment-Based) -- OneDrive Synced Dir(s)
-		If (${Env:OneDrive} -ne $null) {
+		If (${Env:OneDrive} -ne $Null) {
 			$ExcludedFilepaths += ${Env:OneDrive};
 			$ExcludedFilepaths += (${Env:OneDrive}).replace("OneDrive - ","");
 		}
 		# -- FILEPATHS (Environment-Based) -- Cloud-Synced  :::  Sharepoint Synced Dir(s) / OneDrive-Shared Synced Dir(s)
-		If (${Env:OneDriveCommercial} -ne $null) {
+		If (${Env:OneDriveCommercial} -ne $Null) {
 			$ExcludedFilepaths += ${Env:OneDriveCommercial}; 
 			$ExcludedFilepaths += (${Env:OneDriveCommercial}).replace("OneDrive - ","");
 		}
@@ -269,7 +271,7 @@ function ExclusionsListUpdate {
 		#		APPLY THE EXCLUSIONS
 		#
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
-			If ($_ -ne $null) {
+			If ($_ -ne $Null) {
 				If (Test-Path $_) {
 					$FoundFilepaths += $_;
 				}
@@ -288,7 +290,7 @@ function ExclusionsListUpdate {
 			}
 		}
 		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
-			If ($_ -ne $null) {
+			If ($_ -ne $Null) {
 				$FoundExtensions += $_;
 				If ($AntiVirusSoftware -eq "Windows Defender") {
 					Add-MpPreference -ExclusionExtension "$_";
@@ -302,14 +304,14 @@ function ExclusionsListUpdate {
 		}
 		# Determine which process(es) exist locally
 		$ExcludedProcesses | ForEach-Object {
-			If ($_ -ne $null) {
+			If ($_ -ne $Null) {
 				$Each_Dirname = $_.Dirname;
 				If ($_.AddDir -ne "") {
 					$Each_Dirname = (($_.Dirname)+("\")+($_.AddDir));
 				}
 				$Each_Basename = $_.Basename;
-				$Each_Parent = If (($_.Parent -ne $null) -And ($_.Parent -ne ""))  { $_.Parent } Else { "" };
-				$Each_Depth = If (($_.Depth -ne $null) -And ($_.Depth -ne ""))  { [Int]$_.Depth } Else { "" };
+				$Each_Parent = If (($_.Parent -ne $Null) -And ($_.Parent -ne ""))  { $_.Parent } Else { "" };
+				$Each_Depth = If (($_.Depth -ne $Null) -And ($_.Depth -ne ""))  { [Int]$_.Depth } Else { "" };
 				If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 					If ($Each_Parent -eq "") {
@@ -428,8 +430,8 @@ function ESET_ExportModifier {
 		$RowsStart_Processes = "";
 		$RowsBetween_Processes = "";
 		$RowsEnd_Processes = "";
-		$FoundStart_Processes = $null;
-		$FoundEnd_Processes = $null;
+		$FoundStart_Processes = $Null;
+		$FoundEnd_Processes = $Null;
 		$RegexStart_Processes = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
 		$RegexEnd_Processes = '^     </ITEM>$';
 		#
@@ -449,8 +451,8 @@ function ESET_ExportModifier {
 		$RowsStart_Filepaths = "";
 		$RowsBetween_Filepaths = "";
 		$RowsEnd_Filepaths = "";
-		$FoundStart_Filepaths = $null;
-		$FoundEnd_Filepaths = $null;
+		$FoundStart_Filepaths = $Null;
+		$FoundEnd_Filepaths = $Null;
 		$RegexStart_Filepaths = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
 		$RegexEnd_Filepaths = '^     </ITEM>$';
 		#
@@ -502,13 +504,13 @@ function ESET_ExportModifier {
 		#
 		$i_RowNum = 0;
 		Get-Content -Path ($Filepath_ESET_Import) | Select-Object | ForEach-Object {
-			If ($FoundStart_Processes -eq $null) {
+			If ($FoundStart_Processes -eq $Null) {
 				$RowsStart_Processes = (($RowsStart_Processes)+("`n")+($_));
 				If (([Regex]::Match($_, $RegexStart_Processes)).Success -eq $True) {
 					$FoundStart_Processes = $i_RowNum;
 				}
 			} Else {
-				If ($FoundEnd_Processes -ne $null) {
+				If ($FoundEnd_Processes -ne $Null) {
 					$RowsEnd_Processes = (($RowsEnd_Processes)+("`n")+($_));
 				} ElseIf (([Regex]::Match($_, $RegexEnd_Processes)).Success -eq $True) {
 					$RowsEnd_Processes = (($RowsEnd_Processes)+("`n")+($_));
@@ -537,13 +539,13 @@ function ESET_ExportModifier {
 		#
 		$i_RowNum = 0;
 		Get-Content -Path ($Filepath_ESET_Import) | Select-Object | ForEach-Object {
-			If ($FoundStart_Filepaths -eq $null) {
+			If ($FoundStart_Filepaths -eq $Null) {
 				$RowsStart_Filepaths = (($RowsStart_Filepaths)+("`n")+($_));
 				If (([Regex]::Match($_, $RegexStart_Filepaths)).Success -eq $True) {
 					$FoundStart_Filepaths = $i_RowNum;
 				}
 			} Else {
-				If ($FoundEnd_Filepaths -ne $null) {
+				If ($FoundEnd_Filepaths -ne $Null) {
 					$RowsEnd_Filepaths = (($RowsEnd_Filepaths)+("`n")+($_));
 				} ElseIf (([Regex]::Match($_, $RegexEnd_Filepaths)).Success -eq $True) {
 					$RowsEnd_Filepaths = (($RowsEnd_Filepaths)+("`n")+($_));

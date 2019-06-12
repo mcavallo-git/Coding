@@ -410,9 +410,9 @@ function ExclusionsListUpdate {
 				Write-Host "";
 
 				# Found Exclusions tool/utility - add any/all exclusions
-				$FoundProcesses | Select-Object -Unique | ForEach-Object {
-					# $MalwarebytesAssistant --exclusions add "$_"
-				}
+				# $FoundProcesses | Select-Object -Unique | ForEach-Object {
+				# 	$MalwarebytesAssistant --exclusions add "$_"
+				# }
 
 			}
 		}

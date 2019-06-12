@@ -13,8 +13,8 @@ function ExclusionsListUpdate {
 		[ValidateSet("Add","Get","Remove")]
 		[String]$Action = "Add",
 
-		[ValidateSet("Defender", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
-		[String]$AntiVirusSoftware = "Windows Defender",
+		[ValidateSet($Null, "", "Defender", "Windows Defender", "ESET", "Malwarebytes' Anti-Malware", "MalwareBytes' Anti-Ransomware", "MalwareBytes' Anti-Exploit")]
+		[String]$AntiVirusSoftware,
 
 		[String[]]$ExcludedFilepaths = @(),
 		$ExcludedProcesses = @(),
@@ -26,6 +26,15 @@ function ExclusionsListUpdate {
 
 	)
 
+	If ($AntiVirusSoftware -eq $Null) {
+		$AntiVirusSoftware = "Windows Defender";
+	} ElseIf ($AntiVirusSoftware -eq "") {
+		$AntiVirusSoftware = "Windows Defender";
+	} ElseIf ($AntiVirusSoftware -eq "Defender") {
+		$AntiVirusSoftware = "Windows Defender";
+	}
+
+	
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
 	$FoundProcesses = @();

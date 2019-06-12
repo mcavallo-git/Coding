@@ -407,8 +407,9 @@ function ESET_ExportModifier {
 
 	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {
 		Write-Host "";
-		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Red");
-		Write-Host "    Please go to ESET and Export current config to: `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Red");
+		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
+		Write-Host "";
+		Write-Host "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `"$PreExportFilepath`"    " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
 		Write-Host "";
 		Return 1;
 	} Else {

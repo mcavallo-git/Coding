@@ -251,20 +251,20 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="IntelCpHDCPSvc.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="IntelCpHeciSvc.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEM.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="dwm.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="dwm.exe"; }; # Desktop Window Manager
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="fontdrvhost.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="lsass.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="mmc.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="RuntimeBroker.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="SearchIndexer.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="taskmgr.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth=""; Parent=""; Basename="Taskmgr.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Depth=""; Parent=""; Basename="unsecapp.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Depth=""; Parent=""; Basename="WmiPrvSE.exe"; };
 		# -- PROCESSES -- SysDrive
 		$ExcludedProcesses += @{ Dirname=${SysDrive}; AddDir="ProgramData\Microsoft\Windows Defender\Platform"; Depth=""; Parent=""; Basename="MsMpEng.exe"; };
 		$ExcludedProcesses += @{ Dirname=${SysDrive}; AddDir="ProgramData\Microsoft\Windows Defender\Platform"; Depth=""; Parent=""; Basename="NisSrv.exe"; };
 		# -- PROCESSES -- SysRoot
-		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir=""; Depth="0"; Parent=""; Basename="explorer.exe"; };
+		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir=""; Depth="1"; Parent=""; Basename="explorer.exe"; };
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir="Documents\MobaXterm"; Depth=""; Parent=""; Basename="Motty.exe"; };
 		# ------------------------------------------------------------

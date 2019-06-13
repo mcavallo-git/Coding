@@ -162,6 +162,7 @@ function ExclusionsListUpdate {
 		# -- FILEPATHS -- UserProfile
 		$UserProfile=(${Env:UserProfile});
 		$ExcludedFilepaths += ((${UserProfile})+("\Dropbox"));
+		$ExcludedFilepaths += ((${UserProfile})+("\Documents\Github"));
 		# -- FILEPATHS (Environment-Based) -- OneDrive Synced Dir(s)
 		If (${Env:OneDrive} -ne $Null) {
 			$ExcludedFilepaths += ${Env:OneDrive};

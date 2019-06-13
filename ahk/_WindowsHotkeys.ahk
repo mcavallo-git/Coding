@@ -630,8 +630,13 @@ CapsLock::
 	VolumeBarsCount := Round( ( NewVolumeLevel/100 ) * DingbatCount_MaxVolume)
 	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
 
-	VolumeBars := StringRepeat("⬛️⬛️⬛️`n",VolumeBarsCount)
-	VolumeSpaces := StringRepeat("⬜️⬜️⬜️`n",VolumeSpacesCount)
+	If ( MasterMute == "On") {
+		VolumeBars   := StringRepeat("⬛️🔇⬛️`n",VolumeBarsCount)
+		VolumeSpaces := StringRepeat("⬜️🔇⬜️`n",VolumeSpacesCount)
+	} Else {
+		VolumeBars   := StringRepeat("⬛️⬛️⬛️`n",VolumeBarsCount)
+		VolumeSpaces := StringRepeat("⬜️⬜️⬜️`n",VolumeSpacesCount)
+	}
 
 	;# ▪️◾◼️⬛️
 	;# ▫️️◽️◻️️⬜️

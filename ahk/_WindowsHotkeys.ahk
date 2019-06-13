@@ -52,7 +52,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 RemoveToolTip() {
 	ToolTip
-	return
+	Return
 }
 ;
 ClearTooltip(TimerPeriod) {
@@ -60,7 +60,7 @@ ClearTooltip(TimerPeriod) {
 	;			 |--> is positive, it repeats its command until explicitly cancelled
 	;			 |--> is negative, it only runs its command once
 	SetTimer, RemoveToolTip, -%TimerPeriod%
-	return
+	Return
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ ClearTooltip(TimerPeriod) {
 ;
 RemoveSplashText() {
 	SplashTextOff
-	return
+	Return
 }
 ;
 ClearSplashText(TimerPeriod) {
@@ -77,7 +77,7 @@ ClearSplashText(TimerPeriod) {
 	;			 |--> is positive, it repeats its command until explicitly cancelled
 	;			 |--> is negative, it only runs its command once
 	SetTimer, RemoveSplashText, -%TimerPeriod%
-	return
+	Return
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -703,17 +703,17 @@ WheelRight::
 #C::
 	; ------------------------------------------------------------
 	OpenChrome()
-	; ------------------------------------------------------------
-	; SmartThings - Checkbox-tab-checkbox-tab-checkbox etc.
-	; Loop 99 {
-	; Loop 49 {
-	; Loop 24 {
-	; 	Send {TAB}
-	; 	Sleep 10
-	; 	Send {SPACE}
-	; 	Sleep 10
-	; }
-	; ------------------------------------------------------------
+	; SmartThingsIdeCheckboxes(50)
+	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Ctrl + Win + C
+;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
+;
+^#C::
+	
+
+
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1051,7 +1051,7 @@ LShift & RShift::
 OpenChrome() {
 	OPEN_TO_URL = www.google.com
 	Run % "chrome.exe" ( winExist("ahk_class Chrome_WidgetWin_1") ? " --new-window " : " " ) OPEN_TO_URL
-	return
+	Return
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1059,7 +1059,20 @@ OpenChrome() {
 OpenVisualStudio() {
 	TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
 	Run % TargetExe
-	return
+	Return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  @ SmartThingsIdeCheckboxes - Web-IDE where (sometimes) multiple hundreds of
+;        checkboxes need to be selected individually to update from a Git repo
+SmartThingsIdeCheckboxes(LoopIterations) {
+	Loop %LoopIterations% {
+		Send {TAB}
+		Sleep 10
+		Send {SPACE}
+		Sleep 10
+	}
+	Return
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1135,14 +1148,14 @@ ActiveWindow_Maximize() {
 get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 	SetTitleMatchMode, 2
 	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-	return_ahk_id=ahk_id %output_var%
-	return return_ahk_id
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
 }
 get_ahk_id_from_pid(WinPid) {
 	SetTitleMatchMode, 2
 	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
-	return_ahk_id=ahk_id %output_var%
-	return return_ahk_id
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

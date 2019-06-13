@@ -124,7 +124,7 @@ ClearSplashText(TimerPeriod) {
 	GUI_ROWCOUNT := 12
 	GUI_WIDTH := 1000
 
-	Gui, Add, ListView, r%GUI_ROWCOUNT% w%GUI_WIDTH% gMyListView, Key|Val
+	Gui, Add, ListView, r%GUI_ROWCOUNT% w%GUI_WIDTH% gOnDoubleClick_DestroyGui, Key|Val
 
 	LV_Add("", "Title", WinTitle)
 	LV_Add("", "Class", WinClass)
@@ -143,15 +143,17 @@ ClearSplashText(TimerPeriod) {
 
 	; Display the window and return. The script will be notified whenever the user double clicks a row.
 	Gui, Show
-
-	MyListView:
-	if (A_GuiEvent = "DoubleClick") {
-		Gui, Destroy
-		; LV_GetText(RowText, A_EventInfo)  ; Get the text from the row's first field.
-		; ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
-	}
 	Return
 ;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+;	@	OnDoubleClick_DestroyGui  -->  Built as a 'g....' callback for Gui-window doubleclick
+;
+OnDoubleClick_DestroyGui() {
+if (A_GuiEvent = "DoubleClick") {
+	Gui, Destroy
+}
+}
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + -
 ;		ACTION:  Type a line of -----'s
@@ -371,14 +373,20 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 +#F2::   ; +#F2 / [ Shift + Win + F2 ] -- Show all (current) Window Titles
+	Gui, Add, ListView, r50 w1000 gOnDoubleClick_DestroyGui, WindowTitle
 	WinGet, Window, List
 	Loop %Window% {
 		Id:=Window%A_Index%
 		WinGetTitle, TVar , % "ahk_id " Id
-		Window%A_Index%:=TVar ;use this if you want an array
-		tList.=TVar "`n" ;use this if you just want the list
+		If (Tvar != "") {
+			LV_Add("", TVar)
+			Window%A_Index%:=TVar ;use this if you want an array
+			tList.=TVar "`n" ;use this if you just want the list
+		}
 	}
-	MsgBox %tList%
+	; Gui, Add, Text,, %tList%
+	Gui, Show
+	; MsgBox %tList%
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -703,7 +711,7 @@ WheelRight::
 #C::
 	; ------------------------------------------------------------
 	OpenChrome()
-	; SmartThingsIdeCheckboxes(50)
+	; TabSpace_Loop(50)
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -711,9 +719,9 @@ WheelRight::
 ;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
 ^#C::
-	
-
-
+	; WinTitle=Task Scheduler
+	WinTitle=Visual Studio Code
+	SpaceUp_Loop(50, WinTitle)
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1047,7 +1055,7 @@ LShift & RShift::
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  @  OpenChrome - Opens the application "Visual Studio Code"
+;	@  OpenChrome - Opens the application "Visual Studio Code"
 OpenChrome() {
 	OPEN_TO_URL = www.google.com
 	Run % "chrome.exe" ( winExist("ahk_class Chrome_WidgetWin_1") ? " --new-window " : " " ) OPEN_TO_URL
@@ -1055,7 +1063,7 @@ OpenChrome() {
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  @  OpenVisualStudio - Opens the application "Visual Studio Code"
+;	@  OpenVisualStudio - Opens the application "Visual Studio Code"
 OpenVisualStudio() {
 	TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
 	Run % TargetExe
@@ -1063,14 +1071,44 @@ OpenVisualStudio() {
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  @ SmartThingsIdeCheckboxes - Web-IDE where (sometimes) multiple hundreds of
-;        checkboxes need to be selected individually to update from a Git repo
-SmartThingsIdeCheckboxes(LoopIterations) {
+;	@ TabSpace_Loop
+;			Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of
+;			checkboxes need to be selected individually to update from a Git repo
+TabSpace_Loop(LoopIterations) {
 	Loop %LoopIterations% {
-		Send {TAB}
+		Send {Tab}
 		Sleep 10
-		Send {SPACE}
+		Send {Space}
 		Sleep 10
+	}
+	Return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;	@ Space..._Loop
+;			Designed for Windows Task Scheduler to quickly show open all tasks on the main
+;			page, which can then be sorted (but only for the ones that've been opened)
+SpaceUp_Loop(LoopIterations, WinTitle) {
+	SetKeyDelay, 0, -1
+	SetControlDelay, -1
+	SetTitleMatchMode, 2
+	; WinActivate,%WinTitle%
+	Loop %LoopIterations% {
+
+		DatStr=Sending {Space} to %WinTitle%
+		ToolTip, %DatStr%, 250, %A_Index%, `
+
+		ControlSend,, {Space}, %WinTitle%
+		; Send {Space}
+		Sleep 100
+		
+		DatStr=Sending {Up} to %WinTitle%
+		ToolTip, %DatStr%, 500, %A_Index%, 2
+
+		ControlSend,, {Up}, %WinTitle%
+		; Send {Up}
+		Sleep 100
+
 	}
 	Return
 }

@@ -62,7 +62,9 @@ function ExclusionsListUpdate {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
+		
 		$CommandString = "ExclusionsListUpdate";
+
 		If ($ESET -eq $True) {                           $CommandString = "$CommandString -ESET"; }
 		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiMalware"; }
 		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString = "$CommandString -MalwarebytesAntiRansomware"; }
@@ -70,9 +72,7 @@ function ExclusionsListUpdate {
 		If ($WindowsDefender -eq $True) {                $CommandString = "$CommandString -WindowsDefender"; }
 		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString = "$CommandString -Quiet"; }
 		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString = "$CommandString -Verbose"; }
-		
-		$CommandString
-		
+				
 		PrivilegeEscalation -Command ("${CommandString}");
 
 	} Else {

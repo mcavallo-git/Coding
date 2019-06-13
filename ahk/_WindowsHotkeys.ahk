@@ -373,31 +373,30 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;
 #[::
 #]::
-
 	CoordMode,Mouse,Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1
+	; Save current monitor config (to compare against once it's been updated)
 	SysGet, MonitorCountBefore, MonitorCount
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
-
+	; Save current mouse coordinates
 	MouseGetPos, MouseX, MouseY
-
+	; Send an Escape keypress to close any old Projection menus
+	Send {Escape}
+	Sleep 250
 	If (A_OSVersion="WIN_7") {
-
 		; Windows7
-
-		If (A_ThisHotkey=="^#[") { ; Duplicate Monitors
+		If (A_ThisHotkey=="^#[") {
+			; Duplicate Monitors
 			x_loc := 874
 			y_loc := 520
-		} Else If (A_ThisHotkey=="^#]") { ; Extend Monitors
+		} Else If (A_ThisHotkey=="^#]") {
+			; Extend Monitors
 			x_loc := 1044
 			y_loc := 520
 		}
-
-		Send {Escape}
-		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 1000
 		MouseClick, Left, %x_loc%, %y_loc%
@@ -425,7 +424,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 					x_loc := (A_ScreenWidth - 20)
 					y_loc := 315
 				}
-				; select Projection menu option
+				; Select Projection menu option
 				MouseClick, Left, %x_loc%, %y_loc%
 				; Wait until the new monitor layout is loaded
 				Loop 30 {

@@ -577,6 +577,7 @@ CapsLock::
 ;  ACTION:  Turn computer volume up/down
 ;
 #MButton::
+^#MButton::
 #WheelUp::
 ^#WheelUp::
 #WheelDown::
@@ -586,7 +587,7 @@ CapsLock::
 	Icon_MuteVolume=🔇
 	Icon_HighVolume=🔊
 
-	VolumeLevel_Increment := 6
+	VolumeLevel_Increment := 10
 
 	Volume_ForceUpperLimit := 25
 
@@ -597,19 +598,22 @@ CapsLock::
 	If (A_ThisHotkey=="#MButton") { ; Volume mute
 		SoundSet, +1, , MUTE
 
+	} Else If (A_ThisHotkey=="^#MButton") { ; Volume mute (repeat w/ new hotkey)
+		SoundSet, +1, , MUTE
+
 	} Else If (A_ThisHotkey=="#WheelUp") { ; Volume up
 		SoundSet,+%VolumeLevel_Increment%
 
-	} Else If (A_ThisHotkey=="^#WheelUp") { ; Volume up
-		VolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
-		SoundSet,+%VolumeLevel_Increment%
+	} Else If (A_ThisHotkey=="^#WheelUp") { ; Volume up (faster/slow)
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		SoundSet,+%NewVolumeLevel_Increment%
 
 	} Else If (A_ThisHotkey=="#WheelDown") { ; Volume Down
 		SoundSet,-%VolumeLevel_Increment%
 
-	} Else If (A_ThisHotkey=="^#WheelDown") { ; Volume Down
-		VolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
-		SoundSet,-%VolumeLevel_Increment%
+	} Else If (A_ThisHotkey=="^#WheelDown") { ; Volume Down (faster/slow)
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		SoundSet,-%NewVolumeLevel_Increment%
 		
 	}
 	
@@ -625,23 +629,24 @@ CapsLock::
 
 	NewVolumeLevel := Round(NewVolumeLevel)
 
-	DingbatCount_MaxVolume := 20
+	DingbatCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
 
-	VolumeBarsCount := Round( ( NewVolumeLevel/100 ) * DingbatCount_MaxVolume)
+	VolumeBarsCount := Round( ( NewVolumeLevel / 100 ) * DingbatCount_MaxVolume)
 	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
-
-	If ( MasterMute == "On") {
-		VolumeBars   := StringRepeat("⬛️🔇⬛️`n",VolumeBarsCount)
-		VolumeSpaces := StringRepeat("⬜️🔇⬜️`n",VolumeSpacesCount)
-	} Else {
-		VolumeBars   := StringRepeat("⬛️⬛️⬛️`n",VolumeBarsCount)
-		VolumeSpaces := StringRepeat("⬜️⬜️⬜️`n",VolumeSpacesCount)
-	}
 
 	;# ▪️◾◼️⬛️
 	;# ▫️️◽️◻️️⬜️
+	; If ( MasterMute == "On") {
+	; 	VolumeBars   := StringRepeat("🔇⬛️🔇`n",VolumeBarsCount)
+	; 	VolumeSpaces := StringRepeat("🔇⬜️🔇`n",VolumeSpacesCount)
+	; } Else {
+	; 	VolumeBars   := StringRepeat("⬛️⬛️⬛️`n",VolumeBarsCount)
+	; 	VolumeSpaces := StringRepeat("⬜️⬜️⬜️`n",VolumeSpacesCount)
+	; }
+	VolumeBars   := StringRepeat("⬛️",VolumeBarsCount)
+	VolumeSpaces := StringRepeat("⬜️",VolumeSpacesCount)
 
-	FinalVolumeBars := VolumeSpaces VolumeBars
+	FinalVolumeBars := VolumeBars VolumeSpaces
 	Length_FinalBars := StrLen(FinalVolumeBars)
 
 	TrimCount := Round(Length_FinalBars/2)
@@ -651,16 +656,32 @@ CapsLock::
 	
 	NewVolumeLevelPercentage=%NewVolumeLevel%`%
 
-	; SplashText=🔈`n%FinalVolume_LeftHalf%[%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%]%FinalVolume_RightHalf%🔊
+	Padding_CenterLeft := A_Space A_Space A_Space A_Space A_Space A_Space
+	Padding_CenterRight := Padding_CenterLeft
+	If ( MasterMute == "On") {
+		Padding_CenterLeft := A_Space Icon_MuteVolume A_Space
+		Padding_CenterRight := A_Space Icon_MuteVolume A_Space
+	}
+	If (NewVolumeLevel < 100) {
+		Padding_CenterLeft := Padding_CenterLeft A_Space
+		Padding_CenterRight := A_Space Padding_CenterRight
+		If (NewVolumeLevel < 10) {
+			Padding_CenterLeft := Padding_CenterLeft A_Space
+			Padding_CenterRight := A_Space Padding_CenterRight
+		}
+	}
+	OutputText=🔈  %FinalVolume_LeftHalf%[%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%]%FinalVolume_RightHalf%  🔊
+
+	; OutputText=🔈`n%FinalVolume_LeftHalf%[%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%]%FinalVolume_RightHalf%🔊
 	
-	; Top to Bottom
-	OutputText=%FinalVolume_LeftHalf%%FinalVolume_RightHalf%%NewVolumeLevelPercentage%
+	; ; Top to Bottom
+	; OutputText=%FinalVolume_LeftHalf%%FinalVolume_RightHalf%%NewVolumeLevelPercentage%
 
 	SplashWidth := 75
 	SplashHeight := 450
 	SplashTitle=
 
-	ToolTip, %OutputText%, 20, 20
+	ToolTip, %OutputText%, 50, 20
 	ClearTooltip(750)
 
 	; SplashTextOn, %SplashWidth%, %SplashHeight%, %SplashTitle%, %OutputText%

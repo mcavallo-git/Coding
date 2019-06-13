@@ -406,67 +406,50 @@ StringRepeat(StrToRepeat, Multiplier) {
 	} Else If (substr(A_OSVersion, 1, 4)="10.0") {
 
 		; Windows10
-
-		If (A_ThisHotkey=="^#[") { ; Duplicate Monitors
-			x_loc := (A_ScreenWidth - 20)
-			y_loc := 210
-		} Else If (A_ThisHotkey=="^#]") { ; Extend Monitors
-			x_loc := (A_ScreenWidth - 20)
-			y_loc := 315
-		}
-
-		Sleep 250
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
-
+		Sleep 250
 		StartMilliseconds := A_TickCount
-
 		Loop {
-
 			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
-
 			WinGetTitle, WinTitle, A
 			WinGetClass, WinClass, A
-
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-
-				; Windows-Projection menu detected --> select related option (duplicate/extend)
+				; Projection menu detected --> select related option (duplicate/extend)
 				Sleep 250
+				If (A_ThisHotkey=="#[") {
+					; Duplicate Monitors
+					x_loc := (A_ScreenWidth - 20)
+					y_loc := 210
+				} Else If (A_ThisHotkey=="#]") {
+					; Extend Monitors
+					x_loc := (A_ScreenWidth - 20)
+					y_loc := 315
+				}
+				; select Projection menu option
 				MouseClick, Left, %x_loc%, %y_loc%
-
 				; Wait until the new monitor layout is loaded
-				Loop 500 {
-					Sleep 10
+				Loop 30 {
+					Sleep 100
 					SysGet, MonitorCountAfter, MonitorCount
 					If (MonitorCountAfter != MonitorCountBefore) {
 						Break
 					}
 				}
-
-				; WinGetTitle, WinTitle, A
-				; WinGetClass, WinClass, A
-				; If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
-				; 	Send {Escape}
-				; } Else {
-				; 	MouseClick, Left, 50, A_ScreenHeight
-				; }
-				Sleep 500
+				; Click outside of the Projection menu to close it
+				MouseClick, Left, %MouseX%, %MouseY%
+				Sleep 100
+				; Send an Escape keypress to ensure the Projection menu closes
 				Send {Escape}
-				Sleep 10
-
+				Sleep 100
 				Break
-
 			} Else If (LoopingForMilliseconds > 2000) {
-
 				MsgBox, 
 				(LTrim
 					Error - Unable to locate Projection window
 				)
 				Break
-
 			} Else {
-
 				Sleep 10
-
 			}
 		}
 	}

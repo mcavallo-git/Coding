@@ -12,7 +12,7 @@ function GitSyncAll {
 
 		[String]$Directory = ("${HOME}"),
 
-		[Int]$Depth = 250,
+		[Int]$Depth = 3,
 
 		[ValidateSet("Fetch","Pull")]
 		[String]$Action = "Pull",

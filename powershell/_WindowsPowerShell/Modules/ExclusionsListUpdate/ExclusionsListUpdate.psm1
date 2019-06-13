@@ -70,7 +70,9 @@ function ExclusionsListUpdate {
 		If ($WindowsDefender -eq $True) {                $CommandString = "$CommandString -WindowsDefender"; }
 		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString = "$CommandString -Quiet"; }
 		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString = "$CommandString -Verbose"; }
+		
 		$CommandString
+		
 		PrivilegeEscalation -Command ("${CommandString}");
 
 	} Else {

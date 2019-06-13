@@ -50,12 +50,33 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 ;	Tooltip clearing tool(s)
 ;
-RemoveToolTip:
+RemoveToolTip() {
 	ToolTip
 	return
+}
 ;
-ClearTooltip(Timeout) {
-	SetTimer, RemoveToolTip, -%Timeout%
+ClearTooltip(TimerPeriod) {
+	; If SetTimer's Period...
+	;			 |--> is positive, it repeats its command until explicitly cancelled
+	;			 |--> is negative, it only runs its command once
+	SetTimer, RemoveToolTip, -%TimerPeriod%
+	return
+}
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+;	SplashText clearing tool(s)
+;
+RemoveSplashText() {
+	SplashTextOff
+	return
+}
+;
+ClearSplashText(TimerPeriod) {
+	; If SetTimer's Period...
+	;			 |--> is positive, it repeats its command until explicitly cancelled
+	;			 |--> is negative, it only runs its command once
+	SetTimer, RemoveSplashText, -%TimerPeriod%
 	return
 }
 ;
@@ -563,7 +584,7 @@ CapsLock::
 
 	MuteIcon=🔇
 
-	VolumeLevel_Increment := 3
+	VolumeLevel_Increment := 6
 
 	Volume_ForceUpperLimit := 25
 
@@ -578,14 +599,14 @@ CapsLock::
 		SoundSet,+%VolumeLevel_Increment%
 
 	} Else If (A_ThisHotkey=="^#WheelUp") { ; Volume up
-		VolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
+		VolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
 		SoundSet,+%VolumeLevel_Increment%
 
 	} Else If (A_ThisHotkey=="#WheelDown") { ; Volume Down
 		SoundSet,-%VolumeLevel_Increment%
 
 	} Else If (A_ThisHotkey=="^#WheelDown") { ; Volume Down
-		VolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
+		VolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
 		SoundSet,-%VolumeLevel_Increment%
 		
 	}
@@ -600,13 +621,13 @@ CapsLock::
 	VolumeBarsCount := Round( ( VolumeLevel_AfterEdits/100 ) * DingbatCount_MaxVolume)
 	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
 
-	VolumeBars := StringRepeat("⬛️",VolumeBarsCount)
-	VolumeSpaces := StringRepeat("⬜️",VolumeSpacesCount)
+	VolumeBars := StringRepeat("⬛️`n",VolumeBarsCount)
+	VolumeSpaces := StringRepeat("⬜️`n",VolumeSpacesCount)
 
 	;# ▪️◾◼️⬛️
 	;# ▫️️◽️◻️️⬜️
 
-	FinalVolumeBars := VolumeBars VolumeSpaces
+	FinalVolumeBars := VolumeSpaces VolumeBars
 	Length_FinalBars := StrLen(FinalVolumeBars)
 
 	TrimCount := Round(Length_FinalBars/2)
@@ -623,9 +644,16 @@ CapsLock::
 		Padding_CenterRight := A_Space MuteIcon A_Space
 	}
 	
-	ToolTip, 🔈  %FinalVolume_LeftHalf%[%Padding_CenterLeft%%FinalVolume_Centered%%Padding_CenterRight%]%FinalVolume_RightHalf%  🔊
+	ShownText=🔈`n%FinalVolume_LeftHalf%[%Padding_CenterLeft%%FinalVolume_Centered%%Padding_CenterRight%]%FinalVolume_RightHalf%🔊
 
-	ClearTooltip(750)
+
+	SplashTextOn, , , %ShownText%
+	ClearSplashText(750)
+	
+
+	; ToolTip, %TooltipText%,,,1
+	; ClearTooltip(750)
+	; ClearTooltip(750)
 
 	Return
 ;
@@ -657,15 +685,19 @@ WheelRight::
 ;  ACTION:  Chrome - Open a New Instance of Google Chrome
 ;
 #C::
-	; OpenChrome()
+	; ------------------------------------------------------------
+	OpenChrome()
+	; ------------------------------------------------------------
+	; SmartThings - Checkbox-tab-checkbox-tab-checkbox etc.
 	; Loop 99 {
 	; Loop 49 {
-	Loop 24 {
-		Send {TAB}
-		Sleep 10
-		Send {SPACE}
-		Sleep 10
-	}
+	; Loop 24 {
+	; 	Send {TAB}
+	; 	Sleep 10
+	; 	Send {SPACE}
+	; 	Sleep 10
+	; }
+	; ------------------------------------------------------------
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

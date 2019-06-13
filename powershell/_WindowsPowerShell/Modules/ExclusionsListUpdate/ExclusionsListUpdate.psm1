@@ -14,6 +14,7 @@ function ExclusionsListUpdate {
 		[String]$Action = "Add",
 
 		[Switch]$ESET,
+		[String]$ESET_ExportToCopyFrom = "",
 
 		[Switch]$MalwarebytesAntiMalware,
 
@@ -38,6 +39,8 @@ function ExclusionsListUpdate {
 	$MalwarebytesAntiRansomware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiRansomware')) { $True } Else { $False };
 	$MalwarebytesAntiExploit = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiExploit')) { $True } Else { $False };
 	$WindowsDefender = If (($PSBoundParameters.ContainsKey('WindowsDefender')) -Or ($PSBoundParameters.ContainsKey('Defender'))) { $True } Else { $False };
+
+	$ESET_ExportToCopyFrom = If ($ESET_ExportToCopyFrom -Ne "") { $ESET_ExportToCopyFrom } Else { ((${Env:USERPROFILE})+("\Desktop\eset-export.xml")) };
 
 	Write-Host "";
 	Write-Host "  Exclusions List Update  " -BackgroundColor ("Black") -ForegroundColor ("Green");
@@ -424,8 +427,7 @@ function ExclusionsListUpdate {
 		#		Construct an Import-file which contains all exclusions
 		#
 		If ($ESET -eq $True) {
-			$PreExportFilepath = ((${Env:USERPROFILE})+("\Desktop\eset-export.xml"));
-			$ExitCode = ESET_ExportModifier -PreExportFilepath ($PreExportFilepath) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
+			$ExitCode = ESET_ExportModifier -ESET_ExportToCopyFrom ($ESET_ExportToCopyFrom) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 		}
 		# ------------------------------------------------------------
 		#
@@ -503,7 +505,7 @@ Export-ModuleMember -Function "ExclusionsListUpdate";
 function ESET_ExportModifier {
 	Param(
 
-		[String]$PreExportFilepath,
+		[String]$ESET_ExportToCopyFrom,
 
 		[String[]]$ESET_ExcludeFilepaths = @(),
 
@@ -513,11 +515,11 @@ function ESET_ExportModifier {
 
 	)
 
-	If ((Test-Path -Path ("$PreExportFilepath")) -eq $False) {
+	If ((Test-Path -Path ("$ESET_ExportToCopyFrom")) -eq $False) {
 		Write-Host "";
 		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
 		Write-Host "";
-		Write-Host "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `n`n    $PreExportFilepath    `n`n" -BackgroundColor ("Black") -ForegroundColor ("Yellow");
+		Write-Host "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `n`n    $ESET_ExportToCopyFrom    `n`n" -BackgroundColor ("Black") -ForegroundColor ("Yellow");
 		Write-Host "";
 		Return 1;
 	} Else {

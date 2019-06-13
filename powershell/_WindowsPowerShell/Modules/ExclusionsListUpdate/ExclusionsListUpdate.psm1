@@ -63,14 +63,14 @@ function ExclusionsListUpdate {
 			$i++;
 		}
 		$CommandString = "ExclusionsListUpdate";
-		If ($ESET -eq $True) {                           $CommandString += " -ESET"; }
-		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString += " -MalwarebytesAntiMalware"; }
-		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString += " -MalwarebytesAntiRansomware"; }
-		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString += " -MalwarebytesAntiExploit"; }
-		If ($WindowsDefender -eq $True) {                $CommandString += " -WindowsDefender"; }
-		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString += " -Quiet"; }
-		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString += " -Verbose"; }
-		
+		If ($ESET -eq $True) {                           $CommandString = "$CommandString -ESET"; }
+		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiMalware"; }
+		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString = "$CommandString -MalwarebytesAntiRansomware"; }
+		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiExploit"; }
+		If ($WindowsDefender -eq $True) {                $CommandString = "$CommandString -WindowsDefender"; }
+		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString = "$CommandString -Quiet"; }
+		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString = "$CommandString -Verbose"; }
+		$CommandString
 		PrivilegeEscalation -Command ("${CommandString}");
 
 	} Else {

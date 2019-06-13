@@ -595,73 +595,53 @@ CapsLock::
 
 	VolumeLevel_BeforeEdits := Round(VolumeLevel_BeforeEdits)
 
-	If (A_ThisHotkey=="#MButton") { ; Volume mute
+	If (A_ThisHotkey=="#MButton") {
+		; Mute
 		SoundSet, +1, , MUTE
-
-	} Else If (A_ThisHotkey=="^#MButton") { ; Volume mute (repeat w/ new hotkey)
+	} Else If (A_ThisHotkey=="^#MButton") {
+		; Mute (repeat w/ new hotkey)
 		SoundSet, +1, , MUTE
-
-	} Else If (A_ThisHotkey=="#WheelUp") { ; Volume up
+	} Else If (A_ThisHotkey=="#WheelUp") {
+		; Up
 		SoundSet,+%VolumeLevel_Increment%
-
-	} Else If (A_ThisHotkey=="^#WheelUp") { ; Volume up (faster/slow)
+	} Else If (A_ThisHotkey=="^#WheelUp") {
+		; Up (faster/slow)
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
 		SoundSet,+%NewVolumeLevel_Increment%
-
-	} Else If (A_ThisHotkey=="#WheelDown") { ; Volume Down
+	} Else If (A_ThisHotkey=="#WheelDown") {
+		; Down
 		SoundSet,-%VolumeLevel_Increment%
-
-	} Else If (A_ThisHotkey=="^#WheelDown") { ; Volume Down (faster/slow)
+	} Else If (A_ThisHotkey=="^#WheelDown") {
+		; Down (faster/slow)
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
 		SoundSet,-%NewVolumeLevel_Increment%
-		
 	}
-	
+	; Get the volume & mute current-settings
 	SoundGet, NewVolumeLevel
 	SoundGet, MasterMute, , MUTE
-
-	If ( MasterMute == "On") {
-		; Icon_LowVolume := Icon_MuteVolume
-		; Icon_HighVolume := Icon_MuteVolume
-		; Icon_LowVolume := Icon_MuteVolume
-		Icon_HighVolume=MUTED
-	}
-
+	; Final volume level
 	NewVolumeLevel := Round(NewVolumeLevel)
-
+	NewVolumeLevelPercentage=%NewVolumeLevel%`%
+	; Build the volume-bars (out-of dingbats utf8+ icons)
 	DingbatCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
-
-	VolumeBarsCount := Round( ( NewVolumeLevel / 100 ) * DingbatCount_MaxVolume)
+	VolumeBarsCount   := Round( ( NewVolumeLevel / 100 ) * DingbatCount_MaxVolume)
 	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
-
-	;# ▪️◾◼️⬛️
-	;# ▫️️◽️◻️️⬜️
-	; If ( MasterMute == "On") {
-	; 	VolumeBars   := StringRepeat("🔇⬛️🔇`n",VolumeBarsCount)
-	; 	VolumeSpaces := StringRepeat("🔇⬜️🔇`n",VolumeSpacesCount)
-	; } Else {
-	; 	VolumeBars   := StringRepeat("⬛️⬛️⬛️`n",VolumeBarsCount)
-	; 	VolumeSpaces := StringRepeat("⬜️⬜️⬜️`n",VolumeSpacesCount)
-	; }
 	VolumeBars   := StringRepeat("⬛️",VolumeBarsCount)
 	VolumeSpaces := StringRepeat("⬜️",VolumeSpacesCount)
-
 	FinalVolumeBars := VolumeBars VolumeSpaces
 	Length_FinalBars := StrLen(FinalVolumeBars)
-
 	TrimCount := Round(Length_FinalBars/2)
-
 	StringTrimRight, FinalVolume_LeftHalf, FinalVolumeBars, TrimCount
 	StringTrimLeft, FinalVolume_RightHalf, FinalVolumeBars, TrimCount
-	
-	NewVolumeLevelPercentage=%NewVolumeLevel%`%
-
+	; Prep the padding around the Volume Pentage
+	Padding_CenterTopBot=------
 	Padding_CenterLeft := A_Space A_Space A_Space A_Space A_Space A_Space
 	Padding_CenterRight := Padding_CenterLeft
 	If ( MasterMute == "On") {
 		Padding_CenterLeft := A_Space Icon_MuteVolume A_Space
 		Padding_CenterRight := A_Space Icon_MuteVolume A_Space
 	}
+	Padding_CenterTopBot=%Padding_CenterTopBot%--
 	If (NewVolumeLevel < 100) {
 		Padding_CenterLeft := Padding_CenterLeft A_Space
 		Padding_CenterRight := A_Space Padding_CenterRight
@@ -670,24 +650,29 @@ CapsLock::
 			Padding_CenterRight := A_Space Padding_CenterRight
 		}
 	}
-	OutputText=🔈  %FinalVolume_LeftHalf%[%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%]%FinalVolume_RightHalf%  🔊
-
-	; OutputText=🔈`n%FinalVolume_LeftHalf%[%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%]%FinalVolume_RightHalf%🔊
+	TopVolumeReplacement := StringRepeat("¯",15)
+	BotVolumeReplacement := StringRepeat("_",15)
+	Output_TopLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%%TopVolumeReplacement%%FinalVolume_RightHalf%  %Icon_HighVolume%
+	Output_MidLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%  %Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%  %FinalVolume_RightHalf%  %Icon_HighVolume%
+	Output_BotLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%%BotVolumeReplacement%%FinalVolume_RightHalf%  %Icon_HighVolume%
 	
-	; ; Top to Bottom
-	; OutputText=%FinalVolume_LeftHalf%%FinalVolume_RightHalf%%NewVolumeLevelPercentage%
-
-	SplashWidth := 75
-	SplashHeight := 450
-	SplashTitle=
-
-	ToolTip, %OutputText%, 50, 20
+	OutputTextLen := ( StrLen(Output_MidLine) - 2 )
+	OutputBlanks := StringRepeat(" ",95)
+	OutputBlankLine := Icon_LowVolume OutputBlanks Icon_HighVolume
+	; Output_MidLine=%OutputBlankLine%`n%Output_MidLine%`n%OutputBlankLine%
+	
+	Output_Combined=%Output_TopLine%`n%Output_MidLine%`n%Output_BotLine%
+	
+	OutputWidth := 317
+	OutputHeight := 20
+	StartMenuHeight := 40
+	; Show the output as a tooltip
+	x_loc := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
+	y_loc := Round( ( A_ScreenHeight - StartMenuHeight - OutputHeight ) / 2 )
+	; y_loc := 50
+	; y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
+	ToolTip, %Output_Combined%, %x_loc%, %y_loc%
 	ClearTooltip(750)
-
-	; SplashTextOn, %SplashWidth%, %SplashHeight%, %SplashTitle%, %OutputText%
-	; ClearSplashText(750)
-	
-
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

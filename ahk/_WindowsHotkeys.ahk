@@ -720,8 +720,9 @@ WheelRight::
 ;
 ^#C::
 	; WinTitle=Task Scheduler
-	WinTitle=Visual Studio Code
-	SpaceUp_Loop(50, WinTitle)
+	; WinTitle=Visual Studio Code
+	; SpaceUp_Loop(50, WinTitle)
+	SpaceUp_Loop(50)
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1085,33 +1086,46 @@ TabSpace_Loop(LoopIterations) {
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;	@ SendSpace
+;			For some reason, windows 10 doesn't like Send {Space} (as-in it 'ignores' the
+;			keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
+SendSpace() {
+	Send {SC039}
+	Return
+}
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;	@ Space..._Loop
 ;			Designed for Windows Task Scheduler to quickly show open all tasks on the main
 ;			page, which can then be sorted (but only for the ones that've been opened)
-SpaceUp_Loop(LoopIterations, WinTitle) {
-	SetKeyDelay, 0, -1
-	SetControlDelay, -1
-	SetTitleMatchMode, 2
-	; WinActivate,%WinTitle%
+SpaceUp_Loop(LoopIterations) {
 	Loop %LoopIterations% {
-
-		DatStr=Sending {Space} to %WinTitle%
-		ToolTip, %DatStr%, 250, %A_Index%, `
-
-		ControlSend,, {Space}, %WinTitle%
-		; Send {Space}
-		Sleep 100
-		
-		DatStr=Sending {Up} to %WinTitle%
-		ToolTip, %DatStr%, 500, %A_Index%, 2
-
-		ControlSend,, {Up}, %WinTitle%
-		; Send {Up}
-		Sleep 100
-
+		Sleep 500
+		Send {SC039}
+		SendSpace()
+		Sleep 500
+		Send {Up}
 	}
 	Return
 }
+; SpaceUp_Loop(LoopIterations, WinTitle) {
+; 	SetKeyDelay, 0, -1
+; 	SetControlDelay, -1
+; 	SetTitleMatchMode, 2
+; 	; WinActivate,%WinTitle%
+; 	Loop %LoopIterations% {
+; 		DatStr=Sending {Space} to %WinTitle%
+; 		ToolTip, %DatStr%, 250, %A_Index%, `
+; 		ControlSend,, {Space}, %WinTitle%
+; 		; Send {Space}
+; 		Sleep 100
+; 		DatStr=Sending {Up} to %WinTitle%
+; 		ToolTip, %DatStr%, 500, %A_Index%, 2
+; 		ControlSend,, {Up}, %WinTitle%
+; 		; Send {Up}
+; 		Sleep 100
+; 	}
+; 	Return
+; }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  @  OpenVSCode - Opens the application "Visual Studio Code"

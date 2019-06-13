@@ -529,7 +529,7 @@ function ESET_ExportModifier {
 		If ((Test-Path -Path ($Dirname_ESET_Import)) -eq $false) {
 			New-Item -ItemType "Directory" -Path ($Dirname_ESET_Import) | Out-Null;
 		}
-		Set-Content -Path ($Filepath_ESET_Import) -Value (Get-Content -Path ("$PreExportFilepath"));
+		Set-Content -Path ($Filepath_ESET_Import) -Value (Get-Content -Path ("$ESET_ExportToCopyFrom"));
 		#
 		# ------------------------------------------------------------
 		#

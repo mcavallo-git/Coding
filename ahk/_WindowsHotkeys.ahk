@@ -582,7 +582,9 @@ CapsLock::
 #WheelDown::
 ^#WheelDown::
 
-	MuteIcon=🔇
+	Icon_LowVolume=🔈
+	Icon_MuteVolume=🔇
+	Icon_HighVolume=🔊
 
 	VolumeLevel_Increment := 6
 
@@ -611,18 +613,25 @@ CapsLock::
 		
 	}
 	
-	SoundGet, VolumeLevel_AfterEdits
+	SoundGet, NewVolumeLevel
 	SoundGet, MasterMute, , MUTE
 
-	VolumeLevel_AfterEdits := Round(VolumeLevel_AfterEdits)
+	If ( MasterMute == "On") {
+		; Icon_LowVolume := Icon_MuteVolume
+		; Icon_HighVolume := Icon_MuteVolume
+		; Icon_LowVolume := Icon_MuteVolume
+		Icon_HighVolume=MUTED
+	}
+
+	NewVolumeLevel := Round(NewVolumeLevel)
 
 	DingbatCount_MaxVolume := 20
 
-	VolumeBarsCount := Round( ( VolumeLevel_AfterEdits/100 ) * DingbatCount_MaxVolume)
+	VolumeBarsCount := Round( ( NewVolumeLevel/100 ) * DingbatCount_MaxVolume)
 	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
 
-	VolumeBars := StringRepeat("⬛️`n",VolumeBarsCount)
-	VolumeSpaces := StringRepeat("⬜️`n",VolumeSpacesCount)
+	VolumeBars := StringRepeat("⬛️⬛️⬛️`n",VolumeBarsCount)
+	VolumeSpaces := StringRepeat("⬜️⬜️⬜️`n",VolumeSpacesCount)
 
 	;# ▪️◾◼️⬛️
 	;# ▫️️◽️◻️️⬜️
@@ -635,25 +644,23 @@ CapsLock::
 	StringTrimRight, FinalVolume_LeftHalf, FinalVolumeBars, TrimCount
 	StringTrimLeft, FinalVolume_RightHalf, FinalVolumeBars, TrimCount
 	
-	FinalVolume_Centered=%VolumeLevel_AfterEdits%`%
+	NewVolumeLevelPercentage=%NewVolumeLevel%`%
 
-	Padding_CenterLeft := A_Space A_Space A_Space A_Space A_Space A_Space
-	Padding_CenterRight := Padding_CenterLeft
-	If ( MasterMute == "On") {
-		Padding_CenterLeft := A_Space MuteIcon A_Space
-		Padding_CenterRight := A_Space MuteIcon A_Space
-	}
+	; SplashText=🔈`n%FinalVolume_LeftHalf%[%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%]%FinalVolume_RightHalf%🔊
 	
-	ShownText=🔈`n%FinalVolume_LeftHalf%[%Padding_CenterLeft%%FinalVolume_Centered%%Padding_CenterRight%]%FinalVolume_RightHalf%🔊
+	; Top to Bottom
+	OutputText=%FinalVolume_LeftHalf%%FinalVolume_RightHalf%%NewVolumeLevelPercentage%
 
+	SplashWidth := 75
+	SplashHeight := 450
+	SplashTitle=
 
-	SplashTextOn, , , %ShownText%
-	ClearSplashText(750)
+	ToolTip, %OutputText%, 20, 20
+	ClearTooltip(750)
+
+	; SplashTextOn, %SplashWidth%, %SplashHeight%, %SplashTitle%, %OutputText%
+	; ClearSplashText(750)
 	
-
-	; ToolTip, %TooltipText%,,,1
-	; ClearTooltip(750)
-	; ClearTooltip(750)
 
 	Return
 ;

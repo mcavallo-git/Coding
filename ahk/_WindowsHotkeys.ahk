@@ -650,17 +650,15 @@ CapsLock::
 			Padding_CenterRight := A_Space Padding_CenterRight
 		}
 	}
-	TopVolumeReplacement := StringRepeat("¯",15)
-	BotVolumeReplacement := StringRepeat("_",15)
-	Output_TopLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%%TopVolumeReplacement%%FinalVolume_RightHalf%  %Icon_HighVolume%
-	Output_MidLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%  %Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%  %FinalVolume_RightHalf%  %Icon_HighVolume%
-	Output_BotLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%%BotVolumeReplacement%%FinalVolume_RightHalf%  %Icon_HighVolume%
-	
+	VolumeReplacement := StringRepeat(" ",30)
+	Output_TopLine=%Icon_LowVolume%   %FinalVolume_LeftHalf% %VolumeReplacement% %FinalVolume_RightHalf%  %Icon_HighVolume%
+	Output_MidLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%≡≡%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%≡≡%FinalVolume_RightHalf%  %Icon_HighVolume%
+	Output_BotLine=%Icon_LowVolume%   %FinalVolume_LeftHalf% %VolumeReplacement% %FinalVolume_RightHalf%  %Icon_HighVolume%
+
 	OutputTextLen := ( StrLen(Output_MidLine) - 2 )
 	OutputBlanks := StringRepeat(" ",95)
 	OutputBlankLine := Icon_LowVolume OutputBlanks Icon_HighVolume
-	; Output_MidLine=%OutputBlankLine%`n%Output_MidLine%`n%OutputBlankLine%
-	
+
 	Output_Combined=%Output_TopLine%`n%Output_MidLine%`n%Output_BotLine%
 	
 	OutputWidth := 317

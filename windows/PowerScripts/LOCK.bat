@@ -1,11 +1,6 @@
 
 @ECHO OFF
   
-  REM    Created by 
-  REM      [ Matt Cavallo ]
-  REM      [ mcavallo@boneal.com ]
-  REM      [ 2017-11-30 ]
-  
   REM   Get the Username of the Current User
 SET USERNAME_TARGET=%username%
 
@@ -38,3 +33,5 @@ IF NOT %USER_SESSION_ID%==NOTFOUND (
   REM  If Session wasn't found (etc.) show this instead
   REM  of immediately closing the CMD window
 TIMEOUT /T 30
+
+REM Handjammed by Matt Cavallo, 2017-11-30

@@ -1,11 +1,6 @@
 @ECHO OFF
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-REM		Created by Matt Cavallo <mcavallo@boneal.com>
-REM		Creation Date: [ 2016-09-29 ]
-REM		Updated:	[ 2018-11-28 ]
-REM		Updated:	[ 2018-12-12 ] - Generalized IMAGENAME_TO_KILL as parameter #1
-
 SET IMAGENAME_TO_KILL=
 IF NOT "%1"=="" (
 	SET IMAGENAME_TO_KILL=%1
@@ -63,3 +58,11 @@ REM Log [target-user] off of the machine (cleanly)
 SHUTDOWN -L
 
 EXIT
+
+REM	------------------------------------------------------------
+REM	Revisioning | 2016-09-29 | Created
+REM	Revisioning | 2018-11-28 | Updated | (Details missing)
+REM	Revisioning | 2018-12-12 | Updated | Generalized IMAGENAME_TO_KILL as parameter #1
+REM	------------------------------------------------------------
+REM	Author | Matt Cavallo | https://github.com/mcavallo-git
+REM	------------------------------------------------------------

@@ -61,8 +61,8 @@ EXIT
 
 REM	------------------------------------------------------------
 REM	Revisioning | 2016-09-29 | Created
-REM	Revisioning | 2018-11-28 | Updated | (Details missing)
-REM	Revisioning | 2018-12-12 | Updated | Generalized IMAGENAME_TO_KILL as parameter #1
+REM	Revisioning | 2018-12-12 | Generalized IMAGENAME_TO_KILL as parameter #1
+REM	Revisioning | 2019-06-14 | Revision formatting moved to bottom
 REM	------------------------------------------------------------
 REM	Author | Matt Cavallo | https://github.com/mcavallo-git
 REM	------------------------------------------------------------

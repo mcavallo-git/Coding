@@ -20,6 +20,7 @@ find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return 
 ```
 
 
+
 ***
 ### Find Folders within another directory which match a given, case-insensitive string (no recursion)
 ```
@@ -27,6 +28,8 @@ find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return 
 find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
 
 ```
+
+
 
 ***
 ### Find Files in a given directory while IGNORING a given sub-directory
@@ -53,10 +56,10 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 ```
 ### refer to script 'find_basenames_extensions.sh' (in this same repo)
 ```
+
+
+
 ***
-
-
-
 ### File Extensions (Many) - Same as previous - But find files matching at least one extension requested
 ```
 
@@ -99,7 +102,6 @@ find "/var/log" -mtime -${X_MINUTES} -ls;
 find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
 
 ```
-
 
 
 
@@ -194,6 +196,7 @@ find ${DIRECTORY_TO_CLEAN} \
 ```
 
 
+
 ***
 ### Update any files-found which match the source-file's exact same filename & extension
 #####  ex) phpMyAdmin login logo
@@ -251,7 +254,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 ```
 
 
-
+***
 #### Note - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:
 ```
 

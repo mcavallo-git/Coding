@@ -1,7 +1,7 @@
 @ECHO OFF
 
 SET "INVIS_SKIPWAIT_VBS=%TEMP%\invis_nowait.vbs"
-ECHO CreateObject("Wscript.Shell").Run """" ^& WScript.Arguments(0) ^& """", 1, FALSE> "%INVIS_SKIPWAIT_VBS%"
+ECHO CreateObject("Wscript.Shell").Run """" ^& WScript.Arguments(0) ^& """", 0, FALSE> "%INVIS_SKIPWAIT_VBS%"
 
 SET STARTUP_SCRIPTS_BAT=%USERPROFILE%\.startup-scripts\startup-%COMPUTERNAME%.bat
 IF EXIST "%STARTUP_SCRIPTS_BAT%" (

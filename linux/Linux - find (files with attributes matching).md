@@ -5,15 +5,19 @@
 
 ***
 ### Basic 'find' (file-search) examples
-```find "/var/log" -type 'f' -name "*error*";```   *-name 'search'   ### case-sensitive search*
+```
 
-```find "/var/log" -type 'f' -iname "*error*";```   *-iname 'search'   ### case-insensitive search*
+find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only
 
-```find "/var/log" -type 'd' -iname "*error*";```   *-type d   ### directories*
+find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only
 
-```find "/var/log" -type "f" -printf "%p %A@\n";``` *show results' fullpath (%p) & last-modified date in Unix time (%A@)*
+find "/var/log" -type 'f' -name "*error*";     ### -name 'filename' --> case-sensitive search
 
+find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filename' --> case-insensitive search
 
+find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]
+
+```
 
 
 ***

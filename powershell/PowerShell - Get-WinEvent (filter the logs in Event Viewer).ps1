@@ -63,14 +63,10 @@ Get-WinEvent -FilterHashtable @{
 			-And `
 		($_.TimeCreated.DateTime -eq ${PreviousEvent_DateTime}) `
 	) {
-	# If (($_.Message -match $Regex_User) -And ($_.Message -match $Regex_Domain) -And ($_.Message -match $Regex_UnlockPC)) {
 		$AllLogTimestamps += ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d (%a)  %H:%M:%S")+("      !!!!!!! Login !!!!!!!"));
-		# ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d (%a)  %H:%M:%S")+("      !!!!!!! Login !!!!!!!"));
-		$_;
 	}
 	$PreviousEvent_ID = $_.ID;
 	$PreviousEvent_DateTime = $_.TimeCreated.DateTime;
-
 }
 
 # ------------------------------------------------------------

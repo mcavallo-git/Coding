@@ -56,7 +56,10 @@ function GitSyncAll {
 
 		$VerbiageRepositoryCount = If($RepoFullpathsArr.Length -eq 1) { "repository" } Else { "repositories" };
 		
-		Write-Host (("`nFound ")+($RepoFullpathsArr.Length)+(" ")+($VerbiageRepositoryCount)+("."));
+		Write-Host (("`nFound ")+($RepoFullpathsArr.Length)+(" ")+($VerbiageRepositoryCount)+(":"));
+		Write-Host "";
+		$RepoFullpathsArr.FullName | Format-List;
+		Write-Host "`n`n";
 
 		ForEach ($EachRepoDir in $RepoFullpathsArr) {
 

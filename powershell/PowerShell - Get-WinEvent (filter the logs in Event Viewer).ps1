@@ -15,15 +15,21 @@ $EID_RDP_Disconnect = 4779; #(Security event)
 $EID_Locked = 4800; #(Security event)
 $EID_Unlocked = 4801; #(Security event)
 
-$EndTime = ((Get-Date).AddDays(-3));
-# $EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
-# $LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y-%m-%d");
+# ------------------------------------------------------------
 
-# $EndTime;
+$GetDate_ThreeWeeksAgoMonday = (Get-Date 0:0).AddDays(-21 + ([Int](Get-Date).DayOfWeek * -1) + 1);
+$StartTime = ${GetDate_ThreeWeeksAgoMonday};
+$EndTime = ((${StartTime}).AddDays(21));
 
-$StartTime = ((${EndTime}).AddDays(-16));
-# $StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
-# $StartTime;
+Set-Content -Path ("${Logfile}") -Value ("");
+Write-Host "`$StartTime  =  ${StartTime}" >> ("${Logfile}");
+Write-Host "`$EndTime    =  ${EndTime}" >> ("${Logfile}");
+Write-Host "`n`n" >> ("${Logfile}");
+
+# $EndTime = ((Get-Date).AddDays(-3));
+# $StartTime = ((${EndTime}).AddDays(-16));
+
+# ------------------------------------------------------------
 
 $Regex_User = "\s+Account Name:\s+${Env:USERNAME}";
 $Regex_Domain = "\s+Account Domain:\s+${Env:USERDOMAIN}";

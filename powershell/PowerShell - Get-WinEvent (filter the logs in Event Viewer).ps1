@@ -15,14 +15,14 @@ $EID_RDP_Disconnect = 4779; #(Security event)
 $EID_Locked = 4800; #(Security event)
 $EID_Unlocked = 4801; #(Security event)
 
-# $EndTime = ((Get-Date).AddDays(-3));
-$EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
-$LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y-%m-%d");
+$EndTime = ((Get-Date).AddDays(-3));
+# $EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
+# $LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y-%m-%d");
 
 # $EndTime;
 
-# $StartTime = ((${EndTime}).AddDays(-16));
-$StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
+$StartTime = ((${EndTime}).AddDays(-16));
+# $StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
 # $StartTime;
 
 $Regex_User = "\s+Account Name:\s+${Env:USERNAME}";
@@ -78,7 +78,6 @@ Get-WinEvent -FilterHashtable @{
 	StartTime=${StartTime};
 	EndTime=${EndTime};
 } | Foreach-Object {
-	$_.Message
 	If (($_.Message -match $Regex_User) -And ($_.Message -match $Regex_Domain)) {
 		$AllLogTimestamps += ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d (%a)  %H:%M:%S")+("      xxxxxxx Logout xxxxxxxx"));
 	}

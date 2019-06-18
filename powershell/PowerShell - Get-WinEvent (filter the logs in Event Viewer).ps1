@@ -4,13 +4,13 @@ $Logfile = (("${HOME}\Desktop\Logon-Logoffs")+(${Env:COMPUTERNAME})+("_")+(Get-D
 
 $AllLogTimestamps = @();
 
-# $EndTime = ((Get-Date).AddDays(-4));
-$EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
-$EndTime;
+$EndTime = ((Get-Date).AddDays(-3));
+# $EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
+# $EndTime;
 
-# $StartTime = ((${EndTime}).AddDays(-14));
-$StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
-$StartTime;
+$StartTime = ((${EndTime}).AddDays(-16));
+# $StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
+# $StartTime;
 
 
 $Regex_User = "\s+Account Name:\s+${Env:USERNAME}";
@@ -31,7 +31,8 @@ Get-WinEvent -FilterHashtable @{
 			-And `
 		($_.Message -match $Regex_LockUnlock) `
 	) {
-			$AllLogTimestamps += (($_.TimeCreated.DateTime)+(" !!!!!!! Login !!!!!!!"));
+			$AllLogTimestamps += ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d %H:%M:%S")+(" !!!!!!! Login !!!!!!!"));
+			((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d %H:%M:%S")+(" !!!!!!! Login !!!!!!!"));
 	}
 }
 
@@ -50,7 +51,8 @@ Get-WinEvent -FilterHashtable @{
 			-And `
 		($_.Message -match $Regex_LockUnlock) `
 	) {
-			$AllLogTimestamps += $(($_.TimeCreated.DateTime)+(" xxxxxxx Logout xxxxxxxx"));
+			$AllLogTimestamps += ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d %H:%M:%S")+(" xxxxxxx Logout xxxxxxxx"));
+			((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d %H:%M:%S")+(" xxxxxxx Logout xxxxxxxx"));
 	}
 }
 

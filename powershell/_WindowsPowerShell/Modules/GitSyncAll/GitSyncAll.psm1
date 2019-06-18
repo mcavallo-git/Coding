@@ -126,9 +126,9 @@ function GitSyncAll {
 		Write-Host "No git repositories found in: `"${Directory}`"`n" -ForegroundColor "Magenta";
 	}
 
-	Write-Host "`n`n  All Repositories Synced  `n`n" -ForegroundColor "Green";
+	Write-Host "`n`n  All Repositories Synced" -ForegroundColor "Green";
 	
-	Write-Host -NoNewLine "`n`nPress the 'Escape' key to exit... " -BackgroundColor "Black" -ForegroundColor "Yellow";
+	Write-Host -NoNewLine "`n`n  Press the 'Escape' key to exit...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	While ($KeyPress.VirtualKeyCode -ne 27) {
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

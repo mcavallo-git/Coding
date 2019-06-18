@@ -21,11 +21,6 @@ $GetDate_ThreeWeeksAgoMonday = (Get-Date 0:0).AddDays(-21 + ([Int](Get-Date).Day
 $StartTime = ${GetDate_ThreeWeeksAgoMonday};
 $EndTime = ((${StartTime}).AddDays(21));
 
-Set-Content -Path ("${Logfile}") -Value ("");
-"`$StartTime  =  ${StartTime}" >> ("${Logfile}");
-"`$EndTime    =  ${EndTime}" >> ("${Logfile}");
-"`n`n" >> ("${Logfile}");
-
 # $EndTime = ((Get-Date).AddDays(-3));
 # $StartTime = ((${EndTime}).AddDays(-16));
 

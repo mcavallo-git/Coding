@@ -9,18 +9,20 @@ $EID_Logoff = 4647; #(Security event)
 $EID_Startup = 6005; #(System event)
 $EID_Winlogon_AuthStopped = 2; #(Winlogon authentication started event)
 $EID_Winlogon_AuthStarted = 1; #(Winlogon authentication started event)
-$EID_Winlogoff = 6000; #(Winlogon logoff event)
+$EID_Winlogon_WSearchLogoff = 6000; #(Winlogon logoff event)
 $EID_RDP_Reconnect = 4778; #(Security event)
 $EID_RDP_Disconnect = 4779; #(Security event)
 $EID_Locked = 4800; #(Security event)
 $EID_Unlocked = 4801; #(Security event)
 
-$EndTime = ((Get-Date).AddDays(-3));
-# $EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
+# $EndTime = ((Get-Date).AddDays(-3));
+$EndTime = (Get-Date -Year 2019 -Month 06 -Day 14 -Hour 23 -Minute 59 -Second 59);
+$LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y-%m-%d");
+
 # $EndTime;
 
-$StartTime = ((${EndTime}).AddDays(-16));
-# $StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
+# $StartTime = ((${EndTime}).AddDays(-16));
+$StartTime = (Get-Date -Year 2019 -Month 06 -Day 04 -Hour 23 -Minute 59 -Second 59);
 # $StartTime;
 
 $Regex_User = "\s+Account Name:\s+${Env:USERNAME}";
@@ -90,7 +92,9 @@ Get-WinEvent -FilterHashtable @{
 # LOGOFF CATCH 2
 Get-WinEvent -FilterHashtable @{
 	LogName='Application';
-	ID="6000";
+	ID=${EID_Winlogon_WSearchLogoff};
+	StartTime=${StartTime};
+	EndTime=${EndTime};
 } | Foreach-Object {
 	$AllLogTimestamps += ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d (%a)  %H:%M:%S")+("      xxxxxxx Logout xxxxxxxx"));
 }
@@ -100,22 +104,15 @@ Get-WinEvent -FilterHashtable @{
 
 Write-Host "------------------------------------------------------------";
 
-# $FinalOutput = ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
-$FinalOutput = ($AllLogTimestamps | Select-Object -Unique);
+$FinalOutput = ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
 
 $FinalOutput >> ("${Logfile}");
 
-$FinalOutput | Format-List;
-
-Write-Host "------------------------------------------------------------";
-Write-Host "------------------------------------------------------------";
-Write-Host "------------------------------------------------------------";
-
-($AllLogTimestamps | Select-Object -Unique | Sort-Object);
-Write-Host "------------------------------------------------------------";
+# Write-Host "------------------------------------------------------------";
+# ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
+# Write-Host "------------------------------------------------------------";
 
 Start ("${Logfile}");
-
 
 
 #

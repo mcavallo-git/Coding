@@ -22,9 +22,9 @@ $StartTime = ${GetDate_ThreeWeeksAgoMonday};
 $EndTime = ((${StartTime}).AddDays(21));
 
 Set-Content -Path ("${Logfile}") -Value ("");
-Write-Host "`$StartTime  =  ${StartTime}" >> ("${Logfile}");
-Write-Host "`$EndTime    =  ${EndTime}" >> ("${Logfile}");
-Write-Host "`n`n" >> ("${Logfile}");
+"`$StartTime  =  ${StartTime}" >> ("${Logfile}");
+"`$EndTime    =  ${EndTime}" >> ("${Logfile}");
+"`n`n" >> ("${Logfile}");
 
 # $EndTime = ((Get-Date).AddDays(-3));
 # $StartTime = ((${EndTime}).AddDays(-16));
@@ -103,15 +103,11 @@ Get-WinEvent -FilterHashtable @{
 
 # ------------------------------------------------------------
 
-Write-Host "------------------------------------------------------------";
+"------------------------------------------------------------";
 
 $FinalOutput = ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
 
 $FinalOutput >> ("${Logfile}");
-
-# Write-Host "------------------------------------------------------------";
-# ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
-# Write-Host "------------------------------------------------------------";
 
 Start ("${Logfile}");
 

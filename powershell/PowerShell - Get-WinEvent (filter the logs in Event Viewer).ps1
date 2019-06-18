@@ -39,13 +39,16 @@ $Regex_LogoffInteractive = "\s*Logon Type:\s+2";
 
 # ------------------------------------------------------------
 
+$Previous_EventID = $Null;
 Get-WinEvent -FilterHashtable @{
 	LogName='Microsoft-Windows-Winlogon/Operational'; ProviderName='Microsoft-Windows-Winlogon'; ID=${EID_Winlogon_AuthStarted}; StartTime=${StartTime}; EndTime=${EndTime};
 } | Foreach-Object {
+	If (($_.ID -eq ${EID_Winlogon_AuthStarted}) -And ($_.ID -eq ${EID_Winlogon_AuthStarted}))
 	If (($_.Message -match $Regex_User) -And ($_.Message -match $Regex_Domain) -And ($_.Message -match $Regex_UnlockPC)) {
 		$AllLogTimestamps += ((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d (%a)  %H:%M:%S")+("      !!!!!!! Login !!!!!!!"));
 		((Get-Date -Date ($_.TimeCreated.DateTime) -UFormat "%Y-%m-%d (%a)  %H:%M:%S")+("      !!!!!!! Login !!!!!!!"));
 	}
+	$Previous_EventID = $_.ID;
 }
 
 # ------------------------------------------------------------
@@ -63,7 +66,8 @@ Get-WinEvent -FilterHashtable @{
 
 Write-Host "------------------------------------------------------------";
 
-$FinalOutput = ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
+# $FinalOutput = ($AllLogTimestamps | Select-Object -Unique | Sort-Object);
+$FinalOutput = ($AllLogTimestamps | Select-Object -Unique);
 
 $FinalOutput >> ("${Logfile}");
 

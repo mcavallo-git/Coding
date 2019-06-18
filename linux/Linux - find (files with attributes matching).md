@@ -11,9 +11,11 @@ find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directorie
 
 find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only
 
-find "/var/log" -type 'f' -name "*error*";     ### -name 'filename' --> case-sensitive search
+find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search
 
-find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filename' --> case-insensitive search
+find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search
+
+find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'
 
 find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]
 

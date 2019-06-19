@@ -17,9 +17,6 @@ LOGFILE="/var/log/finish_upgrade$(date +'%Y-%m-%d_%H-%M-%S')";
 exec > >(tee -a "${LOGFILE}" );
 exec 2>&1;
 
-# Finish the upgrade
-apt-get -y dist-upgrade;
-
 # Cleanup
 apt-get -y autoremove && apt-get -y autoclean;
 

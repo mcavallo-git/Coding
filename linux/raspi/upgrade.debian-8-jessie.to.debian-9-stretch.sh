@@ -2,6 +2,7 @@
 exit 1;
 #
 # Manual log of actions-performed while upgrading Raspi from Debian-8 (jessie) to Debian-9 (stretch)
+#			MCavallo, 2019-06-19_07-29-00
 #
 #	Following guide @ http://baddotrobot.com/blog/2017/10/26/upgrade-raspian-jessie-to-stretch/
 #

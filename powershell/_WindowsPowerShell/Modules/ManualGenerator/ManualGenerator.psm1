@@ -4,11 +4,15 @@
 #
 function ManualGenerator {
 	Param(
+
+		[String]$OutputDir = "${Env:USERPROFILE}\man",
+
 		[Switch]$Quiet
+
 	)
 
-	If ((Test-Path "${Env:USERPROFILE}\man") -eq $False) {
-		New-Item -ItemType "Directory" -Path "${Env:USERPROFILE}\man" | Out-Null;
+	If ((Test-Path "${OutputDir}") -eq $False) {
+		New-Item -ItemType "Directory" -Path "${OutputDirectory}" | Out-Null;
 	}
 
 	$Manuals = @{};
@@ -22,7 +26,7 @@ function ManualGenerator {
 		$Compiler = $_;
 		$Manuals.$Compiler | ForEach-Object {
 			$Command = $_;
-			cmd /c "${Command} /? > ${Env:USERPROFILE}\man\${Command}.${Compiler}.man";
+			cmd /c "${Command} /? > `"${OutputDir}\${Command}.${Compiler}.man`"";
 		}
 	}
 

@@ -5,13 +5,14 @@
 function ManualGenerator {
 	Param(
 
-		[String]$OutputDir = "${Env:USERPROFILE}\man",
+		[String]$OutputDirectory = "${Env:USERPROFILE}\man",
 
-		[Switch]$Quiet
+		[Switch]$Quiet,
+		[Switch]$SkipOpenDirectory
 
 	)
 
-	If ((Test-Path "${OutputDir}") -eq $False) {
+	If ((Test-Path "${OutputDirectory}") -eq $False) {
 		New-Item -ItemType "Directory" -Path "${OutputDirectory}" | Out-Null;
 	}
 
@@ -19,24 +20,33 @@ function ManualGenerator {
 
 	$Manuals.cmd = @();
 	$Manuals.cmd += "assoc";
+	$Manuals.cmd += "cmd";
 	$Manuals.cmd += "ftype";
 	$Manuals.cmd += "whoami";
 
 	$Manuals.Keys | ForEach-Object {
 		$Compiler = $_;
-		$Manuals.$Compiler | ForEach-Object {
-			$Command = $_;
-			cmd /c "${Command} /? > `"${OutputDir}\${Command}.${Compiler}.man`"";
+		If(Get-Command "${Compiler}" -ErrorAction "SilentlyContinue") {
+			$Manuals.$Compiler | ForEach-Object {
+				$Command = $_;
+				cmd /C "${Command} /? > `"${OutputDirectory}\${Command}.${Compiler}.man`"";
+			}
 		}
 	}
 
-
+	If (!($PSBoundParameters.ContainsKey("SkipOpenDirectory"))) {
+		If (Get-Command "Explorer" -ErrorAction "SilentlyContinue") {
+			Explorer "${OutputDirectory}"; # Show the directory to the user
+		} Else {
+			If (!($PSBoundParameters.ContainsKey("Quiet"))) { Write-Host "ERROR | Command `"Explorer`" not found while trying to show directory `"${OutputDirectory}`""; }
+		}
+	}
 
 	Return;
-
 }
-
 Export-ModuleMember -Function "ManualGenerator";
 
-
-# MCavallo, 2019-06-20_15-27-55
+#
+#	MCavallo
+#	2019-06-20_15-36-54
+#

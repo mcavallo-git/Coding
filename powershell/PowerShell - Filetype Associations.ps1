@@ -19,12 +19,14 @@ Exit 0;
 
 
 
+# SHOW LIST:   file-extension  &&  file-type
+cmd /c "ASSOC > %USERPROFILE%\Desktop\assoc.more.log & %USERPROFILE%\Desktop\assoc.more.log";
 
 # IN-PROGRESS:
 
-# Get a list of [ File-Extensions ] & associated [ Handler Program/App (per-extension) ]
-cmd /c "ASSOC > %USERPROFILE%\Desktop\assoc.more.log & %USERPROFILE%\Desktop\assoc.more.log";
 
+
+#	SHOW LIST:   file-type  &&  open-command
 Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" | Select-Object {
 	$_ | Format-List;
 }

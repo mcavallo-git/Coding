@@ -33,7 +33,9 @@ function NET-Framework-Check {
 		$i=0;
 
 		Write-Host "`n";
-		Write-Host "  Compatibility Status: Microsoft .NET Framework";
+		Write-Host "  Microsoft .NET Framework";
+		Write-Host "`n";
+		Write-Host "  Checking compatibility...";
 		Write-Host "`n";
 		Write-Host " |---------------|---------------|---------------|  ";
 		Write-Host " | Release       | Version       | Compatibility |  ";

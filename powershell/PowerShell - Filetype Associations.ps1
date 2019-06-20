@@ -27,21 +27,22 @@ $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\Current
 
 $i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 | Foreach-Object {
-	$i++; If ($i -gt 3) {	Break; } <# $_ | Format-List; #>
-	$Each_Name = ($_.Name);
-	$Each_Type = ($_.GetType());
+	$i++;
+	If ($i -gt 3) {
+		Break;
+	} <# $_ | Format-List; #>
 
 	Write-Host "";
 	Write-Host "`n------------------------------------------------------------";
-	Write-Host (($Each_Name)+(" (")+($Each_Type)+(")"));
+	Write-Host ($_.GetType());
+	Write-Host ($_.Name);
 	Write-Host -NoNewLine (("SubKeyCount:")+($_.SubKeyCount)+(", ")+("ValueCount:")+($_.ValueCount));
 	Write-Host -NoNewLine "=== `$_.OpenWithProgids.GetType(): "; $_.OpenWithProgids;
 	Write-Host -NoNewLine "=== `$_.OpenWithProgids: "; $_.OpenWithProgids;
-	Write-Host "`n------------------------------------------------------------";
-	Write-Host "";
 }
 
-
+Write-Host "`n------------------------------------------------------------";
+Write-Host "";
 
 # $FileExtension = ".ahk";
 # $ExtensionProperties = (Get-ItemProperty (("Registry::HKEY_CLASSES_ROOT\")+(${FileExtension})));

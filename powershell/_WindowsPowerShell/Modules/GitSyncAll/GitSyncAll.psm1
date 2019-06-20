@@ -57,7 +57,7 @@ function GitSyncAll {
 		Write-Host (("`nFound ")+($RepoFullpathsArr.Length)+(" ")+($VerbiageRepositoryCount)+(":"));
 		Write-Host "";
 		$RepoFullpathsArr.FullName | Format-List;
-		Write-Host "`n`n";
+		Write-Host "`n";
 
 		ForEach ($EachRepoDir in $RepoFullpathsArr) {
 

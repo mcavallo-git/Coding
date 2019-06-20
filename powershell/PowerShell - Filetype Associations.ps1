@@ -22,8 +22,8 @@ Exit 0;
 
 # IN-PROGRESS:
 
-# Resolve all file-extensions to their relative file-types
-cmd /c assoc | more > %USERPROFILE%\Desktop\assoc.more.log;
+# Get a list of [ File-Extensions ] & associated [ Handler Program/App (per-extension) ]
+cmd /c "ASSOC > %USERPROFILE%\Desktop\assoc.more.log & %USERPROFILE%\Desktop\assoc.more.log";
 
 Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" | Select-Object {
 	$_ | Format-List;

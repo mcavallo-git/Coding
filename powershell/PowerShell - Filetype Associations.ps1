@@ -1,43 +1,75 @@
-
+# ------------------------------------------------------------
 #
-# Lookup associations for a given file-extenson
+# PowerShell
+#   File Extension handling in Windows 10
 #
+#                                MCavallo, 2019-06-20_13-20-50
+# ------------------------------------------------------------
 
-$FileExtension = ".ahk";
-$ExtensionProperties = (Get-ItemProperty (("Registry::HKEY_Classes_root\")+(${FileExtension})));
-$ExtensionAssociations = @{
-	Extension = $ExtensionProperties.PSChildName;
-	ContentType = $ExtensionProperties.("Content Type");
-	PerceivedType = $ExtensionProperties.PerceivedType;
-	FileType = $ExtensionProperties.("(default)");
-};
-$ExtensionAssociations;
+# Get User-SID (Security Identifier) for current user
+$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
 
-Write-Host -NoNewLine "`n`nPress any key to exit...";
-$KeyPressExit = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-Exit 0;
+# Get some info regarding current environment
+$CMD="ASSOC";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # ASSOC --> .ext=fileType
+$CMD="FTYPE";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # FTYPE --> fileType=openCommandString
+$CMD="WHOAMI"; $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} /ALL > ${OUT} & ${OUT}";
 
 
-
-# SHOW LIST:   file-extension  &&  file-type
-cmd /c "ASSOC > %USERPROFILE%\Desktop\assoc.more.log & %USERPROFILE%\Desktop\assoc.more.log";
-
-# IN-PROGRESS:
-
+$Registry_FileExtensions_A="HKEY_CLASSES_ROOT";
+$Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts";
+$Registry_StartupApps="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run";
+$Registry_UserSidList="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList";
 
 
-#	SHOW LIST:   file-type  &&  open-command
-Get-ChildItem -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" | Select-Object {
-	$_ | Format-List;
+$i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
+| Foreach-Object {
+	$i++; If ($i -gt 3) {	Break; } <# $_ | Format-List; #>
+
+	Write-Host "`n`n------------------------------------------------------------";
+	Write-Host -NoNewLine "`$i: "; $i;
+	Write-Host -NoNewLine "`$_: "; $_;
+	Write-Host -NoNewLine "`$_.GetType: "; $_.GetType;
+	Write-Host -NoNewLine "`$_.Handle: "; $_.Handle;
+	Write-Host -NoNewLine "`$_.Name: "; $_.Name;
+	Write-Host -NoNewLine "`$_.SubKeyCount: "; $_.SubKeyCount;
+	Write-Host -NoNewLine "`$_.ValueCount: "; $_.ValueCount;
+	Write-Host -NoNewLine "`$_.View: "; $_.View;
 }
 
 
 
+# $FileExtension = ".ahk";
+# $ExtensionProperties = (Get-ItemProperty (("Registry::HKEY_CLASSES_ROOT\")+(${FileExtension})));
+# $ExtensionAssociations = @{
+# 	Extension = $ExtensionProperties.PSChildName;
+# 	ContentType = $ExtensionProperties.("Content Type");
+# 	PerceivedType = $ExtensionProperties.PerceivedType;
+# 	FileType = $ExtensionProperties.("(default)");
+# };
+# $ExtensionAssociations;
 
+
+# Note: Registry keys have type "Microsoft.Win32.RegistryKey"
+
+# Write-Host -NoNewLine "`n`nPress any key to exit...";
+# $KeyPressExit = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+# Exit 0;
+
+
+# ------------------------------------------------------------
+#
+# Note(s)
+#
+#		- Registry keys are of type [ Microsoft.Win32.RegistryKey ]
+#
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #
-#		Thanks to StackExchange user [ Frode F. ] on forum [ https://stackoverflow.com/questions/27645850 ]
+#		docs.microsoft.com  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey
 #
-#		Thanks to StackExchange user [ Keltari ] on forum [ https://superuser.com/questions/362063 ]
+#		stackoverflow.com  |  https://stackoverflow.com/questions/27645850  |  Thanks to StackExchange user [ Frode F. ]
 #
+#		superuser.com  |  https://superuser.com/questions/362063  |  Thanks to StackExchange user [ Keltari ]
+#
+# ------------------------------------------------------------

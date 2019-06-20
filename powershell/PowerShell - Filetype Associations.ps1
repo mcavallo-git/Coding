@@ -28,20 +28,16 @@ $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\Current
 $i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 | Foreach-Object {
 	$i++; If ($i -gt 3) {	Break; } <# $_ | Format-List; #>
+	$Each_Name = ($_.Name);
+	$Each_Type = ($_.GetType());
 
-	$OpenCommandString = $_.OpenWithProgids;
 	Write-Host "";
-	Write-Host "------------------------------------------------------------";
-	Write-Host -NoNewLine "`n=== `$i: "; $i;
-	Write-Host -NoNewLine "`n=== `$_: "; $_;
-	Write-Host -NoNewLine "`n=== `$_.GetType: "; $_.GetType;
-	Write-Host -NoNewLine "`n=== `$_.Handle: "; $_.Handle;
-	Write-Host -NoNewLine "`n=== `$_.Name: "; $_.Name;
-	Write-Host -NoNewLine "`n=== `$_.SubKeyCount: "; $_.SubKeyCount;
-	Write-Host -NoNewLine "`n=== `$_.ValueCount: "; $_.ValueCount;
-	Write-Host -NoNewLine "`n=== `$_.View: "; $_.View;
-	Write-Host -NoNewLine "`n=== `$OpenCommandString: "; $OpenCommandString;
-	Write-Host "------------------------------------------------------------";
+	Write-Host "`n------------------------------------------------------------";
+	Write-Host (($Each_Name)+(" (")+($Each_Type)+(")"));
+	Write-Host -NoNewLine (("SubKeyCount:")+($_.SubKeyCount)+()+(", ValueCount:")+($_.ValueCount));
+	Write-Host -NoNewLine "=== `$_.OpenWithProgids.GetType(): "; $_.OpenWithProgids;
+	Write-Host -NoNewLine "=== `$_.OpenWithProgids: "; $_.OpenWithProgids;
+	Write-Host "`n------------------------------------------------------------";
 	Write-Host "";
 }
 
@@ -57,8 +53,6 @@ $i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 # };
 # $ExtensionAssociations;
 
-
-# Note: Registry keys have type "Microsoft.Win32.RegistryKey"
 
 # Write-Host -NoNewLine "`n`nPress any key to exit...";
 # $KeyPressExit = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

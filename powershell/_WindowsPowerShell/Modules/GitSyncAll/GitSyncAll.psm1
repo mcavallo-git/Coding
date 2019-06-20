@@ -1,8 +1,6 @@
 #
-#	Example Call:
-#
-#		GitSyncAll -Directory "$HOME/git"
-#
+#	GitSyncAll
+#		Performs batch-actions on every sub-git-directories found within a given directory
 #
 function GitSyncAll {
 	#
@@ -123,20 +121,23 @@ function GitSyncAll {
 
 			}
 		}
-		Write-Host "";
+	
+		Write-Host "`n`n  All Repositories ${Action}ed" -ForegroundColor "Green";
 
 	} Else {
 		Write-Host "No git repositories found in: `"${Directory}`"`n" -ForegroundColor "Magenta";
 	}
 
-	Write-Host "`n`n  All Repositories Synced" -ForegroundColor "Green";
-	
-	Write-Host -NoNewLine "`n`n  Press the 'Escape' key to exit...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	Write-Host -NoNewLine "`n`n  Press any key to close this window`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-	While ($KeyPress.VirtualKeyCode -ne 27) {
-		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-	}
 
+	#
+	# Write-Host -NoNewLine "`n`n  Press 'Escape' to close this window`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+	# While ($KeyPress.VirtualKeyCode -ne 27) {
+	# 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+	# }
+	#
 	# Write-Host -NoNewLine "  Closing in ";
 	# $SecondsTilAutoExit = 30;
 	# While ($SecondsTilAutoExit -gt 0) {
@@ -150,9 +151,10 @@ function GitSyncAll {
 	# 	}
 	# 	$SecondsTilAutoExit--;
 	# }
-
+	#
+	
+	Return;
 }
-
 Export-ModuleMember -Function "GitSyncAll";
 
 #

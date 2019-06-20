@@ -10,30 +10,39 @@
 $UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
 
 # Get some info regarding current environment
-$CMD="ASSOC";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # ASSOC --> .ext=fileType
-$CMD="FTYPE";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # FTYPE --> fileType=openCommandString
-$CMD="WHOAMI"; $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} /ALL > ${OUT} & ${OUT}";
+$LogSettingsToDesktop = $False;
+If ($LogSettingsToDesktop -Ne $False) {
+	$CMD="ASSOC";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # ASSOC --> .ext=fileType
+	$CMD="FTYPE";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # FTYPE --> fileType=openCommandString
+	$CMD="WHOAMI"; $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} /ALL > ${OUT} & ${OUT}";
+}
 
+$Registry_StartupApps="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run";
+$Registry_UserSidList="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList";
 
 $Registry_FileExtensions_A="HKEY_CLASSES_ROOT";
 $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts";
-$Registry_StartupApps="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run";
-$Registry_UserSidList="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList";
+
 
 
 $i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 | Foreach-Object {
 	$i++; If ($i -gt 3) {	Break; } <# $_ | Format-List; #>
 
-	Write-Host "`n`n------------------------------------------------------------";
-	Write-Host -NoNewLine "`$i: "; $i;
-	Write-Host -NoNewLine "`$_: "; $_;
-	Write-Host -NoNewLine "`$_.GetType: "; $_.GetType;
-	Write-Host -NoNewLine "`$_.Handle: "; $_.Handle;
-	Write-Host -NoNewLine "`$_.Name: "; $_.Name;
-	Write-Host -NoNewLine "`$_.SubKeyCount: "; $_.SubKeyCount;
-	Write-Host -NoNewLine "`$_.ValueCount: "; $_.ValueCount;
-	Write-Host -NoNewLine "`$_.View: "; $_.View;
+	$OpenCommandString = $_.OpenWithProgids;
+	Write-Host "";
+	Write-Host "------------------------------------------------------------";
+	Write-Host -NoNewLine "`n=== `$i: "; $i;
+	Write-Host -NoNewLine "`n=== `$_: "; $_;
+	Write-Host -NoNewLine "`n=== `$_.GetType: "; $_.GetType;
+	Write-Host -NoNewLine "`n=== `$_.Handle: "; $_.Handle;
+	Write-Host -NoNewLine "`n=== `$_.Name: "; $_.Name;
+	Write-Host -NoNewLine "`n=== `$_.SubKeyCount: "; $_.SubKeyCount;
+	Write-Host -NoNewLine "`n=== `$_.ValueCount: "; $_.ValueCount;
+	Write-Host -NoNewLine "`n=== `$_.View: "; $_.View;
+	Write-Host -NoNewLine "`n=== `$OpenCommandString: "; $OpenCommandString;
+	Write-Host "------------------------------------------------------------";
+	Write-Host "";
 }
 
 

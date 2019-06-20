@@ -34,7 +34,7 @@ $i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 	Write-Host "";
 	Write-Host "`n------------------------------------------------------------";
 	Write-Host (($Each_Name)+(" (")+($Each_Type)+(")"));
-	Write-Host -NoNewLine (("SubKeyCount:")+($_.SubKeyCount)+()+(", ValueCount:")+($_.ValueCount));
+	Write-Host -NoNewLine (("SubKeyCount:")+($_.SubKeyCount)+(", ")+("ValueCount:")+($_.ValueCount));
 	Write-Host -NoNewLine "=== `$_.OpenWithProgids.GetType(): "; $_.OpenWithProgids;
 	Write-Host -NoNewLine "=== `$_.OpenWithProgids: "; $_.OpenWithProgids;
 	Write-Host "`n------------------------------------------------------------";

@@ -35,7 +35,7 @@ function NET-Framework-Check {
 		Write-Host "`n";
 		Write-Host "  Microsoft .NET Framework";
 		Write-Host "`n";
-		Write-Host "  Checking compatibility...";
+		Write-Host "  Checking compatibility..." -ForegroundColor ;
 		Write-Host "`n";
 		Write-Host " |---------------|---------------|---------------|  ";
 		Write-Host " | Release       | Version       | Compatibility |  ";
@@ -43,15 +43,15 @@ function NET-Framework-Check {
 		$VersionMap.Keys | Sort-Object | ForEach-Object {
 			$Release = $_;
 			$Version = $VersionMap.$Release;
-			$Installed = (&{If($CurrentRelease -ge $Release) { "Compatible" } Else { "Incompatible" }});
-			Write-Host (`
-				(" | ") + `
-				(([String]($Release)).PadRight(("Compatibility".Length)," ")) + `
-				(" | ") + `
-				(([String]($Version)).PadRight(("Compatibility".Length)," ")) + `
-				(" | ") + `
-				(([String]($Installed)).PadRight(("Compatibility".Length)," ")) + `
-				(" | ") `
+			$Compatible = (&{If($CurrentRelease -ge $Release) { $True } Else { $False }});
+			$ForegroundColor = (&{If($Compatible -eq "Compatible") { "Green" } Else { "Yellow" }});
+			Write-Host -NoNewLine ((" | "));
+			Write-Host -NoNewLine (([String]($Release)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
+			Write-Host -NoNewLine ((" | "));
+			Write-Host -NoNewLine (([String]($Version)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
+			Write-Host -NoNewLine ((" | "));
+			Write-Host -NoNewLine (([String]($Compatible)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
+			Write-Host -NoNewLine ((" | `n"));
 			);
 		}
 		Write-Host " |---------------|---------------|---------------|  ";

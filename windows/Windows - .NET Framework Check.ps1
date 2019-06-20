@@ -17,8 +17,11 @@ $VersionMap[528040] = '4.8.0';
 $i=0;
 
 $OutputRows = @();
-# $OutputRows[$i++] = "";
-# $OutputRows[$i++] = " .NET Framework versions ";
+$OutputRows[$i++] = "";
+$OutputRows[$i++] = " .NET Framework versions ";
+Write-Host "`n";
+Write-Host "  Installation Status: Microsoft .NET Framework";
+Write-Host "`n";
 Write-Host "  |-----------|-----------|--------------|  ";
 Write-Host "  |  Release  |  Version  |  Installed?  |  ";
 Write-Host "  |-----------|-----------|--------------|  ";
@@ -44,6 +47,7 @@ $VersionMap.Keys | Sort-Object | ForEach-Object {
 	);
 }
 Write-Host "  |-----------|-----------|--------------|  ";
+Write-Host "`n";
 
 # $OutputRows[$i++] = "";
 

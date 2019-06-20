@@ -261,7 +261,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
 			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Importing Module (caching onto RAM): ") + ($EachModule.Name)); }
 			
-			Import-Module ($StartupModuleFile);
+			Import-Module ($StartupModuleFile) -Verbose;
 
 			$import_exit_code = If($?){0}Else{1};
 			

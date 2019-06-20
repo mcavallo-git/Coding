@@ -39,4 +39,4 @@ function ManualGenerator {
 Export-ModuleMember -Function "ManualGenerator";
 
 
-# MCavallo, 2019-06-20_15-05-42
+# MCavallo, 2019-06-20_15-27-55

@@ -8,9 +8,15 @@
 
 
 # Get User-SID (Security Identifier) for current user
-$UserSid = (cmd /c "FOR /f `"tokens=2`" %A IN ('WHOAMI /USER /FO TABLE /NH') DO @echo %A");
-$UserSid;
+$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
+Write-Host $UserSid;
 
+#
+# Note: For CMD, to get the user's SID, run:
+#		FOR /f "tokens=2" %A IN ('WHOAMI /USER /FO TABLE /NH') DO @echo %A
+#
 
-# Get all local (non-domain) user SIDs
+#
+# Note: Get all local (non-domain) user SIDs
 #		wmic useraccount get * /format:list
+#

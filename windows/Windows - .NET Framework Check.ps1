@@ -1,33 +1,56 @@
 # Query the registry to check for installed versions of .NET Framework (4.5 and higher)
 
-$final_output = @{}; $i=0;
+$Registry_NET_Frameworks_v4 = "HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full";
 
-$hashTable = @{};
-$hashTable[378389] = '4.5';
-$hashTable[378675] = '4.5.1';
-$hashTable[379893] = '4.5.2';
-$hashTable[393295] = '4.6';
-$hashTable[394254] = '4.6.1';
-$hashTable[394802] = '4.6.2';
-$hashTable[460798] = '4.7';
-$hashTable[461308] = '4.7.1';
-$hashTable[461808] = '4.7.2';
+$VersionMap = @{};
+$VersionMap[378389] = '4.5.0';
+$VersionMap[378675] = '4.5.1';
+$VersionMap[379893] = '4.5.2';
+$VersionMap[393295] = '4.6.0';
+$VersionMap[394254] = '4.6.1';
+$VersionMap[394802] = '4.6.2';
+$VersionMap[460798] = '4.7.0';
+$VersionMap[461308] = '4.7.1';
+$VersionMap[461808] = '4.7.2';
+$VersionMap[528040] = '4.8.0';
 
-$final_output[$i++] = "";
-$final_output[$i++] = " Installed?  |  .NET Framework";
-$final_output[$i++] = "- - - - - - - - - - - - - - - - - -";
-foreach($key in $hashTable.Keys | sort) {
-	$is_compatible = Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\' | Get-ItemPropertyValue -Name Release | Foreach-Object { $_ -ge $key };
-	$isOn = (&{If($is_compatible) {"True "} Else {"False"}});
-	$final_output[$i++] = "      $isOn  |  $(${hashTable}[${key}])";
+$i=0;
+
+$OutputRows = @();
+# $OutputRows[$i++] = "";
+# $OutputRows[$i++] = " .NET Framework versions ";
+Write-Host "  |-----------|-----------|--------------|  ";
+Write-Host "  |  Release  |  Version  |  Installed?  |  ";
+Write-Host "  |-----------|-----------|--------------|  ";
+$VersionMap.Keys | Sort-Object | ForEach-Object {
+	$Release = $_;
+	$Version = $VersionMap.$Release;
+	$RegistryInstalledVal = Get-ChildItem "Registry::${Registry_NET_Frameworks_v4}" | Get-ItemPropertyValue -Name "Release" | ForEach-Object { $_ -ge $Release };
+	$Installed = (&{If($RegistryInstalledVal) { $True } Else { $False }});
+	# $Version = $VersionMap[$Release];
+	$OutputRows += @{
+		Release = $Release;
+		Version = $Version;
+		Installed = $Installed;
+	};
+	Write-Host (`
+		("  |  ") + `
+		(([String]($Release)).PadLeft(("Release".Length)," ")) + `
+		("  |  ") + `
+		(([String]($Version)).PadLeft(("Version".Length)," ")) + `
+		("  |  ") + `
+		(([String]($Installed)).PadLeft(("Installed?".Length)," ")) + `
+		("  |  ") `
+	);
 }
-$final_output[$i++] = "";
+Write-Host "  |-----------|-----------|--------------|  ";
 
-foreach($key in $($final_output.Keys | sort)) {
-	Write-Host "$(${final_output}[${key}])";
-}
+# $OutputRows[$i++] = "";
 
-Start-Sleep 60;
+# ForEach($RowIndex In $($OutputRows.Keys | Sort-Object)) {
+# 	$OutputRows[$RowIndex];
+# }
+
 
 # Cited-Name: "How to: Determine which .NET Framework versions are installed"
 # Cited-Host: docs.microsoft.com

@@ -1,8 +1,8 @@
 #
-#	PowerShell - NET-Framework-Check
+#	PowerShell - NET_Framework_Check
 #		Query the registry to check for installed versions of .NET Framework v4 (4.5 and higher)
 #
-function NET-Framework-Check {
+function NET_Framework_Check {
 	Param(
 
 		[String]$MainVersion = 4,
@@ -59,7 +59,7 @@ function NET-Framework-Check {
 
 	Return;
 }
-Export-ModuleMember -Function "NET-Framework-Check";
+Export-ModuleMember -Function "NET_Framework_Check";
 
 # ------------------------------------------------------------
 #

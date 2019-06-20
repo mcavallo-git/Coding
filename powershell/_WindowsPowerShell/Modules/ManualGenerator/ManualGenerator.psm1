@@ -29,7 +29,9 @@ function ManualGenerator {
 		If(Get-Command "${Compiler}" -ErrorAction "SilentlyContinue") {
 			$Manuals.$Compiler | ForEach-Object {
 				$Command = $_;
-				cmd /C "${Command} /? > `"${OutputDirectory}\${Command}.${Compiler}.man`"";
+				If ($Compiler -Eq "cmd") {
+					cmd /C "${Command} /? > `"${OutputDirectory}\${Command}.${Compiler}.man`"";
+				}
 			}
 		}
 	}

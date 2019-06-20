@@ -52,7 +52,6 @@ function NET-Framework-Check {
 			Write-Host -NoNewLine ((" | "));
 			Write-Host -NoNewLine (([String]($Compatible)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
 			Write-Host -NoNewLine ((" | `n"));
-			);
 		}
 		Write-Host " |---------------|---------------|---------------|  ";
 		Write-Host "`n";

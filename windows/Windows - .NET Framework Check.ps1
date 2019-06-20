@@ -14,47 +14,33 @@ $VersionMap[461308] = '4.7.1';
 $VersionMap[461808] = '4.7.2';
 $VersionMap[528040] = '4.8.0';
 
+$CurrentRelease = Get-ChildItem "Registry::${Registry_NET_Frameworks_v4}" | Get-ItemPropertyValue -Name "Release";
+$CurrentVersion = Get-ChildItem "Registry::${Registry_NET_Frameworks_v4}" | Get-ItemPropertyValue -Name "Version";
+
 $i=0;
 
-$OutputRows = @();
-$OutputRows[$i++] = "";
-$OutputRows[$i++] = " .NET Framework versions ";
 Write-Host "`n";
-Write-Host "  Installation Status: Microsoft .NET Framework";
+Write-Host "  Compatibility Status: Microsoft .NET Framework";
 Write-Host "`n";
-Write-Host "  |-----------|-----------|--------------|  ";
-Write-Host "  |  Release  |  Version  |  Installed?  |  ";
-Write-Host "  |-----------|-----------|--------------|  ";
+Write-Host " |---------------|---------------|---------------|  ";
+Write-Host " | Release       | Version       | Compatibility |  ";
+Write-Host " |---------------|---------------|---------------|  ";
 $VersionMap.Keys | Sort-Object | ForEach-Object {
 	$Release = $_;
 	$Version = $VersionMap.$Release;
-	$RegistryInstalledVal = Get-ChildItem "Registry::${Registry_NET_Frameworks_v4}" | Get-ItemPropertyValue -Name "Release" | ForEach-Object { $_ -ge $Release };
-	$Installed = (&{If($RegistryInstalledVal) { $True } Else { $False }});
-	# $Version = $VersionMap[$Release];
-	$OutputRows += @{
-		Release = $Release;
-		Version = $Version;
-		Installed = $Installed;
-	};
+	$Installed = (&{If($CurrentRelease -ge $Release) { "Compatible" } Else { "Incompatible" }});
 	Write-Host (`
-		("  |  ") + `
-		(([String]($Release)).PadLeft(("Release".Length)," ")) + `
-		("  |  ") + `
-		(([String]($Version)).PadLeft(("Version".Length)," ")) + `
-		("  |  ") + `
-		(([String]($Installed)).PadLeft(("Installed?".Length)," ")) + `
-		("  |  ") `
+		(" | ") + `
+		(([String]($Release)).PadRight(("Compatibility".Length)," ")) + `
+		(" | ") + `
+		(([String]($Version)).PadRight(("Compatibility".Length)," ")) + `
+		(" | ") + `
+		(([String]($Installed)).PadRight(("Compatibility".Length)," ")) + `
+		(" | ") `
 	);
 }
-Write-Host "  |-----------|-----------|--------------|  ";
+Write-Host " |---------------|---------------|---------------|  ";
 Write-Host "`n";
-
-# $OutputRows[$i++] = "";
-
-# ForEach($RowIndex In $($OutputRows.Keys | Sort-Object)) {
-# 	$OutputRows[$RowIndex];
-# }
-
 
 # Cited-Name: "How to: Determine which .NET Framework versions are installed"
 # Cited-Host: docs.microsoft.com

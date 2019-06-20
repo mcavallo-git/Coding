@@ -25,24 +25,34 @@ $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\Current
 
 
 
-$i=0; Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
-| Foreach-Object {
-	$i++;
-	If ($i -gt 3) {
-		Break;
-	} <# $_ | Format-List; #>
 
-	Write-Host "";
-	Write-Host "`n------------------------------------------------------------";
-	Write-Host ($_.GetType());
-	Write-Host ($_.Name);
-	Write-Host -NoNewLine (("SubKeyCount:")+($_.SubKeyCount)+(", ")+("ValueCount:")+($_.ValueCount));
-	Write-Host -NoNewLine "=== `$_.OpenWithProgids.GetType(): "; $_.OpenWithProgids;
-	Write-Host -NoNewLine "=== `$_.OpenWithProgids: "; $_.OpenWithProgids;
+Write-Host "`n`n";
+
+$max_keys = 5; 
+$i=0;
+Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
+| ForEach-Object {
+
+	$i++;
+
+	If ($i -le $max_keys) {
+
+		Write-Host "`n------------------------------------------------------------";
+		Write-Host ($_.GetType());
+		Write-Host (("Registry Path:  ")+($_.Name));
+		Write-Host (("SubKeyCount:")+($_.SubKeyCount)+(", ")+("ValueCount:")+($_.ValueCount));
+		Write-Host "`$_ Properties: "; $_ | Format-List -Property *;
+		If ($_.OpenWithProgids -ne $Null) {
+			Write-Host "`$_.OpenWithProgids: "; $_.OpenWithProgids;
+		}
+
+	}
 }
 
 Write-Host "`n------------------------------------------------------------";
-Write-Host "";
+
+Write-Host "`n`n";
+
 
 # $FileExtension = ".ahk";
 # $ExtensionProperties = (Get-ItemProperty (("Registry::HKEY_CLASSES_ROOT\")+(${FileExtension})));

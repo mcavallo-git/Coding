@@ -38,10 +38,11 @@ Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 	If ($i -le $max_keys) {
 
 		Write-Host "`n------------------------------------------------------------";
-		Write-Host ($_.GetType());
-		Write-Host (("Registry Path:  ")+($_.Name));
-		Write-Host (("SubKeyCount:")+($_.SubKeyCount)+(", ")+("ValueCount:")+($_.ValueCount));
-		Write-Host "`$_ Properties: "; $_ | Format-List -Property *;
+		Write-Host (("Registry Key:  ")+($_.Name));
+		Write-Host (("ValueCount:    ")+($_.ValueCount));
+		Write-Host (("SubKeyCount:   ")+($_.SubKeyCount));
+		Write-Host (("GetType():     ")+($_.GetType()));
+		Write-Host -NoNewLine ("Get-TypeData:  ");  Get-TypeData -TypeName ([String]$_.GetType());
 		If ($_.OpenWithProgids -ne $Null) {
 			Write-Host "`$_.OpenWithProgids: "; $_.OpenWithProgids;
 		}
@@ -49,20 +50,12 @@ Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 	}
 }
 
-Write-Host "`n------------------------------------------------------------";
+
 
 Write-Host "`n`n";
 
-
-# $FileExtension = ".ahk";
-# $ExtensionProperties = (Get-ItemProperty (("Registry::HKEY_CLASSES_ROOT\")+(${FileExtension})));
-# $ExtensionAssociations = @{
-# 	Extension = $ExtensionProperties.PSChildName;
-# 	ContentType = $ExtensionProperties.("Content Type");
-# 	PerceivedType = $ExtensionProperties.PerceivedType;
-# 	FileType = $ExtensionProperties.("(default)");
-# };
-# $ExtensionAssociations;
+Type.GetType("System.Type").GetProperties();
+Type.GetType("Microsoft.Win32.RegistryKey").GetProperties();
 
 
 # Write-Host -NoNewLine "`n`nPress any key to exit...";
@@ -74,7 +67,7 @@ Write-Host "`n`n";
 #
 # Note(s)
 #
-#		- Registry keys are of type [ Microsoft.Win32.RegistryKey ]
+#		- Registry Key Class "Microsoft.Win32.RegistryKey"
 #
 # ------------------------------------------------------------
 #

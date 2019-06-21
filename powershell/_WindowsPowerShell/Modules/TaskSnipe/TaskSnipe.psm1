@@ -27,7 +27,6 @@ function TaskSnipe {
 
 		[Switch]$SkipConfirm
 
-
 	)
 	
 	$SnipeList = @();
@@ -159,7 +158,7 @@ function TaskSnipe {
 				$SnipeList | ForEach-Object {
 					$EachPID = $_.PID;
 					$FI_PID  = " /FI `"PID eq ${EachPID}`"";
-					CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
+					PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
 				}
 			} Else {
 				#

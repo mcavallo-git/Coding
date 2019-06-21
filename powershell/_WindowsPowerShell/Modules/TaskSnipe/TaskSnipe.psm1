@@ -183,12 +183,14 @@ function TaskSnipe {
 						#
 						# KILL TASKS BY-PID
 						#
-						Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
-						If ($last_exit_code -ne 0) {
-							### FALLBACK OPTION:
-							$FI_PID  = " /FI `"PID eq $($_.PID)`"";
-							CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
-							# PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+						If (Get-Process -Id ($_.PID)) {
+							Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
+							If ($last_exit_code -ne 0) {
+								### FALLBACK OPTION:
+								$FI_PID  = " /FI `"PID eq $($_.PID)`"";
+								CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
+								# PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+							}
 						}
 					}
 				}

@@ -219,8 +219,7 @@ function TaskSnipe {
 	}
 
 
-
-
+	Write-Host "`n`n";
 	Return;
 }
 Export-ModuleMember -Function "TaskSnipe";

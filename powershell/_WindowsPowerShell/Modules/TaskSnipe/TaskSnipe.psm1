@@ -79,25 +79,21 @@ function TaskSnipe {
 						$NewSnipe.SESSIONNAME = $Proc_Needle.Groups[3].Value;
 						$NewSnipe.SESSION     = $Proc_Needle.Groups[4].Value;
 						$NewSnipe.MEMUSAGE    = $Proc_Needle.Groups[5].Value;
+						$NewSnipe.ServiceNames = @();
 						# Get Service Info
 						If (($NewSnipe.SESSIONNAME) -Eq ("Services")) {
-							Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'";
-
-							$FI_SVC_IMAGENAME  = ((" /SVC /FI `"IMAGENAME eq ")+($NewSnipe.IMAGENAME)+("`""));
-							(CMD /C "TASKLIST /NH${FI_SVC_IMAGENAME}")  | ForEach-Object {
-								$Svc_Haystack = $_;
-								$SEPR8="[\ \t]+"; $SEPEND="[\ \t]*";
-								$Svc_RegexPattern = "^((?:[a-zA-Z\.]\ ?)+)(?<!\ )${SEPR8}+([0-9]+)${SEPR8}(.+)${SEPEND}$";
-								$Svc_Needle = [Regex]::Match($Svc_Haystack, $Svc_RegexPattern);
-								If ($Proc_Needle.Success -ne $False) {
-									$NewSnipe.SESSIONNAME = $Proc_Needle.Groups[3].Value;
-									Get-Process | Where-Object { ($_.ProcessName) -Eq [IO.Path]::GetFileNameWithoutExtension($NewSnipe.IMAGENAME); }
+							$ServiceList = (Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'");
+							If ($ServiceList -ne $Null) {
+								$ServiceList | Where-Object { $_.State -eq "Running" } | ForEach-Object {
+									$NewSnipe.ServiceNames += $_.Name; 
+									# $_.StartMode; 
+									# $_.State; 
+									# $_.Status; 
 								}
 							}
-						} Else {
-							# Push the new object of values onto the final results array
-							$SnipeList += $NewSnipe;
 						}
+						# Push the new object of values onto the final results array
+						$SnipeList += $NewSnipe;
 					} Else {
 						# Skip - ImageName doesn't also match parameter 'AndAndName'
 					}
@@ -176,21 +172,24 @@ function TaskSnipe {
 				#
 				Write-Host "  Confirmed. Killing associated processes...";
 				$SnipeList | ForEach-Object {
-					$Each_IMAGENAME = $_.IMAGENAME;
-					$Each_SESSIONNAME = $_.SESSIONNAME;
-					$Each_PID = $_.PID;
-					If ($Each_SESSIONNAME -Eq "Services") {
+					If (($_.SESSIONNAME) -Eq "Services") {
 						#
-						# KILL SERVICES BY NAME
+						# STOP SERVICES BY NAME
 						#
-						Stop-Service -Name "${Each_IMAGENAME}";
+						$_.ServiceNames | ForEach-Object {
+							Stop-Service -Name ($_) -Force -NoWait;
+						}
 					} Else {
 						#
 						# KILL TASKS BY-PID
 						#
-						$FI_PID  = " /FI `"PID eq ${Each_PID}`"";
-						CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
-						# PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+						Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
+						If ($last_exit_code -ne 0) {
+							### FALLBACK OPTION:
+							$FI_PID  = " /FI `"PID eq $($_.PID)`"";
+							CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
+							# PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+						}
 					}
 				}
 			} Else {

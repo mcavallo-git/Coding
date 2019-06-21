@@ -124,7 +124,7 @@ function TaskSnipe {
 			Write-Host -NoNewLine ("`n`n");
 			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";
-			Write-Host -NoNewLine ("`" key to confirm:  ") -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("`" key to if you are sure:  ") -ForegroundColor "Yellow";
 			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
 			$FirstConfirm = (($UserKeyPress.Character) -eq ($FirstConfKey));
 		}
@@ -142,10 +142,11 @@ function TaskSnipe {
 				# Second Confirmation step "Really really sure?" 
 				#
 				$SecondConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfKey,"")));
-				Write-Host -NoNewLine ("Really really sure?") -BackgroundColor Black -ForegroundColor Yellow;
-				Write-Host -NoNewLine ("  Press the `"") -ForegroundColor Yellow;
-				Write-Host -NoNewLine ($SecondConfKey) -ForegroundColor Green;
-				Write-Host -NoNewLine ("`" key to lock-in your decision and send the kill command(s):  ") -ForegroundColor Yellow;
+				Write-Host -NoNewLine ("Really really sure?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+				Write-Host -NoNewLine ("`n`n");
+				Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow";
+				Write-Host -NoNewLine ($SecondConfKey) -ForegroundColor "Green";
+				Write-Host -NoNewLine ("`" key to confirm and kill:  ") -ForegroundColor "Yellow";
 				$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 				$SecondConfirm = (($UserKeyPress.Character) -eq ($SecondConfKey));
 			}

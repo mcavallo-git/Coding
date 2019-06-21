@@ -119,6 +119,7 @@ function TaskSnipe {
 			#
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
+			Write-Host -NoNewLine ("`n");
 			Write-Host -NoNewLine ("Are you sure you want to kill these PID(s)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
 			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow;"

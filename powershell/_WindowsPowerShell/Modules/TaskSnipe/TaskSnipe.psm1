@@ -16,7 +16,7 @@ function TaskSnipe {
 	
 	$ProcessSnipeList = @();
 
-	$TASKLIST_FILTERS = "";
+	$TASKLIST_FILTERS = " /NH";
 
 	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn')) {
 		$TASKLIST_FILTERS += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";

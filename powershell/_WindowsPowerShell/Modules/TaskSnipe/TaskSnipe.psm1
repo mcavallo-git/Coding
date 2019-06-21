@@ -156,9 +156,15 @@ function TaskSnipe {
 				# !!! CONFIRMED - KILL TASKS BY-PID
 				Write-Host "  Confirmed. Killing associated processes...";
 				$SnipeList | ForEach-Object {
+					$Each_IMAGENAME = $_.IMAGENAME;
+					$Each_SESSIONNAME = $_.SESSIONNAME;
 					$EachPID = $_.PID;
-					$FI_PID  = " /FI `"PID eq ${EachPID}`"";
-					PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+					If ($Each_SESSIONNAME -Eq "Services") {
+						Stop-Service -Name "${Each_IMAGENAME}";
+					} Else {
+						$FI_PID  = " /FI `"PID eq ${EachPID}`"";
+						PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+					}
 				}
 			} Else {
 				#

@@ -27,10 +27,7 @@ function TaskSnipe {
 
 	)
 	
-	$SnipeList_PIDs = @();
-
-	# Remove headers from parsed results table
-	$TASKLIST_FILTERS = " /NH";
+	$SnipeList = @();
 
 	# Case Insensitive searching (default mode)
 	If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {
@@ -44,40 +41,42 @@ function TaskSnipe {
 	}
 
 	# Process must be owned by runtime (current) user
+	$FI_USERNAME = "";
 	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn') -Eq $True) {
-		$TASKLIST_FILTERS += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
+		$FI_USERNAME = " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
 	}
 
 	# Image Name must be Exact
+	$FI_IMAGENAME = "";
 	If ($PSBoundParameters.ContainsKey('MatchWholeName') -Eq $True) {
-		$TASKLIST_FILTERS += " /FI `"IMAGENAME eq ${Name}`"";
+		$FI_IMAGENAME += " /FI `"IMAGENAME eq ${Name}`"";
 	}
 
-	# TaskList | Select-Object -Unique | Sort-Object
-	# (CMD /C "TASKLIST${TASKLIST_FILTERS}") | Select-Object -Unique | ForEach-Object {
-	(CMD /C "TASKLIST${TASKLIST_FILTERS}") | ForEach-Object {
-		# $_.Split(" ")[0];
-		$Haystack = $_; # "Haystack", aka the string to parse (may have newlines aplenty)
-		$RegexPattern = '^((?:[a-zA-Z\.]\ ?)+)(?<!\ )[\ \t]+([0-9]+)[\ \t]+([a-zA-Z]+)[\ \t]+([0-9]+)[\ \t]+([0-9\,]+\ [a-zA-Z])[\ \t]*$'; # Regex pattern which defines the "Needle" to match while parsing the through the "Haystack"
-		$Needle = [Regex]::Match($Haystack, $RegexPattern); # Parse through the "Haystack", looking for the "Needle"
-		# Write-Host "`$Needle = [Regex]::Match(`"${Haystack}`", `"${RegexPattern}`");";
-		# Write-Host (("`$Needle.Success = ")+($Needle.Success));
+	# Parse the list of returned, matching tasks
+	(CMD /C "TASKLIST /NH${FI_USERNAME}${FI_IMAGENAME}") <# | Select-Object -Unique #> | ForEach-Object {
+		$Haystack = $_;
+		$RegexPattern = '^((?:[a-zA-Z\.]\ ?)+)(?<!\ )[\ \t]+([0-9]+)[\ \t]+([a-zA-Z]+)[\ \t]+([0-9]+)[\ \t]+([0-9\,]+\ [a-zA-Z])[\ \t]*$';
+		$Needle = [Regex]::Match($Haystack, $RegexPattern);
+		# Perform regular expression (Regex) capture-group matching to neatly recombine each line of space-delimited output into a workable form
 		If ($Needle.Success -ne $False) {
 			$Each_ImageName = $Needle.Groups[1].Value;
+			# Case sensitive check
 			If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {
 				$Each_ImageName = $Each_ImageName.ToLower();
 			}
-
+			# Final checks for name-matching
 			If ($Each_ImageName.Contains($Name) -Eq $True) {
 				If (($PSBoundParameters.ContainsKey('AndName') -Eq $False) -Or ($Each_ImageName.Contains($AndName) -Eq $True)) {
 					If (($PSBoundParameters.ContainsKey('AndAndName') -Eq $False) -Or ($Each_ImageName.Contains($AndAndName) -Eq $True)) {
 						# Success - This item is determined to match all user-defined criteria
-						$Each_ImageName;
-						$Each_PID = $Needle.Groups[2].Value; $Each_PID;
-						$Each_SessionName = $Needle.Groups[3].Value; $Each_SessionName;
-						$Each_SessionNumber = $Needle.Groups[4].Value; $Each_SessionNumber;
-						$Each_MemoryUsage = $Needle.Groups[5].Value; $Each_MemoryUsage;
-						Write-Host "------------------------------------------------------------`n`n";
+						$NewSnipe = @{};
+						$NewSnipe.IMAGENAME   += $Needle.Groups[1].Value;
+						$NewSnipe.PID         += $Needle.Groups[2].Value;
+						$NewSnipe.SESSIONNAME += $Needle.Groups[3].Value;
+						$NewSnipe.SESSION     += $Needle.Groups[4].Value;
+						$NewSnipe.MEMUSAGE    += $Needle.Groups[5].Value;
+						# Push the new object of values onto the final results array
+						$SnipeList += $NewSnipe;
 					} Else {
 						# Skip - ImageName doesn't also match parameter 'AndAndName'
 					}
@@ -88,9 +87,17 @@ function TaskSnipe {
 		}
 	}
 
+	# Pipe the results through the snipe-handler
+	If ($SnipeList.Count -ne 0) {
+		# At least one matching process was found
+		$SnipeList | Format-List;
+		# CMD /C "TASKKILL /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
 
 
-	# CMD /C "TASKKILL /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
+	} Else {
+		# No results found
+	}
+
 
 
 

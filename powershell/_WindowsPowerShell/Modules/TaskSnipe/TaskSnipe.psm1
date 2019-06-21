@@ -18,7 +18,7 @@ function TaskSnipe {
 
 	$TASKLIST_FILTERS = "";
 
-	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn') -eq $false) {
+	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn')) {
 		$TASKLIST_FILTERS += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
 	}
 

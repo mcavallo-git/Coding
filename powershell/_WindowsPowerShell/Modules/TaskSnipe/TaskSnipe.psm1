@@ -14,19 +14,18 @@ function TaskSnipe {
 
 	)
 	
-	$Filters = "";
+	$ProcessSnipeList = @();
+
+	$TASKLIST_FILTERS = "";
 
 	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn') -eq $false) {
-		$Filters += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
+		$TASKLIST_FILTERS += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
 	}
 
-	(Cmd /C "TaskList").Count
-	(Cmd /C "TaskList ${Filters}").Count
-	Return;
-		# [Switch]$CurrentUserMustOwn,
 	# TaskList | Select-Object -Unique | Sort-Object
-	TaskList /FI "USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}" | Select-Object -Unique | ForEach-Object {
+	(CMD /C "TASKLIST${TASKLIST_FILTERS}") | Select-Object -Unique | ForEach-Object {
 		$_;
+		
 		# TaskKill /FI "USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}" /FI "IMAGENAME eq %IMAGENAME_TO_KILL%"
 
 	}

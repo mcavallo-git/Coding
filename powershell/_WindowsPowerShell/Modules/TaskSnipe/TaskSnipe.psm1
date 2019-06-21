@@ -93,7 +93,7 @@ function TaskSnipe {
 		# At least one matching process was found
 		$SnipeList | ForEach-Object {
 			$EachPID = $_.PID;
-			$FI_PID += " /FI `"PID eq ${EachPID}`"";
+			$FI_PID  = " /FI `"PID eq ${EachPID}`"";
 			CMD /C "TASKLIST ${FI_PID}";
 
 			# $SnipeList | Format-List;

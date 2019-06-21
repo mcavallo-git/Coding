@@ -6,15 +6,15 @@ function TaskSnipe {
 	Param(
 
 		[Parameter(Mandatory=$True)]
-		[ValidateLength(4,255)]
+		[ValidateLength(2,255)]
 		[String]$Name,
 
 		[Parameter(Mandatory=$False)]
-		[ValidateLength(4,255)]
+		[ValidateLength(2,255)]
 		[String]$AndName,
 
 		[Parameter(Mandatory=$False)]
-		[ValidateLength(4,255)]
+		[ValidateLength(2,255)]
 		[String]$AndAndName,
 
 		[Switch]$CurrentUserMustOwn,

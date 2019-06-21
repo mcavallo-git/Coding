@@ -24,7 +24,7 @@ function TaskSnipe {
 
 	# TaskList | Select-Object -Unique | Sort-Object
 	(CMD /C "TASKLIST${TASKLIST_FILTERS}") | Select-Object -Unique | ForEach-Object {
-		$_;
+		$_.Split(" ")[0];
 		
 		# TaskKill /FI "USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}" /FI "IMAGENAME eq %IMAGENAME_TO_KILL%"
 

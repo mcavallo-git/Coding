@@ -17,7 +17,7 @@ function TaskSnipe {
 
 	)
 	
-	$ProcessSnipeList = @();
+	$SnipeList_PIDs = @();
 
 	$TASKLIST_FILTERS = " /NH";
 
@@ -37,10 +37,11 @@ function TaskSnipe {
 		Write-Host "`$Needle = [Regex]::Match(`"${Haystack}`", `"${RegexPattern}`");";
 		Write-Host (("`$Needle.Success = ")+($Needle.Success));
 		If ($Needle.Success -ne $False) {
-			$Needle.Groups[0].Value;
-			$Needle.Groups[1].Value;
-			# $Needle.Groups[2].Value;
-			# $Needle.Groups[3].Value;
+			$Each_ImageName = $Needle.Groups[1].Value; $Each_ImageName;
+			$Each_PID = $Needle.Groups[2].Value; $Each_PID;
+			$Each_SessionName = $Needle.Groups[3].Value; $Each_SessionName;
+			$Each_SessionNumber = $Needle.Groups[4].Value; $Each_SessionNumber;
+			$Each_MemoryUsage = $Needle.Groups[5].Value; $Each_MemoryUsage;
 		}
 		Write-Host "------------------------------------------------------------`n`n";
 	}

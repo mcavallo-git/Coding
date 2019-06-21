@@ -119,10 +119,11 @@ function TaskSnipe {
 			#
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
-			Write-Host -NoNewLine ("Are you sure you want to kill these PID(s)?`n`n") -BackgroundColor "Black" -ForegroundColor "Yellow";
-			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor Yellow;
-			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor Green;
-			Write-Host -NoNewLine ("`" key to confirm:  ") -ForegroundColor Yellow;
+			Write-Host -NoNewLine ("Are you sure you want to kill these PID(s)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("`n`n");
+			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow;"
+			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";
+			Write-Host -NoNewLine ("`" key to confirm:  ") -ForegroundColor "Yellow";
 			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
 			$FirstConfirm = (($UserKeyPress.Character) -eq ($FirstConfKey));
 		}

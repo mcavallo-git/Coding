@@ -34,6 +34,7 @@ function TaskSnipe {
 		$Haystack = $_; # "Haystack", aka the string to parse (may have newlines aplenty)
 		$RegexPattern = '^((?:[a-zA-Z\.]\ ?)+)(?<!\ )\s+([0-9]+)\s+([a-zA-Z]+)\s+([0-9\,]+\ [a-zA-Z])\s*$'; # Regex pattern which defines the "Needle" to match while parsing the through the "Haystack"
 		$Needle = [Regex]::Match($Haystack, $RegexPattern); # Parse through the "Haystack", looking for the "Needle"
+		Write-Host "`$Needle = [Regex]::Match(`"${Haystack}`", `"${RegexPattern}`");";
 		Write-Host (("`$Needle.Success = ")+($Needle.Success));
 		If ($Needle.Success -ne $False) {
 			$Needle.Groups[0].Value; 

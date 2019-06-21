@@ -25,7 +25,7 @@ function TaskSnipe {
 		$TASKLIST_FILTERS += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
 	}
 	If ($PSBoundParameters.ContainsKey('ExactImageName')) {
-		$TASKLIST_FILTERS += " /FI `"IMAGENAME eq ${SnipeTarget}`"";
+		$TASKLIST_FILTERS += " /FI `"IMAGENAME eq ${Name}`"";
 	}
 
 	# TaskList | Select-Object -Unique | Sort-Object

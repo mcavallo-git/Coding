@@ -33,7 +33,7 @@ function TaskSnipe {
 	$TASKLIST_FILTERS = " /NH";
 
 	# Case Insensitive searching (default mode)
-	If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $True) {
+	If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {
 		$Name = $Name.ToLower();
 		If ($PSBoundParameters.ContainsKey('AndName') -Eq $True) {
 			$AndName = $AndName.ToLower();
@@ -64,6 +64,10 @@ function TaskSnipe {
 		# Write-Host (("`$Needle.Success = ")+($Needle.Success));
 		If ($Needle.Success -ne $False) {
 			$Each_ImageName = $Needle.Groups[1].Value;
+			If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {
+				$Each_ImageName = $Each_ImageName.ToLower();
+			}
+
 			If ($Each_ImageName.Contains($Name) -Eq $True) {
 				If (($PSBoundParameters.ContainsKey('AndName') -Eq $False) -Or ($Each_ImageName.Contains($AndName) -Eq $True)) {
 					If (($PSBoundParameters.ContainsKey('AndAndName') -Eq $False) -Or ($Each_ImageName.Contains($AndAndName) -Eq $True)) {

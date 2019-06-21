@@ -6,6 +6,7 @@ function TaskSnipe {
 	Param(
 
 		[Parameter(Mandatory=$true)]
+		[ValidateLength(4,255)]
 		[String]$SnipeTarget,
 
 		[Switch]$CurrentUserMustOwn,
@@ -19,8 +20,8 @@ function TaskSnipe {
 		$Filters += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
 	}
 
-	(TaskList).Count
-	(TaskList ${Filters}).Count
+	(Cmd /C "TaskList").Count
+	(Cmd /C "TaskList ${Filters}").Count
 	Return;
 		# [Switch]$CurrentUserMustOwn,
 	# TaskList | Select-Object -Unique | Sort-Object

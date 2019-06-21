@@ -153,16 +153,24 @@ function TaskSnipe {
 			# Check Second Confirm
 			#
 			If ($SecondConfirm -Eq $True) {
-				# !!! CONFIRMED - KILL TASKS BY-PID
+				#
+				# !!! CONFIRMED !!!
+				#
 				Write-Host "  Confirmed. Killing associated processes...";
 				$SnipeList | ForEach-Object {
 					$Each_IMAGENAME = $_.IMAGENAME;
 					$Each_SESSIONNAME = $_.SESSIONNAME;
-					$EachPID = $_.PID;
+					$Each_PID = $_.PID;
 					If ($Each_SESSIONNAME -Eq "Services") {
+						#
+						# KILL SERVICES BY NAME
+						#
 						Stop-Service -Name "${Each_IMAGENAME}";
 					} Else {
-						$FI_PID  = " /FI `"PID eq ${EachPID}`"";
+						#
+						# KILL TASKS BY-PID
+						#
+						$FI_PID  = " /FI `"PID eq ${Each_PID}`"";
 						PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
 					}
 				}
@@ -178,9 +186,10 @@ function TaskSnipe {
 			#
 			Write-Host "Bail-Out @ First confirmation - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
 		}
-
 	} Else {
+		#
 		# No results found
+		#
 	}
 
 
@@ -189,3 +198,12 @@ function TaskSnipe {
 	Return;
 }
 Export-ModuleMember -Function "TaskSnipe";
+
+
+
+#
+#	Citation(s)
+#
+#		docs.microsoft.com | https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service
+#
+#

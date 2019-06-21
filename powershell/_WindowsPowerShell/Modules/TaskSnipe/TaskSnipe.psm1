@@ -158,7 +158,6 @@ function TaskSnipe {
 					$FI_PID  = " /FI `"PID eq ${EachPID}`"";
 					# CMD /C "TASKKILL /V ${TASK_FILTERS}${FI_PID}";
 					echo "Killing Task with PID: ${EachPID};"
-					# CMD /C "TASKKILL /V /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
 				}
 			}
 		}

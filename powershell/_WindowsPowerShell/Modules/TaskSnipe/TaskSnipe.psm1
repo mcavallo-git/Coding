@@ -7,7 +7,7 @@ function TaskSnipe {
 
 		[Parameter(Mandatory=$true)]
 		[ValidateLength(4,255)]
-		[String]$SnipeTarget,
+		[String]$Name,
 
 		[Switch]$CurrentUserMustOwn,
 

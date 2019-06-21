@@ -57,12 +57,13 @@ function TaskSnipe {
 	# Parse the list of returned, matching tasks
 	$TASK_FILTERS = "${FI_USERNAME}${FI_IMAGENAME}";
 	(CMD /C "TASKLIST /NH${TASK_FILTERS}") <# | Select-Object -Unique #> | ForEach-Object {
-		$Haystack = $_;
-		$RegexPattern = '^((?:[a-zA-Z\.]\ ?)+)(?<!\ )[\ \t]+([0-9]+)[\ \t]+([a-zA-Z]+)[\ \t]+([0-9]+)[\ \t]+([0-9\,]+\ [a-zA-Z])[\ \t]*$';
-		$Needle = [Regex]::Match($Haystack, $RegexPattern);
+		$Proc_Haystack = $_;
+		$SEPR8="[\ \t]+"; $SEPEND="[\ \t]*";
+		$Proc_RegexPattern = "^((?:[a-zA-Z\.]\ ?)+)(?<!\ )${SEPR8}([0-9]+)${SEPR8}([a-zA-Z]+)${SEPR8}([0-9]+)${SEPR8}([0-9\,]+\ [a-zA-Z])${SEPEND}$";
+		$Proc_Needle = [Regex]::Match($Proc_Haystack, $Proc_RegexPattern);
 		# Perform regular expression (Regex) capture-group matching to neatly recombine each line of space-delimited output into a workable form
-		If ($Needle.Success -ne $False) {
-			$Each_ImageName = $Needle.Groups[1].Value;
+		If ($Proc_Needle.Success -ne $False) {
+			$Each_ImageName = $Proc_Needle.Groups[1].Value;
 			# Case sensitive check
 			If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {
 				$Each_ImageName = $Each_ImageName.ToLower();
@@ -73,13 +74,28 @@ function TaskSnipe {
 					If (($PSBoundParameters.ContainsKey('AndAndName') -Eq $False) -Or ($Each_ImageName.Contains($AndAndName) -Eq $True)) {
 						# Success - This item is determined to match all user-defined criteria
 						$NewSnipe = @{};
-						$NewSnipe.IMAGENAME   += $Needle.Groups[1].Value;
-						$NewSnipe.PID         += $Needle.Groups[2].Value;
-						$NewSnipe.SESSIONNAME += $Needle.Groups[3].Value;
-						$NewSnipe.SESSION     += $Needle.Groups[4].Value;
-						$NewSnipe.MEMUSAGE    += $Needle.Groups[5].Value;
-						# Push the new object of values onto the final results array
-						$SnipeList += $NewSnipe;
+						$NewSnipe.IMAGENAME   += $Proc_Needle.Groups[1].Value;
+						$NewSnipe.PID         += $Proc_Needle.Groups[2].Value;
+						$NewSnipe.SESSIONNAME += $Proc_Needle.Groups[3].Value;
+						$NewSnipe.SESSION     += $Proc_Needle.Groups[4].Value;
+						$NewSnipe.MEMUSAGE    += $Proc_Needle.Groups[5].Value;
+						# Get Service Info
+						If (($NewSnipe.SESSIONNAME) -Eq ("Services")) {
+							$FI_SVC_IMAGENAME  = ((" /SVC /FI `"IMAGENAME eq ")+($NewSnipe.IMAGENAME)+("`""));
+							(CMD /C "TASKLIST /NH${FI_SVC_IMAGENAME}")  | ForEach-Object {
+								$Svc_Haystack = $_;
+								$SEPR8="[\ \t]+"; $SEPEND="[\ \t]*";
+								$Svc_RegexPattern = "^((?:[a-zA-Z\.]\ ?)+)(?<!\ )${SEPR8}+([0-9]+)${SEPR8}(.+)${SEPEND}$";
+								$Svc_Needle = [Regex]::Match($Svc_Haystack, $Svc_RegexPattern);
+								If ($Proc_Needle.Success -ne $False) {
+									$NewSnipe.SESSIONNAME += $Proc_Needle.Groups[3].Value;
+									Get-Process | Where-Object { ($_.ProcessName) -Eq [IO.Path]::GetFileNameWithoutExtension($NewSnipe.IMAGENAME); }
+								}
+							}
+						} Else {
+							# Push the new object of values onto the final results array
+							$SnipeList += $NewSnipe;
+						}
 					} Else {
 						# Skip - ImageName doesn't also match parameter 'AndAndName'
 					}
@@ -171,7 +187,8 @@ function TaskSnipe {
 						# KILL TASKS BY-PID
 						#
 						$FI_PID  = " /FI `"PID eq ${Each_PID}`"";
-						PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+						CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
+						# PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
 					}
 				}
 			} Else {

@@ -37,7 +37,8 @@ function TaskSnipe {
 	}
 
 	# TaskList | Select-Object -Unique | Sort-Object
-	(CMD /C "TASKLIST${TASKLIST_FILTERS}") | Select-Object -Unique | ForEach-Object {
+	# (CMD /C "TASKLIST${TASKLIST_FILTERS}") | Select-Object -Unique | ForEach-Object {
+	(CMD /C "TASKLIST${TASKLIST_FILTERS}") | Select-Object | ForEach-Object {
 		# $_.Split(" ")[0];
 		$Haystack = $_; # "Haystack", aka the string to parse (may have newlines aplenty)
 		$RegexPattern = '^((?:[a-zA-Z\.]\ ?)+)(?<!\ )[\ \t]+([0-9]+)[\ \t]+([a-zA-Z]+)[\ \t]+([0-9]+)[\ \t]+([0-9\,]+\ [a-zA-Z])[\ \t]*$'; # Regex pattern which defines the "Needle" to match while parsing the through the "Haystack"

@@ -172,7 +172,7 @@ function TaskSnipe {
 				#
 				# !!! CONFIRMED !!!
 				#
-				Write-Host "  Confirmed. Killing associated processes...";
+				Write-Host "`n`n  Confirmed.";
 				$SnipeList | ForEach-Object {
 					If (($_.SESSIONNAME) -Eq "Services") {
 						$_.ServiceNames | ForEach-Object {
@@ -180,6 +180,7 @@ function TaskSnipe {
 								#
 								# STOP SERVICES BY NAME
 								#
+								Write-Host "`n`n Stopping Service $($_.Name)...";
 								Stop-Service -Name ($_.Name) -Force -NoWait;
 							}
 						}
@@ -188,6 +189,7 @@ function TaskSnipe {
 							#
 							# KILL TASKS BY PID
 							#
+							Write-Host "`n`n Killing Process $($_.IMAGENAME)...";
 							Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
 							If ($last_exit_code -ne 0) {
 								### FALLBACK OPTION:

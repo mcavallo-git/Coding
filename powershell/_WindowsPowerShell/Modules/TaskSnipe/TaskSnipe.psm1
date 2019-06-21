@@ -17,9 +17,11 @@ function TaskSnipe {
 		[ValidateLength(2,255)]
 		[String]$AndAndName,
 
+		[Switch]$CaseSensitive,
+
 		[Switch]$CurrentUserMustOwn,
 
-		[Switch]$ExactImageName,
+		[Switch]$MatchWholeName,
 
 		[Switch]$Quiet
 
@@ -27,12 +29,27 @@ function TaskSnipe {
 	
 	$SnipeList_PIDs = @();
 
+	# Remove headers from parsed results table
 	$TASKLIST_FILTERS = " /NH";
 
-	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn')) {
+	# Case Insensitive searching (default mode)
+	If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $True) {
+		$Name = $Name.ToLower();
+		If ($PSBoundParameters.ContainsKey('AndName') -Eq $True) {
+			$AndName = $AndName.ToLower();
+		}
+		If ($PSBoundParameters.ContainsKey('AndAndName') -Eq $True) {
+			$AndAndName = $AndAndName.ToLower();
+		}
+	}
+
+	# Process must be owned by runtime (current) user
+	If ($PSBoundParameters.ContainsKey('CurrentUserMustOwn') -Eq $True) {
 		$TASKLIST_FILTERS += " /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`"";
 	}
-	If ($PSBoundParameters.ContainsKey('ExactImageName')) {
+
+	# Image Name must be Exact
+	If ($PSBoundParameters.ContainsKey('MatchWholeName') -Eq $True) {
 		$TASKLIST_FILTERS += " /FI `"IMAGENAME eq ${Name}`"";
 	}
 

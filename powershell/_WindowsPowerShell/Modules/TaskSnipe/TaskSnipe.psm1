@@ -102,7 +102,7 @@ function TaskSnipe {
 			$EachPID = $_.PID;
 			# $FI_PID  = " /FI `"PID eq ${EachPID}`"";
 			# CMD /C "TASKLIST ${TASK_FILTERS}${FI_PID}";
-			Write-Host "  PID ${EachPID} - ${EachIMAGENAME}" -ForegroundColor "Red";
+			Write-Host ("  PID ${EachPID} - ${EachIMAGENAME}") -ForegroundColor "Red";
 		}
 
 		#
@@ -122,7 +122,7 @@ function TaskSnipe {
 			Write-Host -NoNewLine ("`n");
 			Write-Host -NoNewLine ("Are you sure you want to kill these PID(s)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
-			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow;"
+			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";
 			Write-Host -NoNewLine ("`" key to confirm:  ") -ForegroundColor "Yellow";
 			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));

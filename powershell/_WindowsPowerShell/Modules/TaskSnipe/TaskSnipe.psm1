@@ -2,6 +2,8 @@
 #	PowerShell - TaskSnipe
 #		Kill all processes whose name contains a given substring
 #
+#		example call:   TaskSnipe -Name "Ping" -AndName "Jitter" -SkipConfirm;
+#
 function TaskSnipe {
 	Param(
 

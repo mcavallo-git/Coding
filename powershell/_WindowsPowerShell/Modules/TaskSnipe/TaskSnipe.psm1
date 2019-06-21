@@ -90,7 +90,8 @@ function TaskSnipe {
 	# Pipe the results through the snipe-handler
 	If ($SnipeList.Count -ne 0) {
 		# At least one matching process was found
-		$SnipeList | Format-List;
+		$SnipeList.PID;
+		# $SnipeList | Format-List;
 		# CMD /C "TASKKILL /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
 
 

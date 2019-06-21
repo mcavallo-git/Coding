@@ -37,10 +37,10 @@ function TaskSnipe {
 		Write-Host "`$Needle = [Regex]::Match(`"${Haystack}`", `"${RegexPattern}`");";
 		Write-Host (("`$Needle.Success = ")+($Needle.Success));
 		If ($Needle.Success -ne $False) {
-			$Needle.Groups[0].Value; 
-			$Needle.Groups[1].Value; 
-			$Needle.Groups[2].Value; 
-			$Needle.Groups[3].Value; 
+			$Needle.Groups[0].Value;
+			$Needle.Groups[1].Value;
+			# $Needle.Groups[2].Value;
+			# $Needle.Groups[3].Value;
 		}
 		Write-Host "------------------------------------------------------------`n`n";
 	}

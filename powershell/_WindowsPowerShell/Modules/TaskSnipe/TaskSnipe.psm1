@@ -82,7 +82,7 @@ function TaskSnipe {
 						$NewSnipe.ServiceNames = @();
 						# Get Service Info
 						If (($NewSnipe.SESSIONNAME) -Eq ("Services")) {
-							$ServiceList = (Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'");
+							$ServiceList = (Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'" -ErrorAction "SilentlyContinue");
 							If ($ServiceList -ne $Null) {
 								$ServiceList | Where-Object { $_.State -eq "Running" } | ForEach-Object {
 									$NewSnipe.ServiceNames += $_.Name; 
@@ -173,17 +173,19 @@ function TaskSnipe {
 				Write-Host "  Confirmed. Killing associated processes...";
 				$SnipeList | ForEach-Object {
 					If (($_.SESSIONNAME) -Eq "Services") {
-						#
-						# STOP SERVICES BY NAME
-						#
 						$_.ServiceNames | ForEach-Object {
-							Stop-Service -Name ($_) -Force -NoWait;
+							Get-Service -Name ($_)  -ErrorAction "SilentlyContinue" | Where-Object { $_.Status -eq "Running"} | ForEach-Object {
+								#
+								# STOP SERVICES BY NAME
+								#
+								Stop-Service -Name ($_.Name) -Force -NoWait;
+							}
 						}
 					} Else {
-						#
-						# KILL TASKS BY-PID
-						#
-						If (Get-Process -Id ($_.PID)) {
+						If (Get-Process -Id ($_.PID) -ErrorAction "SilentlyContinue") {
+							#
+							# KILL TASKS BY PID
+							#
 							Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
 							If ($last_exit_code -ne 0) {
 								### FALLBACK OPTION:

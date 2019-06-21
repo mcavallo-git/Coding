@@ -47,22 +47,20 @@ function TaskSnipe {
 		If ($Needle.Success -ne $False) {
 			$Each_ImageName = $Needle.Groups[1].Value; $Each_ImageName;
 			If ($Each_ImageName.Contains($Name) -Eq $True) {
-
-				If (($PSBoundParameters.ContainsKey('AndName') -Eq $True) -And ($Each_ImageName.Contains($AndName) -Eq $False)) {
-					# Skip - ImageName doesn't also match parameter 'AndName'
-
-				} ElseIf (($PSBoundParameters.ContainsKey('AndAndName') -Eq $True) -And ($Each_ImageName.Contains($AndAndName) -Eq $False)) {
-					# Skip - ImageName doesn't also match parameter 'AndAndName'
-
+				If (($PSBoundParameters.ContainsKey('AndName') -Eq $False) -Or ($Each_ImageName.Contains($AndName) -Eq $True)) {
+					If (($PSBoundParameters.ContainsKey('AndAndName') -Eq $False) -Or ($Each_ImageName.Contains($AndAndName) -Eq $True)) {
+						# Success - This item is determined to match all user-defined criteria
+						$Each_ImageName;
+						$Each_PID = $Needle.Groups[2].Value; $Each_PID;
+						$Each_SessionName = $Needle.Groups[3].Value; $Each_SessionName;
+						$Each_SessionNumber = $Needle.Groups[4].Value; $Each_SessionNumber;
+						$Each_MemoryUsage = $Needle.Groups[5].Value; $Each_MemoryUsage;
+						Write-Host "------------------------------------------------------------`n`n";
+					} Else {
+						# Skip - ImageName doesn't also match parameter 'AndAndName'
+					}
 				} Else {
-					# Success - This item is determined to match all user-defined criteria
-					$Each_ImageName;
-					$Each_PID = $Needle.Groups[2].Value; $Each_PID;
-					$Each_SessionName = $Needle.Groups[3].Value; $Each_SessionName;
-					$Each_SessionNumber = $Needle.Groups[4].Value; $Each_SessionNumber;
-					$Each_MemoryUsage = $Needle.Groups[5].Value; $Each_MemoryUsage;
-					Write-Host "------------------------------------------------------------`n`n";
-
+					# Skip - ImageName doesn't also match parameter 'AndName'
 				}
 			}
 		}

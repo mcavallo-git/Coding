@@ -102,7 +102,7 @@ function TaskSnipe {
 			$EachPID = $_.PID;
 			# $FI_PID  = " /FI `"PID eq ${EachPID}`"";
 			# CMD /C "TASKLIST ${TASK_FILTERS}${FI_PID}";
-			Write-Host "  PID ${EachPID} - ${EachIMAGENAME}";
+			Write-Host "  PID ${EachPID} - ${EachIMAGENAME}" -ForegroundColor "Red";
 		}
 
 		#

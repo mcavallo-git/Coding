@@ -156,8 +156,7 @@ function TaskSnipe {
 				$SnipeList | ForEach-Object {
 					$EachPID = $_.PID;
 					$FI_PID  = " /FI `"PID eq ${EachPID}`"";
-					# CMD /C "TASKKILL /V ${TASK_FILTERS}${FI_PID}";
-					Write-Host "Killing Task with PID: ${EachPID};"
+					CMD /C "TASKKILL /V ${TASK_FILTERS}${FI_PID}";
 				}
 			} Else {
 				#

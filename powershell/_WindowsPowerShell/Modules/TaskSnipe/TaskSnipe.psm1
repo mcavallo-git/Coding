@@ -51,7 +51,7 @@ function TaskSnipe {
 	# Image Name must be Exact
 	$FI_IMAGENAME = "";
 	If ($PSBoundParameters.ContainsKey('MatchWholeName') -Eq $True) {
-		$FI_IMAGENAME += " /FI `"IMAGENAME eq ${Name}`"";
+		$FI_IMAGENAME = " /FI `"IMAGENAME eq ${Name}`"";
 	}
 
 	# Parse the list of returned, matching tasks
@@ -74,13 +74,15 @@ function TaskSnipe {
 					If (($PSBoundParameters.ContainsKey('AndAndName') -Eq $False) -Or ($Each_ImageName.Contains($AndAndName) -Eq $True)) {
 						# Success - This item is determined to match all user-defined criteria
 						$NewSnipe = @{};
-						$NewSnipe.IMAGENAME   += $Proc_Needle.Groups[1].Value;
-						$NewSnipe.PID         += $Proc_Needle.Groups[2].Value;
-						$NewSnipe.SESSIONNAME += $Proc_Needle.Groups[3].Value;
-						$NewSnipe.SESSION     += $Proc_Needle.Groups[4].Value;
-						$NewSnipe.MEMUSAGE    += $Proc_Needle.Groups[5].Value;
+						$NewSnipe.IMAGENAME   = $Proc_Needle.Groups[1].Value;
+						$NewSnipe.PID         = $Proc_Needle.Groups[2].Value;
+						$NewSnipe.SESSIONNAME = $Proc_Needle.Groups[3].Value;
+						$NewSnipe.SESSION     = $Proc_Needle.Groups[4].Value;
+						$NewSnipe.MEMUSAGE    = $Proc_Needle.Groups[5].Value;
 						# Get Service Info
 						If (($NewSnipe.SESSIONNAME) -Eq ("Services")) {
+							Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'";
+
 							$FI_SVC_IMAGENAME  = ((" /SVC /FI `"IMAGENAME eq ")+($NewSnipe.IMAGENAME)+("`""));
 							(CMD /C "TASKLIST /NH${FI_SVC_IMAGENAME}")  | ForEach-Object {
 								$Svc_Haystack = $_;
@@ -88,7 +90,7 @@ function TaskSnipe {
 								$Svc_RegexPattern = "^((?:[a-zA-Z\.]\ ?)+)(?<!\ )${SEPR8}+([0-9]+)${SEPR8}(.+)${SEPEND}$";
 								$Svc_Needle = [Regex]::Match($Svc_Haystack, $Svc_RegexPattern);
 								If ($Proc_Needle.Success -ne $False) {
-									$NewSnipe.SESSIONNAME += $Proc_Needle.Groups[3].Value;
+									$NewSnipe.SESSIONNAME = $Proc_Needle.Groups[3].Value;
 									Get-Process | Where-Object { ($_.ProcessName) -Eq [IO.Path]::GetFileNameWithoutExtension($NewSnipe.IMAGENAME); }
 								}
 							}

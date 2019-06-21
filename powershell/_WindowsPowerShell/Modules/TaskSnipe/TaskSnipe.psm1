@@ -23,7 +23,10 @@ function TaskSnipe {
 
 		[Switch]$MatchWholeName,
 
-		[Switch]$Quiet
+		[Switch]$Quiet,
+
+		[Switch]$SkipConfirm
+
 
 	)
 	
@@ -90,14 +93,77 @@ function TaskSnipe {
 
 	# Pipe the results through the snipe-handler
 	If ($SnipeList.Count -ne 0) {
+		#
 		# At least one matching process was found
+		#
+		Write-Host (("`n`nFound ")+($SnipeList.Count)+(" PID(s) matching search criteria:`n")) -ForegroundColor "Green";
 		$SnipeList | ForEach-Object {
+			$EachIMAGENAME = $_.IMAGENAME;
 			$EachPID = $_.PID;
-			$FI_PID  = " /FI `"PID eq ${EachPID}`"";
-			CMD /C "TASKLIST ${FI_PID}";
+			# $FI_PID  = " /FI `"PID eq ${EachPID}`"";
+			# CMD /C "TASKLIST ${TASK_FILTERS}${FI_PID}";
+			Write-Host "  PID ${EachPID} - ${EachIMAGENAME}";
+		}
 
-			# $SnipeList | Format-List;
-			# CMD /C "TASKKILL /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
+		#
+		# Make the user confirm before killing tasks (default, or call with -SkipConfirm to kill straight-away)
+		#
+		If ($PSBoundParameters.ContainsKey('SkipConfirm') -Eq $True) {
+			#
+			# Skip Confirm
+			#
+			$FirstConfirm = $True;
+		} Else {
+			#
+			# First Confirmation step "Are you sure ... ?"
+			#
+			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
+			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
+			Write-Host -NoNewLine ("Are you sure you want to kill these PID(s)?") -BackgroundColor Black -ForegroundColor Yellow;
+			Write-Host -NoNewLine ("  Press the `"") -ForegroundColor Yellow;
+			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor Green;
+			Write-Host -NoNewLine ("`" key to confirm:  ") -ForegroundColor Yellow;
+			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
+			$FirstConfirm = (($UserKeyPress.Character) -eq ($FirstConfKey));
+		}
+		#
+		# Check First Confirm
+		#
+		If ($FirstConfirm -Eq $True) {
+			If ($PSBoundParameters.ContainsKey('SkipConfirm') -Eq $True) {
+				#
+				# Skip Confirm
+				#
+				$SecondConfirm = $True;
+			} Else {
+				#
+				# Second Confirmation step "Really really sure?" 
+				#
+				$SecondConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfKey,"")));
+				Write-Host -NoNewLine ("Really really sure?") -BackgroundColor Black -ForegroundColor Yellow;
+				Write-Host -NoNewLine ("  Press the `"") -ForegroundColor Yellow;
+				Write-Host -NoNewLine ($SecondConfKey) -ForegroundColor Green;
+				Write-Host -NoNewLine ("`" key to lock-in your decision and send the kill command(s):  ") -ForegroundColor Yellow;
+				$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+				$SecondConfirm = (($UserKeyPress.Character) -eq ($SecondConfKey));
+			}
+			#
+			# Check Second Confirm
+			#
+			If ($SecondConfirm -Eq $True) {
+				# !!! CONFIRMED - KILL TASKS BY-PID
+				Write-Host "  Confirmed. Killing associated processes...";
+				$SnipeList | ForEach-Object {
+					$EachPID = $_.PID;
+					$FI_PID  = " /FI `"PID eq ${EachPID}`"";
+					# CMD /C "TASKKILL /V ${TASK_FILTERS}${FI_PID}";
+					echo "Killing Task with PID: ${EachPID};"
+					# CMD /C "TASKKILL /V /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
+				}
+			}
+		}
+		} Else {
+
 		}
 
 	} Else {

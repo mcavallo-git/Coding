@@ -180,7 +180,7 @@ function TaskSnipe {
 								#
 								# STOP SERVICES BY NAME
 								#
-								Write-Host "`n`n  Stopping Service `"$($_.Name)`" ..." -ForegroundColor "Red" -BackgroundColor "Black";
+								Write-Host "  Stopping Service `"$($_.Name)`" ...  " -ForegroundColor "Red" -BackgroundColor "Black";
 								Stop-Service -Name ($_.Name) -Force -NoWait;
 							}
 						}
@@ -189,7 +189,7 @@ function TaskSnipe {
 							#
 							# KILL TASKS BY PID
 							#
-							Write-Host "`n`n  Stopping Process `"$($_.IMAGENAME)`" (PID $($_.PID)) ..." -ForegroundColor "Red" -BackgroundColor "Black";
+							Write-Host "  Stopping Process `"$($_.IMAGENAME)`" (PID $($_.PID)) ...  " -ForegroundColor "Red" -BackgroundColor "Black";
 							Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
 							If ($last_exit_code -ne 0) {
 								### FALLBACK OPTION:

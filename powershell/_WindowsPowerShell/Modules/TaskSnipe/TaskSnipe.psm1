@@ -53,7 +53,8 @@ function TaskSnipe {
 	}
 
 	# Parse the list of returned, matching tasks
-	(CMD /C "TASKLIST /NH${FI_USERNAME}${FI_IMAGENAME}") <# | Select-Object -Unique #> | ForEach-Object {
+	$TASK_FILTERS = "${FI_USERNAME}${FI_IMAGENAME}";
+	(CMD /C "TASKLIST /NH${TASK_FILTERS}") <# | Select-Object -Unique #> | ForEach-Object {
 		$Haystack = $_;
 		$RegexPattern = '^((?:[a-zA-Z\.]\ ?)+)(?<!\ )[\ \t]+([0-9]+)[\ \t]+([a-zA-Z]+)[\ \t]+([0-9]+)[\ \t]+([0-9\,]+\ [a-zA-Z])[\ \t]*$';
 		$Needle = [Regex]::Match($Haystack, $RegexPattern);
@@ -90,10 +91,14 @@ function TaskSnipe {
 	# Pipe the results through the snipe-handler
 	If ($SnipeList.Count -ne 0) {
 		# At least one matching process was found
-		$SnipeList.PID;
-		# $SnipeList | Format-List;
-		# CMD /C "TASKKILL /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
+		$SnipeList | ForEach-Object {
+			$EachPID = $_.PID;
+			$FI_PID += " /FI `"PID eq ${EachPID}`"";
+			CMD /C "TASKLIST ${FI_PID}";
 
+			# $SnipeList | Format-List;
+			# CMD /C "TASKKILL /FI `"USERNAME eq ${Env:USERDOMAIN}\${Env:USERNAME}`" /FI `"IMAGENAME eq ${IMAGENAME_TO_KILL}`""
+		}
 
 	} Else {
 		# No results found

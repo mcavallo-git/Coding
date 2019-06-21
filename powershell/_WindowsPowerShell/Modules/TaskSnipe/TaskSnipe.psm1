@@ -157,12 +157,19 @@ function TaskSnipe {
 					$EachPID = $_.PID;
 					$FI_PID  = " /FI `"PID eq ${EachPID}`"";
 					# CMD /C "TASKKILL /V ${TASK_FILTERS}${FI_PID}";
-					echo "Killing Task with PID: ${EachPID};"
+					Write-Host "Killing Task with PID: ${EachPID};"
 				}
+			} Else {
+				#
+				# User bailed-out of the confirmation, cancelling the kill PID(s) action
+				#
+				Write-Host "Bail-Out @ Second confirmation - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
 			}
-		}
 		} Else {
-
+			#
+			# User bailed-out of the FIRST confirmation, cancelling the kill PID(s) action
+			#
+			Write-Host "Bail-Out @ First confirmation - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
 		}
 
 	} Else {

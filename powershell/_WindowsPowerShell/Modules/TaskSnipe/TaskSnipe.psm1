@@ -45,7 +45,7 @@ function TaskSnipe {
 		# Write-Host "`$Needle = [Regex]::Match(`"${Haystack}`", `"${RegexPattern}`");";
 		# Write-Host (("`$Needle.Success = ")+($Needle.Success));
 		If ($Needle.Success -ne $False) {
-			$Each_ImageName = $Needle.Groups[1].Value; $Each_ImageName;
+			$Each_ImageName = $Needle.Groups[1].Value;
 			If ($Each_ImageName.Contains($Name) -Eq $True) {
 				If (($PSBoundParameters.ContainsKey('AndName') -Eq $False) -Or ($Each_ImageName.Contains($AndName) -Eq $True)) {
 					If (($PSBoundParameters.ContainsKey('AndAndName') -Eq $False) -Or ($Each_ImageName.Contains($AndAndName) -Eq $True)) {

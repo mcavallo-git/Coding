@@ -48,10 +48,10 @@ function TaskSnipe {
 			$Each_ImageName = $Needle.Groups[1].Value; $Each_ImageName;
 			If ($Each_ImageName.Contains($Name) -Eq $True) {
 
-				If ((($PSBoundParameters.ContainsKey('AndName') -Eq $True) -And ($Each_ImageName.Contains($AndName) -Eq $False)) {
+				If (($PSBoundParameters.ContainsKey('AndName') -Eq $True) -And ($Each_ImageName.Contains($AndName) -Eq $False)) {
 					# Skip - ImageName doesn't also match parameter 'AndName'
 
-				} ElseIf ((($PSBoundParameters.ContainsKey('AndAndName') -Eq $True) -And ($Each_ImageName.Contains($AndAndName) -Eq $False)) {
+				} ElseIf (($PSBoundParameters.ContainsKey('AndAndName') -Eq $True) -And ($Each_ImageName.Contains($AndAndName) -Eq $False)) {
 					# Skip - ImageName doesn't also match parameter 'AndAndName'
 
 				} Else {

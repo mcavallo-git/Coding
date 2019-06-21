@@ -172,7 +172,7 @@ function TaskSnipe {
 				#
 				# !!! CONFIRMED !!!
 				#
-				Write-Host "`n`n  Confirmed.";
+				Write-Host "`n`n  Confirmed.`n";
 				$SnipeList | ForEach-Object {
 					If (($_.SESSIONNAME) -Eq "Services") {
 						$_.ServiceNames | ForEach-Object {

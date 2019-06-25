@@ -1,3 +1,6 @@
+# Copy this command into an admin powershell terminal:
+Set-ExecutionPolicy -ExecutionPolicy "RemoteSigned";
+
 Exit;
 
 

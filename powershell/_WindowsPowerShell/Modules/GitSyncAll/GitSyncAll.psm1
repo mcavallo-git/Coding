@@ -147,7 +147,7 @@ function GitSyncAll {
 	Write-Host -NoNewLine "  Closing in ";
 	$WaitSeconds = 3;
 	While ($WaitSeconds -gt 0) {
-		Write-Host -NoNewLine ($SecondsTilAutoExit);
+		Write-Host -NoNewLine ($WaitSeconds);
 		$MillisecondsRemaining = 1000;
 		While ($MillisecondsRemaining -gt 0) {
 			$WaitMilliseconds = 250;

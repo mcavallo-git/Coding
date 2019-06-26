@@ -23,14 +23,15 @@ ProfileList[ProfileInfo.Name] := ProfileInfo
 
 ProfileInfo := {}
 ;   |
-;   |--> var "ProfileInfo" now a refers to an separate, empty object - Its old object is not freed b/c var "ProfileList" still has a refers to it
+;   |--> var "ProfileInfo" now a refers to an separate, empty object - Its old object is not freed b/c var "ProfileList" still refers to it
+
+; You could also do a sort of shorthand thing that avoids needing ProfileInfo altogether (almost what user 'sinkfaze' did):
+ProfileList["AnotherName"] := { Name:"AnotherName", Password:"AnotherPassword", Server:"ThatServer" }
+
 
 MsgBox, % "Here is the Password for MyName: " ProfileList["MyName"].Password
 
 MsgBox, % "Here is the Password for AnotherName: " ProfileList["AnotherName"].Password
-
-; You could also do a sort of shorthand thing that avoids needing ProfileInfo altogether (almost what sinkfaze did):
-ProfileList["AnotherName"] := { Name:"AnotherName", Password:"AnotherPassword", Server:"ThatServer" }
 
 ;
 ;   ----------------------------------------------------------------------------------------------------------------------------------------------------------------

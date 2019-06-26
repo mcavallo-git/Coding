@@ -150,7 +150,7 @@ ClearSplashText(TimerPeriod) {
 	Gui, Show
 	Return
 
-gOnDoubleClick_GuiDestroy_WindowSpecs() {
+OnDoubleClick_GuiDestroy_WindowSpecs() {
 	if (A_GuiEvent = "DoubleClick") {
 		Gui, WindowSpecs:Default
 		Gui, Destroy
@@ -395,7 +395,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return
 
 
-gOnDoubleClick_GuiDestroy_WinTitles() {
+OnDoubleClick_GuiDestroy_WinTitles() {
 	if (A_GuiEvent = "DoubleClick") {
 		Gui, WinTitles:Default
 		Gui, Destroy

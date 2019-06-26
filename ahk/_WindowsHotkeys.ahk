@@ -38,11 +38,15 @@ DetectHiddenWindows, On
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-; #NoEnv
+; #NoEnv  ; "Specifying the line #NoEnv anywhere in a script prevents empty variables from being looked up as potential environment variables" - AutoHotkey Docs
 
 USER_DESKTOP=%USERPROFILE%\Desktop
  
 USER_DOCUMENTS=%USERPROFILE%/Documents
+
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SetCapsLockState, Off
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
@@ -53,14 +57,13 @@ GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
 GroupAdd, Explorer, ahk_class CabinetWClass
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
 ;	Tooltip clearing tool(s)
-;
+
 RemoveToolTip() {
 	ToolTip
 	Return
 }
-;
+
 ClearTooltip(TimerPeriod) {
 	; If SetTimer's Period...
 	;			 |--> is positive, it repeats its command until explicitly cancelled
@@ -68,16 +71,15 @@ ClearTooltip(TimerPeriod) {
 	SetTimer, RemoveToolTip, -%TimerPeriod%
 	Return
 }
-;
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
 ;	SplashText clearing tool(s)
-;
+
 RemoveSplashText() {
 	SplashTextOff
 	Return
 }
-;
+
 ClearSplashText(TimerPeriod) {
 	; If SetTimer's Period...
 	;			 |--> is positive, it repeats its command until explicitly cancelled
@@ -242,10 +244,13 @@ StringRepeat(StrToRepeat, Multiplier) {
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Win + D
+;  ACTION:  Types a variety of timestamp strings
 ;
 ; Timestamp		:::		Win + Shift + D
 ; Timestamp		:::		Win + Ctrl + D
 ; Timestamp		:::		Win + Alt + D
+;
 #D::
 ^#D::
 !#D::
@@ -293,9 +298,18 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  ?????
+;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
 ;
-;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
+; ?????::
+; 	TZ_OFFSET := GetTimezoneOffset()
+;   Send %TZ_OFFSET%
+; 	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Win + P
+;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
+;
 +#P::
 	SetKeyDelay, 0, -1
 	MsgBox, 4,, Type the Clipboard? (Yes/No)
@@ -307,9 +321,9 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;  ACTION:  type the COMPUTERNAME
 ;  HOTKEY:  Win + H
+;  ACTION:  type the COMPUTERNAME
+;
 #H::
 	SetKeyDelay, 0, -1
 	RET_VAL = %COMPUTERNAME%
@@ -317,9 +331,9 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;  ACTION:  type the DOMAIN-USERNAME
 ;  HOTKEY:  Win + U
+;  ACTION:  type the DOMAIN-USERNAME
+;
 #U::
 	SetKeyDelay, 0, -1
 	; RET_VAL = %USERNAME%
@@ -328,12 +342,13 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
 ;  HOTKEY:  Win + G
+;  ACTION:  Types the contents of a gnupg (gpg) file
+;
 #G::
-	TZ_OFFSET := GetTimezoneOffset()
-  Send %TZ_OFFSET%
+	FilePathToRead=%USERPROFILE%\.gnupg\passphrase
+	FileRead, FilePathContents, %FilePathToRead%
+	SendInput, %FilePathContents%
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -345,10 +360,10 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Shift + Win + F2
+;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
-#F2::   ; Win + F2
-	; Win10 Download & Delete Recordings via XBox Win10 App
-	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
++#F2::
 	Loop {
 		MouseClick, Left, 861, 947
 		Sleep 10000
@@ -375,8 +390,10 @@ StringRepeat(StrToRepeat, Multiplier) {
 	}
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Win + F2
+;  ACTION:  Show all (current) Window Titles
 ;
-+#F2::   ; +#F2 / [ Shift + Win + F2 ] -- Show all (current) Window Titles
+#F2::
 	Gui, WinTitles:Default
 	Gui, Add, ListView, r50 w1000 gOnDoubleClick_GuiDestroy_WinTitles, WindowTitle
 	WinGet, Window, List
@@ -1201,168 +1218,172 @@ get_ahk_id_from_pid(WinPid) {
 }
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
 ;  HOTKEY:  Caps Lock
+;  ACTION:  Permanently disable CapsLock (unless Shift+CapsLock is pressed, then toggle CapsLock like normal)
 ;
-; CapsLock::
-; 	SetCapsLockState, Off
-; 	Return
+CapsLock::
+^CapsLock::
+!CapsLock::
+#CapsLock::
+	SetCapsLockState, Off
+	Return
++CapsLock::
+	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
+	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 
-Gosub, NumCapsScrollLock_CreateOSD
-Return
+; Gosub, NumCapsScrollLock_CreateOSD
+; Return
 
-NumCapsScrollLock_CreateOSD:
-{
-	Gui, NumCapsScrollLock:Default
-	Gui, -caption +toolwindow +alwaysontop +lastfound
-	Gui, color, 8b0fc6
-	Gui, font, s10 w600, Arial Bold
-	Gui, margin, 0, 0
-	WinSet, transcolor, 8b0fc6
+; NumCapsScrollLock_CreateOSD:
+; {
+; 	Gui, NumCapsScrollLock:Default
+; 	Gui, -caption +toolwindow +alwaysontop +lastfound
+; 	Gui, color, 8b0fc6
+; 	Gui, font, s10 w600, Arial Bold
+; 	Gui, margin, 0, 0
+; 	WinSet, transcolor, 8b0fc6
 	
-	n_color := GetKeyState("NumLock", "t") ? "98cb4a" : "5481E6"
-	c_color := GetKeyState("CapsLock", "t") ? "98cb4a" : "5481E6"
-	s_color := GetKeyState("ScrollLock", "t") ? "98cb4a" : "5481E6"
+; 	n_color := GetKeyState("NumLock", "t") ? "98cb4a" : "5481E6"
+; 	c_color := GetKeyState("CapsLock", "t") ? "98cb4a" : "5481E6"
+; 	s_color := GetKeyState("ScrollLock", "t") ? "98cb4a" : "5481E6"
 
-	Gui, add, listview, x0 y0 w60 h16 -hdr -e0x200 -multi background%n_color% v_numlock glv altsubmit
-	Gui, add, text, x0 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_numlock, N
+; 	Gui, add, listview, x0 y0 w60 h16 -hdr -e0x200 -multi background%n_color% v_numlock gNumCapsScrollLock_lv altsubmit
+; 	Gui, add, text, x0 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_numlock, N
 
-	Gui, add, listview, x63 y0 w60 h16 -hdr -e0x200 -multi background%c_color% v_capslock glv altsubmit
-	Gui, add, text, x63 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_capslock, C
+; 	Gui, add, listview, x63 y0 w60 h16 -hdr -e0x200 -multi background%c_color% v_capslock gNumCapsScrollLock_lv altsubmit
+; 	Gui, add, text, x63 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_capslock, C
 
-	Gui, add, listview, x126 y0 w60 h16 -hdr -e0x200 -multi background%s_color% v_scrolllock glv altsubmit
-	Gui, add, text, x126 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_scrolllock, S
-}
-Return
+; 	Gui, add, listview, x126 y0 w60 h16 -hdr -e0x200 -multi background%s_color% v_scrolllock gNumCapsScrollLock_lv altsubmit
+; 	Gui, add, text, x126 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_scrolllock, S
+; }
+; Return
 
-NumLock::
-CapsLock::
-ScrollLock::
-{
-	Gui, NumCapsScrollLock:Default
-	if (!locked_%a_thishotkey%)
-	{
-		NumCapsScrollLock_ToggleKey(a_thishotkey)
-		; soundplay, beep.wav
-		color := GetKeyState(a_thishotkey, "t") ? "98cb4a" : "5481E6"
-		GuiControl, +background%color%, _%a_thishotkey%
-		GuiControl, Hide, txt_%a_thishotkey%
-		GuiControl, Show, txt_%a_thishotkey%
-	}
-	sysget, var_, monitorworkarea
-	x := (var_right-190)
-	y := (var_bottom-26)
-	Gui, Show, x%x% y%y% na, OSD
-	settimer, NumCapsScrollLock_Cancel, -3000
-	keywait, % a_thishotkey
-}
-Return
+; NumLock::
+; CapsLock::
+; ScrollLock::
+; {
+; 	; Gui, NumCapsScrollLock:Default
+; 	if (!locked_%a_thishotkey%)
+; 	{
+; 		NumCapsScrollLock_ToggleKey(a_thishotkey)
+; 		; soundplay, beep.wav
+; 		color := GetKeyState(a_thishotkey, "t") ? "98cb4a" : "5481E6"
+; 		GuiControl, +background%color%, _%a_thishotkey%
+; 		GuiControl, Hide, txt_%a_thishotkey%
+; 		GuiControl, Show, txt_%a_thishotkey%
+; 	}
+; 	sysget, var_, monitorworkarea
+; 	x := (var_right-190)
+; 	y := (var_bottom-26)
+; 	Gui, Show, x%x% y%y% na, OSD
+; 	settimer, NumCapsScrollLock_Cancel, -3000
+; 	keywait, % a_thishotkey
+; }
+; Return
 
-lv:
-{
-	Gui, NumCapsScrollLock:Default
-	if (a_guievent = "normal") or (a_guievent = "doubleclick")
-	{
-		control := ltrim(a_guicontrol, "_")
-		if (!locked_%control%)
-			{
-				NumCapsScrollLock_ToggleKey(control)
-				; soundplay, beep.wav
-				color := GetKeyState(control, "t") ? "98cb4a" : "5481E6"
-				GuiControl, +background%color%, %a_guicontrol%
-				GuiControl, Hide, txt%a_guicontrol%
-				GuiControl, Show, txt%a_guicontrol%
-			}
-		settimer, NumCapsScrollLock_Cancel, -3000
-	}
-	else if (a_guievent = "rightclick")
-	{
-		NumCapsScrollLock_LockUnlock(ltrim(a_guicontrol, "_"))
-		; soundplay, click.wav
-		settimer, NumCapsScrollLock_Cancel, -3000
-	}
-}
-Return
+; NumCapsScrollLock_lv:
+; {
+; 	; Gui, NumCapsScrollLock:Default
+; 	if (A_GuiEvent = "normal") or (A_GuiEvent = "doubleclick")
+; 	{
+; 		control := ltrim(a_guicontrol, "_")
+; 		if (!locked_%control%)
+; 			{
+; 				NumCapsScrollLock_ToggleKey(control)
+; 				; soundplay, beep.wav
+; 				color := GetKeyState(control, "t") ? "98cb4a" : "5481E6"
+; 				GuiControl, +background%color%, %a_guicontrol%
+; 				GuiControl, Hide, txt%a_guicontrol%
+; 				GuiControl, Show, txt%a_guicontrol%
+; 			}
+; 		settimer, NumCapsScrollLock_Cancel, -3000
+; 	}
+; 	else if (A_GuiEvent = "rightclick")
+; 	{
+; 		NumCapsScrollLock_LockUnlock(ltrim(a_guicontrol, "_"))
+; 		; soundplay, click.wav
+; 		settimer, NumCapsScrollLock_Cancel, -3000
+; 	}
+; }
+; Return
 
-NumCapsScrollLock_ToggleKey(key)
-{
-	Gui, NumCapsScrollLock:Default
-	if (key = "CapsLock")
-	{
-		; SetCapsLockState, % GetKeyState(key, "t") ? "off" : "on"
-		SetCapsLockState, Off
-	}
-	else if (key = "ScrollLock")
-	{
-		SetScrollLockState, % GetKeyState(key, "t") ? "off" : "on"
-	}
-	else if (key = "NumLock")
-	{
-		SetNumLockState, % GetKeyState(key, "t") ? "off" : "on"
-	}
-	Return
-}
+; NumCapsScrollLock_ToggleKey(key)
+; {
+; 	if (key = "CapsLock")
+; 	{
+; 		; SetCapsLockState, % GetKeyState(key, "t") ? "off" : "on"
+; 		SetCapsLockState, Off
+; 	}
+; 	else if (key = "ScrollLock")
+; 	{
+; 		SetScrollLockState, % GetKeyState(key, "t") ? "off" : "on"
+; 	}
+; 	else if (key = "NumLock")
+; 	{
+; 		SetNumLockState, % GetKeyState(key, "t") ? "off" : "on"
+; 	}
+; 	Return
+; }
 
-NumCapsScrollLock_LockUnlock(key)
-{
-	Global locked_numlock, locked_capslock, locked_scrolllock
-	Gui, NumCapsScrollLock:Default
-	if (key = "NumLock")
-	{
-		if (locked_numlock)
-			{
-				SetNumLockState
-				locked_numlock := 0
-			}
-		else
-			{
-				SetNumLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
-				locked_numlock := 1
-			}
-	}
-	else if (key = "CapsLock")
-	{
-		if (locked_capslock)
-			{
-				SetCapsLockState
-				locked_capslock := 0
-			}
-		else
-			{
-				SetCapsLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
-				locked_capslock := 1
-			}
-	}
-	else if (key = "ScrollLock")
-	{
-		if (locked_scrolllock)
-			{
-				SetScrollLockState
-				locked_scrolllock := 0
-			}
-		else
-			{
-				SetScrollLockState, % GetKeyState(key, "t") ? "alwayson" : "AlwaysOff"
-				locked_scrolllock := 1
-			}
-	}
-	Return
-}
+; NumCapsScrollLock_LockUnlock(key)
+; {
+; 	Global locked_numlock, locked_capslock, locked_scrolllock
+; 	if (key = "NumLock")
+; 	{
+; 		if (locked_numlock)
+; 			{
+; 				SetNumLockState
+; 				locked_numlock := 0
+; 			}
+; 		else
+; 			{
+; 				SetNumLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
+; 				locked_numlock := 1
+; 			}
+; 	}
+; 	else if (key = "CapsLock")
+; 	{
+; 		if (locked_capslock)
+; 			{
+; 				SetCapsLockState
+; 				locked_capslock := 0
+; 			}
+; 		else
+; 			{
+; 				SetCapsLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
+; 				locked_capslock := 1
+; 			}
+; 	}
+; 	else if (key = "ScrollLock")
+; 	{
+; 		if (locked_scrolllock)
+; 			{
+; 				SetScrollLockState
+; 				locked_scrolllock := 0
+; 			}
+; 		else
+; 			{
+; 				SetScrollLockState, % GetKeyState(key, "t") ? "alwayson" : "AlwaysOff"
+; 				locked_scrolllock := 1
+; 			}
+; 	}
+; 	Return
+; }
 
-NumCapsScrollLock_Cancel:
-{
-	Gui, NumCapsScrollLock:Default
-	Gui, Cancel
-}
-Return
+; NumCapsScrollLock_Cancel:
+; {
+; 	; Gui, NumCapsScrollLock:Default
+; 	Gui, Cancel
+; }
+; Return
 
-;	Citation(s)
-;
-; NumCapsScrollLock  :::  Thanks to user [ dmg ] on AutoHotkey forum [ https://autohotkey.com/boards/viewtopic.php?p=22579#p22579 ]
-;
+; ;	Citation(s)
+; ;
+; ; NumCapsScrollLock  :::  Thanks to user [ dmg ] on AutoHotkey forum [ https://autohotkey.com/boards/viewtopic.php?p=22579#p22579 ]
+; ;
 
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

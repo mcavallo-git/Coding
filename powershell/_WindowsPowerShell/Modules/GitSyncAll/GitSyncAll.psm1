@@ -128,31 +128,38 @@ function GitSyncAll {
 		Write-Host "No git repositories found in: `"${Directory}`"`n" -ForegroundColor "Magenta";
 	}
 
-	Write-Host -NoNewLine "`n`n  Press any key to close this window`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
-	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
+	# ------------------------------------------------------------
+	#	### "Press any key to close this window..."
+	# Write-Host -NoNewLine "`n`n  Press any key to close this window...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	#
-	# Write-Host -NoNewLine "`n`n  Press 'Escape' to close this window`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# ------------------------------------------------------------
+	# ### "Press 'Escape' to close this window..."
+	# Write-Host -NoNewLine "`n`n  Press 'Escape' to close this window...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	# While ($KeyPress.VirtualKeyCode -ne 27) {
 	# 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	# }
 	#
-	# Write-Host -NoNewLine "  Closing in ";
-	# $SecondsTilAutoExit = 30;
-	# While ($SecondsTilAutoExit -gt 0) {
-	# 	Write-Host -NoNewLine ($SecondsTilAutoExit);
-	# 	$MillisecondsRemaining = 1000;
-	# 	While ($MillisecondsRemaining -gt 0) {
-	# 		$WaitMilliseconds = 250;
-	# 		$MillisecondsRemaining -= $WaitMilliseconds;
-	# 		[Threading.Thread]::Sleep($WaitMilliseconds);
-	# 		Write-Host -NoNewLine ".";
-	# 	}
-	# 	$SecondsTilAutoExit--;
-	# }
+	# ------------------------------------------------------------
+	# ### "Closing in 3...2...1..."
+	Write-Host -NoNewLine "  Closing in ";
+	$WaitSeconds = 3;
+	While ($WaitSeconds -gt 0) {
+		Write-Host -NoNewLine ($SecondsTilAutoExit);
+		$MillisecondsRemaining = 1000;
+		While ($MillisecondsRemaining -gt 0) {
+			$WaitMilliseconds = 250;
+			$MillisecondsRemaining -= $WaitMilliseconds;
+			[Threading.Thread]::Sleep($WaitMilliseconds);
+			Write-Host -NoNewLine ".";
+		}
+		$WaitSeconds--;
+	}
 	#
-	
+	# ------------------------------------------------------------
+	#
 	Return;
 }
 Export-ModuleMember -Function "GitSyncAll";

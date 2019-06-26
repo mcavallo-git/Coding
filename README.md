@@ -13,6 +13,7 @@ App Name | Source 1 | Source A
 **Git** <sub>*Git SCM*</sub>  | [Download (source)](https://git-scm.com/downloads) |
 **Git** <sub>*GitHub Desktop*</sub>  | [Download (source)](https://desktop.github.com) |
 **Git** <sub>*Tortoise Git*</sub> | [Download (source)](https://tortoisegit.org/download) |
+**Gpg4win** <sub>*GnuPG, Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Postman** | [Download (source)](https://www.getpostman.com/apps) |
 **Reflector** | [Download (mirror)](https://www.airsquirrels.com/reflector) |

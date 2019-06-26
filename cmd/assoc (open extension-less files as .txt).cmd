@@ -21,3 +21,14 @@ ASSOC .tar=7-Zip.tar
 
 REM URLs
 ASSOC .url=InternetShortcut
+
+REM Others
+ASSOC .1=txtfile
+ASSOC .2=txtfile
+ASSOC .3=txtfile
+ASSOC .4=txtfile
+ASSOC .5=txtfile
+ASSOC .6=txtfile
+ASSOC .7=txtfile
+ASSOC .8=txtfile
+ASSOC .9=txtfile

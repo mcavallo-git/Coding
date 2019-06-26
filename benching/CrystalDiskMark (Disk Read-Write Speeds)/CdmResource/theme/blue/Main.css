@@ -1,0 +1,162 @@
+body, div, input, p, span
+{
+    margin: 0; 
+    padding: 0;
+}
+
+body
+{
+	margin: 4px 0px 0px 0px;
+	color: #000000;
+	background: #ffffff;
+	background-image: url(background.png);
+  	font-family: Verdana;
+  	overflow: hidden;
+}
+
+a.button1
+{
+  	font-family: Tahoma;
+  	font-weight: bold;
+  	background-image: url(button.png);
+	overflow: hidden;
+	display: block;
+	width: 60px;
+	height: 48px;
+	line-height: 48px;
+	color: #eeeeee;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	border-left: #ccccff 1px solid;
+	border-top: #ccccff 1px solid;
+	border-bottom: #9999cc 1px solid;
+	border-right: #9999cc 1px solid;
+}
+
+a:hover.button1
+{
+	color: #ffffff;
+	background-image: url(buttonHover.png);
+	border-left: #9999ff 1px solid;
+	border-top: #9999ff 1px solid;
+	border-bottom: #6666cc 1px solid;
+	border-right: #6666cc 1px solid;
+}
+
+a.button2
+{
+  	font-family: Tahoma;
+	background-image: url(button.png);
+	overflow: hidden;
+	display: block;
+	width: 60px;
+	height: 40px;
+	color: #eeeeee;
+	font-size: 12px;
+	font-weight: bold;
+	padding-top: 8px;
+	text-align: center;
+	text-decoration: none;
+	border-left: #ccccff 1px solid;
+	border-top: #ccccff 1px solid;
+	border-bottom: #9999cc 1px solid;
+	border-right: #9999cc 1px solid;
+}
+
+a:hover.button2
+{
+	color: #ffffff;
+	background-image: url(buttonHover.png);
+	border-left: #9999ff 1px solid;
+	border-top: #9999ff 1px solid;
+	border-bottom: #6666cc 1px solid;
+	border-right: #6666cc 1px solid;
+}
+
+span.meter
+{
+	display: block;
+	background-image: url(transparent.png);
+	overflow: hidden;
+	font-family: Verdana;
+	font-size: 40px;
+	font-weight: bold;
+	line-height: 1.2;
+	width: 150px;
+	height: 48px;
+	border-left: #dddddd 1px solid;
+	border-top: #dddddd 1px solid;
+	border-bottom: #aaaaaa 1px solid;
+	border-right: #aaaaaa 1px solid;
+}
+
+span.meter0
+{
+	color: #666666;
+}
+
+span.meter1
+{
+	color: #444444;
+}
+
+span#SequentialRead, span#SequentialWrite,
+span#SequentialReadMultiQT, span#SequentialWriteMultiQT,
+span#RandomRead4KB, span#RandomWrite4KB, 
+span#RandomRead4KBMultiQT,span#RandomWrite4KBMultiQT
+{
+	background-image: url(line.png);
+	background-repeat: no-repeat;
+	background-position-x: -150px;
+}
+
+p#Read, p#Write
+{
+	text-align: center;
+	color: #333333;
+	font-size: 16px;
+	line-height: 1.0;
+}
+
+Select#TestDrive
+{
+	font-family: Tahoma;
+	font-size: 14px;
+	width: 181px;
+}
+
+Select#TestCount
+{
+	font-family: Tahoma;
+	font-size: 14px;
+	width: 36px;
+}
+
+Select#TestSize
+{
+	font-family: Tahoma;
+	font-size: 14px;
+	width: 80px;
+}
+
+input#Comment
+{
+	background-color: transparent;
+	background-image: url(transparent.png);
+	margin-top: 4px;
+	padding-top: 0px;
+	padding-left: 4px;
+	color: #444444;
+	font-family: "ÉÅÉCÉäÉI", Tahoma;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	width: 368px;
+	line-height: 28px;
+	border-left: #cccccc 1px solid;
+	border-top: #cccccc 1px solid;
+	border-bottom: #999999 1px solid;
+	border-right: #999999 1px solid;
+}

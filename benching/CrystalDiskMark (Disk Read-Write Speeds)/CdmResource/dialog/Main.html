@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html onmousewheel="return !event.shiftKey" oncontextmenu="if(event.srcElement.id!='Comment'){return false}" onselectstart="if(event.srcElement.id!='Comment'){return false}" ondragover="return false">
+<head>
+  <title>CrystalDiskMark</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link id="StyleSheet" href="../theme/default/Main.css" rel="stylesheet" type="text/css" />
+</head>
+<body onmousewheel="return !event.shiftKey" oncontextmenu="if(event.srcElement.id!='Comment'){return false}" onselectstart="if(event.srcElement.id!='Comment'){return false}" ondragover="return false">
+<table border="0" cellspacing="4" cellpadding="0" align="center">
+  <tr>
+    <td rowspan="2"><a href="#" id="All" class="button1" title="All">All</a></td>
+    <td colspan="2"><span id="Select">
+      <select name="TestCount" id="TestCount" title="Test Count">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+      </select>
+      <select name="TestSize" id="TestSize" title="Test Size">
+        <option value="50MB">50MiB</option>
+        <option value="100MB">100MiB</option>
+        <option value="500MB">500MiB</option>
+        <option value="1024MB">1GiB</option>
+        <option value="2048MB">2GiB</option>
+        <option value="4096MB">4GiB</option>
+        <option value="8192MB">8GiB</option>
+        <option value="16384MB">16GiB</option>
+        <option value="32768MB">32GiB</option>
+      </select>
+      <select name="TestDrive" id="TestDrive" title="Test Drive">
+        <option value="C" selected="selected">C:\Hard Disk</option>
+      </select>
+      </span> </td>
+  </tr>
+  <tr>
+    <td><p id="Read"><strong title="MB/s = 1,000,000 byte/sec">Read [MB/s]</strong></p></td>
+    <td><p id="Write"><strong title="MB/s = 1,000,000 byte/sec">Write [MB/s]</strong></p></td>
+  </tr>
+  <tr>
+    <td><p><a href="#" id="SequentialMultiQT" class="button2" title="Sequential, Queue Depth=32, Threads=1">Seq<br>Q32T1</a></p></td>
+    <td><span class="meter"><span id="SequentialReadMultiQT">0.0</span></span></td>
+    <td><span class="meter"><span id="SequentialWriteMultiQT">0.0</span></span></td>
+  </tr>  
+  <tr>
+    <td><p><a href="#" id="Random4KBMultiQT" class="button2" title="Random 4KB, Queue Depth=32, Threads=1">4K<br>Q32T1</a></p></td>
+    <td><span class="meter"><span id="RandomRead4KBMultiQT">0.0</span></span></td>
+    <td><span class="meter"><span id="RandomWrite4KBMultiQT">0.0</span></span></td>
+  </tr>
+  <tr>
+    <td><p><a href="#" id="Sequential" class="button1" title="Sequential">Seq</a></p></td>
+    <td><span class="meter"><span id="SequentialRead">0.0</span></span></td>
+    <td><span class="meter"><span id="SequentialWrite">0.0</span></span></td>
+  </tr>
+  <tr>
+    <td><p><a href="#" id="Random4KB" class="button1" title="Random 4KB">4K</a></p></td>
+    <td><span class="meter"><span id="RandomRead4KB">0.0</span></span></td>
+    <td><span class="meter"><span id="RandomWrite4KB">0.0</span></span></td>
+  </tr>
+  <tr>
+    <td colspan="3"><input type="text" id="Comment" /></td>
+  </tr>
+</table>
+</body>
+</html>

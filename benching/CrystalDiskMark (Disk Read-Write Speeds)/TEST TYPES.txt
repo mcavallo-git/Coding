@@ -1,0 +1,7 @@
+Test Types
+
+    All : All Test ("Seq Q32T1", "4K Q32T1", "Seq", "4K" )
+    Seq Q32T1: Sequential (Block Size=128KiB) Read/Write with multi Queues & Threads
+    4K Q32T1: Random 4KiB Read/Write with multi Queues & Threads
+    Seq: Sequential (Block Size=1MiB) Read/Write with single Thread
+    4K: Random 4KiB Read Write with single Queue & Thread

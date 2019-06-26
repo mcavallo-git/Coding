@@ -23,29 +23,35 @@
 ;  SysGet  :::  https://autohotkey.com/docs/commands/SysGet.htm
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-; Global Settings
-;
+
+SetBatchLines, -1
+
+SetWorkingDir, %A_ScriptDir%
+
 DetectHiddenWindows, On
-; 
+
 #Persistent
-; 
-#SingleInstance force
-; 
+
+#SingleInstance Force
+
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
-;
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
+
+; #NoEnv
+
 USER_DESKTOP=%USERPROFILE%\Desktop
-; 
+ 
 USER_DOCUMENTS=%USERPROFILE%/Documents
-;
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Setup a group for targeting [Windows Explorer] windows
+
 GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
+
 GroupAdd, Explorer, ahk_class CabinetWClass
-;
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ;	Tooltip clearing tool(s)
@@ -94,9 +100,11 @@ ClearSplashText(TimerPeriod) {
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + Z
-;		ACTION:  Show active window's location & dimension specs in a popup message-box
+;		ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
 #Z::
+
+	Gui, WindowSpecs:Default
 
 	WinGetActiveStats, Title, Width, Height, Left, Top
 	WinGetTitle, WinTitle, A
@@ -109,9 +117,6 @@ ClearSplashText(TimerPeriod) {
 	WinGet, ControlNames, ControlList, A	; Get all control names in this window
 	
 	; Create the ListView with two columns
-	
-	; Gui, MyGui:Add, Text,, Text for about-box.
-
 
 	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
 	Gui, Font, s10, Tahoma
@@ -124,7 +129,7 @@ ClearSplashText(TimerPeriod) {
 	GUI_ROWCOUNT := 12
 	GUI_WIDTH := 1000
 
-	Gui, Add, ListView, r%GUI_ROWCOUNT% w%GUI_WIDTH% gOnDoubleClick_DestroyGui, Key|Val
+	Gui, Add, ListView, r%GUI_ROWCOUNT% w%GUI_WIDTH% gOnDoubleClick_GuiDestroy_WindowSpecs, Key|Val
 
 	LV_Add("", "Title", WinTitle)
 	LV_Add("", "Class", WinClass)
@@ -144,16 +149,15 @@ ClearSplashText(TimerPeriod) {
 	; Display the window and return. The script will be notified whenever the user double clicks a row.
 	Gui, Show
 	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;
-;	@	OnDoubleClick_DestroyGui  -->  Built as a 'g....' callback for Gui-window doubleclick
-;
-OnDoubleClick_DestroyGui() {
-if (A_GuiEvent = "DoubleClick") {
-	Gui, Destroy
+
+gOnDoubleClick_GuiDestroy_WindowSpecs() {
+	if (A_GuiEvent = "DoubleClick") {
+		Gui, WindowSpecs:Default
+		Gui, Destroy
+	}
+	Return
 }
-}
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + -
 ;		ACTION:  Type a line of -----'s
@@ -373,7 +377,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 +#F2::   ; +#F2 / [ Shift + Win + F2 ] -- Show all (current) Window Titles
-	Gui, Add, ListView, r50 w1000 gOnDoubleClick_DestroyGui, WindowTitle
+	Gui, WinTitles:Default
+	Gui, Add, ListView, r50 w1000 gOnDoubleClick_GuiDestroy_WinTitles, WindowTitle
 	WinGet, Window, List
 	Loop %Window% {
 		Id:=Window%A_Index%
@@ -388,7 +393,16 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Gui, Show
 	; MsgBox %tList%
 	Return
-;
+
+
+gOnDoubleClick_GuiDestroy_WinTitles() {
+	if (A_GuiEvent = "DoubleClick") {
+		Gui, WinTitles:Default
+		Gui, Destroy
+	}
+	Return
+}
+
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Fn Key (X1 Carbon)
 ;  ACTION:  Set Fn to perform CTRL action, instead
@@ -555,30 +569,6 @@ StringRepeat(StrToRepeat, Multiplier) {
 !`::
 	MouseClick, Right
 	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Caps Lock
-;  ACTION:  Disable the "Caps Lock" Key from normal-use
-;
-CapsLock::
-	SetCapsLockState, Off
-	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Caps Lock + w
-;  ACTION:  Scroll up 10 wheel clicks
-;
-; CapsLock & w::
-; 	MouseClick,WheelUp,,,10,0,D,R
-; 	Return
-;
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Caps Lock + s
-;  ACTION:  Scroll down 10 wheel clicks
-;
-; CapsLock & s::
-; 	MouseClick,WheelDown,,,10,0,D,R
-; 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Win + Mouse-Wheel Up/Down
@@ -1209,6 +1199,171 @@ get_ahk_id_from_pid(WinPid) {
 	dat_ahk_id=ahk_id %output_var%
 	Return dat_ahk_id
 }
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+;  HOTKEY:  Caps Lock
+;
+; CapsLock::
+; 	SetCapsLockState, Off
+; 	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+
+Gosub, NumCapsScrollLock_CreateOSD
+Return
+
+NumCapsScrollLock_CreateOSD:
+{
+	Gui, NumCapsScrollLock:Default
+	Gui, -caption +toolwindow +alwaysontop +lastfound
+	Gui, color, 8b0fc6
+	Gui, font, s10 w600, Arial Bold
+	Gui, margin, 0, 0
+	WinSet, transcolor, 8b0fc6
+	
+	n_color := GetKeyState("NumLock", "t") ? "98cb4a" : "5481E6"
+	c_color := GetKeyState("CapsLock", "t") ? "98cb4a" : "5481E6"
+	s_color := GetKeyState("ScrollLock", "t") ? "98cb4a" : "5481E6"
+
+	Gui, add, listview, x0 y0 w60 h16 -hdr -e0x200 -multi background%n_color% v_numlock glv altsubmit
+	Gui, add, text, x0 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_numlock, N
+
+	Gui, add, listview, x63 y0 w60 h16 -hdr -e0x200 -multi background%c_color% v_capslock glv altsubmit
+	Gui, add, text, x63 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_capslock, C
+
+	Gui, add, listview, x126 y0 w60 h16 -hdr -e0x200 -multi background%s_color% v_scrolllock glv altsubmit
+	Gui, add, text, x126 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_scrolllock, S
+}
+Return
+
+NumLock::
+CapsLock::
+ScrollLock::
+{
+	Gui, NumCapsScrollLock:Default
+	if (!locked_%a_thishotkey%)
+	{
+		NumCapsScrollLock_ToggleKey(a_thishotkey)
+		; soundplay, beep.wav
+		color := GetKeyState(a_thishotkey, "t") ? "98cb4a" : "5481E6"
+		GuiControl, +background%color%, _%a_thishotkey%
+		GuiControl, Hide, txt_%a_thishotkey%
+		GuiControl, Show, txt_%a_thishotkey%
+	}
+	sysget, var_, monitorworkarea
+	x := (var_right-190)
+	y := (var_bottom-26)
+	Gui, Show, x%x% y%y% na, OSD
+	settimer, NumCapsScrollLock_Cancel, -3000
+	keywait, % a_thishotkey
+}
+Return
+
+lv:
+{
+	Gui, NumCapsScrollLock:Default
+	if (a_guievent = "normal") or (a_guievent = "doubleclick")
+	{
+		control := ltrim(a_guicontrol, "_")
+		if (!locked_%control%)
+			{
+				NumCapsScrollLock_ToggleKey(control)
+				; soundplay, beep.wav
+				color := GetKeyState(control, "t") ? "98cb4a" : "5481E6"
+				GuiControl, +background%color%, %a_guicontrol%
+				GuiControl, Hide, txt%a_guicontrol%
+				GuiControl, Show, txt%a_guicontrol%
+			}
+		settimer, NumCapsScrollLock_Cancel, -3000
+	}
+	else if (a_guievent = "rightclick")
+	{
+		NumCapsScrollLock_LockUnlock(ltrim(a_guicontrol, "_"))
+		; soundplay, click.wav
+		settimer, NumCapsScrollLock_Cancel, -3000
+	}
+}
+Return
+
+NumCapsScrollLock_ToggleKey(key)
+{
+	Gui, NumCapsScrollLock:Default
+	if (key = "CapsLock")
+	{
+		; SetCapsLockState, % GetKeyState(key, "t") ? "off" : "on"
+		SetCapsLockState, Off
+	}
+	else if (key = "ScrollLock")
+	{
+		SetScrollLockState, % GetKeyState(key, "t") ? "off" : "on"
+	}
+	else if (key = "NumLock")
+	{
+		SetNumLockState, % GetKeyState(key, "t") ? "off" : "on"
+	}
+	Return
+}
+
+NumCapsScrollLock_LockUnlock(key)
+{
+	Global locked_numlock, locked_capslock, locked_scrolllock
+	Gui, NumCapsScrollLock:Default
+	if (key = "NumLock")
+	{
+		if (locked_numlock)
+			{
+				SetNumLockState
+				locked_numlock := 0
+			}
+		else
+			{
+				SetNumLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
+				locked_numlock := 1
+			}
+	}
+	else if (key = "CapsLock")
+	{
+		if (locked_capslock)
+			{
+				SetCapsLockState
+				locked_capslock := 0
+			}
+		else
+			{
+				SetCapsLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
+				locked_capslock := 1
+			}
+	}
+	else if (key = "ScrollLock")
+	{
+		if (locked_scrolllock)
+			{
+				SetScrollLockState
+				locked_scrolllock := 0
+			}
+		else
+			{
+				SetScrollLockState, % GetKeyState(key, "t") ? "alwayson" : "AlwaysOff"
+				locked_scrolllock := 1
+			}
+	}
+	Return
+}
+
+NumCapsScrollLock_Cancel:
+{
+	Gui, NumCapsScrollLock:Default
+	Gui, Cancel
+}
+Return
+
+;	Citation(s)
+;
+; NumCapsScrollLock  :::  Thanks to user [ dmg ] on AutoHotkey forum [ https://autohotkey.com/boards/viewtopic.php?p=22579#p22579 ]
+;
+
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;

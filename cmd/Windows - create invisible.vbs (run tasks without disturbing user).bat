@@ -1,0 +1,1 @@
+ECHO CreateObject("Wscript.Shell").Run """" ^& WScript.Arguments(0) ^& """", 0, FALSE> invisible.vbs

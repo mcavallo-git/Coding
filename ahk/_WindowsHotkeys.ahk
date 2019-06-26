@@ -343,10 +343,20 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Win + G
-;  ACTION:  Types the contents of a gnupg (gpg) file
+;  ACTION:  Types the contents of target file
 ;
 #G::
-	FilePathToRead=%USERPROFILE%\.gnupg\passphrase
+	FilePathToRead=%USERPROFILE%\.gnupg\passphrase.personal
+	FileRead, FilePathContents, %FilePathToRead%
+	SendInput, %FilePathContents%
+	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Win + W
+;  ACTION:  Types the contents of target file
+;
+#W::
+	FilePathToRead=%USERPROFILE%\.gnupg\passphrase.work
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return

@@ -284,6 +284,26 @@ done;
 #
 # ------------------------------------------------------------
 #
+#  Check whether a string contains non-numeric characters.
+#    |--> Replace all digit characters with blanks (remove them) then get the final length of the string
+#    |--> Any value greater than 0 for the length of the string means non-integer character(s) were found
+#
+#  if [[ -z ${foo//[0-9]/} ]]; then
+#    echo "foo is an integer!";
+#  fi;
+
+# ------------------------------------------------------------
+#  
+#  Compare [ the value of a variable evaluated in arithmetic context ] to [ the value of the same variable in non-arithmetic (e.g. string) context ]
+#  If the value of the two contexts are equal to each other, the string is an integer
+#  THIS IS BASH-SPECIFIC
+#
+#  if [[ $((foo)) == $foo ]]; then
+#    echo "foo is an integer!";
+#  fi;
+#
+# ------------------------------------------------------------
+#
 #
 #  null
 #					if [ -z $A ]      :::  True if A is a string and is null (has zero length)
@@ -335,6 +355,11 @@ done;
 #		www.gnu.org
 #		"6.4 Bash Conditional Expressions"
 #		 https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
+#
+#		
+#		stackoverflow.com
+#		"Is there an easy way to determine if user input is an integer in bash?"
+#		 https://stackoverflow.com/questions/4137262
 #
 #
 #

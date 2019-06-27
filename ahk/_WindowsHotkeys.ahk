@@ -312,6 +312,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  HOTKEY:  Win + P
 ;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
 ;
+#P::
 +#P::
 	SetKeyDelay, 0, -1
 	MsgBox, 4,, Type the Clipboard? (Yes/No)

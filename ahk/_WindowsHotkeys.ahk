@@ -40,9 +40,11 @@ DetectHiddenWindows, On
 
 ; #NoEnv  ; "Specifying the line #NoEnv anywhere in a script prevents empty variables from being looked up as potential environment variables" - AutoHotkey Docs
 
+USERPROFILE=%USERPROFILE%
+
 USER_DESKTOP=%USERPROFILE%\Desktop
  
-USER_DOCUMENTS=%USERPROFILE%/Documents
+USER_DOCUMENTS=%USERPROFILE%\Documents
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -568,11 +570,20 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + N
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
-;
+; 
 #N::
-	Run "c:\windows\system32\ncpa.cpl"
+	Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}
 	Return
-;
+; 
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Windows-Key + E
+;  ACTION:  Opens "USERPROFILE" directory
+; 
+#E::
+	SplitPath, A_MyDocuments, , UserProfileDirname
+	Run %UserProfileDirname%
+	Return
+; 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + O
 ;  ACTION:  Opens "Programs & Features" in the Control Panel

@@ -3,30 +3,50 @@
 #		|--> Writes a input variable(s) to output
 #
 Function Show() {
-	#Param(
-	#
-	#	[Parameter(Mandatory=$False)]
-	#	[ValidateLength(2,255)]
-	#	[String]$AndAndName,
-	#
-	#	[Switch]$SkipConfirmation,
-	#	[Switch]$Yes
-	#	
-	#)
+	Param(
+	
+		# [Parameter(Mandatory=$False)]
+		# [ValidateLength(2,255)]
+		# [String]$AndAndName,
+	
+		[Switch]$NoEnumerate
+		
+	)
 
 	$Dashes = "`n`n------------------------------------------------------------`n";
 
-	Write-Host "${Dashes}`n	`$MyInvocation.MyCommand	: ";
-	Write-Output -NoEnumerate $MyInvocation.MyCommand | Get-Member;
+	$ShowVar = $MyInvocation.MyCommand;
+	Write-Host "${Dashes}`n	`$ShowVar	: ";
+	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
+		Write-Output $ShowVar | Get-Member;
+	} Else {
+		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	}
 
-	Write-Host "${Dashes}`n	`$PSScriptRoot	: ";
-	Write-Output -NoEnumerate $PSScriptRoot | Get-Member;
+	$ShowVar = $PSScriptRoot;
+	Write-Host "${Dashes}`n	`$ShowVar	: ";
+	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
+		Write-Output $ShowVar | Get-Member;
+	} Else {
+		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	}
+	# Write-Output -NoEnumerate $PSScriptRoot | Get-Member;
 
-	Write-Host "${Dashes}`n	`$args	:";
-	Write-Output -NoEnumerate $args | Get-Member;
+	$ShowVar = $args;
+	Write-Host "${Dashes}`n	`$ShowVar	: ";
+	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
+		Write-Output $ShowVar | Get-Member;
+	} Else {
+		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	}
 
-	Write-Host "${Dashes}`n	`$PsBoundParameters.Values	:";
-	Write-Output -NoEnumerate $PsBoundParameters.Values | Get-Member;
+	$ShowVar = $PsBoundParameters.Values;
+	Write-Host "${Dashes}`n	`$ShowVar	: ";
+	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
+		Write-Output $ShowVar | Get-Member;
+	} Else {
+		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	}
 	
 	Return;
 }

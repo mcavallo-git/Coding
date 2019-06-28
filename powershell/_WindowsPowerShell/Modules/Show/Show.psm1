@@ -14,20 +14,21 @@ Function Show() {
 	)
 
 	$VarsToShow = @{};
+	$VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
+	$VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
+	$VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
+	$VarsToShow["args"] = ($args);
+	$VarsToShow["args[0]"] = ($args[0]);
+	$VarsToShow["args[1]"] = ($args[1]);
 
-	$VarsToShow["MyInvocation.MyCommand.Name"] = ($MyInvocation.MyCommand.Name);
-	# $VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
-	# $VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
-	# $VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
-	# $VarsToShow["args"] = ($args);
-	# $VarsToShow["args[0]"] = ($args[0]);
-	# $VarsToShow["args[1]"] = ($args[1]);
-
-	ForEach ($EachVarName in ($VarsToShow.Keys | Sort-Object)) {
-		$EachVarValue = $VarsToShow[$EachVarName];
+	ForEach ($EachKey in (($MyInvocation.MyCommand).Keys | Sort-Object)) {
+		$VarsToShow[${EachKey}] = ($MyInvocation[$EachKey]);
+	}
+	ForEach ($EachKey in ($VarsToShow.Keys | Sort-Object)) {
+		$EachVarValue = $VarsToShow[$EachKey];
 		Write-Output "============================================================";
 		Write-Output "`n`nVariable Name";
-		Write-Output "`$$(${EachVarName})";
+		Write-Output "`$$(${EachKey})";
 		Write-Output "`n`nVariable Value";
 		$EachVarValue | Format-List;
 		Write-Output "`n`nVariable Info";

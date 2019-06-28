@@ -16,13 +16,13 @@ Function Show() {
 
 	$Dashes = "`n`n------------------------------------------------------------`n";
 
-	Write-Host "${Dashes}MyInvocation.MyCommand:";
+	Write-Host "${Dashes}Showing Variable`n`$MyInvocation.MyCommand:";
 	Write-Output -NoEnumerate $MyInvocation.MyCommand | Get-Member;
 
-	Write-Host "${Dashes}args:";
+	Write-Host "${Dashes}Showing Variable`n`$args:";
 	Write-Output -NoEnumerate $args | Get-Member;
 
-	Write-Host "${Dashes}PsBoundParameters.Values:";
+	Write-Host "${Dashes}Showing Variable`n`$PsBoundParameters.Values:";
 	Write-Output -NoEnumerate $PsBoundParameters.Values | Get-Member;
 	
 	Return;

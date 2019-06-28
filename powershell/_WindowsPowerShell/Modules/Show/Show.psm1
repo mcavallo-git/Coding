@@ -21,6 +21,7 @@ Function Show() {
 		[Hashtable]$BoundParam_Hashtable=@{},
 
 		[Switch]$Enumerate,
+		
 		[Switch]$Splat
 		
 	)

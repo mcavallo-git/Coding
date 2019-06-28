@@ -16,7 +16,7 @@ Function Show() {
 
 		[Boolean]$BoundParam_Boolean = $False,
 
-		[Object[]]$BoundParam_Array=@(),
+		[Array]$BoundParam_Array=@(),
 
 		[Hashtable]$BoundParam_Hashtable=@{},
 

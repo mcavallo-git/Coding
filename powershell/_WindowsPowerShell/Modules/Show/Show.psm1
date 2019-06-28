@@ -20,7 +20,7 @@ Function Show() {
 	# $VarsToShow["args[0]"] = ($args[0]);
 	# $VarsToShow["args[1]"] = ($args[1]);
 
-	ForEach ($EachKey in ($args.Keys | Sort-Object)) {
+	ForEach ($EachKey in ($args)) {
 		$EachVarValue = $VarsToShow[$EachKey];
 		Write-Output "============================================================";
 		Write-Output "`n`n--> Variable:`n";

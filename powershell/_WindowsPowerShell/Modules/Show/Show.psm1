@@ -13,24 +13,27 @@ Function Show() {
 		
 	)
 
-	$VariablesToShow = @{};
-	$VariablesToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
-	$VariablesToShow["PSScriptRoot"] = ($PSScriptRoot);
-	$VariablesToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
-	$VariablesToShow["args"] = ($args);
+	$VarsToShow = @{};
 
-	ForEach ($VarName in $VariablesToShow.Keys) {
-		$VarValue = $VariablesToShow[$VarName];
+	# $VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
+	# $VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
+	# $VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
+	# $VarsToShow["args"] = ($args);
+
+	$VarsToShow = $PsBoundParameters.Values;
+
+	ForEach ($EachVarName in $VarsToShow.Keys) {
+		$EachVarValue = $VarsToShow[$EachVarName];
 		Write-Output "============================================================";
 		Write-Output "`n`nVariable Name";
-		Write-Output "`$$(${VarName})";
+		Write-Output "`$$(${EachVarName})";
 		Write-Output "`n`nVariable Value";
-		$VarValue | Format-List;
+		$EachVarValue | Format-List;
 		Write-Output "`n`nVariable Info";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
-			Write-Output -NoEnumerate $VarValue | Get-Member;
+			Write-Output -NoEnumerate $EachVarValue | Get-Member;
 		} Else {
-			Write-Output $VarValue | Get-Member;
+			Write-Output $EachVarValue | Get-Member;
 		}
 		Write-Output "`n------------------------------------------------------------";
 	}

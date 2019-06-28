@@ -37,7 +37,7 @@ Function Show() {
 			);
 			If ($ListProperties -ne $Null) {
 				Write-Output "`n`n --> Properties:`n";
-				Write-Output ($ListProperties | Select-Object -Property "Name");
+				$ListProperties | ForEach-Object { Write-Output $_.Name; };
 			}
 			#
 			# METHODS
@@ -49,7 +49,7 @@ Function Show() {
 			);
 			If ($ListMethods -ne $Null) {
 				Write-Output "`n`n --> Methods:`n";
-				Write-Output ($ListMethods | Select-Object -Property "Name");
+				$ListMethods | ForEach-Object { Write-Output $_.Name; };
 			}
 			#
 			# OTHER MEMBERTYPES
@@ -62,7 +62,7 @@ Function Show() {
 			);
 			If ($ListOthers -ne $Null) {
 				Write-Output "`n`n --> Other PSMemberTypes:`n";
-				Write-Output ($ListOthers | Select-Object -Property "Name");
+				$ListOthers | ForEach-Object { Write-Output $_.Name; };
 			}
 
 

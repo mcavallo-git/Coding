@@ -23,7 +23,7 @@ Function Show() {
 		$VarValue = $VariablesToShow[$VarName];
 		Write-Output "============================================================";
 		Write-Output "`n`nVariable Name";
-		Write-Output "	`$$(${VarName})";
+		Write-Output "`$$(${VarName})";
 		Write-Output "`n`nVariable Value";
 		$VarValue | Format-List;
 		Write-Output "`n`nVariable Info";

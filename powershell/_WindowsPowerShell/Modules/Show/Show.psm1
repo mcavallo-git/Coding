@@ -9,7 +9,7 @@ Function Show() {
 	Param(
 		
 		[String]$BoundParam_String="BoundParam_String",
-		
+
 		[Int32]$BoundParam_Integer=0,
 
 		[Double]$BoundParam_Double=0.0,
@@ -31,6 +31,9 @@ Function Show() {
 	# $VarsToShow["args"] = ($args);
 	# $VarsToShow["args[0]"] = ($args[0]);
 	# $VarsToShow["args[1]"] = ($args[1]);
+
+	Write-Host @args;
+	Return;
 
 	ForEach ($EachTopLevelVar in (@($args,$MyInvocation))) {
 		ForEach ($EachKey in ($EachTopLevelVar)) {

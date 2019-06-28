@@ -36,7 +36,8 @@ Function Show() {
 			);
 			If ($ListProperties -ne $Null) {
 				Write-Output "`n`n  --> Properties:`n";
-				$ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
+				$ListProperties | ForEach-Object { Write-Output "    $($_)"; };
+				# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 			#
 			# METHODS
@@ -47,7 +48,8 @@ Function Show() {
 			);
 			If ($ListMethods -ne $Null) {
 				Write-Output "`n`n  --> Methods:`n";
-				$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+				$ListMethods | ForEach-Object { Write-Output "    $($_)"; };
+				# $ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 			#
 			# OTHER MEMBERTYPES

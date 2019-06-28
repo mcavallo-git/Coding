@@ -5,63 +5,23 @@
 #		|
 #		|--> Example:     Show -Test1 -Test2 -Test3 "Value3";
 #
-Function Show {
-	Param(
-		
-		[String]$BoundParam_String="BoundParam_String",
+Function Show() {
 
-		[Int]$BoundParam_Integer = 0,
+	# $VarsObj = @{};
+	# $VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
+	# $VarsObj["PSScriptRoot"] = ($PSScriptRoot);
+	# $VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
+	# $VarsObj["args"] = ($args);
 
-		[Double]$BoundParam_Double = 0.0,
-
-		[Boolean]$BoundParam_Boolean = $False,
-
-		[Array]$BoundParam_Array=@(),
-
-		[Hashtable]$BoundParam_Hashtable=@{},
-
-		[Switch]$Enumerate,
-		
-		[Switch]$Splat,
-
-		[Parameter(Position=0, ValueFromRemainingArguments)]$RemainingArgs
-
-	)
-
-	If ($PSBoundParameters.ContainsKey('Splat')) {
-
-		Show @args;
-
-	} Else {
-
-
-		$VarsObj = @{};
-		$VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
-		$VarsObj["PSScriptRoot"] = ($PSScriptRoot);
-		$VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
-		$VarsObj["args"] = ($args);
-
-		$VarsArr = @();
-		$VarsArr += ($MyInvocation);
-		$VarsArr += ($args + $PsBoundParameters.Values);
-		$VarsArr += ($RemainingArgs);
-
-		ForEach ($EachVarValue in $VarsArr) {
-			Write-Output "============================================================";
-			Write-Output "`n`n--> Variable Name:`n";
-			Write-Output "`$$($EachVarValue.Name)";
-			Write-Output "`n`n--> Value (List):`n";
-			$EachVarValue | Format-List;
-			Write-Output "`n`n--> Methods:`n";
-			# If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
-				# Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
-			# } Else {
-				Get-Member -View ("All") -InputObject ($EachVarValue) ;
-				# Write-Output $EachVarValue | Get-Member -View ("All");
-			# }
-			Write-Output "`n------------------------------------------------------------";
-		}
-
+	ForEach ($EachVarValue in $args) {
+		Write-Output "============================================================";
+		# Write-Output "`n`n--> Variable Name:`n";
+		# Write-Output "`$($EachVarValue.Name)";
+		Write-Output "`n`n--> Value (List):`n";
+		$EachVarValue | Format-List;
+		Write-Output "`n`n--> Methods:`n";
+		Get-Member -View ("All") -InputObject ($EachVarValue) ;
+		Write-Output "`n------------------------------------------------------------";
 	}
 
 	Return;

@@ -28,20 +28,39 @@ Function Show() {
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 
-			$ListProperties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
-			Write-Output "`n`n --> Properties:`n";
-			$ListProperties.GetType();
-			$ListProperties;
+			# PROPERTIES
+			$ListProperties = (`
+				Get-Member -View ("All") -InputObject ($EachArg) `
+					| Where-Object { $_.MemberType -contains "Propert" <# Matches *Property* and *Properties* #> } `
+					| Select-Object -Property "Name" `
+			);
+			If ($ListProperties -ne $Null) {
+				Write-Output "`n`n --> Properties:`n";
+				$ListProperties;
+			}
 
-			$ListMethods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Method"} | Select-Object -ExpandProperty "Name");
-			Write-Output "`n`n --> Methods:`n";
-			$ListMethods.GetType();
-			$ListMethods;
+			# METHODS
+			$ListMethods = (`
+				Get-Member -View ("All") -InputObject ($EachArg) `
+					| Where-Object { $_.MemberType -contains "Method" } `
+					| Select-Object -Property "Name" `
+			);
+			If ($ListMethods -ne $Null) {
+				Write-Output "`n`n --> Methods:`n";
+				$ListMethods;
+			}
 
-			$ListOthers = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Where-Object { $_.MemberType -ne "Method"});
-			Write-Output "`n`n --> Other:`n";
-			$ListOthers.GetType();
-			$ListOthers;
+			# OTHER MEMBERTYPES
+			$ListOthers = (`
+				Get-Member -View ("All") -InputObject ($EachArg) `
+					| Where-Object { $_.MemberType -NotContains "Propert" } `
+					| Where-Object { $_.MemberType -NotContains "Method" } `
+					| Select-Object -Property "Name" `
+			);
+			If ($ListOthers -ne $Null) {
+				Write-Output "`n`n --> Other PSMemberTypes:`n";
+				$ListOthers;
+			}
 
 
 		}
@@ -59,7 +78,14 @@ Export-ModuleMember -Function "Show";
 #
 #	Citation(s)
 #
-#		"Powershell: Everything you wanted to know about arrays"
+#
+#		docs.microsoft.com
+#			|--> "Get-Member"
+#			|--> https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-member?view=powershell-6
+#
+#
+#		powershellexplained.com
+#			|--> "Powershell: Everything you wanted to know about arrays"
 #			|--> https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/#write-output--noenumerate
 #			|--> by Kevin Marquette
 #

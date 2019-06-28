@@ -20,10 +20,10 @@ Function Show() {
 		[Boolean]
 		$BoundParam_Boolean = $False,
 
-		[System.Object[]]
+		[Array]
 		$BoundParam_Array=@(),
 
-		[System.Collections.Hashtable]
+		[Hashtable]
 		$BoundParam_Hashtable=@{},
 
 		[Switch]

@@ -32,7 +32,7 @@ Function Show() {
 			#
 			$ListProperties = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { ($_.MemberType.Contains("Propert")) -eq $True } ` <# Matches *Property* and *Properties* #>
+					| Where-Object { ("$($_.MemberType)".Contains("Propert")) -eq $True } ` <# Matches *Property* and *Properties* #>
 			);
 			If ($ListProperties -ne $Null) {
 				Write-Output "`n`n  --> Properties:`n";
@@ -43,7 +43,7 @@ Function Show() {
 			#
 			$ListMethods = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { ($_.MemberType.Contains("Method")) -eq $True } `
+					| Where-Object { ("$($_.MemberType)".Contains("Method")) -eq $True } `
 			);
 			If ($ListMethods -ne $Null) {
 				Write-Output "`n`n  --> Methods:`n";
@@ -54,8 +54,8 @@ Function Show() {
 			#
 			$ListOthers = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { ($_.MemberType.Contains("Propert")) -eq $False } `
-					| Where-Object { ($_.MemberType.Contains("Method")) -eq $False } `
+					| Where-Object { ("$($_.MemberType)".Contains("Propert")) -eq $False } `
+					| Where-Object { ("$($_.MemberType)".Contains("Method")) -eq $False } `
 			);
 			If ($ListOthers -ne $Null) {
 				Write-Output "`n`n  --> Other PSMemberTypes:`n";

@@ -24,14 +24,14 @@ Function Show() {
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
-		Write-Output "`n`n--> Value (List):`n";
+		Write-Output "`n`n --> Value (List):`n";
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
-			Write-Output "`n`n--> Properties:`n";
+			Write-Output "`n`n --> Properties:`n";
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Foreach-Object {
 				$_.Name;
 			}
-			Write-Output "`n`n--> Methods:`n";
+			Write-Output "`n`n --> Methods:`n";
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Format-List;
 		}
 		Write-Output "`n------------------------------------------------------------";

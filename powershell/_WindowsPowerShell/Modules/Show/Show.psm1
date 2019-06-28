@@ -1,6 +1,9 @@
 #
 #	PowerShell - Show
-#		|--> Writes a input variable(s) to output
+#		|
+#		|--> Description:  Shows extended variable information to user
+#		|
+#		|--> Example:     TaskSnipe -Name "Ping" -AndName "Jitter" -SkipConfirmation;
 #
 Function Show() {
 	Param(
@@ -9,15 +12,15 @@ Function Show() {
 		
 	)
 
-	$VarsToShow = @{};
-	$VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
-	$VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
-	$VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
-	$VarsToShow["args"] = ($args);
-	$VarsToShow["args[0]"] = ($args[0]);
-	$VarsToShow["args[1]"] = ($args[1]);
+	# $VarsToShow = @{};
+	# $VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
+	# $VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
+	# $VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
+	# $VarsToShow["args"] = ($args);
+	# $VarsToShow["args[0]"] = ($args[0]);
+	# $VarsToShow["args[1]"] = ($args[1]);
 
-	ForEach ($EachKey in ($VarsToShow.Keys | Sort-Object)) {
+	ForEach ($EachKey in ($args.Keys | Sort-Object)) {
 		$EachVarValue = $VarsToShow[$EachKey];
 		Write-Output "============================================================";
 		Write-Output "`n`n--> Variable:`n";

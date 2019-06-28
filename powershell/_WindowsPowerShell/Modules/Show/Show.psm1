@@ -25,7 +25,8 @@ Function Show() {
 			# $EachVarValue = $VarsToShow[$EachKey];
 			$EachVarValue = $EachKey;
 			Write-Output "============================================================";
-			# Write-Output "`n`n--> Variable Name:`n";
+			Write-Output "`n`n--> Variable Name:`n";
+			Write-Output "`$$($EachVarValue.Name)";
 			# Write-Output "`$$(${EachKey})";
 			Write-Output "`n`n--> Value (List):`n";
 			$EachVarValue | Format-List;
@@ -33,7 +34,7 @@ Function Show() {
 			# If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 				# Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
 			# } Else {
-				Get-Member -InputObject ($EachVarValue) -View ("All") | Format-List;
+				Get-Member -InputObject ($EachVarValue) -View ("All");
 				# Write-Output $EachVarValue | Get-Member -View ("All");
 			# }
 			Write-Output "`n------------------------------------------------------------";

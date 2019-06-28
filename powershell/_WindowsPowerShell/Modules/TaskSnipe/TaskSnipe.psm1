@@ -2,7 +2,7 @@
 #	PowerShell - TaskSnipe
 #		Kill all processes whose name contains a given substring
 #
-#		example call:   TaskSnipe -Name "Ping" -AndName "Jitter" -SkipConfirm;
+#		example call:   TaskSnipe -Name "Ping" -AndName "Jitter" -SkipConfirmation;
 #
 function TaskSnipe {
 	Param(
@@ -27,11 +27,19 @@ function TaskSnipe {
 
 		[Switch]$Quiet,
 
-		[Switch]$SkipConfirm
+		[Switch]$SkipConfirmation,
+		[Switch]$Yes
 
 	)
 	
 	$SnipeList = @();
+
+	$SkipConfirm = $False;
+	If ($PSBoundParameters.ContainsKey('Yes') -Eq $True) {
+		$SkipConfirm = $True;
+	} ElseIf ($PSBoundParameters.ContainsKey('SkipConfirmation') -Eq $True) {
+		$SkipConfirm = $True;
+	}
 
 	# Case Insensitive searching (default mode)
 	If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {
@@ -121,16 +129,20 @@ function TaskSnipe {
 		}
 
 		#
-		# Make the user confirm before killing tasks (default, or call with -SkipConfirm to kill straight-away)
+		# Make the user confirm before killing tasks (default, or call with or -Yes -SkipConfirmation to kill straight-away)
 		#
-		If ($PSBoundParameters.ContainsKey('SkipConfirm') -Eq $True) {
+
+		If ($SkipConfirm -Eq $True) {
 			#
-			# Skip Confirm
+			# First Confirmation - Skip
 			#
+			If ($PSBoundParameters.ContainsKey('Quiet') -eq $false) { 
+				Write-Host -NoNewLine ("Skipping first confirmation") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			}
 			$FirstConfirm = $True;
 		} Else {
 			#
-			# First Confirmation step "Are you sure ... ?"
+			# First Confirmation - Confirm via "Are you sure ... ?" (Default)
 			#
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
@@ -147,14 +159,14 @@ function TaskSnipe {
 		# Check First Confirm
 		#
 		If ($FirstConfirm -Eq $True) {
-			If ($PSBoundParameters.ContainsKey('SkipConfirm') -Eq $True) {
+			If ($SkipConfirm -Eq $True) {
 				#
-				# Skip Confirm
+				# Second Confirmation - Skip
 				#
 				$SecondConfirm = $True;
 			} Else {
 				#
-				# Second Confirmation step "Really really sure?" 
+				# Second Confirmation - Confirm via "Are you sure ... ?" (Default)
 				#
 				$SecondConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfKey,"")));
 				Write-Host -NoNewLine ("Really really sure?") -BackgroundColor "Black" -ForegroundColor "Yellow";
@@ -194,8 +206,8 @@ function TaskSnipe {
 							If ($last_exit_code -ne 0) {
 								### FALLBACK OPTION:
 								$FI_PID  = " /FI `"PID eq $($_.PID)`"";
-								CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
-								# PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
+								# CMD /C "TASKKILL ${TASK_FILTERS}${FI_PID}";
+								PrivilegeEscalation -Command ("CMD /C `"TASKKILL ${TASK_FILTERS}${FI_PID}`"");
 							}
 						}
 					}

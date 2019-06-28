@@ -34,9 +34,9 @@ Function Show() {
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};
 			Write-Host "`n`n --> Methods:`n";
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Write-Host;
-			$Methods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object { $_.Name });
-			$Methods | Format-List;
-			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Host $_ };
+			# $Methods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object { $_.Name });
+			# $Methods | Format-List;
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Host $_ };
 		}
 		Write-Host "`n------------------------------------------------------------";
 	}

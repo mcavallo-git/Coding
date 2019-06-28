@@ -66,7 +66,7 @@ Function Show() {
 						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $False } `
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
 				);
-				Write-Output "`n`n  --> Other PSMemberTypes:`n";
+				Write-Output "`n`n  --> Other Types:`n";
 				If ($ListOthers -Eq $Null) {
 					Write-Output "    (none)";
 				} Else {

@@ -28,10 +28,14 @@ Function Show() {
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 			Write-Host "`n`n --> Properties:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | ForEach-Object { Write-Host -NoNewLine "$($_.Name)    "; Write-Host $EachArg[$_]; };
+			$Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | ForEach-Object { $_.Name; });
+			$Properties | Format-List;
+			# Write-Host $EachArg[$_];
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};
 			Write-Host "`n`n --> Methods:`n";
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Write-Host;
+			$Methods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | ForEach-Object { $_.Name; });
+			$Methods | Format-List;
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Host $_ };
 		}
 		Write-Host "`n------------------------------------------------------------";

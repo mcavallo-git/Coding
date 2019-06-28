@@ -20,21 +20,23 @@ Function Show() {
 	# $VarsToShow["args[0]"] = ($args[0]);
 	# $VarsToShow["args[1]"] = ($args[1]);
 
-	ForEach ($EachKey in ($args)) {
-		# $EachVarValue = $VarsToShow[$EachKey];
-		$EachVarValue = $EachKey;
-		Write-Output "============================================================";
-		# Write-Output "`n`n--> Variable Name:`n";
-		# Write-Output "`$$(${EachKey})";
-		Write-Output "`n`n--> Value (List):`n";
-		$EachVarValue | Format-List;
-		Write-Output "`n`n--> Methods:`n";
-		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
-			Write-Output -NoEnumerate $EachVarValue | Get-Member;
-		} Else {
-			Write-Output $EachVarValue | Get-Member;
+	ForEach ($EachTopLevelVar in (@($args,$MyInvocation))) {
+		ForEach ($EachKey in ($EachTopLevelVar)) {
+			# $EachVarValue = $VarsToShow[$EachKey];
+			$EachVarValue = $EachKey;
+			Write-Output "============================================================";
+			# Write-Output "`n`n--> Variable Name:`n";
+			# Write-Output "`$$(${EachKey})";
+			Write-Output "`n`n--> Value (List):`n";
+			$EachVarValue | Format-List;
+			Write-Output "`n`n--> Methods:`n";
+			If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
+				Write-Output -NoEnumerate $EachVarValue | Get-Member;
+			} Else {
+				Write-Output $EachVarValue | Get-Member;
+			}
+			Write-Output "`n------------------------------------------------------------";
 		}
-		Write-Output "`n------------------------------------------------------------";
 	}
 	
 	Write-Host ($args.GetType());

@@ -26,7 +26,7 @@ Function Show() {
 		Write-Output "============================================================";
 		# Write-Output "`n`n--> Variable Name:`n";
 		# Write-Output "`$$(${EachKey})";
-		Write-Output "`n`n--> Value (in List form):`n";
+		Write-Output "`n`n--> Value (List):`n";
 		$EachVarValue | Format-List;
 		Write-Output "`n`n--> Methods:`n";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {

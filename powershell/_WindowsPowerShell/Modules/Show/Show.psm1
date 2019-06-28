@@ -25,37 +25,29 @@ Function Show() {
 		
 	)
 
-	# $VarsToShow = @{};
-	# $VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
-	# $VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
-	# $VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
-	# $VarsToShow["args"] = ($args);
-	# $VarsToShow["args[0]"] = ($args[0]);
-	# $VarsToShow["args[1]"] = ($args[1]);
-
-	# $VarsToShow = @{};
-	# $VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
-	# $VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
-	# $VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
-	# $VarsToShow["args"] = ($args);
-	# $VarsToShow["args[0]"] = ($args[0]);
-	# $VarsToShow["args[1]"] = ($args[1]);
 	If ($PSBoundParameters.ContainsKey('Splat')) {
-
-	} Else {
 
 		Show @args;
 
-		Return;
+	} Else {
 
-		ForEach ($EachTopLevelVar in (@($args,$MyInvocation))) {
-			ForEach ($EachKey in ($EachTopLevelVar)) {
-				# $EachVarValue = $VarsToShow[$EachKey];
-				$EachVarValue = $EachKey;
+
+		$VarsObj = @{};
+		$VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
+		$VarsObj["PSScriptRoot"] = ($PSScriptRoot);
+		$VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
+		$VarsObj["args"] = ($args);
+
+		$VarsArr = @();
+		$VarsArr += ($MyInvocation);
+		$VarsArr += ($PsBoundParameters.Values + $args);
+
+
+		ForEach ($EachTopLevelVar in $VarsArr) {
+			ForEach ($EachVarValue in ($EachTopLevelVar)) {
 				Write-Output "============================================================";
 				Write-Output "`n`n--> Variable Name:`n";
 				Write-Output "`$$($EachVarValue.Name)";
-				# Write-Output "`$$(${EachKey})";
 				Write-Output "`n`n--> Value (List):`n";
 				$EachVarValue | Format-List;
 				Write-Output "`n`n--> Methods:`n";

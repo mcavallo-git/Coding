@@ -23,17 +23,17 @@ Function Show() {
 	}
 
 	ForEach ($EachArg in ($inline_args+$args)) {
-		Write-Output "============================================================";
-		Write-Output "`n`n --> Value (List):`n";
+		Write-Host "============================================================";
+		Write-Host "`n`n --> Value (List):`n";
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
-			Write-Output "`n`n --> Properties:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Foreach-Object { Write-Output $_.Name; Write-Output $EachArg[$_]; };
+			Write-Host "`n`n --> Properties:`n";
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Foreach-Object { Write-Host -NoNewLine $_.Name; Write-Host $EachArg[$_]; };
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};
-			Write-Output "`n`n --> Methods:`n";
+			Write-Host "`n`n --> Methods:`n";
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"};
 		}
-		Write-Output "`n------------------------------------------------------------";
+		Write-Host "`n------------------------------------------------------------";
 	}
 	Return;
 }

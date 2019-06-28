@@ -47,7 +47,7 @@ Function TaskSnipe {
 
 	If ((RunningAsAdministrator) -eq ($False)) {
 
-		$CommandString = "ExclusionsListUpdate";
+		$CommandString = $MyInvocation.MyCommand.Name;
 
 		If ($ESET -eq $True) {                           $CommandString = "$CommandString -ESET"; }
 		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiMalware"; }

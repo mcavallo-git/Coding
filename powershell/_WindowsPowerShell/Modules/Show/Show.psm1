@@ -7,31 +7,29 @@
 #
 Function Show() {
 	Param(
-		
+		[Switch]$Methods,
 		[Switch]$ShowMethods,
-		
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 
-	# $VarsObj = @{};
-	# $VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
-	# $VarsObj["PSScriptRoot"] = ($PSScriptRoot);
-	# $VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
-	# $VarsObj["args"] = ($args);
+	$ShowStructure = $False;
+	If ($PSBoundParameters.ContainsKey('Methods') -Eq $True) {
+		$ShowStructure = $True;
+	} ElseIf ($PSBoundParameters.ContainsKey('ShowMethods') -Eq $True) {
+		$ShowStructure = $True;
+	}
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
 		Write-Output "`n`n--> Value (List):`n";
 		$EachArg | Format-List;
-		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $True) {
+		If ($ShowStructure -Eq $True) {
 			Write-Output "`n`n--> Methods:`n";
 			Get-Member -View ("All") -InputObject ($EachArg);
 		}
 		Write-Output "`n------------------------------------------------------------";
 	}
-
 	Return;
-
 }
 Export-ModuleMember -Function "Show";
 # Install-Module -Name "Show"

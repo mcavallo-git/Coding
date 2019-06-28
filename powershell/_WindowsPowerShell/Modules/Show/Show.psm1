@@ -3,7 +3,7 @@
 #		|
 #		|--> Description:  Shows extended variable information to user
 #		|
-#		|--> Example:     TaskSnipe -Name "Ping" -AndName "Jitter" -SkipConfirmation;
+#		|--> Example:     Show -Test1 -Test2 -Test3 "Value3";
 #
 Function Show() {
 	Param(

@@ -30,12 +30,12 @@ Function Show() {
 
 			Write-Output "`n`n --> Properties:`n";
 
-			$Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
-			$Properties
+			$ListProperties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
+			$ListProperties
 
 			Write-Output "`n`n --> Methods:`n";
-			$Methods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Method"} | Select-Object -ExpandProperty "Name");
-			$Methods
+			$ListMethods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Method"} | Select-Object -ExpandProperty "Name");
+			$ListMethods
 
 
 		}

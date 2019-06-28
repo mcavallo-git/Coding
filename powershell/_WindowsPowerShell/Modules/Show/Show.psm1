@@ -22,11 +22,11 @@ Function Show() {
 	ForEach ($VarName in $VariablesToShow.Keys) {
 		$VarValue = $VariablesToShow[$VarName];
 		Write-Output "------------------------------------------------------------";
-		Write-Output "`nVariable Name";
+		Write-Output "`n`nVariable Name";
 		Write-Output "	`$$(${VarName})";
-		Write-Output "`nVariable Value";
+		Write-Output "`n`nVariable Value";
 		$VarValue | Format-List;
-		Write-Output "`nVariable Info";
+		Write-Output "`n`nVariable Info";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 			Write-Output -NoEnumerate $VarValue | Get-Member;
 		} Else {

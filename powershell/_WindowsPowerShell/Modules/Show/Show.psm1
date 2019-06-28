@@ -38,11 +38,11 @@ Function Show() {
 						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True } ` <# Matches *Property* and *Properties* #>
 				);
 				Write-Output "`n`n  --> Properties:`n";
-				If ($ListProperties -Eq $Null) {
-					Write-Output "    (no properties found)";
-				} Else {
+				If ($ListProperties -Ne $Null) {
 					$ListProperties | ForEach-Object { Write-Output "    $($_)"; };
 					# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
+				} Else {
+					Write-Output "    (no properties found)";
 				}
 				#
 				# METHODS
@@ -52,11 +52,12 @@ Function Show() {
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
 				);
 				Write-Output "`n`n  --> Methods:`n";
-				If ($ListMethods -Eq $Null) {
+				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";
-				} Else {
 					$ListMethods | ForEach-Object { Write-Output "    $($_)"; };
 					# $ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+				} Else {
+					Write-Output "    (none)";
 				}
 				#
 				# OTHER MEMBERTYPES
@@ -66,10 +67,8 @@ Function Show() {
 						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $False } `
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
 				);
-				Write-Output "`n`n  --> Other Types:`n";
-				If ($ListOthers -Eq $Null) {
-					Write-Output "    (none)";
-				} Else {
+				If ($ListOthers -Ne $Null) {
+					Write-Output "`n`n  --> Other Types:`n";
 					$ListOthers | ForEach-Object { Write-Output "    $($_)"; };
 				}
 			}

@@ -7,9 +7,7 @@
 #
 Function Show {
 	Param(
-
-		[Parameter(Position=0, ValueFromRemainingArguments)]$RemainingArgs
-
+		
 		[String]$BoundParam_String="BoundParam_String",
 
 		[Int]$BoundParam_Integer = 0,
@@ -25,6 +23,8 @@ Function Show {
 		[Switch]$Enumerate,
 		
 		[Switch]$Splat,
+
+		[Parameter(Position=0, ValueFromRemainingArguments)]$RemainingArgs
 
 	)
 

@@ -33,9 +33,9 @@ Function TaskSnipe {
 	)
 
 
-	Write-Host "`n`nMyInvocation.MyCommand:"; $MyInvocation.MyCommand -Format-List;
-	Write-Host "`n`nargs:"; $args -Format-List;
-	Write-Host "`n`nPsBoundParameters.Values:"; $PsBoundParameters.Values -Format-List;
+	Write-Host "`n`nMyInvocation.MyCommand:"; Write-Host ($MyInvocation.MyCommand);
+	Write-Host "`n`nargs:"; Write-Host ($args);
+	Write-Host "`n`nPsBoundParameters.Values:"; Write-Host ($PsBoundParameters.Values);
 	Return;
 
 	If ((RunningAsAdministrator) -eq ($False)) {

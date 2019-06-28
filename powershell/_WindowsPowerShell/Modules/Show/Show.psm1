@@ -28,14 +28,16 @@ Function Show() {
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 			Write-Host "`n`n --> Properties:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Foreach-Object { Write-Host -NoNewLine "$($_.Name)    "; Write-Host $EachArg[$_]; };
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | ForEach-Object { Write-Host -NoNewLine "$($_.Name)    "; Write-Host $EachArg[$_]; };
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};
 			Write-Host "`n`n --> Methods:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"};
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Host $_ };
 		}
 		Write-Host "`n------------------------------------------------------------";
 	}
+
 	Return;
+
 }
 Export-ModuleMember -Function "Show";
 # Install-Module -Name "Show"

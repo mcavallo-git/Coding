@@ -37,6 +37,10 @@ Function Show() {
 			$ListMethods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Method"} | Select-Object -ExpandProperty "Name");
 			$ListMethods
 
+			Write-Output "`n`n --> Other:`n";
+			$ListOthers = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Where-Object { $_.MemberType -ne "Method"});
+			$ListOthers
+
 
 		}
 		Write-Output "`n------------------------------------------------------------";

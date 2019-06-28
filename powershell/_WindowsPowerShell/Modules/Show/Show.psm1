@@ -34,7 +34,6 @@ Function Show() {
 			$Properties
 
 			Write-Output "`n`n --> Methods:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Output $_ };
 			$Methods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Method"} | Select-Object -ExpandProperty "Name");
 			$Methods
 

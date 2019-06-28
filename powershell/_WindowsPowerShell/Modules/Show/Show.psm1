@@ -39,7 +39,10 @@ Function Show() {
 				);
 				Write-Output "`n`n  --> Properties:`n";
 				If ($ListProperties -Ne $Null) {
-					$ListProperties | ForEach-Object { Write-Output $_; };
+					$MaxLen = 0;
+					$ListProperties | ForEach-Object { $EachName="$_.Name"; If ($EachName.Length -Gt $MaxLen) { $MaxLen = $EachName.Length; } };
+					$ListProperties | ForEach-Object { $EachName="$_.Name"; Write-Output (("    ")+($EachName.PadRight(($MaxLen-$EachName.Length)," "))+("  $($_.Definition)")); };
+					# $ListProperties | ForEach-Object { Write-Output $_; };
 					# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)  $()"; };
 				} Else {
 					Write-Output "    (no properties found)";

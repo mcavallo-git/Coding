@@ -35,7 +35,8 @@ Function Show() {
 				Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
 			# } Else {
 				Write-Output "`n----`n";
-				Write-Output $EachVarValue | Get-Member -View ("All");
+				Get-Member -InputObject ($EachVarValue) -View ("All");
+				# Write-Output $EachVarValue | Get-Member -View ("All");
 			# }
 			Write-Output "`n------------------------------------------------------------";
 		}

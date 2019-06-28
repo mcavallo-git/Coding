@@ -25,7 +25,7 @@ Function Show() {
 	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
 		Write-Output "`n`n  --> Value (List):`n";
-		If ($EachArg -eq $Null) {
+		If ($EachArg -Eq $Null) {
 			Write-Output "`$Null";
 		} Else {
 			$EachArg | Format-List;
@@ -35,10 +35,10 @@ Function Show() {
 				#
 				$ListProperties = (`
 					Get-Member -InputObject ($EachArg) -View ("All") `
-						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -eq $True } ` <# Matches *Property* and *Properties* #>
+						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True } ` <# Matches *Property* and *Properties* #>
 				);
 				Write-Output "`n`n  --> Properties:`n";
-				If ($ListProperties -ne $Null) {
+				If ($ListProperties -Eq $Null) {
 					Write-Output "    (no properties found)";
 				} Else {
 					$ListProperties | ForEach-Object { Write-Output "    $($_)"; };
@@ -49,10 +49,10 @@ Function Show() {
 				#
 				$ListMethods = (`
 					Get-Member -InputObject ($EachArg) -View ("All") `
-						| Where-Object { ("$($_.MemberType)".Contains("Method")) -eq $True } `
+						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
 				);
 				Write-Output "`n`n  --> Methods:`n";
-				If ($ListMethods -ne $Null) {
+				If ($ListMethods -Eq $Null) {
 					Write-Output "    (none)";
 				} Else {
 					$ListMethods | ForEach-Object { Write-Output "    $($_)"; };
@@ -63,11 +63,11 @@ Function Show() {
 				#
 				$ListOthers = (`
 					Get-Member -InputObject ($EachArg) -View ("All") `
-						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -eq $False } `
-						| Where-Object { ("$($_.MemberType)".Contains("Method")) -eq $False } `
+						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $False } `
+						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
 				);
 				Write-Output "`n`n  --> Other PSMemberTypes:`n";
-				If ($ListOthers -ne $Null) {
+				If ($ListOthers -Eq $Null) {
 					Write-Output "    (none)";
 				} Else {
 					$ListOthers | ForEach-Object { Write-Output "    $($_)"; };

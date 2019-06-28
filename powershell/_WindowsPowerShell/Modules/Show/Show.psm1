@@ -39,13 +39,8 @@ Function Show() {
 				);
 				Write-Output "`n`n  --> Properties:`n";
 				If ($ListProperties -Ne $Null) {
-					$MaxLen = 0;
-					$ListProperties | ForEach-Object { $EachName="$($_.Name)"; If ($EachName.Length -Gt $MaxLen) { $MaxLen = $EachName.Length; } };
-					$MaxLen;
-					$ListProperties | ForEach-Object { $EachPad=("$($_.Name)".PadRight(($MaxLen-("$($_.Name)".Length))," ")); $EachLen; Write-Output "    $EachPad  $($_.Definition)"; };
-					# $ListProperties | ForEach-Object { $EachName="$($_.Name)"; Write-Output (("    ")+($EachName.PadRight(($MaxLen-$EachName.Length)," "))+("  $($_.Definition)")); };
 					# $ListProperties | ForEach-Object { Write-Output $_; };
-					# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)  $()"; };
+					$ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
 				} Else {
 					Write-Output "    (no properties found)";
 				}
@@ -60,8 +55,8 @@ Function Show() {
 				Write-Output "`n`n  --> Methods:`n";
 				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";
-					$ListMethods | ForEach-Object { Write-Output $_; };
-					# $ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+					# $ListMethods | ForEach-Object { Write-Output $_; };
+					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
 				} Else {
 					Write-Output "    (none)";
 				}

@@ -19,6 +19,8 @@ Function Show() {
 	$VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
 	$VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
 	$VarsToShow["args"] = ($args);
+	$VarsToShow["args[0]"] = ($args[0]);
+	$VarsToShow["args[1]"] = ($args[1]);
 
 	ForEach ($EachVarName in $VarsToShow.Keys) {
 		$EachVarValue = $VarsToShow[$EachVarName];

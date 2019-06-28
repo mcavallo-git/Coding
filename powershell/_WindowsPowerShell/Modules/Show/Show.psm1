@@ -15,12 +15,13 @@ Function Show() {
 
 	$VarsToShow = @{};
 
-	$VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
-	$VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
-	$VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
-	$VarsToShow["args"] = ($args);
-	$VarsToShow["args[0]"] = ($args[0]);
-	$VarsToShow["args[1]"] = ($args[1]);
+	$VarsToShow["MyInvocation.MyCommand.Name"] = ($MyInvocation.MyCommand.Name);
+	# $VarsToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
+	# $VarsToShow["PSScriptRoot"] = ($PSScriptRoot);
+	# $VarsToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
+	# $VarsToShow["args"] = ($args);
+	# $VarsToShow["args[0]"] = ($args[0]);
+	# $VarsToShow["args[1]"] = ($args[1]);
 
 	ForEach ($EachVarName in ($VarsToShow.Keys | Sort-Object)) {
 		$EachVarValue = $VarsToShow[$EachVarName];

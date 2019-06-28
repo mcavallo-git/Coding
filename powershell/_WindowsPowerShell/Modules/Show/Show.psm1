@@ -10,11 +10,11 @@ Function Show() {
 		
 		[String]$BoundParam_String="BoundParam_String",
 
-		[Int32]$BoundParam_Integer=0,
+		[Int]$BoundParam_Integer = 0,
 
-		[Double]$BoundParam_Double=0.0,
+		[Double]$BoundParam_Double = 0.0,
 
-		[Boolean]$BoundParam_Boolean=$False,
+		[Boolean]$BoundParam_Boolean = $False,
 
 		[Object[]]$BoundParam_Array=@(),
 

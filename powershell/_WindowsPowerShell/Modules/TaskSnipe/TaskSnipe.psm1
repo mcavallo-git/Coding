@@ -32,7 +32,7 @@ Function TaskSnipe {
 
 	)
 
-	$Dashes = "`n`n------------------------------------------------------------";
+	$Dashes = "`n`n------------------------------------------------------------`n";
 	Write-Host "${Dashes}MyInvocation.MyCommand:"; Write-Host ($MyInvocation.MyCommand);
 	Write-Host "${Dashes}args:"; Write-Host ($args);
 	Write-Host "${Dashes}PsBoundParameters.Values:"; Write-Host ($PsBoundParameters.Values);

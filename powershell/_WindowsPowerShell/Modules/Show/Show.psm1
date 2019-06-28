@@ -21,7 +21,8 @@ Function Show() {
 	# $VarsToShow["args[1]"] = ($args[1]);
 
 	ForEach ($EachKey in ($args)) {
-		$EachVarValue = $VarsToShow[$EachKey];
+		# $EachVarValue = $VarsToShow[$EachKey];
+		$EachVarValue = $EachKey;
 		Write-Output "============================================================";
 		Write-Output "`n`n--> Variable:`n";
 		Write-Output "`$$(${EachKey})";

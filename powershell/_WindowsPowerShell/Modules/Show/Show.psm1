@@ -34,7 +34,7 @@ Function Show() {
 			# If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 				# Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
 			# } Else {
-				Get-Member -InputObject ($EachVarValue) -View ("All");
+				Get-Member -View ("All") -InputObject ($EachVarValue) ;
 				# Write-Output $EachVarValue | Get-Member -View ("All");
 			# }
 			Write-Output "`n------------------------------------------------------------";

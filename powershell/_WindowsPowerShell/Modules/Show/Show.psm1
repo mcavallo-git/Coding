@@ -19,21 +19,20 @@ Function Show() {
 	$VariablesToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
 	$VariablesToShow["args"] = ($args);
 
-	$Dashes = "`n------------------------------------------------------------`n";
 	ForEach ($VarName in $VariablesToShow.Keys) {
 		$VarValue = $VariablesToShow[$VarName];
-		Write-Output "${Dashes}";
-		Write-Output "Variable Name";
+		Write-Output "------------------------------------------------------------";
+		Write-Output "`nVariable Name";
 		Write-Output "	`$$(${VarName})";
-		Write-Output "Variable Value";
+		Write-Output "`nVariable Value";
 		$VarValue | Format-List;
-		Write-Output "Variable Info";
+		Write-Output "`nVariable Info";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 			Write-Output -NoEnumerate $VarValue | Get-Member;
 		} Else {
 			Write-Output $VarValue | Get-Member;
 		}
-		Write-Output "${Dashes}";
+		Write-Output "`n------------------------------------------------------------";
 	}
 	
 	Return;

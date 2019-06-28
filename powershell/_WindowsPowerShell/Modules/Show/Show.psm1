@@ -42,7 +42,7 @@ Function Show() {
 					$MaxLen = 0;
 					$ListProperties | ForEach-Object { $EachName="$($_.Name)"; If ($EachName.Length -Gt $MaxLen) { $MaxLen = $EachName.Length; } };
 					$MaxLen;
-					$ListProperties | ForEach-Object { $EachLen=($MaxLen-("$($_.Name)".Length)); $EachLen; Write-Output "    $($($_.Name).PadRight(($MaxLen-(`"$($_.Name)`".Length)),' '))  $($_.Definition)"; };
+					$ListProperties | ForEach-Object { $EachPad=("$($_.Name)".PadRight(($MaxLen-("$($_.Name)".Length))," ")); $EachLen; Write-Output "    $EachPad  $($_.Definition)"; };
 					# $ListProperties | ForEach-Object { $EachName="$($_.Name)"; Write-Output (("    ")+($EachName.PadRight(($MaxLen-$EachName.Length)," "))+("  $($_.Definition)")); };
 					# $ListProperties | ForEach-Object { Write-Output $_; };
 					# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)  $()"; };

@@ -23,29 +23,29 @@ Function Show() {
 	}
 
 	ForEach ($EachArg in ($inline_args+$args)) {
-		Write-Host "============================================================";
-		Write-Host "`n`n --> Value (List):`n";
+		Write-Output "============================================================";
+		Write-Output "`n`n --> Value (List):`n";
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 
-			Write-Host "`n`n --> Properties:`n";
+			Write-Output "`n`n --> Properties:`n";
 
 			# $Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
 			# $Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object);
 			# $Properties
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"}
 
-			# Write-Host $EachArg[$_];
+			# Write-Output $EachArg[$_];
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};
 
-			Write-Host "`n`n --> Methods:`n";
-			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Write-Host;
+			Write-Output "`n`n --> Methods:`n";
+			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Write-Output;
 			# $Methods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object { $_.Name });
 			# $Methods | Format-List;
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Host $_ };
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | ForEach-Object { Write-Output $_ };
 
 		}
-		Write-Host "`n------------------------------------------------------------";
+		Write-Output "`n------------------------------------------------------------";
 	}
 
 	Return;

@@ -37,7 +37,7 @@ Function Show() {
 		Write-Output "`n------------------------------------------------------------";
 	}
 	
-	$args.GetType();
+	Write-Host ($args.GetType());
 
 	Return;
 

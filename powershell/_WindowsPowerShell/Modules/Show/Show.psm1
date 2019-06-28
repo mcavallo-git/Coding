@@ -32,7 +32,7 @@ Function Show() {
 
 			# $Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
 			$Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"});
-			$Properties | ForEach-Object { Write-Host "$($_):  $($EachArg[$_])" };
+			$Properties
 
 			# Write-Host $EachArg[$_];
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};

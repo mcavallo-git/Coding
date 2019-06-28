@@ -41,6 +41,7 @@ Function Show() {
 				If ($ListProperties -Ne $Null) {
 					$MaxLen = 0;
 					$ListProperties | ForEach-Object { $EachName="$($_.Name)"; If ($EachName.Length -Gt $MaxLen) { $MaxLen = $EachName.Length; } };
+					$MaxLen;
 					$ListProperties | ForEach-Object { $EachName="$($_.Name)"; Write-Output (("    ")+($EachName.PadRight(($MaxLen-$EachName.Length)," "))+("  $($_.Definition)")); };
 					# $ListProperties | ForEach-Object { Write-Output $_; };
 					# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)  $()"; };

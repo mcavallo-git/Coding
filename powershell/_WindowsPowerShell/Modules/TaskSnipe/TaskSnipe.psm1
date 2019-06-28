@@ -48,6 +48,12 @@ Function TaskSnipe {
 
 	If ((RunningAsAdministrator) -eq ($False)) {
 
+		# $VarsObj = @{};
+		# $VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
+		# $VarsObj["PSScriptRoot"] = ($PSScriptRoot);
+		# $VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
+		# $VarsObj["args"] = ($args);
+		
 		$CommandString = $MyInvocation.MyCommand.Name;
 
 		If ($ESET -eq $True) {                           $CommandString = "$CommandString -ESET"; }

@@ -41,8 +41,8 @@ Function TaskSnipe {
 	Write-Host "${Dashes}args:";
 	Write-Output -NoEnumerate $args | Get-Member;
 
-	Write-Host "${Dashes}PsBoundParameters.Values:";
-	Write-Output -NoEnumerate $PsBoundParameters.Values | Get-Member;
+	Write-Host "${Dashes}PSBoundParameters.Values:";
+	Write-Output -NoEnumerate $PSBoundParameters.Values | Get-Member;
 	
 	Return;
 

@@ -37,7 +37,10 @@ Function Show() {
 		Write-Output "`n------------------------------------------------------------";
 	}
 	
+	$args.GetType();
+
 	Return;
+
 }
 Export-ModuleMember -Function "Show";
 # Install-Module -Name "Show"

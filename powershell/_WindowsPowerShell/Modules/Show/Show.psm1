@@ -32,37 +32,34 @@ Function Show() {
 			#
 			$ListProperties = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { $_.MemberType -contains "Propert" } ` <# Matches *Property* and *Properties* #>
+					| Where-Object { ($_.MemberType.Contains("Propert")) -eq $True } ` <# Matches *Property* and *Properties* #>
 			);
 			If ($ListProperties -ne $Null) {
 				Write-Output "`n`n  --> Properties:`n";
-				$ListProperties | ForEach-Object { Write-Output "    $($_)"; };
-				# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
+				$ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 			#
 			# METHODS
 			#
 			$ListMethods = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { $_.MemberType -contains "Method" } `
+					| Where-Object { ($_.MemberType.Contains("Method")) -eq $True } `
 			);
 			If ($ListMethods -ne $Null) {
 				Write-Output "`n`n  --> Methods:`n";
-				$ListMethods | ForEach-Object { Write-Output "    $($_)"; };
-				# $ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+				$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 			#
 			# OTHER MEMBERTYPES
 			#
 			$ListOthers = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { $_.MemberType -NotContains "Propert" } `
-					| Where-Object { $_.MemberType -NotContains "Method" } `
+					| Where-Object { ($_.MemberType.Contains("Propert")) -eq $False } `
+					| Where-Object { ($_.MemberType.Contains("Method")) -eq $False } `
 			);
 			If ($ListOthers -ne $Null) {
 				Write-Output "`n`n  --> Other PSMemberTypes:`n";
 				$ListOthers | ForEach-Object { Write-Output "    $($_)"; };
-				# $ListOthers | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 
 

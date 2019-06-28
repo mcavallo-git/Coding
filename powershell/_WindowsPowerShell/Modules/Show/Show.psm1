@@ -23,6 +23,8 @@ Function Show {
 		[Switch]$Enumerate,
 		
 		[Switch]$Splat
+
+		[Parameter(ValueFromRemainingArguments)]$RemainingArgs
 		
 	)
 

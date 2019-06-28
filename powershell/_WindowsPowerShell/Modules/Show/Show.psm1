@@ -9,7 +9,7 @@ Function Show() {
 		# [ValidateLength(2,255)]
 		# [String]$AndAndName,
 	
-		[Switch]$NoEnumerate
+		[Switch]$Enumerate
 		
 	)
 
@@ -17,35 +17,34 @@ Function Show() {
 
 	$ShowVar = $MyInvocation.MyCommand;
 	Write-Host "${Dashes}`n	`$ShowVar	: ";
-	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
-		Write-Output $ShowVar | Get-Member;
-	} Else {
+	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	} Else {
+		Write-Output $ShowVar | Get-Member;
 	}
 
 	$ShowVar = $PSScriptRoot;
 	Write-Host "${Dashes}`n	`$ShowVar	: ";
-	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
-		Write-Output $ShowVar | Get-Member;
-	} Else {
+	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	} Else {
+		Write-Output $ShowVar | Get-Member;
 	}
-	# Write-Output -NoEnumerate $PSScriptRoot | Get-Member;
 
 	$ShowVar = $args;
 	Write-Host "${Dashes}`n	`$ShowVar	: ";
-	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
-		Write-Output $ShowVar | Get-Member;
-	} Else {
+	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	} Else {
+		Write-Output $ShowVar | Get-Member;
 	}
 
 	$ShowVar = $PsBoundParameters.Values;
 	Write-Host "${Dashes}`n	`$ShowVar	: ";
-	If ($PSBoundParameters.ContainsKey('NoEnumerate') -Eq $False) {
-		Write-Output $ShowVar | Get-Member;
-	} Else {
+	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
+	} Else {
+		Write-Output $ShowVar | Get-Member;
 	}
 	
 	Return;

@@ -14,10 +14,10 @@ Function Show() {
 	)
 
 	$VariablesToShow = @{};
-	$VariablesToShow.MyInvocation_MyCommand = ($MyInvocation.MyCommand);
-	$VariablesToShow.PSScriptRoot = ($PSScriptRoot);
-	$VariablesToShow.PsBoundParameters_Values = ($PsBoundParameters.Values);
-	$VariablesToShow.args = ($args);
+	$VariablesToShow["MyInvocation.MyCommand"] = ($MyInvocation.MyCommand);
+	$VariablesToShow["PSScriptRoot"] = ($PSScriptRoot);
+	$VariablesToShow["PsBoundParameters.Values"] = ($PsBoundParameters.Values);
+	$VariablesToShow["args"] = ($args);
 
 	$Dashes = "`n------------------------------------------------------------`n";
 	ForEach ($VarName in $VariablesToShow.Keys) {
@@ -26,8 +26,10 @@ Function Show() {
 		Write-Output "";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 			Write-Output -NoEnumerate $VarValue | Get-Member;
+			# Get-Variable -Name ($VarName) | Write-Output -NoEnumerate | Get-Member;
 		} Else {
 			Write-Output $VarValue | Get-Member;
+			# Get-Variable -Name ($VarName) | Write-Output | Get-Member;
 		}
 		Write-Output "${Dashes}";
 	}

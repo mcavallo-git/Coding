@@ -21,7 +21,7 @@ Function Show() {
 
 	ForEach ($VarName in $VariablesToShow.Keys) {
 		$VarValue = $VariablesToShow[$VarName];
-		Write-Output "------------------------------------------------------------";
+		Write-Output "============================================================";
 		Write-Output "`n`nVariable Name";
 		Write-Output "	`$$(${VarName})";
 		Write-Output "`n`nVariable Value";

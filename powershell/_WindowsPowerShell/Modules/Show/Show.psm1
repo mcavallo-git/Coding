@@ -16,7 +16,8 @@ Function Show() {
 	$Dashes = "`n`n------------------------------------------------------------`n";
 
 	$ShowVar = $MyInvocation.MyCommand;
-	Write-Host "${Dashes}"; Write-Host "`$ShowVar	: ";
+	Write-Host "`$MyInvocation.MyCommand	: ";
+	Write-Host "${Dashes}";
 	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
 	} Else {
@@ -24,7 +25,8 @@ Function Show() {
 	}
 
 	$ShowVar = $PSScriptRoot;
-	Write-Host "${Dashes}"; Write-Host "`$ShowVar	: ";
+	Write-Host "`$PSScriptRoot	: ";
+	Write-Host "${Dashes}";
 	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
 	} Else {
@@ -32,7 +34,8 @@ Function Show() {
 	}
 
 	$ShowVar = $args;
-	Write-Host "${Dashes}"; Write-Host "`$ShowVar	: ";
+	Write-Host "`$args	: ";
+	Write-Host "${Dashes}";
 	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
 	} Else {
@@ -40,7 +43,8 @@ Function Show() {
 	}
 
 	$ShowVar = $PsBoundParameters.Values;
-	Write-Host "${Dashes}"; Write-Host "`$ShowVar	: ";
+	Write-Host "`$PsBoundParameters.Values	: ";
+	Write-Host "${Dashes}";
 	If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 		Write-Output -NoEnumerate $ShowVar | Get-Member;
 	} Else {

@@ -8,29 +8,21 @@
 Function Show {
 	Param(
 		
-		[String]
-		$BoundParam_String="BoundParam_String",
+		[String]$BoundParam_String="BoundParam_String",
 
-		[Int]
-		$BoundParam_Integer = 0,
+		[Int]$BoundParam_Integer = 0,
 
-		[Double]
-		$BoundParam_Double = 0.0,
+		[Double]$BoundParam_Double = 0.0,
 
-		[Boolean]
-		$BoundParam_Boolean = $False,
+		[Boolean]$BoundParam_Boolean = $False,
 
-		[Array]
-		$BoundParam_Array=@(),
+		[Array]$BoundParam_Array=@(),
 
-		[Hashtable]
-		$BoundParam_Hashtable=@{},
+		[Hashtable]$BoundParam_Hashtable=@{},
 
-		[Switch]
-		$Enumerate,
+		[Switch]$Enumerate,
 		
-		[Switch]
-		$Splat
+		[Switch]$Splat
 		
 	)
 

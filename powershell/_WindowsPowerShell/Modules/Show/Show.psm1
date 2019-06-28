@@ -6,6 +6,12 @@
 #		|--> Example:     Show -Test1 -Test2 -Test3 "Value3";
 #
 Function Show() {
+	Param(
+		
+		[Switch]$ShowMethods,
+		
+		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
+	)
 
 	# $VarsObj = @{};
 	# $VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
@@ -13,14 +19,14 @@ Function Show() {
 	# $VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
 	# $VarsObj["args"] = ($args);
 
-	ForEach ($EachVarValue in $args) {
+	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
-		# Write-Output "`n`n--> Variable Name:`n";
-		# Write-Output "`$($EachVarValue.Name)";
 		Write-Output "`n`n--> Value (List):`n";
-		$EachVarValue | Format-List;
-		Write-Output "`n`n--> Methods:`n";
-		Get-Member -View ("All") -InputObject ($EachVarValue) ;
+		$EachArg | Format-List;
+		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $True) {
+			Write-Output "`n`n--> Methods:`n";
+			Get-Member -View ("All") -InputObject ($EachArg);
+		}
 		Write-Output "`n------------------------------------------------------------";
 	}
 

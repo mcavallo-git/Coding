@@ -5,7 +5,7 @@
 #		|
 #		|--> Example:     Show -Test1 -Test2 -Test3 "Value3";
 #
-Function Show() {
+Function Show {
 	Param(
 		
 		[String]

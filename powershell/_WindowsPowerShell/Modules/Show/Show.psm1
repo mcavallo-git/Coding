@@ -5,10 +5,6 @@
 Function Show() {
 	Param(
 	
-		# [Parameter(Mandatory=$False)]
-		# [ValidateLength(2,255)]
-		# [String]$AndAndName,
-	
 		[Switch]$Enumerate
 		
 	)

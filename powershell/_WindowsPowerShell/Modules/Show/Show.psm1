@@ -28,11 +28,9 @@ Function Show() {
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 			Write-Output "`n`n --> Properties:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Foreach-Object {
-				$_.Name;
-			}
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Foreach-Object { Write-Output $_.Name; }
 			Write-Output "`n`n --> Methods:`n";
-			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Format-List;
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"};
 		}
 		Write-Output "`n------------------------------------------------------------";
 	}

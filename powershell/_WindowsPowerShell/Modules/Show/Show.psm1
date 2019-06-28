@@ -22,14 +22,14 @@ Function Show() {
 	$Dashes = "`n------------------------------------------------------------`n";
 	ForEach ($VarName in $VariablesToShow.Keys) {
 		$VarValue = $VariablesToShow[$VarName];
-		Write-Output "${Dashes}`$`n	$(${VarName})	: ";
+		Write-Output "${Dashes}`n	`$$(${VarName})	: ";
 		Write-Output "";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
-			Write-Output -NoEnumerate $VarValue | Get-Member;
-			# Get-Variable -Name ($VarName) | Write-Output -NoEnumerate | Get-Member;
+			# Write-Output -NoEnumerate $VarValue | Get-Member;
+			Get-Variable -Name ($VarName) | Write-Output -NoEnumerate | Get-Member;
 		} Else {
-			Write-Output $VarValue | Get-Member;
-			# Get-Variable -Name ($VarName) | Write-Output | Get-Member;
+			# Write-Output $VarValue | Get-Member;
+			Get-Variable -Name ($VarName) | Write-Output | Get-Member;
 		}
 		Write-Output "${Dashes}";
 	}

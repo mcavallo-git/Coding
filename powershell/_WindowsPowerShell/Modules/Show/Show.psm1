@@ -29,12 +29,10 @@ Function Show() {
 		If ($ShowStructure -Eq $True) {
 
 			Write-Host "`n`n --> Properties:`n";
-			
-			$Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object { Name } | ForEach-Object { @{Key=$_.Name;Value=$_;} });
-			$Properties | Format-List;
 
-			# $Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select -ExpandProperty "Name");
-			# $Properties | ForEach-Object { Write-Host "$($_):  $($EachArg[$_])" };
+			# $Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
+			$Properties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"}
+			$Properties | ForEach-Object { Write-Host "$($_):  $($EachArg[$_])" };
 
 			# Write-Host $EachArg[$_];
 			# Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};

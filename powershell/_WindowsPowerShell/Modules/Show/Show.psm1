@@ -3,7 +3,7 @@
 #		|
 #		|--> Description:  Shows extended variable information to user
 #		|
-#		|--> Example:     Show -Test1 -Test2 -Test3 "Value3";
+#		|--> Example:     PowerShell -Command ("Show `$MyInvocation -Methods")
 #
 Function Show() {
 	Param(

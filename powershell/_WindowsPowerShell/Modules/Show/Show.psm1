@@ -27,8 +27,9 @@ Function Show() {
 		Write-Output "`n`n --> Value (List):`n";
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
-
+			#
 			# PROPERTIES
+			#
 			$ListProperties = (`
 				Get-Member -View ("All") -InputObject ($EachArg) `
 					| Where-Object { $_.MemberType -contains "Propert" <# Matches *Property* and *Properties* #> } `
@@ -38,8 +39,9 @@ Function Show() {
 				Write-Output "`n`n --> Properties:`n";
 				$ListProperties;
 			}
-
+			#
 			# METHODS
+			#
 			$ListMethods = (`
 				Get-Member -View ("All") -InputObject ($EachArg) `
 					| Where-Object { $_.MemberType -contains "Method" } `
@@ -49,8 +51,9 @@ Function Show() {
 				Write-Output "`n`n --> Methods:`n";
 				$ListMethods;
 			}
-
+			#
 			# OTHER MEMBERTYPES
+			#
 			$ListOthers = (`
 				Get-Member -View ("All") -InputObject ($EachArg) `
 					| Where-Object { $_.MemberType -NotContains "Propert" } `

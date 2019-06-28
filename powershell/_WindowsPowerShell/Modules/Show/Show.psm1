@@ -31,8 +31,10 @@ Function Show() {
 			$EachVarValue | Format-List;
 			Write-Output "`n`n--> Methods:`n";
 			# If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
+				Write-Output "`n----`n";
 				Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
 			# } Else {
+				Write-Output "`n----`n";
 				Write-Output $EachVarValue | Get-Member -View ("All");
 			# }
 			Write-Output "`n------------------------------------------------------------";

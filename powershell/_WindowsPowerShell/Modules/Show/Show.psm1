@@ -24,7 +24,7 @@ Function Show() {
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
-		Write-Output "`n`n --> Value (List):`n";
+		Write-Output "`n`n  --> Value (List):`n";
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 			#
@@ -35,8 +35,8 @@ Function Show() {
 					| Where-Object { $_.MemberType -contains "Propert" <# Matches *Property* and *Properties* #> } `
 			);
 			If ($ListProperties -ne $Null) {
-				Write-Output "`n`n --> Properties:`n";
-				$ListProperties | ForEach-Object { Write-Output $_.Name; };
+				Write-Output "`n`n  --> Properties:`n";
+				$ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 			#
 			# METHODS
@@ -46,8 +46,8 @@ Function Show() {
 					| Where-Object { $_.MemberType -contains "Method" } `
 			);
 			If ($ListMethods -ne $Null) {
-				Write-Output "`n`n --> Methods:`n";
-				$ListMethods | ForEach-Object { Write-Output $_.Name; };
+				Write-Output "`n`n  --> Methods:`n";
+				$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 			#
 			# OTHER MEMBERTYPES
@@ -58,8 +58,8 @@ Function Show() {
 					| Where-Object { $_.MemberType -NotContains "Method" } `
 			);
 			If ($ListOthers -ne $Null) {
-				Write-Output "`n`n --> Other PSMemberTypes:`n";
-				$ListOthers | ForEach-Object { Write-Output $_.Name; };
+				Write-Output "`n`n  --> Other PSMemberTypes:`n";
+				$ListOthers | ForEach-Object { Write-Output "    $($_.Name)"; };
 			}
 
 

@@ -43,26 +43,25 @@ Function Show {
 
 		$VarsArr = @();
 		$VarsArr += ($MyInvocation);
-		$VarsArr += ($PsBoundParameters.Values + $args);
+		$VarsArr += ($args + $PsBoundParameters.Values);
+		$VarsArr += ($RemainingArgs);
 
-
-		ForEach ($EachTopLevelVar in $VarsArr) {
-			ForEach ($EachVarValue in ($EachTopLevelVar)) {
-				Write-Output "============================================================";
-				Write-Output "`n`n--> Variable Name:`n";
-				Write-Output "`$$($EachVarValue.Name)";
-				Write-Output "`n`n--> Value (List):`n";
-				$EachVarValue | Format-List;
-				Write-Output "`n`n--> Methods:`n";
-				# If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
-					# Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
-				# } Else {
-					Get-Member -View ("All") -InputObject ($EachVarValue) ;
-					# Write-Output $EachVarValue | Get-Member -View ("All");
-				# }
-				Write-Output "`n------------------------------------------------------------";
-			}
+		ForEach ($EachVarValue in $VarsArr) {
+			Write-Output "============================================================";
+			Write-Output "`n`n--> Variable Name:`n";
+			Write-Output "`$$($EachVarValue.Name)";
+			Write-Output "`n`n--> Value (List):`n";
+			$EachVarValue | Format-List;
+			Write-Output "`n`n--> Methods:`n";
+			# If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
+				# Write-Output -NoEnumerate $EachVarValue | Get-Member -View ("All");
+			# } Else {
+				Get-Member -View ("All") -InputObject ($EachVarValue) ;
+				# Write-Output $EachVarValue | Get-Member -View ("All");
+			# }
+			Write-Output "`n------------------------------------------------------------";
 		}
+
 	}
 
 	Return;

@@ -39,7 +39,6 @@ Function Show() {
 				);
 				Write-Output "`n`n  --> Properties:`n";
 				If ($ListProperties -Ne $Null) {
-					# $ListProperties | ForEach-Object { Write-Output $_; };
 					$ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
 				} Else {
 					Write-Output "    (no properties found)";
@@ -55,7 +54,6 @@ Function Show() {
 				Write-Output "`n`n  --> Methods:`n";
 				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";
-					# $ListMethods | ForEach-Object { Write-Output $_; };
 					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
 				} Else {
 					Write-Output "    (none)";

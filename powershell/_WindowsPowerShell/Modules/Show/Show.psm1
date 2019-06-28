@@ -28,18 +28,20 @@ Function Show() {
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
 
-			Write-Output "`n`n --> Properties:`n";
-
 			$ListProperties = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"} | Select-Object -ExpandProperty "Name");
-			$ListProperties
+			Write-Output "`n`n --> Properties:`n";
+			$ListProperties.GetType();
+			$ListProperties;
 
-			Write-Output "`n`n --> Methods:`n";
 			$ListMethods = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Method"} | Select-Object -ExpandProperty "Name");
-			$ListMethods
+			Write-Output "`n`n --> Methods:`n";
+			$ListMethods.GetType();
+			$ListMethods;
 
-			Write-Output "`n`n --> Other:`n";
 			$ListOthers = (Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"} | Where-Object { $_.MemberType -ne "Method"});
-			$ListOthers
+			Write-Output "`n`n --> Other:`n";
+			$ListOthers.GetType();
+			$ListOthers;
 
 
 		}

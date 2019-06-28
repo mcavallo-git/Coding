@@ -7,13 +7,16 @@
 #
 Function Show() {
 	Param(
+		[Switch]$Detailed,
 		[Switch]$Methods,
 		[Switch]$ShowMethods,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 
 	$ShowStructure = $False;
-	If ($PSBoundParameters.ContainsKey('Methods') -Eq $True) {
+	If ($PSBoundParameters.ContainsKey('Detailed') -Eq $True) {
+		$ShowStructure = $True;
+	} ElseIf ($PSBoundParameters.ContainsKey('Methods') -Eq $True) {
 		$ShowStructure = $True;
 	} ElseIf ($PSBoundParameters.ContainsKey('ShowMethods') -Eq $True) {
 		$ShowStructure = $True;
@@ -24,6 +27,8 @@ Function Show() {
 		Write-Output "`n`n--> Value (List):`n";
 		$EachArg | Format-List;
 		If ($ShowStructure -Eq $True) {
+			Write-Output "`n`n--> Properties:`n";
+			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -eq "Property"};
 			Write-Output "`n`n--> Methods:`n";
 			Get-Member -View ("All") -InputObject ($EachArg) | Where-Object { $_.MemberType -ne "Property"};
 		}

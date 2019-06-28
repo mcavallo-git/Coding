@@ -20,11 +20,11 @@ Function Show() {
 	ForEach ($EachKey in ($VarsToShow.Keys | Sort-Object)) {
 		$EachVarValue = $VarsToShow[$EachKey];
 		Write-Output "============================================================";
-		Write-Output "`n`nVariable Name";
+		Write-Output "`n`n--> Variable:`n";
 		Write-Output "`$$(${EachKey})";
-		Write-Output "`n`nVariable Value";
+		Write-Output "`n`n--> Value:`n";
 		$EachVarValue | Format-List;
-		Write-Output "`n`nVariable Info";
+		Write-Output "`n`n--> Methods:`n";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {
 			Write-Output -NoEnumerate $EachVarValue | Get-Member;
 		} Else {

@@ -32,7 +32,7 @@ Function Show() {
 			#
 			$ListProperties = (`
 				Get-Member -InputObject ($EachArg) -View ("All") `
-					| Where-Object { $_.MemberType -contains "Propert" <# Matches *Property* and *Properties* #> } `
+					| Where-Object { $_.MemberType -contains "Propert" } ` <# Matches *Property* and *Properties* #>
 			);
 			If ($ListProperties -ne $Null) {
 				Write-Output "`n`n  --> Properties:`n";

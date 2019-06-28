@@ -22,10 +22,10 @@ Function Show {
 
 		[Switch]$Enumerate,
 		
-		[Switch]$Splat
+		[Switch]$Splat,
 
 		[Parameter(ValueFromRemainingArguments)]$RemainingArgs
-		
+
 	)
 
 	If ($PSBoundParameters.ContainsKey('Splat')) {

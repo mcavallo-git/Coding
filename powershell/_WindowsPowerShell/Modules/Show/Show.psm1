@@ -19,6 +19,9 @@ Function Show() {
 	Write-Host "${Dashes}`n	`$MyInvocation.MyCommand	: ";
 	Write-Output -NoEnumerate $MyInvocation.MyCommand | Get-Member;
 
+	Write-Host "${Dashes}`n	`$PSScriptRoot	: ";
+	Write-Output -NoEnumerate $PSScriptRoot | Get-Member;
+
 	Write-Host "${Dashes}`n	`$args	:";
 	Write-Output -NoEnumerate $args | Get-Member;
 

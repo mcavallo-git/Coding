@@ -63,8 +63,6 @@ Function Show() {
 				Write-Output "`n`n  --> Other PSMemberTypes:`n";
 				$ListOthers | ForEach-Object { Write-Output "    $($_)"; };
 			}
-
-
 		}
 		Write-Output "`n------------------------------------------------------------";
 	}

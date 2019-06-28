@@ -22,7 +22,7 @@ Function Show() {
 		Write-Output "============================================================";
 		Write-Output "`n`n--> Variable:`n";
 		Write-Output "`$$(${EachKey})";
-		Write-Output "`n`n--> Value:`n";
+		Write-Output "`n`n--> Value (in List form):`n";
 		$EachVarValue | Format-List;
 		Write-Output "`n`n--> Methods:`n";
 		If ($PSBoundParameters.ContainsKey('Enumerate') -Eq $False) {

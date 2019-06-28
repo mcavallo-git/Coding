@@ -37,7 +37,7 @@ Function Show() {
 			);
 			If ($ListProperties -ne $Null) {
 				Write-Output "`n`n --> Properties:`n";
-				$ListProperties;
+				$ListProperties | Format-List;
 			}
 			#
 			# METHODS
@@ -49,7 +49,7 @@ Function Show() {
 			);
 			If ($ListMethods -ne $Null) {
 				Write-Output "`n`n --> Methods:`n";
-				$ListMethods;
+				$ListMethods | Format-List;
 			}
 			#
 			# OTHER MEMBERTYPES
@@ -62,7 +62,7 @@ Function Show() {
 			);
 			If ($ListOthers -ne $Null) {
 				Write-Output "`n`n --> Other PSMemberTypes:`n";
-				$ListOthers;
+				$ListOthers | Format-List;
 			}
 
 

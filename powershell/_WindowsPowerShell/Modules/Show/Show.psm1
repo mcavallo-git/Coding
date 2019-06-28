@@ -24,8 +24,8 @@ Function Show() {
 		# $EachVarValue = $VarsToShow[$EachKey];
 		$EachVarValue = $EachKey;
 		Write-Output "============================================================";
-		Write-Output "`n`n--> Variable:`n";
-		Write-Output "`$$(${EachKey})";
+		# Write-Output "`n`n--> Variable Name:`n";
+		# Write-Output "`$$(${EachKey})";
 		Write-Output "`n`n--> Value (in List form):`n";
 		$EachVarValue | Format-List;
 		Write-Output "`n`n--> Methods:`n";

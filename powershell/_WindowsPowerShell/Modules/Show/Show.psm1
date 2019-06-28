@@ -51,6 +51,7 @@ Function Show() {
 					Get-Member -InputObject ($EachArg) -View ("All") `
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
 				);
+				$ListMethods
 				Write-Output "`n`n  --> Methods:`n";
 				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";

@@ -20,8 +20,6 @@ Function TaskSnipe {
 		[ValidateLength(2,255)]
 		[String]$AndAndName,
 
-		[Int32]$ExitAfterSeconds=60,
-
 		[Switch]$CaseSensitive,
 		[Switch]$CurrentUserMustOwn,
 		[Switch]$MatchWholeName,
@@ -249,9 +247,14 @@ Function TaskSnipe {
 		Write-Host "`n`n";
 		
 	}
-	Write-Host (("`n`nExiting after ")+($ExitAfterSeconds)+(" seconds..."));
-	Start-Sleep -Seconds ($ExitAfterSeconds);
+	
+	# ------------------------------------------------------------
+	#	### "Press any key to close this window..."
+	Write-Host -NoNewLine "`n`n  Press any key to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+
 	Return;
+
 }
 Export-ModuleMember -Function "TaskSnipe";
 # Install-Module -Name "TaskSnipe"

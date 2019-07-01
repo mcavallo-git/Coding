@@ -68,7 +68,7 @@ function ProfileSync {
 	
 	$Pro = @();
 
-	$Pro += 'Write-Host "PowerShell v$(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n";';
+	$Pro += 'Write-Host "$($MyInvocation.MyCommand.Name) - PowerShell v$(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Green;';
 	
 	$Pro += 'Write-Host "Loading personal and system profiles...`n";';
 

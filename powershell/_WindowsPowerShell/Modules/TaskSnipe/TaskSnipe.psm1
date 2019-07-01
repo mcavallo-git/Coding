@@ -110,10 +110,10 @@ Function TaskSnipe {
 								$ServiceList = (Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'" -ErrorAction "SilentlyContinue");
 								If ($ServiceList -ne $Null) {
 									$ServiceList | Where-Object { $_.State -eq "Running" } | ForEach-Object {
-										$NewSnipe.ServiceNames += $_.Name; 
-										# $_.StartMode; 
-										# $_.State; 
-										# $_.Status; 
+										$NewSnipe.ServiceNames += $_.Name;
+										# $_.StartMode;
+										# $_.State;
+										# $_.Status;
 									}
 								}
 							}
@@ -151,7 +151,7 @@ Function TaskSnipe {
 				#
 				# First Confirmation - Skip
 				#
-				If ($PSBoundParameters.ContainsKey('Quiet') -eq $false) { 
+				If ($PSBoundParameters.ContainsKey('Quiet') -eq $false) {
 					Write-Host -NoNewLine ("Skipping first confirmation") -BackgroundColor "Black" -ForegroundColor "Yellow";
 				}
 				$FirstConfirm = $True;
@@ -208,7 +208,7 @@ Function TaskSnipe {
 									# STOP SERVICES BY NAME
 									#
 									Write-Host "`n  Stopping Service `"$($_.Name)`" ...  " -ForegroundColor "Red" -BackgroundColor "Black";
-									Stop-Service -Name ($_.Name) -Force -NoWait;
+									Stop-Service -Name ($_.Name) -Force -NoWait -ErrorAction "SilentlyContinue";
 								}
 							}
 						} Else {
@@ -217,7 +217,7 @@ Function TaskSnipe {
 								# KILL TASKS BY PID
 								#
 								Write-Host "`n  Stopping Process `"$($_.IMAGENAME)`" (PID $($_.PID)) ...  " -ForegroundColor "Red" -BackgroundColor "Black";
-								Stop-Process -Id ($_.PID) -Force; $last_exit_code = If($?){0}Else{1};
+								Stop-Process -Id ($_.PID) -Force -ErrorAction "SilentlyContinue"; $last_exit_code = If($?){0}Else{1};
 								If ($last_exit_code -ne 0) {
 									### FALLBACK OPTION:
 									$FI_PID  = " /FI `"PID eq $($_.PID)`"";
@@ -261,9 +261,10 @@ Export-ModuleMember -Function "TaskSnipe";
 
 
 
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #
-#		docs.microsoft.com | https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service
+#		docs.microsoft.com | "Stop-Service - Microsoft Docs" | https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service
 #
 #

@@ -130,12 +130,20 @@ function GitSyncAll {
 
 
 	# ------------------------------------------------------------
+	#	### "Press any key to continue..."
+	#
+	# Write-Host -NoNewLine "`n`n  Press any key to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+	#
+	# ------------------------------------------------------------
 	#	### "Press any key to close this window..."
+	#
 	# Write-Host -NoNewLine "`n`n  Press any key to close this window...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	#
 	# ------------------------------------------------------------
 	# ### "Press 'Escape' to close this window..."
+	#
 	# Write-Host -NoNewLine "`n`n  Press 'Escape' to close this window...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	# While ($KeyPress.VirtualKeyCode -ne 27) {

@@ -17,7 +17,7 @@ function GitCloneRepo {
 	)
 	
 	If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-		Write-Host "$($MyInvocation.MyCommand.Name) - Task: Attempting to clone git repository `"$($Url)`" ";
+		Write-Host "$($MyInvocation.MyCommand.Name) - Task: Attempting to clone git repository `"$($Url)`" " -ForegroundColor Gray;
 	}
 
 	# Default the parent-dir to temp-dir (when no dir is passed via parameter specification)
@@ -48,7 +48,7 @@ function GitCloneRepo {
 	# Determine if we need to create repository's parent-directory
 	If ($Repo.ParentDirExists -eq $false) {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Task: Creating git repository's parent directory `"$($Repo.ParentDir)`"";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Task: Creating git repository's parent directory `"$($Repo.ParentDir)`"" -ForegroundColor Gray;
 		}
 		New-Item -ItemType "Directory" -Path (($Repo.ParentDir)+("/")) | Out-Null;
 	} Else {
@@ -126,7 +126,7 @@ function GitCloneRepo {
 		If ((Test-Path -PathType Container -Path ($WorkingTreeFullpath)) -eq $true) {
 			$CommandDescription = "Attempting to remove directory containing git-repo (working-tree)";
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Task: $($CommandDescription): $($Repo.RepoBasename)";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Task: $($CommandDescription): $($Repo.RepoBasename)" -ForegroundColor Gray;
 			}
 			Remove-Item ($WorkingTreeFullpath) -Force -Recurse; Start-Sleep -Seconds 1;
 			If ((Test-Path -Path ($WorkingTreeFullpath)) -eq $true) {
@@ -141,7 +141,7 @@ function GitCloneRepo {
 		$Repo.CloneExitCode = $null;
 		$CommandDescription = "Attempting to clone git-repo";
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Task: $($CommandDescription): $($Repo.RepoBasename)";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Task: $($CommandDescription): $($Repo.RepoBasename)" -ForegroundColor Gray;
 			$Repo.CloneUrl = (git clone ($ResolvedUrl));
 			$Repo.CloneExitCode = If($?){0}Else{1};
 		} Else {
@@ -177,7 +177,7 @@ function GitCloneRepo {
 		$CommitSHA = $CommitSHA.Trim();
 		If (($PSBoundParameters.ContainsKey('CommitSHA')) -and ($CommitSHA.Length -eq "40")) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Task: Reverting local git repository to commit SHA `"$($CommitSHA)`"";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Task: Reverting local git repository to commit SHA `"$($CommitSHA)`"" -ForegroundColor Gray;
 			}
 			Set-Location -Path ($WorkingTreeFullpath);
 			$Repo.ResetHead = (git reset --hard "$CommitSHA");

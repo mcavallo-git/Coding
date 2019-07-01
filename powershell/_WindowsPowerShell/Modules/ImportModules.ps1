@@ -59,7 +59,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @("platyPS");
 If ($psm1.iteration -eq 1) {
-	Write-Host "`n$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Import powershell modules (pass $($psm1.iteration)/2, - microsoft gallery modules)";
+	Write-Host "`n$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Import powershell modules (pass $($psm1.iteration)/2, - microsoft gallery modules)" -ForegroundColor Gray;
 	Foreach ($EachGalleryModule In ($PSGalleryModules)) {
 		If (!(Get-Module -ListAvailable -Name ($EachGalleryModule))) {
 			Install-Module -Name ($EachGalleryModule) -Scope CurrentUser -Force;
@@ -77,7 +77,7 @@ If ($psm1.iteration -eq 1) {
 		}
 	}
 } ElseIf ($psm1.iteration -eq 2) {
-	Write-Host "`n$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Import powershell modules (pass $($psm1.iteration)/2, - git repository modules)";
+	Write-Host "`n$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Import powershell modules (pass $($psm1.iteration)/2, - git repository modules)" -ForegroundColor Gray;
 }
 
 # ------------------------------------------------------------
@@ -111,14 +111,20 @@ For ($i=0; $i -lt $PSMod_ParentDirs.length; $i++) {
 	$psm1.fullpath += (($PSModDir_SplitChar)+($PSMod_ParentDirs[$i]));
 	If ((Test-Path -PathType Container -Path (($psm1.fullpath)+($PSModDir_SplitChar))) -eq $false) {
 		# Directory doesn't exist - create it
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create parent-directory for Modules: $($psm1.fullpath)"; }
+		If ($psm1.verbosity -ne 0) {
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create parent-directory for Modules: $($psm1.fullpath)" -ForegroundColor Gray;
+		}
 		New-Item -ItemType "Directory" -Path (($psm1.fullpath)+($PSModDir_SplitChar)) | Out-Null;
 	} Else {
 		# Directory exists - skip it
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Skip: Parent-directory for Modules already exists: $($psm1.fullpath)"; }
+		If ($psm1.verbosity -ne 0) {
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Skip: Parent-directory for Modules already exists: $($psm1.fullpath)";
+		}
 	}
 }
-If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Info: PowerShell Modules directory's fullpath: $($psm1.fullpath)"; }
+If ($psm1.verbosity -ne 0) {
+	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Info: PowerShell Modules directory's fullpath: $($psm1.fullpath)";
+}
 
 # ------------------------------------------------------------
 #
@@ -128,7 +134,7 @@ If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtensio
 If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 
 	If ($psm1.verbosity -ne 0) {
-		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Missing git source directory: ${PSScriptRoot}";
+		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Missing git source directory: ${PSScriptRoot}"; # -ForegroundColor Red;
 	}
 	Start-Sleep -Seconds 60;
 	Exit 1;
@@ -141,18 +147,20 @@ If ($psm1.verbosity -ne 0) {
 
 # Git Modules (along with their respectively named directories) to copy into a given machine's PowerShell Modules Directory
 If ($psm1.verbosity -ne 0) {
-	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Searching `"${PSScriptRoot}`" for PowerShell Modules...";
+	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Searching `"${PSScriptRoot}`" for PowerShell Modules..." -ForegroundColor Gray;
 }
 $PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue");
 
 Foreach ($EachModule In $PowerShellModulesArr) {
-	If ($psm1.verbosity -ne 0) { Write-Host " "; }
+	If ($psm1.verbosity -ne 0) {
+		Write-Host " ";
+	}
 
 	# Remove Module's Cache from RAM (to avoid [ working on modules which are cached in RAM ], [ duplicated modules from previous-revisions ], [ etc. ])
 	If (Get-Module -Name ($EachModule.Name)) {
 		Remove-Module ($EachModule.Name);
 		If ($psm1.verbosity -ne 0) {
-			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Gray;
 		}
 		If (Get-Module -Name ($EachModule.Name)) {
 			If ($psm1.verbosity -ne 0) {
@@ -175,14 +183,18 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 		
 		# Create directory
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+		If ($psm1.verbosity -ne 0) {
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Gray;
+		}
 
 		New-Item -ItemType "Directory" -Path (($StartupModuleDirectory)+("/")) | Out-Null;
 
 		If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 
 			# Error - Unable to create directory
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+			}
 			Start-Sleep -Seconds 60;
 			Exit 1;
 
@@ -201,14 +213,18 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 		
 		# Create the destination if it doesn't exist, yet
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+		If ($psm1.verbosity -ne 0) {
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Gray;
+		}
 		Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 		
 		# Check for failure to copy item(s)
 		If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
 			# Error - Unable to create Module
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+			}
 			Start-Sleep -Seconds 60;
 			Exit 1;
 
@@ -230,7 +246,9 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If ($path_source_last_write -gt $path_destination_last_write) {
 
 			# If the source file has a new revision, then update the destination file with said changes
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Updating Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Updating Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Gray;
+			}
 
 			Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 
@@ -277,7 +295,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Importing Module (caching onto RAM): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Importing Module (caching onto RAM): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Gray;
 			}
 			
 			Import-Module ($StartupModuleFile);

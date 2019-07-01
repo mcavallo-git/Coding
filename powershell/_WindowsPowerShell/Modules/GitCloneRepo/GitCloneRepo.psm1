@@ -109,7 +109,7 @@ function GitCloneRepo {
 		$Repo.ResetExitCode = If($?){0}Else{1};
 		If ($Repo.ResetExitCode -ne 0) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]" -ForegroundColor Yellow;
 			}
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
@@ -131,7 +131,7 @@ function GitCloneRepo {
 			Remove-Item ($WorkingTreeFullpath) -Force -Recurse; Start-Sleep -Seconds 1;
 			If ((Test-Path -Path ($WorkingTreeFullpath)) -eq $true) {
 				# Failed to remove directory
-				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]" -ForegroundColor Yellow;
 				Start-Sleep -Seconds 60;
 				Exit 1;
 			}
@@ -151,14 +151,14 @@ function GitCloneRepo {
 
 		# Fail-out on non-zero exit-codes
 		If ($Repo.CloneExitCode -ne 0) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]" -ForegroundColor Yellow;
 			Start-Sleep -Seconds 60;
 			Exit 1;
 		}
 	
 		If ((Test-Path -PathType Container -Path ($WorkingTreeFullpath)) -eq $false) {
 			# Failed to Clone Repo
-			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Unable to Clone Git-Repo from Url: $($ResolvedUrl)";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Unable to Clone Git-Repo from Url: $($ResolvedUrl)" -ForegroundColor Yellow;
 			Start-Sleep -Seconds 60;
 			Exit 1;
 		}
@@ -167,7 +167,7 @@ function GitCloneRepo {
 	# Check that Git-Repo directory exists before returning
 	If ((Test-Path -PathType Container -Path ($WorkingTreeFullpath)) -eq $false) {
 		# Failed to Clone Repo - Exit Immediately
-		Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Local git repository's working-tree not found";
+		Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Local git repository's working-tree not found" -ForegroundColor Yellow;
 		Start-Sleep -Seconds 60;
 		Exit 1;
 

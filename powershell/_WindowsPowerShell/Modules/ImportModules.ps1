@@ -68,7 +68,7 @@ If ($psm1.iteration -eq 1) {
 		$import_exit_code = If($?){0}Else{1};
 		If ($import_exit_code -ne 0) {
 			# Failed Module Import
-			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [ $($import_exit_code) ] returned from Import-Module: $EachGalleryModule";
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [ $($import_exit_code) ] returned from Import-Module: $EachGalleryModule" -ForegroundColor Yellow;
 			Start-Sleep -Seconds 60;
 			Exit 1;
 		} Else {
@@ -134,7 +134,7 @@ If ($psm1.verbosity -ne 0) {
 If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 
 	If ($psm1.verbosity -ne 0) {
-		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Missing git source directory: ${PSScriptRoot}"; # -ForegroundColor Red;
+		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Missing git source directory: ${PSScriptRoot}" -ForegroundColor Yellow;
 	}
 	Start-Sleep -Seconds 60;
 	Exit 1;
@@ -164,7 +164,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		}
 		If (Get-Module -Name ($EachModule.Name)) {
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to remove Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to remove Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
 		} Else {
 			If ($psm1.verbosity -ne 0) {
@@ -193,7 +193,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 			# Error - Unable to create directory
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
 			Start-Sleep -Seconds 60;
 			Exit 1;
@@ -223,7 +223,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 			# Error - Unable to create Module
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
 			Start-Sleep -Seconds 60;
 			Exit 1;
@@ -257,7 +257,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 				# Error - Couldn't update/overwrite a file, etc.
 				If ($psm1.verbosity -ne 0) {
-					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to be update Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to be update Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 				}
 				Start-Sleep -Seconds 60;
 				Exit 1;
@@ -306,7 +306,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			If ($import_exit_code -ne 0) {
 
 				# Failed Module Import
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [$import_exit_code] returned from Import-Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [$import_exit_code] returned from Import-Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 				Start-Sleep -Seconds 60;
 				Exit 1;
 

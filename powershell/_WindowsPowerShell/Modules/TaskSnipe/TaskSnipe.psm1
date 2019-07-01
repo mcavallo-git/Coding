@@ -107,14 +107,14 @@ Function TaskSnipe {
 							$NewSnipe.ServiceNames = @();
 							# Get Service Info
 							If (($NewSnipe.SESSIONNAME) -Eq ("Services")) {
-								$ServiceList = (Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'" -ErrorAction "SilentlyContinue");
-								If ($ServiceList -ne $Null) {
-									$ServiceList | Where-Object { $_.State -eq "Running" } | ForEach-Object {
-										$NewSnipe.ServiceNames += $_.Name;
-										# $_.StartMode;
-										# $_.State;
-										# $_.Status;
-									}
+								# $ServiceList = (Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)'" -ErrorAction "SilentlyContinue");
+								# If ($ServiceList -ne $Null) {
+								# 	$ServiceList | Where-Object { $_.State -eq "Running" } | ForEach-Object {
+								# 		$NewSnipe.ServiceNames += $_.Name;
+								# 	}
+								# }
+								Get-WmiObject Win32_Service -Filter "ProcessId='$($NewSnipe.PID)' AND State='Running'" -ErrorAction "SilentlyContinue" | ForEach-Object {
+									$NewSnipe.ServiceNames += $_.Name;
 								}
 							}
 							# Push the new object of values onto the final results array
@@ -191,7 +191,7 @@ Function TaskSnipe {
 					}
 					$SnipeList | ForEach-Object {
 						If (($_.SESSIONNAME) -Eq "Services") {
-							$_.ServiceNames.ToList() | ForEach-Object {
+							$_.ServiceNames | ForEach-Object {
 								Get-Service -Name ($_) -ErrorAction "SilentlyContinue" | Where-Object { $_.Status -eq "Running"} | ForEach-Object {
 									#
 									# STOP SERVICES BY NAME

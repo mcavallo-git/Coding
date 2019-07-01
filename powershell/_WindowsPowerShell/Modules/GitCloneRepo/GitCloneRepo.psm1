@@ -79,11 +79,11 @@ function GitCloneRepo {
 		# Determine if Git-Repo Url is forwarded or not
 		If ($ResolvedUrl -ne $Url) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"$($ResolvedUrl)`" from `"$($Url)`"";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"$($ResolvedUrl)`" from `"$($Url)`"" -ForegroundColor Cyan;
 			}
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"$($ResolvedUrl)`"";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"$($ResolvedUrl)`"" -ForegroundColor Cyan;
 			}
 		}
 
@@ -113,7 +113,7 @@ function GitCloneRepo {
 			}
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Success while [$($CommandDescription)]";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Success while [$($CommandDescription)]" -ForegroundColor Cyan;
 			}
 		}
 		# $Repo.Pull = (git pull);
@@ -185,7 +185,7 @@ function GitCloneRepo {
 
 		# Successfully found (at least one) repo which exists
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Updated local git repository `"$($WorkingTreeFullpath)`"";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Updated local git repository `"$($WorkingTreeFullpath)`"" -ForegroundColor Cyan;
 		}
 
 		

@@ -59,7 +59,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @("platyPS");
 If ($psm1.iteration -eq 1) {
-	Write-Host (("`nTask - Import powershell modules (pass ")+($psm1.iteration)+("/2) - microsoft gallery modules")) -ForegroundColor green;
+	Write-Host (("`n$($MyInvocation.MyCommand.Name) - Import powershell modules (pass ")+($psm1.iteration)+("/2) - microsoft gallery modules")) -ForegroundColor green;
 	Foreach ($EachGalleryModule In ($PSGalleryModules)) {
 		If (!(Get-Module -ListAvailable -Name ($EachGalleryModule))) {
 			Install-Module -Name ($EachGalleryModule) -Scope CurrentUser -Force;
@@ -77,7 +77,7 @@ If ($psm1.iteration -eq 1) {
 		}
 	}
 } ElseIf ($psm1.iteration -eq 2) {
-	Write-Host (("`nTask - Import powershell modules (pass ")+($psm1.iteration)+("/2) - git repository modules")) -ForegroundColor green;
+	Write-Host (("`n$($MyInvocation.MyCommand.Name) - Import powershell modules (pass ")+($psm1.iteration)+("/2) - git repository modules")) -ForegroundColor green;
 }
 
 # ------------------------------------------------------------
@@ -111,7 +111,7 @@ For ($i=0; $i -lt $PSMod_ParentDirs.length; $i++) {
 	$psm1.fullpath += (($PSModDir_SplitChar)+($PSMod_ParentDirs[$i]));
 	If ((Test-Path -PathType Container -Path (($psm1.fullpath)+($PSModDir_SplitChar))) -eq $false) {
 		# Directory doesn't exist - create it
-		If ($psm1.verbosity -ne 0) { Write-Host (("Task - Create parent-directory for Modules: ")+($psm1.fullpath)); }
+		If ($psm1.verbosity -ne 0) { Write-Host (("$($MyInvocation.MyCommand.Name) - Create parent-directory for Modules: ")+($psm1.fullpath)); }
 		New-Item -ItemType "Directory" -Path (($psm1.fullpath)+($PSModDir_SplitChar)) | Out-Null;
 	} Else {
 		# Directory exists - skip it
@@ -145,7 +145,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	# Remove Module's Cache from RAM (to avoid [ working on modules which are cached in RAM ], [ duplicated modules from previous-revisions ], [ etc. ])
 	If (Get-Module -Name ($EachModule.Name)) {
 		Remove-Module ($EachModule.Name);
-		If ($psm1.verbosity -ne 0) { Write-Host (("Task - Removing Module (from RAM-Cache): ") + ($EachModule.Name)); }
+		If ($psm1.verbosity -ne 0) { Write-Host (("$($MyInvocation.MyCommand.Name) - Removing Module (from RAM-Cache): ") + ($EachModule.Name)); }
 		If (Get-Module -Name ($EachModule.Name)) {
 			If ($psm1.verbosity -ne 0) { Write-Host (("Fail - Unable to remove Module (from RAM-Cache): ") + ($EachModule.Name)); }
 		} Else {
@@ -163,7 +163,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 		
 		# Create directory
-		If ($psm1.verbosity -ne 0) { Write-Host (("Task - Create directory for Module: ") + ($EachModule.Name)+("")); }
+		If ($psm1.verbosity -ne 0) { Write-Host (("$($MyInvocation.MyCommand.Name) - Create directory for Module: ") + ($EachModule.Name)+("")); }
 
 		New-Item -ItemType "Directory" -Path (($StartupModuleDirectory)+("/")) | Out-Null;
 
@@ -187,7 +187,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 		
 		# Create the destination if it doesn't exist, yet
-		If ($psm1.verbosity -ne 0) { Write-Host (("Task - Creating Module: ") + ($EachModule.Name)); }
+		If ($psm1.verbosity -ne 0) { Write-Host (("$($MyInvocation.MyCommand.Name) - Creating Module: ") + ($EachModule.Name)); }
 
 		Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 
@@ -216,7 +216,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If ($path_source_last_write -gt $path_destination_last_write) {
 
 			# If the source file has a new revision, then update the destination file with said changes
-			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Updating Module: ") + ($EachModule.Name)); }
+			If ($psm1.verbosity -ne 0) { Write-Host (("$($MyInvocation.MyCommand.Name) - Updating Module: ") + ($EachModule.Name)); }
 
 			Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 
@@ -259,7 +259,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If (($Env:UpdatedCodebase -eq $true) -or (($RequiredModules_FirstIteration -match ($EachModule.Name)) -eq ($EachModule.Name))) {
 
 			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
-			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Importing Module (caching onto RAM): ") + ($EachModule.Name)); }
+			If ($psm1.verbosity -ne 0) { Write-Host (("$($MyInvocation.MyCommand.Name) - Importing Module (caching onto RAM): ") + ($EachModule.Name)); }
 			
 			Import-Module ($StartupModuleFile);
 			# Import-Module ($StartupModuleFile) -Verbose;

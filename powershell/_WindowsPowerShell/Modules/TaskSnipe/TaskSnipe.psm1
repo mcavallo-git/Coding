@@ -30,31 +30,12 @@ Function TaskSnipe {
 
 	)
 
-
-	Write-Output "`n`n------------------------------------------------------------`n";
-	Write-Output "MyInvocation.MyCommand.Name:";
-	Show $MyInvocation.MyCommand.Name;
-
-	Write-Output "`n`n------------------------------------------------------------`n";
-	Write-Output "args:";
-	Show $args;
-
-	Write-Output "`n`n------------------------------------------------------------`n";
-	Write-Output "PSBoundParameters:";
-	Show $PSBoundParameters;
-
 	If ((RunningAsAdministrator) -eq ($False)) {
-
-		# $VarsObj = @{};
-		# $VarsObj["MyInvocation"] = ($MyInvocation); # MyInvocation.MyCommand
-		# $VarsObj["PSScriptRoot"] = ($PSScriptRoot);
-		# $VarsObj["PsBoundParameters"] = ($PsBoundParameters); # PsBoundParameters.Values
-		# $VarsObj["args"] = ($args);
 		
 		$CommandString = $MyInvocation.MyCommand.Name;
 		$PSBoundParameters.Keys | ForEach-Object {
 			$CommandString += " -$_";
-			If ($($PSBoundParameters[$_]).GetType().Name -Eq "String") {
+			If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) {
 				$CommandString += " `"$($PSBoundParameters[$_])`"";
 			}
 		}

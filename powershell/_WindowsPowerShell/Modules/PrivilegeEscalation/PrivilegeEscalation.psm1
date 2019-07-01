@@ -74,8 +74,6 @@ Function UserCanEscalatePrivileges {
 
 	# Method 2: ([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')}
 
-
-	$LocalGroup_AdminSID=$((Get-LocalGroup -Name "Administrators").SID.Value); 
 	
 	If (((Get-LocalGroupMember -Name "Administrators").Name).Contains($RuntimeUserName)) {
 		$ReturnedVal = $True;

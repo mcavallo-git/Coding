@@ -151,11 +151,11 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	# Remove Module's Cache from RAM (to avoid [ working on modules which are cached in RAM ], [ duplicated modules from previous-revisions ], [ etc. ])
 	If (Get-Module -Name ($EachModule.Name)) {
 		Remove-Module ($EachModule.Name);
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $($EachModule.Name)"; }
+		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 		If (Get-Module -Name ($EachModule.Name)) {
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to remove Module (from RAM-Cache): $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to remove Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 		} Else {
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Removed Module (from RAM-Cache): $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Removed Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 		}
 	}
 	
@@ -169,21 +169,21 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 		
 		# Create directory
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create directory for Module: $($EachModule.Name)"; }
+		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 
 		New-Item -ItemType "Directory" -Path (($StartupModuleDirectory)+("/")) | Out-Null;
 
 		If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 
 			# Error - Unable to create directory
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 			Start-Sleep -Seconds 60;
 			Exit 1;
 
 		} Else {
 
 			# Directory successfully created
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Directory created for Module: $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Directory created for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 
 		}
 
@@ -193,21 +193,21 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 		
 		# Create the destination if it doesn't exist, yet
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Copy Module: $($EachModule.Name)"; }
+		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 		Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 		
 		# Check for failure to copy item(s)
 		If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
 			# Error - Unable to create Module
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 			Start-Sleep -Seconds 60;
 			Exit 1;
 
 		} Else {
 
 			# Module successfully created
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module copied: $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module copied: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 
 		}
 
@@ -220,7 +220,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If ($path_source_last_write -gt $path_destination_last_write) {
 
 			# If the source file has a new revision, then update the destination file with said changes
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Updating Module: $($EachModule.Name)"; }
+			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Updating Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
 
 			Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 
@@ -229,7 +229,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 				# Error - Couldn't update/overwrite a file, etc.
 				If ($psm1.verbosity -ne 0) {
-					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to be update Module: $($EachModule.Name)";
+					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to be update Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 				}
 				Start-Sleep -Seconds 60;
 				Exit 1;
@@ -238,14 +238,14 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 				# File copied from source to destination successfully
 				If ($psm1.verbosity -ne 0) {
-					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module updated: $($EachModule.Name)";
+					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module updated: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 				}
 			}
 		} Else {
 
 			# No updates necessary
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module already up-to-date: $($EachModule.Name)";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module already up-to-date: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 			}
 
 		}
@@ -258,7 +258,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If (($EachModule.Name) -eq ($psm1.ImportModules.Basename)) {
 		# Dont let a file include itself... that causes infinite loops~!
 		If ($psm1.verbosity -ne 0) {
-			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Skip: Avoiding self-import: $($EachModule.Name)";
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Skip: Avoiding self-import: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 		}
 
 	} Else {
@@ -270,7 +270,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Importing Module (caching onto RAM): $($EachModule.Name)";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Importing Module (caching onto RAM): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 			}
 			
 			Import-Module ($StartupModuleFile);
@@ -281,13 +281,13 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			If ($import_exit_code -ne 0) {
 
 				# Failed Module Import
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [$import_exit_code] returned from Import-Module: $($EachModule.Name)";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [$import_exit_code] returned from Import-Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 				Start-Sleep -Seconds 60;
 				Exit 1;
 
 			} Else {
 				# Successful Module Import
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module imported (cached onto RAM): $($EachModule.Name)";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module imported (cached onto RAM): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
 
 			}
 		}

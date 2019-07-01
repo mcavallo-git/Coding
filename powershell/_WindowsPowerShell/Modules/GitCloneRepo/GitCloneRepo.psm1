@@ -16,14 +16,14 @@ function GitCloneRepo {
 
 	)
 	
-	If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("GitCloneRepo - Attempting to clone git repository `"${Url}`" ")); }
+	If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("$($MyInvocation.MyCommand.Name) - Attempting to clone git repository `"${Url}`" ")); }
 
 	# Default the parent-dir to temp-dir (when no dir is passed via parameter specification)
 	If (!($PSBoundParameters.ContainsKey('LocalDirname'))) {
 
 		$TmpDir = If ($Tmp -ne $null) { $Tmp } ElseIf ($Env:Tmp -ne $null) { $Env:Tmp } Else { $Home };
 
-		$DefaultDirname = (($TmpDir)+("/")+("GitCloneRepo"));
+		$DefaultDirname = "$($TmpDir)/$($MyInvocation.MyCommand.Name)";
 
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Info - Defaulting git repository's parent directory to `"")+($DefaultDirname)+("`"")); }
 
@@ -109,7 +109,7 @@ function GitCloneRepo {
 		# Repo dir exists, but doesn't have a "/.git/config" file - try to remove it
 		If ((Test-Path -PathType Container -Path ($WorkingTreeFullpath)) -eq $true) {
 			$CommandDescription = "Attempting to remove directory containing git-repo (working-tree)";
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("GitCloneRepo - ")+($CommandDescription)+(": ") + ($Repo.RepoBasename)); }
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("$($MyInvocation.MyCommand.Name) - ")+($CommandDescription)+(": ") + ($Repo.RepoBasename)); }
 			Remove-Item ($WorkingTreeFullpath) -Force -Recurse; Start-Sleep -Seconds 1;
 			If ((Test-Path -Path ($WorkingTreeFullpath)) -eq $true) {
 				# Failed to remove directory
@@ -122,7 +122,7 @@ function GitCloneRepo {
 		# Clone the Git-Repo
 		$Repo.CloneExitCode = $null;
 		$CommandDescription = "Attempting to clone git-repo";
-		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("GitCloneRepo - ")+($CommandDescription)+(": ") + ($Repo.RepoBasename)); }
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("$($MyInvocation.MyCommand.Name) - ")+($CommandDescription)+(": ") + ($Repo.RepoBasename)); }
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 			$Repo.CloneUrl = (git clone ($ResolvedUrl));
 			$Repo.CloneExitCode = If($?){0}Else{1};
@@ -158,7 +158,7 @@ function GitCloneRepo {
 		# Optional - Revert to specific commit SHA hash (revert the repository to a speicifc revision/point-in-time)
 		$CommitSHA = $CommitSHA.Trim();
 		If (($PSBoundParameters.ContainsKey('CommitSHA')) -and ($CommitSHA.Length -eq "40")) {
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("GitCloneRepo - Reverting local git repository to commit SHA `"")+($CommitSHA)+("`"")); }
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("$($MyInvocation.MyCommand.Name) - Reverting local git repository to commit SHA `"")+($CommitSHA)+("`"")); }
 			Set-Location -Path ($WorkingTreeFullpath);
 			$Repo.ResetHead = (git reset --hard "$CommitSHA");
 		}
@@ -230,9 +230,4 @@ function GitCloneRepo {
 	Return $WorkingTree_UnixPath;
 
 }
-
 Export-ModuleMember -Function "GitCloneRepo";
-
-# Import-Module ("GitCloneRepo/GitCloneRepo.psm1");
-
-# Get-Module "GitCloneRepo";

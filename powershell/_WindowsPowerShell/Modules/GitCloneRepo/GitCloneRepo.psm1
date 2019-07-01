@@ -17,7 +17,7 @@ function GitCloneRepo {
 	)
 	
 	If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-		Write-Host "$($MyInvocation.MyCommand.Name) - Task: Attempting to clone git repository `"${Url}`" ";
+		Write-Host "$($MyInvocation.MyCommand.Name) - Task: Attempting to clone git repository `"$($Url)`" ";
 	}
 
 	# Default the parent-dir to temp-dir (when no dir is passed via parameter specification)
@@ -28,7 +28,7 @@ function GitCloneRepo {
 		$DefaultDirname = "$($TmpDir)/$($MyInvocation.MyCommand.Name)";
 
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Info: Defaulting git repository's parent directory to `"$DefaultDirname`"";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Info: Defaulting git repository's parent directory to `"$($DefaultDirname)`"";
 		}
 
 		$LocalDirname = $DefaultDirname;
@@ -79,11 +79,11 @@ function GitCloneRepo {
 		# Determine if Git-Repo Url is forwarded or not
 		If ($ResolvedUrl -ne $Url) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"${ResolvedUrl}`" from `"${Url}`"";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"$($ResolvedUrl)`" from `"$($Url)`"";
 			}
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"${ResolvedUrl}`"";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Resolved git repository url to `"$($ResolvedUrl)`"";
 			}
 		}
 
@@ -104,16 +104,16 @@ function GitCloneRepo {
 
 		# Repo exists & has a "/.git/config" file in it - try to reset it
 		Set-Location -Path ($WorkingTreeFullpath);
-		$CommandDescription = "Resetting local git repository to branch `"origin/${GitBranch}`"";
+		$CommandDescription = "Resetting local git repository to branch `"origin/$($GitBranch)`"";
 		$Repo.ResetHead = (git reset --hard "origin/${GitBranch}");
 		$Repo.ResetExitCode = If($?){0}Else{1};
 		If ($Repo.ResetExitCode -ne 0) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$CommandDescription]";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]";
 			}
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Success while [$CommandDescription]";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Success while [$($CommandDescription)]";
 			}
 		}
 		# $Repo.Pull = (git pull);
@@ -126,12 +126,12 @@ function GitCloneRepo {
 		If ((Test-Path -PathType Container -Path ($WorkingTreeFullpath)) -eq $true) {
 			$CommandDescription = "Attempting to remove directory containing git-repo (working-tree)";
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Task: $CommandDescription: $($Repo.RepoBasename)";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Task: $($CommandDescription): $($Repo.RepoBasename)";
 			}
 			Remove-Item ($WorkingTreeFullpath) -Force -Recurse; Start-Sleep -Seconds 1;
 			If ((Test-Path -Path ($WorkingTreeFullpath)) -eq $true) {
 				# Failed to remove directory
-				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$CommandDescription]";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]";
 				Start-Sleep -Seconds 60;
 				Exit 1;
 			}
@@ -141,7 +141,7 @@ function GitCloneRepo {
 		$Repo.CloneExitCode = $null;
 		$CommandDescription = "Attempting to clone git-repo";
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Task: $CommandDescription: $($Repo.RepoBasename)";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Task: $($CommandDescription): $($Repo.RepoBasename)";
 			$Repo.CloneUrl = (git clone ($ResolvedUrl));
 			$Repo.CloneExitCode = If($?){0}Else{1};
 		} Else {
@@ -151,14 +151,14 @@ function GitCloneRepo {
 
 		# Fail-out on non-zero exit-codes
 		If ($Repo.CloneExitCode -ne 0) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$CommandDescription]";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Error thrown while [$($CommandDescription)]";
 			Start-Sleep -Seconds 60;
 			Exit 1;
 		}
 	
 		If ((Test-Path -PathType Container -Path ($WorkingTreeFullpath)) -eq $false) {
 			# Failed to Clone Repo
-			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Unable to Clone Git-Repo from Url: $ResolvedUrl";
+			Write-Host "$($MyInvocation.MyCommand.Name) - Fail: Unable to Clone Git-Repo from Url: $($ResolvedUrl)";
 			Start-Sleep -Seconds 60;
 			Exit 1;
 		}
@@ -177,7 +177,7 @@ function GitCloneRepo {
 		$CommitSHA = $CommitSHA.Trim();
 		If (($PSBoundParameters.ContainsKey('CommitSHA')) -and ($CommitSHA.Length -eq "40")) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Task: Reverting local git repository to commit SHA `"$CommitSHA`"";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Task: Reverting local git repository to commit SHA `"$($CommitSHA)`"";
 			}
 			Set-Location -Path ($WorkingTreeFullpath);
 			$Repo.ResetHead = (git reset --hard "$CommitSHA");
@@ -185,7 +185,7 @@ function GitCloneRepo {
 
 		# Successfully found (at least one) repo which exists
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Updated local git repository `"$WorkingTreeFullpath`""));
+			Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Updated local git repository `"$($WorkingTreeFullpath)`""));
 		}
 
 		

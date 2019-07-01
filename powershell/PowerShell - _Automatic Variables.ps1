@@ -1,6 +1,13 @@
 
-See citations, below - especially docs.microsoft.com
+$MyInvocation.MyCommand.Name;
 
+
+
+
+
+# See citations, below - especially docs.microsoft.com
+
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #
@@ -9,4 +16,5 @@ See citations, below - especially docs.microsoft.com
 #
 #		ss64.com | Automatic Variables
 #			https://ss64.com/ps/syntax-automatic-variables.html | 2019-05-21_10-36-13
+#
 #

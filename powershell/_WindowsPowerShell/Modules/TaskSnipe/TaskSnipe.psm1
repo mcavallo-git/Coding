@@ -20,6 +20,7 @@ Function TaskSnipe {
 		[ValidateLength(2,255)]
 		[String]$AndAndName,
 
+		[Integer]$ExitAfterSeconds=60,
 
 		[Switch]$CaseSensitive,
 		[Switch]$CurrentUserMustOwn,
@@ -248,6 +249,8 @@ Function TaskSnipe {
 		Write-Host "`n`n";
 		
 	}
+	Write-Host (("`n`nExiting after ")+($ExitAfterSeconds)+(" seconds..."));
+	Start-Sleep -Seconds ($ExitAfterSeconds);
 	Return;
 }
 Export-ModuleMember -Function "TaskSnipe";

@@ -185,7 +185,7 @@ function GitCloneRepo {
 
 		# Successfully found (at least one) repo which exists
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Updated local git repository `"$($WorkingTreeFullpath)`""));
+			Write-Host "$($MyInvocation.MyCommand.Name) - Pass: Updated local git repository `"$($WorkingTreeFullpath)`"";
 		}
 
 		

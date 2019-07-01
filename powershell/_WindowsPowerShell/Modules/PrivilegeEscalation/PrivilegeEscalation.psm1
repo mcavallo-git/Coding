@@ -10,7 +10,7 @@ Function PrivilegeEscalation {
 		[Parameter(Mandatory=$true)]
 		$Command,
 
-		[Switch]$SkipExit,
+		[Switch]$ExitAfter,
 
 		[Switch]$Quiet
 
@@ -22,7 +22,7 @@ Function PrivilegeEscalation {
 			}
 			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$Command`"" -Verb RunAs;
 			# Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$CommandPath`" $CommandArgs" -Verb RunAs;
-			If (!($PSBoundParameters.ContainsKey('SkipExit'))) {
+			If ($PSBoundParameters.ContainsKey('ExitAfter') -Eq $True) {
 				Exit;
 			}
 		} Else {

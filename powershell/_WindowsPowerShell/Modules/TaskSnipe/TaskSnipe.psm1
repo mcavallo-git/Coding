@@ -20,14 +20,11 @@ Function TaskSnipe {
 		[ValidateLength(2,255)]
 		[String]$AndAndName,
 
+
 		[Switch]$CaseSensitive,
-
 		[Switch]$CurrentUserMustOwn,
-
 		[Switch]$MatchWholeName,
-
 		[Switch]$Quiet,
-
 		[Switch]$SkipConfirmation,
 		[Switch]$Yes
 
@@ -45,8 +42,6 @@ Function TaskSnipe {
 	Write-Output "`n`n------------------------------------------------------------`n";
 	Write-Output "PSBoundParameters:";
 	Show $PSBoundParameters;
-	
-	Return;
 
 	If ((RunningAsAdministrator) -eq ($False)) {
 
@@ -57,18 +52,22 @@ Function TaskSnipe {
 		# $VarsObj["args"] = ($args);
 		
 		$CommandString = $MyInvocation.MyCommand.Name;
+		$PSBoundParameters.Keys | ForEach-Object {
+			$CommandString += " -$_";
+			If ($($PSBoundParameters[$_]).GetType().Name -Eq "String") {
+				$CommandString += " `"$($PSBoundParameters[$_])`"";
+			}
+		}
+		
+		Write-Output "`n`n------------------------------------------------------------`n";
+		Write-Output "CommandString:";
+		Show $CommandString;
+		Return;
 
-		If ($ESET -eq $True) {                           $CommandString = "$CommandString -ESET"; }
-		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiMalware"; }
-		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString = "$CommandString -MalwarebytesAntiRansomware"; }
-		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiExploit"; }
-		If ($WindowsDefender -eq $True) {                $CommandString = "$CommandString -WindowsDefender"; }
-		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString = "$CommandString -Quiet"; }
-		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString = "$CommandString -Verbose"; }
-				
 		PrivilegeEscalation -Command ("${CommandString}");
 		
 	} Else {
+		Return;
 
 		$SnipeList = @();
 

@@ -230,25 +230,25 @@ Function TaskSnipe {
 					#
 					# User bailed-out of the confirmation, cancelling the kill PID(s) action
 					#
-					Write-Host "Bail-Out @ Second confirmation - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
+					Write-Host "`n`n  Bail-Out @ Second confirmation - No Action(s) performed  `n`n" -ForegroundColor "Red" -BackgroundColor "Black";
 				}
 			} Else {
 				#
 				# User bailed-out of the FIRST confirmation, cancelling the kill PID(s) action
 				#
-				Write-Host "Bail-Out @ First confirmation - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
+				Write-Host "`n`n  Bail-Out @ First confirmation - No Action(s) performed  `n`n" -ForegroundColor "Red" -BackgroundColor "Black";
 			}
 		} Else {
 			#
 			# No results found
 			#
-			Write-Host "No processes/services found - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
+			Write-Host "`n`n  No processes/services found - No Action(s) performed  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
 
 		}
 
 		# ------------------------------------------------------------
 		#	### "Press any key to continue..."
-		Write-Host -NoNewLine "`n`n  Press any key to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "`n`n  Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 	}

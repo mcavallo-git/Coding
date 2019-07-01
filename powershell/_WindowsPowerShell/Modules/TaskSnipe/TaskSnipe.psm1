@@ -41,6 +41,10 @@ Function TaskSnipe {
 	Write-Output "`n`n------------------------------------------------------------`n";
 	Write-Output "args:";
 	Show $args;
+
+	Write-Output "`n`n------------------------------------------------------------`n";
+	Write-Output "PSBoundParameters.Values:";
+	Show $PSBoundParameters.Values;
 	
 	Return;
 

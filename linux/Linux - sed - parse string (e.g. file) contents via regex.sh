@@ -1,9 +1,10 @@
 #!/bin/sh
 #
+# Linux - sed
+#
 # ------------------------------------------------------------
 # 
-# Linux - sed
-# 	--> parse nginx runtime user's name from nginx.conf
+# Parse nginx runtime user's name from nginx.conf
 #
 if [ -f "/etc/nginx/nginx.conf" ]; then
 	NGINX_UNAME=$(sed --regexp-extended --quiet --expression='s/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf");
@@ -15,11 +16,23 @@ fi;
 #
 # ------------------------------------------------------------
 # 
-# Linux - sed
-# 	--> parse GnuPG key_id's out of gpg's 'LONG' formated-values
+# Parse GnuPG key_id's out of gpg's 'LONG' formated-values
 #
 GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
 echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
+#
+# ------------------------------------------------------------
+# 
+# Remove whitespace-only lines
+#
+sed --in-place --expression='/^\s*$/d' "/etc/hosts";
+cat "/etc/hosts";
+#
+# ------------------------------------------------------------
+# 
+# Remove windows-newlines (e.g. remove CR's)
+#
+sed --in-place --expression='s/\r$//' "~/sftp/uploaded_file";
 #
 # ------------------------------------------------------------
 

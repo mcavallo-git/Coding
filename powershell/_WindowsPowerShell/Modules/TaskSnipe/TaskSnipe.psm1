@@ -242,6 +242,8 @@ Function TaskSnipe {
 			#
 			# No results found
 			#
+			Write-Host "No processes/services found - No Action(s) performed" -ForegroundColor "Red" -BackgroundColor "Black";
+
 		}
 
 		# ------------------------------------------------------------

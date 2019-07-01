@@ -1,7 +1,6 @@
 
 $MyInvocation.MyCommand.Name;
-
-
+[IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name); # Removes Extension
 
 
 

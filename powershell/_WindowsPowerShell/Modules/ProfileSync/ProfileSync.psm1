@@ -72,11 +72,11 @@ function ProfileSync {
 
 	$Pro += 'New-Alias which Get-Command;';
 
-	$Pro += (('Write-Host "')+($($MyInvocation.MyCommand.Name))+(' - Info: Detected PowerShell v$(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Green;'));
+	$Pro += (('Write-Host "')+($($MyInvocation.MyCommand.Name))+(' - Info: Detected PowerShell v$(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n";'));
 	
-	$Pro += (('Write-Host "')+($($MyInvocation.MyCommand.Name))+(' - Task: Loading personal and system profiles...`n" -ForegroundColor Green;'));
+	$Pro += (('Write-Host "')+($($MyInvocation.MyCommand.Name))+(' - Task: Loading personal and system profiles...`n";'));
 
-	$Pro += (('$GithubOwner="')+(${GithubOwner})+('"; $GithubRepo="')+(${GithubRepo})+('";')+(' Write-Host "ProfileSync - Task: Sync local git repository to origin `"https://github.com/${GithubOwner}/${GithubRepo}.git`"..." -ForegroundColor Green; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1"; Write-Host "`nProfileSync - Pass: PowerShell Modules Synchronized`n" -ForegroundColor Cyan;'));
+	$Pro += (('$GithubOwner="')+(${GithubOwner})+('"; $GithubRepo="')+(${GithubRepo})+('";')+(' Write-Host "ProfileSync - Task: Sync local git repository to origin `"https://github.com/${GithubOwner}/${GithubRepo}.git`"..."; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1"; Write-Host "`nProfileSync - Pass: PowerShell Modules Synchronized`n" -ForegroundColor Cyan;'));
 	
 	$Pro += 'Set-Location "${HOME}";';
 

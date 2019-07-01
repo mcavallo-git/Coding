@@ -40,15 +40,13 @@ Function TaskSnipe {
 			}
 		}
 		
-		Write-Output "`n`n------------------------------------------------------------`n";
-		Write-Output "CommandString:";
-		Show $CommandString;
-		Return;
+		# Write-Output "`n`n------------------------------------------------------------`n";
+		# Write-Output "CommandString:";
+		# Show $CommandString;
 
 		PrivilegeEscalation -Command ("${CommandString}");
 		
 	} Else {
-		Return;
 
 		$SnipeList = @();
 

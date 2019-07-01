@@ -189,7 +189,7 @@ Function TaskSnipe {
 						#
 						Write-Host "`n`n  Confirmed.`n";
 					}
-					$SnipeList.ToList() | ForEach-Object {
+					$SnipeList | ForEach-Object {
 						If (($_.SESSIONNAME) -Eq "Services") {
 							$_.ServiceNames.ToList() | ForEach-Object {
 								Get-Service -Name ($_) -ErrorAction "SilentlyContinue" | Where-Object { $_.Status -eq "Running"} | ForEach-Object {

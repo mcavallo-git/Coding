@@ -18,7 +18,7 @@ Function PrivilegeEscalation {
 	If ((RunningAsAdministrator) -eq ($False)) {
 		If ((UserCanEscalatePrivileges) -eq ($True)) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "`nPrivilegeEscalation  :::  Escalating privileges for command:`n |-->   $Command`n" -BackgroundColor Black -ForegroundColor Green;
+				Write-Host "`nPrivilegeEscalation  :::  Escalating privileges for command:`n |-->   $Command" -BackgroundColor Black -ForegroundColor Green;
 			}
 			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$Command`"" -Verb RunAs;
 			# Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$CommandPath`" $CommandArgs" -Verb RunAs;
@@ -27,12 +27,12 @@ Function PrivilegeEscalation {
 			}
 		} Else {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "`nPrivilegeEscalation  :::  Error (User lacks sufficient privilege to perform escalation)`n" -BackgroundColor Black -ForegroundColor Red;
+				Write-Host "`nPrivilegeEscalation  :::  Error (User lacks sufficient privilege to perform escalation)" -BackgroundColor Black -ForegroundColor Red;
 			}
 		}
 	} Else {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "`nPrivilegeEscalation  ::: Skipped (session is already running as Administrator)`n" -BackgroundColor Black -ForegroundColor Yellow;
+			Write-Host "`nPrivilegeEscalation  ::: Skipped (session is already running as Administrator)" -BackgroundColor Black -ForegroundColor Yellow;
 		}
 	}
 }

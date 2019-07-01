@@ -33,13 +33,14 @@ Function TaskSnipe {
 
 	)
 
-	$Dashes = "`n`n------------------------------------------------------------`n";
 
-	Write-Host "${Dashes}MyInvocation.MyCommand.Name:";
-	Write-Output $MyInvocation.MyCommand.Name;
+	Write-Output "`n`n------------------------------------------------------------`n";
+	Write-Output "MyInvocation.MyCommand.Name:";
+	Show $MyInvocation.MyCommand.Name;
 
-	Write-Host "${Dashes}args:";
-	Write-Output -NoEnumerate $args | Get-Member;
+	Write-Output "`n`n------------------------------------------------------------`n";
+	Write-Output "args:";
+	Show $args;
 	
 	Return;
 

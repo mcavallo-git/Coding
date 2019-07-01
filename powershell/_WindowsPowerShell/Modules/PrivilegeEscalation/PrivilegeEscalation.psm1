@@ -66,7 +66,8 @@ Function UserCanEscalatePrivileges {
 	)
 	$ReturnedVal = $Null;
 	$RuntimeUserName = (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).Identities.Name);
-	If (((Get-LocalGroupMember -Group "Administrators").Name).Contains($RuntimeUserName)) {
+	$LocalGroup_AdminSID=$((Get-LocalGroup -Name "Administrators").SID.Value); 
+	If (((Get-LocalGroupMember -SID "${LocalGroup_AdminSID}").Name).Contains($RuntimeUserName)) {
 		$ReturnedVal = $True;
 	} Else {
 		$ReturnedVal = $False;

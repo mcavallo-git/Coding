@@ -147,15 +147,7 @@ Function TaskSnipe {
 			# Make the user confirm before killing tasks (default, or call with or -Yes -SkipConfirmation to kill straight-away)
 			#
 
-			If ($SkipConfirm -Eq $True) {
-				#
-				# First Confirmation - Skip
-				#
-				If ($PSBoundParameters.ContainsKey('Quiet') -eq $false) {
-					Write-Host -NoNewLine ("Skipping first confirmation") -BackgroundColor "Black" -ForegroundColor "Yellow";
-				}
-				$FirstConfirm = $True;
-			} Else {
+			If ($SkipConfirm -Eq $False) {
 				#
 				# First Confirmation - Confirm via "Are you sure ... ?" (Default)
 				#
@@ -171,15 +163,10 @@ Function TaskSnipe {
 				$FirstConfirm = (($UserKeyPress.Character) -eq ($FirstConfKey));
 			}
 			#
-			# Check First Confirm
+			# Check (or Skip) First Confirmation flag
 			#
-			If ($FirstConfirm -Eq $True) {
-				If ($SkipConfirm -Eq $True) {
-					#
-					# Second Confirmation - Skip
-					#
-					$SecondConfirm = $True;
-				} Else {
+			If (($FirstConfirm -Eq $True) -Or ($SkipConfirm -Eq $True)) {
+				If ($SkipConfirm -Eq $False) {
 					#
 					# Second Confirmation - Confirm via "Are you sure ... ?" (Default)
 					#
@@ -193,13 +180,15 @@ Function TaskSnipe {
 					$SecondConfirm = (($UserKeyPress.Character) -eq ($SecondConfKey));
 				}
 				#
-				# Check Second Confirm
+				# Check (or Skip) Second Confirmation flag
 				#
-				If ($SecondConfirm -Eq $True) {
-					#
-					# !!! CONFIRMED !!!
-					#
-					Write-Host "`n`n  Confirmed.`n";
+				If (($SecondConfirm -Eq $True) -Or ($SkipConfirm -Eq $True)) {
+					If ($SkipConfirm -Eq $False) {
+						#
+						# MANUALLY CONFIRMED
+						#
+						Write-Host "`n`n  Confirmed.`n";
+					}
 					$SnipeList | ForEach-Object {
 						If (($_.SESSIONNAME) -Eq "Services") {
 							$_.ServiceNames | ForEach-Object {

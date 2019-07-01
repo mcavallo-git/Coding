@@ -64,27 +64,41 @@ Export-ModuleMember -Function "RunningAsAdministrator";
 Function UserCanEscalatePrivileges {
 	Param(
 	)
-
 	$ReturnedVal = $Null;
-
-	$RuntimeUserName = (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).Identities.Name);
-
-
-	# Method 1: @(([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % { $_.GetType().InvokeMember('AdsPath','GetProperty',$null,$($_),$null) }) -match '^WinNT'
-
-	# Method 2: ([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')}
-
 	
-	If (((Get-LocalGroupMember -Name "Administrators").Name).Contains($RuntimeUserName)) {
+
+	### Get Local Admins - Built-in PowerShell Method
+	### v-- Note: The 'Get-LocalGroupMember' method only worked for AD (Domain) connected devices WHILST connected to said domain
+	### V-- Note: Needed to upgrade to using the ADSI methods (below) to correctly query local admins whilst NOT connected to said domain
+	# $LocalAdmins = ((Get-LocalGroupMember -Name "Administrators").Name);
+	
+	
+	### Get Local Admins - ADSI, Method 1
+	# $LocalAdmins = (@(([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % { $_.GetType().InvokeMember('AdsPath','GetProperty',$null,$($_),$null) }) -match '^WinNT');
+	
+	
+	### Get Local Admins - ADSI, Method 2
+	$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
+	
+	
+	### Get Current User
+	$LocalUser = (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).Identities.Name);
+	$LocalUserWinNT = "WinNT://$($LocalUser.Replace("\","/"))";
+
+	If (($LocalAdmins.Contains($LocalUser)) -Or ($LocalAdmins.Contains($LocalUserWinNT))) {
 		$ReturnedVal = $True;
 	} Else {
 		$ReturnedVal = $False;
 	}
+
 	Return $ReturnedVal;
+
 }
 Export-ModuleMember -Function "UserCanEscalatePrivileges";
-# Install-Module -Name "UserCanEscalatePrivileges"
 
+
+
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #

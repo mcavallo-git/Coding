@@ -132,7 +132,7 @@
 		},
 		{
 			"description": "neustar UltraRecursive DNS - Threat Protection",
-			"ipv4": ["156.154.70.2","156.154.71.2"],
+			"ipv4": ["156.154.70.2", "156.154.71.2"],
 			"ipv6": ["2610:a1:1018::2", "2610:a1:1019::2"],
 			"ordinality-dnsv4": 9999,
 			"ordinality-dnsv6": 9999,

@@ -20,7 +20,7 @@ Function TaskSnipe {
 		[ValidateLength(2,255)]
 		[String]$AndAndName,
 
-		[Integer]$ExitAfterSeconds=60,
+		[Int32]$ExitAfterSeconds=60,
 
 		[Switch]$CaseSensitive,
 		[Switch]$CurrentUserMustOwn,

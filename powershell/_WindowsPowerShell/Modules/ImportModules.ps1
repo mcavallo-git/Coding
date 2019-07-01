@@ -73,7 +73,7 @@ If ($psm1.iteration -eq 1) {
 			Exit 1;
 		} Else {
 			# Successful Module Import
-			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module Imported (cached onto RAM): $EachGalleryModule";
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module Imported (cached onto RAM): $EachGalleryModule" -ForegroundColor Cyan;
 		}
 	}
 } ElseIf ($psm1.iteration -eq 2) {
@@ -136,7 +136,7 @@ If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 }
 
 If ($psm1.verbosity -ne 0) {
-	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Located powershell modules directory: ${PSScriptRoot}";
+	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Located powershell modules directory: ${PSScriptRoot}" -ForegroundColor Cyan;
 }
 
 # Git Modules (along with their respectively named directories) to copy into a given machine's PowerShell Modules Directory
@@ -151,11 +151,17 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	# Remove Module's Cache from RAM (to avoid [ working on modules which are cached in RAM ], [ duplicated modules from previous-revisions ], [ etc. ])
 	If (Get-Module -Name ($EachModule.Name)) {
 		Remove-Module ($EachModule.Name);
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+		If ($psm1.verbosity -ne 0) {
+			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+		}
 		If (Get-Module -Name ($EachModule.Name)) {
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to remove Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to remove Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+			}
 		} Else {
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Removed Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Removed Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Cyan;
+			}
 		}
 	}
 	
@@ -183,7 +189,9 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		} Else {
 
 			# Directory successfully created
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Directory created for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Directory created for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Cyan;
+			}
 
 		}
 
@@ -207,7 +215,9 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		} Else {
 
 			# Module successfully created
-			If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module copied: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))"; }
+			If ($psm1.verbosity -ne 0) {
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module copied: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Cyan;
+			}
 
 		}
 
@@ -235,19 +245,16 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 				Exit 1;
 
 			} Else {
-
 				# File copied from source to destination successfully
 				If ($psm1.verbosity -ne 0) {
-					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module updated: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module updated: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Cyan;
 				}
 			}
 		} Else {
-
 			# No updates necessary
 			If ($psm1.verbosity -ne 0) {
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module already up-to-date: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module already up-to-date: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Cyan;
 			}
-
 		}
 	}
 
@@ -287,7 +294,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 			} Else {
 				# Successful Module Import
-				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module imported (cached onto RAM): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))";
+				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module imported (cached onto RAM): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Cyan;
 
 			}
 		}

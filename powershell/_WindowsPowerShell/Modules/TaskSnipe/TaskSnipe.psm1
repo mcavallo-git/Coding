@@ -35,14 +35,11 @@ Function TaskSnipe {
 
 	$Dashes = "`n`n------------------------------------------------------------`n";
 
-	Write-Host "${Dashes}MyInvocation.MyCommand:";
-	Write-Output -NoEnumerate $MyInvocation.MyCommand | Get-Member;
+	Write-Host "${Dashes}MyInvocation.MyCommand.Name:";
+	Write-Output $MyInvocation.MyCommand.Name;
 
 	Write-Host "${Dashes}args:";
 	Write-Output -NoEnumerate $args | Get-Member;
-
-	Write-Host "${Dashes}PSBoundParameters.Values:";
-	Write-Output -NoEnumerate $PSBoundParameters.Values | Get-Member;
 	
 	Return;
 

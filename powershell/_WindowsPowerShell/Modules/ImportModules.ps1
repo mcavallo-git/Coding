@@ -111,7 +111,7 @@ For ($i=0; $i -lt $PSMod_ParentDirs.length; $i++) {
 	$psm1.fullpath += (($PSModDir_SplitChar)+($PSMod_ParentDirs[$i]));
 	If ((Test-Path -PathType Container -Path (($psm1.fullpath)+($PSModDir_SplitChar))) -eq $false) {
 		# Directory doesn't exist - create it
-		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create parent-directory for Modules: ")+($psm1.fullpath)); }
+		If ($psm1.verbosity -ne 0) { Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Create parent-directory for Modules: $($psm1.fullpath)"; }
 		New-Item -ItemType "Directory" -Path (($psm1.fullpath)+($PSModDir_SplitChar)) | Out-Null;
 	} Else {
 		# Directory exists - skip it

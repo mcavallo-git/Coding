@@ -37,7 +37,7 @@ function ProfileSync {
 		$i_FullPath += (($Profile_SplitChar)+($Profile_ParentDirs[$i]));
 		If ((Test-Path -PathType Container -Path (($i_FullPath)+($Profile_SplitChar))) -eq $false) {
 			# Directory doesn't exist - create it
-			If ($psm1.verbosity -ne 0) { Write-Host (("Task - Create parent-directory for Profile: ")+($i_FullPath)); }
+			If ($psm1.verbosity -ne 0) { Write-Host (("ProfileSync - Create parent-directory for Profile: ")+($i_FullPath)); }
 			New-Item -ItemType "Directory" -Path (($i_FullPath)+($Profile_SplitChar)) | Out-Null;
 		} Else {
 			# Directory exists - skip it

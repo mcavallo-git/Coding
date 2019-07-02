@@ -21,9 +21,13 @@ Function TaskSnipe {
 		[String]$AndAndName,
 
 		[Switch]$CaseSensitive,
+
 		[Switch]$CurrentUserMustOwn,
+
 		[Switch]$MatchWholeName,
+
 		[Switch]$Quiet,
+
 		[Switch]$SkipConfirmation,
 		[Switch]$Yes
 
@@ -235,10 +239,12 @@ Function TaskSnipe {
 
 		}
 
-		# ------------------------------------------------------------
-		#	### "Press any key to continue..."
-		Write-Host -NoNewLine "`n`n  Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
-		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		If ($SkipConfirm -Eq $False) {
+			# ------------------------------------------------------------
+			#	### "Press any key to continue..."
+			Write-Host -NoNewLine "`n`n  Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
+			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		}
 
 	}
 

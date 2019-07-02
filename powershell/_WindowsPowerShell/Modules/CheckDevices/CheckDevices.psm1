@@ -15,9 +15,14 @@ function CheckDevices {
 		$ExternalGpuNames;
 	} Else {
 		Write-Host "`nNo dedicated GPU(s) found";
+		Get-WmiObject Win32_BaseBoard | Where-Object { $_.Manufacturer -Eq "LENOVO" -And $_.Product.Contains("20HR") } | ForEach-Object {
+			TaskSnipe -Name "nv" -SkipConfirm;
+			TaskSnipe -Name "razer" -SkipConfirm;
+			TaskSnipe -Name "game" -SkipConfirm;
+			Break;
+		}
 	}
 	Write-Host "`n`n";
-
 	Return;
 
 }

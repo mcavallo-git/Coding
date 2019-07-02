@@ -29,20 +29,20 @@ function GitSyncAll {
 
 	$Dashes = "`n--------------------------------`n";
 
-	If((Get-Command $CommandName -ErrorAction "SilentlyContinue") -eq $null) {
+	If((Get-Command $CommandName -ErrorAction "SilentlyContinue") -eq $Null) {
 		## Fail - Command [ $CommandName ] not found Locally
 		$OnErrorShowUrl="https://git-scm.com/downloads";
-		Write-Host (("Fail - Command [ ")+($CommandName)+(" ] not found locally")) -ForegroundColor red;
-		Write-Host (("Info - For troubleshooting, download references, etc. please visit Url: ")+($OnErrorShowUrl)) -ForegroundColor green;
+		Write-Host (("$($MyInvocation.MyCommand.Name) - Fail: Command [ ")+($CommandName)+(" ] not found locally")) -ForegroundColor Yellow;
+		Write-Host (("$($MyInvocation.MyCommand.Name) - Info: For troubleshooting, download references, etc. please visit Url: ")+($OnErrorShowUrl)) -ForegroundColor Green;
 		Start ($OnErrorShowUrl);
-		Write-Host -NoNewLine "Press any key to close this window...";
+		Write-Host -NoNewLine "$($MyInvocation.MyCommand.Name) - Press any key to close this window...";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		Exit 1;
 	}
 	## Command [ $CommandName ] Exists Locally
 
 	### Only go to a given depth to find Git-Repo directories within the ${Directory}
-	Write-Host "Searching `"${Directory}`" for git repositories...";
+	Write-Host "$($MyInvocation.MyCommand.Name) - Task: Searching `"${Directory}`" for git repositories...";
 	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
 
 	$ReposFetched = @();
@@ -54,8 +54,7 @@ function GitSyncAll {
 
 		$VerbiageRepositoryCount = If($RepoFullpathsArr.Length -eq 1) { "repository" } Else { "repositories" };
 		
-		Write-Host (("`nFound ")+($RepoFullpathsArr.Length)+(" ")+($VerbiageRepositoryCount)+(":"));
-		Write-Host "";
+		Write-Host "`n$($MyInvocation.MyCommand.Name) - Info: Found $($RepoFullpathsArr.Length) $($VerbiageRepositoryCount):`n";
 		$RepoFullpathsArr.FullName | Format-List;
 		Write-Host "`n";
 
@@ -76,7 +75,7 @@ function GitSyncAll {
 
 				$GitConfig.Content = @{};
 				$GitConfig.Content.HTTPS = Get-Content -Path ($GitConfig.Path);
-				$GitConfig.Content.FoundUrlHTTPS = If (($GitConfig.Content.HTTPS -match ($GitConfig.Regex.HTTPS)) -ne $null) { $true } Else { $false };
+				$GitConfig.Content.FoundUrlHTTPS = If (($GitConfig.Content.HTTPS -match ($GitConfig.Regex.HTTPS)) -ne $Null) { $true } Else { $false };
 
 				# Convert any HTTPS Urls found in .git/config to SSH-notation
 				If ($GitConfig.Content.FoundUrlHTTPS -eq $true) {
@@ -91,8 +90,8 @@ function GitSyncAll {
 
 			If ($Action -eq "Pull") {
 				# Fetch + pull repositories
-				Write-Host -NoNewline "Pulling updates for repository `"";
-				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
+				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Pulling updates for repository `"";
+				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
@@ -105,46 +104,46 @@ function GitSyncAll {
 						Write-Host ($EachLine);
 					}
 				}
-				# Write-Host "Fetch + pull complete." -ForegroundColor Green;
+				# Write-Host "$($MyInvocation.MyCommand.Name) - Fetch + pull complete." -ForegroundColor Green;
 				
 			} ElseIf ($Action -eq "Fetch") {
 				# Fetch updates, only (no pull)
-				Write-Host -NoNewline "Fetching updates for repository `"";
-				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Magenta;
+				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Fetching updates for repository `"";
+				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
-				Write-Host "Fetch complete." -ForegroundColor Green;
+				Write-Host "$($MyInvocation.MyCommand.Name) - Fetch complete." -ForegroundColor Green;
 
 			} Else {
-				Write-Host "Unhandled Value for Parameter `$Action: `"${Action}`" " -BackgroundColor "Black" -ForegroundColor "Red";
+				Write-Host "$($MyInvocation.MyCommand.Name) - Unhandled Value for Parameter `$Action: `"$($Action)`" " -ForegroundColor Yellow;
 
 			}
 		}
 	
-		Write-Host "`n`n  All Repositories ${Action}ed" -ForegroundColor "Green";
+		Write-Host "`n`n$($MyInvocation.MyCommand.Name) - All Repositories $($Action)ed" -ForegroundColor Green;
 
 	} Else {
-		Write-Host "No git repositories found in: `"${Directory}`"`n" -ForegroundColor "Magenta";
+		Write-Host "$($MyInvocation.MyCommand.Name) - No git repositories found in `"$($Directory)`"`n" -ForegroundColor Yellow;
 	}
 
 
 	# ------------------------------------------------------------
 	#	### "Press any key to continue..."
 	#
-	# Write-Host -NoNewLine "`n`n  Press any key to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...`n`n" -ForegroundColor Yellow;
 	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	#
 	# ------------------------------------------------------------
 	#	### "Press any key to close this window..."
 	#
-	# Write-Host -NoNewLine "`n`n  Press any key to close this window...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to close this window...`n`n" -ForegroundColor Yellow;
 	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	#
 	# ------------------------------------------------------------
 	# ### "Press 'Escape' to close this window..."
 	#
-	# Write-Host -NoNewLine "`n`n  Press 'Escape' to close this window...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	# Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press 'Escape' to close this window...`n`n" -ForegroundColor Yellow;
 	# $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	# While ($KeyPress.VirtualKeyCode -ne 27) {
 	# 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
@@ -152,7 +151,7 @@ function GitSyncAll {
 	#
 	# ------------------------------------------------------------
 	# ### "Closing in 3...2...1..."
-	Write-Host -NoNewLine "  Closing in ";
+	Write-Host -NoNewLine "$($MyInvocation.MyCommand.Name) - Closing in ";
 	$WaitSeconds = 3;
 	While ($WaitSeconds -gt 0) {
 		Write-Host -NoNewLine ($WaitSeconds);

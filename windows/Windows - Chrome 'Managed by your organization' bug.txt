@@ -1,0 +1,32 @@
+### ------------------------------------------------------------
+### Bug where Chrome shows "Your browser is managed by your organization" in Settings, as well as "Managed by your organization" at the bottom of the main (kebab) dropdown menu
+###  |--> See Citation(s), below
+### ------------------------------------------------------------
+
+### Step 1 - Open regedit (via start-menu / run command):
+
+regedit.exe
+
+
+### Step 2 - Locate the following registry key:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google
+
+
+
+### Step 3 - Rename it to:
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google.Old
+
+
+### Step 4 - Done
+
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#	reddit.com  |  "Managed by your organization"  |  Comment by user [ derpa_chief ]  |  https://www.reddit.com/r/chrome/comments/b8bekg/managed_by_your_organization/
+#
+#

@@ -1,4 +1,4 @@
-function CheckDevices {
+function CheckDedicatedDevices {
 	Param(
 	)
 
@@ -28,7 +28,7 @@ function CheckDevices {
 	Return;
 
 }
-Export-ModuleMember -Function "CheckDevices";
+Export-ModuleMember -Function "CheckDedicatedDevices";
 
 
 # ---------------------------------------------------------------------------------------------------------------------- #

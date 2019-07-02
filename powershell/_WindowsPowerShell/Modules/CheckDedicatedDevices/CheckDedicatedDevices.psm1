@@ -11,12 +11,12 @@ function CheckDedicatedDevices {
 	}
 
 	If ($ExternalGpuNames.Count -Gt 0) {
-		Write-Host "`nFound $($ExternalGpuNames.Count) dedicated GPU(s):";
+		Write-Host "`n$($MyInvocation.MyCommand.Name) - Found $($ExternalGpuNames.Count) dedicated GPU(s):" -ForegroundColor "Gray";
 		$ExternalGpuNames | ForEach-Object {
 			Write-Host "  $($_)" -ForegroundColor Green;
 		};
 	} Else {
-		Write-Host "`nNo dedicated GPU(s) found" -ForegroundColor Yellow;
+		Write-Host "`n$($MyInvocation.MyCommand.Name) - No dedicated GPU(s) found" -ForegroundColor Yellow;
 		Get-WmiObject Win32_BaseBoard | Where-Object { $_.Manufacturer -Eq "LENOVO" -And $_.Product.Contains("20HR") } | ForEach-Object {
 			TaskSnipe -Name "nv" -SkipConfirm;
 			TaskSnipe -Name "razer" -SkipConfirm;

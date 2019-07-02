@@ -13,16 +13,26 @@
 
 
 
-### [ VIA BROWSER ON JENKINS ] Create a new credential via https://[JENKINS_URL]/credentials  w/ kind 'SSH username with private key' & Scope 'System' - Paste Private key into it & Save
+### [ VIA BROWSER ON JENKINS ]
+###    Create a new credential via https://[JENKINS_URL]/credentials
+###      |--> kind='SSH username with private key'
+###      |--> Scope='System' - Paste Private key into it & Save
+###      |--> Key -> (press "Add button) -> paste newly-created SSH Private-key here
 
 
 
 ### [ VIA SSH ON JENKINS LINUX BOX ] Read-in the node's ssh host-keys from new node's IPv4 (example uses 1.2.3.4) into Jenkins' known_hosts file
-sudo ssh-keyscan -H "1.2.3.4" >> "$(getent passwd jenkins | cut --delimiter=: --fields=6)/.ssh/known_hosts";
+#>  sudo ssh-keyscan -H "1.2.3.4" >> "$(getent passwd jenkins | cut --delimiter=: --fields=6)/.ssh/known_hosts";
+
+
+
+### [ VIA SSH ON NEW NODE ] Install Docker
+#>  ## NEED STEPS TO INSTALL DOCKER, HERE ##
+
 
 
 
 ### [ VIA SSH ON NEW NODE ] Install Java
-sudo apt-get update -y && sudo apt-get install -y default-jdk-headless default-jre-headless;
+#>  sudo apt-get update -y && sudo apt-get install -y default-jdk-headless default-jre-headless;
 
 

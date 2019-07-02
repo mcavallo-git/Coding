@@ -16,7 +16,7 @@ function CheckDevices {
 			Write-Host "  $($_)" -ForegroundColor Green;
 		};
 	} Else {
-		Write-Host "`nNo dedicated GPU(s) found";
+		Write-Host "`nNo dedicated GPU(s) found" -ForegroundColor Yellow;
 		Get-WmiObject Win32_BaseBoard | Where-Object { $_.Manufacturer -Eq "LENOVO" -And $_.Product.Contains("20HR") } | ForEach-Object {
 			TaskSnipe -Name "nv" -SkipConfirm;
 			TaskSnipe -Name "razer" -SkipConfirm;

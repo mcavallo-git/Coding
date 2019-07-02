@@ -24,7 +24,7 @@ function CheckDevices {
 			Break;
 		};
 	}
-	Write-Host "`n`n";
+	Write-Host "";
 	Return;
 
 }

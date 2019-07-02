@@ -61,7 +61,7 @@ fi;
 # MySQL Exports - Replace Function definers with 'CURRENT_USER()'
 # 	|--> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 
-sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "~/mysql_functions.sql"
+sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"
 
 
 
@@ -71,7 +71,7 @@ sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "~/mysql_fun
 # 	|--> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 #
 
-sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "~/mysql_triggers.sql"
+sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql"
 
 
 

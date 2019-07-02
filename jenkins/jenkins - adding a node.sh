@@ -33,6 +33,6 @@
 
 
 ### [ VIA SSH ON NEW NODE ] Install Java
-#>  sudo apt-get update -y && sudo apt-get install -y default-jdk-headless default-jre-headless;
+#>  sudo apt-get update -y && sudo apt-get install -y default-jdk-headless default-jre-headless && sudo apt-get -y autoremove && sudo apt-get -y clean;
 
 

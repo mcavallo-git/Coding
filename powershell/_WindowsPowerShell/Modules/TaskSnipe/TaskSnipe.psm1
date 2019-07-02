@@ -42,10 +42,6 @@ Function TaskSnipe {
 				$CommandString += " `"$($PSBoundParameters[$_])`"";
 			}
 		}
-		
-		# Write-Output "`n`n------------------------------------------------------------`n";
-		# Write-Output "CommandString:";
-		# Show $CommandString;
 
 		PrivilegeEscalation -Command ("${CommandString}");
 		
@@ -138,7 +134,7 @@ Function TaskSnipe {
 			#
 			# At least one matching process was found
 			#
-			Write-Host (("`n`nFound ")+($SnipeList.Count)+(" PID(s) matching search criteria:`n")) -ForegroundColor "Green";
+			Write-Host (("`n`n$($MyInvocation.MyCommand.Name) - Info: Found ")+($SnipeList.Count)+(" PID(s) matching search criteria:`n")) -ForegroundColor "Green";
 			$SnipeList | ForEach-Object {
 				$EachIMAGENAME = $_.IMAGENAME;
 				$EachPID = $_.PID;
@@ -158,9 +154,9 @@ Function TaskSnipe {
 				$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 				$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 				Write-Host -NoNewLine ("`n");
-				Write-Host -NoNewLine ("Are you sure you want to kill these PID(s)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+				Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Are you sure you want to kill these PID(s)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 				Write-Host -NoNewLine ("`n`n");
-				Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow";
+				Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Press the `"") -ForegroundColor "Yellow";
 				Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";
 				Write-Host -NoNewLine ("`" key to if you are sure:  ") -ForegroundColor "Yellow";
 				$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));
@@ -175,9 +171,9 @@ Function TaskSnipe {
 					# Second Confirmation - Confirm via "Are you sure ... ?" (Default)
 					#
 					$SecondConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList.Replace([string]$FirstConfKey,"")));
-					Write-Host -NoNewLine ("Really really sure?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+					Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Really really sure?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 					Write-Host -NoNewLine ("`n`n");
-					Write-Host -NoNewLine ("  Press the `"") -ForegroundColor "Yellow";
+					Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Press the `"") -ForegroundColor "Yellow";
 					Write-Host -NoNewLine ($SecondConfKey) -ForegroundColor "Green";
 					Write-Host -NoNewLine ("`" key to confirm and kill:  ") -ForegroundColor "Yellow";
 					$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
@@ -191,7 +187,7 @@ Function TaskSnipe {
 						#
 						# MANUALLY CONFIRMED
 						#
-						Write-Host "`n`n  Confirmed.`n";
+						Write-Host "`n`n$($MyInvocation.MyCommand.Name) - Info: Confirmed.`n";
 					}
 					$SnipeList | ForEach-Object {
 						If (($_.SESSIONNAME) -Eq "Services") {
@@ -200,7 +196,7 @@ Function TaskSnipe {
 									#
 									# STOP SERVICES BY NAME
 									#
-									Write-Host "`n  Stopping Service `"$($_.Name)`" ...  " -ForegroundColor "Red" -BackgroundColor "Black";
+									Write-Host "`n$($MyInvocation.MyCommand.Name) - Task: Stopping Service `"$($_.Name)`" ...  " -ForegroundColor "Gray";
 									Stop-Service -Name ($_.Name) -Force -NoWait -ErrorAction "SilentlyContinue";
 								}
 							}
@@ -209,7 +205,7 @@ Function TaskSnipe {
 								#
 								# KILL TASKS BY PID
 								#
-								Write-Host "`n  Stopping Process `"$($_.IMAGENAME)`" (PID $($_.PID)) ...  " -ForegroundColor "Red" -BackgroundColor "Black";
+								Write-Host "`n$($MyInvocation.MyCommand.Name) - Task: Stopping Process `"$($_.IMAGENAME)`" (PID $($_.PID)) ...  " -ForegroundColor "Gray";
 								Stop-Process -Id ($_.PID) -Force -ErrorAction "SilentlyContinue"; $last_exit_code = If($?){0}Else{1};
 								If ($last_exit_code -ne 0) {
 									### FALLBACK OPTION:
@@ -223,26 +219,26 @@ Function TaskSnipe {
 					#
 					# User bailed-out of the confirmation, cancelling the kill PID(s) action
 					#
-					Write-Host "`n`n  Bail-Out @ Second confirmation - No Action(s) performed  `n`n" -ForegroundColor "Red" -BackgroundColor "Black";
+					Write-Host "`n`n$($MyInvocation.MyCommand.Name) - Info: User bailed out @ Second confirmation - No Action(s) performed  `n`n" -ForegroundColor "Gray";
 				}
 			} Else {
 				#
 				# User bailed-out of the FIRST confirmation, cancelling the kill PID(s) action
 				#
-				Write-Host "`n`n  Bail-Out @ First confirmation - No Action(s) performed  `n`n" -ForegroundColor "Red" -BackgroundColor "Black";
+				Write-Host "`n`n$($MyInvocation.MyCommand.Name) - Info: User bailed out @ First confirmation - No Action(s) performed  `n`n" -ForegroundColor "Gray";
 			}
 		} Else {
 			#
 			# No results found
 			#
-			Write-Host "`n`n  No processes/services found - No Action(s) performed  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
+			Write-Host "`n`n$($MyInvocation.MyCommand.Name) - Info: No processes/services found - No Action(s) performed  `n`n" -ForegroundColor "Gray";
 
 		}
 
 		If ($SkipConfirm -Eq $False) {
 			# ------------------------------------------------------------
 			#	### "Press any key to continue..."
-			Write-Host -NoNewLine "`n`n  Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
+			Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
 			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		}
 

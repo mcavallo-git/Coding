@@ -29,8 +29,6 @@ $AppMatches = (Get-WmiObject -Class Win32_Product -Filter $AppName_Filter);
 
 $AppMatches | Sort-Object Name | Format-Table Name;
 
-
-
 #### App.Uninstall() Non-functional on domain-attached workstation running as local admin (2019-03-20 16:47:22)
 # ForEach ($EachApp In ($DotNetCoreApps)) {
 	# Write-Host (("Uninstalling Application [ ")+($EachApp.Name)+(" ]"));

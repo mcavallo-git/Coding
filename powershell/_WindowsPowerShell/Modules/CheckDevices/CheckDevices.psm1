@@ -10,12 +10,11 @@ function CheckDevices {
 		}
 	}
 
-	Write-Host "`n";
 	If ($ExternalGpuNames.Count -Gt 0) {
-		Write-Host "Found $($ExternalGpuNames.Count) External GPU(s):";
+		Write-Host "`nFound $($ExternalGpuNames.Count) External GPU(s):";
 		$ExternalGpuNames;
 	} Else {
-		Write-Host "No External GPU(s) found";
+		Write-Host "`nNo External GPU(s) found";
 	}
 	Write-Host "`n`n";
 

@@ -31,10 +31,22 @@
 
 
 
-
 ### [ VIA SSH ON NEW NODE ] Install Java
 #>  sudo apt-get update -y && sudo apt-get install -y default-jdk-headless default-jre-headless && sudo apt-get -y autoremove && sudo apt-get -y clean;
 
 
+
 ### [ VIA SSH ON NEW NODE ] Update boneal user to have UID=500 & GID=500
 #>  sudo usermod --uid "500" "boneal"; sudo groupmod --gid "500" "boneal";
+
+
+
+### [ VIA SSH ON NEW NODE ] CLEANUP --> lots of files were left-over with GID 1000 even though they should've been updated to 500
+#>  ### chown -R "boneal:boneal" "/home/boneal/public_html/";
+#>  ### find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
+
+
+
+
+
+

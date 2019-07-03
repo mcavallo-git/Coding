@@ -87,6 +87,16 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 
 
 ***
+### Find files w/ GID (group-id) equal to "1000"
+```
+
+find "/" -gid "1000" -exec echo '{}' \;
+
+```
+
+
+
+***
 ### Find files modified in the last X_MINUTES
 ```
 

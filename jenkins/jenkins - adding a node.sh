@@ -36,3 +36,5 @@
 #>  sudo apt-get update -y && sudo apt-get install -y default-jdk-headless default-jre-headless && sudo apt-get -y autoremove && sudo apt-get -y clean;
 
 
+### [ VIA SSH ON NEW NODE ] Update boneal user to have UID=500 & GID=500
+#>  sudo usermod --uid "500" "boneal"; sudo groupmod --gid "500" "boneal";

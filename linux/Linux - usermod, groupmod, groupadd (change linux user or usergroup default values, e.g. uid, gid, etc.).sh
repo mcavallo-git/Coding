@@ -1,3 +1,38 @@
+#!/bin/bash
+
+# ------------------------------------------------------------
+
+# Change existent user's primary/default group
+USER_NAME="bar";
+PRIMARY_GROUP_NAME="foo";
+usermod -g "${PRIMARY_GROUP_NAME}" "${USER_NAME}";
+
+# ------------------------------------------------------------
+
+
+# Change existent user's UID
+USER_NAME="foo";
+UPDATED_UID="500";
+usermod --uid "${UPDATED_UID}" "${USER_NAME}";
+
+
+# ------------------------------------------------------------
+
+# Change existent group's GID
+GROUP_NAME="foo";
+UPDATED_GID="500";
+groupmod --gid "${UPDATED_GID}" "${GROUP_NAME}";
+
+
+# ------------------------------------------------------------
+
+
+# Add user to multiple groups, simultaneously
+USER_NAME="bar";
+GROUPS_TO_JOIN="foo,bar";
+usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
+
+
 # ------------------------------------------------------------
 
 # Get info regarding a group

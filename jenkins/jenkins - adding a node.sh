@@ -38,3 +38,4 @@
 
 ### [ VIA SSH ON NEW NODE ] Update boneal user to have UID=500 & GID=500
 #>  sudo usermod --uid "500" "boneal"; sudo groupmod --gid "500" "boneal";
+find "/" --gid 1000

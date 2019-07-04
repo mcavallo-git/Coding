@@ -32,7 +32,6 @@ Change the line to this one
 
 
 
-
 # ------------------------------------------------------------
 # 
 # Parse GnuPG key_id's out of gpg's 'LONG' formated-values

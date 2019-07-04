@@ -8,8 +8,9 @@
 # Step 1 - SSH into your Unifi device (USG, for example)
 
 # Step 2 - Export the config to JSON format via the following commands
+sudo -i;
 EXPORT_FILEPATH="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/$(hostname).$(date +'%Y%m%d_%H%M%S').config.gateway.json";
-sudo mca-ctrl -t dump-cfg > "${EXPORT_FILEPATH}";
+mca-ctrl -t dump-cfg > "${EXPORT_FILEPATH}";
 echo "Export Filepath:   ${EXPORT_FILEPATH}";
 
 

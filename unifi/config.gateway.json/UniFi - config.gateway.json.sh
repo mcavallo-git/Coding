@@ -19,11 +19,11 @@ mca-ctrl -t dump-cfg > "${HOME}/$(hostname).$(date +'%Y%m%d_%H%M%S').config.gate
 
 # - Create and/or make-edits-to your unifi site's "config.gateway.json" file, located at:
 UNIFI_HOMEDIR=$(getent passwd unifi | cut --delimiter=: --fields=6);
+vi "${UNIFI_HOMEDIR:-/usr/lib/unifi}/data/sites/default/config.gateway.json";
 
-vi "/usr/lib/unifi/data/sites/default/config.gateway.json";
-
-
-# - Re-provision the USG-3p on the unifi dashboard under "Devices" -> USG-3P -> "Manage" (cog) -> "Provision"
+# - Force a Re-provision on the USG via your method-of-choice
+#    |--> you may prefer the browser dashboard method, which is done by selecting:   "Devices" (left) -> [YOUR-USG] -> "Manage" (cog) -> "Provision"
+#    |--> you may prefer the cli method directly on the usg:  (NEED METHOD, HERE)
 
 
 

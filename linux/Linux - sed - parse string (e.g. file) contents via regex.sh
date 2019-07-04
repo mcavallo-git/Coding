@@ -43,6 +43,19 @@ echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 
 # ------------------------------------------------------------
 # 
+# Remove excessive whitespace from file
+#
+
+sed_remove_whitespace_lines='/^\s*$/d';
+sed --in-place --expression="${sed_remove_whitespace_lines}" "FILEPATH";
+
+sed_remove_starting_whitespace='s/^\s*//g';
+sed --in-place --expression="${sed_remove_starting_whitespace}" "FILEPATH";
+
+
+
+# ------------------------------------------------------------
+# 
 # Remove whitespace-only lines
 #
 sed --in-place --expression='/^\s*$/d' "/etc/hosts";

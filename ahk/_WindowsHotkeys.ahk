@@ -100,7 +100,21 @@ ClearSplashText(TimerPeriod) {
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
 	IfMsgBox, Yes, Edit
 	Return
+
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;   HOTKEY:  Win + A
+;		ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
 ;
+;#A::
+; 	(PSEUDO-CODE)  CHECK IF WINDOW IS ALREADY RUNNING AS ADMIN -> IF YES, DO NOTHING
+; ;;;
+; 	(PSEUDO-CODE)  GET ACTIVE WINDOW'S EXE-PATH
+; ;;;
+; 	(PSEUDO-CODE)  GET ACTIVE WINDOW'S ADDITIONAL-ARGS
+; ;;;
+; 	(PSEUDO-CODE)  OPEN WINDOW AS ADMIN
+; ;;;
+; 	Return
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + Z

@@ -1,34 +1,58 @@
-
-/* Select [ ALL divs ] */
-div
-{
-	border: 1px solid gray;
-	height: 100px;
-	margin: 10px;
-	width: 100px;
-}
-
-
-/* Select divs where [ the attribute IS-DEFINED ] & [ the attribute-value is EITHER non-empty or empty ] */
-div[data-attr]
-{
-	height: 50px !important;
-}
-
-/* Select divs where [ the attribute IS-DEFINED ] & [ the attribute-value is NON-EMPTY ] */
-div:not([data-attr=''])
-{
-	background: green;
-}
-
-/* Select divs where [ the attribute IS-DEFINED ] & [ the attribute-value is EMPTY ] */
-div[data-attr='']
-{
-	background: red;
-}
-
-/* Select divs where [ the attribute is NOT-DEFINED ] */
+/* Attribute/Property NOT-EXISTS */
 div:not([data-attr])
 {
 	background: blue;
 }
+
+/* Attribute/Property EXISTS */
+div[data-attr]
+{
+	background: #4D4DFF;
+}
+
+/* Attribute/Property EXISTS && EMPTY */
+div[data-attr='']
+{	
+	background: red;
+}
+
+/* Attribute/Property EXISTS && NOT-EMPTY "*/
+div[data-attr]:not([data-attr=''])
+{
+	background: green;
+}
+
+
+
+
+
+/* Generic Additional Styles for all Divs */
+div
+{ 
+	border: 1px solid gray;
+	font-size:150%;
+	font-weight:700;
+	padding: 25px;
+	margin: 10px;
+	display:inline-block; 
+	white-space: nowrap;
+	color:white;
+	text-align:center;
+}
+
+/*
+	<!--  HTML TO TEST AGAINST -->
+	
+	<div>ATTRIBUTE STATE:<br />NOT-EXISTS</div>
+	<div data-attr >ATTRIBUTE STATE:<br />EXISTS-BUT-EMPTY</div>
+	<div data-attr="value" >ATTRIBUTE STATE:<br />EXISTS-AND-NON-EMPTY</div>
+	
+*/
+
+/* ------------------------------------------------------------
+ *
+ * Citation(s)
+ *
+ * codepen.io  |  "CSS Selectors - Attribute/Property state-based selectors ..."  |  https://codepen.io/cavalol/pen/ewXLYY
+ *
+ * ------------------------------------------------------------ */

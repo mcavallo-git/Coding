@@ -4,6 +4,8 @@
 -- If using military-time you can use any of:
 SELECT
 	STR_TO_DATE('1/2/3 14:25:36', '%c/%e/%Y %H:%i:%S'),
+	STR_TO_DATE(CONCAT(DATE('2003-02-01'),' ',TIME(CONCAT('14:25',':59'))), '%Y-%e-%c %H:%i:%S'),
+	STR_TO_DATE('01/02/2003 14:25', '%c/%e/%Y %T'),
 	STR_TO_DATE('01/02/2003 14:25:36', '%c/%e/%Y %T')
 ;
 

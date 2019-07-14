@@ -1,7 +1,6 @@
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 #
 #	EdgeOS - Shaper (QoS)
-#			https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#6
 #
 #
 # A more complicated policy is the shaper policy, which uses the Hierarchical Token Bucket technique to provide different bandwidth guarantees to different classes of traffic on a network link. A simple example is shown below.
@@ -28,10 +27,9 @@ commit
 
 
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 #
 # EdgeRouter - Traffic Policies (Shaper) for Upload, Download and VoIP (QoS)
-#			https://help.ubnt.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
 #
 # The following example uses two traffic policies (one for upload, one for download) to limit client 10.0.3.2 to an upload rate of 512Kbps (allowing bursts to 640Kbps) and downloads of 1Mbit (allowing bursts to 1.5Mbit if the bandwidth is available). 
 #
@@ -77,3 +75,14 @@ set interfaces ethernet eth1 traffic-policy in 'client-up'
 commit
 save
 
+
+
+# ------------------------------------------------------------
+#
+#		Citation(s)
+#
+#		https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#6
+#
+#		https://help.ubnt.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
+#
+# ------------------------------------------------------------

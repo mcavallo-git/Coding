@@ -1,8 +1,10 @@
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 #
-#	EdgeOS - Advanced Queue'ing (QoS) - https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
+#	EdgeOS - Advanced Queue'ing (QoS)
 #
-#		"Follow these steps to limit the rate for one LAN device and file-transfer application. Use HFQ (Host Fairness Queueing) to explicitly and automatically limit the rate for each of the devices in the configured subnet. Allow burst for file-transfer traffic in a short time."
+#		Follow these steps to limit the rate for one LAN device and file-transfer application.
+#		Use HFQ (Host Fairness Queueing) to explicitly and automatically limit the rate for each of the devices in the configured subnet.
+#		Allow burst for file-transfer traffic in a short time.
 #
 
 
@@ -61,12 +63,13 @@ set traffic-control advanced-queue filters match 299 target 299
 
 
 # 8. Commit the changes and save the configuration.
-commit ; save
+commit
+save
 
 
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 #
-#		Other Guide(s):
+#		Additional Guide(s)
 #
 #		https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
 #
@@ -76,5 +79,10 @@ commit ; save
 #
 #		https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
 #
+# ------------------------------------------------------------
 #
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#		Citation(s)
+#
+#		https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
+#
+# ------------------------------------------------------------

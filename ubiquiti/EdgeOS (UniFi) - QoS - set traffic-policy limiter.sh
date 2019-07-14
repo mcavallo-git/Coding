@@ -1,6 +1,6 @@
-# --------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# ------------------------------------------------------------
 #
-#	EdgeOS - Limiter (QoS) - https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#7
+#	EdgeOS - Limiter (QoS)
 #
 #
 # The limiter policy performs ingress policing and therefore can only be applied to the in direction of traffic on a network interface. You can define multiple classes of traffic, and you can apply a separate bandwidth limit to each class. For example, the following policy set a limit of 1 Mbps for incoming ICMP traffic on eth0 and a limit of 10 Mbps for the other traffic.
@@ -20,3 +20,13 @@ commit
 #
 # Note: The interface mentioned in this example is eth0 (WAN). When a PPPoE interface is used for WAN, the policy should be applied to pppoeX rather than the Ethernet interface. For EdgeRouter modules that include a switch interface, the traffic policy will need to be applied to the switch interface (switch0) rather than the single Ethernet interface (eth1). 
 #
+
+
+
+# ------------------------------------------------------------
+#
+#		Citation(s)
+#
+#		https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#7
+#
+# ------------------------------------------------------------

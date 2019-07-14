@@ -3,7 +3,9 @@
 #	EdgeOS - Advanced Queue'ing (QoS)
 #
 #		Follow these steps to limit the rate for one LAN device and file-transfer application.
+#
 #		Use HFQ (Host Fairness Queueing) to explicitly and automatically limit the rate for each of the devices in the configured subnet.
+#
 #		Allow burst for file-transfer traffic in a short time.
 #
 

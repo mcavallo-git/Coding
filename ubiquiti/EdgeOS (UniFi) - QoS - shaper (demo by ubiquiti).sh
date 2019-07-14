@@ -53,9 +53,9 @@ commit
 #
 # EdgeRouter - Traffic Policies (Shaper) for Upload, Download and VoIP (QoS)
 #
-# The following example uses two traffic policies (one for upload, one for
-#		download) to limit client 10.0.3.2 to an upload rate of 512Kbps (allowing bursts to 640Kbps)
-#		and downloads of 1Mbit (allowing bursts to 1.5Mbit if the bandwidth is available).
+#		The following example uses two traffic policies (one for upload, one for
+#			download) to limit client 10.0.3.2 to an upload rate of 512Kbps (allowing bursts to 640Kbps)
+#			and downloads of 1Mbit (allowing bursts to 1.5Mbit if the bandwidth is available).
 #
 
 # DOWNLOAD SHAPER

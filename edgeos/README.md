@@ -1,1 +1,0 @@
-EdgeOS - Ubiquiti-Unifi-UBNT-UNMS-EdgeRouter

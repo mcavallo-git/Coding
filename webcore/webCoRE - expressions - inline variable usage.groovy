@@ -12,14 +12,21 @@
 // 🌑 new moon     ☀️ sun
 //
 // ------------------------------------------------------------
-// Variable Name:
+// Variable (String):
 timestamp_value
 
-// EXPRESSION:
+// Expression:
 formatDateTime({$now}, ‘MM/dd @ hh:mm:ss a’)
 
 // ------------------------------------------------------------
-// Send SMS message regarding device/piston status
+// Variable (boolean):
+its_daytime
+
+// Expression:
+isBetween(time($now), addMinutes(time($sunrise), 15), addMinutes(time($sunset), -15))
+
+// ------------------------------------------------------------
+// Send SMS message w/ device (or piston, etc.) status
 
 "{timestamp_value}
 {$name}
@@ -29,51 +36,25 @@ formatDateTime({$now}, ‘MM/dd @ hh:mm:ss a’)
 
 ✔️ Error=NONE"
 
-
-
 // ------------------------------------------------------------
-// Set Piston State to [ Last ran on ... ]
-
-// VALUE:
+// Last ran on ... -->  Set Piston State's Value to:
 [b | 💻 Last ran on {timestamp_value}]
 
-
 // ------------------------------------------------------------
-// Set Piston State to [ OFF since ]
-
-// VALUE:
+// OFF since ... -->  Set Piston State's Value to:
 [b | ◆ OFF since {timestamp_value}]
 
-// EXPRESSION:
-concat(
-	"[b | ◆ OFF since ",
-	formatDateTime({$now}, ‘MM/dd @ hh:mm:ss a’),
-	"]"
-)
-
-
-
 // ------------------------------------------------------------
-
-// VALUE:
+// ON since ... -->  Set Piston State's Value to:
 [b | 💡 ON since {timestamp_value}]
 
-// EXPRESSION:
-concat(
-	"[b | 💡 ON since ",
-	formatDateTime({$now}, ‘MM/dd @ hh:mm:ss a’),
-	"]"
-)
-
-
-
 // ------------------------------------------------------------
-// SHM - Armed/Away
+// SHM - Armed/Away 
 //
-// VALUE:
+// Value:
 [b | 🛡️ {$shmStatus} as-of {timestamp_value}]
 
-// EXPRESSION:
+// Expression:
 "{timestamp_value}
 {$name}
 
@@ -83,10 +64,10 @@ concat(
 // ------------------------------------------------------------
 // SHM - Armed/Stay
 //
-// VALUE:
+// Value:
 [b | 🏡 {$shmStatus} as-of {timestamp_value}]
 
-// EXPRESSION:
+// Expression:
 "{timestamp_value}
 {$name}
 
@@ -96,7 +77,7 @@ concat(
 // ------------------------------------------------------------
 // SHM - Disarmed
 //
-// VALUE:
+// Value:
 [b | 🛑 {$shmStatus} as-of {timestamp_value}]
 
 // ------------------------------------------------------------
@@ -108,5 +89,13 @@ concat(
 
 // Location Mode - Away  -->  Set Piston State's Value to:
 [b | 🛡️ {$locationMode} since {timestamp_value}]
+
+// ------------------------------------------------------------
+// Disarmed Check
+// Value - Disarmed:
+[b | ❌ {$shmStatus} as-of {timestamp_value}]
+
+// Value - Not Disarmed:
+[b | ✔️ {$shmStatus} as-of {timestamp_value}]
 
 // ------------------------------------------------------------

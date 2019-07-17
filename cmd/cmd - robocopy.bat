@@ -28,6 +28,7 @@ REM                  /R:n : number of Retries
 REM    /XD dirs [dirs]... : eXclude Directories matching given names/paths.
 REM    /XF file [file]... : eXclude Files matching given names/paths/wildcards.
 REM                  /W:n : Wait time between retries - default is 30 seconds.
+REM                   /IS : Include Same files.
 REM                    /Z : Copy files in restartable mode (survive network glitch). 
 REM
 

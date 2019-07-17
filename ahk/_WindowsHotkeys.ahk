@@ -568,17 +568,17 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  HOTKEY:  Windows-Key + L
 ;  ACTION:  Lock the Computer & put monitor(s) into 
 ;
-#End::
-#L::
-	DllCall("LockWorkStation")  ; Lock the Computer
-	Sleep 1000
-	SendMessage,0x112,0xF170,2,,Program Manager 
-	; 0x112  = WM_SYSCOMMAND
-	; 0xF170 = SC_MONITORPOWER
-	;            |-->  -1 = turn the monitor(s) on
-	;            |-->   1 = activate low-power-mode on the monitor(s)
-	;            |-->   2 = turn the monitor(s) off
-	Return
+; #End::
+; #L::
+; 	DllCall("LockWorkStation")  ; Lock the Computer
+; 	Sleep 1000
+; 	SendMessage,0x112,0xF170,2,,Program Manager 
+; 	; 0x112  = WM_SYSCOMMAND
+; 	; 0xF170 = SC_MONITORPOWER
+; 	;            |-->  -1 = turn the monitor(s) on
+; 	;            |-->   1 = activate low-power-mode on the monitor(s)
+; 	;            |-->   2 = turn the monitor(s) off
+; 	Return
 ; 
 ; Citation: https://autohotkey.com/docs/commands/PostMessage.htm
 ;

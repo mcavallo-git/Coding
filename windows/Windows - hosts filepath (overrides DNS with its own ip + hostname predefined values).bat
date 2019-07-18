@@ -1,0 +1,1 @@
+more "%WINDIR%\System32\Drivers\Etc\Hosts"

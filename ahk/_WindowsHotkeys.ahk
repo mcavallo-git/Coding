@@ -715,49 +715,39 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 	Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
 	Echo_Middle_RightHalf := Echo_TopBot_RightHalf
 	
-	; IconsRemoved_Middle = 0
-	; Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconsRemoved_Middle * StrLen( Icon_VolumeFilled )) )
-	; Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconsRemoved_Middle * StrLen( Icon_VolumeFilled )) )
+	IconSlice_Middle_EachSide := 3
+	Mute_AddSpaces := 3
 
-	; Echo_TopBot_Center := StringRepeat( A_Space , 0 )
-	
-	Echo_TopBot_Center := StringRepeat( A_Space , 14 )
+	Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
+	Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
 
 	; Show status of whether volume muted or un-muted next to the volume level 
 	;   |--> Replace mute-icon w/ whitespace if un-muted (used manual/visual comparison to determine # of spaces)
 	;
-	Mute_Padding := ( ( MasterMute == "On" ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
-	;
-	; If ( MasterMute == "On") {
-	; 	Mute_Padding := A_Space Icon_MutedSpeaker A_Space
-	; } Else If ( NewVolumeLevel >= 100 ) {
-	; 	Mute_Padding := A_Space Icon_SpeakerHighVolume A_Space
-	; } Else If ( NewVolumeLevel > 0 ) {
-	; 	Mute_Padding := A_Space Icon_SpeakerMediumVolume A_Space
-	; } Else {
-	; 	Mute_Padding := A_Space Icon_SpeakerLowVolume A_Space A_Space
-	; }
+	Mute_StatusIcon := ( ( MasterMute == "On" ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
+	Mute_LSpaces := ( Round( Mute_AddSpaces / 2 ) )
+	Mute_RSpaces := ( Mute_AddSpaces - Mute_LSpaces )
 
-	Echo_Middle_Center := NewVolumeLevel
+	Mute_Padding := StringRepeat( A_Space , Mute_LSpaces ) Mute_StatusIcon StringRepeat( A_Space , Mute_RSpaces )
 
 	If ( NewVolumeLevel == 100 ) {
-		Echo_Middle_Center := Mute_Padding Echo_Middle_Center Mute_Padding
+		; Mute_AddSpaces := Mute_AddSpaces + 0
+		Echo_Middle_Center := Mute_Padding NewVolumeLevel Mute_Padding
 	} Else If ( NewVolumeLevel >= 10 ) {
-		Echo_Middle_Center := Mute_Padding A_Space Echo_Middle_Center A_Space Mute_Padding
+		; Mute_AddSpaces := Mute_AddSpaces + 1
+		Echo_Middle_Center := Mute_Padding A_Space NewVolumeLevel A_Space Mute_Padding
 	} Else {
-		Echo_Middle_Center := Mute_Padding A_Space A_Space Echo_Middle_Center A_Space A_Space Mute_Padding
+		; Mute_AddSpaces := Mute_AddSpaces + 2
+		Echo_Middle_Center := Mute_Padding A_Space A_Space NewVolumeLevel A_Space A_Space Mute_Padding
 	}
 
-	Echo_Tooltip=
-	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
-	Echo_Tooltip := Echo_Tooltip LF
-	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf
-	Echo_Tooltip := Echo_Tooltip LF
-	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
+	Echo_TopBot_Center := StringRepeat( A_Space , 0 )
+	; Echo_TopBot_Center := StringRepeat( A_Space , 14 )
 
-	; OutputTextLen := ( StrLen(Output_MidLine) - 2 )
-	; OutputBlanks := StringRepeat( A_Space , 95 )
-	; OutputBlankLine := Icon_SpeakerLowVolume OutputBlanks Icon_SpeakerHighVolume
+	Echo_Tooltip=
+	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf LF
+	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf LF
+	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
 	
 	OutputWidth := 317
 	OutputHeight := 20

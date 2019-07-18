@@ -23,6 +23,8 @@
 ;  SysGet  :::  https://autohotkey.com/docs/commands/SysGet.htm
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+; GLOBAL SETTINGS
 
 SetBatchLines, -1
 
@@ -37,14 +39,20 @@ DetectHiddenWindows, On
 ; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;
+; GLOBAL VARIABLES
 
-; #NoEnv  ; "Specifying the line #NoEnv anywhere in a script prevents empty variables from being looked up as potential environment variables" - AutoHotkey Docs
+; #NoEnv  ; Prevents environment variables from being used (occurs when a variable is called/referenced without being instantiated)
 
 USERPROFILE=%USERPROFILE%
 
 USER_DESKTOP=%USERPROFILE%\Desktop
  
 USER_DOCUMENTS=%USERPROFILE%\Documents
+
+CR=`r
+
+LF=`n
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -489,7 +497,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 		MouseClick, Left, %x_loc%, %y_loc%
 		Sleep 1
 		
-	} Else If (substr(A_OSVersion, 1, 4)="10.0") {
+	} Else If (SubStr(A_OSVersion, 1, 4)="10.0") {
 
 		; Windows10
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
@@ -634,9 +642,13 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 #WheelDown::
 ^#WheelDown::
 
-	Icon_LowVolume=🔈
-	Icon_MuteVolume=🔇
-	Icon_HighVolume=🔊
+	Icon_MutedSpeaker=🔇
+	Icon_SpeakerLowVolume=🔈
+	Icon_SpeakerMediumVolume=🔉
+	Icon_SpeakerHighVolume=🔊
+
+	Icon_VolumeFilled=⬛️
+	Icon_VolumeBlanks=⬜️
 
 	VolumeLevel_Increment := 10
 
@@ -646,81 +658,117 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 
 	VolumeLevel_BeforeEdits := Round(VolumeLevel_BeforeEdits)
 
-	If (A_ThisHotkey=="#MButton") {
-		; Mute
-		SoundSet, +1, , MUTE
-	} Else If (A_ThisHotkey=="^#MButton") {
-		; Mute (repeat w/ new hotkey)
+	; Note that [ SoundSet ... ] is used instead of [ Send {Volume_Up} ], etc. because of combo key-presses
+	; not handshaking well with the [ Send ... ] function in AHK - e.g. winkey-mousescroll was
+	; triggering the start-menu inbetween multiple scrolls + more issues (generally glitchy)
+	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {
+		; Toggle Mute
 		SoundSet, +1, , MUTE
 	} Else If (A_ThisHotkey=="#WheelUp") {
-		; Up
-		SoundSet,+%VolumeLevel_Increment%
+		; Volume Up
+		SoundSet , +%VolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="^#WheelUp") {
-		; Up (faster/slow)
+		; Volume Up ( Slower )
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
-		SoundSet,+%NewVolumeLevel_Increment%
+		SoundSet , +%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="#WheelDown") {
-		; Down
-		SoundSet,-%VolumeLevel_Increment%
+		; Volume Down
+		SoundSet , -%VolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="^#WheelDown") {
-		; Down (faster/slow)
+		; Volume Down ( Slower )
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
-		SoundSet,-%NewVolumeLevel_Increment%
+		SoundSet , -%NewVolumeLevel_Increment%
 	}
+
 	; Get the volume & mute current-settings
 	SoundGet, NewVolumeLevel
 	SoundGet, MasterMute, , MUTE
+
 	; Final volume level
-	NewVolumeLevel := Round(NewVolumeLevel)
+	NewVolumeLevel := Round( NewVolumeLevel )
 	NewVolumeLevelPercentage=%NewVolumeLevel%`%
+
 	; Build the volume-bars (out-of dingbats utf8+ icons)
-	DingbatCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
-	VolumeBarsCount   := Round( ( NewVolumeLevel / 100 ) * DingbatCount_MaxVolume)
-	VolumeSpacesCount := DingbatCount_MaxVolume - VolumeBarsCount
-	VolumeBars   := StringRepeat("⬛️",VolumeBarsCount)
-	VolumeSpaces := StringRepeat("⬜️",VolumeSpacesCount)
-	FinalVolumeBars := VolumeBars VolumeSpaces
-	Length_FinalBars := StrLen(FinalVolumeBars)
-	TrimCount := Round(Length_FinalBars/2)
-	StringTrimRight, FinalVolume_LeftHalf, FinalVolumeBars, TrimCount
-	StringTrimLeft, FinalVolume_RightHalf, FinalVolumeBars, TrimCount
-	; Prep the padding around the Volume Pentage
-	Padding_CenterTopBot=------
-	Padding_CenterLeft := A_Space A_Space A_Space A_Space A_Space A_Space
-	Padding_CenterRight := Padding_CenterLeft
-	If ( MasterMute == "On") {
-		Padding_CenterLeft := A_Space Icon_MuteVolume A_Space
-		Padding_CenterRight := A_Space Icon_MuteVolume A_Space
-	}
-	Padding_CenterTopBot=%Padding_CenterTopBot%--
-	If (NewVolumeLevel < 100) {
-		Padding_CenterLeft := Padding_CenterLeft A_Space
-		Padding_CenterRight := A_Space Padding_CenterRight
-		If (NewVolumeLevel < 10) {
-			Padding_CenterLeft := Padding_CenterLeft A_Space
-			Padding_CenterRight := A_Space Padding_CenterRight
-		}
-	}
-	VolumeReplacement := StringRepeat(" ",30)
-	Output_TopLine=%Icon_LowVolume%   %FinalVolume_LeftHalf% %VolumeReplacement% %FinalVolume_RightHalf%  %Icon_HighVolume%
-	Output_MidLine=%Icon_LowVolume%   %FinalVolume_LeftHalf%≡≡%Padding_CenterLeft%%NewVolumeLevelPercentage%%Padding_CenterRight%≡≡%FinalVolume_RightHalf%  %Icon_HighVolume%
-	Output_BotLine=%Icon_LowVolume%   %FinalVolume_LeftHalf% %VolumeReplacement% %FinalVolume_RightHalf%  %Icon_HighVolume%
+	Total_IconCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
 
-	OutputTextLen := ( StrLen(Output_MidLine) - 2 )
-	OutputBlanks := StringRepeat(" ",95)
-	OutputBlankLine := Icon_LowVolume OutputBlanks Icon_HighVolume
+	IconCount_TopBot_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume)
+	IconCount_TopBot_Blanks := Total_IconCount_MaxVolume - IconCount_TopBot_Filled
+	DisplayedIcons_TopBot_Filled := StringRepeat( Icon_VolumeFilled, IconCount_TopBot_Filled )
+	DisplayedIcons_TopBot_Blanks := StringRepeat( Icon_VolumeBlanks, IconCount_TopBot_Blanks )
+	VolumeBars_TopBot := DisplayedIcons_TopBot_Filled DisplayedIcons_TopBot_Blanks
 
-	Output_Combined=%Output_TopLine%`n%Output_MidLine%`n%Output_BotLine%
+	IconCount_Middle_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume) - 4
+	IconCount_Middle_Blanks := Total_IconCount_MaxVolume - IconCount_Middle_Filled
+	DisplayedIcons_Middle_Filled := StringRepeat( Icon_VolumeFilled, IconCount_Middle_Filled )
+	DisplayedIcons_Middle_Blanks := StringRepeat( Icon_VolumeBlanks, IconCount_Middle_Blanks )
+	VolumeBars_Middle := DisplayedIcons_Middle_Filled DisplayedIcons_Middle_Blanks
+
+	TrimCount_TopBot := Round( StrLen( VolumeBars_TopBot ) / 2 )
+	TrimCount_Middle := Round( StrLen( VolumeBars_Middle ) / 2 )
+
+	StringTrimRight, Echo_TopBot_LeftHalf, VolumeBars_TopBot, TrimCount_TopBot
+	StringTrimLeft, Echo_TopBot_RightHalf, VolumeBars_TopBot, TrimCount_TopBot
+
+	Echo_TopBot_LeftHalf := Icon_SpeakerMediumVolume A_Space A_Space A_Space Echo_TopBot_LeftHalf
+	Echo_TopBot_RightHalf := Echo_TopBot_RightHalf A_Space A_Space Icon_SpeakerHighVolume
+
+	Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
+	Echo_Middle_RightHalf := Echo_TopBot_RightHalf
+	
+	; IconsRemoved_Middle = 0
+	; Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconsRemoved_Middle * StrLen( Icon_VolumeFilled )) )
+	; Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconsRemoved_Middle * StrLen( Icon_VolumeFilled )) )
+
+	; Echo_TopBot_Center := StringRepeat( A_Space , 0 )
+	
+	Echo_TopBot_Center := StringRepeat( A_Space , 14 )
+
+	; Show status of whether volume muted or un-muted next to the volume level 
+	;   |--> Replace mute-icon w/ whitespace if un-muted (used manual/visual comparison to determine # of spaces)
+	;
+	Mute_Padding := ( ( MasterMute == "On" ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
+	;
+	; If ( MasterMute == "On") {
+	; 	Mute_Padding := A_Space Icon_MutedSpeaker A_Space
+	; } Else If ( NewVolumeLevel >= 100 ) {
+	; 	Mute_Padding := A_Space Icon_SpeakerHighVolume A_Space
+	; } Else If ( NewVolumeLevel > 0 ) {
+	; 	Mute_Padding := A_Space Icon_SpeakerMediumVolume A_Space
+	; } Else {
+	; 	Mute_Padding := A_Space Icon_SpeakerLowVolume A_Space A_Space
+	; }
+
+	Echo_Middle_Center := NewVolumeLevel
+
+	If ( NewVolumeLevel == 100 ) {
+		Echo_Middle_Center := Mute_Padding Echo_Middle_Center Mute_Padding
+	} Else If ( NewVolumeLevel >= 10 ) {
+		Echo_Middle_Center := Mute_Padding A_Space Echo_Middle_Center A_Space Mute_Padding
+	} Else {
+		Echo_Middle_Center := Mute_Padding A_Space A_Space Echo_Middle_Center A_Space A_Space Mute_Padding
+	}
+
+	Echo_Tooltip=
+	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
+	Echo_Tooltip := Echo_Tooltip LF
+	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf
+	Echo_Tooltip := Echo_Tooltip LF
+	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
+
+	; OutputTextLen := ( StrLen(Output_MidLine) - 2 )
+	; OutputBlanks := StringRepeat( A_Space , 95 )
+	; OutputBlankLine := Icon_SpeakerLowVolume OutputBlanks Icon_SpeakerHighVolume
 	
 	OutputWidth := 317
 	OutputHeight := 20
 	StartMenuHeight := 40
+
 	; Show the output as a tooltip
 	x_loc := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
 	y_loc := Round( ( A_ScreenHeight - StartMenuHeight - OutputHeight ) / 2 )
 	; y_loc := 50
 	; y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
-	ToolTip, %Output_Combined%, %x_loc%, %y_loc%
+	ToolTip, %Echo_Tooltip%, %x_loc%, %y_loc%
 	ClearTooltip(750)
 	Return
 ;
@@ -753,7 +801,7 @@ WheelRight::
 ;
 #C::
 	; ------------------------------------------------------------
-	OpenChrome()
+	; OpenChrome()
 	; TabSpace_Loop(50)
 	Return
 ;
@@ -1470,10 +1518,10 @@ CapsLock::
 ;   ----------------------------------------------------------------   Community-Created Scripts   -----------------------------------------------------------------
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
+StrLenUnicode(data) {
+	RegExReplace(data, "s).", "", i)
+	Return i
+}
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   --------------------------------------------------------   Notes-to-Self  (Documentation / Training)   ---------------------------------------------------------
@@ -1591,3 +1639,37 @@ CapsLock::
 ; 1: A window's title must start with the specified WinTitle to be a match.
 ; 2: A window's title can contain WinTitle anywhere inside it to be a match. 
 ; 3: A window's title must exactly match WinTitle to be a match.
+;
+
+; Example: Using in-line if conditional(s)
+; 
+; y := ( ( y = 8 ) ? ( 2008 ) : ( ( y = 9 ) ? ( 2009 ) : ( ( y = 0 ) ? ( 2010 ) : ( 2011 ) ) ) )
+;
+
+;
+; Example: Strlen doesn't have a whole lot to do with actual/displayed character-widths
+;
+; CompareStrLen() {
+; 	Newline=`n
+; 	Echo1= String = [ chr(0x0061) ]   Strlen = [ StrLen( chr(0x0061) ) ]
+; 	Echo2= String = [ chr(0x030a) ]   Strlen = [ StrLen( chr(0x030a) ) ]
+; 	Echo_Tooltip=
+; 	Echo_Tooltip := Echo_Tooltip Newline "  String=|" chr(0x0061) "|   StrLen=|" StrLen( chr(0x0061) ) "|"
+; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
+; 	Echo_Tooltip := Echo_Tooltip Newline "  String=|" chr(0x030a) "|   StrLen=|" StrLen( chr(0x030a) ) "|"
+; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
+; 	MsgBox, %Echo_Tooltip%
+; 	Return
+; }
+
+
+
+; ------------------------------------------------------------
+;	
+; Citation(s)
+;
+;		autohotkey.com  |  "Single line if statements"  |  https://autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
+; 
+;		autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
+;
+; ------------------------------------------------------------

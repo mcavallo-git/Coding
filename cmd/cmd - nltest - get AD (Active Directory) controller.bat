@@ -1,13 +1,10 @@
-
-
-SET DOMAIN_NAME=domain.com
+@ECHO OFF
 
 REM Determine AD Controller that current session is using/pointing-to
-nltest /dsgetdc:%DOMAIN_NAME%
+nltest /dsgetdc:%USERDOMAIN%
 
 REM Find other AD Controllers in the Forest
-nltest /dclist:%DOMAIN_NAME%
-
+nltest /dclist:%USERDOMAIN%
 
 PAUSE
 
@@ -15,6 +12,7 @@ EXIT
 
 REM Citation(s)
 REM
-REM		ss64.com, "NLTEST.exe"
-REM		https://ss64.com/nt/nltest.html
+REM		docs.microsoft.com  |  "DsGetDcOpenA function"  |  https://docs.microsoft.com/en-us/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcopena
+REM
+REM		ss64.com  |  "NLTEST.exe"  |  https://ss64.com/nt/nltest.html
 REM

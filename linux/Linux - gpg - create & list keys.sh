@@ -35,26 +35,32 @@ START_TIMESTAMP="$(date +'%Y%m%d%H%M%S')";
 #		
 # ------------------------------------------------------------
 #
-# gpg --list-secret-keys --keyid-format "LONG";
 
-GnuPG_PrimaryKeyID=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
-GnuPG_SecondaryKeyID=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^ssb\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
+KEYS_DIR="${HOME}/Desktop/GnuPG_Keys_${START_TIMESTAMP}";
 
-GnuPG_PrimaryPrivateKey=$(gpg --armor --export-secret-keys "${GnuPG_PrimaryKeyID}");
-GnuPG_PrimaryPublicKey=$(gpg --armor --export "${GnuPG_PrimaryKeyID}");
+if [ -d "$(dirname ${KEYS_DIR})" ]; then
 
-GnuPG_SecondaryPrivateKey=$(gpg --armor --export-secret-keys "${GnuPG_SecondaryKeyID}");
-GnuPG_SecondaryPublicKey=$(gpg --armor --export "${GnuPG_SecondaryKeyID}");
+	GnuPG_PrimaryKeyID=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
 
-if [ -d "${HOME}/Desktop" ]; then
-	KEYS_DIR="${HOME}/Desktop/GnuPG_Keys_${START_TIMESTAMP}";
+	GnuPG_SecondaryKeyID=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^ssb\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
+
+	GnuPG_PrimaryPrivateKey=$(gpg --armor --export-secret-keys "${GnuPG_PrimaryKeyID}");
+
+	GnuPG_PrimaryPublicKey=$(gpg --armor --export "${GnuPG_PrimaryKeyID}");
+
+	GnuPG_SecondaryPrivateKey=$(gpg --armor --export-secret-keys "${GnuPG_SecondaryKeyID}");
+
+	GnuPG_SecondaryPublicKey=$(gpg --armor --export "${GnuPG_SecondaryKeyID}");
+
 	mkdir -p "${KEYS_DIR}";
+
 	echo "${GnuPG_PrimaryKeyID}" > "${KEYS_DIR}/GnuPG_PrimaryKeyID.txt";
 	echo "${GnuPG_PrimaryPrivateKey}" > "${KEYS_DIR}/GnuPG_PrimaryKey.pem";
 	echo "${GnuPG_PrimaryPublicKey}" > "${KEYS_DIR}/GnuPG_PrimaryKey.pub";
 	echo "${GnuPG_SecondaryKeyID}" > "${KEYS_DIR}/GnuPG_SecondaryKeyID.txt";
 	echo "${GnuPG_SecondaryPrivateKey}" > "${KEYS_DIR}/GnuPG_SecondaryKey.pem";
 	echo "${GnuPG_SecondaryPublicKey}" > "${KEYS_DIR}/GnuPG_SecondaryKey.pub";
+
 fi;
 
 # ------------------------------------------------------------

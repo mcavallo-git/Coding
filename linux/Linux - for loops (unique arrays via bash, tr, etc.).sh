@@ -35,10 +35,6 @@ done;
 #  |--> Attempting to use bashisms like this through "sh" will throw error such as [ Syntax error: "(" unexpected ]
 #
 
-
-# Thanks to: https://stackoverflow.com/questions/8880603/loop-through-an-array-of-strings-in-bash
-
-
 # ------------------------------------------------------------
 # Example
 #  |--> for loop using sort

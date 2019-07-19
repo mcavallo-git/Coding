@@ -24,6 +24,31 @@ echo "User \"$EACH_UNIQUE_USER\" has a home-directory located at \"${EACH_HOME_D
 fi;
 done;
 
+# ------------------------------------------------------------
+
+DIR_WIN32_USERS=$(find /mnt/*/Users -mindepth 0 -maxdepth 0 -type d);
+find "${DIR_WIN32_USERS}" \
+-mindepth 1 \
+-maxdepth 1 \
+-name '*' \
+-type 'd' \
+-not -path "${DIR_WIN32_USERS}/Default" \
+-not -path "${DIR_WIN32_USERS}/Public" \
+-print0 \
+| while IFS= read -r -d $'\0' EachUserDir; do
+	LastExitCode=$([[ -r "${EachUserDir}/Documents" ]]; echo $?);
+	if [ "${LastExitCode}" == "0" ]; then
+		if [ "${1}" == "verbose" ]; then echo "PASS - Can read \"${EachUserDir}\" - Current session has sufficient privilege(s)"; fi;
+		echo "$(basename ${EachUserDir})" >> "${PotentialUsersFile}";
+	else
+		if [ "${1}" == "verbose" ]; then echo "FAIL - Cannot read \"${EachUserDir}\" - Current session lacks sufficient privilege(s)"; fi;
+		echo "$(basename ${EachUserDir})" >> "${InvalidUsersFile}";
+	fi;
+done;
+
+
+# ------------------------------------------------------------
+
 #
 # NOTE
 #  |--> You can access individual keys via [ echo "${ARR_USERNAMES[0]}" ] , [ "${ARR_USERNAMES[1]}" ] , etc.

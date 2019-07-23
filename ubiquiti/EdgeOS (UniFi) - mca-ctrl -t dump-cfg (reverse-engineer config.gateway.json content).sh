@@ -33,7 +33,7 @@ vi "${UNIFI_HOMEDIR:-/usr/lib/unifi}/data/sites/default/config.gateway.json";
 #    |--> you may prefer the cli method directly on the usg:  (NEED METHOD, HERE)
 
 
-mca-ctrl -t dump-cfg > "${HOME}/$(hostname).$(date +'%Y%m%d_%H%M%S').config.gateway.json";
+mca-ctrl -t dump-cfg > "${HOME}/$(hostname).$(date +'%Y-%m-%d_%H-%M-%S').config.gateway.json";
 
 # ------------------------------------------------------------
 #

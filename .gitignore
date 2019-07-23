@@ -5,3 +5,7 @@
 **/~$*.xls
 **/~$*.xlsx
 **/~$*.xlsm
+
+# GnuPG temporary signing files
+*.sign
+*.unknown

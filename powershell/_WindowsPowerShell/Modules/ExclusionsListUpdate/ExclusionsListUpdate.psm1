@@ -552,6 +552,7 @@ function ESET_ExportModifier {
 		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
 		$NewExclusion.RegexStart = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
+		$NewExclusion.NextName = 1;
 		#
 		# Prebuilt String - Process Exclusions
 		$i_FilepathName_Base10 = 1;
@@ -560,9 +561,21 @@ function ESET_ExportModifier {
 			$NewExclusion.RowsToAdd += (('      <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
 			$i_FilepathName_Base10++;
 		}
+		$XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Children)" | ForEach-Object {
+			$NewExclusion.NextName = [Int]((($NewExclusion.NextName,[Int]([Convert]::ToString("0x$($_.Node.NAME)", 10))) | Measure -Max).Maximum);
+		};
+		$NewExclusion.NextName++;
+		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
+			$NewEle = $XmlDoc.CreateElement("NODE");
+			$NewEle.SetAttribute("NAME", ([Convert]::ToString($($NextName_Process), 16)));
+			$NewEle.SetAttribute("TYPE", "string");
+			$NewEle.SetAttribute("VALUE", $_);
+			($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);
+			$NewExclusion.NextName++;
+		}
 
 		# Append the new configuration to the config array
-		$ExclusionsConfigArr += $NewExclusion;
+		# $ExclusionsConfigArr += $NewExclusion;
 
 		#
 		# ------------------------------------------------------------
@@ -608,15 +621,6 @@ function ESET_ExportModifier {
 				$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
 				$i_FilepathName_Base10++;
 			}
-		}
-		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
-			$NewEle = $XmlDoc.CreateElement("NODE");
-			$NewEle.IsEmpty = $True;
-			$Attr=$XmlDoc.CreateAttribute("NAME");	$Attr.Value=([Convert]::ToString($($NextName_Process), 16)); $NewEle.Attributes.Append($Attr);
-			$Attr=$XmlDoc.CreateAttribute("TYPE");	$Attr.Value="string"; $NewEle.Attributes.Append($Attr);
-			$Attr=$XmlDoc.CreateAttribute("VALUE");	$Attr.Value="$($_)"; $NewEle.Attributes.Append($Attr);
-			$ProcessContainer.Node.AppendChild($NewEle);
-			$NextName_Process++;
 		}
 		# Append the new configuration to the config array
 		$ExclusionsConfigArr += $NewExclusion;

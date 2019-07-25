@@ -576,34 +576,23 @@ function ESET_ExportModifier {
 		$NewExclusion.LineEnd = $Null;
 		$NewExclusion.RegexStart = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
-		#
 		# Prebuilt String - Filepath Exclusions
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
-			# \*
-			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
-			$i_FilepathName_Base10++;
-			# \*.*
-			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*.*" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
-			$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
-			$i_FilepathName_Base10++;
+			$EachFilepath = $_;
+			@("*","*.*") | Select-Object -Unique | ForEach-Object {
+				$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
+				$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
+				$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
+				$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
+				$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($EachFilepath)+('\')+($_)+('" />')+("`n"));
+				$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
+				$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
+				$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
+				$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
+				$i_FilepathName_Base10++;
+			}
 		}
-
 		# Append the new configuration to the config array
 		$ExclusionsConfigArr += $NewExclusion;
 

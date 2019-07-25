@@ -624,7 +624,7 @@ function ESET_ExportModifier {
 		#
 		# ESET - Apply Exclusions
 		#
-		$ExclusionsConfigArr | ForEach-Object {
+		$ExclusionsConfigArr | Select-Object | ForEach-Object {
 
 			$i_LineNumber = 0;
 			Get-Content -Path ($Fullpath_NewImport) | Select-Object | ForEach-Object {

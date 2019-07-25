@@ -580,7 +580,7 @@ function ESET_ExportModifier {
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
 			$EachFilepath = $_;
-			# ESET Proprietary Requirement - Extensionless files (*) must be excluded separately from files with extensions (*.*)
+			# ESET Requirement (Proprietary) - Extensionless files (*) must be excluded separately from files with extensions (*.*)
 			@("*","*.*") | Select-Object -Unique | ForEach-Object {
 				$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
 				$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));

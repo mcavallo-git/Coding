@@ -638,18 +638,18 @@ function ESET_ExportModifier {
 
 				Write-Host "";
 				Write-Host "  Error (ESET Exclusions): Unable to locate a valid injection point for:  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				Write-Host "   |-->  Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				Write-Host "   |-->  Type: $($EachCfg.Type)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "   |--> Regex: $($EachCfg.RegexStart)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host "   |-->  Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host "   |-->  Type: $($EachCfg.Type) Exclusions `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "";
 
 			} Else {
 
 				Write-Host "";
 				Write-Host "  Success (ESET Exclusions): Located a valid injection point for:  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
-				Write-Host "   |-->  Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
-				Write-Host "   |-->  Type: $($EachCfg.Type)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
 				Write-Host "   |--> Regex: $($EachCfg.RegexStart)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
+				Write-Host "   |-->  Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
+				Write-Host "   |-->  Type: $($EachCfg.Type) Exclusions  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
 				Write-Host "";
 
 				$Contents_NewImport | Select-Object | ForEach-Object {

@@ -324,7 +324,7 @@ function ExclusionsListUpdate {
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir="Documents\MobaXterm"; Depth=""; Parent=""; Basename="Motty.exe"; };
 		# -- PROCESSES -- NVidia Driver-related
-		$NVDriverPath = (Get-ChildItem -Path ("C:\Windows\System32\DriverStore\FileRepository") -Filter ("NVTelemetryContainer.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.Directory.Parent.FullName; });
+		$NVDriverPath = (Get-ChildItem -Path ("C:\Windows\System32\DriverStore\FileRepository") -Filter ("NVTelemetryContainer.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.Directory.Parent.FullName; });
 		If ($NVDriverPath -Ne $Null) {
 			$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DRIVERS\NVIDIA Corporation\Drs"; Depth="1"; Parent=""; Basename="dbInstaller.exe"; };
 			$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="MCU.exe"; };
@@ -384,18 +384,18 @@ function ExclusionsListUpdate {
 					If ($Each_Parent -eq "") {
 						If ($Each_Depth -eq "") {
 							# Matching on [ top level directory ] & [ basename ]
-							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 						} Else {
 							# Matching on [ top level directory ], [ basename ] & [ depth ]
-							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 						}
 					} Else {
 						If ($Each_Depth -eq "") {
 							# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
-							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | ForEach-Object { $_.FullName; });
 						} Else {
 							# Matching on [ top level directory ], [ basename ], [ parent directory name ] & [ depth ]
-							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | Foreach-Object { $_.FullName; });
+							$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | ForEach-Object { $_.FullName; });
 						}
 					}
 				}
@@ -434,7 +434,7 @@ function ExclusionsListUpdate {
 			$MBAR_SearchDirname = ((${ProgFilesX64})+("\Malwarebytes"));
 			$MBAR_FindBasename = "malwarebytes_assistant.exe";
 
-			$MalwarebytesAssistant = (Get-ChildItem -Path ("${MBAR_SearchDirname}") -Filter ("${MBAR_FindBasename}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; });
+			$MalwarebytesAssistant = (Get-ChildItem -Path ("${MBAR_SearchDirname}") -Filter ("${MBAR_FindBasename}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 			
 			If ($MalwarebytesAssistant -eq $Null) {
 				
@@ -625,33 +625,33 @@ function ESET_ExportModifier {
 		# ESET - Apply Exclusions
 		#
 		$ExclusionsConfigArr | Select-Object | ForEach-Object {
-
+			$EachCfg = $_;
 			$i_LineNumber = 0;
 			Get-Content -Path ($Fullpath_NewImport) | Select-Object | ForEach-Object {
-				If ($_.LineStart -eq $Null) {
-					$_.RowsBefore = (($_.RowsBefore)+("`n")+($_));
-					If (([Regex]::Match($_, $_.RegexStart)).Success -eq $True) {
-						$_.LineStart = $i_LineNumber;
+				If ($EachCfg.LineStart -eq $Null) {
+					$EachCfg.RowsBefore = (($EachCfg.RowsBefore)+("`n")+($_));
+					If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
+						$EachCfg.LineStart = $i_LineNumber;
 					}
 				} Else {
-					If ($_.LineEnd -ne $Null) {
-						$_.RowsAfter = (($_.RowsAfter)+("`n")+($_));
-					} ElseIf (([Regex]::Match($_, $_.RegexEnd)).Success -eq $True) {
-						$_.RowsAfter = (($_.RowsAfter)+("`n")+($_));
-						$_.LineEnd = $i_LineNumber;
+					If ($EachCfg.LineEnd -ne $Null) {
+						$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
+					} ElseIf (([Regex]::Match($_, $EachCfg.RegexEnd)).Success -eq $True) {
+						$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
+						$EachCfg.LineEnd = $i_LineNumber;
 					} Else {
-						$_.RowsBetween = (($_.RowsBetween)+("`n")+($_));
+						$EachCfg.RowsBetween = (($EachCfg.RowsBetween)+("`n")+($_));
 					}
 				}
 				$i_LineNumber++;
 			}
-			$NewImportContents = "$($NewImportContents)$($_.RowsBefore)`n";
-			If ( $_.PreserveExportedExclusions -eq $True ) {
-				$NewImportContents = "$($NewImportContents)$($_.RowsBetween)`n";
+			$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBefore)`n";
+			If ( $EachCfg.PreserveExportedExclusions -eq $True ) {
+				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBetween)`n";
 			}
-			$NewImportContents = "$($NewImportContents)$($_.RowsToAdd)`n";
-			$NewImportContents = "$($NewImportContents)$($_.RowsAfter)`n";
-			$NewImportContents = (($_.RowsBefore)+("`n")+($_.RowsToAdd)+("`n")+($_.RowsAfter));
+			$NewImportContents = "$($NewImportContents)$($EachCfg.RowsToAdd)`n";
+			$NewImportContents = "$($NewImportContents)$($EachCfg.RowsAfter)`n";
+			$NewImportContents = (($EachCfg.RowsBefore)+("`n")+($EachCfg.RowsToAdd)+("`n")+($EachCfg.RowsAfter));
 			$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
 				$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
 					$NewImportContents = $NewImportContents.Replace("`n`n", "`n");

@@ -7,10 +7,11 @@
 #
 Function Show() {
 	Param(
-		[Switch]$NoProperties,
+		[Switch]$NoEtc,
 		[Switch]$NoMethods,
 		[Switch]$NoOther,
-		[Switch]$NoEtc,
+		[Switch]$NoProperties,
+		[Switch]$NoValue,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 
@@ -20,13 +21,17 @@ Function Show() {
 
 	$ShowEtc = (-Not ($PSBoundParameters.ContainsKey('NoEtc') -Or $PSBoundParameters.ContainsKey('NoOther')));
 
+	$ShowValue = (-Not $PSBoundParameters.ContainsKey('NoValue'));
+
 	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
-		Write-Output "`n`n  --> Value (as a list):`n";
 		If ($EachArg -Eq $Null) {
-			Write-Output "`$Null";
+			Write-Output "`$Null input detected";
 		} Else {
-			$EachArg | Format-List;
+			If ($ShowValue -eq $True) {
+				Write-Output "`n`n  --> Value (as a list, hide with -NoValue):`n";
+				$EachArg | Format-List;
+			}
 			If ($ShowProperties -Eq $True) {
 				#
 				# PROPERTIES

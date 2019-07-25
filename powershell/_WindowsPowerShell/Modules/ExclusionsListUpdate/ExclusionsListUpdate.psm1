@@ -531,7 +531,7 @@ function ESET_ExportModifier {
 		#
 		# ------------------------------------------------------------
 		#
-		# ESET - Process Exclusions
+		# [ ESET ] All Process Exclusions
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Processes";
@@ -560,7 +560,7 @@ function ESET_ExportModifier {
 		#
 		# ------------------------------------------------------------
 		#
-		# ESET - Filepath Exclusions
+		# [ ESET ] All Filepath Exclusions
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Filepaths";
@@ -608,7 +608,7 @@ function ESET_ExportModifier {
 		#
 		# ------------------------------------------------------------
 		#
-		# ESET - Extension Exclusions
+		# [ ESET ] All Extension Exclusions
 		#
 		# $ESET_ExclExt_Content = @();
 		# $ESET_ExcludeExtensions | Select-Object -Unique | ForEach-Object {
@@ -622,7 +622,7 @@ function ESET_ExportModifier {
 		#
 		# ------------------------------------------------------------
 		#
-		# ESET - Apply Exclusions
+		# [ ESET ] Apply Exclusions
 		#
 		$ExclusionsConfigArr | Select-Object | ForEach-Object {
 			$EachCfg = $_;

@@ -535,7 +535,7 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Process";
-		$NewExclusion.ErrorHotfixSuggestion = "Add a Process Exclusion in [ ESET ] -> [ Advanced Setup ] ";
+		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ Real-time file system protection (Left) ] -> [ BASIC (Right) ] -> [ PROCESSES EXCLUSIONS (Right) ] -> [ Edit ]";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
 		$NewExclusion.RowsBetween = "";
@@ -565,7 +565,7 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Filepath";
-		$NewExclusion.ErrorHotfixSuggestion = "Add a Filepath Exclusion in [ ESET ] -> [ Advanced Setup ] ";
+		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ BASIC (Right) ] -> [ EXCLUSIONS (Right) ] -> [ Edit ]";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
 		$NewExclusion.RowsBetween = "";
@@ -633,8 +633,8 @@ function ESET_ExportModifier {
 				Write-Host "   |--> Regex: `"$($EachCfg.RegexStart)`"  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "   |--> Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "   |--> Type: $($EachCfg.Type) Exclusions `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				If (([Bool]($EachCfg.PSobject.Properties.Name -match "ErrorHotfixSuggestion")) -eq $True) {
-					Write-Host "   |--> Hotfix-Suggestion: $($EachCfg.Type) Exclusions `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Yellow");
+				If (([Bool]($EachCfg.PSobject.Properties.Name -match "LocationInSoftware")) -eq $True) {
+					Write-Host "   |--> Hotfix-Suggestion: Add a $($EachCfg.Type) Exclusion via: `n          $($EachCfg.LocationInSoftware) `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Yellow");
 				}
 				Write-Host "";
 

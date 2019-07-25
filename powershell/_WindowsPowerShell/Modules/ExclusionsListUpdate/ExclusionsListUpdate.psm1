@@ -518,74 +518,93 @@ function ESET_ExportModifier {
 		Write-Host "";
 		Return 1;
 	} Else {
-		$Dirname_ESET_Import = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
-		$Basename_ESET_Import = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
-		$Filepath_ESET_Import = (($Dirname_ESET_Import)+("\")+($Basename_ESET_Import));
-		If ((Test-Path -Path ($Dirname_ESET_Import)) -eq $false) {
-			New-Item -ItemType "Directory" -Path ($Dirname_ESET_Import) | Out-Null;
+
+		$ExclusionsConfigArr = @(); # Instantiation - Exclusions config array
+
+		$Dirname_NewImport = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
+		$Basename_NewImport = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
+		$Fullpath_NewImport = (($Dirname_NewImport)+("\")+($Basename_NewImport));
+		If ((Test-Path -Path ($Dirname_NewImport)) -eq $false) {
+			New-Item -ItemType "Directory" -Path ($Dirname_NewImport) | Out-Null;
 		}
-		Set-Content -Path ($Filepath_ESET_Import) -Value (Get-Content -Path ("$ESET_ExportToCopyFrom"));
+		Set-Content -Path ($Fullpath_NewImport) -Value (Get-Content -Path ("$ESET_ExportToCopyFrom"));
 		#
 		# ------------------------------------------------------------
 		#
 		# ESET - Process Exclusions
 		#
-		$RowsReplaced_Processes = "";
-		$RowsStart_Processes = "";
-		$RowsBetween_Processes = "";
-		$RowsEnd_Processes = "";
-		$FoundStart_Processes = $Null;
-		$FoundEnd_Processes = $Null;
-		$RegexStart_Processes = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
-		$RegexEnd_Processes = '^     </ITEM>$';
+		$NewExclusion = @{};
+		$NewExclusion.Type = "Processes";
+		$NewExclusion.PreserveExportedExclusions = $False;
+		$NewExclusion.RowsBefore = "";
+		$NewExclusion.RowsBetween = "";
+		$NewExclusion.RowsToAdd = "";
+		$NewExclusion.RowsBefore = "";
+		$NewExclusion.RowsAfter = "";
+		$NewExclusion.LineStart = $Null;
+		$NewExclusion.LineEnd = $Null;
+		$NewExclusion.RegexStart = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
+		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		#
 		# Prebuilt String - Process Exclusions
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$RowsReplaced_Processes += (('      <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('      <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
 			$i_FilepathName_Base10++;
 		}
+
+		# Append the new configuration to the config array
+		$ExclusionsConfigArr += $NewExclusion;
+
 		#
 		# ------------------------------------------------------------
 		#
 		# ESET - Filepath Exclusions
 		#
-		$RowsReplaced_Filepaths = "";
-		$RowsStart_Filepaths = "";
-		$RowsBetween_Filepaths = "";
-		$RowsEnd_Filepaths = "";
-		$FoundStart_Filepaths = $Null;
-		$FoundEnd_Filepaths = $Null;
-		$RegexStart_Filepaths = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
-		$RegexEnd_Filepaths = '^     </ITEM>$';
+		$NewExclusion = @{};
+		$NewExclusion.Type = "Filepaths";
+		$NewExclusion.PreserveExportedExclusions = $False;
+		$NewExclusion.RowsBefore = "";
+		$NewExclusion.RowsBetween = "";
+		$NewExclusion.RowsToAdd = "";
+		$NewExclusion.RowsBefore = "";
+		$NewExclusion.RowsAfter = "";
+		$NewExclusion.LineStart = $Null;
+		$NewExclusion.LineEnd = $Null;
+		$NewExclusion.RegexStart = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
+		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		#
 		# Prebuilt String - Filepath Exclusions
 		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
 			# \*
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$RowsReplaced_Filepaths += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
-			$RowsReplaced_Filepaths += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
-			$RowsReplaced_Filepaths += (('      </ITEM>')+("`n"));
+			$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
 			$i_FilepathName_Base10++;
 			# \*.*
 			$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-			$RowsReplaced_Filepaths += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
-			$RowsReplaced_Filepaths += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*.*" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
-			$RowsReplaced_Filepaths += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
-			$RowsReplaced_Filepaths += (('      </ITEM>')+("`n"));
+			$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($_)+('\*.*" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
+			$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
 			$i_FilepathName_Base10++;
 		}
+
+		# Append the new configuration to the config array
+		$ExclusionsConfigArr += $NewExclusion;
+
 		#
 		# ------------------------------------------------------------
 		#
@@ -603,77 +622,50 @@ function ESET_ExportModifier {
 		#
 		# ------------------------------------------------------------
 		#
-		#	Parse the contents of the ESET config-file
-		#		--> Process Exclusions
+		# ESET - Apply Exclusions
 		#
-		$i_RowNum = 0;
-		Get-Content -Path ($Filepath_ESET_Import) | Select-Object | ForEach-Object {
-			If ($FoundStart_Processes -eq $Null) {
-				$RowsStart_Processes = (($RowsStart_Processes)+("`n")+($_));
-				If (([Regex]::Match($_, $RegexStart_Processes)).Success -eq $True) {
-					$FoundStart_Processes = $i_RowNum;
-				}
-			} Else {
-				If ($FoundEnd_Processes -ne $Null) {
-					$RowsEnd_Processes = (($RowsEnd_Processes)+("`n")+($_));
-				} ElseIf (([Regex]::Match($_, $RegexEnd_Processes)).Success -eq $True) {
-					$RowsEnd_Processes = (($RowsEnd_Processes)+("`n")+($_));
-					$FoundEnd_Processes = $i_RowNum;
+		$ExclusionsConfigArr | ForEach-Object {
+
+			$i_LineNumber = 0;
+			Get-Content -Path ($Fullpath_NewImport) | Select-Object | ForEach-Object {
+				If ($_.LineStart -eq $Null) {
+					$_.RowsBefore = (($_.RowsBefore)+("`n")+($_));
+					If (([Regex]::Match($_, $_.RegexStart)).Success -eq $True) {
+						$_.LineStart = $i_LineNumber;
+					}
 				} Else {
-					$RowsBetween_Processes = (($RowsBetween_Processes)+("`n")+($_));
+					If ($_.LineEnd -ne $Null) {
+						$_.RowsAfter = (($_.RowsAfter)+("`n")+($_));
+					} ElseIf (([Regex]::Match($_, $_.RegexEnd)).Success -eq $True) {
+						$_.RowsAfter = (($_.RowsAfter)+("`n")+($_));
+						$_.LineEnd = $i_LineNumber;
+					} Else {
+						$_.RowsBetween = (($_.RowsBetween)+("`n")+($_));
+					}
 				}
+				$i_LineNumber++;
 			}
-			$i_RowNum++;
-		}
-		# $Contents_ESET_Import = (($RowsStart_Processes)+("`n")+($RowsBetween_Processes)+("`n")+($RowsEnd_Processes));
-		$Contents_ESET_Import = (($RowsStart_Processes)+("`n")+($RowsReplaced_Processes)+("`n")+($RowsEnd_Processes));
-		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
-		#
-		#
-		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
-		#
-		#
-		# ------------------------------------------------------------
-		#
-		#	Parse the contents of the ESET config-file
-		#		--> Filepath Exclusions
-		#
-		$i_RowNum = 0;
-		Get-Content -Path ($Filepath_ESET_Import) | Select-Object | ForEach-Object {
-			If ($FoundStart_Filepaths -eq $Null) {
-				$RowsStart_Filepaths = (($RowsStart_Filepaths)+("`n")+($_));
-				If (([Regex]::Match($_, $RegexStart_Filepaths)).Success -eq $True) {
-					$FoundStart_Filepaths = $i_RowNum;
-				}
-			} Else {
-				If ($FoundEnd_Filepaths -ne $Null) {
-					$RowsEnd_Filepaths = (($RowsEnd_Filepaths)+("`n")+($_));
-				} ElseIf (([Regex]::Match($_, $RegexEnd_Filepaths)).Success -eq $True) {
-					$RowsEnd_Filepaths = (($RowsEnd_Filepaths)+("`n")+($_));
-					$FoundEnd_Filepaths = $i_RowNum;
-				} Else {
-					$RowsBetween_Filepaths = (($RowsBetween_Filepaths)+("`n")+($_));
-				}
+			$NewImportContents = "$($NewImportContents)$($_.RowsBefore)`n";
+			If ( $_.PreserveExportedExclusions -eq $True ) {
+				$NewImportContents = "$($NewImportContents)$($_.RowsBetween)`n";
 			}
-			$i_RowNum++;
+			$NewImportContents = "$($NewImportContents)$($_.RowsToAdd)`n";
+			$NewImportContents = "$($NewImportContents)$($_.RowsAfter)`n";
+			$NewImportContents = (($_.RowsBefore)+("`n")+($_.RowsToAdd)+("`n")+($_.RowsAfter));
+			$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
+				$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
+					$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
+			$NewImportContents = $NewImportContents.Trim();
+
+			Set-Content -Path ($Fullpath_NewImport) -Value ($NewImportContents);
+
 		}
-		# $Contents_ESET_Import = (($RowsStart_Filepaths)+("`n")+($RowsBetween_Filepaths)+("`n")+($RowsEnd_Filepaths));
-		$Contents_ESET_Import = (($RowsStart_Filepaths)+("`n")+($RowsReplaced_Filepaths)+("`n")+($RowsEnd_Filepaths));
-		$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-			$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-				$Contents_ESET_Import = $Contents_ESET_Import.Replace("`n`n", "`n");
-		$Contents_ESET_Import = $Contents_ESET_Import.Trim();
-		#
-		Set-Content -Path ($Filepath_ESET_Import) -Value ($Contents_ESET_Import);
 		#
 		# ------------------------------------------------------------
 		#
 		# 	Show the directory containing the import-file
 
-		Explorer.exe "$Dirname_ESET_Import";
+		Explorer.exe "$Dirname_NewImport";
 
 		# 
 		# ------------------------------------------------------------

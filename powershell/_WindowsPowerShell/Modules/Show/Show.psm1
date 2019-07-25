@@ -22,7 +22,7 @@ Function Show() {
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		Write-Output "============================================================";
-		Write-Output "`n`n  --> Value (List):`n";
+		Write-Output "`n`n  --> Value (as a list):`n";
 		If ($EachArg -Eq $Null) {
 			Write-Output "`$Null";
 		} Else {

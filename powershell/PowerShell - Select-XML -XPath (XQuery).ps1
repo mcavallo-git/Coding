@@ -105,6 +105,8 @@ $XmlDoc.GetType();
 #
 #		docs.microsoft.com  |  "XmlDocument.ImportNode(XmlNode, Boolean) Method"  |  https://docs.microsoft.com/en-us/dotnet/api/system.xml.xmldocument.importnode
 #
+#		docs.microsoft.com  |  "XmlNode.AppendChild(XmlNode) Method"  |  https://docs.microsoft.com/en-us/dotnet/api/system.xml.xmlnode.appendchild
+#
 #		devhints.io  |  "Xpath cheatsheet"  |  https://devhints.io/xpath
 #
 #	------------------------------------------------------------

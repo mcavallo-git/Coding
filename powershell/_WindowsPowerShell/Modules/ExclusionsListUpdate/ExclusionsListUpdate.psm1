@@ -568,7 +568,7 @@ function ESET_ExportModifier {
 		$NewExclusion.NextName++;
 		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
 			$NewEle = $XmlDoc.CreateElement("NODE");
-			$NewEle.SetAttribute("NAME", ([Convert]::ToString($($NextName_Process), 16)));
+			$NewEle.SetAttribute("NAME", ([Convert]::ToString($($NewExclusion.NextName), 16)));
 			$NewEle.SetAttribute("TYPE", "string");
 			$NewEle.SetAttribute("VALUE", $_);
 			($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);

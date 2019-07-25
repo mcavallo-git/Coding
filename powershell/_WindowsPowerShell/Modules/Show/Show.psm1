@@ -40,10 +40,7 @@ Function Show() {
 				Write-Output "`n`n  --> Properties:`n";
 				If ($ListProperties -Ne $Null) {
 					$ListProperties | ForEach-Object {
-						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$Null" } Else { $EachArg.($($_.Name)) };
-						# If ($EachVal -eq $Null) {
-						# 	$EachVal = "`$Null"
-						# }
+						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$NULL" } Else { $EachArg.($($_.Name)) };
 						Write-Output "    $($_.Name) = $($EachVal)";
 					};
 				} Else {

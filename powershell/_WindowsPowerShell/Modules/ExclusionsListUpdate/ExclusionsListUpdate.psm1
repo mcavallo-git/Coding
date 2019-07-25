@@ -637,7 +637,7 @@ function ESET_ExportModifier {
 			If ($ValidInjectionPoint -eq $False) {
 
 				Write-Host "";
-				Write-Host "  Error - Unable to locate a valid injection point for:  `n   Type: $($EachCfg.Type)  `n  Regex: $($EachCfg.RegexStart)" -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host "  Error - Unable to locate a valid injection point for:  `n   |--> Type: $($EachCfg.Type)  `n   |--> Regex: $($EachCfg.RegexStart)" -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "";
 
 			} Else {

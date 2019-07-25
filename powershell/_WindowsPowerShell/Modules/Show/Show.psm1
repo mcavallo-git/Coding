@@ -39,7 +39,8 @@ Function Show() {
 				);
 				Write-Output "`n`n  --> Properties:`n";
 				If ($ListProperties -Ne $Null) {
-					$ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
+					# $ListProperties | ForEach-Object { Write-Output "    $($_.Name)"; };
+					$ListProperties | ForEach-Object { Write-Output "    $($_.Name) = $($EachArg.($($_.Name)))"; };
 				} Else {
 					Write-Output "    (no properties found)";
 				}

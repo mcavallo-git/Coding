@@ -572,7 +572,6 @@ function ESET_ExportModifier {
 			$NewEle.SetAttribute("TYPE", "string");
 			$NewEle.SetAttribute("VALUE", $_);
 			($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);
-			Show $NewEle -NoMethods;
 			$NewExclusion.NextName++;
 		}
 		

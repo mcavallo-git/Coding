@@ -537,8 +537,6 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Process";
-		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000101']/ITEM[@NAME='settings']/ITEM[@NAME='ExcludedProcesses'][@DELETE='1']";
-		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/NODE";
 		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ Real-time file system protection (Left) ] -> [ BASIC (Right) ] -> [ PROCESSES EXCLUSIONS (Right) ] -> [ Edit ]";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
@@ -552,6 +550,8 @@ function ESET_ExportModifier {
 		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
 		$NewExclusion.RegexStart = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
+		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000101']/ITEM[@NAME='settings']/ITEM[@NAME='ExcludedProcesses'][@DELETE='1']";
+		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/NODE";
 		$NewExclusion.NextName = 1;
 		#
 		# Prebuilt String - Process Exclusions
@@ -573,6 +573,8 @@ function ESET_ExportModifier {
 			($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);
 			$NewExclusion.NextName++;
 		}
+		
+		$XmlDoc.Save($Fullpath_NewImport);
 
 		# Append the new configuration to the config array
 		# $ExclusionsConfigArr += $NewExclusion;
@@ -584,8 +586,7 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Filepath";
-		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000600']/ITEM[@NAME='settings']/ITEM[@NAME='ScannerExcludes'][@DELETE='1']";
-		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/ITEM";
+		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ BASIC (Right) ] -> [ EXCLUSIONS (Right) ] -> [ Edit ]";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
 		$NewExclusion.RowsBetween = "";
@@ -598,8 +599,9 @@ function ESET_ExportModifier {
 		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
 		$NewExclusion.RegexStart = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
+		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000600']/ITEM[@NAME='settings']/ITEM[@NAME='ScannerExcludes'][@DELETE='1']";
+		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/ITEM";
 		$NewExclusion.NextName = 1;
-		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ BASIC (Right) ] -> [ EXCLUSIONS (Right) ] -> [ Edit ]";
 		$XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Children)" | ForEach-Object {
 			$NewExclusion.NextName = [Int]((($NewExclusion.NextName,[Int]([Convert]::ToString("0x$($_.Node.NAME)", 10))) | Measure -Max).Maximum);
 		};

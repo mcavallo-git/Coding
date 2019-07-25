@@ -637,10 +637,14 @@ function ESET_ExportModifier {
 			If ($ValidInjectionPoint -eq $False) {
 
 				Write-Host "";
-				Write-Host "  Error - Unable to locate a valid injection point for:  `n   |--> Type: $($EachCfg.Type)  `n   |--> Regex: $($EachCfg.RegexStart)" -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host "  Error - Unable to locate a injection point for:  `n   |--> Type: $($EachCfg.Type)  `n   |--> Regex: $($EachCfg.RegexStart)" -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "";
 
 			} Else {
+
+				Write-Host "";
+				Write-Host "  Success - Located a injection point for:  `n   |--> Type: $($EachCfg.Type)  `n   |--> Regex: $($EachCfg.RegexStart)" -BackgroundColor ("Black") -ForegroundColor ("Green");
+				Write-Host "";
 
 				$Contents_NewImport | Select-Object | ForEach-Object {
 					If ($EachCfg.LineStart -eq $Null) {

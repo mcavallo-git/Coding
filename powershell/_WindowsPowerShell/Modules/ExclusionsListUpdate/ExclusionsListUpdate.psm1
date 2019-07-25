@@ -534,7 +534,7 @@ function ESET_ExportModifier {
 		# [ ESET ] All Process Exclusions
 		#
 		$NewExclusion = @{};
-		$NewExclusion.Type = "Processes";
+		$NewExclusion.Type = "Process";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
 		$NewExclusion.RowsBetween = "";
@@ -563,7 +563,7 @@ function ESET_ExportModifier {
 		# [ ESET ] All Filepath Exclusions
 		#
 		$NewExclusion = @{};
-		$NewExclusion.Type = "Filepaths";
+		$NewExclusion.Type = "Filepath";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
 		$NewExclusion.RowsBetween = "";
@@ -627,37 +627,54 @@ function ESET_ExportModifier {
 		$ExclusionsConfigArr | Select-Object | ForEach-Object {
 			$EachCfg = $_;
 			$i_LineNumber = 0;
-			Get-Content -Path ($Fullpath_NewImport) | Select-Object | ForEach-Object {
-				If ($EachCfg.LineStart -eq $Null) {
-					$EachCfg.RowsBefore = (($EachCfg.RowsBefore)+("`n")+($_));
-					If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
-						$EachCfg.LineStart = $i_LineNumber;
-					}
-				} Else {
-					If ($EachCfg.LineEnd -ne $Null) {
-						$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
-					} ElseIf (([Regex]::Match($_, $EachCfg.RegexEnd)).Success -eq $True) {
-						$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
-						$EachCfg.LineEnd = $i_LineNumber;
-					} Else {
-						$EachCfg.RowsBetween = (($EachCfg.RowsBetween)+("`n")+($_));
-					}
+			$Contents_NewImport = Get-Content -Path ($Fullpath_NewImport);
+			$ValidInjectionPoint = $False;
+			$Contents_NewImport | Select-Object | ForEach-Object {
+				If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
+					$ValidInjectionPoint = $True;
 				}
-				$i_LineNumber++;
 			}
-			$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBefore)`n";
-			If ( $EachCfg.PreserveExportedExclusions -eq $True ) {
-				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBetween)`n";
-			}
-			$NewImportContents = "$($NewImportContents)$($EachCfg.RowsToAdd)`n";
-			$NewImportContents = "$($NewImportContents)$($EachCfg.RowsAfter)`n";
-			$NewImportContents = (($EachCfg.RowsBefore)+("`n")+($EachCfg.RowsToAdd)+("`n")+($EachCfg.RowsAfter));
-			$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
+			If ($ValidInjectionPoint -eq $False) {
+
+				Write-Host "";
+				Write-Host "  Error - Unable to locate a valid injection point for:  `n  Type: $($EachCfg.Type)  `n  RegexStart: $($EachCfg.RegexStart)" -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host "";
+
+			} Else {
+
+				$Contents_NewImport | Select-Object | ForEach-Object {
+					If ($EachCfg.LineStart -eq $Null) {
+						$EachCfg.RowsBefore = (($EachCfg.RowsBefore)+("`n")+($_));
+						If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
+							$EachCfg.LineStart = $i_LineNumber;
+						}
+					} Else {
+						If ($EachCfg.LineEnd -ne $Null) {
+							$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
+						} ElseIf (([Regex]::Match($_, $EachCfg.RegexEnd)).Success -eq $True) {
+							$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
+							$EachCfg.LineEnd = $i_LineNumber;
+						} Else {
+							$EachCfg.RowsBetween = (($EachCfg.RowsBetween)+("`n")+($_));
+						}
+					}
+					$i_LineNumber++;
+				}
+				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBefore)`n";
+				If ( $EachCfg.PreserveExportedExclusions -eq $True ) {
+					$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBetween)`n";
+				}
+				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsToAdd)`n";
+				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsAfter)`n";
+				$NewImportContents = (($EachCfg.RowsBefore)+("`n")+($EachCfg.RowsToAdd)+("`n")+($EachCfg.RowsAfter));
 				$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
 					$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
-			$NewImportContents = $NewImportContents.Trim();
+						$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
+				$NewImportContents = $NewImportContents.Trim();
 
-			Set-Content -Path ($Fullpath_NewImport) -Value ($NewImportContents);
+				Set-Content -Path ($Fullpath_NewImport) -Value ($NewImportContents);
+
+			}
 
 		}
 		#

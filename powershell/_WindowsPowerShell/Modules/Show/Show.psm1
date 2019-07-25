@@ -39,7 +39,13 @@ Function Show() {
 				);
 				Write-Output "`n`n  --> Properties:`n";
 				If ($ListProperties -Ne $Null) {
-					$ListProperties | ForEach-Object { Write-Output "    $($_.Name) = $($EachArg.($($_.Name)))"; };
+					$ListProperties | ForEach-Object {
+						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$Null" } Else { $EachArg.($($_.Name)) };
+						# If ($EachVal -eq $Null) {
+						# 	$EachVal = "`$Null"
+						# }
+						Write-Output "    $($_.Name) = $($EachVal)";
+					};
 				} Else {
 					Write-Output "    (no properties found)";
 				}

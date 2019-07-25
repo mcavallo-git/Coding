@@ -23,7 +23,9 @@ $XmlContents = '
    <ITEM NAME="01000600">
     <ITEM NAME="settings">
      <ITEM NAME="ScannerExcludes" DELETE="1">
-      <NODE NAME="1" TYPE="string" VALUE="FULLPATH_TO_AN_EXCLUDED_FILEPATHS_HERE" />
+      <ITEM NAME="1">
+       <NODE NAME="1" TYPE="string" VALUE="FULLPATH_TO_AN_EXCLUDED_FILEPATHS_HERE" />
+      </ITEM>
      </ITEM>
     </ITEM>
    </ITEM>
@@ -72,6 +74,17 @@ Select-Xml `
 
 
 # ------------------------------------------------------------
+
+
+$XmlFullpath = "$(${Env:USERPROFILE})\Desktop\eset-export.xml"; `
+$XmlDoc = (Get-Content $XmlFullpath) -as [Xml];
+$XmlDoc.GetType();
+#			IsPublic IsSerial Name                                     BaseType
+#			-------- -------- ----                                     --------
+#			True     False    XmlDocument                              System.Xml.XmlNode
+
+
+# ------------------------------------------------------------
 #
 #	XPath Query Notes:
 #
@@ -87,6 +100,10 @@ Select-Xml `
 #	Citation(s)
 #
 #		docs.microsoft.com  |  "Select-Xml - Finds text in an XML string or document"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-xml
+#
+#		docs.microsoft.com  |  "XmlDocument.CreateNode Method"  |  https://docs.microsoft.com/en-us/dotnet/api/system.xml.xmldocument.createnode
+#
+#		docs.microsoft.com  |  "XmlDocument.ImportNode(XmlNode, Boolean) Method"  |  https://docs.microsoft.com/en-us/dotnet/api/system.xml.xmldocument.importnode
 #
 #		devhints.io  |  "Xpath cheatsheet"  |  https://devhints.io/xpath
 #

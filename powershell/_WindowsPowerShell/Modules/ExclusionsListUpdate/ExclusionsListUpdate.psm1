@@ -535,6 +535,7 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Process";
+		$NewExclusion.XPath = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000101']/ITEM[@NAME='settings']/ITEM[@NAME='ExcludedProcesses'][@DELETE='1']/NODE";
 		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ Real-time file system protection (Left) ] -> [ BASIC (Right) ] -> [ PROCESSES EXCLUSIONS (Right) ] -> [ Edit ]";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
@@ -544,6 +545,8 @@ function ESET_ExportModifier {
 		$NewExclusion.RowsAfter = "";
 		$NewExclusion.LineStart = $Null;
 		$NewExclusion.LineEnd = $Null;
+		$NewExclusion.RegexContainerStart = '^   <ITEM NAME="01000101">\n    <ITEM NAME="settings">$';
+		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
 		$NewExclusion.RegexStart = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		#
@@ -565,6 +568,7 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Filepath";
+		$NewExclusion.XPath = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000600']/ITEM[@NAME='settings']/ITEM[@NAME='ScannerExcludes'][@DELETE='1']/ITEM";
 		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ BASIC (Right) ] -> [ EXCLUSIONS (Right) ] -> [ Edit ]";
 		$NewExclusion.PreserveExportedExclusions = $False;
 		$NewExclusion.RowsBefore = "";
@@ -574,6 +578,8 @@ function ESET_ExportModifier {
 		$NewExclusion.RowsAfter = "";
 		$NewExclusion.LineStart = $Null;
 		$NewExclusion.LineEnd = $Null;
+		$NewExclusion.RegexContainerStart = '^   <ITEM NAME="01000600">\n    <ITEM NAME="settings">$';
+		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
 		$NewExclusion.RegexStart = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		# Prebuilt String - Filepath Exclusions
@@ -619,9 +625,9 @@ function ESET_ExportModifier {
 		$ExclusionsConfigArr | Select-Object | ForEach-Object {
 			$EachCfg = $_;
 			$i_LineNumber = 0;
-			$Contents_NewImport = Get-Content -Path ($Fullpath_NewImport);
+			$XmlContents = Get-Content -Path ($Fullpath_NewImport);
 			$ValidInjectionPoint = $False;
-			$Contents_NewImport | Select-Object | ForEach-Object {
+			$XmlContents | Select-Object | ForEach-Object {
 				If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
 					$ValidInjectionPoint = $True;
 				}
@@ -648,7 +654,7 @@ function ESET_ExportModifier {
 				Write-Host "";
 
 
-				$Contents_NewImport | Select-Object | ForEach-Object {
+				$XmlContents | Select-Object | ForEach-Object {
 					If ($EachCfg.LineStart -eq $Null) {
 						$EachCfg.RowsBefore = (($EachCfg.RowsBefore)+("`n")+($_));
 						If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
@@ -708,7 +714,10 @@ Export-ModuleMember -Function "ESET_ExportModifier";
 #		docs.microsoft.com
 #
 #			"Add-MpPreference"
-#			https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference?view=win10-ps
+#			https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference
+#
+#			"Select-Xml"  |  "Finds text in an XML string or document"
+#			https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-xml
 #
 #			"Configure Windows Defender Antivirus exclusions on Windows Server"
 #			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus

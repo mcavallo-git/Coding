@@ -574,8 +574,6 @@ function ESET_ExportModifier {
 			($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);
 			$NewExclusion.NextName++;
 		}
-		
-		$XmlDoc.Save($Fullpath_NewImport);
 
 		# Append the new configuration to the config array
 		# $ExclusionsConfigArr += $NewExclusion;
@@ -602,7 +600,7 @@ function ESET_ExportModifier {
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000600']/ITEM[@NAME='settings']/ITEM[@NAME='ScannerExcludes'][@DELETE='1']";
 		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/ITEM";
-		$NewExclusion.NextName = 1;
+		$NewExclusion.NextName = 0;
 		$XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Children)" | ForEach-Object {
 			$NewExclusion.NextName = [Int]((($NewExclusion.NextName,[Int]([Convert]::ToString("0x$($_.Node.NAME)", 10))) | Measure -Max).Maximum);
 		};
@@ -714,6 +712,9 @@ function ESET_ExportModifier {
 			}
 
 		}
+
+		$XmlDoc.Save($Fullpath_NewImport);
+
 		#
 		# ------------------------------------------------------------
 		#

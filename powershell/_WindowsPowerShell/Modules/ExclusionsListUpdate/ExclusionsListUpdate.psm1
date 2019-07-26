@@ -561,7 +561,7 @@ function ESET_ExportModifier {
 		# 	$NewExclusion.RowsToAdd += (('      <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
 		# 	$i_FilepathName_Base10++;
 		# }
-		$NewExclusion.NextName = 1;
+		$NewExclusion.NextName = 0;
 		$XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Children)" | ForEach-Object {
 			$NewExclusion.NextName = [Int]((($NewExclusion.NextName,[Int]([Convert]::ToString("0x$($_.Node.NAME)", 10))) | Measure -Max).Maximum);
 		};

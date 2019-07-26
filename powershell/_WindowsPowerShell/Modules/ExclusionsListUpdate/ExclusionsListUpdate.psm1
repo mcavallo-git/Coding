@@ -518,9 +518,6 @@ function ESET_ExportModifier {
 		Write-Host "";
 		Return 1;
 	} Else {
-
-		$ExclusionsConfigArr = @(); # Instantiation - Exclusions config array
-
 		$Dirname_NewImport = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
 		$Basename_NewImport = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
 		$Fullpath_NewImport = (($Dirname_NewImport)+("\")+($Basename_NewImport));
@@ -537,19 +534,8 @@ function ESET_ExportModifier {
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Process";
-		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ Real-time file system protection (Left) ] -> [ BASIC (Right) ] -> [ PROCESSES EXCLUSIONS (Right) ] -> [ Edit ]";
-		$NewExclusion.PreserveExportedExclusions = $False;
-		$NewExclusion.RowsBefore = "";
-		$NewExclusion.RowsBetween = "";
-		$NewExclusion.RowsToAdd = "";
-		$NewExclusion.RowsBefore = "";
-		$NewExclusion.RowsAfter = "";
-		$NewExclusion.LineStart = $Null;
-		$NewExclusion.LineEnd = $Null;
-		$NewExclusion.RegexContainerStart = '^   <ITEM NAME="01000101">\n    <ITEM NAME="settings">$';
-		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
-		$NewExclusion.RegexStart = '^     <ITEM NAME="ExcludedProcesses" DELETE="1">$';
-		$NewExclusion.RegexEnd = '^     </ITEM>$';
+		$NewExclusion.SoftwareLocation = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ Real-time file system protection (Left) ] -> [ BASIC (Right) ] -> [ PROCESSES EXCLUSIONS (Right) ] -> [ Edit ]";
+		$NewExclusion.PreserveExportedExclusions = $True;
 		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000101']/ITEM[@NAME='settings']/ITEM[@NAME='ExcludedProcesses'][@DELETE='1']";
 		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/NODE";
 
@@ -568,29 +554,14 @@ function ESET_ExportModifier {
 			$NewExclusion.NextName++;
 		}
 
-		# Append the new configuration to the config array
-		# $ExclusionsConfigArr += $NewExclusion;
-
-		#
 		# ------------------------------------------------------------
 		#
 		# [ ESET ] All Filepath Exclusions
 		#
 		$NewExclusion = @{};
 		$NewExclusion.Type = "Filepath";
-		$NewExclusion.LocationInSoftware = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ BASIC (Right) ] -> [ EXCLUSIONS (Right) ] -> [ Edit ]";
-		$NewExclusion.PreserveExportedExclusions = $False;
-		$NewExclusion.RowsBefore = "";
-		$NewExclusion.RowsBetween = "";
-		$NewExclusion.RowsToAdd = "";
-		$NewExclusion.RowsBefore = "";
-		$NewExclusion.RowsAfter = "";
-		$NewExclusion.LineStart = $Null;
-		$NewExclusion.LineEnd = $Null;
-		$NewExclusion.RegexContainerStart = '^   <ITEM NAME="01000600">\n    <ITEM NAME="settings">$';
-		$NewExclusion.RegexContainerEnd = '^    </ITEM>\n   </ITEM>$';
-		$NewExclusion.RegexStart = '^     <ITEM NAME="ScannerExcludes" DELETE="1">$';
-		$NewExclusion.RegexEnd = '^     </ITEM>$';
+		$NewExclusion.SoftwareLocation = "[ ESET Advanced Setup (Taskbar notification area + Right-Click) ] -> [ DETECTION ENGINE (Left) ] -> [ BASIC (Right) ] -> [ EXCLUSIONS (Right) ] -> [ Edit ]";
+		$NewExclusion.PreserveExportedExclusions = $True;
 		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000600']/ITEM[@NAME='settings']/ITEM[@NAME='ScannerExcludes'][@DELETE='1']";
 		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/ITEM";
 
@@ -616,32 +587,6 @@ function ESET_ExportModifier {
 			}
 		}
 
-
-
-		# # Prebuilt String - Filepath Exclusions
-		# $i_FilepathName_Base10 = 1;
-		# $ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
-		# 	$EachFilepath = $_;
-		# 	# ESET Requirement (Proprietary) - Extensionless files (*) must be excluded separately from files with extensions (*.*)
-		# 	@("*","*.*") | Select-Object -Unique | ForEach-Object {
-		# 		$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-		# 		$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
-		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
-		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
-		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($EachFilepath)+('\')+($_)+('" />')+("`n"));
-		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
-		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
-		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
-		# 		$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
-		# 		$i_FilepathName_Base10++;
-		# 	}
-		# }
-
-
-		# # Append the new configuration to the config array
-		# $ExclusionsConfigArr += $NewExclusion;
-
-		#
 		# ------------------------------------------------------------
 		#
 		# [ ESET ] All Extension Exclusions
@@ -657,85 +602,10 @@ function ESET_ExportModifier {
 		# $ReturnedStringArr += $ESET_ExclExt_Content;
 		#
 		# ------------------------------------------------------------
-		#
-		# [ ESET ] Apply Exclusions
-		#
-		$ExclusionsConfigArr | Select-Object | ForEach-Object {
-			$EachCfg = $_;
-			$i_LineNumber = 0;
-			$XmlContents = Get-Content -Path ($Fullpath_NewImport);
-			$ValidInjectionPoint = $False;
-			$XmlContents | Select-Object | ForEach-Object {
-				If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
-					$ValidInjectionPoint = $True;
-				}
-			}
-			If ($ValidInjectionPoint -eq $False) {
 
-				Write-Host "";
-				Write-Host "  Error (ESET Exclusions): Unable to locate a valid injection point for:  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				Write-Host "   |--> Regex: `"$($EachCfg.RegexStart)`"  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				Write-Host "   |--> Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				Write-Host "   |--> Type: $($EachCfg.Type) Exclusions `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Red");
-				If (([Bool]($EachCfg.PSobject.Properties.Name -match "LocationInSoftware")) -eq $True) {
-					Write-Host "   |--> Hotfix-Suggestion: Add a $($EachCfg.Type) Exclusion via: `n          $($EachCfg.LocationInSoftware) `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Yellow");
-				}
-				Write-Host "";
+		$XmlDoc.Save($Fullpath_NewImport); # Save the updated exclusions list to the Import XML file
 
-			} Else {
-
-				Write-Host "";
-				Write-Host "  Success (ESET Exclusions): Located a valid injection point for:  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
-				Write-Host "   |--> Regex: `"$($EachCfg.RegexStart)`"  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
-				Write-Host "   |-->  Path: $($Fullpath_NewImport)  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
-				Write-Host "   |-->  Type: $($EachCfg.Type) Exclusions  `n" -NoNewLine -BackgroundColor ("Black") -ForegroundColor ("Green");
-				Write-Host "";
-
-
-				$XmlContents | Select-Object | ForEach-Object {
-					If ($EachCfg.LineStart -eq $Null) {
-						$EachCfg.RowsBefore = (($EachCfg.RowsBefore)+("`n")+($_));
-						If (([Regex]::Match($_, $EachCfg.RegexStart)).Success -eq $True) {
-							$EachCfg.LineStart = $i_LineNumber;
-						}
-					} Else {
-						If ($EachCfg.LineEnd -ne $Null) {
-							$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
-						} ElseIf (([Regex]::Match($_, $EachCfg.RegexEnd)).Success -eq $True) {
-							$EachCfg.RowsAfter = (($EachCfg.RowsAfter)+("`n")+($_));
-							$EachCfg.LineEnd = $i_LineNumber;
-						} Else {
-							$EachCfg.RowsBetween = (($EachCfg.RowsBetween)+("`n")+($_));
-						}
-					}
-					$i_LineNumber++;
-				}
-				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBefore)`n";
-				If ( $EachCfg.PreserveExportedExclusions -eq $True ) {
-					$NewImportContents = "$($NewImportContents)$($EachCfg.RowsBetween)`n";
-				}
-				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsToAdd)`n";
-				$NewImportContents = "$($NewImportContents)$($EachCfg.RowsAfter)`n";
-				$NewImportContents = (($EachCfg.RowsBefore)+("`n")+($EachCfg.RowsToAdd)+("`n")+($EachCfg.RowsAfter));
-				$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
-					$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
-						$NewImportContents = $NewImportContents.Replace("`n`n", "`n");
-				$NewImportContents = $NewImportContents.Trim();
-
-				Set-Content -Path ($Fullpath_NewImport) -Value ($NewImportContents);
-
-			}
-
-		}
-
-		$XmlDoc.Save($Fullpath_NewImport);
-
-		#
-		# ------------------------------------------------------------
-		#
-		# 	Show the directory containing the import-file
-
-		Explorer.exe "$Dirname_NewImport";
+		Explorer.exe "$Dirname_NewImport"; # Show the directory containing the import-file
 
 		# 
 		# ------------------------------------------------------------

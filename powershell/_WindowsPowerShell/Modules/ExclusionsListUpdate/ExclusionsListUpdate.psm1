@@ -604,8 +604,6 @@ function ESET_ExportModifier {
 			@("*","*.*") | Select-Object -Unique | ForEach-Object {
 				$NewEle = $XmlDoc.CreateElement("ITEM");
 				$NewEle.SetAttribute("NAME", ([Convert]::ToString($($NewExclusion.NextName), 16)));
-				$NewEle.SetAttribute("TYPE", "string");
-				$NewEle.SetAttribute("VALUE", $_);
 				$NewEle.InnerXml = '';
 				$NewEle.InnerXml += (('<NODE NAME="ExcludeType" TYPE="number" VALUE="0" />'));
 				$NewEle.InnerXml += (('<NODE NAME="Infiltration" TYPE="string" VALUE="" />'));		

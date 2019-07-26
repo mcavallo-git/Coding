@@ -552,15 +552,21 @@ function ESET_ExportModifier {
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000101']/ITEM[@NAME='settings']/ITEM[@NAME='ExcludedProcesses'][@DELETE='1']";
 		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/NODE";
-		#
-		# Prebuilt String - Process Exclusions
-		#
-		# $i_FilepathName_Base10 = 1;
-		# $ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
-		# 	$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-		# 	$NewExclusion.RowsToAdd += (('      <NODE NAME="')+($i_FilepathName_Base16)+('" TYPE="string" VALUE="')+($_)+('" />')+("`n"));
-		# 	$i_FilepathName_Base10++;
-		# }
+
+		$NewExclusion.NextName = 0;
+		$XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Children)" | ForEach-Object {
+			$NewExclusion.NextName = [Int]((($NewExclusion.NextName,[Int]([Convert]::ToString("0x$($_.Node.NAME)", 10))) | Measure -Max).Maximum);
+		};
+		$NewExclusion.NextName++;
+
+		$ESET_ExcludeProcesses | Select-Object -Unique | ForEach-Object {
+			$NewEle = $XmlDoc.CreateElement("NODE");
+			$NewEle.SetAttribute("NAME", ([Convert]::ToString($($NewExclusion.NextName), 16)));
+			$NewEle.SetAttribute("TYPE", "string");
+			$NewEle.SetAttribute("VALUE", $_);
+			($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);
+			$NewExclusion.NextName++;
+		}
 
 		# Append the new configuration to the config array
 		# $ExclusionsConfigArr += $NewExclusion;
@@ -587,31 +593,55 @@ function ESET_ExportModifier {
 		$NewExclusion.RegexEnd = '^     </ITEM>$';
 		$NewExclusion.XPath_Container = "/ESET/PRODUCT[@NAME='endpoint']/ITEM[@NAME='plugins']/ITEM[@NAME='01000600']/ITEM[@NAME='settings']/ITEM[@NAME='ScannerExcludes'][@DELETE='1']";
 		$NewExclusion.XPath_Children = "$($NewExclusion.XPath_Container)/ITEM";
+
 		$NewExclusion.NextName = 0;
 		$XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Children)" | ForEach-Object {
 			$NewExclusion.NextName = [Int]((($NewExclusion.NextName,[Int]([Convert]::ToString("0x$($_.Node.NAME)", 10))) | Measure -Max).Maximum);
 		};
 		$NewExclusion.NextName++;
-		# Prebuilt String - Filepath Exclusions
-		$i_FilepathName_Base10 = 1;
 		$ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
 			$EachFilepath = $_;
-			# ESET Requirement (Proprietary) - Extensionless files (*) must be excluded separately from files with extensions (*.*)
 			@("*","*.*") | Select-Object -Unique | ForEach-Object {
-				$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
-				$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
-				$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
-				$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
-				$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($EachFilepath)+('\')+($_)+('" />')+("`n"));
-				$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
-				$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
-				$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
-				$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
-				$i_FilepathName_Base10++;
+				$NewEle = $XmlDoc.CreateElement("ITEM");
+				$NewEle.SetAttribute("NAME", ([Convert]::ToString($($NewExclusion.NextName), 16)));
+				$NewEle.SetAttribute("TYPE", "string");
+				$NewEle.SetAttribute("VALUE", $_);
+				$NewEle.InnerXml = '';
+				$NewEle.InnerXml += (('<NODE NAME="ExcludeType" TYPE="number" VALUE="0" />'));
+				$NewEle.InnerXml += (('<NODE NAME="Infiltration" TYPE="string" VALUE="" />'));		
+				$NewEle.InnerXml += (('<NODE NAME="FullPath" TYPE="string" VALUE="')+($EachFilepath)+('\')+($_)+('" />'));
+				$NewEle.InnerXml += (('<NODE NAME="Flags" TYPE="number" VALUE="0" />'));
+				$NewEle.InnerXml += (('<NODE NAME="Hash" TYPE="string" VALUE="" />'));
+				$NewEle.InnerXml += (('<NODE NAME="Description" TYPE="string" VALUE="" />'));
+				($XmlDoc | Select-Xml -XPath "$($NewExclusion.XPath_Container)").Node.AppendChild($NewEle);
+				$NewExclusion.NextName++;
 			}
 		}
-		# Append the new configuration to the config array
-		$ExclusionsConfigArr += $NewExclusion;
+
+
+
+		# # Prebuilt String - Filepath Exclusions
+		# $i_FilepathName_Base10 = 1;
+		# $ESET_ExcludeFilepaths | Select-Object -Unique | ForEach-Object {
+		# 	$EachFilepath = $_;
+		# 	# ESET Requirement (Proprietary) - Extensionless files (*) must be excluded separately from files with extensions (*.*)
+		# 	@("*","*.*") | Select-Object -Unique | ForEach-Object {
+		# 		$i_FilepathName_Base16 = (([Convert]::ToString($i_FilepathName_Base10, 16)).ToUpper());
+		# 		$NewExclusion.RowsToAdd += (('      <ITEM NAME="')+($i_FilepathName_Base16)+('">')+("`n"));
+		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="ExcludeType" TYPE="number" VALUE="0" />')+("`n"));
+		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Infiltration" TYPE="string" VALUE="" />')+("`n"));		
+		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="FullPath" TYPE="string" VALUE="')+($EachFilepath)+('\')+($_)+('" />')+("`n"));
+		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Flags" TYPE="number" VALUE="0" />')+("`n"));
+		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Hash" TYPE="string" VALUE="" />')+("`n"));
+		# 		$NewExclusion.RowsToAdd += (('       <NODE NAME="Description" TYPE="string" VALUE="" />')+("`n"));
+		# 		$NewExclusion.RowsToAdd += (('      </ITEM>')+("`n"));
+		# 		$i_FilepathName_Base10++;
+		# 	}
+		# }
+
+
+		# # Append the new configuration to the config array
+		# $ExclusionsConfigArr += $NewExclusion;
 
 		#
 		# ------------------------------------------------------------

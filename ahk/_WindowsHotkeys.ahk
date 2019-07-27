@@ -418,7 +418,8 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Sleep 7500
 	Loop {
 		MouseClick, Left, 861, 947
-		Sleep 15000
+		Sleep 30000
+		; Sleep 15000
 		; Sleep 10000
 		MouseClick, Left, 1420, 905
 		Sleep 1000

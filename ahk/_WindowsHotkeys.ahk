@@ -399,6 +399,10 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
 +#F2::
+	CoordMode,Mouse,Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	SetTitleMatchMode, 1
 	Sleep 2500
 	; "Captures" (Left Tab)
 	MouseClick, Left, 23, 314

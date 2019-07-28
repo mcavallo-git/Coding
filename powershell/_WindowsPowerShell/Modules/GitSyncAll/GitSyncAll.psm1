@@ -113,10 +113,10 @@ function GitSyncAll {
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
-				Write-Host "$($MyInvocation.MyCommand.Name) - Fetch complete." -ForegroundColor Green;
+				Write-Host "Fetch complete." -ForegroundColor Green;
 
 			} Else {
-				Write-Host "$($MyInvocation.MyCommand.Name) - Unhandled Value for Parameter `$Action: `"$($Action)`" " -ForegroundColor Yellow;
+				Write-Host "Unhandled Value for Parameter `$Action: `"$($Action)`" " -ForegroundColor Yellow;
 
 			}
 		}

@@ -4,6 +4,7 @@
 ***
 <details><summary><b>Sync this Repo (via PowerShell)</b></summary>
 <p>
+
 <h4>Run the following line of code in PowerShell:</h4>
 <pre><code>
 <#>Copy->Paste->Run this line of code in PowerShell<#> $GithubOwner="mcavallo-git"; $GithubRepo="Coding"; Write-Host "Task - Sync local git repository to origin `"https://github.com/${GithubOwner}/${GithubRepo}.git`"..." -ForegroundColor Green; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1"; Write-Host "`nPass - PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
@@ -17,5 +18,6 @@
 <li>Paste the line of code into the terminal (via Ctrl+V or via right-mouseclick)</li>
 <li>Run the pasted line of code (via Enter keypress)</li>
 </ul>
+
 </p>
 </details>

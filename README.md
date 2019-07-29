@@ -1,4 +1,5 @@
-# Coding
+<h1 style="text-decoration: none;">Coding</h1>
+***
 
 ### See directories (above, on GitHub) on a per-software basis
 

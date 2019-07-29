@@ -7,7 +7,7 @@
 
 <hr />
 <h3>Sync this Repo (via PowerShell)</h3>
-<details><summary><i>(Click to show/hide content)</i></summary>
+<details><summary><i>( 🖱️ *click* to show / hide content)</i></summary>
 <p>
 
 <h4><u>Run the following line of code in PowerShell:</u></h4>

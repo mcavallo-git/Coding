@@ -1,7 +1,7 @@
-# Workstation Setup (Windows)
+<!-- ------------------------------------------------------------ -->
 
 ***
-## Workstation Software (Windows)
+## __Workstation Software__
 
 App Name | Source 1 | Source A
 --- | --- | ---
@@ -34,8 +34,31 @@ App Name | Source 1 | Source A
 ***
 #### External Link: [Reddit.com, "[List] Essential Software for your Windows PC"](https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/)
 
+<!-- ------------------------------------------------------------ -->
+
 ***
-## Environment
+## __Paths__
+
+***
+#### Pinned Items, Taskbar (Win10)
+###### ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
+
+***
+#### Pinned-Items, Classic Shell (Start-Menu App)
+###### ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```
+
+***
+#### Startup Items (All Users)
+###### ```%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\StartUp```
+
+***
+#### Startup Items (My User)
+###### ```%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup```
+
+<!-- ------------------------------------------------------------ -->
+
+***
+## __Workstation Setup (Windows)__
 
 ***
 ### Taskbar (Bottom Bar)
@@ -90,23 +113,6 @@ App Name | Source 1 | Source A
 ### Enable ClearType
 ##### Start Menu -> type "clear" -> select "Adjust ClearType text" -> Enable ClearType and click next through all the screens until complete
 
-***
-### Shortcuts
 
-***
-#### Pinned Items, Taskbar (Win10)
-###### Path:  ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
-
-***
-#### Pinned-Items, Classic Shell (Start-Menu App)
-###### Path:  ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```
-
-***
-#### Startup Items (All Users)
-###### Path:  ```%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\StartUp```
-
-***
-#### Startup Items (My User)
-###### Path:  ```%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup```
-
+<!-- ------------------------------------------------------------ -->
 ***

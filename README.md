@@ -7,7 +7,7 @@
 
 <hr />
 <h3>Sync this Repo (via PowerShell)</h3>
-<details><summary><i>Show Content / Hide Content</i></summary>
+<details><summary><i>Show/Hide Content</i></summary>
 <p>
 
 <h4><u>Prerequisite - Git must be installed on your local workstation:</u></h4>

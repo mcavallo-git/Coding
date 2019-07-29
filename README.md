@@ -1,4 +1,4 @@
-<h1 style="border-bottom: 0;">Coding</h1>
+<h1 style="border-bottom-width:0px;">Coding</h1>
 
 ### See directories (above, on GitHub) on a per-software basis
 

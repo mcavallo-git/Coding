@@ -10,9 +10,9 @@
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
 
-<h4><u>Prerequisite - Git must be installed on your local workstation:</u></h4>
+<h4><u>Prerequisite(s):</u></h4>
 <ul>
-<li>[Download Git](https://git-scm.com/downloads)</li>
+<li>Git must be installed - [Download Git](https://git-scm.com/downloads)</li>
 </ul>
 
 

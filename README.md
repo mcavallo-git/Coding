@@ -16,13 +16,10 @@
 </ul>
 
 
-<h4>Instructions (simplified):</h4>
-<ul>
-<li>Run the following line of code in PowerShell:</li>
-</ul>
-<li><pre><code>
+<h4>Run the following line of code in PowerShell:</h4>
+<pre><code>
 <#>Copy->Paste->Run this line of code in PowerShell<#> $GithubOwner="mcavallo-git"; $GithubRepo="Coding"; Write-Host "Task - Sync local git repository to origin `"https://github.com/${GithubOwner}/${GithubRepo}.git`"..." -ForegroundColor Green; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1"; Write-Host "`nPass - PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
-</code></pre></li>
+</code></pre>
 
 <h4>Instructions (step-by-step):</h4>
 <ul>

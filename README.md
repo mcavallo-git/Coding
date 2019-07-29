@@ -1,5 +1,9 @@
+
 # Coding
 
+### See directories (above, on GitHub) on a per-software basis
+
+<!--
 ***
 ## Workstation Software (Windows)
 
@@ -33,3 +37,4 @@ App Name | Source 1 | Source A
 
 ***
 #### External Link: [Reddit.com, "[List] Essential Software for your Windows PC"](https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/)
+-->

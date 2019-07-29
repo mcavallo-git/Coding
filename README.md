@@ -10,10 +10,12 @@
 </code></pre>
 
 </h4>Step-by-Step Instructions:</h4>
-* Select the entire line of code (via triple-left-mouseclick on the line of code)
-* Copy the selected code (via Ctrl+C)
-* Open PowerShell (via Start-Menu keypress -> type 'PowerShell' -> select 'Windows PowerShell' via left-mouseclick or Enter keypress)
-* Paste the line of code into the terminal (via Ctrl+V or via right-mouseclick)
-* Run the pasted line of code (via Enter keypress)
+<ul>
+<li>Select the entire line of code (via triple-left-mouseclick on the line of code)</li>
+<li>Copy the selected code (via Ctrl+C)</li>
+<li>Open PowerShell (via Start-Menu keypress -> type 'PowerShell' -> select 'Windows PowerShell' via left-mouseclick or Enter keypress)</li>
+<li>Paste the line of code into the terminal (via Ctrl+V or via right-mouseclick)</li>
+<li>Run the pasted line of code (via Enter keypress)</li>
+</ul>
 </p>
 </details>

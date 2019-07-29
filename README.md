@@ -2,7 +2,7 @@
 ###### See directories (above, on GitHub) on a per-software basis
 
 ***
-<details><summary><h3>Sync this Repo (via PowerShell)</h3></summary>
+<details><h3><summary>Sync this Repo (via PowerShell)</summary></h3>
 <p>
 
 ```

@@ -5,8 +5,8 @@
 
 <!-- ------------------------------------------------------------ -->
 
-<h3>Sync this Repo (via PowerShell)</h3>
 <hr />
+<h3>Sync this Repo (via PowerShell)</h3>
 <details><summary><i>(Click to show/hide content)</i></summary>
 <p>
 

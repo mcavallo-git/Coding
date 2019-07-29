@@ -1,7 +1,7 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-## __Workstation Software__
+## <u>Workstation Software</u>
 
 App Name | Source 1 | Source A
 --- | --- | ---
@@ -37,7 +37,7 @@ App Name | Source 1 | Source A
 <!-- ------------------------------------------------------------ -->
 
 ***
-## __Paths__
+## <u>Paths</u>
 
 ***
 #### Pinned Items, Taskbar (Win10)
@@ -58,7 +58,7 @@ App Name | Source 1 | Source A
 <!-- ------------------------------------------------------------ -->
 
 ***
-## __Workstation Setup (Windows)__
+## <u>Workstation Setup (Windows)</u>
 
 ***
 ### Taskbar (Bottom Bar)

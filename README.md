@@ -10,7 +10,7 @@
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
 
-<h4><u>Prerequisite(s):</u></h4>
+<u><h4>Prerequisite(s):</h4></u>
 <ul>
 <li>Git must be installed - <a href="https://git-scm.com/download/win">Download Git</a></li>
 </ul>

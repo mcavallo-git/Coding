@@ -12,7 +12,7 @@
 
 <h4><u>Prerequisite(s):</u></h4>
 <ul>
-<li>Git must be installed - <a href="https://git-scm.com/downloads">Download Git</a></li>
+<li>Git must be installed - <a href="https://git-scm.com/download/win">Download Git</a></li>
 </ul>
 
 

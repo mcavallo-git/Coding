@@ -15,12 +15,16 @@
 <li>[Download Git](https://git-scm.com/downloads)</li>
 </ul>
 
-<h4><u>Run the following line of code in PowerShell:</u></h4>
+
+<h4><u>Instructions (simplified):</u></h4>
+<ul>
+<li>Run the following line of code in PowerShell:</li>
+</ul>
 <pre><code>
 <#>Copy->Paste->Run this line of code in PowerShell<#> $GithubOwner="mcavallo-git"; $GithubRepo="Coding"; Write-Host "Task - Sync local git repository to origin `"https://github.com/${GithubOwner}/${GithubRepo}.git`"..." -ForegroundColor Green; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1"; Write-Host "`nPass - PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
 </code></pre>
 
-<h4><u>Step-by-Step Instructions:</u></h4>
+<h4><u>Instructions (step-by-step):</u></h4>
 <ul>
 <li>Select the entire line of code (via triple-left-mouseclick on the line of code)</li>
 <li>Copy the selected code (via Ctrl+C)</li>

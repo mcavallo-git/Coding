@@ -1,7 +1,11 @@
-# Coding
-###### See directories (above, on GitHub) on a per-software basis
+<!-- ------------------------------------------------------------ -->
 
-***
+<h1>Coding</h1>
+<h6><i>See directories (above, on GitHub) on a per-software basis</i></h6>
+
+<!-- ------------------------------------------------------------ -->
+
+<hr />
 <details><summary><b>Sync this Repo (via PowerShell)</b></summary>
 <p>
 
@@ -21,3 +25,5 @@
 
 </p>
 </details>
+
+<!-- ------------------------------------------------------------ -->

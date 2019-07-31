@@ -6,13 +6,16 @@ SET "LINK_PATH=%USERPROFILE%\Documents\Scanned Documents"
 
 SET "TARGET_PATH=%USERPROFILE%\Desktop"
 
-ROBOCOPY "%LINK_PATH%" "%TARGET_PATH%" /COPYALL /DCOPY:T /E /MOVE
-
-DEL /F /S "%LINK_PATH%"
+REM Move all items from current destination for scanned-items
+REM 
+REM ROBOCOPY "%LINK_PATH%" "%TARGET_PATH%" /COPYALL /DCOPY:T /E /MOVE
+REM 
+REM DEL /F /S "%LINK_PATH%"
+REM
 
 MKLINK /D "%LINK_PATH%" "%TARGET_PATH%"
 
-REM View a list of symbolic links
+REM View a list of MKLINKs (symbolic links) associated with target, to verify that the new MKLINK was created as-intended
 REM 
 REM DIR /AL /S "%USERPROFILE%\"
 REM

@@ -144,22 +144,26 @@
 ***
 ### Lookaround
 
-* ```?=```    Lookahead   (or "Positive Lookahead", subcategory of "LookArounds")  -  Syntax:  (?=RegexHere)
-* ```?!```    Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
-						Positive Lookaheads assert that what immediately follows the current position in the string is "RegexHere"
-						Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
-								Ex:   ```q(?=u)```   -   matches a "q" followed by a "u"
-								Ex:   ```q(?!u)```   -   matches a "q" NOT followed by a "u"
-								Ex:   ```^((?!foobar).)*$``` Match all lines which do NOT have the word 'foobar' anywhere in them
-								Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```  -  matches "hello" and "hello123", but skips "ignoreme" and "ignoreme2"
+* ```?=```		Lookahead   (or "Positive Lookahead", subcategory of "LookArounds")  -  Syntax:  (?=RegexHere)
+* ```?!```		Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
+								Positive Lookaheads assert that what immediately follows the current position in the string is "RegexHere"
+								Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
+									Ex:   ```q(?=u)```   -   matches a "q" followed by a "u"
+									Ex:   ```q(?!u)```   -   matches a "q" NOT followed by a "u"
+									Ex:   ```^((?!foobar).)*$``` Match all lines which do NOT have the word 'foobar' anywhere in them
+									Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```  -  matches "hello" and "hello123", but skips "ignoreme" and "ignoreme2"
 
-* ```?<=```   Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
-* ```?<!```   Negative Lookbehind   (subcategory of "LookArounds")  -  Syntax:  (?<!RegexHere)
-						Positive Lookbehinds assert that what immediately precedes the current position in the string is "RegexHere"
-						Negative Lookbehinds assert that what immediately precedes the current position in the string is NOT "RegexHere"
-								Ex: (?<=q)u   -   matches a "u" preceded by a "q"
-								Ex: (?<!q)u   -   matches a "u" NOT preceded by a "q"
-								Ex: (?<!host)\.com   -   matches ".com" NOT preceded by "host"
+* ```?<=```		Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
+* ```?<!```		Negative Lookbehind   (subcategory of "LookArounds")  -  Syntax:  (?<!RegexHere)
+								Positive Lookbehinds assert that what immediately precedes the current position in the string is "RegexHere"
+								Negative Lookbehinds assert that what immediately precedes the current position in the string is NOT "RegexHere"
+									Ex: (?<=q)u   -   matches a "u" preceded by a "q"
+									Ex: (?<!q)u   -   matches a "u" NOT preceded by a "q"
+									Ex: (?<!host)\.com   -   matches ".com" NOT preceded by "host"
+								NOTE: Javascript only supports Negative-Lookbehinds in the latest version of Chrome (as-of 2019-08-01)
+									|--> As a workaround, Negative Lookbehinds can be rebuilt as a negative lookahead (which is commonly supported in Javascript) as follows:
+									Ex: ((?!q).|^)u   -   matches a "u" NOT preceded by a "q"        [-Citation_01-]
+
 
 
 
@@ -273,7 +277,7 @@ Replacement: ```\u$1\l$2$3```
 
 
 ***
-### Reference(s)
+### Citation(s)
 
 ###### * Quickstart Tutorial, https://www.regular-expressions.info/quickstart.html
 
@@ -286,3 +290,5 @@ Replacement: ```\u$1\l$2$3```
 ###### * Capture Groups, https://ruby-doc.org/core-2.1.1/Regexp.html
 
 ###### * Modifying Output (upper-casing, lower-casing, etc.), https://stackoverflow.com/questions/20742076
+
+###### * [-Citation_01-] stackoverflow.com  | "Javascript: negative lookbehind equivalent?"  |  https://stackoverflow.com/a/27213663

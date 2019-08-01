@@ -31,12 +31,10 @@ HOTFIX_FINGERPRINT="7638D0442B90D010"; gpg --keyserver pgpkeys.mit.edu --recv-ke
 #  |--> HOTFIX 3 (2019-08-01_07-53-58):
 apt-get install -y debian-keyring;
 apt-get install -y debian-archive-keyring;
-apt-get update -y;
 HOTFIX_FINGERPRINT="06E85760C0A52C50"; gpg --keyserver "keyserver.ubuntu.com" --recv-key ${HOTFIX_FINGERPRINT}; gpg -a --export ${HOTFIX_FINGERPRINT} | sudo apt-key add -;
-sudo apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv "0C49F3730359A14518585931BC711F9BA15703C6";
-echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
-sudo apt update -y;
-
+sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv "0C49F3730359A14518585931BC711F9BA15703C6";
+echo "deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee "/etc/apt/sources.list.d/mongodb-org-3.4.list";
+apt-get update -y;
 
 # gpg --delete-key 06E85760C0A52C50
 

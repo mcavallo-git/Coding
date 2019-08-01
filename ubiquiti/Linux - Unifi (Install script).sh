@@ -9,7 +9,8 @@ apt-get -y autoremove;
 apt-get clean;
 reboot;
 
-echo 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti' | sudo tee -a /etc/apt/sources.list.d/100-ubnt.list > /dev/null;
+# echo 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti' | sudo tee -a /etc/apt/sources.list.d/100-ubnt.list > /dev/null;
+echo 'deb http://www.ui.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/100-ubnt-unifi.list
 
 wget -O "/etc/apt/trusted.gpg.d/unifi-repo.gpg" "https://dl.ui.com/unifi/unifi-repo.gpg";
 
@@ -23,12 +24,21 @@ apt-get update;
 #  |        W: GPG error: http://ftp.debian.org jessie-backports InRelease: The following signatures couldn't be verified because the public key is not available: NO_PUBKEY 8B48AD6246925553 NO_PUBKEY 7638D0442B90D010
 #  |        ...
 #  |     }
-#  |--> HOTFIX 1-of-2:      NO_PUBKEY [KEY]   -->   [KEY] = 8B48AD6246925553
-gpg --keyserver pgpkeys.mit.edu --recv-key 8B48AD6246925553; 
-gpg -a --export 8B48AD6246925553 | sudo apt-key add -;
-#  |--> HOTFIX 2-of-2:      NO_PUBKEY [KEY]   -->   [KEY] = 7638D0442B90D010
-gpg --keyserver pgpkeys.mit.edu --recv-key 7638D0442B90D010; 
-gpg -a --export 7638D0442B90D010 | sudo apt-key add -;
+#  |--> HOTFIX 1:
+HOTFIX_FINGERPRINT="8B48AD6246925553"; gpg --keyserver pgpkeys.mit.edu --recv-key ${HOTFIX_FINGERPRINT}; gpg -a --export ${HOTFIX_FINGERPRINT} | sudo apt-key add -;
+#  |--> HOTFIX 2:
+HOTFIX_FINGERPRINT="7638D0442B90D010"; gpg --keyserver pgpkeys.mit.edu --recv-key ${HOTFIX_FINGERPRINT}; gpg -a --export ${HOTFIX_FINGERPRINT} | sudo apt-key add -;
+#  |--> HOTFIX 3 (2019-08-01_07-53-58):
+apt-get install -y debian-keyring;
+apt-get install -y debian-archive-keyring;
+apt-get update -y;
+HOTFIX_FINGERPRINT="06E85760C0A52C50"; gpg --keyserver "keyserver.ubuntu.com" --recv-key ${HOTFIX_FINGERPRINT}; gpg -a --export ${HOTFIX_FINGERPRINT} | sudo apt-key add -;
+sudo apt-key adv --keyserver "hkp://keyserver.ubuntu.com:80" --recv "0C49F3730359A14518585931BC711F9BA15703C6";
+echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list
+sudo apt update -y;
+
+
+# gpg --delete-key 06E85760C0A52C50
 
 # REPEAT
 apt-get -y update;

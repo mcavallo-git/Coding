@@ -11,7 +11,7 @@ REM    shutdown /f  :::  Forces running applications to close without warning us
 
 REM !!! NOTE: USE 'logoff.exe' INSTEAD:
 
-%SystemRoot%\System32\logoff.exe /V > %APPDATA%\logoff.log
+%SystemRoot%\System32\logoff.exe /V
 
 REM
 REM ---------------------------------------------------------------------------------------------------------------------------------

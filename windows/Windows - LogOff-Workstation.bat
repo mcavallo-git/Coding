@@ -6,12 +6,12 @@ REM		Created by Matt Cavallo <mcavallo@boneal.com>
 REM		Creation Date: [ 2016-09-29 ]
 REM		Updated:	[ 2018-11-28 ]
 REM		Updated:	[ 2018-12-12 ] Generalized IMAGENAME_TO_KILL as parameter #1
-REM		Updated:	[ 2019-08-02 ] Adding logging to disk
 REM		Updated:	[ 2019-08-02 ] Replaced 'SHUTDOWN /L /F' with 'logoff.exe' implementation
+REM		Updated:	[ 2019-08-02 ] Added logging to disk
+REM		Updated:	[ 2019-08-02 ] Added TIMESTAMP to output
 REM
 
 SET LOGFILE=%TEMP%\logoff.log
-
 SET IMAGENAME_TO_KILL=
 IF NOT "%1"=="" (
 	SET IMAGENAME_TO_KILL=%1
@@ -22,6 +22,15 @@ SET RUNTIME_USERDOMAIN=%USERDOMAIN%
 
 SET TARGET_USERNAME=%RUNTIME_USERNAME%
 SET TARGET_USERDOMAIN=%RUNTIME_USERDOMAIN%
+
+REM
+REM Show the current runtime's Timestamp
+REM
+FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET TIMESTAMP=%TIMESTAMP%%%F
+FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET TIMESTAMP=%TIMESTAMP%%%F
+ECHO. >> %LOGFILE% 2>&1
+ECHO TIMESTAMP = %TIMESTAMP% >> %LOGFILE% 2>&1
+ECHO. >> %LOGFILE% 2>&1
 
 REM
 REM	Find Session-ID tied to [target-user]
@@ -70,14 +79,14 @@ IF NOT %USER_SESSION_ID%==NOTFOUND (
 	TIMEOUT /T 30 >> %LOGFILE% 2>&1
 
 	REM
-	REM Logoff of the machine (cleanly)
+	REM Logoff (specific user-session)
 	REM
 	%SystemRoot%\System32\logoff.exe %USER_SESSION_ID% /V >> %LOGFILE% 2>&1
 
 ) ELSE (
 
 	REM
-	REM Logoff of the machine (cleanly)
+	REM Logoff
 	REM
 	%SystemRoot%\System32\logoff.exe /V >> %LOGFILE% 2>&1
 

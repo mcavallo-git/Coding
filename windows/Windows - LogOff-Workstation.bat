@@ -1,31 +1,32 @@
 @ECHO OFF
 SETLOCAL ENABLEDELAYEDEXPANSION
 
-
 REM
-REM		Created by Matt Cavallo <mcavallo@boneal.com>
-REM		Creation Date: [ 2016-09-29 ]
-REM		Updated:	[ 2018-11-28 ]
-REM		Updated:	[ 2018-12-12 ] Generalized IMAGENAME_TO_KILL as parameter #1
-REM		Updated:	[ 2019-08-02 ] Replaced 'SHUTDOWN /L /F' with 'logoff.exe' implementation
-REM		Updated:	[ 2019-08-02 ] Added logging to disk
-REM		Updated:	[ 2019-08-02 ] Added TIMESTAMP to output
+REM	Setup logfile path/location (where command output from this script is saved on the local disk)
 REM
-
-
 SET LOGFILE=%TEMP%\logoff.log
-SET RUNTIME_DOMAIN=%USERDOMAIN%
-SET RUNTIME_UNAME=%USERNAME%
 
 
 REM
-REM Show the current runtime's Timestamp
+REM	Set current Domain\User as the target Domain\User
 REM
-FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET TIMESTAMP=%TIMESTAMP%%%F
-FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET TIMESTAMP=%TIMESTAMP%%%F
+SET TARGET_UNAME=%USERNAME%
+SET TARGET_DOMAIN=%USERDOMAIN%
+
+
+REM
+REM Get the current Date & Time
+REM
+FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET START_DATETIME=%START_DATETIME%%%F
+FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET START_DATETIME=%START_DATETIME%%%F
+
+
+REM
+REM	Welcome message
+REM
 ECHO. >> %LOGFILE% 2>&1
-ECHO Starting Script >> %LOGFILE% 2>&1
-ECHO TIMESTAMP = %TIMESTAMP% >> %LOGFILE% 2>&1
+ECHO. >> %LOGFILE% 2>&1
+ECHO Starting Script @ %TIMESTAMP% >> %LOGFILE% 2>&1
 
 
 REM
@@ -35,13 +36,6 @@ SET IMAGENAME_TO_KILL=
 IF NOT "%1"=="" (
 	SET IMAGENAME_TO_KILL=%1
 )
-
-
-REM
-REM	Set current User & Domain as the target User & Domain
-REM
-SET TARGET_UNAME=%RUNTIME_UNAME%
-SET TARGET_DOMAIN=%RUNTIME_DOMAIN%
 
 
 REM
@@ -57,9 +51,8 @@ FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_UNAME%') DO (
 
 
 REM
-REM	Determine if [target-user] is logged-in or not
+REM	Determine if target User is logged-in or not (based on whether we were able to obtain a Session-ID, or not)
 REM
-ECHO TARGET_SESSION_ID = %TARGET_SESSION_ID%
 IF NOT %TARGET_SESSION_ID%==NOTFOUND (
 
 	REM
@@ -82,7 +75,7 @@ IF NOT %TARGET_SESSION_ID%==NOTFOUND (
 		TSDISCON %TARGET_SESSION_ID% >> %LOGFILE% 2>&1
 
 	REM
-	REM	Logoff
+	REM	Logoff (target user)
 	REM	  |--> Add a small wait-period before logging-off (to allow startup processes to complete as-intended)
 	REM	        |--> Use-Case: Log-on followed immediately by a log-off
 	REM
@@ -100,4 +93,29 @@ IF NOT %TARGET_SESSION_ID%==NOTFOUND (
 
 )
 
-ECHO Finished Script (this command will probably never ran if it always logs out the user running it before it gets to this line) >> %LOGFILE% 2>&1
+
+REM
+REM Get the current Date & Time
+REM
+FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET END_DATETIME=%END_DATETIME%%%F
+FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET END_DATETIME=%END_DATETIME%%%F
+
+
+REM
+REM	Farewell message
+REM
+ECHO. >> %LOGFILE% 2>&1
+ECHO. >> %LOGFILE% 2>&1
+ECHO Finished Script @ %TIMESTAMP% >> %LOGFILE% 2>&1
+
+
+
+REM
+REM		Created by Matt Cavallo <mcavallo@boneal.com>
+REM		Changelog  |  2016-09-29  |  Created script
+REM		Changelog  |  2018-11-28  |  Added target Domain\User implementation
+REM		Changelog  |  2018-12-12  |  Generalized IMAGENAME_TO_KILL as parameter #1
+REM		Changelog  |  2019-08-02  |  Replaced 'SHUTDOWN /L /F' with 'logoff.exe' implementation
+REM		Changelog  |  2019-08-02  |  Added logging to disk
+REM		Changelog  |  2019-08-02  |  Added TIMESTAMP to output
+REM

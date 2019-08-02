@@ -22,7 +22,7 @@ ECHO   Datetime after [ %HoursElapsed% ] hours have elapsed:   %DayOfWeek_Elapse
 ECHO.
 
 REM Debugging Timeout (to view output while testing)
-TIMEOUT -T 30
+TIMEOUT /T 30
 
 EXIT
 

@@ -9,7 +9,9 @@ REM LOGOFF
 REM    shutdown /l  :::  Logs off the current user immediately, with no time-out period. You cannot use /l with /m or /t.
 REM    shutdown /f  :::  Forces running applications to close without warning users. Caution: Using the /f option might result in loss of unsaved data.
 
-shutdown.exe /l /f
+REM !!! NOTE: USE 'logoff.exe' INSTEAD:
+
+%SystemRoot%\System32\logoff.exe /V > %APPDATA%\logoff.log
 
 REM
 REM ---------------------------------------------------------------------------------------------------------------------------------

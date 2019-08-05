@@ -13,18 +13,21 @@ ALL_GIT_EXE_PATHS="${USERPROFILE}/_git_exe_paths.txt";
 ALL_SYSTEM_CONFIGS="${USERPROFILE}/_git_configs.system.txt";
 ALL_GLOBAL_CONFIGS="${USERPROFILE}/_git_configs.globals.txt";
 
-echo -n "" > "${ALL_SYSTEM_CONFIGS}";
-echo -n "" > "${ALL_GLOBAL_CONFIGS}";
-
-HIDDEN_WINDOWS_CONFIG=$(realpath "${ALLUSERSPROFILE}/Git/config");
-if [ -f "${HIDDEN_WINDOWS_CONFIG}" ]; then
-	echo "${HIDDEN_WINDOWS_CONFIG}" >> "${ALL_SYSTEM_CONFIGS}";
-fi;
-
 SEARCH_DIRECTORIES=();
 SEARCH_DIRECTORIES+=("${LOCALAPPDATA}/");
 SEARCH_DIRECTORIES+=("${PROGRAMFILES}/");
 SEARCH_DIRECTORIES+=("${PROGRAMFILES} (x86)/");
+
+echo -n "" > "${ALL_GIT_EXE_PATHS}";
+echo -n "" > "${ALL_SYSTEM_CONFIGS}";
+echo -n "" > "${ALL_GLOBAL_CONFIGS}";
+
+# Windows Installs contain a hidden config-file within the ProgramData directory
+HIDDEN_CONFIG_WIN32=$(realpath "${PROGRAMDATA:-${ALLUSERSPROFILE}}/Git/config");
+HIDDEN_CONFIG_LINUX=""; MM="${HIDDEN_CONFIG_WIN32/C:/\/c}"; MM="${MM//\\/\/}"; EACH_GIT_LINUX=$(realpath "${MM}");
+if [ -f "${HIDDEN_CONFIG_LINUX}" ]; then
+	echo "${HIDDEN_CONFIG_LINUX}" >> "${ALL_GLOBAL_CONFIGS}";
+fi;
 
 for EACH_DIRECTORY in "${SEARCH_DIRECTORIES[@]}"; do
 

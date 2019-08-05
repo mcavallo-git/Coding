@@ -1,4 +1,4 @@
-﻿
+
 ; TightVNC -> Keyboard 'W' sends GBA4iOS 'Up'
 w::
 	CoordMode,Mouse,Screen

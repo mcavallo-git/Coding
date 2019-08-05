@@ -1,4 +1,4 @@
-﻿
+
 ;    VIRTUAL DESKTOP SWITCHER
 ;    Template props go out to: https://autohotkey.com/board/topic/148794-bind-keys-to-switch-virtual-desktops-win-10/
 

@@ -1,4 +1,4 @@
-﻿
+
 NumpadAdd::
 	Send, `t
 	Return

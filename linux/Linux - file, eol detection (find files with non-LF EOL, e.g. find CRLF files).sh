@@ -20,6 +20,7 @@ echo "    |--> MATCHED:  $(cat \"${OUTPUT_RESULTS_TO}\" | wc -l) File(s)";
 echo "    |--> LOGFILE:  \"${OUTPUT_RESULTS_TO}\"";
 
 echo "";
+echo "";
 
 # ------------------------------------------------------------
 #

@@ -77,7 +77,7 @@ if [ -n "$1" ]; then
 		echo "      |--> $1   (in file: \"${EACH_CONFIG}\")";
 		GIT_CONFIG_VALUE=$(git config --file "${EACH_CONFIG}" "$1");
 		if [ "$?" != "0" ]; then
-			GIT_CONFIG_VALUE=" -[- NOT SET -]- ";
+			GIT_CONFIG_VALUE=" [NO-VALUE]";
 		fi;
 		echo "            |-->  ${GIT_CONFIG_VALUE}";
 	done;
@@ -99,7 +99,7 @@ if [ -n "$1" ]; then
 		echo "      |--> $1   (in file: \"${EACH_CONFIG}\")";
 		GIT_CONFIG_VALUE=$(git config --file "${EACH_CONFIG}" "$1");
 		if [ "$?" != "0" ]; then
-			GIT_CONFIG_VALUE=" -[- NOT SET -]- ";
+			GIT_CONFIG_VALUE=" [NO-VALUE]";
 		fi;
 		echo "            |-->  ${GIT_CONFIG_VALUE}";
 	done;

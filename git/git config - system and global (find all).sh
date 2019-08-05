@@ -81,7 +81,7 @@ else
 	echo "";
 	echo "Call with inline params \$1 and \$2 to apply a config-value to every config-file found";
 	echo "Example:";
-	echo "    > $0 core.autocrlf input";
+	echo "    > $(basename $0) core.autocrlf input";
 fi;
 
 # ------------------------------------------------------------

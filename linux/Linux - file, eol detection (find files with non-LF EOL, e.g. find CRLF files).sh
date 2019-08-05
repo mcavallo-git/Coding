@@ -3,7 +3,11 @@
 # Find files which do not contain Linux-style (LF) line-endings (EOL)
 
 INPUT_DIRECTORY="${HOME}/Documents/GitHub/"; # Make sure input-directory ends with a "/" (forward slash)
+
 OUTPUT_RESULTS_TO="${HOME}/Desktop/non-lf-files.log";
+
+
+clear;
 
 echo "";
 echo "  INITIATED FILE-SEARCH";

@@ -71,18 +71,18 @@ done;
 if [ -n "$1" ]; then
 
 	echo "";
-	echo "  [ GLOBAL ] - Getting current git configuration values:";
+	echo "  [ GLOBAL ] - Getting git configuration values:";
 	for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
-		echo "";
+		echo "      |";
 		echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
 		echo -n "            |-->  ";
 		git config --file "${EACH_CONFIG}" "$1";
 	done;
 
 	if [ -n "$2" ]; then
-		echo "  [ GLOBAL ] - Setting current git configuration values:";
+		echo "  [ GLOBAL ] - Setting git configuration values:";
 		for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
-			echo "";
+			echo "      |";
 			echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
 			echo -n "            |-->  $2";
 			git config --file "${EACH_CONFIG}" --replace-all "$1" "$2";
@@ -90,17 +90,18 @@ if [ -n "$1" ]; then
 	fi;
 
 	echo "";
-	echo "  [ SYSTEM ] - Getting current git configuration values:";
+	echo "  [ SYSTEM ] - Getting git configuration values:";
 	for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
-		echo "";
+		echo "      |";
 		echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
 		echo -n "            |-->  ";
 		git config --file "${EACH_CONFIG}" "$1";
 	done;
 
 	if [ -n "$2" ]; then
+		echo "  [ SYSTEM ] - Setting git configuration values:";
 		for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
-			echo "";
+			echo "      |";
 			echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
 			echo -n "            |-->  $2";
 			git config --file "${EACH_CONFIG}" --replace-all "$1" "$2";

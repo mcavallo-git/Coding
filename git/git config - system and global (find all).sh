@@ -49,13 +49,16 @@ for EACH_DIRECTORY in "${SEARCH_DIRECTORIES[@]}"; do
 
 	done;
 done;
+# ------------------------------------------------------------
 
+# Show all SYSTEM configuration files-found
 echo "";
 echo "[ SYSTEM ] Git-Config(s):";
 for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 	echo " ${EACH_SYSTEM_CONFIG}";
 done;
 
+# Show all GLOBAL configuration files-found
 echo "";
 echo "[ GLOBAL ] Git-Config(s):";
 for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do

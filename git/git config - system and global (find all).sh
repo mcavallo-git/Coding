@@ -22,7 +22,7 @@ echo -n "" > "${ALL_GIT_EXE_PATHS}";
 echo -n "" > "${ALL_SYSTEM_CONFIGS}";
 echo -n "" > "${ALL_GLOBAL_CONFIGS}";
 
-# Windows Installs contain a hidden config-file within the ProgramData directory
+# git contains a hidden config-file on Windows-instances which may be found within the ProgramData directory
 HIDDEN_CONFIG_WIN32=$(realpath "${PROGRAMDATA:-${ALLUSERSPROFILE}}/Git/config");
 HIDDEN_CONFIG_LINUX=""; MM="${HIDDEN_CONFIG_WIN32/C:/\/c}"; MM="${MM//\\/\/}"; EACH_GIT_LINUX=$(realpath "${MM}");
 if [ -f "${HIDDEN_CONFIG_LINUX}" ]; then

@@ -65,12 +65,12 @@ done;
 # ------------------------------------------------------------
 
 # Show all EXE files-found
-echo "";
-echo "[EXECUTABLE] git.exe file(s) found:";
-for EACH_EXE in $(cat "${ALL_GIT_EXE_PATHS}"); do
-	echo "  |";
-	echo "  |--> ${EACH_EXE}";
-done;
+# echo "";
+# echo "[EXECUTABLE] git.exe file(s) found:";
+# for EACH_EXE in $(cat "${ALL_GIT_EXE_PATHS}"); do
+# 	echo "  |";
+# 	echo "  |--> ${EACH_EXE}";
+# done;
 
 # Show all SYSTEM configuration files-found
 echo "";

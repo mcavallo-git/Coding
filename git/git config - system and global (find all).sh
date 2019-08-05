@@ -54,15 +54,15 @@ done;
 # Show all SYSTEM configuration files-found
 echo "";
 echo "[ SYSTEM ] git config file(s) found:";
-for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
-	echo " ${EACH_SYSTEM_CONFIG}";
+for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
+	echo " ${EACH_CONFIG}";
 done;
 
 # Show all GLOBAL configuration files-found
 echo "";
 echo "[ GLOBAL ] git config file(s) found:";
-for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
-	echo "  ${EACH_GLOBAL_CONFIG}";
+for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
+	echo "  ${EACH_CONFIG}";
 done;
 
 # ------------------------------------------------------------
@@ -70,35 +70,40 @@ done;
 # Apply a specific [ git config ] value to each file found, call this script with inline-params $1 and $2 as follows:
 if [ -n "$1" ]; then
 
-	for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
+	echo "";
+	echo "  [ GLOBAL ] - Getting current git configuration values:";
+	for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 		echo "";
-		echo "  [ GLOBAL ] - Getting current setting via [ git config --file \"${EACH_GLOBAL_CONFIG}\" \"$1\"; ]...";
-		echo -n "     |-->  ";
-		git config --file "${EACH_GLOBAL_CONFIG}" "$1";
+		echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
+		echo -n "            |-->  ";
+		git config --file "${EACH_CONFIG}" "$1";
 	done;
 
 	if [ -n "$2" ]; then
-		for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
+		echo "  [ GLOBAL ] - Setting current git configuration values:";
+		for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 			echo "";
-			echo "  [ GLOBAL ] - Setting new setting via [ git config --file \"${EACH_GLOBAL_CONFIG}\" --replace-all \"$1\" \"$2\"; ]...";
-			echo -n "     |-->  $2";
-			git config --file "${EACH_GLOBAL_CONFIG}" --replace-all "$1" "$2";
+			echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
+			echo -n "            |-->  $2";
+			git config --file "${EACH_CONFIG}" --replace-all "$1" "$2";
 		done;
 	fi;
 
-	for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
+	echo "";
+	echo "  [ SYSTEM ] - Getting current git configuration values:";
+	for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 		echo "";
-		echo "  [ SYSTEM ] - Getting current setting via [ git config --file \"${EACH_SYSTEM_CONFIG}\" \"$1\"; ]...";
-		echo -n "     |-->  ";
-		git config --file "${EACH_SYSTEM_CONFIG}" "$1";
+		echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
+		echo -n "            |-->  ";
+		git config --file "${EACH_CONFIG}" "$1";
 	done;
 
 	if [ -n "$2" ]; then
-		for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
+		for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 			echo "";
-			echo "  [ SYSTEM ] - Setting new setting via [ git config --file \"${EACH_SYSTEM_CONFIG}\" --replace-all \"$1\" \"$2\"; ]...";
-			echo -n "     |-->  $2";
-			git config --file "${EACH_SYSTEM_CONFIG}" --replace-all "$1" "$2";
+			echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
+			echo -n "            |-->  $2";
+			git config --file "${EACH_CONFIG}" --replace-all "$1" "$2";
 		done;
 	fi;
 

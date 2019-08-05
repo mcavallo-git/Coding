@@ -77,9 +77,16 @@ if [ -n "$1" ] && [ -n "$2" ]; then
 		echo "Calling [ git config --file \"${EACH_SYSTEM_CONFIG}\" --replace-all \"$1\" \"$2\"; ]...";
 		git config --file "${EACH_SYSTEM_CONFIG}" --replace-all "$1" "$2";
 	done;
+else
+	echo "";
+	echo "Call with inline params \$1 and \$2 to apply a config-value to every config-file found";
+	echo "Example:";
+	echo "    > $0 core.autocrlf input";
 fi;
 
 # ------------------------------------------------------------
+
+echo "";
 
 IFS="${ROLLBACK_IFS}"; # Restore the global for-loop delimiter to whatever the value was at the start of this script's runtime
 

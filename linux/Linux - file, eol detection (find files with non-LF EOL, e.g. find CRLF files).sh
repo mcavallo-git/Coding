@@ -6,6 +6,8 @@ INPUT_DIRECTORY="${HOME}/Documents/GitHub/"; # Make sure input-directory ends wi
 OUTPUT_RESULTS_TO="${HOME}/Desktop/non-lf-files.log";
 
 echo "";
+
+echo "";
 echo "  INITIATED FILE-SEARCH";
 echo "    |--> PATTERN:  EOL != LF";
 echo "    |--> PATTERN:  DIR == \"${INPUT_DIRECTORY}\"";
@@ -17,6 +19,7 @@ echo "  COMPLETED FILE-SEARCH";
 echo "    |--> MATCHED:  $(cat \"${OUTPUT_RESULTS_TO}\" | wc -l) File(s)";
 echo "    |--> LOGFILE:  \"${OUTPUT_RESULTS_TO}\"";
 
+echo "";
 
 # ------------------------------------------------------------
 #

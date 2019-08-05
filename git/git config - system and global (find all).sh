@@ -56,6 +56,14 @@ for EACH_DIRECTORY in "${SEARCH_DIRECTORIES[@]}"; do
 done;
 # ------------------------------------------------------------
 
+# Show all EXE files-found
+echo "";
+echo "[EXECUTABLE] git.exe file(s) found:";
+for EACH_EXE in $(cat "${ALL_GIT_EXE_PATHS}"); do
+	echo "  |";
+	echo "  |--> ${EACH_EXE}";
+done;
+
 # Show all SYSTEM configuration files-found
 echo "";
 echo "[SYSTEM] git config file(s) found:";

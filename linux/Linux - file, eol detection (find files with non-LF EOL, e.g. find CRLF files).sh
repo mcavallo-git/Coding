@@ -5,15 +5,15 @@
 INPUT_DIRECTORY="${HOME}/Documents/GitHub/"; # Make sure input-directory ends with a "/" (forward slash)
 OUTPUT_RESULTS_TO="${HOME}/Desktop/non-lf-files.log";
 
-echo -e "\n   SEARCHING FOR...";
-echo -e "\n     FILES MATCHING:  EOL != LF";
-echo -e "\n     IN DIRECTORY:    \"${INPUT_DIRECTORY}\"";
+echo -e "\n   INITIATED FILE-SEARCH";
+echo -e "\n    |--> PATTERN:  EOL != LF";
+echo -e "\n    |--> PATTERN:  DIR == \"${INPUT_DIRECTORY}\"";
 
 find "${INPUT_DIRECTORY}" -not -type d -exec file "{}" ";" | grep 'line terminators' > "${OUTPUT_RESULTS_TO}";
 
-echo -e "\n   SEARCH FINISHED";
-echo -e "\n     FILES MATCHED:  $(cat \"${OUTPUT_RESULTS_TO}\" | wc -l)";
-echo -e "\n     LOGFILE PATH:   \"${OUTPUT_RESULTS_TO}\"";
+echo -e "\n   COMPLETED FILE-SEARCH";
+echo -e "\n    |--> MATCHED:  $(cat \"${OUTPUT_RESULTS_TO}\" | wc -l) File(s)";
+echo -e "\n    |--> LOGFILE:  \"${OUTPUT_RESULTS_TO}\"";
 
 
 # ------------------------------------------------------------

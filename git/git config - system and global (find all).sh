@@ -53,14 +53,14 @@ done;
 
 # Show all SYSTEM configuration files-found
 echo "";
-echo "[ SYSTEM ] Git-Config(s):";
+echo "[ SYSTEM ] git config file(s) found:";
 for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 	echo " ${EACH_SYSTEM_CONFIG}";
 done;
 
 # Show all GLOBAL configuration files-found
 echo "";
-echo "[ GLOBAL ] Git-Config(s):";
+echo "[ GLOBAL ] git config file(s) found:";
 for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 	echo "  ${EACH_GLOBAL_CONFIG}";
 done;

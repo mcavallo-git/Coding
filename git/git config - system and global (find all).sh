@@ -9,6 +9,7 @@
 ROLLBACK_IFS="${IFS}";
 IFS=$'\n'; # Set the global for-loop delimiter to newlines (ignore spaces)
 
+ALL_GIT_EXE_PATHS="${USERPROFILE}/_git_exe_paths.txt";
 ALL_SYSTEM_CONFIGS="${USERPROFILE}/_git_configs.system.txt";
 ALL_GLOBAL_CONFIGS="${USERPROFILE}/_git_configs.globals.txt";
 
@@ -32,6 +33,10 @@ for EACH_DIRECTORY in "${SEARCH_DIRECTORIES[@]}"; do
 
 		EACH_GIT_WIN32=$(realpath "${EACH_GIT_EXE}");
 		EACH_GIT_LINUX=""; MM="${EACH_GIT_WIN32/C:/\/c}"; MM="${MM//\\/\/}"; EACH_GIT_LINUX=$(realpath "${MM}");
+		GIT_EXE_ALREADY_NOTED=$(cat "${ALL_GIT_EXE_PATHS}" | grep "${EACH_GIT_LINUX}");
+		if [ ! -n "${GIT_EXE_ALREADY_NOTED}" ]; then
+			echo "${EACH_GIT_LINUX}" >> "${ALL_GIT_EXE_PATHS}";
+		fi;
 
 		SYSTEM_CONF_PATH=$("${EACH_GIT_LINUX}" config --system --list --show-origin | head -n 1 | sed --regexp-extended --quiet --expression='s/^file\:(.+)\s+(.+)=(.+)$/\1/p');
 		SYSTEM_CONF_LINUX=""; MM="${SYSTEM_CONF_PATH/C:/\/c}"; MM="${MM//\\/\/}"; SYSTEM_CONF_LINUX=$(realpath "${MM}");

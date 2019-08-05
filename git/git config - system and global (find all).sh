@@ -2,7 +2,7 @@
 #
 #	RUN VIA GIT BASH:
 #
-#   "${HOME}/Documents/GitHub/Coding/git/git - find all git.exe configurations (designed to find all git-configs in windows).sh"
+#   "${HOME}/Documents/GitHub/Coding/git/git config - system and global (find all).sh"
 #
 # ------------------------------------------------------------
 
@@ -63,5 +63,24 @@ for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 done;
 
 IFS="${ROLLBACK_IFS}";
+
+
+# ------------------------------------------------------------
+
+# Apply a specific [ git config ] value to each file found, call this script with inline-params $1 and $2 as follows:
+if [ -n "$1" ] && [ -n "$2" ]; then
+	for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
+		echo "Calling [ git config --file \"${EACH_GLOBAL_CONFIG}\" --replace-all \"$1\" \"$2\"; ]...";
+		git config --file "${EACH_GLOBAL_CONFIG}" --replace-all "$1" "$2";
+	done;
+	for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
+		echo "Calling [ git config --file \"${EACH_SYSTEM_CONFIG}\" --replace-all \"$1\" \"$2\"; ]...";
+		git config --file "${EACH_SYSTEM_CONFIG}" --replace-all "$1" "$2";
+	done;
+fi;
+
+# ------------------------------------------------------------
+
+IFS="${ROLLBACK_IFS}"; # Restore the global for-loop delimiter to whatever the value was at the start of this script's runtime
 
 # ------------------------------------------------------------

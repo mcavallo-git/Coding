@@ -62,9 +62,6 @@ for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 	echo "  ${EACH_GLOBAL_CONFIG}";
 done;
 
-IFS="${ROLLBACK_IFS}";
-
-
 # ------------------------------------------------------------
 
 # Apply a specific [ git config ] value to each file found, call this script with inline-params $1 and $2 as follows:

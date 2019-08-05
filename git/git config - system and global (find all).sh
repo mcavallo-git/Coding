@@ -55,14 +55,16 @@ done;
 echo "";
 echo "[SYSTEM] git config file(s) found:";
 for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
-	echo " ${EACH_CONFIG}";
+	echo "  |";
+	echo "  |--> ${EACH_CONFIG}";
 done;
 
 # Show all GLOBAL configuration files-found
 echo "";
 echo "[GLOBAL] git config file(s) found:";
 for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
-	echo "  ${EACH_CONFIG}";
+	echo "  |";
+	echo "  |--> ${EACH_CONFIG}";
 done;
 
 # ------------------------------------------------------------

@@ -71,7 +71,7 @@ done;
 if [ -n "$1" ]; then
 
 	echo "";
-	echo "  [ GLOBAL ] - Getting git configuration values:";
+	echo "  [ GLOBAL ] - Show git configuration value:";
 	for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 		echo "      |";
 		echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
@@ -80,7 +80,7 @@ if [ -n "$1" ]; then
 	done;
 
 	if [ -n "$2" ]; then
-		echo "  [ GLOBAL ] - Setting git configuration values:";
+		echo "  [ GLOBAL ] - Setting git configuration value:";
 		for EACH_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 			echo "      |";
 			echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
@@ -90,7 +90,7 @@ if [ -n "$1" ]; then
 	fi;
 
 	echo "";
-	echo "  [ SYSTEM ] - Getting git configuration values:";
+	echo "  [ SYSTEM ] - Show git configuration value:";
 	for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 		echo "      |";
 		echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";
@@ -99,7 +99,7 @@ if [ -n "$1" ]; then
 	done;
 
 	if [ -n "$2" ]; then
-		echo "  [ SYSTEM ] - Setting git configuration values:";
+		echo "  [ SYSTEM ] - Setting git configuration value:";
 		for EACH_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 			echo "      |";
 			echo    "      |--> $1   (in file: \"${EACH_CONFIG}\")";

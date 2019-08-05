@@ -72,6 +72,7 @@ if [ -n "$1" ] && [ -n "$2" ]; then
 	echo "";
 	for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
 		echo "  [ GLOBAL ] - Getting current setting via [ git config --file \"${EACH_GLOBAL_CONFIG}\" \"$1\"; ]...";
+		echo -n "     |-->  ";
 		git config --file "${EACH_GLOBAL_CONFIG}" "$1";
 	done;
 	for EACH_GLOBAL_CONFIG in $(cat "${ALL_GLOBAL_CONFIGS}"); do
@@ -81,6 +82,7 @@ if [ -n "$1" ] && [ -n "$2" ]; then
 	echo "";
 	for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do
 		echo "  [ SYSTEM ] - Getting current setting via [ git config --file \"${EACH_SYSTEM_CONFIG}\" \"$1\"; ]...";
+		echo -n "     |-->  ";
 		git config --file "${EACH_SYSTEM_CONFIG}" "$1";
 	done;
 	for EACH_SYSTEM_CONFIG in $(cat "${ALL_SYSTEM_CONFIGS}"); do

@@ -40,9 +40,9 @@ Change the line to this one
 #
 # MOTD Feature in Linux - Enable/Disable it
 
-sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
+sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
 
-sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
+sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
 
 
 

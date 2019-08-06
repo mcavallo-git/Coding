@@ -1,7 +1,7 @@
 <!-- ------------------------------------------------------------ -->
 
 <h1>Coding</h1>
-<h6><i>See directories (above, on GitHub) on a per-software basis</i></h6>
+<h6><i>Scripts for Runtime, Maintenance, etc.</i></h6>
 
 <!-- ------------------------------------------------------------ -->
 

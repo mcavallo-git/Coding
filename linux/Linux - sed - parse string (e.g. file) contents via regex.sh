@@ -17,11 +17,15 @@ fi;
 
 # ------------------------------------------------------------
 # 
-# Add line before & after line via sed, and change the line as-well
+# sed comes with prebuilt methods to:
+#		Add [lines of] text BEFORE the matched-text
+#		Add [lines of] text AFTER the matched-text
+#		Modify the matched-text, including  modifying it to be [blank] to erase it entirely
+#		 |--> Additionally, you can use 'c\' to change the entire line that the matched-text was on
 #
-#!/bin/sh
+
 sed '
-/WORD/ {
+/MATCH THIS TEXT/ {
 i\
 Add this line before
 a\
@@ -29,6 +33,16 @@ Add this line after
 c\
 Change the line to this one
 }';
+
+
+
+# ------------------------------------------------------------
+#
+# MOTD Feature in Linux - Enable/Disable it
+
+sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
+
+sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
 
 
 

@@ -46,7 +46,7 @@ function GitSyncAll {
 	$ReposFetched = @();
 	$ReposPulled = @();
 
-	If ($PSBoundParameters.ContainsKey("Action")===$False) {
+	If ($PSBoundParameters.ContainsKey("Action") -Eq $False) {
 		$Action ="Fetch";
 	}
 
@@ -90,7 +90,7 @@ function GitSyncAll {
 			Set-Location -Path ${EachRepoDirFullpath};
 			$GitSyncPadding = ((${EachRepoDirBasename}.Length)+(2));
 
-			If (($Action -eq "Pull") -Or ($PSBoundParameters.ContainsKey("Pull")===$True)) {
+			If (($Action -eq "Pull") -Or ($PSBoundParameters.ContainsKey("Pull") -Eq $True)) {
 
 				# Fetch + pull repositories
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Pulling updates for repository `"";
@@ -109,7 +109,7 @@ function GitSyncAll {
 				}
 				# Write-Host "$($MyInvocation.MyCommand.Name) - Fetch + pull complete." -ForegroundColor Green;
 				
-			} ElseIf (($Action -eq "Fetch") -Or ($PSBoundParameters.ContainsKey("Fetch")===$True)) {
+			} ElseIf (($Action -eq "Fetch") -Or ($PSBoundParameters.ContainsKey("Fetch") -Eq $True)) {
 
 
 				# Fetch updates, only (no pull)

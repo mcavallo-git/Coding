@@ -15,18 +15,13 @@ SET TARGET_DOMAIN=%USERDOMAIN%
 
 
 REM
-REM Get the current Date & Time
+REM Get the Start Date & Time
 REM
 FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET START_DATETIME=%START_DATETIME%%%F
 FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET START_DATETIME=%START_DATETIME%%%F
-
-
-REM
-REM	Welcome message
-REM
 ECHO. >> %LOGFILE% 2>&1
 ECHO. >> %LOGFILE% 2>&1
-ECHO Starting Script @ %TIMESTAMP% >> %LOGFILE% 2>&1
+ECHO Starting Script @ %START_DATETIME% >> %LOGFILE% 2>&1
 
 
 REM
@@ -34,14 +29,16 @@ REM	Inline-Parameter #1 --> Add task before logging off which is ending a specif
 REM
 SET IMAGENAME_TO_KILL=
 IF NOT "%1"=="" (
+REM IF [%1] EQU [] ECHO Value Missing 
+REM IF [%1] NEQ [] (
 	SET IMAGENAME_TO_KILL=%1
 )
 
 
+REM ------------------------------------------------------------
 REM
 REM	Set current Session-ID as the target Session-ID
 REM
-SET TARGET_SESSION_ID=NOTFOUND
 FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_UNAME%') DO (
 	@IF "%%b"=="Active" (
 		ECHO Calling [ SET TARGET_SESSION_ID=%%a ]... >> %LOGFILE% 2>&1
@@ -53,52 +50,63 @@ FOR /F "tokens=3-4" %%a IN ('QUERY SESSION %TARGET_UNAME%') DO (
 REM
 REM	Determine if target User is logged-in or not (based on whether we were able to obtain a Session-ID, or not)
 REM
-IF NOT %TARGET_SESSION_ID%==NOTFOUND (
+IF NOT "%TARGET_SESSION_ID%"=="" (
+
 
 	REM
 	REM	End processes for sessions started by target-user
 	REM
 	IF NOT "%IMAGENAME_TO_KILL%"=="" (
 		ECHO Calling [ TASKKILL /F /FI "USERNAME eq %TARGET_DOMAIN%\%TARGET_UNAME%" /FI "IMAGENAME eq %IMAGENAME_TO_KILL%" ]... >> %LOGFILE% 2>&1
-			TASKKILL /F /FI "USERNAME eq %TARGET_DOMAIN%\%TARGET_UNAME%" /FI "IMAGENAME eq %IMAGENAME_TO_KILL%"
+		TASKKILL /F /FI "USERNAME eq %TARGET_DOMAIN%\%TARGET_UNAME%" /FI "IMAGENAME eq %IMAGENAME_TO_KILL%"
 		TIMEOUT /T 1
 	)
 
-	REM	Lock the Session for [target-user]
-	REM	  |--> Visually depicted the same as if they selected 'lock' (from the start menu) on a local Windows workstation
-	ECHO Calling [ RUNDLL32 USER32.DLL,LockWorkStation ]... >> %LOGFILE% 2>&1
-		RUNDLL32 USER32.DLL,LockWorkStation >> %LOGFILE% 2>&1
-	TIMEOUT /T 1
 
-	REM	 Kill the RDP Session (Closes the Remote-Deskop window on the Client's End)
-	ECHO Calling [ TSDISCON %TARGET_SESSION_ID% ]... >> %LOGFILE% 2>&1
-		TSDISCON %TARGET_SESSION_ID% >> %LOGFILE% 2>&1
+	REM
+	REM REM REM	Lock the Session for [target-user]
+	REM REM REM	  |--> Visually depicted the same as if they selected 'lock' (from the start menu) on a local Windows workstation
+	REM ECHO Calling [ RUNDLL32 USER32.DLL,LockWorkStation ]... >> %LOGFILE% 2>&1
+	REM RUNDLL32 USER32.DLL,LockWorkStation >> %LOGFILE% 2>&1
+	REM TIMEOUT /T 1
+	REM
+	REM REM REM	 Kill the RDP Session (Closes the Remote-Deskop window on the Client's End)
+	REM ECHO Calling [ TSDISCON %TARGET_SESSION_ID% ]... >> %LOGFILE% 2>&1
+	REM TSDISCON %TARGET_SESSION_ID% >> %LOGFILE% 2>&1
+	REM
+)
+REM ------------------------------------------------------------
+
+
+REM
+REM Get the End Date & Time
+REM
+FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET END_DATETIME=%END_DATETIME%%%F
+FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET END_DATETIME=%END_DATETIME%%%F
+
+
+IF "%TARGET_SESSION_ID%"=="" (
+
+	REM
+	REM Logoff (current user)
+	REM
+	ECHO End of Script @ %END_DATETIME% - Calling [ %SystemRoot%\System32\logoff.exe /V ]... >> %LOGFILE% 2>&1
+	%SystemRoot%\System32\logoff.exe /V >> %LOGFILE% 2>&1
+
+) ELSE (
 
 	REM
 	REM	Logoff (target user)
 	REM	  |--> Add a small wait-period before logging-off (to allow startup processes to complete as-intended)
 	REM	        |--> Use-Case: Log-on followed immediately by a log-off
 	REM
-	TIMEOUT /T 30
-	ECHO Calling [ %SystemRoot%\System32\logoff.exe %TARGET_SESSION_ID% /V ]... >> %LOGFILE% 2>&1
-		%SystemRoot%\System32\logoff.exe %TARGET_SESSION_ID% /V >> %LOGFILE% 2>&1
 
-) ELSE (
 
-	REM
-	REM Logoff (current user)
-	REM
-	ECHO Calling [ %SystemRoot%\System32\logoff.exe /V ]... >> %LOGFILE% 2>&1
-		%SystemRoot%\System32\logoff.exe /V >> %LOGFILE% 2>&1
+	REM TIMEOUT /T 30
+	ECHO End of Script @ %END_DATETIME% - Calling [ %SystemRoot%\System32\logoff.exe %TARGET_SESSION_ID% /V ]... >> %LOGFILE% 2>&1
+	%SystemRoot%\System32\logoff.exe %TARGET_SESSION_ID% /V >> %LOGFILE% 2>&1
 
 )
-
-
-REM
-REM Get the current Date & Time
-REM
-FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET END_DATETIME=%END_DATETIME%%%F
-FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET END_DATETIME=%END_DATETIME%%%F
 
 
 REM
@@ -106,8 +114,7 @@ REM	Farewell message
 REM
 ECHO. >> %LOGFILE% 2>&1
 ECHO. >> %LOGFILE% 2>&1
-ECHO Finished Script @ %TIMESTAMP% >> %LOGFILE% 2>&1
-
+ECHO Finished Script @ %END_DATETIME% >> %LOGFILE% 2>&1
 
 
 REM

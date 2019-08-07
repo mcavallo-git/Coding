@@ -10,20 +10,18 @@ function GitSyncAll {
 
 		[String]$Directory = ("${HOME}"),
 
-		[Int]$Depth = 3,
+		[Int]$ConfigSearchDepth = 3,
 
-		[ValidateSet("Fetch","Pull")]
 		[String]$Action = "Pull",
+		[Switch]$Fetch,
+		[Switch]$Pull,
 
 		[ValidateSet("SSH","HTTPS")]
 		[String]$SetOriginNotation = "SSH",
 
 		[Switch]$Quiet
-
 	
 	)
-	
-	$Depth_GitConfigFile = ($Depth+2);
 
 	$CommandName="git";
 
@@ -43,10 +41,14 @@ function GitSyncAll {
 
 	### Only go to a given depth to find Git-Repo directories within the ${Directory}
 	Write-Host "$($MyInvocation.MyCommand.Name) - Task: Searching `"${Directory}`" for git repositories...";
-	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${Depth_GitConfigFile}) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
+	$RepoFullpathsArr = (Get-ChildItem -Path "${Directory}" -Filter "config" -Depth (${ConfigSearchDepth}+2) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent; } );
 
 	$ReposFetched = @();
 	$ReposPulled = @();
+
+	If ($PSBoundParameters.ContainsKey("Action")===$False) {
+		$Action ="Fetch";
+	}
 
 	If ($RepoFullpathsArr.Length -gt 0) {
 
@@ -88,7 +90,8 @@ function GitSyncAll {
 			Set-Location -Path ${EachRepoDirFullpath};
 			$GitSyncPadding = ((${EachRepoDirBasename}.Length)+(2));
 
-			If ($Action -eq "Pull") {
+			If (($Action -eq "Pull") -Or ($PSBoundParameters.ContainsKey("Pull")===$True)) {
+
 				# Fetch + pull repositories
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
@@ -106,7 +109,9 @@ function GitSyncAll {
 				}
 				# Write-Host "$($MyInvocation.MyCommand.Name) - Fetch + pull complete." -ForegroundColor Green;
 				
-			} ElseIf ($Action -eq "Fetch") {
+			} ElseIf (($Action -eq "Fetch") -Or ($PSBoundParameters.ContainsKey("Fetch")===$True)) {
+
+
 				# Fetch updates, only (no pull)
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Fetching updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;

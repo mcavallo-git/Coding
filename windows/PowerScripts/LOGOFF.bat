@@ -1,1 +1,2 @@
-SHUTDOWN -L -F
+REM SHUTDOWN -L -F
+logoff.exe

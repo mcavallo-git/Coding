@@ -33,7 +33,7 @@
 
 * ```.```   refer to 'Reserved Characters' section
 
-* Note: Perl-Style regular expressions syntax considers the following characters as 'Special' characters, which the dot wildcard will likely NOT match: .|*+?()[]{-\^$
+* Note: Perl-Style regular expressions syntax considers the following characters as 'Special' characters, which the dot wildcard will likely NOT match any character in the set ```.|*+?()[]{-\^$```  (which, with escapes, is ```\.\|\*\+\?\(\)\[\]\{\-\^\$\>\\``` )
 
 
 

@@ -90,7 +90,11 @@ IF "%TARGET_SESSION_ID%"=="" (
 	REM
 	REM Logoff (current user)
 	REM
-	ECHO End of Script @ %END_DATETIME% - Calling [ %SystemRoot%\System32\logoff.exe /V ]... >> %LOGFILE% 2>&1
+
+	ECHO Calling [ 		TASKKILL /F /FI "USERNAME eq %USERNAME%" ]... >> %LOGFILE% 2>&1
+	TASKKILL /F /FI "USERNAME eq %USERNAME%"
+
+	ECHO End of Script @ %END_DATETIME% - Final call to [ %SystemRoot%\System32\logoff.exe /V ]... >> %LOGFILE% 2>&1
 	%SystemRoot%\System32\logoff.exe /V >> %LOGFILE% 2>&1
 
 ) ELSE (
@@ -102,9 +106,11 @@ IF "%TARGET_SESSION_ID%"=="" (
 	REM
 
 
-	REM TIMEOUT /T 30
-	ECHO End of Script @ %END_DATETIME% - Calling [ %SystemRoot%\System32\logoff.exe %TARGET_SESSION_ID% /V ]... >> %LOGFILE% 2>&1
-	%SystemRoot%\System32\logoff.exe %TARGET_SESSION_ID% /V >> %LOGFILE% 2>&1
+	ECHO Calling [ 		TASKKILL /F /FI "USERNAME eq %USERNAME%" ]... >> %LOGFILE% 2>&1
+	TASKKILL /F /FI "USERNAME eq %USERNAME%"
+
+	ECHO End of Script @ %END_DATETIME% - Final call to [ %SystemRoot%\System32\logoff.exe %USER_SESSION_ID% /V ]... >> %LOGFILE% 2>&1
+	%SystemRoot%\System32\logoff.exe %USER_SESSION_ID% /V >> %LOGFILE% 2>&1
 
 )
 

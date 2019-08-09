@@ -1,4 +1,4 @@
-
+#!/bin/sh
 
 # UPDATED_METHOD
 

@@ -83,6 +83,7 @@ REM
 FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET END_DATETIME=%END_DATETIME%%%F
 FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET END_DATETIME=%END_DATETIME%%%F
 
+REM Disable the screen which prevents logoff by requesting confirmation of 'This App is Preventing Shutdown or Restart', etc.
 ECHO Calling [ REG ADD "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t "REG_SZ" /d "1" /f ]... >> %LOGFILE% 2>&1
 REG ADD "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t "REG_SZ" /d "1" /f
 

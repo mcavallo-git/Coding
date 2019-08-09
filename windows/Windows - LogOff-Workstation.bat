@@ -84,6 +84,8 @@ REM
 FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET END_DATETIME=%END_DATETIME%%%F
 FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET END_DATETIME=%END_DATETIME%%%F
 
+ECHO Calling [ REG ADD "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t "REG_SZ" /d "1" /f ]... >> %LOGFILE% 2>&1
+REG ADD "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t "REG_SZ" /d "1" /f
 
 IF "%TARGET_SESSION_ID%"=="" (
 
@@ -91,8 +93,8 @@ IF "%TARGET_SESSION_ID%"=="" (
 	REM Logoff (current user)
 	REM
 
-	ECHO Calling [ 		TASKKILL /F /FI "USERNAME eq %USERNAME%" ]... >> %LOGFILE% 2>&1
-	TASKKILL /F /FI "USERNAME eq %USERNAME%"
+	REM ECHO Calling [ TASKKILL /F /FI "USERNAME eq %TARGET_UNAME%" ]... >> %LOGFILE% 2>&1
+	REM TASKKILL /F /FI "USERNAME eq %TARGET_UNAME%"
 
 	ECHO End of Script @ %END_DATETIME% - Final call to [ %SystemRoot%\System32\logoff.exe /V ]... >> %LOGFILE% 2>&1
 	%SystemRoot%\System32\logoff.exe /V >> %LOGFILE% 2>&1
@@ -105,9 +107,8 @@ IF "%TARGET_SESSION_ID%"=="" (
 	REM	        |--> Use-Case: Log-on followed immediately by a log-off
 	REM
 
-
-	ECHO Calling [ 		TASKKILL /F /FI "USERNAME eq %USERNAME%" ]... >> %LOGFILE% 2>&1
-	TASKKILL /F /FI "USERNAME eq %USERNAME%"
+	REM ECHO Calling [ TASKKILL /F /FI "USERNAME eq %TARGET_UNAME%" ]... >> %LOGFILE% 2>&1
+	REM TASKKILL /F /FI "USERNAME eq %TARGET_UNAME%
 
 	ECHO End of Script @ %END_DATETIME% - Final call to [ %SystemRoot%\System32\logoff.exe %USER_SESSION_ID% /V ]... >> %LOGFILE% 2>&1
 	%SystemRoot%\System32\logoff.exe %USER_SESSION_ID% /V >> %LOGFILE% 2>&1

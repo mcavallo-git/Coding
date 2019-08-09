@@ -130,10 +130,6 @@ ClearSplashText(TimerPeriod) {
 ;
 #Z::
 
-
-	WinActivate, Program Manager
-
-
 	Gui, WindowSpecs:Default
 
 	WinGetActiveStats, Title, Width, Height, Left, Top
@@ -597,9 +593,10 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-#L::
-	LockWorkstation()
-	Return
+; #;::
+	; LockWorkstation()
+	; ShowScreenSaver()
+	; Return
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + N
@@ -1528,14 +1525,16 @@ StrLenUnicode(data) {
 LockWorkstation() { 
 	DllCall("LockWorkStation")  ; Lock the Computer
 	Sleep 1000
-	SendMessage, 0x112, 0xF170, 2, , Program Manager  ; 0x112=WM_SYSCOMMAND, 0xF170=SCMONITORPOWER 
-	SendMessage, 0x112, 0xF140, 0, , Program Manager  ; 0x112=WM_SYSCOMMAND, 0xF140=SC_SCREENSAVE
-	; 0x112  = WM_SYSCOMMAND, 0xF170 = SC_MONITORPOWER <--"-1":"turn the monitor(s) on", "1":"activate low-power-mode on the monitor(s)", "2":"turn the monitor(s) off"
+	SendMessage, 0x112, 0xF170, 2, , Program Manager  ; 0x112=WM_SYSCOMMAND, 0xF170=SCMONITORPOWER = {
+		                                                                          ; "-1":"turn the monitor(s) on"monitor(s) off"}
+		                                                                          ; "1":"activate low-power-mode on the monitor(s)"
+		                                                                          ; "2":"turn the monitor(s) off"
+		                                                                     ;}
 	Return
 }
 
 ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#Examples
-	SendMessage, 0x112, 0xF140, 0,, Program Manager  ; 0x112 is WM_SYSCOMMAND, and 0xF140 is SC_SCREENSAVE.
+	SendMessage, 0x112, 0xF140, 0,, Program Manager  ; 0x112 is WM_SYSCOMMAND, and 0xF140 is SC_SCREENSAVE
 	Return
 }
 

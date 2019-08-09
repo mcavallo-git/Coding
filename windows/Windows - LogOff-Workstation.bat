@@ -19,8 +19,7 @@ REM Get the Start Date & Time
 REM
 FOR /F "tokens=* USEBACKQ" %%F IN (`DATE /T`) DO SET START_DATETIME=%START_DATETIME%%%F
 FOR /F "tokens=* USEBACKQ" %%F IN (`TIME /T`) DO SET START_DATETIME=%START_DATETIME%%%F
-ECHO. >> %LOGFILE% 2>&1
-ECHO. >> %LOGFILE% 2>&1
+
 ECHO Starting Script @ %START_DATETIME% >> %LOGFILE% 2>&1
 
 
@@ -117,15 +116,6 @@ IF "%TARGET_SESSION_ID%"=="" (
 
 
 REM
-REM	Farewell message
-REM
-ECHO. >> %LOGFILE% 2>&1
-ECHO. >> %LOGFILE% 2>&1
-ECHO Finished Script @ %END_DATETIME% >> %LOGFILE% 2>&1
-
-
-REM
-REM		Created by Matt Cavallo <mcavallo@boneal.com>
 REM		Changelog  |  2016-09-29  |  Created script
 REM		Changelog  |  2018-11-28  |  Added target Domain\User implementation
 REM		Changelog  |  2018-12-12  |  Generalized IMAGENAME_TO_KILL as parameter #1
@@ -133,3 +123,12 @@ REM		Changelog  |  2019-08-02  |  Replaced 'SHUTDOWN /L /F' with 'logoff.exe' im
 REM		Changelog  |  2019-08-02  |  Added logging to disk
 REM		Changelog  |  2019-08-02  |  Added TIMESTAMP to output
 REM
+
+
+REM	------------------------------------------------------------
+REM
+REM	Citation(s)
+REM
+REM		askvg.com  |  "Disable 'This App is Preventing Shutdown or Restart' Screen"  |  https://www.askvg.com/windows-tip-disable-this-app-is-preventing-shutdown-or-restart-screen
+REM
+REM	------------------------------------------------------------

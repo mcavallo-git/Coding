@@ -89,15 +89,15 @@ function GitSyncAll {
 
 			Set-Location -Path ${EachRepoDirFullpath};
 			$GitSyncPadding = ((${EachRepoDirBasename}.Length)+(2));
-
 			If (($Action -eq "Pull") -Or ($PSBoundParameters.ContainsKey("Pull") -Eq $True)) {
 
-				# Fetch + pull repositories
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
 				Write-Host -NoNewline (("`"...") + ((" ").PadRight((${GitSyncPadding}-${EachRepoDirBasename}.Length), ' ')));
+				# Fetch Repository
 				$fetcher = (git fetch);
 				$ReposFetched += ${EachRepoDirBasename};
+				# Pull Repository 
 				$puller = (git pull);
 				$ReposPulled += ${EachRepoDirBasename};
 				If ($puller -is [String]) {
@@ -111,7 +111,6 @@ function GitSyncAll {
 				
 			} ElseIf (($Action -eq "Fetch") -Or ($PSBoundParameters.ContainsKey("Fetch") -Eq $True)) {
 
-
 				# Fetch updates, only (no pull)
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Fetching updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
@@ -124,6 +123,12 @@ function GitSyncAll {
 				Write-Host "Unhandled Value for Parameter `$Action: `"$($Action)`" " -ForegroundColor Yellow;
 
 			}
+
+			# Compress the Repo's database
+			Set-Location -Path ${EachRepoDirFullpath};
+			git gc --auto;
+			# git gc --auto --quiet;
+
 		}
 	
 		Write-Host "`n`n$($MyInvocation.MyCommand.Name) - All Repositories $($Action)ed" -ForegroundColor Green;

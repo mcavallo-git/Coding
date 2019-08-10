@@ -126,8 +126,6 @@ function GitSyncAll {
 
 			# Compress the Repo's database
 			Set-Location -Path ${EachRepoDirFullpath};
-			# git gc --auto;
-			# git gc --quiet;
 			git gc;
 
 		}

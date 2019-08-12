@@ -39,19 +39,23 @@ $RegexPattern_WLAN_NETSH_State = '^\s*State\s+:\s+(.+)$';
 
 # ------------------------------------------------------------
 
-$RegexPattern_NIC_WMIC = '^([a-zA-Z]+)=(.+)$';
+$RegexPattern_NIC_WMIC = '^([a-zA-Z]+)=(.*)$';
 
-$RegexPattern_Delimiter_WMIC = '^\s*$';
+$Each_NIC_WMIC = @{};
 
-$Each_NIC_WMIC = @();
 $Interfaces_NIC_WMIC | ForEach {
 	$Matches_NIC_WMIC = [Regex]::Match($_, $RegexPattern_NIC_WMIC);
-
 	If ($Matches_NIC_WMIC.Success -Ne $False) {
-
+		$EachKey = $Matches_NIC_WMIC.Groups[1].Value;
+		$EachVal = $Matches_NIC_WMIC.Groups[2].Value;
+		$Each_NIC_WMIC.($EachKey) = $EachVal;
+		If ($EachKey -Eq "WINSSecondaryServer") {
+			$Connections_NIC_WMIC += $Each_NIC_WMIC;
+			$Each_NIC_WMIC = @{};
+		}
 	}
-
 }
+# WINSSecondaryServer   <- LAST KEY
 
 $Interfaces_NIC_NETSH | ForEach {
 	$Matches_NIC_NETSH = [Regex]::Match($_, $RegexPattern_NIC_NETSH);
@@ -94,17 +98,30 @@ $Interfaces_NIC_NETSH | ForEach {
 }
 
 
-# Show WLAN (Wi-Fi) adapters
+# ------------------------------------------------------------
+
 Write-Output "------------------------------------------------------------";
 Write-Output "Connections_WLAN_NETSH:";
 $Connections_WLAN_NETSH | Format-List;
 Write-Output "============================================================";
+
+# ------------------------------------------------------------
 
 Write-Output "------------------------------------------------------------";
 Write-Output "Profiles_WLAN:";
 $Profiles_WLAN;
 Write-Output "============================================================";
 
+# ------------------------------------------------------------
+
+Write-Output "Connections_NIC_WMIC:";
+$Connections_NIC_WMIC | ForEach {
+	Write-Output "------------------------------------------------------------";
+	# $_ | Format-List;
+	$_ | Format-Table;
+	Write-Output "============================================================";
+}
+$Connections_NIC_WMIC.Length;
 
 # Show Wi-Fi (WLAN) adapters
 # netsh.exe wlan show interfaces;

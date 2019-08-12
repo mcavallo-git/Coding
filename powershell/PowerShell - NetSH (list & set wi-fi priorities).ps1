@@ -1,52 +1,91 @@
 
 # IN-PROGRESS AS-OF 2019-08-08_17-22-25
+# IN-PROGRESS AS-OF 2019-08-12_15-46-39
 
-$WAN_Connections = @();
-$WiFi_Connections = @();
+$NIC_Connections = @();
+$WLAN_Connections = @();
 
-# Show All Network adapters
-# netsh.exe int ipv4 show interfaces
+# Show all network interfaces
+$Interfaces_NIC = (netsh.exe int ipv4 show interfaces);
+
+$RegexPattern_NIC = '';
+$RegexPattern_NIC = $RegexPattern_NIC + '^'; # Start Regex Pattern
+$RegexPattern_NIC = $RegexPattern_NIC + '\s+([0-9]+)'; # Capture the col-1 (Idx)
+$RegexPattern_NIC = $RegexPattern_NIC + '\s+([0-9]+)'; # Capture the col-2 (Met)
+$RegexPattern_NIC = $RegexPattern_NIC + '\s+([0-9]+)'; # Capture the col-3 (MTU)
+$RegexPattern_NIC = $RegexPattern_NIC + '\s+(\S+)'; # Capture the col-4 (State)
+$RegexPattern_NIC = $RegexPattern_NIC + '\s+(.+)'; # Capture col-5 (Name - the remainder at the end of the table, including spaces)
+$RegexPattern_NIC = $RegexPattern_NIC + '$'; # End Regex Pattern
 
 
-# "Haystack", aka the string to parse (may have newlines aplenty)
-# $Haystack = netsh.exe wlan show interfaces;
-$Haystack = netsh.exe int ipv4 show interfaces;
-$RegexPattern = '';
-$RegexPattern = $RegexPattern + '^'; # Start Regex Pattern
-$RegexPattern = $RegexPattern + '\s+([0-9]+)'; # Capture the col-1 (Idx)
-$RegexPattern = $RegexPattern + '\s+([0-9]+)'; # Capture the col-2 (Met)
-$RegexPattern = $RegexPattern + '\s+([0-9]+)'; # Capture the col-3 (MTU)
-$RegexPattern = $RegexPattern + '\s+(\S+)'; # Capture the col-4 (State)
-$RegexPattern = $RegexPattern + '\s+(.+)'; # Capture col-5 (Name - the remainder at the end of the table, including spaces)
-$RegexPattern = $RegexPattern + '$'; # End Regex Pattern
+# Show WLAN (Wi-Fi) network interfaces
+$Interfaces_WLAN = (netsh.exe wlan show interfaces);
+$Profiles_WLAN = (netsh.exe wlan show profiles);
 
-Write-Output "RegexPattern:"; ${RegexPattern};
-netsh.exe int ipv4 show interfaces | ForEach {
-	$Haystack = $_;
-	$Matches = [Regex]::Match($Haystack, $RegexPattern); # Parse through the "Haystack", looking for the "Matches"
+$RegexPattern_WLAN_Description = '^\s*Description\s+:\s+(.+)$';
+$RegexPattern_WLAN_Name = '^\s*Name\s+:\s+(.+)$';
+$RegexPattern_WLAN_MAC = '^\s*Physical address\s+:\s+(.+)$';
+$RegexPattern_WLAN_State = '^\s*State\s+:\s+(.+)$';
 
-	Write-Output "------------------------------------------------------------";
-	Write-Output "Haystack:"; Write-Output ${Haystack};
-	Write-Output "Matches:"; Write-Output ${Matches};
+$Interfaces_NIC | ForEach {
+	$Matches_NIC = [Regex]::Match($_, $RegexPattern_NIC);
+	If ($Matches_NIC.Success -Ne $False) {
+		$Idx_NIC = $Matches_NIC.Groups[1].Value;
+		$State_NIC = $Matches_NIC.Groups[4].Value;
+		$Name_NIC = $Matches_NIC.Groups[5].Value;
+		If ($State_NIC -Eq "connected") {
+			$Each_NIC = @{};
+			$Each_NIC.Idx = $Idx_NIC;
+			$Each_NIC.State = $State_NIC;
+			$Each_NIC.Name = $Name_NIC;
 
-	# If ($Matches.Success -ne $False) {
-	# 	$Matches.Groups[1].Value;
-	# 	$Matches.Groups[4].Value;
-	# 	$Matches.Groups[5].Value;
-	# }
+			$Interfaces_WLAN | ForEach {
+				$Matches_WLAN_Description = [Regex]::Match($_, $RegexPattern_WLAN_Description);
+				$Matches_WLAN_Name = [Regex]::Match($_, $RegexPattern_WLAN_Name);
+				$Matches_WLAN_MAC = [Regex]::Match($_, $RegexPattern_WLAN_MAC);
+				$Matches_WLAN_State = [Regex]::Match($_, $RegexPattern_WLAN_State);
+				If ($Matches_WLAN_Description.Success -Ne $False) {
+					$Description_WLAN = $Matches_WLAN_Description.Groups[1].Value;
+				} ElseIf ($Matches_WLAN_Name.Success -Ne $False) {
+					$Name_WLAN = $Matches_WLAN_Name.Groups[1].Value;
+				} ElseIf ($Matches_WLAN_MAC.Success -Ne $False) {
+					$MAC_WLAN = $Matches_WLAN_MAC.Groups[1].Value;
+				} ElseIf ($Matches_WLAN_State.Success -Ne $False) {
+					$State_WLAN = $Matches_WLAN_State.Groups[1].Value;
+				} 
+			}
+
+			If ($Each_NIC.Name -Eq $Name_WLAN) {
+				If ($Each_NIC.State -Eq $State_WLAN) {
+					$Each_NIC.MAC = $MAC_WLAN;
+					$Each_NIC.Description = $Description_WLAN;
+
+					$WLAN_Connections += $Each_NIC;
+				}
+			}
+		}
+	}
 
 }
 
+
+# Show WLAN (Wi-Fi) adapters
+Write-Output "------------------------------------------------------------";
+Write-Output "WLAN_Connections:";
+$WLAN_Connections | Format-List;
+Write-Output "============================================================";
+
+
 # Show Wi-Fi (WLAN) adapters
-netsh.exe wlan show interfaces
+# netsh.exe wlan show interfaces;
 
 # Show Wi-Fi SSIDs along with how they're currently prioritized
-netsh.exe wlan show profiles
+# netsh.exe wlan show profiles;
 
-netsh.exe wlan show interfaces | FINDSTR /R "^\s*Description\s*:\s*.+$"
+# netsh.exe wlan show interfaces | FINDSTR /R "^\s*Description\s*:\s*(.+)\n";
+#    Description            : Intel(R) Wireless-AC 1234 123MHz
 
-
-netsh.exe wlan show profiles
+# netsh.exe wlan show profiles;
 
 # NETSH WLAN SET profileorder name="wlan_primary" interface="Wi-Fi 2" priority=1
 

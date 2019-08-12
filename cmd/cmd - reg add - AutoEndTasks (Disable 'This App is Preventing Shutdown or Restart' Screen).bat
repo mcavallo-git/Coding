@@ -1,9 +1,23 @@
 @ECHO OFF
 
-ECHO Calling [ REG ADD "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t "REG_SZ" /d "1" /f ]...
+SET KeyName=HKCU\Control Panel\Desktop
+SET ValueName=AutoEndTasks
+SET DataType=REG_SZ
+SET DataValue=1
 
+ECHO.
+ECHO --- Calling [ REG QUERY "%KeyName%" /v "%ValueName%" ] (Before Update)...
+REG QUERY  "%KeyName%" /v "AutoEndTasks"
+
+ECHO.
+ECHO --- Calling [ REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%DataValue%" /f ]...
 REG ADD "HKCU\Control Panel\Desktop" /v "AutoEndTasks" /t "REG_SZ" /d "1" /f
 
+ECHO.
+ECHO --- Calling [ REG QUERY "%KeyName%" /v "%ValueName%" ]  (After Update)...
+REG QUERY  "%KeyName%" /v "AutoEndTasks"
+
+TIMEOUT /T 30
 
 REM	------------------------------------------------------------
 REM

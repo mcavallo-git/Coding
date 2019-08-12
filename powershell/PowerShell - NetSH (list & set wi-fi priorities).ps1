@@ -117,8 +117,7 @@ Write-Output "============================================================";
 Write-Output "Connections_NIC_WMIC:";
 $Connections_NIC_WMIC | ForEach {
 	Write-Output "------------------------------------------------------------";
-	# $_ | Format-List;
-	$_ | Format-Table;
+	$_ | Sort-Object "Name" | Format-Table;
 	Write-Output "============================================================";
 }
 $Connections_NIC_WMIC.Length;

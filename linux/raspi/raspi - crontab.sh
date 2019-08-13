@@ -29,3 +29,5 @@
 05 4 * * 0 sudo update_dns_config;
 
 10 4 * * 0 sudo update_system;
+
+H * * * * sudo sync_cloud_infrastructure;

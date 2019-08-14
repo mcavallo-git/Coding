@@ -799,7 +799,7 @@ WheelRight::
 ;
 #C::
 	; ------------------------------------------------------------
-	; OpenChrome()
+	OpenChrome()
 	; TabSpace_Loop(50)
 	Return
 ;

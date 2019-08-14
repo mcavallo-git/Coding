@@ -1,0 +1,9 @@
+# Editor configuration, see http://editorconfig.org
+# Options https://editorconfig-specification.readthedocs.io/en/latest/
+
+root = true
+
+[*]
+charset = utf-8
+indent_style = spaces
+indent_size = 2

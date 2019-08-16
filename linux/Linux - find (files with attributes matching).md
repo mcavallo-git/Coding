@@ -39,7 +39,7 @@
 
 
 ***
-### Match Name (case-INsensitive) - Find Folders within another directory which match a given, case-insensitive string (no recursion)
+### No-Recursion - Limit matched results to a specific depth of sub-directories - using a maxdepth of 1 only searches within the given directory
 ```
 
 find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;

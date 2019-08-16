@@ -217,7 +217,7 @@ file -bi '/var/log/nginx/error.log';
 
 
 ***
-### Delete items within a directory older than X days
+### Example - Delete items within a directory older than X days
 #####  ex) Cleanup NGINX Logs
 ```
 DIRECTORY_TO_CLEAN="/var/log/nginx/";

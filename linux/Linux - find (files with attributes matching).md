@@ -1,27 +1,45 @@
 # Linux - find (command)
 
+
+
 ***
-### Basic 'find' (file-search) examples
-```
-
-find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only
-
-find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only
-
-find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search
-
-find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search
-
-find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'
-
-find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]
-
-```
+### Name - Match using case SENSITIVE search
+```find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search```
 
 
 
 ***
-### Find Folders within another directory which match a given, case-insensitive string (no recursion)
+### Name - Match using case INsensitive search
+```find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search```
+
+
+
+***
+### Filetype - Match Files, only
+```find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only```
+
+
+
+***
+### Filetype - Match Directories, only
+```find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only```
+
+
+
+***
+### Ignore Path - Exclude a given sub-directory or filepath from returned results
+```find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'```
+
+
+
+***
+### Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)
+```find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'```
+
+
+
+***
+### Match Name (case-INsensitive) - Find Folders within another directory which match a given, case-insensitive string (no recursion)
 ```
 
 find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
@@ -31,7 +49,7 @@ find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
 
 
 ***
-### Find Files in a given directory while IGNORING a given sub-directory
+### Ignore Sub-Directory - Find Files in a given directory while IGNORING a given sub-directory
 ```
 
 find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/jenkins/workspace/*";
@@ -41,7 +59,7 @@ find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/j
 
 
 ***
-### Get the total number of files within a given directory & its sub-directories
+### Count Files - Count the total number of files within a given directory & its sub-directories
 ```
 
 find "/var/log" -type 'f' -name "*" | wc -l;
@@ -51,7 +69,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 ***
-### Extension - match one, single extension
+### Match Extension - Find files matching one, single extension
 ```
 ### refer to script 'find_basenames_extensions.sh' (in this same repo)
 ```
@@ -59,7 +77,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 ***
-### Extensions - match against a list of extensions (defined by user)
+### Match Extension - Find files matching at least one extension in a list of extensions (defined by user)
 ```
 
 LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
@@ -73,7 +91,7 @@ echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least 
 
 
 ***
-### Extensions - get the number of EACH type of file-extension for files within a given directory (and subdirectories)
+### Count Extensions - Count the number of EACH type of file-extension for files within a given directory (and subdirectories)
 ##### Note: Listed extensions are case-SENSITIVE (e.g. "PDF", "PdF", and "pdf" will be listed separately)
 ```
 
@@ -89,16 +107,6 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 
 X_MINUTES=120;
 find "/var/log" -mtime -${X_MINUTES} -ls;
-
-```
-
-
-
-***
-### Ownership (Group) - Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"
-```
-
-find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 
 ```
 
@@ -151,6 +159,7 @@ find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
 ```
 
 
+
 ***
 ### Last Modified - Find files modified NO LATER THAN [ given timestamp ] --> ROBUSTIFIED
 ```
@@ -184,6 +193,16 @@ find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTE
 
 
 ***
+### Ownership (Group) - Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"
+```
+
+find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
+
+```
+
+
+
+***
 ### Encoding - Determine a file's encoding (utf-8, ascii, etc.)
 ```
 
@@ -192,7 +211,9 @@ file -bi '/var/log/nginx/error.log';
 ```
 
 
+
 # Examples
+
 
 
 ***
@@ -215,7 +236,7 @@ find ${DIRECTORY_TO_CLEAN} \
 
 
 ***
-### Update any files-found which match the source-file's exact same filename & extension
+### Example - Update any files-found which match the source-file's exact same filename & extension
 #####  ex) phpMyAdmin login logo
 ```
 
@@ -232,7 +253,7 @@ find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${P
 
 
 ***
-### Perform multiple actions within a for-loop on any items matching given find-command
+### Example - Perform multiple actions within a for-loop on any items matching given find-command
 #####  ex) phpMyAdmin css searching (for specific class declaration)
 ```
 
@@ -251,7 +272,7 @@ done;
 
 
 ***
-### Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)
+### Example - Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)
 ```
 
 ## GREATER-THAN
@@ -272,7 +293,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 
 
 ***
-#### Note - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:
+#### MAN (manual) - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:
 ```
 
 man find
@@ -304,9 +325,5 @@ man find
 
 
 ***
-
-
-```
-	Citation(s)
-		linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find
-```
+# Citation(s)
+### linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find

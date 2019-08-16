@@ -69,7 +69,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 ***
-### Match Extension - Find files matching one, single extension
+### Extension (single) - Find files matching one, single extension
 ```
 ### refer to script 'find_basenames_extensions.sh' (in this same repo)
 ```
@@ -77,7 +77,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 ***
-### Match Extension - Find files matching at least one extension in a list of extensions (defined by user)
+### Extension (list) - Find files matching at least one extension in a list of extensions (defined by user)
 ```
 
 LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
@@ -91,7 +91,7 @@ echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least 
 
 
 ***
-### Count Extensions - Count the number of EACH type of file-extension for files within a given directory (and subdirectories)
+### Extensions (count) - Count the number of EACH type of file-extension for files within a given directory (and subdirectories)
 ##### Note: Listed extensions are case-SENSITIVE (e.g. "PDF", "PdF", and "pdf" will be listed separately)
 ```
 

@@ -1,7 +1,4 @@
-
-# [find(1) - Linux man linux](https://linux.die.net/man/1/find)
-
-
+# Linux - find (command)
 
 ***
 ### Basic 'find' (file-search) examples

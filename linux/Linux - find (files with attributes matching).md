@@ -299,3 +299,9 @@ man find
 
 
 ***
+
+
+```
+	Citation(s)
+		linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find
+```

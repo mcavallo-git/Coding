@@ -1,1 +1,1 @@
-more "%WINDIR%\System32\Drivers\Etc\Hosts"
+more "%windir%\System32\drivers\etc\hosts"

@@ -51,7 +51,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 ***
-### File Extension (Single) - Locate all files with a specific file-extension in a specific directory (and subdirectories)
+### Extension - match one, single extension
 ```
 ### refer to script 'find_basenames_extensions.sh' (in this same repo)
 ```
@@ -59,7 +59,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 
 
 ***
-### File Extensions (Many) - Same as previous - But find files matching at least one extension requested
+### Extensions - match against a list of extensions (defined by user)
 ```
 
 LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
@@ -73,8 +73,8 @@ echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least 
 
 
 ***
-### Get the total number of EACH file-extension within a given directory & its sub-directories
-##### --> Note: extensions are case-insensitive, ex) "PDF" and "pdf" are separated
+### Extensions - get the number of EACH type of file-extension for files within a given directory (and subdirectories)
+##### Note: Listed extensions are case-SENSITIVE (e.g. "PDF", "PdF", and "pdf" will be listed separately)
 ```
 
 find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn;
@@ -84,17 +84,7 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 
 
 ***
-### Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"
-```
-
-find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
-
-```
-
-
-
-***
-### Find files modified in the last X_MINUTES
+### Last Modified - Find files modified [ in the last X minutes ( see variable X_MINUTES ) ]
 ```
 
 X_MINUTES=120;
@@ -105,23 +95,27 @@ find "/var/log" -mtime -${X_MINUTES} -ls;
 
 
 ***
-### Find files modified since Epoch timestamp
+### Ownership (Group) - Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"
 ```
 
-find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
+find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 
 ```
 
 
 
 ***
-### Find files modified since given point-in-time
+### Last Modified - Find files modified since [ given timestamp ]
 ```
 
 find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
 
 ```
-### Find files modified since given point-in-time --> Robustified
+
+
+
+***
+### Last Modified - Find files modified since [ given timestamp ] --> ROBUSTIFIED
 ```
 
 modified_SINCE="3 minutes ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
@@ -139,13 +133,26 @@ find "/var/log" -type 'f' -newermt "$(date --date="${modified_SINCE}" +'%Y-%m-%d
 
 
 ***
-### Find files modified NO LATER THAN given point-in-time
+### Last Modified - Find files modified since [ given timestamp (formatted in Epoch seconds) ]
+```
+
+find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
+
+```
+
+
+
+***
+### Last Modified - Find files modified NO LATER THAN [ given timestamp ]
 ```
 
 find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
 
 ```
-### Find files modified NO LATER THAN given point-in-time --> Robustified
+
+
+***
+### Last Modified - Find files modified NO LATER THAN [ given timestamp ] --> ROBUSTIFIED
 ```
 
 modified_NO_LATER_THAN="3 months ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
@@ -163,8 +170,7 @@ find "/var/log" -type 'f' -not -newermt "$(date --date="${modified_NO_LATER_THAN
 
 
 ***
-### Find files modified BETWEEN two points-in-time
-#####  --> Note: combines the previous two models of [since] and [not-after]
+### Last Modified - Find files modified BETWEEN [ given timestamp ] and [ given timestamp ]
 ```
 
 modified_AFTER="2018-09-21 10:05:18";
@@ -178,13 +184,15 @@ find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTE
 
 
 ***
-### Determine a file's encoding (utf-8, ascii, etc.)
+### Encoding - Determine a file's encoding (utf-8, ascii, etc.)
 ```
 
 file -bi '/var/log/nginx/error.log';
 
 ```
 
+
+# Examples
 
 
 ***

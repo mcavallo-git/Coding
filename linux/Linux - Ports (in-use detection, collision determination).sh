@@ -9,4 +9,4 @@ fuser -k 443/tcp;
 fuser -k 443/tcp;
 
 # Compare running-processes to actively-listening ports for any process containing the name [ java ]
-echo ""; ps aux | grep '%MEM'; ps aux | grep 'java'; echo ""; lsof -i -P -n | grep 'SIZE/OFF'; lsof -i -P -n | grep 'LISTEN' | grep 'java'; echo "";
+watch -n 1 echo "$(echo '' && ps aux | grep '%MEM' && ps aux | grep 'java' && echo '' && lsof -i -P -n | grep 'SIZE/OFF' && lsof -i -P -n | grep 'LISTEN' | grep 'java' && echo '')";

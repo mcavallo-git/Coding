@@ -2,9 +2,9 @@
 SETLOCAL ENABLEDELAYEDEXPANSION
 
 REM
-REM	 logoff_killprocs
+REM	 logoff_now
 REM			|
-REM			|-->  Notepad.exe "%LOCALAPPDATA%\Microsoft\WindowsApps\logoff_killprocs.bat"
+REM			|-->  Notepad.exe "%LOCALAPPDATA%\Microsoft\WindowsApps\logoff_now.bat"
 REM
 
 

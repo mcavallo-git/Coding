@@ -1,11 +1,14 @@
 
-#	PowerShell - @().Count and @{}.Count - Get the length, size, count, etc. of a hash-table, array, object, etc.
+#	PowerShell - @().Count and @{}.Count
+#		|--> Get the length, size, count, etc. of a hash-table, array, object, etc.
 
 
 @{ a=1; b=2 }.Count; <# "Hashtable.Count Gets the number of key/value pairs contained in the Hashtable" #>
 
 
 @(1,3).Count; <# "To determine how many items are in an array, use the Length property or its Count alias" #>
+
+
 
 # ------------------------------------------------------------
 #

@@ -277,10 +277,10 @@ Replacement: ```\u$1\l$2$3```
 ###### Match lines [ starting with "@@" ], followed by [ 1 to 100 word-characters], followed by [ one space character ], NOT followed by [ one space character ]  -  Used while searching MySQL exports for specific variable settings
 * ```^(@@[0-9a-zA-Z\_]{1,100})(\ )+(!?\ ){1}```
 
-###### Find lines NOT starting with  "git-" or "git[a-z]"
-###### Ensure blank lines are matched, as well (by using * instead of +)
-###### Allow indentation at the start of each line (\s*)
-* ```^\s*(((?!git[a-z\-])(?:\S\s*){4}).+)*$```
+###### Match any line EXCLUDING lines whose text-content starts with "git-" or "git[a-z]"
+###### INCLUDE lines with any amount of indentation before their text-content by using:  ^\s*
+###### INCLUDE any blank-lines, as well as any line whose text-content only contains 1-3 characters (while excluding a 4-char string) by using * and ? instead of +, etc.
+* ```^\s*((?!git[a-z\-])(?:\S\s?).*)?$```
 
 
 

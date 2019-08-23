@@ -4,21 +4,31 @@
 #
 # view all running processes
 
-ps aux;
+# ps aux;
 # ^-- this is NOT the same as [ ps -aux ] - do not add any dashes to the arguments list of 'aux'
-#
+
+ps -A \
+--format 'fname,user,pid,%cpu,%mem,maj_flt,cmd' \
+--sort='user,fname';
+
+
+
 # ------------------------------------------------------------
 #
 #	get the absolute path (of a running process)
 
 sudo ls -l /proc/PID/exe;
-#
+
+
+
 # ------------------------------------------------------------
 #
 #	get the working directory (of a running process)
 
 pwdx $pid;
-#
+
+
+
 # ------------------------------------------------------------
 #
 # Determine linux-user running a given process
@@ -41,6 +51,8 @@ echo "PROCESS_GNAME = ${PROCESS_GNAME}"; \
 echo "PROCESS_GID = ${PROCESS_GID}"; \
 echo "PROCESS_UID = ${PROCESS_UID}"; \
 echo "";
+
+
 
 # ------------------------------------------------------------
 # > man ps

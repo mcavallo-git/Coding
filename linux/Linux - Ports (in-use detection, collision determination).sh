@@ -17,10 +17,21 @@ ps L;
 
 # ps aux | grep '%MEM' | awk '{print $2}'; \
 # ps u -A -U 'jenkins' --format user,pid,%cpu,%mem,command,bsdstart,lstart,start_time,time --sort=%cpu;
+# ps -u 'jenkins' --format 'fname,pid,user,%cpu,%mem,maj_flt,cmd' --sort='fname' | grep -Ei '^COMMAND' | head -n 1
 
 echo ""; \
-# ps -u 'jenkins' --format 'fname,pgid,pid,cp,size,user,%cpu,%mem,min_flt,maj_flt,cmd' --sort='fname' | grep -Ei '^COMMAND' | head -n 1
-ps -u 'jenkins' --format 'fname,pgid,pid,cp,size,user,%cpu,%mem,min_flt,maj_flt,cmd' --sort='fname'; \
+ps -u 'jenkins' --format 'fname,user,pid,%cpu,%mem,maj_flt,cmd' --sort='fname' | grep -Ei '^COMMAND' | head -n 1; \
+
+PROC_CMD="java";
+PROC_USER="jenkins";
+PROC_FORMAT="fname,user,pid,%cpu,%mem,maj_flt,cmd";
+PROC_GET_COLNO="3"; # pid
+PROC_PIDS=$( \
+ps -A --format "${PROC_FORMAT}" \
+| sed --regexp-extended --quiet --expression='s/^('${PROC_CMD:-\S+}')\s+('${PROC_USER:-\S+}')\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+).*$/\'${PROC_GET_COLNO}'/p' \
+);
+echo "PROC_PIDS:";
+echo "${PROC_PIDS}";
 
 echo ""; \
 lsof -i -P -n | grep 'SIZE/OFF' | awk '{print $2}'; \
@@ -35,8 +46,3 @@ echo "";
 # lsof -i -P -n | grep 'LISTEN' | grep 'java' | grep '*:8080 (LISTEN)'; \
 # echo "";
 
-
-lsof -p 
-COMMAND     PID            USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
-jenkins   1925 36.8 30.9 6166092 1248112 ?     Sl   16:44   1:57 /usr/bin/java -
-gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^(\S+)\s+ (.*(?: \-\-httpPort=8080 ).*)$/\2/p

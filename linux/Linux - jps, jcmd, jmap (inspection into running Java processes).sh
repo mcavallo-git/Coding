@@ -1,4 +1,5 @@
 #!/bin/bash
+# ------------------------------------------------------------
 #
 # Inspecting a running Java process
 #
@@ -13,12 +14,6 @@ JCMD_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p $
 
 JPS_PID=$(sudo jps | awk '{print $1}'); echo -e "\n""JPS_PID:\n${JPS_PID}\n";
 JPS_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${JPS_PID} | awk '{print $1}' | grep -vEi '^PID');
-
-# echo -e "\n""JCMD_PID_VERIFIED:\n${JCMD_PID_VERIFIED}\n";
-# jmap -heap ${JCMD_PID_VERIFIED};
-
-# echo -e "\n""JPS_PID_VERIFIED:\n${JPS_PID_VERIFIED}\n";
-# jmap -heap <${JPS_PID_VERIFIED}>;
 
 # ------------------------------------------------------------
 # Method 1: jcmd

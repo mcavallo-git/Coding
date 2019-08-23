@@ -27,11 +27,28 @@ JPS_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${
 jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" help;
 
 # Checking assorted argument values:
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.metaspace
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.version
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.info
+jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
+
 # jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.classloader_stats
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.classloaders
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.command_line
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.dynlibs
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.flags
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.info
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.log
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.metaspace
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.native_memory
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.print_touched_methods
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.set_flag
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.start_java_debugging
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.stringtable
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.symboltable
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.system_properties
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.uptime
+# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.version
+
 # jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" ManagementAgent.status
+
 
 # ------------------------------------------------------------
 
@@ -43,7 +60,7 @@ jps -m "${JCMD_PID_VERIFIED}";
 jps -v "${JCMD_PID_VERIFIED}"; # shows params
 
 jps -l "localhost:${JCMD_PID_VERIFIED}";
-jps -m"localhost:${JCMD_PID_VERIFIED}";
+jps -m "localhost:${JCMD_PID_VERIFIED}";
 jps -v "localhost:${JCMD_PID_VERIFIED}"; # the host must be indicated
 
 # ------------------------------------------------------------

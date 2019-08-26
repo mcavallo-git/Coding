@@ -1,6 +1,6 @@
 @ECHO OFF
 
-REM		PID --> Splashtop remote connection(s)
+REM		Get PID --> Splashtop remote connection(s)
 SET EXE_SPLASHTOP=SRFeature.exe
 
 SET PID_SPLASHTOP=No
@@ -9,7 +9,7 @@ FOR /F "tokens=2-2" %%a IN ('TASKLIST /FI "IMAGENAME eq %EXE_SPLASHTOP%"') DO (
 )
 ECHO PID_SPLASHTOP = %PID_SPLASHTOP%
 
-REM		Kill --> Splashtop remote connection(s)
+REM		Kill PID --> Splashtop remote connection(s)
 IF NOT %PID_SPLASHTOP%==No (
 	REM TASKKILL /F /FI "IMAGENAME eq %EXE_SPLASHTOP%"
 	TASKKILL /F /PID %PID_SPLASHTOP%

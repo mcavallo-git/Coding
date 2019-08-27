@@ -3,11 +3,11 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-<h3>Workstation Tools (Windows)</h3>
+<h3>Workstation Installs (Windows)</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
 
-Software Name | Option A | Option B
+Name | Option A | Option B
 --- | --- | ---
 **AirParrot** <sub>*Windows Airplay Client*</sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **Classic Shell** <sub>*Win7 Style Start-Menu*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
@@ -20,8 +20,6 @@ Software Name | Option A | Option B
 **Gpg4win** <sub>*GnuPG for Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
-**PowerShell Core** <sub>*Config. Tool/Framework*</sub> | [Install (Microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) | [Get PowerShell (GitHub Open-Source)](https://github.com/PowerShell/PowerShell#get-powershell)
-**Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
 **Splashtop** <sub>*Remote Desktop/Support*</sub> | [Download (source)](https://www.splashtop.com/downloads) |
@@ -34,14 +32,23 @@ Software Name | Option A | Option B
 <!-- ------------------------------------------------------------ -->
 
 ***
-<h3>Cloud Management Tools (Windows)</h3>
+<h3>DevOps Tools & Cmdlets</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
 
-Software Name | Option A | Option B
+<h2>Cloud Management Cmdlets</h2>
+
+Name | Option A | Option B | Docs
+--- | --- | --- | ---
+**AWS CLI (PowerShell)** | [Source](https://aws.amazon.com/powershell) | [Gallery](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
+**Azure CLI (PowerShell)** | [Source](https://aka.ms/installazurecliwindows) | [Gallery](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
+
+***
+<h2>Cross-Platform Languages (Install guides)</h2>
+
+Name | Option A | Option B
 --- | --- | ---
-**[Microsoft Azure PowerShell (Az CLI)](https://docs.microsoft.com/en-us/cli/azure/reference-index)** | [Download (source)](https://aka.ms/installazurecliwindows) | [Install (gallery)](https://www.powershellgallery.com/packages/az)
-**[AWS Tools for PowerShell (AWSPowerShell)](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)** | [Download (source)](https://aws.amazon.com/powershell) | [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)
+**PowerShell Core** | [GitHub](https://github.com/PowerShell/PowerShell#get-powershell) | [Microsoft](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
 
 </p>
 </details>

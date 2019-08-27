@@ -1,73 +1,90 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/master/windows/README.md#workstation-software -->
+
 <!-- ------------------------------------------------------------ -->
 
 ***
-## <u>Workstation Software</u>
+<h3>Workstation Tools (Windows)</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
 
-App Name | Source 1 | Source A
+Software Name | Option A | Option B
 --- | --- | ---
-**Azure CLI** | [Download (source)](https://aka.ms/installazurecliwindows) |
-**AirParrot** | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
-**Classic Shell** | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
-**Docker** <sub>*Desktop for Windows*</sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
-**Cryptomator** | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
-**Effective File Search (EFS)** | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
-**Git** <sub>*Git SCM*</sub> | [Download (source)](https://git-scm.com/downloads) |
-**Git** <sub>*GitHub Desktop*</sub> | [Download (source)](https://desktop.github.com) |
-**Git** <sub>*Tortoise Git*</sub> | [Download (source)](https://tortoisegit.org/download) |
+**AirParrot** <sub>*Windows Airplay Client*</sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
+**Classic Shell** <sub>*Win7 Style Start-Menu*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
+**Docker Desktop for Windows** <sub>*Containers*</sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
+**Cryptomator** <sub>*Client-Side Cloud-Encryption*</sub> | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
+**Effective File Search (EFS)** <sub>*Search tool*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
+**Git - Git SCM** <sub>*Git Backend Requirement*</sub> | [Download (source)](https://git-scm.com/downloads) |
+**Git - GitHub Desktop** <sub>*Git Daily Driver*</sub> | [Download (source)](https://desktop.github.com) |
+**Git - Tortoise Git** <sub>*Git Merge Conflict Resolver*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **Gpg4win** <sub>*GnuPG for Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
-**MobaXterm** | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
-**Postman** | [Download (source)](https://www.getpostman.com/apps) |
-**Reflector** | [Download (mirror)](https://www.airsquirrels.com/reflector) |
-**Splashtop** | [Download (source)](https://www.splashtop.com/downloads) |
-**Visual Studio Code**<sub>*VS Code*</sub> | [Download (source)](https://code.visualstudio.com/download) |
-**YubiKey** <sub>*Manager*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
+**Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
+**MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
+**PowerShell Core** <sub>*Config. Tool/Framework*</sub> | [Install (Microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) | [Get PowerShell (GitHub Open-Source)](https://github.com/PowerShell/PowerShell#get-powershell)
+**Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
+**Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
+**Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
+**Splashtop** <sub>*Remote Desktop/Support*</sub> | [Download (source)](https://www.splashtop.com/downloads) |
+**Visual Studio Code** <sub>*VS Code - Code Editor*</sub> | [Download (source)](https://code.visualstudio.com/download) |
+**Yubico Downloads** <sub>*YubiKey Config-Tools*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
-***
-### PowerShell
-
-* **[PowerShell Core (Windows/Linux)](https://github.com/PowerShell/PowerShell/releases)**
-* **[Cloud Management - AWS CLI](https://aws.amazon.com/powershell)**
-* **[Cloud Management - Azure CLI](https://www.powershellgallery.com/packages/az)**
-
-***
-#### External Link: [Reddit.com, "What application do you always install on your computer and recommend to everyone?"](https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/)
-
-***
-#### External Link: [Reddit.com, "[List] Essential Software for your Windows PC"](https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/)
+</p>
+</details>
 
 <!-- ------------------------------------------------------------ -->
 
 ***
-## <u>Paths</u>
+<h3>Cloud Management Tools (Windows)</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
+
+Software Name | Option A | Option B
+--- | --- | ---
+**[Microsoft Azure PowerShell (Az CLI)](https://docs.microsoft.com/en-us/cli/azure/reference-index)** <sub>*Cloud Mgmt*</sub> | [Download (source)](https://aka.ms/installazurecliwindows) | [Install (gallery)](https://www.powershellgallery.com/packages/az)
+**[AWS Tools for PowerShell (AWSPowerShell)](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)** <sub>*Cloud Mgmt*</sub> | [Download (source)](https://aws.amazon.com/powershell) | [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)
+
+</p>
+</details>
+
+<!-- ------------------------------------------------------------ -->
+
+***
+<h3>Notable Filepaths (Windows)</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
 
 ***
 #### Pinned Items, Taskbar (Win10)
 ###### ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
 
 ***
-#### Pinned-Items, Classic Shell (Start-Menu App)
+#### Pinned-Items, Classic Shell (App)
 ###### ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```
 
 ***
-#### Startup Items (All Users)
+#### Startup Items (Win10, All Users)
 ###### ```%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\StartUp```
 
 ***
-#### Startup Items (My User)
+#### Startup Items (Win10, My User)
 ###### ```%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup```
+
+</p>
+</details>
 
 <!-- ------------------------------------------------------------ -->
 
 ***
-## <u>Workstation Setup (Windows)</u>
+<h3>Productivity Tweaks (Windows)</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
 
-***
 ### Taskbar (Bottom Bar)
 ##### Unpin Edge, Unpin MS-Store, Hide Cortana, Hide People, Hide Ink, Hide Task-View Button
 
 ***
 ### Notifications (Bottom Right)
-##### Right Click ##### Don't show number of new notifications
+##### Right Click &rarr; Don't show number of new notifications
 
 ***
 ### Put Recycle-Bin on Start-Menu, Remove from Desktop
@@ -114,6 +131,19 @@ App Name | Source 1 | Source A
 ### Enable ClearType
 ##### Start Menu -> type "clear" -> select "Adjust ClearType text" -> Enable ClearType and click next through all the screens until complete
 
+</p>
+</details>
 
 <!-- ------------------------------------------------------------ -->
+
 ***
+<h3>Citation(s)</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
+
+* ###### reddit.com  |  "What application do you always install on your computer and recommend to everyone?"  |  https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/
+
+* ###### reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
+
+</p>
+</details>

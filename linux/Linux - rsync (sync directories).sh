@@ -9,11 +9,16 @@ SOURCE_DIR="${HOME}/nginx";
 
 DESTINATION_DIR="etc/nginx";
 
-rsync -a --chown="${NEW_OWNER}:${NEW_GROUP}" "${SOURCE_DIR}/" "${DESTINATION_DIR}"; # rync -a === rsync -rlptgoD
+# Note - Calling [ rync --archive ] is synonymouse with calling [ rsync -rlptgoD ]
+rsync \
+--archive \
+--chown="${NEW_OWNER}:${NEW_GROUP}" \
+"${SOURCE_DIR}/" \
+"${DESTINATION_DIR}";
 
-find "${DESTINATION_DIR}" -type d -print0 | xargs -0 chmod 0755; # directories
-find "${DESTINATION_DIR}" -type f -print0 | xargs -0 chmod 0644; # files
-
+# Set ownership for destination files/directories as-needed
+find "${DESTINATION_DIR}" -type d -exec chmod 0755 "{}" ";"; # directories
+find "${DESTINATION_DIR}" -type f -exec chmod 0644 "{}" ";"; # files
 
 
 

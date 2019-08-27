@@ -40,8 +40,8 @@ Software Name | Option A | Option B
 
 Software Name | Option A | Option B
 --- | --- | ---
-**[Microsoft Azure PowerShell (Az CLI)](https://docs.microsoft.com/en-us/cli/azure/reference-index)** <sub>*Cloud Mgmt*</sub> | [Download (source)](https://aka.ms/installazurecliwindows) | [Install (gallery)](https://www.powershellgallery.com/packages/az)
-**[AWS Tools for PowerShell (AWSPowerShell)](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)** <sub>*Cloud Mgmt*</sub> | [Download (source)](https://aws.amazon.com/powershell) | [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)
+**[Microsoft Azure PowerShell (Az CLI)](https://docs.microsoft.com/en-us/cli/azure/reference-index)** | [Download (source)](https://aka.ms/installazurecliwindows) | [Install (gallery)](https://www.powershellgallery.com/packages/az)
+**[AWS Tools for PowerShell (AWSPowerShell)](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)** | [Download (source)](https://aws.amazon.com/powershell) | [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)
 
 </p>
 </details>

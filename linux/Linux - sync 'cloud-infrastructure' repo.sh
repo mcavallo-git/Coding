@@ -20,6 +20,6 @@ cd "${GIT_WORKTREE}" && \
 git fetch && \
 git reset --hard "origin/master" && \
 git pull && \
-DO_UPD="${GIT_WORKTREE}/usr/local/sbin/update_bins_from_sftp" && \
+DO_UPD="${GIT_WORKTREE}/usr/local/sbin/update_from_git_repo" && \
 sudo chmod 755 "${DO_UPD}" && \
 sudo "${DO_UPD}";

@@ -53,21 +53,12 @@ Software Name | Option A | Option B
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
 
-***
-#### Pinned Items, Taskbar (Win10)
-###### ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
-
-***
-#### Pinned-Items, Classic Shell (App)
-###### ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```
-
-***
-#### Startup Items (Win10, All Users)
-###### ```%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\StartUp```
-
-***
-#### Startup Items (Win10, My User)
-###### ```%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup```
+Purpose | Filepath
+--- | ---
+**Pinned Items** <sub>*Win10 Taskbar (Stock)*</sub> | ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
+**Pinned Items** <sub>*Classic Shell (App)*</sub> | ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```
+**Startup Items** <sub>*Win10 (Current User)*</sub> | ```%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup```
+**Startup Items** <sub>*Win10 (All Users)*</sub> | ```%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\StartUp```
 
 </p>
 </details>

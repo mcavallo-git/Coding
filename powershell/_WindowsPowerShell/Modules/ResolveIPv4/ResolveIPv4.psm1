@@ -27,7 +27,12 @@ function ResolveIPv4 {
 	$WAN_TestServer_1_IPv6 = "https://ipv6.icanhazip.com";
 
 	$WAN_TestServer_2 = "https://ipecho.net/plain";
+
 	$WAN_TestServer_3 = "https://ident.me";
+	$WAN_TestServer_3_IPv4 = "https://v4.ident.me";
+	$WAN_TestServer_3_IPv6 = "https://v6.ident.me";
+
+
 	$WAN_TestServer_4 = "https://bot.whatismyipaddress.com";
 
 	$WAN_JSON_TestServer_1 = @{};
@@ -40,10 +45,14 @@ function ResolveIPv4 {
 		If ($NetworkAreaScope -eq "WAN") {
 
 			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_1)).Content).Trim();
+			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_1_IPv4)).Content).Trim();
+			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_1_IPv6)).Content).Trim();
 
 			$This_WAN_IPv4_2 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_2)).Content).Trim();
 
 			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_3)).Content).Trim();
+			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_3_IPv4)).Content).Trim();
+			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_3_IPv6)).Content).Trim();
 
 			$This_WAN_IPv4_4 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_4)).Content).Trim();
 

@@ -382,8 +382,8 @@ function Az_Spinup {
 	#			https://docs.microsoft.com/en-us/cli/azure/keyvault/network-rule?view=azure-cli-latest
 	#
 	$Loopback_CIDR = `
-		ResolveIPv4 `
-			-GetLoopbackAddress `
+		ResolveIP `
+			-Localhost `
 			-OutputNotation "CIDR";
 
 	$az.keyvault.sql.network_rule_list = `
@@ -432,7 +432,7 @@ function Az_Spinup {
 
 		# Only perform the whitelist if the Git & SQL Keyvaults are separate resources
 
-		$Loopback_CIDR = ResolveIPv4 -GetLoopbackAddress;
+		$Loopback_CIDR = ResolveIP -Localhost;
 
 		$az.keyvault.git.network_rule_list = `
 			az keyvault network-rule list `

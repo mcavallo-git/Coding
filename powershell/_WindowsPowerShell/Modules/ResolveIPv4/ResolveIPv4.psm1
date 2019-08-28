@@ -1,4 +1,5 @@
-function ResolveIPv4 {
+
+function ResolveIP {
 	Param(
 
 		[ValidateSet('WAN','LAN',IgnoreCase=$false)]
@@ -9,17 +10,30 @@ function ResolveIPv4 {
 
 		[String]$Url,
 
-		[Switch]$GetLoopbackAddress,
-		[Switch]$ResolveOutgoingIPv4
+		[Switch]$Localhost
+
+		[Switch]$4,
+		[Switch]$v4,
+
+		[Switch]$6,
+		[Switch]$v6
 
 	)
 
 	$ReturnedValue = "";
 
-	$ResolveOutgoingIPv4 = $False;
-	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('GetLoopbackAddress') -Eq $True) { $True } Else { $ResolveOutgoingIPv4 };
-	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('ResolveOutgoingIPv4') -Eq $True) { $True } Else { $ResolveOutgoingIPv4 };
-	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('Url') -Eq $False) { $True } Else { $ResolveOutgoingIPv4 };
+	# ------------------------------------------------------------
+
+	$ResolveLocalhost = $False;
+	If ($PSBoundParameters.ContainsKey('Url') -Eq $False) {
+		$ResolveLocalhost = $True;
+	} ElseIf ($PSBoundParameters.ContainsKey('Localhost') -Eq $True) {
+		$ResolveLocalhost = $True;
+	} ElseIf (($Url -Eq "localhost") -Or ($Url -Eq "127.0.0.1")) {
+		$ResolveLocalhost = $True;
+	}
+	
+	# ------------------------------------------------------------
 
 	$IPv4_Resolvers = @();
 	$IPv4_Resolvers += "https://ipv4.icanhazip.com";
@@ -30,13 +44,13 @@ function ResolveIPv4 {
 	$IPv6_Resolvers += "https://ipv6.icanhazip.com";
 	$IPv6_Resolvers += "https://v6.ident.me";
 	$IPv6_Resolvers += "https://bot.whatismyipaddress.com";
-
+	$IPv6_Resolvers += "https://checkip.amazonaws.com";
 
 	$WAN_JSON_TestServer_1 = @{};
 	$WAN_JSON_TestServer_1.url = "https://ipinfo.io/json";
 	$WAN_JSON_TestServer_1.prop = "ip";
 
-	If ($ResolveOutgoingIPv4 -Eq $True) {
+	If ($ResolveLocalhost -Eq $True) {
 		# Resolve Current Workstation's WAN IPv4 Address
 
 		If ($NetworkAreaScope -eq "WAN") {
@@ -68,7 +82,7 @@ function ResolveIPv4 {
 
 	} Else {
 		
-		Write-Host ("Fail - Module [ ResolveIPv4 ] called with invalid parameters");
+		Write-Host ("Fail - Module [ ResolveIP ] called with invalid parameters");
 		Start-Sleep 600;
 		Exit 1;
 
@@ -82,4 +96,4 @@ function ResolveIPv4 {
 
 }
 
-Export-ModuleMember -Function "ResolveIPv4";
+Export-ModuleMember -Function "ResolveIP";

@@ -1,4 +1,3 @@
-
 function ResolveIPv4 {
 	Param(
 

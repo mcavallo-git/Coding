@@ -42,10 +42,10 @@ function ResolveIPv4 {
 
 		If ($NetworkAreaScope -eq "WAN") {
 
-			ForEach ($Each_Resolver In $IPv4_Resolvers,$IPv6_Resolvers) {
+			ForEach ($Each_Resolver In ($IPv4_Resolvers + $IPv6_Resolvers)) {
 				Try {
 					If ($ReturnedValue -Eq "") {
-						$ReturnedValue = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($Each_Resolver)).Content).Trim();
+						$ReturnedValue = ((Invoke-WebRequest -UseBasicParsing -Uri ($Each_Resolver)).Content).Trim();
 					}
 					# $Test_URL = Invoke-WebRequest -Uri $URI -Method "Post" -Body $RequestBody -ContentType $ContentType
 				} Catch [System.Net.WebException] {

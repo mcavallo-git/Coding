@@ -14,9 +14,8 @@ function ResolveIP {
 
 		[ValidateSet('4','v4','6','v6','any','all')]
 		[String]$Version="v4",
-		[Switch]$4,
+
 		[Switch]$v4,
-		[Switch]$6,
 		[Switch]$v6,
 
 		[String]$Url,
@@ -28,9 +27,9 @@ function ResolveIP {
 
 	# ------------------------------------------------------------
 
-	If (($PSBoundParameters.ContainsKey('4') -Eq $True) -Or ($PSBoundParameters.ContainsKey('v4') -Eq $True)) {
+	If ($PSBoundParameters.ContainsKey('v4') -Eq $True) {
 		$Version="v4";
-	} ElseIf (($PSBoundParameters.ContainsKey('6') -Eq $True) -Or ($PSBoundParameters.ContainsKey('v6') -Eq $True)) {
+	} ElseIf ($PSBoundParameters.ContainsKey('v6') -Eq $True) {
 		$Version="v6";
 	}
 

@@ -384,7 +384,7 @@ function Az_Spinup {
 	$Loopback_CIDR = `
 		ResolveIP `
 			-Localhost `
-			-OutputNotation "CIDR";
+			-Notation "CIDR";
 
 	$az.keyvault.sql.network_rule_list = `
 		az keyvault network-rule list `

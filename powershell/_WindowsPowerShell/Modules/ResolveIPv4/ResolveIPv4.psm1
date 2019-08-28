@@ -50,15 +50,10 @@ function ResolveIPv4 {
 					# $Test_URL = Invoke-WebRequest -Uri $URI -Method "Post" -Body $RequestBody -ContentType $ContentType
 				} Catch [System.Net.WebException] {
 					$ReturnedValue = "";
-
-					$Request = $_.Exception;
-					Write-Host "Exception caught: $Request";
-					$CrapMessage = ($_.Exception.Message).ToString().Trim();
-					Write-Output $CrapMessage;
-
+					# $DatException = $_.Exception; Write-Host "Exception caught: $DatException";
+					# $DatExceptionMessage = ($_.Exception.Message).ToString().Trim(); Write-Output $DatExceptionMessage;
 				}
 			}
-
 			# $Get_WAN_IPv4_Using_JSON = (Invoke-RestMethod ($WAN_JSON_TestServer_1.url) | Select -exp ($WAN_JSON_TestServer_1.prop));
 
 		} Else {
@@ -70,31 +65,7 @@ function ResolveIPv4 {
 
 		# Resolve Url-to-Hostname-to-IPv4
 		$ReturnedValue = ([System.Net.Dns]::GetHostAddresses(([System.Uri]$Url).Host)).IpAddressToString;
-
 		$ReturnedValue = ($ReturnedValue -split '\n')[0];
-
-		### The long-way (for error checking)
-		#
-		# Resolve Url-to-Hostname
-		# If ([System.Uri]$Url.Host -eq $null) {
-		# 	Write-Host (("Fail - Module [ ResolveIPv4 ] was unable to determine hostname from Url [")+($Url)+("]"));
-		# 	Start-Sleep 600;
-		# 	Exit 1;
-		# } Else {
-		# 	$UrlHostname = [System.Uri]$Url.Host;
-		#
-		# 	# Resolve Hostname-to-IPv4
-		# 	$UrlIPv4 = [System.Net.Dns]::GetHostAddresses($UrlHostname).IpAddressToString;
-		# 	$last_exit_code = If($?){0}Else{1};
-		# 	If ($last_exit_code -eq 1) {
-		# 		Write-Host (("Fail - Module [ ResolveIPv4 ] was unable to determine IPv4 for Hostname [")+($UrlHostname)+("]"));
-		# 		Start-Sleep 600;
-		# 		Exit 1;
-		# 	} Else {
-		# 		$ReturnedValue = $UrlIPv4;
-		#
-		# 	}
-		# }
 
 	} Else {
 		

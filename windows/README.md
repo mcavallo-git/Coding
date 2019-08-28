@@ -4,8 +4,8 @@
 
 ***
 <h3>Workstation Installs (Windows)</h3>
-<details><summary><i>Show/Hide Content</i></summary>
-<p>
+<!-- <details><summary><i>Show/Hide Content</i></summary> -->
+<!-- <p> -->
 
 Name | Option A | Option B
 --- | --- | ---
@@ -27,8 +27,8 @@ Name | Option A | Option B
 **Visual Studio Code** <sub>*VS Code - Code Editor*</sub> | [Download (source)](https://code.visualstudio.com/download) |
 **Yubico Downloads** <sub>*YubiKey Config-Tools*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
-</p>
-</details>
+<!-- </p> -->
+<!-- </details> -->
 
 <!-- ------------------------------------------------------------ -->
 

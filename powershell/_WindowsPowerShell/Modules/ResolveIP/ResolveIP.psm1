@@ -64,12 +64,14 @@ function ResolveIP {
 
 	$IPv4_Resolvers = @();
 	$IPv4_Resolvers += "https://ipv4.icanhazip.com";
-	$IPv4_Resolvers += "https://ipecho.net/plain";
 	$IPv4_Resolvers += "https://v4.ident.me";
 
 	$IPv6_Resolvers = @();
 	$IPv6_Resolvers += "https://ipv6.icanhazip.com";
 	$IPv6_Resolvers += "https://v6.ident.me";
+	
+	$IPv4_Resolvers += "https://ipinfo.io/ip";
+	$IPv4_Resolvers += "https://ipecho.net/plain";
 	$IPv6_Resolvers += "https://bot.whatismyipaddress.com";
 	$IPv6_Resolvers += "https://checkip.amazonaws.com";
 
@@ -82,25 +84,33 @@ function ResolveIP {
 
 		If ($Scope -eq "WAN") {
 
-			$VersionResolvers = $IPv4_Resolvers;
-			If (($Version -Eq '4') -Or ($Version -Eq 'v4')) {
-				$VersionResolvers = $IPv4_Resolvers;
-			} ElseIf (($Version -Eq '6') -Or ($Version -Eq 'v6')) {
-				$VersionResolvers = $IPv6_Resolvers;
-			} ElseIf (($Version -Eq 'any') -Or ($Version -Eq 'all')) {
-				$VersionResolvers = ($IPv4_Resolvers + $IPv6_Resolvers);
-			}
+			$RegexPattern_IPv4 = '^(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(\/\d{1,2})?$';
+			$RegexPattern_IPv6 = '^((?:[0-9a-f]{0,4}:){2,7}[0-9a-f]{1,4})$';
+			$RegexPattern_IPv4OR6 = "^((?:${RegexPattern_IPv4})|(?:${RegexPattern_IPv6}))$";
 
+			# $VersionResolvers = $IPv4_Resolvers;
+			# $VersionResolvers = $IPv6_Resolvers;
+			$VersionResolvers = ($IPv4_Resolvers + $IPv6_Resolvers);
+
+			If (($Version -Eq '4') -Or ($Version -Eq 'v4')) {
+				$RegexPattern_Versioned = $RegexPattern_IPv4;
+			} ElseIf (($Version -Eq '6') -Or ($Version -Eq 'v6')) {
+				$RegexPattern_Versioned = $RegexPattern_IPv6;
+			} ElseIf (($Version -Eq 'any') -Or ($Version -Eq 'all')) {
+				$RegexPattern_Versioned = $RegexPattern_IPv4OR6;
+			}
+			
 			ForEach ($Each_Resolver In $VersionResolvers) {
 				Try {
 					If ($ReturnedValue -Eq "") {
-						$ReturnedValue = ((Invoke-WebRequest -UseBasicParsing -Uri ($Each_Resolver)).Content).Trim();
+						$EachResolvedIP = ((Invoke-WebRequest -UseBasicParsing -Uri ($Each_Resolver)).Content).Trim();
+						$MatchResults = [Regex]::Match($EachResolvedIP, $RegexPattern_Versioned);
+						If ($MatchResults.Success -eq $True) {
+							$ReturnedValue = $MatchResults.Groups[1].Value;
+						}
 					}
-					# $Test_URL = Invoke-WebRequest -Uri $URI -Method "Post" -Body $RequestBody -ContentType $ContentType
 				} Catch [System.Net.WebException] {
 					$ReturnedValue = "";
-					# $DatException = $_.Exception; Write-Host "Exception caught: $DatException";
-					# $DatExceptionMessage = ($_.Exception.Message).ToString().Trim(); Write-Output $DatExceptionMessage;
 				}
 			}
 			# $Get_WAN_IPv4_Using_JSON = (Invoke-RestMethod ($WAN_JSON_TestServer_1.url) | Select -exp ($WAN_JSON_TestServer_1.prop));

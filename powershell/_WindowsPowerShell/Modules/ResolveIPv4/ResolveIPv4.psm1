@@ -10,11 +10,17 @@ function ResolveIPv4 {
 
 		[String]$Url,
 
-		[Switch]$GetLoopbackAddress
+		[Switch]$GetLoopbackAddress,
+		[Switch]$ResolveOutgoingIPv4
 
 	)
 
 	$ReturnedValue = $null;
+
+	$ResolveOutgoingIPv4 = $False;
+	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('GetLoopbackAddress') -Eq $True) { $True } Else ( $ResolveOutgoingIPv4 );
+	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('ResolveOutgoingIPv4') -Eq $True) { $True } Else ( $ResolveOutgoingIPv4 );
+	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('Url') -Eq $False) { $True } Else ( $ResolveOutgoingIPv4 );
 
 	$WAN_TestServer_1 = "https://icanhazip.com";
 	$WAN_TestServer_2 = "https://ipecho.net/plain";
@@ -25,7 +31,7 @@ function ResolveIPv4 {
 	$WAN_JSON_TestServer_1.url = "https://ipinfo.io/json";
 	$WAN_JSON_TestServer_1.prop = "ip";
 
-	If ($PSBoundParameters.ContainsKey('GetLoopbackAddress')) {
+	If ($ResolveOutgoingIPv4 -Eq $True) {
 		# Resolve Current Workstation's WAN IPv4 Address
 
 		If ($NetworkAreaScope -eq "WAN") {

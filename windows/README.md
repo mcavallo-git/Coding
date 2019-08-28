@@ -21,6 +21,7 @@ Name | Option A | Option B
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
+**Remote Mouse** <sub>*Use your phone as a Mouse & Keyboard*</sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
 **Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
 **Splashtop** <sub>*Remote Desktop/Support*</sub> | [Download (source)](https://www.splashtop.com/downloads) |
 **Visual Studio Code** <sub>*VS Code - Code Editor*</sub> | [Download (source)](https://code.visualstudio.com/download) |

@@ -32,7 +32,6 @@ function ResolveIPv4 {
 	$WAN_TestServer_3_IPv4 = "https://v4.ident.me";
 	$WAN_TestServer_3_IPv6 = "https://v6.ident.me";
 
-
 	$WAN_TestServer_4 = "https://bot.whatismyipaddress.com";
 
 	$WAN_JSON_TestServer_1 = @{};

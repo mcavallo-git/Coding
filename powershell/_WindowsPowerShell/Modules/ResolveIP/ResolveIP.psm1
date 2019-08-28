@@ -83,11 +83,11 @@ function ResolveIP {
 		If ($Scope -eq "WAN") {
 
 			$VersionResolvers = $IPv4_Resolvers;
-			If (@('4','v4').Contains($Version)) {
+			If (($Version -Eq '4') -Or ($Version -Eq 'v4')) {
 				$VersionResolvers = $IPv4_Resolvers;
-			} ElseIf (@('6','v6').Contains($Version)) {
+			} ElseIf (($Version -Eq '6') -Or ($Version -Eq 'v6')) {
 				$VersionResolvers = $IPv6_Resolvers;
-			} ElseIf (@('any','all').Contains($Version)) {
+			} ElseIf (($Version -Eq 'any') -Or ($Version -Eq 'all')) {
 				$VersionResolvers = ($IPv4_Resolvers + $IPv6_Resolvers);
 			}
 

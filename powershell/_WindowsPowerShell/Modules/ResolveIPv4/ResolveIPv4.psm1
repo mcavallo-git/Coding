@@ -22,17 +22,16 @@ function ResolveIPv4 {
 	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('ResolveOutgoingIPv4') -Eq $True) { $True } Else { $ResolveOutgoingIPv4 };
 	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('Url') -Eq $False) { $True } Else { $ResolveOutgoingIPv4 };
 
-	$WAN_TestServer_1 = "https://icanhazip.com";
-	$WAN_TestServer_1_IPv4 = "https://ipv4.icanhazip.com";
-	$WAN_TestServer_1_IPv6 = "https://ipv6.icanhazip.com";
+	$IPv4_Resolvers = @();
+	$IPv4_Resolvers += "https://ipv4.icanhazip.com";
+	$IPv4_Resolvers += "https://ipecho.net/plain";
+	$IPv4_Resolvers += "https://v4.ident.me";
 
-	$WAN_TestServer_2 = "https://ipecho.net/plain";
+	$IPv6_Resolvers = @();
+	$IPv6_Resolvers += "https://ipv6.icanhazip.com";
+	$IPv6_Resolvers += "https://v6.ident.me";
+	$IPv6_Resolvers += "https://bot.whatismyipaddress.com";
 
-	$WAN_TestServer_3 = "https://ident.me";
-	$WAN_TestServer_3_IPv4 = "https://v4.ident.me";
-	$WAN_TestServer_3_IPv6 = "https://v6.ident.me";
-
-	$WAN_TestServer_4 = "https://bot.whatismyipaddress.com";
 
 	$WAN_JSON_TestServer_1 = @{};
 	$WAN_JSON_TestServer_1.url = "https://ipinfo.io/json";
@@ -43,21 +42,22 @@ function ResolveIPv4 {
 
 		If ($NetworkAreaScope -eq "WAN") {
 
-			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_1)).Content).Trim();
-			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_1_IPv4)).Content).Trim();
-			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_1_IPv6)).Content).Trim();
+			ForEach ($Each_Resolver In $IPv4_Resolvers,$IPv6_Resolvers) {
+				Try {
+					If ($ReturnedValue -Eq $Null) {
+						$ReturnedValue = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($Each_Resolver)).Content).Trim();
+					}
+					# $Test_URL = Invoke-WebRequest -Uri $URI -Method "Post" -Body $RequestBody -ContentType $ContentType
+				} Catch [System.Net.WebException] {
+					$Request = $_.Exception
+					Write-host "Exception caught: $Request"
+					$CrapMessage = ($_.Exception.Message).ToString().Trim();
+					Write-Output $CrapMessage;
 
-			$This_WAN_IPv4_2 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_2)).Content).Trim();
+				}
+			}
 
-			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_3)).Content).Trim();
-			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_3_IPv4)).Content).Trim();
-			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_3_IPv6)).Content).Trim();
-
-			$This_WAN_IPv4_4 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_4)).Content).Trim();
-
-			$This_WAN_JSON_IPv4_1 = (Invoke-RestMethod ($WAN_JSON_TestServer_1.url) | Select -exp ($WAN_JSON_TestServer_1.prop));
-
-			$ReturnedValue = ($This_WAN_IPv4_1);
+			# $Get_WAN_IPv4_Using_JSON = (Invoke-RestMethod ($WAN_JSON_TestServer_1.url) | Select -exp ($WAN_JSON_TestServer_1.prop));
 
 		} Else {
 			Write-Host "No LAN Implementation currently available (Under Construction)";

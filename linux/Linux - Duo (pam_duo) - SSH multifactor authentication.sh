@@ -1,5 +1,5 @@
 
-# Folliwng Guide:  https://duo.com/docs/duounix
+# Following Guide:  https://duo.com/docs/duounix
 
 # TO INSTALL:  pam_duo
 

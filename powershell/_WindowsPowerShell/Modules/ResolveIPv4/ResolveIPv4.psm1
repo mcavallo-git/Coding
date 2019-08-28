@@ -15,7 +15,7 @@ function ResolveIPv4 {
 
 	)
 
-	$ReturnedValue = $null;
+	$ReturnedValue = "";
 
 	$ResolveOutgoingIPv4 = $False;
 	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('GetLoopbackAddress') -Eq $True) { $True } Else { $ResolveOutgoingIPv4 };
@@ -44,13 +44,15 @@ function ResolveIPv4 {
 
 			ForEach ($Each_Resolver In $IPv4_Resolvers,$IPv6_Resolvers) {
 				Try {
-					If ($ReturnedValue -Eq $Null) {
+					If ($ReturnedValue -Eq "") {
 						$ReturnedValue = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($Each_Resolver)).Content).Trim();
 					}
 					# $Test_URL = Invoke-WebRequest -Uri $URI -Method "Post" -Body $RequestBody -ContentType $ContentType
 				} Catch [System.Net.WebException] {
-					$Request = $_.Exception
-					Write-host "Exception caught: $Request"
+					$ReturnedValue = "";
+
+					$Request = $_.Exception;
+					Write-Host "Exception caught: $Request";
 					$CrapMessage = ($_.Exception.Message).ToString().Trim();
 					Write-Output $CrapMessage;
 

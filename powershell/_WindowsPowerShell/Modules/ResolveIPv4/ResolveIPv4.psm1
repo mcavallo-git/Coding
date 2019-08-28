@@ -23,6 +23,9 @@ function ResolveIPv4 {
 	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('Url') -Eq $False) { $True } Else { $ResolveOutgoingIPv4 };
 
 	$WAN_TestServer_1 = "https://icanhazip.com";
+	$WAN_TestServer_1_IPv4 = "https://ipv4.icanhazip.com";
+	$WAN_TestServer_1_IPv6 = "https://ipv6.icanhazip.com";
+
 	$WAN_TestServer_2 = "https://ipecho.net/plain";
 	$WAN_TestServer_3 = "https://ident.me";
 	$WAN_TestServer_4 = "https://bot.whatismyipaddress.com";

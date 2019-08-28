@@ -43,17 +43,17 @@ function ResolveIPv4 {
 
 		If ($NetworkAreaScope -eq "WAN") {
 
-			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_1)).Content).Trim();
-			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_1_IPv4)).Content).Trim();
-			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_1_IPv6)).Content).Trim();
+			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_1)).Content).Trim();
+			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_1_IPv4)).Content).Trim();
+			$This_WAN_IPv4_1 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_1_IPv6)).Content).Trim();
 
-			$This_WAN_IPv4_2 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_2)).Content).Trim();
+			$This_WAN_IPv4_2 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_2)).Content).Trim();
 
-			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_3)).Content).Trim();
-			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_3_IPv4)).Content).Trim();
-			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_3_IPv6)).Content).Trim();
+			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_3)).Content).Trim();
+			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_3_IPv4)).Content).Trim();
+			$This_WAN_IPv4_3 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_3_IPv6)).Content).Trim();
 
-			$This_WAN_IPv4_4 = ((Invoke-WebRequest -UseBasicParsing -Uri ($WAN_TestServer_4)).Content).Trim();
+			$This_WAN_IPv4_4 = ((Invoke-WebRequest -UseBasicParsing -ErrorAction "SilentlyContinue" -Uri ($WAN_TestServer_4)).Content).Trim();
 
 			$This_WAN_JSON_IPv4_1 = (Invoke-RestMethod ($WAN_JSON_TestServer_1.url) | Select -exp ($WAN_JSON_TestServer_1.prop));
 

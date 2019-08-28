@@ -12,7 +12,7 @@ function ResolveIP {
 		[Switch]$IP,
 		[Switch]$CIDR,
 
-		[ValidateSet('4','v4','6','v6')]
+		[ValidateSet('4','v4','6','v6','any','all')]
 		[String]$Version="v4",
 		[Switch]$4,
 		[Switch]$v4,
@@ -83,11 +83,13 @@ function ResolveIP {
 
 		If ($Scope -eq "WAN") {
 
-			$VersionResolvers = ($IPv4_Resolvers + $IPv6_Resolvers);
+			$VersionResolvers = $IPv4_Resolvers;
 			If (@('4','v4').Contains($Version)) {
 				$VersionResolvers = $IPv4_Resolvers;
 			} ElseIf (@('6','v6').Contains($Version)) {
 				$VersionResolvers = $IPv6_Resolvers;
+			} ElseIf (@('any','all').Contains($Version)) {
+				$VersionResolvers = ($IPv4_Resolvers + $IPv6_Resolvers);
 			}
 
 			ForEach ($Each_Resolver In $VersionResolvers) {

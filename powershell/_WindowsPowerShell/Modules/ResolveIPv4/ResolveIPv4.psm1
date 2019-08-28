@@ -2,25 +2,53 @@
 function ResolveIP {
 	Param(
 
-		[ValidateSet('WAN','LAN',IgnoreCase=$false)]
-		[String]$NetworkAreaScope = "WAN",
+		[ValidateSet('WAN','LAN')]
+		[String]$Scope = "WAN",
+		[Switch]$LAN,
+		[Switch]$WAN,
 
-		[ValidateSet('IPv4','CIDR')]
-		[String]$OutputNotation="IPv4",
+		[ValidateSet('IP','CIDR')]
+		[String]$Notation="IP",
+		[Switch]$IP,
+		[Switch]$CIDR,
 
-		[String]$Url,
-
-		[Switch]$Localhost
-
+		[ValidateSet('4','v4','6','v6')]
+		[String]$Version="v4",
 		[Switch]$4,
 		[Switch]$v4,
-
 		[Switch]$6,
-		[Switch]$v6
+		[Switch]$v6,
 
+		[String]$Url,
+		[Switch]$Localhost
+	
 	)
 
 	$ReturnedValue = "";
+
+	# ------------------------------------------------------------
+
+	If (($PSBoundParameters.ContainsKey('4') -Eq $True) -Or ($PSBoundParameters.ContainsKey('v4') -Eq $True)) {
+		$Version="v4";
+	} ElseIf (($PSBoundParameters.ContainsKey('6') -Eq $True) -Or ($PSBoundParameters.ContainsKey('v6') -Eq $True)) {
+		$Version="v6";
+	}
+
+	# ------------------------------------------------------------
+
+	If ($PSBoundParameters.ContainsKey('IP') -Eq $True) {
+		$Notation="IP";
+	} ElseIf ($PSBoundParameters.ContainsKey('CIDR') -Eq $True) {
+		$Notation="CIDR";
+	}
+
+	# ------------------------------------------------------------
+
+	If ($PSBoundParameters.ContainsKey('WAN') -Eq $True) {
+		$Scope="WAN";
+	} ElseIf ($PSBoundParameters.ContainsKey('LAN') -Eq $True) {
+		$Scope="LAN";
+	}
 
 	# ------------------------------------------------------------
 
@@ -53,9 +81,16 @@ function ResolveIP {
 	If ($ResolveLocalhost -Eq $True) {
 		# Resolve Current Workstation's WAN IPv4 Address
 
-		If ($NetworkAreaScope -eq "WAN") {
+		If ($Scope -eq "WAN") {
 
-			ForEach ($Each_Resolver In ($IPv4_Resolvers + $IPv6_Resolvers)) {
+			$VersionResolvers = ($IPv4_Resolvers + $IPv6_Resolvers);
+			If (@('4','v4').Contains($Version)) {
+				$VersionResolvers = $IPv4_Resolvers;
+			} ElseIf (@('6','v6').Contains($Version)) {
+				$VersionResolvers = $IPv6_Resolvers;
+			}
+
+			ForEach ($Each_Resolver In $VersionResolvers) {
 				Try {
 					If ($ReturnedValue -Eq "") {
 						$ReturnedValue = ((Invoke-WebRequest -UseBasicParsing -Uri ($Each_Resolver)).Content).Trim();
@@ -69,7 +104,7 @@ function ResolveIP {
 			}
 			# $Get_WAN_IPv4_Using_JSON = (Invoke-RestMethod ($WAN_JSON_TestServer_1.url) | Select -exp ($WAN_JSON_TestServer_1.prop));
 
-		} Else {
+		} ElseIf ($Scope -eq "LAN") {
 			Write-Host "No LAN Implementation currently available (Under Construction)";
 
 		}
@@ -88,7 +123,7 @@ function ResolveIP {
 
 	}
 	
-	If ($OutputNotation -eq "CIDR") {
+	If ($Notation -eq "CIDR") {
 		$ReturnedValue = (($ReturnedValue)+("/32"));
 	}
 

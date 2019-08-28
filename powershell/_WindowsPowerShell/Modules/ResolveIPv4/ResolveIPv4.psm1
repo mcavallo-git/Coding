@@ -18,9 +18,9 @@ function ResolveIPv4 {
 	$ReturnedValue = $null;
 
 	$ResolveOutgoingIPv4 = $False;
-	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('GetLoopbackAddress') -Eq $True) { $True } Else ( $ResolveOutgoingIPv4 );
-	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('ResolveOutgoingIPv4') -Eq $True) { $True } Else ( $ResolveOutgoingIPv4 );
-	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('Url') -Eq $False) { $True } Else ( $ResolveOutgoingIPv4 );
+	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('GetLoopbackAddress') -Eq $True) { $True } Else { $ResolveOutgoingIPv4 };
+	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('ResolveOutgoingIPv4') -Eq $True) { $True } Else { $ResolveOutgoingIPv4 };
+	$ResolveOutgoingIPv4 = If ($PSBoundParameters.ContainsKey('Url') -Eq $False) { $True } Else { $ResolveOutgoingIPv4 };
 
 	$WAN_TestServer_1 = "https://icanhazip.com";
 	$WAN_TestServer_2 = "https://ipecho.net/plain";

@@ -4,7 +4,7 @@ $Basename="*";
 $Parent_1="Settings"; # one step back (first directory name)
 $Parent_2="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
 $Parent_X="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
-(`
+
 Get-ChildItem `
 -Path ("$Parent_X") `
 -Depth (3) `
@@ -16,10 +16,20 @@ Get-ChildItem `
 | Where-Object { $_.Directory.Name -Like "$Parent_1" } `
 | Where-Object { $_.Name -Like "$Basename" } `
 | ForEach-Object { Remove-Item -Path ($_.FullName) -Force -Recurse; } `
-);
+;
 
-# Open Win10's "Lock screen	"Settings
+
+
+# Open "Lock screen" Settings
 start ms-settings:lockscreen;
+
+# Set "Background" to "Picture" (select any picture)
+
+# Set "Background" to "Windows Spotlight"
+
+# Restart Workstation
+
+
 
 # ------------------------------------------------------------
 #

@@ -61,11 +61,13 @@ Get-AppxPackage `
 -Name "Microsoft.Windows.ContentDeliveryManager" `
 -User "$(whoami)" `
 | ForEach {
+
 Add-AppxPackage `
-"$($_.InstallLocation)\AppxManifest.xml" `
--DisableDevelopmentMode `
+-Path ("$($_.InstallLocation)\AppxManifest.xml") `
 -Register `
+-DisableDevelopmentMode `
 ;
+
 };
 Start-Sleep -Seconds 2;
 

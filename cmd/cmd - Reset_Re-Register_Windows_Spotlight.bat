@@ -5,7 +5,8 @@ DEL /F /S /Q /A "%USERPROFILE%/AppData\Local\Packages\Microsoft.Windows.ContentD
 DEL /F /S /Q /A "%USERPROFILE%/AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\Settings"
 
 :: Re-register Windows Spotlight
-PowerShell -ExecutionPolicy Unrestricted -Command "& {$ManifestPath = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml' ; Add-AppxPackage -DisableDevelopmentMode -Register $ManifestPath}"
+REM PowerShell -ExecutionPolicy Unrestricted -Command "& {$ManifestPath = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml' ; Add-AppxPackage -DisableDevelopmentMode -Register $ManifestPath}"
+PowerShell -ExecutionPolicy Unrestricted -Command "& {Get-AppxPackage -User ($(whoami)) -Name 'Microsoft.Windows.ContentDeliveryManager' | ForEach { Add-AppxPackage -Path (($_.InstallLocation)+('\AppxManifest.xml')) -DisableDevelopmentMode -Register; }}"
 
 
 

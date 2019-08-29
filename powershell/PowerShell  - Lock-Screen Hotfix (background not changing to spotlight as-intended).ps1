@@ -64,10 +64,10 @@ start ms-settings:lockscreen;
 
 #	Re-register Windows Spotlight
 
-# Get-AppxPackage -AllUsers *ContentDeliveryManager* | ForEach {Add-AppxPackage "$($_.InstallLocation)\appxmanifest.xml" -DisableDevelopmentMode -register }
+# Get-AppxPackage -AllUsers *ContentDeliveryManager* | ForEach {Add-AppxPackage "$($_.InstallLocation)\AppxManifest.xml" -DisableDevelopmentMode -register }
 # ^ ^ ^ THROWS ERROR: Get-AppxPackage : The trust relationship between this workstation and the primary domain failed. (Exception from HRESULT: 0x800706FD)
 
-Get-AppxPackage -User "$(whoami)" -Name "*ContentDeliveryManager*" | ForEach { Add-AppxPackage -Path ("$($_.InstallLocation)\appxmanifest.xml") -DisableDevelopmentMode -Register; }
+Get-AppxPackage -User ($(whoami)) -Name 'Microsoft.Windows.ContentDeliveryManager' | ForEach { Add-AppxPackage -Path (($_.InstallLocation)+('\AppxManifest.xml')) -DisableDevelopmentMode -Register; }
 
 # $ManifestPath = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml'; Add-AppxPackage -DisableDevelopmentMode -Register $ManifestPath;
 

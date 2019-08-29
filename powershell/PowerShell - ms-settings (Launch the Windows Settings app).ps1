@@ -104,8 +104,6 @@
 #
 #	Citation(s)
 #
-#		youtube.com  |  "How to fix Lockscreen Wallpaper not changing issue in Windows 10"  |  https://www.youtube.com/watch?v=rZo4Ste8NfU
-#
 #		ss64.com  |  "ms-settings"  |  https://ss64.com/nt/syntax-settings.html
 #
 #		docs.microsoft.com  |  "Launch the Windows Settings app"  |  https://docs.microsoft.com/en-us/windows/uwp/launch-resume/launch-settings-app

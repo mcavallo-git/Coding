@@ -213,11 +213,15 @@ done;
 
 # ------------------------------------------------------------
 #
-#	Comparing two values directly (which is greater, etc.)
-#
-#	Includes logic for Integers, Floats/Doubles, and Strings (ASCII)
+#	Variable Comparisons
+#		|--> Includes logic for Integers, Floats/Doubles, and Strings (ASCII)
 #
 # ------------------------------------------------------------
+#
+#
+#  ==		String (IS_INTEGER TEST):
+#					if [[ $A =~ ^-?[0-9]+$ ]]   :::   True if $A is an integer (string input, only)
+#					if [[ "$A" =~ ^-?[0-9]+$ ]]   :::   True if $A is an integer (strings, integer, or float input)
 #
 #
 #

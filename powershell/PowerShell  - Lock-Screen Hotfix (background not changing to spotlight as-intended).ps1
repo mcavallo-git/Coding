@@ -58,11 +58,11 @@ Start-Sleep -Seconds 2;
 #	------------------------------------------------------------
 #	Re-register Windows Spotlight
 Get-AppxPackage `
--AllUsers `
-*ContentDeliveryManager* `
+-Name "Microsoft.Windows.ContentDeliveryManager" `
+-User "$(whoami)" `
 | ForEach {
 Add-AppxPackage `
-"$($_.InstallLocation)\appxmanifest.xml" `
+"$($_.InstallLocation)\AppxManifest.xml" `
 -DisableDevelopmentMode `
 -Register `
 ;
@@ -90,10 +90,16 @@ start ms-settings:lockscreen;
 #
 #	Citation(s)
 #
+#		tenforums.com  |  "How to Reset and Re-register Windows Spotlight in Windows 10"  |  https://www.tenforums.com/tutorials/82156-reset-re-register-windows-spotlight-windows-10-a.html
+#
 #		windowscentral.com  |  "How to fix Windows Spotlight Lock screen errors on Windows 10"  |  https://www.windowscentral.com/how-fix-windows-spotlight-stuck-same-image-windows-10
 #
 #		ss64.com  |  "ms-settings"  |  https://ss64.com/nt/syntax-settings.html
 #
 #		docs.microsoft.com  |  "Launch the Windows Settings app"  |  https://docs.microsoft.com/en-us/windows/uwp/launch-resume/launch-settings-app
+#
+#		docs.microsoft.com  |  "Get-AppxPackage - Gets a list of the app packages that are installed in a user profile"  |  https://docs.microsoft.com/en-us/powershell/module/appx/get-appxpackage
+#
+#		docs.microsoft.com  |  "Add-AppxPackage - Adds a signed app package to a user account"  |  https://docs.microsoft.com/en-us/powershell/module/appx/add-appxpackage
 #
 # ------------------------------------------------------------

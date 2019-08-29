@@ -1,3 +1,13 @@
+# ------------------------------------------------------------
+#####  REM - VIA CMD:
+#####		: Reset Windows Spotlight
+#####		DEL /F /S /Q /A "%USERPROFILE%/AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\LocalState\Assets"
+#####		DEL /F /S /Q /A "%USERPROFILE%/AppData\Local\Packages\Microsoft.Windows.ContentDeliveryManager_cw5n1h2txyewy\Settings"
+
+#####		:: Re-register Windows Spotlight
+#####		PowerShell -ExecutionPolicy Unrestricted -Command "& {$manifest = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml' ; Add-AppxPackage -DisableDevelopmentMode -Register $manifest}"
+
+
 
 #	------------------------------------------------------------
 #	Reset Spotlight - Remove all files in the Spotlight dir "LocalState\Assets"
@@ -19,8 +29,9 @@ Get-ChildItem `
 | Where-Object { $_.Name -Like "$Basename" } `
 | ForEach-Object { Remove-Item -Path ($_.FullName) -Force -Recurse; } `
 ;
-
 Start-Sleep -Seconds 2;
+
+
 
 #	------------------------------------------------------------
 #	Reset Spotlight - Remove all files in the Spotlight dir "Settings"
@@ -40,11 +51,26 @@ Get-ChildItem `
 | Where-Object { $_.Name -Like "$Basename" } `
 | ForEach-Object { Remove-Item -Path ($_.FullName) -Force -Recurse; } `
 ;
-
 Start-Sleep -Seconds 2;
 
-#	------------------------------------------------------------
 
+
+#	------------------------------------------------------------
+#	Re-register Windows Spotlight
+Get-AppxPackage `
+-AllUsers `
+*ContentDeliveryManager* `
+| ForEach {
+Add-AppxPackage `
+"$($_.InstallLocation)\appxmanifest.xml" `
+-DisableDevelopmentMode `
+-Register `
+;
+};
+Start-Sleep -Seconds 2;
+
+
+# ------------------------------------------------------------
 # Open "Lock screen" Settings
 start ms-settings:lockscreen;
 

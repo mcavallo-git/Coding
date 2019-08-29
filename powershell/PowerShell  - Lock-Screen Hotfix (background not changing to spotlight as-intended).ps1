@@ -88,7 +88,7 @@ start ms-settings:lockscreen;
 
 
 
-# ------------------------------------------------------------
+#	------------------------------------------------------------
 #
 #	Citation(s)
 #
@@ -104,4 +104,4 @@ start ms-settings:lockscreen;
 #
 #		docs.microsoft.com  |  "Add-AppxPackage - Adds a signed app package to a user account"  |  https://docs.microsoft.com/en-us/powershell/module/appx/add-appxpackage
 #
-# ------------------------------------------------------------
+#	------------------------------------------------------------

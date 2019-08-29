@@ -4,6 +4,15 @@
 #
 # ------------------------------------------------------------
 # 
+# Parse GnuPG key_id's out of gpg's 'LONG' formated-values
+#
+GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
+echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
+
+
+
+# ------------------------------------------------------------
+# 
 # Parse nginx runtime user's name from nginx.conf
 #
 if [ -f "/etc/nginx/nginx.conf" ]; then
@@ -43,15 +52,6 @@ Change the line to this one
 sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
 
 sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
-
-
-
-# ------------------------------------------------------------
-# 
-# Parse GnuPG key_id's out of gpg's 'LONG' formated-values
-#
-GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
-echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 
 
 

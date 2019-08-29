@@ -18,8 +18,8 @@ Get-ChildItem `
 | ForEach-Object { Remove-Item -Path ($_.FullName) -Force -Recurse; } `
 );
 
-# Open Win10's Settings
-start ms-settings:;
+# Open Win10's "Lock screen	"Settings
+start ms-settings:lockscreen;
 
 # ------------------------------------------------------------
 #

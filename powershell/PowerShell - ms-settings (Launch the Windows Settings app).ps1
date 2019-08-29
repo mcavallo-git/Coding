@@ -1,5 +1,6 @@
-# Open Win10's Settings
-start ms-settings:;
+
+<# Open Win10's Settings #> start ms-settings:;
+
 <#	Landing page for Settings	#>	start	ms-settings:;
 <#	About	#>	start	ms-settings:about;
 <#	Activation	#>	start	ms-settings:activation;

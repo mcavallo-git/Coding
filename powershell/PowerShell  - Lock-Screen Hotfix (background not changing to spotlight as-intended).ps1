@@ -54,14 +54,6 @@ Get-ChildItem `
 Start-Sleep -Seconds 2;
 
 
-
-#	------------------------------------------------------------
-#	Re-register Windows Spotlight
-$ManifestPath = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml';
-Add-AppxPackage -DisableDevelopmentMode -Register $ManifestPath;
-Start-Sleep -Seconds 2;
-
-
 # ------------------------------------------------------------
 # Open "Lock screen" Settings
 start ms-settings:lockscreen;
@@ -69,6 +61,16 @@ start ms-settings:lockscreen;
 # Set "Background" to "Picture" (select any picture)
 
 # Set "Background" to "Windows Spotlight"
+
+#	Re-register Windows Spotlight
+
+# Get-AppxPackage -AllUsers *ContentDeliveryManager* | ForEach {Add-AppxPackage "$($_.InstallLocation)\appxmanifest.xml" -DisableDevelopmentMode -register }
+# ^ ^ ^ THROWS ERROR: Get-AppxPackage : The trust relationship between this workstation and the primary domain failed. (Exception from HRESULT: 0x800706FD)
+
+Get-AppxPackage -User "$(whoami)" -Name "*ContentDeliveryManager*" | ForEach { Add-AppxPackage -Path ("$($_.InstallLocation)\appxmanifest.xml") -DisableDevelopmentMode -Register; }
+
+# $ManifestPath = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml'; Add-AppxPackage -DisableDevelopmentMode -Register $ManifestPath;
+
 
 
 

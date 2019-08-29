@@ -16,6 +16,7 @@
 #
 #		Example 1
 #			|--> Overview: Find files with multiple different levels of depth, parent-filenames, basenames, etc. matching multiple different criteria, all in one query
+#			|--> Use: Lock-Screen background fix - Used this script to locate files to-be-deleted
 #
 $Basename="*";
 $Parent_1="Settings"; # one step back (first directory name)

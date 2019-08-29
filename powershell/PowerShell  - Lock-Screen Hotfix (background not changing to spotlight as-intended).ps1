@@ -4,7 +4,6 @@ $Basename="*";
 $Parent_1="Settings"; # one step back (first directory name)
 $Parent_2="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
 $Parent_X="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
-
 Get-ChildItem `
 -Path ("$Parent_X") `
 -Depth (3) `

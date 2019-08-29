@@ -57,18 +57,8 @@ Start-Sleep -Seconds 2;
 
 #	------------------------------------------------------------
 #	Re-register Windows Spotlight
-Get-AppxPackage `
--Name "Microsoft.Windows.ContentDeliveryManager" `
--User "$(whoami)" `
-| ForEach {
-
-Add-AppxPackage `
--Path ("$($_.InstallLocation)\AppxManifest.xml") `
--Register `
--DisableDevelopmentMode `
-;
-
-};
+$ManifestPath = (Get-AppxPackage *ContentDeliveryManager*).InstallLocation + '\AppxManifest.xml';
+Add-AppxPackage -DisableDevelopmentMode -Register $ManifestPath;
 Start-Sleep -Seconds 2;
 
 

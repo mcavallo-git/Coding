@@ -11,17 +11,41 @@ PowerShell -ExecutionPolicy Unrestricted -Command "& {Get-AppxPackage -User ($(w
 
 TIMEOUT /T 30
 
+
+
 REM ------------------------------------------------------------
 REM
 REM REM CLEAR OUT SAVED GROUP-POLICY SETTINGS FOUND IN REGEDIT
 REM
-REM REM CLEAR OUT HKCU
-REM HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\CloudContent
+REM -- HKCU
+REM HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\CloudContent\
+REM HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lock Screen\
+REM HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\AppSync
 REM
-REM REM CLEAR OUT HKLM
-REM HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent
+REM -- HKLM
+REM HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent\
+REM HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SettingSync\
 REM
 REM ------------------------------------------------------------
+
+
+
+REM ------------------------------------------------------------
+REM
+REM	DEFINE A FEW REGEDIT KEYS
+REM
+REM	HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SettingSync   (KEY)
+REM		|--> "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SettingSync\DisableSettingSync" --> DELETE
+REM		|--> "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SettingSync\DisableSettingSyncUserOverride" --> CREATE AS A "DWORD" WITH VALUE "1"
+REM
+REM	HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\SettingSync\Groups\AppSync   (KEY)
+REM		|--> "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SettingSync\DisableSettingSync" --> DELETE
+REM		|--> "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\SettingSync\DisableSettingSyncUserOverride" --> CREATE AS A "DWORD" WITH VALUE "1"
+REM
+REM
+REM
+REM ------------------------------------------------------------
+
 
 
 REM	------------------------------------------------------------
@@ -33,5 +57,7 @@ REM
 REM		techdows.com  |  "Fix Windows 10 Lock Screen Settings page shows ‘Some Settings are managed by your organization’ Message"  |  https://techdows.com/2015/09/fix-windows-10-lock-screen-some-settings-are-managed-by-your-organization.html
 REM
 REM		appuals.com  |  "How to Fix ‘some settings are managed by your organization’"  |  https://appuals.com/how-to-fix-some-settings-are-managed-by-your-organization/
+REM
+REM		docs.microsoft.com  |  "Windows Settings details"  |  https://docs.microsoft.com/en-us/azure/active-directory/devices/enterprise-state-roaming-windows-settings-reference#windows-settings-details
 REM
 REM	------------------------------------------------------------

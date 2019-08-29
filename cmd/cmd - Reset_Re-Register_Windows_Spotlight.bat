@@ -9,6 +9,8 @@ REM PowerShell -ExecutionPolicy Unrestricted -Command "& {$ManifestPath = (Get-A
 PowerShell -ExecutionPolicy Unrestricted -Command "& {Get-AppxPackage -User ($(whoami)) -Name 'Microsoft.Windows.ContentDeliveryManager' | ForEach { Add-AppxPackage -Path (($_.InstallLocation)+('\AppxManifest.xml')) -DisableDevelopmentMode -Register; }}"
 
 
+TIMEOUT /T 30
+
 
 REM	------------------------------------------------------------
 REM

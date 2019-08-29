@@ -11,11 +11,27 @@ PowerShell -ExecutionPolicy Unrestricted -Command "& {Get-AppxPackage -User ($(w
 
 TIMEOUT /T 30
 
+REM ------------------------------------------------------------
+REM
+REM REM CLEAR OUT SAVED GROUP-POLICY SETTINGS FOUND IN REGEDIT
+REM
+REM REM CLEAR OUT HKCU
+REM HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\CloudContent
+REM
+REM REM CLEAR OUT HKLM
+REM HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent
+REM
+REM ------------------------------------------------------------
+
 
 REM	------------------------------------------------------------
 REM
 REM	Citation(s)
 REM
 REM		tenforums.com  |  "How to Reset and Re-register Windows Spotlight in Windows 10"  |  https://www.tenforums.com/tutorials/82156-reset-re-register-windows-spotlight-windows-10-a.html
+REM
+REM		techdows.com  |  "Fix Windows 10 Lock Screen Settings page shows ‘Some Settings are managed by your organization’ Message"  |  https://techdows.com/2015/09/fix-windows-10-lock-screen-some-settings-are-managed-by-your-organization.html
+REM
+REM		appuals.com  |  "How to Fix ‘some settings are managed by your organization’"  |  https://appuals.com/how-to-fix-some-settings-are-managed-by-your-organization/
 REM
 REM	------------------------------------------------------------

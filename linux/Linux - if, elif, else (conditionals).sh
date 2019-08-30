@@ -1,40 +1,24 @@
 # ------------------------------------------------------------
 #
-#	If [ Not Null/Unset ]
+#	IF VARIABLE IS SET/EMPTY
 #
-#	Example
-#		Determine if [string] variable has a value using [ -n ] comparator
 
-VAR="hello"
-if [ -n "${VAR}" ]; then
-	echo "VAR has a value of \"${VAR}\"";
+if [ -z ${var+x} ]; then # Note: Do NOT wrap ${var+x} with quotes
+	# UNSET
+	echo "\$var is unset";
+elif [ -z "${var}" ]; then
+	# SET, EMPTY
+	echo "\$var is set but empty";
 else
-	echo "VAR is Null/Unset";
+	# SET, NOT-EMPTY
+	echo "\$var is set to '$var'";
 fi;
 
 
 
 # ------------------------------------------------------------
 #
-#	If [ Null/Unset ]
-#
-#	Example
-#		Use parameter expansion to determine if a given VAR has been instantiated:  ${<VAR>+x}
-#		( Citation: Thanks to user 'Cheeso' on stackoverflow - https://stackoverflow.com/questions/3601515 )
-#
-
-if [ -z ${VAR+x} ]; then
-	echo "VAR is Null/Unset";
-else
-	echo "VAR is set to '${VAR}'";
-fi;
-
-
-
-# ------------------------------------------------------------
-#
-#	IF STRING EQUALS ... 
-#	   
+#	IF STRING EQUALS ... EXACTLY
 #
 
 if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not empty
@@ -61,7 +45,6 @@ if [ "string" == "value" ]; then echo 1; else echo 0; fi;
 #
 #	IF STRING CONTAINS ...
 #	    |--> Test if a string (LEFT) contains a given substring/value (RIGHT) using [ Needle-in-Haystack ] methodology
-#	    |--> Details - https://unix.stackexchange.com/a/340485
 #
 
 if [[ "string" == *"needle"* ]]; then echo 1; else echo 0; fi;
@@ -71,7 +54,7 @@ if [[ "string" == *"needle"* ]]; then echo 1; else echo 0; fi;
 # ------------------------------------------------------------
 #
 #	IF STRING MATCHES REGEX-PATTERN
-#	    |--> Test a string against a given regex pattern
+#	    |--> Note: Do NOT wrap regex pattern in quotes
 #
 
 if [[ "string" =~ pattern ]]; then echo 1; else echo 0; fi;
@@ -351,18 +334,18 @@ done;
 #
 # Citation(s)
 #
-#		stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
-#
-#		stackoverflow.com  |  "How to check if a variable is set in Bash?"  |  https://stackoverflow.com/a/13864829
-#
-#		stackoverflow.com  |  "Is there an easy way to determine if user input is an integer in bash?"  |  https://stackoverflow.com/a/4141321
-#		
 #		www.tldp.org  |  "7.3. Other Comparison Operators" (Integer/String Conditionals)  |  https://www.tldp.org/LDP/abs/html/comparison-ops.html
 #
 #		www.gnu.org  |  "6.4 Bash Conditional Expressions"  |  https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
 #
 #		pubs.opengroup.org  |  "2.6.2 Parameter Expansion"  |  https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
 #
+#		stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
+#
+#		stackoverflow.com  |  "How to check if a variable is set in Bash?"  |  https://stackoverflow.com/a/13864829
+#
+#		stackoverflow.com  |  "Is there an easy way to determine if user input is an integer in bash?"  |  https://stackoverflow.com/a/4141321
+#		
 #
 #
 # ------------------------------------------------------------

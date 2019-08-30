@@ -14,8 +14,8 @@ REM		Width to Resize-To
 SET ResizeToWidth=1000
 
 REM		Input & Output Directories
-SET "INPUT_DIR=__TO_BE_TRIMMED"
-SET "OUTPUT_DIR=_FINISHED_ITEMS"
+SET "INPUT_DIR=Input"
+SET "OUTPUT_DIR=Output"
 
 REM		--= ImageMagick  :::  Trim the Image(s) ==-   
 FOR %%I IN ("%INPUT_DIR%\*.jpg") DO (

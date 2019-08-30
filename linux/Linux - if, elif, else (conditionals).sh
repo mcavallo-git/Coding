@@ -33,7 +33,8 @@ fi;
 
 # ------------------------------------------------------------
 #
-#		If [ Not-Null ]
+#	IF STRING EQUALS ... 
+#	   
 #
 
 if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not empty
@@ -45,39 +46,38 @@ fi;
 
 
 
-# ------------------------------------------------------------
-#
-#		If [ String == String ]
-#
-if [ "${s1}" == "${s2}" ]; then
-	echo "Strings ARE equal ";
-else
-	echo "Strings are NOT equal";
-fi;
-
-
 
 # ------------------------------------------------------------
 #
-#	If [ Needle-in-Haystack ]
-#
-#	Example
-#		Perform a case-insensitive substring comparison
-#		( Citation: Thanks to user 'marcog' on stackoverflow - https://stackoverflow.com/questions/4277665 )
+#	IF STRING EQUALS ... 
+#	    |--> Test if a given string (LEFT) is an exact match to a known value (RIGHT)
 #
 
-if [[ "${HAYSTACK}" == *"${NEEDLE}"* ]]; then # Needle found in haystack
-	echo "Haystack \"${HAYSTACK}\" contains Needle \"${NEEDLE}\"";
-else
-	echo "Needle \"${NEEDLE}\" not found in Haystack \"${HAYSTACK}\"";
-fi;
+if [ "string" == "value" ]; then echo 1; else echo 0; fi;
 
 
 
 # ------------------------------------------------------------
 #
-#	If [ String passes regex test ]
+#	IF STRING CONTAINS ...
+#	    |--> Test if a string (LEFT) contains a given substring/value (RIGHT) using [ Needle-in-Haystack ] methodology
+#	    |--> Details - https://unix.stackexchange.com/a/340485
 #
+
+if [[ "string" == *"needle"* ]]; then echo 1; else echo 0; fi;
+
+
+
+# ------------------------------------------------------------
+#
+#	IF STRING MATCHES REGEX-PATTERN
+#	    |--> Test a string against a given regex pattern
+#
+
+if [[ "string" =~ pattern ]]; then echo 1; else echo 0; fi;
+
+
+
 #
 #	Example
 #		Check to see if string is a date in 'yyyymmdd' format
@@ -350,20 +350,16 @@ done;
 # ------------------------------------------------------------
 #
 # Citation(s)
-#		
-#		www.tldp.org
-#		"7.3. Other Comparison Operators" (Integer/String Conditionals)
-#		 https://www.tldp.org/LDP/abs/html/comparison-ops.html
 #
-#		
-#		www.gnu.org
-#		"6.4 Bash Conditional Expressions"
-#		 https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
+#		stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
 #
+#		stackoverflow.com  |  "How to check if a variable is set in Bash?"  |  https://stackoverflow.com/a/13864829
+#
+#		stackoverflow.com  |  "Is there an easy way to determine if user input is an integer in bash?"  |  https://stackoverflow.com/a/4141321
 #		
-#		stackoverflow.com
-#		"Is there an easy way to determine if user input is an integer in bash?"
-#		 https://stackoverflow.com/questions/4137262
+#		www.tldp.org  |  "7.3. Other Comparison Operators" (Integer/String Conditionals)  |  https://www.tldp.org/LDP/abs/html/comparison-ops.html
+#
+#		www.gnu.org  |  "6.4 Bash Conditional Expressions"  |  https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
 #
 #
 #

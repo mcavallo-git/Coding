@@ -1,0 +1,2 @@
+# Windows - Clear Browser's Cache
+Clear your browser's cache by closing your browser (if-open), re-opening your browser and pressing the combo-keypress:  SHIFT + CTRL + DELETE   →   Check only the two options "Cookies ..." and "Cache ..." (ignore cache if not shown), then set the time range (if available) to "All Time" / "Everything" / similar max option. Confirm the selection to clear the browser's cache with selected settings

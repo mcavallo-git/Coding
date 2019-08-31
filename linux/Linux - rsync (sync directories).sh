@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# ------------------------------------------------------------
+#
+#	rsync --chmod ...
+#	  |--> use rsync to chmod a directory + all subdirectores with one value (D...), while chmod'ing all sub-files with a separate value (F...)
+#
+
+TARGET="$(realpath ~/tester)" && rsync --archive --inplace --force --verbose --chmod="D0750,F640" "$(realpath "${TARGET}";)$(test -d "${TARGET}" && echo "/";)" "$(realpath "${TARGET}";)";
+
+
+
+# ------------------------------------------------------------
 
 NEW_OWNER="$(whoami)";
 

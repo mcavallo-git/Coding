@@ -219,12 +219,22 @@ file -bi '/var/log/nginx/error.log';
 ***
 ### Example - List items whose absolute filepath matches a given name, but do not end with a given extension
 #####  ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)
+* Show parent-filenames
 ```
 find "/etc/apt/sources.list"* \
 -type f \
 -not -name *".save" \
 -exec echo -e '\n→ apt package-repositories in "{}" :' \; \
 -exec grep -h ^deb '{}' \; \
+;
+```
+* Hide parent-filenames & sort results
+```
+find "/etc/apt/sources.list"* \
+-type f \
+-not -name *".save" \
+-exec grep -h ^deb '{}' \; \
+| sort \
 ;
 ```
 

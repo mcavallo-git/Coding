@@ -4,10 +4,8 @@
 
 # Install [ Apache v2.4 ] && [ PHP v5.6 ] in [ Ubuntu (for WSL - Windows Subsystem for Linux) ]
 
-add-apt-repository -y ppa:ondrej/php;
-add-apt-repository -y ppa:ondrej/apache2;
-
-apt-get update -y;
+add-apt-repository --yes --update ppa:ondrej/php;
+add-apt-repository --yes --update ppa:ondrej/apache2;
 
 # Install php5.6 (installs apache2 + prerequisites)
 apt-get install -y php5.6;

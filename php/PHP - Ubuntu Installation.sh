@@ -9,7 +9,7 @@ apt-get update -y;
 
 apt-get install -y software-properties-common;
 
-add-apt-repository -y ppa:ondrej/php; apt-get update -y;
+add-add-apt-repository --yes --update ppa:ondrej/php;
 
 apt-get install -y php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-json php7.2-mbstring php7.2-intl php7.2-mysql php7.2-xml php7.2-zip;
 
@@ -18,11 +18,9 @@ apt-get install -y php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-
 # Install [ Apache v2.4 ] && [ PHP v5.6 ] in [ Ubuntu (for WSL - Windows Subsystem for Linux) ]
 #
 
-add-apt-repository -y ppa:ondrej/php;
+add-apt-repository --yes --update ppa:ondrej/php;
 
-add-apt-repository -y ppa:ondrej/apache2;
-
-apt-get update -y;
+add-apt-repository --yes --update ppa:ondrej/apache2;
 
 # Install php5.6 (installs apache2 + prerequisites)
 apt-get install -y php5.6;

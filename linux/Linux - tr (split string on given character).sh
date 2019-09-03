@@ -5,7 +5,7 @@
 
 
 
-for EACH_PATH in $(manpath | tr ":" "\n"); do echo -e "\n${EACH_PATH}"; ls -al "${EACH_PATH}"; done;
+for EACH_PATH in $(manpath | tr ":" "\n"); do echo -e "\nCalling:  ls -al \"${EACH_PATH}\"..."; ls -al "${EACH_PATH}"; done;
 
 
 

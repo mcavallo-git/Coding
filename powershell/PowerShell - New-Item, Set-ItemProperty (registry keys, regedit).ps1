@@ -25,7 +25,7 @@ $RegEdits += @{
 			Value=1;
 		},
 		@{
-			Description="Enables (1) or Disables (0) Windows-Search from associating current geo-location along with each search-query";
+			Description=$Null;
 			Name="AllowSearchToUseLocation";
 			Type="DWord";
 			Value=0;
@@ -38,25 +38,25 @@ $RegEdits += @{
 	Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
 	Props=@(
 		@{
-			Description="(See prop-name)";
+			Description=$Null;
 			Name="AllowCortana";
 			Type="DWord";
 			Value=0;
 		},
 		@{
-			Description="(See prop-name)";
+			Description=$Null;
 			Name="ConnectedSearchUseWeb";
 			Type="DWord";
 			Value=0;
 		},
 		@{
-			Description="(See prop-name)";
+			Description=$Null;
 			Name="ConnectedSearchUseWebOverMeteredConnections";
 			Type="DWord";
 			Value=0;
 		},
 		@{
-			Description="(See prop-name)";
+			Description=$Null;
 			Name="DisableWebSearch";
 			Type="DWord";
 			Value=1;
@@ -119,7 +119,9 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 			}
 			
-			Write-Host (("        (")+($EachProp.Description)+(")`n`n"));
+			If (($EachProp.Description) -Ne $Null) {
+				Write-Host (("        (")+($EachProp.Description)+(")`n`n"));
+			}
 		}
 
 

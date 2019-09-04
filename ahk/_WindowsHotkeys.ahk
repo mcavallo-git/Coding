@@ -32,6 +32,8 @@ SetWorkingDir, %A_ScriptDir%
 
 DetectHiddenWindows, On
 
+; #ErrorStdOut
+
 #Persistent
 
 #SingleInstance Force
@@ -794,11 +796,24 @@ WheelRight::
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Shift + Insert
+;  ACTION:  If running Ubuntu via WSL (Windows Subsystem for Linux), Paste the clipboard
+;
+RShift & Insert::
+LShift & Insert::
+	WinGet, ActiveProcessName, ProcessName, A
+	if ( ActiveProcessName = "ubuntu.exe" )
+	{
+		SetKeyDelay, 0
+		Send %Clipboard%
+	}
+	Return
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + C
 ;  ACTION:  Chrome - Open a New Instance of Google Chrome
 ;
 #C::
-	; ------------------------------------------------------------
 	OpenChrome()
 	; TabSpace_Loop(50)
 	Return
@@ -842,7 +857,7 @@ WheelRight::
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-;  HOTKEY:  Left-Shift + Right-Shift
+;  HOTKEY:  Left-Shift + Right-Shift  (Both Shifts/Shift-Keys)
 ;  ACTION:  Maximize Current Window
 ;
 ; VKA0 & VKA1::     ;VKA1 = RShift
@@ -1686,5 +1701,7 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;		autohotkey.com  |  "Single line if statements"  |  https://autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ; 
 ;		autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
+;
+;		autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
 ;
 ; ------------------------------------------------------------

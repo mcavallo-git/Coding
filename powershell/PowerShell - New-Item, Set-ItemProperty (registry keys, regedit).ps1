@@ -103,17 +103,17 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 				If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 					# Existing key-property found with correct value
-					Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of `"")+($EachProp.Value)+("`" (Already up to date)"));
+					Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ] (Already up to date)"));
 
 				} Else {
 					# Modify the value of an existing property on an existing registry key
-					Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value `"")+($EachProp.LastValue)+("`" to Value `"")+($EachProp.Value)+("`""));
+					Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value [ ")+($EachProp.LastValue)+(" ] to Value [ ")+($EachProp.Value)+(" ]"));
 					Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 				}
 			} Else {
 				# Add the missing property to the Registry Key
-				Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value `"")+($EachProp.Value)+("`""));
+				Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]"));
 				New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 				Write-Host " `n`n";
 

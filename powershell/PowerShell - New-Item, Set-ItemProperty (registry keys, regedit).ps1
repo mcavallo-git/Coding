@@ -1,14 +1,68 @@
 
 $RegEdits = @();
 
+# Explorer Settings
 $RegEdits += @{
 	Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
-	Props = @(
-		@{ Value="1"; Name="NoWindowMinimizingShortcuts";  Type="DWord"; Description="Enables (0) or Disables (1) `"Aero Shake`" in Windows 10"; }
+	Props=@(
+		@{
+			Description="Enables (0) or Disables (1) `"Aero Shake`" in Windows 10.";
+			Name="NoWindowMinimizingShortcuts"; 
+			Type="DWord";
+			Value=1;
+		}
 	)
 };
 
+# Search / Cortana Settings
+$RegEdits += @{
+	Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
+	Props=@(
+		@{
+			Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com. Fix for KB4512941 bug: Set to value=1 to avoid Cortana from constantly eating 30-40% CPU (processing resources), even while idling.";
+			Name="BingSearchEnabled";
+			Type="DWord";
+			Value=1;
+		},
+		@{
+			Description="Enables (1) or Disables (0) Windows-Search from associating current geo-location along with each search-query";
+			Name="AllowSearchToUseLocation";
+			Type="DWord";
+			Value=0;
+		}
+	)
+};
 
+# Search / Cortana Settings
+$RegEdits += @{
+	Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
+	Props=@(
+		@{
+			Description="(See prop-name)";
+			Name="AllowCortana";
+			Type="DWord";
+			Value=0;
+		},
+		@{
+			Description="(See prop-name)";
+			Name="ConnectedSearchUseWeb";
+			Type="DWord";
+			Value=0;
+		},
+		@{
+			Description="(See prop-name)";
+			Name="ConnectedSearchUseWebOverMeteredConnections";
+			Type="DWord";
+			Value=0;
+		},
+		@{
+			Description="(See prop-name)";
+			Name="DisableWebSearch";
+			Type="DWord";
+			Value=1;
+		}
+	)
+};
 
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrattor")) {
 	#

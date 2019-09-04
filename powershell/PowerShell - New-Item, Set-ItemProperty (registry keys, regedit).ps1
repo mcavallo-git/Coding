@@ -120,10 +120,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 			}
 			
 			If (($EachProp.Description) -Ne $Null) {
-				Write-Host (("        (")+($EachProp.Description)+(")`n`n"));
+				Write-Host (("        (")+($EachProp.Description)+(")"));
 			}
 		}
 
+		Write-Host "`n`n";
 
 	}
 

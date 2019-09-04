@@ -801,11 +801,21 @@ WheelRight::
 ;
 RShift & Insert::
 LShift & Insert::
-	WinGet, ActiveProcessName, ProcessName, A
-	if ( ActiveProcessName = "ubuntu.exe" )
-	{
-		SetKeyDelay, 0
-		Send %Clipboard%
+	If (StrLen(A_OSVersion) >= 2) {
+		StringLeft, OS_FirstTwoChars, A_OSVersion, 2
+		If ( OS_FirstTwoChars = "10" ) {
+			WinGet, ActiveProcessName, ProcessName, A
+			If ( ActiveProcessName = "ubuntu.exe" ) {
+				SetKeyDelay, 0
+				Send %Clipboard%
+			}
+			TrayTip, %A_ScriptName%, 
+				(LTrim
+					ActiveProcessName=[%ActiveProcessName%]
+					A_OSVersion=[%A_OSVersion%]
+					OS_FirstTwoChars=[%OS_FirstTwoChars%]
+				)
+		}
 	}
 	Return
 ;

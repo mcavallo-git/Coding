@@ -81,7 +81,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 		If ((Test-Path -Path ($EachRegEdit.Path)) -eq $true) {
 			# Skip creating registry key if it already exists
-			Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`" (Already up to date)"));
+			Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")); # (Already up to date)
 		} Else {
 			# Create missing key in the registry
 			Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" "));
@@ -103,7 +103,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 				If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 					# Existing key-property found with correct value
-					Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ] (Already up to date)"));
+					Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")); # (Already up to date)
 
 				} Else {
 					# Modify the value of an existing property on an existing registry key

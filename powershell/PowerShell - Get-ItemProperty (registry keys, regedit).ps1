@@ -7,3 +7,9 @@
 #
 
 Get-ItemProperty -Path HKCU:\Environment -Name Path
+
+# 
+# Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
+# 
+# New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
+# 

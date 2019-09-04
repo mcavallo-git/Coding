@@ -32,6 +32,10 @@ SetWorkingDir, %A_ScriptDir%
 
 DetectHiddenWindows, On
 
+SetCapsLockState, Off
+
+FileEncoding, UTF-8
+
 ; #ErrorStdOut
 
 #Persistent
@@ -57,16 +61,20 @@ CR=`r
 LF=`n
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-SetCapsLockState, Off
-
-;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;
 ; Setup a group for targeting [Windows Explorer] windows
 
 GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
 
 GroupAdd, Explorer, ahk_class CabinetWClass
+
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+TEMP_AHK = %A_Temp%\AutoHotkey\
+IfNotExist, %TEMP_AHK%
+{
+	FileCreateDir, %TEMP_AHK%
+}
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;	Tooltip clearing tool(s)
@@ -806,7 +814,7 @@ LShift & Insert::
 		If ( OS_FirstTwoChars = "10" ) {
 			WinGet, ActiveProcessName, ProcessName, A
 			If ( ActiveProcessName = "ubuntu.exe" ) {
-				SetKeyDelay, 0
+				SetKeyDelay, 0, -1
 				Send %Clipboard%
 			}
 			TrayTip, %A_ScriptName%, 

@@ -6,10 +6,21 @@
 #		|--> Note: Powershell's built-in environment variable $Env:Path is a combination of system & user-specific environment-variables)
 #
 
-Get-ItemProperty -Path HKCU:\Environment -Name Path
+$RegEdit = @{
+	Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
+	Name="BingSearchEnabled";
+	Type="DWord";
+	Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com";
+	Value="1";
+};
 
-# 
-# Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
-# 
-# New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
-# 
+Get-ItemProperty -Path ($RegEdit.Path) -Name ($RegEdit.Name)
+
+If ((Test-Path -Path ($RegEdit.Path)) -Eq $True) {
+	Set-ItemProperty -Path ($RegEdit.Path) -Name ($RegEdit.Name) -Value ($RegEdit.Value);
+} Else {
+	New-ItemProperty -Path ($RegEdit.Path) -Name ($RegEdit.Name) -PropertyType ($RegEdit.Type) -Value ($RegEdit.Value);
+}
+
+Get-ItemProperty -Path ($RegEdit.Path) -Name ($RegEdit.Name)
+

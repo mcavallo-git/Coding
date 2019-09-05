@@ -345,8 +345,6 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
 ;
 #P::
-RWin & P::
-LWin & P::
 	SetKeyDelay, 0, -1
 	TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
 	; ------------------------------------------------------------

@@ -167,16 +167,15 @@ ClearSplashText(TimerPeriod) {
 	GUI_BACKGROUND_COLOR = 1E1E1E
 	GUI_TEXT_COLOR = FFFFFF
 	
-	; GUI_OPT = r%GUI_ROWCOUNT% w%GUI_WIDTH% gOnDoubleClick_GuiDestroy_WindowSpecs Background%GUI_BACKGROUND_COLOR% C%GUI_TEXT_COLOR% Grid NoSortHdr AltSubmit
-
+	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
 	GUI_OPT = r%GUI_ROWCOUNT%
 	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
-	GUI_OPT = %GUI_OPT% gOnDoubleClick_GuiDestroy_WindowSpecs
+	GUI_OPT = %GUI_OPT% gOnClick_LV_WindowSpecs
 	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
 	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
 	GUI_OPT = %GUI_OPT% Grid
 	GUI_OPT = %GUI_OPT% NoSortHdr
-	GUI_OPT = %GUI_OPT% AltSubmit  ; https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
+	; GUI_OPT = %GUI_OPT% AltSubmit
 
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 
@@ -203,24 +202,29 @@ ClearSplashText(TimerPeriod) {
 	Gui, Show
 	Return
 
-OnDoubleClick_GuiDestroy_WindowSpecs() {
-	Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
- 
-	If (Obj_EventTriggers[A_GuiEvent])
-	{
+OnClick_LV_WindowSpecs() {
+	; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
+	Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
+	If (Obj_EventTriggers[A_GuiEvent]) {
 		LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
 		LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
-		TrayTip, %A_ScriptName%,
-			(LTrim
-				Selected Row # %A_EventInfo%
-				Key: %KeySelected%
-				Val: %ValSelected%
-			)
+		MsgBox, 4, %A_ScriptName%,
+		(LTrim
+			You selected:
+			%ValSelected%
+
+			Copy this to the clipboard?
+		)
+		IfMsgBox Yes
+		{
+			Clipboard := ValSelected
+		}
 		; Gui, WindowSpecs:Default
 		; Gui, Destroy
 	}
 
-	LV_Verbosity := 0 ; Set variable to 1 for verbose debug-logging
+	; DEBUGGING-ONLY (Set variable "%LV_Verbosity%" to 1, here, to enable verbose debug-logging)
+	LV_Verbosity := 0
 	if ( LV_Verbosity = 1 ) {
 		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
 		ToolTip, %TooltipOutput%
@@ -229,6 +233,7 @@ OnDoubleClick_GuiDestroy_WindowSpecs() {
 
 	Return
 }
+
 
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;   HOTKEY:  Win + -

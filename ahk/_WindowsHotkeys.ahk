@@ -164,8 +164,21 @@ ClearSplashText(TimerPeriod) {
 	
 	GUI_ROWCOUNT := 12
 	GUI_WIDTH := 1000
+	GUI_BACKGROUND_COLOR = 1E1E1E
+	GUI_TEXT_COLOR = FFFFFF
+	
+	; GUI_OPT = r%GUI_ROWCOUNT% w%GUI_WIDTH% gOnDoubleClick_GuiDestroy_WindowSpecs Background%GUI_BACKGROUND_COLOR% C%GUI_TEXT_COLOR% Grid NoSortHdr AltSubmit
 
-	Gui, Add, ListView, r%GUI_ROWCOUNT% w%GUI_WIDTH% gOnDoubleClick_GuiDestroy_WindowSpecs, Key|Val
+	GUI_OPT = r%GUI_ROWCOUNT%
+	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
+	GUI_OPT = %GUI_OPT% gOnDoubleClick_GuiDestroy_WindowSpecs
+	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
+	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
+	GUI_OPT = %GUI_OPT% Grid
+	GUI_OPT = %GUI_OPT% NoSortHdr
+	GUI_OPT = %GUI_OPT% AltSubmit  ; https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
+
+	Gui, Add, ListView, %GUI_OPT%, Key|Value
 
 	LV_Add("", "Title", WinTitle)
 	LV_Add("", "Class", WinClass)
@@ -180,17 +193,40 @@ ClearSplashText(TimerPeriod) {
 	LV_Add("", "Height", Height)
 	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
 
-	LV_ModifyCol()  ; Auto-size each column to fit its contents.
+	LV_ModifyCol(1, "AutoHdr Text Left")
+
+	LV_ModifyCol(2, "AutoHdr Text Left")
+
+	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
 
 	; Display the window and return. The script will be notified whenever the user double clicks a row.
 	Gui, Show
 	Return
 
 OnDoubleClick_GuiDestroy_WindowSpecs() {
-	if (A_GuiEvent = "DoubleClick") {
-		Gui, WindowSpecs:Default
-		Gui, Destroy
+	Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
+ 
+	If (Obj_EventTriggers[A_GuiEvent])
+	{
+		LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
+		LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
+		TrayTip, %A_ScriptName%,
+			(LTrim
+				Selected Row # %A_EventInfo%
+				Key: %KeySelected%
+				Val: %ValSelected%
+			)
+		; Gui, WindowSpecs:Default
+		; Gui, Destroy
 	}
+
+	LV_Verbosity := 0 ; Set variable to 1 for verbose debug-logging
+	if ( LV_Verbosity = 1 ) {
+		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
+		ToolTip, %TooltipOutput%
+		SetTimer, RemoveToolTip, -2500
+	}
+
 	Return
 }
 
@@ -1768,8 +1804,44 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ; 	MsgBox, %Echo_Tooltip%
 ; 	Return
 ; }
+; ------------------------------------------------------------
 
+; ------------------------------------------------------------
+;
+; ;;; SETTING UP & USING DYNAMICALLY-NAMED,
+; ;;; USER-SELECTABLE POPUP (MSGBOX) BUTTONS
+;
 
+#7::
+SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
+; |--> MAKE SURE that this callback script kills this SetTimer, otherwise it will keep running indefinitely
+
+MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement! shown above selectable buttons
+IfMsgBox Yes
+{
+	TrayTip, %A_ScriptName%, Leftmost Button Selected
+}
+IfMsgBox No
+{
+	TrayTip, %A_ScriptName%, Center Button Selected
+}
+IfMsgBox Cancel
+{
+	TrayTip, %A_ScriptName%, Rightmost Button Selected
+}
+Return
+
+CustomMsgboxButtons_UNIQUE_NAME_HERE: 
+	IfWinNotExist, Popup_MsgBox_WindowTitle
+	{
+		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+	}
+	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 
+	WinActivate 
+	ControlSetText, Button1, &LEFT_BUTTON
+	ControlSetText, Button2, &CENTER_BUTTON
+	ControlSetText, Button3, &RIGHT_BUTTON
+	Return
 
 ; ------------------------------------------------------------
 ;	
@@ -1782,5 +1854,11 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;		autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
 ;
 ;		autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
+;
+;		autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
+;
+;		autohotkey.com/docs  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
+;
+;		autohotkey.com/docs  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
 ;
 ; ------------------------------------------------------------

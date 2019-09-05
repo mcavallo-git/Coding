@@ -1808,30 +1808,32 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 
 ; ------------------------------------------------------------
 ;
-; ;;; SETTING UP & USING DYNAMICALLY-NAMED,
-; ;;; USER-SELECTABLE POPUP (MSGBOX) BUTTONS
-;
 
-#7::
-SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
-; |--> MAKE SURE that this callback script kills this SetTimer, otherwise it will keep running indefinitely
+CustomPopupButtons_Demo() {
+	; ;;; CUSTOM POPUP OPTIONS (EXAMPLE)
+	;
+	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
+	; |--> MAKE SURE that this callback script kills this SetTimer, otherwise it will keep running indefinitely
 
-MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement! shown above selectable buttons
-IfMsgBox Yes
-{
-	TrayTip, %A_ScriptName%, Leftmost Button Selected
-}
-IfMsgBox No
-{
-	TrayTip, %A_ScriptName%, Center Button Selected
-}
-IfMsgBox Cancel
-{
-	TrayTip, %A_ScriptName%, Rightmost Button Selected
-}
-Return
+	MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
+	IfMsgBox Yes
+	{
+		TrayTip, %A_ScriptName%, Leftmost Button Selected
+	}
+	IfMsgBox No
+	{
+		TrayTip, %A_ScriptName%, Center Button Selected
+	}
+	IfMsgBox Cancel
+	{
+		TrayTip, %A_ScriptName%, Rightmost Button Selected
+	}
 
-CustomMsgboxButtons_UNIQUE_NAME_HERE: 
+	Return
+
+}
+
+CustomMsgboxButtons_UNIQUE_NAME_HERE() {
 	IfWinNotExist, Popup_MsgBox_WindowTitle
 	{
 		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
@@ -1842,6 +1844,13 @@ CustomMsgboxButtons_UNIQUE_NAME_HERE:
 	ControlSetText, Button2, &CENTER_BUTTON
 	ControlSetText, Button3, &RIGHT_BUTTON
 	Return
+}
+
+
+; #7::
+; 	CustomPopupButtons_Demo()
+; 	Return
+
 
 ; ------------------------------------------------------------
 ;	

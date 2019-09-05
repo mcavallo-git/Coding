@@ -219,8 +219,8 @@ OnClick_LV_WindowSpecs() {
 		{
 			Clipboard := ValSelected
 		}
-		Gui, WindowSpecs:Default
-		Gui, Destroy
+		; Gui, WindowSpecs:Default
+		; Gui, Destroy
 	}
 
 	; DEBUGGING-ONLY (Set variable "%LV_Verbosity%" to 1, here, to enable verbose debug-logging)

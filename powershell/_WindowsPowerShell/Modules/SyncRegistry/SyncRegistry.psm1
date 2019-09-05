@@ -1,8 +1,8 @@
-function RegistrySync {
+function SyncRegistry {
 	Param(
 	)
 
-	PrivilegeEscalation -Command ("RegistrySync");
+	PrivilegeEscalation -Command ("SyncWorkstationRegistry");
 
 	$RegEdits = @();
 

@@ -864,22 +864,28 @@ WheelRight::
 ;
 RShift & Insert::
 LShift & Insert::
-	If (StrLen(A_OSVersion) >= 2) {
-		StringLeft, OS_FirstTwoChars, A_OSVersion, 2
-		If ( OS_FirstTwoChars = "10" ) {
-			WinGet, ActiveProcessName, ProcessName, A
-			If ( ActiveProcessName = "ubuntu.exe" ) {
-				SetKeyDelay, 0, -1
-				Send %Clipboard%
-			}
-			TrayTip, %A_ScriptName%, 
-				(LTrim
-					ActiveProcessName=[%ActiveProcessName%]
-					A_OSVersion=[%A_OSVersion%]
-					OS_FirstTwoChars=[%OS_FirstTwoChars%]
-				)
-		}
-	}
+	SetKeyDelay, 0, -1
+	; Use RegexReplace to strip leading whitespace from every copied line
+	ClipboardDuped := Clipboard
+	ClipboardDuped := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
+	Send {Blind}{Text}%ClipboardDuped%
+	; IsUbuntuWSL := 0
+	; If (StrLen(A_OSVersion) >= 2) {
+	; 	StringLeft, OS_FirstTwoChars, A_OSVersion, 2
+	; 	If ( OS_FirstTwoChars = "10" ) {
+	; 		WinGet, ActiveProcessName, ProcessName, A
+	; 		If ( ActiveProcessName = "ubuntu.exe" ) {
+	; 			IsUbuntuWSL := 1
+	; 		}
+	; 	}
+	; }
+	; If ( IsUbuntuWSL = 1 ) {
+	; 	SetKeyDelay, 0, -1
+	; 	Send %Clipboard%
+	; 	TrayTip, %A_ScriptName%, Pasting Clipboard into Ubuntu WSL Instance
+	; } Else {
+	; 	Send {Shift}{Insert}
+	; }
 	Return
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------

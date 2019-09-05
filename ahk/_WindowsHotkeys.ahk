@@ -34,7 +34,7 @@ DetectHiddenWindows, On
 
 SetCapsLockState, Off
 
-FileEncoding, UTF-8
+; FileEncoding, UTF-8
 
 ; #ErrorStdOut
 
@@ -345,15 +345,70 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
 ;
 #P::
-+#P::
+RWin & P::
+LWin & P::
 	SetKeyDelay, 0, -1
-	MsgBox, 4,, Type the Clipboard? (Yes/No)
+	TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
+	; ------------------------------------------------------------
+	SetTimer, CustomMsgboxButtons_ClipboardPaste, 50 
+	MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
 	IfMsgBox Yes
-		Send %Clipboard%
-	else {
-		; MsgBox Skipped
+	{
+		ClipboardDuped:=Clipboard
+		TrayTip, %A_ScriptName%,
+		(LTrim
+			Pasting the Text version of the Clipboard
+		)
+		; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
+
+		; OPTION 1 - Using Built-in AHK Trim Method
+		ClipboardSend := ""
+		VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
+		Loop, Parse, ClipboardDuped, `n, `r
+		{
+			ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
+			Send {Blind}{Text}%ClipboardSend%
+			ClipboardSend = ; Avoid caching clipboard-contents in memory
+			Sleep 100
+		}
+		; OPTION 2 - Using Regex Replacement Method
+		; ClipboardSend := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
+		; Send {Blind}{Text}%ClipboardSend%
+
 	}
+	; ------------------------------------------------------------
+	IfMsgBox No
+	{
+		ClipboardDuped:=Clipboard
+		FileAppend, %ClipboardAll%, %TEMP_CLIP_FILE% ; The file extension does not matter
+		Sleep, 100
+		FileRead, Clipboard, *c %TEMP_CLIP_FILE% ; Note the use of *c, which must precede the filename
+		Sleep, 100
+		Send {Blind}{Text}%Clipboard%
+		TrayTip, %A_ScriptName%,
+		(LTrim
+			Pasting the Binary version of the Clipboard
+		)
+		Sleep, 100
+		FileDelete, %TEMP_CLIP_FILE% ; Delete the clipboard file
+		Sleep, 100
+		Clipboard:=ClipboardDuped
+		Sleep, 100
+	}
+	; ------------------------------------------------------------
+	ClipboardDuped = ; Avoid caching clipboard-contents in memory
+	ClipboardSend = ; Avoid caching clipboard-contents in memory
 	Return
+
+CustomMsgboxButtons_ClipboardPaste: 
+	IfWinNotExist, Text or Binary
+			return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+	SetTimer, CustomMsgboxButtons_ClipboardPaste, Off 
+	WinActivate 
+	ControlSetText, Button1, &Text
+	ControlSetText, Button2, &Binary
+	Return
+
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Win + H
@@ -1721,5 +1776,7 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;		autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
 ;
 ;		autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
+;
+;		autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
 ;
 ; ------------------------------------------------------------

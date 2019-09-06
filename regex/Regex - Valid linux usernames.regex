@@ -5,14 +5,8 @@
 
 ^[a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?$
 
-[[ $date =~ ^[0-9]{8}$ ]] && echo "yes"
 
-
-USER_NAME_TEST="xxxyyyzzz"; [[ $date =~ ^[0-9]{8}$ ]] && echo "yes";
-
-
-USER_NAME_TEST="xxxyyyzzz" && if [[ ${USER_NAME_TEST} =~ ^[a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?$ ]]; then echo 1; else echo 0; fi;
-
+USER_NAME_TEST="xxxyyyzzz"; echo ${USER_NAME_TEST} | grep --extended-regexp '^[a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?$'
 
 
 # ------------------------------------------------------------

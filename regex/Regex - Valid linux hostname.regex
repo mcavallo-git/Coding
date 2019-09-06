@@ -6,18 +6,18 @@
 ^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
 
 
-VALID_HOSTNAME_TEST="test-this-hostname";
-if [ "${VALID_HOSTNAME_TEST}" == "$(echo ${VALID_HOSTNAME_TEST} | grep --extended-regexp '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$';)" ]; then
-	echo " ✓ Hostname \"${VALID_HOSTNAME_TEST}\" is a VALID hostname";
-else
-	echo " X Hostname \"${VALID_HOSTNAME_TEST}\" is an INVALID hostname";
+VALID_HOSTNAME_TEST="test-this-hostname"; \
+if [ "${VALID_HOSTNAME_TEST}" == "$(echo ${VALID_HOSTNAME_TEST} | grep --extended-regexp '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$';)" ]; then \
+	echo " ✓ Hostname \"${VALID_HOSTNAME_TEST}\" is a VALID hostname"; \
+else \
+	echo " X Hostname \"${VALID_HOSTNAME_TEST}\" is an INVALID hostname"; \
 fi;
 
-INVALID_HOSTNAME_TEST="test-this-hostname--";
-if [ "${INVALID_HOSTNAME_TEST}" == "$(echo ${INVALID_HOSTNAME_TEST} | grep --extended-regexp '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$';)" ]; then
-	echo " ✓ Hostname \"${INVALID_HOSTNAME_TEST}\" is a VALID hostname";
-else
-	echo " X Hostname \"${INVALID_HOSTNAME_TEST}\" is an INVALID hostname";
+INVALID_HOSTNAME_TEST="test-this-hostname--"; \
+if [ "${INVALID_HOSTNAME_TEST}" == "$(echo ${INVALID_HOSTNAME_TEST} | grep --extended-regexp '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$';)" ]; then \
+	echo " ✓ Hostname \"${INVALID_HOSTNAME_TEST}\" is a VALID hostname"; \
+else \
+	echo " X Hostname \"${INVALID_HOSTNAME_TEST}\" is an INVALID hostname"; \
 fi;
 
 

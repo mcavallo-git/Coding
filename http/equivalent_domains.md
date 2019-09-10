@@ -136,7 +136,7 @@ subway.com
 
 <!-- ------------------------------------------------------------ -->
 
-<h3>Subway</h3>
+<h3>Windstream</h3>
 <pre><code>
 
 windstream.net,

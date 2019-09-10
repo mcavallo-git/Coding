@@ -1,4 +1,13 @@
-# Linux - find (command)
+<!-- ------------------------------------------------------------ ---
+
+This file (on GitHub):
+
+	https://github.com/mcavallo-git/Coding/blob/master/linux/Linux%20-%20find%20(files%20with%20attributes%20matching).md
+
+--- ------------------------------------------------------------- -->
+
+
+<strong>Linux - find</strong><sub><i> (files with attributes matching)</i></sub><br />
 
 
 
@@ -211,30 +220,21 @@ file -bi '/var/log/nginx/error.log';
 ```
 
 
-
+<!-- ------------------------------------------------------------ -->
 # Examples
-
+<!-- ------------------------------------------------------------ -->
 
 
 ***
-### Example - List items whose absolute filepath matches a given name, but do not end with a given extension
-#####  ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)
-* Show parent-filenames
+### Example - Get all config.xml files within the "Jenkins" user's home-directory (job to backup/export jenkins-config)
 ```
-find "/etc/apt/sources.list"* \
+JENKINS_HOME=$(getent passwd "jenkins" | cut --delimiter=: --fields=6); \
+find "${JENKINS_HOME}/" \
+-mindepth 1 \
+-maxdepth 3 \
+-name 'config.xml' \
+-not -path "${JENKINS_HOME}/config-history/*" \
 -type f \
--not -name *".save" \
--exec echo -e '\n→ apt package-repositories in "{}" :' \; \
--exec grep -h ^deb '{}' \; \
-;
-```
-* Hide parent-filenames & sort results
-```
-find "/etc/apt/sources.list"* \
--type f \
--not -name *".save" \
--exec grep -h ^deb '{}' \; \
-| sort \
 ;
 ```
 
@@ -314,6 +314,31 @@ filesize_LESS_THAN="1048576c";
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 
 ```
+
+
+
+***
+### Example - List items whose absolute filepath matches a given name, but do not end with a given extension
+#####  ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)
+* Show parent-filenames
+```
+find "/etc/apt/sources.list"* \
+-type f \
+-not -name *".save" \
+-exec echo -e '\n→ apt package-repositories in "{}" :' \; \
+-exec grep -h ^deb '{}' \; \
+;
+```
+* Hide parent-filenames & sort results
+```
+find "/etc/apt/sources.list"* \
+-type f \
+-not -name *".save" \
+-exec grep -h ^deb '{}' \; \
+| sort \
+;
+```
+
 
 
 ***

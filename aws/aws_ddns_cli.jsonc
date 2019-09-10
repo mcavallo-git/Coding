@@ -1,12 +1,11 @@
 //
-//	Policy-Name
+//	Policy-Name:
 //		aws_ddns_cli
-
 //
-//	Policy-Description
+//	Policy-Description:
 //		Policy which allows security group management to a specific IPv4 (intended to reference the controller over the cloud-service, e.g. the jenkins server)
 //
-//	Policy-JSON
+//	Policy-JSON:
 {
 	"Version": "2012-10-17",
 	"Statement": [
@@ -27,7 +26,7 @@
 			"Resource": "*",
 			"Condition": {
 				"IpAddress": {
-					"aws:SourceIp": "13.58.94.67/32"
+					"aws:SourceIp": "1.2.3.4/32"
 				}
 			}
 		}

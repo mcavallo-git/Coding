@@ -1,0 +1,35 @@
+//
+//	Policy-Name
+//		aws_ddns_cli
+
+//
+//	Policy-Description
+//		Policy which allows security group management to a specific IPv4 (intended to reference the controller over the cloud-service, e.g. the jenkins server)
+//
+//	Policy-JSON
+{
+	"Version": "2012-10-17",
+	"Statement": [
+		{
+			"Sid": "VisualEditor0",
+			"Effect": "Allow",
+			"Action": [
+				"ec2:RevokeSecurityGroupIngress",
+				"ec2:AuthorizeSecurityGroupEgress",
+				"ec2:AuthorizeSecurityGroupIngress",
+				"ec2:UpdateSecurityGroupRuleDescriptionsEgress",
+				"ec2:DescribeSecurityGroupReferences",
+				"ec2:RevokeSecurityGroupEgress",
+				"ec2:DescribeSecurityGroups",
+				"ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+				"ec2:DescribeStaleSecurityGroups"
+			],
+			"Resource": "*",
+			"Condition": {
+				"IpAddress": {
+					"aws:SourceIp": "13.58.94.67/32"
+				}
+			}
+		}
+	]
+}

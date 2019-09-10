@@ -17,7 +17,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Spin-up Database-Servers</strong>
+		<b>Spin-up Database-Servers</b>
 		<sub> → <i>Create MySQL Database Servers</i></sub>
 	</summary>
 	<br />
@@ -28,7 +28,7 @@ This file (on GitHub):
 
 
 <li><details><summary>
-		<strong>Name - Match using case SENSITIVE search</strong>
+		<b>Name - Match using case SENSITIVE search</b>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search</code></pre>
 <hr /></details></li><br />
@@ -37,7 +37,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Name - Match using case INsensitive search</strong>
+		<b>Name - Match using case INsensitive search</b>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search</code></pre>
 <hr /></details></li><br />
@@ -46,7 +46,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Filetype - Match Files, only</strong>
+		<b>Filetype - Match Files, only</b>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only</code></pre>
 <hr /></details></li><br />
@@ -55,7 +55,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Filetype - Match Directories, only</strong>
+		<b>Filetype - Match Directories, only</b>
 	</summary>
 <pre><code>find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only</code></pre>
 <hr /></details></li><br />
@@ -64,7 +64,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Ignore Path - Exclude a given sub-directory or filepath from returned results</strong>
+		<b>Ignore Path - Exclude a given sub-directory or filepath from returned results</b>
 	</summary>
 <pre><code>find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'</code></pre>
 <hr /></details></li><br />
@@ -73,7 +73,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)</strong>
+		<b>Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)</b>
 	</summary>
 <pre><code>find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'</code></pre>
 <hr /></details></li><br />
@@ -82,7 +82,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>No-Recursion - Limit matched results to a specific depth of sub-directories - using a maxdepth of 1 only searches within the given directory</strong>
+		<b>No-Recursion - Limit matched results to a specific depth of sub-directories - using a maxdepth of 1 only searches within the given directory</b>
 	</summary>
 <pre><code>
 find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
@@ -93,7 +93,7 @@ find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Ignore Sub-Directory - Find Files in a given directory while IGNORING a given sub-directory</strong>
+		<b>Ignore Sub-Directory - Find Files in a given directory while IGNORING a given sub-directory</b>
 	</summary>
 <pre><code>
 find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/jenkins/workspace/*";
@@ -104,7 +104,7 @@ find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/j
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Count Files - Count the total number of files within a given directory & its sub-directories</strong>
+		<b>Count Files - Count the total number of files within a given directory & its sub-directories</b>
 	</summary>
 <pre><code>
 find "/var/log" -type 'f' -name "*" | wc -l;
@@ -115,7 +115,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Extension (single) - Find files matching one, single extension</strong>
+		<b>Extension (single) - Find files matching one, single extension</b>
 	</summary>
 <pre><code>
 Refer to script 'find_basenames_extensions.sh' (in this same repo)
@@ -126,7 +126,7 @@ Refer to script 'find_basenames_extensions.sh' (in this same repo)
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Extension (list) - Find files matching at least one extension in a list of extensions (defined by user)</strong>
+		<b>Extension (list) - Find files matching at least one extension in a list of extensions (defined by user)</b>
 	</summary>
 <pre><code>
 LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; # Current user's home-directory
@@ -139,7 +139,7 @@ echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least 
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Extensions (count) - Count the number of EACH type of file-extension for files within a given directory (and subdirectories)</strong>
+		<b>Extensions (count) - Count the number of EACH type of file-extension for files within a given directory (and subdirectories)</b>
 	</summary>
 	<p>Note: Listed extensions are case-SENSITIVE (e.g. "PDF", "PdF", and "pdf" will be listed separately)</p>
 <pre><code>
@@ -151,7 +151,7 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified [ in the last X minutes ( see variable X_MINUTES ) ]</strong>
+		<b>Last Modified - Find files modified [ in the last X minutes ( see variable X_MINUTES ) ]</b>
 	</summary>
 <pre><code>
 X_MINUTES=120;
@@ -163,7 +163,7 @@ find "/var/log" -mtime -${X_MINUTES} -ls;
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified since [ given timestamp ]</strong>
+		<b>Last Modified - Find files modified since [ given timestamp ]</b>
 	</summary>
 <pre><code>
 find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
@@ -174,7 +174,7 @@ find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified since [ given timestamp ] --> ROBUSTIFIED</strong>
+		<b>Last Modified - Find files modified since [ given timestamp ] --> ROBUSTIFIED</b>
 	</summary>
 <pre><code>
 modified_SINCE="3 minutes ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
@@ -189,7 +189,7 @@ find "/var/log" -type 'f' -newermt "$(date --date="${modified_SINCE}" +'%Y-%m-%d
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified since [ given timestamp (formatted in Epoch seconds) ]</strong>
+		<b>Last Modified - Find files modified since [ given timestamp (formatted in Epoch seconds) ]</b>
 	</summary>
 <pre><code>
 find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
@@ -200,7 +200,7 @@ find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified NO LATER THAN [ given timestamp ]</strong>
+		<b>Last Modified - Find files modified NO LATER THAN [ given timestamp ]</b>
 	</summary>
 <pre><code>
 find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
@@ -211,7 +211,7 @@ find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified NO LATER THAN [ given timestamp ] --> ROBUSTIFIED</strong>
+		<b>Last Modified - Find files modified NO LATER THAN [ given timestamp ] --> ROBUSTIFIED</b>
 	</summary>
 <pre><code>
 modified_NO_LATER_THAN="3 months ago"; # "X [seconds/minutes/hours/weeks/months/years] ago"
@@ -226,7 +226,7 @@ find "/var/log" -type 'f' -not -newermt "$(date --date="${modified_NO_LATER_THAN
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Last Modified - Find files modified BETWEEN [ given timestamp ] and [ given timestamp ]</strong>
+		<b>Last Modified - Find files modified BETWEEN [ given timestamp ] and [ given timestamp ]</b>
 	</summary>
 <pre><code>
 modified_AFTER="2018-09-21 10:05:18";
@@ -239,7 +239,7 @@ find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTE
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Ownership (Group) - Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"</strong>
+		<b>Ownership (Group) - Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"</b>
 	</summary>
 <pre><code>
 find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
@@ -250,7 +250,7 @@ find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Encoding - Determine a file's encoding (utf-8, ascii, etc.)</strong>
+		<b>Encoding - Determine a file's encoding (utf-8, ascii, etc.)</b>
 	</summary>
 <pre><code>
 file -bi '/var/log/nginx/error.log';
@@ -268,7 +268,7 @@ file -bi '/var/log/nginx/error.log';
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Example - Get all config.xml files within the "Jenkins" user's home-directory (job to backup/export jenkins-config)</strong>
+		<b>Example - Get all config.xml files within the "Jenkins" user's home-directory (job to backup/export jenkins-config)</b>
 	</summary>
 <pre><code>
 JENKINS_HOME=$(getent passwd "jenkins" | cut --delimiter=: --fields=6); \
@@ -286,7 +286,7 @@ find "${JENKINS_HOME}/" \
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Example - Delete items within a directory older than X days</strong>
+		<b>Example - Delete items within a directory older than X days</b>
 	</summary>
 	<p>ex) Cleanup NGINX Logs</p>
 <pre><code>
@@ -305,7 +305,7 @@ find ${DIRECTORY_TO_CLEAN} \
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Example - Update any files-found which match the source-file's exact same filename & extension</strong>
+		<b>Example - Update any files-found which match the source-file's exact same filename & extension</b>
 	</summary>
 	<p>##  ex) phpMyAdmin login logo</p>
 <pre><code>
@@ -322,7 +322,7 @@ find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${P
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Example - Perform multiple actions within a for-loop on any items matching given find-command</strong>
+		<b>Example - Perform multiple actions within a for-loop on any items matching given find-command</b>
 	</summary>
 	<p>  ex) phpMyAdmin css searching (for specific class declaration)</p>
 <pre><code>
@@ -342,7 +342,7 @@ done;
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Example - Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)</strong>
+		<b>Example - Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)</b>
 	</summary>
 <pre><code>
 # ------------------------------------------------------------
@@ -366,7 +366,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Example - List items whose absolute filepath matches a given name, but do not end with a given extension</strong>
+		<b>Example - List items whose absolute filepath matches a given name, but do not end with a given extension</b>
 	</summary>
 	<p>ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)</p>
 <pre><code>
@@ -394,7 +394,7 @@ find "/etc/apt/sources.list"* \
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong># MAN (manual) - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:</strong>
+		<b># MAN (manual) - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:</b>
 	</summary>
 <pre><code>
 man find
@@ -424,7 +424,7 @@ man find
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<strong>Citation(s)</strong>
+		<b>Citation(s)</b>
 	</summary>
 	<ul>
 		<li>linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find</li>

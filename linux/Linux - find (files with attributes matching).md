@@ -367,7 +367,8 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 
 <li><details><summary>
 		<strong>Example - List items whose absolute filepath matches a given name, but do not end with a given extension</strong>
-		<p>##  ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)</p>
+	</summary>
+	<p>ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)</p>
 <pre><code>
 # ------------------------------------------------------------
 # Show parent-filenames

@@ -24,14 +24,14 @@ This file (on GitHub):
 	<ol>
 		<li>Create a MySQL Database server by following guide @ <a href="images/screenshots/aws-rds/README.md">AWS - Creating an RDS instance</a></li>
 	</ol>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <li><details><summary>
 		<strong>Name - Match using case SENSITIVE search</strong>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search</code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -40,7 +40,7 @@ This file (on GitHub):
 		<strong>Name - Match using case INsensitive search</strong>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search</code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -49,7 +49,7 @@ This file (on GitHub):
 		<strong>Filetype - Match Files, only</strong>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only</code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -58,7 +58,7 @@ This file (on GitHub):
 		<strong>Filetype - Match Directories, only</strong>
 	</summary>
 <pre><code>find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only</code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -67,7 +67,7 @@ This file (on GitHub):
 		<strong>Ignore Path - Exclude a given sub-directory or filepath from returned results</strong>
 	</summary>
 <pre><code>find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'</code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -76,7 +76,7 @@ This file (on GitHub):
 		<strong>Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)</strong>
 	</summary>
 <pre><code>find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'</code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -87,7 +87,7 @@ This file (on GitHub):
 <pre><code>
 find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -98,7 +98,7 @@ find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
 <pre><code>
 find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/jenkins/workspace/*";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -109,7 +109,7 @@ find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/j
 <pre><code>
 find "/var/log" -type 'f' -name "*" | wc -l;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -120,7 +120,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 <pre><code>
 Refer to script 'find_basenames_extensions.sh' (in this same repo)
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -133,7 +133,7 @@ LOOK_IN_DIRECTORY="$(getent passwd $(whoami) | cut --delimiter=: --fields=6)"; #
 GENERIC_WEB_FILES=$(find "${LOOK_IN_DIRECTORY}" -type 'f' \( -iname \*.html -o -iname \*.css -o -iname \*.jpg -o -iname \*.png -o -iname \*.gif -o -iname \*.woff2 \));
 echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least one extension in '${LOOK_IN_DIRECTORY}'\n";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -145,7 +145,7 @@ echo -e "\nFound $(echo "${GENERIC_WEB_FILES}" | wc -l) files matching at least 
 <pre><code>
 find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -157,7 +157,7 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 X_MINUTES=120;
 find "/var/log" -mtime -${X_MINUTES} -ls;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -168,7 +168,7 @@ find "/var/log" -mtime -${X_MINUTES} -ls;
 <pre><code>
 find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -183,7 +183,7 @@ modified_SINCE="Fri Sep 21 13:30:18 UTC-4 2018"; # specific date-time with relat
 modified_SINCE="@1537551572"; # epoch timestamp (in seconds)
 find "/var/log" -type 'f' -newermt "$(date --date="${modified_SINCE}" +'%Y-%m-%d %H:%M:%S')";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -194,7 +194,7 @@ find "/var/log" -type 'f' -newermt "$(date --date="${modified_SINCE}" +'%Y-%m-%d
 <pre><code>
 find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%S')";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -205,7 +205,7 @@ find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%
 <pre><code>
 find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -220,7 +220,7 @@ modified_NO_LATER_THAN="Fri Sep 21 13:30:18 UTC-4 2018"; # specific date-time wi
 modified_NO_LATER_THAN="@1537551572"; # epoch timestamp (in seconds)
 find "/var/log" -type 'f' -not -newermt "$(date --date="${modified_NO_LATER_THAN}" +'%Y-%m-%d %H:%M:%S')";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -233,7 +233,7 @@ modified_AFTER="2018-09-21 10:05:18";
 modified_NO_LATER_THAN="2018-09-21 13:37:19";
 find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTER}" ! -newermt "${modified_NO_LATER_THAN}";
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -244,7 +244,7 @@ find '/var/log' -type 'f' -regex '^/var/log/nginx/.*$' -newermt "${modified_AFTE
 <pre><code>
 find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -255,7 +255,7 @@ find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 <pre><code>
 file -bi '/var/log/nginx/error.log';
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 
@@ -280,7 +280,7 @@ find "${JENKINS_HOME}/" \
 -type f \
 ;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -299,7 +299,7 @@ find ${DIRECTORY_TO_CLEAN} \
 -exec rm -v -- '{}' \; \
 ;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -316,7 +316,7 @@ find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${P
 PMA_LOGO_LOGIN="/var/www/html/themes/original/img/logo_right.png" && \
 find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${PMA_LOGO_LOGIN})/*" -exec cp -f "${PMA_LOGO_LOGIN}" '{}' \;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -336,7 +336,7 @@ for EACH_FILE in $(find "/" -name "*.css*"); do
 	fi;
 done;
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -360,7 +360,7 @@ filesize_LESS_THAN="1048576c";
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 # ------------------------------------------------------------
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -388,7 +388,7 @@ find "/etc/apt/sources.list"* \
 ;
 # ------------------------------------------------------------
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -418,7 +418,7 @@ man find
        1,048,575 bytes.
 ...
 </code></pre>
-<hr /></details></li>
+<hr /></details></li><br />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -429,7 +429,7 @@ man find
 	<ul>
 		<li>linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find</li>
 	</ul>
-<hr /></details></li>
+<hr /></details></li><br />
 
 <!-- ------------------------------------------------------------ -->
 

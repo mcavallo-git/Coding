@@ -140,7 +140,7 @@ subway.com
 <pre><code>
 
 windstream.net,
-windstream.auth-gateway.net
+auth-gateway.net
 
 </code></pre>
 <hr />

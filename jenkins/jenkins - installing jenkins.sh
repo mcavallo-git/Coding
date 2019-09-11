@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# 
+# Spin-up the jenkins docker
 docker run \
 -u root \
 --rm \

@@ -24,6 +24,12 @@ FOR %%I IN ("%INPUT_DIR%\*.jpg") DO (
 	DEL /f "%%I"
 	ECHO.
 )
+FOR %%I IN ("%INPUT_DIR%\*.png") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.png"
+	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.png"
+	DEL /f "%%I"
+	ECHO.
+)
 
 REM	Open the output directory once finished
 START explorer.exe "%OUTPUT_DIR%"

@@ -76,6 +76,18 @@ W32TM /resync /rediscover;
 #  |-->  /rediscover  -->  "Redetect the network configuration and rediscover network sources; Then, resynchronize"
 
 # ------------------------------------------------------------
+If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax - if-so, then use this, instead:
+
+
+NET STOP W32TIME;
+W32TM /config /manualpeerlist:"time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual;
+NET START W32TIME;
+W32TM /config /update;
+W32TM /resync /rediscover;
+
+
+}
+# ------------------------------------------------------------
 #
 #		Or if an all-in-one command is desired:
 #

@@ -681,6 +681,19 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 
 ;
 ;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
+;  HOTKEY:  Apps-Key keypress (square menu button, commonly next to right-ctrl on keyboard)
+;  ACTION:  Send Windows-Key Keypress, instead
+;
+
+;AppsKey::
+;	Send {RWin Down}
+;	Return
+;AppsKey Up::
+;	Send {RWin Up}
+;	Return
+
+;
+;==----------------------------------------------------------------------------------------------------------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + Right-Click
 ;  ACTION:  Output cursor location
 ;

@@ -44,13 +44,13 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	See <strong>Syncing Linux Shellscripts via <a href="https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">sync_cloud_infrastructure</a></strong>
+	<strong>Sync a Linux Server's Shellscripts via <a href="https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">sync_cloud_infrastructure</a></strong>
 </li>
 
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	See <strong>Workstation Software (Listed) via <a href="windows#workstation-installs">Windows Workstation Installs</a></strong>
+	<strong>Setup a Windows Workstation via <a href="windows#workstation-installs">Workstation Installs (Windows)</a></strong>
 </li>
 
 <!-- ------------------------------------------------------------ -->

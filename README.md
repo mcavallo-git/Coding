@@ -40,6 +40,6 @@ This file (on GitHub):
 </details><hr />
 <!-- ------------------------------------------------------------ -->
 
-<h3>View <a href="windows#workstation-installs">Windows Workstation Installs</a></h3>
+<h3>View <a href="windows#workstation-installs">Workstation Installs (Windows)</a></h3>
 
 <!-- ------------------------------------------------------------ -->

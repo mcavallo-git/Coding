@@ -30,8 +30,14 @@ DISM /Online /Cleanup-Image /RestoreHealth /Source:F:\sources\install.wim
 
 REM ------------------------------------------------------------
 REM 
-REM Cleaning up the "C:\Windows\WinSxS" folder via DISM:
+REM Use DISM to cleanup the "C:\Windows\WinSxS" folder via:
 DISM /Online /Cleanup-Image /StartComponentCleanup
+
+
+REM ------------------------------------------------------------
+REM 
+REM Use DISM to remove all previous updates (WARNING: cannot roll-back if ANY errors occur) via:
+DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase
 
 
 REM ------------------------------------------------------------

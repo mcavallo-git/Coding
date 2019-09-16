@@ -6,10 +6,9 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-***
 <h3 id="workstation-installs">Workstation Installs (Windows)</h3>
-<!-- <details><summary><i>Show/Hide Content</i></summary> -->
-<!-- <p> -->
+↳ <i>Software/Tools for a Windows Workstation/Environment</i>
+<hr />
 
 Name | Option A | Option B
 --- | --- | ---

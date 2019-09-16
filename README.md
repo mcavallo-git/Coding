@@ -16,7 +16,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<li><details open><summary><i>Sync "Coding" PowerShell Scripts</i></summary>
+<li><details open><summary><strong>Sync "Coding" PowerShell Scripts</strong></summary>
 <p>
 	<h4>Prerequisite(s):</h4>
 	<ul>
@@ -43,6 +43,11 @@ This file (on GitHub):
 
 <li>
 	<h3>See <a href="windows#workstation-installs">Workstation Installs (Windows)</a></h3>
+</li>
+<!-- ------------------------------------------------------------ -->
+
+<li>
+	<h3>See <a href="	https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">Linux ShellScript Sync</a></h3>
 </li>
 
 <!-- ------------------------------------------------------------ -->

@@ -8,7 +8,7 @@ This file (on GitHub):
 
 <h3 id="workstation-installs">
 	Workstation Installs (Windows)<br />
-&nbsp;&nbsp;&nbsp;&nbsp;↳ <i>Software/Tools for a Windows Workstation/Environment</i>
+&nbsp;&nbsp;↳ <i>Software/Tools for a Windows Workstation/Environment</i>
 </h3>
 <hr />
 

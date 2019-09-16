@@ -1,1 +1,1 @@
-Get-AppxPackage *Xbox* | Remove-AppxPackage
+PowerShell -Command ("Get-AppxPackage *Xbox* | Remove-AppxPackage;")

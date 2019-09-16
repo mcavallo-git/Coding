@@ -6,8 +6,10 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h1 id="coding">Coding</h1>
-↳ <i id="readme">Scripts for Runtime, Maintenance, etc.</i>
+<h3 id="coding">
+	Coding<br />
+	↳ <i id="readme">Scripts for Runtime, Maintenance, etc.</i>
+</h3>
 <hr />
 
 <!-- ------------------------------------------------------------ -->

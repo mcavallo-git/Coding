@@ -8,7 +8,7 @@ This file (on GitHub):
 
 <h3 id="coding">
 	Coding<br />
-	↳ <i id="readme">Scripts for Runtime, Maintenance, etc.</i>
+	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">Scripts for Runtime, Maintenance, etc.</i></sub>
 </h3>
 <hr />
 

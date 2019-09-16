@@ -51,7 +51,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong><a href="windows#workstation-installs">Setup a Windows Workstation with Software-Tools and Utilities</a></strong>
+	<strong><a href="https://github.com/mcavallo-git/Coding/tree/master/windows#workstation-installs">Setup a Windows Workstation with Software-Tools and Utilities</a></strong>
 </li><hr />
 
 <!-- ------------------------------------------------------------ -->

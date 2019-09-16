@@ -1,8 +1,10 @@
-<!-- ------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------ ---
 
-<!-- [THIS FILE ON GITHUB] https://github.com/mcavallo-git/Coding#coding [THIS FILE ON GITHUB] -->
+This file (on GitHub):
 
-<!-- ------------------------------------------------------------ -->
+	https://github.com/mcavallo-git/Coding#coding
+
+--- ------------------------------------------------------------- -->
 
 <h1>Coding</h1>
 <h6><i>Scripts for Runtime, Maintenance, etc.</i></h6>

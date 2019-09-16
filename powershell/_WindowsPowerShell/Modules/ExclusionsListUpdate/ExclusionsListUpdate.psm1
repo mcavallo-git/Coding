@@ -29,7 +29,6 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses = @(),
 		$ExcludedExtensions = @(),
 
-		[Switch]$Personal,
 		[Switch]$Entertainment,
 
 		[Switch]$Quiet,
@@ -45,8 +44,7 @@ function ExclusionsListUpdate {
 
 	$ESET_ExportToCopyFrom = If ($ESET_ExportToCopyFrom -Ne "") { $ESET_ExportToCopyFrom } Else { ((${Env:USERPROFILE})+("\Desktop\eset-export.xml")) };
 
-	$IncludePersonal = If ($PSBoundParameters.ContainsKey('Personal')) { $True } Else { $False };
-	$IncludeEntertainment = If (($PSBoundParameters.ContainsKey('Personal')) -Or ($PSBoundParameters.ContainsKey('Entertainment'))) { $True } Else { $False };
+	$IncludeEntertainment = If ($PSBoundParameters.ContainsKey('Entertainment')) { $True } Else { $False };
 
 	Write-Host "";
 	Write-Host "  Exclusions List Update  " -BackgroundColor ("Black") -ForegroundColor ("Green");
@@ -349,17 +347,13 @@ function ExclusionsListUpdate {
 		#
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $Null) {
-				If (Test-Path $_) {
-					If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
-					} Else {
+				If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
+				} Else {
+					If (Test-Path $_) {
 						$FoundFilepaths += $_;
 					}
-				}
-				If ($WindowsDefender -eq $True) {
-					If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
-					} Else {
+					If ($WindowsDefender -eq $True) {
 						Add-MpPreference -ExclusionPath "$_";
 						If ($? -eq $True) {
 							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }

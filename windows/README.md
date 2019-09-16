@@ -1,9 +1,13 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/master/windows/README.md#workstation-tools-windows -->
+<!-- ------------------------------------------------------------ ---
 
-<!-- ------------------------------------------------------------ -->
+This file (on GitHub):
+
+	https://github.com/mcavallo-git/Coding/tree/master/windows#workstation-installs
+
+--- ------------------------------------------------------------- -->
 
 ***
-<h3>Workstation Installs (Windows)</h3>
+<h3 id="workstation-installs">Workstation Installs (Windows)</h3>
 <!-- <details><summary><i>Show/Hide Content</i></summary> -->
 <!-- <p> -->
 

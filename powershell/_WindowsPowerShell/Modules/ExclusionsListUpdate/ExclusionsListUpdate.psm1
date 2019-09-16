@@ -328,8 +328,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="ImmersiveControlPanel"; Depth="1"; Parent=""; Basename="SystemSettings.exe"; };
 		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="SystemApps"; Depth="3"; Parent=""; Basename="ShellExperienceHost.exe"; };
 		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="SystemApps"; Depth="3"; Parent=""; Basename="StartMenuExperienceHost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="WinSxS"; Depth="2"; Parent=""; Basename="amd64_microsoft-windows-servicingstack*\TiWorker.exe"; };
-		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="WinSxS"; Depth="2"; Parent=""; Basename="x86_microsoft-windows-servicingstack*\TiWorker.exe"; };
+		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="WinSxS"; Depth="2"; Parent="amd64_microsoft-windows-servicingstack*"; Basename="TiWorker.exe"; };
+		$ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="WinSxS"; Depth="2"; Parent="x86_microsoft-windows-servicingstack*"; Basename="TiWorker.exe"; };
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir="Documents\MobaXterm"; Depth=""; Parent=""; Basename="Motty.exe"; };
 		# -- PROCESSES -- NVidia Driver-related

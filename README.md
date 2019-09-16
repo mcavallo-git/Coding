@@ -45,13 +45,13 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong>Sync a Linux Server's Shellscripts via <a href="https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">sync_cloud_infrastructure</a></strong>
+	<strong><a href="https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">Sync a Linux Box's Shellscripts to the "cloud-infrastructure" Repository</a></strong>
 </li><hr />
 
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong>Setup a Windows Workstation via <a href="windows#workstation-installs">Workstation Installs (Windows)</a></strong>
+	<strong><a href="windows#workstation-installs">Setup a Windows Workstation with Software-Tools and Utilities</a></strong>
 </li><hr />
 
 <!-- ------------------------------------------------------------ -->

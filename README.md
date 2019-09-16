@@ -1,6 +1,6 @@
 <!-- ------------------------------------------------------------ -->
 
-<!-- [THIS FILE ON GITHUB] https://github.com/mcavallo-git/Coding/blob/master/README.md#coding [THIS FILE ON GITHUB] -->
+<!-- [THIS FILE ON GITHUB] https://github.com/mcavallo-git/Coding#coding [THIS FILE ON GITHUB] -->
 
 <!-- ------------------------------------------------------------ -->
 
@@ -11,7 +11,7 @@
 
 <hr />
 <h3>Sync this Repo (via PowerShell)</h3>
-<details><summary><i>Show/Hide Content</i></summary>
+<details open><summary><i>Show/Hide Content</i></summary>
 <p>
 
 <h4>Prerequisite(s):</h4>

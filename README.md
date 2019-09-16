@@ -50,7 +50,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong>See <a href="	https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">Linux ShellScript Sync</a></strong>
+	<strong>See <a href="https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">Linux ShellScript Sync</a></strong>
 </li>
 
 <!-- ------------------------------------------------------------ -->

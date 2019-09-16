@@ -8,7 +8,7 @@ This file (on GitHub):
 
 <h3 id="coding">
 	Coding<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">Scripts for Runtime, Maintenance, etc.</i></sub>
+	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">Scripts to enhance efficiency & versatility in a Windows environment</i></sub>
 </h3>
 <hr />
 

@@ -39,19 +39,20 @@ This file (on GitHub):
 		</ul>
 		-->
 	</p>
-</details><hr /></li>
+</details>
+</li><hr />
 
 <!-- ------------------------------------------------------------ -->
 
 <li>
 	<strong>Sync a Linux Server's Shellscripts via <a href="https://github.com/mcavallo-git/cloud-infrastructure/#sync_cloud_infrastructure">sync_cloud_infrastructure</a></strong>
-</li>
+</li><hr />
 
 <!-- ------------------------------------------------------------ -->
 
 <li>
 	<strong>Setup a Windows Workstation via <a href="windows#workstation-installs">Workstation Installs (Windows)</a></strong>
-</li>
+</li><hr />
 
 <!-- ------------------------------------------------------------ -->
 

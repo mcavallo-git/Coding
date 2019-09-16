@@ -1,1 +1,1 @@
-Get-AppxPackage *Skype* | Remove-AppxPackage
+PowerShell -Command ("Get-AppxPackage *Skype* | Remove-AppxPackage;")

@@ -48,14 +48,14 @@ IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Cle
 
 # ------------------------------------------------------------
 # 
-# ERLite-3  :::  Force DHCP Lease-Renewal
+# Side-Notes:  ERLite-3  :::  Force DHCP Lease-Renewal
 # 
 sudo /opt/vyatta/bin/sudo-users/vyatta-clear-dhcp-lease.pl --lip=all
 
 
 # ------------------------------------------------------------
 #
-# USG-3P (Unifi)  :::  Show DHCP Leases
+# Side-Notes:  USG-3P (Unifi)  :::  Show DHCP Leases
 #
 show dhcp leases;
 show dhcp client leases interface eth0;
@@ -66,7 +66,7 @@ show dhcpv6 relay-agent status;
 
 # ------------------------------------------------------------
 #
-# [ DEPRECATED ]  USG-3P (Unifi)  :::  Force DHCP Lease-Renewal
+# Side-Notes:  [ DEPRECATED ]  USG-3P (Unifi)  :::  Force DHCP Lease-Renewal
 #
 sudo /opt/vyatta/bin/sudo-users/vyatta-clear-dhcp-lease.pl --lip=all --ilfile=/config/dhcpd.leases --olfile=/config/dhcpd.leases --pidf=/run/dhcpd.pid
 

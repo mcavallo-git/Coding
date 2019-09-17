@@ -14,14 +14,21 @@ sed --expression='/^\s*$/d' "/etc/hosts";
 
 # ------------------------------------------------------------
 # 
-# Use sed's "--in-place" command to save the sed-output directly to the file
+# Use sed to remove one, specific line from a file (while also backing-up the original with a timestamp+".bak" extension)
 #
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression='/pattern to match/d' ./infile
 
+
+# ------------------------------------------------------------
+# 
+# Use sed's "--in-place" command to save sed's output directly to the file
+# (e.g. modify/parse/regex-strip/regex-replace/etc. the contents of a file through sed)
+#
 sed_remove_whitespace_lines='/^\s*$/d';
-sed --in-place --expression="${sed_remove_whitespace_lines}" "FILEPATH";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="${sed_remove_whitespace_lines}" "FILEPATH";
 
 sed_remove_starting_whitespace='s/^\s*//g';
-sed --in-place --expression="${sed_remove_starting_whitespace}" "FILEPATH";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="${sed_remove_starting_whitespace}" "FILEPATH";
 
 
 # ------------------------------------------------------------
@@ -61,15 +68,15 @@ fi;
 #
 # Example)  Enable/Disable the "Message of the Day" (MOTD) Feature in Linux
 #
-sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
-sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
+sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
+sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
 
 
 # ------------------------------------------------------------
 # 
 # Example)  Remove windows-newlines (e.g. remove CR's)
 #
-sed --in-place --expression='s/\r$//' "~/sftp/uploaded_file";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression='s/\r$//' "~/sftp/uploaded_file";
 
 
 # ------------------------------------------------------------

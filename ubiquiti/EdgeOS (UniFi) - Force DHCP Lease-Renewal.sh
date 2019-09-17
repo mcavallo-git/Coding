@@ -14,6 +14,8 @@ show dhcp leases;
 show dhcp client leases interface eth0;
 show dhcp client leases interface eth1;
 show dhcp client leases interface eth2;
+show dhcpv6 relay-agent status;
+
 
 # ------------------------------------------------------------
 #
@@ -42,13 +44,14 @@ IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Cle
 # REGEX_MATCH_LAST_OCTET='[0-9]?[0-9]' && \                             # 0-99         (last octet of ipv4)
 # REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \  # 0-255         (last octet of ipv4)
 
-
+REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
+REGEX_MATCH_NETMASK_BITS='(3[0-2]|[1-2]?[0-9])' && \
 REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
 SUBNET_CIDR=$(show dhcp statistics \
 | sed \
 --regexp-extended \
 --quiet \
---expression='s/^\S+_eth1_((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\-(3[0-2]|[1-2]?[0-9]))\ .+$/\1/p' \
+--expression='s/^\S+_eth1_('${REGEX_MATCH_IPv4_ADDRESS}'\-'${REGEX_MATCH_NETMASK_BITS}')\ .+$/\1/p' \
 ;) && \
 ETH1_NETWORK_IPv4=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 1) && \
 ETH1_NETMASK_BITS=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 2) && \

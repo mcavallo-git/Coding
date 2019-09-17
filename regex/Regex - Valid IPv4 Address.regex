@@ -9,6 +9,29 @@
 
 # ------------------------------------------------------------
 #
+# Example) Unifi - Determine subnet's address-range (e.g. network address + netmask)
+#
+
+
+REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
+REGEX_MATCH_NETMASK_BITS='(3[0-2]|[1-2]?[0-9])' && \
+REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
+SUBNET_CIDR=$(show dhcp statistics \
+| sed \
+--regexp-extended \
+--quiet \
+--expression='s/^\S+_eth1_('${REGEX_MATCH_IPv4_ADDRESS}'\-'${REGEX_MATCH_NETMASK_BITS}')\ .+$/\1/p' \
+;) && \
+ETH1_NETWORK_IPv4=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 1) && \
+ETH1_NETMASK_BITS=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 2) && \
+echo "" && \
+echo -e "\n""ETH1_NETWORK_IPv4 = \"${ETH1_NETWORK_IPv4}\"\n" && \
+echo -e "\n""ETH1_NETMASK_BITS = \"${ETH1_NETMASK_BITS}\"\n" && \
+echo "";
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #		stackoverflow.com | "Validating IPv4 addresses with regexp" | https://stackoverflow.com/a/25969006

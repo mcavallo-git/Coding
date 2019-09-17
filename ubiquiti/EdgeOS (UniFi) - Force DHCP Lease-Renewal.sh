@@ -16,11 +16,14 @@ show dhcp leases;
 #
 # USG-3P (Unifi)  :::  Clear DHCP Lease(s)
 #
-clear dhcp leases; # Clear all leases from DHCP
 
+# Clear-Lease, Step 1  :::  Clear-out "/var/run/dhcpd.leases"
+clear dhcp leases; # Clear all leases from DHCP
 IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Clear one, specific device/ip's lease from DHCP
 
-
+#
+# Clear-Lease, Step 2  :::  Clear out "/var/run/dnsmasq-dhcp.leases"
+/var/run/dnsmasq-dhcp.leases
 
 # ------------------------------------------------------------
 #

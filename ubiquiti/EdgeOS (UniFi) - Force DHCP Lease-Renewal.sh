@@ -11,6 +11,9 @@ sudo /opt/vyatta/bin/sudo-users/vyatta-clear-dhcp-lease.pl --lip=all
 # USG-3P (Unifi)  :::  Show DHCP Leases
 #
 show dhcp leases;
+show dhcp client leases interface eth0;
+show dhcp client leases interface eth1;
+show dhcp client leases interface eth2;
 
 # ------------------------------------------------------------
 #

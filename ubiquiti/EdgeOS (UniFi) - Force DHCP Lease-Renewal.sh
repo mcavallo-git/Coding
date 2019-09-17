@@ -44,6 +44,8 @@ IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Cle
 # REGEX_MATCH_LAST_OCTET='[0-9]?[0-9]' && \                             # 0-99         (last octet of ipv4)
 # REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \  # 0-255         (last octet of ipv4)
 
+LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
+CACHE_DNSMASQ_LEASES="/config/$(basename ${CACHE_DNSMASQ_LEASES})" && \
 REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
 REGEX_MATCH_NETMASK_BITS='(3[0-2]|[1-2]?[0-9])' && \
 REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
@@ -60,7 +62,8 @@ sed \
 --regexp-extended \
 --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" \
 --expression='/^.+ '${ETH1_NETWORK_FIRST_THREE_OCTETS}'.'${REGEX_MATCH_LAST_OCTET}' .+$/d' \
-"/var/run/dnsmasq-dhcp.leases" \
+"${LIVE_DNSMASQ_LEASES}" && \
+cp -f "${LIVE_DNSMASQ_LEASES}" "${CACHE_DNSMASQ_LEASES}" \
 ;
 
 

@@ -19,11 +19,23 @@ show dhcp leases;
 
 # Clear-Lease, Step 1  :::  Clear-out "/var/run/dhcpd.leases" && "/config/dhcpd.leases"
 clear dhcp leases; # Clear all leases from DHCP
+
+START_TIMESTAMP_FILENAME="$(date +'%Y-%m-%d_%H-%M-%S')";
+
 IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Clear one, specific device/ip's lease from DHCP
 
+
+# ------------------------------------------------------------
 #
 # Clear-Lease, Step 2  :::  Clear out "/var/run/dnsmasq-dhcp.leases" && "/config/dnsmasq-dhcp.leases"
-/var/run/dnsmasq-dhcp.leases
+#
+# --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" \
+# --expression='/^[0-9]+ ([0-9a-f]{2}:){5}[0-9a-f]{2} /d' \
+sed \
+--regexp-extended \
+-e 's/^[0-9]+ ([0-9a-f]{2}:){5}[0-9a-f]{2} ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?) .+$/\0/p' \
+"/var/run/dnsmasq-dhcp.leases";
+
 
 # ------------------------------------------------------------
 #

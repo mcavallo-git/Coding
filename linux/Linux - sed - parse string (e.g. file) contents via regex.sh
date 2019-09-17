@@ -2,31 +2,31 @@
 #
 # Linux - sed
 #
+
+
 # ------------------------------------------------------------
 # 
-# Parse GnuPG key_id's out of gpg's 'LONG' formated-values
+# Use sed to (essentially) 'cat' a file, remove whitespace-only lines from its
+# output, then print the resultant output to the terminal (standard-output)
 #
-GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
-echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
-
+sed --expression='/^\s*$/d' "/etc/hosts";
 
 
 # ------------------------------------------------------------
 # 
-# Parse nginx runtime user's name from nginx.conf
+# Use sed's "--in-place" command to save the sed-output directly to the file
 #
-if [ -f "/etc/nginx/nginx.conf" ]; then
-	NGINX_UNAME=$(sed --regexp-extended --quiet --expression='s/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf");
-	NGINX_GNAME=$(id -gn "${NGINX_UNAME}");
-	NGINX_UID=$(id -u "${NGINX_UNAME}");
-	NGINX_GID=$(id -g "${NGINX_UNAME}");
-fi;
 
+sed_remove_whitespace_lines='/^\s*$/d';
+sed --in-place --expression="${sed_remove_whitespace_lines}" "FILEPATH";
+
+sed_remove_starting_whitespace='s/^\s*//g';
+sed --in-place --expression="${sed_remove_starting_whitespace}" "FILEPATH";
 
 
 # ------------------------------------------------------------
 # 
-# sed comes with prebuilt methods to:
+# sed also contains prebuilt methods to:
 #		Add [lines of] text BEFORE the matched-text
 #		Add [lines of] text AFTER the matched-text
 #		Modify the matched-text, including  modifying it to be [blank] to erase it entirely
@@ -44,54 +44,12 @@ Change the line to this one
 }';
 
 
-
 # ------------------------------------------------------------
 #
-# MOTD Feature in Linux - Enable/Disable it
-
-sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
-
-sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
-
-
-
-# ------------------------------------------------------------
+# Use sed to search a file for lines starting/ending with specific string(s)
 # 
-# Remove excessive whitespace from file
+# Example) Only return lines which start with "from" and end with "where"
 #
-
-sed_remove_whitespace_lines='/^\s*$/d';
-sed --in-place --expression="${sed_remove_whitespace_lines}" "FILEPATH";
-
-sed_remove_starting_whitespace='s/^\s*//g';
-sed --in-place --expression="${sed_remove_starting_whitespace}" "FILEPATH";
-
-
-
-# ------------------------------------------------------------
-# 
-# Remove whitespace-only lines
-#
-sed --in-place --expression='/^\s*$/d' "/etc/hosts";
-cat "/etc/hosts";
-
-
-
-# ------------------------------------------------------------
-# 
-# Remove windows-newlines (e.g. remove CR's)
-#
-sed --in-place --expression='s/\r$//' "~/sftp/uploaded_file";
-
-
-
-# ------------------------------------------------------------
-#
-# Search for substring by start+end substrings
-#  |--> 1. Substring starts with "from" (start of substring)
-#  |--> 2. Substring ends with "where" (end of substring)
-#
-
 if [ -n "$(sed -n -e '/from/,/where/ p' file.txt)" ]; then
 	echo "File DOES contain substring"; # ==> Note: outputs entire file-contents if a match is found
 else
@@ -99,39 +57,67 @@ else
 fi;
 
 
+# ------------------------------------------------------------
+#
+# Example)  Enable/Disable the "Message of the Day" (MOTD) Feature in Linux
+#
+sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
+sudo sed --in-place --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
+
+
+# ------------------------------------------------------------
+# 
+# Example)  Remove windows-newlines (e.g. remove CR's)
+#
+sed --in-place --expression='s/\r$//' "~/sftp/uploaded_file";
+
 
 # ------------------------------------------------------------
 #
-# MySQL Exports - Replace Function definers with 'CURRENT_USER()'
-# 	|--> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
-
+# Example)  MySQL Exports - Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+#
 sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"
 
 
-
 # ------------------------------------------------------------
 #
-# MySQL Exports - Replace Trigger definers with 'CURRENT_USER()'
-# 	|--> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+# Example)  MySQL Exports - Replace Trigger definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 #
-
 sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql"
 
 
-
 # ------------------------------------------------------------
 #
-# GREP + SED - Get single line from file, then get substring from that line
-# 	|--> Note: This should probably be done exclusively with SED
+# Example)  GREP + SED - Get single line from file, then get substring from that line --> Note: This should probably be done exclusively with SED
 #
-
 echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s/ssl_ciphers '\(.*\)';/\1/"
 
+
+# ------------------------------------------------------------
+# 
+# Example)  Parse GnuPG key_id's out of the fingerprints held in gpg (using 'LONG' format-syntax)
+#
+GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
+echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
+
+
+# ------------------------------------------------------------
+# 
+# Example)  Parse nginx runtime user's name from nginx.conf
+#
+if [ -f "/etc/nginx/nginx.conf" ]; then
+	NGINX_UNAME=$(sed --regexp-extended --quiet --expression='s/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf");
+	NGINX_GNAME=$(id -gn "${NGINX_UNAME}");
+	NGINX_UID=$(id -u "${NGINX_UNAME}");
+	NGINX_GID=$(id -g "${NGINX_UNAME}");
+fi;
 
 
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+# 	stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #
 # 	stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292
 #

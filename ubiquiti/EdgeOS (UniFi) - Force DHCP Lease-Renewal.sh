@@ -33,11 +33,33 @@ IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Cle
 # Clear-Lease, Step 2  :::  Clear out "/var/run/dnsmasq-dhcp.leases" && "/config/dnsmasq-dhcp.leases"
 #
 # --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" \
-# --expression='/^[0-9]+ ([0-9a-f]{2}:){5}[0-9a-f]{2} /d' \
-# --expression='s/^[0-9]+ ([0-9a-f]{2}:){5}[0-9a-f]{2} ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?) .+$/\0/p' \
+# --expression='/^[0-9]+ ([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2} /d' \
+# --expression='s/^[0-9]+ ([0-9a-fA-F]{2}:){5}[0-9a-fA-F]{2} ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?) .+$/\0/p' \
 
 
-sed --regexp-extended --quiet --expression='s/^[0-9]+ ([0-9a-f]{2}:){5}[0-9a-f]{2} ((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]) .+$/\0/p' "/var/run/dnsmasq-dhcp.leases";
+# REGEX_MATCH_LAST_OCTET='2(5[0-5]|[0-4][0-9])' && \                    # 200 - 255    (last octet of ipv4)
+# REGEX_MATCH_LAST_OCTET='1[0-9]{2}' && \                               # 100-199      (last octet of ipv4)
+# REGEX_MATCH_LAST_OCTET='[0-9]?[0-9]' && \                             # 0-99         (last octet of ipv4)
+# REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \  # 0-255         (last octet of ipv4)
+
+
+REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
+SUBNET_CIDR=$(show dhcp statistics \
+| sed \
+--regexp-extended \
+--quiet \
+--expression='s/^\S+_eth1_((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\-(3[0-2]|[1-2]?[0-9]))\ .+$/\1/p' \
+;) && \
+ETH1_NETWORK_IPv4=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 1) && \
+ETH1_NETMASK_BITS=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 2) && \
+ETH1_NETWORK_FIRST_THREE_OCTETS=$(echo "${ETH1_NETWORK_IPv4}" | cut -d '.' -f 1-3) && \
+sed \
+--regexp-extended \
+--in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" \
+--expression='/^.+ '${ETH1_NETWORK_FIRST_THREE_OCTETS}'.'${REGEX_MATCH_LAST_OCTET}' .+$/d' \
+"/var/run/dnsmasq-dhcp.leases" \
+;
+
 
 
 # ------------------------------------------------------------

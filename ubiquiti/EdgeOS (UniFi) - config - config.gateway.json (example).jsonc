@@ -201,7 +201,7 @@
 					"ceiling": "95%",
 					"queue-type": "fair-queue"
 				},
-				"description": "Upstream QoS Policy for WAN Output"
+				"description": "Upstream QoS Policy for WAN Output - Priorities: https://www.lartc.org/manpages/tc-prio.html"
 			}
 		}
 	}

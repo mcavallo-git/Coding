@@ -18,3 +18,16 @@ decoded_b64=$(echo -n ${encoded_b64} | base64 --decode); \
 echo $decoded_b64;
 
 # ------------------------------------------------------ #
+
+### BASE64 ENCODE AN RSA PRIVATE-KEY
+PRIVATE_KEY_ENCODED=$(echo -n \
+"-----BEGIN RSA PRIVATE KEY-----
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL
+...
+ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
+-----END RSA PRIVATE KEY-----" \
+| base64 --wrap=0) && \
+echo -e "\n""${PRIVATE_KEY_ENCODED}""\n";
+
+
+# ------------------------------------------------------ #

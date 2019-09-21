@@ -120,10 +120,10 @@ ClearSplashText(TimerPeriod) {
 	Return
 
 ; ------------------------------------------------------------
-;   HOTKEY:  Win + A
+;   HOTKEY:  ???
 ;		ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
 ;
-;#A::
+; ???::
 ; 	(PSEUDO-CODE)  CHECK IF WINDOW IS ALREADY RUNNING AS ADMIN -> IF YES, DO NOTHING
 ; ;;;
 ; 	(PSEUDO-CODE)  GET ACTIVE WINDOW'S EXE-PATH
@@ -179,7 +179,7 @@ ClearSplashText(TimerPeriod) {
 
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 
-	LV_Add("", "Title", WinTitle)
+	LV_Add("", "WinTitle", WinTitle)
 	LV_Add("", "Class", WinClass)
 	LV_Add("", "ProcessName", WinProcessName)
 	LV_Add("", "ProcessPath", WinProcessPath)
@@ -503,7 +503,7 @@ CustomMsgboxButtons_ClipboardPaste:
 ;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
 +#F2::
-	CoordMode,Mouse,Screen
+	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1
@@ -591,7 +591,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;
 #[::
 #]::
-	CoordMode,Mouse,Screen
+	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1
@@ -698,7 +698,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  ACTION:  Output cursor location
 ;
 #RButton::
-	CoordMode,Mouse,Screen
+	CoordMode, Mouse, Screen
 	MouseGetPos, MouseX, MouseY
 	MsgBox,
 	(LTrim
@@ -941,15 +941,22 @@ WheelRight::
 ; 	Return
 ;
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + C
-;  ACTION:  Chrome - Open a New Instance of Google Chrome
+;  HOTKEY:  Windows-Key + A
+;  ACTION:  Foxit PhantomPDF - Add Text
 ;
 #A::
-	CoordMode,Mouse,Screen
+	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
-	Click, 223, 40
-	Sleep, 50
-	Click, 355, 63
+	SetControlDelay, -1
+	SetTitleMatchMode, 2
+	WinTitle=Foxit PhantomPDF
+	x_loc = 223
+	y_loc = 40
+	ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+	Sleep 100
+	x_loc = 355
+	y_loc = 63
+	ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 	Return
 
 
@@ -1348,25 +1355,6 @@ SpaceUp_Loop(LoopIterations) {
 	}
 	Return
 }
-; SpaceUp_Loop(LoopIterations, WinTitle) {
-; 	SetKeyDelay, 0, -1
-; 	SetControlDelay, -1
-; 	SetTitleMatchMode, 2
-; 	; WinActivate,%WinTitle%
-; 	Loop %LoopIterations% {
-; 		DatStr=Sending {Space} to %WinTitle%
-; 		ToolTip, %DatStr%, 250, %A_Index%, `
-; 		ControlSend,, {Space}, %WinTitle%
-; 		; Send {Space}
-; 		Sleep 100
-; 		DatStr=Sending {Up} to %WinTitle%
-; 		ToolTip, %DatStr%, 500, %A_Index%, 2
-; 		ControlSend,, {Up}, %WinTitle%
-; 		; Send {Up}
-; 		Sleep 100
-; 	}
-; 	Return
-; }
 ;
 ; ------------------------------------------------------------
 ;  @  OpenVSCode - Opens the application "Visual Studio Code"
@@ -1692,10 +1680,18 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 }
 
 ; ------------------------------------------------------------
-;   --------------------------------------------------------   Notes-to-Self  (Documentation / Training)   ---------------------------------------------------------
+;   Documentation
 ; ------------------------------------------------------------
-
-; *** TO GET KEY-CODES:
+;
+;
+; SetTitleMatchMode, 1  ; Title must START-WITH [ WinTitle ]
+; SetTitleMatchMode, 2: ; Title must CONTAIN [ WinTitle ]
+; SetTitleMatchMode, 3: ; Title must EXACTLY-MATCH [ WinTitle ]
+;
+;
+; ------------------------------------------------------------
+;
+; *** To obtain the unique code(s) thrown by the keyboard per-keypress:
 ;
 ;   //    Create a separate AutoHotkey (.ahk) Script and paste these 3 lines into
 ;   //    it. Make sure to save it with a .ahk file extension:
@@ -1714,16 +1710,18 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;   //  Key:    Refer to the "Key" column to acquire the "Hotstring" of any keys pressed (string, length varies)
 ;
 ;   //  NOTE:  If the above method fails, refer to: https://autohotkey.com/docs/commands/GetKey.htm
-
-
+; 
+; ------------------------------------------------------------
+; 
 ; *** TO DETERMINE THE COMMAND BEING SENT:
 ;			SC029::
 ;			SplashTextOn, 250, 40, Debugging, Command Sent
 ;			Sleep 500
 ;			SplashTextOff
 ; 		-- Remainder of your script
-
-
+; 
+; ------------------------------------------------------------
+; 
 ;			MouseClick,[Button],[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative]
 ;
 ;          PARAMS:
@@ -1734,11 +1732,34 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;	         		     [Speed]  =  { Movement speed of mouse across the screen - 0 is Instant --- DEFAULTS TO DEFAULT MOUSE MOVE SPEED SET BY [SetDefaultMouseSpeed, Speed], OTHERWISE DEFAULTS TO 2 }
 ;	         		       [U|D]  =  { Only do a Click-Down (D) or Click-Up (U) click-event --- DEFAULTS A *DOWN* FOLLOWED BY AN *UP* EVENT, IF OMITTED}
 ;	         		  [Relative]  =  { If set to (R), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
-	
+; 
+; ------------------------------------------------------------
+;
 ; MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, R]
+;
+; ------------------------------------------------------------
+;
 ; MouseMove, X, Y [, Speed, R]
-; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
-	
+;
+; ------------------------------------------------------------
+
+EXAMPLE_ControlClick() {
+	;;;
+	;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+	;;;
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	; WinGetTitle, WinTitle, A
+	WinTitle=NoxPlayer
+	x_loc := (A_ScreenWidth - 20)
+	y_loc := 315
+	ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+}
+
+
+; ------------------------------------------------------------
+;	
 ; BASIC ARRAY INSTANTIATION:
 ;				Jack := { profession: "teacher"
 ;								 , height: "tall"
@@ -1755,14 +1776,14 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;
 ; BASIC ARRAY USE:
 ;				MsgBox, % Person.Jack.city
-
-
-
+; 
+; 
+; 
 ; MsgBox has tons of options for confirmations on popups ( Manual @ https://autohotkey.com/docs/commands/MsgBox.htm )
 ; ...::
-	; WinGetActiveStats, Title, Width, Height, X, Y
+	; WinGetActiveStats, WinTitle, Width, Height, X, Y
 	; WinGetText, WinText, A
-	; MsgBox, 4, , WinTitle `n%Title%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10  ; 10-second timeout.
+	; MsgBox, 4, , WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10  ; 10-second timeout.
 	; IfMsgBox, Yes
 		; Return
 	; IfMsgBox, No
@@ -1771,22 +1792,24 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 	; IfMsgBox, Timeout
 		; Return
 	; Return
-	
-
+;
+; ------------------------------------------------------------
 ;
 ; MENU ITEMS:    https://autohotkey.com/docs/commands/Menu.htm
 ; GENERAL USE:   Menu, MenuName, Cmd, P3, P4, P5
 ;
-
+; ------------------------------------------------------------
+;
+; 
 ; Menu, tray, add  ; Creates a separator line.
 ; Menu, tray, add, "Lineage-2", MenuHandler  ; Creates a new menu item.
 ; return
-
+; 
 ; MenuHandler:
 ; MsgBox You selected %A_ThisMenuItem% from menu %A_ThisMenu%.
 ; MsgBox A_TitleMatchMode[%A_TitleMatchMode%], A_TitleMatchModeSpeed=[%A_TitleMatchModeSpeed%]
 ; return
-
+; 
 ; Menu, FileMenu, Add, Script Icon, MenuHandler_FileMenu
 ; Menu, FileMenu, Add, Suspend Icon, MenuHandler_FileMenu
 ; Menu, FileMenu, Add, Pause Icon, MenuHandler_FileMenu
@@ -1799,21 +1822,15 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ; Gui, Show
 ; MenuHandler_FileMenu:
 ; Return
-
+; 
 ; Exit:
 ; ExitApp
-
-; SetTitleMatchMode - Sets the matching behavior of the WinTitle parameter in commands such as WinWait.
-; 1: A window's title must start with the specified WinTitle to be a match.
-; 2: A window's title can contain WinTitle anywhere inside it to be a match. 
-; 3: A window's title must exactly match WinTitle to be a match.
-;
-
+; 
 ; Example: Using in-line if conditional(s)
 ; 
 ; y := ( ( y = 8 ) ? ( 2008 ) : ( ( y = 9 ) ? ( 2009 ) : ( ( y = 0 ) ? ( 2010 ) : ( 2011 ) ) ) )
 ;
-
+; 
 ;
 ; Example: Strlen doesn't have a whole lot to do with actual/displayed character-widths
 ;
@@ -1830,9 +1847,6 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ; 	Return
 ; }
 ; ------------------------------------------------------------
-
-; ------------------------------------------------------------
-;
 
 CustomPopupButtons_Demo() {
 	; ;;; CUSTOM POPUP OPTIONS (EXAMPLE)

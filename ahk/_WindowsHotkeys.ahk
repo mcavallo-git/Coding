@@ -961,6 +961,16 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
+;  HOTKEY:  Windows-Key + K
+;  ACTION:  Send a Checkmark
+;
+#K::
+	SetKeyDelay, 0, -1
+	Send ✔
+	Return
+
+
+; ------------------------------------------------------------
 ;  HOTKEY:  Ctrl + Win + C
 ;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
@@ -1190,118 +1200,118 @@ LShift & RShift::
 ;
 ; ------------------------------------------------------------
 ;  Win+K - [DevOps] - Bring-to-Foreground:  Node.JS (Git-Bash) && Postman
-#K::
-	;
-	WinTitle_NodeJS=Supplier Gateway (localhost)
-	WinTitle_Postman=Postman
-	; MsgBox, A_OSVersion = %A_OSVersion%
-	;
-	; Windows sets some weird values for its bounds when a window is maximized
-	if (A_OSVersion = "WIN_7") {
-		; Windows 7 OS
-		Increment_Left := 0
-		Increment_Top := 0
-		Increment_Width := 0
-		Increment_Height := 0
-	} else {
-		; Non Windows-7 OS
-		Increment_Left := -7
-		Increment_Top := 0
-		Increment_Width := 14
-		Increment_Height := 7
-	}
-	; Prep Monitor Widths/Heights
-	SysGet, MonitorCount, MonitorCount , N
-	BoundsLeft = -1
-	BoundsRight = -1
-	BoundsTop = -1
-	BoundsBottom = -1
-	BoundsCenterHoriz = 0
-	BoundsCenterVert = 0
-	Loop, %MonitorCount% {
-		SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
-		If (BoundsLeft < MonitorWorkAreaLeft)
-		{
-			; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
-			; Widths
-			BoundsLeft := MonitorWorkAreaLeft
-			BoundsRight := MonitorWorkAreaRight
-			; Heights
-			BoundsTop := MonitorWorkAreaTop
-			BoundsBottom := MonitorWorkAreaBottom
-		}
-	}
-	; Widths
-	BoundsWidthFull := (BoundsRight - BoundsLeft)
-	BoundsWidthHalf := Floor(BoundsWidthFull/2)
-	BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
-	; Heights
-	BoundsHeightFull := (BoundsBottom - BoundsTop)
-	BoundsHeightHalf := Floor(BoundsHeightFull/2)
-	BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-	SetTitleMatchMode, 1
-	IfWinExist,%WinTitle_NodeJS%
-	{
-		IfWinExist,%WinTitle_Postman%
-		{
-			;
-			; SIMULATE: Snap Left / Snap Right
-			;
-			if (MonitorCount = 2) {
-				;
-				; 2-Monitors
-				;
-				if (A_OSVersion = "WIN_7") {
-					; Msgbox, AAA
-					WinMove,%WinTitle_NodeJS%,,1920,0,960,1080
-					WinMove,%WinTitle_Postman%,,2880,0,960,1080
-					;
-					;		Win7
-					;			Left-Mon (Mon-1)
-					; 			Left-Snap   -->  WinMove,%WinTitle%,,0,0,960,1040       ; w/ taskbar
-					; 			Right-Snap  -->  WinMove,%WinTitle%,,960,0,960,1040     ; w/ taskbar
-					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ left-taskbar
-					; 		Right-Mon (Mon-2)
-					; 			Left-Snap   -->  WinMove,%WinTitle%,,1920,0,960,1080       ; w/ no taskbar
-					; 			Right-Snap  -->  WinMove,%WinTitle%,,2880,0,960,1080     ; w/ no taskbar
-					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ no taskbar
-					;
-				} Else {
-					; Msgbox, BBB
-					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
-					WinMove,%WinTitle_Postman%,,2873,0,974,1047
-					;
-					;		Win10
-					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle%,,-7,0,974,1047      ; w/ taskbar
-					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
-					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle%,,1913,0,974,1047    ; w/ taskbar
-					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
-					;
-					; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-				}
-			} Else {
-				; Not-2-Monitors (Assumes 1)
-				if (A_OSVersion = "WIN_7") {
-					; Win-7, 1-Monitor
-					; Msgbox, CCC
-					WinMove,%WinTitle_NodeJS%,,0,0,960,1040
-					WinMove,%WinTitle_Postman%,,960,0,960,1040
-				} Else {
-					; Win-10, 1-Monitor
-					; Msgbox, DDD
-					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
-					WinMove,%WinTitle_Postman%,,2873,0,974,1047
-				}
-			}
-			WinActivate,%WinTitle_NodeJS%
-			WinActivate,%WinTitle_Postman%
-		} Else {
-			; Msgbox, EEE
-		}
-	} Else {
-		; Msgbox, FFF
-	}
-	Return
+; #K::
+; 	;
+; 	WinTitle_NodeJS=Supplier Gateway (localhost)
+; 	WinTitle_Postman=Postman
+; 	; MsgBox, A_OSVersion = %A_OSVersion%
+; 	;
+; 	; Windows sets some weird values for its bounds when a window is maximized
+; 	if (A_OSVersion = "WIN_7") {
+; 		; Windows 7 OS
+; 		Increment_Left := 0
+; 		Increment_Top := 0
+; 		Increment_Width := 0
+; 		Increment_Height := 0
+; 	} else {
+; 		; Non Windows-7 OS
+; 		Increment_Left := -7
+; 		Increment_Top := 0
+; 		Increment_Width := 14
+; 		Increment_Height := 7
+; 	}
+; 	; Prep Monitor Widths/Heights
+; 	SysGet, MonitorCount, MonitorCount , N
+; 	BoundsLeft = -1
+; 	BoundsRight = -1
+; 	BoundsTop = -1
+; 	BoundsBottom = -1
+; 	BoundsCenterHoriz = 0
+; 	BoundsCenterVert = 0
+; 	Loop, %MonitorCount% {
+; 		SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+; 		If (BoundsLeft < MonitorWorkAreaLeft)
+; 		{
+; 			; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
+; 			; Widths
+; 			BoundsLeft := MonitorWorkAreaLeft
+; 			BoundsRight := MonitorWorkAreaRight
+; 			; Heights
+; 			BoundsTop := MonitorWorkAreaTop
+; 			BoundsBottom := MonitorWorkAreaBottom
+; 		}
+; 	}
+; 	; Widths
+; 	BoundsWidthFull := (BoundsRight - BoundsLeft)
+; 	BoundsWidthHalf := Floor(BoundsWidthFull/2)
+; 	BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
+; 	; Heights
+; 	BoundsHeightFull := (BoundsBottom - BoundsTop)
+; 	BoundsHeightHalf := Floor(BoundsHeightFull/2)
+; 	BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
+; 	SetTitleMatchMode, 1
+; 	IfWinExist,%WinTitle_NodeJS%
+; 	{
+; 		IfWinExist,%WinTitle_Postman%
+; 		{
+; 			;
+; 			; SIMULATE: Snap Left / Snap Right
+; 			;
+; 			if (MonitorCount = 2) {
+; 				;
+; 				; 2-Monitors
+; 				;
+; 				if (A_OSVersion = "WIN_7") {
+; 					; Msgbox, AAA
+; 					WinMove,%WinTitle_NodeJS%,,1920,0,960,1080
+; 					WinMove,%WinTitle_Postman%,,2880,0,960,1080
+; 					;
+; 					;		Win7
+; 					;			Left-Mon (Mon-1)
+; 					; 			Left-Snap   -->  WinMove,%WinTitle%,,0,0,960,1040       ; w/ taskbar
+; 					; 			Right-Snap  -->  WinMove,%WinTitle%,,960,0,960,1040     ; w/ taskbar
+; 					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ left-taskbar
+; 					; 		Right-Mon (Mon-2)
+; 					; 			Left-Snap   -->  WinMove,%WinTitle%,,1920,0,960,1080       ; w/ no taskbar
+; 					; 			Right-Snap  -->  WinMove,%WinTitle%,,2880,0,960,1080     ; w/ no taskbar
+; 					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ no taskbar
+; 					;
+; 				} Else {
+; 					; Msgbox, BBB
+; 					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
+; 					WinMove,%WinTitle_Postman%,,2873,0,974,1047
+; 					;
+; 					;		Win10
+; 					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle%,,-7,0,974,1047      ; w/ taskbar
+; 					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
+; 					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle%,,1913,0,974,1047    ; w/ taskbar
+; 					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
+; 					;
+; 					; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+; 				}
+; 			} Else {
+; 				; Not-2-Monitors (Assumes 1)
+; 				if (A_OSVersion = "WIN_7") {
+; 					; Win-7, 1-Monitor
+; 					; Msgbox, CCC
+; 					WinMove,%WinTitle_NodeJS%,,0,0,960,1040
+; 					WinMove,%WinTitle_Postman%,,960,0,960,1040
+; 				} Else {
+; 					; Win-10, 1-Monitor
+; 					; Msgbox, DDD
+; 					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
+; 					WinMove,%WinTitle_Postman%,,2873,0,974,1047
+; 				}
+; 			}
+; 			WinActivate,%WinTitle_NodeJS%
+; 			WinActivate,%WinTitle_Postman%
+; 		} Else {
+; 			; Msgbox, EEE
+; 		}
+; 	} Else {
+; 		; Msgbox, FFF
+; 	}
+; 	Return
 ;
 ; ------------------------------------------------------------
 ;	@  OpenChrome - Opens the application "Visual Studio Code"

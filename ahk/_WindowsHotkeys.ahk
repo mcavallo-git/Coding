@@ -949,14 +949,23 @@ WheelRight::
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 2
-	WinTitle=Foxit PhantomPDF
-	x_loc = 223
-	y_loc = 40
-	ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-	Sleep 100
-	x_loc = 355
-	y_loc = 63
-	ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+	WinGetTitle, WinTitle, A
+	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
+	WinGet, WinProcessName, ProcessName, A
+	MatchProcessName=FoxitPhantomPDF.exe
+	If (InStr(WinProcessName, MatchProcessName)) {
+		; TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
+		x_loc = 223
+		y_loc = 40
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Sleep 100
+		x_loc = 355
+		y_loc = 63
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+	}
+	; } Else {
+		; TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
+	; }
 	Return
 
 

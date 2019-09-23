@@ -1,0 +1,39 @@
+------------------------------------------------------------
+| Nameservers
+|    |--> Provider Name:   Namecheap
+|    |--> Service Name:    FreeDNS
+|   
+|   freedns1.registrar-servers.com
+|   freedns2.registrar-servers.com
+|   freedns3.registrar-servers.com
+|   freedns4.registrar-servers.com
+|   freedns5.registrar-servers.com
+|   
+|   
+|------------------------------------------------------------
+| Nameservers
+|   |--> Provider Name:   Namecheap
+|   |--> Service Name:    BasicDNS
+|   
+|   
+|   dns1.registrar-servers.com
+|   dns2.registrar-servers.com
+|   
+|   
+|------------------------------------------------------------
+| Nameservers
+|   |--> Provider Name:   Namecheap
+|   |--> Service Name:    Web Hosting DNS
+|   
+|   dns1.namecheaphosting.com
+|   dns2.namecheaphosting.com
+|   
+|   
+|------------------------------------------------------------
+| CITATION(S)
+|   
+|   namecheap.com  |  "How to Change DNS For a Domain"  |  https://www.namecheap.com/support/knowledgebase/article.aspx/767/10
+|
+|   namecheap.com  |  "Using default nameservers vs hosting nameservers"  |  https://www.namecheap.com/support/knowledgebase/article.aspx/9434/32
+|   
+|------------------------------------------------------------

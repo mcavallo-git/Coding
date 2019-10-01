@@ -24,6 +24,7 @@ Name | Option A | Option B
 **Git - Tortoise Git** <sub>*Git Merge Conflict Resolver*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **Gpg4win** <sub>*GnuPG for Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
+**iCue** <sub>*Corsair RGB Controller*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Remote Mouse** <sub>*Phone &rarr; Mouse & Keyboard*</sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |

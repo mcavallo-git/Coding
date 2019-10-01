@@ -55,6 +55,10 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 }
 
 # ------------------------------------------------------------
+## Install the NuGet "PowerShell Gallery"
+If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
+	Install-PackageProvider -Name "NuGet" -Force;
+}
 
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @("platyPS");

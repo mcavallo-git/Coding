@@ -192,8 +192,8 @@ function GitCloneRepo {
 		# Get the absolute path to this git working-tree via linux sh/bash command
 		Set-Location ($WorkingTreeFullpath);
 		$WorkingTree_WindowsPath = (pwd);
-		$WorkingTree_UnixPath = If ($CanUse_sh -eq $true){ (sh -c "pwd") } Else { (bash -c "pwd") };
-
+		$WorkingTree_UnixPath = If ($CanUse_sh -eq $True) { (sh -c "pwd") } ElseIf ($CanUse_bash -eq $True) { (bash -c "pwd") } Else { (pwd) };
+		
 		# Remove amateurish non-case-sensitive directories (in Windows) while in a linux-based environment
 		$RelPath_InvalidDir = (($Repo.RepoBasename)+(".DTO"));
 		$RelPath_CorrectDir = (($Repo.RepoBasename)+(".Dto"));
@@ -206,8 +206,8 @@ function GitCloneRepo {
 		$LinuxCommand_FindInvalidDirs = "find '$WorkingTree_UnixPath' -maxdepth 1 -type 'd' -iname '*$RelPath_InvalidDir*' -not -name '$RelPath_CorrectDir';";
 
 		Set-Location ($WorkingTree_WindowsPath);
-		$CorrectDirs = If ($CanUse_sh -eq $true) { (sh -c "$LinuxCommand_FindCorrectDirs") } Else { (bash -c "$LinuxCommand_FindCorrectDirs") };
-		$InvalidDirs = If ($CanUse_sh -eq $true) { (sh -c "$LinuxCommand_FindInvalidDirs") } Else { (bash -c "$LinuxCommand_FindInvalidDirs") };
+		$CorrectDirs = If ($CanUse_sh -eq $True) { (sh -c "$LinuxCommand_FindCorrectDirs") } ElseIf ($CanUse_bash -eq $True) { (bash -c "$LinuxCommand_FindCorrectDirs")  } Else { ($Null) };
+		$InvalidDirs = If ($CanUse_sh -eq $True) { (sh -c "$LinuxCommand_FindInvalidDirs") } ElseIf ($CanUse_bash -eq $True) { (bash -c "$LinuxCommand_FindInvalidDirs")  } Else { ($Null) };
 
 		If ($InvalidDirs -ne $null) {
 

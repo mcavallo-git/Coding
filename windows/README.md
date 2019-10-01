@@ -15,6 +15,7 @@ This file (on GitHub):
 Name | Option A | Option B
 --- | --- | ---
 **AirParrot** <sub>*Windows Airplay Client*</sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
+**Aura Sync** <sub>*ASUS RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
 **Classic Shell** <sub>*Win7 Style Start-Menu*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 **Docker Desktop for Windows** <sub>*Containers*</sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
 **Cryptomator** <sub>*Client-Side Cloud-Encryption*</sub> | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
@@ -24,7 +25,7 @@ Name | Option A | Option B
 **Git - Tortoise Git** <sub>*Git Merge Conflict Resolver*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **Gpg4win** <sub>*GnuPG for Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
-**iCue** <sub>*Corsair RGB Controller*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
+**iCue** <sub>*Corsair RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Remote Mouse** <sub>*Phone &rarr; Mouse & Keyboard*</sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |

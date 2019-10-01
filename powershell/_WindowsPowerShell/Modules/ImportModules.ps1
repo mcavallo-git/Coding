@@ -358,11 +358,15 @@ If ($Env:UpdatedCodebase -eq $null) {
 		-GithubRepo (${GithubRepo}) `
 		-Quiet;
 
-	$CommandExists.dotnet = `
-		EnsureCommandExists `
-			-Name ("dotnet") `
-			-OnErrorShowUrl ("https://dotnet.microsoft.com/download/archives") `
-			-Quiet;
+	If ( $False -Eq $True ) {
+		# # Do not require .NET Core by default as-of 2019-10-01_04-27-48
+		$CommandExists.dotnet = `
+			EnsureCommandExists `
+				-Name ("dotnet") `
+				-OnErrorShowUrl ("https://dotnet.microsoft.com/download/archives") `
+				-Quiet;
+	
+	}
 
 	$Env:UpdatedCodebase = $null;
 	

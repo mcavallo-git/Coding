@@ -1,24 +1,5 @@
 
-$ExternalGpuNames = @();
-
-Get-WmiObject Win32_VideoConfiguration
-
-Get-WmiObject Win32_VideoController | ForEach-Object {
-	If (($_.AdapterDACType -Ne $Null) -And ($_.AdapterDACType -Ne "Internal")) {
-		$ExternalGpuNames += ($_.Name);
-	}
-}
-
-If ($ExternalGpuNames.Count -Gt 0) {
-	$ExternalGpuNames;
-} Else {
-	Write-Host "No External GPU(s) found";
-}
-
-# ------------------------------------------------------------
-
-Get-WmiObject Win32_PnPSignedDriver| select devicename, driverversion | where {$_.devicename -like "*nvidia*"}
-
+Get-WmiObject Win32_PnPSignedDriver | Select-Object devicename, driverversion | Sort-Object devicename
 
 
 # ------------------------------------------------------------

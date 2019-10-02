@@ -1,7 +1,7 @@
 
 $ExternalGpuNames = @();
 
-Get-WmiObject Win32_VideoController | ForEach-Object {
+Get-WmiObject Win32_VideoConfiguration | ForEach-Object {
 	If (($_.AdapterDACType -Ne $Null) -And ($_.AdapterDACType -Ne "Internal")) {
 		$ExternalGpuNames += ($_.Name);
 	}
@@ -18,4 +18,6 @@ If ($ExternalGpuNames.Count -Gt 0) {
 # Citation(s)
 #
 #		docs.microsoft.com  |  "Win32_VideoController class"  |  https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-videocontroller
+#
+#		docs.microsoft.com  |  "Win32_VideoConfiguration class"  |  https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-videoconfiguration
 #

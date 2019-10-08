@@ -35,6 +35,36 @@ Name | Option A | Option B
 **WinDirStat** <sub>*Disk Usage Analyzer*</sub> | [Download (source)](https://windirstat.net/download.html) | [Download (mirror)](https://www.fosshub.com/WinDirStat.html) |
 **Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
+
+<br /><br />
+<hr />
+<h3>
+DOWNLOADS TO ADD/UPDATE (as-of 2019-10-08_18-22-55)
+</h3>
+<div>
+LastPass Download
+https://lastpass.com/download
+
+Ninite
+https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/
+
+AutoHotkey (AHK)
+https://www.autohotkey.com/download/ahk-install.exe
+
+Splashtop Personal
+https://www.splashtop.com/downloadstart?product=stp&platform=windows-client
+
+Splashtop Streamer
+https://www.splashtop.com/downloadstart?platform=windows
+
+Git SCM, Win x64
+https://git-scm.com/download/win
+
+Logitech SetPoint
+http://support.logitech.com/software/setpoint
+</div>
+<hr />
+
 <!-- </p> -->
 <!-- </details> -->
 

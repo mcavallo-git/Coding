@@ -475,7 +475,7 @@ CustomMsgboxButtons_ClipboardPaste:
 ;  ACTION:  Types the contents of target file
 ;
 #G::
-	FilePathToRead=%USERPROFILE%\.gnupg\passphrase.personal
+	FilePathToRead=%USERPROFILE%\.gpg_git\personal.passphrase
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return
@@ -485,7 +485,7 @@ CustomMsgboxButtons_ClipboardPaste:
 ;  ACTION:  Types the contents of target file
 ;
 #W::
-	FilePathToRead=%USERPROFILE%\.gnupg\passphrase.work
+	FilePathToRead=%USERPROFILE%\.gpg_git\work.passphrase
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return

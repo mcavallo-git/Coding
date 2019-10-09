@@ -7,7 +7,6 @@ This file (on GitHub):
 --- ------------------------------------------------------------- -->
 
 <h3 id="multi-app-installs">Multi-App Installs</h3>
-<hr />
 
 Name | Option A | Option B
 --- | --- | ---
@@ -17,7 +16,6 @@ Name | Option A | Option B
 <br /><hr />
 
 <h3 id="workstation-installs">Workstation Installs</h3>
-<hr />
 
 Name | Option A | Option B
 --- | --- | ---
@@ -45,7 +43,6 @@ Name | Option A | Option B
 <br /><hr />
 
 <h3 id="hardware-installs">Hardware-Related Installs</h3>
-<hr />
 
 Name | Option A | Option B
 --- | --- | ---

@@ -12,6 +12,7 @@ This file (on GitHub):
 Name | Option A | Option B
 --- | --- | ---
 **Ninite** <sub>*Install Multiple Apps at Once*</sub> | [Download (source)](https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/) |
+**Microsoft Office 365** <sub>*Outlook, Word, Excel, PowerPoint, etc.*</sub> | [Download (source)](https://www.office.com/) → "Install Office" |
 
 <br /><hr />
 

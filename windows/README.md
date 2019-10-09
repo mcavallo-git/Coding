@@ -6,67 +6,54 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h3 id="workstation-installs">
-	Workstation Installs (Windows)<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">Software/Tools for a Windows Workstation/Environment</i></sub>
-</h3>
+<h3 id="multi-app-installs">Multi-App Installs</h3>
+<hr />
+
+Name | Option A | Option B
+--- | --- | ---
+**Ninite** <sub>*Install Multiple Apps at Once*</sub> | [Download (source)](https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/) |
+
+<br /><hr />
+
+<h3 id="workstation-installs">Workstation Installs</h3>
 <hr />
 
 Name | Option A | Option B
 --- | --- | ---
 **AirParrot** <sub>*Windows Airplay Client*</sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
-**Aura Sync** <sub>*ASUS RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
+**AutoHotkey (AHK)** <sub>*Keyboard Macro Program*</sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
 **Classic Shell** <sub>*Win7 Style Start-Menu*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 **Docker Desktop for Windows** <sub>*Containers*</sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
 **Cryptomator** <sub>*Client-Side Cloud-Encryption*</sub> | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
 **Effective File Search (EFS)** <sub>*Search tool*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
-**Git - Git SCM** <sub>*Git Backend Requirement*</sub> | [Download (source)](https://git-scm.com/downloads) |
-**Git - GitHub Desktop** <sub>*Git Daily Driver*</sub> | [Download (source)](https://desktop.github.com) |
-**Git - Tortoise Git** <sub>*Git Merge Conflict Resolver*</sub> | [Download (source)](https://tortoisegit.org/download) |
+**Git SCM** <sub>*CLI Integration*</sub> | [Download (source)](https://git-scm.com/download/win) |
+**GitHub Desktop** <sub>*Git Daily Driver*</sub> | [Download (source)](https://desktop.github.com) |
+**Tortoise Git** <sub>*Git Merge Conflict Resolver*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **Gpg4win** <sub>*GnuPG for Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
-**iCue** <sub>*Corsair RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
+**LastPass** <sub>*Password Manager*</sub> | [Download (source)](https://lastpass.com/download) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Remote Mouse** <sub>*Phone &rarr; Mouse & Keyboard*</sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
 **Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
-**Splashtop** <sub>*Remote Desktop/Support*</sub> | [Download (source)](https://www.splashtop.com/downloads) |
+**Splashtop Personal** <sub>*Remote Access Client*</sub> | [Download (source)](https://www.splashtop.com/downloadstart?product=stp&platform=windows-client) |
+**Splashtop Streamer** <sub>*Remote Access Host/Server*</sub> | [Download (source)](https://www.splashtop.com/downloadstart?platform=windows) |
 **Visual Studio Code** <sub>*VS Code - Code Editor*</sub> | [Download (source)](https://code.visualstudio.com/download) |
 **WinDirStat** <sub>*Disk Usage Analyzer*</sub> | [Download (source)](https://windirstat.net/download.html) | [Download (mirror)](https://www.fosshub.com/WinDirStat.html) |
+
+<br /><hr />
+
+<h3 id="hardware-installs">Hardware-Related Installs</h3>
+<hr />
+
+Name | Option A | Option B
+--- | --- | ---
+**ASUS Aura Sync** <sub>*RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
+**Corsair iCue** <sub>*RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
+**Logitech SetPoint** <sub>*Password Manager*</sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
 **Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
-
-<br /><br />
-<hr />
-<h3>
-DOWNLOADS TO ADD/UPDATE (as-of 2019-10-08_18-22-55)
-</h3>
-<div>
-LastPass Download
-https://lastpass.com/download
-
-Ninite
-https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/
-
-AutoHotkey (AHK)
-https://www.autohotkey.com/download/ahk-install.exe
-
-Splashtop Personal
-https://www.splashtop.com/downloadstart?product=stp&platform=windows-client
-
-Splashtop Streamer
-https://www.splashtop.com/downloadstart?platform=windows
-
-Git SCM, Win x64
-https://git-scm.com/download/win
-
-Logitech SetPoint
-http://support.logitech.com/software/setpoint
-</div>
-<hr />
-
-<!-- </p> -->
-<!-- </details> -->
+<br /><hr />
 
 <!-- ------------------------------------------------------------ -->
 

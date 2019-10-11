@@ -1,0 +1,3 @@
+Theme: [ Material Dark Theme - Dark Chocolate ]
+URL: [ https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah ]
+

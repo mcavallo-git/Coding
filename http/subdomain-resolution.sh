@@ -4,4 +4,5 @@
 # determines all subdomains for a given domain through exhaustive search methods
 #
 
-DOMAIN="hackertarget.com" && curl "https://api.hackertarget.com/hostsearch/?q=${DOMAIN}";
+DOMAIN="hackertarget.com" && \
+curl "https://api.hackertarget.com/hostsearch/?q=${DOMAIN}" | sort;

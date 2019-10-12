@@ -141,11 +141,11 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<span>Last Modified - Find files modified [ in the last X minutes ( see variable X_MINUTES ) ]</span>
+		<span>Last Modified - Find files modified [ in the last X minutes ( see variable LAST_X_MINUTES ) ]</span>
 	</summary>
 <pre><code>
-X_MINUTES=120;
-find "/var/log" -mtime -${X_MINUTES} -ls;
+LAST_X_MINUTES=120;
+find "/var/log" -mtime -${LAST_X_MINUTES} -ls;
 </code></pre>
 <hr /></details></li><br />
 
@@ -281,10 +281,10 @@ find "${JENKINS_HOME}/" \
 	<p>ex) Cleanup NGINX Logs</p>
 <pre><code>
 DIRECTORY_TO_CLEAN="/var/log/nginx/";
-OLDER_THAN_DAYS=7;
+MAX_RETENTION_DAYS=7;
 find ${DIRECTORY_TO_CLEAN} \
 -type f \
--mtime +${OLDER_THAN_DAYS} \
+-mtime +${MAX_RETENTION_DAYS} \
 -exec printf "$(date +'%Y-%m-%d %H:%M:%S') $(whoami)@$(hostname) | " \; \
 -exec rm -v -- '{}' \; \
 ;

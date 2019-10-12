@@ -3,6 +3,9 @@
 #	IF VARIABLE IS SET/EMPTY
 #
 
+if [ ! -v var ]; then
+	# UNSET
+	echo "\$var is unset";
 if [ -z ${var+x} ]; then # Note: Do NOT wrap ${var+x} with quotes
 	# UNSET
 	echo "\$var is unset";
@@ -25,7 +28,7 @@ if [ -n "${SUBDOMAIN}" ] && [ -n "${DOMAIN}" ]; then # vars are both set & not e
 	FQDN="${SUBDOMAIN}.${DOMAIN}";
 	echo "${FQDN}";
 else
-	echo "VAR(S) NOT SET";
+	echo "STRING VAR(S) UNSET / EMPTY";
 fi;
 
 

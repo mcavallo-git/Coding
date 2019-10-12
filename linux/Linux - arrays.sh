@@ -7,7 +7,7 @@
 # Associative Arrays in Bash
 #
 test -v DAT_ARRAY && unset DAT_ARRAY; # Unset any previously-allocated variable(s)
-test -v DAT_ARRAY[@] && unset DAT_ARRAY; # Unset
+test -v DAT_ARRAY[@] && unset DAT_ARRAY;
 declare -A DAT_ARRAY;
 DAT_ARRAY+=(["Key One"]="Val One");
 DAT_ARRAY+=(["Key Two"]="Val Two");

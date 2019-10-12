@@ -777,7 +777,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 
 	VolumeLevel_Increment := 10
 
-	Volume_ForceUpperLimit := 25
+	; Volume_ForceUpperLimit := 100
 
 	SoundGet, VolumeLevel_BeforeEdits
 
@@ -791,17 +791,19 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 		SoundSet, +1, , MUTE
 	} Else If (A_ThisHotkey=="#WheelUp") {
 		; Volume Up
-		SoundSet , +%VolumeLevel_Increment%
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		SoundSet , +%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="^#WheelUp") {
 		; Volume Up ( Slower )
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 1 )
 		SoundSet , +%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="#WheelDown") {
 		; Volume Down
-		SoundSet , -%VolumeLevel_Increment%
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		SoundSet , -%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="^#WheelDown") {
 		; Volume Down ( Slower )
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 1 )
 		SoundSet , -%NewVolumeLevel_Increment%
 	}
 
@@ -875,14 +877,17 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
 	
 	OutputWidth := 317
-	OutputHeight := 20
+	OutputHeight := 50
 	StartMenuHeight := 40
 
-	; Show the output as a tooltip
+	; On-Screen Tooltip Location - X Coordinate (Left to Right)
 	x_loc := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
-	y_loc := Round( ( A_ScreenHeight - StartMenuHeight - OutputHeight ) / 2 )
-	; y_loc := 50
-	; y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
+	; x_loc := 50
+
+	; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
+	; y_loc := Round( ( A_ScreenHeight - StartMenuHeight - OutputHeight ) / 2 )
+	y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
+
 	ToolTip, %Echo_Tooltip%, %x_loc%, %y_loc%
 	ClearTooltip(750)
 	Return

@@ -2,9 +2,27 @@
 #
 # Linux - Arrays
 #
+# ------------------------------------------------------------
+#
+# Associative Arrays in Bash
+#
+test -v DAT_ARRAY && unset DAT_ARRAY; # Unset any previously-allocated variable(s)
+test -v DAT_ARRAY[@] && unset DAT_ARRAY; # Unset
+declare -A DAT_ARRAY;
+DAT_ARRAY+=(["Key One"]="Val One");
+DAT_ARRAY+=(["Key Two"]="Val Two");
+DAT_ARRAY+=(["Key A"]="Val A");
+DAT_ARRAY+=(["Key B"]="Val B");
+for DAT_KEY in "${!DAT_ARRAY[@]}"; do
+DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
+echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
+done;
+
+
+
 # -------------------------------------------------------------
 #
-# Create & walk-through an array
+# Non-Associative Arrays in Bash
 #
 
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
@@ -26,7 +44,6 @@ DAT_ARRAY+=("Item-B");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
 echo "${DAT_ITEM}";
 done;
-
 
 # #  ^
 # #  Methods have equivalent output
@@ -111,6 +128,8 @@ echo -e "\n\n";
 # -------------------------------------------------------------
 #
 # Citation(s)
+#
+# 	linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
 # 	stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #

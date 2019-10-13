@@ -51,7 +51,7 @@ Name | Option A | Option B
 Name | Option A | Option B
 --- | --- | ---
 **Java SE** <sub>*Standard Edition*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
-**PowerShell Core** <sub>*Standard Edition*</sub> | [GitHub](https://github.com/PowerShell/PowerShell#get-powershell) | [Microsoft](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
+**PowerShell Core** <sub>*Standard Edition*</sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
 
 <hr />
 
@@ -61,8 +61,8 @@ Name | Option A | Option B
 
 Name | Option A | Option B | Docs
 --- | --- | --- | ---
-**AWS CLI (PowerShell)** | [Source](https://aws.amazon.com/powershell) | [Gallery](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
-**Azure CLI (PowerShell)** | [Source](https://aka.ms/installazurecliwindows) | [Gallery](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
+**AWS CLI (PowerShell)** | [Download (source)](https://aws.amazon.com/powershell) | [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
+**Azure CLI (PowerShell)** | [Download (source)](https://aka.ms/installazurecliwindows) | [Download (gallery)](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
 
 <hr />
 
@@ -72,8 +72,8 @@ Name | Option A | Option B | Docs
 
 Name | Option A | Option B
 --- | --- | ---
-**Discord** <sub>VoIP & Digital Distribution</sub> | [Source](https://discordapp.com/download) |
-**Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Source](https://twitch.tv/downloads) |
+**Discord** <sub>VoIP & Digital Distribution</sub> | [Download (source)](https://discordapp.com/download) |
+**Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Download (source)](https://twitch.tv/downloads) |
 
 <hr />
 

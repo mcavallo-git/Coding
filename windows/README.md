@@ -71,34 +71,23 @@ Name | Option A | Option B
 
 <!-- ------------------------------------------------------------ -->
 <h3>DevOps Tools & Cmdlets</h3>
-<details><summary><i>Show/Hide Content</i></summary>
-<p>
-
-<h2>Cloud Management Cmdlets</h2>
 
 Name | Option A | Option B | Docs
 --- | --- | --- | ---
 **AWS CLI (PowerShell)** | [Source](https://aws.amazon.com/powershell) | [Gallery](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
 **Azure CLI (PowerShell)** | [Source](https://aka.ms/installazurecliwindows) | [Gallery](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
 
-</p>
-</details>
 <br /><hr />
 
 
 <!-- ------------------------------------------------------------ -->
 <h3>Gaming Apps</h3>
-<details><summary><i>Show/Hide Content</i></summary>
-<p>
 
 Name | Option A | Option B | Docs
 --- | --- | --- | ---
 **Discord** <sub>VoIP & Digital Distribution</sub> | [Source](https://discordapp.com/download) |
 **Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Source](https://twitch.tv/downloads) |
 
-
-</p>
-</details>
 <br /><hr />
 
 

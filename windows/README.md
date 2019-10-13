@@ -70,7 +70,7 @@ Name | Option A | Option B | Docs
 <!-- ------------------------------------------------------------ -->
 <h3>Gaming Apps</h3>
 
-Name | Option A | Option B | Docs
+Name | Option A | Option B
 --- | --- | --- | ---
 **Discord** <sub>VoIP & Digital Distribution</sub> | [Source](https://discordapp.com/download) |
 **Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Source](https://twitch.tv/downloads) |

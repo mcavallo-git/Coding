@@ -63,11 +63,12 @@ Name | Option A | Option B
 Name | Option A | Option B
 --- | --- | ---
 **Java SE** <sub>*Standard Edition*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
+**PowerShell Core** <sub>*Standard Edition*</sub> | [GitHub](https://github.com/PowerShell/PowerShell#get-powershell) | [Microsoft](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
 
 <br /><hr />
 
-<!-- ------------------------------------------------------------ -->
 
+<!-- ------------------------------------------------------------ -->
 <h3>DevOps Tools & Cmdlets</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
@@ -79,19 +80,12 @@ Name | Option A | Option B | Docs
 **AWS CLI (PowerShell)** | [Source](https://aws.amazon.com/powershell) | [Gallery](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
 **Azure CLI (PowerShell)** | [Source](https://aka.ms/installazurecliwindows) | [Gallery](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
 
-***
-<h2>Cross-Platform Languages (Install guides)</h2>
-
-Name | Option A | Option B
---- | --- | ---
-**PowerShell Core** | [GitHub](https://github.com/PowerShell/PowerShell#get-powershell) | [Microsoft](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
-
 </p>
 </details>
 <br /><hr />
 
+
 <!-- ------------------------------------------------------------ -->
-***
 <h3>Gaming Apps</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
@@ -104,10 +98,10 @@ Name | Option A | Option B | Docs
 
 </p>
 </details>
+<br /><hr />
 
 
 <!-- ------------------------------------------------------------ -->
-***
 <h3>Notable Filepaths (Windows)</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
@@ -121,10 +115,10 @@ Purpose | Filepath
 
 </p>
 </details>
+<br /><hr />
 
 <!-- ------------------------------------------------------------ -->
 
-***
 <h3>Productivity Tweaks (Windows)</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>

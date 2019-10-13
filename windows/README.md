@@ -13,8 +13,10 @@ Name | Option A | Option B
 **Ninite** <sub>*Install Multiple Apps at Once*</sub> | [Download Multi-Installer for: 7-Zip + Audacity + Chrome + ClassicShell + DropBox + FileZilla + FireFox + GreenShot + HandBrake + NotePad++ + Paint.Net + VLC + VS-Code + WinDirStat](https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/) |
 **Microsoft Office 365** <sub>*Outlook, Word, Excel, PowerPoint, etc.*</sub> | [Login to Office365](https://www.office.com/) → Select "Install Office" |
 
-<br /><hr /> <!-- ------------------------------------------------------------ -->
+<br /><hr />
 
+
+<!-- ------------------------------------------------------------ -->
 <h3 id="workstation-installs">Workstation Installs</h3>
 
 Name | Option A | Option B
@@ -40,8 +42,10 @@ Name | Option A | Option B
 **Visual Studio Code** <sub>*VS Code - Code Editor*</sub> | [Download (source)](https://code.visualstudio.com/download) |
 **WinDirStat** <sub>*Disk Usage Analyzer*</sub> | [Download (source)](https://windirstat.net/download.html) | [Download (mirror)](https://www.fosshub.com/WinDirStat.html) |
 
-<br /><hr /> <!-- ------------------------------------------------------------ -->
+<br /><hr />
 
+
+<!-- ------------------------------------------------------------ -->
 <h3 id="hardware-installs">Hardware-Related Installs</h3>
 
 Name | Option A | Option B
@@ -58,8 +62,9 @@ Name | Option A | Option B
 --- | --- | ---
 **Java SE** <sub>*Standard Edition*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
 
-<br /><hr /> <!-- ------------------------------------------------------------ -->
+<br /><hr />
 
+<!-- ------------------------------------------------------------ -->
 ***
 <h3>DevOps Tools & Cmdlets</h3>
 <details><summary><i>Show/Hide Content</i></summary>
@@ -81,8 +86,9 @@ Name | Option A | Option B
 
 </p>
 </details>
-<br /><hr /> <!-- ------------------------------------------------------------ -->
+<br /><hr />
 
+<!-- ------------------------------------------------------------ -->
 ***
 <h3>Gaming Apps</h3>
 <details><summary><i>Show/Hide Content</i></summary>
@@ -97,8 +103,8 @@ Name | Option A | Option B | Docs
 </p>
 </details>
 
-<!-- ------------------------------------------------------------ -->
 
+<!-- ------------------------------------------------------------ -->
 ***
 <h3>Notable Filepaths (Windows)</h3>
 <details><summary><i>Show/Hide Content</i></summary>

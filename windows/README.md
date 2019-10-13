@@ -81,6 +81,21 @@ Name | Option A | Option B
 
 </p>
 </details>
+<br /><hr /> <!-- ------------------------------------------------------------ -->
+
+***
+<h3>Gaming Apps</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
+
+Name | Option A | Option B | Docs
+--- | --- | --- | ---
+**Discord** <sub>VoIP & Digital Distribution</sub> | [Source](https://discordapp.com/download) |
+**Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Source](https://twitch.tv/downloads) |
+
+
+</p>
+</details>
 
 <!-- ------------------------------------------------------------ -->
 

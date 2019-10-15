@@ -21,7 +21,7 @@ Name | Option A | Option B
 
 Name | Option A | Option B
 --- | --- | ---
-**AirParrot** <sub>*Windows Airplay Client*</sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
+**AirParrot** <sub>*Airplay Client for Windows*</sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **AutoHotkey (AHK)** <sub>*Keyboard Macro Program*</sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
 **Classic Shell** <sub>*Win7 Style Start-Menu*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 **Docker Desktop for Windows** <sub>*Containers*</sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
@@ -35,7 +35,7 @@ Name | Option A | Option B
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
 **LastPass** <sub>*Password Manager*</sub> | [Download (source)](https://lastpass.com/download) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
-**Reflector** <sub>*Windows Airplay Server*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
+**Reflector** <sub>*Airplay Server for Windows*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Remote Mouse** <sub>*Phone &rarr; Mouse & Keyboard*</sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
 **Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
 **Splashtop Personal** <sub>*Remote Access Client*</sub> | [Download (source)](https://www.splashtop.com/downloadstart?product=stp&platform=windows-client) |

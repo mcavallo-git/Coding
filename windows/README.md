@@ -29,7 +29,7 @@ Name | Option A | Option B
 **Effective File Search (EFS)** <sub>*Search tool*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
 **Git SCM** <sub>*CLI Integration*</sub> | [Download (source)](https://git-scm.com/download/win) |
 **GitHub Desktop** <sub>*Git Daily Driver*</sub> | [Download (source)](https://desktop.github.com) |
-**KDiff v3** <sub>*Text Difference Analyzer*</sub> | [Download (source)](https://sourceforge.net/projects/kdiff3/) |
+**KDiff3** <sub>*Text Difference Analyzer*</sub> | [Download (source)](https://sourceforge.net/projects/kdiff3/) |
 **Tortoise Git** <sub>*Git Merge Conflict Resolver*</sub> | [Download (source)](https://tortoisegit.org/download) |
 **Gpg4win** <sub>*GnuPG for Windows*</sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |

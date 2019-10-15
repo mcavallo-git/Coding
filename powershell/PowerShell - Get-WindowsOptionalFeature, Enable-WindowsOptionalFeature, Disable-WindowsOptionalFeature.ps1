@@ -1,18 +1,24 @@
+# ------------------------------------------------------------
 #
 # Checks and installs Windows Features
 #
 # ***  REQUIRES ELEVATED PRIVILEGES  ***
 #
+# ------------------------------------------------------------
 
-Get-WindowsOptionalFeature
+Get-WindowsOptionalFeature -Online
+
+PrivilegeEscalation -Command ("Get-WindowsOptionalFeature -Online | Sort | Format-Table > '${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.txt'");
+
+
+# ------------------------------------------------------------
 
 Enable-WindowsOptionalFeature
 
+
+# ------------------------------------------------------------
+
 Disable-WindowsOptionalFeature
-
-
-
-
 
 
 # ------------------------------------------------------------

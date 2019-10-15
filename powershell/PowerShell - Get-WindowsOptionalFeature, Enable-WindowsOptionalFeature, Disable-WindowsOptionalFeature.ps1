@@ -19,10 +19,12 @@ DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DI
 
 Enable-WindowsOptionalFeature
 
+Enable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45"
+
 
 # ------------------------------------------------------------
 
-Disable-WindowsOptionalFeature
+Disable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45"
 
 
 # ------------------------------------------------------------

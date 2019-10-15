@@ -35,7 +35,7 @@ function NET_Framework_Check {
 		Write-Host "`n";
 		Write-Host "  Microsoft .NET Framework";
 		Write-Host "`n";
-		Write-Host "  Checking compatibility..." -ForegroundColor ;
+		Write-Host "  Checking compatibility..." -ForegroundColor "Yellow";
 		Write-Host "`n";
 		Write-Host " |---------------|---------------|---------------|  ";
 		Write-Host " | Release       | Version       | Compatibility |  ";

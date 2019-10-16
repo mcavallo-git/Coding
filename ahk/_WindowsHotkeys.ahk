@@ -50,6 +50,8 @@ SetCapsLockState, Off
 
 ; #NoEnv  ; Prevents environment variables from being used (occurs when a variable is called/referenced without being instantiated)
 
+VERBOSE_OUTPUT=True
+
 USERPROFILE=%USERPROFILE%
 
 USER_DESKTOP=%USERPROFILE%\Desktop
@@ -240,7 +242,8 @@ OnClick_LV_WindowSpecs() {
 ;		ACTION:  Type a line of -----'s
 ;
 #V::
-	OpenVSCode()
+	; OpenVSCode()
+	OpenVisualStudio()
 	Return
 ;
 ; ------------------------------------------------------------
@@ -394,10 +397,12 @@ StringRepeat(StrToRepeat, Multiplier) {
 	IfMsgBox Yes
 	{
 		ClipboardDuped:=Clipboard
-		TrayTip, %A_ScriptName%,
-		(LTrim
-			Pasting the Text version of the Clipboard
-		)
+		If (VERBOSE_OUTPUT == True) {
+			TrayTip, %A_ScriptName%,
+			(LTrim
+				Pasting the Text version of the Clipboard
+			)
+		}
 		; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 
 		; OPTION 1 - Using Built-in AHK Trim Method
@@ -424,10 +429,12 @@ StringRepeat(StrToRepeat, Multiplier) {
 		FileRead, Clipboard, *c %TEMP_CLIP_FILE% ; Note the use of *c, which must precede the filename
 		Sleep, 100
 		Send {Blind}{Text}%Clipboard%
-		TrayTip, %A_ScriptName%,
-		(LTrim
-			Pasting the Binary version of the Clipboard
-		)
+		If (VERBOSE_OUTPUT == True) {
+			TrayTip, %A_ScriptName%,
+			(LTrim
+				Pasting the Binary version of the Clipboard
+			)
+		}
 		Sleep, 100
 		FileDelete, %TEMP_CLIP_FILE% ; Delete the clipboard file
 		Sleep, 100
@@ -959,7 +966,9 @@ WheelRight::
 	WinGet, WinProcessName, ProcessName, A
 	MatchProcessName=FoxitPhantomPDF.exe
 	If (InStr(WinProcessName, MatchProcessName)) {
-		; TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
+		If (VERBOSE_OUTPUT == True) {
+			TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
+		}
 		x_loc = 223
 		y_loc = 40
 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
@@ -969,7 +978,9 @@ WheelRight::
 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 	}
 	; } Else {
-		; TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
+	; 	If (VERBOSE_OUTPUT == True) {
+	; 		TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
+	; 	}
 	; }
 	Return
 
@@ -992,7 +1003,15 @@ WheelRight::
 	; WinTitle=Task Scheduler
 	; WinTitle=Visual Studio Code
 	; SpaceUp_Loop(50, WinTitle)
-	SpaceUp_Loop(50)
+	; SpaceUp_Loop(50)
+	Return
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + C
+;  ACTION:  Open Google Chrome
+;
+#C::
+	OpenChrome()
 	Return
 
 
@@ -1328,18 +1347,66 @@ LShift & RShift::
 ; 	Return
 ;
 ; ------------------------------------------------------------
-;	@  OpenChrome - Opens the application "Visual Studio Code"
+;	@  GetPID()
+;      |--> Returns PID if process IS found
+;      |--> Returns 0 if process is NOT found
+;
+;	@  ProcessExist()
+;	@  IfProcessExist()
+;      |--> Returns True if process IS found
+;      |--> Returns False if process is NOT found
+;
+GetPID(ProcName) {
+	Process, Exist, %ProcName%
+	Return %ErrorLevel%
+}
+ProcessExist(ProcName) {
+  Return (GetPID(ProcName)>0) ? True : False
+}
+IfProcessExist(ProcName) {
+	Return (GetPID(ProcName)>0) ? True : False
+}
+; ------------------------------------------------------------
+;	@  OpenChrome - Opens the "Google Chrome" Application
 OpenChrome() {
-	OPEN_TO_URL = www.google.com
-	Run % "chrome.exe" ( winExist("ahk_class Chrome_WidgetWin_1") ? " --new-window " : " " ) OPEN_TO_URL
+	EXE_NICKNAME := "Google Chrome"
+	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; https://www.autohotkey.com/docs/commands/SplitPath.htm
+	EXE_PID := GetPID(EXE_BASENAME)
+	PROCEXISTS := ProcessExist(EXE_BASENAME)
+	If (VERBOSE_OUTPUT == True) {
+		; Show Debugging Info
+		CHECK_FUNCTIONS=GetPID = [ %EXE_PID% ], ProcessExist = [ %PROCEXISTS% ]
+		TrayTip, %A_ScriptName%, %CHECK_FUNCTIONS%
+	}
+	If (ProcessExist(EXE_BASENAME) == True) { ; Executable IS running - Activate the associated Window based on PID
+		If (VERBOSE_OUTPUT == True) {
+			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
+			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
+		}
+		WinActivate, ahk_pid %EXE_PID%
+	} Else If (FileExist(EXE_FULLPATH)) { ; Executable is NOT running but IS found locally
+		If (VERBOSE_OUTPUT == True) {
+			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
+			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
+		}
+		Run, %EXE_FULLPATH%
+	} Else { ; Executable is NOT running and NOT found locally
+		If (VERBOSE_OUTPUT == True) {
+			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
+			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
+		}
+	}
 	Return
 }
 ;
 ; ------------------------------------------------------------
-;	@  OpenVisualStudio - Opens the application "Visual Studio Code"
+;	@  OpenVisualStudio - Opens the "Visual Studio Code" Application
 OpenVisualStudio() {
-	TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
-	Run % TargetExe
+	VSCodeWorkspace := USERPROFILE "\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
+	Run % VSCodeWorkspace
+	; TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
+	; Run % TargetExe
 	Return
 }
 ;

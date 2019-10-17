@@ -78,7 +78,6 @@ else
 fi;
 
 
-
 # ------------------------------------------------------------
 #
 #	If [...] Then {...}
@@ -108,10 +107,23 @@ fi;
 exit 0;
 
 
+# ------------------------------------------------------------
+#
+# IF USER CONFIRMS-YES
+#  |--> Prompt for user confirmation (y/n)
+#
+read -p "Are you sure you want to continue? (y/n)   " -t 20 -r;
+if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
+	echo "Confirmed";
+else
+	echo "Skipped";
+fi;
+
 
 # ------------------------------------------------------------
 #
-# Determine if a given Linux-Command exists
+# IF COMMAND EXISTS
+#  |--> Determine if a given Linux-Command exists
 #
 COMMAND_LOOKUP="docker";
 COMMAND_FOUND=0;
@@ -127,7 +139,6 @@ fi;
 IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
 
-
 # ------------------------------------------------------------
 #
 # Determine if a given Linux-User exists
@@ -139,7 +150,6 @@ echo "USER \"${DOES_USER_EXIST}\" EXISTS!";
 else # no user-id tied to given username in this environment
 echo "USER \"${DOES_USER_EXIST}\" does NOT exist";
 fi;
-
 
 
 # ------------------------------------------------------------
@@ -161,7 +171,6 @@ else
 fi;
 
 
-
 # ------------------------------------------------------------
 #
 # Single-Line Conditionals
@@ -175,7 +184,6 @@ OS_IS_CENTOS=$(if [[ $(cat /etc/*release | grep -i centos | wc -l) -gt 0 ]]; the
 
 # (single-line example) Is this Linux Distribution "Ubuntu"? (return 1 if true, 0 if false)
 OS_IS_UBUNTU=$(if [[ $(cat /etc/*release | grep -i ubuntu | wc -l) -gt 0 ]]; then echo "1"; else echo "0"; fi; );
-
 
 
 # ------------------------------------------------------------
@@ -194,7 +202,6 @@ for EACH_SSH_USER in ${ALL_LINUX_USERS}; do
 		echo "User [${EACH_SSH_USER}] ISNT an SSH-User";
 	fi;
 done;
-
 
 
 # ------------------------------------------------------------

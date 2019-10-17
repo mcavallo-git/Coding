@@ -41,6 +41,7 @@ function CheckDedicatedDevices {
 				TaskSnipe -Name "razer" -SkipConfirm;
 				TaskSnipe -Name "game" -SkipConfirm;
 				TaskSnipe -Name "MSIAfterburner.exe" -SkipConfirm;
+				TaskSnipe -Name "lghub.exe" -SkipConfirm;
 				Break;
 			};
 		}

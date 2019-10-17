@@ -1,30 +1,58 @@
 function CheckDedicatedDevices {
 	Param(
+
+		[Parameter(Mandatory=$True)]
+		[ValidateLength(2,255)]
+		[String]$Type,
+
+		[Switch]$Quiet
+
 	)
 
-	$ExternalGpuNames = @();
+	$RunHidden = $False;
+	If ($PSBoundParameters.ContainsKey('Quiet')) {
+		$RunHidden = $True;
+	}
 
-	Get-WmiObject Win32_VideoController | ForEach-Object {
-		If (($_.AdapterDACType -Ne $Null) -And ($_.AdapterDACType -Ne "Internal")) {
-			$ExternalGpuNames += ($_.Name);
+	If ($Type.ToUpper() -Eq "GPU") {
+		$ExternalGpuNames = @();
+
+		Get-WmiObject Win32_VideoController | ForEach-Object {
+			If (($_.AdapterDACType -Ne $Null) -And ($_.AdapterDACType -Ne "Internal")) {
+				$ExternalGpuNames += ($_.Name);
+			}
 		}
+
+		If ($ExternalGpuNames.Count -Gt 0) {
+			#  ✔  Found 1+ dedicated GPU(s)
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+				Write-Host "`n$($MyInvocation.MyCommand.Name) - Found $($ExternalGpuNames.Count) dedicated GPU(s):" -ForegroundColor "Gray";
+				$ExternalGpuNames | ForEach-Object {
+					Write-Host "  $($_)" -ForegroundColor Green;
+				};
+			}
+		} Else {
+			#  ✕  No dedicated GPU found
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+				Write-Host "`n$($MyInvocation.MyCommand.Name) - No dedicated GPU(s) found" -ForegroundColor Yellow;
+			}
+			Get-WmiObject Win32_BaseBoard | Where-Object { $_.Manufacturer -Eq "LENOVO" -And $_.Product.Contains("20HR") } | ForEach-Object {
+				TaskSnipe -Name "nv" -SkipConfirm;
+				TaskSnipe -Name "razer" -SkipConfirm;
+				TaskSnipe -Name "game" -SkipConfirm;
+				Break;
+			};
+		}
+		If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host ""; }
+
+
+	} Else {
+		Write-Host "Unhandled device type:  [ $Type ]";
+		Write-Host " |";
+
+
 	}
 
-	If ($ExternalGpuNames.Count -Gt 0) {
-		Write-Host "`n$($MyInvocation.MyCommand.Name) - Found $($ExternalGpuNames.Count) dedicated GPU(s):" -ForegroundColor "Gray";
-		$ExternalGpuNames | ForEach-Object {
-			Write-Host "  $($_)" -ForegroundColor Green;
-		};
-	} Else {
-		Write-Host "`n$($MyInvocation.MyCommand.Name) - No dedicated GPU(s) found" -ForegroundColor Yellow;
-		Get-WmiObject Win32_BaseBoard | Where-Object { $_.Manufacturer -Eq "LENOVO" -And $_.Product.Contains("20HR") } | ForEach-Object {
-			TaskSnipe -Name "nv" -SkipConfirm;
-			TaskSnipe -Name "razer" -SkipConfirm;
-			TaskSnipe -Name "game" -SkipConfirm;
-			Break;
-		};
-	}
-	Write-Host "";
 	Return;
 
 }

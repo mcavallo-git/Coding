@@ -40,6 +40,7 @@ function CheckDedicatedDevices {
 				TaskSnipe -Name "nv" -SkipConfirm;
 				TaskSnipe -Name "razer" -SkipConfirm;
 				TaskSnipe -Name "game" -SkipConfirm;
+				TaskSnipe -Name "MSIAfterburner.exe" -SkipConfirm;
 				Break;
 			};
 		}

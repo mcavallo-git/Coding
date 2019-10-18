@@ -6,7 +6,7 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h3 id="multi-app-installs">Multi-App Installs</h3>
+<h3 id="multi-app-installs">Installs, Essential-Packagers</h3>
 
 Name | Option A | Option B
 --- | --- | ---
@@ -17,7 +17,7 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="workstation-installs">Workstation Installs</h3>
+<h3 id="workstation-installs">Installs, Workstation Essentials</h3>
 
 Name | Option A | Option B
 --- | --- | ---
@@ -47,7 +47,7 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="software-platform">Software Platforms (Languages)</h3>
+<h3 id="software-platform">Installs, Software Platforms (Languages)</h3>
 
 Name | Option A | Option B
 --- | --- | ---
@@ -58,7 +58,7 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>DevOps Tools & Cmdlets</h3>
+<h3>Installs, DevOps Tools & Cmdlets</h3>
 
 Name | Option A | Docs
 --- | --- | ---

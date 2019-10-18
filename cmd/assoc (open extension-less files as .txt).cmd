@@ -22,7 +22,10 @@ ASSOC .tar=7-Zip.tar
 REM URLs
 ASSOC .url=InternetShortcut
 
-REM Git Ignore Files
+REM Markdown
+ASSOC .md=txtfile
+
+REM Git-Ignore
 ASSOC .gitignore=txtfile
 
 REM SSH-Keys

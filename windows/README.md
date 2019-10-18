@@ -83,11 +83,12 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>Gaming Apps</h3>
+<h3>Installs, Entertainment</h3>
 
 Name | Option A | Option B
 --- | --- | ---
 **Discord** <sub>VoIP & Digital Distribution</sub> | [Download (source)](https://discordapp.com/download) |
+**Spotify** <sub>Music Streaming</sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
 **Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Download (source)](https://twitch.tv/downloads) |
 
 <hr />

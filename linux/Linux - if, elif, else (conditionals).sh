@@ -18,7 +18,6 @@ else
 fi;
 
 
-
 # ------------------------------------------------------------
 #
 #	IF STRING EQUALS ... EXACTLY
@@ -32,6 +31,17 @@ else
 fi;
 
 
+# ------------------------------------------------------------
+#
+# IF USER CONFIRMS-YES
+#  |--> Prompt for user confirmation (y/n)
+#
+read -p "Are you sure you want to continue? (y/n)   " -t 20 -r;
+if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
+	echo "Confirmed";
+else
+	echo "Skipped";
+fi;
 
 
 # ------------------------------------------------------------
@@ -105,19 +115,6 @@ else
 	exit 1;
 fi;
 exit 0;
-
-
-# ------------------------------------------------------------
-#
-# IF USER CONFIRMS-YES
-#  |--> Prompt for user confirmation (y/n)
-#
-read -p "Are you sure you want to continue? (y/n)   " -t 20 -r;
-if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
-	echo "Confirmed";
-else
-	echo "Skipped";
-fi;
 
 
 # ------------------------------------------------------------

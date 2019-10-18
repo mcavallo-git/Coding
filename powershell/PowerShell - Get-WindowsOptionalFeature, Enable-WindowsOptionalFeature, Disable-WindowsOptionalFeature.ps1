@@ -14,6 +14,8 @@ Get-WindowsOptionalFeature -Online | Sort | Format-Table > "${ENV:USERPROFILE}\D
 
 DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.txt";
 
+If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { Write-Host "0"; } Else { Write-Host "1"; }
+
 
 # ------------------------------------------------------------
 

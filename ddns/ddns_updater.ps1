@@ -1,6 +1,6 @@
 #
 # ddns_updater
-#		--> Applying basic DDNS - Allows for resolution of a static hostname to proxy towards a non-static (dynamic) endpoint (IPv4)
+#		|--> Applying basic DDNS - Allows syncing of a given Hostname's A-Record to a given device's dynamic IPv4 address
 #
 ForEach ($LocalUser In (Get-ChildItem ('C:/Users'))) {
 	If (Test-Path (($LocalUser.FullName)+('/.namecheap/secret'))) {

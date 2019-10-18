@@ -99,6 +99,7 @@ Name | Option A | Option B
 --- | --- | ---
 **ASUS Aura Sync** <sub>*RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
 **Corsair iCue** <sub>*RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
+**Display Driver Uninstaller** <sub>*DDU -  Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
 **Logitech SetPoint** <sub>*Password Manager*</sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
 **Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 

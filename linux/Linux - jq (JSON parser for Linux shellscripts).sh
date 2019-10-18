@@ -1,0 +1,1 @@
+curl "https://ip-ranges.atlassian.com" | jq

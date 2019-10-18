@@ -14,19 +14,24 @@ Get-WindowsOptionalFeature -Online | Sort | Format-Table > "${ENV:USERPROFILE}\D
 
 DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.txt";
 
-If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { Write-Host "0"; } Else { Write-Host "1"; }
+If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
+	# If the WSL Feature is currently set to Disabled, Enable it
+	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
+}
 
 
 # ------------------------------------------------------------
 
 Enable-WindowsOptionalFeature
 
-Enable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45"
+Enable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45";
+Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 
 
 # ------------------------------------------------------------
 
-Disable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45"
+Disable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45";
+Disable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 
 
 # ------------------------------------------------------------

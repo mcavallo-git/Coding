@@ -73,6 +73,7 @@ Name | Option A | Docs
 
 Name | Option A | Option B
 --- | --- | ---
+**CrystalDiskInfo** <sub>Core Temp</sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 **CrystalDiskInfo** <sub>Disk Info</sub> | [Download (source)](https://crystalmark.info/en/download/) |
 **CrystalDiskMark** <sub>Disk Benchmarking</sub> | [Download (source)](https://crystalmark.info/en/download/) |
 **UNIGINE Benchmarks** <sub>GPU Benchmarking</sub> | [Download (source)](https://benchmark.unigine.com/) |

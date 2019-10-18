@@ -18,6 +18,7 @@ curl "https://ip-ranges.atlassian.com" | jq '.items[0:2]';
 #
 curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr';
 
+
 # ------------------------------------------------------------
 # Grab JSON from the given URL
 #   |--> Parse the "items" property from the top-level JSON object
@@ -25,6 +26,8 @@ curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr';
 #   |----> Slice off all double-quotes (prepping for output)
 #
 curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr' | tr -d '"';
+
+
 # ------------------------------------------------------------
 # Grab JSON from the given URL
 #   |--> Parse the "items" property from the top-level JSON object

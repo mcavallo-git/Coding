@@ -22,6 +22,13 @@ ASSOC .tar=7-Zip.tar
 REM URLs
 ASSOC .url=InternetShortcut
 
+REM Git Ignore Files
+ASSOC .gitignore=txtfile
+
+REM SSH-Keys
+ASSOC .pem=txtfile
+ASSOC .pub=txtfile
+
 REM Others
 ASSOC .1=txtfile
 ASSOC .2=txtfile

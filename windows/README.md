@@ -35,6 +35,7 @@ Name | Option A | Option B
 **Handbrake** <sub>*Media Transcoder*</sub> | [Download (source)](https://handbrake.fr/) |
 **LastPass** <sub>*Password Manager*</sub> | [Download (source)](https://lastpass.com/download) |
 **MobaXterm** <sub>*XServer for Windows*</sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
+**Notepad Replacer** <sub>*Redirects NotePad.exe to VSCode, NP++, etc.*</sub> | [Download (source)](https://www.binaryfortress.com/NotepadReplacer/Download/) |
 **Reflector** <sub>*Airplay Server for Windows*</sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
 **Remote Mouse** <sub>*Phone &rarr; Mouse & Keyboard*</sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
 **Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |

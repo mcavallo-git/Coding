@@ -960,7 +960,7 @@ WheelRight::
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	SetTitleMatchMode, 2
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	WinGetTitle, WinTitle, A
 	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
 	WinGet, WinProcessName, ProcessName, A
@@ -1369,33 +1369,47 @@ IfProcessExist(ProcName) {
 ; ------------------------------------------------------------
 ;	@  OpenChrome - Opens the "Google Chrome" Application
 OpenChrome() {
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	EXE_NICKNAME := "Google Chrome"
 	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+
 	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; https://www.autohotkey.com/docs/commands/SplitPath.htm
 	EXE_PID := GetPID(EXE_BASENAME)
 	PROCEXISTS := ProcessExist(EXE_BASENAME)
+
 	If (VERBOSE_OUTPUT == True) {
 		; Show Debugging Info
 		CHECK_FUNCTIONS=GetPID = [ %EXE_PID% ], ProcessExist = [ %PROCEXISTS% ]
 		TrayTip, %A_ScriptName%, %CHECK_FUNCTIONS%
 	}
-	If (ProcessExist(EXE_BASENAME) == True) { ; Executable IS running - Activate the associated Window based on PID
+
+	If (ProcessExist(EXE_BASENAME) == True) {
+		; Executable IS running - Activate the associated Window based on PID
 		If (VERBOSE_OUTPUT == True) {
 			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
 		WinActivate, ahk_pid %EXE_PID%
-	} Else If (FileExist(EXE_FULLPATH)) { ; Executable is NOT running but IS found locally
+
+	} Else If (FileExist(EXE_FULLPATH)) {
+		; Executable is NOT running but IS found locally
 		If (VERBOSE_OUTPUT == True) {
 			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
 		Run, %EXE_FULLPATH%
-	} Else { ; Executable is NOT running and NOT found locally
+		WinWait,Chrome,,10
+
+		EXE_PID := GetPID(EXE_BASENAME)
+		WinActivate, ahk_pid %EXE_PID%
+
+	} Else {
+		; Executable is NOT running and NOT found locally
 		If (VERBOSE_OUTPUT == True) {
 			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
+
 	}
 	Return
 }
@@ -1458,7 +1472,7 @@ OpenVSCode() {
 	GitHub_Dir=%A_MyDocuments%\%Repos_Dirname%
 	; Runtime Variables
 	WinTitle=%Repos_Dirname% - Visual Studio Code
-	SetTitleMatchMode, 2
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	if !WinExist(WinTitle) {
 		; MsgBox,0,AHK-Log,VSCode-Window NOT found
 		Run, %VSCode_Exe% %GitHub_Dir%,,Hide,WinPID
@@ -1518,13 +1532,13 @@ ActiveWindow_Maximize() {
 ; ------------------------------------------------------------
 ;
 get_ahk_id_from_title(WinTitle,ExcludeTitle) {
-	SetTitleMatchMode, 2
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
 	dat_ahk_id=ahk_id %output_var%
 	Return dat_ahk_id
 }
 get_ahk_id_from_pid(WinPid) {
-	SetTitleMatchMode, 2
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
 	dat_ahk_id=ahk_id %output_var%
 	Return dat_ahk_id
@@ -1776,7 +1790,7 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ;
 ;
 ; SetTitleMatchMode, 1  ; Title must START-WITH [ WinTitle ]
-; SetTitleMatchMode, 2: ; Title must CONTAIN [ WinTitle ]
+; SetTitleMatchMode, 2: ; Title must CONTAIN [ WinTitle ] as a substring
 ; SetTitleMatchMode, 3: ; Title must EXACTLY-MATCH [ WinTitle ]
 ;
 ;

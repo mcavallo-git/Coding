@@ -1373,15 +1373,7 @@ OpenChrome() {
 	EXE_NICKNAME := "Google Chrome"
 	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 
-	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; https://www.autohotkey.com/docs/commands/SplitPath.htm
-	EXE_PID := GetPID(EXE_BASENAME)
-	PROCEXISTS := ProcessExist(EXE_BASENAME)
-
-	If (VERBOSE_OUTPUT == True) {
-		; Show Debugging Info
-		CHECK_FUNCTIONS=GetPID = [ %EXE_PID% ], ProcessExist = [ %PROCEXISTS% ]
-		TrayTip, %A_ScriptName%, %CHECK_FUNCTIONS%
-	}
+	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; SplitPath - https://www.autohotkey.com/docs/commands/SplitPath.htm
 
 	If (ProcessExist(EXE_BASENAME) == True) {
 		; Executable IS running - Activate the associated Window based on PID
@@ -1389,6 +1381,8 @@ OpenChrome() {
 			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
+		; Set Chrome as the Active Window
+		EXE_PID := GetPID(EXE_BASENAME)
 		WinActivate, ahk_pid %EXE_PID%
 
 	} Else If (FileExist(EXE_FULLPATH)) {
@@ -1397,9 +1391,10 @@ OpenChrome() {
 			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
+		; Open Chrome
 		Run, %EXE_FULLPATH%
 		WinWait,Chrome,,10
-
+		; Set Chrome as the Active Window
 		EXE_PID := GetPID(EXE_BASENAME)
 		WinActivate, ahk_pid %EXE_PID%
 
@@ -1412,6 +1407,7 @@ OpenChrome() {
 
 	}
 	Return
+
 }
 ;
 ; ------------------------------------------------------------

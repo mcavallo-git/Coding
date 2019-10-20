@@ -13,14 +13,14 @@ REM /***  Resize Image to %ResizeToWidthPx% Pixels in Width  && Delete input ima
 FOR %%I IN ("%INPUT_DIR%\*.jpg") DO (
 	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.jpg"
 	magick "%%I" -resize %ResizeToWidthPx% "%OUTPUT_DIR%\%%~nI.jpg"
-	DEL /f "%%I"
+	REM DEL /f "%%I"
 	ECHO.
 )
 
 FOR %%I IN ("%INPUT_DIR%\*.png") DO (
 	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.png"
 	magick "%%I" -resize %ResizeToWidthPx% "%OUTPUT_DIR%\%%~nI.png"
-	DEL /f "%%I"
+	REM DEL /f "%%I"
 	ECHO.
 )
 

@@ -106,7 +106,8 @@ Name | Option A | Option B
 **Corsair iCue** <sub>*RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
 **Display Driver Uninstaller** <sub>*DDU -  Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
 **Intel® DSA** <sub>Intel® Driver & Support Assistant</sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |
-**Logitech SetPoint** <sub>*Password Manager*</sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
+**Logitech G Hub** <sub>*Keyboard/Mouse RGB (+3rd Party Tools)*</sub> | [Download (source)](https://support.logi.com/hc/en-us/articles/360025298133) |
+**Logitech SetPoint** <sub>*Mouse/Keyboard Hotkey Manager*</sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
 **Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />

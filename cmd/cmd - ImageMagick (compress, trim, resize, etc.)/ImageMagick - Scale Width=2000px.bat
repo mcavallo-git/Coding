@@ -25,3 +25,5 @@ FOR %%I IN ("%INPUT_DIR%\*.png") DO (
 )
 
 START explorer.exe "%OUTPUT_DIR%"
+
+TIMEOUT /T 30

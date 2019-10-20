@@ -151,4 +151,6 @@ Export-ModuleMember -Function "SyncRegistry";
 #
 #   docs.microsoft.com  |  "Set-ItemProperty"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
 #
+#   winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
+#
 # ------------------------------------------------------------

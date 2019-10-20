@@ -68,20 +68,18 @@ function SyncRegistry {
 
 		# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
 		#   |--> Explorer -> Image-File (.png, .jpg, ...) -> Right-Click -> Edit -> Opens app held in [v THIS v] RegEdit Key/Val
-		If ( $False -eq $True ) {
-			$RegEdits += @{
-				Path = "HKCR:\SystemFileAssociations\image\shell\edit\command";
-				Props=@(
-					@{
-						Description="Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
-						Name="(Default)"; 
-						Type="Reg_Expand_SZ";
-						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
-						Value="C:\Program Files\paint.net\PaintDotNet.exe";
-					}
-				)
-			};
-		}
+		$RegEdits += @{
+			Path = "HKCR:\SystemFileAssociations\image\shell\edit\command";
+			Props=@(
+				@{
+					Description="Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
+					Name="(Default)"; 
+					Type="Reg_Expand_SZ";
+					Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
+					Value="C:\Program Files\paint.net\PaintDotNet.exe";
+				}
+			)
+		};
 
 		# Search / Cortana Settings
 		$RegEdits += @{

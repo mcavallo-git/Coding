@@ -73,6 +73,19 @@ function SyncRegistry {
 			)
 		};
 
+		# Stop Windows from making sure all apps close when Shutting-Down/Restarting/etc. (Disables the 'This App is Preventing Shutdown or Restart' screen before Shutdown/Restart)
+		$RegEdits += @{
+			Path = "HKCU:\Control Panel\Desktop";
+			Props=@(
+				@{
+					Description="Disables(1) the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+					Name="AutoEndTasks"; 
+					Type="REG_SZ";
+					Value=1;
+				}
+			)
+		};
+
 		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
 		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
 			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer

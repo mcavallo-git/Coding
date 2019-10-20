@@ -1,0 +1,33 @@
+------------------------------------------------------------
+
+	Google Image Search - Specifying Exact Dimensions
+		|
+		|--> Add these GET variables to [Google Search -> Images] URLs
+
+
+------------------------------------------------------------
+
+	Large (Wallpapers):
+
+		3440 x 1440:    &tbs=islt:2mp,isz:ex,iszw:3440,iszh:1440
+
+		1920 x 1080:    &tbs=islt:2mp,isz:ex,iszw:1920,iszh:1080
+
+
+------------------------------------------------------------
+
+
+	Tiny (Icons):
+
+		12h x 12w:    &tbs=islt:2mp,isz:ex,iszw:12,iszh:12
+
+		14h x 14w:    &tbs=islt:2mp,isz:ex,iszw:14,iszh:14
+
+		16h x 16w:    &tbs=islt:2mp,isz:ex,iszw:16,iszh:16
+
+		20h x 20w:    &tbs=islt:2mp,isz:ex,iszw:20,iszh:20
+
+		30h x 15w:    &tbs=islt:2mp,isz:ex,iszw:30,iszh:15
+
+
+------------------------------------------------------------

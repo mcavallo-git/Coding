@@ -4,7 +4,7 @@ function SyncRegistry {
 
 	If ((RunningAsAdministrator) -ne ($True)) {
 
-		PrivilegeEscalation -Command ("SyncWorkstationRegistry");
+		PrivilegeEscalation -Command ("SyncRegistry");
 	
 	} Else {
 

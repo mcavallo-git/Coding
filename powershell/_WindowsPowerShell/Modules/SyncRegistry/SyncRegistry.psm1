@@ -187,7 +187,7 @@ function SyncRegistry {
 					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor Gray; # (Already up to date)
 				} Else {
 					# Create missing key in the registry
-					Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" "));
+					Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
 					New-Item -Path ($EachRegEdit.Path);
 				}
 
@@ -206,7 +206,7 @@ function SyncRegistry {
 
 						If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 							# Existing key-property found with correct value
-							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")); # (Already up to date)
+							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor Gray; # (Already up to date)
 
 						} Else {
 							# Modify the value of an existing property on an existing registry key
@@ -216,7 +216,7 @@ function SyncRegistry {
 						}
 					} Else {
 						# Add the missing property to the Registry Key
-						Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]"));
+						Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor Green;
 						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 						Write-Host " `n`n";
 
@@ -232,7 +232,7 @@ function SyncRegistry {
 		}
 	}
 
-	Write-Host -NoNewLine "`n`n  Press any key to exit...";
+	Write-Host -NoNewLine "`n`n  Press any key to exit..." -ForegroundColor Magenta;
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 }

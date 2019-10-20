@@ -177,7 +177,7 @@ function SyncRegistry {
 						}
 					}
 					If ($Each_PSDrive_Root -ne $Null) {
-						Write-Host "   |`n   |--> Adding ${Each_PSDrive_PSProvider} Network Mapping from drive-name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
+						Write-Host "   |`n   |--> Adding ${Each_PSDrive_PSProvider} Network-Map from drive-name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
 						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 					}
 				}

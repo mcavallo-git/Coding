@@ -157,7 +157,7 @@ function SyncRegistry {
 				$Each_RootKey_Acronym=(($EachRegEdit.Path).Split(':\')[0]);
 				If ((Test-Path -Path (("")+(${Each_RootKey_Acronym})+(":\"))) -Eq $False) {
 					$Each_RootKey_Name=$Null;
-					Write-Host "`n`n  Error - Root-Key not found:  `"${Each_RootKey_Acronym}`""; # (Already up to date)
+					Write-Host "`n`n  Info: Adding network map for Root-Key `"${Each_RootKey_Acronym}`""; # (Already up to date)
 					Foreach ($EachRootKey In $RootKeys) {
 						If ((($EachRootKey.Acronym) -ne $Null) -And (($EachRootKey.Acronym) -eq $Each_RootKey_Acronym)) {
 							$Each_RootKey_Name=($EachRootKey.Name);

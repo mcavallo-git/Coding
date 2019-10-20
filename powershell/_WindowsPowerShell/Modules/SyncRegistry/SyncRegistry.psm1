@@ -166,7 +166,8 @@ function SyncRegistry {
 					}
 					If ($Each_RootKey_Name -ne $Null) {
 						# New-PSDrive -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}";
-						New-PSDrive -Verbose -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}";
+						# New-PSDrive -Verbose -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}";
+						New-PSDrive -Quiet -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}";
 					}
 				}
 				

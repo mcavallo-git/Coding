@@ -101,6 +101,7 @@ Name | Option A | Option B
 Name | Option A | Option B
 --- | --- | ---
 **ASUS Aura Sync** <sub>*RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
+**balenaEtcher** <sub>*Drive Imaging Utility (.iso & .img, especially)*</sub> | [Download (source)](https://www.balena.io/etcher/) |
 **Corsair iCue** <sub>*RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
 **Display Driver Uninstaller** <sub>*DDU -  Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
 **Intel® DSA** <sub>Intel® Driver & Support Assistant</sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |

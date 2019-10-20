@@ -168,7 +168,7 @@ function SyncRegistry {
 				If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 					$Each_PSDrive_PSProvider=$Null;
 					$Each_PSDrive_Root=$Null;
-					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" is not currently mapped as a network drive";
+					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found to exist";
 					Foreach ($Each_PSDrive In $PSDrives) {
 						If ((($Each_PSDrive.Name) -ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
 							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);

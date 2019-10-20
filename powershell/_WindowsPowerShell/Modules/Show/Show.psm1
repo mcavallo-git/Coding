@@ -91,19 +91,11 @@ Export-ModuleMember -Function "Show";
 # Install-Module -Name "Show"
 
 
-
+# ------------------------------------------------------------
+# Citation(s)
 #
-#	Citation(s)
+#   docs.microsoft.com  |  "Get-Member"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-member?view=powershell-6
 #
+#   powershellexplained.com  |  "Powershell: Everything you wanted to know about arrays"  |  https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/#write-output--noenumerate
 #
-#		docs.microsoft.com
-#			|--> "Get-Member"
-#			|--> https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-member?view=powershell-6
-#
-#
-#		powershellexplained.com
-#			|--> "Powershell: Everything you wanted to know about arrays"
-#			|--> https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/#write-output--noenumerate
-#			|--> by Kevin Marquette
-#
-#
+# ------------------------------------------------------------

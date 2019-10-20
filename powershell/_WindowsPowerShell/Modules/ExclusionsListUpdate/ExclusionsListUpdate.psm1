@@ -62,7 +62,8 @@ function ExclusionsListUpdate {
 	$FoundProcesses = @();
 
 	# Require Escalated Privileges
-	If ((RunningAsAdministrator) -eq ($False)) {
+	If ((RunningAsAdministrator) -ne ($True)) {
+
 		$PSCommandArgs = @();
 		$i=0;
 		While ($i -lt $args.Length) {

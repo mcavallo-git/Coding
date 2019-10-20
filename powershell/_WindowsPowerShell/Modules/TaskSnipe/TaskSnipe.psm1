@@ -33,8 +33,8 @@ Function TaskSnipe {
 
 	)
 
-	If ((RunningAsAdministrator) -eq ($False)) {
-		
+	If ((RunningAsAdministrator) -ne ($True)) {
+
 		$CommandString = $MyInvocation.MyCommand.Name;
 		$PSBoundParameters.Keys | ForEach-Object {
 			$CommandString += " -$_";

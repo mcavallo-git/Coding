@@ -51,7 +51,6 @@ function SyncRegistry {
 		# ------------------------------------------------------------
 
 		$RegEdits = @();
-		
 
 		# Explorer Settings
 		$RegEdits += @{
@@ -76,7 +75,7 @@ function SyncRegistry {
 					@{
 						Description="Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
 						Name="(Default)"; 
-						Type="Reg_Expand_SZ";
+						Type="REG_EXPAND_SZ";
 						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
 						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
 					}
@@ -143,15 +142,18 @@ function SyncRegistry {
 			Exit;
 
 		} Else {
+			#
 			# 		New-Item --> Can be used to create new registry keys (assuming the current powershell session is running with elevated privileges)
+			#
 			#			Set-ItemProperty --> Can be used to create new registry values (DWord 32-bit, etc.)
 			#
 
 			Foreach ($EachRegEdit In $RegEdits) {
-
+				#
 				# Root-Keys
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
 				#   |-----> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
+				#
 				$Each_RootKey_Acronym=(($EachRegEdit.Path).Split(':\')[0]);
 				Write-Host "Each_RootKey_Acronym = [ ${Each_RootKey_Acronym} ]"
 				If ((Test-Path -Path (("")+(${Each_RootKey_Acronym})+(":\"))) -Eq $False) {
@@ -165,9 +167,8 @@ function SyncRegistry {
 					}
 					If ($Each_RootKey_Name -ne $Null) {
 						# New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
-						New-PSDrive -Name ${Each_RootKey_Acronym} -PSProvider Registry -Root ${Each_RootKey_Name};
+						New-PSDrive -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}";
 					}
-
 				}
 				
 				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {

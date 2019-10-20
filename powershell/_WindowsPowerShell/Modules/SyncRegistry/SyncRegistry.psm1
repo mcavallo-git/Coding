@@ -155,7 +155,6 @@ function SyncRegistry {
 				#   |-----> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
 				#
 				$Each_RootKey_Acronym=(($EachRegEdit.Path).Split(':\')[0]);
-				Write-Host "Each_RootKey_Acronym = [ ${Each_RootKey_Acronym} ]"
 				If ((Test-Path -Path (("")+(${Each_RootKey_Acronym})+(":\"))) -Eq $False) {
 					$Each_RootKey_Name=$Null;
 					Write-Host (("`n`n  Error - Root-Key not found:  `"")+($Each_RootKey_Acronym.Path)+("`"")); # (Already up to date)

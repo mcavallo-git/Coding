@@ -34,6 +34,8 @@ FOR %%I IN ("%INPUT_DIR%\*.png") DO (
 REM	Open the output directory once finished
 START explorer.exe "%OUTPUT_DIR%"
 
+TIMEOUT /T 30
+
 EXIT
 
 REM [ToDo] Determine if images are portrait or landscape via imagick

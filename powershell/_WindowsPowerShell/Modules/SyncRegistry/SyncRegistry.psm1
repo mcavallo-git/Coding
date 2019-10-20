@@ -165,7 +165,6 @@ function SyncRegistry {
 						}
 					}
 					If ($Each_RootKey_Name -ne $Null) {
-						# New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
 						New-PSDrive -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}";
 					}
 				}
@@ -232,6 +231,8 @@ Export-ModuleMember -Function "SyncRegistry";
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
+#
+#   docs.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
 #
 #   docs.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
 #

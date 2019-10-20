@@ -9,7 +9,8 @@ function SyncRegistry {
 	} Else {
 
 		# ------------------------------------------------------------
-		# Define all of the Registry's Root-Keys (to recreate from, where-needed)
+		# Define any Network Maps which will be required during the runtime
+		#  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 
 		$PSDrives = @();
 

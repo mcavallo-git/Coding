@@ -8,7 +8,50 @@ function SyncRegistry {
 	
 	} Else {
 
+		# ------------------------------------------------------------
+		# Define all of the Registry's Root-Keys (to recreate from, where-needed)
+
+		$RootKeys = @();
+
+		$RootKeys += @{
+			Acronym="HKLM";
+			Name="HKEY_LOCAL_MACHINE";
+		};
+
+		$RootKeys += @{
+			Acronym="HKCC";
+			Name="HKEY_CURRENT_CONFIG";
+		};
+
+		$RootKeys += @{
+			Acronym="HKCR";
+			Name="HKEY_CLASSES_ROOT";
+		};
+
+		$RootKeys += @{
+			Acronym="HKU";
+			Name="HKEY_USERS";
+		};
+
+		$RootKeys += @{
+			Acronym="HKCU";
+			Name="HKEY_CURRENT_USER";
+		};
+
+		$RootKeys += @{
+			Acronym=$Null;
+			Name="HKEY_PERFORMANCE_DATA";
+		};
+
+		$RootKeys += @{
+			Acronym=$Null;
+			Name="HKEY_DYN_DATA";
+		};
+
+		# ------------------------------------------------------------
+
 		$RegEdits = @();
+		
 
 		# Explorer Settings
 		$RegEdits += @{
@@ -105,7 +148,13 @@ function SyncRegistry {
 
 			Foreach ($EachRegEdit In $RegEdits) {
 
-				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $true) {
+				# Ensure that this registry key's Root key has been mapped as a network drive (provides read-write access to the target Root key which would otherwise be inaccessible)
+				
+				# New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
+
+
+
+				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
 					# Skip creating registry key if it already exists
 					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")); # (Already up to date)
 				} Else {
@@ -166,7 +215,11 @@ Export-ModuleMember -Function "SyncRegistry";
 # ------------------------------------------------------------
 # Citation(s)
 #
-#   docs.microsoft.com  |  "Set-ItemProperty"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
+#   docs.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
+#
+#   docs.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
+#
+#   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #
 #   winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
 #

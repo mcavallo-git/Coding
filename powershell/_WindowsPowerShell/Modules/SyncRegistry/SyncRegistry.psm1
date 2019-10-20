@@ -76,7 +76,7 @@ function SyncRegistry {
 					Name="(Default)"; 
 					Type="Reg_Expand_SZ";
 					Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
-					Value="C:\Program Files\paint.net\PaintDotNet.exe";
+					Value="`"C:\Program Files\paint.net\PaintDotNet.exe`" `"%1`"";
 				}
 			)
 		};

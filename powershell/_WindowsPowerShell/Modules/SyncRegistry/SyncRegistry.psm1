@@ -80,7 +80,7 @@ function SyncRegistry {
 				@{
 					Description="Disables(1) the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
 					Name="AutoEndTasks"; 
-					Type="REG_SZ";
+					Type="String";
 					Value=1;
 				}
 			)

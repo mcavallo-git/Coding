@@ -168,7 +168,7 @@ function SyncRegistry {
 				If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 					$Each_PSDrive_PSProvider=$Null;
 					$Each_PSDrive_Root=$Null;
-					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found";
+					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
 					Foreach ($Each_PSDrive In $PSDrives) {
 						If ((($Each_PSDrive.Name) -ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
 							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
@@ -177,14 +177,14 @@ function SyncRegistry {
 						}
 					}
 					If ($Each_PSDrive_Root -ne $Null) {
-						Write-Host "   |`n   |--> Adding ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
+						Write-Host "   |`n   |--> Adding ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor Green;
 						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 					}
 				}
 				
 				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
 					# Skip creating registry key if it already exists
-					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")); # (Already up to date)
+					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor Gray; # (Already up to date)
 				} Else {
 					# Create missing key in the registry
 					Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" "));

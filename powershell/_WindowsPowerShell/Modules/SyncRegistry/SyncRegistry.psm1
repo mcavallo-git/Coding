@@ -11,42 +11,50 @@ function SyncRegistry {
 		# ------------------------------------------------------------
 		# Define all of the Registry's Root-Keys (to recreate from, where-needed)
 
-		$RootKeys = @();
+		$PSDrives = @();
 
-		$RootKeys += @{
-			Acronym="HKLM";
-			Name="HKEY_LOCAL_MACHINE";
+		$PSDrives += @{
+			Name="HKLM";
+			PSProvider="Registry";
+			Root="HKEY_LOCAL_MACHINE";
 		};
 
-		$RootKeys += @{
-			Acronym="HKCC";
-			Name="HKEY_CURRENT_CONFIG";
+		$PSDrives += @{
+			Name="HKCC";
+			PSProvider="Registry";
+			Root="HKEY_CURRENT_CONFIG";
 		};
 
-		$RootKeys += @{
-			Acronym="HKCR";
-			Name="HKEY_CLASSES_ROOT";
+		$PSDrives += @{
+			Name="HKCR";
+			PSProvider="Registry";
+			Root="HKEY_CLASSES_ROOT";
 		};
 
-		$RootKeys += @{
-			Acronym="HKU";
-			Name="HKEY_USERS";
+		$PSDrives += @{
+			Name="HKU";
+			PSProvider="Registry";
+			Root="HKEY_USERS";
 		};
 
-		$RootKeys += @{
-			Acronym="HKCU";
-			Name="HKEY_CURRENT_USER";
+		$PSDrives += @{
+			Name="HKCU";
+			PSProvider="Registry";
+			Root="HKEY_CURRENT_USER";
 		};
 
-		$RootKeys += @{
-			Acronym=$Null;
-			Name="HKEY_PERFORMANCE_DATA";
+		$PSDrives += @{
+			Name=$Null;
+			PSProvider="Registry";
+			Root="HKEY_PERFORMANCE_DATA";
 		};
 
-		$RootKeys += @{
-			Acronym=$Null;
-			Name="HKEY_DYN_DATA";
+		$PSDrives += @{
+			Name=$Null;
+			PSProvider="Registry";
+			Root="HKEY_DYN_DATA";
 		};
+
 
 		# ------------------------------------------------------------
 
@@ -133,6 +141,8 @@ function SyncRegistry {
 			)
 		};
 
+		# ------------------------------------------------------------
+		
 		If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 			#
 			# Current session does not have Admin-Rights (required)
@@ -152,20 +162,23 @@ function SyncRegistry {
 				#
 				# Root-Keys
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
-				#   |-----> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
+				#   |--> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
 				#
-				$Each_RootKey_Acronym=(($EachRegEdit.Path).Split(':\')[0]);
-				If ((Test-Path -Path (("")+(${Each_RootKey_Acronym})+(":\"))) -Eq $False) {
-					$Each_RootKey_Name=$Null;
-					Write-Host "`n`n  Info: Adding network map for Root-Key `"${Each_RootKey_Acronym}`""; # (Already up to date)
-					Foreach ($EachRootKey In $RootKeys) {
-						If ((($EachRootKey.Acronym) -ne $Null) -And (($EachRootKey.Acronym) -eq $Each_RootKey_Acronym)) {
-							$Each_RootKey_Name=($EachRootKey.Name);
+				$Each_RegEdit_DriveName=(($EachRegEdit.Path).Split(':\')[0]);
+				If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
+					$Each_PSDrive_PSProvider=$Null;
+					$Each_PSDrive_Root=$Null;
+					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" is not currently mapped as a network drive";
+					Foreach ($Each_PSDrive In $PSDrives) {
+						If ((($Each_PSDrive.Name) -ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
+							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
+							$Each_PSDrive_Root=($Each_PSDrive.Root);
 							Break;
 						}
 					}
-					If ($Each_RootKey_Name -ne $Null) {
-						New-PSDrive -Name "${Each_RootKey_Acronym}" -PSProvider "Registry" -Root "${Each_RootKey_Name}" | Out-Null;
+					If ($Each_PSDrive_Root -ne $Null) {
+						Write-Host "  |--> Adding network map for Root-Key `"${Each_RegEdit_DriveName}`" to "; # (Already up to date)
+						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 					}
 				}
 				

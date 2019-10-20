@@ -148,12 +148,27 @@ function SyncRegistry {
 
 			Foreach ($EachRegEdit In $RegEdits) {
 
-				# Ensure that this registry key's Root key has been mapped as a network drive (provides read-write access to the target Root key which would otherwise be inaccessible)
+				# Root-Keys
+				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
+				#   |-----> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
+				$Each_RootKey_Acronym=(($EachRegEdit.Path).Split(':\')[0]);
+				Write-Host "Each_RootKey_Acronym = [ ${Each_RootKey_Acronym} ]"
+				If ((Test-Path -Path (("")+(${Each_RootKey_Acronym})+(":\"))) -Eq $False) {
+					$Each_RootKey_Name=$Null;
+					Write-Host (("`n`n  Error - Root-Key not found:  `"")+($Each_RootKey_Acronym.Path)+("`"")); # (Already up to date)
+					Foreach ($EachRootKey In $RootKeys) {
+						If ((($EachRootKey.Acronym) -ne $Null) -And (($EachRootKey.Acronym) -eq $Each_RootKey_Acronym)) {
+							$Each_RootKey_Name=($EachRootKey.Name);
+							Break;
+						}
+					}
+					If ($Each_RootKey_Name -ne $Null) {
+						# New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
+						New-PSDrive -Name ${Each_RootKey_Acronym} -PSProvider Registry -Root ${Each_RootKey_Name};
+					}
+
+				}
 				
-				# New-PSDrive -Name HKCR -PSProvider Registry -Root HKEY_CLASSES_ROOT
-
-
-
 				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
 					# Skip creating registry key if it already exists
 					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")); # (Already up to date)

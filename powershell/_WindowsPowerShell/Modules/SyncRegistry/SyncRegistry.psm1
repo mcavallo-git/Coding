@@ -232,7 +232,7 @@ function SyncRegistry {
 		}
 	}
 
-	Write-Host -NoNewLine "`n`n  Press any key to exit..." -ForegroundColor Magenta;
+	Write-Host -NoNewLine "`n`n  Press any key to exit..." -BackgroundColor Black -ForegroundColor Magenta;
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 }

@@ -184,7 +184,7 @@ function SyncRegistry {
 				
 				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
 					# Skip creating registry key if it already exists
-					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor Gray; # (Already up to date)
+					Write-Host (("`n`n  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor DarkGray; # (Already up to date)
 				} Else {
 					# Create missing key in the registry
 					Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
@@ -206,7 +206,7 @@ function SyncRegistry {
 
 						If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 							# Existing key-property found with correct value
-							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor Gray; # (Already up to date)
+							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor DarkGray; # (Already up to date)
 
 						} Else {
 							# Modify the value of an existing property on an existing registry key

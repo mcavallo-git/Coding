@@ -19,7 +19,7 @@ function EnsureProcessIsRunning {
 
 		[String]$Args,
 
-		[Alias("AsAdmin","RunAsAdmin")]
+		[Switch]$AsAdmin,
 		[Switch]$RunAsAdmin,
 
 		[Switch]$Quiet

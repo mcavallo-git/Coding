@@ -60,29 +60,29 @@ function EnsureProcessIsRunning {
 					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`" (`"${Args}`"); ]";
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" (`"${Args}`"); ]";
 						}
-						Start-Process "${Path}" ("${Args}");
+						Start-Process -Filepath "${Path}" ("${Args}");
 					} Else {
 						# Start Process [ NON-ADMIN ] & [ NO ARGS ]
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`"; ]";
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`"; ]";
 						}
-						Start-Process "${Path}";
+						Start-Process -Filepath "${Path}";
 					}
 				} Else {
 					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`" (`"${Args}`") -Verb `"RunAs`"; ]";
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" (`"${Args}`") -Verb `"RunAs`"; ]";
 						}
-						Start-Process "${Path}" ("${Args}") -Verb "RunAs";
+						Start-Process -Filepath "${Path}" ("${Args}") -Verb "RunAs";
 					} Else {
 						# Start Process [ AS-ADMIN ] & [ NO ARGS ]
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`" -Verb `"RunAs`"; ]";
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -Verb `"RunAs`"; ]";
 						}
-						Start-Process "${Path}" -Verb "RunAs";
+						Start-Process -Filepath "${Path}" -Verb "RunAs";
 					}
 				}
 			

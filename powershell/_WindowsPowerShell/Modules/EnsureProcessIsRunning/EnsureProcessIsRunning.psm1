@@ -22,8 +22,6 @@ function EnsureProcessIsRunning {
 		[Switch]$AsAdmin,
 		[Switch]$RunAsAdmin,
 
-		[Switch]$ReturnAsBoolean,
-
 		[Switch]$Quiet
 
 	)
@@ -121,16 +119,9 @@ function EnsureProcessIsRunning {
 
 	}
 
-	# Return boolean true/false status of whether process succeeded
-	If ($PSBoundParameters.ContainsKey('ReturnAsBoolean') -Eq $True) {
-		If ($Returned_PID -Eq $Null) {
-			$Returned_PID = $False;
-		} Else {
-			$Returned_PID = $True;
-		}
+	If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+		Return ${Returned_PID};
 	}
-
-	Return ${Returned_PID};
 
 }
 

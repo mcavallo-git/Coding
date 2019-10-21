@@ -14,8 +14,12 @@ function EnsureProcessIsRunning {
 
 		[String]$Name,
 
+		[Parameter(Mandatory=$True)]
 		[String]$Path,
 
+		[String]$Args,
+
+		[Switch]$RunAsAdmin,
 		[Switch]$Quiet
 
 	)
@@ -26,47 +30,59 @@ function EnsureProcessIsRunning {
 		Write-Host "EnsureProcessIsRunning:  Error - Must specify a Process-Name (using EnsureProcessIsRunning -Name ...) or Process-Path (using EnsureProcessIsRunning -Path ...)" -ForegroundColor "Yellow";
 
 	} Else {
+
+		If ([String]::IsNullOrEmpty("${Path}") -Eq $True) {
+			Write-Host "EnsureProcessIsRunning:  Error - Must specify a process path to be ensured is-running" -ForegroundColor "Yellow";
+			Write-Host "  |--> Syntax:    EnsureProcessIsRunning -Path ..." -ForegroundColor "Yellow";
+
+		} Else {
 		
-		$ValidQuery_Name = $False;
-		If (($PSBoundParameters.ContainsKey('Name') -Eq $True) -And (([String]::IsNullOrEmpty("${Name}")) -Eq $False)) {
-			$ValidQuery_Name = $True;
-		}
-
-		$ValidQuery_Path = $False;
-		If (($PSBoundParameters.ContainsKey('Path') -Eq $True) -And (([String]::IsNullOrEmpty("${Path}")) -Eq $False)) {
-			$ValidQuery_Path = $True;
-		}
-
-		If ((${ValidQuery_Name} -Eq $False) -And (${ValidQuery_Path} -Eq $False)) {
-			Write-Host "EnsureProcessIsRunning:  Error - Must specify a process to ensure is-running using either [ EnsureProcessIsRunning -Name ... ] or [ EnsureProcessIsRunning -Path ... ]" -ForegroundColor "Yellow";
-
-		} ElseIf ((${ValidQuery_Name} -Eq $True) -And (${ValidQuery_Path} -Eq $False)) {
-			# Find processes matching given [ Name ]
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Name `"${Name}`"";
+			If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
+				# Find processes matching given [ Name ] and given [ Path ]
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+					Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+				}
+				$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
+			} Else {
+				# Find processes only matching given [ Path ]
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+					Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+				}
+				$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 			}
-			$Returned_PID = (Get-Process | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
-		
 
-		} ElseIf ((${ValidQuery_Name} -Eq $False) -And (${ValidQuery_Path} -Eq $True)) {
-			# Find processes matching given [ Path ]
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+			If (${Returned_PID} -Eq $Null) {
+				If ($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) {
+					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
+						# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
+						Start-Process "${Path}" ("${Args}");
+					} Else {
+						# Start Process [ NON-ADMIN ] & [ NO ARGS ]
+						Start-Process "${Path}";
+					}
+				} Else {
+					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
+						# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
+						Start-Process "${Path}" ("${Args}") -Verb "RunAs";
+					} Else {
+						# Start Process [ AS-ADMIN ] & [ NO ARGS ]
+						Start-Process "${Path}" -Verb "RunAs";
+					}
+				}
 			}
-			$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
-		
-		} ElseIf ((${ValidQuery_Name} -Eq $True) -And (${ValidQuery_Path} -Eq $True)) {
-			# Find processes matching given [ Name ] and given [ Path ]
-			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+
+			# Start-Process "C:\Program Files\Greenshot\Greenshot.exe" -Verb "RunAs";
+
+			If ($Returned_PID -Eq $Null) {
+				Write-Host "EnsureProcessIsRunning:  Failed to start Process" -ForegroundColor "Red";
 			}
-			$Returned_PID = (Get-Process | Where-Object { $_.Name -eq "${Name}"; } | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
-		
+
 		}
 
 	}
 
-	Return $Returned_PID;
+	Return ${Returned_PID};
+
 }
 
 Export-ModuleMember -Function "EnsureProcessIsRunning";

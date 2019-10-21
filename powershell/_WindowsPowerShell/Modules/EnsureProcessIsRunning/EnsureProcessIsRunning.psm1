@@ -22,7 +22,6 @@ function EnsureProcessIsRunning {
 		[Switch]$AsAdmin,
 		[Switch]$RunAsAdmin,
 
-		[Switch]$Debug,
 		[Switch]$Quiet
 
 	)

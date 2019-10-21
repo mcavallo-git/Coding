@@ -18,9 +18,7 @@ function EnsureProcessIsRunning {
 
 		[Parameter(Mandatory=$True,
 		ParameterSetName="WithName")]
-		[String]$Path,
-
-		[Switch]$Quiet
+		[String]$Path
 		
 	)
 

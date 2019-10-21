@@ -7,8 +7,9 @@
 #   |      |--> PID(s) of Running Process(es) which match input name/path
 #   |      |--> $Null  (If Process is NOT running and could not be started)
 #   |
-#   |--> Example:
-#          |-->  Task Scheduler Action:    PowerShell -Command "EnsureProcessIsRunning -Name 'Greenshot' -Path 'C:\Program Files\Greenshot\Greenshot.exe' -AsAdmin -Quiet;"
+#   |--> Example (Task Scheduler)
+#          Program/Script:    wscript
+#          Add Arguments:     CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""EnsureProcessIsRunning -Name 'Greenshot' -Path 'C:\Program Files\Greenshot\Greenshot.exe' -AsAdmin -Quiet;"" ", 0, True
 #
 function EnsureProcessIsRunning {
 	Param(

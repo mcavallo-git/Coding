@@ -45,6 +45,7 @@ function EnsureProcessIsRunning {
 			$Returned_PID = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
 
 			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Write-Host "Calling [ Get-Process | Where-Object { ((`$_.Path -Eq `"${Path}`") -Or (`$_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty `"Id`" ]";
 				Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id";
 			}
 
@@ -56,6 +57,7 @@ function EnsureProcessIsRunning {
 			$Returned_PID = (Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 
 			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Write-Host "Calling [ Get-Process | Where-Object { (`$_.Path -Eq `"${Path}`"); } | Select-Object -ExpandProperty `"Id`" ]";
 				Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id";
 			}
 		}

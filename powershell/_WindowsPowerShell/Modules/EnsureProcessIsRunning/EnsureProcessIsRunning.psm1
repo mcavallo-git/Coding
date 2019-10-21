@@ -12,20 +12,18 @@
 function EnsureProcessIsRunning {
 	Param(
 		
-		[Parameter(Mandatory=$True,
-			Position=0
-		)]
+    [Parameter(Mandatory=$True, Position=0)]
+    [ValidateScript([String]::IsNullOrEmpty($_) -Eq $False)]
 		[String]$Name,
 
-		[Parameter(Mandatory=$True
-		)]
+    [Parameter( Mandatory=$False )]
+    [ValidateScript( [String]::IsNullOrEmpty($_) -Eq $False )]
 		[String]$Path
 		
 	)
 
 	$ValidParam_Name = $False;
 	If (($PSBoundParameters.ContainsKey('Name')) -And (([String]::IsNullOrEmpty("${Name}")) -Eq $False)) {
-
 		Write-Host "Parameter [ -Name ] IS set w/ value [ ${Name} ]" -ForegroundColor "Green";
 		$ValidParam_Name = $True;
 	} Else {

@@ -19,7 +19,9 @@ function EnsureProcessIsRunning {
 
 		[String]$Args,
 
+		[Alias("AsAdmin")]
 		[Switch]$RunAsAdmin,
+
 		[Switch]$Quiet
 
 	)
@@ -52,7 +54,7 @@ function EnsureProcessIsRunning {
 			}
 
 			If (${Returned_PID} -Eq $Null) {
-				If ($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) {
+				If (($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) -Or ($PSBoundParameters.ContainsKey('AsAdmin') -Eq $True)) {
 					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
 						Start-Process "${Path}" ("${Args}");
@@ -70,7 +72,8 @@ function EnsureProcessIsRunning {
 					}
 				}
 			}
-
+			PowerShell -Command ('EnsureProcessIsRunning -Path "C:\Program Files\Greenshot\Greenshot.exe" -RunAsAdmin');
+		
 			# Start-Process "C:\Program Files\Greenshot\Greenshot.exe" -Verb "RunAs";
 
 			If ($Returned_PID -Eq $Null) {

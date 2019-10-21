@@ -22,6 +22,7 @@ function EnsureProcessIsRunning {
 		[Switch]$AsAdmin,
 		[Switch]$RunAsAdmin,
 
+		[Switch]$Debug,
 		[Switch]$Quiet
 
 	)
@@ -49,6 +50,10 @@ function EnsureProcessIsRunning {
 				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
 			}
 			$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+		}
+
+		If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+			Write-Host "EnsureProcessIsRunning:  Debug - Returned_PID=[ ${Returned_PID} ]";
 		}
 
 		If (${Returned_PID} -Eq $Null) {
@@ -82,7 +87,11 @@ function EnsureProcessIsRunning {
 					Start-Process -Filepath ("${Path}") -Verb "RunAs";
 				}
 			}
-		
+
+			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Write-Host "EnsureProcessIsRunning:  Debug - Returned_PID=[ ${Returned_PID} ]";
+			}
+
 			# Re-Check to ensure that process is now running (after just being started)
 			If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
 				# Find processes matching given [ Name ] and given [ Path ]
@@ -95,6 +104,7 @@ function EnsureProcessIsRunning {
 			If ($Returned_PID -Eq $Null) {
 				Write-Host "EnsureProcessIsRunning:  Error - Failed to start Process `"${Path}`"" -ForegroundColor "Red";
 			}
+
 		}
 
 	}

@@ -57,24 +57,33 @@ function EnsureProcessIsRunning {
 				If (($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) -Or ($PSBoundParameters.ContainsKey('AsAdmin') -Eq $True)) {
 					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`" (`"${Args}`"); ]";
+						}
 						Start-Process "${Path}" ("${Args}");
 					} Else {
 						# Start Process [ NON-ADMIN ] & [ NO ARGS ]
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`"; ]";
+						}
 						Start-Process "${Path}";
 					}
 				} Else {
 					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`" (`"${Args}`") -Verb `"RunAs`"; ]";
+						}
 						Start-Process "${Path}" ("${Args}") -Verb "RunAs";
 					} Else {
 						# Start Process [ AS-ADMIN ] & [ NO ARGS ]
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process `"${Path}`" -Verb `"RunAs`"; ]";
+						}
 						Start-Process "${Path}" -Verb "RunAs";
 					}
 				}
 			}
-			PowerShell -Command ('EnsureProcessIsRunning -Path "C:\Program Files\Greenshot\Greenshot.exe" -RunAsAdmin');
-		
-			# Start-Process "C:\Program Files\Greenshot\Greenshot.exe" -Verb "RunAs";
 
 			If ($Returned_PID -Eq $Null) {
 				Write-Host "EnsureProcessIsRunning:  Failed to start Process" -ForegroundColor "Red";

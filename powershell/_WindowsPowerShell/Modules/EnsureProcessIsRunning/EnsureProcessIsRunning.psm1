@@ -38,11 +38,11 @@ function EnsureProcessIsRunning {
 	} Else {
 	
 		If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
-			# Find processes matching given [ Name ] and given [ Path ]
+			# Find processes matching given [ Name ]  OR  [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";
 			}
-			$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
+			$Returned_PID = (Get-Process | Where-Object { (($_.Path -eq "${Path}") -Or ($_.Name -eq "${Name}")); } | Select-Object -ExpandProperty "Id");
 		} Else {
 			# Find processes only matching given [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {

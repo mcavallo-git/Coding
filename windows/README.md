@@ -53,7 +53,8 @@ Name | Option A | Option B
 
 Name | Option A | Option B
 --- | --- | ---
-**Java SE** <sub>*Standard Edition*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
+**Java SE** <sub>*(Standard Edition, Win10)*</sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
+**Java JDK, JRE** <sub>*(Java Development-Kit, Runtime-Environment)*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
 **PowerShell Core** <sub>*Standard Edition*</sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
 
 <hr />

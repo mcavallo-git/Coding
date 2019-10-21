@@ -12,15 +12,13 @@
 function EnsureProcessIsRunning {
 	Param(
 		
-		[Parameter(
+		[Parameter(Mandatory=$True,
 			Position=0,
-			Mandatory=$True,
 			ParameterSetName="WithPath"
 		)]
 		[String]$Name,
 
-		[Parameter(
-			Mandatory=$True,
+		[Parameter(Mandatory=$True,
 			ParameterSetName="WithName"
 		)]
 		[String]$Path,

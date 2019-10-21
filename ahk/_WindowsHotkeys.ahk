@@ -782,7 +782,8 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 	Icon_VolumeFilled=⬛️
 	Icon_VolumeBlanks=⬜️
 
-	VolumeLevel_Increment := 10
+	VolumeLevel_Increment := 2
+	; VolumeLevel_Increment := 10
 
 	; Volume_ForceUpperLimit := 100
 
@@ -798,19 +799,19 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 		SoundSet, +1, , MUTE
 	} Else If (A_ThisHotkey=="#WheelUp") {
 		; Volume Up
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
 		SoundSet , +%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="^#WheelUp") {
 		; Volume Up ( Slower )
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 1 )
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
 		SoundSet , +%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="#WheelDown") {
 		; Volume Down
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 2 )
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
 		SoundSet , -%NewVolumeLevel_Increment%
 	} Else If (A_ThisHotkey=="^#WheelDown") {
 		; Volume Down ( Slower )
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment / 1 )
+		NewVolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
 		SoundSet , -%NewVolumeLevel_Increment%
 	}
 

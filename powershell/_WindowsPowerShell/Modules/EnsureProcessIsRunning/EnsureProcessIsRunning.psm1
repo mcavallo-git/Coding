@@ -1,13 +1,14 @@
 #
 # PowerShell - EnsureProcessIsRunning
-#   |
-#   |--> Given a Process-Name, this module ensures that said process is running, and starts it if it isn't
+#   |--> Description
+#   |      |--> Given a Process-Path (and optionally, Name), this module ensures that said process is running, and starts it if it isn't
 #   |
 #   |--> Returns:
-#         |
-#         |--> PID(s) of Running Process(es) which match input name/path
-#         |
-#         |--> $Null  (If Process is NOT running and could not be started)
+#   |      |--> PID(s) of Running Process(es) which match input name/path
+#   |      |--> $Null  (If Process is NOT running and could not be started)
+#   |
+#   |--> Example:
+#          |-->  Task Scheduler Action:    PowerShell -Command "EnsureProcessIsRunning -Name 'Greenshot' -Path 'C:\Program Files\Greenshot\Greenshot.exe' -AsAdmin -Quiet;"
 #
 function EnsureProcessIsRunning {
 	Param(

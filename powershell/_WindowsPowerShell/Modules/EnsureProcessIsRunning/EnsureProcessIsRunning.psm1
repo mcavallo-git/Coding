@@ -52,6 +52,7 @@ function EnsureProcessIsRunning {
 		}
 
 		If (${Returned_PID} -Eq $Null) {
+
 			If (($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) -Or ($PSBoundParameters.ContainsKey('AsAdmin') -Eq $True)) {
 				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
 					# Start Process [ NON-ADMIN ] & [ WITH ARGS ]

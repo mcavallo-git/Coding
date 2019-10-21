@@ -35,7 +35,7 @@ function EnsureProcessIsRunning {
 
 		If ([String]::IsNullOrEmpty("${Path}") -Eq $True) {
 			Write-Host "EnsureProcessIsRunning:  Error - Must specify a process path to be ensured is-running" -ForegroundColor "Yellow";
-			Write-Host "  |--> Syntax:    EnsureProcessIsRunning -Path ..." -ForegroundColor "Yellow";
+			Write-Host "  |--> Syntax:  EnsureProcessIsRunning -Path ..." -ForegroundColor "Yellow";
 
 		} Else {
 		
@@ -83,10 +83,19 @@ function EnsureProcessIsRunning {
 						Start-Process "${Path}" -Verb "RunAs";
 					}
 				}
-			}
+			
+				# Re-Check to ensure that process is now running (after just being started)
+				If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
+					# Find processes matching given [ Name ] and given [ Path ]
+					$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
+				} Else {
+					# Find processes only matching given [ Path ]
+					$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+				}
 
-			If ($Returned_PID -Eq $Null) {
-				Write-Host "EnsureProcessIsRunning:  Failed to start Process" -ForegroundColor "Red";
+				If ($Returned_PID -Eq $Null) {
+					Write-Host "EnsureProcessIsRunning:  Error - Failed to start Process `"${Path}`"" -ForegroundColor "Red";
+				}
 			}
 
 		}

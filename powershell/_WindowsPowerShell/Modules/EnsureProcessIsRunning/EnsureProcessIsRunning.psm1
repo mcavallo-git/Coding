@@ -42,8 +42,11 @@ function EnsureProcessIsRunning {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";
 			}
-			# $Returned_PID = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
-			$Returned_PID = (Get-Process -Name "${Name}" | Select-Object -ExpandProperty "Id");
+			$Returned_PID = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
+
+			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id";
+			}
 
 		} Else {
 			# Find processes only matching given [ Path ]
@@ -51,6 +54,10 @@ function EnsureProcessIsRunning {
 				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
 			}
 			$Returned_PID = (Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+
+			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id";
+			}
 		}
 
 		If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {

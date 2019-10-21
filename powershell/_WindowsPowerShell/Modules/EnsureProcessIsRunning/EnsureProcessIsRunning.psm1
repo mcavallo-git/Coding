@@ -57,7 +57,7 @@ function EnsureProcessIsRunning {
 
 			If (${Returned_PID} -Eq $Null) {
 				If (($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) -Or ($PSBoundParameters.ContainsKey('AsAdmin') -Eq $True)) {
-					If ([String]::IsNullOrEmpty-ArgumentList ("${Args}") -Eq $True) {
+					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" (`"${Args}`"); ]";
@@ -71,7 +71,7 @@ function EnsureProcessIsRunning {
 						Start-Process -Filepath ("${Path}");
 					}
 				} Else {
-					If ([String]::IsNullOrEmpty-ArgumentList ("${Args}") -Eq $True) {
+					If ([String]::IsNullOrEmpty("${Args}") -Eq $True) {
 						# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 							Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" (`"${Args}`") -Verb `"RunAs`"; ]";

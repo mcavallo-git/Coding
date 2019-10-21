@@ -13,11 +13,11 @@ function EnsureProcessIsRunning {
 	Param(
 		
     [Parameter(Mandatory=$True, Position=0)]
-    [ValidateScript([String]::IsNullOrEmpty($_) -Eq $False)]
+    [ValidateScript({[String]::IsNullOrEmpty($_) -Eq $False;})]
 		[String]$Name,
 
     [Parameter( Mandatory=$False )]
-    [ValidateScript( [String]::IsNullOrEmpty($_) -Eq $False )]
+    [ValidateScript({[String]::IsNullOrEmpty($_) -Eq $False;})]
 		[String]$Path
 		
 	)

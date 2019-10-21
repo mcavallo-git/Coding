@@ -37,7 +37,7 @@ function EnsureProcessIsRunning {
 
 	} Else {
 	
-		If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
+		If ([String]::IsNullOrEmpty("${Name}") -Eq $False) {
 			# Find processes matching given [ Name ]  OR  [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";

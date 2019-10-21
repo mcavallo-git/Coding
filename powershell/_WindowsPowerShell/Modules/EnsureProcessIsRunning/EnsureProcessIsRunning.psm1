@@ -11,55 +11,62 @@
 #
 function EnsureProcessIsRunning {
 	Param(
-		
-    [Parameter(Mandatory=$True, Position=0)]
-    [ValidateScript({[String]::IsNullOrEmpty($_) -Eq $False;})]
+
 		[String]$Name,
 
-    [Parameter( Mandatory=$False )]
-    [ValidateScript({[String]::IsNullOrEmpty($_) -Eq $False;})]
-		[String]$Path
-		
+		[String]$Path,
+
+		[Switch]$Quiet
+
 	)
 
-	$ValidParam_Name = $False;
-	If (($PSBoundParameters.ContainsKey('Name')) -And (([String]::IsNullOrEmpty("${Name}")) -Eq $False)) {
-		Write-Host "Parameter [ -Name ] IS set w/ value [ ${Name} ]" -ForegroundColor "Green";
-		$ValidParam_Name = $True;
+	$Returned_PID = $Null;
+
+	If (($PSBoundParameters.ContainsKey('Name') -Eq $False) -And ($PSBoundParameters.ContainsKey('Path') -Eq $False)) {
+		Write-Host "EnsureProcessIsRunning:  Error - Must specify a Process-Name (using EnsureProcessIsRunning -Name ...) or Process-Path (using EnsureProcessIsRunning -Path ...)" -ForegroundColor "Yellow";
+
 	} Else {
-		Write-Host "Parameter [ -Name ] is UNSET/EMPTY" -ForegroundColor "Yellow";
+		
+		$ValidQuery_Name = $False;
+		If (($PSBoundParameters.ContainsKey('Name') -Eq $True) -And (([String]::IsNullOrEmpty("${Name}")) -Eq $False)) {
+			$ValidQuery_Name = $True;
+		}
+
+		$ValidQuery_Path = $False;
+		If (($PSBoundParameters.ContainsKey('Path') -Eq $True) -And (([String]::IsNullOrEmpty("${Path}")) -Eq $False)) {
+			$ValidQuery_Path = $True;
+		}
+
+		If ((${ValidQuery_Name} -Eq $False) -And (${ValidQuery_Path} -Eq $False)) {
+			Write-Host "EnsureProcessIsRunning:  Error - Must specify a process to ensure is-running using either [ EnsureProcessIsRunning -Name ... ] or [ EnsureProcessIsRunning -Path ... ]" -ForegroundColor "Yellow";
+
+		} ElseIf ((${ValidQuery_Name} -Eq $True) -And (${ValidQuery_Path} -Eq $False)) {
+			# Find processes matching given [ Name ]
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Name `"${Name}`"";
+			}
+			$Returned_PID = (Get-Process | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
+		
+
+		} ElseIf ((${ValidQuery_Name} -Eq $False) -And (${ValidQuery_Path} -Eq $True)) {
+			# Find processes matching given [ Path ]
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+			}
+			$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+		
+		} ElseIf ((${ValidQuery_Name} -Eq $True) -And (${ValidQuery_Path} -Eq $True)) {
+			# Find processes matching given [ Name ] and given [ Path ]
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+			}
+			$Returned_PID = (Get-Process | Where-Object { $_.Name -eq "${Name}"; } | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+		
+		}
+
 	}
 
-	$ValidParam_Path = $False;
-	If (($PSBoundParameters.ContainsKey('Path')) -And (([String]::IsNullOrEmpty("${Path}")) -Eq $False)) {
-		$ValidParam_Path = $True;
-		Write-Host "Parameter [ -Path ] IS set w/ value [ ${Path} ]" -ForegroundColor "Green";
-	} Else {
-		Write-Host "Parameter [ -Path ] is UNSET/EMPTY" -ForegroundColor "Yellow";
-	}
-
-
-	# If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-	# 	Write-Host (("Task - Checking for Local Process w/ Name: ") + ($Name));
-	# }
-
-	# $Returned_PID = $False;
-	
-	# $GetProcess = (Get-Process -Name "${Name}" -ErrorAction "SilentlyContinue");
-
-	# If ((Get-Process -Name "Greenshot" -ErrorAction "SilentlyContinue") -Ne $Null) {
-	# 	If (([String]::IsNullOrEmpty("${Path}")) -Eq $True) {
-	# 		# Do not require matching on the program's path
-
-	# 	}
-	# 	Get-Process | Where-Object { $_.Name -eq "${Name}"; } | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Path"
-	# 	Get-Process | Where-Object { $_.Name -eq "Greenshot"; } | Select-Object -ExpandProperty Path
-	# 	Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty Path
-	# 	# Get-Process | Select-Object -ExpandProperty Path
-	# 	$ProcessExists = $True
-	# }
-
-	# Return $ProcessExists;
+	Return $Returned_PID;
 }
 
 Export-ModuleMember -Function "EnsureProcessIsRunning";

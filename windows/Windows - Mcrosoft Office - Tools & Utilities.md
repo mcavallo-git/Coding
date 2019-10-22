@@ -12,13 +12,14 @@ This file (on GitHub):
 
 <h4>Visio - Stencils/Shapes<sub>Download .vssx file(s) and Import via Drag-and-Drop)</sub></h4>
 
-* ["Microsoft Integration Stencils"](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
+* ["Microsoft Integration Stencils" by "Sandro Pereira"](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
 
 <!-- ------------------------------------------------------------ -->
 
 <h4>Visio - Stencils/Shapes<sub>Search Shapes & Download In-App</sub></h4>
 
-* <b>"Microsoft Azure Cloud Icons"</b> <sub>(Search in Visio App under "Shapes")</sub>
+* <b>"Miscellaneous Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
+* <b>"Microsoft Azure Cloud Icons" by "Microsoft Corporation"</b> <sub>(Search in Visio App under "Shapes")</sub>
 
 <!-- ------------------------------------------------------------ -->
 

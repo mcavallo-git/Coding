@@ -4,8 +4,9 @@
 <!-- ------------------------------------------------------------ -->
 
 ### Visio
-* [Stencils Pack - Microsoft Integration Stencils Pack for Visio 2016/2013 v5.0.0](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
-* [Stencils Pack - Microsoft Azure Cloud and AI Symbol / Icon Set - SVG](https://www.microsoft.com/en-us/download/details.aspx?id=41937)
+* [Stencils - "Microsoft Integration Stencils Pack for Visio 2016/2013 v5.0.0"](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
+* [Stencils - "Use the Azure diagrams template"](https://support.office.com/en-us/article/use-the-azure-diagrams-template-efbb25e7-c80e-42e1-b1ad-7ef630ff01b7)
+* [Stencils - "Microsoft Azure Cloud and AI Symbol / Icon Set - SVG"](https://www.microsoft.com/en-us/download/details.aspx?id=41937)
 * [Hotkeys - Visio Keyboard Shortcuts](http://www.excel-networks.com/docs/ms-visio-keyboardshortcuts.pdf)
 
 

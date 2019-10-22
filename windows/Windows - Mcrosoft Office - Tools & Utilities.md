@@ -1,3 +1,10 @@
+<!-- ------------------------------------------------------------ ---
+
+This file (on GitHub):
+
+	https://github.com/mcavallo-git/Coding/blob/master/windows/Windows%20-%20Mcrosoft%20Office%20-%20Tools%20%26%20Utilities.md
+
+--- ------------------------------------------------------------- -->
 
 # Microsoft Office - Tools & Utilities
 

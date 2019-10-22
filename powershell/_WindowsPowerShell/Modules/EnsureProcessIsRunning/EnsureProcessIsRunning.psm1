@@ -72,20 +72,6 @@ function EnsureProcessIsRunning {
 
 			If (($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) -Or ($PSBoundParameters.ContainsKey('AsAdmin') -Eq $True)) {
 				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
-					# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -ArgumentList (`"${Args}`"); ]";
-					}
-					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}");
-				} Else {
-					# Start Process [ NON-ADMIN ] & [ NO ARGS ]
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`"; ]";
-					}
-					Start-Process -Filepath ("${Path}");
-				}
-			} Else {
-				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
 					# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -ArgumentList (`"${Args}`") -Verb `"RunAs`"; ]";
@@ -97,6 +83,20 @@ function EnsureProcessIsRunning {
 						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -Verb `"RunAs`"; ]";
 					}
 					Start-Process -Filepath ("${Path}") -Verb "RunAs";
+				}
+			} Else {
+				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
+					# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -ArgumentList (`"${Args}`"); ]";
+					}
+					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}");
+				} Else {
+					# Start Process [ NON-ADMIN ] & [ NO ARGS ]
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`"; ]";
+					}
+					Start-Process -Filepath ("${Path}");
 				}
 			}
 

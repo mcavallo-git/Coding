@@ -115,6 +115,16 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
+<h3>Services, Hardware-Related</h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**PCPartPicker** <sub>*Component Pricing/Compatibility Comparisons*</sub> | [View (source)](https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf) |
+
+<hr />
+
+
+<!-- ------------------------------------------------------------ -->
 <h3>Windows - Notable Filepaths</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>

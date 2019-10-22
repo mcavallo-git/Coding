@@ -27,6 +27,7 @@ Name | Option A | Option B
 **Docker Desktop for Windows** <sub>*Containers*</sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
 **Cryptomator** <sub>*Client-Side Cloud-Encryption*</sub> | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
 **Effective File Search (EFS)** <sub>*Search tool*</sub> | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
+**FoxIt PhantomPDF** <sub>*PDF Editor (Paid)*</sub> | [Download (source)](https://www.foxitsoftware.com/downloads/#Foxit-PhantomPDF-Standard/) |
 **Git SCM** <sub>*CLI Integration*</sub> | [Download (source)](https://git-scm.com/download/win) |
 **GitHub Desktop** <sub>*Git Daily Driver*</sub> | [Download (source)](https://desktop.github.com) |
 **ImageMagick** <sub>*Image Editing via Command-Line*</sub> | [Download (source)](https://www.imagemagick.org/script/download.php#windows) |

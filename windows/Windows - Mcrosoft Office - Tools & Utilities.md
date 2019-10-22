@@ -36,6 +36,7 @@ This file (on GitHub):
 * [How can I change the default properties of Visio's connector tool?](https://superuser.com/a/243619)
 * [Turn off the "Capitalize first letter of sentences" feature](https://support.microsoft.com/en-us/help/290586)
 * [Glue or unglue connectors](https://support.office.com/en-us/article/glue-or-unglue-connectors-c55370ae-a3c3-4468-9232-b32604f7252f)
+* [Prevent or allow changes to shapes](https://support.office.com/en-us/article/prevent-or-allow-changes-to-shapes-e65decf4-0eed-4fd6-a7d9-b286abcbc7eb)
 
 
 

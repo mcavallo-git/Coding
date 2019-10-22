@@ -34,17 +34,6 @@ htbridge.com
 
 <!-- ------------------------------------------------------------ -->
 
-<h3>Go365</h3>
-<pre><code>
-
-go365.com,
-humana.com
-
-</code></pre>
-<hr />
-
-<!-- ------------------------------------------------------------ -->
-
 <h3>Lexus</h3>
 <pre><code>
 
@@ -69,6 +58,7 @@ office365.com,
 onmicrosoft.com,
 outlook.com,
 passport.net,
+powershellgallery.com,
 windows.com,
 windowsazure.com,
 xbox.com

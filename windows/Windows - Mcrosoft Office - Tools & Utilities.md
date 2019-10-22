@@ -18,7 +18,7 @@ This file (on GitHub):
 
 <h4>Visio - Stencils/Shapes<sub>Search Shapes & Download In-App</sub></h4>
 
-* "Microsoft Azure Cloud Icons" (Search in Visio App under "Shapes")
+* <b>"Microsoft Azure Cloud Icons"</b> <sub>(Search in Visio App under "Shapes")</sub>
 
 <!-- ------------------------------------------------------------ -->
 

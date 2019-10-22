@@ -957,33 +957,33 @@ WheelRight::
 ;  HOTKEY:  Windows-Key + A
 ;  ACTION:  Foxit PhantomPDF - Add Text
 ;
-#A::
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	WinGetTitle, WinTitle, A
-	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
-	WinGet, WinProcessName, ProcessName, A
-	MatchProcessName=FoxitPhantomPDF.exe
-	If (InStr(WinProcessName, MatchProcessName)) {
-		If (VERBOSE_OUTPUT == True) {
-			TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
-		}
-		x_loc = 223
-		y_loc = 40
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-		Sleep 100
-		x_loc = 355
-		y_loc = 63
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-	}
-	; } Else {
-	; 	If (VERBOSE_OUTPUT == True) {
-	; 		TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
-	; 	}
-	; }
-	Return
+; #A::
+; 	CoordMode, Mouse, Screen
+; 	SetDefaultMouseSpeed, 0
+; 	SetControlDelay, -1
+; 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+; 	WinGetTitle, WinTitle, A
+; 	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
+; 	WinGet, WinProcessName, ProcessName, A
+; 	MatchProcessName=FoxitPhantomPDF.exe
+; 	If (InStr(WinProcessName, MatchProcessName)) {
+; 		If (VERBOSE_OUTPUT == True) {
+; 			TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
+; 		}
+; 		x_loc = 223
+; 		y_loc = 40
+; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+; 		Sleep 100
+; 		x_loc = 355
+; 		y_loc = 63
+; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+; 	}
+; 	; } Else {
+; 	; 	If (VERBOSE_OUTPUT == True) {
+; 	; 		TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
+; 	; 	}
+; 	; }
+; 	Return
 
 
 ; ------------------------------------------------------------

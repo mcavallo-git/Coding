@@ -10,15 +10,29 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-### Visio
-* [Stencils - "Microsoft Integration Stencils Pack for Visio 2016/2013 v5.0.0"](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
-* [Stencils - "Use the Azure diagrams template"](https://support.office.com/en-us/article/use-the-azure-diagrams-template-efbb25e7-c80e-42e1-b1ad-7ef630ff01b7)
-* [Stencils - "Microsoft Azure Cloud and AI Symbol / Icon Set - SVG"](https://www.microsoft.com/en-us/download/details.aspx?id=41937)
-* [Hotkeys - Visio Keyboard Shortcuts](http://www.excel-networks.com/docs/ms-visio-keyboardshortcuts.pdf)
+<h4>Visio - Stencils/Shapes<sub>Download .vssx file(s) and Import via Drag-and-Drop)</sub></h4>
 
+* ["Microsoft Integration Stencils"](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
 
 <!-- ------------------------------------------------------------ -->
-### OneNote
+
+<h4>Visio - Stencils/Shapes<sub>Search Shapes & Download In-App</sub></h4>
+
+* "Microsoft Azure Cloud Icons" (Search in Visio App under "Shapes")
+
+<!-- ------------------------------------------------------------ -->
+
+<h4>Visio - Hotkeys</h4>
+
+* [Hotkeys - Visio Keyboard Shortcuts](http://www.excel-networks.com/docs/ms-visio-keyboardshortcuts.pdf)
+
+<!-- ------------------------------------------------------------ -->
+
+<h4>OneNote - Disable AutoCorrect</h4>
+
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
+
 <pre><code>------------------------------------------------------------
 
 Instructions for version:
@@ -59,3 +73,6 @@ Instructions for version:
 						-> AutoCorrect [OFF]
 
 ------------------------------------------------------------</code></pre>
+
+</p>
+</details>

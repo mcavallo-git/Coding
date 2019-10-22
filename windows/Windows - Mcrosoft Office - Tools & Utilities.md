@@ -34,7 +34,8 @@ This file (on GitHub):
 
 
 * [How can I change the default properties of Visio's connector tool?](https://superuser.com/a/243619)
-* [Turn off the "Capitalize first letter of sentences" feature](https://support.microsoft.com/en-us/help/290586/first-letter-of-first-word-on-each-line-is-capitalized-in-visio)
+* [Turn off the "Capitalize first letter of sentences" feature](https://support.microsoft.com/en-us/help/290586)
+* [Glue or unglue connectors](https://support.office.com/en-us/article/glue-or-unglue-connectors-c55370ae-a3c3-4468-9232-b32604f7252f)
 
 
 

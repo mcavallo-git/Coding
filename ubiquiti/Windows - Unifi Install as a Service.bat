@@ -9,17 +9,39 @@ REM Install "UniFi Controller for Windows"
 REM   |--> https://www.ui.com/download/unifi
 REM
 REM ------------------------------------------------------------
-REM Run Java Jar-File as a Service (RUN AS ADMIN IN CMD)
+REM Open the controller to allow the software to setup its
+REM database, confirm UAC checks, etc.
+
+"%USERPROFILE%\Ubiquiti UniFi\lib\ace.jar" ui
+
+
+
+
+REM ------------------------------------------------------------
+REM Install Java-based Unifi Service
 REM   |--> Hit Start on your Keyboard
 REM    |--> Type "cmd"
 REM     |--> (Combo keyboard+mouse press) Ctrl + Shift + Left-Click the returned "cmd.exe" in the start menu to "Run as Admin"
 REM      |--> Copy/Paste the following commands, one-by-one
 
 cd "%USERPROFILE%\Ubiquiti UniFi\"
-
 java -jar lib\ace.jar installsvc
-
 java -jar lib\ace.jar startsvc
+
+
+REM
+REM ------------------------------------------------------------
+EXIT
+
+
+REM ------------------------------------------------------------
+REM If, Later, you wish to remove the controller service (upgraded to
+REM Cloud-Key, removing all Unifi devices, etc.), run the following
+REM command in an admin CMD promptto remove the service:
+
+cd "%USERPROFILE%\Ubiquiti UniFi\"
+java -jar lib\ace.jar uninstallsvc
+
 
 REM ------------------------------------------------------------
 REM Verify Working State

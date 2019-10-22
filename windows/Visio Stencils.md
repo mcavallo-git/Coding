@@ -1,5 +1,5 @@
 
-<h1>Visio Stencils</h1>
+# Visio Stencils
 
 * [Microsoft Integration Stencils Pack for Visio 2016/2013 v5.0.0](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0)
 

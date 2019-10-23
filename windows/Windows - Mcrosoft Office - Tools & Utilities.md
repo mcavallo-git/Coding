@@ -24,6 +24,8 @@ This file (on GitHub):
 * <b>"Office Symbols Security 2014" by "Microsoft Corporation"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"Microsoft Azure Cloud Icons" by "Microsoft Corporation"</b> <sub>(Search in Visio App under "Shapes")</sub>
 
+* <b>"Application Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
+* <b>"Data Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"Office Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"Network and Security Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"Miscellaneous Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>

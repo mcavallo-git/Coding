@@ -31,7 +31,6 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
-		<strong>Sync "cloud-infrastructure" Bash Scripts</strong>
 		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">Sync Bash Modules</a></strong>
 	</summary>
 	<p>

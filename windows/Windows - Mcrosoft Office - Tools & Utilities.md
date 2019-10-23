@@ -29,15 +29,9 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h4>Visio - Hotkeys</h4>
-
-* [Hotkeys - Visio Keyboard Shortcuts](http://www.excel-networks.com/docs/ms-visio-keyboardshortcuts.pdf)
-
-<!-- ------------------------------------------------------------ -->
-
 <h4>Visio - Other</h4>
 
-
+* [Hotkeys - Visio Keyboard Shortcuts](http://www.excel-networks.com/docs/ms-visio-keyboardshortcuts.pdf)
 * [How can I change the default properties of Visio's connector tool?](https://superuser.com/a/243619)
 * [Turn off the "Capitalize first letter of sentences" feature](https://support.microsoft.com/en-us/help/290586)
 * [Glue or unglue connectors](https://support.office.com/en-us/article/glue-or-unglue-connectors-c55370ae-a3c3-4468-9232-b32604f7252f)

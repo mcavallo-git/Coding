@@ -20,20 +20,23 @@ This file (on GitHub):
 
 <li><details open><summary>
 		<strong>Sync "Coding" PowerShell Scripts</strong>
+		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">Sync PowerShell Modules</a></strong>
 	</summary>
 	<p>
-		<h4><a href="https://git-scm.com/download/win">Download "Git SCM"</a></h4>
-		<h4><a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">Sync PowerShell Modules (Copy-Paste-Run in an elevated terminal)</a></h4>
+		<h4><a href="https://git-scm.com/download/win">Prereq: Git SCM (download)</a></h4>
+		<h4>Prereq: Elevated terminal (Run as Admin)</h4>
 	</p>
 </details>
 </li><hr />
+
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
 		<strong>Sync "cloud-infrastructure" Bash Scripts</strong>
+		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">Sync Bash Modules</a></strong>
 	</summary>
 	<p>
-		<h4><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">Sync Bash Modules (Copy-Paste-Run in an elevated terminal)</a></h4>
+		<h4>Prereq: Elevated terminal (Run as root)</h4>
 	</p>
 </details>
 </li><hr />

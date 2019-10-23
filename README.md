@@ -22,7 +22,7 @@ This file (on GitHub):
 		<strong>Sync "Coding" PowerShell Scripts</strong>
 	</summary>
 	<p>
-		<h4>Prerequisite (required) → <a href="https://git-scm.com/download/win">Git SCM (Go to Download now)</a></h4>
+		<h4>Prerequisite (required) → <a href="https://git-scm.com/download/win">Git SCM (Download)</a></h4>
 		<h4>Open PowerShell as Admin → <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">Copy/Paste & Run the sync script</a></h4>
 	</p>
 </details>

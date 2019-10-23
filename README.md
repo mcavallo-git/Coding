@@ -22,9 +22,8 @@ This file (on GitHub):
 		<strong>Sync "Coding" PowerShell Scripts</strong>
 	</summary>
 	<p>
-		<h4>Prerequisite (required) → <a href="https://git-scm.com/download/win">Git SCM (Download)</a></h4>
-		<h4>Prerequisite (required) → Open an Admin PowerShell terminal</h4>
-		<h4>Copy-Paste-Run <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">the Sync PowerShell-Script</a></h4>
+		<h4><a href="https://git-scm.com/download/win">Download "Git SCM"</a></h4>
+		<h4><a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">Sync PowerShell Modules (Copy-Paste-Run in an elevated terminal)</a></h4>
 	</p>
 </details>
 </li><hr />
@@ -34,9 +33,7 @@ This file (on GitHub):
 		<strong>Sync "cloud-infrastructure" Bash Scripts</strong>
 	</summary>
 	<p>
-		<h4>Prerequisite (required) → <a href="https://git-scm.com/download/win">Git SCM (Download)</a></h4>
-		<h4>Prerequisite (required) → Open a terminal as the root user, or masquerade as root via <code>sudo -i</code></h4>
-		<h4>Copy-Paste-Run <a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">the Sync Bash ShellScript</a></h4>
+		<h4><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">Sync Bash Modules (Copy-Paste-Run in an elevated terminal)</a></h4>
 	</p>
 </details>
 </li><hr />

@@ -10,13 +10,6 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h4>Visio - Stencils/Shapes<sub>Download .vssx file(s) and Import via Drag-and-Drop)</sub></h4>
-
-* ["Visio Toolkit" by "AWS"](https://aws.amazon.com/architecture/icons/)
-* ["Microsoft Integration Stencils" by "Sandro Pereira"](https://gallery.technet.microsoft.com/Collection-of-Integration-e6a3f4d0) ([GitHub Source](https://github.com/sandroasp/Microsoft-Integration-and-Azure-Stencils-Pack-for-Visio))
-
-<!-- ------------------------------------------------------------ -->
-
 <h4>Visio - Stencils/Shapes<sub>Search Shapes & Download In-App</sub></h4>
 
 * <b>"Office Symbols Users 2014" by "Microsoft Corporation"</b> <sub>(Search in Visio App under "Shapes")</sub>
@@ -29,6 +22,11 @@ This file (on GitHub):
 * <b>"Office Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"Network and Security Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"Miscellaneous Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
+
+* <b>"Microsoft Integration Stencils" by "Sandro Pereira"</b> <sub>(Search in Visio App under "Shapes")</sub>
+* <b>"MIS Support Stencils" by "Sandro Pereira"</b> <sub>(Search in Visio App under "Shapes")</sub>
+
+* ["Visio Toolkit" by "AWS"](https://aws.amazon.com/architecture/icons/)
 
 <!-- ------------------------------------------------------------ -->
 

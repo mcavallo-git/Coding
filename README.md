@@ -19,7 +19,6 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
-		<strong>Sync "Coding" PowerShell Scripts</strong>
 		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">Sync PowerShell Modules</a></strong>
 	</summary>
 	<p>

@@ -152,7 +152,17 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>Web Services - Hardware-Related</h3>
+<h3>Web-based Software - DevOps Tools/Utilities</h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**Jenkins** <sub>*CI/CD Server*</sub> | [View (source)](https://jenkins.io) |
+**Docker** <sub>*Linux LXC Containers*</sub> | [View (source)](https://get.docker.com) |
+
+<hr />
+
+<!-- ------------------------------------------------------------ -->
+<h3>Web-based Software - Hardware-Related</h3>
 
 Name | Option A | Option B
 --- | --- | ---

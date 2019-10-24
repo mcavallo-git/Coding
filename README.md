@@ -152,7 +152,7 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>Web-based Software - DevOps Tools/Utilities</h3>
+<h3>Web-based Software - DevOps Tools & Utilities</h3>
 
 Name | Option A | Option B
 --- | --- | ---

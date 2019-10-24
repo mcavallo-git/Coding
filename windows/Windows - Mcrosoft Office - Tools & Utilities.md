@@ -38,6 +38,7 @@ This file (on GitHub):
 * [Glue or unglue connectors](https://support.office.com/en-us/article/glue-or-unglue-connectors-c55370ae-a3c3-4468-9232-b32604f7252f)
 * [Prevent or allow changes to shapes](https://support.office.com/en-us/article/prevent-or-allow-changes-to-shapes-e65decf4-0eed-4fd6-a7d9-b286abcbc7eb)
 * [Clarify the structure of diagrams by using containers and lists](https://support.office.com/en-us/article/clarify-the-structure-of-diagrams-by-using-containers-and-lists-4da621a4-3572-4c9b-9559-bbe4f6c9b08f)
+* [Add a layer](https://support.office.com/en-us/article/add-a-layer-adcb61d3-5e8b-431e-bb9d-4a35eae28e48#bm2)
 
 
 

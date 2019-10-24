@@ -24,12 +24,14 @@ If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsys
 
 Enable-WindowsOptionalFeature
 
+Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3";
 Enable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45";
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 
 
 # ------------------------------------------------------------
 
+Disable-WindowsOptionalFeature -Online -FeatureName "NetFx3";
 Disable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45";
 Disable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 

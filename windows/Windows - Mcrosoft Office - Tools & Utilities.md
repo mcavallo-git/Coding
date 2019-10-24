@@ -24,6 +24,7 @@ This file (on GitHub):
 * <b>"Miscellaneous Icons" by "bVisual Ltd"</b> <sub>(Search in Visio App under "Shapes")</sub>
 
 * <b>"Microsoft Integration Stencils" by "Sandro Pereira"</b> <sub>(Search in Visio App under "Shapes")</sub>
+* <b>"MIS Original v2.2" by "Sandro Pereira"</b> <sub>(Search in Visio App under "Shapes")</sub>
 * <b>"MIS Support Stencils" by "Sandro Pereira"</b> <sub>(Search in Visio App under "Shapes")</sub>
 
 * ["Visio Toolkit" by "AWS"](https://aws.amazon.com/architecture/icons/)

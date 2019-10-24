@@ -50,6 +50,9 @@ jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
 # Method 2:
 jps # shows pids
 
+JCMD_PID=$(sudo jcmd | awk '{print $1}'); echo -e "\n""JCMD_PID:\n${JCMD_PID}\n";
+JCMD_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${JCMD_PID} | awk '{print $1}' | grep -vEi '^PID');
+
 jps -l "${JCMD_PID_VERIFIED}";
 jps -m "${JCMD_PID_VERIFIED}";
 jps -v "${JCMD_PID_VERIFIED}"; # shows params

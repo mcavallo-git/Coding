@@ -2,10 +2,7 @@
 wget -qO- https://get.docker.com/ | sh;
 exit $?;
 
-
-
 # ------------------------------------------------------------
-# https://medium.com/faun/docker-running-seamlessly-in-windows-subsystem-linux-6ef8412377aa
 
 if [ 0 -eq 1 ]; then 
 # Update the source listing
@@ -31,3 +28,10 @@ sudo usermod -aG docker $USER;
 fi;
 
 fi;
+
+# ------------------------------------------------------------
+# Citation(s)
+#
+#   medium.com  |  "Docker Running Seamlessly in Windows Subsystem Linux"  |  https://medium.com/faun/docker-running-seamlessly-in-windows-subsystem-linux-6ef8412377aa
+#
+# ------------------------------------------------------------

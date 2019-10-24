@@ -16,11 +16,15 @@ function EnsureFeatureIsEnabled {
 
 	$AllFeatures = (Get-WindowsOptionalFeature -Online);
 
-	If ( $False ) {
+	$AllFeatures | ForEach-Object {
+		Show $_;
+		# $_.FullName;
 
-Get-WindowsOptionalFeature -Online
-(Get-WindowsOptionalFeature -Online -FeatureName "NetFx3").RestartRequired
-# Possible
+		# $CheckFeatures = (Get-WindowsOptionalFeature -Online);
+
+		# (Get-WindowsOptionalFeature -Online -FeatureName "NetFx3").RestartRequired
+	
+		### Possible
 
 	}
 	#

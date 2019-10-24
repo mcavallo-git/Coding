@@ -32,10 +32,12 @@ function EnsureFeatureIsEnabled {
 	#
 	Return;
 }
-Export-ModuleMember -Function "GitSyncAll";
+Export-ModuleMember -Function "EnsureFeatureIsEnabled";
 
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #		
 #		Icon file "GitSyncAll.ico" thanks-to:  https://www.iconarchive.com/download/i103479/paomedia/small-n-flat/sign-sync.ico
 #
+# ------------------------------------------------------------

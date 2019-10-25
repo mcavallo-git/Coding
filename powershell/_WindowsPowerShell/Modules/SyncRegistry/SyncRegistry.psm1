@@ -209,47 +209,38 @@ function SyncRegistry {
 				Foreach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each key-property
-					# Write-Host (("`n`n  Checking for `"")+($EachRegEdit.Path)+("`" --> `"")+($EachProp.Name)+("`"...`n`n"));
+					# Write-Host (("`n`n  Checking for `"")+($EachRegEdit.Path)+("`" --> `"$($EachProp.Name)`"...`n`n"));
 					$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
 					$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
 					$last_exit_code = If($?){0}Else{1};
 					$ErrorActionPreference = $Revertable_ErrorActionPreference;
-					$EchoColor="";
+					$EchoDetails = "";
+					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n         v`nDescription: $(${EachProp}.Description)"; }
+					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n         v`nHotfix: $(${EachProp}.Hotfix)"; }
+
 
 					If ($last_exit_code -eq 0) {
 
 						$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
 
 						If (($EachProp.LastValue) -eq ($EachProp.Value)) {
-							# Existing key-property found with correct value
-							$EchoColor = "DarkGray";
-							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor ${EchoColor}; # (Already up to date)
+							# Existing key-property found with correct value (Already up to date)
+							Write-Host "   |`n   |--> Found Property `"$($EachProp.Name)`" with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 						} Else {
 							# Modify the value of an existing property on an existing registry key
-							$EchoColor = "Yellow";
-							Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value [ ")+($EachProp.LastValue)+(" ] to Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor ${EchoColor};;
+							Write-Host "   |`n   |--> Updating Property `"$($EachProp.Name)`" from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 							Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 						}
 					} Else {
 						# Add the missing property to the Registry Key
-						$EchoColor = "Yellow";
-						Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor ${EchoColor};
+						Write-Host "   |`n   |--> Adding Property `"$($EachProp.Name)`" with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 						Write-Host " `n`n";
 
 					}
-					If ((${EachProp}.Description) -Ne $Null) {
-						Write-Host "        Description: $(${EachProp}.Description)" -ForegroundColor ${EchoColor};
-					}
-					If ((${EachProp}.Hotfix) -Ne $Null) {
-						Write-Host "        Hotfix: $(${EachProp}.Hotfix)" -ForegroundColor ${EchoColor};
-					}
-					
-					# If (($EachProp.Description) -Ne $Null) {
-					# 	Write-Host (("        (")+($EachProp.Description)+(")"));
-					# }
+
 				}
 
 			}

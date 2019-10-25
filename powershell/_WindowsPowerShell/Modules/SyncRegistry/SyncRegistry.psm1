@@ -2,7 +2,7 @@ function SyncRegistry {
 	Param(
 	)
 
-	If ((RunningAsAdministrator) -ne ($True)) {
+	If ((RunningAsAdministrator) -Ne ($True)) {
 
 		PrivilegeEscalation -Command ("SyncRegistry");
 	
@@ -110,7 +110,8 @@ function SyncRegistry {
 			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
-					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com. Fix for KB4512941 bug: Set to value=1 to avoid Cortana from constantly eating 30-40% CPU (processing resources), even while idling.";
+					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com.";
+					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
 					Name="BingSearchEnabled";
 					Type="DWord";
 					Value=1;
@@ -184,14 +185,14 @@ function SyncRegistry {
 					$Each_PSDrive_Root=$Null;
 					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
 					Foreach ($Each_PSDrive In $PSDrives) {
-						If ((($Each_PSDrive.Name) -ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
+						If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
 							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
 							$Each_PSDrive_Root=($Each_PSDrive.Root);
 							Break;
 						}
 					}
-					If ($Each_PSDrive_Root -ne $Null) {
-						Write-Host "   |`n   |--> Adding ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor Green;
+					If ($Each_PSDrive_Root -Ne $Null) {
+						Write-Host "   |`n   |--> Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
 						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 					}
 				}
@@ -208,37 +209,37 @@ function SyncRegistry {
 				Foreach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each key-property
-					# Write-Host (("`n`n  Checking for `"")+($EachRegEdit.Path)+("`" --> `"")+($EachProp.Name)+("`"...`n`n"));
+					# Write-Host (("`n`n  Checking for `"")+($EachRegEdit.Path)+("`" --> `"$($EachProp.Name)`"...`n`n"));
 					$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
 					$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
 					$last_exit_code = If($?){0}Else{1};
 					$ErrorActionPreference = $Revertable_ErrorActionPreference;
+					$EchoDetails = "";
+					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n         v`n        Description: $(${EachProp}.Description)"; }
+					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n         v`n        Hotfix: $(${EachProp}.Hotfix)"; }
 
 					If ($last_exit_code -eq 0) {
 
 						$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
 
 						If (($EachProp.LastValue) -eq ($EachProp.Value)) {
-							# Existing key-property found with correct value
-							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor DarkGray; # (Already up to date)
+							# Existing key-property found with correct value (Already up to date)
+							Write-Host "   |`n   |--> Found Property `"$($EachProp.Name)`" with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 						} Else {
 							# Modify the value of an existing property on an existing registry key
-							Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value [ ")+($EachProp.LastValue)+(" ] to Value [ ")+($EachProp.Value)+(" ]"));
+							Write-Host "   |`n   |--> Updating Property `"$($EachProp.Name)`" from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 							Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 						}
 					} Else {
 						# Add the missing property to the Registry Key
-						Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor Green;
+						Write-Host "   |`n   |--> Adding Property `"$($EachProp.Name)`" with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 						Write-Host " `n`n";
 
 					}
-					
-					# If (($EachProp.Description) -Ne $Null) {
-					# 	Write-Host (("        (")+($EachProp.Description)+(")"));
-					# }
+
 				}
 
 			}

@@ -184,3 +184,10 @@ function EnsureCommandExists {
 }
 
 Export-ModuleMember -Function "EnsureCommandExists";
+
+# ------------------------------------------------------------
+# Citation(s)
+#
+#   docs.microsoft.com  |  "Invoke-Expression - Runs commands or expressions on the local computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression?view=powershell-5.1
+#
+# ------------------------------------------------------------

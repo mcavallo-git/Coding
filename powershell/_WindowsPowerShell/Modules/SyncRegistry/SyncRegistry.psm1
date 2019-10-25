@@ -241,10 +241,10 @@ function SyncRegistry {
 
 					}
 					If ((${EachProp}.Description) -Ne $Null) {
-						Write-Host "   |`n   |----> Description: $(${EachProp}.Description)" -ForegroundColor ${EchoColor};
+						Write-Host "   |----> Description: $(${EachProp}.Description)" -ForegroundColor ${EchoColor};
 					}
 					If ((${EachProp}.Hotfix) -Ne $Null) {
-						Write-Host "   |`n   |----> Hotfix: $(${EachProp}.Hotfix)" -ForegroundColor ${EchoColor};
+						Write-Host "   |----> Hotfix: $(${EachProp}.Hotfix)" -ForegroundColor ${EchoColor};
 					}
 					
 					# If (($EachProp.Description) -Ne $Null) {

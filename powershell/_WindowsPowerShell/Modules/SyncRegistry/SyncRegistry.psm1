@@ -111,7 +111,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com.";
-					Hotfix="Fixes bug where Cortana eats 30-40% CPU resources, possibly because it is blocked to request to Bing.com (KB4512941).";
+					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
 					Name="BingSearchEnabled";
 					Type="DWord";
 					Value=1;

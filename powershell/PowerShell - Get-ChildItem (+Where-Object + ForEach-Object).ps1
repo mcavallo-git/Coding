@@ -14,7 +14,15 @@
 #
 # ------------------------------------------------------------
 #
-#		Example 1
+#		Example
+#			|--> Determine if WSL is enabled (or not)
+#
+$WSL_State = ((Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -Like "*Linux*" }).State);
+
+
+# ------------------------------------------------------------
+#
+#		Example
 #			|--> Overview: Find files with multiple different levels of depth, parent-filenames, basenames, etc. matching multiple different criteria, all in one query
 #			|--> Use: Lock-Screen background fix - Used this script to locate files to-be-deleted
 #
@@ -37,10 +45,9 @@ Get-ChildItem `
 );
 
 
-
 # ------------------------------------------------------------
 #
-#		Example 2
+#		Example
 #			|--> Overview: Search for any git-repositories located within the ${HOME} directory (same as %USERPROFILE% on cmd)
 #			|--> Note: Syntax performs a lookup by beginning at the users ${HOME} directory and searching for files named "config" who have an immediate-parent directory named ".git"
 #			|--> Use: Used for finding git-config files
@@ -48,16 +55,14 @@ Get-ChildItem `
 Get-ChildItem -Path "${HOME}" -Filter "config" -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent.FullName; }
 
 
-
 # ------------------------------------------------------------
 #
-#		Example 3
+#		Example
 # 		|--> Overview: Search the main drive for files named 'gpg.exe'
 #			|--> Note: On windows devices, "/" resolves to the systemdrive (commonly "C:") with a backslash ("\") appended, by default
 #			|--> Use: Used for syncing all GnuPG (gpg.exe) configs found on a given workstation, so that they all contain the same config-vals (... e.g. 'synced')
 #
 Get-ChildItem -Path "/" -Filter "gpg.exe" -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; }
-
 
 
 # ------------------------------------------------------------

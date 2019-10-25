@@ -17,8 +17,7 @@ Get-Process `
 #		Example
 #			|--> Determine if WSL is enabled (or not)
 #
-$WSL_State = ((Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -Like "*Linux*" }).State);
-Write-Output "`$WSL_State = [ $WSL_State ]";
+$WSL_State = ((Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -Like "*Linux*" }).State); Write-Output "`$WSL_State = [ $WSL_State ]";
 
 
 # ------------------------------------------------------------

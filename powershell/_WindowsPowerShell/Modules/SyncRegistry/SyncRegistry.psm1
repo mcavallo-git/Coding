@@ -192,7 +192,7 @@ function SyncRegistry {
 						}
 					}
 					If ($Each_PSDrive_Root -Ne $Null) {
-						Write-Host "   |`n   |--> Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "DarkGray";
+						Write-Host "   |`n   |--> Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
 						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 					}
 				}

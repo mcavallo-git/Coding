@@ -2,7 +2,7 @@ function SyncRegistry {
 	Param(
 	)
 
-	If ((RunningAsAdministrator) -ne ($True)) {
+	If ((RunningAsAdministrator) -Ne ($True)) {
 
 		PrivilegeEscalation -Command ("SyncRegistry");
 	
@@ -110,7 +110,8 @@ function SyncRegistry {
 			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
-					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com. Fix for KB4512941 bug: Set to value=1 to avoid Cortana from constantly eating 30-40% CPU (processing resources), even while idling.";
+					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com.";
+					Hotfix="Setting BingSearchEnabled to Value=1 fixes a bug in KB4512941: Cortana constantly eating 30-40% CPU (processing resources), even while idling.";
 					Name="BingSearchEnabled";
 					Type="DWord";
 					Value=1;
@@ -184,13 +185,13 @@ function SyncRegistry {
 					$Each_PSDrive_Root=$Null;
 					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
 					Foreach ($Each_PSDrive In $PSDrives) {
-						If ((($Each_PSDrive.Name) -ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
+						If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
 							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
 							$Each_PSDrive_Root=($Each_PSDrive.Root);
 							Break;
 						}
 					}
-					If ($Each_PSDrive_Root -ne $Null) {
+					If ($Each_PSDrive_Root -Ne $Null) {
 						Write-Host "   |`n   |--> Adding ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor Green;
 						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 					}
@@ -234,6 +235,12 @@ function SyncRegistry {
 						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 						Write-Host " `n`n";
 
+					}
+					If (($EachProp.Description) -Ne $Null) {
+						Write-Host "   |`n   |----> Description: ${EachProp.Description}" -ForegroundColor Green;
+					}
+					If (($EachProp.Hotfix) -Ne $Null) {
+						Write-Host "   |`n   |----> Hotfix: ${EachProp.Hotfix}" -ForegroundColor Green;
 					}
 					
 					# If (($EachProp.Description) -Ne $Null) {

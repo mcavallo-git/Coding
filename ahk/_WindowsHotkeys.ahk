@@ -824,7 +824,8 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 	NewVolumeLevelPercentage=%NewVolumeLevel%`%
 
 	; Build the volume-bars (out-of dingbats utf8+ icons)
-	Total_IconCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
+	; Total_IconCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
+	Total_IconCount_MaxVolume := 20
 
 	IconCount_TopBot_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume)
 	IconCount_TopBot_Blanks := Total_IconCount_MaxVolume - IconCount_TopBot_Filled

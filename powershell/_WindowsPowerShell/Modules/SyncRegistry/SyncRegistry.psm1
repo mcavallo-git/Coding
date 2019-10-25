@@ -111,7 +111,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com.";
-					Hotfix="Setting BingSearchEnabled to Value=1 fixes a bug in KB4512941: Cortana constantly eating 30-40% CPU (processing resources), even while idling.";
+					Hotfix="Stops Cortana from constantly eating 30-40% of CPU resources, even while idling (KB4512941).";
 					Name="BingSearchEnabled";
 					Type="DWord";
 					Value=1;

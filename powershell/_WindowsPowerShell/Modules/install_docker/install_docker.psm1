@@ -13,7 +13,8 @@ function install_docker {
 		$WSL_State = ((Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -Like "*Linux*" }).State);
 		
 		If ( "${WSL_State}" -Ne "Enabled" ) {
-			Write-Output "Error - WSL Feature is not enabled. Please Enable the Windows Feature named `"Windows Subsystem for Linux`"";
+			Write-Output "Error - WSL Feature has state `"${WSL_State}`" - Required state is `"Enabled`""
+			Write-Output "        Please the `"Windows Subsystem for Linux`" Feature";
 
 		} Else {
 

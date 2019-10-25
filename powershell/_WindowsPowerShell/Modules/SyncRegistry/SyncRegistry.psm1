@@ -214,6 +214,7 @@ function SyncRegistry {
 					$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
 					$last_exit_code = If($?){0}Else{1};
 					$ErrorActionPreference = $Revertable_ErrorActionPreference;
+					$EchoColor="";
 
 					If ($last_exit_code -eq 0) {
 
@@ -221,26 +222,29 @@ function SyncRegistry {
 
 						If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 							# Existing key-property found with correct value
-							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor DarkGray; # (Already up to date)
+							$EchoColor = "DarkGray";
+							Write-Host (("   |`n   |--> Found Property `"")+($EachProp.Name)+("`" with correct Value of [ ")+($EachProp.Value)+(" ]")) -ForegroundColor ${EchoColor}; # (Already up to date)
 
 						} Else {
 							# Modify the value of an existing property on an existing registry key
-							Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value [ ")+($EachProp.LastValue)+(" ] to Value [ ")+($EachProp.Value)+(" ]"));
+							$EchoColor = "Yellow";
+							Write-Host (("   |`n   |--> Updating Property `"")+($EachProp.Name)+("`" from Value [ ")+($EachProp.LastValue)+(" ] to Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor ${EchoColor};;
 							Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 						}
 					} Else {
 						# Add the missing property to the Registry Key
-						Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor Green;
+						$EchoColor = "Yellow";
+						Write-Host (("   |`n   |--> Adding Property `"")+($EachProp.Name)+("`" with Value [ ")+($EachProp.Value)+(" ]")) -ForegroundColor ${EchoColor};
 						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 						Write-Host " `n`n";
 
 					}
-					If (($EachProp.Description) -Ne $Null) {
-						Write-Host "   |`n   |----> Description: ${EachProp.Description}" -ForegroundColor Green;
+					If ((${EachProp}.Description) -Ne $Null) {
+						Write-Host "   |`n   |----> Description: $(${EachProp}.Description)" -ForegroundColor ${EchoColor};
 					}
-					If (($EachProp.Hotfix) -Ne $Null) {
-						Write-Host "   |`n   |----> Hotfix: ${EachProp.Hotfix}" -ForegroundColor Green;
+					If ((${EachProp}.Hotfix) -Ne $Null) {
+						Write-Host "   |`n   |----> Hotfix: $(${EachProp}.Hotfix)" -ForegroundColor ${EchoColor};
 					}
 					
 					# If (($EachProp.Description) -Ne $Null) {

@@ -215,8 +215,8 @@ function SyncRegistry {
 					$last_exit_code = If($?){0}Else{1};
 					$ErrorActionPreference = $Revertable_ErrorActionPreference;
 					$EchoDetails = "";
-					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n         v`n       Description: $(${EachProp}.Description)"; }
-					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n         v`n       Hotfix: $(${EachProp}.Hotfix)"; }
+					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n         v`n        Description: $(${EachProp}.Description)"; }
+					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n         v`n        Hotfix: $(${EachProp}.Hotfix)"; }
 
 					If ($last_exit_code -eq 0) {
 

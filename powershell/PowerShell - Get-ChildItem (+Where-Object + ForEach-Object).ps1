@@ -12,14 +12,7 @@
 #				-Force				searches for hidden & non-hidden items   (may vary depending on provider - see "About Providers", below)
 #				-Include			used to perform general searches, commonly with wildcards
 #
-# ------------------------------------------------------------
 #
-#		Example
-#			|--> Determine if WSL is enabled (or not)
-#
-$WSL_State = ((Get-WindowsOptionalFeature -Online | Where-Object { $_.FeatureName -Like "*Linux*" }).State);
-
-
 # ------------------------------------------------------------
 #
 #		Example

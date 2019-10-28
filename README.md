@@ -86,6 +86,14 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
+<h3 id="software-platform">Windows Feature - WSL <sub>Windows Subsystem for Linux</sub></h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**Ubuntu** <sub>*18.04 LTS*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
+**Ubuntu** <sub>*16.04 LTS*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
+
+<!-- ------------------------------------------------------------ -->
 <h3 id="software-platform">Windows Software - Platforms/Language-Compatibility</h3>
 
 Name | Option A | Option B

@@ -128,6 +128,7 @@ Name | Option A | Option B
 Name | Option A | Option B
 --- | --- | ---
 **Discord** <sub>VoIP & Digital Distribution</sub> | [Download (source)](https://discordapp.com/download) |
+**Lockscreen as wallpaper** <sub>Mirrors LockScreen Background onto Desktop</sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
 **Spotify** <sub>Music Streaming</sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
 **Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Download (source)](https://twitch.tv/downloads) |
 

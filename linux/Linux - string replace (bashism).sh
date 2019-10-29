@@ -18,3 +18,8 @@ echo "${HAYSTACK//${NEEDLE}/${REPLACEMENT}}";
 # test="build-dev-api"; echo "${test//-/_}";
 
 # ------------------------------------------------------------
+# Citation(s)
+#
+#   unix.stackexchange.com  |  "How to input / start a new line in bash terminal?"  |  https://unix.stackexchange.com/a/80820
+#
+# ------------------------------------------------------------

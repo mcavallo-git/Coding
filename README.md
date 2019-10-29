@@ -79,6 +79,7 @@ Name | Option A | Option B
 **Royal TS** <sub>*Remote Management Soln.*</sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
 **Splashtop Personal** <sub>*Remote Access Client*</sub> | [Download (source)](https://www.splashtop.com/downloadstart?product=stp&platform=windows-client) |
 **Splashtop Streamer** <sub>*Remote Access Host/Server*</sub> | [Download (source)](https://www.splashtop.com/downloadstart?platform=windows) |
+**Teamviewer** <sub>*Remote Access Host/Server*</sub> | [Download (source)](https://www.teamviewer.com/en/download/windows/) |
 **Visual Studio Code** <sub>*VS Code - Code Editor*</sub> | [Download (source)](https://code.visualstudio.com/download) |
 **WinDirStat** <sub>*Disk Usage Analyzer*</sub> | [Download (source)](https://windirstat.net/download.html) | [Download (mirror)](https://www.fosshub.com/WinDirStat.html) |
 

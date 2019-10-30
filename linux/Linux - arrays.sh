@@ -2,13 +2,15 @@
 #
 # Linux - Arrays
 #
+
+
 # ------------------------------------------------------------
 #
 # Associative Arrays in Bash
+#   |--> Note: Bash only supports one-dimensional arrays,
+#              e.g. you can't store arrays within arrays
 #
-test -v DAT_ARRAY && unset DAT_ARRAY; # Re-instantiate bash array via unset + declare
-test -v DAT_ARRAY[@] && unset DAT_ARRAY;
-declare -A DAT_ARRAY;
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY+=(["Key One"]="Val One");
 DAT_ARRAY+=(["Key Two"]="Val Two");
 DAT_ARRAY+=(["Key A"]="Val A");
@@ -18,6 +20,52 @@ DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
 echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
 
+
+# ------------------------------------------------------------
+#
+# Two Arrays Keyed with the same indices
+#
+unset ARR_CONTAINER_IDS; declare -A ARR_CONTAINER_IDS; # Re-instantiate bash array
+unset ARR_DOCKER_IMAGES; declare -A ARR_DOCKER_IMAGES; # Re-instantiate bash array
+
+DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
+
+CHOICE_KEY=0;
+for EACH_CONTAINER_ID in ${DOCKER_CONTAINER_IDS[@]}; do
+	CHOICE_KEY=$((CHOICE_KEY+1));
+	EACH_DOCKER_IMAGE=$(docker ps --format "{{.Image}}" --filter "id=${EACH_CONTAINER_ID}");
+	ARR_CONTAINER_IDS+=(["${CHOICE_KEY}"]="${EACH_CONTAINER_ID}");
+	ARR_DOCKER_IMAGES+=(["${CHOICE_KEY}"]="${EACH_DOCKER_IMAGE}");
+done;
+
+if [ ${CHOICE_KEY} -le 0 ]; then
+	echo "Error: No Containers found to be running - Please start a container then rerun \"${0}\"";
+else
+	echo "Found the following dockers, locally:";
+	for EACH_KEY in "${!ARR_CONTAINER_IDS[@]}"; do
+		EACH_CONTAINER_ID="${ARR_CONTAINER_IDS[${EACH_KEY}]}";
+		EACH_DOCKER_IMAGE="${ARR_DOCKER_IMAGES[${EACH_KEY}]}";
+		echo "        ${EACH_KEY}	-  ${EACH_DOCKER_IMAGE}  (${EACH_CONTAINER_ID})";
+	done;
+
+	MAX_READ_WAIT=20; read -p "Select: " -t ${MAX_READ_WAIT} -r;
+	if [ -z "${REPLY}" ]; then
+		echo "Error: Response timed out after ${MAX_READ_WAIT}s";
+	else
+		USER_SELECTION_KEY=$((0+"${REPLY}"));
+		if [ -z "${ARR_CONTAINER_IDS[${USER_SELECTION_KEY}]}" ]; then
+			echo "Error: Invalid Selection of \"${REPLY}\"";
+		else
+			E1="LINES=$(tput lines)";
+			E2="COLUMNS=$(tput cols)";
+			CONTAINER_ID="${ARR_CONTAINER_IDS[${USER_SELECTION_KEY}]}";
+			DOCKER_IMAGE="${ARR_DOCKER_IMAGES[${USER_SELECTION_KEY}]}";
+			echo "        |----> ID: \"${CONTAINER_ID}\"";
+			echo "        |-> Image: \"${DOCKER_IMAGE}\"";
+			docker exec -e "${E1}" -e "${E2}" -it "${CONTAINER_ID}" "/bin/bash";
+		fi;
+	fi;
+fi;
 
 
 # -------------------------------------------------------------
@@ -132,5 +180,7 @@ echo -e "\n\n";
 # 	linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
 # 	stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
+#
+# 	stackoverflow.com  |  "Multidimensional associative arrays in Bash"  |  https://stackoverflow.com/a/6151190
 #
 # ------------------------------------------------------------

@@ -27,8 +27,10 @@
 <hr />
 
 
-<h5>Citation(s)</h5>
 
-<ul>
-	<li>mycyberuniverse.com  |  "Create HTML link that starts a Skype call"  |  https://mycyberuniverse.com/create-html-link-that-starts-skype-call.html</li>
-</ul>
+<sub>
+	<div><b>Citation(s)</b></div>
+	<ul>
+		<li>mycyberuniverse.com  |  "Create HTML link that starts a Skype call"  |  https://mycyberuniverse.com/create-html-link-that-starts-skype-call.html</li>
+	</ul>
+</sub>

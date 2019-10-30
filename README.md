@@ -162,6 +162,16 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
+<h3 id="windows-drivers">Windows Drivers</h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**Monitor Drivers & Software** <sub>*LG 34UC88-B*</sub> | [Drivers & Software](https://www.lg.com/uk/support/support-product/lg-34UC88-B) | [Download (source)](http://gscs-b2c.lge.com/downloadFile?fileId=L6Ns5WE6jhENU8Q3PwSyw) |
+
+<hr />
+
+
+<!-- ------------------------------------------------------------ -->
 <h3>Web-based Software - DevOps Tools & Utilities</h3>
 
 Name | Option A | Option B

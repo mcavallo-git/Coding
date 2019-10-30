@@ -152,10 +152,12 @@ Name | Option A | Option B
 **ASUS Aura Sync** <sub>*RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
 **balenaEtcher** <sub>*Drive Imaging Utility (.iso & .img, especially)*</sub> | [Download (source)](https://www.balena.io/etcher/) |
 **Corsair iCue** <sub>*RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
-**Display Driver Uninstaller** <sub>*DDU -  Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
+**DDU (Display Driver Uninstaller)** <sub>*Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
+**Easy2Boot** <sub>*USB-drive multiboot software*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/Easy2Boot.html) |
 **Intel® DSA** <sub>Intel® Driver & Support Assistant</sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |
 **Logitech G Hub** <sub>*Keyboard/Mouse RGB (+3rd Party Tools)*</sub> | [Download (source)](https://support.logi.com/hc/en-us/articles/360025298133) |
 **Logitech SetPoint** <sub>*Mouse/Keyboard Hotkey Manager*</sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
+**RMPrepUSB** <sub>Allows users to easily and quickly<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
 **Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />

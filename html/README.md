@@ -31,6 +31,6 @@
 <sub>
 	<div><b>Citation(s)</b></div>
 	<ul>
-		<li>mycyberuniverse.com  |  "Create HTML link that starts a Skype call"  |  https://mycyberuniverse.com/create-html-link-that-starts-skype-call.html</li>
+		<li><i>mycyberuniverse.com  |  "Create HTML link that starts a Skype call"  |  https://mycyberuniverse.com/create-html-link-that-starts-skype-call.html</i></li>
 	</ul>
 </sub>

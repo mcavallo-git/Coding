@@ -177,6 +177,8 @@ echo -e "\n\n";
 #
 # Citation(s)
 #
+# 	gnu.org  |  "6.7 Arrays"  |  https://www.gnu.org/software/bash/manual/html_node/Arrays.html
+#
 # 	linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
 # 	stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633

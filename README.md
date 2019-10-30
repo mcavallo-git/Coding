@@ -162,7 +162,7 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="hardware-installs">Windows Drivers</h3>
+<h3 id="windows-drivers">Windows Drivers</h3>
 
 Name | Option A | Option B
 --- | --- | ---

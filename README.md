@@ -85,34 +85,30 @@ Name | Option A | Option B
 
 <hr />
 
-
 <!-- ------------------------------------------------------------ -->
-<h3 id="software-platform">Windows Feature - WSL <sub>Windows Subsystem for Linux</sub></h3>
+<h3 id="software-platform">Windows Software - Platform/Language-Compatibility</h3>
 
 Name | Option A | Option B
 --- | --- | ---
-**Ubuntu** <sub>*18.04 LTS*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
-**Ubuntu** <sub>*16.04 LTS*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
-
-<!-- ------------------------------------------------------------ -->
-<h3 id="software-platform">Windows Software - Platforms/Language-Compatibility</h3>
-
-Name | Option A | Option B
---- | --- | ---
-**Java SE** <sub>*(Standard Edition, Win10)*</sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
-**Java JDK, JRE** <sub>*(Java Development-Kit, Runtime-Environment)*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
+**AWS CLI (PowerShell)** | [Download (source)](https://aws.amazon.com/powershell) or [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
+**Azure CLI (PowerShell)** | [Download (source)](https://aka.ms/installazurecliwindows) or [Download (gallery)](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
+**Java SE** <sub>*(Java Standard Edition, Win10)*</sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
+**Java JDK, JRE** <sub>*(Java Development-Kit, Runtime-Environment, Win10)*</sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
 **PowerShell Core** <sub>*Standard Edition*</sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
+**Ubuntu 16.04 LTS** <sub>*WSL (Windows Subsystem for Linux)*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
+**Ubuntu 18.04 LTS** <sub>*WSL (Windows Subsystem for Linux)*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
 
 <hr />
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>Windows Software - DevOps Tools & Cmdlets</h3>
+<h3>Windows Software - Tools & Utilities</h3>
 
 Name | Option A | Docs
 --- | --- | ---
-**AWS CLI (PowerShell)** | [Download (source)](https://aws.amazon.com/powershell) or [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
-**Azure CLI (PowerShell)** | [Download (source)](https://aka.ms/installazurecliwindows) or [Download (gallery)](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
+**Easy2Boot** <sub>*USB-drive multiboot software*</sub> | [Download (source)](https://www.fosshub.com/Easy2Boot.html) |
+**RMPrepUSB** <sub>*Allows users to easily and quickly*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
+**Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />
 
@@ -122,13 +118,22 @@ Name | Option A | Docs
 
 Name | Option A | Option B
 --- | --- | ---
-**CrystalDiskInfo** <sub>Core Temp</sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
-**CrystalDiskInfo** <sub>Disk Info</sub> | [Download (source)](https://crystalmark.info/en/download/) |
-**CrystalDiskMark** <sub>Disk Benchmarking</sub> | [Download (source)](https://crystalmark.info/en/download/) |
-**UNIGINE Benchmarks** <sub>GPU Benchmarking</sub> | [Download (source)](https://benchmark.unigine.com/) |
-
+**CoreTemp** <sub>*CPU Temperature Logging*</sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
+**CrystalDiskInfo** <sub>*Disk Info*</sub> | [Download (source)](https://crystalmark.info/en/download/) |
+**CrystalDiskMark** <sub>*Disk Benchmarking*</sub> | [Download (source)](https://crystalmark.info/en/download/) |
+**UNIGINE Benchmarks** <sub>*GPU Benchmarking*</sub> | [Download (source)](https://benchmark.unigine.com/) |
 
 <hr />
+
+
+<!-- ------------------------------------------------------------ -->
+<h3>Windows Software - Communication</h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**Discord** <sub>*VoIP & Digital Distribution*</sub> | [Download (source)](https://discordapp.com/download) |
+**Nicrosoft Teams** <sub>*Shared Workspace for Chat, App, and File-Sharing*</sub> | [Download (source)](https://products.office.com/en-us/microsoft-teams/download-app) |
+**Skype** <sub>*Free Video & Voice Calls*</sub> | [Download (source)](https://www.skype.com/en/get-skype/) |
 
 
 <!-- ------------------------------------------------------------ -->
@@ -136,61 +141,50 @@ Name | Option A | Option B
 
 Name | Option A | Option B
 --- | --- | ---
-**Discord** <sub>VoIP & Digital Distribution</sub> | [Download (source)](https://discordapp.com/download) |
-**Lockscreen as wallpaper** <sub>Mirrors LockScreen Background onto Desktop</sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
-**Spotify** <sub>Music Streaming</sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
-**Twitch App** <sub>Live-Streaming & Mod Management</sub> | [Download (source)](https://twitch.tv/downloads) |
+**Lockscreen as wallpaper** <sub>*Mirrors LockScreen Background onto Desktop*</sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
+**Spotify** <sub>*Music Streaming*</sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
+**Twitch App** <sub>*Live-Streaming & Mod Management*</sub> | [Download (source)](https://twitch.tv/downloads) |
 
 <hr />
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="hardware-installs">Windows Software - Hardware-Related</h3>
+<h3 id="hardware-installs">Windows Software - Hardware Controllers</h3>
 
 Name | Option A | Option B
 --- | --- | ---
 **ASUS Aura Sync** <sub>*RGB Controller*</sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
-**balenaEtcher** <sub>*Drive Imaging Utility (.iso & .img, especially)*</sub> | [Download (source)](https://www.balena.io/etcher/) |
 **Corsair iCue** <sub>*RGB Controller (+ Aura API)*</sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
-**DDU (Display Driver Uninstaller)** <sub>*Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
-**Easy2Boot** <sub>*USB-drive multiboot software*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/Easy2Boot.html) |
-**Intel® DSA** <sub>Intel® Driver & Support Assistant</sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |
 **Logitech G Hub** <sub>*Keyboard/Mouse RGB (+3rd Party Tools)*</sub> | [Download (source)](https://support.logi.com/hc/en-us/articles/360025298133) |
 **Logitech SetPoint** <sub>*Mouse/Keyboard Hotkey Manager*</sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
-**RMPrepUSB** <sub>Allows users to easily and quickly<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
-**Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="windows-drivers">Windows Drivers</h3>
+<h3 id="windows-drivers">Windows Software - Hardware Drivers</h3>
 
 Name | Option A | Option B
 --- | --- | ---
+**balenaEtcher** <sub>*Drive Imaging Utility (.iso & .img, especially)*</sub> | [Download (source)](https://www.balena.io/etcher/) |
+**DDU (Display Driver Uninstaller)** <sub>*Removes ALL graphics drivers*</sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
+**Intel® DSA** <sub>Intel® Driver & Support Assistant</sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |
 **Monitor Drivers & Software** <sub>*LG 34UC88-B*</sub> | [Drivers & Software](https://www.lg.com/uk/support/support-product/lg-34UC88-B) | [Download (source)](http://gscs-b2c.lge.com/downloadFile?fileId=L6Ns5WE6jhENU8Q3PwSyw) |
 
 <hr />
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>Web-based Software - DevOps Tools & Utilities</h3>
+<h3>Web-based Software - Tools & Utilities</h3>
 
 Name | Option A | Option B
 --- | --- | ---
-**Jenkins** <sub>*CI/CD Server*</sub> | [View (source)](https://jenkins.io) |
 **Docker** <sub>*Linux LXC Containers*</sub> | [View (source)](https://get.docker.com) |
-
-<hr />
-
-<!-- ------------------------------------------------------------ -->
-<h3>Web-based Software - Hardware-Related</h3>
-
-Name | Option A | Option B
---- | --- | ---
+**Jenkins** <sub>*CI/CD Server*</sub> | [View (source)](https://jenkins.io) |
 **PCPartPicker** <sub>*Component Pricing/Compatibility Comparisons*</sub> | [View (source)](https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf) |
 
 <hr />
+
 
 <!-- ------------------------------------------------------------ -->
 

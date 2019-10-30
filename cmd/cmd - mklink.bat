@@ -21,3 +21,16 @@ REM DIR /AL /S "%USERPROFILE%\"
 REM
 
 TIMEOUT /T 60
+EXIT 1
+
+REM ------------------------------------------------------------
+REM
+REM   Docker Desktop - Link VM-Data to different directory
+REM
+
+SET "LINK_PATH=C:\ProgramData\DockerDesktop\vm-data"
+SET "TARGET_PATH=D:\%USERNAME%\ProgramData\DockerDesktop\vm-data"
+MKLINK /D "%LINK_PATH%" "%TARGET_PATH%"
+
+
+REM ------------------------------------------------------------

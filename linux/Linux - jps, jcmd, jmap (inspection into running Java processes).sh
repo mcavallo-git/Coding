@@ -19,9 +19,12 @@ JPS_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${
 # Method 1: jcmd
 
 # List available arguments for Java process
+jcmd "$(sudo jcmd | awk '{print $1}')" help;
+
+# Jenkins - List available arguments for Java process
 jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" help;
 
-# Checking assorted argument values:
+# Jenkins - Checking assorted argument values:
 jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
 
 # jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.classloader_stats

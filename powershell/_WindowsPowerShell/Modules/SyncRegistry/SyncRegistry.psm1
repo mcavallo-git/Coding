@@ -156,6 +156,19 @@ function SyncRegistry {
 			)
 		};
 
+		# Windows Update - Force-pull from Windows instaed of local server
+		$RegEdits += @{
+			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
+			Props=@(
+				@{
+					Description="Set this value to 1 to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
+					Name="UseWUServer";
+					Type="DWord";
+					Value=0;
+				}
+			)
+		};
+
 		# ------------------------------------------------------------
 		
 		If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {

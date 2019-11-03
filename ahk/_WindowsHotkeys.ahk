@@ -2009,6 +2009,20 @@ If (False) {
 ;   |
 ;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
 ;
+; ------------------------------------------------------------
+;
+; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
+;
+; ------------------------------------------------------------
+;
+; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
+;   |
+;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |
+;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
+;
+; ------------------------------------------------------------
+;
 ; Hotkeys (Mouse, Joystick and Keyboard Shortcuts):  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 ;   |
 ;   |--> Hotkey Modifier Symbols:  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
@@ -2027,14 +2041,6 @@ If (False) {
 ;
 ;          AppsKey  (Application or Menu key, keycap symbol looks like a document w/ 3 lines)
 ;
-; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
-;
-; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
-;   |
-;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
-;   |
-;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
-
 ; ------------------------------------------------------------
 ;	
 ; Citation(s)

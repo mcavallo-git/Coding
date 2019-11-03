@@ -60,16 +60,16 @@ Name | Option A | Option B
 **AirParrot** <sub><i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **AutoHotkey (AHK)** <sub><i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
 **Classic Shell** <sub><i>Win7 Style Start-Menu</i></sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
-**Docker Desktop for Windows** <sub><i>Containers</i></sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
 **Cryptomator** <sub><i>Client-Side Cloud-Encryption</i></sub> | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |
+**Docker Desktop (for Windows)** <sub><i>Containers</i></sub> | [Download (source)](https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe) |
 **Effective File Search (EFS)** <sub><i>Search tool</i></sub> | [Download (mirror-1)](https://www.softpedia.com/get/System/File-Management/Effective-File-Search.shtml#download) | [Download (mirror-2)](https://effective-file-search.en.lo4d.com/download)
 **FoxIt PhantomPDF** <sub><i>PDF Editor (Paid)</i></sub> | [Download (source)](https://www.foxitsoftware.com/downloads/#Foxit-PhantomPDF-Standard/) |
 **Git SCM** <sub><i>CLI Integration</i></sub> | [Download (source)](https://git-scm.com/download/win) |
 **GitHub Desktop** <sub><i>Git Daily Driver</i></sub> | [Download (source)](https://desktop.github.com) |
 **Gpg4win** <sub><i>GnuPG for Windows</i></sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
+**Handbrake** <sub><i>Media Transcoder</i></sub> | [Download (source)](https://handbrake.fr/) |
 **ImageMagick** <sub><i>Image Editing via Command-Line</i></sub> | [Download (source)](https://www.imagemagick.org/script/download.php#windows) |
 **KDiff3** <sub><i>Text Difference Analyzer</i></sub> | [Download (source)](https://sourceforge.net/projects/kdiff3/) |
-**Handbrake** <sub><i>Media Transcoder</i></sub> | [Download (source)](https://handbrake.fr/) |
 **LastPass** <sub><i>Password Manager</i></sub> | [Download (source)](https://lastpass.com/download) |
 **MobaXterm** <sub><i>XServer for Windows</i></sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
 **Notepad++** <sub><i>Text and Source-Code Editor</i></sub> | [Download (source)](https://notepad-plus-plus.org/downloads/) |

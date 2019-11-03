@@ -190,7 +190,7 @@ Name | Option A | Option B
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong><a href="https://github.com/mcavallo-git/Coding/tree/master/windows#workstation-installs">Other Windows Tips/Tricks</a></strong>
+	<strong><a href="https://github.com/mcavallo-git/Coding/tree/master/windows#workstation-installs">(Continued) Windows Tips/Tricks</a></strong>
 </li><hr />
 
 <!-- ------------------------------------------------------------ -->

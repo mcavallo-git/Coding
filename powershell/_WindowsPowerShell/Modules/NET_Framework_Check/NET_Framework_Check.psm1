@@ -62,11 +62,6 @@ function NET_Framework_Check {
 		# Open Regedit -> Browse to "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP"
 			# |--> Check Key-Names for Version
 			# |--> Also - If any key in aftorementioned location contains a sub-key named "Client", then select client, and it should have a property/key "Version" which contains the version in-question
-
-
-
-
-
 	# ------------------------------------------------------------
 
 	Return;

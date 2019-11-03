@@ -75,7 +75,7 @@ Name | Option A | Option B
 **Notepad++** <sub><i>Text and Source-Code Editor</i></sub> | [Download (source)](https://notepad-plus-plus.org/downloads/) |
 **Notepad Replacer** <sub><i>Redirects NotePad.exe to VSCode, NP++, etc.</i></sub> | [Download (source)](https://www.binaryfortress.com/NotepadReplacer/Download/) |
 **Reflector** <sub><i>Airplay Server for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
-**Remote Mouse** <sub><i>Phone-controlled remote Mouse & Keyboard</i></sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
+**Remote Mouse** <sub><i>Remote Mouse & Keyboard control via Phone</i></sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
 **Royal TS** <sub><i>Remote Management Soln.</i></sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
 **Splashtop Personal** <sub><i>Remote Access Client</i></sub> | [Download (source)](https://www.splashtop.com/downloadstart?product=stp&platform=windows-client) |
 **Splashtop Streamer** <sub><i>Remote Access Host/Server</i></sub> | [Download (source)](https://www.splashtop.com/downloadstart?platform=windows) |

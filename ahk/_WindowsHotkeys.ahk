@@ -935,7 +935,7 @@ If (False) {
 		; Use RegexReplace to strip leading whitespace from every copied line
 		ClipboardDuped := Clipboard
 		ClipboardDuped := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
-		Send {Blind}{Text}%ClipboardDuped%
+		; Send {Blind}{Text}%ClipboardDuped%
 		; Send %Clipboard%
 
 		If ( IsUbuntuWSL = 1 ) {

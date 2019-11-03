@@ -128,6 +128,7 @@ ClearSplashText(TimerPeriod) {
 ;
 #Z::
 
+	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
 
 	WinGetActiveStats, Title, Width, Height, Left, Top
@@ -167,11 +168,11 @@ ClearSplashText(TimerPeriod) {
 
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 
-	LV_Add("", "WinTitle", WinTitle)
-	LV_Add("", "Class", WinClass)
+	LV_Add("", "WinGetTitle", WinTitle)
+	LV_Add("", "WinGetClass", WinClass)
 	LV_Add("", "ProcessName", WinProcessName)
 	LV_Add("", "ProcessPath", WinProcessPath)
-	LV_Add("", "ControlName(s)", ControlNames)
+	LV_Add("", "ControlList", ControlNames)
 	LV_Add("", "ID", WinID)
 	LV_Add("", "PID", WinPID)
 	LV_Add("", "Left", Left)
@@ -179,6 +180,7 @@ ClearSplashText(TimerPeriod) {
 	LV_Add("", "Width", Width)
 	LV_Add("", "Height", Height)
 	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
+	LV_Add("", "A_SendLevel", A_SendLevel)
 
 	LV_ModifyCol(1, "AutoHdr Text Left")
 
@@ -188,6 +190,7 @@ ClearSplashText(TimerPeriod) {
 
 	; Display the window and return. The script will be notified whenever the user double clicks a row.
 	Gui, Show
+
 	Return
 
 OnClick_LV_WindowSpecs() {
@@ -1874,7 +1877,14 @@ EXAMPLE_ControlClick() {
 
 ; ------------------------------------------------------------
 ;	
-; BASIC ARRAY INSTANTIATION:
+; Autohotkey - Arrays & Objects:  https://www.autohotkey.com/docs/Objects.htm
+;   |
+;   |--> Simple Arrays, e.g. "Indexed Arrays" or "1-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Simple_Arrays
+;   |
+;   |--> Associative Arrays, e.g. "Objects" or "Associative Arrays" or "2-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
+;   |
+;   |--> Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
+;
 ;				Jack := { profession: "teacher"
 ;								 , height: "tall"
 ;								 , country: "USA"

@@ -1939,11 +1939,11 @@ EXAMPLE_ControlClick() {
 ; 
 ; y := ( ( y = 8 ) ? ( 2008 ) : ( ( y = 9 ) ? ( 2009 ) : ( ( y = 0 ) ? ( 2010 ) : ( 2011 ) ) ) )
 ;
-; 
+; ------------------------------------------------------------
 ;
-; Example: Strlen doesn't have a whole lot to do with actual/displayed character-widths
+; Example: Compare two Strings' Character-Widths (Strlen doesn't have a whole lot to do with actual/displayed character-widths)
 ;
-; CompareStrLen() {
+; CompareCharacterWidths() {
 ; 	Newline=`n
 ; 	Echo1= String = [ chr(0x0061) ]   Strlen = [ StrLen( chr(0x0061) ) ]
 ; 	Echo2= String = [ chr(0x030a) ]   Strlen = [ StrLen( chr(0x030a) ) ]

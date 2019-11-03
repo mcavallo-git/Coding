@@ -912,9 +912,8 @@ WheelRight::
 ;  HOTKEY:  Shift + Insert
 ;  ACTION:  If running Ubuntu via WSL (Windows Subsystem for Linux), Paste the clipboard
 ;
-+Insert::
-; RShift & Insert::
-; LShift & Insert::
+RShift & Insert::
+LShift & Insert::
 	SetKeyDelay, 0, -1
 	; ------------------------------------------------------------
 	IsUbuntuWSL := 0

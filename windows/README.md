@@ -84,17 +84,3 @@ Purpose | Filepath
 </details>
 
 <!-- ------------------------------------------------------------ -->
-
-***
-<h3>Citation(s)</h3>
-<details><summary><i>Show/Hide Content</i></summary>
-<p>
-
-* ###### reddit.com  |  "What application do you always install on your computer and recommend to everyone?"  |  https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/
-
-* ###### reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
-
-</p>
-</details>
-
-<!-- ------------------------------------------------------------ -->

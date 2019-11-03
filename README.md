@@ -66,27 +66,28 @@ Name | Option A | Option B
 **FoxIt PhantomPDF** <sub><i>PDF Editor (Paid)</i></sub> | [Download (source)](https://www.foxitsoftware.com/downloads/#Foxit-PhantomPDF-Standard/) |
 **Git SCM** <sub><i>CLI Integration</i></sub> | [Download (source)](https://git-scm.com/download/win) |
 **GitHub Desktop** <sub><i>Git Daily Driver</i></sub> | [Download (source)](https://desktop.github.com) |
+**Gpg4win** <sub><i>GnuPG for Windows</i></sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **ImageMagick** <sub><i>Image Editing via Command-Line</i></sub> | [Download (source)](https://www.imagemagick.org/script/download.php#windows) |
 **KDiff3** <sub><i>Text Difference Analyzer</i></sub> | [Download (source)](https://sourceforge.net/projects/kdiff3/) |
-**Tortoise Git** <sub><i>Git Merge Conflict Resolver</i></sub> | [Download (source)](https://tortoisegit.org/download) |
-**Gpg4win** <sub><i>GnuPG for Windows</i></sub> | [Download (source)](https://www.gpg4win.org/thanks-for-download.html) |
 **Handbrake** <sub><i>Media Transcoder</i></sub> | [Download (source)](https://handbrake.fr/) |
 **LastPass** <sub><i>Password Manager</i></sub> | [Download (source)](https://lastpass.com/download) |
 **MobaXterm** <sub><i>XServer for Windows</i></sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
+**Notepad++** <sub><i>Text and Source-Code Editor</i></sub> | [Download (source)](https://notepad-plus-plus.org/downloads/) |
 **Notepad Replacer** <sub><i>Redirects NotePad.exe to VSCode, NP++, etc.</i></sub> | [Download (source)](https://www.binaryfortress.com/NotepadReplacer/Download/) |
 **Reflector** <sub><i>Airplay Server for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |
-**Remote Mouse** <sub><i>Phone &rarr; Mouse & Keyboard</i></sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
+**Remote Mouse** <sub><i>Phone-controlled remote Mouse & Keyboard</i></sub> | [Download (source)](https://www.remotemouse.net/downloads/RemoteMouse.exe) |
 **Royal TS** <sub><i>Remote Management Soln.</i></sub> | [Download (mirror)](https://www.royalapps.com/ts/win/download) |
 **Splashtop Personal** <sub><i>Remote Access Client</i></sub> | [Download (source)](https://www.splashtop.com/downloadstart?product=stp&platform=windows-client) |
 **Splashtop Streamer** <sub><i>Remote Access Host/Server</i></sub> | [Download (source)](https://www.splashtop.com/downloadstart?platform=windows) |
 **Teamviewer** <sub><i>Remote Access Host/Server</i></sub> | [Download (source)](https://www.teamviewer.com/en/download/windows/) |
+**Tortoise Git** <sub><i>Git Merge Conflict Resolver</i></sub> | [Download (source)](https://tortoisegit.org/download) |
 **Visual Studio Code** <sub><i>VS Code - Code Editor</i></sub> | [Download (source)](https://code.visualstudio.com/download) |
 **WinDirStat** <sub><i>Disk Usage Analyzer</i></sub> | [Download (source)](https://windirstat.net/download.html) | [Download (mirror)](https://www.fosshub.com/WinDirStat.html) |
 
 <hr />
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="software-platform">Windows Software - Platform/Language-Compatibility</h3>
+<h3 id="software-platform">Windows Software - Cross-Platform Tools</h3>
 
 Name | Option A | Option B
 --- | --- | ---
@@ -97,19 +98,6 @@ Name | Option A | Option B
 **PowerShell Core** <sub><i>Standard Edition</i></sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
 **Ubuntu 16.04 LTS** <sub><i>WSL (Windows Subsystem for Linux)</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
 **Ubuntu 18.04 LTS** <sub><i>WSL (Windows Subsystem for Linux)</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
-
-<hr />
-
-
-<!-- ------------------------------------------------------------ -->
-<h3>Windows Software - Tools & Utilities</h3>
-
-Name | Option A | Docs
---- | --- | ---
-**DigiCert Certificate Utility for Windows** <sub><i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
-**Easy2Boot** <sub><i>USB-drive multiboot software</i></sub> | [Download (source)](https://www.fosshub.com/Easy2Boot.html) |
-**RMPrepUSB** <sub><i>Allows users to easily and quickly*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
-**Yubico Tools** <sub><i>Security Key Configuration</i></sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />
 
@@ -150,33 +138,36 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="hardware-installs">Windows Software - Hardware Controllers</h3>
+<h3 id="hardware-installs">Windows Software - Hardware Controllers/Drivers/Utilities</h3>
 
 Name | Option A | Option B
 --- | --- | ---
 **ASUS Aura Sync** <sub><i>RGB Controller</i></sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
+**balenaEtcher** <sub><i>Drive Imaging Utility (.iso & .img, especially)</i></sub> | [Download (source)](https://www.balena.io/etcher/) |
 **Corsair iCue** <sub><i>RGB Controller (+ Aura API)</i></sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |
+**Easy2Boot** <sub><i>USB-drive multiboot software</i></sub> | [Download (source)](https://www.fosshub.com/Easy2Boot.html) |
+**Intel® DSA** <sub><i>Intel® Driver & Support Assistant</i></sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |
+**LG OnScreen Control** <sub><i>Driver + Software for [ LG 34UC88-B ] Display/Monitor</i></sub> | [Drivers & Software](https://www.lg.com/uk/support/support-product/lg-34UC88-B) | [Download (source)](http://gscs-b2c.lge.com/downloadFile?fileId=L6Ns5WE6jhENU8Q3PwSyw) |
 **Logitech G Hub** <sub><i>Keyboard/Mouse RGB (+3rd Party Tools)</i></sub> | [Download (source)](https://support.logi.com/hc/en-us/articles/360025298133) |
 **Logitech SetPoint** <sub><i>Mouse/Keyboard Hotkey Manager</i></sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
+**RMPrepUSB** <sub><i>Allows users to easily and quickly*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
+**Yubico Tools** <sub><i>Security Key Configuration</i></sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="windows-drivers">Windows Software - Hardware Drivers</h3>
+<h3>Windows Software - Troubleshooting Utilities</h3>
 
 Name | Option A | Option B
 --- | --- | ---
-**balenaEtcher** <sub><i>Drive Imaging Utility (.iso & .img, especially)</i></sub> | [Download (source)](https://www.balena.io/etcher/) |
+**DigiCert Certificate Utility for Windows** <sub><i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
 **DDU (Display Driver Uninstaller)** <sub><i>Removes ALL graphics drivers</i></sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
-**Intel® DSA** <sub><i>Intel® Driver & Support Assistant</i></sub> | [Download (source)](https://www.intel.com/content/www/us/en/support/detect.html) |
-**Monitor Drivers & Software** <sub><i>LG 34UC88-B</i></sub> | [Drivers & Software](https://www.lg.com/uk/support/support-product/lg-34UC88-B) | [Download (source)](http://gscs-b2c.lge.com/downloadFile?fileId=L6Ns5WE6jhENU8Q3PwSyw) |
 
 <hr />
 
-
 <!-- ------------------------------------------------------------ -->
-<h3>Web-based Software - Tools & Utilities</h3>
+<h3>Web-Based Services - Tools & Utilities</h3>
 
 Name | Option A | Option B
 --- | --- | ---
@@ -191,10 +182,30 @@ Name | Option A | Option B
 
 <li>
 	<strong><a href="https://github.com/mcavallo-git/Coding/tree/master/windows#workstation-installs">(Continued) Windows Tips/Tricks</a></strong>
-</li><hr />
+</li>
+
+<hr />
+
+
+<!-- ------------------------------------------------------------ -->
+
+<h3>Citation(s)</h3>
+<details><summary><i>Show/Hide Content</i></summary>
+<p>
+
+* ###### reddit.com  |  "What application do you always install on your computer and recommend to everyone?"  |  https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/
+
+* ###### reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
+
+</p>
+</details>
+
+<hr />
+
 
 <!-- ------------------------------------------------------------ -->
 
 </ul>
+
 
 <!-- ------------------------------------------------------------ -->

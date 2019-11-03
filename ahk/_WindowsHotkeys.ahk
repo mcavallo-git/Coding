@@ -1941,7 +1941,7 @@ EXAMPLE_ControlClick() {
 ;
 ; ------------------------------------------------------------
 ;
-; Example: Compare two Strings' Character-Widths (Strlen doesn't have a whole lot to do with actual/displayed character-widths)
+; Example: Compare two Strings' Displayed Character-Widths (Strlen doesn't have a whole lot to do with actual/displayed character-widths)
 ;
 ; CompareCharacterWidths() {
 ; 	Newline=`n

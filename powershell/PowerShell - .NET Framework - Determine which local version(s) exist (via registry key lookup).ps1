@@ -30,9 +30,11 @@ foreach($key in $($final_output.Keys | sort)) {
 
 Start-Sleep 60;
 
-#
+# ------------------------------------------------------------
 #	Citation(s)
 #
 #	docs.microsoft.com  |  How to: Determine which .NET Framework versions are installed  |  https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#ps_a
 #
+# smartdoc.zendesk.com  |  "How to check your .NET Framework version"  |  https://smartdoc.zendesk.com/hc/en-us/articles/205232308-How-to-check-your-NET-Framework-version
 #
+# ------------------------------------------------------------

@@ -1,26 +1,37 @@
 ﻿; ------------------------------------------------------------
+; _WindowsHotkeys.ahk, by Cavalol
+;   |
+;   |--> Effective Hotkeys for Windows-based Workstaitons
+;   |
+;   |--> Runs via "Autohotkey" (AHK) - Download @ https://autohotkey.com/download/
 ;
-;            >>>   _WindowsHotkeys.ahk, by Cavalol   <<<
-;         AutoHotkey DL: https://autohotkey.com/download/
 ;
-;  Official List of Autohotkey Buttons (Mouse, Keyboard, etc)
-;           https://autohotkey.com/docs/KeyList.htm
+; ------------------------------------------------------------ 
+; List of Keys: https://autohotkey.com/docs/KeyList.htm
 ;
-;  Modifiers:
-;    #  Windows-Key
-;    !  Alt-Key
-;    +  Shift-Key
-;    ^  Control-Key
+; Modifiers Keys: https://www.autohotkey.com/docs/KeyList.htm#modifier
+;
+;     #    Win
+;
+;     !    Alt
+;
+;     +    Shift
+;
+;     ^    Ctrl
+;
+;    5D  15D	 	u	0.09	AppsKey 
 ;
 ;  Specific Modifiers:
 ;    < Only the Left Modifier on the Keyboard   (<#, <!, <+, <^)
 ;    > Only the Right Modifier on the Keyboard  (>#, >!, >+, >^)
 ;
 ;
+;
 ;  Variables and Expressions  :::  https://autohotkey.com/docs/Variables.htm#BuiltIn
 ;
 ;  Run/RunWait  :::  https://autohotkey.com/docs/commands/Run.htm
 ;  SysGet  :::  https://autohotkey.com/docs/commands/SysGet.htm
+;
 ;
 ; ------------------------------------------------------------
 ;
@@ -717,10 +728,10 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;
 ; ------------------------------------------------------------
 
-; #;::
-	; LockWorkstation()
++#L::
+	LockWorkstation()
 	; ShowScreenSaver()
-	; Return
+	Return
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + N
@@ -1765,20 +1776,29 @@ StrLenUnicode(data) {
 	Return i
 }
 
-;  LockWorkstation:  Lock the Computer & put monitor(s) into 'low-power-mode'
+;  LockWorkstation:  Locks the Workstation & put monitor(s) into 'low-power-mode'
 LockWorkstation() { 
-	DllCall("LockWorkStation")  ; Lock the Computer
+	DllCall("LockWorkStation")  ; Lock the Workstation
 	Sleep 1000
-	SendMessage, 0x112, 0xF170, 2, , Program Manager  ; 0x112=WM_SYSCOMMAND, 0xF170=SCMONITORPOWER = {
-		                                                                          ; "-1":"turn the monitor(s) on"monitor(s) off"}
-		                                                                          ; "1":"activate low-power-mode on the monitor(s)"
-		                                                                          ; "2":"turn the monitor(s) off"
-		                                                                     ;}
+	SendMessage, 0x112, 0xF170, 2, , Program Manager
+	; |
+	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+	; |
+	; |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+	;   |--> Setting [ SCMONITORPOWER ] to [ -1 ] sends [ power on ] to attached monitor(s)
+	;   |--> Setting [ SCMONITORPOWER ] to [ 1 ] sends [ activate low-power mode ] to attached monitor(s)
+	;   |--> Setting [ SCMONITORPOWER ] to [ 2 ] sends [ power off ] to attached monitor(s)
+	;
 	Return
 }
 
-ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#Examples
-	SendMessage, 0x112, 0xF140, 0,, Program Manager  ; 0x112 is WM_SYSCOMMAND, and 0xF140 is SC_SCREENSAVE
+ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+	SendMessage, 0x112, 0xF140, 0,, Program Manager
+	; |
+	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+	; |
+	; |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
+	;
 	Return
 }
 

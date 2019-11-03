@@ -1,41 +1,14 @@
 ﻿; ------------------------------------------------------------
+;
 ; _WindowsHotkeys.ahk, by Cavalol
 ;   |
 ;   |--> Effective Hotkeys for Windows-based Workstaitons
 ;   |
 ;   |--> Runs via "Autohotkey" (AHK) - Download @ https://autohotkey.com/download/
 ;
-;
-; ------------------------------------------------------------ 
-; List of Keys: https://autohotkey.com/docs/KeyList.htm
-;
-; Modifiers Keys: https://www.autohotkey.com/docs/KeyList.htm#modifier
-;
-;     #    Win
-;
-;     !    Alt
-;
-;     +    Shift
-;
-;     ^    Ctrl
-;
-;    5D  15D	 	u	0.09	AppsKey 
-;
-;  Specific Modifiers:
-;    < Only the Left Modifier on the Keyboard   (<#, <!, <+, <^)
-;    > Only the Right Modifier on the Keyboard  (>#, >!, >+, >^)
-;
-;
-;
-;  Variables and Expressions  :::  https://autohotkey.com/docs/Variables.htm#BuiltIn
-;
-;  Run/RunWait  :::  https://autohotkey.com/docs/commands/Run.htm
-;  SysGet  :::  https://autohotkey.com/docs/commands/SysGet.htm
-;
-;
 ; ------------------------------------------------------------
 ;
-; GLOBAL SETTINGS
+; Runtime-Global Settings
 
 SetBatchLines, -1
 
@@ -57,7 +30,7 @@ SetCapsLockState, Off
 
 ; ------------------------------------------------------------
 ;
-; GLOBAL VARIABLES
+; Runtime-Global Variables
 
 ; #NoEnv  ; Prevents environment variables from being used (occurs when a variable is called/referenced without being instantiated)
 
@@ -1971,48 +1944,74 @@ EXAMPLE_ControlClick() {
 ; }
 ; ------------------------------------------------------------
 
-CustomPopupButtons_Demo() {
-	; ;;; CUSTOM POPUP OPTIONS (EXAMPLE)
-	;
-	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
-	; |--> MAKE SURE that this callback script kills this SetTimer, otherwise it will keep running indefinitely
+; Example:  Custom Popups
+If (False) {
 
-	MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
-	IfMsgBox Yes
-	{
-		TrayTip, %A_ScriptName%, Leftmost Button Selected
-	}
-	IfMsgBox No
-	{
-		TrayTip, %A_ScriptName%, Center Button Selected
-	}
-	IfMsgBox Cancel
-	{
-		TrayTip, %A_ScriptName%, Rightmost Button Selected
+	CustomPopupButtons_Demo() {
+		
+		SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
+		; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
+
+		MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
+		IfMsgBox Yes
+		{
+			TrayTip, %A_ScriptName%, Leftmost Button Selected
+		}
+		IfMsgBox No
+		{
+			TrayTip, %A_ScriptName%, Center Button Selected
+		}
+		IfMsgBox Cancel
+		{
+			TrayTip, %A_ScriptName%, Rightmost Button Selected
+		}
+
+		Return
+
 	}
 
-	Return
+	CustomMsgboxButtons_UNIQUE_NAME_HERE() {
+		IfWinNotExist, Popup_MsgBox_WindowTitle
+		{
+			Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+		}
+		SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 
+		WinActivate 
+		ControlSetText, Button1, &LEFT_BUTTON
+		ControlSetText, Button2, &CENTER_BUTTON
+		ControlSetText, Button3, &RIGHT_BUTTON
+		Return
+	}
 
 }
 
-CustomMsgboxButtons_UNIQUE_NAME_HERE() {
-	IfWinNotExist, Popup_MsgBox_WindowTitle
-	{
-		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
-	}
-	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 
-	WinActivate 
-	ControlSetText, Button1, &LEFT_BUTTON
-	ControlSetText, Button2, &CENTER_BUTTON
-	ControlSetText, Button3, &RIGHT_BUTTON
-	Return
-}
-
-
-; #7::
-; 	CustomPopupButtons_Demo()
-; 	Return
-
+; ------------------------------------------------------------ 
+;
+; List of Keys:  https://autohotkey.com/docs/KeyList.htm
+;  |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
+;
+; Hotkeys (Mouse, Joystick and Keyboard Shortcuts):  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
+;  |--> Hotkey Modifier Symbols:  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
+;
+;     #    Win
+;
+;     !    Alt
+;
+;     +    Shift
+;
+;     ^    Ctrl
+;
+;     <    Use the LEFT modifier key, e.g. <# (LWin), <! (LAlt), <+ (LShift), <^ (LCtrl)
+;
+;     >    Use the RIGHT modifier key, e.g. ># (RWin), >! (RAlt), >+ (RShift), >^ (RCtrl)
+;
+;          AppsKey  (Application or Menu key, keycap symbol looks like a document w/ 3 lines)
+;
+; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
+;
+; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
+;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
 
 ; ------------------------------------------------------------
 ;	

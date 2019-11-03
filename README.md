@@ -21,7 +21,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
-		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1">Sync PowerShell Modules</a></strong>
+		<strong>Sync PowerShell Modules</strong>
 	</summary>
 	<p>
 		<h4><a href="https://git-scm.com/download/win">Prereq: Git SCM (download)</a></h4>
@@ -36,7 +36,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
-		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">Sync Bash Modules</a></strong>
+		<strong>Sync Bash Modules</strong>
 	</summary>
 	<p>
 		<h4>Prereq: Elevated Privileges (must run as "root" user or )</h4>

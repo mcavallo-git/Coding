@@ -1715,62 +1715,16 @@ CapsLock::
 ; ; NumCapsScrollLock  :::  Thanks to user [ dmg ] on AutoHotkey forum [ https://autohotkey.com/boards/viewtopic.php?p=22579#p22579 ]
 ; ;
 
-;
-; ------------------------------------------------------------
-;
-	
-	
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
-
-
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
-
-
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-	
-
-; FUTURE HOTKEYS TO DESIGN:
-
-; ------------------------------------------------------------
-; NEED: hotkey to duplicate active program (e.g. open-another-instance-of the currently active program)
-; 		-> get the file path selected program (same as winkey+q's old implementation), then run another instance of that program
-; ------------------------------------------------------------
-
-
-  ;                                  ;
- ;;;                                ;;;
-;;;;;          END SCRIPTS         ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
-
-
-
-; ------------------------------------------------------------
-;
-;   Community-Created Scripts   
-;
 
 StrLenUnicode(data) {
 	RegExReplace(data, "s).", "", i)
 	Return i
 }
 
+
+;
 ;  LockWorkstation:  Locks the Workstation & put monitor(s) into 'low-power-mode'
+;
 LockWorkstation() { 
 	DllCall("LockWorkStation")  ; Lock the Workstation
 	Sleep 1000
@@ -1786,6 +1740,7 @@ LockWorkstation() {
 	Return
 }
 
+
 ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
 	SendMessage, 0x112, 0xF140, 0,, Program Manager
 	; |
@@ -1796,10 +1751,48 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 	Return
 }
 
+
+;
+; Under Construction:   Duplicate currently-active Window
+;   |
+;   |--> Planned Workflow & Features (Pseudocode):
+;          |
+;          |--> Get Active Window's EXE-Filepath
+;          |
+;          |--> Get Active Window's Runtime-Parameters
+;          |     |--> Ask user if they want to run with [ same runtime parameters as active window ] or [ input their own runtime parameters (string input from user because of open-ended-ness) ]
+;          |     |--> Ask user if they want to [ run WITH elevated privileges ] or [ run WITHOUT elevated privileges ]
+;          |
+;          |--> Run [ EXE-Filepath ] with [ Runtime-Parameters ] determined by user (above)
+;
+
+
+  ;                                  ;
+ ;;;                                ;;;
+;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
+ ;;;                                ;;;
+  ;                                  ;
+
+
+
+  ;                                  ;
+ ;;;                                ;;;
+;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
+ ;;;                                ;;;
+  ;                                  ;
+
+
+
+  ;                                  ;
+ ;;;                                ;;;
+;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
+ ;;;                                ;;;
+  ;                                  ;
+
+
 ; ------------------------------------------------------------
 ;   Documentation
 ; ------------------------------------------------------------
-;
 ;
 ; SetTitleMatchMode, 1  ; Title must START-WITH [ WinTitle ]
 ; SetTitleMatchMode, 2: ; Title must CONTAIN [ WinTitle ] as a substring
@@ -1859,22 +1852,25 @@ ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#E
 ; MouseMove, X, Y [, Speed, R]
 ;
 ; ------------------------------------------------------------
+;
+if (False) {
 
-EXAMPLE_ControlClick() {
-	;;;
-	;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
-	;;;
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	; WinGetTitle, WinTitle, A
-	WinTitle=NoxPlayer
-	x_loc := (A_ScreenWidth - 20)
-	y_loc := 315
-	ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+	EXAMPLE_ControlClick() {
+		;;;
+		;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+		;;;
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		; WinGetTitle, WinTitle, A
+		WinTitle=NoxPlayer
+		x_loc := (A_ScreenWidth - 20)
+		y_loc := 315
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+	}
+
 }
-
-
+;
 ; ------------------------------------------------------------
 ;	
 ; Autohotkey - Arrays & Objects:  https://www.autohotkey.com/docs/Objects.htm

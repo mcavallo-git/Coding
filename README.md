@@ -39,7 +39,8 @@ This file (on GitHub):
 		<strong><a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/sync.sh">Sync Bash Modules</a></strong>
 	</summary>
 	<p>
-		<h4>Prereq: Elevated terminal (Run as root)</h4>
+		<h4>Prereq: Elevated Privileges (must run as "root" user or )</h4>
+		<h4><pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre></h4>
 	</p>
 </details>
 </li>

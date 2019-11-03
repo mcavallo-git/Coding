@@ -2006,10 +2006,12 @@ If (False) {
 ; ------------------------------------------------------------ 
 ;
 ; List of Keys:  https://autohotkey.com/docs/KeyList.htm
-;  |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
+;   |
+;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
 ;
 ; Hotkeys (Mouse, Joystick and Keyboard Shortcuts):  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
-;  |--> Hotkey Modifier Symbols:  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
+;   |
+;   |--> Hotkey Modifier Symbols:  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 ;
 ;     #    Win
 ;
@@ -2028,7 +2030,9 @@ If (False) {
 ; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
 ;
 ; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
+;   |
 ;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |
 ;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
 
 ; ------------------------------------------------------------

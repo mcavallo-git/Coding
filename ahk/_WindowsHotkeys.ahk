@@ -10,23 +10,25 @@
 ;
 ; Runtime-Global Settings
 
-SetBatchLines, -1
+SetBatchLines, -1  ; https://www.autohotkey.com/docs/commands/SetBatchLines.htm
 
-SetWorkingDir, %A_ScriptDir%
+SetWorkingDir, %A_ScriptDir%  ; https://www.autohotkey.com/docs/commands/SetWorkingDir.htm
 
-DetectHiddenWindows, On
+DetectHiddenWindows, On  ; https://www.autohotkey.com/docs/commands/DetectHiddenWindows.htm
 
-SetCapsLockState, Off
+SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCapsLockState.htm
 
-; FileEncoding, UTF-8
+; FileEncoding, UTF-8  ; https://www.autohotkey.com/docs/commands/FileEncoding.htm
 
-; #ErrorStdOut
+; #ErrorStdOut  ; https://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
 
-#Persistent
+#Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
 
-#SingleInstance Force
+#SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
 
-; #EscapeChar \  ; Change it to be backslash instead of the default of accent (`).
+; #EscapeChar \  ; https://www.autohotkey.com/docs/commands/_EscapeChar.htm
+
+#InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
 
 ; ------------------------------------------------------------
 ;

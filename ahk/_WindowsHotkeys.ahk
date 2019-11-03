@@ -28,7 +28,7 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #EscapeChar \  ; https://www.autohotkey.com/docs/commands/_EscapeChar.htm
 
-#InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
+; #InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
 
 ; ------------------------------------------------------------
 ;

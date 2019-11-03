@@ -106,6 +106,7 @@ Name | Option A | Option B
 
 Name | Option A | Docs
 --- | --- | ---
+**DigiCert Certificate Utility for Windows** <sub>*Certificate Management & Troubleshooting Tool*</sub> | [Download (source)](https://www.digicert.com/util/) |
 **Easy2Boot** <sub>*USB-drive multiboot software*</sub> | [Download (source)](https://www.fosshub.com/Easy2Boot.html) |
 **RMPrepUSB** <sub>*Allows users to easily and quickly*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
 **Yubico Tools** <sub>*Security Key Configuration*</sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |

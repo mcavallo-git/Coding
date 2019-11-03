@@ -10,7 +10,9 @@ This file (on GitHub):
 	Coding<br />
 	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">Scripts, tools, & utilities to enhance Windows workstation efficiency & versatility</i></sub>
 </h3>
+
 <hr />
+
 
 <!-- ------------------------------------------------------------ -->
 
@@ -26,7 +28,10 @@ This file (on GitHub):
 		<h4>Prereq: Elevated terminal (Run as Admin)</h4>
 	</p>
 </details>
-</li><hr />
+</li>
+
+<hr />
+
 
 <!-- ------------------------------------------------------------ -->
 
@@ -37,7 +42,10 @@ This file (on GitHub):
 		<h4>Prereq: Elevated terminal (Run as root)</h4>
 	</p>
 </details>
-</li><hr />
+</li>
+
+<hr />
+
 
 <!-- ------------------------------------------------------------ -->
 
@@ -49,7 +57,7 @@ Name | Option A | Option B
 **Ninite** <sub><i>Install Multiple Apps at Once</i></sub> | [Download Multi-Installer for: 7-Zip + Audacity + Chrome + ClassicShell + DropBox + FileZilla + FireFox + GreenShot + HandBrake + NotePad++ + Paint.Net + VLC + VS-Code + WinDirStat](https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/) |
 **Microsoft Office 365** <sub><i>Outlook, Word, Excel, PowerPoint, etc.</i></sub> | [Login to Office365](https://www.office.com/) → Select "Install Office" |
 
-<br /><hr />
+<hr />
 
 
 <!-- ------------------------------------------------------------ -->
@@ -151,7 +159,7 @@ Name | Option A | Option B
 **LG OnScreen Control** <sub><i>Driver + Software for [ LG 34UC88-B ] Display/Monitor</i></sub> | [Drivers & Software](https://www.lg.com/uk/support/support-product/lg-34UC88-B) | [Download (source)](http://gscs-b2c.lge.com/downloadFile?fileId=L6Ns5WE6jhENU8Q3PwSyw) |
 **Logitech G Hub** <sub><i>Keyboard/Mouse RGB (+3rd Party Tools)</i></sub> | [Download (source)](https://support.logi.com/hc/en-us/articles/360025298133) |
 **Logitech SetPoint** <sub><i>Mouse/Keyboard Hotkey Manager</i></sub> | [Download (source)](http://support.logitech.com/software/setpoint) |
-**RMPrepUSB** <sub><i>Allows users to easily and quickly*<br />'roll their own' multiboot USB drive</sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
+**RMPrepUSB** <sub><i>Allows users to easily and quickly 'roll their own' multiboot USB drive</i></sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
 **Yubico Tools** <sub><i>Security Key Configuration</i></sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 
 <hr />

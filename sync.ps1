@@ -5,9 +5,25 @@ If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPol
 	Set-ExecutionPolicy "RemoteSigned" -Force;
 }
 
-New-Alias -Name "grep" -Value "Select-String";
+$AliasName="grep"; $AliasCommand="Select-String";
+If ( (Get-Alias).Name -Contains "${AliasName}" ) {
+	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
+		Remove-Item "alias:\${AliasName}";
+		New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+	}
+} Else {
+	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+}
 
-New-Alias -Name "which" -Value "Get-Command";
+$AliasName="which"; $AliasCommand="Get-Command";
+If ( (Get-Alias).Name -Contains "${AliasName}" ) {
+	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
+		Remove-Item "alias:\${AliasName}";
+		New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+	}
+} Else {
+	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+}
 
 Write-Host "Info: Loading personal and system profiles...`n" -ForegroundColor Gray;
 

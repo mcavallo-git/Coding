@@ -24,7 +24,7 @@ This file (on GitHub):
 		<strong>Sync PowerShell Modules</strong>
 	</summary>
 	<p>
-		<h4><a href="https://git-scm.com/download/win">Prereq: Git SCM (download)</a></h4>
+		<h4>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></h4>
 		<h4>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</h4>
 		<h4><pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre></h4>
 	</p>

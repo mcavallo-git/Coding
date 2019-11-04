@@ -68,13 +68,13 @@ function ProfileSync {
 	
 	$Pro = @();
 	
-	$Pro += (('$TempFile="PowerShell-Sync.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?$(Get-Date -UFormat %s)"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
+	$Pro += (('$TempFile="PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?$((Date).Ticks)"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
 	
 	If ($False) {
 
 		# Manual Sync Command:
 
-		$TempFile="${Env:TEMP}/PowerShell-Sync.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$(Get-Date -UFormat %s)'))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";
+		$TempFile="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$((Date).Ticks)'))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";
 
 	}
 

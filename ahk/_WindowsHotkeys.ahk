@@ -697,7 +697,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 
 #L::
-	ShowScreenSaver()
+	Monitor_ShowScreenSaver()
 	Return
 
 
@@ -707,7 +707,8 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;
 
 AppsKey & L::
-	LockWorkstation()
+	Monitor_ShowScreenSaver()
+	; LockWorkstation()
 	Return
 
 
@@ -1519,24 +1520,59 @@ StrLenUnicode(data) {
 LockWorkstation() {
 	DllCall("LockWorkStation")
 	Sleep 10
-	SendMessage, 0x112, 0xF170, 2,, Program Manager
-	; |
-	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
-	; |
-	; |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
-	;   |--> Setting [ SCMONITORPOWER ] to [ -1 ] sends [ power on ] to attached monitor(s)
-	;   |--> Setting [ SCMONITORPOWER ] to [ 1 ] sends [ activate low-power mode ] to attached monitor(s)
-	;   |--> Setting [ SCMONITORPOWER ] to [ 2 ] sends [ power off ] to attached monitor(s)
-	;
+	Monitor_ActivateLowPowerMode()
+	; Monitor_PowerOff()
 	Return
 }
 
 
 ;
-; ShowScreenSaver
+; Monitor_PowerOn
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+;          |--> Sending a value of [ -1 ] sends [ power on ] to attached monitor(s)
+;
+Monitor_PowerOn() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	SendMessage, 0x112, 0xF170, -1,, Program Manager
+	Return
+}
+
+
+;
+; Monitor_ActivateLowPowerMode
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+;          |--> Sending a value of [ 1 ] sends [ activate low-power mode ] to attached monitor(s)
+;
+Monitor_ActivateLowPowerMode() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	SendMessage, 0x112, 0xF170, 1,, Program Manager
+	Return
+}
+
+
+;
+; Monitor_PowerOff
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
+;
+Monitor_PowerOff() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	SendMessage, 0x112, 0xF170, 2,, Program Manager
+	Return
+}
+
+
+;
+; Monitor_ShowScreenSaver
 ;   |--> "Start the user's chosen screen saver"
 ;
-ShowScreenSaver() {
+Monitor_ShowScreenSaver() {
 	SendMessage, 0x112, 0xF140, 0,, Program Manager
 	; |
 	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]

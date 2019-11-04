@@ -677,12 +677,12 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 
 ;
 ; ------------------------------------------------------------
-;  HOTKEY:  Apps-Key keypress (square menu button, commonly next to right-ctrl on keyboard)
-;  ACTION:  Send Windows-Key Keypress, instead
+;  HOTKEY:  AppsKey
+;  ACTION:  Send Right-WinKey keypress
 ;
 
 AppsKey::
-	; Send {RWin Down}
+	; Override Default Function
 	Return
 AppsKey Up::
 	; Send {RWin Up}

@@ -681,12 +681,13 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  ACTION:  Send Windows-Key Keypress, instead
 ;
 
-;AppsKey::
-;	Send {RWin Down}
-;	Return
-;AppsKey Up::
-;	Send {RWin Up}
-;	Return
+AppsKey::
+	; Send {RWin Down}
+	Return
+AppsKey Up::
+	; Send {RWin Up}
+	Send {RWin}
+	Return
 
 ;
 ; ------------------------------------------------------------

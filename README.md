@@ -25,7 +25,8 @@ This file (on GitHub):
 	</summary>
 	<p>
 		<h4><a href="https://git-scm.com/download/win">Prereq: Git SCM (download)</a></h4>
-		<h4>Prereq: Elevated terminal (Run as Admin)</h4>
+		<h4>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</h4>
+		<h4><pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre></h4>
 	</p>
 </details>
 </li>
@@ -39,7 +40,7 @@ This file (on GitHub):
 		<strong>Sync Bash Modules</strong>
 	</summary>
 	<p>
-		<h4>Prereq: Elevated Privileges (must run as "root" user or )</h4>
+		<h4>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user</h4>
 		<h4><pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre></h4>
 	</p>
 </details>

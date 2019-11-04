@@ -1,6 +1,9 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""EnsureProcessIsRunning -Name 'BingBackground' -Path '~\Documents\GitHub\Coding\windows\BingBackground\BingBackground.vbs' -Quiet;"" ", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""GitSyncAll -Pull"" ", 0, True
 
 ' Program/script:   C:\Windows\System32\wscript.exe
-' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\BingBackgroundNonAdmin.vbs"
+' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAllNonAdmin.vbs"
 
-' OLD: "C:\ISO\BingBackground\BingBackground.vbs"
+
+
+' C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+' -Command "GitSyncAll -Pull"

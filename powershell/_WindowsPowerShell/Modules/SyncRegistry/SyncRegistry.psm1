@@ -66,7 +66,7 @@ function SyncRegistry {
 			Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
 			Props=@(
 				@{
-					Description="Enables (0) or Disables (1) `"Aero Shake`" in Windows 10.";
+					Description="Set to [ 1 ] to Disable or [ 0 ] to Enable `"Aero Shake`" in Windows 10";
 					Name="NoWindowMinimizingShortcuts"; 
 					Type="DWord";
 					Value=1;
@@ -79,7 +79,7 @@ function SyncRegistry {
 			Path = "HKCU:\Control Panel\Desktop";
 			Props=@(
 				@{
-					Description="Disables(1) the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+					Description="Set to [ 1 ] to Disable or [ 0 ] to Enable the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
 					Name="AutoEndTasks"; 
 					Type="String";
 					Value=1;
@@ -110,7 +110,7 @@ function SyncRegistry {
 			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
-					Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com.";
+					Description="Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
 					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
 					Name="BingSearchEnabled";
 					Type="DWord";
@@ -161,7 +161,7 @@ function SyncRegistry {
 			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
 			Props=@(
 				@{
-					Description="Set this value to 1 to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
+					Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
 					Name="UseWUServer";
 					Type="DWord";
 					Value=0;

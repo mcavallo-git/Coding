@@ -1,3 +1,4 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""EnsureProcessIsRunning -Name 'Autohotkey' -Path 'C:\Program Files\AutoHotkey\Autohotkey.exe' -Args '${HOME}\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahk' -AsAdmin -Quiet;"" ", 0, True
 
-'  "%USERPROFILE%\Documents\GitHub\Coding\visual basic\KleopatraNonAdmin.vbs"
+' Program/script:   C:\Windows\System32\wscript.exe
+' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeysAsAdmin.vbs"

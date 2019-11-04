@@ -35,6 +35,17 @@ If ( ${HOME} -Eq ${Null} ) {
 	$HOME = ((Resolve-Path "~").Path);
 }
 
+
+
+
+
+
+
+
+
+
+
+
 If (Test-Path "${HOME}/Coding") {
 
 	Set-Location "${HOME}/Coding";

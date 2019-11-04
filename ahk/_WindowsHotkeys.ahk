@@ -1350,7 +1350,7 @@ OpenChrome() {
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
 		; Open Chrome
-		RunAs, %A_UserName%
+		; RunAs, %A_UserName%
 		Run, %EXE_FULLPATH%
 		WinWait,Chrome,,10
 		; Set Chrome as the Active Window

@@ -710,11 +710,19 @@ AppsKey Up::
 ;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 ;
 +#L::
+	Return
+
++#L Up::
 	LockWorkstation()
 	Return
+
 ; ~#L::
 LWin & L::
 RWin & L::
+	Return
+
+LWin & L Up::
+RWin & L Up::
 	; Sleep 1000
 	ShowScreenSaver()
 	Return
@@ -1510,7 +1518,7 @@ StrLenUnicode(data) {
 ; LockWorkstation
 ;   |--> Lock the Workstation and turn-off/activate-lower-power-mode on monitors
 ;
-LockWorkstation() { 
+LockWorkstation() {
 	DllCall("LockWorkStation")
 	Sleep 1000
 	SendMessage, 0x112, 0xF170, 2,, Program Manager

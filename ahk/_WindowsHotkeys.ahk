@@ -706,10 +706,17 @@ AppsKey Up::
 	Return
 ;
 ; ------------------------------------------------------------
+;  HOTKEY:  Windows-Key + L
+;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
+;
 
-+#L::
-	LockWorkstation()
-	; ShowScreenSaver()
+; +#L::
+; ~#L::
+LWin & L::
+RWin & L::
+	; Sleep 1000
+	; LockWorkstation()
+	ShowScreenSaver()
 	Return
 
 ; ------------------------------------------------------------

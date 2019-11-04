@@ -24,7 +24,7 @@ function EnsureProcessIsRunning {
 		[Switch]$Minimized,
 
 		[ValidateSet('Normal','Hidden','Minimized','Maximized')]
-		[String]$WindowStyle = "Normal",
+		[String]$WindowStyle="Normal",
 
 		[Switch]$AsAdmin,
 		[Switch]$RunAsAdmin,

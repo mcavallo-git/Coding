@@ -76,9 +76,12 @@ function ProfileSync {
 	
 	$Pro += (('Write-Host "')+($($MyInvocation.MyCommand.Name))+(' - Task: Loading personal and system profiles...`n" -ForegroundColor Gray;'));
 
-	$Pro += (('$GithubOwner="')+(${GithubOwner})+('"; $GithubRepo="')+(${GithubRepo})+('";')+(' Write-Host "ProfileSync - Task: Sync local git repository to origin `"https://github.com/${GithubOwner}/${GithubRepo}.git`"..." -ForegroundColor Gray; If (Test-Path "${HOME}/${GithubRepo}") { Set-Location "${HOME}/${GithubRepo}"; git reset --hard "origin/master"; git pull; } Else { Set-Location "${HOME}"; git clone "https://github.com/${GithubOwner}/${GithubRepo}.git"; } . "${HOME}/${GithubRepo}/powershell/_WindowsPowerShell/Modules/ImportModules.ps1"; Write-Host "`nProfileSync - Pass: PowerShell Modules Synchronized`n" -ForegroundColor Green;'));
+	$Pro += (('$TempFile="TempFile.$(Get-Date -UFormat '%s').ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
 	
 	$Pro += 'Set-Location "${HOME}";';
+
+# $TempFile="TempFile.$(Get-Date -UFormat '%s').ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps'))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";
+# $TempFile="TempFile.$(Get-Date -UFormat '%s').ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps'))) | Out-Null; . "${TempFile}"; Notepad "${TempFile}";
 
 	### Overwrite $Profile content
 	If ( ${OverwriteProfile} -Eq ${True} ) {

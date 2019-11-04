@@ -5,7 +5,15 @@ If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPol
 	Set-ExecutionPolicy "RemoteSigned" -Force;
 }
 
-Write-Host "Info : Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
+New-Alias -Name "grep" -Value "Select-String";
+
+New-Alias -Name "which" -Value "Get-Command";
+
+Write-Host "Info: Loading personal and system profiles...`n" -ForegroundColor Gray;
+
+Write-Host "Info: Detected PowerShell v$(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;
+
+Write-Host "Info: Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
 
 If ( ${HOME} -Eq ${Null} ) {
 	$HOME = ((Resolve-Path "~").Path);
@@ -30,3 +38,5 @@ If (Test-Path "${HOME}/Coding") {
 . "${HOME}/Coding/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
 
 Write-Host "`nInfo: PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
+
+Set-Location "${HOME}";

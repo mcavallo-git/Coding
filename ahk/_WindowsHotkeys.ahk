@@ -1238,131 +1238,39 @@ LShift & RShift::
 	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
 	Run, Edit "%Logfile_EnvVars_Timestamp%"
 	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Caps Lock
+;  ACTION:  Permanently disable CapsLock (unless Shift+CapsLock is pressed, then toggle CapsLock like normal)
+;
+CapsLock::
+^CapsLock::
+!CapsLock::
+#CapsLock::
+	SetCapsLockState, Off
+	Return
++CapsLock::
+	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
+	Return
+
+
+; ------------------------------------------------------------
+;
+; >>  FUNCTIONS  <<
 ;
 ; ------------------------------------------------------------
-;  Win+K - [DevOps] - Bring-to-Foreground:  Node.JS (Git-Bash) && Postman
-; #K::
-; 	;
-; 	WinTitle_NodeJS=Supplier Gateway (localhost)
-; 	WinTitle_Postman=Postman
-; 	; MsgBox, A_OSVersion = %A_OSVersion%
-; 	;
-; 	; Windows sets some weird values for its bounds when a window is maximized
-; 	if (A_OSVersion = "WIN_7") {
-; 		; Windows 7 OS
-; 		Increment_Left := 0
-; 		Increment_Top := 0
-; 		Increment_Width := 0
-; 		Increment_Height := 0
-; 	} else {
-; 		; Non Windows-7 OS
-; 		Increment_Left := -7
-; 		Increment_Top := 0
-; 		Increment_Width := 14
-; 		Increment_Height := 7
-; 	}
-; 	; Prep Monitor Widths/Heights
-; 	SysGet, MonitorCount, MonitorCount , N
-; 	BoundsLeft = -1
-; 	BoundsRight = -1
-; 	BoundsTop = -1
-; 	BoundsBottom = -1
-; 	BoundsCenterHoriz = 0
-; 	BoundsCenterVert = 0
-; 	Loop, %MonitorCount% {
-; 		SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
-; 		If (BoundsLeft < MonitorWorkAreaLeft)
-; 		{
-; 			; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
-; 			; Widths
-; 			BoundsLeft := MonitorWorkAreaLeft
-; 			BoundsRight := MonitorWorkAreaRight
-; 			; Heights
-; 			BoundsTop := MonitorWorkAreaTop
-; 			BoundsBottom := MonitorWorkAreaBottom
-; 		}
-; 	}
-; 	; Widths
-; 	BoundsWidthFull := (BoundsRight - BoundsLeft)
-; 	BoundsWidthHalf := Floor(BoundsWidthFull/2)
-; 	BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
-; 	; Heights
-; 	BoundsHeightFull := (BoundsBottom - BoundsTop)
-; 	BoundsHeightHalf := Floor(BoundsHeightFull/2)
-; 	BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-; 	SetTitleMatchMode, 1
-; 	IfWinExist,%WinTitle_NodeJS%
-; 	{
-; 		IfWinExist,%WinTitle_Postman%
-; 		{
-; 			;
-; 			; SIMULATE: Snap Left / Snap Right
-; 			;
-; 			if (MonitorCount = 2) {
-; 				;
-; 				; 2-Monitors
-; 				;
-; 				if (A_OSVersion = "WIN_7") {
-; 					; Msgbox, AAA
-; 					WinMove,%WinTitle_NodeJS%,,1920,0,960,1080
-; 					WinMove,%WinTitle_Postman%,,2880,0,960,1080
-; 					;
-; 					;		Win7
-; 					;			Left-Mon (Mon-1)
-; 					; 			Left-Snap   -->  WinMove,%WinTitle%,,0,0,960,1040       ; w/ taskbar
-; 					; 			Right-Snap  -->  WinMove,%WinTitle%,,960,0,960,1040     ; w/ taskbar
-; 					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ left-taskbar
-; 					; 		Right-Mon (Mon-2)
-; 					; 			Left-Snap   -->  WinMove,%WinTitle%,,1920,0,960,1080       ; w/ no taskbar
-; 					; 			Right-Snap  -->  WinMove,%WinTitle%,,2880,0,960,1080     ; w/ no taskbar
-; 					; 			Maximized   -->  WinMove,%WinTitle%,,-8,-8,1936,1056    ; w/ no taskbar
-; 					;
-; 				} Else {
-; 					; Msgbox, BBB
-; 					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
-; 					WinMove,%WinTitle_Postman%,,2873,0,974,1047
-; 					;
-; 					;		Win10
-; 					; 		Left-half,  Left-Mon   -->  WinMove,%WinTitle%,,-7,0,974,1047      ; w/ taskbar
-; 					; 		Right-half, Left-Mon   -->  WinMove,%WinTitle%,,953,0,974,1047    ; w/ taskbar
-; 					; 		Left-half,  Right-Mon  -->  WinMove,%WinTitle%,,1913,0,974,1047    ; w/ taskbar
-; 					; 		Right-half, Right-Mon  -->  WinMove,%WinTitle%,,2873,0,974,1047   ; w/ taskbar
-; 					;
-; 					; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-; 				}
-; 			} Else {
-; 				; Not-2-Monitors (Assumes 1)
-; 				if (A_OSVersion = "WIN_7") {
-; 					; Win-7, 1-Monitor
-; 					; Msgbox, CCC
-; 					WinMove,%WinTitle_NodeJS%,,0,0,960,1040
-; 					WinMove,%WinTitle_Postman%,,960,0,960,1040
-; 				} Else {
-; 					; Win-10, 1-Monitor
-; 					; Msgbox, DDD
-; 					WinMove,%WinTitle_NodeJS%,,1913,0,974,1047
-; 					WinMove,%WinTitle_Postman%,,2873,0,974,1047
-; 				}
-; 			}
-; 			WinActivate,%WinTitle_NodeJS%
-; 			WinActivate,%WinTitle_Postman%
-; 		} Else {
-; 			; Msgbox, EEE
-; 		}
-; 	} Else {
-; 		; Msgbox, FFF
-; 	}
-; 	Return
+
+
 ;
-; ------------------------------------------------------------
-;	@  GetPID()
-;      |--> Returns PID if process IS found
-;      |--> Returns 0 if process is NOT found
+;	GetPID
+;   |--> Returns PID if process IS found
+;   |--> Returns 0 if process is NOT found
 ;
-;	@  ProcessExist()
-;	@  IfProcessExist()
-;      |--> Returns True if process IS found
-;      |--> Returns False if process is NOT found
+;	ProcessExist
+;	IfProcessExist
+;   |--> Returns True if process IS found
+;   |--> Returns False if process is NOT found
 ;
 GetPID(ProcName) {
 	Process, Exist, %ProcName%
@@ -1374,8 +1282,31 @@ ProcessExist(ProcName) {
 IfProcessExist(ProcName) {
 	Return (GetPID(ProcName)>0) ? True : False
 }
-; ------------------------------------------------------------
-;	@  OpenChrome - Opens the "Google Chrome" Application
+
+
+;
+; Get_ahk_id_from_title
+;   |--> Input: WinTitle to Include, WinTitle to Exclude
+;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
+;
+Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
+}
+
+
+Get_ahk_id_from_pid(WinPid) {
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
+}
+
+;
+;	OpenChrome - Opens the "Google Chrome" Application
+;
 OpenChrome() {
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	EXE_NICKNAME := "Google Chrome"
@@ -1417,9 +1348,12 @@ OpenChrome() {
 	Return
 
 }
+
+
+
 ;
-; ------------------------------------------------------------
 ;	@  OpenVisualStudio - Opens the "Visual Studio Code" Application
+;
 OpenVisualStudio() {
 	VSCodeWorkspace := USERPROFILE "\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
 	Run % VSCodeWorkspace
@@ -1427,11 +1361,13 @@ OpenVisualStudio() {
 	; Run % TargetExe
 	Return
 }
+
+
 ;
-; ------------------------------------------------------------
-;	@ TabSpace_Loop
+; TabSpace_Loop
 ;			Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of
 ;			checkboxes need to be selected individually to update from a Git repo
+;
 TabSpace_Loop(LoopIterations) {
 	Loop %LoopIterations% {
 		Send {Tab}
@@ -1441,19 +1377,24 @@ TabSpace_Loop(LoopIterations) {
 	}
 	Return
 }
+
+
 ;
-; ------------------------------------------------------------
 ;	@ SendSpace
 ;			For some reason, windows 10 doesn't like Send {Space} (as-in it 'ignores' the
 ;			keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
+;
 SendSpace() {
 	Send {SC039}
 	Return
 }
-; ------------------------------------------------------------
+
+
+;
 ;	@ Space..._Loop
 ;			Designed for Windows Task Scheduler to quickly show open all tasks on the main
 ;			page, which can then be sorted (but only for the ones that've been opened)
+;
 SpaceUp_Loop(LoopIterations) {
 	Loop %LoopIterations% {
 		Sleep 500
@@ -1464,9 +1405,11 @@ SpaceUp_Loop(LoopIterations) {
 	}
 	Return
 }
+
+
 ;
-; ------------------------------------------------------------
 ;  @  OpenVSCode - Opens the application "Visual Studio Code"
+;
 OpenVSCode() {
 	; Set Path to VSCode Executable
 	VSCode_Dir=C:\Program Files\Microsoft VS Code
@@ -1507,9 +1450,11 @@ OpenVSCode() {
 	; 	)
 	Return
 }
+
+
 ;
-; ------------------------------------------------------------
 ;   @ ActiveWindow_ToggleRestoreMaximize - Toggle Active Window:  "Maximized" / "Non-Maximized"
+;
 ActiveWindow_ToggleRestoreMaximize() {
 	WinGet, WinState, MinMax, A
 	WinGet, WinStyle, Style, A
@@ -1523,8 +1468,11 @@ ActiveWindow_ToggleRestoreMaximize() {
 	}
 	Return
 }
-; ------------------------------------------------------------
+
+
+;
 ;   @ ActiveWindow_Maximize - Only maximize active window if it isn't maximized already
+;
 ActiveWindow_Maximize() {
 	WinGet, WinState, MinMax, A
 	if (WinState<=0) { ; Window is not maximized - maximize it
@@ -1532,189 +1480,6 @@ ActiveWindow_Maximize() {
 	}
 	Return
 }
-;
-; ------------------------------------------------------------
-;
-get_ahk_id_from_title(WinTitle,ExcludeTitle) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
-}
-get_ahk_id_from_pid(WinPid) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
-}
-;
-; ------------------------------------------------------------
-;  HOTKEY:  Caps Lock
-;  ACTION:  Permanently disable CapsLock (unless Shift+CapsLock is pressed, then toggle CapsLock like normal)
-;
-CapsLock::
-^CapsLock::
-!CapsLock::
-#CapsLock::
-	SetCapsLockState, Off
-	Return
-+CapsLock::
-	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
-	Return
-;
-; ------------------------------------------------------------
-;
-
-; Gosub, NumCapsScrollLock_CreateOSD
-; Return
-
-; NumCapsScrollLock_CreateOSD:
-; {
-; 	Gui, NumCapsScrollLock:Default
-; 	Gui, -caption +toolwindow +alwaysontop +lastfound
-; 	Gui, color, 8b0fc6
-; 	Gui, font, s10 w600, Arial Bold
-; 	Gui, margin, 0, 0
-; 	WinSet, transcolor, 8b0fc6
-	
-; 	n_color := GetKeyState("NumLock", "t") ? "98cb4a" : "5481E6"
-; 	c_color := GetKeyState("CapsLock", "t") ? "98cb4a" : "5481E6"
-; 	s_color := GetKeyState("ScrollLock", "t") ? "98cb4a" : "5481E6"
-
-; 	Gui, add, listview, x0 y0 w60 h16 -hdr -e0x200 -multi background%n_color% v_numlock gNumCapsScrollLock_lv altsubmit
-; 	Gui, add, text, x0 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_numlock, N
-
-; 	Gui, add, listview, x63 y0 w60 h16 -hdr -e0x200 -multi background%c_color% v_capslock gNumCapsScrollLock_lv altsubmit
-; 	Gui, add, text, x63 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_capslock, C
-
-; 	Gui, add, listview, x126 y0 w60 h16 -hdr -e0x200 -multi background%s_color% v_scrolllock gNumCapsScrollLock_lv altsubmit
-; 	Gui, add, text, x126 y0 w60 h16 0x201 cffffff backgroundtrans vtxt_scrolllock, S
-; }
-; Return
-
-; NumLock::
-; CapsLock::
-; ScrollLock::
-; {
-; 	; Gui, NumCapsScrollLock:Default
-; 	if (!locked_%a_thishotkey%)
-; 	{
-; 		NumCapsScrollLock_ToggleKey(a_thishotkey)
-; 		; soundplay, beep.wav
-; 		color := GetKeyState(a_thishotkey, "t") ? "98cb4a" : "5481E6"
-; 		GuiControl, +background%color%, _%a_thishotkey%
-; 		GuiControl, Hide, txt_%a_thishotkey%
-; 		GuiControl, Show, txt_%a_thishotkey%
-; 	}
-; 	sysget, var_, monitorworkarea
-; 	x := (var_right-190)
-; 	y := (var_bottom-26)
-; 	Gui, Show, x%x% y%y% na, OSD
-; 	settimer, NumCapsScrollLock_Cancel, -3000
-; 	keywait, % a_thishotkey
-; }
-; Return
-
-; NumCapsScrollLock_lv:
-; {
-; 	; Gui, NumCapsScrollLock:Default
-; 	if (A_GuiEvent = "normal") or (A_GuiEvent = "doubleclick")
-; 	{
-; 		control := ltrim(a_guicontrol, "_")
-; 		if (!locked_%control%)
-; 			{
-; 				NumCapsScrollLock_ToggleKey(control)
-; 				; soundplay, beep.wav
-; 				color := GetKeyState(control, "t") ? "98cb4a" : "5481E6"
-; 				GuiControl, +background%color%, %a_guicontrol%
-; 				GuiControl, Hide, txt%a_guicontrol%
-; 				GuiControl, Show, txt%a_guicontrol%
-; 			}
-; 		settimer, NumCapsScrollLock_Cancel, -3000
-; 	}
-; 	else if (A_GuiEvent = "rightclick")
-; 	{
-; 		NumCapsScrollLock_LockUnlock(ltrim(a_guicontrol, "_"))
-; 		; soundplay, click.wav
-; 		settimer, NumCapsScrollLock_Cancel, -3000
-; 	}
-; }
-; Return
-
-; NumCapsScrollLock_ToggleKey(key)
-; {
-; 	if (key = "CapsLock")
-; 	{
-; 		; SetCapsLockState, % GetKeyState(key, "t") ? "off" : "on"
-; 		SetCapsLockState, Off
-; 	}
-; 	else if (key = "ScrollLock")
-; 	{
-; 		SetScrollLockState, % GetKeyState(key, "t") ? "off" : "on"
-; 	}
-; 	else if (key = "NumLock")
-; 	{
-; 		SetNumLockState, % GetKeyState(key, "t") ? "off" : "on"
-; 	}
-; 	Return
-; }
-
-; NumCapsScrollLock_LockUnlock(key)
-; {
-; 	Global locked_numlock, locked_capslock, locked_scrolllock
-; 	if (key = "NumLock")
-; 	{
-; 		if (locked_numlock)
-; 			{
-; 				SetNumLockState
-; 				locked_numlock := 0
-; 			}
-; 		else
-; 			{
-; 				SetNumLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
-; 				locked_numlock := 1
-; 			}
-; 	}
-; 	else if (key = "CapsLock")
-; 	{
-; 		if (locked_capslock)
-; 			{
-; 				SetCapsLockState
-; 				locked_capslock := 0
-; 			}
-; 		else
-; 			{
-; 				SetCapsLockState, % GetKeyState(key, "t") ? "AlwaysOn" : "AlwaysOff"
-; 				locked_capslock := 1
-; 			}
-; 	}
-; 	else if (key = "ScrollLock")
-; 	{
-; 		if (locked_scrolllock)
-; 			{
-; 				SetScrollLockState
-; 				locked_scrolllock := 0
-; 			}
-; 		else
-; 			{
-; 				SetScrollLockState, % GetKeyState(key, "t") ? "alwayson" : "AlwaysOff"
-; 				locked_scrolllock := 1
-; 			}
-; 	}
-; 	Return
-; }
-
-; NumCapsScrollLock_Cancel:
-; {
-; 	; Gui, NumCapsScrollLock:Default
-; 	Gui, Cancel
-; }
-; Return
-
-; ;	Citation(s)
-; ;
-; ; NumCapsScrollLock  :::  Thanks to user [ dmg ] on AutoHotkey forum [ https://autohotkey.com/boards/viewtopic.php?p=22579#p22579 ]
-; ;
 
 
 StrLenUnicode(data) {
@@ -1723,9 +1488,6 @@ StrLenUnicode(data) {
 }
 
 
-;
-;  LockWorkstation:  Locks the Workstation & put monitor(s) into 'low-power-mode'
-;
 LockWorkstation() { 
 	DllCall("LockWorkStation")  ; Lock the Workstation
 	Sleep 1000

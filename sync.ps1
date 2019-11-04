@@ -65,7 +65,7 @@ If (Test-Path "${HOME}/Coding") {
 
 }
 
-. "${HOME}/Coding/powershell/_WindowsPowerShell/Modules/ImportModules.ps1";
+. "${HOME}\Coding\powershell\_WindowsPowerShell\Modules\ImportModules.ps1";
 
 Write-Host "`nInfo: PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
 

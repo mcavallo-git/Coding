@@ -15,7 +15,7 @@ Write-Host "Info: Local PowerShell Version: $(($($PSVersionTable.PSVersion.Major
 <# ------------------------------------------------------------ #>
 
 $AliasName="grep"; $AliasCommand="Select-String";
-Write-Host "Info: Checking for Alias `"${AliasName}`"...`n" -ForegroundColor Gray;
+Write-Host "Info: Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
 If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
 		Remove-Item "alias:\${AliasName}";
@@ -26,7 +26,7 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 }
 
 $AliasName="which"; $AliasCommand="Get-Command";
-Write-Host "Info: Checking for Alias `"${AliasName}`"...`n" -ForegroundColor Gray;
+Write-Host "Info: Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
 If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
 		Remove-Item "alias:\${AliasName}";

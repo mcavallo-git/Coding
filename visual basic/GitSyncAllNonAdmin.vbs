@@ -2,8 +2,3 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""GitSyncAll -Pull"" ",
 
 ' Program/script:   C:\Windows\System32\wscript.exe
 ' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAllNonAdmin.vbs"
-
-
-
-' C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-' -Command "GitSyncAll -Pull"

@@ -55,19 +55,6 @@ This file (on GitHub):
 
 
 <!-- ------------------------------------------------------------ -->
-
-
-<h3 id="multi-app-installs">Windows Software - Essential-Packagers</h3>
-
-Name | Option A | Option B
---- | --- | ---
-**Ninite** <sub><i>Install Multiple Apps at Once</i></sub> | [Download Multi-Installer for: 7-Zip + Audacity + Chrome + ClassicShell + DropBox + FileZilla + FireFox + GreenShot + HandBrake + NotePad++ + Paint.Net + VLC + VS-Code + WinDirStat](https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/) |
-**Microsoft Office 365** <sub><i>Outlook, Word, Excel, PowerPoint, etc.</i></sub> | [Login to Office365](https://www.office.com/) → Select "Install Office" |
-
-<hr />
-
-
-<!-- ------------------------------------------------------------ -->
 <h3 id="workstation-installs">Windows Software - Workstation Essentials</h3>
 
 Name | Option A | Option B
@@ -86,7 +73,9 @@ Name | Option A | Option B
 **ImageMagick** <sub><i>Image Editing via Command-Line</i></sub> | [Download (source)](https://www.imagemagick.org/script/download.php#windows) |
 **KDiff3** <sub><i>Text Difference Analyzer</i></sub> | [Download (source)](https://sourceforge.net/projects/kdiff3/) |
 **LastPass** <sub><i>Password Manager</i></sub> | [Download (source)](https://lastpass.com/download) |
+**Microsoft Office 365** <sub><i>Outlook, Word, Excel, PowerPoint, etc.</i></sub> | [Login to Office365](https://www.office.com/) → Select "Install Office" |
 **MobaXterm** <sub><i>XServer for Windows</i></sub> | [Download (source)](https://mobaxterm.mobatek.net/download-home-edition.html) |
+**Ninite** <sub><i>Install Multiple Apps at Once</i></sub> | [Download Multi-Installer for: 7-Zip + Audacity + Chrome + ClassicShell + DropBox + FileZilla + FireFox + GreenShot + HandBrake + NotePad++ + Paint.Net + VLC + VS-Code + WinDirStat](https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/) |
 **Notepad++** <sub><i>Text and Source-Code Editor</i></sub> | [Download (source)](https://notepad-plus-plus.org/downloads/) |
 **Notepad Replacer** <sub><i>Redirects NotePad.exe to VSCode, NP++, etc.</i></sub> | [Download (source)](https://www.binaryfortress.com/NotepadReplacer/Download/) |
 **Reflector** <sub><i>Airplay Server for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/reflector) |

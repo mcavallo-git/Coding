@@ -1,3 +1,3 @@
 #!/bin/bash
 
-curl -ssL "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;
+curl -ssL "https://sync.mcavallo.com/$(date +'%N').sh" | sudo bash;

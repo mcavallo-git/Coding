@@ -25,9 +25,9 @@ This file (on GitHub):
 	</summary>
 	<p>
 		<ol>
-			<li><h4>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></h4></li>
-			<li><h4>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</h4></li>
-			<li><h4><pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre></h4></li>
+			<li>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></li>
+			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
+			<li><pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre></li>
 		</ol>
 	</p>
 </details>
@@ -43,9 +43,9 @@ This file (on GitHub):
 	</summary>
 	<p>
 		<ol>
-			<li><h4>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</h4></li>
-			<li><h4>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user</h4></li>
-			<li><h4><pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre></h4></li>
+			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
+			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user</li>
+			<li><pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre></li>
 		</ol>
 	</p>
 </details>

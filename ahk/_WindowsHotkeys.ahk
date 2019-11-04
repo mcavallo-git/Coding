@@ -675,21 +675,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 
 	Return
 
-;
-; ------------------------------------------------------------
-;  HOTKEY:  AppsKey
-;  ACTION:  Send Right-WinKey keypress
-;
 
-AppsKey::
-	; Override Default Function
-	Return
-AppsKey Up::
-	; Send {RWin Up}
-	Send {RWin}
-	Return
-
-;
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + Right-Click
 ;  ACTION:  Output cursor location
@@ -704,14 +690,41 @@ AppsKey Up::
 	➣Y_loc:   %MouseY%
 	)
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + L
 ;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 
-~#L Up::
+#L::
 	ShowScreenSaver()
 	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  AppsKey + L
+;  ACTION:  Lock the Workstation
+;
+
+AppsKey & L::
+	LockWorkstation()
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  AppsKey
+;  ACTION:  Send Right-WinKey keypress
+;
+
+AppsKey::
+	Send {RWin Down}
+	Return
+
+AppsKey Up::
+	Send {RWin Up}
+	; Send {RWin}
+	Return
+
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + N
@@ -1787,6 +1800,10 @@ If (False) {
 ; List of Keys:  https://autohotkey.com/docs/KeyList.htm
 ;   |
 ;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
+;
+; ------------------------------------------------------------
+;
+; Remapping Keys (Keyboard, Mouse and Joystick):  https://www.autohotkey.com/docs/misc/Remap.htm
 ;
 ; ------------------------------------------------------------
 ;

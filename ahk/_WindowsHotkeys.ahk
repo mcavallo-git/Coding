@@ -1286,7 +1286,7 @@ IfProcessExist(ProcName) {
 
 ;
 ; Get_ahk_id_from_title
-;   |--> Input: WinTitle to Include, WinTitle to Exclude
+;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
 Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
@@ -1297,6 +1297,11 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 }
 
 
+;
+; Get_ahk_id_from_title
+;   |--> Input: WinPID to Target
+;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
+;
 Get_ahk_id_from_pid(WinPid) {
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%

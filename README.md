@@ -50,7 +50,7 @@ This file (on GitHub):
 			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user</li>
 			<li>
 				<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
-				<pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre>
+				<pre><code>curl -ssL "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre>
 			</li>
 		</ol>
 	</p>

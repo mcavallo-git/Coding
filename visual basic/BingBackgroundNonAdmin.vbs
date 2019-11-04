@@ -2,5 +2,3 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""EnsureProcessIsRunnin
 
 ' Program/script:   C:\Windows\System32\wscript.exe
 ' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\BingBackgroundNonAdmin.vbs"
-
-' OLD: "C:\ISO\BingBackground\BingBackground.vbs"

@@ -26,8 +26,8 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL
 ...
 ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
 -----END RSA PRIVATE KEY-----" \
-| base64 --wrap=0) && \
-echo -e "\n""${PRIVATE_KEY_ENCODED}""\n";
+| base64 --wrap=0);
+echo -e "\n""PRIVATE_KEY_ENCODED = [ ${PRIVATE_KEY_ENCODED} ]""\n";
 
 
 # ------------------------------------------------------ #

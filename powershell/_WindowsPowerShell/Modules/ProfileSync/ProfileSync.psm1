@@ -7,7 +7,7 @@ function ProfileSync {
 		
 		[String]$GithubRepo = 'Coding',
 
-		[Switch]$OverwriteProfile,
+		[Bool]$OverwriteProfile = $True,
 
 		[Switch]$Quiet
 
@@ -81,7 +81,7 @@ function ProfileSync {
 	$Pro += 'Set-Location "${HOME}";';
 
 	### Overwrite $Profile content
-	If ($PSBoundParameters.ContainsKey("OverwriteProfile")) {
+	If ( ${OverwriteProfile} -Eq ${True} ) {
 		Set-Content $Profile "";
 	}
 

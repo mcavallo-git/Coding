@@ -2,8 +2,3 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""EnsureProcessIsRunnin
 
 ' Program/script:   C:\Windows\System32\wscript.exe
 ' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeysAsAdmin.vbs"
-
-' ------------------------------------------------------------
-' Previously (until 2019-11-04_01-55-52):
-' Program/script:   "C:\Program Files\AutoHotkey\Autohotkey.exe"
-' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahk"

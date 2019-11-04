@@ -1309,6 +1309,7 @@ Get_ahk_id_from_pid(WinPid) {
 	Return dat_ahk_id
 }
 
+
 ;
 ;	OpenChrome - Opens the "Google Chrome" Application
 ;
@@ -1355,9 +1356,9 @@ OpenChrome() {
 }
 
 
-
 ;
-;	@  OpenVisualStudio - Opens the "Visual Studio Code" Application
+; OpenVisualStudio
+;   |--> Opens the "Visual Studio Code" Application
 ;
 OpenVisualStudio() {
 	VSCodeWorkspace := USERPROFILE "\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
@@ -1370,8 +1371,7 @@ OpenVisualStudio() {
 
 ;
 ; TabSpace_Loop
-;			Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of
-;			checkboxes need to be selected individually to update from a Git repo
+;   |--> Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of checkboxes need to be selected individually to update from a Git repo
 ;
 TabSpace_Loop(LoopIterations) {
 	Loop %LoopIterations% {
@@ -1385,9 +1385,8 @@ TabSpace_Loop(LoopIterations) {
 
 
 ;
-;	@ SendSpace
-;			For some reason, windows 10 doesn't like Send {Space} (as-in it 'ignores' the
-;			keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
+;	SendSpace
+;   |--> For some reason, Windows 10 doesn't like Send {Space} (as-in it 'ignores' the keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
 ;
 SendSpace() {
 	Send {SC039}
@@ -1396,9 +1395,8 @@ SendSpace() {
 
 
 ;
-;	@ Space..._Loop
-;			Designed for Windows Task Scheduler to quickly show open all tasks on the main
-;			page, which can then be sorted (but only for the ones that've been opened)
+;	SpaceUp_Loop
+;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
 ;
 SpaceUp_Loop(LoopIterations) {
 	Loop %LoopIterations% {
@@ -1413,7 +1411,8 @@ SpaceUp_Loop(LoopIterations) {
 
 
 ;
-;  @  OpenVSCode - Opens the application "Visual Studio Code"
+; OpenVSCode
+;   |--> Opens the "Visual Studio Code" Application
 ;
 OpenVSCode() {
 	; Set Path to VSCode Executable
@@ -1458,7 +1457,8 @@ OpenVSCode() {
 
 
 ;
-;   @ ActiveWindow_ToggleRestoreMaximize - Toggle Active Window:  "Maximized" / "Non-Maximized"
+; ActiveWindow_ToggleRestoreMaximize
+;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
 ;
 ActiveWindow_ToggleRestoreMaximize() {
 	WinGet, WinState, MinMax, A
@@ -1476,7 +1476,8 @@ ActiveWindow_ToggleRestoreMaximize() {
 
 
 ;
-;   @ ActiveWindow_Maximize - Only maximize active window if it isn't maximized already
+; ActiveWindow_Maximize
+;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
 	WinGet, WinState, MinMax, A
@@ -1487,14 +1488,23 @@ ActiveWindow_Maximize() {
 }
 
 
+
+;
+; StrLenUnicode
+;   |--> Get String-Length for unicode string(s)? (Need better description)
+;
 StrLenUnicode(data) {
 	RegExReplace(data, "s).", "", i)
 	Return i
 }
 
 
+;
+; LockWorkstation
+;   |--> Lock the Workstation and turn-off/activate-lower-power-mode on monitors
+;
 LockWorkstation() { 
-	DllCall("LockWorkStation")  ; Lock the Workstation
+	DllCall("LockWorkStation")
 	Sleep 1000
 	SendMessage, 0x112, 0xF170, 2, , Program Manager
 	; |
@@ -1509,7 +1519,11 @@ LockWorkstation() {
 }
 
 
-ShowScreenSaver() { ; https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+;
+; ShowScreenSaver
+;   |--> "Start the user's chosen screen saver"
+;
+ShowScreenSaver() {
 	SendMessage, 0x112, 0xF140, 0,, Program Manager
 	; |
 	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
@@ -1832,5 +1846,9 @@ If (False) {
 ;		autohotkey.com/docs  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
 ;
 ;		autohotkey.com/docs  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
+;
+;		autohotkey.com/docs  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExMonitorPower
+;
+;		autohotkey.com/docs  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
 ;
 ; ------------------------------------------------------------

@@ -76,7 +76,7 @@ function ProfileSync {
 	
 	$Pro += (('Write-Host "')+($($MyInvocation.MyCommand.Name))+(' - Task: Loading personal and system profiles...`n" -ForegroundColor Gray;'));
 
-	$Pro += (('$TempFile="TempFile.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
+	$Pro += (('$TempFile="TempFile.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?$(Get-Date -UFormat %s)"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
 	
 	$Pro += 'Set-Location "${HOME}";';
 
@@ -84,7 +84,7 @@ function ProfileSync {
 
 # Manual Sync Command:
 
-$TempFile="${Env:TEMP}/TempFile.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps'))) | Out-Null; . "${TempFile}"; Notepad "${TempFile}";
+$TempFile="${Env:TEMP}/TempFile.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$(Get-Date -UFormat %s)'))) | Out-Null; . "${TempFile}"; Notepad "${TempFile}";
 
 	}
 

@@ -68,7 +68,7 @@ function ProfileSync {
 	
 	$Pro = @();
 	
-	$Pro += (('$TempFile="PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?$((Date).Ticks)"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
+	$Pro += (('$TempFile="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?$((Date).Ticks)"))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";'));
 	
 	If ($False) {
 

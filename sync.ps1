@@ -1,7 +1,9 @@
 
 <#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;   #>
 
-Set-ExecutionPolicy "RemoteSigned" -Force;
+If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPolicy)) {
+	Set-ExecutionPolicy "RemoteSigned" -Force;
+}
 
 Write-Host "Info : Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
 

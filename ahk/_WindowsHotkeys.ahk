@@ -717,12 +717,11 @@ AppsKey & L::
 ;
 
 AppsKey::
-	Send {RWin Down}
+	; Send {RWin}
 	Return
 
 AppsKey Up::
-	Send {RWin Up}
-	; Send {RWin}
+	Send {RWin}
 	Return
 
 
@@ -1519,7 +1518,7 @@ StrLenUnicode(data) {
 ;
 LockWorkstation() {
 	DllCall("LockWorkStation")
-	Sleep 1000
+	Sleep 10
 	SendMessage, 0x112, 0xF170, 2,, Program Manager
 	; |
 	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]

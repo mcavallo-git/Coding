@@ -27,7 +27,7 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 
 Write-Host "Info: Loading personal and system profiles...`n" -ForegroundColor Gray;
 
-Write-Host "Info: Detected PowerShell v$(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;
+Write-Host "Info: PowerShell Version = [ $(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10)) ] `n" -ForegroundColor Gray;
 
 Write-Host "Info: Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
 

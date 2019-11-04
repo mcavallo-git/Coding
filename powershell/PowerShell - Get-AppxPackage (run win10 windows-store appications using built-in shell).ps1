@@ -1,6 +1,7 @@
-$APP_NAME="Lockscreenaswallpaper"; (Get-AppxPackage).Name | Select-String "${APP_NAME}";
 
+$AppNameContains="Lockscreenaswallpaper";
 
+explorer.exe shell:AppsFolder\$(Get-AppxPackage | Where-Object { ("$($_.Name)".Contains("${AppNameContains}")) -Eq $True } | Select-Object -ExpandProperty "PackageFamilyName")!App
 
 # ------------------------------------------------------------
 # Citation(s)

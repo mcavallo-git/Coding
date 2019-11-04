@@ -46,6 +46,7 @@ If (Test-Path "${HOME}/Coding") {
 } Else {
 
 	Set-Location "${HOME}";
+
 	git clone "https://github.com/mcavallo-git/Coding.git";
 
 	$SSH_KEY_REMOTE="https://raw.githubusercontent.com/mcavallo-git/Coding/master/.shared-deploy-key.pem";

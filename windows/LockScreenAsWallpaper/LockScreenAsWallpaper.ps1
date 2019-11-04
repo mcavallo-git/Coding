@@ -1,8 +1,8 @@
 
-$AppNameContains="Lockscreenaswallpaper";
+explorer.exe shell:AppsFolder\$(Get-AppxPackage | Where-Object { ($($_.Name).Contains('Lockscreenaswallpaper')) -Eq $True } | Select-Object -ExpandProperty 'PackageFamilyName')!App
 
-explorer.exe shell:AppsFolder\$(Get-AppxPackage | Where-Object { ("$($_.Name)".Contains("${AppNameContains}")) -Eq $True } | Select-Object -ExpandProperty "PackageFamilyName")!App
-
+Start-Process "explorer.exe" -ArgumentList ("shell:AppsFolder\$(Get-AppxPackage | Where-Object { ($($_.Name).Contains('Lockscreenaswallpaper')) -Eq $True } | Select-Object -ExpandProperty 'PackageFamilyName')!App") -WindowStyle ("Minimized");
+Start-Process "explorer.exe" -ArgumentList ("shell:AppsFolder\$(Get-AppxPackage | Where-Object { ($($_.Name).Contains('Lockscreenaswallpaper')) -Eq $True } | Select-Object -ExpandProperty 'PackageFamilyName')!App") -WindowStyle ("Hidden");
 
 # ------------------------------------------------------------
 # Task Scheduler Action:

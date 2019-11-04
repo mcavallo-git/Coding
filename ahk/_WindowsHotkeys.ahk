@@ -1542,7 +1542,7 @@ Monitor_PowerOn() {
 
 ;
 ; Monitor_ActivateLowPowerMode
-;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
 ;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
 ;          |--> Sending a value of [ 1 ] sends [ activate low-power mode ] to attached monitor(s)
 ;
@@ -1556,7 +1556,7 @@ Monitor_ActivateLowPowerMode() {
 
 ;
 ; Monitor_PowerOff
-;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
 ;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
 ;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
 ;
@@ -1570,12 +1570,15 @@ Monitor_PowerOff() {
 
 ;
 ; Monitor_ShowScreenSaver
-;   |--> "Start the user's chosen screen saver"
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;   |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
+;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
+;
 ;
 Monitor_ShowScreenSaver() {
 	SendMessage, 0x112, 0xF140, 0,, Program Manager
 	; |
-	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
 	; |
 	; |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
 	;
@@ -1881,5 +1884,7 @@ If (False) {
 ;		autohotkey.com/docs  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExMonitorPower
 ;
 ;		autohotkey.com/docs  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+;
+;		docs.microsoft.com/  |  "WM_SYSCOMMAND message"  |  https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
 ;
 ; ------------------------------------------------------------

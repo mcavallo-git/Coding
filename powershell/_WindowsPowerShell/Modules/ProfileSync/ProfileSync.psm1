@@ -86,7 +86,7 @@ function ProfileSync {
 	# Format each string-statement for Regex
 	For ($i=0; $i -lt $Pro.length; $i++) { If (!(Get-Content $Profile | Select-String $Pro[$i].Replace("\", "\\"))) { (("`n")+($Pro[$i])) | Add-Content $Profile; } }
 
-	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($False)) {
+	If (($PSBoundParameters.ContainsKey('Quiet')) -Eq ($False)) {
 		$EchoFormatted = $MessageOnSuccess;
 		$EchoDashes = "-" * ($EchoFormatted.length);
 		Write-Host (("`n`n") + ($EchoDashes) + ("`n") + ($EchoFormatted) + ("`n") + ($EchoDashes) + ("`n`n"));

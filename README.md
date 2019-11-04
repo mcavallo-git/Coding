@@ -174,6 +174,8 @@ Name | Option A | Option B
 --- | --- | ---
 **DigiCert Certificate Utility for Windows** <sub><i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
 **DDU (Display Driver Uninstaller)** <sub><i>Removes ALL graphics drivers</i></sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
+**Process Explorer** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer) |
+**TCPView** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview) |
 
 <hr />
 

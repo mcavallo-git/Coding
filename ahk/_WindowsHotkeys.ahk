@@ -932,47 +932,46 @@ WheelRight::
 ;  HOTKEY:  Shift + Insert
 ;  ACTION:  If running Ubuntu via WSL (Windows Subsystem for Linux), Paste the clipboard
 ;
-If (False) {
-		
-	RShift & Insert::
-	LShift & Insert::
-		SetKeyDelay, 0, -1
 
-		; ------------------------------------------------------------
-		; Determine if currently-active window is WSL
-		IsUbuntuWSL := 0
-		If (StrLen(A_OSVersion) >= 2) {
-			StringLeft, OS_FirstTwoChars, A_OSVersion, 2
-			If ( OS_FirstTwoChars = "10" ) {
-				WinGet, ActiveProcessName, ProcessName, A
-				If ( ActiveProcessName = "ubuntu.exe" ) {
-					IsUbuntuWSL := 1
-				}
-			}
-		}
+; RShift & Insert::
+; LShift & Insert::
+; 	SetKeyDelay, 0, -1
 
-		; ------------------------------------------------------------
+; 	; ------------------------------------------------------------
+; 	; Determine if currently-active window is WSL
+; 	IsUbuntuWSL := 0
+; 	If (StrLen(A_OSVersion) >= 2) {
+; 		StringLeft, OS_FirstTwoChars, A_OSVersion, 2
+; 		If ( OS_FirstTwoChars = "10" ) {
+; 			WinGet, ActiveProcessName, ProcessName, A
+; 			If ( ActiveProcessName = "ubuntu.exe" ) {
+; 				IsUbuntuWSL := 1
+; 			}
+; 		}
+; 	}
 
-		; Use RegexReplace to strip leading whitespace from every copied line
-		ClipboardDuped := Clipboard
-		ClipboardDuped := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
+; 	; ------------------------------------------------------------
 
-		Newline=`n
-		Echo_Tooltip := A_Space
-		Echo_Tooltip := Echo_Tooltip Newline "  StrLen(ClipboardDuped) = [ " StrLen(ClipboardDuped) " ]"
-		Echo_Tooltip := Echo_Tooltip Newline A_Space
-		TrayTip, %A_ScriptName%, %Echo_Tooltip%
+; 	; Use RegexReplace to strip leading whitespace from every copied line
+; 	ClipboardDuped := Clipboard
+; 	ClipboardDuped := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
 
-		; If ( IsUbuntuWSL = 1 ) {
-		; 	; TrayTip, %A_ScriptName%, Pasting Clipboard into Ubuntu WSL Instance
-		; 	; ; Send {Blind}{Text}%ClipboardDuped%
-		; } Else {
-		; 	; Send {Shift}{Insert}
-		; 	TrayTip, %A_ScriptName%, WSL Instance Not Found Locally
-		; }
+; 	Newline=`n
+; 	Echo_Tooltip := A_Space
+; 	Echo_Tooltip := Echo_Tooltip Newline "  StrLen(ClipboardDuped) = [ " StrLen(ClipboardDuped) " ]"
+; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
+; 	TrayTip, %A_ScriptName%, %Echo_Tooltip%
 
-		Return
-}
+; 	; If ( IsUbuntuWSL = 1 ) {
+; 	; 	; TrayTip, %A_ScriptName%, Pasting Clipboard into Ubuntu WSL Instance
+; 	; 	; ; Send {Blind}{Text}%ClipboardDuped%
+; 	; } Else {
+; 	; 	; Send {Shift}{Insert}
+; 	; 	TrayTip, %A_ScriptName%, WSL Instance Not Found Locally
+; 	; }
+
+; 	Return
+
 ;
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + A

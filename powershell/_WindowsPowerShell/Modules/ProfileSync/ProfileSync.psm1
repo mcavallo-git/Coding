@@ -79,8 +79,8 @@ function ProfileSync {
 	}
 
 	### Overwrite $Profile content
-	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($True)) {
-		Set-Content $Profile "";
+	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($False)) {
+		Set-Content -Path "${Profile}" -Value ("");
 	}
 
 	# Format each string-statement for Regex

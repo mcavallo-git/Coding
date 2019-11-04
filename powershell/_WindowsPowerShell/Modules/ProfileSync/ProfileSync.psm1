@@ -7,7 +7,7 @@ function ProfileSync {
 		
 		[String]$GithubRepo = 'Coding',
 
-		[Bool]$OverwriteProfile = $True,
+		[Switch]$NoOverwrite,
 
 		[Switch]$Quiet
 
@@ -72,21 +72,21 @@ function ProfileSync {
 	
 	If ($False) {
 
-# Manual Sync Command:
+		# Manual Sync Command:
 
-$TempFile="${Env:TEMP}/PowerShell-Sync.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$(Get-Date -UFormat %s)'))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";
+		$TempFile="${Env:TEMP}/PowerShell-Sync.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$(Get-Date -UFormat %s)'))) | Out-Null; . "${TempFile}"; Remove-Item "${TempFile}";
 
 	}
 
 	### Overwrite $Profile content
-	If ( ${OverwriteProfile} -Eq ${True} ) {
+	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($True)) {
 		Set-Content $Profile "";
 	}
 
 	# Format each string-statement for Regex
 	For ($i=0; $i -lt $Pro.length; $i++) { If (!(Get-Content $Profile | Select-String $Pro[$i].Replace("\", "\\"))) { (("`n")+($Pro[$i])) | Add-Content $Profile; } }
 
-	If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($False)) {
 		$EchoFormatted = $MessageOnSuccess;
 		$EchoDashes = "-" * ($EchoFormatted.length);
 		Write-Host (("`n`n") + ($EchoDashes) + ("`n") + ($EchoFormatted) + ("`n") + ($EchoDashes) + ("`n`n"));

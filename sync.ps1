@@ -1,3 +1,4 @@
+
 <#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;   #>
 
 Set-ExecutionPolicy "RemoteSigned" -Force;

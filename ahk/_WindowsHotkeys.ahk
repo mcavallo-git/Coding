@@ -1652,35 +1652,9 @@ if (False) {
 	}
 
 }
+
+
 ;
-; ------------------------------------------------------------
-;	
-; Autohotkey - Arrays & Objects:  https://www.autohotkey.com/docs/Objects.htm
-;   |
-;   |--> Simple Arrays, e.g. "Indexed Arrays" or "1-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Simple_Arrays
-;   |
-;   |--> Associative Arrays, e.g. "Objects" or "Associative Arrays" or "2-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
-;   |
-;   |--> Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
-;
-;				Jack := { profession: "teacher"
-;								 , height: "tall"
-;								 , country: "USA"
-;								 , city: "New York"}
-;
-;					...
-;
-;			Person := { Jack: Jack
-;								 , Paul: Paul
-;								 , Bill: Bill
-;								 , Max: Max
-;								 , Bill: Bill}
-;
-; BASIC ARRAY USE:
-;				MsgBox, % Person.Jack.city
-; 
-; 
-; 
 ; MsgBox has tons of options for confirmations on popups ( Manual @ https://autohotkey.com/docs/commands/MsgBox.htm )
 ; ...::
 	; WinGetActiveStats, WinTitle, Width, Height, X, Y
@@ -1694,11 +1668,6 @@ if (False) {
 	; IfMsgBox, Timeout
 		; Return
 	; Return
-;
-; ------------------------------------------------------------
-;
-; MENU ITEMS:    https://autohotkey.com/docs/commands/Menu.htm
-; GENERAL USE:   Menu, MenuName, Cmd, P3, P4, P5
 ;
 ; ------------------------------------------------------------
 ;
@@ -1791,16 +1760,7 @@ If (False) {
 
 }
 
-; ------------------------------------------------------------ 
-;
-; List of Keys:  https://autohotkey.com/docs/KeyList.htm
-;   |
-;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
-;
-; ------------------------------------------------------------
-;
-; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
-;
+
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
@@ -1808,6 +1768,24 @@ If (False) {
 ;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
 ;   |
 ;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
+;   |
+;   |--> Menu:  https://autohotkey.com/docs/commands/Menu.htm
+;
+; ------------------------------------------------------------
+;
+; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
+;   |
+;   |--> Arrays/Objects - Simple Arrays, e.g. "Indexed Arrays" or "1-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Simple_Arrays
+;   |
+;   |--> Arrays/Objects - Associative Arrays, e.g. "Objects" or "Associative Arrays" or "2-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
+;   |
+;   |--> Arrays/Objects - Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
+;
+; ------------------------------------------------------------ 
+;
+; List of Keys:  https://autohotkey.com/docs/KeyList.htm
+;   |
+;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
 ;
 ; ------------------------------------------------------------
 ;

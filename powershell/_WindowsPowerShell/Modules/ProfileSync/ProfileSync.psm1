@@ -80,6 +80,14 @@ function ProfileSync {
 	
 	$Pro += 'Set-Location "${HOME}";';
 
+	If ($False) {
+
+# Manual Sync Command:
+
+$TempFile="${Env:TEMP}/TempFile.$(Get-Date -UFormat %s).ps1"; New-Item -ItemType "File" -Path ("${TempFile}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps'))) | Out-Null; . "${TempFile}"; Notepad "${TempFile}";
+
+	}
+
 	### Overwrite $Profile content
 	If ( ${OverwriteProfile} -Eq ${True} ) {
 		Set-Content $Profile "";

@@ -79,29 +79,29 @@ function EnsureProcessIsRunning {
 				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
 					# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -ArgumentList (`"${Args}`") -Verb `"RunAs`"; ]";
+						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
-					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -Verb "RunAs";
+					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -Verb ("RunAs") -WindowStyle ("${WindowStyle}");
 				} Else {
 					# Start Process [ AS-ADMIN ] & [ NO ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -Verb `"RunAs`"; ]";
+						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
-					Start-Process -Filepath ("${Path}") -Verb "RunAs";
+					Start-Process -Filepath ("${Path}") -Verb ("RunAs") -WindowStyle ("${WindowStyle}");
 				}
 			} Else {
 				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
 					# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`" -ArgumentList (`"${Args}`"); ]";
+						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
-					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}");
+					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -WindowStyle ("${WindowStyle}");
 				} Else {
 					# Start Process [ NON-ADMIN ] & [ NO ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath `"${Path}`"; ]";
+						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
-					Start-Process -Filepath ("${Path}");
+					Start-Process -Filepath ("${Path}") -WindowStyle ("${WindowStyle}");
 				}
 			}
 
@@ -139,5 +139,7 @@ Export-ModuleMember -Function "EnsureProcessIsRunning";
 # Citation(s)
 #
 #   docs.microsoft.com  |  "About Functions Advanced Parameters"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-5.1&redirectedfrom=MSDN
+#
+#   docs.microsoft.com  |  "Start-Process - Starts one or more processes on the local computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process?view=powershell-5.1
 #
 # ------------------------------------------------------------

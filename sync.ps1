@@ -27,6 +27,8 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
 }
 
+<# ------------------------------------------------------------ #>
+
 Write-Host "Info: Loading personal and system profiles...`n" -ForegroundColor Gray;
 
 Write-Host "Info: Local PowerShell Version: $(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;

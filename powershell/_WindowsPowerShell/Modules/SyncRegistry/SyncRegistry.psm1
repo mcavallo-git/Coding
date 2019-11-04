@@ -125,7 +125,7 @@ function SyncRegistry {
 			)
 		};
 
-		# Search / Cortana Settings
+		# Search / Cortana Settings (continued)
 		$RegEdits += @{
 			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
 			Props=@(
@@ -163,6 +163,19 @@ function SyncRegistry {
 				@{
 					Description="Set this value to 1 to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
 					Name="UseWUServer";
+					Type="DWord";
+					Value=0;
+				}
+			)
+		};
+
+		# Windows - Command which is called when "WinKey + L" is pressed
+		$RegEdits += @{
+			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System";
+			Props=@(
+				@{
+					Description="Set this value to [ 1 ] to disable `"Lock Workstation`" in Windows";
+					Name="DisableLockWorkstation";
 					Type="DWord";
 					Value=0;
 				}
@@ -282,5 +295,9 @@ Export-ModuleMember -Function "SyncRegistry";
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #
 #   winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
+#
+#   autohotkey.com  |  "Windows key (#) + letter keeps locking the pc (even if it is not #L)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=46949&sid=490d0a443a7f78557b54c2bfb079350f#p46949
+#
+#   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
 #
 # ------------------------------------------------------------

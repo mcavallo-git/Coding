@@ -1,3 +1,12 @@
+# 
+# Basename
+#  |
+#  |--> Returns the base-filename (with or without file-extension) of given input-string
+#  |
+#  |--> Example(s):
+#         Basename "${HOME}\tester\test.extension";  <# keeps extension #>
+#         Basename -NoExtension "${HOME}\tester\test.extension";  <# removes extension #>
+# 
 function Basename {
 	Param(
 		[Switch]$NoExtension,
@@ -9,8 +18,10 @@ function Basename {
 	)
 
 	If ((($PSBoundParameters.ContainsKey('NoExtension')) -Eq ($True)) -Or (($PSBoundParameters.ContainsKey('WithoutExtension')) -Eq ($True))) {
+		# Determine the basename WITHOUT extension
 		$Basename = ([System.IO.Path]::GetFileNameWithoutExtension(${InputPath}));
 	} Else {
+		# Determine the basename WITH extension (default)
 		$Basename = ([System.IO.Path]::GetFileName(${InputPath}));
 	}
 

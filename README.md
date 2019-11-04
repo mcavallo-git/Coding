@@ -27,7 +27,7 @@ This file (on GitHub):
 		<ol>
 			<li>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></li>
 			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
-			<li>If Pre-Reqs are met, run: <pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre></li>
+			<li>If Pre-Reqs are met, run the following command to sync PowerShell Modules: <pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre></li>
 		</ol>
 	</p>
 </details>
@@ -45,7 +45,7 @@ This file (on GitHub):
 		<ol>
 			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
 			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user</li>
-			<li>If Pre-Reqs are met, run: <pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre></li>
+			<li>If Pre-Reqs are met, run the following command to sync Bash Modules: <pre><code>curl -s "https://sync.mcavallo.com/sh?$(date +'%s.%N')" | bash;</code></pre></li>
 		</ol>
 	</p>
 </details>

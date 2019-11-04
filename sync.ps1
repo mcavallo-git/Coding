@@ -1,5 +1,5 @@
 
-<#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?t=$((Date).Ticks)") -Verb RunAs;   #>
+<#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs;   #>
 
 If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPolicy)) {
 	Set-ExecutionPolicy "RemoteSigned" -Force;

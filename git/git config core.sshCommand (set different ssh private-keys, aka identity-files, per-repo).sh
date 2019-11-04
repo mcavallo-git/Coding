@@ -8,14 +8,14 @@ git config --global user.name "${GIT_USER_NAME}";
 # Repositories  :::  Personal
 PERSONAL_GIT_SSH="ssh -i ~/.ssh/github.personal-login-username.timecreated.pem"; # Add -vvv for extra verbosity
 PERSONAL_GIT_EMAIL="personal.email@gmail.com";
-cd "${HOME}/Documents/GitHub/personal-repo-1"; git config core.sshCommand "${PERSONAL_GIT_SSH}"; git config user.email "${PERSONAL_GIT_EMAIL}";
-cd "${HOME}/Documents/GitHub/personal-repo-2"; git config core.sshCommand "${PERSONAL_GIT_SSH}"; git config user.email "${PERSONAL_GIT_EMAIL}";
+cd "${HOME}/Documents/GitHub/personal-repo-1"; git config core.sshcommand "${PERSONAL_GIT_SSH}"; git config user.email "${PERSONAL_GIT_EMAIL}";
+cd "${HOME}/Documents/GitHub/personal-repo-2"; git config core.sshcommand "${PERSONAL_GIT_SSH}"; git config user.email "${PERSONAL_GIT_EMAIL}";
 
 # Repositories  :::  Work
 WORK_GIT_SSH="ssh -i ~/.ssh/git/github.work-login-username.timecreated.pem"; # Add -vvv for extra verbosity
 WORK_GIT_EMAIL="work.email@gmail.com";
-cd "${HOME}/Documents/GitHub/work-repo-1"; git config core.sshCommand "${WORK_GIT_SSH}"; git config user.email "${WORK_GIT_EMAIL}";
-cd "${HOME}/Documents/GitHub/work-repo-2"; git config core.sshCommand "${WORK_GIT_SSH}"; git config user.email "${WORK_GIT_EMAIL}";
+cd "${HOME}/Documents/GitHub/work-repo-1"; git config core.sshcommand "${WORK_GIT_SSH}"; git config user.email "${WORK_GIT_EMAIL}";
+cd "${HOME}/Documents/GitHub/work-repo-2"; git config core.sshcommand "${WORK_GIT_SSH}"; git config user.email "${WORK_GIT_EMAIL}";
 
 # ------------------------------------------------------------
 

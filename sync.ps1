@@ -5,6 +5,8 @@ If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPol
 	Set-ExecutionPolicy "RemoteSigned" -Force;
 }
 
+<# ------------------------------------------------------------ #>
+
 $AliasName="grep"; $AliasCommand="Select-String";
 If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
@@ -24,6 +26,8 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 } Else {
 	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
 }
+
+<# ------------------------------------------------------------ #>
 
 Write-Host "Info: Loading personal and system profiles...`n" -ForegroundColor Gray;
 

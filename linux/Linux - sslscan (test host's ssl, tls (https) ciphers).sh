@@ -2,13 +2,13 @@
 
 
 # Update package-repos & install sslscan:
->		apt update -y;
->		apt install -y sslscan;
+apt update -y;
+apt install -y sslscan;
 
 
 # Use sslscan to scan a hostname & test its current cipher configuration
 
->		sslscan google.com
+sslscan google.com
                    _
            ___ ___| |___  ___ __ _ _ __
           / __/ __| / __|/ __/ _  |  _ \

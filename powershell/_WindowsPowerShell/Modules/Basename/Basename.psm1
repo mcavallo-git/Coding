@@ -4,7 +4,8 @@ function Basename {
 		$InputPath
 	)
 
-	Write-Output [System.IO.Path]::GetFileName(${InputPath});
+	$Basename = ([System.IO.Path]::GetFileName(${InputPath}));
+	Write-Output (${Basename});
 	# [System.IO.Path]::GetFileName("Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"); `
 	# [System.IO.Path]::GetFileNameWithoutExtension("Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"); `
 	# [System.IO.Path]::GetDirectoryName("Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"); `

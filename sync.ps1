@@ -1,8 +1,6 @@
 
 <#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs;   #>
 
-<#   $SyncTemp="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/ps?$((Date).Ticks)"))) | Out-Null; PowerShell.exe -File "${SyncTemp}"; Remove-Item "${SyncTemp}";   #>
-
 If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPolicy)) {
 	Set-ExecutionPolicy "RemoteSigned" -Force;
 }

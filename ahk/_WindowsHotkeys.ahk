@@ -1331,6 +1331,9 @@ OpenChrome() {
 	EXE_NICKNAME := "Google Chrome"
 	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 
+	TrayTip,%A_ScriptName%, +8%A_ComputerName%+5
+	TrayTip ,%A_ScriptName%, *%A_ComputerName%`%
+
 	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; SplitPath - https://www.autohotkey.com/docs/commands/SplitPath.htm
 
 	If (ProcessExist(EXE_BASENAME) == True) {
@@ -1350,6 +1353,7 @@ OpenChrome() {
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
 		; Open Chrome
+		RunAs, %A_UserName%
 		Run, %EXE_FULLPATH%
 		WinWait,Chrome,,10
 		; Set Chrome as the Active Window

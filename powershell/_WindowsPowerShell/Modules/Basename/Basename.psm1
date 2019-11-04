@@ -1,15 +1,20 @@
 function Basename {
 	Param(
+		[Switch]$NoExtension,
+
+		[Switch]$WithoutExtension,
+
 		[Parameter(Position=0, ValueFromRemainingArguments)]
 		$InputPath
 	)
 
-	$Basename = ([System.IO.Path]::GetFileName(${InputPath}));
-	Write-Output (${Basename});
-	# [System.IO.Path]::GetFileName("Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"); `
-	# [System.IO.Path]::GetFileNameWithoutExtension("Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"); `
-	# [System.IO.Path]::GetDirectoryName("Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU"); `
+	If ((($PSBoundParameters.ContainsKey('NoExtension')) -Eq ($True)) -Or (($PSBoundParameters.ContainsKey('WithoutExtension')) -Eq ($True))) {
+		$Basename = ([System.IO.Path]::GetFileNameWithoutExtension(${InputPath}));
+	} Else {
+		$Basename = ([System.IO.Path]::GetFileName(${InputPath}));
+	}
 
+	Write-Output (${Basename});
 
 	Return;
 
@@ -20,6 +25,6 @@ Export-ModuleMember -Function "Basename";
 # ------------------------------------------------------------
 # Citation(s)
 #
-#   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
+#   docs.microsoft.com  |  "Path Class - Performs operations on String instances that contain file or directory path information"  |  https://docs.microsoft.com/en-us/dotnet/api/system.io.path?view=netframework-4.8
 #
 # ------------------------------------------------------------

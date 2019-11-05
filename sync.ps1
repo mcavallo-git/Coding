@@ -46,8 +46,6 @@ If ( ${HOME} -Eq ${Null} ) {
 
 $REPO_DIR_WIN32 = "${HOME}\Coding";
 
-$REPO_DIR_LINUX = (("/")+(((${REPO_DIR_WIN32} -Replace "\\","/") -Replace ":","").ToLower().Trim("/")));
-
 If (Test-Path "${REPO_DIR_WIN32}") {
 
 	Set-Location "${REPO_DIR_WIN32}";

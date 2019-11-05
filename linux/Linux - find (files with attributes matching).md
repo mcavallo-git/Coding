@@ -335,20 +335,20 @@ done;
 		<span>Example - Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)</span>
 	</summary>
 <pre><code>
-# ------------------------------------------------------------
-# GREATER-THAN
+
+# Find files w/ filesize greater-than X
 filesize_GREATER_THAN="1048576c";
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
-# ------------------------------------------------------------
-# LESS-THAN
+
+# Find files w/ filesize less-than Y
 filesize_LESS_THAN="1048576c";
 find '/var/log' -type 'f' -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
-# ------------------------------------------------------------
-# BETWEEN
+
+# Find files w/ filesize greater-than X and less-than Y
 filesize_GREATER_THAN="0c";
 filesize_LESS_THAN="1048576c";
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
-# ------------------------------------------------------------
+
 </code></pre>
 <hr /></details></li><br />
 
@@ -360,7 +360,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 	</summary>
 	<p>ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)</p>
 <pre><code>
-# ------------------------------------------------------------
+
 # Show parent-filenames
 find "/etc/apt/sources.list"* \
 -type f \
@@ -368,7 +368,7 @@ find "/etc/apt/sources.list"* \
 -exec echo -e '\n→ apt package-repositories in "{}" :' \; \
 -exec grep -h ^deb '{}' \; \
 ;
-# ------------------------------------------------------------
+
 # Hide parent-filenames & sort results
 find "/etc/apt/sources.list"* \
 -type f \
@@ -376,7 +376,7 @@ find "/etc/apt/sources.list"* \
 -exec grep -h ^deb '{}' \; \
 | sort \
 ;
-# ------------------------------------------------------------
+
 </code></pre>
 <hr /></details></li><br />
 

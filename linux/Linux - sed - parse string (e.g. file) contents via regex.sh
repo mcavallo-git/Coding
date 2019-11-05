@@ -14,6 +14,13 @@ sed --expression='/^\s*$/d' "/etc/hosts";
 
 # ------------------------------------------------------------
 # 
+# Use sed with piped-commands to parse their output, line-by-line
+#
+printenv | sed --quiet --regexp-extended --expression='s/^onedrive=/\0/pi'; # /i=case-insensitive, /p=handle-pipe-output
+
+
+# ------------------------------------------------------------
+# 
 # Use sed to remove one, specific line from a file (while also backing-up the original with a timestamp+".bak" extension)
 #
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression='/pattern to match/d' ./infile

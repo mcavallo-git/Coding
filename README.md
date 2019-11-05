@@ -30,9 +30,9 @@ This file (on GitHub):
 			</li>
 			<li>
 				<details><summary>
-						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - see screenshot)</span>
+						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
 					</summary>
-					<img src="images/archive/git-install.allow-cli.png" height="250" />
+					<div style="text-align:center;"><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
 				</details>
 			</li>
 			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>

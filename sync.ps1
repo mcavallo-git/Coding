@@ -70,7 +70,7 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 
 	Set-Location "${REPO_DIR_WIN32}";
 
-	git config --local --replace-all "core.sshcommand" "ssh -i '${SSH_KEY_LOCAL_LINUX}'";
+	git config --local --replace-all "core.sshcommand" "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`"";
 
 	# git config --local --replace-all "user.name" "${Env:USERNAME}@${Env:COMPUTERNAME}";
 

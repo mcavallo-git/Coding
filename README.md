@@ -26,7 +26,7 @@ This file (on GitHub):
 	<p>
 		<ol>
 			<li>
-				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
+				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a> with CLI vars added to PATH (see screenshot)</div>
 				<div><img src="images/archive/git-install.allow-cli.png" /></div>
 			</li>
 			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>

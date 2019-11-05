@@ -155,17 +155,16 @@ done;
 #	Then, combine all arrays and find unique items amongst their net result;
 #
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
-DAT_A_ARRAY=("Item-One" "Item-Two");
-DAT_B_ARRAY=("Item-A" "Item-B");
-DAT_C_ARRAY=("Item-B" "Item-One");
-DAT_D_ARRAY=("Item-B" "Item-C" "Item-Two" "Item-Two");
+unset DAT_A_ARRAY; declare -A DAT_A_ARRAY; DAT_A_ARRAY=("Item-One" "Item-Two");
+unset DAT_B_ARRAY; declare -A DAT_B_ARRAY; DAT_B_ARRAY=("Item-A" "Item-B");
+unset DAT_C_ARRAY; declare -A DAT_C_ARRAY; DAT_C_ARRAY=("Item-B" "Item-One");
+unset DAT_D_ARRAY; declare -A DAT_D_ARRAY; DAT_D_ARRAY=("Item-B" "Item-C" "Item-Two" "Item-Two");
 
-ARRAY_LETTERS=("A" "B" "C" "D");
+unset ARRAY_LETTERS; declare -A ARRAY_LETTERS; ARRAY_LETTERS=("A" "B" "C" "D");
 
 echo -e "\n\n";
 
-ALL_ITEMS_ARRAY=();
+unset ALL_ITEMS_ARRAY; declare -A ALL_ITEMS_ARRAY; # Re-instantiate bash array
 
 for EACH_ARRAY_LETTER in "${ARRAY_LETTERS[@]}"; do
 
@@ -187,7 +186,7 @@ echo -e "\n\n";
 
 echo "\$ALL_ITEMS_ARRAY=(${ALL_ITEMS_ARRAY[@]})";
 
-ALL_ITEMS_SORTED_UNIQUE=($(echo "${ALL_ITEMS_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
+unset ALL_ITEMS_SORTED_UNIQUE; ALL_ITEMS_SORTED_UNIQUE=($(echo "${ALL_ITEMS_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
 
 echo -e "\n\n";
 

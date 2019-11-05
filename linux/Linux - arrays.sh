@@ -8,6 +8,7 @@
 # Associative Arrays (in Bash)
 #   |--> Note: Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
+
 unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY+=(["Key One"]="Val One");
 DAT_ARRAY+=(["Key Two"]="Val Two");
@@ -25,6 +26,7 @@ done;
 #   |--> Note: Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
 
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=();
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
@@ -39,6 +41,7 @@ done;
 #
 # Two Arrays Keyed with the same indices
 #
+
 unset ARR_CONTAINER_IDS; declare -A ARR_CONTAINER_IDS; # Re-instantiate bash array
 unset ARR_DOCKER_IMAGES; declare -A ARR_DOCKER_IMAGES; # Re-instantiate bash array
 
@@ -87,6 +90,7 @@ fi;
 # Non-Associative Arrays in Bash
 #
 
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
 echo "${DAT_ITEM}";
@@ -96,6 +100,7 @@ done;
 # #  Methods have equivalent output
 # #  v
 
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=();
 DAT_ARRAY+=("Item-One");
 DAT_ARRAY+=("Item-One");
@@ -111,6 +116,7 @@ done;
 # #  Methods have equivalent output
 # #  v
 
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=( \
 "Item-One" \
 "Item-One" \
@@ -134,6 +140,7 @@ done;
 #			the [ tr ] (translate) method to sort items as-intended
 #
 
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
 DAT_ARRAY_SORTED_NO_DUPES=($(echo "${DAT_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
 for DAT_ITEM in "${DAT_ARRAY_SORTED_NO_DUPES[@]}"; do
@@ -148,6 +155,7 @@ done;
 #	Then, combine all arrays and find unique items amongst their net result;
 #
 
+unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_A_ARRAY=("Item-One" "Item-Two");
 DAT_B_ARRAY=("Item-A" "Item-B");
 DAT_C_ARRAY=("Item-B" "Item-One");

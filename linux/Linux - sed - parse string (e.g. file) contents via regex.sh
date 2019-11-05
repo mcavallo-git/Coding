@@ -16,7 +16,7 @@ sed --expression='/^\s*$/d' "/etc/hosts";
 # 
 # Use sed with piped-commands to parse their output, line-by-line
 #
-printenv | sed --quiet --regexp-extended --expression='s/^onedrive=/\0/pi'; # /i=case-insensitive, /p=handle-pipe-output
+printenv | sed --quiet --regexp-extended --expression='s/^onedrive=(.+)$/\1/pi'; # /i=case-insensitive, /p=handle-pipe-output
 
 
 # ------------------------------------------------------------

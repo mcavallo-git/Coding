@@ -28,7 +28,7 @@ This file (on GitHub):
 			<li>
 				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
 				<div>Prereq: Git CLI added to PATH during Git SCM Install (see screenshot)</div>
-				<div><img src="images/archive/git-install.allow-cli.png" /></div>
+				<div><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
 			</li>
 			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
 			<li>

@@ -27,6 +27,8 @@ This file (on GitHub):
 		<ol>
 			<li>
 				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
+			</li>
+			<li>
 				<div>Prereq: Git CLI added to PATH during Git SCM Install (see screenshot)</div>
 				<div><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
 			</li>

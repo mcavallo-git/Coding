@@ -25,7 +25,10 @@ This file (on GitHub):
 	</summary>
 	<p>
 		<ol>
-			<li>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></li>
+			<li>
+				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
+				<div><img src="images/archive/git-install.allow-cli.png" /></div>
+			</li>
 			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
 			<li>
 				<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>

@@ -12,9 +12,7 @@ shopt -s globstar; # If set, the pattern ‘**’ used in a filename expansion c
 
 shopt -s lastpipe; # If set, and job control is not active, the shell runs the last command of a pipeline not executed in the background in the current shell environment.
           # |
-          # |--> e.g. extends scope of variables which get set/updated during "while ...; do" loop to be referenced AFTER said loop is "done;"
-          #           (normally, variables set during background tasks are scoped separately, and not able to be referenced afterwards)
-
+          # |--> e.g. extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
 
 
 # ------------------------------------------------------------

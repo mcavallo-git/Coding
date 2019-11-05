@@ -6,7 +6,8 @@
 # ------------------------------------------------------------
 #
 # Associative Arrays (in Bash)
-#   |--> Note: Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
+#   |--> Syntax:  declare -A VARNAME;
+#   |--> Note:  Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
 
 unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
@@ -22,11 +23,12 @@ done;
 
 # -------------------------------------------------------------
 #
-# Indexed Arrays (in Bash)
-#   |--> Note: Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
+# Indexed Arrays
+#   |--> Syntax:  declare -a VARNAME;
+#   |--> Note:  Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=();
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
@@ -90,7 +92,7 @@ fi;
 # Non-Associative Arrays in Bash
 #
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
 echo "${DAT_ITEM}";
@@ -100,7 +102,7 @@ done;
 # #  Methods have equivalent output
 # #  v
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=();
 DAT_ARRAY+=("Item-One");
 DAT_ARRAY+=("Item-One");
@@ -116,7 +118,7 @@ done;
 # #  Methods have equivalent output
 # #  v
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY=( \
 "Item-One" \
 "Item-One" \
@@ -155,16 +157,16 @@ done;
 #	Then, combine all arrays and find unique items amongst their net result;
 #
 
-unset DAT_A_ARRAY; declare -A DAT_A_ARRAY; DAT_A_ARRAY=("Item-One" "Item-Two");
-unset DAT_B_ARRAY; declare -A DAT_B_ARRAY; DAT_B_ARRAY=("Item-A" "Item-B");
-unset DAT_C_ARRAY; declare -A DAT_C_ARRAY; DAT_C_ARRAY=("Item-B" "Item-One");
-unset DAT_D_ARRAY; declare -A DAT_D_ARRAY; DAT_D_ARRAY=("Item-B" "Item-C" "Item-Two" "Item-Two");
+unset DAT_A_ARRAY; declare -a DAT_A_ARRAY; DAT_A_ARRAY=("Item-One" "Item-Two");
+unset DAT_B_ARRAY; declare -a DAT_B_ARRAY; DAT_B_ARRAY=("Item-A" "Item-B");
+unset DAT_C_ARRAY; declare -a DAT_C_ARRAY; DAT_C_ARRAY=("Item-B" "Item-One");
+unset DAT_D_ARRAY; declare -a DAT_D_ARRAY; DAT_D_ARRAY=("Item-B" "Item-C" "Item-Two" "Item-Two");
 
-unset ARRAY_LETTERS; declare -A ARRAY_LETTERS; ARRAY_LETTERS=("A" "B" "C" "D");
+unset ARRAY_LETTERS; declare -a ARRAY_LETTERS; ARRAY_LETTERS=("A" "B" "C" "D");
 
 echo -e "\n\n";
 
-unset ALL_ITEMS_ARRAY; declare -A ALL_ITEMS_ARRAY; # Re-instantiate bash array
+unset ALL_ITEMS_ARRAY; declare -a ALL_ITEMS_ARRAY; # Re-instantiate bash array
 
 for EACH_ARRAY_LETTER in "${ARRAY_LETTERS[@]}"; do
 

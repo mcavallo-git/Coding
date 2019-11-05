@@ -361,7 +361,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 	<p>ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)</p>
 <pre><code>
 
-# Show parent-filenames
+# Grep file-contents, Show parent-filenames
 find "/etc/apt/sources.list"* \
 -type f \
 -not -name *".save" \
@@ -369,7 +369,7 @@ find "/etc/apt/sources.list"* \
 -exec grep -h ^deb '{}' \; \
 ;
 
-# Hide parent-filenames & sort results
+# Grep file-contents, Hide parent-filenames, Sort results
 find "/etc/apt/sources.list"* \
 -type f \
 -not -name *".save" \

@@ -1,5 +1,0 @@
-Updated Installer - LastPass Universal Windows Installer (LastPass x64, LastPassInstaller.exe)
-https://download.cloud.lastpass.com/windows_installer/LastPassInstaller.exe
-
-Updated Installer - LastPass x64
-https://lastpass.com/misc_download2.php

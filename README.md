@@ -200,6 +200,16 @@ Name | Option A | Option B
 
 <hr />
 
+<!-- ------------------------------------------------------------ -->
+<h3>Web-Based Services - HTTPS Root Certs</h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**GoDaddy** <sub><i>Certificate Chain</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
+**Namecheap** <sub><i>Certificate Chain</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
+
+<hr />
+
 
 <!-- ------------------------------------------------------------ -->
 

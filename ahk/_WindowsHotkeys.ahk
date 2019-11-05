@@ -1827,9 +1827,9 @@ If (False) {
 ;
 ; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
 ;   |
-;   |--> Arrays/Objects - Simple Arrays, e.g. "Indexed Arrays" or "1-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Simple_Arrays
+;   |--> Arrays/Objects - Simple Arrays, e.g. "Indexed Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Simple_Arrays
 ;   |
-;   |--> Arrays/Objects - Associative Arrays, e.g. "Objects" or "Associative Arrays" or "2-D Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
+;   |--> Arrays/Objects - Associative Arrays, e.g. "Objects" or "Associative Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
 ;   |
 ;   |--> Arrays/Objects - Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
 ;

@@ -64,7 +64,7 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 
 	$SSH_KEY_LOCAL_WIN32="${REPO_DIR_WIN32}/.git/.shared-deploy-key.pem";
 
-	$SSH_KEY_LOCAL_LINUX=(("/")+(((${SSH_KEY_LOCAL_WIN32} -Replace "\\","/") -Replace ":","").ToLower().Trim("/")));;
+	$SSH_KEY_LOCAL_LINUX=(("/")+(((${SSH_KEY_LOCAL_WIN32} -Replace "\\","/") -Replace ":","")));
 
 	New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL_WIN32}") -Value ($(New-Object Net.WebClient).DownloadString("${SSH_KEY_REMOTE}")) | Out-Null;
 

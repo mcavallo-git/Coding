@@ -387,6 +387,7 @@ find "/etc/apt/sources.list"* \
 		<span># MAN (manual) - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:</span>
 	</summary>
 <pre><code>
+
 man find
 ...
      -size n[cwbkMG]
@@ -407,6 +408,7 @@ man find
        equivalent to -size -1048576c.  The former only matches empty files, the latter matches files from 0 to
        1,048,575 bytes.
 ...
+
 </code></pre>
 <hr /></details></li><br />
 

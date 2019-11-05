@@ -44,9 +44,11 @@ If ( ${HOME} -Eq ${Null} ) {
 	$HOME = ((Resolve-Path "~").Path);
 }
 
-If (Test-Path "${HOME}/Coding") {
+$REPO_DIR_WIN32 = "${HOME}\Coding";
 
-	Set-Location "${HOME}/Coding";
+If (Test-Path "${REPO_DIR_WIN32}") {
+
+	Set-Location "${REPO_DIR_WIN32}";
 
 	git reset --hard "origin/master";
 
@@ -60,17 +62,19 @@ If (Test-Path "${HOME}/Coding") {
 
 	$SSH_KEY_REMOTE="https://raw.githubusercontent.com/mcavallo-git/Coding/master/.shared-deploy-key.pem";
 
-	$SSH_KEY_LOCAL="${HOME}/Coding/.git/.shared-deploy-key.pem";
+	$SSH_KEY_LOCAL_WIN32="${REPO_DIR_WIN32}/.git/.shared-deploy-key.pem";
 
-	New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL}") -Value ($(New-Object Net.WebClient).DownloadString("${SSH_KEY_REMOTE}")) | Out-Null;
+	$SSH_KEY_LOCAL_LINUX=(("/")+(((${SSH_KEY_LOCAL_WIN32} -Replace "\\","/") -Replace ":","")));
 
-	Set-Location "${HOME}/Coding";
+	New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL_WIN32}") -Value ($(New-Object Net.WebClient).DownloadString("${SSH_KEY_REMOTE}")) | Out-Null;
 
-	git config --local --replace-all "core.sshcommand" "ssh -i `"${SSH_KEY_LOCAL}`"";
+	Set-Location "${REPO_DIR_WIN32}";
 
-	# git config --local --replace-all "user.name" "${Env:USERNAME}@${Env:COMPUTERNAME}";
+	git config --local --replace-all "core.sshcommand" "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`"";
 
-	# git config --local --replace-all "user.email" "email@email.email";
+	git config --local --replace-all "user.name" "${Env:USERNAME}@${Env:COMPUTERNAME}";
+
+	git config --local --replace-all "user.email" "email@email.email";
 
 }
 

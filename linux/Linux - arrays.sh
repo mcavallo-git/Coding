@@ -1,14 +1,12 @@
 #!/bin/bash
 #
-# Linux - Arrays
+# Bash Array Variables
+#   |--> bash shell only, doesnt work in sh, etc.
 #
-
-
 # ------------------------------------------------------------
 #
-# Associative Arrays in Bash
-#   |--> Note: Bash only supports one-dimensional arrays,
-#              e.g. you can't store arrays within arrays
+# Associative Arrays (in Bash)
+#   |--> Note: Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
 unset DAT_ARRAY; declare -A DAT_ARRAY; # Re-instantiate bash array
 DAT_ARRAY+=(["Key One"]="Val One");
@@ -20,6 +18,21 @@ DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
 echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
 
+
+# -------------------------------------------------------------
+#
+# Indexed Arrays (in Bash)
+#   |--> Note: Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
+#
+
+DAT_ARRAY=();
+DAT_ARRAY+=("Val-1");
+DAT_ARRAY+=("Val-2");
+DAT_ARRAY+=("Val-3");
+DAT_ARRAY+=("Val-4");
+for DAT_ITEM in "${DAT_ARRAY[@]}"; do
+echo "${DAT_ITEM}";
+done;
 
 
 # ------------------------------------------------------------

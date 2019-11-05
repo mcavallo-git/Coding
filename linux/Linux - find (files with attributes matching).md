@@ -18,7 +18,7 @@ This file (on GitHub):
 
 
 <li><details><summary>
-		<span>Name - Match using case SENSITIVE search</span>
+		<span>Name - Match using case <strong>sensitive</strong> search</span>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search</code></pre>
 <hr /></details></li><br />
@@ -27,7 +27,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li><details><summary>
-		<span>Name - Match using case INsensitive search</span>
+		<span>Name - Match using case <strong>insensitive</strong> search</span>
 	</summary>
 <pre><code>find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search</code></pre>
 <hr /></details></li><br />
@@ -299,10 +299,10 @@ find ${DIRECTORY_TO_CLEAN} \
 	</summary>
 	<p>##  ex) phpMyAdmin login logo</p>
 <pre><code>
-# Show the results which will be overwritten
+###### Show the results which will be overwritten
 PMA_LOGO_LOGIN="/var/www/html/themes/original/img/logo_right.png" && \
 find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${PMA_LOGO_LOGIN})/*" -exec echo '{}' \;
-# Overwrite the results w/ source-file
+###### Overwrite the results w/ source-file
 PMA_LOGO_LOGIN="/var/www/html/themes/original/img/logo_right.png" && \
 find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${PMA_LOGO_LOGIN})/*" -exec cp -f "${PMA_LOGO_LOGIN}" '{}' \;
 </code></pre>
@@ -336,15 +336,15 @@ done;
 	</summary>
 <pre><code>
 
-# Find files w/ filesize greater-than X
+###### Find files w/ filesize greater-than X
 filesize_GREATER_THAN="1048576c";
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 
-# Find files w/ filesize less-than Y
+###### Find files w/ filesize less-than Y
 filesize_LESS_THAN="1048576c";
 find '/var/log' -type 'f' -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 
-# Find files w/ filesize greater-than X and less-than Y
+###### Find files w/ filesize greater-than X and less-than Y
 filesize_GREATER_THAN="0c";
 filesize_LESS_THAN="1048576c";
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
@@ -361,7 +361,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 	<p>ex) Find all Ubuntu "apt" repositories matching "/etc/apt/sources.list"* while ignoring "*.save" files, which are backups of each repo-file (backed-up by apt)</p>
 <pre><code>
 
-# Grep file-contents, Show parent-filenames
+###### Grep file-contents, Show parent-filenames
 find "/etc/apt/sources.list"* \
 -type f \
 -not -name *".save" \
@@ -369,7 +369,7 @@ find "/etc/apt/sources.list"* \
 -exec grep -h ^deb '{}' \; \
 ;
 
-# Grep file-contents, Hide parent-filenames, Sort results
+###### Grep file-contents, Hide parent-filenames, Sort results
 find "/etc/apt/sources.list"* \
 -type f \
 -not -name *".save" \

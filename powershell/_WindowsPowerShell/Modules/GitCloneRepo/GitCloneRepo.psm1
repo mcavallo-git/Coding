@@ -225,7 +225,7 @@ function GitCloneRepo {
 
 					Set-Location ($WorkingTree_WindowsPath);
 					
-					$UseGitEmail = ("programmers@boneal.net");
+					$UseGitEmail = ("email@email.email");
 					$UseGitUser = ((whoami).Split('\'))[-1];
 					
 					git config user.email ($UseGitEmail);

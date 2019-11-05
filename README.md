@@ -30,7 +30,7 @@ This file (on GitHub):
 			</li>
 			<li>
 				<details><summary>
-						<div>Prereq: Git CLI added to PATH (available during installation of Git SCM - see screenshot)</div>
+						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - see screenshot)</span>
 					</summary>
 					<img src="images/archive/git-install.allow-cli.png" height="250" />
 				</details>

@@ -21,7 +21,9 @@ printenv | grep -i 'onedrive' | sed --quiet --regexp-extended --expression='s/^(
 
 # ------------------------------------------------------------
 # 
-# Use sed to remove one, specific line from a file (while also backing-up the original with a timestamp+".bak" extension)
+# sed
+#  |-->  --in-place="..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
+#  |-->  --expression='/.../d'  -->  remove specific lines, matching a given pattern
 #
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression='/pattern to match/d' ./infile
 
@@ -69,6 +71,18 @@ if [ -n "$(sed -n -e '/from/,/where/ p' file.txt)" ]; then
 else
 	echo "File does NOT contain substring";
 fi;
+
+
+# ------------------------------------------------------------
+#
+# sed
+#  |--> reverse the order of lines in a given string, output, etc.
+#
+
+sed '1!G;h;$!d'               # method 1
+
+sed -n '1!G;h;$p'             # method 2
+
 
 
 # ------------------------------------------------------------
@@ -134,6 +148,8 @@ fi;
 # 	stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #
 # 	stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292
+#
+# 	stackoverflow.com  |  "How can I reverse the order of lines in a file?"  |  https://stackoverflow.com/a/744093
 #
 # 	stackoverflow.com  |  "Sed - An Introduction and Tutorial by Bruce Barnett"  |  https://www.grymoire.com/Unix/Sed.html#uh-42
 #

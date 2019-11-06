@@ -85,11 +85,20 @@ sed '1!G;h;$!d';
 # sed reverse, method #2
 sed -n '1!G;h;$p';
 
-# |--> sed reverse, demo:
+# ex) sed reverse
 TEST_STR="1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15";
 echo ""
 echo "\${TEST_STR}, as-is (not-reversed):"; echo -e "${TEST_STR}";
 echo "\${TEST_STR}, reversed:"; echo -e "${TEST_STR}" | sed -n '1!G;h;$p';
+
+# ex) Remove first/top X line from output (sed reverse, head -n -1, sed reverse)
+SED_REVERSE="1!G;h;\$p";
+TOP_LINES_TO_SLICE=5;
+TEST_STR="1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15";
+echo "\${TEST_STR}, as-is (not-reversed):"; echo -e "${TEST_STR}";
+echo "\${TEST_STR}, reversed:"; echo -e "${TEST_STR}" | sed -n "${SED_REVERSE}" | head -n -${TOP_LINES_TO_SLICE} | sed -n ${SED_REVERSE};
+
+
 
 
 # ------------------------------------------------------------

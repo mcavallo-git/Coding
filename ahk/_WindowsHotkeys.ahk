@@ -693,37 +693,23 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + L
+;  HOTKEY:  Windows-Key + L     or     AppsKey + L
 ;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 
 #L::
-	Monitor_ShowScreenSaver()
-	Return
-
-
-; ------------------------------------------------------------
-;  HOTKEY:  AppsKey + L
-;  ACTION:  Lock the Workstation
-;
-
 AppsKey & L::
-	Monitor_ShowScreenSaver()
-	; LockWorkstation()
+	LockWorkstation()
+	; Monitor_ShowScreenSaver()
+	Reload
 	Return
 
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  AppsKey
-;  ACTION:  Send Right-WinKey keypress
+;  ACTION:  Replace functionality with that of the right Windows-Key
 ;
 
-AppsKey::
-	; Send {RWin}
-	Return
-
-AppsKey Up::
-	Send {RWin}
-	Return
+AppsKey::RWin
 
 
 ; ------------------------------------------------------------

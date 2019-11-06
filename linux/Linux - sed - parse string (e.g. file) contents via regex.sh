@@ -79,10 +79,17 @@ fi;
 #  |--> reverse the order of lines in a given string, output, etc.
 #
 
-sed '1!G;h;$!d'               # method 1
+# sed reverse, method #1
+sed '1!G;h;$!d';
 
-sed -n '1!G;h;$p'             # method 2
+# sed reverse, method #2
+sed -n '1!G;h;$p';
 
+# |--> sed reverse, demo:
+TEST_STR="1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12\n13\n14\n15";
+echo ""
+echo "\${TEST_STR}, as-is (not-reversed):"; echo -e "${TEST_STR}";
+echo "\${TEST_STR}, reversed:"; echo -e "${TEST_STR}" | sed -n '1!G;h;$p';
 
 
 # ------------------------------------------------------------

@@ -26,40 +26,40 @@ df -h --output="target";  # "Mounted on"
 
 # ------------------------------------------------------------
 
-# Essentials:
+# Das Essentials:
 df -h --output="target,pcent,size,source";  # "Mounted on Use%  Size Filesystem"
 
+shopt -s lastpipe; # extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
 
-# Essentials:
 
-unset DISK_USED_PERCENTAGES; declare -A DISK_USED_PERCENTAGES; # Re-instantiate bash array
-unset DISK_PARTITION_SIZES;  declare -A DISK_PARTITION_SIZES;  # Re-instantiate bash array
-unset DISK_MOUNT_FULLPATHS;  declare -A DISK_MOUNT_FULLPATHS;  # Re-instantiate bash array
+# ------------------------------------------------------------
+
+# Das Essentials:
+
+unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # Re-instantiate bash array
+unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # Re-instantiate bash array
+unset DISK_MOUNTPOINTS;  declare -A DISK_MOUNTPOINTS;  # Re-instantiate bash array
 
 DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
 
 CHOICE_KEY=0;
-for EACH_CONTAINER_ID in ${DOCKER_CONTAINER_IDS[@]}; do
 
 df -h --output="target,pcent,size,source" \
 | sed '1!G;h;$!d' \
 | head -n -1 \
 | sed '1!G;h;$!d' \
 | while read EACH_LINE; do
-MOUNT_ echo "${EACH_LINE}";
-echo "------------------------------------------------------------";
+	CHOICE_KEY=$((CHOICE_KEY+1));
+	MOUNTPOINT echo "${EACH_LINE}";
+	echo "------------------------------------------------------------";
 
 
 done;
 
 
-
-
-
-
-
-
-
-
-
-
+# ------------------------------------------------------------
+# Citation(s)
+#
+#   community.hpe.com  |  "difference between filesystem and mountpoint"  |  https://community.hpe.com/t5/System-Administration/difference-between-filesystem-and-mountpoint/m-p/5260291#M52653
+#
+# ------------------------------------------------------------

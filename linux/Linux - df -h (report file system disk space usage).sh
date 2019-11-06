@@ -1,6 +1,8 @@
 #!/bin/bash
+if [[ 0 -eq 1 ]]; then
+# ------------------------------------------------------------
 
-# df -h --output="source" | grep -v '^Filesystem'
+df -h --output="source" | grep -v '^Filesystem'
 
 # Get the fullpath to all disks mount-points
 df -h --output="source" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d'; 
@@ -29,33 +31,57 @@ df -h --output="target";  # "Mounted on"
 # Das Essentials:
 df -h --output="target,pcent,size,source";  # "Mounted on Use%  Size Filesystem"
 
-shopt -s lastpipe; # extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
+# ------------------------------------------------------------
+fi;
+# ------------------------------------------------------------
 
+shopt -s lastpipe; # extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
 
 # ------------------------------------------------------------
 
 # Das Essentials:
 
-unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # Re-instantiate bash array
-unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # Re-instantiate bash array
 unset DISK_MOUNTPOINTS;  declare -A DISK_MOUNTPOINTS;  # Re-instantiate bash array
+unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # Re-instantiate bash array
+unset DISK_PARTITIONS;   declare -A DISK_PARTITIONS;  # Re-instantiate bash array
+unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # Re-instantiate bash array
 
 DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
 
-CHOICE_KEY=0;
+i=0;
 
 df -h --output="target,pcent,size,source" \
 | sed '1!G;h;$!d' \
 | head -n -1 \
 | sed '1!G;h;$!d' \
 | while read EACH_LINE; do
-	CHOICE_KEY=$((CHOICE_KEY+1));
-	MOUNTPOINT echo "${EACH_LINE}";
-	echo "------------------------------------------------------------";
+
+	i=$((i+1));
+
+	EACH_MOUNTPOINT=$(echo "${EACH_LINE}" | awk '{print $1}');
+	DISK_MOUNTPOINTS+=(["${i}"]="${EACH_MOUNTPOINT}");
+
+	EACH_USED_PCT=$(echo "${EACH_LINE}" | awk '{print $2}');
+	DISK_USEDPERCENTS+=(["${i}"]="${EACH_USED_PCT}");
+
+	EACH_PARTITION=$(echo "${EACH_LINE}" | awk '{print $3}');
+	DISK_PARTITIONS+=(["${i}"]="${EACH_PARTITION}");
+
+	EACH_FILESYSTEM=$(echo "${EACH_LINE}" | awk '{print $4}');
+	DISK_FILESYSTEMS+=(["${i}"]="${EACH_FILESYSTEM}");
 
 
 done;
 
+echo "${DISK_FILESYSTEMS[@]}";
+j=0;
+while [[ ${j} -le ${#DISK_MOUNTPOINTS[@]} ]]; do
+	j=$((j+1));
+	echo "${DISK_MOUNTPOINTS[${j}]}";
+	echo "${DISK_USEDPERCENTS[${j}]}";
+	echo "${DISK_PARTITIONS[${j}]}";
+	echo "${DISK_FILESYSTEMS[${j}]}";
+done;
 
 # ------------------------------------------------------------
 # Citation(s)

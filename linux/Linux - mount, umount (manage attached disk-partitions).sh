@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ------------------------------------------------------------
+
 # check that file-system doesn't just say "data", otherwise it must be formatted
 sudo file -s /dev/sda1
 sudo file -s /dev/xvda1
@@ -19,11 +21,21 @@ umount -d "/dev/xvda1"
 #    volume->attach volume - /dev/sda1
 #
 
+exit 0;
 
+# ------------------------------------------------------------
+
+if [ -n "$(which esxcli)" ]; then
+
+	esxcli storage filesystem list;
+
+	esxcli storage core path list;
+
+fi;
 
 # ------------------------------------------------------------
 #
-# Disk-Encryption at Rest, AWS EBS Volumes
+# AWS EBS Volumes - Disk-Encryption at Rest
 #  |
 #  |--> Overview: Create a snapshot of unencrypted volume - find the snapshot -> create volume -> select "enrcypted". While EC2 is off, find the old partition/volume's mount-path, then indiana jones the new volume onto the EC2 instance by first unmounting the old volume, then mounting the new volume @ the same mount-path. Done.
 #
@@ -37,7 +49,7 @@ umount -d "/dev/xvda1"
 #	
 # ------------------------------------------------------------
 #
-# Encryption at Rest, AWS RDS Volumes
+# AWS RDS Volumes - Encryption at Rest
 #  |
 #  |--> Overview: Create a snapshot of unencrypted volume - find the snapshot -> restore snapshot -> select "enrcypted". Apply security groups. Point services to new hostname. Done.
 #

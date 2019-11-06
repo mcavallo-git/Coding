@@ -102,15 +102,17 @@ $ThisScript.Basename = (($ThisScript.Command).Name);
 Set-Location -Path ("/");
 $PSMod_SplitChar = If (($Env:PSModulePath.Split(';')) -eq ($Env:PSModulePath)) { ':' } Else { ';' };
 $PSMod_Lines = ($Env:PSModulePath).Split($PSMod_SplitChar);
+
 # Get the [ unique PS_Modules directory associated with this user ] from [ the list of all PS_Modules directories ]
-$PSMod_Dir = $PSMod_Lines -match ((("^")+($Home)).Replace("\", "\\"));
-# Get Parent directories which the [ unique PS_Modules directory associated with this user ] is dependen-on
+$PSMod_Dir = $PSMod_Lines -match ((("^")+(${HOME})).Replace("\", "\\"));
+
+# Get Parent directories which the [ unique PS_Modules directory associated with this user ] is dependent-on
 $PSModDir_SplitChar = If (($PSMod_Dir.Split('/')) -eq ($PSMod_Dir)) { '\' } Else { '/' };
-$PSMod_HomeDir = $PSMod_Dir.Replace((($Home)+($PSModDir_SplitChar)),"");
+$PSMod_HomeDir = $PSMod_Dir.Replace(((${HOME})+($PSModDir_SplitChar)),"");
 $PSMod_ParentDirs = $PSMod_HomeDir.Split($PSModDir_SplitChar);
 
 # Create parent-directories which are [ required ancestors to the PowerShell Modules' directory ] but are currently [ non-existent ]
-$psm1.fullpath = $Home;
+$psm1.fullpath = ${HOME};
 For ($i=0; $i -lt $PSMod_ParentDirs.length; $i++) {
 	$psm1.fullpath += (($PSModDir_SplitChar)+($PSMod_ParentDirs[$i]));
 	If ((Test-Path -PathType Container -Path (($psm1.fullpath)+($PSModDir_SplitChar))) -eq $false) {
@@ -130,29 +132,35 @@ If ($psm1.verbosity -ne 0) {
 	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Info: PowerShell Modules directory's fullpath: $($psm1.fullpath)";
 }
 
-# ------------------------------------------------------------
-#
-# Update each module from the git repository
-#
-
+# Ensure that the User-Specific PowerShell Modules Directory exists
 If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 
+	# Directory NOT found
 	If ($psm1.verbosity -ne 0) {
 		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Missing git source directory: ${PSScriptRoot}" -ForegroundColor Yellow;
 	}
 	Start-Sleep -Seconds 60;
 	Exit 1;
 
+} Else {
+
+	# Directory found
+	If ($psm1.verbosity -ne 0) {
+		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Located powershell modules directory: ${PSScriptRoot}" -ForegroundColor Cyan;
+	}
+
 }
 
-If ($psm1.verbosity -ne 0) {
-	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Located powershell modules directory: ${PSScriptRoot}" -ForegroundColor Cyan;
-}
+# ------------------------------------------------------------
+#
+# Update each module from the git repository
+#
 
-# Git Modules (along with their respectively named directories) to copy into a given machine's PowerShell Modules Directory
+# Git-Reposity's -> Find all PowerShell Modules (along with their respectively named directories) to copy into a given machine's PowerShell Modules Directory
 If ($psm1.verbosity -ne 0) {
 	Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Searching `"${PSScriptRoot}`" for PowerShell Modules..." -ForegroundColor Gray;
 }
+
 $PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue");
 
 Foreach ($EachModule In $PowerShellModulesArr) {
@@ -160,8 +168,9 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		Write-Host " ";
 	}
 
-	# Remove Module's Cache from RAM (to avoid [ working on modules which are cached in RAM ], [ duplicated modules from previous-revisions ], [ etc. ])
+	# Check if each Module's unique-name already exists in current PowerShell session
 	If (Get-Module -Name ($EachModule.Name)) {
+		# Remove Module's from current PowerShell session (clears it from being cached in Memory, e.g. RAM)
 		Remove-Module ($EachModule.Name);
 		If ($psm1.verbosity -ne 0) {
 			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Task: Removing Module (from RAM-Cache): $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Gray;

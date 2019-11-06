@@ -2,7 +2,7 @@
 
 shopt -s lastpipe; # extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
 
-unset DISK_STATS; declare -A DISK_STATS; # Re-instantiate bash array
+unset DISK_STATS; declare -A DISK_STATS; # [Re-]Instantiate bash array
 
 space=`df -h --output="pcent" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d' | sort -n | tail -1 | tr -d ' ' | cut -d "%" -f1 -;`
 

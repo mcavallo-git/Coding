@@ -41,10 +41,10 @@ shopt -s lastpipe; # extends the current shell into sub-shells (within piped-com
 
 # Das Essentials:
 
-unset DISK_MOUNTPOINTS;  declare -A DISK_MOUNTPOINTS;  # Re-instantiate bash array
-unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # Re-instantiate bash array
-unset DISK_PARTITIONS;   declare -A DISK_PARTITIONS;  # Re-instantiate bash array
-unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # Re-instantiate bash array
+unset DISK_MOUNTPOINTS;  declare -A DISK_MOUNTPOINTS;  # [Re-]Instantiate bash array
+unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # [Re-]Instantiate bash array
+unset DISK_PARTITIONS;   declare -A DISK_PARTITIONS;  # [Re-]Instantiate bash array
+unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # [Re-]Instantiate bash array
 
 DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
 

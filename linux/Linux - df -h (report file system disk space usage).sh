@@ -2,8 +2,11 @@
 
 # df -h --output="source" | grep -v '^Filesystem'
 
-# Slice the top line off-of the output
+# Get the fullpath to all disks mount-points
 df -h --output="source" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d'; 
+
+# Get the % disk-usage for all disk
+$ df -h --output="pcent" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d' | sort -n | tail -1 | tr -d ' '
 
 
 # df --output="KEY";  # VAL  (associated column-header)

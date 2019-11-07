@@ -1,0 +1,1 @@
+HKEY_CURRENT_USER\Software\VMware\VMware Infrastructure Client\Preferences

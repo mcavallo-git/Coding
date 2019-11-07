@@ -47,7 +47,7 @@ function EnsureProcessIsRunning {
 		If ([String]::IsNullOrEmpty("${Name}") -Eq $False) {
 			# Find processes matching given [ Name ]  OR  [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";
+				Write-Host "EnsureProcessIsRunning:  Info: Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";
 			}
 			$Returned_PID = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
 
@@ -59,7 +59,7 @@ function EnsureProcessIsRunning {
 		} Else {
 			# Find processes only matching given [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info - Checking for Local Process w/ Path `"${Path}`"";
+				Write-Host "EnsureProcessIsRunning:  Info: Checking for Local Process w/ Path `"${Path}`"";
 			}
 			$Returned_PID = (Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 
@@ -79,13 +79,13 @@ function EnsureProcessIsRunning {
 				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
 					# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
+						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
 					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -Verb ("RunAs") -WindowStyle ("${WindowStyle}");
 				} Else {
 					# Start Process [ AS-ADMIN ] & [ NO ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
+						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
 					Start-Process -Filepath ("${Path}") -Verb ("RunAs") -WindowStyle ("${WindowStyle}");
 				}
@@ -93,13 +93,13 @@ function EnsureProcessIsRunning {
 				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
 					# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -WindowStyle (`"${WindowStyle}`"); ]";
+						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
 					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -WindowStyle ("${WindowStyle}");
 				} Else {
 					# Start Process [ NON-ADMIN ] & [ NO ARGS ]
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info - Calling [ Start-Process -Filepath (`"${Path}`") -WindowStyle (`"${WindowStyle}`"); ]";
+						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -WindowStyle (`"${WindowStyle}`"); ]";
 					}
 					Start-Process -Filepath ("${Path}") -WindowStyle ("${WindowStyle}");
 				}

@@ -182,12 +182,14 @@ Name | Option A | Option B
 
 Name | Option A | Option B
 --- | --- | ---
+**BlueScreenView** <sub><i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/blue_screen_view.html) |
 **digicert Certificate Utility for Windows** <sub><i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
 **DDU (Display Driver Uninstaller)** <sub><i>Removes ALL graphics drivers</i></sub> | [Download (source)](https://www.guru3d.com/files-details/display-driver-uninstaller-download.html) |
+**FindLinks** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/findlinks) |
 **Process Explorer** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/process-explorer) |
 **TCPView** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview) |
-**FindLinks** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/findlinks) |
 **WinTail** <sub><i>Tail for Windows</i></sub> | [Download (source)](https://sourceforge.net/projects/wintail/) |
+**WakeMeOnLan** <sub><i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/wake_on_lan.html) |
 
 <hr />
 

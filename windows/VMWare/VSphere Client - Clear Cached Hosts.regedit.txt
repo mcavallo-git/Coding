@@ -1,1 +1,17 @@
+
+# Open Regedit.exe and browse to key:
+
 HKEY_CURRENT_USER\Software\VMware\VMware Infrastructure Client\Preferences
+
+# Edit String Value with Name:
+
+RecentConnections
+
+# And set to value
+
+[ YOUR HOSTS, COMMA-DELIMITED ]
+
+# Example)
+
+192.168.1.10,https://my-vmware-server.example.com
+

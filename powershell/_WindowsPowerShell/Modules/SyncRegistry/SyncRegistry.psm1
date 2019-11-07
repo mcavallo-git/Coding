@@ -183,6 +183,27 @@ function SyncRegistry {
 		};
 
 		# ------------------------------------------------------------
+		# Environment-specific registry settings
+		#
+		If ( $False ) {
+
+			# VMware vSphere Client Cached-Connections
+			$RegEdits += @{
+				Path = "HKEY_CURRENT_USER\Software\VMware\VMware Infrastructure Client\Preferences";
+				Props=@(
+					@{
+						Description="Defines the vSphere Client's [ IP address/ Name ] cached connection-urls";
+						Name="RecentConnections"; 
+						Type="String";
+						Value="";
+					}
+				)
+			};
+
+
+		}
+
+		# ------------------------------------------------------------
 		
 		If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 			#

@@ -190,6 +190,7 @@ Name | Option A | Option B
 **TCPView** <sub><i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview) |
 **WinTail** <sub><i>Tail for Windows</i></sub> | [Download (source)](https://sourceforge.net/projects/wintail/) |
 **WakeMeOnLan** <sub><i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/wake_on_lan.html) |
+**ProduKey** <sub><i>by Nirsoft (Recover lost Windows product key (CD-Key) and Office 2003/2007 product key)</i></sub> | [Download (source)](https://www.nirsoft.net/utils/product_cd_key_viewer.html) |
 
 <hr />
 

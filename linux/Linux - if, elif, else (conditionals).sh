@@ -36,7 +36,7 @@ fi;
 # IF USER CONFIRMS-YES
 #  |--> Prompt for user confirmation (y/n)
 #
-read -p "Are you sure you want to continue? (y/n)   " -t 20 -r;
+read -p "Are you sure you want to continue? (y/n)  " -n 1 -t 20 -r; # Await single keypress
 if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
 	echo "Confirmed";
 else
@@ -156,7 +156,7 @@ fi;
 #
 echo "";
 echo "Did you enter a non-empty string?";
-read -p "Your response:  " -t 20 -r;
+read -p "Your response:  " -n 1 -t 60 -r; # Await single keypress
 # Check for valid data-entry
 if [ ! -n "${REPLY}" ]; then
 	echo "";

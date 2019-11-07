@@ -143,6 +143,7 @@ Name | Option A | Option B
 **Discord** <sub><i>VoIP & Digital Distribution</i></sub> | [Download (source)](https://discordapp.com/download) |
 **Nicrosoft Teams** <sub><i>Shared Workspace for Chat, App, and File-Sharing</i></sub> | [Download (source)](https://products.office.com/en-us/microsoft-teams/download-app) |
 **Skype** <sub><i>Free Video & Voice Calls</i></sub> | [Download (source)](https://www.skype.com/en/get-skype/) |
+**Skype for Business** <sub><i>Microsoft service will be retired after [ July 31, 2021 ]</i></sub> | [Download (source)](https://products.office.com/en-us/skype-for-business/download-app) |
 
 
 <!-- ------------------------------------------------------------ -->

@@ -30,6 +30,8 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
 
+; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
+
 ; ------------------------------------------------------------
 ;
 ; Runtime-Global Variables
@@ -79,15 +81,15 @@ ClearTooltip(TimerPeriod) {
 	SetTimer, RemoveToolTip, -%TimerPeriod%
 	Return
 }
-
+;
 ; ------------------------------------------------------------
 ;	SplashText clearing tool(s)
-
+;
 RemoveSplashText() {
 	SplashTextOff
 	Return
 }
-
+;
 ClearSplashText(TimerPeriod) {
 	; If SetTimer's Period...
 	;			 |--> is positive, it repeats its command until explicitly cancelled
@@ -223,8 +225,7 @@ OnClick_LV_WindowSpecs() {
 
 	Return
 }
-
-
+;
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + -
 ;   HOTKEY:  Win + [PLUS]
@@ -233,6 +234,7 @@ OnClick_LV_WindowSpecs() {
 #-::
 #NumpadSub::
 	SetKeyDelay, 0, -1
+	Send {LWin up}{RWin up}
 	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
 	Return
@@ -245,13 +247,23 @@ OnClick_LV_WindowSpecs() {
 #=::
 #+::
 #NumpadAdd::
-	SetKeyDelay, 0, -1
-	SendInput, `n------------------------------------------------------------
-	SendInput, `n Citations
-	SendInput, `n
-	SendInput, `n   domain  |  "title"  |  url
-	SendInput, `n
-	SendInput, `n------------------------------------------------------------
+	; SetKeyDelay, 0, -1  ; Glitches & Locks device
+	Send {LWin up}{RWin up}
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%Citation(s){Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%%A_Space%%A_Space%domain%A_Space%%A_Space%|%A_Space%%A_Space%""title""%A_Space%%A_Space%|%A_Space%%A_Space%url{Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
+	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
+	Sleep 10
 	Return
 ;
 ; ------------------------------------------------------------

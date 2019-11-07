@@ -127,7 +127,6 @@ ClearSplashText(TimerPeriod) {
 ;		ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
 #Z::
-
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
 
@@ -228,21 +227,40 @@ OnClick_LV_WindowSpecs() {
 
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + -
-;		ACTION:  Type a line of -----'s
+;   HOTKEY:  Win + [PLUS]
+;		ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
-#V::
-	; OpenVSCode()
-	OpenVisualStudio()
+#-::
+#NumpadSub::
+	SetKeyDelay, 0, -1
+	; StringToType := StringRepeat("-",60)
+	SendInput, ------------------------------------------------------------
+	Return
+;
+; ------------------------------------------------------------
+;   HOTKEY:  Win + -
+;   HOTKEY:  Win + [PLUS]
+;		ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
+;
+#=::
+#+::
+#NumpadAdd::
+	SetKeyDelay, 0, -1
+	SendInput, `n------------------------------------------------------------
+	SendInput, `n Citations
+	SendInput, `n
+	SendInput, `n   domain  |  "title"  |  url
+	SendInput, `n
+	SendInput, `n------------------------------------------------------------
 	Return
 ;
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + V
 ;		ACTION:  Open Program (see below)
 ;
-#-::
-#NumpadSub::
-	; StringToType := StringRepeat("-",60)
-	SendInput, ------------------------------------------------------------
+#V::
+	; OpenVSCode()
+	OpenVisualStudio()
 	Return
 ;
 ; ------------------------------------------------------------

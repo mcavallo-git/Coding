@@ -16,7 +16,7 @@ declare -a FINGERPRINTS_TO_REMOVE=( \
 UNIQUE_FINGERPRINTS_ARR=($(echo "${FINGERPRINTS_TO_REMOVE[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
 for EACH_FINGERPRINT in "${UNIQUE_FINGERPRINTS_ARR[@]}"; do
 	if [ ${#EACH_FINGERPRINT} -ne 40 ]; then
-		echo "  ERROR - Fingerprint is not a 40-character long hash: \"${EACH_FINGERPRINT}\". Skipping...";
+		echo "  Error: Fingerprint is not a 40-character long hash: \"${EACH_FINGERPRINT}\". Skipping...";
 	else
 		echo "  Attempting to remove GnuPG keypair matching fingerprint \"${EACH_FINGERPRINT}\"...";
 		gpg --yes --delete-secret-and-public-key "${EACH_FINGERPRINT}"; # --yes  :::  Adds an additional confirm-before-delete step

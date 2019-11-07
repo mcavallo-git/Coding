@@ -23,7 +23,7 @@ PROC_RESULTS_PS=$(ps -A --format "${PROC_FORMAT}" | grep -v 'color=auto' | grep 
 PROC_RESULTS_LSOF=$(lsof -i -P -n | grep "${PROC_ROW_CONTAINS}" | grep "${PROC_CMD}" | awk '{print $2}';); \
 if [ -z "${PROC_RESULTS_PS}" ] && [ -z "${PROC_RESULTS_LSOF}" ]; then \
 	echo ""; \
-	echo "Error - No PIDs found for jenkins"; \
+	echo "Error: No PIDs found for jenkins"; \
 	echo "Calling [ service jenkins restart; sleep 2; ]..."; \
 	service jenkins restart; sleep 2; \
 	echo ""; \

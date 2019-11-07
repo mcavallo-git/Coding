@@ -91,7 +91,7 @@ function Az_Spinup {
 	$RequiredModules += "BombOut";
 
 	ForEach ($EachModule In ($RequiredModules)) {
-		Write-Host (("Task - Checking for required module: `"")+($EachModule)+("`"..."));
+		Write-Host (("Info: Checking for required module: `"")+($EachModule)+("`"..."));
 		If (Get-Module ($EachModule)) {
 			Write-Host (("Pass - Required Module exists: `"")+($EachModule)+("`""));
 

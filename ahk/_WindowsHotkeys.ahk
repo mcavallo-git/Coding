@@ -658,7 +658,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 			} Else If (LoopingForMilliseconds > 2000) {
 				MsgBox, 
 				(LTrim
-					Error - Unable to locate Projection window
+					Error: Unable to locate Projection window
 				)
 				Break
 			} Else {
@@ -1087,7 +1087,7 @@ LShift & RShift::
 	if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
 		MsgBox, 
 		(LTrim
-			Error - Required directory not-found:
+			Error: Required directory not-found:
 			%SG_REPO%
 		)
 	} else {

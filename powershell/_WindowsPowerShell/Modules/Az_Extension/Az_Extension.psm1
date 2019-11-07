@@ -52,7 +52,7 @@ function Az_Extension {
 			} Else {
 				If ($AddExtension -eq $true) {
 					$CommandDescription = (("Adding Azure CLI extension: ")+($az.extension.name)+(" ..."));
-					If ($PSBoundParameters.ContainsKey('Quiet') -eq $false) { Write-Host (("Task - ")+($CommandDescription)+("...")); }
+					If ($PSBoundParameters.ContainsKey('Quiet') -eq $false) { Write-Host (("Info: ")+($CommandDescription)+("...")); }
 					#
 					# Add an Azure-CLI extension
 					#		--> https://docs.microsoft.com/en-us/cli/azure/extension#az-extension-add

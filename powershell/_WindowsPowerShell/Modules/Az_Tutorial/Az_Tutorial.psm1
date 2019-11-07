@@ -61,7 +61,7 @@ function Az_Tutorial {
 	# Required Module(s)
 
 	ForEach ($RequireModule In ($statics.required.modules)) {
-		Write-Host (("Task - Checking for required module: `"")+($RequireModule)+("`"..."));
+		Write-Host (("Info: Checking for required module: `"")+($RequireModule)+("`"..."));
 		If (Get-Module ($RequireModule)) {
 			Write-Host (("Pass - Required Module exists: `"")+($RequireModule)+("`""));
 
@@ -364,7 +364,7 @@ function Az_Tutorial {
 
 	# Make sure the parent directory to the sample git-repo exists
 	if (!(Test-Path -Path ($git.local._parent_dir))) {
-		Write-Host (("`n Task - Creating parent directory to the sample git-repo: ")+($git.local._parent_dir));
+		Write-Host (("`n Info: Creating parent directory to the sample git-repo: ")+($git.local._parent_dir));
 		New-Item -ItemType "Directory" -Path (($git.local._parent_dir)+("/")) | Out-Null;
 	}
 

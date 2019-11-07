@@ -36,11 +36,11 @@ function EnsureProcessIsRunning {
 	$Returned_PID = $Null;
 
 	If ([String]::IsNullOrEmpty("${Path}") -Eq $True) {
-		Write-Host "EnsureProcessIsRunning:  Error - Must specify a process path to be ensured is-running" -ForegroundColor "Yellow";
+		Write-Host "EnsureProcessIsRunning:  Error: Must specify a process path to be ensured is-running" -ForegroundColor "Yellow";
 		Write-Host "  |--> Syntax:  EnsureProcessIsRunning -Path ..." -ForegroundColor "Yellow";
 
 	} ElseIf ((Test-Path -Path (${Path})) -Eq $False) {
-		Write-Host "EnsureProcessIsRunning:  Error - Path not found: `"${Path}`"" -ForegroundColor "Yellow";
+		Write-Host "EnsureProcessIsRunning:  Error: Path not found: `"${Path}`"" -ForegroundColor "Yellow";
 
 	} Else {
 	
@@ -119,7 +119,7 @@ function EnsureProcessIsRunning {
 			}
 
 			If ($Returned_PID -Eq $Null) {
-				Write-Host "EnsureProcessIsRunning:  Error - Failed to start Process `"${Path}`"" -ForegroundColor "Red";
+				Write-Host "EnsureProcessIsRunning:  Error: Failed to start Process `"${Path}`"" -ForegroundColor "Red";
 			}
 
 		}

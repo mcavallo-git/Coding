@@ -27,7 +27,7 @@ $DDNS_UIDS | ForEach {
 			-NoHostsFile `
 	);
 	If ($DnsRecord_A.IPAddress -eq $null) {
-		Write-Host (("Error - Unable to resolve hostname: ")+($_.Host)) -BackgroundColor Black -ForegroundColor Yellow;
+		Write-Host (("Error: Unable to resolve hostname: ")+($_.Host)) -BackgroundColor Black -ForegroundColor Yellow;
 	} ElseIf (!$ResolvedIPv4s.Contains((($DnsRecord_A.IPAddress)+("/32")))) {
 		$ResolvedIPv4s += @((($DnsRecord_A.IPAddress)+("/32")));
 	}

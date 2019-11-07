@@ -204,7 +204,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 		If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 
-			# Error - Unable to create directory
+			# Error: Unable to create directory
 			If ($psm1.verbosity -ne 0) {
 				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
@@ -234,7 +234,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		# Check for failure to copy item(s)
 		If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
-			# Error - Unable to create Module
+			# Error: Unable to create Module
 			If ($psm1.verbosity -ne 0) {
 				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
@@ -268,7 +268,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			# Check for failure to copy item(s)
 			If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
-				# Error - Couldn't update/overwrite a file, etc.
+				# Error: Couldn't update/overwrite a file, etc.
 				If ($psm1.verbosity -ne 0) {
 					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to be update Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 				}

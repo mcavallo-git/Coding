@@ -51,7 +51,7 @@ function BombOut {
 			Write-Host ($MessageOnError) -BackgroundColor Black -ForegroundColor red;
 		}
 
-		# On Error - Logout from Azure
+		# On Error: Logout from Azure
 		If ($PSBoundParameters.ContainsKey('AzLogoutOnErrors')) {
 
 			Write-Host (("`n`nFail - Clearing azure session via [ az account clear --verbose ]..."));

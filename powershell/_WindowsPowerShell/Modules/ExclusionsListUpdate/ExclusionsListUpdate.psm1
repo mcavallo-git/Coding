@@ -458,7 +458,7 @@ function ExclusionsListUpdate {
 				
 				# Cannot find Exclusions tool/utility
 				Write-Host "";
-				Write-Host (("  Error - Unable to find Exclusions utility `"")+($MBAR_FindBasename)+("`" in directory `"")+($MBAR_SearchDirname)+("`"  ")) -BackgroundColor ("Black") -ForegroundColor ("Red");
+				Write-Host (("  Error: Unable to find Exclusions utility `"")+($MBAR_FindBasename)+("`" in directory `"")+($MBAR_SearchDirname)+("`"  ")) -BackgroundColor ("Black") -ForegroundColor ("Red");
 				Write-Host "";
 
 			} Else {

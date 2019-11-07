@@ -21,7 +21,7 @@ function EnsureCommandExists {
 		
 	)
 
-	If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Task - Checking for local command: ") + ($Name)); }
+	If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host (("Info: Checking for local command: ") + ($Name)); }
 
 	$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
 	$GetCommand = (Get-Command $Name);

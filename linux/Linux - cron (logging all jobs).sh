@@ -2,7 +2,7 @@
 
 if [ "$(whoami)" != "root" ]; then
 
-	echo "Error -  Must run ${0} as user 'root'";
+	echo "Error:  Must run ${0} as user 'root'";
 	exit 1;
 
 else 

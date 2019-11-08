@@ -189,13 +189,26 @@ function SyncRegistry {
 
 			# VMware vSphere Client Cached-Connections
 			$RegEdits += @{
-				Path = "HKEY_CURRENT_USER\Software\VMware\VMware Infrastructure Client\Preferences";
+				Path = "HKCU:\Software\VMware\VMware Infrastructure Client\Preferences";
 				Props=@(
 					@{
 						Description="Defines the vSphere Client's [ IP address/ Name ] cached connection-urls";
 						Name="RecentConnections"; 
 						Type="String";
 						Value="";
+					}
+				)
+			};
+
+			# VMware vSphere Client Cached-Connections
+			$RegEdits += @{
+				Path = "HKCU:\Software\Policies\Microsoft\CloudFiles\BlockedApps\*";
+				Props=@(
+					@{
+						Description="Blocks (1) or Unblocks (0) Apps from being able to trigger the OneDrive's `"Files On-Demand`" feature";
+						Name="Enabled"; 
+						Type="DWord";
+						Value=1;
 					}
 				)
 			};

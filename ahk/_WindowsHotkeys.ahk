@@ -1663,8 +1663,9 @@ Microseconds() {
 	vIntervals := 0
 	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
 	vDate := 1601
-	EnvAdd, vDate, % vIntervals//10000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-	A_USec := Format("{:06}", Mod(vIntervals, 10000))
+	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	; A_USec := Format("{:06}", Mod(vIntervals, 10000000))
+	A_USec := Format( Mod(vIntervals, 10000000))
 	Return %A_USec%
 }
 
@@ -1676,8 +1677,8 @@ Microseconds() {
 Nanoseconds() {
 	vIntervals := 0
 	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
-	vDate := 1601
-	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	; vDate := 1601
+	; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
 	A_NSec := Format("{:07}00", Mod(vIntervals, 10000000))
 	Return %A_NSec%
 }
@@ -1705,7 +1706,8 @@ RunWaitOne(CMD_Command) {
 	Microseconds := Microseconds()
 	Nanoseconds := Nanoseconds()
 	
-	TrayTip, %A_ScriptName%,
+	; TrayTip, %A_ScriptName%,
+	MsgBox,
 	(LTrim
 		Timestamp = [ %Timestamp% ]
 		Millieconds = [ %Millieconds% ]

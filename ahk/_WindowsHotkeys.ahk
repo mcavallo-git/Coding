@@ -1639,6 +1639,8 @@ echo and you'll get the output.
 ;
 ; Timestamp
 ;   |--> Gets the current Timestamp in a format which is compatible/ready-to-be-used-within filenames
+;   |--> Example call:
+;          Timestamp := Timestamp()
 ;
 Timestamp() {
 	FormatTime,Timestamp,,yyyyMMdd-HHmmss
@@ -1649,8 +1651,10 @@ Timestamp() {
 ;
 ; Milliseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
+;   |--> Example call:
+;          TrayTip, %A_ScriptName%, % ( "Milliseconds = [ " Milliseconds() " ]" )
 ;
-Millieconds() {
+Milliseconds() {
 	Return %A_MSec%
 }
 
@@ -1658,23 +1662,13 @@ Millieconds() {
 ;
 ; Microseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
+;   |--> Example call:
+;          TrayTip, %A_ScriptName%, % ( "Microseconds = [ " Microseconds() " ]" )
 ;
 Microseconds() {
 	vIntervals := 0
 	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
-	vDate := 1601
-	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-	A_USec := Format("{:06}", Mod(vIntervals, 10000000))
-	A_USec_v2 := Format("{:06}", (A_USec_v2/1000))
-
-	; TrayTip, %A_ScriptName%,
-	; MsgBox,
-	; (LTrim
-	; 	vIntervals = [ %vIntervals% ]
-	; 	A_USec = [ %A_USec% ]
-	; 	A_USec_v2 = [ %A_USec_v2% ]
-	; )
-
+	A_USec := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
 	Return %A_USec%
 }
 
@@ -1682,6 +1676,8 @@ Microseconds() {
 ;
 ; Nanoseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
+;   |--> Example call:
+;          TrayTip, %A_ScriptName%, % ( "Nanoseconds = [ " Nanoseconds() " ]" )
 ;
 Nanoseconds() {
 	vIntervals := 0
@@ -1701,31 +1697,9 @@ Nanoseconds() {
 ;          MsgBox % RunWaitOne("dir " A_ScriptDir)
 ;
 RunWaitOne(CMD_Command) {
-	; FormatTime,Timestamp,,yyyyMMdd-HHmmss
-	; TempFile := A_Temp "\" A_ScriptName "_" A_ThisFunc "_" Timestamp ".log"
 	WScript_Shell := ComObjCreate("WScript.Shell")
 	Run_Command := ComSpec " /C """ CMD_Command """ "
 	WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
-	; FileRead, Command_Output, TempFile
-	; Run Notepad %TempFile%
-
-	; TrayTip, %A_ScriptName%, %WScript_Shell_Command% ; Show a Windows Toast Notification
-	Timestamp := Timestamp()
-	Millieconds := Millieconds()
-	Microseconds := Microseconds()
-	Nanoseconds := Nanoseconds()
-	
-	; TrayTip, %A_ScriptName%,
-	; MsgBox,
-	; (LTrim
-	; 	Timestamp = [ %Timestamp% ]
-	; 	Millieconds = [ %Millieconds% ]
-	; 	Microseconds = [ %Microseconds% ]
-	; 	Nanoseconds = [ %Nanoseconds% ]
-	; )
-
-	; TrayTip, %A_ScriptName%, %TempFile% ; Show a Windows Toast Notification
-
 	Return WScript_Shell_Exec
 }
 

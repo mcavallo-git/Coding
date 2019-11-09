@@ -1,23 +1,16 @@
 <?php
 
+
 // @ class Date
 //    |
 //    |-> Simplifies Timestamp exporting/importing while keeping full microsecond precision AND timezone accuracy
 //    |
 //    |-> Replaces DateTime::RFC3339_EXTENDED (requires PHP 7+) with Date::RFC3339_MICROSECONDS (see below)
 //    |
-//    |-> Note: In PHP 7, there exists a bug while using RFC3339_EXTENDED in conjunction with 
-//              DateTime::createFromFormat regarding the milliseconds ('v'), which microseconds ('u') avoids
+//    |-> Note: In PHP 7, there exists a bug while using RFC3339_EXTENDED in conjunction with DateTime::createFromFormat regarding the milliseconds ('v'), which microseconds ('u') avoids
 //
 if (class_exists('Date')===false) {
 	class Date extends DateTime {
-		//
-		// Reference:  date (format chars) -> https://www.php.net/manual/en/function.date.php
-		//
-		// Reference:  DateTime (class) -> https://php.net/manual/en/class.datetime.php
-		//
-		// Reference:  DateTime::createFromFormat -> https://php.net/manual/en/datetime.createfromformat.php
-		//
 
 		const FRONTEND_DATE = "m/d/Y";
 		//    08/15/2005                            "m/d/Y"
@@ -121,6 +114,10 @@ if (class_exists('Date')===false) {
 	}
 }
 
+
+//
+// Format a date coming from [ PHP-Class-Object ] format, and format is to [ MySQL Database (YYYY-mm-dd) ] format
+//
 if (!function_exists('format_datetime')) {
 	function format_datetime($datetime_str="", $format_str=DATE_RFC3339, $set_timezone="UTC", $input_format="") {
 		//	Numeric DateTime strings crash/error-out during PHP's default DateTime constructor 
@@ -167,5 +164,60 @@ if (!function_exists('format_datetime')) {
 		return ($timestamp_obj->format($format_str));
 	}
 }
+
+// ------------------------------------------------------------
+// format_date_to_mysql
+//   |--> Formats a date coming from [ End-User Readable (mm/dd/YYYY) ] format, and format is to [ MySQL Database (YYYY-mm-dd) ] format
+//
+if (!function_exists('format_date_to_mysql')) {
+	function format_date_to_mysql($orig_date, $format="Y-m-d") {
+		// If formatted like 2007-02-04, then just return it.
+		if (preg_match('/\A\d{4}-\d{2}-\d{2}\z/', $orig_date)) {
+			$formatted_date = $orig_date;
+		// If 3 Mar 2008 type, convert it -- Note: This format (dd mmm yyyy) is commonly used by the US Military
+		} elseif (preg_match('%\b(0?[1-9]|[12][0-9]|3[01])[- /][A-Za-z]{3}[- /](19|20)?[0-9]{2}\b%m', $orig_date)) {
+			$date_stamp = strtotime(str_replace(array("/","-"), " ", $orig_date));
+			$formatted_date = date("Y-m-d", $date_stamp);
+		} else {
+			// Check for invalid date
+			list($mm,$dd,$yy)=explode("/",str_replace("-", "/", $orig_date));
+			if (not_null($orig_date) && checkdate(intval($mm),intval($dd),intval($yy))) {
+				$formatted_date = str_pad($yy, 4, '200', STR_PAD_LEFT).'-'.str_pad($mm, 2, '0', STR_PAD_LEFT).'-'.str_pad($dd, 2, '0', STR_PAD_LEFT);
+			} else {
+				$formatted_date = "0000-00-00";
+			}
+		}
+		return $formatted_date;
+	}
+}
+
+
+// ------------------------------------------------------------
+// format_date_from_mysql
+//   |--> Format a date coming from [ MySQL Database (YYYY-mm-dd) ] format, and format is to [ End-User Readable (mm/dd/YYYY) ] format
+//
+if (!function_exists('format_date_from_mysql')) {
+	function format_date_from_mysql($orig_date, $format="m/d/Y") {
+		if (not_null($orig_date)) {
+			$date_stamp = strtotime($orig_date);
+			$formatted_date = date($format, $date_stamp);
+		} else {
+			$formatted_date = '';
+		}
+		return $formatted_date;
+	}
+}
+
+
+// ------------------------------------------------------------
+// Citation(s)
+//
+//   php.net  |  "date (format chars)"  |  https://www.php.net/manual/en/function.date.php
+//
+//   php.net  |  "DateTime (class)"  |  https://php.net/manual/en/class.datetime.php
+//
+//   php.net  |  "DateTime::createFromFormat"  |  https://php.net/manual/en/datetime.createfromformat.php
+//
+// ------------------------------------------------------------
 
 ?>

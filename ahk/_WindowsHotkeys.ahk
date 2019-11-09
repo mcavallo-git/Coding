@@ -767,7 +767,8 @@ AppsKey::RWin
 	Run "control.exe mmsys.cpl,,2"
 	; Run control mmsys.cpl,,3
 	;
-	; shell := ComObjCreate("WScript.Shell")
+	shell := ComObjCreate("WScript.Shell")
+	exec := shell.Exec(ComSpec " /C " command)
 	Return
 
 
@@ -1611,7 +1612,6 @@ Monitor_PowerOff() {
 ;   |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
 ;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
 ;
-;
 Monitor_ShowScreenSaver() {
 	SendMessage, 0x112, 0xF140, 0,, Program Manager
 	; |
@@ -1623,6 +1623,58 @@ Monitor_ShowScreenSaver() {
 }
 
 
+
+; ...or run multiple commands in one go and retrieve their output:
+MsgBox % RunWaitMany("
+(
+echo Put your commands here,
+echo each one will be run,
+echo and you'll get the output.
+)")
+
+
+
+;
+; RunWaitOne
+;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   |
+;   |--> Example-call:
+;          MsgBox % RunWaitOne("dir " A_ScriptDir)
+;
+RunWaitOne(command) {
+    ; WshShell object: http://msdn.microsoft.com/en-us/library/aew9yb99
+    shell := ComObjCreate("WScript.Shell")
+    ; Execute a single command via cmd.exe
+    exec := shell.Exec(ComSpec " /C " command)
+    ; Read and return the command's output
+    return exec.StdOut.ReadAll()
+}
+
+
+;
+; RunWaitMany
+;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   |
+;   |--> Example-call:
+;          MsgBox % RunWaitMany("
+;          (
+;          echo Put your commands here,
+;          echo each one will be run,
+;          echo and you'll get the output.
+;          )")
+;
+RunWaitMany(commands) {
+    shell := ComObjCreate("WScript.Shell")
+    ; Open cmd.exe with echoing of commands disabled
+    exec := shell.Exec(ComSpec " /Q /K echo off")
+    ; Send the commands to execute, separated by newline
+    exec.StdIn.WriteLine(commands "`nexit")  ; Always exit at the end!
+    ; Read and return the output of all commands
+    return exec.StdOut.ReadAll()
+}
+
+
+; ------------------------------------------------------------
 ;
 ; Under Construction:   Duplicate currently-active Window
 ;   |

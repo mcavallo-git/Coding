@@ -747,9 +747,30 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	; Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	; Run control.exe /name Microsoft.Sound
+	; Run control mmsys.cpl
+	;
+	; Note: You can choose which tab you want to open by default. 0 opens the first tab, 1 opens the 2nd tab, and so on.
+	;
+	; Run control mmsys.cpl,,0
+	; Run control mmsys.cpl,,1
+	Run "control mmsys.cpl,,2"
+	; Run control mmsys.cpl,,3
+	;
+	; shell := ComObjCreate("WScript.Shell")
 	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Windows-Key + N
+;  ACTION:  Opens "Sound Control Panel" (Windows-7 Style, notin the Control Panel)
 ; 
+#S::
+	Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
+	Return
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + E
 ;  ACTION:  Opens "USERPROFILE" directory
@@ -1904,5 +1925,7 @@ If (False) {
 ;   autohotkey.com/docs  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
 ;
 ;   docs.microsoft.com/  |  "WM_SYSCOMMAND message"  |  https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;
+;   answers.microsoft.com/  |  "Shortcut to sound control panel?"  |  https://answers.microsoft.com/en-us/windows/forum/windows_10-start/shortcut-to-sound-control-panel/32d5a6e7-fa92-4ca7-9033-cd38ba525542
 ;
 ; ------------------------------------------------------------

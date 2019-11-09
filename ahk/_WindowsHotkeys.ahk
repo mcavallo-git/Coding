@@ -1641,47 +1641,8 @@ echo and you'll get the output.
 ;   |--> Gets the current Timestamp in a format which is compatible/ready-to-be-used-within filenames
 ;
 Timestamp() {
-	vIntervals := 0
-	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)
-	; 1 interval = 100 nanoseconds
-
-	;date and nanoseconds
-	vDate := 1601
-	EnvAdd, vDate, % vIntervals//10000000, S
-	Now_NanoSeconds := Format("{:07}00", Mod(vIntervals, 10000000))
-
-	vDate2 := A_Now " " A_MSec
-
-;nanoseconds
-	vNano2 := vIntervals "00"
-
-; MsgBox, % "      " vNano2 "`r`n" vDate " " Now_NanoSeconds "`r`n" vDate2
-; MsgBox, % "vIntervals = [ " vIntervals " ] "
-MsgBox, % "A_NowUTC = [ " A_NowUTC " ] "
-; MsgBox, % "vNano2 = [ " vNano2 " ] "
-return
-
-
-	; FormatTime,Timestamp,,yyyyMMdd-HHmmss
-	; vIntervals := 0
-	; Timestamp := Timestamp "." DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)
-	; Timestamp := DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)
-	; Return %Timestamp%
-}
-
-
-;
-; Nanoseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
-;   |--> autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
-;
-Nanoseconds() {
-	vIntervals := 0
-	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
-	vDate := 1601
-	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-	vNano := Format("{:07}00", Mod(vIntervals, 10000000))
-	Return %vNano%
+	FormatTime,Timestamp,,yyyyMMdd-HHmmss
+	Return %Timestamp%
 }
 
 
@@ -1691,6 +1652,34 @@ Nanoseconds() {
 ;
 Millieconds() {
 	Return %A_MSec%
+}
+
+
+;
+; Microseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
+;
+Microseconds() {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+	vDate := 1601
+	EnvAdd, vDate, % vIntervals//10000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	A_USec := Format("{:06}", Mod(vIntervals, 10000))
+	Return %A_USec%
+}
+
+
+;
+; Nanoseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
+;
+Nanoseconds() {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+	vDate := 1601
+	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	A_NSec := Format("{:07}00", Mod(vIntervals, 10000000))
+	Return %A_NSec%
 }
 
 
@@ -1712,9 +1701,17 @@ RunWaitOne(CMD_Command) {
 
 	; TrayTip, %A_ScriptName%, %WScript_Shell_Command% ; Show a Windows Toast Notification
 	Timestamp := Timestamp()
-	TrayTip, %A_ScriptName%, %Timestamp%
-	; MsgBox %WScript_Shell_Exec%
-	; MsgBox Timestamp()
+	Millieconds := Millieconds()
+	Microseconds := Microseconds()
+	Nanoseconds := Nanoseconds()
+	
+	TrayTip, %A_ScriptName%,
+	(LTrim
+		Timestamp = [ %Timestamp% ]
+		Millieconds = [ %Millieconds% ]
+		Microseconds = [ %Microseconds% ]
+		Nanoseconds = [ %Nanoseconds% ]
+	)
 
 	; TrayTip, %A_ScriptName%, %TempFile% ; Show a Windows Toast Notification
 

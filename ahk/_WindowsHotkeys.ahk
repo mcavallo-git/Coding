@@ -752,10 +752,11 @@ AppsKey::RWin
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + S
-;  ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
+; HOTKEY:  Windows-Key + S
+; ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
 ; 
 #S::
+	;
 	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
 	; Run control.exe /name Microsoft.Sound
 	; Run control mmsys.cpl
@@ -764,11 +765,12 @@ AppsKey::RWin
 	;
 	; Run control mmsys.cpl,,0
 	; Run control mmsys.cpl,,1
-	Run "control.exe mmsys.cpl,,2"
+	; Run "control.exe mmsys.cpl,,2"
 	; Run control mmsys.cpl,,3
 	;
-	shell := ComObjCreate("WScript.Shell")
-	exec := shell.Exec(ComSpec " /C " command)
+	RunWaitOne("control.exe mmsys.cpl,,0")  ; Playback
+	; RunWaitOne("control.exe mmsys.cpl,,1")  ; Recording
+	; RunWaitOne("control.exe mmsys.cpl,,2")  ; Sounds
 	Return
 
 
@@ -1635,19 +1637,88 @@ echo and you'll get the output.
 
 
 ;
+; Timestamp
+;   |--> Gets the current Timestamp in a format which is compatible/ready-to-be-used-within filenames
+;
+Timestamp() {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)
+	; 1 interval = 100 nanoseconds
+
+	;date and nanoseconds
+	vDate := 1601
+	EnvAdd, vDate, % vIntervals//10000000, S
+	Now_NanoSeconds := Format("{:07}00", Mod(vIntervals, 10000000))
+
+	vDate2 := A_Now " " A_MSec
+
+;nanoseconds
+	vNano2 := vIntervals "00"
+
+; MsgBox, % "      " vNano2 "`r`n" vDate " " Now_NanoSeconds "`r`n" vDate2
+; MsgBox, % "vIntervals = [ " vIntervals " ] "
+MsgBox, % "A_NowUTC = [ " A_NowUTC " ] "
+; MsgBox, % "vNano2 = [ " vNano2 " ] "
+return
+
+
+	; FormatTime,Timestamp,,yyyyMMdd-HHmmss
+	; vIntervals := 0
+	; Timestamp := Timestamp "." DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)
+	; Timestamp := DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)
+	; Return %Timestamp%
+}
+
+
+;
+; Nanoseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
+;   |--> autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
+;
+Nanoseconds() {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+	vDate := 1601
+	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	vNano := Format("{:07}00", Mod(vIntervals, 10000000))
+	Return %vNano%
+}
+
+
+;
+; Milliseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
+;
+Millieconds() {
+	Return %A_MSec%
+}
+
+
+;
 ; RunWaitOne
 ;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
 ;   |
 ;   |--> Example-call:
 ;          MsgBox % RunWaitOne("dir " A_ScriptDir)
 ;
-RunWaitOne(command) {
-    ; WshShell object: http://msdn.microsoft.com/en-us/library/aew9yb99
-    shell := ComObjCreate("WScript.Shell")
-    ; Execute a single command via cmd.exe
-    exec := shell.Exec(ComSpec " /C " command)
-    ; Read and return the command's output
-    return exec.StdOut.ReadAll()
+RunWaitOne(CMD_Command) {
+	; FormatTime,Timestamp,,yyyyMMdd-HHmmss
+	; TempFile := A_Temp "\" A_ScriptName "_" A_ThisFunc "_" Timestamp ".log"
+	WScript_Shell := ComObjCreate("WScript.Shell")
+	Run_Command := ComSpec " /C """ CMD_Command """ "
+	WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
+	; FileRead, Command_Output, TempFile
+	; Run Notepad %TempFile%
+
+	; TrayTip, %A_ScriptName%, %WScript_Shell_Command% ; Show a Windows Toast Notification
+	Timestamp := Timestamp()
+	TrayTip, %A_ScriptName%, %Timestamp%
+	; MsgBox %WScript_Shell_Exec%
+	; MsgBox Timestamp()
+
+	; TrayTip, %A_ScriptName%, %TempFile% ; Show a Windows Toast Notification
+
+	Return WScript_Shell_Exec
 }
 
 
@@ -1663,14 +1734,14 @@ RunWaitOne(command) {
 ;          echo and you'll get the output.
 ;          )")
 ;
-RunWaitMany(commands) {
-    shell := ComObjCreate("WScript.Shell")
-    ; Open cmd.exe with echoing of commands disabled
-    exec := shell.Exec(ComSpec " /Q /K echo off")
-    ; Send the commands to execute, separated by newline
-    exec.StdIn.WriteLine(commands "`nexit")  ; Always exit at the end!
-    ; Read and return the output of all commands
-    return exec.StdOut.ReadAll()
+RunWaitMany(CMD_Commands) {
+	WScript_Shell := ComObjCreate("WScript.Shell")
+	; Open cmd.exe with echoing of commands disabled
+	WScript_Shell_Exec := WScript_Shell.Exec(ComSpec " /Q /K echo off")
+	; Send the commands to execute, separated by newline
+	WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
+	; Read and return the output of all commands
+	Return exec.StdOut.ReadAll()
 }
 
 
@@ -1957,6 +2028,8 @@ If (False) {
 ; Citation(s)
 ;
 ;   autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+; 
+;   autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
 ; 
 ;   autohotkey.com  |  "Single line if statements"  |  https://autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ; 

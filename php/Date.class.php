@@ -115,8 +115,9 @@ if (class_exists('Date')===false) {
 }
 
 
-//
-// Format a date coming from [ PHP-Class-Object ] format, and format is to [ MySQL Database (YYYY-mm-dd) ] format
+// ------------------------------------------------------------
+// format_datetime
+//   |--> Format a date coming from [ PHP-Class-Object ] format, and format is to [ MySQL Database (YYYY-mm-dd) ] format
 //
 if (!function_exists('format_datetime')) {
 	function format_datetime($datetime_str="", $format_str=DATE_RFC3339, $set_timezone="UTC", $input_format="") {
@@ -164,6 +165,7 @@ if (!function_exists('format_datetime')) {
 		return ($timestamp_obj->format($format_str));
 	}
 }
+
 
 // ------------------------------------------------------------
 // format_date_to_mysql

@@ -1,0 +1,23 @@
+
+Viewing separate headers + body in Gmail
+
+------------------------------------------------------------
+
+In-Short:
+	> Open Email, Click ⋮, Click Show original
+
+------------------------------------------------------------
+
+Step-by-Step:
+	> Log into GMail using your Browser of choice
+		> Open email which you wish to view the headers of
+			> Select the ⋮ (vertical ellipsis) menu on the top-right
+				> Select "Show original" from dropdown menu to view the original, low-level headers and body content
+		
+# ------------------------------------------------------------
+#
+#		Citation(s)
+#
+#		lifewire.com - "A Guide to Viewing Full Email Headers in Gmail", https://www.lifewire.com/how-to-see-full-email-headers-in-gmail-1171960
+#
+# ------------------------------------------------------------

@@ -747,7 +747,16 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	; Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Windows-Key + S
+;  ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
+; 
+#S::
+	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
 	; Run control.exe /name Microsoft.Sound
 	; Run control mmsys.cpl
 	;
@@ -755,19 +764,10 @@ AppsKey::RWin
 	;
 	; Run control mmsys.cpl,,0
 	; Run control mmsys.cpl,,1
-	Run "control mmsys.cpl,,2"
+	Run "control.exe mmsys.cpl,,2"
 	; Run control mmsys.cpl,,3
 	;
 	; shell := ComObjCreate("WScript.Shell")
-	Return
-
-
-; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + N
-;  ACTION:  Opens "Sound Control Panel" (Windows-7 Style, notin the Control Panel)
-; 
-#S::
-	Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
 	Return
 
 
@@ -1915,6 +1915,8 @@ If (False) {
 ;   autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
 ;
 ;   autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
+;
+;   autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
 ;
 ;   autohotkey.com/docs  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
 ;

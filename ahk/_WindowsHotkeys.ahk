@@ -1661,11 +1661,20 @@ Millieconds() {
 ;
 Microseconds() {
 	vIntervals := 0
-	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
 	vDate := 1601
 	EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-	; A_USec := Format("{:06}", Mod(vIntervals, 10000000))
-	A_USec := Format( Mod(vIntervals, 10000000))
+	A_USec := Format("{:06}", Mod(vIntervals, 10000000))
+	A_USec_v2 := Format("{:06}", (A_USec_v2/1000))
+
+	; TrayTip, %A_ScriptName%,
+	; MsgBox,
+	; (LTrim
+	; 	vIntervals = [ %vIntervals% ]
+	; 	A_USec = [ %A_USec% ]
+	; 	A_USec_v2 = [ %A_USec_v2% ]
+	; )
+
 	Return %A_USec%
 }
 
@@ -1707,13 +1716,13 @@ RunWaitOne(CMD_Command) {
 	Nanoseconds := Nanoseconds()
 	
 	; TrayTip, %A_ScriptName%,
-	MsgBox,
-	(LTrim
-		Timestamp = [ %Timestamp% ]
-		Millieconds = [ %Millieconds% ]
-		Microseconds = [ %Microseconds% ]
-		Nanoseconds = [ %Nanoseconds% ]
-	)
+	; MsgBox,
+	; (LTrim
+	; 	Timestamp = [ %Timestamp% ]
+	; 	Millieconds = [ %Millieconds% ]
+	; 	Microseconds = [ %Microseconds% ]
+	; 	Nanoseconds = [ %Nanoseconds% ]
+	; )
 
 	; TrayTip, %A_ScriptName%, %TempFile% ; Show a Windows Toast Notification
 

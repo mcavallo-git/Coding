@@ -1,7 +1,6 @@
 <?php
-
-
-// @ class Date
+// ------------------------------------------------------------
+// Date  (PHP Class)
 //    |
 //    |-> Simplifies Timestamp exporting/importing while keeping full microsecond precision AND timezone accuracy
 //    |
@@ -116,7 +115,8 @@ if (class_exists('Date')===false) {
 
 
 // ------------------------------------------------------------
-// format_datetime
+// format_datetime  (PHP Function)
+//   |
 //   |--> Format a date coming from [ PHP-Class-Object ] format, and format is to [ MySQL Database (YYYY-mm-dd) ] format
 //
 if (!function_exists('format_datetime')) {
@@ -168,7 +168,8 @@ if (!function_exists('format_datetime')) {
 
 
 // ------------------------------------------------------------
-// format_date_to_mysql
+// format_date_to_mysql  (PHP Function)
+//   |
 //   |--> Formats a date coming from [ End-User Readable (mm/dd/YYYY) ] format, and format is to [ MySQL Database (YYYY-mm-dd) ] format
 //
 if (!function_exists('format_date_to_mysql')) {
@@ -195,7 +196,8 @@ if (!function_exists('format_date_to_mysql')) {
 
 
 // ------------------------------------------------------------
-// format_date_from_mysql
+// format_date_from_mysql  (PHP Function)
+//   |
 //   |--> Format a date coming from [ MySQL Database (YYYY-mm-dd) ] format, and format is to [ End-User Readable (mm/dd/YYYY) ] format
 //
 if (!function_exists('format_date_from_mysql')) {

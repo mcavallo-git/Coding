@@ -771,6 +771,10 @@ AppsKey::RWin
 	RunWaitOne("control.exe mmsys.cpl,,0")  ; Playback
 	; RunWaitOne("control.exe mmsys.cpl,,1")  ; Recording
 	; RunWaitOne("control.exe mmsys.cpl,,2")  ; Sounds
+	WinTitle := "Sound"
+	SetTitleMatchMode, 3 ; 3: A window's title must exactly match WinTitle to be a match.
+	WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 
 
@@ -1770,9 +1774,9 @@ RunWaitMany(CMD_Commands) {
 ;   Documentation
 ; ------------------------------------------------------------
 ;
-; SetTitleMatchMode, 1  ; Title must START-WITH [ WinTitle ]
-; SetTitleMatchMode, 2: ; Title must CONTAIN [ WinTitle ] as a substring
-; SetTitleMatchMode, 3: ; Title must EXACTLY-MATCH [ WinTitle ]
+; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 ;
 ;
 ; ------------------------------------------------------------

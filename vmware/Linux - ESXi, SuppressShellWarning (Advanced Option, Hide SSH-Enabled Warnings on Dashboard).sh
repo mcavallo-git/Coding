@@ -7,10 +7,13 @@
 esxcfg-advcfg -g "/UserVars/SuppressShellWarning";  # Check if SSH warning is enabled (0) or suppressed (1)
 
 
+esxcfg-advcfg -s 0 "/UserVars/SuppressShellWarning";  # Display the "SSH is enabled on this host..." warning (ESXi 6.0.0 default value)
+
+
 esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning";  # Suppress the "SSH is enabled on this host..." warning
 
 
-esxcfg-advcfg -s 0 "/UserVars/SuppressShellWarning";  # Display the "SSH is enabled on this host..." warning
+/etc/init.d/hostd restart;  # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
 
 
 # ------------------------------------------------------------

@@ -1,14 +1,20 @@
 #!/bin/bash
 
+
 # Replacing the default ESXi HTTPS certificate with a CA-signed certificate
+
 
 cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/orig.rui.crt"; # Backup the original certificate
 
+
 cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/orig.rui.key"; # Backup the original private-key
+
 
 vi "/etc/vmware/ssl/rui.crt";  # Cleared file using Vim command ":1,$d" -> Hit "i" (insert-mode) -> Pasted updated Certificate + CA-Chain (in PEM format)
 
+
 vi "/etc/vmware/ssl/rui.key";  # Cleared file using Vim command ":1,$d" -> Hit "i" (insert-mode) -> Pasted updated Private-Key (in PEM format)
+
 
 /etc/init.d/hostd restart; /etc/init.d/vpxa restart;  # Restart the [ ESXi host daemon ] & [ vCenter Agent ] services (Note: Services should be back after about 15-30 seconds) (Note: Restarting these services doesn't stop any currently-running VMs)
 

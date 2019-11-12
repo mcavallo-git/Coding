@@ -8,11 +8,9 @@ vi "/etc/vmware/ssl/rui.crt";  # Cleared file using Vim command ":1,$d" -> Hit "
 
 vi "/etc/vmware/ssl/rui.key";  # Cleared file using Vim command ":1,$d" -> Hit "i" (insert-mode) -> Pasted updated Private-Key (in PEM format)
 
-# reboot now; # AVOID THIS when VMs cannot be restarted/etc., as it will reboot the host-box, and stop all VMs
+/etc/init.d/hostd restart;  # Restart the [ ESXi host daemon ] service
 
-/etc/init.d/hostd restart;  # Restart the ESXi host daemon
-
-/etc/init.d/vpxa restart;  # Restart the vCenter Agent services
+/etc/init.d/vpxa restart;  # Restart the [ vCenter Agent ] service
 
 
 # ------------------------------------------------------------

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Replacing the default ESXi HTTPS certificate with a CA-signed certificate
+
 cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/orig.rui.crt"; # Backup the original certificate
 
 cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/orig.rui.key"; # Backup the original private-key

@@ -1,6 +1,9 @@
 #!/bin/bash
 
 
+# Linux - ESXi SSH Client Enable (Allow outgoing SSH, SFTP, SCP connections)
+
+
 esxcli network firewall ruleset list --ruleset-id sshClient;  # Check if SSH client service is enabled
 
 

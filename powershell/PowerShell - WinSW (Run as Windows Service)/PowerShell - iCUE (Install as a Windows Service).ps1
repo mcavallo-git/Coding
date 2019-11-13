@@ -4,7 +4,8 @@ Set-ExecutionPolicy "RemoteSigned";
 
 # ------------------------------------------------------------
 
-$EXE_FULLPATH="C:\Program Files (x86)\Corsair\CORSAIR iCUE Software\iCUE.exe";
+# $EXE_FULLPATH="C:\Program Files (x86)\Corsair\CORSAIR iCUE Software\iCUE.exe";
+$EXE_FULLPATH="C:\Program Files (x86)\Corsair\CORSAIR iCUE Software\iCUE Launcher.exe";
 
 $EXE_BASENAME = ([System.IO.Path]::GetFileNameWithoutExtension(${EXE_FULLPATH}));
 
@@ -25,9 +26,15 @@ If ((Test-Path "${SVC_LOGS_DIRNAME}") -Eq $False) {
 }
 
 # Download/Setup WinSW Executable
+If ((Test-Path "${SVC_DIRNAME}\${SVC_BASENAME}.exe") -Eq $True) {
+	Remove-Item -Path ("${SVC_DIRNAME}\${SVC_BASENAME}.exe") -Force;
+}
 $(New-Object Net.WebClient).DownloadFile("https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe", "${SVC_DIRNAME}\${SVC_BASENAME}.exe");
 
 # Create/Setup WinSW Configuration
+If ((Test-Path "${SVC_DIRNAME}\${SVC_BASENAME}.xml") -Eq $True) {
+	Remove-Item -Path ("${SVC_DIRNAME}\${SVC_BASENAME}.xml") -Force;
+}
 New-Item `
 -Type "File" `
 -Path "${SVC_DIRNAME}\${SVC_BASENAME}.xml" `
@@ -40,13 +47,7 @@ New-Item `
 	<logpath>${SVC_LOGS_DIRNAME}\</logpath>
 	<logmode>roll</logmode>
 	<depend></depend>
-	<startargument>-p</startargument>
-	<startargument>${EXE_DIRNAME}</startargument>
 	<stopexecutable>${EXE_FULLPATH}</stopexecutable>
-	<stopargument>-p</stopargument>
-	<stopargument>${EXE_DIRNAME}</stopargument>
-	<stopargument>-s</stopargument>
-	<stopargument>stop</stopargument>
 </service>
 ");
 
@@ -59,7 +60,6 @@ cd "${SVC_DIRNAME}";
 # Kicked off the installation script to add NGINX as a Windows Service
 
 Start-Process -Filepath ("${SVC_BASENAME}.exe") -ArgumentList ("install") -Verb ("RunAs") -WindowStyle ("Hidden");
-
 
 # ------------------------------------------------------------
 

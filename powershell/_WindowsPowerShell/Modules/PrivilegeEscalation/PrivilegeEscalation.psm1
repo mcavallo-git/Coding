@@ -15,8 +15,8 @@ Function PrivilegeEscalation {
 		[Switch]$Quiet
 
 	)
-	If ((RunningAsAdministrator) -ne ($True)) {
-		If ((UserCanEscalatePrivileges) -eq ($True)) {
+	If ((RunningAsAdministrator) -Ne ($True)) {
+		If ((UserCanEscalatePrivileges) -Eq ($True)) {
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 				Write-Host "`nPrivilegeEscalation  :::  Escalating privileges for command:`n |-->   $($Command)" -BackgroundColor Black -ForegroundColor Green;
 			}

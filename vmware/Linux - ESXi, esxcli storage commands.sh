@@ -34,7 +34,7 @@ esxcli storage nmp path list;  # List the paths currently claimed by the VMware 
 esxcli storage vmfs extent list;  # List the VMFS extents available on the host.
 
 
-esxcli storage vmfs snapshot list;  # List unresolved snapshots/replicas of VMFS volume.	
+esxcli storage vmfs snapshot list;  # List unresolved snapshots/replicas of VMFS volume.
 
 
 

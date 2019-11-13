@@ -12,19 +12,9 @@ If ($False) {
 
 # Download script from GitHub, Run it, then Clean-up/Remove the downloaded script-file
 
-# Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)") -Verb RunAs;
-
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
 }
-
-Get-WindowsFeature | Select-Object -Property Name,Installed
-
-
-Get-WindowsFeature -name Web-Server -IncludeManagementTools
-
-Install-WindowsFeature -name Web-Server -IncludeManagementTools
-
 
 # ------------------------------------------------------------
 
@@ -91,7 +81,6 @@ $EnableFeatures += "WAS-NET-Environment";
 $EnableFeatures += "WAS-Config-APIs";
 $EnableFeatures += "Wireless-Networking";
 $EnableFeatures += "WoW64-Support";
-
 
 Get-WindowsFeature `
 | Where-Object { $EnableFeatures.Contains($_.Name) } `

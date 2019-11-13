@@ -119,14 +119,13 @@ $EnableFeatures += "WindowsServerBackupSnapin";
 $EnableFeatures += "WirelessNetworking";
 
 # DISM /Online /Get-Features | ForEach-Object {
-Get-WindowsOptionalFeature -Online | ForEach-Object {
-	If ($EnableFeatures.Contains($_.FeatureName)) {
-		If (($_.State) -Eq "Disabled") {
-			Write-Output "------------------------------------------------------------";
-			Write-Output "Enabling Feature: $($_.FeatureName)";
-			Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
-		}
-	}
+Get-WindowsOptionalFeature -Online `
+| Where-Object { $EnableFeatures.Contains($_.FeatureName) } `
+| Where-Object { $_.State -Eq "Disabled" } `
+| ForEach-Object {
+	Write-Output "------------------------------------------------------------";
+	Write-Output "Enabling Feature: $($_.FeatureName)";
+	Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
 }
 
 Write-Output "------------------------------------------------------------";

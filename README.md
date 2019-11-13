@@ -159,7 +159,7 @@ Name | Option A | Option B
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="hardware-installs">Windows Software - Hardware Controllers/Drivers/Utilities</h3>
+<h3 id="hardware-installs">Windows Software - Controllers/Drivers/Utilities & Other</h3>
 
 Name | Option A | Option B
 --- | --- | ---
@@ -174,6 +174,7 @@ Name | Option A | Option B
 **RMPrepUSB** <sub><i>Allows users to easily and quickly 'roll their own' multiboot USB drive</i></sub> | [Download (source)](https://www.fosshub.com/RMPrepUSB.html) |
 **VMware (ESXi Server Management)** <sub><i>VMware vSphere, VMware Workstation, VMware Fusion, VMware Player, etc.</i></sub> | [Download (source)](https://my.vmware.com/web/vmware/downloads) |
 **Yubico Tools** <sub><i>Security Key Configuration</i></sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
+**winsw: Windows service wrapper** <sub><i>(in less restrictive license)</i></sub> | [Config/Download (GitHub)](https://github.com/kohsuke/winsw/) |
 
 <hr />
 

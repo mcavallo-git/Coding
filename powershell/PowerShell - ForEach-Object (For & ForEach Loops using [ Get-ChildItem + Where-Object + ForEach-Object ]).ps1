@@ -4,8 +4,7 @@
 #
 # ------------------------------------------------------------
 
-Get-WindowsOptionalFeature -Online `
-| ForEach-Object {
+Get-WindowsOptionalFeature -Online | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
 	$_ | Format-Table;
 	Write-Output "------------------------------------------------------------";

@@ -58,7 +58,7 @@ cd "${SVC_DIRNAME}";
 
 # Kicked off the installation script to add NGINX as a Windows Service
 
-${SVC_BASENAME}.exe install;
+"${SVC_DIRNAME}\${SVC_BASENAME}.exe" install;
 
 # ------------------------------------------------------------
 

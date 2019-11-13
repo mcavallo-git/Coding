@@ -87,7 +87,10 @@ Get-WindowsFeature `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
 	Write-Output "Installing Feature: $($_.Name)";
-	Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools;
+	$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
+	If ($Response_FeatureInstall.Success -Match "True") {
+		# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
+	}
 }
 
 

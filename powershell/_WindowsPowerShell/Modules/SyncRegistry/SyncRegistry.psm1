@@ -323,8 +323,7 @@ function SyncRegistry {
 
 							$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
 								
-							If (($EachProp.LastValue) -eq ($EachProp.Value)) {
-								# Existing key-property found with correct value (Already up to date)
+							If (($EachProp.LastValue) -eq ($EachProp.Value)) { # Property set as-intended (Already up to date)
 								Write-Host "   |`n   |--> Found Property `"$($EachProp.Name)`" with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
@@ -347,13 +346,13 @@ function SyncRegistry {
 
 						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
 
-						# Add the missing property to the Registry Key
-						Write-Host "   |`n   |--> Adding Property `"$($EachProp.Name)`" with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
-						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
-						Write-Host " `n`n";
+							# Add the missing property to the Registry Key
+							Write-Host "   |`n   |--> Adding Property `"$($EachProp.Name)`" with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+							New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
+							Write-Host " `n`n";
 
 						} Else { # Property SHOULD be deleted (Already up to date)
-								Write-Host "   |`n   |--> Skipping Deletion of Property `"$($EachProp.Name)`" (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
+							Write-Host "   |`n   |--> Skipping Deletion of Property `"$($EachProp.Name)`" (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
 
 
 						}

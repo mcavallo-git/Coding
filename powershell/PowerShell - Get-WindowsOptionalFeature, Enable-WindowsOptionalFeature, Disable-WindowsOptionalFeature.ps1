@@ -10,9 +10,9 @@ Get-WindowsOptionalFeature -Online
 
 # PrivilegeEscalation -Command ("Get-WindowsOptionalFeature -Online | Sort | Format-Table > '${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.txt'");
 
-Get-WindowsOptionalFeature -Online | Sort | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.txt";
+Get-WindowsOptionalFeature -Online | Sort | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
-DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.txt";
+DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
 If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
 	# If the WSL Feature is currently set to Disabled, Enable it

@@ -8,7 +8,17 @@
 #
 # ------------------------------------------------------------
 
-Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; # Allow Powershell (.ps1) Scripts to run for the current-user
+If ($False) {
+
+# Allow Powershell (.ps1) Scripts to run for the current-user
+Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force;
+
+
+# Download script from GitHub, Run it, then Clean-up/Remove the downloaded script-file
+Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$((Date).Ticks)'))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
+
+}
+
 
 [string[]]$EnableFeatures = @()
 

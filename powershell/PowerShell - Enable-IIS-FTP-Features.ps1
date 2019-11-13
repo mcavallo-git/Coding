@@ -114,8 +114,6 @@ Get-WindowsOptionalFeature -Online | ForEach-Object {
 	If ($EnableFeatures.Contains($_.FeatureName)) {
 		Write-Output "------------------------------------------------------------";
 		Write-Output "FeatureName: $($_.FeatureName)";
-		Write-Output "DisplayName: $($_.DisplayName)";
-		Write-Output "Description: $($_.Description)";
 		Write-Output "State: $($_.State)";
 		# If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
 		# 	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";

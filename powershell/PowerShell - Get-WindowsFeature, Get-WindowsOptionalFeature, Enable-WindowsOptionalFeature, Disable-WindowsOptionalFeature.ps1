@@ -6,6 +6,8 @@
 #
 # ------------------------------------------------------------
 
+Get-WindowsFeature
+
 Get-WindowsOptionalFeature -Online
 
 # PrivilegeEscalation -Command ("Get-WindowsOptionalFeature -Online | Sort | Format-Table > '${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.txt'");

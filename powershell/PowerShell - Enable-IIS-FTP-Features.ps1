@@ -229,7 +229,7 @@ Get-WindowsOptionalFeature -Online `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
-	If { $_.State -Eq "Disabled" } {
+	If ( $_.State -Eq "Disabled" ) {
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
 		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Cyan";

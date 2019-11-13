@@ -93,13 +93,13 @@ $EnableFeatures += "Wireless-Networking";
 $EnableFeatures += "WoW64-Support";
 
 
-Get-WindowsFeature | Where-Object { $_.Installed -Match "True" } | Select-Object -Property Name,Installed `
-| Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
-| Where-Object { $_.State -Eq "Disabled" } `
+Get-WindowsFeature `
+| Where-Object { $EnableFeatures.Contains($_.Name) } `
+| Where-Object { $_.Installed -Match "False" } `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
-	Write-Output "Enabling Feature: $($_.FeatureName)";
-	Install-WindowsFeature -Name ("$($_.FeatureName)") -IncludeManagementTools;
+	Write-Output "Installing Feature: $($_.Name)";
+	Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools;
 }
 
 
@@ -203,7 +203,7 @@ Get-WindowsOptionalFeature -Online `
 | Where-Object { $_.State -Eq "Disabled" } `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
-	Write-Output "Enabling Feature: $($_.FeatureName)";
+	Write-Output "Enabling Optional Feature: $($_.FeatureName)";
 	Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
 }
 

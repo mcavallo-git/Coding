@@ -324,11 +324,11 @@ function SyncRegistry {
 							$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
 								
 							If (($EachProp.LastValue) -eq ($EachProp.Value)) { # Property set as-intended (Already up to date)
-								Write-Host "   |`n   |--> Found Property [ $($EachProp.Name) ($($EachProp.Type)) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
+								Write-Host "   |`n   |--> Found [ $($EachProp.Type) ] typed-property [ $($EachProp.Name) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
 								# Modify the value of an existing property on an existing registry key
-								Write-Host "   |`n   |--> Updating Property [ $($EachProp.Name) ($($EachProp.Type)) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+								Write-Host "   |`n   |--> Updating [ $($EachProp.Type) ] typed-property [ $($EachProp.Name) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 								Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 							}
@@ -336,7 +336,7 @@ function SyncRegistry {
 						} Else { # Property SHOULD be deleted
 							
 							# Existing key-property found which should be deleted
-							Write-Host "   |`n   |--> Deleting Property [ $($EachProp.Name) ($($EachProp.Type)) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
+							Write-Host "   |`n   |--> Deleting [ $($EachProp.Type) ] typed-property [ $($EachProp.Name) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
 							Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 						}
@@ -347,12 +347,12 @@ function SyncRegistry {
 						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
 
 							# Add the missing property to the Registry Key
-							Write-Host "   |`n   |--> Adding Property [ $($EachProp.Name) ($($EachProp.Type)) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+							Write-Host "   |`n   |--> Adding [ $($EachProp.Type) ] typed-property [ $($EachProp.Name) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 							New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 							Write-Host " `n`n";
 
 						} Else { # Property SHOULD be deleted (Already up to date)
-							Write-Host "   |`n   |--> Skipping Deletion of Property [ $($EachProp.Name) ($($EachProp.Type)) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
+							Write-Host "   |`n   |--> Skipping Deletion of [ $($EachProp.Type) ] typed-property [ $($EachProp.Name) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
 
 
 						}

@@ -206,3 +206,14 @@ Write-Output "   FEATURES ACTIVATATION COMPLETE";
 Write-Output "";
 Write-Output "   PLEASE REBOOT THE WORKSTATION/SERVER, NOW";
 Write-Output "";
+
+# ------------------------------------------------------------
+# Citation(s)
+#
+#   thewindowsclub.com  |  "DISM fails in Windows 10. The source files could not be found"  |  https://www.thewindowsclub.com/dism-fails-source-files-could-not-be-found
+#
+#   serverfault.com  |  "How to edit Local Group Policy with script?"  |  https://serverfault.com/questions/848388/how-to-edit-local-group-policy-with-script
+#
+#   systemmanagement.ro  |  "Install-WindowsFeature Web-Net-Ext failed. Source files could not be found"  |  https://systemmanagement.ro/2018/08/13/install-windowsfeature-web-net-ext-failed-source-files-could-not-be-found/
+#
+# ------------------------------------------------------------

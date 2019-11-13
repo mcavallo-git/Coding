@@ -191,11 +191,14 @@ $EnableOptionalFeatures += "WirelessNetworking";
 
 Get-WindowsOptionalFeature -Online `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
-| Where-Object { $_.State -Eq "Disabled" } `
 | ForEach-Object {
-	Write-Output "------------------------------------------------------------";
-	Write-Output "Enabling Optional Feature: $($_.FeatureName)";
-	Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
+	If { $_.State -Eq "Disabled" } {
+		[System.Console]::ForegroundColor = "Green"
+		[System.Console]::BackgroundColor = "black"
+		Write-Output "------------------------------------------------------------";
+		Write-Output "Enabling Optional Feature: $($_.FeatureName)";
+		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
+	}
 }
 
 # ------------------------------------------------------------

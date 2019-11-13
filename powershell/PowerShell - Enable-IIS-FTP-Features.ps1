@@ -11,7 +11,8 @@
 If ($False) {
 
 # Download script from GitHub, Run it, then Clean-up/Remove the downloaded script-file
-Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)") -Verb RunAs;
+
+# Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)") -Verb RunAs;
 
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
@@ -116,11 +117,15 @@ Get-WindowsOptionalFeature -Online | ForEach-Object {
 	If ($EnableFeatures.Contains($_.FeatureName)) {
 		If (($_.State) -Eq "Disabled") {
 			Write-Output "------------------------------------------------------------";
-			Write-Output "FeatureName: $($_.FeatureName)";
-			Write-Output "State: $($_.State)";
-			# If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
-			# 	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
-			# }
+			Write-Output "Enabling Feature: $($_.FeatureName)";
+			Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
 		}
 	}
 }
+
+Write-Output "------------------------------------------------------------";
+Write-Output "";
+Write-Output "   FEATURES ACTIVATED";
+Write-Output "";
+Write-Output "   PLEASE REBOOT THE WORKSTATION/SERVER, NOW";
+Write-Output "";

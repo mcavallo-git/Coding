@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-#   Enable Windows Optional Features for:
+#   Windows Server 2016 - Enable Roles & Features for:
 #     |
 #     |--> IIS Web-Server
 #     |

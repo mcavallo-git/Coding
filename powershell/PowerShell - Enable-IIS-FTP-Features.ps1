@@ -83,16 +83,48 @@ $EnableFeatures += "WoW64-Support";
 
 Get-WindowsFeature `
 | Where-Object { $EnableFeatures.Contains($_.Name) } `
-| Where-Object { $_.Installed -Match "False" } `
 | ForEach-Object {
-	Write-Output "------------------------------------------------------------";
-	Write-Output "Installing `"$($_.Name)`" role...";
-	$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
-	If ($Response_FeatureInstall.Success -Match "True") {
-		# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
+	If ( $_.Installed -Match "False" ) {
 
+		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$RevertBackgroundColor = [System.Console]::BackgroundColor;
+		[System.Console]::ForegroundColor = "Cyan";
+		[System.Console]::BackgroundColor = "Black";
 
+		Write-Output "Installing `"$($_.Name)`" role...";
 
+		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
+		$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
+		If ($Response_FeatureInstall.Success -Match "True") {
+			# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
+
+			$RevertForegroundColor = [System.Console]::ForegroundColor;
+			$RevertBackgroundColor = [System.Console]::BackgroundColor;
+			[System.Console]::ForegroundColor = "Yellow";
+			[System.Console]::BackgroundColor = "Black";
+
+			Write-Output "WSUS-based installation failed - attempting to install from Windows Update...";
+			
+			$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
+
+			#
+			# ...
+			#
+			[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+			[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
+		}
+	} Else {
+
+		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$RevertBackgroundColor = [System.Console]::BackgroundColor;
+		[System.Console]::ForegroundColor = "Green";
+		[System.Console]::BackgroundColor = "Black";
+
+		Write-Output "Role `"$($_.FeatureName)`" already installed";
+
+		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 	}
 }
@@ -214,7 +246,6 @@ Get-WindowsOptionalFeature -Online `
 		Write-Output "Feature `"$($_.FeatureName)`" already installed";
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
 		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
-
 	}
 }
 

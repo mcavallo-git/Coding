@@ -6,15 +6,14 @@
 #
 # ------------------------------------------------------------
 
-Get-WindowsFeature | Select-Object -Property Name,Installed
+# Get-WindowsFeature
 
-Get-WindowsOptionalFeature -Online
+Get-WindowsFeature | Select-Object -Property ("Name,Installed") | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
-# PrivilegeEscalation -Command ("Get-WindowsOptionalFeature -Online | Sort | Format-Table > '${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.txt'");
+Get-WindowsFeature | Where-Object { $_.Installed -Eq “True” } | Select-Object -Property ("Name,Installed") | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
 # ------------------------------------------------------------
-
-Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+# Get-WindowsOptionalFeature
 
 Get-WindowsOptionalFeature -Online | Sort | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 

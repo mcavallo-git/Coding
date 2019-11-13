@@ -70,6 +70,7 @@ function SyncRegistry {
 					Name="NoWindowMinimizingShortcuts"; 
 					Type="DWord";
 					Value=1;
+					Delete=$False;
 				}
 			)
 		};
@@ -83,6 +84,7 @@ function SyncRegistry {
 					Name="AutoEndTasks"; 
 					Type="String";
 					Value=1;
+					Delete=$False;
 				}
 			)
 		};
@@ -100,6 +102,7 @@ function SyncRegistry {
 						Type="REG_EXPAND_SZ";
 						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
 						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
+						Delete=$False;
 					}
 				)
 			};
@@ -115,12 +118,14 @@ function SyncRegistry {
 					Name="BingSearchEnabled";
 					Type="DWord";
 					Value=1;
+					Delete=$False;
 				},
 				@{
 					Description=$Null;
 					Name="AllowSearchToUseLocation";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
 				}
 			)
 		};
@@ -134,24 +139,28 @@ function SyncRegistry {
 					Name="AllowCortana";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
 				},
 				@{
 					Description=$Null;
 					Name="ConnectedSearchUseWeb";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
 				},
 				@{
 					Description=$Null;
 					Name="ConnectedSearchUseWebOverMeteredConnections";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
 				},
 				@{
 					Description=$Null;
 					Name="DisableWebSearch";
 					Type="DWord";
 					Value=1;
+					Delete=$False;
 				}
 			)
 		};
@@ -165,6 +174,34 @@ function SyncRegistry {
 					Name="UseWUServer";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+		$RegEdits += @{
+			Path="HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Servicing";
+			Props=@(
+				@{
+					Description="Sets the value (string) for the option named [ Alternate source file path ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+					Name="LocalSourcePath";
+					Type="ExpandString";
+					Value="";
+					Delete=$False;
+				},
+				@{
+					Description="Sets the value (checkbox, check=2, unchecked=delete-the-key) for the option named [ Download repair content and optional features directly from Windows Update isntead of Windows Server Update Services (WSUS) ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+					Name="RepairContentServerSource";
+					Type="DWord";
+					Value=2;
+					Delete=$False;
+				},
+				@{
+					Description="Sets the value (checkbox, check=2, unchecked=delete-the-key) for the option named [ Never attempt to download payload from Windows Update ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+					Name="UseWindowsUpdate";
+					Type="DWord";
+					Value=2;
+					Delete=$True;
 				}
 			)
 		};
@@ -178,6 +215,7 @@ function SyncRegistry {
 					Name="DisableLockWorkstation";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
 				}
 			)
 		};
@@ -196,6 +234,7 @@ function SyncRegistry {
 						Name="RecentConnections"; 
 						Type="String";
 						Value="";
+						Delete=$False;
 					}
 				)
 			};
@@ -209,6 +248,7 @@ function SyncRegistry {
 						Name="Enabled"; 
 						Type="DWord";
 						Value=1;
+						Delete=$False;
 					}
 				)
 			};

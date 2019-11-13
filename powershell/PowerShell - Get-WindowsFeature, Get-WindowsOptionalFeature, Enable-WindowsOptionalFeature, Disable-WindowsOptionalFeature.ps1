@@ -14,7 +14,7 @@ Get-WindowsOptionalFeature -Online
 
 # ------------------------------------------------------------
 
-Get-WindowsFeature | Sort | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
 Get-WindowsOptionalFeature -Online | Sort | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 

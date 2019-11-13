@@ -25,6 +25,15 @@ Purpose | Filepath
 
 <!-- ------------------------------------------------------------ -->
 
+<h3>Essential Resources</h3>
+
+Name | Option A | Option B
+--- | --- | ---
+**Group Policy IDs, etc.** <sub><i>'Group Policy Settings Reference for Windows and Windows Server'</i></sub> | [Download (source)](https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250) |
+
+
+<!-- ------------------------------------------------------------ -->
+
 <h3>Productivity Tweaks (Windows)</h3>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>

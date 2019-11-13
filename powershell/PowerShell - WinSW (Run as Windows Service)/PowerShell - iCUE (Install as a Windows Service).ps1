@@ -58,7 +58,8 @@ cd "${SVC_DIRNAME}";
 
 # Kicked off the installation script to add NGINX as a Windows Service
 
-"${SVC_DIRNAME}\${SVC_BASENAME}.exe" install;
+Start-Process -Filepath ("${SVC_BASENAME}.exe") -ArgumentList ("install") -Verb ("RunAs") -WindowStyle ("Hidden");
+
 
 # ------------------------------------------------------------
 

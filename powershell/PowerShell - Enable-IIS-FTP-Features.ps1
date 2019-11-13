@@ -10,12 +10,8 @@
 
 If ($False) {
 
-# Allow Powershell (.ps1) Scripts to run for the current-user
-Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force;
-
-
 # Download script from GitHub, Run it, then Clean-up/Remove the downloaded script-file
-Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$((Date).Ticks)'))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
+Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}/PowerShell-Sync.$((Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)'))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
 }
 

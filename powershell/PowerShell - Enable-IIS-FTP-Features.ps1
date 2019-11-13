@@ -112,11 +112,13 @@ $EnableFeatures += "WirelessNetworking";
 # DISM /Online /Get-Features | ForEach-Object {
 Get-WindowsOptionalFeature -Online | ForEach-Object {
 	If ($EnableFeatures.Contains($_.FeatureName)) {
-		Write-Output "------------------------------------------------------------";
-		Write-Output "FeatureName: $($_.FeatureName)";
-		Write-Output "State: $($_.State)";
-		# If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
-		# 	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
-		# }
+		If (($_.State) -Eq "Disabled") {
+			Write-Output "------------------------------------------------------------";
+			Write-Output "FeatureName: $($_.FeatureName)";
+			Write-Output "State: $($_.State)";
+			# If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
+			# 	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
+			# }
+		}
 	}
 }

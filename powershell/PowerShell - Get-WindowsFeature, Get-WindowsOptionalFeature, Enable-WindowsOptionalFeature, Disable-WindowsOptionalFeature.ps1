@@ -6,7 +6,7 @@
 #
 # ------------------------------------------------------------
 
-Get-WindowsFeature
+Get-WindowsFeature | Select-Object -Property Name,Installed
 
 Get-WindowsOptionalFeature -Online
 

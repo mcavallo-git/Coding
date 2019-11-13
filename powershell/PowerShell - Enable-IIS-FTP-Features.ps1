@@ -8,6 +8,7 @@
 #
 # ------------------------------------------------------------
 
+Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; # Allow Powershell (.ps1) Scripts to run for the current-user
 
 [string[]]$EnableFeatures = @()
 
@@ -106,10 +107,10 @@ $EnableFeatures += "WirelessNetworking";
 Get-WindowsOptionalFeature -Online | ForEach-Object {
 	If ($EnableFeatures.Contains($_.FeatureName)) {
 		Write-Output "------------------------------------------------------------";
-		Write-Output $_.FeatureName;
-		Write-Output $_.DisplayName;
-		Write-Output $_.Description;
-		Write-Output $_.State;
+		Write-Output "FeatureName: $($_.FeatureName)";
+		Write-Output "DisplayName: $($_.DisplayName)";
+		Write-Output "Description: $($_.Description)";
+		Write-Output "State: $($_.State)";
 		# If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
 		# 	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 		# }

@@ -1,5 +1,6 @@
 # Copy this command into an admin powershell terminal:
-Set-ExecutionPolicy -ExecutionPolicy "RemoteSigned" -Force;
+
+Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; # Allow Powershell (.ps1) Scripts to run for the current-user
 
 Exit;
 
@@ -16,6 +17,7 @@ Get-ExecutionPolicy -List;
 #   To see the list of parameter & possible-values, refer to: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy#parameters
 
 Set-ExecutionPolicy -ExecutionPolicy "Default" -Scope "LocalMachine" -Force; # Default policies: "Restricted" for Windows clients, "RemoteSigned" for Windows servers
+
 Set-ExecutionPolicy -ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; # Allow Powershell (.ps1) Scripts to run for the current-user
 
 

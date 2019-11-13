@@ -86,10 +86,14 @@ Get-WindowsFeature `
 | Where-Object { $_.Installed -Match "False" } `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
-	Write-Output "Installing Feature: $($_.Name)";
+	Write-Output "Installing `"$($_.Name)`" role...";
 	$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
 	If ($Response_FeatureInstall.Success -Match "True") {
 		# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
+
+
+
+
 	}
 }
 
@@ -192,12 +196,25 @@ $EnableOptionalFeatures += "WirelessNetworking";
 Get-WindowsOptionalFeature -Online `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
 | ForEach-Object {
+	Write-Output "------------------------------------------------------------";
 	If { $_.State -Eq "Disabled" } {
-		[System.Console]::ForegroundColor = "Green"
-		[System.Console]::BackgroundColor = "black"
-		Write-Output "------------------------------------------------------------";
-		Write-Output "Enabling Optional Feature: $($_.FeatureName)";
+		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$RevertBackgroundColor = [System.Console]::BackgroundColor;
+		[System.Console]::ForegroundColor = "Cyan";
+		[System.Console]::BackgroundColor = "Black";
+		Write-Output "Installing `"$($_.FeatureName)`" feature...";
+		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
+	} Else {
+		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$RevertBackgroundColor = [System.Console]::BackgroundColor;
+		[System.Console]::ForegroundColor = "Green";
+		[System.Console]::BackgroundColor = "Black";
+		Write-Output "Feature `"$($_.FeatureName)`" already installed";
+		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
+
 	}
 }
 

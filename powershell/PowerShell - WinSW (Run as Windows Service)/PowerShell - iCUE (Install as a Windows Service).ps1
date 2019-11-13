@@ -54,7 +54,7 @@ New-Item `
 # Ran CMD (from Start Menu) as ADmin
 # -> cd'ed into to the Directory containing the WinSW (renamed) runtime-EXE and config-XML
 
-cd "${$SVC_DIRNAME}";
+cd "${SVC_DIRNAME}";
 
 # Kicked off the installation script to add NGINX as a Windows Service
 

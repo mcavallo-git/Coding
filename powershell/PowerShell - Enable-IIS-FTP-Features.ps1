@@ -93,7 +93,7 @@ $EnableFeatures += "Wireless-Networking";
 $EnableFeatures += "WoW64-Support";
 
 
-Get-WindowsFeature | Select-Object -Property ("Name,Installed") `
+Get-WindowsFeature | Where-Object { $_.Installed -Match "True" } | Select-Object -Property Name,Installed `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
 | Where-Object { $_.State -Eq "Disabled" } `
 | ForEach-Object {

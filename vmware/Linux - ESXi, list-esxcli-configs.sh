@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# ROOT_CMD="/root/esxcli-list-all.sh" && echo "" > "${ROOT_CMD}" && vi "${ROOT_CMD}" && chmod 0700 "${ROOT_CMD}";
+# ROOT_CMD="/root/list-esxcli-configs.sh" && echo "" > "${ROOT_CMD}" && vi "${ROOT_CMD}" && chmod 0700 "${ROOT_CMD}";
 #
 # ------------------------------------------------------------
 

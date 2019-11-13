@@ -85,9 +85,10 @@ Get-WindowsFeature `
 | Where-Object { $EnableFeatures.Contains($_.Name) } `
 | Where-Object { $_.Installed -Match "False" } `
 | ForEach-Object {
+	$FeatureName = $_.Name;
 	Write-Output "------------------------------------------------------------";
-	Write-Output "Installing Feature: $($_.Name)";
-	Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools;
+	Write-Output "Installing Feature: `"${FeatureName}`"";
+	Install-WindowsFeature -Name ("${FeatureName}") -IncludeManagementTools;
 }
 
 
@@ -190,9 +191,10 @@ Get-WindowsOptionalFeature -Online `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
 | Where-Object { $_.State -Eq "Disabled" } `
 | ForEach-Object {
+	$OptionalFeatureName = $_.FeatureName;
 	Write-Output "------------------------------------------------------------";
-	Write-Output "Enabling Optional Feature: $($_.FeatureName)";
-	Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
+	Write-Output "Enabling Optional Feature `"${OptionalFeatureName}`"";
+	Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("${OptionalFeatureName}");
 }
 
 # ------------------------------------------------------------

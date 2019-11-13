@@ -8,9 +8,12 @@
 
 # Get-WindowsFeature
 
-Get-WindowsFeature | Select-Object -Property ("Name,Installed") | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
-Get-WindowsFeature | Where-Object { $_.Installed -Eq “True” } | Select-Object -Property ("Name,Installed") | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+Get-WindowsFeature | Where-Object { $_.Installed -match "True" } | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+
+# Get-WindowsFeature | Where-Object {$_.Installed -match “True”} | Select-Object -Property Name
+
 
 # ------------------------------------------------------------
 # Get-WindowsOptionalFeature

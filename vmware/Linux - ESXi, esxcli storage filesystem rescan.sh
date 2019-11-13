@@ -1,1 +1,1 @@
-esxcli storage filesystem rescan  # Issue a rescan operation to the VMkernel to have is scan storage devices for new mountable filesystems.	
+esxcli storage filesystem rescan;  # Issue a rescan operation to the VMkernel to have is scan storage devices for new mountable filesystems.	

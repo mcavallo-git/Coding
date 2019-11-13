@@ -26,104 +26,180 @@ Get-WindowsFeature -name Web-Server -IncludeManagementTools
 Install-WindowsFeature -name Web-Server -IncludeManagementTools
 
 
+# ------------------------------------------------------------
 
+[string[]]$EnableFeatures = @();
 
-[string[]]$EnableFeatures = @()
-
-$EnableFeatures += "CoreFileServer";
 $EnableFeatures += "FileAndStorage-Services";
 $EnableFeatures += "File-Services";
-$EnableFeatures += "IIS-ApplicationDevelopment";
-$EnableFeatures += "IIS-ASPNET45";
-$EnableFeatures += "IIS-BasicAuthentication";
-$EnableFeatures += "IIS-CommonHttpFeatures";
-$EnableFeatures += "IIS-DefaultDocument";
-$EnableFeatures += "IIS-DigestAuthentication";
-$EnableFeatures += "IIS-DirectoryBrowsing";
-$EnableFeatures += "IIS-FTPExtensibility";
-$EnableFeatures += "IIS-FTPServer";
-$EnableFeatures += "IIS-FTPSvc";
-$EnableFeatures += "IIS-HealthAndDiagnostics";
-$EnableFeatures += "IIS-HttpCompressionStatic";
-$EnableFeatures += "IIS-HttpErrors";
-$EnableFeatures += "IIS-HttpLogging";
-$EnableFeatures += "IIS-IIS6ManagementCompatibility";
-$EnableFeatures += "IIS-ISAPIExtensions";
-$EnableFeatures += "IIS-ISAPIFilter";
-$EnableFeatures += "IIS-LegacySnapIn";
-$EnableFeatures += "IIS-ManagementConsole";
-$EnableFeatures += "IIS-Metabase";
-$EnableFeatures += "IIS-NetFxExtensibility";
-$EnableFeatures += "IIS-NetFxExtensibility45";
-$EnableFeatures += "IIS-ODBCLogging";
-$EnableFeatures += "IIS-Performance";
-$EnableFeatures += "IIS-RequestFiltering";
-$EnableFeatures += "IIS-Security";
-$EnableFeatures += "IIS-StaticContent";
-$EnableFeatures += "IIS-WebServer";
-$EnableFeatures += "IIS-WebServerManagementTools";
-$EnableFeatures += "IIS-WebServerRole";
-$EnableFeatures += "IIS-WindowsAuthentication";
-$EnableFeatures += "Internet-Explorer-Optional-amd64";
-$EnableFeatures += "KeyDistributionService-PSH-Cmdlets";
-$EnableFeatures += "MediaPlayback";
-$EnableFeatures += "Microsoft-Hyper-V-Common-Drivers-Package";
-$EnableFeatures += "Microsoft-Hyper-V-Guest-Integration-Drivers-Package";
-$EnableFeatures += "Microsoft-Windows-Client-EmbeddedExp-Package";
-$EnableFeatures += "Microsoft-Windows-NetFx-VCRedist-Package";
-$EnableFeatures += "MicrosoftWindowsPowerShell";
-$EnableFeatures += "MicrosoftWindowsPowerShellISE";
-$EnableFeatures += "MicrosoftWindowsPowerShellRoot";
-$EnableFeatures += "MicrosoftWindowsPowerShellV2";
-$EnableFeatures += "Microsoft-Windows-Printing-PrintToPDFServices-Package";
-$EnableFeatures += "Microsoft-Windows-Printing-XPSServices-Package";
-$EnableFeatures += "NetFx3";
-$EnableFeatures += "NetFx3ServerFeatures";
-$EnableFeatures += "NetFx4";
-$EnableFeatures += "NetFx4Extended-ASPNET45";
-$EnableFeatures += "NetFx4ServerFeatures";
-$EnableFeatures += "Printing-Client";
-$EnableFeatures += "Printing-Client-Gui";
-$EnableFeatures += "Printing-PrintToPDFServices-Features";
-$EnableFeatures += "Printing-XPSServices-Features";
-$EnableFeatures += "RSAT";
-$EnableFeatures += "SearchEngine-Client-Package";
-$EnableFeatures += "ServerCore-Drivers-General";
-$EnableFeatures += "ServerCore-Drivers-General-WOW64";
-$EnableFeatures += "ServerCore-EA-IME";
-$EnableFeatures += "ServerCore-EA-IME-WOW64";
-$EnableFeatures += "ServerCore-WOW64";
-$EnableFeatures += "Server-Drivers-General";
-$EnableFeatures += "Server-Drivers-Printers";
-$EnableFeatures += "Server-Gui-Mgmt";
-$EnableFeatures += "ServerManager-Core-RSAT";
-$EnableFeatures += "ServerManager-Core-RSAT-Feature-Tools";
-$EnableFeatures += "Server-Psh-Cmdlets";
-$EnableFeatures += "Server-Shell";
-$EnableFeatures += "SMB1Protocol";
-$EnableFeatures += "SmbDirect";
-$EnableFeatures += "Smtpsvc-Admin-Update-Name";
+$EnableFeatures += "FS-FileServer";
 $EnableFeatures += "Storage-Services";
-$EnableFeatures += "TlsSessionTicketKey-PSH-Cmdlets";
-$EnableFeatures += "Tpm-PSH-Cmdlets";
-$EnableFeatures += "WAS-ConfigurationAPI";
-$EnableFeatures += "WAS-NetFxEnvironment";
-$EnableFeatures += "WAS-ProcessModel";
-$EnableFeatures += "WAS-WindowsActivationService";
-$EnableFeatures += "WCF-HTTP-Activation";
-$EnableFeatures += "WCF-HTTP-Activation45";
-$EnableFeatures += "WCF-Services45";
-$EnableFeatures += "WCF-TCP-PortSharing45";
-$EnableFeatures += "Windows-Defender";
+$EnableFeatures += "Web-Server";
+$EnableFeatures += "Web-WebServer";
+$EnableFeatures += "Web-Common-Http";
+$EnableFeatures += "Web-Default-Doc";
+$EnableFeatures += "Web-Dir-Browsing";
+$EnableFeatures += "Web-Http-Errors";
+$EnableFeatures += "Web-Static-Content";
+$EnableFeatures += "Web-Health";
+$EnableFeatures += "Web-Http-Logging";
+$EnableFeatures += "Web-ODBC-Logging";
+$EnableFeatures += "Web-Performance";
+$EnableFeatures += "Web-Stat-Compression";
+$EnableFeatures += "Web-Security";
+$EnableFeatures += "Web-Filtering";
+$EnableFeatures += "Web-Basic-Auth";
+$EnableFeatures += "Web-Digest-Auth";
+$EnableFeatures += "Web-Windows-Auth";
+$EnableFeatures += "Web-App-Dev";
+$EnableFeatures += "Web-Net-Ext";
+$EnableFeatures += "Web-Net-Ext45";
+$EnableFeatures += "Web-Asp-Net45";
+$EnableFeatures += "Web-ISAPI-Ext";
+$EnableFeatures += "Web-ISAPI-Filter";
+$EnableFeatures += "Web-Ftp-Server";
+$EnableFeatures += "Web-Ftp-Service";
+$EnableFeatures += "Web-Ftp-Ext";
+$EnableFeatures += "Web-Mgmt-Tools";
+$EnableFeatures += "Web-Mgmt-Console";
+$EnableFeatures += "Web-Mgmt-Compat";
+$EnableFeatures += "Web-Metabase";
+$EnableFeatures += "Web-Lgcy-Mgmt-Console";
+$EnableFeatures += "NET-Framework-Features";
+$EnableFeatures += "NET-Framework-Core";
+$EnableFeatures += "NET-HTTP-Activation";
+$EnableFeatures += "NET-Framework-45-Features";
+$EnableFeatures += "NET-Framework-45-Core";
+$EnableFeatures += "NET-Framework-45-ASPNET";
+$EnableFeatures += "NET-WCF-Services45";
+$EnableFeatures += "NET-WCF-HTTP-Activation45";
+$EnableFeatures += "NET-WCF-TCP-PortSharing45";
+$EnableFeatures += "RSAT";
+$EnableFeatures += "RSAT-Feature-Tools";
+$EnableFeatures += "RSAT-SMTP";
+$EnableFeatures += "FS-SMB1";
 $EnableFeatures += "Windows-Defender-Features";
+$EnableFeatures += "Windows-Defender";
 $EnableFeatures += "Windows-Defender-Gui";
-$EnableFeatures += "WindowsMediaPlayer";
-$EnableFeatures += "WindowsServerBackupSnapin";
-$EnableFeatures += "WirelessNetworking";
+$EnableFeatures += "PowerShellRoot";
+$EnableFeatures += "PowerShell";
+$EnableFeatures += "PowerShell-V2";
+$EnableFeatures += "PowerShell-ISE";
+$EnableFeatures += "WAS";
+$EnableFeatures += "WAS-Process-Model";
+$EnableFeatures += "WAS-NET-Environment";
+$EnableFeatures += "WAS-Config-APIs";
+$EnableFeatures += "Wireless-Networking";
+$EnableFeatures += "WoW64-Support";
 
-# DISM /Online /Get-Features | ForEach-Object {
+
+Get-WindowsFeature | Select-Object -Property ("Name,Installed") `
+| Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
+| Where-Object { $_.State -Eq "Disabled" } `
+| ForEach-Object {
+	Write-Output "------------------------------------------------------------";
+	Write-Output "Enabling Feature: $($_.FeatureName)";
+	Install-WindowsFeature -Name ("$($_.FeatureName)") -IncludeManagementTools;
+}
+
+
+# ------------------------------------------------------------
+
+[string[]]$EnableOptionalFeatures = @();
+
+$EnableOptionalFeatures += "CoreFileServer";
+$EnableOptionalFeatures += "FileAndStorage-Services";
+$EnableOptionalFeatures += "File-Services";
+$EnableOptionalFeatures += "IIS-ApplicationDevelopment";
+$EnableOptionalFeatures += "IIS-ASPNET45";
+$EnableOptionalFeatures += "IIS-BasicAuthentication";
+$EnableOptionalFeatures += "IIS-CommonHttpFeatures";
+$EnableOptionalFeatures += "IIS-DefaultDocument";
+$EnableOptionalFeatures += "IIS-DigestAuthentication";
+$EnableOptionalFeatures += "IIS-DirectoryBrowsing";
+$EnableOptionalFeatures += "IIS-FTPExtensibility";
+$EnableOptionalFeatures += "IIS-FTPServer";
+$EnableOptionalFeatures += "IIS-FTPSvc";
+$EnableOptionalFeatures += "IIS-HealthAndDiagnostics";
+$EnableOptionalFeatures += "IIS-HttpCompressionStatic";
+$EnableOptionalFeatures += "IIS-HttpErrors";
+$EnableOptionalFeatures += "IIS-HttpLogging";
+$EnableOptionalFeatures += "IIS-IIS6ManagementCompatibility";
+$EnableOptionalFeatures += "IIS-ISAPIExtensions";
+$EnableOptionalFeatures += "IIS-ISAPIFilter";
+$EnableOptionalFeatures += "IIS-LegacySnapIn";
+$EnableOptionalFeatures += "IIS-ManagementConsole";
+$EnableOptionalFeatures += "IIS-Metabase";
+$EnableOptionalFeatures += "IIS-NetFxExtensibility";
+$EnableOptionalFeatures += "IIS-NetFxExtensibility45";
+$EnableOptionalFeatures += "IIS-ODBCLogging";
+$EnableOptionalFeatures += "IIS-Performance";
+$EnableOptionalFeatures += "IIS-RequestFiltering";
+$EnableOptionalFeatures += "IIS-Security";
+$EnableOptionalFeatures += "IIS-StaticContent";
+$EnableOptionalFeatures += "IIS-WebServer";
+$EnableOptionalFeatures += "IIS-WebServerManagementTools";
+$EnableOptionalFeatures += "IIS-WebServerRole";
+$EnableOptionalFeatures += "IIS-WindowsAuthentication";
+$EnableOptionalFeatures += "Internet-Explorer-Optional-amd64";
+$EnableOptionalFeatures += "KeyDistributionService-PSH-Cmdlets";
+$EnableOptionalFeatures += "MediaPlayback";
+$EnableOptionalFeatures += "Microsoft-Hyper-V-Common-Drivers-Package";
+$EnableOptionalFeatures += "Microsoft-Hyper-V-Guest-Integration-Drivers-Package";
+$EnableOptionalFeatures += "Microsoft-Windows-Client-EmbeddedExp-Package";
+$EnableOptionalFeatures += "Microsoft-Windows-NetFx-VCRedist-Package";
+$EnableOptionalFeatures += "MicrosoftWindowsPowerShell";
+$EnableOptionalFeatures += "MicrosoftWindowsPowerShellISE";
+$EnableOptionalFeatures += "MicrosoftWindowsPowerShellRoot";
+$EnableOptionalFeatures += "MicrosoftWindowsPowerShellV2";
+$EnableOptionalFeatures += "Microsoft-Windows-Printing-PrintToPDFServices-Package";
+$EnableOptionalFeatures += "Microsoft-Windows-Printing-XPSServices-Package";
+$EnableOptionalFeatures += "NetFx3";
+$EnableOptionalFeatures += "NetFx3ServerFeatures";
+$EnableOptionalFeatures += "NetFx4";
+$EnableOptionalFeatures += "NetFx4Extended-ASPNET45";
+$EnableOptionalFeatures += "NetFx4ServerFeatures";
+$EnableOptionalFeatures += "Printing-Client";
+$EnableOptionalFeatures += "Printing-Client-Gui";
+$EnableOptionalFeatures += "Printing-PrintToPDFServices-Features";
+$EnableOptionalFeatures += "Printing-XPSServices-Features";
+$EnableOptionalFeatures += "RSAT";
+$EnableOptionalFeatures += "SearchEngine-Client-Package";
+$EnableOptionalFeatures += "ServerCore-Drivers-General";
+$EnableOptionalFeatures += "ServerCore-Drivers-General-WOW64";
+$EnableOptionalFeatures += "ServerCore-EA-IME";
+$EnableOptionalFeatures += "ServerCore-EA-IME-WOW64";
+$EnableOptionalFeatures += "ServerCore-WOW64";
+$EnableOptionalFeatures += "Server-Drivers-General";
+$EnableOptionalFeatures += "Server-Drivers-Printers";
+$EnableOptionalFeatures += "Server-Gui-Mgmt";
+$EnableOptionalFeatures += "ServerManager-Core-RSAT";
+$EnableOptionalFeatures += "ServerManager-Core-RSAT-Feature-Tools";
+$EnableOptionalFeatures += "Server-Psh-Cmdlets";
+$EnableOptionalFeatures += "Server-Shell";
+$EnableOptionalFeatures += "SMB1Protocol";
+$EnableOptionalFeatures += "SmbDirect";
+$EnableOptionalFeatures += "Smtpsvc-Admin-Update-Name";
+$EnableOptionalFeatures += "Storage-Services";
+$EnableOptionalFeatures += "TlsSessionTicketKey-PSH-Cmdlets";
+$EnableOptionalFeatures += "Tpm-PSH-Cmdlets";
+$EnableOptionalFeatures += "WAS-ConfigurationAPI";
+$EnableOptionalFeatures += "WAS-NetFxEnvironment";
+$EnableOptionalFeatures += "WAS-ProcessModel";
+$EnableOptionalFeatures += "WAS-WindowsActivationService";
+$EnableOptionalFeatures += "WCF-HTTP-Activation";
+$EnableOptionalFeatures += "WCF-HTTP-Activation45";
+$EnableOptionalFeatures += "WCF-Services45";
+$EnableOptionalFeatures += "WCF-TCP-PortSharing45";
+$EnableOptionalFeatures += "Windows-Defender";
+$EnableOptionalFeatures += "Windows-Defender-Features";
+$EnableOptionalFeatures += "Windows-Defender-Gui";
+$EnableOptionalFeatures += "WindowsMediaPlayer";
+$EnableOptionalFeatures += "WindowsServerBackupSnapin";
+$EnableOptionalFeatures += "WirelessNetworking";
+
 Get-WindowsOptionalFeature -Online `
-| Where-Object { $EnableFeatures.Contains($_.FeatureName) } `
+| Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
 | Where-Object { $_.State -Eq "Disabled" } `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
@@ -131,9 +207,11 @@ Get-WindowsOptionalFeature -Online `
 	Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
 }
 
+# ------------------------------------------------------------
+
 Write-Output "------------------------------------------------------------";
 Write-Output "";
-Write-Output "   FEATURES ACTIVATED";
+Write-Output "   FEATURES ACTIVATATION COMPLETE";
 Write-Output "";
 Write-Output "   PLEASE REBOOT THE WORKSTATION/SERVER, NOW";
 Write-Output "";

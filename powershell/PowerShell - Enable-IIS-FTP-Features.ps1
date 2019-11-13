@@ -8,13 +8,12 @@
 #
 # ------------------------------------------------------------
 
-If ($False) {
-
-# Download script from GitHub, Run it, then Clean-up/Remove the downloaded script-file
+If ($False) { # Download this script from GitHub, Run it, then Clean-up/Remove the temporary downloaded script-file
 
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
 }
+
 
 # ------------------------------------------------------------
 

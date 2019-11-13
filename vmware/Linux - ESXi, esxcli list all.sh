@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#
+# ROOT_CMD="/root/esxcli-list-all.sh" && echo "" > "${ROOT_CMD}" && vi "${ROOT_CMD}" && chmod 0700 "${ROOT_CMD}";
+#
 # ------------------------------------------------------------
 
 DIR_CHOWN="root:root";

@@ -25,7 +25,7 @@ If ((Test-Path "${SVC_LOGS_DIRNAME}") -Eq $False) {
 }
 
 # Download/Setup WinSW Executable
-$(New-Object Net.WebClient).DownloadFile("https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe", "${SVC_DIRNAME}\${SVC_BASENAME}.exe") -Verb RunAs;
+$(New-Object Net.WebClient).DownloadFile("https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe", "${SVC_DIRNAME}\${SVC_BASENAME}.exe");
 
 # Create/Setup WinSW Configuration
 New-Item `

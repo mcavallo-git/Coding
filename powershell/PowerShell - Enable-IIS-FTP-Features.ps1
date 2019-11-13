@@ -104,7 +104,9 @@ Get-WindowsFeature `
 
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
 		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
-		$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
+
+		$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);  # Use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ] to un-do
+
 		If ($Response_FeatureInstall.Success -Match "True") {
 			# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
 
@@ -115,7 +117,7 @@ Get-WindowsFeature `
 
 			Write-Output "WSUS-based installation failed - attempting to install from Windows Update...";
 			
-			$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);
+			$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);  # Use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ] to un-do
 
 			#
 			# ...
@@ -246,7 +248,7 @@ Get-WindowsOptionalFeature -Online `
 		Write-Output "Installing `"$($_.FeatureName)`" feature...";
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
 		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
-		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
+		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");  # Use [ Disable-WindowsOptionalFeature -FeatureName ("$($_.FeatureName)") ] to undo;
 	} Else {
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
 		$RevertBackgroundColor = [System.Console]::BackgroundColor;

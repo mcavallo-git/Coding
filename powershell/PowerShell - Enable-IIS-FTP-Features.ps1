@@ -18,6 +18,12 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 
 }
 
+Get-WindowsFeature -name Web-Server -IncludeManagementTools
+
+Install-WindowsFeature -name Web-Server -IncludeManagementTools
+
+
+
 
 [string[]]$EnableFeatures = @()
 

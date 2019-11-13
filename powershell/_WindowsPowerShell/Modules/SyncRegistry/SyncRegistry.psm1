@@ -317,25 +317,46 @@ function SyncRegistry {
 					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n         v`n        Description: $(${EachProp}.Description)"; }
 					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n         v`n        Hotfix: $(${EachProp}.Hotfix)"; }
 
-					If ($last_exit_code -eq 0) {
+					If ($last_exit_code -eq 0) { # Registry-Key-Property exists
 
-						$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
+						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
 
-						If (($EachProp.LastValue) -eq ($EachProp.Value)) {
-							# Existing key-property found with correct value (Already up to date)
-							Write-Host "   |`n   |--> Found Property `"$($EachProp.Name)`" with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
+							$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
+								
+							If (($EachProp.LastValue) -eq ($EachProp.Value)) {
+								# Existing key-property found with correct value (Already up to date)
+								Write-Host "   |`n   |--> Found Property `"$($EachProp.Name)`" with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
-						} Else {
-							# Modify the value of an existing property on an existing registry key
-							Write-Host "   |`n   |--> Updating Property `"$($EachProp.Name)`" from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
-							Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
+							} Else {
+								# Modify the value of an existing property on an existing registry key
+								Write-Host "   |`n   |--> Updating Property `"$($EachProp.Name)`" from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+								Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
+
+							}
+
+						} Else { # Property SHOULD be deleted
+							
+							# Existing key-property found which should be deleted
+							Write-Host "   |`n   |--> Deleting Property `"$($EachProp.Name)`" w/ Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
+							Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
 
 						}
-					} Else {
+
+
+					} Else { # Registry-Key-Property does NOT exist
+
+						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
+
 						# Add the missing property to the Registry Key
 						Write-Host "   |`n   |--> Adding Property `"$($EachProp.Name)`" with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 						New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
 						Write-Host " `n`n";
+
+						} Else { # Property SHOULD be deleted (Already up to date)
+								Write-Host "   |`n   |--> Skipping Deletion of Property `"$($EachProp.Name)`" (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
+
+
+						}
 
 					}
 

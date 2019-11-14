@@ -174,7 +174,6 @@ Get-WindowsFeature `
 
 			# Final Fallback - Edit Group Policy setting to pull from Windows-Update, directly
 
-			}
 		}
 	} Else {
 

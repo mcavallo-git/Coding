@@ -72,7 +72,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <h3 id="workstation-installs">Windows Software - Workstation Essentials</h3>
 
-Name | Download |
+Resource | Source |
 :--|:--
 **AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **AutoHotkey (AHK)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
@@ -110,7 +110,7 @@ Name | Download |
 <!-- ------------------------------------------------------------ -->
 <h3 id="benchmarking">Windows Software - Benchmarking</h3>
 
-Resource | Source |
+Resource | Source
 :--|:--
 **CoreTemp** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU Temperature Logging</i></sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 **CrystalDiskInfo** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Info</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |

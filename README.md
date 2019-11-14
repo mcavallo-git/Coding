@@ -111,9 +111,9 @@ Name | Download |
 
 Name | Option A | Option B
 --- | --- | ---
-**AWS CLI (PowerShell)** | [Download (source)](https://aws.amazon.com/powershell)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)</sub> |
-**Azure CLI (PowerShell)** | [Download (source)](https://aka.ms/installazurecliwindows)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/az)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.microsoft.com/en-us/cli/azure/reference-index)</sub> |
-**Java SE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(Java Standard Edition, Win10)</i></sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
+**AWS CLI (PowerShell)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Amazon Web Services Command Line Tool<br />&nbsp;&nbsp;&nbsp;Cloud Management & Administration</i></sub> | [Download (source)](https://aws.amazon.com/powershell)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)</sub> |
+**Azure CLI (PowerShell)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Azure Command Line Tool<br />&nbsp;&nbsp;&nbsp;Cloud Management & Administration</i></sub> | [Download (source)](https://aka.ms/installazurecliwindows)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/az)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.microsoft.com/en-us/cli/azure/reference-index)</sub> |
+**Java SE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Java Standard Edition, Win10</i></sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
 **Java JDK, JRE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(Java Development-Kit, Runtime-Environment, Win10)</i></sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
 **PowerShell Core** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Standard Edition</i></sub> | [Download (GitHub)](https://github.com/PowerShell/PowerShell#get-powershell)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (Microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux)</sub> |
 **WSL - All Distros** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub> | [Download (source)](https://aka.ms/wslstore) |

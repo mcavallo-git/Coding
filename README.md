@@ -116,9 +116,9 @@ Name | Option A | Option B
 **Java SE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(Java Standard Edition, Win10)</i></sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
 **Java JDK, JRE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(Java Development-Kit, Runtime-Environment, Win10)</i></sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
 **PowerShell Core** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Standard Edition</i></sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
-**Ubuntu 16.04 LTS** <br /><sub>&nbsp;&nbsp;&nbsp;<i>WSL (Windows Subsystem for Linux)</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
-**Ubuntu 18.04 LTS** <br /><sub>&nbsp;&nbsp;&nbsp;<i>WSL (Windows Subsystem for Linux)</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
-**WSL - All Distros** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(Windows Subsystem for Linux)</i></sub> | [Download (source)](https://aka.ms/wslstore) | <a href="ms-windows-store://collection/?CollectionId=LinuxDistros">Download (source)</a> |
+**WSL - All Distros** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub> | [Download (source)](https://aka.ms/wslstore) | <a href="ms-windows-store://collection/?CollectionId=LinuxDistros">Download (source)</a> |
+**WSL - Ubuntu 16.04 LTS** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
+**WSL - Ubuntu 18.04 LTS** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
 
 <hr />
 

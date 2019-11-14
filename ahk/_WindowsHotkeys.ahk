@@ -319,27 +319,7 @@ GetTimezoneOffset() {
 	Return %RET_VAL%
 }
 
-; Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
-GetTimezoneOffset_P() {
-	RET_VAL := ""
-	TZ_OFFSET := GetTimezoneOffset()
-	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
-	Return %RET_VAL%
-}
-;
-; ------------------------------------------------------------
-; 
-; Repeat a string a given number of times
-StringRepeat(StrToRepeat, Multiplier) {
-	ReturnedVal := ""
-	If (Multiplier > 0) {
-		Loop, %Multiplier% {
-			ReturnedVal .= StrToRepeat
-		}
-	}
-	Return ReturnedVal
-}
-;
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + D
 ;  ACTION:  Types a variety of timestamp strings
@@ -441,11 +421,10 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 	KeyWait Control  ; Wait for the Control key to be released
 	Sleep 100
 	PasteClipboardAsText()
-	PasteClipboardAsBinary()
+	; PasteClipboardAsBinary()
 	Return
 
 
-;
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + H
 ;  ACTION:  type the COMPUTERNAME
@@ -455,7 +434,8 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 	RET_VAL = %COMPUTERNAME%
   Send %RET_VAL%
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + U
 ;  ACTION:  type the DOMAIN-USERNAME
@@ -1700,7 +1680,6 @@ PasteClipboardAsBinary() {
 
 
 ; PasteClipboardAsText
-;   |
 ;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
 ;
 PasteClipboardAsText() {
@@ -1740,7 +1719,6 @@ PasteClipboardAsText() {
 ;
 ; RunWaitOne
 ;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
-;   |
 ;   |--> Example-call:
 ;          MsgBox % RunWaitOne("dir " A_ScriptDir)
 ;
@@ -1755,7 +1733,6 @@ RunWaitOne(CMD_Command) {
 ;
 ; RunWaitMany
 ;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
-;   |
 ;   |--> Example-call:
 ;          MsgBox % RunWaitMany("
 ;          (
@@ -1772,6 +1749,33 @@ RunWaitMany(CMD_Commands) {
 	WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
 	; Read and return the output of all commands
 	Return exec.StdOut.ReadAll()
+}
+
+
+;
+; GetTimezoneOffset_P
+;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
+;
+GetTimezoneOffset_P() {
+	RET_VAL := ""
+	TZ_OFFSET := GetTimezoneOffset()
+	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
+	Return %RET_VAL%
+}
+
+
+;
+; StringRepeat
+;   |--> Repeat a string a given number of times
+;
+StringRepeat(StrToRepeat, Multiplier) {
+	ReturnedVal := ""
+	If (Multiplier > 0) {
+		Loop, %Multiplier% {
+			ReturnedVal .= StrToRepeat
+		}
+	}
+	Return ReturnedVal
 }
 
 

@@ -65,38 +65,6 @@ IfNotExist, %TEMP_AHK%
 {
 	FileCreateDir, %TEMP_AHK%
 }
-
-; ------------------------------------------------------------
-;	Tooltip clearing tool(s)
-
-RemoveToolTip() {
-	ToolTip
-	Return
-}
-
-ClearTooltip(TimerPeriod) {
-	; If SetTimer's Period...
-	;			 |--> is positive, it repeats its command until explicitly cancelled
-	;			 |--> is negative, it only runs its command once
-	SetTimer, RemoveToolTip, -%TimerPeriod%
-	Return
-}
-;
-; ------------------------------------------------------------
-;	SplashText clearing tool(s)
-;
-RemoveSplashText() {
-	SplashTextOff
-	Return
-}
-;
-ClearSplashText(TimerPeriod) {
-	; If SetTimer's Period...
-	;			 |--> is positive, it repeats its command until explicitly cancelled
-	;			 |--> is negative, it only runs its command once
-	SetTimer, RemoveSplashText, -%TimerPeriod%
-	Return
-}
 ;
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + Esc
@@ -1692,6 +1660,52 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return ReturnedVal
 }
 
+
+; RemoveToolTip
+;   |--> Removes any Tooltips found
+;
+RemoveToolTip() {
+	ToolTip
+	Return
+}
+
+
+;
+; ClearTooltip
+;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
+;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;
+ClearTooltip(Period) {
+	Label := RemoveToolTip
+	SetTimer, %Label%, -%Period%
+	Return
+}
+
+
+;
+; RemoveSplashText
+;   |--> Removes any SplashText found
+;
+RemoveSplashText() {
+	SplashTextOff
+	Return
+}
+
+
+;
+; ClearSplashText
+;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
+;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;
+ClearSplashText(Period) {
+	Label := RemoveSplashText
+	SetTimer, %Label%, -%Period%
+	Return
+}
+
+
+; ------------------------------------------------------------
+
 GetWindowSpecs() {
 
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
@@ -2028,6 +2042,7 @@ If (False) {
 ;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm
 ;   |--> Menu:  https://autohotkey.com/docs/commands/Menu.htm
 ;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |--> SetTimer:  https://www.autohotkey.com/docs/commands/SetTimer.htm
 ;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
 ;
 ; ------------------------------------------------------------

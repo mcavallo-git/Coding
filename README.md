@@ -124,7 +124,6 @@ This file (on GitHub):
 | Cross-Platform<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WSL - Ubuntu 16.04 LTS** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
 | Cross-Platform<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WSL - Ubuntu 18.04 LTS** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
 |<hr id="entertainment" />|<hr />|<hr />|
-| Entertainment<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Lockscreen as wallpaper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
 | Entertainment<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Spotify** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Music Streaming</i></sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
 | Entertainment<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Twitch App** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Live-Streaming & Mod Management</i></sub> | [Download (source)](https://twitch.tv/downloads) |
 |<hr id="hardware-utilities" />|<hr />|<hr />|
@@ -141,6 +140,8 @@ This file (on GitHub):
 | Hardware-Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **VMware (ESXi Server Management)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>VMware vSphere, VMware Workstation, VMware Fusion, VMware Player, etc.</i></sub> | [Download (source)](https://my.vmware.com/web/vmware/downloads) |
 | Hardware-Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Yubico Tools** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Security Key Configuration</i></sub> | [Download (source)](https://www.yubico.com/products/services-software/download/) |
 | Hardware-Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WinSW: Windows service wrapper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(in less restrictive license)</i></sub> | [Download (source)](https://github.com/kohsuke/winsw/) |
+|<hr id="personalization" />|<hr />|<hr />|
+| Personalization<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Lockscreen as wallpaper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
 |<hr id="troubleshooting" />|<hr />|<hr />|
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **BlueScreenView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/blue_screen_view.html) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **DigiCert Certificate Utility for Windows** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |

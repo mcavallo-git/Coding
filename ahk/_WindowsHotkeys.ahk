@@ -150,17 +150,16 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
-;   HOTKEY:  Win + Alt + V
-;   HOTKEY:  Win + Ctrl + V
-;   HOTKEY:  Win + Shift + V
 ;   HOTKEY:  Ctrl + Shift + V
+;   HOTKEY:  Ctrl + Alt + V
+;   HOTKEY:  Ctrl + Win + V
 ;   ACTION:  Paste the Clipboard
 ;
-+#V::
-^#V::
-!#V::
-+^V::
+*^+V::
+*^!V::
+*^#V::
 	PasteClipboardAsText()
+	; PasteClipboardAsBinary()
 	Return
 
 

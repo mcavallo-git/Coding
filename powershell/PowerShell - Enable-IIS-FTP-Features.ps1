@@ -12,8 +12,6 @@ If ($False) { # Download this script from GitHub, Run it, then Clean-up/Remove t
 
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
-	System.Net.Cache
-
 $WebClient = $(New-Object System.Net.WebClient);
 $WebClient.CachePolicy = $(New System.Net.Cache.RequestCachePolicy($(System.Net.Cache.RequestCacheLevel.NoCacheNoStore)));
 $WebClient.CachePolicy = $(System.Net.Cache.RequestCacheLevel.NoCacheNoStore)

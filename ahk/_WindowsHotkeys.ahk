@@ -1021,75 +1021,11 @@ LShift & RShift::
 	Return
 ;
 ; ------------------------------------------------------------
-;  Win+T - [DevOps] - Get Windows Environment Variables (output to desktop)
+;  Win + T - Get Windows Environment Variables
 ;
 #T::
-	; - -
-	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
-	Logfile_EnvVars=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%.log
-	Logfile_EnvVars_Timestamp=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%-%TIMESTAMP%.log
-	; - -
-	KnownWinEnvVars=
-	(LTrim
-	==========================================================================
-
-	*** Variables for Current Session ***
-
-	TIMESTAMP = %TIMESTAMP%
-
-	--------------------------------------------------------------------------
-
-	*** Windows Environment Variables (Long-standing) ***
-
-	COMPUTERNAME         %COMPUTERNAME%
-	USERNAME             %USERNAME%
-	USERDOMAIN           %USERDOMAIN%
-	LOGONSERVER          %LOGONSERVER%
-	
-	ALLUSERSPROFILE      %ALLUSERSPROFILE%
-	APPDATA              %APPDATA%
-	COMMONPROGRAMFILES   %COMMONPROGRAMFILES%
-	HOMEDRIVE            %HOMEDRIVE%
-	HOMEPATH             %HOMEPATH%
-	LOCALAPPDATA         %LOCALAPPDATA%
-	PROGRAMDATA          %PROGRAMDATA%
-	PROGRAMFILES         %PROGRAMFILES%
-	PUBLIC               %PUBLIC%
-	SYSTEMDRIVE          %SYSTEMDRIVE%
-	SYSTEMROOT           %SYSTEMROOT%
-	TEMP                 %TEMP%
-	TMP                  %TMP%
-	USERPROFILE          %USERPROFILE%
-	WINDIR               %WINDIR%
-
-	--------------------------------------------------------------------------
-
-	*** Autohotkey Variables ***
-
-	A_AhkVersion: %A_AhkVersion%
-	A_AhkPath: %A_AhkPath%
-	A_IsUnicode: %A_IsUnicode%
-	A_IsCompiled: %A_IsCompiled%
-	
-	A_WorkingDir: %A_WorkingDir%
-	A_ScriptDir: %A_ScriptDir%
-
-	A_ScriptName: %A_ScriptName%
-	A_ScriptFullPath: %A_ScriptFullPath%
-
-	A_LineFile: %A_LineFile%
-	A_LineNumber: %A_LineNumber%
-
-	A_ThisLabel: %A_ThisLabel%
-	A_ThisFunc: %A_ThisFunc%
-
-	==========================================================================
-	)
-	; - -
-	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
-	Run, Edit "%Logfile_EnvVars_Timestamp%"
+	GetEnvironmentVariables()
 	Return
-
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Caps Lock
@@ -1705,8 +1641,83 @@ ClearSplashText(Period) {
 }
 
 
-; ------------------------------------------------------------
+;
+; GetEnvironmentVariables
+;   |--> Gets Windows Environment Variables (output to file)
+;
+GetEnvironmentVariables() {
+	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+	Logfile_EnvVars=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%.log
+	Logfile_EnvVars_Timestamp=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%-%TIMESTAMP%.log
+	; - -
+	KnownWinEnvVars=
+	(LTrim
+	==========================================================================
 
+	*** Variables for Current Session ***
+
+	TIMESTAMP = %TIMESTAMP%
+
+	--------------------------------------------------------------------------
+
+	*** Windows Environment Variables (Long-standing) ***
+
+	COMPUTERNAME         %COMPUTERNAME%
+	USERNAME             %USERNAME%
+	USERDOMAIN           %USERDOMAIN%
+	LOGONSERVER          %LOGONSERVER%
+	
+	ALLUSERSPROFILE      %ALLUSERSPROFILE%
+	APPDATA              %APPDATA%
+	COMMONPROGRAMFILES   %COMMONPROGRAMFILES%
+	HOMEDRIVE            %HOMEDRIVE%
+	HOMEPATH             %HOMEPATH%
+	LOCALAPPDATA         %LOCALAPPDATA%
+	PROGRAMDATA          %PROGRAMDATA%
+	PROGRAMFILES         %PROGRAMFILES%
+	PUBLIC               %PUBLIC%
+	SYSTEMDRIVE          %SYSTEMDRIVE%
+	SYSTEMROOT           %SYSTEMROOT%
+	TEMP                 %TEMP%
+	TMP                  %TMP%
+	USERPROFILE          %USERPROFILE%
+	WINDIR               %WINDIR%
+
+	--------------------------------------------------------------------------
+
+	*** Autohotkey Variables ***
+
+	A_AhkVersion: %A_AhkVersion%
+	A_AhkPath: %A_AhkPath%
+	A_IsUnicode: %A_IsUnicode%
+	A_IsCompiled: %A_IsCompiled%
+	
+	A_WorkingDir: %A_WorkingDir%
+	A_ScriptDir: %A_ScriptDir%
+
+	A_ScriptName: %A_ScriptName%
+	A_ScriptFullPath: %A_ScriptFullPath%
+
+	A_LineFile: %A_LineFile%
+	A_LineNumber: %A_LineNumber%
+
+	A_ThisLabel: %A_ThisLabel%
+	A_ThisFunc: %A_ThisFunc%
+
+	==========================================================================
+	)
+	; - -
+	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
+	Run, Edit "%Logfile_EnvVars_Timestamp%"
+
+	Return
+}
+
+
+;
+; GetWindowSpecs
+;   |--> Gets Specs for currently-active window
+;
 GetWindowSpecs() {
 
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])

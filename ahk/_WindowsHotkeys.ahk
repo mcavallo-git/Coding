@@ -174,15 +174,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Ctrl + Shift + V
-;  ACTION:  Paste the clipboard as text
-;
-+^V::
-	PasteClipboardAsText()
-	Return
-
-
-; ------------------------------------------------------------
 ;  HOTKEY:  Win + H
 ;  ACTION:  Type the COMPUTERNAME
 ;

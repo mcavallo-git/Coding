@@ -9,10 +9,16 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <h3>Windows - Essential Resources</h3>
+<details open><summary><i>Show/Hide Content</i></summary>
+<p>
 
-Name | Option A | Option B
---- | --- | ---
-**Group Policy IDs, etc.** <sub><i>'Group Policy Settings Reference for Windows and Windows Server'</i></sub> | [Download (source)](https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250) |
+
+Name | Option A
+--- | ---
+**Group Policy IDs, etc.** <sub><i>'Group Policy Settings Reference for Windows and Windows Server'</i></sub> | [Download (source)](https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250)
+
+</p>
+</details>
 
 <hr />
 

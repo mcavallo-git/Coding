@@ -13,7 +13,8 @@ Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${
 Get-WindowsOptionalFeature -Online | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
 
 
-# Get-WindowsFeature | Where-Object { $_.Installed -match "True" } | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+Get-WindowsFeature | Where-Object { $_.Installed -match "True" } | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.Installed_True.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log"; `
+Get-WindowsOptionalFeature | Where-Object { $_.State -Eq "Enabled" } | Select-Object -Property FeatureName,State | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.State_Enabled.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log"; }
 
 
 # Get-WindowsFeature | Where-Object {$_.Installed -match “True”} | Select-Object -Property Name

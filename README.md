@@ -20,49 +20,51 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<ul>
-	<li><details open><summary>
-			<strong>Sync PowerShell Modules</strong>
-		</summary>
-		<p>
-			<ol>
-				<li>
-					<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
-				</li>
-				<li>
-					<details><summary>
-							<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
-						</summary>
-						<div style="text-align:center;"><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
-					</details>
-				</li>
-				<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
-				<li>
-					<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
-					<pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre>
-				</li>
-			</ol>
-		</p>
-	</details>
-	</li>
-	<hr />
-	<li><details open><summary>
-			<strong>Sync Bash Modules</strong>
-		</summary>
-		<p>
-			<ol>
-				<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
-				<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
-				<li>
-					<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
-					<pre><code>curl -ssL "https://sync.mcavallo.com/$(date +'%N').sh" | sudo bash;</code></pre>
-				</li>
-			</ol>
-		</p>
-	</details>
-	</li>
-	<hr />
-</ul>
+<details open><summary>
+		<strong>Sync PowerShell Modules</strong>
+	</summary>
+	<p>
+		<ol>
+			<li>
+				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
+			</li>
+			<li>
+				<details><summary>
+						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
+					</summary>
+					<div style="text-align:center;"><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
+				</details>
+			</li>
+			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
+			<li>
+				<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
+				<pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre>
+			</li>
+		</ol>
+	</p>
+</details>
+
+<hr />
+
+
+<!-- ------------------------------------------------------------ -->
+
+<details open><summary>
+		<strong>Sync Bash Modules</strong>
+	</summary>
+	<p>
+		<ol>
+			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
+			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
+			<li>
+				<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
+				<pre><code>curl -ssL "https://sync.mcavallo.com/$(date +'%N').sh" | sudo bash;</code></pre>
+			</li>
+		</ol>
+	</p>
+</details>
+
+<hr />
 
 
 <!-- ------------------------------------------------------------ -->

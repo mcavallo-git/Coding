@@ -405,73 +405,44 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + P
-;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
+;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 #P::
 	; ------------------------------------------------------------
-	SetTimer, CustomMsgboxButtons_ClipboardPaste, 50 
+	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50 
 	MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
-	IfMsgBox Yes {  ; Paste the Text version of the Clipboard
-		SetKeyDelay, 0, -1
-		ClipboardDuped:=Clipboard
-		If (%VERBOSE_OUTPUT% == True) {
-			TrayTip, %A_ScriptName%,
-			(LTrim
-				Pasting the Text version of the Clipboard
-			)
-		}
-		; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
-
-		; OPTION 1 - Using Built-in AHK Trim Method
-		ClipboardSend := ""
-		VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
-		Loop, Parse, ClipboardDuped, `n, `r
-		{
-			ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
-			Send {Blind}{Text}%ClipboardSend%
-			ClipboardSend = ; Avoid caching clipboard-contents in memory
-			Sleep 100
-		}
-		; OPTION 2 - Using Regex Replacement Method
-		; ClipboardSend := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
-		; Send {Blind}{Text}%ClipboardSend%
-
+	IfMsgBox Yes
+	{  ; Paste the Text version of the Clipboard
+		PasteClipboardAsText()
 	}
 	; ------------------------------------------------------------
-	IfMsgBox No {  ; Paste the Binary version of the Clipboard
-		SetKeyDelay, 0, -1
-		TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
-		ClipboardDuped:=Clipboard
-		FileAppend, %ClipboardAll%, %TEMP_CLIP_FILE% ; The file extension does not matter
-		Sleep, 100
-		FileRead, Clipboard, *c %TEMP_CLIP_FILE% ; Note the use of *c, which must precede the filename
-		Sleep, 100
-		Send {Blind}{Text}%Clipboard%
-		If (%VERBOSE_OUTPUT% == True) {
-			TrayTip, %A_ScriptName%,
-			(LTrim
-				Pasting the Binary version of the Clipboard
-			)
-		}
-		Sleep, 100
-		FileDelete, %TEMP_CLIP_FILE% ; Delete the clipboard file
-		Sleep, 100
-		Clipboard:=ClipboardDuped
-		Sleep, 100
+	IfMsgBox No
+	{  ; Paste the Binary version of the Clipboard
+		PasteClipboardAsBinary()
 	}
 	; ------------------------------------------------------------
 	ClipboardDuped = ; Avoid caching clipboard-contents in memory
 	ClipboardSend = ; Avoid caching clipboard-contents in memory
 	Return
 
-CustomMsgboxButtons_ClipboardPaste: 
+CustomMsgboxButtons_ClipboardTextOrBinary: 
 	IfWinNotExist, Text or Binary
 			return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
-	SetTimer, CustomMsgboxButtons_ClipboardPaste, Off 
+	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off 
 	WinActivate 
 	ControlSetText, Button1, &Text
 	ControlSetText, Button2, &Binary
 	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Shift + Win + V
+;  ACTION:  Paste the clipboard as text
+;
++^V::
+	PasteClipboardAsText()
+	Return
+
 
 ;
 ; ------------------------------------------------------------
@@ -1689,6 +1660,79 @@ Nanoseconds() {
 	; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
 	A_NSec := Format("{:07}00", Mod(vIntervals, 10000000))
 	Return %A_NSec%
+}
+
+
+;
+; PasteClipboardAsBinary
+;   |
+;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
+;
+PasteClipboardAsBinary() {
+	SetKeyDelay, 0, -1
+	TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
+	ClipboardDuped:=Clipboard
+	FileAppend, %ClipboardAll%, %TEMP_CLIP_FILE% ; The file extension does not matter
+	Sleep, 100
+	FileRead, Clipboard, *c %TEMP_CLIP_FILE% ; Note the use of *c, which must precede the filename
+	Sleep, 100
+	Send {Blind}{Text}%Clipboard%
+	If (%VERBOSE_OUTPUT% == True) {
+		TrayTip, %A_ScriptName%,
+		(LTrim
+			Pasting the Binary version of the Clipboard
+		)
+	}
+
+	Sleep, 100
+	FileDelete, %TEMP_CLIP_FILE% ; Delete the clipboard file
+
+	Sleep, 100
+	Clipboard:=ClipboardDuped
+
+	Sleep, 100
+	ClipboardDuped = ; Avoid caching clipboard-contents in memory
+	ClipboardSend = ; Avoid caching clipboard-contents in memory
+
+	Return
+}
+
+
+; PasteClipboardAsText
+;   |
+;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
+;
+PasteClipboardAsText() {
+	SetKeyDelay, 0, -1
+	ClipboardDuped:=Clipboard
+	If (%VERBOSE_OUTPUT% == True) {
+		TrayTip, %A_ScriptName%,
+		(LTrim
+			Pasting the Text version of the Clipboard
+		)
+	}
+	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
+
+	; OPTION 1 - Using Built-in AHK Trim Method
+	ClipboardSend := ""
+	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
+	Loop, Parse, ClipboardDuped, `n, `r
+	{
+		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
+		Send {Blind}{Text}%ClipboardSend%
+		ClipboardSend = ; Avoid caching clipboard-contents in memory
+		Sleep 100
+	}
+
+	; OPTION 2 - Using Regex Replacement Method
+	; ClipboardSend := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
+	; Send {Blind}{Text}%ClipboardSend%
+
+	Sleep, 100
+	ClipboardDuped = ; Avoid caching clipboard-contents in memory
+	ClipboardSend = ; Avoid caching clipboard-contents in memory
+
+	Return
 }
 
 

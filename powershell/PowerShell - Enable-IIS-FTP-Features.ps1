@@ -29,6 +29,11 @@ While (1) {
 
 # ------------------------------------------------------------
 
+$RevertBackgroundColor = [System.Console]::BackgroundColor;
+[System.Console]::BackgroundColor = "Black";
+
+# ------------------------------------------------------------
+
 [string[]]$EnableFeatures = @();
 
 $EnableFeatures += "FileAndStorage-Services";
@@ -99,14 +104,11 @@ Get-WindowsFeature `
 	If ( $_.Installed -Match "False" ) {
 
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
-		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
-		[System.Console]::BackgroundColor = "Black";
 
 		Write-Output "Installing `"$($_.Name)`" role...";
 
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
-		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 		$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);  # Use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ] to un-do
 
@@ -114,9 +116,7 @@ Get-WindowsFeature `
 			# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
 
 			$RevertForegroundColor = [System.Console]::ForegroundColor;
-			$RevertBackgroundColor = [System.Console]::BackgroundColor;
 			[System.Console]::ForegroundColor = "Yellow";
-			[System.Console]::BackgroundColor = "Black";
 
 			Write-Output "WSUS-based installation failed - attempting to install from Windows Update...";
 			
@@ -126,19 +126,15 @@ Get-WindowsFeature `
 			# ...
 			#
 			[System.Console]::ForegroundColor = "${RevertForegroundColor}";
-			[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 		}
 	} Else {
 
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
-		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Green";
-		[System.Console]::BackgroundColor = "Black";
 
 		Write-Output "Role `"$($_.Name)`" already installed";
 
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
-		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 	}
 }
@@ -245,14 +241,11 @@ Get-WindowsOptionalFeature -Online `
 	Write-Output "------------------------------------------------------------";
 	If ( $_.State -Eq "Disabled" ) {
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
-		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
-		[System.Console]::BackgroundColor = "Black";
 
 		Write-Output "Installing `"$($_.FeatureName)`" feature...";
 
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
-		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");  # Use [ Disable-WindowsOptionalFeature -FeatureName ("$($_.FeatureName)") ] to undo;
 
@@ -260,14 +253,11 @@ Get-WindowsOptionalFeature -Online `
 	} Else {
 
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
-		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Green";
-		[System.Console]::BackgroundColor = "Black";
 
 		Write-Output "Feature `"$($_.FeatureName)`" already installed";
 
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
-		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 
 	}
@@ -276,9 +266,7 @@ Get-WindowsOptionalFeature -Online `
 # ------------------------------------------------------------
 
 $RevertForegroundColor = [System.Console]::ForegroundColor;
-$RevertBackgroundColor = [System.Console]::BackgroundColor;
 [System.Console]::ForegroundColor = "Yellow";
-[System.Console]::BackgroundColor = "Black";
 
 Write-Output "------------------------------------------------------------";
 Write-Output "";
@@ -290,6 +278,9 @@ Write-Output "------------------------------------------------------------";
 Write-Output "";
 
 [System.Console]::ForegroundColor = "${RevertForegroundColor}";
+
+# ------------------------------------------------------------
+
 [System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 # ------------------------------------------------------------

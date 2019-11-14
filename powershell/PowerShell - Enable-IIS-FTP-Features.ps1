@@ -29,7 +29,7 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 # Sleep 2;
 # }
 
-# WinSxS
+#  "${Env:SystemRoot}\WinSxS"
 
 
 }
@@ -114,7 +114,7 @@ Get-WindowsFeature `
 		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
 
-		Write-Output "Installing `"$($_.Name)`" Feature...";
+		Write-Output "Attempting to Install `"$($_.Name)`" Feature (using default Source)...";
 
 		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
@@ -124,25 +124,57 @@ Get-WindowsFeature `
 
 			$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 			[System.Console]::ForegroundColor = "Green";
-
-			Write-Output "Feature `"$($_.Name)`" successfully installed";
-
+			Write-Output "  |--> Feature `"$($_.Name)`" successfully installed";
 			[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
+			Write-Output "";
 
 		} Else {
-			# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
 
 			$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 			[System.Console]::ForegroundColor = "Yellow";
 
-			Write-Output "WSUS-based installation failed - attempting to install from Windows Update...";
-			
-			$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
+			Write-Output "  |--> Feature `"$($_.Name)`" failed to install (using default Source)";
+			Write-Output "";
 
-			#
-			# ...
-			#
 			[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
+
+			# $FallbackSource = "${Env:SystemRoot}\WinSxS";
+			$FallbackSource = "D:\sources\sxs";
+			If ((Test-Path "${FallbackSource}") -Eq $True ) {
+
+				Write-Output "Attempting to Install `"$($_.Name)`" Feature (using Source `"${FallbackSource}`")...";
+
+				$Response_FeatureInstall = (Install-WindowsFeature -Name ("Web-Net-Ext") -Source ("${FallbackSource}") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
+
+			} Else {
+
+				$Revert_ForegroundColor = [System.Console]::ForegroundColor;
+				[System.Console]::ForegroundColor = "Magenta";
+				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script";
+				[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
+				Write-Output "";
+
+			}
+
+			If ($Response_FeatureInstall.Success -Match "True") {
+
+				$Revert_ForegroundColor = [System.Console]::ForegroundColor;
+				[System.Console]::ForegroundColor = "Green";
+				Write-Output "  |--> Feature `"$($_.Name)`" successfully installed";
+				[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
+				Write-Output "";
+
+			} Else {
+
+				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script";
+
+			}
+
+
+
+			# Final Fallback - Edit Group Policy setting to pull from Windows-Update, directly
+
+			}
 		}
 	} Else {
 

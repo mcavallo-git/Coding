@@ -1661,6 +1661,7 @@ StringRepeat(StrToRepeat, Multiplier) {
 }
 
 
+;
 ; RemoveToolTip
 ;   |--> Removes any Tooltips found
 ;

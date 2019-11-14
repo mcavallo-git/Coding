@@ -159,11 +159,9 @@ This file (on GitHub):
 |<hr id="server-runtimes" />|<hr />|<hr />|
 | Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub> | [View (source)](https://get.docker.com) |
 | Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CI/CD Server</i></sub> | [View (source)](https://jenkins.io) |
-|<hr id="web-based" />|<hr id="web-based-tools" />|<hr id="web-based-utilities" />|
-| Web-Based Tools & Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **PCPartPicker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Component Pricing/Compatibility Comparisons</i></sub> | [View (source)](https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf) |
 |<hr id="standardization" />|<hr />|<hr />|
-| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy** <br /><sub>&nbsp;&nbsp;&nbsp;<i>DNS Certificate Chains & Root Certs</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
-| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap** <br /><sub>&nbsp;&nbsp;&nbsp;<i>DNS Certificate Chains & Root Certs</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
+| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy** <br /><sub>&nbsp;&nbsp;&nbsp;<i>DNS Certificate Chains<br />&nbsp;&nbsp;&nbsp;DNS Root Certs</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
+| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap** <br /><sub>&nbsp;&nbsp;&nbsp;<i>DNS Certificate Chains<br />&nbsp;&nbsp;&nbsp;DNS Root Certs</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
 
 <hr />
 

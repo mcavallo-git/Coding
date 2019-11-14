@@ -6,9 +6,8 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h3 id="coding" title="DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.[1]">
-	Coding<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;<i id="readme">DevOps Resource-Reference</i></sub>
+<h3 id="coding" title="DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality. [1]">
+	DevOps Resource Reference<br />
 	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;What is <a id="what-is-devops" href="https://www.atlassian.com/devops">DevOps</a>?</sub>
 </h3>
 

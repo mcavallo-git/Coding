@@ -74,7 +74,7 @@ This file (on GitHub):
 
 Name | Option A | Option B
 --- | --- | ---
-**AirParrot** <br /><sub>&Tab;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
+**AirParrot** <br /><sub>.&Tab;&Tab;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **AutoHotkey (AHK)** <br /><sub>&Tab;&Tab;<i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
 **Classic Shell** <br /><sub><i>Win7 Style Start-Menu</i></sub> | [Download (mirror-1)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml) | [Download (mirror-2)](https://www.fosshub.com/Classic-Shell.html)
 **Cryptomator** <br /><sub><i>Client-Side Cloud-Encryption</i></sub> | [Download (mirror-1)](https://cryptomator.org/downloads/#winDownload) |

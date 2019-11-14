@@ -1418,15 +1418,15 @@ TempFile() {
 ;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
 ;
 PasteClipboardAsBinary() {
-	SetKeyDelay, 0, -1
 	Global VerboseOutput
+	SetKeyDelay, 0, -1
 	NewTempFile := TempFile()
 	ClipboardDuped:=Clipboard
 	FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
 	Sleep, 100
 	FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
 	Sleep, 100
-	If (%VerboseOutput% == True) {
+	If (VerboseOutput == True) {
 		TrayTip, %A_ScriptName%,
 		(LTrim
 			Pasting the Binary version of the Clipboard
@@ -1455,9 +1455,10 @@ PasteClipboardAsBinary() {
 ;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
 ;
 PasteClipboardAsText() {
+	Global VerboseOutput
 	SetKeyDelay, 0, -1
 	ClipboardDuped:=Clipboard
-	If (%VerboseOutput% == True) {
+	If (VerboseOutput == True) {
 		TrayTip, %A_ScriptName%,
 		(LTrim
 			Pasting the Text version of the Clipboard

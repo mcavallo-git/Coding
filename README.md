@@ -11,6 +11,8 @@ This file (on GitHub):
 	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;What is <a id="what-is-devops" href="https://www.atlassian.com/devops">DevOps</a>?</sub>
 </h3>
 
+<img src="images/archive/devops-loop-illustrations.atlassian.png" />
+
 <hr />
 
 

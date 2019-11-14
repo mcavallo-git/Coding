@@ -118,7 +118,7 @@ Name | Option A | Option B
 **PowerShell Core** <sub><i>Standard Edition</i></sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |
 **Ubuntu 16.04 LTS** <sub><i>WSL (Windows Subsystem for Linux)</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9PJN388HP8C9) |
 **Ubuntu 18.04 LTS** <sub><i>WSL (Windows Subsystem for Linux)</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9N9TNGVNDL3Q) |
-**WSL Distro Options** <sub><i>(Windows Subsystem for Linux)</i></sub> | [Download (source)](https://aka.ms/wslstore) | [Download (source)](ms-windows-store://collection/?CollectionId=LinuxDistros) |
+**WSL - All Distros** <sub><i>(Windows Subsystem for Linux)</i></sub> | [Download (source)](https://aka.ms/wslstore) | [Download (source)](ms-windows-store://collection/?CollectionId=LinuxDistros) |
 
 <hr />
 

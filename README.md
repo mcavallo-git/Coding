@@ -11,12 +11,14 @@ This file (on GitHub):
 	<br />
 	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
 	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</blockquote>
-	<div>Atlassian<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
+	<div>TrustRadius<sup>&nbsp;<a href="https://www.trustradius.com/platform-as-a-service-paas">[4]</a></sup> states:</div>
+	<blockquote>The overlap between provisioning IT services and developing applications is a much-discussed area that has come to be known as DevOps.</blockquote>
+	<div>Atlassian<sup>&nbsp;<a href="https://www.atlassian.com/devops">[5]</a></sup> states:</div>
 	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.<a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
 </details>
 
 <hr />
-<!-- The overlap between provisioning IT services and developing applications is a much-discussed area that has come to be known as DevOps.  # https://www.trustradius.com/platform-as-a-service-paas -->
+
 
 <!-- ------------------------------------------------------------ -->
 

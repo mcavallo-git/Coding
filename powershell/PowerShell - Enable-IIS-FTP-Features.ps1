@@ -306,7 +306,7 @@ Write-Output "";
 #
 #   docs.microsoft.com  |  "New-ItemProperty - Creates a new property for an item and sets its value"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty
 #
-#   github.com  |  "2017-03-14-quick-guide-to-http-caching.md"  |  https://github.com/kamranahmedse/kamranahmedse.github.io/blob/master/blog/_posts/2017-03-14-quick-guide-to-http-caching.md
+#   github.com  |  "Web Cache - Everything you need to know"  |  https://github.com/kamranahmedse/kamranahmedse.github.io/blob/master/blog/_posts/2017-03-14-quick-guide-to-http-caching.md
 #
 #   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #

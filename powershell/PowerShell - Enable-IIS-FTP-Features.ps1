@@ -13,23 +13,22 @@ If ($False) { # Download this script from GitHub, Run it, then Clean-up/Remove t
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
 
-Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; $WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); New-Item -ItemType "File" -Path ("${SyncTemp}") -Value ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)")) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
+# Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; $WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); New-Item -ItemType "File" -Path ("${SyncTemp}") -Value ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)")) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
 
-# Attempting to avoid caching of the website
+# # Attempting to avoid caching of the website
 
-While (1) {
+# While (1) {
+# $WC=(New-Object System.Net.WebClient);
+# $WC.Headers.Set("Cache-Control","no-store, no-cache, must-revalidate");
+# $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore));
+# $WC_DL=($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"));
+# Write-Output $WC_DL | find /c /v "";
+# Write-Host "======================";
+# Date;
+# Sleep 2;
+# }
 
-$WC=(New-Object System.Net.WebClient);
-$WC.Headers.Set("Cache-Control","no-store, no-cache, must-revalidate");
-$WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore));
-$WC_DL=($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"));
-Write-Output $WC_DL | find /c /v "";
-Write-Host "======================";
-Date;
-Sleep 2;
-
-}
 # WinSxS
 
 

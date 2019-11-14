@@ -1725,7 +1725,7 @@ GetWindowSpecs() {
 	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
 	GUI_OPT = r%GUI_ROWCOUNT%
 	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
-	GUI_OPT = %GUI_OPT% gOnClick_LV_WindowSpecs
+	GUI_OPT = %GUI_OPT% gGetWindowSpecs_OnClick_LV_WindowSpecs
 	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
 	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
 	GUI_OPT = %GUI_OPT% Grid
@@ -1760,7 +1760,7 @@ GetWindowSpecs() {
 	Return
 }
 
-OnClick_LV_WindowSpecs() {
+GetWindowSpecs_OnClick_LV_WindowSpecs() {
 	; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
 	Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
 	If (Obj_EventTriggers[A_GuiEvent]) {

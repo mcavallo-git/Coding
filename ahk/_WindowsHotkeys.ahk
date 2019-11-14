@@ -408,15 +408,13 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;  ACTION:  type the clipboard (workaround for paste blocking web-scripts)
 ;
 #P::
-	SetKeyDelay, 0, -1
-	TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
 	; ------------------------------------------------------------
 	SetTimer, CustomMsgboxButtons_ClipboardPaste, 50 
 	MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
-	IfMsgBox Yes
-	{
+	IfMsgBox Yes {  ; Paste the Text version of the Clipboard
+		SetKeyDelay, 0, -1
 		ClipboardDuped:=Clipboard
-		If (VERBOSE_OUTPUT == True) {
+		If (%VERBOSE_OUTPUT% == True) {
 			TrayTip, %A_ScriptName%,
 			(LTrim
 				Pasting the Text version of the Clipboard
@@ -440,15 +438,16 @@ StringRepeat(StrToRepeat, Multiplier) {
 
 	}
 	; ------------------------------------------------------------
-	IfMsgBox No
-	{
+	IfMsgBox No {  ; Paste the Binary version of the Clipboard
+		SetKeyDelay, 0, -1
+		TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
 		ClipboardDuped:=Clipboard
 		FileAppend, %ClipboardAll%, %TEMP_CLIP_FILE% ; The file extension does not matter
 		Sleep, 100
 		FileRead, Clipboard, *c %TEMP_CLIP_FILE% ; Note the use of *c, which must precede the filename
 		Sleep, 100
 		Send {Blind}{Text}%Clipboard%
-		If (VERBOSE_OUTPUT == True) {
+		If (%VERBOSE_OUTPUT% == True) {
 			TrayTip, %A_ScriptName%,
 			(LTrim
 				Pasting the Binary version of the Clipboard
@@ -1031,7 +1030,7 @@ WheelRight::
 ; 	WinGet, WinProcessName, ProcessName, A
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (VERBOSE_OUTPUT == True) {
+; 		If (%VERBOSE_OUTPUT% == True) {
 ; 			TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
 ; 		}
 ; 		x_loc = 223
@@ -1043,7 +1042,7 @@ WheelRight::
 ; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 ; 	}
 ; 	; } Else {
-; 	; 	If (VERBOSE_OUTPUT == True) {
+; 	; 	If (%VERBOSE_OUTPUT% == True) {
 ; 	; 		TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
 ; 	; 	}
 ; 	; }
@@ -1379,7 +1378,7 @@ OpenChrome() {
 
 	If (ProcessExist(EXE_BASENAME) == True) {
 		; Executable IS running - Activate the associated Window based on PID
-		If (VERBOSE_OUTPUT == True) {
+		If (%VERBOSE_OUTPUT% == True) {
 			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
@@ -1389,7 +1388,7 @@ OpenChrome() {
 
 	} Else If (FileExist(EXE_FULLPATH)) {
 		; Executable is NOT running but IS found locally
-		If (VERBOSE_OUTPUT == True) {
+		If (%VERBOSE_OUTPUT% == True) {
 			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
@@ -1403,7 +1402,7 @@ OpenChrome() {
 
 	} Else {
 		; Executable is NOT running and NOT found locally
-		If (VERBOSE_OUTPUT == True) {
+		If (%VERBOSE_OUTPUT% == True) {
 			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}

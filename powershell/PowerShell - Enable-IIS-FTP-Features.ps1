@@ -29,7 +29,7 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 # Sleep 2;
 # }
 
-#  "${Env:SystemRoot}\WinSxS"
+#  "${Env:windir}\WinSxS"
 
 
 }
@@ -144,7 +144,7 @@ Get-WindowsFeature `
 
 				Write-Output "Attempting to Install `"$($_.Name)`" Feature (using Source `"${FallbackSource}`")...";
 
-				$Response_FeatureInstall = (Install-WindowsFeature -Name ("Web-Net-Ext") -Source ("${FallbackSource}") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
+				# $Response_FeatureInstall = (Install-WindowsFeature -Name ("Web-Net-Ext") -Source ("${FallbackSource}") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
 
 			} Else {
 

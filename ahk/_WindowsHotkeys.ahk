@@ -415,14 +415,10 @@ StringRepeat(StrToRepeat, Multiplier) {
 	{  ; Paste the Text version of the Clipboard
 		PasteClipboardAsText()
 	}
-	; ------------------------------------------------------------
 	IfMsgBox No
 	{  ; Paste the Binary version of the Clipboard
 		PasteClipboardAsBinary()
 	}
-	; ------------------------------------------------------------
-	ClipboardDuped = ; Avoid caching clipboard-contents in memory
-	ClipboardSend = ; Avoid caching clipboard-contents in memory
 	Return
 
 CustomMsgboxButtons_ClipboardTextOrBinary: 
@@ -440,7 +436,7 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 ;  ACTION:  Paste the clipboard as text
 ;
 +^V::
-	PasteClipboardAsText()
+	PasteClipboardAsBinary()
 	Return
 
 

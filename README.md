@@ -10,47 +10,42 @@ This file (on GitHub):
 <details><summary><i>What is DevOps?</i></summary>
 	<br />
 	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
-	<br />
 	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</blockquote>
 	<div>Atlassian<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
-	<br />
 	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.<a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
 </details>
 
 <hr />
 <!-- The overlap between provisioning IT services and developing applications is a much-discussed area that has come to be known as DevOps.  # https://www.trustradius.com/platform-as-a-service-paas -->
 
-
 <!-- ------------------------------------------------------------ -->
 
 <ul>
-
-<!-- ------------------------------------------------------------ -->
-
-<li><details open><summary>
-		<strong>Sync PowerShell Modules</strong>
-	</summary>
-	<p>
-		<ol>
-			<li>
-				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
-			</li>
-			<li>
-				<details><summary>
-						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
-					</summary>
-					<div style="text-align:center;"><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
-				</details>
-			</li>
-			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
-			<li>
-				<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
-				<pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre>
-			</li>
-		</ol>
-	</p>
-</details>
-</li>
+	<li><details open><summary>
+			<strong>Sync PowerShell Modules</strong>
+		</summary>
+		<p>
+			<ol>
+				<li>
+					<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
+				</li>
+				<li>
+					<details><summary>
+							<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
+						</summary>
+						<div style="text-align:center;"><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
+					</details>
+				</li>
+				<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>
+				<li>
+					<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
+					<pre><code>Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps') -Verb RunAs;</code></pre>
+				</li>
+			</ol>
+		</p>
+	</details>
+	</li>
+</ul>
 
 <hr />
 
@@ -204,11 +199,6 @@ This file (on GitHub):
 </details>
 
 <hr />
-
-
-<!-- ------------------------------------------------------------ -->
-
-</ul>
 
 
 <!-- ------------------------------------------------------------ -->

@@ -59,14 +59,6 @@ GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
 GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
-
-TEMP_AHK = %A_Temp%\AutoHotkey\
-IfNotExist, %TEMP_AHK%
-{
-	FileCreateDir, %TEMP_AHK%
-}
-;
-; ------------------------------------------------------------
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
@@ -1405,28 +1397,46 @@ Nanoseconds() {
 
 
 ;
+; TempFile
+;   |--> Creates a temporary file with a timestamp (down to the millisecond) based filename
+;   |--> Returns a string-value containing the fullpath of the temporary file (which was just created)
+;
+TempFile() {
+	TempFile_Dirname := A_Temp "\AutoHotkey\"
+	IfNotExist, %TempFile_Dirname%
+	{
+		FileCreateDir, %TempFile_Dirname%
+	}
+	TempFile_Basename := A_Now "." A_MSec
+	TempFile_Fullpath := TempFile_Dirname TempFile_Basename
+	Return %TempFile_Fullpath%
+}
+
+
+;
 ; PasteClipboardAsBinary
 ;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
 ;
 PasteClipboardAsBinary() {
 	SetKeyDelay, 0, -1
-	TEMP_CLIP_FILE = %TEMP_AHK%%A_Now%.%A_MSec%.clip
+	NewTempFile := TempFile()
 	ClipboardDuped:=Clipboard
-	FileAppend, %ClipboardAll%, %TEMP_CLIP_FILE% ; The file extension does not matter
+	FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
 	Sleep, 100
-	FileRead, Clipboard, *c %TEMP_CLIP_FILE% ; Note the use of *c, which must precede the filename
+	FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
 	Sleep, 100
-	Send {Blind}{Text}%Clipboard%
-	If (%VERBOSE_OUTPUT% == True) {
+	; If (%VERBOSE_OUTPUT% == True) {
 		TrayTip, %A_ScriptName%,
 		(LTrim
 			Pasting the Binary version of the Clipboard
-			TEMP_CLIP_FILE = %TEMP_CLIP_FILE%
+			NewTempFile = %NewTempFile%
 		)
-	}
-
+	; }
+	
 	Sleep, 100
-	FileDelete, %TEMP_CLIP_FILE% ; Delete the clipboard file
+	Send {Blind}{Text}%Clipboard%
+	Sleep, 100
+	FileDelete, %NewTempFile% ; Delete the clipboard file
 
 	Sleep, 100
 	Clipboard:=ClipboardDuped

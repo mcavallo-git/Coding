@@ -15,12 +15,14 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; $WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); New-Item -ItemType "File" -Path ("${SyncTemp}") -Value ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)")) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
+
+## Test No-Cache
 While (1) {
 	$WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"));
 	Write-Host "======================";
 	Date;
 	Sleep 2;
-	}
+}
 # WinSxS
 
 
@@ -288,16 +290,16 @@ Write-Output "";
 #
 #   docs.microsoft.com  |  "New-ItemProperty - Creates a new property for an item and sets its value"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty
 #
-#   thewindowsclub.com  |  "DISM fails in Windows 10. The source files could not be found"  |  https://www.thewindowsclub.com/dism-fails-source-files-could-not-be-found
+#   github.com  |  "2017-03-14-quick-guide-to-http-caching.md"  |  https://github.com/kamranahmedse/kamranahmedse.github.io/blob/master/blog/_posts/2017-03-14-quick-guide-to-http-caching.md
+#
+#   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #
 #   serverfault.com  |  "How to edit Local Group Policy with script?"  |  https://serverfault.com/questions/848388/how-to-edit-local-group-policy-with-script
 #
 #   systemmanagement.ro  |  "Install-WindowsFeature Web-Net-Ext failed. Source files could not be found"  |  https://systemmanagement.ro/2018/08/13/install-windowsfeature-web-net-ext-failed-source-files-could-not-be-found/
 #
+#   thewindowsclub.com  |  "DISM fails in Windows 10. The source files could not be found"  |  https://www.thewindowsclub.com/dism-fails-source-files-could-not-be-found
+#
 #   vandriel.me  |  "Disabling Caching For System.Net.WebClient In .NET"  |  https://www.vandriel.me/disabling-caching-for-system-net-webclient-in-dotnet
-#
-#   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
-#
-#   github.com  |  "2017-03-14-quick-guide-to-http-caching.md"  |  https://github.com/kamranahmedse/kamranahmedse.github.io/blob/master/blog/_posts/2017-03-14-quick-guide-to-http-caching.md
 #
 # ------------------------------------------------------------

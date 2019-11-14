@@ -135,7 +135,7 @@ Get-WindowsFeature `
 		[System.Console]::ForegroundColor = "Green";
 		[System.Console]::BackgroundColor = "Black";
 
-		Write-Output "Role `"$($_.FeatureName)`" already installed";
+		Write-Output "Role `"$($_.Name)`" already installed";
 
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
 		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";

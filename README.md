@@ -108,11 +108,10 @@ Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 
 
 <!-- ------------------------------------------------------------ -->
-<h3 id="benchmarking">Windows Software - Benchmarking</h3>
 
 | Purpose<br /><sub>&nbsp;&nbsp;&nbsp;Platform</sub> | Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub> | Source URL<br /><sub>&nbsp;&nbsp;&nbsp;<i>Documentation URL, etc.</i></sub> |
 |:--|:--|:--
-|<hr />|<hr />|<hr />|
+|<hr id="benchmarking" />|<hr />|<hr />|
 | Benchmarking<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **CoreTemp** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU Temperature Logging</i></sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 | Benchmarking<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **CrystalDiskInfo** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Info</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
 | Benchmarking<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |

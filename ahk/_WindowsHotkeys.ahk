@@ -436,6 +436,7 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 ;  ACTION:  Paste the clipboard as text
 ;
 +^V::
+	Sleep 1000
 	PasteClipboardAsBinary()
 	Return
 

@@ -142,6 +142,13 @@ This file (on GitHub):
 | Hardware-Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WinSW: Windows service wrapper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(in less restrictive license)</i></sub> | [Download (source)](https://github.com/kohsuke/winsw/) |
 |<hr id="personalization" />|<hr />|<hr />|
 | Personalization<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Lockscreen as wallpaper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
+|<hr id="server-runtimes" />|<hr />|<hr />|
+| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub> | [View (source)](https://get.docker.com) |
+| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CI/CD Server</i></sub> | [View (source)](https://jenkins.io) |
+|<hr id="standardization" />|<hr />|<hr />|
+| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy - CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
+| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap - CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
+| ___________________________ | ______________________________________________________ | ___________________________ |
 |<hr id="troubleshooting" />|<hr />|<hr />|
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **BlueScreenView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/blue_screen_view.html) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **DigiCert Certificate Utility for Windows** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
@@ -156,14 +163,6 @@ This file (on GitHub):
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **TCPView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WakeMeOnLan** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/wake_on_lan.html) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WinTail** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Tail for Windows</i></sub> | [Download (source)](https://sourceforge.net/projects/wintail/) |
-|<hr id="server-runtimes" />|<hr />|<hr />|
-| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub> | [View (source)](https://get.docker.com) |
-| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CI/CD Server</i></sub> | [View (source)](https://jenkins.io) |
-|<hr id="standardization" />|<hr />|<hr />|
-| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy - CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
-| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap - CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
-| ___________________________ | ______________________________________________________ | ___________________________ |
-
 <hr />
 
 

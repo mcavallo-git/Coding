@@ -284,43 +284,6 @@ OnClick_LV_WindowSpecs() {
 	Return
 ;
 ; ------------------------------------------------------------
-;
-GetTimezoneOffset() {
-	RET_VAL := ""
-	T1 := A_Now
-	T2 := A_NowUTC
-	EnvSub, T1, %T2%, M
-	MINUTES_DIFF := T1
-
-	; SetFormat, float, 2.0
-	TZ_SIGN := ""
-	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
-	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
-	; +/- Timezone ahead/behind UTC determination
-	if (TZ_QUOTIENT<0.0) {
-		TZ_SIGN := "-"
-		TZ_QUOTIENT *= -1
-	} else {
-		TZ_SIGN := "+"
-	}
-	; Hours - Left-Pad with Zeroes
-	if (Abs(TZ_QUOTIENT) < 10) {
-		TZ_QUOTIENT = 0%TZ_QUOTIENT%
-	}
-	; Minutes - Left-Pad with Zeroes
-	if (Abs(TZ_REMAINDER) < 10) {
-		TZ_REMAINDER = 0%TZ_REMAINDER%
-	}
-
-	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
-	RET_VAL := StrReplace(RET_VAL, ".", "")
-
-	; TZ_REMAINDER := "GMT +" Floor(T1/60)
-	Return %RET_VAL%
-}
-
-
-; ------------------------------------------------------------
 ;  HOTKEY:  Win + D
 ;  ACTION:  Types a variety of timestamp strings
 ;
@@ -525,10 +488,13 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 	}
 ;
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + F2
+;  HOTKEY:  Win + Ctrl + Z
+;  HOTKEY:  Win + Shift + Z
 ;  ACTION:  Show all (current) Window Titles
 ;
-#F2::
+; #F2::
+^#Z::
++#Z::
 	Gui, WinTitles:Default
 	Gui, Add, ListView, r50 w1000 gOnDoubleClick_GuiDestroy_WinTitles, WindowTitle
 	WinGet, Window, List
@@ -1005,14 +971,14 @@ WheelRight::
 ;  HOTKEY:  Windows-Key + K
 ;  ACTION:  Send a Checkmark
 ;
-LWin & {C} & {K}::
-RWin & {C} & {K}::
+RWin & K::
 	SetKeyDelay, 0, -1
 	Send ✔
 	Return
 
-; #K::
-; 	Return
+LWin & K::
+	
+	Return
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Ctrl + Win + C
@@ -1752,6 +1718,45 @@ RunWaitMany(CMD_Commands) {
 	WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
 	; Read and return the output of all commands
 	Return exec.StdOut.ReadAll()
+}
+
+
+;
+; GetTimezoneOffset
+;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
+;
+GetTimezoneOffset() {
+	RET_VAL := ""
+	T1 := A_Now
+	T2 := A_NowUTC
+	EnvSub, T1, %T2%, M
+	MINUTES_DIFF := T1
+
+	; SetFormat, float, 2.0
+	TZ_SIGN := ""
+	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
+	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
+	; +/- Timezone ahead/behind UTC determination
+	if (TZ_QUOTIENT<0.0) {
+		TZ_SIGN := "-"
+		TZ_QUOTIENT *= -1
+	} else {
+		TZ_SIGN := "+"
+	}
+	; Hours - Left-Pad with Zeroes
+	if (Abs(TZ_QUOTIENT) < 10) {
+		TZ_QUOTIENT = 0%TZ_QUOTIENT%
+	}
+	; Minutes - Left-Pad with Zeroes
+	if (Abs(TZ_REMAINDER) < 10) {
+		TZ_REMAINDER = 0%TZ_REMAINDER%
+	}
+
+	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
+	RET_VAL := StrReplace(RET_VAL, ".", "")
+
+	; TZ_REMAINDER := "GMT +" Floor(T1/60)
+	Return %RET_VAL%
 }
 
 

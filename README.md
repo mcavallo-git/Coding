@@ -143,8 +143,8 @@ This file (on GitHub):
 |<hr id="personalization" />|<hr />|<hr />|
 | Personalization<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Lockscreen as wallpaper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
 |<hr id="server-runtimes" />|<hr />|<hr />|
-| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub> | [View (source)](https://get.docker.com) |
-| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CI/CD Server</i></sub> | [View (source)](https://jenkins.io) |
+| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Container Management</i></sub> | [View (source)](https://get.docker.com) |
+| Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Automation Tool for Continuous Integration & Continuous Deployment (CI/CD)</i></sub> | [View (source)](https://jenkins.io) |
 |<hr id="standardization" />|<hr />|<hr />|
 | Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy - CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
 | Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap - CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |

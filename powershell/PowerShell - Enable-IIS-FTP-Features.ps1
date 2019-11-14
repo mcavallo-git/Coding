@@ -15,8 +15,12 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\Enable-IIS-FTP-Features.$($(Date).Ticks).ps1"; $WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); New-Item -ItemType "File" -Path ("${SyncTemp}") -Value ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)")) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
 
-$WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"));
-
+While (1) {
+	$WC=(New-Object System.Net.WebClient); $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore)); ($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"));
+	Write-Host "======================";
+	Date;
+	Sleep 2;
+	}
 # WinSxS
 
 
@@ -301,6 +305,8 @@ Write-Output "";
 #
 #   vandriel.me  |  "Disabling Caching For System.Net.WebClient In .NET"  |  https://www.vandriel.me/disabling-caching-for-system-net-webclient-in-dotnet
 #
-#   vandriel.me  |  "Disabling Caching For System.Net.WebClient In .NET"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
+#   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
+#
+#   github.com  |  "2017-03-14-quick-guide-to-http-caching.md"  |  https://github.com/kamranahmedse/kamranahmedse.github.io/blob/master/blog/_posts/2017-03-14-quick-guide-to-http-caching.md
 #
 # ------------------------------------------------------------

@@ -13,7 +13,7 @@ This file (on GitHub):
 <p>
 
 
-Name | Option A
+Resource | Source
 --- | ---
 **Group Policy IDs, etc.** <sub><i>'Group Policy Settings Reference for Windows and Windows Server'</i></sub> | [Download (source)](https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250)
 

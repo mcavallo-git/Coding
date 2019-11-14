@@ -127,7 +127,7 @@ This file (on GitHub):
 | Entertainment<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Lockscreen as wallpaper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
 | Entertainment<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Spotify** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Music Streaming</i></sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
 | Entertainment<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Twitch App** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Live-Streaming & Mod Management</i></sub> | [Download (source)](https://twitch.tv/downloads) |
-|<hr id="hardware-drivers" />|<hr id="hardware-utilities"/>|<hr />|
+|<hr id="hardware-utilities" />|<hr />|<hr />|
 | Hardware Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **ASUS Aura Sync** <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller</i></sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
 | Hardware Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **balenaEtcher** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Drive Imaging Utility (.iso & .img, especially)</i></sub> | [Download (source)](https://www.balena.io/etcher/) |
 | Hardware Utilities<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Corsair iCue** <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller (+ Aura API)</i></sub> | [Download (source)](https://www.corsair.com/us/en/downloads) |

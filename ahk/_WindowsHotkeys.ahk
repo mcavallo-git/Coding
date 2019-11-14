@@ -32,6 +32,7 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
 
+
 ; ------------------------------------------------------------
 ;
 ; Runtime-Global Variables
@@ -50,6 +51,7 @@ CR=`r
 
 LF=`n
 
+
 ; ------------------------------------------------------------
 ;
 ; Setup a group for targeting [Windows Explorer] windows
@@ -57,6 +59,7 @@ LF=`n
 GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
 
 GroupAdd, Explorer, ahk_class CabinetWClass
+
 
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + Esc
@@ -69,9 +72,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	IfMsgBox, Yes, Edit
 	Return
 
+
 ; ------------------------------------------------------------
 ;   HOTKEY:  ???
-;		ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
+;   ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
 ;
 ; ???::
 ; 	(PSEUDO-CODE)  CHECK IF WINDOW IS ALREADY RUNNING AS ADMIN -> IF YES, DO NOTHING
@@ -84,18 +88,20 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ; ;;;
 ; 	Return
 
+
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + Z
-;		ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
+;   ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
 #Z::
 	GetWindowSpecs()
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + -
-;   HOTKEY:  Win + [PLUS]
-;		ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
+;   HOTKEY:  Win + [ Plus-Key ]
+;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
 #-::
 #NumpadSub::
@@ -104,11 +110,12 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + -
-;   HOTKEY:  Win + [PLUS]
-;		ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
+;   HOTKEY:  Win + [ Plus-Key ]
+;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
 #=::
 #+::
@@ -131,24 +138,95 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
 	Sleep 10
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + V
-;		ACTION:  Open Program (see below)
+;   ACTION:  Open VS Code
 ;
 #V::
-	; OpenVSCode()
-	OpenVisualStudio()
+	OpenVisualStudioCode()
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + Alt + V
-;		ACTION:  Open Program (see below)
+;   HOTKEY:  Win + Ctrl + V
+;   HOTKEY:  Win + Shift + V
+;   HOTKEY:  Ctrl + Shift + V
+;   ACTION:  Paste the Clipboard
 ;
-#!V::
-	OpenVisualStudio()
++#V::
+^#V::
+!#V::
++^V::
+	PasteClipboardAsText()
 	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + P
+;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
+#P::
+	PasteClipboard_TextOrBinary()
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Ctrl + Shift + V
+;  ACTION:  Paste the clipboard as text
+;
++^V::
+	PasteClipboardAsText()
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + H
+;  ACTION:  Type the COMPUTERNAME
+;
+#H::
+	SetKeyDelay, 0, -1
+	RET_VAL = %COMPUTERNAME%
+  Send %RET_VAL%
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + U
+;  ACTION:  Type the DOMAIN-USERNAME
+;
+#U::
+	SetKeyDelay, 0, -1
+	; RET_VAL = %USERNAME%
+	RET_VAL = %USERDOMAIN%-%USERNAME%
+  Send %RET_VAL%
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + G
+;  ACTION:  Types the contents of target file
+;
+#G::
+	FilePathToRead=%USERPROFILE%\.gpg_git\personal.passphrase
+	FileRead, FilePathContents, %FilePathToRead%
+	SendInput, %FilePathContents%
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + W
+;  ACTION:  Types the contents of target file
+;
+#W::
+	FilePathToRead=%USERPROFILE%\.gpg_git\work.passphrase
+	FileRead, FilePathContents, %FilePathToRead%
+	SendInput, %FilePathContents%
+	Return
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + D
 ;  ACTION:  Types a variety of timestamp strings
@@ -202,7 +280,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
   Send %Keys%
 
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  ?????
 ;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
@@ -211,72 +290,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ; 	TZ_OFFSET := GetTimezoneOffset()
 ;   Send %TZ_OFFSET%
 ; 	Return
-;
-; ------------------------------------------------------------
-;  HOTKEY:  Win + P
-;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
-;
-#P::
-	PasteClipboard_TextOrBinary()
-	Return
 
 
-; ------------------------------------------------------------
-;  HOTKEY:  Ctrl + Shift + V
-;  ACTION:  Paste the clipboard as text
-;
-+^V::
-	KeyWait V  ; Wait for the A key to be released
-	KeyWait Shift  ; Wait for the Shift key to be released
-	KeyWait Control  ; Wait for the Control key to be released
-	Sleep 100
-	PasteClipboardAsText()
-	; PasteClipboardAsBinary()
-	Return
-
-
-; ------------------------------------------------------------
-;  HOTKEY:  Win + H
-;  ACTION:  type the COMPUTERNAME
-;
-#H::
-	SetKeyDelay, 0, -1
-	RET_VAL = %COMPUTERNAME%
-  Send %RET_VAL%
-	Return
-
-
-; ------------------------------------------------------------
-;  HOTKEY:  Win + U
-;  ACTION:  type the DOMAIN-USERNAME
-;
-#U::
-	SetKeyDelay, 0, -1
-	; RET_VAL = %USERNAME%
-	RET_VAL = %USERDOMAIN%-%USERNAME%
-  Send %RET_VAL%
-	Return
-;
-; ------------------------------------------------------------
-;  HOTKEY:  Win + G
-;  ACTION:  Types the contents of target file
-;
-#G::
-	FilePathToRead=%USERPROFILE%\.gpg_git\personal.passphrase
-	FileRead, FilePathContents, %FilePathToRead%
-	SendInput, %FilePathContents%
-	Return
-;
-; ------------------------------------------------------------
-;  HOTKEY:  Win + W
-;  ACTION:  Types the contents of target file
-;
-#W::
-	FilePathToRead=%USERPROFILE%\.gpg_git\work.passphrase
-	FileRead, FilePathContents, %FilePathToRead%
-	SendInput, %FilePathContents%
-	Return
-;
 ; ------------------------------------------------------------
 ;
 ;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
@@ -284,7 +299,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #F1::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
 	Run Notepad %A_ScriptFullPath%
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Shift + Win + F2
 ;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
@@ -318,7 +334,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Sleep 7500
 	}
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;
 ; #SC03D::   ; Win + F3
@@ -980,7 +997,7 @@ LShift & RShift::
 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
 		}
 		;
-		; Wait for the script(s)/program(s) to start before moving them around
+		; Wait until the script(s)/program(s) start before moving them around
 		; WinWait,%WinTitle_Postman%,,5
 		; WinWait,%WinTitle_NodeJS%,,3
 		; Move the window to occupy the right-half of the Right-Most monitor
@@ -1118,15 +1135,63 @@ OpenChrome() {
 
 
 ;
-; OpenVisualStudio
+; OpenVisualStudioCode
 ;   |--> Opens the "Visual Studio Code" Application
 ;
-OpenVisualStudio() {
+OpenVisualStudioCode() {
 	VSCodeWorkspace := USERPROFILE "\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
 	Run % VSCodeWorkspace
 	; TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
 	; Run % TargetExe
 	Return
+}
+
+
+;
+; OpenVSCode
+;   |--> Opens the "Visual Studio Code" Application
+;
+OpenVSCode() {
+	OpenVisualStudioCode()
+	Return
+	; Set Path to VSCode Executable
+	; VSCode_Dir=C:\Program Files\Microsoft VS Code
+	; VSCode_Exe=%VSCode_Dir%\Code.exe
+	; ; Set Path to VSCode Workspace
+	; Repos_Dirname=GitHub
+	; GitHub_Dir=%A_MyDocuments%\%Repos_Dirname%
+	; ; Runtime Variables
+	; WinTitle=%Repos_Dirname% - Visual Studio Code
+	; SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	; if !WinExist(WinTitle) {
+	; 	; MsgBox,0,AHK-Log,VSCode-Window NOT found
+	; 	Run, %VSCode_Exe% %GitHub_Dir%,,Hide,WinPID
+	; 	WinWait,%WinTitle%,,15
+	; }
+	; ; SysGet, MonitorCount, MonitorCount, N
+	; ; WinPID := WinExist(WinTitle)
+	; if (WinExist(WinTitle)) {
+	; 	if (A_OSVersion = "WIN_7") {
+	; 		WinMove,%WinTitle%,,-8,-8,1936,1056
+	; 	} Else {
+	; 		WinMove,%WinTitle%,,0,0,1920,1040
+	; 	}
+	; 	WinActivate,%WinTitle%
+	; 	WinMaximize,%WinTitle%
+	; }
+	; WinGet, WinPID, PID, %WinTitle%
+	; WinGet, ProcessName, ProcessName, %WinTitle%
+	; WinGet, ProcessPath, ProcessPath, %WinTitle%
+	; MsgBox, 0, Active Window Specs,
+	; 	(LTrim
+	; 		➣ A_Temp:   %A_Temp%
+	; 		➣ A_OSVersion:   %A_OSVersion%
+	; 		➣ WinTitle:   %WinTitle%
+	; 		➣ ProcessName:   %ProcessName%
+	; 		➣ ProcessPath:   %ProcessPath%
+	; 		➣ WinPID:   %WinPID%
+	; 	)
+	; Return
 }
 
 
@@ -1167,52 +1232,6 @@ SpaceUp_Loop(LoopIterations) {
 		Sleep 500
 		Send {Up}
 	}
-	Return
-}
-
-
-;
-; OpenVSCode
-;   |--> Opens the "Visual Studio Code" Application
-;
-OpenVSCode() {
-	; Set Path to VSCode Executable
-	VSCode_Dir=C:\Program Files\Microsoft VS Code
-	VSCode_Exe=%VSCode_Dir%\Code.exe
-	; Set Path to VSCode Workspace
-	Repos_Dirname=GitHub
-	GitHub_Dir=%A_MyDocuments%\%Repos_Dirname%
-	; Runtime Variables
-	WinTitle=%Repos_Dirname% - Visual Studio Code
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	if !WinExist(WinTitle) {
-		; MsgBox,0,AHK-Log,VSCode-Window NOT found
-		Run, %VSCode_Exe% %GitHub_Dir%,,Hide,WinPID
-		WinWait,%WinTitle%,,15
-	}
-	; SysGet, MonitorCount, MonitorCount, N
-	; WinPID := WinExist(WinTitle)
-	if (WinExist(WinTitle)) {
-		if (A_OSVersion = "WIN_7") {
-			WinMove,%WinTitle%,,-8,-8,1936,1056
-		} Else {
-			WinMove,%WinTitle%,,0,0,1920,1040
-		}
-		WinActivate,%WinTitle%
-		WinMaximize,%WinTitle%
-	}
-	; WinGet, WinPID, PID, %WinTitle%
-	; WinGet, ProcessName, ProcessName, %WinTitle%
-	; WinGet, ProcessPath, ProcessPath, %WinTitle%
-	; MsgBox, 0, Active Window Specs,
-	; 	(LTrim
-	; 		➣ A_Temp:   %A_Temp%
-	; 		➣ A_OSVersion:   %A_OSVersion%
-	; 		➣ WinTitle:   %WinTitle%
-	; 		➣ ProcessName:   %ProcessName%
-	; 		➣ ProcessPath:   %ProcessPath%
-	; 		➣ WinPID:   %WinPID%
-	; 	)
 	Return
 }
 
@@ -1412,6 +1431,22 @@ TempFile() {
 	Return %TempFile_Fullpath%
 }
 
+;
+; AwaitModifierKeyup
+;   |--> Ensure (waits until) no modifier keys are being held-down
+;
+AwaitModifierKeyup() {
+	KeyWait LAlt    ; Wait for [ Left-Alt ] to be released
+	KeyWait LCtrl   ; Wait for [ Left-Control ] to be released
+	KeyWait LShift  ; Wait for [ Left-Shift ] to be released
+	KeyWait LWin    ; Wait for [ Left-Win ] to be released
+	KeyWait RAlt    ; Wait for [ Right-Alt ] to be released
+	KeyWait RCtrl   ; Wait for [ Right-Control ] to be released
+	KeyWait RShift  ; Wait for [ Right-Shift ] to be released
+	KeyWait RWin    ; Wait for [ Right-Win ] to be released
+	Sleep 100
+}
+
 
 ;
 ; PasteClipboardAsBinary
@@ -1420,6 +1455,7 @@ TempFile() {
 PasteClipboardAsBinary() {
 	Global VerboseOutput
 	SetKeyDelay, 0, -1
+	AwaitModifierKeyup()  ; Ensure (waits until) no modifier keys are being held-down
 	NewTempFile := TempFile()
 	ClipboardDuped:=Clipboard
 	FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter

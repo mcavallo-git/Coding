@@ -129,102 +129,8 @@ ClearSplashText(TimerPeriod) {
 ;		ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
 #Z::
-	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
-	Gui, WindowSpecs:Default
-
-	WinGetActiveStats, Title, Width, Height, Left, Top
-	WinGetTitle, WinTitle, A
-	WinGetText, WinText, A
-	WinGet, WinID, ID, A
-	WinGet, WinPID, PID, A
-	WinGetClass, WinClass, A
-	WinGet, WinProcessName, ProcessName, A
-	WinGet, WinProcessPath, ProcessPath, A
-	WinGet, ControlNames, ControlList, A	; Get all control names in this window
-	
-	; Create the ListView with two columns
-
-	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
-	Gui, Font, s10, Tahoma
-	Gui, Font, s10, Consolas
-	Gui, Font, s10, Courier New
-	Gui, Font, s10, Open Sans
-	Gui, Font, s10, Fira Code
-	Gui, Color, 1E1E1E
-	
-	GUI_ROWCOUNT := 12
-	GUI_WIDTH := 1000
-	GUI_BACKGROUND_COLOR = 1E1E1E
-	GUI_TEXT_COLOR = FFFFFF
-	
-	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
-	GUI_OPT = r%GUI_ROWCOUNT%
-	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
-	GUI_OPT = %GUI_OPT% gOnClick_LV_WindowSpecs
-	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
-	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
-	GUI_OPT = %GUI_OPT% Grid
-	GUI_OPT = %GUI_OPT% NoSortHdr
-	; GUI_OPT = %GUI_OPT% AltSubmit
-
-	Gui, Add, ListView, %GUI_OPT%, Key|Value
-
-	LV_Add("", "WinGetTitle", WinTitle)
-	LV_Add("", "WinGetClass", WinClass)
-	LV_Add("", "ProcessName", WinProcessName)
-	LV_Add("", "ProcessPath", WinProcessPath)
-	LV_Add("", "ControlList", ControlNames)
-	LV_Add("", "ID", WinID)
-	LV_Add("", "PID", WinPID)
-	LV_Add("", "Left", Left)
-	LV_Add("", "Top", Top)
-	LV_Add("", "Width", Width)
-	LV_Add("", "Height", Height)
-	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
-	LV_Add("", "A_SendLevel", A_SendLevel)
-
-	LV_ModifyCol(1, "AutoHdr Text Left")
-
-	LV_ModifyCol(2, "AutoHdr Text Left")
-
-	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
-
-	; Display the window and return. The script will be notified whenever the user double clicks a row.
-	Gui, Show
-
+	GetWindowSpecs()
 	Return
-
-OnClick_LV_WindowSpecs() {
-	; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
-	Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
-	If (Obj_EventTriggers[A_GuiEvent]) {
-		LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
-		LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
-		MsgBox, 4, %A_ScriptName%,
-		(LTrim
-			You selected:
-			%ValSelected%
-
-			Copy this to the clipboard?
-		)
-		IfMsgBox Yes
-		{
-			Clipboard := ValSelected
-		}
-		; Gui, WindowSpecs:Default
-		; Gui, Destroy
-	}
-
-	; DEBUGGING-ONLY (Set variable "%LV_Verbosity%" to 1, here, to enable verbose debug-logging)
-	LV_Verbosity := 0
-	if ( LV_Verbosity = 1 ) {
-		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
-		ToolTip, %TooltipOutput%
-		SetTimer, RemoveToolTip, -2500
-	}
-
-	Return
-}
 ;
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + -
@@ -1786,6 +1692,106 @@ StringRepeat(StrToRepeat, Multiplier) {
 	Return ReturnedVal
 }
 
+GetWindowSpecs() {
+
+	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
+	Gui, WindowSpecs:Default
+
+	WinGetActiveStats, Title, Width, Height, Left, Top
+	WinGetTitle, WinTitle, A
+	WinGetText, WinText, A
+	WinGet, WinID, ID, A
+	WinGet, WinPID, PID, A
+	WinGetClass, WinClass, A
+	WinGet, WinProcessName, ProcessName, A
+	WinGet, WinProcessPath, ProcessPath, A
+	WinGet, ControlNames, ControlList, A	; Get all control names in this window
+	
+	; Create the ListView with two columns
+
+	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
+	Gui, Font, s10, Tahoma
+	Gui, Font, s10, Consolas
+	Gui, Font, s10, Courier New
+	Gui, Font, s10, Open Sans
+	Gui, Font, s10, Fira Code
+	Gui, Color, 1E1E1E
+	
+	GUI_ROWCOUNT := 12
+	GUI_WIDTH := 1000
+	GUI_BACKGROUND_COLOR = 1E1E1E
+	GUI_TEXT_COLOR = FFFFFF
+	
+	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
+	GUI_OPT = r%GUI_ROWCOUNT%
+	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
+	GUI_OPT = %GUI_OPT% gOnClick_LV_WindowSpecs
+	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
+	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
+	GUI_OPT = %GUI_OPT% Grid
+	GUI_OPT = %GUI_OPT% NoSortHdr
+	; GUI_OPT = %GUI_OPT% AltSubmit
+
+	Gui, Add, ListView, %GUI_OPT%, Key|Value
+
+	LV_Add("", "WinGetTitle", WinTitle)
+	LV_Add("", "WinGetClass", WinClass)
+	LV_Add("", "ProcessName", WinProcessName)
+	LV_Add("", "ProcessPath", WinProcessPath)
+	LV_Add("", "ControlList", ControlNames)
+	LV_Add("", "ID", WinID)
+	LV_Add("", "PID", WinPID)
+	LV_Add("", "Left", Left)
+	LV_Add("", "Top", Top)
+	LV_Add("", "Width", Width)
+	LV_Add("", "Height", Height)
+	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
+	LV_Add("", "A_SendLevel", A_SendLevel)
+
+	LV_ModifyCol(1, "AutoHdr Text Left")
+
+	LV_ModifyCol(2, "AutoHdr Text Left")
+
+	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
+
+	; Display the window and return. The script will be notified whenever the user double clicks a row.
+	Gui, Show
+
+	Return
+}
+
+OnClick_LV_WindowSpecs() {
+	; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
+	Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
+	If (Obj_EventTriggers[A_GuiEvent]) {
+		LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
+		LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
+		MsgBox, 4, %A_ScriptName%,
+		(LTrim
+			You selected:
+			%ValSelected%
+
+			Copy this to the clipboard?
+		)
+		IfMsgBox Yes
+		{
+			Clipboard := ValSelected
+		}
+		; Gui, WindowSpecs:Default
+		; Gui, Destroy
+	}
+
+	; DEBUGGING-ONLY (Set variable "%LV_Verbosity%" to 1, here, to enable verbose debug-logging)
+	LV_Verbosity := 0
+	if ( LV_Verbosity = 1 ) {
+		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
+		ToolTip, %TooltipOutput%
+		SetTimer, RemoveToolTip, -2500
+	}
+
+	Return
+
+}
 
 ; ------------------------------------------------------------
 ;

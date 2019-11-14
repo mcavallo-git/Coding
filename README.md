@@ -116,7 +116,7 @@ Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 | Benchmarking<br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows</i></sub> | **CoreTemp** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU Temperature Logging</i></sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 | Benchmarking<br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows</i></sub> | **CrystalDiskInfo** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Info</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
 | Benchmarking<br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows</i></sub> | **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
-| Benchmarking<br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows</i></sub> | **UNIGINE Benchmarks** <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub> | [Download (source)](https://benchmark.unigine.com/) |
+| Benchmarking<br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows</i></sub> | **Unigine Benchmarks** <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub> | [Download (source)](https://benchmark.unigine.com/) |
 
 <hr />
 

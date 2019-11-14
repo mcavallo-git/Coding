@@ -1005,11 +1005,14 @@ WheelRight::
 ;  HOTKEY:  Windows-Key + K
 ;  ACTION:  Send a Checkmark
 ;
-#K::
+LWin & {C} & {K}::
+RWin & {C} & {K}::
 	SetKeyDelay, 0, -1
 	Send ✔
 	Return
 
+; #K::
+; 	Return
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Ctrl + Win + C
@@ -2010,14 +2013,11 @@ If (False) {
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
-;   |
-;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
-;   |
+;   |--> GetKeyState:  https://www.autohotkey.com/docs/commands/GetKeyState.htm
 ;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm
-;   |
-;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
-;   |
 ;   |--> Menu:  https://autohotkey.com/docs/commands/Menu.htm
+;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
 ;
 ; ------------------------------------------------------------
 ;

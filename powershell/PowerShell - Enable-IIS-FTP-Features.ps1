@@ -245,22 +245,37 @@ Get-WindowsOptionalFeature -Online `
 		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
 		[System.Console]::BackgroundColor = "Black";
+
 		Write-Output "Installing `"$($_.FeatureName)`" feature...";
+
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
 		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
+
 		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");  # Use [ Disable-WindowsOptionalFeature -FeatureName ("$($_.FeatureName)") ] to undo;
+
+
 	} Else {
+
 		$RevertForegroundColor = [System.Console]::ForegroundColor;
 		$RevertBackgroundColor = [System.Console]::BackgroundColor;
 		[System.Console]::ForegroundColor = "Green";
 		[System.Console]::BackgroundColor = "Black";
+
 		Write-Output "Feature `"$($_.FeatureName)`" already installed";
+
 		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
 		[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
+
+
 	}
 }
 
 # ------------------------------------------------------------
+
+$RevertForegroundColor = [System.Console]::ForegroundColor;
+$RevertBackgroundColor = [System.Console]::BackgroundColor;
+[System.Console]::ForegroundColor = "Yellow";
+[System.Console]::BackgroundColor = "Black";
 
 Write-Output "------------------------------------------------------------";
 Write-Output "";
@@ -268,6 +283,11 @@ Write-Output "   FEATURES ACTIVATATION COMPLETE";
 Write-Output "";
 Write-Output "   PLEASE REBOOT THE WORKSTATION/SERVER, NOW";
 Write-Output "";
+Write-Output "------------------------------------------------------------";
+Write-Output "";
+
+[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
 
 # ------------------------------------------------------------
 # Citation(s)
@@ -281,5 +301,7 @@ Write-Output "";
 #   systemmanagement.ro  |  "Install-WindowsFeature Web-Net-Ext failed. Source files could not be found"  |  https://systemmanagement.ro/2018/08/13/install-windowsfeature-web-net-ext-failed-source-files-could-not-be-found/
 #
 #   vandriel.me  |  "Disabling Caching For System.Net.WebClient In .NET"  |  https://www.vandriel.me/disabling-caching-for-system-net-webclient-in-dotnet
+#
+#   vandriel.me  |  "Disabling Caching For System.Net.WebClient In .NET"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #
 # ------------------------------------------------------------

@@ -111,7 +111,7 @@ Name | Download |
 
 Name | Option A | Option B
 --- | --- | ---
-**Amazon Web Services CLI** <br /><sub>&nbsp;&nbsp;&nbsp;<i>e.g. "AWS CLI" - Cloud Management & Administration Tool</i></sub> | [Download (PowerShell)](https://aws.amazon.com/powershell)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)</sub> |
+**Amazon Web Services CLI** <sub><i>(e.g. "AWS CLI")</sub></i> <br /><sub>&nbsp;&nbsp;&nbsp;<i>e.g. "AWS CLI" - Cloud Service  & Administration Tool</i></sub> | [Download (PowerShell)](https://aws.amazon.com/powershell)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)</sub> |
 **Azure CLI** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Cloud Management & Administration Tool</i></sub> | [Download (PowerShell)](https://aka.ms/installazurecliwindows)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/az)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.microsoft.com/en-us/cli/azure/reference-index)</sub> |
 **Java SE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Java Standard Edition, Win10</i></sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
 **Java JDK, JRE** <br /><sub>&nbsp;&nbsp;&nbsp;<i>(Java Development-Kit, Runtime-Environment, Win10)</i></sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |

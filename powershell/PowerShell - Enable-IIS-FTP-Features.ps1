@@ -18,8 +18,6 @@ $WebClient = $(New-Object System.Net.WebClient);
 $WebClient.CachePolicy = $(New System.Net.Cache.RequestCachePolicy($(System.Net.Cache.RequestCacheLevel.NoCacheNoStore)));
 $WebClient.CachePolicy = $(System.Net.Cache.RequestCacheLevel.NoCacheNoStore)
 
-	FileData = webClient.DownloadData(restUrl);
-}
 # WinSxS
 }
 

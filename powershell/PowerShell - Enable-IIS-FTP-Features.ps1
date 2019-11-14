@@ -42,72 +42,63 @@ $Revert_BackgroundColor = [System.Console]::BackgroundColor;
 
 # ------------------------------------------------------------
 
-[string[]]$EnableFeatures = @();
-
+[String[]]$EnableFeatures = @();
 $EnableFeatures += "FileAndStorage-Services";
 $EnableFeatures += "File-Services";
 $EnableFeatures += "FS-FileServer";
+$EnableFeatures += "FS-SMB1";
+$EnableFeatures += "NET-Framework-45-ASPNET";
+$EnableFeatures += "NET-Framework-45-Core";
+$EnableFeatures += "NET-Framework-45-Features";
+$EnableFeatures += "NET-Framework-Core";
+$EnableFeatures += "NET-Framework-Features";
+$EnableFeatures += "NET-HTTP-Activation";
+$EnableFeatures += "NET-WCF-HTTP-Activation45";
+$EnableFeatures += "NET-WCF-Services45";
+$EnableFeatures += "NET-WCF-TCP-PortSharing45";
+$EnableFeatures += "PowerShell";
+$EnableFeatures += "PowerShell-ISE";
+$EnableFeatures += "PowerShellRoot";
+$EnableFeatures += "PowerShell-V2";
 $EnableFeatures += "Storage-Services";
-$EnableFeatures += "Web-Server";
-$EnableFeatures += "Web-WebServer";
+$EnableFeatures += "WAS";
+$EnableFeatures += "WAS-Config-APIs";
+$EnableFeatures += "WAS-NET-Environment";
+$EnableFeatures += "WAS-Process-Model";
+$EnableFeatures += "Web-App-Dev";
+$EnableFeatures += "Web-Asp-Net45";
+$EnableFeatures += "Web-Basic-Auth";
 $EnableFeatures += "Web-Common-Http";
 $EnableFeatures += "Web-Default-Doc";
-$EnableFeatures += "Web-Dir-Browsing";
-$EnableFeatures += "Web-Http-Errors";
-$EnableFeatures += "Web-Static-Content";
-$EnableFeatures += "Web-Health";
-$EnableFeatures += "Web-Http-Logging";
-$EnableFeatures += "Web-ODBC-Logging";
-$EnableFeatures += "Web-Performance";
-$EnableFeatures += "Web-Stat-Compression";
-$EnableFeatures += "Web-Security";
-$EnableFeatures += "Web-Filtering";
-$EnableFeatures += "Web-Basic-Auth";
 $EnableFeatures += "Web-Digest-Auth";
-$EnableFeatures += "Web-Windows-Auth";
-$EnableFeatures += "Web-App-Dev";
-$EnableFeatures += "Web-Net-Ext";
-$EnableFeatures += "Web-Net-Ext45";
-$EnableFeatures += "Web-Asp-Net45";
-$EnableFeatures += "Web-ISAPI-Ext";
-$EnableFeatures += "Web-ISAPI-Filter";
+$EnableFeatures += "Web-Dir-Browsing";
+$EnableFeatures += "Web-Filtering";
 $EnableFeatures += "Web-Ftp-Server";
 $EnableFeatures += "Web-Ftp-Service";
-$EnableFeatures += "Web-Ftp-Ext";
-$EnableFeatures += "Web-Mgmt-Tools";
+$EnableFeatures += "Web-Health";
+$EnableFeatures += "Web-Http-Errors";
+$EnableFeatures += "Web-Http-Logging";
+$EnableFeatures += "Web-ISAPI-Ext";
+$EnableFeatures += "Web-ISAPI-Filter";
 $EnableFeatures += "Web-Mgmt-Console";
-$EnableFeatures += "Web-Mgmt-Compat";
-$EnableFeatures += "Web-Metabase";
-$EnableFeatures += "Web-Lgcy-Mgmt-Console";
-$EnableFeatures += "NET-Framework-Features";
-$EnableFeatures += "NET-Framework-Core";
-$EnableFeatures += "NET-HTTP-Activation";
-$EnableFeatures += "NET-Framework-45-Features";
-$EnableFeatures += "NET-Framework-45-Core";
-$EnableFeatures += "NET-Framework-45-ASPNET";
-$EnableFeatures += "NET-WCF-Services45";
-$EnableFeatures += "NET-WCF-HTTP-Activation45";
-$EnableFeatures += "NET-WCF-TCP-PortSharing45";
-$EnableFeatures += "RSAT";
-$EnableFeatures += "RSAT-Feature-Tools";
-$EnableFeatures += "RSAT-SMTP";
-$EnableFeatures += "FS-SMB1";
-$EnableFeatures += "Windows-Defender-Features";
+$EnableFeatures += "Web-Mgmt-Tools";
+$EnableFeatures += "Web-Net-Ext";
+$EnableFeatures += "Web-Net-Ext45";
+$EnableFeatures += "Web-Performance";
+$EnableFeatures += "Web-Security";
+$EnableFeatures += "Web-Server";
+$EnableFeatures += "Web-Stat-Compression";
+$EnableFeatures += "Web-Static-Content";
+$EnableFeatures += "Web-WebServer";
+$EnableFeatures += "Web-Windows-Auth";
 $EnableFeatures += "Windows-Defender";
+$EnableFeatures += "Windows-Defender-Features";
 $EnableFeatures += "Windows-Defender-Gui";
-$EnableFeatures += "PowerShellRoot";
-$EnableFeatures += "PowerShell";
-$EnableFeatures += "PowerShell-V2";
-$EnableFeatures += "PowerShell-ISE";
-$EnableFeatures += "WAS";
-$EnableFeatures += "WAS-Process-Model";
-$EnableFeatures += "WAS-NET-Environment";
-$EnableFeatures += "WAS-Config-APIs";
-$EnableFeatures += "Wireless-Networking";
 $EnableFeatures += "WoW64-Support";
 
+
 Get-WindowsFeature `
-| Where-Object { $EnableFeatures.Contains($_.Name) } `
+| Where-Object { $EnableFeatures.Contains($_.Name) -Eq $True } `
 | ForEach-Object {
 	If ( $_.Installed -Match "False" ) {
 
@@ -122,19 +113,16 @@ Get-WindowsFeature `
 
 		If ($Response_FeatureInstall.Success -Match "True") {
 
-			$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-			[System.Console]::ForegroundColor = "Green";
-			Write-Output "  |--> Feature `"$($_.Name)`" successfully installed";
-			[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-			Write-Output "";
+			Write-Host "  |--> Feature `"$($_.Name)`" successfully installed" -ForegroundColor "Green";
+			Write-Host "";
 
 		} Else {
 
 			$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 			[System.Console]::ForegroundColor = "Yellow";
 
-			Write-Output "  |--> Feature `"$($_.Name)`" failed to install (using default Source)";
-			Write-Output "";
+			Write-Host "  |--> Feature `"$($_.Name)`" failed to install (using default Source)" -ForegroundColor "Yellow";
+			Write-Host "";
 
 			[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
@@ -142,32 +130,31 @@ Get-WindowsFeature `
 			$FallbackSource = "D:\sources\sxs";
 			If ((Test-Path "${FallbackSource}") -Eq $True ) {
 
-				Write-Output "Attempting to Install `"$($_.Name)`" Feature (using Source `"${FallbackSource}`")...";
+				Write-Host "Attempting to Install `"$($_.Name)`" Feature (using Source `"${FallbackSource}`")..." -ForegroundColor "Yellow";
 
 				# $Response_FeatureInstall = (Install-WindowsFeature -Name ("Web-Net-Ext") -Source ("${FallbackSource}") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
 
 			} Else {
 
-				$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-				[System.Console]::ForegroundColor = "Magenta";
-				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#1)";
-				[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-				Write-Output "";
+				Write-Host "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#1)" -ForegroundColor "Magenta";
+				Write-Host "";
 				Start-Sleep -Seconds 60000;
+
 			}
 
 			If ($Response_FeatureInstall.Success -Match "True") {
 
 				$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 				[System.Console]::ForegroundColor = "Green";
-				Write-Output "  |--> Feature `"$($_.Name)`" successfully installed";
-				[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-				Write-Output "";
+				Write-Host "  |--> Feature `"$($_.Name)`" successfully installed" -ForegroundColor "Green";
+				Write-Host "";
 
 			} Else {
 
-				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#2)";
+				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#2)" -ForegroundColor "Green";
+
 				Start-Sleep -Seconds 60000;
+
 
 			}
 
@@ -191,8 +178,7 @@ Get-WindowsFeature `
 
 # ------------------------------------------------------------
 
-[string[]]$EnableOptionalFeatures = @();
-
+[String[]]$EnableOptionalFeatures = @();
 $EnableOptionalFeatures += "CoreFileServer";
 $EnableOptionalFeatures += "FileAndStorage-Services";
 $EnableOptionalFeatures += "File-Services";
@@ -203,22 +189,17 @@ $EnableOptionalFeatures += "IIS-CommonHttpFeatures";
 $EnableOptionalFeatures += "IIS-DefaultDocument";
 $EnableOptionalFeatures += "IIS-DigestAuthentication";
 $EnableOptionalFeatures += "IIS-DirectoryBrowsing";
-$EnableOptionalFeatures += "IIS-FTPExtensibility";
 $EnableOptionalFeatures += "IIS-FTPServer";
 $EnableOptionalFeatures += "IIS-FTPSvc";
 $EnableOptionalFeatures += "IIS-HealthAndDiagnostics";
 $EnableOptionalFeatures += "IIS-HttpCompressionStatic";
 $EnableOptionalFeatures += "IIS-HttpErrors";
 $EnableOptionalFeatures += "IIS-HttpLogging";
-$EnableOptionalFeatures += "IIS-IIS6ManagementCompatibility";
 $EnableOptionalFeatures += "IIS-ISAPIExtensions";
 $EnableOptionalFeatures += "IIS-ISAPIFilter";
-$EnableOptionalFeatures += "IIS-LegacySnapIn";
 $EnableOptionalFeatures += "IIS-ManagementConsole";
-$EnableOptionalFeatures += "IIS-Metabase";
 $EnableOptionalFeatures += "IIS-NetFxExtensibility";
 $EnableOptionalFeatures += "IIS-NetFxExtensibility45";
-$EnableOptionalFeatures += "IIS-ODBCLogging";
 $EnableOptionalFeatures += "IIS-Performance";
 $EnableOptionalFeatures += "IIS-RequestFiltering";
 $EnableOptionalFeatures += "IIS-Security";
@@ -259,13 +240,10 @@ $EnableOptionalFeatures += "ServerCore-WOW64";
 $EnableOptionalFeatures += "Server-Drivers-General";
 $EnableOptionalFeatures += "Server-Drivers-Printers";
 $EnableOptionalFeatures += "Server-Gui-Mgmt";
-$EnableOptionalFeatures += "ServerManager-Core-RSAT";
-$EnableOptionalFeatures += "ServerManager-Core-RSAT-Feature-Tools";
 $EnableOptionalFeatures += "Server-Psh-Cmdlets";
 $EnableOptionalFeatures += "Server-Shell";
 $EnableOptionalFeatures += "SMB1Protocol";
 $EnableOptionalFeatures += "SmbDirect";
-$EnableOptionalFeatures += "Smtpsvc-Admin-Update-Name";
 $EnableOptionalFeatures += "Storage-Services";
 $EnableOptionalFeatures += "TlsSessionTicketKey-PSH-Cmdlets";
 $EnableOptionalFeatures += "Tpm-PSH-Cmdlets";
@@ -282,32 +260,20 @@ $EnableOptionalFeatures += "Windows-Defender-Features";
 $EnableOptionalFeatures += "Windows-Defender-Gui";
 $EnableOptionalFeatures += "WindowsMediaPlayer";
 $EnableOptionalFeatures += "WindowsServerBackupSnapin";
-$EnableOptionalFeatures += "WirelessNetworking";
 
 Get-WindowsOptionalFeature -Online `
-| Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) } `
+| Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) -Eq $True } `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
 	If ( $_.State -Eq "Disabled" ) {
-		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-		[System.Console]::ForegroundColor = "Cyan";
 
-		Write-Output "Installing `"$($_.FeatureName)`" Optional-Feature...";
+		Write-Host "Installing `"$($_.FeatureName)`" Optional-Feature..." -ForegroundColor "Cyan";
 
-		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-
-		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");  # To undo, use [ Disable-WindowsOptionalFeature -FeatureName ("$($_.FeatureName)") ]
-
+		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
 
 	} Else {
 
-		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-		[System.Console]::ForegroundColor = "Green";
-
-		Write-Output "Optional-Feature `"$($_.FeatureName)`" already installed";
-
-		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-
+		Write-Host "Optional-Feature `"$($_.FeatureName)`" already installed" -ForegroundColor "Green";
 
 	}
 }

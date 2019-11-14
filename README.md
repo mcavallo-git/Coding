@@ -111,7 +111,7 @@ Name | Download |
 <h3 id="benchmarking">Windows Software - Benchmarking</h3>
 
 Resource | Source |
-| :-:|:-: |
+:-:|:-:
 **CoreTemp** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU Temperature Logging</i></sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 **CrystalDiskInfo** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Info</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
 **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |

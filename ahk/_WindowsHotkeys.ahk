@@ -295,34 +295,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  HOTKEY:  Shift + Win + F2
 ;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
-+#F2::
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	SetTitleMatchMode, 1
-	Sleep 2500
-	; "Captures" (Left Tab)
-	MouseClick, Left, 23, 314
-	Sleep 7500
-	; "On Xbox Live" (Tab within "Captures")
-	MouseClick, Left, 240, 138
-	Sleep 7500
-	; "Everything v" (Dropdown within "On Xbox Live")
-	MouseClick, Left, 255, 178
-	Sleep 7500
-	; "Game clips" (Option on "Everything v" Dropdown)
-	MouseClick, Left, 233, 220
-	Sleep 7500
-	Loop {
-		MouseClick, Left, 861, 947
-		Sleep 30000
-		; Sleep 15000
-		; Sleep 10000
-		MouseClick, Left, 1420, 905
-		Sleep 1000
-		MouseClick, Left, 848, 575
-		Sleep 7500
-	}
+#F2::
+	GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
+	Run %GetKeyCodes%
 	Return
 
 
@@ -346,7 +321,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  HOTKEY:  Win + Shift + Z
 ;  ACTION:  Show all (current) Window Titles
 ;
-; #F2::
 ^#Z::
 +#Z::
 	Gui, WinTitles:Default
@@ -1674,6 +1648,42 @@ ClearTooltip(Period) {
 ;
 RemoveSplashText() {
 	SplashTextOff
+	Return
+}
+
+
+;
+; XBox_DownloadDelete_GameClips
+;   |--> Win10 Download & Delete Recordings via XBox Win10 App
+;
+XBox_DownloadDelete_GameClips() {
+	;	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	SetTitleMatchMode, 1
+	Sleep 2500
+	; "Captures" (Left Tab)
+	MouseClick, Left, 23, 314
+	Sleep 7500
+	; "On Xbox Live" (Tab within "Captures")
+	MouseClick, Left, 240, 138
+	Sleep 7500
+	; "Everything v" (Dropdown within "On Xbox Live")
+	MouseClick, Left, 255, 178
+	Sleep 7500
+	; "Game clips" (Option on "Everything v" Dropdown)
+	MouseClick, Left, 233, 220
+	Sleep 7500
+	Loop {
+		MouseClick, Left, 861, 947
+		Sleep 30000
+		; Sleep 15000
+		; Sleep 10000
+		MouseClick, Left, 1420, 905
+		Sleep 1000
+		MouseClick, Left, 848, 575
+		Sleep 7500
+	}
 	Return
 }
 

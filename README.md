@@ -148,7 +148,6 @@ This file (on GitHub):
 |<hr id="standardization" />|<hr />|<hr />|
 | Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy - Certificate Authority (CA) Bundles** <sub><i><br />&nbsp;&nbsp;&nbsp;Root & Intermediate Certificates</i></sub> | [Download (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO)<sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub> |
 | Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap - Certificate Authority (CA) Bundles** <sub><i><br />&nbsp;&nbsp;&nbsp;Root & Intermediate Certificates</i></sub> | [Download (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle)<sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub> |
-| ___________________________ | ______________________________________________________ | ___________________________ |
 |<hr id="troubleshooting" />|<hr />|<hr />|
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **BlueScreenView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/blue_screen_view.html) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **DigiCert Certificate Utility for Windows** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
@@ -163,6 +162,8 @@ This file (on GitHub):
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **TCPView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Sysinternals</i></sub> | [Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WakeMeOnLan** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/wake_on_lan.html) |
 | Troubleshooting<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WinTail** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Tail for Windows</i></sub> | [Download (source)](https://sourceforge.net/projects/wintail/) |
+| ___________________________ | ______________________________________________________ | ___________________________ |
+
 <hr />
 
 

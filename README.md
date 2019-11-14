@@ -123,7 +123,7 @@ Resource | Source
 
 
 <!-- ------------------------------------------------------------ -->
-<h3>Windows Software - Benchmarking</h3>
+<h3 id="benchmarking">Windows Software - Benchmarking</h3>
 
 Resource | Source
 ----- | -----

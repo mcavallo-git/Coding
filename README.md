@@ -215,7 +215,7 @@ Name | Option A | Option B
 --- | --- | ---
 **digicert SSL Tools** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Check Host SSL/TLS, Generate CSR, Check CSR, Searct CT Logs</i></sub> | [Download (source)](https://ssltools.digicert.com/checker/) |
 **Qualys SSL Server Test** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Powered by Qualys SSL Labs (Test SSL, TLS, HTTPS) </i></sub> | [Download (source)](https://www.ssllabs.com/ssltest/) |
-**ImmuniWeb® SSLScan** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Test SSL & TLS, Email TLS/STARTTLS | Comply with PCI DSS, HIPAA & NIST (SSL, TLS, HTTPS)</i></sub> | [Download (source)](https://www.htbridge.com/ssl/) |
+**ImmuniWeb® SSLScan** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Test SSL & TLS, Email TLS/STARTTLS<br />Comply with PCI DSS, HIPAA & NIST (SSL, TLS, HTTPS)</i></sub> | [Download (source)](https://www.htbridge.com/ssl/) |
 **PCPartPicker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Component Pricing/Compatibility Comparisons</i></sub> | [View (source)](https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf) |
 
 <hr />

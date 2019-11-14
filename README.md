@@ -10,8 +10,13 @@ This file (on GitHub):
 <details><summary><i>What is DevOps?</i></summary>
 	<br />
 	<ul>
-		<li>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.<sup>[1]</sup></li>
-		<li><a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></li>
+		<li>
+			<div>Wikipedia states "DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality."<sup><a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup></div>
+		</li>
+		<li>
+			<div>Atlassian States "DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably."</div>
+			<div><a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></div>
+		</li>
 	</ul>
 </details>
 

@@ -1677,7 +1677,7 @@ RemoveToolTip() {
 ;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
 ;
 ClearTooltip(Period) {
-	Label := RemoveToolTip
+	Label := "RemoveToolTip"
 	SetTimer, %Label%, -%Period%
 	Return
 }
@@ -1699,7 +1699,7 @@ RemoveSplashText() {
 ;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
 ;
 ClearSplashText(Period) {
-	Label := RemoveSplashText
+	Label := "RemoveSplashText"
 	SetTimer, %Label%, -%Period%
 	Return
 }

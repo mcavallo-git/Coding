@@ -180,7 +180,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <h3>Citation(s)</h3>
-<details><summary><i>Show/Hide Content</i></summary>
+<details open><summary><i>Show/Hide Content</i></summary>
 <p>
 
 * ###### [1] en.wikipedia.org  |  "DevOps"  |  https://en.wikipedia.org/wiki/DevOps

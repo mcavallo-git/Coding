@@ -38,7 +38,7 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #NoEnv  ; Prevents environment variables from being used (occurs when a variable is called/referenced without being instantiated)
 
-VERBOSE_OUTPUT=True
+VERBOSE_OUTPUT := True
 
 USERPROFILE=%USERPROFILE%
 
@@ -225,26 +225,7 @@ IfNotExist, %TEMP_AHK%
 ;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 #P::
-	; ------------------------------------------------------------
-	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50 
-	MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
-	IfMsgBox Yes
-	{  ; Paste the Text version of the Clipboard
-		PasteClipboardAsText()
-	}
-	IfMsgBox No
-	{  ; Paste the Binary version of the Clipboard
-		PasteClipboardAsBinary()
-	}
-	Return
-
-CustomMsgboxButtons_ClipboardTextOrBinary: 
-	IfWinNotExist, Text or Binary
-			return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
-	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off 
-	WinActivate 
-	ControlSetText, Button1, &Text
-	ControlSetText, Button2, &Binary
+	PasteClipboard_TextOrBinary()
 	Return
 
 
@@ -1425,7 +1406,6 @@ Nanoseconds() {
 
 ;
 ; PasteClipboardAsBinary
-;   |
 ;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
 ;
 PasteClipboardAsBinary() {
@@ -1441,6 +1421,7 @@ PasteClipboardAsBinary() {
 		TrayTip, %A_ScriptName%,
 		(LTrim
 			Pasting the Binary version of the Clipboard
+			TEMP_CLIP_FILE = %TEMP_CLIP_FILE%
 		)
 	}
 
@@ -1458,6 +1439,7 @@ PasteClipboardAsBinary() {
 }
 
 
+;
 ; PasteClipboardAsText
 ;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
 ;
@@ -1493,6 +1475,34 @@ PasteClipboardAsText() {
 
 	Return
 }
+
+
+;
+; PasteClipboard_TextOrBinary
+;   |--> Displays a menu asking user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
+;
+PasteClipboard_TextOrBinary() {
+	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50 
+	MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
+	IfMsgBox Yes
+	{  ; Paste the Text version of the Clipboard
+		PasteClipboardAsText()
+	}
+	IfMsgBox No
+	{  ; Paste the Binary version of the Clipboard
+		PasteClipboardAsBinary()
+	}
+	Return
+}
+CustomMsgboxButtons_ClipboardTextOrBinary: 
+	IfWinNotExist, Text or Binary
+			return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off 
+	WinActivate 
+	ControlSetText, Button1, &Text
+	ControlSetText, Button2, &Binary
+	Return
+
 
 
 ;

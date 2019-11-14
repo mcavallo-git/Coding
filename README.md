@@ -112,7 +112,7 @@ Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 
 Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
-<hr />|<hr />
+|<hr />|<hr />|
 **CoreTemp** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU Temperature Logging</i></sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 **CrystalDiskInfo** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Info</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
 **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |

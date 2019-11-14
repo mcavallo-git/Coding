@@ -158,8 +158,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 *^+V::
 *^!V::
 *^#V::
-	PasteClipboardAsText()
-	; PasteClipboardAsBinary()
+	; PasteClipboardAsText()
+	PasteClipboardAsBinary()
 	Return
 
 

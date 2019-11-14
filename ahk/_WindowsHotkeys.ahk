@@ -1433,7 +1433,7 @@ TempFile() {
 
 ;
 ; AwaitModifierKeyup
-;   |--> Ensure (waits until) no modifier keys are being held-down
+;   |-->  Wait until all modifier keys are released
 ;
 AwaitModifierKeyup() {
 	KeyWait LAlt    ; Wait for [ Left-Alt ] to be released
@@ -1455,7 +1455,7 @@ AwaitModifierKeyup() {
 PasteClipboardAsBinary() {
 	Global VerboseOutput
 	SetKeyDelay, 0, -1
-	AwaitModifierKeyup()  ; Ensure (waits until) no modifier keys are being held-down
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	NewTempFile := TempFile()
 	ClipboardDuped:=Clipboard
 	FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
@@ -1493,7 +1493,7 @@ PasteClipboardAsBinary() {
 PasteClipboardAsText() {
 	Global VerboseOutput
 	SetKeyDelay, 0, -1
-	AwaitModifierKeyup()  ; Ensure (waits until) no modifier keys are being held-down
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
 	If (VerboseOutput == True) {
 		TrayTip, %A_ScriptName%,

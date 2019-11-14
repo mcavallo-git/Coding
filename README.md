@@ -73,7 +73,7 @@ This file (on GitHub):
 
 | Software Category<br /><sub>&nbsp;&nbsp;&nbsp;Platform</sub> | Software Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description/Purpose</i></sub> | Source (URL)<br /><sub>&nbsp;&nbsp;&nbsp;<i>Documentation, etc.</i></sub> |
 |:--|:--|:--|
-|<hr id="workstation-installs" />|<hr />|<hr />|
+|<hr id="esssentials" />|<hr id="workstation-installs" />|<hr />|
 | Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 | Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **AutoHotkey (AHK)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
 | Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Classic Shell** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Win7 Style Start-Menu</i></sub> | [Download (mirror)](https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (fallback)](https://www.fosshub.com/Classic-Shell.html)</sub> |

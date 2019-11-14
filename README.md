@@ -160,8 +160,8 @@ This file (on GitHub):
 | Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub> | [View (source)](https://get.docker.com) |
 | Server Runtimes<br />&nbsp;&nbsp;&nbsp;<sub><i>Linux, Windows</i></sub> | **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CI/CD Server</i></sub> | [View (source)](https://jenkins.io) |
 |<hr id="standardization" />|<hr />|<hr />|
-| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>For creating Certificate Chains (when combined w/ cert)</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
-| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>For creating Certificate Chains (when combined w/ cert)</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
+| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
+| Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap CA bundle(s) & Root Certs** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Combines w/ end-entity certificate to form cert-chain</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
 | ___________________________ | ______________________________________________________ | ___________________________ |
 
 <hr />

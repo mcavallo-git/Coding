@@ -72,7 +72,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <h3 id="workstation-installs">Windows Software - Workstation Essentials</h3>
 
-Resource | Source |
+Resource | Source
 :--|:--
 **AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **AutoHotkey (AHK)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |

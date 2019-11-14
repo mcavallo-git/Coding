@@ -8,11 +8,12 @@ This file (on GitHub):
 
 <h3 id="coding">
 	Coding<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">Scripts, tools, & utilities to enhance Windows workstation efficiency & versatility</i></sub>
+	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳ <i id="readme">End Game Software Resources</i></sub>
 </h3>
 
 <hr />
 
+The overlap between provisioning IT services and developing applications is a much-discussed area that has come to be known as DevOps.  # https://www.trustradius.com/platform-as-a-service-paas
 
 <!-- ------------------------------------------------------------ -->
 
@@ -186,6 +187,8 @@ This file (on GitHub):
 * ###### reddit.com  |  "What application do you always install on your computer and recommend to everyone?"  |  https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/
 
 * ###### reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
+
+* ###### trustradius.com  |  "Platform-as-a-Service (PaaS) Solutions"  |  https://www.trustradius.com/platform-as-a-service-paas
 
 </p>
 </details>

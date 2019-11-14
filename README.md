@@ -8,7 +8,7 @@ This file (on GitHub):
 
 <h3 id="coding">
 	DevOps Resource-Reference<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;<details><summary><i>What is DevOps?</i></summary>
+	<details><summary><i>What is DevOps?</i></summary>
 		<ol>
 			<li>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.<li><sup>[1]</sup>>
 			<li><a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></li>
@@ -17,6 +17,7 @@ This file (on GitHub):
 </h3>
 
 <hr />
+<!-- The overlap between provisioning IT services and developing applications is a much-discussed area that has come to be known as DevOps.  # https://www.trustradius.com/platform-as-a-service-paas -->
 
 
 <!-- ------------------------------------------------------------ -->

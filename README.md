@@ -161,6 +161,7 @@ This file (on GitHub):
 |<hr id="standardization" />|<hr />|<hr />|
 | Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **GoDaddy** <br /><sub>&nbsp;&nbsp;&nbsp;<i>DNS Certificate Chains<br />&nbsp;&nbsp;&nbsp;DNS Root Certs</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
 | Standardization<br />&nbsp;&nbsp;&nbsp;<sub><i>HTTPS</i></sub> | **Namecheap** <br /><sub>&nbsp;&nbsp;&nbsp;<i>DNS Certificate Chains<br />&nbsp;&nbsp;&nbsp;DNS Root Certs</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |
+| ------------------------------ | ------------------------------ | ------------------------------ |
 
 <hr />
 

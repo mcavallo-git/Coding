@@ -73,7 +73,7 @@ This file (on GitHub):
 <h3>Software</h3>
 
 | Purpose<br /><sub>&nbsp;&nbsp;&nbsp;Platform</sub> | Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub> | Source URL<br /><sub>&nbsp;&nbsp;&nbsp;<i>Documentation URL, etc.</i></sub> |
-|:--|:--|:--
+|:--|:--|:--|
 |<hr id="workstation-installs" />|<hr />|<hr />|
 | Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 | Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **AutoHotkey (AHK)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |

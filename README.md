@@ -9,7 +9,7 @@ This file (on GitHub):
 <h3 id="coding" title="DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.[1]">
 	Coding<br />
 	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;<i id="readme">DevOps Resource-Reference</i></sub>
-	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;<i id="what-is-devops">What is "DevOps"?</i></sub>
+	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;<i id="what-is-devops">What is "<a href="https://www.atlassian.com/devops">DevOps</a>"?</i></sub>
 </h3>
 
 <hr />
@@ -191,6 +191,8 @@ This file (on GitHub):
 * ###### [3] reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
 
 * ###### [4] trustradius.com  |  "Platform-as-a-Service (PaaS) Solutions"  |  https://www.trustradius.com/platform-as-a-service-paas
+
+* ###### [5] atlassian.com  |  "DevOps: Breaking the Development-Operations barrier"  |  https://www.atlassian.com/devops
 
 </p>
 </details>

@@ -7,15 +7,15 @@ This file (on GitHub):
 --- ------------------------------------------------------------- -->
 
 <h3 id="coding" title="DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality. [1]">
-	<table>
-		<tr><td>
+	<table><tr>
+		<td>
 			<div>DevOps Resource Reference</div>
 			<div>&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;What is <a id="what-is-devops" href="https://www.atlassian.com/devops">DevOps</a>?</sub></div>
-		</td></tr>
-		<tr><td>
+		</td>
+		<td>
 			<img src="images/archive/devops-loop-illustrations.atlassian.png" />
-		</td></tr>
-	</table>
+		</td>
+	</tr></table>
 </h3>
 
 

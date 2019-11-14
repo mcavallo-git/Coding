@@ -72,7 +72,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <h3 id="workstation-installs">Windows Software - Workstation Essentials</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |
 **AutoHotkey (AHK)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub> | [Download (source)](https://www.autohotkey.com/download/ahk-install.exe) |
@@ -110,7 +110,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3 id="benchmarking">Windows Software - Benchmarking</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **CoreTemp** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU Temperature Logging</i></sub> | [Download (source)](https://www.alcpu.com/CoreTemp/) |
 **CrystalDiskInfo** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Info</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
@@ -123,7 +123,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3>Windows Software - Communication</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **Discord** <br /><sub>&nbsp;&nbsp;&nbsp;<i>VoIP & Digital Distribution</i></sub> | [Download (source)](https://discordapp.com/download) |
 **Microsoft Teams** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Shared Workspace for Chat, App, and File-Sharing</i></sub> | [Download (source)](https://products.office.com/en-us/microsoft-teams/download-app) |
@@ -134,7 +134,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3 id="software-platform">Windows Software - Cross-Platform Tools</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **Amazon Web Services CLI** <sub><i>(e.g. "AWS CLI")</sub></i> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Manage & Administer Cloud Services via CLI</i></sub> | [Download (source)](https://aws.amazon.com/powershell)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/AWSPowerShell)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)</sub> |
 **Azure CLI** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Manage & Administer Cloud Services via CLI</i></sub> | [Download (source)](https://aka.ms/installazurecliwindows)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (PS-gallery)](https://www.powershellgallery.com/packages/az)</sub><br />&nbsp;&nbsp;&nbsp;<sub>[View Documentation](https://docs.microsoft.com/en-us/cli/azure/reference-index)</sub> |
@@ -150,7 +150,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3>Windows Software - Entertainment</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **Lockscreen as wallpaper** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub> | [Download (source)](https://www.microsoft.com/store/productId/9NBLGGH4WR7C) |
 **Spotify** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Music Streaming</i></sub> | [Download (source)](https://www.spotify.com/us/download/other/) |
@@ -162,7 +162,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3 id="hardware-installs">Windows Software - Controllers/Drivers/Utilities & Other</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **ASUS Aura Sync** <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller</i></sub> | [Download (source)](https://www.asus.com/campaign/aura/us/download.html) |
 **balenaEtcher** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Drive Imaging Utility (.iso & .img, especially)</i></sub> | [Download (source)](https://www.balena.io/etcher/) |
@@ -183,7 +183,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3>Windows Software - Troubleshooting Utilities</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **BlueScreenView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/blue_screen_view.html) |
 **DigiCert Certificate Utility for Windows** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Management & Troubleshooting Tool</i></sub> | [Download (source)](https://www.digicert.com/util/) |
@@ -201,7 +201,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3>Linux-Based Software - Tools & Utilities</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **Docker** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub> | [View (source)](https://get.docker.com) |
 **Jenkins** <br /><sub>&nbsp;&nbsp;&nbsp;<i>CI/CD Server</i></sub> | [View (source)](https://jenkins.io) |
@@ -211,7 +211,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3>Web-Based Services - Tools & Utilities</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **DigiCert SSL Tools** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Check Host SSL/TLS, Generate CSR, Check CSR, Searct CT Logs</i></sub> | [Download (source)](https://ssltools.digicert.com/checker/) |
 **Qualys SSL Server Test** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Powered by Qualys SSL Labs (Test SSL, TLS, HTTPS) </i></sub> | [Download (source)](https://www.ssllabs.com/ssltest/) |
@@ -223,7 +223,7 @@ Resource | Source
 <!-- ------------------------------------------------------------ -->
 <h3>DNS Certificate-Chains/Root-Certs</h3>
 
-Resource | Source
+Resource <br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub>| Source
 :--|:--
 **GoDaddy** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Chain</i></sub> | [View (source)](https://ssl-ccp.godaddy.com/repository?origin=CALLISTO) |
 **Namecheap** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Chain</i></sub> | [View (source)](https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle) |

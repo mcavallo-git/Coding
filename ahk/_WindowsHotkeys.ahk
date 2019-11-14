@@ -432,11 +432,15 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Shift + Win + V
+;  HOTKEY:  Ctrl + Shift + V
 ;  ACTION:  Paste the clipboard as text
 ;
 +^V::
-	Sleep 1000
+	KeyWait V  ; Wait for the A key to be released
+	KeyWait Shift  ; Wait for the Shift key to be released
+	KeyWait Control  ; Wait for the Control key to be released
+	Sleep 100
+	PasteClipboardAsText()
 	PasteClipboardAsBinary()
 	Return
 
@@ -2004,6 +2008,8 @@ If (False) {
 ; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
 ;   |
 ;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |
+;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm
 ;   |
 ;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
 ;   |

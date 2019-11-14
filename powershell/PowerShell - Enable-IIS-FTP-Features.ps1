@@ -150,10 +150,10 @@ Get-WindowsFeature `
 
 				$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 				[System.Console]::ForegroundColor = "Magenta";
-				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script";
+				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#1)";
 				[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 				Write-Output "";
-
+				Start-Sleep -Seconds 60000;
 			}
 
 			If ($Response_FeatureInstall.Success -Match "True") {
@@ -166,7 +166,8 @@ Get-WindowsFeature `
 
 			} Else {
 
-				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script";
+				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#2)";
+				Start-Sleep -Seconds 60000;
 
 			}
 

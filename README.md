@@ -6,18 +6,16 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h2 id="coding" title="DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality. [1]">
-	<table><tr>
-		<td>
-			<div>DevOps Resource Reference</div>
-			<div>&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;What is <a id="what-is-devops" href="https://www.atlassian.com/devops">DevOps</a>?</sub></div>
-		</td>
-		<td>
-			<img src="images/archive/devops-loop-illustrations.atlassian.png" />
-		</td>
-	</tr></table>
-</h2>
-
+<h3 id="coding">
+	DevOps Resource-Reference<br />
+	&nbsp;&nbsp;&nbsp;&nbsp;<sub>↳&nbsp;&nbsp;&nbsp;What is DevOps?</sub>
+	<details><summary><i>Show/Hide Content</i></summary>
+		<ol>
+			<li>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.<li><sup>[1]</sup>>
+			<li><a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></li>
+		</ol>
+	</details>
+</h3>
 
 <hr />
 
@@ -188,7 +186,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <h3>Citation(s)</h3>
-<details open><summary><i>Show/Hide Content</i></summary>
+<details><summary><i>Show/Hide Content</i></summary>
 <p>
 
 * ###### [1] en.wikipedia.org  |  "DevOps"  |  https://en.wikipedia.org/wiki/DevOps

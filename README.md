@@ -111,8 +111,8 @@ Name | Option A | Option B
 
 Name | Option A | Option B
 --- | --- | ---
-**AWS CLI (PowerShell)** | [Download (source)](https://aws.amazon.com/powershell) or [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell) | [Docs](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
-**Azure CLI (PowerShell)** | [Download (source)](https://aka.ms/installazurecliwindows) or [Download (gallery)](https://www.powershellgallery.com/packages/az) | [Docs](https://docs.microsoft.com/en-us/cli/azure/reference-index)
+**AWS CLI (PowerShell)** | [Download (source)](https://aws.amazon.com/powershell) or [Download (gallery)](https://www.powershellgallery.com/packages/AWSPowerShell) | [Documentation](https://docs.aws.amazon.com/powershell/latest/reference/Index.html)
+**Azure CLI (PowerShell)** | [Download (source)](https://aka.ms/installazurecliwindows) or [Download (gallery)](https://www.powershellgallery.com/packages/az) | [Documentation](https://docs.microsoft.com/en-us/cli/azure/reference-index)
 **Java SE** <sub><i>(Java Standard Edition, Win10)</i></sub> | [Download (source)](https://www.java.com/en/download/win10.jsp) |
 **Java JDK, JRE** <sub><i>(Java Development-Kit, Runtime-Environment, Win10)</i></sub> | [Download (source)](https://www.oracle.com/technetwork/java/javase/downloads/index.html) |
 **PowerShell Core** <sub><i>Standard Edition</i></sub> | [Download (github)](https://github.com/PowerShell/PowerShell#get-powershell) | [Download (microsoft)](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux) |

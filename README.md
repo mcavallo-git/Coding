@@ -105,7 +105,7 @@ This file (on GitHub):
 | _Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **WinDirStat** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Usage Analyzer</i></sub> | [Download (source)](https://windirstat.net/download.html)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (fallback)](https://www.fosshub.com/WinDirStat.html)</sub> |
 | _Essentials<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Windows 10** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Creates Installation Media</i></sub> | [Download (source)](https://www.microsoft.com/en-us/software-download/windows10) |
 |<hr id="benchmarking" />|<hr />|<hr />|
-| Benchmarking<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
+| Benchmarking<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
 | Benchmarking<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Unigine Benchmarks** <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub> | [Download (source)](https://benchmark.unigine.com/) |
 |<hr id="communication" />|<hr />|<hr />|
 | Communication<br />&nbsp;&nbsp;&nbsp;<sub><i>Windows</i></sub> | **Discord** <br /><sub>&nbsp;&nbsp;&nbsp;<i>VoIP & Digital Distribution</i></sub> | [Download (source)](https://discordapp.com/download) |

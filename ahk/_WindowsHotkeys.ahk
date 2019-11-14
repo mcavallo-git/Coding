@@ -1493,6 +1493,7 @@ PasteClipboardAsBinary() {
 PasteClipboardAsText() {
 	Global VerboseOutput
 	SetKeyDelay, 0, -1
+	AwaitModifierKeyup()  ; Ensure (waits until) no modifier keys are being held-down
 	ClipboardDuped:=Clipboard
 	If (VerboseOutput == True) {
 		TrayTip, %A_ScriptName%,

@@ -20,7 +20,7 @@ Name | Option A | Option B
 <!-- ------------------------------------------------------------ -->
 
 <h3>Windows - Notable Filepaths</h3>
-<details><summary><i>Show/Hide Content</i></summary>
+<details open><summary><i>Show/Hide Content</i></summary>
 <p>
 
 Purpose | Filepath

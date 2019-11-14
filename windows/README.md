@@ -29,7 +29,7 @@ Resource | Source
 <details open><summary><i>Show/Hide Content</i></summary>
 <p>
 
-Purpose | Filepath
+Resource | Source
 --- | ---
 **Pinned Items** <sub>*Win10 Taskbar (Stock)*</sub> | ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
 **Pinned Items** <sub>*Classic Shell (App)*</sub> | ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```

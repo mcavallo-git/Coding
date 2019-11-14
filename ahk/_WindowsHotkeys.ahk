@@ -38,7 +38,7 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #NoEnv  ; Prevents environment variables from being used (occurs when a variable is called/referenced without being instantiated)
 
-VERBOSE_OUTPUT := True
+VerboseOutput := True
 
 USERPROFILE=%USERPROFILE%
 
@@ -795,7 +795,7 @@ WheelRight::
 ; 	WinGet, WinProcessName, ProcessName, A
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (%VERBOSE_OUTPUT% == True) {
+; 		If (%VerboseOutput% == True) {
 ; 			TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
 ; 		}
 ; 		x_loc = 223
@@ -807,7 +807,7 @@ WheelRight::
 ; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 ; 	}
 ; 	; } Else {
-; 	; 	If (%VERBOSE_OUTPUT% == True) {
+; 	; 	If (%VerboseOutput% == True) {
 ; 	; 		TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
 ; 	; 	}
 ; 	; }
@@ -1082,7 +1082,7 @@ OpenChrome() {
 
 	If (ProcessExist(EXE_BASENAME) == True) {
 		; Executable IS running - Activate the associated Window based on PID
-		If (%VERBOSE_OUTPUT% == True) {
+		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
@@ -1092,7 +1092,7 @@ OpenChrome() {
 
 	} Else If (FileExist(EXE_FULLPATH)) {
 		; Executable is NOT running but IS found locally
-		If (%VERBOSE_OUTPUT% == True) {
+		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
@@ -1106,7 +1106,7 @@ OpenChrome() {
 
 	} Else {
 		; Executable is NOT running and NOT found locally
-		If (%VERBOSE_OUTPUT% == True) {
+		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
 			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
 		}
@@ -1419,19 +1419,20 @@ TempFile() {
 ;
 PasteClipboardAsBinary() {
 	SetKeyDelay, 0, -1
+	Global VerboseOutput
 	NewTempFile := TempFile()
 	ClipboardDuped:=Clipboard
 	FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
 	Sleep, 100
 	FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
 	Sleep, 100
-	; If (%VERBOSE_OUTPUT% == True) {
+	If (%VerboseOutput% == True) {
 		TrayTip, %A_ScriptName%,
 		(LTrim
 			Pasting the Binary version of the Clipboard
 			NewTempFile = %NewTempFile%
 		)
-	; }
+	}
 	
 	Sleep, 100
 	Send {Blind}{Text}%Clipboard%
@@ -1456,7 +1457,7 @@ PasteClipboardAsBinary() {
 PasteClipboardAsText() {
 	SetKeyDelay, 0, -1
 	ClipboardDuped:=Clipboard
-	If (%VERBOSE_OUTPUT% == True) {
+	If (%VerboseOutput% == True) {
 		TrayTip, %A_ScriptName%,
 		(LTrim
 			Pasting the Text version of the Clipboard

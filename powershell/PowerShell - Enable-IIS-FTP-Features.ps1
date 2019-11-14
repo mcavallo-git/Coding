@@ -29,7 +29,7 @@ While (1) {
 
 # ------------------------------------------------------------
 
-$RevertBackgroundColor = [System.Console]::BackgroundColor;
+$Revert_BackgroundColor = [System.Console]::BackgroundColor;
 [System.Console]::BackgroundColor = "Black";
 
 # ------------------------------------------------------------
@@ -103,19 +103,19 @@ Get-WindowsFeature `
 | ForEach-Object {
 	If ( $_.Installed -Match "False" ) {
 
-		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
 
 		Write-Output "Installing `"$($_.Name)`" role...";
 
-		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
 		$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);  # Use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ] to un-do
 
 		If ($Response_FeatureInstall.Success -Match "True") {
 			# Need to edit Group Policy setting to force an attempt to pull from Windows-Update, directly
 
-			$RevertForegroundColor = [System.Console]::ForegroundColor;
+			$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 			[System.Console]::ForegroundColor = "Yellow";
 
 			Write-Output "WSUS-based installation failed - attempting to install from Windows Update...";
@@ -125,16 +125,16 @@ Get-WindowsFeature `
 			#
 			# ...
 			#
-			[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+			[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 		}
 	} Else {
 
-		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "Green";
 
 		Write-Output "Role `"$($_.Name)`" already installed";
 
-		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
 	}
 }
@@ -240,24 +240,24 @@ Get-WindowsOptionalFeature -Online `
 | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
 	If ( $_.State -Eq "Disabled" ) {
-		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
 
 		Write-Output "Installing `"$($_.FeatureName)`" feature...";
 
-		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
 		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");  # Use [ Disable-WindowsOptionalFeature -FeatureName ("$($_.FeatureName)") ] to undo;
 
 
 	} Else {
 
-		$RevertForegroundColor = [System.Console]::ForegroundColor;
+		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "Green";
 
 		Write-Output "Feature `"$($_.FeatureName)`" already installed";
 
-		[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
 
 	}
@@ -265,7 +265,7 @@ Get-WindowsOptionalFeature -Online `
 
 # ------------------------------------------------------------
 
-$RevertForegroundColor = [System.Console]::ForegroundColor;
+$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 [System.Console]::ForegroundColor = "Yellow";
 
 Write-Output "------------------------------------------------------------";
@@ -277,11 +277,11 @@ Write-Output "";
 Write-Output "------------------------------------------------------------";
 Write-Output "";
 
-[System.Console]::ForegroundColor = "${RevertForegroundColor}";
+[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
 # ------------------------------------------------------------
 
-[System.Console]::BackgroundColor = "${RevertBackgroundColor}";
+[System.Console]::BackgroundColor = "${Revert_BackgroundColor}";
 
 # ------------------------------------------------------------
 # Citation(s)

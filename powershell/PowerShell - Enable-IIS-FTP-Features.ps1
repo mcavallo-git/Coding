@@ -23,7 +23,7 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 # $WC.Headers.Set("Cache-Control","no-store, no-cache, must-revalidate");
 # $WC.CachePolicy=(New-Object System.Net.Cache.HttpRequestCachePolicy([System.Net.Cache.HttpRequestCacheLevel]::NoCacheNoStore));
 # $WC_DL=($WC.DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Enable-IIS-FTP-Features.ps1?t=$((Date).Ticks)"));
-# Write-Output $WC_DL | find /c /v "";
+# Write-Host $WC_DL | find /c /v "";
 # Write-Host "======================";
 # Date;
 # Sleep 2;
@@ -105,7 +105,7 @@ Get-WindowsFeature `
 		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "Cyan";
 
-		Write-Output "Attempting to Install `"$($_.Name)`" Feature (using default Source)...";
+		Write-Host "Attempting to Install `"$($_.Name)`" Feature (using default Source)...";
 
 		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
@@ -151,7 +151,7 @@ Get-WindowsFeature `
 
 			} Else {
 
-				Write-Output "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#2)" -ForegroundColor "Green";
+				Write-Host "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#2)" -ForegroundColor "Green";
 
 				Start-Sleep -Seconds 60000;
 
@@ -168,7 +168,7 @@ Get-WindowsFeature `
 		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
 		[System.Console]::ForegroundColor = "DarkGray";
 
-		Write-Output "Feature `"$($_.Name)`" already installed";
+		Write-Host "Feature `"$($_.Name)`" already installed";
 
 		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 
@@ -264,7 +264,7 @@ $EnableOptionalFeatures += "WindowsServerBackupSnapin";
 Get-WindowsOptionalFeature -Online `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) -Eq $True } `
 | ForEach-Object {
-	Write-Output "------------------------------------------------------------";
+	Write-Host "------------------------------------------------------------";
 	If ( $_.State -Eq "Disabled" ) {
 
 		Write-Host "Installing `"$($_.FeatureName)`" Optional-Feature..." -ForegroundColor "Cyan";
@@ -283,14 +283,14 @@ Get-WindowsOptionalFeature -Online `
 $Revert_ForegroundColor = [System.Console]::ForegroundColor;
 [System.Console]::ForegroundColor = "Yellow";
 
-Write-Output "------------------------------------------------------------";
-Write-Output "";
-Write-Output "   FEATURES ACTIVATATION COMPLETE";
-Write-Output "";
-Write-Output "   PLEASE REBOOT THE WORKSTATION/SERVER, NOW";
-Write-Output "";
-Write-Output "------------------------------------------------------------";
-Write-Output "";
+Write-Host "------------------------------------------------------------";
+Write-Host "";
+Write-Host "   FEATURES ACTIVATATION COMPLETE";
+Write-Host "";
+Write-Host "   PLEASE REBOOT THE WORKSTATION/SERVER, NOW";
+Write-Host "";
+Write-Host "------------------------------------------------------------";
+Write-Host "";
 
 [System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
 

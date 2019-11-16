@@ -25,7 +25,7 @@ exit 0;
 
 # ------------------------------------------------------------
 
-if [ -n "$(which esxcli)" ]; then
+if [ -n "$(which esxcli 2>'/dev/null')" ]; then
 
 	esxcli storage filesystem list;
 

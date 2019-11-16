@@ -132,13 +132,6 @@ sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql"
 
 
 # ------------------------------------------------------------
-#
-# Example)  GREP + SED - Get single line from file, then get substring from that line --> Note: This should probably be done exclusively with SED
-#
-echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s/ssl_ciphers '\(.*\)';/\1/"
-
-
-# ------------------------------------------------------------
 # 
 # Example)  Parse GnuPG key_id's out of the fingerprints held in gpg (using 'LONG' format-syntax)
 #
@@ -156,6 +149,13 @@ if [ -f "/etc/nginx/nginx.conf" ]; then
 	NGINX_UID=$(id -u "${NGINX_UNAME}");
 	NGINX_GID=$(id -g "${NGINX_UNAME}");
 fi;
+
+
+# ------------------------------------------------------------
+#
+# Example)  GREP + SED - Get single line from file, then get substring from that line --> Note: This should probably be done exclusively with SED
+#
+echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s/ssl_ciphers '\(.*\)';/\1/"
 
 
 # ------------------------------------------------------------

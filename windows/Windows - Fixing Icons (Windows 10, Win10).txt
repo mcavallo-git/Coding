@@ -1,0 +1,10 @@
+
+Fixing Shortcuts with Invalid Icons in Windows 10
+
+> Right-Click the shortcut with given invalid icon (if it's on the taskbar, perform a second Right-Click the name on the popout menu)
+ > Click "Properties" (pops up "... Properties" window)
+  > Combo-KeyPress [ CTRL + C ] (copy the "Target" field's text)
+  > Click "Change Icon" (pops up "Change Icon" window)
+   > Combo-KeyPress [ CTRL + V ] (paste into "Look for icons in this file:" text-field) > KeyPress [ ENTER ]
+   > Double-Click your desired Icon
+ > Click "OK" to save the "Properties" settings

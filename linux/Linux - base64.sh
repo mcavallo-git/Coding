@@ -14,7 +14,7 @@ echo $encoded_b64;
 
 ### DECODE
 encoded_b64="U29tZSBzdHJpbmcgdG8gZW5jb2Rl"; \
-decoded_b64=$(echo -n ${encoded_b64} | base64 --decode); \
+decoded_b64=$(echo -e "${encoded_b64}" | base64 --decode); \
 echo -e "${decoded_b64}";
 
 # ------------------------------------------------------ #

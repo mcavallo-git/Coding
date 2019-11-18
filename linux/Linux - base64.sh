@@ -13,9 +13,9 @@ echo $encoded_b64;
 # ------------------------------------------------------ #
 
 ### DECODE
-encoded_b64="U29tZSBzdHJpbmcgdG8gZW5jb2Rl"
+encoded_b64="U29tZSBzdHJpbmcgdG8gZW5jb2Rl"; \
 decoded_b64=$(echo -n ${encoded_b64} | base64 --decode); \
-echo $decoded_b64;
+echo -e $decoded_b64;
 
 # ------------------------------------------------------ #
 
@@ -26,7 +26,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKL
 ...
 ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ
 -----END RSA PRIVATE KEY-----" \
-| base64 --wrap=0);
+| base64 --wrap=0); \
 echo -e "\n""PRIVATE_KEY_ENCODED = [ ${PRIVATE_KEY_ENCODED} ]""\n";
 
 

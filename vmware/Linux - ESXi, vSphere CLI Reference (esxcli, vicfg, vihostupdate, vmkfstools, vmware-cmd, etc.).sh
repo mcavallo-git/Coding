@@ -1,3 +1,7 @@
+#!/bin/bash
+
+# ESXi, vSphere CLI Reference (esxcli, vicfg, vihostupdate, vmkfstools, vmware-cmd, etc.).sh
+
 # ------------------------------------------------------------
 # Citation(s)
 #

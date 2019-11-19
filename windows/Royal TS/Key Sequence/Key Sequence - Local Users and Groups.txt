@@ -8,7 +8,7 @@
 # OPTION 1 (Primary)
 #
 
-{ESC}{WAIT:250}{LWIN}{WAIT:250}%WINDIR%\System32\lusrmgr.msc{WAIT:500}{ENTER}
+{ESC}{WAIT:250}{LWIN}{WAIT:250}%WINDIR%\System32\lusrmgr.msc{WAIT:500}{ENTER}{WAIT:750}{LEFT}{WAIT:500}{ENTER}
 
 
 # ------------------------------------------------------------

@@ -75,6 +75,27 @@ function SyncRegistry {
 			)
 		};
 
+		# File Explorer Options
+		$RegEdits += @{
+			Path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Props=@(
+				@{
+					Description="File Explorer Options - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
+					Name="Hidden"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide extensions for known file types`"";
+					Name="HideFileExt"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
 		# Stop Windows from making sure all apps close when Shutting-Down/Restarting/etc. (Disables the 'This App is Preventing Shutdown or Restart' screen before Shutdown/Restart)
 		$RegEdits += @{
 			Path = "HKCU:\Control Panel\Desktop";

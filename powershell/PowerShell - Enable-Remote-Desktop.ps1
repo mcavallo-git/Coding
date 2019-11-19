@@ -12,17 +12,13 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $Sync
 }
 
 
-# Enable Remote Desktop connections
-Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\' -Name "fDenyTSConnections" -Value 0;
+Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\' -Name "fDenyTSConnections" -Value 0; # Enable Remote Desktop connections
 
-# Enable Network Level Authentication
-Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\' -Name "UserAuthentication" -Value 1;
+Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\' -Name "UserAuthentication" -Value 1; # Enable Network Level Authentication
 
-# Enable Windows firewall rules to allow incoming RDP
-Enable-NetFirewallRule -DisplayGroup "Remote Desktop";
+Enable-NetFirewallRule -DisplayGroup "Remote Desktop"; # Enable Windows firewall rules to allow incoming RDP
 
-# Allow a given, non-admin user access to remote desktop (administrators are granted access by default)
-Add-LocalGroupMember -Group "Remote Desktop Users" -Member "foo";
+Add-LocalGroupMember -Group "Remote Desktop Users" -Member "foo"; # Grant RDP access a non-admin user
 
 
 # ------------------------------------------------------------

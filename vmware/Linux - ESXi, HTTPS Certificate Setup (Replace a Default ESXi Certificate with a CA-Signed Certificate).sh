@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-# Replace a Default ESXi Certificate with a CA-Signed Certificate
+# Replace a Default HTTPS Certificate with a CA-Signed Certificate (onto target [ ESXi ] instance)
 
 
 cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/orig.rui.crt"; # Backup the original certificate
@@ -25,8 +25,8 @@ vi "/etc/vmware/ssl/rui.key";  # Clear file via ":1,$d" -> Enter insert-mode via
 # ------------------------------------------------------------
 # Citation(s)
 #
-#   pubs.vmware.com  |  "Replace a Default ESXi Certificate with a CA-Signed Certificate"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc%2FGUID-A261E6D8-03E4-48ED-ADB6-473C2DAAB7AD.html
-#
 #   kb.vmware.com  |  "Restarting the Management agents in ESXi (1003490)"  |  https://kb.vmware.com/s/article/1003490
+#
+#   pubs.vmware.com  |  "Replace a Default ESXi Certificate with a CA-Signed Certificate"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.vsphere.security.doc%2FGUID-A261E6D8-03E4-48ED-ADB6-473C2DAAB7AD.html
 # 
 # ------------------------------------------------------------

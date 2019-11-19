@@ -1,7 +1,7 @@
 
 #
 # Royal TS
-#   |--> Command Task, Open "Local Users and Groups" (lusrmgr.msc)
+#   |--> Key Sequence, Open "Local Users and Groups" (lusrmgr.msc)
 #
 
 

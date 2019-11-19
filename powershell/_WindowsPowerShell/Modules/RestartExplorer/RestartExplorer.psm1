@@ -1,8 +1,8 @@
 # ------------------------------------------------------------
-#	RestartExplorer
+#	Restart-Explorer
 # 	|--> ... Restarts Windows Explorer
 #
-function RestartExplorer {
+function Restart-Explorer {
 	Param(
 	)
 
@@ -16,7 +16,7 @@ function RestartExplorer {
 
 }
 
-Export-ModuleMember -Function "RestartExplorer";
+Export-ModuleMember -Function "Restart-Explorer";
 
 
 # ------------------------------------------------------------

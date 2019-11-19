@@ -87,8 +87,22 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
+					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide empty drives`"";
+					Name="HideDrivesWithNoMedia"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
 					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide extensions for known file types`"";
 					Name="HideFileExt"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide folder merge conflicts`"";
+					Name="HideMergeConflicts"; 
 					Type="DWord";
 					Value=0;
 					Delete=$False;

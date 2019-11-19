@@ -204,6 +204,8 @@ echo -e "\n\n";
 #
 # 	linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
+# 	serverfault.com  |  "Check if array is empty in Bash"  |  https://serverfault.com/a/477506
+#
 # 	stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #
 # 	stackoverflow.com  |  "Multidimensional associative arrays in Bash"  |  https://stackoverflow.com/a/6151190

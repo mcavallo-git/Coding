@@ -800,6 +800,7 @@ WheelRight::
 ;  ACTION:  Send a Checkmark
 ;
 >#K::
+AppsKey & K::
 	SetKeyDelay, 0, -1
 	; Send ✔
 	; Send 🗸  ; Light Check Mark

@@ -5,16 +5,16 @@
 #
 # ------------------------------------------------------------
 #
-# OPTION 1 (Primary)
+# Primary Option
 #
 
 
-{ESC}{WAIT:250}{LWIN}{WAIT:250}%WINDIR%\System32\lusrmgr.msc{WAIT:500}{ENTER}{WAIT:750}{LEFT}{WAIT:500}{ENTER}
+{ESC}{WAIT:250}{LWIN}{WAIT:250}lusrmgr.msc{WAIT:500}{ENTER}{WAIT:750}{LEFT}{WAIT:500}{ENTER}
 
 
 # ------------------------------------------------------------
 #
-# OPTION 2 (Secondary)
+# Fallback Option #1
 #
 
 
@@ -23,7 +23,7 @@
 
 # ------------------------------------------------------------
 #
-# OPTION 3 (Fallback)
+# Fallback Option #2
 #
 
 

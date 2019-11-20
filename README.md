@@ -73,7 +73,7 @@ This file (on GitHub):
 
 
 <table>
-<tr><th colspan="2" align="left"><h3 id="esssentials">Esssentials</h3></th></tr>
+<tr><th colspan="2"><h3 id="esssentials">Esssentials</h3></th></tr>
 <tr><td><strong>AirParrot</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub></td><td><a href="https://www.airsquirrels.com/airparrot/download/">Download (mirror)</a></td></tr>
 <tr><td><strong>AutoHotkey (AHK)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub></td><td><a href="https://www.autohotkey.com/download/ahk-install.exe">Download (source)</a></td></tr>
 <tr><td><strong>Classic Shell</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Win7 Style Start-Menu</i></sub></td><td><a href="https://www.fosshub.com/Classic-Shell.html">Download (mirror)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml">Download (fallback)</a></sub></td></tr>
@@ -103,15 +103,15 @@ This file (on GitHub):
 <tr><td><strong>Visual Studio Code</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VS Code - Code Editor</i></sub></td><td><a href="https://code.visualstudio.com/download">Download (source)</a></td></tr>
 <tr><td><strong>WinDirStat</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Usage Analyzer</i></sub></td><td><a href="https://www.fosshub.com/WinDirStat.html">Download (source)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://windirstat.net/download.html">Download (fallback)</a></sub></td></tr>
 <tr><td><strong>Windows 10</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="benchmarking">Benchmarking</h3></th></tr>
+<tr><th colspan="2"><h3 id="benchmarking">Benchmarking</h3></th></tr>
 <tr><td><strong>CrystalDiskMark</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/en/download/">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="communication">Communication</h3></th></tr>
+<tr><th colspan="2"><h3 id="communication">Communication</h3></th></tr>
 <tr><td><strong>Discord</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VoIP & Digital Distribution</i></sub></td><td><a href="https://discordapp.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft Teams</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Chat & App/File-Sharing</i></sub></td><td><a href="https://products.office.com/en-us/microsoft-teams/download-app">Download (source)</a></td></tr>
 <tr><td><strong>Skype</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Free Video & Voice Calls</i></sub></td><td><a href="https://www.skype.com/en/get-skype/">Download (source)</a></td></tr>
 <tr><td><strong>Skype for Business</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i><a href="https://support.microsoft.com/en-us/help/4511540/retirement-of-skype-for-business-online">Services will be retired<br />&nbsp;&nbsp;&nbsp;on/after July 31, 2021</a></i></sub></td><td><a href="https://products.office.com/en-us/skype-for-business/download-app">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="cross-platform">Cross-Platform</h3></th></tr>
+<tr><th colspan="2"><h3 id="cross-platform">Cross-Platform</h3></th></tr>
 <tr><td><strong>AWS CLI</strong> <br /><sub><i>&nbsp;&nbsp;&nbsp;Amazon Web Services CLI<br />&nbsp;&nbsp;&nbsp;Manage & Administer Cloud Services via CLI</i></sub></td><td><a href="https://aws.amazon.com/powershell">Download (source)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://www.powershellgallery.com/packages/AWSPowerShell">Download (PS-gallery)</a></sub><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://docs.aws.amazon.com/powershell/latest/reference/Index.html">View Documentation</a></sub></td></tr>
 <tr><td><strong>Azure CLI</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Manage & Administer Cloud Services via CLI</i></sub></td><td><a href="https://aka.ms/installazurecliwindows">Download (source</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://www.powershellgallery.com/packages/az">Download (PS-gallery)</a></sub><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://docs.microsoft.com/en-us/cli/azure/reference-index">View Documentation</a></sub></td></tr>
 <tr><td><strong>Docker</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>
@@ -119,13 +119,13 @@ This file (on GitHub):
 <tr><td><strong>PowerShell Core</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Standard Edition</i></sub></td><td><a href="https://github.com/PowerShell/PowerShell#get-powershell">Download (GitHub)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux">Download (Microsoft)</a></sub></td></tr>
 <tr><td><strong>WSL - All Distros</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub></td><td><a href="https://aka.ms/wslstore">Download (source)</a></td></tr>
 <tr><td><strong>WSL - Ubuntu 18.04 LTS</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N9TNGVNDL3Q">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="dns">DNS</h3></th></tr>
+<tr><th colspan="2"><h3 id="dns">DNS</h3></th></tr>
 <tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Certificate Authority (CA) Bundles<br />&nbsp;&nbsp;&nbsp;Root & Intermediate Certificates</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub></td></tr>
 <tr><td><strong>Namecheap</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Certificate Authority (CA) Bundles<br />&nbsp;&nbsp;&nbsp;Root & Intermediate Certificates</i></sub></td><td><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub></td></tr>
-<tr><th colspan="2" align="left"><h3 id="entertainment">Entertainment</h3></th></tr>
+<tr><th colspan="2"><h3 id="entertainment">Entertainment</h3></th></tr>
 <tr><td><strong>Spotify</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
 <tr><td><strong>Twitch App</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="hardware-utilities">Hardware Utilities</h3></th></tr>
+<tr><th colspan="2"><h3 id="hardware-utilities">Hardware Utilities</h3></th></tr>
 <tr><td><strong>ASUS Aura Sync</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller</i></sub></td><td><a href="https://www.asus.com/campaign/aura/us/download.html">Download (source)</a></td></tr>
 <tr><td><strong>BalenaEtcher</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Drive Imaging Utility (.iso & .img, especially)</i></sub></td><td><a href="https://www.balena.io/etcher/">Download (source)</a></td></tr>
 <tr><td><strong>Corsair iCue</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller (+ Aura API)</i></sub></td><td><a href="https://www.corsair.com/us/en/downloads">Download (source)</a></td></tr>
@@ -139,15 +139,15 @@ This file (on GitHub):
 <tr><td><strong>VMware (ESXi Server Management)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VMware vSphere, VMware Workstation,<br />&nbsp;&nbsp;&nbsp;VMware Fusion, VMware Player, etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
 <tr><td><strong>Yubico Tools</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Security Key Configuration</i></sub></td><td><a href="https://www.yubico.com/products/services-software/download/">Download (source)</a></td></tr>
 <tr><td><strong>WinSW: Windows service wrapper</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>(in less restrictive license)</i></sub></td><td><a href="https://github.com/kohsuke/winsw/">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="monitoring">Monitoring</h3></th></tr>
+<tr><th colspan="2"><h3 id="monitoring">Monitoring</h3></th></tr>
 <tr><td><strong>CoreTemp</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
 <tr><td><strong>CrystalDiskInfo</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD temperature & S.M.A.R.T. value monitoring</i></sub></td><td><a href="https://crystalmark.info/en/download/">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="personalization">Personalization</h3></th></tr>
+<tr><th colspan="2"><h3 id="personalization">Personalization</h3></th></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="server-runtimes">Server Runtimes</h3></th></tr>
+<tr><th colspan="2"><h3 id="server-runtimes">Server Runtimes</h3></th></tr>
 <tr><td><strong>Docker - Containerized</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Container Management</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>
 <tr><td><strong>Jenkins - CI/CD Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Automates Continuous Integration (CI)<br />&nbsp;&nbsp;&nbsp;Facilitates Continuous-Deployment (CD)</i></sub></td><td><a href="https://jenkins.io">View (source)</a></td></tr>
-<tr><th colspan="2" align="left"><h3 id="troubleshooting">Troubleshooting</h3></th></tr>
+<tr><th colspan="2"><h3 id="troubleshooting">Troubleshooting</h3></th></tr>
 <tr><td><strong>BlueScreenView</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub></td><td><a href="https://www.nirsoft.net/utils/blue_screen_view.html">Download (source)</a></td></tr>
 <tr><td><strong>DigiCert Certificate Utility</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Inspection Tool</i></sub></td><td><a href="https://www.digicert.com/util/">Download (source)</a></td></tr>
 <tr><td><strong>DDU (Display Driver Uninstaller)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Removes ALL graphics drivers</i></sub></td><td><a href="https://www.guru3d.com/files-details/display-driver-uninstaller-download.html">Download (source)</a></td></tr>

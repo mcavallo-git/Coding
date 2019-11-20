@@ -796,17 +796,31 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + K
+;  HOTKEY:  Right Windows-Key + K
 ;  ACTION:  Send a Checkmark
 ;
-RWin & K::
+>#K::
 	SetKeyDelay, 0, -1
-	Send ✔
+	; Send ✔
+	; Send 🗸  ; Light Check Mark
+	Send ✔️  ; Check Mark
 	Return
 
-LWin & K::
-	
+
+; ------------------------------------------------------------
+;  HOTKEY:  Left Windows-Key + K
+;  ACTION:  Send a Thumbs-Up
+;
+<#K::
+	SetKeyDelay, 0, -1
+	; Send 👍
+	; Send 👍🏿  ; Thumbs Up: Dark Skin Tone
+	; Send 👍🏾  ; Thumbs Up: Medium-Dark Skin Tone
+	Send 👍🏽  ; Thumbs Up: Medium Skin Tone
+	; Send 👍🏼  ; Thumbs Up: Medium-Light Skin Tone
+	; Send 👍🏻  ; Thumbs Up: Light Skin Tone
 	Return
+
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Ctrl + Win + C

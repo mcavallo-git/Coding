@@ -69,8 +69,10 @@ This file (on GitHub):
 
 <h5 id="software">Software</h5>
 <details open><summary><i>Show/Hide Content</i></summary>
+<br />
 
-| Software Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description/Purpose</i></sub> | Source (URL)<br /><sub>&nbsp;&nbsp;&nbsp;<i>Documentation, etc.</i></sub> |
+
+| Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub> | Source <br /><sub>&nbsp;&nbsp;&nbsp;<i>Docs, etc.</i></sub> |
 |:--|:--|
 |<hr id="esssentials" />|<hr />|
 | **AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub> | [Download (mirror)](https://www.airsquirrels.com/airparrot/download/) |

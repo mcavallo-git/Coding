@@ -25,17 +25,6 @@ DISM /Get-WimInfo /WimFile:"D:\sources\install.esd" /Index:6
 
 
 REM ------------------------------------------------------------
-REM 
-REM Using DISM /Get-WimInfo (on file's with multiple indices)	
-
-
-DISM /Get-ImageInfo /ImageFile:"D:\sources\install.wim"
-
-
-DISM /Get-ImageInfo /ImageFile:"D:\sources\install.esd"
-
-
-REM ------------------------------------------------------------
 REM
 REM  Citation(s)
 REM

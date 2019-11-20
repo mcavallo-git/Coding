@@ -7,7 +7,10 @@ Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted;
 Install-Module -Name "CredentialManager"
 
 
-# Citations
+# ------------------------------------------------------------
 #
-#			Thanks to addictivetips user 'Fatima Wahab' on forum https://www.addictivetips.com/windows-tips/add-a-trusted-repository-in-powershell-windows-10/
+#	Citation(s)
 #
+#   addictivetips.com  |  "How To Add A Trusted Repository In PowerShell In Windows 10"  |  https://www.addictivetips.com/windows-tips/add-a-trusted-repository-in-powershell-windows-10/
+#
+# ------------------------------------------------------------

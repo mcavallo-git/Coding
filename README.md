@@ -104,7 +104,7 @@ This file (on GitHub):
 | **Visual Studio Code** <br /><sub>&nbsp;&nbsp;&nbsp;<i>VS Code - Code Editor</i></sub> | [Download (source)](https://code.visualstudio.com/download) |
 | **WinDirStat** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Usage Analyzer</i></sub> | [Download (source)](https://windirstat.net/download.html)<br />&nbsp;&nbsp;&nbsp;<sub>[Download (fallback)](https://www.fosshub.com/WinDirStat.html)</sub> |
 | **Windows 10** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Installation Media Creation Tool</i></sub> | [Download (source)](https://www.microsoft.com/en-us/software-download/windows10) |
-|<hr id="benchmarking" /><h6>Benchmarking</h6>|<hr />|
+|<hr /><hr /><h6 id="benchmarking">Benchmarking</h6>|<hr /><hr /><hr />|
 | **CrystalDiskMark** <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub> | [Download (source)](https://crystalmark.info/en/download/) |
 | **Unigine Benchmarks** <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub> | [Download (source)](https://benchmark.unigine.com/) |
 |<hr id="communication" />|<hr />|

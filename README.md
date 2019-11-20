@@ -164,7 +164,7 @@ This file (on GitHub):
 <tr><td>**TCPView** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Sysinternals</i></sub></td><td>[Download (source)](https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview)</td></tr>
 <tr><td>**WakeMeOnLan** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub></td><td>[Download (source)](https://www.nirsoft.net/utils/wake_on_lan.html)</td></tr>
 <tr><td>**WinTail** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Tail for Windows</i></sub></td><td>[Download (source)](https://sourceforge.net/projects/wintail/)</td></tr>
-|<hr />|<hr />|
+</table>
 
 </details>
 

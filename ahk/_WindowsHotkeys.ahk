@@ -2124,6 +2124,7 @@ If (False) {
 ;
 ; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
 ;   |--> GetKeyState:  https://www.autohotkey.com/docs/commands/GetKeyState.htm
+;   |--> Hotkey:  https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
 ;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm
 ;   |--> Menu:  https://autohotkey.com/docs/commands/Menu.htm
 ;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm

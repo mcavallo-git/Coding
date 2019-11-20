@@ -74,7 +74,7 @@ This file (on GitHub):
 
 <table>
 <tr><th>Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub></th><th>Source <br /><sub>&nbsp;&nbsp;&nbsp;<i>Docs, etc.</i></sub></th></tr>
-<tr><th colspan="2"><h6 id="esssentials">Esssentials</h6></th></tr>
+<tr><th colspan="2" align="left"><h6 id="esssentials">Esssentials</h6></th></tr>
 <tr><td><strong>AirParrot</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub></td><td><a href="https://www.airsquirrels.com/airparrot/download/">Download (mirror)</a></td></tr>
 <tr><td><strong>AutoHotkey (AHK)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub></td><td><a href="https://www.autohotkey.com/download/ahk-install.exe">Download (source)</a></td></tr>
 <tr><td><strong>Classic Shell</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Win7 Style Start-Menu</i></sub></td><td><a href="https://www.fosshub.com/Classic-Shell.html">Download (mirror)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml">Download (fallback)</a></sub></td></tr>

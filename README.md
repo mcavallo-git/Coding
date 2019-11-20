@@ -67,15 +67,8 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h3 id="coding">Software</h3>
-<details><summary><i>What is DevOps?</i></summary>
-	<br />
-	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
-	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</blockquote>
-	<div>Atlassian<sup>&nbsp;<a href="https://www.atlassian.com/devops">[4]</a></sup> states:</div>
-	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.<a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
-</details>
-
+<h5 id="software">Software</h5>
+<details open><summary><i>Show/Hide Content</i></summary>
 
 | Software Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description/Purpose</i></sub> | Source (URL)<br /><sub>&nbsp;&nbsp;&nbsp;<i>Documentation, etc.</i></sub> |
 |:--|:--|
@@ -169,6 +162,8 @@ This file (on GitHub):
 | **WakeMeOnLan** <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub> | [Download (source)](https://www.nirsoft.net/utils/wake_on_lan.html) |
 | **WinTail** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Tail for Windows</i></sub> | [Download (source)](https://sourceforge.net/projects/wintail/) |
 |<hr />|<hr />|
+
+</details>
 
 <hr />
 

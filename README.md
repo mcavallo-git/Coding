@@ -150,7 +150,7 @@ This file (on GitHub):
 <tr><td><strong>Jenkins - CI/CD Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Automates Continuous Integration (CI)<br />&nbsp;&nbsp;&nbsp;Facilitates Continuous-Deployment (CD)</i></sub></td><td><a href="https://jenkins.io">View (source)</a></td></tr>
 <tr><th colspan="2"><h6 id="troubleshooting">Troubleshooting</h6></th></tr>
 <tr><td><strong>BlueScreenView</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub></td><td><a href="https://www.nirsoft.net/utils/blue_screen_view.html">Download (source)</a></td></tr>
-<tr><td><strong>DigiCert Certificate Utility for Windows</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Management & Troubleshooting Tool</i></sub></td><td><a href="https://www.digicert.com/util/">Download (source)</a></td></tr>
+<tr><td><strong>DigiCert Certificate Utility</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Certificate Management & Troubleshooting Tool</i></sub></td><td><a href="https://www.digicert.com/util/">Download (source)</a></td></tr>
 <tr><td><strong>DDU (Display Driver Uninstaller)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Removes ALL graphics drivers</i></sub></td><td><a href="https://www.guru3d.com/files-details/display-driver-uninstaller-download.html">Download (source)</a></td></tr>
 <tr><td><strong>DigiCert SSL Tools</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Check Host SSL/TLS, Generate CSR,<br />&nbsp;&nbsp;&nbsp;Check CSR, Searct CT Logs</i></sub></td><td><a href="https://ssltools.digicert.com/checker/">Open (web-service)</a></td></tr>
 <tr><td><strong>FindLinks</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Sysinternals</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/findlinks">Download (source)</a></td></tr>

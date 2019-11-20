@@ -7,7 +7,7 @@ This file (on GitHub):
 --- ------------------------------------------------------------- -->
 
 <h3 id="coding">DevOps Resource-Reference</h3>
-<details open><summary><i>What is DevOps?</i></summary>
+<details><summary><i>What is DevOps?</i></summary>
 	<br />
 	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
 	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</blockquote>

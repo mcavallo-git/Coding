@@ -74,7 +74,6 @@ This file (on GitHub):
 
 <table>
 <tr><th>Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub></th><th>Source <br /><sub>&nbsp;&nbsp;&nbsp;<i>Docs, etc.</i></sub></th></tr>
-|:--|:--|
 <tr><th colspan="2"><hr /><h6 id="esssentials">💿 Esssentials</h6></th></tr>
 <tr><td>**AirParrot** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub></td><td>[Download (mirror)](https://www.airsquirrels.com/airparrot/download/)</td></tr>
 <tr><td>**AutoHotkey (AHK)** <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub></td><td>[Download (source)](https://www.autohotkey.com/download/ahk-install.exe)</td></tr>

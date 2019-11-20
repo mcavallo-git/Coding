@@ -74,7 +74,6 @@ This file (on GitHub):
 
 <table>
 <tr><th colspan="2" align="left"><h3 id="esssentials">Esssentials</h3></th></tr>
-<tr><th align="left">Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub></th><th align="left">Source <br /><sub>&nbsp;&nbsp;&nbsp;<i>Docs, etc.</i></sub></th></tr>
 <tr><td><strong>AirParrot</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay Client for Windows</i></sub></td><td><a href="https://www.airsquirrels.com/airparrot/download/">Download (mirror)</a></td></tr>
 <tr><td><strong>AutoHotkey (AHK)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub></td><td><a href="https://www.autohotkey.com/download/ahk-install.exe">Download (source)</a></td></tr>
 <tr><td><strong>Classic Shell</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Win7 Style Start-Menu</i></sub></td><td><a href="https://www.fosshub.com/Classic-Shell.html">Download (mirror)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml">Download (fallback)</a></sub></td></tr>
@@ -105,7 +104,6 @@ This file (on GitHub):
 <tr><td><strong>WinDirStat</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Usage Analyzer</i></sub></td><td><a href="https://www.fosshub.com/WinDirStat.html">Download (source)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://windirstat.net/download.html">Download (fallback)</a></sub></td></tr>
 <tr><td><strong>Windows 10</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
 <tr><th colspan="2" align="left"><h3 id="benchmarking">Benchmarking</h3></th></tr>
-<tr><th align="left">Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description</i></sub></th><th align="left">Source <br /><sub>&nbsp;&nbsp;&nbsp;<i>Docs, etc.</i></sub></th></tr>
 <tr><td><strong>CrystalDiskMark</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/en/download/">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
 <tr><th colspan="2" align="left"><h3 id="communication">Communication</h3></th></tr>

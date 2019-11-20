@@ -21,7 +21,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <h5>Sync PowerShell Modules</h5>
-<details open><summary><i>Show/Hide Content</i></summary>
+<details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
 			<li>
@@ -49,7 +49,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <h5>Sync Bash Modules</h5>
-<details open><summary><i>Show/Hide Content</i></summary>
+<details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
 			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>

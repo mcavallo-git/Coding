@@ -6,7 +6,7 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h3 id="coding">DevOps Resource-Reference</h3>
+<h3 id="coding">DevOps Resource Reference</h3>
 <details><summary><i>What is DevOps?</i></summary>
 	<br />
 	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
@@ -20,9 +20,8 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<details><summary>
-		<strong>Sync PowerShell Modules</strong>
-	</summary>
+<h6>Sync PowerShell Modules</h6>
+<details open><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
 			<li>
@@ -49,9 +48,8 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<details><summary>
-		<strong>Sync Bash Modules</strong>
-	</summary>
+<h6>Sync Bash Modules</h6>
+<details open><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
 			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
@@ -68,6 +66,16 @@ This file (on GitHub):
 
 
 <!-- ------------------------------------------------------------ -->
+
+<h3 id="coding">Software</h3>
+<details><summary><i>What is DevOps?</i></summary>
+	<br />
+	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
+	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</blockquote>
+	<div>Atlassian<sup>&nbsp;<a href="https://www.atlassian.com/devops">[4]</a></sup> states:</div>
+	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.<a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
+</details>
+
 
 | Software Name<br /><sub>&nbsp;&nbsp;&nbsp;<i>Description/Purpose</i></sub> | Source (URL)<br /><sub>&nbsp;&nbsp;&nbsp;<i>Documentation, etc.</i></sub> |
 |:--|:--|

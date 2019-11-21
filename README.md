@@ -153,8 +153,12 @@ This file (on GitHub):
 <tr><td><strong>Lockscreen as wallpaper</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
 <!--  -->
 <tr><th colspan="2"><h5 id="operating-systems"><br />Operating Systems<br /><br /></h5></th></tr>
-<tr><td><strong>Linux, CentOS</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux (RHEL)</i></sub></td><td><a href="https://wiki.centos.org/Download">Download (source)</a></td></tr>
-<tr><td><strong>Windows, Win10</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
+<tr><td><strong>CentOS</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>RHEL Linux</i></sub></td><td><a href="https://wiki.centos.org/Download">Download (source)</a></td></tr>
+<tr><td><strong>Lubuntu</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://lubuntu.me/downloads/">Download (source)</a></td></tr>
+<tr><td><strong>Ubuntu Desktop</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
+<tr><td><strong>Ubuntu Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
+<tr><td><strong>Windows 10</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
+<tr><td><strong>Xubuntu</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://xubuntu.org/download">Download (source)</a></td></tr>
 <!--  -->
 <tr><th colspan="2"><h5 id="server-runtimes"><br />Server Runtimes<br /><br /></h5></th></tr>
 <tr><td><strong>Docker - Containerized</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Container Management</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>

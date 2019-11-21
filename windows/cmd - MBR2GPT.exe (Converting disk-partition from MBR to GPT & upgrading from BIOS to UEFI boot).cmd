@@ -38,6 +38,6 @@ REM Citation(s)
 REM 
 REM   youtube.com  |  "Microsoft Mechanics | Shifting from BIOS to UEFI with Windows 10 - MBR2GPT disk conversion tool"  |  https://www.youtube.com/watch?v=hfJep4hmg9o
 REM 
-REM   Image/SCreenshot (demonstrating mbr2gpt workflow) @ https://imgur.com/BVGqPjK
+REM   Image/SCreenshot (demonstrating mbr2gpt workflow) @ https://i.imgur.com/BVGqPjK.jpg
 REM 
 REM ------------------------------------------------------------

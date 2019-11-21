@@ -125,7 +125,7 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="entertainment"><br />Entertainment<br /><br /></h5></th></tr>
 <tr><td><strong>Spotify</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
 <tr><td><strong>Twitch App</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
-<tr><th colspan="2"><h5 id="hardware-utilities"><br />Hardware Utilities<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="hardware-utilities"><br />Hardware Utilities/Controllers<br /><br /></h5></th></tr>
 <tr><td><strong>ASUS Aura Sync</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller</i></sub></td><td><a href="https://www.asus.com/campaign/aura/us/download.html">Download (source)</a></td></tr>
 <tr><td><strong>BalenaEtcher</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Drive Imaging Utility (.iso & .img, especially)</i></sub></td><td><a href="https://www.balena.io/etcher/">Download (source)</a></td></tr>
 <tr><td><strong>Corsair iCue</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>RGB Controller (+ Aura API)</i></sub></td><td><a href="https://www.corsair.com/us/en/downloads">Download (source)</a></td></tr>
@@ -136,6 +136,7 @@ This file (on GitHub):
 <tr><td><strong>Logitech SetPoint</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mouse/Keyboard Hotkey Manager</i></sub></td><td><a href="http://support.logitech.com/software/setpoint">Download (source)</a></td></tr>
 <tr><td><strong>PCPartPicker</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Component Pricing/Compatibility Comparisons</i></sub></td><td><a href="https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf">Open (web-service)</a></td></tr>
 <tr><td><strong>RMPrepUSB</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Multiboot formatter for USB-drives</i></sub></td><td><a href="https://www.fosshub.com/RMPrepUSB.html">Download (source)</a></td></tr>
+<tr><td><strong>Sonos desktop controller</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Control LAN Sonos speakers</i></sub></td><td><a href="https://www.sonos.com/redir/controller_software_pc">Download (source)</a></td></tr>
 <tr><td><strong>VMware (ESXi Server Management)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VMware vSphere, VMware Workstation,<br />&nbsp;&nbsp;&nbsp;VMware Fusion, VMware Player, etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
 <tr><td><strong>Yubico Tools</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Security Key Configuration</i></sub></td><td><a href="https://www.yubico.com/products/services-software/download/">Download (source)</a></td></tr>
 <tr><td><strong>WinSW: Windows service wrapper</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>(in less restrictive license)</i></sub></td><td><a href="https://github.com/kohsuke/winsw/">Download (source)</a></td></tr>

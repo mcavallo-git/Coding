@@ -34,10 +34,18 @@ reagentc /enable
 
 
 REM ------------------------------------------------------------
+REM 
+REM 
+REM   If you need to recreate the UEFI Boot partition, refer to resource:  http://woshub.com/how-to-repair-deleted-efi-partition-in-windows-7/
+REM 
+REM 
+REM ------------------------------------------------------------
 REM Citation(s)
 REM 
 REM   youtube.com  |  "Microsoft Mechanics | Shifting from BIOS to UEFI with Windows 10 - MBR2GPT disk conversion tool"  |  https://www.youtube.com/watch?v=hfJep4hmg9o
 REM 
-REM   Image/SCreenshot (demonstrating mbr2gpt workflow) @ https://i.imgur.com/BVGqPjK.jpg
+REM   woshub.com  |  "How to Restore Deleted EFI Boot Partition in Windows 10/7"  |  http://woshub.com/how-to-repair-deleted-efi-partition-in-windows-7/
+REM 
+REM   imgur.com  |  "MBR2GPT.exe Demo"  |  https://i.imgur.com/BVGqPjK.jpg
 REM 
 REM ------------------------------------------------------------

@@ -18,10 +18,13 @@ REM
 REM Using DISM /Get-WimInfo (on file's with multiple indices)	
 
 
-DISM /Get-WimInfo /WimFile:"D:\sources\install.wim" /Index:6
+DISM /Get-WimInfo /WimFile:"D:\sources\install.wim" /Index:1
 
 
-DISM /Get-WimInfo /WimFile:"D:\sources\install.esd" /Index:6
+
+REM Optionally, run this one-liner in CMD directly or as a batch-file (run as admin) one-level above the "sources" directory
+
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:1 > "%~dp0get-iso-version.log"
 
 
 REM ------------------------------------------------------------

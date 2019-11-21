@@ -1,4 +1,4 @@
-<h5>CentOS.iso Mirrors (All Versions)</h5>
+<h5>CentOS.iso Download Mirrors (All Versions)</h5>
 <ul>
 <li><h5><a href="https://mirror.genesisadaptive.com/centos/">https://mirror.genesisadaptive.com/centos/</a></h5></li>
 <li><h5><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></h5></li>

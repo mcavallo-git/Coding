@@ -102,7 +102,6 @@ This file (on GitHub):
 <tr><td><strong>TeamViewer</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Remote Access Host/Server</i></sub></td><td><a href="https://www.teamviewer.com/en/download/windows/">Download (source)</a></td></tr>
 <tr><td><strong>Tortoise Git</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Git Merge Conflict Resolver</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 <tr><td><strong>Visual Studio Code</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VS Code - Code Editor</i></sub></td><td><a href="https://code.visualstudio.com/download">Download (source)</a></td></tr>
-<tr><td><strong>WinDirStat</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Usage Analyzer</i></sub></td><td><a href="https://www.fosshub.com/WinDirStat.html">Download (source)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://windirstat.net/download.html">Download (fallback)</a></sub></td></tr>
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
 <tr><td><strong>CrystalDiskMark</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/en/download/">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
@@ -178,6 +177,7 @@ This file (on GitHub):
 <tr><td><strong>Qualys SSL Server Test (HTTPS)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Application Security Testing (AST)<br />&nbsp;&nbsp;&nbsp;Attack Surface Management (ASM)</i></sub></td><td><a href="https://www.ssllabs.com/ssltest/">Open (web-service)</a></td></tr>
 <tr><td><strong>TCPView</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Sysinternals</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/tcpview">Download (source)</a></td></tr>
 <tr><td><strong>WakeMeOnLan</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>by Nirsoft</i></sub></td><td><a href="https://www.nirsoft.net/utils/wake_on_lan.html">Download (source)</a></td></tr>
+<tr><td><strong>WinDirStat</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Disk Usage Analyzer</i></sub></td><td><a href="https://www.fosshub.com/WinDirStat.html">Download (source)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://windirstat.net/download.html">Download (fallback)</a></sub></td></tr>
 <tr><td><strong>WinTail</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Tail for Windows</i></sub></td><td><a href="https://sourceforge.net/projects/wintail/">Download (source)</a></td></tr>
 <!--  -->
 </table>

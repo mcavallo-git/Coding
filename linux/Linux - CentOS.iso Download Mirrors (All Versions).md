@@ -1,4 +1,4 @@
-<!-- This file (on GirHub): https://github.com/mcavallo-git/Coding/blob/master/linux/Linux%20-%20CentOS.iso%20Download%20Mirrors%20(All%20Versions).md -->
+<!-- This file (on GirHub): https://github.com/mcavallo-git/Coding/blob/master/linux/Linux%20-%20CentOS.iso%20Download%20Mirrors%20(All%20Versions).md#centos.iso -->
 <h5 id="centos.iso">CentOS.iso Download Mirrors (All Versions)</h5>
 <ul>
 <li><h5><a href="https://mirror.tzulo.com/centos/">https://mirror.tzulo.com/centos/</a></h5></li>

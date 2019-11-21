@@ -101,7 +101,7 @@ This file (on GitHub):
 <tr><td><strong>Tortoise Git</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Git Merge Conflict Resolver</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 <tr><td><strong>Visual Studio Code</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VS Code - Code Editor</i></sub></td><td><a href="https://code.visualstudio.com/download">Download (source)</a></td></tr>
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
-<tr><td><strong>CrystalDiskMark</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/en/download/">Download (source)</a></td></tr>
+<tr><td><strong>CrystalDiskMark</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
 <!--  -->
 <tr><th colspan="2"><h5 id="communication"><br />Communication<br /><br /></h5></th></tr>

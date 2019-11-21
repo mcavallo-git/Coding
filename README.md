@@ -144,7 +144,7 @@ This file (on GitHub):
 <!--  -->
 <tr><th colspan="2"><h5 id="monitoring"><br />Monitoring<br /><br /></h5></th></tr>
 <tr><td><strong>CoreTemp</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
-<tr><td><strong>CrystalDiskInfo</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Pulls HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/en/download/#CrystalDiskInfo">Download (source)</a></td></tr>
+<tr><td><strong>CrystalDiskInfo</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Get HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/en/download/#CrystalDiskInfo">Download (source)</a></td></tr>
 <!--  -->
 <tr><th colspan="2"><h5 id="personalization"><br />Personalization<br /><br /></h5></th></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>

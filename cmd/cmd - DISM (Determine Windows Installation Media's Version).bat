@@ -25,6 +25,17 @@ DISM /Get-WimInfo /WimFile:"D:\sources\install.wim" /Index:1
 REM Optionally, run this one-liner in CMD directly or as a batch-file (run as admin) one-level above the "sources" directory
 
 DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:1 > "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:2 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:3 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:4 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:5 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:6 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:7 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:8 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:9 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:10 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:11 >> "%~dp0get-iso-version.log"
+DISM /Get-WimInfo /WimFile:"%~dp0sources\install.wim" /Index:12 >> "%~dp0get-iso-version.log"
 
 
 REM ------------------------------------------------------------

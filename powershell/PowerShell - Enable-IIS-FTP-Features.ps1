@@ -97,6 +97,22 @@ $EnableFeatures += "Windows-Defender-Gui";
 $EnableFeatures += "WoW64-Support";
 
 
+$FeaturesToEnable = ( `
+Get-WindowsFeature `
+| Where-Object { $EnableFeatures.Contains($_.Name) -Eq $True } `
+| Where-Object { ( $_.Installed -Match "False" ) } `
+| Select-Object -Property ("Name") `
+);
+
+$ISO_Media = "D:\sources\sxs";
+If ((Test-Path "${ISO_Media}") -Eq $True ) {
+Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -Source (${ISO_Media}) -IncludeManagementTools;
+} Else {
+Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -IncludeManagementTools;
+}
+
+
+
 Get-WindowsFeature `
 | Where-Object { $EnableFeatures.Contains($_.Name) -Eq $True } `
 | ForEach-Object {
@@ -261,22 +277,28 @@ $EnableOptionalFeatures += "Windows-Defender-Gui";
 $EnableOptionalFeatures += "WindowsMediaPlayer";
 $EnableOptionalFeatures += "WindowsServerBackupSnapin";
 
+$OptionalFeatures_ToEnable = (`
 Get-WindowsOptionalFeature -Online `
+| Where-Object { ( $_.State -Eq "Disabled" ) } `
 | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) -Eq $True } `
-| ForEach-Object {
-	Write-Host "------------------------------------------------------------";
-	If ( $_.State -Eq "Disabled" ) {
+| Select-Object -Property ("FeatureName")`
+);
 
-		Write-Host "Installing `"$($_.FeatureName)`" Optional-Feature..." -ForegroundColor "Cyan";
+Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName (${OptionalFeatures_ToEnable}.FeatureName) -All -Source "D:\sources\sxs";
 
-		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)");
+Write-Host "Installing Windows Features Optional-Features [ ${OptionalFeatures_ToEnable} ]..." -ForegroundColor "Cyan";
 
-	} Else {
-
-		Write-Host "Optional-Feature `"$($_.FeatureName)`" already installed" -ForegroundColor "Green";
-
-	}
-}
+# Get-WindowsOptionalFeature -Online `
+# | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) -Eq $True } `
+# | ForEach-Object {
+# 	Write-Host "------------------------------------------------------------";
+# 	If ( $_.State -Eq "Disabled" ) {
+# 		Write-Host "Installing `"$($_.FeatureName)`" Optional-Feature..." -ForegroundColor "Cyan";
+# 		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)") -All;
+# 	} Else {
+# 		Write-Host "Optional-Feature `"$($_.FeatureName)`" already installed" -ForegroundColor "Green";
+# 	}
+# }
 
 # ------------------------------------------------------------
 
@@ -304,6 +326,10 @@ Write-Host "";
 #   docs.microsoft.com  |  "New-ItemProperty - Creates a new property for an item and sets its value"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty
 #
 #   github.com  |  "Web Cache - Everything you need to know"  |  https://github.com/kamranahmedse/kamranahmedse.github.io/blob/master/blog/_posts/2017-03-14-quick-guide-to-http-caching.md
+#
+#   microsoft.com  |  "Enable-WindowsOptionalFeature - Enables a feature in a Windows image"  |  https://docs.microsoft.com/en-us/powershell/module/dism/enable-windowsoptionalfeature
+#
+#   microsoft.com  |  "Install-WindowsFeature - Installs one or more roles, role services, or features on either the local or a specified remote..."  |  https://docs.microsoft.com/en-us/powershell/module/servermanager/install-windowsfeature?view=winserver2012r2-ps
 #
 #   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #

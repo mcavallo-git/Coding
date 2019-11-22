@@ -111,87 +111,6 @@ Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -Source (${ISO_Media}) -
 Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -IncludeManagementTools;
 }
 
-
-
-Get-WindowsFeature `
-| Where-Object { $EnableFeatures.Contains($_.Name) -Eq $True } `
-| ForEach-Object {
-	If ( $_.Installed -Match "False" ) {
-
-		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-		[System.Console]::ForegroundColor = "Cyan";
-
-		Write-Host "Attempting to Install `"$($_.Name)`" Feature (using default Source)...";
-
-		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-
-		$Response_FeatureInstall = (Install-WindowsFeature -Name ("$($_.Name)") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
-
-		If ($Response_FeatureInstall.Success -Match "True") {
-
-			Write-Host "  |--> Feature `"$($_.Name)`" successfully installed" -ForegroundColor "Green";
-			Write-Host "";
-
-		} Else {
-
-			$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-			[System.Console]::ForegroundColor = "Yellow";
-
-			Write-Host "  |--> Feature `"$($_.Name)`" failed to install (using default Source)" -ForegroundColor "Yellow";
-			Write-Host "";
-
-			[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-
-			# $FallbackSource = "${Env:SystemRoot}\WinSxS";
-			$FallbackSource = "D:\sources\sxs";
-			If ((Test-Path "${FallbackSource}") -Eq $True ) {
-
-				Write-Host "Attempting to Install `"$($_.Name)`" Feature (using Source `"${FallbackSource}`")..." -ForegroundColor "Yellow";
-
-				# $Response_FeatureInstall = (Install-WindowsFeature -Name ("Web-Net-Ext") -Source ("${FallbackSource}") -IncludeManagementTools);  # To undo, use [ Uninstall-WindowsFeature -Name ("$($_.Name)") ]
-
-			} Else {
-
-				Write-Host "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#1)" -ForegroundColor "Magenta";
-				Write-Host "";
-				Start-Sleep -Seconds 60000;
-
-			}
-
-			If ($Response_FeatureInstall.Success -Match "True") {
-
-				$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-				[System.Console]::ForegroundColor = "Green";
-				Write-Host "  |--> Feature `"$($_.Name)`" successfully installed" -ForegroundColor "Green";
-				Write-Host "";
-
-			} Else {
-
-				Write-Host "Please mount disc containing original ISO as drive D:\ and re-run this script (Err#2)" -ForegroundColor "Green";
-
-				Start-Sleep -Seconds 60000;
-
-
-			}
-
-
-
-			# Final Fallback - Edit Group Policy setting to pull from Windows-Update, directly
-
-		}
-	} Else {
-
-		$Revert_ForegroundColor = [System.Console]::ForegroundColor;
-		[System.Console]::ForegroundColor = "DarkGray";
-
-		Write-Host "Feature `"$($_.Name)`" already installed";
-
-		[System.Console]::ForegroundColor = "${Revert_ForegroundColor}";
-
-	}
-}
-
-
 # ------------------------------------------------------------
 
 [String[]]$EnableOptionalFeatures = @();
@@ -287,18 +206,6 @@ Get-WindowsOptionalFeature -Online `
 Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName (${OptionalFeatures_ToEnable}.FeatureName) -All -Source "D:\sources\sxs";
 
 Write-Host "Installing Windows Features Optional-Features [ ${OptionalFeatures_ToEnable} ]..." -ForegroundColor "Cyan";
-
-# Get-WindowsOptionalFeature -Online `
-# | Where-Object { $EnableOptionalFeatures.Contains($_.FeatureName) -Eq $True } `
-# | ForEach-Object {
-# 	Write-Host "------------------------------------------------------------";
-# 	If ( $_.State -Eq "Disabled" ) {
-# 		Write-Host "Installing `"$($_.FeatureName)`" Optional-Feature..." -ForegroundColor "Cyan";
-# 		Enable-WindowsOptionalFeature -Online -NoRestart -FeatureName ("$($_.FeatureName)") -All;
-# 	} Else {
-# 		Write-Host "Optional-Feature `"$($_.FeatureName)`" already installed" -ForegroundColor "Green";
-# 	}
-# }
 
 # ------------------------------------------------------------
 

@@ -67,10 +67,10 @@ ServerManager.exe -arw
 
 REM ------------------------------------------------------------
 REM 
-REM Windows 10 -  Server start Add Roles and Features Wizard command
+REM Windows 10 - Server start Add Roles and Features Wizard command
 REM 
 
-OptionalFeatures.exe
+OptionalFeatures.exe		REM Windows Features - "Turn Windows Features On of Off"
 
 
 REM ------------------------------------------------------------
@@ -83,5 +83,7 @@ REM
 REM   support.microsoft.com  |  "Description of Control Panel (.cpl) Files"  |  https://support.microsoft.com/en-us/help/149648/description-of-control-panel-cpl-files
 REM
 REM   support.microsoft.com  |  "How to run Control Panel tools by typing a command"  |  https://support.microsoft.com/en-us/help/192806/how-to-run-control-panel-tools-by-typing-a-command
+REM
+REM   windows-commandline.com  |  "Run command for add or remove programs"  |  https://www.windows-commandline.com/run-command-for-add-or-remove-programs/
 REM
 REM ------------------------------------------------------------

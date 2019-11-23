@@ -96,6 +96,9 @@ $EnableFeatures += "Windows-Defender-Features";
 $EnableFeatures += "Windows-Defender-Gui";
 $EnableFeatures += "WoW64-Support";
 
+NEED [ ASP.NET 3.5 ]
+
+
 
 $FeaturesToEnable = ( `
 Get-WindowsFeature `

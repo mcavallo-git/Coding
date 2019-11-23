@@ -122,6 +122,7 @@ This file (on GitHub):
 <tr><td><strong>Docker</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Containers</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>
 <tr><td><strong>Java Standard Edition (SE8)</strong> <br /><sub><i>&nbsp;&nbsp;&nbsp;JRE, JDK (Desktop/Server)<br />&nbsp;&nbsp;&nbsp;Server JRE (Server-Only)</i></sub></td><td><a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html#JDK8">Download (source)</a></td></tr>
 <tr><td><strong>PowerShell Core</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Standard Edition</i></sub></td><td><a href="https://github.com/PowerShell/PowerShell#get-powershell">Download (GitHub)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux">Download (Microsoft)</a></sub></td></tr>
+<tr><td><strong>Windows Terminal</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Terminal Emulator for Windows 10</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a></td></tr>
 <tr><td><strong>WSL - All Distros</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub></td><td><a href="https://aka.ms/wslstore">Download (source)</a></td></tr>
 <tr><td><strong>WSL - Ubuntu 18.04 LTS</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Windows Subsystem for Linux</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N9TNGVNDL3Q">Download (source)</a></td></tr>
 <!-- -->

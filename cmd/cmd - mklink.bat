@@ -1,5 +1,9 @@
 @ECHO OFF
-
+REM 
+REM MKLINK Syntax: [ MKLINK "NEW_LINK" "EXISTING_TARGET" ]
+REM 
+REM ------------------------------------------------------------
+REM 
 REM *** WINDOWS FAX AND SCAN - Set the default scan save location to a different folder other than [My Documents -> Scanned Documents]
 
 SET "LINK_PATH=%USERPROFILE%\Documents\Scanned Documents"

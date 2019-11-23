@@ -58,12 +58,12 @@ timeDate.cpl	Date/Time properties
 wgpocpl.cpl	Microsoft Mail Post Office
 
 
-Windows Server start Add Roles and Features Wizard command
-
+REM ------------------------------------------------------------
+REM 
+REM Windows Server start Add Roles and Features Wizard command
+REM 
 
 ServerManager.exe -arw
-
-
 
 
 REM ------------------------------------------------------------

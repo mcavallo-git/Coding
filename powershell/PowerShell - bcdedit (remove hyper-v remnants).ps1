@@ -8,9 +8,13 @@
 # 
 # ------------------------------------------------------------
 
-# Using PowerShell:
 
+<# DISABLE Hyper V (Run in PowerShell terminal as Admin) #>
 bcdedit /set hypervisorlaunchtype Off; <# <-- Disable Hyper V [ Boot Configuration Data ] #> Get-WindowsOptionalFeature -Online | Where-Object { $_.State -Eq "Disabled" } | Where-Object { @("HypervisorPlatform", "Microsoft-Hyper-V-All", "Microsoft-Hyper-V", "Microsoft-Hyper-V-Tools-All", "Microsoft-Hyper-V-Management-PowerShell", "Microsoft-Hyper-V-Hypervisor", "Microsoft-Hyper-V-Services", "Microsoft-Hyper-V-Management-Clients").Contains($_.FeatureName) -Eq $True } | Disable-WindowsOptionalFeature -Online -NoRestart; <# <-- Disable Hyper V [ Windows Features ] #> 
+
+
+<# ENABLE Hyper V (Run in PowerShell terminal as Admin) #>
+bcdedit /set hypervisorlaunchtype Auto; <# <-- Disable Hyper V [ Boot Configuration Data ] #> Get-WindowsOptionalFeature -Online | Where-Object { $_.State -Eq "Disabled" } | Where-Object { @("HypervisorPlatform", "Microsoft-Hyper-V-All", "Microsoft-Hyper-V", "Microsoft-Hyper-V-Tools-All", "Microsoft-Hyper-V-Management-PowerShell", "Microsoft-Hyper-V-Hypervisor", "Microsoft-Hyper-V-Services", "Microsoft-Hyper-V-Management-Clients").Contains($_.FeatureName) -Eq $True } | Enable-WindowsOptionalFeature -Online -NoRestart -All; <# <-- Disable Hyper V [ Windows Features ] #> 
 
 
 # ------------------------------------------------------------

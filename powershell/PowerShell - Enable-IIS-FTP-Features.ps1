@@ -76,9 +76,8 @@ $EnableFeatures += "Windows-Defender-Features";
 $EnableFeatures += "Windows-Defender-Gui";
 $EnableFeatures += "WoW64-Support";
 
-NEED [ ASP.NET 3.5 ]
-
-
+# NEED [ ASP.NET 3.5 ]
+# NEED [ WIRELESS LAN SERVICE ]
 
 $FeaturesToEnable = ( `
 Get-WindowsFeature `

@@ -1435,27 +1435,36 @@ PasteClipboardAsBinary() {
 	Global VerboseOutput
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	NewTempFile := TempFile()
-	ClipboardDuped:=Clipboard
-	FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
-	Sleep, 100
-	FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
-	Sleep, 100
-	If (VerboseOutput == True) {
-		TrayTip, %A_ScriptName%,
-		(LTrim
-			Pasting the Binary version of the Clipboard
-			NewTempFile = %NewTempFile%
-		)
-	}
+	; NewTempFile := TempFile()
+	; ClipboardDuped := Clipboard
+	; FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
+	; Sleep, 100
+	; FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
+	; Sleep, 100
+	; If (VerboseOutput == True) {
+	; 	TrayTip, %A_ScriptName%,
+	; 	(LTrim
+	; 		Pasting the Binary version of the Clipboard
+	; 		NewTempFile = %NewTempFile%
+	; 	)
+	; }
 	
-	Sleep, 100
-	Send {Blind}{Text}%Clipboard%
-	Sleep, 100
-	FileDelete, %NewTempFile% ; Delete the clipboard file
+	If (False) {
+		StringUpper, Clipboard, Clipboard  ; Force uppercase-only strings
+		StringLower, Clipboard, Clipboard  ; Force lowercase-only strings
+	}
 
 	Sleep, 100
-	Clipboard:=ClipboardDuped
+	Clipboard := ClipboardAll
+	Sleep, 100
+	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text.
+	Sleep, 100
+	Send {Blind}{Text}%Clipboard%
+
+	; Sleep, 100
+	; FileDelete, %NewTempFile% ; Delete the clipboard file
+	; Sleep, 100
+	; Clipboard := ClipboardDuped
 
 	Sleep, 100
 	ClipboardDuped = ; Avoid caching clipboard-contents in memory
@@ -2124,6 +2133,7 @@ If (False) {
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
+;   |--> Clipboard:  https://www.autohotkey.com/docs/misc/Clipboard.htm
 ;   |--> GetKeyState:  https://www.autohotkey.com/docs/commands/GetKeyState.htm
 ;   |--> Hotkey:  https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
 ;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm

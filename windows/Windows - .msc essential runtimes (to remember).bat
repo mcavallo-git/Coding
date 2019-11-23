@@ -58,13 +58,23 @@ timeDate.cpl	Date/Time properties
 wgpocpl.cpl	Microsoft Mail Post Office
 
 
+Windows Server start Add Roles and Features Wizard command
+
+
+ServerManager.exe -arw
+
+
+
+
 REM ------------------------------------------------------------
 REM Citation(s)
+REM
+REM   recouncedthoughts.wordpress.com  |  "Run Commands, cpl, msc files for everyday use"  |  https://renouncedthoughts.wordpress.com/2014/05/08/run-commands-cpl-msc-files-for-everyday-use/
+REM
+REM   superuser.com  |  "Windows Server start Add Roles and Features Wizard command"  |  https://superuser.com/a/1387227
 REM
 REM   support.microsoft.com  |  "Description of Control Panel (.cpl) Files"  |  https://support.microsoft.com/en-us/help/149648/description-of-control-panel-cpl-files
 REM
 REM   support.microsoft.com  |  "How to run Control Panel tools by typing a command"  |  https://support.microsoft.com/en-us/help/192806/how-to-run-control-panel-tools-by-typing-a-command
-REM
-REM   recouncedthoughts.wordpress.com  |  "Run Commands, cpl, msc files for everyday use"  |  https://renouncedthoughts.wordpress.com/2014/05/08/run-commands-cpl-msc-files-for-everyday-use/
 REM
 REM ------------------------------------------------------------

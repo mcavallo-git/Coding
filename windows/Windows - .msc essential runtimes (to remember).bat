@@ -7,29 +7,29 @@ REM
 REM How to run Control Panel tools by typing a command [ cited in "Citation(s)", below ]
 REM 
 
-control access.cpl	Accessibility Options 
-control sysdm.cpl add new hardware	Add New Hardware 
-control appwiz.cpl	Add/Remove Programs 
-control timedate.cpl	Date/Time Properties 
-control desk.cpl	Display Properties 
-control findfast.cpl	FindFast 
-control fonts	Fonts Folder 
-control inetcpl.cpl	Internet Properties 
-control joy.cpl	Joystick Properties 
-control main.cpl keyboard	Keyboard Properties 
-control mlcfg32.cpl	Microsoft Exchange 
-control wgpocpl.cpl	Microsoft Mail Post Office 
-control modem.cpl	Modem Properties 
-control main.cpl	Mouse Properties 
-control mmsys.cpl	Multimedia Properties 
-control netcpl.cpl  # NOTE: In Windows NT 4.0, Network properties is Ncpa.cpl, not Netcpl.cpl	Network Properties 
-control password.cpl	Password Properties 
-control main.cpl pc card (PCMCIA)	PC Card 
-control printers	Printers Folder 
-control intl.cpl	Regional Settings 
-control sticpl.cpl	Scanners and Cameras 
-control mmsys.cpl sounds	Sound Properties 
-control sysdm.cpl	System Properties 
+control access.cpl		REM Accessibility Options 
+control sysdm.cpl add new hardware		REM Add New Hardware 
+control appwiz.cpl		REM Add/Remove Programs 
+control timedate.cpl		REM Date/Time Properties 
+control desk.cpl		REM Display Properties 
+control findfast.cpl		REM FindFast 
+control fonts		REM Fonts Folder 
+control inetcpl.cpl		REM Internet Properties 
+control joy.cpl		REM Joystick Properties 
+control main.cpl keyboard		REM Keyboard Properties 
+control mlcfg32.cpl		REM Microsoft Exchange 
+control wgpocpl.cpl		REM Microsoft Mail Post Office 
+control modem.cpl		REM Modem Properties 
+control main.cpl		REM Mouse Properties 
+control mmsys.cpl		REM Multimedia Properties 
+control netcpl.cpl		REM Network Properties (ncpa.cpl is previous version)
+control password.cpl		REM Password Properties 
+control main.cpl pc card (PCMCIA)		REM PC Card 
+control printers		REM Printers Folder 
+control intl.cpl		REM Regional Settings 
+control sticpl.cpl		REM Scanners and Cameras 
+control mmsys.cpl sounds		REM Sound Properties 
+control sysdm.cpl		REM System Properties 
 
 
 REM ------------------------------------------------------------
@@ -37,25 +37,25 @@ REM
 REM Description of Control Panel (.cpl) Files [ cited in "Citation(s)", below ]
 REM 
 
-access.cpl	Accessibility properties
-appwiz.cpl	Add/Remove Programs properties
-desk.cpl	Display properties
-findFast.cpl	FindFast (included with Microsoft Office for Windows 95)
-inetcpl.cpl	Internet properties
-intl.cpl	Regional Settings properties
-joy.cpl	Joystick properties
-main.cpl	Mouse, Fonts, Keyboard, and Printers properties
-mlcfg32.cpl	Microsoft Exchange or Windows Messaging properties
-mmsys.cpl	Multimedia properties
-modem.cpl	Modem properties
-netcpl.cpl	Network properties
-odbccp32.cpl	Data Sources (32-bit ODBC, included w/ Microsoft Office)
-password.cpl	Password properties
-sticpl.cpl	Scanners and Cameras properties
-sysdm.cpl	System properties and Add New Hardware wizard
-themes.cpl	Desktop Themes 
-timeDate.cpl	Date/Time properties
-wgpocpl.cpl	Microsoft Mail Post Office
+access.cpl		REM Accessibility properties
+appwiz.cpl		REM Add/Remove Programs properties
+desk.cpl		REM Display properties
+findFast.cpl		REM FindFast (included with Microsoft Office for Windows 95)
+inetcpl.cpl		REM Internet properties
+intl.cpl		REM Regional Settings properties
+joy.cpl		REM Joystick properties
+main.cpl		REM Mouse, Fonts, Keyboard, and Printers properties
+mlcfg32.cpl		REM Microsoft Exchange or Windows Messaging properties
+mmsys.cpl		REM Multimedia properties
+modem.cpl		REM Modem properties
+netcpl.cpl		REM Network properties
+odbccp32.cpl		REM Data Sources (32-bit ODBC, included w/ Microsoft Office)
+password.cpl		REM Password properties
+sticpl.cpl		REM Scanners and Cameras properties
+sysdm.cpl		REM System properties and Add New Hardware wizard
+themes.cpl		REM Desktop Themes 
+timeDate.cpl		REM Date/Time properties
+wgpocpl.cpl		REM Microsoft Mail Post Office
 
 
 REM ------------------------------------------------------------
@@ -64,6 +64,13 @@ REM Windows Server start Add Roles and Features Wizard command
 REM 
 
 ServerManager.exe -arw
+
+REM ------------------------------------------------------------
+REM 
+REM Windows 10 -  Server start Add Roles and Features Wizard command
+REM 
+
+OptionalFeatures.exe
 
 
 REM ------------------------------------------------------------

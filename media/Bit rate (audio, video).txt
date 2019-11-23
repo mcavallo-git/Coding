@@ -1,0 +1,16 @@
+
+
+Audio - Refer to:  https://en.wikipedia.org/wiki/Bit_rate#Audio
+
+
+Video - Refer to:  https://en.wikipedia.org/wiki/Bit_rate#Video
+
+
+# ------------------------------------------------------------
+# Citation(s)
+#
+#   en.wikipedia.org  |  "Bit Rate - Audio"  |  https://en.wikipedia.org/wiki/Bit_rate#Audio
+#
+#   en.wikipedia.org  |  "Bit Rate - Video"  |  https://en.wikipedia.org/wiki/Bit_rate#Video
+#
+# ------------------------------------------------------------

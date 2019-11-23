@@ -1,0 +1,16 @@
+
+RFC3339 - Timestamps (Date and Time on the Internet)
+
+PowerShell, Input:  Get-Date "2019-11-23T17:00:50+00:00";
+PowerShell, Output:  Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+
+
+
+
+
+------------------------------------------------------------
+Citation(s)
+
+  tools.ietf.org  |  "Date and Time on the Internet: Timestamps"  |  https://tools.ietf.org/html/rfc3339
+
+------------------------------------------------------------

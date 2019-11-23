@@ -1,6 +1,6 @@
 @ECHO OFF
 REM 
-REM MKLINK Syntax: [ MKLINK "NEW_LINK" "EXISTING_TARGET" ]
+REM MKLINK /D "%NEW_LINK%" "%EXISTING_TARGET%"
 REM 
 REM ------------------------------------------------------------
 REM 

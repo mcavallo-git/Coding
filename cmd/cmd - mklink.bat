@@ -6,18 +6,18 @@ REM ------------------------------------------------------------
 REM 
 REM *** WINDOWS FAX AND SCAN - Set the default scan save location to a different folder other than [My Documents -> Scanned Documents]
 
-SET "LINK_PATH=%USERPROFILE%\Documents\Scanned Documents"
+SET "NEW_LINK=%USERPROFILE%\Documents\Scanned Documents"
 
-SET "TARGET_PATH=%USERPROFILE%\Desktop"
+SET "EXISTING_TARGET=%USERPROFILE%\Desktop"
 
 REM Move all items from current destination for scanned-items
 REM 
-REM ROBOCOPY "%LINK_PATH%" "%TARGET_PATH%" /COPYALL /DCOPY:T /E /MOVE
+REM ROBOCOPY "%NEW_LINK%" "%EXISTING_TARGET%" /COPYALL /DCOPY:T /E /MOVE
 REM 
-REM DEL /F /S "%LINK_PATH%"
+REM DEL /F /S "%NEW_LINK%"
 REM
 
-MKLINK /D "%LINK_PATH%" "%TARGET_PATH%"
+MKLINK /D "%NEW_LINK%" "%EXISTING_TARGET%"
 
 REM View a list of MKLINKs (symbolic links) associated with target, to verify that the new MKLINK was created as-intended
 REM 
@@ -32,9 +32,9 @@ REM
 REM   Docker Desktop - Link VM-Data to different directory
 REM
 
-SET "LINK_PATH=C:\ProgramData\DockerDesktop\vm-data"
-SET "TARGET_PATH=D:\%USERNAME%\ProgramData\DockerDesktop\vm-data"
-MKLINK /D "%LINK_PATH%" "%TARGET_PATH%"
+SET "NEW_LINK=C:\ProgramData\DockerDesktop\vm-data"
+SET "EXISTING_TARGET=D:\%USERNAME%\ProgramData\DockerDesktop\vm-data"
+MKLINK /D "%NEW_LINK%" "%EXISTING_TARGET%"
 
 
 REM ------------------------------------------------------------

@@ -1449,10 +1449,10 @@ PasteClipboardAsBinary() {
 	; 	)
 	; }
 	
-	If (False) {
-		StringUpper, Clipboard, Clipboard  ; Force uppercase-only strings
-		StringLower, Clipboard, Clipboard  ; Force lowercase-only strings
-	}
+	; If (False) {
+	; 	StringUpper, Clipboard, Clipboard  ; Force uppercase-only strings
+	; 	StringLower, Clipboard, Clipboard  ; Force lowercase-only strings
+	; }
 
 	Sleep, 100
 	Clipboard := ClipboardAll

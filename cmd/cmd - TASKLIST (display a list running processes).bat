@@ -9,27 +9,58 @@ REM   /FI    |Specifies the types of processes to include in or exclude from the
 REM   /NH    |Specifies that the "Column Header" should not be displayed in the output.
 REM 
 
-REM Filter TASKLIST using NON exact process-name matching (contains ...)
-TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "explorer"
 
-REM Filter TASKLIST using EXACT process-name matching
+REM Get PIDs, only
+FOR /F "tokens=2-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a
+
+
+REM Get PIDs & Image (Process) Names
+FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %b  %a
+
+
+REM Exact-Match based on Image (Process) Name
 TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" /FI "IMAGENAME eq explorer.exe"
 
 
-TASKLIST /V | find "UniqueIdentifier"
+REM Near-Match based on Image (Process) Name
+TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "explorer"
 
-REM PIDs - List only the set of matching PIDs for filtered process(es)
-FOR /F "tokens=2-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a
-
-REM Perform actions based on separate columns output from the TASKLIST command
 
 REM ------------------------------------------------------------
-REM Perform actions based on separate columns output from given TASKLIST command
+
+REM SETLOCAL ENABLEEXTENSIONS
+REM :UNIQUELOOP
+REM FOR /f "tokens=2-4 delims=/ " %a IN ('DATE /T') DO (SET NOW_DATE=%c-%a-%b)
+REM FOR /f "tokens=1-2 delims=/:" %a IN ('TIME /T') DO (SET NOW_TIME=%a%b)
+REM SET NOW_RAND=%RANDOM%
+REM SET "TEMP_FILENAME=%TMP%\bat~%NOW_DATE%_%NOW_TIME%_%RANDOM%.tmp"
+REM REM IF EXIST "%TEMP_FILENAME%" GOTO :UNIQUELOOP
+REM ECHO NOW_DATE = %NOW_DATE%
+REM ECHO NOW_TIME = %NOW_TIME%
+REM ECHO NOW_RAND = %NOW_RAND%
+REM ECHO TEMP_FILENAME = %TEMP_FILENAME%
+
+2019-11-23_23-12-26
+
+for /F "tokens=7 delims= " %%a in ('w32tm /query /status /verbose ^| find "Time since" ') do set BEFORE_TIME=%%a
+
+
+
+FOR /f "tokens=2-4 delims=/ " %a IN ('DATE /T') DO (SET NOW_DATE=%c-%a-%b)
+FOR /f "tokens=1-2 delims=/:" %a IN ('TIME /T') DO (SET NOW_TIME=%a-%b)
+FOR /f "tokens=1-1 " %a IN ('ECHO %NOW_TIME%') DO (SET NOW_TIME=%a)
+SET NOW_RAND=%RANDOM%
+SET "TEMP_FILENAME=%TMP%\bat_%NOW_DATE%_%NOW_TIME%.tmp~%NOW_RAND%.tmp"
+
+ECHO NOW_DATE = %NOW_DATE%
+ECHO NOW_TIME = %NOW_TIME%
+ECHO NOW_RAND = %NOW_RAND%
+ECHO TEMP_FILENAME = %TEMP_FILENAME%
 
 
 REM ------------------------------------------------------------
 REM
-REM Verbose (9-column)
+REM Tasklist, Verbose (9-column)
 REM  |  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |  Status  |  User Name  |  CPU Time  |  Window Title  |
 REM  |  %a          |  %b   |  %c            |  %d        |  %e         |  %f      |  %g         |  %h        |  %i            |
 REM
@@ -38,36 +69,22 @@ FOR /F "tokens=1-9" %a IN ('TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERN
 
 REM ------------------------------------------------------------
 REM
-REM Non-Verbose (5-column)
+REM Tasklist, Non-Verbose (5-column)
 REM  |  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |
 REM  |  %a          |  %b   |  %c            |  %d        |  %e         |
 REM
 FOR /F "tokens=1-5" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a  -  %b  -  %c  -  %d  -  %e
 
 
-FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @TASKLIST /V /NH /FI "PID eq %a" | FIND /I "VMWARE"
-
-FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %b | FIND /I "VMWARE"
-
-ECHO EXE_LIST = [ %EXE_LIST% ]
-
-
-FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO ( @ECHO %b  %a )
-
-REM ------------------------------------------------------------
-REM 
-REM  VAR:|  %a          |  %b   |  %c            |  %d        |  %e         |  %f      |  %g         |  %h        |  %i            |
-REM  VAL:|  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |  Status  |  User Name  |  CPU Time  |  Window Title  |
-REM 
-
-
 REM ------------------------------------------------------------
 REM Citation(s)
 REM 
-REM   docs.microsoft.com  |  "find - Searches for a string of text in a file or files, and displays lines of text that contain the specified string."  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/find
+REM   docs.microsoft.com  |  "find - Searches for a string of text in a file or files"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/find
 REM 
-REM   docs.microsoft.com  |  "taskkill - Ends one or more tasks or processes. Processes can be ended by process ID or image name. taskkill replaces the kill tool."  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill
+REM   docs.microsoft.com  |  "taskkill - Ends one or more tasks or processes"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill
 REM 
-REM   docs.microsoft.com  |  "tasklist - Displays a list of currently running processes on the local computer or on a remote computer. Tasklist replaces the tlist tool."  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist
+REM   docs.microsoft.com  |  "tasklist - Displays a list of currently running processes (local or remote computer)"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist
+REM 
+REM   stackoverflow.com  |  "How to create a unique temporary file path in command prompt without external tools? [duplicate]"  |  https://stackoverflow.com/a/32109191
 REM 
 REM ------------------------------------------------------------

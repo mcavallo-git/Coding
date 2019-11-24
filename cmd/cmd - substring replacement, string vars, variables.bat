@@ -1,16 +1,33 @@
 @ECHO OFF
 EXIT
-REM ------------------------------------------------------------
-REM 
-REM cmd - substring replacement, string vars, variables
-REM 
-REM ------------------------------------------------------------
 
-@SET EXAMPLE=~~~ Hello World ~~~
-@ECHO EXAMPLE (Before) = [ %EXAMPLE% ]
-@SET EXAMPLE=%EXAMPLE:Hello =%
-@ECHO EXAMPLE (After) = [ %EXAMPLE% ]
 
+REM ------------------------------------------------------------
+REM   REPLACE Substring
+SET EXAMPLE=Hello World
+SET DAT_REPLACE=%EXAMPLE:Hello=Goodbye%
+ECHO EXAMPLE = [ %EXAMPLE% ],  DAT_REPLACE = [ %DAT_REPLACE% ]
+
+
+REM ------------------------------------------------------------
+REM   REMOVE Substring
+SET EXAMPLE=Hello World
+SET DAT_REMOVE=%EXAMPLE:Hello=%
+ECHO EXAMPLE = [ %EXAMPLE% ],  DAT_REMOVE = [ %DAT_REMOVE% ]
+
+
+REM ------------------------------------------------------------
+REM   Get the Leftmost [ X ] chars in a string variable
+SET EXAMPLE=Hello World
+SET DAT_LEFT_CHARSET=%EXAMPLE:~0,4%
+ECHO EXAMPLE = [ %EXAMPLE% ],  DAT_LEFT_CHARSET = [ %DAT_LEFT_CHARSET% ]
+
+
+REM ------------------------------------------------------------
+REM   Get the Rightmost [ X ] chars in a string variable
+SET EXAMPLE=Hello World
+SET DAT_RIGHT_CHARSET=%EXAMPLE:~-4%
+ECHO EXAMPLE = [ %EXAMPLE% ],  DAT_RIGHT_CHARSET = [ %DAT_RIGHT_CHARSET% ]
 
 
 REM ------------------------------------------------------------

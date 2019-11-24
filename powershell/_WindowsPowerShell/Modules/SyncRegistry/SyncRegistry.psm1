@@ -59,96 +59,16 @@ function SyncRegistry {
 
 		# ------------------------------------------------------------
 
+
 		$RegEdits = @();
 
-		# Explorer Settings
-		$RegEdits += @{
-			Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable or [ 0 ] to Enable `"Aero Shake`" in Windows 10";
-					Name="NoWindowMinimizingShortcuts"; 
-					Type="DWord";
-					Value=1;
-					Delete=$False;
-				}
-			)
-		};
 
-		# File Explorer Options
-		$RegEdits += @{
-			Path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
-			Props=@(
-				@{
-					Description="File Explorer Options - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
-					Name="Hidden"; 
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				},
-				@{
-					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide empty drives`"";
-					Name="HideDrivesWithNoMedia"; 
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				},
-				@{
-					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide extensions for known file types`"";
-					Name="HideFileExt"; 
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				},
-				@{
-					Description="File Explorer Options - Check [ 1 ] or Uncheck [ 0 ] option `"Hide folder merge conflicts`"";
-					Name="HideMergeConflicts"; 
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				}
-			)
-		};
-
-		# Stop Windows from making sure all apps close when Shutting-Down/Restarting/etc. (Disables the 'This App is Preventing Shutdown or Restart' screen before Shutdown/Restart)
-		$RegEdits += @{
-			Path = "HKCU:\Control Panel\Desktop";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable or [ 0 ] to Enable the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
-					Name="AutoEndTasks"; 
-					Type="String";
-					Value=1;
-					Delete=$False;
-				}
-			)
-		};
-
-		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
-		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
-			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
-			#   |--> Explorer -> Image-File (.png, .jpg, ...) -> Right-Click -> Edit -> Opens app held in [v THIS v] RegEdit Key/Val
-			$RegEdits += @{
-				Path = "HKCR:\SystemFileAssociations\image\shell\edit\command";
-				Props=@(
-					@{
-						Description="Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
-						Name="(Default)"; 
-						Type="REG_EXPAND_SZ";
-						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
-						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
-						Delete=$False;
-					}
-				)
-			};
-		}
-
-		# Search / Cortana Settings
+		# Cortana/Search Settings
 		$RegEdits += @{
 			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
+					Description="Cortana/Search Settings - Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
 					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
 					Name="BingSearchEnabled";
 					Type="DWord";
@@ -165,35 +85,155 @@ function SyncRegistry {
 			)
 		};
 
-		# Search / Cortana Settings (continued)
+
+		# Cortana/Search Settings (cont.)
 		$RegEdits += @{
 			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
 			Props=@(
 				@{
-					Description=$Null;
+					Description="Cortana/Search Settings - TODO";
 					Name="AllowCortana";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
-					Description=$Null;
+					Description="Cortana/Search Settings - TODO";
 					Name="ConnectedSearchUseWeb";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
-					Description=$Null;
+					Description="Cortana/Search Settings - TODO";
 					Name="ConnectedSearchUseWebOverMeteredConnections";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
-					Description=$Null;
+					Description="Cortana/Search Settings - TODO";
 					Name="DisableWebSearch";
 					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings (cont.)
+		$RegEdits += @{
+			Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
+			Props=@(
+				@{
+					Description="Explorer Settings - Set to [ 1 ] to Disable or [ 0 ] to Enable `"Aero Shake`" in Windows 10";
+					Name="NoWindowMinimizingShortcuts"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings (cont.)
+		$RegEdits += @{
+			Path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Props=@(
+				@{
+					Description="Explorer Settings - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
+					Name="Hidden"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide empty drives`"";
+					Name="HideDrivesWithNoMedia"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide extensions for known file types`"";
+					Name="HideFileExt"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide folder merge conflicts`"";
+					Name="HideMergeConflicts"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings (cont.)
+		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
+		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
+			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
+			#   |--> Explorer -> Image-File (.png, .jpg, ...) -> Right-Click -> Edit -> Opens app held in [v THIS v] RegEdit Key/Val
+			$RegEdits += @{
+				Path = "HKCR:\SystemFileAssociations\image\shell\edit\command";
+				Props=@(
+					@{
+						Description="Explorer Settings - Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
+						Name="(Default)"; 
+						Type="REG_EXPAND_SZ";
+						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
+						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
+						Delete=$False;
+					}
+				)
+			};
+		}
+
+
+		# Office 2013 Settings
+		$RegEdits += @{
+			Path="HKCU:\Software\Microsoft\Office\15.0\Common\General";
+			Props=@(
+				@{
+					Description="Office 2013 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
+					Hotfix=$Null;
+					Name="AcbControl";
+					Type="DWord";
+					Value=2147483648;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Office 2016 Settings
+		$RegEdits += @{
+			Path="HKCU:\Software\Microsoft\Office\16.0\Common\General";
+			Props=@(
+				@{
+					Description="Office 2016 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
+					Hotfix=$Null;
+					Name="AcbControl";
+					Type="DWord";
+					Value=2147483648;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Shutdown/Restart Settings
+		$RegEdits += @{
+			Path = "HKCU:\Control Panel\Desktop";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable or [ 0 ] to Enable the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+					Name="AutoEndTasks"; 
+					Type="String";
 					Value=1;
 					Delete=$False;
 				}

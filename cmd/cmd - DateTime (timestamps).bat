@@ -56,36 +56,48 @@ SET ECHO_MIN=%ECHO_MIN:~-2%
 SET ECHO_SEC=0%NOW_SEC%
 SET ECHO_SEC=%ECHO_SEC:~-2%
 
-SET NOW_TIMESTAMP=%ECHO_YEAR%-%ECHO_MONTH%-%ECHO_DAY%_%ECHO_HOUR%-%ECHO_MIN%-%ECHO_SEC%
+SET ECHO_TIMESTAMP=%ECHO_YEAR%-%ECHO_MONTH%-%ECHO_DAY%_%ECHO_HOUR%-%ECHO_MIN%-%ECHO_SEC%
 
 ECHO ------------------------------------------------------------
 ECHO LAST_SYNC_DATE = %LAST_SYNC_DATE%
 ECHO LAST_SYNC_TIME = %LAST_SYNC_TIME%
 ECHO LAST_SYNC_AM_PM = %LAST_SYNC_AM_PM%
-ECHO LAST_SYNC_HRS_TO_ADD = %LAST_SYNC_HRS_TO_ADD%
-ECHO LAST_SYNC_YEAR = %LAST_SYNC_YEAR%
-ECHO LAST_SYNC_MONTH = %LAST_SYNC_MONTH%
-ECHO LAST_SYNC_DAY = %LAST_SYNC_DAY%
-ECHO LAST_SYNC_HOUR = %LAST_SYNC_HOUR%
-ECHO LAST_SYNC_MIN = %LAST_SYNC_MIN%
-ECHO LAST_SYNC_SEC = %LAST_SYNC_SEC%
-ECHO ------------------------------------------------------------
 ECHO ELAPSED_TIME_SINCE_LAST_SYNC = %ELAPSED_TIME_SINCE_LAST_SYNC%
 ECHO SECONDS_SINCE_LAST_SYNC = %SECONDS_SINCE_LAST_SYNC%
 ECHO DECIMAL_SEC_SINCE_LAST_SYNC = %DECIMAL_SEC_SINCE_LAST_SYNC%
-ECHO DAYS_TO_ADD = %DAYS_TO_ADD%
-ECHO HRS_TO_ADD = %HRS_TO_ADD%
-ECHO MIN_TO_ADD = %NOW_MIN%
-ECHO SEC_TO_ADD = %SEC_TO_ADD%
 ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_YEAR = %LAST_SYNC_YEAR%
+ECHO YEARS_TO_ADD = -
 ECHO NOW_YEAR = %NOW_YEAR%
+ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_MONTH = %LAST_SYNC_MONTH%
+ECHO MONTH_TO_ADD = -
 ECHO NOW_MONTH = %NOW_MONTH%
+ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_DAY = %LAST_SYNC_DAY%
+ECHO DAYS_TO_ADD = %DAYS_TO_ADD%
 ECHO NOW_DAY = %NOW_DAY%
+ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_HOUR = %LAST_SYNC_HOUR%
+ECHO LAST_SYNC_HRS_TO_ADD = %LAST_SYNC_HRS_TO_ADD%
+ECHO HRS_TO_ADD = %HRS_TO_ADD%
 ECHO NOW_HR = %NOW_HR%
+ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_MIN = %LAST_SYNC_MIN%
+ECHO MIN_TO_ADD = %MIN_TO_ADD%
 ECHO NOW_MIN = %NOW_MIN%
+ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_SEC = %LAST_SYNC_SEC%
+ECHO SEC_TO_ADD = %SEC_TO_ADD%
 ECHO NOW_SEC = %NOW_SEC%
 ECHO ------------------------------------------------------------
-ECHO NOW_TIMESTAMP = %NOW_TIMESTAMP%
+ECHO LAST_SYNC_DATE = %LAST_SYNC_DATE%
+ECHO LAST_SYNC_TIME = %LAST_SYNC_TIME%
+ECHO LAST_SYNC_AM_PM = %LAST_SYNC_AM_PM%
+ECHO ------------------------------------------------------------
+ECHO DECIMAL_SEC_SINCE_LAST_SYNC = %DECIMAL_SEC_SINCE_LAST_SYNC%
+ECHO ------------------------------------------------------------
+ECHO ECHO_TIMESTAMP = %ECHO_TIMESTAMP%
 ECHO ------------------------------------------------------------
 
 

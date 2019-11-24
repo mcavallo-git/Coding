@@ -45,20 +45,22 @@ REM ECHO TEMP_FILENAME = %TEMP_FILENAME%
 REM Get Last Sync-Time from WMMIC
 FOR /F "tokens=6 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_TIME=%a
 FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_AM_PM=%a
-FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET LAST_SYNC_HOUR=%a
-FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET LAST_SYNC_MIN=%a
-FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET LAST_SYNC_SEC=%a
+FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_HOUR=%a
+FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_MIN=%a
+FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_SEC=%a
 IF %LAST_SYNC_AM_PM%==PM SET /A LAST_SYNC_HOUR=%LAST_SYNC_HOUR%+12
 
 ECHO LAST_SYNC_TIME = %LAST_SYNC_HOUR%:%LAST_SYNC_MIN%:%LAST_SYNC_SEC%
 
 
-FOR /F "tokens=7 delims= " %a in ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') do set TIME_SINCE_SYNC=%a
-ECHO TIME_SINCE_SYNC = %TIME_SINCE_SYNC%
+FOR /F "tokens=7 delims= " %a in ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') do set SECONDS_SINCE_LAST_SYNC=%a
+IF %LAST_SYNC_AM_PM%==PM SET /A LAST_SYNC_HOUR=%LAST_SYNC_HOUR%+12
+
+SET /A LAST_SYNC_HOUR=%HOUR:0=%
+ECHO SECONDS_SINCE_LAST_SYNC = %SECONDS_SINCE_LAST_SYNC%
+
 SET /A COUNTER=%COUNTER%+1
 echo %Counter%
-
-
 
 
 FOR /f "tokens=2-4 delims=/ " %a IN ('DATE /T') DO (SET NOW_DATE=%c-%a-%b)
@@ -98,6 +100,8 @@ REM
 REM   docs.microsoft.com  |  "taskkill - Ends one or more tasks or processes"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/taskkill
 REM 
 REM   docs.microsoft.com  |  "tasklist - Displays a list of currently running processes (local or remote computer)"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist
+REM 
+REM   ss64.com  |  "How-To: Edit/Replace text within a Variable"  |  https://ss64.com/nt/syntax-replace.html
 REM 
 REM   stackoverflow.com  |  "How to create a unique temporary file path in command prompt without external tools? [duplicate]"  |  https://stackoverflow.com/a/32109191
 REM 

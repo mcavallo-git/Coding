@@ -10,12 +10,12 @@ Input Command
 Get-Date "2019-11-23T17:00:50+00:00";
 
 Output Command
-Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z";
 
 
 ------------------------------------------------------------
 
-CMD (batch file)
+CMD (batch file) 
 
 Input Command
 [ NEED SOLN HERE ]

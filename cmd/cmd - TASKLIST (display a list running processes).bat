@@ -25,17 +25,43 @@ TASKLIST /V | find "UniqueIdentifier"
 REM PIDs - List only the set of matching PIDs for filtered process(es)
 FOR /F "tokens=2-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a
 
+REM Perform actions based on separate columns output from the TASKLIST command
+
+REM ------------------------------------------------------------
+REM Perform actions based on separate columns output from given TASKLIST command
+
+
+REM ------------------------------------------------------------
+REM
+REM Verbose (9-columns)
+REM  |  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |  Status  |  User Name  |  CPU Time  |  Window Title  |
+REM  |  %a          |  %b   |  %c            |  %d        |  %e         |  %f      |  %g         |  %h        |  %i            |
+REM
+FOR /F "tokens=1-9" %a IN ('TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a  -  %b  -  %c  -  %d  -  %e  -  %f  -  %g  -  %h  -  %i
+
+REM ------------------------------------------------------------
+REM
+REM Non-Verbose (5-columns)
+REM  |  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |
+REM  |  %a          |  %b   |  %c            |  %d        |  %e         |
+REM
 FOR /F "tokens=1-5" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a  -  %b  -  %c  -  %d  -  %e
 
 
-SET EXE_LIST=
-SETLOCAL ENABLEDELAYEDEXPANSION
-FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "VMWARE"
+FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @TASKLIST /V /NH /FI "PID eq %a" | FIND /I "VMWARE"
+
+FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %b | FIND /I "VMWARE"
 
 ECHO EXE_LIST = [ %EXE_LIST% ]
 
 
 FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO ( @ECHO %b  %a )
+
+REM ------------------------------------------------------------
+REM 
+REM  VAR:|  %a          |  %b   |  %c            |  %d        |  %e         |  %f      |  %g         |  %h        |  %i            |
+REM  VAL:|  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |  Status  |  User Name  |  CPU Time  |  Window Title  |
+REM 
 
 
 REM ------------------------------------------------------------

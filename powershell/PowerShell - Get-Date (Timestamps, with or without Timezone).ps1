@@ -6,20 +6,26 @@
 # Timestamp (WITHOUT Timezone)
 # 
 
+
 Get-Date -UFormat "%Y%m%d%H%M%S"
 
-$Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S");
-Write-Host ${Timestamp};
+# As a Variable
+$Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};
 
 
 # ------------------------------------------------------------
 # Timestamp (WITH Timezone)
 # 
 
-$Timestamp_UTC = (Get-Date -UFormat "%Y%m%d%H%M%S%Z");
-Write-Host ${Timestamp_UTC};
+
+Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+
+# As a Variable
+$Timestamp_UTC = (Get-Date -UFormat "%Y%m%d%H%M%S%Z"); Write-Host ${Timestamp_UTC};
 
 
+
+# ------------------------------------------------------------
 
 #
 #	CMD/Batch-File:

@@ -4,18 +4,54 @@ RFC3339 - Timestamps (Date and Time on the Internet)
 
 ------------------------------------------------------------
 
-PowerShell, Input:  Get-Date "2019-11-23T17:00:50+00:00";
-PowerShell, Output:  Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+PowerShell
+
+	Input	
+		Get-Date "2019-11-23T17:00:50+00:00";
+
+	Output
+		Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+
 
 ------------------------------------------------------------
 
+CMD (batch file)
+
+	Input
+		-
+
+	Output
+		-
+(
+REM Solution could be built using methods such as...
+FOR /f "tokens=2-4 delims=/ " %%a IN ('date /t') DO (SET DAT_DATE=%%c-%%a-%%b)
+FOR /f "tokens=1-2 delims=/:" %%a IN ('time /t') DO (SET DAT_TIME=%%a%%b)
+echo %DAT_DATE%_%DAT_TIME%
+)
 
 
 
+------------------------------------------------------------
+
+CMD (cmd.exe)
+
+Input Command 
+-
+
+Output Command
+-
+(
+REM Solution could be built using methods such as...
+FOR /f "tokens=2-4 delims=/ " %a IN ('date /t') DO (SET DAT_DATE=%c-%a-%b)
+FOR /f "tokens=1-2 delims=/:" %a IN ('time /t') DO (SET DAT_TIME=%a%b)
+echo %DAT_DATE%_%DAT_TIME%
+)
 
 
 ------------------------------------------------------------
 Citation(s)
+
+  stackoverflow.com  |  "How do I get current date/time on the Windows command line in a suitable format for usage in a file/folder name?"  |  https://stackoverflow.com/a/203116
 
   tools.ietf.org  |  "Date and Time on the Internet: Timestamps"  |  https://tools.ietf.org/html/rfc3339
 

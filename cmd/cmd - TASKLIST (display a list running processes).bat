@@ -53,14 +53,29 @@ IF %LAST_SYNC_AM_PM%==PM SET /A LAST_SYNC_HOUR=%LAST_SYNC_HOUR%+12
 ECHO LAST_SYNC_TIME = %LAST_SYNC_HOUR%:%LAST_SYNC_MIN%:%LAST_SYNC_SEC%
 
 
-FOR /F "tokens=7 delims= " %a in ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') do set SECONDS_SINCE_LAST_SYNC=%a
-IF %LAST_SYNC_AM_PM%==PM SET /A LAST_SYNC_HOUR=%LAST_SYNC_HOUR%+12
+FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') DO SET SECONDS_SINCE_LAST_SYNC=%a
+SET /A SECONDS_SINCE_LAST_SYNC=%SECONDS_SINCE_LAST_SYNC:s=%
 
-SET /A LAST_SYNC_HOUR=%HOUR:0=%
 ECHO SECONDS_SINCE_LAST_SYNC = %SECONDS_SINCE_LAST_SYNC%
+set a=-90
+set b=7
+set /a (a%b+b)%b
+echo %
 
 SET /A COUNTER=%COUNTER%+1
 echo %Counter%
+
+REM ------------------------------------------------------------
+REM 
+REM cmd - substring replacement, string vars, variables
+REM 
+REM @SET EXAMPLE=~~~ Hello World ~~~
+REM @ECHO EXAMPLE (Before) = [ %EXAMPLE% ]
+REM @SET EXAMPLE=%EXAMPLE:Hello =%
+REM @ECHO EXAMPLE (After) = [ %EXAMPLE% ]
+REM 
+REM ------------------------------------------------------------
+
 
 
 FOR /f "tokens=2-4 delims=/ " %a IN ('DATE /T') DO (SET NOW_DATE=%c-%a-%b)
@@ -101,7 +116,11 @@ REM   docs.microsoft.com  |  "taskkill - Ends one or more tasks or processes"  |
 REM 
 REM   docs.microsoft.com  |  "tasklist - Displays a list of currently running processes (local or remote computer)"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tasklist
 REM 
+REM   ss64.com  |  "LSS - is a 'Less Than' comparison operator for the IF command"  |  https://ss64.com/nt/lss.html
+REM 
 REM   ss64.com  |  "How-To: Edit/Replace text within a Variable"  |  https://ss64.com/nt/syntax-replace.html
+REM 
+REM   stackoverflow.com  |  "CMD set /a, modulus, and negative numbers"  |  https://stackoverflow.com/a/27894447
 REM 
 REM   stackoverflow.com  |  "How to create a unique temporary file path in command prompt without external tools? [duplicate]"  |  https://stackoverflow.com/a/32109191
 REM 

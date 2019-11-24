@@ -20,9 +20,22 @@ REM List only processes with name exactly-matching given string (defined as FIND
 TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" /FI "IMAGENAME eq ${Name}"
 
 
-
 TASKLIST /V | find "UniqueIdentifier"
 
+REM PIDs - List only the set of matching PIDs for filtered process(es)
+FOR /F "tokens=2-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a
+
+FOR /F "tokens=1-5" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a  -  %b  -  %c  -  %d  -  %e
+
+
+SET EXE_LIST=
+SETLOCAL ENABLEDELAYEDEXPANSION
+FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "VMWARE"
+
+ECHO EXE_LIST = [ %EXE_LIST% ]
+
+
+FOR /F "tokens=1-2" %a IN ('TASKLIST /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO ( @ECHO %b  %a )
 
 
 REM ------------------------------------------------------------

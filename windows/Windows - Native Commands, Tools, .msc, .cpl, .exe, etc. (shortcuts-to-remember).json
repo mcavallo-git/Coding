@@ -1,8 +1,37 @@
 {
-	"Citations": [
-		"https://superuser.com/questions/217504/is-there-a-list-of-windows-special-directories-shortcuts-like-temp"
+	"_citations": [
+		{
+			"fqdn": "superuser.com",
+			"title": "Is there a list of Windows special directories/shortcuts (like %TEMP%)?",
+			"url": "https://superuser.com/a/217506"
+		},
+		{
+			"fqdn": "recouncedthoughts.wordpress.com",
+			"title": "Run Commands, cpl, msc files for everyday use",
+			"url": "https://renouncedthoughts.wordpress.com/2014/05/08/run-commands-cpl-msc-files-for-everyday-use/"
+		},
+		{
+			"fqdn": "superuser.com",
+			"title": "Windows Server start Add Roles and Features Wizard command",
+			"url": "https://superuser.com/a/1387227"
+		},
+		{
+			"fqdn": "support.microsoft.com",
+			"title": "Description of Control Panel (.cpl) Files",
+			"url": "https://support.microsoft.com/en-us/help/149648/description-of-control-panel-cpl-files"
+		},
+		{
+			"fqdn": "support.microsoft.com",
+			"title": "How to run Control Panel tools by typing a command",
+			"url": "https://support.microsoft.com/en-us/help/192806/how-to-run-control-panel-tools-by-typing-a-command"
+		},
+		{
+			"fqdn": "windows-commandline.com",
+			"title": "Run command for add or remove programs",
+			"url": "https://www.windows-commandline.com/run-command-for-add-or-remove-programs/"
+		}
 	],
-	"Management Consoles": {
+	"management consoles": {
 		"certmgr.msc": "Certificate Manager",
 		"ciadv.msc": "Indexing Service",
 		"compmgmt.msc": "Computer management",
@@ -21,7 +50,7 @@
 		"services.msc": "System Services",
 		"wmimgmt.msc": "Windows Management"
 	},
-	"Microsoft Office commands": {
+	"microsoft office commands": {
 		"excel": "Microsoft Excel",
 		"msaccess": "Microsoft Access",
 		"ois": "Microsoft Picture Manager",
@@ -30,7 +59,7 @@
 		"winproj": "Microsoft Project",
 		"winword": "Microsoft Word"
 	},
-	"Run commands": {
+	"run commands": {
 		"Calc": "Calculator",
 		"Cfgwiz32": "ISDN Configuration Wizard",
 		"Charmap": "Character Map",
@@ -57,10 +86,12 @@
 		"Netstat": "Displays all active network connections",
 		"Nslookup": "Returns your local DNS server",
 		"Odbcad32": "ODBC Data Source Administrator",
+		"OptionalFeatures.exe": "Windows Features - 'Turn Windows Features On of Off'",
 		"Ping": "Sends data to a specified host/IP",
 		"Regedit": "registry Editor",
 		"Regsvr32": "register/de-register DLL/OCX/ActiveX",
 		"Regwiz": "Registration wizard",
+		"ServerManager.exe -arw": "Windows Server - 'Add Roles and Features Wizard'",
 		"Sfc /scannow": "System File Checker",
 		"Sndrec32": "Sound Recorder",
 		"Sndvol32": "Volume control for soundcard",
@@ -74,9 +105,22 @@
 		"Winchat": "simple chat program for Windows networks",
 		"Winipcfg": "Displays IP configuration"
 	},
-	"Shortcuts": {
-		"access.cpl": "Accessibility Options",
+	"shortcuts": {
 		"appwiz.cpl": "Add/Remove Programs",
+		"control access.cpl": "Accessibility Options",
+		"control findFast.cpl": "FindFast (included with Microsoft Office for Windows 95)",
+		"control inetcpl.cpl": "Internet properties",
+		"control intl.cpl": "Regional Settings properties",
+		"control mlcfg32.cpl": "Microsoft Exchange or Windows Messaging properties",
+		"control modem.cpl": "Modem properties",
+		"control ncpl.cpl": "Network Properties",
+		"control netcpl.cpl": "Network properties",
+		"control nusrmgr.cpl": "User settings",
+		"control odbccp32.cpl": "Data Sources (32-bit ODBC, included w/ Microsoft Office)",
+		"control password.cpl": "Password properties",
+		"control sticpl.cpl": "Scanners and Cameras properties",
+		"control themes.cpl": "Desktop Themes ",
+		"control wgpocpl.cpl": "Microsoft Mail Post Office",
 		"desk.cpl": "Display Properties",
 		"firewall.cpl": "Firewall Settings (sp2)",
 		"hdwwiz.cpl": "Add New Hardware Wizard",
@@ -88,8 +132,6 @@
 		"mmsys.cpl": "Sounds and Audio Device Properties",
 		"mmsys.cpl sounds": "Sound Properties",
 		"ncpa.cpl": "Network Connections",
-		"ncpl.cpl": "Network Properties",
-		"nusrmgr.cpl": "User settings",
 		"powercfg.cpl": "Power Management",
 		"sysdm.cpl": "System Properties",
 		"telephon.cpl": "Phone and Modem options",

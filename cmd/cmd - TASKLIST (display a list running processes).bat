@@ -41,7 +41,7 @@ REM ECHO NOW_RAND = %NOW_RAND%
 REM ECHO TEMP_FILENAME = %TEMP_FILENAME%
 
 REM ------------------------------------------------------------
-REM Determine current time (based on w32tm)
+REM Get a Timestamp (Date & Time, based on w32tm)
 
 SET /A SEC_PER_MIN=60
 SET /A SEC_PER_HR=(SEC_PER_MIN*60)
@@ -157,7 +157,6 @@ ECHO ------------------------------------------------------------
 ECHO ECHO_TIMESTAMP = %ECHO_TIMESTAMP%
 ECHO TEMPFILE_TIMESTAMP = %TEMPFILE_TIMESTAMP%
 ECHO ------------------------------------------------------------
-
 
 
 REM ------------------------------------------------------------

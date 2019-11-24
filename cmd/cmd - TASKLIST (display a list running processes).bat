@@ -56,7 +56,7 @@ FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_
 FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_MIN=%a
 FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_SEC=%a
 FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_AM_PM=%a
-SET LAST_SYNC_HRS_TO_ADD=%LAST_SYNC_AM_PM:AM=00%
+SET LAST_SYNC_HRS_TO_ADD=%LAST_SYNC_AM_PM:AM=0%
 SET LAST_SYNC_HRS_TO_ADD=%LAST_SYNC_HRS_TO_ADD:PM=12%
 SET /A LAST_SYNC_HOUR=(LAST_SYNC_HOUR+LAST_SYNC_HRS_TO_ADD)
 

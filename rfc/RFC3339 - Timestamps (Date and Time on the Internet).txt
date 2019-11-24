@@ -6,22 +6,22 @@ RFC3339 - Timestamps (Date and Time on the Internet)
 
 PowerShell
 
-	Input	
-		Get-Date "2019-11-23T17:00:50+00:00";
+Input Command
+Get-Date "2019-11-23T17:00:50+00:00";
 
-	Output
-		Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+Output Command
+Get-Date -UFormat "%Y%m%d%H%M%S%Z";
 
 
 ------------------------------------------------------------
 
 CMD (batch file)
 
-	Input
-		-
+Input Command
+[ NEED SOLN HERE ]
 
-	Output
-		-
+Output Command
+[ NEED SOLN HERE ]
 (
 REM Solution could be built using methods such as...
 FOR /f "tokens=2-4 delims=/ " %%a IN ('date /t') DO (SET DAT_DATE=%%c-%%a-%%b)
@@ -35,11 +35,11 @@ echo %DAT_DATE%_%DAT_TIME%
 
 CMD (cmd.exe)
 
-Input Command 
--
+Input Command
+[ NEED SOLN HERE ]
 
 Output Command
--
+[ NEED SOLN HERE ]
 (
 REM Solution could be built using methods such as...
 FOR /f "tokens=2-4 delims=/ " %a IN ('date /t') DO (SET DAT_DATE=%c-%a-%b)

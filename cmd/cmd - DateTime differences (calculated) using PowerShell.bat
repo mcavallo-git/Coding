@@ -2,6 +2,7 @@
 
 REM BAT
 FOR /f "delims=" %%G IN ('PowerShell "(Get-Date -UFormat %%Y%%m%%d%%H%%M%%S%%Z);"') DO @ECHO %%G
+REM FOR /f "delims=" %%G IN ('PowerShell "(Get-Date -UFormat %%Y%%m%%d%%H%%M%%S%%Z);"') DO SET TIMESTAMP=%%G
 
 REM CMD
 REM    FOR /f "delims=" %G IN ('PowerShell "(Get-Date -UFormat %Y%m%d%H%M%S%Z);"') DO @ECHO %G

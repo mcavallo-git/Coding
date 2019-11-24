@@ -9,11 +9,13 @@ REM
 REM Get Last Sync-Time from WMMIC
 FOR /F "tokens=5 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_DATE=%a
 REM SET LAST_SYNC_DATE=11/24/2019
+SET LAST_SYNC_DATE=11/24/2019
 FOR /f "tokens=3 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_YEAR=%a
-FOR /f "tokens=2 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_MONTH=%a
-FOR /f "tokens=1 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_DAY=%a
+FOR /f "tokens=1 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_MONTH=%a
+FOR /f "tokens=2 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_DAY=%a
 FOR /F "tokens=6 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_TIME=%a
 REM SET LAST_SYNC_TIME=2:00:03
+SET LAST_SYNC_TIME=23:59:59
 FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_HOUR=%a
 FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_MIN=%a
 FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_SEC=%a
@@ -24,6 +26,7 @@ SET /A LAST_SYNC_HOUR=(LAST_SYNC_HOUR+LAST_SYNC_HRS_TO_ADD)
 
 FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') DO SET ELAPSED_TIME_SINCE_LAST_SYNC=%a
 REM SET ELAPSED_TIME_SINCE_LAST_SYNC=6.8288064s
+SET ELAPSED_TIME_SINCE_LAST_SYNC=52222222222.4s
 FOR /f "tokens=1 delims=/." %a IN ('ECHO %ELAPSED_TIME_SINCE_LAST_SYNC:s=%') DO SET /A SECONDS_SINCE_LAST_SYNC=%a
 FOR /f "tokens=2 delims=/." %a IN ('ECHO %ELAPSED_TIME_SINCE_LAST_SYNC:s=%') DO SET /A DECIMAL_SEC_SINCE_LAST_SYNC=%a
 SET /A HRS_TO_ADD=(((SECONDS_SINCE_LAST_SYNC/3600)%3600+3600)%3600)

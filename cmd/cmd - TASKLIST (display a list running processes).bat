@@ -40,9 +40,24 @@ REM ECHO NOW_TIME = %NOW_TIME%
 REM ECHO NOW_RAND = %NOW_RAND%
 REM ECHO TEMP_FILENAME = %TEMP_FILENAME%
 
-2019-11-23_23-12-26
 
-for /F "tokens=7 delims= " %%a in ('w32tm /query /status /verbose ^| find "Time since" ') do set BEFORE_TIME=%%a
+
+REM Get Last Sync-Time from WMMIC
+FOR /F "tokens=6 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_TIME=%a
+FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_AM_PM=%a
+FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET LAST_SYNC_HOUR=%a
+FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET LAST_SYNC_MIN=%a
+FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET LAST_SYNC_SEC=%a
+IF %LAST_SYNC_AM_PM%==PM SET /A LAST_SYNC_HOUR=%LAST_SYNC_HOUR%+12
+
+ECHO LAST_SYNC_TIME = %LAST_SYNC_HOUR%:%LAST_SYNC_MIN%:%LAST_SYNC_SEC%
+
+
+FOR /F "tokens=7 delims= " %a in ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') do set TIME_SINCE_SYNC=%a
+ECHO TIME_SINCE_SYNC = %TIME_SINCE_SYNC%
+SET /A COUNTER=%COUNTER%+1
+echo %Counter%
+
 
 
 
@@ -50,8 +65,7 @@ FOR /f "tokens=2-4 delims=/ " %a IN ('DATE /T') DO (SET NOW_DATE=%c-%a-%b)
 FOR /f "tokens=1-2 delims=/:" %a IN ('TIME /T') DO (SET NOW_TIME=%a-%b)
 FOR /f "tokens=1-1 " %a IN ('ECHO %NOW_TIME%') DO (SET NOW_TIME=%a)
 SET NOW_RAND=%RANDOM%
-SET "TEMP_FILENAME=%TMP%\bat_%NOW_DATE%_%NOW_TIME%.tmp~%NOW_RAND%.tmp"
-
+SET "TEMP_FILENAME=%TMP%\bat_%NOW_DATE%_%NOW_TIME%.rand-%NOW_RAND%.tmp"
 ECHO NOW_DATE = %NOW_DATE%
 ECHO NOW_TIME = %NOW_TIME%
 ECHO NOW_RAND = %NOW_RAND%

@@ -170,6 +170,14 @@ ECHO TEMPFILE_TIMESTAMP = %TEMPFILE_TIMESTAMP%
 ECHO ------------------------------------------------------------
 
 
+
+TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "explorer"
+FOR /F "tokens=1-2" %a IN ('TASKLIST /NH') DO @ECHO %a | FIND /I "vm" && ECHO %b >> %TEMPFILE_TIMESTAMP%
+
+Notepad %TEMPFILE_TIMESTAMP%
+
+
+
 REM ------------------------------------------------------------
 REM
 REM Tasklist, Verbose (9-column)

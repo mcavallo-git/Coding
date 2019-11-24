@@ -86,10 +86,10 @@ If ($UniqueProcs.Count -gt 0) {
 # DEL "%USERPROFILE%\Documents\OneNote Notebooks\Quick Notes*.one"
 
 
-# ---------------------------------------------------------------------------------------------------------------------- #
-#
+# ------------------------------------------------------------
 # Citation(s)
 #
 #		docs.microsoft.com, "Stop-Process"
 #			https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process
 #
+# ------------------------------------------------------------

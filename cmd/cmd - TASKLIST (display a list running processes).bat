@@ -106,6 +106,8 @@ SET ECHO_SEC=%ECHO_SEC:~-2%
 
 SET ECHO_TIMESTAMP=%ECHO_YEAR%-%ECHO_MONTH%-%ECHO_DAY%_%ECHO_HR%-%ECHO_MIN%-%ECHO_SEC%
 
+SET TEMPFILE_TIMESTAMP=%TMP%\bat_%ECHO_TIMESTAMP%-%NOW_RAND%.tmp
+
 ECHO ------------------------------------------------------------
 ECHO LAST_SYNC_DATE = %LAST_SYNC_DATE%
 ECHO LAST_SYNC_TIME = %LAST_SYNC_TIME%
@@ -149,6 +151,7 @@ ECHO ------------------------------------------------------------
 ECHO NOW_RAND = %NOW_RAND%
 ECHO ------------------------------------------------------------
 ECHO ECHO_TIMESTAMP = %ECHO_TIMESTAMP%
+ECHO TEMPFILE_TIMESTAMP = %TEMPFILE_TIMESTAMP%
 ECHO ------------------------------------------------------------
 
 

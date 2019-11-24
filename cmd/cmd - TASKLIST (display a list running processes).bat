@@ -43,27 +43,65 @@ REM ECHO TEMP_FILENAME = %TEMP_FILENAME%
 
 
 REM Get Last Sync-Time from WMMIC
+FOR /F "tokens=5 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_DATE=%a
+FOR /f "tokens=3 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_YEAR=%a
+FOR /f "tokens=2 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_MONTH=%a
+FOR /f "tokens=1 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_DAY=%a
 FOR /F "tokens=6 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_TIME=%a
-FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_AM_PM=%a
 FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_HOUR=%a
 FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_MIN=%a
 FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_SEC=%a
+FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_AM_PM=%a
 IF %LAST_SYNC_AM_PM%==PM SET /A LAST_SYNC_HOUR=%LAST_SYNC_HOUR%+12
+ECHO LAST_SYNC_YEAR = %LAST_SYNC_YEAR%
+ECHO LAST_SYNC_MONTH = %LAST_SYNC_MONTH%
+ECHO LAST_SYNC_DAY = %LAST_SYNC_DAY%
+ECHO LAST_SYNC_HOUR = %LAST_SYNC_HOUR%
+ECHO LAST_SYNC_MIN = %LAST_SYNC_MIN%
+ECHO LAST_SYNC_SEC = %LAST_SYNC_SEC%
 
-ECHO LAST_SYNC_TIME = %LAST_SYNC_HOUR%:%LAST_SYNC_MIN%:%LAST_SYNC_SEC%
+
+FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') DO SET ELAPSED_TIME_SINCE_LAST_SYNC=%a
+FOR /f "tokens=1 delims=/." %a IN ('ECHO %ELAPSED_TIME_SINCE_LAST_SYNC:s=%') DO SET /A SECONDS_SINCE_LAST_SYNC=%a
+FOR /f "tokens=2 delims=/." %a IN ('ECHO %ELAPSED_TIME_SINCE_LAST_SYNC:s=%') DO SET /A DECIMAL_SEC_SINCE_LAST_SYNC=%a
+SET /A HRS_TO_ADD=(((SECONDS_SINCE_LAST_SYNC/3600)%3600+3600)%3600)
+SET /A MIN_TO_ADD=((((SECONDS_SINCE_LAST_SYNC/60)%60+60)%60)-(HRS_TO_ADD*60))
+SET /A SEC_TO_ADD=(SECONDS_SINCE_LAST_SYNC-(MIN_TO_ADD*60)-(HRS_TO_ADD*3600))
+
+SET /A NOW_SEC=(LAST_SYNC_SEC+SEC_TO_ADD)%60
+SET /A MIN_TO_ADD=(MIN_TO_ADD+((((LAST_SYNC_SEC+SEC_TO_ADD)/60)%60+60)%60))
+SET /A NOW_MIN=(LAST_SYNC_MIN+MIN_TO_ADD)%60
+SET /A HRS_TO_ADD=(HRS_TO_ADD+((((LAST_SYNC_MIN+MIN_TO_ADD)/60)%60+60)%60))
+SET /A NOW_HR=(LAST_SYNC_HOUR+HRS_TO_ADD)
 
 
-FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') DO SET SECONDS_SINCE_LAST_SYNC=%a
-SET /A SECONDS_SINCE_LAST_SYNC=%SECONDS_SINCE_LAST_SYNC:s=%
+SET NOW_TIMESTAMP=%NOW_HR%_%NOW_HR%_%NOW_HR%
 
+
+ECHO ------------------------------------------------------------
+ECHO LAST_SYNC_TIME = %LAST_SYNC_TIME%
+ECHO LAST_SYNC_HOUR = %LAST_SYNC_HOUR%
+ECHO LAST_SYNC_MIN = %LAST_SYNC_MIN%
+ECHO LAST_SYNC_SEC = %LAST_SYNC_SEC%
+ECHO ------------------------------------------------------------
+ECHO ELAPSED_TIME_SINCE_LAST_SYNC = %ELAPSED_TIME_SINCE_LAST_SYNC%
 ECHO SECONDS_SINCE_LAST_SYNC = %SECONDS_SINCE_LAST_SYNC%
-set a=-90
-set b=7
-set /a (a%b+b)%b
-echo %
+ECHO DECIMAL_SEC_SINCE_LAST_SYNC = %DECIMAL_SEC_SINCE_LAST_SYNC%
+ECHO HRS_TO_ADD = %HRS_TO_ADD%
+ECHO MIN_TO_ADD = %NOW_MIN%
+ECHO SEC_TO_ADD = %SEC_TO_ADD%
+ECHO ------------------------------------------------------------
+ECHO NOW_HR = %NOW_HR%
+ECHO NOW_MIN = %NOW_MIN%
+ECHO NOW_SEC = %NOW_SEC%
+ECHO ------------------------------------------------------------
 
-SET /A COUNTER=%COUNTER%+1
-echo %Counter%
+ECHO NOW = %LAST_SYNC_HOUR%:%LAST_SYNC_MIN%:%LAST_SYNC_SEC%
+
+SET /A TESTER=(70/60)
+ECHO TESTER = %TESTER%
+
+
 
 REM ------------------------------------------------------------
 REM 
@@ -119,6 +157,8 @@ REM
 REM   ss64.com  |  "LSS - is a 'Less Than' comparison operator for the IF command"  |  https://ss64.com/nt/lss.html
 REM 
 REM   ss64.com  |  "How-To: Edit/Replace text within a Variable"  |  https://ss64.com/nt/syntax-replace.html
+REM 
+REM   stackoverflow.com  |  "Multiplying Two Whole Numbers In Batch"  |  https://stackoverflow.com/a/20452873
 REM 
 REM   stackoverflow.com  |  "CMD set /a, modulus, and negative numbers"  |  https://stackoverflow.com/a/27894447
 REM 

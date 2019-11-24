@@ -13,7 +13,7 @@ Get-Date -UFormat "%Y%m%d%H%M%S%Z";
 $Timestamp_UTC = (Get-Date -UFormat "%Y%m%d%H%M%S%Z"); Write-Host ${Timestamp_UTC};
 
 # RFC3339-Compliant
-$Timestamp = (Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z"); Write-Host ${Timestamp};
+$Timestamp_UTC = (Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z"); Write-Host ${Timestamp_UTC};
 
 
 # ------------------------------------------------------------

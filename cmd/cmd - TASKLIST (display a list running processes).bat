@@ -50,12 +50,12 @@ SET /A SEC_PER_MONTH=(SEC_PER_DAY*365/12)
 SET /A SEC_PER_YEAR=(SEC_PER_DAY*365)
 
 FOR /F "tokens=5 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_DATE=%a
-SET LAST_SYNC_DATE=01/01/1970
+REM SET LAST_SYNC_DATE=01/01/1970
 FOR /f "tokens=3 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_YEAR=%a
 FOR /f "tokens=1 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_MONTH=%a
 FOR /f "tokens=2 delims=//" %a IN ('ECHO %LAST_SYNC_DATE%') DO SET /A LAST_SYNC_DAY=%a
 FOR /F "tokens=6 delims= " %a IN ('w32tm /query /status /verbose ^| find "Last Successful Sync Time:" ') DO SET LAST_SYNC_TIME=%a
-SET LAST_SYNC_TIME=00:00:00
+REM SET LAST_SYNC_TIME=00:00:00
 FOR /f "tokens=1 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_HR=%a
 FOR /f "tokens=2 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_MIN=%a
 FOR /f "tokens=3 delims=/:" %a IN ('ECHO %LAST_SYNC_TIME%') DO SET /A LAST_SYNC_SEC=%a
@@ -65,7 +65,7 @@ SET LAST_SYNC_PM_HRS=%LAST_SYNC_PM_HRS:PM=12%
 SET /A LAST_SYNC_HR=(LAST_SYNC_HR+LAST_SYNC_PM_HRS)
 
 FOR /F "tokens=7 delims= " %a IN ('w32tm /query /status /verbose ^| find "Time since Last Good Sync Time:" ') DO SET TIME_SINCE_LAST_SYNC=%a
-SET TIME_SINCE_LAST_SYNC=2147483647.123456700s
+REM SET TIME_SINCE_LAST_SYNC=2147483647.123456700s
 REM SET TIME_SINCE_LAST_SYNC=157680000.440s
 FOR /f "tokens=1 delims=/." %a IN ('ECHO %TIME_SINCE_LAST_SYNC:s=%') DO SET /A FULL_SECONDS_SINCE_LAST_SYNC=%a
 FOR /f "tokens=2 delims=/." %a IN ('ECHO %TIME_SINCE_LAST_SYNC:s=%') DO SET /A DECIMAL_SEC_SINCE_LAST_SYNC=%a

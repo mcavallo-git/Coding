@@ -9,15 +9,11 @@ REM   /FI    |Specifies the types of processes to include in or exclude from the
 REM   /NH    |Specifies that the "Column Header" should not be displayed in the output.
 REM 
 
-TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"
+REM Filter TASKLIST using NON exact process-name matching (contains ...)
+TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "explorer"
 
-REM List only processes with name containing given string (defined as FIND search-variable)
-
-TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "VMWARE"
-
-REM List only processes with name exactly-matching given string (defined as FIND search-variable)
-
-TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" /FI "IMAGENAME eq ${Name}"
+REM Filter TASKLIST using EXACT process-name matching
+TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" /FI "IMAGENAME eq explorer.exe"
 
 
 TASKLIST /V | find "UniqueIdentifier"
@@ -33,15 +29,16 @@ REM Perform actions based on separate columns output from given TASKLIST command
 
 REM ------------------------------------------------------------
 REM
-REM Verbose (9-columns)
+REM Verbose (9-column)
 REM  |  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |  Status  |  User Name  |  CPU Time  |  Window Title  |
 REM  |  %a          |  %b   |  %c            |  %d        |  %e         |  %f      |  %g         |  %h        |  %i            |
 REM
-FOR /F "tokens=1-9" %a IN ('TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO %a  -  %b  -  %c  -  %d  -  %e  -  %f  -  %g  -  %h  -  %i
+FOR /F "tokens=1-9" %a IN ('TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%"') DO @ECHO Image Name=[%a], PID=[%b], Session Name=[%c], Session#=[%d], Mem Usage=[%e], User Name=[%f], Status=[%g], CPU Time=[%h], Window Title=[%i]
+
 
 REM ------------------------------------------------------------
 REM
-REM Non-Verbose (5-columns)
+REM Non-Verbose (5-column)
 REM  |  Image Name  |  PID  |  Session Name  |  Session#  |  Mem Usage  |
 REM  |  %a          |  %b   |  %c            |  %d        |  %e         |
 REM

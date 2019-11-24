@@ -7,7 +7,7 @@
 # 
 
 
-Get-Date -UFormat "%Y%m%d%H%M%S"
+Get-Date -UFormat "%Y%m%d%H%M%S";
 
 # As a Variable
 $Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};

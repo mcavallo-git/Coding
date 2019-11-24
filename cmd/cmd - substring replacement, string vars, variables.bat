@@ -1,5 +1,10 @@
 @ECHO OFF
 EXIT
+REM ------------------------------------------------------------
+REM 
+REM cmd - substring replacement, string vars, variables
+REM 
+REM ------------------------------------------------------------
 
 @SET EXAMPLE=~~~ Hello World ~~~
 @ECHO EXAMPLE (Before) = [ %EXAMPLE% ]

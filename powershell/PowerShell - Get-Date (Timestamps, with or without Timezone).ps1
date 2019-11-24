@@ -3,17 +3,6 @@
 # PowerShell - Get-Date (Timestamps, with or without Timezone)
 # 
 # ------------------------------------------------------------
-# Timestamp (WITHOUT Timezone)
-# 
-
-
-Get-Date -UFormat "%Y%m%d%H%M%S";
-
-# As a Variable
-$Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};
-
-
-# ------------------------------------------------------------
 # Timestamp (WITH Timezone)
 # 
 
@@ -23,6 +12,19 @@ Get-Date -UFormat "%Y%m%d%H%M%S%Z";
 # As a Variable
 $Timestamp_UTC = (Get-Date -UFormat "%Y%m%d%H%M%S%Z"); Write-Host ${Timestamp_UTC};
 
+# RFC3339-Compliant
+$Timestamp = (Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z"); Write-Host ${Timestamp};
+
+
+# ------------------------------------------------------------
+# Timestamp (WITHOUT Timezone)
+# 
+
+
+Get-Date -UFormat "%Y%m%d%H%M%S";
+
+# As a Variable
+$Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};
 
 
 # ------------------------------------------------------------

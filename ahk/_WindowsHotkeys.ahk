@@ -491,9 +491,10 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	; ViewNetworkConnections=::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
-	ViewNetworkConnections := windir "\System32\ncpa.cpl"
-	Run %ViewNetworkConnections%
+	ViewNetworkConnections_CLSID=::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; CLSID (Windows Class Identifier)
+	ViewNetworkConnections_PATH := windir "\System32\ncpa.cpl"
+	; Run %ViewNetworkConnections_CLSID%
+	Run %ViewNetworkConnections_PATH%
 	TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
 
 	Return

@@ -23,9 +23,10 @@ Function Show() {
 	$ShowValue = (-Not $PSBoundParameters.ContainsKey('NoValue'));
 
 	ForEach ($EachArg in ($inline_args+$args)) {
-		Write-Output "============================================================";
 		If ($EachArg -Eq $Null) {
+			Write-Output "=====  Error  ==============================================`n";
 			Write-Output "`$Null input detected";
+			Write-Output "`n------------------------------------------------------------";
 		} Else {
 			If ($ShowMethods -Eq $True) {
 				#
@@ -35,13 +36,14 @@ Function Show() {
 					Get-Member -InputObject ($EachArg) -View ("All") `
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
 				);
-				Write-Output "`n  --> Methods (hide with -NoMethods):`n";
+				Write-Output "=====  Methods (hide with -NoMethods)  =====================`n";
 				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";
 					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
 				} Else {
 					Write-Output "    (none)";
 				}
+				Write-Output "`n------------------------------------------------------------";
 			}
 			If ($ShowOther -Eq $True) {
 				#
@@ -53,8 +55,9 @@ Function Show() {
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
 				);
 				If ($ListOthers -Ne $Null) {
-					Write-Output "`n  --> Other Types (hide with -NoOther):`n";
+					Write-Output "=====  Other Types (hide with -NoOther)  ===================`n";
 					$ListOthers | ForEach-Object { Write-Output $_; };
+					Write-Output "`n------------------------------------------------------------";
 				}
 			}
 			If ($ShowProperties -Eq $True) {
@@ -65,7 +68,7 @@ Function Show() {
 					Get-Member -InputObject ($EachArg) -View ("All") `
 						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True } ` <# Matches *Property* and *Properties* #>
 				);
-				Write-Output "`n  --> Properties (hide with -NoProperties):`n";
+				Write-Output "=====  Properties (hide with -NoProperties)  ===============`n";
 				If ($ListProperties -Ne $Null) {
 					$ListProperties | ForEach-Object {
 						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$NULL" } Else { $EachArg.($($_.Name)) };
@@ -74,13 +77,14 @@ Function Show() {
 				} Else {
 					Write-Output "    (no properties found)";
 				}
+				Write-Output "`n------------------------------------------------------------";
 			}
 			If ($ShowValue -eq $True) {
-				Write-Output "`n  --> Value (as a list, hide with -NoValue):`n";
+				Write-Output "=====  Value (as a list, hide with -NoValue)  ==============`n";
 				$EachArg | Format-List;
+				Write-Output "`n------------------------------------------------------------";
 			}
 		}
-		Write-Output "`n------------------------------------------------------------";
 	}
 
 	Return;

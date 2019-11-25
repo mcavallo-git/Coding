@@ -145,7 +145,7 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 	</summary>
 <pre><code>
 LAST_X_MINUTES=120;
-find "/var/log" -mtime -${LAST_X_MINUTES} -ls;
+find "/var/log" -mmin -${LAST_X_MINUTES} -ls;
 </code></pre>
 <hr /></details></li><br />
 

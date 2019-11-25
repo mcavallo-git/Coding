@@ -76,22 +76,30 @@ Function Show() {
 				If ($EachArg.GetType().Name -Eq "String") {
 					$Pattern_UUID  = '^{[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}}$';
 					If (([Regex]::Match(${EachArg}, ${Pattern_UUID}).Success -ne $False) {
-						Write-Output "`n=====  REGISTRY  =====  ( hide via -NoValue )  ================`n";
+						Write-Output "`n=====  REGISTRY  =====  ( hide via -NoRegistry )  ==========`n";
 						# Check for Registry Key
 						$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
-						$RegistryKey_CLSID = Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\{8D8F4F83-3594-4F07-8369-FC3C3CAE4919}";
-						$RetCode_CLSID = If($?){0}Else{1};
-						$RegistryKey_APPID = Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\{4839DDB7-58C2-48F5-8283-E1D1807D0D7D}";
+
+						$Check_APPID = Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\${EachArg}";
+						$RegistryKey_APPID = Get-Item -Path "${Check_APPID}";
 						$RetCode_APPID = If($?){0}Else{1};
+
+						$Check_CLSID = Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\${EachArg}";
+						$RegistryKey_CLSID = Get-Item -Path "${Check_CLSID}";
+						$RetCode_CLSID = If($?){0}Else{1};
+
 						$ErrorActionPreference = $Revertable_ErrorActionPreference;
-
-[Regex]::Match("{2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}", '^\b[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}\b$'
-[Regex]::Match(${EachArg}, '^\b[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}\b$'
-
-
-						Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\{2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}"
-						HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{6B3B8D23-FA8D-40B9-8DBD-B950333E2C52}
-						HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\{4839DDB7-58C2-48F5-8283-E1D1807D0D7D}
+						If ($RetCode_APPID -Eq 0)	{
+							Write-Output "  Found APPID Key w/ path `"${Check_APPID}`"";
+							$RegistryKey_APPID | Format-List;
+						}
+						If ($RetCode_CLSID -Eq 0)	{
+							Write-Output "  Found CLSID Key w/ path `"${Check_CLSID}`"";
+							$RegistryKey_CLSID | Format-List;
+						}
+						If (($RetCode_APPID -Ne 0) -And ($RetCode_CLSID -Ne 0))	{
+							Write-Output "    (no matching CLSID or APPID Keys found)";
+						}
 					}
 				}
 			}

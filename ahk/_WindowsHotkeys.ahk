@@ -39,9 +39,7 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
 
-; WINDIR := A_WinDir
-
-A_SYSTEM32 := A_WinDir "\System32"
+A_SYSTEM32 := WINDIR "\System32"
 
 USER_DESKTOP := USERPROFILE "\Desktop"
  
@@ -493,12 +491,10 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	Global windir, SYSTEM32
 	; ViewNetworkConnections=::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
-	; ViewNetworkConnections := A_WinDir "\System32\ncpa.cpl"
 	ViewNetworkConnections := windir "\System32\ncpa.cpl"
 	Run %ViewNetworkConnections%
-	TrayTip, AHK, %ViewNetworkConnections%  ; Toast Notification
+	TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
 
 	Return
 
@@ -1798,8 +1794,7 @@ PrintEnv() {
 	)
 	; - -
 	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
-	Run, Edit "%Logfile_EnvVars_Timestamp%"
-
+	Run, Notepad "%Logfile_EnvVars_Timestamp%"
 	Return
 }
 
@@ -2193,7 +2188,7 @@ If (False) {
 ;	
 ; Citation(s)
 ;
-;   autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+;   autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
 ; 
 ;   autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
 ; 

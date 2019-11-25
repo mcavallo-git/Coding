@@ -75,7 +75,7 @@ Function Show() {
 			If ($ShowRegistry -eq $True) {
 				If (($EachArg.GetType()).Name -Eq "String") {
 					$Pattern_UUID  = '^{[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}}$';
-					If ((([Regex]::Match($EachArg, ${Pattern_UUID})).Success -ne $False) {
+					If (([Regex]::Match($EachArg, ${Pattern_UUID})).Success -ne $False) {
 						Write-Output "`n=====  REGISTRY  =====  ( hide via -NoRegistry )  ==========`n";
 						# Check for Registry Key
 						$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';

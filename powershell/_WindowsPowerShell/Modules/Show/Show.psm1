@@ -74,7 +74,7 @@ Function Show() {
 			}
 			If ($ShowRegistry -eq $True) {
 				If ($EachArg.GetType().Name -Eq "String") {
-					$Pattern_UUID  = '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$';
+					$Pattern_UUID  = '^{[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}}$';
 					If (([Regex]::Match(${EachArg}, ${Pattern_UUID}).Success -ne $False) {
 						Write-Output "`n=====  REGISTRY  =====  ( hide via -NoValue )  ================`n";
 						# Check for Registry Key
@@ -85,6 +85,7 @@ Function Show() {
 						$RetCode_APPID = If($?){0}Else{1};
 						$ErrorActionPreference = $Revertable_ErrorActionPreference;
 
+[Regex]::Match(${EachArg}, '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$'
 [Regex]::Match(${EachArg}, '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$'
 
 

@@ -90,11 +90,11 @@ Function Show() {
 
 						$ErrorActionPreference = $Revertable_ErrorActionPreference;
 						If ($RetCode_APPID -Eq 0)	{
-							Write-Output "  Found APPID Key w/ path `"${Check_APPID}`"";
+							Write-Output "  Found APPID Key w/ path `"${Check_APPID}`":";
 							$RegistryKey_APPID | Format-List;
 						}
 						If ($RetCode_CLSID -Eq 0)	{
-							Write-Output "  Found CLSID Key w/ path `"${Check_CLSID}`"";
+							Write-Output "  Found CLSID Key w/ path `"${Check_CLSID}`":";
 							$RegistryKey_CLSID | Format-List;
 						}
 						If (($RetCode_APPID -Ne 0) -And ($RetCode_CLSID -Ne 0))	{

@@ -24,7 +24,7 @@ Function Show() {
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		If ($EachArg -Eq $Null) {
-			Write-Output "`n=====  ERROR  ==============================================`n";
+			Write-Output "`n=====  ERROR  =====  ( empty / unset value )  ==============`n";
 			Write-Output "`$Null"
 		} Else {
 			If ($ShowMethods -Eq $True) {

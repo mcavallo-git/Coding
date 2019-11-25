@@ -1,5 +1,17 @@
+# ------------------------------------------------------------
+# 
+# Windows - Removing Network Connection(s) from ncpa.cpl (View Network Connections)
+#
+# ------------------------------------------------------------
 
-
+"devmgmt.msc" (or manually open "Device Manager")
+ -> Select "View" (alt -> v)
+  -> Check "Show Hidden Devices"
+ -> Dropdown the "Network adapters" Category
+  -> Right-Click the Connection you wish to remove
+   -> Select "Uninstall device"
+    -> On Popup window select "Uninstall"
+-> Repeat workflow for any connections to-be-delted
 
 
 # ------------------------------------------------------------

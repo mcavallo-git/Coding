@@ -101,13 +101,13 @@ Function Show() {
 
 						If ($RetCode_APPID -Eq 0)	{
 							Write-Output "!!  Detected  [ APPID ]  UUID w/ Path `"${Check_APPID}`":";
-							# $RegistryKey_APPID | Format-List;
-							Show $RegistryKey_APPID;
+							$RegistryKey_APPID | Format-List;
+							# Show $RegistryKey_APPID;
 						}
 						If ($RetCode_CLSID -Eq 0)	{
 							Write-Output "!!  Detected  [ CLSID ]  UUID w/ Path `"${Check_CLSID}`":";
-							# $RegistryKey_CLSID | Format-List;
-							Show $RegistryKey_CLSID;
+							$RegistryKey_CLSID | Format-List;
+							# Show $RegistryKey_CLSID;
 						}
 						If (($RetCode_APPID -Ne 0) -And ($RetCode_CLSID -Ne 0))	{
 							Write-Output "    (no matching CLSID or APPID Keys found)";

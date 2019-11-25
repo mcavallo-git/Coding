@@ -38,9 +38,9 @@ Function Show() {
 				Write-Output "=====  Methods (hide with -NoMethods)  =====================`n";
 				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";
-					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+					$ListMethods | ForEach-Object { Write-Output "  ▻ $($_.Name)"; };
 				} Else {
-					Write-Output "    (none)";
+					Write-Output "  ▻ (none)";
 				}
 			}
 			If ($ShowOther -Eq $True) {
@@ -69,10 +69,10 @@ Function Show() {
 				If ($ListProperties -Ne $Null) {
 					$ListProperties | ForEach-Object {
 						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$NULL" } Else { $EachArg.($($_.Name)) };
-						Write-Output "    $($_.Name) = $($EachVal)";
+						Write-Output "  ► $($_.Name) = $($EachVal)";
 					};
 				} Else {
-					Write-Output "    (no properties found)";
+					Write-Output "  ► (no properties found)";
 				}
 			}
 			If ($ShowValue -eq $True) {

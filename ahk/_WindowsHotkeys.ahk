@@ -492,7 +492,8 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	; Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	Run ncpa.cpl  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
 	Return
 
 
@@ -993,7 +994,7 @@ LShift & RShift::
 ;  Win + T - Get Windows Environment Variables
 ;
 #T::
-	GetEnvironmentVariables()
+	PrintEnv()
 	Return
 
 ; ------------------------------------------------------------
@@ -1725,10 +1726,10 @@ ClearSplashText(Period) {
 
 
 ;
-; GetEnvironmentVariables
+; PrintEnv
 ;   |--> Gets Windows Environment Variables (output to file)
 ;
-GetEnvironmentVariables() {
+PrintEnv() {
 	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
 	Logfile_EnvVars=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%.log
 	Logfile_EnvVars_Timestamp=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%-%TIMESTAMP%.log

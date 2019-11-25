@@ -172,9 +172,8 @@ ECHO ------------------------------------------------------------
 
 
 FOR /F "tokens=1-2" %a IN ('TASKLIST /NH') DO @ECHO %a | FIND /I "vm" && ECHO %b >> %TEMPFILE_TIMESTAMP%
-
-FOR /F %a IN (pid.txt) DO TASKKILL /F /PID %a
-
+FOR /F %a IN (%TEMPFILE_TIMESTAMP%) DO TASKKILL /F /PID %a
+TIMEOUT /T 10
 Notepad %TEMPFILE_TIMESTAMP%
 
 

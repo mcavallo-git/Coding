@@ -24,7 +24,6 @@ Function Show() {
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		If ($EachArg -Eq $Null) {
-			Write-Output "`n=====  ERROR  =====  ( empty / unset value )  ==============`n";
 			Write-Output "`$Null"
 		} Else {
 			If ($ShowMethods -Eq $True) {
@@ -78,8 +77,8 @@ Function Show() {
 				Write-Output "`n=====  VALUE  =====  ( hide via -NoValue )  ================`n";
 				$EachArg | Format-List;
 			}
-		}
 		Write-Output "`n------------------------------------------------------------";
+		}
 	}
 
 	Return;

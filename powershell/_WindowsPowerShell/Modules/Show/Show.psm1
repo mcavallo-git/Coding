@@ -27,7 +27,6 @@ Function Show() {
 		If ($EachArg -Eq $Null) {
 			Write-Output "`$Null input detected";
 		} Else {
-					$ListProperties | ForEach-Object {
 			If ($ShowMethods -Eq $True) {
 				#
 				# METHODS

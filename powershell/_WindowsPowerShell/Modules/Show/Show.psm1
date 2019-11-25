@@ -10,16 +10,15 @@ Function Show() {
 		[Switch]$NoMethods,
 		[Switch]$NoOther,
 		[Switch]$NoProperties,
+		[Switch]$NoRegistry,
 		[Switch]$NoValue,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 
-	$ShowProperties = (-Not $PSBoundParameters.ContainsKey('NoProperties'));
-
 	$ShowMethods = (-Not $PSBoundParameters.ContainsKey('NoMethods'));
-
 	$ShowOther = (-Not $PSBoundParameters.ContainsKey('NoOther'));
-
+	$ShowProperties = (-Not $PSBoundParameters.ContainsKey('NoProperties'));
+	$ShowRegistry = (-Not $PSBoundParameters.ContainsKey('NoRegistry'));
 	$ShowValue = (-Not $PSBoundParameters.ContainsKey('NoValue'));
 
 	ForEach ($EachArg in ($inline_args+$args)) {
@@ -73,6 +72,34 @@ Function Show() {
 					Write-Output "    (no properties found)";
 				}
 			}
+			If ($ShowRegistry -eq $True) {
+				If ($EachArg.GetType().Name -Eq "String") {
+					
+
+
+					# Check for each key-property
+					$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
+					$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
+					$last_exit_code = If($?){0}Else{1};
+					$ErrorActionPreference = $Revertable_ErrorActionPreference;
+
+
+\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b
+
+					Write-Output "`n=====  REGISTRY  =====  ( hide via -NoValue )  ================`n";
+					$Needle = [Regex]::Match($EachArg, '^(hello)\s(world)$');
+
+					$Haystack = ${EachArg};
+					$Pattern  = '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$';
+					$Needle   = [Regex]::Match($Haystack, $Pattern);
+					If ($Needle.Success -ne $False) {
+						$Needle.Groups[0].Value; 
+						$Needle.Groups[1].Value; 
+						$Needle.Groups[2].Value;
+						Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\{2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}"
+					}
+				}
+			}
 			If ($ShowValue -eq $True) {
 				Write-Output "`n=====  VALUE  =====  ( hide via -NoValue )  ================`n";
 				$EachArg | Format-List;
@@ -94,5 +121,7 @@ Export-ModuleMember -Function "Show";
 #   docs.microsoft.com  |  "Get-Member"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-member?view=powershell-6
 #
 #   powershellexplained.com  |  "Powershell: Everything you wanted to know about arrays"  |  https://powershellexplained.com/2018-10-15-Powershell-arrays-Everything-you-wanted-to-know/#write-output--noenumerate
+#
+#   stackoverflow.com  |  "Searching for UUIDs in text with regex"  |  https://stackoverflow.com/a/6640851
 #
 # ------------------------------------------------------------

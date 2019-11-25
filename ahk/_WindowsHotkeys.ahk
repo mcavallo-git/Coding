@@ -39,7 +39,7 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
 
-VerboseOutput := True
+windir := A_WinDir "\System32\ncpa.cpl"
 
 USERPROFILE=%USERPROFILE%
 
@@ -51,6 +51,7 @@ CR=`r
 
 LF=`n
 
+VerboseOutput := True
 
 ; ------------------------------------------------------------
 ;
@@ -492,8 +493,11 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	; Run ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
-	Run ncpa.cpl  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	ViewNetworkConnections := ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	ViewNetworkConnections := A_WinDir "\System32\ncpa.cpl"
+	Run %ViewNetworkConnections%
+	TrayTip, %A_ScriptName%, %ViewNetworkConnections%  ; Show a Windows Toast Notification
+
 	Return
 
 
@@ -1081,7 +1085,7 @@ OpenChrome() {
 		; Executable IS running - Activate the associated Window based on PID
 		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
-			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
+			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG%  ; Show a Windows Toast Notification
 		}
 		; Set Chrome as the Active Window
 		EXE_PID := GetPID(EXE_BASENAME)
@@ -1091,7 +1095,7 @@ OpenChrome() {
 		; Executable is NOT running but IS found locally
 		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
-			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
+			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG%  ; Show a Windows Toast Notification
 		}
 		; Open Chrome
 		; RunAs, %A_UserName%
@@ -1105,7 +1109,7 @@ OpenChrome() {
 		; Executable is NOT running and NOT found locally
 		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
-			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG% ; Show a Windows Toast Notification
+			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG%  ; Show a Windows Toast Notification
 		}
 
 	}

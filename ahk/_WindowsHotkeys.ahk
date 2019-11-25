@@ -39,13 +39,13 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
 
-windir := A_WinDir "\System32\ncpa.cpl"
+; WINDIR := A_WinDir
 
-USERPROFILE=%USERPROFILE%
+A_SYSTEM32 := A_WinDir "\System32"
 
-USER_DESKTOP=%USERPROFILE%\Desktop
+USER_DESKTOP := USERPROFILE "\Desktop"
  
-USER_DOCUMENTS=%USERPROFILE%\Documents
+USER_DOCUMENTS := USERPROFILE "\Documents"
 
 CR=`r
 
@@ -493,10 +493,12 @@ AppsKey::RWin
 ;  ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	ViewNetworkConnections := ::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
-	ViewNetworkConnections := A_WinDir "\System32\ncpa.cpl"
+	Global windir, SYSTEM32
+	; ViewNetworkConnections=::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm
+	; ViewNetworkConnections := A_WinDir "\System32\ncpa.cpl"
+	ViewNetworkConnections := windir "\System32\ncpa.cpl"
 	Run %ViewNetworkConnections%
-	TrayTip, %A_ScriptName%, %ViewNetworkConnections%  ; Show a Windows Toast Notification
+	TrayTip, AHK, %ViewNetworkConnections%  ; Toast Notification
 
 	Return
 
@@ -754,14 +756,14 @@ WheelRight::
 ; 	Echo_Tooltip := A_Space
 ; 	Echo_Tooltip := Echo_Tooltip Newline "  StrLen(ClipboardDuped) = [ " StrLen(ClipboardDuped) " ]"
 ; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
-; 	TrayTip, %A_ScriptName%, %Echo_Tooltip%
+; 	TrayTip, AHK, %Echo_Tooltip%  ; Toast Notification
 
 ; 	; If ( IsUbuntuWSL = 1 ) {
-; 	; 	; TrayTip, %A_ScriptName%, Pasting Clipboard into Ubuntu WSL Instance
+; 	; 	; TrayTip, AHK, Pasting Clipboard into Ubuntu WSL Instance  ; Toast Notification
 ; 	; 	; ; Send {Blind}{Text}%ClipboardDuped%
 ; 	; } Else {
 ; 	; 	; Send {Shift}{Insert}
-; 	; 	TrayTip, %A_ScriptName%, WSL Instance Not Found Locally
+; 	; 	TrayTip, AHK, WSL Instance Not Found Locally  ; Toast Notification
 ; 	; }
 
 ; 	Return
@@ -782,7 +784,7 @@ WheelRight::
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
 ; 		If (%VerboseOutput% == True) {
-; 			TrayTip, %A_ScriptName%, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1
+; 			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
 ; 		}
 ; 		x_loc = 223
 ; 		y_loc = 40
@@ -794,7 +796,7 @@ WheelRight::
 ; 	}
 ; 	; } Else {
 ; 	; 	If (%VerboseOutput% == True) {
-; 	; 		TrayTip, %A_ScriptName%, Foxit PhantomPDF`nMUST be active (to add text), 4, 1
+; 	; 		TrayTip, AHK, Foxit PhantomPDF`nMUST be active (to add text), 4, 1  ; Toast Notification
 ; 	; 	}
 ; 	; }
 ; 	Return
@@ -1085,7 +1087,7 @@ OpenChrome() {
 		; Executable IS running - Activate the associated Window based on PID
 		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
-			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG%  ; Show a Windows Toast Notification
+			TrayTip, AHK, %TRAY_TIP_MSG%  ; Toast Notification
 		}
 		; Set Chrome as the Active Window
 		EXE_PID := GetPID(EXE_BASENAME)
@@ -1095,7 +1097,7 @@ OpenChrome() {
 		; Executable is NOT running but IS found locally
 		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
-			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG%  ; Show a Windows Toast Notification
+			TrayTip, AHK, %TRAY_TIP_MSG%  ; Toast Notification
 		}
 		; Open Chrome
 		; RunAs, %A_UserName%
@@ -1109,7 +1111,7 @@ OpenChrome() {
 		; Executable is NOT running and NOT found locally
 		If (%VerboseOutput% == True) {
 			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
-			TrayTip, %A_ScriptName%, %TRAY_TIP_MSG%  ; Show a Windows Toast Notification
+			TrayTip, AHK, %TRAY_TIP_MSG%  ; Toast Notification
 		}
 
 	}
@@ -1362,7 +1364,7 @@ Timestamp() {
 ; Milliseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
 ;   |--> Example call:
-;          TrayTip, %A_ScriptName%, % ( "Milliseconds = [ " Milliseconds() " ]" )
+;          TrayTip, AHK, % ( "Milliseconds = [ " Milliseconds() " ]" )  ; Toast Notification
 ;
 Milliseconds() {
 	Return %A_MSec%
@@ -1373,7 +1375,7 @@ Milliseconds() {
 ; Microseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
 ;   |--> Example call:
-;          TrayTip, %A_ScriptName%, % ( "Microseconds = [ " Microseconds() " ]" )
+;          TrayTip, AHK, % ( "Microseconds = [ " Microseconds() " ]" )  ; Toast Notification
 ;
 Microseconds() {
 	vIntervals := 0
@@ -1387,7 +1389,7 @@ Microseconds() {
 ; Nanoseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
 ;   |--> Example call:
-;          TrayTip, %A_ScriptName%, % ( "Nanoseconds = [ " Nanoseconds() " ]" )
+;          TrayTip, AHK, % ( "Nanoseconds = [ " Nanoseconds() " ]" )  ; Toast Notification
 ;
 Nanoseconds() {
 	vIntervals := 0
@@ -1447,11 +1449,11 @@ PasteClipboardAsBinary() {
 	; FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
 	; Sleep, 100
 	; If (VerboseOutput == True) {
-	; 	TrayTip, %A_ScriptName%,
+	; 	TrayTip, AHK,
 	; 	(LTrim
 	; 		Pasting the Binary version of the Clipboard
 	; 		NewTempFile = %NewTempFile%
-	; 	)
+	; 	)  ; Toast Notification
 	; }
 	
 	; If (False) {
@@ -1489,10 +1491,10 @@ PasteClipboardAsText() {
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
 	If (VerboseOutput == True) {
-		TrayTip, %A_ScriptName%,
+		TrayTip, AHK,
 		(LTrim
 			Pasting the Text version of the Clipboard
-		)
+		)  ; Toast Notification
 	}
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 
@@ -1735,8 +1737,8 @@ ClearSplashText(Period) {
 ;
 PrintEnv() {
 	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
-	Logfile_EnvVars=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%.log
-	Logfile_EnvVars_Timestamp=%USER_DESKTOP%\WindowsEnvVars-%COMPUTERNAME%-%USERNAME%-%TIMESTAMP%.log
+	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
+	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
 	; - -
 	KnownWinEnvVars=
 	(LTrim
@@ -2104,15 +2106,15 @@ If (False) {
 		MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
 		IfMsgBox Yes
 		{
-			TrayTip, %A_ScriptName%, Leftmost Button Selected
+			TrayTip, AHK, Leftmost Button Selected  ; Toast Notification
 		}
 		IfMsgBox No
 		{
-			TrayTip, %A_ScriptName%, Center Button Selected
+			TrayTip, AHK, Center Button Selected  ; Toast Notification
 		}
 		IfMsgBox Cancel
 		{
-			TrayTip, %A_ScriptName%, Rightmost Button Selected
+			TrayTip, AHK, Rightmost Button Selected  ; Toast Notification
 		}
 
 		Return

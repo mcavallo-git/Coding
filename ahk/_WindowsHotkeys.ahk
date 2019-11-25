@@ -1140,7 +1140,7 @@ OpenVSCode() {
 	; ; Set Path to VSCode Workspace
 	; Repos_Dirname=GitHub
 	; GitHub_Dir=%A_MyDocuments%\%Repos_Dirname%
-	; ; Runtime Variables
+	; ; Runtime Vars
 	; WinTitle=%Repos_Dirname% - Visual Studio Code
 	; SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	; if !WinExist(WinTitle) {

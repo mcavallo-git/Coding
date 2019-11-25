@@ -1727,7 +1727,7 @@ ClearSplashText(Period) {
 
 ;
 ; PrintEnv
-;   |--> Gets Windows Environment Variables (output to file)
+;   |--> Gets Windows Environment Vars (output to file)
 ;
 PrintEnv() {
 	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
@@ -1738,13 +1738,13 @@ PrintEnv() {
 	(LTrim
 	==========================================================================
 
-	*** Variables for Current Session ***
+	*** Environment Vars - Current Session ***
 
 	TIMESTAMP = %TIMESTAMP%
 
 	--------------------------------------------------------------------------
 
-	*** Windows Environment Variables (Long-standing) ***
+	*** Windows Environment Vars (Long-standing) ***
 
 	COMPUTERNAME         %COMPUTERNAME%
 	USERNAME             %USERNAME%
@@ -1769,7 +1769,7 @@ PrintEnv() {
 
 	--------------------------------------------------------------------------
 
-	*** Autohotkey Variables ***
+	*** Autohotkey Vars ***
 
 	A_AhkVersion: %A_AhkVersion%
 	A_AhkPath: %A_AhkPath%

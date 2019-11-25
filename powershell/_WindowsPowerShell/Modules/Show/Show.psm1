@@ -100,11 +100,11 @@ Function Show() {
 						Write-Output "`n";
 
 						If ($RetCode_APPID -Eq 0)	{
-							Write-Output "  Found APPID Key w/ path `"${Check_APPID}`":";
+							Write-Output "!!  Detected  [ APPID ]  UUID w/ Path `"${Check_APPID}`":";
 							$RegistryKey_APPID | Format-List;
 						}
 						If ($RetCode_CLSID -Eq 0)	{
-							Write-Output "  Found CLSID Key w/ path `"${Check_CLSID}`":";
+							Write-Output "!!  Detected  [ CLSID ]  UUID w/ Path `"${Check_CLSID}`":";
 							$RegistryKey_CLSID | Format-List;
 						}
 						If (($RetCode_APPID -Ne 0) -And ($RetCode_CLSID -Ne 0))	{

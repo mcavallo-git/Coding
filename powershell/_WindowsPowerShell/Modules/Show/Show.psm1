@@ -90,14 +90,14 @@ Function Show() {
 
 						$ErrorActionPreference = $Revertable_ErrorActionPreference;
 
-						Write-Output "    `${Check_APPID} = [${Check_APPID}]";
-						Write-Output "    `${RetCode_APPID} = [${RetCode_APPID}]";
-						Write-Output "    `${RegistryKey_APPID} = [${RegistryKey_APPID}]";
-						Write-Output "`n";
-						Write-Output "    `${Check_CLSID} = [${Check_CLSID}]";
-						Write-Output "    `${RetCode_CLSID} = [${RetCode_CLSID}]";
-						Write-Output "    `${RegistryKey_CLSID} = [${RegistryKey_CLSID}]";
-						Write-Output "`n";
+						# Write-Output "    `${Check_APPID} = [${Check_APPID}]";
+						# Write-Output "    `${RetCode_APPID} = [${RetCode_APPID}]";
+						# Write-Output "    `${RegistryKey_APPID} = [${RegistryKey_APPID}]";
+						# Write-Output "`n";
+						# Write-Output "    `${Check_CLSID} = [${Check_CLSID}]";
+						# Write-Output "    `${RetCode_CLSID} = [${RetCode_CLSID}]";
+						# Write-Output "    `${RegistryKey_CLSID} = [${RegistryKey_CLSID}]";
+						# Write-Output "`n";
 
 						If ($RetCode_APPID -Eq 0)	{
 							Write-Output "!!  Detected  [ APPID ]  UUID w/ Path `"${Check_APPID}`":";

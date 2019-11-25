@@ -2,7 +2,7 @@
 ## SET "localtime" & "timezone" to EST (test with date):
 
 	## Ubuntu && Cent-OS
-TZ="America/New_York" && \
+TZ="America/Chicago" && \
 ln -snf "/usr/share/zoneinfo/$TZ" "/etc/localtime" && \
 echo $TZ > "/etc/timezone";
 

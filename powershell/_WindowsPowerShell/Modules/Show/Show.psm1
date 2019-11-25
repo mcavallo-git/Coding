@@ -24,7 +24,7 @@ Function Show() {
 
 	ForEach ($EachArg in ($inline_args+$args)) {
 		If ($EachArg -Eq $Null) {
-			Write-Output "=====  Error  ==============================================`n";
+			Write-Output "`n=====  Error  ==============================================`n";
 			Write-Output "`$Null input detected";
 		} Else {
 			If ($ShowMethods -Eq $True) {
@@ -35,7 +35,7 @@ Function Show() {
 					Get-Member -InputObject ($EachArg) -View ("All") `
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
 				);
-				Write-Output "=====  Methods (hide with -NoMethods)  =====================`n";
+				Write-Output "`n=====  Methods (hide with -NoMethods)  =====================`n";
 				If ($ListMethods -Ne $Null) {
 					Write-Output "    (none)";
 					$ListMethods | ForEach-Object { Write-Output "  ▻ $($_.Name)"; };
@@ -53,7 +53,7 @@ Function Show() {
 						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
 				);
 				If ($ListOthers -Ne $Null) {
-					Write-Output "=====  Other Types (hide with -NoOther)  ===================`n";
+					Write-Output "`n=====  Other Types (hide with -NoOther)  ===================`n";
 					$ListOthers | ForEach-Object { Write-Output $_; };
 				}
 			}
@@ -65,7 +65,7 @@ Function Show() {
 					Get-Member -InputObject ($EachArg) -View ("All") `
 						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True } ` <# Matches *Property* and *Properties* #>
 				);
-				Write-Output "=====  Properties (hide with -NoProperties)  ===============`n";
+				Write-Output "`n=====  Properties (hide with -NoProperties)  ===============`n";
 				If ($ListProperties -Ne $Null) {
 					$ListProperties | ForEach-Object {
 						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$NULL" } Else { $EachArg.($($_.Name)) };
@@ -76,7 +76,7 @@ Function Show() {
 				}
 			}
 			If ($ShowValue -eq $True) {
-				Write-Output "=====  Value (hide with -NoValue)  =========================`n";
+				Write-Output "`n=====  Value (hide with -NoValue)  =========================`n";
 				$EachArg | Format-List;
 			}
 		}

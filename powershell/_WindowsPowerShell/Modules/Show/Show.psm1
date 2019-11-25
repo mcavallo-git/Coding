@@ -7,7 +7,6 @@
 #
 Function Show() {
 	Param(
-		[Switch]$NoEtc,
 		[Switch]$NoMethods,
 		[Switch]$NoOther,
 		[Switch]$NoProperties,
@@ -19,7 +18,7 @@ Function Show() {
 
 	$ShowMethods = (-Not $PSBoundParameters.ContainsKey('NoMethods'));
 
-	$ShowEtc = (-Not ($PSBoundParameters.ContainsKey('NoEtc') -Or $PSBoundParameters.ContainsKey('NoOther')));
+	$ShowOther = (-Not $PSBoundParameters.ContainsKey('NoOther'));
 
 	$ShowValue = (-Not $PSBoundParameters.ContainsKey('NoValue'));
 
@@ -28,9 +27,36 @@ Function Show() {
 		If ($EachArg -Eq $Null) {
 			Write-Output "`$Null input detected";
 		} Else {
-			If ($ShowValue -eq $True) {
-				Write-Output "`n  --> Value (as a list, hide with -NoValue):`n";
-				$EachArg | Format-List;
+					$ListProperties | ForEach-Object {
+			If ($ShowMethods -Eq $True) {
+				#
+				# METHODS
+				#
+				$ListMethods = (`
+					Get-Member -InputObject ($EachArg) -View ("All") `
+						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
+				);
+				Write-Output "`n  --> Methods (hide with -NoMethods):`n";
+				If ($ListMethods -Ne $Null) {
+					Write-Output "    (none)";
+					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+				} Else {
+					Write-Output "    (none)";
+				}
+			}
+			If ($ShowOther -Eq $True) {
+				#
+				# OTHER MEMBERTYPES
+				#
+				$ListOthers = (`
+					Get-Member -InputObject ($EachArg) -View ("All") `
+						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $False } `
+						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
+				);
+				If ($ListOthers -Ne $Null) {
+					Write-Output "`n  --> Other Types (hide with -NoOther):`n";
+					$ListOthers | ForEach-Object { Write-Output $_; };
+				}
 			}
 			If ($ShowProperties -Eq $True) {
 				#
@@ -50,35 +76,9 @@ Function Show() {
 					Write-Output "    (no properties found)";
 				}
 			}
-			If ($ShowMethods -Eq $True) {
-				#
-				# METHODS
-				#
-				$ListMethods = (`
-					Get-Member -InputObject ($EachArg) -View ("All") `
-						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $True } `
-				);
-				Write-Output "`n  --> Methods (hide with -NoMethods):`n";
-				If ($ListMethods -Ne $Null) {
-					Write-Output "    (none)";
-					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
-				} Else {
-					Write-Output "    (none)";
-				}
-			}
-			If ($ShowEtc -Eq $True) {
-				#
-				# OTHER MEMBERTYPES
-				#
-				$ListOthers = (`
-					Get-Member -InputObject ($EachArg) -View ("All") `
-						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $False } `
-						| Where-Object { ("$($_.MemberType)".Contains("Method")) -Eq $False } `
-				);
-				If ($ListOthers -Ne $Null) {
-					Write-Output "`n  --> Other Types (hide with -NoOther or -NoEtc):`n";
-					$ListOthers | ForEach-Object { Write-Output $_; };
-				}
+			If ($ShowValue -eq $True) {
+				Write-Output "`n  --> Value (as a list, hide with -NoValue):`n";
+				$EachArg | Format-List;
 			}
 		}
 		Write-Output "`n------------------------------------------------------------";

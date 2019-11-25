@@ -74,29 +74,23 @@ Function Show() {
 			}
 			If ($ShowRegistry -eq $True) {
 				If ($EachArg.GetType().Name -Eq "String") {
-					
+					$Pattern_UUID  = '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$';
+					If (([Regex]::Match(${EachArg}, ${Pattern_UUID}).Success -ne $False) {
+						Write-Output "`n=====  REGISTRY  =====  ( hide via -NoValue )  ================`n";
+						# Check for Registry Key
+						$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
+						$RegistryKey_CLSID = Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\{8D8F4F83-3594-4F07-8369-FC3C3CAE4919}";
+						$RetCode_CLSID = If($?){0}Else{1};
+						$RegistryKey_APPID = Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\{4839DDB7-58C2-48F5-8283-E1D1807D0D7D}";
+						$RetCode_APPID = If($?){0}Else{1};
+						$ErrorActionPreference = $Revertable_ErrorActionPreference;
+
+[Regex]::Match(${EachArg}, '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$'
 
 
-					# Check for each key-property
-					$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
-					$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
-					$last_exit_code = If($?){0}Else{1};
-					$ErrorActionPreference = $Revertable_ErrorActionPreference;
-
-
-\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b
-
-					Write-Output "`n=====  REGISTRY  =====  ( hide via -NoValue )  ================`n";
-					$Needle = [Regex]::Match($EachArg, '^(hello)\s(world)$');
-
-					$Haystack = ${EachArg};
-					$Pattern  = '^\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b$';
-					$Needle   = [Regex]::Match($Haystack, $Pattern);
-					If ($Needle.Success -ne $False) {
-						$Needle.Groups[0].Value; 
-						$Needle.Groups[1].Value; 
-						$Needle.Groups[2].Value;
 						Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\{2593F8B9-4EAF-457C-B68A-50F6B8EA6B54}"
+						HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{6B3B8D23-FA8D-40B9-8DBD-B950333E2C52}
+						HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\{4839DDB7-58C2-48F5-8283-E1D1807D0D7D}
 					}
 				}
 			}

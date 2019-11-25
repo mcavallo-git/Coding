@@ -35,9 +35,9 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; ------------------------------------------------------------
 ;
-; Runtime-Global Variables
+; Runtime Global Vars
 
-; #NoEnv  ; Prevents environment variables from being used (occurs when a variable is called/referenced without being instantiated)
+; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
 
 VerboseOutput := True
 
@@ -991,7 +991,7 @@ LShift & RShift::
 	Return
 ;
 ; ------------------------------------------------------------
-;  Win + T - Get Windows Environment Variables
+;  Win + T - Get Windows Environment Vars
 ;
 #T::
 	PrintEnv()
@@ -1891,7 +1891,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
 		; Gui, Destroy
 	}
 
-	; DEBUGGING-ONLY (Set variable "%LV_Verbosity%" to 1, here, to enable verbose debug-logging)
+	; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
 	LV_Verbosity := 0
 	if ( LV_Verbosity = 1 ) {
 		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]

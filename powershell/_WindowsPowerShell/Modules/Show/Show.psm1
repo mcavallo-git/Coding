@@ -80,11 +80,11 @@ Function Show() {
 						# Check for Registry Key
 						$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
 
-						$Check_APPID = Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\$EachArg";
+						$Check_APPID = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AppID\$EachArg";
 						$RegistryKey_APPID = Get-Item -Path "${Check_APPID}";
 						$RetCode_APPID = If($?){0}Else{1};
 
-						$Check_CLSID = Get-Item -Path "Registry::HKEY_CLASSES_ROOT\CLSID\$EachArg";
+						$Check_CLSID = "Registry::HKEY_CLASSES_ROOT\CLSID\$EachArg";
 						$RegistryKey_CLSID = Get-Item -Path "${Check_CLSID}";
 						$RetCode_CLSID = If($?){0}Else{1};
 

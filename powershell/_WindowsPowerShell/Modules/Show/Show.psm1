@@ -26,7 +26,6 @@ Function Show() {
 		If ($EachArg -Eq $Null) {
 			Write-Output "=====  Error  ==============================================`n";
 			Write-Output "`$Null input detected";
-			Write-Output "`n------------------------------------------------------------";
 		} Else {
 			If ($ShowMethods -Eq $True) {
 				#
@@ -43,7 +42,6 @@ Function Show() {
 				} Else {
 					Write-Output "    (none)";
 				}
-				Write-Output "`n------------------------------------------------------------";
 			}
 			If ($ShowOther -Eq $True) {
 				#
@@ -57,7 +55,6 @@ Function Show() {
 				If ($ListOthers -Ne $Null) {
 					Write-Output "=====  Other Types (hide with -NoOther)  ===================`n";
 					$ListOthers | ForEach-Object { Write-Output $_; };
-					Write-Output "`n------------------------------------------------------------";
 				}
 			}
 			If ($ShowProperties -Eq $True) {
@@ -77,14 +74,13 @@ Function Show() {
 				} Else {
 					Write-Output "    (no properties found)";
 				}
-				Write-Output "`n------------------------------------------------------------";
 			}
 			If ($ShowValue -eq $True) {
-				Write-Output "=====  Value (as a list, hide with -NoValue)  ==============`n";
+				Write-Output "=====  Value (hide with -NoValue)  =========================`n";
 				$EachArg | Format-List;
-				Write-Output "`n------------------------------------------------------------";
 			}
 		}
+		Write-Output "`n------------------------------------------------------------";
 	}
 
 	Return;

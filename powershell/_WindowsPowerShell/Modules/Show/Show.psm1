@@ -91,13 +91,13 @@ Function Show() {
 						$ErrorActionPreference = $Revertable_ErrorActionPreference;
 
 						Write-Output "`n";
-						Write-Output "  ${Check_APPID} = [${Check_APPID}]";
-						Write-Output "  ${RetCode_APPID} = [${RetCode_APPID}]";
-						Write-Output "  ${RegistryKey_APPID} = [${RegistryKey_APPID}]";
+						Write-Output "  `${Check_APPID} = [${Check_APPID}]";
+						Write-Output "  `${RetCode_APPID} = [${RetCode_APPID}]";
+						Write-Output "  `${RegistryKey_APPID} = [${RegistryKey_APPID}]";
 						Write-Output "`n";
-						Write-Output "  ${Check_CLSID} = [${Check_CLSID}]";
-						Write-Output "  ${RetCode_CLSID} = [${RetCode_CLSID}]";
-						Write-Output "  ${RegistryKey_CLSID} = [${RegistryKey_CLSID}]";
+						Write-Output "  `${Check_CLSID} = [${Check_CLSID}]";
+						Write-Output "  `${RetCode_CLSID} = [${RetCode_CLSID}]";
+						Write-Output "  `${RegistryKey_CLSID} = [${RegistryKey_CLSID}]";
 
 						If ($RetCode_APPID -Eq 0)	{
 							Write-Output "  Found APPID Key w/ path `"${Check_APPID}`":";

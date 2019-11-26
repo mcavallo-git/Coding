@@ -73,8 +73,9 @@ If ($psm1.iteration -eq 1) {
 		If ($import_exit_code -ne 0) {
 			# Failed Module Import
 			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [ $($import_exit_code) ] returned from Import-Module: $EachGalleryModule" -ForegroundColor Yellow;
-			Start-Sleep -Seconds 60;
-			Exit 1;
+			# Start-Sleep -Seconds 60;
+			# Exit 1;
+
 		} Else {
 			# Successful Module Import
 			Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Pass: Module Imported (cached onto RAM): $EachGalleryModule" -ForegroundColor Cyan;
@@ -139,8 +140,8 @@ If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 	If ($psm1.verbosity -ne 0) {
 		Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Missing git source directory: ${PSScriptRoot}" -ForegroundColor Yellow;
 	}
-	Start-Sleep -Seconds 60;
-	Exit 1;
+	# Start-Sleep -Seconds 60;
+	# Exit 1;
 
 } Else {
 
@@ -208,8 +209,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			If ($psm1.verbosity -ne 0) {
 				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to create directory for Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
-			Start-Sleep -Seconds 60;
-			Exit 1;
+			# Start-Sleep -Seconds 60;
+			# Exit 1;
 
 		} Else {
 
@@ -238,8 +239,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			If ($psm1.verbosity -ne 0) {
 				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to copy Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 			}
-			Start-Sleep -Seconds 60;
-			Exit 1;
+			# Start-Sleep -Seconds 60;
+			# Exit 1;
 
 		} Else {
 
@@ -272,8 +273,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 				If ($psm1.verbosity -ne 0) {
 					Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Unable to be update Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
 				}
-				Start-Sleep -Seconds 60;
-				Exit 1;
+				# Start-Sleep -Seconds 60;
+				# Exit 1;
 
 			} Else {
 				# File copied from source to destination successfully
@@ -320,8 +321,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 				# Failed Module Import
 				Write-Host "$([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name)) - Fail: Exit-Code [$import_exit_code] returned from Import-Module: $([IO.Path]::GetFileNameWithoutExtension($EachModule.Name))" -ForegroundColor Yellow;
-				Start-Sleep -Seconds 60;
-				Exit 1;
+				# Start-Sleep -Seconds 60;
+				# Exit 1;
 
 			} Else {
 				# Successful Module Import

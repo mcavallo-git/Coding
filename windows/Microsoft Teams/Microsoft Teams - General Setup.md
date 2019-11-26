@@ -26,7 +26,9 @@
 </td></tr>
 <tr><td style="max-width:500px;">
 <hr />
-<h5>Settings popup > "🎧 Devices" tab (left), select only the dropdown for "Audio devices" if you're using a headset. Otherwise, if you have completely separate devices for speakers & microphone, select them under "Speaker" and "Microphone", respectively</h5>
+<h5>Settings popup > "🎧 Devices" tab (left)</h5>
+Select only the dropdown for "Audio devices" if you're using a headset
+Otherwise, if you have completely separate devices for speakers & microphone, select them under "Speaker" and "Microphone", respectively
 </td><td style="height:250px; width:500px; min-width:500px; min-height:175px; background:#222222;">
 <br />
 <br />

@@ -182,6 +182,8 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="server-runtimes"><br />Server Runtimes<br /><br /></h5></th></tr>
 <tr><td><strong>Docker - Containerized</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Linux LXC Container Management</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>
 <tr><td><strong>Jenkins - CI/CD Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Automates Continuous Integration (CI)<br />&nbsp;&nbsp;&nbsp;Facilitates Continuous-Deployment (CD)</i></sub></td><td><a href="https://jenkins.io">View (source)</a></td></tr>
+<tr><td><strong>NSSM</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Non-Sucking Service<br />&nbsp;&nbsp;&nbsp;Manager (Windows)</i></sub></td><td><a href="https://github.com/minio/mc">Download (source)</a></td></tr>
+<tr><td><strong>MinIO</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>S3 Storage Server</i></sub></td><td><a href="https://min.io/download#/linux">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

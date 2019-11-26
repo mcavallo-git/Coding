@@ -843,7 +843,11 @@ AppsKey & K::
 ;  ACTION:  Open Google Chrome
 ;
 #C::
-	OpenChrome()
+	; OpenChrome()
+	Loop 10 {
+		Send Yes{Tab}
+		Sleep 100
+	}
 	Return
 
 

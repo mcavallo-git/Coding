@@ -19,6 +19,16 @@ REM
 
 MKLINK /D "%NEW_LINK%" "%EXISTING_TARGET%"
 
+
+REM 
+REM Link local user's Pictures (Bing Backgrounds & Windows Spotlight) to Local OneDrive Directory's Pictures
+REM 
+REM MKLINK /D "%USERPROFILE%\Pictures\Bing Backgrounds" "%OneDrive%\Images\Wallpapers\Bing Backgrounds"
+REM 
+REM MKLINK /D "%USERPROFILE%\Pictures\Windows Spotlight" "%OneDrive%\Images\Wallpapers\Windows Spotlight"
+REM 
+
+
 REM View a list of MKLINKs (symbolic links) associated with target, to verify that the new MKLINK was created as-intended
 REM 
 REM DIR /AL /S "%USERPROFILE%\"

@@ -23,7 +23,7 @@ TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" /FI "IMAGENAME eq expl
 
 
 REM Near-Match based on Image (Process) Name
-TASKLIST /V /NH /FI "USERNAME eq %USERDOMAIN%\%USERNAME%" | FIND /I "explorer"
+TASKLIST /V /NH | FIND /I "vm"
 
 
 REM ------------------------------------------------------------

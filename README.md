@@ -174,17 +174,17 @@ This file (on GitHub):
 	<details><summary><i>CentOS7 Mirrors</i></summary>
 	<h5>
 		<ul>
-			<li><h5><a href="https://mirror.tzulo.com/centos/">https://mirror.tzulo.com/centos/</a></li>
-			<li><h5><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></li>
-			<li><h5><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></li>
-			<li><h5><a href="https://mirrors.syringanetworks.net/centos/">https://mirrors.syringanetworks.net/centos/</a></li>
-			<li><h5><a href="https://mirrors.tripadvisor.com/centos/">https://mirrors.tripadvisor.com/centos/</a></li>
-			<li><h5><a href="https://mirror.genesisadaptive.com/centos/">https://mirror.genesisadaptive.com/centos/</a></li>
-			<li><h5><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></li>
-			<li><h5><a href="https://mirror.steadfastnet.com/centos/">https://mirror.steadfastnet.com/centos/</a></li>
-			<li><h5><a href="https://mirror.web-ster.com/centos/">https://mirror.web-ster.com/centos/</a></li>
-			<li><h5><a href="https://mirrors.sonic.net/centos/">https://mirrors.sonic.net/centos/</a></li>
-			<li><h5><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></li>
+			<li><h5><a href="https://mirror.tzulo.com/centos/7/isos/x86_64/">https://mirror.tzulo.com/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/7/isos/x86_64/">https://mirror.vcu.edu/pub/gnu_linux/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirrors.rit.edu/centos/7/isos/x86_64/">https://mirrors.rit.edu/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirrors.syringanetworks.net/centos/7/isos/x86_64/">https://mirrors.syringanetworks.net/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirrors.tripadvisor.com/centos/7/isos/x86_64/">https://mirrors.tripadvisor.com/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirror.genesisadaptive.com/centos/7/isos/x86_64/">https://mirror.genesisadaptive.com/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirror.math.princeton.edu/pub/centos/7/isos/x86_64/">https://mirror.math.princeton.edu/pub/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirror.steadfastnet.com/centos/7/isos/x86_64/">https://mirror.steadfastnet.com/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirror.web-ster.com/centos/7/isos/x86_64/">https://mirror.web-ster.com/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://mirrors.sonic.net/centos/7/isos/x86_64/">https://mirrors.sonic.net/centos/7/isos/x86_64/</a></li>
+			<li><h5><a href="https://packages.oit.ncsu.edu/centos/7/isos/x86_64/">https://packages.oit.ncsu.edu/centos/7/isos/x86_64/</a></li>
 		</ul>
 	</h5>
 	</details>

@@ -170,7 +170,23 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="operating-systems"><br />Operating Systems<br /><br /></h5></th></tr>
-<tr><td><strong>CentOS</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>RHEL Linux</i></sub></td><td><a href="https://wiki.centos.org/Download">Download (source)</a></td></tr>
+<tr><td><strong>CentOS</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Community Enterprise Operating System</i></sub></td><td>
+	<details open><summary><i>CentOS7</i></summary>
+	<br />
+	<li><h5><a href="https://mirror.tzulo.com/centos/">https://mirror.tzulo.com/centos/</a></h5></li>
+	<li><h5><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></h5></li>
+	<li><h5><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></h5></li>
+	<li><h5><a href="https://mirrors.syringanetworks.net/centos/">https://mirrors.syringanetworks.net/centos/</a></h5></li>
+	<li><h5><a href="https://mirrors.tripadvisor.com/centos/">https://mirrors.tripadvisor.com/centos/</a></h5></li>
+	<li><h5><a href="https://mirror.genesisadaptive.com/centos/">https://mirror.genesisadaptive.com/centos/</a></h5></li>
+	<li><h5><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></h5></li>
+	<li><h5><a href="https://mirror.steadfastnet.com/centos/">https://mirror.steadfastnet.com/centos/</a></h5></li>
+	<li><h5><a href="https://mirror.web-ster.com/centos/">https://mirror.web-ster.com/centos/</a></h5></li>
+	<li><h5><a href="https://mirrors.sonic.net/centos/">https://mirrors.sonic.net/centos/</a></h5></li>
+	<li><h5><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></h5></li>
+	</details>
+	<hr />
+	</td></tr>
 <tr><td><strong>Lubuntu</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://lubuntu.me/downloads/">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>

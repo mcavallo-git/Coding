@@ -73,10 +73,10 @@ function TakePermissions {
 	}
 
 }
-
 Export-ModuleMember -Function "TakePermissions";
-
+# 
 # Install-Module -Name "TakePermissions"
+# 
 
 
 # ------------------------------------------------------------

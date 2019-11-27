@@ -226,6 +226,22 @@ function SyncRegistry {
 		};
 
 
+		# Power Settings
+		$RegEdits += @{
+			Path="HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0";
+			Props=@(
+				@{
+					Description="Power Settings - Set to [2] to enable 'advanced power settings', [1] to disable 'advanced power settings'.";
+					Hotfix=$Null;
+					Name="Attributes";
+					Type="DWord";
+					Value=2147483648;
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Shutdown/Restart Settings
 		$RegEdits += @{
 			Path = "HKCU:\Control Panel\Desktop";

@@ -235,7 +235,7 @@ function SyncRegistry {
 					Hotfix=$Null;
 					Name="Attributes";
 					Type="DWord";
-					Value=2147483648;
+					Value=2;
 					Delete=$False;
 				}
 			)

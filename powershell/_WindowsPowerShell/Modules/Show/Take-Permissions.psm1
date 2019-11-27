@@ -8,7 +8,7 @@
 #   http://www.remkoweijnen.nl/blog/2012/01/16/take-ownership-of-a-registry-key-in-powershell/
 #   https://powertoe.wordpress.com/2010/08/28/controlling-registry-acl-permissions-with-powershell/
 #
-function Take-Permissions {
+function TakePermissions {
 
 	param($rootKey, $key, [System.Security.Principal.SecurityIdentifier]$sid = 'S-1-5-32-545', $recurse = $true)
 
@@ -74,9 +74,9 @@ function Take-Permissions {
 
 }
 
-Export-ModuleMember -Function "Take-Permissions";
+Export-ModuleMember -Function "TakePermissions";
 
-# Install-Module -Name "Take-Permissions"
+# Install-Module -Name "TakePermissions"
 
 
 # ------------------------------------------------------------

@@ -25,20 +25,6 @@
 			]
 		},
 		{
-			"description": "Google DNS - Secondary",
-			"ipv4": [
-				"8.8.4.4"
-			],
-			"ipv6": [
-				"2001:4860:4860::8844"
-			],
-			"ordinality-dnsv4": 1,
-			"ordinality-dnsv6": 1,
-			"sites": [
-				"https://developers.google.com/speed/public-dns/docs/using"
-			]
-		},
-		{
 			"description": "CloudFlare DNS - Primary",
 			"ipv4": [
 				"1.1.1.1"
@@ -46,10 +32,24 @@
 			"ipv6": [
 				"2606:4700:4700::1111"
 			],
+			"ordinality-dnsv4": 1,
+			"ordinality-dnsv6": 1,
+			"sites": [
+				"https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/"
+			]
+		},
+		{
+			"description": "Google DNS - Secondary",
+			"ipv4": [
+				"8.8.4.4"
+			],
+			"ipv6": [
+				"2001:4860:4860::8844"
+			],
 			"ordinality-dnsv4": 2,
 			"ordinality-dnsv6": 2,
 			"sites": [
-				"https://developers.cloudflare.com/1.1.1.1/setting-up-1.1.1.1/"
+				"https://developers.google.com/speed/public-dns/docs/using"
 			]
 		},
 		{

@@ -1,15 +1,7 @@
-#
-# Developed for PowerShell v4.0
-#
-# Required Admin privileges
-#
-# Links:
-#   http://shrekpoint.blogspot.ru/2012/08/taking-ownership-of-dcom-registry.html
-#   http://www.remkoweijnen.nl/blog/2012/01/16/take-ownership-of-a-registry-key-in-powershell/
-#   https://powertoe.wordpress.com/2010/08/28/controlling-registry-acl-permissions-with-powershell/
-#
 function TakePermissions {
-
+	#
+	# Developed for PowerShell v4.0
+	#
 	param($rootKey, $key, [System.Security.Principal.SecurityIdentifier]$sid = 'S-1-5-32-545', $recurse = $true)
 
 	If ((RunningAsAdministrator) -Ne ($True)) {
@@ -83,5 +75,11 @@ Export-ModuleMember -Function "TakePermissions";
 # Citation(s)
 #
 #   stackoverflow.com  |  "How do I take ownership of a registry key via Powershell?"  |  https://stackoverflow.com/a/35843420
+#
+#   shrekpoint.blogspot.com  |  "Taking ownership of DCOM registry objects using PowerShell"  |  https://shrekpoint.blogspot.com/2012/08/taking-ownership-of-dcom-registry.html
+#
+#   remkoweijnen.nl  |  "Take ownership of a registry key in PowerShell"  |  https://www.remkoweijnen.nl/blog/2012/01/16/take-ownership-of-a-registry-key-in-powershell/
+#
+#   powertoe.wordpress.com  |  "Changing Permissions in the Registry"  |  https://powertoe.wordpress.com/2010/08/28/controlling-registry-acl-permissions-with-powershell/
 #
 # ------------------------------------------------------------

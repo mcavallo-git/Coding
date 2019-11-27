@@ -17,16 +17,16 @@ if ($false) {
 # ------------------------------------------------------------
 
 $psm1 = @{};
-$psm1.verbosity = 0;
+$psm1.Verbosity = 0;
 $psm1.InvocationBasename = ([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name));
 
 # ------------------------------------------------------------
 
 ## Determine if we just ran this script (before updating it) or not
 If ($Env:UpdatedCodebase -eq $null) {
-	$psm1.iteration = 1;
+	$psm1.Iteration = 1;
 } Else {
-	$psm1.iteration = 2;
+	$psm1.Iteration = 2;
 }
 
 # ------------------------------------------------------------
@@ -63,8 +63,8 @@ If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
 
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @("platyPS", "PSWindowsUpdate");
-If ($psm1.iteration -eq 1) {
-	Write-Host "`n$(${psm1}.InvocationBasename) - Task: Import powershell modules (pass $($psm1.iteration)/2, - microsoft gallery modules)" -ForegroundColor Gray;
+If ($psm1.Iteration -eq 1) {
+	Write-Host "`n$($psm1.InvocationBasename) - Task: Import powershell modules (pass $($psm1.Iteration)/2, - microsoft gallery modules)" -ForegroundColor Gray;
 	Foreach ($EachGalleryModule In ($PSGalleryModules)) {
 		If (!(Get-Module -ListAvailable -Name ($EachGalleryModule))) {
 			Install-Module -Name ($EachGalleryModule) -Scope CurrentUser -Force;
@@ -73,17 +73,17 @@ If ($psm1.iteration -eq 1) {
 		$import_exit_code = If($?){0}Else{1};
 		If ($import_exit_code -ne 0) {
 			# Failed Module Import
-			Write-Host "$(${psm1}.InvocationBasename) - Fail: Exit-Code [ $($import_exit_code) ] returned from Import-Module: $EachGalleryModule" -ForegroundColor Yellow;
+			Write-Host "$($psm1.InvocationBasename) - Fail: Exit-Code [ $($import_exit_code) ] returned from Import-Module: $EachGalleryModule" -ForegroundColor Yellow;
 			# Start-Sleep -Seconds 60;
 			# Exit 1;
 
 		} Else {
 			# Successful Module Import
-			Write-Host "$(${psm1}.InvocationBasename) - Pass: Module Imported (cached onto RAM): $EachGalleryModule" -ForegroundColor Cyan;
+			Write-Host "$($psm1.InvocationBasename) - Pass: Module Imported (cached onto RAM): $EachGalleryModule" -ForegroundColor Cyan;
 		}
 	}
-} ElseIf ($psm1.iteration -eq 2) {
-	Write-Host "`n$(${psm1}.InvocationBasename) - Task: Import powershell modules (pass $($psm1.iteration)/2, - git repository modules)" -ForegroundColor Gray;
+} ElseIf ($psm1.Iteration -eq 2) {
+	Write-Host "`n$($psm1.InvocationBasename) - Task: Import powershell modules (pass $($psm1.Iteration)/2, - git repository modules)" -ForegroundColor Gray;
 }
 
 # ------------------------------------------------------------
@@ -119,27 +119,27 @@ For ($i=0; $i -lt $PSMod_ParentDirs.length; $i++) {
 	$psm1.fullpath += (($PSModDir_SplitChar)+($PSMod_ParentDirs[$i]));
 	If ((Test-Path -PathType Container -Path (($psm1.fullpath)+($PSModDir_SplitChar))) -eq $false) {
 		# Directory doesn't exist - create it
-		If ($psm1.verbosity -ne 0) {
-			Write-Host "$(${psm1}.InvocationBasename) - Task: Create parent-directory for Modules: $($psm1.fullpath)" -ForegroundColor Gray;
+		If ($psm1.Verbosity -ne 0) {
+			Write-Host "$($psm1.InvocationBasename) - Task: Create parent-directory for Modules: $($psm1.fullpath)" -ForegroundColor Gray;
 		}
 		New-Item -ItemType "Directory" -Path (($psm1.fullpath)+($PSModDir_SplitChar)) | Out-Null;
 	} Else {
 		# Directory exists - skip it
-		If ($psm1.verbosity -ne 0) {
-			Write-Host "$(${psm1}.InvocationBasename) - Skip: Parent-directory for Modules already exists: $($psm1.fullpath)";
+		If ($psm1.Verbosity -ne 0) {
+			Write-Host "$($psm1.InvocationBasename) - Skip: Parent-directory for Modules already exists: $($psm1.fullpath)";
 		}
 	}
 }
-If ($psm1.verbosity -ne 0) {
-	Write-Host "$(${psm1}.InvocationBasename) - Info: PowerShell Modules directory's fullpath: $($psm1.fullpath)";
+If ($psm1.Verbosity -ne 0) {
+	Write-Host "$($psm1.InvocationBasename) - Info: PowerShell Modules directory's fullpath: $($psm1.fullpath)";
 }
 
 # Ensure that the User-Specific PowerShell Modules Directory exists
 If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 
 	# Directory NOT found
-	If ($psm1.verbosity -ne 0) {
-		Write-Host "$(${psm1}.InvocationBasename) - Fail: Missing git source directory: ${PSScriptRoot}" -ForegroundColor Yellow;
+	If ($psm1.Verbosity -ne 0) {
+		Write-Host "$($psm1.InvocationBasename) - Fail: Missing git source directory: ${PSScriptRoot}" -ForegroundColor Yellow;
 	}
 	# Start-Sleep -Seconds 60;
 	# Exit 1;
@@ -147,8 +147,8 @@ If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 } Else {
 
 	# Directory found
-	If ($psm1.verbosity -ne 0) {
-		Write-Host "$(${psm1}.InvocationBasename) - Pass: Located powershell modules directory: ${PSScriptRoot}" -ForegroundColor Cyan;
+	If ($psm1.Verbosity -ne 0) {
+		Write-Host "$($psm1.InvocationBasename) - Pass: Located powershell modules directory: ${PSScriptRoot}" -ForegroundColor Cyan;
 	}
 
 }
@@ -159,15 +159,15 @@ If ((Test-Path -PathType Container -Path ($PSScriptRoot)) -Eq $false) {
 #
 
 # Git-Reposity's -> Find all PowerShell Modules (along with their respectively named directories) to copy into a given machine's PowerShell Modules Directory
-If ($psm1.verbosity -ne 0) {
-	Write-Host "$(${psm1}.InvocationBasename) - Task: Searching `"${PSScriptRoot}`" for PowerShell Modules..." -ForegroundColor Gray;
+If ($psm1.Verbosity -ne 0) {
+	Write-Host "$($psm1.InvocationBasename) - Task: Searching `"${PSScriptRoot}`" for PowerShell Modules..." -ForegroundColor Gray;
 }
 
 $PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue");
 
 Foreach ($EachModule In $PowerShellModulesArr) {
 
-	If ($psm1.verbosity -ne 0) {
+	If ($psm1.Verbosity -ne 0) {
 		Write-Host " ";
 	}
 
@@ -177,16 +177,16 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If (Get-Module -Name ($EachModule.Name)) {
 		# Remove Module's from current PowerShell session (clears it from being cached in Memory, e.g. RAM)
 		Remove-Module ($EachModule.Name);
-		If ($psm1.verbosity -ne 0) {
-			Write-Host "$(${psm1}.InvocationBasename) - Task: Removing Module (from RAM-Cache): ${EachBasename_NoExt}" -ForegroundColor Gray;
+		If ($psm1.Verbosity -ne 0) {
+			Write-Host "$($psm1.InvocationBasename) - Task: Removing Module (from RAM-Cache): ${EachBasename_NoExt}" -ForegroundColor Gray;
 		}
 		If (Get-Module -Name ($EachModule.Name)) {
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Fail: Unable to remove Module (from RAM-Cache): ${EachBasename_NoExt}" -ForegroundColor Yellow;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Fail: Unable to remove Module (from RAM-Cache): ${EachBasename_NoExt}" -ForegroundColor Yellow;
 			}
 		} Else {
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Pass: Removed Module (from RAM-Cache): ${EachBasename_NoExt}" -ForegroundColor Cyan;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Pass: Removed Module (from RAM-Cache): ${EachBasename_NoExt}" -ForegroundColor Cyan;
 			}
 		}
 	}
@@ -201,8 +201,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 		
 		# Create directory
-		If ($psm1.verbosity -ne 0) {
-			Write-Host "$(${psm1}.InvocationBasename) - Task: Create directory for Module: ${EachBasename_NoExt}" -ForegroundColor Gray;
+		If ($psm1.Verbosity -ne 0) {
+			Write-Host "$($psm1.InvocationBasename) - Task: Create directory for Module: ${EachBasename_NoExt}" -ForegroundColor Gray;
 		}
 
 		New-Item -ItemType "Directory" -Path (($StartupModuleDirectory)+("/")) | Out-Null;
@@ -210,8 +210,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If ((Test-Path -Path ($StartupModuleDirectory)) -eq $false) {
 
 			# Error: Unable to create directory
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Fail: Unable to create directory for Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Fail: Unable to create directory for Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
 			}
 			# Start-Sleep -Seconds 60;
 			# Exit 1;
@@ -219,8 +219,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		} Else {
 
 			# Directory successfully created
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Pass: Directory created for Module: ${EachBasename_NoExt}" -ForegroundColor Cyan;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Pass: Directory created for Module: ${EachBasename_NoExt}" -ForegroundColor Cyan;
 			}
 
 		}
@@ -231,8 +231,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 		
 		# Create the destination if it doesn't exist, yet
-		If ($psm1.verbosity -ne 0) {
-			Write-Host "$(${psm1}.InvocationBasename) - Task: Copy Module: ${EachBasename_NoExt}" -ForegroundColor Gray;
+		If ($psm1.Verbosity -ne 0) {
+			Write-Host "$($psm1.InvocationBasename) - Task: Copy Module: ${EachBasename_NoExt}" -ForegroundColor Gray;
 		}
 		Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
 		
@@ -240,8 +240,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
 			# Error: Unable to create Module
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Fail: Unable to copy Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Fail: Unable to copy Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
 			}
 			# Start-Sleep -Seconds 60;
 			# Exit 1;
@@ -249,8 +249,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		} Else {
 
 			# Module successfully created
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Pass: Module copied: ${EachBasename_NoExt}" -ForegroundColor Cyan;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Pass: Module copied: ${EachBasename_NoExt}" -ForegroundColor Cyan;
 			}
 
 		}
@@ -264,8 +264,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If ($path_source_last_write -gt $path_destination_last_write) {
 
 			# If the source file has a new revision, then update the destination file with said changes
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Task: Updating Module: ${EachBasename_NoExt}" -ForegroundColor Gray;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Task: Updating Module: ${EachBasename_NoExt}" -ForegroundColor Gray;
 			}
 
 			Copy-Item -Path ($ModuleFile) -Destination ($StartupModuleFile) -Force;
@@ -274,22 +274,22 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 			If ((Test-Path -Path ($StartupModuleFile)) -eq $false) {
 
 				# Error: Couldn't update/overwrite a file, etc.
-				If ($psm1.verbosity -ne 0) {
-					Write-Host "$(${psm1}.InvocationBasename) - Fail: Unable to be update Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
+				If ($psm1.Verbosity -ne 0) {
+					Write-Host "$($psm1.InvocationBasename) - Fail: Unable to be update Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
 				}
 				# Start-Sleep -Seconds 60;
 				# Exit 1;
 
 			} Else {
 				# File copied from source to destination successfully
-				If ($psm1.verbosity -ne 0) {
-					Write-Host "$(${psm1}.InvocationBasename) - Pass: Module updated: ${EachBasename_NoExt}" -ForegroundColor Cyan;
+				If ($psm1.Verbosity -ne 0) {
+					Write-Host "$($psm1.InvocationBasename) - Pass: Module updated: ${EachBasename_NoExt}" -ForegroundColor Cyan;
 				}
 			}
 		} Else {
 			# No updates necessary
-			If ($psm1.verbosity -ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Pass: Module already up-to-date: ${EachBasename_NoExt}" -ForegroundColor Cyan;
+			If ($psm1.Verbosity -ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Pass: Module already up-to-date: ${EachBasename_NoExt}" -ForegroundColor Cyan;
 			}
 		}
 	}
@@ -302,8 +302,8 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 	If (($EachModule.Name) -eq ($MyInvocation.MyCommand.Name)) {
 		# Dont let a file include itself... that causes infinite loops~!
-		If ($psm1.verbosity -ne 0) {
-			Write-Host "$(${psm1}.InvocationBasename) - Skip: Avoiding self-import: ${EachBasename_NoExt}";
+		If ($psm1.Verbosity -ne 0) {
+			Write-Host "$($psm1.InvocationBasename) - Skip: Avoiding self-import: ${EachBasename_NoExt}";
 		}
 
 	} Else {
@@ -314,23 +314,22 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If (($Env:UpdatedCodebase -Eq $True) -Or (($RequiredModules_FirstIteration -Match ($EachModule.Name)) -Eq ($EachModule.Name))) {
 
 			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
-			If ($psm1.verbosity -Ne 0) {
-				Write-Host "$(${psm1}.InvocationBasename) - Task: Importing Module (caching onto RAM): ${EachBasename_NoExt}" -ForegroundColor Gray;
+			If ($psm1.Verbosity -Ne 0) {
+				Write-Host "$($psm1.InvocationBasename) - Task: Importing Module (caching onto RAM): ${EachBasename_NoExt}" -ForegroundColor Gray;
 			}
 			
 			Import-Module ($StartupModuleFile);
 			$import_exit_code = If($?){0}Else{1};
 			
 			If ($import_exit_code -Ne 0) {
-
 				# Failed Module Import
-				Write-Host "$(${psm1}.InvocationBasename) - Fail: Exit-Code [$import_exit_code] returned from Import-Module: ${EachBasename_NoExt}" -ForegroundColor Yellow;
+				Write-Host "$($psm1.InvocationBasename) - Fail: Unable to import module `"${EachBasename_NoExt}`"" -ForegroundColor Yellow;
 				# Start-Sleep -Seconds 60;
 				# Exit 1;
 
 			} Else {
 				# Successful Module Import
-				Write-Host "$(${psm1}.InvocationBasename) - Pass: Module imported (cached onto RAM): ${EachBasename_NoExt}" -ForegroundColor Cyan;
+				Write-Host "$($psm1.InvocationBasename) - Pass: Module imported (cached onto RAM): ${EachBasename_NoExt}" -ForegroundColor Cyan;
 
 			}
 		}

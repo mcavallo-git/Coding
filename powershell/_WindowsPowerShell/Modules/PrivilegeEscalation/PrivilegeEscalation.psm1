@@ -33,6 +33,7 @@ Function PrivilegeEscalation {
 	} Else {
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 			Write-Host "`nPrivilegeEscalation  ::: Skipped (session is already running as Administrator)" -BackgroundColor Black -ForegroundColor Yellow;
+			($Command);
 		}
 	}
 }

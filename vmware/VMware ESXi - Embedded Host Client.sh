@@ -11,9 +11,12 @@
 # 
 # 
 # ------------------------------------------------------------
-#
-# Download & install the latest HTTP & Javascript 
 
+
+### !!! MAKE SURE TO DOUBLE CHECK THAT YOU'VE BACKED UP THE ESXI INSTANCE'S CURRENT VIB BEFORE MAKING CHANGES/UPDATES TO IT !!! ###
+
+
+# Download & install the latest HTTP & Javascript ".vib" file
 esxcli software vib install -v "http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib"
 
 

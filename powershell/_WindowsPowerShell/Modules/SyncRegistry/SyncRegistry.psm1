@@ -393,7 +393,7 @@ function SyncRegistry {
 				} Else {
 					# Create missing key in the registry
 					Write-Host (("`n`n  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
-					New-Item -Path ($EachRegEdit.Path) -Force;
+					New-Item -Path ($EachRegEdit.Path) -Force; # Note: The -Force is used to create any/all missing parent registry keys
 				}
 
 				Foreach ($EachProp In $EachRegEdit.Props) {

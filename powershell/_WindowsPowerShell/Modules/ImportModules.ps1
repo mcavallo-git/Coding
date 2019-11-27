@@ -261,10 +261,10 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 	} Else {
 
 		# Files - Copy / Update any not-found in Destination
-		$path_source_last_write = [datetime](Get-ItemProperty -Path $ModuleFile -Name LastWriteTime).lastwritetime;
-		$path_destination_last_write = [datetime](Get-ItemProperty -Path $StartupModuleFile -Name LastWriteTime).lastwritetime;
+		$LastWrite_SourceFile = [DateTime](Get-ItemProperty -Path ("$ModuleFile") -Name ("LastWriteTime")).LastWriteTime;
+		$LastWrite_DestinationFile = [DateTime](Get-ItemProperty -Path ("$StartupModuleFile") -Name ("LastWriteTime")).LastWriteTime;
 
-		If ($path_source_last_write -gt $path_destination_last_write) {
+		If ($LastWrite_SourceFile -Gt $LastWrite_DestinationFile) {
 
 			# If the source file has a new revision, then update the destination file with said changes
 			If ($PSM1.Verbosity -ne 0) {
@@ -292,7 +292,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		} Else {
 			# No updates necessary
 			If ($PSM1.Verbosity -ne 0) {
-				Write-Host "$($PSM1.InvocationBasename) - Pass: Module already up-to-date: ${EachBasename_NoExt}" -ForegroundColor Cyan;
+				Write-Host "$($PSM1.InvocationBasename) - Pass: Module matches repo's last write time: ${EachBasename_NoExt}" -ForegroundColor Cyan;
 			}
 		}
 	}

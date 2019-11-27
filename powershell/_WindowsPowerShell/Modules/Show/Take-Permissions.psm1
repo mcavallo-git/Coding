@@ -1,8 +1,19 @@
 function TakePermissions {
+	param(
+
+		$rootKey,
+
+		$key,
+
+		[System.Security.Principal.SecurityIdentifier]
+		$sid = 'S-1-5-32-545',  # Users (built-in group)
+
+		$recurse = $True
+
+	)
 	#
 	# Developed for PowerShell v4.0
 	#
-	param($rootKey, $key, [System.Security.Principal.SecurityIdentifier]$sid = 'S-1-5-32-545', $recurse = $true)
 
 	If ((RunningAsAdministrator) -Ne ($True)) {
 

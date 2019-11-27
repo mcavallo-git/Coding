@@ -439,7 +439,7 @@ function SyncRegistry {
 
 							# Add the missing property to the Registry Key
 							Write-Host "   |`n   |--> Adding Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
-							New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value);
+							New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) -Force;
 							Write-Host " `n`n";
 
 						} Else { # Property SHOULD be deleted (Already up to date)

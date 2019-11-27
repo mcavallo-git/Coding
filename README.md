@@ -225,6 +225,8 @@ This file (on GitHub):
 	</details>
 </td></tr>
 <tr><td><strong>Lubuntu</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://lubuntu.me/downloads/">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft SQL Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>2014 SP1 (Service Pack 1)</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=46694">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft SQL Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>2014 SP1-CU13 (Service<br />&nbsp;&nbsp;&nbsp;Pack 1, Cumulative Update 13)</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=51186">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
 <tr><td><strong>Windows 10</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>

@@ -5,39 +5,61 @@
 
 
 # ------------------------------------------------------------
-# 
-# Use sed to (essentially) 'cat' a file, remove whitespace-only lines from its
-# output, then print the resultant output to the terminal (standard-output)
 #
-sed --expression='/^\s*$/d' "/etc/hosts";
+# Example)  Enable/Disable Linux's MOTD (Message of the Day) feature
+#
+
+# Disable MOTD (Message of the Day)
+sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
+
+# Enable MOTD (Message of the Day)
+sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news";
+
+
+# ------------------------------------------------------------
+#
+#        -e script, --expression=script
+#               add the script to the commands to be executed
+#
+#        -n, --quiet, --silent
+#               suppress automatic printing of pattern space
+#
+#        -E, -r, -r
+#               use extended regular expressions in the script (for portability use POSIX -E).
+#
+
+sed -e '/^\s*$/d' "/etc/hosts";
 
 
 # ------------------------------------------------------------
 # 
 # Use sed with piped-commands to parse their output, line-by-line
 #
-printenv | grep -i 'onedrive' | sed --quiet --regexp-extended --expression='s/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
+
+printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 
 
 # ------------------------------------------------------------
 # 
 # sed
 #  |-->  --in-place="..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
-#  |-->  --expression='/.../d'  -->  remove specific lines, matching a given pattern
+#  |-->  -e '/.../d'  -->  remove specific lines, matching a given pattern
 #
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression='/pattern to match/d' ./infile
+
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/pattern to match/d' ./infile
 
 
 # ------------------------------------------------------------
-# 
-# Use sed's "--in-place" command to save sed's output directly to the file
-# (e.g. modify/parse/regex-strip/regex-replace/etc. the contents of a file through sed)
 #
+#        -i[SUFFIX], --in-place[=SUFFIX]
+#               edit files in place (makes backup if SUFFIX supplied)
+#
+
 sed_remove_whitespace_lines='/^\s*$/d';
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="${sed_remove_whitespace_lines}" "FILEPATH";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_whitespace_lines}" "FILEPATH";
 
 sed_remove_starting_whitespace='s/^\s*//g';
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="${sed_remove_starting_whitespace}" "FILEPATH";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_starting_whitespace}" "FILEPATH";
 
 
 # ------------------------------------------------------------
@@ -100,21 +122,11 @@ echo -e "\n\${TEST_STR}, reversed (using SED_REVERSE_METHOD2):"; \
 echo -e "${TEST_STR}" | sed -n "${SED_REVERSE_METHOD2}" | head -n -${TOP_LINES_TO_SLICE} | sed -n "${SED_REVERSE_METHOD2}"; echo -e "\n";
 
 
-
-
-# ------------------------------------------------------------
-#
-# Example)  Enable/Disable the "Message of the Day" (MOTD) Feature in Linux
-#
-sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news"; # Disable MOTD
-sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression="/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news"; # Enable MOTD
-
-
 # ------------------------------------------------------------
 # 
 # Example)  Remove windows-newlines (e.g. remove CR's)
 #
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" --expression='s/\r$//' "~/sftp/uploaded_file";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 
 
 # ------------------------------------------------------------
@@ -135,7 +147,7 @@ sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql"
 # 
 # Example)  Parse GnuPG key_id's out of the fingerprints held in gpg (using 'LONG' format-syntax)
 #
-GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed --regexp-extended --quiet --expression='s/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
+GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed -rne 's/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
 echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 
 
@@ -145,7 +157,7 @@ echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 #
 if [ -f "/etc/nginx/nginx.conf" ]; then
 	NGINX_UNAME=$(sed -rne 's/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf");
-	# NGINX_UNAME=$(sed --regexp-extended --quiet --expression='s/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf");
+	# NGINX_UNAME=$(sed -rne 's/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf");
 	NGINX_GNAME=$(id -gn "${NGINX_UNAME}");
 	NGINX_UID=$(id -u "${NGINX_UNAME}");
 	NGINX_GID=$(id -g "${NGINX_UNAME}");

@@ -4,6 +4,18 @@
 #
 # ------------------------------------------------------------
 
+# Example from "/etc/profile" from stock Ubuntu 19.04 image within file
+if [ -d /etc/profile.d ]; then
+  for i in /etc/profile.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+# ------------------------------------------------------------
+
 ARR_USERNAMES=();
 ARR_USERNAMES+=("root");
 ARR_USERNAMES+=("root");

@@ -80,7 +80,6 @@ This file (on GitHub):
 <tr><td><strong>AirServer Universal</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Airplay+, Google Cast+, Miracast</i></sub></td><td><a href="https://www.airserver.com/Download/MacPC">Download (mirror)</a></td></tr>
 <tr><td><strong>AutoHotkey (AHK)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Keyboard Macro Program</i></sub></td><td><a href="https://www.autohotkey.com/download/ahk-install.exe">Download (source)</a></td></tr>
 <tr><td><strong>Classic Shell</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Win7 Style Start-Menu</i></sub></td><td><a href="https://www.fosshub.com/Classic-Shell.html">Download (mirror)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://www.softpedia.com/get/Desktop-Enhancements/Shell-Replacements/Classic-Shell.shtml">Download (fallback)</a></sub></td></tr>
-<tr><td><strong>Cryptomator</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Client-Side Cloud-Encryption</i></sub></td><td><a href="https://cryptomator.org/downloads/#winDownload">Download (mirror)</a></td></tr>
 <tr><td><strong>Docker Desktop (for Windows)</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Containers</i></sub></td><td><a href="https://download.docker.com/win/stable/Docker%20for%20Windows%20Installer.exe">Download (source)</a></td></tr>
 <tr><td><strong>FoxIt PhantomPDF</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>PDF Editor (Paid)</i></sub></td><td><a href="https://www.foxitsoftware.com/downloads/#Foxit-PhantomPDF-Standard/">Download (source)</a></td></tr>
 <tr><td><strong>Git SCM</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>CLI Integration</i></sub></td><td><a href="https://git-scm.com/download/win">Download (source)</a></td></tr>
@@ -102,6 +101,9 @@ This file (on GitHub):
 <tr><td><strong>TeamViewer</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Remote Access Host/Server</i></sub></td><td><a href="https://www.teamviewer.com/en/download/windows/">Download (source)</a></td></tr>
 <tr><td><strong>Tortoise Git</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Git Merge Conflict Resolver</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 <tr><td><strong>Visual Studio Code</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>VS Code - Code Editor</i></sub></td><td><a href="https://code.visualstudio.com/download">Download (source)</a></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
 <tr><td><strong>CrystalDiskMark</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>HDD/SSD Benchmarking</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
@@ -137,6 +139,15 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="entertainment"><br />Entertainment<br /><br /></h5></th></tr>
 <tr><td><strong>Spotify</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
 <tr><td><strong>Twitch App</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
+<tr><th colspan="2"><h5 id="file-storage"><br />File-Storage<br /><br /></h5></th></tr>
+<tr><td><strong>Box</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Desktop App(s)</i></sub></td><td><a href="https://www.box.com/resources/downloads">Download (source)</a></td></tr>
+<tr><td><strong>Cryptomator</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Client-Side Cloud-Encryption</i></sub></td><td><a href="https://cryptomator.org/downloads/#winDownload">Download (source)</a></td></tr>
+<tr><td><strong>Dropbox</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Desktop App(s)</i></sub></td><td><a href="https://www.dropbox.com/install">Download (source)</a></td></tr>
+<tr><td><strong>Google Drive</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Backup and Sync</i></sub></td><td><a href="https://www.google.com/drive/download/">Download (source)</a></td></tr>
+<tr><td><strong>OneDrive for Windows</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Desktop App(s)</i></sub></td><td><a href="https://onedrive.live.com/about/en-us/download/">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

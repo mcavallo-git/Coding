@@ -86,10 +86,12 @@ Get-WindowsFeature `
 | Select-Object -Property ("Name") `
 );
 
-$InstallSource = "D:\sources\sxs";
-$InstallSource = "wim:D:\sources\install.wim:2";
-If ((Test-Path "${InstallSource}") -Eq $True ) {
-Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -Source ("${InstallSource}") -IncludeManagementTools;
+$InstallSource_1 = "wim:D:\sources\install.wim:2";
+$InstallSource_2 = "D:\sources\sxs";
+If ((Test-Path "${InstallSource_1}") -Eq $True ) {
+Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -Source ("${InstallSource_1}") -IncludeManagementTools;
+} ElseIf ((Test-Path "${InstallSource_2}") -Eq $True ) {
+Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -Source ("${InstallSource_2}") -IncludeManagementTools;
 } Else {
 Install-WindowsFeature -Name (${FeaturesToEnable}.Name) -IncludeManagementTools;
 }

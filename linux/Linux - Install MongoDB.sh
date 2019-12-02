@@ -22,9 +22,9 @@ if [ ! -f "${REPLY}" ]; then echo "Warning - file not found: \"${REPLY}\""; read
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "
 /^#security:/ {
 a\
-	keyFile: ${REPLY}
+  keyFile: ${REPLY}
 a\
-	authorization: enabled
+  authorization: enabled
 c\
 security:
 }" "/etc/mongod.conf"; \

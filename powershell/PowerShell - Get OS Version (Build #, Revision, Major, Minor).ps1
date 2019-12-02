@@ -1,5 +1,5 @@
 
-(Get-CimInstance Win32_OperatingSystem).version
+(Get-CimInstance Win32_OperatingSystem).Version
 
 # or
 

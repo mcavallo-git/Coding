@@ -18,18 +18,26 @@ cat "/etc/mongod.conf";
 
 echo ""; read -p "Enter Filepath for MongoDB KeyFile:  " -t 60 -r; echo ""; \
 if [ -n "${REPLY}" ]; then \
-if [ ! -f "${REPLY}" ]; then echo "Warning - file not found: \"${REPLY}\""; read -p "Create a randomly-generated Keyfile, now? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then openssl rand -base64 741 > "${REPLY}"; fi; fi; \
+NEW_KEYFILE="${REPLY}";
+if [ ! -f "${NEW_KEYFILE}" ]; then echo "Warning - file not found: \"${NEW_KEYFILE}\""; read -p "Create a randomly-generated Keyfile, now? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then openssl rand -base64 741 > "${NEW_KEYFILE}"; fi; fi; \
+CURRENT_KEYFILE="$(cat /etc/mongod.conf | grep keyFile | awk '{print $2}')"; \
+if [ -z "${CURRENT_KEYFILE}" ]; then \
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '
 /^#security:/ {
 a\
-  keyFile: '${REPLY}'
+  keyFile: '${NEW_KEYFILE}'
 a\
   authorization: enabled
 c\
 security:
 }' "/etc/mongod.conf"; \
-cat "/etc/mongod.conf"; \
 service mongod restart; \
+elif [ "${CURRENT_KEYFILE}" != "${NEW_KEYFILE}" ]; then \
+echo "Warning:  keyFile currently set to path \"${CURRENT_KEYFILE}\""; read -p "Update keyFile to reference \"${NEW_KEYFILE}\", instead? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  keyFile:/c\  keyFile: ${NEW_KEYFILE}" "/etc/mongod.conf"; service mongod restart; fi; \
+else \
+echo "Info:  keyFile already set to path \"${CURRENT_KEYFILE}\" in \"/etc/mongod.conf\" - no action required";
+fi; \
+cat "/etc/mongod.conf"; \
 fi;
 
 

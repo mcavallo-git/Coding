@@ -31,13 +31,12 @@ a\
 c\
 security:
 }' "/etc/mongod.conf"; \
-service mongod restart; \
+cat "/etc/mongod.conf"; service mongod restart; \
 elif [ "${CURRENT_KEYFILE}" != "${NEW_KEYFILE}" ]; then \
-echo "Warning:  keyFile currently set to path \"${CURRENT_KEYFILE}\""; read -p "Update keyFile to reference \"${NEW_KEYFILE}\", instead? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  keyFile:/c\  keyFile: ${NEW_KEYFILE}" "/etc/mongod.conf"; service mongod restart; fi; \
+echo "Warning:  keyFile currently set to path \"${CURRENT_KEYFILE}\""; read -p "Update keyFile to reference \"${NEW_KEYFILE}\", instead? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  keyFile:/c\  keyFile: ${NEW_KEYFILE}" "/etc/mongod.conf"; cat "/etc/mongod.conf"; service mongod restart; fi; \
 else \
 echo "Info:  keyFile already set to path \"${CURRENT_KEYFILE}\" in \"/etc/mongod.conf\" - no action required";
 fi; \
-cat "/etc/mongod.conf"; \
 fi;
 
 

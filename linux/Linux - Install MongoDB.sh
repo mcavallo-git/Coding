@@ -13,7 +13,7 @@ service mongod start;
 
 
 # ------------------------------------------------------------
-# Setup IP Address as [ Loopback,LAN ] instead of [ Loopback ]
+# Setup Bind-IP as [ Loopback-IPv4,LAN-IPv4 ] instead of just the [ Loopback-IPv4 ]
 THIS_IPv4=$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.'); \
 if [ -n "$(cat '/etc/mongod.conf' | grep '127.0.0.1 ';)" ]; then \
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  bindIp: 127.0.0.1 /c\  bindIp: 127.0.0.1,${THIS_IPv4}  # Enter 0.0.0.0,:: to bind to all IPv4 and IPv6 addresses or, alternatively, use the net.bindIpAll setting." "/etc/mongod.conf"; \

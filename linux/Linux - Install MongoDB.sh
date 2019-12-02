@@ -14,6 +14,19 @@ THIS_IPv4=$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print $2; 
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  bindIp: 127.0.0.1 /c\  bindIp: 127.0.0.1,${THIS_IPv4}" "/etc/mongod.conf";
 cat "/etc/mongod.conf";
 
+# Setup access security
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '
+/^#security:/ {
+a\
+  keyFile: /var/lib/mongo/keyfile
+a\
+  authorization: enabled
+c\
+security:
+}' "/etc/mongod.conf"; \
+cat "/etc/mongod.conf"; \
+service mongod restart;
+
 
 
 # ------------------------------------------------------------
@@ -24,6 +37,5 @@ cat "/etc/mongod.conf";
 #   docs.mongodb.com  |  "Install MongoDB Community Edition on Red Hat or CentOS"  |  https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/
 #
 #   docs.mongodb.com  |  "Install MongoDB Community Edition on Ubuntu"  |  https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/
-#
 #
 # ------------------------------------------------------------

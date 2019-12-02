@@ -29,7 +29,7 @@ c\
 security:
 }" "/etc/mongod.conf"; \
 cat "/etc/mongod.conf"; \
-service mongod restart;
+service mongod restart; \
 fi;
 
 

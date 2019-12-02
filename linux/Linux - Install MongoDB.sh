@@ -53,13 +53,11 @@ if [ -z "${CURRENT_REPL_SET_NAME}" ] && [ -n "${CURRENT_REPL_DISABLED}" ]; then
 echo ""; read -p "Enable replication for MongoDB? (y/n)  " -n 1 -t 60 -r; echo ""; if [[ $REPLY =~ ^[Yy]$ ]]; then \
 echo ""; read -p "Enter the name of the replication set to join:  " -t 60 -r; echo ""; if [ -n "${REPLY}" ]; then NEW_REPL_SET_NAME="${REPLY}"; \
 sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '
-/^#security:/ {
+/^#replication:/ {
 a\
-  keyFile: '${NEW_KEYFILE}'
-a\
-  authorization: enabled
+  replSetName: '${NEW_REPL_SET_NAME}'
 c\
-security:
+replication:
 }' "/etc/mongod.conf"; \
 cat "/etc/mongod.conf"; service mongod restart; \
 fi; \

@@ -19,15 +19,15 @@ cat "/etc/mongod.conf";
 echo ""; read -p "Enter Filepath for MongoDB KeyFile:  " -t 60 -r; echo ""; \
 if [ -n "${REPLY}" ]; then \
 if [ ! -f "${REPLY}" ]; then echo "Warning - file not found: \"${REPLY}\""; read -p "Create a randomly-generated Keyfile, now? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then openssl rand -base64 741 > "${REPLY}"; fi; fi; \
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '
 /^#security:/ {
 a\
-  keyFile: ${REPLY}
+  keyFile: '${REPLY}'
 a\
   authorization: enabled
 c\
 security:
-}" "/etc/mongod.conf"; \
+}' "/etc/mongod.conf"; \
 cat "/etc/mongod.conf"; \
 service mongod restart; \
 fi;

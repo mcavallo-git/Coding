@@ -10,7 +10,8 @@ mkdir -p "/var/lib/mongodb"; chown -R "mongod:mongod" "/var/lib/mongodb"; chmod 
 service mongod start;
 
 THIS_IPv4=$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.');
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  bindIp: 127.0.0.1  #(.+)$/c\  bindIp: 127.0.0.1,${THIS_IPv4}   #\$1" "/etc/mongod.conf";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  bindIp: 127.0.0.1 /c\  bindIp: 127.0.0.1,${THIS_IPv4}" "/etc/mongod.conf";
+cat "/etc/mongod.conf";
 
 
 

@@ -23,7 +23,7 @@ cat "/etc/mongod.conf";
 # Setup access security
 echo ""; read -p "Enter Filepath for MongoDB KeyFile:  " -t 60 -r; echo ""; \
 if [ -n "${REPLY}" ]; then \
-NEW_KEYFILE="${REPLY}";
+NEW_KEYFILE="${REPLY}"; \
 if [ ! -f "${NEW_KEYFILE}" ]; then echo "Warning - file not found: \"${NEW_KEYFILE}\""; read -p "Create a randomly-generated Keyfile, now? (y/n)  " -n 1 -t 60 -r; echo ""; if [[ $REPLY =~ ^[Yy]$ ]]; then openssl rand -base64 741 > "${NEW_KEYFILE}"; fi; fi; \
 CURRENT_KEYFILE="$(cat /etc/mongod.conf | grep keyFile | awk '{print $2}')"; \
 if [ -z "${CURRENT_KEYFILE}" ]; then \
@@ -47,14 +47,23 @@ fi;
 
 # ------------------------------------------------------------
 # Setup replication
-CURRENT_REPL_SET_NAME="$(cat /etc/mongod.conf | grep replSetName | awk '{print $2}')"; if [ -z "${CURRENT_REPL_SET_NAME}" ]; then
+CURRENT_REPL_SET_NAME="$(cat /etc/mongod.conf | grep replSetName | awk '{print $2}')"; \
+CURRENT_REPL_DISABLED="$(cat /etc/mongod.conf | grep '#replication:')"; \
+if [ -z "${CURRENT_REPL_SET_NAME}" ] && [ -n "${CURRENT_REPL_DISABLED}" ]; then
 echo ""; read -p "Enable replication for MongoDB? (y/n)  " -n 1 -t 60 -r; echo ""; if [[ $REPLY =~ ^[Yy]$ ]]; then \
-echo ""; read -p "Enter Replication Name:  " -t 60 -r; echo ""; \
-
-
-
-
-fi;
+echo ""; read -p "Enter the name of the replication set to join:  " -t 60 -r; echo ""; if [ -n "${REPLY}" ]; then NEW_REPL_SET_NAME="${REPLY}"; \
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '
+/^#security:/ {
+a\
+  keyFile: '${NEW_KEYFILE}'
+a\
+  authorization: enabled
+c\
+security:
+}' "/etc/mongod.conf"; \
+cat "/etc/mongod.conf"; service mongod restart; \
+fi; \
+fi; \
 fi;
 
 

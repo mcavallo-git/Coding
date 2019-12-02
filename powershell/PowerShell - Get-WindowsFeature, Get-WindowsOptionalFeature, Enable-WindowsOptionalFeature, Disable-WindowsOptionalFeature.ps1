@@ -8,6 +8,7 @@
 
 # Get-WindowsFeature (Roles) & Get-WindowsOptionalFeature (Features)
 
+# OUTPUT TO DESKTOP
 
 Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log"; `
 Get-WindowsOptionalFeature -Online | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";

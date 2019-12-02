@@ -43,3 +43,4 @@ echo "GATEWAY_LAN_IPV4=${GATEWAY_LAN_IPV4}"; echo "THIS_LAN_NIC=${THIS_LAN_NIC}"
 #
 # 	opensource.com  |  "How to find your IP address in Linux"  |  https://opensource.com/article/18/5/how-find-ip-address-linux
 #
+# ------------------------------------------------------------

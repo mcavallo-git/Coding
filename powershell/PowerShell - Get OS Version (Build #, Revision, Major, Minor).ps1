@@ -1,0 +1,2 @@
+
+[Environment]::OSVersion.Version

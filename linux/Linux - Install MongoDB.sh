@@ -1,16 +1,33 @@
 #!/bin/bash
-
+#
 # ------------------------------------------------------------
-# CentOS / RHEL - Install MongoDB
-
-
+#
+# Install 6 Setup MongoDB
+#
 # ------------------------------------------------------------
-# Setup & Downlaod the Package Repository & Package (itself)
+# Sync to the MongoDB Package Repo, then install MongoDB from it
+#
+
+# Debian distros
+if [ "$(which apt 2>'/dev/null'; echo $?;)" == "0" ]; then \
+if [ "$(which gnupg 2>'/dev/null'; echo $?;)" != "0" ]; then apt-get -y update; apt-get -y install "gnupg"; fi; \
+if [ "$(which tee 2>'/dev/null'; echo $?;)" != "0" ]; then apt-get -y update; apt-get -y install "tee"; fi; \
+wget -qO - "https://www.mongodb.org/static/pgp/server-4.2.asc" | apt-key add -; \
+echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | tee "/etc/apt/sources.list.d/mongodb-org-4.2.list"; \
+apt-get -y update; apt-get -y install "mongodb-org"; \
+fi;
+
+
+# CentOS / RHEL distros
+if [ "$(which yum 2>'/dev/null'; echo $?;)" == "0" ]; then \
 echo -e "[mongodb-org-4.2]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/4.2/x86_64/\ngpgcheck=1\nenabled=1\ngpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc\n" > "/etc/yum.repos.d/mongodb-org-4.2.repo"; yum check-update; yum install -y mongodb-org; \
+fi;
+
+# ------------------------------------------------------------
+# Setup MongoDB directories
 mkdir -p "/var/lib/mongo"; chown -R "mongod:mongod" "/var/lib/mongo"; chmod 0755 "/var/lib/mongo"; \
 mkdir -p "/var/lib/mongodb"; chown -R "mongod:mongod" "/var/lib/mongodb"; chmod 0755 "/var/lib/mongodb"; \
 service mongod start;
-
 
 # ------------------------------------------------------------
 # Setup Bind-IP as [ Loopback-IPv4,LAN-IPv4 ] instead of just the [ Loopback-IPv4 ]

@@ -10,8 +10,8 @@
 
 # Debian distros
 if [ "$(which apt 2>'/dev/null'; echo $?;)" == "0" ]; then \
-if [ "$(which gnupg 2>'/dev/null'; echo $?;)" != "0" ]; then apt-get -y update; apt-get -y install "gnupg"; fi; \
-if [ "$(which tee 2>'/dev/null'; echo $?;)" != "0" ]; then apt-get -y update; apt-get -y install "tee"; fi; \
+if [ "$(which gnupg 2>'/dev/null'; echo $?;)" != "1" ]; then apt-get -y update; apt-get -y install "gnupg"; fi; \
+if [ "$(which tee 2>'/dev/null'; echo $?;)" != "1" ]; then apt-get -y update; apt-get -y install "tee"; fi; \
 wget -qO - "https://www.mongodb.org/static/pgp/server-4.2.asc" | apt-key add -; \
 echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | tee "/etc/apt/sources.list.d/mongodb-org-4.2.list"; \
 apt-get -y update; apt-get -y install "mongodb-org"; \

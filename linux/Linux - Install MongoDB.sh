@@ -15,17 +15,22 @@ sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^  bindIp: 127.0.0.1 /c\
 cat "/etc/mongod.conf";
 
 # Setup access security
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '
+
+echo ""; read -p "Enter Filepath for MongoDB KeyFile:  " -t 60 -r; echo ""; \
+if [ -n "${REPLY}" ]; then \
+if [ ! -f "${REPLY}" ]; then echo "Warning - file not found: \"${REPLY}\""; read -p "Create a randomly-generated Keyfile, now? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then openssl rand -base64 741 > "${REPLY}"; fi; fi; \
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "
 /^#security:/ {
 a\
-  keyFile: /var/lib/mongo/keyfile
+	keyFile: ${REPLY}
 a\
-  authorization: enabled
+	authorization: enabled
 c\
 security:
-}' "/etc/mongod.conf"; \
+}" "/etc/mongod.conf"; \
 cat "/etc/mongod.conf"; \
 service mongod restart;
+fi;
 
 
 

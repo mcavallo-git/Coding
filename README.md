@@ -251,6 +251,7 @@ This file (on GitHub):
 <tr><td><strong>Jenkins - CI/CD Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Automates Continuous Integration (CI)<br />&nbsp;&nbsp;&nbsp;Facilitates Continuous-Deployment (CD)</i></sub></td><td><a href="https://jenkins.io">View (source)</a></td></tr>
 <tr><td><strong>NSSM</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Non-Sucking Service<br />&nbsp;&nbsp;&nbsp;Manager (Windows)</i></sub></td><td><a href="https://github.com/minio/mc">Download (source)</a></td></tr>
 <tr><td><strong>MinIO</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>S3 Storage Server</i></sub></td><td><a href="https://min.io/download#/linux">Download (source)</a></td></tr>
+<tr><td><strong>MongoDB</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Document Database</i></sub></td><td><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

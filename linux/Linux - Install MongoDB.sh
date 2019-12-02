@@ -16,8 +16,6 @@ wget -qO - "https://www.mongodb.org/static/pgp/server-4.2.asc" | apt-key add -; 
 echo "deb http://repo.mongodb.org/apt/debian buster/mongodb-org/4.2 main" | tee "/etc/apt/sources.list.d/mongodb-org-4.2.list"; \
 apt-get -y update; apt-get -y install "mongodb-org"; \
 fi;
-
-
 # CentOS / RHEL distros
 if [ "$(which yum 2>'/dev/null'; echo $?;)" == "0" ]; then \
 echo -e "[mongodb-org-4.2]\nname=MongoDB Repository\nbaseurl=https://repo.mongodb.org/yum/redhat/\$releasever/mongodb-org/4.2/x86_64/\ngpgcheck=1\nenabled=1\ngpgkey=https://www.mongodb.org/static/pgp/server-4.2.asc\n" > "/etc/yum.repos.d/mongodb-org-4.2.repo"; yum check-update; yum install -y mongodb-org; \

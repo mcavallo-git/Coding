@@ -252,7 +252,7 @@ This file (on GitHub):
 <tr><td><strong>NSSM</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Non-Sucking Service<br />&nbsp;&nbsp;&nbsp;Manager (Windows)</i></sub></td><td><a href="https://github.com/minio/mc">Download (source)</a></td></tr>
 <tr><td><strong>MinIO</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>S3 Storage Server</i></sub></td><td><a href="https://min.io/download#/linux">Download (source)</a></td></tr>
 <tr><td><strong>MongoDB</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>Document Database</i></sub></td><td><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Download (source)</a></td></tr>
-<tr><td><strong>Microsoft® SQL Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>2014 Service Pack 2 (SP2) Express</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=53167">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft SQL Server</strong> <br /><sub>&nbsp;&nbsp;&nbsp;<i>2014 Service Pack 2 (SP2) Express</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=53167">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp; LocalDB (SqlLocalDB)<br />&nbsp;&nbsp;&nbsp; Express (SQLEXPR)<br />&nbsp;&nbsp;&nbsp; Express with Tools (SQLEXPRWT)<br />&nbsp;&nbsp;&nbsp; SQL Server Management Studio Express (SQLManagementStudio)<br />&nbsp;&nbsp;&nbsp; Express with Advanced Services (SQLEXPRADV)</i></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

@@ -46,7 +46,7 @@ $EnableFeatures += "WAS-Config-APIs";
 $EnableFeatures += "WAS-NET-Environment";
 $EnableFeatures += "WAS-Process-Model";
 $EnableFeatures += "Web-App-Dev";
-$EnableFeatures += "Web-Asp-Net";
+$EnableFeatures += "Web-Asp-Net";  # ASP.NET 3.5
 $EnableFeatures += "Web-Asp-Net45";
 $EnableFeatures += "Web-Basic-Auth";
 $EnableFeatures += "Web-Common-Http";
@@ -75,10 +75,8 @@ $EnableFeatures += "Web-Windows-Auth";
 $EnableFeatures += "Windows-Defender";
 $EnableFeatures += "Windows-Defender-Features";
 $EnableFeatures += "Windows-Defender-Gui";
+$EnableFeatures += "Wireless-Networking";  # Wireless LAN Service
 $EnableFeatures += "WoW64-Support";
-
-# NEED [ ASP.NET 3.5 ]
-# NEED [ WIRELESS LAN SERVICE ]
 
 $FeaturesToEnable = ( `
 Get-WindowsFeature `
@@ -102,7 +100,7 @@ $EnableOptionalFeatures += "CoreFileServer";
 $EnableOptionalFeatures += "FileAndStorage-Services";
 $EnableOptionalFeatures += "File-Services";
 $EnableOptionalFeatures += "IIS-ApplicationDevelopment";
-$EnableOptionalFeatures += "IIS-ASPNET";
+$EnableOptionalFeatures += "IIS-ASPNET";    # 3.5
 $EnableOptionalFeatures += "IIS-ASPNET45";
 $EnableOptionalFeatures += "IIS-BasicAuthentication";
 $EnableOptionalFeatures += "IIS-CommonHttpFeatures";

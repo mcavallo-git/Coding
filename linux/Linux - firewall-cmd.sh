@@ -7,10 +7,10 @@ firewall-cmd --list-all;
 firewall-cmd --get-active-zones;
 
 # List known services
-firewall-cmd --get-services | tr " " "\n";
+firewall-cmd --get-services | tr " " "\n" > ~/firewall-cmd.get-services.$(hostname).log;
 
 # List known icmptypes
-firewall-cmd --get-icmptypes | tr " " "\n";
+firewall-cmd --get-icmptypes | tr " " "\n" > ~/firewall-cmd.get-services.$(hostname).log;
 
 # ------------------------------------------------------------
 

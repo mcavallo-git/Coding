@@ -10,17 +10,7 @@
 #   |--> Includes:  "Cancel" button
 #   |--> Includes:  Close-window option ("X", top-right)
 #
-$oReturn=[System.Windows.Forms.MessageBox]::Show("Message Text","Title",[System.Windows.Forms.MessageBoxButtons]::OKCancel);
-Switch ($oReturn) {
-    "OK" {
-        write-host "You pressed OK"
-        # Enter some code
-    } 
-    "Cancel" {
-        write-host "You pressed Cancel"
-        # Enter some code
-    } 
-}
+$oReturn=[System.Windows.Forms.MessageBox]::Show("Confirm?","Not Title",[System.Windows.Forms.MessageBoxButtons]::OKCancel); Switch ($oReturn) { "OK" { Write-Host "`"OK`" selected"; } "Cancel" { Write-Host "`"Cancel`" selected"; } }
 
 
 # ------------------------------------------------------------
@@ -30,7 +20,7 @@ Switch ($oReturn) {
 #   |--> Includes:  "OK" button
 #   |--> Includes:  Close-window option ("X", top-right)
 #
-$oReturn=[System.Windows.Forms.Messagebox]::Show("This is the Message text"); $oReturn;
+$oReturn=[System.Windows.Forms.Messagebox]::Show("Test alert!"); $oReturn;
 
 
 # ------------------------------------------------------------

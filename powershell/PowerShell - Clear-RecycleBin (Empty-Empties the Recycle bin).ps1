@@ -1,4 +1,16 @@
-C:\Windows\System32\cmd.exe /C "ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin";
+# ------------------------------------------------------------
+# 
+# Empty Recycle Bin --> Require confirmation
+# 
+If (([System.Windows.Forms.MessageBox]::Show("Empty the Recycle Bin?","Empty Recycle Bin",[System.Windows.Forms.MessageBoxButtons]::OKCancel)) -Eq "OK") { cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin'; };
+
+
+# ------------------------------------------------------------
+# 
+# Empty Recycle Bin --> Immediately (no confirmation req'd)
+# 
+cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin';
+
 
 # ------------------------------------------------------------
 # Citation(s)

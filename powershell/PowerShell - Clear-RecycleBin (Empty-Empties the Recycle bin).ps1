@@ -1,0 +1,1 @@
+C:\Windows\System32\cmd.exe /C "ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin";

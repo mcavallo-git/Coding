@@ -1,4 +1,14 @@
 #!/bin/bash
+# ------------------------------------------------------------
+#
+# Ensure the firewall is enabled & actively running
+#
+
+systemctl enable firewalld;
+systemctl start firewalld;
+
+
+# ------------------------------------------------------------
 
 # List everything added for or enabled in zone. If zone is omitted, default zone will be used
 firewall-cmd --list-all;
@@ -11,6 +21,7 @@ firewall-cmd --get-services | tr " " "\n" > ~/firewall-cmd.get-services.$(hostna
 
 # List known icmptypes
 firewall-cmd --get-icmptypes | tr " " "\n" > ~/firewall-cmd.get-icmptypes.$(hostname).log;
+
 
 # ------------------------------------------------------------
 

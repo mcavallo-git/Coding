@@ -14,7 +14,11 @@ cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin';
 
 # ------------------------------------------------------------
 # Citation(s)
-# 
-#   winaero.com  |  "Empty Recycle Bin automatically in Windows 10"  |  https://winaero.com/blog/empty-recycle-bin-automatically-in-windows-10/
-# 
+#
+#   docs.microsoft.com  |  "MessageBox Class - Displays a message window, also known as a dialog box, which presents a message to the user"  |  https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messagebox
+#
+#   stackoverflow.com  |  "Powershell unable to find type [System.Windows.Forms.KeyEventHandler]"  |  https://stackoverflow.com/a/27792262
+#
+#   michlstechblog.info  |  "Powershell: How to show a message box"  |  https://michlstechblog.info/blog/powershell-show-a-messagebox/
+#
 # ------------------------------------------------------------

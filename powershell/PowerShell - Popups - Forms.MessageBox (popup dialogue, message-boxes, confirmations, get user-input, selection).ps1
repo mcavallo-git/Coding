@@ -24,6 +24,14 @@ $oReturn=[System.Windows.Forms.Messagebox]::Show("Test alert!"); $oReturn;
 
 
 # ------------------------------------------------------------
+# 
+# Ex) Show popup w/ text "Empty the Recycle Bin?" -> If "OK" button is selected, them Empty the Recycle Bin
+#
+If (([System.Windows.Forms.MessageBox]::Show("Empty the Recycle Bin?","Empty Recycle Bin",[System.Windows.Forms.MessageBoxButtons]::OKCancel)) -Eq "OK") { cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin'; };
+
+
+
+# ------------------------------------------------------------
 # Citation(s)
 #
 #   docs.microsoft.com  |  "MessageBox Class - Displays a message window, also known as a dialog box, which presents a message to the user"  |  https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.messagebox

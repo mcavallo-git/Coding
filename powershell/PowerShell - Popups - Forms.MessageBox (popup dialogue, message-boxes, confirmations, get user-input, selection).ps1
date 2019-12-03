@@ -27,8 +27,7 @@ $oReturn=[System.Windows.Forms.Messagebox]::Show("Test alert!"); $oReturn;
 # 
 # Ex) Show popup w/ text "Empty the Recycle Bin?" -> If "Yes" button is selected, them Empty the Recycle Bin
 #
-PowerShell.exe -Command "[void] [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); If (([System.Windows.Forms.MessageBox]::Show('Empty the Recycle Bin?','Confirmation Required',[System.Windows.Forms.MessageBoxButtons]::YesNo)) -Eq 'Yes') { cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin'; };";
-
+PowerShell.exe -Command "[void] [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); If (([System.Windows.Forms.MessageBox]::Show('Empty the Recycle Bin?','Confirmation Required',[System.Windows.Forms.MessageBoxButtons]::YesNo)) -Eq 'Yes') { cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin'; };" -WindowStyle "Hidden";
 
 
 # ------------------------------------------------------------

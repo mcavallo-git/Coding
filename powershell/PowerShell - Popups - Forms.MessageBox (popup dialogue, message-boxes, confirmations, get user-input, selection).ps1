@@ -6,18 +6,18 @@
 # 
 # Confirmation Popup (get input selection from user)
 #   |
-#   |--> Includes:  "OK" button
-#   |--> Includes:  "Cancel" button
+#   |--> Includes:  "Yes" button
+#   |--> Includes:  "No" button
 #   |--> Includes:  Close-window option ("X", top-right)
 #
-$oReturn=[System.Windows.Forms.MessageBox]::Show("Confirm?","Not Title",[System.Windows.Forms.MessageBoxButtons]::OKCancel); Switch ($oReturn) { "OK" { Write-Host "`"OK`" selected"; } "Cancel" { Write-Host "`"Cancel`" selected"; } }
+$oReturn=[System.Windows.Forms.MessageBox]::Show("Confirm?","Not Title",[System.Windows.Forms.MessageBoxButtons]::YesNo); Switch ($oReturn) { "Yes" { Write-Host "`"Yes`" selected"; } "No" { Write-Host "`"No`" selected"; } }
 
 
 # ------------------------------------------------------------
 # 
 # Alert Popup (output-only)
 #   |
-#   |--> Includes:  "OK" button
+#   |--> Includes:  "Yes" button
 #   |--> Includes:  Close-window option ("X", top-right)
 #
 $oReturn=[System.Windows.Forms.Messagebox]::Show("Test alert!"); $oReturn;
@@ -25,9 +25,9 @@ $oReturn=[System.Windows.Forms.Messagebox]::Show("Test alert!"); $oReturn;
 
 # ------------------------------------------------------------
 # 
-# Ex) Show popup w/ text "Empty the Recycle Bin?" -> If "OK" button is selected, them Empty the Recycle Bin
+# Ex) Show popup w/ text "Empty the Recycle Bin?" -> If "Yes" button is selected, them Empty the Recycle Bin
 #
-PowerShell.exe -Command "[void] [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); If (([System.Windows.Forms.MessageBox]::Show('Empty the Recycle Bin?','Empty Recycle Bin',[System.Windows.Forms.MessageBoxButtons]::OKCancel)) -Eq 'OK') { cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin'; };";
+PowerShell.exe -Command "[void] [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); If (([System.Windows.Forms.MessageBox]::Show('Empty the Recycle Bin?','Empty Recycle Bin',[System.Windows.Forms.MessageBoxButtons]::YesNo)) -Eq 'Yes') { cmd.exe /C 'ECHO Y|PowerShell.exe -NoProfile -Command Clear-RecycleBin'; };";
 
 
 

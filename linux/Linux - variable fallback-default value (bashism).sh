@@ -1,7 +1,7 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-#	Linux - bash completionisms - fallback value
+#	Linux - bash parameter substitution - fallback value
 #
 # ------------------------------------------------------------
 

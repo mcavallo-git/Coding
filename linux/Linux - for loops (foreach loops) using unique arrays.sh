@@ -60,6 +60,13 @@ done;
 
 
 # ------------------------------------------------------------
+#
+# Linux - While loop (example)
+#
+
+while [ 1 ]; do echo "$(echo $(find /var/lib/mongo | wc -l)'                        Files in /var/lib/mongo' && du -s /var/lib/mongo;)"; sleep 15; done;
+
+# ------------------------------------------------------------
 
 #
 # NOTE

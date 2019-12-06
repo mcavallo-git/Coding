@@ -7,12 +7,9 @@ systemctl list-unit-files --type service --state enabled,generated
 # 
 # Show startup config/options (for a given service)
 # 
-# 
-SVC_NAME="mongod";
+#
 
-systemctl "${SVC_NAME}" status;
-
-cat "/lib/systemd/system/${SVC_NAME}.service";
+SVC="mongod"; cat "/lib/systemd/system/${SVC}.service";
 
 
 # ------------------------------------------------------------

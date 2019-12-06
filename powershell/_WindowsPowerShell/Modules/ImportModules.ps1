@@ -20,8 +20,8 @@ $PSM1 = @{};
 
 $PSM1.InvocationBasename = ([IO.Path]::GetFileNameWithoutExtension($MyInvocation.MyCommand.Name));
 
-# $PSM1.Verbosity = 0;
-$PSM1.Verbosity = 1;
+$PSM1.Verbosity = 0;
+# $PSM1.Verbosity = 1;
 
 # ------------------------------------------------------------
 

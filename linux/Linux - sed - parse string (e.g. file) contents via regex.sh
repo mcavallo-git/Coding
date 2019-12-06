@@ -21,10 +21,11 @@ sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED
 # Example)  Comment out lines starting with [ ... ]
 #
 
-# MongoDB - Disable replication mode
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf";
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf";
-
+### MongoDB - Disable Replication
+systemctl stop mongod; \
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf"; \
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf"; \
+systemctl start mongod;
 
 
 # ------------------------------------------------------------

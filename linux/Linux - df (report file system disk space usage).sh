@@ -2,6 +2,11 @@
 if [[ 0 -eq 1 ]]; then
 
 # ------------------------------------------------------------
+THIS_DISK_FREE_BYTES=$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $4}');
+echo -e "\n\n""Free disk space (in bytes) on current disk:  [ ${THIS_DISK_FREE_BYTES} ]""\n\n";
+
+
+# ------------------------------------------------------------
 
 THIS_DISK_SIZE_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $2}') B";
 THIS_DISK_SIZE_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $2}') KB";

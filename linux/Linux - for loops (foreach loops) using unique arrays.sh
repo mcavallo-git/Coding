@@ -64,7 +64,7 @@ done;
 # Linux - While loop (example)
 #
 
-while [ 1 ]; do echo "$(echo $(find /var/lib/mongo | wc -l)'                        Files in /var/lib/mongo' && du -s /var/lib/mongo;)"; sleep 15; done;
+while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
 
 # ------------------------------------------------------------
 

@@ -18,6 +18,17 @@ sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED
 
 # ------------------------------------------------------------
 #
+# Example)  Comment out lines starting with [ ... ]
+#
+
+# MongoDB - Disable replication mode
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf";
+
+
+
+# ------------------------------------------------------------
+#
 #        -e script, --expression=script
 #               add the script to the commands to be executed
 #

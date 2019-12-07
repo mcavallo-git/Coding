@@ -1,4 +1,7 @@
 {
+	"hotkeys": {
+		"Run as admin": "CTRL + SHIfT + enter"
+	},
 	"management consoles": {
 		"certmgr.msc": "Certificate Manager",
 		"ciadv.msc": "Indexing Service",

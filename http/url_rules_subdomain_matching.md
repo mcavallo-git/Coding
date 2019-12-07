@@ -22,14 +22,14 @@ This file (on GitHub):
 	</tr>
 	<!-- ------------------------------------------------------------ -->
 	<tr>
-		<td><code>duosecurity.com</code></td>
+		<td><code>amazon.com</code></td>
 		<td></td>
 		<td>Yes</td>
 		<td>No</td>
 	</tr>
 	<!-- ------------------------------------------------------------ -->
 	<tr>
-		<td><code>amazon.com</code></td>
+		<td><code>duosecurity.com</code></td>
 		<td></td>
 		<td>Yes</td>
 		<td>No</td>

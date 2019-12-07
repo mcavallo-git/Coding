@@ -1,6 +1,6 @@
 {
 	"hotkeys": {
-		"Run as admin": "CTRL + SHIfT + enter"
+		"Run as admin": "Ctrl + Shift + Enter"
 	},
 	"management consoles": {
 		"certmgr.msc": "Certificate Manager",

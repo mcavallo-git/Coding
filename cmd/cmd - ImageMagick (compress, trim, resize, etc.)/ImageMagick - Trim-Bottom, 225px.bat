@@ -18,6 +18,12 @@ SET "INPUT_DIR=Input"
 SET "OUTPUT_DIR=Output"
 
 REM		--= ImageMagick  :::  Trim the Image(s) ==-   
+FOR %%I IN ("%INPUT_DIR%\*.png") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.png"
+	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.bmp"
+	DEL /f "%%I"
+	ECHO.
+)
 FOR %%I IN ("%INPUT_DIR%\*.jpg") DO (
 	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.jpg"
 	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.jpg"

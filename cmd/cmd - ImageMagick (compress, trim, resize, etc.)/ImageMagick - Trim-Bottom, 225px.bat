@@ -17,22 +17,25 @@ REM		Input & Output Directories
 SET "INPUT_DIR=Input"
 SET "OUTPUT_DIR=Output"
 
-REM		--= ImageMagick  :::  Trim the Image(s) ==-   
-FOR %%I IN ("%INPUT_DIR%\*.png") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.png"
-	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.bmp"
+REM		--= ImageMagick  :::  Trim the Image(s) ==-
+SET EXT="bmp"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.%EXT%"
 	DEL /f "%%I"
 	ECHO.
 )
-FOR %%I IN ("%INPUT_DIR%\*.jpg") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.jpg"
-	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.jpg"
+SET EXT="jpg"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.%EXT%"
 	DEL /f "%%I"
 	ECHO.
 )
-FOR %%I IN ("%INPUT_DIR%\*.png") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.png"
-	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.png"
+SET EXT="png"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	magick "%%I" -gravity south -chop 0x%TrimBottom% -gravity north -chop 0x%TrimTop% -gravity east -chop %TrimRight%x0 -gravity west -chop %TrimLeft%x0 -resize %ResizeToWidth% "%OUTPUT_DIR%\%%~nI.%EXT%"
 	DEL /f "%%I"
 	ECHO.
 )

@@ -12,8 +12,8 @@ SET ResizeToWidthPx=1920
 REM /***  Resize Image to %ResizeToWidthPx% Pixels in Width  && Delete input image(s) once they've been converted  ***/
 SET EXT="bmp"
 FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
-	magick "%%I" -resize %ResizeToWidthPx% "%OUTPUT_DIR%\%%~nI.%EXT%"
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.png"
+	magick "%%I" -resize %ResizeToWidthPx% "%OUTPUT_DIR%\%%~nI.png"
 	DEL /f "%%I"
 	ECHO.
 )

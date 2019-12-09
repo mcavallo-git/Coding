@@ -256,7 +256,7 @@ This file (on GitHub):
 <tr><td><strong>MongoDB</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Document Database</i></sub></td><td><a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft® ODBC Driver 11</strong> <sub><i><br />&nbsp;&nbsp;&nbsp; for SQL Server® - Windows</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=36434">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2014 Service Pack 2 (SP2) Express</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=53167">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;SqlLocalDB - LocalDB<br />&nbsp;&nbsp;&nbsp;SQLEXPR - Express<br />&nbsp;&nbsp;&nbsp;SQLEXPRWT - Express with Tools<br />&nbsp;&nbsp;&nbsp;SQLManagementStudio - SQL Server Management Studio Express<br />&nbsp;&nbsp;&nbsp;SQLEXPRADV - Express with Advanced Services</i></sub></td></tr>
-<tr><td><strong>Microsoft SSMS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;SQL Server Management Studio<br />&nbsp;&nbsp;&nbsp;SQL Infrastructure Management Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=53167">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft SSMS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;SQL Server Management Studio<br />&nbsp;&nbsp;&nbsp;SQL Infrastructure Management Tool</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

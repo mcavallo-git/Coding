@@ -9,6 +9,15 @@ function SyncRegistry {
 	} Else {
 
 		# ------------------------------------------------------------
+		# TO-DO
+		#
+		#   Power Settings  -->  Monitor Off after 30-min
+		#   Power Settings  -->  Never Sleep
+		#   Screen Saver  -->  Activate  [ Blank-Screensaver ("None" option) ]  after  [ 20-min ]
+		#
+		#
+
+		# ------------------------------------------------------------
 		# Define any Network Maps which will be required during the runtime
 		#  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 

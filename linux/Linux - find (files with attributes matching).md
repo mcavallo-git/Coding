@@ -365,7 +365,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 find "/etc/apt/sources.list"* \
 -type f \
 -not -name *".save" \
--exec echo -e '\n→ apt package-repositories in "{}" :' \; \
+-exec echo -e '\n--> apt package-repositories in "{}" :' \; \
 -exec grep -h ^deb '{}' \; \
 ;
 

@@ -108,11 +108,11 @@ c\
 EXPORT LINE
 }';
 
-# Using a\ i\ c\ WITH newlines
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\[BEFORE MATCHED]' -e 'a\[AFTER MATCHED]' -e 'c\[MATCHED]' -e '}';
+# Using a\ i\ c\
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\BEFORE' -e 'a\AFTER' -e 'c\MATCHED' -e '}';
 
-# Using a\ i\ c\ WITHOUT newlines
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\[BEFORE MATCHED]' -e 'a\[AFTER MATCHED]' -e 'c\[MATCHED]' -e '}';
+# Using a\ i\
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\BEFORE' -e 'a\AFTER' -e '}';
 
 echo -e "$(seq 10;)\nexport PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL\n$(seq 10;)" \
 | sed -r -e '/^ *export ?.* MAIL ?.*/ {' -e 'i\' -e 'BEFORE' -e 'a\' -e 'AFTER' -e 'c\' -e 'EXPORT LINE' -e '}';

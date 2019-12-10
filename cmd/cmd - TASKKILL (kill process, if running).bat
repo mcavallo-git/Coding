@@ -1,6 +1,9 @@
 @ECHO OFF
-
-REM		Get PID --> Splashtop remote connection(s)
+REM
+REM ------------------------------------------------------------
+REM
+REM Get PID --> Splashtop remote connection(s)
+REM
 SET EXE_SPLASHTOP=SRFeature.exe
 
 SET PID_SPLASHTOP=No
@@ -17,6 +20,23 @@ IF NOT %PID_SPLASHTOP%==No (
 )
 
 TIMEOUT /T 60
+
+
+REM ------------------------------------------------------------
+REM 
+REM Kill NGINX
+REM 
+TASKKILL /F /FI "IMAGENAME eq nginx.exe"
+TIMEOUT /T 60
+
+
+REM ------------------------------------------------------------
+REM 
+REM Kill VMWare
+REM 
+TASKKILL /F /FI "IMAGENAME eq vmware.exe"
+TIMEOUT /T 60
+
 
 REM ------------------------------------------------------------
 REM Citation(s)

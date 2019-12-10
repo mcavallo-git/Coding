@@ -28,7 +28,7 @@ sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/
 systemctl start mongod;
 
 
-### Linux - Disable "You have new mail in /var/spool/mail/..." alerts
+### Bash - Disable "You have new mail in /var/spool/mail/..." alerts
 if [ -n "$(sed -rne 's/^\s*MAIL=.*$/\0/p' '/etc/profile' 2>'/dev/null';)" ]; then \
 sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/#/' "/etc/profile"; \
 fi;

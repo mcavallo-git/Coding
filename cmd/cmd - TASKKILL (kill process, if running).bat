@@ -34,7 +34,17 @@ REM ------------------------------------------------------------
 REM 
 REM Kill VMWare
 REM 
+TASKKILL /F /FI "IMAGENAME eq vmware-usbarbitrator64.exe"
+TASKKILL /F /FI "IMAGENAME eq vmware-authd.exe"
+TASKKILL /F /FI "IMAGENAME eq vmms.exe"
+TASKKILL /F /FI "IMAGENAME eq vmnat.exe"
+TASKKILL /F /FI "IMAGENAME eq vmnetdhcp.exe"
+TASKKILL /F /FI "IMAGENAME eq vmware-hostd.exe"
+TASKKILL /F /FI "IMAGENAME eq vmcompute.exe"
+TASKKILL /F /FI "IMAGENAME eq vmware-tray.exe"
 TASKKILL /F /FI "IMAGENAME eq vmware.exe"
+TASKKILL /F /FI "IMAGENAME eq vmware-unity-helper.exe"
+TASKKILL /F /FI "IMAGENAME eq vmware-vmx.exe"
 TIMEOUT /T 60
 
 

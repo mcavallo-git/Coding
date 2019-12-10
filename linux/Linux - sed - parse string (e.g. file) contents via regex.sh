@@ -109,10 +109,10 @@ EXPORT LINE
 }';
 
 # Using a\ i\ c\
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\BEFORE' -e 'a\AFTER' -e 'c\MATCHED' -e '}';
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\BEFORE" -e "a\AFTER" -e "c\MATCHED" -e "}";
 
 # Using a\ i\
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\BEFORE' -e 'a\AFTER' -e '}';
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\BEFORE" -e "a\AFTER" -e "}";
 
 
 # ------------------------------------------------------------

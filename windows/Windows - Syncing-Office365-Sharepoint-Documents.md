@@ -18,11 +18,11 @@ Select “Open in OneDrive” on the popup (if shown – Chrome)
 
 OneDrive should open on your local PC requesting a series of confirm/accepts for the local machine’s configuration - Walk through them and confirm as-needed (leave drive-location as default as general preference)
 
-After you've finished the sync, you may access the directory quickly by opening Windows Explorer (to any directory) → On explorer's left menu, locate a Business-Building (🏢) icon just above "This PC" which should be shown as “🏢 Getac Video”.
+After you've finished the sync, you may access the directory quickly by opening Windows Explorer (to any directory) --> On explorer's left menu, locate a Business-Building (🏢) icon just above "This PC" which should be shown as “🏢 Getac Video”.
   |
-  |→ Note: This will contain all of your SharePoint Office365 directory/files synced to Office365's cloud storage.
+  |--> Note: This will contain all of your SharePoint Office365 directory/files synced to Office365's cloud storage.
   |
-  |→ Note: This storage is separate from your User directory/files synced to Office365's cloud storage.
+  |--> Note: This storage is separate from your User directory/files synced to Office365's cloud storage.
 
 ------------------------------------------------------------
 

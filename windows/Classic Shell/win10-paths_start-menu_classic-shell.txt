@@ -1,0 +1,22 @@
+
+
+START MENU
+%appdata%\Microsoft\Internet Explorer\Quick Launch\User Pinned\StartMenu
+
+TASKBAR
+%appdata%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar
+
+OTHER (Not sure exactly what these are)
+"%APPDATA%\Microsoft\Internet Explorer\Quick Launch"
+
+--> Pinned Items, Start Menu (Classic Shell) (Shortcut)
+"%APPDATA%\ClassicShell\Pinned"
+
+--> Pinned Items, Start Menu (Win10) (Shortcut)
+"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\StartMenu"
+
+--> Pinned Items, Taskbar (Win10) (Shortcut)
+"%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"
+
+
+

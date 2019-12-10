@@ -3,6 +3,11 @@
 # Linux - sed
 #
 
+#
+# Simple Example ) Replace substrings within strings
+#
+echo "hello world" | sed -e 's|world|not world|g';
+
 
 # ------------------------------------------------------------
 #
@@ -83,21 +88,34 @@ sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_starting_whitespace}"
 # ------------------------------------------------------------
 # 
 # sed also contains prebuilt methods to:
-#		Add [lines of] text BEFORE the matched-text
-#		Add [lines of] text AFTER the matched-text
-#		Modify the matched-text, including  modifying it to be [blank] to erase it entirely
-#		 |--> Additionally, you can use 'c\' to change the entire line that the matched-text was on
+#		i\ Add [lines of] text BEFORE the matched-text
+#		a\ Add [lines of] text AFTER the matched-text
+#		c\ Modify the matched-text, including  modifying it to be [blank] to erase it entirely
 #
 
-sed '
-/MATCH THIS TEXT/ {
+# As a GNU extension, the i command and text can be separated into two -e parameters, enabling easier scripting:
+seq 10 | sed -e '/7/i\' -e hello;
+
+
+echo -e "$(seq 10;)\nexport PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL\n$(seq 10;)" \
+| sed -r '
+/^ *export ?.* MAIL ?.*/ {
 i\
-Add this line before
+BEFORE
 a\
-Add this line after
+AFTER
 c\
-Change the line to this one
+EXPORT LINE
 }';
+
+# Using a\ i\ c\ WITH newlines
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\[BEFORE MATCHED]' -e 'a\[AFTER MATCHED]' -e 'c\[MATCHED]' -e '}';
+
+# Using a\ i\ c\ WITHOUT newlines
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e '/^5$/{' -e 'i\[BEFORE MATCHED]' -e 'a\[AFTER MATCHED]' -e 'c\[MATCHED]' -e '}';
+
+echo -e "$(seq 10;)\nexport PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL\n$(seq 10;)" \
+| sed -r -e '/^ *export ?.* MAIL ?.*/ {' -e 'i\' -e 'BEFORE' -e 'a\' -e 'AFTER' -e 'c\' -e 'EXPORT LINE' -e '}';
 
 
 # ------------------------------------------------------------
@@ -153,6 +171,8 @@ sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 #
 sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"
 
+sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"
+
 
 # ------------------------------------------------------------
 #
@@ -192,6 +212,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+# 	www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques
 #
 # 	stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #

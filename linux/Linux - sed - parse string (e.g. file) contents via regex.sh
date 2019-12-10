@@ -10,10 +10,10 @@
 #
 
 # Disable MOTD (Message of the Day)
-sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
+sudo sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
 
 # Enable MOTD (Message of the Day)
-sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news";
+sudo sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news";
 
 
 # ------------------------------------------------------------
@@ -23,9 +23,15 @@ sudo sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED
 
 ### MongoDB - Disable Replication
 systemctl stop mongod; \
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf"; \
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf"; \
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf"; \
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf"; \
 systemctl start mongod;
+
+
+### Linux - Disable "You have new mail in /var/spool/mail/..." alerts
+if [ -n "$(sed -rne 's/^\s*MAIL=.*$/\0/p' '/etc/profile' 2>'/dev/null';)" ]; then \
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/#/' "/etc/profile"; \
+fi;
 
 
 # ------------------------------------------------------------
@@ -36,7 +42,7 @@ systemctl start mongod;
 #        -n, --quiet, --silent
 #               suppress automatic printing of pattern space
 #
-#        -E, -r, -r
+#        -E, -r, --regexp-extended
 #               use extended regular expressions in the script (for portability use POSIX -E).
 #
 
@@ -54,11 +60,11 @@ printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 # ------------------------------------------------------------
 # 
 # sed
-#  |-->  --in-place="..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
+#  |-->  -i"..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
 #  |-->  -e '/.../d'  -->  remove specific lines, matching a given pattern
 #
 
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/pattern to match/d' ./infile
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/pattern to match/d' ./infile
 
 
 # ------------------------------------------------------------
@@ -68,10 +74,10 @@ sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/pattern to match/d' ./in
 #
 
 sed_remove_whitespace_lines='/^\s*$/d';
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_whitespace_lines}" "FILEPATH";
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_whitespace_lines}" "FILEPATH";
 
 sed_remove_starting_whitespace='s/^\s*//g';
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_starting_whitespace}" "FILEPATH";
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_starting_whitespace}" "FILEPATH";
 
 
 # ------------------------------------------------------------
@@ -138,7 +144,7 @@ echo -e "${TEST_STR}" | sed -n "${SED_REVERSE_METHOD2}" | head -n -${TOP_LINES_T
 # 
 # Example)  Remove windows-newlines (e.g. remove CR's)
 #
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
+sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 
 
 # ------------------------------------------------------------

@@ -93,26 +93,29 @@ sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_starting_whitespace}"
 #		c\ Modify the matched-text, including  modifying it to be [blank] to erase it entirely
 #
 
+
 # As a GNU extension, the i command and text can be separated into two -e parameters, enabling easier scripting:
 seq 10 | sed -e '/7/i\' -e hello;
 
 
-echo -e "$(seq 10;)\nexport PATH USER LOGNAME MAIL HOSTNAME HISTSIZE HISTCONTROL\n$(seq 10;)" \
-| sed -r '
-/^ *export ?.* MAIL ?.*/ {
-i\
-BEFORE
-a\
-AFTER
-c\
-EXPORT LINE
-}';
+# Example)  Using a\ i\ c\
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\BEFORE" -e "a\\AFTER" -e "c\\MATCHED" -e "}";
 
-# Using a\ i\ c\
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\BEFORE" -e "a\AFTER" -e "c\MATCHED" -e "}";
 
-# Using a\ i\
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\BEFORE" -e "a\AFTER" -e "}";
+
+# Example)  Using a\ i\ c\ with variables
+BEFORE="DAT_BEFORE_STRING"; AFTER="DAT_AFTER_STRING"; MATCHED="DAT_MATCHED_STRING";
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\${BEFORE}" -e "a\\${AFTER}" -e "c\\${MATCHED}" -e "}";
+
+
+# Example)  Using a\ i\ (adds text before / after match)
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\BEFORE" -e "a\\AFTER" -e "}";
+
+
+# Example)  Using a\ i\ with variables (adds text before / after match)
+BEFORE="DAT_BEFORE_STRING"; AFTER="DAT_AFTER_STRING";
+echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\${BEFORE}" -e "a\\${AFTER}" -e "}";
+
 
 
 # ------------------------------------------------------------

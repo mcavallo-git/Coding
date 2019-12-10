@@ -1006,7 +1006,7 @@ LShift & RShift::
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Caps Lock
-;  ACTION:  Permanently disable CapsLock (unless Shift+CapsLock is pressed, then toggle CapsLock like normal)
+;  ACTION:  Permanently DISABLE Capslock (unless pressed with shift, which toggles it as-normal)
 ;
 CapsLock::
 ^CapsLock::
@@ -1016,6 +1016,20 @@ CapsLock::
 	Return
 +CapsLock::
 	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
+	Return
+	
+; ----------------------------------------------------
+;  HOTKEY:  Num Lock
+;  ACTION:  Permanently DISABLE Numlock (unless pressed with shift, which toggles it as-normal)
+;
+Numlock::
+^Numlock::
+!Numlock::
+#Numlock::
+	SetNumlockState, On
+	Return
++Numlock::
+	SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
 	Return
 
 

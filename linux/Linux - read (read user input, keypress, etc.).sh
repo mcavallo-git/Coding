@@ -26,7 +26,7 @@ read -p "Perform action [ xyz ], now? (y/n)  " -n 1 -t 60 -r; RETURN_CODE_READ=$
 echo "";
 if [ ${RETURN_CODE_READ} -gt 128 ]; then
 	echo -e "Response timed out after ${READ_TIMEOUT}s";
-elif [ -z "${REPLY}" ] && [[ $REPLY =~ ^[Yy]$ ]]; then
+elif [ -n "${REPLY}" ] && [[ $REPLY =~ ^[Yy]$ ]]; then
 	echo "Confirmed - Performing Action [ xyz ] ...";
 else
 	echo "Denied - Skipping action [ xyz ]";

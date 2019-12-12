@@ -1,0 +1,1073 @@
+------------------------------------------------------------
+amanda-client
+  ports: 10080/udp 10080/tcp
+  protocols:
+  source-ports:
+  modules: amanda
+  destination:
+------------------------------------------------------------
+amanda-k5-client
+  ports: 10082/tcp
+  protocols:
+  source-ports:
+  modules: amanda
+  destination:
+------------------------------------------------------------
+amqp
+  ports: 5672/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+amqps
+  ports: 5671/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+apcupsd
+  ports: 3551/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+audit
+  ports: 60/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bacula
+  ports: 9101/tcp 9102/tcp 9103/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bacula-client
+  ports: 9102/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bgp
+  ports: 179/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bitcoin
+  ports: 8333/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bitcoin-rpc
+  ports: 8332/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bitcoin-testnet
+  ports: 18333/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+bitcoin-testnet-rpc
+  ports: 18332/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ceph
+  ports: 6800-7300/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ceph-mon
+  ports: 3300/tcp 6789/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+cfengine
+  ports: 5308/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+condor-collector
+  ports: 9618/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ctdb
+  ports: 4379/tcp 4379/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+dhcp
+  ports: 67/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+dhcpv6
+  ports: 547/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+dhcpv6-client
+  ports: 546/udp
+  protocols:
+  source-ports:
+  modules:
+  destination: ipv6:fe80::/64
+------------------------------------------------------------
+distcc
+  ports: 3632/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+dns
+  ports: 53/tcp 53/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+docker-registry
+  ports: 5000/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+docker-swarm
+  ports: 2377/tcp 7946/tcp 7946/udp 4789/udp
+  protocols: esp
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+dropbox-lansync
+  ports: 17500/udp 17500/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+elasticsearch
+  ports: 9300/tcp 9200/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+etcd-client
+  ports: 2379/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+etcd-server
+  ports: 2380/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+finger
+  ports: 79/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+freeipa-ldap
+  ports: 80/tcp 443/tcp 88/tcp 88/udp 464/tcp 464/udp 123/udp 389/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+freeipa-ldaps
+  ports: 80/tcp 443/tcp 88/tcp 88/udp 464/tcp 464/udp 123/udp 636/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+freeipa-replication
+  ports: 7389/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+freeipa-trust
+  ports: 135/tcp 138-139/tcp 138-139/udp 389/tcp 389/udp 445/tcp 445/udp 1024-1300/tcp 3268/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ftp
+  ports: 21/tcp
+  protocols:
+  source-ports:
+  modules: ftp
+  destination:
+------------------------------------------------------------
+ganglia-client
+  ports: 8660/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ganglia-master
+  ports: 8651/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+git
+  ports: 9418/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+gre
+  ports:
+  protocols: gre
+  source-ports:
+  modules: proto-gre
+  destination:
+------------------------------------------------------------
+high-availability
+  ports: 2224/tcp 3121/tcp 5403/tcp 5404/udp 5405-5412/udp 9929/tcp 9929/udp 21064/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+http
+  ports: 80/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+https
+  ports: 443/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+imap
+  ports: 143/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+imaps
+  ports: 993/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ipp
+  ports: 631/tcp 631/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ipp-client
+  ports: 631/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ipsec
+  ports: 500/udp 4500/udp
+  protocols: ah esp
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+irc
+  ports: 6667/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ircs
+  ports: 6697/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+iscsi-target
+  ports: 3260/tcp 3260/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+isns
+  ports: 3205/tcp 3205/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+jenkins
+  ports: 8080/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+kadmin
+  ports: 749/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+kerberos
+  ports: 88/tcp 88/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+kibana
+  ports: 5601/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+klogin
+  ports: 543/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+kpasswd
+  ports: 464/tcp 464/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+kprop
+  ports: 754/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+kshell
+  ports: 544/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ldap
+  ports: 389/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ldaps
+  ports: 636/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+libvirt
+  ports: 16509/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+libvirt-tls
+  ports: 16514/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+lightning-network
+  ports: 9735/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+llmnr
+  ports: 5355/tcp 5355/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+managesieve
+  ports: 4190/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+matrix
+  ports: 443/tcp 8448/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mdns
+  ports: 5353/udp
+  protocols:
+  source-ports:
+  modules:
+  destination: ipv4:224.0.0.251 ipv6:ff02::fb
+------------------------------------------------------------
+minidlna
+  ports: 8200/tcp 1900/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mongodb
+  ports: 27017/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mosh
+  ports: 60000-61000/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mountd
+  ports: 20048/tcp 20048/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mqtt
+  ports: 1883/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mqtt-tls
+  ports: 8883/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mssql
+  ports: 1433/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ms-wbt
+  ports: 3389/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+murmur
+  ports: 64738/tcp 64738/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+mysql
+  ports: 3306/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+nfs
+  ports: 2049/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+nfs3
+  ports: 2049/tcp 2049/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+nmea-0183
+  ports: 10110/tcp 10110/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+nrpe
+  ports: 5666/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ntp
+  ports: 123/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+nut
+  ports: 3493/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+openvpn
+  ports: 1194/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ovirt-imageio
+  ports: 54322/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ovirt-storageconsole
+  ports: 55863/tcp 39543/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ovirt-vmconsole
+  ports: 2223/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+plex
+  ports: 32400/tcp 32400/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pmcd
+  ports: 44321/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pmproxy
+  ports: 44322/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pmwebapi
+  ports: 44323/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pmwebapis
+  ports: 44324/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pop3
+  ports: 110/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pop3s
+  ports: 995/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+postgresql
+  ports: 5432/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+privoxy
+  ports: 8118/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+proxy-dhcp
+  ports: 4011/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ptp
+  ports: 319/udp 320/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+pulseaudio
+  ports: 4713/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+puppetmaster
+  ports: 8140/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+quassel
+  ports: 4242/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+radius
+  ports: 1812/tcp 1812/udp 1813/tcp 1813/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+redis
+  ports: 6379/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+RH-Satellite-6
+  ports: 53/tcp 53/udp 67-69/udp 80/tcp 443/tcp 5000/tcp 5646-5647/tcp 5671/tcp 8000/tcp 8080/tcp 8140/tcp 9090/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+rpc-bind
+  ports: 111/tcp 111/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+rsh
+  ports: 514/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+rsyncd
+  ports: 873/tcp 873/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+rtsp
+  ports: 554/tcp 554/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+salt-master
+  ports: 4505/tcp 4506/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+samba
+  ports: 137/udp 138/udp 139/tcp 445/tcp
+  protocols:
+  source-ports:
+  modules: netbios-ns
+  destination:
+------------------------------------------------------------
+samba-client
+  ports: 137/udp 138/udp
+  protocols:
+  source-ports:
+  modules: netbios-ns
+  destination:
+------------------------------------------------------------
+samba-dc
+  ports: 53/tcp 53/udp 88/tcp 88/udp 135/tcp 137/udp 138/udp 139/tcp 389/tcp 389/udp
+445/tcp 464/tcp 464/udp 636/tcp 49152-65535/tcp 3268/tcp 3269/tcp
+  protocols:
+  source-ports:
+  modules: netbios-ns
+  destination:
+------------------------------------------------------------
+sane
+  ports: 6566/tcp
+  protocols:
+  source-ports:
+  modules: sane
+  destination:
+------------------------------------------------------------
+sip
+  ports: 5060/tcp 5060/udp
+  protocols:
+  source-ports:
+  modules: sip
+  destination:
+------------------------------------------------------------
+sips
+  ports: 5061/tcp 5061/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+slp
+  ports: 427/tcp 427/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+smtp
+  ports: 25/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+smtps
+  ports: 465/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+smtp-submission
+  ports: 587/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+snmp
+  ports: 161/tcp 161/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+snmptrap
+  ports: 162/tcp 162/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+spideroak-lansync
+  ports: 21327/udp 21328/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+squid
+  ports: 3128/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+ssh
+  ports: 22/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+steam-streaming
+  ports: 27036/tcp 27037/tcp 27031-27036/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+svdrp
+  ports: 6419/tcp 6419/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+svn
+  ports: 3690/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+syncthing
+  ports: 22000/tcp 21027/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+syncthing-gui
+  ports: 8384/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+synergy
+  ports: 24800/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+syslog
+  ports: 514/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+syslog-tls
+  ports: 6514/tcp 6514/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+telnet
+  ports: 23/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+tftp
+  ports: 69/udp
+  protocols:
+  source-ports:
+  modules: tftp
+  destination:
+------------------------------------------------------------
+tftp-client
+  ports:
+  protocols:
+  source-ports:
+  modules: tftp
+  destination:
+------------------------------------------------------------
+tinc
+  ports: 655/tcp 655/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+tor-socks
+  ports: 9050/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+transmission-client
+  ports: 51413/tcp 51413/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+upnp-client
+  ports:
+  protocols:
+  source-ports: 1900/udp
+  modules:
+  destination:
+------------------------------------------------------------
+vdsm
+  ports: 54321/tcp 5900-6923/tcp 49152-49216/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+vnc-server
+  ports: 5900-5903/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+wbem-http
+  ports: 5988/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+wbem-https
+  ports: 5989/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+wsman
+  ports: 5985/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+wsmans
+  ports: 5986/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+xdmcp
+  ports: 177/tcp 177/udp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+xmpp-bosh
+  ports: 5280/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+xmpp-client
+  ports: 5222/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+xmpp-local
+  ports: 5298/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+xmpp-server
+  ports: 5269/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+zabbix-agent
+  ports: 10050/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------
+zabbix-server
+  ports: 10051/tcp
+  protocols:
+  source-ports:
+  modules:
+  destination:
+------------------------------------------------------------

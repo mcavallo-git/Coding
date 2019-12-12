@@ -11,7 +11,6 @@
 #
 
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
-DAT_ARRAY=();
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");

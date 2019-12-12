@@ -9,9 +9,9 @@ echo "${ALL_SERVICES}";
 
 
 # Check if one, specific service exists, locally (requires 'sed' package)
-SERVICE_NAME="nginx";
-SERVICE_MATCHES="$(service --status-all 2>/dev/null | sed --regexp-extended --quiet --expression='s/^\ \[ (\+|\-) \]\ \ ('${SERVICE_NAME}')$/\2/p')";
-if [ "${SERVICE_NAME}" == "${SERVICE_MATCHES}" ]; then
+SERVICE_NAME="sshd";
+SERVICE_RET_CODE=$(/bin/systemctl status "${SERVICE_NAME}" --no-pager --full 1>'/dev/null' 2>&1; echo $?;);
+if [ ${SERVICE_RET_CODE} -eq 0 ]; then
 	echo "Service \"${SERVICE_NAME}\" DOES exist as a local service";
 else
 	echo "Service \"${SERVICE_NAME}\" does NOT exist as a local service";

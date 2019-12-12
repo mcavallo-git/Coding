@@ -20,14 +20,7 @@ firewall-cmd --get-active-zones;
 
 # ------------------------------------------------------------
 # Services
-
-LOGFILE_SERVICES="${HOME}/firewall-cmd --info-services.$(hostname).log"; \
-echo "" > "${LOGFILE_SERVICES}"; \
-for EACH_FIREWALL_SERVICE in $(firewall-cmd --get-services | tr ' ' '\n';); do \
-echo "------------------------------------------------------------" >> "${LOGFILE_SERVICES}"; \
-firewall-cmd --info-service="${EACH_FIREWALL_SERVICE}" >> "${LOGFILE_SERVICES}"; \
-done; \
-echo "------------------------------------------------------------" >> "${LOGFILE_SERVICES}";
+for EACH_FIREWALL_SERVICE in $(firewall-cmd --get-services | tr ' ' '\n' | sort;); do echo "------------------------------------------------------------"; firewall-cmd --info-service="${EACH_FIREWALL_SERVICE}"; done;
 
 
 # ------------------------------------------------------------

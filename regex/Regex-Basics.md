@@ -25,8 +25,8 @@
 * ```\d```  matches one "digit" character  -  shorthand for ```[0-9]```
 * ```\D```  matches one non "digit" character  -  shorthand for ```^\d```
 	
-* ```\w```  matches one "word", or ASCII, character  -  shorthand for ```[A-Za-z0-9_]```
-* ```\W```  matches one non "word" character  -  shorthand for ```[^\w]```
+* ```\w```  matches one "word character", or ASCII character  -  shorthand for ```[A-Za-z0-9_]```
+* ```\W```  matches one non "word character"  -  shorthand for ```[^\w]```
 	
 * ```\s```  matches one "whitespace" character   -  shorthand for ```[ \t\r\n\f]```
 * ```\S```  matches one non "whitespace" character  -  shorthand for ```[^\s]```

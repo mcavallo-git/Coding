@@ -3,24 +3,6 @@
 # Bash Array Variables
 #   |--> bash shell only, doesnt work in sh, etc.
 #
-# ------------------------------------------------------------
-#
-# Associative Arrays (in Bash)
-#   |--> Syntax:  declare -A VARNAME;
-#   |--> Note:  Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
-#
-
-unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
-DAT_ARRAY+=(["Key One"]="Val One");
-DAT_ARRAY+=(["Key Two"]="Val Two");
-DAT_ARRAY+=(["Key A"]="Val A");
-DAT_ARRAY+=(["Key B"]="Val B");
-for DAT_KEY in "${!DAT_ARRAY[@]}"; do
-DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
-echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
-done;
-
-
 # -------------------------------------------------------------
 #
 # Indexed Arrays
@@ -36,6 +18,24 @@ DAT_ARRAY+=("Val-3");
 DAT_ARRAY+=("Val-4");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
 echo "${DAT_ITEM}";
+done;
+
+
+# ------------------------------------------------------------
+#
+# Associative Arrays (in Bash)
+#   |--> Syntax:  declare -A VARNAME;
+#   |--> Note:  Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
+#
+
+unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY+=(["Key One"]="Val One");
+DAT_ARRAY+=(["Key Two"]="Val Two");
+DAT_ARRAY+=(["Key A"]="Val A");
+DAT_ARRAY+=(["Key B"]="Val B");
+for DAT_KEY in "${!DAT_ARRAY[@]}"; do
+DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
+echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
 
 

@@ -19,6 +19,7 @@ else
 fi;
 
 # ------------------------------------------------------------
+# Await single keypress & Listen for "y" (or "Y")
 
 READ_TIMEOUT=60;
 read -p "Perform action [ xyz ], now? (y/n)  " -n 1 -t 60 -r; RETURN_CODE_READ=$?;

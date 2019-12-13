@@ -3,6 +3,11 @@
 #	Linux - for loops (examples)
 #
 # ------------------------------------------------------------
+#
+#   Note: You can access individual keys via [ echo "${ARR_USERNAMES[0]}" ] , [ "${ARR_USERNAMES[1]}" ] , etc.
+#   Note: Make sure to use BASH ( start script with #!/bin/bash ) --> Attempting to use bashisms like this through "sh" will throw error such as [ Syntax error: "(" unexpected ]
+#
+# ------------------------------------------------------------
 
 # Example from "/etc/profile" from stock Ubuntu 19.04 image within file
 if [ -d /etc/profile.d ]; then
@@ -22,6 +27,9 @@ fi
 
 while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
 
+# ------------------------------------------------------------
+# ps + while-loop
+ps aux | grep -v grep | grep java | while read -r -d $'\n' EACH_LINE; do echo "------------------------------------------------------------"; echo "${EACH_LINE}"; done;
 
 # ------------------------------------------------------------
 
@@ -46,6 +54,7 @@ fi;
 done;
 
 # ------------------------------------------------------------
+# find + while-loop
 
 DIR_WIN32_USERS=$(find /mnt/*/Users -mindepth 0 -maxdepth 0 -type d);
 find "${DIR_WIN32_USERS}" \
@@ -68,17 +77,9 @@ find "${DIR_WIN32_USERS}" \
 done;
 
 # ------------------------------------------------------------
+# 
 
-#
-# NOTE
-#  |--> You can access individual keys via [ echo "${ARR_USERNAMES[0]}" ] , [ "${ARR_USERNAMES[1]}" ] , etc.
-#
 
-#
-# NOTE
-#  |--> Make sure to use BASH ( start script with #!/bin/bash )
-#  |--> Attempting to use bashisms like this through "sh" will throw error such as [ Syntax error: "(" unexpected ]
-#
 
 # ------------------------------------------------------------
 # Example

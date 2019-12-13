@@ -3,8 +3,7 @@
 # Linux - UniFi - Send Adoption request to target-URL (from devices being adopted)
 #
 
-UNIFI_CONTROLLER_IPv4="192.168.1.15";
-set-inform "http://${UNIFI_CONTROLLER_IPv4}:8080/inform";
+UNIFI_CONTROLLER_IPv4="192.168.1.15"; sudo set-inform "http://${UNIFI_CONTROLLER_IPv4}:8080/inform";
 
 ###
 ### Adoption request sent to 'http://192.168.1.15:8080/inform'.

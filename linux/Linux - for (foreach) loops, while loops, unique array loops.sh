@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#	Linux - for loops (using Arrays in Bash)
+#	Linux - for loops (examples)
 #
 # ------------------------------------------------------------
 
@@ -13,6 +13,15 @@ if [ -d /etc/profile.d ]; then
   done
   unset i
 fi
+
+
+# ------------------------------------------------------------
+#
+# Linux - While loop (example)
+#
+
+while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
+
 
 # ------------------------------------------------------------
 
@@ -57,14 +66,6 @@ find "${DIR_WIN32_USERS}" \
 		echo "$(basename ${EachUserDir})" >> "${InvalidUsersFile}";
 	fi;
 done;
-
-
-# ------------------------------------------------------------
-#
-# Linux - While loop (example)
-#
-
-while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
 
 # ------------------------------------------------------------
 

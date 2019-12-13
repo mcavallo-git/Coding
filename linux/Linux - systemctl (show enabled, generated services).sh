@@ -3,13 +3,13 @@
 # ------------------------------------------------------------
 # List services enabled thru systemctl
 
-systemctl list-unit-files --type service --state enabled,generated
+systemctl list-unit-files --type service --state enabled,generated;
 
 
 # ------------------------------------------------------------
 # Get the name of the local network service
 
-/bin/systemctl list-unit-files | grep -i '^network' | grep -v '\-' | grep '.service' | awk '{print $1}' | sed -e 's/.service//'
+/bin/systemctl list-unit-files | grep -i '^network' | grep -v '\-' | grep '.service' | awk '{print $1}' | sed -e 's/.service//';
 
 
 # ------------------------------------------------------------

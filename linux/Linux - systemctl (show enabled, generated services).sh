@@ -1,15 +1,23 @@
 #!/bin/bash
+#
+# ------------------------------------------------------------
+# List services enabled thru systemctl
 
 systemctl list-unit-files --type service --state enabled,generated
 
 
 # ------------------------------------------------------------
-# 
-# Show startup config/options (for a given service)
-# 
-#
+# Get the name of the local network service
 
-SVC="mongod"; cat "/lib/systemd/system/${SVC}.service";
+/bin/systemctl list-unit-files | grep -i '^network' | grep -v '\-' | grep '.service' | awk '{print $1}' | sed -e 's/.service//'
+
+
+# ------------------------------------------------------------
+# 
+# Show startup config/options for a given service
+# 
+
+SERVICE_NAME="mongod"; cat "/lib/systemd/system/${SERVICE_NAME}.service";
 
 
 # ------------------------------------------------------------

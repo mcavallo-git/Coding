@@ -25,7 +25,11 @@ wget -O "/etc/apt/trusted.gpg.d/unifi-repo.gpg" "https://dl.ui.com/unifi/unifi-r
 # Install Unifi for Debian, Ubuntu, etc.
 apt-get -y update; apt-get -y install unifi;
 
+echo -e "\n""   Open a browser to  [ https://$(hostname):8443 ]  to continue""\n";
+
 fi;
+
+#### 
 
 # ------------------------------------------------------------
 apt-get update;

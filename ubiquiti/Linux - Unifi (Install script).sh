@@ -1,19 +1,33 @@
 #!/bin/bash
+#
+# ------------------------------------------------------------
+#
+# Folowing guide @ https://help.ubnt.com/hc/en-us/articles/220066768-UniFi-How-to-Install-and-Update-via-APT-on-Debian-or-Ubuntu
+#
+# ------------------------------------------------------------
 
-# Via guide @ https://help.ubnt.com/hc/en-us/articles/220066768-UniFi-How-to-Install-and-Update-via-APT-on-Debian-or-Ubuntu
+# apt-get -y upgrade;
+# apt-get -y autoremove;
+# apt-get clean;
+# reboot;
 
-apt-get update;
-apt-get -y upgrade;
-apt-get -y install oracle-java8-jdk;
-apt-get -y autoremove;
-apt-get clean;
-reboot;
+if [  1 -eq 1 ]; then
 
-# echo 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti' | sudo tee -a /etc/apt/sources.list.d/100-ubnt.list > /dev/null;
-echo 'deb http://www.ui.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/100-ubnt-unifi.list
+# Install pre-requisite package(s)
+apt-get -y update; apt-get -y install apt-transport-https ca-certificates openjdk-8-jre-headless wget;
 
+# Add the Unifi package repository
+echo 'deb https://www.ui.com/downloads/unifi/debian stable ubiquiti' | tee "/etc/apt/sources.list.d/100-ubnt-unifi.list";
+
+# Import Unifi's official GPG Key
 wget -O "/etc/apt/trusted.gpg.d/unifi-repo.gpg" "https://dl.ui.com/unifi/unifi-repo.gpg";
 
+# Install Unifi for Debian, Ubuntu, etc.
+apt-get -y update; apt-get -y install unifi;
+
+fi;
+
+# ------------------------------------------------------------
 apt-get update;
 #  ^
 #  |

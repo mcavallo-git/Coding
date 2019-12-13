@@ -21,15 +21,14 @@ fi
 
 
 # ------------------------------------------------------------
-#
-# Linux - While loop (example)
-#
-
+# infinite while-loop (until user cancels, terminal ends, or machine stops)
 while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
+
 
 # ------------------------------------------------------------
 # ps + while-loop
 ps aux | grep -v grep | grep java | while read -r -d $'\n' EACH_LINE; do echo "------------------------------------------------------------"; echo "${EACH_LINE}"; done;
+
 
 # ------------------------------------------------------------
 
@@ -52,6 +51,7 @@ if [ -d "${EACH_HOME_DIR}" ]; then
 echo "User \"$EACH_UNIQUE_USER\" has a home-directory located at \"${EACH_HOME_DIR}\"";
 fi;
 done;
+
 
 # ------------------------------------------------------------
 # find + while-loop
@@ -76,10 +76,6 @@ find "${DIR_WIN32_USERS}" \
 	fi;
 done;
 
-# ------------------------------------------------------------
-# 
-
-
 
 # ------------------------------------------------------------
 # Example
@@ -89,7 +85,6 @@ done;
 for EACH_FILE in $(ls /var/log/*.log | sort -V); do
 	echo "Found file matching filepath \"/var/log/*.log\": \"${EACH_FILE}\"";
 done;
-
 
 
 # ------------------------------------------------------------

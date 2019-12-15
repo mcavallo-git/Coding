@@ -167,6 +167,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 #P::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
 	Return
 
@@ -177,8 +178,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #H::
 	SetKeyDelay, 0, -1
-	RET_VAL = %COMPUTERNAME%
-  Send %RET_VAL%
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send %A_ComputerName%
 	Return
 
 
@@ -188,8 +189,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #U::
 	SetKeyDelay, 0, -1
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	; RET_VAL = %USERNAME%
-	RET_VAL = %USERDOMAIN%-%USERNAME%
+	RET_VAL = %USERDOMAIN%-%A_UserName%
   Send %RET_VAL%
 	Return
 
@@ -230,44 +232,30 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 +#D::
 +^#D::
 +!#D::
-
 	SetKeyDelay, 0, -1
-		
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	TimezoneOffset := GetTimezoneOffset_P()
-
 	Needle_Win := "#D"
 	Needle_AltWin := "!#D"
 	Needle_CtrlWin := "^#D"
-
-	; StringGetPos, pos, file, \, R%A_Index%
-        ; if ErrorLevel
-	
-	If InStr(A_ThisHotkey, Needle_Win) { ; Win
-		dat_format=yyyy-MM-dd_HH-mm-ss
-
-	} Else If InStr(A_ThisHotkey, Needle_AltWin) { ; Alt + Win
-		dat_format=yyyy.MM.dd-HH.mm.ss
-
-	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) { ; Ctrl + Win
+	If InStr(A_ThisHotkey, Needle_Win) {  ; Win
 		dat_format=yyyyMMdd-HHmmss
-
-	} Else {
+	} Else If InStr(A_ThisHotkey, Needle_AltWin) {  ; Alt + Win
+		dat_format=yyyy.MM.dd-HH.mm.ss
+	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) {  ; Ctrl + Win
 		dat_format=yyyy-MM-dd_HH-mm-ss
+	} Else {
+		dat_format=yyyyMMdd-HHmmss
 	}
-
 	If WinActive("ahk_group Explorer") {
 		dat_format := StrReplace(dat_format, ":", "-")
 	}
-
 	FormatTime, DatTimestamp, , %dat_format%
-
 	Keys = %DatTimestamp%
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
 		Keys = %DatTimestamp%%TZ_OFFSET_P%
 	}
-
   Send %Keys%
-
 	Return
 
 

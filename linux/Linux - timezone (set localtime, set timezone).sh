@@ -4,7 +4,8 @@
 	## Ubuntu && Cent-OS
 TZ="America/Chicago" && \
 ln -snf "/usr/share/zoneinfo/$TZ" "/etc/localtime" && \
-echo $TZ > "/etc/timezone";
+echo $TZ > "/etc/timezone" && \
+timedatectl set-timezone "${TZ}";
 
 	## Alpine-Linux
 # TZ="UTC+4";

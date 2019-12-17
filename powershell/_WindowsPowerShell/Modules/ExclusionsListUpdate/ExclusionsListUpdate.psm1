@@ -195,7 +195,7 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions += (".vmrs");
 		$ExcludedExtensions += (".vsv");
 		# ------------------------------------------------------------
-		# -- PROCESSES -- LocalAppData
+		# -- PROCESSES -- AppData\Local
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Dropbox"; Depth=""; Parent=""; Basename="Dropbox.exe"; }; # Dropbox
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth="8"; Parent=""; Basename="*.exe"; }; # GitHub Desktop
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="software_reporter_tool.exe"; };
@@ -210,8 +210,11 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Update.exe"; }; # Postman
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Squirrel.exe"; }; # Postman
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Programs\Microsoft VS Code"; Depth=""; Parent=""; Basename="Code*.exe"; }; # VS Code
-		# -- PROCESSES -- ProgFiles X64
+		# -- PROCESSES -- Program Files\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="7-Zip"; Depth="2"; Parent=""; Basename="7z*.exe"; }; # 7-Zip
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="amdow.exe"; }; # AMD-Radeon (GPU)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="AMDRSSrcExt.exe"; }; # AMD-Radeon (GPU)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="RadeonSettings.exe"; }; # AMD-Radeon (GPU)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="Ahk2Exe.exe"; }; # AutoHotkey
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey*.exe"; }; # AutoHotkey
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth="1"; Parent=""; Basename="*.exe"; };  # Classic Shell
@@ -238,7 +241,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="XboxApp.exe"; Entertainment=$True; }; # Microsoft XBox Application
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="IGCCTray.exe"; }; # Intel Graphics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="IGCC.exe"; }; # Intel Graphics
-		# -- PROCESSES -- ProgFiles X86
+		# -- PROCESSES -- Program Files (x86)\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="2"; Parent=""; Basename="Dropbox*.exe"; }; # Dropbox + Required-Components
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="5"; Parent=""; Basename="dbxsvc.exe"; }; # Dropbox
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="efs"; Depth="1"; Parent=""; Basename="search.exe"; }; # Effective File Search

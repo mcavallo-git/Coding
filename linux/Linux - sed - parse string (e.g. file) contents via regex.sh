@@ -15,10 +15,10 @@ echo "hello world" | sed -e 's|world|not world|g';
 #
 
 # Disable MOTD (Message of the Day)
-sudo sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
+sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
 
 # Enable MOTD (Message of the Day)
-sudo sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news";
+sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news";
 
 
 # ------------------------------------------------------------
@@ -28,14 +28,14 @@ sudo sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc
 
 ### MongoDB - Disable Replication
 systemctl stop mongod; \
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf"; \
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf"; \
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/^replication:/ s/^#*/#/' "/etc/mongod.conf"; \
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/^  replSetName:/ s/^#*/#/' "/etc/mongod.conf"; \
 systemctl start mongod;
 
 
 ### Bash - Disable "You have new mail in /var/spool/mail/..." alerts
 if [ -n "$(sed -rne 's/^\s*MAIL=.*$/\0/p' '/etc/profile' 2>'/dev/null';)" ]; then \
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/#/' "/etc/profile"; \
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/#/' "/etc/profile"; \
 fi;
 
 
@@ -69,7 +69,7 @@ printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 #  |-->  -e '/.../d'  -->  remove specific lines, matching a given pattern
 #
 
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/pattern to match/d' ./infile
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/pattern to match/d' ./infile
 
 
 # ------------------------------------------------------------
@@ -79,10 +79,10 @@ sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e '/pattern to match/d' ./infile
 #
 
 sed_remove_whitespace_lines='/^\s*$/d';
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_whitespace_lines}" "FILEPATH";
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "${sed_remove_whitespace_lines}" "FILEPATH";
 
 sed_remove_starting_whitespace='s/^\s*//g';
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "${sed_remove_starting_whitespace}" "FILEPATH";
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "${sed_remove_starting_whitespace}" "FILEPATH";
 
 
 # ------------------------------------------------------------
@@ -162,7 +162,7 @@ echo -e "${TEST_STR}" | sed -n "${SED_REVERSE_METHOD2}" | head -n -${TOP_LINES_T
 # 
 # Example)  Remove windows-newlines (e.g. remove CR's)
 #
-sed -i".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 
 
 # ------------------------------------------------------------

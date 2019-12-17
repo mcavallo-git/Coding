@@ -247,10 +247,9 @@ This file (on GitHub):
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
 <tr><td><strong>VMware ESXi (vSphere Hypervisor)</strong> <sub>
 	<i>
-		<br />&nbsp;&nbsp;&nbsp;<details><summary><i>(Docs) ESXi 6.7 Installation/Setup</i></summary>
+		<br />&nbsp;&nbsp;&nbsp;<details><summary><i>(Docs) ESXi Installation/Setup</i></summary>
 			<h5>
 				<ul>
-					<li>&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Rufus) Create bootable USB-drive</a></li>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
@@ -258,6 +257,7 @@ This file (on GitHub):
 				</ul>
 			</h5>
 		</details>
+		<br />&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Docs) Creating a bootable USB-drive w/ Rufus</a>
 		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 	</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>

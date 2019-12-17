@@ -247,7 +247,6 @@ This file (on GitHub):
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
 <tr><td><strong>VMware ESXi (vSphere Hypervisor)</strong> <sub>
 	<i>
-		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 		<br />&nbsp;&nbsp;&nbsp;<details><summary><i>(Docs) ESXi 6.7 Installation/Setup</i></summary>
 			<h5>
 				<ul>
@@ -259,6 +258,7 @@ This file (on GitHub):
 				</ul>
 			</h5>
 		</details>
+		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 	</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>
 <tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>

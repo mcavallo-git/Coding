@@ -154,7 +154,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="hardware-utilities"><br />Hardware Utilities/Controllers<br /><br /></h5></th></tr>
 <tr><td><strong>ASUS Aura Sync</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;RGB Controller</i></sub></td><td><a href="https://www.asus.com/campaign/aura/us/download.html">Download (source)</a></td></tr>
-<tr><td><strong>AMD Drivers & Support</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;As of 2019-Oct, <a href="https://drivers.amd.com/drivers/beta/win10-64bit-radeon-software-adrenalin-2019-edition-19.7.5-july31.exe">use version 19.7.5</a><br />&nbsp;&nbsp;&nbsp;for <a href="https://www.reddit.com/r/Amd/comments/d00l3w/most_stable_driver_version_for_57005700xt/ezeakz0/">recent Radeon GPU stability</a></i></sub></td><td><a href="https://www.amd.com/en/support">Download (source)</a></td></tr>
+<tr><td><strong>AMD Drivers & Support</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2019-Dec: <a href="https://drivers.amd.com/drivers/beta/win10-64bit-radeon-software-adrenalin-2019-edition-19.7.5-july31.exe">Install v19.7.5 Drivers for stability</a></i></sub></td><td><a href="https://www.amd.com/en/support">Download (source)</a></td></tr>
 <tr><td><strong>BalenaEtcher</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Drive Imaging Utility (.iso & .img, especially)</i></sub></td><td><a href="https://www.balena.io/etcher/">Download (source)</a></td></tr>
 <tr><td><strong>Corsair iCue</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;RGB Controller (+ Aura API)</i></sub></td><td><a href="https://www.corsair.com/us/en/downloads">Download (source)</a></td></tr>
 <tr><td><strong>Easy2Boot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-ISO Bootable Flash Drive</i></sub></td><td><a href="https://www.fosshub.com/Easy2Boot.html">Download (source)</a></td></tr>
@@ -330,6 +330,8 @@ This file (on GitHub):
 * ###### [3] reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
 
 * ###### [4] atlassian.com  |  "DevOps: Breaking the Development-Operations barrier"  |  https://www.atlassian.com/devops
+
+* ###### [5] reddit.com  |  "Most stable driver version for 5700/5700XT?"  |  https://www.reddit.com/r/Amd/comments/d00l3w/most_stable_driver_version_for_57005700xt/ezeakz0/
 
 </p>
 </details>

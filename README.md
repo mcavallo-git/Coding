@@ -247,7 +247,7 @@ This file (on GitHub):
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
 <tr><td><strong>VMware ESXi (vSphere Hypervisor)</strong> <sub>
 	<i><br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
-	<br />&nbsp;&nbsp;&nbsp;<details><summary><i>(Docs) ESXi 6.7 Installation/Setup</i></summary>
+	<sub><sub><br /></sub></sub>&nbsp;&nbsp;&nbsp;<details><summary><i>(Docs) ESXi 6.7 Installation/Setup</i></summary>
 			<h5>
 				<ul>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Rufus) Create bootable USB-drive</a></li>

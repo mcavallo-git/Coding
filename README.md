@@ -170,19 +170,6 @@ This file (on GitHub):
 <tr><td><strong>Ryzen DRAM Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Helps with overclocking memory<br />&nbsp;&nbsp;&nbsp;on the AMD Ryzen platform</i></sub></td><td><a href="https://www.techpowerup.com/download/ryzen-dram-calculator/">Download (source)</a></td></tr>
 <tr><td><strong>Sonos desktop controller</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Control LAN Sonos speakers</i></sub></td><td><a href="https://www.sonos.com/redir/controller_software_pc">Download (source)</a></td></tr>
 <tr><td><strong>VMware - All Downloads</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere, VMware Workstation,<br />&nbsp;&nbsp;&nbsp;VMware Fusion, VMware Player, etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
-<tr><td><strong>VMware ESXi (vSphere Hypervisor)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
-	<details><summary><i>(Docs) ESXi 6.7 Installation/Setup</i></summary>
-		<h5>
-			<ul>
-				<li>&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Rufus) Create bootable USB-drive</a></li>
-				<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
-				<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
-				<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
-				<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
-			</ul>
-		</h5>
-	</details>
-</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a></td></tr>
 <tr><td><strong>Yubico Tools</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Security Key Configuration</i></sub></td><td><a href="https://www.yubico.com/products/services-software/download/">Download (source)</a></td></tr>
 <tr><td><strong>WinSW: Windows service wrapper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(in less restrictive license)</i></sub></td><td><a href="https://github.com/kohsuke/winsw/">Download (source)</a></td></tr>
 <!-- -->
@@ -258,6 +245,21 @@ This file (on GitHub):
 <tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2014 SP1-CU13 (Service<br />&nbsp;&nbsp;&nbsp;Pack 1, Cumulative Update 13)</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=51186">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
+<tr><td><strong>VMware ESXi (vSphere Hypervisor)</strong> <sub>
+	<i><br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
+		<details><summary><i>(Docs) ESXi 6.7 Installation/Setup</i></summary>
+			<h5>
+				<ul>
+					<li>&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Rufus) Create bootable USB-drive</a></li>
+					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
+					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
+					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
+					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
+				</ul>
+			</h5>
+		</details>
+	</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
+</td></tr>
 <tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
 <tr><td><strong>Xubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://xubuntu.org/download">Download (source)</a></td></tr>
 <!-- -->

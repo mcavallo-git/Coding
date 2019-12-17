@@ -257,7 +257,7 @@ This file (on GitHub):
 				</ul>
 			</h5>
 		</details>
-		<br />&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Docs) Creating a bootable USB-drive w/ Rufus</a>
+		&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Docs) Creating a bootable USB-drive w/ Rufus</a>
 		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 	</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>

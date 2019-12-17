@@ -154,6 +154,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="hardware-utilities"><br />Hardware Utilities/Controllers<br /><br /></h5></th></tr>
 <tr><td><strong>ASUS Aura Sync</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;RGB Controller</i></sub></td><td><a href="https://www.asus.com/campaign/aura/us/download.html">Download (source)</a></td></tr>
+<tr><td><strong>AMD Drivers & Support</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Radeon, Radeon Pro, FirePro,<br />&nbsp;&nbsp;&nbsp;APU, CPU, Ryzen</i></sub></td><td><a href="https://www.amd.com/en/support">Download (source)</a></td></tr>
 <tr><td><strong>BalenaEtcher</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Drive Imaging Utility (.iso & .img, especially)</i></sub></td><td><a href="https://www.balena.io/etcher/">Download (source)</a></td></tr>
 <tr><td><strong>Corsair iCue</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;RGB Controller (+ Aura API)</i></sub></td><td><a href="https://www.corsair.com/us/en/downloads">Download (source)</a></td></tr>
 <tr><td><strong>Easy2Boot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-ISO Bootable Flash Drive</i></sub></td><td><a href="https://www.fosshub.com/Easy2Boot.html">Download (source)</a></td></tr>

@@ -127,7 +127,7 @@ This file (on GitHub):
 <tr><td><strong>PowerShell Core</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Standard Edition</i></sub></td><td><a href="https://github.com/PowerShell/PowerShell#get-powershell">Download (GitHub)</a><br />&nbsp;&nbsp;&nbsp;<sub><a href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-core-on-linux">Download (Microsoft)</a></sub></td></tr>
 <tr><td><strong>Windows Terminal</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Terminal Emulator for Windows 10</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a></td></tr>
 <tr><td><strong>WSL - All Distros</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux</i></sub></td><td><a href="https://aka.ms/wslstore">Download (source)</a></td></tr>
-<tr><td><strong>WSL - Ubuntu 18.04 LTS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N9TNGVNDL3Q">Download (source)</a></td></tr>
+<tr><td><strong>WSL - Ubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N9TNGVNDL3Q">Download (18.04 LTS)</a><br /><a href="https://www.microsoft.com/store/productId/9PJN388HP8C9">Download (16.04 LTS)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

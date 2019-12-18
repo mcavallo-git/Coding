@@ -74,7 +74,7 @@
 	"files.exclude": {
 		"**/{boneal_vault,CodingVault}": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/*.{ico,jpeg,jpg,pdn,png,sign,unknown}": true,
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"files.watcherExclude": {
@@ -104,7 +104,7 @@
 	"search.exclude": {
 		"**/{boneal_vault,CodingVault}": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/*.{ico,jpeg,jpg,pdn,png,sign,unknown}": true,
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"search.quickOpen.includeHistory": false,

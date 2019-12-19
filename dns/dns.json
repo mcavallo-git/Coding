@@ -235,6 +235,21 @@
 			"sites": [
 				"https://www.home.neustar/dns-services/ultra-recursive-dns"
 			]
+		},
+		{
+			"description": "Azure DNS",
+			"ipv4": [
+				"168.63.129.16"
+			],
+			"ipv6": [
+				""
+			],
+			"ordinality-dnsv4": 9999,
+			"ordinality-dnsv6": 9999,
+			"sites": [
+				"https://docs.microsoft.com/en-us/azure/virtual-network/what-is-ip-address-168-63-129-16",
+				"https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-name-resolution-for-vms-and-role-instances#azure-provided-name-resolution"
+			]
 		}
 	]
 }

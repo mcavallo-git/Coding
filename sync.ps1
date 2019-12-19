@@ -1,6 +1,6 @@
 <# ------------------------------------------------------------ #>
 
-<#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://sync.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs;   #>
+<#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs;   #>
 
 <# ------------------------------------------------------------ #>
 

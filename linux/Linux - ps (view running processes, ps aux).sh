@@ -8,7 +8,7 @@
 # ^-- this is NOT the same as [ ps -aux ] - do not add any dashes to the arguments list of 'aux'
 
 ps -A \
---format 'fname,user,pid,%cpu,%mem,maj_flt,cmd' \
+--format 'fname,user,pid,%cpu,%mem,drs,rss,maj_flt,cmd' \
 --sort='user,fname';
 
 

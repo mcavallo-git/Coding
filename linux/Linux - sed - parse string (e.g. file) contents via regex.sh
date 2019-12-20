@@ -200,7 +200,20 @@ echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 
 # ------------------------------------------------------------
 # 
-# Example)  Parse nginx runtime user's name from nginx.conf
+# Example)  Determine local Java runtime's home-directory ( $JAVA_HOME )
+#
+if [ $(which java 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then
+
+	# Note: Java outputs to STDERR (2) by default - Redirect its output to STDOUT (1) by using 2>&1
+	JAVA_ALL_SETTINGS="$(java -XshowSettings:properties -version 2>&1)";
+	LOCAL_JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | sed -rne 's/^\s*java.home = (.+)\s*$/\1/p';); echo "${LOCAL_JAVA_HOME}";
+
+fi;
+
+
+# ------------------------------------------------------------
+# 
+# Example)  Parse NGINX runtime user's name from nginx.conf
 #
 if [ -f "/etc/nginx/nginx.conf" ]; then
 	NGINX_UNAME=$(sed -rne 's/^user ([a-z_][a-z0-9_\-]{0,30}[a-z0-9_\-\$]?)\s*;\s*$/\1/p' "/etc/nginx/nginx.conf";);

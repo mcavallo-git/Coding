@@ -132,9 +132,9 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="dns"><br />DNS<br /><sub>Root & Intermediate Certificates, e.g. Certificate Authority Bundles (CABUNDLEs)</sub><br /><br /></h5></th></tr>
-<tr><td><strong>COMODO</strong></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
-<tr><td><strong>GoDaddy</strong></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>
-<tr><td><strong>Namecheap</strong></td><td><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub></td></tr>
+<tr><td><strong>COMODO</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
+<tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>
+<tr><td><strong>Namecheap</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

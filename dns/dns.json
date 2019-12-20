@@ -83,6 +83,9 @@
 		},
 		{
 			"description": "OpenDNS - Secondary",
+			"hostname": [
+				"resolver2.opendns.com"
+			],
 			"ipv4": [
 				"208.67.220.220"
 			],

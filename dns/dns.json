@@ -54,6 +54,9 @@
 		},
 		{
 			"description": "OpenDNS - Primary",
+			"hostname": [
+				"resolver1.opendns.com"
+			],
 			"ipv4": [
 				"208.67.222.222"
 			],

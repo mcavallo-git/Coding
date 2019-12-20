@@ -203,8 +203,9 @@ echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 # Example)  Determine local Java runtime's home-directory ( $JAVA_HOME )
 #
 if [ $(which java 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then
-JAVA_ALL_SETTINGS="$(java -XshowSettings:properties -version 2>&1)"; # Note: Java outputs to STDERR (2) by default - Redirect its output to STDOUT (1) by using 2>&1
-LOCAL_JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | sed -rne 's/^\s*java.home = (.+)\s*$/\1/p';); echo "${LOCAL_JAVA_HOME}";
+# Note: Java outputs to STDERR (2) by default - Redirect its output to STDOUT (1) by using 2>&1
+JAVA_ALL_SETTINGS="$(java -XshowSettings:properties -version 2>&1)"; echo "JAVA_ALL_SETTINGS = [ ${JAVA_ALL_SETTINGS} ]"; 
+LOCAL_JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | sed -rne 's/^\s*java.home = (.+)\s*$/\1/p';); echo "LOCAL_JAVA_HOME = [ ${LOCAL_JAVA_HOME} ]"; 
 fi;
 
 

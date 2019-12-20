@@ -74,6 +74,15 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/pattern to match/d' ./infile
 
 # ------------------------------------------------------------
 #
+#        [[:space:]]
+#               Example: trim whitespace off of the beginning & end of a string
+#
+
+JAVA_ARGS="$(echo -e "${JAVA_ARGS}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')";
+
+
+# ------------------------------------------------------------
+#
 #        -i[SUFFIX], --in-place[=SUFFIX]
 #               edit files in place (makes backup if SUFFIX supplied)
 #

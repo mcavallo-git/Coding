@@ -200,11 +200,18 @@ echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 
 # ------------------------------------------------------------
 # 
-# Example)  Locate $JAVA_HOME (local Java runtime's home-directory)
+# Example)  Java - Parse values from local config
 #
 if [ $(which java 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then
-JAVA_ALL_SETTINGS="$(java -XshowSettings:properties -version 2>&1)"; echo "JAVA_ALL_SETTINGS = [ ${JAVA_ALL_SETTINGS} ]";  # Note: Java outputs to STDERR (2) by default - Redirect its output to STDOUT (1) by using 2>&1
+
+# Show local Java runtime's settings/properties
+JAVA_ALL_SETTINGS="$(java -XshowSettings:properties -version 2>&1;)"; echo "JAVA_ALL_SETTINGS = [ ${JAVA_ALL_SETTINGS} ]";  # Note: Java outputs to STDERR (2) by default - Redirect its output to STDOUT (1) by using 2>&1
+
+# Locate $JAVA_HOME (local Java runtime's home-directory)
 LOCAL_JAVA_HOME=$(java -XshowSettings:properties -version 2>&1 | sed -rne 's/^\s*java.home = (.+)\s*$/\1/p';); echo "LOCAL_JAVA_HOME = [ ${LOCAL_JAVA_HOME} ]";  # Note: Java outputs to STDERR (2) by default - Redirect its output to STDOUT (1) by using 2>&1
+
+# Locate Font-files within JAVA_HOME
+find "${LOCAL_JAVA_HOME}" -iname '*font*';
 fi;
 
 

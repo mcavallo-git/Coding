@@ -1,18 +1,22 @@
 
 ### HandBrake (Automatic File Naming)
+<hr />
 
 
 ##### Install [ HandBrake ] Application 
 * --> Download [ the Updated HandBrake Installer ] from [ HandBrake's website @ https://handbrake.fr/ ]
+<hr />
 
 
 ##### Run/Open [ HandBrake.exe ] application
 * In Windows, hit the start menu and type "HandBrake", and select the application to run it (Icon is a ""
+<hr />
 
 
 ##### Open "Preferences" (within HandBrake)
 * --> Upon running HandBrake, if the "Source Selection" overlay is shown (top-left), then select "Preferences" (bottom-left)
 * --> Alternatively, select "Tools" (top-menu/toolbar) -> "Preferences" (dropdown-option)
+<hr />
 
 
 ##### Set Preferences to output to same directory as input
@@ -20,14 +24,18 @@
 * --> Set the following: value(s)
 * Default Path:  ```{source_path}```
 * File Format:   ```{source}-{title}.compressed```
+<hr />
 
 
 ##### Note(s):
 * Default installation path for [ HandBrake.exe ] is [ C:\Program Files\HandBrake\HandBrake.exe ] (as-of 20191222-045615 CST)
 * Default value for [ Default Path ] is [ Click 'Browse' to set the default location ] (as-of 20191222-045615 CST)
 * Default value for [ File Format ] is [ {source}-{title} ] (as-of 20191222-045615 CST)
+<hr />
 
 
-### Citation(s)
+##### Citation(s)
 * github.com  |  "[Feature request] 'Same Path as Source' option #1328"  |  https://github.com/HandBrake/HandBrake/issues/1328
 * handbrake.fr  |  "HandBrake Documentation - Quick start"  |  https://handbrake.fr/docs/en/1.2.0/introduction/quick-start.html
+<hr />
+

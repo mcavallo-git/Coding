@@ -86,6 +86,7 @@ This file (on GitHub):
 <tr><td><strong>GitHub Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git Daily Driver</i></sub></td><td><a href="https://desktop.github.com">Download (source)</a></td></tr>
 <tr><td><strong>Gpg4win</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GnuPG for Windows</i></sub></td><td><a href="https://www.gpg4win.org/thanks-for-download.html">Download (source)</a></td></tr>
 <tr><td><strong>Handbrake</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multithreaded Video Transcoder</i></sub></td><td><a href="https://handbrake.fr/">Download (source)</a></td></tr>
+<tr><td><strong>Handbrake CLI</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Video Transcoding via CLI</i></sub></td><td><a href="https://handbrake.fr/downloads2.php">Download (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image Editing via Command-Line</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a></td></tr>
 <tr><td><strong>LastPass</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://lastpass.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Outlook, Word, Excel, PowerPoint, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><br />&nbsp;&nbsp;&nbsp;<sub><i>Login &rarr; Click "Install Office"</i></sub></td></tr>

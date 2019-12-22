@@ -14,11 +14,13 @@
 <!-- ------------------------------------------------------------ -->
 <h3>Combining psshutdown with APC PowerChute Software</h3>
 <h5>Psshutdown may be used with APC UPS's to shutdown multiple PCs attached to its battery backup, even though only one of the PCs is plugged into the UPS via USB, but all PCs stay on when the UPS kicks over to relying on battery power</h5>
+<ol>
 <li>On the source computer, make sure that the [ APC Powerchute ] software application is installed, and that the source computer is tethered to the battery backup via connected via an RJ-45 to USB cable into the back/side of the battery backup</li>
 <li>Unplug the UPS from the wall to trigger a 'blackout' event (source computer should be running on backup power, temporarily)</li>
 <li>Make a note of the time on the source computer's clock, then plug the battery backup back into the wall (to take it off battery power and return it to a charging state)</li>
 <li>On the source computer running APC PowerChute, run ```eventvwr.msc``` to open Event Viewer -> double-click "Windows Logs" (left) to drop it down -> left-click "Application" (left), and locate an event with a ```Level``` of ```Warning``` from the APC UPS Service stating something similar to ```Battery backup transferred to battery power due to a blackout```</li>
 <li>Right-click this event & select ```Attach a Task to this Event```, then have it run a batch file containing the psshutdown call (above) to shut down all computers attached to the UPS's backup battery when the power goes out</li>
 <li>Once you're done, test it!</li>
+</ol>
 <hr />
 <!-- ------------------------------------------------------------ -->

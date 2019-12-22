@@ -6,7 +6,7 @@ https://github.com/mcavallo-git/Coding/search?q=%22relative+shortcut%22
 
 -->
 
-# Windows - relative shortcut pathing
+# Windows Explorer - Relative Paths/Pathing using Shortcuts
 
 
 ### URL shortcut which opens in FireFox (specifically)

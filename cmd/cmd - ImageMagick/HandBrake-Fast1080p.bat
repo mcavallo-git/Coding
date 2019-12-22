@@ -2,16 +2,26 @@
 REM		!!! Prerequisite !!! 
 REM			ImageMagick" must be installed for this script to function as-intended
 REM			https://www.imagemagick.org/script/download.php#windows
-ECHO.
 
-REM		Trim the following off each side of the image:
-SET TrimTop=0
-SET TrimBottom=225
-SET TrimRight=0
-SET TrimLeft=0
 
-REM		Width to Resize-To
-SET ResizeToWidth=1000
+
+REM "C:\Program Files\HandBrake\HandBrakeCLI.exe" --preset "Fast 1080p30"
+
+
+
+REM ------------------------------------------------------------
+
+for /R H:\Video\ %%F in (*.mkv) do (
+
+"C:\Program Files\HandBrake\HandBrakeCLI.exe" --preset-import-file "C:\Users\user1\Desktop\bluraypreset.json" -Z "bluraypreset" -i "%%~fF" -o "%%~dpF%%~nF_conv.mkv"
+
+if exist "%%~dpF%%~nF_conv.mkv" (
+	del "%%~fF"
+	ren "%%~dpF%%~nF_conv.mkv" "%%~nxF"
+)
+
+)
+
 
 REM		Input & Output Directories
 SET "INPUT_DIR=Input"

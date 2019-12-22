@@ -2,7 +2,7 @@
 
 This file (on GitHub):
 
-https://github.com/mcavallo-git/Coding/search?q=relative+shortcut
+https://github.com/mcavallo-git/Coding/search?q=%22relative+shortcut%22
 
 -->
 

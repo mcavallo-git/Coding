@@ -24,6 +24,8 @@
 * Set the following: value(s)
 * Default Path:  ```{source_path}```
 * File Format:   ```{source}-{title}.compressed```
+* Select [ < Back ] (top-left)
+* Done
 <hr />
 
 

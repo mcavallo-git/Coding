@@ -22,12 +22,12 @@
 ##### Set Preferences to output to the same directory as source (input)
 * Select "Output Files" (left)
 * Set the following: value(s)
-* Default Path:  ```{source_path}```
-* File Format:   ```{source}-{title}.compressed```
-* Change case to Title Case:   ```UN-CHECK```
-* Replace underscores with a space:   ```UN-CHECK```
-* Remove common punctuation:   ```UN-CHECK```
-* MP4 File Extension:   ```Always use MP4```
+* ```Default Path:```   ```{source_path}```
+* ```File Format:```   ```{source}-{title}.compressed```
+* ```Change case to Title Case```   ```UN-CHECK```
+* ```Replace underscores with a space```   ```UN-CHECK```
+* ```Remove common punctuation```   ```UN-CHECK```
+* ```MP4 File Extension```   ```Always use MP4```
 * Select [ < Back ] (top-left)
 <hr />
 

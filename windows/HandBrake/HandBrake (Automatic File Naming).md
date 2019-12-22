@@ -4,7 +4,7 @@
 
 
 ##### Install [ HandBrake ] Application 
-* --> Download [ the Updated HandBrake Installer ] from [ HandBrake's website @ https://handbrake.fr/ ]
+* Download [ the Updated HandBrake Installer ] from [ HandBrake's website @ https://handbrake.fr/ ]
 <hr />
 
 
@@ -14,14 +14,14 @@
 
 
 ##### Open [ Preferences ] (within HandBrake)
-* --> Upon running HandBrake, if the "Source Selection" overlay is shown (top-left), then select [ Preferences ] (bottom-left)
-* --> Alternatively, select [ Tools ] (top-menu/toolbar) -> [ Preferences ] (dropdown-option)
+* Upon running HandBrake, if the "Source Selection" overlay is shown (top-left), then select [ Preferences ] (bottom-left)
+* Alternatively, select [ Tools ] (top-menu/toolbar) -> [ Preferences ] (dropdown-option)
 <hr />
 
 
 ##### Set Preferences to output to same directory as input
-* --> Select "Output Files" (left)
-* --> Set the following: value(s)
+* Select "Output Files" (left)
+* Set the following: value(s)
 * Default Path:  ```{source_path}```
 * File Format:   ```{source}-{title}.compressed```
 <hr />

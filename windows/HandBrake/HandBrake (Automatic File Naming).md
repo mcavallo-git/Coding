@@ -9,13 +9,13 @@
 
 
 ##### Run/Open [ HandBrake.exe ] application
-* In Windows, hit the start menu and type "HandBrake", and select the application to run it (Icon is a ""
+* In Windows, hit the start menu and type [ HandBrake ], and select the application matching a [ cocktail & pineapple icon ]
 <hr />
 
 
-##### Open "Preferences" (within HandBrake)
-* --> Upon running HandBrake, if the "Source Selection" overlay is shown (top-left), then select "Preferences" (bottom-left)
-* --> Alternatively, select "Tools" (top-menu/toolbar) -> "Preferences" (dropdown-option)
+##### Open [ Preferences ] (within HandBrake)
+* --> Upon running HandBrake, if the "Source Selection" overlay is shown (top-left), then select [ Preferences ] (bottom-left)
+* --> Alternatively, select [ Tools ] (top-menu/toolbar) -> [ Preferences ] (dropdown-option)
 <hr />
 
 

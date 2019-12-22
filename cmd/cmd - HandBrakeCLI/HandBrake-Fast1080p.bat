@@ -1,8 +1,15 @@
 @ECHO OFF
-REM		!!! Prerequisite !!! 
+REM
+REM		!!! Prerequisite !!!
+REM
 REM			HandBrakeCLI must be installed for this script to function as-intended
-REM			https://handbrake.fr/downloads2.php
-
+REM 
+REM			Download [ HandBrakeCLI ] Application from URL [ https://handbrake.fr/downloads2.php ]
+REM
+REM			Extract [ HandBrakeCLI.exe ] from aforementioned URL (downloads as a .zip archive as-of 20191222-070342 CST)
+REM	
+REM			Place the extracted file at filepath [ C:\Program Files\HandBrake\HandBrakeCLI.exe ]
+REM 
 
 
 REM "C:\Program Files\HandBrake\HandBrakeCLI.exe" --preset "Fast 1080p30"

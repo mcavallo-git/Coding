@@ -25,9 +25,11 @@
 
 
 ### Excel - Generate Averages, Max, & Min (3 new rows) referencing a dataset with a header row, full data rows, followed by the average-row, max-row, and min-row (below)
+```
 =AVERAGE(INDIRECT(CONCAT(CHAR(64+COLUMN()),2)):INDIRECT(CONCAT(CHAR(64+COLUMN()),(ROW()-1))))
 =MAX(INDIRECT(CONCAT(CHAR(64+COLUMN()),2)):INDIRECT(CONCAT(CHAR(64+COLUMN()),(ROW()-2))))
 =MIN(INDIRECT(CONCAT(CHAR(64+COLUMN()),2)):INDIRECT(CONCAT(CHAR(64+COLUMN()),(ROW()-3))))
+```
 
 
 <!-- ------------------------------------------------------------ -->

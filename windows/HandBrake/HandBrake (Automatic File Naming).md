@@ -19,7 +19,7 @@
 <hr />
 
 
-##### Set Preferences to output to same directory as input
+##### Set Preferences to output to the same directory as source (input)
 * Select "Output Files" (left)
 * Set the following: value(s)
 * Default Path:  ```{source_path}```

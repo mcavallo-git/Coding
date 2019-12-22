@@ -8,5 +8,10 @@ Install [ HandBrake ] Application from Source-URL [ https://handbrake.fr/ ]
 > A window titled "Preferences" should popup
 > --> Select "Output Files" (left)
 > --> Set the following: value(s)
-Default Path:  {source_path}     (default value is "Click 'Browse' to set the default location" as-of 20191222-045615 CST)
+Default Path:  {source_path}
 File Format:   {source}-{title}.compressed
+
+
+Note(s):
+Default value for [ Default Path ] is "Click 'Browse' to set the default location" (as-of 20191222-045615 CST)
+Default value for [ File Format ] is "{source}-{title}" (as-of 20191222-045615 CST)

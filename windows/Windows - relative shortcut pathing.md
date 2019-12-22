@@ -41,6 +41,7 @@ SET Arguments='"index.html"'
 SET FullName='%USERPROFILE%\Desktop\test_rel\relative_shortcut.lnk'
 SET WorkingDirectory='%cd%'
 powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -Command "$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut(%FullName%); $S.TargetPath=(%TargetPath%); $S.Arguments=(%Arguments%); $S.WorkingDirectory=('%'+'c'+'d'+'%'); $S.Save(); $S.FullName;"
+explorer.exe "mkdir %USERPROFILE%\Desktop\test_rel"
 
 ```
 

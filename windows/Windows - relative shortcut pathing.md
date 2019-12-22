@@ -2,7 +2,7 @@
 
 #### Example
 
-* Begin at the Windows desktop, located at "%USERPROFILE%\Desktop".
+* Begin at the Windows desktop, located at "%USERPROFILE%\Desktop"
 *Note that this we will be making use of the environment variable "%USERPROFILE%", which, by default, is the user directory located at "C:\Users\YOUR_USER"*
 
 ***
@@ -14,7 +14,7 @@ mkdir %USERPROFILE%\Desktop\test_rel
 ```
 
 ***
-* Within the newly created "test_rel" directory, create a new file named "index.html" with the contents: '<div style="font-size:50px;">Hello World</div>'
+* Within the newly created "test_rel" directory, create a new file named "index.html" with some arbirary HTML contents
 *Perform this step via cmd:*
 ```
 ECHO ^<div style=^"font-size:24px;^"^>This shortcut contains a working directory, or 'Start in' of ^%cd^%, which resolves to [ %USERPROFILE%\Desktop\test_rel ].^<br^>This file was targeted relatively off of the working directory as, simply, index.html. No fullpath needed^</div^> > "%USERPROFILE%\Desktop\test_rel\index.html"

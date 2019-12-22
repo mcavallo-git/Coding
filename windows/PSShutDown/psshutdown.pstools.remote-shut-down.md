@@ -1,3 +1,4 @@
+<hr />
 <!-- ------------------------------------------------------------ -->
 <h3>Network PC Remote Shutdown</h3>
 <h5>To remotely shut down one-or-more network attached computer, perform the following steps</h5>

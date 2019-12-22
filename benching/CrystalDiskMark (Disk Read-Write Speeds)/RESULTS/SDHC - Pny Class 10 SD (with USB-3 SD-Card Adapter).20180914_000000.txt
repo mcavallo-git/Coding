@@ -1,0 +1,29 @@
+-----------------------------------------------------------------------
+CrystalDiskMark 6.0.0 x64 (C) 2007-2017 hiyohiyo
+                          Crystal Dew World : https://crystalmark.info/
+-----------------------------------------------------------------------
+* MB/s = 1,000,000 bytes/s [SATA/600 = 600,000,000 bytes/s]
+* KB = 1000 bytes, KiB = 1024 bytes
+
+   Sequential Read (Q= 32,T= 1) :    90.567 MB/s
+  Sequential Write (Q= 32,T= 1) :    32.482 MB/s
+  Random Read 4KiB (Q=  8,T= 8) :    17.325 MB/s [   4229.7 IOPS]
+ Random Write 4KiB (Q=  8,T= 8) :     7.936 MB/s [   1937.5 IOPS]
+  Random Read 4KiB (Q= 32,T= 1) :    15.449 MB/s [   3771.7 IOPS]
+ Random Write 4KiB (Q= 32,T= 1) :     7.720 MB/s [   1884.8 IOPS]
+  Random Read 4KiB (Q=  1,T= 1) :    10.762 MB/s [   2627.4 IOPS]
+ Random Write 4KiB (Q=  1,T= 1) :     6.196 MB/s [   1512.7 IOPS]
+
+  Test : 100 MiB [D: 0.6% (0.3/58.8 GiB)] (x2)  [Interval=5 sec]
+  Date : 2018/09/14 15:06:01
+    OS : Windows 7 Professional SP1 [6.1 Build 7601] (x64)
+  
+
+
+	Matt,
+
+SD card link
+https://www.amazon.com/PNY-Elite-Performance-Memory-P-SDX64U395-GE/dp/B00WWBCSG4/ref=sr_1_8?ie=UTF8&qid=1536952403&sr=8-8&keywords=SD+card+64GB+Class+10
+
+SD Card Reader link
+https://www.amazon.com/Kingston-microSDHC-microSDXC-MobileLite-FCR-MLG4/dp/B00KX4TORI/ref=sr_1_21?s=pc&ie=UTF8&qid=1536952539&sr=1-21&keywords=SD+Card+reader

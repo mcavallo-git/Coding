@@ -25,7 +25,13 @@
 * Default Path:  ```{source_path}```
 * File Format:   ```{source}-{title}.compressed```
 * Select [ < Back ] (top-left)
-* Done
+<hr />
+
+##### Verify settings persist (are saved)
+* After setting Preferences as-intended, close Preferences, then close HandBrake
+* Re-open HandBrake, then re-open Preferences
+* Verify that all settings which were just changed (before closing, previously) are still set to the same value(s)
+* If so - you're done. If not - google scholar your way to a successful config
 <hr />
 
 

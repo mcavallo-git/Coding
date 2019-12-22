@@ -1,3 +1,11 @@
+<!-- 
+
+This file (on GitHub):
+
+https://github.com/mcavallo-git/Coding/search?q=relative+shortcut&unscoped_q=relative+shortcut
+
+-->
+
 # Windows - relative shortcut pathing
 
 #### Example

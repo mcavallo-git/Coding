@@ -26,4 +26,8 @@
 * Default installation path for [ HandBrake.exe ] is [ C:\Program Files\HandBrake\HandBrake.exe ] (as-of 20191222-045615 CST)
 * Default value for [ Default Path ] is [ Click 'Browse' to set the default location ] (as-of 20191222-045615 CST)
 * Default value for [ File Format ] is [ {source}-{title} ] (as-of 20191222-045615 CST)
-* Documentation on [ HandBrake Quick start ] may be found at [ HandBrake's docs-website @ https://handbrake.fr/docs/en/1.2.0/introduction/quick-start.html ]
+
+
+### Citation(s)
+* github.com  |  "[Feature request] 'Same Path as Source' option #1328"  |  https://github.com/HandBrake/HandBrake/issues/1328
+* handbrake.fr  |  "HandBrake Documentation - Quick start"  |  https://handbrake.fr/docs/en/1.2.0/introduction/quick-start.html

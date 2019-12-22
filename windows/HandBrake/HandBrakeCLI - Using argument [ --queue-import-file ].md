@@ -6,22 +6,11 @@
 
 
 
---queue-import-file
+"C:\Program Files\HandBrakeCLI\HandBrakeCLI.exe" --version
 
 
+"C:\Program Files\HandBrakeCLI\HandBrakeCLI.exe" --queue-import-file
 
-
-
-
-##### Note(s):
-* Default installation path for [ HandBrake.exe ] is ```C:\Program Files\HandBrake\HandBrake.exe``` (as-of 20191222-045615 CST)
-* Default value for [ Default Path ] is ```Click 'Browse' to set the default location``` (as-of 20191222-045615 CST)
-* Default value for [ File Format ] is ```{source}-{title}``` (as-of 20191222-045615 CST)
-* Default value for [ Change case to Title Case ] is ```CHECKED``` (as-of 20191222-045615 CST)
-* Default value for [ Replace underscores with a space ] is ```CHECKED``` (as-of 20191222-045615 CST)
-* Default value for [ Remove common punctuation ] is ```UN-CHECKED``` (as-of 20191222-045615 CST)
-* Default value for [ MP4 File Extension ] is ```Automatic``` (as-of 20191222-045615 CST)
-<hr />
 
 
 ##### Citation(s)

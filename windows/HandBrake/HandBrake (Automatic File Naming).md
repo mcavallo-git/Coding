@@ -23,7 +23,7 @@
 * Select "Output Files" (left)
 * Set the following: value(s)
 * ```Default Path:```   ```{source_path}```
-* ```File Format:```   ```{source}-{title}.compressed```
+* ```File Format:```   ```{source}.compressed```
 * ```Change case to Title Case```   ```UN-CHECK```
 * ```Replace underscores with a space```   ```UN-CHECK```
 * ```Remove common punctuation```   ```UN-CHECK```

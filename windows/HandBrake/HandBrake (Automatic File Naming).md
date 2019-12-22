@@ -27,7 +27,7 @@
 * Select [ < Back ] (top-left)
 <hr />
 
-##### Verify settings persist (e.g. make sure your settings are set the same the next time you run HandBrake)
+##### Verify settings persist (e.g. make sure your settings are set the same, the next time you run HandBrake)
 * After setting Preferences as-intended, close Preferences, then close HandBrake
 * Re-open HandBrake, then re-open Preferences
 * Verify that all settings which were just changed (before closing, previously) are still set to the same value(s)

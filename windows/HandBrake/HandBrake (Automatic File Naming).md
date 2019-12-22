@@ -24,6 +24,10 @@
 * Set the following: value(s)
 * Default Path:  ```{source_path}```
 * File Format:   ```{source}-{title}.compressed```
+* Change case to Title Case:   ```UN-CHECK```
+* Replace underscores with a space:   ```UN-CHECK```
+* Remove common punctuation:   ```UN-CHECK```
+* MP4 File Extension:   ```Always use MP4```
 * Select [ < Back ] (top-left)
 <hr />
 
@@ -39,6 +43,10 @@
 * Default installation path for [ HandBrake.exe ] is ```C:\Program Files\HandBrake\HandBrake.exe``` (as-of 20191222-045615 CST)
 * Default value for [ Default Path ] is ```Click 'Browse' to set the default location``` (as-of 20191222-045615 CST)
 * Default value for [ File Format ] is ```{source}-{title}``` (as-of 20191222-045615 CST)
+* Default value for [ Change case to Title Case ] is ```CHECKED``` (as-of 20191222-045615 CST)
+* Default value for [ Replace underscores with a space ] is ```CHECKED``` (as-of 20191222-045615 CST)
+* Default value for [ Remove common punctuation ] is ```UN-CHECKED``` (as-of 20191222-045615 CST)
+* Default value for [ MP4 File Extension ] is ```Automatic``` (as-of 20191222-045615 CST)
 <hr />
 
 

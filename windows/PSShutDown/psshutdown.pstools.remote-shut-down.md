@@ -1,9 +1,5 @@
-
-### Network PC Remote Shutdown
-##### MCavallo, 2016-08-29_04-00
-<hr />
-
-##### To remotely shut down one-or-more network attached computer, perform the following steps:
+<h3>Network PC Remote Shutdown</h3>
+<h5><sub>To remotely shut down one-or-more network attached computer, perform the following steps</sub></h5>
 
 1. Download PSTools.zip -> https://technet.microsoft.com/en-us/sysinternals/bb896649.aspx
 
@@ -18,8 +14,7 @@
 6. On source computer, use cmd (or a batch file) to call [ psshutdown -s -f -t 0 @%USERPROFILE%\.psshutdown_hostnames.txt ]
 <hr />
 
-##### Combining psshutdown with APC PowerChute Software
-
+<h3>Combining psshutdown with APC PowerChute Software</h3>
 <h5><sub>Psshutdown may be used with APC UPS's to shutdown multiple PCs attached to its battery backup, even though only one of the PCs is plugged into the UPS via USB, but all PCs stay on when the UPS kicks over to relying on battery power</sub></h5>
 
 1. On the source computer, make sure that the [ APC Powerchute ] software application is installed, and that the source computer is tethered to the battery backup via connected via an RJ-45 to USB cable into the back/side of the battery backup

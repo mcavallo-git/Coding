@@ -28,9 +28,9 @@
 
 
 ##### Note(s):
-* Default installation path for [ HandBrake.exe ] is [ C:\Program Files\HandBrake\HandBrake.exe ] (as-of 20191222-045615 CST)
-* Default value for [ Default Path ] is [ Click 'Browse' to set the default location ] (as-of 20191222-045615 CST)
-* Default value for [ File Format ] is [ {source}-{title} ] (as-of 20191222-045615 CST)
+* Default installation path for [ HandBrake.exe ] is ```C:\Program Files\HandBrake\HandBrake.exe``` (as-of 20191222-045615 CST)
+* Default value for [ Default Path ] is ```Click 'Browse' to set the default location``` (as-of 20191222-045615 CST)
+* Default value for [ File Format ] is ```{source}-{title}``` (as-of 20191222-045615 CST)
 <hr />
 
 

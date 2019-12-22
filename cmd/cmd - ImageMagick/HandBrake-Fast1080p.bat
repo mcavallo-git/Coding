@@ -1,7 +1,7 @@
 @ECHO OFF
 REM		!!! Prerequisite !!! 
-REM			ImageMagick" must be installed for this script to function as-intended
-REM			https://www.imagemagick.org/script/download.php#windows
+REM			HandBrakeCLI must be installed for this script to function as-intended
+REM			https://handbrake.fr/downloads2.php
 
 
 

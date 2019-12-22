@@ -3,13 +3,10 @@
 <hr />
 
 
-
-
-
 "C:\Program Files\HandBrakeCLI\HandBrakeCLI.exe" --version
 
 
-"C:\Program Files\HandBrakeCLI\HandBrakeCLI.exe" --queue-import-file
+"C:\Program Files\HandBrakeCLI\HandBrakeCLI.exe" --queue-import-file ".\queue-import-file.json"
 
 
 

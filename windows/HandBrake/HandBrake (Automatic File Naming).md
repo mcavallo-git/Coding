@@ -52,6 +52,7 @@
 
 ##### Citation(s)
 * github.com  |  "[Feature request] 'Same Path as Source' option #1328"  |  https://github.com/HandBrake/HandBrake/issues/1328
+* handbrake.fr  |  "HandBrake Documentation — Automatic File Naming"  |  https://handbrake.fr/docs/en/latest/technical/automatic-file-naming.html
 * handbrake.fr  |  "HandBrake Documentation - Quick start"  |  https://handbrake.fr/docs/en/1.2.0/introduction/quick-start.html
 <hr />
 

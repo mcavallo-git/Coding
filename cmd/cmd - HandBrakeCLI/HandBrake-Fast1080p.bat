@@ -6,28 +6,68 @@ REM		Download [ HandBrakeCLI ] Application from URL [ https://handbrake.fr/downl
 REM		Extract [ HandBrakeCLI.exe ] from aforementioned URL (downloads as a .zip archive as-of 20191222-070342 CST)
 REM		Place the extracted file at filepath [ C:\Program Files\HandBrake\HandBrakeCLI.exe ]
 REM ------------------------------------------------------------
+REM 
+REM Instantiate Runtime Variable(s)
+REM
 
-
-REM "C:\Program Files\HandBrake\HandBrakeCLI.exe" --preset "Fast 1080p30"
-
-REM Preset
 SET "PRESET_NAME=Fast 1080p30"
-SET "OUTPUT_EXT=mp4"
-
-REM Input & Output Dirs
 SET "INPUT_DIR=Input"
 SET "OUTPUT_DIR=Output"
+SET "OUTPUT_EXT=mp4"
 
-REM		--= ImageMagick  :::  Trim the Image(s) ==-
+REM ------------------------------------------------------------
+REM	Compress input video(s) using HandBrakeCLI
+
 SET EXT="VOB"
 FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
 	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
-	"C:\Program Files\HandBrake\HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
+	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
 		DEL /f "%%I"
 	)
 	ECHO.
 )
+
+SET EXT="MPG"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
+	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
+		DEL /f "%%I"
+	)
+	ECHO.
+)
+
+SET EXT="mpg"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
+	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
+		DEL /f "%%I"
+	)
+	ECHO.
+)
+
+SET EXT="MOV"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
+	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
+		DEL /f "%%I"
+	)
+	ECHO.
+)
+
+SET EXT="mov"
+FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
+	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
+		DEL /f "%%I"
+	)
+	ECHO.
+)
+
 
 REM ------------------------------------------------------------
 REM 

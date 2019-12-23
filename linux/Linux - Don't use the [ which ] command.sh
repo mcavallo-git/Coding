@@ -4,7 +4,7 @@
 # Alternatives for the  [ which ]  command, to adequately test the existence of local commands, methods, programs, etc.
 #
 
-COMMAND_NAME=foo; \
+COMMAND_NAME=find; \
 echo -e "\n\n"; \
 command -v ${COMMAND_NAME} >/dev/null 2>&1 && { RET_CODE=$?; echo >&2 "Calling [ command -v ${COMMAND_NAME} ] yielded a return code of [ ${RET_CODE} ] and was evaluated as [ truthy ]"; } || { RET_CODE=$?; echo >&2 "Calling [ command -v ${COMMAND_NAME} ] yielded a return code of [ ${RET_CODE} ] and was evaluated as [ falsey ]"; }; \
 echo -e "\n\n"; \

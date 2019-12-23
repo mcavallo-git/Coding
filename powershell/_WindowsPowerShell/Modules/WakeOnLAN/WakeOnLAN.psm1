@@ -17,6 +17,8 @@ Function WakeOnLAN() {
 		Start-Sleep 10;
 
 	} Else {
+		Write-Output "Attempting to Wake MAC Address `"${mac}`"";
+
 		# Build Magic Packet http://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet
 		$split_mac=@($mac.Split(":""-") | ForEach {$_.Insert(0,"0x")});
 		$mac_byte_array = [Byte[]]($split_mac[0], $split_mac[1], $split_mac[2], $split_mac[3], $split_mac[4], $split_mac[5]);

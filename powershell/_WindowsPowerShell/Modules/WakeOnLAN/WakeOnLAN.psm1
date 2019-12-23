@@ -18,19 +18,19 @@ Function WakeOnLAN() {
 
 	} Else {
 		# Build Magic Packet http://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet
-		$string=@($mac.Split(":""-") | ForEach {$_.Insert(0,"0x")});
-		$target = [Byte[]]($string[0], $string[1], $string[2], $string[3], $string[4], $string[5]);
+		$split_mac=@($mac.Split(":""-") | ForEach {$_.Insert(0,"0x")});
+		$mac_byte_array = [Byte[]]($split_mac[0], $split_mac[1], $split_mac[2], $split_mac[3], $split_mac[4], $split_mac[5]);
 
 		# The Magic Packet is a broadcast frame containing anywhere within its payload 6 bytes of all 255 (FF FF FF FF FF FF in hexadecimal) ...
-		$packet = [Byte[]](,0xFF * 102);
+		$magic_packet = [Byte[]](,0xFF * 102);
 
 		# ... Followed by sixteen repetitions of the target computer's 48-bit MAC address, for a total of 102 bytes.
-		6..101 |% { $packet[$_] = $target[($_%6)]};
+		6..101 |% { $magic_packet[$_] = $mac_byte_array[($_%6)]};
 
 		# .NET framework lib para sockets
 		$UDPclient = New-Object System.Net.Sockets.UdpClient;
 		$UDPclient.Connect(([System.Net.IPAddress]::Broadcast),4000);
-		$UDPclient.Send($packet, $packet.Length) | Out-Null;
+		$UDPclient.Send($magic_packet, $magic_packet.Length) | Out-Null;
 
 	}
 

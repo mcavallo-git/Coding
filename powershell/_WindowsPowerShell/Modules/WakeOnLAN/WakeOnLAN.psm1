@@ -7,18 +7,18 @@
 #
 Function WakeOnLAN() {
 	Param(
-		[Parameter(Position=0, ValueFromRemainingArguments)]$MAC # Address of the network card (MAC address)
+		[Parameter(Position=0, ValueFromRemainingArguments)]$mac # Address of the network card (MAC address)
 	)
 
 	# Validate the Syntax of the user-defined MAC Address
-	If (!(($MAC -Like "*:*:*:*:*:*") -Or ($MAC -Like "*-*-*-*-*-*"))){
+	If (!(($mac -Like "*:*:*:*:*:*") -Or ($mac -Like "*-*-*-*-*-*"))){
 		$Example_MAC="A6:B5:C4:D3:E2:F1";
 		Write-Error "Error:  Invalid syntax used for method `"$($MyInvocation.MyCommand.Name)`" - Please call using syntax similar to:  [ `"$($MyInvocation.MyCommand.Name)`" `"${Example_MAC}`"; ]";
 		Start-Sleep 10;
 
 	} Else {
 		# Build Magic Packet http://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet
-		$string=@($MAC.Split(":""-") | ForEach {$_.Insert(0,"0x")});
+		$string=@($mac.Split(":""-") | ForEach {$_.Insert(0,"0x")});
 		$target = [Byte[]]($string[0], $string[1], $string[2], $string[3], $string[4], $string[5]);
 
 		# The Magic Packet is a broadcast frame containing anywhere within its payload 6 bytes of all 255 (FF FF FF FF FF FF in hexadecimal) ...

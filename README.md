@@ -191,7 +191,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="operating-systems"><br />Operating Systems<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="operating-systems"><br />OS (Operating Systems)<br /><br /></h5></th></tr>
 <tr><td><strong>CentOS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Community Enterprise Operating System</i></sub></td><td>
 	<details><summary><i>CentOS 8 Mirror(s)</i></summary>
 		<h5>
@@ -249,6 +249,7 @@ This file (on GitHub):
 <tr><td><strong>Lubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://lubuntu.me/downloads/">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2014 SP1 (Service Pack 1)</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=46694">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2014 SP1-CU13 (Service<br />&nbsp;&nbsp;&nbsp;Pack 1, Cumulative Update 13)</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=51186">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft Server 2016</strong> <sub><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows-server/get-started/system-requirements">View System Requirements (Minimum)</a></sub></td><td><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2016">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
 <tr><td><strong>VMware ESXi (vSphere Hypervisor)</strong> <sub>

@@ -7,16 +7,17 @@
 #
 Function WakeOnLAN() {
 	Param(
-		[Parameter(Position=0, ValueFromRemainingArguments)]$mac # Address of the network card (MAC address)
+		[Parameter(Position=0, ValueFromRemainingArguments)]$MAC # Address of the network card (MAC address)
 	)
 
 	# Validate the Syntax of the user-defined MAC Address
-	If (!(($mac -Like "*:*:*:*:*:*") -Or ($mac -Like "*-*-*-*-*-*"))){
-		Write-Error "MAC address not in correct format";
+	If (!(($MAC -Like "*:*:*:*:*:*") -Or ($MAC -Like "*-*-*-*-*-*"))){
+		Write-Error "Error:  Invalid syntax for call to MAC address not in correct format";
+		Start-Sleep 10;
 
 	} Else {
 		# Build Magic Packet http://en.wikipedia.org/wiki/Wake-on-LAN#Magic_packet
-		$string=@($mac.Split(":""-") | ForEach {$_.Insert(0,"0x")});
+		$string=@($MAC.Split(":""-") | ForEach {$_.Insert(0,"0x")});
 		$target = [Byte[]]($string[0], $string[1], $string[2], $string[3], $string[4], $string[5]);
 
 		# The Magic Packet is a broadcast frame containing anywhere within its payload 6 bytes of all 255 (FF FF FF FF FF FF in hexadecimal) ...

@@ -1,0 +1,1 @@
+# Refer to Runtime "get_permissions" @ https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/bin/get_permissions

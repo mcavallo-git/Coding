@@ -7,7 +7,8 @@
 #
 Function WakeOnLAN() {
 	Param(
-		[Parameter(Position=0, ValueFromRemainingArguments)]$mac # Address of the network card (MAC address)
+		<# Address of the network card (MAC address) #>
+		[Parameter(Position=0, ValueFromRemainingArguments)]$mac
 	)
 
 	# Validate the Syntax of the user-defined MAC Address

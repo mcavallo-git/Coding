@@ -32,8 +32,9 @@ firewall-cmd --get-icmptypes | tr " " "\n" > "${LOGFILE_ICMP_TYPES}";
 # ------------------------------------------------------------
 
 # Ex) List all firewall-cmd rules, then allow traffic for SSH (22) & MongoDB (27017) Ports, restart the firewall service, then list all rules again
+HOSTED_SERVICES="ssh,mongodb";
 firewall-cmd --set-default-zone=public;
-firewall-cmd --permanent --zone=public --add-service={ssh,mongodb};
+firewall-cmd --permanent --zone=public --add-service="{${ALLOW_SERVICES}}";
 firewall-cmd --reload;
 firewall-cmd --list-all;
 

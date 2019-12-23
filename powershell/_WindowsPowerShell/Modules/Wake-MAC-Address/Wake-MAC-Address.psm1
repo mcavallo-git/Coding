@@ -1,11 +1,11 @@
 #
-#	PowerShell - Wake-on-LAN
+#	PowerShell - Wake-MAC-Address
 #		|
 #		|--> Description:  Sends a Wake-on-LAN Magic Packet to a MAC Address which is specified by the user at runtime
 #		|
 #		|--> Example:     PowerShell -Command ("Show `$MyInvocation -Methods")
 #
-Function Wake-on-LAN() {
+Function Wake-MAC-Address() {
 	Param(
 		[Parameter(Position=0, ValueFromRemainingArguments)]$mac # Address of the network card (MAC address)
 	)
@@ -35,8 +35,8 @@ Function Wake-on-LAN() {
 	Return;
 
 }
-Export-ModuleMember -Function "Wake-on-LAN";
-# Install-Module -Name "Wake-on-LAN"
+Export-ModuleMember -Function "Wake-MAC-Address";
+# Install-Module -Name "Wake-MAC-Address"
 
 
 # ------------------------------------------------------------

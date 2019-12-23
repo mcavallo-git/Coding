@@ -13,9 +13,29 @@ $ReversePathLookups += @{
 	)
 };
 
-# Running Script Parent-Dir
+
+# Fullpath of Running Script
 $ReversePathLookups += @{
-	Description = "Running Script Parent-Dir";
+	Description = "Fullpath of Running Script";
+	Commands = @(
+		@{
+			Command = "`$PSCommandPath";
+			CurrentValue = ($PSCommandPath);
+			MinimumPowerShellVersion = 3.0;
+		},
+		@{
+			Command = "`$MyInvocation.MyCommand.Path";
+			CurrentValue = ($MyInvocation.MyCommand.Path);
+			MinimumPowerShellVersion = 2.0;
+		}
+	)
+};
+
+
+
+# Dirname of Running Script
+$ReversePathLookups += @{
+	Description = "Dirname of Running Script (e.g. the Fullpath of Parent-Dir)";
 	Commands = @(
 		@{
 			Command = "Split-Path `$MyInvocation.MyCommand.Path -Parent";
@@ -31,22 +51,19 @@ $ReversePathLookups += @{
 	)
 };
 
-# Running Script Fullpath
+
+# Basename of Running Script
 $ReversePathLookups += @{
-	Description = "Running Script Fullpath";
+	Description = "Basename of Running Script";
 	Commands = @(
 		@{
-			Command = "`$PSCommandPath";
-			CurrentValue = ($PSCommandPath);
-			MinimumPowerShellVersion = 3.0;
-		},
-		@{
-			Command = "`$MyInvocation.MyCommand.Path";
-			CurrentValue = ($MyInvocation.MyCommand.Path);
+			Command = "`$MyInvocation.MyCommand.Name";
+			CurrentValue = ($MyInvocation.MyCommand.Name);
 			MinimumPowerShellVersion = 2.0;
 		}
 	)
 };
+
 
 Clear-Host;
 ForEach ($EachLookup In $ReversePathLookups) {

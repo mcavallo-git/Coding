@@ -13,11 +13,7 @@ Function WakeOnLAN() {
 	# Validate the Syntax of the user-defined MAC Address
 	If (!(($MAC -Like "*:*:*:*:*:*") -Or ($MAC -Like "*-*-*-*-*-*"))){
 		$Example_MAC="A6:B5:C4:D3:E2:F1";
-		Write-Output "";
-		Write-Error "Error:  Invalid syntax used for method `"$($MyInvocation.MyCommand.Name)`"";
-		Write-Output "";
-		Write-Error "Info:  Please call using syntax similar to:  [ `"$($MyInvocation.MyCommand.Name)`" `"${Example_MAC}`"; ]";
-		Write-Output "";
+		Write-Error "Error:  Invalid syntax used for method `"$($MyInvocation.MyCommand.Name)`" - Please call using syntax similar to:  [ `"$($MyInvocation.MyCommand.Name)`" `"${Example_MAC}`"; ]";
 		Start-Sleep 10;
 
 	} Else {

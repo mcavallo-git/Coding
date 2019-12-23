@@ -3,7 +3,7 @@
 # ------------------------------------------------------------
 
 
-# For user/group file ownership, refer to "get_permissions" @ https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/bin/get_permissions
+# For user/group file ownership, refer to "get_permissions" script @ https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/bin/get_permissions
 
 
 # %w     time of file birth, human-readable; - if unknown

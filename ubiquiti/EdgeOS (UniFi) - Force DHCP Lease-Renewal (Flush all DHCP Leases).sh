@@ -5,7 +5,7 @@
 # USG-3P (Unifi)  :::  Clear DHCP Leases - Step 1, clear-out "/var/run/dnsmasq-dhcp.leases" && "/config/dnsmasq-dhcp.leases"
 #
 
-
+echo "USG-3P (Unifi)  :::  Clear DHCP Leases - Step 1/2, clear-out '/var/run/dnsmasq-dhcp.leases' && '/config/dnsmasq-dhcp.leases'" && \
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
 CACHE_DNSMASQ_LEASES="/config/$(basename ${LIVE_DNSMASQ_LEASES})" && \
 REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
@@ -26,22 +26,17 @@ sed \
 --expression='/^.+ '${ETH1_NETWORK_FIRST_THREE_OCTETS}'.'${REGEX_MATCH_LAST_OCTET}' .+$/d' \
 "${LIVE_DNSMASQ_LEASES}" && \
 cp -f "${LIVE_DNSMASQ_LEASES}" "${CACHE_DNSMASQ_LEASES}" && \
-service dhcpd restart \
-;
-
-
-# REGEX_MATCH_LAST_OCTET='2(5[0-5]|[0-4][0-9])' && \                    # 200 - 255    (last octet of ipv4)
-# REGEX_MATCH_LAST_OCTET='1[0-9]{2}' && \                               # 100-199      (last octet of ipv4)
-# REGEX_MATCH_LAST_OCTET='[0-9]?[0-9]' && \                             # 0-99         (last octet of ipv4)
-# REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \  # 0-255         (last octet of ipv4)
+service dhcpd restart && \
+sleep 3 && \
+echo "USG-3P (Unifi)  :::  Clear DHCP Leases - Step 2/2, clear-out '/var/run/dhcpd.leases' && '/config/dhcpd.leases'" &&
+clear dhcp leases && \
+echo "Done - All DHCP leases have been flushed";
 
 
 # ------------------------------------------------------------
 #
-# USG-3P (Unifi)  :::  Clear DHCP Leases - Step 2, clear-out "/var/run/dhcpd.leases" && "/config/dhcpd.leases"
+# USG-3P (Unifi)  :::  If you want to snipe one, specific DHCP lease (& make it expire) without touching the majority of the live DHCP leases
 #
-
-clear dhcp leases; # Clear all leases from DHCP
 
 IP_RELEASE_DHCP="192.168.1.100" && clear dhcp lease ip ${IP_RELEASE_DHCP}; # Clear one, specific device/ip's lease from DHCP
 
@@ -69,6 +64,12 @@ show dhcpv6 relay-agent status;
 # Side-Notes:  [ DEPRECATED ]  USG-3P (Unifi)  :::  Force DHCP Lease-Renewal
 #
 sudo /opt/vyatta/bin/sudo-users/vyatta-clear-dhcp-lease.pl --lip=all --ilfile=/config/dhcpd.leases --olfile=/config/dhcpd.leases --pidf=/run/dhcpd.pid
+
+
+# REGEX_MATCH_LAST_OCTET='2(5[0-5]|[0-4][0-9])' && \                    # 200 - 255    (last octet of ipv4)
+# REGEX_MATCH_LAST_OCTET='1[0-9]{2}' && \                               # 100-199      (last octet of ipv4)
+# REGEX_MATCH_LAST_OCTET='[0-9]?[0-9]' && \                             # 0-99         (last octet of ipv4)
+# REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \  # 0-255         (last octet of ipv4)
 
 
 # ------------------------------------------------------------

@@ -16,7 +16,7 @@ echo -e "\n\n";
 
 
 ### Force a truthy-condition by testing a command which is known to exist
-COMMAND_NAME=find && \
+COMMAND_NAME=cd && \
 echo -e "\n\n" && \
 command -v ${COMMAND_NAME} >/dev/null 2>&1 && { RET_CODE=$?; echo >&2 "Calling [ command -v ${COMMAND_NAME} ] yielded a return code of [ ${RET_CODE} ] and was evaluated as [ truthy ]"; } || { RET_CODE=$?; echo >&2 "Calling [ command -v ${COMMAND_NAME} ] yielded a return code of [ ${RET_CODE} ] and was evaluated as [ falsey ]"; } && \
 echo -e "\n\n" && \

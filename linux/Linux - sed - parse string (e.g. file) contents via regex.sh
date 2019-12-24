@@ -252,6 +252,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #
 #   docs.oracle.com  |  "Font Configuration Files"  |  https://docs.oracle.com/javase/8/docs/technotes/guides/intl/fontconfig.html
 #
+# 	unix.stackexchange.com  |  "How can I use sed to replace a multi-line string?"  |  https://unix.stackexchange.com/a/26290
+#
 # 	www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques
 #
 # ------------------------------------------------------------

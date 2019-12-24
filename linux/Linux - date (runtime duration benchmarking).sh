@@ -1,6 +1,16 @@
 #!/bin/bash
 
 # ------------------------------------------------------------
+# Simple Benchmark
+
+BENCHMARK_START=$(date +'%s.%N');
+sleep 3;
+BENCHMARK_DELTA=$(echo "$(date +'%s.%N') - ${BENCHMARK_START}" | bc);
+echo "  |--> Finished after ${BENCHMARK_DELTA}s";
+
+
+
+# ------------------------------------------------------------
 #
 # 	Date-Time Vars
 #		 |--> Make sure that the "date" command is called only once (e.g. make sure to only grab one timestamp)

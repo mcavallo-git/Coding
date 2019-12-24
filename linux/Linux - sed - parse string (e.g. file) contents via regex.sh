@@ -238,6 +238,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #
 # Citation(s)
 #
+# 	docstore.mik.ua  |  "A.3 Command Summary for sed docstore.mik.ua/orelly/unix/sedawk/appa_03.htm"  |  https://docstore.mik.ua/orelly/unix/sedawk/appa_03.htm
+#
 # 	stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #
 # 	stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292

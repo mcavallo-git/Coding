@@ -12,10 +12,11 @@ Write-Host -NoNewLine 'Press any key to close window...'; $Host.UI.RawUI.ReadKey
 
 # ------------------------------------------------------------
 
-# Inspecting [ Workstation-Spefific ] environment variables
+# SYSTEM  environment variables (inspecting)
 
 $EnvSystem = (Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment');
 $EnvSystem;
+($EnvSystem.Path) -replace (";","`n")
 
 $EnvSystem.GetType();
 $EnvSystem | Measure-Object;
@@ -24,10 +25,12 @@ $EnvSystem | Measure-Object;
 
 # ------------------------------------------------------------
 
-# Inspecting [ User-Spefific ] environment variables
+# USER environment variables (inspecting)
 
 $EnvUser = Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment';
 $EnvUser;
+($EnvUser.Path) -replace (";","`n")
+
 $EnvUser.GetType();
 
 # ------------------------------------------------------------

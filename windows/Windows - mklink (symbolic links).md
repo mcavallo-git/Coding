@@ -5,9 +5,9 @@
 
 ***
 ### * Syntax (mklink)
-###### Note: The file/directory [LINK] must not already exist (or mklink will fail)
+###### Note: The file/directory [NEW_LINK] must not already exist (or mklink will fail)
 ```
-mklink /d "[LINK]" "[TARGET]"
+mklink /d "[NEW_LINK]" "[EXISTENT_TARGET]"
 ```
 
 

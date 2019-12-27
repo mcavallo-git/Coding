@@ -1,0 +1,22 @@
+
+VLC - Skip Windows' Default Playback Device, Output to Separate Audio Module Instead
+	-> Run VLC
+		-> Tools (Top, Dropdown)
+			-> Preferences (Dropdown Item)
+				-> Audio (Tab)
+					-> Output Module (Dropdown)
+						-> "WaveOut audio output"
+							-> "Device" - [Select Item from Possible Outputs Here]
+						
+	This was successfully used in coordination with DisplayPort Multi-Stream Transport (DP MST) to a second-in-line (daisy-chained) Monitor
+	· PC Performing task: Intel NUC5i7RYH
+	· Windows' Default Playback Device set to Monitor2's Audio out (Middle Monitor, 3.5mm Jack, Daisy-Chained/MST DP)
+		-> Used to play Music, etc. to play over speakers
+	· VLC's Default Audio Module set to NUC's Front 3.5mm Jack
+		-> Used as default for Skype and VLC for Audio ouput as well as Audio Input (Mic for Skype for Business)
+	· This setup was tested and is reversible for audio-output. 
+		
+	Note(s): 
+		· Daisy-Chained DisplayPort Monitors via MST. 
+		· NUC Video-Out 1 (Monitor3):  Mini-HDMI  -  Outputs to 1x2 HDMI Splitter, which splits to Monitor3 (right-of-3) as well as an 8x8 HDMI Matrix for presentations 
+		· NUC Video-Out 2 (Monitor1 & Monitor 2) - Mini-Displayport  (to 2 Daisy-Chained DP Monitors via MST)

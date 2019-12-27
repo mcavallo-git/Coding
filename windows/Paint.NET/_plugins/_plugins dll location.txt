@@ -1,0 +1,5 @@
+	// paint.net plugins - dll files should be dropped into:
+	
+C:\Program Files\paint.net\Effects
+
+	// afterwards, in paint.net, addons should appear under 'Effects' on the top menu

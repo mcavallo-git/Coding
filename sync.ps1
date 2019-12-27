@@ -36,10 +36,6 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
 }
 
-# [System.Environment]::SetEnvironmentVariable('siteName','tachytelic.net',[System.EnvironmentVariableTarget]::User)
-# export GIT_SSH_COMMAND="ssh -i \"${REMOTE_PRIVATE_KEY}\" -o StrictHostKeyChecking=no -F /dev/null";
-# sshcommand = ssh -i \"/c/Users/matthew.cavallo/.ssh/git/id_rsa_github.com_mcavallo.work@gmail.com_P520C_20191227_021031.pem\" -o StrictHostKeyChecking=no
-
 <# ------------------------------------------------------------ #>
 
 Write-Host "Info:  Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
@@ -47,13 +43,6 @@ Write-Host "Info:  Syncing local git repository to origin `"https://github.com/m
 If ( ${HOME} -Eq ${Null} ) {
 	$HOME = ((Resolve-Path "~").Path);
 }
-
-# $CommandName = "ssh-keyscan";
-# $CommandExists = $(Get-Command -Name $CommandName 1>$NULL 2>&1; Write-Output $?;); `
-# If ($CommandExists -Eq $True) {
-# 	$REPO_HOST="github.com"; Write-Host "Info:  Pulling public key(s) from host `"${REPO_HOST}`"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
-# 	$REPO_HOST="raw.githubusercontent.com"; Write-Host "Info:  Pulling public key(s) from host `"${REPO_HOST}`"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
-# }
 
 $REPO_DIR_WIN32 = "${HOME}\Coding";
 

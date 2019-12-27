@@ -282,6 +282,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Splashtop\Splashtop Software Updater"; Depth="5"; Parent=""; Basename="*.exe"; }; # Splashtop
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="TeamViewer"; Depth="1"; Parent=""; Basename="TeamViewer*.exe"; }; # Teamviewer
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Unigine"; Depth=""; Parent=""; Basename="Heaven.exe"; }; # Heaven's Benchmark
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="VMware\VMware Workstation"; Depth="2"; Parent=""; Basename="*.exe"; }; # VMware Workstation
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="WinDirStat"; Depth="1"; Parent=""; Basename="windirstat.exe"; }; # WinDirStat (Disk Usage Analyzer)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="World of Warcraft"; Depth="2"; Parent=""; Basename="*.exe"; Entertainment=$True; }; # WoW
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Xvid"; Depth="1"; Parent=""; Basename="*.exe"; }; # XVid

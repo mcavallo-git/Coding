@@ -45,13 +45,11 @@
 	<OpenMouseMonitor value="1"/>
 	<MenuItems7>
 		<Line>Item1.Command=user_files</Line>
-		<Line>Item1.Label=📁 This User</Line>
 		<Line>Item1.Tip=$Menu.UserFilesTip</Line>
 		<Line>Item1.Settings=NOEXPAND</Line>
-		<Line>Item2.Command=computer</Line>
-		<Line>Item2.Label=🖥️ This PC</Line>
-		<Line>Item2.Settings=NOEXPAND</Line>
-		<Line>Item3.Command=separator</Line>
+		<Line>Item2.Command=separator</Line>
+		<Line>Item3.Command=computer</Line>
+		<Line>Item3.Settings=NOEXPAND</Line>
 		<Line>Item4.Command=desktop</Line>
 		<Line>Item4.Label=Desktop</Line>
 		<Line>Item4.Settings=NOEXPAND</Line>
@@ -60,15 +58,16 @@
 		<Line>Item5.Tip=$Menu.DownloadTip</Line>
 		<Line>Item5.Settings=NOEXPAND</Line>
 		<Line>Item6.Command=separator</Line>
+		<Line>Item6.Settings=ITEM_DISABLED</Line>
 		<Line>Item7.Command="%PROGRAMFILES%\Cryptomator\Cryptomator.exe"</Line>
 		<Line>Item7.Label=Cryptomator</Line>
 		<Line>Item7.Icon=C:\Program Files\Cryptomator\Cryptomator.exe, 1</Line>
-		<Line>Item7.Settings=NOEXPAND</Line>
+		<Line>Item7.Settings=ITEM_DISABLED</Line>
 		<Line>Item8.Command=%USERPROFILE%\Documents\GitHub</Line>
 		<Line>Item8.Link=%USERPROFILE%\Documents\GitHub</Line>
 		<Line>Item8.Label=GitHub</Line>
 		<Line>Item8.Icon=C:\Users\matthew.cavallo\AppData\Local\GitHubDesktop\GitHubDesktop.exe, 1</Line>
-		<Line>Item8.Settings=NOEXPAND</Line>
+		<Line>Item8.Settings=ITEM_DISABLED</Line>
 		<Line>Item9.Command=separator</Line>
 		<Line>Item10.Command=%LOCALAPPDATA%\Microsoft\WindowsApps\ubuntu1804.exe</Line>
 		<Line>Item10.Link=%LOCALAPPDATA%\Microsoft\WindowsApps\ubuntu1804.exe</Line>

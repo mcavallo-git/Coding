@@ -5,7 +5,7 @@
 
 BENCHMARK_START=$(date +'%s.%N');
 sleep 3;
-BENCHMARK_DELTA=$(echo "$(date +'%s.%N') - ${BENCHMARK_START}" | bc);
+BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l);
 echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 
 

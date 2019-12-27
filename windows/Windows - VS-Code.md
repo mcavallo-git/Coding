@@ -47,13 +47,18 @@
 ----> If you definitely haven't created a Gist yet, perform the first-time sync to create a new Gist by pressing Shift+Alt+U, which will upload your current settings into a newly-created gist
 ***
 ### Option [B]: You HAVE synced VS-Code's settings via "Settings Sync" at least once before - You must obtain your previous Gist-ID
-##### [Step 1/2]: Obtain Gist-ID
+##### [Step 1/3]: Obtain Gist-ID
 --> If you are unsure of your existing Gist's ID...
 ---> Browse to https://gist.github.com & select "See all of your gists" (top-right)
 ----> Click "cloudSettings" to open your Gist (if none shows up, check any other GitHub account usernames, etc. for your Gist)
 -----> Your Gist-ID can be found in the URL (top of browser) -> Syntax is: https://gist.github.com/[GITHUB_USER]/[GIST_ID]
-###### [Step 2/2]: Download Gist-ID
--> Prep your Gist-ID by copying it onto the clipboard
---> Force a Gist-Download by pressing Shift+Alt+D
----> Paste your Gist-ID into VS-Code's top dropdown field (when asked for it)
+###### [Step 2/3]: Obtain GIST-Token
+--> (This step was performed before most-recent update and requires updating to match current revision)
+###### [Step 3/3]: Input GIST-ID & GIST-Token into SettingsSync App
+--> Combo-Keypress "CTRL + SHIFT + P" to search actions
+---> Type "Sync: Advanced Options" & select it
+----> Select "Sync: Open Settings"
+-----> Paste your GIST-ID into the "Gist ID" field
+-----> Paste your GIST-Token into the "Access Token" field
+------> Click outside of both fields (click on background black/gray area behind either of them) then wait a sec and close/re-open VS Code to begin a manual sync of extensions, etc.
 ***

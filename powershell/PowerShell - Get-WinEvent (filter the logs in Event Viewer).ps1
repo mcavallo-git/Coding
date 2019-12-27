@@ -107,9 +107,10 @@ $FinalOutput >> ("${Logfile}");
 Start ("${Logfile}");
 
 
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
 #	docs.microsoft.com  |  Get-WinEvent  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/Get-WinEvent
 #
-#
+# ------------------------------------------------------------

@@ -8,14 +8,14 @@ If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPol
 	Set-ExecutionPolicy "RemoteSigned" -Force;
 }
 
-Write-Host "Info: Loading personal and system profiles...`n" -ForegroundColor Gray;
+Write-Host "Info:  Loading personal and system profiles...`n" -ForegroundColor Gray;
 
-Write-Host "Info: Local PowerShell Version: $(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;
+Write-Host "Info:  Local PowerShell Version: $(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;
 
 <# ------------------------------------------------------------ #>
 
 $AliasName="grep"; $AliasCommand="Select-String";
-Write-Host "Info: Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
+Write-Host "Info:  Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
 If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
 		Remove-Item "alias:\${AliasName}";
@@ -26,7 +26,7 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 }
 
 $AliasName="which"; $AliasCommand="Get-Command";
-Write-Host "Info: Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
+Write-Host "Info:  Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
 If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -Ne ("${AliasCommand}")) {
 		Remove-Item "alias:\${AliasName}";
@@ -38,7 +38,7 @@ If ( (Get-Alias).Name -Contains "${AliasName}" ) {
 
 <# ------------------------------------------------------------ #>
 
-Write-Host "Info: Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
+Write-Host "Info:  Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
 
 If ( ${HOME} -Eq ${Null} ) {
 	$HOME = ((Resolve-Path "~").Path);
@@ -47,8 +47,8 @@ If ( ${HOME} -Eq ${Null} ) {
 $CommandName = "ssh-keyscan";
 $CommandExists = $(Get-Command -Name $CommandName 1>$NULL 2>&1; Write-Output $?;); `
 If ($CommandExists -Eq $True) {
-	$REPO_HOST="github.com"; Write-Host "$(date '+%Y-%m-%d %H:%M:%S') | ---> Pulling public key(s) from host `"${REPO_HOST}`"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
-	$REPO_HOST="raw.githubusercontent.com"; Write-Host "$(date '+%Y-%m-%d %H:%M:%S') | ---> Pulling public key(s) from host `"${REPO_HOST}`"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
+	$REPO_HOST="github.com"; Write-Host "Info:  Pulling public key(s) from host `"${REPO_HOST}`"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
+	$REPO_HOST="raw.githubusercontent.com"; Write-Host "Info:  Pulling public key(s) from host `"${REPO_HOST}`"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
 }
 
 $REPO_DIR_WIN32 = "${HOME}\Coding";
@@ -87,6 +87,6 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 
 . "${HOME}\Coding\powershell\_WindowsPowerShell\Modules\ImportModules.ps1";
 
-Write-Host "`nInfo: PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
+Write-Host "`nInfo:  PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
 
 Set-Location "${HOME}";

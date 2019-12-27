@@ -1,7 +1,12 @@
+# ------------------------------------------------------------
 
 # Get environment variables combined from both [ Workstation-Spefific ] & [ User-Specific ] environment variables
 
-Get-ChildItem Env:;
+# Method 1
+Get-ChildItem Env: | Format-List;
+
+# Method A
+[Environment]::GetEnvironmentVariables("Process") | Format-List;
 
 Write-Host -NoNewLine 'Press any key to close window...'; $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown') | Out-Null; Exit;
 
@@ -37,3 +42,11 @@ $EnvAll.GetType();
 
 $EnvAll.Path;
 $EnvAll.Path.Split(';');
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#  stackovertflow.com  |  "Windows user environment variable vs. system environment variable"  |  https://stackoverflow.com/a/30675792
+#
+# ------------------------------------------------------------

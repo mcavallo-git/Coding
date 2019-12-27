@@ -3,14 +3,15 @@
 # PERMANENTLY modify user/system environment variables in Windows
 # 
 
+# PERMANENTLY  modify  USER  environment variable, "PATH"
+$ADD_PATH = "C:\Program Files (x86)\VMware\VMware Workstation"; `
+[Environment]::SetEnvironmentVariable("Path", (((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path)+(";${ADD_PATH}")), [System.EnvironmentVariableTarget]::User);
 
-$Env:Path += ";C:\Program Files (x86)\VMware\VMware Workstation";  # Temporarily APPENDS TO existing path
-[Environment]::SetEnvironmentVariable("Path", $Env:Path, [System.EnvironmentVariableTarget]::Machine);  # Permanently updates a system environment variable
 
+# PERMANENTLY  modify  SYSTEM  environment variable, "PATH"
+$ADD_PATH = "C:\Program Files (x86)\VMware\VMware Workstation"; `
+[Environment]::SetEnvironmentVariable("Path", (((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path)+(";${ADD_PATH}")), [System.EnvironmentVariableTarget]::Machine);
 
-$Env:Path += ";C:\Program Files (x86)\VMware\VMware Workstation";
-C:\Users\matthew.cavallo\Desktop\2019-12-27 16_20_01-Environment Variables.png
-[Environment]::SetEnvironmentVariable("INCLUDE", $Env:INCLUDE, [System.EnvironmentVariableTarget]::User);  # Permanently updates a user environment variable
 
 
 # ------------------------------------------------------------

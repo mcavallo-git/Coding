@@ -44,6 +44,13 @@ If ( ${HOME} -Eq ${Null} ) {
 	$HOME = ((Resolve-Path "~").Path);
 }
 
+$CommandName = "ssh-keyscan";
+$CommandExists = $(Get-Command -Name $CommandName 1>$NULL 2>&1; Write-Output $?;); `
+If ($CommandExists -Eq $True) {
+	REPO_HOST="github.com"; Write-Output "$(date '+%Y-%m-%d %H:%M:%S') | ---> Pulling public key(s) from host \"${REPO_HOST}\"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
+	REPO_HOST="raw.githubusercontent.com"; Write-Output "$(date '+%Y-%m-%d %H:%M:%S') | ---> Pulling public key(s) from host \"${REPO_HOST}\"..."; ssh-keyscan "${REPO_HOST}" >> "${HOME}/.ssh/known_hosts";
+}
+
 $REPO_DIR_WIN32 = "${HOME}\Coding";
 
 If (Test-Path "${REPO_DIR_WIN32}") {

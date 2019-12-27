@@ -19,7 +19,6 @@
 PowerShell.exe -Command "ForEach ($EachVMX In (Get-Content '~\.vmware\startup-vmx.txt')) { If (Test-Path (${EachVMX})) { Start-Process -Filepath 'C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe' -ArgumentList (('-T wt start ')+(${EachVMX})); }; };"
 
 
-
 # ------------------------------------------------------------
 #
 # Verbose Syntax, using variables and spread-out commands for easier reading
@@ -31,8 +30,13 @@ Get-Content -Path "${VMwareStartupList_Vmx}" | ForEach-Object {
 
 	$VMwareHostTypes = @{ Workstation="wt"; Fusion="fusion"; Player="player"; };
 
-	"C:\Windows\System32\CMD" /C "'C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe' -T $(${VMwareHostTypes}.Workstation) start '$_'";
+	If (Test-Path ("$_")) {
+
+		"C:\Windows\System32\CMD" /C "'C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe' -T $(${VMwareHostTypes}.Workstation) start '$_'";
+
+	};
 
 };
+
 
 # ------------------------------------------------------------

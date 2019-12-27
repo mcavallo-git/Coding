@@ -33,3 +33,9 @@ ForEach ($EachVMX In (Get-Content '~\.vmware\startup-vmx.txt')) {
 
 
 # ------------------------------------------------------------
+# 
+# Citation(s)
+# 
+#   superuser.com  |  "Is it possible to autostart a VMware virtual machine in background as a Windows service, and shut it down elegantly when Windows shuts down?"  |  https://superuser.com/a/1149081
+# 
+# ------------------------------------------------------------

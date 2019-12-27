@@ -16,8 +16,8 @@
 # TEMPORARILY modify session environment variables in Windows
 # 
 
-$env:Path = "SomeRandomPath";  # (replaces existing path) 
-$env:Path += ";SomeRandomPath";  # (appends to existing path)
+$env:Path = "SomeRandomPath";  # (temporarily REPLACES existing path)
+$env:Path += ";SomeRandomPath";  # (temporarily APPENDS TO existing path)
 
 
 # ------------------------------------------------------------

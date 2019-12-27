@@ -22,6 +22,9 @@ ASSOC .tar=7-Zip.tar
 REM URLs
 ASSOC .url=InternetShortcut
 
+REM Manuals
+ASSOC .man=txtfile
+
 REM Markdown
 ASSOC .md=txtfile
 

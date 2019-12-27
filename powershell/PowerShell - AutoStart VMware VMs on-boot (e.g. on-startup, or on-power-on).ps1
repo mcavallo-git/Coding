@@ -28,7 +28,7 @@ Get-Content -Path "${VMwareStartupList_Vmx}" | ForEach-Object {
 # As a one-liner
 #
 
-PowerShell.exe -Command 'Get-Content -Path "${HOME}\.vmware\startup-vmx.txt" | ForEach-Object { "C:\Windows\System32\cmd.exe" /C "`"C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe`" -T wt start `"$_`""; })';
+PowerShell.exe -Command 'Get-Content -Path "${HOME}\.vmware\startup-vmx.txt" | ForEach-Object { "C:\Windows\System32\cmd.exe" /C "`"C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe`" -T wt start `"$_`""; }';
 
 
 # ------------------------------------------------------------

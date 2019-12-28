@@ -23,20 +23,14 @@ $Registry_UserSidList="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentV
 $Registry_FileExtensions_A="HKEY_CLASSES_ROOT";
 $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts";
 
-
-
-
 Write-Host "`n`n";
 
 $max_keys = 5; 
 $i=0;
-Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
+Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
 | ForEach-Object {
-
 	$i++;
-
 	If ($i -le $max_keys) {
-
 		Write-Host "`n------------------------------------------------------------";
 		Write-Host (("Registry Key:  ")+($_.Name));
 		Write-Host (("ValueCount:    ")+($_.ValueCount));
@@ -46,7 +40,6 @@ Get-ChildItem -Path "Registry::${Registry_FileExtensions_B}" `
 		If ($_.OpenWithProgids -ne $Null) {
 			Write-Host "`$_.OpenWithProgids: "; $_.OpenWithProgids;
 		}
-
 	}
 }
 

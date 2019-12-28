@@ -31,7 +31,7 @@ esxcli storage core device world list > /root/esxcli/esxcli-storage-core-device-
 esxcli storage core path list > /root/esxcli/esxcli-storage-core-path-list.log;  # List all the SCSI paths on the system.
 
 
-esxcli storage filesystem list > /root/esxcli/esxcli-storage-filesystem-list.log  # List the volumes available to the host. This includes VMFS, NAS and VFAT partitions.
+esxcli storage filesystem list > /root/esxcli/esxcli-storage-filesystem-list.log;  # List the volumes available to the host. This includes VMFS, NAS and VFAT partitions.
 
 
 esxcli storage nmp device list > /root/esxcli/esxcli-storage-nmp-device-list.log;  # List the devices currently controlled by the VMware NMP Multipath Plugin and show the SATP and PSP information associated with that device.
@@ -43,7 +43,7 @@ esxcli storage nmp path list > /root/esxcli/esxcli-storage-nmp-path-list.log;  #
 esxcli storage vmfs extent list > /root/esxcli/esxcli-storage-vmfs-extent-list.log;  # List the VMFS extents available on the host.
 
 
-esxcli storage vmfs snapshot list > /root/esxcli/esxcli-storage-vmfs-snapshot-list.log;# List unresolved snapshots/replicas of VMFS volume.
+esxcli storage vmfs snapshot list > /root/esxcli/esxcli-storage-vmfs-snapshot-list.log;  # List unresolved snapshots/replicas of VMFS volume.
 
 
 # ------------------------------------------------------------

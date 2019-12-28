@@ -33,3 +33,10 @@
 
 
 ------------------------------------------------------------
+
+
+Example - Query Google Images for "Wallpapers" (search string) & specify that you only want returned any images which are exactly 6880 x 1440 pixels:
+https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:6880,iszh:1440
+
+
+------------------------------------------------------------

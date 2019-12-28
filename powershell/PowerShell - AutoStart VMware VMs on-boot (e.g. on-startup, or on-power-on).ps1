@@ -16,7 +16,7 @@
 # One-Liner Syntax
 #
 
-PowerShell.exe -Command "ForEach ($EachVMX In (Get-Content '~\.vmware\startup-vmx.txt')) { If ((Test-Path (${EachVMX})) -And (([String]::IsNullOrEmpty(${EachVMX}.Trim())) -Eq $False)) { Start-Process -Filepath 'C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe' -ArgumentList (('-T wt start ')+(${EachVMX})); Start-Sleep 5; }; };"
+PowerShell.exe -Command "ForEach ($EachVMX In (Get-Content '~\.vmware\vmx-autostart-list.txt')) { If ((Test-Path (${EachVMX})) -And (([String]::IsNullOrEmpty(${EachVMX}.Trim())) -Eq $False)) { Start-Process -Filepath 'C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe' -ArgumentList (('-T wt start ')+(${EachVMX})); Start-Sleep 5; }; };"
 
 
 # ------------------------------------------------------------
@@ -24,7 +24,7 @@ PowerShell.exe -Command "ForEach ($EachVMX In (Get-Content '~\.vmware\startup-vm
 # Verbose Syntax
 #
 
-ForEach ($EachVMX In (Get-Content '~\.vmware\startup-vmx.txt')) {
+ForEach ($EachVMX In (Get-Content '~\.vmware\vmx-autostart-list.txt')) {
 	If ((Test-Path (${EachVMX})) -And (([String]::IsNullOrEmpty(${EachVMX}.Trim())) -Eq $False)) {
 		Start-Process -Filepath 'C:\Program Files (x86)\VMware\VMware Workstation\vmrun.exe' -ArgumentList (('-T wt start ')+(${EachVMX}));
 		Start-Sleep 5;

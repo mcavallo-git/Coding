@@ -25,8 +25,8 @@ $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\Current
 
 Write-Host "`n`n";
 
-$max_keys = 5; 
-$i=0;
+$max_keys = 3; `
+$i=0; `
 Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
 | ForEach-Object {
 	$i++;
@@ -36,12 +36,29 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 		Write-Host (("ValueCount:    ")+($_.ValueCount));
 		Write-Host (("SubKeyCount:   ")+($_.SubKeyCount));
 		Write-Host (("GetType():     ")+($_.GetType()));
-		Write-Host -NoNewLine ("Get-TypeData:  ");  Get-TypeData -TypeName ([String]$_.GetType());
+		Write-Host -NoNewLine ("Show `"$_`":  "); Show "$_";
 		If ($_.OpenWithProgids -ne $Null) {
 			Write-Host "`$_.OpenWithProgids: "; $_.OpenWithProgids;
+			If ($_.OpenWithProgids.ProgId -ne $Null) {
+				Write-Host "`$_.OpenWithProgids.ProgId: "; $_.OpenWithProgids.ProgId;
+			}
 		}
 	}
 }
+
+# ------------------------------------------------------------
+
+$max_keys = 3; `
+$i=0; `
+Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
+| ForEach-Object {
+	$i++;
+	If ($i -le $max_keys) {
+		Show $_;
+	}
+}
+
+# ------------------------------------------------------------
 
 (Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name ProgId).ProgID
 
@@ -53,6 +70,10 @@ Write-Host "`n`n";
 
 Type.GetType("System.Type").GetProperties();
 Type.GetType("Microsoft.Win32.RegistryKey").GetProperties();
+
+# ------------------------------------------------------------
+
+
 
 
 # Write-Host -NoNewLine "`n`nPress any key to exit...";

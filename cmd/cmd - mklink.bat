@@ -1,6 +1,12 @@
 @ECHO OFF
 REM 
-REM MKLINK /D "%NEW_LINK%" "%EXISTENT_TARGET%"
+REM ### LINK A FILE
+REM   MKLINK "%NEW_LINK%" "%EXISTENT_TARGET%"
+REM 
+REM
+REM ### LINK A DIRECTORY
+REM   MKLINK /D "%NEW_LINK%" "%EXISTENT_TARGET%"
+REM 
 REM 
 REM ------------------------------------------------------------
 REM 

@@ -15,7 +15,8 @@
 $FileExtension=".log";
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
 # $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
-$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\Code.exe`" --user-data-dir=`"%APPDATA%\Code`" `"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+# $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\Code.exe`" --user-data-dir=`"%APPDATA%\Code`" `"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+$OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 
 $RegEdit_Key="HKCR:\${FileExtension}\shell\open\command";
 

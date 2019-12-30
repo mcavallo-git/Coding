@@ -26,16 +26,17 @@ UserProfile = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%USERPROFI
 
 VSCode_Workspace = UserProfile & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
 
-Set InlineArguments = WScript.Arguments
+Set WScriptArguments = WScript.Arguments
 
 ' WScript.Echo "VSCode_Workspace = [" & VSCode_Workspace & "]"
 
-' WScript.Echo "InlineArguments.Count = [" & InlineArguments.Count & "]"
+' WScript.Echo "WScriptArguments.Count = [" & WScriptArguments.Count & "]"
 
-if InlineArguments.Count = 0 then
+if WScriptArguments.Count = 0 then
 	RunCommand = """" & VSCode_Workspace & """"
 Else
-	RunCommand = """" & VSCode_Workspace & """" & " " & """" & WScript.Arguments(0) & """"
+	' RunCommand = """" & VSCode_Workspace & """" & " " & """" & WScript.Arguments(0) & """"
+	RunCommand = """" & VSCode_Workspace & """" & " " & """" & WScriptArguments.Item(0) & """"
 End if
 
 ' WScript.Echo "RunCommand = [" & RunCommand & "]"
@@ -48,6 +49,8 @@ CreateObject("Wscript.Shell").Run RunCommand, 0, False
 ' Citation(s)
 '
 '   developer.rhino3d.com  |  "Nothing vs Empty vs Null with VBScript"  |  https://developer.rhino3d.com/guides/rhinoscript/nothing-empty-null/
+'
+'   social.msdn.microsoft.com  |  "passing parameters to a vbs file in command line"  |  https://social.msdn.microsoft.com/Forums/sqlserver/en-US/8855a587-ff0d-4f58-8ae7-d5aefa21c612/passing-parameters-to-a-vbs-file-in-command-line?forum=sqlsmoanddmo
 '
 '   ss64.com  |  ".Run - VBScript"  |  https://ss64.com/vb/run.html
 '

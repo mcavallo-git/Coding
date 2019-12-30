@@ -45,6 +45,8 @@ ECHO Calling  [ "C:\Program Files\Microsoft VS Code\Code.exe" %* ]  1>NUL 2>&1
 "C:\Program Files\Microsoft VS Code\Code.exe" %* | ECHO 1>NUL 2>&1
 )
 
+
+ECHO Exiting... ]  1>NUL 2>&1
 EXIT 0
 
 REM ------------------------------------------------------------

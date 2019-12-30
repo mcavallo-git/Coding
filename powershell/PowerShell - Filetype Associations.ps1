@@ -49,6 +49,7 @@ New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") 
 $HKU_Key="Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList";
 New-Item -Path ($HKU_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
 New-ItemProperty -Path ($HKU_Key) -Name ("a") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+New-ItemProperty -Path ($HKU_Key) -Name ("MRUList") -PropertyType ("String") -Value ("a") -Force;
 
 
 Exit 0;

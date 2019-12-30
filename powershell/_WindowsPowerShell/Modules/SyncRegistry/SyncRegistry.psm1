@@ -485,6 +485,7 @@ Export-ModuleMember -Function "SyncRegistry";
 #    REG_MULTI_SZ   |  A sequence of null-terminated strings, terminated by a null value
 #    REG_EXPAND_SZ  |  A null-terminated string that contains unexpanded references to environment variables (like %PATH%)
 #
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

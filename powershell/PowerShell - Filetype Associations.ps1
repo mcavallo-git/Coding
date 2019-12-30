@@ -13,7 +13,7 @@
 # ------------------------------------------------------------
 
 
-Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
+Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
 
 
 $FileExtension=".log";
@@ -24,13 +24,14 @@ $FileExtension=".log";
 
 # $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 
-$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\VSCode-Workspace.bat`" `"%1`"";
+$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.bat`" `"%1`"";
 
 $UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
 
 ### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
 
 ### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
+### NEED TO POSSIBLY-INSTEAD, UPDATE PROPERTY @  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\OpenWithList ]  --> Property "a" to hold value "xyz.bat" "%1"
 
 ### NEED (MAYBE?) TO CREATE EXTENSION IN  [ HKEY_LOCAL_MACHINE\SOFTWARE\Classes ] --> Note: that it seems to be populated from HKCR  (as-of 20191230-074934)
 

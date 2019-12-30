@@ -12,7 +12,7 @@
 #
 # ------------------------------------------------------------
 
-$FileExtension=".20191230-035541";
+$FileExtension=".log";
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
 # $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" --user-data-dir=`"$($Env:APPDATA)\Code`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";

@@ -3,6 +3,32 @@
 # PowerShell
 #   File Extension handling in Windows 10
 #
+#                                MCavallo, 20191230-035659
+# ------------------------------------------------------------
+
+$FileExtension=".20191230-035541";
+# $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
+$OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+
+$RegEdit_Key="HKCR:\${FileExtension}\shell\open\command";
+
+If ((Test-Path -Path ("HKCR")) -Eq $False) {
+	Write-Host "Calling  [ New-PSDrive -Name (`"HKCR`") -PSProvider (`"Registry`") -Root (`"HKEY_CLASSES_ROOT`") | Out-Null; ]";
+	New-PSDrive -Name ("HKCR") -PSProvider ("Registry") -Root ("HKEY_CLASSES_ROOT") | Out-Null;
+}
+
+Write-Host "Calling  [ New-Item -Path ($($RegEdit_Key)) -Force; ]";
+New-Item -Path ($RegEdit_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
+
+Write-Host "Calling  [ New-ItemProperty -Path ($($RegEdit_Key)) -Name (`"(Default)`") -PropertyType (`"String`") -Value ($($OpenExtensionWith)) -Force; ]";
+New-ItemProperty -Path ($RegEdit_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+
+
+# ------------------------------------------------------------
+#
+# PowerShell
+#   File Extension handling in Windows 10
+#
 #                                MCavallo, 2019-06-20_13-20-50
 # ------------------------------------------------------------
 

@@ -1,6 +1,11 @@
 ' ------------------------------------------------------------
 '
-' USE NOTEPAD REPLACER TO REDIRECT NOTEPAD.exe TO [  C:\Users\USERNAME\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat  ] (must use non-variable syntax, e.g. cannot use %USERPROFILE% )
+' USE NOTEPAD REPLACER TO REDIRECT NOTEPAD.exe TO:
+'
+'   C:\Users\USERNAME\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs
+'   C:\Users\USERNAME\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat
+'
+' (can't use variables such as USERPROFILE, etc. in notepad-replacer's input syntax)
 '
 ' ------------------------------------------------------------
 '
@@ -14,17 +19,29 @@
 '
 ' ------------------------------------------------------------
 
-VSCode_Workspace = objShell.Environment("USER").Item("USERPROFILE") & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
+' Set ObjShell = CreateObject("Shell.Application")
+' Set VSCode_Workspace = ObjShell.Environment("USER").Item("USERPROFILE") & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
 
-WScript.Echo "VSCode_Workspace = [" & VSCode_Workspace & "]"
+UserProfile = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%USERPROFILE%")
+' MsgBox UserProfile
 
-If WScript.Arguments.Count = 0 Then
-	RunCommand = VSCode_Workspace
+VSCode_Workspace = UserProfile & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
+
+Set InlineArguments = WScript.Arguments
+
+' WScript.Echo "VSCode_Workspace = [" & VSCode_Workspace & "]"
+
+WScript.Echo "InlineArguments.Count = [" & InlineArguments.Count & "]"
+
+if InlineArguments.Count = 0 then
+	RunCommand = """" & VSCode_Workspace & """"
 Else
-	RunCommand = VSCode_Workspace & " " & WScript.Arguments(0)
+	RunCommand = """" & VSCode_Workspace & """" & " " & """" & WScript.Arguments(0) & """"
 End if
 
-CreateObject("Wscript.Shell").Run(RunCommand, 0, False)
+WScript.Echo "RunCommand = [" & RunCommand & "]"
+
+CreateObject("Wscript.Shell").Run RunCommand, 0, False
 
 
 ' ------------------------------------------------------------

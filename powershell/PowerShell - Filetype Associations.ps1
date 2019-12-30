@@ -17,30 +17,30 @@ Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\VSCode-Workspace.bat"
 
 
 $FileExtension=".log";
-# $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
-# $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
-# $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
-$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\VSCode-Workspace.bat`" `"%1`"";
 
+# $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"'; # Open w/ VS Code, always
+
+# $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+
+# $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+
+$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\VSCode-Workspace.bat`" `"%1`"";
 
 $UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
 
+### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
+
+### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
+
+### NEED (MAYBE?) TO CREATE EXTENSION IN  [ HKEY_LOCAL_MACHINE\SOFTWARE\Classes ] --> Note: that it seems to be populated from HKCR  (as-of 20191230-074934)
+
+### Create key/properties in  [ Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command ]
 $HKCR_Key="Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command";
-
-
-# If ((Test-Path -Path ("HKCR")) -Eq $False) {
-# 	Write-Host "Calling  [ New-PSDrive -Name (`"HKCR`") -PSProvider (`"Registry`") -Root (`"HKEY_CLASSES_ROOT`") | Out-Null; ]";
-# 	New-PSDrive -Name ("HKCR") -PSProvider ("Registry") -Root ("HKEY_CLASSES_ROOT") | Out-Null;
-# }
-
-### NEED TO DELETE EXTENSION IN [  Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts  ]
-### NEED TO DELETE EXTENSION IN [  Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts  ]
-
 Write-Host "Calling  [ New-Item -Path ($($HKCR_Key)) -Force; ]";
 New-Item -Path ($HKCR_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
-
 Write-Host "Calling  [ New-ItemProperty -Path ($($HKCR_Key)) -Name (`"(Default)`") -PropertyType (`"String`") -Value ($($OpenExtensionWith)) -Force; ]";
 New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+
 
 Exit 0;
 

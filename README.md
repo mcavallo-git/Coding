@@ -104,7 +104,7 @@ This file (on GitHub):
 <tr><td><strong>Splashtop Streamer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Host/Server</i></sub></td><td><a href="https://www.splashtop.com/downloadstart?platform=windows">Download (source)</a></td></tr>
 <tr><td><strong>TeamViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Host/Server</i></sub></td><td><a href="https://www.teamviewer.com/en/download/windows/">Download (source)</a></td></tr>
 <tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git Merge Conflict Resolver</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
-<tr><td><strong>Visual Studio Code</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VS Code - Code Editor</i></sub></td><td><a href="https://code.visualstudio.com/download">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft Visual Studio Code</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;e.g. "VS Code", "VS-Code", "VSCode"<sub><i><br />&nbsp;&nbsp;&nbsp;Free Source Code Editor (IDE)<br />&nbsp;&nbsp;&nbsp;<a href="https://code.visualstudio.com/docs/getstarted/settings#_default-settings">View Docs: User and Workspace Settings</a></i></sub></td><td><a href="https://code.visualstudio.com/download">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

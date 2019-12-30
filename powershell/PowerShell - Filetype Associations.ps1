@@ -22,18 +22,25 @@ $FileExtension=".log";
 # $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\VSCode-Workspace.bat`" `"%1`"";
 
-$RegEdit_Key="Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command";
+
+$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
+
+$HKCR_Key="Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command";
+
 
 # If ((Test-Path -Path ("HKCR")) -Eq $False) {
 # 	Write-Host "Calling  [ New-PSDrive -Name (`"HKCR`") -PSProvider (`"Registry`") -Root (`"HKEY_CLASSES_ROOT`") | Out-Null; ]";
 # 	New-PSDrive -Name ("HKCR") -PSProvider ("Registry") -Root ("HKEY_CLASSES_ROOT") | Out-Null;
 # }
 
-Write-Host "Calling  [ New-Item -Path ($($RegEdit_Key)) -Force; ]";
-New-Item -Path ($RegEdit_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
+### NEED TO DELETE EXTENSION IN [  Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts  ]
+### NEED TO DELETE EXTENSION IN [  Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts  ]
 
-Write-Host "Calling  [ New-ItemProperty -Path ($($RegEdit_Key)) -Name (`"(Default)`") -PropertyType (`"String`") -Value ($($OpenExtensionWith)) -Force; ]";
-New-ItemProperty -Path ($RegEdit_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+Write-Host "Calling  [ New-Item -Path ($($HKCR_Key)) -Force; ]";
+New-Item -Path ($HKCR_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
+
+Write-Host "Calling  [ New-ItemProperty -Path ($($HKCR_Key)) -Name (`"(Default)`") -PropertyType (`"String`") -Value ($($OpenExtensionWith)) -Force; ]";
+New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
 
 Exit 0;
 
@@ -62,26 +69,15 @@ $Registry_UserSidList="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentV
 $Registry_FileExtensions_A="HKEY_CLASSES_ROOT";
 $Registry_FileExtensions_B="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts";
 
-Write-Host "`n`n";
-
+# ------------------------------------------------------------
+### HKEY_LOCAL_MACHINE
 $max_keys = 3; `
 $i=0; `
-Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
+Get-ChildItem -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes" `
 | ForEach-Object {
 	$i++;
 	If ($i -le $max_keys) {
-		Write-Host "`n------------------------------------------------------------";
-		Write-Host (("Registry Key:  ")+($_.Name));
-		Write-Host (("ValueCount:    ")+($_.ValueCount));
-		Write-Host (("SubKeyCount:   ")+($_.SubKeyCount));
-		Write-Host (("GetType():     ")+($_.GetType()));
-		Write-Host -NoNewLine ("Show `"$_`":  "); Show "$_";
-		If ($_.OpenWithProgids -ne $Null) {
-			Write-Host "`$_.OpenWithProgids: "; $_.OpenWithProgids;
-			If ($_.OpenWithProgids.ProgId -ne $Null) {
-				Write-Host "`$_.OpenWithProgids.ProgId: "; $_.OpenWithProgids.ProgId;
-			}
-		}
+		Show $_ -NoMethods -NoProperties;
 	}
 }
 

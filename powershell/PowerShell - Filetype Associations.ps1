@@ -16,7 +16,7 @@
 Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
 
 
-$FileExtension=".log";
+$FileExt=".log";
 
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"'; # Open w/ VS Code, always
 
@@ -28,22 +28,34 @@ $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.bat`
 
 $UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
 
-### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
-
-### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
-### NEED TO POSSIBLY-INSTEAD, UPDATE PROPERTY @  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\OpenWithList ]  --> Property "a" to hold value "xyz.bat" "%1"
 
 ### NEED (MAYBE?) TO CREATE EXTENSION IN  [ HKEY_LOCAL_MACHINE\SOFTWARE\Classes ] --> Note: that it seems to be populated from HKCR  (as-of 20191230-074934)
 
-### Create key/properties in  [ Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command ]
-$HKCR_Key="Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command";
-Write-Host "Calling  [ New-Item -Path ($($HKCR_Key)) -Force; ]";
+
+### HKEY_CLASSES_ROOT
+$HKCR_Key="Registry::HKEY_CLASSES_ROOT\${FileExt}\shell\open\command";
 New-Item -Path ($HKCR_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
-Write-Host "Calling  [ New-ItemProperty -Path ($($HKCR_Key)) -Name (`"(Default)`") -PropertyType (`"String`") -Value ($($OpenExtensionWith)) -Force; ]";
 New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
 
 
+### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
+
+
+### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
+### NEED TO POSSIBLY-INSTEAD, UPDATE PROPERTY @  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList ]  --> Property "a" to hold value "xyz.bat" "%1"
+
+
+### HKEY_USERS
+$HKU_Key="Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList";
+New-Item -Path ($HKU_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
+New-ItemProperty -Path ($HKU_Key) -Name ("a") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+
+
 Exit 0;
+
+
+
+
 
 # ------------------------------------------------------------
 #

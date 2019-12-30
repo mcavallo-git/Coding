@@ -886,104 +886,104 @@ LShift & RShift::
 ; ------------------------------------------------------------
 ;  Win+J - [DevOps] - Startup Node.JS (Git-Bash) && Postman
 ;
-#J::
-	; - -
-	SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
-	; - -
-	POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
-	GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
-	; - -
-	SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
-	SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
-	SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
-	SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
-	; - -
-	WinTitle_NodeJS=Supplier Gateway (localhost)
-	WinTitle_Postman=Postman
-	; - -
-	if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
-		MsgBox, 
-		(LTrim
-			Error: Required directory not-found:
-			%SG_REPO%
-		)
-	} else {
-		; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
-		Increment_Left := -7
-		Increment_Top := 0
-		Increment_Width := 14
-		Increment_Height := 7
-		; Prep Monitor Widths/Heights
-		SysGet, MonitorCount, MonitorCount , N
-		BoundsLeft = -1
-		BoundsRight = -1
-		BoundsTop = -1
-		BoundsBottom = -1
-		BoundsCenterHoriz = 0
-		BoundsCenterVert = 0
-		Loop, %MonitorCount% {
-			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
-			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
-			If (BoundsLeft < MonitorWorkAreaLeft)
-			{
-				; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
-				; Widths
-				BoundsLeft := MonitorWorkAreaLeft
-				BoundsRight := MonitorWorkAreaRight
-				; Heights
-				BoundsTop := MonitorWorkAreaTop
-				BoundsBottom := MonitorWorkAreaBottom
-			} Else {
-				; MsgBox, Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)
-			}
-		}
-		; Widths
-		BoundsWidthFull := (BoundsRight - BoundsLeft)
-		BoundsWidthHalf := Floor(BoundsWidthFull/2)
-		BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
-		; Heights
-		BoundsHeightFull := (BoundsBottom - BoundsTop)
-		BoundsHeightHalf := Floor(BoundsHeightFull/2)
-		BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-		SetTitleMatchMode, 1
-		; - -
-		WinTitle_Postman=Postman
-		WinTitle_NodeJS=Supplier Gateway (localhost)
-		; - -
-		; Start Postman
-		IfWinNotExist,%WinTitle_Postman%
-		{
-			; Need to run the program, as no window was found for it (yet)
-			POSTMAN_ARGS= --processStart Postman.exe
-			; POSTMAN_ARGS=--processStart Postman.exe
-			Run, %POSTMAN_EXE% %POSTMAN_ARGS%
-		}
-		; - -
-		Sleep 100
-		; - -
-		; Start Node.JS in Git-Bash
-		IfWinNotExist,%WinTitle_NodeJS%
-		{
-			GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
-			GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
-			GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
-			Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
-			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
-			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
-		}
-		;
-		; Wait until the script(s)/program(s) start before moving them around
-		; WinWait,%WinTitle_Postman%,,5
-		; WinWait,%WinTitle_NodeJS%,,3
-		; Move the window to occupy the right-half of the Right-Most monitor
-		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		; WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
-		; Move the window to occupy the left-half of the Right-Most monitor
-		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-		; WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
-		;
-	}
-	Return
+; #J::
+; 	; - -
+; 	SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
+; 	; - -
+; 	POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
+; 	GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
+; 	; - -
+; 	SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
+; 	SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
+; 	SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
+; 	SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
+; 	; - -
+; 	WinTitle_NodeJS=Supplier Gateway (localhost)
+; 	WinTitle_Postman=Postman
+; 	; - -
+; 	if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
+; 		MsgBox, 
+; 		(LTrim
+; 			Error: Required directory not-found:
+; 			%SG_REPO%
+; 		)
+; 	} else {
+; 		; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
+; 		Increment_Left := -7
+; 		Increment_Top := 0
+; 		Increment_Width := 14
+; 		Increment_Height := 7
+; 		; Prep Monitor Widths/Heights
+; 		SysGet, MonitorCount, MonitorCount , N
+; 		BoundsLeft = -1
+; 		BoundsRight = -1
+; 		BoundsTop = -1
+; 		BoundsBottom = -1
+; 		BoundsCenterHoriz = 0
+; 		BoundsCenterVert = 0
+; 		Loop, %MonitorCount% {
+; 			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+; 			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
+; 			If (BoundsLeft < MonitorWorkAreaLeft)
+; 			{
+; 				; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
+; 				; Widths
+; 				BoundsLeft := MonitorWorkAreaLeft
+; 				BoundsRight := MonitorWorkAreaRight
+; 				; Heights
+; 				BoundsTop := MonitorWorkAreaTop
+; 				BoundsBottom := MonitorWorkAreaBottom
+; 			} Else {
+; 				; MsgBox, Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)
+; 			}
+; 		}
+; 		; Widths
+; 		BoundsWidthFull := (BoundsRight - BoundsLeft)
+; 		BoundsWidthHalf := Floor(BoundsWidthFull/2)
+; 		BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
+; 		; Heights
+; 		BoundsHeightFull := (BoundsBottom - BoundsTop)
+; 		BoundsHeightHalf := Floor(BoundsHeightFull/2)
+; 		BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
+; 		SetTitleMatchMode, 1
+; 		; - -
+; 		WinTitle_Postman=Postman
+; 		WinTitle_NodeJS=Supplier Gateway (localhost)
+; 		; - -
+; 		; Start Postman
+; 		IfWinNotExist,%WinTitle_Postman%
+; 		{
+; 			; Need to run the program, as no window was found for it (yet)
+; 			POSTMAN_ARGS= --processStart Postman.exe
+; 			; POSTMAN_ARGS=--processStart Postman.exe
+; 			Run, %POSTMAN_EXE% %POSTMAN_ARGS%
+; 		}
+; 		; - -
+; 		Sleep 100
+; 		; - -
+; 		; Start Node.JS in Git-Bash
+; 		IfWinNotExist,%WinTitle_NodeJS%
+; 		{
+; 			GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
+; 			GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
+; 			GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
+; 			Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
+; 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
+; 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
+; 		}
+; 		;
+; 		; Wait until the script(s)/program(s) start before moving them around
+; 		; WinWait,%WinTitle_Postman%,,5
+; 		; WinWait,%WinTitle_NodeJS%,,3
+; 		; Move the window to occupy the right-half of the Right-Most monitor
+; 		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+; 		; WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
+; 		; Move the window to occupy the left-half of the Right-Most monitor
+; 		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+; 		; WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
+; 		;
+; 	}
+; 	Return
 ;
 ; ------------------------------------------------------------
 ;  Win + T - Get Windows Environment Vars
@@ -1125,13 +1125,12 @@ OpenChrome() {
 
 ;
 ; OpenVisualStudioCode
-;   |--> Opens the "Visual Studio Code" Application
+;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
 ;
 OpenVisualStudioCode() {
-	VSCodeWorkspace := USERPROFILE "\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
-	Run % VSCodeWorkspace
-	; TargetExe := "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.exe"
-	; Run % TargetExe
+	VSCodeWorkspace := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
+	VSCodeExe := "C:\Program Files\Microsoft VS Code\Code.exe"
+	Run, %VSCodeExe% %VSCodeWorkspace%
 	Return
 }
 

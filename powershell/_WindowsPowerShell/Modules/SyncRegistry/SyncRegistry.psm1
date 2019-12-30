@@ -67,7 +67,13 @@ function SyncRegistry {
 
 
 		# ------------------------------------------------------------
-
+		# Registry Value Data-Types
+		#    REG_SZ. A null-terminated string
+		#    REG_BINARY. Binary data
+		#    REG_DWORD. A 32-bit number
+		#    REG_QWORD. A 64-bit number
+		#    REG_MULTI_SZ. A sequence of null-terminated strings, terminated by a null value
+		#    REG_EXPAND_SZ. A null-terminated string that contains unexpanded references to environment variables (like %PATH%)
 
 		$RegEdits = @();
 
@@ -498,6 +504,8 @@ Export-ModuleMember -Function "SyncRegistry";
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #
 #   stackoverflow.com  |  "The IDynamicPropertyCmdletProvider interface is not implemented by this provider"  |  https://stackoverflow.com/a/54237993
+#
+#   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
 #
 #   winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
 #

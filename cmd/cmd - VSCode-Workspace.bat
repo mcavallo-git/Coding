@@ -31,7 +31,7 @@ ECHO No Inline Arguments - Starting Code-Workspace 1>NUL 2>&1
 START "C:\Program Files\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
 ) ELSE (
 ECHO At least 1 Inline Argument - Starting Code.exe with them 1>NUL 2>&1
-START "C:\Program Files\Microsoft VS Code\Code.exe" "%*" | ECHO 1>NUL 2>&1
+START "C:\Program Files\Microsoft VS Code\Code.exe" "%1" | ECHO 1>NUL 2>&1
 )
 
 

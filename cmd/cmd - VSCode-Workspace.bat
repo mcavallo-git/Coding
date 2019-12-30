@@ -13,9 +13,11 @@ SET /A VSCODE_ALREADY_RUNNING=1
 )
 
 IF %VSCODE_ALREADY_RUNNING% EQU 0 (
-START "%ProgramFiles%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
+ECHO VSCode not found to be on its feet 1>NUL 2>&1
+START "C:\Program Files\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
 FOR /L %%N IN (1,1,10) DO (
 FOR /F "tokens=2-2 delims= " %%A IN ('TASKLIST /NH /FI "IMAGENAME eq Code.exe" ^| MORE +3') DO (
+ECHO VSCode now on its feet 1>NUL 2>&1
 TIMEOUT /T 1 | ECHO 1>NUL 2>&1
 GOTO OPEN_TARGET_FILE
 )
@@ -25,9 +27,11 @@ TIMEOUT /T 1 | ECHO 1>NUL 2>&1
 
 :OPEN_TARGET_FILE
 IF ""%1"" == """" (
-START "%ProgramFiles%\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
+ECHO No Inline Arguments - Starting Code-Workspace 1>NUL 2>&1
+START "C:\Program Files\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
 ) ELSE (
-START "%ProgramFiles%\Microsoft VS Code\Code.exe" "%*" | ECHO 1>NUL 2>&1
+ECHO At least 1 Inline Argument - Starting Code.exe with them 1>NUL 2>&1
+START "C:\Program Files\Microsoft VS Code\Code.exe" "%*" | ECHO 1>NUL 2>&1
 )
 
 

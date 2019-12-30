@@ -23,12 +23,12 @@ $FileExtension=".log";
 # $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\VSCode-Workspace.bat`" `"%1`"";
 
-$RegEdit_Key="HKCR:\${FileExtension}\shell\open\command";
+$RegEdit_Key="Registry::HKEY_CLASSES_ROOT\${FileExtension}\shell\open\command";
 
-If ((Test-Path -Path ("HKCR")) -Eq $False) {
-	Write-Host "Calling  [ New-PSDrive -Name (`"HKCR`") -PSProvider (`"Registry`") -Root (`"HKEY_CLASSES_ROOT`") | Out-Null; ]";
-	New-PSDrive -Name ("HKCR") -PSProvider ("Registry") -Root ("HKEY_CLASSES_ROOT") | Out-Null;
-}
+# If ((Test-Path -Path ("HKCR")) -Eq $False) {
+# 	Write-Host "Calling  [ New-PSDrive -Name (`"HKCR`") -PSProvider (`"Registry`") -Root (`"HKEY_CLASSES_ROOT`") | Out-Null; ]";
+# 	New-PSDrive -Name ("HKCR") -PSProvider ("Registry") -Root ("HKEY_CLASSES_ROOT") | Out-Null;
+# }
 
 Write-Host "Calling  [ New-Item -Path ($($RegEdit_Key)) -Force; ]";
 New-Item -Path ($RegEdit_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
@@ -87,7 +87,7 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 }
 
 # ------------------------------------------------------------
-
+### HKEY_CURRENT_USER
 $max_keys = 3; `
 $i=0; `
 Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
@@ -99,11 +99,29 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 }
 
 # ------------------------------------------------------------
+### HKEY_USERS
 
-(Get-ItemProperty 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name ProgId).ProgID
+$max_keys = 3; `
+$i=0; `
+$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }}); `
+Get-ChildItem -Path "Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
+| ForEach-Object {
+	$i++;
+	If ($i -le $max_keys) {
+		Show $_;
+	}
+}
 
-Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -name ProgId IE.HTTP
-Set-ItemProperty 'HKCU:\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -name ProgId IE.HTTPS
+$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
+
+
+
+# ------------------------------------------------------------
+
+(Get-ItemProperty 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name ProgId).ProgID
+
+Set-ItemProperty 'Registry::HKEY_CURRENT_USER\\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -name ProgId IE.HTTP
+Set-ItemProperty 'Registry::HKEY_CURRENT_USER\\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -name ProgId IE.HTTPS
 
 
 Write-Host "`n`n";

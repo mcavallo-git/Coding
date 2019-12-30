@@ -11,7 +11,7 @@ REM TO VIEW LOGS, REPLACE:
 REM   1>NUL 2>&1
 REM
 REM WITH:
-REM   1>>%USERPROFILE%\Desktop\LOGFILE.log 2>>&1
+REM   1>>%USERPROFILE%\Desktop\VSCode-Workspace.log 2>>&1
 REM
 REM ------------------------------------------------------------
 

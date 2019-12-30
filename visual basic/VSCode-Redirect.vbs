@@ -3,7 +3,6 @@
 ' USE NOTEPAD REPLACER TO REDIRECT NOTEPAD.exe TO:
 '
 '   C:\Users\USERNAME\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs
-'   C:\Users\USERNAME\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat
 '
 ' (can't use variables such as USERPROFILE, etc. in notepad-replacer's input syntax)
 '

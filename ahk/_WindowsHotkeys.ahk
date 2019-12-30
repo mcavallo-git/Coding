@@ -1124,9 +1124,10 @@ OpenChrome() {
 ;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
 ;
 OpenVisualStudioCode() {
-	VSCodeWorkspace := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
-	VSCodeExe := "C:\Program Files\Microsoft VS Code\Code.exe"
-	Run, %VSCodeExe% %VSCodeWorkspace%
+	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
+	VSCode_UserDataDir := "--user-data-dir=""" A_AppData "\Code"""
+	VSCode_Workspace := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
+	Run, %VSCode_Executable% %VSCode_UserDataDir% %VSCode_Workspace%
 	Return
 }
 

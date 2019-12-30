@@ -8,7 +8,8 @@
 
 $FileExtension=".20191230-035541";
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
-$OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+# $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+$OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" --user-data-dir=`"$($Env:APPDATA)\Code`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 
 $RegEdit_Key="HKCR:\${FileExtension}\shell\open\command";
 
@@ -23,6 +24,7 @@ New-Item -Path ($RegEdit_Key) -Force; # Note: The -Force is used to create any/a
 Write-Host "Calling  [ New-ItemProperty -Path ($($RegEdit_Key)) -Name (`"(Default)`") -PropertyType (`"String`") -Value ($($OpenExtensionWith)) -Force; ]";
 New-ItemProperty -Path ($RegEdit_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
 
+Exit 0;
 
 # ------------------------------------------------------------
 #

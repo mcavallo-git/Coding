@@ -67,13 +67,6 @@ function SyncRegistry {
 
 
 		# ------------------------------------------------------------
-		# Registry Value Data-Types
-		#    REG_SZ. A null-terminated string
-		#    REG_BINARY. Binary data
-		#    REG_DWORD. A 32-bit number
-		#    REG_QWORD. A 64-bit number
-		#    REG_MULTI_SZ. A sequence of null-terminated strings, terminated by a null value
-		#    REG_EXPAND_SZ. A null-terminated string that contains unexpanded references to environment variables (like %PATH%)
 
 		$RegEdits = @();
 
@@ -480,7 +473,20 @@ Export-ModuleMember -Function "SyncRegistry";
 # Install-Module -Name "SyncRegistry"
 
 
+
 # ------------------------------------------------------------
+#
+# Note: Registry Value Data-Types
+#
+#    REG_SZ         |  A null-terminated string
+#    REG_BINARY     |  Binary data
+#    REG_DWORD      |  A 32-bit number
+#    REG_QWORD      |  A 64-bit number
+#    REG_MULTI_SZ   |  A sequence of null-terminated strings, terminated by a null value
+#    REG_EXPAND_SZ  |  A null-terminated string that contains unexpanded references to environment variables (like %PATH%)
+#
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5

@@ -6,28 +6,25 @@
 '
 ' RUN THIS SCRIPT (VIA CMD):
 '
+' NO ARGS
 '   "C:\Windows\System32\wscript.exe" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"
 '
+' 1 ARGUMENT
+'   "C:\Windows\System32\wscript.exe" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs" "%USERPROFILE%\Desktop\test.txt"
+'
 ' ------------------------------------------------------------
-
 
 VSCode_Workspace = objShell.Environment("USER").Item("USERPROFILE") & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
 
 WScript.Echo "VSCode_Workspace = [" & VSCode_Workspace & "]"
 
 If WScript.Arguments.Count = 0 Then
-  CreateObject("Wscript.Shell").Run(" cmd.exe """ & userprofile & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"" 1>%USERPROFILE%\Desktop\VBS-log.log 2>&1", 1, False
-
+	RunCommand = VSCode_Workspace
 Else
-
-
+	RunCommand = VSCode_Workspace & " " & WScript.Arguments(0)
 End if
 
-
-' CreateObject("Wscript.Shell").Run " cmd.exe """ & userprofile & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"" 1>%USERPROFILE%\Desktop\VBS-log.log 2>&1", 1, False
-
-' CreateObject("Wscript.Shell").Run WScript.Arguments(0), 0, False
-
+CreateObject("Wscript.Shell").Run(RunCommand, 0, False)
 
 
 ' ------------------------------------------------------------

@@ -12,7 +12,8 @@
 #
 # ------------------------------------------------------------
 
-Set-Content -NoNewline -Path ("$($Env:ProgramFiles)\Microsoft VS Code\Code_Workspace.bat") -Value ("`"%ProgramFiles%\Microsoft VS Code\Code.exe`" `"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" %*");
+
+Set-Content -NoNewline -Path ("$($Env:ProgramFiles)\Microsoft VS Code\Code_Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
 
 
 $FileExtension=".log";

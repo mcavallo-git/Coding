@@ -19,7 +19,6 @@ Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\VSCode-Workspace.bat"
 $FileExtension=".log";
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
 # $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
-# $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\Code.exe`" --user-data-dir=`"%APPDATA%\Code`" `"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 # $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\VSCode-Workspace.bat`" `"%1`"";
 
@@ -86,6 +85,7 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 	}
 }
 
+
 # ------------------------------------------------------------
 ### HKEY_CURRENT_USER
 $max_keys = 3; `
@@ -94,9 +94,10 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 | ForEach-Object {
 	$i++;
 	If ($i -le $max_keys) {
-		Show $_;
+		Show $_ -NoMethods -NoProperties;
 	}
 }
+
 
 # ------------------------------------------------------------
 ### HKEY_USERS
@@ -108,12 +109,9 @@ Get-ChildItem -Path "Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\
 | ForEach-Object {
 	$i++;
 	If ($i -le $max_keys) {
-		Show $_;
+		Show $_ -NoMethods -NoProperties;
 	}
 }
-
-$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
-
 
 
 # ------------------------------------------------------------
@@ -121,6 +119,7 @@ $UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI
 (Get-ItemProperty 'Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\mailto\UserChoice' -Name ProgId).ProgID
 
 Set-ItemProperty 'Registry::HKEY_CURRENT_USER\\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\http\UserChoice' -name ProgId IE.HTTP
+
 Set-ItemProperty 'Registry::HKEY_CURRENT_USER\\Software\Microsoft\Windows\Shell\Associations\UrlAssociations\https\UserChoice' -name ProgId IE.HTTPS
 
 
@@ -129,10 +128,8 @@ Write-Host "`n`n";
 Type.GetType("System.Type").GetProperties();
 Type.GetType("Microsoft.Win32.RegistryKey").GetProperties();
 
+
 # ------------------------------------------------------------
-
-
-
 
 # Write-Host -NoNewLine "`n`nPress any key to exit...";
 # $KeyPressExit = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

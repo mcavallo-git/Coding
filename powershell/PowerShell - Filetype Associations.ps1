@@ -12,6 +12,8 @@
 #
 # ------------------------------------------------------------
 
+### USE NOTEPAD REPLACER TO REDIRECT NOTEPAD TO "$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.bat"
+
 
 Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
 

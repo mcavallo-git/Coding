@@ -13,7 +13,7 @@
 # ------------------------------------------------------------
 
 
-Set-Content -NoNewline -Path ("$($Env:ProgramFiles)\Microsoft VS Code\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
+Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));
 
 
 $FileExtension=".log";

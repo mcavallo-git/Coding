@@ -12,11 +12,15 @@
 #
 # ------------------------------------------------------------
 
+Set-Content -NoNewline -Path ("$($Env:ProgramFiles)\Microsoft VS Code\Code_Workspace.bat") -Value ("`"%ProgramFiles%\Microsoft VS Code\Code.exe`" `"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" %*");
+
+
 $FileExtension=".log";
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';
 # $OpenExtensionWith="`"$($Env:ProgramFiles)\Microsoft VS Code\Code.exe`" `"$($Env:USERPROFILE)\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 # $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\Code.exe`" --user-data-dir=`"%APPDATA%\Code`" `"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
-$OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+# $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
+$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\Code_Workspace.bat`" --user-data-dir=`"%APPDATA%\Code`" `"%1`"";
 
 $RegEdit_Key="HKCR:\${FileExtension}\shell\open\command";
 

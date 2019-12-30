@@ -3,16 +3,24 @@
 # PowerShell
 #   File Extension handling in Windows 10
 #
-#                                MCavallo, 20191230-035659
 # ------------------------------------------------------------
 #
+# RUN THIS SCRIPT (VIA POWERSHELL):
 #
-# . "$($Env:USERPROFILE)\Documents\GitHub\Coding\powershell\PowerShell - Filetype Associations.ps1"
+#   . "$($Env:USERPROFILE)\Documents\GitHub\Coding\powershell\PowerShell - Filetype Associations.ps1"
 #
 #
 # ------------------------------------------------------------
-
-### USE NOTEPAD REPLACER TO REDIRECT NOTEPAD TO:  [ C:\Users\USERNAME\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat ]  (must use non-variable syntax, e.g. cannot use %USERPROFILE% )
+#
+# USE NOTEPAD REPLACER TO REDIRECT NOTEPAD.exe TO:
+#
+#   C:\Users\USERNAME\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs
+#
+# (can't use variables such as USERPROFILE, etc. in notepad-replacer's input syntax)
+#
+# MUST ALSO MAKE .VBS FILES RUN WITH WSCRIPT BY-DEFAULT (do this by creating a .vbs file -> right-clicking it -> "Open-with" -> "Choose another app" -> Selecting "Microsoft ® Windows Based Script Host" -> Check "Always use this app to open .vbs files" -> OK
+#
+# ------------------------------------------------------------
 
 
 Set-Content -Path ("$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.bat") -Value (Get-Content -Path ("$($Env:USERPROFILE)\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"));

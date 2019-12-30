@@ -31,7 +31,7 @@ Set InlineArguments = WScript.Arguments
 
 ' WScript.Echo "VSCode_Workspace = [" & VSCode_Workspace & "]"
 
-WScript.Echo "InlineArguments.Count = [" & InlineArguments.Count & "]"
+' WScript.Echo "InlineArguments.Count = [" & InlineArguments.Count & "]"
 
 if InlineArguments.Count = 0 then
 	RunCommand = """" & VSCode_Workspace & """"
@@ -39,7 +39,7 @@ Else
 	RunCommand = """" & VSCode_Workspace & """" & " " & """" & WScript.Arguments(0) & """"
 End if
 
-WScript.Echo "RunCommand = [" & RunCommand & "]"
+' WScript.Echo "RunCommand = [" & RunCommand & "]"
 
 CreateObject("Wscript.Shell").Run RunCommand, 0, False
 

@@ -7,7 +7,7 @@
 # ------------------------------------------------------------
 #
 #
-# . "$($Env:USERPROFILE)\GitHub\Coding\powershell\PowerShell - Filetype Associations (skip assoc by using registry keys under HKEY_CLASSES_ROOT).ps1"
+# . "$($Env:USERPROFILE)\Documents\GitHub\Coding\powershell\PowerShell - Filetype Associations.ps1"
 #
 #
 # ------------------------------------------------------------

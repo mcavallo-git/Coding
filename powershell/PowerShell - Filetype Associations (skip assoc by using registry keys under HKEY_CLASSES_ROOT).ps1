@@ -5,6 +5,12 @@
 #
 #                                MCavallo, 20191230-035659
 # ------------------------------------------------------------
+#
+#
+# . "$($Env:USERPROFILE)\GitHub\Coding\powershell\PowerShell - Filetype Associations (skip assoc by using registry keys under HKEY_CLASSES_ROOT).ps1"
+#
+#
+# ------------------------------------------------------------
 
 $FileExtension=".20191230-035541";
 # $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"';

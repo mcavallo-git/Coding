@@ -6,6 +6,8 @@
 '
 ' (can't use variables such as USERPROFILE, etc. in notepad-replacer's input syntax)
 '
+' MUST ALSO MAKE .VBS FILES RUN WITH WSCRIPT BY-DEFAULT (do this by creating a .vbs file -> right-clicking it -> "Open-with" -> "Choose another app" -> Selecting "Microsoft ® Windows Based Script Host" -> Check "Always use this app to open .vbs files" -> OK
+'
 ' ------------------------------------------------------------
 '
 ' RUN THIS SCRIPT (VIA CMD):

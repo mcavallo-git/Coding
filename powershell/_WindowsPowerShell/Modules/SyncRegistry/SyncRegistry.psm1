@@ -189,8 +189,8 @@ function SyncRegistry {
 					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'Onedrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
 					Name="(Default)"; 
 					Type="REG_SZ";
-					Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
-					Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
+					Val_Default="OneDrive";
+					Value="OneDrive";
 					Delete=$False;
 				}
 			)

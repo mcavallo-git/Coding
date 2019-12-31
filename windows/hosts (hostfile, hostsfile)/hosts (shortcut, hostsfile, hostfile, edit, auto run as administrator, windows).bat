@@ -1,1 +1,1 @@
-PowerShell -Verb "RunAs" -NoProfile -ExecutionPolicy Bypass "Notepad C:\Windows\System32\drivers\etc\hosts"
+PowerShell -NoProfile "Start-Process 'C:\Program Files\Notepad++\notepad++.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs'"

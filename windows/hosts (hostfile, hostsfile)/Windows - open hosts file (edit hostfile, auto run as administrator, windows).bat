@@ -1,1 +1,1 @@
-notepad "%windir%\System32\drivers\etc\hosts"
+powershell "Start-Process '%windir%\System32\drivers\etc\hosts' -Verb RunAs";

@@ -264,6 +264,45 @@ function SyncRegistry {
 			)
 		};
 
+		# SmartScreen for Microsoft Edge, Microsoft Store Apps
+		$RegEdits += @{
+			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\System";
+			Props=@(
+				@{
+					Description="Set this value to [ 0 ] to turn off SmartScreen, [ 1 ] to give user a warning before running downloaded unknown software, [ 2 ] to require approval from an administrator before running downloaded unknown software ( from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen )";
+					Name="EnableSmartScreen";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
+			Props=@(
+				@{
+					Description="Set this value to [ 0 ] to allow users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious files, [ 1 ] to prevent users from bypassing the warnings, blocking them from downloading of the unverified file(s) (from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-files )";
+					Name="PreventOverrideAppRepUnknown";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
+			Props=@(
+				@{
+					Description="By default, Microsoft Edge allows users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious sites, allowing them to continue to the site. With this policy though, you can configure Microsoft Edge to prevent users from bypassing the warnings, blocking them from continuing to the site (from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-sites )";
+					Name="PreventOverride";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Windows Update - Force-pull from Windows instaed of local server
 		$RegEdits += @{
 			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
@@ -493,6 +532,8 @@ Export-ModuleMember -Function "SyncRegistry";
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
 #
 #   autohotkey.com  |  "Windows key (#) + letter keeps locking the pc (even if it is not #L)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=46949&sid=490d0a443a7f78557b54c2bfb079350f#p46949
+#
+#   docs.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
 #
 #   docs.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
 #

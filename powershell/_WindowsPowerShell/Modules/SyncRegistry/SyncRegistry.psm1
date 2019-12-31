@@ -202,6 +202,37 @@ function SyncRegistry {
 		}
 
 
+		# Lock Workstation (Enable/Disable locking the workstation, which includes disabling the "WinKey + L" lock-workstation action)
+		$RegEdits += @{
+			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System";
+			Props=@(
+				@{
+					Description="Set this value to [ 1 ] to disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
+					Name="DisableLockWorkstation";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer - Notification Area Icons (always show)
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer";
+			Props=@(
+				@{
+					Description="System Tray - Set this value to [ 0 ] to show all icons, [ 1 ] to hide inactive icons (note: the default for this is set under HKLM)";
+					Hotfix=$Null;
+					Name="EnableAutoTray";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Office 2013 Settings
 		$RegEdits += @{
 			Path="HKCU:\Software\Microsoft\Office\15.0\Common\General";
@@ -264,6 +295,7 @@ function SyncRegistry {
 			)
 		};
 
+
 		# SmartScreen for Microsoft Edge, Microsoft Store Apps
 		$RegEdits += @{
 			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\System";
@@ -316,7 +348,6 @@ function SyncRegistry {
 				}
 			)
 		};
-
 		$RegEdits += @{
 			Path="HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Servicing";
 			Props=@(
@@ -344,19 +375,6 @@ function SyncRegistry {
 			)
 		};
 
-		# Windows - Command which is called when "WinKey + L" is pressed
-		$RegEdits += @{
-			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System";
-			Props=@(
-				@{
-					Description="Set this value to [ 1 ] to disable `"Lock Workstation`" in Windows";
-					Name="DisableLockWorkstation";
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				}
-			)
-		};
 
 		# ------------------------------------------------------------
 		# Environment-specific registry settings
@@ -512,7 +530,6 @@ Export-ModuleMember -Function "SyncRegistry";
 # Install-Module -Name "SyncRegistry"
 
 
-
 # ------------------------------------------------------------
 #
 # Note: Registry Value Data-Types
@@ -546,6 +563,8 @@ Export-ModuleMember -Function "SyncRegistry";
 #   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #
 #   social.msdn.microsoft.com  |  ".NET Framework 3.5 doesn't install. Windows 10.. Error code: 0x800F081F"  |  https://social.msdn.microsoft.com/Forums/en-US/4ea808e7-c503-4f99-9480-aa8e6938be3d
+#
+#   ss64.com  |  "Windows 10 registry - How-To: Windows 10 registry - user interface settings - Windows CMD - SS64.com"  |  https://ss64.com/nt/syntax-reghacks.html
 #
 #   stackoverflow.com  |  "New-Item recursive registry keys"  |  https://stackoverflow.com/a/21770519
 #

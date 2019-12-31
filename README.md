@@ -38,6 +38,7 @@ This file (on GitHub):
 			<li>
 				<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
 				<pre><code>Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps?t=$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></pre>
+				<!-- <pre><code>New-Item -Path ("${Env:TEMP}\sync_cloud_infrastructure.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps"))) | Out-Null; PowerShell -NoProfile -ExecutionPolicy Bypass ("${Env:TEMP}\sync_cloud_infrastructure.ps1"); Remove-Item -Path ("${Env:TEMP}\sync_cloud_infrastructure.ps1");</code></pre> -->
 			</li>
 		</ol>
 	</p>

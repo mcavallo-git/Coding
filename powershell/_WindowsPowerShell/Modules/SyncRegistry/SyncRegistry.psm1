@@ -217,7 +217,7 @@ function SyncRegistry {
 		};
 
 
-		# Explorer - Notification Area Icons (always show)
+		# Notification Area Icons (always show)
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer";
 			Props=@(

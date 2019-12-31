@@ -1,1 +1,0 @@
-more "%windir%\System32\drivers\etc\hosts"

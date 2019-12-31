@@ -1,12 +1,13 @@
 ' ------------------------------------------------------------
 '
 ' USE NOTEPAD REPLACER TO REDIRECT NOTEPAD.exe TO:
-'
 '   C:\Users\USERNAME\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs
 '
-' (can't use variables such as USERPROFILE, etc. in notepad-replacer's input syntax)
 '
-' MUST ALSO MAKE .VBS FILES RUN WITH WSCRIPT BY-DEFAULT (do this by creating a .vbs file -> right-clicking it -> "Open-with" -> "Choose another app" -> Selecting "Microsoft ® Windows Based Script Host" -> Check "Always use this app to open .vbs files" -> OK
+' SET WSCRIPT.EXE AS THE DEFAULT HANDLER FOR .VBS FILES
+'  > RIGHT-CLICK ANY [ .vbs ] FILE -> "Open-with" -> "Choose another app"
+'   > Either [ select "Microsoft ® Windows Based Script Host" ] or [ choose "More Apps" -> "Look for another app on this PC" -> goto "C:\Windows\System32\wscript.exe" ]
+'    > Check "Always use this app to open .vbs files" -> Select "OK" to confirm and complete setting wscript to be the default handler for .vbs files
 '
 ' ------------------------------------------------------------
 '

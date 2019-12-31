@@ -36,7 +36,7 @@ $FileExt=".log";
 
 $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.bat`" `"%1`"";
 
-$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
+$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 
 
 ### NEED (MAYBE?) TO CREATE EXTENSION IN  [ HKEY_LOCAL_MACHINE\SOFTWARE\Classes ] --> Note: that it seems to be populated from HKCR  (as-of 20191230-074934)
@@ -77,14 +77,14 @@ Exit 0;
 # ------------------------------------------------------------
 
 # Get User-SID (Security Identifier) for current user
-$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }});
+$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 
 # Get some info regarding current environment
 $LogSettingsToDesktop = $False;
 If ($LogSettingsToDesktop -Ne $False) {
-	$CMD="ASSOC";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # ASSOC --> .ext=fileType
-	$CMD="FTYPE";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # FTYPE --> fileType=openCommandString
-	$CMD="WHOAMI"; $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} /ALL > ${OUT} & ${OUT}";
+	$CMD="assoc";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # ASSOC --> .ext=fileType
+	$CMD="ftype";  $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} > ${OUT} & ${OUT}"; # FTYPE --> fileType=openCommandString
+	$CMD="whoami"; $OUT="${Env:USERPROFILE}\Desktop\cmd.${CMD}.log"; cmd /c "${CMD} /ALL > ${OUT} & ${OUT}";
 }
 
 $Registry_StartupApps="HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run";
@@ -124,7 +124,7 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 
 $max_keys = 3; `
 $i=0; `
-$UserSid = (&{If(Get-Command "WHOAMI" -ErrorAction "SilentlyContinue") { (WHOAMI /USER /FO TABLE /NH).Split(" ")[1] } Else { $Null }}); `
+$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }}); `
 Get-ChildItem -Path "Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
 | ForEach-Object {
 	$i++;

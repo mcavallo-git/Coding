@@ -6,7 +6,7 @@ REM ------------------------------------------------------------
 
 
 REM Get ALL the info! (about current user)
-WHOAMI /ALL
+whoami /all
 
 
 REM Syntax
@@ -33,17 +33,17 @@ whoami
 
 
 REM Store list of current session's [ user, group and privileges information ] on a file on the desktop
-WHOAMI /USER /FO TABLE /NH 1>"%USERPROFILE%\Desktop\cmd.whoami.log"
+whoami /USER /FO TABLE /NH 1>"%USERPROFILE%\Desktop\cmd.whoami.log"
 notepad "%USERPROFILE%\Desktop\cmd.whoami.log"
 
 
 REM Example) Get User Info (including SID, via CMD)
-WHOAMI /USER /FO TABLE /NH
+whoami /user /fo table /nh
 
 
 REM Example) Get User SID (via PowerShell)
-PowerShell -Command "$UserSid = (&{If(Get-Command ^"WHOAMI^" -ErrorAction ^"SilentlyContinue^") { (WHOAMI /USER /FO TABLE /NH).Split(^" ^")[1] } Else { $Null }}); $UserSid;"
-
+$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
+Write-Host $UserSid;
 
 REM ------------------------------------------------------------
 REM

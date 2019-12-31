@@ -130,7 +130,7 @@ function SyncRegistry {
 		};
 
 
-		# Explorer Settings (cont.)
+		# Explorer Settings
 		$RegEdits += @{
 			Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
 			Props=@(
@@ -218,7 +218,7 @@ function SyncRegistry {
 		}
 
 
-		# Lock Workstation (Enable/Disable locking the workstation, which includes disabling the "WinKey + L" lock-workstation action)
+		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
 			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System";
 			Props=@(
@@ -233,7 +233,7 @@ function SyncRegistry {
 		};
 
 
-		# Notification Area Icons (always show)
+		# Notification Area Icons
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer";
 			Props=@(

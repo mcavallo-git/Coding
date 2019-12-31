@@ -1,32 +1,64 @@
-# Query the registry to check for installed versions of .NET Framework (4.5 and higher)
+# ------------------------------------------------------------
+#
+# PowerShell - Query the registry to check for installed versions of .NET Framework (4.5 and higher)
+#
+# ------------------------------------------------------------
 
-$final_output = @{}; $i=0;
+$NetFrameworks = @{};
+$NetFrameworks['2.0'] = @{ Installed=$False; MinRelease=$Null; Version=$Null; };
+$NetFrameworks['3.0'] = @{ Installed=$False; MinRelease=$Null; Version=$Null; };
+$NetFrameworks['3.5'] = @{ Installed=$False; MinRelease=$Null; Version=$Null; };
+$NetFrameworks['4.5.0'] = @{ Installed=$False; MinRelease=378389; Version=$Null; };
+$NetFrameworks['4.5.1'] = @{ Installed=$False; MinRelease=378675; Version=$Null; };
+$NetFrameworks['4.5.2'] = @{ Installed=$False; MinRelease=379893; Version=$Null; };
+$NetFrameworks['4.6.0'] = @{ Installed=$False; MinRelease=393295; Version=$Null; };
+$NetFrameworks['4.6.1'] = @{ Installed=$False; MinRelease=394254; Version=$Null; };
+$NetFrameworks['4.6.2'] = @{ Installed=$False; MinRelease=394802; Version=$Null; };
+$NetFrameworks['4.7.0'] = @{ Installed=$False; MinRelease=460798; Version=$Null; };
+$NetFrameworks['4.7.1'] = @{ Installed=$False; MinRelease=461308; Version=$Null; };
+$NetFrameworks['4.7.2'] = @{ Installed=$False; MinRelease=461808; Version=$Null; };
+$NetFrameworks['4.8.0'] = @{ Installed=$False; MinRelease=528040; Version=$Null; };
 
-$hashTable = @{};
-$hashTable[378389] = '4.5';
-$hashTable[378675] = '4.5.1';
-$hashTable[379893] = '4.5.2';
-$hashTable[393295] = '4.6';
-$hashTable[394254] = '4.6.1';
-$hashTable[394802] = '4.6.2';
-$hashTable[460798] = '4.7';
-$hashTable[461308] = '4.7.1';
-$hashTable[461808] = '4.7.2';
-$hashTable[528040] = '4.8.0';
-
-$final_output[$i++] = "";
-$final_output[$i++] = " Installed?  |  .NET Framework";
-$final_output[$i++] = "- - - - - - - - - - - - - - - - - -";
-foreach($key in $hashTable.Keys | sort) {
-	$is_compatible = Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\' | Get-ItemPropertyValue -Name Release | Foreach-Object { $_ -ge $key };
-	$isOn = (&{If($is_compatible) {"True "} Else {"False"}});
-	$final_output[$i++] = "      $isOn  |  $(${hashTable}[${key}])";
+$i=0;
+$WriteHosts = @{};
+$WriteHosts[$i++] = "";
+$WriteHosts[$i++] = " Installed?  |  .NET Framework";
+$WriteHosts[$i++] = "- - - - - - - - - - - - - - - - - -";
+ForEach ($EachKey In (Get-ChildItem "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\" | Where-Object { $_.PSChildName -Like "v*" })) {
+	ForEach ($EachVersion In ($NetFrameworks.Keys)) {
+		If ($NetFrameworks[$EachVersion].Release -Eq $Null) {
+			<# Older version(s) of .NET Framework ( < 4.0 ) #>
+			Try {
+				If ($EachKey.PSChildName.StartsWith("v$($EachVersion)")) {
+					$NetFrameworks[$EachVersion].Installed = $True;
+					$NetFrameworks[$EachVersion].Version = Get-ItemPropertyValue -Path ("Registry::$($EachKey.Name)\") -Name ("Version") -ErrorAction ("SilentlyContinue");
+				}
+			} Catch {
+			}
+		} Else {
+			<# Newer version(s) of .NET Framework ( > 4.0 ) #>
+			Try {
+				$EachRelease = Get-ItemPropertyValue -Path ("Registry::$($EachKey.Name)\Full\") -Name ("Release") -ErrorAction ("SilentlyContinue");
+				If ($EachRelease -Ge $NetFrameworks[$EachVersion].MinRelease) {
+					$NetFrameworks[$EachVersion].Installed = $True;
+				}
+			} Catch {
+			}
+		}
+	}
 }
-$final_output[$i++] = "";
 
-foreach($key in $($final_output.Keys | sort)) {
-	Write-Host "$(${final_output}[${key}])";
+
+$WriteHost = "`n";
+$WriteHost += "`n Installed?  |  .NET Framework";
+$WriteHost += "`n- - - - - - - - - - - - - - - - - -";
+ForEach($EachVersion In ($NetFrameworks.Keys | Sort-Object)) {
+	$BooleanToString = (&{If($NetFrameworks[$EachVersion].Installed) {"True "} Else {"False"}});
+	$WriteHost += "`n      $BooleanToString  |  $EachVersion";
 }
+$WriteHost += "`n";
+
+Write-Host ($WriteHost);
 
 Start-Sleep 60;
 

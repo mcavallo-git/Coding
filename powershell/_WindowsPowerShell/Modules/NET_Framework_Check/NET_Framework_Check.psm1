@@ -106,7 +106,7 @@ function NET_Framework_Check {
 		Write-Host -NoNewLine ((" | `n"));
 	}
 	Write-Host " |----------------|----------------|----------------|  ";
-	Write-Host "`n";
+	Write-Host "";
 
 	If ($MainVersion -eq 4) {
 

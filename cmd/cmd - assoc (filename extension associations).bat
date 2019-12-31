@@ -1,6 +1,6 @@
 REM ------------------------------------------------------------
 REM
-REM assoc (filetype associations, extension handlers, extensionless)
+REM   cmd - assoc (filename extension associations)
 REM
 REM ------------------------------------------------------------
 

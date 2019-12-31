@@ -1,1 +1,1 @@
-PowerShell -NoProfile -ExecutionPolicy Bypass "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs
+PowerShell -Verb "RunAs" -NoProfile -ExecutionPolicy Bypass "Notepad C:\Windows\System32\drivers\etc\hosts"

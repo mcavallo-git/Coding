@@ -10,7 +10,10 @@ Try {
 	$RegistryProp = Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\" | Select-Object -ExpandProperty $Value -ErrorAction Stop;
 } Catch {
 	$RegistryProp = $Null;
-};
+} Finally {
+	Write-Host "`$RegistryProp:";
+	$RegistryProp;
+}
 
 
 # ------------------------------------------------------------

@@ -72,7 +72,7 @@ function NET_Framework_Check {
 
 		} ElseIf ($EachVer.StartsWith("4.")) { # .NET Framework v4.0+
 			Try {
-				If($ReleaseInstalled_4_0 -ge $NetFrameworks[$EachVer].MinRelease) {
+				If (($VersionInstalled_4_0 -Ne $Null) -And ($ReleaseInstalled_4_0 -ge $NetFrameworks[$EachVer].MinRelease)) {
 					$NetFrameworks[$EachVer].Version = $VersionInstalled_4_0;
 					$NetFrameworks[$EachVer].Installed = $True
 				} Else {

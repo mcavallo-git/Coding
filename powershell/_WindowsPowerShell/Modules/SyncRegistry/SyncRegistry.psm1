@@ -514,6 +514,7 @@ function SyncRegistry {
 								# DELETE registry key
 								Write-Host "   |`n   |--> Deleting Registry-Key with Name [ $($EachProp.Name) ] ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-Item -Path ($EachRegEdit.Path) -Force;
+								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 
 							} Else {
 

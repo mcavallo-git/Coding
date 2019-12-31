@@ -507,11 +507,21 @@ function SyncRegistry {
 
 							}
 
-						} Else { # Property SHOULD be deleted
-							
-							# Existing key-property found which should be deleted
-							Write-Host "   |`n   |--> Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
-							Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value);
+						} Else { # Property (or Key) SHOULD be deleted
+
+							If (($EachProp.Name) -Eq "(Default)") {
+									
+								# DELETE registry key
+								Write-Host "   |`n   |--> Deleting Registry-Key with Name [ $($EachProp.Name) ] ${EchoDetails}" -ForegroundColor "Magenta";
+								Remove-Item -Path ($EachRegEdit.Path) -Force;
+
+							} Else {
+
+								# DELETE property (from registry-key)
+								Write-Host "   |`n   |--> Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
+								Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) -Force;
+
+							}
 
 						}
 

@@ -487,6 +487,16 @@ function SyncRegistry {
 					$GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name);
 					$last_exit_code = If($?){0}Else{1};
 					$ErrorActionPreference = $Revertable_ErrorActionPreference;
+
+					If ($False) {
+						Try {
+							# $GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) | Select-Object -ExpandProperty ($EachProp.Name) -ErrorAction Stop;
+							$GetEachItemProp = Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop");
+						} Catch {
+							$GetEachItemProp = $Null;
+						};
+					}
+
 					$EchoDetails = "";
 					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n         v`n        Description: $(${EachProp}.Description)"; }
 					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n         v`n        Hotfix: $(${EachProp}.Hotfix)"; }
@@ -586,6 +596,8 @@ Export-ModuleMember -Function "SyncRegistry";
 #   docs.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
 #
 #   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
+#
+#   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
 #
 #   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #

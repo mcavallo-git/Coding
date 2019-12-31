@@ -1,1 +1,1 @@
-powershell "Start-Process '%windir%\System32\drivers\etc\hosts' -Verb RunAs";
+PowerShell -NoProfile -ExecutionPolicy Bypass "C:\Windows\System32\drivers\etc\hosts" -Verb RunAs

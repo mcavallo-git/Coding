@@ -191,7 +191,7 @@ function SyncRegistry {
 					Type="REG_SZ";
 					Val_Default="OneDrive";
 					Value="OneDrive";
-					Delete=$False;
+					Delete=$True; <# ! Delete this Property ! #>
 				}
 			)
 		};
@@ -386,7 +386,7 @@ function SyncRegistry {
 					Name="UseWindowsUpdate";
 					Type="DWord";
 					Value=2;
-					Delete=$True;
+					Delete=$True; <# ! Delete this Property ! #>
 				}
 			)
 		};

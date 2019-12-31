@@ -1,6 +1,6 @@
 #
 #	PowerShell - NET_Framework_Check
-#		Query the registry to check for installed versions of .NET Framework v4 (4.5 and higher)
+#		Query the registry to check for installed versions of .NET Framework
 #
 function NET_Framework_Check {
 	Param(
@@ -11,58 +11,106 @@ function NET_Framework_Check {
 
 	)
 
-	If ($MainVersion -eq 4) {
-		
-		$Registry_NET_Frameworks_v4 = "HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full";
+	$RegistryKey_NetFrameworks = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP";
 
-		$VersionMap = @{};
-		$VersionMap[378389] = '4.5.0';
-		$VersionMap[378675] = '4.5.1';
-		$VersionMap[379893] = '4.5.2';
-		$VersionMap[393295] = '4.6.0';
-		$VersionMap[394254] = '4.6.1';
-		$VersionMap[394802] = '4.6.2';
-		$VersionMap[460798] = '4.7.0';
-		$VersionMap[461308] = '4.7.1';
-		$VersionMap[461808] = '4.7.2';
-		$VersionMap[528040] = '4.8.0';
+	$NetFrameworks = @{};
+	$NetFrameworks['2.0'] = @{ Installed=$False; MinRelease=$Null; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v2.0*"; };
+	$NetFrameworks['3.0'] = @{ Installed=$False; MinRelease=$Null; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v3.0"; };
+	$NetFrameworks['3.5'] = @{ Installed=$False; MinRelease=$Null; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v3.5"; };
+	$NetFrameworks['4.0'] = @{ Installed=$False; MinRelease=$Null; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v3.5"; };
+	$NetFrameworks['4.0.0'] = @{ Installed=$False; MinRelease=378389; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.5.0'] = @{ Installed=$False; MinRelease=378389; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.5.1'] = @{ Installed=$False; MinRelease=378675; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.5.2'] = @{ Installed=$False; MinRelease=379893; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.6.0'] = @{ Installed=$False; MinRelease=393295; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.6.1'] = @{ Installed=$False; MinRelease=394254; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.6.2'] = @{ Installed=$False; MinRelease=394802; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.7.0'] = @{ Installed=$False; MinRelease=460798; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.7.1'] = @{ Installed=$False; MinRelease=461308; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.7.2'] = @{ Installed=$False; MinRelease=461808; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
+	$NetFrameworks['4.8.0'] = @{ Installed=$False; MinRelease=528040; Version="-"; RegistryKey="$RegistryKey_NetFrameworks\v4\Full"; };
 
-		$CurrentRelease = Get-ChildItem "Registry::${Registry_NET_Frameworks_v4}" | Get-ItemPropertyValue -Name "Release";
-		$CurrentVersion = Get-ChildItem "Registry::${Registry_NET_Frameworks_v4}" | Get-ItemPropertyValue -Name "Version";
-
-		$i=0;
-
-		Write-Host "`n";
-		Write-Host "  Microsoft .NET Framework";
-		Write-Host "`n";
-		Write-Host "  Checking compatibility..." -ForegroundColor "Yellow";
-		Write-Host "`n";
-		Write-Host " |---------------|---------------|---------------|  ";
-		Write-Host " | Release       | Version       | Compatibility |  ";
-		Write-Host " |---------------|---------------|---------------|  ";
-		$VersionMap.Keys | Sort-Object | ForEach-Object {
-			$Release = $_;
-			$Version = $VersionMap.$Release;
-			$Compatible = (&{If($CurrentRelease -ge $Release) { $True } Else { $False }});
-			$ForegroundColor = (&{If($Compatible -eq "Compatible") { "Green" } Else { "Yellow" }});
-			Write-Host -NoNewLine ((" | "));
-			Write-Host -NoNewLine (([String]($Release)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
-			Write-Host -NoNewLine ((" | "));
-			Write-Host -NoNewLine (([String]($Version)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
-			Write-Host -NoNewLine ((" | "));
-			Write-Host -NoNewLine (([String]($Compatible)).PadRight(("Compatibility".Length)," ")) -ForegroundColor (${ForegroundColor});
-			Write-Host -NoNewLine ((" | `n"));
-		}
-		Write-Host " |---------------|---------------|---------------|  ";
-		Write-Host "`n";
+	Try {
+		$VersionInstalled_4_0 = (Get-ItemPropertyValue -Path ("${RegistryKey_NetFrameworks}\v4\Client") -Name ("Version"));
+		$ReleaseInstalled_4_0 = (Get-ItemPropertyValue -Path ("${RegistryKey_NetFrameworks}\v4\Client") -Name ("Release"));
+	} Catch {
+		$VersionInstalled_4_0 = $Null;
+		$ReleaseInstalled_4_0 = $Null;
 	}
 
-	# ------------------------------------------------------------
-	# Check Version of .NET Framework BEFORE version 4.5:
-		# Open Regedit -> Browse to "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP"
-			# |--> Check Key-Names for Version
-			# |--> Also - If any key in aftorementioned location contains a sub-key named "Client", then select client, and it should have a property/key "Version" which contains the version in-question
-	# ------------------------------------------------------------
+	ForEach ($EachVer In ($NetFrameworks.Keys)) {
+
+		If ($EachVer -Eq "2.0") { # .NET Framework v2.0
+			Try {
+				$NetFrameworks[$EachVer].Version = (Get-ChildItem ("${RegistryKey_NetFrameworks}") | Where-Object { $_.PSChildName -Like "v$EachVer*" } | Get-ItemPropertyValue -Name ("Version"));
+				$NetFrameworks[$EachVer].Installed = $True;
+			} Catch {
+				$NetFrameworks[$EachVer].Version = "-";
+				$NetFrameworks[$EachVer].Installed = $False;
+			}
+
+
+		} ElseIf ($EachVer -Eq "3.0") { # .NET Framework v3.0
+			Try {
+				$NetFrameworks[$EachVer].Version = (Get-ChildItem ("${RegistryKey_NetFrameworks}") | Where-Object { $_.PSChildName -Like "v$EachVer*" } | Get-ItemPropertyValue -Name ("Version"));
+				$NetFrameworks[$EachVer].Installed = $True;
+			} Catch {
+				$NetFrameworks[$EachVer].Version = "-";
+				$NetFrameworks[$EachVer].Installed = $False;
+			}
+
+
+		} ElseIf ($EachVer -Eq "3.5") { # .NET Framework v3.5
+			Try {
+				$NetFrameworks[$EachVer].Version = (Get-ChildItem ("${RegistryKey_NetFrameworks}") | Where-Object { $_.PSChildName -Like "v$EachVer*" } | Get-ItemPropertyValue -Name ("Version"));
+				$NetFrameworks[$EachVer].Installed = $True;
+			} Catch {
+				$NetFrameworks[$EachVer].Version = "-";
+				$NetFrameworks[$EachVer].Installed = $False;
+			}
+
+
+		} ElseIf ($EachVer.StartsWith("4.")) { # .NET Framework v4.0+
+			Try {
+				If($ReleaseInstalled_4_0 -ge $NetFrameworks[$EachVer].MinRelease) {
+					$NetFrameworks[$EachVer].Version = $ReleaseInstalled_4_0;
+					$NetFrameworks[$EachVer].Installed = $True
+				} Else {
+					$NetFrameworks[$EachVer].Version = "-";
+					$NetFrameworks[$EachVer].Installed = $False;
+				}
+			} Catch {
+				$NetFrameworks[$EachVer].Version = "-";
+				$NetFrameworks[$EachVer].Installed = $False;
+			}
+
+		}
+	}
+
+	$i=0;
+	Write-Host "";
+	Write-Host "  Microsoft .NET Framework -> Checking compatibility..." -ForegroundColor "Yellow";
+	Write-Host "";
+	Write-Host " |----------------|----------------|----------------|  ";
+	Write-Host " | Version        | Compatibile?   | Installed Ver. |  ";
+	Write-Host " |----------------|----------------|----------------|  ";
+	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
+		$Installed_Ver = [String](&{If(($NetFrameworks[$EachVer].Version) -Eq $Null) { "-" } Else { $NetFrameworks[$EachVer].Version }});
+		$ForegroundColor = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
+		Write-Host -NoNewLine ((" | "));
+		Write-Host -NoNewLine (([String]($EachVer)).PadRight(("----------------".Length-2)," ")) -ForegroundColor (${ForegroundColor});
+		Write-Host -NoNewLine ((" | "));
+		Write-Host -NoNewLine (([String]($NetFrameworks[$EachVer].Installed)).PadRight(("----------------".Length-2)," ")) -ForegroundColor (${ForegroundColor});
+		Write-Host -NoNewLine ((" | "));
+		Write-Host -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(("----------------".Length-2)," ")) -ForegroundColor (${ForegroundColor});
+		Write-Host -NoNewLine ((" | `n"));
+	}
+	Write-Host " |----------------|----------------|----------------|  ";
+	Write-Host "`n";
+
+	If ($MainVersion -eq 4) {
+
+	}
 
 	Return;
 }
@@ -73,6 +121,10 @@ Export-ModuleMember -Function "NET_Framework_Check";
 #
 # Citation(s)
 #
-#		docs.microsoft.com  |  https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#ps_a
+#   docs.microsoft.com  |  "How to: Determine which .NET Framework versions are installed"  |  https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#ps_a
+#
+#   en.wikipedia.org  |  ".NET Framework version history"  |  https://en.wikipedia.org/wiki/.NET_Framework_version_history#.NET_Framework_1.0
+#
+#   smartdoc.zendesk.com  |  "How to check your .NET Framework version"  |  https://smartdoc.zendesk.com/hc/en-us/articles/205232308-How-to-check-your-NET-Framework-version
 #
 # ------------------------------------------------------------

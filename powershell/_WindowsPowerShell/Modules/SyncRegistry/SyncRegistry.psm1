@@ -182,6 +182,22 @@ function SyncRegistry {
 
 
 		# Explorer Settings (cont.)
+		$RegEdits += @{
+			Path = "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+			Props=@(
+				@{
+					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'Onedrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
+					Name="(Default)"; 
+					Type="REG_SZ";
+					Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
+					Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings (cont.)
 		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
 		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
 			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
@@ -434,21 +450,23 @@ function SyncRegistry {
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
 				#   |--> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
 				#
-				$Each_RegEdit_DriveName=(($EachRegEdit.Path).Split(':\')[0]);
-				If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
-					$Each_PSDrive_PSProvider=$Null;
-					$Each_PSDrive_Root=$Null;
-					Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
-					Foreach ($Each_PSDrive In $PSDrives) {
-						If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
-							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
-							$Each_PSDrive_Root=($Each_PSDrive.Root);
-							Break;
+				If (($EachRegEdit.Path).StartsWith("Registry::") -Eq $False) {
+					$Each_RegEdit_DriveName=(($EachRegEdit.Path).Split(':\')[0]);
+					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
+						$Each_PSDrive_PSProvider=$Null;
+						$Each_PSDrive_Root=$Null;
+						Write-Host "`n`n  Info: Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
+						Foreach ($Each_PSDrive In $PSDrives) {
+							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
+								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
+								$Each_PSDrive_Root=($Each_PSDrive.Root);
+								Break;
+							}
 						}
-					}
-					If ($Each_PSDrive_Root -Ne $Null) {
-						Write-Host "   |`n   |--> Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
-						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
+						If ($Each_PSDrive_Root -Ne $Null) {
+							Write-Host "   |`n   |--> Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
+							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
+						}
 					}
 				}
 				
@@ -497,7 +515,6 @@ function SyncRegistry {
 
 						}
 
-
 					} Else { # Registry-Key-Property does NOT exist
 
 						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
@@ -509,7 +526,6 @@ function SyncRegistry {
 
 						} Else { # Property SHOULD be deleted (Already up to date)
 							Write-Host "   |`n   |--> Skipping Deletion of Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
-
 
 						}
 

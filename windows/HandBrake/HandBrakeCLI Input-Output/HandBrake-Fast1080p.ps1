@@ -20,7 +20,7 @@
 # $Workspace = "${Env:TEMP}";
 $Workspace = "${Home}\Desktop";
 
-$ExeArchive_Url="https://handbrake.fr/rotation.php?file=HandBrakeCLI-1.3.0-win-x86_64.zip";
+$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 
 $ExeArchive_Local=("${Workspace}\HandBrakeCLI.zip");
 

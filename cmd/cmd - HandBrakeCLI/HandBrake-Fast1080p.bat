@@ -18,19 +18,9 @@ SET "OUTPUT_EXT=mp4"
 REM ------------------------------------------------------------
 REM	Compress input video(s) using HandBrakeCLI
 
-SET EXT="VOB"
+SET EXT="vob"
 FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
-	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
-	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
-		DEL /f "%%I"
-	)
-	ECHO.
-)
-
-SET EXT="MPG"
-FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
 		DEL /f "%%I"
@@ -40,17 +30,7 @@ FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
 
 SET EXT="mpg"
 FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
-	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
-	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
-		DEL /f "%%I"
-	)
-	ECHO.
-)
-
-SET EXT="MOV"
-FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
 		DEL /f "%%I"
@@ -60,7 +40,7 @@ FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
 
 SET EXT="mov"
 FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
-	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%EXT%"
+	ECHO|set /p="   %%I  --->  %OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	"HandBrakeCLI.exe" --preset "%PRESET_NAME%" -i "%%I" -o "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%"
 	IF EXIST "%OUTPUT_DIR%\%%~nI.%OUTPUT_EXT%" (
 		DEL /f "%%I"

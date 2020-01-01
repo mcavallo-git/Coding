@@ -65,7 +65,10 @@ If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
 }
 
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
-$PSGalleryModules = @("platyPS", "PSWindowsUpdate", "VMware.PowerCLI");
+$PSGalleryModules = @();
+$PSGalleryModules += "platyPS";  # https://www.powershellgallery.com/packages/platyPS
+$PSGalleryModules += "PSWindowsUpdate";  # https://www.powershellgallery.com/packages/PSWindowsUpdate
+$PSGalleryModules += "VMware.PowerCLI";  # https://www.powershellgallery.com/packages/VMware.PowerCLI
 If ($PSM1.Iteration -eq 1) {
 	Write-Host "`n$($PSM1.InvocationBasename) - Task: Import powershell modules (pass $($PSM1.Iteration)/2, - microsoft gallery modules)" -ForegroundColor Gray;
 	Foreach ($EachGalleryModule In ($PSGalleryModules)) {

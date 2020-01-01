@@ -52,7 +52,7 @@ $ReversePathLookups += @{
 };
 
 
-# Basename of Running Script
+# Basename of Current/Running Script
 $ReversePathLookups += @{
 	Description = "Basename of Running Script";
 	Commands = @(

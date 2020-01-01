@@ -88,7 +88,6 @@ function NET_Framework_Check {
 	}
 
 	$Dashes = "-------------------";
-	$Dashes = " True -----------";
 	$Color = "Cyan";
 	Write-Host -ForegroundColor ("DarkGray") "";
 	Write-Host -ForegroundColor ("Yellow") "  Microsoft .NET Framework -> Checking compatibility...";

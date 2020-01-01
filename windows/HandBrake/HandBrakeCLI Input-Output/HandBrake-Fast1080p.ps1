@@ -43,7 +43,7 @@ $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Loca
 
 # Unpack the downloaded archive
 Write-Host "Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
-Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}");
+Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 
 # Cleanup the archive once it has been unpacked
 # Remove-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1");
@@ -93,6 +93,8 @@ If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   docs.microsoft.com  |  "Expand-Archive - Extracts files from a specified archive (zipped) file"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-6
 #
 #   docs.microsoft.com  |  "Get-ChildItem - Gets the items and child items in one or more specified locations"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem
 #

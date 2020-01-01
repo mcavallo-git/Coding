@@ -56,12 +56,11 @@ $ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Dept
 If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
 	Write-Host "";
 	Write-Host "HandBrakeCLI executable path NOT FOUND" -ForegroundColor ("Red");
-	Write-Host "";
 	Exit 1;
 
 
 } Else {
-	Write-Host ""
+	Write-Host "";
 	Write-Host "Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]"
 	
 	Move-Item -Path ("${ExeArchive_HandBrakeCLI}") -Destination ("${HandBrakeCLI}") -Force;

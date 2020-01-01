@@ -23,6 +23,18 @@ TIMEOUT -T 30
 
 EXIT
 
+
+REM ------------------------------------------------------------
+REM 
+REM use the ipconfig /displaydns command to view the contents of the DNS client resolver cache.
+REM 
+
+
+ipconfig /displaydns > %USERPROFILE%\Desktop\ipconfig-displaydns.log
+
+Notepad %USERPROFILE%\Desktop\ipconfig-displaydns.log
+
+
 REM ------------------------------------------------------------
 REM Manually Perform Above Task(s)
 
@@ -35,4 +47,11 @@ ipconfig /renew6
 ipconfig /flushdns
 ipconfig /registerdns
 
+
+REM ------------------------------------------------------------
+REM
+REM Citation(s)
+REM
+REM   docs.microsoft.com  |  "Chapter 7 - Host Name Resolution"  |  https://docs.microsoft.com/en-us/previous-versions/bb727005
+REM
 REM ------------------------------------------------------------

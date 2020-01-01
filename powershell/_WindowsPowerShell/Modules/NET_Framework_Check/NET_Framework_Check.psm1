@@ -106,13 +106,13 @@ function NET_Framework_Check {
 		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine ([String]($EachVer));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+([String]($EachVer)).Length)),"-"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+([String]($EachVer)).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine ([String]($NetFrameworks[$EachVer].Installed));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+([String]($NetFrameworks[$EachVer].Installed)).Length)),"-"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+([String]($NetFrameworks[$EachVer].Installed)).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine ([String]($NetFrameworks[$EachVer].Version));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+([String]($NetFrameworks[$EachVer].Version)).Length)),"-"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+([String]($NetFrameworks[$EachVer].Version)).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n");
 	}

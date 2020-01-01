@@ -42,7 +42,7 @@ Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 # ------------------------------------------------------------
 # Once finished, open the output directory
 
-# explorer.exe "${OutputDir}";
+Explorer.exe "${OutputDir}";
 
 Start-Sleep -Seconds 30;
 

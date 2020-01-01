@@ -219,7 +219,6 @@
 
 ***
 ### Modifying Output (upper-casing, lower-casing, etc.)
-###### More info @ [ https://www.regular-expressions.info/replacecase.html ]
 
 
 * Capitalize words (note that \s also matches new lines, i.e. "venuS" => "VenuS")

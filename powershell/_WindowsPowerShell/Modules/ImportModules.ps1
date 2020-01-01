@@ -68,7 +68,7 @@ If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
 $PSGalleryModules = @();
 $PSGalleryModules += "platyPS";  # https://www.powershellgallery.com/packages/platyPS
 $PSGalleryModules += "PSWindowsUpdate";  # https://www.powershellgallery.com/packages/PSWindowsUpdate
-$PSGalleryModules += "VMware.PowerCLI";  # https://www.powershellgallery.com/packages/VMware.PowerCLI
+# $PSGalleryModules += "VMware.PowerCLI";  # https://www.powershellgallery.com/packages/VMware.PowerCLI
 If ($PSM1.Iteration -eq 1) {
 	Write-Host "`n$($PSM1.InvocationBasename) - Task: Import powershell modules (pass $($PSM1.Iteration)/2, - microsoft gallery modules)" -ForegroundColor Gray;
 	Foreach ($EachGalleryModule In ($PSGalleryModules)) {

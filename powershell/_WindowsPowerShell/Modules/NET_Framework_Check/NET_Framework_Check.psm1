@@ -88,24 +88,30 @@ function NET_Framework_Check {
 	}
 
 	$i=0;
+	$Dashes = "-------------------";
 	Write-Host "";
 	Write-Host "  Microsoft .NET Framework -> Checking compatibility..." -ForegroundColor "Yellow";
 	Write-Host "";
-	Write-Host " |----------------|----------------|----------------|  ";
-	Write-Host " | Version        | Compatibile?   | Installed Ver. |  ";
-	Write-Host " |----------------|----------------|----------------|  ";
+	Write-Host " |$Dashes|$Dashes|$Dashes| ";
+	Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
+	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Version")).PadRight(($Dashes.Length-2)," "));
+	Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
+	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Compatibile?")).PadRight(($Dashes.Length-2)," "));
+	Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
+	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Installed Ver.")).PadRight(($Dashes.Length-2)," "));
+	Write-Host -NoNewLine ((" | `n"));
+	Write-Host " |$Dashes|$Dashes|$Dashes| ";
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
-		$Installed_Ver = [String](&{If(($NetFrameworks[$EachVer].Version) -Eq $Null) { "-" } Else { $NetFrameworks[$EachVer].Version }});
-		$ForegroundColor = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
-		Write-Host -NoNewLine ((" | "));
-		Write-Host -NoNewLine (([String]($EachVer)).PadRight(("----------------".Length-2)," ")) -ForegroundColor (${ForegroundColor});
-		Write-Host -NoNewLine ((" | "));
-		Write-Host -NoNewLine (([String]($NetFrameworks[$EachVer].Installed)).PadRight(("----------------".Length-2)," ")) -ForegroundColor (${ForegroundColor});
-		Write-Host -NoNewLine ((" | "));
-		Write-Host -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(("----------------".Length-2)," ")) -ForegroundColor (${ForegroundColor});
+		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
+		Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
+		Write-Host -ForegroundColor ($Color); -NoNewLine (([String]($EachVer)).PadRight(($Dashes.Length-2)," "));
+		Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
+		Write-Host -ForegroundColor ($Color); -NoNewLine (([String]($NetFrameworks[$EachVer].Installed)).PadRight(($Dashes.Length-2)," "));
+		Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
+		Write-Host -ForegroundColor ($Color); -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(($Dashes.Length-2)," "));
 		Write-Host -NoNewLine ((" | `n"));
 	}
-	Write-Host " |----------------|----------------|----------------|  ";
+	Write-Host " |$Dashes|$Dashes|$Dashes|  ";
 	Write-Host "";
 
 	If ($MainVersion -eq 4) {
@@ -117,7 +123,7 @@ function NET_Framework_Check {
 Export-ModuleMember -Function "NET_Framework_Check";
 
 
-# ------------------------------------------------------------
+# ~~~
 #
 # Citation(s)
 #
@@ -127,4 +133,4 @@ Export-ModuleMember -Function "NET_Framework_Check";
 #
 #   smartdoc.zendesk.com  |  "How to check your .NET Framework version"  |  https://smartdoc.zendesk.com/hc/en-us/articles/205232308-How-to-check-your-NET-Framework-version
 #
-# ------------------------------------------------------------
+# ~~~

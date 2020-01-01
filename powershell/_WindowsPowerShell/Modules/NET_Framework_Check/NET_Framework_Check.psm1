@@ -98,15 +98,15 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");<# Start of Line #>
 	$Str=([String]("Version"));
 	Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+($Str).Length)),"-"));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	$Str=([String]("Compatibile?"));
 	Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+($Str).Length)),"-"));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	$Str=([String]("Installed Version"));
 	Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+($Str).Length)),"-"));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n"); <# End of Line #>
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
@@ -115,15 +115,15 @@ function NET_Framework_Check {
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | "); <# Start of Line #>
 		$Str=([String]($EachVer));
 		Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+($Str).Length)),"-"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		$Str=([String]($NetFrameworks[$EachVer].Installed));
 		Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+($Str).Length)),"-"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		$Str=([String]($NetFrameworks[$EachVer].Version));
 		Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+($Str).Length)),"-"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n"); <# End of Line #>
 	}

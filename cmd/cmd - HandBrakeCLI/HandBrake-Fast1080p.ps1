@@ -21,6 +21,7 @@ $HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
 Set-Location -Path ("${ThisDir}\");
 
 $HandBrake_Preset = "Fast 1080p30";
+
 $OutputExtension = "mp4";
 
 # ------------------------------------------------------------

@@ -12,14 +12,24 @@ If ($False) { # RUN THIS SCRIPT:
 }
 # ------------------------------------------------------------
 
+
+<# PowerShell - Install the NuGet package manager #>
+Install-PackageProvider -Name ("NuGet") -Force;
+
+
 <# PowerShell - Install VMware PowerCLI module #>
-Install-PackageProvider -Name ("NuGet") -Force; Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
+If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
+	Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
+}
+
+
+<# Set the current user's Desktop as the working directory #>
+Set-Location "${Home}\Desktop";
 
 
 <# Download and run the ESXi-Customizer #>
-New-Item -Path ("${Home}\Downloads\ESXi-Customizer-PS-v2.6.0.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1"))) | Out-Null;
+New-Item -Path ("${Home}\Desktop\ESXi-Customizer-PS-v2.6.0.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1"))) | Out-Null;
 
-Set-Location "${Home}\Downloads";
 
 <# -v65 : Create the latest ESXi 6.5 ISO #>
 .\ESXi-Customizer-PS-v2.6.0.ps1 -v65;

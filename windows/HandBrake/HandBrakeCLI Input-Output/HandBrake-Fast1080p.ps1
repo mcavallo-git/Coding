@@ -38,10 +38,12 @@ $ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
 $ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 
 # Download HandBrakeCLI
+Write-Host "";
 Write-Host "Downloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
 $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}");
 
 # Unpack the downloaded archive
+Write-Host "";
 Write-Host "Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
 Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 

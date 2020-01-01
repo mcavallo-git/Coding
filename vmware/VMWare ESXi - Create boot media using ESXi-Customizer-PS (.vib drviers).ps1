@@ -28,7 +28,7 @@ Set-Location "${Home}\Desktop";
 
 
 # Download and run the ESXi-Customizer
-New-Item -Path ("${Home}\Desktop\ESXi-Customizer-PS-v2.6.0.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1"))) | Out-Null;
+New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
 
 
 # Create the latest ESXi 6.5 ISO
@@ -36,11 +36,11 @@ New-Item -Path ("${Home}\Desktop\ESXi-Customizer-PS-v2.6.0.ps1") -Value (($(New-
 #    -sip : select an image profile from the list
 #    -vft : connect the V-Front Online depot
 #    -load : load additional packages from connected depots or Offline bundles
-.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -sip -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir ${Home}\Desktop
+.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -sip -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
 
 
 # Open the destination which the output .iso was saved-at
-explorer "${Home}\Desktop";
+explorer .;
 
 
 

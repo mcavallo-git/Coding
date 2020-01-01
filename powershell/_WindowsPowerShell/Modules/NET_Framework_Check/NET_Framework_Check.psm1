@@ -11,6 +11,8 @@ function NET_Framework_Check {
 
 	)
 
+	Clear-Host;
+
 	$RegistryKey_NetFrameworks = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP";
 
 	$NetFrameworks = @{};

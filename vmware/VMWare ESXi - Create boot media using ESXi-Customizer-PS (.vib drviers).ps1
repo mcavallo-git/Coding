@@ -3,6 +3,12 @@
 # VMware ESXI - Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
 #
 # ------------------------------------------------------------
+# RUN THIS SCRIPT:
+#
+# . "${Home}\Documents\GitHub\Coding\vmware\VMWare ESXi - Create boot media using ESXi-Customizer-PS (.vib drviers).ps1"
+#
+#
+# ------------------------------------------------------------
 
 <# PowerShell - Install VMware PowerCLI module #>
 Install-PackageProvider -Name ("NuGet") -Force; Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;

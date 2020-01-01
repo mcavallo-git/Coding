@@ -23,7 +23,7 @@ Set-ExecutionPolicy "RemoteSigned";
 
 # Download "WinSW.NET4" from "https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe" to "C:\nginx\service\NGINX-Service.exe"
 
-$(New-Object Net.WebClient).DownloadFile("https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe", "C:\nginx\service\NGINX-Service.exe") -Verb RunAs;
+$(New-Object Net.WebClient).DownloadFile("https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe", "C:\nginx\service\NGINX-Service.exe");
 
 # Invoke-WebRequest -Uri "https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe" -OutFile "C:\nginx\service\NGINX-Service.exe"
 

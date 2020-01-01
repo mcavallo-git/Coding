@@ -100,7 +100,7 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Installed Version")).PadRight(($Dashes.Length-2)," "));
 	Write-Host -NoNewLine ((" | `n"));
-	Write-Host " |$Dashes|$Dashes|$Dashes| ";
+	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
 		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");

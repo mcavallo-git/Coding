@@ -219,8 +219,8 @@
 
 ***
 ### Modifying Output (upper-casing, lower-casing, etc.)
-
 ###### Perl’s case conversion escapes also work in replacement texts - The most common use is to change the case of an interpolated variable
+
 * ```\U``` converts everything up to the next \L or \E to uppercase
 * ```\L``` converts everything up to the next \U or \E to lowercase
 * ```\u``` converts the next character to uppercase

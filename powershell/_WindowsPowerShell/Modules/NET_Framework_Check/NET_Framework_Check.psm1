@@ -89,9 +89,9 @@ function NET_Framework_Check {
 
 	$i=0;
 	$Dashes = "-------------------";
-	Write-Host "";
-	Write-Host "  Microsoft .NET Framework -> Checking compatibility..." -ForegroundColor "Yellow";
-	Write-Host "";
+	Write-Host -ForegroundColor ("DarkGray") "";
+	Write-Host -ForegroundColor ("Yellow") "  Microsoft .NET Framework -> Checking compatibility...";
+	Write-Host -ForegroundColor ("DarkGray") "";
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Version")).PadRight(($Dashes.Length-2)," "));
@@ -99,7 +99,7 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Compatibile?")).PadRight(($Dashes.Length-2)," "));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Installed Version")).PadRight(($Dashes.Length-2)," "));
-	Write-Host -NoNewLine ((" | `n"));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ((" | `n"));
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
 		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
@@ -109,7 +109,7 @@ function NET_Framework_Check {
 		Write-Host -ForegroundColor ($Color) -NoNewLine (([String]($NetFrameworks[$EachVer].Installed)).PadRight(($Dashes.Length-2)," "));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(($Dashes.Length-2)," "));
-		Write-Host -NoNewLine ((" | `n"));
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ((" | `n"));
 	}
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes|  ";
 	Write-Host "";

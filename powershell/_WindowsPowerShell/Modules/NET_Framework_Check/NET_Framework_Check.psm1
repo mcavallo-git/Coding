@@ -91,11 +91,13 @@ function NET_Framework_Check {
 
 	$Dashes = "--------------------";
 	$DashEquals = (($Dashes).Replace('-','='));
+	$DashSpaces = (($Dashes).Replace('-',' '));
 	$Color = "Cyan";
 	Write-Host -ForegroundColor ("DarkGray") "";
 	Write-Host -ForegroundColor ("Yellow") "  Microsoft .NET Framework -> Checking compatibility...";
 	Write-Host -ForegroundColor ("DarkGray") "";
 	Write-Host -ForegroundColor ("DarkGray") " |$DashEquals|$DashEquals|$DashEquals| ";
+	Write-Host -ForegroundColor ("DarkGray") " |$DashSpaces|$DashSpaces|$DashSpaces| ";
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");<# Start of Line #>
 	$Str=([String]("Version"));
 	Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
@@ -110,7 +112,9 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n"); <# End of Line #>
+	Write-Host -ForegroundColor ("DarkGray") " |$DashSpaces|$DashSpaces|$DashSpaces| ";
 	Write-Host -ForegroundColor ("DarkGray") " |$DashEquals|$DashEquals|$DashEquals| ";
+	Write-Host -ForegroundColor ("DarkGray") " |$DashSpaces|$DashSpaces|$DashSpaces| ";
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
 		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | "); <# Start of Line #>
@@ -127,6 +131,7 @@ function NET_Framework_Check {
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n"); <# End of Line #>
+		Write-Host -ForegroundColor ("DarkGray") " |$DashSpaces|$DashSpaces|$DashSpaces| ";
 	}
 	Write-Host -ForegroundColor ("DarkGray") " |$DashEquals|$DashEquals|$DashEquals|  ";
 	Write-Host -ForegroundColor ("DarkGray") "";

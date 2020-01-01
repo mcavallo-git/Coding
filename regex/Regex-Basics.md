@@ -220,6 +220,16 @@
 ***
 ### Modifying Output (upper-casing, lower-casing, etc.)
 
+###### Perl’s case conversion escapes also work in replacement texts - The most common use is to change the case of an interpolated variable
+* ```\U``` converts everything up to the next \L or \E to uppercase
+* ```\L``` converts everything up to the next \U or \E to lowercase
+* ```\u``` converts the next character to uppercase
+* ```\l``` converts the next character to lowercase
+* ```\E``` turns off case conversion
+* ```\l\U``` combo makes the first character lowercase and the remainder uppercase
+* ```\u\L``` combo makes the first character uppercase and the remainder lowercase
+* You cannot use \u or \l after \U or \L unless you first stop the sequence with \E
+
 
 * Capitalize words (note that \s also matches new lines, i.e. "venuS" => "VenuS")
 Find: ```(\s)([a-z])```

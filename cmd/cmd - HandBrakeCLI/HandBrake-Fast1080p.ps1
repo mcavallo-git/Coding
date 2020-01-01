@@ -14,47 +14,45 @@
 $ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 $ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
 
-$InputDir = ("${ThisDir}\Input\");
-$OutputDir = ("${ThisDir}\Output\");
-$OutputDir = ("$(Split-Path $MyInvocation.MyCommand.Path -Parent)\${INPUT_DIR}\");
+$InputDir = ("${ThisDir}\Input");
+$OutputDir = ("${ThisDir}\Output");
 
-$PRESET_NAME = "Fast 1080p30";
-$INPUT_DIR = "Input";
-$OUTPUT_DIR = "Output";
-$OUTPUT_EXT = "mp4";
+$HandBrake_PresetName = "Fast 1080p30";
+$OutputExtension = "mp4";
 
 # ------------------------------------------------------------
 # Compress input video(s) using HandBrakeCLI
 
-Get-ChildItem -Path ("$(Split-Path $MyInvocation.MyCommand.Path -Parent)\${INPUT_DIR}\") -Exclude (".gitignore") | ForEach-Object {
+Set-Location -Path ("${ThisDir}");
+Get-ChildItem -Path ("$(Split-Path $MyInvocation.MyCommand.Path -Parent)\${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 	Show $_;
 }
 
 # $EXT = "vob";
-# FOR %%I IN ("${INPUT_DIR}\*.${EXT}") DO (
-# 	Write-Host "   %%I  --->  ${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}"
-# 	"HandBrakeCLI.exe" --preset "${PRESET_NAME}" -i "%%I" -o "${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}"
-# 	IF EXIST "${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}" (
+# FOR %%I IN ("${InputDir}\*.${EXT}") DO (
+# 	Write-Host "   %%I  --->  ${OutputDir}\%%~nI.${OutputExtension}"
+# 	"HandBrakeCLI.exe" --preset "${HandBrake_PresetName}" -i "%%I" -o "${OutputDir}\%%~nI.${OutputExtension}"
+# 	IF EXIST "${OutputDir}\%%~nI.${OutputExtension}" (
 # 		DEL /f "%%I"
 # 	)
 # 	ECHO.
 # )
 
 # $EXT = "mpg";
-# FOR %%I IN ("${INPUT_DIR}\*.${EXT}") DO (
-# 	ECHO|set /p="   %%I  --->  ${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}"
-# 	"HandBrakeCLI.exe" --preset "${PRESET_NAME}" -i "%%I" -o "${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}"
-# 	IF EXIST "${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}" (
+# FOR %%I IN ("${InputDir}\*.${EXT}") DO (
+# 	ECHO|set /p="   %%I  --->  ${OutputDir}\%%~nI.${OutputExtension}"
+# 	"HandBrakeCLI.exe" --preset "${HandBrake_PresetName}" -i "%%I" -o "${OutputDir}\%%~nI.${OutputExtension}"
+# 	IF EXIST "${OutputDir}\%%~nI.${OutputExtension}" (
 # 		DEL /f "%%I"
 # 	)
 # 	ECHO.
 # )
 
 # $EXT = "mov";
-# FOR %%I IN ("${INPUT_DIR}\*.${EXT}") DO (
-# 	ECHO|set /p="   %%I  --->  ${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}"
-# 	"HandBrakeCLI.exe" --preset "${PRESET_NAME}" -i "%%I" -o "${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}"
-# 	IF EXIST "${OUTPUT_DIR}\%%~nI.${OUTPUT_EXT}" (
+# FOR %%I IN ("${InputDir}\*.${EXT}") DO (
+# 	ECHO|set /p="   %%I  --->  ${OutputDir}\%%~nI.${OutputExtension}"
+# 	"HandBrakeCLI.exe" --preset "${HandBrake_PresetName}" -i "%%I" -o "${OutputDir}\%%~nI.${OutputExtension}"
+# 	IF EXIST "${OutputDir}\%%~nI.${OutputExtension}" (
 # 		DEL /f "%%I"
 # 	)
 # 	ECHO.
@@ -77,7 +75,7 @@ Get-ChildItem -Path ("$(Split-Path $MyInvocation.MyCommand.Path -Parent)\${INPUT
 # ------------------------------------------------------------
 # Once finished, open the output directory
 
-# explorer.exe "${OUTPUT_DIR}";
+# explorer.exe "${OutputDir}";
 
 Start-Sleep -Seconds 30;
 

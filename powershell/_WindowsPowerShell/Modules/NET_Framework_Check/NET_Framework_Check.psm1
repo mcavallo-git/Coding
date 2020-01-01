@@ -92,7 +92,7 @@ function NET_Framework_Check {
 	Write-Host "";
 	Write-Host "  Microsoft .NET Framework -> Checking compatibility..." -ForegroundColor "Yellow";
 	Write-Host "";
-	Write-Host " |$Dashes|$Dashes|$Dashes| ";
+	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Version")).PadRight(($Dashes.Length-2)," "));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
@@ -111,7 +111,7 @@ function NET_Framework_Check {
 		Write-Host -ForegroundColor ($Color) -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(($Dashes.Length-2)," "));
 		Write-Host -NoNewLine ((" | `n"));
 	}
-	Write-Host " |$Dashes|$Dashes|$Dashes|  ";
+	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes|  ";
 	Write-Host "";
 
 	If ($MainVersion -eq 4) {

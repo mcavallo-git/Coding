@@ -25,17 +25,6 @@ EXIT
 
 
 REM ------------------------------------------------------------
-REM 
-REM use the ipconfig /displaydns command to view the contents of the DNS client resolver cache.
-REM 
-
-
-ipconfig /displaydns > %USERPROFILE%\Desktop\ipconfig-displaydns.log
-
-Notepad %USERPROFILE%\Desktop\ipconfig-displaydns.log
-
-
-REM ------------------------------------------------------------
 REM Manually Perform Above Task(s)
 
 ipconfig /release
@@ -46,6 +35,19 @@ ipconfig /renew6
 
 ipconfig /flushdns
 ipconfig /registerdns
+
+
+REM ------------------------------------------------------------
+REM 
+REM Use the ipconfig /flushdns command to flush and refresh the DNS client resolver cache with just the entries in the Hosts file
+REM 
+ipconfig /flushdns
+
+REM 
+REM Use the ipconfig /displaydns command to view the contents of the DNS client resolver cache
+REM 
+ipconfig /displaydns > %USERPROFILE%\Desktop\ipconfig-displaydns.log
+Notepad %USERPROFILE%\Desktop\ipconfig-displaydns.log
 
 
 REM ------------------------------------------------------------

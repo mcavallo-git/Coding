@@ -84,6 +84,7 @@ If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
 	# Open the exported-files directory
 	Write-Host "";
 	Write-Host "Finished Script - Opening output directory @  [ ${OutputDir} ]";
+	Write-Host "";
 	Explorer.exe "${OutputDir}";
 
 	# Wait a few seconds (for user to read the terminal, etc.) before exiting

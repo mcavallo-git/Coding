@@ -89,7 +89,7 @@ function NET_Framework_Check {
 		}
 	}
 
-	$Dashes = "--------------------";
+	$Dashes = "------------------------------";
 	$DashEquals = (($Dashes).Replace('-','='));
 	$DashSpaces = (($Dashes).Replace('-',' '));
 	$Color = "Cyan";

@@ -1,7 +1,13 @@
 @ECHO OFF 
-
-
-REM %USERPROFILE%\Documents\GitHub\Coding\cmd\cmd - ping ipv6 localhost (zone index test).bat
+REM ------------------------------------------------------------
+REM RUN THIS SCRIPT:
+REM
+REM "%USERPROFILE%\Documents\GitHub\Coding\cmd\cmd - ping ipv6 localhost (zone index test).bat"
+REM
+REM ------------------------------------------------------------
+REM 
+REM Test an link-local ipv6 address by replacing "::1" in the following ping calls with your target ipv6 address
+REM 
 
 
 ECHO. > %USERPROFILE%\Desktop\ping-ipv6.log
@@ -327,5 +333,39 @@ ECHO "ping -n 1 -w 1 -6 ::1%%64" >> %USERPROFILE%\Desktop\ping-ipv6.log
 ping -n 1 -w 1 -6 ::1%%64 >> %USERPROFILE%\Desktop\ping-ipv6.log
 
 
+ECHO "------------------------------------------------------------" >> %USERPROFILE%\Desktop\ping-ipv6.log
+
+
 Notepad %USERPROFILE%\Desktop\ping-ipv6.log
 
+
+EXIT
+
+
+REM ------------------------------------------------------------ #>
+REM 
+REM
+REM  From Citation(s) (Below):
+REM  "
+REM  Finally, I've found the way. I speicied zone ID (11 in my case) in hosts:
+REM  
+REM  fe80::215:afff:fec6:ea64%11 realhost
+REM  Which I've got using
+REM  
+REM  netsh interface ipv6 show addresses
+REM  With help of http://technet.microsoft.com/en-us/library/bb726995.aspx
+REM  "
+REM 
+REM 
+REM ------------------------------------------------------------ #>
+REM
+REM
+REM Citation(s)
+REM
+REM   docs.microsoft.com  |  "Chapter 3 – IP Addressing"  |  https://docs.microsoft.com/en-us/previous-versions/tn-archive/bb726995(v=technet.10)?redirectedfrom=MSDN
+REM
+REM   serverfault.com  |  "How do I add IPv6 address into System32\drivers\etc\hosts?"  |  https://serverfault.com/questions/234711/how-do-i-add-ipv6-address-into-system32-drivers-etc-hosts
+REM
+REM   support.microsoft.com  |  "Microsoft TCP/IP Host Name Resolution Order"  |  https://support.microsoft.com/en-us/help/172218/microsoft-tcp-ip-host-name-resolution-order
+REM
+REM ------------------------------------------------------------

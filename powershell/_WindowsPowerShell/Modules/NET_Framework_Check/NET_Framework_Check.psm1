@@ -145,6 +145,8 @@ Export-ModuleMember -Function "NET_Framework_Check";
 #
 # Citation(s)
 #
+#   docs.microsoft.com  |  "Clear-Host - Clears the display in the host program"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/functions/clear-host?view=powershell-5.1
+#
 #   docs.microsoft.com  |  "How to: Determine which .NET Framework versions are installed"  |  https://docs.microsoft.com/en-us/dotnet/framework/migration-guide/how-to-determine-which-versions-are-installed#ps_a
 #
 #   en.wikipedia.org  |  ".NET Framework version history"  |  https://en.wikipedia.org/wiki/.NET_Framework_version_history#.NET_Framework_1.0

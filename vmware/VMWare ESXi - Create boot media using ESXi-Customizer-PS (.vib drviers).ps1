@@ -19,8 +19,10 @@ Install-PackageProvider -Name ("NuGet") -Force; Install-Module -Name ("VMware.Po
 <# Download and run the ESXi-Customizer #>
 New-Item -Path ("${Home}\Downloads\ESXi-Customizer-PS-v2.6.0.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1"))) | Out-Null;
 
+Set-Location "${Home}\Downloads";
+
 <# -v65 : Create the latest ESXi 6.5 ISO #>
-"${Home}\Downloads\ESXi-Customizer-PS-v2.6.0.ps1" -v65;
+.\ESXi-Customizer-PS-v2.6.0.ps1 -v65;
 
 
 

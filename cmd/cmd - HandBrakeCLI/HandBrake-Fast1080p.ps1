@@ -14,63 +14,31 @@
 $ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 $ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
 
+Set-Location -Path ("${ThisDir}\");
+
 $InputDir = ("${ThisDir}\Input");
 $OutputDir = ("${ThisDir}\Output");
+$HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
 
-$HandBrake_PresetName = "Fast 1080p30";
+$HandBrake_Preset = "Fast 1080p30";
 $OutputExtension = "mp4";
 
 # ------------------------------------------------------------
 # Compress input video(s) using HandBrakeCLI
 
-Set-Location -Path ("${ThisDir}");
-Get-ChildItem -Path ("$(Split-Path $MyInvocation.MyCommand.Path -Parent)\${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
-	Show $_;
+Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
+	$EachInputFile = $_.FullName;
+	$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
+	Write-Host "";
+	Write-Host "`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
+	Write-Host "`$EachInputFile = [ ${EachInputFile} ]";
+	Write-Host "`$EachOutputFile = [ ${EachOutputFile} ]";
+	# $EachConversion = (Start-Process "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" -i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
+	$EachConversion = ("${HandBrakeCLI}" --preset "${HandBrake_Preset}" -i "${EachInputFile}" -o "${EachOutputFile}"); $EachExitCode=$?;
+	Write-Host "`$EachConversion = [ ${EachConversion} ]";
+	Write-Host "`$EachExitCode = [ ${EachExitCode} ]";
+	Write-Host "";
 }
-
-# $EXT = "vob";
-# FOR %%I IN ("${InputDir}\*.${EXT}") DO (
-# 	Write-Host "   %%I  --->  ${OutputDir}\%%~nI.${OutputExtension}"
-# 	"HandBrakeCLI.exe" --preset "${HandBrake_PresetName}" -i "%%I" -o "${OutputDir}\%%~nI.${OutputExtension}"
-# 	IF EXIST "${OutputDir}\%%~nI.${OutputExtension}" (
-# 		DEL /f "%%I"
-# 	)
-# 	ECHO.
-# )
-
-# $EXT = "mpg";
-# FOR %%I IN ("${InputDir}\*.${EXT}") DO (
-# 	ECHO|set /p="   %%I  --->  ${OutputDir}\%%~nI.${OutputExtension}"
-# 	"HandBrakeCLI.exe" --preset "${HandBrake_PresetName}" -i "%%I" -o "${OutputDir}\%%~nI.${OutputExtension}"
-# 	IF EXIST "${OutputDir}\%%~nI.${OutputExtension}" (
-# 		DEL /f "%%I"
-# 	)
-# 	ECHO.
-# )
-
-# $EXT = "mov";
-# FOR %%I IN ("${InputDir}\*.${EXT}") DO (
-# 	ECHO|set /p="   %%I  --->  ${OutputDir}\%%~nI.${OutputExtension}"
-# 	"HandBrakeCLI.exe" --preset "${HandBrake_PresetName}" -i "%%I" -o "${OutputDir}\%%~nI.${OutputExtension}"
-# 	IF EXIST "${OutputDir}\%%~nI.${OutputExtension}" (
-# 		DEL /f "%%I"
-# 	)
-# 	ECHO.
-# )
-
-
-# ------------------------------------------------------------
-# 
-# ### Original Script (see Citation(s), below)
-# 
-# FOR /R H:\Video\ %%F IN (*.mkv) DO (
-# 	"C:\Program Files\HandBrake\HandBrakeCLI.exe" --preset "Fast 1080p30" -i "%%~fF" -o "%%~dpF%%~nF_conv.mkv"
-# 	IF EXIST "%%~dpF%%~nF_conv.mkv" (
-# 		DEL "%%~fF"
-# 		REN "%%~dpF%%~nF_conv.mkv" "%%~nxF"
-# 	)
-# )
-
 
 # ------------------------------------------------------------
 # Once finished, open the output directory
@@ -87,6 +55,8 @@ EXIT;
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Split-Path - Returns the specified part of a path"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/split-path
+#
+#   handbrake.fr  |  "Command line reference"  |  https://handbrake.fr/docs/en/latest/cli/command-line-reference.html
 #
 #   reddit.com  |  "A HandBrake script to run through subfolders and convert to a custom preset"  |  https://www.reddit.com/r/PleX/comments/9anvle/a_handbrake_script_to_run_through_subfolders_and/
 #

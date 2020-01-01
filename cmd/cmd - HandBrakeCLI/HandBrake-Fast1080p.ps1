@@ -30,13 +30,12 @@ Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 	$EachInputFile = $_.FullName;
 	$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
 	Write-Host "";
-	Write-Host "`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
 	Write-Host "`$EachInputFile = [ ${EachInputFile} ]";
 	Write-Host "`$EachOutputFile = [ ${EachOutputFile} ]";
-	# $EachConversion = (Start-Process "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" -i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
-	$EachConversion = ("${HandBrakeCLI}" --preset "${HandBrake_Preset}" -i "${EachInputFile}" -o "${EachOutputFile}"); $EachExitCode=$?;
-	Write-Host "`$EachConversion = [ ${EachConversion} ]";
-	Write-Host "`$EachExitCode = [ ${EachExitCode} ]";
+	$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" -i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
+	If ((Test-Path -Path ("${EachOutputFile}")) -Eq $True) {
+		Remove-Item -Path ("${EachInputFile}") -Force;
+	}
 	Write-Host "";
 }
 

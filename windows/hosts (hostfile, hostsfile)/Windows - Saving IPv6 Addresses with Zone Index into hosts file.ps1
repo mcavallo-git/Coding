@@ -97,4 +97,6 @@ ping -n 1 -w 1 ::1%64
 #
 #   serverfault.com  |  "How do I add IPv6 address into System32\drivers\etc\hosts?"  |  https://serverfault.com/questions/234711/how-do-i-add-ipv6-address-into-system32-drivers-etc-hosts
 #
+#   support.microsoft.com  |  "Microsoft TCP/IP Host Name Resolution Order"  |  https://support.microsoft.com/en-us/help/172218/microsoft-tcp-ip-host-name-resolution-order
+#
 # ------------------------------------------------------------

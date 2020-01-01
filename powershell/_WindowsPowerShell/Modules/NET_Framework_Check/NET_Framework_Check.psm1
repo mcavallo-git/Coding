@@ -98,7 +98,7 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Compatibile?")).PadRight(($Dashes.Length-2)," "));
 	Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
-	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Version Installed")).PadRight(($Dashes.Length-2)," "));
+	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Installed Version")).PadRight(($Dashes.Length-2)," "));
 	Write-Host -NoNewLine ((" | `n"));
 	Write-Host " |$Dashes|$Dashes|$Dashes| ";
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {

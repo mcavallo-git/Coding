@@ -82,8 +82,14 @@ ForEach ($EachLookup In $ReversePathLookups) {
 Write-Host (("`n")+("-"*60)+("`n"));
 
 
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #
-#		Thanks to StackOverflow user [ Roman Kuzmin ] on forum [ https://stackoverflow.com/questions/3667238/how-can-i-get-the-file-system-location-of-a-powershell-script ]
+#		docs.microsoft.com  |  "About Automatic Variables"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables
 #
+#		ss64.com  |  "Automatic Variables"  |  https://ss64.com/ps/syntax-automatic-variables.html
+#
+#		stackoverflow.com  |  "How can I get the file system location of a PowerShell script?"  |  https://stackoverflow.com/a/3667376
+#
+# ------------------------------------------------------------

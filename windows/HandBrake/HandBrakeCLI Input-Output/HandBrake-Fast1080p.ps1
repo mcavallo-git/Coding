@@ -22,9 +22,10 @@ $Workspace = "${Home}\Desktop";
 
 $ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 
-$ExeArchive_Local=("${Workspace}\HandBrakeCLI.zip");
+$ExeArchive_Local=("${Workspace}\$(Split-Path ${ExeArchive_Url} -Leaf)");
+# $ExeArchive_Local=("${Workspace}\HandBrakeCLI.zip");
 
-$ExeArchive_Unpacked=("${Workspace}\HandBrakeCLI");
+$ExeArchive_Unpacked=("${Workspace}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 
 
 # Download HandBrakeCLI

@@ -11,14 +11,14 @@
 #
 # HandBrakeCLI.exe
 
-$ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 $ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
-
-Set-Location -Path ("${ThisDir}\");
+$ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 
 $InputDir = ("${ThisDir}\Input");
 $OutputDir = ("${ThisDir}\Output");
 $HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
+
+Set-Location -Path ("${ThisDir}\");
 
 $HandBrake_Preset = "Fast 1080p30";
 $OutputExtension = "mp4";

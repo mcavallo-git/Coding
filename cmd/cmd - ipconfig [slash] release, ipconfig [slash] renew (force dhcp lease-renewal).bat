@@ -51,12 +51,12 @@ REM
 ECHO. > %USERPROFILE%\Desktop\ipconfig.log
 ECHO ------------------------------------------------------------ >> %USERPROFILE%\Desktop\ipconfig.log
 ECHO. >> %USERPROFILE%\Desktop\ipconfig.log
-ECHO "ipconfig /displaydns" >> %USERPROFILE%\Desktop\ipconfig.log
+ECHO ipconfig /displaydns >> %USERPROFILE%\Desktop\ipconfig.log
 ECHO. >> %USERPROFILE%\Desktop\ipconfig.log
 ipconfig /displaydns >> %USERPROFILE%\Desktop\ipconfig.log
 ECHO ------------------------------------------------------------ >> %USERPROFILE%\Desktop\ipconfig.log
 ECHO. >> %USERPROFILE%\Desktop\ipconfig.log
-ECHO "ipconfig /all" >> %USERPROFILE%\Desktop\ipconfig.log
+ECHO ipconfig /all >> %USERPROFILE%\Desktop\ipconfig.log
 ECHO. >> %USERPROFILE%\Desktop\ipconfig.log
 ipconfig /all >> %USERPROFILE%\Desktop\ipconfig.log
 Notepad %USERPROFILE%\Desktop\ipconfig.log

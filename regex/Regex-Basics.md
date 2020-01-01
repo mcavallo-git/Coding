@@ -163,7 +163,7 @@
 									Ex: (?<!host)\.com   -   matches ".com" NOT preceded by "host"
 								NOTE: Javascript only supports Negative-Lookbehinds in the latest version of Chrome (as-of 2019-08-01)
 									|--> As a workaround, Negative Lookbehinds can be rebuilt as a negative lookahead (which is commonly supported in Javascript) as follows:
-									Ex: ((?!q).|^)u   -   matches a "u" NOT preceded by a "q"        [-Citation_01-]
+									Ex: ((?!q).|^)u   -   matches a "u" NOT preceded by a "q"
 
 
 
@@ -219,7 +219,8 @@
 
 ***
 ### Modifying Output (upper-casing, lower-casing, etc.)
-###### Thanks to StackOverflow user [ Armfoot ] on forum [ https://stackoverflow.com/questions/20742076 ]
+###### More info @ [ https://www.regular-expressions.info/replacecase.html ]
+
 
 * Capitalize words (note that \s also matches new lines, i.e. "venuS" => "VenuS")
 Find: ```(\s)([a-z])```
@@ -289,16 +290,18 @@ Replacement: ```\u$1\l$2$3```
 ***
 ### Citation(s)
 
-###### * Quickstart Tutorial, https://www.regular-expressions.info/quickstart.html
+###### * ruby-doc.org  |  "Regexp"  |  https://ruby-doc.org/core-2.1.1/Regexp.html
 
-###### * LookArounds, https://www.rexegg.com/regex-lookarounds.html
+###### * stackoverflow.com  |  "Javascript: negative lookbehind equivalent?"  |  https://stackoverflow.com/a/27213663
 
-###### * LookArounds, https://www.regular-expressions.info/lookaround.html
+###### * stackoverflow.com  |  "Regex replace uppercase with lowercase letters"  |  https://stackoverflow.com/a/33351224
 
-###### * Non-Capture Subpatterns, https://stackoverflow.com/questions/3705842/what-does-do-in-regex
+###### * stackoverflow.com  |  "What does ?: do in regex"  |  https://stackoverflow.com/a/3705851
 
-###### * Capture Groups, https://ruby-doc.org/core-2.1.1/Regexp.html
+###### * www.regular-expressions.info  |  "Lookahead and Lookbehind Zero-Length Assertions"  |  https://www.regular-expressions.info/lookaround.html
 
-###### * Modifying Output (upper-casing, lower-casing, etc.), https://stackoverflow.com/questions/20742076
+###### * www.regular-expressions.info  |  "Regular Expressions Quick Start"  |  https://www.regular-expressions.info/quickstart.html
 
-###### * [-Citation_01-] stackoverflow.com  | "Javascript: negative lookbehind equivalent?"  |  https://stackoverflow.com/a/27213663
+###### * www.regular-expressions.info  |  "Replacement Text Case Conversion"  |  https://www.regular-expressions.info/replacecase.html
+
+###### * www.rexegg.com  |  "Mastering Lookahead and Lookbehind"  |  https://www.rexegg.com/regex-lookarounds.html

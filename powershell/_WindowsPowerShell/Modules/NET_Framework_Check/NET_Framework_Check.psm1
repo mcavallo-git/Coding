@@ -95,13 +95,13 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine ("Version");
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+("Version".Length)),"-")));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+("Version".Length))),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine ("Compatibile?");
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+("Compatibile?".Length)),"-")));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+("Compatibile?".Length))),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine ("Installed Version");
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+("Installed Version".Length)),"-")));
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" ".PadRight(($Dashes.Length-(2+("Installed Version".Length))),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n");
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";

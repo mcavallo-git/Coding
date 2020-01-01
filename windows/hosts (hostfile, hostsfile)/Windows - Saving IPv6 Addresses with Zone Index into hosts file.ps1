@@ -1,4 +1,5 @@
 
+<# ------------------------------------------------------------ #>
 
 <#
 From Citation(s) (Below):
@@ -13,6 +14,13 @@ With help of http://technet.microsoft.com/en-us/library/bb726995.aspx
 "
 #>
 
+<# ------------------------------------------------------------ #>
+<#
+REFER TO:
+
+"%USERPROFILE%\Documents\GitHub\Coding\cmd\cmd - ping ipv6 localhost (zone index test).bat"
+
+#>
 
 <# Test by replacing "::1" in the below ping calls with your target IPv6 Address... #>
 ping -n 1 -w 1 ::1%1

@@ -104,11 +104,11 @@ function NET_Framework_Check {
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
 		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
 		Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
-		Write-Host -ForegroundColor ($Color); -NoNewLine (([String]($EachVer)).PadRight(($Dashes.Length-2)," "));
+		Write-Host -ForegroundColor ($Color) -NoNewLine (([String]($EachVer)).PadRight(($Dashes.Length-2)," "));
 		Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
-		Write-Host -ForegroundColor ($Color); -NoNewLine (([String]($NetFrameworks[$EachVer].Installed)).PadRight(($Dashes.Length-2)," "));
+		Write-Host -ForegroundColor ($Color) -NoNewLine (([String]($NetFrameworks[$EachVer].Installed)).PadRight(($Dashes.Length-2)," "));
 		Write-Host -ForegroundColor ("Gray") -NoNewLine (" | ");
-		Write-Host -ForegroundColor ($Color); -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(($Dashes.Length-2)," "));
+		Write-Host -ForegroundColor ($Color) -NoNewLine (([String]($NetFrameworks[$EachVer].Version)).PadRight(($Dashes.Length-2)," "));
 		Write-Host -NoNewLine ((" | `n"));
 	}
 	Write-Host " |$Dashes|$Dashes|$Dashes|  ";

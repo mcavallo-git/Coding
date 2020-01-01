@@ -6,6 +6,33 @@
 # 	Extract [ HandBrakeCLI.exe ] from aforementioned URL (downloads as a .zip archive as-of 20191222-070342 CST)
 # 	Place the extracted file at filepath [ C:\Program Files\HandBrake\HandBrakeCLI.exe ]
 # ------------------------------------------------------------
+# RUN THIS SCRIPT:
+#
+#
+#   . "${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI Input-Output\HandBrake-Fast1080p.ps1"
+#
+#
+# ------------------------------------------------------------
+#
+# Download HandBrakeCLI
+#
+
+$ExeArchive_Url="https://handbrake.fr/rotation.php?file=HandBrakeCLI-1.3.0-win-x86_64.zip";
+
+$ExeArchive_Local=("${Env:TEMP}\HandBrakeCLI.zip");
+
+$ExeArchive_Unpacked=("${Env:TEMP}\HandBrakeCLI");
+
+# Download HandBrakeCLI
+New-Item -Path ("${ExeArchive_Local}") -Value (($(New-Object Net.WebClient).DownloadString("${ExeArchive_Url}"))) -Force | Out-Null;
+
+# Unpack the download
+Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}");
+# Remove-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1");
+
+Exit
+
+# ------------------------------------------------------------
 # 
 # Instantiate Runtime Variable(s)
 #

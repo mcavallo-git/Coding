@@ -93,27 +93,27 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ("Yellow") "  Microsoft .NET Framework -> Checking compatibility...";
 	Write-Host -ForegroundColor ("DarkGray") "";
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" |∙");
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Version")).PadRight(($Dashes.Length-2)," "));
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("∙|∙");
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Compatibile?")).PadRight(($Dashes.Length-2)," "));
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("∙|∙");
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("Cyan") -NoNewLine (([String]("Installed Version")).PadRight(($Dashes.Length-2)," "));
-	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("∙| ");
+	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n");
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes| ";
 	ForEach ($EachVer In ($NetFrameworks.Keys | Sort-Object)) {
 		$Color = (&{If(($NetFrameworks[$EachVer].Installed) -Eq $True) { "Green" } Else { "Yellow" }});
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" |∙");
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine ([String]($EachVer));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+([String]($EachVer)).Length)),"-"));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("∙|∙");
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine ([String]($NetFrameworks[$EachVer].Installed));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+([String]($NetFrameworks[$EachVer].Installed)).Length)),"-"));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("∙|∙");
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ($Color) -NoNewLine ([String]($NetFrameworks[$EachVer].Version));
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(2+([String]($NetFrameworks[$EachVer].Version)).Length)),"-"));
-		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("∙| ");
+		Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
 		Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("`n");
 	}
 	Write-Host -ForegroundColor ("DarkGray") " |$Dashes|$Dashes|$Dashes|  ";

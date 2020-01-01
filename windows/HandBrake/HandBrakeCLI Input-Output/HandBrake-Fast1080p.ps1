@@ -28,13 +28,12 @@ $ExeArchive_Unpacked=("${Workspace}\HandBrakeCLI");
 
 
 # Download HandBrakeCLI
-$Download_RemoteUrl = ("https://handbrake.fr/rotation.php?file=HandBrakeCLI-1.3.0-win-x86_64.zip");
-$Download_LocalPath = ("${Workspace}\HandBrakeCLI.zip");
-$(New-Object Net.WebClient).DownloadFile("${Download_RemoteUrl}", "${Download_LocalPath}");
+$(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}");
 
+# Unpack the downloaded archive
+Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}");
 
-# Unpack the download
-Expand-Archive -LiteralPath ("${Download_LocalPath}") -DestinationPath ("${ExeArchive_Unpacked}");
+# Cleanup the archive once it has been unpacked
 # Remove-Item -Path ("${Workspace}\esxi-create-bootmedia.ps1");
 
 Exit

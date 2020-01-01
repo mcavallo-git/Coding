@@ -67,6 +67,6 @@ REM ------------------------------------------------------------
 REM
 REM Citation(s)
 REM
-REM   docs.microsoft.com  |  "Chapter 7 - Host Name Resolution"  |  https://docs.microsoft.com/en-us/previous-versions/bb727005
+REM   docs.microsoft.com  |  "Chapter 7 - Host Name Resolution"  |  https://docs.microsoft.com/en-us/previous-versions/bb727005(v=technet.10)
 REM
 REM ------------------------------------------------------------

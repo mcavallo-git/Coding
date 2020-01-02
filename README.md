@@ -159,6 +159,7 @@ This file (on GitHub):
 <tr><td><strong>Cryptomator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Client-Side Cloud-Encryption</i></sub></td><td><a href="https://cryptomator.org/downloads/#winDownload">Download (source)</a></td></tr>
 <tr><td><strong>Dropbox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop App(s)</i></sub></td><td><a href="https://www.dropbox.com/install">Download (source)</a></td></tr>
 <tr><td><strong>Google Drive</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Backup and Sync</i></sub></td><td><a href="https://www.google.com/drive/download/">Download (source)</a></td></tr>
+<tr><td><strong>iCloud</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cloud Storage, Device Backup and Sync</i></sub></td><td><a href="https://support.apple.com/en-us/HT204283">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/icloud/9pktq5699m62">Download (Win10 App)</a></sub></td></tr>
 <tr><td><strong>OneDrive for Windows</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop App(s)</i></sub></td><td><a href="https://onedrive.live.com/about/en-us/download/">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
@@ -176,6 +177,7 @@ This file (on GitHub):
 <tr><td><strong>Logitech G Hub</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Keyboard/Mouse RGB (+3rd Party Tools)</i></sub></td><td><a href="https://support.logi.com/hc/en-us/articles/360025298133">Download (source)</a></td></tr>
 <tr><td><strong>Logitech SetPoint</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mouse/Keyboard Hotkey Manager</i></sub></td><td><a href="http://support.logitech.com/software/setpoint">Download (source)</a></td></tr>
 <tr><td><strong>Logitech Unifying Software</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Add/Remove devices to a Unifying receiver</i></sub></td><td><a href="https://support.logi.com/hc/en-001/articles/360025297913-Unifying-Software">Download (source)</a></td></tr>
+<tr><td><strong>Media Feature Pack for Windows</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Required for iCloud Desktop App</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/mediafeaturepack">Download (source)</a></td></tr>
 <tr><td><strong>PCPartPicker</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Component Pricing/Compatibility Comparisons</i></sub></td><td><a href="https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf">Open (web-service)</a></td></tr>
 <tr><td><strong>Razer Synapse</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mouse/Keyboard Hotkey Manager<br />&nbsp;&nbsp;&nbsp;Chroma RGB Controller</i></sub></td><td><a href="https://www.razer.com/synapse">Download (source)</a></td></tr>
 <tr><td><strong>RMPrepUSB</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multiboot formatter for USB-drives</i></sub></td><td><a href="https://www.fosshub.com/RMPrepUSB.html">Download (source)</a></td></tr>

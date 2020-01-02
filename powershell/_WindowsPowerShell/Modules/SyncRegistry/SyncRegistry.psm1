@@ -302,10 +302,24 @@ function SyncRegistry {
 			Path = "HKCU:\Control Panel\Desktop";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable or [ 0 ] to Enable the 'This App is Preventing Shutdown or Restart' screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
 					Name="AutoEndTasks"; 
 					Type="String";
 					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+		# Snap Settings (half-screen window  left/right snapping)
+		$RegEdits += @{
+			Path = "HKCU:\Control Panel\Desktop";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ when I zzz ]";
+					Name="WindowArrangementActive"; 
+					Type="String";
+					Value=0;
 					Delete=$False;
 				}
 			)

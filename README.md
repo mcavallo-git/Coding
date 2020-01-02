@@ -263,8 +263,7 @@ This file (on GitHub):
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
 <tr><td><strong>ESXi</strong>  <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
-	<i>
-		<br />&nbsp;&nbsp;&nbsp;<details><summary><i>(Docs) ESXi Installation/Setup</i></summary>
+		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
 			<h5>
 				<ul>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>

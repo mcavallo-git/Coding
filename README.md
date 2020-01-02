@@ -265,7 +265,7 @@ This file (on GitHub):
 <tr><td><strong>ESXi</strong> <sub>
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
-		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
+		<br /><details><summary>(Docs) ESXi Installation/Setup</summary>
 			<h5>
 				<ul>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>

@@ -262,7 +262,9 @@ This file (on GitHub):
 <tr><td><strong>Microsoft Server 2016</strong> <sub><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows-server/get-started/system-requirements">View System Requirements (Minimum)</a></sub></td><td><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2016">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
-<tr><td><strong>ESXi</strong>  <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
+<tr><td><strong>ESXi</strong> <sub>
+	<i>
+		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
 		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
 			<h5>
 				<ul>

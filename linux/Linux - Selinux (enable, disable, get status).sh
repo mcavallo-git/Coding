@@ -35,6 +35,8 @@ cat /var/log/audit/audit.log | grep -i nginx | grep -i denied;
 #
 #   stackoverflow.com  |  "(13: Permission denied) while connecting to upstream:[nginx]"  |  https://stackoverflow.com/a/24830777
 #
+#   wiki.centos.org  |  "HowTos/SELinux - CentOS Wiki"  |  https://wiki.centos.org/HowTos/SELinux
+#
 #   www.nginx.com  |  "Modifying SELinux Settings for Full NGINX and NGINX Plus Functionality"  |  https://www.nginx.com/blog/using-nginx-plus-with-selinux/
 #
 # ------------------------------------------------------------

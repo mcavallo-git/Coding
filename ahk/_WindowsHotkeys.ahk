@@ -491,7 +491,13 @@ AppsKey & L::
 ;  ACTION:  Replace functionality with that of the right Windows-Key
 ;
 
-AppsKey::RWin
+; AppsKey::RWin
+AppsKey::
+	Send {RWin down}
+	Return
+AppsKey Up::
+	Send {RWin up}
+	Return
 
 
 ; ------------------------------------------------------------

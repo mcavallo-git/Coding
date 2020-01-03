@@ -26,12 +26,17 @@ echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  Reboot required to finish enabling Selinu
 
 
 # ------------------------------------------------------------
-# Troubleshooting - Backup & Restart the audit logfile
+# Inspection / Troubleshooting
+
+# View a list of mappings between SELinux and Linux user accounts 
+semanage login -l;
+
+
+# Backup & Restart the audit logfile
 cp "/var/log/audit/audit.log" "/var/log/audit/audit_upto_$(date +'%Y-%m-%d_%H-%M-%S').log"; echo "" > "/var/log/audit/audit.log";
 
 
-# ------------------------------------------------------------
-# Troubleshooting (example) - Check Selinux error logs specifically for lines mentioning 'nginx' and 'denied'
+# Check Selinux error logs specifically for lines mentioning 'nginx' and 'denied'
 cat /var/log/audit/audit.log | grep -i nginx | grep -i denied;
 
 

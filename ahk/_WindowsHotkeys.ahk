@@ -181,19 +181,20 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	WinGet, WinProcessName, ProcessName, A
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	if (WinProcessName = "chrome.exe") {
+	if (WinProcessName == "chrome.exe") {
 		IfWinActive, LastPass  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
 		{
 			IfWinActive, Duo Security
 			{
-				FormatTime,DatTimestamp,,yyyyMMdd-HHmmss
-				EchoStr := A_ComputerName "." DatTimestamp "." WinProcessName
+				FormatTime,DatTimestamp,,yyyy-MM-dd_HH-mm-ss
+				EchoStr := A_ComputerName " " DatTimestamp " " WinProcessName
 				Send {Blind}{Text}%EchoStr%
 			} Else {
-				Send {Blind}{Text}A_ComputerName% 
+				Send {Blind}{Text}%A_ComputerName% 
 			}
 		} Else {
 			Send {Blind}{Text}%A_ComputerName% 
+		}
 	} Else {
 		Send {Blind}{Text}%A_ComputerName% 
 	}

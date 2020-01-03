@@ -1,5 +1,12 @@
 #!/bin/bash
-getenforce; \
+
+# Get selinux status
+getenforce
+
+# Get selinux status (alternate approach)
+sestatus
+
+# Disable Selinux
 CONF_FILE="/etc/selinux/config"; if [ -f "${CONF_FILE}" ]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^SELINUX=/c\SELINUX=disabled" "${CONF_FILE}"; fi; \
 CONF_FILE="/etc/sysconfig/selinux"; if [ -f "${CONF_FILE}" ]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^SELINUX=/c\SELINUX=disabled" "${CONF_FILE}"; fi; \
 setenforce 0; \

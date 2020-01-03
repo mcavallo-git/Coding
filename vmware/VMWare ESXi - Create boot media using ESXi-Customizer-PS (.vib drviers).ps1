@@ -10,37 +10,42 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 
 }
+
 # ------------------------------------------------------------
+#
+# Script must run with admin privileges
+#
+If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+	Write-Host "`nError - Admin PowerShell terminal required`n" -ForegroundColor "Red";
+	exit 1;
 
+} Else {
 
-# PowerShell - Install the NuGet package manager
-Install-PackageProvider -Name ("NuGet") -Force;
+	# PowerShell - Install the NuGet package manager
+	Install-PackageProvider -Name ("NuGet") -Force;
 
+	# PowerShell - Install VMware PowerCLI module
+	If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
+		Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
+	}
 
-# PowerShell - Install VMware PowerCLI module
-If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
-	Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
+	# Set the current user's Desktop as the working directory
+	Set-Location "${Home}\Desktop";
+
+	# Download and run the ESXi-Customizer
+	New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
+
+	# Create the latest ESXi 6.5 ISO
+	#    -v65 : Create the latest ESXi 6.5 ISO
+	#    -vft : connect the V-Front Online depot
+	#    -load : load additional packages from connected depots or Offline bundles
+	.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
+
+	# Open the destination which the output .iso was saved-at
+	Explorer .;
+
+	Exit 0;
 }
-
-
-# Set the current user's Desktop as the working directory
-Set-Location "${Home}\Desktop";
-
-
-# Download and run the ESXi-Customizer
-New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
-
-
-# Create the latest ESXi 6.5 ISO
-#    -v65 : Create the latest ESXi 6.5 ISO
-#    -vft : connect the V-Front Online depot
-#    -load : load additional packages from connected depots or Offline bundles
-.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
-
-
-# Open the destination which the output .iso was saved-at
-explorer .;
-
 
 
 # ------------------------------------------------------------

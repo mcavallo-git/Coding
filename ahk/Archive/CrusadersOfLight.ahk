@@ -249,22 +249,22 @@ Crusaders_UseSkill(skill_name) {
 			SetControlDelay, -1
 			WinGetTitle, Title, A
 	skill_coords := {}
-	if (skill_name = "Special") { ; Special Skill  *Light Sigil*
+	If (skill_name = "Special") { ; Special Skill  *Light Sigil*
 		skill_coords_x := 1558
 		skill_coords_y := 983
-	} else if (skill_name = "Path") { ; Path Skill  *Void Spirit Rain* (not automatically triggered by autoplay)
+	} Else If (skill_name = "Path") { ; Path Skill  *Void Spirit Rain* (not automatically triggered by autoplay)
 		skill_coords_x := 1545
 		skill_coords_y := 637
-	} else if (skill_name = "1") { ; Skill 1  *Mystic Galaxy*
+	} Else If (skill_name = "1") { ; Skill 1  *Mystic Galaxy*
 		skill_coords_x := 1333
 		skill_coords_y := 947
-	} else if (skill_name = "2") { ; Skill 2  *Purifying Blast*
+	} Else If (skill_name = "2") { ; Skill 2  *Purifying Blast*
 		skill_coords_x := 1335
 		skill_coords_y := 837
-	} else if (skill_name = "3") { ; Skill 3  *Dreadfall*
+	} Else If (skill_name = "3") { ; Skill 3  *Dreadfall*
 		skill_coords_x := 1411
 		skill_coords_y := 761
-	} else if (skill_name = "4") { ; Skill 4  *Dread Blast*
+	} Else If (skill_name = "4") { ; Skill 4  *Dread Blast*
 		skill_coords_x := 1523
 		skill_coords_y := 743
 	}
@@ -716,16 +716,16 @@ Crusaders_NewDungeonTeam(Raid_1_to_4) {
 	y_raid_tab = 893
 	ControlClick, x%x_raid_tab% y%y_raid_tab%, %Title%    ; "Raid" tab on "Adventure" popup
 	Sleep 1000
-	if (Raid_1_to_4 = 1) {          ; "Scar Plains" Raid
+	If (Raid_1_to_4 = 1) {          ; "Scar Plains" Raid
 		x_raid_choice = 525
 		y_raid_choice = 290
-	} else if (Raid_1_to_4 = 2) {   ; "Dire Galleon" Raid
+	} Else If (Raid_1_to_4 = 2) {   ; "Dire Galleon" Raid
 		x_raid_choice = 525
 		y_raid_choice = 380
-	} else if (Raid_1_to_4 = 3) {   ; "Ancestral Altar" Raid
+	} Else If (Raid_1_to_4 = 3) {   ; "Ancestral Altar" Raid
 		x_raid_choice = 525
 		y_raid_choice = 460
-	} else {                        ; "Goblint Camp" Raid
+	} Else {                        ; "Goblint Camp" Raid
 		x_raid_choice = 525
 		y_raid_choice = 545
 	}
@@ -771,7 +771,7 @@ Crusaders_TeamPlayer(usePathSkill) {
 		Sleep 500
 		Crusaders_TakeAStep()    ; Jiggle the Stick / Walk left slightly
 		Sleep 1500
-		if (usePathSkill=1) {
+		If (usePathSkill=1) {
 			Crusaders_UseSkill("Path")   ; Path-Specific Skill
 			Sleep 1500
 		}
@@ -795,17 +795,17 @@ Crusaders_TeamPlayer(usePathSkill) {
 			completion := A_Index / x_steps
 			; current_x := x_left + x_diff * completion
 			current_x += x_step_size
-			if (Mod(A_index,2) = 0) {
+			If (Mod(A_index,2) = 0) {
 				Random, y_rand, %y_curr_top%, %y_curr_bot%
 				MouseMove,%current_x%,%y_rand%,%move_speed%
-			} else {
+			} Else {
 				MouseMove,%current_x%,%y_curr_top%,%move_speed%
 			}
-			if (Mod(A_index,25) = 0) {
+			If (Mod(A_index,25) = 0) {
 				Crusaders_OpenLoot()
 			}
-			if (Mod(A_index,50) = 0) {
-				if (usePathSkill=1) {
+			If (Mod(A_index,50) = 0) {
+				If (usePathSkill=1) {
 					Crusaders_UseSkill("Path")   ; Path-Specific Skill
 				}
 			}

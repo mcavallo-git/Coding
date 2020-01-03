@@ -36,7 +36,7 @@ numlock::
 capslock::
 scrolllock::
  {
-   if (!locked_%a_thishotkey%)
+   If (!locked_%a_thishotkey%)
     {
       _toggle_key(a_thishotkey)
       soundplay, beep.wav
@@ -56,10 +56,10 @@ return
 
 lv:
 {
-   if (a_guievent = "normal") or (a_guievent = "doubleclick")
+   If (a_guievent = "normal") or (a_guievent = "doubleclick")
     {
       control := ltrim(a_guicontrol, "_")
-      if (!locked_%control%)
+      If (!locked_%control%)
        {
          _toggle_key(control)
          soundplay, beep.wav
@@ -81,7 +81,7 @@ return
 
 _toggle_key(key)
  {
-   if (key = "capslock")
+   If (key = "capslock")
     {
       setcapslockstate, % getkeystate(key, "t") ? "off" : "on"
     }
@@ -99,9 +99,9 @@ _toggle_key(key)
 _toggle_lock(key)
  {
    global locked_numlock, locked_capslock, locked_scrolllock
-   if (key = "numlock")
+   If (key = "numlock")
     {
-      if (locked_numlock)
+      If (locked_numlock)
        {
          setnumlockstate
          locked_numlock := 0
@@ -114,7 +114,7 @@ _toggle_lock(key)
     }
    else if (key = "capslock")
     {
-      if (locked_capslock)
+      If (locked_capslock)
        {
          setcapslockstate
          locked_capslock := 0
@@ -127,7 +127,7 @@ _toggle_lock(key)
     }
    else if (key = "scrolllock")
     {
-      if (locked_scrolllock)
+      If (locked_scrolllock)
        {
          setscrolllockstate
          locked_scrolllock := 0

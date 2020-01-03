@@ -329,7 +329,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 OnDoubleClick_GuiDestroy_WinTitles() {
-	if (A_GuiEvent = "DoubleClick") {
+	If (A_GuiEvent = "DoubleClick") {
 		Gui, WinTitles:Default
 		Gui, Destroy
 	}
@@ -844,12 +844,12 @@ WheelRight::
 	exe_filepath := "C:`\ISO`\Effective File Search.efsp"
 	exe_filepath2=%A_MyDocuments%%efs%
 	; MsgBox, % exe_filepath2
-	if (FileExist(exe_filepath)) {
+	If (FileExist(exe_filepath)) {
 		Run, %exe_filepath%
 	} Else {
-		if (FileExist(exe_filepath2)) {
+		If (FileExist(exe_filepath2)) {
 			Run, %exe_filepath2%
-		} else {
+		} Else {
 			; If EFS does NOT exist, offer user the URL to download it
 			exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
 			MsgBox, 4, Download EFS?, Effective File Search not found`n`nDownload EFS Now?
@@ -900,7 +900,7 @@ LShift & RShift::
 ; 			Error: Required directory not-found:
 ; 			%SG_REPO%
 ; 		)
-; 	} else {
+; 	} Else {
 ; 		; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
 ; 		Increment_Left := -7
 ; 		Increment_Top := 0
@@ -1226,11 +1226,11 @@ ActiveWindow_ToggleRestoreMaximize() {
 	WinGet, WinState, MinMax, A
 	WinGet, WinStyle, Style, A
 	; WinGet, OutputVar, MinMax 
-	if (WinState>0) { ; Window is maximized - restore it
+	If (WinState>0) { ; Window is maximized - restore it
 		WinRestore A
-	} else if (WinState=0) { ; Window is neither maximized nor minimized - maximize it
+	} Else If (WinState=0) { ; Window is neither maximized nor minimized - maximize it
 		WinMaximize A
-	} else if (WinState<0) { ; Window is minimized - restore it, I guess?
+	} Else If (WinState<0) { ; Window is minimized - restore it, I guess?
 		WinRestore A
 	}
 	Return
@@ -1243,7 +1243,7 @@ ActiveWindow_ToggleRestoreMaximize() {
 ;
 ActiveWindow_Maximize() {
 	WinGet, WinState, MinMax, A
-	if (WinState<=0) { ; Window is not maximized - maximize it
+	If (WinState<=0) { ; Window is not maximized - maximize it
 		WinMaximize A
 	}
 	Return
@@ -1597,18 +1597,18 @@ GetTimezoneOffset() {
 	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
 	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
 	; +/- Timezone ahead/behind UTC determination
-	if (TZ_QUOTIENT<0.0) {
+	If (TZ_QUOTIENT<0.0) {
 		TZ_SIGN := "-"
 		TZ_QUOTIENT *= -1
-	} else {
+	} Else {
 		TZ_SIGN := "+"
 	}
 	; Hours - Left-Pad with Zeroes
-	if (Abs(TZ_QUOTIENT) < 10) {
+	If (Abs(TZ_QUOTIENT) < 10) {
 		TZ_QUOTIENT = 0%TZ_QUOTIENT%
 	}
 	; Minutes - Left-Pad with Zeroes
-	if (Abs(TZ_REMAINDER) < 10) {
+	If (Abs(TZ_REMAINDER) < 10) {
 		TZ_REMAINDER = 0%TZ_REMAINDER%
 	}
 
@@ -1894,7 +1894,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
 
 	; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
 	LV_Verbosity := 0
-	if ( LV_Verbosity = 1 ) {
+	If ( LV_Verbosity = 1 ) {
 		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
 		ToolTip, %TooltipOutput%
 		SetTimer, RemoveToolTip, -2500
@@ -2006,7 +2006,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
 ;
 ; ------------------------------------------------------------
 ;
-if (False) {
+If (False) {
 
 	EXAMPLE_ControlClick() {
 		;;;

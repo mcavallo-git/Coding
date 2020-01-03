@@ -5,15 +5,15 @@
 # ------------------------------------------------------------
 If ($False) { # RUN THIS SCRIPT:
 
-
+# Create ESXi boot media on the fly
 New-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/vmware/VMWare%20ESXi%20-%20Create%20boot%20media%20using%20ESXi-Customizer-PS%20(.vib%20drviers).ps1"))) -Force | Out-Null; PowerShell -NoProfile -ExecutionPolicy Bypass ("${Env:TEMP}\esxi-create-bootmedia.ps1"); Remove-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1");
-
 
 }
 
+
 # ------------------------------------------------------------
 #
-# Script must run with admin privileges
+# Script must run as admin
 #
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 	Write-Host "`nError - Admin PowerShell terminal required`n" -ForegroundColor "Red";

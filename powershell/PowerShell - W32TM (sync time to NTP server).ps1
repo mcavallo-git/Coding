@@ -16,6 +16,7 @@ $AfterUpdate_CheckTimeDelta = $true;
 
 
 $NtpPeers = @();
+$NtpPeers += "time.nist.gov";
 $NtpPeers += "time.google.com";
 $NtpPeers += "north-america.pool.ntp.org";
 $NtpPeers += "time.windows.com";
@@ -28,7 +29,7 @@ $Ntp_SetSyncInterval_3600s=",0x9";
 
 
 $ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
-$ManualPeerList="time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
+$ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
 
 
 If ($BeforeUpdate_CheckTimeDelta -eq $true) {
@@ -52,7 +53,7 @@ NET STOP W32TIME;
 
 
 W32TM /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
-W32TM /config /manualpeerlist:"time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
+W32TM /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
 #  |
 #  |-->  /syncfromflags   -->  "Sets what sources the NTP client should synchronize from"
 #  |-->  /manualpeerlist  -->  "Set the manual peer list to peers, which is a space-delimited list of Domain Name System (DNS) and/or IP addresses"
@@ -80,7 +81,7 @@ If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax
 
 
 NET STOP W32TIME;
-W32TM /config /manualpeerlist:"time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual;
+W32TM /config /manualpeerlist:"time.nist.gov time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual;
 NET START W32TIME;
 W32TM /config /update;
 W32TM /resync /rediscover;
@@ -95,7 +96,7 @@ W32TM /resync /rediscover;
 
 # In an Admin PowerShell prompt, enter:
 
-NET STOP W32TIME; W32TM /config /manualpeerlist:"time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; W32TM /config /update; W32TM /resync /rediscover;
+NET STOP W32TIME; W32TM /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; W32TM /config /update; W32TM /resync /rediscover;
 
 #
 #

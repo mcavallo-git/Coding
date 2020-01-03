@@ -4,6 +4,7 @@
 	REM     This program is designed to run via scheduled task (every minute) to ping a host IP or URL.
 	REM     Logging only occurs on failed pings.
 	
+	CALL :PING_TEST time.nist.gov NIST_Time
 	CALL :PING_TEST time.google.com Google_Time
 	CALL :PING_TEST 8.8.8.8 Google_DNS
 	REM CALL :PING_TEST 8.8.8.2 Forced_Failure

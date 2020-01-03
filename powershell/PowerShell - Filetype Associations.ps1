@@ -11,6 +11,14 @@
 #
 #
 # ------------------------------------------------------------
+If ($False) { # EXPORT CURRENT SETTINGS
+
+cd %USERPROFILE%\Desktop
+Dism /Online /Export-DefaultAppAssociations:AppAssoc.xml
+Notepad AppAssoc.xml
+
+}
+# ------------------------------------------------------------
 
 
 CMD /C 'MKLINK "%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"'
@@ -28,7 +36,9 @@ $FileExt=".log";
 
 # $OpenExtensionWith="`"%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace`" `"%1`"";
 
-$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.bat`" `"%1`"";
+# $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.bat`" `"%1`"";
+
+$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs`" `"%1`"";
 
 $UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 
@@ -50,6 +60,10 @@ New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") 
 
 
 ### HKEY_USERS
+$HKU_Classes_Key="Registry::HKEY_USERS\${UserSid}_Classes\${FileExt}_auto_file\shell\open\command";
+New-Item -Path ($HKU_Classes_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
+New-ItemProperty -Path ($HKU_Classes_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+
 $HKU_Key="Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList";
 New-Item -Path ($HKU_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
 New-ItemProperty -Path ($HKU_Key) -Name ("a") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
@@ -159,6 +173,8 @@ Type.GetType("Microsoft.Win32.RegistryKey").GetProperties();
 # ------------------------------------------------------------
 #
 #	Citation(s)
+#
+#		blogs.technet.microsoft.com  |  "Windows 8: Associate a file Type or protocol with a specific app using GPO (e.g:default mail client for MailTo protocol) – Behind Windows Setup & Deployment"  |  https://blogs.technet.microsoft.com/mrmlcgn/2013/02/26/windows-8-associate-a-file-type-or-protocol-with-a-specific-app-using-gpo-e-gdefault-mail-client-for-mailto-protocol/
 #
 #		docs.microsoft.com  |  "RegistryKey Class"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey
 #

@@ -53,6 +53,8 @@ echo "${VAR_NOT_SET:-${VAR_ALSO_NOT_SET:-72}}";
 # ------------------------------------------------------------
 # Citation(s)
 #
+#   stackoverflow.com  |  "Case insensitive comparison of strings in shell script"  |  https://stackoverflow.com/a/19411918
+#
 #   unix.stackexchange.com  |  "How to input / start a new line in bash terminal?"  |  https://unix.stackexchange.com/a/80820
 #
 # ------------------------------------------------------------

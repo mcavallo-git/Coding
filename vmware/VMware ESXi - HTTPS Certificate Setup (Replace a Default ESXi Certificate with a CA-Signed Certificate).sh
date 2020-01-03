@@ -23,6 +23,13 @@ vi "/etc/vmware/ssl/rui.key";  # Clear file via ":1,$d" -> Enter insert-mode via
 
 
 # ------------------------------------------------------------
+# As a one-liner:
+
+
+cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/orig.rui_$(date +'%Y%m%d_%H%M%S').crt"; cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/orig.rui_$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.crt"; vi "/etc/vmware/ssl/rui.key"; /etc/init.d/hostd restart; /etc/init.d/vpxa restart;
+
+
+# ------------------------------------------------------------
 # Citation(s)
 #
 #   kb.vmware.com  |  "Restarting the Management agents in ESXi (1003490)"  |  https://kb.vmware.com/s/article/1003490

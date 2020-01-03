@@ -179,23 +179,24 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #H::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	WinGet, WinProcessName, ProcessName, A
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	IfWinActive, LastPass  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
-	{
-		IfWinActive, Duo Security
+	if (WinProcessName = "chrome.exe") {
+		IfWinActive, LastPass  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
 		{
-			WinGet, WinProcessName, ProcessName, A
-			FormatTime,DatTimestamp,,yyyyMMdd-HHmmss
-			EchoStr := A_ComputerName "." DatTimestamp "." WinProcessName
-			Send {Blind}{Text}%EchoStr%
+			IfWinActive, Duo Security
+			{
+				FormatTime,DatTimestamp,,yyyyMMdd-HHmmss
+				EchoStr := A_ComputerName "." DatTimestamp "." WinProcessName
+				Send {Blind}{Text}%EchoStr%
+			} Else {
+				Send {Blind}{Text}A_ComputerName% 
+			}
 		} Else {
-			Send {Blind}{Text}A_ComputerName% 
-		}
+			Send {Blind}{Text}%A_ComputerName% 
 	} Else {
-  	Send {Blind}{Text}%A_ComputerName% 
+		Send {Blind}{Text}%A_ComputerName% 
 	}
-	
 	Return
 
 

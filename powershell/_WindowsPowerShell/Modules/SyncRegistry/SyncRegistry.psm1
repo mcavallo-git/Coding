@@ -311,19 +311,61 @@ function SyncRegistry {
 			)
 		};
 
-		# Snap Settings (half-screen window  left/right snapping)
+		# Snap windows (half-screen left/right snapping of windows)
 		$RegEdits += @{
 			Path = "HKCU:\Control Panel\Desktop";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ when I zzz ]";
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
 					Name="WindowArrangementActive"; 
+					Type="String";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+		# Snap windows (cont.)
+		$RegEdits += @{
+			Path = "Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
+					Name="SnapFill"; 
+					Type="String";
+					Value=1;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
+					Name="SnapAssist"; 
+					Type="String";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
+					Name="JointResize"; 
+					Type="String";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multitasking - Timeline
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
+					Name="SubscribedContent-353698Enabled"; 
 					Type="String";
 					Value=0;
 					Delete=$False;
 				}
 			)
 		};
+
 
 
 		# SmartScreen for Microsoft Edge, Microsoft Store Apps
@@ -627,6 +669,8 @@ Export-ModuleMember -Function "SyncRegistry";
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
 #
-#   winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
+#   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
+#
+#   www.winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
 #
 # ------------------------------------------------------------

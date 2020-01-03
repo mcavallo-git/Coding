@@ -356,6 +356,7 @@ function SyncRegistry {
 		# Multitasking - Timeline
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
 					Name="SubscribedContent-353698Enabled"; 

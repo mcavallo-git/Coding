@@ -4,10 +4,10 @@
 # Replace a Default HTTPS Certificate with a CA-Signed Certificate (onto target [ ESXi ] instance)
 
 
-cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/orig.rui.crt"; # Backup the original certificate
+cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').crt"; # Backup the original certificate
 
 
-cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/orig.rui.key"; # Backup the original private-key
+cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').key"; # Backup the original private-key
 
 
 vi "/etc/vmware/ssl/rui.crt";  # Clear file via ":1,$d" -> Enter insert-mode via "i" -> Paste updated, PEM-formatted Certificate + CA-Chain via "Shift+Ins" -> Save/Quit via ":wq!"
@@ -26,7 +26,7 @@ vi "/etc/vmware/ssl/rui.key";  # Clear file via ":1,$d" -> Enter insert-mode via
 # As a one-liner:
 
 
-cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/orig.rui_$(date +'%Y%m%d_%H%M%S').crt"; cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/orig.rui_$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.crt"; vi "/etc/vmware/ssl/rui.key"; /etc/init.d/hostd restart; /etc/init.d/vpxa restart;
+cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').crt"; cp "/etc/vmware/ssl/rui.key" "rui.bak.$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.crt"; vi "/etc/vmware/ssl/rui.key"; /etc/init.d/hostd restart; /etc/init.d/vpxa restart;
 
 
 # ------------------------------------------------------------

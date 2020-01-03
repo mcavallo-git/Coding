@@ -6,27 +6,26 @@
 # Timestamp (WITH Timezone)
 # 
 
-
 Get-Date -UFormat "%Y%m%d%H%M%S%Z";
 
-# As a Variable
-$Timestamp_UTC = (Get-Date -UFormat "%Y%m%d%H%M%S%Z"); Write-Host ${Timestamp_UTC};
+# Timestamp, Timezone-included (and with as few characters as possible)
+$Timestamp_TZ = (Get-Date -UFormat "%Y%m%d%H%M%S%Z"); Write-Host ${Timestamp_TZ};
 
-# RFC3339-Compliant
-$Timestamp_UTC = (Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z"); Write-Host ${Timestamp_UTC};
+# Timestamp, RFC3339-Compliant
+$Timestamp_RFC3339 = (Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z"); Write-Host ${Timestamp_RFC3339};
 
 
 # ------------------------------------------------------------
-# Timestamp (WITHOUT Timezone)
+# Timestamp (NO Timezone)
 # 
-
 
 Get-Date -UFormat "%Y%m%d%H%M%S";
 
-# As a Variable
+# Timestamp, No-Timezone (and with as few characters as possible)
 $Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};
 
-
+# Timestamp, Filename-compatible
+$TimestampFilename = (Get-Date -UFormat "%Y%m%d-%H%M%S"); Write-Host ${TimestampFilename};
 
 
 # ------------------------------------------------------------

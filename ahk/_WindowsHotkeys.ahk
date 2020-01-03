@@ -179,7 +179,23 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #H::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send %A_ComputerName%
+	; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	IfWinActive, LastPass  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
+	{
+		IfWinActive, Duo Security
+		{
+			WinGet, WinProcessName, ProcessName, A
+			FormatTime,DatTimestamp,,yyyyMMdd-HHmmss
+			EchoStr := A_ComputerName "." DatTimestamp "." WinProcessName
+			Send {Blind}{Text}%EchoStr%
+		} Else {
+			Send {Blind}{Text}A_ComputerName% 
+		}
+	} Else {
+  	Send {Blind}{Text}%A_ComputerName% 
+	}
+	
 	Return
 
 
@@ -352,7 +368,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	SetTitleMatchMode, 1
+	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 	; Save current monitor config (to compare against once it's been updated)
 	SysGet, MonitorCountBefore, MonitorCount
 	SysGet, ViewportWidthBefore, 78
@@ -938,7 +954,7 @@ LShift & RShift::
 ; 		BoundsHeightFull := (BoundsBottom - BoundsTop)
 ; 		BoundsHeightHalf := Floor(BoundsHeightFull/2)
 ; 		BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-; 		SetTitleMatchMode, 1
+; 		SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 ; 		; - -
 ; 		WinTitle_Postman=Postman
 ; 		WinTitle_NodeJS=Supplier Gateway (localhost)
@@ -1687,7 +1703,7 @@ XBox_DownloadDelete_GameClips() {
 	;	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	SetTitleMatchMode, 1
+	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 	Sleep 2500
 	; "Captures" (Left Tab)
 	MouseClick, Left, 23, 314
@@ -1845,8 +1861,8 @@ GetWindowSpecs() {
 
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 
-	LV_Add("", "WinGetTitle", WinTitle)
-	LV_Add("", "WinGetClass", WinClass)
+	LV_Add("", "WinTitle", WinTitle)
+	LV_Add("", "WinClass", WinClass)
 	LV_Add("", "ProcessName", WinProcessName)
 	LV_Add("", "ProcessPath", WinProcessPath)
 	LV_Add("", "ControlList", ControlNames)

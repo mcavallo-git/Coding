@@ -93,6 +93,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
 #Z::
+AppsKey & Z::
 	GetWindowSpecs()
 	Return
 
@@ -121,6 +122,9 @@ AppsKey & NumpadSub::
 #=::
 #+::
 #NumpadAdd::
+AppsKey & =::
+AppsKey & +::
+AppsKey & NumpadAdd::
 	; SetKeyDelay, 0, -1  ; Glitches & Locks device
 	Send {LWin up}{RWin up}
 	Sleep 10

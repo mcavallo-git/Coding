@@ -232,6 +232,64 @@ function SyncRegistry {
 			)
 		};
 
+		# Multitasking - Snap windows (half-screen left/right snapping of windows)
+		$RegEdits += @{
+			Path = "HKCU:\Control Panel\Desktop";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
+					Name="WindowArrangementActive"; 
+					Type="String";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multitasking - Snap windows (cont.)
+		$RegEdits += @{
+			Path = "Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
+					Name="SnapFill"; 
+					Type="String";
+					Value=1;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
+					Name="SnapAssist"; 
+					Type="String";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
+					Name="JointResize"; 
+					Type="String";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multitasking - Timeline
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
+					Name="SubscribedContent-353698Enabled"; 
+					Type="String";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
 
 		# Notification Area Icons
 		$RegEdits += @{
@@ -310,63 +368,6 @@ function SyncRegistry {
 				}
 			)
 		};
-
-		# Snap windows (half-screen left/right snapping of windows)
-		$RegEdits += @{
-			Path = "HKCU:\Control Panel\Desktop";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
-					Name="WindowArrangementActive"; 
-					Type="String";
-					Value=1;
-					Delete=$False;
-				}
-			)
-		};
-		# Snap windows (cont.)
-		$RegEdits += @{
-			Path = "Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
-					Name="SnapFill"; 
-					Type="String";
-					Value=1;
-					Delete=$False;
-				},
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
-					Name="SnapAssist"; 
-					Type="String";
-					Value=0;
-					Delete=$False;
-				},
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
-					Name="JointResize"; 
-					Type="String";
-					Value=1;
-					Delete=$False;
-				}
-			)
-		};
-
-
-		# Multitasking - Timeline
-		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
-					Name="SubscribedContent-353698Enabled"; 
-					Type="String";
-					Value=0;
-					Delete=$False;
-				}
-			)
-		};
-
 
 
 		# SmartScreen for Microsoft Edge, Microsoft Store Apps

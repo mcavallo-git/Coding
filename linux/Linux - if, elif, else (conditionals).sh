@@ -138,6 +138,20 @@ IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
 # ------------------------------------------------------------
 #
+# Uppercase a string (Bashism - requires /bin/bash to use)
+#
+EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE^^}";
+
+
+# ------------------------------------------------------------
+#
+# Lowercase a string (Bashism - requires /bin/bash to use)
+#
+EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE,,}";
+
+
+# ------------------------------------------------------------
+#
 # Determine if a given Linux-User exists
 #
 DOES_USER_EXIST="ubuntu";
@@ -366,20 +380,20 @@ INT1 -ge INT2  :::  True if arg1 is [ greater than ] or [ equal to ] arg2. Wrapp
 #
 # Citation(s)
 #
-#		www.tldp.org  |  "7.3. Other Comparison Operators" (Integer/String Conditionals)  |  https://www.tldp.org/LDP/abs/html/comparison-ops.html
-#
 #		www.gnu.org  |  "6.4 Bash Conditional Expressions"  |  https://www.gnu.org/software/bash/manual/bashref.html#Bash-Conditional-Expressions
 #
 #		www.gnu.org  |  "6.5 Shell Arithmetic"  |  https://www.gnu.org/software/bash/manual/html_node/Shell-Arithmetic.html#Shell-Arithmetic
+#
+#		www.tldp.org  |  "7.3. Other Comparison Operators" (Integer/String Conditionals)  |  https://www.tldp.org/LDP/abs/html/comparison-ops.html
 #
 #		pubs.opengroup.org  |  "2.6.2 Parameter Expansion"  |  https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
 #
 #		stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
 #
+#   stackoverflow.com  |  "Case insensitive comparison of strings in shell script"  |  https://stackoverflow.com/a/19411918
+#
 #		stackoverflow.com  |  "How to check if a variable is set in Bash?"  |  https://stackoverflow.com/a/13864829
 #
 #		stackoverflow.com  |  "Is there an easy way to determine if user input is an integer in bash?"  |  https://stackoverflow.com/a/4141321
-#		
-#
 #
 # ------------------------------------------------------------

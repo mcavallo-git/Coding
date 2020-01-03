@@ -1,19 +1,31 @@
 #!/bin/bash
+# ------------------------------------------------------------
+# Selinux - Get status
 
-# Get selinux status
-getenforce
+getenforce;
 
-# Get selinux status (alternate approach)
-sestatus
+sestatus;  # Alternate-approach
 
-# Disable Selinux
+
+# ------------------------------------------------------------
+# Selinux - Disable
+
 CONF_FILE="/etc/selinux/config"; if [ -f "${CONF_FILE}" ]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^SELINUX=/c\SELINUX=disabled" "${CONF_FILE}"; fi; \
 CONF_FILE="/etc/sysconfig/selinux"; if [ -f "${CONF_FILE}" ]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^SELINUX=/c\SELINUX=disabled" "${CONF_FILE}"; fi; \
 setenforce 0; \
 echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  Reboot required to finish disabling Selinux"; read -p " --> Reboot, now? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then reboot now; fi;
 
 
-### Check Selinux error logs specifically for lines mentioning 'nginx' and 'denied'
+# ------------------------------------------------------------
+# Selinux - Enable
+CONF_FILE="/etc/selinux/config"; if [ -f "${CONF_FILE}" ]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^SELINUX=/c\SELINUX=enforcing" "${CONF_FILE}"; fi; \
+CONF_FILE="/etc/sysconfig/selinux"; if [ -f "${CONF_FILE}" ]; then sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -e "/^SELINUX=/c\SELINUX=enforcing" "${CONF_FILE}"; fi; \
+setenforce 1; \
+echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  Reboot required to finish enabling Selinux"; read -p " --> Reboot, now? (y/n)  " -n 1 -t 60 -r; if [[ $REPLY =~ ^[Yy]$ ]]; then reboot now; fi;
+
+
+# ------------------------------------------------------------
+# Troubleshooting (example) - Check Selinux error logs specifically for lines mentioning 'nginx' and 'denied'
 cat /var/log/audit/audit.log | grep -i nginx | grep -i denied;
 
 

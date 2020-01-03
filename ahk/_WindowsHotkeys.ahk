@@ -146,6 +146,7 @@ AppsKey & NumpadSub::
 ;   ACTION:  Open VS Code
 ;
 #V::
+AppsKey & V::
 	OpenVisualStudioCode()
 	Return
 
@@ -169,6 +170,7 @@ AppsKey & NumpadSub::
 ;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 #P::
+AppsKey & P::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
 	Return
@@ -179,6 +181,7 @@ AppsKey & NumpadSub::
 ;  ACTION:  Type the COMPUTERNAME
 ;
 #H::
+AppsKey & H::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Send %A_ComputerName%
@@ -190,6 +193,7 @@ AppsKey & NumpadSub::
 ;  ACTION:  Type the DOMAIN-USERNAME
 ;
 #U::
+AppsKey & U::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	; RET_VAL = %USERNAME%
@@ -203,6 +207,7 @@ AppsKey & NumpadSub::
 ;  ACTION:  Types the contents of target file
 ;
 #G::
+AppsKey & G::
 	FilePathToRead=%USERPROFILE%\.gpg_git\personal.passphrase
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
@@ -214,6 +219,7 @@ AppsKey & NumpadSub::
 ;  ACTION:  Types the contents of target file
 ;
 #W::
+AppsKey & W::
 	FilePathToRead=%USERPROFILE%\.gpg_git\work.passphrase
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
@@ -234,6 +240,7 @@ AppsKey & NumpadSub::
 +#D::
 +^#D::
 +!#D::
+AppsKey & D::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	TimezoneOffset := GetTimezoneOffset_P()
@@ -273,18 +280,20 @@ AppsKey & NumpadSub::
 
 ; ------------------------------------------------------------
 ;
-;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
-;  HOTKEY:  Win + G
-#F1::   ; #F1 / Win+F1 -- Edit this Script (the one you're reading right now)
+;  HOTKEY:  Win + F1
+;  ACTION:  Edit this Script (the one you're reading right now)
+#F1::
+AppsKey & F1::
 	Run Notepad %A_ScriptFullPath%
 	Return
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Shift + Win + F2
+;  HOTKEY:  Win + F2
 ;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
 #F2::
+AppsKey & F2::
 	GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
 	Run %GetKeyCodes%
 	Return
@@ -294,6 +303,7 @@ AppsKey & NumpadSub::
 ;
 ; #SC03D::   ; Win + F3
 #F3::   ; Win + F3
+AppsKey & F3::   ; Win + F3
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
@@ -351,6 +361,8 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;
 #[::
 #]::
+AppsKey & [::
+AppsKey & ]::
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
@@ -445,6 +457,7 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  ACTION:  Output cursor location
 ;
 #RButton::
+AppsKey & RButton::
 	CoordMode, Mouse, Screen
 	MouseGetPos, MouseX, MouseY
 	MsgBox,

@@ -26,8 +26,7 @@ vi "/etc/vmware/ssl/rui.key";  # Clear file via ":1,$d" -> Enter insert-mode via
 # As a one-liner:
 
 
-cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').crt"; cp "/etc/vmware/ssl/rui.key" "rui.bak.$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.crt"; vi "/etc/vmware/ssl/rui.key"; /etc/init.d/hostd restart; /etc/init.d/vpxa restart;
-
+cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').crt"; cp "/etc/vmware/ssl/rui.key" "rui.bak.$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.crt"; chown "root:root" "/etc/vmware/ssl/rui.crt"; chmod 0644 "/etc/vmware/ssl/rui.crt"; vi "/etc/vmware/ssl/rui.key"; chown "root:root" "/etc/vmware/ssl/rui.key"; chmod 0600 "/etc/vmware/ssl/rui.key"; /etc/init.d/hostd restart; /etc/init.d/vpxa restart;
 
 # ------------------------------------------------------------
 # Citation(s)

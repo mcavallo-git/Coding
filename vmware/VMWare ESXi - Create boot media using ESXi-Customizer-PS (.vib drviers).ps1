@@ -23,8 +23,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 	# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
 	$WorkingDir = "${Home}\Desktop\ESXi-Boot-Media_${StartTimestamp}";
-	New-Item -ItemType "Directory" -Path ("${WorkingDir}");
-	Set-Location "${WorkingDir}";
+	New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
+	Set-Location -Path ("${WorkingDir}");
 
 	# PowerShell - Install the NuGet package manager
 	Install-PackageProvider -Name ("NuGet") -Force;

@@ -103,6 +103,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
 #-::
+AppsKey & -::
 #NumpadSub::
 	SetKeyDelay, 0, -1
 	Send {LWin up}{RWin up}

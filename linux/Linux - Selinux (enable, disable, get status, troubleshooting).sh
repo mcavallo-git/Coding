@@ -45,6 +45,8 @@ cat /var/log/audit/audit.log | grep -i nginx | grep -i denied;
 #
 #   access.redhat.com  |  "Chapter 3. SELinux Contexts Red Hat Enterprise Linux 6 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/chap-security-enhanced_linux-selinux_contexts
 #
+#   access.redhat.com  |  "4.2. Analyzing SELinux denial messages"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/using_selinux/troubleshooting-problems-related-to-selinux_using-selinux#analyzing-an-already-found-selinux-denial_troubleshooting-problems-related-to-selinux
+#
 #   access.redhat.com  |  "5.6. SELinux Contexts – Labeling Files Red Hat Enterprise Linux 6 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-working_with_selinux-selinux_contexts_labeling_files
 #
 #   stackoverflow.com  |  "(13: Permission denied) while connecting to upstream:[nginx]"  |  https://stackoverflow.com/a/24830777

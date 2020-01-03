@@ -65,6 +65,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 #Escape::
+AppsKey & Escape::
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
@@ -573,10 +574,11 @@ AppsKey::RWin
 ;
 #MButton::
 ^#MButton::
-#WheelUp::
 ^#WheelUp::
-#WheelDown::
 ^#WheelDown::
+AppsKey & MButton::
+AppsKey & WheelUp::
+AppsKey & WheelDown::
 
 	Icon_MutedSpeaker=🔇
 	Icon_SpeakerLowVolume=🔈
@@ -598,10 +600,10 @@ AppsKey::RWin
 	; Note that [ SoundSet ... ] is used instead of [ Send {Volume_Up} ], etc. because of combo key-presses
 	; not handshaking well with the [ Send ... ] function in AHK - e.g. winkey-mousescroll was
 	; triggering the start-menu inbetween multiple scrolls + more issues (generally glitchy)
-	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {
+	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton") || (A_ThisHotkey=="AppsKey & MButton")) {
 		; Toggle Mute
 		SoundSet, +1, , MUTE
-	} Else If (A_ThisHotkey=="#WheelUp") {
+	} Else If ((A_ThisHotkey=="#WheelUp") || (A_ThisHotkey=="AppsKey & WheelUp")) {
 		; Volume Up
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
 		SoundSet , +%NewVolumeLevel_Increment%
@@ -609,7 +611,7 @@ AppsKey::RWin
 		; Volume Up ( Slower )
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
 		SoundSet , +%NewVolumeLevel_Increment%
-	} Else If (A_ThisHotkey=="#WheelDown") {
+	} Else If ((A_ThisHotkey=="#WheelDown") || (A_ThisHotkey=="AppsKey & WheelDown")) {
 		; Volume Down
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
 		SoundSet , -%NewVolumeLevel_Increment%
@@ -850,6 +852,7 @@ AppsKey & K::
 ;  ACTION:  Open Google Chrome
 ;
 #C::
+AppsKey & C::
 	OpenChrome()
 	Return
 
@@ -859,6 +862,7 @@ AppsKey & K::
 ;  ACTION:  Effective File Search - Open a new Instance of EFS
 ;
 #F::
+AppsKey & F::
 	; Verify that Effective File Search exists
 	; exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
 	efs=\Effective File Search.efsp
@@ -1004,6 +1008,7 @@ LShift & RShift::
 ;  Win + T - Get Windows Environment Vars
 ;
 #T::
+AppsKey & T::
 	PrintEnv()
 	Return
 

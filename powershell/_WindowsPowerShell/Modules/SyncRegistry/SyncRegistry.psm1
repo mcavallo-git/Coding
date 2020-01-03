@@ -234,7 +234,7 @@ function SyncRegistry {
 
 		# Multitasking - Snap windows (half-screen left/right snapping of windows)
 		$RegEdits += @{
-			Path = "HKCU:\Control Panel\Desktop";
+			Path = "Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
@@ -245,8 +245,6 @@ function SyncRegistry {
 				}
 			)
 		};
-
-
 		# Multitasking - Snap windows (cont.)
 		$RegEdits += @{
 			Path = "Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";

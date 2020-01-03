@@ -470,7 +470,8 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 
-~AppsKey::RWin
+AppsKey::RWin
+; ~AppsKey::RWin
 
 
 ; ------------------------------------------------------------

@@ -65,7 +65,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 #Escape::
-AppsKey & Escape::
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
@@ -94,7 +93,6 @@ AppsKey & Escape::
 ;   ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
 #Z::
-AppsKey & Z::
 	GetWindowSpecs()
 	Return
 
@@ -106,8 +104,6 @@ AppsKey & Z::
 ;
 #-::
 #NumpadSub::
-AppsKey & -::
-AppsKey & NumpadSub::
 	SetKeyDelay, 0, -1
 	Send {LWin up}{RWin up}
 	; StringToType := StringRepeat("-",60)
@@ -123,9 +119,6 @@ AppsKey & NumpadSub::
 #=::
 #+::
 #NumpadAdd::
-AppsKey & =::
-AppsKey & +::
-AppsKey & NumpadAdd::
 	; SetKeyDelay, 0, -1  ; Glitches & Locks device
 	Send {LWin up}{RWin up}
 	Sleep 10
@@ -151,7 +144,6 @@ AppsKey & NumpadAdd::
 ;   ACTION:  Open VS Code
 ;
 #V::
-AppsKey & V::
 	OpenVisualStudioCode()
 	Return
 
@@ -175,7 +167,6 @@ AppsKey & V::
 ;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 #P::
-AppsKey & P::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
 	Return
@@ -186,7 +177,6 @@ AppsKey & P::
 ;  ACTION:  Type the COMPUTERNAME
 ;
 #H::
-AppsKey & H::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Send %A_ComputerName%
@@ -198,7 +188,6 @@ AppsKey & H::
 ;  ACTION:  Type the DOMAIN-USERNAME
 ;
 #U::
-AppsKey & U::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	; RET_VAL = %USERNAME%
@@ -212,7 +201,6 @@ AppsKey & U::
 ;  ACTION:  Types the contents of target file
 ;
 #G::
-AppsKey & G::
 	FilePathToRead=%USERPROFILE%\.gpg_git\personal.passphrase
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
@@ -224,7 +212,6 @@ AppsKey & G::
 ;  ACTION:  Types the contents of target file
 ;
 #W::
-AppsKey & W::
 	FilePathToRead=%USERPROFILE%\.gpg_git\work.passphrase
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
@@ -245,7 +232,6 @@ AppsKey & W::
 +#D::
 +^#D::
 +!#D::
-AppsKey & D::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	TimezoneOffset := GetTimezoneOffset_P()
@@ -288,7 +274,6 @@ AppsKey & D::
 ;  HOTKEY:  Win + F1
 ;  ACTION:  Edit this Script (the one you're reading right now)
 #F1::
-AppsKey & F1::
 	Run Notepad %A_ScriptFullPath%
 	Return
 
@@ -298,7 +283,6 @@ AppsKey & F1::
 ;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
 #F2::
-AppsKey & F2::
 	GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
 	Run %GetKeyCodes%
 	Return
@@ -307,8 +291,7 @@ AppsKey & F2::
 ; ------------------------------------------------------------
 ;
 ; #SC03D::   ; Win + F3
-#F3::   ; Win + F3
-AppsKey & F3::   ; Win + F3
+#F3::
 	; Win10 Download & Delete Recordings via XBox Win10 App
 	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
@@ -366,8 +349,6 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;
 #[::
 #]::
-AppsKey & [::
-AppsKey & ]::
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
@@ -462,7 +443,6 @@ AppsKey & ]::
 ;  ACTION:  Output cursor location
 ;
 #RButton::
-AppsKey & RButton::
 	CoordMode, Mouse, Screen
 	MouseGetPos, MouseX, MouseY
 	MsgBox,
@@ -475,11 +455,10 @@ AppsKey & RButton::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + L     or     AppsKey + L
+;  HOTKEY:  WinKey + L
 ;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 
 #L::
-AppsKey & L::
 	LockWorkstation()
 	; Monitor_ShowScreenSaver()
 	Reload
@@ -488,16 +467,10 @@ AppsKey & L::
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  AppsKey
-;  ACTION:  Replace functionality with that of the right Windows-Key
+;  ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 
-; AppsKey::RWin
-AppsKey::
-	Send {RWin down}
-	Return
-AppsKey Up::
-	Send {RWin up}
-	Return
+~AppsKey::RWin
 
 
 ; ------------------------------------------------------------
@@ -582,9 +555,6 @@ AppsKey Up::
 ^#MButton::
 ^#WheelUp::
 ^#WheelDown::
-AppsKey & MButton::
-AppsKey & WheelUp::
-AppsKey & WheelDown::
 
 	Icon_MutedSpeaker=🔇
 	Icon_SpeakerLowVolume=🔈
@@ -606,10 +576,10 @@ AppsKey & WheelDown::
 	; Note that [ SoundSet ... ] is used instead of [ Send {Volume_Up} ], etc. because of combo key-presses
 	; not handshaking well with the [ Send ... ] function in AHK - e.g. winkey-mousescroll was
 	; triggering the start-menu inbetween multiple scrolls + more issues (generally glitchy)
-	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton") || (A_ThisHotkey=="AppsKey & MButton")) {
+	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {
 		; Toggle Mute
 		SoundSet, +1, , MUTE
-	} Else If ((A_ThisHotkey=="#WheelUp") || (A_ThisHotkey=="AppsKey & WheelUp")) {
+	} Else If (A_ThisHotkey=="#WheelUp") {
 		; Volume Up
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
 		SoundSet , +%NewVolumeLevel_Increment%
@@ -617,7 +587,7 @@ AppsKey & WheelDown::
 		; Volume Up ( Slower )
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
 		SoundSet , +%NewVolumeLevel_Increment%
-	} Else If ((A_ThisHotkey=="#WheelDown") || (A_ThisHotkey=="AppsKey & WheelDown")) {
+	} Else If (A_ThisHotkey=="#WheelDown") {
 		; Volume Down
 		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
 		SoundSet , -%NewVolumeLevel_Increment%
@@ -819,7 +789,6 @@ WheelRight::
 ;  ACTION:  Send a Checkmark
 ;
 >#K::
-AppsKey & K::
 	SetKeyDelay, 0, -1
 	; Send ✔
 	; Send 🗸  ; Light Check Mark
@@ -858,7 +827,6 @@ AppsKey & K::
 ;  ACTION:  Open Google Chrome
 ;
 #C::
-AppsKey & C::
 	OpenChrome()
 	Return
 
@@ -868,7 +836,6 @@ AppsKey & C::
 ;  ACTION:  Effective File Search - Open a new Instance of EFS
 ;
 #F::
-AppsKey & F::
 	; Verify that Effective File Search exists
 	; exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
 	efs=\Effective File Search.efsp
@@ -1014,7 +981,6 @@ LShift & RShift::
 ;  Win + T - Get Windows Environment Vars
 ;
 #T::
-AppsKey & T::
 	PrintEnv()
 	Return
 
@@ -2236,6 +2202,8 @@ If (False) {
 ;   autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
 ;
 ;   autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;
+;   autohotkey.com/docs  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 ;   autohotkey.com/docs  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
 ;

@@ -62,3 +62,12 @@
 -----> Paste your GIST-Token into the "Access Token" field
 ------> Click outside of both fields (click on background black/gray area behind either of them) then wait a sec and close/re-open VS Code to begin a manual sync of extensions, etc.
 ***
+
+
+<!-- ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   stackoverflow.com  |  "Assign file with no extension to a language on VS Code as default"  |  https://stackoverflow.com/a/53468881
+#
+------------------------------------------------------------ -->

@@ -38,7 +38,7 @@ $FileExt=".log";
 
 # $OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.bat`" `"%1`"";
 
-$OpenExtensionWith="`"%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs`" `"%1`"";
+$OpenExtensionWith="'$($Env:windir)\System32\wscript.exe' '$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.vbs' '%1'";
 
 $UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 
@@ -49,7 +49,7 @@ $UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami
 ### HKEY_CLASSES_ROOT
 $HKCR_Key="Registry::HKEY_CLASSES_ROOT\${FileExt}\shell\open\command";
 New-Item -Path ($HKCR_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
-New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
+New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") -Value ("${OpenExtensionWith}") -Force;
 
 
 ### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]

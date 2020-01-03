@@ -21,6 +21,13 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 } Else {
 
+	$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
+
+	# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
+	$WorkingDir = "${Home}\Desktop\ESXi-Boot-Media_${StartTimestamp}";
+	New-Item -ItemType "Directory" -Path ("${WorkingDir}");
+	Set-Location "${WorkingDir}";
+
 	# PowerShell - Install the NuGet package manager
 	Install-PackageProvider -Name ("NuGet") -Force;
 
@@ -28,9 +35,6 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
 		Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
 	}
-
-	# Set the current user's Desktop as the working directory
-	Set-Location "${Home}\Desktop";
 
 	# Download and run the ESXi-Customizer
 	New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;

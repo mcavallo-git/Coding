@@ -12,7 +12,7 @@ Function FiletypeAssociations() {
 	)
 
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		# Script is NOT running as admin
+		# Script is >> NOT << running as admin
 		#  > Attempt to open an admin terminal with the same command-line arguments as the current
 		$CommandString = $MyInvocation.MyCommand.Name;
 		$PSBoundParameters.Keys | ForEach-Object {
@@ -24,7 +24,8 @@ Function FiletypeAssociations() {
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 
 	} ElseIf ($PSBoundParameters.ContainsKey('Pull') -Eq $False) {
-		# Script IS running as Admin - Continue
+		# Missing Argument(s) - Do not just make calling this function go and update the registry, require at least one argument for that
+		#   |--> NEED TO UPDATE TO REQUIRE USER-CONFIRMATION EACH RUN, OR -F / --FORCE ARGUMENTS BE PASSED-IN, ETC.
 		Write-Host "";
 		Write-Host -NoNewLine "Error:  " -ForegroundColor "Red";
 		Write-Host -NoNewLine "Call with argument  [ -Pull  ] to update from repo";
@@ -32,7 +33,7 @@ Function FiletypeAssociations() {
 		Write-Host "";
 	
 	} Else {
-		# Script IS running as Admin - Continue
+		# Script >> IS << running as Admin - Continue
 		Write-Host "";
 		Write-Host -NoNewLine "Info:  Script running with necessary " -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "Admin rights" -ForegroundColor "Green";

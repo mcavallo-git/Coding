@@ -1,8 +1,8 @@
 #
-#	PowerShell - NET_Framework_Check
+#	PowerShell - NET-Framework-Check
 #		Query the registry to check for installed versions of .NET Framework
 #
-function NET_Framework_Check {
+function NET-Framework-Check {
 	Param(
 
 		[String]$MainVersion = 4,
@@ -142,10 +142,10 @@ function NET_Framework_Check {
 
 	Return;
 }
-Export-ModuleMember -Function "NET_Framework_Check";
+Export-ModuleMember -Function "NET-Framework-Check";
 
 
-# ~~~
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
@@ -157,4 +157,4 @@ Export-ModuleMember -Function "NET_Framework_Check";
 #
 #   smartdoc.zendesk.com  |  "How to check your .NET Framework version"  |  https://smartdoc.zendesk.com/hc/en-us/articles/205232308-How-to-check-your-NET-Framework-version
 #
-# ~~~
+# ------------------------------------------------------------

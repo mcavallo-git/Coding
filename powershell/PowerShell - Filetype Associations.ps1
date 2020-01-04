@@ -75,13 +75,6 @@ Exit 0;
 
 
 
-
-# ------------------------------------------------------------
-#
-# PowerShell
-#   File Extension handling in Windows 10
-#
-#                                MCavallo, 2019-06-20_13-20-50
 # ------------------------------------------------------------
 
 # Get User-SID (Security Identifier) for current user

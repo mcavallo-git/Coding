@@ -7,7 +7,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 
 } Else {
-	# Script IS running as admin - continue
-	Write-Host "Info:  Already running with Admin rights - continuing...";
+	# Script IS running as Admin - Continue
+	Write-Host "Info:  Script running with Admin rights - Continuing...";
 
 }

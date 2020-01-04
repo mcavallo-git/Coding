@@ -99,10 +99,12 @@ This file (on GitHub):
 <a href="https://notepad-plus-plus.org/downloads/">Download (source)</a>
 <sub><i>
 	<details><summary>%APPDATA%\Notepad++ (NP++ Settings)</summary>
-		<ul>
-			<li><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Notepad%2B%2B/stylers.xml">%APPDATA%\Notepad++\stylers.xml</a></li>
-			<li><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Notepad%2B%2B/config.xml">%APPDATA%\Notepad++\config.xml</a></li>
-		</ul>
+		<h5>
+			<ul>
+				<li><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Notepad%2B%2B/stylers.xml">%APPDATA%\Notepad++\stylers.xml</a></li>
+				<li><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Notepad%2B%2B/config.xml">%APPDATA%\Notepad++\config.xml</a></li>
+			</ul>
+		</h5>
 	</details>
 </i></sub>
 </td></tr>

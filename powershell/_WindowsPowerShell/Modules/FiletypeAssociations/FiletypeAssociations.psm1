@@ -25,6 +25,7 @@ Function FiletypeAssociations() {
 		# Place a shortcut to the VS Code Workspace redirector within VS Code's Program Files directory
 		#   |--> Adds the Workspace redirector to the current $PATH (without requiring a reboot, relog, etc.)
 		#
+		If ((Test-Path ("${Env:ProgramFiles}\Microsoft VS Code\bin\VSCode-Workspace.vbs")) -Eq $False) {
 		CMD /C 'MKLINK "%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"'
 
 		# ------------------------------------------------------------

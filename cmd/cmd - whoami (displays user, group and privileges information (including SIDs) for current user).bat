@@ -42,8 +42,8 @@ whoami /user /fo table /nh
 
 
 REM Example) Get User SID (via PowerShell)
-$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
-Write-Host $UserSid;
+$UserSID = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
+Write-Host $UserSID;
 
 REM ------------------------------------------------------------
 REM

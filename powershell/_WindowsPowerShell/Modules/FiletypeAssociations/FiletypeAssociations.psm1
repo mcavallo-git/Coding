@@ -8,7 +8,7 @@
 Function FiletypeAssociations() {
 	Param(
 		[Switch]$Quiet,
-		[Switch]$NoUpdate
+		[Switch]$Pull
 	)
 
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
@@ -16,6 +16,10 @@ Function FiletypeAssociations() {
 		#  > Attempt to open an admin terminal with the same command-line arguments as the current
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 
+	} ElseIf ($PSBoundParameters.ContainsKey('Pull') -Eq $False) {
+		# Script IS running as Admin - Continue
+		Write-Host "Error:  Call with argument  [ -Pull  ] to update from repo";
+	
 	} Else {
 		# Script IS running as Admin - Continue
 		Write-Host "Info:  Script running with Admin rights - Continuing...";
@@ -26,12 +30,13 @@ Function FiletypeAssociations() {
 		#   |--> Adds the Workspace redirector to the current $PATH (without requiring a reboot, relog, etc.)
 		#
 		If ((Test-Path ("${Env:ProgramFiles}\Microsoft VS Code\bin\VSCode-Workspace.vbs")) -Eq $False) {
-		CMD /C 'MKLINK "%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"'
-
+			CMD /C 'MKLINK "%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"'
+		}
 		# ------------------------------------------------------------
 		#
 		# Approach:  Create and point the OS to a filetype associations config-file (.xml format) which can be be updated on-the-fly (as-needed)
 		#
+
 
 		# Install the "PolicyFileEditor" module (if not found in local environment)
 		If (!(Get-Module -ListAvailable -Name ("PolicyFileEditor"))) {
@@ -48,15 +53,12 @@ Function FiletypeAssociations() {
 			$DefaultAssociations_Source = "${Download_LocalPath}";
 		}
 
+
 		# Export current workstation's filetype associations to a file on the current user's desktop, then open it
 		$ExportSettings = $False;
-
 		If ($ExportSettings -Eq $True) {
-
-		Dism /Online /Export-DefaultAppAssociations:${DefaultAssociations_Source}
-
-		Notepad "${DefaultAssociations_Source}"
-
+			Dism /Online /Export-DefaultAppAssociations:${DefaultAssociations_Source}
+			Notepad "${DefaultAssociations_Source}"
 		}
 
 
@@ -68,6 +70,7 @@ Function FiletypeAssociations() {
 			-Destination ("${Env:SystemRoot}\System32\DefaultAssociations.${TimestampFilename}.xml") `
 			-Force;
 		}
+
 
 		Copy-Item `
 		-Path ("${DefaultAssociations_Source}") `

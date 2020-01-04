@@ -35,8 +35,8 @@ Function FiletypeAssociations() {
 	} Else {
 		# Script IS running as Admin - Continue
 		Write-Host "";
-		Write-Host -NoNewLine "Info:  Script running " -ForegroundColor "DarkGray";
-		Write-Host -NoNewLine "with Admin rights" -ForegroundColor "Green";
+		Write-Host -NoNewLine "Info:  Script running with necessary " -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "Admin rights" -ForegroundColor "Green";
 		Write-Host -NoNewLine " - Continuing..." -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "`n";
 

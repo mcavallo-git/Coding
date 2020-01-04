@@ -40,18 +40,16 @@ Function FiletypeAssociations() {
 		Write-Host -NoNewLine " - Continuing..." -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "`n";
 
-		# ------------------------------------------------------------
-		#
-		# Place a shortcut to the VS Code Workspace redirector within VS Code's Program Files directory
-		#   |--> Adds the Workspace redirector to the current $PATH (without requiring a reboot, relog, etc.)
+		# VSCode-Redirect.vbs (Workspace Redirect)
+		#   |--> Action:  Create a shortcut to 'VSCode-Redirect.vbs' within VS Code's bin directory in (in Program Files)
+		#   |--> Intent:  Add 'VSCode-Redirect.vbs' to environment variable  [ PATH ]  without requiring a reboot, relog, etc.
 		#
 		If ((Test-Path ("${Env:ProgramFiles}\Microsoft VS Code\bin\VSCode-Workspace.vbs")) -Eq $False) {
 			CMD /C 'MKLINK "%ProgramFiles%\Microsoft VS Code\bin\VSCode-Workspace.vbs" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"'
 		}
-		# ------------------------------------------------------------
-		#
-		# Approach:  Create and point the OS to a filetype associations config-file (.xml format) which can be be updated on-the-fly (as-needed)
-		#
+		
+
+		# Intent:  Create a single source for Windows filetype associations
 		$DefaultAssociations_Windows="${Env:SystemRoot}\System32\DefaultAssociations.xml";
 
 
@@ -61,7 +59,7 @@ Function FiletypeAssociations() {
 		}
 
 
-		# Pull updated filetype associations settings
+		# Pull the most up=to-date filetype associations
 		$DefaultAssociations_Source="${Home}\Documents\GitHub\Coding\windows\Filetype-Associations\DefaultAssociations.xml";
 		If ((Test-Path ("${DefaultAssociations_Source}")) -Eq $False) {
 			$Download_RemoteUrl = "https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Filetype-Associations/DefaultAssociations.xml";
@@ -80,7 +78,7 @@ Function FiletypeAssociations() {
 
 
 		If ((Test-Path ("${DefaultAssociations_Windows}")) -Eq $True) {
-			# Backup existing Filetype Associations config-file  [ DefaultAssociations.xml ]
+			# Backup existing filetype Associations
 			$TimestampFilename = (Get-Date -UFormat "%Y%m%d-%H%M%S");
 			$CopySource = "${DefaultAssociations_Windows}";
 			$CopyDestination = "${Env:SystemRoot}\System32\DefaultAssociations.${TimestampFilename}.xml";
@@ -97,7 +95,7 @@ Function FiletypeAssociations() {
 			-Force;
 		}
 
-		# Update the Filetype Associations config-file  [ DefaultAssociations.xml ]
+		# Update local machine's fieltype associations
 		$CopySource = "${DefaultAssociations_Source}";
 		$CopyDestination = "${DefaultAssociations_Windows}";
 		Write-Host "";
@@ -114,6 +112,12 @@ Function FiletypeAssociations() {
 
 
 		### !! Todo/To-Do/To Do:  Update the filetype associations config-file for a given set of filetype associations
+		# $OpenExtensionsWith="'$($Env:windir)\System32\wscript.exe' '$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.vbs' '%1'"; # Open a given extension using the VS Code Workspace redirection utility
+		### $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"'; # Open a given extension using the main VS Code runtime
+
+
+		# ------------------------------------------------------------
+		### !! TODO: CONFIRM AND REMOVE EXISTING FILETYPE ASSOCIATIONS FOR CURRENT USER-SID (in the registry)
 		# $OpenExtensionsWith="'$($Env:windir)\System32\wscript.exe' '$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.vbs' '%1'"; # Open a given extension using the VS Code Workspace redirection utility
 		### $OpenExtensionWith='"C:\Program Files\Microsoft VS Code\Code.exe" "%1"'; # Open a given extension using the main VS Code runtime
 
@@ -174,14 +178,19 @@ Function FiletypeAssociations() {
 		# ------------------------------------------------------------
 		#
 		# !! DEPRECATED !! (KEPT FOR REFERENCE ON WHAT NOT TO DO)
-		# Approach: REGEDIT/REGISTRY-KEY-HACK METHOD
-		# !! DOESN'T WORK
-		# !! INFO:  GROUP POLICY OBJECTS (GPOs) NEVER PULL FROM THE REGISTRY - THEY ONLY PUSH TO THE REGISTRY (~EVERY 90-MIN)
-		# !!        THIS IS EVIDENT FROM A PUSH-PERSPECTIVE - IF YOU UPDATE A GPO MANUALLY, THEN CHECK THE CORRESPONDING REGISTRY KEY, YOU'LL SEE THE CHANGE MADE IN A 1-1 FASHION
-		# !!        HOWEVER, IF YOU MAKE A CHANGE IN THE REGISTRY, THEN WAIT FOR SOME TIME/RESTART THE PC / ETC., YOU WON'T SEE THE CHANGE REFLECTED IN GROUP POLICY EDITOR
+		#
+		# Approach: SET FILETYPE ASSOCIATIONS THROUGH REGEDIT/REGISTRY KEY UPDATE(s)
+		#            > DOESN'T WORK, BUT INSINUATES OTHERWISE (READ ON)...
+		#            > GROUP POLICY OBJECTS (GPOs) NEVER PULL FROM THE REGISTRY - THEY ONLY PUSH TO THE REGISTRY (~EVERY 90-MIN)
+		#            > THIS IS EVIDENT FROM A PUSH-PERSPECTIVE - IF YOU UPDATE A GPO MANUALLY, THEN CHECK THE CORRESPONDING REGISTRY KEY, YOU'LL SEE THE CHANGE MADE IN A 1-1 FASHION
+		#            > HOWEVER, IF YOU MAKE A CHANGE IN THE REGISTRY, THEN WAIT FOR SOME TIME/RESTART THE PC / ETC., YOU WON'T SEE THE CHANGE REFLECTED IN GROUP POLICY EDITOR
+		#
+		# !! DEPRECATED !! (KEPT FOR REFERENCE ON WHAT NOT TO DO)
 		#
 		If ($False) {
+			#
 			# !! DEPRECATED !! (KEPT FOR REFERENCE ON WHAT NOT TO DO)
+			#
 			# Key:    HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\System
 			# Prop:   DefaultAssociationsConfiguration
 			# Val:    C:\Windows\System32\DefaultAssociations.xml  (DEFAULT-VALUE)

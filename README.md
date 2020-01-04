@@ -199,6 +199,7 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="monitoring"><br />Monitoring<br /><br /></h5></th></tr>
 <tr><td><strong>CoreTemp</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
 <tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Get HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfoInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfo">Download (portable)</a></sub></td></tr>
+<tr><td><strong>HDD Sentinel</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;HDD/SSD Monitoring Application</i></sub></td><td><a href="https://www.hdsentinel.com/download.php">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.harddisksentinel.com/hdsentinel_setup.zip">Download (direct)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

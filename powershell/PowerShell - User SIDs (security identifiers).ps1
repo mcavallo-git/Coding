@@ -8,8 +8,8 @@
 
 
 # Get User-SID (Security Identifier) for current user
-$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
-Write-Host $UserSid;
+$UserSID = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
+Write-Host $UserSID;
 
 #
 # Note: For CMD, to get the user's SID, run:

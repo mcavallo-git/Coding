@@ -67,6 +67,7 @@ If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
 ## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
 $PSGalleryModules = @();
 $PSGalleryModules += "platyPS";  # https://www.powershellgallery.com/packages/platyPS
+# $PSGalleryModules += "PolicyFileEditor";  # https://www.powershellgallery.com/packages/PolicyFileEditor
 $PSGalleryModules += "PSWindowsUpdate";  # https://www.powershellgallery.com/packages/PSWindowsUpdate
 # $PSGalleryModules += "VMware.PowerCLI";  # https://www.powershellgallery.com/packages/VMware.PowerCLI
 If ($PSM1.Iteration -eq 1) {

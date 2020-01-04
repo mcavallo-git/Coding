@@ -1,11 +1,13 @@
 
-# Check if runtime user has Administrator rights
 
-$IsAdmin = $null;
+# Check whether-or-not the current PowerShell session is running with elevated privileges (admin rights)
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-	$IsAdmin = $false;
-} Else {
-	$IsAdmin = $true;
-}
+	# Script is NOT running as admin
+	#  > Attempt to open an admin terminal with the same command-line arguments as the current
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
 
-Write-Host (("`$IsAdmin: ")+($IsAdmin));
+} Else {
+	# Script IS running as admin - continue
+	Write-Host "Info:  Already running with Admin rights - continuing...";
+
+}

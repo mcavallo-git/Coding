@@ -109,7 +109,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
-<tr><td><strong>CrystalDiskMark</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskMark">Download (direct)</a><br /><a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (Win10 App)</a></td></tr>
+<tr><td><strong>CrystalDiskMark</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskMarkInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskMark">Download (portable)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (Win10 App)</a></sub></td></tr>
 <tr><td><strong>SiSoftware Sandra Lite</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Computer analysis, diagnosis & benchmarking</i></sub></td><td><a href="https://www.sisoftware.co.uk/download-lite/">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
 <!-- -->
@@ -183,7 +183,7 @@ This file (on GitHub):
 <tr><td><strong>PCPartPicker</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Component Pricing/Compatibility Comparisons</i></sub></td><td><a href="https://pcpartpicker.com/user/cavalol/saved/7Q2Mcf">Open (web-service)</a></td></tr>
 <tr><td><strong>Razer Synapse</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mouse/Keyboard Hotkey Manager<br />&nbsp;&nbsp;&nbsp;Chroma RGB Controller</i></sub></td><td><a href="https://www.razer.com/synapse">Download (source)</a></td></tr>
 <tr><td><strong>RMPrepUSB</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multiboot formatter for USB-drives</i></sub></td><td><a href="https://www.fosshub.com/RMPrepUSB.html">Download (source)</a></td></tr>
-<tr><td><strong>Rufus</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Single-ISO Bootable Flash Drive</i></sub></td><td><a href="https://rufus.ie/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/pbatard/rufus/releases/download/v3.8/rufus-3.8.exe">Download (v3.8, direct)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/pbatard/rufus/releases/download/v3.8/rufus-3.8p.exe">Download (v3.8, portable)</a></i></sub></td></tr>
+<tr><td><strong>Rufus</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Single-ISO Bootable Flash Drive</i></sub></td><td><a href="https://rufus.ie/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/pbatard/rufus/releases/download/v3.8/rufus-3.8.exe">Download (direct)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/pbatard/rufus/releases/download/v3.8/rufus-3.8p.exe">Download (portable)</a></i></sub></td></tr>
 <tr><td><strong>Ryzen DRAM Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Helps with overclocking memory<br />&nbsp;&nbsp;&nbsp;on the AMD Ryzen platform</i></sub></td><td><a href="https://www.techpowerup.com/download/ryzen-dram-calculator/">Download (source)</a></td></tr>
 <tr><td><strong>Sonos desktop controller</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Control LAN Sonos speakers</i></sub></td><td><a href="https://www.sonos.com/redir/controller_software_pc">Download (source)</a></td></tr>
 <tr><td><strong>VMware - All Downloads</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere, VMware Workstation,<br />&nbsp;&nbsp;&nbsp;VMware Fusion, VMware Player, etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
@@ -194,7 +194,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="monitoring"><br />Monitoring<br /><br /></h5></th></tr>
 <tr><td><strong>CoreTemp</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
-<tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Get HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfo">Download (source)</a></td></tr>
+<tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Get HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfoInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfo">Download (portable)</a></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

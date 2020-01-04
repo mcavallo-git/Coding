@@ -99,7 +99,7 @@
   <Association Identifier=".orf" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />
   <Association Identifier=".pdf" ProgId="ChromeHTML" ApplicationName="Google Chrome" />
   <Association Identifier=".pef" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />
-  <Association Identifier=".pem" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
+  <Association Identifier=".pem" ProgId="txtfile" ApplicationName="Notepad" />
   <Association Identifier=".pl" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
   <Association Identifier=".ply" ProgId="AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k" ApplicationName="3D Viewer" />
   <Association Identifier=".png" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />
@@ -107,7 +107,7 @@
   <Association Identifier=".properties" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
   <Association Identifier=".ps1" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
   <Association Identifier=".psm1" ProgId="VSCode.psm1" ApplicationName="Visual Studio Code" />
-  <Association Identifier=".pub" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
+  <Association Identifier=".pub" ProgId="txtfile" ApplicationName="Notepad" />
   <Association Identifier=".ra" ProgId="VLC.ra" ApplicationName="VLC media player" />
   <Association Identifier=".raf" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />
   <Association Identifier=".ram" ProgId="VLC.ram" ApplicationName="VLC media player" />

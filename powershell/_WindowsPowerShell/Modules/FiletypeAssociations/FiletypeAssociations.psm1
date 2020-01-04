@@ -80,7 +80,12 @@ Function FiletypeAssociations() {
 			$CopySource = "${DefaultAssociations_Windows}";
 			$CopyDestination = "${Env:SystemRoot}\System32\DefaultAssociations.${TimestampFilename}.xml";
 			Write-Host "";
-			Write-Host "Info:  (Backup Config) Copying file `"${CopySource}`" to path `"${CopyDestination}`" ...";
+			Write-Host -NoNewLine "Info:  (Update Config) Copying file `"" -ForegroundColor "DarkGray";
+			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "`" to path `"" -ForegroundColor "DarkGray";
+			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
+			Write-Host -NoNewLine "`n";
 			Copy-Item `
 			-Path ("${CopySource}") `
 			-Destination ("${CopyDestination}") `
@@ -91,7 +96,12 @@ Function FiletypeAssociations() {
 		$CopySource = "${DefaultAssociations_Source}";
 		$CopyDestination = "${DefaultAssociations_Windows}";
 		Write-Host "";
-		Write-Host "Info:  (Update Config) Copying file `"${CopySource}`" to path `"${CopyDestination}`" ...";
+		Write-Host -NoNewLine "Info:  (Update Config) Copying file `"" -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "`" to path `"" -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "`n";
 		Copy-Item `
 		-Path ("${CopySource}") `
 		-Destination ("${CopyDestination}") `
@@ -113,7 +123,10 @@ Function FiletypeAssociations() {
 		###       > Set a default associations configuration file
 		###
 		Write-Host "";
-		Write-Host "Info:  Enabling Group Policy Administrative Template `"Set a default associations configuration file`" to value `"${DefaultAssociations_Windows}`" ...";
+		Write-Host -NoNewLine "Info:  Enabling Group Policy Administrative Template `"Set a default associations configuration file`" to value `"" -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "${DefaultAssociations_Windows}" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "`n";
 		Set-PolicyFileEntry `
 		-Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") `
 		-Key ("Software\Policies\Microsoft\Windows\System") `
@@ -130,10 +143,11 @@ Function FiletypeAssociations() {
 
 		Write-Host "";
 		Write-Host -NoNewLine "Info:  Script complete - You may need to ";
-		Write-Host -NoNewLine "Logout/Login" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "Logout/Login" -ForegroundColor "Magenta";
 		Write-Host -NoNewLine " or ";
-		Write-Host -NoNewLine "Reboot" -ForegroundColor "Yellow";
-		Write-Host -NoNewLine " to fully apply updated fileType associations`n";
+		Write-Host -NoNewLine "Reboot" -ForegroundColor "Magenta";
+		Write-Host -NoNewLine " to fully apply updated fileType associations";
+		Write-Host -NoNewLine "`n";
 		Write-Host "";
 
 

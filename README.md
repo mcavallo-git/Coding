@@ -147,6 +147,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="multimedia"><br />Multimedia<br /><br /></h5></th></tr>
+<tr><td><strong>Greenshot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source Screenshot Program<br />&nbsp;&nbsp;&nbsp;Replaces/Upgrades Print screen & Snipping tool</a></i></sub></td><td><a href="https://getgreenshot.org/downloads/">Download (source)</a></td></tr>
 <tr><td><strong>Paint.NET</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Image & Photo Editing Software<br />&nbsp;&nbsp;&nbsp;<a href="https://www.getpaint.net/doc/latest/KeyboardMouseCommands.html">View Keyboard & Mouse Commands (Hotkeys)</a></i></sub></td><td><a href="https://www.dotpdn.com/downloads/pdn.html">Download (source)</a></td></tr>
 <tr><td><strong>Spotify</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
 <tr><td><strong>SVG Explorer Extension</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Explorer icon thumbnails for .svg files<br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/tibold/svg-explorer-extension/releases/tag/v0.1.1">View GitHub (Note: Signed version no longer works in Win10)</a></i></sub></td><td><a href="https://github.com/tibold/svg-explorer-extension/releases/download/v0.1.1/dssee_setup_x64_v011.exe">Download (source)</a></td></tr>

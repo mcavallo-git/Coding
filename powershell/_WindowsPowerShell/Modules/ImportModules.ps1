@@ -59,12 +59,12 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 }
 
 # ------------------------------------------------------------
-## Install the "NuGet" PowerShell Gallery
+# Install the "NuGet PowerShell Gallery" package provider, which is a cloud repository containing PowerShell modules - similar to adding a package-repo in Debian or RHEL
 If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
 	Install-PackageProvider -Name ("NuGet") -Force;
 }
 
-## Array of Modules to download from the "PowerShell Gallery" (repository of modules, similar to "apt-get" in Ubuntu, or "yum" in CentOS)
+# Instantiate the array of PowerShell modules to pull from available package providers
 $PSGalleryModules = @();
 $PSGalleryModules += "platyPS";  # https://www.powershellgallery.com/packages/platyPS
 # $PSGalleryModules += "PolicyFileEditor";  # https://www.powershellgallery.com/packages/PolicyFileEditor

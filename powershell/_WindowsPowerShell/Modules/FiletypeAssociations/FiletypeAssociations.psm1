@@ -27,13 +27,18 @@ Function FiletypeAssociations() {
 	} ElseIf ($PSBoundParameters.ContainsKey('Pull') -Eq $False) {
 		# Script IS running as Admin - Continue
 		Write-Host "";
-		Write-Host "Error:  Call with argument  [ -Pull  ] to update from repo" -ForegroundColor "Red";
+		Write-Host -NoNewLine "Error:  " -ForegroundColor "Red";
+		Write-Host -NoNewLine "Call with argument  [ -Pull  ] to update from repo";
+		Write-Host -NoNewLine "`n";
 		Write-Host "";
 	
 	} Else {
 		# Script IS running as Admin - Continue
 		Write-Host "";
-		Write-Host "Info:  Script running with Admin rights - Continuing...";
+		Write-Host -NoNewLine "Info:  Script running " -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "with Admin rights" -ForegroundColor "Green";
+		Write-Host -NoNewLine " - Continuing..." -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "`n";
 
 		# ------------------------------------------------------------
 		#

@@ -17,10 +17,7 @@ Function FiletypeAssociations() {
 		
 
 	} Else {
-		# Script IS running as admin
-		
-		Write-Host ""
-
+		# Script IS running as admin - continue
 
 		# ------------------------------------------------------------
 		#

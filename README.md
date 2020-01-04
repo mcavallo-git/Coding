@@ -109,7 +109,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
-<tr><td><strong>CrystalDiskMark</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download v7 (Win10 App)</a><br /><a href="https://crystalmark.info/en/download/#CrystalDiskInfo">Download v6 (Exe Install)</a></td></tr>
+<tr><td><strong>CrystalDiskMark</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskMark">Download (direct)</a><br /><a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (Win10 App)</a></td></tr>
 <tr><td><strong>SiSoftware Sandra Lite</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Computer analysis, diagnosis & benchmarking</i></sub></td><td><a href="https://www.sisoftware.co.uk/download-lite/">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
 <!-- -->
@@ -194,7 +194,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="monitoring"><br />Monitoring<br /><br /></h5></th></tr>
 <tr><td><strong>CoreTemp</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
-<tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Get HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/en/download/#CrystalDiskInfo">Download (source)</a></td></tr>
+<tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Get HDD S.M.A.R.T. Values<br />&nbsp;&nbsp;&nbsp;Check HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfo">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

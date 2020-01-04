@@ -86,9 +86,9 @@ Function FiletypeAssociations() {
 			$CopyDestination = "${Env:SystemRoot}\System32\DefaultAssociations.${TimestampFilename}.xml";
 			Write-Host "";
 			Write-Host -NoNewLine "Info:  (Update Config) Copying file `"" -ForegroundColor "DarkGray";
-			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
 			Write-Host -NoNewLine "`" to path `"" -ForegroundColor "DarkGray";
-			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
 			Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
 			Write-Host -NoNewLine "`n";
 			Copy-Item `
@@ -102,9 +102,9 @@ Function FiletypeAssociations() {
 		$CopyDestination = "${DefaultAssociations_Windows}";
 		Write-Host "";
 		Write-Host -NoNewLine "Info:  (Update Config) Copying file `"" -ForegroundColor "DarkGray";
-		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
 		Write-Host -NoNewLine "`" to path `"" -ForegroundColor "DarkGray";
-		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
 		Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "`n";
 		Copy-Item `
@@ -129,7 +129,7 @@ Function FiletypeAssociations() {
 		###
 		Write-Host "";
 		Write-Host -NoNewLine "Info:  Enabling Group Policy Administrative Template `"Set a default associations configuration file`" to value `"" -ForegroundColor "DarkGray";
-		Write-Host -NoNewLine "${DefaultAssociations_Windows}" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "${DefaultAssociations_Windows}" -ForegroundColor "Gray";
 		Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "`n";
 		Set-PolicyFileEntry `

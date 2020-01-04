@@ -175,4 +175,6 @@ Type.GetType("Microsoft.Win32.RegistryKey").GetProperties();
 #
 #		superuser.com  |  "How to associate a file with a program in Windows via CMD [duplicate]"  |  https://superuser.com/a/362080
 #
+#		superuser.com  |  "Why gpedit and the corresponding registry entries are not synchronized?"  |  https://superuser.com/a/1192458
+#
 # ------------------------------------------------------------

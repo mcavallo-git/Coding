@@ -40,7 +40,7 @@ $FileExt=".log";
 
 $OpenExtensionWith="'$($Env:windir)\System32\wscript.exe' '$($Env:ProgramFiles)\Microsoft VS Code\bin\VSCode-Workspace.vbs' '%1'";
 
-$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
+$UserSID = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 
 
 ### NEED (MAYBE?) TO CREATE EXTENSION IN  [ HKEY_LOCAL_MACHINE\SOFTWARE\Classes ] --> Note: that it seems to be populated from HKCR  (as-of 20191230-074934)
@@ -55,16 +55,16 @@ New-ItemProperty -Path ($HKCR_Key) -Name ("(Default)") -PropertyType ("String") 
 ### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
 
 
-### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
-### NEED TO POSSIBLY-INSTEAD, UPDATE PROPERTY @  [ Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList ]  --> Property "a" to hold value "xyz.bat" "%1"
+### NEED TO DELETE EXTENSION IN  [ Registry::HKEY_USERS\${UserSID}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts ]
+### NEED TO POSSIBLY-INSTEAD, UPDATE PROPERTY @  [ Registry::HKEY_USERS\${UserSID}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList ]  --> Property "a" to hold value "xyz.bat" "%1"
 
 
 ### HKEY_USERS
-$HKU_Classes_Key="Registry::HKEY_USERS\${UserSid}_Classes\${FileExt}_auto_file\shell\open\command";
+$HKU_Classes_Key="Registry::HKEY_USERS\${UserSID}_Classes\${FileExt}_auto_file\shell\open\command";
 New-Item -Path ($HKU_Classes_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
 New-ItemProperty -Path ($HKU_Classes_Key) -Name ("(Default)") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
 
-$HKU_Key="Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList";
+$HKU_Key="Registry::HKEY_USERS\${UserSID}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\${FileExt}\OpenWithList";
 New-Item -Path ($HKU_Key) -Force; # Note: The -Force is used to create any/all missing parent registry keys
 New-ItemProperty -Path ($HKU_Key) -Name ("a") -PropertyType ("String") -Value ($OpenExtensionWith) -Force;
 New-ItemProperty -Path ($HKU_Key) -Name ("MRUList") -PropertyType ("String") -Value ("a") -Force;
@@ -78,7 +78,7 @@ Exit 0;
 # ------------------------------------------------------------
 
 # Get User-SID (Security Identifier) for current user
-$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
+$UserSID = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 
 # Get some info regarding current environment
 $LogSettingsToDesktop = $False;
@@ -125,8 +125,8 @@ Get-ChildItem -Path "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Curr
 
 $max_keys = 3; `
 $i=0; `
-$UserSid = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }}); `
-Get-ChildItem -Path "Registry::HKEY_USERS\${UserSid}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
+$UserSID = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }}); `
+Get-ChildItem -Path "Registry::HKEY_USERS\${UserSID}\Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts" `
 | ForEach-Object {
 	$i++;
 	If ($i -le $max_keys) {

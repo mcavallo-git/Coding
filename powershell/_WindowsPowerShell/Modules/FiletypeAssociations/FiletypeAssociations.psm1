@@ -18,11 +18,16 @@ Function FiletypeAssociations() {
 
 	} ElseIf ($PSBoundParameters.ContainsKey('Pull') -Eq $False) {
 		# Script IS running as Admin - Continue
-		Write-Host "Error:  Call with argument  [ -Pull  ] to update from repo";
+		Write-Host "";
+		Write-Host "Error:  Call with argument  [ -Pull  ] to update from repo" -ForegroundColor "Red";
+		Write-Host "";
 	
 	} Else {
 		# Script IS running as Admin - Continue
+		Write-Host "";
 		Write-Host "Info:  Script running with Admin rights - Continuing...";
+		Write-Host "";
+		Write-Host "Info:  Updating local Filetype Associations from repository...";
 
 		# ------------------------------------------------------------
 		#

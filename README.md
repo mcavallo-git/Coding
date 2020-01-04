@@ -109,7 +109,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
-<tr><td><strong>CrystalDiskMark</strong> <sub><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskMarkInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskMark">Download (portable)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (ms-store)</a></sub></td></tr>
+<tr><td><strong>CrystalDiskMark</strong> <sub><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskMarkInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskMark">Download (portable)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (win10 app)</a></sub></td></tr>
 <tr><td><strong>SiSoftware Sandra Lite</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Computer analysis, diagnosis & benchmarking</i></sub></td><td><a href="https://www.sisoftware.co.uk/download-lite/">Download (source)</a></td></tr>
 <tr><td><strong>Unigine Benchmarks</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU Benchmarking</i></sub></td><td><a href="https://benchmark.unigine.com/">Download (source)</a></td></tr>
 <!-- -->
@@ -161,7 +161,7 @@ This file (on GitHub):
 <tr><td><strong>Cryptomator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Client-Side Cloud-Encryption</i></sub></td><td><a href="https://cryptomator.org/downloads/#winDownload">Download (source)</a></td></tr>
 <tr><td><strong>Dropbox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop App(s)</i></sub></td><td><a href="https://www.dropbox.com/install">Download (source)</a></td></tr>
 <tr><td><strong>Google Drive</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Backup and Sync</i></sub></td><td><a href="https://www.google.com/drive/download/">Download (source)</a></td></tr>
-<tr><td><strong>iCloud</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cloud Storage, Device Backup and Sync</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/icloud/9pktq5699m62">Download (ms-store)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://support.apple.com/en-us/HT204283">Download (Desktop App)</a></sub></td></tr>
+<tr><td><strong>iCloud</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cloud Storage, Device Backup and Sync</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/icloud/9pktq5699m62">Download (win10 app)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://support.apple.com/en-us/HT204283">Download (Desktop App)</a></sub></td></tr>
 <tr><td><strong>OneDrive for Windows</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop App(s)</i></sub></td><td><a href="https://onedrive.live.com/about/en-us/download/">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

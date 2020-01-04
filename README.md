@@ -96,8 +96,8 @@ This file (on GitHub):
 <tr><td><strong>Microsoft To Do</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Lists, Tasks & Reminders<br />&nbsp;&nbsp;&nbsp;(successor to Wunderlist)</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/microsoft-to-do-lists-tasks-reminders/9nblggh5r558">Download (source)</a></td></tr>
 <tr><td><strong>MobaXterm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;XServer for Windows</i></sub></td><td><a href="https://mobaxterm.mobatek.net/download-home-edition.html">Download (source)</a></td></tr>
 <tr><td><strong>Notepad++</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Text and Source-Code Editor</i></sub></td><td>
-<sub><i>
 <a href="https://notepad-plus-plus.org/downloads/">Download (source)</a>
+<sub><i>
 	<details><summary>%APPDATA%\Notepad++ (NP++ Settings)</summary>
 		<ul>
 			<li><a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Notepad%2B%2B/stylers.xml">%APPDATA%\Notepad++\stylers.xml</a></li>

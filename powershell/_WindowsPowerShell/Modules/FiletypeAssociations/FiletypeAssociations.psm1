@@ -120,6 +120,15 @@ Function FiletypeAssociations() {
 		# Set-PolicyFileEntry -Path $env:systemroot\system32\GroupPolicy\Machine\registry.pol -Key Software\Policies\Something -ValueName SomeValue -Data 'Hello, World!' -Type String
 
 
+
+		Write-Host "";
+		Write-Host -NoNewLine "Info:  Script complete - You may need to ";
+		Write-Host -NoNewLine "Logout/Login" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine " or ";
+		Write-Host -NoNewLine "Reboot" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine " to fully apply updated fileType associations`n";
+		Write-Host "";
+
 		# ------------------------------------------------------------
 		#
 		# Approach (Heavy/Non-ideal):  Manually Copy-Paste the Registry.pol file's directory & contents (contains all Local Group Policy Editor settings)

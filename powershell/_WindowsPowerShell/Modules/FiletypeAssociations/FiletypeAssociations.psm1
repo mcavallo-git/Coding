@@ -120,7 +120,6 @@ Function FiletypeAssociations() {
 		# Set-PolicyFileEntry -Path $env:systemroot\system32\GroupPolicy\Machine\registry.pol -Key Software\Policies\Something -ValueName SomeValue -Data 'Hello, World!' -Type String
 
 
-
 		Write-Host "";
 		Write-Host -NoNewLine "Info:  Script complete - You may need to ";
 		Write-Host -NoNewLine "Logout/Login" -ForegroundColor "Yellow";
@@ -128,6 +127,7 @@ Function FiletypeAssociations() {
 		Write-Host -NoNewLine "Reboot" -ForegroundColor "Yellow";
 		Write-Host -NoNewLine " to fully apply updated fileType associations`n";
 		Write-Host "";
+
 
 		# ------------------------------------------------------------
 		#
@@ -204,6 +204,12 @@ Function FiletypeAssociations() {
 			#
 		}
 	}
+
+
+	# ------------------------------------------------------------
+	#	### "Press any key to continue..."
+	Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
+	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 	Return;
 

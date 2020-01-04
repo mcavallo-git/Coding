@@ -5,7 +5,7 @@
 #
 # ------------------------------------------------------------
 #
-# RUN THIS SCRIPT (VIA POWERSHELL):
+# RUN THIS SCRIPT (POWERSHELL):
 #
 #   . "$($Env:USERPROFILE)\Documents\GitHub\Coding\powershell\PowerShell - Filetype Associations.ps1"
 #

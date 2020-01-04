@@ -147,9 +147,11 @@ Function FiletypeAssociations() {
 
 
 		Write-Host "";
-		Write-Host -NoNewLine "Info:  Script complete - You may need to ";
-		Write-Host -NoNewLine "Logout/Login" -ForegroundColor "Magenta";
-		Write-Host -NoNewLine " or ";
+		Write-Host -NoNewLine "Info:  " -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "Script complete" -ForegroundColor "Green";
+		Write-Host -NoNewLine " - You may need to " -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "Logout/Login" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine " or " -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "Reboot" -ForegroundColor "Magenta";
 		Write-Host -NoNewLine " to fully apply updated fileType associations";
 		Write-Host -NoNewLine "`n";

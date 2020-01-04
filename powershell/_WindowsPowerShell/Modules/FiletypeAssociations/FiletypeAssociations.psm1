@@ -205,7 +205,6 @@ Function FiletypeAssociations() {
 		}
 	}
 
-
 	# ------------------------------------------------------------
 	#	### "Press any key to continue..."
 	Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";

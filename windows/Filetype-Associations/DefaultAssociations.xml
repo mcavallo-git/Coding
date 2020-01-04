@@ -99,6 +99,7 @@
   <Association Identifier=".orf" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />
   <Association Identifier=".pdf" ProgId="ChromeHTML" ApplicationName="Google Chrome" />
   <Association Identifier=".pef" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />
+  <Association Identifier=".pem" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
   <Association Identifier=".pl" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
   <Association Identifier=".ply" ProgId="AppXmgw6pxxs62rbgfp9petmdyb4fx7rnd4k" ApplicationName="3D Viewer" />
   <Association Identifier=".png" ProgId="AppX43hnxtbyyps62jhe9sqpdzxn1790zetc" ApplicationName="Photos" />

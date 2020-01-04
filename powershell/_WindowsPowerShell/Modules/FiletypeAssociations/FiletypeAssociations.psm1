@@ -12,12 +12,13 @@ Function FiletypeAssociations() {
 	)
 
 	If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-		# Script is NOT running as admin - attempt to open an admin terminal with the same command-line arguments as the current
+		# Script is NOT running as admin
+		#  > Attempt to open an admin terminal with the same command-line arguments as the current
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
-		
 
 	} Else {
-		# Script IS running as admin - continue
+		# Script IS running as Admin - Continue
+		Write-Host "Info:  Script running with Admin rights - Continuing...";
 
 		# ------------------------------------------------------------
 		#

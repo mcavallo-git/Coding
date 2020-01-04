@@ -128,7 +128,9 @@ Function FiletypeAssociations() {
 		###       > Set a default associations configuration file
 		###
 		Write-Host "";
-		Write-Host -NoNewLine "Info:  Enabling Group Policy Administrative Template `"Set a default associations configuration file`" to value `"" -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "Info:  Enabling Group Policy Administrative Template `"" -ForegroundColor "DarkGray";
+		Write-Host -NoNewLine "Set a default associations configuration file" -ForegroundColor "Gray";
+		Write-Host -NoNewLine "`" to value `"" -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "${DefaultAssociations_Windows}" -ForegroundColor "Gray";
 		Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "`n";

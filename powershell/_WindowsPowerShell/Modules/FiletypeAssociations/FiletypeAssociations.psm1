@@ -26,8 +26,6 @@ Function FiletypeAssociations() {
 		# Script IS running as Admin - Continue
 		Write-Host "";
 		Write-Host "Info:  Script running with Admin rights - Continuing...";
-		Write-Host "";
-		Write-Host "Info:  Updating local Filetype Associations from repository...";
 
 		# ------------------------------------------------------------
 		#
@@ -41,6 +39,7 @@ Function FiletypeAssociations() {
 		#
 		# Approach:  Create and point the OS to a filetype associations config-file (.xml format) which can be be updated on-the-fly (as-needed)
 		#
+		$DefaultAssociations_Windows="${Env:SystemRoot}\System32\DefaultAssociations.xml";
 
 
 		# Install the "PolicyFileEditor" module (if not found in local environment)
@@ -67,19 +66,27 @@ Function FiletypeAssociations() {
 		}
 
 
-		If ((Test-Path ("${Env:SystemRoot}\System32\DefaultAssociations.xml")) -Eq $True) {
-			# Backup the existing DefaultAssociations.xml file(s)
+		If ((Test-Path ("${DefaultAssociations_Windows}")) -Eq $True) {
+			# Backup existing Filetype Associations config-file  [ DefaultAssociations.xml ]
 			$TimestampFilename = (Get-Date -UFormat "%Y%m%d-%H%M%S");
+			$CopySource = "${DefaultAssociations_Windows}";
+			$CopyDestination = "${Env:SystemRoot}\System32\DefaultAssociations.${TimestampFilename}.xml";
+			Write-Host "";
+			Write-Host "Info:  (Backup Config) Copying file `"${CopySource}`" to path `"${CopyDestination}`" ...";
 			Copy-Item `
-			-Path ("${Env:SystemRoot}\System32\DefaultAssociations.xml") `
-			-Destination ("${Env:SystemRoot}\System32\DefaultAssociations.${TimestampFilename}.xml") `
+			-Path ("${CopySource}") `
+			-Destination ("${CopyDestination}") `
 			-Force;
 		}
 
-
+		# Update the Filetype Associations config-file  [ DefaultAssociations.xml ]
+		$CopySource = "${DefaultAssociations_Source}";
+		$CopyDestination = "${DefaultAssociations_Windows}";
+		Write-Host "";
+		Write-Host "Info:  (Update Config) Copying file `"${CopySource}`" to path `"${CopyDestination}`" ...";
 		Copy-Item `
-		-Path ("${DefaultAssociations_Source}") `
-		-Destination ("${Env:SystemRoot}\System32\DefaultAssociations.xml") `
+		-Path ("${CopySource}") `
+		-Destination ("${CopyDestination}") `
 		-Force;
 
 
@@ -96,12 +103,14 @@ Function FiletypeAssociations() {
 		###     > Windows Components
 		###      > File Explorer
 		###       > Set a default associations configuration file
-		### 
+		###
+		Write-Host "";
+		Write-Host "Info:  Enabling Group Policy Administrative Template `"Set a default associations configuration file`" to value `"${DefaultAssociations_Windows}`" ...";
 		Set-PolicyFileEntry `
 		-Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") `
 		-Key ("Software\Policies\Microsoft\Windows\System") `
 		-ValueName ("DefaultAssociationsConfiguration") `
-		-Data ("${Env:SystemRoot}\System32\DefaultAssociations.xml") `
+		-Data ("${DefaultAssociations_Windows}") `
 		-Type ("String");
 
 

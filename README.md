@@ -347,28 +347,22 @@ This file (on GitHub):
 <hr />
 
 
-<!-- ------------------------------------------------------------ -->
-
-<h3>Citation(s)</h3>
-<details><summary><i>Show/Hide Content</i></summary>
-<p>
-
-* ###### [1] en.wikipedia.org  |  "DevOps"  |  https://en.wikipedia.org/wiki/DevOps
-
-* ###### [2] reddit.com  |  "What application do you always install on your computer and recommend to everyone?"  |  https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/
-
-* ###### [3] reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
-
-* ###### [4] atlassian.com  |  "DevOps: Breaking the Development-Operations barrier"  |  https://www.atlassian.com/devops
-
-* ###### [5] reddit.com  |  "Most stable driver version for 5700/5700XT?"  |  https://www.reddit.com/r/Amd/comments/d00l3w/most_stable_driver_version_for_57005700xt/ezeakz0/
-
-* ###### [6] en.wikipedia.org  |  "FreeNAS"  |  https://en.wikipedia.org/wiki/FreeNAS
-
-</p>
-</details>
-
-<hr />
-
-
-<!-- ------------------------------------------------------------ -->
+<!-- ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   en.wikipedia.org  |  "DevOps"  |  https://en.wikipedia.org/wiki/DevOps
+#
+#   en.wikipedia.org  |  "FreeNAS"  |  https://en.wikipedia.org/wiki/FreeNAS
+#
+#   reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
+#
+#   reddit.com  |  "Most stable driver version for 5700/5700XT?"  |  https://www.reddit.com/r/Amd/comments/d00l3w/most_stable_driver_version_for_57005700xt/ezeakz0/
+#
+#   reddit.com  |  "What application do you always install on your computer and recommend to everyone?"  |  https://www.reddit.com/r/AskReddit/comments/4g5sl1/what_application_do_you_always_install_on_your/
+# 
+#   www.atlassian.com  |  "DevOps: Breaking the Development-Operations barrier"  |  https://www.atlassian.com/devops
+#
+#   www.guru3d.com  |  "Benchmarks & Demos"  |  https://www.guru3d.com/files-categories/benchmarks-demos.html
+#
+--- ------------------------------------------------------------ -->

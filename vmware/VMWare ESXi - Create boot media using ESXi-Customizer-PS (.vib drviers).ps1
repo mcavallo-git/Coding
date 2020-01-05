@@ -31,7 +31,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 	# PowerShell - Install VMware PowerCLI module
 	If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
-		Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
+		Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  # Call  [ Get-DeployCommand ]  to inspect service(s)
 	}
 	Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 

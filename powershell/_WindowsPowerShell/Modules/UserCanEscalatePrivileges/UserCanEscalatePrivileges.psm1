@@ -37,6 +37,10 @@ Export-ModuleMember -Function "UserCanEscalatePrivileges";
 #
 #	Citation(s)
 #
+#		docs.microsoft.com  |  "WindowsPrincipal Class (System.Security.Principal) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.security.principal.windowsprincipal
+#
+#		docs.microsoft.com  |  "WindowsPrincipal.Identity Property (System.Security.Principal) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.security.principal.windowsprincipal.identity
+#
 #		github.com  |  "Windows 10 Initial Setup Script"  |  https://github.com/Disassembler0/Win10-Initial-Setup-Script
 #
 #		p0w3rsh3ll.wordpress.com  |  "Any (documented) ADSI changes in PowerShell 5.0?"  |  https://p0w3rsh3ll.wordpress.com/2016/06/14/any-documented-adsi-changes-in-powershell-5-0/

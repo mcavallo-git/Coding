@@ -9,7 +9,7 @@
 
 # Step 2 - Export the config to JSON format via the following commands
 sudo -i;
-EXPORT_FILEPATH="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/$(hostname).$(date +'%Y%m%d_%H%M%S').mca-ctrl -t dump-cfg.json";
+EXPORT_FILEPATH="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/$(hostname).$(date +'%Y%m%d_%H%M%S').config.gateway.json";
 mca-ctrl -t dump-cfg > "${EXPORT_FILEPATH}";
 #  |
 #  |--> Reverse-engineers the current config and outputs what it would take to rebuild it as a JSON config-file

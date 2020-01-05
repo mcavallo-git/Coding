@@ -14,8 +14,11 @@ New-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1") -Value (($(New-Object N
 # Script must run as admin
 #
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-	Write-Host "`nError:  Admin PowerShell terminal required`n" -ForegroundColor "Red";
-	Exit 1;
+	# Script is >> NOT << running as admin  --> Attempt to open an admin terminal with the same command-line arguments as the current
+	$CommandString = $MyInvocation.MyCommand.Name;
+	$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
+	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
+
 
 } Else {
 

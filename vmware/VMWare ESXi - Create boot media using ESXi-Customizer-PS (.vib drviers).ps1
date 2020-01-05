@@ -45,21 +45,27 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
 
 	If ($False) {
-		
-		# Manually search the .vibs depots
+		# Inspection/Debugging: Manually search the package (.vibs) depots
 
-		# Search the "VMware" vibs depot
+		# VMware's Vibs Depot
+		Write-Host "`n`n";
+		Write-Host "------------------------------------------------------------";
+		Write-Host "Querying VMWare's available SoftwarePackages (VIBs)";
 		$UrlEsxDepot_VMware = "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml";
-		Add-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");
+		Add-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  # Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session
+		Get-EsxSoftwarePackage;  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
+		Remove-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  # Disconnects the current PowerCLI session from the specified software depot(s)
+		Write-Host "`n`n";
 
-		# Search the "V-Front" vibs depot
-		#   |--> Also available in client-browser (listed) format @  [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ]
-		$UrlEsxDepot_VFront = "https://vibsdepot.v-front.de/";
-		Add-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");
-
-		# View available packages by using the "Get-EsxSoftwarePackage" cmdlet
-
-
+		# V-Front's Vibs Depot
+		Write-Host "`n`n";
+		Write-Host "------------------------------------------------------------";
+		Write-Host "Querying V-Front's available SoftwarePackages (VIBs)";
+		$UrlEsxDepot_VFront = "https://vibsdepot.v-front.de/";  # also available in frontend list-format @  [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ]
+		Add-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  # Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session
+		Get-EsxSoftwarePackage;  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
+		Remove-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  # Disconnects the current PowerCLI session from the specified software depot(s)
+		Write-Host "`n`n";
 
 	}
 
@@ -79,7 +85,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 #
 #   nucblog.net  |  "Installing ESXi on a Bean Canyon NUC – The NUC Blog"  |  https://nucblog.net/2018/11/installing-esxi-on-a-bean-canyon-nuc/
 #
+#   pubs.vmware.com  |  "vSphere PowerCLI Reference - Add-EsxSoftwareDepot"  |  https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc_50%2FAdd-EsxSoftwareDepot.html
+#
 #   pubs.vmware.com  |  "vSphere PowerCLI Reference - Get-EsxSoftwarePackage"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc%2FGet-EsxSoftwarePackage.html
+#
+#   pubs.vmware.com  |  "vSphere PowerCLI Reference - Remove-EsxSoftwareDepot"  |  https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc_50%2FRemove-EsxSoftwareDepot.html
 #
 #   vibsdepot.v-front.de  |  "List of currently available ESXi packages - V-Front VIBSDepot Wiki"  |  https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages
 #

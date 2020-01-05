@@ -486,12 +486,8 @@ function SyncRegistry {
 		# ------------------------------------------------------------
 		
 		If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-			#
-			# Current session does not have Admin-Rights (required)
-			#   |--> Re-run this script as admin (if current user is not an admin, request admin credentials)
-			#
-			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`" $PSCommandArgs" -Verb RunAs;
-			Exit;
+			Write-Host "`nError:  Admin PowerShell terminal required`n" -ForegroundColor "Red";
+			Exit 1;
 
 		} Else {
 			#

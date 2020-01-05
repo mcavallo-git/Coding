@@ -71,24 +71,17 @@ Function ESXi_BootMedia() {
 			Write-Host "";
 			Write-Host "`$VibNames_CommaSeparated = [ ${VibNames_CommaSeparated} ]";
 			Write-Host "";
+		} Else {
+			# Set a default, or 'common'. setting by-through which drivers are applied
+			$VibNames_CommaSeparated="net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell";
 		}
 		# ------------------------------------------------------------
-		
-		If ($VibNames_CommaSeparated -Eq $Null) {
-			# Create the latest ESXi 6.5 ISO
-			#    -v65 : Create the latest ESXi 6.5 ISO
-			#    -vft : connect the V-Front Online depot
-			#    -load : load additional packages from connected depots or Offline bundles
-			Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .
-
-		} Else {
 		# Create the latest ESXi 6.5 ISO
 		#    -v65 : Create the latest ESXi 6.5 ISO
 		#    -vft : connect the V-Front Online depot
 		#    -load : load additional packages from connected depots or Offline bundles
-		Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
+		Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .
 
-		}
 
 		# Open the destination which the output .iso was saved-at
 		Set-Location -Path ("${WorkingDir}"); Explorer .;

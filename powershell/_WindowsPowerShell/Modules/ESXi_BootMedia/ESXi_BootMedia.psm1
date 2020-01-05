@@ -7,6 +7,7 @@
 #
 Function ESXi_BootMedia() {
 	Param(
+		[Switch]$AllDrivers,
 		[Switch]$Quiet,
 		[Switch]$Pull
 	)
@@ -50,9 +51,8 @@ Function ESXi_BootMedia() {
 		Set-Location -Path ("${WorkingDir}"); New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
 
 		# ------------------------------------------------------------
-		If ($False) {
-			# Inspection/Debugging: Manually search the package (.vibs) depots for available ESXi hardware drivers
-
+		If ($PSBoundParameters.ContainsKey('AllDrivers')) {
+			# Search the package (.vibs) depots for available ESXi hardware drivers
 			Write-Host "`n`n";
 			Write-Host "------------------------------------------------------------";
 			Write-Host "Searching available ESXi Software Packages for '.vib' extensioned driver-files";

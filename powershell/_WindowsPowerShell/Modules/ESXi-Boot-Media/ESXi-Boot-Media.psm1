@@ -47,52 +47,51 @@ Function ESXi-Boot-Media() {
 		Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
 		# Download the latest ESXi-Customizer-PS PowerShell script-file
-		New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
+		Set-Location -Path ("${WorkingDir}"); New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
 
+		# ------------------------------------------------------------
+		If ($False) {
+			# Inspection/Debugging: Manually search the package (.vibs) depots for available ESXi hardware drivers
+
+			Write-Host "`n`n";
+			Write-Host "------------------------------------------------------------";
+			Write-Host "Searching available ESXi Software Packages for '.vib' extensioned driver-files";
+			#  VMware Depot
+			Add-EsxSoftwareDepot ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+			#  V-Front Depot
+			Add-EsxSoftwareDepot = ("https://vibsdepot.v-front.de/index.xml");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+			# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
+			$Vibs = (Get-EsxSoftwarePackage);
+			$VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
+			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
+			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
+			$VibNames_CommaSeparated=([String]$VibNames).Replace(" ",",");
+			Write-Host "";
+			Write-Host "`$VibNames = [ ${VibNames} ]";
+			Write-Host "";
+			Write-Host "`$VibNames_CommaSeparated = [ ${VibNames_CommaSeparated} ]";
+			Write-Host "";
+		}
+		# ------------------------------------------------------------
+		
+		If ($VibNames_CommaSeparated -Eq $Null) {
+			# Create the latest ESXi 6.5 ISO
+			#    -v65 : Create the latest ESXi 6.5 ISO
+			#    -vft : connect the V-Front Online depot
+			#    -load : load additional packages from connected depots or Offline bundles
+			Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .
+
+		} Else {
 		# Create the latest ESXi 6.5 ISO
 		#    -v65 : Create the latest ESXi 6.5 ISO
 		#    -vft : connect the V-Front Online depot
 		#    -load : load additional packages from connected depots or Offline bundles
-		.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
-
-		# Open the destination which the output .iso was saved-at
-		Explorer .;
-
-		If ($False) {
-			# Inspection/Debugging: Manually search the package (.vibs) depots for available ESXi hardware drivers
-
-			<# ------------------------------------------------------------ #> `
-			<# VMware #> `
-			Write-Host "`n`n"; `
-			Write-Host "------------------------------------------------------------"; `
-			Write-Host "Querying VMWare's available SoftwarePackages (VIBs)"; `
-			$DepotOwner = "VMware"; `
-			$UrlEsxDepot_VMware = "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"; `
-			Add-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #> `
-			$Vibs_VMware = (Get-EsxSoftwarePackage); `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.${DepotOwner}_VibDepot.log"; ${Vibs_VMware} | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.${DepotOwner}_VibDepot.log"; ${Vibs_VMware} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
-			Remove-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  <# Disconnects the current PowerCLI session from the specified software depot(s) #> `
-			Write-Host "`n`n"; `
-			<# ------------------------------------------------------------ #> `
-			<# V-Front #> `
-			Write-Host "`n`n"; `
-			Write-Host "------------------------------------------------------------"; `
-			Write-Host "Querying V-Front's available SoftwarePackages (VIBs)"; `
-			$DepotOwner = "V-Front"; `
-			$UrlEsxDepot_VFront = "https://vibsdepot.v-front.de/index.xml";  <# also available in frontend list-format @  [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ] #> `
-			Add-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #> `
-			$Vibs_VFront = (Get-EsxSoftwarePackage); `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.${DepotOwner}_VibDepot.log"; ${Vibs_VFront} | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.${DepotOwner}_VibDepot.log"; ${Vibs_VFront} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
-			Remove-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  <# Disconnects the current PowerCLI session from the specified software depot(s) #> `
-			Write-Host "`n`n"; `
-			<# ------------------------------------------------------------ #>
-			<# Combine the lists of packages from all depots into (essentially) one massive driver library #> `
-			$All_Vibs = ($Vibs_VFront + $Vibs_VMware);
-			($All_Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
+		Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
 
 		}
+
+		# Open the destination which the output .iso was saved-at
+		Set-Location -Path ("${WorkingDir}"); Explorer .;
 
 
 		# ------------------------------------------------------------

@@ -51,10 +51,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 		Write-Host "`n`n";
 		Write-Host "------------------------------------------------------------";
 		Write-Host "Querying VMWare's available SoftwarePackages (VIBs)";
+		$DepotOwner = "VMware";
 		$UrlEsxDepot_VMware = "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml";
 		Add-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  # Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session
-		Get-EsxSoftwarePackage | Sort-Object "Name" | Format-Table > "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.VMware.log";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
-		Get-EsxSoftwarePackage | Sort-Object "Name" | Format-List > "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.VMware.verbose.log";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
+		$LogFile = "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.${DepotOwner}.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
+		$LogFile = "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.Verbose.${DepotOwner}.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
 		Remove-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  # Disconnects the current PowerCLI session from the specified software depot(s)
 		Write-Host "`n`n";
 
@@ -62,10 +63,11 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 		Write-Host "`n`n";
 		Write-Host "------------------------------------------------------------";
 		Write-Host "Querying V-Front's available SoftwarePackages (VIBs)";
+		$DepotOwner = "V-Front";
 		$UrlEsxDepot_VFront = "https://vibsdepot.v-front.de/";  # also available in frontend list-format @  [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ]
 		Add-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  # Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session
-		Get-EsxSoftwarePackage | Sort-Object "Name" | Format-Table > "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.V-Front.log";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
-		Get-EsxSoftwarePackage | Sort-Object "Name" | Format-List > "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.V-Front.verbose.log";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
+		$LogFile = "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.${DepotOwner}.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
+		$LogFile = "${Home}\Desktop\ESXi.SoftwarePackages_VIBs.Verbose.${DepotOwner}.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  # Returns a list of SoftwarePackage (VIB) objects from connected depot(s)
 		Remove-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  # Disconnects the current PowerCLI session from the specified software depot(s)
 		Write-Host "`n`n";
 

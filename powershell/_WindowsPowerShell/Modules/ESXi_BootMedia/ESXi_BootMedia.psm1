@@ -49,6 +49,10 @@ Function ESXi_BootMedia() {
 
 		# Download the latest ESXi-Customizer-PS PowerShell script-file
 		Set-Location -Path ("${WorkingDir}"); New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
+		
+		$Array_VibDepos = @();
+		$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	# VMware Depot
+		$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
 
 		# ------------------------------------------------------------
 		If ($PSBoundParameters.ContainsKey('AllDrivers')) {
@@ -56,25 +60,27 @@ Function ESXi_BootMedia() {
 			Write-Host "`n`n";
 			Write-Host "------------------------------------------------------------";
 			Write-Host "Searching available ESXi Software Packages for '.vib' extensioned driver-files";
-			#  VMware Depot
-			Add-EsxSoftwareDepot ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
-			#  V-Front Depot
-			Add-EsxSoftwareDepot = ("https://vibsdepot.v-front.de/index.xml");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+			Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+			Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 			# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
 			$Vibs = (Get-EsxSoftwarePackage);
-			$VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
-			$VibNames_CommaSeparated=([String]$VibNames).Replace(" ",",");
-			Write-Host "";
-			Write-Host "`$VibNames = [ ${VibNames} ]";
-			Write-Host "";
-			Write-Host "`$VibNames_CommaSeparated = [ ${VibNames_CommaSeparated} ]";
-			Write-Host "";
+			$Array_VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
+			# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
+			# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
+			# $VibNames_CommaSeparated=(([String]$Array_VibNames).Replace(" ",","));
+
 		} Else {
-			# Set a default, or 'common'. setting by-through which drivers are applied
-			$VibNames_CommaSeparated="net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell";
+			# Set a default, or 'common'. configuration by-through which drivers are applied
+			$Array_VibNames=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
+
 		}
+
+		Write-Host "";
+		Write-Host "`$Array_VibDepos = [ ${Array_VibDepos} ]";
+		Write-Host "";
+		Write-Host "`$Array_VibNames = [ ${Array_VibNames} ]";
+		Write-Host "";
+
 		# ------------------------------------------------------------
 		# Create the latest ESXi 6.5 ISO
 		#    -v65 : Create the latest ESXi 6.5 ISO

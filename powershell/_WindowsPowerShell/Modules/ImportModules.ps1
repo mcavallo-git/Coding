@@ -59,10 +59,10 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 }
 
 # ------------------------------------------------------------
-# Install the "NuGet PowerShell Gallery" package provider, which is a cloud repository containing PowerShell modules - similar to adding a package-repo in Debian or RHEL
-If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
-	Install-PackageProvider -Name ("NuGet") -Force;
-}
+# Install the "NuGet PowerShell Gallery" package provider
+# If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
+# 	Install-PackageProvider -Name ("NuGet") -Force;
+# }
 
 # Instantiate the array of PowerShell modules to pull from available package providers
 $PSGalleryModules = @();

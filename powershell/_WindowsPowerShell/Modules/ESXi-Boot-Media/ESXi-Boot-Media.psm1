@@ -1,11 +1,11 @@
 #
-#	PowerShell - ESXi-Boot-Media
+#	PowerShell - ESXi_BootMedia
 #		|
 #		|--> Description:  Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
 #		|
-#		|--> Example:     PowerShell -Command ("ESXi-Boot-Media")
+#		|--> Example:     PowerShell -Command ("ESXi_BootMedia")
 #
-Function ESXi-Boot-Media() {
+Function ESXi_BootMedia() {
 	Param(
 		[Switch]$Quiet,
 		[Switch]$Pull
@@ -35,7 +35,7 @@ Function ESXi-Boot-Media() {
 		$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
 
 		# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
-		$WorkingDir = "${Home}\Desktop\ESXi-Boot-Media_${StartTimestamp}";
+		$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
 		New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
 		Set-Location -Path ("${WorkingDir}");
 
@@ -104,8 +104,8 @@ Function ESXi-Boot-Media() {
 	}
 
 }
-Export-ModuleMember -Function "ESXi-Boot-Media";
-# Install-Module -Name "ESXi-Boot-Media"
+Export-ModuleMember -Function "ESXi_BootMedia";
+# Install-Module -Name "ESXi_BootMedia"
 
 
 # ------------------------------------------------------------

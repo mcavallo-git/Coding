@@ -59,10 +59,10 @@ Function ESXi-Boot-Media() {
 		Explorer .;
 
 		If ($False) {
-			# Inspection/Debugging: Manually search the package (.vibs) depots
+			# Inspection/Debugging: Manually search the package (.vibs) depots for available ESXi hardware drivers
 
 			<# ------------------------------------------------------------ #> `
-			<# VMware's Vibs Depot #> `
+			<# VMware #> `
 			Write-Host "`n`n"; `
 			Write-Host "------------------------------------------------------------"; `
 			Write-Host "Querying VMWare's available SoftwarePackages (VIBs)"; `
@@ -74,7 +74,7 @@ Function ESXi-Boot-Media() {
 			Remove-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  <# Disconnects the current PowerCLI session from the specified software depot(s) #> `
 			Write-Host "`n`n"; `
 			<# ------------------------------------------------------------ #> `
-			<# V-Front's Vibs Depot #> `
+			<# V-Front #> `
 			Write-Host "`n`n";
 			Write-Host "------------------------------------------------------------";
 			Write-Host "Querying V-Front's available SoftwarePackages (VIBs)";
@@ -86,6 +86,11 @@ Function ESXi-Boot-Media() {
 			Remove-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  <# Disconnects the current PowerCLI session from the specified software depot(s) #> `
 			Write-Host "`n`n"; `
 			<# ------------------------------------------------------------ #>
+			<# List all the packages by-name (sorted) in all depos #> `
+			If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	 Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #> }; `
+			Add-EsxSoftwareDepot ("https://vibsdepot.v-front.de/"); `
+			Add-EsxSoftwareDepot ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); `
+			(Get-EsxSoftwarePackage | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name > "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.UniqueVibs.log";
 
 		}
 

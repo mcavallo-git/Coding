@@ -1,8 +1,8 @@
 #
-#	PowerShell - NET-Framework-Check
+#	PowerShell - Net Framework checking & Ice Cold Coca Cola
 #		Query the registry to check for installed versions of .NET Framework
 #
-function NET-Framework-Check {
+function NET_Framework_Check {
 	Param(
 
 		[String]$MainVersion = 4,
@@ -141,8 +141,9 @@ function NET-Framework-Check {
 	}
 
 	Return;
+
 }
-Export-ModuleMember -Function "NET-Framework-Check";
+Export-ModuleMember -Function "NET_Framework_Check";
 
 
 # ------------------------------------------------------------

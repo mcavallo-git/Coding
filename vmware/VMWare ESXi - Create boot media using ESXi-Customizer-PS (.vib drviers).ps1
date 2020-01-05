@@ -41,7 +41,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	# Create the latest ESXi 6.5 ISO
 	#    -v65 : Create the latest ESXi 6.5 ISO
 	#    -vft : connect the V-Front Online depot
-	#    -load : load additional packages from connected depots or Offline bundles
+	#    -load : load additional packages from connected depots or Offline bundles  (View packages @ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages )
 	.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
 
 	# Open the destination which the output .iso was saved-at
@@ -59,10 +59,12 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 #
 #   nucblog.net  |  "Installing ESXi on a Bean Canyon NUC – The NUC Blog"  |  https://nucblog.net/2018/11/installing-esxi-on-a-bean-canyon-nuc/
 #
-#   powershellgallery.com  |  "PowerShell Gallery | VMware.PowerCLI 11.5.0.14912921"  |  https://www.powershellgallery.com/packages/VMware.PowerCLI/11.5.0.14912921
-#
-#   vibsdepot.v-front.de  |  "ESXi-Customizer-PS"  |  https://www.v-front.de/p/esxi-customizer-ps.html
+#   vibsdepot.v-front.de  |  "List of currently available ESXi packages - V-Front VIBSDepot Wiki"  |  https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages
 #
 #   woshub.com  |  "Adding Third-Party Drivers into VMWare ESXi 6.7 ISO Image"  |  http://woshub.com/add-drivers-vmware-esxi-iso-image/#h2_3
+#
+#   www.powershellgallery.com  |  "PowerShell Gallery | VMware.PowerCLI 11.5.0.14912921"  |  https://www.powershellgallery.com/packages/VMware.PowerCLI/11.5.0.14912921
+#
+#   www.v-front.de  |  "VMware Front Experience: ESXi-Customizer-PS"  |  https://www.v-front.de/p/esxi-customizer-ps.html
 #
 # ------------------------------------------------------------

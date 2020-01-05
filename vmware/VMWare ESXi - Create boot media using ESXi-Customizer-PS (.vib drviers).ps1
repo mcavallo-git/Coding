@@ -41,7 +41,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	# Create the latest ESXi 6.5 ISO
 	#    -v65 : Create the latest ESXi 6.5 ISO
 	#    -vft : connect the V-Front Online depot
-	#    -load : load additional packages from connected depots or Offline bundles  (View packages @ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages )
+	#    -load : load additional packages from connected depots or Offline bundles  - view packages by using the "Get-EsxSoftwarePackage" cmdlet, or by searching within [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ]
 	.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load net-e1000e,net51-r8169,net55-r8168,esx-ui,sata-xahci,net51-sky2,esxcli-shell -outDir .
 
 	# Open the destination which the output .iso was saved-at

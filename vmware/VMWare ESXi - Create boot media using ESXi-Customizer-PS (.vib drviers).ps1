@@ -33,6 +33,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
 		Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;
 	}
+	Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
 	# Download and run the ESXi-Customizer
 	New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;

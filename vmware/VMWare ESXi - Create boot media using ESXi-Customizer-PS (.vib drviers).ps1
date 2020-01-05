@@ -15,7 +15,7 @@ New-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1") -Value (($(New-Object N
 #
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 	Write-Host "`nError - Admin PowerShell terminal required`n" -ForegroundColor "Red";
-	exit 1;
+	Wxit 1;
 
 } Else {
 
@@ -27,7 +27,7 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 	Set-Location -Path ("${WorkingDir}");
 
 	# PowerShell - Install the NuGet package manager
-	Install-PackageProvider -Name ("NuGet") -Force;
+	# Install-PackageProvider -Name ("NuGet") -Force;
 
 	# PowerShell - Install VMware PowerCLI module
 	If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
@@ -55,6 +55,8 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 # Citation(s)
 #
 #   code.vmware.com  |  "Inject a .VIB into a ESXi .ISO using ESXi-Customizer-PS"  |  https://code.vmware.com/forums/2530/vsphere-powercli#590922
+#
+#   nucblog.net  |  "Installing ESXi on a Bean Canyon NUC – The NUC Blog"  |  https://nucblog.net/2018/11/installing-esxi-on-a-bean-canyon-nuc/
 #
 #   powershellgallery.com  |  "PowerShell Gallery | VMware.PowerCLI 11.5.0.14912921"  |  https://www.powershellgallery.com/packages/VMware.PowerCLI/11.5.0.14912921
 #

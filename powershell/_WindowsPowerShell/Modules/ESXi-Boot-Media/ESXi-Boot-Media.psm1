@@ -69,28 +69,28 @@ Function ESXi-Boot-Media() {
 			$DepotOwner = "VMware"; `
 			$UrlEsxDepot_VMware = "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"; `
 			Add-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #> `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.${DepotOwner}_VibDepot.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.${DepotOwner}_VibDepot.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
+			$Vibs_VMware = (Get-EsxSoftwarePackage); `
+			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.${DepotOwner}_VibDepot.log"; ${Vibs_VMware} | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
+			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.${DepotOwner}_VibDepot.log"; ${Vibs_VMware} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
 			Remove-EsxSoftwareDepot ("${UrlEsxDepot_VMware}");  <# Disconnects the current PowerCLI session from the specified software depot(s) #> `
 			Write-Host "`n`n"; `
 			<# ------------------------------------------------------------ #> `
 			<# V-Front #> `
-			Write-Host "`n`n";
-			Write-Host "------------------------------------------------------------";
-			Write-Host "Querying V-Front's available SoftwarePackages (VIBs)";
-			$DepotOwner = "V-Front";
-			$UrlEsxDepot_VFront = "https://vibsdepot.v-front.de/";  <# also available in frontend list-format @  [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ] #> `
+			Write-Host "`n`n"; `
+			Write-Host "------------------------------------------------------------"; `
+			Write-Host "Querying V-Front's available SoftwarePackages (VIBs)"; `
+			$DepotOwner = "V-Front"; `
+			$UrlEsxDepot_VFront = "https://vibsdepot.v-front.de/index.xml";  <# also available in frontend list-format @  [ https://vibsdepot.v-front.de/wiki/index.php/List_of_currently_available_ESXi_packages ] #> `
 			Add-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #> `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.${DepotOwner}_VibDepot.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
-			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.${DepotOwner}_VibDepot.log"; Get-EsxSoftwarePackage | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
+			$Vibs_VFront = (Get-EsxSoftwarePackage); `
+			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.${DepotOwner}_VibDepot.log"; ${Vibs_VFront} | Sort-Object "Name" | Format-Table > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
+			$LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.${DepotOwner}_VibDepot.log"; ${Vibs_VFront} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";  <# Returns a list of SoftwarePackage (VIB) objects from connected depot(s) #> `
 			Remove-EsxSoftwareDepot ("${UrlEsxDepot_VFront}");  <# Disconnects the current PowerCLI session from the specified software depot(s) #> `
 			Write-Host "`n`n"; `
 			<# ------------------------------------------------------------ #>
-			<# List all the packages by-name (sorted) in all depos #> `
-			If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	 Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #> }; `
-			Add-EsxSoftwareDepot ("https://vibsdepot.v-front.de/"); `
-			Add-EsxSoftwareDepot ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); `
-			(Get-EsxSoftwarePackage | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name > "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.UniqueVibs.log";
+			<# Combine the lists of packages from all depots into (essentially) one massive driver library #> `
+			$All_Vibs = ($Vibs_VFront + $Vibs_VMware);
+			($All_Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
 
 		}
 

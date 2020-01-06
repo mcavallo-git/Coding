@@ -2,7 +2,7 @@
 
 
 ### [ VIA SSH ON NEW NODE ] Create the jenkins_ssh user on the new node as a sudoer (add to "sudo" usergroup & create "/etc/sudoers.d/jenkins_ssh" correctly)
-#>  env USER_NAME="jenkins_ssh" USER_GNAME="jenkins_ssh" USER_UID="750" USER_GID="750" USER_SHELL="/bin/false" ADD_USER_TO_SUDOERS="1" add_user;
+#>  env USER_NAME="jenkins_ssh" SET_SYSTEM_USER=1 ADD_USER_TO_SUDOERS="1" USER_SHELL="/bin/bash" add_user;
 
 
 

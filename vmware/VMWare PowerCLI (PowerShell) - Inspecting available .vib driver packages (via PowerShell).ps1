@@ -331,6 +331,8 @@ foreach ($vibFile in Get-Item $pkgDir\*.vib) {
 
 Get-EsxSoftwarePackage -PackageUrl "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/shim-libfcoe-9-2-2-0/VMW_bootbank_shim-libfcoe-9-2-2-0_6.7.0-0.0.8169922.vib"
 
+$file = "${Home}\Desktop\pkgDir\ESXi-Customizer-PS-v2.6.0.ps1";
+
 $tester = "${Home}\Desktop\pkgDir\pkgDir\_tester.vib";
 Get-Content -Path ${tester}
 

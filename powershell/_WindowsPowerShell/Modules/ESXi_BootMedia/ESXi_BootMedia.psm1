@@ -40,6 +40,8 @@ Function ESXi_BootMedia() {
 
 			# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
 			$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
+			$ExtraVibFilesDir = "${WorkingDir}\pkgDir";
+			$LogFilesDir = "${WorkingDir}\logs";
 
 			# PowerShell - Install VMware PowerCLI module
 			If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	
@@ -55,7 +57,7 @@ Function ESXi_BootMedia() {
 			# Download the latest ESXi-Customizer-PS PowerShell script-file
 			Set-Location -Path ("${WorkingDir}");
 			New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
-			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\logs") | Out-Null;
+			New-Item -ItemType ("Directory") -Path ("${LogFilesDir}") | Out-Null;
 
 			# ------------------------------------------------------------
 			### OUTPUT FROM  [ ${Home}\Desktop\ESXi-Customizer-PS-v2.6.0.ps1 -help ]
@@ -95,7 +97,7 @@ Function ESXi_BootMedia() {
 			#
 
 			Set-Location -Path ("${WorkingDir}");
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${WorkingDir}\logs\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
 
 			# ------------------------------------------------------------
 
@@ -108,7 +110,7 @@ Function ESXi_BootMedia() {
 				Write-Host "`n`n";
 				Write-Host "------------------------------------------------------------";
 
-				New-Item -ItemType ("Directory") -Path ("${WorkingDir}\pkgDir") | Out-Null;
+				New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;
 
 				Write-Host "";
 				Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"$($Array_VibDepos[0])`"";
@@ -228,12 +230,12 @@ Function ESXi_BootMedia() {
 				};
 
 				$VibNames_Valid = ($ValidExtraVibs | Sort-Object -Property Name -Unique).Name;
-				$VibNames_Valid > "${WorkingDir}\logs\VibNames_Valid.log";
-				$ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${WorkingDir}\logs\Verbose-ValidExtraVibs.log";
+				$VibNames_Valid > "${LogFilesDir}\VibNames_Valid.log";
+				$ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${LogFilesDir}\Verbose-ValidExtraVibs.log";
 
 				$VibNames_Ignored = ($IgnoredExtraVibs | Sort-Object -Property Name -Unique).Name;
-				$VibNames_Ignored > "${WorkingDir}\logs\VibNames_Ignored.log";
-				$IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${WorkingDir}\logs\Verbose-IgnoredExtraVibs.log";
+				$VibNames_Ignored > "${LogFilesDir}\VibNames_Ignored.log";
+				$IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${LogFilesDir}\Verbose-IgnoredExtraVibs.log";
 
 			}
 
@@ -254,19 +256,19 @@ Function ESXi_BootMedia() {
 			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"iso.fallback\.`"); ]  ...";
 			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("iso.fallback\.");
 
-			If (($VibNames_Valid -NE $Null) -And ((Test-Path -Path "${WorkingDir}\pkgDir") -Eq $True)) {
+			If (($VibNames_Valid -NE $Null) -And ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True)) {
 				$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
 					$SourceUrl = [String](($_.SourceUrls)[0]);
 					If ($SourceUrl -NE $Null) {
 						$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
-						$SourceUrl_LocalPath = "${WorkingDir}\pkgDir\${SourceUrl_Basename}";
+						$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
 						Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
 						New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
 					}
 				}
 				Write-Host "";
-				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${WorkingDir}\pkgDir`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${WorkingDir}\pkgDir" -load $VibNames_Valid -outDir (".");
+				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -load $VibNames_Valid -outDir (".");
 				# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 				# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
 				# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";

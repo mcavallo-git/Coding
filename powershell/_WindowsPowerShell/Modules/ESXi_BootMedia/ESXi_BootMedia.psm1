@@ -151,13 +151,15 @@ Function ESXi_BootMedia() {
 					}
 				};
 
+				New-Item -ItemType ("Directory") -Path ("${WorkingDir}\logs");
+
 				$VibNames_Valid = ($ValidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
-				$VibNames_Valid > "${WorkingDir}\VibNames_Valid.log";
-				$ValidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\Verbose-ValidExtraVibs.log";
+				$VibNames_Valid > "${WorkingDir}\logs\VibNames_Valid.log";
+				$ValidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\logs\Verbose-ValidExtraVibs.log";
 
 				$VibNames_Invalid = ($InvalidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
-				$VibNames_Invalid > "${WorkingDir}\VibNames_Invalid.log";
-				$InvalidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\Verbose-InvalidExtraVibs.log";
+				$VibNames_Invalid > "${WorkingDir}\logs\VibNames_Invalid.log";
+				$InvalidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\logs\Verbose-InvalidExtraVibs.log";
 
 			}
 

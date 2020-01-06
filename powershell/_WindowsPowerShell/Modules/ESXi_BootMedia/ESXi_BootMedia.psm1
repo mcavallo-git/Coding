@@ -270,12 +270,12 @@ Function ESXi_BootMedia() {
 					}
 					Set-Location -Path ("${WorkingDir}");
 					Write-Host "";
-					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -load $VibNames_Valid -outDir (".");
+					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
+					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 				} Else {
 					Set-Location -Path ("${WorkingDir}");
 					Write-Host "";
-					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
 					# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 					# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");

@@ -1,8 +1,14 @@
 #!/bin/bash
 
 
+### [ VIA SSH ON NEW NODE ] Sync all cloud_infrastructure modules
+#>  curl -ssL https://centos.sh | bash
+
+
+
 ### [ VIA SSH ON NEW NODE ] Create the jenkins_ssh user on the new node as a sudoer (add to "sudo" usergroup & create "/etc/sudoers.d/jenkins_ssh" correctly)
 #>  env USER_NAME="jenkins_ssh" SET_SYSTEM_USER=1 ADD_USER_TO_SUDOERS="1" USER_SHELL="/bin/bash" add_user;
+#>  env USER_NAME="mcavallo" USER_GNAME="mcavallo" USER_UID="1200" USER_GID="1200" ADD_USER_TO_SUDOERS="1" add_user;
 
 
 
@@ -27,7 +33,7 @@
 
 
 ### [ VIA SSH ON NEW NODE ] Install Docker
-#>  ## NEED STEPS TO INSTALL DOCKER, HERE ##
+#>  /
 
 
 

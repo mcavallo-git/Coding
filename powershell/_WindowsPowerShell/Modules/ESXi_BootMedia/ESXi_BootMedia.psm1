@@ -55,7 +55,7 @@ Function ESXi_BootMedia() {
 			New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
 			
 			$Array_VibDepos = @();
-			$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	# VMware Depot
+			$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware Depot #>
 
 			# ------------------------------------------------------------
 			If ($PSBoundParameters.ContainsKey('AllDrivers')) {
@@ -67,7 +67,7 @@ Function ESXi_BootMedia() {
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[0])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
-				$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
+				$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front Depot #>
 				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[1])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
@@ -78,7 +78,6 @@ Function ESXi_BootMedia() {
 				$Array_VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
-				# $VibNames_CommaSeparated=(([String]$Array_VibNames).Replace(" ",","));
 
 			} Else {
 				# Set a default, or 'common'. configuration by-through which drivers are applied

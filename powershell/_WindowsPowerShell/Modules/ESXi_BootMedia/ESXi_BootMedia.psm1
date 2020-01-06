@@ -8,17 +8,10 @@
 Function ESXi_BootMedia() {
 	Param(
 		[Switch]$AllDrivers,
-		[Switch]$Quiet,
-		[Switch]$Pull
+		[Switch]$Create,
+		[Switch]$Pull,
+		[Switch]$Quiet
 	)
-	
-	$CreateMedia = $True;
-
-	# If ($False) { # RUN THIS SCRIPT:
-	# Create ESXi boot media on-the-fly
-	# New-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/vmware/VMWare%20ESXi%20-%20Create%20boot%20media%20using%20ESXi-Customizer-PS%20(.vib%20drviers).ps1"))) -Force | Out-Null; PowerShell -NoProfile -ExecutionPolicy Bypass ("${Env:TEMP}\esxi-create-bootmedia.ps1"); Remove-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1");
-	# }
-
 	
 	# ------------------------------------------------------------
 	#
@@ -33,72 +26,84 @@ Function ESXi_BootMedia() {
 
 	} Else {
 
-		$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
-
-		# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
-		$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
-		New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
-		Set-Location -Path ("${WorkingDir}");
-
-		# PowerShell - Install VMware PowerCLI module
-		If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	
-			# Install-PackageProvider -Name ("NuGet") -Force;  <# PowerShell - Install the NuGet package manager #>
-			Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
+		$CreateMedia = $False;
+		If ($PSBoundParameters.ContainsKey('Create')) {
+			$CreateMedia = $True;
 		}
-		Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
-		# Download the latest ESXi-Customizer-PS PowerShell script-file
-		Set-Location -Path ("${WorkingDir}"); New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
-		
-		$Array_VibDepos = @();
-		$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	# VMware Depot
-		$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
-
-		# ------------------------------------------------------------
-		If ($PSBoundParameters.ContainsKey('AllDrivers')) {
-			# Search the package (.vibs) depots for available ESXi hardware drivers
-			Write-Host "`n`n";
-			Write-Host "------------------------------------------------------------";
-			Write-Host "Searching available ESXi Software Packages for '.vib' extensioned driver-files";
-			Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
-			Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
-			# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
-			$Vibs = (Get-EsxSoftwarePackage);
-			$Array_VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
-			# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
-			# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
-			# $VibNames_CommaSeparated=(([String]$Array_VibNames).Replace(" ",","));
+		If ($CreateMedia -Eq $False) {
+			Write-Host "Please call with  [ -Create ]  argument to create bootable .iso media";
 
 		} Else {
-			# Set a default, or 'common'. configuration by-through which drivers are applied
-			$Array_VibNames=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
+				
+			$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
+
+			# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
+			$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
+			Set-Location -Path ("${WorkingDir}");
+
+			# PowerShell - Install VMware PowerCLI module
+			If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	
+				# Install-PackageProvider -Name ("NuGet") -Force;  <# PowerShell - Install the NuGet package manager #>
+				Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
+			}
+			Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
+
+			# Download the latest ESXi-Customizer-PS PowerShell script-file
+			Set-Location -Path ("${WorkingDir}"); New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
+			
+			$Array_VibDepos = @();
+			$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	# VMware Depot
+			$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
+
+			# ------------------------------------------------------------
+			If ($PSBoundParameters.ContainsKey('AllDrivers')) {
+				# Search the package (.vibs) depots for available ESXi hardware drivers
+				Write-Host "`n`n";
+				Write-Host "------------------------------------------------------------";
+				Write-Host "Searching available ESXi Software Packages for '.vib' extensioned driver-files";
+				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+				# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
+				$Vibs = (Get-EsxSoftwarePackage);
+				$Array_VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
+				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
+				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
+				# $VibNames_CommaSeparated=(([String]$Array_VibNames).Replace(" ",","));
+
+			} Else {
+				# Set a default, or 'common'. configuration by-through which drivers are applied
+				$Array_VibNames=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
+
+			}
+
+			Write-Host "";
+			Write-Host "`$Array_VibDepos = [ ${Array_VibDepos} ]";
+			Write-Host "";
+			Write-Host "`$Array_VibNames = [ ${Array_VibNames} ]";
+			Write-Host "";
+
+			# ------------------------------------------------------------
+			# Create the latest ESXi 6.5 ISO
+			#    -v65 : Create the latest ESXi 6.5 ISO
+			#    -vft : connect the V-Front Online depot
+			#    -load : load additional packages from connected depots or Offline bundles
+			Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .
+
+
+			# Open the destination which the output .iso was saved-at
+			Set-Location -Path ("${WorkingDir}"); Explorer .;
+
+
+			# ------------------------------------------------------------
+			#	### "Press any key to continue..."
+			Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
+			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+
+			Return;
 
 		}
-
-		Write-Host "";
-		Write-Host "`$Array_VibDepos = [ ${Array_VibDepos} ]";
-		Write-Host "";
-		Write-Host "`$Array_VibNames = [ ${Array_VibNames} ]";
-		Write-Host "";
-
-		# ------------------------------------------------------------
-		# Create the latest ESXi 6.5 ISO
-		#    -v65 : Create the latest ESXi 6.5 ISO
-		#    -vft : connect the V-Front Online depot
-		#    -load : load additional packages from connected depots or Offline bundles
-		Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .
-
-
-		# Open the destination which the output .iso was saved-at
-		Set-Location -Path ("${WorkingDir}"); Explorer .;
-
-
-		# ------------------------------------------------------------
-		#	### "Press any key to continue..."
-		Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
-		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-
-		Return;
 
 	}
 

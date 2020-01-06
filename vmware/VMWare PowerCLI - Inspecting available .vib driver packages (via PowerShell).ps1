@@ -11,17 +11,33 @@ Write-Host "Searching available ESXi software packages (as .vib extensioned driv
 
 # ------------------------------------------------------------
 
+$Vibs
+
+# ------------------------------------------------------------
+
 $Vibs.Depends
+
+$Vibs.Depends | Select-Object -First 20
+
+$Vibs.Depends | Select-Object -First 20 | Where-Object { $_.Version -Eq $Null } 
+
+$Vibs.Depends | Where-Object { $_.Version -Eq $Null } | Select-Object -Property "Name"  -Unique
 
 $Vibs[0].Depends
 
 # ------------------------------------------------------------
 
+$Vibs.Name
+
+($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name
+
+# ------------------------------------------------------------
+
+$Vibs.Version
+
 ($Vibs | Where-Object { $_.Version -Like "6.5*" })[1]
 
 $Vibs | Where-Object { $_.Version -Like "6.5*" } | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name"
-
-($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name
 
 ($Vibs | Select-Object -Property "Version"  -Unique | Sort-Object -Property "Version").Version
 

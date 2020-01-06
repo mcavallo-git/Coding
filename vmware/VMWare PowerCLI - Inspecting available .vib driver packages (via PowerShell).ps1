@@ -56,25 +56,26 @@ $Vibs
 
 # Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 50
 
-Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 60
+# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 60
 
 
 
-Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Relation -Eq ">=" } | Select-Object -First 60
+# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Relation -Eq ">=" } | Select-Object -First 60
 
-Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
+# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
 
-$obj1 | Foreach-Object { 
-    $myobj1 = $_
-    $obj2 | Where-Object { $_ .... }
+# $obj1 | Foreach-Object { 
+#     $myobj1 = $_
+#     $obj2 | Where-Object { $_ .... }
+# }
+
+Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object {
+	(
+		$_.Relation.Version -match "bnx2x" -or
+		$_.Depends.Version -match "bnx2x" -or
+		$_.Description1 -match "be2net"
+	)
 }
-
-$data | Where-Object{
-  $_.Name -eq "$serverName.chrobinson.com" -and (
-     $_.Description1 -match "bnx2x" -or
-     $_.Description1 -match "be2net"
-  )
-} | Select-Object -expand version
 
 
 
@@ -86,6 +87,8 @@ $data | Where-Object{
 # ------------------------------------------------------------
 #
 #	Citation(s)
+#
+#   docs.microsoft.com  |  "about_Comparison_Operators - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
 #

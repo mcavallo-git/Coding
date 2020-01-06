@@ -164,11 +164,10 @@ Function ESXi_BootMedia() {
 
 				$Array_VibNames = ($ValidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
 
-			} Else {
-				# Set a default, or 'common'. configuration by-through which drivers are applied
-				$Array_VibNames=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
-
 			}
+
+			# Set a default, or 'common'. configuration by-through which drivers are applied
+			$FallbackArray_VibNames=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
 
 			# ------------------------------------------------------------
 			# Create the latest ESXi 6.5 ISO
@@ -179,9 +178,16 @@ Function ESXi_BootMedia() {
 			Write-Host "";
 			Write-Host "Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
 			Set-Location -Path ("${WorkingDir}");
+
 			Write-Host "";
 			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$Array_VibNames).Replace(' ',',')) -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${Array_VibNames} -outDir .;
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackArray_VibNames} -outDir .;
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackArray_VibNames} -outDir .;
+
+			Write-Host "";
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$Array_VibNames).Replace(' ',',')) -outDir .; ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -outDir .;
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${Array_VibNames} -outDir .;
 
 
 			# Open the destination which the output .iso was saved-at

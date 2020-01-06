@@ -164,42 +164,42 @@ ForEach ($EachVib in $Vibs) {
 		$PackageName = $Depends.PackageName;
 		$Relation = $Depends.Relation;
 		$Version = $Depends.Version;
-		If (@("esx-base","esx-update","esx-version").Contains ($PackageName)) {
+		If (@("esx-base","esx-update","esx-version").Contains($PackageName)) {
 			$ValidDependency = $False; <# Assume guilty until proven innocent #>
 			$EachVersionDecimal = [Decimal](($Version.Split('.') | Select-Object -First 2) -Join ".");
 			If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
 				<# Greater-Than Version #>
 				If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GT $EachVersionDecimal)) {
 					$ValidDependency = $True;
-				} ElseIf ($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GT ([Int]$EachVersionDecimal)) {
+				} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GT ([Int]$EachVersionDecimal))) {
 					$ValidDependency = $True;
 				}
 			} ElseIf ($Relation -Eq ">=") {
 				<# Greater-Than / Equal-To Version #>
 				If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GE $EachVersionDecimal)) {
 					$ValidDependency = $True;
-				} ElseIf ($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GE ([Int]$EachVersionDecimal)) {
+				} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GE ([Int]$EachVersionDecimal))) {
 					$ValidDependency = $True;
 				}
 			} ElseIf ($Relation -Eq "=") {
 				<# Equals Version #>
 				If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -Eq $EachVersionDecimal)) {
 					$ValidDependency = $True;
-				} ElseIf ($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal)) {
+				} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal))) {
 					$ValidDependency = $True;
 				}
 			} ElseIf ($Relation -Eq "<=") {
 				<# Less-Than / Equal-To Version #>
 				If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LE $EachVersionDecimal)) {
 					$ValidDependency = $True;
-				} ElseIf ($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LE ([Int]$EachVersionDecimal)) {
+				} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LE ([Int]$EachVersionDecimal))) {
 					$ValidDependency = $True;
 				}
 			} ElseIf (($Relation -Eq "<") -Or ($Relation -Eq "<<")) {
 				<# Less-Than Version #>
 				If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LT $EachVersionDecimal)) {
 					$ValidDependency = $True;
-				} ElseIf ($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal)) {
+				} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal))) {
 					$ValidDependency = $True;
 				}
 			} Else {

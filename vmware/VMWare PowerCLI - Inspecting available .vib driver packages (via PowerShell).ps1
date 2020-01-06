@@ -54,17 +54,27 @@ $Vibs
 
 # $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq "<=") } | Select-Object -Property Name,Depends | Select-Object -First 20
 
-# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 20
+# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 50
 
-Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 20
-
-
-
-
-$obj1 | ForEach-Object { $_ | Where-Object { $_ .... }}
+Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 60
 
 
 
+Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Relation -Eq ">=" } | Select-Object -First 60
+
+Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
+
+$obj1 | Foreach-Object { 
+    $myobj1 = $_
+    $obj2 | Where-Object { $_ .... }
+}
+
+$data | Where-Object{
+  $_.Name -eq "$serverName.chrobinson.com" -and (
+     $_.Description1 -match "bnx2x" -or
+     $_.Description1 -match "be2net"
+  )
+} | Select-Object -expand version
 
 
 
@@ -80,5 +90,7 @@ $obj1 | ForEach-Object { $_ | Where-Object { $_ .... }}
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
 #
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
+#
+#   stackoverflow.com  |  "Where-object $_ matches multiple criterias"  |  https://stackoverflow.com/a/23896434
 #
 # ------------------------------------------------------------

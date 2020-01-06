@@ -206,7 +206,7 @@ Function ESXi_BootMedia() {
 			#
 			#
 			Set-Location -Path ("${WorkingDir}");
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${WorkingDir}\logs\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1 7>&1 8>&1;
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${WorkingDir}\logs\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
 			# ------------------------------------------------------------
 			### Create the latest ESXi 6.5 ISO
 

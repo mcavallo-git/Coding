@@ -215,11 +215,11 @@ ForEach ($EachVib in $Vibs) {
 	} Else {
 		$Vibs_Invalid += $EachVib;
 	}
-};
-Write-Host "------------------------------------------------------------";
-Write-Host "Vibs_Invalid:"; $Vibs_Invalid;
-Write-Host "------------------------------------------------------------";
-Write-Host "Vibs_Valid:"; $Vibs_Valid;
+}; `
+Write-Host "------------------------------------------------------------"; `
+Write-Host "Vibs_Invalid:"; $Vibs_Invalid; `
+Write-Host "------------------------------------------------------------"; `
+Write-Host "Vibs_Valid:"; $Vibs_Valid; `
 Write-Host "------------------------------------------------------------";
 
 

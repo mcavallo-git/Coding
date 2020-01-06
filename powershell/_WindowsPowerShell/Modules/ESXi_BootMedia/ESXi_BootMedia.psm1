@@ -63,7 +63,7 @@ Function ESXi_BootMedia() {
 				# Search the package (.vibs) depots for available ESXi hardware drivers
 				Write-Host "`n`n";
 				Write-Host "------------------------------------------------------------";
-				Write-Host "Searching available ESXi Software Packages for '.vib' extensioned driver-files";
+				Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
 				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 				# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #

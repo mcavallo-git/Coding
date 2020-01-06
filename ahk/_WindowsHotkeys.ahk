@@ -571,6 +571,8 @@ AppsKey::RWin
 ;  ACTION:  Turn computer volume up/down
 ;
 #MButton::
+#WheelUp::
+#WheelDown::
 ^#MButton::
 ^#WheelUp::
 ^#WheelDown::

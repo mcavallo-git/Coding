@@ -64,12 +64,12 @@ Function ESXi_BootMedia() {
 				Write-Host "------------------------------------------------------------";
 
 				Write-Host "";
-				Write-Host "Fetching available ESXi .vib drivers from depot @ `"$($Array_VibDepos[0])`"";
+				Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"$($Array_VibDepos[0])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
 				$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front Depot #>
 				Write-Host "";
-				Write-Host "Fetching available ESXi .vib drivers from depot @ `"$($Array_VibDepos[1])`"";
+				Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"$($Array_VibDepos[1])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
 				Write-Host "";
@@ -180,7 +180,7 @@ Function ESXi_BootMedia() {
 			Set-Location -Path ("${WorkingDir}");
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$Array_VibNames).Replace(' ',',')) -outDir .; ]  ...";
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackArray_VibNames).Replace(' ',',')) -outDir .; ]  ...";
 			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackArray_VibNames} -outDir .;
 			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackArray_VibNames} -outDir .;
 

@@ -310,7 +310,7 @@ $ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Nam
 		$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
 		$SourceUrl_LocalPath = "${WorkingDir}\pkgDir\${SourceUrl_Basename}";
 		Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
-		# New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+		New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
 	}
 }
 

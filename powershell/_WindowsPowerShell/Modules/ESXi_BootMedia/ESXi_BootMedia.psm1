@@ -136,10 +136,9 @@ Function ESXi_BootMedia() {
 					If ($Array_ESXiBaseDrivers.Contains($EachVib.Name)) {
 						$ValidVib = $False;
 						$PackageName = $EachVib.Name;
-						$Relation = $EachVib.Relation;
 						$Version = $EachVib.Version;
-						If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And ($Array_ESXiBaseDrivers.Contains($PackageName))) {
-							If ($Version.Split.Count -Eq 1) {
+						If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String")) {
+							If (($Version.Split(".")).Count -Eq 1) {
 								$MinorVersionSpecified = $False;
 							} Else {
 								$MinorVersionSpecified = $True;
@@ -166,7 +165,7 @@ Function ESXi_BootMedia() {
 								$Version = $Depends.Version;
 								If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And ($Array_ESXiBaseDrivers.Contains($PackageName))) {
 									$ValidDependency = $False; <# Assume guilty until proven innocent #>
-									If ($Version.Split.Count -Eq 1) {
+									If (($Version.Split(".")).Count -Eq 1) {
 										$MinorVersionSpecified = $False;
 									} Else {
 										$MinorVersionSpecified = $True;
@@ -175,6 +174,8 @@ Function ESXi_BootMedia() {
 									If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
 										<# Greater-Than Version #>
 										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GT $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($Array_ESXiBaseDrivers.Contains($EachVib.Name)) -And ($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GE $EachVersionDecimal)) {
 											$ValidDependency = $True;
 										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GT ([Int]$EachVersionDecimal))) {
 											$ValidDependency = $True;
@@ -203,6 +204,8 @@ Function ESXi_BootMedia() {
 									} ElseIf (($Relation -Eq "<") -Or ($Relation -Eq "<<")) {
 										<# Less-Than Version #>
 										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LT $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($Array_ESXiBaseDrivers.Contains($EachVib.Name)) -And ($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LE $EachVersionDecimal)) {
 											$ValidDependency = $True;
 										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal))) {
 											$ValidDependency = $True;

@@ -84,4 +84,6 @@ Get-ChildItem -Path "/" -Filter "gpg.exe" -File -Recurse -Force -ErrorAction "Si
 #
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #
+#   superuser.com  |  "Powershell to delete all files with a certain file extension"  |  https://superuser.com/a/1233722
+#
 # ------------------------------------------------------------

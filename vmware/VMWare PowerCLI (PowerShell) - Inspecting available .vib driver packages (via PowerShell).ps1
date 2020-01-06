@@ -246,11 +246,11 @@ ForEach ($EachVib in $Vibs) {
 };
 
 Write-Host "------------------------------------------------------------"; `
-Write-Host "Vibs_Invalid:"; $InvalidExtraVibs | Sort-Object -Property Name,Version; `
+Write-Host "Vibs_Invalid:"; $InvalidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False}; `
 Write-Host "------------------------------------------------------------";
 
 Write-Host "------------------------------------------------------------"; `
-Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,Version; `
+Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False}; `
 Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
 Write-Host "------------------------------------------------------------";
 

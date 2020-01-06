@@ -54,34 +54,128 @@ $Vibs
 
 # $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq "<=") } | Select-Object -Property Name,Depends | Select-Object -First 20
 
-# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 50
+# $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 50
 
-# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 60
+# $Vibs | Sort-Object -Property "Name" | Where-Object { ($_.Depends.Relation -Eq ">=") -And ($_.Depends.Version -NotLike "6.*") } | Select-Object -Property Name,Depends | Select-Object -First 60
 
+# $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Relation -Eq ">=" } | Select-Object -First 60
 
+# $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
 
-# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Relation -Eq ">=" } | Select-Object -First 60
+# $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends | ForEach-Object { $_ | Where-Object { (($_.Relation -Eq ">=") -And ($_.Version -Like "6.5*")) } } }
 
-# Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
+# ForEach ($EachVib in $Vibs) {
+# 	$EachDepends = ($EachVib.Depends | Where-Object { (($_.Relation -Eq ">=") -And ($_.Version -Like "6.5*")) });
+# 	Write-Host "EachDepends = [ ${EachDepends} ]";
+# };
 
-# $obj1 | Foreach-Object { 
-#     $myobj1 = $_
-#     $obj2 | Where-Object { $_ .... }
+# ForEach ($EachVib in $Vibs) {
+# 	$EachVib.Depends | Where-Object {
+# 		(($_.Relation -Ne $Null) -And ($_.Version -Ne $Null))
+# 	}
 # }
 
-Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object {
-	(
-		$_.Depends.Relation -Match ">=" -And
-		$_.Depends.Version -Match "bnx2x"
-	)
-}
-
-ForEach($item in $obj1){
-    $obj | Where-Object{$_.arg -eq $item.arg}
-}
+# Show $Vibs.Depends[0]
 
 
-Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
+# $MatchingVibs = @(); `
+# ForEach ($EachVib in $Vibs) {
+# 	$EachDepends = ($EachVib.Depends | Where-Object {
+# 		(
+# 			($_.PackageName -Eq "esx-base") -And (
+# 				(($_.Relation -Eq ">=") -And ($_.Version -Like "6.5*")) -Or
+# 				(($_.Relation -Eq "=") -And ($_.Version -Like "6.5*")) -Or
+# 				(($_.Relation -Eq "<=") -And ($_.Version -Like "6.5*"))
+# 		))
+# 	});
+# 	If ($EachDepends -Ne $Null) {
+# 		$MatchingVibs += $EachVib;
+# 	}
+# }; `
+# $MatchingVibs;
+
+
+# ($Vibs.Depends.Version) -Match "(^6\.[12345])|(^[12345]\.)"
+
+
+# $MatchingVibs = @(); `
+# ForEach ($EachVib in $Vibs) {
+# 	$AddVib = $True;
+# 	# ForEach ($EachDepends in $EachVib.Depends) {
+# 		$EachDepends = ($EachVib.Depends | Where-Object {
+# 			(
+# 				($_.PackageName -Eq "esx-base") -And (
+# 					(($_.Relation -Eq ">=") -And ($_.Version -Match "(^6(\.[12345])?)|(^[12345]\.?)")) -Or
+# 					(($_.Relation -Eq "=" ) -And ($_.Version -Match "(^6(\.5)?)")) -Or
+# 					(($_.Relation -Eq "<=") -And ($_.Version -NotMatch "(^6(\.[1234])?)|(^[12345]\.?)"))
+# 			))
+# 		});
+# 	# }
+# 	If ($EachDepends -Ne $Null) {
+# 		$MatchingVibs += $EachVib;
+# 	}
+# }; `
+# $MatchingVibs.Depends;
+
+
+# ForEach ($EachVib in $Vibs) {
+# 	$EachDepends = ($EachVib.Depends | Where-Object {
+# 		(($_.PackageName -Like "esx-*"))
+# 	});
+# 	If ($EachDepends -Ne $Null) {
+# 		$EachDepends
+# 	}
+# };
+
+
+# ForEach ($EachVib in $Vibs) {
+# 	$InvalidDependency = $False;
+# 	ForEach ($EachDepends in $EachVib.Depends) {
+# 		If (@("esx-base","esx-update","esx-version") -Contains ($EachDepends.PackageName)) {
+# 			If ($EachDepends.Relation -Eq ">=") {
+# 				# Greater-Than / Equal-To Version
+# 				If ($EachDepends.Version -Match "^6\.[6789]") {
+# 					$EachDepends;
+# 					$InvalidDependency = $True;
+# 				}
+# 			}
+# 		}
+# 	}
+# };
+
+
+$MatchingVibs = @(); `
+ForEach ($EachVib in $Vibs) {
+	$InvalidDependency = $False;
+	ForEach ($EachDepends in $EachVib.Depends) {
+		If (@("esx-base","esx-update","esx-version") -Contains ($EachDepends.PackageName)) {
+			If ($EachDepends.Relation -Eq ">=") {
+				# Greater-Than / Equal-To Version
+				If ($EachDepends.Version -Match "^6\.[6789]") {
+					$EachDepends;
+					$InvalidDependency = $True;
+				}
+			} Else If ($EachDepends.Relation -Eq "=") {
+				# Equals Version
+				If ($EachDepends.Version -Match "(^6(\.5)|$)") {
+					$EachDepends;
+					$InvalidDependency = $True;
+				}
+			} Else If ($EachDepends.Relation -Eq "<=") {
+				# Less-Than / Equal-To Version
+				If ($EachDepends.Version -Match "(^6(\.[1234])|$)|(^[12345](\.)|$)") {
+					$EachDepends;
+					$InvalidDependency = $True;
+				}
+			} Else {
+				$EachDepends.Relation;
+			}
+		}
+	}
+	If ($InvalidDependency -Eq $True) {
+		$MatchingVibs += $EachVib;
+	}
+};
 
 
 
@@ -99,6 +193,8 @@ Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForE
 #   docs.microsoft.com  |  "about_Logical_Operators - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logical_operators
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
+#
+#   stackoverflow.com  |  "How can check input value is in array or not in powershell"  |  https://stackoverflow.com/a/16965665
 #
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #

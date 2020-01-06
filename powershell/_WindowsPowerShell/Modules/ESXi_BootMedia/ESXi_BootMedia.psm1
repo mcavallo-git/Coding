@@ -169,10 +169,45 @@ Function ESXi_BootMedia() {
 			$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci");
 
 			# ------------------------------------------------------------
-			# Create the latest ESXi 6.5 ISO
-			#    -v65 : Create the latest ESXi 6.5 ISO
-			#    -vft : connect the V-Front Online depot
-			#    -load : load additional packages from connected depots or Offline bundles
+			### OUTPUT FROM  [ ${Home}\Desktop\ESXi-Customizer-PS-v2.6.0.ps1 -help ]
+			#
+			# This is ESXi-Customizer-PS Version 2.6.0 (visit https://ESXi-Customizer-PS.v-front.de for more information!)
+			#
+			# Usage:
+			#    ESXi-Customizer-PS [-help] | [-izip <bundle> [-update]] [-sip] [-v67|-v65|-v60|-v55|-v51|-v50]
+			#                                 [-ozip] [-pkgDir <dir>] [-outDir <dir>] [-vft] [-dpt depot1[,...]]
+			#                                 [-load vib1[,...]] [-remove vib1[,...]] [-log <file>] [-ipname <name>]
+			#                                 [-ipdesc <desc>] [-ipvendor <vendor>] [-nsc] [-test]
+			#
+			# Optional parameters:
+			#    -help              : display this help
+			#    -izip <bundle>     : use the VMware Offline bundle <bundle> as input instead of the Online depot
+			#    -update            : only with -izip, updates a local bundle with an ESXi patch from the VMware Online depot,
+			#                         combine this with the matching ESXi version selection switch
+			#    -pkgDir <dir>      : local directory of Offline bundles and/or VIB files to add (if any, no default)
+			#    -ozip              : output an Offline bundle instead of an installation ISO
+			#    -outDir <dir>      : directory to store the customized ISO or Offline bundle (the default is the
+			#                         script directory. If specified the log file will also be moved here.)
+			#    -vft               : connect the V-Front Online depot
+			#    -dpt depot1[,...]  : connect additional Online depots by URL or local Offline bundles by file name
+			#    -load vib1[,...]   : load additional packages from connected depots or Offline bundles
+			#    -remove vib1[,...] : remove named VIB packages from the custom Imageprofile
+			#    -sip               : select an Imageprofile from the current list
+			#                         (default = auto-select latest available standard profile)
+			#    -v67 | -v65 | -v60 |
+			#    -v55 | -v51 | -v50 : Use only ESXi 6.7/6.5/6.0/5.5/5.1/5.0 Imageprofiles as input, ignore other versions
+			#    -nsc               : use -NoSignatureCheck with export
+			#    -log <file>        : Use custom log file <file>
+			#    -ipname <name>
+			#    -ipdesc <desc>
+			#    -ipvendor <vendor> : provide a name, description and/or vendor for the customized
+			#                         Imageprofile (the default is derived from the cloned input Imageprofile)
+			#    -test              : skip package download and image build (for testing)
+			#
+			#
+			# ------------------------------------------------------------
+			### Create the latest ESXi 6.5 ISO
+
 			Write-Host "------------------------------------------------------------";
 			Write-Host "";
 			Write-Host "Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";

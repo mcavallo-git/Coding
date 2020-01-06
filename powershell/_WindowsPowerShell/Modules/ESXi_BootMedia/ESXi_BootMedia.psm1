@@ -40,8 +40,6 @@ Function ESXi_BootMedia() {
 
 			# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
 			$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
-			New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
-			Set-Location -Path ("${WorkingDir}");
 
 			# PowerShell - Install VMware PowerCLI module
 			If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	
@@ -50,10 +48,14 @@ Function ESXi_BootMedia() {
 			}
 			Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
+			Set-Location -Path ("${WorkingDir}");
+
 			# Download the latest ESXi-Customizer-PS PowerShell script-file
 			Set-Location -Path ("${WorkingDir}");
 			New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
-			
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\logs");
+
 			$Array_VibDepos = @();
 			$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware Depot #>
 
@@ -153,8 +155,6 @@ Function ESXi_BootMedia() {
 					}
 				};
 
-				New-Item -ItemType ("Directory") -Path ("${WorkingDir}\logs");
-
 				$VibNames_Valid = ($ValidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
 				$VibNames_Valid > "${WorkingDir}\logs\VibNames_Valid.log";
 				$ValidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\logs\Verbose-ValidExtraVibs.log";
@@ -205,6 +205,8 @@ Function ESXi_BootMedia() {
 			#    -test              : skip package download and image build (for testing)
 			#
 			#
+			Set-Location -Path ("${WorkingDir}");
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -help > "${WorkingDir}\logs\ESXi-Customizer-PS-v2.6.0.ps1 -help.log");
 			# ------------------------------------------------------------
 			### Create the latest ESXi 6.5 ISO
 

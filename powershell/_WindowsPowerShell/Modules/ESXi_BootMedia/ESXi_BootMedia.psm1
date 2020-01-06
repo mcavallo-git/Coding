@@ -91,8 +91,8 @@ Function ESXi_BootMedia() {
 			Write-Host "------------------------------------------------------------";
 			Write-Host "";
 			Set-Location -Path ("${WorkingDir}");
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -dpt ${Array_VibDepos} -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -dpt ${Array_VibDepos} -outDir .;
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$Array_VibNames).Replace(' ',',')) -outDir .; ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${Array_VibNames} -outDir .;
 
 
 			# Open the destination which the output .iso was saved-at

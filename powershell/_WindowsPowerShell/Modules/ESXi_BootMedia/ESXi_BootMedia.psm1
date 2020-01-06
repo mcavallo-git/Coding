@@ -76,9 +76,6 @@ Function ESXi_BootMedia() {
 				Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
 				$Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
 
-				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
-				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
-
 				$ValidExtraVibs = @(); `
 				$InvalidExtraVibs = @(); `
 				$ESXiVersion = "6.5"; `
@@ -154,20 +151,18 @@ Function ESXi_BootMedia() {
 					}
 				};
 
-				Write-Host "------------------------------------------------------------"; `
-				Write-Host "Vibs_Invalid:"; $InvalidExtraVibs | Sort-Object -Property Name,Version; `
-				Write-Host "------------------------------------------------------------";
+				$VibNames_Valid = ($ValidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
+				$VibNames_Valid > "${Home}\Desktop\VibNames_Valid.log";
+				$ValidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${Home}\Desktop\Verbose-ValidExtraVibs.log";
 
-				Write-Host "------------------------------------------------------------"; `
-				Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,Version; `
-				Write-Host "------------------------------------------------------------";
-
-				$Array_VibNames = ($ValidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
+				$VibNames_Invalid = ($InvalidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
+				$VibNames_Invalid > "${Home}\Desktop\VibNames_Invalid.log";
+				$InvalidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${Home}\Desktop\Verbose-ValidExtraVibs.log";
 
 			}
 
 			# Set a default, or 'common'. configuration by-through which drivers are applied
-			$FallbackArray_VibNames=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
+			$FallbackVibNames_Valid=@("net-e1000e","net51-r8169","net55-r8168","esx-ui","sata-xahci","net51-sky2","esxcli-shell");
 
 			# ------------------------------------------------------------
 			# Create the latest ESXi 6.5 ISO
@@ -180,14 +175,14 @@ Function ESXi_BootMedia() {
 			Set-Location -Path ("${WorkingDir}");
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackArray_VibNames).Replace(' ',',')) -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackArray_VibNames} -outDir .;
-			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackArray_VibNames} -outDir .;
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir .; ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir .;
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} -outDir .;
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$Array_VibNames).Replace(' ',',')) -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -outDir .;
-			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${Array_VibNames} -outDir .;
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir .; ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir .;
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir .;
 
 
 			# Open the destination which the output .iso was saved-at

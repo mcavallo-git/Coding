@@ -152,6 +152,9 @@ $Vibs
 # $Version="6"; [Decimal](($Version.Split('.') | Select-Object -First 2) -Join ".");
 # $Version=""; [Decimal](($Version.Split('.') | Select-Object -First 2) -Join ".");
 
+"5.0esx-base" -Split '[\D]+'
+"5.0esx-base" -Split '^([\d\.]+)' -Split '\.',1
+"6.7.2esx-base" -Split '^([\d\.]+)' -Split '\.',1
 
 $Vibs_Valid = @(); `
 $Vibs_Invalid = @(); `
@@ -171,7 +174,7 @@ ForEach ($EachVib in $Vibs) {
 			} Else {
 				$MinorVersionSpecified = $True;
 			}
-			$EachVersionDecimal = [Decimal](($Version.Split('.') | Select-Object -First 2) -Join ".");
+			$EachVersionDecimal = [Decimal]((($Version.Split(' ') | Select-Object -First 1).Split('.') | Select-Object -First 2) -Join ".");
 			If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
 				<# Greater-Than Version #>
 				If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GT $EachVersionDecimal)) {
@@ -242,11 +245,15 @@ Write-Host "------------------------------------------------------------";
 #
 #   docs.microsoft.com  |  "about_Logical_Operators - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logical_operators
 #
+#   docs.microsoft.com  |  "about_Split - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_split
+#
 #   docs.microsoft.com  |  "About numeric literals - PowerShell - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
 #
 #   stackoverflow.com  |  "How can check input value is in array or not in powershell"  |  https://stackoverflow.com/a/16965665
+#
+#   stackoverflow.com  |  "Substring to Get Text after Second Period in Powershell"  |  https://stackoverflow.com/a/27514227
 #
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #

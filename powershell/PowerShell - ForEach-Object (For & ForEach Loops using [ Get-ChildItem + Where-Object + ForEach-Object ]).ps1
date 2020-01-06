@@ -84,6 +84,8 @@ Get-ChildItem -Path "/" -Filter "gpg.exe" -File -Recurse -Force -ErrorAction "Si
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
 #
+#   social.technet.microsoft.com  |  "sort-object multiple properties - use descending first RRS feed"  |  https://social.technet.microsoft.com/Forums/windowsserver/en-US/e2067689-d28b-4455-9a05-d933e31ab311/sortobject-multiple-properties-use-descending-first?forum=winserverpowershell
+#
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #
 #   superuser.com  |  "Powershell to delete all files with a certain file extension"  |  https://superuser.com/a/1233722

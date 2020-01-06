@@ -266,10 +266,16 @@ Function ESXi_BootMedia() {
 							$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
 							$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
 							Write-Host "";
-							Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
-							New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+							Write-Host "Setting download-path for .vib package @ url `"${SourceUrl}`"";
+							New-Item -Path "${SourceUrl_LocalPath}" -Value ("${SourceUrl}") -Force | Out-Null;
+							# New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
 						}
 					}
+					<# Fix .vib attachments in customizer #>
+					$regex = 'Get-EsxSoftwarePackage -PackageUrl \$vibFile -ErrorAction SilentlyContinue';
+					$replacement = "Get-EsxSoftwarePackage -PackageUrl `$(Get-Content `$vibFile) -ErrorAction SilentlyContinue";
+					(Get-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1";
+
 					Set-Location -Path ("${WorkingDir}");
 					Write-Host "";
 					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";

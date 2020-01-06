@@ -46,7 +46,7 @@ $Vibs
 
 # ($Vibs | Where-Object { $_.Depends.Version -Eq $Null } | Sort-Object -Property "Name").Depends.Version
 
-$Vibs.Depends | Select-Object -Property Name,Depends | Select-Object -First 20
+$Vibs | Select-Object -Property Name,Depends | Select-Object -First 20
 
 
 # ------------------------------------------------------------

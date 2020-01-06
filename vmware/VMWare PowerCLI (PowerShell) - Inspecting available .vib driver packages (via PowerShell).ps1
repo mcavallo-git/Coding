@@ -313,8 +313,37 @@ $ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Nam
 		New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
 	}
 }
+# ------------------------------------------------------------
 
+$pkgDir = "${Home}\Desktop\pkgDir\pkgDir";
 
+foreach ($vibFile in Get-Item $pkgDir\*.vib) {
+	write-host -nonewline "   Loading" $vibFile ...
+	try {
+			$vib1 = Get-EsxSoftwarePackage -PackageUrl $vibFile -ErrorAction SilentlyContinue
+			write-host -ForegroundColor Green " [OK]"
+			write-host -nonewline "      Add VIB" $vib1.Name $vib1.Version
+			AddVIB2Profile $vib1
+	} catch {
+			write-host -ForegroundColor Red " [FAILED]`n      Probably not a valid VIB file, ignoring."
+	}
+}
+
+Get-EsxSoftwarePackage -PackageUrl "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/shim-libfcoe-9-2-2-0/VMW_bootbank_shim-libfcoe-9-2-2-0_6.7.0-0.0.8169922.vib"
+
+$tester = "${Home}\Desktop\pkgDir\pkgDir\_tester.vib";
+Get-Content -Path ${tester}
+
+$regex = 'Get-EsxSoftwarePackage -PackageUrl \$vibFile -ErrorAction SilentlyContinue';
+(Get-Content $file) -Match $regex
+
+(Get-Content $file) -Match "Get-EsxSoftwarePackage"
+
+$regex = 'Get-EsxSoftwarePackage -PackageUrl \$vibFile -ErrorAction SilentlyContinue';
+$replacement = "Get-EsxSoftwarePackage -PackageUrl `$(Get-Content `$vibFile) -ErrorAction SilentlyContinue";
+((Get-Content $file) -Replace $regex, $replacement) -Match "Get-EsxSoftwarePackage"
+
+(Get-Content $file) -Replace $regex, $replacement | Set-Content $file
 
 
 # ------------------------------------------------------------
@@ -339,12 +368,14 @@ $ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Nam
 #
 #   social.technet.microsoft.com  |  "sort-object multiple properties - use descending first RRS feed"  |  https://social.technet.microsoft.com/Forums/windowsserver/en-US/e2067689-d28b-4455-9a05-d933e31ab311/sortobject-multiple-properties-use-descending-first?forum=winserverpowershell
 #
-#   stackoverflow.com  |  "select distinct items from a column in powershell"  |  https://stackoverflow.com/a/8439487
-#
 #   stackoverflow.com  |  "How can check input value is in array or not in powershell"  |  https://stackoverflow.com/a/16965665
 #
-#   stackoverflow.com  |  "Substring to Get Text after Second Period in Powershell"  |  https://stackoverflow.com/a/27514227
+#   stackoverflow.com  |  "How do I replace a line in a file using PowerShell?"  |  https://stackoverflow.com/a/40679794
 #
+#   stackoverflow.com  |  "select distinct items from a column in powershell"  |  https://stackoverflow.com/a/8439487
+#
+#   stackoverflow.com  |  "Substring to Get Text after Second Period in Powershell"  |  https://stackoverflow.com/a/27514227
+#	
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #
 #   stackoverflow.com  |  "Where-object $_ matches multiple criterias"  |  https://stackoverflow.com/a/23896434

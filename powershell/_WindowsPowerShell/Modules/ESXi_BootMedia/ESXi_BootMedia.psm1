@@ -120,7 +120,7 @@ Export-ModuleMember -Function "ESXi_BootMedia";
 #
 ### Check installed VIBs (on an ESXi host via SSH)
 #
-#   esxcli software vib list;
+#   esxcli software vib list > "~/esxcli-software-vib-list.$(date +'%Y%m%d_%H%M%S').log";
 #
 #
 # ------------------------------------------------------------

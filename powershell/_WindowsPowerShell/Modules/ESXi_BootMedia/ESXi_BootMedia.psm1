@@ -157,7 +157,7 @@ Function ESXi_BootMedia() {
 
 				$VibNames_Invalid = ($InvalidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
 				$VibNames_Invalid > "${WorkingDir}\VibNames_Invalid.log";
-				$InvalidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\Verbose-ValidExtraVibs.log";
+				$InvalidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\Verbose-InvalidExtraVibs.log";
 
 			}
 

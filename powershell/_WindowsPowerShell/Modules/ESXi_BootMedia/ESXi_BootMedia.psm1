@@ -76,6 +76,7 @@ Function ESXi_BootMedia() {
 				Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
 				$Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
 				$Array_VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
+
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
 

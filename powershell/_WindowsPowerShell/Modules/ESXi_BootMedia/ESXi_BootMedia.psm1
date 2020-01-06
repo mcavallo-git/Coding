@@ -51,7 +51,8 @@ Function ESXi_BootMedia() {
 			Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
 			# Download the latest ESXi-Customizer-PS PowerShell script-file
-			Set-Location -Path ("${WorkingDir}"); New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
+			Set-Location -Path ("${WorkingDir}");
+			New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
 			
 			$Array_VibDepos = @();
 			$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	# VMware Depot
@@ -89,11 +90,14 @@ Function ESXi_BootMedia() {
 			#    -v65 : Create the latest ESXi 6.5 ISO
 			#    -vft : connect the V-Front Online depot
 			#    -load : load additional packages from connected depots or Offline bundles
-			Set-Location -Path ("${WorkingDir}"); .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .
+			Set-Location -Path ("${WorkingDir}");
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .; ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .;
 
 
 			# Open the destination which the output .iso was saved-at
-			Set-Location -Path ("${WorkingDir}"); Explorer .;
+			Set-Location -Path ("${WorkingDir}");
+			Explorer .;
 
 
 			# ------------------------------------------------------------

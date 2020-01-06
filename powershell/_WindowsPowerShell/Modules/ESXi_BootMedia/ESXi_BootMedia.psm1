@@ -115,6 +115,11 @@ Function ESXi_BootMedia() {
 Export-ModuleMember -Function "ESXi_BootMedia";
 # Install-Module -Name "ESXi_BootMedia"
 
+###
+### Check installed VIBs (on an ESXi host via SSH)
+###
+# esxcli software vib list;
+
 
 # ------------------------------------------------------------
 #

@@ -92,10 +92,10 @@ Function ESXi_BootMedia() {
 			#                         Imageprofile (the default is derived from the cloned input Imageprofile)
 			#    -test              : skip package download and image build (for testing)
 			#
+
 			Set-Location -Path ("${WorkingDir}");
 			.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${WorkingDir}\logs\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
-			#
-			#
+
 			# ------------------------------------------------------------
 
 			$Array_VibDepos = @();

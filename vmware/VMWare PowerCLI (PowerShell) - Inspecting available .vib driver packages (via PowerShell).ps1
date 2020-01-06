@@ -168,113 +168,121 @@ $Vibs
 
 
 
-$ValidExtraVibs = @(); `
-$IgnoredExtraVibs = @(); `
-$ESXiVersion = "6.5"; `
-$ESXiVersionDecimal = [Decimal]((($ESXiVersion -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
-$Array_ESXiBaseDrivers = @("esx-base","esx-dvfilter-generic-fastpath","esx-tboot","esx-tools-for-esxi","esx-update","esx-version","esx-xlibs","esx-xserver");
-$Array_ESXiSkipDrivers = @("esx-tools-for-esxi");
-$Array_AcceptanceLevels = @("VMwareCertified","VMwareAccepted","PartnerSupported","CommunitySupported");
-ForEach ($EachVib in $Vibs) {
-	$ValidVib = $True;
-	If ($Array_ESXiBaseDrivers.Contains($EachVib.Name)) {
-		$ValidVib = $False;
-		$PackageName = $EachVib.Name;
-		$Relation = $EachVib.Relation;
-		$Version = $EachVib.Version;
-		If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And ($Array_ESXiBaseDrivers.Contains($PackageName))) {
-			If ($Version.Split.Count -Eq 1) {
-				$MinorVersionSpecified = $False;
-			} Else {
-				$MinorVersionSpecified = $True;
-			}
-			$EachVersionDecimal = [Decimal]((($Version -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join ".");
-			<# Equal Version #>
-			If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -Eq $EachVersionDecimal)) {
-				$ValidVib = $True;
-			} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal))) {
-				$ValidVib = $True;
-			}
-		}
-	}
-	If ($ValidVib -Eq $True) {
-		If ($EachVib.AcceptanceLevel -NE "VMwareCertified") {
-			$ValidVib = $False;
-		} ElseIf ($Array_ESXiSkipDrivers.Contains($EachVib.Name)) {
-			$ValidVib = $False;
-		} Else {
-			ForEach ($Depends in $EachVib.Depends) {
-				$ValidDependency = $True;
-				$PackageName = $Depends.PackageName;
-				$Relation = $Depends.Relation;
-				$Version = $Depends.Version;
-				If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And ($Array_ESXiBaseDrivers.Contains($PackageName))) {
-					$ValidDependency = $False; <# Assume guilty until proven innocent #>
-					If ($Version.Split.Count -Eq 1) {
-						$MinorVersionSpecified = $False;
+
+
+
+
+				$ValidExtraVibs = @(); `
+				$IgnoredExtraVibs = @(); `
+				$ESXiVersion = "6.5"; `
+				$ESXiVersionDecimal = [Decimal]((($ESXiVersion -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
+				$Array_ESXiBaseDrivers = @("esx-base","esx-dvfilter-generic-fastpath","esx-tboot","esx-tools-for-esxi","esx-update","esx-version","esx-xlibs","esx-xserver","tools-light");
+				$Array_ESXiSkipDrivers = @("esx-tools-for-esxi");
+				$Array_AcceptanceLevels = @("VMwareCertified","VMwareAccepted","PartnerSupported","CommunitySupported");
+				ForEach ($EachVib in $Vibs) {
+					$ValidVib = $True;
+					If ($Array_ESXiBaseDrivers.Contains($EachVib.Name)) {
+						$ValidVib = $False;
+						$PackageName = $EachVib.Name;
+						$Version = $EachVib.Version;
+						If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String")) {
+							If (($Version.Split(".")).Count -Eq 1) {
+								$MinorVersionSpecified = $False;
+							} Else {
+								$MinorVersionSpecified = $True;
+							}
+							$EachVersionDecimal = [Decimal]((($Version -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join ".");
+							<# Equal Version #>
+							If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -Eq $EachVersionDecimal)) {
+								$ValidVib = $True;
+							} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal))) {
+								$ValidVib = $True;
+							}
+						}
+					}
+					If ($ValidVib -Eq $True) {
+						If ($EachVib.AcceptanceLevel -NE "VMwareCertified") {
+							$ValidVib = $False;
+						} ElseIf ($Array_ESXiSkipDrivers.Contains($EachVib.Name)) {
+							$ValidVib = $False;
+						} Else {
+							ForEach ($Depends in $EachVib.Depends) {
+								$ValidDependency = $True;
+								$PackageName = $Depends.PackageName;
+								$Relation = $Depends.Relation;
+								$Version = $Depends.Version;
+								If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And ($Array_ESXiBaseDrivers.Contains($PackageName))) {
+									$ValidDependency = $False; <# Assume guilty until proven innocent #>
+									If (($Version.Split(".")).Count -Eq 1) {
+										$MinorVersionSpecified = $False;
+									} Else {
+										$MinorVersionSpecified = $True;
+									}
+									$EachVersionDecimal = [Decimal]((($Version -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
+									If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
+										<# Greater-Than Version #>
+										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GT $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($Array_ESXiBaseDrivers.Contains($EachVib.Name)) -And ($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GE $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GT ([Int]$EachVersionDecimal))) {
+											$ValidDependency = $True;
+										}
+									} ElseIf ($Relation -Eq ">=") {
+										<# Greater-Than / Equal-To Version #>
+										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GE $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GE ([Int]$EachVersionDecimal))) {
+											$ValidDependency = $True;
+										}
+									} ElseIf ($Relation -Eq "=") {
+										<# Equals Version #>
+										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -Eq $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal))) {
+											$ValidDependency = $True;
+										}
+									} ElseIf ($Relation -Eq "<=") {
+										<# Less-Than / Equal-To Version #>
+										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LE $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LE ([Int]$EachVersionDecimal))) {
+											$ValidDependency = $True;
+										}
+									} ElseIf (($Relation -Eq "<") -Or ($Relation -Eq "<<")) {
+										<# Less-Than Version #>
+										If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LT $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($Array_ESXiBaseDrivers.Contains($EachVib.Name)) -And ($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LE $EachVersionDecimal)) {
+											$ValidDependency = $True;
+										} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal))) {
+											$ValidDependency = $True;
+										}
+									} ElseIf ($Depends.Relation -NE $Null) {
+										Write-Host "Unhandled .vib dependency-relation: "; $Relation; <# Output Un-handled Relations #>
+									}
+								}
+								If ($ValidDependency -Eq $False) {
+									$ValidVib = $False;
+								}
+							}
+						}
+					}
+					If ($ValidVib -Eq $True) {
+						$ValidExtraVibs += $EachVib;
 					} Else {
-						$MinorVersionSpecified = $True;
+						$IgnoredExtraVibs += $EachVib;
 					}
-					$EachVersionDecimal = [Decimal]((($Version -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
-					If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
-						<# Greater-Than Version #>
-						If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GT $EachVersionDecimal)) {
-							$ValidDependency = $True;
-						} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GT ([Int]$EachVersionDecimal))) {
-							$ValidDependency = $True;
-						}
-					} ElseIf ($Relation -Eq ">=") {
-						<# Greater-Than / Equal-To Version #>
-						If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GE $EachVersionDecimal)) {
-							$ValidDependency = $True;
-						} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GE ([Int]$EachVersionDecimal))) {
-							$ValidDependency = $True;
-						}
-					} ElseIf ($Relation -Eq "=") {
-						<# Equals Version #>
-						If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -Eq $EachVersionDecimal)) {
-							$ValidDependency = $True;
-						} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal))) {
-							$ValidDependency = $True;
-						}
-					} ElseIf ($Relation -Eq "<=") {
-						<# Less-Than / Equal-To Version #>
-						If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LE $EachVersionDecimal)) {
-							$ValidDependency = $True;
-						} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LE ([Int]$EachVersionDecimal))) {
-							$ValidDependency = $True;
-						}
-					} ElseIf (($Relation -Eq "<") -Or ($Relation -Eq "<<")) {
-						<# Less-Than Version #>
-						If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LT $EachVersionDecimal)) {
-							$ValidDependency = $True;
-						} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal))) {
-							$ValidDependency = $True;
-						}
-					} ElseIf ($Depends.Relation -NE $Null) {
-						Write-Host "Unhandled .vib dependency-relation: "; $Relation; <# Output Un-handled Relations #>
-					}
-				}
-				If ($ValidDependency -Eq $False) {
-					$ValidVib = $False;
-				}
-			}
-		}
-	}
-	If ($ValidVib -Eq $True) {
-		$ValidExtraVibs += $EachVib;
-	} Else {
-		$IgnoredExtraVibs += $EachVib;
-	}
-};
+				};
+
 
 Write-Host "------------------------------------------------------------"; `
-Write-Host "IgnoredExtraVibs:"; $IgnoredExtraVibs | Sort-Object -Property Name,Version | Select-Object -Property Name,Version,Depends
+Write-Host "IgnoredExtraVibs:"; $IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version,Depends
 Write-Host "IgnoredExtraVibs:"; $IgnoredExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
 Write-Host "------------------------------------------------------------";
 
 Write-Host "------------------------------------------------------------"; `
-Write-Host "ValidExtraVibs:"; $ValidExtraVibs | Sort-Object -Property Name,Version | Select-Object -Property Name,Version,Depends
+Write-Host "ValidExtraVibs:"; $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version,Depends
 Write-Host "ValidExtraVibs:"; $ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
 Write-Host "------------------------------------------------------------";
 

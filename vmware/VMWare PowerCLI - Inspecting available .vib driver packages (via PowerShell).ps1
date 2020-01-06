@@ -71,15 +71,17 @@ $Vibs
 
 Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Where-Object {
 	(
-		$_.Relation.Version -match "bnx2x" -or
-		$_.Depends.Version -match "bnx2x" -or
-		$_.Description1 -match "be2net"
+		$_.Depends.Relation -Match ">=" -And
+		$_.Depends.Version -Match "bnx2x"
 	)
 }
 
+ForEach($item in $obj1){
+    $obj | Where-Object{$_.arg -eq $item.arg}
+}
 
 
-
+Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | ForEach-Object { $_.Depends | Where-Object { $_.Relation -Eq ">=" }} | Select-Object -First 60
 
 
 
@@ -88,7 +90,13 @@ Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Wher
 #
 #	Citation(s)
 #
-#   docs.microsoft.com  |  "about_Comparison_Operators - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators
+#   docs.microsoft.com  |  "about_Automatic_Variables - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_automatic_variables#using-enumerators
+#
+#   docs.microsoft.com  |  "about_Comparison_Operators - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators
+#
+#   docs.microsoft.com  |  "about_Foreach - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_foreach
+#
+#   docs.microsoft.com  |  "about_Logical_Operators - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logical_operators
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
 #

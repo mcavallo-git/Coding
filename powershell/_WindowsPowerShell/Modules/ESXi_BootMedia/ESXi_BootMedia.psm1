@@ -258,6 +258,7 @@ Function ESXi_BootMedia() {
 
 			If ($VibNames_Valid -NE $Null) {
 				If ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True) {
+					<# Download any .vib files found to be valid #>
 					$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
 						$SourceUrl = [String](($_.SourceUrls)[0]);
 						If ($SourceUrl -NE $Null) {

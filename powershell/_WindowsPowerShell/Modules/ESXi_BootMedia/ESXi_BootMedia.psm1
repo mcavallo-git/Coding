@@ -62,16 +62,19 @@ Function ESXi_BootMedia() {
 				# Search the package (.vibs) depots for available ESXi hardware drivers
 				Write-Host "`n`n";
 				Write-Host "------------------------------------------------------------";
+
 				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[0])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+
 				$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
 				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[1])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
-				# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
+
+				Write-Host "";
 				Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
-				$Vibs = (Get-EsxSoftwarePackage);
+				$Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
 				$Array_VibNames = ($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name;
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";

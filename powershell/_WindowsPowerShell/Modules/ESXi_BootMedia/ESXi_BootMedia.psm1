@@ -48,13 +48,13 @@ Function ESXi_BootMedia() {
 			}
 			Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
-			New-Item -ItemType ("Directory") -Path ("${WorkingDir}");
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
 			Set-Location -Path ("${WorkingDir}");
 
 			# Download the latest ESXi-Customizer-PS PowerShell script-file
 			Set-Location -Path ("${WorkingDir}");
 			New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
-			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\logs");
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\logs") | Out-Null;
 
 			$Array_VibDepos = @();
 			$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware Depot #>
@@ -216,11 +216,11 @@ Function ESXi_BootMedia() {
 			Set-Location -Path ("${WorkingDir}");
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"Fallback-ISO\.`"); ]  ...";
-			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\Fallback-ISO");
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("Fallback-ISO\.");
-			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"Fallback-ISO\.`"); ]  ...";
-			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("Fallback-ISO\.");
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"iso.fallback\.`"); ]  ...";
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\iso.fallback") | Out-Null;
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("iso.fallback\.");
+			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"iso.fallback\.`"); ]  ...";
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("iso.fallback\.");
 
 			If ($VibNames_Valid -NE $Null) {
 				Write-Host "";

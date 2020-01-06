@@ -75,10 +75,94 @@ Function ESXi_BootMedia() {
 				Write-Host "";
 				Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
 				$Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
-				$Array_VibNames = ($Vibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
 
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Available-Vibs.log"; ${VibNames} > "${LogFile}"; Notepad "${LogFile}";
 				# $LogFile = "${Home}\Desktop\ESXi.Get-EsxSoftwarePackage.Verbose.Available-Vibs.log"; ${Vibs} | Sort-Object "Name" | Format-List > "${LogFile}"; Notepad "${LogFile}";
+
+				$ValidExtraVibs = @(); `
+				$InvalidExtraVibs = @(); `
+				$ESXiVersion = "6.5"; `
+				$ESXiVersionDecimal = [Decimal]((($ESXiVersion -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
+				$Array_ESXiBaseDrivers = @("esx-base","esx-update","esx-version","vsan");
+				$Array_AcceptanceLevels = @("VMwareCertified","VMwareAccepted","PartnerSupported","CommunitySupported");
+				ForEach ($EachVib in $Vibs) {
+					$ValidVib = $True;
+					If ($EachVib.AcceptanceLevel -NE "VMwareCertified") {
+						$ValidVib = $False;
+					} Else {
+						ForEach ($Depends in $EachVib.Depends) {
+							$ValidDependency = $True;
+							$PackageName = $Depends.PackageName;
+							$Relation = $Depends.Relation;
+							$Version = $Depends.Version;
+							If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And ($Array_ESXiBaseDrivers.Contains($PackageName))) {
+								$ValidDependency = $False; <# Assume guilty until proven innocent #>
+								If ($Version.Split.Count -Eq 1) {
+									$MinorVersionSpecified = $False;
+								} Else {
+									$MinorVersionSpecified = $True;
+								}
+								$EachVersionDecimal = [Decimal]((($Version -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
+								If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
+									<# Greater-Than Version #>
+									If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GT $EachVersionDecimal)) {
+										$ValidDependency = $True;
+									} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GT ([Int]$EachVersionDecimal))) {
+										$ValidDependency = $True;
+									}
+								} ElseIf ($Relation -Eq ">=") {
+									<# Greater-Than / Equal-To Version #>
+									If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -GE $EachVersionDecimal)) {
+										$ValidDependency = $True;
+									} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -GE ([Int]$EachVersionDecimal))) {
+										$ValidDependency = $True;
+									}
+								} ElseIf ($Relation -Eq "=") {
+									<# Equals Version #>
+									If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -Eq $EachVersionDecimal)) {
+										$ValidDependency = $True;
+									} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -Eq ([Int]$EachVersionDecimal))) {
+										$ValidDependency = $True;
+									}
+								} ElseIf ($Relation -Eq "<=") {
+									<# Less-Than / Equal-To Version #>
+									If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LE $EachVersionDecimal)) {
+										$ValidDependency = $True;
+									} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LE ([Int]$EachVersionDecimal))) {
+										$ValidDependency = $True;
+									}
+								} ElseIf (($Relation -Eq "<") -Or ($Relation -Eq "<<")) {
+									<# Less-Than Version #>
+									If (($MinorVersionSpecified -Eq $True) -And ($ESXiVersionDecimal -LT $EachVersionDecimal)) {
+										$ValidDependency = $True;
+									} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal))) {
+										$ValidDependency = $True;
+									}
+								} ElseIf ($Depends.Relation -NE $Null) {
+									Write-Host "Unhandled .vib dependency-relation: "; $Relation; <# Output Un-handled Relations #>
+								}
+							}
+							If ($ValidDependency -Eq $False) {
+								$ValidVib = $False;
+							}
+						}
+					}
+					If ($ValidVib -Eq $True) {
+						$ValidExtraVibs += $EachVib;
+					} Else {
+						$InvalidExtraVibs += $EachVib;
+					}
+				};
+
+				Write-Host "------------------------------------------------------------"; `
+				Write-Host "Vibs_Invalid:"; $InvalidExtraVibs | Sort-Object -Property Name,Version; `
+				Write-Host "------------------------------------------------------------";
+
+				Write-Host "------------------------------------------------------------"; `
+				Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,Version; `
+				Write-Host "------------------------------------------------------------";
+
+				$Array_VibNames = ($ValidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
 
 			} Else {
 				# Set a default, or 'common'. configuration by-through which drivers are applied

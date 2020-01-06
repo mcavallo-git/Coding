@@ -251,6 +251,7 @@ Write-Host "------------------------------------------------------------";
 
 Write-Host "------------------------------------------------------------"; `
 Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,Version; `
+Write-Host "Vibs_Valid:"; $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
 Write-Host "------------------------------------------------------------";
 
 
@@ -273,6 +274,8 @@ Write-Host "------------------------------------------------------------";
 #   docs.microsoft.com  |  "About numeric literals - PowerShell - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
+#
+#   social.technet.microsoft.com  |  "sort-object multiple properties - use descending first RRS feed"  |  https://social.technet.microsoft.com/Forums/windowsserver/en-US/e2067689-d28b-4455-9a05-d933e31ab311/sortobject-multiple-properties-use-descending-first?forum=winserverpowershell
 #
 #   stackoverflow.com  |  "How can check input value is in array or not in powershell"  |  https://stackoverflow.com/a/16965665
 #

@@ -40,13 +40,17 @@ $Vibs
 
 # $Vibs.Depends | Select-Object -First 20
 
-# $Vibs.Depends | Select-Object -First 20 | Where-Object { $_.Version -Eq $Null } 
+# $Vibs.Depends | Where-Object { $_.Version -Eq $Null } | Select-Object -First 20
 
 # ($Vibs | Where-Object { $_.Depends -Eq $Null } | Sort-Object -Property "Name").Depends
 
 # ($Vibs | Where-Object { $_.Depends.Version -Eq $Null } | Sort-Object -Property "Name").Depends.Version
 
-$Vibs | Select-Object -Property Name,Depends | Select-Object -First 20
+# $Vibs | Sort-Object -Property "Name" | Select-Object -Property Name,Depends | Select-Object -First 20
+
+# $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Version -Eq $Null } | Select-Object -Property Name,Depends | Select-Object -First 20
+
+($Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Version -Eq $Null } | Select-Object -Property Name,Depends).Depends.Version | Select-Object -First 20
 
 
 # ------------------------------------------------------------

@@ -255,6 +255,15 @@ Function ESXi_BootMedia() {
 			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("iso.fallback\.");
 
 			If (($VibNames_Valid -NE $Null) -And ((Test-Path -Path "${WorkingDir}\pkgDir") -Eq $True)) {
+				$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
+					$SourceUrl = [String](($_.SourceUrls)[0]);
+					If ($SourceUrl -NE $Null) {
+						$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
+						$SourceUrl_LocalPath = "${WorkingDir}\pkgDir\${SourceUrl_Basename}";
+						Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
+						New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+					}
+				}
 				Write-Host "";
 				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${WorkingDir}\pkgDir`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${WorkingDir}\pkgDir" -load $VibNames_Valid -outDir (".");

@@ -92,6 +92,7 @@ Function ESXi_BootMedia() {
 			Write-Host "";
 			Write-Host "Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
 			Set-Location -Path ("${WorkingDir}");
+			Write-Host "";
 			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$Array_VibNames).Replace(' ',',')) -outDir .; ]  ...";
 			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${Array_VibNames} -outDir .;
 

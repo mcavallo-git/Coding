@@ -155,8 +155,8 @@ $Vibs
 
 $Vibs_Valid = @(); `
 $Vibs_Invalid = @(); `
-$ESXiVersion = "6.5";
-$ESXiVersionDecimal = [Decimal](($ESXiVersion.Split('.') | Select-Object -First 2) -Join ".");
+$ESXiVersion = "6.5"; `
+$ESXiVersionDecimal = [Decimal](($ESXiVersion.Split('.') | Select-Object -First 2) -Join "."); `
 ForEach ($EachVib in $Vibs) {
 	$ValidVib = $True;
 	ForEach ($Depends in $EachVib.Depends) {

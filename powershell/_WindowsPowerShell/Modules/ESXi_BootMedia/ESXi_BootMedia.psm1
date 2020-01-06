@@ -82,8 +82,6 @@ Function ESXi_BootMedia() {
 			}
 
 			Write-Host "";
-			Write-Host "`$Array_VibDepos = [ ${Array_VibDepos} ]";
-			Write-Host "";
 			Write-Host "`$Array_VibNames = [ ${Array_VibNames} ]";
 			Write-Host "";
 
@@ -93,8 +91,8 @@ Function ESXi_BootMedia() {
 			#    -vft : connect the V-Front Online depot
 			#    -load : load additional packages from connected depots or Offline bundles
 			Set-Location -Path ("${WorkingDir}");
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${VibNames_CommaSeparated} -outDir .;
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -outDir .; ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -outDir .;
 
 
 			# Open the destination which the output .iso was saved-at

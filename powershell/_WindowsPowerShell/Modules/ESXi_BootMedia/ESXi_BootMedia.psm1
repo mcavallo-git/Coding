@@ -42,6 +42,7 @@ Function ESXi_BootMedia() {
 			$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
 			$ExtraVibFilesDir = "${WorkingDir}\pkgDir";
 			$LogFilesDir = "${WorkingDir}\logs";
+			$FallbackDir = "${WorkingDir}\iso.fallback";
 
 			# PowerShell - Install VMware PowerCLI module
 			If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	
@@ -248,13 +249,13 @@ Function ESXi_BootMedia() {
 			Write-Host "";
 			Write-Host "PS $(Get-Location)>  Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
 			Set-Location -Path ("${WorkingDir}");
+			New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 
 			Write-Host "";
-			Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"iso.fallback\.`"); ]  ...";
-			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\iso.fallback") | Out-Null;
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("iso.fallback\.");
-			# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"iso.fallback\.`"); ]  ...";
-			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("iso.fallback\.");
+			Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+			# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"${FallbackDir}\.`"); ]  ...";
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("${FallbackDir}\.");
 
 			If ($VibNames_Valid -NE $Null) {
 				If ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True) {

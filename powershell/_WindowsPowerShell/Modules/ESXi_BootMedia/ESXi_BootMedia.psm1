@@ -246,33 +246,39 @@ Function ESXi_BootMedia() {
 
 			Write-Host "------------------------------------------------------------";
 			Write-Host "";
-			Write-Host "Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
+			Write-Host "PS $(Get-Location)>  Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
 			Set-Location -Path ("${WorkingDir}");
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"iso.fallback\.`"); ]  ...";
+			Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"iso.fallback\.`"); ]  ...";
 			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\iso.fallback") | Out-Null;
 			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("iso.fallback\.");
-			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"iso.fallback\.`"); ]  ...";
+			# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"iso.fallback\.`"); ]  ...";
 			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("iso.fallback\.");
 
-			If (($VibNames_Valid -NE $Null) -And ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True)) {
-				$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
-					$SourceUrl = [String](($_.SourceUrls)[0]);
-					If ($SourceUrl -NE $Null) {
-						$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
-						$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
-						Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
-						New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+			If ($VibNames_Valid -NE $Null) {
+				If ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True) {
+					$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
+						$SourceUrl = [String](($_.SourceUrls)[0]);
+						If ($SourceUrl -NE $Null) {
+							$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
+							$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
+							Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
+							New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+						}
 					}
+					Set-Location -Path ("${WorkingDir}");
+					Write-Host "";
+					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -load $VibNames_Valid -outDir (".");
+				} Else {
+					Set-Location -Path ("${WorkingDir}");
+					Write-Host "";
+					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
+					# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+					# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
 				}
-				Write-Host "";
-				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -load $VibNames_Valid -outDir (".");
-				# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-				# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
-				# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-				# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
 			}
 
 			# Open the destination which the output .iso was saved-at

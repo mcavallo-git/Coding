@@ -277,14 +277,44 @@ $Vibs
 
 
 Write-Host "------------------------------------------------------------"; `
-Write-Host "IgnoredExtraVibs:"; $IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version,Depends
-Write-Host "IgnoredExtraVibs:"; $IgnoredExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
+
+$IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version,Depends
+
+$IgnoredExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
+
 Write-Host "------------------------------------------------------------";
 
 Write-Host "------------------------------------------------------------"; `
-Write-Host "ValidExtraVibs:"; $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version,Depends
-Write-Host "ValidExtraVibs:"; $ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
-Write-Host "------------------------------------------------------------";
+
+$ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version,Depends
+
+$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Select-Object -Property Name,Version
+
+$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
+[String](($_.SourceUrls)[0]);
+}
+
+$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
+	$SourceUrl = [String](($_.SourceUrls)[0]);
+	If ($SourceUrl -NE $Null) {
+		Write-Host "Downloading .vib package from Url `"$SourceUrl`"...";
+		New-Item -Path "${Home}\Desktop\pkgDir\." -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+	}
+}
+
+$WorkingDir = "${Home}\Desktop\pkgDir";
+
+$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
+	$SourceUrl = [String](($_.SourceUrls)[0]);
+	If ($SourceUrl -NE $Null) {
+		$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
+		$SourceUrl_LocalPath = "${WorkingDir}\pkgDir\${SourceUrl_Basename}";
+		Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
+		# New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+	}
+}
+
+
 
 
 # ------------------------------------------------------------

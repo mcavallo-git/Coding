@@ -27,21 +27,16 @@ Get-ChildItem `
 #
 #	Citation(s)
 #
+#   docs.microsoft.com  |  "DirectoryInfo Class (System.IO)"  |  https://docs.microsoft.com/en-us/dotnet/api/system.io.directoryinfo
 #
-#		Source: docs.microsoft.com
+#   docs.microsoft.com  |  "FileInfo Class (System.IO)"  |  https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo
 #
-#			"DirectoryInfo Class"
-#		 		 https://docs.microsoft.com/en-us/dotnet/api/system.io.directoryinfo
+#   docs.microsoft.com  |  "about_Providers - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers
 #
-#			"FileInfo Class"
-#		 		 https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo
+#   docs.microsoft.com  |  "about_Wildcards - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_wildcards
 #
-#			"About Providers"
-#		 		 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers
+#   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #
-#			"About Wildcards" (using the -Filter parameter)
-#		 		 https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_wildcards
-#
-#			superuser.com  |  "Powershell to delete all files with a certain file extension"  |  https://superuser.com/a/1233722
+#   superuser.com  |  "Powershell to delete all files with a certain file extension"  |  https://superuser.com/a/1233722
 #
 # ------------------------------------------------------------

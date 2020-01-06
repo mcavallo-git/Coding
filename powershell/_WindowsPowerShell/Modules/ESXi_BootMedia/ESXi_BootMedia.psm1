@@ -77,14 +77,16 @@ Function ESXi_BootMedia() {
 				$Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
 
 				$ValidExtraVibs = @(); `
-				$InvalidExtraVibs = @(); `
+				$IgnoredExtraVibs = @(); `
 				$ESXiVersion = "6.5"; `
 				$ESXiVersionDecimal = [Decimal]((($ESXiVersion -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
-				$Array_ESXiBaseDrivers = @("esx-base","esx-update","esx-version","vsan");
+				$Array_ESXiBaseDrivers = @("esx-base","esx-dvfilter-generic-fastpath","esx-tboot","esx-tools-for-esxi","esx-ui","esx-update","esx-version","esx-xlibs","esx-xserver","vsan");
 				$Array_AcceptanceLevels = @("VMwareCertified","VMwareAccepted","PartnerSupported","CommunitySupported");
 				ForEach ($EachVib in $Vibs) {
 					$ValidVib = $True;
-					If ($EachVib.AcceptanceLevel -NE "VMwareCertified") {
+					If ($Array_ESXiBaseDrivers.Contains($EachVib.Name)) {
+						$ValidVib = $False;
+					} ElseIf ($EachVib.AcceptanceLevel -NE "VMwareCertified") {
 						$ValidVib = $False;
 					} Else {
 						ForEach ($Depends in $EachVib.Depends) {
@@ -147,7 +149,7 @@ Function ESXi_BootMedia() {
 					If ($ValidVib -Eq $True) {
 						$ValidExtraVibs += $EachVib;
 					} Else {
-						$InvalidExtraVibs += $EachVib;
+						$IgnoredExtraVibs += $EachVib;
 					}
 				};
 
@@ -157,9 +159,9 @@ Function ESXi_BootMedia() {
 				$VibNames_Valid > "${WorkingDir}\logs\VibNames_Valid.log";
 				$ValidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\logs\Verbose-ValidExtraVibs.log";
 
-				$VibNames_Invalid = ($InvalidExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
-				$VibNames_Invalid > "${WorkingDir}\logs\VibNames_Invalid.log";
-				$InvalidExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\logs\Verbose-InvalidExtraVibs.log";
+				$VibNames_Ignored = ($IgnoredExtraVibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name;
+				$VibNames_Ignored > "${WorkingDir}\logs\VibNames_Ignored.log";
+				$IgnoredExtraVibs | Sort-Object -Property Name,Version | Format-List > "${WorkingDir}\logs\Verbose-IgnoredExtraVibs.log";
 
 			}
 

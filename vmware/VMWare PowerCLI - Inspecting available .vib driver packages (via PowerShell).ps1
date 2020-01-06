@@ -164,8 +164,13 @@ ForEach ($EachVib in $Vibs) {
 		$PackageName = $Depends.PackageName;
 		$Relation = $Depends.Relation;
 		$Version = $Depends.Version;
-		If (@("esx-base","esx-update","esx-version").Contains($PackageName)) {
+		If (($Version -NE $Null) -And ($Version.GetType().Name -Eq "String") -And (@("esx-base","esx-update","esx-version").Contains($PackageName))) {
 			$ValidDependency = $False; <# Assume guilty until proven innocent #>
+			If ($Version.Split.Count -Eq 1) {
+				$MinorVersionSpecified = $False;
+			} Else {
+				$MinorVersionSpecified = $True;
+			}
 			$EachVersionDecimal = [Decimal](($Version.Split('.') | Select-Object -First 2) -Join ".");
 			If (($Relation -Eq ">") -Or ($Relation -Eq ">>")) {
 				<# Greater-Than Version #>
@@ -202,8 +207,8 @@ ForEach ($EachVib in $Vibs) {
 				} ElseIf (($MinorVersionSpecified -Eq $False) -And (([Int]$ESXiVersionDecimal) -LT ([Int]$EachVersionDecimal))) {
 					$ValidDependency = $True;
 				}
-			} Else {
-				Write-Host "Unhandled .vib dependency-relation `"$Relation`""; <# Output Un-handled Relations #>
+			} ElseIf ($Depends.Relation -NE $Null) {
+				Write-Host "Unhandled .vib dependency-relation: "; $Relation; <# Output Un-handled Relations #>
 			}
 		}
 		If ($ValidDependency -Eq $False) {

@@ -46,6 +46,7 @@ Function ESXi_BootMedia() {
 				# Install-PackageProvider -Name ("NuGet") -Force;  <# PowerShell - Install the NuGet package manager #>
 				Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
 			}
+
 			Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
 			New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
@@ -103,9 +104,11 @@ Function ESXi_BootMedia() {
 
 			# ------------------------------------------------------------
 			If ($PSBoundParameters.ContainsKey('AllDrivers')) {
-				# Search the package (.vibs) depots for available ESXi hardware drivers
+				# Search the .vib package depot(s) for available ESXi hardware drivers
 				Write-Host "`n`n";
 				Write-Host "------------------------------------------------------------";
+
+				New-Item -ItemType ("Directory") -Path ("${WorkingDir}\pkgDir") | Out-Null;
 
 				Write-Host "";
 				Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"$($Array_VibDepos[0])`"";
@@ -224,10 +227,12 @@ Function ESXi_BootMedia() {
 			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"iso.fallback\.`"); ]  ...";
 			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("iso.fallback\.");
 
-			If ($VibNames_Valid -NE $Null) {
+			If (($VibNames_Valid -NE $Null) -And ((Test-Path -Path "${WorkingDir}\pkgDir") -Eq $True)) {
 				Write-Host "";
-				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
+				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${WorkingDir}\pkgDir`" -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${WorkingDir}\pkgDir" -load $VibNames_Valid -outDir (".");
+				# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+				# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
 				# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 				# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
 			}

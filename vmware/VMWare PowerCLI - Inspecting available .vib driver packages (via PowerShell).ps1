@@ -1,3 +1,6 @@
+
+# ------------------------------------------------------------
+
 Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #> `
 $Array_VibDepos = @(); `
 $Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware Depot #> `
@@ -15,30 +18,35 @@ $Vibs
 
 # ------------------------------------------------------------
 
-$Vibs.Depends
+# $Vibs.Name
 
-$Vibs.Depends | Select-Object -First 20
-
-$Vibs.Depends | Select-Object -First 20 | Where-Object { $_.Version -Eq $Null } 
-
-$Vibs.Depends | Where-Object { $_.Version -Eq $Null } | Select-Object -Property "Name"  -Unique
-
-$Vibs[0].Depends
+# ($Vibs | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name").Name
 
 # ------------------------------------------------------------
 
-$Vibs.Name
+# $Vibs.Version
 
-($Vibs | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name").Name
+# ($Vibs | Where-Object { $_.Version -Like "6.5*" })[1]
+
+# $Vibs | Where-Object { $_.Version -Like "6.5*" } | Select-Object -Property "Name" -Unique | Sort-Object -Property "Name"
+
+# ($Vibs | Select-Object -Property "Version" -Unique | Sort-Object -Property "Version").Version
 
 # ------------------------------------------------------------
 
-$Vibs.Version
+# $Vibs.Depends
 
-($Vibs | Where-Object { $_.Version -Like "6.5*" })[1]
+# $Vibs[0].Depends
 
-$Vibs | Where-Object { $_.Version -Like "6.5*" } | Select-Object -Property "Name"  -Unique | Sort-Object -Property "Name"
+# $Vibs.Depends | Select-Object -First 20
 
-($Vibs | Select-Object -Property "Version"  -Unique | Sort-Object -Property "Version").Version
+# $Vibs.Depends | Select-Object -First 20 | Where-Object { $_.Version -Eq $Null } 
+
+# ($Vibs | Where-Object { $_.Depends -Eq $Null } | Sort-Object -Property "Name").Depends
+
+# ($Vibs | Where-Object { $_.Depends.Version -Eq $Null } | Sort-Object -Property "Name").Depends.Version
+
+$Vibs.Depends | Select-Object -Property Name,Depends | Select-Object -First 20
+
 
 # ------------------------------------------------------------

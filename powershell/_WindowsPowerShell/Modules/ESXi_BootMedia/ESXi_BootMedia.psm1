@@ -128,7 +128,7 @@ Function ESXi_BootMedia() {
 				$IgnoredExtraVibs = @(); `
 				$ESXiVersion = "6.5"; `
 				$ESXiVersionDecimal = [Decimal]((($ESXiVersion -Split '^([\d\.]+)').Split('.') | Select-Object -Skip 1 -First 2) -Join "."); `
-				$Array_ESXiBaseDrivers = @("esx-base","esx-dvfilter-generic-fastpath","esx-tboot","esx-tools-for-esxi","esx-update","esx-version","esx-xlibs","esx-xserver");
+				$Array_ESXiBaseDrivers = @("esx-base","esx-dvfilter-generic-fastpath","esx-tboot","esx-tools-for-esxi","esx-update","esx-version","esx-xlibs","esx-xserver","tools-light");
 				$Array_ESXiSkipDrivers = @("esx-tools-for-esxi");
 				$Array_AcceptanceLevels = @("VMwareCertified","VMwareAccepted","PartnerSupported","CommunitySupported");
 				ForEach ($EachVib in $Vibs) {

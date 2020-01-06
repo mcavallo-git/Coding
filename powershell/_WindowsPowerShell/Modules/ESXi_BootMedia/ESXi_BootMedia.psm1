@@ -63,8 +63,10 @@ Function ESXi_BootMedia() {
 				# Search the package (.vibs) depots for available ESXi hardware drivers
 				Write-Host "`n`n";
 				Write-Host "------------------------------------------------------------";
+				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[0])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[1])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 				# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
@@ -81,15 +83,13 @@ Function ESXi_BootMedia() {
 
 			}
 
-			Write-Host "";
-			Write-Host "`$Array_VibNames = [ ${Array_VibNames} ]";
-			Write-Host "";
-
 			# ------------------------------------------------------------
 			# Create the latest ESXi 6.5 ISO
 			#    -v65 : Create the latest ESXi 6.5 ISO
 			#    -vft : connect the V-Front Online depot
 			#    -load : load additional packages from connected depots or Offline bundles
+			Write-Host "------------------------------------------------------------";
+			Write-Host "";
 			Set-Location -Path ("${WorkingDir}");
 			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -outDir .; ]  ...";
 			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${Array_VibNames} -outDir .;

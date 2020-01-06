@@ -181,7 +181,7 @@ Function ESXi_BootMedia() {
 			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"Fallback-ISO\.`"); ]  ...";
 			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("Fallback-ISO\.");
 
-			If ($VibNames_Valid -NE $Null {
+			If ($VibNames_Valid -NE $Null) {
 				Write-Host "";
 				Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 				.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");

@@ -175,16 +175,17 @@ Function ESXi_BootMedia() {
 			Set-Location -Path ("${WorkingDir}");
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir .;
-			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir .; ]  ...";
-			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} -outDir .;
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"Fallback-ISO\.`"); ]  ...";
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\Fallback-ISO");
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("Fallback-ISO\.");
+			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"Fallback-ISO\.`"); ]  ...";
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("Fallback-ISO\.");
 
 			Write-Host "";
-			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir .; ]  ...";
-			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir .;
-			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir .; ]  ...";
-			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir .;
+			Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+			.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
+			# Write-Host "Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+			# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
 
 
 			# Open the destination which the output .iso was saved-at

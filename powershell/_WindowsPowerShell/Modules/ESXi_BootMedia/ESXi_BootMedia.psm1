@@ -265,6 +265,7 @@ Function ESXi_BootMedia() {
 						If ($SourceUrl -NE $Null) {
 							$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
 							$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
+							Write-Host "";
 							Write-Host "Downloading .vib package from Url `"${SourceUrl}`" to local path `"${SourceUrl_LocalPath}`"...";
 							New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
 						}

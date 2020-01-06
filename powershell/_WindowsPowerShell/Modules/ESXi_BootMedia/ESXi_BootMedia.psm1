@@ -281,8 +281,8 @@ Function ESXi_BootMedia() {
 
 					Set-Location -Path ("${WorkingDir}");
 					Write-Host "";
-					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
-					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
+					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 				} Else {
 					Set-Location -Path ("${WorkingDir}");
 					Write-Host "";

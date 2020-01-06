@@ -10,8 +10,6 @@ Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from r
 Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)"; $Vibs = (Get-EsxSoftwarePackage);
 
 
-
-
 # ------------------------------------------------------------
 
 $Vibs
@@ -63,6 +61,7 @@ Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Wher
 
 
 
+$obj1 | ForEach-Object { $_ | Where-Object { $_ .... }}
 
 
 
@@ -74,4 +73,12 @@ Clear-Host; Write-Host "`n`n`n`n`n"; $Vibs | Sort-Object -Property "Name" | Wher
 
 
 
+# ------------------------------------------------------------
+#
+#	Citation(s)
+#
+#   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
+#
+#   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
+#
 # ------------------------------------------------------------

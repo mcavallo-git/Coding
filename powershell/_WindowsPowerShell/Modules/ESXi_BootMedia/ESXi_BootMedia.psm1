@@ -65,10 +65,10 @@ Function ESXi_BootMedia() {
 				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[0])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+				$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
 				Write-Host "";
 				Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[1])`"";
 				Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
-				$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  # V-Front Depot
 				# Grab a list of SoftwarePackage (.vib) objects from connected depot(s) #
 				Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
 				$Vibs = (Get-EsxSoftwarePackage);

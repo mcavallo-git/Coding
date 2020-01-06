@@ -5,10 +5,6 @@ REM
 REM ------------------------------------------------------------
 
 
-REM Get ALL the info! (about current user)
-whoami /all
-
-
 REM Syntax
 REM     /upn           Displays the user name in user principal name (UPN) format.
 REM     /fqdn          Displays the user name in fully qualified domain name (FQDN) format.
@@ -28,6 +24,10 @@ whoami {[/user] [/groups] [/priv]} [/fo <Format>] [/nh]
 whoami /all [/fo <Format>] [/nh]
 
 
+REM Get ALL the info! (about current user)
+whoami /all
+
+
 REM Show domain\username
 whoami
 
@@ -44,6 +44,7 @@ whoami /user /fo table /nh
 REM Example) Get User SID (via PowerShell)
 $UserSID = (&{If(Get-Command "whoami" -ErrorAction "SilentlyContinue") { (whoami /user /fo table /nh).Split(" ")[1] } Else { $Null }});
 Write-Host $UserSID;
+
 
 REM ------------------------------------------------------------
 REM

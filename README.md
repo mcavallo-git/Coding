@@ -146,7 +146,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="development"><br />Software Development<br /><br /></h5></th></tr>
-<tr><td><strong>Windows 10 SDK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Download (source)</a><sub><br /><a href="https://go.microsoft.com/fwlink/p/?linkid=2083338&clcid=0x409">Download (direct)</a></sub></td></tr>
+<tr><td><strong>Windows 10 SDK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Used to build Universal Windows Platform (UWP)<br />and Win32 applications for Windows 10, version<br />1903 and previous Windows releases</i></sub></td><td><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Download (source)</a><sub><br /><a href="https://go.microsoft.com/fwlink/p/?linkid=2083338&clcid=0x409">Download (direct)</a></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

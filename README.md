@@ -364,6 +364,8 @@ This file (on GitHub):
 #
 # Citation(s)
 #
+#   docs.microsoft.com  |  "SignTool.exe (Sign Tool) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/framework/tools/signtool-exe
+#
 #   en.wikipedia.org  |  "DevOps"  |  https://en.wikipedia.org/wiki/DevOps
 #
 #   en.wikipedia.org  |  "FreeNAS"  |  https://en.wikipedia.org/wiki/FreeNAS

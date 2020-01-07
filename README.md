@@ -145,6 +145,11 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
+<tr><th colspan="2"><h5 id="development"><br />Software Development<br /><br /></h5></th></tr>
+<tr><td><strong>Windows 10 SDK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Download (source)</a><sub><br /><a href="https://go.microsoft.com/fwlink/p/?linkid=2083338&clcid=0x409">Download (direct)</a></sub></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
 <tr><th colspan="2"><h5 id="dns"><br />DNS<br /><sub>Root & Intermediate Certificates, e.g. Certificate Authority Bundles (CABUNDLEs)</sub><br /><br /></h5></th></tr>
 <tr><td><strong>COMODO</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
 <tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>

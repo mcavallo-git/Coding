@@ -259,12 +259,26 @@ Function ESXi_BootMedia() {
 				Set-Location -Path ("${WorkingDir}");
 				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 
+				If ($ESXiVersion -Eq "5.0") { 
+					$VersionArg = "-v50";
+				} ElseIf ($ESXiVersion -Eq "5.1") {
+					$VersionArg = "-v51";
+				} ElseIf ($ESXiVersion -Eq "5.5") {
+					$VersionArg = "-v55";
+				} ElseIf ($ESXiVersion -Eq "6.0") {
+					$VersionArg = "-v60";
+				} ElseIf ($ESXiVersion -Eq "6.5") {
+					$VersionArg = "-v65";
+				} ElseIf ($ESXiVersion -Eq "6.7") {
+					$VersionArg = "-v67";
+				}
+					
 				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
 					Write-Host "";
-					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
-					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
-					# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"${FallbackDir}\.`"); ]  ...";
-					# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("${FallbackDir}\.");
+					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
+					.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+					# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"${FallbackDir}\.`"); ]  ...";
+					# .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("${FallbackDir}\.");
 				}
 
 				If ($VibNames_Valid -NE $Null) {
@@ -288,15 +302,15 @@ Function ESXi_BootMedia() {
 
 						Set-Location -Path ("${WorkingDir}");
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
-						.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 					} Else {
 						Set-Location -Path ("${WorkingDir}");
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-						.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
-						# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-						# .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $VibNames_Valid -outDir (".");
+						# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+						# .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
 					}
 				}
 

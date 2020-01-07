@@ -109,6 +109,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="benchmarking"><br />Benchmarking<br /><br /></h5></th></tr>
+<tr><td><strong>AIDA64</strong> <sub><br />&nbsp;&nbsp;&nbsp;Verbose Mobile Specsheet<br />&nbsp;&nbsp;&nbsp;! Desktop version is Paid</i></sub></td><td><a href="https://www.aida64.com/downloads">Download (source)</a></sub></td></tr>
 <tr><td><strong>CrystalDiskMark</strong> <sub><br />&nbsp;&nbsp;&nbsp;HDD/SSD Benchmarking</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskMarkInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskMark">Download (portable)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab">Download (win10 app)</a></sub></td></tr>
 <tr><td><strong>Guru3D.com</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Benchmarks & Demos</i></sub></td><td><a href="https://www.guru3d.com/files-categories/benchmarks-demos.html">View List</a><sub><br /><a href="https://www.guru3d.com/files-get/pcmark-10-download,3.html">Download PCMark 10 (direct)</a><br /><a href="https://www.guru3d.com/files-get/3dmark-download,4.html">Download 3DMark (direct)</a><br /><a href="https://www.guru3d.com/files-get/futuremark-vrmark-download,2.html">Download VRMark (direct)</a></td></tr>
 <tr><td><strong>SiSoftware Sandra Lite</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Computer analysis, diagnosis & benchmarking</i></sub></td><td><a href="https://www.sisoftware.co.uk/download-lite/">Download (source)</a></td></tr>
@@ -143,18 +144,6 @@ This file (on GitHub):
 <tr><td><strong>COMODO</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
 <tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>
 <tr><td><strong>Namecheap</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CABUNDLEs</i></sub></td><td><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub></td></tr>
-<!-- -->
-<!-- ------------------------------------------------------------ -->
-<!-- -->
-<tr><th colspan="2"><h5 id="multimedia"><br />Multimedia<br /><br /></h5></th></tr>
-<tr><td><strong>Audacity</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source source, cross-platform audio software</a></i></sub></td><td><a href="https://www.fosshub.com/Audacity.html?download">Download (mirror)</a></td></tr>
-<tr><td><strong>Dynamic Theme</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Updates/applies bing background & windows spotlight</a></i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH1ZBKW">Download (source)</a></td></tr>
-<tr><td><strong>Greenshot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source Screenshot Program<br />&nbsp;&nbsp;&nbsp;Replaces/Upgrades Print screen & Snipping tool</a></i></sub></td><td><a href="https://getgreenshot.org/downloads/">Download (source)</a></td></tr>
-<tr><td><strong>Paint.NET</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Image & Photo Editing Software<br />&nbsp;&nbsp;&nbsp;<a href="https://www.getpaint.net/doc/latest/KeyboardMouseCommands.html">View Keyboard & Mouse Commands (Hotkeys)</a></i></sub></td><td><a href="https://www.dotpdn.com/downloads/pdn.html">Download (source)</a></td></tr>
-<tr><td><strong>Spotify</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
-<tr><td><strong>SVG Explorer Extension</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Explorer icon thumbnails for .svg files<br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/tibold/svg-explorer-extension/releases/tag/v0.1.1">View GitHub (Note: Signed version no longer works in Win10)</a></i></sub></td><td><a href="https://github.com/tibold/svg-explorer-extension/releases/download/v0.1.1/dssee_setup_x64_v011.exe">Download (source)</a></td></tr>
-<tr><td><strong>Twitch App</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
-<tr><td><strong>VLC</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross-Platform Multimedia Player</i></sub></td><td><a href="https://www.videolan.org/vlc/index.html">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
@@ -201,6 +190,19 @@ This file (on GitHub):
 <tr><td><strong>CoreTemp</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
 <tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Pulls HDD S.M.A.R.T. Statistics<br />&nbsp;&nbsp;&nbsp;Checks HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfoInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfo">Download (portable)</a></sub></td></tr>
 <tr><td><strong>HDD Sentinel</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Monitors SSD Temperatures<br />&nbsp;&nbsp;&nbsp;Monitors HDD/SSD ongoing performance<br />&nbsp;&nbsp;&nbsp;Pulls HDD S.M.A.R.T. Statistics<br />&nbsp;&nbsp;&nbsp;Allows custom alerts based on user-defined thresholds</i></sub></td><td><a href="https://www.hdsentinel.com/download.php">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.harddisksentinel.com/hdsentinel_setup.zip">Download (direct)</a></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
+<tr><th colspan="2"><h5 id="multimedia"><br />Multimedia<br /><br /></h5></th></tr>
+<tr><td><strong>Audacity</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source source, cross-platform audio software</a></i></sub></td><td><a href="https://www.fosshub.com/Audacity.html?download">Download (mirror)</a></td></tr>
+<tr><td><strong>Dynamic Theme</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Updates/applies bing background & windows spotlight</a></i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH1ZBKW">Download (source)</a></td></tr>
+<tr><td><strong>Greenshot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source Screenshot Program<br />&nbsp;&nbsp;&nbsp;Replaces/Upgrades Print screen & Snipping tool</a></i></sub></td><td><a href="https://getgreenshot.org/downloads/">Download (source)</a></td></tr>
+<tr><td><strong>Paint.NET</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Image & Photo Editing Software<br />&nbsp;&nbsp;&nbsp;<a href="https://www.getpaint.net/doc/latest/KeyboardMouseCommands.html">View Keyboard & Mouse Commands (Hotkeys)</a></i></sub></td><td><a href="https://www.dotpdn.com/downloads/pdn.html">Download (source)</a></td></tr>
+<tr><td><strong>RainMeter</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-Source Desktop Customization Utility</i></sub></td><td><a href="http://www.rainmeter.net/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://builds.rainmeter.net/Rainmeter-4.3.1.exe">Download (direct)</a></sub></td></tr>
+<tr><td><strong>Spotify</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
+<tr><td><strong>SVG Explorer Extension</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Explorer icon thumbnails for .svg files<br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/tibold/svg-explorer-extension/releases/tag/v0.1.1">View GitHub (Note: Signed version no longer works in Win10)</a></i></sub></td><td><a href="https://github.com/tibold/svg-explorer-extension/releases/download/v0.1.1/dssee_setup_x64_v011.exe">Download (source)</a></td></tr>
+<tr><td><strong>Twitch App</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
+<tr><td><strong>VLC</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross-Platform Multimedia Player</i></sub></td><td><a href="https://www.videolan.org/vlc/index.html">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

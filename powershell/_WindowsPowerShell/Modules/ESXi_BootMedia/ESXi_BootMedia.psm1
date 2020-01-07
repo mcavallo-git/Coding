@@ -259,7 +259,7 @@ Function ESXi_BootMedia() {
 				Set-Location -Path ("${WorkingDir}");
 				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 
-				If ($PSBoundParameters.ContainsKey('FallbackIso')) {
+				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
 					Write-Host "";
 					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
 					.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");

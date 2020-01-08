@@ -33,6 +33,9 @@ exit 0;
 ###   |--> Download & install the latest HTTP & Javascript ".vib" file
 esxcli software vib install -v "http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib";
 
+### Ex) Update the ESXi driver for NIC "net-r8168"
+esxcli software vib install -v "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/net-r8168/VMware_bootbank_net-r8168_8.013.00-3vmw.510.0.0.799733.vib";
+
 
 ### Ex) Remove specific network driver(s)
 esxcli software vib remove --vibname="net51-r8169";

@@ -248,9 +248,6 @@ Function ESXi_BootMedia() {
 
 				}
 
-				# Set a default, or 'common'. configuration by-through which drivers are applied
-				$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci");
-
 				### Create the latest ESXi 6.5 ISO
 
 				Write-Host "------------------------------------------------------------";
@@ -268,17 +265,25 @@ Function ESXi_BootMedia() {
 				} ElseIf ($ESXiVersion -Eq "6.0") {
 					$VersionArg = "-v60";
 				} ElseIf ($ESXiVersion -Eq "6.5") {
+					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v65";
 				} ElseIf ($ESXiVersion -Eq "6.7") {
+					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v67";
 				}
 					
 				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
-					Write-Host "";
-					Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
-					.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
-					# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"${FallbackDir}\.`"); ]  ...";
-					# .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("${FallbackDir}\.");
+					If (${FallbackVibNames_Valid} -Eq $Null) {
+						Write-Host "";
+						Write-Host "PS $(Get-Location)>  Error:  No defined Fallback Vib-Names for ESXi v${VersionArg} - Unable to create Fallback ISO";
+
+					} Else {
+						Write-Host "";
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"${FallbackDir}\.`"); ]  ...";
+						# .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("${FallbackDir}\.");
+					}
 				}
 
 				If ($VibNames_Valid -NE $Null) {

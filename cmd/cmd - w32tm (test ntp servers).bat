@@ -28,6 +28,16 @@ REM   NTP-SERVER RESPONSE-TIMES    ==>    FASTEST:   time1.google.com
 REM    |
 REM    |
 REM    |
+REM    |-->  NIST  ==> https://tf.nist.gov/tf-cgi/servers.cgi
+REM    |      |
+REM    |      |-->   PROXY  :::   time.google.com    :::   [VARIES]
+REM  ! |      |-->   58ms   :::   time1.google.com   :::   216.239.35.0
+REM    |      |-->   66ms   :::   time2.google.com   :::   216.239.35.4
+REM    |      |-->   124ms  :::   time3.google.com   :::   216.239.35.8
+REM    |      |-->   216ms  :::   time4.google.com   :::   216.239.35.12
+REM    |      |
+REM    |      X
+REM    |
 REM    |-->  Google   ==>   ping time1.google.com && ping time2.google.com && ping time3.google.com && ping time4.google.com
 REM    |      |
 REM    |      |-->   PROXY  :::   time.google.com    :::   [VARIES]

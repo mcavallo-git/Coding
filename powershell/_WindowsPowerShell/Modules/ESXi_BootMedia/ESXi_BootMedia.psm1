@@ -63,11 +63,15 @@ Function ESXi_BootMedia() {
 
 				Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
+				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 				New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
+
+				Write-Host "------------------------------------------------------------";
+				Write-Host "";
+				Write-Host "PS $(Get-Location)>  Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
 				Set-Location -Path ("${WorkingDir}");
 
 				# Download the latest ESXi-Customizer-PS PowerShell script-file
-				Set-Location -Path ("${WorkingDir}");
 				New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
 				New-Item -ItemType ("Directory") -Path ("${LogFilesDir}") | Out-Null;
 
@@ -108,7 +112,6 @@ Function ESXi_BootMedia() {
 				#    -test              : skip package download and image build (for testing)
 				#
 
-				Set-Location -Path ("${WorkingDir}");
 				.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
 
 				# ------------------------------------------------------------
@@ -250,14 +253,7 @@ Function ESXi_BootMedia() {
 
 				}
 
-				### Create the latest ESXi 6.5 ISO
-
-				Write-Host "------------------------------------------------------------";
-				Write-Host "";
-				Write-Host "PS $(Get-Location)>  Calling  [ Set-Location -Path (`"${WorkingDir}`"); ]  ...";
-				Set-Location -Path ("${WorkingDir}");
-				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
-
+				### Create the latest ESXi ISO
 				If ($ESXiVersion -Eq "5.0") { 
 					$VersionArg = "-v50";
 				} ElseIf ($ESXiVersion -Eq "5.1") {
@@ -307,12 +303,10 @@ Function ESXi_BootMedia() {
 						$replacement = "Get-EsxSoftwarePackage -PackageUrl `$(Get-Content `$vibFile) -ErrorAction SilentlyContinue";
 						(Get-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1";
 
-						Set-Location -Path ("${WorkingDir}");
 						Write-Host "";
 						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
 						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 					} Else {
-						Set-Location -Path ("${WorkingDir}");
 						Write-Host "";
 						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $VibNames_Valid -outDir (".");
@@ -322,7 +316,6 @@ Function ESXi_BootMedia() {
 				}
 
 				# Open the destination which the output .iso was saved-at
-				Set-Location -Path ("${WorkingDir}");
 				Explorer .;
 
 

@@ -33,6 +33,9 @@ exit 0;
 ###   |--> Download & install the latest HTTP & Javascript ".vib" file
 esxcli software vib install -v "http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib";
 
+### Ex) Update the ESXi driver for various hardware (to ESXi v6.5/v6.7 latest as-of Jan-2020)
+esxcli software vib install -v "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/misc-drivers/VMW_bootbank_misc-drivers_6.7.0-2.48.13006603.vib";
+
 ### Ex) Update the ESXi driver for NIC "net-r8168"
 esxcli software vib install -v "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/net-r8168/VMware_bootbank_net-r8168_8.013.00-3vmw.510.0.0.799733.vib";
 

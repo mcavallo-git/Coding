@@ -63,8 +63,8 @@ Function ESXi_BootMedia() {
 
 				Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
 
-				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 				New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
+				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 
 				Write-Host "------------------------------------------------------------";
 				Write-Host "";

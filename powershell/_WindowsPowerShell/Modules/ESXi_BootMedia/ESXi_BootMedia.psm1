@@ -268,7 +268,7 @@ Function ESXi_BootMedia() {
 					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v65";
 				} ElseIf ($ESXiVersion -Eq "6.7") {
-					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
+					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v67";
 				}
 					

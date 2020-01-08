@@ -15,8 +15,20 @@
 
 ### !!! MAKE SURE TO DOUBLE CHECK THAT YOU'VE BACKED UP THE ESXI INSTANCE'S CURRENT VIB BEFORE MAKING CHANGES/UPDATES TO IT !!! ###
 
+### List/Show installed ESXi drivers (.vib extensioned files)
+esxcli software vib list
 
-# Download & install the latest HTTP & Javascript ".vib" file
+### Install/Update target ESXi driver (.vib extensioned file)
+esxcli software vib install -v "URL"
+
+### Remove target ESXi driver(s) (.vib extensioned files)
+esxcli software vib remove --vib-name="NAME"
+
+
+# ------------------------------------------------------------
+
+### Ex) Update the ESXi's "Embedded Host Client"
+###   |--> Download & install the latest HTTP & Javascript ".vib" file
 esxcli software vib install -v "http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib"
 
 

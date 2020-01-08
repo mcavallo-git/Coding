@@ -24,7 +24,7 @@ function NET_Framework_Install {
 
 
 	# 2013
-	$URL="https://support.microsoft.com/en-us/help/4032938/update-for-visual-c-2013-redistributable-package"; $FN="${Env:Temp}\Install_.NET-Framework-2019.001.exe"; $(New-Object Net.WebClient).DownloadFile(([System.Net.HttpWebRequest]::Create("${URL}").GetResponse().ResponseUri.AbsoluteUri),$FN); Start-Process -Filepath ($FN) -ArgumentList (@("/q","/norestart"));
+	# $URL="https://support.microsoft.com/en-us/help/4032938/update-for-visual-c-2013-redistributable-package"; $FN="${Env:Temp}\Install_.NET-Framework-2019.001.exe"; $(New-Object Net.WebClient).DownloadFile(([System.Net.HttpWebRequest]::Create("${URL}").GetResponse().ResponseUri.AbsoluteUri),$FN); Start-Process -Filepath ($FN) -ArgumentList (@("/q","/norestart"));
 
 
 	# 2010

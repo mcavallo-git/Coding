@@ -5,6 +5,7 @@
   <Association Identifier=".3gp2" ProgId="VLC.3gp2" ApplicationName="VLC media player" />
   <Association Identifier=".3gpp" ProgId="VLC.3gpp" ApplicationName="VLC media player" />
   <Association Identifier=".3mf" ProgId="AppXr0rz9yckydawgnrx5df1t9s57ne60yhn" ApplicationName="Print 3D" />
+  <Association Identifier=".7z" ProgId="7-Zip.7z" ApplicationName="7-Zip File Manager" />
   <Association Identifier=".aac" ProgId="VLC.aac" ApplicationName="VLC media player" />
   <Association Identifier=".ac3" ProgId="AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs" ApplicationName="Groove Music" />
   <Association Identifier=".adt" ProgId="AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs" ApplicationName="Groove Music" />
@@ -68,6 +69,7 @@
   <Association Identifier=".m4r" ProgId="AppXqj98qxeaynz6dv4459ayz6bnqxbyaqcs" ApplicationName="Groove Music" />
   <Association Identifier=".m4v" ProgId="VLC.m4v" ApplicationName="VLC media player" />
   <Association Identifier=".man" ProgId="Applications\Code.exe" ApplicationName="Visual Studio Code" />
+  <Association Identifier=".md" ProgId="Applications\notepad.exe" ApplicationName="Notepad" />
   <Association Identifier=".mid" ProgId="VLC.mid" ApplicationName="VLC media player" />
   <Association Identifier=".mka" ProgId="VLC.mka" ApplicationName="VLC media player" />
   <Association Identifier=".mkv" ProgId="VLC.mkv" ApplicationName="VLC media player" />

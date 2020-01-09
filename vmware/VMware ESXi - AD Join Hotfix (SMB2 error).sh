@@ -8,10 +8,18 @@
 ## "
 ##   Symptoms
 ##      An ESXi host may fail to join an Active Directory domain when the SMBv1 protocol is disabled on the domain controller or when a firewall is blocking SMB negotiate packets. 
+##
 ##   Cause
 ##     SMB2 is supported on ESXi 6.5 Update 1 onward but the initial SMB packet negotiation request begins over SMB1 packet.
-## !!! If SMB2 is enabled on both Active Directory controller and the ESXi host then the negotiation switches to SMB2 otherwise it negotiates through SMB1packets only.
-## !!! If SMB1 is disabled on the domain controller then it would prevent the initial packet negotiation, thus causing packet drops and eventually failure with an error similar to ERROR_GEN_FAILURE.##
+##     If SMB2 is enabled on both Active Directory controller and the ESXi host then the negotiation switches to SMB2 otherwise it negotiates through SMB1packets only.
+##     If SMB1 is disabled on the domain controller then it would prevent the initial packet negotiation, thus causing packet drops and eventually failure with an error similar to ERROR_GEN_FAILURE.##
+##     ...
+##
+##   Resolution
+##     This issue is resolved in ESXi 6.7 Update 2 where the initial packet negotiation will begin via SMB2 by default instead of SMB1, thus disabling SMB1 completely.
+##
+##   Workaround
+##     Disable any firewall rules blocking SMB negotiate packet. Note, ensure to enable firewall rules on esxi and firewalls between esxi host and domain controllers. 
 ## "
 # ------------------------------------------------------------
 

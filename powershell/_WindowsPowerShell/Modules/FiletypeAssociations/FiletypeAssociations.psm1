@@ -1,9 +1,11 @@
 #
 #	PowerShell - FiletypeAssociations
 #		|
-#		|--> Description:  Control Windows' default Filetype Associations through the Group Policy Editor & an XML config settings file-sync
+#		|--> Description:
+#		|      Control Windows' default Filetype Associations through the Group Policy Editor & an XML config settings file-sync
 #		|
-#		|--> Example:     PowerShell -Command ("FiletypeAssociations")
+#		|--> Example Call(s):
+#		       FiletypeAssociations -Pull
 #
 Function FiletypeAssociations() {
 	Param(

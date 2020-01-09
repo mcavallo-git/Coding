@@ -4,6 +4,8 @@
 #		--> Find the sources which define command(s)
 #
 
+Get-Command | Where-Object { $_.Name -Like '*-Service*' } | Select-Object -First 20;
+
 
 #
 # Locate the source-filepath currently defining a given command-name

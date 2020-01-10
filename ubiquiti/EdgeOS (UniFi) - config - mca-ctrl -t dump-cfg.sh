@@ -8,14 +8,11 @@
 # Step 1 - SSH into your Unifi device (USG, for example)
 
 # Step 2 - Export the config to JSON format via the following commands
-sudo -i;
-EXPORT_FILEPATH="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/$(hostname).$(date +'%Y%m%d_%H%M%S').config.gateway.json";
-mca-ctrl -t dump-cfg > "${EXPORT_FILEPATH}";
+mca-ctrl -t dump-cfg > "$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
+mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).sh";
+
 #  |
 #  |--> Reverse-engineers the current config and outputs what it would take to rebuild it as a JSON config-file
-
-echo "Export Filepath:   ${EXPORT_FILEPATH}";
-
 
 # Step 3 - Download the exported JSON file via your SFTP tool of choice (file placed in user's home-directory)
 

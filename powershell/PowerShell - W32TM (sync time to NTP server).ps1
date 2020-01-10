@@ -25,18 +25,15 @@ Write-Host "`n`n";
 
 # ------------------------------------------------------------
 
-
-
 NET STOP W32TIME;
 #  |
 #  |-->  Stop the Windows Time Service
 
 
-
-$Ntp_SetSyncInterval_3600s=",0x9";
-$ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
-$ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
-w32tm.exe /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
+# $Ntp_SetSyncInterval_3600s=",0x9";
+# $ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
+# $ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
+# w32tm.exe /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
 w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
 #  |
 #  |-->  /syncfromflags   -->  "Sets what sources the NTP client should synchronize from"
@@ -48,17 +45,16 @@ NET START W32TIME;
 #  |-->  Start the Windows Time Service
 
 
-
 w32tm.exe /config /update;
 #  |
 #  |-->  /update  -->  "Notify the time service that the configuration has changed, causing the changes to take effect"
-
 
 
 w32tm.exe /resync /rediscover;
 #  |
 #  |-->  /resync  -->  "Tell a computer that it should resynchronize its clock as soon as possible, discarding all accumulated error stats"
 #  |-->  /rediscover  -->  "Redetect the network configuration and rediscover network sources; Then, resynchronize"
+
 
 # ------------------------------------------------------------
 If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax - if-so, then use this, instead:
@@ -81,6 +77,7 @@ w32tm.exe /resync /rediscover;
 # In an Admin PowerShell prompt, enter:
 
 NET STOP W32TIME; w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; w32tm.exe /config /update; w32tm.exe /resync /rediscover;
+
 
 #
 #

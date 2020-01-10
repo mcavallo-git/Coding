@@ -120,6 +120,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #+::
 #NumpadAdd::
 	; SetKeyDelay, 0, -1  ; Glitches & Locks device
+	If (False) {
 	Send {LWin up}{RWin up}
 	Sleep 10
 	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
@@ -130,12 +131,26 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Sleep 10
 	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%%A_Space%%A_Space%domain%A_Space%%A_Space%|%A_Space%%A_Space%""title""%A_Space%%A_Space%|%A_Space%%A_Space%url{Ctrl Down}{Q}{Ctrl Up}`n
+	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%%A_Space%%A_Space%domain%A_Space%%A_Space%|%A_Space%%A_Space%"title"%A_Space%%A_Space%|%A_Space%%A_Space%url{Ctrl Down}{Q}{Ctrl Up}`n
 	Sleep 10
 	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
 	Sleep 10
 	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
 	Sleep 10
+	} Else {
+	MyMsg =
+(
+------------------------------------------------------------
+ 
+ Citation(s)
+ 
+   domain  |  "title"  |  url
+ 
+------------------------------------------------------------
+)
+	MsgBox, 4160, About MyProgram, %MyMsg%
+	}
+
 	Return
 
 
@@ -2213,30 +2228,32 @@ If (False) {
 ;
 ;   stackoverflow.com  |  "How can I set AutoHotKey's code to run only in chrome?"  |  https://stackoverflow.com/a/50180863
 ;
+;   www.autohotkey.com  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
+;
 ;   www.autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
 ; 
 ;   www.autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
-; 
-;   www.autohotkey.com  |  "Single line if statements"  |  https://autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
-; 
-;   www.autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
+;
+;   www.autohotkey.com  |  "How to paste multiline text - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/65421-how-to-paste-multiline-text/
 ;
 ;   www.autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
 ;
-;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
-;
 ;   www.autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
 ;
+;   www.autohotkey.com  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
+; 
+;   www.autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
+;
+;   www.autohotkey.com  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
+;
+;   www.autohotkey.com  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExMonitorPower
+;
+;   www.autohotkey.com  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+;
 ;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+; 
+;   www.autohotkey.com  |  "Single line if statements"  |  https://autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ;
-;   www.autohotkey.com/docs  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
-;
-;   www.autohotkey.com/docs  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
-;
-;   www.autohotkey.com/docs  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
-;
-;   www.autohotkey.com/docs  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExMonitorPower
-;
-;   www.autohotkey.com/docs  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
 ;
 ; ------------------------------------------------------------

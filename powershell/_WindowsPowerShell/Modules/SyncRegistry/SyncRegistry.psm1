@@ -550,8 +550,8 @@ function SyncRegistry {
 					}
 
 					$EchoDetails = "";
-					If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n       v`n      Description: $(${EachProp}.Description)"; }
-					If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n       v`n      Hotfix: $(${EachProp}.Hotfix)"; }
+					# If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n       v`n      Description: $(${EachProp}.Description)"; }
+					# If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n       v`n      Hotfix: $(${EachProp}.Hotfix)"; }
 
 					If ($last_exit_code -eq 0) { # Registry-Key-Property exists
 

@@ -279,8 +279,6 @@ Function ESXi_BootMedia() {
 						Write-Host "";
 						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
 						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
-						# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) outDir (`"${FallbackDir}\.`"); ]  ...";
-						# .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt ${Array_VibDepos} -load ${FallbackVibNames_Valid} outDir ("${FallbackDir}\.");
 					}
 				}
 
@@ -310,8 +308,6 @@ Function ESXi_BootMedia() {
 						Write-Host "";
 						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $VibNames_Valid -outDir (".");
-						# Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt $(([String]$Array_VibDepos).Replace(' ',',')) -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-						# .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -dpt ${Array_VibDepos} -load $VibNames_Valid -outDir (".");
 					}
 				}
 

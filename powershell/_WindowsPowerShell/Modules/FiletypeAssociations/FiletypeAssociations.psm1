@@ -162,10 +162,10 @@ Function FiletypeAssociations() {
 
 		# ------------------------------------------------------------
 		#
-		# Approach (Heavy/Non-ideal):  Manually Copy-Paste the Registry.pol file's directory & contents (contains all Local Group Policy Editor settings)
-		#  > Not exactly what I'd call "solution", but rather more of a "workaround" (but if you'll literally never need to setup a single filetype association again in your life, go for it)
-		#    > All file-extensions must be setup manually, through Windows, the first time, then that Registry.pol file exported / copied to every attached Computer to apply the same settings onto
-		#     > Also, when updating the extensions, you must set them manually in Windows' OS (every time), export the file (again), then copy it to all other associated PCs (again)
+		# DIFFERENT APPROACH #1 (Heavy/Non-ideal):  Manually Copy-Paste the Registry.pol file's directory & contents (contains all Local Group Policy Editor settings)
+		#    > Not exactly what I'd call "solution", but rather more of a "workaround" (but if you'll literally never need to setup a single filetype association again in your life, go for it)
+		#     > All file-extensions must be setup manually, through Windows, the first time, then that Registry.pol file exported / copied to every attached Computer to apply the same settings onto
+		#      > Also, when updating the extensions, you must set them manually in Windows' OS (every time), export the file (again), then copy it to all other associated PCs (again)
 		#
 		If ($False) {
 			Copy-Item "C:\Windows\System32\GroupPolicy" "${HOME}\Desktop\."; ### Transfer to other computer --> Paste over its "C:\Windows\System32\GroupPolicy" directory
@@ -175,7 +175,7 @@ Function FiletypeAssociations() {
 		#
 		# !! DEPRECATED !! (KEPT FOR REFERENCE ON WHAT NOT TO DO)
 		#
-		# Approach: SET FILETYPE ASSOCIATIONS THROUGH REGEDIT/REGISTRY KEY UPDATE(s)
+		# DIFFERENT APPROACH #2: SET FILETYPE ASSOCIATIONS THROUGH REGEDIT/REGISTRY KEY UPDATE(s)
 		#            > DOESN'T WORK, BUT INSINUATES OTHERWISE (READ ON)...
 		#            > GROUP POLICY OBJECTS (GPOs) NEVER PULL FROM THE REGISTRY - THEY ONLY PUSH TO THE REGISTRY (~EVERY 90-MIN)
 		#            > THIS IS EVIDENT FROM A PUSH-PERSPECTIVE - IF YOU UPDATE A GPO MANUALLY, THEN CHECK THE CORRESPONDING REGISTRY KEY, YOU'LL SEE THE CHANGE MADE IN A 1-1 FASHION

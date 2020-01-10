@@ -103,11 +103,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #-::
 #NumpadSub::
+	AwaitModifierKeyup()
 	SetKeyDelay, 0, -1
-	Send {LWin up}{RWin up}
 	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
-	SendInput, ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	Return
 
 
@@ -1128,25 +1127,29 @@ CreateCitationsFooter() {
 	AwaitModifierKeyup()
 	Revert_A_KeyDelay := A_KeyDelay
 	SetKeyDelay, 0, -1
-	SetKeyDelay, %Revert_A_KeyDelay%, -1
+	LF := "`n"
 	Dashes := "------------------------------------------------------------"
-	SendKeys := Dashes "`n`nCitation(s)`n`ndomain  |  ""title""  |  url`n`n" Dashes
-	Send %SendKeys%
-	CommentCurrentLine()
+	CitationsFooter := LF Dashes LF LF "Citation(s)" LF LF "domain  |  ""title""  |  url" LF LF Dashes
+	Send %LF%
+	Send {Space}{Shift Down}{Home}{Shift Up}{Delete}
+	Send %CitationsFooter%
+	Send {LControl Down}{q}{LControl Up}
 	Send {Up}
-	CommentCurrentLine_NoSpace()
+	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
 	Send {Up}
-	CommentCurrentLine()
+	Send {LControl Down}{q}{LControl Up}
 	Send {Home}{Right}{Space}{Space}
 	Send {Up}
-	CommentCurrentLine_NoSpace()
+	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
 	Send {Up}
-	CommentCurrentLine()
+	Send {LControl Down}{q}{LControl Up}
 	Send {Up}
-	CommentCurrentLine_NoSpace()
+	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
 	Send {Up}
-	CommentCurrentLine()
+	Send {LControl Down}{q}{LControl Up}
 	Send {Up}
+	SetKeyDelay, %Revert_A_KeyDelay%, -1
+	Return
 }
 
 

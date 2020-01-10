@@ -277,8 +277,8 @@ Function ESXi_BootMedia() {
 
 					} Else {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
-						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
 					}
 				}
 
@@ -302,12 +302,12 @@ Function ESXi_BootMedia() {
 						(Get-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1";
 
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
-						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 					} Else {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-						.\ESXi-Customizer-PS-v2.6.0.ps1 ${$VersionArg} -vft -load $VibNames_Valid -outDir (".");
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $VibNames_Valid -outDir (".");
 					}
 				}
 

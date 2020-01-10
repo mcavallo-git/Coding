@@ -4,16 +4,10 @@
 #		|
 #		|--> Set a workstation to sync to one or more NTP 'peers' (syntactically-correct name for an NTP server relative to W32TM)
 #
-
-
-$OnComplete_AwaitKeypress = $false;
-
-
-$BeforeUpdate_CheckTimeDelta = $true;
-
-
-$AfterUpdate_CheckTimeDelta = $true;
-
+# ------------------------------------------------------------
+#
+# --> Test each of the NTP Servers (by grabbing the [ current time ] from each of them, separately)
+#
 
 $NtpPeers = @();
 $NtpPeers += "time.nist.gov";
@@ -21,39 +15,12 @@ $NtpPeers += "time.google.com";
 $NtpPeers += "north-america.pool.ntp.org";
 $NtpPeers += "time.windows.com";
 
-
-# ------------------------------------------------------------
-
-set NTP_HOST=time.nist.gov
-
-
-REM --> grab the [ response delay ] from the NTP server
-ping %NTP_HOST% -n 1
-
-
-REM --> grab the [ current time ] from the NTP server
-w32tm.exe /stripchart /computer:%NTP_HOST% /dataonly /samples:5
-
-
-
-# ------------------------------------------------------------
-
-
-$Ntp_SetSyncInterval_3600s=",0x9";
-
-
-$ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
-$ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
-
-
-If ($BeforeUpdate_CheckTimeDelta -eq $true) {
-	Write-Host "`n`n  Before Update to NTP-Config...`n   |";
-	ForEach ($EachPeer In $NtpPeers) {
-		$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
-		Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
-	}
-	Write-Host "`n`n";
+Write-Host "`n`n  Before Update to NTP-Config...`n   |";
+ForEach ($EachPeer In $NtpPeers) {
+	$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
+	Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
 }
+Write-Host "`n`n";
 
 
 # ------------------------------------------------------------
@@ -66,6 +33,9 @@ NET STOP W32TIME;
 
 
 
+$Ntp_SetSyncInterval_3600s=",0x9";
+$ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
+$ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
 w32tm.exe /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
 w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
 #  |
@@ -116,14 +86,12 @@ NET STOP W32TIME; w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.goog
 #
 # ------------------------------------------------------------
 
-If ($AfterUpdate_CheckTimeDelta -eq $true) {
-	Write-Host "`n`n  After Update to NTP-Config...`n   |";
-	ForEach ($EachPeer In $NtpPeers) {
-		$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
-		Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
-	}
-	Write-Host "`n`n";
+Write-Host "`n`n  After Update to NTP-Config...`n   |";
+ForEach ($EachPeer In $NtpPeers) {
+	$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
+	Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
 }
+Write-Host "`n`n";
 
 
 If ($WaitForKeypress -eq $true) {
@@ -131,8 +99,8 @@ If ($WaitForKeypress -eq $true) {
 	$AwaitKeypress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 }
 
-
 Exit;
+
 
 # ------------------------------------------------------------
 #

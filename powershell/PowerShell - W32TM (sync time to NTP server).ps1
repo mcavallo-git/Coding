@@ -24,6 +24,20 @@ $NtpPeers += "time.windows.com";
 
 # ------------------------------------------------------------
 
+set NTP_HOST=time.nist.gov
+
+
+REM --> grab the [ response delay ] from the NTP server
+ping %NTP_HOST% -n 1
+
+
+REM --> grab the [ current time ] from the NTP server
+w32tm.exe /stripchart /computer:%NTP_HOST% /dataonly /samples:5
+
+
+
+# ------------------------------------------------------------
+
 
 $Ntp_SetSyncInterval_3600s=",0x9";
 
@@ -35,7 +49,7 @@ $ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.or
 If ($BeforeUpdate_CheckTimeDelta -eq $true) {
 	Write-Host "`n`n  Before Update to NTP-Config...`n   |";
 	ForEach ($EachPeer In $NtpPeers) {
-		$DeltaTimeToPeer = (W32TM /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
+		$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
 		Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
 	}
 	Write-Host "`n`n";
@@ -52,8 +66,8 @@ NET STOP W32TIME;
 
 
 
-W32TM /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
-W32TM /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
+w32tm.exe /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
+w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
 #  |
 #  |-->  /syncfromflags   -->  "Sets what sources the NTP client should synchronize from"
 #  |-->  /manualpeerlist  -->  "Set the manual peer list to peers, which is a space-delimited list of Domain Name System (DNS) and/or IP addresses"
@@ -65,13 +79,13 @@ NET START W32TIME;
 
 
 
-W32TM /config /update;
+w32tm.exe /config /update;
 #  |
 #  |-->  /update  -->  "Notify the time service that the configuration has changed, causing the changes to take effect"
 
 
 
-W32TM /resync /rediscover;
+w32tm.exe /resync /rediscover;
 #  |
 #  |-->  /resync  -->  "Tell a computer that it should resynchronize its clock as soon as possible, discarding all accumulated error stats"
 #  |-->  /rediscover  -->  "Redetect the network configuration and rediscover network sources; Then, resynchronize"
@@ -81,10 +95,10 @@ If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax
 
 
 NET STOP W32TIME;
-W32TM /config /manualpeerlist:"time.nist.gov time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual;
+w32tm.exe /config /manualpeerlist:"time.nist.gov time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual;
 NET START W32TIME;
-W32TM /config /update;
-W32TM /resync /rediscover;
+w32tm.exe /config /update;
+w32tm.exe /resync /rediscover;
 
 
 }
@@ -96,7 +110,7 @@ W32TM /resync /rediscover;
 
 # In an Admin PowerShell prompt, enter:
 
-NET STOP W32TIME; W32TM /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; W32TM /config /update; W32TM /resync /rediscover;
+NET STOP W32TIME; w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; w32tm.exe /config /update; w32tm.exe /resync /rediscover;
 
 #
 #
@@ -105,7 +119,7 @@ NET STOP W32TIME; W32TM /config /manualpeerlist:"time.nist.gov,0x9 time.google.c
 If ($AfterUpdate_CheckTimeDelta -eq $true) {
 	Write-Host "`n`n  After Update to NTP-Config...`n   |";
 	ForEach ($EachPeer In $NtpPeers) {
-		$DeltaTimeToPeer = (W32TM /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
+		$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];
 		Write-Host (("   |-->   Delta to `"$EachPeer`" = ")+($DeltaTimeToPeer));
 	}
 	Write-Host "`n`n";

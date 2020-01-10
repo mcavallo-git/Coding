@@ -31,6 +31,8 @@ test -n "${UNIFI_HOMEDIR}" && test -d "${CONFIG_DIR_2}" && test -v SUDO_USER && 
 #
 #   docs.foxpass.com  |  "Ubiquiti Unifi / EdgeMax VPN Clients"  |  https://docs.foxpass.com/docs/ubiquiti-unifi-vpn-clients
 #
+#   community.ui.com/  |  "Create DNS enteries | Ubiquiti Community"  |  https://community.ui.com/questions/Create-DNS-enteries/ab712740-d579-4c89-824a-cda582a6bdd4?page=1
+#
 #   help.ubnt.com/  |  "UniFi - USG Advanced Configuration – Ubiquiti Networks Support and Help Center"  |  https://help.ubnt.com/hc/en-us/articles/215458888-UniFi-USG-Advanced-Configuration
 #
 # ------------------------------------------------------------

@@ -6,15 +6,13 @@
 #
 # ------------------------------------------------------------
 #
-# --> Test each of the NTP Servers (by grabbing the [ current time ] from each of them, separately)
+### Test NTP Servers
 #
-
 $NtpPeers = @();
 $NtpPeers += "time.nist.gov";
 $NtpPeers += "time.google.com";
 $NtpPeers += "north-america.pool.ntp.org";
 $NtpPeers += "time.windows.com";
-
 Write-Host "`n`n  Before Update to NTP-Config...`n   |";
 ForEach ($EachPeer In $NtpPeers) {
 	$DeltaTimeToPeer = (w32tm.exe /stripchart /computer:$EachPeer /dataonly /samples:1)[3].Split(' ')[1];

@@ -3,7 +3,7 @@
 #		|
 #		|--> Description:  Sends a Wake-on-LAN Magic Packet to a MAC Address which is specified by the user at runtime
 #		|
-#		|--> Example:     PowerShell -Command ("WakeOnLAN 'A1:B2:C3:D4:E5:F6';")
+#		|--> Example:     WakeOnLAN 'A1:B2:C3:D4:E5:F6';
 #
 Function WakeOnLAN() {
 	Param(

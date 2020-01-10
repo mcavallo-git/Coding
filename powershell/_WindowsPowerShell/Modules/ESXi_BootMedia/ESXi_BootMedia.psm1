@@ -279,6 +279,19 @@ Function ESXi_BootMedia() {
 						Write-Host "";
 						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
 						.\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						If ($ESXiVersion -Eq "5.0") { 
+							.\ESXi-Customizer-PS-v2.6.0.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						} ElseIf ($ESXiVersion -Eq "5.1") {
+							.\ESXi-Customizer-PS-v2.6.0.ps1 -v51 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						} ElseIf ($ESXiVersion -Eq "5.5") {
+							.\ESXi-Customizer-PS-v2.6.0.ps1 -v55 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						} ElseIf ($ESXiVersion -Eq "6.0") {
+							.\ESXi-Customizer-PS-v2.6.0.ps1 -v60 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						} ElseIf ($ESXiVersion -Eq "6.5") {
+							.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						} ElseIf ($ESXiVersion -Eq "6.7") {
+							.\ESXi-Customizer-PS-v2.6.0.ps1 -v67 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						}
 					}
 				}
 

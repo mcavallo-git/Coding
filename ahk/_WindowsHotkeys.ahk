@@ -123,32 +123,37 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	If (False) {
 	Send {LWin up}{RWin up}
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
+	Send `n
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
+	Send {Shift Down}{Home}{Shift Up}{Delete}
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%Citation(s){Ctrl Down}{Q}{Ctrl Up}`n
+	Send ------------------------------------------------------------`n
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
+	Send `n
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%%A_Space%%A_Space%domain%A_Space%%A_Space%|%A_Space%%A_Space%"title"%A_Space%%A_Space%|%A_Space%%A_Space%url{Ctrl Down}{Q}{Ctrl Up}`n
+	Send Citation(s)`n
+	; Send %A_Space%Citation(s)`n
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}%A_Space%{Ctrl Down}{Q}{Ctrl Up}`n
+	Send `n
 	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}------------------------------------------------------------{Ctrl Down}{Q}{Ctrl Up}`n
+	Send domain%A_Space%%A_Space%|%A_Space%%A_Space%"title"%A_Space%%A_Space%|%A_Space%%A_Space%url`n
+	; Send %A_Space%%A_Space%%A_Space%domain%A_Space%%A_Space%|%A_Space%%A_Space%"title"%A_Space%%A_Space%|%A_Space%%A_Space%url`n
+	Sleep 10
+	Send `n
+	Sleep 10
+	Send ------------------------------------------------------------`n
 	Sleep 10
 	} Else {
-	MyMsg =
-(
-------------------------------------------------------------
- 
- Citation(s)
- 
-   domain  |  "title"  |  url
- 
-------------------------------------------------------------
-)
-	MsgBox, 4160, About MyProgram, %MyMsg%
+		SetKeyDelay, 0, -1
+		Dashes := "------------------------------------------------------------"
+		SendKeys := Dashes "`n`nCitation(s)`n`ndomain  |  ""title""  |  url`n`n" Dashes
+		Sleep 10
+
+; SendKeys =
+; (
+; ------------------------------------------------------------`n`nCitation(s)`n`ndomain  |  "title"  |  url`n`n------------------------------------------------------------
+; )
+		Send %SendKeys%
 	}
 
 	Return
@@ -2231,6 +2236,8 @@ If (False) {
 ;   www.autohotkey.com  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 ;   www.autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
+; 
+;   www.autohotkey.com  |  "escape double quote - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=14082
 ; 
 ;   www.autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
 ;

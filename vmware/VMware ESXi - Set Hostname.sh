@@ -5,7 +5,11 @@ HOSTNAME="HOSTNAME"; \
 DOMAINNAME="DOMAIN.TLD"; \
 FQDN="${HOSTNAME}.${DOMAINNAME}"; \
 esxcfg-advcfg -s ${FQDN} /Misc/hostname;
+### Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
+/etc/init.d/hostd restart;
 
+
+# ------------------------------------------------------------
 
 ### Manual Network Config 
 LAN_IPv4="";
@@ -16,8 +20,6 @@ echo "::1             localhost.localdomain localhost" >> "/etc/hosts"; \
 if [ -n "${LAN_IPv4}" ]; then \
 echo "${LAN_IPv4}       ${FQDN} ${HOSTNAME}" >> "/etc/hosts"; \
 fi;
-
-
 ### Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
 /etc/init.d/hostd restart;
 

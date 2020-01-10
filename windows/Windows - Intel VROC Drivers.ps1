@@ -4,7 +4,7 @@
 $Intel_QuickStart_DirectStatement="Note: Intel VROC is not compatible with Secure Boot. If you want to use Intel VROC (VMD NVME RAID), do not enable the system's Secure Boot feature. If Secure boot is required for the solution Intel VROC cannot be used";
 
 
-### The soution for a Lenovo workstation was two-part:
+### The soution for a Lenovo P520c workstation was two-part:
 
 
 ### Part 1/2: Set the following values within the BIOS/UEFI settings:

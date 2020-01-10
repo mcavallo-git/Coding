@@ -29,7 +29,7 @@ Exit 0;
 
 
 # ------------------------------------------------------------
-#	Creating the Credentials file(s) - Read-in the user-specific hostname/domain-name/token from the credentials file(s), below
+#	Creating a base-64 encoded token as a single Credentials file(s) - Read-in the user-specific hostname/domain-name/token from the credentials file(s), below
 
 
 $nc_hostname = Get-Content -Path ("$(${Env:USERPROFILE})/.namecheap/hostname"); `

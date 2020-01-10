@@ -82,7 +82,7 @@ Function FiletypeAssociations() {
 			Write-Host -NoNewLine "Info:  (Update Config) Copying file `"" -ForegroundColor "DarkGray";
 			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
 			Write-Host -NoNewLine "`" to path `"" -ForegroundColor "DarkGray";
-			Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
+			Write-Host -NoNewLine "${CopyDestination}" -ForegroundColor "Gray";
 			Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
 			Write-Host -NoNewLine "`n";
 			Copy-Item `
@@ -98,7 +98,7 @@ Function FiletypeAssociations() {
 		Write-Host -NoNewLine "Info:  (Update Config) Copying file `"" -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
 		Write-Host -NoNewLine "`" to path `"" -ForegroundColor "DarkGray";
-		Write-Host -NoNewLine "${CopySource}" -ForegroundColor "Gray";
+		Write-Host -NoNewLine "${CopyDestination}" -ForegroundColor "Gray";
 		Write-Host -NoNewLine "`" ..." -ForegroundColor "DarkGray";
 		Write-Host -NoNewLine "`n";
 		Copy-Item `

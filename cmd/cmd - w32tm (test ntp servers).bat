@@ -17,7 +17,7 @@ ping %NTP_HOST% -n 1
 
 
 REM --> grab the [ current time ] from the NTP server
-w32tm /stripchart /computer:%NTP_HOST% /dataonly /samples:5
+w32tm.exe /stripchart /computer:%NTP_HOST% /dataonly /samples:5
 
 timeout -t 30
 
@@ -69,8 +69,15 @@ REM    |      |     |-->   83ms   :::   3.ubnt.pool.ntp.org   :::   23.239.26.89
 REM    |      |     X
 REM    |      X
 REM    |       
-REM    V
+REM    
 
-REM   REFERENCE(S):
-REM     https://support.4it.com.au/article/check-a-ntp-server-date-and-time-using-the-windows-command-prompt/
-REM     https://docs.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings
+
+REM ------------------------------------------------------------
+REM
+REM Citation(s)
+REM
+REM   docs.microsoft.com  |  "Windows Time Service Tools and Settings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings
+REM
+REM   support.4it.com.au  |  "Check a NTP Server Date and Time Using the Windows Command Prompt"  |   https://support.4it.com.au/article/check-a-ntp-server-date-and-time-using-the-windows-command-prompt/
+REM
+REM ------------------------------------------------------------

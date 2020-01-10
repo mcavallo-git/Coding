@@ -277,8 +277,8 @@ Function ESXi_BootMedia() {
 
 					} Else {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}\.`"); ]  ...";
-						.\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}\.");
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
+						.\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 					}
 				}
 

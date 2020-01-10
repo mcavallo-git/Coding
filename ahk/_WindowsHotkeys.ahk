@@ -99,7 +99,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
 ;   HOTKEY:  Win + -
-;   HOTKEY:  Win + [ Plus-Key ]
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
 #-::
@@ -108,54 +107,19 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Send {LWin up}{RWin up}
 	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
+	SendInput, ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	Return
 
 
 ; ------------------------------------------------------------
-;   HOTKEY:  Win + -
+;   HOTKEY:  Win + =
 ;   HOTKEY:  Win + [ Plus-Key ]
-;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
+;   ACTION:  Create a citations footer (refer to function description for more info)
 ;
 #=::
 #+::
 #NumpadAdd::
-	; SetKeyDelay, 0, -1  ; Glitches & Locks device
-	If (False) {
-	Send {LWin up}{RWin up}
-	Sleep 10
-	Send `n
-	Sleep 10
-	Send {Shift Down}{Home}{Shift Up}{Delete}
-	Sleep 10
-	Send ------------------------------------------------------------`n
-	Sleep 10
-	Send `n
-	Sleep 10
-	Send Citation(s)`n
-	; Send %A_Space%Citation(s)`n
-	Sleep 10
-	Send `n
-	Sleep 10
-	Send domain%A_Space%%A_Space%|%A_Space%%A_Space%"title"%A_Space%%A_Space%|%A_Space%%A_Space%url`n
-	; Send %A_Space%%A_Space%%A_Space%domain%A_Space%%A_Space%|%A_Space%%A_Space%"title"%A_Space%%A_Space%|%A_Space%%A_Space%url`n
-	Sleep 10
-	Send `n
-	Sleep 10
-	Send ------------------------------------------------------------`n
-	Sleep 10
-	} Else {
-		SetKeyDelay, 0, -1
-		Dashes := "------------------------------------------------------------"
-		SendKeys := Dashes "`n`nCitation(s)`n`ndomain  |  ""title""  |  url`n`n" Dashes
-		Sleep 10
-
-; SendKeys =
-; (
-; ------------------------------------------------------------`n`nCitation(s)`n`ndomain  |  "title"  |  url`n`n------------------------------------------------------------
-; )
-		Send %SendKeys%
-	}
-
+	CreateCitationsFooter()
 	Return
 
 
@@ -1156,6 +1120,59 @@ OpenChrome() {
 
 
 ;
+; CreateCitationsFooter
+;   |--> Creates a block of text designed for placement at the bottom (footer) of a document,
+;        script, etc. which contains Web-Urls to sources which assisted in building said script
+;
+CreateCitationsFooter() {
+	AwaitModifierKeyup()
+	Revert_A_KeyDelay := A_KeyDelay
+	SetKeyDelay, 0, -1
+	SetKeyDelay, %Revert_A_KeyDelay%, -1
+	Dashes := "------------------------------------------------------------"
+	SendKeys := Dashes "`n`nCitation(s)`n`ndomain  |  ""title""  |  url`n`n" Dashes
+	Send %SendKeys%
+	CommentCurrentLine()
+	Send {Up}
+	CommentCurrentLine_NoSpace()
+	Send {Up}
+	CommentCurrentLine()
+	Send {Home}{Right}{Space}{Space}
+	Send {Up}
+	CommentCurrentLine_NoSpace()
+	Send {Up}
+	CommentCurrentLine()
+	Send {Up}
+	CommentCurrentLine_NoSpace()
+	Send {Up}
+	CommentCurrentLine()
+	Send {Up}
+}
+
+
+;
+; CommentCurrentLine
+;   |--> Uses CTRL + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code) 
+;
+CommentCurrentLine() {
+	Send {LControl Down}{q}{LControl Up}
+	Sleep 10
+	Return
+}
+
+
+;
+; CommentCurrentLine_NoSpace
+;   |--> Uses CTRL + Q hotkey to comment the current line (WITHOUT a leading space) in a given IDE (Notepad++/VS-Code)
+;
+CommentCurrentLine_NoSpace() {
+	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
+	Sleep 10
+	Return
+}
+
+
+;
 ; OpenVisualStudioCode
 ;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
 ;
@@ -1370,17 +1387,6 @@ Monitor_ShowScreenSaver() {
 	;
 	Return
 }
-
-
-
-; ...or run multiple commands in one go and retrieve their output:
-MsgBox % RunWaitMany("
-(
-echo Put your commands here,
-echo each one will be run,
-echo and you'll get the output.
-)")
-
 
 
 ;

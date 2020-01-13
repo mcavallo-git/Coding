@@ -56,7 +56,7 @@ sed -e '/^\s*$/d' "/etc/hosts";
 
 # ------------------------------------------------------------
 # 
-# Remove duplicate lines (while still leaving only one of each duplicated line)
+# Remove duplicated lines in a target file (while keeping one copy of each line)
 #
 
 TEMP_SSHD="/tmp/sshd_config_$(date +'%s.%N')"; \

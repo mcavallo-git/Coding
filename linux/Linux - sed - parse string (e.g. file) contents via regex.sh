@@ -256,6 +256,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #
 # 	unix.stackexchange.com  |  "How can I use sed to replace a multi-line string?"  |  https://unix.stackexchange.com/a/26290
 #
+# 	www.cyberciti.biz  |  "Linux Shell – How To Remove Duplicate Text Lines"  |  www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/
+#
 # 	www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques
 #
 # ------------------------------------------------------------

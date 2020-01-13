@@ -58,10 +58,10 @@ w32tm.exe /resync /rediscover;
 If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax - if-so, then use this, instead:
 
 
-NET STOP W32TIME;
-w32tm.exe /config /manualpeerlist:"time.nist.gov time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual;
-NET START W32TIME;
-w32tm.exe /config /update;
+NET STOP W32TIME; `
+w32tm.exe /config /manualpeerlist:"time.nist.gov time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual; `
+NET START W32TIME; `
+w32tm.exe /config /update; `
 w32tm.exe /resync /rediscover;
 
 

@@ -56,6 +56,18 @@ sed -e '/^\s*$/d' "/etc/hosts";
 
 # ------------------------------------------------------------
 # 
+# Remove duplicate lines (while still leaving only one of each duplicated line)
+#
+
+TEMP_SSHD="/tmp/sshd_config_$(date +'%s.%N')"; \
+tac "/etc/ssh/sshd_config" > "${TEMP_SSHD}-2"; \
+cat -n "${TEMP_SSHD}-2" | sort -uk2 | sort -nk1 | cut -f2- > "${TEMP_SSHD}-3"; \
+tac "${TEMP_SSHD}-3" > "${TEMP_SSHD}-4"; \
+cat "${TEMP_SSHD}-4";
+
+
+# ------------------------------------------------------------
+# 
 # Use sed with piped-commands to parse their output, line-by-line
 #
 

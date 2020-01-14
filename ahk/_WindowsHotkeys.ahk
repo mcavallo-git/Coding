@@ -160,11 +160,31 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #P::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	PasswordGenerator := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
-	If (FileExist(PasswordGenerator)) {
-		Run, %PasswordGenerator%
+	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
+	WinTitle := "Password Generator - RoboForm"
+	MaxWaitSeconds := 5
+	If (WinExist(WinTitle)) {
+		If (%VerboseOutput% == True) {
+			Text_TrayTip := "Activating existing instance of Roboform's Password Generator  """ ProcessPath """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+		WinActivate, %WinTitle%
+	} Else If (FileExist(ProcessPath)) {
+		If (%VerboseOutput% == True) {
+			Text_TrayTip := "Opening new-instance of Roboform's Password Generator  """ ProcessPath """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+		Run, %ProcessPath%
+		WinWait, %WinTitle%,, %MaxWaitSeconds%
+		If (WinExist(WinTitle)) {
+			WinActivate, %WinTitle%
+		} Else {
+			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds " reached while opening:  """ ProcessPath """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
 	} Else {
-		Text_TrayTip := "Error - File not found:  " PasswordGenerator
+		Text_TrayTip := "Error - File not found:  """ ProcessPath """"
 		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 	}
 	Return
@@ -1105,8 +1125,8 @@ OpenChrome() {
 	If (ProcessExist(EXE_BASENAME) == True) {
 		; Executable IS running - Activate the associated Window based on PID
 		If (%VerboseOutput% == True) {
-			TRAY_TIP_MSG=Activating "%EXE_NICKNAME%"
-			TrayTip, AHK, %TRAY_TIP_MSG%  ; Toast Notification
+			Text_TrayTip=Activating "%EXE_NICKNAME%"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		; Set Chrome as the Active Window
 		EXE_PID := GetPID(EXE_BASENAME)
@@ -1115,8 +1135,8 @@ OpenChrome() {
 	} Else If (FileExist(EXE_FULLPATH)) {
 		; Executable is NOT running but IS found locally
 		If (%VerboseOutput% == True) {
-			TRAY_TIP_MSG=Opening "%EXE_NICKNAME%"
-			TrayTip, AHK, %TRAY_TIP_MSG%  ; Toast Notification
+			Text_TrayTip=Opening "%EXE_NICKNAME%"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		; Open Chrome
 		; RunAs, %A_UserName%
@@ -1129,8 +1149,8 @@ OpenChrome() {
 	} Else {
 		; Executable is NOT running and NOT found locally
 		If (%VerboseOutput% == True) {
-			TRAY_TIP_MSG=Application not Found "%EXE_FULLPATH%"
-			TrayTip, AHK, %TRAY_TIP_MSG%  ; Toast Notification
+			Text_TrayTip=Application not Found "%EXE_FULLPATH%"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 
 	}
@@ -2217,13 +2237,13 @@ If (False) {
 ;
 ; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
 ;   |
+;   |--> Operators in Expressions - If (...) statements, including mathematical operators:  https://www.autohotkey.com/docs/Variables.htm#Operators
+;   |
 ;   |--> Arrays/Objects - Simple Arrays, e.g. "Indexed Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Simple_Arrays
 ;   |
 ;   |--> Arrays/Objects - Associative Arrays, e.g. "Associative Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
 ;   |
 ;   |--> Arrays/Objects - Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
-;   |
-;   |--> Operators in Expressions - If (...) statements, including mathematical operators:  https://www.autohotkey.com/docs/Variables.htm#Operators
 ;
 ; ------------------------------------------------------------ 
 ;
@@ -2260,6 +2280,8 @@ If (False) {
 ; Citation(s)
 ;
 ;   answers.microsoft.com  |  "Shortcut to sound control panel?"  |  https://answers.microsoft.com/en-us/windows/forum/windows_10-start/shortcut-to-sound-control-panel/32d5a6e7-fa92-4ca7-9033-cd38ba525542
+;
+;   docs.microsoft.com  |  "wscript | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/wscript
 ;
 ;   docs.microsoft.com  |  "WM_SYSCOMMAND message"  |  https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
 ;

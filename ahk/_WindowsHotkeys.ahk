@@ -1515,10 +1515,14 @@ OpenPasswordGenerator() {
 	Global VerboseOutput
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
 	WinTitle := "Password Generator - RoboForm"
-	MaxWaitSeconds := 20
-	If (WinExist(WinTitle)) {
+	WinTitle_Login := "RoboForm Log In"
+	MaxWaitSeconds := 5
+	If (WinExist(WinTitle_Login)) {
+		WinActivate, %WinTitle_Login%
+	} Else If (WinExist(WinTitle)) {
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Activating existing instance of """ WinTitle """"
 			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
@@ -1533,6 +1537,8 @@ OpenPasswordGenerator() {
 		WinWait, %WinTitle%,, %MaxWaitSeconds%
 		If (WinExist(WinTitle)) {
 			WinActivate, %WinTitle%
+		} Else If (WinExist(WinTitle_Login)) {
+			WinActivate, %WinTitle_Login%
 		} Else {
 			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds "s reached while waiting for """ WinTitle """"
 			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification

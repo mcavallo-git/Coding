@@ -1517,7 +1517,7 @@ OpenPasswordGenerator() {
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
 	WinTitle := "Password Generator - RoboForm"
-	MaxWaitSeconds := 5
+	MaxWaitSeconds := 20
 	If (WinExist(WinTitle)) {
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Activating existing instance of """ WinTitle """"

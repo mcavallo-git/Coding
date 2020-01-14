@@ -60,10 +60,10 @@ sed -e '/^\s*$/d' "/etc/hosts";
 #
 
 TEMP_SSHD="/tmp/sshd_config_$(date +'%s.%N')"; \
-tac "/etc/ssh/sshd_config" > "${TEMP_SSHD}-2"; \
-cat -n "${TEMP_SSHD}-2" | sort -uk2 | sort -nk1 | cut -f2- > "${TEMP_SSHD}-3"; \
-tac "${TEMP_SSHD}-3" > "${TEMP_SSHD}-4"; \
-cat "${TEMP_SSHD}-4";
+echo "$(tac ${TEMP_SSHD};)" > "${TEMP_SSHD}";
+echo "$(cat -n ${TEMP_SSHD} | sort -uk2 | sort -nk1 | cut -f2-;)" > "${TEMP_SSHD}";
+echo "$(tac ${TEMP_SSHD};)" > "${TEMP_SSHD}";
+cat "${TEMP_SSHD}";
 
 
 # ------------------------------------------------------------

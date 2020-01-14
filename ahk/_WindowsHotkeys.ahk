@@ -156,38 +156,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + P
-;  ACTION:  Open RoboForm's Generate-Password Exe
+;  ACTION:  Open RoboForm's Generate-Password Executable
 ;
 #P::
-	Global VerboseOutput
-	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
-	WinTitle := "Password Generator - RoboForm"
-	MaxWaitSeconds := 5
-	If (WinExist(WinTitle)) {
-		If (VerboseOutput = True) {
-			Text_TrayTip := "Activating existing instance of """ WinTitle """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		WinActivate, %WinTitle%
-	} Else If (FileExist(ProcessPath)) {
-		If (VerboseOutput = True) {
-			Text_TrayTip := "Opening new-instance of """ WinTitle """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		Run, %ProcessPath%
-		WinWait, %WinTitle%,, %MaxWaitSeconds%
-		If (WinExist(WinTitle)) {
-			WinActivate, %WinTitle%
-		} Else {
-			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds "s reached while waiting for """ WinTitle """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-	} Else {
-		Text_TrayTip := "Error - ProcessPath not found:  """ ProcessPath """"
-		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-	}
+	OpenPasswordGenerator()
 	Return
 
 

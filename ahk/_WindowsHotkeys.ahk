@@ -485,16 +485,15 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  HOTKEY:  AppsKey
 ;  ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
+;
+; *AppsKey::
+; 	Send {Blind}{RWin down}
+; 	Return
+; *AppsKey up::
+; 	Send {Blind}{RWin up}
+; 	Return
 
-AppsKey::
-	Send {Blind}{RWin down}
-	Return
-
-AppsKey up::
-	Send {Blind}{RWin up}
-	Return
-
-; AppsKey::RWin
+AppsKey::RWin
 
 
 ; ------------------------------------------------------------

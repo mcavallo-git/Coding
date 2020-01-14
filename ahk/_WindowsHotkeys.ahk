@@ -159,20 +159,21 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Open RoboForm's Generate-Password Exe
 ;
 #P::
+	Global VerboseOutput
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
 	WinTitle := "Password Generator - RoboForm"
 	MaxWaitSeconds := 5
 	If (WinExist(WinTitle)) {
-		If (%VerboseOutput% == True) {
-			Text_TrayTip := "Activating existing instance of Roboform's Password Generator  """ ProcessPath """"
+		If (VerboseOutput = True) {
+			Text_TrayTip := "Activating existing instance of """ WinTitle """"
 			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
-		If (%VerboseOutput% == True) {
-			Text_TrayTip := "Opening new-instance of Roboform's Password Generator  """ ProcessPath """"
+		If (VerboseOutput = True) {
+			Text_TrayTip := "Opening new-instance of """ WinTitle """"
 			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		Run, %ProcessPath%
@@ -180,11 +181,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		If (WinExist(WinTitle)) {
 			WinActivate, %WinTitle%
 		} Else {
-			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds " reached while opening:  """ ProcessPath """"
+			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds "s reached while waiting for """ WinTitle """"
 			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 	} Else {
-		Text_TrayTip := "Error - File not found:  """ ProcessPath """"
+		Text_TrayTip := "Error - ProcessPath not found:  """ ProcessPath """"
 		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 	}
 	Return
@@ -800,6 +801,7 @@ WheelRight::
 ;  ACTION:  Foxit PhantomPDF - Add Text
 ;
 ; #A::
+; 	Global VerboseOutput
 ; 	CoordMode, Mouse, Screen
 ; 	SetDefaultMouseSpeed, 0
 ; 	SetControlDelay, -1
@@ -809,7 +811,7 @@ WheelRight::
 ; 	WinGet, WinProcessName, ProcessName, A
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (%VerboseOutput% == True) {
+; 		If (VerboseOutput = True) {
 ; 			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
 ; 		}
 ; 		x_loc = 223
@@ -821,7 +823,7 @@ WheelRight::
 ; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 ; 	}
 ; 	; } Else {
-; 	; 	If (%VerboseOutput% == True) {
+; 	; 	If (VerboseOutput = True) {
 ; 	; 		TrayTip, AHK, Foxit PhantomPDF`nMUST be active (to add text), 4, 1  ; Toast Notification
 ; 	; 	}
 ; 	; }
@@ -1065,97 +1067,75 @@ Numlock::
 
 
 ;
-;	GetPID
-;   |--> Returns PID if process IS found
-;   |--> Returns 0 if process is NOT found
+; ActiveWindow_Maximize
+;   |--> Maximize active window (if not maximized, already)
 ;
-;	ProcessExist
-;	IfProcessExist
-;   |--> Returns True if process IS found
-;   |--> Returns False if process is NOT found
-;
-GetPID(ProcName) {
-	Process, Exist, %ProcName%
-	Return %ErrorLevel%
-}
-ProcessExist(ProcName) {
-  Return (GetPID(ProcName)>0) ? True : False
-}
-IfProcessExist(ProcName) {
-	Return (GetPID(ProcName)>0) ? True : False
-}
-
-
-;
-; Get_ahk_id_from_title
-;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
-;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
-;
-Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
-}
-
-
-;
-; Get_ahk_id_from_title
-;   |--> Input: WinPID to Target
-;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
-;
-Get_ahk_id_from_pid(WinPid) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
-}
-
-
-;
-;	OpenChrome - Opens the "Google Chrome" Application
-;
-OpenChrome() {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	EXE_NICKNAME := "Google Chrome"
-	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-
-	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; SplitPath - https://www.autohotkey.com/docs/commands/SplitPath.htm
-
-	If (ProcessExist(EXE_BASENAME) == True) {
-		; Executable IS running - Activate the associated Window based on PID
-		If (%VerboseOutput% == True) {
-			Text_TrayTip=Activating "%EXE_NICKNAME%"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		; Set Chrome as the Active Window
-		EXE_PID := GetPID(EXE_BASENAME)
-		WinActivate, ahk_pid %EXE_PID%
-
-	} Else If (FileExist(EXE_FULLPATH)) {
-		; Executable is NOT running but IS found locally
-		If (%VerboseOutput% == True) {
-			Text_TrayTip=Opening "%EXE_NICKNAME%"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		; Open Chrome
-		; RunAs, %A_UserName%
-		Run, %EXE_FULLPATH%
-		WinWait,Chrome,,10
-		; Set Chrome as the Active Window
-		EXE_PID := GetPID(EXE_BASENAME)
-		WinActivate, ahk_pid %EXE_PID%
-
-	} Else {
-		; Executable is NOT running and NOT found locally
-		If (%VerboseOutput% == True) {
-			Text_TrayTip=Application not Found "%EXE_FULLPATH%"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-
+ActiveWindow_Maximize() {
+	WinGet, WinState, MinMax, A
+	If (WinState<=0) { ; Window is not maximized - maximize it
+		WinMaximize A
 	}
 	Return
+}
 
+
+;
+; ActiveWindow_ToggleRestoreMaximize
+;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
+;
+ActiveWindow_ToggleRestoreMaximize() {
+	WinGet, WinState, MinMax, A
+	WinGet, WinStyle, Style, A
+	; WinGet, OutputVar, MinMax 
+	If (WinState>0) { ; Window is maximized - restore it
+		WinRestore A
+	} Else If (WinState=0) { ; Window is neither maximized nor minimized - maximize it
+		WinMaximize A
+	} Else If (WinState<0) { ; Window is minimized - restore it, I guess?
+		WinRestore A
+	}
+	Return
+}
+
+
+;
+; AwaitModifierKeyup
+;   |-->  Wait until all modifier keys are released
+;
+AwaitModifierKeyup() {
+	KeyWait LAlt    ; Wait for [ Left-Alt ] to be released
+	KeyWait LCtrl   ; Wait for [ Left-Control ] to be released
+	KeyWait LShift  ; Wait for [ Left-Shift ] to be released
+	KeyWait LWin    ; Wait for [ Left-Win ] to be released
+	KeyWait RAlt    ; Wait for [ Right-Alt ] to be released
+	KeyWait RCtrl   ; Wait for [ Right-Control ] to be released
+	KeyWait RShift  ; Wait for [ Right-Shift ] to be released
+	KeyWait RWin    ; Wait for [ Right-Win ] to be released
+	Sleep 100
+}
+
+
+;
+; ClearSplashText
+;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
+;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;
+ClearSplashText(Period) {
+	Label := "RemoveSplashText"
+	SetTimer, %Label%, -%Period%
+	Return
+}
+
+
+;
+; ClearTooltip
+;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
+;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;
+ClearTooltip(Period) {
+	Label := "RemoveToolTip"
+	SetTimer, %Label%, -%Period%
+	Return
 }
 
 
@@ -1212,6 +1192,405 @@ CommentCurrentLine() {
 CommentCurrentLine_NoSpace() {
 	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
 	Sleep 10
+	Return
+}
+
+
+;
+;	GetPID
+;   |--> Returns PID if process IS found
+;   |--> Returns 0 if process is NOT found
+;
+GetPID(ProcName) {
+	Process, Exist, %ProcName%
+	Return %ErrorLevel%
+}
+
+
+;
+; Get_ahk_id_from_title
+;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
+;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
+;
+Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
+}
+
+
+;
+; Get_ahk_id_from_title
+;   |--> Input: WinPID to Target
+;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
+;
+Get_ahk_id_from_pid(WinPid) {
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
+}
+
+
+;
+; GetTimezoneOffset
+;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
+;
+GetTimezoneOffset() {
+	RET_VAL := ""
+	T1 := A_Now
+	T2 := A_NowUTC
+	EnvSub, T1, %T2%, M
+	MINUTES_DIFF := T1
+
+	; SetFormat, float, 2.0
+	TZ_SIGN := ""
+	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
+	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
+	; +/- Timezone ahead/behind UTC determination
+	If (TZ_QUOTIENT<0.0) {
+		TZ_SIGN := "-"
+		TZ_QUOTIENT *= -1
+	} Else {
+		TZ_SIGN := "+"
+	}
+	; Hours - Left-Pad with Zeroes
+	If (Abs(TZ_QUOTIENT) < 10) {
+		TZ_QUOTIENT = 0%TZ_QUOTIENT%
+	}
+	; Minutes - Left-Pad with Zeroes
+	If (Abs(TZ_REMAINDER) < 10) {
+		TZ_REMAINDER = 0%TZ_REMAINDER%
+	}
+
+	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
+	RET_VAL := StrReplace(RET_VAL, ".", "")
+
+	; TZ_REMAINDER := "GMT +" Floor(T1/60)
+	Return %RET_VAL%
+}
+
+
+;
+; GetTimezoneOffset_P
+;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
+;
+GetTimezoneOffset_P() {
+	RET_VAL := ""
+	TZ_OFFSET := GetTimezoneOffset()
+	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
+	Return %RET_VAL%
+}
+
+;
+; GetWindowSpecs
+;   |--> Gets Specs for currently-active window
+;
+GetWindowSpecs() {
+
+	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
+	Gui, WindowSpecs:Default
+
+	WinGetActiveStats, Title, Width, Height, Left, Top
+	WinGetTitle, WinTitle, A
+	WinGetText, WinText, A
+	WinGet, WinID, ID, A
+	WinGet, WinPID, PID, A
+	WinGetClass, WinClass, A
+	WinGet, WinProcessName, ProcessName, A
+	WinGet, WinProcessPath, ProcessPath, A
+	WinGet, ControlNames, ControlList, A	; Get all control names in this window
+	
+	; Create the ListView with two columns
+
+	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
+	Gui, Font, s10, Tahoma
+	Gui, Font, s10, Consolas
+	Gui, Font, s10, Courier New
+	Gui, Font, s10, Open Sans
+	Gui, Font, s10, Fira Code
+	Gui, Color, 1E1E1E
+	
+	GUI_ROWCOUNT := 12
+	GUI_WIDTH := 1000
+	GUI_BACKGROUND_COLOR = 1E1E1E
+	GUI_TEXT_COLOR = FFFFFF
+	
+	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
+	GUI_OPT = r%GUI_ROWCOUNT%
+	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
+	GUI_OPT = %GUI_OPT% gGetWindowSpecs_OnClick_LV_WindowSpecs
+	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
+	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
+	GUI_OPT = %GUI_OPT% Grid
+	GUI_OPT = %GUI_OPT% NoSortHdr
+	; GUI_OPT = %GUI_OPT% AltSubmit
+
+	Gui, Add, ListView, %GUI_OPT%, Key|Value
+
+	LV_Add("", "WinTitle", WinTitle)
+	LV_Add("", "WinClass", WinClass)
+	LV_Add("", "ProcessName", WinProcessName)
+	LV_Add("", "ProcessPath", WinProcessPath)
+	LV_Add("", "ControlList", ControlNames)
+	LV_Add("", "ID", WinID)
+	LV_Add("", "PID", WinPID)
+	LV_Add("", "Left", Left)
+	LV_Add("", "Top", Top)
+	LV_Add("", "Width", Width)
+	LV_Add("", "Height", Height)
+	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
+	LV_Add("", "A_SendLevel", A_SendLevel)
+
+	LV_ModifyCol(1, "AutoHdr Text Left")
+
+	LV_ModifyCol(2, "AutoHdr Text Left")
+
+	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
+
+	; Display the window and return. The script will be notified whenever the user double clicks a row.
+	Gui, Show
+
+	Return
+}
+
+
+;
+; GetWindowSpecs_OnClick_LV_WindowSpecs
+;   |--> Sub-Function of "GetWindowSpecs()"
+;
+GetWindowSpecs_OnClick_LV_WindowSpecs() {
+	; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
+	Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
+	If (Obj_EventTriggers[A_GuiEvent]) {
+		LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
+		LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
+		MsgBox, 4, %A_ScriptName%,
+		(LTrim
+			You selected:
+			%ValSelected%
+
+			Copy this to the clipboard?
+		)
+		IfMsgBox Yes
+		{
+			Clipboard := ValSelected
+		}
+		; Gui, WindowSpecs:Default
+		; Gui, Destroy
+	}
+	; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
+	LV_Verbosity := 0
+	If ( LV_Verbosity = 1 ) {
+		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
+		ToolTip, %TooltipOutput%
+		SetTimer, RemoveToolTip, -2500
+	}
+	Return
+}
+
+
+;
+;	IfProcessExist (proxy-function for GetPID(...))
+;   |--> Returns True if process IS found
+;   |--> Returns False if process is NOT found
+;
+IfProcessExist(ProcName) {
+	Return (GetPID(ProcName)>0) ? True : False
+}
+
+
+;
+; LockWorkstation
+;   |--> Lock the Workstation and turn-off/activate-lower-power-mode on monitors
+;
+LockWorkstation() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	Monitor_ActivateLowPowerMode()
+	; Monitor_PowerOff()
+	Return
+}
+
+
+;
+; Microseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
+;   |--> Example call:
+;          TrayTip, AHK, % ( "Microseconds = [ " Microseconds() " ]" )  ; Toast Notification
+;
+Microseconds() {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
+	A_USec := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
+	Return %A_USec%
+}
+
+
+;
+; Milliseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
+;   |--> Example call:
+;          TrayTip, AHK, % ( "Milliseconds = [ " Milliseconds() " ]" )  ; Toast Notification
+;
+Milliseconds() {
+	Return %A_MSec%
+}
+
+
+;
+; Monitor_ActivateLowPowerMode
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+;          |--> Sending a value of [ 1 ] sends [ activate low-power mode ] to attached monitor(s)
+;
+Monitor_ActivateLowPowerMode() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	SendMessage, 0x112, 0xF170, 1,, Program Manager
+	Return
+}
+
+
+;
+; Monitor_PowerOff
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
+;
+Monitor_PowerOff() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	SendMessage, 0x112, 0xF170, 2,, Program Manager
+	Return
+}
+
+
+;
+; Monitor_PowerOn
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
+;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
+;          |--> Sending a value of [ -1 ] sends [ power on ] to attached monitor(s)
+;
+Monitor_PowerOn() {
+	DllCall("LockWorkStation")
+	Sleep 10
+	SendMessage, 0x112, 0xF170, -1,, Program Manager
+	Return
+}
+
+
+;
+; Monitor_ShowScreenSaver
+;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;   |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
+;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
+;
+Monitor_ShowScreenSaver() {
+	SendMessage, 0x112, 0xF140, 0,, Program Manager
+	; |
+	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+	; |
+	; |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
+	;
+	Return
+}
+
+
+;
+; Nanoseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
+;   |--> Example call:
+;          TrayTip, AHK, % ( "Nanoseconds = [ " Nanoseconds() " ]" )  ; Toast Notification
+;
+Nanoseconds() {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+	; vDate := 1601
+	; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	A_NSec := Format("{:07}00", Mod(vIntervals, 10000000))
+	Return %A_NSec%
+}
+
+
+;
+;	OpenChrome
+;   |--> Opens the "Google Chrome" Application
+;
+OpenChrome() {
+	Global VerboseOutput
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	EXE_NICKNAME := "Google Chrome"
+	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; SplitPath - https://www.autohotkey.com/docs/commands/SplitPath.htm
+	If (ProcessExist(EXE_BASENAME) == True) {
+		; Executable IS running - Activate the associated Window based on PID
+		If (VerboseOutput = True) {
+			Text_TrayTip := "Activating """ EXE_NICKNAME """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+		; Set Chrome as the Active Window
+		EXE_PID := GetPID(EXE_BASENAME)
+		WinActivate, ahk_pid %EXE_PID%
+	} Else If (FileExist(EXE_FULLPATH)) {
+		; Executable is NOT running but IS found locally
+		If (VerboseOutput = True) {
+			Text_TrayTip := "Opening """ EXE_NICKNAME """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+		; Open Chrome
+		; RunAs, %A_UserName%
+		Run, %EXE_FULLPATH%
+		WinWait,Chrome,,10
+		; Set Chrome as the Active Window
+		EXE_PID := GetPID(EXE_BASENAME)
+		WinActivate, ahk_pid %EXE_PID%
+	} Else {
+		; Executable is NOT running and NOT found locally
+		If (VerboseOutput = True) {
+			Text_TrayTip=Application not Found "%EXE_FULLPATH%"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+	}
+	Return
+}
+
+
+;
+;	OpenPasswordGenerator
+;   |--> Opens Roboform's Password Generator executable
+;
+OpenPasswordGenerator() {
+	Global VerboseOutput
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
+	WinTitle := "Password Generator - RoboForm"
+	MaxWaitSeconds := 5
+	If (WinExist(WinTitle)) {
+		If (VerboseOutput = True) {
+			Text_TrayTip := "Activating existing instance of """ WinTitle """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+		WinActivate, %WinTitle%
+	} Else If (FileExist(ProcessPath)) {
+		If (VerboseOutput = True) {
+			Text_TrayTip := "Opening new-instance of """ WinTitle """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+		Run, %ProcessPath%
+		WinWait, %WinTitle%,, %MaxWaitSeconds%
+		If (WinExist(WinTitle)) {
+			WinActivate, %WinTitle%
+		} Else {
+			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds "s reached while waiting for """ WinTitle """"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+	} Else {
+		Text_TrayTip := "Error - ProcessPath not found:  """ ProcessPath """"
+		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+	}
 	Return
 }
 
@@ -1274,248 +1653,6 @@ OpenVSCode() {
 	; 		➣ WinPID:   %WinPID%
 	; 	)
 	; Return
-}
-
-
-;
-; TabSpace_Loop
-;   |--> Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of checkboxes need to be selected individually to update from a Git repo
-;
-TabSpace_Loop(LoopIterations) {
-	Loop %LoopIterations% {
-		Send {Tab}
-		Sleep 10
-		Send {Space}
-		Sleep 10
-	}
-	Return
-}
-
-
-;
-;	SendSpace
-;   |--> For some reason, Windows 10 doesn't like Send {Space} (as-in it 'ignores' the keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
-;
-SendSpace() {
-	Send {SC039}
-	Return
-}
-
-
-;
-;	SpaceUp_Loop
-;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
-;
-SpaceUp_Loop(LoopIterations) {
-	Loop %LoopIterations% {
-		Sleep 500
-		Send {SC039}
-		SendSpace()
-		Sleep 500
-		Send {Up}
-	}
-	Return
-}
-
-
-;
-; ActiveWindow_ToggleRestoreMaximize
-;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
-;
-ActiveWindow_ToggleRestoreMaximize() {
-	WinGet, WinState, MinMax, A
-	WinGet, WinStyle, Style, A
-	; WinGet, OutputVar, MinMax 
-	If (WinState>0) { ; Window is maximized - restore it
-		WinRestore A
-	} Else If (WinState=0) { ; Window is neither maximized nor minimized - maximize it
-		WinMaximize A
-	} Else If (WinState<0) { ; Window is minimized - restore it, I guess?
-		WinRestore A
-	}
-	Return
-}
-
-
-;
-; ActiveWindow_Maximize
-;   |--> Maximize active window (if not maximized, already)
-;
-ActiveWindow_Maximize() {
-	WinGet, WinState, MinMax, A
-	If (WinState<=0) { ; Window is not maximized - maximize it
-		WinMaximize A
-	}
-	Return
-}
-
-
-
-;
-; StrLenUnicode
-;   |--> Get String-Length for unicode string(s)? (Need better description)
-;
-StrLenUnicode(data) {
-	RegExReplace(data, "s).", "", i)
-	Return i
-}
-
-
-;
-; LockWorkstation
-;   |--> Lock the Workstation and turn-off/activate-lower-power-mode on monitors
-;
-LockWorkstation() {
-	DllCall("LockWorkStation")
-	Sleep 10
-	Monitor_ActivateLowPowerMode()
-	; Monitor_PowerOff()
-	Return
-}
-
-
-;
-; Monitor_PowerOn
-;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
-;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
-;          |--> Sending a value of [ -1 ] sends [ power on ] to attached monitor(s)
-;
-Monitor_PowerOn() {
-	DllCall("LockWorkStation")
-	Sleep 10
-	SendMessage, 0x112, 0xF170, -1,, Program Manager
-	Return
-}
-
-
-;
-; Monitor_ActivateLowPowerMode
-;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
-;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
-;          |--> Sending a value of [ 1 ] sends [ activate low-power mode ] to attached monitor(s)
-;
-Monitor_ActivateLowPowerMode() {
-	DllCall("LockWorkStation")
-	Sleep 10
-	SendMessage, 0x112, 0xF170, 1,, Program Manager
-	Return
-}
-
-
-;
-; Monitor_PowerOff
-;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
-;   |--> [ 0xF170 ] targets [ SCMONITORPOWER ]
-;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
-;
-Monitor_PowerOff() {
-	DllCall("LockWorkStation")
-	Sleep 10
-	SendMessage, 0x112, 0xF170, 2,, Program Manager
-	Return
-}
-
-
-;
-; Monitor_ShowScreenSaver
-;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
-;   |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
-;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
-;
-Monitor_ShowScreenSaver() {
-	SendMessage, 0x112, 0xF140, 0,, Program Manager
-	; |
-	; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
-	; |
-	; |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
-	;
-	Return
-}
-
-
-;
-; Timestamp
-;   |--> Gets the current Timestamp in a format which is compatible/ready-to-be-used-within filenames
-;   |--> Example call:
-;          Timestamp := Timestamp()
-;
-Timestamp() {
-	FormatTime,Timestamp,,yyyyMMdd-HHmmss
-	Return %Timestamp%
-}
-
-
-;
-; Milliseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
-;   |--> Example call:
-;          TrayTip, AHK, % ( "Milliseconds = [ " Milliseconds() " ]" )  ; Toast Notification
-;
-Milliseconds() {
-	Return %A_MSec%
-}
-
-
-;
-; Microseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
-;   |--> Example call:
-;          TrayTip, AHK, % ( "Microseconds = [ " Microseconds() " ]" )  ; Toast Notification
-;
-Microseconds() {
-	vIntervals := 0
-	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
-	A_USec := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
-	Return %A_USec%
-}
-
-
-;
-; Nanoseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
-;   |--> Example call:
-;          TrayTip, AHK, % ( "Nanoseconds = [ " Nanoseconds() " ]" )  ; Toast Notification
-;
-Nanoseconds() {
-	vIntervals := 0
-	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
-	; vDate := 1601
-	; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-	A_NSec := Format("{:07}00", Mod(vIntervals, 10000000))
-	Return %A_NSec%
-}
-
-
-;
-; TempFile
-;   |--> Creates a temporary file with a timestamp (down to the millisecond) based filename
-;   |--> Returns a string-value containing the fullpath of the temporary file (which was just created)
-;
-TempFile() {
-	TempFile_Dirname := A_Temp "\AutoHotkey\"
-	IfNotExist, %TempFile_Dirname%
-	{
-		FileCreateDir, %TempFile_Dirname%
-	}
-	TempFile_Basename := A_Now "." A_MSec
-	TempFile_Fullpath := TempFile_Dirname TempFile_Basename
-	Return %TempFile_Fullpath%
-}
-
-;
-; AwaitModifierKeyup
-;   |-->  Wait until all modifier keys are released
-;
-AwaitModifierKeyup() {
-	KeyWait LAlt    ; Wait for [ Left-Alt ] to be released
-	KeyWait LCtrl   ; Wait for [ Left-Control ] to be released
-	KeyWait LShift  ; Wait for [ Left-Shift ] to be released
-	KeyWait LWin    ; Wait for [ Left-Win ] to be released
-	KeyWait RAlt    ; Wait for [ Right-Alt ] to be released
-	KeyWait RCtrl   ; Wait for [ Right-Control ] to be released
-	KeyWait RShift  ; Wait for [ Right-Shift ] to be released
-	KeyWait RWin    ; Wait for [ Right-Win ] to be released
-	Sleep 100
 }
 
 
@@ -1633,189 +1770,6 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 	Return
 
 
-
-;
-; RunWaitOne
-;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
-;   |--> Example-call:
-;          MsgBox % RunWaitOne("dir " A_ScriptDir)
-;
-RunWaitOne(CMD_Command) {
-	WScript_Shell := ComObjCreate("WScript.Shell")
-	Run_Command := ComSpec " /C """ CMD_Command """ "
-	WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
-	Return WScript_Shell_Exec
-}
-
-
-;
-; RunWaitMany
-;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
-;   |--> Example-call:
-;          MsgBox % RunWaitMany("
-;          (
-;          echo Put your commands here,
-;          echo each one will be run,
-;          echo and you'll get the output.
-;          )")
-;
-RunWaitMany(CMD_Commands) {
-	WScript_Shell := ComObjCreate("WScript.Shell")
-	; Open cmd.exe with echoing of commands disabled
-	WScript_Shell_Exec := WScript_Shell.Exec(ComSpec " /Q /K echo off")
-	; Send the commands to execute, separated by newline
-	WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
-	; Read and return the output of all commands
-	Return exec.StdOut.ReadAll()
-}
-
-
-;
-; GetTimezoneOffset
-;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
-;
-GetTimezoneOffset() {
-	RET_VAL := ""
-	T1 := A_Now
-	T2 := A_NowUTC
-	EnvSub, T1, %T2%, M
-	MINUTES_DIFF := T1
-
-	; SetFormat, float, 2.0
-	TZ_SIGN := ""
-	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
-	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
-	; +/- Timezone ahead/behind UTC determination
-	If (TZ_QUOTIENT<0.0) {
-		TZ_SIGN := "-"
-		TZ_QUOTIENT *= -1
-	} Else {
-		TZ_SIGN := "+"
-	}
-	; Hours - Left-Pad with Zeroes
-	If (Abs(TZ_QUOTIENT) < 10) {
-		TZ_QUOTIENT = 0%TZ_QUOTIENT%
-	}
-	; Minutes - Left-Pad with Zeroes
-	If (Abs(TZ_REMAINDER) < 10) {
-		TZ_REMAINDER = 0%TZ_REMAINDER%
-	}
-
-	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
-	RET_VAL := StrReplace(RET_VAL, ".", "")
-
-	; TZ_REMAINDER := "GMT +" Floor(T1/60)
-	Return %RET_VAL%
-}
-
-
-;
-; GetTimezoneOffset_P
-;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
-;
-GetTimezoneOffset_P() {
-	RET_VAL := ""
-	TZ_OFFSET := GetTimezoneOffset()
-	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
-	Return %RET_VAL%
-}
-
-
-;
-; StringRepeat
-;   |--> Repeat a string a given number of times
-;
-StringRepeat(StrToRepeat, Multiplier) {
-	ReturnedVal := ""
-	If (Multiplier > 0) {
-		Loop, %Multiplier% {
-			ReturnedVal .= StrToRepeat
-		}
-	}
-	Return ReturnedVal
-}
-
-
-;
-; RemoveToolTip
-;   |--> Removes any Tooltips found
-;
-RemoveToolTip() {
-	ToolTip
-	Return
-}
-
-
-;
-; ClearTooltip
-;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
-;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
-;
-ClearTooltip(Period) {
-	Label := "RemoveToolTip"
-	SetTimer, %Label%, -%Period%
-	Return
-}
-
-
-;
-; RemoveSplashText
-;   |--> Removes any SplashText found
-;
-RemoveSplashText() {
-	SplashTextOff
-	Return
-}
-
-
-;
-; XBox_DownloadDelete_GameClips
-;   |--> Win10 Download & Delete Recordings via XBox Win10 App
-;
-XBox_DownloadDelete_GameClips() {
-	;	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	Sleep 2500
-	; "Captures" (Left Tab)
-	MouseClick, Left, 23, 314
-	Sleep 7500
-	; "On Xbox Live" (Tab within "Captures")
-	MouseClick, Left, 240, 138
-	Sleep 7500
-	; "Everything v" (Dropdown within "On Xbox Live")
-	MouseClick, Left, 255, 178
-	Sleep 7500
-	; "Game clips" (Option on "Everything v" Dropdown)
-	MouseClick, Left, 233, 220
-	Sleep 7500
-	Loop {
-		MouseClick, Left, 861, 947
-		Sleep 30000
-		; Sleep 15000
-		; Sleep 10000
-		MouseClick, Left, 1420, 905
-		Sleep 1000
-		MouseClick, Left, 848, 575
-		Sleep 7500
-	}
-	Return
-}
-
-
-;
-; ClearSplashText
-;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
-;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
-;
-ClearSplashText(Period) {
-	Label := "RemoveSplashText"
-	SetTimer, %Label%, -%Period%
-	Return
-}
-
-
 ;
 ; PrintEnv
 ;   |--> Gets Windows Environment Vars (output to file)
@@ -1889,109 +1843,201 @@ PrintEnv() {
 
 
 ;
-; GetWindowSpecs
-;   |--> Gets Specs for currently-active window
+;	ProcessExist (proxy-function for GetPID(...))
+;   |--> Returns True if process IS found
+;   |--> Returns False if process is NOT found
 ;
-GetWindowSpecs() {
+ProcessExist(ProcName) {
+  Return (GetPID(ProcName)>0) ? True : False
+}
 
-	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
-	Gui, WindowSpecs:Default
 
-	WinGetActiveStats, Title, Width, Height, Left, Top
-	WinGetTitle, WinTitle, A
-	WinGetText, WinText, A
-	WinGet, WinID, ID, A
-	WinGet, WinPID, PID, A
-	WinGetClass, WinClass, A
-	WinGet, WinProcessName, ProcessName, A
-	WinGet, WinProcessPath, ProcessPath, A
-	WinGet, ControlNames, ControlList, A	; Get all control names in this window
-	
-	; Create the ListView with two columns
-
-	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
-	Gui, Font, s10, Tahoma
-	Gui, Font, s10, Consolas
-	Gui, Font, s10, Courier New
-	Gui, Font, s10, Open Sans
-	Gui, Font, s10, Fira Code
-	Gui, Color, 1E1E1E
-	
-	GUI_ROWCOUNT := 12
-	GUI_WIDTH := 1000
-	GUI_BACKGROUND_COLOR = 1E1E1E
-	GUI_TEXT_COLOR = FFFFFF
-	
-	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
-	GUI_OPT = r%GUI_ROWCOUNT%
-	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
-	GUI_OPT = %GUI_OPT% gGetWindowSpecs_OnClick_LV_WindowSpecs
-	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
-	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
-	GUI_OPT = %GUI_OPT% Grid
-	GUI_OPT = %GUI_OPT% NoSortHdr
-	; GUI_OPT = %GUI_OPT% AltSubmit
-
-	Gui, Add, ListView, %GUI_OPT%, Key|Value
-
-	LV_Add("", "WinTitle", WinTitle)
-	LV_Add("", "WinClass", WinClass)
-	LV_Add("", "ProcessName", WinProcessName)
-	LV_Add("", "ProcessPath", WinProcessPath)
-	LV_Add("", "ControlList", ControlNames)
-	LV_Add("", "ID", WinID)
-	LV_Add("", "PID", WinPID)
-	LV_Add("", "Left", Left)
-	LV_Add("", "Top", Top)
-	LV_Add("", "Width", Width)
-	LV_Add("", "Height", Height)
-	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
-	LV_Add("", "A_SendLevel", A_SendLevel)
-
-	LV_ModifyCol(1, "AutoHdr Text Left")
-
-	LV_ModifyCol(2, "AutoHdr Text Left")
-
-	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
-
-	; Display the window and return. The script will be notified whenever the user double clicks a row.
-	Gui, Show
-
+;
+; RemoveSplashText
+;   |--> Removes any SplashText found
+;
+RemoveSplashText() {
+	SplashTextOff
 	Return
 }
 
-GetWindowSpecs_OnClick_LV_WindowSpecs() {
-	; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
-	Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
-	If (Obj_EventTriggers[A_GuiEvent]) {
-		LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
-		LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
-		MsgBox, 4, %A_ScriptName%,
-		(LTrim
-			You selected:
-			%ValSelected%
 
-			Copy this to the clipboard?
-		)
-		IfMsgBox Yes
-		{
-			Clipboard := ValSelected
+;
+; RemoveToolTip
+;   |--> Removes any Tooltips found
+;
+RemoveToolTip() {
+	ToolTip
+	Return
+}
+
+
+;
+; RunWaitOne
+;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   |--> Example-call:
+;          MsgBox % RunWaitOne("dir " A_ScriptDir)
+;
+RunWaitOne(CMD_Command) {
+	WScript_Shell := ComObjCreate("WScript.Shell")
+	Run_Command := ComSpec " /C """ CMD_Command """ "
+	WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
+	Return WScript_Shell_Exec
+}
+
+
+;
+; RunWaitMany
+;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   |--> Example-call:
+;          MsgBox % RunWaitMany("
+;          (
+;          echo Put your commands here,
+;          echo each one will be run,
+;          echo and you'll get the output.
+;          )")
+;
+RunWaitMany(CMD_Commands) {
+	WScript_Shell := ComObjCreate("WScript.Shell")
+	; Open cmd.exe with echoing of commands disabled
+	WScript_Shell_Exec := WScript_Shell.Exec(ComSpec " /Q /K echo off")
+	; Send the commands to execute, separated by newline
+	WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
+	; Read and return the output of all commands
+	Return exec.StdOut.ReadAll()
+}
+
+
+;
+;	SendSpace
+;   |--> For some reason, Windows 10 doesn't like Send {Space} (as-in it 'ignores' the keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
+;
+SendSpace() {
+	Send {SC039}
+	Return
+}
+
+
+;
+;	SpaceUp_Loop
+;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
+;
+SpaceUp_Loop(LoopIterations) {
+	Loop %LoopIterations% {
+		Sleep 500
+		Send {SC039}
+		SendSpace()
+		Sleep 500
+		Send {Up}
+	}
+	Return
+}
+
+
+;
+; StringRepeat
+;   |--> Repeat a string a given number of times
+;
+StringRepeat(StrToRepeat, Multiplier) {
+	ReturnedVal := ""
+	If (Multiplier > 0) {
+		Loop, %Multiplier% {
+			ReturnedVal .= StrToRepeat
 		}
-		; Gui, WindowSpecs:Default
-		; Gui, Destroy
 	}
-
-	; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
-	LV_Verbosity := 0
-	If ( LV_Verbosity = 1 ) {
-		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
-		ToolTip, %TooltipOutput%
-		SetTimer, RemoveToolTip, -2500
-	}
-
-	Return
-
+	Return ReturnedVal
 }
+
+
+;
+; StrLenUnicode
+;   |--> Get String-Length for unicode string(s)? (Need better description)
+;
+StrLenUnicode(data) {
+	RegExReplace(data, "s).", "", i)
+	Return i
+}
+
+
+;
+; TabSpace_Loop
+;   |--> Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of checkboxes need to be selected individually to update from a Git repo
+;
+TabSpace_Loop(LoopIterations) {
+	Loop %LoopIterations% {
+		Send {Tab}
+		Sleep 10
+		Send {Space}
+		Sleep 10
+	}
+	Return
+}
+
+
+;
+; TempFile
+;   |--> Creates a temporary file with a timestamp (down to the millisecond) based filename
+;   |--> Returns a string-value containing the fullpath of the temporary file (which was just created)
+;
+TempFile() {
+	TempFile_Dirname := A_Temp "\AutoHotkey\"
+	IfNotExist, %TempFile_Dirname%
+	{
+		FileCreateDir, %TempFile_Dirname%
+	}
+	TempFile_Basename := A_Now "." A_MSec
+	TempFile_Fullpath := TempFile_Dirname TempFile_Basename
+	Return %TempFile_Fullpath%
+}
+
+
+;
+; Timestamp
+;   |--> Gets the current Timestamp in a format which is compatible/ready-to-be-used-within filenames
+;   |--> Example call:
+;          Timestamp := Timestamp()
+;
+Timestamp() {
+	FormatTime,Timestamp,,yyyyMMdd-HHmmss
+	Return %Timestamp%
+}
+
+
+;
+; XBox_DownloadDelete_GameClips
+;   |--> Win10 Download & Delete Recordings via XBox Win10 App
+;
+XBox_DownloadDelete_GameClips() {
+	;	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	Sleep 2500
+	; "Captures" (Left Tab)
+	MouseClick, Left, 23, 314
+	Sleep 7500
+	; "On Xbox Live" (Tab within "Captures")
+	MouseClick, Left, 240, 138
+	Sleep 7500
+	; "Everything v" (Dropdown within "On Xbox Live")
+	MouseClick, Left, 255, 178
+	Sleep 7500
+	; "Game clips" (Option on "Everything v" Dropdown)
+	MouseClick, Left, 233, 220
+	Sleep 7500
+	Loop {
+		MouseClick, Left, 861, 947
+		Sleep 30000
+		; Sleep 15000
+		; Sleep 10000
+		MouseClick, Left, 1420, 905
+		Sleep 1000
+		MouseClick, Left, 848, 575
+		Sleep 7500
+	}
+	Return
+}
+
 
 ; ------------------------------------------------------------
 ;

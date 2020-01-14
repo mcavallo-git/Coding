@@ -347,31 +347,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 ^#Z::
 +#Z::
-	Gui, WinTitles:Default
-	Gui, Add, ListView, r50 w1000 gOnDoubleClick_GuiDestroy_WinTitles, WindowTitle
-	WinGet, Window, List
-	Loop %Window% {
-		Id:=Window%A_Index%
-		WinGetTitle, TVar , % "ahk_id " Id
-		If (Tvar != "") {
-			LV_Add("", TVar)
-			Window%A_Index%:=TVar ;use this if you want an array
-			tList.=TVar "`n" ;use this if you just want the list
-		}
-	}
-	; Gui, Add, Text,, %tList%
-	Gui, Show
-	; MsgBox %tList%
+	ShowWindowTitles()
 	Return
 
-
-OnDoubleClick_GuiDestroy_WinTitles() {
-	If (A_GuiEvent = "DoubleClick") {
-		Gui, WinTitles:Default
-		Gui, Destroy
-	}
-	Return
-}
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Fn Key (X1 Carbon)
@@ -1197,17 +1175,6 @@ CommentCurrentLine_NoSpace() {
 
 
 ;
-;	GetPID
-;   |--> Returns PID if process IS found
-;   |--> Returns 0 if process is NOT found
-;
-GetPID(ProcName) {
-	Process, Exist, %ProcName%
-	Return %ErrorLevel%
-}
-
-
-;
 ; Get_ahk_id_from_title
 ;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
@@ -1217,6 +1184,17 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
 	dat_ahk_id=ahk_id %output_var%
 	Return dat_ahk_id
+}
+
+
+;
+;	GetPID
+;   |--> Returns PID if process IS found
+;   |--> Returns 0 if process is NOT found
+;
+GetPID(ProcName) {
+	Process, Exist, %ProcName%
+	Return %ErrorLevel%
 }
 
 
@@ -1664,41 +1642,15 @@ PasteClipboardAsBinary() {
 	Global VerboseOutput
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	; NewTempFile := TempFile()
-	; ClipboardDuped := Clipboard
-	; FileAppend, %ClipboardAll%, %NewTempFile% ; The file extension does not matter
-	; Sleep, 100
-	; FileRead, Clipboard, *c %NewTempFile% ; Note the use of *c, which must precede the filename
-	; Sleep, 100
-	; If (VerboseOutput == True) {
-	; 	TrayTip, AHK,
-	; 	(LTrim
-	; 		Pasting the Binary version of the Clipboard
-	; 		NewTempFile = %NewTempFile%
-	; 	)  ; Toast Notification
-	; }
-	
-	; If (False) {
-	; 	StringUpper, Clipboard, Clipboard  ; Force uppercase-only strings
-	; 	StringLower, Clipboard, Clipboard  ; Force lowercase-only strings
-	; }
-
 	Sleep, 100
 	Clipboard := ClipboardAll
 	Sleep, 100
 	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text.
 	Sleep, 100
 	Send {Blind}{Text}%Clipboard%
-
-	; Sleep, 100
-	; FileDelete, %NewTempFile% ; Delete the clipboard file
-	; Sleep, 100
-	; Clipboard := ClipboardDuped
-
 	Sleep, 100
 	ClipboardDuped = ; Avoid caching clipboard-contents in memory
 	ClipboardSend = ; Avoid caching clipboard-contents in memory
-
 	Return
 }
 
@@ -1719,8 +1671,6 @@ PasteClipboardAsText() {
 		)  ; Toast Notification
 	}
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
-
-	; OPTION 1 - Using Built-in AHK Trim Method
 	ClipboardSend := ""
 	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
 	Loop, Parse, ClipboardDuped, `n, `r
@@ -1730,15 +1680,9 @@ PasteClipboardAsText() {
 		ClipboardSend = ; Avoid caching clipboard-contents in memory
 		Sleep 100
 	}
-
-	; OPTION 2 - Using Regex Replacement Method
-	; ClipboardSend := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
-	; Send {Blind}{Text}%ClipboardSend%
-
 	Sleep, 100
 	ClipboardDuped = ; Avoid caching clipboard-contents in memory
 	ClipboardSend = ; Avoid caching clipboard-contents in memory
-
 	Return
 }
 
@@ -1914,6 +1858,43 @@ RunWaitMany(CMD_Commands) {
 ;
 SendSpace() {
 	Send {SC039}
+	Return
+}
+
+
+;
+;	ShowWindowTitles
+;   |--> Lists all window-titles (in current user's environment)
+;
+ShowWindowTitles() {
+	Gui, WinTitles:Default
+	Gui, Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
+	WinGet, Window, List
+	Loop %Window% {
+		Id:=Window%A_Index%
+		WinGetTitle, TVar , % "ahk_id " Id
+		If (Tvar != "") {
+			LV_Add("", TVar)
+			Window%A_Index%:=TVar ;use this if you want an array
+			tList.=TVar "`n" ;use this if you just want the list
+		}
+	}
+	; Gui, Add, Text,, %tList%
+	Gui, Show
+	; MsgBox %tList%
+	Return
+}
+
+
+;
+;	ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
+;   |--> Sub-Function of "ShowWindowTitles()"
+;
+ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
+	If (A_GuiEvent = "DoubleClick") {
+		Gui, WinTitles:Default
+		Gui, Destroy
+	}
 	Return
 }
 

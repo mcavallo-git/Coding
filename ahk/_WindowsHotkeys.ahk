@@ -146,12 +146,27 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + P
+;  HOTKEY:  Shift + Ctrl + P
 ;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
+;
++^P::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	PasteClipboard_TextOrBinary()
+	Return
+
+; ------------------------------------------------------------
+;  HOTKEY:  Win + P
+;  ACTION:  Open RoboForm's Generate-Password Exe
 ;
 #P::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	PasteClipboard_TextOrBinary()
+	PasswordGenerator := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
+	If (FileExist(PasswordGenerator)) {
+		Run, %PasswordGenerator%
+	} Else {
+		Text_TrayTip := "Error - File not found:  " PasswordGenerator
+		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+	}
 	Return
 
 
@@ -471,8 +486,15 @@ OnDoubleClick_GuiDestroy_WinTitles() {
 ;  ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 
-AppsKey::RWin
-; ~AppsKey::RWin
+AppsKey::
+	Send {Blind}{RWin down}
+	Return
+
+AppsKey up::
+	Send {Blind}{RWin up}
+	Return
+
+; AppsKey::RWin
 
 
 ; ------------------------------------------------------------
@@ -2201,6 +2223,8 @@ If (False) {
 ;   |--> Arrays/Objects - Associative Arrays, e.g. "Associative Arrays":  https://www.autohotkey.com/docs/Objects.htm#Usage_Associative_Arrays
 ;   |
 ;   |--> Arrays/Objects - Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
+;   |
+;   |--> Operators in Expressions - If (...) statements, including mathematical operators:  https://www.autohotkey.com/docs/Variables.htm#Operators
 ;
 ; ------------------------------------------------------------ 
 ;

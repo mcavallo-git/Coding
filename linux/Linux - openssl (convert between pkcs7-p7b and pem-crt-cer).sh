@@ -1,6 +1,10 @@
 #!/bin/bash
+#
+# Convert from a '.p7b' (pkcs#7) certificate to a '.pem' (PEM) certificate
+#
+# ------------------------------------------------------------
 
-openssl pkcs7 -in certificate.p7b -inform DER -print_certs -out certificate.pem;
+openssl pkcs7 -in certificate.p7b -inform DER -print_certs | grep -iv 'subject' | grep -iv 'issuer' | sed -e '/^$/d' > certificate.pem;
 
 
 # ------------------------------------------------------------

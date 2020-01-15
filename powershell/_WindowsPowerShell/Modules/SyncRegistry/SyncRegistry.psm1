@@ -527,7 +527,7 @@ function SyncRegistry {
 					}
 				}
 
-				Write-Host (("`n")+($EachRegEdit.Path)+("")) -ForegroundColor Green;
+				Write-Host (("`n")+($EachRegEdit.Path)+("")) -ForegroundColor "Green";
 				Foreach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key - If not found, then create it (unless it is to-be-deleted)
@@ -540,7 +540,7 @@ function SyncRegistry {
 						#
 						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 						If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
-							Write-Host (("  |-->  Created Key")) -ForegroundColor Green;
+							Write-Host (("  |-->  Created Key")) -ForegroundColor "Green";
 						}
 					}
 
@@ -567,7 +567,7 @@ function SyncRegistry {
 							} Else {
 
 								# Update the Property
-								Write-Host "  |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+								Write-Host "  |-->  Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}" -ForegroundColor "Yellow";
 								Set-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
 							}
@@ -577,17 +577,16 @@ function SyncRegistry {
 							If (($EachProp.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key
-								Write-Host "  |-->  Deleting Registry-Key with Name [ $($EachProp.Name) ] ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
-								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+								If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) {
+									Write-Host (("  |-->  Deleted Key")) -ForegroundColor "Magenta";
+									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+								}
 
 							} Else {
 
-								Write-Host "Calling [ Show (`${GetEachItemProp}); ]..."
-								Show (${GetEachItemProp});
-
 								# Delete the Property
-								Write-Host "  |-->  Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
+								Write-Host "  |-->  Deleting Property `"$($EachProp.Name)`" ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
 
 							}
@@ -599,7 +598,7 @@ function SyncRegistry {
 						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Host "  |-->  Adding Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+							Write-Host "  |-->  Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}" -ForegroundColor "Yellow";
 							New-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
 
 						} Else {

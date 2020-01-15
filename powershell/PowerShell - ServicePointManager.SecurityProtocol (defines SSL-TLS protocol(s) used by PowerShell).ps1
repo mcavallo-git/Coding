@@ -17,15 +17,6 @@
 #
 # ------------------------------------------------------------
 #
-# Inspection
-#   |--> Get the security protocol used by the ServicePoint objects managed by the ServicePointManager object
-#
-
-[System.Net.ServicePointManager]::SecurityProtocol;
-
-
-# ------------------------------------------------------------
-#
 # Update using PowerShell to modify the Registry
 #   |--> Set the security protocol(s) used by the ServicePoint objects managed by the ServicePointManager object
 #
@@ -85,11 +76,13 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 
 
 # ------------------------------------------------------------
-#
-# Update using PowerShell Native Method(s)
-#   |--> Set the security protocol(s) used by the ServicePoint objects managed by the ServicePointManager object
-#
+### Set default Security Protocol(s) used by PowerShell
 
+# Get the current Security Protocol(s) used by PowerShell
+[System.Net.ServicePointManager]::SecurityProtocol;
+
+
+# Set the Security Protocol(s) used by PowerShell
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
 
 

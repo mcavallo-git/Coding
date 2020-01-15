@@ -9,7 +9,7 @@ If (!([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]
 		$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 	} Else {
-		Write-Host "Error:  User lacks sufficient privilege to perform privilege escalation (e.g. cannot run as admin)" -BackgroundColor Black -ForegroundColor Red;
+		Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n" -BackgroundColor Black -ForegroundColor Yellow;
 	}
 } Else {
 	<# Script >> IS << running as Admin - Continue #>

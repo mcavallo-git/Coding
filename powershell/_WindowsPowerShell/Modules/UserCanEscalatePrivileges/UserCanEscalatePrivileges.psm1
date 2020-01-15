@@ -7,10 +7,16 @@ Function UserCanEscalatePrivileges {
 	)
 	$ReturnedVal = $Null;
 
+	# Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator)
 	$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
-	$UserHasAdminRights = If (($LocalAdmins.Contains(([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name)) -Or ($LocalAdmins.Contains("WinNT://$($CurrentUser.Replace("\","/"))"))) { $True } Else { $False };
-
-	$ReturnedVal = $UserHasAdminRights;
+	$CurrentUser = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name);
+	$CurrentUserWinNT = ("WinNT://$($CurrentUser.Replace("\","/"))");
+	# Make final (returned) determination of whether the user is able to "Run as Admin" or not
+	If (($LocalAdmins.Contains($CurrentUser)) -Or ($LocalAdmins.Contains($CurrentUserWinNT))) {
+		$ReturnedVal = $True;
+	} Else {
+		$ReturnedVal = $False;
+	}
 
 	If ($False) { # Expanded/Broken-Up - Same functionality as above but calls have been expanded to show more obvious/intuitive functionality of the runtime command(s)
 		

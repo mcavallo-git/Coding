@@ -12,7 +12,8 @@
 ###  ($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps?t=$((Date).Ticks)"))
 #
 # Original Environment:
-###  Fresh format of Windows Server 2016 Standard
+###  Fresh format of Windows Server 2016 Standard v1607
+#
 #
 # ------------------------------------------------------------
 #

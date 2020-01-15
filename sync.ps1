@@ -56,6 +56,10 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 
 } Else {
 
+	$Env:EMAIL = "email@email.emailo";
+	$Env:GIT_SSH_COMMAND = "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`" -o StrictHostKeyChecking=no";
+	$Env:NAME = "${Env:USERNAME}@${Env:COMPUTERNAME}";
+
 	Set-Location "${HOME}";
 
 	git clone "git@github.com:mcavallo-git/Coding.git";
@@ -70,13 +74,14 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 
 	Set-Location "${REPO_DIR_WIN32}";
 
-	git config --local --replace-all "core.sshcommand" "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`" -o StrictHostKeyChecking=no";
+	git config --local --replace-all "core.sshcommand" "$($Env:GIT_SSH_COMMAND)";
 
-	git config --local --replace-all "user.name" "${Env:USERNAME}@${Env:COMPUTERNAME}";
+	git config --local --replace-all "user.name" "$($Env:NAME)";
 
-	git config --local --replace-all "user.email" "email@email.email";
+	git config --local --replace-all "user.email" "$($Env:EMAIL)";
 
 }
+
 
 . "${HOME}\Coding\powershell\_WindowsPowerShell\Modules\ImportModules.ps1";
 

@@ -47,12 +47,15 @@ $KeyAccess_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win
 $KeyAccess_64bit.SetAccessControl($AccessControl_64bit);
 $KeyAccess_32bit.SetAccessControl($AccessControl_32bit);
 <# ============================== #>
-<# Prep the registry key's value #>
+<# Prep the key #>
 $SubKey_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}"), $True);
 $SubKey_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}"), $True);
-<# Update the registry key's value #>
+<# Update the key #>
 $SubKey_64bit.SetValue("SystemDefaultTlsVersions", "1");
 $SubKey_32bit.SetValue("SystemDefaultTlsVersions", "1");
+<# Close the key & flush it to disk (if its contents have been modified) #>
+$SubKey_64bit.Close();
+$SubKey_32bit.Close();
 <# Get the registry key's value #>
 $SubKey_64bit.GetValue("SystemDefaultTlsVersions");
 $SubKey_32bit.GetValue("SystemDefaultTlsVersions");
@@ -138,6 +141,8 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 #   docs.microsoft.com  |  "Managing SSL/TLS Protocols and Cipher Suites for AD FS | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/manage-ssl-protocols-in-ad-fs
 #
 #   docs.microsoft.com  |  "Protocols in TLS/SSL (Schannel SSP) - Implements versions of the TLS, DTLS and SSL protocols"  |  https://docs.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-
+#
+#   docs.microsoft.com  |  "RegistryKey.Close Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.close
 #
 #   docs.microsoft.com  |  "RegistryKey.OpenSubKey Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.opensubkey
 #

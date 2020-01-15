@@ -21,17 +21,42 @@
 #   |--> Adds TLS 1.2 as an available protocol
 #   |--> Allows scripts to use future TLS Versions when the OS supports them (e.g. TLS 1.3)
 #
+# 
+#   |--> Both basic security logic, as well as general best practice (see citations, below) recommend to set both the 64-bit registry (default target via New-ItemProperty) as well as the 32-bit registry so that processes running web requests use the user-defined request protocols, as-intended
+#
 
-### Set both 64-bit (default target via New-ItemProperty) as well as 32-bit processes to use the registry for determining web request protocols
-$KeyName_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);
-$Registry_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));
+<# ============================== #>
+<# Locate the .NET Framework v4 key to modify #> 
+$Key_DotNet4 = (Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*');
+$HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($Key_DotNet4.PSChildName)");
+<# Target the 64bit and 32bit registries separately #>
+$Registry_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 $Registry_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));
-$SubKey_64bit = ($Registry_64bit.OpenSubKey("SOFTWARE\Microsoft\.NETFramework\${KeyName_DotNet4}"))
-$SubKey_32bit = ($Registry_32bit.OpenSubKey("SOFTWARE\Microsoft\.NETFramework\${KeyName_DotNet4}"))
-If (($SubKey_64bit.GetValue("SystemDefaultTlsVersions")) -NE 1) { $SubKey_64bit.SetValue("SystemDefaultTlsVersions", 1); }
-If (($SubKey_32bit.GetValue("SystemDefaultTlsVersions")) -NE 1) { $SubKey_32bit.SetValue("SystemDefaultTlsVersions", 1); }
-Write-Host "`$SystemDefaultTlsVersions (64bit) = [ $($SubKey_64bit.GetValue("SystemDefaultTlsVersions")) ]"; <# 64-bit registry keys ARE updated when using  [ New-ItemProperty ... ]  #>
-Write-Host "`$SystemDefaultTlsVersions (32bit) = [ $($SubKey_32bit.GetValue("SystemDefaultTlsVersions")) ]"; <# 32-bit registry keys are NOT updated when using  [ New-ItemProperty ... ]  #>
+<# ============================== #>
+<# Get the registry key's access controls #>
+$KeyAccess_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
+$KeyAccess_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
+	<# Prep the updated access rules/controls #>
+	$AccessControl_64bit = $KeyAccess_64bit.GetAccessControl();
+	$AccessControl_32bit = $KeyAccess_32bit.GetAccessControl();
+		<# Grant current-user (self) full control over targeted registry key(s) (required to modify many system registry keys) #>
+		$RegistryAccessRule = New-Object System.Security.AccessControl.RegistryAccessRule("${Env:USERDOMAIN}\${Env:USERNAME}","FullControl","Allow");
+	$AccessControl_64bit.SetAccessRule($RegistryAccessRule);
+	$AccessControl_32bit.SetAccessRule($RegistryAccessRule);
+<# Apply the updated access rules/controls #>
+$KeyAccess_64bit.SetAccessControl($AccessControl_64bit);
+$KeyAccess_32bit.SetAccessControl($AccessControl_32bit);
+<# ============================== #>
+<# Prep the registry key's value #>
+$SubKey_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}"), $True);
+$SubKey_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}"), $True);
+<# Update the registry key's value #>
+$SubKey_64bit.SetValue("SystemDefaultTlsVersions", "1", 4);  <# RegistryValueKind.DWord has a reghistry data-type value of 4 #>
+$SubKey_32bit.SetValue("SystemDefaultTlsVersions", "1", 4);  <# RegistryValueKind.DWord has a reghistry data-type value of 4 #>
+<# Get the registry key's value #>
+$SubKey_64bit.GetValue("SystemDefaultTlsVersions");
+$SubKey_32bit.GetValue("SystemDefaultTlsVersions");
+<# ============================== #>
 
 
 <# [Protocols] Disable SSL 2.0 #>
@@ -108,11 +133,17 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 #
 # Citation(s)
 #
+#   community.spiceworks.com  |  "[SOLVED] Set Registry Key To 'Full Control' For .\USERS - PowerShell - Spiceworks"  |  https://community.spiceworks.com/topic/1517671-set-registry-key-to-full-control-for-users
+#
 #   docs.microsoft.com  |  "Managing SSL/TLS Protocols and Cipher Suites for AD FS | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/manage-ssl-protocols-in-ad-fs
 #
 #   docs.microsoft.com  |  "Protocols in TLS/SSL (Schannel SSP) - Implements versions of the TLS, DTLS and SSL protocols"  |  https://docs.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-
 #
+#   docs.microsoft.com  |  "RegistryKey.SetAccessControl(RegistrySecurity) Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.setaccesscontrol
+#
 #   docs.microsoft.com  |  "RegistryKey.SetValue Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.setvalue
+#
+#   docs.microsoft.com  |  "RegistryValueKind Enum (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind
 #
 #   docs.microsoft.com  |  "ServicePointManager.SecurityProtocol Property (System.Net) - Gets/Sets the security protocol used by the ServicePoint objects managed by the ServicePointManager object"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.securityprotocol
 #

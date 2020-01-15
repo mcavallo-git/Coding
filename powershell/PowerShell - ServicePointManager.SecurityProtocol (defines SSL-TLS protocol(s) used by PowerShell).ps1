@@ -81,8 +81,12 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 [System.Net.ServicePointManager]::SecurityProtocol;
 
 
-# Set the Security Protocol(s) used by PowerShell (!! TEMPORARY --> REVERTS ON-REBOOT !!)
+# Set one, single Security Protocol to be used by PowerShell (!! TEMPORARY --> REVERTS ON-REBOOT !!)
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+
+# Set multiple Security Protocols to be used by PowerShell (!! TEMPORARY --> REVERTS ON-REBOOT !!)
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls11 -bor [System.Net.SecurityProtocolType]::Tls12;
+
 
 
 # ------------------------------------------------------------

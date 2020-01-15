@@ -129,7 +129,6 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12';
 
 
-
 # ------------------------------------------------------------
 ### Test with original command to a TLS v1.2 site (or to a site which tests the protocol(s) you just added/removed) as-to verify that the protocol(s) have been applied and are now working as-intended
 

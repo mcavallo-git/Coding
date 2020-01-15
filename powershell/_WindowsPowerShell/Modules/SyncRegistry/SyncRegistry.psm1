@@ -582,7 +582,7 @@ function SyncRegistry {
 
 								# DELETE property (from registry-key)
 								Write-Host " |`n |-->  Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
-								Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) -Force | Out-Null;
+								Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Force | Out-Null;
 
 							}
 

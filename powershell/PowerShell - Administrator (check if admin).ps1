@@ -1,7 +1,6 @@
 
 # Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator)
 If (!([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
-
 	# Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator)
 	$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
 	$UserHasAdminRights = If (($LocalAdmins.Contains(([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name)) -Or ($LocalAdmins.Contains("WinNT://$($CurrentUser.Replace("\","/"))"))) { $True } Else { $False };
@@ -12,13 +11,9 @@ If (!([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]
 		Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 	} Else {
 		Write-Host "Error:  User lacks sufficient privilege to perform privilege escalation (e.g. cannot run as admin)" -BackgroundColor Black -ForegroundColor Red;
-
 	}
-
 } Else {
 	# Script >> IS << running as Admin - Continue
 	Write-Host "Info:  Script running with Admin rights - Continuing...";
-
-
 }
 

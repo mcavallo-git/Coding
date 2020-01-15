@@ -68,7 +68,6 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	Set-Location "${HOME}";
 
 	git clone "git@github.com:mcavallo-git/Coding.git";
-	# git clone "https://github.com/mcavallo-git/Coding.git";
 
 	Set-Location "${REPO_DIR_WIN32}";
 	git config --local --replace-all "core.sshcommand" "$($Env:GIT_SSH_COMMAND)";
@@ -76,7 +75,6 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	git config --local --replace-all "user.email" "$($Env:EMAIL)";
 
 }
-
 
 . "${HOME}\Coding\powershell\_WindowsPowerShell\Modules\ImportModules.ps1";
 

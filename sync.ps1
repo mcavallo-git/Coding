@@ -59,7 +59,8 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	$SSH_KEY_REMOTE="https://raw.githubusercontent.com/mcavallo-git/Coding/master/.shared-deploy-key.pem";
 	$SSH_KEY_LOCAL_WIN32="${HOME}\.ssh\git\.shared-deploy-key.pem";
 	$SSH_KEY_LOCAL_LINUX=(("/")+(((${SSH_KEY_LOCAL_WIN32} -Replace "\\","/") -Replace ":","")));
-	New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL_WIN32}") -Value ($(New-Object Net.WebClient).DownloadString("${SSH_KEY_REMOTE}")) -Force | Out-Null;
+	# New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL_WIN32}") -Value ($(New-Object Net.WebClient).DownloadString("${SSH_KEY_REMOTE}")) -Force | Out-Null;
+	Set-Content -Path ("${SSH_KEY_LOCAL_WIN32}") -Value ($(New-Object Net.WebClient).DownloadString("${SSH_KEY_REMOTE}")) -Force | Out-Null;
 
 	$Env:EMAIL = "email@email.emailo";
 	$Env:GIT_SSH_COMMAND = "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`" -o StrictHostKeyChecking=no";
@@ -68,6 +69,7 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	Set-Location "${HOME}";
 
 	git clone "git@github.com:mcavallo-git/Coding.git";
+
 
 	Set-Location "${REPO_DIR_WIN32}";
 	git config --local --replace-all "core.sshcommand" "$($Env:GIT_SSH_COMMAND)";

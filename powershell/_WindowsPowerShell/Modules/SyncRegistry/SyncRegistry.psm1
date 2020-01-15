@@ -523,22 +523,22 @@ function SyncRegistry {
 					}
 				}
 				
-				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
-					# Skip creating registry key if it already exists
-					Write-Host (("`nInfo:  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor DarkGray; # (Already up to date)
-				} Else {
-					# Create missing key in the registry
-					Write-Host (("`nInfo:  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
-					New-Item -Path ($EachRegEdit.Path) -Force | Out-Null; # Note: The -Force is used to create any/all missing parent registry keys
-				}
+				# If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
+				# 	# Skip creating registry key if it already exists
+				# 	Write-Host (("`nInfo:  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor DarkGray; # (Already up to date)
+				# } Else {
+				# 	# Create missing key in the registry
+				# 	Write-Host (("`nInfo:  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
+				# 	New-Item -Path ($EachRegEdit.Path) -Force | Out-Null; # Note: The -Force is used to create any/all missing parent registry keys
+				# }
 
 				Foreach ($EachProp In $EachRegEdit.Props) {
 
-					# Check for each key-property
-					$Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
-					$GetEachItemProp = (Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name));
-					$last_exit_code = If($?){0}Else{1};
-					$ErrorActionPreference = $Revertable_ErrorActionPreference;
+					# # Check for each key-property
+					# $Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
+					# $GetEachItemProp = (Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name));
+					# $last_exit_code = If($?){0}Else{1};
+					# $ErrorActionPreference = $Revertable_ErrorActionPreference;
 
 					If ($False) {
 						Try {

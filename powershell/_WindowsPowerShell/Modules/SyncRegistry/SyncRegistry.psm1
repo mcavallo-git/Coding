@@ -532,8 +532,13 @@ function SyncRegistry {
 
 					# Check for each Key - If not found, then create it (unless it is to-be-deleted)
 					If (((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) -And (($EachProp.Delete) -eq $False)) {
-						# Note:  New-Item -Force  :::  Creates any/all missing parent registry keys (due to the '-Force' argument)
-						New-Item -Path ($EachRegEdit.Path) -Force | Out-Null;
+						#
+						# New-Item -Force
+						#   |--> Upside - Creates ALL parent registry keys
+						#   |--> Downside - DELETES all properties & child-keys if key already exists
+						#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
+						#
+						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 						If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
 							Write-Host (("  |-->  Created Key")) -ForegroundColor Green;
 						}

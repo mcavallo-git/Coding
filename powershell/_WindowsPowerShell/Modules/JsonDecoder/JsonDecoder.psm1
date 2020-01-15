@@ -6,7 +6,7 @@
 #		|      JsonDecoder
 #		|
 #		|--> Description:
-#		|      Replacement function for PowerShell native "ConvertFrom-Json" which (more-adequately) parses incoming JSON strings
+#		|      Replacement function for PowerShell native function "ConvertFrom-Json" which (more-adequately) parses incoming JSON strings
 #		|
 #		|--> Example Call(s):
 #		       JsonDecoder -InputObject ('{"integer":1,"string":"string","array":[1,2,"a","b"],"object":{"obj-int":2,"obj-str":"test-string"}}')

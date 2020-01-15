@@ -6,7 +6,7 @@
 #
 
 # Require Elevated Permissions (Admin Privileges)
-If (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+If (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 	# User IS an admin --> Continue-on with running the script
 
 	# ---------------------------------------------------------------------------------------------------------------------------------------------------

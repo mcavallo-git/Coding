@@ -18,7 +18,7 @@ Function UserCanEscalatePrivileges {
 	$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
 	#
 	# Get Current User
-	$LocalUser = (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).Identities.Name);
+	$LocalUser = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name);
 	$LocalUserWinNT = "WinNT://$($LocalUser.Replace("\","/"))";
 	#
 	# Make final (returned) determination of whether the user is able to "Run as Admin" or not

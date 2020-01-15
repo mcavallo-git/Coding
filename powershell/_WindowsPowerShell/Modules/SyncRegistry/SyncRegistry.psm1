@@ -527,7 +527,7 @@ function SyncRegistry {
 					}
 				}
 
-				Write-Host (("`n")+($EachRegEdit.Path)+("")) -ForegroundColor "Green";
+				Write-Host (("`n")+($EachRegEdit.Path)+(""));
 				Foreach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key - If not found, then create it (unless it is to-be-deleted)

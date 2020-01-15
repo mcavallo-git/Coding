@@ -571,9 +571,6 @@ function SyncRegistry {
 
 						} Else { # Property (or Key) SHOULD be deleted
 
-							Write-Host "Calling [ Show (`${GetEachItemProp}); ]..."
-							Show (${GetEachItemProp});
-
 							If (($EachProp.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key
@@ -582,6 +579,9 @@ function SyncRegistry {
 								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 
 							} Else {
+
+								Write-Host "Calling [ Show (`${GetEachItemProp}); ]..."
+								Show (${GetEachItemProp});
 
 								# Delete the Property
 								Write-Host " |-->  Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";

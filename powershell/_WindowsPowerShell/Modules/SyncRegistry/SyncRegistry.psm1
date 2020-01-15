@@ -565,8 +565,10 @@ function SyncRegistry {
 
 							} Else {
 
-								Write-Host "Calling [ Show (`${GetEachItemProp}); ]..."
-								Show (${GetEachItemProp});
+								Write-Host "Calling [ Show (`$GetEachItemProp); ]..."
+								Show ($GetEachItemProp);
+								Write-Host "Calling [ Show (`$EachProp.LastValue); ]..."
+								Show ($EachProp.LastValue);
 
 								# Update the Property
 								Write-Host " |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";

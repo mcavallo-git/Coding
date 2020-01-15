@@ -1,7 +1,8 @@
 {
 	"_native commands": {
 		"hotkeys": {
-			"Run as admin": "Ctrl + Shift + Enter"
+			"Run as admin": "Ctrl + Shift + Enter",
+			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End"
 		},
 		"management consoles": {
 			"certmgr.msc": "Certificate Manager",

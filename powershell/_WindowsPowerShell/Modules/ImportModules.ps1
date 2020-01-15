@@ -104,6 +104,49 @@ $ThisScript.Basename = (($ThisScript.Command).Name);
 
 # ------------------------------------------------------------
 #
+# Ensure that [essential Powershell alias(es)] exist
+#
+#
+#  Alas:  grep --> Select-String
+#
+$AliasName="grep"; $AliasCommand="Select-String";
+Write-Host "Info:  Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
+If ( (Get-Alias).Name -Contains "${AliasName}" ) {
+	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -NE ("${AliasCommand}")) {
+		Remove-Item "alias:\${AliasName}";
+		New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+	}
+} Else {
+	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+}
+#
+#  Alas:  which --> Get-Command
+#
+$AliasName="which"; $AliasCommand="Get-Command";
+If ( (Get-Alias).Name -Contains "${AliasName}" ) {
+	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -NE ("${AliasCommand}")) {
+		Remove-Item "alias:\${AliasName}";
+		New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+	}
+} Else {
+	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+}
+#
+#  Alas:  edit --> Notepad
+#
+$AliasName="edit"; $AliasCommand="Notepad";
+If ( (Get-Alias).Name -Contains "${AliasName}" ) {
+	If ( ((Get-Alias -Name "${AliasName}").ResolvedCommand.Name) -NE ("${AliasCommand}")) {
+		Remove-Item "alias:\${AliasName}";
+		New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+	}
+} Else {
+	New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
+}
+
+
+# ------------------------------------------------------------
+#
 # Ensure that [Powershell's Modules directory] exists
 #
 
@@ -321,14 +364,14 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 		If (($Env:UpdatedCodebase -Eq $True) -Or (($RequiredModules_FirstIteration -Match ($EachModule.Name)) -Eq ($EachModule.Name))) {
 
 			# Import the Module now that it is located in a valid Modules-directory (unless environment is configured otherwise)
-			If ($PSM1.Verbosity -Ne 0) {
+			If ($PSM1.Verbosity -NE 0) {
 				Write-Host "$($PSM1.InvocationBasename) - Task: Importing Module (caching onto RAM): ${EachBasename_NoExt}" -ForegroundColor Gray;
 			}
 			
 			Import-Module ($StartupModuleFile);
 			$import_exit_code = If($?){0}Else{1};
 			
-			If ($import_exit_code -Ne 0) {
+			If ($import_exit_code -NE 0) {
 				# Failed Module Import
 				Write-Host "$($PSM1.InvocationBasename) - Fail: Unable to import module `"${EachBasename_NoExt}`"" -ForegroundColor Yellow;
 				# Start-Sleep -Seconds 60;

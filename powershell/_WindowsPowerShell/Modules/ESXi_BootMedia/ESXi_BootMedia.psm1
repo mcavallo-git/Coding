@@ -1,13 +1,19 @@
+# ------------------------------------------------------------
 #
-#	PowerShell - ESXi_BootMedia
+#	PowerShell Module
 #		|
-#		|--> Description:  Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
+#		|--> Name:
+#		|      ESXi_BootMedia
+#		|
+#		|--> Description:
+#		|      Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
 #		|
 #		|--> Example Call(s):
-#		                ESXi_BootMedia -Create -AllDrivers;
-#		                ESXi_BootMedia -Create -ESXiVersion '6.5';
-#		                ESXi_BootMedia -Create -ESXiVersion '6.7';
+#		       ESXi_BootMedia -Create -AllDrivers;
+#		       ESXi_BootMedia -Create -ESXiVersion '6.5';
+#		       ESXi_BootMedia -Create -ESXiVersion '6.7';
 #
+# ------------------------------------------------------------
 Function ESXi_BootMedia() {
 	Param(
 		[Switch]$AllDrivers,

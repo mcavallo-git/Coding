@@ -1,12 +1,17 @@
 # ------------------------------------------------------------
 #
-# Exclusions List for Stock Windows10 Antivirus/Antimalware
-#		--> e.g. "Windows Security"
-#		--> e.g. "Windows Defender"
-#		--> e.g. "Antimalware Service Executable" (which causes high cpu-usage while blocking non-excluded processes)
+#	PowerShell Module
+#		|
+#		|--> Name:
+#		|      ExclusionsListUpdate
+#		|
+#		|--> Description:
+#		|      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
+#		|
+#		|--> Example Call(s):
+#		       ExclusionsListUpdate -Defender
 #
 # ------------------------------------------------------------
-#
 function ExclusionsListUpdate {
 	Param(
 

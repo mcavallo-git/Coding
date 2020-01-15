@@ -438,7 +438,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Sets the value (checkbox, check=2, unchecked=delete-the-key) for the option named [ Never attempt to download payload from Windows Update ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+					Description="Sets the value to [ 2 ] to 'never pull from Windows Update (checked in gpedit)', [ deleted ] to 'allow pulling from Windows Update (unchecked in gpedit)' for the option named [ Never attempt to download payload from Windows Update ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
 					Name="UseWindowsUpdate";
 					Type="DWord";
 					Value=2;
@@ -550,8 +550,6 @@ function SyncRegistry {
 					}
 
 					$EchoDetails = "";
-					# If ((${EachProp}.Description) -Ne $Null) { $EchoDetails += "`n       v`n      Description: $(${EachProp}.Description)"; }
-					# If ((${EachProp}.Hotfix) -Ne $Null) { $EchoDetails += "`n       v`n      Hotfix: $(${EachProp}.Hotfix)"; }
 
 					If ($last_exit_code -eq 0) { # Registry-Key-Property exists
 
@@ -559,11 +557,13 @@ function SyncRegistry {
 
 							$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
 								
-							If (($EachProp.LastValue) -eq ($EachProp.Value)) { # Property set as-intended (Already up to date)
+							If (($EachProp.LastValue) -eq ($EachProp.Value)) {
+
+								# Do nothing to the Property (already exists with matching type & value)
 								Write-Host " |-->  Found Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
-								# Modify the value of an existing property on an existing registry key
+								# Update the Property
 								Write-Host " |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 								Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
@@ -572,15 +572,15 @@ function SyncRegistry {
 						} Else { # Property (or Key) SHOULD be deleted
 
 							If (($EachProp.Name) -Eq "(Default)") {
-									
-								# DELETE registry key
+
+								# Delete the Registry-Key
 								Write-Host " |-->  Deleting Registry-Key with Name [ $($EachProp.Name) ] ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-Item -Path ($EachRegEdit.Path) -Force | Out-Null;
 								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 
 							} Else {
 
-								# DELETE property (from registry-key)
+								# Delete the Property
 								Write-Host " |-->  Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Force | Out-Null;
 
@@ -590,13 +590,15 @@ function SyncRegistry {
 
 					} Else { # Registry-Key-Property does NOT exist
 
-						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
+						If (($EachProp.Delete) -eq $False) {
 
-							# Add the missing property to the Registry Key
+							# Create the Property
 							Write-Host " |-->  Adding Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 							New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) -Force | Out-Null;
 
-						} Else { # Property SHOULD be deleted (Already up to date)
+						} Else {
+
+							# Do nothing to the Property (already deleted)
 							Write-Host " |-->  Skipping Deletion of Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
 
 						}

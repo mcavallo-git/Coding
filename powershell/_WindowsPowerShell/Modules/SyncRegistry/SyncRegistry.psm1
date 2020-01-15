@@ -556,7 +556,7 @@ function SyncRegistry {
 
 						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
 
-							$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
+							$EachProp.LastValue = $GetEachItemProp;
 								
 							If (($EachProp.LastValue) -eq ($EachProp.Value)) {
 

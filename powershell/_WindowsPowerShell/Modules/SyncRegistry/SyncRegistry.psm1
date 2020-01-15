@@ -562,14 +562,9 @@ function SyncRegistry {
 							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								Write-Host "  |-->  Skipping Property (already up-to-date) - Name=[ $($EachProp.Name) ], Type=[ $($EachProp.Type) ], Value=[ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
+								Write-Host "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date - Type=[ $($EachProp.Type) ], Value=[ $($EachProp.Value) ] ) ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
-
-								Write-Host "Calling [ Show (`$GetEachItemProp); ]..."
-								Show ($GetEachItemProp);
-								Write-Host "Calling [ Show (`$EachProp.LastValue); ]..."
-								Show ($EachProp.LastValue);
 
 								# Update the Property
 								Write-Host "  |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
@@ -610,7 +605,7 @@ function SyncRegistry {
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							Write-Host "  |-->  Skipping Property (already deleted) - Name=[ $($EachProp.Name) ], Type=[ $($EachProp.Type) ], Value=[ DELETED ] ${EchoDetails}" -ForegroundColor "DarkGray";
+							Write-Host "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted) ${EchoDetails}" -ForegroundColor "DarkGray";
 
 						}
 

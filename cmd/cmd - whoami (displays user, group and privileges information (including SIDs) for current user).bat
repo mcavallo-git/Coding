@@ -32,6 +32,14 @@ REM Show domain\username
 whoami
 
 
+REM Show AD groups to determine which other users exist in said group(s)
+whoami /groups /fo table /nh
+REM Note:  Do not include domain name in GROUPNAME
+net group GROUPNAME /domain
+
+
+REM ------------------------------------------------------------
+
 REM Store list of current session's [ user, group and privileges information ] on a file on the desktop
 whoami /USER /FO TABLE /NH 1>"%USERPROFILE%\Desktop\cmd.whoami.log"
 notepad "%USERPROFILE%\Desktop\cmd.whoami.log"

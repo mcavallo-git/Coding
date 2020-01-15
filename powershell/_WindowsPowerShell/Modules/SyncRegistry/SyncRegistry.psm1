@@ -564,6 +564,10 @@ function SyncRegistry {
 								Write-Host " |-->  Found Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
+
+								Write-Host "Calling [ Show (`${GetEachItemProp}); ]..."
+								Show (${GetEachItemProp});
+
 								# Update the Property
 								Write-Host " |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 								Set-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;

@@ -1,5 +1,25 @@
+# ------------------------------------------------------------
+#
+# PowerShell - Get build info regarcing current Windows OS
+#
+# ------------------------------------------------------------
 
-$Win32_OperatingSystem=(Get-CimInstance Win32_OperatingSystem)
+# PowerShell-native method
+$OS_Build = ([Environment]::OSVersion.Version).Build;
+Write-Host "Build = ${$OS_Build}";
+
+# Alternate method
+$OS_Build = (Get-CimInstance Win32_OperatingSystem).Version;
+Write-Host "Build = ${$OS_Build}";
+
+
+# ------------------------------------------------------------
+#
+# PowerShell - Get verbose info regarcing current Windows OS
+#
+# ------------------------------------------------------------
+
+$Win32_OperatingSystem = (Get-CimInstance Win32_OperatingSystem);
 
 Switch ($Win32_OperatingSystem.ProductType) {
 	1 { $WindowsType = "Work Station"; }
@@ -18,7 +38,6 @@ If (($Win32_OperatingSystem.ProductType) -NE 1) {
 		9600 { $Servertype = "Windows Server 2012 R2"; $IsServer=$True; }
 		14393 { $Servertype = "Windows Server 2016 Version 1607"; $IsServer=$True; }
 		16229 { $Servertype = "Windows Server 2016 Version 1709"; $IsServer=$True; }
-		18363 { $Servertype = "Win10"; $IsServer=$False; }
 		Default { $Servertype = "Not Listed"}
 	}
 	Write-Host "`$Servertype = [ ${Servertype} ]";
@@ -42,12 +61,15 @@ Switch ($Win32_OperatingSystem.OSProductSuite) {
 Write-Host "`$Win_OSProductSuite = [ ${Win_OSProductSuite} ]";
 
 
-
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
+#   devblogs.microsoft.com  |  "Introduction to CIM Cmdlets | PowerShell"  |  https://devblogs.microsoft.com/powershell/introduction-to-cim-cmdlets/
+#
 #   docs.microsoft.com  |  "Win32_OperatingSystem class - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-operatingsystem
+#
+#   docs.microsoft.com  |  "Get-CimInstance - Gets the CIM instances of a class from a CIM server"  |  https://docs.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance
 #
 #   stackoverflow.com  |  "How to find the Windows version from the PowerShell command line - Stack Overflow"  |  https://stackoverflow.com/a/59664454/7600236
 #

@@ -520,7 +520,7 @@ function SyncRegistry {
 						$Each_PSDrive_Root=$Null;
 						Write-Host "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
 						Foreach ($Each_PSDrive In $PSDrives) {
-							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
+							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
 								$Each_PSDrive_Root=($Each_PSDrive.Root);
 								Break;
@@ -532,43 +532,33 @@ function SyncRegistry {
 						}
 					}
 				}
-				
-				# If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
-				# 	# Skip creating registry key if it already exists
-				# 	Write-Host (("`nInfo:  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor DarkGray; # (Already up to date)
-				# } Else {
-				# 	# Create missing key in the registry
-				# 	Write-Host (("`nInfo:  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
-				# 	New-Item -Path ($EachRegEdit.Path) -Force | Out-Null; # Note: The -Force is used to create any/all missing parent registry keys
-				# }
 
 				Write-Host (("`n")+($EachRegEdit.Path)+("")) -ForegroundColor Green;
 				Foreach ($EachProp In $EachRegEdit.Props) {
 
-					# # Check for each key-property
-					# $Revertable_ErrorActionPreference = $ErrorActionPreference; $ErrorActionPreference = 'SilentlyContinue';
-					# $GetEachItemProp = (Get-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name));
-					# $last_exit_code = If($?){0}Else{1};
-					# $ErrorActionPreference = $Revertable_ErrorActionPreference;
+					# Create each Registry Key (unless it is to-be-deleted)
+					If (((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) -And (($EachProp.Delete) -eq $False)) {
+						Write-Host (("`nInfo:  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
+						New-Item -Path ($EachRegEdit.Path) -Force | Out-Null; # Note: The -Force is used to create any/all missing parent registry keys
+					}
 
-					# If ($False) {
-						Try {
-							# $GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) | Select-Object -ExpandProperty ($EachProp.Name) -ErrorAction Stop;
-							$GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
-						} Catch {
-							$GetEachItemProp = $Null;
-						};
-					# }
+					# # Check for each Property
+					Try {
+						# $GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) | Select-Object -ExpandProperty ($EachProp.Name) -ErrorAction Stop;
+						$GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
+					} Catch {
+						$GetEachItemProp = $Null;
+					};
 
 					$EchoDetails = "";
 
 					If ($GetEachItemProp -NE $Null) { # Registry-Key-Property exists
 
-						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
+						If (($EachProp.Delete) -Eq $False) { # Property should NOT be deleted
 
 							$EachProp.LastValue = $GetEachItemProp;
 								
-							If (($EachProp.LastValue) -eq ($EachProp.Value)) {
+							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
 								Write-Host " |-->  Found Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
@@ -610,7 +600,7 @@ function SyncRegistry {
 
 					} Else { # Registry-Key-Property does NOT exist
 
-						If (($EachProp.Delete) -eq $False) {
+						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
 							Write-Host " |-->  Adding Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";

@@ -16,4 +16,3 @@ If (!([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]
 	# Script >> IS << running as Admin - Continue
 	Write-Host "Info:  Script running with Admin rights - Continuing...";
 }
-

@@ -562,7 +562,7 @@ function SyncRegistry {
 							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								Write-Host "  |-->  Found Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
+								Write-Host "  |-->  Skipping Property (already up-to-date) - Name=[ $($EachProp.Name) ], Type=[ $($EachProp.Type) ], Value=[ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
 

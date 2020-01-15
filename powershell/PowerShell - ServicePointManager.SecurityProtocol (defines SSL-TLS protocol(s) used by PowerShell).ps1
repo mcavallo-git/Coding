@@ -72,7 +72,6 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server' -Name 'DisabledByDefault' -Value 0 –PropertyType 'DWORD';  <# Enabled #>
 New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Name 'Enabled' -Value 1 –PropertyType 'DWORD';            <# Enabled #>
 New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client' -Name 'DisabledByDefault' -Value 0 –PropertyType 'DWORD';  <# Enabled #>
-<# ------------------------------------------------------------ #>
 
 
 # ------------------------------------------------------------
@@ -82,8 +81,14 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 [System.Net.ServicePointManager]::SecurityProtocol;
 
 
-# Set the Security Protocol(s) used by PowerShell
+# Set the Security Protocol(s) used by PowerShell (!! TEMPORARY --> REVERTS ON-REBOOT !!)
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+
+
+# ------------------------------------------------------------
+### Test with original command to a TLS v1.2 site (or to a site which tests the protocol(s) you just added/removed) as-to verify that the protocol(s) have been applied and are now working as-intended
+
+($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps?t=$((Date).Ticks)"))
 
 
 # ------------------------------------------------------------

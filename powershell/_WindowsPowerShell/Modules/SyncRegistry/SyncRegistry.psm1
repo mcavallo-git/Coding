@@ -540,18 +540,18 @@ function SyncRegistry {
 					# $last_exit_code = If($?){0}Else{1};
 					# $ErrorActionPreference = $Revertable_ErrorActionPreference;
 
-					If ($False) {
+					# If ($False) {
 						Try {
 							# $GetEachItemProp = Get-ItemProperty -Path ($EachRegEdit.Path) | Select-Object -ExpandProperty ($EachProp.Name) -ErrorAction Stop;
 							$GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
 						} Catch {
 							$GetEachItemProp = $Null;
 						};
-					}
+					# }
 
 					$EchoDetails = "";
 
-					If ($last_exit_code -eq 0) { # Registry-Key-Property exists
+					If ($GetEachItemProp -NE $Null) { # Registry-Key-Property exists
 
 						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
 

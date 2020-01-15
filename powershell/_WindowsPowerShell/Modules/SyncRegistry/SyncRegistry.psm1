@@ -610,7 +610,7 @@ function SyncRegistry {
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							Write-Host "  |-->  Skipping Deletion of Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
+							Write-Host "  |-->  Skipping Property (already deleted) - Name=[ $($EachProp.Name) ], Type=[ $($EachProp.Type) ], Value=[ DELETED ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 						}
 

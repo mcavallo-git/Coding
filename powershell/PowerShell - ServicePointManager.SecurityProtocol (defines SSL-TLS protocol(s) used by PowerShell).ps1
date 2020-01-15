@@ -29,37 +29,40 @@
 <# Locate the .NET Framework v4 key to modify #> 
 $Key_DotNet4 = (Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*');
 $HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($Key_DotNet4.PSChildName)");
-<# Target the 64bit and 32bit registries separately #>
+
+<# Update the 64-bit registry #>
 $Registry_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
-$Registry_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));
-<# ============================== #>
-<# Get the registry key's access controls #>
-$KeyAccess_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
-$KeyAccess_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
-	<# Prep the updated access rules/controls #>
-	$AccessControl_64bit = $KeyAccess_64bit.GetAccessControl();
-	$AccessControl_32bit = $KeyAccess_32bit.GetAccessControl();
-		<# Grant current-user (self) full control over targeted registry key(s) (required to modify many system registry keys) #>
-		$RegistryAccessRule = New-Object System.Security.AccessControl.RegistryAccessRule("${Env:USERDOMAIN}\${Env:USERNAME}","FullControl","Allow");
-	$AccessControl_64bit.SetAccessRule($RegistryAccessRule);
-	$AccessControl_32bit.SetAccessRule($RegistryAccessRule);
-<# Apply the updated access rules/controls #>
-$KeyAccess_64bit.SetAccessControl($AccessControl_64bit);
-$KeyAccess_32bit.SetAccessControl($AccessControl_32bit);
-<# ============================== #>
-<# Prep the key #>
-$SubKey_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}"), $True);
-$SubKey_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}"), $True);
-<# Update the key #>
-$SubKey_64bit.SetValue("SystemDefaultTlsVersions", "1");
-$SubKey_32bit.SetValue("SystemDefaultTlsVersions", "1");
-<# Close the key & flush it to disk (if its contents have been modified) #>
-$SubKey_64bit.Close();
-$SubKey_32bit.Close();
-<# Get the registry key's value #>
-$SubKey_64bit.GetValue("SystemDefaultTlsVersions");
-$SubKey_32bit.GetValue("SystemDefaultTlsVersions");
-<# ============================== #>
+$SubKey_64bit = $Registry_64bit.OpenSubKey("${HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+$SubKey_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
+$SubKey_64bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
+
+<# Update the 32-bit registry #>
+$Registry_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
+$SubKey_32bit = $Registry_32bit.OpenSubKey("${HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+$SubKey_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
+$SubKey_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
+
+
+<# Gramt additional user(s) access rights onto this, specific, key #>
+If ($False) {
+	<# Get the registry key's access controls #>
+	$KeyAccess_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
+	$KeyAccess_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
+		<# Prep the updated access rules/controls #>
+		$AccessControl_64bit = $KeyAccess_64bit.GetAccessControl();
+		$AccessControl_32bit = $KeyAccess_32bit.GetAccessControl();
+			<# Grant current-user (self) full control over targeted registry key(s) (required to modify many system registry keys) #>
+			$RegistryAccessRule = New-Object System.Security.AccessControl.RegistryAccessRule("${Env:USERDOMAIN}\${Env:USERNAME}","FullControl","Allow");
+		$AccessControl_64bit.SetAccessRule($RegistryAccessRule);
+		$AccessControl_32bit.SetAccessRule($RegistryAccessRule);
+	<# Apply the updated access rules/controls #>
+	$KeyAccess_64bit.SetAccessControl($AccessControl_64bit);
+	$KeyAccess_32bit.SetAccessControl($AccessControl_32bit);
+	<# Close the key & flush it to disk (if its contents have been modified) #>
+	$KeyAccess_64bit.Close();
+	$KeyAccess_32bit.Close();
+}
+
 
 
 <# [Protocols] Disable SSL 2.0 #>
@@ -136,13 +139,15 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 #
 # Citation(s)
 #
-#   community.spiceworks.com  |  "[SOLVED] Set Registry Key To 'Full Control' For .\USERS - PowerShell - Spiceworks"  |  https://community.spiceworks.com/topic/1517671-set-registry-key-to-full-control-for-users
+#   community.spiceworks.com  |  "Set Registry Key To 'Full Control' For .\USERS - PowerShell - Spiceworks"  |  https://community.spiceworks.com/topic/1517671-set-registry-key-to-full-control-for-users
 #
 #   docs.microsoft.com  |  "Managing SSL/TLS Protocols and Cipher Suites for AD FS | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/manage-ssl-protocols-in-ad-fs
 #
 #   docs.microsoft.com  |  "Protocols in TLS/SSL (Schannel SSP) - Implements versions of the TLS, DTLS and SSL protocols"  |  https://docs.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-
 #
 #   docs.microsoft.com  |  "RegistryKey.Close Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.close
+#
+#   docs.microsoft.com  |  "RegistryKey.OpenBaseKey(RegistryHive, RegistryView) Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.openbasekey
 #
 #   docs.microsoft.com  |  "RegistryKey.OpenSubKey Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.opensubkey
 #
@@ -155,6 +160,8 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 #   docs.microsoft.com  |  "ServicePointManager.SecurityProtocol Property (System.Net) - Gets/Sets the security protocol used by the ServicePoint objects managed by the ServicePointManager object"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.securityprotocol
 #
 #   docs.microsoft.com  |  "Solving the TLS 1.0 Problem - Security documentation | Microsoft Docs"  |  https://docs.microsoft.com/en-us/security/solving-tls1-problem
+#
+#   powershellpainrelief.blogspot.com  |  "Powershell - Pain Relief by R.T.Edwards: Powershell: Working With The Registry Part 2"  |  http://powershellpainrelief.blogspot.com/2014/07/powershell-working-with-registry-part-2.html
 #
 #   stackoverflow.com  |  "How to access the 64-bit registry from a 32-bit Powershell instance? - Stack Overflow"  |  https://stackoverflow.com/a/19381092
 #

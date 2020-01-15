@@ -571,6 +571,9 @@ function SyncRegistry {
 
 						} Else { # Property (or Key) SHOULD be deleted
 
+							Write-Host "Calling [ Show (`${GetEachItemProp}); ]..."
+							Show (${GetEachItemProp});
+
 							If (($EachProp.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key

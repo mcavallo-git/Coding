@@ -73,7 +73,7 @@ function SyncRegistry {
 
 		# Cortana/Search Settings
 		$RegEdits += @{
-			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
 					Description="Cortana/Search Settings - Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
@@ -96,7 +96,7 @@ function SyncRegistry {
 
 		# Cortana/Search Settings (cont.)
 		$RegEdits += @{
-			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
 			Props=@(
 				@{
 					Description="Cortana/Search Settings - TODO";
@@ -132,7 +132,7 @@ function SyncRegistry {
 
 		# Explorer Settings
 		$RegEdits += @{
-			Path = "HKCU:\Software\Policies\Microsoft\Windows\Explorer";
+			Path="Registry::HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set to [ 1 ] to Disable or [ 0 ] to Enable `"Aero Shake`" in Windows 10";
@@ -147,7 +147,7 @@ function SyncRegistry {
 
 		# Explorer Settings (cont.)
 		$RegEdits += @{
-			Path = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
 					Description="Explorer Settings - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
@@ -183,7 +183,7 @@ function SyncRegistry {
 
 		# Explorer Settings (cont.)
 		$RegEdits += @{
-			Path = "Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'Onedrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
@@ -203,7 +203,7 @@ function SyncRegistry {
 			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
 			#   |--> Explorer -> Image-File (.png, .jpg, ...) -> Right-Click -> Edit -> Opens app held in [v THIS v] RegEdit Key/Val
 			$RegEdits += @{
-				Path = "HKCR:\SystemFileAssociations\image\shell\edit\command";
+				Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\image\shell\edit\command";
 				Props=@(
 					@{
 						Description="Explorer Settings - Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
@@ -220,7 +220,7 @@ function SyncRegistry {
 
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
-			Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\System";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System";
 			Props=@(
 				@{
 					Description="Set this value to [ 1 ] to disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
@@ -234,7 +234,7 @@ function SyncRegistry {
 
 		# Multitasking - Snap windows (half-screen left/right snapping of windows)
 		$RegEdits += @{
-			Path = "Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
+			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
@@ -247,7 +247,7 @@ function SyncRegistry {
 		};
 		# Multitasking - Snap windows (cont.)
 		$RegEdits += @{
-			Path = "Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
@@ -307,7 +307,7 @@ function SyncRegistry {
 
 		# Office 2013 Settings
 		$RegEdits += @{
-			Path="HKCU:\Software\Microsoft\Office\15.0\Common\General";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Common\General";
 			Props=@(
 				@{
 					Description="Office 2013 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
@@ -323,7 +323,7 @@ function SyncRegistry {
 
 		# Office 2016 Settings
 		$RegEdits += @{
-			Path="HKCU:\Software\Microsoft\Office\16.0\Common\General";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Common\General";
 			Props=@(
 				@{
 					Description="Office 2016 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
@@ -339,7 +339,7 @@ function SyncRegistry {
 
 		# Power Settings
 		$RegEdits += @{
-			Path="HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0";
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0";
 			Props=@(
 				@{
 					Description="Power Settings - Set to [2] to enable 'advanced power settings', [1] to disable 'advanced power settings'.";
@@ -355,7 +355,7 @@ function SyncRegistry {
 
 		# Shutdown/Restart Settings
 		$RegEdits += @{
-			Path = "HKCU:\Control Panel\Desktop";
+			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
@@ -370,7 +370,7 @@ function SyncRegistry {
 
 		# SmartScreen for Microsoft Edge, Microsoft Store Apps
 		$RegEdits += @{
-			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\System";
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System";
 			Props=@(
 				@{
 					Description="Set this value to [ 0 ] to turn off SmartScreen, [ 1 ] to give user a warning before running downloaded unknown software, [ 2 ] to require approval from an administrator before running downloaded unknown software ( from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen )";
@@ -382,7 +382,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
 			Props=@(
 				@{
 					Description="Set this value to [ 0 ] to allow users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious files, [ 1 ] to prevent users from bypassing the warnings, blocking them from downloading of the unverified file(s) (from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-files )";
@@ -394,7 +394,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="HKLM:\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
 			Props=@(
 				@{
 					Description="By default, Microsoft Edge allows users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious sites, allowing them to continue to the site. With this policy though, you can configure Microsoft Edge to prevent users from bypassing the warnings, blocking them from continuing to the site (from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-sites )";
@@ -409,7 +409,7 @@ function SyncRegistry {
 
 		# Windows Update - Force-pull from Windows instaed of local server
 		$RegEdits += @{
-			Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
 			Props=@(
 				@{
 					Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
@@ -421,7 +421,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="HKLM:\Software\Microsoft\Windows\CurrentVersion\Policies\Servicing";
+			Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Servicing";
 			Props=@(
 				@{
 					Description="Sets the value (string) for the option named [ Alternate source file path ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
@@ -455,7 +455,7 @@ function SyncRegistry {
 
 			# VMware vSphere Client Cached-Connections
 			$RegEdits += @{
-				Path = "HKCU:\Software\VMware\VMware Infrastructure Client\Preferences";
+				Path="Registry::HKEY_CURRENT_USER\Software\VMware\VMware Infrastructure Client\Preferences";
 				Props=@(
 					@{
 						Description="Defines the vSphere Client's [ IP address/ Name ] cached connection-urls";
@@ -469,7 +469,7 @@ function SyncRegistry {
 
 			# VMware vSphere Client Cached-Connections
 			$RegEdits += @{
-				Path = "HKCU:\Software\Policies\Microsoft\CloudFiles\BlockedApps\*";
+				Path="Registry::HKEY_CURRENT_USER\Software\Policies\Microsoft\CloudFiles\BlockedApps\*";
 				Props=@(
 					@{
 						Description="Blocks (1) or Unblocks (0) Apps from being able to trigger the OneDrive's `"Files On-Demand`" feature";
@@ -484,7 +484,7 @@ function SyncRegistry {
 		}
 
 		# ------------------------------------------------------------
-		If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+		If (!([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
 			# Script is >> NOT << running as admin  --> Attempt to open an admin terminal with the same command-line arguments as the current
 			$CommandString = $MyInvocation.MyCommand.Name;
 			$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };

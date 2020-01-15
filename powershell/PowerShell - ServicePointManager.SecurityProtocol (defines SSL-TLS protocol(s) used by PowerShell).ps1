@@ -4,11 +4,12 @@
 #
 # ------------------------------------------------------------
 #
-# Original Error: 
+# Original Error(s):
 ###   Exception calling "DownloadString" with "1" argument(s): "The request was aborted: Could not create SSL/TLS secure channel."
+###   Exception calling "DownloadString" with "1" argument(s): "The underlying connection was closed: An unexpected error occurred on a receive."
 #
 # Original Command (which caused error):
-###  ($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1"))
+###  ($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps?t=$((Date).Ticks)"))
 #
 # Original Environment:
 ###  Fresh format of Windows Server 2016 Standard

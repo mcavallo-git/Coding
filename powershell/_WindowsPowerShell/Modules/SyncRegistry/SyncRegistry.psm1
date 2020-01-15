@@ -508,7 +508,7 @@ function SyncRegistry {
 					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
-						Write-Host "Info:  Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
+						Write-Host "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
 						Foreach ($Each_PSDrive In $PSDrives) {
 							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
@@ -517,7 +517,7 @@ function SyncRegistry {
 							}
 						}
 						If ($Each_PSDrive_Root -Ne $Null) {
-							Write-Host " |`n   |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
+							Write-Host " |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
 							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 						}
 					}
@@ -525,10 +525,10 @@ function SyncRegistry {
 				
 				If ((Test-Path -Path ($EachRegEdit.Path)) -eq $True) {
 					# Skip creating registry key if it already exists
-					Write-Host (("Info:  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor DarkGray; # (Already up to date)
+					Write-Host (("`nInfo:  Found Key `"")+($EachRegEdit.Path)+("`"")) -ForegroundColor DarkGray; # (Already up to date)
 				} Else {
 					# Create missing key in the registry
-					Write-Host (("Info:  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
+					Write-Host (("`nInfo:  Creating Key `"")+($EachRegEdit.Path)+("`" ")) -ForegroundColor Green;
 					New-Item -Path ($EachRegEdit.Path) -Force | Out-Null; # Note: The -Force is used to create any/all missing parent registry keys
 				}
 
@@ -560,11 +560,11 @@ function SyncRegistry {
 							$EachProp.LastValue = $GetEachItemProp.($EachProp.Name);
 								
 							If (($EachProp.LastValue) -eq ($EachProp.Value)) { # Property set as-intended (Already up to date)
-								Write-Host " |`n |-->  Found Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
+								Write-Host " |-->  Found Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with correct Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "DarkGray";
 
 							} Else {
 								# Modify the value of an existing property on an existing registry key
-								Write-Host " |`n |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+								Write-Host " |-->  Updating Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] from Value [ $($EachProp.LastValue) ] to Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 								Set-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
 							}
@@ -574,14 +574,14 @@ function SyncRegistry {
 							If (($EachProp.Name) -Eq "(Default)") {
 									
 								# DELETE registry key
-								Write-Host " |`n |-->  Deleting Registry-Key with Name [ $($EachProp.Name) ] ${EchoDetails}" -ForegroundColor "Magenta";
+								Write-Host " |-->  Deleting Registry-Key with Name [ $($EachProp.Name) ] ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-Item -Path ($EachRegEdit.Path) -Force | Out-Null;
 								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 
 							} Else {
 
 								# DELETE property (from registry-key)
-								Write-Host " |`n |-->  Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
+								Write-Host " |-->  Deleting Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value of [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Magenta";
 								Remove-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Force | Out-Null;
 
 							}
@@ -593,12 +593,11 @@ function SyncRegistry {
 						If (($EachProp.Delete) -eq $False) { # Property should NOT be deleted
 
 							# Add the missing property to the Registry Key
-							Write-Host " |`n |-->  Adding Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
+							Write-Host " |-->  Adding Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] with Value [ $($EachProp.Value) ] ${EchoDetails}" -ForegroundColor "Yellow";
 							New-ItemProperty -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) -Force | Out-Null;
-							Write-Host " `n`n";
 
 						} Else { # Property SHOULD be deleted (Already up to date)
-							Write-Host " |`n |-->  Skipping Deletion of Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
+							Write-Host " |-->  Skipping Deletion of Property with Name [ $($EachProp.Name) ] & Type [ $($EachProp.Type) ] (already deleted/doesn't-exist) ${EchoDetails}" -ForegroundColor "DarkGray";
 
 						}
 

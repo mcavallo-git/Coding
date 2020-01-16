@@ -42,51 +42,47 @@ function NET_Framework_Check {
 
 	ForEach ($EachVer In ($NetFrameworks.Keys)) {
 
-		If ($EachVer -Eq "2.0") { # .NET Framework v2.0
+		If ($EachVer -Eq "2.0") { # ------------------------------------------------------------
+			# .NET Framework v2.0
 			Try {
 				$NetFrameworks[$EachVer].Version = (Get-ChildItem ("${RegistryKey_NetFrameworks}") | Where-Object { $_.PSChildName -Like "v$EachVer*" } | Get-ItemPropertyValue -Name ("Version"));
-				$NetFrameworks[$EachVer].Installed = $True;
 			} Catch {
 				$NetFrameworks[$EachVer].Version = "-";
-				$NetFrameworks[$EachVer].Installed = $False;
 			}
-
-
-		} ElseIf ($EachVer -Eq "3.0") { # .NET Framework v3.0
+		} ElseIf ($EachVer -Eq "3.0") { # ------------------------------------------------------------
+			# .NET Framework v3.0
 			Try {
 				$NetFrameworks[$EachVer].Version = (Get-ChildItem ("${RegistryKey_NetFrameworks}") | Where-Object { $_.PSChildName -Like "v$EachVer*" } | Get-ItemPropertyValue -Name ("Version"));
-				$NetFrameworks[$EachVer].Installed = $True;
 			} Catch {
 				$NetFrameworks[$EachVer].Version = "-";
-				$NetFrameworks[$EachVer].Installed = $False;
 			}
-
-
-		} ElseIf ($EachVer -Eq "3.5") { # .NET Framework v3.5
+		} ElseIf ($EachVer -Eq "3.5") { # ------------------------------------------------------------
+			# .NET Framework v3.5
 			Try {
 				$NetFrameworks[$EachVer].Version = (Get-ChildItem ("${RegistryKey_NetFrameworks}") | Where-Object { $_.PSChildName -Like "v$EachVer*" } | Get-ItemPropertyValue -Name ("Version"));
-				$NetFrameworks[$EachVer].Installed = $True;
 			} Catch {
 				$NetFrameworks[$EachVer].Version = "-";
-				$NetFrameworks[$EachVer].Installed = $False;
 			}
-
-
-		} ElseIf ($EachVer.StartsWith("4.")) { # .NET Framework v4.0+
+		} ElseIf ($EachVer.StartsWith("4.")) { # ------------------------------------------------------------
+			# .NET Framework v4.0+ (4.0.x, 4.5.x, 4.6.x, 4.7.x, 4.8.x)
 			Try {
 				If (($VersionInstalled_4_0 -Ne $Null) -And ($ReleaseInstalled_4_0 -ge $NetFrameworks[$EachVer].MinRelease)) {
 					$NetFrameworks[$EachVer].Version = $VersionInstalled_4_0;
-					$NetFrameworks[$EachVer].Installed = $True
 				} Else {
 					$NetFrameworks[$EachVer].Version = "-";
-					$NetFrameworks[$EachVer].Installed = $False;
 				}
 			} Catch {
 				$NetFrameworks[$EachVer].Version = "-";
-				$NetFrameworks[$EachVer].Installed = $False;
 			}
-
 		}
+
+		If ((($NetFrameworks[$EachVer].Version) -Eq "-") -Or (($NetFrameworks[$EachVer].Version) -Eq $Null)) {
+			$NetFrameworks[$EachVer].Installed = $False;
+		} Else {
+			$NetFrameworks[$EachVer].Installed = $True;
+		}
+
+
 	}
 
 	$Dashes = "------------------------------";
@@ -103,7 +99,7 @@ function NET_Framework_Check {
 	Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");
-	$Str=([String]("Compatibile?"));
+	$Str=([String]("Compatible?"));
 	Write-Host -ForegroundColor ($Color) -NoNewLine (($Str)+(" "));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine ("".PadRight(($Dashes.Length-(3+($Str).Length)),"-"));
 	Write-Host -ForegroundColor ("DarkGray") -NoNewLine (" | ");

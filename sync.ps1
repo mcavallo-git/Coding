@@ -56,6 +56,8 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 
 } Else {
 
+	New-Item -ItemType ("Directory") -Path "${REPO_DIR_WIN32}";
+
 	$SSH_KEY_REMOTE="https://raw.githubusercontent.com/mcavallo-git/Coding/master/.shared-deploy-key.pem";
 	$SSH_KEY_LOCAL_WIN32="${HOME}\.ssh\git\.shared-deploy-key.pem";
 	$SSH_KEY_LOCAL_LINUX=(("/")+(((${SSH_KEY_LOCAL_WIN32} -Replace "\\","/") -Replace ":","")));
@@ -67,14 +69,24 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	$Env:GIT_SSH_COMMAND = "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`" -o StrictHostKeyChecking=no";
 	$Env:NAME = "${Env:USERNAME}@${Env:COMPUTERNAME}";
 
-	Set-Location "${HOME}";
-
-	git clone "git@github.com:mcavallo-git/Coding.git";
 
 	Set-Location "${REPO_DIR_WIN32}";
-	git config --local --replace-all "core.sshcommand" "$($Env:GIT_SSH_COMMAND)";
-	git config --local --replace-all "user.name" "$($Env:NAME)";
-	git config --local --replace-all "user.email" "$($Env:EMAIL)";
+
+	git init;
+	git remote add origin "git@github.com:mcavallo-git/Coding.git";
+	git remote set-url origin "git@github.com:mcavallo-git/Coding.git";
+	git config --local --replace-all core.sshcommand "$($Env:GIT_SSH_COMMAND)";
+	git config --local --replace-all user.name "$($Env:NAME)";
+	git config --local --replace-all user.email "$($Env:EMAIL)";
+
+	git fetch --all;
+	
+	git reset --hard "origin/master";
+
+	git pull;
+	
+	# Set-Location "${HOME}";
+	# git clone "git@github.com:mcavallo-git/Coding.git";
 
 }
 

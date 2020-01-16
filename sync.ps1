@@ -8,7 +8,7 @@ If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPol
 	Set-ExecutionPolicy "RemoteSigned" -Force;
 }
 
-If (! Get-Command "git") {
+If (! (Get-Command "git")) {
 	Write-Host "Error:  Please install Git SCM from url:  [  https://git-scm.com/download/win ]" -ForegroundColor Gray;
 
 } Else {

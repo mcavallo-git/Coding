@@ -67,7 +67,7 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL_WIN32}") -Value (${SecretPlaintext}) -Force | Out-Null;
 
 	$Env:EMAIL = "email@email.emailo";
-	$Env:GIT_SSH_COMMAND = "ssh -i \`"${SSH_KEY_LOCAL_LINUX}\`" -o StrictHostKeyChecking=no";
+	$Env:GIT_SSH_COMMAND = "ssh -i `"${SSH_KEY_LOCAL_LINUX}`" -o StrictHostKeyChecking=no";
 	$Env:NAME = "${Env:USERNAME}@${Env:COMPUTERNAME}";
 
 	Set-Location "${REPO_DIR_WIN32}";

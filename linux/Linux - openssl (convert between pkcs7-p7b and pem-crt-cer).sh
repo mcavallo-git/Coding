@@ -4,6 +4,9 @@
 #
 # ------------------------------------------------------------
 
+openssl pkcs7 -in certificate.p7b -print_certs | grep -iv 'subject' | grep -iv 'issuer' | sed -e '/^$/d' > certificate.pem;
+
+# Optionally, add type of incoming certificate type via  [ -inform DER ]
 openssl pkcs7 -in certificate.p7b -inform DER -print_certs | grep -iv 'subject' | grep -iv 'issuer' | sed -e '/^$/d' > certificate.pem;
 
 

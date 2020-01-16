@@ -1,21 +1,49 @@
 
+###  https://wiki.jenkins.io/display/JENKINS/Distributed+builds
 
-https://gvs-jnks.getacvideo.com/jnlpJars/slave.jar
+### !!! Use file @ [ /var/lib/jenkins/secrets/jenkins.slaves.JnlpSlaveAgentProtocol.secret ]
 
+https://SERVER_URL/jnlpJars/slave.jar
 
-$WorkingDir="C:\Jenkins\"; Set-Location "${WorkingDir}"; java -jar agent.jar -jnlpUrl "https://gvs-jnks.getacvideo.com" -auth "nodeuser:plaintextpassword123" -workDir "${WorkingDir}";
+https://SERVER_URL/computer/NODE_NAME/slave-agent.jnlp
 
-
-java -jar jenkins-cli.jar -s https://gvs-jnks.getacvideo.com help
-
-
-curl -I https://gvs-jnks.getacvideo.com/computer/<SLAVE>/slave-agent.jnlp
+$WorkingDir="C:\Jenkins\"; Set-Location "${WorkingDir}"; java -jar agent.jar -jnlpUrl https://SERVER_URL/computer/NODE_NAME/slave-agent.jnlp -auth "USER:PASS" -workDir "${WorkingDir}" -noCertificateCheck;
 
 
-curl -I https://gvs-jnks.getacvideo.com/tcpSlaveAgentListener/
+$WorkingDir="C:\Jenkins\"; Set-Location "${WorkingDir}"; java -jar agent.jar -jnlpUrl https://SERVER_URL/computer/NODE_NAME/slave-agent.jnlp -auth "USER:PASS" -workDir "${WorkingDir}" -noCertificateCheck;
+
+### -secret jenkins.slaves.JnlpSlaveAgentProtocol.secret
+### -secret 123asd123asd0...
 
 
-cd "C:\Jenkins"; java -jar agent.jar -jnlpUrl http://gvs-jnks.getacvideo.com:8080/computer/JnksNode3-Win10/slave-agent.jnlp
+# ------------------------------------------------------------
+
+$WorkingDir="C:\Jenkins\"; Set-Location "${WorkingDir}"; `
+java `
+-jar slave.jar `
+-connectTo SERVER_URL:443 `
+-jnlpUrl https://SERVER_URL/computer/NODE_NAME/slave-agent.jnlp `
+-jnlpCredentials USER:PASS `
+-auth USER:PASS `
+-workDir "${WorkingDir}" `
+-noCertificateCheck `
+;
+
+# ------------------------------------------------------------
+
+https://SERVER_URL/computer/NODE_NAME/slave-agent.jnlp
+
+
+java -jar jenkins-cli.jar -s https://SERVER_URL help
+
+
+curl -I https://SERVER_URL/computer/<SLAVE>/slave-agent.jnlp
+
+
+curl -I https://SERVER_URL/tcpSlaveAgentListener/
+
+
+cd "C:\Jenkins"; java -jar agent.jar -jnlpUrl http://SERVER_URL:8080/computer/NODE_NAME/slave-agent.jnlp
 
 
 <# ------------------------------------------------------------

@@ -80,13 +80,8 @@ If (Test-Path "${REPO_DIR_WIN32}") {
 	git config --local --replace-all user.email "$($Env:EMAIL)";
 
 	git fetch --all;
-	
-	git reset --hard "origin/master";
-
-	git pull;
-	
-	# Set-Location "${HOME}";
-	# git clone "git@github.com:mcavallo-git/Coding.git";
+	git checkout -f master;
+	git pull -v;
 
 }
 

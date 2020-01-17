@@ -86,7 +86,7 @@ If (! (Get-Command "git")) {
 
 		git fetch --all;
 		git checkout -f master;
-		git pull -v;
+		git pull;
 
 	}
 

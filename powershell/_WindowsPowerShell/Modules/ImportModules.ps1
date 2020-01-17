@@ -64,6 +64,15 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 # 	Install-PackageProvider -Name ("NuGet") -Force;
 # }
 
+
+# ------------------------------------------------------------
+# Install the "Chocolatey" package provider
+#   |--> Chocolatey is software management automation for Windows that wraps installers, executables, zips, and scripts into compiled packages
+If ($False) {
+	Set-ExecutionPolicy Bypass -Scope Process -Force;
+	Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));
+}
+
 # Instantiate the array of PowerShell modules to pull from available package providers
 $PSGalleryModules = @();
 $PSGalleryModules += "platyPS";  # https://www.powershellgallery.com/packages/platyPS

@@ -501,7 +501,7 @@ function SyncRegistry {
 		} Else {
 			<# Script >> IS << running as Admin - Continue #>
 
-			Foreach ($EachRegEdit In $RegEdits) {
+			ForEach ($EachRegEdit In $RegEdits) {
 				#
 				# Root-Keys
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
@@ -513,7 +513,7 @@ function SyncRegistry {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
 						Write-Host "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
-						Foreach ($Each_PSDrive In $PSDrives) {
+						ForEach ($Each_PSDrive In $PSDrives) {
 							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
 								$Each_PSDrive_Root=($Each_PSDrive.Root);
@@ -528,7 +528,7 @@ function SyncRegistry {
 				}
 
 				Write-Host ("`n$($EachRegEdit.Path)");
-				Foreach ($EachProp In $EachRegEdit.Props) {
+				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key - If not found, then create it (unless it is to-be-deleted)
 					If (((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) -And (($EachProp.Delete) -eq $False)) {

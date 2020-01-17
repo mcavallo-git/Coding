@@ -44,6 +44,8 @@ Export-ModuleMember -Function "PrivilegeEscalation";
 #
 #	Citation(s)
 #
+#		docs.microsoft.com  |  "Invoke-Expression - Runs commands or expressions on the local computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-expression?view=powershell-7
+#
 #		github.com  |  "Windows 10 Initial Setup Script"  |  https://github.com/Disassembler0/Win10-Initial-Setup-Script
 #
 #		p0w3rsh3ll.wordpress.com  |  "Any (documented) ADSI changes in PowerShell 5.0?"  |  https://p0w3rsh3ll.wordpress.com/2016/06/14/any-documented-adsi-changes-in-powershell-5-0/

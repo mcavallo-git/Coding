@@ -1,0 +1,9 @@
+
+
+NVIDIA GPU Server - 8x Tesla V100 GPUs + NVLink | Lambda
+https://lambdalabs.com/deep-learning/servers/hyperplane/max/customize
+
+
+NVIDIA® V100 Tensor Core is the most advanced data center GPU ever built to accelerate AI, high performance computing (HPC), data science and graphics. It’s powered by NVIDIA Volta architecture, comes in 16 and 32GB configurations, and offers the performance of up to 32 CPUs in a single GPU. Data scientists, researchers, and engineers can now spend less time optimizing memory usage and more time designing the next AI breakthrough.
+https://www.nvidia.com/en-us/data-center/v100/
+

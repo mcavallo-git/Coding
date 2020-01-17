@@ -1,6 +1,49 @@
 # ------------------------------------------------------------
 #
-#   PowerShell - ForEach-Object (For & ForEach Loops)
+#   PowerShell - For(...) Loops
+#
+# ------------------------------------------------------------
+
+#
+# For(...) Loops
+#   |--> General Syntax
+#
+###  For (<Init>; <Condition>; <Repeat>)
+###  {
+###    <Statement list>
+###  }
+
+
+#
+# For(...) Loops
+#   |--> Single Conditional (Example)
+#
+For ($i = 0; $i -lt 10; $i++) {
+	Write-Host "`$i:$i";
+}
+
+#
+# For(...) Loops
+#   |--> Multiple Conditionals (Example)
+#
+For (($i = 0), ($j = 0); $i -lt 10 -and $j -lt 10; $i++,$j++) {
+	Write-Host "`$i:$i";
+	Write-Host "`$j:$j";
+}
+
+
+#
+# For(...) Loops
+#   |--> Infinite Loop (Example)
+#
+For (;;) {
+	Write-Host "Infinite Loop ( Ctrl+C to cancel )";
+}
+
+
+# ------------------------------------------------------------
+#
+#   PowerShell - ForEach(...) Loops using 'ForEach-Object' Method
 #
 # ------------------------------------------------------------
 
@@ -9,6 +52,7 @@ Get-WindowsOptionalFeature -Online | ForEach-Object {
 	$_ | Format-Table;
 	Write-Output "------------------------------------------------------------";
 }
+
 
 #
 # ------------------------------------------------------------
@@ -73,6 +117,8 @@ Get-ChildItem -Path "/" -Filter "gpg.exe" -File -Recurse -Force -ErrorAction "Si
 # ------------------------------------------------------------
 #
 #	Citation(s)
+#
+#   docs.microsoft.com  |  "about_For - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_for?view=powershell-5.1
 #
 #   docs.microsoft.com  |  "about_Providers - PowerShell"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers
 #

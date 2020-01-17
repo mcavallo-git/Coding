@@ -1,9 +1,8 @@
 # ------------------------------------------------------------
 #
 # PowerShell
-#   User SIDs (Security Identifiers)
+#   Get User SIDs (Security Identifiers)
 #
-#                                MCavallo, 2019-06-20_13-58-45
 # ------------------------------------------------------------
 
 

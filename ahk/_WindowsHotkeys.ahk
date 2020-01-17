@@ -235,12 +235,12 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ; Timestamp		:::		Win + Ctrl + D
 ; Timestamp		:::		Win + Alt + D
 ;
-#D::
-^#D::
-!#D::
-+#D::
-+^#D::
-+!#D::
+#D up::
+^#D up::
+!#D up::
++#D up::
++^#D up::
++!#D up::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	TimezoneOffset := GetTimezoneOffset_P()
@@ -248,21 +248,22 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Needle_AltWin := "!#D"
 	Needle_CtrlWin := "^#D"
 	If InStr(A_ThisHotkey, Needle_Win) {  ; Win
-		dat_format=yyyyMMdd-HHmmss
+		DatFormat := "yyyyMMdd-HHmmss"
 	} Else If InStr(A_ThisHotkey, Needle_AltWin) {  ; Alt + Win
-		dat_format=yyyy.MM.dd-HH.mm.ss
+		DatFormat := "yyyy.MM.dd-HH.mm.ss"
 	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) {  ; Ctrl + Win
-		dat_format=yyyy-MM-dd_HH-mm-ss
+		DatFormat := "yyyy-MM-dd_HH-mm-ss"
 	} Else {
-		dat_format=yyyyMMdd-HHmmss
+		DatFormat := "yyyyMMdd-HHmmss"
 	}
 	If WinActive("ahk_group Explorer") {
-		dat_format := StrReplace(dat_format, ":", "-")
+		DatFormat := StrReplace(DatFormat, ":", "-")
 	}
-	FormatTime, DatTimestamp, , %dat_format%
-	Keys = %DatTimestamp%
+	FormatTime, DatTimestamp, , DatFormat
+	Keys := DatTimestamp
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
-		Keys = %DatTimestamp%%TZ_OFFSET_P%
+		TZ_OFFSET := GetTimezoneOffset()
+		Keys :=  DatTimestamp TZ_OFFSET
 	}
   Send %Keys%
 	Return

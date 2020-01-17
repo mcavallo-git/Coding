@@ -2,16 +2,33 @@
 
 EXIT
 
+REM ------------------------------------------------------------
+
 REM Check via cmd - shows users who you can reach & change passwords-of
 net user
 
-REM Syntax for resetting a user's password
+
+REM Reset a user's password
 net user [TargetUsername] [NewPassword]
 
-REM EXAMPLE: Reset user w/ name "Example Username" to password "ExampleNewPassword1!"
-net user "Example Username" ExampleNewPassword1!
 
+REM EXAMPLE: Reset user w/ name "ExampleUsername" to have password "ExampleNewPassword1!"
+net user "ExampleUsername" ExampleNewPassword1!
+
+REM ------------------------------------------------------------
+
+REM List local user(s)
+net user
+REM List AD (domain) user(s)
 net user /domain
+
+REM Show verbose information regarding one, specific user
+net user %USERNAME%
+net user %USERNAME% /domain
+
+REM Show members of a given AD (domain) group
+net group /domain
+net group /domain "Domain Admins"
 
 EXIT
 

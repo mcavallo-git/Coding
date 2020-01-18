@@ -9,7 +9,7 @@
 ###   Exception calling "DownloadString" with "1" argument(s): "The underlying connection was closed: An unexpected error occurred on a receive."
 #
 # Original Command (which caused error):
-###  ($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps?t=$((Date).Ticks)"))
+###  ($(New-Object Net.WebClient).DownloadString("https://ps.mcavallo.com/ps?t=$((Date).Ticks)"))
 #
 # Original Environment:
 ###  Fresh format of Windows Server 2016 Standard v1607
@@ -132,7 +132,7 @@ New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentContro
 # ------------------------------------------------------------
 ### Test with original command to a TLS v1.2 site (or to a site which tests the protocol(s) you just added/removed) as-to verify that the protocol(s) have been applied and are now working as-intended
 
-($(New-Object Net.WebClient).DownloadString("https://sync-ps.mcavallo.com/ps?t=$((Date).Ticks)"))
+($(New-Object Net.WebClient).DownloadString("https://ps.mcavallo.com/ps?t=$((Date).Ticks)"))
 
 
 # ------------------------------------------------------------

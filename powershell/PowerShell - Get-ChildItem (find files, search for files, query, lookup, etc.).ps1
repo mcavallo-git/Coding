@@ -4,21 +4,21 @@
 #
 # ------------------------------------------------------------
 
-$Basename="*";
-$Parent_1="Settings"; # one step back (first directory name)
-$Parent_2="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
-$Parent_X="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
+$Basename_FindFilesMatching="*";
+$Basename_ParentDirectory="Settings"; # one step back (first directory name)
+$Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
+$Dirname_TopLevel="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
 (`
 Get-ChildItem `
--Path ("$Parent_X") `
+-Path ("$Dirname_TopLevel") `
 -Depth (3) `
 -File `
 -Recurse `
 -Force `
 -ErrorAction "SilentlyContinue" `
-| Where-Object { $_.Directory.Parent.Name -Like "$Parent_2" } `
-| Where-Object { $_.Directory.Name -Like "$Parent_1" } `
-| Where-Object { $_.Name -Like "$Basename" } `
+| Where-Object { $_.Directory.Parent.Name -Like "$Basename_ParentsParentsDirectory" } `
+| Where-Object { $_.Directory.Name -Like "$Basename_ParentDirectory" } `
+| Where-Object { $_.Name -Like "$Basename_FindFilesMatching" } `
 | ForEach-Object { $_.FullName; } `
 );
 

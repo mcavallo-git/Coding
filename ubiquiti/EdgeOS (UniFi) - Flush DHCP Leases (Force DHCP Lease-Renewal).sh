@@ -7,32 +7,33 @@
 
 sudo -i;
 
-echo "USG-3P (Unifi)  :::  Clear DHCP Leases - Step 1/2, clear-out '/var/run/dnsmasq-dhcp.leases' && '/config/dnsmasq-dhcp.leases'" && \
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
 CACHE_DNSMASQ_LEASES="/config/$(basename ${LIVE_DNSMASQ_LEASES})" && \
 REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
 REGEX_MATCH_NETMASK_BITS='(3[0-2]|[1-2]?[0-9])' && \
 REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
-SUBNET_CIDR=$(show dhcp statistics \
-| sed \
---regexp-extended \
---quiet \
---expression='s/^\S+_eth1_('${REGEX_MATCH_IPv4_ADDRESS}'\-'${REGEX_MATCH_NETMASK_BITS}')\ .+$/\1/p' \
-;) && \
-ETH1_NETWORK_IPv4=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 1) && \
-ETH1_NETMASK_BITS=$(echo "${SUBNET_CIDR}" | cut -d '-' -f 2) && \
-ETH1_NETWORK_FIRST_THREE_OCTETS=$(echo "${ETH1_NETWORK_IPv4}" | cut -d '.' -f 1-3) && \
-sed \
---regexp-extended \
---in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" \
---expression='/^.+ '${ETH1_NETWORK_FIRST_THREE_OCTETS}'.'${REGEX_MATCH_LAST_OCTET}' .+$/d' \
-"${LIVE_DNSMASQ_LEASES}" && \
+SED_SUBNET_CIDRS="s/^\\S+_eth1_(${REGEX_MATCH_IPv4_ADDRESS}\\-${REGEX_MATCH_NETMASK_BITS})\\ .+\$/\\1/p" && \
+SUBNET_CIDRS=$(show dhcp statistics | sed -rne "${SED_SUBNET_CIDRS}";) && \
+ROLLBACK_IFS="${IFS}" && IFS=$'\n'; \
+for EACH_SUBNET_CIDR in ${SUBNET_CIDRS}; do \
+echo "Info:  [ Step 1 ]  Flushing DHCP leases for CIDR \"${EACH_SUBNET_CIDR}\" from cache-file \"${LIVE_DNSMASQ_LEASES}\"" &&
+ETH1_NETWORK_IPv4=$(echo "${SUBNET_CIDRS}" | cut -d '-' -f 1); \
+ETH1_NETMASK_BITS=$(echo "${SUBNET_CIDRS}" | cut -d '-' -f 2); \
+ETH1_NETWORK_FIRST_THREE_OCTETS=$(echo "${ETH1_NETWORK_IPv4}" | cut -d '.' -f 1-3); \
+SED_DNSMASQ_LEASES="/^.+ ${ETH1_NETWORK_FIRST_THREE_OCTETS}.${REGEX_MATCH_LAST_OCTET} .+\$/d"; \
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -re "${SED_DNSMASQ_LEASES}" "${LIVE_DNSMASQ_LEASES}"; \
+done; \
+IFS="${ROLLBACK_IFS}" && \
+echo "Info:  [ Step 2 ]  Copying file \"${LIVE_DNSMASQ_LEASES}\" over file \"${CACHE_DNSMASQ_LEASES}\"" &&
 cp -f "${LIVE_DNSMASQ_LEASES}" "${CACHE_DNSMASQ_LEASES}" && \
 service dhcpd restart && \
 sleep 3 && \
-echo "USG-3P (Unifi)  :::  Clear DHCP Leases - Step 2/2, clear-out '/var/run/dhcpd.leases' && '/config/dhcpd.leases'" &&
+echo "Info:  [ Step 3 ]  Flushing contents of cache-files '/var/run/dhcpd.leases' && '/config/dhcpd.leases'" &&
 clear dhcp leases && \
-echo "Done - All DHCP leases have been flushed";
+echo "Info:  Done - All DHCP leases have been flushed";
+
+
+# SUBNET_CIDR=$(show dhcp statistics | sed -rne "s/^\S+_eth1_((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\-(3[0-2]|[1-2]?[0-9]))\ .+$/\1/p";)
 
 
 # ------------------------------------------------------------

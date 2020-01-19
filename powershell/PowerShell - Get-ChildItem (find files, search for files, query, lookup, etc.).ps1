@@ -7,7 +7,7 @@
 $Basename_FindFilesMatching="*";
 $Basename_ParentDirectory="Settings"; # one step back (first directory name)
 $Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
-$Dirname_TopLevel="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
+$Dirname_TopLevel="${Env:USERPROFILE}\AppData\Local\Packages"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
 (`
 Get-ChildItem `
 -Path ("$Dirname_TopLevel") `

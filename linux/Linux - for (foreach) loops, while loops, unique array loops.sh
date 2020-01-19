@@ -26,8 +26,23 @@ while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mo
 
 
 # ------------------------------------------------------------
-# ps + while-loop
-ps aux | grep -v grep | grep java | while read -r -d $'\n' EACH_LINE; do echo "------------------------------------------------------------"; echo "${EACH_LINE}"; done;
+### Newline Delimitation (splitting a string on newline as the delimiter)
+
+
+### For-Loop using newline delimiter
+ROLLBACK_IFS="${IFS}"; IFS=$'\n'; \
+for EACH_LINE in $(ps aux); do \
+echo "------------------------------------------------------------"; \
+echo "${EACH_LINE}"; \
+done; \
+IFS="${ROLLBACK_IFS}";
+
+
+### While-loop using newline delimiter
+ps aux | while read -r -d $'\n' EACH_LINE; do \
+echo "------------------------------------------------------------"; \
+echo "${EACH_LINE}"; \
+done;
 
 
 # ------------------------------------------------------------

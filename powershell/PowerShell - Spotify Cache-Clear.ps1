@@ -3,6 +3,13 @@
 # PowerShell - Clear local Spotify app's cached files
 #
 # ------------------------------------------------------------
+If ($False) {
+### Run this script manually on target device:
+
+Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell - Spotify Cache-Clear.ps1'));
+
+}
+# ------------------------------------------------------------
 
 Get-Process | Where-Object { $_.ProcessName -Eq "Spotify" } | Stop-Process -Force;
 

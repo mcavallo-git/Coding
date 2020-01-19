@@ -17,13 +17,13 @@ Get-Process | Where-Object { $_.ProcessName -Eq "Spotify" } | Stop-Process -Forc
 Get-ChildItem -Path ("${Home}\AppData\Roaming\Spotify") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
 | Where-Object { $_.Directory.Name -Like "*-User" } `
 | Where-Object { $_.Name -Like "local-files.bnk" } `
-| Remove-Item -Force -Recurse;
+| Remove-Item -Force -Recurse -ErrorAction "SilentlyContinue";
 
 
-Remove-Item ("${Home}\AppData\Local\Spotify\Storage") -Force -Recurse;
+Remove-Item ("${Home}\AppData\Local\Spotify\Storage") -Force -Recurse -ErrorAction "SilentlyContinue";
 
 
-Remove-Item ("${Home}\AppData\Local\Spotify\Data") -Force -Recurse;
+Remove-Item ("${Home}\AppData\Local\Spotify\Data") -Force -Recurse -ErrorAction "SilentlyContinue";
 
 
 # ------------------------------------------------------------

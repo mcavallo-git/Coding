@@ -5,6 +5,8 @@
 # USG-3P (Unifi)  :::  Clear DHCP Leases - Step 1, clear-out "/var/run/dnsmasq-dhcp.leases" && "/config/dnsmasq-dhcp.leases"
 #
 
+sudo -i;
+
 echo "USG-3P (Unifi)  :::  Clear DHCP Leases - Step 1/2, clear-out '/var/run/dnsmasq-dhcp.leases' && '/config/dnsmasq-dhcp.leases'" && \
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
 CACHE_DNSMASQ_LEASES="/config/$(basename ${LIVE_DNSMASQ_LEASES})" && \

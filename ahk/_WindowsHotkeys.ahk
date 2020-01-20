@@ -248,22 +248,18 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Needle_AltWin := "!#D"
 	Needle_CtrlWin := "^#D"
 	If InStr(A_ThisHotkey, Needle_Win) {  ; Win
-		DatFormat := "yyyyMMdd-HHmmss"
+		FormatTime, DatTimestamp, ,yyyyMMdd-HHmmss
 	} Else If InStr(A_ThisHotkey, Needle_AltWin) {  ; Alt + Win
-		DatFormat := "yyyy.MM.dd-HH.mm.ss"
+		FormatTime, DatTimestamp, ,yyyy.MM.dd-HH.mm.ss
 	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) {  ; Ctrl + Win
-		DatFormat := "yyyy-MM-dd_HH-mm-ss"
+		FormatTime, DatTimestamp, ,yyyy-MM-dd_HH-mm-ss
 	} Else {
-		DatFormat := "yyyyMMdd-HHmmss"
+		FormatTime, DatTimestamp, ,yyyyMMdd-HHmmss
 	}
-	If WinActive("ahk_group Explorer") {
-		DatFormat := StrReplace(DatFormat, ":", "-")
-	}
-	FormatTime, DatTimestamp, , DatFormat
 	Keys := DatTimestamp
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
 		TZ_OFFSET := GetTimezoneOffset()
-		Keys :=  DatTimestamp TZ_OFFSET
+		Keys := DatTimestamp TZ_OFFSET
 	}
   Send %Keys%
 	Return

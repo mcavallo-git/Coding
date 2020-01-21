@@ -1,3 +1,4 @@
+
 function ProfileSync {
 	Param(
 
@@ -12,7 +13,16 @@ function ProfileSync {
 		[Switch]$Quiet
 
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
 
+
+		[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12"; Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"));
+
+
+	}
+	# ------------------------------------------------------------
+	
 	# Ensure that the directory "$Home/.config" exists before first-use
 	$CfgPath = (($Home)+("/.config"));
 	$CfgExists = Test-Path -Path ($CfgPath);
@@ -65,18 +75,10 @@ function ProfileSync {
 			
 		}
 	}
-	
+
 	$Pro = @();
-	
-	$Pro += (('$SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://ps.mcavallo.com/ps?$((Date).Ticks)"))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";'));
-	
-	If ($False) {
 
-		# Manual Sync Command:
-
-		$SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString('https://sync.mcavallo.com/ps?$((Date).Ticks)'))) | Out-Null; . "${SyncTemp}"; Remove-Item "${SyncTemp}";
-
-	}
+	$Pro += ('[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12"; Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"));');
 
 	### Overwrite $Profile content
 	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($False)) {

@@ -120,6 +120,9 @@ If (! (Get-Command "git")) {
 	}
 
 	<# Return the pre-existing id_rsa file (default private key used by SSH methods, including Git) to its original location (~/.ssh/id_rsa), afterwards #>
+	Write-Host "`n`n";
+	Write-Host "`$SSH_KEY_LOCAL_WIN32_BAK = [ ${SSH_KEY_LOCAL_WIN32_BAK} ]";
+	Write-Host "`n`n";
 	If ((Test-Path ("${SSH_KEY_LOCAL_WIN32_BAK}")) -Eq $True) {
 		Move-Item -Path "${SSH_KEY_LOCAL_WIN32_BAK}" -Destination "${SSH_KEY_LOCAL_WIN32}" -Force | Out-Null;
 	}

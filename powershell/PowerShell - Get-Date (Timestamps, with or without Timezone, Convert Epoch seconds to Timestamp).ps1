@@ -27,6 +27,30 @@ $Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};
 # Timestamp, Filename-compatible
 $TimestampFilename = (Get-Date -UFormat "%Y%m%d-%H%M%S"); Write-Host ${TimestampFilename};
 
+# Timestamp, Filename-compatible w/ decimal-seconds
+$EpochDate = ([Decimal](Get-Date -UFormat ("%s"))); `
+$EpochDate_DecimalSec = (${EpochDate}%1);
+$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate)); `
+Write-Host "`n`n"; `
+Write-Host "`$EpochDate = [ ${EpochDate} ]"; `
+Write-Host "`$EpochDate_DecimalSec = [ ${EpochDate_DecimalSec} ]"; `
+Write-Host "`$EpochToTimestamp = [ ${EpochToTimestamp} ]"; `
+Write-Host "`n`n";
+
+
+# ------------------------------------------------------------
+
+#
+# Method 1 of obtaining (milli-/micro-) seconds past the decimal
+#
+$DecimalSec_Split = [Decimal]"0.$($(Get-Date -UFormat ('%s')).Split('.')[1].Trim())";
+
+
+#
+# Method 2 of obtaining (milli-/micro-) seconds past the decimal
+#
+$DecimalSec_Mod = (([Decimal](Get-Date -UFormat ('%s')))%1);
+
 
 # ------------------------------------------------------------
 # Relative DateTime Queries (Common English Statements)
@@ -75,10 +99,15 @@ Write-Host (Get-Date $LastMondaysDate -UFormat "%Y-%m-%d");
 # 
 # 
 # ------------------------------------------------------------
+#
 # Citation(s)
-#		
+#
 #		docs.microsoft.com  |  "Get-Date - Gets the current date and time."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
-#		
+#
+#		docs.microsoft.com  |  "Math.Floor Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.math.floor
+#
 #		stackoverflow.com  |  "Midnight last Monday in Powershell"  |  https://stackoverflow.com/a/42578179
+#
+#		stackoverflow.com  |  "Powershell - Round down to nearest whole number - Stack Overflow"  |  https://stackoverflow.com/a/5864061
 #
 # ------------------------------------------------------------

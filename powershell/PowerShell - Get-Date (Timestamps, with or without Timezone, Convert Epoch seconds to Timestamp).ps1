@@ -29,12 +29,14 @@ $TimestampFilename = (Get-Date -UFormat "%Y%m%d-%H%M%S"); Write-Host ${Timestamp
 
 # Timestamp, Filename-compatible w/ decimal-seconds
 $EpochDate = ([Decimal](Get-Date -UFormat ("%s"))); `
-$EpochDate_DecimalSec = (${EpochDate}%1);
 $EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate)); `
+$DecimalTimestampLong = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) ); `
+$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) ); `
 Write-Host "`n`n"; `
 Write-Host "`$EpochDate = [ ${EpochDate} ]"; `
-Write-Host "`$EpochDate_DecimalSec = [ ${EpochDate_DecimalSec} ]"; `
-Write-Host "`$EpochToTimestamp = [ ${EpochToTimestamp} ]"; `
+Write-Host "`$EpochToDateTime = [ ${EpochToDateTime} ]"; `
+Write-Host "`$DecimalTimestampLong = [ ${DecimalTimestampLong} ]"; `
+Write-Host "`$DecimalTimestampShort = [ ${DecimalTimestampShort} ]"; `
 Write-Host "`n`n";
 
 
@@ -102,9 +104,13 @@ Write-Host (Get-Date $LastMondaysDate -UFormat "%Y-%m-%d");
 #
 # Citation(s)
 #
-#		docs.microsoft.com  |  "Get-Date - Gets the current date and time."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
+#		devblogs.microsoft.com  |  "PowerTip: Remove First Two Letters of String | Scripting Blog"  |  https://devblogs.microsoft.com/scripting/powertip-remove-first-two-letters-of-string/
+#
+#		docs.microsoft.com  |  "Get-Date - Gets the current date and time"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
 #
 #		docs.microsoft.com  |  "Math.Floor Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.math.floor
+#
+#		docs.microsoft.com  |  "String.PadRight Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.string.padright
 #
 #		stackoverflow.com  |  "Midnight last Monday in Powershell"  |  https://stackoverflow.com/a/42578179
 #

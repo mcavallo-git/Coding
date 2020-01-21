@@ -45,6 +45,18 @@ driverslogin.com
 
 <!-- ------------------------------------------------------------ -->
 
+<h3>Logitech</h3>
+<pre><code>
+
+logi.com,
+logitech.com,
+myharmony.com
+
+</code></pre>
+<hr />
+
+<!-- ------------------------------------------------------------ -->
+
 <h3>Microsoft</h3>
 <pre><code>
 

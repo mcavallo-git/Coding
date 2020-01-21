@@ -119,16 +119,17 @@ If (! (Get-Command "git")) {
 
 	}
 
+	<# Return the pre-existing id_rsa file (default private key used by SSH methods, including Git) to its original location (~/.ssh/id_rsa), afterwards #>
+	If ((Test-Path ("${SSH_KEY_LOCAL_WIN32_BAK}")) -Eq $True) {
+		Move-Item -Path "${SSH_KEY_LOCAL_WIN32_BAK}" -Destination "${SSH_KEY_LOCAL_WIN32}" -Force | Out-Null;
+	}
+
 	. "${HOME}\Coding\powershell\_WindowsPowerShell\Modules\ImportModules.ps1";
 
 	Write-Host "`nInfo:  PowerShell Modules Synchronized`n" -ForegroundColor Cyan;
 
 	Set-Location "${HOME}";
 
-	<# Return the pre-existing id_rsa file (default private key used by SSH methods, including Git) to its original location (~/.ssh/id_rsa), afterwards #>
-	If ((Test-Path ("${SSH_KEY_LOCAL_WIN32_BAK}")) -Eq $True) {
-		Move-Item -Path "${SSH_KEY_LOCAL_WIN32_BAK}" -Destination "${SSH_KEY_LOCAL_WIN32}" -Force | Out-Null;
-	}
 }
 
 

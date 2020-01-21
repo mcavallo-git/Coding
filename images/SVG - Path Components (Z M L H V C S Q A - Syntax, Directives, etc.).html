@@ -1,11 +1,10 @@
+<!--
 # ------------------------------------------------------------
 #
 #  SVG - Path Components (Z M L H V C S Q A - Syntax, Directives, etc.)
 #
-# ------------------------------------------------------------
 #
-#		SVG Path Components
-#
+-->
 
 ### Close Path
 	Z
@@ -43,21 +42,67 @@
 	A rx ry x-axis-rotation large-arc-flag sweep-flag x y
 		a rx ry x-axis-rotation large-arc-flag sweep-flag dx dy
 
-
-
+<!--
 # ------------------------------------------------------------
 #
-#		SVG Optimization
+# SVG Transformations
+#  |-> Refer to Mozilla's "Basic Transformations" tutorial @ https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Transformations
 #
+-->
 
-### SVGOMG is an awesome, free online service
-
-###  Check it out at:
-
-		https://jakearchibald.github.io/svgomg/
-
+<!-- Translation -->
+<svg width="40" height="50" style="background-color:#bff;">
+	<rect x="0" y="0" width="10" height="10" transform="translate(30,40)" />
+</svg>
 
 
+<!-- Rotation -->
+<svg width="31" height="31">
+	<rect x="12" y="-10" width="20" height="20" transform="rotate(45)" />
+</svg>
+
+
+<!-- Multiple transformations -->
+<svg width="40" height="50" style="background-color:#bff;">
+	<rect x="0" y="0" width="10" height="10" transform="translate(30,40) rotate(45)" />
+</svg>
+
+
+<!-- Skewing -->
+<!--
+	To make a rhombus out of our rectangle, the skewX() and skewY() transformations are available
+	Each one takes an angle that determines how far the element will be skewed
+-->
+
+
+<!-- Scaling -->
+<svg width="100" height="100">
+	<g transform="scale(2)">
+			<rect width="50" height="50" />
+	</g>
+</svg>
+
+
+<!-- Effects on Coordinate Systems -->
+<!--
+	When using transformations you establish a new coordinate system inside the element the transformations apply to
+	That means, the units you specify for the element and its children might not follow the 1:1 pixel mapping, but are also distorted, skewed, translated and scaled according to the transformation
+-->
+
+
+<!-- Embedding SVG in SVG -->
+<!--
+	In contrast to HTML, SVG allows you to embed other svg elements seamlessly
+	This way you can also simply create new coordinate systems by utilizing the viewBox, width and height of the inner svg element
+-->
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="100" height="100">
+  <svg width="100" height="100" viewBox="0 0 50 50">
+    <rect width="50" height="50" />
+  </svg>
+</svg> 
+
+
+<!--
 # ------------------------------------------------------------
 #
 #	Citation(s)
@@ -70,6 +115,9 @@
 #
 #		developer.mozilla.org  |  "viewBox - SVG: Scalable Vector Graphics | MDN"  |  https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/viewBox
 #
+#		jakearchibald.github.io  |  "SVGOMG - SVG Minifier"  |  https://jakearchibald.github.io/svgomg/
+#
 #		svgpocketguide.com  |  "Pocket Guide to Writing SVG"  |  http://svgpocketguide.com/book/
 #
 # ------------------------------------------------------------
+-->

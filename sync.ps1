@@ -96,6 +96,10 @@ If (! (Get-Command "git")) {
 
 		New-Item -ItemType "File" -Path ("${SSH_KEY_LOCAL_WIN32}") -Value (${SecretPlaintext}) -Force | Out-Null;
 
+		Write-Host "`n`n";
+		Write-Host "Created ssh-key for Git @ filepath `"${SSH_KEY_LOCAL_WIN32}`"";
+		Write-Host "`n`n";
+
 		$Env:EMAIL = "email@email.emailo";
 		$Env:GIT_SSH_COMMAND = "ssh -i `"${SSH_KEY_LOCAL_LINUX}`" -o StrictHostKeyChecking=no";
 		$Env:NAME = "${Env:USERNAME}@${Env:COMPUTERNAME}";

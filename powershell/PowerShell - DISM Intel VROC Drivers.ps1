@@ -104,9 +104,7 @@ $Intel_QuickStart_DirectStatement= `
  solution Intel VROC cannot be used.        --Intel";
 
 #
-#
 ### The soution for a Lenovo P520c workstation was two-part:
-#
 #
 #
 ### Part 1/2: Set the following values within the BIOS/UEFI settings:
@@ -116,8 +114,6 @@ $Intel_QuickStart_DirectStatement= `
 # CSM = ENABLED
 #
 # BOOT FROM PCI-E/PCI DEVICES --> SET TO BOOT FROM UEFI, FIRST
-#
-#
 #
 #
 ### Part 2/2

@@ -79,7 +79,6 @@ If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
 		DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.esd" /SourceIndex:2 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.wim" /Compress:max /CheckIntegrity;
 	}
 }
-
 Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (2) -Path ("${Home}\Desktop\WinImage\");
 
 # Add the drivers

@@ -31,10 +31,58 @@ $Intel_QuickStart_DirectStatement= `
 #  > Pull the RAID Controller drivers from your motherboard-manufacturer's website (if software RAID) or from your RAID-controller manufacturer's website (if hardware RAID)
 #   > Install (unpack) all drivers into the directory "C:\Drivers" (create it if it doesn't already exist)
 #
+# ------------------------------------------------------------
 #
-# Once you feel you have your necessary drivers, follow the guide @ http://woshub.com/integrate-drivers-to-windows-install-media/
-# > Run the necessary DISM/PowerShell commands to create Windows boot media w/ RAID (VROC) drivers pre-installed and ready to go
+# To begin, start by creating updated Windows10 installation media, locally  (a .iso file on the desktop will be what this example will use)
+# Download Windows 10 (URL):  https://www.microsoft.com/en-us/software-download/windows10
 #
+#
+# While that runs, go to the manufacturer's sites for the components which you'll be upgrtading
+# to which you want to make sure you have drivers burnt into the Windows image-for. This could be
+# graphics card, CPU chipsets, RAID controllers, etc.
+#
+#
+# Once you feel you have your necessary drivers (CAB files w/ ini files, to be sure...)
+#  > Follow the guide @ http://woshub.com/integrate-drivers-to-windows-install-media/
+#   > Run the necessary DISM/PowerShell commands to create Windows boot media w/ RAID (VROC) drivers pre-installed and ready to go
+#
+#
+# Starting with the "Windows.iso" media, which was output to the Desktop via the Microsoft "Create Windows 10 installation media" tool
+
+
+# Mount the media (must un-mount / pack-back-up before ending)
+Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
+
+New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
+Mount-WindowsImage -Path ("${Home}\Desktop\Mount\") -ImagePath ("${Home}\Desktop\Windows.iso") -Index (1);
+
+
+# Inspect the media to determine which image(s) you want to keep & which you want to remove
+Get-WindowsImage -ImagePath ("C:\WinWork\ISO\Windows.iso");
+
+
+
+
+Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
+## Adds the disk as a D:\ Drive on "This PC" (in Win10)
+
+Dismount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
+## Respectively removes the aforementioned drive
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

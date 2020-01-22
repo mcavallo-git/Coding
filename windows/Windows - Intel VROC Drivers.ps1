@@ -85,11 +85,10 @@ Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Ind
 Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
 
 # Simultaneously dismount & save the Windows-Image
-Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save
+Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
 
 # Dismount the virtualized CD/DVD
 Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
-
 
 
 # ------------------------------------------------------------

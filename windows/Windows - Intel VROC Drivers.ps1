@@ -53,8 +53,37 @@ $Intel_QuickStart_DirectStatement= `
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
 Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 
+# Copy the image off of the ISO (archaic - need to update this methodology)
+New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
+Copy-Item ("D:\*") ("${Home}\Desktop\Mount\") -Recurse -Force;
+
+# Mount the windows image
+New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
+If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
+	If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) {
+		### Determine which image you want to convert, as it takes a couple minutes just for one
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:1
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:2
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:3
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:4
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:5
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:6
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:7
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:8
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:9
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:10
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:11
+		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:12
+
+		### Locate the index in the "isntall.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
+		DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.esd" /SourceIndex:6 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.wim" /Compress:max /CheckIntegrity;
+		### ^^^ This may take up to a couple minutes to complete
+	}
+}
+Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (2) -Path ("${Home}\Desktop\WinImage\");
+
 # Inspect the image to verify it is the image you want
-Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
+Get-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") ;
 #
 # ImageIndex       : 1
 # ImageName        : Microsoft Windows PE (x64)
@@ -67,20 +96,6 @@ Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
 # ImageSize        : 1,882,672,563 bytes
 #
 
-# Copy the image off of the ISO (archaic - need to update this methodology)
-New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
-Copy-Item ("D:\*") ("${Home}\Desktop\Mount\") -Recurse -Force;
-
-
-# Mount the windows image
-New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
-If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
-	If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) {
-		DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.esd" /SourceIndex:2 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.wim" /Compress:max /CheckIntegrity;
-		### ^^^ This may take up to a couple minutes to complete
-	}
-}
-Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (2) -Path ("${Home}\Desktop\WinImage\");
 
 # Add the drivers
 Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;

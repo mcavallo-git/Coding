@@ -96,7 +96,8 @@ Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -R
 Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
 
 # Convert the "install.wim" back into a "install.esd" file to prep for .iso export
-DISM /Export-Image /SourceImageFile "${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
+Remove-Item "${Home}\Desktop\Mount\sources\install.esd" -Force;
+DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
 
 # Convert the image into a .iso file
 Set-Location "${Home}\Desktop\";

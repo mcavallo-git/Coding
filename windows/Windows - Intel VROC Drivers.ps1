@@ -100,14 +100,15 @@ Remove-Item "${Home}\Desktop\Mount\sources\install.esd" -Force;
 DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
 
 #
-### You will need Windows ADK (Microsoft's toolkit) for the final conversion back-into a .iso file ###
+### You will need to use "oscdimg.exe" here, which comes from Microsoft's toolkit called "Windows ADK" ###
+### This is necessary so that we can convert the windows image back into a .iso file to burn onto a disk / image onto a flash-drive ###
 # Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure
 # Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042
 #
 
 # Convert the image into a .iso file
 Set-Location "${Home}\Desktop\";
-oscdimg -n -m -bc:"\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
+.\oscdimg.exe -n -m -bc:"\Users\${Env:USERNAME}\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
 
 
 # --> Use a tool such as "Rufus" to image a flash drive with this updated .iso file, and you should be good to go!

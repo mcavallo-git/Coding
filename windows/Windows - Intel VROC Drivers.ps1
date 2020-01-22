@@ -98,6 +98,7 @@ Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
 # Convert the "install.wim" back into a "install.esd" file to prep for .iso export
 Remove-Item "${Home}\Desktop\Mount\sources\install.esd" -Force;
 DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
+If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) { Remove-Item "${Home}\Desktop\Mount\sources\install.wim" -Force; }
 
 #
 ### You will need to use "oscdimg.exe" here, which comes from Microsoft's toolkit called "Windows ADK" ###

@@ -248,7 +248,7 @@ function SyncRegistry {
 				@{
 					Description="IPv6 Network Settings -->  [ 32 = 'Prefer IPv4 over IPv6' ], [ 255 = 'Disable IPv6' ], [ 16 = 'disable IPv6 on all nontunnel interfaces' ], [ 1 = 'disable IPv6 on all tunnel interfaces' ], [ 17 = 'disable IPv6 on all nontunnel interfaces (except the loopback) and on IPv6 tunnel interface' ]"; 
 					Name="DisabledComponents";
-					Type="String";
+					Type="DWord";
 					Value=("255");
 					Delete=$False;
 				}

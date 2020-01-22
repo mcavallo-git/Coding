@@ -99,6 +99,12 @@ Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
 Remove-Item "${Home}\Desktop\Mount\sources\install.esd" -Force;
 DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
 
+#
+### You will need Windows ADK (Microsoft's toolkit) for the final conversion back-into a .iso file ###
+# Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure
+# Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042
+#
+
 # Convert the image into a .iso file
 Set-Location "${Home}\Desktop\";
 oscdimg -n -m -bc:"\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";

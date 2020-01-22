@@ -11,7 +11,6 @@
 #  > Create bootable Windows 10 media as a ".iso" file (and just output the final file to your desktop as "Windows.iso")
 #
 
-
 #
 # While that runs, go to the manufacturer's sites for the components which you'll be upgrtading
 # to which you want to make sure you have drivers burnt into the Windows image-for. This could be
@@ -20,10 +19,15 @@
 #   > Note: it doesn't matter if the drivers are directly in the "C:\DRIVERS\" folder, or
 #     like ten directories deep within it - we will be using a command to recursively grab
 #     all .CAB files from "C:\DRIVERS", so don't sweat it!
+#
 
+#
 # Once you feel you have your necessary drivers (.CAB files often with ini files, to be sure), we will begin adding the drivers
+#
 
+#
 # Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
+#
 
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
 Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");

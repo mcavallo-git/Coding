@@ -1,42 +1,17 @@
 # ------------------------------------------------------------
 #
-# !!! NOTE: The following is stated in the "Intel VROC Quick Configuration Guide" @  [ https://www.intel.com/content/dam/support/us/en/documents/server-products/server-boards/Intel-VROC-Quick-Configuration-Guide.pdf ]:
+# PowerShell - Adding drivers to a bootable iso / Windows Image
+#
+# ------------------------------------------------------------
 
-$Intel_QuickStart_DirectStatement= `
-"Note: Intel VROC is not compatible with Secure Boot. 
- If you want to use Intel VROC (VMD NVME RAID), do not enable the
- system's Secure Boot feature. If Secure boot is required for the
- solution Intel VROC cannot be used.        --Intel";
 
-#
-# ------------------------------------------------------------
-#
-### The soution for a Lenovo P520c workstation was two-part:
-#
-# ------------------------------------------------------------
-#
-### Part 1/2: Set the following values within the BIOS/UEFI settings:
-#
-# SECURE BOOT = OFF
-#
-# CSM = ENABLED
-#
-# BOOT FROM PCI-E/PCI DEVICES --> SET TO BOOT FROM UEFI, FIRST
-#
-#
-# ------------------------------------------------------------
-#
-### Part 2/2
-# > Injecting the necessary drivers into the Windows Install media's image (much easier than it sounds thanks to guide, below)
-#  > Pull the RAID Controller drivers from your motherboard-manufacturer's website (if software RAID) or from your RAID-controller manufacturer's website (if hardware RAID)
-#   > Install (unpack) all drivers into the directory "C:\Drivers" (create it if it doesn't already exist)
-#
-# ------------------------------------------------------------
 #
 # To begin, start by creating updated Windows10 installation media, locally  (a .iso file on the desktop will be what this example will use)
 # Download Windows 10 (URL):  https://www.microsoft.com/en-us/software-download/windows10
 #  > Create bootable Windows 10 media as a ".iso" file (and just output the final file to your desktop as "Windows.iso")
 #
+
+
 #
 # While that runs, go to the manufacturer's sites for the components which you'll be upgrtading
 # to which you want to make sure you have drivers burnt into the Windows image-for. This could be
@@ -112,9 +87,44 @@ Set-Location "${Home}\Desktop\";
 .\oscdimg.exe -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
 
 
-# --> Use a tool such as "Rufus" to image a flash drive with this updated .iso file, and you should be good to go!
+# > Use a tool such as "Rufus" to image a flash drive with this updated .iso file
 
 
+# > Format your device-to-be-formatted and you should be good to go
+
+
+# ------------------------------------------------------------
+#
+# !!! NOTE: The following is stated in the "Intel VROC Quick Configuration Guide" @  [ https://www.intel.com/content/dam/support/us/en/documents/server-products/server-boards/Intel-VROC-Quick-Configuration-Guide.pdf ]:
+
+$Intel_QuickStart_DirectStatement= `
+"Note: Intel VROC is not compatible with Secure Boot. 
+ If you want to use Intel VROC (VMD NVME RAID), do not enable the
+ system's Secure Boot feature. If Secure boot is required for the
+ solution Intel VROC cannot be used.        --Intel";
+
+#
+#
+### The soution for a Lenovo P520c workstation was two-part:
+#
+#
+#
+### Part 1/2: Set the following values within the BIOS/UEFI settings:
+#
+# SECURE BOOT = OFF
+#
+# CSM = ENABLED
+#
+# BOOT FROM PCI-E/PCI DEVICES --> SET TO BOOT FROM UEFI, FIRST
+#
+#
+#
+#
+### Part 2/2
+# > Injecting the necessary drivers into the Windows Install media's image (much easier than it sounds thanks to guide, below)
+#  > Pull the RAID Controller drivers from your motherboard-manufacturer's website (if software RAID) or from your RAID-controller manufacturer's website (if hardware RAID)
+#   > Install (unpack) all drivers into the directory "C:\Drivers" (create it if it doesn't already exist)
+#
 # ------------------------------------------------------------
 #
 # Citation(s)
@@ -124,6 +134,8 @@ Set-Location "${Home}\Desktop\";
 #   docs.microsoft.com  |  "Get-DiskImage - Gets one or more disk image objects (virtual hard disk or ISO)"  |  https://docs.microsoft.com/en-us/powershell/module/storage/get-diskimage
 #
 #   docs.microsoft.com  |  "Get-WindowsImage - Gets information about a Windows image in a WIM or VHD file"  |  https://docs.microsoft.com/en-us/powershell/module/storage/dismount-diskimage
+#
+#   docs.microsoft.com  |  "Get-WindowsImageContent - Displays a list of the files and folders in a specified image"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowsimagecontent
 #
 #   docs.microsoft.com  |  "Dismount-DiskImage - Dismounts a disk image (virtual hard disk or ISO) so that it can no longer be accessed as a disk"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowsimage
 #

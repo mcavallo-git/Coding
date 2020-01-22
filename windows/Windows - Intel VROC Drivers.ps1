@@ -51,7 +51,7 @@ $Intel_QuickStart_DirectStatement= `
 # Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
 
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
-Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
+Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso") -StorageType ("ISO") -Access ("ReadWrite");
 
 # Inspect the image to verify it is the image you want
 Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
@@ -69,7 +69,7 @@ Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
 
 # Mount the windows image 
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
-Mount-WindowsImage -ImagePath  ("${Home}\Desktop\Mount\") -Indesx (2) -Path ("D:\sources\install.wim");
+Mount-WindowsImage -ImagePath ("D:\sources\boot.wim") -Index (2) -Path ("${Home}\Desktop\Mount\");
 
 # Add the drivers
 Add-WindowsDriver -Path ("${Home}\Desktop\Mount\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
@@ -87,6 +87,8 @@ Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Add-WindowsDriver - Adds a driver to an offline Windows image"  |  https://docs.microsoft.com/en-us/powershell/module/dism/add-windowsdriver
+#
+#   docs.microsoft.com  |  "Get-DiskImage - Gets one or more disk image objects (virtual hard disk or ISO)"  |  https://docs.microsoft.com/en-us/powershell/module/storage/get-diskimage
 #
 #   docs.microsoft.com  |  "Get-WindowsImage - Gets information about a Windows image in a WIM or VHD file"  |  https://docs.microsoft.com/en-us/powershell/module/storage/dismount-diskimage
 #

@@ -69,7 +69,7 @@ Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
 
 # Mount the windows image 
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
-Mount-WindowsImage -ImagePath  ("${Home}\Desktop\Mount\") -ImagePath ("D:\sources\install.wim") -Name ("Microsoft Windows Setup (x64)");
+Mount-WindowsImage -ImagePath  ("${Home}\Desktop\Mount\") -Indesx (2) -Path ("D:\sources\install.wim");
 
 # Add the drivers
 Add-WindowsDriver -Path ("${Home}\Desktop\Mount\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;

@@ -68,9 +68,17 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 # ------------------------------------------------------------
 # Install the "Chocolatey" package provider
 #   |--> Chocolatey is software management automation for Windows that wraps installers, executables, zips, and scripts into compiled packages
-If ($False) {
+$InstallChocolatey = $False;
+If ($InstallChocolatey -Eq $True) {
 	Set-ExecutionPolicy Bypass -Scope Process -Force;
 	Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));
+}
+
+If ((Get-Command "choco" -ErrorAction "SilentlyContinue") -NE $Null) {
+	# Chocolatey found to be installed locally
+	#  |--> Install desired packages from the chocolatey repository
+	choco install networkmanager;
+
 }
 
 # Instantiate the array of PowerShell modules to pull from available package providers
@@ -445,3 +453,14 @@ If ($Env:UpdatedCodebase -eq $null) {
 }
 
 # Write-Host " ";
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   chocolatey.org  |  "Chocolatey Software | Chocolatey - The package manager for Windows"  |  https://chocolatey.org/
+#
+#   chocolatey.org  |  "Chocolatey Software | NETworkManager 2019.12.0"  |  https://chocolatey.org/packages/NETworkManager#install
+#
+# ------------------------------------------------------------

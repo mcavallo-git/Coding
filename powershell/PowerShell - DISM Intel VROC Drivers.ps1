@@ -121,6 +121,7 @@ $Intel_QuickStart_DirectStatement= `
 #  > Pull the RAID Controller drivers from your motherboard-manufacturer's website (if software RAID) or from your RAID-controller manufacturer's website (if hardware RAID)
 #   > Install (unpack) all drivers into the directory "C:\Drivers" (create it if it doesn't already exist)
 #
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

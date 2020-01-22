@@ -109,7 +109,7 @@ If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) { Remov
 
 # Convert the image into a .iso file
 Set-Location "${Home}\Desktop\";
-.\oscdimg.exe -n -m -bc:"\Users\${Env:USERNAME}\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
+.\oscdimg.exe -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
 
 
 # --> Use a tool such as "Rufus" to image a flash drive with this updated .iso file, and you should be good to go!

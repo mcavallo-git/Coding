@@ -30,7 +30,7 @@ TIMEOUT /T 60
 # ------------------------------------------------------------
 
 
-<# Bulk-Stop multiple services #>
+# Bulk-Stop multiple services
 $IRSA_Enterprise_Services = @("World Wide Web Publishing Service", "MongoDB", "MinIO Server", "Microsoft FTP Service"); `
 $ExistingServices = (Get-Service); `
 ForEach ($EachService In $IRSA_Enterprise_Services) { `
@@ -38,7 +38,7 @@ ForEach ($EachService In $IRSA_Enterprise_Services) { `
 }
 
 
-<# Bulk-Start multiple services #>
+# Bulk-Start multiple services
 $IRSA_Enterprise_Services = @("World Wide Web Publishing Service", "MongoDB", "MinIO Server", "Microsoft FTP Service"); `
 $ExistingServices = (Get-Service); `
 ForEach ($EachService In $IRSA_Enterprise_Services) { `
@@ -46,7 +46,7 @@ ForEach ($EachService In $IRSA_Enterprise_Services) { `
 }
 
 
-<# Bulk-Restart multiple services #>
+# Bulk-Restart multiple services
 $IRSA_Enterprise_Services = @("World Wide Web Publishing Service", "MongoDB", "MinIO Server", "Microsoft FTP Service"); `
 $ExistingServices = (Get-Service); `
 ForEach ($EachService In $IRSA_Enterprise_Services) { `

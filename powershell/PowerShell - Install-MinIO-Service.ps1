@@ -1,4 +1,11 @@
+# ------------------------------------------------------------
+#
+# PowerShell
+#  |--> (Re-)Install MinIO as a local service Service
+#
+# ------------------------------------------------------------
 
+# Download MinIO for Windows && WinSW Service Creator
 [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12';
 $ServiceName = "MinIO Server";
 $WorkingDir = "${PSScriptRoot}";
@@ -44,7 +51,7 @@ New-Item `
 </service>") | Out-Null;
 Start-Process -WorkingDirectory ("${WorkingDir}") -Filepath ("${Path_ServiceInstaller}") -ArgumentList (@("install")) -Verb ("RunAs");
 
-
+# Wait until MinIO is ready to start to start it
 Write-Host "";
 Write-Host "Info:  Waiting 5s for service to get on its feet...";
 Start-Sleep 5;
@@ -55,4 +62,3 @@ Write-Host "";
 Write-Host "Info:  Starting service `"${ServiceName}`"...";
 Start-Service -Name "${ServiceName}" -ErrorAction ("SilentlyContinue");
 Start-Sleep 1;
-

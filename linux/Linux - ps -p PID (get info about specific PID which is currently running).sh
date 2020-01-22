@@ -3,7 +3,7 @@
 # Linux - ps -p PID (get info about specific PID which is currently running)
 PID=60010; ps -p $PID -o pid,vsz=MEMORY -o user,group=GROUP -o comm,args=ARGS;
 
-# Linux - ps -p PID (get info about specific PID which is currently running)
+# Additional info
 PID=60010; ps -Flww -p $PID;
 
 

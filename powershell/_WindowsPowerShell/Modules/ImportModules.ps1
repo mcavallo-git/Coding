@@ -77,8 +77,7 @@ If ($InstallChocolatey -Eq $True) {
 If ((Get-Command "choco" -ErrorAction "SilentlyContinue") -NE $Null) {
 	# Chocolatey found to be installed locally
 	#  |--> Install desired packages from the chocolatey repository
-	choco install networkmanager;
-
+	choco -y install networkmanager;
 }
 
 # Instantiate the array of PowerShell modules to pull from available package providers

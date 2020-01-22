@@ -80,7 +80,7 @@ If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
 		### ^^^ This may take up to a couple minutes to complete
 	}
 }
-Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (2) -Path ("${Home}\Desktop\WinImage\");
+Mount-WindowsImage -Path ("${Home}\Desktop\WinImage\") -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
 
 # Inspect the image to verify it is the image you want
 Get-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") ;

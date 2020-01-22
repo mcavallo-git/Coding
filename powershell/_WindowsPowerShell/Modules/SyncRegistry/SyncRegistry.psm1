@@ -643,7 +643,7 @@ function SyncRegistry {
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 }
-Export-ModuleMember -Function "SyncRegistry";
+Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
 # Install-Module -Name "SyncRegistry"
 
 

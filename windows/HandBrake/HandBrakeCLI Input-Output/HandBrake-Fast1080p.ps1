@@ -13,6 +13,10 @@
 #
 #
 # ------------------------------------------------------------
+
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12";
+
+# ------------------------------------------------------------
 # 
 # Instantiate Runtime Variable(s)
 #
@@ -56,6 +60,7 @@ $ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Dept
 If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
 	Write-Host "";
 	Write-Host "HandBrakeCLI executable path NOT FOUND" -ForegroundColor ("Red");
+	Start-Sleep 60;
 	Exit 1;
 
 
@@ -84,11 +89,13 @@ If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
 	Write-Host "";
 	Write-Host "Finished Script - Opening output directory @  [ ${OutputDir} ]";
 	Write-Host "";
+
 	Explorer.exe "${OutputDir}";
 
 	# Wait a few seconds (for user to read the terminal, etc.) before exiting
 	# Start-Sleep -Seconds 60;
 
+	Start-Sleep 60;
 	Exit 0;
 
 }

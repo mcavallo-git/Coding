@@ -57,6 +57,9 @@ Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
 Copy-Item ("D:\*") ("${Home}\Desktop\Mount\") -Recurse -Force;
 
+# Dismount the virtualized CD/DVD (We'll create it back into a .iso, later)
+Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
+
 # Mount the windows image
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
 If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
@@ -92,8 +95,15 @@ Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -R
 # Dismount & save the image
 Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
 
-# Dismount the virtualized CD/DVD
-Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
+# Convert the "install.wim" back into a "install.esd" file to prep for .iso export
+DISM /Export-Image /SourceImageFile "${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
+
+# Convert the image into a .iso file
+Set-Location "${Home}\Desktop\";
+oscdimg -n -m -bc:"\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
+
+
+# --> Use a tool such as "Rufus" to image a flash drive with this updated .iso file, and you should be good to go!
 
 
 # ------------------------------------------------------------

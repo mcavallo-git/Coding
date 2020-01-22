@@ -77,6 +77,7 @@ New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
 If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) {
 		DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.esd" /SourceIndex:2 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.wim" /Compress:max /CheckIntegrity;
+		### ^^^ This may take up to a couple minutes to complete
 	}
 }
 Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (2) -Path ("${Home}\Desktop\WinImage\");

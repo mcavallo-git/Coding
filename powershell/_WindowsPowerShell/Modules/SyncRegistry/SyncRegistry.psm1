@@ -217,6 +217,21 @@ function SyncRegistry {
 			};
 		}
 
+		# IPv6
+		#  |--> Disable it
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters";
+			Props=@(
+				@{
+					Description="IPv6 Network Settings -->  [ 32 = 'Prefer IPv4 over IPv6' ], [ 255 = 'Disable IPv6' ], [ 16 = 'disable IPv6 on all nontunnel interfaces' ], [ 1 = 'disable IPv6 on all tunnel interfaces' ], [ 17 = 'disable IPv6 on all nontunnel interfaces (except the loopback) and on IPv6 tunnel interface' ]"; 
+					Type="String";
+					Val_Default="";
+					Value=("255");
+					Delete=$False;
+				}
+			)
+		};
+
 
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
@@ -670,6 +685,8 @@ Export-ModuleMember -Function "SyncRegistry";
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #
 #   stackoverflow.com  |  "The IDynamicPropertyCmdletProvider interface is not implemented by this provider"  |  https://stackoverflow.com/a/54237993
+#
+#   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
 #

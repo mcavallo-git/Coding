@@ -35,42 +35,50 @@ $Intel_QuickStart_DirectStatement= `
 #
 # To begin, start by creating updated Windows10 installation media, locally  (a .iso file on the desktop will be what this example will use)
 # Download Windows 10 (URL):  https://www.microsoft.com/en-us/software-download/windows10
+#  > Create bootable Windows 10 media as a ".iso" file (and just output the final file to your desktop as "Windows.iso")
 #
 #
 # While that runs, go to the manufacturer's sites for the components which you'll be upgrtading
 # to which you want to make sure you have drivers burnt into the Windows image-for. This could be
 # graphics card, CPU chipsets, RAID controllers, etc.
-#
-#
-# Once you feel you have your necessary drivers (CAB files w/ ini files, to be sure...)
-#  > Follow the guide @ http://woshub.com/integrate-drivers-to-windows-install-media/
-#   > Run the necessary DISM/PowerShell commands to create Windows boot media w/ RAID (VROC) drivers pre-installed and ready to go
-#
-#
-# Starting with the "Windows.iso" media, which was output to the Desktop via the Microsoft "Create Windows 10 installation media" tool
+#  > Create the directory "C:\DRIVERS\" if it doesn't already exist, and drop all drivers you download/want-to-add-to-the-image into that directory
+#   > Note: it doesn't matter if the drivers are directly in the "C:\DRIVERS\" folder, or
+#     like ten directories deep within it - we will be using a command to recursively grab
+#     all .CAB files from "C:\DRIVERS", so don't sweat it!
 
+# Once you feel you have your necessary drivers (.CAB files often with ini files, to be sure), we will begin adding the drivers
 
-# Mount the media (must un-mount / pack-back-up before ending)
+# Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
+
+# Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
 Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 
+# Inspect the image to verify it is the image you want
+Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
+#
+# ImageIndex       : 1
+# ImageName        : Microsoft Windows PE (x64)
+# ImageDescription : Microsoft Windows PE (x64)
+# ImageSize        : 1,706,317,122 bytes
+#
+# ImageIndex       : 2
+# ImageName        : Microsoft Windows Setup (x64)
+# ImageDescription : Microsoft Windows Setup (x64)
+# ImageSize        : 1,882,672,563 bytes
+#
+
+# Mount the windows image 
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
-Mount-WindowsImage -Path ("${Home}\Desktop\Mount\") -ImagePath ("${Home}\Desktop\Windows.iso") -Index (1);
+Mount-WindowsImage -ImagePath  ("${Home}\Desktop\Mount\") -ImagePath ("D:\sources\install.wim") -Name ("Microsoft Windows Setup (x64)");
 
+# Add the drivers
+Add-WindowsDriver -Path ("${Home}\Desktop\Mount\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
 
-# Inspect the media to determine which image(s) you want to keep & which you want to remove
-Get-WindowsImage -ImagePath ("C:\WinWork\ISO\Windows.iso");
+# Simultaneously dismount & save the Windows-Image
+Dismount-WindowsImage -Path ("${Home}\Desktop\Mount\") –Save
 
-
-
-
-Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
-## Adds the disk as a D:\ Drive on "This PC" (in Win10)
-
-Dismount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
-## Respectively removes the aforementioned drive
-
-
-
+# Dismount the virtualized CD/DVD
+Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
 
 
 
@@ -78,32 +86,17 @@ Dismount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "Mount-DiskImage - Mounts a previously created disk image (virtual hard disk or ISO), making it appear as a normal disk"  |  https://docs.microsoft.com/en-us/powershell/module/storage/mount-diskimage
+#   docs.microsoft.com  |  "Add-WindowsDriver - Adds a driver to an offline Windows image"  |  https://docs.microsoft.com/en-us/powershell/module/dism/add-windowsdriver
 #
-#   docs.microsoft.com  |  "Dismount-DiskImage - Dismounts a disk image (virtual hard disk or ISO) so that it can no longer be accessed as a disk"  |  https://docs.microsoft.com/en-us/powershell/module/storage/dismount-diskimage?view=win10-ps
+#   docs.microsoft.com  |  "Get-WindowsImage - Gets information about a Windows image in a WIM or VHD file"  |  https://docs.microsoft.com/en-us/powershell/module/storage/dismount-diskimage
 #
-#   www.windowscentral.com  |  "How to mount or unmount ISO images on Windows 10 | Windows Central"  |  https://www.windowscentral.com/how-mount-or-unmount-iso-images-windows-10
+#   docs.microsoft.com  |  "Dismount-DiskImage - Dismounts a disk image (virtual hard disk or ISO) so that it can no longer be accessed as a disk"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowsimage
 #
-# ------------------------------------------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-# ------------------------------------------------------------
-#
-# Citation(s)
-#
-#   docs.microsoft.com  |  "Dismount-DiskImage - Dismounts a disk image (virtual hard disk or ISO) so that it can no longer be accessed as a disk"  |  https://docs.microsoft.com/en-us/powershell/module/storage/dismount-diskimage?view=win10-ps
+#   docs.microsoft.com  |  "Dismount-WindowsImage - Dismounts a Windows image from the directory it is mapped to"  |  https://docs.microsoft.com/en-us/powershell/module/dism/dismount-windowsimage
 
 #   docs.microsoft.com  |  "Mount-DiskImage - Mounts a previously created disk image (virtual hard disk or ISO), making it appear as a normal disk"  |  https://docs.microsoft.com/en-us/powershell/module/storage/mount-diskimage
+
+#   docs.microsoft.com  |  "Mount-WindowsImage - Mounts a Windows image in a WIM or VHD file to a directory on the local computer"  |  https://docs.microsoft.com/en-us/powershell/module/dism/mount-windowsimage
 #
 #   downloadcenter.intel.com  |  "Intel® Virtual RAID on CPU (Intel® VROC) and Intel® Rapid Storage Technology Enterprise (Intel® RSTe) Driver for Windows*"  |  https://downloadcenter.intel.com/download/29246/Intel-Virtual-RAID-on-CPU-Intel-VROC-and-Intel-Rapid-Storage-Technology-Enterprise-Intel-RSTe-Driver-for-Windows-
 #

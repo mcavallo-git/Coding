@@ -80,27 +80,16 @@ If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
 		### ^^^ This may take up to a couple minutes to complete
 	}
 }
+# Double-check to ensure that this image is the one you want
+Get-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
+
+# Mount the windows image
 Mount-WindowsImage -Path ("${Home}\Desktop\WinImage\") -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
 
-# Inspect the image to verify it is the image you want
-Get-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") ;
-#
-# ImageIndex       : 1
-# ImageName        : Microsoft Windows PE (x64)
-# ImageDescription : Microsoft Windows PE (x64)
-# ImageSize        : 1,706,317,122 bytes
-#
-# ImageIndex       : 2
-# ImageName        : Microsoft Windows Setup (x64)
-# ImageDescription : Microsoft Windows Setup (x64)
-# ImageSize        : 1,882,672,563 bytes
-#
-
-
-# Add the drivers
+# Add the drivers to the image
 Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
 
-# Simultaneously dismount & save the Windows-Image
+# Dismount & save the image
 Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
 
 # Dismount the virtualized CD/DVD

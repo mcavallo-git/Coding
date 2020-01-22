@@ -473,7 +473,7 @@ AppsKey::RWin
 	Run %ViewNetworkConnections_CLSID%
 	; ViewNetworkConnections_PATH := windir "\System32\ncpa.cpl"
 	; Run %ViewNetworkConnections_PATH%
-	TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
+	; TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
 	Return
 
 
@@ -1475,7 +1475,7 @@ OpenChrome() {
 		; Executable IS running - Activate the associated Window based on PID
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Activating """ EXE_NICKNAME """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		; Set Chrome as the Active Window
 		EXE_PID := GetPID(EXE_BASENAME)
@@ -1484,7 +1484,7 @@ OpenChrome() {
 		; Executable is NOT running but IS found locally
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Opening """ EXE_NICKNAME """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		; Open Chrome
 		; RunAs, %A_UserName%
@@ -1497,7 +1497,7 @@ OpenChrome() {
 		; Executable is NOT running and NOT found locally
 		If (VerboseOutput = True) {
 			Text_TrayTip=Application not Found "%EXE_FULLPATH%"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 	}
 	Return
@@ -1522,13 +1522,13 @@ OpenPasswordGenerator() {
 	} Else If (WinExist(WinTitle)) {
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Activating existing instance of """ WinTitle """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Opening new-instance of """ WinTitle """"
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		Run, %ProcessPath%
 		WinWait, %WinTitle%,, %MaxWaitSeconds%
@@ -1640,10 +1640,10 @@ PasteClipboardAsText() {
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
 	If (VerboseOutput == True) {
-		TrayTip, AHK,
-		(LTrim
-			Pasting the Text version of the Clipboard
-		)  ; Toast Notification
+		; TrayTip, AHK,
+		; (LTrim
+		; 	Pasting the Text version of the Clipboard
+		; )  ; Toast Notification
 	}
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
@@ -2192,15 +2192,15 @@ If (False) {
 		MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
 		IfMsgBox Yes
 		{
-			TrayTip, AHK, Leftmost Button Selected  ; Toast Notification
+			; TrayTip, AHK, Leftmost Button Selected  ; Toast Notification
 		}
 		IfMsgBox No
 		{
-			TrayTip, AHK, Center Button Selected  ; Toast Notification
+			; TrayTip, AHK, Center Button Selected  ; Toast Notification
 		}
 		IfMsgBox Cancel
 		{
-			TrayTip, AHK, Rightmost Button Selected  ; Toast Notification
+			; TrayTip, AHK, Rightmost Button Selected  ; Toast Notification
 		}
 
 		Return

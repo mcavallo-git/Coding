@@ -51,7 +51,7 @@ $Intel_QuickStart_DirectStatement= `
 # Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
 
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
-Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso") -StorageType ("ISO") -Access ("ReadWrite");
+Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 
 # Inspect the image to verify it is the image you want
 Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
@@ -67,15 +67,26 @@ Get-WindowsImage -ImagePath ("D:\sources\boot.wim");
 # ImageSize        : 1,882,672,563 bytes
 #
 
-# Mount the windows image 
+# Copy the image off of the ISO (archaic - need to update this methodology)
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
-Mount-WindowsImage -ImagePath ("D:\sources\boot.wim") -Index (2) -Path ("${Home}\Desktop\Mount\");
+Copy-Item ("D:\*") ("${Home}\Desktop\Mount\") -Recurse -Force;
+
+
+# Mount the windows image
+New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
+If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
+	If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) {
+		DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.esd" /SourceIndex:2 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.wim" /Compress:max /CheckIntegrity;
+	}
+}
+
+Mount-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (2) -Path ("${Home}\Desktop\WinImage\");
 
 # Add the drivers
-Add-WindowsDriver -Path ("${Home}\Desktop\Mount\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
+Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
 
 # Simultaneously dismount & save the Windows-Image
-Dismount-WindowsImage -Path ("${Home}\Desktop\Mount\") –Save
+Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save
 
 # Dismount the virtualized CD/DVD
 Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");

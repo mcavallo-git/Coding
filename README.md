@@ -338,6 +338,7 @@ This file (on GitHub):
 <tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2014 Service Pack 2 (SP2) Express</i></sub></td><td><a href="https://aka.ms/ssmsfullsetup">Download (Direct)</a><br /><a href="https://www.microsoft.com/en-us/download/details.aspx?id=53167">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;SqlLocalDB - LocalDB<br />&nbsp;&nbsp;&nbsp;SQLEXPR - Express<br />&nbsp;&nbsp;&nbsp;SQLEXPRWT - Express with Tools<br />&nbsp;&nbsp;&nbsp;SQLManagementStudio - SQL Server Management Studio Express<br />&nbsp;&nbsp;&nbsp;SQLEXPRADV - Express with Advanced Services</i></sub></td></tr>
 <tr><td><strong>Microsoft SSMS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;SQL Server Management Studio<br />&nbsp;&nbsp;&nbsp;SQL Infrastructure Management Tool</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">Download (source)</a></td></tr>
 <tr><td><strong>MySQL Workbench</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MySQL Infrastructure Management Tool</i></sub></td><td><a href="https://www.mysql.com/products/workbench/">Download (source)</a></td></tr>
+<tr><td><strong>phpMyAdmin</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MySQL Administration & Management Tool<br />&nbsp;&nbsp;&nbsp;PHP self-host service (add security as-needed)<br /></i></sub></td><td><a href="https://www.phpmyadmin.net/downloads/">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

@@ -281,7 +281,7 @@ Function ESXi_BootMedia() {
 					$VibNames_Networking_Raid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci","scsi-megaraid2","scsi-megaraid-mbox","scsi-megaraid-sas","sata-ahci","sata-ata-piix","sata-sata-nv","sata-sata-promise","sata-sata-sil","sata-sata-sil24","sata-sata-svw","scsi-aacraid","lsu-lsi-megaraid-sas-plugin","ohci-usb-ohci","sata-ahci","xhci-xhci","uhci-usb-uhci","ehci-ehci-hcd");
 					$VersionArg = "-v65";
 				} ElseIf ($ESXiVersion -Eq "6.7") {
-					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
+					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v67";
 				}
 					

@@ -53,21 +53,62 @@ esxcli software vib remove --vibname="NAME";
 exit 0;
 
 # ------------------------------------------------------------
-
+#
 ### Ex) Update the ESXi's "Embedded Host Client"
 ###   |--> Download & install the latest HTTP & Javascript ".vib" file
+#
 esxcli software vib install -v "http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib";
 
+
+# ------------------------------------------------------------
+#
 ### Ex) Update the ESXi driver for various hardware (to ESXi v6.5/v6.7 latest as-of Jan-2020)
+#
 esxcli software vib install -v "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/misc-drivers/VMW_bootbank_misc-drivers_6.7.0-2.48.13006603.vib";
 
+
+# ------------------------------------------------------------
+#
 ### Ex) Update the ESXi driver for NIC "net-r8168"
+#
 esxcli software vib install -v "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/esx/vmw/vib20/net-r8168/VMware_bootbank_net-r8168_8.013.00-3vmw.510.0.0.799733.vib";
 
 
-### Ex) Remove specific network driver(s)
+# ------------------------------------------------------------
+#
+### Ex) Remove specific driver(s) based on their "name"
+#
 esxcli software vib remove --vibname="net51-r8169";
 esxcli software vib remove --vibname="net51-sky2";
+
+# ------------------------------------------------------------
+#
+# Backstory:  Tried to upgrade from ESXi 6.5-U2 to 6.7-U3, but received errors that two VIB files (which were already installed and live within the 6.5-U2 Image on the host) were incompatible with the 6.7-U3 Image, and that they needed to be removed before ESXi would perform the upgrade as-intended
+#
+### Ex) Remove specific driver(s) based on syntax their "name:version"
+#
+esxcli software vib remove --vibname="VFrontDe_bootbank_net51-sky2_1.20-2vft.510.0.0.799733"; esxcli software vib remove --vibname="VFrontDe_bootbank_net51-sr81696.011.00-2vft.510.0.0.799733";
+#  [NoMatchError]
+#  No VIB matching VIB search specification 'VFrontDe_bootbank_net51-sky2_1.20-2vft.510.0.0.799733'.
+#  Please refer to the log file for more details.
+#  [NoMatchError]
+#  No VIB matching VIB search specification 'VFrontDe_bootbank_net51-sr81696.011.00-2vft.510.0.0.799733'.
+#  Please refer to the log file for more details.
+
+
+esxcli software vib remove --vibname="net51-sky2:1.20-2vft.510.0.0.799733"; esxcli software vib remove --vibname="net51-r8169:6.011.00-2vft.510.0.0.799733";
+# Removal Result
+#    Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
+#    Reboot Required: true
+#    VIBs Installed:
+#    VIBs Removed: VFrontDe_bootbank_net51-sky2_1.20-2vft.510.0.0.799733
+#    VIBs Skipped:
+# Removal Result
+#    Message: The update completed successfully, but the system needs to be rebooted for the changes to be effective.
+#    Reboot Required: true
+#    VIBs Installed:
+#    VIBs Removed: VFrontDe_bootbank_net51-r8169_6.011.00-2vft.510.0.0.799733
+#    VIBs Skipped:
 
 
 # ------------------------------------------------------------

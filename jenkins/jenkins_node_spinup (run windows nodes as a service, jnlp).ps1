@@ -290,15 +290,20 @@ Write-Host "";
 Start-Sleep 5;
 
 #
-# Locate all "MSBuild.exe" instances
+# Locate all "MSBuild.exe" files within "C:\"
 #
 $TimestampFilename = (Get-Date -UFormat "%Y%m%d_%H%M%S"); `
+$MSBuild_ExePaths_Dirname = "C:\Jenkins\.msbuild";
+$MSBuild_ExePaths_Fullpath = "${MSBuild_ExePaths_Dirname}\MSBuild_ExePaths.${TimestampFilename}.log";
+If ((Test-Path "${MSBuild_ExePaths_Dirname}\") -Eq $False) {
+	New-Item -Force -ItemType "Directory" -Path ("${MSBuild_ExePaths_Dirname}\") | Out-Null;
+}
 Write-Host ""; `
-Write-Host "Info:  Searcing `"C:\`" for basename(s) matching `"MSBuild.exe`" (saving results to `"C:\Jenkins\MSBuild_Locs.${TimestampFilename}.log`")"; `
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; } 2>$Null > "C:\Jenkins\MSBuild_Locs.${TimestampFilename}.log"; `
+Write-Host "Info:  Searcing `"C:\`" for basename(s) matching `"MSBuild.exe`" (saving results to `"${MSBuild_ExePaths_Fullpath}`")"; `
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; } 2>$Null > "${MSBuild_ExePaths_Fullpath}"; `
 Write-Host ""; `
-Write-Host "Info:  Showing contents of file `"C:\Jenkins\MSBuild_Locs.${TimestampFilename}.log`"..."; `
-Get-Content -Path ("C:\Jenkins\MSBuild_Locs.${TimestampFilename}.log"); `
+Write-Host "Info:  Showing contents of file `"${MSBuild_ExePaths_Fullpath}`"..."; `
+Get-Content -Path ("${MSBuild_ExePaths_Fullpath}"); `
 Write-Host ""; `
 Start-Sleep 15;
 

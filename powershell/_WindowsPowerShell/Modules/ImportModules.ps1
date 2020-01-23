@@ -70,7 +70,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 #   |--> Chocolatey is software management automation for Windows that wraps installers, executables, zips, and scripts into compiled packages
 $InstallChocolatey = $False;
 If ($InstallChocolatey -Eq $True) {
-	Set-ExecutionPolicy Bypass -Scope Process -Force;
+	Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
 	Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));
 }
 

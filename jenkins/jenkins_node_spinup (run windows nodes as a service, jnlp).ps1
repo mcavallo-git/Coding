@@ -292,7 +292,7 @@ Start-Sleep 5;
 #
 # Locate all "MSBuild.exe" instances
 #
-$TimestampFilename = (Get-Date -UFormat "%Y%m%d_%H%M%S");
+$TimestampFilename = (Get-Date -UFormat "%Y%m%d_%H%M%S"); `
 Write-Host ""; `
 Write-Host "Info:  Searcing `"C:\`" for basename(s) matching `"MSBuild.exe`" (saving results to `"C:\Jenkins\MSBuild_Locs.${TimestampFilename}.log`")"; `
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; } 2>$Null > "C:\Jenkins\MSBuild_Locs.${TimestampFilename}.log"; `

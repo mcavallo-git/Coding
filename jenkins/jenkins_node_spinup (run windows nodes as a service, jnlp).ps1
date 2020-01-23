@@ -274,7 +274,7 @@ Start-Sleep 1;
 Write-Host "";
 Write-Host "Info:  Checking for local services with name `"${ServiceName}`"...";
 Get-Service -Name ("${ServiceName}");
-Start-Sleep 15;
+Start-Sleep 5;
 
 # ------------------------------------------------------------
 #
@@ -283,9 +283,11 @@ Start-Sleep 15;
 #
 
 Write-Host "";
-Write-Host "Info:  Need to install Visual Studio 2019 Community Edition specifically for `"MSBuild.exe`" local runtime(s)";
-Get-Service -Name ("${ServiceName}");
-Start-Sleep 15;
+Write-Host "Info:  Need to install Visual Studio 2019 Community Edition specifically for `"MSBuild.exe`" local runtime(s)" -BackgroundColor "Black" -ForegroundColor "Yellow";
+Write-Host "";
+Write-Host "Download URL:  https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=Community&rel=16";
+Write-Host "";
+Start-Sleep 5;
 
 #
 # Locate all "MSBuild.exe" instances

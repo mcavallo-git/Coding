@@ -270,12 +270,34 @@ Write-Host "Info:  Starting service `"${ServiceName}`"...";
 Start-Service -Name "${ServiceName}" -ErrorAction ("SilentlyContinue");
 Start-Sleep 1;
 
-
+# Verify service exists
 Write-Host "";
 Write-Host "Info:  Checking for local services with name `"${ServiceName}`"...";
 Get-Service -Name ("${ServiceName}");
 Start-Sleep 15;
 
+# ------------------------------------------------------------
+#
+# Add "MSBuild.exe" (Multiple versions, ideally --> Handles .NET and ASP.NET package management / build tools)
+#  |-->  Installed through "
+#
+
+Write-Host "";
+Write-Host "Info:  Need to install Visual Studio 2019 Community Edition specifically for `"MSBuild.exe`" local runtime(s)";
+Get-Service -Name ("${ServiceName}");
+Start-Sleep 15;
+
+#
+# Locate all "MSBuild.exe" instances
+#
+Write-Host "";
+Write-Host "Info:  Searcing `"C:\`" for basename(s) matching `"MSBuild.exe`" (saving results to `"${Home}\MSBuild_Locs.log`")";
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; } 2>$Null > "${Home}\MSBuild_Locs.log";
+Write-Host "";
+Write-Host "Info:  Showing contents of file `"${Home}\MSBuild_Locs.log`"...";
+Get-Content -Path ("${Home}\MSBuild_Locs.log");
+Write-Host "";
+Start-Sleep 15;
 
 Exit 0;
 

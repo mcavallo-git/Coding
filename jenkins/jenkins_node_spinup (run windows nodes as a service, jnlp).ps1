@@ -292,13 +292,13 @@ Start-Sleep 5;
 #
 # Locate all "MSBuild.exe" instances
 #
-Write-Host "";
-Write-Host "Info:  Searcing `"C:\`" for basename(s) matching `"MSBuild.exe`" (saving results to `"${Home}\MSBuild_Locs.log`")";
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; } 2>$Null > "${Home}\MSBuild_Locs.log";
-Write-Host "";
-Write-Host "Info:  Showing contents of file `"${Home}\MSBuild_Locs.log`"...";
-Get-Content -Path ("${Home}\MSBuild_Locs.log");
-Write-Host "";
+Write-Host ""; `
+Write-Host "Info:  Searcing `"C:\`" for basename(s) matching `"MSBuild.exe`" (saving results to `"${Home}\MSBuild_Locs.log`")"; `
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; } 2>$Null > "${Home}\MSBuild_Locs.log"; `
+Write-Host ""; `
+Write-Host "Info:  Showing contents of file `"${Home}\MSBuild_Locs.log`"..."; `
+Get-Content -Path ("${Home}\MSBuild_Locs.log"); `
+Write-Host ""; `
 Start-Sleep 15;
 
 Exit 0;

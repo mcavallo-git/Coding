@@ -15,13 +15,38 @@
 
 ### !!! MAKE SURE TO DOUBLE CHECK THAT YOU'VE BACKED UP THE ESXI INSTANCE'S CURRENT VIB BEFORE MAKING CHANGES/UPDATES TO IT !!! ###
 
+# ------------------------------------------------------------
+#
 ### List/Show installed ESXi drivers (.vib extensioned files)
+#
 esxcli software vib list;
 
+# ------------------------------------------------------------
+#
 ### Install/Update target ESXi driver (.vib extensioned file)
+#
 esxcli software vib install -v "URL";
 
+# ------------------------------------------------------------
+#
 ### Remove target ESXi driver(s) (.vib extensioned files)
+#
+# software vib remove
+#
+# --dry-run            Performs a dry-run only. Report the VIB-level operations that would be performed, but do not change anything in the system.
+#
+# --force | -f         Bypasses checks for package dependencies, conflicts, obsolescence, and acceptance levels.
+#                      Really not recommended unless you know what you are doing. Use of this option will result in a warning being displayed in the vSphere Client.
+#
+# --help | -h          Show the help message.
+#
+# --maintenance-mode   Pretends that maintenance mode is in effect. Otherwise, remove will stop for live removes that require maintenance mode.
+#                      This flag has no effect for reboot required remediations.
+#
+# --no-live-install    Forces an remove to /altbootbank even if the VIBs are eligible for live removal. Will cause installation to be skipped on PXE-booted hosts.
+#
+# --vibname | -n       Specifies one or more VIBs on the host to remove. Must be one of the following forms: name, name:version, vendor:name, vendor:name:version.
+#
 esxcli software vib remove --vibname="NAME";
 
 

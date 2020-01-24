@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Adding drivers to a bootable iso / Windows Image
+# PowerShell - DISM, Add-WindowsDriver, Mount-DiskImage, Mount-WindowsImage (Add drivers to Windows bootable .iso images)
 #
 # ------------------------------------------------------------
 

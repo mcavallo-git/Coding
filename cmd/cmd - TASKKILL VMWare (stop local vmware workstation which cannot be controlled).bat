@@ -1,7 +1,7 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 REM 
-REM Kill VMWare
+REM Kill all VMWare Application(s)
 REM 
 TASKKILL /F /FI "IMAGENAME eq vmware-usbarbitrator64.exe"
 TASKKILL /F /FI "IMAGENAME eq vmware-authd.exe"
@@ -14,7 +14,6 @@ TASKKILL /F /FI "IMAGENAME eq vmware-tray.exe"
 TASKKILL /F /FI "IMAGENAME eq vmware.exe"
 TASKKILL /F /FI "IMAGENAME eq vmware-unity-helper.exe"
 TASKKILL /F /FI "IMAGENAME eq vmware-vmx.exe"
-TIMEOUT /T 60
 
 
 REM ------------------------------------------------------------

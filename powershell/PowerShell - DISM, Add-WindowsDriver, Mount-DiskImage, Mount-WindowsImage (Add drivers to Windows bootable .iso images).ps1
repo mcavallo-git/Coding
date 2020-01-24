@@ -29,15 +29,19 @@
 # Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
 #
 
+
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
 Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
+
 
 # Copy the image off of the ISO (archaic - need to update this methodology)
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
 Copy-Item ("D:\*") ("${Home}\Desktop\Mount\") -Recurse -Force;
 
+
 # Dismount the virtualized CD/DVD (We'll create it back into a .iso, later)
 Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
+
 
 # Mount the windows image
 New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
@@ -65,31 +69,44 @@ If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
 # Double-check to ensure that this image is the one you want
 Get-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
 
+
 # Mount the windows image
 Mount-WindowsImage -Path ("${Home}\Desktop\WinImage\") -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
+
 
 # Add the drivers to the image
 Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
 
+
 # Dismount & save the image
 Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
+
 
 # Convert the "install.wim" back into a "install.esd" file to prep for .iso export
 Remove-Item "${Home}\Desktop\Mount\sources\install.esd" -Force;
 DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
 If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) { Remove-Item "${Home}\Desktop\Mount\sources\install.wim" -Force; }
 
-#
-### You will need to use "oscdimg.exe" here, which comes from Microsoft's toolkit called "Windows ADK" ###
-### This is necessary so that we can convert the windows image back into a .iso file to burn onto a disk / image onto a flash-drive ###
-# Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure
-# Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042
-#
 
 # Convert the image into a .iso file
-Set-Location "${Home}\Desktop\";
-.\oscdimg.exe -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
+If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Eq $Null) {
 
+
+	Write-Host "";
+	Write-Host "Error:  Command `"oscdimg.exe`"' not found (required as it creates a .iso file from a target Windows PE local image to a image into an exportable .iso file)" -ForegroundColor "Yellow";
+	Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
+	Write-Host "";
+	Write-Host "Error:  Missing required command 'oscdimg.exe' here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
+	### This is necessary so that we can convert the windows image back into a .iso file to burn onto a disk / image onto a flash-drive ###
+	Write-Host "";
+	Write-Host "Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads ";
+	Write-Host "";
+	Write-Host "Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042 ";
+	Write-Host "";
+} Else {
+	Set-Location "${Home}\Desktop\";
+	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
+}
 
 # > Use a tool such as "Rufus" to image a flash drive with this updated .iso file
 

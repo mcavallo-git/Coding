@@ -52,7 +52,7 @@
 			"hostname": "Returns Computer's name",
 			"ipconfig": "Displays IP configuration for all network adapters",
 			"jview": "Microsoft Command-line Loader for Java classes",
-			"mMC": "Microsoft Management Console",
+			"mmc": "Microsoft Management Console > Add/Remove Snap in > Certificates > Service Account > Local computer > (Choose your service)",
 			"msconfig": "Configuration to edit startup files",
 			"msinfo32": "Microsoft System Information Utility",
 			"nbtstat": "Displays stats and current connections using NetBios over TCP/IP",

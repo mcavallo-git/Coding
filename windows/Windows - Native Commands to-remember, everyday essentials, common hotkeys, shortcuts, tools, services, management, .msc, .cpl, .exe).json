@@ -5,7 +5,8 @@
 			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End"
 		},
 		"management consoles": {
-			"certmgr.msc": "Certificate Manager",
+			"certlm.msc": "Certificate Manager - Local Machine",
+			"certmgr.msc": "Certificate Manager - Current User",
 			"ciadv.msc": "Indexing Service",
 			"compmgmt.msc": "Computer management",
 			"devmgmt.msc": "Device Manager",
@@ -52,7 +53,7 @@
 			"hostname": "Returns Computer's name",
 			"ipconfig": "Displays IP configuration for all network adapters",
 			"jview": "Microsoft Command-line Loader for Java classes",
-			"mmc": "Microsoft Management Console > Add/Remove Snap in > Certificates > Service Account > Local computer > (Choose your service)",
+			"mmc": "Microsoft Management Console - Use:  File > Add/Remove Snap-in > Certificates (Add) > Computer account > Finish > OK",
 			"msconfig": "Configuration to edit startup files",
 			"msinfo32": "Microsoft System Information Utility",
 			"nbtstat": "Displays stats and current connections using NetBios over TCP/IP",

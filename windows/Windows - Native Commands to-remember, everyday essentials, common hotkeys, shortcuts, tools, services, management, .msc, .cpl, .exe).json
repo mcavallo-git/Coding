@@ -22,6 +22,11 @@
 			"perfmon.msc": "Performance Manager",
 			"secpol.msc": "Local Security Policy",
 			"services.msc": "System Services",
+			"sqlservermanager15.msc": "Sql Server Configuration Manager - SQL Server 2019",
+			"sqlservermanager14.msc": "Sql Server Configuration Manager - SQL Server 2017",
+			"sqlservermanager13.msc": "Sql Server Configuration Manager - SQL Server 2016",
+			"sqlservermanager12.msc": "Sql Server Configuration Manager - SQL Server 2014 (12.x)",
+			"sqlservermanager11.msc": "Sql Server Configuration Manager - SQL Server 2012 (11.x)",
 			"wmimgmt.msc": "Windows Management"
 		},
 		"microsoft office commands": {
@@ -138,6 +143,10 @@
 		{
 			"title": "Run command for add or remove programs",
 			"url": "https://www.windows-commandline.com/run-command-for-add-or-remove-programs/"
+		},
+		{
+			"title": "SQL Server Configuration Manager - SQL Server | Microsoft Docs",
+			"url": "https://docs.microsoft.com/en-us/sql/relational-databases/sql-server-configuration-manager"
 		}
 	]
 }

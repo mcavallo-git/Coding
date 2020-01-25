@@ -1,8 +1,8 @@
 {
 	"_native commands": {
 		"hotkeys": {
-			"Run as admin": "Ctrl + Shift + Enter",
-			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End"
+			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End",
+			"Run as admin": "Ctrl + Shift + Enter"
 		},
 		"management consoles": {
 			"certlm.msc": "Certificate Manager - Local Machine",
@@ -22,11 +22,11 @@
 			"perfmon.msc": "Performance Manager",
 			"secpol.msc": "Local Security Policy",
 			"services.msc": "System Services",
-			"sqlservermanager15.msc": "Sql Server Configuration Manager - SQL Server 2019",
-			"sqlservermanager14.msc": "Sql Server Configuration Manager - SQL Server 2017",
-			"sqlservermanager13.msc": "Sql Server Configuration Manager - SQL Server 2016",
-			"sqlservermanager12.msc": "Sql Server Configuration Manager - SQL Server 2014 (12.x)",
 			"sqlservermanager11.msc": "Sql Server Configuration Manager - SQL Server 2012 (11.x)",
+			"sqlservermanager12.msc": "Sql Server Configuration Manager - SQL Server 2014 (12.x)",
+			"sqlservermanager13.msc": "Sql Server Configuration Manager - SQL Server 2016",
+			"sqlservermanager14.msc": "Sql Server Configuration Manager - SQL Server 2017",
+			"sqlservermanager15.msc": "Sql Server Configuration Manager - SQL Server 2019",
 			"wmimgmt.msc": "Windows Management"
 		},
 		"microsoft office commands": {
@@ -147,6 +147,10 @@
 		{
 			"title": "SQL Server Configuration Manager - SQL Server | Microsoft Docs",
 			"url": "https://docs.microsoft.com/en-us/sql/relational-databases/sql-server-configuration-manager"
+		},
+		{
+			"title": "mmc | Microsoft Docs",
+			"url": "https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/mmc"
 		}
 	]
 }

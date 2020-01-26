@@ -4,9 +4,9 @@
 
 USER_NAME="DAT_USER";
 
-USER_PASS="DAT_PASS";
+USER_PASS="DAT_PASS"; # Password must have 1*Letter, 1*Number, 1*Special-Char
 
-esxcli system account add --id "${USER_NAME}" --password "${USER_PASS}";
+esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p="${USER_PASS}" -c="${USER_PASS}";
 
 esxcli system permission set --id "${UID}" --role "Admin";
 

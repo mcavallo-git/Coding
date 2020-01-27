@@ -67,6 +67,7 @@
 		"**/*.svg": "html",
 		"**/*.xaml": "html",
 		"**/Jenkinsfile": "groovy",
+		"**/my.cnf": "properties",
 		"**/cloud-infrastructure/**/*": "shellscript",
 		"**/pam_duo.conf": "ini"
 	},

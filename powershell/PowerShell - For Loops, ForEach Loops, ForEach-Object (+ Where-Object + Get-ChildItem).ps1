@@ -41,6 +41,13 @@ For (;;) {
 }
 
 
+#
+# ForEach file in folder
+#
+Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+| ForEach-Object { Start-Process -Filepath ($_.FullName) -ArgumentList (@("/q","/norestart")); };
+
+
 # ------------------------------------------------------------
 #
 #   PowerShell - ForEach(...) Loops using 'ForEach-Object' Method

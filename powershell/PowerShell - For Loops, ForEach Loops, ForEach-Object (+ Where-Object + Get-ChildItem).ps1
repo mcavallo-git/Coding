@@ -43,6 +43,8 @@ For (;;) {
 
 #
 # ForEach file in folder
+#   |--> Install multiple .NET Core/Framework SDKs as a batch job
+#        (Downloaded from https://dotnet.microsoft.com/download/visual-studio-sdks)
 #
 Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
 | ForEach-Object { Start-Process -Filepath ($_.FullName) -ArgumentList (@("/q","/norestart")); };

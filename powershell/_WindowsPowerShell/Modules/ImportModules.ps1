@@ -229,7 +229,7 @@ If ($PSM1.Verbosity -ne 0) {
 	Write-Host "$($PSM1.InvocationBasename) - Task: Searching `"${PSScriptRoot}`" for PowerShell Modules..." -ForegroundColor Gray;
 }
 
-$PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue");
+$PowerShellModulesArr = (Get-ChildItem -Path "${PSScriptRoot}" -Filter "*.psm1" -File -Recurse -Force -ErrorAction "SilentlyContinue");
 
 Foreach ($EachModule In $PowerShellModulesArr) {
 

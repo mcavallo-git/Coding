@@ -5,6 +5,20 @@
 #
 # See Citations (below), for tutorials
 #
+# Once you believe it is setup as-intended, you may either try to access the share directly (over the network), or
+# you may run the following command(s) via the FreeNAS "Shell" (left bar in FreeNAS near the bottom):
+
+
+# List known domain users
+wbinfo -u
+wbinfo --domain-users
+
+
+# List known domain groups
+wbinfo -g
+wbinfo --domain-groups
+
+
 #
 # ------------------------------------------------------------
 #

@@ -10,7 +10,7 @@ Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uni
 | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate `
 | Where-Object { ([String]($_.DisplayName)).Trim() -NE "" } `
 | Sort-Object -Property DisplayName `
-| Format-Table –AutoSize; `
+| Format-Table –AutoSize `
 > "${Logfile}"; `
 Notepad "${Logfile}";
 

@@ -5,6 +5,7 @@
 	REM     Logging only occurs on failed pings.
 	
 	CALL :PING_TEST time.nist.gov NIST_Time
+	CALL :PING_TEST pool.ntp.org NTP_Pool
 	CALL :PING_TEST time.google.com Google_Time
 	CALL :PING_TEST 8.8.8.8 Google_DNS
 	REM CALL :PING_TEST 8.8.8.2 Forced_Failure

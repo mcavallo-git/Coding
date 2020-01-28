@@ -17,7 +17,7 @@ LICEN-SEKEY-LICEN-SEKEY-LICEN
 
 ### Enable NTP Service
 ###  |--> Configure to start/stop with host
-time.nist.gov,time.google.com
+time.nist.gov,pool.ntp.org,time.google.com
 
 
 ### Enable TSM-SSH Service

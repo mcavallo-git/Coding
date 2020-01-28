@@ -8,8 +8,9 @@ REM
 
 
 REM --> set target ntp server (hostname or IP)
-REM set NTP_HOST=time.google.com
 set NTP_HOST=time.nist.gov
+REM set NTP_HOST=pool.ntp.org
+REM set NTP_HOST=time.google.com
 
 
 REM --> grab the [ response delay ] from the NTP server

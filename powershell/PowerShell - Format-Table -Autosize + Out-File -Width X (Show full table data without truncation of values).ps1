@@ -5,7 +5,7 @@
 # ------------------------------------------------------------
 
 
-$Logfile = "${Home}\Desktop\ProgramsAndFeatures_$(Hostname)_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
+$Logfile = "${Home}\Desktop\ProgramsAndFeatures_$($(${Env:USERNAME}).Trim())@$($(${Env:COMPUTERNAME}).Trim())" + $(If(${Env:USERDNSDOMAIN}){Write-Output ((".") + ($(${Env:USERDNSDOMAIN}).Trim()))}) +"_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
 Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* `
 | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate, Comments, URLInfoAbout `
 | Where-Object { ([String]($_.DisplayName)).Trim() -NE "" } `

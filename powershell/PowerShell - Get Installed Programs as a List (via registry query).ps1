@@ -5,7 +5,7 @@
 # ------------------------------------------------------------
 
 
-$Logfile = "${Home}\Desktop\ProgramsAndFeatures_$(Hostname)_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
+$Logfile = "${Home}\Desktop\ProgramsAndFeatures_$($(${Env:USERNAME}).Trim())@$($(${Env:COMPUTERNAME}).Trim())" + $(If(${Env:USERDNSDOMAIN}){Write-Output ((".") + ($(${Env:USERDNSDOMAIN}).Trim()))}) +"_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
 Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* `
 | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate, Comments, URLInfoAbout `
 | Where-Object { ([String]($_.DisplayName)).Trim() -NE "" } `
@@ -18,6 +18,8 @@ Notepad "${Logfile}";
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   stackoverflow.com  |  "PowerShell inline If (IIf) - Stack Overflow"  |  https://stackoverflow.com/a/25682508
 #
 #   stackoverflow.com  |  "powershell - How do I use Format-Table without truncation of values? - Stack Overflow"  |  https://stackoverflow.com/a/49123225
 #

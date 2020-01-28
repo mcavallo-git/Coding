@@ -6,6 +6,14 @@
 #
 # ------------------------------------------------------------
 #
+### Get current NTP Configuration (ADMIN REQUIRED)
+w32tm.exe /query /configuration
+w32tm.exe /query /status
+CMD /C "Time /T"
+
+
+# ------------------------------------------------------------
+#
 ### Test NTP Servers
 #
 $NtpPeers = @();

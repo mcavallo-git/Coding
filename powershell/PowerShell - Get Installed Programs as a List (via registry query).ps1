@@ -19,6 +19,8 @@ Notepad "${Logfile}";
 #
 # Citation(s)
 #
+#   github.com  |  "PowerShell/Invoke-MSI.ps1 at master · MicksITBlogs/PowerShell · GitHub"  |  https://github.com/MicksITBlogs/PowerShell/blob/master/Invoke-MSI.ps1
+#
 #   stackoverflow.com  |  "PowerShell inline If (IIf) - Stack Overflow"  |  https://stackoverflow.com/a/25682508
 #
 #   stackoverflow.com  |  "powershell - How do I use Format-Table without truncation of values? - Stack Overflow"  |  https://stackoverflow.com/a/49123225

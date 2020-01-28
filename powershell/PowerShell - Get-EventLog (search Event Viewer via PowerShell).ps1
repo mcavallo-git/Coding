@@ -13,7 +13,6 @@ Get-EventLog -LogName "Application" -Source "MsiInstaller" `
 Notepad "${Logfile}";
 
 
-
 # NOTE: Event Log will only go back as far as the space alloted for which its log-files.
 
 

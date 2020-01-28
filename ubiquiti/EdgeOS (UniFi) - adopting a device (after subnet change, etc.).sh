@@ -21,8 +21,8 @@ PASSWORD
 # Enter 'help' for a list of built-in commands.
 
 # BZ.v3.7.5#
-UNIFI_CONTROLLER_IP="192.168.1.27"; \
 syswrapper.sh restore-default; \
+UNIFI_CONTROLLER_IP="192.168.1.27"; \
 set-inform "http://${UNIFI_CONTROLLER_IP}:8080/inform";
 
 # Adoption request sent to 'http://192.168.1.27:8080//inform'.

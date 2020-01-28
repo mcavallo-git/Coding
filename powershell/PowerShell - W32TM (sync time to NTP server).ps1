@@ -58,7 +58,7 @@ If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax
 
 
 NET STOP W32TIME; `
-w32tm.exe /config /manualpeerlist:"time.nist.gov time.google.com north-america.pool.ntp.org time.windows.com" /syncfromflags:manual; `
+w32tm.exe /config /manualpeerlist:"time.nist.gov pool.ntp.org time.google.com" /syncfromflags:manual; `
 NET START W32TIME; `
 w32tm.exe /config /update; `
 w32tm.exe /resync /rediscover;
@@ -73,7 +73,7 @@ w32tm.exe /resync /rediscover;
 
 # In an Admin PowerShell prompt, enter:
 
-NET STOP W32TIME; w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual; NET START W32TIME; w32tm.exe /config /update; w32tm.exe /resync /rediscover;
+NET STOP W32TIME; w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 pool.ntp.org,0x9 time.google.com,0x9" /syncfromflags:manual; NET START W32TIME; w32tm.exe /config /update; w32tm.exe /resync /rediscover;
 
 
 #

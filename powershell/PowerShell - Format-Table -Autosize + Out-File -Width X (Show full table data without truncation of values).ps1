@@ -7,11 +7,11 @@
 
 $Logfile = "${Home}\Desktop\ProgramsAndFeatures_$(Hostname)_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
 Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* `
-| Select-Object DisplayName, DisplayVersion, Publisher, InstallDate `
+| Select-Object DisplayName, DisplayVersion, Publisher, InstallDate, Comments, URLInfoAbout `
 | Where-Object { ([String]($_.DisplayName)).Trim() -NE "" } `
 | Sort-Object -Property DisplayName `
 | Format-Table -AutoSize `
-| Out-File -Width 512 "${Logfile}"; `
+| Out-File -Width 16384 "${Logfile}"; `
 Notepad "${Logfile}";
 
 

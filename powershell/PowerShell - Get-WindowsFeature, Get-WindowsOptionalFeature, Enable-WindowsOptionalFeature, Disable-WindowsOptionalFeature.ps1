@@ -1,28 +1,32 @@
 # ------------------------------------------------------------
 #
-# Checks and installs Windows Features
+# Check-for & install Windows Roles & Features
 #
 # ***  REQUIRES ELEVATED PRIVILEGES  ***
 #
 # ------------------------------------------------------------
 
-# Get-WindowsFeature (Roles) & Get-WindowsOptionalFeature (Features)
+# [LIST ROLES]  Get-WindowsFeature & output to desktop (ALL)
+Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
 
-# OUTPUT TO DESKTOP
+# [LIST ROLES]  Get-WindowsFeature & output to desktop (ONLY INSTALLED)
+Get-WindowsFeature | Where-Object { $_.Installed -Match "True" } | Select-Object -Property Name | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.Installed_True.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
 
-Get-WindowsFeature | Select-Object -Property Name,Installed | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log"; `
+
+# ------------------------------------------------------------
+
+# [LIST FEATURES]  Get-WindowsOptionalFeature & output to desktop (ALL)
 Get-WindowsOptionalFeature -Online | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
 
-
-Get-WindowsFeature | Where-Object { $_.Installed -Match "True" } | Select-Object -Property Name | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.Installed_True.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log"; `
+# [LIST FEATURES]  Get-WindowsOptionalFeature & output to desktop (ONLY INSTALLED)
 Get-WindowsOptionalFeature -Online | Where-Object { $_.State -Eq "Enabled" } | Select-Object -Property FeatureName | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsOptionalFeature.State_Enabled.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
-
 
 # Get-WindowsFeature | Where-Object {$_.Installed -match “True”} | Select-Object -Property Name
 
 
-# DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
+# ------------------------------------------------------------
 
+# DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 
 If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) { 
 	# If the WSL Feature is currently set to Disabled, Enable it

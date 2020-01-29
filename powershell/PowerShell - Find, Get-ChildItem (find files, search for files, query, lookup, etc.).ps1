@@ -7,7 +7,7 @@
 # Simple search
 #
 
-Get-ChildItem -Path ("C:\") -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" }
+Get-ChildItem -Path ("C:\") -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; }
 
 
 # ------------------------------------------------------------

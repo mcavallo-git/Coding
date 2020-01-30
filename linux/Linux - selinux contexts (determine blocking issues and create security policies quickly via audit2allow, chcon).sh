@@ -16,7 +16,6 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 # INSPECTING SELINUX BLOCKAGES
 #
 
-
 #
 # Show a description of why selinux blocked a given module
 #    |--> audit2allow - generate SELinux policy allow/dontaudit rules from logs of denied operations
@@ -26,12 +25,10 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 #
 audit2allow --all --module nginx --why;
 
-
 #
 # View the current security-context of a target file/directory
 #
 ls -Z "/var/cache/jenkins/war/images/";
-
 
 #
 # View the filepath(s) which have the "httpd_sys_content_t" security context applied to them

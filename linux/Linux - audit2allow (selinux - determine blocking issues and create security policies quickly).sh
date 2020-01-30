@@ -20,7 +20,10 @@
 #
 # ------------------------------------------------------------
 
-audit2allow --all --module nginx --why
+#
+# Troubleshoot web-server access & selinux possibly blocking it
+#
+audit2allow --all --module nginx --why;
 
 
 

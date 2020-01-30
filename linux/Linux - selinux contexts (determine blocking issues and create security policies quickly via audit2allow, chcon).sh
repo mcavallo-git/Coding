@@ -8,11 +8,13 @@
 #
 # INSTALLING PRE-REQUISITE TOOLS
 #
-
-#
-# Install troubleshooting package(s)
-#
 yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
+
+
+# ------------------------------------------------------------
+#
+# INSPECTING SELINUX BLOCKAGES
+#
 
 
 #
@@ -25,15 +27,11 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 audit2allow --all --module nginx --why;
 
 
-# ------------------------------------------------------------
-#
-# INSPECTING SELINUX BLOCKAGES
-#
-
 #
 # View the current security-context of a target file/directory
 #
 ls -Z "/var/cache/jenkins/war/images/";
+
 
 #
 # View the filepath(s) which have the "httpd_sys_content_t" security context applied to them
@@ -58,7 +56,6 @@ semanage fcontext -l | grep httpd_sys_content_t;
 chcon -R -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
 
 
-
 # ------------------------------------------------------------
 #
 # PERMANENT/PERSISTENT SELINUX CHANGES (persists through reboots)
@@ -70,7 +67,6 @@ chcon -R -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
 # Ex) PERMANENTLY add the "httpd_sys_content_t" security (selinux) context to path "/var/cache/jenkins/war/images/"
 #
 semanage fcontext -a -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
-
 
 
 # ------------------------------------------------------------

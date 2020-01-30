@@ -1,22 +1,8 @@
-
 # ------------------------------------------------------------
 #
-# audit2allow - generate SELinux policy allow/dontaudit rules from logs of denied operations
-#
-# audit2why - translates SELinux audit messages into a description of why the access was denied (audit2allow -w)
-#
-# ...
-#
-#       -a | --all
-#              Read input from audit and message log, conflicts with -i
-#
-#       -m <modulename> | --module <modulename>
-#              Generate module/require output <modulename>
-#
-#       -w | --why
-#              Translates SELinux audit messages into a description of why the access was denied
-#
-# ...
+# Selinux (RHEL Distros - RedHat, CentOS, etc.)
+#  |
+#  |-->  Troubleshooting security blockages & adding new security contexts
 #
 # ------------------------------------------------------------
 #
@@ -31,6 +17,10 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 
 #
 # Show a description of why selinux blocked a given module
+#    |--> audit2allow - generate SELinux policy allow/dontaudit rules from logs of denied operations
+#             -a | --all                                 Read input from audit and message log, conflicts with -i
+#             -m <modulename> | --module <modulename>    Generate module/require output <modulename>
+#             -w | --why                                 Translates SELinux audit messages into a description of why the access was denied
 #
 audit2allow --all --module nginx --why;
 

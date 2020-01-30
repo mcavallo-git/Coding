@@ -19,6 +19,9 @@
 # ...
 #
 # ------------------------------------------------------------
+#
+# SETUP PRE-REQUISITE TOOLS
+#
 
 #
 # Install troubleshooting package(s)
@@ -27,17 +30,17 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 
 
 #
-# Troubleshoot web-server access & selinux possibly blocking it
+# Show a description of why selinux blocked a given module
 #
 audit2allow --all --module nginx --why;
 
 #
-# Check the current seucurity-context of a target file/directory
+# View the current security-context of a target file/directory
 #
 ls -Z "/var/cache/jenkins/war/images/";
 
 #
-# Check the filepath(s) stored within the context of "httpd_sys_content_t"
+# View the filepath(s) which have the "httpd_sys_content_t" security context applied to them
 #
 semanage fcontext -l | grep httpd_sys_content_t;
 

@@ -20,7 +20,7 @@
 #
 # ------------------------------------------------------------
 #
-# INSTALL PRE-REQUISITE TOOLS
+# INSTALLING PRE-REQUISITE TOOLS
 #
 
 #

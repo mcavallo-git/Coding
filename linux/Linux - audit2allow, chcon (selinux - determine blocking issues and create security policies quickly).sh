@@ -21,6 +21,12 @@
 # ------------------------------------------------------------
 
 #
+# Install troubleshooting package(s)
+#
+yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server
+
+
+#
 # Troubleshoot web-server access & selinux possibly blocking it
 #
 audit2allow --all --module nginx --why;

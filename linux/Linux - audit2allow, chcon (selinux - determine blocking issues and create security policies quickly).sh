@@ -26,6 +26,22 @@
 audit2allow --all --module nginx --why;
 
 
+# ------------------------------------------------------------
+
+#
+# Allow read-only access to files within a target directory (intended for web server read-only access)
+#
+
+chcon -R -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
+
+#
+# httpd_sys_content_t
+#   Use this type for static web content, such as .html files used by a static website
+#   Files labeled with this type are accessible (read only) to httpd and scripts executed by httpd
+#   By default, files and directories labeled with this type cannot be written to or modified by httpd or other processes
+#   Note that by default, files created in or copied into /var/www/html/ are labeled with the httpd_sys_content_t type
+#
+
 
 # ------------------------------------------------------------
 #

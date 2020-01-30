@@ -19,6 +19,8 @@ Notepad "${Logfile}";
 #
 # Citation(s)
 #
+#   docs.microsoft.com  |  "Out-File - Sends output to a file"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/out-file
+#
 #   stackoverflow.com  |  "powershell - How do I use Format-Table without truncation of values? - Stack Overflow"  |  https://stackoverflow.com/a/49123225
 #
 #   www.howtogeek.com  |  "How to Create a List of Your Installed Programs on Windows"  |  https://www.howtogeek.com/165293/how-to-get-a-list-of-software-installed-on-your-pc-with-a-single-command/

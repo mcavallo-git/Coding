@@ -36,7 +36,7 @@ ls -Z "/var/cache/jenkins/war/images/";
 semanage fcontext -l | grep httpd_sys_content_t;
 
 #
-# View all available selinux contexts/policies
+# View all available selinux security contexts/policies
 #
 man httpd_selinux;
 

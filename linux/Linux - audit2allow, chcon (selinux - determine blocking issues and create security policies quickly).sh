@@ -44,7 +44,7 @@ semanage fcontext -l | grep httpd_sys_content_t;
 
 # ------------------------------------------------------------
 #
-# TEMPORARY SELINUX CHANGES (resets after reboots)
+# TEMPORARY/TESTING SELINUX CHANGES (resets after reboots)
 #
 
 #

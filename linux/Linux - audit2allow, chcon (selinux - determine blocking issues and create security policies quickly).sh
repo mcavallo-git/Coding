@@ -44,7 +44,7 @@ semanage fcontext -l | grep httpd_sys_content_t;
 
 # ------------------------------------------------------------
 #
-# TEMPORARY SELINUX POLICY CHANGES (resets after reboots)
+# TEMPORARY SELINUX CHANGES (resets after reboots)
 #
 
 #
@@ -62,7 +62,7 @@ chcon -R -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
 
 # ------------------------------------------------------------
 #
-# PERMANENT/PERSISTENT CHANGES (persists through reboots)
+# PERMANENT/PERSISTENT SELINUX CHANGES (persists through reboots)
 #   |
 #   |--> Policies are stored within "/etc/selinux/targeted/contexts/files/"
 #

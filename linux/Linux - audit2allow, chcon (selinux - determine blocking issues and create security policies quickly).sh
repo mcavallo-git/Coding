@@ -23,7 +23,7 @@
 #
 # Install troubleshooting package(s)
 #
-yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server
+yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 
 
 #

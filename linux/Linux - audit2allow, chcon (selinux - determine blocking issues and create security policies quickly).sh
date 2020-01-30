@@ -31,22 +31,46 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 #
 audit2allow --all --module nginx --why;
 
+#
+# Check the current seucurity-context of a target file/directory
+#
+ls -Z "/var/cache/jenkins/war/images/";
+
+#
+# Check the filepath(s) stored within the context of "httpd_sys_content_t"
+#
+semanage fcontext -l | grep httpd_sys_content_t;
+
 
 # ------------------------------------------------------------
+#
+# TEMPORARY SELINUX POLICY CHANGES (resets after reboots)
+#
 
 #
-# Allow read-only access to files within a target directory (intended for web server read-only access)
+# Ex) TEMPORARILY add the "httpd_sys_content_t" security (selinux) context to path "/var/cache/jenkins/war/images/"
+#      |--> Allows read-only access to files within a target directory (intended for web server read-only access)
+#             |--> httpd_sys_content_t
+#                    Use this type for static web content, such as .html files used by a static website
+#                    Files labeled with this type are accessible (read only) to httpd and scripts executed by httpd
+#                    By default, files and directories labeled with this type cannot be written to or modified by httpd or other processes
+#                    Note that by default, files created in or copied into /var/www/html/ are labeled with the httpd_sys_content_t type
 #
-
 chcon -R -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
 
+
+
+# ------------------------------------------------------------
 #
-# httpd_sys_content_t
-#   Use this type for static web content, such as .html files used by a static website
-#   Files labeled with this type are accessible (read only) to httpd and scripts executed by httpd
-#   By default, files and directories labeled with this type cannot be written to or modified by httpd or other processes
-#   Note that by default, files created in or copied into /var/www/html/ are labeled with the httpd_sys_content_t type
+# PERMANENT/PERSISTENT CHANGES (persists through reboots)
+#   |
 #
+
+#
+# Ex) PERMANENTLY add the "httpd_sys_content_t" security (selinux) context to path "/var/cache/jenkins/war/images/"
+#
+semanage fcontext -a -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
+
 
 
 # ------------------------------------------------------------

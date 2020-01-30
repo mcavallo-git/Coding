@@ -1,6 +1,6 @@
 
 
-Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("restart","W32Time")) -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
+Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("restart","W32Time")) -NoNewWindow -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
 # ------------------------------------------------------------

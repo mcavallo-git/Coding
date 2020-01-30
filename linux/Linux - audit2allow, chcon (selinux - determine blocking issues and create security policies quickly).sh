@@ -34,6 +34,12 @@ yum -y install policycoreutils-python selinux-policy-doc setroubleshoot-server;
 #
 audit2allow --all --module nginx --why;
 
+
+# ------------------------------------------------------------
+#
+# INSPECTING SELINUX BLOCKAGES
+#
+
 #
 # View the current security-context of a target file/directory
 #

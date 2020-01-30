@@ -57,6 +57,8 @@ chcon -R -t httpd_sys_content_t "/var/cache/jenkins/war/images/";
 #
 #   access.redhat.com  |  "5.6. SELinux Contexts – Labeling Files Red Hat Enterprise Linux 6 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-working_with_selinux-selinux_contexts_labeling_files
 #
+#   access.redhat.com  |  "5.6.2. Persistent Changes: semanage fcontext Red Hat Enterprise Linux 6 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security-enhanced_linux/sect-security-enhanced_linux-selinux_contexts_labeling_files-persistent_changes_semanage_fcontext
+#
 #   stackoverflow.com  |  "installation - Why does Nginx return a 403 even though all permissions are set properly? - Stack Overflow"  |  https://stackoverflow.com/a/26228135
 #
 #   www.getpagespeed.com  |  "Nginx SELinux Configuration - GetPageSpeed"  |  https://www.getpagespeed.com/server-setup/nginx/nginx-selinux-configuration

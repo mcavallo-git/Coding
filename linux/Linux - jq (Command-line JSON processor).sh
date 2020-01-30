@@ -3,6 +3,7 @@
 # Install jq
 #
 apt-get update -y; apt-get install -y "jq";
+yum -y install jq;
 
 
 # ------------------------------------------------------------

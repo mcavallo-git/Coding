@@ -66,7 +66,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 
 
 # ------------------------------------------------------------
-# Install the "Chocolatey" package provider
+# Install the "Chocolatey" package manager for Windows
 #   |--> Chocolatey is software management automation for Windows that wraps installers, executables, zips, and scripts into compiled packages
 $InstallChocolatey = $False;
 If ($InstallChocolatey -Eq $True) {

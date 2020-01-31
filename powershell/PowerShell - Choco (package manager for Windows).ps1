@@ -21,12 +21,12 @@ If ((Get-Command "choco" -ErrorAction "SilentlyContinue") -NE $Null) {
 #
 # Citation(s)
 #
-#   chocolatey.org  |  "How do I update all Chocolatey applications without confirmation? - Stack Overflow"  |  https://stackoverflow.com/a/30428182
-#
 #   chocolatey.org  |  "Chocolatey Software | Installation"  |  https://chocolatey.org/docs/installation#install-with-cmdexe
 #
 #   chocolatey.org  |  "Chocolatey Software | Chocolatey - The package manager for Windows"  |  https://chocolatey.org/
 #
 #   chocolatey.org  |  "Chocolatey Software | NETworkManager 2019.12.0"  |  https://chocolatey.org/packages/NETworkManager
+#
+#   stackoverflow.com  |  "How do I update all Chocolatey applications without confirmation? - Stack Overflow"  |  https://stackoverflow.com/a/30428182
 #
 # ------------------------------------------------------------

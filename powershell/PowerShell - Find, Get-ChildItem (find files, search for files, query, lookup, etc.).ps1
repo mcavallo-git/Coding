@@ -7,7 +7,7 @@
 # Simple search
 #
 
-Get-ChildItem -Path ("C:\") -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; }
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; }
 
 
 # ------------------------------------------------------------
@@ -21,7 +21,7 @@ $Basename_ParentDirectory="Settings"; # one step back (first directory name)
 $Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
 $Dirname_TopLevel="${Env:USERPROFILE}\AppData\Local\Packages"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
 (`
-Get-ChildItem -Path ("$Dirname_TopLevel") -Depth (256) -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+Get-ChildItem -Path ("$Dirname_TopLevel") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
 | Where-Object { $_.Directory.Parent.Name -Like "$Basename_ParentsParentsDirectory" } `
 | Where-Object { $_.Directory.Name -Like "$Basename_ParentDirectory" } `
 | Where-Object { $_.Name -Like "$Basename_FindFilesMatching" } `

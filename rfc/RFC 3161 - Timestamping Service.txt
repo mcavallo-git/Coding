@@ -1,0 +1,20 @@
+RFC 3161 Timestamping Service
+
+http://timestamp.digicert.com
+
+http://timestamp.comodoca.com
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   datatracker.ietf.org  |  "RFC 3161 - Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)"  |  https://datatracker.ietf.org/doc/rfc3161/
+#
+#   github.com  |  "GitHub - disig/TimeStampClient: .NET RFC 3161 time-stamping client library and application"  |  https://github.com/disig/TimeStampClient
+#
+#   knowledge.digicert.com  |  "RFC3161 compliant Time Stamp Authority (TSA) server"  |  https://knowledge.digicert.com/generalinformation/INFO4231.html
+#
+#   tools.ietf.com  |  "RFC 3161 - Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)"  |  https://tools.ietf.org/html/rfc3161
+#
+# ------------------------------------------------------------

@@ -25,6 +25,12 @@ Get-ChildItem -Path ("${Env:APPDATA}\Microsoft\teams\tmp\") -Recurse -Force -Err
 #  |--> Delete/Remove ALL credentials associated w/ "Microsoft" or similar to Teams sounding credentials
 #
 
+#
+# Restart your device
+#  |--> Cache-clearing should apply after full device restart
+#
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

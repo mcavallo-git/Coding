@@ -11,7 +11,7 @@ Get-ItemProperty HKLM:\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Uni
 | Where-Object { ([String]($_.DisplayName)).Trim() -NE "" } `
 | Sort-Object -Property DisplayName `
 | Format-Table -AutoSize `
-| Out-File -Width 16384 "${Logfile}"; `
+| Out-File -Width 16384 -Append "${Logfile}"; `
 Notepad "${Logfile}";
 
 

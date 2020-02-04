@@ -10,6 +10,9 @@
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" } | ForEach-Object { $_.FullName; }
 
 
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "devenv.*" } | ForEach-Object { $_.FullName; }
+
+
 # ------------------------------------------------------------
 #
 # Advanced search

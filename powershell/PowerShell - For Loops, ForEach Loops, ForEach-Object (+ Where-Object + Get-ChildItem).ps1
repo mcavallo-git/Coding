@@ -57,7 +57,7 @@ Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs\*.msi") -File -Recurse -For
 # ------------------------------------------------------------
 
 # ForEach (USE FOR ARRAYS)
-ForEach ($EachLetter in @('a','b','c','d','e','f')) {
+ForEach ($EachLetter In @('a','b','c','d','e','f')) {
 	Write-Host $EachLetter;
 }
 

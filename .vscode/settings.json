@@ -64,6 +64,7 @@
 		"**/*.conf": "shellscript",
 		"**/*.nginx": "shellscript",
 		"**/*.preset": "powershell",
+		"**/*.sln": "csharp",
 		"**/*.svg": "html",
 		"**/*.xaml": "html",
 		"**/Jenkinsfile": "groovy",

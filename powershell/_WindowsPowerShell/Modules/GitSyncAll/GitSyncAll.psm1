@@ -46,7 +46,9 @@ function GitSyncAll {
 	$ReposFetched = @();
 	$ReposPulled = @();
 
-	If ($PSBoundParameters.ContainsKey("Action") -Eq $False) {
+	If (($PSBoundParameters.ContainsKey("Pull") -Eq $True) -Or ("$Action" -Eq "Pull")) {
+		$Action ="Pull";
+	} ElseIf ($PSBoundParameters.ContainsKey("Action") -Eq $False) {
 		$Action ="Fetch";
 	}
 

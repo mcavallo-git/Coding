@@ -52,10 +52,17 @@ Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs\*.msi") -File -Recurse -For
 
 # ------------------------------------------------------------
 #
-#   PowerShell - ForEach(...) Loops using 'ForEach-Object' Method
+#   PowerShell - ForEach & ForEach-Object Loops
 #
 # ------------------------------------------------------------
 
+# ForEach (USE FOR ARRAYS)
+ForEach ($EachLetter in @('a','b','c','d','e','f')) {
+	Write-Host $EachLetter;
+}
+
+
+# ForEach-Object (USE FOR HASH TABLES)
 Get-WindowsOptionalFeature -Online | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
 	$_ | Format-Table;
@@ -63,7 +70,6 @@ Get-WindowsOptionalFeature -Online | ForEach-Object {
 }
 
 
-#
 # ------------------------------------------------------------
 #
 #	Get-ChildItem

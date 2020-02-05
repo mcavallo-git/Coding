@@ -2,9 +2,16 @@
 
 ### NOTE: You must (or at the very least, definitely SHOULD) shut down any machine(s) attached to disks which you intend to copy/resize to OR from
 
+### Thick to Thin
 vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk
 
-### Run as a background job (optional - allows you to disconnect and it continues to process in the background)
+### Thin to Thick
+vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthick /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thick.vmdk
+
+# ------------------------------------------------------------
+#
+#  Run as a background job (optional - allows you to disconnect and it continues to process in the background)
+#
 
 nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > /shrink.log 2>&1 &
 

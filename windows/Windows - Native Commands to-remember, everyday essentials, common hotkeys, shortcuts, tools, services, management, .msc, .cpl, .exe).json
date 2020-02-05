@@ -111,7 +111,7 @@
 			"main.cpl keyboard": "Keyboard Properties",
 			"mmsys.cpl": "Sounds and Audio Device Properties",
 			"mmsys.cpl sounds": "Sound Properties",
-			"ncpa.cpl": "Network Connections",
+			"ncpa.cpl": "Network Connections (View Network Connections)",
 			"powercfg.cpl": "Power Management",
 			"sysdm.cpl": "System Properties",
 			"telephon.cpl": "Phone and Modem options",

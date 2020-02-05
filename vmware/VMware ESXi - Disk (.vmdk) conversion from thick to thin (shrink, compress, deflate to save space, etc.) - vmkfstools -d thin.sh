@@ -13,9 +13,9 @@ vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthi
 #  Run as a background job (optional - allows you to disconnect and it continues to process in the background)
 #
 
-nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > /shrink.log 2>&1 &
+nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > "/tmp/vmkfstools_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
 
-while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat /shrink.log; sleep 2; done;
+while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat "/tmp/vmkfstools_$(date +'%Y%m%d')*.log"; sleep 2; done;
 
 
 # ------------------------------------------------------------

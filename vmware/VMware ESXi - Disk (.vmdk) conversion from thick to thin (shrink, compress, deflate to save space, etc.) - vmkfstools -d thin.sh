@@ -15,7 +15,7 @@ vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthi
 
 nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > /shrink.log 2>&1 &
 
-while [ 1 ]; do clear; date; cat /shrink.log; sleep 1; done;
+while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat /shrink.log; sleep 2; done;
 
 
 # ------------------------------------------------------------

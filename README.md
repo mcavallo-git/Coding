@@ -375,6 +375,7 @@ This file (on GitHub):
 <tr><td><strong>WakeMeOnLan</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Nirsoft</i></sub></td><td><a href="https://www.nirsoft.net/utils/wake_on_lan.html">Download (source)</a></td></tr>
 <tr><td><strong>WinDirStat</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Disk Usage Analyzer</i></sub></td><td><a href="https://www.fosshub.com/WinDirStat.html">Download (source)</a><br /><sub>&nbsp;&nbsp;&nbsp;<a href="https://windirstat.net/download.html">Download (fallback)</a></sub></td></tr>
 <tr><td><strong>WinTail</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Tail for Windows</i></sub></td><td><a href="https://sourceforge.net/projects/wintail/">Download (source)</a></td></tr>
+<tr><td><strong>WireShark</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source Packet Analyzer</i></sub></td><td><a href="https://www.wireshark.org/download.html">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

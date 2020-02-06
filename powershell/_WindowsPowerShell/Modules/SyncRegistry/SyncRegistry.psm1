@@ -99,16 +99,30 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
-					Description="Cortana/Search Settings - Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
-					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
-					Name="BingSearchEnabled";
+					Description="Cortana/Search Settings - Set to [ 0 ] to Disable or [ 1 ] to Enable Cortana.";
+					Name="AllowCortana";
 					Type="DWord";
-					Value=1;
+					Value=0;
 					Delete=$False;
 				},
 				@{
 					Description=$Null;
 					Name="AllowSearchToUseLocation";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Cortana/Search Settings - Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
+					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
+					Name="BingSearchEnabled";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description=$Null;
+					Name="CortanaConsent";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
@@ -130,6 +144,13 @@ function SyncRegistry {
 				},
 				@{
 					Description="Cortana/Search Settings - TODO";
+					Name="AllowSearchToUseLocation";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Cortana/Search Settings - TODO";
 					Name="ConnectedSearchUseWeb";
 					Type="DWord";
 					Value=0;
@@ -143,10 +164,39 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
+					Description=$Null;
+					Name="CortanaConsent";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
 					Description="Cortana/Search Settings - TODO";
 					Name="DisableWebSearch";
 					Type="DWord";
 					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# DateTimes
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters";
+			Props=@(
+				@{
+					Description="DateTimes - Sets the clock to use NTP";
+					Name="Type"; 
+					Type="String";
+					Value="NTP";
+					Delete=$False;
+				},
+				@{
+					Description="DateTimes - $?";
+					Name="ServiceMain"; 
+					Type="String";
+					Value="SvchostEntry_W32Time";
 					Delete=$False;
 				}
 			)
@@ -692,6 +742,8 @@ Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
 #   docs.microsoft.com  |  "Remove-ItemProperty - Deletes the property and its value from an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-itemproperty
 #
 #   docs.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
+#
+#   docs.microsoft.com  |  "Manage connections from Windows 10 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
 #
 #   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
 #

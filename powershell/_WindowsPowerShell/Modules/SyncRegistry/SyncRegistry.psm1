@@ -280,6 +280,13 @@ function SyncRegistry {
 					Type="DWord";
 					Value=1;
 					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Name="HideRunAsVerb"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
 				}
 			)
 		};
@@ -298,6 +305,18 @@ function SyncRegistry {
 					Name="NoFileMru"; 
 					Type="DWord";
 					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Name="HideRunAsVerb"; 
+					Type="DWord";
+					Value=0;
 					Delete=$False;
 				}
 			)
@@ -469,33 +488,6 @@ function SyncRegistry {
 					Name="Attributes";
 					Type="DWord";
 					Value=2;
-					Delete=$False;
-				}
-			)
-		};
-
-
-		# Run/RunAs/RunOnce Settings
-		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
-					Name="HideRunAsVerb"; 
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer";
-			Props=@(
-				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
-					Name="HideRunAsVerb"; 
-					Type="DWord";
-					Value=0;
 					Delete=$False;
 				}
 			)

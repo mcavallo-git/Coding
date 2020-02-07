@@ -22,6 +22,10 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #ErrorStdOut  ; https://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
 
+#HotkeyInterval 2000  ; https://www.autohotkey.com/docs/commands/_HotkeyInterval.htm
+
+#MaxHotkeysPerInterval 10  ; https://www.autohotkey.com/docs/commands/_MaxHotkeysPerInterval.htm
+
 #Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
 
 #SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm

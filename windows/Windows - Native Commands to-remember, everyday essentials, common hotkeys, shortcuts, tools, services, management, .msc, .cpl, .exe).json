@@ -85,7 +85,8 @@
 		},
 		"HotKeys": {
 			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End",
-			"Run as admin": "Ctrl + Shift + Enter"
+			"Run as admin": "Ctrl + Shift + Enter",
+			"Run as different user": "Shift + Right-Click"
 		},
 		"Shortcuts and Executables": {
 			"control access.cpl": "Accessibility Options",

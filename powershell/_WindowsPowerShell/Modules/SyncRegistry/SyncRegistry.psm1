@@ -271,6 +271,40 @@ function SyncRegistry {
 
 
 		# Explorer Settings (cont.)
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
+			Props=@(
+				@{
+					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
+					Name="NoRecentDocsMenu"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Comdlg32";
+			Props=@(
+				@{
+					Description="Explorer Settings - When this policy is set, applications that provide their own file or open dialog boxes must remove any equivalent functionality to the places bar. Applications that use the common dialog box library will comply with this policy";
+					Name="NoPlacesBar"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - When this policy is set, applications that provide their own file or open dialog boxes must not display an MRU (Most Recently Used) list in these dialog boxes. Applications that use the common dialog box library will comply with this policy";
+					Name="NoFileMru"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings (cont.)
 		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
 		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
 			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
@@ -435,6 +469,33 @@ function SyncRegistry {
 					Name="Attributes";
 					Type="DWord";
 					Value=2;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Run/RunAs/RunOnce Settings
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Name="HideRunAsVerb"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer";
+			Props=@(
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Name="HideRunAsVerb"; 
+					Type="DWord";
+					Value=0;
 					Delete=$False;
 				}
 			)
@@ -733,19 +794,23 @@ Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
 #
 #   autohotkey.com  |  "Windows key (#) + letter keeps locking the pc (even if it is not #L)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=46949&sid=490d0a443a7f78557b54c2bfb079350f#p46949
 #
-#   docs.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
-#
-#   docs.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
-#
 #   docs.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptions element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/3c837e92-016e-4148-86e5-b4f0381a757f
 #
 #   docs.microsoft.com  |  "[MS-GPPREF]: StartMenu Inner Element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/adf64850-92a6-4131-ab31-906f9a419d2b
 #
 #   docs.microsoft.com  |  "[MS-GPPREF]: StartMenuVista Inner Element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/1d9120b4-aa9d-4ea8-89b7-cb64f79b83d5
 #
+#   docs.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
+#
+#   docs.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
+#
+#   docs.microsoft.com  |  "Adhering to System Policy Settings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/desktop/policy/adhering-to-system-policy-settings
+#
 #   docs.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
 #
 #   docs.microsoft.com  |  "Remove-ItemProperty - Deletes the property and its value from an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-itemproperty
+#
+#   docs.microsoft.com  |  "Run and RunOnce Registry Keys - Windows applications | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
 #
 #   docs.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
 #
@@ -758,6 +823,8 @@ Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
 #   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #
 #   social.msdn.microsoft.com  |  ".NET Framework 3.5 doesn't install. Windows 10.. Error code: 0x800F081F"  |  https://social.msdn.microsoft.com/Forums/en-US/4ea808e7-c503-4f99-9480-aa8e6938be3d
+#
+#   social.technet.microsoft.com  |  "GPO : runas hide show"  |  https://social.technet.microsoft.com/Forums/en-US/f2889321-7531-4fde-bb28-f5f141c251b6/gpo-runas-hide-show?forum=winserverDS
 #
 #   ss64.com  |  "Windows 10 registry - How-To: Windows 10 registry - user interface settings - Windows CMD - SS64.com"  |  https://ss64.com/nt/syntax-reghacks.html
 #

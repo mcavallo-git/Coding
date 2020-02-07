@@ -1,10 +1,7 @@
 {
 	"_native commands": {
-		"hotkeys": {
-			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End",
-			"Run as admin": "Ctrl + Shift + Enter"
-		},
-		"management consoles": {
+		"Admin Consoles": {
+			"appwiz.cpl": "Add/Remove Programs",
 			"certlm.msc": "Certificate Manager - Local Machine",
 			"certmgr.msc": "Certificate Manager - Current User",
 			"ciadv.msc": "Indexing Service",
@@ -12,6 +9,7 @@
 			"devmgmt.msc": "Device Manager",
 			"dfrg.msc": "Defragment",
 			"diskmgmt.msc": "Disk Management",
+			"dsa.msc": "Active Directory Users and Computers",
 			"eventvwr.msc": "Event Viewer",
 			"fsmgmt.msc": "Folder Sharing Management",
 			"gpedit.msc": "Group Policy (< XP Pro)",
@@ -29,17 +27,17 @@
 			"sqlservermanager15.msc": "Sql Server Configuration Manager - SQL Server 2019",
 			"wmimgmt.msc": "Windows Management"
 		},
-		"microsoft office commands": {
-			"excel": "Microsoft Excel",
-			"msaccess": "Microsoft Access",
-			"ois": "Microsoft Picture Manager",
-			"outlook": "Microsoft Outlook",
-			"powerpnt": "Microsoft PowerPoint",
-			"winproj": "Microsoft Project",
-			"winword": "Microsoft Word"
-		},
-		"run commands": {
-			"calc": "Calculator",
+		"Applications": {
+			"Microsoft Office Applications": {
+				"excel": "Microsoft Excel",
+				"msaccess": "Microsoft Access",
+				"ois": "Microsoft Picture Manager",
+				"outlook": "Microsoft Outlook",
+				"powerpnt": "Microsoft PowerPoint",
+				"winproj": "Microsoft Project",
+				"winword": "Microsoft Word"
+			},
+			"calc.exe": "Calculator",
 			"cfgwiz32": "ISDN Configuration Wizard",
 			"charmap": "Character Map",
 			"chkdsk": "Repair damaged files",
@@ -85,8 +83,11 @@
 			"winchat": "simple chat program for Windows networks",
 			"winipcfg": "Displays IP configuration"
 		},
-		"shortcuts": {
-			"appwiz.cpl": "Add/Remove Programs",
+		"HotKeys": {
+			"Remote Desktop [ CTRL + ALT + DELETE ]": "Ctrl + Alt + End",
+			"Run as admin": "Ctrl + Shift + Enter"
+		},
+		"Shortcuts and Executables": {
 			"control access.cpl": "Accessibility Options",
 			"control findFast.cpl": "FindFast (included with Microsoft Office for Windows 95)",
 			"control inetcpl.cpl": "Internet properties",

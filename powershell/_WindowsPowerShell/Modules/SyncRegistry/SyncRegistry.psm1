@@ -287,6 +287,39 @@ function SyncRegistry {
 					Type="DWord";
 					Value=0;
 					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
+					Name="NoRecentDocsHistory"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer";
+			Props=@(
+				@{
+					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
+					Name="NoRecentDocsMenu"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Name="HideRunAsVerb"; 
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
+					Name="NoRecentDocsHistory"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
 				}
 			)
 		};
@@ -310,14 +343,14 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer";
+			Path="Registry::HKEY_USERS\.Default\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
-					Name="HideRunAsVerb"; 
-					Type="DWord";
-					Value=0;
-					Delete=$False;
+					Description="Delete the list of MRU (Most Recently Used) items";
+					Name="(Default)"; 
+					Type="REG_SZ";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
 				}
 			)
 		};

@@ -22,6 +22,10 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #ErrorStdOut  ; https://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
 
+#HotkeyInterval 2000  ; https://www.autohotkey.com/docs/commands/_HotkeyInterval.htm
+
+#MaxHotkeysPerInterval 10  ; https://www.autohotkey.com/docs/commands/_MaxHotkeysPerInterval.htm
+
 #Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
 
 #SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
@@ -995,15 +999,15 @@ CapsLock::
 ;  HOTKEY:  Num Lock
 ;  ACTION:  Permanently DISABLE Numlock (unless pressed with shift, which toggles it as-normal)
 ;
-Numlock::
-^Numlock::
-!Numlock::
-#Numlock::
-	SetNumlockState, On
-	Return
-+Numlock::
-	SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
-	Return
+; Numlock::
+; ^Numlock::
+; !Numlock::
+; #Numlock::
+; 	SetNumlockState, On
+; 	Return
+; +Numlock::
+; 	SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
+; 	Return
 
 
 ; ------------------------------------------------------------

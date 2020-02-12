@@ -42,6 +42,10 @@ for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .c
 # ------------------------------------------------------------
 # Citation(s)
 #
+#   github.com  |  "Releases · stedolan/jq · GitHub"  |  https://github.com/stedolan/jq/releases
+#
+#   github.com  |  "GitHub - stedolan/jq: Command-line JSON processor"  |  https://github.com/stedolan/jq/
+#
 #   github.io  |  "[jq] Tutorial"  |  https://stedolan.github.io/jq/tutorial/
 #
 # ------------------------------------------------------------

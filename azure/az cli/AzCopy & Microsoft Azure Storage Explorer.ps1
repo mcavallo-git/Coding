@@ -78,19 +78,18 @@ $URL_WithoutSAS = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([Sys
 $SAS_QueryString = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Fetch) --> Enter [ Shared Access Signature (SAS Query string, no question mark) ]")))).Trim(); `
 azcopy bench "${URL_WithoutSAS}?${SAS_QueryString}" --file-count 5 --size-per-file 2G
 # ^
-# |--> WARNING  Azure charges about $0.10 USD per gigabyte going out of a target Azure zone (egress), be wary about this when benchmarking
-
+# !!!  WARNING  !!!  Azure charges for every gigabyte of egress (and often ingress) data which enters/exits any Azure Region/Zone - be wary to not incur a massive bill while simply attempting to benchmark
 #
 #
-# OPTIMIZE VIA  [ azcopy copy ... --overwrite ifSourceNewer ]
+# OPTIMIZE AzCopy VIA  [ azcopy copy ... --overwrite ifSourceNewer ]
 #   |--> "To accomplish this, use the azcopy copy command instead, and set the --overwrite flag to ifSourceNewer. AzCopy will compare files as they are copied without performing any up-front scans and comparisons. This provides a performance edge in cases where there are a large number of files to compare." https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-configure#optimize-file-synchronization
 #
 #
-# REVIEW VIA  [ azcopy jobs list ]
+# REVIEW AzCopy VIA  [ azcopy jobs list ]
 #   |--> "Each transfer operation will create an AzCopy job. Use the following command to view the history of jobs" ( View and resume jobs, https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-configure#view-and-resume-jobs )
 #
 #
-# TROUBLESHOOT VIA ...
+# TROUBLESHOOT AzCopy VIA ...
 #   [ azcopy ... --log-level DEBUG  ]  (max verbosity, other options are NONE|DEBUG|INFO|WARNING|ERROR|PANIC|FATAL)
 #   [ azcopy jobs show <job-id>                                    ]  <-- To view the job statistics, use the following command
 #   [ azcopy jobs show <job-id> --with-status=Failed               ]  <-- To filter the transfers by status, use the following command
@@ -98,13 +97,13 @@ azcopy bench "${URL_WithoutSAS}?${SAS_QueryString}" --file-count 5 --size-per-fi
 #   [ azcopy jobs resume <job-id> --destination-sas="<sas-token>"  ]  <-- To resume a failed/canceled job (w/ inline destination access-key)
 #
 #
-# REVIEW LOGS FOR ERRORS VIA ...
+# REVIEW ERRORS OUTPUT BY AzCopy VIA ...
 #  |
 #  |    (PowerShell)
-#  |--> Select-String UPLOADFAILED .\04dc9ca9-158f-7945-5933-564021086c79.log
+#  |--> Select-String UPLOADFAILED .\04dc9ca9-158f-7945-5933-564021086c79.log  <-- Mock Logfile, replace with path reported by your AzCopy runtime
 #  |
 #  |    (ShellScript)
-#  |--> grep UPLOADFAILED .\04dc9ca9-158f-7945-5933-564021086c79.log
+#  |--> grep UPLOADFAILED .\04dc9ca9-158f-7945-5933-564021086c79.log  <-- Mock Logfile, replace with the path reported by your AzCopy runtime
 #
 #
 #------------------------------------------------------------
@@ -138,12 +137,20 @@ azcopy bench "${URL_WithoutSAS}?${SAS_QueryString}" --file-count 5 --size-per-fi
 #
 # Estimated Bandwidths
 #
-# Reference 0 - ACTUAL (benchmarked) -->  426.436 Mbps throughput  <-- (benchmark quoted an incorrect value of '472.6492 Mbps' )
+# Reference 0.0 - ACTUAL (benchmarked) -->  426.436 Mbps throughput  <-- (azcopy benchmark quoted an incorrect value of '472.6492 Mbps' )
 #    Elapsed Time (Minutes): 3.2684
-#    Total Number Of Transfers: 5
+#    Number of Transfers Completed: 5
 #    TotalBytesTransferred: 10737418240
 #     ^--> Results from running  [ azcopy bench ]  targeting blob-storage in Azure's Iowa GovCloud on 11-Feb-2020 @ ~ 09:00 PM CST
-#    ( 5-files ) * ( 2 GB/file ) * ( 1024 MB/GB ) * ( 8 Bits/Byte ) * ( 1/192.104-seconds ) = 426.436 Mbps
+#    ( 5-files ) * ( 2 GB/file ) * ( 1024 MB/GB ) * ( 8 Bits/Byte ) * ( 1/(3.2684*60 seconds) ) = 426.436 Mbps
+#
+# Reference 0.1 - ACTUAL (benchmarked) -->  184.185 Mbps throughput  <-- (azcopy benchmark quoted an incorrect value of '503.1535 Mbps' )
+#    Elapsed Time (Minutes): 5.0353
+#    Number of Transfers Completed: 1075
+#    TotalBytesTransferred: 7293580969
+#     ^--> Results from running  [ azcopy bench ]  targeting blob-storage in Azure's Iowa GovCloud on 11-Feb-2020 @ ~ 11:30 PM CST
+#    ( 7293580969 Bytes ) * ( 1/1024 Bytes/KB ) * ( 1/1024 KB/MB ) * ( 8 Bits/Byte ) * ( 1/(5.0353*60 seconds) ) = 184.185 Mbps
+#
 #
 # Reference 1 --> 200-500 Mbps throughput
 #    (Simialr to previous reference, second-hand information from a trusted source)

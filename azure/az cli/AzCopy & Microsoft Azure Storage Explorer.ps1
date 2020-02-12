@@ -137,19 +137,19 @@ azcopy bench "${URL_WithoutSAS}?${SAS_QueryString}" --file-count 5 --size-per-fi
 #
 # Estimated Bandwidths
 #
-# Reference 0.0 - ACTUAL (benchmarked) -->  426.436 Mbps throughput  <-- (azcopy benchmark quoted an incorrect value of '472.6492 Mbps' )
+# Reference 0.0 -->  426.436 Mbps throughput  (FEW LARGE FILES (benchmarked) - azcopy benchmark reported an incorrect value of '472.6492 Mbps' Mbps )
+#    |--> Results from running  [ azcopy bench ]  targeting blob-storage in Azure's Iowa GovCloud on 11-Feb-2020 @ ~ 09:00 PM CST
 #    Elapsed Time (Minutes): 3.2684
 #    Number of Transfers Completed: 5
 #    TotalBytesTransferred: 10737418240
-#      |--> Results from running  [ azcopy bench ]  targeting blob-storage in Azure's Iowa GovCloud on 11-Feb-2020 @ ~ 09:00 PM CST
-#    ( 5-files ) * ( 2 GB/file ) * ( 1024 MB/GB ) * ( 8 Bits/Byte ) * ( 1/(3.2684*60 seconds) ) = 426.436 Mbps
+#           ( 10737418240 Bytes ) * ( 1/1048576 Bytes/MB ) * ( 8 Bits/Byte ) * ( 1/196.104 seconds) ) = 417.738 Mbps
 #
-# Reference 0.1 - ACTUAL (benchmarked) -->  184.185 Mbps throughput  <-- (azcopy benchmark quoted an incorrect value of '503.1535 Mbps' )
+# Reference 0.1 -->  184.185 Mbps throughput  (MANY MEDIUM/SMALL FILES (benchmarked) - azcopy benchmark reported a WAY incorrect value of '503.1535' !? !? !? Mbps)
+#    |--> Results from running  [ azcopy bench ]  targeting blob-storage in Azure's Iowa GovCloud on 11-Feb-2020 @ ~ 11:30 PM CST
 #    Elapsed Time (Minutes): 5.0353
 #    Number of Transfers Completed: 1075
 #    TotalBytesTransferred: 7293580969
-#      |--> Results from running  [ azcopy bench ]  targeting blob-storage in Azure's Iowa GovCloud on 11-Feb-2020 @ ~ 11:30 PM CST
-#    ( 7293580969 Bytes ) * ( 1/1024 Bytes/KB ) * ( 1/1024 KB/MB ) * ( 8 Bits/Byte ) * ( 1/(5.0353*60 seconds) ) = 184.185 Mbps
+#           ( 7293580969 Bytes ) * ( 1/1048576 Bytes/MB ) * ( 8 Bits/Byte ) * ( 1/302.118 seconds) ) = 184.185 Mbps
 #
 #
 # Reference 1 --> 200-500 Mbps throughput

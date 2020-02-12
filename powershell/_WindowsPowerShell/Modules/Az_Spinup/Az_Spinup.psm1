@@ -1,42 +1,14 @@
 #
-#	Example Call:
-#		Az_Spinup -SubscriptionID "example_subscription_id" -CompanyName "example_company_name"
+#
 #
 function Az_Spinup {
 	Param(
-
-		[Parameter(Mandatory=$true)]
-		[String]$SubscriptionID,
-
-		[Parameter(Mandatory=$true)]
-		[ValidateLength(2,24)]
-		[String]$CompanyName,
-
-		[String]$AzureLocation="eastus",
-
-		[Switch]$CompanyNameAddTimestamp,
-
-		[Switch]$AllowUppercaseResourceNames,
 
 		[Switch]$Quiet,
 
 		[Int]$ExitAfterSeconds = 600
  
 	)
-
-	# ---------------------------------------------------------------------------------------------------------- #
-	#
-	##
-	##  Microsoft Documentation, "Tutorial: Host a RESTful API with CORS in Azure App Service"
-	##    - Reference: https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-rest-api
-	##
-	##  Note that you may perform these actions in Azure's "Cloud Shell" by:
-	##    - Logging into [ https://portal.azure.com ]
-	##    - Selecting the " >_ " icon (~top middle of screen)
-	##    - If presented with [ Choose terminal: "Bash" or "PowerShell" ] (etc.), select "PowerShell"
-	##
-	#
-	# ---------------------------------------------------------------------------------------------------------- #
 
 	# Required PowerShell Command(s)/Install(s)
 

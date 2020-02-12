@@ -61,9 +61,10 @@ function CheckDedicatedDevices {
 Export-ModuleMember -Function "CheckDedicatedDevices";
 
 
-# ---------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
 #		docs.microsoft.com  |  "Win32_VideoController class"  |  https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-videocontroller
 #
+# ------------------------------------------------------------

@@ -68,14 +68,14 @@
 #
 
 <# Copy a given directory (and all subdirectories) from Azure blob-storage to local Desktop #>
-$SAS_QueryString = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Pull) --> Enter [ Shared Access Signature (SAS Query string, no question mark) ]")))).Trim(); `
 $URL_WithoutSAS = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Pull) --> Enter [ Target URL with no SAS Query String attached (e.g. it should start with https and end just before the '?' in the request-uri) ]")))).Trim(); `
+$SAS_QueryString = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Pull) --> Enter [ Shared Access Signature (SAS Query string, no question mark) ]")))).Trim(); `
 azcopy cp "${URL_WithoutSAS}?${SAS_QueryString}" "${Home}\Desktop" --recursive=true
 
 
 <# Benchmark the remote Azure blob-storage #>
-$SAS_QueryString = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Fetch) --> Enter [ Shared Access Signature (SAS Query string, no question mark) ]")))).Trim(); `
 $URL_WithoutSAS = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Fetch) --> Enter [ Target URL with no SAS Query String attached (e.g. it should start with https and end just before the '?' in the request-uri) ]")))).Trim(); `
+$SAS_QueryString = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt "AzCopy (Fetch) --> Enter [ Shared Access Signature (SAS Query string, no question mark) ]")))).Trim(); `
 azcopy bench "${URL_WithoutSAS}?${SAS_QueryString}" --file-count 5 --size-per-file 2G
 # ^
 # |--> WARNING  Azure charges about $0.10 USD per gigabyte going out of a target Azure zone (egress), be wary about this when benchmarking

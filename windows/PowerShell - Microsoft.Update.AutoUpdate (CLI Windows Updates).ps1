@@ -64,6 +64,8 @@ UsoClient.exe StartScan
 #
 #   omgdebugging.com  |  "Command Line Equivalent of wuauclt in Windows 10 / Windows Server 2016"  |  https://omgdebugging.com/2017/10/09/command-line-equivalent-of-wuauclt-in-windows-10-windows-server-2016/
 #
+#   superuser.com  |  "command line - Can I get more information on what Windows Update is doing? - Super User"  |  https://superuser.com/a/1186355
+#
 #   superuser.com  |  "How to force Windows Server 2016 to check for updates - Super User"  |  https://superuser.com/a/1352500
 #
 #   www.thewindowsclub.com  |  "What is UsoClient.exe in Windows 10"  |  https://www.thewindowsclub.com/usoclient-exe-windows-10

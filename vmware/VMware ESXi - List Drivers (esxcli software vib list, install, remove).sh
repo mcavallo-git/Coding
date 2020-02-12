@@ -112,8 +112,9 @@ esxcli software vib remove --vibname="net51-sky2:1.20-2vft.510.0.0.799733"; esxc
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
-# 
+#
 #   flings.vmware.com  |  "ESXi Embedded Host Client"  |  https://flings.vmware.com/esxi-embedded-host-client#instructions
-# 
+#
 # ------------------------------------------------------------

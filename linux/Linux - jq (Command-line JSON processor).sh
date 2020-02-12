@@ -2,8 +2,12 @@
 # ------------------------------------------------------------
 # Install jq
 #
+
+# DEBIAN - Install jq
 apt-get update -y; apt-get install -y "jq";
-yum -y install jq;
+
+# RHEL - Install jq
+curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
 
 
 # ------------------------------------------------------------
@@ -47,5 +51,7 @@ for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .c
 #   github.com  |  "GitHub - stedolan/jq: Command-line JSON processor"  |  https://github.com/stedolan/jq/
 #
 #   github.io  |  "[jq] Tutorial"  |  https://stedolan.github.io/jq/tutorial/
+#
+#   serverfault.com  |  "How to install jq on RHEL6.5 - Server Fault"  |  https://serverfault.com/a/768061
 #
 # ------------------------------------------------------------

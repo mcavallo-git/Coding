@@ -1,13 +1,13 @@
 
-# Used to start scan
+# Check for Windows Updates
 Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("StartScan") -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
-# Used to start download of patches
+# Download any available Windows Updates
 Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("StartDownload") -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
-# Used to install downloaded patches
+# Install downloaded Windows Updates
 Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("StartInstall") -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
@@ -19,11 +19,11 @@ Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("Re
 Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("StartInteractiveScan") -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
-# Restart device to finish installation of updates
+# Restart device to finish installation of Windows Updates
 Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("RestartDevice") -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
-# Combined scan, download, and install
+# Combined scan, download, and install Windows Updates
 Start-Process -Filepath ("C:\Windows\system32\UsoClient.exe") -ArgumentList ("ScanInstallWait") -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 

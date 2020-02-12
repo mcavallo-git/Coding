@@ -7,19 +7,19 @@
 #    Tries to decode a SecureString from a PSCredential Object and returns its clear text value
 #
 # .EXAMPLE
-#    get-credential | Decode-SecureString
+#    get-credential | SecureString_Decoder
 #
 # .EXAMPLE
 #    get-credential | dssp
 #
 # .EXAMPLE
-#    Decode-SecureString -SecureString SecureString
+#    SecureString_Decoder -SecureString SecureString
 #
 # .AUTHOR
 #    paolofrigo@gmail.com , 2018 https://www.scriptinglibrary.com
 #
 # ------------------------------------------------------------
-Function Decode-SecureString
+Function SecureString_Decoder
 {
 	[CmdletBinding()]
 	[Alias('dssp')]
@@ -39,7 +39,7 @@ Function Decode-SecureString
 	{
 	}
 }
-Export-ModuleMember -Function "Decode-SecureString";
+Export-ModuleMember -Function "SecureString_Decoder";
 
 
 # ------------------------------------------------------------

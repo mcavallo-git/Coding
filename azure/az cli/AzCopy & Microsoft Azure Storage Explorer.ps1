@@ -161,10 +161,6 @@ azcopy bench "${URL_WithoutSAS}?${SAS_QueryString}" --file-count 5 --size-per-fi
 #    "Where are your files located to start with and the blob storage? I can use azcopy to move 80GB files at the average speed of 60MB/s between US East2 (source file location on a linux box) and US East (blob storage location . I'm not sure I would get such good performances across regions. There are recommendations about splitting big files in smaller chunks to use parallelism in transfer, but the value I did see in the docs was 15GB chunks (and the doc was talking about a 200+GB file). I would suggest you split your 1TB in like 50GB chunks first then give it another try. For the parallelism, the number of concurrent operations is equal eight times the number of processors you have. If you are running AzCopy across a low-bandwidth network, you can specify a lower number for --parallel-level to avoid failure caused by resource competition."  |  https://www.reddit.com/r/AZURE/comments/a7tx5y/azure_azcopy_linux/een94i7/
 #
 #
-# Reference 3 --> 2667 Mbps for a 120 GB file
-#    120GB/6min ~ 20GB/min = 0.3333GBps = 333MBps = ... (next line) = 2667 Mbps  |  https://www.reddit.com/r/AZURE/comments/ajeppa/extremely_slow_azure_blob_upload/eexvhbq/
-#
-#
 # ------------------------------------------------------------
 #
 # Citation(s)

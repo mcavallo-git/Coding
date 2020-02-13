@@ -1,6 +1,12 @@
 #!/bin/bash
 
 # ------------------------------------------------------------
+# Simple Timestamp
+
+DATETIMESTAMP="$(date +'%Y%m%d_%H%M%S')";
+
+
+# ------------------------------------------------------------
 # Simple Benchmark
 
 BENCHMARK_START=$(date +'%s.%N');

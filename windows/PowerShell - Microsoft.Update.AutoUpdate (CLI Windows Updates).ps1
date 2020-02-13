@@ -10,6 +10,12 @@
 
 
 # ------------------------------------------------------------
+#
+# Note: May need to clear out the update cache-directory @
+$Dir_WindowsUpdate_TempStorage = "C:\Windows\SoftwareDistribution\Download";
+
+
+# ------------------------------------------------------------
 # Deprecated? --> Using UsoClient.exe
 
 # Refresh settings if any changes were made

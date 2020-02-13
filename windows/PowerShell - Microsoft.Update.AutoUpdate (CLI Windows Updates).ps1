@@ -1,21 +1,20 @@
 # ------------------------------------------------------------
 
 
-# Download & Install any available Windows Updates
-((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
+<# Check-for & Download available Windows Updates #> ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
 
+
+<# Clear out cached Windows Updates #> Get-Service | Where-Object { $_.DisplaName -Eq 'Windows Update' } | ForEach-Object { Write-Host "Stopping `"$($_.DisplayName)`"..."; $_ | Stop-Service; } Rename-Item -Path ("C:\Windows\SoftwareDistribution\Download") -NewName ("Download.$(Get-Date -UFormat '%Y%m%d-%H%M%S').bak") -Force; Get-Service | Where-Object { $_.DisplaName -Eq 'Windows Update' } | ForEach-Object { Write-Host "Starting `"$($_.DisplayName)`"..."; $_ | Start-Service; }; <# Check-for & Download available Windows Updates #> ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
+
+
+# ------------------------------------------------------------
 
 # Inspect Auto-Update Settings for Windows Update
 # ((New-Object -ComObject Microsoft.Update.AutoUpdate).Settings());
 
-
 # ------------------------------------------------------------
-#
-# Note: May need to clear out the update cache-directory @
-$Dir_WindowsUpdate_TempStorage = "C:\Windows\SoftwareDistribution\Download";
 
 
-# ------------------------------------------------------------
 # Deprecated? --> Using UsoClient.exe
 
 # Refresh settings if any changes were made

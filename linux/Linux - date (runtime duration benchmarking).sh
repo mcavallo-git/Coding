@@ -15,7 +15,6 @@ BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc
 echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 
 
-
 # ------------------------------------------------------------
 #
 # 	Date-Time Vars

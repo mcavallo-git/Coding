@@ -1,12 +1,12 @@
 # ------------------------------------------------------------
 
 
-# Show Windows Update Automatic-Update Settings
-((New-Object -ComObject Microsoft.Update.AutoUpdate).Settings());
-
-
 # Download & Install any available Windows Updates
 ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
+
+
+# Inspect Auto-Update Settings for Windows Update
+# ((New-Object -ComObject Microsoft.Update.AutoUpdate).Settings());
 
 
 # ------------------------------------------------------------

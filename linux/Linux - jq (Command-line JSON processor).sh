@@ -44,6 +44,17 @@ for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .c
 
 
 # ------------------------------------------------------------
+# Replace JSON Dynamically
+#
+cat "/etc/docker/daemon.json" | jq;
+jq --arg SETPROP "local" '."log-driver" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+jq --arg SETPROP "25m" '."log-opts"."max-size" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+jq --arg SETPROP "1" '."log-opts"."max-file" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+jq --arg SETPROP "false" '."log-opts"."compress" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+cat "/etc/docker/daemon.json" | jq;
+
+
+# ------------------------------------------------------------
 # Citation(s)
 #
 #   github.com  |  "Releases · stedolan/jq · GitHub"  |  https://github.com/stedolan/jq/releases
@@ -53,5 +64,7 @@ for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .c
 #   github.io  |  "[jq] Tutorial"  |  https://stedolan.github.io/jq/tutorial/
 #
 #   serverfault.com  |  "How to install jq on RHEL6.5 - Server Fault"  |  https://serverfault.com/a/768061
+#
+#   stackoverflow.com  |  "bash - Modify a key-value in a json using jq - Stack Overflow"  |  https://stackoverflow.com/a/42717073
 #
 # ------------------------------------------------------------

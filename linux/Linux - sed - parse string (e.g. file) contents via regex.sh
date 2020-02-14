@@ -2,11 +2,31 @@
 #
 # Linux - sed
 #
-
+# ------------------------------------------------------------
 #
 # Simple Example ) Replace substrings within strings
 #
 echo "hello world" | sed -e 's|world|not world|g';
+
+
+# ------------------------------------------------------------
+# 
+# Use sed with piped-commands to parse their output, line-by-line
+#
+
+printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
+
+
+# ------------------------------------------------------------
+# 
+# Remove duplicated lines in a target file (while keeping one copy of each line)
+#
+
+TEMP_SSHD="/tmp/sshd_config_$(date +'%s.%N')"; \
+echo "$(tac ${TEMP_SSHD};)" > "${TEMP_SSHD}";
+echo "$(cat -n ${TEMP_SSHD} | sort -uk2 | sort -nk1 | cut -f2-;)" > "${TEMP_SSHD}";
+echo "$(tac ${TEMP_SSHD};)" > "${TEMP_SSHD}";
+cat "${TEMP_SSHD}";
 
 
 # ------------------------------------------------------------
@@ -52,26 +72,6 @@ fi;
 #
 
 sed -e '/^\s*$/d' "/etc/hosts";
-
-
-# ------------------------------------------------------------
-# 
-# Remove duplicated lines in a target file (while keeping one copy of each line)
-#
-
-TEMP_SSHD="/tmp/sshd_config_$(date +'%s.%N')"; \
-echo "$(tac ${TEMP_SSHD};)" > "${TEMP_SSHD}";
-echo "$(cat -n ${TEMP_SSHD} | sort -uk2 | sort -nk1 | cut -f2-;)" > "${TEMP_SSHD}";
-echo "$(tac ${TEMP_SSHD};)" > "${TEMP_SSHD}";
-cat "${TEMP_SSHD}";
-
-
-# ------------------------------------------------------------
-# 
-# Use sed with piped-commands to parse their output, line-by-line
-#
-
-printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 
 
 # ------------------------------------------------------------

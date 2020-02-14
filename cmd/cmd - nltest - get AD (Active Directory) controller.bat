@@ -20,6 +20,8 @@ REM ------------------------------------------------------------
 REM
 REM Citation(s)
 REM
+REM		docs.bmc.com  |  "Locating Active Directory KDCs - Documentation for BMC Decision Support for Server Automation 8.5 - BMC Documentation"  |  https://docs.bmc.com/docs/decisionsupportserverautomation/85/locating-active-directory-kdcs-350325160.html
+REM
 REM		docs.microsoft.com  |  "DsGetDcOpenA function"  |  https://docs.microsoft.com/en-us/windows/win32/api/dsgetdc/nf-dsgetdc-dsgetdcopena
 REM
 REM		ss64.com  |  "NLTEST.exe"  |  https://ss64.com/nt/nltest.html

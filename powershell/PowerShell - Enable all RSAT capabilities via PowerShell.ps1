@@ -1,8 +1,7 @@
 #!/bin/bash
 
 
-Get-WindowsCapability -Name "RSAT*" -Online;
-
+Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online;
 
 
 # ------------------------------------------------------------

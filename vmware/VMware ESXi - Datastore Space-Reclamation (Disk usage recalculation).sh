@@ -8,7 +8,9 @@ esxcli storage vmfs reclaim config get -u=VMFS_UUID;
 
 ### Manually reclaim all space on datastore
 esxcli storage vmfs unmap -l=VMFS_LABEL -n=RECLAIM_RATE
-esxcli storage vmfs unmap -u=VMFS_UUID;
+
+### Manually reclaim all space on datastore named "datastore2" at the default rate of "200" units per time-period (NEED MORE DOCS HERE)
+esxcli storage vmfs unmap -l=datastore2 -n=200
 
 
 # ------------------------------------------------------------

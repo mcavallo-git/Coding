@@ -9,12 +9,11 @@ vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmf
 vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthick /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thick.vmdk
 
 # ------------------------------------------------------------
-#
-#  Run as a background job (optional - allows you to disconnect and it continues to process in the background)
-#
 
+### Run the disk-conversion job as a background job (optional - allows you to disconnect and it continues to process in the background)
 nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > "/tmp/vmkfstools_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
 
+### Watch the background job's log
 while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat /tmp/vmkfstools_$(date +'%Y%m%d')*.log; sleep 2; done;
 
 

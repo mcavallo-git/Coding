@@ -21,6 +21,9 @@ esxcli storage vmfs unmap -l=datastore2
 ### Run the same job as above w/o the units declaration and as a background job
 nohup esxcli storage vmfs unmap -l=datastore2 > "/tmp/vmfs_unmap_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
 
+### Watch the background job's log
+while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat /tmp/vmfs_unmap_$(date +'%Y%m%d')*.log; sleep 2; done;
+
 
 # ------------------------------------------------------------
 # Citation(s)

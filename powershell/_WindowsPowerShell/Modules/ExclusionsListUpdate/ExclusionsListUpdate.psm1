@@ -368,7 +368,7 @@ function ExclusionsListUpdate {
 						$FoundFilepaths += $_;
 					}
 					If ($WindowsDefender -eq $True) {
-						Add-MpPreference -ExclusionPath "$_";
+						Add-MpPreference -ExclusionPath "$_" | Out-Null;
 						If ($? -eq $True) {
 							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 						} Else {

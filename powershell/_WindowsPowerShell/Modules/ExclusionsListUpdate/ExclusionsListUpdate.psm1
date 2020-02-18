@@ -386,7 +386,7 @@ function ExclusionsListUpdate {
 			If ($_ -ne $Null) {
 				$FoundExtensions += $_;
 				If ($WindowsDefender -eq $True) {
-					Add-MpPreference -ExclusionExtension "$_";
+					Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
 					If ($? -eq $True) {
 						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 					} Else {
@@ -494,7 +494,7 @@ function ExclusionsListUpdate {
 		If ($WindowsDefender -eq $True) {
 			$FoundProcesses | Select-Object -Unique | ForEach-Object {
 				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Adding Defender Process-Exclusion: `"$_`"..."; }
-				Add-MpPreference -ExclusionProcess "$_";
+				Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue";
 				If ($? -eq $True) {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 				} Else {

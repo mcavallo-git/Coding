@@ -60,9 +60,9 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 
 # ------------------------------------------------------------
 # Install the "NuGet PowerShell Gallery" package provider
-# If ((Get-PackageProvider -Name "NuGet") -Eq $Null) {
-# 	Install-PackageProvider -Name ("NuGet") -Force;
-# }
+If ((Get-PackageProvider -Name "NuGet" -ErrorAction "SilentlyContinue") -Eq $Null) {
+	Install-PackageProvider -Name ("NuGet") -Force;
+}
 
 
 # ------------------------------------------------------------

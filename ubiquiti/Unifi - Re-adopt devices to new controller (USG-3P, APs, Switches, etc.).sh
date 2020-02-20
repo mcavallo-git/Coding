@@ -14,7 +14,7 @@
 # Step 2.1)
 #   APs & Switches --> directly call the set-inform command from SSH (sudo may be needed, e.g. sudo set-inform ...)
 #
-set-inform http://192.168.1.27:8080/inform
+set-inform http://unifi:8080/inform
 
 
 #
@@ -22,7 +22,7 @@ set-inform http://192.168.1.27:8080/inform
 #   USG-3P (Unifi Security Gateway) Requires you to use the "mca-cli" environment before calling the set-inform command
 #
 mca-cli
-set-inform http://10.0.0.10:8080/inform
+set-inform http://unifi:8080/inform
 exit
 reboot
 

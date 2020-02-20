@@ -321,7 +321,7 @@ This file (on GitHub):
 <tr><td><strong>Lubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://lubuntu.me/downloads/">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft Server 2016</strong> <sub><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows-server/get-started/system-requirements">View System Requirements (Minimum)</a></sub></td><td><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2016">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
-<tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a></td></tr>
+<tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a><br /><sub><a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Download (16.04 LTS)</a><br /><a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Download (14.04 LTS)</a></sub></td></tr>
 <tr><td><strong>ESXi</strong> <sub>
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor

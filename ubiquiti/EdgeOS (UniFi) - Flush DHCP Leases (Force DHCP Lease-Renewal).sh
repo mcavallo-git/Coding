@@ -7,6 +7,7 @@
 
 sudo -i;
 
+if [ 1 ]; then
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
 CACHE_DNSMASQ_LEASES="/config/$(basename ${LIVE_DNSMASQ_LEASES})" && \
 REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
@@ -31,6 +32,7 @@ sleep 3 && \
 echo "Info:  [ Step 3 ]  Flushing contents of cache-files '/var/run/dhcpd.leases' && '/config/dhcpd.leases'" &&
 clear dhcp leases && \
 echo "Info:  Done - All DHCP leases have been flushed";
+fi;
 
 
 # SUBNET_CIDR=$(show dhcp statistics | sed -rne "s/^\S+_eth1_((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\-(3[0-2]|[1-2]?[0-9]))\ .+$/\1/p";)

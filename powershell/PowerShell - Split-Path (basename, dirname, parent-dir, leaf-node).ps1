@@ -8,7 +8,7 @@ $Basename = (Split-Path -Path (${FullPath}) -Leaf);
 
 
 # ------------------------------------------------------------
-### Current runtime script's directory / basename
+# Ex) Get Current runtime script's directory / basename
 
 $ThisDir = (Split-Path -Path ($MyInvocation.MyCommand.Path) -Parent);
 

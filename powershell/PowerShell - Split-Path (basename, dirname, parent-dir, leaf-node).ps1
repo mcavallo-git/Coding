@@ -1,8 +1,18 @@
+# ------------------------------------------------------------
+
+$FullPath = "${Home}";
+
+$Dirname = (Split-Path -Path (${FullPath}) -Parent);
+
+$Basename = (Split-Path -Path (${FullPath}) -Leaf);
 
 
-$ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
+# ------------------------------------------------------------
+### Current runtime script's directory / basename
 
-$ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
+$ThisDir = (Split-Path -Path ($MyInvocation.MyCommand.Path) -Parent);
+
+$ThisScript = (Split-Path -Path ($MyInvocation.MyCommand.Name) -Leaf);
 
 
 # ------------------------------------------------------------

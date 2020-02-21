@@ -16,6 +16,10 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "devenv.*" } | ForEach-Object { $_.FullName; }
 
 
+<# Search at-most [ 9 ] directories deep within "C:\" for "MSBuild.exe" #>
+Get-ChildItem -Path ("C:\") -Recurse -Depth (9) -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" };
+
+
 # ------------------------------------------------------------
 #
 # Advanced search

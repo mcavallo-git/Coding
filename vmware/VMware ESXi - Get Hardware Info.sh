@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # Save output to a logfile in user-dir
-vim-cmd hostsvc/hostsummary > "~/hostsvc-hostsummary.$(hostname).log";
-chmod 0600 "~/hostsvc-hostsummary.$(hostname).log";
+vim-cmd hostsvc/hostsummary > "/tmp/hostsvc-hostsummary.$(hostname).log"; chmod 0600 "/tmp/hostsvc-hostsummary.$(hostname).log";
 
 # SFTP into the box and download said file
 

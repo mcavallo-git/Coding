@@ -1,15 +1,14 @@
 # ------------------------------------------------------------
 
 $FullPath = "${Home}";
-Write-Host "`$FullPath = `"${FullPath}`"";
 
 # Directory Path-Component
 $Dirname = (Split-Path -Path (${FullPath}) -Parent);
-Write-Host "`$Dirname = `"${Dirname}`"";
 
 # Filename Path-Component
 $Basename = (Split-Path -Path (${FullPath}) -Leaf);
-Write-Host "`$Basename = `"${Basename}`"";
+
+Write-Host "`n  `$FullPath = `"${FullPath}`"`n  `$Dirname  = `"${Dirname}`"`n  `$Basename = `"${Basename}`"`n";
 
 
 # ------------------------------------------------------------

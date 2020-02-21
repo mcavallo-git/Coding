@@ -3,7 +3,7 @@
 # PowerShell - Create a directory
 #
 
-New-Item -ItemType "Directory" -Path ("${Home}\Desktop\ExampleDirectory_$(Get-Date -UFormat '%Y%m%d-%H%M%S')") -Force | Out-Null;
+New-Item -ItemType "Directory" -Path ("${Home}\Desktop\ExampleDirectory_$(Get-Date -UFormat '%Y%m%d-%H%M%S')") | Out-Null;
 
 
 # ------------------------------------------------------------

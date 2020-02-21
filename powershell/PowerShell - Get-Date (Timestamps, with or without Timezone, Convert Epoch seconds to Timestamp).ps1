@@ -26,6 +26,8 @@ $Timestamp = (Get-Date -UFormat '%Y%m%d%H%M%S'); Write-Host ${Timestamp};
 
 # Timestamp, Filename-compatible
 $TimestampFilename = (Get-Date -UFormat '%Y%m%d-%H%M%S'); Write-Host ${TimestampFilename};
+  # Example filename usage
+	New-Item -ItemType "Directory" -Path ("${Home}\Desktop\ExampleDirectory_$(Get-Date -UFormat '%Y%m%d-%H%M%S')") -Force | Out-Null;
 
 # Timestamp, Filename-compatible w/ decimal-seconds
 $EpochDate = ([Decimal](Get-Date -UFormat ("%s"))); `

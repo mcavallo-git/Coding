@@ -6,26 +6,26 @@
 # Timestamp (WITH Timezone)
 # 
 
-Get-Date -UFormat "%Y%m%d%H%M%S%Z";
+Get-Date -UFormat '%Y%m%d%H%M%S%Z';
 
 # Timestamp, Timezone-included (and with as few characters as possible)
-$Timestamp_TZ = (Get-Date -UFormat "%Y%m%d%H%M%S%Z"); Write-Host ${Timestamp_TZ};
+$Timestamp_TZ = (Get-Date -UFormat '%Y%m%d%H%M%S%Z'); Write-Host ${Timestamp_TZ};
 
 # Timestamp, RFC3339-Compliant
-$Timestamp_RFC3339 = (Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z"); Write-Host ${Timestamp_RFC3339};
+$Timestamp_RFC3339 = (Get-Date -UFormat '%Y:%m:%dT%H:%M:%S%Z'); Write-Host ${Timestamp_RFC3339};
 
 
 # ------------------------------------------------------------
 # Timestamp (NO Timezone)
 # 
 
-Get-Date -UFormat "%Y%m%d%H%M%S";
+Get-Date -UFormat '%Y%m%d%H%M%S';
 
 # Timestamp, No-Timezone (and with as few characters as possible)
-$Timestamp = (Get-Date -UFormat "%Y%m%d%H%M%S"); Write-Host ${Timestamp};
+$Timestamp = (Get-Date -UFormat '%Y%m%d%H%M%S'); Write-Host ${Timestamp};
 
 # Timestamp, Filename-compatible
-$TimestampFilename = (Get-Date -UFormat "%Y%m%d-%H%M%S"); Write-Host ${TimestampFilename};
+$TimestampFilename = (Get-Date -UFormat '%Y%m%d-%H%M%S'); Write-Host ${TimestampFilename};
 
 # Timestamp, Filename-compatible w/ decimal-seconds
 $EpochDate = ([Decimal](Get-Date -UFormat ("%s"))); `

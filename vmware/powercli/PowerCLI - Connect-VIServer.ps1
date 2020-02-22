@@ -36,9 +36,6 @@ Disconnect-VIServer "*" -Confirm:$False;
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "Clear-Variable - Deletes the value of a variable"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/clear-variable
-#
-#   powercli-core.readthedocs.io  |  "Add-VMHost"  |  https://powercli-core.readthedocs.io/en/latest/cmd_add.html#add-vmhost
 #
 #   powercli-core.readthedocs.io  |  "Connect-VIServer"  |  https://powercli-core.readthedocs.io/en/latest/cmd_connect.html#connect-viserver
 #

@@ -1,5 +1,6 @@
 
 
+If ($True) {
 $vSphere_Server=(Read-Host "Enter FQDN/IP of vSphere Server:  ");  # DNS name (Fully Qualified Domain Name) or IP address of the vCenter Server system which will have the new VM host added to it
 $vSphere_Datastore=(Read-Host "Enter Name of vSphere Datastore:  ");  # Specifies a datacenter or folder where you want to place the host
 $VM_Name=(Read-Host "Enter Name for the new VM:  ");  # Sets the VM Title/Name and Datastore directory name
@@ -9,6 +10,7 @@ $vSphere_ConnectionStream = Connect-VIServer -Server ${vSphere_Server};
 Add-VMHost -Server ${vSphere_ConnectionStream} -Name ${VM_Name} -Location ${vSphere_Datastore} -User ${vSphere_User} -Password ${vSphere_Pass};
 Clear-Variable -Name "vSphere_Pass" -Force;
 Clear-Variable -Name "vSphere_User" -Force;
+}
 
 
 # ------------------------------------------------------------

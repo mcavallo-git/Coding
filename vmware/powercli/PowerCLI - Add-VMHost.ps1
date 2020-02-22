@@ -1,14 +1,16 @@
 # ------------------------------------------------------------
 #
-# VMware PowerCLI - Install NuGet Repo & PowerCLI PowerShell Module, then connect to a target vSphere (ESXi) Server & create a VM
+# VMware PowerCLI - Connect to a target vSphere Hypervisor (ESXi Server) & create a VM via CLI
 #
 
 If ($True) {
 
+# Install [ NuGet ] PowerShell Module-Repo (if not found locally)
 If ((Get-PackageProvider -Name "NuGet" -ErrorAction "SilentlyContinue") -Eq $Null) {
 Install-PackageProvider -Name ("NuGet") -Force;
 }
 
+# Install [ VMware PowerCLI ] Module (if not found locally)
 If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {
 Install-Module -Name ("VMware.PowerCLI") -Scope CurrentUser -Force;
 }
@@ -16,7 +18,7 @@ Install-Module -Name ("VMware.PowerCLI") -Scope CurrentUser -Force;
 # Ignore invalid certs (for LAN servers, etc.)
 Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore";
 
-$vSphere_Server=(Read-Host "Enter FQDN/IP of vSphere Server");  # DNS name (Fully Qualified Domain Name) or IP address of the vCenter Server system which will have the new VM host added to it
+$vSphere_Server=(Read-Host 'Enter FQDN/IP of vSphere Server');  # DNS name (Fully Qualified Domain Name) or IP address of the vCenter Server system which will have the new VM host added to it
 $VM_Name=(Read-Host "Enter Name for the new VM");  # Sets the VM Title/Name and Datastore directory name
 
 If ($vSphere_ConnectionStream -NE $Null) {
@@ -48,9 +50,9 @@ Clear-Variable -Name "vSphere_User" -Force;
 
 }
 
-Disconnect-VIServer -Server ${vSphere_ConnectionStream} -Force;
-
 }
+
+Disconnect-VIServer "*" -Confirm:$False;
 
 }
 

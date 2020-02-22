@@ -16,6 +16,11 @@ Install-Module -Name ("VMware.PowerCLI") -Scope CurrentUser -Force;
 $vSphere_Server=(Read-Host "Enter FQDN/IP of vSphere Server");  # DNS name (Fully Qualified Domain Name) or IP address of the vCenter Server system which will have the new VM host added to it
 $VM_Name=(Read-Host "Enter Name for the new VM");  # Sets the VM Title/Name and Datastore directory name
 
+If ($vSphere_ConnectionStream -NE $Null) {
+Disconnect-VIServer -Server ${vSphere_ConnectionStream} -Force;
+$vSphere_ConnectionStream = $Null;
+}
+
 $vSphere_ConnectionStream = Connect-VIServer -Server "${vSphere_Server}" -Port "443" -Protocol "https";
 
 If ($vSphere_ConnectionStream -NE $Null) {

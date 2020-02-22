@@ -1,5 +1,7 @@
 #!/bin/bash
 
+if [ 1 ]; then
+
 echo "" > "/tmp/hostsvc-hostsummary.$(hostname).log"; # Save output to a logfile in /tmp
 
 chmod 0600 "/tmp/hostsvc-hostsummary.$(hostname).log";
@@ -16,6 +18,8 @@ echo "  Hardware info saved to \"/tmp/hostsvc-hostsummary.$(hostname).log\"";
 echo "";
 echo "  Connect to this host via SFTP to download the file, or move it to a secured/controlled datastore and download via ESXi's vCenter-Agent or Web GUI --> Datastore Browser";
 echo "";
+
+fi;
 
 
 # ------------------------------------------------------------

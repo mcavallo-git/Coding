@@ -13,6 +13,9 @@ If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyC
 Install-Module -Name ("VMware.PowerCLI") -Scope CurrentUser -Force;
 }
 
+# Ignore invalid certs (for LAN servers, etc.)
+Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore";
+
 $vSphere_Server=(Read-Host "Enter FQDN/IP of vSphere Server");  # DNS name (Fully Qualified Domain Name) or IP address of the vCenter Server system which will have the new VM host added to it
 $VM_Name=(Read-Host "Enter Name for the new VM");  # Sets the VM Title/Name and Datastore directory name
 

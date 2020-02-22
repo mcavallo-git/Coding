@@ -1,22 +1,49 @@
-
+# ------------------------------------------------------------
+#
+# VMware PowerCLI - Install NuGet Repo & PowerCLI PowerShell Module, then connect to a target vSphere (ESXi) Server & create a VM
+#
 
 If ($True) {
 
+If ((Get-PackageProvider -Name "NuGet" -ErrorAction "SilentlyContinue") -Eq $Null) {
+Install-PackageProvider -Name ("NuGet") -Force;
+}
+
+If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {
+Install-Module -Name ("VMware.PowerCLI") -Scope CurrentUser -Force;
+}
+
+$vSphere_Datastore=(Read-Host "Enter Datastore name which should contain this VM (enter only the top-level datastore name/nickname)");  # Specifies a datacenter or folder where you want to place the host
 $vSphere_Server=(Read-Host "Enter FQDN/IP of vSphere Server");  # DNS name (Fully Qualified Domain Name) or IP address of the vCenter Server system which will have the new VM host added to it
 $VM_Name=(Read-Host "Enter Name for the new VM");  # Sets the VM Title/Name and Datastore directory name
-$vSphere_Datastore=(Read-Host "Enter Datastore name which should contain this VM (enter only the top-level datastore name/nickname)");  # Specifies a datacenter or folder where you want to place the host
+
+$vSphere_ConnectionStream = Connect-VIServer -Server "${vSphere_Server}" -Port "443" -Protocol "https";
+
+If ($vSphere_ConnectionStream -NE $Null) {
 $vSphere_User = (Read-Host "Enter vSphere Login-Username");
 $vSphere_Pass = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString "Enter vSphere Login-Password"))));
+}
 
-$vSphere_ConnectionStream = Connect-VIServer -Server "${vSphere_Server}" -Credential "" -Port "443" -Protocol "https";
+$vSphere_ConnectionStream = Connect-VIServer -Server "${vSphere_Server}" -Port "443" -Protocol "https";
 
-Get-Datastore;
+If ($vSphere_ConnectionStream -NE $Null) {
 
-Add-VMHost -Server ${vSphere_ConnectionStream} -Name ${VM_Name} -Location ${vSphere_Datastore} -User ${vSphere_User} -Password ${vSphere_Pass};
+$vSphere_Datastore = Get-Datastore;
+Write-Host ""; For ($i = 0; $i -lt $vSphere_Datastore.Count; $i++) { Write-Host " [  $i  ]  $(${vSphere_Datastore}[$i].Name)"; }; Write-Host ""; 
+$DatastoreIdx=(Read-Host "Enter the index corresponding to the desired Datastore for this VM");
+$Datastore = ($vSphere_Datastore[${DatastoreIdx}]);
+
+If (${Datastore} -NE $Null) {
+
+Add-VMHost -Server ${vSphere_ConnectionStream} -Name ${VM_Name} -Location ${Datastore} -User ${vSphere_User} -Password ${vSphere_Pass};
 Clear-Variable -Name "vSphere_Pass" -Force;
 Clear-Variable -Name "vSphere_User" -Force;
 
-Disconnect-VIServer -Server * -Force;
+}
+
+Disconnect-VIServer -Server ${vSphere_ConnectionStream} -Force;
+
+}
 
 }
 

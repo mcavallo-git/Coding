@@ -1,4 +1,10 @@
-RFC 3161 Timestamping Service
+------------------------------------------------------------
+
+RFC 3161 - Time-Stamp Protocol (TSP), Internet X.509 Public Key Infrastructure
+
+------------------------------------------------------------
+
+Free Timestamp Servers/Services:
 
 http://timestamp.digicert.com
 

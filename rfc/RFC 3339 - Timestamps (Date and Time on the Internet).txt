@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 
-RFC3339 - Timestamps (Date and Time on the Internet)
+RFC 3339 - Timestamps, Date and Time on the Internet
 
 ------------------------------------------------------------
 

@@ -1,0 +1,43 @@
+------------------------------------------------------------
+
+RFC 4675 - RADIUS Attributes for Virtual LAN and Priority Support
+
+------------------------------------------------------------
+
+Refer to citation(s), below - especially https://community.spiceworks.com/topic/994968-understanding-pvid
+
+Ingress/Egress is tagged differently when using "Advanced VLANs", aka 802.1Q VLAN tagging
+
+
+# ------------------------------------------------------------
+# 802.1Q VLAN Tagging
+#
+
+VLAN 1 - The "Default" VLAN tag, but think of it like more like the "Wildcard" VLAN. Modern networking is based off of VLAN 1 as it is used by the data-link layer (layer 2) in all switches when sending (egress) data to other network devices. Devices using VLAN 1 may operate on any VLAN above VLAN 1, or may opt out of adding additional tags, leaving the data still simply tagged with the Default VLAN 1. As an example - if one were to setup a network device to attempt to "untag" all VLANs from a given switch-port (in an attempt to strip all VLAN tags completely off egress data), what would happen is VLAN 1 would get reapplied like a slap on the ass by the upstream switch in an effort to just try and do the layer 2 thing like it always does - lay off of em! Note that VLAN 1 is commonly referred to as the "trunk" VLAN, with ports that use it being called "trunked" switch ports.
+
+VLAN 2-4094 - These VLAN tags are arbitrarily defined, and their functionality and usefulness is only as good as the sysadmin who wields them. According to Wikipedia, "VLANs address issues such as scalability, security, and network management. Network architects set up VLANs to provide network segmentation. Routers between VLANs filter broadcast traffic, enhance network security, perform address summarization, and mitigate network congestion.".
+
+VLAN 4095 - A fun VLAN, as it is actually somewhat of a bait-and-switch VLAN tagging approach. Tagging with VLAN 4095 is called "Virtual Guest Tagging" (VGT) for the reason that any traffic using VGT (4095) tagging has their VLAN tags stripped off at the Guest OS Layer (instead of being stripped by the receiving switch at the portgroup layer) - This allows extension of the VLAN trunk (multiple VLANs on a single wire) to a given client device or set of client devices (if daisy-chained)
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   community.cisco.com  |  "Vlan 1 and Native VLAN!!! - Cisco Community"  |  https://community.cisco.com/t5/switching/vlan-1-and-native-vlan/m-p/687422/highlight/true#M11911
+#
+#   community.spiceworks.com  |  "[SOLVED] Understanding PVID - Networking - Spiceworks"  |  https://community.spiceworks.com/topic/994968-understanding-pvid
+#
+#   en.wikipedia.org  |  "IEEE 802.1Q - Wikipedia"  |  https://en.wikipedia.org/wiki/IEEE_802.1Q
+#
+#   en.wikipedia.org  |  "OSI model - Wikipedia"  |  https://en.wikipedia.org/wiki/OSI_model#Layer_2:_Data_Link_Layer
+#
+#   en.wikipedia.org  |  "Virtual LAN - Wikipedia"  |  https://en.wikipedia.org/wiki/Virtual_LAN
+#
+#   serverfault.com  |  "vlan - How to enable Virtual Guest Tagging(VGT) in ESXi 6.5 - Server Fault"  |  https://serverfault.com/q/879986
+#
+#   tools.ietf.org  |  "RFC 4675 - RADIUS Attributes for Virtual LAN and Priority Support"  |  https://tools.ietf.org/html/rfc4675
+#
+#   www.yellow-bricks.com  |  "VLAN ID 4095 | Yellow Bricks"  |  http://www.yellow-bricks.com/2010/06/10/vlan-id-4095/
+#
+# ------------------------------------------------------------

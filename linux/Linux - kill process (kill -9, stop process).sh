@@ -2,7 +2,7 @@
 exit 1;
 
 # Kill a linux process
-PID="PID_TO_KILL_AS_INTEGER"; kill ${PID}l
+PID="PID_TO_KILL_AS_INTEGER"; kill ${PID};
 
 
 # Example: Kill all java processes

@@ -82,7 +82,7 @@ If ((Get-Command "choco" -ErrorAction "SilentlyContinue") -NE $Null) {
 
 # Instantiate the array of PowerShell modules to pull from available package providers
 $PSGalleryModules = @();
-$PSGalleryModules += "Az";  # https://www.powershellgallery.com/packages/Az
+# $PSGalleryModules += "Az";  # https://www.powershellgallery.com/packages/Az
 $PSGalleryModules += "platyPS";  # https://www.powershellgallery.com/packages/platyPS
 # $PSGalleryModules += "PolicyFileEditor";  # https://www.powershellgallery.com/packages/PolicyFileEditor
 $PSGalleryModules += "PSWindowsUpdate";  # https://www.powershellgallery.com/packages/PSWindowsUpdate

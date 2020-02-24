@@ -18,11 +18,17 @@ ping %NTP_HOST% -n 1
 
 
 REM --> grab the [ current time ] from the NTP server
-w32tm.exe /stripchart /computer:%NTP_HOST% /dataonly /samples:5
+w32tm.exe /stripchart /computer:%NTP_HOST% /dataonly /samples:1
+REM w32tm.exe /stripchart /computer:time.nist.gov /dataonly /samples:1
+REM w32tm.exe /stripchart /computer:pool.ntp.org /dataonly /samples:1
+REM w32tm.exe /stripchart /computer:time.google.com /dataonly /samples:1
+
 
 timeout -t 30
 
+
 exit
+
 
 REM 
 REM   NTP-SERVER RESPONSE-TIMES    ==>    FASTEST:   time1.google.com

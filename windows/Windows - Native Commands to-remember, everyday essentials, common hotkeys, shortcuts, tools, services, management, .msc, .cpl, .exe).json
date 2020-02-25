@@ -18,6 +18,7 @@
 			"mscorcfg.msc": "Net configurations",
 			"ntmsmgr.msc": "Removable Storage",
 			"perfmon.msc": "Performance Manager",
+			"rsop.msc": "Resultant Set of Policies (RSoP) cuts through the confusion and tells you what's happening with your Group Policy settings",
 			"secpol.msc": "Local Security Policy",
 			"services.msc": "System Services",
 			"sqlservermanager11.msc": "Sql Server Configuration Manager - SQL Server 2012 (11.x)",
@@ -149,6 +150,10 @@
 		{
 			"title": "SQL Server Configuration Manager - SQL Server | Microsoft Docs",
 			"url": "https://docs.microsoft.com/en-us/sql/relational-databases/sql-server-configuration-manager"
+		},
+		{
+			"title": "Mastering RSoP | IT Pro",
+			"url": "https://www.itprotoday.com/windows-78/mastering-rsop"
 		},
 		{
 			"title": "mmc | Microsoft Docs",

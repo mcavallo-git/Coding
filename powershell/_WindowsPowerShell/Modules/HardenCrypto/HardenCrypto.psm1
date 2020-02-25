@@ -222,7 +222,9 @@ function HardenCrypto {
 	}
 	
 }
-$MyInvocation | Export-CLIXML -Path $SomeCalculatedPath
+
+$MyInvocation | Export-CLIXML -Path "${Home}\Desktop\Export-CLIXML_$(Get-Date -UFormat '%Y%m%d-%H%M%S')";
+
 Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
 # Install-Module -Name "HardenCrypto"
 

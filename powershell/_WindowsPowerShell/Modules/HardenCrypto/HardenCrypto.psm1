@@ -222,6 +222,7 @@ function HardenCrypto {
 	}
 	
 }
+$MyInvocation | Export-CLIXML -Path $SomeCalculatedPath
 Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
 # Install-Module -Name "HardenCrypto"
 

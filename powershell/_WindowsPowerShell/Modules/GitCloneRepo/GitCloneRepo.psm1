@@ -252,4 +252,9 @@ function GitCloneRepo {
 	Return $WorkingTree_UnixPath;
 
 }
-Export-ModuleMember -Function "GitCloneRepo";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "GitCloneRepo";
+}
+

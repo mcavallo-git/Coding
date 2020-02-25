@@ -519,7 +519,11 @@ function ExclusionsListUpdate {
 		Start-Sleep -Seconds ${WaitCloseSeconds};
 	}
 }
-Export-ModuleMember -Function "ExclusionsListUpdate";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "ExclusionsListUpdate";
+}
 #
 #
 #
@@ -642,8 +646,11 @@ function ESET_ExportModifier {
 		Return 0;
 	}
 }
-Export-ModuleMember -Function "ESET_ExportModifier";
 
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "ESET_ExportModifier";
+}
 
 
 # ------------------------------------------------------------

@@ -87,7 +87,12 @@ function Get-MetaData
 	Return $OutputList | Sort-Object
 
 }
-Export-ModuleMember -Function "Get-MetaData";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "Get-MetaData";
+}
+
 
 # ------------------------------------------------------------
 #

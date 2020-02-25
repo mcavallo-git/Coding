@@ -139,7 +139,11 @@ function NET_Framework_Check {
 	Return;
 
 }
-Export-ModuleMember -Function "NET_Framework_Check";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "NET_Framework_Check";
+}
 
 
 # ------------------------------------------------------------

@@ -40,8 +40,11 @@ Function WakeOnLAN() {
 	Return;
 
 }
-Export-ModuleMember -Function "WakeOnLAN";
-# Install-Module -Name "WakeOnLAN"
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "WakeOnLAN";
+}
 
 
 # ------------------------------------------------------------

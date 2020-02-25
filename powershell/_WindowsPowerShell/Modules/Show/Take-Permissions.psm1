@@ -76,10 +76,11 @@ function TakePermissions {
 	}
 
 }
-Export-ModuleMember -Function "TakePermissions";
-# 
-# Install-Module -Name "TakePermissions"
-# 
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "TakePermissions";
+}
 
 
 # ------------------------------------------------------------

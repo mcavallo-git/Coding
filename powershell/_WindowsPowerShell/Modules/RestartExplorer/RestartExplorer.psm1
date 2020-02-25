@@ -16,7 +16,10 @@ function Restart-Explorer {
 
 }
 
-Export-ModuleMember -Function "Restart-Explorer";
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "Restart-Explorer";
+}
 
 
 # ------------------------------------------------------------

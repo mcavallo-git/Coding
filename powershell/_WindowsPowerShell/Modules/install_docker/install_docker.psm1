@@ -3,7 +3,6 @@ function install_docker {
 	Param(
 	)
 
-
 	If ((RunningAsAdministrator) -Ne ($True)) {
 
 		PrivilegeEscalation -Command ("install_docker");
@@ -24,7 +23,12 @@ function install_docker {
 
 }
 
-Export-ModuleMember -Function "install_docker";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "install_docker";
+}
+
 
 # ------------------------------------------------------------
 # Citation(s)

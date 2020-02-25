@@ -58,7 +58,11 @@ function CheckDedicatedDevices {
 	Return;
 
 }
-Export-ModuleMember -Function "CheckDedicatedDevices";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "CheckDedicatedDevices";
+}
 
 
 # ------------------------------------------------------------

@@ -6,7 +6,11 @@ function IpInSubnet ([string]$Address1, [string]$Address2)
 {
 	return (CheckSubnet ($Address1) ($Address2)).Condition;
 }
-Export-ModuleMember -Function "IpInSubnet";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "IpInSubnet";
+}
 
 #
 # ------------------------------------------------------------
@@ -45,7 +49,11 @@ function CheckSubnet ([string]$addr1, [string]$addr2)
 		CheckNetworkToNetwork $unetwork1 $unetwork2;
 	}
 }
-Export-ModuleMember -Function "CheckSubnet";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "CheckSubnet";
+}
 
 #
 # ------------------------------------------------------------
@@ -64,7 +72,11 @@ function CheckNetworkToSubnet ([uint32]$un2, [uint32]$ma2, [uint32]$un1)
 		return $ReturnArray;
 	}
 }
-Export-ModuleMember -Function "CheckNetworkToSubnet";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "CheckNetworkToSubnet";
+}
 
 #
 # ------------------------------------------------------------
@@ -83,7 +95,11 @@ function CheckSubnetToNetwork ([uint32]$un1, [uint32]$ma1, [uint32]$un2)
 		return $ReturnArray;
 	}
 }
-Export-ModuleMember -Function "CheckSubnetToNetwork";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "CheckSubnetToNetwork";
+}
 
 #
 # ------------------------------------------------------------
@@ -102,7 +118,11 @@ function CheckNetworkToNetwork ([uint32]$un1, [uint32]$un2)
 		return $ReturnArray;
 	}
 }
-Export-ModuleMember -Function "CheckNetworkToNetwork";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "CheckNetworkToNetwork";
+}
 
 #
 # ------------------------------------------------------------
@@ -112,7 +132,11 @@ function SubToBinary ([int]$sub)
 {
 	return ((-bnot [uint32]0) -shl (32 - $sub));
 }
-Export-ModuleMember -Function "SubToBinary";
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "SubToBinary";
+}
 
 #
 # ------------------------------------------------------------
@@ -123,13 +147,13 @@ function NetworkToBinary ($network)
 	$a = [uint32[]]$network.split('.');
 	return (($a[0] -shl 24) + ($a[1] -shl 16) + ($a[2] -shl 8) + $a[3]);
 }
-Export-ModuleMember -Function "NetworkToBinary";
 
-#
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "NetworkToBinary";
+}
+
 # ------------------------------------------------------------
-#
-
-
 #
 # Example:  Is   [ 10.165.255.166 ]   in   [ 10.165.255.0/24 ]   ?
 # Command:  IpInSubnet "10.165.255.166" "10.165.255.0/24";
@@ -143,9 +167,11 @@ Export-ModuleMember -Function "NetworkToBinary";
 # Command:  IpInSubnet "192.168.0.65/32" "192.168.0.32/27";
 # Expect:   $False
 #
-
+# 
+# ------------------------------------------------------------
 #
 #	Citation(s)
 #
-# Thanks to [ http://www.gi-architects.co.uk/2016/02/powershell-check-If-ip-or-subnet-matchesfits ]
+#   http://www.gi-architects.co.uk/2016/02/powershell-check-If-ip-or-subnet-matchesfits
 #
+# ------------------------------------------------------------

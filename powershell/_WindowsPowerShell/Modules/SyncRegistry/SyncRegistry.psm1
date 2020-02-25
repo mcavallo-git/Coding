@@ -795,8 +795,11 @@ function SyncRegistry {
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 }
-Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
-# Install-Module -Name "SyncRegistry"
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
+}
 
 
 # ------------------------------------------------------------

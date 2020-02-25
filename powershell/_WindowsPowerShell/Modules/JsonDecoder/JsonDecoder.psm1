@@ -135,11 +135,16 @@ function JsonDecoder {
 
 }
 
-Export-ModuleMember -Function "JsonDecoder";
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "JsonDecoder" -ErrorAction "SilentlyContinue";
+}
 
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
-#	Original function "ConvertTo-Hashtable" thanks to:
-#		4sysops.com, Convert JSON to a PowerShell hash table", https://4sysops.com/archives/convert-json-to-a-powershell-hash-table
+#   4sysops.com  |  "Convert JSON to a PowerShell hash table – 4sysops"  |  https://4sysops.com/archives/convert-json-to-a-powershell-hash-table
 #
+# ------------------------------------------------------------

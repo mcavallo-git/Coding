@@ -382,8 +382,11 @@ Function ESXi_BootMedia() {
 	}
 
 }
-Export-ModuleMember -Function "ESXi_BootMedia";
-# Install-Module -Name "ESXi_BootMedia"
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "ESXi_BootMedia";
+}
 
 
 # ------------------------------------------------------------

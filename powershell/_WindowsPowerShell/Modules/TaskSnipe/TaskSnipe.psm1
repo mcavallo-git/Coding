@@ -247,15 +247,17 @@ Function TaskSnipe {
 	Return;
 
 }
-Export-ModuleMember -Function "TaskSnipe";
-# Install-Module -Name "TaskSnipe"
 
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "TaskSnipe";
+}
 
 
 # ------------------------------------------------------------
 #
 #	Citation(s)
 #
-#		docs.microsoft.com | "Stop-Service - Microsoft Docs" | https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service
+#   docs.microsoft.com | "Stop-Service - Microsoft Docs" | https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service
 #
-#
+# ------------------------------------------------------------

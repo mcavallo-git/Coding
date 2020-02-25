@@ -46,9 +46,9 @@ function ManualGenerator {
 
 	Return;
 }
-Export-ModuleMember -Function "ManualGenerator";
 
-#
-#	MCavallo
-#	2019-06-20_15-36-54
-#
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "ManualGenerator";
+}
+

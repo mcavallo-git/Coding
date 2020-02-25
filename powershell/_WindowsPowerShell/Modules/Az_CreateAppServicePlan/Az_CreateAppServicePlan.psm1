@@ -72,4 +72,8 @@ function Az_CreateAppServicePlan {
 	# ------------------------------------------------------------- #
 }
 
-Export-ModuleMember -Function "Az_CreateAppServicePlan";
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "Az_CreateAppServicePlan";
+}
+

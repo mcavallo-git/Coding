@@ -687,4 +687,8 @@ function Az_AppService_Frontend {
 
 }
 
-Export-ModuleMember -Function "Az_AppService_Frontend";
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "Az_AppService_Frontend";
+}
+

@@ -123,4 +123,8 @@ function Az_AppInsights_Frontend {
 
 }
 
-Export-ModuleMember -Function "Az_AppInsights_Frontend";
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "Az_AppInsights_Frontend";
+}
+

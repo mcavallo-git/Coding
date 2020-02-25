@@ -259,8 +259,11 @@ Function FiletypeAssociations() {
 	Return;
 
 }
-Export-ModuleMember -Function "FiletypeAssociations";
-# Install-Module -Name "FiletypeAssociations"
+
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "FiletypeAssociations";
+}
 
 
 # ------------------------------------------------------------

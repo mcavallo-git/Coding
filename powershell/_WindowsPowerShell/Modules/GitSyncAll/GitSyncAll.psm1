@@ -181,10 +181,17 @@ function GitSyncAll {
 	#
 	Return;
 }
-Export-ModuleMember -Function "GitSyncAll";
 
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "GitSyncAll";
+}
+
+
+# ------------------------------------------------------------
 #
 #	Citation(s)
-#		
-#		Icon file "GitSyncAll.ico" thanks-to:  https://www.iconarchive.com/download/i103479/paomedia/small-n-flat/sign-sync.ico
 #
+#   Icon file "GitSyncAll.ico" (should be next to this file) thanks-to:  https://www.iconarchive.com/download/i103479/paomedia/small-n-flat/sign-sync.ico
+#
+# ------------------------------------------------------------

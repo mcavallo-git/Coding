@@ -224,7 +224,7 @@ function HardenCrypto {
 }
 
 $MyInvocation | Export-CLIXML -Path "${Home}\Desktop\Export-CLIXML_$(Get-Date -UFormat '%Y%m%d-%H%M%S')";
-$MyInvocation.GetType | Out-File "${Home}\Desktop\Export-CLIXML_$(Get-Date -UFormat '%Y%m%d-%H%M%S').GetType";
+$MyInvocation.GetType() | Out-File "${Home}\Desktop\Export-CLIXML_$(Get-Date -UFormat '%Y%m%d-%H%M%S').GetType";
 
 Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
 # Install-Module -Name "HardenCrypto"

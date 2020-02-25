@@ -222,12 +222,11 @@ function HardenCrypto {
 	}
 	
 }
-
-$MyInvocation | Export-CLIXML -Path "${Home}\Desktop\Export-CLIXML_$(Get-Date -UFormat '%Y%m%d-%H%M%S')";
-Write-Host "`$MyInvocation.GetType() = [ $($MyInvocation.GetType()) ]";
-
-Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
-# Install-Module -Name "HardenCrypto"
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
+	# Install-Module -Name "HardenCrypto"
+}
 
 
 

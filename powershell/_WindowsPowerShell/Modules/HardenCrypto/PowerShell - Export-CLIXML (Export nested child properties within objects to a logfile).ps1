@@ -10,7 +10,7 @@
 # A:
 #   Yep, $MyInvocation. You might want to use something like:
 
-      $MyInvocation | Export-CLIXML -Path $SomeCalculatedPath;
+      $MyInvocation | Export-CLIXML -Path "${Home}\Desktop\Export-CLIXML_$(Get-Date -UFormat '%Y%m%d-%H%M%S')";
 
 #    Using serialized output is important as export-csv, out-file, and other methods won't give you the nested properties under this object.
 

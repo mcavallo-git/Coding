@@ -99,7 +99,7 @@ function HardenCrypto {
 			$SubKey_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
 
 
-			<# Gramt additional user(s) access rights onto this, specific, key #>
+			<# Grant additional user(s) access rights onto this, specific, key #>
 			If ($False) {
 				<# Get the registry key's access controls #>
 				$KeyAccess_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));

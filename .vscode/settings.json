@@ -4,7 +4,7 @@
 		"editor.tabSize": 2
 	},
 	"[yaml]": {
-		"editor.autoIndent": false,
+		"editor.autoIndent": "none",
 		"editor.insertSpaces": true,
 		"editor.tabSize": 1
 	},
@@ -19,7 +19,7 @@
 	"editor.acceptSuggestionOnEnter": "off",
 	"editor.autoClosingBrackets": "never",
 	"editor.autoClosingQuotes": "never",
-	"editor.autoIndent": true,
+	"editor.autoIndent": "full",
 	"editor.autoSurround": "never",
 	"editor.codeLens": false,
 	"editor.copyWithSyntaxHighlighting": false,
@@ -61,23 +61,22 @@
 	"extensions.ignoreRecommendations": true,
 	"extensions.showRecommendationsOnlyOnDemand": true,
 	"files.associations": {
-		"**/*.conf": "shellscript",
-		"**/*.nginx": "shellscript",
 		"**/*.preset": "powershell",
+		"**/*.royal-key-sequence": "powershell",
 		"**/*.sln": "csharp",
 		"**/*.svg": "html",
 		"**/*.xaml": "html",
+		"**/*.{conf,mfa,no_mfa,nginx,password_auth}": "shellscript",
+		"**/GitHub/*-infrastructure/**/{[!.],[!.][!.],[!.][!.][!.],[!.][!.][!.][!.],[!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.],[!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.][!.]}": "shellscript",
 		"**/Jenkinsfile": "groovy",
-		"**/my.cnf": "properties",
-		"**/cloud-infrastructure/**/*": "shellscript",
 		"**/pam_duo.conf": "ini"
 	},
 	"files.eol": "\n",
 	"files.exclude": {
-		"**/{boneal_vault,CodingVault}": true,
-		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
 		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
-		"**/~$*.{xls,xlsx,doc,docx}": true
+		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
+		"**/~$*.{xls,xlsx,doc,docx}": true,
+		"{boneal,CodingVault,irsahost}/**/*": true
 	},
 	"files.watcherExclude": {
 		"**/.*": true
@@ -91,7 +90,7 @@
 	"git.detectSubmodules": false,
 	"git.detectSubmodulesLimit": 1,
 	"git.enabled": false,
-	"git.promptToSaveFilesBeforeCommit": false,
+	"git.promptToSaveFilesBeforeCommit": "never",
 	"html.autoClosingTags": true,
 	"html.format.endWithNewline": true,
 	"html.format.indentInnerHtml": true,
@@ -101,12 +100,14 @@
 	"json.format.enable": true,
 	"markdown.preview.breaks": true,
 	"markdown.preview.doubleClickToSwitchToEditor": false,
+	"npm.autoDetect": "off",
+	"npm.fetchOnlinePackageInfo": false,
 	"scm.diffDecorations": "none",
 	"search.collapseResults": "alwaysCollapse",
 	"search.exclude": {
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/{boneal_vault,CodingVault}": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"search.quickOpen.includeHistory": false,
@@ -119,6 +120,7 @@
 	"sync.autoDownload": true,
 	"sync.autoUpload": true,
 	"sync.forceDownload": false,
+	"sync.forceUpload": true,
 	"sync.quietSync": true,
 	"sync.removeExtensions": true,
 	"sync.syncExtensions": true,
@@ -148,8 +150,5 @@
 	"xmlTools.xmlFormatterImplementation": "classic",
 	"zenMode.hideActivityBar": false,
 	"zenMode.hideStatusBar": true,
-	"zenMode.hideTabs": true,
-	"npm.fetchOnlinePackageInfo": false,
-	"npm.autoDetect": "off",
-	"sync.forceUpload": true
+	"zenMode.hideTabs": true
 }

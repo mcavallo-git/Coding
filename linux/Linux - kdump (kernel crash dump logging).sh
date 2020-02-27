@@ -16,6 +16,17 @@ if [ $(which kdump 2>'/dev/null' | wc -l;) -gt 0 ]; then
 fi;
 
 
+# Verify that taget service is enabled
+if [ "$(systemctl is-enabled kdump.service > /dev/null 2>&1; echo $?;)" != "0" ]; then
+	systemctl enable kdump.service;
+fi;
+
+# Verify that taget service is active
+if [ "$(systemctl is-active kdump.service > /dev/null 2>&1; echo $?;)" != "0" ]; then
+	systemctl start kdump.service;
+fi;
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

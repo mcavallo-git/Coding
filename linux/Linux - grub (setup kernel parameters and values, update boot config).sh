@@ -4,7 +4,6 @@ exit 1;
 #
 # Regenerate the GRUB2 configuration using the edited default file
 #
-#
 
 # If your system uses BIOS firmware, execute the following command
 grub2-mkconfig -o /boot/grub2/grub.cfg

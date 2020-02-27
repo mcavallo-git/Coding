@@ -2,10 +2,16 @@
 exit 1;
 # ------------------------------------------------------------
 #
-# STOCK CONFIG FOR RHEL 7.3 LOCATED IN "/etc/default/grub":
+# Regenerate the GRUB2 configuration using the edited default file
+#
 #
 
-grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg;
+# If your system uses BIOS firmware, execute the following command
+grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# On a system with UEFI firmware, execute the following instead:
+grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg
+
 
 # ------------------------------------------------------------
 #

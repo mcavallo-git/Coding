@@ -1,13 +1,21 @@
 #!/bin/bash
+exit 1;
 
 # ------------------------------------------------------------
+# Check current disks/partitions
+fdisk -l;
+
 
 # check that file-system doesn't just say "data", otherwise it must be formatted
-sudo file -s /dev/sda1
-sudo file -s /dev/xvda1
+sudo file -s /dev/sda1;
+sudo file -s /dev/xvda1;
+
+# ------------------------------------------------------------
+# Mounting devices/drives/disks to a locally resolvable filepath
 
 # make a location to mount the drive
 sudo mkdir /data
+mount -t ntfs /dev/sda1  /mnt/
 
 # mount a drive at a location
 mkdir -p "/mnt/xvda1";

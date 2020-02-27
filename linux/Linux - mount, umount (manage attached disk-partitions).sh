@@ -13,8 +13,10 @@ sudo file -s /dev/xvda1;
 # ------------------------------------------------------------
 # Mounting devices/drives/disks to a locally resolvable filepath
 
-# make a location to mount the drive
+# create directory to mount the disk to
 sudo mkdir /data
+
+# mount the disk to aforementioned directory
 mount -t ntfs /dev/sda1  /mnt/
 
 # mount a drive at a location

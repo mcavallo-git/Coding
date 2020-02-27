@@ -8,15 +8,21 @@
 #
 
 if [ $(which yum 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
-	if [ $(which kdump 2>'/dev/null' | wc -l;) -gt 0 ]; then
-		yum install kexec-tools;
-	fi;
 	### Check if kdump is installed (or not)
 	# rpm -q kexec-tools
 	#
-	### Check if kdump's GUI-based configuration tool is installed (or not)
+	### 
+	### Install kdump
+	if [ $(which kdump 2>'/dev/null' | wc -l;) -gt 0 ]; then
+		yum install kexec-tools;
+	fi;
+	### Check if kdump's GUI-based configuration module is installed (or not)
 	# rpm -q system-config-kdump
 	#
+	### Install kdump's GUI-based configuration module
+	# if [ $(which kdump 2>'/dev/null' | wc -l;) -gt 0 ]; then
+	# 	yum install system-config-kdump;
+	# fi;
 fi;
 
 

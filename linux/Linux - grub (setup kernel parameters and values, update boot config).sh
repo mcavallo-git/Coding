@@ -5,11 +5,11 @@ exit 1;
 # Regenerate the GRUB2 configuration using the edited default file
 #
 
-# If your system uses BIOS firmware, execute the following command
-grub2-mkconfig -o /boot/grub2/grub.cfg;
-
-# On a system with UEFI firmware, execute the following instead:
+# UEFI based systems - use the following command:
 grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg;
+
+# BIOS (NON-UEFI) based systems - use the following command:
+grub2-mkconfig -o /boot/grub2/grub.cfg;
 
 
 # ------------------------------------------------------------

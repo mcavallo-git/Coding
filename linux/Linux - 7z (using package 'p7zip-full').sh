@@ -1,9 +1,21 @@
 #!/bin/bash
+exit 1;
 
 # ------------------------------------------------------------
-# Pre-Req: Install 7-Zip Package (Ubuntu)
+#
+# Install 7-Zip Package
+#
 
-sudo apt-get -y update && sudo apt-get -y install p7zip-full;
+if [ $(which 7z 2>'/dev/null' | wc -l;) -gt 0 ]; then
+	if [ $(which apt 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Debian, Ubuntu, etc.
+		sudo apt-get -y update && sudo apt-get -y install p7zip-full;
+	elif [ $(which yum 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
+		wget https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/epel/7/x86_64/Packages/p/p7zip-16.02-10.el7.x86_64.rpm
+		wget https://www.mirrorservice.org/sites/dl.fedoraproject.org/pub/epel/7/x86_64/Packages/p/p7zip-plugins-16.02-10.el7.x86_64.rpm
+		sudo rpm -U --quiet p7zip-16.02-10.el7.x86_64.rpm;
+		sudo rpm -U --quiet p7zip-plugins-16.02-10.el7.x86_64.rpm;
+	fi;
+fi;
 
 
 # ------------------------------------------------------------
@@ -51,4 +63,10 @@ SOLID_ARCH="on";    ### CHOICES: {on, off}
 # 7z a "${FILEPATH_ARCHIVE_7Z}" -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=on "${FILEPATH_TO_COMPRESS}";
 
 
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   gist.github.com  |  "7zip install on Linux -- Ubuntu and Fedora or CentOS / RHEL · GitHub"  |  https://gist.github.com/P7h/9fcccc54596ad05764128dec6f6cf78d
+#
 # ------------------------------------------------------------

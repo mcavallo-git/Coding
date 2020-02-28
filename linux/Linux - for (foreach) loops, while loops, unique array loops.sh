@@ -8,8 +8,11 @@
 #   Note: Make sure to use BASH ( start script with #!/bin/bash ) --> Attempting to use bashisms like this through "sh" will throw error such as [ Syntax error: "(" unexpected ]
 #
 # ------------------------------------------------------------
+#
+#   For-Loop(s)
+#
 
-# Example from "/etc/profile" from stock Ubuntu 19.04 image within file
+# Base for-loop example (pulled from "/etc/profile" on stock Ubuntu 19.04 image)
 if [ -d /etc/profile.d ]; then
   for i in /etc/profile.d/*.sh; do
     if [ -r $i ]; then
@@ -19,17 +22,12 @@ if [ -d /etc/profile.d ]; then
   unset i
 fi
 
-
 # ------------------------------------------------------------
-# infinite while-loop (until user cancels, terminal ends, or machine stops)
-while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
+#
+#   ForEach-Loop(s)
+#
 
-
-# ------------------------------------------------------------
-### Newline Delimitation (splitting a string on newline as the delimiter)
-
-
-### For-Loop using newline delimiter
+# ForEach-Loop using newline delimiter
 ROLLBACK_IFS="${IFS}"; IFS=$'\n'; \
 for EACH_LINE in $(ps aux); do \
 echo "------------------------------------------------------------"; \
@@ -38,11 +36,20 @@ done; \
 IFS="${ROLLBACK_IFS}";
 
 
-### While-loop using newline delimiter
+# ------------------------------------------------------------
+#
+#   While-Loops
+#
+
+# While-loop using newline delimiter
 ps aux | while read -r -d $'\n' EACH_LINE; do \
 echo "------------------------------------------------------------"; \
 echo "${EACH_LINE}"; \
 done;
+
+
+# Infinite while-loop (until user cancels, terminal ends, or machine stops)
+while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/lib/mongo) ], files: [ $(find /var/lib/mongo | wc -l) ]"; sleep 15; done;
 
 
 # ------------------------------------------------------------

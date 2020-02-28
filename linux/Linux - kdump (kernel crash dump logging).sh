@@ -7,7 +7,7 @@
 # Install the kernel crash dump logging module
 #
 
-if [ $(which kdump 2>'/dev/null' | wc -l;) -gt 0 ]; then
+if [ $(which kdump 2>'/dev/null' | wc -l;) -eq 0 ]; then
 	if [ $(which apt 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Debian, Ubuntu, etc.
 		apt-get -y install linux-crashdump;
 	elif [ $(which yum 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.

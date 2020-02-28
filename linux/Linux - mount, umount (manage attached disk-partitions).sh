@@ -5,6 +5,10 @@ exit 1;
 # Check current disks/partitions
 fdisk -l;
 
+# View all attached disks/partitions
+fdisk -l | grep sectors | grep '^Disk';
+
+# ------------------------------------------------------------
 
 # check that file-system doesn't just say "data", otherwise it must be formatted
 sudo file -s /dev/sda1;

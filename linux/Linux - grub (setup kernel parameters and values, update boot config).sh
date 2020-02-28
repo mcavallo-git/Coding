@@ -2,6 +2,23 @@
 exit 1;
 # ------------------------------------------------------------
 #
+# Set desired kernel settings in "/etc/default/grub"
+#
+
+vi "/etc/default/grub";
+
+###### Example stock configuration of grub2 for RHEL 7.3:
+###  GRUB_TIMEOUT=5
+###  GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
+###  GRUB_DEFAULT=saved
+###  GRUB_DISABLE_SUBMENU=true
+###  GRUB_TERMINAL_OUTPUT="console"
+###  GRUB_CMDLINE_LINUX="console=tty1 console=ttyS0 earlyprintk=ttyS0 rootdelay=300"
+###  GRUB_DISABLE_RECOVERY="true"
+
+
+# ------------------------------------------------------------
+#
 # Regenerate the GRUB2 configuration using the edited default file
 #
 
@@ -10,20 +27,6 @@ grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg;
 
 # BIOS (NON-UEFI) based systems - use the following command:
 grub2-mkconfig -o /boot/grub2/grub.cfg;
-
-
-# ------------------------------------------------------------
-#
-# STOCK CONFIG FOR RHEL 7.3 LOCATED IN "/etc/default/grub":
-#
-
-GRUB_TIMEOUT=5
-GRUB_DISTRIBUTOR="$(sed 's, release .*$,,g' /etc/system-release)"
-GRUB_DEFAULT=saved
-GRUB_DISABLE_SUBMENU=true
-GRUB_TERMINAL_OUTPUT="console"
-GRUB_CMDLINE_LINUX="console=tty1 console=ttyS0 earlyprintk=ttyS0 rootdelay=300"
-GRUB_DISABLE_RECOVERY="true"
 
 
 # ------------------------------------------------------------

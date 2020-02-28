@@ -6,7 +6,7 @@ exit 1;
 # Install 7-Zip Package
 #
 
-if [ $(which 7z 2>'/dev/null' | wc -l;) -gt 0 ]; then
+if [ $(which 7z 2>'/dev/null' | wc -l;) -eq 0 ]; then
 	if [ $(which apt 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Debian, Ubuntu, etc.
 		sudo apt-get -y update && sudo apt-get -y install p7zip-full;
 	elif [ $(which yum 2>'/dev/null' | wc -l;) -gt 0 ]; then # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.

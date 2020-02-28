@@ -66,6 +66,7 @@ This file (on GitHub):
 		<span>Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)</span>
 	</summary>
 <pre><code>find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'</code></pre>
+<pre><code>find "/var/log" -type "f" -printf "%A+ %p\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'</code></pre>
 <hr /></details></li><br />
 
 

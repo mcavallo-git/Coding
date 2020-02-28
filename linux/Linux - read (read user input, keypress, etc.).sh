@@ -5,17 +5,17 @@
 read -p "Press any key to continue...  " -n 1 -t 60 -r; # Await single keypress
 
 # ------------------------------------------------------------
+# Await multiple keypresses (general keyboard string-entry)
 
 READ_TIMEOUT=60;
 read -p "Enter a string:  " -t ${READ_TIMEOUT} -r; RETURN_CODE_READ=$?;
-
 echo "";
-if [ ${RETURN_CODE_READ} -gt 128 ]; then
-	echo -e "Response timed out after ${READ_TIMEOUT}s";
-elif [ -z "${REPLY}" ]; then
-	echo "Response's string-length is zero (empty/unset)";
+if [ ${RETURN_CODE_READ} -le 128 ] && [ -n "${REPLY}" ]; then
+	echo "Info:  Response received: \"${REPLY}\"";
+elif [ ${RETURN_CODE_READ} -gt 128 ]; then
+	echo "Error:  Response timed out after ${READ_TIMEOUT}s";
 else
-	echo "Response received: \"${REPLY}\"";
+	echo "Info:  Response's string-length is zero (empty/unset)";
 fi;
 
 # ------------------------------------------------------------
@@ -25,11 +25,11 @@ READ_TIMEOUT=60;
 read -p "Perform action [ xyz ], now? (y/n)  " -n 1 -t 60 -r; RETURN_CODE_READ=$?;
 echo "";
 if [ ${RETURN_CODE_READ} -gt 128 ]; then
-	echo -e "Response timed out after ${READ_TIMEOUT}s";
+	echo "Error:  Response timed out after ${READ_TIMEOUT}s";
 elif [ -n "${REPLY}" ] && [[ $REPLY =~ ^[Yy]$ ]]; then
-	echo "Confirmed - Performing Action [ xyz ] ...";
+	echo "Info:  Confirmed - Performing Action [ xyz ] ...";
 else
-	echo "Denied - Skipping action [ xyz ]";
+	echo "Info:  Denied - Skipping action [ xyz ]";
 fi;
 
 # ------------------------------------------------------------

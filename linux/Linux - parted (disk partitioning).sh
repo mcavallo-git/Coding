@@ -23,6 +23,22 @@ done; IFS="${ROLLBACK_IFS}";
 
 
 # ------------------------------------------------------------
+# Partition un-partitioned disk(s)
+ROLLBACK_IFS="${IFS}"; IFS=$'\n';
+for EACH_LINE in $(parted -lm 2>&1 | grep -i ^/;); do \
+EACH_DISK_DEVICE=$(echo "${EACH_LINE}" | cut -d':' -f1;);
+EACH_DISK_SIZE=$(echo "${EACH_LINE}" | cut -d':' -f2;);
+EACH_PARTITION_TABLE=$(echo "${EACH_LINE}" | cut -d':' -f6;);
+if [ "${EACH_PARTITION_TABLE}" == "unknown" ]; then
+	echo "Partitioning  [  ${EACH_DISK_DEVICE}  ]  as 'msdos'...";
+	parted "${EACH_DISK_DEVICE}" mklabel 'msdos';
+else
+	echo "Skipping device  [  ${EACH_DISK_DEVICE}  ]  (already partitioned as ${EACH_PARTITION_TABLE})"
+fi;
+done; IFS="${ROLLBACK_IFS}";
+
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #

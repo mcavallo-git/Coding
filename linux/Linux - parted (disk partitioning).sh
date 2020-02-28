@@ -27,8 +27,5 @@ done; IFS="${ROLLBACK_IFS}";
 # Citation(s)
 #
 #   linux.die.net  |  "parted(8): partition change program - Linux man page"  |  https://linux.die.net/man/8/parted
-# Citation(s)
-#
-#   access.redhat.com  |  "Chapter 3. Overview of persistent naming attributes Red Hat Enterprise Linux 8 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/managing_storage_devices/assembly_overview-of-persistent-naming-attributes_managing-storage-devices
 #
 # ------------------------------------------------------------

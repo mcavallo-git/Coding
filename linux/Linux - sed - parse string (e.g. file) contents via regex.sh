@@ -34,7 +34,7 @@ cat "${TEMP_SSHD}";
 # Example)  Enable/Disable Linux's MOTD (Message of the Day) feature
 #
 
-# Disable MOTD (Message of the Day)
+# Disable MOTD (Message of the Day) by replacing the whole line containing ENABLED
 sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
 
 # Enable MOTD (Message of the Day)

@@ -1,3 +1,4 @@
+# ------------------------------------------------------------
 #
 #	PowerShell - UpdateDotNetRegistry
 #		|
@@ -5,6 +6,15 @@
 #		|
 #		|--> Example:     PowerShell -Command ("UpdateDotNetRegistry")
 #
+# ------------------------------------------------------------
+If ($False) { # RUN THIS SCRIPT:
+
+
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/UpdateDotNetRegistry/UpdateDotNetRegistry.psm1'));
+
+
+}
+# ------------------------------------------------------------
 Function UpdateDotNetRegistry() {
 	Param(
 		[String]$Dir_VSDefaultBuildInstance="C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional",

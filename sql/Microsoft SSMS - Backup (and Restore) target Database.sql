@@ -8,8 +8,9 @@
 */
 
 
-
-
+BACKUP DATABASE "db_name"
+TO "C:\output_destination.bak"
+WITH COPY_ONLY
 
 
 /*

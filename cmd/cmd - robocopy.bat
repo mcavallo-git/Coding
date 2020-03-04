@@ -72,22 +72,30 @@ ROBOCOPY %SOURCE% %DESTINATION% /xo /dcopy:t /e /w:5 /r:2 /log+:".\Robo_Logfile.
 
 REM ------------------------------------------------------------
 
-REM XCOPY: avoid using it
-REM 	XCopy cannot copy files with "fully qualified name" (full filepath) over 254 characters long
-REM 		(254 characters is apparently the windows maximum path length)
+REM Ex) Recursively copy directories & subcontents to another drive (/e)
+REM     Allow for ability to run same command later just to update destination w/ newer files from source (/xo)
+
+
+ROBOCOPY "E:\SOURCE" "F:\DESINATION" /xo /dcopy:t /e /w:5 /r:2 /log+:"C:\ISO\Robo_Logfile.txt""
 
 
 REM ------------------------------------------------------------
-
+REM 
+REM XCOPY: avoid using it
+REM 	XCopy cannot copy files with "fully qualified name" (full filepath) over 254 characters long
+REM 		(254 characters is apparently the windows maximum path length)
+REM 
+REM 
+REM ------------------------------------------------------------
+REM 
 REM COPY: much less robust than Robocopy
 REM		*Using "Copy" to copy files from source to local folder
 REM 
-
-ECHO Please do not close, copying file(s)...
-
-COPY "\\lan-server\dir1\dir2\filename.exe" "%~dp0\filename.exe"
-
-
+REM 
+REM ECHO Please do not close, copying file(s)...
+REM COPY "\\lan-server\dir1\dir2\filename.exe" "%~dp0\filename.exe"
+REM 
+REM 
 REM ------------------------------------------------------------
 REM
 REM Citation(s)

@@ -76,7 +76,7 @@ REM Ex) Recursively copy directories & subcontents to another drive (/e)
 REM     Allow for ability to run same command later just to update destination w/ newer files from source (/xo)
 
 
-ROBOCOPY "E:\SOURCE" "F:\DESINATION" /xo /dcopy:t /e /w:5 /r:2 /log+:"C:\ISO\Robo_Logfile.txt""
+ROBOCOPY "E:\minio" "F:\minio" /xo /dcopy:t /e /w:5 /r:2 /LOG+:"C:\ISO\Robo_Logfile.txt"
 
 
 REM ------------------------------------------------------------

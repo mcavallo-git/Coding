@@ -17,7 +17,6 @@ Microsoft T-SQL
 /* Note (from Microsoft): The default location is stored in the BackupDirectory registry key under HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL.YourDbName\MSSQLServer. */
 
 
-
 /*
 ------------------------------------------------------------
 

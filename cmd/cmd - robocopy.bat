@@ -17,6 +17,7 @@ ROBOCOPY %SOURCE% %DESTINATION% /COPYALL /DCOPY:T /E /MOVE /R:2 /W:5 /XF %EXCLUD
 
 EXIT
 
+
 REM
 REM         Robocopy Usage: https://ss64.com/nt/robocopy.html 
 REM
@@ -33,13 +34,13 @@ REM                    /Z : Copy files in restartable mode (survive network glit
 REM
 
 
-REM ------------------------------------------------------------------------------------------------------------------------------
+REM ------------------------------------------------------------
 
 REM		Robocopy Examples...
 
-REM ------------------------------------------------------------------------------------------------------------------------------
+REM ------------------------------------------------------------
 
-REM mirrors source folder to destination folder
+REM Mirrors source folder to destination folder
 REM 	** OVERWRITES existing files in destination folder (/mir)
 REM 	** PRESERVES file integrity (/dcopy:t)
 REM 	** IGNORES text files (/xf *.txt)
@@ -47,29 +48,36 @@ REM 	** LOGS (appending) to a log file (/log+:".\Robo_Logfile.txt")
 
 ROBOCOPY %SOURCE% %DESTINATION% /mir /dcopy:t /xf *.txt /log+:".\Robo_Logfile.txt"
 
-REM ------------------------------------------------------------------------------------------------------------------------------
 
-REM mirrors source folder to destination folder
+REM ------------------------------------------------------------
+
+REM Mirrors source folder to destination folder
 REM 	** OVERWRITES existing files in destination folder (/mir)
 REM 	** IGNORES files from source (/xd)
 
 ROBOCOPY %SOURCE% %DESTINATION% /mir /copyall /xc /xo /xn /xd C:\Projects\pikebk
 
-REM ------------------------------------------------------------------------------------------------------------------------------
 
-REM appends files from source folder to destination folder
-REM 	** ignores old source files if destination file is newer
-REM 	** if file is in use [ wait 5 seconds, then retry ] twice
+REM ------------------------------------------------------------
 
-ROBOCOPY %SOURCE% %DESTINATION% /xo /dcopy:t/e /w:5 /r:2
+REM Appends files from source folder to destination folder
+REM 	** IGNORES files which are newer on destination than sourcew (/xo)
+REM 	** RETRIES 2x per-file (if file is in use, etc.) and waits 5s each attempt (/w:5 /r:2)
+REM 	** PRESERVES file integrity (/dcopy:t)
+REM 	** LOGS (appending) to a log file (/log+:".\Robo_Logfile.txt")
+REM 	** RECURSES into subfolders, including empty subfolders (/e)
 
-REM ------------------------------------------------------------------------------------------------------------------------------
+ROBOCOPY %SOURCE% %DESTINATION% /xo /dcopy:t /e /w:5 /r:2 /log+:".\Robo_Logfile.txt"
+
+
+REM ------------------------------------------------------------
 
 REM XCOPY: avoid using it
 REM 	XCopy cannot copy files with "fully qualified name" (full filepath) over 254 characters long
 REM 		(254 characters is apparently the windows maximum path length)
 
-REM ------------------------------------------------------------------------------------------------------------------------------
+
+REM ------------------------------------------------------------
 
 REM COPY: much less robust than Robocopy
 REM		*Using "Copy" to copy files from source to local folder
@@ -79,9 +87,11 @@ ECHO Please do not close, copying file(s)...
 
 COPY "\\lan-server\dir1\dir2\filename.exe" "%~dp0\filename.exe"
 
-REM ------------------------------------------------------------------------------------------------------------------------------
 
+REM ------------------------------------------------------------
+REM
 REM Citation(s)
-REM  ss64.com, "Robocopy.exe"  :::  https://ss64.com/nt/robocopy.html
-
-REM ------------------------------------------------------------------------------------------------------------------------------
+REM
+REM   ss64.com  |  "Robocopy "Robust File Copy" - Windows CMD - SS64.com"  |  https://ss64.com/nt/robocopy.html
+REM
+REM ------------------------------------------------------------

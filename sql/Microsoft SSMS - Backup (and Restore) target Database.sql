@@ -11,7 +11,11 @@ Microsoft T-SQL
 /*  !!!  DO NOT WRAP DB-NAME QUOTES,   !!!  */
 /*  !!!  ONLY USE SINGLE-QUOTES TO WRAP THE OUTPUT FILEPATH (STRING) - DO NOT USE DOUBLE QUOTES  !!!  */
 
-BACKUP DATABASE DatabaseName TO DISK='DatabaseNameCopyOnly.bak' WITH COPY_ONLY;
+-- BACKUP DATABASE DatabaseName TO DISK='DatabaseNameCopyOnly.bak' WITH COPY_ONLY;
+
+/*  !!!  Never seemed to work as-intended  !!!  */
+/* Note (from Microsoft): The default location is stored in the BackupDirectory registry key under HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL.YourDbName\MSSQLServer. */
+
 
 
 /*

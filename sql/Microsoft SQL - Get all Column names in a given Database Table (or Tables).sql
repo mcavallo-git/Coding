@@ -15,8 +15,8 @@ from sys.tables as tab
     left join sys.types as t
     on col.user_type_id = t.user_type_id
 
-WHERE t.NAME = 'TAGBLE_NAME_EXACT_MATCH' 
-	OR t.NAME LIKE '%TABLE_NAME_PARTIAL_MATCH%'
+WHERE tab.NAME = 'TAGBLE_NAME_EXACT_MATCH' 
+	OR tab.NAME LIKE '%TABLE_NAME_PARTIAL_MATCH%'
 
 order by schema_name,
     table_name, 

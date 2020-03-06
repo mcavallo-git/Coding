@@ -44,8 +44,11 @@ FS_TYPE="xfs";
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
 echo "";
 echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";
-echo "";
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
+echo "";
+echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
+df -h | grep -v '^tmp' | grep -v '^dev';
+echo "";
 
 
 # ------------------------------------------------------------

@@ -37,23 +37,33 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 #
 
 if [ 1 ]; then
+
 DEVICE="/dev/sda";           #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
+
 echo "";
 echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
+
+echo "";
+echo "Calling  [ mkfs.${FS_TYPE} \"${DEVICE}\"; ]  ...";
+mkfs.${FS_TYPE} "${DEVICE}";
+
 echo "";
 echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
 df -h | grep -v '^tmp' | grep -v '^dev';
 fdisk -l "${DEVICE}";
+
 echo "";
 echo "Mount your newly-created partition via command:";
 echo "   mkdir -p \"NEW_MOUNT_PATH\";";
 echo "   sudo mount -t \"${PART_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
 echo "";
+
 fi;
 # |
 # |--> Running this yielded output [ Information: You may need to update /etc/fstab. ]

@@ -50,13 +50,15 @@ echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"$
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
 
 echo "";
-echo "Calling  [ mkfs.${FS_TYPE} \"${DEVICE}\"; ]  ...";
-mkfs.${FS_TYPE} "${DEVICE}";
-
-echo "";
 echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
 df -h | grep -v '^tmp' | grep -v '^dev';
 fdisk -l "${DEVICE}";
+
+echo "";
+echo "You may need to first create a filesystem via command:";
+echo "   mkfs.${FS_TYPE} \"${DEVICE}\";";
+echo "";
+mkfs.${FS_TYPE} "${DEVICE}";
 
 echo "";
 echo "Mount your newly-created partition via command:";

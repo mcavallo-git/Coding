@@ -56,6 +56,12 @@ echo "";
 mkfs.${FS_TYPE} "${DEVICE}";
 
 echo "";
+echo "Obtaining UUID for device \"${DEVICE}\" from listings in \"/dev/disk/by-uuid\"...";
+DEVICE_UUID=$(ls -al "/dev/disk/by-uuid" | grep "^l" | grep "../../$(basename ${DEVICE})\$" | awk '{print $9}';);
+echo "Info:  DEVICE_UUID=\"${DEVICE_UUID}\"";
+echo "";
+
+echo "";
 echo "Info: Showing file system disk space usage";
 echo "[SCRIPT-CALL]>  df -h | grep -v '^tmp' | grep -v '^dev';";
 df -h | grep -v '^tmp' | grep -v '^dev';
@@ -119,7 +125,11 @@ lsblk -fp;
 #
 #   opensource.com  |  "How to partition a disk in Linux | Opensource.com"  |  https://opensource.com/article/18/6/how-partition-disk-linux
 #
+#   serverfault.com  |  "ubuntu - How to repair the fstab file with current configuration - Server Fault"  |  https://serverfault.com/a/333742
+#
 #   stackoverflow.com  |  "linux - How to make parted always show the same unit - Stack Overflow"  |  https://stackoverflow.com/a/6428709
+#
+#   unix.stackexchange.com  |  "storage - linux: How can I view all UUIDs for all available disks on my system? - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/660
 #
 #   wiki.archlinux.org  |  "Parted - ArchWiki"  |  https://wiki.archlinux.org/index.php/Parted
 #

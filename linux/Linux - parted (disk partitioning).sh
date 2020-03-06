@@ -48,7 +48,15 @@ parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYT
 echo "";
 echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
 df -h | grep -v '^tmp' | grep -v '^dev';
+fdisk -l "${DEVICE}";
 echo "";
+echo "Mount your newly-created partition via command:";
+echo "   mkdir -p \"NEW_MOUNT_PATH\";";
+echo "   sudo mount \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
+echo "";
+sudo mount "/dev/xvda1" "/mnt/xvda1";
+
+
 fi;
 # |
 # |--> Running this yielded output [ Information: You may need to update /etc/fstab. ]

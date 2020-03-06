@@ -21,6 +21,8 @@ echo "EACH_DISK_DESCRIPTION = [ ${EACH_FIELD_7} ]";
 echo "EACH_UNKOWWN = [ ${EACH_FIELD_8} ]";
 done; IFS="${ROLLBACK_IFS}";
 
+exit 0;
+
 
 # ------------------------------------------------------------
 # Partition un-partitioned disk(s)
@@ -39,10 +41,18 @@ done; IFS="${ROLLBACK_IFS}";
 
 
 # ------------------------------------------------------------
+# Resize a given partition
+
+### REFER TO:  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/storage_administration_guide/s2-disk-storage-parted-resize-part
+
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
 #   access.redhat.com  |  "Chapter 7. Kernel crash dump guide Red Hat Enterprise Linux 7 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/7/html/kernel_administration_guide/kernel_crash_dump_guide
+#
+#   access.redhat.com  |  "13.4. Resizing a Partition Red Hat Enterprise Linux 6 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/storage_administration_guide/s2-disk-storage-parted-resize-part
 #
 #   help.ubuntu.com  |  "Kernel Crash Dump"  |  https://help.ubuntu.com/lts/serverguide/kernel-crash-dump.html
 #

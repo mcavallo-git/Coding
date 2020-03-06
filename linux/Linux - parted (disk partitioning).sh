@@ -18,11 +18,11 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 # ^-- Device name is '/dev/sda' (based on the header line's FIRST value of "/dev/sda)"
 #      |--> DEVICE="/dev/sda";
 #
-# ^-- Total disk size is 400GB disk (based on the '/dev/sda ...' line's SECOND value, "429496729600B")
-#      |--> END_BYTE="429496729600B";
-#
-# ^-- The second (and last) currently-existent partition ends at byte 107374182399, so start new partition just after on 107374182399+1 (based on the '1:...' line's THIRD value, "1074790399B")
+# ^-- The last (second, in this case) partition ends at byte 107374182399, so start new partition ONE byte after it via:  107374182399+1 = 107374182400
 #      |--> START_BYTE="107374182400B";
+#
+# ^-- The disk's maximum capacity ends at byte 429496729600, so end the new partition ONE byte before it via:  429496729600-1 = 429496729599
+#      |--> END_BYTE="429496729599B";
 #
 # ^-- The filesystem type for the currently boot partition on this device is "xfs" (based on the '1:...' line's FIFTH value, "xfs")
 #      |--> FS_TYPE="xfs";
@@ -39,7 +39,7 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 if [ 1 ]; then
 DEVICE="/dev/sda";           #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
-END_BYTE="429496729600B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
 echo "";
@@ -50,6 +50,10 @@ echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
 df -h | grep -v '^tmp' | grep -v '^dev';
 echo "";
 fi;
+# |
+# |--> Running this yielded output [ Information: You may need to update /etc/fstab. ]
+
+### reboot;  # !!! MANUALLY REBOOT SERVER, WHEN READY !!! <-- need to find command to rebuild "/etc/fstab" or whatever file contains current partitions/mounts/etc. WITHOUT restarting/forcing downtime
 
 
 # ------------------------------------------------------------

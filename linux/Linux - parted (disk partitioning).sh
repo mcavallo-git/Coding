@@ -42,6 +42,7 @@ DEVICE="/dev/sda";           #  !!! ENTER VALUE(S), HERE !!!  (see above for det
 START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+MOUNT_PATH="/EXAMPLE-PATH";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
 
@@ -55,11 +56,43 @@ echo "[SCRIPT-CALL]>  mkfs.${FS_TYPE} \"${DEVICE}\";";
 echo "";
 mkfs.${FS_TYPE} "${DEVICE}";
 
+
 echo "";
 echo "Obtaining UUID for device \"${DEVICE}\" from listings in \"/dev/disk/by-uuid\"...";
 DEVICE_UUID=$(ls -al "/dev/disk/by-uuid" | grep "^l" | grep "../../$(basename ${DEVICE})\$" | awk '{print $9}';);
-echo "Info:  DEVICE_UUID=\"${DEVICE_UUID}\"";
+if [ -n "${DEVICE_UUID}" ]; then
+	echo "";
+	echo "Info:  Resolved device \"${DEVICE}\" to UUID \"${DEVICE_UUID}\"";
+	FSTAB_DEVICE="UUID=\"${DEVICE_UUID}\"";
+else
+	echo "";
+	echo "Info:  Unable to resolve device \"${DEVICE}\" to a UUID";
+	FSTAB_DEVICE="${DEVICE}";
+fi;
+
+FSTAB_VALS_1=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $1}';); echo "FSTAB_VALS_1 = \"${FSTAB_VALS_1}\"";
+FSTAB_VALS_2=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $2}';); echo "FSTAB_VALS_2 = \"${FSTAB_VALS_2}\"";
+FSTAB_VALS_3=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';); echo "FSTAB_VALS_3 = \"${FSTAB_VALS_3}\"";
+FSTAB_VALS_4=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';); echo "FSTAB_VALS_4 = \"${FSTAB_VALS_4}\"";
+FSTAB_VALS_5=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';); echo "FSTAB_VALS_5 = \"${FSTAB_VALS_5}\"";
+FSTAB_VALS_6=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';); echo "FSTAB_VALS_6 = \"${FSTAB_VALS_6}\"";
+
 echo "";
+echo "To mount device on-bootup (permanently add mount), add the following line to the \"/etc/fstab\" config file:";
+echo "${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}";
+
+if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
+	# Device mounted at-bootup by its device-path (best practice is to use device UUID)
+	echo "";
+	echo "Info:  Found boot config (by-path) for device \"${DEVICE}\" in \"/etc/fstab\":";
+	echo "Warning:  Best practice is to mount by device UUID, as it remains static per-device (but device paths & labels are not forced to be static)";
+	cat "/etc/fstab" | grep "^${DEVICE}";
+elif [ $(cat "/etc/fstab" | grep "^UUID=\"${DEVICE_UUID}\"" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
+	# Device mounted at-bootup by its UUID
+	echo "";
+	echo "Info:  Found boot config (by-UUID) for device \"${DEVICE}\" in \"/etc/fstab\":";
+	cat "/etc/fstab" | grep "^${DEVICE}";
+fi;
 
 echo "";
 echo "Info: Showing file system disk space usage";
@@ -73,8 +106,8 @@ fdisk -l "${DEVICE}";
 
 echo "";
 echo "Mount your newly-created partition via command:";
-echo "   mkdir -p \"NEW_MOUNT_PATH\";";
-echo "   sudo mount -t \"${FS_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
+echo "   mkdir -p \"${MOUNT_PATH}\";";
+echo "   sudo mount -t \"${FS_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"${MOUNT_PATH}\";";
 echo "";
 
 fi;

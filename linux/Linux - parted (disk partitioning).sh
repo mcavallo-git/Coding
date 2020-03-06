@@ -37,10 +37,10 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 #
 
 if [ 1 ]; then
-DEVICE="/dev/sda";
-START_BYTE="107374182400B";
-END_BYTE="429496729600B";
-FS_TYPE="xfs";
+DEVICE="/dev/sda";           #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+END_BYTE="429496729600B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
 echo "";
 echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";

@@ -44,6 +44,7 @@ END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for det
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 MOUNT_PATH="/EXAMPLE-PATH";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 
+
 echo "";
 echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
@@ -63,7 +64,7 @@ DEVICE_UUID=$(ls -al "/dev/disk/by-uuid" | grep "^l" | grep "../../$(basename ${
 if [ -n "${DEVICE_UUID}" ]; then
 	echo "";
 	echo "Info:  Resolved device \"${DEVICE}\" to UUID \"${DEVICE_UUID}\"";
-	FSTAB_VALS_1="UUID=\"${DEVICE_UUID}\"";
+	FSTAB_VALS_1="UUID=${DEVICE_UUID}";
 else
 	echo "";
 	echo "Info:  Unable to resolve device \"${DEVICE}\" to a UUID";
@@ -83,11 +84,11 @@ if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>/dev/null 2>&1; echo $?;) -eq 0 ];
 	echo "Info:  Found boot config (by-path) for device \"${DEVICE}\" in \"/etc/fstab\":";
 	echo "Warning:  Best practice is to mount by device UUID, as it remains static per-device (but device paths & labels are not forced to be static)";
 	cat "/etc/fstab" | grep "^${DEVICE}";
-elif [ $(cat "/etc/fstab" | grep "^UUID=\"${DEVICE_UUID}\"" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
+elif [ $(cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
 	# Device mounted at-bootup by its UUID
 	echo "";
 	echo "Info:  Found boot config (by-UUID) for device \"${DEVICE}\" in \"/etc/fstab\":";
-	cat "/etc/fstab" | grep "^UUID=\"${DEVICE_UUID}\"";
+	cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}";
 else
 	# Device not currently mounted at-boot
 	echo "";

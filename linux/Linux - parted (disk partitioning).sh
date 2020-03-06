@@ -50,20 +50,25 @@ echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"$
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
 
 echo "";
-echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
-df -h | grep -v '^tmp' | grep -v '^dev';
-fdisk -l "${DEVICE}";
-
-echo "";
-echo "You may need to first create a filesystem via command:";
-echo "   mkfs.${FS_TYPE} \"${DEVICE}\";";
+echo "Constructing a \"${FS_TYPE}\" filesystem on device \"${DEVICE}\"";
+echo "[SCRIPT-CALL]>  mkfs.${FS_TYPE} \"${DEVICE}\";";
 echo "";
 mkfs.${FS_TYPE} "${DEVICE}";
 
 echo "";
+echo "Info: Showing file system disk space usage";
+echo "[SCRIPT-CALL]>  df -h | grep -v '^tmp' | grep -v '^dev';";
+df -h | grep -v '^tmp' | grep -v '^dev';
+
+echo "";
+echo "Info: Listing partition tables for device \"${DEVICE}\"";
+echo "[SCRIPT-CALL]>  fdisk -l \"${DEVICE}\"";
+fdisk -l "${DEVICE}";
+
+echo "";
 echo "Mount your newly-created partition via command:";
 echo "   mkdir -p \"NEW_MOUNT_PATH\";";
-echo "   sudo mount -t \"${PART_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
+echo "   sudo mount -t \"${FS_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
 echo "";
 
 fi;

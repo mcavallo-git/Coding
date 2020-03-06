@@ -63,16 +63,15 @@ DEVICE_UUID=$(ls -al "/dev/disk/by-uuid" | grep "^l" | grep "../../$(basename ${
 if [ -n "${DEVICE_UUID}" ]; then
 	echo "";
 	echo "Info:  Resolved device \"${DEVICE}\" to UUID \"${DEVICE_UUID}\"";
-	FSTAB_DEVICE="UUID=\"${DEVICE_UUID}\"";
+	FSTAB_VALS_1="UUID=\"${DEVICE_UUID}\"";
 else
 	echo "";
 	echo "Info:  Unable to resolve device \"${DEVICE}\" to a UUID";
-	FSTAB_DEVICE="${DEVICE}";
+	FSTAB_VALS_1="${DEVICE}";
 fi;
 
 # Pull default bootup-mount-config-values from existing device's values
-FSTAB_VALS_1=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $1}';);
-FSTAB_VALS_2=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $2}';);
+FSTAB_VALS_2="${MOUNT_PATH}";
 FSTAB_VALS_3=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';);
 FSTAB_VALS_4=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';);
 FSTAB_VALS_5=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';);

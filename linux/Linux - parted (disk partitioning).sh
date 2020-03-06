@@ -38,7 +38,7 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 
 if [ 1 ]; then
 
-DEVICE="/dev/sda";           #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+DEVICE="/dev/sdb";           #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)

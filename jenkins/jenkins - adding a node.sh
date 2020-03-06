@@ -2,7 +2,7 @@
 
 
 ### [ VIA SSH ON NEW NODE ] Sync all cloud_infrastructure modules
-#>  curl -ssL https://centos.sh | bash
+#>  curl -ssL https://rhel.sh | bash -s -- --all;
 
 
 

@@ -70,16 +70,13 @@ else
 	FSTAB_DEVICE="${DEVICE}";
 fi;
 
-FSTAB_VALS_1=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $1}';); echo "FSTAB_VALS_1 = \"${FSTAB_VALS_1}\"";
-FSTAB_VALS_2=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $2}';); echo "FSTAB_VALS_2 = \"${FSTAB_VALS_2}\"";
-FSTAB_VALS_3=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';); echo "FSTAB_VALS_3 = \"${FSTAB_VALS_3}\"";
-FSTAB_VALS_4=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';); echo "FSTAB_VALS_4 = \"${FSTAB_VALS_4}\"";
-FSTAB_VALS_5=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';); echo "FSTAB_VALS_5 = \"${FSTAB_VALS_5}\"";
-FSTAB_VALS_6=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';); echo "FSTAB_VALS_6 = \"${FSTAB_VALS_6}\"";
-
-echo "";
-echo "To mount device on-bootup (permanently add mount), add the following line to the \"/etc/fstab\" config file:";
-echo "${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}";
+# Pull default bootup-mount-config-values from existing device's values
+FSTAB_VALS_1=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $1}';);
+FSTAB_VALS_2=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $2}';);
+FSTAB_VALS_3=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';);
+FSTAB_VALS_4=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';);
+FSTAB_VALS_5=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';);
+FSTAB_VALS_6=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';);
 
 if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
 	# Device mounted at-bootup by its device-path (best practice is to use device UUID)
@@ -91,7 +88,17 @@ elif [ $(cat "/etc/fstab" | grep "^UUID=\"${DEVICE_UUID}\"" 1>/dev/null 2>&1; ec
 	# Device mounted at-bootup by its UUID
 	echo "";
 	echo "Info:  Found boot config (by-UUID) for device \"${DEVICE}\" in \"/etc/fstab\":";
-	cat "/etc/fstab" | grep "^${DEVICE}";
+	cat "/etc/fstab" | grep "^UUID=\"${DEVICE_UUID}\"";
+else
+	# Device not currently mounted at-boot
+	echo "";
+	echo "Warning: Device will not be mounted at-bootup (device bootup-mount-config found in \"/etc/fstab\")";
+	echo " |";
+	echo " |--> To mount device on-bootup (permanently add mount), copy-paste the following line to modify \"/etc/fstab\":";
+	echo "------------------------------------------------------------";
+	echo "echo '${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}' >> '/etc/fstab';";
+	echo "------------------------------------------------------------";
+	echo "";
 fi;
 
 echo "";

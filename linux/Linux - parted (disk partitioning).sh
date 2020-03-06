@@ -52,11 +52,8 @@ fdisk -l "${DEVICE}";
 echo "";
 echo "Mount your newly-created partition via command:";
 echo "   mkdir -p \"NEW_MOUNT_PATH\";";
-echo "   sudo mount \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
+echo "   sudo mount -t \"${PART_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"NEW_MOUNT_PATH\";";
 echo "";
-sudo mount "/dev/xvda1" "/mnt/xvda1";
-
-
 fi;
 # |
 # |--> Running this yielded output [ Information: You may need to update /etc/fstab. ]

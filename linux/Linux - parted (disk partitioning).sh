@@ -9,7 +9,6 @@ lsblk -p -n -o KNAME,TYPE,MOUNTPOINT;
 fdisk -l | grep sectors | grep '^Disk';
 
 
-
 # Get filesystem-type(s) for the current system
 df -h --output="source,fstype";
 lsblk -fp;
@@ -27,8 +26,13 @@ for hdd in /dev/sd? ; do parted -m $hdd unit B print; done;
 ###  mklabel label-type
 #
 
-# PART_TYPE="logical";
-# FS_TYPE="xfs";
+DEVICE="/dev/sda";
+PART_TYPE="logical";
+FS_TYPE="xfs";
+START_BYTE="";
+END_BYTE=""
+parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "1GiB" "8GiB";
+
 # parted "/dev/sda" mklabel "gpt" "mkpart" "${PART_TYPE}" "${FS_TYPE}" "1GiB" "8GiB";
 
 
@@ -61,5 +65,7 @@ for hdd in /dev/sd? ; do parted -m $hdd unit B print; done;
 #   stackoverflow.com  |  "linux - How to make parted always show the same unit - Stack Overflow"  |  https://stackoverflow.com/a/6428709
 #
 #   wiki.archlinux.org  |  "Parted - ArchWiki"  |  https://wiki.archlinux.org/index.php/Parted
+#
+#   www.thegeekdiary.com  |  "How To Create a Partition Using “parted” Command – The Geek Diary"  |  https://www.thegeekdiary.com/how-to-create-a-partition-using-parted-command/
 #
 # ------------------------------------------------------------

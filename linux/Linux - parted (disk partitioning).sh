@@ -28,14 +28,24 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 #      |--> FS_TYPE="xfs";
 #
 
+#
+# Determine partition-type based-on currently-existent partition types
+# !!! AUTOMATICALLY DONE VIA SCRIPT, BELOW !!!
+#  |--> parted "/dev/sda" "print";  # Or without targeting a specific device:   parted -l;
+#        |--> If target disk's "Partition Table" has value "msdos", then it is formatted using MBR, so use "primary" partition type
+#        |--> If target disk's "Partition Table" has value "gpt", then it is formatted using GPT, so use "logical" partition type
+#
+
+
 DEVICE="/dev/sda";
 START_BYTE="107374182400B";
 END_BYTE="429496729600B";
 FS_TYPE="xfs";
-PART_TYPE="logical";
+PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
+echo "";
+echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";
+echo "";
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
-
-# parted "/dev/sda" mklabel "gpt" "mkpart" "${PART_TYPE}" "${FS_TYPE}" "1GiB" "8GiB";
 
 
 # ------------------------------------------------------------

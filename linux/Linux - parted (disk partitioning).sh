@@ -1,49 +1,47 @@
 #!/bin/bash
+# ------------------------------------------------------------
+# Show disk info
 
-ROLLBACK_IFS="${IFS}"; IFS=$'\n';
-for EACH_LINE in "$(parted -lm 2>&1 | grep -i ^/ | grep unknown;)"; do
-EACH_DISK_NAME=$(echo "${EACH_LINE}" | cut -d':' -f1;);
-EACH_DISK_SIZE=$(echo "${EACH_LINE}" | cut -d':' -f2;);
-EACH_PROTOCOL=$(echo "${EACH_LINE}" | cut -d':' -f3;);
-EACH_SECTORSIZE_LOGICAL=$(echo "${EACH_LINE}" | cut -d':' -f4;);
-EACH_SECTORSIZE_PHYSICAL=$(echo "${EACH_LINE}" | cut -d':' -f5;);
-EACH_PARTITION_TABLE=$(echo "${EACH_LINE}" | cut -d':' -f6;);
-EACH_DISK_DESCRIPTION=$(echo "${EACH_LINE}" | cut -d':' -f7;);
-EACH_UNKOWWN=$(echo "${EACH_LINE}" | cut -d':' -f8;);
-echo "------------------------------------------------------------";
-echo "EACH_DISK_NAME = [ ${EACH_DISK_NAME} ]";
-echo "EACH_DISK_SIZE = [ ${EACH_FIELD_2} ]";
-echo "EACH_PROTOCOL = [ ${EACH_FIELD_3} ]";
-echo "EACH_SECTORSIZE_LOGICAL = [ ${EACH_SECTORSIZE_LOGICAL} ]";
-echo "EACH_SECTORSIZE_PHYSICAL = [ ${EACH_SECTORSIZE_PHYSICAL} ]";
-echo "EACH_PARTITION_TABLE = [ ${EACH_PARTITION_TABLE} ]";
-echo "EACH_DISK_DESCRIPTION = [ ${EACH_FIELD_7} ]";
-echo "EACH_UNKOWWN = [ ${EACH_FIELD_8} ]";
-done; IFS="${ROLLBACK_IFS}";
 
-exit 0;
+lsblk -p -n -o KNAME,TYPE,MOUNTPOINT;
+
+
+fdisk -l | grep sectors | grep '^Disk';
+
+
+
+# Get filesystem-type(s) for the current system
+df -h --output="source,fstype";
+lsblk -fp;
+
+
+# List partition beginning/end points
+for hdd in /dev/sd? ; do parted -m $hdd unit B print; done;
 
 
 # ------------------------------------------------------------
-# Partition un-partitioned disk(s)
-ROLLBACK_IFS="${IFS}"; IFS=$'\n';
-for EACH_LINE in $(parted -lm 2>&1 | grep -i ^/;); do \
-EACH_DISK_DEVICE=$(echo "${EACH_LINE}" | cut -d':' -f1;);
-EACH_DISK_SIZE=$(echo "${EACH_LINE}" | cut -d':' -f2;);
-EACH_PARTITION_TABLE=$(echo "${EACH_LINE}" | cut -d':' -f6;);
-if [ "${EACH_PARTITION_TABLE}" == "unknown" ]; then
-	echo "Partitioning  [  ${EACH_DISK_DEVICE}  ]  as 'msdos'...";
-	parted "${EACH_DISK_DEVICE}" mklabel 'msdos';
-else
-	echo "Skipping device  [  ${EACH_DISK_DEVICE}  ]  (already partitioned as ${EACH_PARTITION_TABLE})"
-fi;
-done; IFS="${ROLLBACK_IFS}";
+# Create a new partition
+#
+###  mkpart part-type [fs-type] start end
+#
+###  mklabel label-type
+#
+
+# PART_TYPE="logical";
+# FS_TYPE="xfs";
+# parted "/dev/sda" mklabel "gpt" "mkpart" "${PART_TYPE}" "${FS_TYPE}" "1GiB" "8GiB";
 
 
 # ------------------------------------------------------------
 # Resize a given partition
 
 ### REFER TO:  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/storage_administration_guide/s2-disk-storage-parted-resize-part
+
+
+# ------------------------------------------------------------
+# Partition un-partitioned disk(s)
+
+### UNDER CONSTRUCTION AS-OF 20200305-225420  -->  wget "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/partition_unpartitioned_disks" -O "/usr/local/sbin/partition_unpartitioned_disks" -q && chmod 0755 "/usr/local/sbin/partition_unpartitioned_disks" && /usr/local/sbin/partition_unpartitioned_disks;
 
 
 # ------------------------------------------------------------
@@ -59,5 +57,9 @@ done; IFS="${ROLLBACK_IFS}";
 #   linux.die.net  |  "parted(8): partition change program - Linux man page"  |  https://linux.die.net/man/8/parted
 #
 #   opensource.com  |  "How to partition a disk in Linux | Opensource.com"  |  https://opensource.com/article/18/6/how-partition-disk-linux
+#
+#   stackoverflow.com  |  "linux - How to make parted always show the same unit - Stack Overflow"  |  https://stackoverflow.com/a/6428709
+#
+#   wiki.archlinux.org  |  "Parted - ArchWiki"  |  https://wiki.archlinux.org/index.php/Parted
 #
 # ------------------------------------------------------------

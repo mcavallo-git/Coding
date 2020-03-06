@@ -36,7 +36,7 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 #        |--> If target disk's "Partition Table" has value "gpt", then it is formatted using GPT, so use "logical" partition type
 #
 
-
+if [ 1 -eq 1 ]; then
 DEVICE="/dev/sda";
 START_BYTE="107374182400B";
 END_BYTE="429496729600B";
@@ -49,6 +49,7 @@ echo "";
 echo "Calling  [ df -h | grep -v '^tmp' | grep -v '^dev'; ]  ...";
 df -h | grep -v '^tmp' | grep -v '^dev';
 echo "";
+fi;
 
 
 # ------------------------------------------------------------

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# ------------------------------------------------------------
+# Setting up Dell EMC OMSA for ESXi host management
+# ------------------------------------------------------------
+
 #
 # Step 1 --> Install the Dell OMSA backend package onto target ESXi host, then RESTART the ESXi host (required)
 #
@@ -16,12 +20,22 @@
 #
 #   Install by running file "SysMgmtx64.msi" @ [DOWNLOAD]\OpenManage\windows\SystemsManagementx64\
 #
-#   Browser to localhost on port 1311 
+#   Open browser to localhost on port 1311 
+#
+
+
+#
+# Step 3 --> Adding TLS Certificate to Dell OMSA
+#
+#   Follow the steps given by @ https://www.dell.com/community/Systems-Management-General/replacing-the-SSL-certificate-in-Dell-OMSA-7-2/m-p/4031998/highlight/true#M16590
+#
 
 
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   www.dell.com  |  "Re: replacing the SSL certificate in Dell OMSA 7.2 - Dell Community"  |  https://www.dell.com/community/Systems-Management-General/replacing-the-SSL-certificate-in-Dell-OMSA-7-2/m-p/4031998/highlight/true#M16590
 #
 #   www.dell.com  |  "Support for PowerEdge R720 | Drivers & Downloads | Dell US"  |  https://www.dell.com/support/home/us/en/19/product-support/product/poweredge-r720/drivers
 #

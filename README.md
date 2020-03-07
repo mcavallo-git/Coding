@@ -350,6 +350,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="server-runtimes"><br />Servers / Services<br /><br /></h5></th></tr>
+<tr><td><strong>Dell EMC OMSA</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;OpenManager Server Administrator</br >&nbsp;&nbsp;&nbsp;VMware ESXi remote admin/management</i></sub></td><td><a href="https://www.dell.com/support/home/us/en/19/product-support/product/poweredge-r720/drivers">Download (source)</a></td></tr>
 <tr><td><strong>Docker - Containerized</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Linux LXC Container Management</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>
 <tr><td><strong>Jenkins - CI/CD Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Automates Continuous Integration (CI)<br />&nbsp;&nbsp;&nbsp;Facilitates Continuous-Deployment (CD)</i></sub></td><td><a href="https://jenkins.io">View (source)</a></td></tr>
 <tr><td><strong>NSSM</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Non-Sucking Service<br />&nbsp;&nbsp;&nbsp;Manager (Windows)</i></sub></td><td><a href="https://github.com/minio/mc">Download (Linux)</a></td></tr>

@@ -13,9 +13,10 @@
 #
 #   Name:  Dell EMC OpenManage Server Administrator Managed Node for Windows, v9.4.0
 #   URL:   https://dl.dell.com/FOLDER06019899M/1/OM-SrvAdmin-Dell-Web-WINX64-9.4.0-3787_A00.exe
-#   Run:   Use installation file "SysMgmtx64.msi" @ [DOWNLOAD]\OpenManage\windows\SystemsManagementx64\
-
-
+#
+#   Install by running file "SysMgmtx64.msi" @ [DOWNLOAD]\OpenManage\windows\SystemsManagementx64\
+#
+#   Browser to localhost on port 1311 
 
 
 

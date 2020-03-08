@@ -19,7 +19,13 @@ exit 1;
 
 
 ### 3. To allow root access, change PermitRootLogin no to PermitRootLogin yes in the /etc/ssh/sshd_config file.
-vi "/etc/ssh/sshd_config"
+vi "/etc/ssh/sshd_config";
+### > Enter vim's "Insert Mode" by sending/typing "i" (should state "insert mode" at the bottom of the vim editor)
+###  > ( make your changes )
+###   > Enter vim's "Ex-mode" by sending/typing ":" (should brings up a cursor at the bottom of the screen to enter "Ex commands)
+###    > Save + Quit via command "wq"
+###    > Discard-Changes & Quit via command "!q"
+###    > Clear-File-Contents via Ex-command "1,$d" (wipes all lines, doesn't save --> :w is still required for that)
 
 
 ### 4. To disable password login, ensure that the ChallengeResponseAuthentication and PasswordAuthentication are set to no.

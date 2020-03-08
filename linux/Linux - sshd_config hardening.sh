@@ -79,14 +79,20 @@ Match Group sftp_jailed_users
 	AllowAgentForwarding no
 	AllowTcpForwarding no
 
+# ------------------------------------------------------------
 #
-#	Citation(s)
+#  Citation(s)
 #
-# Documentation
-#		--> https://linux.die.net/man/5/sshd_config
-#		--> https://freebsd.org/cgi/man.cgi?sshd_config(5)
+#   access.redhat.com  |  "14.2. Configuring OpenSSH Red Hat Enterprise Linux 6 | Red Hat Customer Portal"  |  https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/deployment_guide/s1-ssh-configuration
 #
+#   askubuntu.com  |  "security - How to harden an SSH server? - Ask Ubuntu"  |  https://askubuntu.com/questions/2271/how-to-harden-an-ssh-server
 #
-#	Discussion
-#		--> https://askubuntu.com/questions/2271/how-to-harden-an-ssh-server
+#   debian-administration.org  |  "Keeping SSH access secure"  |  https://debian-administration.org/article/87
 #
+#   freebsd.org  |  "sshd_config(5)"  |  https://freebsd.org/cgi/man.cgi?sshd_config(5)
+#
+#   linux.die.net  |  "sshd_config(5): OpenSSH SSH daemon config file - Linux man page"  |  https://linux.die.net/man/5/sshd_config
+#
+#   www.openssh.com  |  "OpenSSH: Manual Pages"  |  https://www.openssh.com/manual.html
+#
+# ------------------------------------------------------------

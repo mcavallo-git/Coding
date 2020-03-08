@@ -20,6 +20,8 @@
 ### List/Show installed ESXi drivers (.vib extensioned files)
 #
 esxcli software vib list;
+#
+esxcli software vib list | grep -i Dell
 
 # ------------------------------------------------------------
 #

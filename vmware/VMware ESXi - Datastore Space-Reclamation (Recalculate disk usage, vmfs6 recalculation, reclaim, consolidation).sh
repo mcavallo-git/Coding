@@ -26,6 +26,7 @@ while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat /tmp/vmf
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   docs.vmware.com  |  "vSphere Documentation Center"  |  https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vcli.ref.doc_50%2Fesxcli_storage.html

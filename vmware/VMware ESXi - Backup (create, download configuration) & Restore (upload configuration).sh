@@ -6,6 +6,9 @@ exit 1;
 #
 
 vim-cmd hostsvc/firmware/backup_config;
+# |
+# ^-- Copy the link that this command outputs, and replace the "http://*/..." with "http://YOUR_ESXI_HOSTNAME_OR_IP/...", then browse to that URL to download it to your local PC
+#
 
 
 # ------------------------------------------------------------

@@ -31,7 +31,7 @@ vi "/etc/ssh/sshd_config";
 ### 4. To disable password login, ensure that the ChallengeResponseAuthentication and PasswordAuthentication are set to no.
 
 
-### 5. Reload the service:
+### 5. Reload the SSH service (updates the SSH server's config with the values from /etc/ssh/sshd_config):
 /etc/init.d/SSH restart;
 
 

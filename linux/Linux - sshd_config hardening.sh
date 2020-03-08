@@ -87,6 +87,8 @@ Match Group sftp_jailed_users
 #
 #   askubuntu.com  |  "security - How to harden an SSH server? - Ask Ubuntu"  |  https://askubuntu.com/questions/2271/how-to-harden-an-ssh-server
 #
+#   bjornjohansen.no  |  "SSH timeout prevention – keep SSH sessions alive"  |  https://bjornjohansen.no/ssh-timeout
+#
 #   debian-administration.org  |  "Keeping SSH access secure"  |  https://debian-administration.org/article/87
 #
 #   freebsd.org  |  "sshd_config(5)"  |  https://freebsd.org/cgi/man.cgi?sshd_config(5)

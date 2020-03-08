@@ -18,7 +18,6 @@ esxcli system coredump file add -d ${NEW_DUMPFILE_UUD}-f coredump;
 esxcli system coredump file set --smart --enable true;
 
 
-
 # ------------------------------------------------------------
 #
 # Citation(s)

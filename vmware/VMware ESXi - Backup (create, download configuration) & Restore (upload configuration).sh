@@ -26,4 +26,6 @@ vim-cmd hostsvc/firmware/restore_config "/tmp/configBundle.tgz";
 #
 #   graspingtech.com  |  "How to Backup and Restore the VMware ESXi 6.5 Configuration - GraspingTech"  |  https://graspingtech.com/backup-vmware-esxi-6-5-configuration/
 #
+#   kb.vmware.com  |  "How to back up ESXi host configuration (2042141)"  |  https://kb.vmware.com/s/article/2042141
+#
 # ------------------------------------------------------------

@@ -54,7 +54,6 @@ done;
 
 
 # Infinite while-loop (until user cancels, terminal ends, or machine stops)
-
 while [ 1 ]; do date; sleep 1; done; # Show the time, once per second (until process is killed/cancelled)
 
 while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/www) ], files: [ $(find /var/www | wc -l) ]"; sleep 15; done; # show the size of target dir once every 15s

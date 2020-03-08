@@ -12,7 +12,11 @@
 #   For-Loop(s)
 #
 
-# Base for-loop example (pulled from "/etc/profile" on stock Ubuntu 19.04 image)
+# Integer-based for-loop
+for i in $(seq 10); do echo "\$i = ${i}"; done;
+
+
+# Filepath-based for-loop example (pulled from "/etc/profile" on stock Ubuntu 19.04 image)
 if [ -d /etc/profile.d ]; then
   for i in /etc/profile.d/*.sh; do
     if [ -r $i ]; then
@@ -21,6 +25,7 @@ if [ -d /etc/profile.d ]; then
   done
   unset i
 fi
+
 
 # ------------------------------------------------------------
 #
@@ -116,5 +121,7 @@ done;
 #		stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #
 #		stackoverflow.com  |  "How do I use a for-each loop to iterate over file paths in bash?"  |  https://stackoverflow.com/a/15066129
+#	
+#		www.cyberciti.biz  |  "Bash For Loop Examples - nixCraft"  |  https://www.cyberciti.biz/faq/bash-for-loop/
 #
 # ------------------------------------------------------------

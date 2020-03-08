@@ -16,7 +16,7 @@ vi "/etc/vmware/ssl/rui.crt";  # Clear file via ":1,$d" -> Enter insert-mode via
 vi "/etc/vmware/ssl/rui.key";  # Clear file via ":1,$d" -> Enter insert-mode via "i" -> Paste updated, PEM-formatted Private-Key via "Shift+Ins" -> Save/Quit via ":wq!"
 
 
-/etc/init.d/hostd restart;  # Restart the [ ESXi host daemon ] and the [ vCenter Agent ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
+/etc/init.d/hostd restart; /etc/init.d/vpxa restart;  # Restart the [ ESXi host daemon ] followed by the [ vCenter Agent ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
 
 
 # ------------------------------------------------------------

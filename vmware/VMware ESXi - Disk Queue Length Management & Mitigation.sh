@@ -44,6 +44,16 @@ done;
 
 # ------------------------------------------------------------
 #
+# Get a list of ALL currently enabled/active modules, then grab ALL of their parameters at once
+#
+esxcli system module list --loaded 1 --enabled 1 | grep -v '^------' | grep -v '^Name ' | awk '{print $1}' | sort | while read EachModuleName; do
+echo "Calling  [ esxcli system module parameters list -m ${EachModuleName}; ]  ...";
+esxcli system module parameters list -m ${EachModuleName};
+done;
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   blog.docbert.org  |  "VMware Queue Depths and Conflicting Worlds"  |  https://blog.docbert.org/vmware-queue-depths-and-conflicting-worlds/

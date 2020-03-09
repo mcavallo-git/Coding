@@ -55,7 +55,8 @@ esxcli system module parameters list -m "fnic";
 
 # Update the LUN-module
 #  |--> fnic_max_qdepth - "Queue depth to report for each LUN"
-esxcli system module parameters set --module="fnic" --parameter-string="fnic_max_qdepth=128"; 
+LUN_MaxQueueDepth=128;
+esxcli system module parameters set --module="fnic" --parameter-string="fnic_max_qdepth=${LUN_MaxQueueDepth}"; 
 
 
 # ------------------------------------------------------------

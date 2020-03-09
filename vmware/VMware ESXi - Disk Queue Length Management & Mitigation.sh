@@ -44,6 +44,22 @@ done;
 
 # ------------------------------------------------------------
 #
+# Limit (at the LUN level): "Maximum Device Queue Depth" and "DSRNO" (Disk Schedule Number Requests Outstanding)
+#
+
+# Get current LUN-device values
+esxcli storage core device list | grep '^naa.\|^   Display Name:\|^   Device Max Queue Depth:'
+
+# Get current LUN-module values
+esxcli system module parameters list -m "fnic";
+
+# Update the LUN-module
+#  |--> fnic_max_qdepth - "Queue depth to report for each LUN"
+esxcli system module parameters set --module="fnic" --parameter-string="fnic_max_qdepth=128"; 
+
+
+# ------------------------------------------------------------
+#
 # Get a list of ALL currently enabled/active modules, then grab ALL of their parameters at once
 #
 esxcli system module list --loaded 1 --enabled 1 | grep -v '^------' | grep -v '^Name ' | awk '{print $1}' | sort | while read EachModuleName; do

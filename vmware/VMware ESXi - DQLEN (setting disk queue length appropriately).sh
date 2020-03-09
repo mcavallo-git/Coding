@@ -46,6 +46,8 @@ done;
 #
 # Citation(s)
 #
+#   blog.docbert.org  |  "VMware Queue Depths and Conflicting Worlds"  |  https://blog.docbert.org/vmware-queue-depths-and-conflicting-worlds/
+#
 #   kb.vmware.com  |  "Checking the queue depth of the storage adapter and the storage device (1027901)"  |  https://kb.vmware.com/s/article/1027901
 #
 #   kb.vmware.com  |  "Controlling LUN queue depth throttling in VMware ESX/ESXi (1008113)"  |  https://kb.vmware.com/s/article/1008113

@@ -36,9 +36,9 @@ Disk_QFullSampleSize=32;
 Disk_QFullThreshold=8;
 
 # Apply queue-depth configuration to all disks found locally
-esxcli storage core path list | grep -v '^$' | grep -v '^ ' | while read each_device; do
+esxcli storage core path list | grep -v '^$' | grep -v '^ ' | while read EachDeviceUid; do
 echo "Calling  [ esxcli storage core device set --device ${EachDeviceUid} -q=4 -s=32 ]  ...";
-esxcli storage core device set --device ${EachDeviceUid} --queue-full-sample-size ${Disk_QFullSampleSize} --queue-full-threshold ${Disk_QFullThreshold};
+esxcli storage core device set --device=${EachDeviceUid} --queue-full-sample-size=${Disk_QFullSampleSize} --queue-full-threshold=${Disk_QFullThreshold};
 done;
 
 

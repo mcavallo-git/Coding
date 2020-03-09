@@ -64,6 +64,8 @@ done;
 #
 #   static.rainfocus.com  |  "vSphere Storage Best Practices - RainFocus"  |  https://static.rainfocus.com/vmware/vmworldeu17/sess/1496368004619001d1ZM/finalpresentationPDF/STO2115BE_EMEA_1507926760000001n4cY.pdf
 #
+#   support.purestorage.com  |  "How To: Adjusting the UCS nfnic queue depth on ESXi 6.7 - Pure1 Support Portal"  |  https://support.purestorage.com/Solutions/VMware_Platform_Guide/003Virtual_Volumes_-_VVols/How_To%3A_Adjusting_the_UCS_nfnic_queue_depth_on_ESXi_6.7
+#
 #   yaztech.co.uk  |  "Setting QFullSampleSize and QFullThreshold by script in ESXi 5.1 « Yaztech"  |  http://yaztech.co.uk/blog/?x=entry:entry160711-205551
 #
 # ------------------------------------------------------------

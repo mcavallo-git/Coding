@@ -23,12 +23,22 @@
 #   Open browser to localhost on port 1311 
 #
 
-
 #
 # Step 3 --> Adding TLS Certificate to Dell OMSA
 #
 #   Follow the steps given by @ https://www.dell.com/community/Systems-Management-General/replacing-the-SSL-certificate-in-Dell-OMSA-7-2/m-p/4031998/highlight/true#M16590
 #
+
+
+# ------------------------------------------------------------
+# Troubleshooting issues pertaining to the Dell EMC OMSA software/servicece
+# ------------------------------------------------------------
+
+#
+# Verify that the Windows service is running
+#  |--> Run the following command in via PowerShell to show the status of the Dell EMC OMSA service
+#
+Get-Service | Where-Object { ($_.Name -Eq "Server Administrator") -Or ( $_.DisplayName -Eq "DSM SA Connection Service" ) } | Format-List;
 
 
 # ------------------------------------------------------------

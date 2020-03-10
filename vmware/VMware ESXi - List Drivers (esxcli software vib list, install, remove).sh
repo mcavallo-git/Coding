@@ -56,7 +56,13 @@ exit 0;
 
 # ------------------------------------------------------------
 #
-### Ex) Update the ESXi's "Embedded Host Client"
+### Ex) Update ESXi host with a file (.vib package) uploaded to either a local datastore, sftp directory, or other location directly accessible via the SSH on the ESXi host
+#
+esxcli software vib install -v "/vmfs/volumes/datastore0/.vib/EXAMPLE_VIB_NAME.vib";
+
+# ------------------------------------------------------------
+#
+### Ex) Update ESXi's "Embedded Host Client"
 ###   |--> Download & install the latest HTTP & Javascript ".vib" file
 #
 esxcli software vib install -v "http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib";

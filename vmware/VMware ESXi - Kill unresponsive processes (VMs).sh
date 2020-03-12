@@ -18,8 +18,12 @@ f
 c  (enter)
 
 
-### Press "k" topen the dialogue at the top of esxtop asking which LWID/WID (essentially which PID) to kill 
-World to kill (WID):  12345
+### Press "k" topen the dialogue at the top of esxtop asking which LWID/WID (essentially which PID) to kill
+World to kill (WID):
+
+
+### Determine the process (or VM) which you wish to kill, type it (as an integer), then press enter to fire the 'kill' command
+World to kill (WID): 12345 (enter)
 # ^-- example: kill process with LWID of 12345
 
 

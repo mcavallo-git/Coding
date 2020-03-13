@@ -232,13 +232,10 @@ If ($WimIndexSource -Eq $Null) {
 # ------------------------------------------------------------
 #
 # !!! NOTE: The following is stated in the "Intel VROC Quick Configuration Guide" @  [ https://www.intel.com/content/dam/support/us/en/documents/server-products/server-boards/Intel-VROC-Quick-Configuration-Guide.pdf ]:
-
-$Intel_QuickStart_DirectStatement= `
-"Note: Intel VROC is not compatible with Secure Boot. 
- If you want to use Intel VROC (VMD NVME RAID), do not enable the
- system's Secure Boot feature. If Secure boot is required for the
- solution Intel VROC cannot be used.        --Intel";
-Write-Host "$Intel_QuickStart_DirectStatement";
+If ($True) {
+	$Intel_QuickStart_DirectStatement= "Quote from Intel:`n`"Intel VROC is not compatible with Secure Boot.`nIf you want to use Intel VROC (VMD NVME RAID), do not enable the system's Secure Boot feature. If Secure boot is required for the solution Intel VROC cannot be used.`"";
+	Write-Host "$Intel_QuickStart_DirectStatement";
+}
 
 #
 ### The soution for a Lenovo P520c workstation was two-part:

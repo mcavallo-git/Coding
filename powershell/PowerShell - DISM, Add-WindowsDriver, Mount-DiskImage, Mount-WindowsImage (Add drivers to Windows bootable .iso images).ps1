@@ -95,14 +95,12 @@ If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) { Remove-Item "${
 
 # Convert the image into a .iso file
 If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Eq $Null) {
-
-
 	Write-Host "";
 	Write-Host "Error:  Command `"oscdimg.exe`"' not found (required as it creates a .iso file from a target Windows PE local image to a image into an exportable .iso file)" -ForegroundColor "Yellow";
 	Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
 	Write-Host "";
 	Write-Host "Error:  Missing required command 'oscdimg.exe' here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
-	### This is necessary so that we can convert the windows image back into a .iso file to burn onto a disk / image onto a flash-drive ###
+	### The "oscdimg" command is required so that we can convert the windows image back into a .iso file (to burn onto a disk / image onto a flash-drive) ###
 	Write-Host "";
 	Write-Host "Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads ";
 	Write-Host "";

@@ -19,7 +19,7 @@ If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 #
 # Optionally, export all drivers from current system (to later be included by the custom .iso)
 #
-$Dir_ExportedDrivers = "${WorkingDir}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S')";
+$Dir_ExportedDrivers = "${WorkingDir}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
 If ((Test-Path ("${Dir_ExportedDrivers}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${Dir_ExportedDrivers}") | Out-Null;
 }

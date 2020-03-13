@@ -29,7 +29,7 @@ If ($Needle.Success -ne $False) {
 	$Needle.Groups[1].Value; # 'hello'  (regex capture group 1)
 	$Needle.Groups[2].Value; # 'world'  (regex capture group 2)
 }
-Write-Output (("`$Needle.Success = [ $($Needle.Success) ]"));
+Write-Output ("`$Needle.Success = [ $($Needle.Success) ]");
 
 
 # ------------------------------------------------------------- #

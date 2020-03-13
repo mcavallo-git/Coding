@@ -49,10 +49,10 @@ Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
 
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
-$DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-$MountLetter = "";
-$DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $MountLetter = $_; Break; } };
-Write-Host "`$MountLetter = $MountLetter";
+$Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+$DriveLetter = "";
+$Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; } };
+Write-Host "`$DevicePath  = $DriveLetter";
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
 

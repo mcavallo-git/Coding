@@ -47,7 +47,7 @@ Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
 #
 
 
-# Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
+# Mount the disk image (adds a virtual dvd-drive resouce to "This PC" as the next available letter - D:\, E:\, ... Z:\ - whatever your next letter is (NOT TESTED WITH ALL LETTERS FULL/TAKEN/RESERVED))
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 $DriveLetter = "";
@@ -61,7 +61,7 @@ $MountDir = "${Home}\Desktop\Mount";
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 }
-Copy-Item ("D:\*") ("${MountDir}\") -Recurse -Force;
+Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 
 
 # Dismount the virtualized CD/DVD (We'll create it back into a .iso, later)

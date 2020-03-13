@@ -54,7 +54,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$pinfo.RedirectStandardError = $True;
 			$pinfo.RedirectStandardOutput = $True;
 			$pinfo.UseShellExecute = $False;
-			$pinfo.Arguments = (@("/Get-WimInfo","/WimFile:`"${MountDir}\sources\install.esd`"","/Index:${EachIndex}"));
+			$pinfo.Arguments = (@("/Get-WimInfo","/WimFile:`"${Install_Esd}`"","/Index:${EachIndex}"));
 			$p = New-Object System.Diagnostics.Process;
 			$p.StartInfo = $pinfo;
 			$p.Start() | Out-Null;
@@ -77,10 +77,10 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 				}
 				Write-Host "------------------------------------------------------------";
 				Write-Host "`${EachIndex} = ${EachIndex}";
-				Write-Host "Calling  [ 		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex}); ] ..."
-				Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex});
+				Write-Host "Calling  [ 		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}); ] ..."
+				Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex});
 				If (${KeepImage} -Eq $False) {
-					Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex}) -CheckIntegrity;
+					Remove-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) -CheckIntegrity;
 				}
 			}
 			$pinfo = $Null;

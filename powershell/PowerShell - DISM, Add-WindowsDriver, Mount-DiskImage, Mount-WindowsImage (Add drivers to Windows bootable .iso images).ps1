@@ -72,7 +72,6 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 				If ($Needle.Success -ne $False) {
 					$Needle.Groups[0].Value;
 				}
-				Write-Output ("`$Needle.Success = [ $($Needle.Success) ]");
 			}
 			$pinfo = $Null;
 		}

@@ -73,20 +73,20 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 					$Needle   = [Regex]::Match($Haystack, $Pattern);
 					If ($Needle.Success -Eq $True) {
 						$KeepImage = $True;
-						$WimInfoIndex = $EachIndex;
-						Write-Host "`$WimInfoIndex = $WimInfoIndex";
+						${WimInfoIndex} = $EachIndex;
+						Write-Host "`${WimInfoIndex} = ${WimInfoIndex}";
 					}
 				}
 				If (${KeepImage} -Eq $False) {
-					Remove-WindowsImage -ImagePath "c:\imagestore\custom.wim" -Index $WimInfoIndex -CheckIntegrity;
+					Remove-WindowsImage -ImagePath "${Install_Wim}" -Index ${WimInfoIndex} -CheckIntegrity;
 				}
 			}
 			$pinfo = $Null;
 		}
 
 		<# Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either #>
-		If ($WimInfoIndex -Eq $Null) {
-			$WimInfoIndex = 1;
+		If (${WimInfoIndex} -Eq $Null) {
+			${WimInfoIndex} = 1;
 		}
 
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
@@ -94,7 +94,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity;
 
 		<# Double-check to ensure that this image is the one you want #>
-		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index ($WimInfoIndex);
+		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
 	}
 }
 
@@ -107,7 +107,7 @@ $WorkingDir = "${Home}\Desktop\WinImage";
 If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 }
-Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index ($WimInfoIndex);
+Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
 
 # Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
 #  > Optionally, burn all drivers from the current system into the custom .iso)
@@ -128,7 +128,7 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 <# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
 <#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
 Remove-Item "${Install_Esd}" -Force;
-DISM /Export-Image /SourceImageFile:"${Install_Wim}" /SourceIndex:$WimInfoIndex /DestinationImageFile:"${Install_Esd}" /Compress:recovery;
+DISM /Export-Image /SourceImageFile:"${Install_Wim}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Esd}" /Compress:recovery;
 If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; }
 
 

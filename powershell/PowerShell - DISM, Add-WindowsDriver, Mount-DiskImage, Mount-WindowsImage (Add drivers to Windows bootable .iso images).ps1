@@ -43,7 +43,7 @@ $Mounted_ISO | Dismount-DiskImage;
 # Determine which index to pull out of the downloaded Windows image
 If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
-		### Determine which image you want to convert (as each, separate image will require a few minutes to update)
+		# Determine which image you want to convert (as each, separate image will require a few minutes to update)
 		@(1,2,3,4,5,6,7,8,9,10,11,12) | ForEach-Object {
 			<# $EachWimInfo = DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:$_; $EachWimInfo; #>
 			<# $EachWimInfo = Start-Process -Filepath ("C:\Windows\system32\Dism.exe") -ArgumentList (@("/Get-WimInfo","/WimFile:`"${MountDir}\sources\install.esd`"","/Index:$_")) -ErrorAction ("SilentlyContinue"); $EachWimInfo; #>
@@ -59,19 +59,21 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 			$p.WaitForExit();
 			$stdout = $p.StandardOutput.ReadToEnd();
 			$stderr = $p.StandardError.ReadToEnd();
-			Write-Host "------------------------------------------------------------";
-			Write-Host "stdout: $stdout";
-			Write-Host "stdout: $stdout";
-			Write-Host "stderr: $stderr";
-			Write-Host "exit code: " + $p.ExitCode;
-			<# Search for desired index/release/version of windows within the .iso image #>
-			$Haystack = $stdout;
-			$Pattern  = '^Name : Windows 10 Pro$';
-			$Needle   = [Regex]::Match($Haystack, $Pattern);
-			If ($Needle.Success -ne $False) {
-				$Needle.Groups[0].Value;
+			If (($p.ExitCode) -Eq 0) {
+				Write-Host "------------------------------------------------------------";
+				Write-Host "stdout: $stdout";
+				Write-Host "stderr: $stderr";
+				Write-Host "exit code: " + $p.ExitCode;
+				
+				<# Search for desired index/release/version of windows within the .iso image #>
+				$Haystack = $stdout;
+				$Pattern  = '.*Name : Windows 10 Pro$';
+				$Needle   = [Regex]::Match($Haystack, $Pattern);
+				If ($Needle.Success -ne $False) {
+					$Needle.Groups[0].Value;
+				}
+				Write-Output ("`$Needle.Success = [ $($Needle.Success) ]");
 			}
-			Write-Output ("`$Needle.Success = [ $($Needle.Success) ]");
 			$pinfo = $Null;
 		}
 

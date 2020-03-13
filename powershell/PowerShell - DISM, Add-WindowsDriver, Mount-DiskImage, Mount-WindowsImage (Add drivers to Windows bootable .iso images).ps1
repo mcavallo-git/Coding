@@ -52,7 +52,7 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 		### Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
 		$WimIndex = 1;
 		DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.esd" /SourceIndex:${WimIndex} /DestinationImageFile:"${MountDir}\sources\install.wim" /Compress:max /CheckIntegrity;
-		### ^^^ This may take up to a couple minutes to complete
+		### ^^^ Exporting the image takes at least a couple of minutes to complete, and may take longer if you've added many more drivers to the customized Windows image
 	}
 }
 # Double-check to ensure that this image is the one you want

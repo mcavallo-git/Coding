@@ -68,8 +68,6 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 				$KeepImage = $False;
 				($stdout -split "`r`n") | ForEach-Object {
 					$EachLine = $_;
-					Write-Host "------------------------------------------------------------";
-					Write-Host "$EachLine";
 					$Needle   = [Regex]::Match($Haystack, $Pattern);
 					If ($Needle.Success -Eq $True) {
 						$KeepImage = $True;
@@ -77,6 +75,10 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 						Write-Host "`${WimInfoIndex} = ${WimInfoIndex}";
 					}
 				}
+				Write-Host "------------------------------------------------------------";
+				Write-Host "`${EachIndex} = ${EachIndex}";
+				Write-Host "Calling  [ 		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex}); ] ..."
+				Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex});
 				If (${KeepImage} -Eq $False) {
 					Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex}) -CheckIntegrity;
 				}

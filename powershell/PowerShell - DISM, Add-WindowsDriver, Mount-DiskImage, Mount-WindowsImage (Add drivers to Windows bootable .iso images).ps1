@@ -98,7 +98,8 @@ If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Eq $Null) {
 	Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
 	Write-Host "";
 	Write-Host "Error:  Missing required command 'oscdimg.exe' here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
-	### The "oscdimg" command is required so that we can convert the windows image back into a .iso file (to burn onto a disk / image onto a flash-drive) ###
+	# Alert the user why we need the "oscdimg" command
+	#   > Essentially, the "oscdimg" command allows us to convert the windows image from [ the directory we previously worked-on/added-drivers-to ] to [ a .iso file, which can then be burned onto a flash drive and used as bootable media (which installs Windows with all previously attached drivers burned into said Windows image) ] ###
 	Write-Host "";
 	Write-Host "Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads ";
 	Write-Host "";

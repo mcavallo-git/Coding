@@ -69,7 +69,7 @@ Dismount-DiskImage -ImagePath ("${ISO_Fullpath}");
 New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
-		### Determine which image you want to convert, as it takes a couple minutes just for one
+		### Determine which image you want to convert (as each, separate image will require a few minutes to update)
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:1
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:2
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:3
@@ -83,7 +83,7 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:11
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:12
 
-		### Locate the index in the "isntall.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
+		### Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
 		DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.esd" /SourceIndex:6 /DestinationImageFile:"${MountDir}\sources\install.wim" /Compress:max /CheckIntegrity;
 		### ^^^ This may take up to a couple minutes to complete
 	}

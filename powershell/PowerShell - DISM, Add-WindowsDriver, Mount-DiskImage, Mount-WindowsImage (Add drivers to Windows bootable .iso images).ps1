@@ -125,6 +125,7 @@ $Intel_QuickStart_DirectStatement= `
  If you want to use Intel VROC (VMD NVME RAID), do not enable the
  system's Secure Boot feature. If Secure boot is required for the
  solution Intel VROC cannot be used.        --Intel";
+Write-Host "$Intel_QuickStart_DirectStatement";
 
 #
 ### The soution for a Lenovo P520c workstation was two-part:

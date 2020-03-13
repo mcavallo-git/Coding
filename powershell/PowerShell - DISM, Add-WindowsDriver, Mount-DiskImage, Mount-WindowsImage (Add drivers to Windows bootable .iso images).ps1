@@ -47,24 +47,21 @@ Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
 #
 
 
-# Mount the disk image (adds a virtual dvd-drive resouce to "This PC" as the next available letter - D:\, E:\, ... Z:\ - whatever your next letter is (NOT TESTED WITH ALL LETTERS FULL/TAKEN/RESERVED))
+# Mount the disk image, copy the working installation files off of it, then dismount the disk image
+#  > Note: Command 'Mount-DiskImage' mounts the .iso file using the next-available drive letter (in alphabetical order from C to Z) as a virtual dvd-drive
+#   > Note: Not tested in an environment where every single drive letter is already taken/reserved by an existing disk/partition
+#    > Note: Approach seems somewhat archaic - need to (ideally) update this methodology to work directly on/within a target .iso
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
+$MountDir = "${Home}\Desktop\Mount";
 $Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 $DriveLetter = "";
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; } };
 Write-Host "`$DevicePath  = $DriveLetter";
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
-
-
-# Copy the image off of the ISO (archaic - need to update this methodology)
-$MountDir = "${Home}\Desktop\Mount";
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 }
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
-
-
-# Dismount the virtualized CD/DVD (We'll create it back into a .iso, later)
 Dismount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
 

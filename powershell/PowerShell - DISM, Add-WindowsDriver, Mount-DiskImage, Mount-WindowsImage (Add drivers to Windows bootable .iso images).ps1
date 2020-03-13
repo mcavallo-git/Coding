@@ -70,6 +70,15 @@ New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
 		### Determine which image you want to convert (as each, separate image will require a few minutes to update)
+		$WimIndex = $Null;
+		@(0,1,2,3,4,5,6,7,8,9,10,11,12) | ForEach-Object {
+			$EachWimInfo = DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:$_;
+			If (($EachWimInfo.Name) -Eq "Windows 10 Pro") {
+				$WimIndex = $_;
+				Break;
+			}
+		}
+		Write-Host "`$WimIndex = $WimIndex";
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:1
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:2
 		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:3

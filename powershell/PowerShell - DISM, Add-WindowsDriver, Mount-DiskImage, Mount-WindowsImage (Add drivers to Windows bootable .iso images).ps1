@@ -7,8 +7,8 @@
 # ------------------------------------------------------------
 
 #
-# Download Windows 10 (URL):  https://www.microsoft.com/en-us/software-download/windows10
-#  > Create bootable Windows 10 media as a ".iso" file (and just output the final file to your desktop as "Windows.iso")
+# Download Updated Win10 installation media from URL:   https://www.microsoft.com/en-us/software-download/windows10
+#    > Select option "Create installation media (USB flash drive, DVD, or ISO file) for another pc" and output the .iso file to your desktop w/ name "Windows.iso"
 #
 
 
@@ -45,8 +45,34 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
 		### Determine which image you want to convert (as each, separate image will require a few minutes to update)
 		@(1,2,3,4,5,6,7,8,9,10,11,12) | ForEach-Object {
-			$EachWimInfo = DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:$_;
-			$EachWimInfo;
+			<# $EachWimInfo = DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:$_; $EachWimInfo; #>
+			<# $EachWimInfo = Start-Process -Filepath ("C:\Windows\system32\Dism.exe") -ArgumentList (@("/Get-WimInfo","/WimFile:`"${MountDir}\sources\install.esd`"","/Index:$_")) -ErrorAction ("SilentlyContinue"); $EachWimInfo; #>
+			$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
+			$pinfo.FileName = "C:\Windows\system32\Dism.exe";
+			$pinfo.RedirectStandardError = $true;
+			$pinfo.RedirectStandardOutput = $true;
+			$pinfo.UseShellExecute = $false;
+			$pinfo.Arguments = (@("/Get-WimInfo","/WimFile:`"${MountDir}\sources\install.esd`"","/Index:$_"));
+			$p = New-Object System.Diagnostics.Process;
+			$p.StartInfo = $pinfo;
+			$p.Start() | Out-Null;
+			$p.WaitForExit();
+			$stdout = $p.StandardOutput.ReadToEnd();
+			$stderr = $p.StandardError.ReadToEnd();
+			Write-Host "------------------------------------------------------------";
+			Write-Host "stdout: $stdout";
+			Write-Host "stdout: $stdout";
+			Write-Host "stderr: $stderr";
+			Write-Host "exit code: " + $p.ExitCode;
+			<# Search for desired index/release/version of windows within the .iso image #>
+			$Haystack = $stdout;
+			$Pattern  = '^Name : Windows 10 Pro$';
+			$Needle   = [Regex]::Match($Haystack, $Pattern);
+			If ($Needle.Success -ne $False) {
+				$Needle.Groups[0].Value;
+			}
+			Write-Output ("`$Needle.Success = [ $($Needle.Success) ]");
+			$pinfo = $Null;
 		}
 
 		### Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
@@ -170,6 +196,8 @@ Write-Host "$Intel_QuickStart_DirectStatement";
 #   docs.microsoft.com  |  "Oscdimg Command-Line Options | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/oscdimg-command-line-options
 #
 #   downloadcenter.intel.com  |  "Intel® Virtual RAID on CPU (Intel® VROC) and Intel® Rapid Storage Technology Enterprise (Intel® RSTe) Driver for Windows*"  |  https://downloadcenter.intel.com/download/29246/Intel-Virtual-RAID-on-CPU-Intel-VROC-and-Intel-Rapid-Storage-Technology-Enterprise-Intel-RSTe-Driver-for-Windows-
+#
+#   stackoverflow.com  |  "powershell - Capturing standard out and error with Start-Process - Stack Overflow"  |  https://stackoverflow.com/a/8762068
 #
 #   support.lenovo.com  |  "SCCM Packages For Windows PE 10 (64-bit) - ThinkStation P520, P520c"  |  https://support.lenovo.com/us/en/downloads/ds502154
 #

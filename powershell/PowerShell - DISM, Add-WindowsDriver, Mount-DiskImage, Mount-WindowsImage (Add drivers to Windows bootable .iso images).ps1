@@ -10,47 +10,22 @@
 # Download Windows 10 (URL):  https://www.microsoft.com/en-us/software-download/windows10
 #  > Create bootable Windows 10 media as a ".iso" file (and just output the final file to your desktop as "Windows.iso")
 #
-$WorkingDir = "${Home}\Desktop\WinImage";
-If ((Test-Path ("${WorkingDir}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
-}
 
 
 #
-# Optionally, export all drivers from current system (to later be included by the custom .iso)
-#
-$Dir_ExportedDrivers = "${WorkingDir}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
-If ((Test-Path ("${Dir_ExportedDrivers}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${Dir_ExportedDrivers}") | Out-Null;
-}
-Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
-
-
-#
-# While that runs, go to the manufacturer's sites for the components which you'll be upgrtading
-# to which you want to make sure you have drivers burnt into the Windows image-for. This could be
-# graphics card, CPU chipsets, RAID controllers, etc.
-#  > Create the directory "C:\DRIVERS\" if it doesn't already exist, and drop all drivers you download/want-to-add-to-the-image into that directory
-#   > Note: it doesn't matter if the drivers are directly in the "C:\DRIVERS\" folder, or
-#     like ten directories deep within it - we will be using a command to recursively grab
-#     all .CAB files from "C:\DRIVERS", so don't sweat it!
+# While that runs, go to the manufacturer's sites for the components which you'll be upgrading-to & need drivers for
+#  > Grab drivers for:  GPU (graphics card), CPU (chipsets), RAID controllers (HBA), NICs (Network interface cards, wired & wireless), etc.
+#   > These drivers will be 'burned' into the Windows .iso image
+#    > Once you feel you have all/enough necessary drivers (formatted as .CAB files, which often have associated ini files), proceed with this script
 #
 
 
 #
-# Once you feel you have your necessary drivers (.CAB files often with ini files, to be sure), we will begin adding the drivers
-#
-
-
-#
-# Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
-#
-
-
 # Mount the disk image, copy the working installation files off of it, then dismount the disk image
 #  > Note: Command 'Mount-DiskImage' mounts the .iso file using the next-available drive letter (in alphabetical order from C to Z) as a virtual dvd-drive
 #   > Note: Not tested in an environment where every single drive letter is already taken/reserved by an existing disk/partition
 #    > Note: Approach seems somewhat archaic - need to (ideally) update this methodology to work directly on/within a target .iso
+#
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
 $Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
@@ -65,8 +40,7 @@ Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage;
 
 
-# Mount the windows image
-New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
+# Determine which index to pull out of the downloaded Windows image
 If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
 		### Determine which image you want to convert (as each, separate image will require a few minutes to update)
@@ -86,11 +60,24 @@ Get-WindowsImage -ImagePath ("${MountDir}\sources\install.wim") -Index ($WimInde
 
 
 # Mount the windows image
+$WorkingDir = "${Home}\Desktop\WinImage";
+If ((Test-Path ("${WorkingDir}")) -Eq $False) {
+	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
+}
 Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${MountDir}\sources\install.wim") -Index ($WimIndex);
 
 
-# Add the drivers to the image
-Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
+# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
+#  > Optionally, burn all drivers from the current system into the custom .iso)
+If ($True) {
+$Dir_DriversSource = "C:\DRIVERS\";
+$Dir_CurrentSystemDrivers = "${Dir_DriversSource}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
+If ((Test-Path ("${Dir_CurrentSystemDrivers}")) -Eq $False) {
+	New-Item -ItemType ("Directory") -Path ("${Dir_CurrentSystemDrivers}") | Out-Null;
+}
+Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}");
+Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned;
+}
 
 
 # Dismount & save the image
@@ -99,7 +86,7 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 
 # Convert the "install.wim" back into a "install.esd" file to prep for .iso export
 Remove-Item "${MountDir}\sources\install.esd" -Force;
-DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${MountDir}\sources\install.esd" /Compress:recovery;
+DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.wim" /SourceIndex:$WimIndex /DestinationImageFile:"${MountDir}\sources\install.esd" /Compress:recovery;
 If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) { Remove-Item "${MountDir}\sources\install.wim" -Force; }
 
 

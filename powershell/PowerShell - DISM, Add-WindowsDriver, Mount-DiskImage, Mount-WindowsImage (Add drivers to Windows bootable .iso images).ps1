@@ -67,19 +67,12 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$p = $Null;
 			If (($p.ExitCode) -Eq 0) {
 				<# Search for desired index/release/version of windows within the .iso image #>
-				$Regex_WindowsSubImage  = '^Name : Windows 10 Pro$';
-				$KeepImage = $False;
-				($stdout -split "`r`n") | ForEach-Object {
-					$EachLine = $_;
-					$Needle  = [Regex]::Match($EachLine, $Regex_WindowsSubImage);
-					If ($Needle.Success -Eq $True) {
-						$KeepImage = $True;
-						${WimInfoIndex} = $EachIndex;
-					}
-				}
-				If (${KeepImage} -Eq $False) {
-					Write-Host "Adding Index `"${EachIndex}`" to the INVALID indices file"
-					$InvalidWimIndices += $EachIndex;
+				$Each_ImageName = Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) | Select-Object -Property "ImageName";
+				If ("${Each_ImageName}" -Eq "Windows 10 Pro") {
+					$WimInfoIndex = ${EachIndex};
+				} Else {
+					Write-Host "Adding Index `"${EachIndex}`" to the INVALID indices file";
+					$InvalidWimIndices += ${EachIndex};
 				}
 			}
 		}

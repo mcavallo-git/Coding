@@ -64,6 +64,8 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$p.WaitForExit();
 			$stdout = $p.StandardOutput.ReadToEnd();
 			$stderr = $p.StandardError.ReadToEnd();
+			$pinfo = $Null;
+			$p = $Null;
 			If (($p.ExitCode) -Eq 0) {
 				<# Search for desired index/release/version of windows within the .iso image #>
 				$Regex_WindowsSubImage  = '^\s*Name : Windows 10 Pro\s*$';
@@ -81,7 +83,6 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 					$InvalidWimIndices += $EachIndex;
 				}
 			}
-			$pinfo = $Null;
 		}
 
 		<# Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either #>
@@ -89,16 +90,30 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			${WimInfoIndex} = 1;
 		}
 
-		Write-Host "WimInfoIndex = ${WimInfoIndex} ";
-		<# Double-check to ensure that this image is the one you want #>
+		<# Double-check to ensure that this desired Windows sub-image #>
+		Write-Host "";
+		Write-Host "Using Wim Index `"${WimInfoIndex}`" from installation media `"${Install_Esd}`"";
+		Write-Host "";
 		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimInfoIndex}); ] ...";
 		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimInfoIndex});
 
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
-		Write-Host "Calling  [ DISM /Export-Image /SourceImageFile:`"${Install_Esd}`" /SourceIndex:${WimInfoIndex} /DestinationImageFile:`"${Install_Wim}`" /Compress:max /CheckIntegrity; ] ...";
-		<# DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity; #>
-
+		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimInfoIndex}) to output-path `"${Install_Wim}`" ...";
+		$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
+		$pinfo.FileName = "C:\Windows\system32\Dism.exe";
+		$pinfo.RedirectStandardError = $True;
+		$pinfo.RedirectStandardOutput = $True;
+		$pinfo.UseShellExecute = $False;
+		$pinfo.Arguments = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimInfoIndex}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
+		$p = New-Object System.Diagnostics.Process;
+		$p.StartInfo = $pinfo;
+		$p.Start() | Out-Null;
+		$p.WaitForExit();
+		$stdout = $p.StandardOutput.ReadToEnd();
+		$stderr = $p.StandardError.ReadToEnd();
+		$pinfo = $Null;
+		$p = $Null;
 	}
 }
 

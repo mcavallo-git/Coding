@@ -65,16 +65,17 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$stderr = $p.StandardError.ReadToEnd();
 			$pinfo = $Null;
 			$p = $Null;
-			If (($p.ExitCode) -Eq 0) {
+			# If (($p.ExitCode) -Eq 0) {
 				<# Search for desired index/release/version of windows within the .iso image #>
-				$Each_ImageName = Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) | Select-Object -Property "ImageName";
+				$Each_ImageName = (Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) | Select-Object -Property "ImageName").ImageName;
+				Write-Host "Image:`"${Install_Esd}`" (index:${EachIndex}) contains ImageName:`"${Each_ImageName}`"";
 				If ("${Each_ImageName}" -Eq "Windows 10 Pro") {
 					$WimInfoIndex = ${EachIndex};
 				} Else {
 					Write-Host "Adding Index `"${EachIndex}`" to the INVALID indices file";
 					$InvalidWimIndices += ${EachIndex};
 				}
-			}
+			# }
 		}
 
 		<# Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either #>

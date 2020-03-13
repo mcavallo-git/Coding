@@ -64,7 +64,8 @@ If ((Test-Path ("${MountDir}")) -Eq $False) {
 };
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage;
-}
+};
+
 
 # Mount the windows image
 New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;

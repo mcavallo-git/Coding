@@ -1,15 +1,30 @@
 # ------------------------------------------------------------
 #
-# PowerShell - DISM, Add-WindowsDriver, Mount-DiskImage, Mount-WindowsImage (Add drivers to Windows bootable .iso images)
+# PowerShell
+#  > Creating/Updating bootable Windows 10 (Win10/WinPE) installation media w/ custom drivers
+#   > DISM, Export-WindowsDriver, Add-WindowsDriver, Mount-DiskImage, Mount-WindowsImage
 #
 # ------------------------------------------------------------
 
-
 #
-# To begin, start by creating updated Windows10 installation media, locally  (a .iso file on the desktop will be what this example will use)
 # Download Windows 10 (URL):  https://www.microsoft.com/en-us/software-download/windows10
 #  > Create bootable Windows 10 media as a ".iso" file (and just output the final file to your desktop as "Windows.iso")
 #
+$WorkingDir = "${Home}\Desktop\WinImage";
+If ((Test-Path ("${WorkingDir}")) -Eq $False) {
+	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\");
+}
+
+
+#
+# Optionally, export all drivers from current system (to later be included by the custom .iso)
+#
+$Dir_ExportedDrivers = "${WorkingDir}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S')";
+If ((Test-Path ("${Dir_ExportedDrivers}")) -Eq $False) {
+	New-Item -ItemType ("Directory") -Path ("${Dir_ExportedDrivers}");
+}
+Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
+
 
 #
 # While that runs, go to the manufacturer's sites for the components which you'll be upgrtading
@@ -21,9 +36,11 @@
 #     all .CAB files from "C:\DRIVERS", so don't sweat it!
 #
 
+
 #
 # Once you feel you have your necessary drivers (.CAB files often with ini files, to be sure), we will begin adding the drivers
 #
+
 
 #
 # Open a powershell prompt and set-location (cd) to your desktop, right where the "Windows.iso" installation media should be
@@ -35,57 +52,57 @@ Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 
 
 # Copy the image off of the ISO (archaic - need to update this methodology)
-New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\Mount\");
-Copy-Item ("D:\*") ("${Home}\Desktop\Mount\") -Recurse -Force;
+$MountDir = "${Home}\Desktop\Mount";
+Copy-Item ("D:\*") ("${MountDir}\") -Recurse -Force;
 
 
 # Dismount the virtualized CD/DVD (We'll create it back into a .iso, later)
-Dismount-DiskImage -ImagePath ("${Home}\Desktop\Mount\");
+Dismount-DiskImage -ImagePath ("${MountDir}\");
 
 
 # Mount the windows image
-New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\WinImage\");
-If ((Test-Path ("${Home}\Desktop\Mount\sources\install.wim")) -Eq $False) {
-	If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) {
+New-Item -ItemType ("Directory") -Path ("${WorkingDir}\");
+If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
+	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
 		### Determine which image you want to convert, as it takes a couple minutes just for one
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:1
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:2
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:3
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:4
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:5
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:6
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:7
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:8
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:9
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:10
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:11
-		DISM /Get-WimInfo /WimFile:"${Home}\Desktop\Mount\sources\install.esd" /Index:12
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:1
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:2
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:3
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:4
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:5
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:6
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:7
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:8
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:9
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:10
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:11
+		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:12
 
 		### Locate the index in the "isntall.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
-		DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.esd" /SourceIndex:6 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.wim" /Compress:max /CheckIntegrity;
+		DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.esd" /SourceIndex:6 /DestinationImageFile:"${MountDir}\sources\install.wim" /Compress:max /CheckIntegrity;
 		### ^^^ This may take up to a couple minutes to complete
 	}
 }
 # Double-check to ensure that this image is the one you want
-Get-WindowsImage -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
+Get-WindowsImage -ImagePath ("${MountDir}\sources\install.wim") -Index (1);
 
 
 # Mount the windows image
-Mount-WindowsImage -Path ("${Home}\Desktop\WinImage\") -ImagePath ("${Home}\Desktop\Mount\sources\install.wim") -Index (1);
+Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${MountDir}\sources\install.wim") -Index (1);
 
 
 # Add the drivers to the image
-Add-WindowsDriver -Path ("${Home}\Desktop\WinImage\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
+Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("C:\DRIVERS\") -Recurse -ForceUnsigned;
 
 
 # Dismount & save the image
-Dismount-WindowsImage -Path ("${Home}\Desktop\WinImage\") –Save;
+Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 
 
 # Convert the "install.wim" back into a "install.esd" file to prep for .iso export
-Remove-Item "${Home}\Desktop\Mount\sources\install.esd" -Force;
-DISM /Export-Image /SourceImageFile:"${Home}\Desktop\Mount\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${Home}\Desktop\Mount\sources\install.esd" /Compress:recovery;
-If ((Test-Path ("${Home}\Desktop\Mount\sources\install.esd")) -Eq $True) { Remove-Item "${Home}\Desktop\Mount\sources\install.wim" -Force; }
+Remove-Item "${MountDir}\sources\install.esd" -Force;
+DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.wim" /SourceIndex:1 /DestinationImageFile:"${MountDir}\sources\install.esd" /Compress:recovery;
+If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) { Remove-Item "${MountDir}\sources\install.wim" -Force; }
 
 
 # Convert the image into a .iso file

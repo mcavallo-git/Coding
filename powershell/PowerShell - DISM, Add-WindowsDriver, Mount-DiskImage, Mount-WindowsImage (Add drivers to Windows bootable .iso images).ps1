@@ -95,9 +95,15 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
+		Write-Host "";
 		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimInfoIndex}) to output-path `"${Install_Wim}`" ...";
 		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimInfoIndex}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
 		If ($True) {
+			Write-Host "";
+			Write-Host "Calling  [ DISM $ExportArgs; ] ...";
+			DISM $ExportArgs;
+			<# DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity; #>
+		} Else {
 			$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
 			$pinfo.FileName = "C:\Windows\system32\Dism.exe";
 			$pinfo.RedirectStandardError = $True;
@@ -112,9 +118,6 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$stderr = $p.StandardError.ReadToEnd();
 			$pinfo = $Null;
 			$p = $Null;
-		} Else {
-			DISM $ExportArgs;
-			<# DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity; #>
 		}
 	}
 }

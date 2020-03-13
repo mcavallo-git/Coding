@@ -22,9 +22,9 @@
 
 #
 # Mount the disk image, copy the working installation files off of it, then dismount the disk image
-#  > Note: Command 'Mount-DiskImage' mounts the .iso file using the next-available drive letter (in alphabetical order from C to Z) as a virtual dvd-drive
-#   > Note: Not tested in an environment where every single drive letter is already taken/reserved by an existing disk/partition
-#    > Note: Approach seems somewhat archaic - need to (ideally) update this methodology to work directly on/within a target .iso
+#  > Command 'Mount-DiskImage' mounts the .iso file using the next-available drive letter (in alphabetical order from C to Z) as a virtual dvd-drive
+#   > Not tested in an environment where every single drive letter is already taken/reserved by an existing disk/partition
+#    > Approach seems somewhat archaic - need to (ideally) update this methodology to work directly on/within a target .iso
 #
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
@@ -105,7 +105,7 @@ If ($WimIndexSource -Eq $Null) {
 
 	#
 	# Export the image by creating/updating the "Install.wim" windows image-file
-	#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image
+	#   > This process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image
 	#
 	Write-Host "";
 	Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimIndexSource}) to output-path `"${Install_Wim}`" ...";
@@ -142,7 +142,7 @@ If ($WimIndexSource -Eq $Null) {
 
 	#
 	# Remove various Windows images from the image to-be-exported (education version, home version, etc.)
-	#   > Note: This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file
+	#   > This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file
 	#
 	If ($False) {
 		$InvalidWimIndices | ForEach-Object {
@@ -188,7 +188,7 @@ If ($WimIndexSource -Eq $Null) {
 	If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
 		#
 		# Convert the "install.wim" back to an "install.esd" file to prep for .iso export
-		#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added
+		#   > Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added
 		#
 		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
 		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));

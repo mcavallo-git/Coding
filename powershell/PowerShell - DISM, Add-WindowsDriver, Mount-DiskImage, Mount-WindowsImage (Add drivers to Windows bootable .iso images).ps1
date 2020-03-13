@@ -55,6 +55,7 @@ $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
 $Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 $DriveLetter = "";
+If ($True) {
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; } };
 Write-Host "`$DevicePath  = $DriveLetter";
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
@@ -62,8 +63,8 @@ If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 }
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
-Dismount-DiskImage -ImagePath ("${ISO_Fullpath}");
-
+$Mounted_ISO | Dismount-DiskImage;
+}
 
 # Mount the windows image
 New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;

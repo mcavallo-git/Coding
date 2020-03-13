@@ -160,16 +160,19 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 
 }
 
-
-<# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
-<#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
-Remove-Item "${Install_Esd}" -Force;
-DISM /Export-Image /SourceImageFile:"${Install_Wim}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Esd}" /Compress:recovery;
-If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; }
-
-
-# Convert the image into a .iso file
+#
+# Ensure that the local environment contains the "oscdimg" runtime (required)
+#   > Essentially, the "oscdimg" command allows us to convert the windows image
+#       from [ the directory we previously worked-on/added-drivers-to ]
+#       to [ a .iso file which be burned onto a thumb drive and used as bootable media (burns drivers into WinPE Environment, even usable BEFORE formatting/partitioning) ] ###
+#
 If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
+	<# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
+	<#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
+	Remove-Item "${Install_Esd}" -Force;
+	DISM /Export-Image /SourceImageFile:"${Install_Wim}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Esd}" /Compress:recovery;
+	If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; }
+	<# Convert the image into a .iso file #>
 	Set-Location "${Home}\Desktop\";
 	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
 } Else {
@@ -178,8 +181,6 @@ If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
 	Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
 	Write-Host "";
 	Write-Host "Error:  Missing required command 'oscdimg.exe' here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
-	# Alert the user why we need the "oscdimg" command
-	#   > Essentially, the "oscdimg" command allows us to convert the windows image from [ the directory we previously worked-on/added-drivers-to ] to [ a .iso file, which can then be burned onto a flash drive and used as bootable media (which installs Windows with all previously attached drivers burned into said Windows image) ] ###
 	Write-Host "";
 	Write-Host "Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads ";
 	Write-Host "";

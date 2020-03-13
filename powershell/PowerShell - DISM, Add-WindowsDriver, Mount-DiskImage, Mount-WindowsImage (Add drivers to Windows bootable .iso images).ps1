@@ -50,33 +50,35 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 	If ((Test-Path ("${Install_Esd}")) -Eq $True) {
 		# Determine which image you want to convert (as each, separate image will require a few minutes to update)
 		12..1 | ForEach-Object {
-			$EachIndex = $_;
-			$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
-			$pinfo.FileName = "C:\Windows\system32\Dism.exe";
-			$pinfo.RedirectStandardError = $True;
-			$pinfo.RedirectStandardOutput = $True;
-			$pinfo.UseShellExecute = $False;
-			$pinfo.Arguments = (@("/Get-WimInfo","/WimFile:`"${Install_Esd}`"","/Index:${EachIndex}"));
-			$p = New-Object System.Diagnostics.Process;
-			$p.StartInfo = $pinfo;
-			$p.Start() | Out-Null;
-			$p.WaitForExit();
-			$stdout = $p.StandardOutput.ReadToEnd();
-			$stderr = $p.StandardError.ReadToEnd();
-			$exitcode = $p.ExitCode;
-			$pinfo = $Null;
-			$p = $Null;
-			If (${exitcode} -Eq 0) {
-				<# Search for target index/release/version of windows within the .iso image #>
-				$Each_ImageName = (Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) | Select-Object -Property "ImageName").ImageName;
-				If ("${Each_ImageName}" -Eq "Windows 10 Pro") {
-					Write-Host "";
-					Write-Host "Found target ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
-					$WimInfoIndex = ${EachIndex};
-				} Else {
-					Write-Host "";
-					Write-Host "Ignoring ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
-					$InvalidWimIndices += ${EachIndex};
+			If (${WimInfoIndex} -Eq $Null) {
+				$EachIndex = $_;
+				$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
+				$pinfo.FileName = "C:\Windows\system32\Dism.exe";
+				$pinfo.RedirectStandardError = $True;
+				$pinfo.RedirectStandardOutput = $True;
+				$pinfo.UseShellExecute = $False;
+				$pinfo.Arguments = (@("/Get-WimInfo","/WimFile:`"${Install_Esd}`"","/Index:${EachIndex}"));
+				$p = New-Object System.Diagnostics.Process;
+				$p.StartInfo = $pinfo;
+				$p.Start() | Out-Null;
+				$p.WaitForExit();
+				$stdout = $p.StandardOutput.ReadToEnd();
+				$stderr = $p.StandardError.ReadToEnd();
+				$exitcode = $p.ExitCode;
+				$pinfo = $Null;
+				$p = $Null;
+				If (${exitcode} -Eq 0) {
+					<# Search for target index/release/version of windows within the .iso image #>
+					$Each_ImageName = (Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) | Select-Object -Property "ImageName").ImageName;
+					If ("${Each_ImageName}" -Eq "Windows 10 Pro") {
+						Write-Host "";
+						Write-Host "Found target ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
+						$WimInfoIndex = ${EachIndex};
+					} Else {
+						Write-Host "";
+						Write-Host "Ignoring ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
+						$InvalidWimIndices += ${EachIndex};
+					}
 				}
 			}
 		}

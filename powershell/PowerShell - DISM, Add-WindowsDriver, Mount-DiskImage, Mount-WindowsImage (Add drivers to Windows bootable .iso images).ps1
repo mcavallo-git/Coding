@@ -85,9 +85,7 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 }
 
 
-
-
-# Convert the "install.wim" back into a "install.esd" file to prep for .iso export
+# Convert the "install.wim" back to an "install.esd" file to prep for .iso export
 Remove-Item "${MountDir}\sources\install.esd" -Force;
 DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.wim" /SourceIndex:$WimIndex /DestinationImageFile:"${MountDir}\sources\install.esd" /Compress:recovery;
 If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) { Remove-Item "${MountDir}\sources\install.wim" -Force; }
@@ -108,7 +106,7 @@ If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Eq $Null) {
 	Write-Host "";
 } Else {
 	Set-Location "${Home}\Desktop\";
-	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows-UpdatedDrivers.iso";
+	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
 }
 
 # > Use a tool such as "Rufus" to image a flash drive with this updated .iso file

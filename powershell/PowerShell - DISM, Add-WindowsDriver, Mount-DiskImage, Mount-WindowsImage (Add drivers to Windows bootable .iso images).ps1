@@ -186,15 +186,19 @@ If ($WimIndexSource -Eq $Null) {
 	#       to [ a .iso file which be burned onto a thumb drive and used as bootable media (burns drivers into WinPE Environment, even usable BEFORE formatting/partitioning) ] ###
 	#
 	If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
-		<# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
-		<#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
+		#
+		# Convert the "install.wim" back to an "install.esd" file to prep for .iso export
+		#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added
+		#
 		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
 		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));
 		Write-Host "";
 		Write-Host "Calling  [ DISM $ExportArgs; ] ...";
 		DISM $ExportArgs;
 		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; } <# If the ESD file remains (after export), then remove the WIM file #>
-		<# Convert the image into a .iso file #>
+		#
+		# Convert the "install.esd" Windows Image into a .iso file
+		#
 		Set-Location "${Home}\Desktop\";
 		oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
 	} Else {

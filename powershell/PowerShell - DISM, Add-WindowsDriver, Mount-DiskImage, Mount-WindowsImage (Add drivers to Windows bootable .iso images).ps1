@@ -34,6 +34,7 @@ $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq 
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
+	Start-Sleep -Seconds (1);
 };
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage | Out-Null;
@@ -160,7 +161,7 @@ If ($WimIndexSource -Eq $Null) {
 		If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 		}
-		Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
+		Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest}) | Out-Null;
 		#
 		# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
 		#  > Optionally, burn all drivers from the current system into the custom .iso)
@@ -170,8 +171,8 @@ If ($WimIndexSource -Eq $Null) {
 		If ((Test-Path ("${Dir_CurrentSystemDrivers}")) -Eq $False) {
 			New-Item -ItemType ("Directory") -Path ("${Dir_CurrentSystemDrivers}") | Out-Null;
 		}
-		Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}");
-		Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned;
+		Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}") | Out-Null;
+		Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned | Out-Null;
 		#
 		# Dismount & save the image
 		#
@@ -188,7 +189,8 @@ If ($WimIndexSource -Eq $Null) {
 	If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
 		#
 		# Convert the "install.wim" back to an "install.esd" file to prep for .iso export
-		#   > Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added
+		#   > Converting the image back from ".wim" to ".esd" format takes the longest period of time (sometimes 10-20 minutes) and uses nearly 100% CPU the entire time
+		#    > This should be the last 'long' wait in the entire workflow, however
 		#
 		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
 		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));

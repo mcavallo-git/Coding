@@ -66,19 +66,14 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$stderr = $p.StandardError.ReadToEnd();
 			If (($p.ExitCode) -Eq 0) {
 				<# Search for desired index/release/version of windows within the .iso image #>
-				$Haystack = $stdout;
-				$Pattern  = '^Name : Windows 10 Pro$';
+				$Regex_WindowsSubImage  = '^\s*Name : Windows 10 Pro\s*$';
 				$KeepImage = $False;
 				($stdout -split "`r`n") | ForEach-Object {
 					$EachLine = $_;
-					$Needle  = [Regex]::Match($Haystack, $Pattern);
-					Write-Host "------------------------------------------------------------"
-					Write-Host "`${EachLine} = ${EachLine}";
-					Write-Host "`${Needle} = ${Needle}";
+					$Needle  = [Regex]::Match($EachLine, $Regex_WindowsSubImage);
 					If ($Needle.Success -Eq $True) {
 						$KeepImage = $True;
 						${WimInfoIndex} = $EachIndex;
-						Write-Host "`${WimInfoIndex} = ${WimInfoIndex}";
 					}
 				}
 				If (${KeepImage} -Eq $False) {

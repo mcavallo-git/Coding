@@ -51,9 +51,9 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$EachIndex = $_;
 			$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
 			$pinfo.FileName = "C:\Windows\system32\Dism.exe";
-			$pinfo.RedirectStandardError = $true;
-			$pinfo.RedirectStandardOutput = $true;
-			$pinfo.UseShellExecute = $false;
+			$pinfo.RedirectStandardError = $True;
+			$pinfo.RedirectStandardOutput = $True;
+			$pinfo.UseShellExecute = $False;
 			$pinfo.Arguments = (@("/Get-WimInfo","/WimFile:`"${MountDir}\sources\install.esd`"","/Index:${EachIndex}"));
 			$p = New-Object System.Diagnostics.Process;
 			$p.StartInfo = $pinfo;
@@ -62,27 +62,23 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$stdout = $p.StandardOutput.ReadToEnd();
 			$stderr = $p.StandardError.ReadToEnd();
 			If (($p.ExitCode) -Eq 0) {
-				<#
-				Write-Host "------------------------------------------------------------";
-				Write-Host "stdout: $stdout";
-				Write-Host "stderr: $stderr";
-				Write-Host "exit code: " + $p.ExitCode;
-				#>
 				<# Search for desired index/release/version of windows within the .iso image #>
 				$Haystack = $stdout;
 				$Pattern  = '^Name : Windows 10 Pro$';
+				$KeepImage = $False;
 				($stdout -split "`r`n") | ForEach-Object {
 					$EachLine = $_;
 					Write-Host "------------------------------------------------------------";
 					Write-Host "$EachLine";
 					$Needle   = [Regex]::Match($Haystack, $Pattern);
-					If ($Needle.Success -Eq $False) {
-						Remove-WindowsImage -ImagePath "c:\imagestore\custom.wim" -Index 1 -CheckIntegrity
-					} Else {
-						$Needle.Groups[0].Value;
+					If ($Needle.Success -Eq $True) {
+						$KeepImage = $True;
 						$WimInfoIndex = $EachIndex;
 						Write-Host "`$WimInfoIndex = $WimInfoIndex";
 					}
+				}
+				If (${KeepImage} -Eq $False) {
+					Remove-WindowsImage -ImagePath "c:\imagestore\custom.wim" -Index $WimInfoIndex -CheckIntegrity;
 				}
 			}
 			$pinfo = $Null;

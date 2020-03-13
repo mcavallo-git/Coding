@@ -48,7 +48,8 @@ Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
 
 
 # Mount the disk image (acts as if it added a disk-drive & puts it in "This PC" as D:\, E:\, whatever your next letter is)
-Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
+$ISO_Fullpath = "${Home}\Desktop\Windows.iso";
+$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
 
 # Copy the image off of the ISO (archaic - need to update this methodology)
@@ -60,7 +61,7 @@ Copy-Item ("D:\*") ("${MountDir}\") -Recurse -Force;
 
 
 # Dismount the virtualized CD/DVD (We'll create it back into a .iso, later)
-Dismount-DiskImage -ImagePath ("${MountDir}\");
+Dismount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
 
 # Mount the windows image

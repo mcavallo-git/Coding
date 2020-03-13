@@ -42,8 +42,9 @@ $Mounted_ISO | Dismount-DiskImage;
 
 # Determine which index to pull out of the downloaded Windows image
 $WimInfoIndex = $Null;
-$Install_Wim = "${MountDir}\sources\install.wim"
-$Install_Esd = "${MountDir}\sources\install.esd"
+$Install_Wim = "${MountDir}\sources\install.wim";
+$Install_Esd = "${MountDir}\sources\install.esd";
+$InvalidWimIndices = @();
 If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 	If ((Test-Path ("${Install_Esd}")) -Eq $True) {
 		# Determine which image you want to convert (as each, separate image will require a few minutes to update)
@@ -73,6 +74,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 						$KeepImage = $True;
 						${WimInfoIndex} = $EachIndex;
 						Write-Host "`${WimInfoIndex} = ${WimInfoIndex}";
+					} Else {
 					}
 				}
 				Write-Host "------------------------------------------------------------";
@@ -80,7 +82,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 				Write-Host "Calling  [ 		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}); ] ..."
 				Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex});
 				If (${KeepImage} -Eq $False) {
-					Remove-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) -CheckIntegrity;
+					$InvalidWimIndices += $EachIndex;
 				}
 			}
 			$pinfo = $Null;
@@ -94,6 +96,14 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
 		DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity;
+
+		<# Remove various Windows images from the image to-be-exported (education version, home version, etc.) #>
+		<#   > Note: This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file #>
+		$InvalidWimIndices | ForEach-Object {
+			$EachImageIndex = $_;
+			Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachImageIndex}) -CheckIntegrity;
+		}
+
 
 		<# Double-check to ensure that this image is the one you want #>
 		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});

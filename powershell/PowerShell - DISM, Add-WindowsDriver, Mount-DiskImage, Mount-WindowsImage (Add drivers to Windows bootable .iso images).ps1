@@ -110,7 +110,7 @@ If (($WimIndexSource) -Eq ($Null)) {
 	#
 	Write-Host "";
 	Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimIndexSource}) to output-path `"${Install_Wim}`" ...";
-	$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimIndexSource}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
+	$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimIndexSource}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:fast", "/CheckIntegrity"));
 	If ($True) {
 		Write-Host "";
 		Write-Host "Calling  [ DISM $ExportArgs; ] ...";
@@ -163,7 +163,7 @@ If (($WimIndexSource) -Eq ($Null)) {
 		# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
 		#
 		$Dir_DriversSource = "C:\DRIVERS\";
-		If ($False) {
+		If ($True) {
 			#
 			# Optionally, also burn-in all drivers from the current system into the custom .iso)
 			#
@@ -194,7 +194,7 @@ If (($WimIndexSource) -Eq ($Null)) {
 		#    > This should be the last 'long' wait in the entire workflow, however
 		#
 		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
-		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));
+		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:fast"));
 		Write-Host "";
 		Write-Host "Calling  [ DISM $ExportArgs; ] ...";
 		DISM $ExportArgs;
@@ -233,6 +233,7 @@ If ($True) {
 	$Intel_QuickStart_DirectStatement= "Quote from Intel:`n`"Intel VROC is not compatible with Secure Boot.`nIf you want to use Intel VROC (VMD NVME RAID), do not enable the system's Secure Boot feature. If Secure boot is required for the solution Intel VROC cannot be used.`"";
 	Write-Host "$Intel_QuickStart_DirectStatement";
 }
+
 
 #
 ### The soution for a Lenovo P520c workstation was two-part:

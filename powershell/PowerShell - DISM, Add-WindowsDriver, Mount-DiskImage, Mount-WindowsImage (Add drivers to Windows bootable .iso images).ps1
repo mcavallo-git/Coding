@@ -82,11 +82,11 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	}
 }
 # Double-check to ensure that this image is the one you want
-Get-WindowsImage -ImagePath ("${MountDir}\sources\install.wim") -Index (1);
+Get-WindowsImage -ImagePath ("${MountDir}\sources\install.wim") -Index ($WimIndex);
 
 
 # Mount the windows image
-Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${MountDir}\sources\install.wim") -Index (1);
+Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${MountDir}\sources\install.wim") -Index ($WimIndex);
 
 
 # Add the drivers to the image

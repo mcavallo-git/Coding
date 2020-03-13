@@ -158,12 +158,12 @@ If (($WimIndexSource) -Eq ($Null)) {
 		If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 		}
-		Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest}) | Out-Null;
+		Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
 		#
 		# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
 		#
 		$Dir_DriversSource = "C:\DRIVERS\";
-		If ($True) {
+		If ($False) {
 			#
 			# Optionally, also burn-in all drivers from the current system into the custom .iso)
 			#

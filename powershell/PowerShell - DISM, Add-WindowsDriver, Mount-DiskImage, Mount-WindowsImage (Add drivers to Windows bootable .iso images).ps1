@@ -43,7 +43,7 @@ $Mounted_ISO | Dismount-DiskImage | Out-Null;
 # Determine which index to pull out of the downloaded Windows image, then recreate it from the "install.esd" to an "install.wim" file
 #
 $WimIndexSource = $Null;
-$WimIndexDest = 1;
+$WimIndexDest = $Null;
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
 $InvalidWimIndices = @();
@@ -75,6 +75,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 						Write-Host "";
 						Write-Host "Found target ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
 						$WimIndexSource = ${EachIndex};
+						$WimIndexDest = 1;
 					} Else {
 						Write-Host "";
 						Write-Host "Ignoring ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
@@ -83,114 +84,132 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 				}
 			}
 		}
-
-		<# Double-check to ensure that this desired Windows sub-image #>
-		Write-Host "";
-		Write-Host "Using Wim Index `"${WimIndexSource}`" from installation media `"${Install_Esd}`"";
-		Write-Host "";
-		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimIndexSource}); ] ...";
-		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimIndexSource});
-
-		<# Export the image by creating/updating the "Install.wim" windows image-file #>
-		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
-		Write-Host "";
-		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimIndexSource}) to output-path `"${Install_Wim}`" ...";
-		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimIndexSource}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
-		If ($True) {
-			Write-Host "";
-			Write-Host "Calling  [ DISM $ExportArgs; ] ...";
-			DISM $ExportArgs;
-		} Else {
-			$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
-			$pinfo.FileName = "C:\Windows\system32\Dism.exe";
-			$pinfo.RedirectStandardError = $True;
-			$pinfo.RedirectStandardOutput = $True;
-			$pinfo.UseShellExecute = $False;
-			$pinfo.Arguments = $ExportArgs;
-			$p = New-Object System.Diagnostics.Process;
-			$p.StartInfo = $pinfo;
-			$p.Start() | Out-Null;
-			$p.WaitForExit();
-			$stdout = $p.StandardOutput.ReadToEnd();
-			$stderr = $p.StandardError.ReadToEnd();
-			$pinfo = $Null;
-			$p = $Null;
-		}
-
-		Write-Host "";
-		Write-Host "Testing destination image file `"${Install_Wim}`" (index:${WimIndexDest})";
-		Write-Host "";
-		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Wim}`") -Index (${WimIndexDest}); ] ...";
-		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
-
 	}
 }
 
 
-<# Remove various Windows images from the image to-be-exported (education version, home version, etc.) #>
-<#   > Note: This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file #>
-If ($False) {
-$InvalidWimIndices | ForEach-Object {
-	$EachImageIndex = $_;
-	Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachImageIndex}) -CheckIntegrity;
-}
-}
-
-
-If ($True) {
-
-# Mount the windows image
-$WorkingDir = "${Home}\Desktop\WinImage";
-If ((Test-Path ("${WorkingDir}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
-}
-Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
-
-# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
-#  > Optionally, burn all drivers from the current system into the custom .iso)
-$Dir_DriversSource = "C:\DRIVERS\";
-$Dir_CurrentSystemDrivers = "${Dir_DriversSource}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
-If ((Test-Path ("${Dir_CurrentSystemDrivers}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${Dir_CurrentSystemDrivers}") | Out-Null;
-}
-Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}");
-Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned;
-
-# Dismount & save the image
-Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
-
-}
-
-
-#
-# Ensure that the local environment contains the "oscdimg" runtime (required)
-#   > Essentially, the "oscdimg" command allows us to convert the windows image
-#       from [ the directory we previously worked-on/added-drivers-to ]
-#       to [ a .iso file which be burned onto a thumb drive and used as bootable media (burns drivers into WinPE Environment, even usable BEFORE formatting/partitioning) ] ###
-#
-If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
-	<# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
-	<#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
-	If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
-	$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));
+If ($WimIndexSource -Eq $Null) {
 	Write-Host "";
-	Write-Host "Calling  [ DISM $ExportArgs; ] ...";
-	DISM $ExportArgs;
-	If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; } <# If the ESD file remains (after export), then remove the WIM file #>
-	<# Convert the image into a .iso file #>
-	Set-Location "${Home}\Desktop\";
-	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
+	Write-Host "Error: Unable to determine index to use on target Windows image";
+		
 } Else {
+
+	#
+	# Auditing trail to ensure that the target Windows sub-image was used (source)
+	#
 	Write-Host "";
-	Write-Host "Error:  Command `"oscdimg.exe`"' not found (required as it creates a .iso file from a target Windows PE local image to a image into an exportable .iso file)" -ForegroundColor "Yellow";
-	Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
+	Write-Host "Using Wim Index `"${WimIndexSource}`" from installation media `"${Install_Esd}`"";
 	Write-Host "";
-	Write-Host "Error:  Missing required command 'oscdimg.exe' here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
+	Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimIndexSource}); ] ...";
+	Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimIndexSource});
+
+	#
+	# Export the image by creating/updating the "Install.wim" windows image-file
+	#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image
+	#
 	Write-Host "";
-	Write-Host "Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads ";
+	Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimIndexSource}) to output-path `"${Install_Wim}`" ...";
+	$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimIndexSource}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
+	If ($True) {
+		Write-Host "";
+		Write-Host "Calling  [ DISM $ExportArgs; ] ...";
+		DISM $ExportArgs;
+	} Else {
+		$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
+		$pinfo.FileName = "C:\Windows\system32\Dism.exe";
+		$pinfo.RedirectStandardError = $True;
+		$pinfo.RedirectStandardOutput = $True;
+		$pinfo.UseShellExecute = $False;
+		$pinfo.Arguments = $ExportArgs;
+		$p = New-Object System.Diagnostics.Process;
+		$p.StartInfo = $pinfo;
+		$p.Start() | Out-Null;
+		$p.WaitForExit();
+		$stdout = $p.StandardOutput.ReadToEnd();
+		$stderr = $p.StandardError.ReadToEnd();
+		$pinfo = $Null;
+		$p = $Null;
+	}
+
+	#
+	# Auditing trail to ensure that the target Windows sub-image was created (destination)
+	#
 	Write-Host "";
-	Write-Host "Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042 ";
+	Write-Host "Testing destination image file `"${Install_Wim}`" (index:${WimIndexDest})";
 	Write-Host "";
+	Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Wim}`") -Index (${WimIndexDest}); ] ...";
+	Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
+
+	#
+	# Remove various Windows images from the image to-be-exported (education version, home version, etc.)
+	#   > Note: This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file
+	#
+	If ($False) {
+		$InvalidWimIndices | ForEach-Object {
+			$EachImageIndex = $_;
+			Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachImageIndex}) -CheckIntegrity;
+		}
+	}
+
+
+	If ($True) {
+		#
+		# Mount the windows image
+		#
+		$WorkingDir = "${Home}\Desktop\WinImage";
+		If ((Test-Path ("${WorkingDir}")) -Eq $False) {
+			New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
+		}
+		Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
+		#
+		# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
+		#  > Optionally, burn all drivers from the current system into the custom .iso)
+		#
+		$Dir_DriversSource = "C:\DRIVERS\";
+		$Dir_CurrentSystemDrivers = "${Dir_DriversSource}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
+		If ((Test-Path ("${Dir_CurrentSystemDrivers}")) -Eq $False) {
+			New-Item -ItemType ("Directory") -Path ("${Dir_CurrentSystemDrivers}") | Out-Null;
+		}
+		Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}");
+		Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned;
+		#
+		# Dismount & save the image
+		#
+		Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
+	}
+
+
+	#
+	# Ensure that the local environment contains the "oscdimg" runtime (required)
+	#   > Essentially, the "oscdimg" command allows us to convert the windows image
+	#       from [ the directory we previously worked-on/added-drivers-to ]
+	#       to [ a .iso file which be burned onto a thumb drive and used as bootable media (burns drivers into WinPE Environment, even usable BEFORE formatting/partitioning) ] ###
+	#
+	If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
+		<# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
+		<#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
+		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
+		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));
+		Write-Host "";
+		Write-Host "Calling  [ DISM $ExportArgs; ] ...";
+		DISM $ExportArgs;
+		If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; } <# If the ESD file remains (after export), then remove the WIM file #>
+		<# Convert the image into a .iso file #>
+		Set-Location "${Home}\Desktop\";
+		oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
+	} Else {
+		Write-Host "";
+		Write-Host "Error:  Command `"oscdimg.exe`"' not found (required as it creates a .iso file from a target Windows PE local image to a image into an exportable .iso file)" -ForegroundColor "Yellow";
+		Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
+		Write-Host "";
+		Write-Host "Error:  Missing required command 'oscdimg.exe' here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
+		Write-Host "";
+		Write-Host "Download Windows ADK (source):  https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads ";
+		Write-Host "";
+		Write-Host "Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042 ";
+		Write-Host "";
+	}
+
 }
 
 

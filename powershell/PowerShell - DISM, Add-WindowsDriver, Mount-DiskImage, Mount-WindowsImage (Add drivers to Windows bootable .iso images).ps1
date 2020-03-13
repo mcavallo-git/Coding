@@ -164,14 +164,18 @@ If ($WimIndexSource -Eq $Null) {
 		Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest}) | Out-Null;
 		#
 		# Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
-		#  > Optionally, burn all drivers from the current system into the custom .iso)
 		#
 		$Dir_DriversSource = "C:\DRIVERS\";
-		$Dir_CurrentSystemDrivers = "${Dir_DriversSource}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
-		If ((Test-Path ("${Dir_CurrentSystemDrivers}")) -Eq $False) {
-			New-Item -ItemType ("Directory") -Path ("${Dir_CurrentSystemDrivers}") | Out-Null;
+		If ($False) {
+			#
+			# Optionally, also burn-in all drivers from the current system into the custom .iso)
+			#
+			$Dir_CurrentSystemDrivers = "${Dir_DriversSource}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y%m%d_%H%M%S')";
+			If ((Test-Path ("${Dir_CurrentSystemDrivers}")) -Eq $False) {
+				New-Item -ItemType ("Directory") -Path ("${Dir_CurrentSystemDrivers}") | Out-Null;
+			}
+			Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}") | Out-Null;
 		}
-		Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}") | Out-Null;
 		Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned | Out-Null;
 		#
 		# Dismount & save the image

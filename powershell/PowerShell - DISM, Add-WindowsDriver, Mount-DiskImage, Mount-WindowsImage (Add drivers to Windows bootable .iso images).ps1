@@ -76,7 +76,8 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 		}
 
 		### Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
-		DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.esd" /SourceIndex:6 /DestinationImageFile:"${MountDir}\sources\install.wim" /Compress:max /CheckIntegrity;
+		$WimIndex = 1;
+		DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.esd" /SourceIndex:${WimIndex} /DestinationImageFile:"${MountDir}\sources\install.wim" /Compress:max /CheckIntegrity;
 		### ^^^ This may take up to a couple minutes to complete
 	}
 }

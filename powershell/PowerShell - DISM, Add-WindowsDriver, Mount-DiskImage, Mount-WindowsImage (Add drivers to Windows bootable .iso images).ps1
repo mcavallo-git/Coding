@@ -78,7 +78,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 					}
 				}
 				If (${KeepImage} -Eq $False) {
-					Remove-WindowsImage -ImagePath "${Install_Wim}" -Index ${EachIndex} -CheckIntegrity;
+					Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachIndex}) -CheckIntegrity;
 				}
 			}
 			$pinfo = $Null;

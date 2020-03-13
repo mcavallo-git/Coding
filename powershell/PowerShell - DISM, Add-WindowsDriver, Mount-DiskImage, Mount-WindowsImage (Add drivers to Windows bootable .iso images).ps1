@@ -35,7 +35,7 @@ $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 	Start-Sleep -Seconds (1);
-};
+}
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage | Out-Null;
 
@@ -89,7 +89,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 }
 
 
-If ($WimIndexSource -Eq $Null) {
+If (($WimIndexSource) -Eq ($Null)) {
 	Write-Host "";
 	Write-Host "Error: Unable to determine index to use on target Windows image";
 		
@@ -146,10 +146,7 @@ If ($WimIndexSource -Eq $Null) {
 	#   > This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file
 	#
 	If ($False) {
-		$InvalidWimIndices | ForEach-Object {
-			$EachImageIndex = $_;
-			Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index (${EachImageIndex}) -CheckIntegrity;
-		}
+		$InvalidWimIndices | ForEach-Object { Remove-WindowsImage -ImagePath ("${Install_Wim}") -Index ($_) -CheckIntegrity; };
 	}
 
 

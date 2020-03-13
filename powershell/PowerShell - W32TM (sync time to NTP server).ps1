@@ -29,6 +29,11 @@ Write-Host "`n`n";
 
 
 # ------------------------------------------------------------
+#
+# Update NTP Server/Settings on target windows machine
+#
+
+If ($True) {
 
 NET STOP W32TIME;
 #  |
@@ -60,6 +65,7 @@ w32tm.exe /resync /rediscover;
 #  |-->  /resync  -->  "Tell a computer that it should resynchronize its clock as soon as possible, discarding all accumulated error stats"
 #  |-->  /rediscover  -->  "Redetect the network configuration and rediscover network sources; Then, resynchronize"
 
+}
 
 # ------------------------------------------------------------
 If ($False) { # Some workstations may be unable to resolve the "FQDN,0x9" syntax - if-so, then use this, instead:

@@ -67,19 +67,17 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$pinfo = $Null;
 			$p = $Null;
 			If (${exitcode} -Eq 0) {
-				<# Search for desired index/release/version of windows within the .iso image #>
+				<# Search for target index/release/version of windows within the .iso image #>
 				$Each_ImageName = (Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${EachIndex}) | Select-Object -Property "ImageName").ImageName;
-				Write-Host "Image:`"${Install_Esd}`" (index:${EachIndex}) contains ImageName:`"${Each_ImageName}`"";
 				If ("${Each_ImageName}" -Eq "Windows 10 Pro") {
+					Write-Host "";
+					Write-Host "Found target ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
 					$WimInfoIndex = ${EachIndex};
 				} Else {
-					Write-Host "Adding Index `"${EachIndex}`" to the INVALID indices file";
+					Write-Host "";
+					Write-Host "Ignoring ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
 					$InvalidWimIndices += ${EachIndex};
 				}
-			} Else {
-				$p;
-				Write-Host "`$p.ExitCode = $($p.ExitCode)";
-
 			}
 		}
 
@@ -95,7 +93,6 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimInfoIndex}); ] ...";
 		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimInfoIndex});
 
-		If ($False) {
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
 		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimInfoIndex}) to output-path `"${Install_Wim}`" ...";
@@ -113,7 +110,6 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		$stderr = $p.StandardError.ReadToEnd();
 		$pinfo = $Null;
 		$p = $Null;
-		}
 	}
 }
 

@@ -40,7 +40,9 @@ Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage;
 
 
-# Determine which index to pull out of the downloaded Windows image
+#
+# Determine which index to pull out of the downloaded Windows image, then recreate it from the "install.esd" to an "install.wim" file
+#
 $WimInfoIndex = $Null;
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
@@ -89,16 +91,14 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		}
 
 		Write-Host "WimInfoIndex = ${WimInfoIndex} ";
+		<# Double-check to ensure that this image is the one you want #>
 		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Wim}`") -Index (${WimInfoIndex}); ] ...";
 		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
 
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
 		Write-Host "Calling  [ DISM /Export-Image /SourceImageFile:`"${Install_Esd}`" /SourceIndex:${WimInfoIndex} /DestinationImageFile:`"${Install_Wim}`" /Compress:max /CheckIntegrity; ] ...";
-		DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity;
-
-		<# Double-check to ensure that this image is the one you want #>
-		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
+		<# DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity; #>
 
 	}
 }

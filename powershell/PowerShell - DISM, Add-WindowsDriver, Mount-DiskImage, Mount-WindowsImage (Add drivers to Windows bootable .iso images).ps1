@@ -174,10 +174,12 @@ If (($WimIndexSource) -Eq ($Null)) {
 			Export-WindowsDriver -Online -Destination ("${Dir_CurrentSystemDrivers}") | Out-Null;
 		}
 		Add-WindowsDriver -Path ("${WorkingDir}\") -Driver ("${Dir_DriversSource}\") -Recurse -ForceUnsigned | Out-Null;
+		# Get-WindowsDriver -Path ("${WorkingDir}\");
 		#
 		# Dismount & save the image
 		#
-		Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
+		Dismount-WindowsImage -Path ("${WorkingDir}\") -CheckIntegrity -Save;
+		# Dismount-WindowsImage -Path ("${WorkingDir}\") -CheckIntegrity -Discard;
 	}
 
 

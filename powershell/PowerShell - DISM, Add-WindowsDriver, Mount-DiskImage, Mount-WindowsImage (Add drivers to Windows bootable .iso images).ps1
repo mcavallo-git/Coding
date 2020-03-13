@@ -70,29 +70,10 @@ New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
 		### Determine which image you want to convert (as each, separate image will require a few minutes to update)
-		$WimIndex = $Null;
-		@(0,1,2,3,4,5,6,7,8,9,10,11,12) | ForEach-Object {
+		@(1,2,3,4,5,6,7,8,9,10,11,12) | ForEach-Object {
 			$EachWimInfo = DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:$_;
-			$EachWimInfo | Format-List;
-			Show $EachWimInfo;
-			If (($EachWimInfo.Name) -Eq "Windows 10 Pro") {
-				$WimIndex = $_;
-				Break;
-			}
+			$EachWimInfo;
 		}
-		Write-Host "`$WimIndex = $WimIndex";
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:1
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:2
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:3
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:4
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:5
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:6
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:7
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:8
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:9
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:10
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:11
-		DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:12
 
 		### Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either
 		DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.esd" /SourceIndex:6 /DestinationImageFile:"${MountDir}\sources\install.wim" /Compress:max /CheckIntegrity;

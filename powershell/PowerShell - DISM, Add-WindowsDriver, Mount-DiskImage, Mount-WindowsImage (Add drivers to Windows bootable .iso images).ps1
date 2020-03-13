@@ -209,7 +209,7 @@ Write-Host "$Intel_QuickStart_DirectStatement";
 
 #   docs.microsoft.com  |  "Oscdimg Command-Line Options | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/oscdimg-command-line-options
 
-#   docs.microsoft.com  |  "Remove-WindowsImage"  |  https://docs.microsoft.com/en-us/powershell/module/dism/remove-windowsimage
+#   docs.microsoft.com  |  "Remove-WindowsImage - Deletes the specified volume image from a WIM file that has multiple volume images"  |  https://docs.microsoft.com/en-us/powershell/module/dism/remove-windowsimage
 #
 #   downloadcenter.intel.com  |  "Intel® Virtual RAID on CPU (Intel® VROC) and Intel® Rapid Storage Technology Enterprise (Intel® RSTe) Driver for Windows*"  |  https://downloadcenter.intel.com/download/29246/Intel-Virtual-RAID-on-CPU-Intel-VROC-and-Intel-Rapid-Storage-Technology-Enterprise-Intel-RSTe-Driver-for-Windows-
 #

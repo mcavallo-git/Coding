@@ -61,7 +61,7 @@ Write-Host "`$DevicePath  = $DriveLetter";
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
-}
+};
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage;
 }

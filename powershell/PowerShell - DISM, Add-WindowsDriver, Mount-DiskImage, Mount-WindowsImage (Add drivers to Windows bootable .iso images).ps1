@@ -12,7 +12,7 @@
 #
 $WorkingDir = "${Home}\Desktop\WinImage";
 If ((Test-Path ("${WorkingDir}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\");
+	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 }
 
 
@@ -21,7 +21,7 @@ If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 #
 $Dir_ExportedDrivers = "${WorkingDir}\Drivers_$(${Env:COMPUTERNAME})_$(Get-Date -UFormat '%Y-%m-%d_%H-%M-%S')";
 If ((Test-Path ("${Dir_ExportedDrivers}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${Dir_ExportedDrivers}");
+	New-Item -ItemType ("Directory") -Path ("${Dir_ExportedDrivers}") | Out-Null;
 }
 Export-WindowsDriver -Online -Destination ("${Dir_ExportedDrivers}");
 
@@ -53,6 +53,9 @@ Mount-DiskImage -ImagePath ("${Home}\Desktop\Windows.iso");
 
 # Copy the image off of the ISO (archaic - need to update this methodology)
 $MountDir = "${Home}\Desktop\Mount";
+If ((Test-Path ("${MountDir}")) -Eq $False) {
+	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
+}
 Copy-Item ("D:\*") ("${MountDir}\") -Recurse -Force;
 
 
@@ -61,7 +64,7 @@ Dismount-DiskImage -ImagePath ("${MountDir}\");
 
 
 # Mount the windows image
-New-Item -ItemType ("Directory") -Path ("${WorkingDir}\");
+New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 	If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) {
 		### Determine which image you want to convert, as it takes a couple minutes just for one

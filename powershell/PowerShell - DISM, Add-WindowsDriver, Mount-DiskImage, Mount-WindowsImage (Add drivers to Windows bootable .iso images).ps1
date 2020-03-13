@@ -142,7 +142,7 @@ If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 }
 # Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
-Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}");
+# Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}");
 Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (1);
 
 # Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)

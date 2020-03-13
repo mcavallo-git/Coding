@@ -205,7 +205,8 @@ If (($WimIndexSource) -Eq ($Null)) {
 		# Convert the "install.esd" Windows Image into a .iso file
 		#
 		Set-Location "${Home}\Desktop\";
-		oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
+		# oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
+		oscdimg -nt -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Windows_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
 	} Else {
 		Write-Host "";
 		Write-Host "Error:  Command `"oscdimg.exe`"' not found (required as it creates a .iso file from a target Windows PE local image to a image into an exportable .iso file)" -ForegroundColor "Yellow";

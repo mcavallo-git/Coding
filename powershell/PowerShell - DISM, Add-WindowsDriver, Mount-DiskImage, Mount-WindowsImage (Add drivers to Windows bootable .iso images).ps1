@@ -73,6 +73,7 @@ If ((Test-Path ("${MountDir}\sources\install.wim")) -Eq $False) {
 		$WimIndex = $Null;
 		@(0,1,2,3,4,5,6,7,8,9,10,11,12) | ForEach-Object {
 			$EachWimInfo = DISM /Get-WimInfo /WimFile:"${MountDir}\sources\install.esd" /Index:$_;
+			$EachWimInfo;
 			If (($EachWimInfo.Name) -Eq "Windows 10 Pro") {
 				$WimIndex = $_;
 				Break;

@@ -88,11 +88,15 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 # Convert the "install.wim" back to an "install.esd" file to prep for .iso export
 Remove-Item "${MountDir}\sources\install.esd" -Force;
 DISM /Export-Image /SourceImageFile:"${MountDir}\sources\install.wim" /SourceIndex:$WimIndex /DestinationImageFile:"${MountDir}\sources\install.esd" /Compress:recovery;
+### ^^^ Converting the image back from ".wim" to ".esd" format takes least a couple of minutes to complete, and may take longer depending on the number of drivers added
 If ((Test-Path ("${MountDir}\sources\install.esd")) -Eq $True) { Remove-Item "${MountDir}\sources\install.wim" -Force; }
 
 
 # Convert the image into a .iso file
-If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Eq $Null) {
+If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
+	Set-Location "${Home}\Desktop\";
+	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
+} Else {
 	Write-Host "";
 	Write-Host "Error:  Command `"oscdimg.exe`"' not found (required as it creates a .iso file from a target Windows PE local image to a image into an exportable .iso file)" -ForegroundColor "Yellow";
 	Write-Host "        here, which comes from Microsoft's 'Windows Assessment and Deployment Kit' (ADK) ";
@@ -105,9 +109,6 @@ If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Eq $Null) {
 	Write-Host "";
 	Write-Host "Download Windows ADK (direct):  https://go.microsoft.com/fwlink/?linkid=2086042 ";
 	Write-Host "";
-} Else {
-	Set-Location "${Home}\Desktop\";
-	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";
 }
 
 # > Use a tool such as "Rufus" to image a flash drive with this updated .iso file

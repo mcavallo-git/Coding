@@ -67,7 +67,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$p = $Null;
 			If (($p.ExitCode) -Eq 0) {
 				<# Search for desired index/release/version of windows within the .iso image #>
-				$Regex_WindowsSubImage  = '^\s*Name : Windows 10 Pro\s*$';
+				$Regex_WindowsSubImage  = '^Name : Windows 10 Pro$';
 				$KeepImage = $False;
 				($stdout -split "`r`n") | ForEach-Object {
 					$EachLine = $_;
@@ -96,6 +96,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimInfoIndex}); ] ...";
 		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimInfoIndex});
 
+		If ($False) {
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
 		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimInfoIndex}) to output-path `"${Install_Wim}`" ...";
@@ -113,6 +114,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		$stderr = $p.StandardError.ReadToEnd();
 		$pinfo = $Null;
 		$p = $Null;
+		}
 	}
 }
 

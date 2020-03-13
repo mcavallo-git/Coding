@@ -42,7 +42,8 @@ $Mounted_ISO | Dismount-DiskImage | Out-Null;
 #
 # Determine which index to pull out of the downloaded Windows image, then recreate it from the "install.esd" to an "install.wim" file
 #
-$WimInfoIndex = $Null;
+$WimIndexSource = $Null;
+$WimIndexDest = 1;
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
 $InvalidWimIndices = @();
@@ -50,7 +51,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 	If ((Test-Path ("${Install_Esd}")) -Eq $True) {
 		# Determine which image you want to convert (as each, separate image will require a few minutes to update)
 		12..1 | ForEach-Object {
-			If (${WimInfoIndex} -Eq $Null) {
+			If (${WimIndexSource} -Eq $Null) {
 				$EachIndex = $_;
 				$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
 				$pinfo.FileName = "C:\Windows\system32\Dism.exe";
@@ -73,7 +74,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 					If ("${Each_ImageName}" -Eq "Windows 10 Pro") {
 						Write-Host "";
 						Write-Host "Found target ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
-						$WimInfoIndex = ${EachIndex};
+						$WimIndexSource = ${EachIndex};
 					} Else {
 						Write-Host "";
 						Write-Host "Ignoring ImageName `"${Each_ImageName}`" at index `"${EachIndex}`"";
@@ -83,23 +84,18 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			}
 		}
 
-		<# Locate the index in the "install.esd" corresponding to the "Windows 10 Pro" image --> and NOT the "N" version of it, either #>
-		If (${WimInfoIndex} -Eq $Null) {
-			${WimInfoIndex} = 1;
-		}
-
 		<# Double-check to ensure that this desired Windows sub-image #>
 		Write-Host "";
-		Write-Host "Using Wim Index `"${WimInfoIndex}`" from installation media `"${Install_Esd}`"";
+		Write-Host "Using Wim Index `"${WimIndexSource}`" from installation media `"${Install_Esd}`"";
 		Write-Host "";
-		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimInfoIndex}); ] ...";
-		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimInfoIndex});
+		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimIndexSource}); ] ...";
+		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimIndexSource});
 
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
 		Write-Host "";
-		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimInfoIndex}) to output-path `"${Install_Wim}`" ...";
-		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimInfoIndex}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
+		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimIndexSource}) to output-path `"${Install_Wim}`" ...";
+		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimIndexSource}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
 		If ($True) {
 			Write-Host "";
 			Write-Host "Calling  [ DISM $ExportArgs; ] ...";
@@ -120,6 +116,13 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 			$pinfo = $Null;
 			$p = $Null;
 		}
+
+		Write-Host "";
+		Write-Host "Testing destination image file `"${Install_Wim}`" (index:${WimIndexDest})";
+		Write-Host "";
+		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Wim}`") -Index (${WimIndexDest}); ] ...";
+		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
+
 	}
 }
 
@@ -141,9 +144,7 @@ $WorkingDir = "${Home}\Desktop\WinImage";
 If ((Test-Path ("${WorkingDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${WorkingDir}\") | Out-Null;
 }
-# Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
-# Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}");
-Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (1);
+Mount-WindowsImage -Path ("${WorkingDir}\") -ImagePath ("${Install_Wim}") -Index (${WimIndexDest});
 
 # Recursively 'burn-in' (add) all .CAB driver-files from "${Dir_DriversSource}" directory to the mounted Windows image (this is the 'customization' step)
 #  > Optionally, burn all drivers from the current system into the custom .iso)
@@ -160,6 +161,7 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 
 }
 
+
 #
 # Ensure that the local environment contains the "oscdimg" runtime (required)
 #   > Essentially, the "oscdimg" command allows us to convert the windows image
@@ -169,9 +171,12 @@ Dismount-WindowsImage -Path ("${WorkingDir}\") –Save;
 If ((Get-Command "oscdimg" -ErrorAction "SilentlyContinue") -Ne $Null) {
 	<# Convert the "install.wim" back to an "install.esd" file to prep for .iso export #>
 	<#   Note:  Converting the image back from ".wim" to ".esd" format  often requires a few (~2-3) minutes to complete, and may take longer depending on the number of drivers added #>
-	Remove-Item "${Install_Esd}" -Force;
-	DISM /Export-Image /SourceImageFile:"${Install_Wim}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Esd}" /Compress:recovery;
-	If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; }
+	If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Esd}" -Force; } <# Attempt to remove the ESD File #>
+	$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Wim}`"", "/SourceIndex:${WimIndexDest}", "/DestinationImageFile:`"${Install_Esd}`"", "/Compress:recovery"));
+	Write-Host "";
+	Write-Host "Calling  [ DISM $ExportArgs; ] ...";
+	DISM $ExportArgs;
+	If ((Test-Path ("${Install_Esd}")) -Eq $True) { Remove-Item "${Install_Wim}" -Force; } <# If the ESD file remains (after export), then remove the WIM file #>
 	<# Convert the image into a .iso file #>
 	Set-Location "${Home}\Desktop\";
 	oscdimg -n -m -bc:"\Users\${Env:USERNAME}\Desktop\Mount\boot\etfsboot.com" "${Home}\Desktop\Mount" "${Home}\Desktop\Win10Pro_Customized-UpdatedDrivers_$(Get-Date -UFormat '%Y%m%d_%H%M%S').iso";

@@ -71,7 +71,10 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 				$KeepImage = $False;
 				($stdout -split "`r`n") | ForEach-Object {
 					$EachLine = $_;
-					$Needle   = [Regex]::Match($Haystack, $Pattern);
+					$Needle  = [Regex]::Match($Haystack, $Pattern);
+					Write-Host "------------------------------------------------------------"
+					Write-Host "`${EachLine} = ${EachLine}";
+					Write-Host "`${Needle} = ${Needle}";
 					If ($Needle.Success -Eq $True) {
 						$KeepImage = $True;
 						${WimInfoIndex} = $EachIndex;
@@ -79,6 +82,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 					}
 				}
 				If (${KeepImage} -Eq $False) {
+					Write-Host "Adding Index `"${EachIndex}`" to the INVALID indices file"
 					$InvalidWimIndices += $EachIndex;
 				}
 			}
@@ -92,8 +96,8 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 
 		Write-Host "WimInfoIndex = ${WimInfoIndex} ";
 		<# Double-check to ensure that this image is the one you want #>
-		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Wim}`") -Index (${WimInfoIndex}); ] ...";
-		Get-WindowsImage -ImagePath ("${Install_Wim}") -Index (${WimInfoIndex});
+		Write-Host "Calling  [ Get-WindowsImage -ImagePath (`"${Install_Esd}`") -Index (${WimInfoIndex}); ] ...";
+		Get-WindowsImage -ImagePath ("${Install_Esd}") -Index (${WimInfoIndex});
 
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
@@ -102,6 +106,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 
 	}
 }
+
 
 <# Remove various Windows images from the image to-be-exported (education version, home version, etc.) #>
 <#   > Note: This is performed separately because (at the time of writing this) I believe the Remove-WindowsImage must refer to the "install.wim" and not the "install.esd" file #>

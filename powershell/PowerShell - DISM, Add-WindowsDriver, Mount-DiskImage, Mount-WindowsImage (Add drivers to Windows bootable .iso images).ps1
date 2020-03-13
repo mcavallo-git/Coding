@@ -96,20 +96,26 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 		<# Export the image by creating/updating the "Install.wim" windows image-file #>
 		<#   > Note: this process often requires a few (~2-3) minutes to complete, and may take longer if you've added many more drivers to the customized Windows image #>
 		Write-Host "Exporting Windows-Image from input-path `"${Install_Esd}`" (index:${WimInfoIndex}) to output-path `"${Install_Wim}`" ...";
-		$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
-		$pinfo.FileName = "C:\Windows\system32\Dism.exe";
-		$pinfo.RedirectStandardError = $True;
-		$pinfo.RedirectStandardOutput = $True;
-		$pinfo.UseShellExecute = $False;
-		$pinfo.Arguments = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimInfoIndex}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
-		$p = New-Object System.Diagnostics.Process;
-		$p.StartInfo = $pinfo;
-		$p.Start() | Out-Null;
-		$p.WaitForExit();
-		$stdout = $p.StandardOutput.ReadToEnd();
-		$stderr = $p.StandardError.ReadToEnd();
-		$pinfo = $Null;
-		$p = $Null;
+		$ExportArgs = (@("/Export-Image", "/SourceImageFile:`"${Install_Esd}`"", "/SourceIndex:${WimInfoIndex}", "/DestinationImageFile:`"${Install_Wim}`"", "/Compress:max", "/CheckIntegrity"));
+		If ($True) {
+			$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
+			$pinfo.FileName = "C:\Windows\system32\Dism.exe";
+			$pinfo.RedirectStandardError = $True;
+			$pinfo.RedirectStandardOutput = $True;
+			$pinfo.UseShellExecute = $False;
+			$pinfo.Arguments = $ExportArgs;
+			$p = New-Object System.Diagnostics.Process;
+			$p.StartInfo = $pinfo;
+			$p.Start() | Out-Null;
+			$p.WaitForExit();
+			$stdout = $p.StandardOutput.ReadToEnd();
+			$stderr = $p.StandardError.ReadToEnd();
+			$pinfo = $Null;
+			$p = $Null;
+		} Else {
+			DISM $ExportArgs;
+			<# DISM /Export-Image /SourceImageFile:"${Install_Esd}" /SourceIndex:${WimInfoIndex} /DestinationImageFile:"${Install_Wim}" /Compress:max /CheckIntegrity; #>
+		}
 	}
 }
 

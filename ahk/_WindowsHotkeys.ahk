@@ -362,7 +362,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 			y_loc := 520
 		}
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
-		Sleep 1000
+		Sleep 2000
 		MouseClick, Left, %x_loc%, %y_loc%
 		Sleep 1
 		

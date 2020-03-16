@@ -36,6 +36,7 @@
 	"editor.formatOnType": false,
 	"editor.insertSpaces": false,
 	"editor.lineNumbers": "on",
+	"editor.maxTokenizationLineLength": 1048576,
 	"editor.minimap.enabled": false,
 	"editor.minimap.maxColumn": 80,
 	"editor.minimap.showSlider": "always",

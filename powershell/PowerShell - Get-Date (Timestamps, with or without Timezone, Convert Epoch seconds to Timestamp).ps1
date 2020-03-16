@@ -7,7 +7,7 @@
 # 
 
 
-# Timestamp, No-Timezone, Filename compatible
+# Timestamp, No-Timezone, Windows-filename compatible
 $TimestampFilename = (Get-Date -UFormat '%Y%m%d-%H%M%S');
 Write-Host ${TimestampFilename};
 
@@ -38,6 +38,10 @@ Write-Host "`$EpochToDateTime = [ ${EpochToDateTime} ]"; `
 Write-Host "`$DecimalTimestampLong = [ ${DecimalTimestampLong} ]"; `
 Write-Host "`$DecimalTimestampShort = [ ${DecimalTimestampShort} ]"; `
 Write-Host "`n`n";
+
+
+# Example filename usage
+$NewDesktopDir = "${Home}\Desktop\New Folder_$(Get-Date -UFormat '%Y%m%d-%H%M%S')"; New-Item -ItemType "Directory" -Path ("${NewDesktopDir}") | Out-Null;
 
 
 # ------------------------------------------------------------

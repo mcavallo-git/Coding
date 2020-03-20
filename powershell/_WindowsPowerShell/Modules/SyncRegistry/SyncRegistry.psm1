@@ -629,7 +629,7 @@ function SyncRegistry {
 					Name="MaxCompressionLevel";
 					Type="DWord";
 					Value=2;
-					Delete=$True; <# ! Delete this Property ! #>
+					Delete=$False;
 				}
 			)
 		};

@@ -259,11 +259,6 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="pre-packaged"><br />Pre-Packaged<br /><br /></h5></th></tr>
-<tr><td><strong>Ninite Package Manager</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Package Management System</i></sub></td><td><a href="https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;Includes 7-Zip, Audacity, Chrome, Classic Shell,<br />&nbsp;&nbsp;&nbsp;DropBox, FileZilla, FireFox, GreenShot, HandBrake,<br />&nbsp;&nbsp;&nbsp;NotePad++, Paint.Net, VLC, VS-Code, & WinDirStat</i></sub></td></tr>
-<!-- -->
-<!-- ------------------------------------------------------------ -->
-<!-- -->
 <tr><th colspan="2"><h5 id="personalization"><br />Personalization<br /><br /></h5></th></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
 <!-- -->
@@ -398,6 +393,12 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
+<tr><th colspan="2"><h5 id="pre-packaged"><br />Pre-Packaged<br /><br /></h5></th></tr>
+<tr><td><strong>Ninite Package Manager</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Package Management System</i></sub></td><td><a href="https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;Includes 7-Zip, Audacity, Chrome, Classic Shell,<br />&nbsp;&nbsp;&nbsp;DropBox, FileZilla, FireFox, GreenShot, HandBrake,<br />&nbsp;&nbsp;&nbsp;NotePad++, Paint.Net, VLC, VS-Code, & WinDirStat</i></sub></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
+
 </table>
 
 </details>

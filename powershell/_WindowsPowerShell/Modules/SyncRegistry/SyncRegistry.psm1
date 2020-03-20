@@ -621,18 +621,33 @@ function SyncRegistry {
 			)
 		};
 		# Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services!MaxCompressionLevel"; <# Example of Registry Path w/ inline Property name #>
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";
-			Props=@(
-				@{
-					Description="Sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-					Name="MaxCompressionLevel";
-					Type="DWord";
-					Value=2;
-					Delete=$False;
-				}
-			)
-		};
+
+
+		# ------------------------------------------------------------
+		# Group-Policy Setting(s)
+		#
+		#
+		# EXPLANATION - WHY REGISTRY EDITS DON'T AFFECT GROUP POLICIES (GPEDIT.MSC)
+		#  |
+		#  |--> The registry only shows a read-only copy of the settings in the Group Policy Editor (gpedit.msc)
+		#  |
+		#  |--> The values held in the registry at a given point in time are calculated from the combined group policies applied to the workstation & user (and possibly domain) at any given point in time (and from any given user-reference)
+		#  |
+		#  |--> The source of these values is controlled not by setting the registry keys, but by using Group Policy specific commands to set the values which gpedit.msc pulls from, locally
+		#
+
+		Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
+
+
+		$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";
+		$Name="MaxCompressionLevel";
+		$Value="MaxCompressionLevel";
+		$Type="DWord";
+		Write-Host "";
+		Write-Host "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+		Write-Host -NoNewLine "`n";
+		Set-PolicyFileEntry `
+		-Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
 
 		# ------------------------------------------------------------

@@ -1,13 +1,26 @@
 /* ------------------------------------------------------------ */
 
-/* Select only the first element */
+/* Select only the FIRST element */
 li:first-child {
 	color: green;
 }
 
-/* Alternative method */
+/* Select only the FIRST element - Alternative method */
 li:nth-child(1) {
 	color: green;
+}
+
+
+/* ------------------------------------------------------------ */
+
+/* Select only the LAST element */
+li:last-child {
+	color: green;
+}
+
+/* Select only the SECOND-TO-LAST element */
+li:nth-last-child(2) {
+    color: green;
 }
 
 
@@ -39,19 +52,6 @@ li:nth-child(odd) {
 /* Select only even-ordered elements (2nd, 4th, 6th, ...) */
 li:nth-child(even) {
 	color: green;
-}
-
-
-/* ------------------------------------------------------------ */
-
-/* Select only the LAST element */
-li:last-child {
-	color: green;
-}
-
-/* Select only the SECOND-TO-LAST element */
-li:nth-last-child(2) {
-    color: green;
 }
 
 

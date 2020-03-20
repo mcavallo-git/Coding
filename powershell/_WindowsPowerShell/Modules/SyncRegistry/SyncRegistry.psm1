@@ -638,7 +638,6 @@ function SyncRegistry {
 
 		Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
 
-
 		$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";
 		$Name="MaxCompressionLevel";
 		$Type="DWord";

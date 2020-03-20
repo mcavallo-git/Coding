@@ -21,6 +21,8 @@ If ((Test-Path -Path ($RegEdit.Path)) -Eq $True) {
 }
 
 Get-ItemProperty -Path ($RegEdit.Path) -Name ($RegEdit.Name)
+# Path="Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services!MaxCompressionLevel"; <# Example of Registry Path w/ inline Property name #>
+
 
 # ------------------------------------------------------------
 #

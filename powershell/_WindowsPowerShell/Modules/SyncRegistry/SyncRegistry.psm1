@@ -421,7 +421,7 @@ function SyncRegistry {
 		};
 		# Multitasking - Snap windows (cont.)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";

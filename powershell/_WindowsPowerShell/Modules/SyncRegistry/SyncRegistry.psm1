@@ -625,7 +625,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services";
 			Props=@(
 				@{
-					Description="Sets the value to for gpedit.msc (Group Policy) titled 'Configure compression for RemoteFX data to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+					Description="Sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
 					Name="MaxCompressionLevel";
 					Type="DWord";
 					Value=2;

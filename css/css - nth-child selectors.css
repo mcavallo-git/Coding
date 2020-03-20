@@ -1,0 +1,59 @@
+/* ------------------------------------------------------------ */
+/* Select only the fifth element */
+/* To select the first element, you can use :first-child, or (alternatively) you can use nth-child(1) */
+li:nth-child(5) {
+	color: green;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Select all EXCEPT the first 5 elements */
+/* If there were more than 10 elements here, it would select all of them beyond 5. */
+li:nth-child(n+6) {
+	color: green;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Select only the first 5 elements */
+li:nth-child(-n+5) {
+	color: green;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Select only odd-ordered elements (1st, 3rd, 5th, ...) */
+li:nth-child(odd) {
+	color: green;
+}
+/* Select only even-ordered elements (2nd, 4th, 6th, ...) */
+li:nth-child(even) {
+	color: green;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Select only the LAST element */
+li:last-child {
+	color: green;
+}
+/* Select only the SECOND-TO-LAST element */
+li:nth-last-child(2) {
+    color: green;
+}
+
+
+/* ------------------------------------------------------------ */
+/* Select every 4th element, starting at the first element */
+li:nth-child(4n-7) {  /* or 4n+1 */
+	color: green;
+}
+
+
+/* ------------------------------------------------------------
+ *
+ * Citation(s)
+ *
+ *   css-tricks.com  |  "Useful :nth-child Recipes | CSS-Tricks"  |  https://css-tricks.com/useful-nth-child-recipies/
+ *
+ * ------------------------------------------------------------ */

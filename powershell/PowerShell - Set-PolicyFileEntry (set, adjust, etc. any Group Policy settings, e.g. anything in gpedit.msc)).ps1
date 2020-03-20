@@ -37,13 +37,17 @@ Set-PolicyFileEntry `
 -Type ("String");
 
 
-Write-Host "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+
+
+$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services"; `
+$Name="MaxCompressionLevel"; `
+$Value="MaxCompressionLevel"; `
+$Type="DWord"; `
+Write-Host ""; `
+Write-Host "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]"; `
+Write-Host -NoNewLine "`n"; `
 Set-PolicyFileEntry `
--Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") `
--Key ("SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services") `
--ValueName ("MaxCompressionLevel") `
--Data (2) `
--Type ("DWord");
+-Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
 
 # ------------------------------------------------------------

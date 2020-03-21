@@ -32,30 +32,6 @@ if (((${Env:Path}).Split(';') | Where-Object { $_ -Eq "C:\Program Files\Git\cmd"
 
 # ------------------------------------------------------------
 # 
-# PERMANENTLY modify user/system environment variables in Windows
-# 
-
-# PERMANENTLY  modify  USER  environment variable, "PATH"
-$ADD_PATH = "C:\Program Files (x86)\VMware\VMware Workstation"; `
-[System.Environment]::SetEnvironmentVariable(
-	"Path",
-	(((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path)+(";${ADD_PATH}")),
-	[System.EnvironmentVariableTarget]::User
-);
-
-
-# PERMANENTLY  modify  SYSTEM  environment variable, "PATH"
-$ADD_PATH = "C:\Program Files (x86)\VMware\VMware Workstation"; `
-[System.Environment]::SetEnvironmentVariable(
-	"Path",
-	(((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path)+(";${ADD_PATH}")),
-	[System.EnvironmentVariableTarget]::Machine
-);
-
-
-
-# ------------------------------------------------------------
-# 
 # TEMPORARILY modify session environment variables in Windows
 # 
 

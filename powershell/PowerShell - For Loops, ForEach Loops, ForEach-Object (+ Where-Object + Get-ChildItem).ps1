@@ -69,6 +69,17 @@ Get-WindowsOptionalFeature -Online | ForEach-Object {
 	Write-Output "------------------------------------------------------------";
 }
 
+# ForEach-Object using '.Keys' method to walk through an object by iterating through its property-names
+$CommandString = $MyInvocation.MyCommand.Name;
+$PSBoundParameters.Keys | ForEach-Object {
+	$CommandString += " -$_";
+	If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) {
+		$CommandString += " `"$($PSBoundParameters[$_])`"";
+	}
+};
+Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
+
+
 
 # ------------------------------------------------------------
 #

@@ -17,13 +17,17 @@ esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning";  # Suppress the "SSH is ena
 
 
 # ------------------------------------------------------------
-# As a one-liner:
+# As a one-liner (HIDE WARNINGS)
+
+esxcfg-advcfg -g "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning"; /etc/init.d/hostd restart;
 
 
-esxcfg-advcfg -g "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 0 "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning"; /etc/init.d/hostd restart;
-
-
-
+# ------------------------------------------------------------
+# As a one-liner (SHOW WARNINGS)
+# 
+# esxcfg-advcfg -g "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 0 "/UserVars/SuppressShellWarning"; /etc/init.d/hostd restart;
+# 
+# 
 # ------------------------------------------------------------
 # Citation(s)
 #

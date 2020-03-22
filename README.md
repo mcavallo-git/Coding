@@ -341,7 +341,7 @@ This file (on GitHub):
 		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 	</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>
-<tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Installation Media Creation Tool</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
+<tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Create Windows 10 Installation Media</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
 <tr><td><strong>Xubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://xubuntu.org/download">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

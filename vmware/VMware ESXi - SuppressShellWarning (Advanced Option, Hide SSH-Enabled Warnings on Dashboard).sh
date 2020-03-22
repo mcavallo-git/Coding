@@ -17,6 +17,14 @@ esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning";  # Suppress the "SSH is ena
 
 
 # ------------------------------------------------------------
+# As a one-liner:
+
+
+esxcfg-advcfg -g "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 0 "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning"; /etc/init.d/hostd restart;
+
+
+
+# ------------------------------------------------------------
 # Citation(s)
 #
 #   vswitchzero.com  |  "Suppressing ESXi Shell and SSH Warnings"  |  https://vswitchzero.com/2017/06/03/suppressing-esxi-shell-and-ssh-warnings/

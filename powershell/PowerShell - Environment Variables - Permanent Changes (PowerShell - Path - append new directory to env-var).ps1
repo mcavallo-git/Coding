@@ -1,6 +1,14 @@
 # ------------------------------------------------------------
+#
+# Show all environment variables (to the console)
+#
 
+
+
+# ------------------------------------------------------------
+#
 # Show all PATH items (to the console)
+#
 (${Env:Path}).Split(';');
 
 

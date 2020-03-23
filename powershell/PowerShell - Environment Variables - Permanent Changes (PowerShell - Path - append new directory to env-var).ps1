@@ -1,6 +1,15 @@
 # ------------------------------------------------------------
+#
+# Show all environment variables (to the console)
+#
 
+Get-Childitem Env:;
+
+
+# ------------------------------------------------------------
+#
 # Show all PATH items (to the console)
+#
 (${Env:Path}).Split(';');
 
 

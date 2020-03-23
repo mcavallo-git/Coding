@@ -53,7 +53,7 @@
 			]
 		},
 		{
-			"description": "OpenDNS - Primary",
+			"description": "OpenDNS (Cisco) - Primary",
 			"hostname": [
 				"resolver1.opendns.com"
 			],
@@ -85,7 +85,7 @@
 			]
 		},
 		{
-			"description": "OpenDNS - Secondary",
+			"description": "OpenDNS (Cisco) - Secondary",
 			"hostname": [
 				"resolver2.opendns.com"
 			],

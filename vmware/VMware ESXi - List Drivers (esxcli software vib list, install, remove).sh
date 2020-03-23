@@ -25,9 +25,12 @@ esxcli software vib list | grep -i ahci
 
 esxcli software vib list | grep -i nic
 
+esxcli software vib list | grep -i asmedia
+
 esxcli software vib list | grep -i dell
 
-esxcli software vib list | grep -i idrac
+esxcli software vib list | grep -i hp
+
 
 
 # ------------------------------------------------------------

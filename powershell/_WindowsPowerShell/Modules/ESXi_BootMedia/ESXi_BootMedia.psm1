@@ -260,11 +260,11 @@ Function ESXi_BootMedia() {
 					};
 
 					$VibNames_Valid = ($ValidExtraVibs | Sort-Object -Property Name -Unique).Name;
-					$VibNames_Valid > "${LogFilesDir}\VibNames_Valid.log";
+					$VibNames_Valid > "${Home}\Desktop\VibNames_Valid.log";
 					$ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${LogFilesDir}\Verbose-ValidExtraVibs.log";
 
 					$VibNames_Ignored = ($IgnoredExtraVibs | Sort-Object -Property Name -Unique).Name;
-					$VibNames_Ignored > "${LogFilesDir}\VibNames_Ignored.log";
+					$VibNames_Ignored > "${Home}\Desktop\VibNames_Ignored.log";
 					$IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${LogFilesDir}\Verbose-IgnoredExtraVibs.log";
 
 				}

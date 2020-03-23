@@ -7,7 +7,7 @@ esxcli network firewall ruleset set -e true -r httpClient;
 esxcli software sources vib list -d http://vibsdepot.v-front.de;
 
 # Get information about a package in the V-Front depot
-esxcli software sources vib get -d http://vibsdepot.v-front.de -n esxcli-shell;
+esxcli software sources vib get -d http://vibsdepot.v-front.de -n sata-xahci;
 
 # Install a community supported package from the V-Front depot:
 # - Lower the system's acceptance level to match the package

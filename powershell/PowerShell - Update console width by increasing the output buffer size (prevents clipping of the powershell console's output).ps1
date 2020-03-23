@@ -1,8 +1,9 @@
 # ------------------------------------------------------------
 #
-# Update output buffer size to prevent clipping of the powershell console's output
+# Update the Powershell console's max characters-per-line by increasing the output buffer size
+#  |-->  Turns off word-wrap (you may not see some of the text as it goes off the console, but you can still highlight copy it)
+#  |-->  Prevents clipping of the powershell console's outpu
 #
-
 if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $rawUI = $Host.UI.RawUI;
   $oldSize = $rawUI.BufferSize;

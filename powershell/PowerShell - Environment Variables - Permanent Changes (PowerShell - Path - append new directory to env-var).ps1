@@ -1,8 +1,17 @@
 # ------------------------------------------------------------
 #
+# Update the Powershell console's max characters-per-line by increasing the output buffer size (for ${Env:PATH} inspecific)
+#
+if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
+  $rawUI = $Host.UI.RawUI;
+  $oldSize = $rawUI.BufferSize;
+  $typeName = $oldSize.GetType( ).FullName;
+  $newSize = New-Object $typeName (16384, $oldSize.Height);
+  $rawUI.BufferSize = $newSize;
+}
+#
 # Show all environment variables (to the console)
 #
-
 Get-Childitem Env:;
 
 

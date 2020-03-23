@@ -14,7 +14,7 @@ esxcli software sources vib get -d http://vibsdepot.v-front.de -n sata-xahci;
 esxcli software acceptance set --level=CommunitySupported;
 
 # - Install the package
-esxcli software vib install -d http://vibsdepot.v-front.de -n fw-ntpd;
+esxcli software vib install -d http://vibsdepot.v-front.de -n sata-xahci;
 
 # Install an unsigned package from the V-Front depot:
 esxcli software vib install -d http://vibsdepot.v-front.de -n cpu-microcode --no-sig-check;

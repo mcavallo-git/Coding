@@ -17,10 +17,10 @@ esxcli software acceptance set --level=CommunitySupported;
 esxcli software vib install -d http://vibsdepot.v-front.de -n fw-ntpd;
 
 # Install an unsigned package from the V-Front depot:
-esxcli software vib install -d http://vibsdepot.v-front.de -n cpu-microcode --no-sig-check
+esxcli software vib install -d http://vibsdepot.v-front.de -n cpu-microcode --no-sig-check;
 
 # Update installed packages from the V-Front depot:
-esxcli software vib update -d http://vibsdepot.v-front.de
+esxcli software vib update -d http://vibsdepot.v-front.de;
 
 
 # ------------------------------------------------------------

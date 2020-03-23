@@ -1,13 +1,15 @@
 
 # ------------------------------------------------------------
 
-Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #> `
+Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force -AllowClobber;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #> `
 $Array_VibDepos = @(); `
 $Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware Depot #> `
 $Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front Depot#> `
 Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[0])`""; Add-EsxSoftwareDepot ($Array_VibDepos[0]); `
 Write-Host "Pulling updated list of ESXi software packages (.vib drivers) from remote depot `"$($Array_VibDepos[1])`""; Add-EsxSoftwareDepot ($Array_VibDepos[1]); `
-Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)"; $Vibs = (Get-EsxSoftwarePackage);
+Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)"; $Vibs = (Get-EsxSoftwarePackage); `
+Write-Host "Request retured the following vibs:"; $Vibs; `
+Write-Host "Found $($Vibs.Count) .vib (driver) files - You may view/filter/etc. parameter `$Vibs manually to drill-down as you see fit";
 
 
 # ------------------------------------------------------------

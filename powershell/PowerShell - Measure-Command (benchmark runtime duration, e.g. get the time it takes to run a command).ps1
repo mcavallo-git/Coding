@@ -10,6 +10,7 @@ Measure-Command { [System.Net.Dns]::GetHostName() };
 Measure-Command { $env:COMPUTERNAME };
 Measure-Command { get-content env:computername };
 Measure-Command { gc env:computername };
+Measure-Command { openfiles /query /fo list /v };
 
 ### Benchmark different methods of obtaining the local device's FQDN (hostname.domainname)
 Measure-Command { [System.Net.DNS]::GetHostByName('').HostName };

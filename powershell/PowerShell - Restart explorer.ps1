@@ -1,5 +1,5 @@
 
-Stop-Process -ProcessName ("explorer.exe"); <# Restart Windows Explorer #>
+Stop-Process -ProcessName ("explorer"); <# Restart Windows Explorer #>
 
 
 <#

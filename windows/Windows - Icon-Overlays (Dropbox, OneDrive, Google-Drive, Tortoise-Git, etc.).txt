@@ -54,7 +54,7 @@ To apply any change(s) made to the registry (regarding icon overlays), explorer.
 
 Open PowerShell.exe and run:
 
-Stop-Process -ProcessName ("explorer.exe"); <# Restart Windows Explorer #>
+Stop-Process -ProcessName ("explorer"); <# Restart Windows Explorer #>
 
 
 ------------------------------------------------------------

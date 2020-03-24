@@ -1,0 +1,60 @@
+------------------------------------------------------------
+
+Registry Path:
+   HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\ShellIconOverlayIdentifiers
+
+Intro:
+   If there are more than 11 properties under the following registry key, then the first 11 are selected (sorted alphanumerically)
+   Example: A property with name " A" (notice the space before the letter A) would get priority over a property with name "A" (without a space), because the first name's space-character has an ASCII value of 0x20, which gets alphanumerically sorted BEFORE all letters and numbers
+   Quick info:
+     "0"-"9" are ASCII# 0x48 through 0x57
+     "A"-"Z" (uppercase) are ASCII# 0x41 through 0x5A
+     "a"-"z" (lowercase) are ASCII# 0x97 through 0x7A
+
+
+------------------------------------------------------------
+
+KNOWN ICONS (as-of 20200324-053720)
+
+Program      | Registry Property-Name                | Color | Takeaway (meaning of icon in layman's terms)
+-------------|---------------------------------------|-------|---------------------------------------------------
+Tortoise Git | Tortoise1Normal                       | Green | Committed (Checkmark Symbol)
+Tortoise Git | Tortoise2Modified                     |       | ???
+Tortoise Git | Tortoise3Conflict                     |       |
+Tortoise Git | Tortoise4Locked                 HIDE  |       |
+Tortoise Git | Tortoise5ReadOnly               HIDE  |       |
+Tortoise Git | Tortoise6Deleted                HIDE  |       |
+Tortoise Git | Tortoise7Added                  HIDE  |       |
+Tortoise Git | Tortoise8Ignored                HIDE  |       |
+Dropbox      | Tortoise9Unversioned            HIDE  |       |
+Dropbox      | DropboxExt01                          | Green | Synced!
+Dropbox      | DropboxExt02                          | Blue  | Sync in progress
+Dropbox      | DropboxExt03                          | Green | Synced! (Lock Symbol)
+Dropbox      | DropboxExt04                          | Blue  | Syncing (Lock Symbol)
+Dropbox      | DropboxExt05                          | Red   | Sync not happening
+Dropbox      | DropboxExt06                          | Red   | Sync not happening (Lock Symbol)
+Dropbox      | DropboxExt07                          | Gray  | A folder isn't syncing
+Dropbox      | DropboxExt08                    HIDE  | Gray  | Locked: File/Folder not syncing (Lock Symbol) 
+Dropbox      | DropboxExt09                    HIDE  |       | ???
+Dropbox      | DropboxExt10                    HIDE  |       | ???
+Google Drive | GoogleDriveBlacklisted          HIDE  |       | ???
+Google Drive | GoogleDriveSynced               HIDE  |       | ???
+Google Drive | GoogleDriveSyncing              HIDE  |       | ???
+OneDrive     | SkyDrivePro1 (ErrorConflict)    HIDE  |       | ???
+OneDrive     | SkyDrivePro2 (SyncInProgress)   HIDE  |       | ???
+OneDrive     | SkyDrivePro3 (InSync)           HIDE  |       | ???
+Explorer     | EnhancedStorageShell            HIDE  |       | ???
+Explorer     | Offline Files                   HIDE  |       | ???
+Explorer     | SharingPrivate                  HIDE  |       | ???
+
+
+------------------------------------------------------------
+
+To apply any change(s) made to the registry (regarding icon overlays), explorer.exe must be restarted
+
+Open PowerShell.exe and run:
+
+Stop-Process -ProcessName ("explorer.exe"); <# Restart Windows Explorer #>
+
+
+------------------------------------------------------------

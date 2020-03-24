@@ -5,7 +5,7 @@ Registry Path:
 
 Intro:
    If there are more than 11 properties under the following registry key, then the first 11 are selected (sorted alphanumerically)
-   Example: A property with name " A" (notice the space before the letter A) would get priority over a property with name "A" (without a space), because the first name's space-character has an ASCII value of 0x20, which gets alphanumerically sorted BEFORE all letters and numbers
+   Example: A Registry Key with name " A" (notice the space before the letter A) would get priority over a Registry Key with name "A" (without a space), because the first name's space-character has an ASCII value of 0x20, which gets alphanumerically sorted BEFORE all letters and numbers
    Quick info:
      "0"-"9" are ASCII# 0x48 through 0x57
      "A"-"Z" (uppercase) are ASCII# 0x41 through 0x5A
@@ -16,7 +16,7 @@ Intro:
 
 KNOWN ICONS (as-of 20200324-053720)
 
-Program      | Registry Property-Name                | Color | Takeaway (meaning of icon in layman's terms)
+Program      | Registry Key                          | Color | Takeaway (meaning of icon in layman's terms)
 -------------|---------------------------------------|-------|---------------------------------------------------
 Tortoise Git | Tortoise1Normal                       | Green | Committed (Checkmark Symbol)
 Tortoise Git | Tortoise2Modified                     |       | ???

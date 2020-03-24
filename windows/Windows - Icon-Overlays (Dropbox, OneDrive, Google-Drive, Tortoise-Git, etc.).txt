@@ -5,7 +5,7 @@ Registry Path:
 
 Intro:
    If there are more than 11 properties under the following registry key, then the first 11 are selected (sorted alphanumerically)
-   Example: A Registry Key with basename " A" (notice the space before the letter A) would get priority over a Registry Key with basename "A" (without a space), because the first basename's space-character has an ASCII value of 0x20, which gets alphanumerically sorted BEFORE all letters and numbers
+   Example: A Registry Key with basename " A" (notice the space before the letter A) would get priority over a Registry Key with basename "A" (without a space), because the first basename's space-character has an ASCII value of 0x20, which gets alphanumerically sorted BEFORE all letters and numbers - A real-world example of this is OneDrive which creates a registry key with basename "    OneDrive1" (as-of 23-Mar-2020)
    Quick info:
      "0"-"9" are ASCII# 0x48 through 0x57
      "A"-"Z" (uppercase) are ASCII# 0x41 through 0x5A

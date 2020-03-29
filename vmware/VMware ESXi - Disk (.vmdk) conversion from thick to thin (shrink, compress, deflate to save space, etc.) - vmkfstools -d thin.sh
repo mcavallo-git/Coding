@@ -17,7 +17,7 @@ nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zer
 nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > "/tmp/vmkfstools_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
 
 ### Watch the background job's log
-while [ 1 ]; do clear; date; echo -e "\n\n"; df -h; echo -e "\n\n"; cat /tmp/vmkfstools_$(date +'%Y%m%d')*.log; sleep 30; done;
+while [ 1 ]; do clear; date; echo -e "\n\n"; cat /tmp/vmkfstools_$(date +'%Y%m%d')*.log; echo -e "\n\n"; df -h; sleep 30; done;
 
 
 # ------------------------------------------------------------

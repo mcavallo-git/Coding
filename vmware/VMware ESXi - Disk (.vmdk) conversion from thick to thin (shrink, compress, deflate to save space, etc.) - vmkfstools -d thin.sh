@@ -1,16 +1,19 @@
 #!/bin/bash
 
-### NOTE: You must (or at the very least, definitely SHOULD) shut down any machine(s) attached to disks which you intend to copy/resize to OR from
-
-### Thick to Thin
-vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk
+### NOTE: You must shut down any virrtual machine(s) attached to disks which you intend to copy/resize to OR from
 
 ### Thin to Thick
 vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthick /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thick.vmdk
 
+### Thick to Thin
+vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk
+
 # ------------------------------------------------------------
 
-### Run the disk-conversion job as a background job (optional - allows you to disconnect and it continues to process in the background)
+### Thin to Thick - BACKGROUND JOB (allows ssh tunnel interruption/disconnection while it continues to process in the background)
+nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthick /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thick.vmdk > "/tmp/vmkfstools_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
+
+### Thick to Thin - BACKGROUND JOB (allows ssh tunnel interruption/disconnection while it continues to process in the background)
 nohup vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d thin /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thin.vmdk > "/tmp/vmkfstools_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
 
 ### Watch the background job's log

@@ -26,6 +26,9 @@ Get-ChildItem -Path ("C:\Program Files (x86)") -Depth 1 -Directory -Recurse -For
 <# Search at-most [ 9 ] subdirectory-levels deep within parent directory [ C:\ ] (e.g. C:\ is at depth=0) for a file whose basename is equal to [ MSBuild.exe ] #>
 Get-ChildItem -Path ("C:\") -File -Recurse -Depth (9) -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MSBuild.exe" };
 
+<# Case IN-sensitive multi-match #>
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $ExeList_AlwaysRunAsAdmin -Like "$($_.Name)" } | ForEach-Object { $_.FullName; 
+
 
 # ------------------------------------------------------------
 #

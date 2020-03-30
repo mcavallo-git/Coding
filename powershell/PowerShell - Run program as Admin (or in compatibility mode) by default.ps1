@@ -1,15 +1,14 @@
 
-
 $RegistryKey_RunAsAdmin = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
 New-Item -Path ("${RegistryKey_RunAsAdmin}") -ErrorAction "SilentlyContinue" | Out-Null;
 
-$Programs_AlwaysRunAsAdmin = @();
-$Programs_AlwaysRunAsAdmin += "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\Common7\IDE\devenv.com";
-$Programs_AlwaysRunAsAdmin += "C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin\MSBuild.exe";
-$Programs_AlwaysRunAsAdmin += "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\MSBuild.exe";
+$ExeList_AlwaysRunAsAdmin = @();
+$ExeList_AlwaysRunAsAdmin += "devenv.com";
+$ExeList_AlwaysRunAsAdmin += "devenv.exe";
+$ExeList_AlwaysRunAsAdmin += "msbuild.exe";
 
-ForEach ($EachProgram In ${Programs_AlwaysRunAsAdmin}) {
-	New-ItemProperty -Path ("${RegistryKey_RunAsAdmin}") -Name ("${EachProgram}") -PropertyType ("String") -Value ("RUNASADMIN") -ErrorAction "SilentlyContinue" | Out-Null;
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $ExeList_AlwaysRunAsAdmin.Contains("$($_.Name)") } | ForEach-Object {
+Set-ItemProperty -Path ("${RegistryKey_RunAsAdmin}") -Name ("$($_.FullName)") -PropertyType ("String") -Value ("RUNASADMIN") -Force -ErrorAction "SilentlyContinue" | Out-Null;
 }
 
 

@@ -1,9 +1,9 @@
 #
-#	PowerShell - Hostsfile
+#	PowerShell - EtcHosts
 #		|
 #		|--> Description:  Open the Windows "hosts" file (with admin/escalated privileges, np++, hostsfile, hostfile, edit, windows)
 #
-Function Hostsfile() {
+Function EtcHosts() {
 	Param(
 
 		[Switch]$Quiet,
@@ -25,5 +25,5 @@ Function Hostsfile() {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "Hostsfile";
+	Export-ModuleMember -Function "EtcHosts";
 }

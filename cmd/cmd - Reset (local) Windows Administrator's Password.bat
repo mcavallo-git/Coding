@@ -19,8 +19,9 @@ COPY /Y C:\Windows\System32\cmd.exe C:\Windows\System32\Utilman.exe
 REM Restart the computer
 SHUTDOWN /R /T 0
 
-
-REM At the login, click the Ease of Access button to open a command prompt - THIS IS AN ADMIN COMAND PROMPT
+REM  !!!
+REM   After machine has rebooted and is back at the login screen, click the "Ease of Access" button (bottom right) to open a command prompt - THIS IS AN ADMIN COMAND PROMPT
+REM  !!!
 
 
 REM Reset desired user's password

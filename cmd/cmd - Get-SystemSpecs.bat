@@ -1,10 +1,16 @@
 @ECHO OFF
-REM /* Matt Cavallo --- 07/06/2016 */
-REM /* System Spec Getter using WMIC */
-
-REM *****************
+REM ------------------------------------------------------------
+REM
+REM System Spec 'Getter' using WMIC         MCavallo, 2017-07-06
+REM
+REM ------------------------------------------------------------
+REM RUN THIS SCRIPT (via PowerShell):
+REM 
+REM    (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/mcavallo-git/Coding/master/cmd/cmd%20-%20Get-SystemSpecs.bat","${Env:TEMP}\Get-SystemSpecs.bat"); Start-Process -Filepath ("${Env:ComSpec}") -ArgumentList (@("/C","${Env:TEMP}\Get-SystemSpecs.bat"));
+REM
+REM ------------------------------------------------------------
 REM   MAIN FUNCTION  
-REM *****************
+REM ------------------------------------------------------------
  
 	SETLOCAL
 	CALL :WELCOME_USER
@@ -27,9 +33,9 @@ REM *****************
 	
 	EXIT
 
-REM **********************
+REM ------------------------------------------------------------
 REM   NO UI AWARDS HERE   
-REM **********************
+REM ------------------------------------------------------------
 
 : WELCOME_USER
 	ECHO.	
@@ -40,9 +46,9 @@ REM **********************
 	ECHO | SET /P=^.
 	EXIT /b
 	
-REM **********************
+REM ------------------------------------------------------------
 REM    SETUP FILESTREAM   
-REM **********************
+REM ------------------------------------------------------------
 
 : SETUP_FILESTREAM
 	REM  \*/*\   Get the domain name
@@ -69,9 +75,9 @@ REM **********************
 	if "%hour:~0,1%" == " " (SET dt_spaces=%dt_spaces9%) else (SET dt_spaces=%dt_spaces24%)
 	EXIT /b
 	
-REM *****************
+REM ------------------------------------------------------------
 REM   WMIC ROUTINES
-REM *****************
+REM ------------------------------------------------------------
 	
 : WMIC_CPU
 	ECHO. >> %output_file%

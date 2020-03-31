@@ -1,7 +1,7 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 REM
-REM System Spec 'Getter' using WMIC         MCavallo, 2017-07-06
+REM Hardware Spec 'Getter' using WMIC         MCavallo, 2017-07-06
 REM
 REM ------------------------------------------------------------
 REM RUN THIS SCRIPT (via PowerShell):

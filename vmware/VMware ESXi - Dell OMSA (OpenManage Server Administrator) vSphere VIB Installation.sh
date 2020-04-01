@@ -45,8 +45,8 @@ Get-Service | Where-Object { ($_.Name -Eq "Server Administrator") -Or ( $_.Displ
 # Add a firewall rule for the Dell EMC OMSA Service
 #  |--> Run the following command in via PowerShell to show the status of the Dell EMC OMSA service
 #
-New-NetFirewallRule -DisplayName "Dell OMSA (TCP 1311)" -Description "Dell EMC OpenManage Server Administrator (OMSA) - Allow Inbound TCP Traffic on Port(s) 1311" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -Protocol TCP -LocalPort 1311; <# Create a firewall rule to allow 1311 (Dell EMC OMSA) through #>
-netsh advfirewall firewall add rule name="My Application" dir=in action=allow program="C:\MyApp\MyApp.exe" enable=yes remoteip=157.60.0.1,172.16.0.0/16,LocalSubnet profile=domain
+New-NetFirewallRule -DisplayName "Dell OMSA (TCP 1311)" -Description "Dell EMC OpenManage Server Administrator (OMSA) - Allow Inbound TCP Traffic on Port(s) 1311" -Direction Inbound -Action Allow -EdgeTraversalPolicy Allow -RemoteAddress 10.0.0.0/8,172.16.0.0/12,192.168.0.0/16 -Profile Domain -Protocol TCP -LocalPort 1311;
+
 
 # ------------------------------------------------------------
 #

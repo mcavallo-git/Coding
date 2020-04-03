@@ -27,7 +27,7 @@ If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","bu
 	$WorkingDir = "${Env:WORKSPACE}";
 }
 If ($WorkingDir -Eq $Null) {
-	Write-Output "`nError - Unable to detetermine working directory. You amy manually define the working directory via environment variable `${Env:WORKSPACE}`n";
+	Write-Output "`nError - Unable to detetermine working directory. You may manually define the working directory via environment variable `${Env:WORKSPACE}`n";
 
 } Else {
 

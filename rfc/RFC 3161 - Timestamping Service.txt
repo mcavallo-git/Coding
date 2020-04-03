@@ -10,9 +10,9 @@ http://timestamp.digicert.com
 
 http://timestamp.comodoca.com
 
-http://timestamp.verisign.com/scripts/timstamp.dll
+http://tsa.starfieldtech.com
 
-http://tsa.starfieldtech.com/
+http://timestamp.verisign.com/scripts/timstamp.dll
 
 
 # ------------------------------------------------------------

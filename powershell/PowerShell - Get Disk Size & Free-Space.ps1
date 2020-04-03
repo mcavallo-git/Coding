@@ -4,8 +4,12 @@
 #
 # ------------------------------------------------------------
 
-# Method 1
+# Method 1.1
 Get-PSDrive "${Env:SystemDrive}"[0]
+
+# Method 1.2
+Get-PSDrive "${Env:SystemDrive}"[0] | Select-Object -Property Name,Description,Used,Free | ForEach-Object { $_.Used = "$([Math]::Round(($_.Used/(1024*1024)),2)) MB"; $_; } | ForEach-Object { $_.Free = "$([Math]::Round(($_.Free/(1024*1024)),2)) MB"; $_; } ;
+
 
 
 # Method 2

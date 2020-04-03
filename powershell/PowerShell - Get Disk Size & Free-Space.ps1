@@ -5,11 +5,11 @@
 # ------------------------------------------------------------
 
 # Method 1
-$LocalDiskSpace = Get-PSDrive C | Select-Object Used,Free
+Get-PSDrive C | Select-Object Used,Free;
 
 
 # Method 2
-$LocalDiskSpace = Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'" | Foreach-Object {$_.Size,$_.FreeSpace}
+Get-WmiObject Win32_LogicalDisk -Filter "DeviceID='C:'" | Foreach-Object {$_.Size,$_.FreeSpace};
 
 
 # ------------------------------------------------------------

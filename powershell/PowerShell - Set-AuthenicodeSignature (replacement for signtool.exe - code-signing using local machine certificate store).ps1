@@ -57,7 +57,7 @@ If ($WorkingDir -Eq $Null) {
 }
 
 If ($ExitCode -NE 0) {
-	<# Show the error message for 10s #>
+	<# Show the error message for 10s before bombing out#>
 	Start-Sleep 10;
 }
 

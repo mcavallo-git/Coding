@@ -1,4 +1,20 @@
+# ------------------------------------------------------------
+#
+# Perform dynamic code-signing based on current environment
+#   |
+#   |--> Gets the code signing cert to use from the Local Machine certficiate store
+#   |
+#   |--> Compatible with either TeamCity or Jenkins build environments
+#
+# ------------------------------------------------------------
+If ($False) { ### RUN THIS SCRIPT:
 
+
+Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Set-AuthenicodeSignature%20(perform%20code-signing%20with%20local%20machine%20attached%20certificates).ps1'));
+
+
+}
+# ------------------------------------------------------------
 $ExitCode = 1;
 
 <# Determine Working Directory #>

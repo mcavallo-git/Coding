@@ -56,6 +56,11 @@ If ($WorkingDir -Eq $Null) {
 	}
 }
 
+If ($ExitCode -NE 0) {
+	<# Show the error message for 10s #>
+	Start-Sleep 10;
+}
+
 Exit $ExitCode;
 
 

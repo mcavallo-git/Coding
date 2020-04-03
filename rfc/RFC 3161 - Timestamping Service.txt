@@ -12,6 +12,8 @@ http://timestamp.comodoca.com
 
 http://timestamp.verisign.com/scripts/timstamp.dll
 
+http://tsa.starfieldtech.com/
+
 
 # ------------------------------------------------------------
 #

@@ -51,7 +51,7 @@ If ($WorkingDir -Eq $Null) {
 		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.pdb") } `
 		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 		| ForEach-Object { `
-			Write-Output "Into - Signing file `"$_.FullName`"";
+			Write-Output "Info - Signing file `"$_.FullName`"";
 			Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://tsa.starfieldtech.com") | Out-Null;
 		};
 

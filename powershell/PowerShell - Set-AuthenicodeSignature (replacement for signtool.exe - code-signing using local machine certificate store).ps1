@@ -23,11 +23,11 @@ If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","bu
 	<# TeamCity build-environment #>
 	$WorkingDir = "%system.teamcity.build.workingDir%";
 } ElseIf (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf")) {
-	<# Jenkins build-environment #>
+	<# Jenkins (or manually-defined) build-environment #>
 	$WorkingDir = "${Env:WORKSPACE}";
 }
 If ($WorkingDir -Eq $Null) {
-	Write-Output "`nError - Unable to detetermine working directory`n";
+	Write-Output "`nError - Unable to detetermine working directory (manually set via `${Env:WORKSPACE}`n";
 
 } Else {
 

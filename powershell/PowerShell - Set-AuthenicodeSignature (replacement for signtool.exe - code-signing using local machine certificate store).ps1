@@ -10,7 +10,7 @@
 If ($False) { ### RUN THIS SCRIPT:
 
 
-Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Set-AuthenicodeSignature%20(perform%20code-signing%20with%20local%20machine%20attached%20certificates).ps1'));
+Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Set-AuthenicodeSignature%20(replacement%20for%20signtool.exe%20-%20code-signing%20using%20local%20machine%20certificate%20store).ps1'));
 
 
 }

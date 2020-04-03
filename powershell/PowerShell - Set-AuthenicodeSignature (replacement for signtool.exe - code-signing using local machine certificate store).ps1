@@ -15,7 +15,6 @@ Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -F
 
 }
 # ------------------------------------------------------------
-$ExitCode = 1;
 
 <# Determine Working Directory #>
 $WorkingDir = $Null;
@@ -31,6 +30,7 @@ If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","bu
 
 If ($WorkingDir -Eq $Null) {
 	Write-Output "`nError - Unable to detetermine working directory. You may manually define the working directory by setting it as the value of environment variable `${Env:WORKSPACE}`n";
+	Start-Sleep 10;
 
 } Else {
 
@@ -39,6 +39,7 @@ If ($WorkingDir -Eq $Null) {
 	
 	If ($Cert_CodeSigning -Eq $Null) {
 		Write-Output "`nError - No code signing certificate(s) found in the Local Machine certificate store. Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";
+		Start-Sleep 10;
 
 	} Else {
 
@@ -54,17 +55,9 @@ If ($WorkingDir -Eq $Null) {
 			Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://tsa.starfieldtech.com") | Out-Null;
 		};
 
-		$ExitCode = 0;
-
 	}
-}
 
-If ($ExitCode -NE 0) {
-	<# Show the error message for 10s before bombing out#>
-	Start-Sleep 10;
 }
-
-Exit $ExitCode;
 
 
 # ------------------------------------------------------------

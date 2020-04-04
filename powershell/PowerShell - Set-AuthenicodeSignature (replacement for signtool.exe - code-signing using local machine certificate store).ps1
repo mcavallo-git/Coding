@@ -18,9 +18,15 @@ Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -F
 
 <# Determine Working Directory #>
 $WorkingDir = $Null;
+$ArtifactsDir = $Null;
 If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%"))) {
 	<# TeamCity build-environment #>
 	$WorkingDir = "%system.teamcity.build.workingDir%";
+	$ArtifactsDir = $Null;
+	If ((Test-Path -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%") -PathType ("Leaf") -ErrorAction ("SilentlyContinue")) -Eq $True) {
+		<# TeamCity's artifact-output-directory exists #>
+		$ArtifactsDir = "%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%";
+	}
 
 } ElseIf (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf")) {
 	<# Jenkins (or manually-defined) build-environment #>
@@ -28,33 +34,40 @@ If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","bu
 
 }
 
-If ($WorkingDir -Eq $Null) {
-	Write-Output "`nError - Unable to detetermine working directory. You may manually define the working directory by setting it as the value of environment variable `${Env:WORKSPACE}`n";
+<# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>
+$Cert_CodeSigning = ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]);
+
+If ($Cert_CodeSigning -Eq $Null) {
+	Write-Output "`nError - No code signing certificate(s) found in the Local Machine certificate store. Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";
 	Start-Sleep 10;
 
 } Else {
+	Write-Output "`nInfo - Using code signing certificate from the Local Machine certificate store:`n";
+	$Cert_CodeSigning | Format-List;
 
-	<# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>
-	$Cert_CodeSigning = ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]);
-	
-	If ($Cert_CodeSigning -Eq $Null) {
-		Write-Output "`nError - No code signing certificate(s) found in the Local Machine certificate store. Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";
+	If ($WorkingDir -Eq $Null) {
+		Write-Output "`nError - Unable to detetermine working directory. You may manually define the working directory by setting it as the value of environment variable `${Env:WORKSPACE}`n";
 		Start-Sleep 10;
-
 	} Else {
-
-		Write-Output "`nInfo - Using code signing certificate (pulled from Local Machine certificate store) with specs:`n";
-		$Cert_CodeSigning | Format-List;
-
-		<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .pdb } files found under the directory specified by "${Env:WORKSPACE}" #>
+		<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
 		Get-Item "${WorkingDir}\**\*" `
-		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.pdb") } `
+		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
 		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 		| ForEach-Object { `
-			Write-Output "Info - Signing file `"$($_.FullName)`"";
+			Write-Output "Info - Signing working-dir file `"$($_.FullName)`"";
 			Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://tsa.starfieldtech.com") | Out-Null;
 		};
+	}
 
+	If ($ArtifactsDir -NE $Null) {
+		<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
+		Get-Item "${ArtifactsDir}\**\*" `
+		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
+		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
+		| ForEach-Object { `
+			Write-Output "Info - Signing exported artifact `"$($_.FullName)`"";
+			Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://tsa.starfieldtech.com") | Out-Null;
+		};
 	}
 
 }

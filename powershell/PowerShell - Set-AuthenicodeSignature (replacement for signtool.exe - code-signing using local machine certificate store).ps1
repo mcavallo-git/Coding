@@ -50,7 +50,7 @@ If ($Cert_CodeSigning -Eq $Null) {
 		Start-Sleep 10;
 	} Else {
 		<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
-		Get-Item "${WorkingDir}\**\*" `
+		Get-ChildItem -Path ("${WorkingDir}") -Recurse -Force -File `
 		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
 		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 		| ForEach-Object { `
@@ -61,7 +61,7 @@ If ($Cert_CodeSigning -Eq $Null) {
 
 	If ($ArtifactsDir -NE $Null) {
 		<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
-		Get-Item "${ArtifactsDir}\**\*" `
+		Get-ChildItem -Path ("${ArtifactsDir}") -Recurse -Force -File `
 		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
 		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 		| ForEach-Object { `
@@ -77,8 +77,8 @@ If ($Cert_CodeSigning -Eq $Null) {
 If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%"))) {
 	Write-Output "`nCreating background/sleeper process then continuing-on without waiting for its completion";
 	Write-Output "Background job will awaken in 60s (at $(Get-Date -Date ((Get-Date).AddSeconds(60)) -UFormat ('%H : %M : %S')))";
-	Write-Ouytput "Background job, once awake, will sign all artifacts exported to this build's artifacts directory ('%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%\**\*')";
-	Start-Process -NoNewWindow -Filepath ("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe") -ArgumentList (@("-Command","`"Start-Sleep -Seconds 60; Get-Item '%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%\**\*' | Where-Object { (`$_.FullName -Like '*.dll') -Or (`$_.FullName -Like '*.exe') -Or (`$_.FullName -Like '*.msi') -Or (`$_.FullName -Like '*.sys') } | Where-Object { ((Get-AuthenticodeSignature -FilePath (`$_.FullName)).Status -NE 'Valid') } | ForEach-Object { Set-AuthenticodeSignature -FilePath (`$_.FullName) -Certificate (`${Cert_CodeSigning}) -IncludeChain All -TimestampServer ('http://tsa.starfieldtech.com') | Out-Null; }`""));
+	Write-Output "Background job, once awake, will sign all artifacts exported to this build's artifacts directory ('%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%\...')";
+	Start-Process -NoNewWindow -Filepath ("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe") -ArgumentList (@('-Command', 'Start-Sleep -Seconds 60; Get-ChildItem -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%" -Recurse -Force -File | Where-Object { ("$($_.FullName)" -Like "*.dll") -Or ("$($_.FullName)" -Like "*.exe") -Or ("$($_.FullName)" -Like "*.msi") -Or ("$($_.FullName)" -Like "*.sys") } | Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } | ForEach-Object { Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]) -IncludeChain All -TimestampServer ("http://tsa.starfieldtech.com") | Out-Null; }'));
 }
 
 

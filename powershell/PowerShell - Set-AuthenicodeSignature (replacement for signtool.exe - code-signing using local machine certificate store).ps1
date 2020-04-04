@@ -75,6 +75,17 @@ If ($Cert_CodeSigning -Eq $Null) {
 
 # ------------------------------------------------------------
 #
+# Teamcity Only - Run a Delayed Code-signing job for the artifacts which were published from the build job
+#
+If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%"))) {
+
+Start-Process -NoNewWindow -Filepath ("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe") -ArgumentList (@("-Command","`"Start-Sleep -Seconds 30; Get-Item '%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%\**\*' | Where-Object { (`$_.FullName -Like '*.dll') -Or (`$_.FullName -Like '*.exe') -Or (`$_.FullName -Like '*.msi') -Or (`$_.FullName -Like '*.sys') } | Where-Object { ((Get-AuthenticodeSignature -FilePath (`$_.FullName)).Status -NE 'Valid') } | ForEach-Object { Set-AuthenticodeSignature -FilePath (`$_.FullName) -Certificate (`${Cert_CodeSigning}) -IncludeChain All -TimestampServer ('http://tsa.starfieldtech.com') | Out-Null; }`""))
+
+}
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Set-AuthenticodeSignature"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-authenticodesignature?view=powershell-5.1

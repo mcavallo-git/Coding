@@ -2,10 +2,21 @@ REM ------------------------------------------------------------
 REM
 REM TeamCity --> Migrating Database between SQL instances
 REM 
+REM ------------------------------------------------------------
+REM
+REM Migrate
 REM C:\TeamCity\bin\maintainDB.cmd migrate -A "C:\ProgramData\JetBrains\TeamCity" -T "C:\ProgramData\JetBrains\TeamCity\config\database.migration-target.properties"
 REM
+REM
+REM Backup
+REM C:\TeamCity\bin\maintainDB.cmd backup -A "C:\ProgramData\JetBrains\TeamCity" -S "C:\ProgramData\JetBrains\TeamCity\config\database.properties" -F "Teamcity_Source_Backup"
+REM
+REM
+REM Restore
+REM C:\TeamCity\bin\maintainDB.cmd restore -A "C:\ProgramData\JetBrains\TeamCity" -T "C:\database.source.properties" -F "C:\Teamcity_Source_Backup.zip"
+REM 
+REM 
 REM ------------------------------------------------------------
-
 
 connectionUrl=jdbc:sqlserver://SERVER_FQDN:1433;databaseName=DATABASE_NAME
 
@@ -15,8 +26,6 @@ connectionProperties.password=SQL_PASSWORD
 maxConnections=50
 poolPreparedStatements=true
 
-
-REM Start-Process "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installer.exe" -ArgumentList 'modify --installPath "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools" --quiet --add Microsoft.VisualStudio.Component.NuGet.BuildTools --add Microsoft.Net.Component.4.5.TargetingPack --norestart --force' -Wait -PassThru
 
 REM ------------------------------------------------------------
 REM 

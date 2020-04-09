@@ -22,6 +22,18 @@ While ($KeyPress.VirtualKeyCode -ne 27) {
 
 # ------------------------------------------------------------
 #
+# "Press 'y' to confirm..."
+#
+
+Write-Host -NoNewLine "`n`n  Press 'y' to confirm...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+While ($KeyPress.Character -Eq "y") {
+	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+}
+
+
+# ------------------------------------------------------------
+#
 # "Closing in 3...2...1..."
 #
 

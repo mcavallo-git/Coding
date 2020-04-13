@@ -7,16 +7,16 @@
 If ($True) {
 	$ValidHostname = $False;
 	While ($ValidHostname -Eq $False) {
-		$New_Hostname = Read-Host -Prompt "Enter Hostname for this device:  ";
+		$New_Hostname = Read-Host -Prompt "Enter Hostname for this device (characters allowed: alphanumeric & dashes, max length: 15):  ";
 		$New_Domain = Read-Host -Prompt "Enter Domain (Active Directory to join):  ";
 		$AD_Credential_Username = Read-Host -Prompt "Enter username (without domain) for user on the `"${New_Domain}`" domain:  ";
 
 		$Regex_NetBiosHostname = "^(([A-Za-z0-9]|([A-Za-z0-9][A-Za-z0-9\-]))*[A-Za-z0-9])$";
 		$Needle = [Regex]::Match($New_Hostname, $Regex_NetBiosHostname);
-		If ($Needle.Success -Eq $False) {
-			Write-Host " Hostname `"${New_Hostname}`" contains 1 or more invalid characters - please use only alphanumeric (A-Z, a-z, 0-9) and, if-desired, dashes `"-`" which must be preceeded and followed immediately by an alphanumeric characeter";
+		If ($New_Hostname.Length -GE 16) {
+			Write-Host "Error:  Hostname must be 15 characters or less - `"${New_Hostname}`" found to be $(${New_Hostname}.Length) characters";
 		} ElseIf ($Needle.Success -Eq $False) {
-			Write-Host " Hostname `"${New_Hostname}`" contains 1 or more invalid characters - please use only alphanumeric (A-Z, a-z, 0-9) and, if-desired, dashes `"-`" which must be preceeded and followed immediately by an alphanumeric characeter";
+			Write-Host "Error:  Hostname `"${New_Hostname}`" contains 1 or more invalid characters - please use only alphanumeric (A-Z, a-z, 0-9) and, if-desired, dashes `"-`" which must be preceeded and followed immediately by an alphanumeric characeter";
 		} Else {
 			Try {
 				Rename-Computer -NewName "${New_Hostname}" -DomainCredential "${New_Domain}\${AD_Credential_Username}" -Force;
@@ -25,7 +25,7 @@ If ($True) {
 				$ValidHostname = $True;
 			} Catch {
 				Write-Host "";
-				Write-Host -NoNewLine "An error occurred: ";
+				Write-Host -NoNewLine "Error:  ";
 				Write-Host $_ -BackgroundColor "Black" -ForegroundColor "Yellow";
 			}
 		}

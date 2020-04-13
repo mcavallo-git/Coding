@@ -27,6 +27,27 @@ printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 
 # ------------------------------------------------------------
 # 
+# Bulk-Rename files by within a given working-directory using regex-matched variable(s)
+#
+
+WorkingDir="${HOME}\Downloads"; # Location containing files to-be-matched
+Regex_FilenameMatches="Statement_(.+)_(.+)_(.+)\.pdf"; # Syntax for filenames to match
+Sed_RegexExpression="s/${Regex_FilenameMatches}/\Statement_\3_\1_\2.pdf/"; # Syntax for filename replacement
+if [ -d "${WorkingDir}" ]; then
+echo "Setting working-directory to \"${WorkingDir}\"";
+cd "${WorkingDir}";
+find . -type f | while read EACH_FILENAME; do
+NEW_FILENAME=$(echo ${EACH_FILENAME} | sed -re "${Sed_RegexExpression}";); # Pass the filename through the regex filter using sed
+if [ -n "${NEW_FILENAME}" ] && [ "${EACH_FILENAME}" != "${NEW_FILENAME}" ]; then # If new filename is not blank (regex match) and is not equal to original filename, rename it
+echo "  Renaming \"${EACH_FILENAME}\" to \"${NEW_FILENAME}\"";
+mv "${EACH_FILENAME}" "${NEW_FILENAME}";
+fi;
+done;
+fi;
+
+
+# ------------------------------------------------------------
+# 
 # Remove duplicated lines in a target file (while keeping one copy of each line)
 #
 

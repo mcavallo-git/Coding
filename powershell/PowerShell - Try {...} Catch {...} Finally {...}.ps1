@@ -12,8 +12,11 @@ Try {
   Write-Host -NoNewLine "An error occurred: ";
   Write-Host $_ -BackgroundColor "Black" -ForegroundColor "Yellow";
 } Finally {
-	Write-Host "`$RegistryProp:";
-	$RegistryProp;
+	If ($RegistryProp -NE $Null) {
+		Write-Host "`$RegistryProp: "; $RegistryProp;
+	} Else {
+		Write-Host "`$RegistryProp is Null";
+	}
 }
 
 

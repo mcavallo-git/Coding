@@ -1,7 +1,7 @@
 # ------------------------------------------------------------
 
-$PasswordPlaintext = Read-Host -Prompt 'Type an example Username (in plaintext): ';
-Write-Host "You typed `"${PasswordPlaintext}`"";
+$UsernamePlaintext = Read-Host -Prompt 'Type an example Username (in plaintext): ';
+Write-Host "You typed `"${UsernamePlaintext}`"";
 
 
 # ------------------------------------------------------------

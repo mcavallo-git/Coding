@@ -11,7 +11,7 @@ echo "hello world" | sed -e 's|world|not world|g';
 
 # ------------------------------------------------------------
 # 
-# Use sed with regex capture group(s) (which are referenced as backslashed-numbers instead of regex's usual dollar-number syntax)
+# Use sed with regex capture group(s) (which are referenced using \1 \2 ... \n - e.g. backslashed-numbers, instead of regex's usual $1 $2 ... $n - e.g. dollar-number syntax)
 #
 
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";

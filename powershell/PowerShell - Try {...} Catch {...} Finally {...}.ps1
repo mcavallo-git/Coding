@@ -5,11 +5,12 @@
 #
 # ------------------------------------------------------------
 
-
 Try {
 	$RegistryProp = Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\" | Select-Object -ExpandProperty "Version" -ErrorAction Stop;
 } Catch {
 	$RegistryProp = $Null;
+  Write-Host -NoNewLine "An error occurred: ";
+  Write-Host $_ -BackgroundColor "Black" -ForegroundColor "Yellow";
 } Finally {
 	Write-Host "`$RegistryProp:";
 	$RegistryProp;

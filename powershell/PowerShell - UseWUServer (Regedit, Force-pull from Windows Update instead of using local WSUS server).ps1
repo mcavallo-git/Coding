@@ -1,6 +1,6 @@
 # Windows Update - Force-pull from Windows Update server (instead of using local WSUS server)
 $RegEdit = @{
-	Path="HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
+	Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
 	Props=@(
 		@{
 			Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";

@@ -1,4 +1,10 @@
+# ------------------------------------------------------------
 
+$PasswordPlaintext = Read-Host -Prompt 'Type an example Username (in plaintext): ';
+Write-Host "You typed `"${PasswordPlaintext}`"";
+
+
+# ------------------------------------------------------------
 
 $PasswordPlaintext = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString))));
 
@@ -6,6 +12,8 @@ $PasswordPlaintext = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   docs.microsoft.com  |  "Read-Host - Reads a line of input from the console."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/read-host?view=powershell-5.1
 #
 #   stackoverflow.com  |  "c# - Convert String to SecureString - Stack Overflow"  |  https://stackoverflow.com/a/43084626
 #

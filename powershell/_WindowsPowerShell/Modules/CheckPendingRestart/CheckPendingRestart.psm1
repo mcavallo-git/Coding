@@ -31,7 +31,6 @@ Function CheckPendingRestart() {
 
 	# Exhaustively scour the registry, searching for all possible/known signifiers that a reboot of the system is required
 	ForEach ($EachRegEdit In $RebootFlags) {
-		If (!($PSBoundParameters.ContainsKey("Quiet"))) { Write-Host ("`nChecking $($EachRegEdit.Path)"); }
 		If ($EachRegEdit.RebootIfKeyExists -Eq $True) {
 			If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
 				$RebootRequired = $True;
@@ -55,12 +54,15 @@ Function CheckPendingRestart() {
 
 	If ($RebootRequired -Eq $True) {
 		<# Reboot the machine (only after user presses 'y') #>
-		Write-Host -NoNewLine "`n`n  Restart required - Press 'y' to confirm and reboot this machine, now...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "`n`nSystem restart required - Press 'y' to confirm and reboot this machine, now...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		While ($KeyPress.Character -NE "y") {
 			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		}
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
+	} Else {
+		<# Reboot NOT required#>
+		Write-Host -NoNewLine "`n`nNo pending reboot flags found`n`n" -BackgroundColor "Black" -ForegroundColor "Green";
 	}
 
 	Return;

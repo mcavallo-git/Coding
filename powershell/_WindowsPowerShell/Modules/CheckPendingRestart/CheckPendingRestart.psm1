@@ -11,26 +11,26 @@ Function CheckPendingRestart() {
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 
-	$RegEdits = @();
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates"; Name="UpdateExeVolatile"; RebootIfKeyExists=$False; RebootIfValueExists=$False; RebootIfNotEqualTo=0; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"; Name="PendingFileRenameOperations"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"; Name="PendingFileRenameOperations2"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services\Pending"; Name="NA"; RebootIf="Any GUID subkeys exist"; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\PostRebootReporting"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce"; Name="DVDRebootSignal"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootInProgress"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackagesPending"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager\CurrentRebootAttempts"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon"; Name="JoinDomain"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon"; Name="AvoidSpnSet"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
-	$RegEdits += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName"; Name="ComputerName"; RebootIfKeyExists=$False; RebootIfValueExists=$False; RebootIfNotEqualTo="$((Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName').ComputerName)"; }
+	$RebootFlags = @();
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates"; Name="UpdateExeVolatile"; RebootIfKeyExists=$False; RebootIfValueExists=$False; RebootIfNotEqualTo=0; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"; Name="PendingFileRenameOperations"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager"; Name="PendingFileRenameOperations2"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\RebootRequired"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Services\Pending"; Name="NA"; RebootIf="Any GUID subkeys exist"; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update\PostRebootReporting"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce"; Name="DVDRebootSignal"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootInProgress"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Component Based Servicing\PackagesPending"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ServerManager\CurrentRebootAttempts"; Name="NA"; RebootIfKeyExists=$True; RebootIfValueExists=$False; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon"; Name="JoinDomain"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Netlogon"; Name="AvoidSpnSet"; RebootIfKeyExists=$False; RebootIfValueExists=$True; RebootIfNotEqualTo=$Null; }
+	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\ComputerName\ActiveComputerName"; Name="ComputerName"; RebootIfKeyExists=$False; RebootIfValueExists=$False; RebootIfNotEqualTo="$((Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\ComputerName\ComputerName').ComputerName)"; }
 
 	$RebootRequired = $False;
 
 	# Exhaustively scour the registry, searching for all possible/known signifiers that a reboot of the system is required
-	ForEach ($EachRegEdit In $RegEdits) {
+	ForEach ($EachRegEdit In $RebootFlags) {
 		If (!($PSBoundParameters.ContainsKey("Quiet"))) { Write-Host ("`nChecking $($EachRegEdit.Path)"); }
 		If ($EachRegEdit.RebootIfKeyExists -Eq $True) {
 			If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {

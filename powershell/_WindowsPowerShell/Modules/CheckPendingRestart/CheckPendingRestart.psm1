@@ -8,7 +8,7 @@
 If ($False) { # RUN THIS SCRIPT:
 
 
-[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); CheckPendingRestart;
+$SecurityProtocol_Bak = ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); CheckPendingRestart; [System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol_Bak;
 
 
 }
@@ -61,7 +61,7 @@ Function CheckPendingRestart() {
 
 	If ($RebootRequired -Eq $True) {
 		<# Reboot the machine (only after user presses 'y') #>
-		Write-Host -NoNewLine "`n`nSystem restart required - Press 'y' to confirm and reboot this machine, now...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "System restart required - Press 'y' to confirm and reboot this machine, now..." -BackgroundColor "Black" -ForegroundColor "Yellow";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		While ($KeyPress.Character -NE "y") {
 			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
@@ -69,7 +69,7 @@ Function CheckPendingRestart() {
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
 	} Else {
 		<# Reboot NOT required#>
-		Write-Host -NoNewLine "`n`n  No pending-reboot flags found`n`n" -BackgroundColor "Black" -ForegroundColor "Green";
+		Write-Host -NoNewLine "No pending-reboot flags found" -BackgroundColor "Black" -ForegroundColor "Green";
 	}
 
 	Return;

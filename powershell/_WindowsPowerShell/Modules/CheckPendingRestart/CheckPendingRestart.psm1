@@ -31,9 +31,9 @@ Function CheckPendingRestart() {
 
 	# Exhaustively scour the registry, searching for all possible/known signifiers that a reboot of the system is required
 	ForEach ($EachRegEdit In $RegEdits) {
-		Write-Host ("`nChecking $($EachRegEdit.Path)");
+		If (!($PSBoundParameters.ContainsKey("Quiet"))) { Write-Host ("`nChecking $($EachRegEdit.Path)"); }
 		If ($EachRegEdit.RebootIfKeyExists -Eq $True) {
-			If (((Test-Path -Path ($EachRegEdit.Path)) -Eq $True)
+			If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
 				$RebootRequired = $True;
 			}
 		} Else {

@@ -1,10 +1,17 @@
-#
+# ------------------------------------------------------------
 #	PowerShell - CheckPendingRestart
 #		|
 #		|--> Description:  Exhaustively scours the registry, searching for all possible/known signifiers that a reboot of the system is required
 #		|
 #		|--> Example:     PowerShell -Command ("CheckPendingRestart")
 #
+If ($False) { # RUN THIS SCRIPT:
+
+
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); CheckPendingRestart;
+
+
+}
 Function CheckPendingRestart() {
 	Param(
 		[Switch]$Quiet,

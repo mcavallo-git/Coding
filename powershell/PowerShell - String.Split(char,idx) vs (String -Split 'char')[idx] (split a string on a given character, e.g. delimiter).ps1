@@ -9,17 +9,30 @@
 
 
 # ------------------------------------------------------------
+# 
+# Get the last substring out of a string delimited by a given character
+#
+
+
+# AFTER QUICK TESTING (below) THE OPTIMAL METHOD TO USE IS:
+("repo/origin/master" -Split "/")[-1];
+
 
 If ($True) {
 
 # These should all return the same value
 
-# ("repo/origin/master".Split("/",-1)); # !!! ERROR - Split() can't handle negative indicies
+("repo/origin/master".Split("/",-1)); # !!! ERROR - Split() can't handle negative indicies
 ("repo/origin/master".Split("/"))[-1];
 ("repo/origin/master" -Split "/")[-1];
-# ("origin/master".Split("/",-1)); # !!! ERROR - Split() can't handle negative indicies
+("origin/master".Split("/",-1)); # !!! ERROR - Split() can't handle negative indicies
 ("origin/master".Split("/"))[-1];
 ("origin/master" -Split "/")[-1];
+("repo/origin/master".Split("/",-1)); # !!! ERROR - Split() can't handle negative indicies
+("".Split("/"))[-1];
+("" -Split "/")[-1];
+($Null.Split("/"))[-1]; # !!! ERROR - .Split() method doesn't exist for $Null
+($Null -Split "/")[-1];
 
 }
 

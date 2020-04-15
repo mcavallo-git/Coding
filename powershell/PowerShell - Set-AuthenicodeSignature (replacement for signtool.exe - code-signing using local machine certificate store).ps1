@@ -35,7 +35,7 @@ If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","bu
 }
 
 <# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>
-$Cert_CodeSigning = ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]);
+$Cert_CodeSigning = (Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_ -NE $Null) } | Where-Object { ($_.NotAfter) -GT (Get-Date) }); If ($Cert_CodeSigning -NE $Null) { $Cert_CodeSigning = (${Cert_CodeSigning}[0]); };
 
 If ($Cert_CodeSigning -Eq $Null) {
 	Write-Output "`nError - No code signing certificate(s) found in the Local Machine certificate store. Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";

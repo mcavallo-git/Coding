@@ -2,7 +2,10 @@
 
 # PowerShell - Split a string on a given character (delimter)
 
-("1|2|3|4|5" -Split '|')[2]
+("1|2|3|4|5" -Split '|')[2]; # Get the 3rd element
+
+
+("1|2|3|4|5" -Split '|')[-1]; # Get the last element
 
 
 # ------------------------------------------------------------

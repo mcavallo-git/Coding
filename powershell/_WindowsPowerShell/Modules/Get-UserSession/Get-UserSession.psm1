@@ -1,12 +1,3 @@
-#
-#	PowerShell - Get-UserSession
-#		|
-#		|--> Description:
-#		|      Similar to command 'query user', as it reports users which are logged-in to a system (both actively connected and logged-in but currently discuonnected), but also shows 'idle' time for each user session, as well. Original method from user 'Cookie.Monster' on gallery.technet.microsoft.com
-#		|
-#		|--> Example Call(s):
-#		       Get-UserSession | Format-Table
-#
 function Get-UserSession {
 <#
 .SYNOPSIS

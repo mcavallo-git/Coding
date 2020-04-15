@@ -5,18 +5,20 @@
 #		|
 #		|--> Example:     PowerShell -Command ("CheckPendingRestart")
 #
-If ($False) { # RUN THIS SCRIPT:
-
-
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12"; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); CheckPendingRestart; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-
-
-}
 Function CheckPendingRestart() {
 	Param(
 		[Switch]$Quiet,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
+
+
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12"; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); CheckPendingRestart; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; CheckPendingRestart;
+
+
+	}
+	# ------------------------------------------------------------
 
 	$RebootFlags = @();
 	$RebootFlags += @{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Updates"; Name="UpdateExeVolatile"; RebootIfKeyExists=$False; RebootIfValueExists=$False; RebootIfNotEqualTo=0; }

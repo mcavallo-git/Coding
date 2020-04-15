@@ -43,10 +43,7 @@ $ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${Ex
 # Download HandBrakeCLI
 Write-Host "";
 Write-Host "Downloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
-[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12";
-	$(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}");
-[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12"; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 # Unpack the downloaded archive
 Write-Host "";
 Write-Host "Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";

@@ -9,6 +9,15 @@
 
 
 # ------------------------------------------------------------
+If ($True) {
+# These should all return the same value
+("repo\origin/master".Split("/"))[-1]; # Get the last element
+("origin/master".Split("/"))[-1]; # Get the last element
+("master".Split("/"))[-1]; # Get the last element
+}
+
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #

@@ -233,7 +233,7 @@ function Get-UserSession {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "FiletypeAssociations";
+	Export-ModuleMember -Function "Get-UserSession";
 }
 
 # ------------------------------------------------------------

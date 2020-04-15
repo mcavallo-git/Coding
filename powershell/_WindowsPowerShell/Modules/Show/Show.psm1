@@ -7,6 +7,8 @@
 #
 Function Show() {
 	Param(
+		[Switch]$AlwaysGetHelp,
+		[Switch]$NoGetHelp,
 		[Switch]$NoMethods,
 		[Switch]$NoOther,
 		[Switch]$NoProperties,
@@ -15,6 +17,8 @@ Function Show() {
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 
+	$ForceGetHelp = ($PSBoundParameters.ContainsKey('AlwaysGetHelp'));
+	$ShowGetHelp = (-Not $PSBoundParameters.ContainsKey('NoGetHelp'));
 	$ShowMethods = (-Not $PSBoundParameters.ContainsKey('NoMethods'));
 	$ShowOther = (-Not $PSBoundParameters.ContainsKey('NoOther'));
 	$ShowProperties = (-Not $PSBoundParameters.ContainsKey('NoProperties'));
@@ -25,6 +29,7 @@ Function Show() {
 		If ($EachArg -Eq $Null) {
 			Write-Output "`$Null"
 		} Else {
+			$AnyValueDetected = $False;
 			If ($ShowMethods -Eq $True) {
 				#
 				# METHODS
@@ -36,6 +41,7 @@ Function Show() {
 				Write-Output "`n=====  METHODS  =====  ( hide via -NoMethods )  ============`n";
 				If ($ListMethods -Ne $Null) {
 					$ListMethods | ForEach-Object { Write-Output "    $($_.Name)"; };
+					$AnyValueDetected = $True;
 				} Else {
 					Write-Output "    (no methods found)";
 				}
@@ -52,6 +58,7 @@ Function Show() {
 				If ($ListOthers -Ne $Null) {
 					Write-Output "`n=====  OTHER TYPES  =====  ( hide via -NoOther )  ==========`n";
 					$ListOthers | ForEach-Object { Write-Output $_; };
+					$AnyValueDetected = $True;
 				}
 			}
 			If ($ShowProperties -Eq $True) {
@@ -67,10 +74,18 @@ Function Show() {
 					$ListProperties | ForEach-Object {
 						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$NULL" } Else { $EachArg.($($_.Name)) };
 						Write-Output "    $($_.Name) = $($EachVal)";
+						$AnyValueDetected = $True;
 					};
 				} Else {
 					Write-Output "    (no properties found)";
 				}
+			}
+			If (($ForceGetHelp -Eq $True) -Or (($AnyValueDetected -Eq $False) -And ($ShowGetHelp -Eq $True))) {
+				#
+				# GET-HELP (only shown if no other values are detected)
+				#
+				Write-Output "`n=====  GET-HELP  =====  ( hide via -NoGetHelp, always show via -AlwaysGetHelp )  ======`n";
+				Get-Help (${EachArg}) | Out-Host -Paging;
 			}
 			If ($ShowRegistry -eq $True) {
 				If (($EachArg.GetType()).Name -Eq "String") {

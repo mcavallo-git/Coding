@@ -14,7 +14,6 @@ If ($True) {
 ("repo\origin/master".Split("/"))[-1]; # Get the last element
 ("origin/master".Split("/"))[-1]; # Get the last element
 ("master".Split("/"))[-1]; # Get the last element
-("".Split("/"))[-1]; # Get the last element
 }
 
 

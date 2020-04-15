@@ -14,7 +14,7 @@ Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
 If ($False) { ### RUN THIS SCRIPT:
 
 
-[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/jenkins/jenkins_node_spinup%20(run%20windows%20nodes%20as%20a%20service%2C%20jnlp).ps1'));
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/jenkins/jenkins_node_spinup%20(run%20windows%20nodes%20as%20a%20service%2C%20jnlp).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }
@@ -178,7 +178,7 @@ If ((Test-Path "${Path_JnlpAgent}") -Eq $False) {
 #
 
 $URL_JnlpTarget = "${Jenkins_FQDN}/computer/${Jenkins_NodeName}/slave-agent.jnlp";
-$URL_ServiceInstaller = "https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe";
+$URL_ServiceInstaller = "https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe";
 
 If ((Test-Path "${Path_ServiceInstaller}") -Eq $False) {
 	Write-Host "";

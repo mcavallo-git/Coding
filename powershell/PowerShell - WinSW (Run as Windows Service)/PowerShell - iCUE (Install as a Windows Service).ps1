@@ -29,7 +29,7 @@ If ((Test-Path "${SVC_LOGS_DIRNAME}") -Eq $False) {
 If ((Test-Path "${SVC_DIRNAME}\${SVC_BASENAME}.exe") -Eq $True) {
 	Remove-Item -Path ("${SVC_DIRNAME}\${SVC_BASENAME}.exe") -Force;
 }
-$(New-Object Net.WebClient).DownloadFile("https://github.com/kohsuke/winsw/releases/download/winsw-v2.2.0/WinSW.NET4.exe", "${SVC_DIRNAME}\${SVC_BASENAME}.exe");
+$(New-Object Net.WebClient).DownloadFile("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe", "${SVC_DIRNAME}\${SVC_BASENAME}.exe");
 
 # Create/Setup WinSW Configuration
 If ((Test-Path "${SVC_DIRNAME}\${SVC_BASENAME}.xml") -Eq $True) {

@@ -236,6 +236,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 	Export-ModuleMember -Function "Get-UserSession";
 }
 
+
 # ------------------------------------------------------------
 #
 # Citation(s)

@@ -39,49 +39,53 @@ JPS_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${
 
 # ------------------------------------------------------------
 #
-#   jcmd
-#    |-->  Sends diagnostic command requests to a running Java Virtual Machine (JVM).
+# Get diagnostic info about the Jenkins service
 #
 
-# Note: In Cent-OS7, (as-of Apr-2020), YOU MUST CALL jcmd WHILST EITHER LOGGED-IS-AS OR MASQUERADING-AS THE SERVICE USER
+#   jcmd  -->  Sends diagnostic command requests to a running Java Virtual Machine (JVM).
 if [ 1 ]; then
-# Get allowed commands
+# Note: In Cent-OS7, (as-of Apr-2020), YOU MUST CALL jcmd WHILST EITHER LOGGED-IS-AS OR MASQUERADING-AS THE SERVICE USER
 SERVICE_USER="jenkins";
-DIAG_REQUEST="help";
+# Note: Command 'VM.system_properties' seems to sum things up nicely without TOO much extra info (athough it's still a lot of info)
+# DIAG_REQUEST="VM.classloader_stats";
+# DIAG_REQUEST="VM.classloaders";
+# DIAG_REQUEST="VM.command_line";
+# DIAG_REQUEST="VM.dynlibs";
+# DIAG_REQUEST="VM.flags";
+# DIAG_REQUEST="VM.info";
+# DIAG_REQUEST="VM.log";
+# DIAG_REQUEST="VM.metaspace";
+# DIAG_REQUEST="VM.native_memory";
+# DIAG_REQUEST="VM.print_touched_methods";
+# DIAG_REQUEST="VM.set_flag";
+# DIAG_REQUEST="VM.start_java_debugging";
+# DIAG_REQUEST="VM.stringtable";
+# DIAG_REQUEST="VM.symboltable";
+DIAG_REQUEST="VM.system_properties";
+# DIAG_REQUEST="VM.uptime";
+# DIAG_REQUEST="VM.version";
+# DIAG_REQUEST="ManagementAgent.status";
 DIAG_OUTPUT="$(sudo -u ${SERVICE_USER} jcmd $(ps u -C 'java' | grep -vEi ^USER | grep -Ei ^${SERVICE_USER} | awk '{print $2}') ${DIAG_REQUEST})";
-#^-SYNTAX-^: $(sudo -u <java_pid_user> jcmd |---------------------------------->  <pid>  <-----------------------------------| <java-svc command>
 echo -e "\n${DIAG_OUTPUT}\n";
 fi;
 
-# List available arguments for Java process
-jcmd "$(sudo jcmd | awk '{print $1}')" help;
 
-# Jenkins - List available arguments for Java process
-PID_JAVA_JENKINS=$(ps u -C 'java' | grep -vEi '^USER' | grep -Ei '^jenkins' | awk '{print $2}'); \
-jcmd "${PID_JAVA_JENKINS}" help;
+# ------------------------------------------------------------
+#
+#   jmap  -->  Prints shared object memory maps or heap memory details for a process, core file, or remote debug server. This command is experimental and unsupported.
+#
+#      -heap           Prints a heap summary of the garbage collection used, the head configuration, and generation-wise heap usage. In addition, the number and size of interned Strings are printed.
+#
+#      -histo[:live]   Prints a histogram of the heap. For each Java class, the number of objects, memory size in bytes, and the fully qualified class names are printed. The JVM internal class names are printed with an asterisk (*) prefix. If the live suboption is specified, then only active objects are counted.
+#
+#      -clstats        Prints class loader wise statistics of Java heap. For each class loader, its name, how active it is, address, parent class loader, and the number and size of classes it has loaded are printed.
+#
+#      -F              Force. Use this option with the jmap -dump or jmap -histo option when the pid does not respond. The live suboption is not supported in this mode.
+#
 
-# Jenkins - Checking assorted argument values:
-jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
+jmap -clstats "${JCMD_PID}";
 
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.classloader_stats
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.classloaders
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.command_line
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.dynlibs
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.flags
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.info
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.log
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.metaspace
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.native_memory
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.print_touched_methods
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.set_flag
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.start_java_debugging
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.stringtable
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.symboltable
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.system_properties
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.uptime
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" VM.version
-
-# jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" ManagementAgent.status
+jmap -clstats "${JPS_PID}";
 
 
 # ------------------------------------------------------------
@@ -91,38 +95,29 @@ jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
 #    |--> Lists the instrumented Java Virtual Machines (JVMs) on the target system. This command is experimental and unsupported.
 #    |        (e.g. gets Java PIDs)
 #    |
-#    |--> In-reality this tool is useless, move-on down to jmap!
+#    |--> >> IN-REALITY, THIS TOOL SUCKS AND IS AS USELESS AS THE MANUAL NEARLY STATES VIA "This command is experimental and unsupported." <<
+# 
+# 
+# 	JCMD_PID=$(sudo jcmd | awk '{print $1}'); echo -e "\n""JCMD_PID:\n${JCMD_PID}\n";
+# 	JCMD_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${JCMD_PID} | awk '{print $1}' | grep -vEi '^PID');
+# 
+# 
+# 	echo "";
+# 	echo "Info:  Calling  [ jps -l \"${JCMD_PID_VERIFIED}\"; ]  which  [ Displays the full package name for the application's main class or the full path name to the application's JAR file. ]";
+# 	jps -l \"${JCMD_PID_VERIFIED}\";  # Displays the full package name for the application's main class or the full path name to the application's JAR file.
+# 
+# 
+# 	echo "";
+# 	echo "Info:  Calling  [ jps -m \"${JCMD_PID_VERIFIED}\"; ]  which  [ Displays the arguments passed to the main method. The output may be null for embedded JVMs. ]";
+# 	jps -m \"${JCMD_PID_VERIFIED}\";  # Displays the arguments passed to the main method. The output may be null for embedded JVMs.
+# 	jps -m "${JCMD_PID_VERIFIED}";  # Displays the arguments passed to the main method. The output may be null for embedded JVMs.
+# 
+# 
+# 	echo "";
+# 	echo "Info:  Calling  [ jps -v \"${JCMD_PID_VERIFIED}\"; ]  which  [ Suppresses the output of the class name, JAR file name, and arguments passed to the main method, producing only a list of local JVM identifiers. ]";
+# 	jps -v "${JCMD_PID_VERIFIED}"; # shows params
 #
-# 
-# jps # shows pids
-# 
-# 
-# JCMD_PID=$(sudo jcmd | awk '{print $1}'); echo -e "\n""JCMD_PID:\n${JCMD_PID}\n";
-# JCMD_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${JCMD_PID} | awk '{print $1}' | grep -vEi '^PID');
-# 
-# 
-# jps -l "${JCMD_PID_VERIFIED}";
-# jps -m "${JCMD_PID_VERIFIED}";
-# jps -v "${JCMD_PID_VERIFIED}"; # shows params
-# 
-# 
-# jps -l "localhost:${JCMD_PID_VERIFIED}";
-# jps -m "localhost:${JCMD_PID_VERIFIED}";
-# jps -v "localhost:${JCMD_PID_VERIFIED}"; # the host must be indicated
-
-
-# ------------------------------------------------------------
 #
-#   jmap
-#    |
-#    |-->  Prints shared object memory maps or heap memory details for a process, core file, or remote debug server. This command is experimental and unsupported.
-#
-
-jmap -clstats "${JCMD_PID}";
-
-jmap -clstats "${JPS_PID}";
-
-
 # ------------------------------------------------------------
 #
 # Citation(s)

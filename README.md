@@ -60,7 +60,7 @@ This file (on GitHub):
 			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
 			<li>
 				<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
-				<pre><code>curl -ssL rhel.sh | bash;</code></pre>
+				<pre><code>curl -ssL https://centos.sh | bash</code></pre>
 			</li>
 		</ol>
 	</p>

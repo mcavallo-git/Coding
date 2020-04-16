@@ -83,9 +83,23 @@ fi;
 #      -F              Force. Use this option with the jmap -dump or jmap -histo option when the pid does not respond. The live suboption is not supported in this mode.
 #
 
-jmap -clstats "${JCMD_PID}";
 
-jmap -clstats "${JPS_PID}";
+echo "Info:  Calling  [ jmap -clstats ]  which  [ Prints class loader wise statistics of Java heap. For each class loader, its name, how active it is, address, parent class loader, and the number and size of classes it has loaded are printed. ]";
+SERVICE_USER="jenkins";
+JMAP_CLSTATS="$(jmap -clstats -F $(ps u -C 'java' | grep -vEi ^USER | grep -Ei ^${SERVICE_USER} | awk '{print $2}');)";
+echo "${JMAP_CLSTATS}";
+
+
+echo "Info:  Calling  [ jmap -histo ]  which  [ Prints a histogram of the heap. For each Java class, the number of objects, memory size in bytes, and the fully qualified class names are printed. The JVM internal class names are printed with an asterisk (*) prefix. ]";
+SERVICE_USER="jenkins";
+JMAP_HISTO="$(jmap -histo -F $(ps u -C 'java' | grep -vEi ^USER | grep -Ei ^${SERVICE_USER} | awk '{print $2}');)";
+echo "${JMAP_HISTO}";
+
+
+echo "Info:  Calling  [ jmap -heap ]  which  [ Prints a heap summary of the garbage collection used, the head configuration, and generation-wise heap usage. In addition, the number and size of interned Strings are printed. ]";
+SERVICE_USER="jenkins";
+JMAP_HEAP="$(jmap -heap -F $(ps u -C 'java' | grep -vEi ^USER | grep -Ei ^${SERVICE_USER} | awk '{print $2}');)";
+echo "${JMAP_HEAP}";
 
 
 # ------------------------------------------------------------

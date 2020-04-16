@@ -50,7 +50,7 @@ Function CodeSigning() {
 	If ($FirstCert_CodeSigning -Eq $Null) {
 		<# No code signing certs found in the [ local machine ] certificate store #>
 		Write-Output "`nError:  No code signing certificate(s) found in the Local Machine certificate store.`n`nInfo:  Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";
-		Start-Sleep 10;
+
 	} Else { <# Determine Target Path to-be-signed #>
 
 		$TargetPath = $Null;

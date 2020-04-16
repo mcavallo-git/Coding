@@ -1,7 +1,11 @@
 #!/bin/bash
 
+### Check ESXi's stored hostname-value
+esxcfg-advcfg -g "/Misc/hostname";
+
+
 ### Set ESXi Host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
-esxcfg-advcfg -s "HOSTNAME.DOMAIN.TLD" /Misc/hostname; /etc/init.d/hostd restart;
+esxcfg-advcfg -s "HOSTNAME.DOMAIN.TLD" "/Misc/hostname"; /etc/init.d/hostd restart;
 
 
 ### Manual Network Config 

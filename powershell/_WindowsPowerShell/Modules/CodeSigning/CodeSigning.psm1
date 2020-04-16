@@ -23,6 +23,7 @@ Function CodeSigning() {
 		[Switch]$Recurse,
 		[Switch]$Quiet,
 		[Switch]$DelaySigning,
+		[Switch]$Force,
 		[Int]$DelaySeconds = 60,
 		[Int]$Depth = 4096,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
@@ -32,14 +33,14 @@ Function CodeSigning() {
 	$Do_DelayedSigning = (($Do_DelayedSigning) -Or ($PSBoundParameters.ContainsKey('DelaySigning')));
 	$Do_DelayedSigning = (($Do_DelayedSigning) -Or ((Test-Path -Path ("Env:IsFinalStep") -PathType ("Leaf")) -And ((${Env:IsFinalStep} -Eq $True) -Or (${Env:IsFinalStep} -Eq 1))));
 
-	$SingleTarget = ($PSBoundParameters.ContainsKey('Recurse'));
+	$SingleTarget = (-Not $PSBoundParameters.ContainsKey('Recurse'));
 	
-	$Error_NoTarget = "";
-	$Error_NoTarget += "`n";
-	$Error_NoTarget += "`nError:  No Target - Insufficient environment variable & parameter data given to determine target path automatically";
-	$Error_NoTarget += "`nInfo:  To sign a single target, use parameter: `"-Path ('STRING_FILE_FULLPATH')`"";
-	$Error_NoTarget += "`nInfo:  To sign multiple targets, use parameters: `"-Path ('STRING_DIR_FULLPATH') -Recurse -Depth (INTEGER_MAX_DEPTH)`"";
-	$Error_NoTarget += "`n";
+	$Error__NoTarget = "";
+	$Error__NoTarget += "`n";
+	$Error__NoTarget += "`nError:  Target could not be resolved - Insufficient environment variable & parameter data given to determine target path automatically";
+	$Error__NoTarget += "`nInfo:  To sign a single target, use parameter: `"-Path ('STRING_FILE_FULLPATH')`"";
+	$Error__NoTarget += "`nInfo:  To sign multiple targets, use parameters: `"-Path ('STRING_DIR_FULLPATH') -Recurse -Depth (INTEGER_MAX_DEPTH)`"";
+	$Error__NoTarget += "`n";
 
 	<# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>
 	$FirstCert_CodeSigning = $Null;
@@ -80,57 +81,80 @@ Function CodeSigning() {
 			Write-Output "`nSigning target set by [ TeamCity-parameters combined with strings: 'env.TEAMCITY_DATA_PATH' + '\system\artifacts\' + 'teamcity.project.id' + '\' 'system.teamcity.buildConfName' + '\' + 'teamcity.build.id' ] with value `"${TargetPath}`"`n";
 		}
 
-		Write-Output "`nInfo - Using code signing certificate from the Local Machine certificate store:`n";
+		Write-Output "`nInfo:  Using code signing certificate from the Local Machine certificate store:`n";
 		$FirstCert_CodeSigning | Format-List;
 
 		If ($TargetPath -Eq $Null) {
-			Write-Output "${Error_NoTarget}";
+			Write-Output "${Error__NoTarget}";
 
 		} Else {
 
-			$Info_DelayedSign = "";
-			$Info_DelayedSign += "`n";
-			$Info_DelayedSign += "`nCreating background/sleeper process then continuing-on without waiting for its completion";
-			$Info_DelayedSign += "`nBackground job will awaken in ${DelaySeconds}s (at $(Get-Date -Date ((Get-Date).AddSeconds(${DelaySeconds})) -UFormat ('%H : %M : %S')))";
-			$Info_DelayedSign += "`nUpon awakening, this 'sleeper' job will do code signing using target path of `"${TargetPath}`"";
-			$Info_DelayedSign += "`n";
+			$Info__DelayedSign = "";
+			$Info__DelayedSign += "`n";
+			$Info__DelayedSign += "`nCreating background/sleeper process then continuing-on without waiting for its completion";
+			$Info__DelayedSign += "`nBackground job will awaken in ${DelaySeconds}s (at $(Get-Date -Date ((Get-Date).AddSeconds(${DelaySeconds})) -UFormat ('%H : %M : %S')))";
+			$Info__DelayedSign += "`nUpon awakening, this 'sleeper' job will do code signing using target path of `"${TargetPath}`"";
+			$Info__DelayedSign += "`n";
 
 			If ($SingleTarget -Eq $True) {
 				<# Use the code signing certificate to sign one, single file/target #>
 				If (Test-Path -PathType "Leaf" -Path ("${TargetPath}")) {
 					If ($Do_DelayedSigning -Eq $True) {
 						<# Run a Background job and delay it by ${DelaySeconds} seconds, then attempt to sign the artifacts found in a given target directory #>
-						Write-Output "${Info_DelayedSign}";
+						Write-Output "${Info__DelayedSign}";
 						Start-Process -NoNewWindow -Filepath ("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe") -ArgumentList (@('-Command', (('Start-Sleep -Seconds ')+("${DelaySeconds}")+('; Get-Item -Path ("')+("${TargetPath}")+('" -Force | Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } | ForEach-Object { Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null; }'))));
 					} Else {
-						# | Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
-						Get-Item -Path ("${TargetPath}") -Force `
-						| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
-						| ForEach-Object { `
-							Write-Output "Info - Signing working-dir file `"$($_.FullName)`"";
-							Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${FirstCert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
-						};
+
+						$FileToSign = ( `
+							Get-Item -Path ("${TargetPath}") -Force `
+							| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
+						);
+						If ($FileToSign -Ne $Null) {
+							# | Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
+							${FileToSign} | ForEach-Object { `
+								Write-Output "Info:  Signing file `"$(${FileToSign}.FullName)`"";
+								Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${FirstCert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
+							};
+						} Else {
+							Write-Output "`nInfo: File at filepath `"${TargetPath}`" does not require signing`n";
+							Write-Output "`nFile's certificate info:`n $(Get-AuthenticodeSignature -FilePath ("$(${TargetPath})"))";
+
+						}
 					}
 				} ElseIf (Test-Path -PathType "Container" -Path ("${TargetPath}")) {
 					Write-Output "`nError:  Target filepath `"${TargetPath}`" found to be a directory`n";
-					Write-Output "`nTo perform a recursive search + sign, please use argument `"-Recurse`"`n";
+					Write-Output "`nInfo:  To perform a recursive search + sign, please use argument `"-Recurse`"`n";
+
 				} Else {
 					Write-Output "`nError:  Target filepath not found: `"${TargetPath}`"`n";
+
 				}
+
 			} Else {
+
 				If ($Do_DelayedSigning -Eq $True) {
 					<# Run a Background job and delay it by ${DelaySeconds} seconds, then attempt to sign the artifacts found in a given target directory #>
-					Write-Output "${Info_DelayedSign}";
+					Write-Output "${Info__DelayedSign}";
 					Start-Process -NoNewWindow -Filepath ("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe") -ArgumentList (@('-Command', (('Start-Sleep -Seconds ')+("${DelaySeconds}")+('; Get-ChildItem -Path ("')+("${TargetPath}")+('" -Recurse -Force -File | Where-Object { ("$($_.FullName)" -Like "*.dll") -Or ("$($_.FullName)" -Like "*.exe") -Or ("$($_.FullName)" -Like "*.msi") -Or ("$($_.FullName)" -Like "*.sys") } | Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } | ForEach-Object { Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null; }'))));
+
 				} Else {
-					<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
-					Get-ChildItem -Path ("${TargetPath}") -Recurse -Depth (${Depth}) -Force -File `
-					| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
-					| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
-					| ForEach-Object { `
-						Write-Output "Info - Signing working-dir file `"$($_.FullName)`"";
-						Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${FirstCert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
-					};
+
+					$FilesToSign = ( `
+						Get-ChildItem -Path ("${TargetPath}") -Recurse -Depth (${Depth}) -Force -File `
+						| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
+						| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
+					);
+					If ($FilesToSign.Count -Eq 0) {
+						Write-Output "`nInfo: No files found under path `"${TargetPath}`" which require signing`n";
+
+					} Else {
+						<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
+						$FilesToSign | ForEach-Object {
+							Write-Output "Info:  Signing file `"$($_.FullName)`"...";
+							Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${FirstCert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
+						};
+
+					}
 				}
 			}
 		}
@@ -141,7 +165,7 @@ Function CodeSigning() {
 			| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
 			| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 			| ForEach-Object { `
-				Write-Output "Info - Signing exported artifact `"$($_.FullName)`"";
+				Write-Output "Info:  Signing exported artifact `"$($_.FullName)`"";
 				Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${FirstCert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
 			};
 		}

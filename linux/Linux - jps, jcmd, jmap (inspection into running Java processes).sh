@@ -88,25 +88,27 @@ jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
 #
 #   jps
 #    |
-#    |-->  Lists the instrumented Java Virtual Machines (JVMs) on the target system. This command is experimental and unsupported.
-#             (e.g. gets Java PIDs)
+#    |--> Lists the instrumented Java Virtual Machines (JVMs) on the target system. This command is experimental and unsupported.
+#    |        (e.g. gets Java PIDs)
+#    |
+#    |--> In-reality this tool is useless, move-on down to jmap!
 #
-
-jps # shows pids
-
-
-JCMD_PID=$(sudo jcmd | awk '{print $1}'); echo -e "\n""JCMD_PID:\n${JCMD_PID}\n";
-JCMD_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${JCMD_PID} | awk '{print $1}' | grep -vEi '^PID');
-
-
-jps -l "${JCMD_PID_VERIFIED}";
-jps -m "${JCMD_PID_VERIFIED}";
-jps -v "${JCMD_PID_VERIFIED}"; # shows params
-
-
-jps -l "localhost:${JCMD_PID_VERIFIED}";
-jps -m "localhost:${JCMD_PID_VERIFIED}";
-jps -v "localhost:${JCMD_PID_VERIFIED}"; # the host must be indicated
+# 
+# jps # shows pids
+# 
+# 
+# JCMD_PID=$(sudo jcmd | awk '{print $1}'); echo -e "\n""JCMD_PID:\n${JCMD_PID}\n";
+# JCMD_PID_VERIFIED=$(sudo ps --format "pid,fname,user,%cpu,%mem,maj_flt,cmd" -p ${JCMD_PID} | awk '{print $1}' | grep -vEi '^PID');
+# 
+# 
+# jps -l "${JCMD_PID_VERIFIED}";
+# jps -m "${JCMD_PID_VERIFIED}";
+# jps -v "${JCMD_PID_VERIFIED}"; # shows params
+# 
+# 
+# jps -l "localhost:${JCMD_PID_VERIFIED}";
+# jps -m "localhost:${JCMD_PID_VERIFIED}";
+# jps -v "localhost:${JCMD_PID_VERIFIED}"; # the host must be indicated
 
 
 # ------------------------------------------------------------

@@ -34,6 +34,20 @@ While ($KeyPress.Character -NE "y") {
 
 # ------------------------------------------------------------
 #
+# Message "Press any key to confirm, or retry command using parameter '-Force' to perform a manual override of this message"
+#  + Wait [ up-to X-Seconds ]
+#
+
+$SecondsToTimeoutAfter = 30;
+$SecondsAlreadyWaited = 0;
+Write-Output "`n`n  Press any key to confirm, or retry command using parameter '-Force' to perform a manual override of this message`n`n";
+While ((!$Host.UI.RawUI.KeyAvailable) -And (${SecondsAlreadyWaited}++ -LT ${SecondsToTimeoutAfter})) {
+	[Threading.Thread]::Sleep(1000);
+}
+
+
+# ------------------------------------------------------------
+#
 # "Closing in 3...2...1..."
 #
 
@@ -71,9 +85,12 @@ If ( $KeyPress.VirtualKeyCode -eq 27 ) {
 }
 
 
-
-#	------------------------------------------------------------
+# ------------------------------------------------------------
 #
-# Thanks to stackoverflow user 'Knuckle-Dragger' on forum: https://stackoverflow.com/questions/20886243
+# Citation(s)
 #
-#	------------------------------------------------------------
+#   stackoverflow.com  |  "powershell - Press any key to continue - Stack Overflow"  |  https://stackoverflow.com/a/20886446
+#
+#   stackoverflow.com  |  "powershell - Waiting for user input with a timeout - Stack Overflow"  |  https://stackoverflow.com/a/150326
+#
+# ------------------------------------------------------------

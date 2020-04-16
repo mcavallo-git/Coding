@@ -84,7 +84,6 @@ jcmd "$(jcmd | grep jenkins | awk '{print $1}')" "VM.system_properties";
 # jcmd "$(sudo jcmd | grep jenkins | awk '{print $1}')" ManagementAgent.status
 
 
-
 # ------------------------------------------------------------
 #
 #   jps
@@ -111,8 +110,11 @@ jps -v "localhost:${JCMD_PID_VERIFIED}"; # the host must be indicated
 
 
 # ------------------------------------------------------------
-
-# Method 3: 
+#
+#   jmap
+#    |
+#    |-->  Prints shared object memory maps or heap memory details for a process, core file, or remote debug server. This command is experimental and unsupported.
+#
 
 jmap -clstats "${JCMD_PID}";
 

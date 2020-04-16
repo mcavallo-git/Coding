@@ -33,6 +33,7 @@ Function CodeSigning() {
 	$Do_DelayedSigning = (($Do_DelayedSigning) -Or ($PSBoundParameters.ContainsKey('DelaySigning')));
 	$Do_DelayedSigning = (($Do_DelayedSigning) -Or ((Test-Path -Path ("Env:IsFinalStep") -PathType ("Leaf")) -And ((${Env:IsFinalStep} -Eq $True) -Or (${Env:IsFinalStep} -Eq 1))));
 
+	$Forced = ($PSBoundParameters.ContainsKey('Force'));
 	$SingleTarget = (-Not $PSBoundParameters.ContainsKey('Recurse'));
 	
 	$Error__NoTarget = "";
@@ -145,9 +146,21 @@ Function CodeSigning() {
 						| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 					);
 					If ($FilesToSign.Count -Eq 0) {
-						Write-Output "`nInfo: No files found under path `"${TargetPath}`" which require signing`n";
+						Write-Output "`nInfo:  No files found under path `"${TargetPath}`" which require signing`n";
 
 					} Else {
+
+						Write-Output "`nInfo:  Found $($FilesToSign.Count) file(s) to sign`n";
+
+						If (($FilesToSign.Count -Gt 10) -And ($Forced -NE $True)) {
+							$SecondsToTimeoutAfter = (10 * ($FilesToSign.Count)); # Make the wait-time to sign a ton of files be exorbitant if unintentially signing, say, your whole C:\ drive
+							$SecondsAlreadyWaited = 0;
+							Write-Output "`n`n  Press any key to confirm, or retry command using parameter '-Force' to perform a manual override of this message`n`n";
+							While ((!$Host.UI.RawUI.KeyAvailable) -And (${SecondsAlreadyWaited}++ -LT ${SecondsToTimeoutAfter})) {
+								[Threading.Thread]::Sleep(1000);
+							}
+						}
+
 						<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
 						$FilesToSign | ForEach-Object {
 							Write-Output "Info:  Signing file `"$($_.FullName)`"...";

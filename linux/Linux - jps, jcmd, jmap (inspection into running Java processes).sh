@@ -1,8 +1,18 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Inspecting a running Java process
+# Java Inspection & Troubleshooting Tools
+#  |
+#  |--> Many of these commands are tools which may be found in the Java Developer's Toolkit
 #
+# ------------------------------------------------------------
+if [ 0 -eq 1 ]; then # Install Java + Required Developer Toolkit
+
+
+curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_java?t=$(date +'%s.%N')" | bash;
+
+
+fi;
 # ------------------------------------------------------------
 
 # Obtain desired PID  :::  Get the PID of the Java runtime behind the local Jenkins

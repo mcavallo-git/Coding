@@ -100,7 +100,7 @@ else
 	echo "echo '${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}' >> '/etc/fstab';";
 	echo "------------------------------------------------------------";
 	echo "";
-	if [ 0 ]; then # ENABLE ONCE FSTAB FILE CHANGES ARE DONE AUTOMATICALLY
+	if [ 0 -eq 1 ]; then  # ENABLE ONCE FSTAB FILE CHANGES ARE DONE AUTOMATICALLY
 		echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  System reboot is required to apply change(s)";
 		read -p "  |--> Reboot, now? (y/n)  " -n 1 -t 60 -r;
 		echo "";

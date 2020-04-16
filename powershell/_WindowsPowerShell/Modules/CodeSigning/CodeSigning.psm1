@@ -57,29 +57,35 @@ Function CodeSigning() {
 
 		$TargetPath = $Null;
 
-		If (($PSBoundParameters.ContainsKey('Path')) -And ("${Path}" -Ne $Null) -And (Test-Path -Path ("${Path}"))) { <# Target passed directly as a Parameter #>
+		<# Inline '-Path' parameter #>
+		If (($PSBoundParameters.ContainsKey('Path')) -And ("${Path}" -Ne $Null) -And (Test-Path -Path ("${Path}"))) {
 			$TargetPath = "${Path}";
-			Write-Output "`nSigning target set by [ Function-parameter '-Path' ] with value `"${TargetPath}`"`n";
+			Write-Output "`nSigning target: [ Inline '-Path' parameter ] with value `"${TargetPath}`"`n";
 		}
 
-		If (($TargetPath -Eq $Null) -And (("%system.teamcity.build.checkoutDir%") -NE (("%")+(@("system","teamcity","build","checkoutDir") -join ".")+("%")))) { <# TeamCity build-environment #>
+		<# TeamCity build's working directory 'system.teamcity.build.checkoutDir' #>
+		If (($TargetPath -Eq $Null) -And (("%system.teamcity.build.checkoutDir%") -NE (("%")+(@("system","teamcity","build","checkoutDir") -join ".")+("%")))) {
 			$TargetPath = "%system.teamcity.build.checkoutDir%";
-			Write-Output "`nSigning target set by [ TeamCity-parameter 'system.teamcity.build.checkoutDir parameter' ] with value `"${TargetPath}`"`n";
+			Write-Output "`nSigning target: [ TeamCity build's working directory 'system.teamcity.build.checkoutDir' ] with value `"${TargetPath}`"`n";
 		}
 	
-		If (($TargetPath -Eq $Null) -And (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%")))) { <# TeamCity build-environment #>
+		<# TeamCity build's working directory 'system.teamcity.build.workingDir' #>
+		If (($TargetPath -Eq $Null) -And (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%")))) {
 			$TargetPath = "%system.teamcity.build.workingDir%";
-			Write-Output "`nSigning target set by [ TeamCity-parameter 'system.teamcity.build.workingDir parameter' ] with value `"${TargetPath}`"`n";
+			Write-Output "`nSigning target: [ TeamCity build's working directory 'system.teamcity.build.workingDir' ] with value `"${TargetPath}`"`n";
 		}
 	
-		If (($TargetPath -Eq $Null) -And (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf"))) { <# Jenkins (or manually-defined) build-environment #>
+		<# Jenkins build's working directory '`${Env:WORKSPACE}' #>
+		If (($TargetPath -Eq $Null) -And (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf"))) {
 			$TargetPath = "${Env:WORKSPACE}";
-			Write-Output "`nSigning target set by [ Jenkins-parameter '`${Env:WORKSPACE}' ] with value `"${TargetPath}`"`n";
+			Write-Output "`nSigning target: [ Jenkins build's working directory '`${Env:WORKSPACE}' ] with value `"${TargetPath}`"`n";
 		}
 	
-		If (($TargetPath -Eq $Null) -And ((Test-Path -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%") -PathType ("Leaf") -ErrorAction ("SilentlyContinue")) -Eq $True)) { <# TeamCity's artifact-output-directory exists #>
+		<# TeamCity build's artifact output directory  -->  orking directory 'system.teamcity.build.workingDir' #>
+		If (($TargetPath -Eq $Null) -And ((Test-Path -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%") -PathType ("Leaf") -ErrorAction ("SilentlyContinue")) -Eq $True)) {
+			<# TeamCity's artifact-output-directory exists #>
 			$TargetPath = "%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%";
-			Write-Output "`nSigning target set by [ TeamCity-parameters combined with strings: 'env.TEAMCITY_DATA_PATH' + '\system\artifacts\' + 'teamcity.project.id' + '\' 'system.teamcity.buildConfName' + '\' + 'teamcity.build.id' ] with value `"${TargetPath}`"`n";
+			Write-Output "`nSigning target: [ TeamCity build's artifact output directory  -->  'env.TEAMCITY_DATA_PATH' + '\system\artifacts\' + 'teamcity.project.id' + '\' 'system.teamcity.buildConfName' + '\' + 'teamcity.build.id' ] with value `"${TargetPath}`"`n";
 		}
 
 		Write-Output "`nInfo:  Using code signing certificate from the Local Machine certificate store:`n";

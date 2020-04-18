@@ -13,7 +13,7 @@ explorer.exe shell:AppsFolder\$(Get-AppxPackage | Where-Object { ("$($_.Name)".C
 # Search for local package
 #
 
-$PackageNameContains="Help"; Get-AppxPackage | Sort-Object -Property Name | Where-Object { $_.Name -Like "*${PackageNameContains}*" } | Format-Table
+$PackageNameContains="Help"; Get-AppxPackage | Sort-Object -Property Name | Where-Object { $_.Name -Like "*${PackageNameContains}*" };
 
 
 # ------------------------------------------------------------

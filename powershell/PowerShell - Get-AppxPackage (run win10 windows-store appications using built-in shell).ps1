@@ -10,7 +10,7 @@ explorer.exe shell:AppsFolder\$(Get-AppxPackage | Where-Object { ("$($_.Name)".C
 
 # ------------------------------------------------------------
 #
-# Search for local package
+# Search locally installed packages
 #
 
 $PackageNameContains="Help"; Get-AppxPackage | Sort-Object -Property Name | Where-Object { $_.Name -Like "*${PackageNameContains}*" };
@@ -18,15 +18,27 @@ $PackageNameContains="Help"; Get-AppxPackage | Sort-Object -Property Name | Wher
 
 # ------------------------------------------------------------
 #
-# Install a package
+# Search for local package manifests and installers (files)
 #
 
-Add-AppxPackage -Path "${Home}\Desktop\MyApp.msix" -DependencyPath "${Home}\Desktop\winjs.msix";
+Get-ChildItem -Path ("${Home}\Desktop") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+| Where-Object { ($_.Name -Eq "Appxmanifest.xml") -Or ($_.Name -Like "*.msix") };
 
 
 # ------------------------------------------------------------
 #
-# Uninstall a package
+# Install package(s)
+#
+
+Get-ChildItem -Path ("${Home}\Desktop") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+| Where-Object { ($_.Name -Eq "Appxmanifest.xml") -Or ($_.Name -Like "*.msix") } `
+| ForEach-Object { Add-AppxPackage -Path ("$($_.FullName)") -Register -DisableDevelopmentMode; }
+
+
+
+# ------------------------------------------------------------
+#
+# Uninstall package(s)
 #
 
 $RemovePackagesContaining="Xbox"; Get-AppxPackage | Where-Object { $_.Name -Like "*${RemovePackagesContaining}*" } | Remove-AppxPackage;

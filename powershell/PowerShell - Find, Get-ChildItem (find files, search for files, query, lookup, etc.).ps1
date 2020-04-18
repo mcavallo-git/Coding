@@ -15,6 +15,8 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue
 
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Eq "devenv.com") -Or ($_.Name -Eq "devenv.exe") } | ForEach-Object { $_.FullName; }
 
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "*.msixbundle" } | ForEach-Object { $_.FullName; }
+
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "devenv.*" } | ForEach-Object { $_.FullName; }
 
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "*devenv*" } | ForEach-Object { $_.FullName; }

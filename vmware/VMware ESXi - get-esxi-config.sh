@@ -13,6 +13,20 @@ DIR_PATH="/root/esxcli"; mkdir -p "${DIR_PATH}"; chmod 0700 "${DIR_PATH}"; chown
 
 # ------------------------------------------------------------
 
+vmware -l;  # Returns VMware ESXi Version # and Update #
+
+vmware -v;  # Returns VMware ESXi Version # and Build #
+
+DISTRO_ID=$(vmware -l | sed -rne 's/^([a-zA-Z\_\-\(\)\=\ ]+) ([0-9\.]+) (Update.+)$/\1/p';);  #  e.g. 'VMware ESXI'
+DISTRO_RELEASE=$(vmware -l | sed -rne 's/^([a-zA-Z\_\-\(\)\=\ ]+) ([0-9\.]+) (Update.+)$/\2/p';);  #  e.g. '6.5.0'
+DISTRO_CODENAME=$(vmware -l | sed -rne 's/^([a-zA-Z\_\-\(\)\=\ ]+) ([0-9\.]+) (Update.+)$/\3/p';);  #  e.g. 'Update 3'
+DISTRO_BUILD=$(vmware -v | sed -rne 's/^([a-zA-Z\_\-\(\)\=\ ]+) ([0-9\.]+) (build.+)$/\3/p';);  #  e.g. 'build-15256549'
+DISTRO_DESCRIPTION="${DISTRO_ID} ${DISTRO_RELEASE} ${DISTRO_CODENAME} ${DISTRO_BUILD}";
+echo "${DISTRO_DESCRIPTION}"; # Get ESXi Type, Version, Update, and Build #
+
+
+# ------------------------------------------------------------
+
 esxcli storage core adapter list > /root/esxcli/esxcli-storage-core-adapter-list.log;  # List all the SCSI Host Bus Adapters on the system.
 
 

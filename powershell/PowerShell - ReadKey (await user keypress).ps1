@@ -38,11 +38,21 @@ While ($KeyPress.Character -NE "y") {
 #  + Wait [ up-to X-Seconds ]
 #
 
-$SecondsToTimeoutAfter = 30;
-$SecondsAlreadyWaited = 0;
-Write-Output "`n`n  Press any key to confirm, or retry command using parameter '-Force' to perform a manual override of this message`n`n";
-While ((!$Host.UI.RawUI.KeyAvailable) -And (${SecondsAlreadyWaited}++ -LT ${SecondsToTimeoutAfter})) {
-	[Threading.Thread]::Sleep(1000);
+If ($True) {
+	Start-Sleep 1;
+	$SecondsToTimeoutAfter = 30;
+	$SecondsAlreadyWaited = 0;
+	Write-Output "`n`n  Press any key to confirm, or retry command using parameter '-Force' to perform a manual override of this message`n`n";
+	While ((!$Host.UI.RawUI.KeyAvailable) -And (${SecondsAlreadyWaited}++ -LT ${SecondsToTimeoutAfter})) {
+		[Threading.Thread]::Sleep(1000);
+	}
+	If ($Host.UI.RawUI.KeyAvailable) {
+		$KeyPress = ($Host.UI.RawUI.KeyAvailable);
+		Write-Host "`$KeyPress:";
+		$KeyPress;
+		$KeyPress | Format-List;
+		<# FAILURE #>
+	}
 }
 
 

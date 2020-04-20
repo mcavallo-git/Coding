@@ -100,7 +100,7 @@ If (((Test-Path "${Path_FQDN}") -Eq $False) -Or (([String]::IsNullOrEmpty((Get-C
 		Set-Content -Path ("${Path_FQDN}") -Value ("https://REPLACE_ME_WITH_JENKINS_URL");
 	}
 	Notepad "${Path_FQDN}";
-	Write-Host -NoNewLine "`n`n  Once you have performed above step(s), please press any to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	Write-Host -NoNewLine "`n`n  Once you have performed above step(s), please press any key to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If (((Test-Path "${Path_FQDN}") -Eq $False) -Or (([String]::IsNullOrEmpty((Get-Content -Path ("${Path_FQDN}")))) -Eq $True)) {
 		Write-Host "";
@@ -140,7 +140,7 @@ If (((Test-Path "${Path_Secret}") -Eq $False) -Or (([String]::IsNullOrEmpty((Get
 		Set-Content -Path ("${Path_Secret}") -Value ("REPLACE_ME_WITH___SECRET");
 	}
 	Notepad "${Path_Secret}";
-	Write-Host -NoNewLine "`n`n  Once you have performed above step(s), please press any to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+	Write-Host -NoNewLine "`n`n  Once you have performed above step(s), please press any key to continue...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If (((Test-Path "${Path_Secret}") -Eq $False) -Or (([String]::IsNullOrEmpty((Get-Content -Path ("${Path_Secret}")))) -Eq $True)) {
 		Write-Host "";

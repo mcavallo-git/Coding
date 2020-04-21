@@ -16,7 +16,7 @@ service unifi start;
 
 mongoexport --collection="startup_log" --db="local" --out="mongoexport.$(date +'%Y%m%d_%H%M%S').json";
 
-mongoimport --collection="startup_log" --db="local" --out="mongoexport.*.json";
+mongoimport --collection="startup_log" --db="local" --file="mongoexport.*.json";
 
 
 # ------------------------------------------------------------

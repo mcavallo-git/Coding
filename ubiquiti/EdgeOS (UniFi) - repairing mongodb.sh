@@ -29,6 +29,8 @@ mongoimport --collection="startup_log" --db="local" --file="mongoexport.20200421
 #
 #   help.ubnt.com  |  "UniFi - Network Controller: Repairing Database Issues on the UniFi Controller – Ubiquiti Networks Support and Help Center"  |  https://help.ubnt.com/hc/en-us/articles/360006634094-UniFi-Network-Controller-Repairing-Database-Issues-on-the-UniFi-Controller
 #
+#   stackoverflow.com  |  "mongodb - 32-bit servers don't have journaling enabled by default. Please use --journal if you want durability. - unable to start mongo on windows 7 32 bit - Stack Overflow"  |  https://stackoverflow.com/a/36259897
+#
 #   stackoverflow.com  |  "Reducing MongoDB database file size - Stack Overflow"  |  https://stackoverflow.com/a/2975296
 #
 # ------------------------------------------------------------

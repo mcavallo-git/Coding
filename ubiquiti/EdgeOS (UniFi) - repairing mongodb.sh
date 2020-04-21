@@ -24,6 +24,8 @@ mongoexport --collection="startup_log" --db="local" --out="mongoexport.$(date +'
 #
 #   docs.mongodb.com  |  "mongoexport — MongoDB Manual"  |  https://docs.mongodb.com/manual/reference/program/mongoexport/#cmdoption-mongoexport-collection
 #
+#   docs.mongodb.com  |  "mongoimport — MongoDB Manual"  |  https://docs.mongodb.com/manual/reference/program/mongoimport/
+#
 #   help.ubnt.com  |  "UniFi - Network Controller: Repairing Database Issues on the UniFi Controller – Ubiquiti Networks Support and Help Center"  |  https://help.ubnt.com/hc/en-us/articles/360006634094-UniFi-Network-Controller-Repairing-Database-Issues-on-the-UniFi-Controller
 #
 #   stackoverflow.com  |  "Reducing MongoDB database file size - Stack Overflow"  |  https://stackoverflow.com/a/2975296

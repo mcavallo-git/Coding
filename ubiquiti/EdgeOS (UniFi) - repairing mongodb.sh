@@ -23,6 +23,8 @@ mongoimport --collection="startup_log" --db="local" --file="mongoexport.20200421
 #
 # Citation(s)
 #
+#   docs.mongodb.com  |  "Configuration File Options — MongoDB Manual"  |  https://docs.mongodb.com/manual/reference/configuration-options/
+#
 #   docs.mongodb.com  |  "mongoexport — MongoDB Manual"  |  https://docs.mongodb.com/manual/reference/program/mongoexport/#cmdoption-mongoexport-collection
 #
 #   docs.mongodb.com  |  "mongoimport — MongoDB Manual"  |  https://docs.mongodb.com/manual/reference/program/mongoimport/

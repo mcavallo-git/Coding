@@ -536,7 +536,7 @@ SCRIPT_VERSION_ONLINE=$(curl https://get.glennr.nl/unifi/update/unifi-update.sh 
 SCRIPT_VERSION=$(grep "# Version " $0 | awk '{print $4}' | sed 's/\.//g')
 
 # Script version check.
-if [ ${SCRIPT_VERSION_ONLINE::3} -gt ${SCRIPT_VERSION::3} ]; then
+if [ -n "${SCRIPT_VERSION_ONLINE::3}" ] && [ ${SCRIPT_VERSION_ONLINE::3} -gt ${SCRIPT_VERSION::3} ]; then
   clear
   header_red
   echo -e "${WHITE_R}#${RESET} You're not using the latest version of the Easy Update Script!"

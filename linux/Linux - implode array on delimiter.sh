@@ -8,14 +8,20 @@ function implode { local IFS="$1"; shift; echo "$*"; }
 
 
 # Example 1.1:
+implode ',' a b c;
+# Output:
+#a,b,c
+
+
+# Example 1.2:
 implode $'\n' a b c;
-# Output 1.1:
+# Output:
 #a
 #b
 #c
 
 
-# Example 1.2:
+# Example 1.3:
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY=();
 DAT_ARRAY+=("Item-One");
@@ -25,7 +31,7 @@ DAT_ARRAY+=("Item-A");
 DAT_ARRAY+=("Item-A");
 DAT_ARRAY+=("Item-B");
 implode , "${DAT_ARRAY[@]}";
-# Output 1.2:
+# Output:
 #Item-One,Item-One,Item-Two,Item-A,Item-A,Item-B
 
 

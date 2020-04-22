@@ -7,9 +7,15 @@
 function implode { local IFS="$1"; shift; echo "$*"; }
 
 
+# Example 1.1:
+implode $'\n' a b c;
+# Output 1.1:
+#a
+#b
+#c
 
-# EXAMPLE USE:
 
+# Example 1.2:
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY=();
 DAT_ARRAY+=("Item-One");
@@ -18,12 +24,17 @@ DAT_ARRAY+=("Item-Two");
 DAT_ARRAY+=("Item-A");
 DAT_ARRAY+=("Item-A");
 DAT_ARRAY+=("Item-B");
-implode , "${DAT_ARRAY[@]}";  # Output:   Item-One,Item-One,Item-Two,Item-A,Item-A,Item-B
+implode , "${DAT_ARRAY[@]}";
+# Output 1.2:
+#Item-One,Item-One,Item-Two,Item-A,Item-A,Item-B
+
 
 
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   stackoverflow.com  |  "Echo newline in Bash prints literal \n - Stack Overflow"  |  https://stackoverflow.com/a/8467448
 #
 #   stackoverflow.com  |  "How can I join elements of an array in Bash? - Stack Overflow"  |  https://stackoverflow.com/a/17841619
 #

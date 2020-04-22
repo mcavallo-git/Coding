@@ -399,4 +399,6 @@ if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then echo "1 key is set"; else echo "0 key no
 #
 #		stackoverflow.com  |  "Is there an easy way to determine if user input is an integer in bash?"  |  https://stackoverflow.com/a/4141321
 #
+#   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
+#
 # ------------------------------------------------------------

@@ -9,7 +9,7 @@
 # Example 1.1 - Removing empty lines (e.g. remove lines containing only whitespace)
 EXAMPLE_REMOVE_EMPTY_LINES="Line 01"$'\n'$'\n'$'\n'"Line 04"$'\n'$'\n'$'\n'"Line 07\n\n\nLine 10";
 echo "Example 1.1 - Before removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}";
-echo "Method 1.1.1 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep \S; # Method 1.1.1 - Remove lines containing only whitespace characters (spaces/tabs)
+echo "Method 1.1.1 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep '\S'; # Method 1.1.1 - Remove lines containing only whitespace characters (spaces/tabs)
 echo "Method 1.1.2 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep '^$'; # Method 1.1.2 - Keep lines with at least 1 whitespace (space/tab) character
 
 

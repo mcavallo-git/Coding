@@ -212,9 +212,9 @@ echo -e "\n\n";
 #
 #   linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
-#   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
-#
 #   serverfault.com  |  "Check if array is empty in Bash"  |  https://serverfault.com/a/477506
+#
+#   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
 #
 #   stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #

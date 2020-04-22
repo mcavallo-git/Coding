@@ -8,35 +8,46 @@
 # Method 1 - Using bashisms
 #
 
-HAYSTACK_TO_SEARCH="localhost";
-NEEDLE_TO_FIND=".";
-ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}";
-NEEDLE_TOTAL_COUNT="${#ALL_NEEDLES_FOUND}";
-echo "HAYSTACK_TO_SEARCH = \"${HAYSTACK_TO_SEARCH}\"";
-echo "NEEDLE_TO_FIND = \"${NEEDLE_TO_FIND}\"";
-echo "NEEDLE_TOTAL_COUNT = \"${NEEDLE_TOTAL_COUNT}\"";
+# Example 1.1
+if [ 1 -eq 1 ]; then
+  HAYSTACK_TO_SEARCH="localhost";
+  NEEDLE_TO_FIND=".";
+  ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}"; # Required middleman var
+  NEEDLE_TOTAL_COUNT=${#ALL_NEEDLES_FOUND};
+  echo "HAYSTACK_TO_SEARCH = \"${HAYSTACK_TO_SEARCH}\"";
+  echo "NEEDLE_TO_FIND = \"${NEEDLE_TO_FIND}\"";
+  echo "NEEDLE_TOTAL_COUNT = \"${NEEDLE_TOTAL_COUNT}\"";
+fi;
 
 
-FIND_PERIODS_IN="localhost";
-SUBSTRING_ONLY_PERIODS="${FIND_PERIODS_IN//[^.]}";
-COUNT_PERIODS="${#SUBSTRING_ONLY_PERIODS}";
-echo "FIND_PERIODS_IN = \"${FIND_PERIODS_IN}\"";
-echo "COUNT_PERIODS = \"${COUNT_PERIODS}\"";
-
-
-FIND_PERIODS_IN="www.example.com";
-SUBSTRING_ONLY_PERIODS="${FIND_PERIODS_IN//[^.]}";
-COUNT_PERIODS="${#SUBSTRING_ONLY_PERIODS}";
-echo "FIND_PERIODS_IN = \"${FIND_PERIODS_IN}\"";
-echo "COUNT_PERIODS = \"${COUNT_PERIODS}\"";
+# Example 1.2
+if [ 1 -eq 1 ]; then
+  HAYSTACK_TO_SEARCH="www.example.com";
+  NEEDLE_TO_FIND=".";
+  ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}"; # Required middleman var
+  NEEDLE_TOTAL_COUNT=${#ALL_NEEDLES_FOUND};
+  echo "HAYSTACK_TO_SEARCH = \"${HAYSTACK_TO_SEARCH}\"";
+  echo "NEEDLE_TO_FIND = \"${NEEDLE_TO_FIND}\"";
+  echo "NEEDLE_TOTAL_COUNT = \"${NEEDLE_TOTAL_COUNT}\"";
+fi;
 
 
 # ------------------------------------------------------------
 #
-# Method 2 - Using 'tr' and 'awk'
+# Method 2 - Using 'tr' and 'awk' --> NEED TO FIX
 #
 
-tr -d -c '"\n' < dat | awk '{ print length; }';
+# Example 2.1
+# if [ 1 -eq 1 ]; then
+#   HAYSTACK_TO_SEARCH="localhost";
+#   NEEDLE_TO_FIND=".";
+#   ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}";
+#   NEEDLE_TOTAL_COUNT=$(tr -d -c '"\n' < "${HAYSTACK_TO_SEARCH}" | awk '{ print length; }';);
+#   echo "HAYSTACK_TO_SEARCH = \"${HAYSTACK_TO_SEARCH}\"";
+#   echo "NEEDLE_TO_FIND = \"${NEEDLE_TO_FIND}\"";
+#   echo "NEEDLE_TOTAL_COUNT = \"${NEEDLE_TOTAL_COUNT}\"";
+# 	tr -d -c '"\n' < dat | awk '{ print length; }';
+# fi;
 
 
 

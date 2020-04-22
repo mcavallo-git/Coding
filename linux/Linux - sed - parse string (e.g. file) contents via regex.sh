@@ -223,6 +223,17 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 
 # ------------------------------------------------------------
 #
+# Example)  Escape forward slashes using sed
+#
+EXAMPLE_SUBNETS_LIST="10.0.0.0/8"$'\n'"172.16.0.0/12"$'\n'"192.168.0.0/16";
+EXAMPLE_SUBNET_TO_REMOVE="172.16.0.0/12";
+SED_ESCAPED_FORWARD_SLASHES="$(echo ${EXAMPLE_SUBNET_TO_REMOVE} | sed 's/\//\\\//g')";
+SED_EXPRESSION="/^${SED_ESCAPED_FORWARD_SLASHES}*/d";
+echo "${EXAMPLE_SUBNETS_LIST}" | sed ${SED_EXPRESSION};
+
+
+# ------------------------------------------------------------
+#
 # Example)  MySQL Exports - Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 #
 sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"

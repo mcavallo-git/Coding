@@ -1,11 +1,9 @@
 # Regex Basics
 
 
-
 ***	
 ### Essential Mindset
 ###### Regular expressions ('regex patterns') bring to the table a means of defining exact templates which cookie-cut their way through anything built from characters, be it user-entered input, a nine-million-line log file, or any other string, regex will attempt to parse out of it whatever your predefined pattern tells it to parse out of it. But, with power comes responsibility, and developers who know regex understand when and where it is needed. Most major programming languages contain prebuilt methods which allow developers to search/parse strings for 99% of parsing tasks, therefore regex is usually only found where it is vital for its exactness. If you're still reading this, thanks for letting me ramble on! This starts at the beginning, regex's syntax
-
 
 
 ***
@@ -17,10 +15,9 @@
 * That's it, you're a pro. Nah the rest is so detailed I figured leave them in their exact categories. Keep reading for more.
 
 
-
-
 ***
 ### Shorthand Character Classes
+###### See GNU.org's document on <a href="https://www.gnu.org/software/grep/manual/html_node/The-Backslash-Character-and-Special-Expressions.html">3.3 The Backslash Characters and Special Expressions</a>
 
 * ```\d```  matches one "digit" character  -  shorthand for ```[0-9]```
 * ```\D```  matches one non "digit" character  -  shorthand for ```^\d```
@@ -34,7 +31,6 @@
 * ```.```   refer to 'Reserved Characters' section
 
 * Note: Perl-Style regular expressions syntax considers the following characters as 'Special' characters, which the dot wildcard will likely NOT match any character in the set ```.|*+?()[]{-\^$```  (which, with escapes, is ```\.\|\*\+\?\(\)\[\]\{\-\^\$\>\\``` )
-
 
 
 ***
@@ -63,7 +59,6 @@
 * ```\xA9```  matches the copyright symbol in the Latin-1 character set
 
 
-
 ***
 ### Anchors
 ###### Anchors do not match any characters/etc., but rather are used as landmarks in regex. These allow you to write expressions such as "match LINES in this string which start with 'foobar'", or "match WORDS in this string which end in 'bar'"
@@ -79,7 +74,6 @@
 
 * ```\A```  landmark for "the start of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
 * ```\Z```  landmark for "the end of the ENTIRE input-string (including newlines/line-breaks/CRLFs)". Not supported in JavaScript, POSIX, XML, and XPath.
-
 
 
 ***
@@ -103,12 +97,10 @@
 
 
 
-
 ***
 ### Character Classes (or 'Character Sets')
 * ```[xyz]```   Character Class - Matches any single character in a given set  -  Ex:   ```[a-zA-Z0-9]``` is equivalent to ```[abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWZYZ0123456789]```
 * ```[^xyz]```  Negated Character Class - Matches any single character NOT a given set   -   Ex:   ```[^xyz]```   matches anything other than characters "x", "y", or "z"
-
 
 
 ***
@@ -130,7 +122,6 @@
 ###### If you want to use any of these characters as a literal in a regex, you need to escape them with a backslash - i.e. ```1+1=2``` matches one-or-more "1" followed by "1=2", and ```1\+1=2``` matches "1+1=2"
 
 
-
 ***
 ### Character Escaping (esp. Metacharacters)
 * Escaping in Regex is done by prepending a backslash ```\``` before a given character
@@ -138,8 +129,6 @@
 * The following scenarios require that their corresponding metacharacters be escaped
 * Outside character classes:   .^$|*+?()[{\
 * Inside character classes:    ]^-\
-
-
 
 
 ***
@@ -166,8 +155,6 @@
 									Ex: ((?!q).|^)u   -   matches a "u" NOT preceded by a "q"
 
 
-
-
 ***
 ### Capture Groups
 ###### Capture Groups set many special global variables
@@ -183,14 +170,12 @@
 * ```$+```  contains last Capture Groups
 
 
-
 ***
 ### Javascript-Specific Regex
 * ```/g```     'Global' (apply action to all matches, not just the first match)
 * ```/i```     'Case Insensitive' (case-sensitivity is enabled by-default in regex)
 * ```/m```     'Case Insensitive' (/m enables "multi-line mode". In this mode, the caret and dollar match before and after newlines in the subject string.
 * ```\XYZ\```  Hardcode a regex formula (XYZ in this example) as a string-literal - Note: If you have a variable string, use ``` var dat_string="XYZ"; var regex_test = new RegExp(dat_string);```
-
 
 
 ***
@@ -214,7 +199,6 @@
 * ```(?e)```  makes Tcl interpret the regex as a POSIX ERE.
 * ```(?q)```  makes Tcl interpret the regex as a literal string (minus the (?q) characters).
 * ```(?X)```  makes escaping letters with a backslash an error if that combination is not a valid regex token. Only supported by PCRE and languages that use it.
-
 
 
 ***
@@ -277,7 +261,6 @@ Find: ```(\w)([A-Z])([a-z\s])```
 Replacement: ```\u$1\l$2$3```
 
 
-
 ***
 ### Assorted Use-Cases
 
@@ -295,7 +278,6 @@ Replacement: ```\u$1\l$2$3```
 * ```^((?:\s*)(?!git[a-z\-])(?:(?:(?:.\s?){0,3})|(?:(?:\S\s?){1,4}.*)))?$```
 
 
-
 ***
 ### Citation(s)
 
@@ -306,6 +288,8 @@ Replacement: ```\u$1\l$2$3```
 ###### * stackoverflow.com  |  "Regex replace uppercase with lowercase letters"  |  https://stackoverflow.com/a/33351224
 
 ###### * stackoverflow.com  |  "What does ?: do in regex"  |  https://stackoverflow.com/a/3705851
+
+###### * www.gnu.org  |  "The Backslash Character and Special Expressions (GNU Grep 3.4)"  |  https://www.gnu.org/software/grep/manual/html_node/The-Backslash-Character-and-Special-Expressions.html
 
 ###### * www.regular-expressions.info  |  "Lookahead and Lookbehind Zero-Length Assertions"  |  https://www.regular-expressions.info/lookaround.html
 

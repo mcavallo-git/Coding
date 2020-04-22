@@ -38,7 +38,7 @@ echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
 
 
-# Check if index is set on array (isset / is-instantiated)
+# Check if Array[Key] (e.g. index) is set on array (isset / is-instantiated)
 if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then
 	DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
 	echo "Array key \"DAT_ARRAY[${DAT_KEY}]\" EXISTS with value \"${DAT_ITEM}\"";
@@ -208,14 +208,16 @@ echo -e "\n\n";
 #
 # Citation(s)
 #
-# 	gnu.org  |  "6.7 Arrays"  |  https://www.gnu.org/software/bash/manual/html_node/Arrays.html
+#   gnu.org  |  "6.7 Arrays"  |  https://www.gnu.org/software/bash/manual/html_node/Arrays.html
 #
-# 	linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
+#   linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
-# 	serverfault.com  |  "Check if array is empty in Bash"  |  https://serverfault.com/a/477506
+#   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
 #
-# 	stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
+#   serverfault.com  |  "Check if array is empty in Bash"  |  https://serverfault.com/a/477506
 #
-# 	stackoverflow.com  |  "Multidimensional associative arrays in Bash"  |  https://stackoverflow.com/a/6151190
+#   stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
+#
+#   stackoverflow.com  |  "Multidimensional associative arrays in Bash"  |  https://stackoverflow.com/a/6151190
 #
 # ------------------------------------------------------------

@@ -1,13 +1,16 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Linux - grep (print lines matching a pattern)
+# Linux - grep (print lines matching a pattern, scour file contents)
 #
 # ------------------------------------------------------------
+#
 
-
-
-
+# Example 1.1 - Removing empty lines (e.g. remove lines containing only whitespace)
+EXAMPLE_REMOVE_EMPTY_LINES="Line 01"$'\n'$'\n'$'\n'"Line 04"$'\n'$'\n'$'\n'"Line 07";
+echo "Before removing empty lines:"; echo "${EXAMPLE_REMOVE_EMPTY_LINES}";
+echo "After removing empty lines:"; echo "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep \S; # Method 1.1
+echo "After removing empty lines:"; echo "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep \S;
 
 
 # ------------------------------------------------------------
@@ -26,16 +29,14 @@
 #
 # ------------------------------------------------------------
 #
-# Example: Search syslogs for crontab edits
+# Example 2.1: Search syslogs for crontab edits
 #
 
 grep -rn /var/log/syslog* --regexp='crontab' | sort --numeric-sort;
 
 
-
-# ------------------------------------------------------------
 #
-# Example: Search [docker ps] to count the number of containers running
+# Example 2.2: Search [docker ps] to count the number of containers running
 #
 
 docker_instances_running=$(sudo docker ps --all | grep -c  '\<Up .* hours\>'); echo "docker_instances_running: ${docker_instances_running}";
@@ -73,5 +74,20 @@ grep --exclude-dir={dir1,dir2,*.dst} -rnw '/path/to/somewhere/' -e "pattern"
 
 # For more options check man grep.
 
-                                                      #  Thanks to rakib_ from StackOverflow
-																											      # http://stackoverflow.com/questions/16956810/how-to-find-all-files-containing-specific-text-on-linux
+
+
+#  Thanks to rakib_ from StackOverflow
+
+# http://stackoverflow.com/questions/16956810/how-to-find-all-files-containing-specific-text-on-linux
+
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   stackoverflow.com  |  "How do I find all files containing specific text on Linux? - Stack Overflow"  |  https://stackoverflow.com/a/16957078
+#
+#   www.gnu.org  |  "The Backslash Character and Special Expressions (GNU Grep 3.4)"  |  https://www.gnu.org/software/grep/manual/html_node/The-Backslash-Character-and-Special-Expressions.html
+#
+# ------------------------------------------------------------

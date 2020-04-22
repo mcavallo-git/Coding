@@ -38,13 +38,12 @@ echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
 
 
-# Check if Array[Key] (e.g. index) is set on array (isset / is-instantiated)
-if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then
-	DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
-	echo "Array key \"DAT_ARRAY[${DAT_KEY}]\" EXISTS with value \"${DAT_ITEM}\"";
-else
-	echo "Array key \"DAT_ARRAY[${DAT_KEY}]\" does NOT exist";
-fi;
+# ------------------------------------------------------------
+#
+# Test if an array key/index is set (1) or not (0)
+#
+
+if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then echo "1 key is set"; else echo "0 key not set"; fi;
 
 
 # ------------------------------------------------------------

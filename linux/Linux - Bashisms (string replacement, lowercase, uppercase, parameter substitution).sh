@@ -15,7 +15,7 @@ NEEDLE="th";
 REPLACEMENT="d";
 echo "${HAYSTACK//${NEEDLE}/${REPLACEMENT}}";
 
-EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE//-/_}";
+EXAMPLE_CHARACTER_REPLACEMENT="Dat-Example-Doe" && echo "${EXAMPLE_CHARACTER_REPLACEMENT//-/_}";
 
 
 # ------------------------------------------------------------
@@ -25,7 +25,7 @@ EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE//-/_}";
 # SYNTAX:   ${VARNAME,,}
 #
 
-EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE,,}";
+EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE,,}";
 
 
 # ------------------------------------------------------------
@@ -35,7 +35,7 @@ EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE,,}";
 # SYNTAX:   ${VARNAME^^}
 #
 
-EXAMPLE="Dat-Example-Doe" && echo "${EXAMPLE^^}";
+EXAMPLE_TO_UPPERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_UPPERCASE^^}";
 
 
 # ------------------------------------------------------------
@@ -49,6 +49,7 @@ DEFAULT_VAL="55" && echo "${VAR_NOT_SET:-${DEFAULT_VAL}}";
 
 # Can be nested
 echo "${VAR_NOT_SET:-${VAR_ALSO_NOT_SET:-72}}";
+
 
 # ------------------------------------------------------------
 # Citation(s)

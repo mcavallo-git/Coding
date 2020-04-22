@@ -28,14 +28,23 @@ done;
 #
 
 unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
-DAT_ARRAY+=(["Key One"]="Val One");
-DAT_ARRAY+=(["Key Two"]="Val Two");
-DAT_ARRAY+=(["Key A"]="Val A");
-DAT_ARRAY+=(["Key B"]="Val B");
+DAT_ARRAY+=(["Key A"]="Val One");
+DAT_ARRAY+=(["Key B"]="Val Two");
+DAT_ARRAY+=(["Key A"]="Overwrite A");
+DAT_ARRAY+=(["Key B"]="Overwrite B");
 for DAT_KEY in "${!DAT_ARRAY[@]}"; do
 DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
 echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
+
+
+# Check if index is set on array (isset / is-instantiated)
+if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then
+	DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
+	echo "Array key \"DAT_ARRAY[${DAT_KEY}]\" EXISTS with value \"${DAT_ITEM}\"";
+else
+	echo "Array key \"DAT_ARRAY[${DAT_KEY}]\" does NOT exist";
+fi;
 
 
 # ------------------------------------------------------------

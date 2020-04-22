@@ -19,7 +19,13 @@ echo ${THIS_LINUX_DISTRO};
 
 ```
 
-***
 
-##### Reference(s)
-######  case-esac approach -  Cited on 2018-10-26  -  Thanks to user 'paxdiablo' on [Stack Overflow](https://stackoverflow.com/questions/3466166]
+<!--
+------------------------------------------------------------
+
+ Citation(s)
+
+   stackoverflow.com  |  "bash - How to check if running in Cygwin, Mac or Linux? - Stack Overflow"  |  https://stackoverflow.com/a/3466183
+
+------------------------------------------------------------
+-->

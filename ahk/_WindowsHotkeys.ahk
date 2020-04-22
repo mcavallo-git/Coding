@@ -252,13 +252,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Needle_AltWin := "!#D"
 	Needle_CtrlWin := "^#D"
 	If InStr(A_ThisHotkey, Needle_Win) {  ; Win
-		FormatTime, DatTimestamp, ,yyyyMMdd-HHmmss
+		FormatTime, DatTimestamp, ,yyyyMMddTHHmmss
 	} Else If InStr(A_ThisHotkey, Needle_AltWin) {  ; Alt + Win
 		FormatTime, DatTimestamp, ,yyyy.MM.dd-HH.mm.ss
 	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) {  ; Ctrl + Win
-		FormatTime, DatTimestamp, ,yyyy-MM-dd_HH-mm-ss
+		FormatTime, DatTimestamp, ,yyyy-MM-ddTHH-mm-ss
 	} Else {
-		FormatTime, DatTimestamp, ,yyyyMMdd-HHmmss
+		FormatTime, DatTimestamp, ,yyyyMMddTHHmmss
 	}
 	Keys := DatTimestamp
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp

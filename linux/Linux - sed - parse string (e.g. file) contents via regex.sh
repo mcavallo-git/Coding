@@ -22,7 +22,13 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 c
 # Use sed with piped-commands to parse their output, line-by-line
 #
 
+
+# Example 1.1
 printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
+
+
+# Example 1.2
+Example_CommaDelimitedList_RemoveMatchedItems="$(echo 'abc,defghij,klm' | sed 's/,/\n/g' | sed /^def*/d)"; echo "${Example_CommaDelimitedList_RemoveMatchedItems}";
 
 
 # ------------------------------------------------------------

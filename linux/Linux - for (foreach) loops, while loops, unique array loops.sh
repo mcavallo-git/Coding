@@ -125,10 +125,12 @@ done;
 # ------------------------------------------------------------
 #
 # Citation(s)
-#	
-#		stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #
 #		stackoverflow.com  |  "How do I use a for-each loop to iterate over file paths in bash?"  |  https://stackoverflow.com/a/15066129
+#	
+#		stackoverflow.com  |  "Loop through a comma-separated shell variable - Stack Overflow"  |  https://stackoverflow.com/a/27703327
+#	
+#		stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #	
 #		www.cyberciti.biz  |  "Bash For Loop Examples - nixCraft"  |  https://www.cyberciti.biz/faq/bash-for-loop/
 #

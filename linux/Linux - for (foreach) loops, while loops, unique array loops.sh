@@ -26,7 +26,8 @@ if [ -d /etc/profile.d ]; then
   unset i
 fi
 
-# sed-split-delimited for-loop (walk through each string inbetween delimiters)
+
+# For each substring in a comma delimited string
 EXAMPLE_COMMA_DELIMITATION="abc,def,ghij";
 for i in $(echo ${EXAMPLE_COMMA_DELIMITATION} | sed "s/,/ /g"); do
   echo "$i";

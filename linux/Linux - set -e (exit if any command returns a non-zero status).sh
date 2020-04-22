@@ -1,13 +1,15 @@
 #!/bin/bash
 #
 # set
-#     -x     Print commands and their arguments as they are executed.
-#     -u     Treat unset variables as an error when substituting.
 #     -e     Exit immediately if a command exits with a non-zero status.
+#     -u     Treat unset variables as an error when substituting.
+#     -x     Print commands and their arguments as they are executed.
 #
 # ------------------------------------------------------------
 
-set -xue;
+set -e;
+set -u;
+set -x;
 
 DIR_EXPORTS="/root/mysql_bak";
 

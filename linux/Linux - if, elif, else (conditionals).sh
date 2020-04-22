@@ -376,6 +376,9 @@ INT1 -gt INT2  :::  True if arg1 is [ greater than ]                 arg2. Wrapp
 INT1 -ge INT2  :::  True if arg1 is [ greater than ] or [ equal to ] arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 
 
+if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then echo "1 key is set"; else echo "0 key not set"; fi;     :::    Test if an array index is set (1) or not (0)
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

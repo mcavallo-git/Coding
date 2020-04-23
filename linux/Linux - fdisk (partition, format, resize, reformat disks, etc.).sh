@@ -4,7 +4,13 @@ fdisk /dev/sdb
 
 # Type 'n' > Enter
 
-# fdisk's built-in wizard will walk you through the rest
+# fdisk's built-in wizard will walk you creating a partition
+
+# Type 'w' > Enter to save changes at the end
+
+
+
+
 
 
 # ------------------------------------------------------------

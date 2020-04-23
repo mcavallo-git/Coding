@@ -1,4 +1,8 @@
 #!/bin/bash
+# ------------------------------------------------------------
+#
+#   PARTITIONING
+#
 
 fdisk /dev/sdb
 
@@ -8,10 +12,13 @@ fdisk /dev/sdb
 
 # Type 'w' > Enter to save changes at the end
 
-parted dev/sdb1
+# ------------------------------------------------------------
+#
+#   FORMATTING
+#
 
-
-
+# Install pre-req package(s)
+yum -y install epel-release; yum -y install gparted;
 
 
 

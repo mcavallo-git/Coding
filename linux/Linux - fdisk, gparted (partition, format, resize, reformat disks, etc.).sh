@@ -20,6 +20,10 @@ fdisk /dev/sdb
 # Install pre-req package(s)
 yum -y install epel-release; yum -y install gparted;
 
+gparted /dev/sdb1;
+
+
+##   !!!   DESKTOP VERSION OF LINUX IS REQUIRED TO USE GPARTED   !!!   ##
 
 
 # ------------------------------------------------------------

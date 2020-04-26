@@ -16,6 +16,8 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.Servic
 }
 # ------------------------------------------------------------
 
+Get-ChildItem Env:;
+
 <# Determine Working Directory #>
 $WorkingDir = $Null;
 $ArtifactsDir = $Null;

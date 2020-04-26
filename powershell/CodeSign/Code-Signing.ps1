@@ -14,26 +14,29 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.Servic
 
 
 }
-# ------------------------------------------------------------
 
+<# Update the Powershell console's max characters-per-line by increasing the output buffer size #>
+If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
+  $rawUI = $Host.UI.RawUI;
+  $oldSize = $rawUI.BufferSize;
+  $typeName = $oldSize.GetType( ).FullName;
+  $newSize = New-Object $typeName (16384, $oldSize.Height);
+  $rawUI.BufferSize = $newSize;
+}
+
+<# Show environment variables #>
 Get-ChildItem Env:;
 
-<# Determine Working Directory #>
+<# Determine working directory #>
 $WorkingDir = $Null;
-$ArtifactsDir = $Null;
-If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%"))) {
-	<# TeamCity build-environment #>
-	$WorkingDir = "%system.teamcity.build.workingDir%";
-	$ArtifactsDir = $Null;
-	If ((Test-Path -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%") -PathType ("Leaf") -ErrorAction ("SilentlyContinue")) -Eq $True) {
-		<# TeamCity's artifact-output-directory exists #>
-		$ArtifactsDir = "%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%";
-	}
-
-} ElseIf (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf")) {
-	<# Jenkins (or manually-defined) build-environment #>
+If (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf")) {
 	$WorkingDir = "${Env:WORKSPACE}";
+}
 
+<# Determine artifacts' export-directory (if any) #>
+$ArtifactsDir = $Null;
+If (Test-Path -Path ("Env:ArtifactsExportDir") -PathType ("Leaf")) {
+	$ArtifactsDir = "${Env:ArtifactsExportDir}";
 }
 
 <# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>
@@ -47,6 +50,7 @@ If ($Cert_CodeSigning -Eq $Null) {
 	Write-Output "`nInfo - Using code signing certificate from the Local Machine certificate store:`n";
 	$Cert_CodeSigning | Format-List;
 
+	<# Sign files within the working directory #>
 	If ($WorkingDir -Eq $Null) {
 		Write-Output "`nError - Unable to detetermine working directory. You may manually define the working directory by setting it as the value of environment variable `${Env:WORKSPACE}`n";
 		Start-Sleep 10;
@@ -61,8 +65,8 @@ If ($Cert_CodeSigning -Eq $Null) {
 		};
 	}
 
+	<# Sign files within the artifacts directory #>
 	If ($ArtifactsDir -NE $Null) {
-		<# Use the code signing certificate to sign all unsigned { .dll, .exe, .msi, & .sys } files found under the directory specified by "${Env:WORKSPACE}" #>
 		Get-ChildItem -Path ("${ArtifactsDir}") -Recurse -Force -File `
 		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
 		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
@@ -73,19 +77,6 @@ If ($Cert_CodeSigning -Eq $Null) {
 	}
 
 }
-
-If (Test-Path -Path ("Env:IsFinalStep") -PathType ("Leaf")) {
-	If ((${Env:IsFinalStep} -Eq $True) -Or (${Env:IsFinalStep} -Eq 1)) {
-		<# Teamcity Only - Run a Background job and delay it by 60s, then attempt to sign the artifacts being exported from the current compilation job #>
-		If (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%"))) {
-			Write-Output "`nCreating background/sleeper process then continuing-on without waiting for its completion";
-			Write-Output "Background job will awaken in 60s (at $(Get-Date -Date ((Get-Date).AddSeconds(60)) -UFormat ('%H : %M : %S')))";
-			Write-Output "Background job, once awake, will sign all artifacts exported to this build's artifacts directory ('%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%\...')";
-			Start-Process -NoNewWindow -Filepath ("C:\Windows\system32\WindowsPowerShell\v1.0\powershell.exe") -ArgumentList (@('-Command', 'Start-Sleep -Seconds 60; Get-ChildItem -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%" -Recurse -Force -File | Where-Object { ("$($_.FullName)" -Like "*.dll") -Or ("$($_.FullName)" -Like "*.exe") -Or ("$($_.FullName)" -Like "*.msi") -Or ("$($_.FullName)" -Like "*.sys") } | Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } | ForEach-Object { Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate ((Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_.NotAfter) -GT (Get-Date) })[0]) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null; }'));
-		}
-	}
-}
-
 
 # ------------------------------------------------------------
 #

@@ -5,11 +5,11 @@
 #  |-->  Prevents clipping of the powershell console's outpu
 #
 if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
-  $rawUI = $Host.UI.RawUI;
-  $oldSize = $rawUI.BufferSize;
-  $typeName = $oldSize.GetType( ).FullName;
-  $newSize = New-Object $typeName (16384, $oldSize.Height);
-  $rawUI.BufferSize = $newSize;
+$rawUI = $Host.UI.RawUI;
+$oldSize = $rawUI.BufferSize;
+$typeName = $oldSize.GetType( ).FullName;
+$newSize = New-Object $typeName (16384, $oldSize.Height);
+$rawUI.BufferSize = $newSize;
 }
 
 

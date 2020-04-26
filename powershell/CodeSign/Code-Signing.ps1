@@ -35,8 +35,8 @@ If (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf")) {
 
 <# Determine artifacts' export-directory (if any) #>
 $ArtifactsDir = $Null;
-If (Test-Path -Path ("Env:ArtifactsExportDir") -PathType ("Leaf")) {
-	$ArtifactsDir = "${Env:ArtifactsExportDir}";
+If (Test-Path -Path ("Env:ARTIFACTSEXPORTDIRECTORY") -PathType ("Leaf")) {
+	$ArtifactsDir = "${Env:ARTIFACTSEXPORTDIRECTORY}";
 }
 
 <# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>

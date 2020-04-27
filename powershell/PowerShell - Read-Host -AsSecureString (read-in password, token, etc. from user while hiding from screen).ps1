@@ -1,12 +1,13 @@
 # ------------------------------------------------------------
 
-$UsernamePlaintext = Read-Host -Prompt 'Type an example Username (in plaintext): ';
+$UsernamePlaintext = Read-Host -Prompt 'Type an example Username (in plaintext)';
 Write-Host "You typed `"${UsernamePlaintext}`"";
 
 
 # ------------------------------------------------------------
 
-$PasswordPlaintext = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString))));
+$SecureString_ToPlainText = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt 'Type an example securestring'))));
+Write-Host "You typed `"${SecureString_ToPlainText}`"";
 
 
 # ------------------------------------------------------------

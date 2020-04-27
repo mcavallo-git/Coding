@@ -42,9 +42,13 @@ REM
 REM METHOD 2 (less relable)
 REM
 
-NETSH interface Teredo set state disable
-TIMEOUT /T 3
-NETSH interface Teredo set state type=default
+REM
+REM   1. CMD /C "NETSH interface Teredo set state disable"
+REM
+REM   2. CMD /C "TIMEOUT /T 3"
+REM
+REM   3. CMD /C "NETSH interface Teredo set state type=default"
+REM
 
 
 REM ------------------------------------------------------------

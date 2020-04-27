@@ -5,7 +5,21 @@ REM   "Teredo is unable to qualify - This may impact your ability to play multip
 REM
 REM ------------------------------------------------------------
 REM
-REM METHOD 1 (more reliable)
+REM METHOD 1
+REM
+
+REM
+REM   1. Press the Windows button on your device or keyboard, or you can select the Windows icon in the lower-left corner of the main screen.
+REM
+REM   2. Select Settings > Gaming, and then select Xbox Networking.
+REM
+REM   3. Select Fix it. Windows will try to detect and fix known issues with Teredo. Note You might need to restart your PC for changes to take effect after pressing the Fix it button.
+REM
+
+
+REM ------------------------------------------------------------
+REM
+REM METHOD 2 (relable back in 2016-2017)
 REM
 
 REM
@@ -25,7 +39,7 @@ REM
 
 REM ------------------------------------------------------------
 REM
-REM METHOD 2 (Less reloable)
+REM METHOD 2 (less relable)
 REM
 
 NETSH interface Teredo set state disable
@@ -36,6 +50,8 @@ NETSH interface Teredo set state type=default
 REM ------------------------------------------------------------
 REM
 REM Citation(s)
+REM
+REM   support-origin.xbox.com  |  "NAT Type Displays Teredo Is Unable to Qualify | Xbox Console Companion App on Windows 10"  |  https://support-origin.xbox.com/th-TH/xbox-on-windows/social/troubleshoot-party-chat
 REM
 REM   windowsreport.com  |  "FULL FIX: Teredo is unable to qualify error - Xbox Guides"  |  https://windowsreport.com/teredo-is-unable-to-qualify-fix/
 REM

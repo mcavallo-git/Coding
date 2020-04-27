@@ -782,10 +782,12 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Right Windows-Key + K
+;  HOTKEY:  Right-WinKey + K
+;  HOTKEY:  CTRL + WinKey + K
 ;  ACTION:  Send a Checkmark
 ;
 >#K::
+^#K::
 	SetKeyDelay, 0, -1
 	; Send ✔
 	; Send 🗸  ; Light Check Mark
@@ -794,7 +796,7 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Left Windows-Key + K
+;  HOTKEY:  Left-WinKey + K
 ;  ACTION:  Send a Thumbs-Up
 ;
 <#K::

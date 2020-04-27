@@ -27,10 +27,9 @@ echo -e "${LINEBREAK}";
 
 for EACH_ITEM in "${ARRAY_ITEMS_TO_TEST[@]}"; do
 
+  # Regex test: CIDRv4 notation validity (true if string is in valid CIDRv4 Notation, false otherwise)
   if [[ ${EACH_ITEM} =~ ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\/([0-9]|[1-2][0-9]|3[0-2]))?$ ]]; then
-
-    # EACH_CIDR="${EACH_ITEM}";
-
+  	# Regex test: IPv4 notation validity (true if string is in valid IPv4 Notation, false otherwise)
     if [[ ${EACH_ITEM} =~ ^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(())$ ]]; then
       # Add "/32" to the end of string, if no CIDR notation is found - ex: 192.168.1.1
       EACH_CIDR="${EACH_ITEM}/32";

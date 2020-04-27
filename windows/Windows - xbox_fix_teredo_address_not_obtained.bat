@@ -1,7 +1,7 @@
 REM ------------------------------------------------------------
 REM
 REM Hotfix for Windows10 Xbox App's Networking > NAT Error message:
-REM   "Teredo is unable to quality - This may impact your ability to play multiplayer games"
+REM   "Teredo is unable to qualify - This may impact your ability to play multiplayer games"
 REM
 REM ------------------------------------------------------------
 REM

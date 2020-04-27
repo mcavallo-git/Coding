@@ -817,6 +817,7 @@ WheelRight::
 	; WinTitle=Visual Studio Code
 	; SpaceUp_Loop(50, WinTitle)
 	; SpaceUp_Loop(50)
+	ClickLoop(1724,749)
 	Return
 
 ; ------------------------------------------------------------
@@ -1086,6 +1087,20 @@ ClearSplashText(Period) {
 ClearTooltip(Period) {
 	Label := "RemoveToolTip"
 	SetTimer, %Label%, -%Period%
+	Return
+}
+
+
+;
+;	ClickLoop
+;   |--> Clicks indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
+;
+ClickLoop(MouseX,MouseY) {
+	Loop {
+		Sleep 1000
+		MouseClick, Left, %MouseX%, %MouseY%
+		Sleep 1000
+	}
 	Return
 }
 

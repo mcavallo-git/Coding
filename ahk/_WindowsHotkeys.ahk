@@ -326,7 +326,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Fn Key (X1 Carbon)
-;  ACTION:  Set Fn to perform CTRL action, instead
+;  ACTION:  Set Fn to perform Ctrl action, instead
 ;
 ;SC163::   ;"Fn" Key
 ;Return
@@ -782,12 +782,15 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Right-WinKey + K
-;  HOTKEY:  CTRL + WinKey + K
+;  HOTKEY:  Ctrl + WinKey + K
+;  HOTKEY:  Ctrl + Shift  + K
+;  HOTKEY:  Right-WinKey  + K
 ;  ACTION:  Send a Checkmark
 ;
->#K::
+^+K::
+^!K::
 ^#K::
+>#K::
 	SetKeyDelay, 0, -1
 	; Send ✔
 	; Send 🗸  ; Light Check Mark
@@ -1144,7 +1147,7 @@ CreateCitationsFooter() {
 
 ;
 ; CommentCurrentLine
-;   |--> Uses CTRL + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code) 
+;   |--> Uses Ctrl + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code) 
 ;
 CommentCurrentLine() {
 	Send {LControl Down}{q}{LControl Up}
@@ -1155,7 +1158,7 @@ CommentCurrentLine() {
 
 ;
 ; CommentCurrentLine_NoSpace
-;   |--> Uses CTRL + Q hotkey to comment the current line (WITHOUT a leading space) in a given IDE (Notepad++/VS-Code)
+;   |--> Uses Ctrl + Q hotkey to comment the current line (WITHOUT a leading space) in a given IDE (Notepad++/VS-Code)
 ;
 CommentCurrentLine_NoSpace() {
 	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}

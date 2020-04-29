@@ -1,3 +1,15 @@
+# ------------------------------------------------------------
+#
+# Run a given powershell-script as Administrator
+#
+
+Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `". '${Fullpath_to_PS1_Script}';`"" -Verb RunAs;
+
+
+# ------------------------------------------------------------
+#
+# Run a given executable as Administrator
+#
 
 $RegistryKey_RunAsAdmin = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers";
 New-Item -Path ("${RegistryKey_RunAsAdmin}") -ErrorAction "SilentlyContinue" | Out-Null;

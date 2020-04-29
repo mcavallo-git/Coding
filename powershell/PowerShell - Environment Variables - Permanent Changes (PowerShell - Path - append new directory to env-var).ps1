@@ -1,7 +1,6 @@
 # ------------------------------------------------------------
-#
-# Update the Powershell console's max characters-per-line by increasing the output buffer size (for ${Env:PATH} inspecific)
-#
+
+<# Update the Powershell console's max characters-per-line by increasing the output buffer size (for ${Env:PATH} inspecific) #>
 if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $rawUI = $Host.UI.RawUI;
   $oldSize = $rawUI.BufferSize;
@@ -9,10 +8,12 @@ if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $newSize = New-Object $typeName (16384, $oldSize.Height);
   $rawUI.BufferSize = $newSize;
 }
-#
-# Show all environment variables (to the console)
-#
-Get-Childitem Env:;
+
+<# Get Environment Variables #> 
+Get-ChildItem Env: | Format-List; 
+
+<# Get the PATH environment variable, using semi-colon delimitation #> 
+(\${Env:Path}).Split(';'); 
 
 
 # ------------------------------------------------------------

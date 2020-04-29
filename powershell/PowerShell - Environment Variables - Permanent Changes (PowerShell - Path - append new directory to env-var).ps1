@@ -1,4 +1,7 @@
 # ------------------------------------------------------------
+#
+# >> SHOW ENVIRONMENT VARIABLES  <<
+#
 
 <# Update the Powershell console's max characters-per-line by increasing the output buffer size (for ${Env:PATH} inspecific) #>
 if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
@@ -15,7 +18,9 @@ Get-ChildItem Env: | Format-List;
 <# Get the PATH environment variable, using semi-colon delimitation #> 
 (\${Env:Path}).Split(';'); 
 
-
+#
+# >> SHOW ENVIRONMENT VARIABLES  <<
+#
 # ------------------------------------------------------------
 #
 # Show all PATH items (to the console)

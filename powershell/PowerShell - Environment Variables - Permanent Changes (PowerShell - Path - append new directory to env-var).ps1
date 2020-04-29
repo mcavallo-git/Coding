@@ -3,7 +3,7 @@
 # >> SHOW ENVIRONMENT VARIABLES  <<
 #
 
-<# Update the Powershell console's max characters-per-line by increasing the output buffer size (for ${Env:PATH} inspecific) #>
+<# Update the max characters-per-line for the Powershell console by increasing the output buffer size (to see all of \${Env:PATH}, specifically) #>
 if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $rawUI = $Host.UI.RawUI;
   $oldSize = $rawUI.BufferSize;

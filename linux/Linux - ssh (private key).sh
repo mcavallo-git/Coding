@@ -16,8 +16,8 @@ ssh -o "${SSH_OPT}" -i "${PRIVATE_KEY}" "${REMOTE_USER}@${REMOTE_IP}";
 #
 # Citation(s)
 #
-# 	www.ssh.com  |  "SSH Command"  |  https://www.ssh.com/ssh/command
+#   linux.die.net  |  "ssh(1) - Linux man page"  |  https://linux.die.net/man/1/ssh
 #
-# 	linux.die.net  |  "ssh(1) - Linux man page"  |  https://linux.die.net/man/1/ssh
+#   www.ssh.com  |  "SSH Command"  |  https://www.ssh.com/ssh/command
 #
-#
+# ------------------------------------------------------------

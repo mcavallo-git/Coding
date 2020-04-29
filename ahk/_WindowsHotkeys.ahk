@@ -498,7 +498,7 @@ AppsKey::RWin
 	; Run "control.exe mmsys.cpl,,2"
 	; Run control mmsys.cpl,,3
 	;
-	TrayTip, AHK, Opening "Sound"  ; Toast Notification
+	TrayTip, AHK, Opening "Sound - Playback"  ; Toast Notification
 	RunWaitOne("control.exe mmsys.cpl,,0")  ; Playback
 	; RunWaitOne("control.exe mmsys.cpl,,1")  ; Recording
 	; RunWaitOne("control.exe mmsys.cpl,,2")  ; Sounds

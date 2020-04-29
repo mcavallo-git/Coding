@@ -30,7 +30,7 @@ function SyncRegistry {
 			Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n" -BackgroundColor Black -ForegroundColor Yellow;
 		}
 	} Else {
-	<# Script >> IS << running as Admin - Continue #>
+		<# Script >> IS << running as Admin - Continue #>
 
 
 		# ------------------------------------------------------------

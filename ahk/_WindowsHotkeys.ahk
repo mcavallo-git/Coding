@@ -4,7 +4,7 @@
 ;   |
 ;   |--> Effective Hotkeys for Windows-based Workstaitons
 ;   |
-;   |--> Runs via "Autohotkey" (AHK) - Download @ https://autohotkey.com/download/
+;   |--> Runs via "Autohotkey" (AHK) - Download @ https://www.autohotkey.com/download/
 ;
 ; ------------------------------------------------------------
 ;
@@ -815,6 +815,15 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
+;  HOTKEY:  Win + C
+;  ACTION:  Open Google Chrome
+;
+#C::
+	OpenChrome()
+	Return
+
+
+; ------------------------------------------------------------
 ;  HOTKEY:  Ctrl + Win + C
 ;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
@@ -824,14 +833,6 @@ WheelRight::
 	; SpaceUp_Loop(50, WinTitle)
 	; SpaceUp_Loop(50)
 	ClickLoop(1724,749)
-	Return
-
-; ------------------------------------------------------------
-;  HOTKEY:  Win + C
-;  ACTION:  Open Google Chrome
-;
-#C::
-	OpenChrome()
 	Return
 
 
@@ -1506,6 +1507,9 @@ OpenChrome() {
 		EXE_PID := GetPID(EXE_BASENAME)
 		WinActivate, ahk_pid %EXE_PID%
 	} Else If (FileExist(EXE_FULLPATH)) {
+
+
+		
 		; Executable is NOT running but IS found locally
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Opening """ EXE_NICKNAME """"
@@ -1518,6 +1522,7 @@ OpenChrome() {
 		; Set Chrome as the Active Window
 		EXE_PID := GetPID(EXE_BASENAME)
 		WinActivate, ahk_pid %EXE_PID%
+
 	} Else {
 		; Executable is NOT running and NOT found locally
 		If (VerboseOutput = True) {
@@ -1525,6 +1530,24 @@ OpenChrome() {
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 	}
+
+	Processname=processname.exe
+	Process, Exist, %Processname%
+	
+	If !ErrorLevel
+	{
+		MsgBox, % "Process " Processname " does not exist"
+		return
+	}
+	
+	pid := ErrorLevel
+	IfWinNotActive, % "ahk_pid " pid
+	{
+	WinActivate, % "ahk_pid " pid
+	}
+
+
+
 	Return
 }
 
@@ -2088,7 +2111,7 @@ XBox_DownloadDelete_GameClips() {
 ;		//	 VK:		Refer to the "VK" column to acquire the "virtual key code" of any keys pressed (string, length 2)
 ;   //  Key:    Refer to the "Key" column to acquire the "Hotstring" of any keys pressed (string, length varies)
 ;
-;   //  NOTE:  If the above method fails, refer to: https://autohotkey.com/docs/commands/GetKey.htm
+;   //  NOTE:  If the above method fails, refer to: https://www.autohotkey.com/docs/commands/GetKey.htm
 ; 
 ; ------------------------------------------------------------
 ; 
@@ -2142,7 +2165,7 @@ If (False) {
 
 
 ;
-; MsgBox has tons of options for confirmations on popups ( Manual @ https://autohotkey.com/docs/commands/MsgBox.htm )
+; MsgBox has tons of options for confirmations on popups ( Manual @ https://www.autohotkey.com/docs/commands/MsgBox.htm )
 ; ...::
 	; WinGetActiveStats, WinTitle, Width, Height, X, Y
 	; WinGetText, WinText, A
@@ -2250,19 +2273,19 @@ If (False) {
 
 ; ------------------------------------------------------------
 ;
-; Alphabetical Command and Function Index:  https://autohotkey.com/docs/commands/
+; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
 ;   |--> Clipboard:  https://www.autohotkey.com/docs/misc/Clipboard.htm
 ;   |--> GetKeyState:  https://www.autohotkey.com/docs/commands/GetKeyState.htm
 ;   |--> Hotkey:  https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
 ;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm
-;   |--> Menu:  https://autohotkey.com/docs/commands/Menu.htm
-;   |--> Run/RunWait:  https://autohotkey.com/docs/commands/Run.htm
+;   |--> Menu:  https://www.autohotkey.com/docs/commands/Menu.htm
+;   |--> Run/RunWait:  https://www.autohotkey.com/docs/commands/Run.htm
 ;   |--> SetTimer:  https://www.autohotkey.com/docs/commands/SetTimer.htm
-;   |--> SysGet:  https://autohotkey.com/docs/commands/SysGet.htm
+;   |--> SysGet:  https://www.autohotkey.com/docs/commands/SysGet.htm
 ;
 ; ------------------------------------------------------------
 ;
-; Variables and Expressions:  https://autohotkey.com/docs/Variables.htm#BuiltIn
+; Variables and Expressions:  https://www.autohotkey.com/docs/Variables.htm#BuiltIn
 ;   |
 ;   |--> Operators in Expressions - If (...) statements, including mathematical operators:  https://www.autohotkey.com/docs/Variables.htm#Operators
 ;   |
@@ -2274,7 +2297,7 @@ If (False) {
 ;
 ; ------------------------------------------------------------ 
 ;
-; List of Keys:  https://autohotkey.com/docs/KeyList.htm
+; List of Keys:  https://www.autohotkey.com/docs/KeyList.htm
 ;   |
 ;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
 ;
@@ -2340,8 +2363,10 @@ If (False) {
 ;
 ;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
 ; 
-;   www.autohotkey.com  |  "Single line if statements"  |  https://autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
+;   www.autohotkey.com  |  "Single line if statements"  |  https://www.autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ;
 ;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
+;
+;   www.autohotkey.com  |  "[HELP!] How to WinActivate without specifying window title? - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/102763-help-how-to-winactivate-without-specifying-window-title/
 ;
 ; ------------------------------------------------------------

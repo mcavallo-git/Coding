@@ -16,7 +16,7 @@ if(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
 Get-ChildItem Env: | Format-List; 
 
 <# Get the PATH environment variable, using semi-colon delimitation #> 
-(\${Env:Path}).Split(';'); 
+(${Env:Path}).Split(';'); 
 
 #
 # >> SHOW ENVIRONMENT VARIABLES  <<

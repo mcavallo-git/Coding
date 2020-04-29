@@ -1495,21 +1495,18 @@ OpenChrome() {
 	Global VerboseOutput
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	EXE_NICKNAME := "Google Chrome"
-	EXE_FULLPATH := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-	SplitPath, EXE_FULLPATH, EXE_BASENAME, EXE_DIRNAME, EXE_FILETYPE, EXE_BASENAME_NO_EXT, EXE_DRIVENAME ; SplitPath - https://www.autohotkey.com/docs/commands/SplitPath.htm
-	If (ProcessExist(EXE_BASENAME) == True) {
+	ExeFullpath := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running - Activate the associated Window based on PID
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Activating """ EXE_NICKNAME """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		; Set Chrome as the Active Window
-		EXE_PID := GetPID(EXE_BASENAME)
-		WinActivate, ahk_pid %EXE_PID%
-	} Else If (FileExist(EXE_FULLPATH)) {
-
-
-		
+		ExePID := GetPID(ExeBasename)
+		WinActivate, ahk_pid %ExePID%
+	} Else If (FileExist(ExeFullpath)) {
 		; Executable is NOT running but IS found locally
 		If (VerboseOutput = True) {
 			Text_TrayTip := "Opening """ EXE_NICKNAME """"
@@ -1517,37 +1514,32 @@ OpenChrome() {
 		}
 		; Open Chrome
 		; RunAs, %A_UserName%
-		Run, %EXE_FULLPATH%
+		Run, %ExeFullpath%
 		WinWait,Chrome,,10
 		; Set Chrome as the Active Window
-		EXE_PID := GetPID(EXE_BASENAME)
-		WinActivate, ahk_pid %EXE_PID%
-
+		ExePID := GetPID(ExeBasename)
+		WinActivate, ahk_pid %ExePID%
 	} Else {
 		; Executable is NOT running and NOT found locally
 		If (VerboseOutput = True) {
-			Text_TrayTip=Application not Found "%EXE_FULLPATH%"
+			Text_TrayTip=Application not Found "%ExeFullpath%"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 	}
-
-	Processname=processname.exe
-	Process, Exist, %Processname%
-	
-	If !ErrorLevel
-	{
-		MsgBox, % "Process " Processname " does not exist"
-		return
-	}
-	
-	pid := ErrorLevel
-	IfWinNotActive, % "ahk_pid " pid
-	{
-	WinActivate, % "ahk_pid " pid
-	}
-
-
-
+	; ------------------------------------------------------------
+	; Processname=processname.exe
+	; Process, Exist, %Processname%
+	; If !ErrorLevel
+	; {
+	; 	MsgBox, % "Process " Processname " does not exist"
+	; 	return
+	; }
+	; pid := ErrorLevel
+	; IfWinNotActive, % "ahk_pid " pid
+	; {
+	; WinActivate, % "ahk_pid " pid
+	; }
+	; ------------------------------------------------------------
 	Return
 }
 
@@ -2282,6 +2274,7 @@ If (False) {
 ;   |--> Run/RunWait:  https://www.autohotkey.com/docs/commands/Run.htm
 ;   |--> SetTimer:  https://www.autohotkey.com/docs/commands/SetTimer.htm
 ;   |--> SysGet:  https://www.autohotkey.com/docs/commands/SysGet.htm
+;   |--> SplitPath:  https://www.autohotkey.com/docs/commands/SplitPath.htm
 ;
 ; ------------------------------------------------------------
 ;

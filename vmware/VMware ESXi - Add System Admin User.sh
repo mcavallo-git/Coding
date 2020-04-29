@@ -2,6 +2,8 @@
 #
 # ------------------------------------------------------------
 
+if [ 1 -eq 1 ]; then
+
 USER_NAME="DAT_USER";
 
 USER_PASS="DAT_PASS"; # Password must have 1*Letter, 1*Number, 1*Special-Char
@@ -13,6 +15,8 @@ esxcli system permission set --id "${USER_NAME}" --role "Admin";
 esxcli system account list;
 
 esxcli system permission list;
+
+fi;
 
 
 # ------------------------------------------------------------

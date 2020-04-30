@@ -15,7 +15,6 @@ pipeline {
 					submoduleCfg: [], 
 					userRemoteConfigs: [[credentialsId: 'JENKINS_CREDENTIAL_ID', url: 'REPOSITORY_URL']]
 				])
-
 			}
 		}
 		stage ('Run Script from Repo') {

@@ -11,9 +11,9 @@ pipeline {
 					returnStatus:true,
 					script:'''
 
-						[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;
+						[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;
 
-						[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Install-Module -Name ("PolicyFileEditor") -Force -AllowClobber;
+						[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Install-Module -Name ("PolicyFileEditor") -Force -AllowClobber;
 
 						Write-host "";
 						Write-host "View exhaustive list of terminal services group policies (and their associated registry keys) @ [ https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services ]";

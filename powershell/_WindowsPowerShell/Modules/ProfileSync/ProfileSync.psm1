@@ -78,7 +78,7 @@ function ProfileSync {
 
 	$Pro = @();
 
-	$Pro += ('[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"));');
+	$Pro += ('[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"));');
 
 	### Overwrite $Profile content
 	If (($PSBoundParameters.ContainsKey('NoOverwrite')) -Eq ($False)) {

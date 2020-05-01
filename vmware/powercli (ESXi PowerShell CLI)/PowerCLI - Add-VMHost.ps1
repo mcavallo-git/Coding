@@ -7,7 +7,10 @@ If ($True) {
 
 # Install [ NuGet ] PowerShell Module-Repo (if not found locally)
 If ((Get-PackageProvider -Name "NuGet" -ErrorAction "SilentlyContinue") -Eq $Null) {
-Install-PackageProvider -Name ("NuGet") -Force;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
+	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12';
+		Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
+	[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 }
 
 # Install [ VMware PowerCLI ] Module (if not found locally)

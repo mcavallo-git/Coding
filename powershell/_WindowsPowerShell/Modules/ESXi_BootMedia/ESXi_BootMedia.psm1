@@ -71,8 +71,11 @@ Function ESXi_BootMedia() {
 
 				# PowerShell - Install VMware PowerCLI module
 				If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {	
-					# Install-PackageProvider -Name ("NuGet") -Force;  <# PowerShell - Install the NuGet package manager #>
-					Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
+					$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
+					[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12';
+						Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
+						Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
+					[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 				}
 
 				Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);

@@ -338,16 +338,16 @@ done;
 <pre><code>
 
 ###### Find files w/ filesize greater-than (larger-than, bigger-than) X
-filesize_GREATER_THAN="1048576c";
+filesize_GREATER_THAN="1048576c"; # > 1MB
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 
 ###### Find files w/ filesize less-than (smaller-than) Y
-filesize_LESS_THAN="1048576c";
+filesize_LESS_THAN="1048576c"; # < 1MB
 find '/var/log' -type 'f' -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 
 ###### Find files w/ filesize greater-than (larger-than, bigger-than) X and less-than (smaller-than) Y
 filesize_GREATER_THAN="0c";
-filesize_LESS_THAN="1048576c";
+filesize_LESS_THAN="1048576c";  # 0B < FILESIZE < 1MB
 find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_LESS_THAN}" -printf "% 20s %p\n" | sort --numeric-sort;
 
 </code></pre>

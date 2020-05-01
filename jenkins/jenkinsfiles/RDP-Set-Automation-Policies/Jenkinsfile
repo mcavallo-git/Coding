@@ -6,6 +6,9 @@ pipeline {
 	}
 	stages {
 		stage ('Install Automation/Build server oriented RDP Policies') {
+			environment {
+				INSTALL_AHK = "${env.INSTALL_AHK}"
+			}
 			steps {
 				powershell(
 					returnStatus:true,
@@ -58,6 +61,38 @@ pipeline {
 
 						Write-Host "";
 						Write-Host "If auto-logon is desired at bootup, please download/setup `"Autologon`", by sysinternals @ [ https://docs.microsoft.com/en-us/sysinternals/downloads/autologon ]";
+
+						If ((Test-Path -Path ("Env:INSTALL_AHK") -PathType ("Leaf")) -And (("${Env:INSTALL_AHK}") -Eq ("1"))) { 
+							Write-Host "`n`nEnvironment Variable `"`${Env:INSTALL_AHK}`" is set with value `"${Env:INSTALL_AHK}`"";
+							Write-Host "`n`nInstalling/Updating Chocolatey...";
+							Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
+							[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
+							Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"));
+							Start-Process -Filepath ("choco") -ArgumentList (@("feature","enable","-n=allowGlobalConfirmation")) -NoNewWindow -Wait -PassThru;
+							Write-Host "`n`nInstalling/Updating AutoHotkey...";
+							Start-Process -Filepath ("choco") -ArgumentList (@("install","autohotkey")) -NoNewWindow -Wait -PassThru;
+							Write-Host "`n`nChecking if update to system PATH is required...";
+							$AppendPath = "C:\\Program Files\\AutoHotkey"; `
+							$SystemPath = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\\System\\CurrentControlSet\\Control\\Session Manager\\Environment').Path);
+							If ((${AppendPath} -NE $Null) -And (Test-Path "${AppendPath}") -And (((${SystemPath}).Split(';') | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0)) {
+								Write-Host "`n`nAppending new filepath to the `${Env:PATH} environment variable: `"${AppendPath}`"...";
+								[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+							}
+						} Else {
+							Write-Host "";
+							Write-Host "If auto-clicking/keypress actions are desired after bootup, please download/setup `"Autohotkey`" @ [ https://www.autohotkey.com/ ]";
+							Write-Host " |";
+							Write-Host " |--> Alternatively, call this script with a value of "1" given to environment variable "${Env:INSTALL_AHK}";
+						}
+
+
+						If ((Test-Path -Path ("Env:NEVER_SLEEP") -PathType ("Leaf")) -And (("${Env:NEVER_SLEEP}") -Eq ("1"))) { 
+							Write-Host "`n`nEnvironment Variable `"`${Env:NEVER_SLEEP}`" is set with value `"${Env:MEVER_SLEEP}`"";
+							Start-Process -Filepath ("powercfg") -ArgumentList (@("-change","-monitor-timeout-ac 0")) -NoNewWindow -Wait -PassThru;
+						} Else {
+							Write-Host "";
+							Write-Host "If you wish to never sleep the monitor/display, assign a value of "1" to the environment variable "${Env:NEVER_SLEEP}";
+						}
 
 
 					'''

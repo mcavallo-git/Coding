@@ -5,39 +5,22 @@ pipeline {
 		}
 	}
 	stages {
-		stage ('Install NuGet') {
-			steps {
-				powershell(
-					returnStatus:true,
-					script:'''[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;'''
-				)
-			}
-		}
-		stage ('Install PolicyFileEditor') {
-			steps {
-				powershell(
-					returnStatus:true,
-					script:'''
-						$PackageProvider = "NuGet";
-						If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -NE $Null) {
-							$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
-							[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;
-								Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force -AllowClobber -SkipPublisherCheck -Confirm:$False -ErrorAction SilentlyContinue;
-							[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-						}
-					'''
-				)
-			}
-		}
-		stage ('Set group policies required to end remote desktop sessions upon being minimized, etc.') {
+		stage ('Install Automation/Build server oriented RDP Policies') {
 			steps {
 				powershell(
 					returnStatus:true,
 					script:'''
 
+						[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;
+
+						[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Install-Module -Name ("PolicyFileEditor") -Force -AllowClobber;
+
+						Write-host "";
+						Write-host "View exhaustive list of terminal services group policies (and their associated registry keys) @ [ https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services ]";
+
 						$Name="KeepAliveEnable";
 						[UInt32]$Value = 0x00000001;
-						$HKLM_Path="SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
+						$HKLM_Path="SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services";
 						$Type="DWord";
 						Write-Host "";
 						Write-Host "Setting [ KeepAliveEnable ] Group Policy - For more information, refer to [ https://getadmx.com/?Category=Windows_7_2008R2&Policy=Microsoft.Policies.TerminalServer::TS_SERVER_COMPRESSOR ]";
@@ -46,7 +29,7 @@ pipeline {
 
 						$Name="KeepAliveInterval";
 						[UInt32]$Value = 0x006DDD00; # 0x006DDD00 == 7,200,000
-						$HKLM_Path="SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
+						$HKLM_Path="SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services";
 						$Type="DWord";
 						Write-Host "";
 						Write-Host "Setting [ KeepAliveInterval ] Group Policy - For more information, refer to [ https://getadmx.com/?Category=Windows_7_2008R2&Policy=Microsoft.Policies.TerminalServer::TS_KEEP_ALIVE&Language=sv-se ]";
@@ -55,11 +38,22 @@ pipeline {
 
 						$Name="MaxCompressionLevel";
 						[UInt32]$Value = 0x00000002;
-						$HKLM_Path="SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
+						$HKLM_Path="SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services";
 						$Type="DWord";
 						Write-Host "";
 						Write-Host "Setting [ MaxCompressionLevel ] Group Policy - For more information, refer to [ https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.TerminalServer::TS_SERVER_COMPRESSOR ]";
 						Write-Host -NoNewLine "`n";
+						Set-PolicyFileEntry -Path ("${Env:SystemRoot}\\System32\\GroupPolicy\\Machine\\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
+
+						$Name="RemoteDesktop_SuppressWhenMinimized ";
+						[UInt32]$Value = 0x00000002;
+						$Type="DWord";
+						Write-Host "";
+						Write-Host "Setting [ RemoteDesktop_SuppressWhenMinimized ] Group Policy - For more information, refer to [ https://docs.uipath.com/robot/docs/executing-tasks-in-a-minimized-rdp-window ]";
+						Write-Host -NoNewLine "`n";
+						$HKLM_Path="SOFTWARE\\Microsoft\\Terminal Server Client";
+						Set-PolicyFileEntry -Path ("${Env:SystemRoot}\\System32\\GroupPolicy\\Machine\\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
+						$HKLM_Path="SOFTWARE\\Wow6432Node\\Microsoft\\Terminal Server Client";
 						Set-PolicyFileEntry -Path ("${Env:SystemRoot}\\System32\\GroupPolicy\\Machine\\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
 					'''

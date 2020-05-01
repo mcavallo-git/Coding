@@ -56,6 +56,10 @@ pipeline {
 						$HKLM_Path="SOFTWARE\\Wow6432Node\\Microsoft\\Terminal Server Client";
 						Set-PolicyFileEntry -Path ("${Env:SystemRoot}\\System32\\GroupPolicy\\Machine\\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
+						Write-Host "";
+						Write-Host "If auto-logon is desired at bootup, please download/setup `"Autologon`", by sysinternals @ [ https://docs.microsoft.com/en-us/sysinternals/downloads/autologon ]";
+
+
 					'''
 				)
 			}
@@ -67,6 +71,8 @@ pipeline {
 // ------------------------------------------------------------
 //
 // Citation(s)
+//
+//   docs.microsoft.com  |  "Autologon - Windows Sysinternals | Microsoft Docs"  |  https://docs.microsoft.com/en-us/sysinternals/downloads/autologon
 //
 //   stackoverflow.com  |  "Executing powershell command directly in jenkins pipeline - Stack Overflow"  |  https://stackoverflow.com/a/42576572
 //

@@ -1526,7 +1526,7 @@ OpenChrome() {
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 	}
-	; ------------------------------------------------------------
+	; =====
 	; Processname=processname.exe
 	; Process, Exist, %Processname%
 	; If !ErrorLevel
@@ -1539,7 +1539,7 @@ OpenChrome() {
 	; {
 	; WinActivate, % "ahk_pid " pid
 	; }
-	; ------------------------------------------------------------
+	; =====
 	Return
 }
 

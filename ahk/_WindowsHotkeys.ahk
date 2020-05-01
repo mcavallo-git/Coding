@@ -53,7 +53,7 @@ CR=`r
 
 LF=`n
 
-VerboseOutput := True
+VERBOSE_OUTPUT := True
 
 ; ------------------------------------------------------------
 ;
@@ -753,7 +753,7 @@ WheelRight::
 ;  ACTION:  Foxit PhantomPDF - Add Text
 ;
 ; #A::
-; 	Global VerboseOutput
+; 	Global VERBOSE_OUTPUT
 ; 	CoordMode, Mouse, Screen
 ; 	SetDefaultMouseSpeed, 0
 ; 	SetControlDelay, -1
@@ -763,7 +763,7 @@ WheelRight::
 ; 	WinGet, WinProcessName, ProcessName, A
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (VerboseOutput = True) {
+; 		If (VERBOSE_OUTPUT = True) {
 ; 			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
 ; 		}
 ; 		x_loc = 223
@@ -775,7 +775,7 @@ WheelRight::
 ; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 ; 	}
 ; 	; } Else {
-; 	; 	If (VerboseOutput = True) {
+; 	; 	If (VERBOSE_OUTPUT = True) {
 ; 	; 		TrayTip, AHK, Foxit PhantomPDF`nMUST be active (to add text), 4, 1  ; Toast Notification
 ; 	; 	}
 ; 	; }
@@ -1492,14 +1492,14 @@ Nanoseconds() {
 ;   |--> Opens the "Google Chrome" Application
 ;
 OpenChrome() {
-	Global VerboseOutput
+	Global VERBOSE_OUTPUT
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	EXE_NICKNAME := "Google Chrome"
 	ExeFullpath := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
 	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
 	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running - Activate the associated Window based on PID
-		If (VerboseOutput = True) {
+		If (VERBOSE_OUTPUT = True) {
 			Text_TrayTip := "Activating """ EXE_NICKNAME """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -1508,7 +1508,7 @@ OpenChrome() {
 		WinActivate, ahk_pid %ExePID%
 	} Else If (FileExist(ExeFullpath)) {
 		; Executable is NOT running but IS found locally
-		If (VerboseOutput = True) {
+		If (VERBOSE_OUTPUT = True) {
 			Text_TrayTip := "Opening """ EXE_NICKNAME """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -1521,7 +1521,7 @@ OpenChrome() {
 		WinActivate, ahk_pid %ExePID%
 	} Else {
 		; Executable is NOT running and NOT found locally
-		If (VerboseOutput = True) {
+		If (VERBOSE_OUTPUT = True) {
 			Text_TrayTip=Application not Found "%ExeFullpath%"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -1549,7 +1549,7 @@ OpenChrome() {
 ;   |--> Opens Roboform's Password Generator executable
 ;
 OpenPasswordGenerator() {
-	Global VerboseOutput
+	Global VERBOSE_OUTPUT
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
@@ -1560,13 +1560,13 @@ OpenPasswordGenerator() {
 	If (WinExist(WinTitle_Login)) {
 		WinActivate, %WinTitle_Login%
 	} Else If (WinExist(WinTitle)) {
-		If (VerboseOutput = True) {
+		If (VERBOSE_OUTPUT = True) {
 			Text_TrayTip := "Activating existing instance of """ WinTitle """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
-		If (VerboseOutput = True) {
+		If (VERBOSE_OUTPUT = True) {
 			Text_TrayTip := "Opening new-instance of """ WinTitle """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -1654,7 +1654,7 @@ OpenVSCode() {
 ;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
 ;
 PasteClipboardAsBinary() {
-	Global VerboseOutput
+	Global VERBOSE_OUTPUT
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Sleep, 100
@@ -1675,11 +1675,11 @@ PasteClipboardAsBinary() {
 ;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
 ;
 PasteClipboardAsText() {
-	Global VerboseOutput
+	Global VERBOSE_OUTPUT
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
-	If (VerboseOutput == True) {
+	If (VERBOSE_OUTPUT == True) {
 		; TrayTip, AHK,
 		; (LTrim
 		; 	Pasting the Text version of the Clipboard

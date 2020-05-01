@@ -21,7 +21,7 @@ pipeline {
 				)
 			}
 		}
-		stage ('Install Policy Modifier') {
+		stage ('Install PolicyFileEditor') {
 			steps {
 				powershell(
 					returnStatus:true,

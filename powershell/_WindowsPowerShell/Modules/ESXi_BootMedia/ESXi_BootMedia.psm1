@@ -74,7 +74,7 @@ Function ESXi_BootMedia() {
 					$PackageProvider = "NuGet";
 					If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
 						$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
-						[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12';
+						[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
 							Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
 						[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 					}

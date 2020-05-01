@@ -17,7 +17,7 @@ Function UpdateDotNetRegistry() {
 	If ($False) { # RUN THIS SCRIPT:
 
 
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]'Tls11,Tls12'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/UpdateDotNetRegistry/UpdateDotNetRegistry.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; UpdateDotNetRegistry;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/UpdateDotNetRegistry/UpdateDotNetRegistry.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; UpdateDotNetRegistry;
 
 
 	}

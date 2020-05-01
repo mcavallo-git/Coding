@@ -6,10 +6,10 @@
 # STEP 2: PASTE THE FOLLOWING ITEMS INTO TARGET VM'S "... .vmx" FILE WHILE IT IS SHUT DOWN
 #
 
-guestInfo.svga.wddm.modeset="FALSE";
-guestInfo.svga.wddm.modesetCCD="FALSE";
-guestInfo.svga.wddm.modesetLegacySingle="FALSE";
-guestInfo.svga.wddm.modesetLegacyMulti="FALSE";
+guestInfo.svga.wddm.modeset = "FALSE"
+guestInfo.svga.wddm.modesetCCD = "FALSE"
+guestInfo.svga.wddm.modesetLegacySingle = "FALSE"
+guestInfo.svga.wddm.modesetLegacyMulti = "FALSE"
 
 
 # ------------------------------------------------------------

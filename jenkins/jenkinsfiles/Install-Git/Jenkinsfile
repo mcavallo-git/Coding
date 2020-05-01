@@ -1,0 +1,65 @@
+pipeline {
+	agent {
+		node {
+			label "windows"
+		}
+	}
+	stages {
+		stage ('Install Chocolatey') {
+			steps {
+				powershell(
+					returnStatus:true,
+					script:'''
+						$PackageProvider = "NuGet";
+						If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+							$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
+							[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12";
+								Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
+								Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"));
+							[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+						}
+					'''
+				)
+			}
+		}
+		stage ('Install Git') {
+			steps {
+				powershell(
+					returnStatus:true,
+					script:'''
+						$PackageProvider = "NuGet";
+						If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+							$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
+							[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]"Tls11,Tls12";
+								Write-Host "`n`nInstalling Git..."; Start-Process -Filepath ("choco") -ArgumentList (@("install","git.install")) -NoNewWindow -Wait -PassThru;
+							[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+						}
+					'''
+				)
+			}
+		}
+	}
+}
+
+
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   stackoverflow.com  |  "Executing powershell command directly in jenkins pipeline - Stack Overflow"  |  https://stackoverflow.com/a/42576572
+//
+//   stackoverflow.com  |  "Using a Jenkins pipeline to checkout multiple git repos into same job - Stack Overflow"  |  https://stackoverflow.com/a/40225216
+//
+//   www.jfrog.com  |  "Scripted Pipeline Syntax - JFrog - JFrog Documentation"  |  https://www.jfrog.com/confluence/display/JFROG/Scripted+Pipeline+Syntax
+//
+//   www.jfrog.com  |  "Working With Pipeline Jobs in Jenkins - Artifactory 5.x - JFrog Wiki"  |  https://www.jfrog.com/confluence/display/RTF5X/Working+With+Pipeline+Jobs+in+Jenkins
+//
+//   www.jenkins.io  |  "Pipeline: Basic Steps"  |  https://jenkins.io/doc/pipeline/steps/workflow-basic-steps/
+//
+//   www.jenkins.io  |  "Pipeline Examples"  |  https://www.jenkins.io/doc/pipeline/examples/
+//
+//   www.jenkins.io  |  "Pipeline Syntax"  |  https://www.jenkins.io/doc/book/pipeline/syntax/
+//
+//   www.jenkins.io  |  "Using a Jenkinsfile"  |  https://www.jenkins.io/doc/book/pipeline/jenkinsfile/
+//
+// ------------------------------------------------------------

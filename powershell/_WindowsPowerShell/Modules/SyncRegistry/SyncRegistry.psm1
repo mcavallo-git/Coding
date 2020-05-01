@@ -640,7 +640,7 @@ function SyncRegistry {
 
 		Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
 
-		$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";
+		$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
 		$Name="MaxCompressionLevel";
 		$Type="DWord";
 		$Value="MaxCompressionLevel";

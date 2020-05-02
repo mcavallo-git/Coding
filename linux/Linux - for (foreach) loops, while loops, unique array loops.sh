@@ -21,8 +21,8 @@ for i in $(seq ${MAX_ITERATIONS}); do echo "\$i = ${i}"; done;
 # For-loop, ITERATE + CONDITIONAL (counts from 1 to n - defined in $(seq X), breaks if given conditional is matched)
 MAX_ITERATIONS=120;
 for i in $(seq ${MAX_ITERATIONS}); do
-	VM_STATE=$(sshpass -p ${ESXI_CREDS_PASS} ssh "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";);
-	if [ "${VM_STATE}" != "green" ]; then
+	VM_HEARTBEAT_STATUS=$(sshpass -p ${ESXI_CREDS_PASS} ssh "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";);
+	if [ "${VM_HEARTBEAT_STATUS}" == "green" ]; then
 		break;
 	fi;
 	sleep 1;
@@ -74,8 +74,8 @@ done;
 
 
 # While-loop, CONDITIONAL (waits indefinitely for given conditional to be true)
-VM_STATE="gray";
-while [ "${VM_STATE}" != "green" ]; do VM_STATE=$(sshpass -p ${ESXI_CREDS_PASS} ssh "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";); sleep 1; done; # Wait until VM heartbeat shows online (green)
+VM_HEARTBEAT_STATUS="gray";
+while [ "${VM_HEARTBEAT_STATUS}" != "green" ]; do VM_HEARTBEAT_STATUS=$(sshpass -p ${ESXI_CREDS_PASS} ssh "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";); sleep 1; done; # Wait until VM heartbeat shows online (green)
 
 
 # While-loop, INFINITE (until user cancels, terminal ends, or machine stops)

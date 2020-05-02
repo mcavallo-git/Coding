@@ -435,12 +435,14 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #RButton::
 	CoordMode, Mouse, Screen
 	MouseGetPos, MouseX, MouseY
-	MsgBox,
-	(LTrim
-	Pointer Location
-	➣X_loc:   %MouseX%
-	➣Y_loc:   %MouseY%
-	)
+	Tooltip, x%MouseX% y%MouseY%
+	ClearTooltip(10000)
+	; MsgBox,
+	; (LTrim
+	; Pointer Location
+	; ➣X_loc:   %MouseX%
+	; ➣Y_loc:   %MouseY%
+	; )
 	Return
 
 

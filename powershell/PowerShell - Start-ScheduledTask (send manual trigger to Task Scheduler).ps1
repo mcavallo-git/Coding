@@ -1,8 +1,17 @@
+# ------------------------------------------------------------
 #
 # Kick-off a scheduled task via PowerShell
 #
 
-Start-ScheduledTask -TaskName "GitSyncAll"
+Start-ScheduledTask -TaskName "GitSyncAll";
+
+
+# ------------------------------------------------------------
+#
+# Determine task names (to apply to Start-ScheduldTask once found)
+#
+
+(Get-ScheduledTask).TaskName;
 
 
 # ------------------------------------------------------------

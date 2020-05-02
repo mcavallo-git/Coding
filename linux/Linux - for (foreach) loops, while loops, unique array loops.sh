@@ -12,11 +12,24 @@
 #   For-Loop(s)
 #
 
-# Integer-based for-loop
-for i in $(seq 10); do echo "\$i = ${i}"; done;
+
+# For-loop, ITERATE (counts from 1 to n - defined in $(seq X))
+MAX_ITERATIONS=120;
+for i in $(seq ${MAX_ITERATIONS}); do echo "\$i = ${i}"; done;
 
 
-# Filepath-based for-loop example (pulled from "/etc/profile" on stock Ubuntu 19.04 image)
+# For-loop, ITERATE + CONDITIONAL (counts from 1 to n - defined in $(seq X), breaks if given conditional is matched)
+MAX_ITERATIONS=120;
+for i in $(seq ${MAX_ITERATIONS}); do
+	VM_STATE=$(sshpass -p ${ESXI_CREDS_PASS} ssh -o StrictHostKeyChecking=no "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";);
+	if [ "${VM_STATE}" != "green" ]; then
+		break;
+	fi;
+	sleep 1;
+done;
+
+
+# For-loop, PARSE (uses default IFS delimiter - pulled from stock Ubuntu 19.04 file "/etc/profile"))
 if [ -d /etc/profile.d ]; then
   for i in /etc/profile.d/*.sh; do
     if [ -r $i ]; then
@@ -27,7 +40,7 @@ if [ -d /etc/profile.d ]; then
 fi
 
 
-# For each substring in a comma delimited string
+# For-loop, PARSE (for each substring in a comma delimited string)
 EXAMPLE_COMMA_DELIMITATION="abc,def,ghij";
 for i in $(echo ${EXAMPLE_COMMA_DELIMITATION} | sed "s/,/ /g"); do
   echo "$i";
@@ -53,14 +66,19 @@ IFS="${ROLLBACK_IFS}";
 #   While-Loops
 #
 
-# While-loop using newline delimiter
+# While-loop, PARSE (using newline delimiter)
 ps aux | while read -r -d $'\n' EACH_LINE; do \
 echo "------------------------------------------------------------"; \
 echo "${EACH_LINE}"; \
 done;
 
 
-# Infinite while-loop (until user cancels, terminal ends, or machine stops)
+# While-loop, CONDITIONAL (waits indefinitely for given conditional to be true)
+VM_STATE="gray";
+while [ "${VM_STATE}" != "green" ]; do VM_STATE=$(sshpass -p ${ESXI_CREDS_PASS} ssh -o StrictHostKeyChecking=no "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";); sleep 1; done; # Wait until VM heartbeat shows online (green)
+
+
+# While-loop, INFINITE (until user cancels, terminal ends, or machine stops)
 while [ 1 ]; do date; sleep 1; done; # Show the time, once per second (until process is killed/cancelled)
 
 while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/www) ], files: [ $(find /var/www | wc -l) ]"; sleep 15; done; # show the size of target dir once every 15s

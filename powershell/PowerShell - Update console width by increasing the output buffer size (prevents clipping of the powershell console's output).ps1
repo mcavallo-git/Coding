@@ -24,8 +24,6 @@ $rawUI.BufferSize = $newSize;
 }
 
 
-
-
 # ------------------------------------------------------------
 #
 # Format-Table -Autosize + Out-File -Width X (Show full table data without truncation of values)

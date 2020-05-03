@@ -23,7 +23,7 @@ Get-ChildItem -Path ("C:\") -Directory -Recurse -Force -ErrorAction "SilentlyCon
 
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "devenv.*" } | ForEach-Object { $_.FullName; }
 
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "*devenv*" } | ForEach-Object { $_.FullName; }
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "vsdevcmd*" } | ForEach-Object { $_.FullName; }
 
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "signtool.*" } | ForEach-Object { $_.FullName; }
 

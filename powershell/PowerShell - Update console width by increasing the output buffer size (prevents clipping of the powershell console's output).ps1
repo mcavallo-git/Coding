@@ -4,7 +4,14 @@
 #  |-->  Turns off word-wrap (you may not see some of the text as it goes off the console, but you can still highlight copy it)
 #  |-->  Prevents clipping of the powershell console's outpu
 #
-# ------------------------------------------------------------
+# ------------------------------------------------------------ 
+
+
+<# Update PowerShell console width to 16384 characters#>
+If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); };
+
+
+<#   ^ OneLiner          Draw-out v   #>
 
 
 <# Update the Powershell console's max characters-per-line by increasing the output buffer size #>
@@ -15,6 +22,8 @@ $typeName = $oldSize.GetType( ).FullName;
 $newSize = New-Object $typeName (16384, $oldSize.Height);
 $rawUI.BufferSize = $newSize;
 }
+
+
 
 
 # ------------------------------------------------------------

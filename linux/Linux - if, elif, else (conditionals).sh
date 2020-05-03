@@ -217,10 +217,10 @@ done;
 
 # ------------------------------------------------------------
 #
-#	Variable Comparisons
-#		|--> Includes logic for Integers, Floats/Doubles, and Strings (ASCII)
-#
-# ------------------------------------------------------------
+#	Variable Comparators
+#		|--> Integer Comparators
+#		|--> Float/Double Comparators
+#		|--> ASCII String Comparators
 #
 #
 #  ==		String (IS_INTEGER TEST):
@@ -296,20 +296,24 @@ done;
 #    |--> Replace all digit characters with blanks (remove them) then get the final length of the string
 #    |--> Any value greater than 0 for the length of the string means non-integer character(s) were found
 #
-#  if [[ -z ${foo//[0-9]/} ]]; then
-#    echo "foo is an integer!";
-#  fi;
+
+if [[ -z ${foo//[0-9]/} ]]; then
+	echo "foo is an integer!";
+fi;
+
 
 # ------------------------------------------------------------
 #  
 #  Compare [ the value of a variable evaluated in arithmetic context ] to [ the value of the same variable in non-arithmetic (e.g. string) context ]
 #  If the value of the two contexts are equal to each other, the string is an integer
-#  THIS IS BASH-SPECIFIC
 #
-#  if [[ $((foo)) == $foo ]]; then
-#    echo "foo is an integer!";
-#  fi;
-#
+
+# BASMISM - REQUIRES THE  [ /etc/bash ]  SHELL
+if [[ $((foo)) == $foo ]]; then
+	echo "foo is an integer!";
+fi;
+
+
 # ------------------------------------------------------------
 #
 #

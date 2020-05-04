@@ -1,7 +1,14 @@
 @ECHO OFF
 REM ------------------------------------------------------------
+REM
+REM  Determine which process is using a given port
+REM
+
 
 NETSTAT -nao | find ":80 "
+
+
+REM ------------------------------------------------------------
 
 NETSTAT -a -b
 
@@ -22,3 +29,11 @@ wmic process where processid=9500 get commandline
 wmic process where processid=9600 get commandline
 wmic process where processid=11044 get commandline
 
+
+REM ------------------------------------------------------------
+REM
+REM Citation(s)
+REM
+REM   superuser.com  |  "windows - PID:4 using Port 80 - Super User"  |  https://superuser.com/questions/352017/pid4-using-port-80
+REM
+REM ------------------------------------------------------------

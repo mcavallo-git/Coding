@@ -76,6 +76,21 @@ If ($Cert_CodeSigning -Eq $Null) {
 		};
 	}
 
+	#
+	# Sign only files found which are at least $MIN_AGE_MINUTES old (time since last modification)
+	#
+	If ($False) {
+		$MIN_AGE_MINUTES=2;
+		Get-ChildItem -Path ("${WorkingDir}") -Recurse -Force -File `
+		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
+		| Where-Object { ($_.LastWriteTime).AddMinutes($MIN_AGE_MINUTES) -lt (Get-Date) } `
+		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
+		| ForEach-Object { `
+			Write-Output "Info - Signing working-dir file `"$($_.FullName)`"";
+			Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://tsa.starfieldtech.com") | Out-Null;
+		};
+	}
+
 }
 
 # ------------------------------------------------------------

@@ -1,11 +1,7 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 
-
-Get-Process -Id (Get-NetTCPConnection -LocalPort 80).OwningProcess
-
-
-REM ------------------------------------------------------------
+NETSTAT -nao | find ":80"
 
 NETSTAT -a -b
 

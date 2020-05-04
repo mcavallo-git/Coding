@@ -6,6 +6,13 @@
 #
 # Simple search
 #
+[System.IO.Directory]::EnumerateFiles($path,'*.*','AllDirectories'); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
+
+
+# ------------------------------------------------------------
+#
+# Simple search
+#
 
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*.unf") } | ForEach-Object { $_.FullName; }
 
@@ -80,5 +87,7 @@ Get-ChildItem -Path ("$Dirname_TopLevel") -File -Recurse -Force -ErrorAction "Si
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #
 #   superuser.com  |  "Powershell to delete all files with a certain file extension"  |  https://superuser.com/a/1233722
+#
+#   powershell-guru.com  |  "# The fastest Powershell 4 : Count all files in a large network share"  |  https://powershell-guru.com/fastest-powershell-2-count-all-files-in-large-network-share/
 #
 # ------------------------------------------------------------

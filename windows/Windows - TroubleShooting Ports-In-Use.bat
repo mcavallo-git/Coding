@@ -1,7 +1,7 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 
-NETSTAT -nao | find ":80"
+NETSTAT -nao | find ":80 "
 
 NETSTAT -a -b
 

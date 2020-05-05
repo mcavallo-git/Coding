@@ -550,6 +550,8 @@ AppsKey::RWin
 ;  HOTKEY:  Win + Mouse-Wheel Up/Down
 ;  ACTION:  Turn computer volume up/down
 ;
+^#Up::
+^#Down::
 #MButton::
 #WheelUp::
 #WheelDown::
@@ -557,18 +559,8 @@ AppsKey::RWin
 ^#WheelUp::
 ^#WheelDown::
 
-	Icon_MutedSpeaker=🔇
-	Icon_SpeakerLowVolume=🔈
-	Icon_SpeakerMediumVolume=🔉
-	Icon_SpeakerHighVolume=🔊
-
-	Icon_VolumeFilled=⬛️
-	Icon_VolumeBlanks=⬜️
-
 	VolumeLevel_Increment := 2
 	; VolumeLevel_Increment := 10
-
-	; Volume_ForceUpperLimit := 100
 
 	SoundGet, VolumeLevel_BeforeEdits
 
@@ -598,92 +590,10 @@ AppsKey::RWin
 		SoundSet , -%NewVolumeLevel_Increment%
 	}
 
-	; Get the volume & mute current-settings
-	SoundGet, NewVolumeLevel
-	SoundGet, MasterMute, , MUTE
+	ShowVolumeLevel()
 
-	; Final volume level
-	NewVolumeLevel := Round( NewVolumeLevel )
-	NewVolumeLevelPercentage=%NewVolumeLevel%`%
-
-	; Build the volume-bars (out-of dingbats utf8+ icons)
-	; Total_IconCount_MaxVolume := Round( ( 100 / VolumeLevel_Increment ) * 2 )
-	Total_IconCount_MaxVolume := 20
-
-	IconCount_TopBot_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume)
-	IconCount_TopBot_Blanks := Total_IconCount_MaxVolume - IconCount_TopBot_Filled
-	DisplayedIcons_TopBot_Filled := StringRepeat( Icon_VolumeFilled, IconCount_TopBot_Filled )
-	DisplayedIcons_TopBot_Blanks := StringRepeat( Icon_VolumeBlanks, IconCount_TopBot_Blanks )
-	VolumeBars_TopBot := DisplayedIcons_TopBot_Filled DisplayedIcons_TopBot_Blanks
-
-	IconCount_Middle_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume) - 4
-	IconCount_Middle_Blanks := Total_IconCount_MaxVolume - IconCount_Middle_Filled
-	DisplayedIcons_Middle_Filled := StringRepeat( Icon_VolumeFilled, IconCount_Middle_Filled )
-	DisplayedIcons_Middle_Blanks := StringRepeat( Icon_VolumeBlanks, IconCount_Middle_Blanks )
-	VolumeBars_Middle := DisplayedIcons_Middle_Filled DisplayedIcons_Middle_Blanks
-
-	TrimCount_TopBot := Round( StrLen( VolumeBars_TopBot ) / 2 )
-	TrimCount_Middle := Round( StrLen( VolumeBars_Middle ) / 2 )
-
-	StringTrimRight, Echo_TopBot_LeftHalf, VolumeBars_TopBot, TrimCount_TopBot
-	StringTrimLeft, Echo_TopBot_RightHalf, VolumeBars_TopBot, TrimCount_TopBot
-
-	Echo_TopBot_LeftHalf := Icon_SpeakerMediumVolume A_Space A_Space A_Space Echo_TopBot_LeftHalf
-	Echo_TopBot_RightHalf := Echo_TopBot_RightHalf A_Space A_Space Icon_SpeakerHighVolume
-
-	Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
-	Echo_Middle_RightHalf := Echo_TopBot_RightHalf
-	
-	IconSlice_Middle_EachSide := 3
-	Mute_AddSpaces := 3
-
-	Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
-	Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
-
-	; Show status of whether volume muted or un-muted next to the volume level 
-	;   |--> Replace mute-icon w/ whitespace if un-muted (used manual/visual comparison to determine # of spaces)
-	;
-	Mute_StatusIcon := ( ( MasterMute == "On" ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
-	Mute_LSpaces := ( Round( Mute_AddSpaces / 2 ) )
-	Mute_RSpaces := ( Mute_AddSpaces - Mute_LSpaces )
-
-	Mute_Padding := StringRepeat( A_Space , Mute_LSpaces ) Mute_StatusIcon StringRepeat( A_Space , Mute_RSpaces )
-
-	If ( NewVolumeLevel == 100 ) {
-		; Mute_AddSpaces := Mute_AddSpaces + 0
-		Echo_Middle_Center := Mute_Padding NewVolumeLevel Mute_Padding
-	} Else If ( NewVolumeLevel >= 10 ) {
-		; Mute_AddSpaces := Mute_AddSpaces + 1
-		Echo_Middle_Center := Mute_Padding A_Space NewVolumeLevel A_Space Mute_Padding
-	} Else {
-		; Mute_AddSpaces := Mute_AddSpaces + 2
-		Echo_Middle_Center := Mute_Padding A_Space A_Space NewVolumeLevel A_Space A_Space Mute_Padding
-	}
-
-	Echo_TopBot_Center := StringRepeat( A_Space , 0 )
-	; Echo_TopBot_Center := StringRepeat( A_Space , 14 )
-
-	Echo_Tooltip=
-	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf LF
-	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf LF
-	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
-	
-	OutputWidth := 317
-	OutputHeight := 50
-	StartMenuHeight := 40
-
-	; On-Screen Tooltip Location - X Coordinate (Left to Right)
-	x_loc := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
-	; x_loc := 50
-
-	; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
-	; y_loc := Round( ( A_ScreenHeight - StartMenuHeight - OutputHeight ) / 2 )
-	y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
-
-	ToolTip, %Echo_Tooltip%, %x_loc%, %y_loc%
-	ClearTooltip(750)
 	Return
-;
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Alt + Mouse-Wheel Up/Down
 ;  ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
@@ -1877,6 +1787,82 @@ RunWaitMany(CMD_Commands) {
 ;
 SendSpace() {
 	Send {SC039}
+	Return
+}
+
+
+;
+;	ShowVolumeLevel
+;   |--> Show a tooltip with the volume as an integer, as well as filled-bars around it to intuitively show the volume, as well as a mute icon around the integer if muted
+;
+ShowVolumeLevel() {
+	CoordMode, Mouse, Screen
+	Icon_MutedSpeaker=🔇
+	Icon_SpeakerLowVolume=🔈
+	Icon_SpeakerMediumVolume=🔉
+	Icon_SpeakerHighVolume=🔊
+	Icon_VolumeFilled=⬛️
+	Icon_VolumeBlanks=⬜️
+	; Get the volume & mute current-settings
+	SoundGet, NewVolumeLevel
+	SoundGet, MasterMute, , MUTE
+	; Final volume level
+	NewVolumeLevel := Round( NewVolumeLevel )
+	NewVolumeLevelPercentage=%NewVolumeLevel%`%
+	; Build the volume-bars (out-of dingbats/utf8+ icons)
+	Total_IconCount_MaxVolume := 20
+	IconCount_TopBot_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume)
+	IconCount_TopBot_Blanks := Total_IconCount_MaxVolume - IconCount_TopBot_Filled
+	DisplayedIcons_TopBot_Filled := StringRepeat( Icon_VolumeFilled, IconCount_TopBot_Filled )
+	DisplayedIcons_TopBot_Blanks := StringRepeat( Icon_VolumeBlanks, IconCount_TopBot_Blanks )
+	VolumeBars_TopBot := DisplayedIcons_TopBot_Filled DisplayedIcons_TopBot_Blanks
+	IconCount_Middle_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume) - 4
+	IconCount_Middle_Blanks := Total_IconCount_MaxVolume - IconCount_Middle_Filled
+	DisplayedIcons_Middle_Filled := StringRepeat( Icon_VolumeFilled, IconCount_Middle_Filled )
+	DisplayedIcons_Middle_Blanks := StringRepeat( Icon_VolumeBlanks, IconCount_Middle_Blanks )
+	VolumeBars_Middle := DisplayedIcons_Middle_Filled DisplayedIcons_Middle_Blanks
+	TrimCount_TopBot := Round( StrLen( VolumeBars_TopBot ) / 2 )
+	TrimCount_Middle := Round( StrLen( VolumeBars_Middle ) / 2 )
+	StringTrimRight, Echo_TopBot_LeftHalf, VolumeBars_TopBot, TrimCount_TopBot
+	StringTrimLeft, Echo_TopBot_RightHalf, VolumeBars_TopBot, TrimCount_TopBot
+	Echo_TopBot_LeftHalf := Icon_SpeakerMediumVolume A_Space A_Space A_Space Echo_TopBot_LeftHalf
+	Echo_TopBot_RightHalf := Echo_TopBot_RightHalf A_Space A_Space Icon_SpeakerHighVolume
+	Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
+	Echo_Middle_RightHalf := Echo_TopBot_RightHalf
+	IconSlice_Middle_EachSide := 3
+	Mute_AddSpaces := 3
+	Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
+	Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
+	; Show mute status next to the integer volume level
+	;   |--> Replace mute-icon w/ whitespace if un-muted
+	Mute_StatusIcon := ( ( MasterMute == "On" ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
+	Mute_LSpaces := ( Round( Mute_AddSpaces / 2 ) )
+	Mute_RSpaces := ( Mute_AddSpaces - Mute_LSpaces )
+	Mute_Padding := StringRepeat( A_Space , Mute_LSpaces ) Mute_StatusIcon StringRepeat( A_Space , Mute_RSpaces )
+	If ( NewVolumeLevel == 100 ) {
+		; Mute_AddSpaces := Mute_AddSpaces + 0
+		Echo_Middle_Center := Mute_Padding NewVolumeLevel Mute_Padding
+	} Else If ( NewVolumeLevel >= 10 ) {
+		; Mute_AddSpaces := Mute_AddSpaces + 1
+		Echo_Middle_Center := Mute_Padding A_Space NewVolumeLevel A_Space Mute_Padding
+	} Else {
+		; Mute_AddSpaces := Mute_AddSpaces + 2
+		Echo_Middle_Center := Mute_Padding A_Space A_Space NewVolumeLevel A_Space A_Space Mute_Padding
+	}
+	Echo_TopBot_Center := StringRepeat( A_Space , 0 )
+	Echo_Tooltip=
+	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf "`n"
+	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf "`n"
+	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
+	OutputWidth := 317
+	OutputHeight := 50
+	StartMenuHeight := 40
+	; On-Screen Tooltip Location - X Coordinate (Left to Right)
+	x_loc := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
+	; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
+	y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
+	ToolTip, %Echo_Tooltip%, %x_loc%, %y_loc%
+	ClearTooltip(750)
 	Return
 }
 

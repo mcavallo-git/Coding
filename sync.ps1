@@ -6,7 +6,7 @@
 If ($False) { ### RUN THIS SCRIPT:
 
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://ps.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }

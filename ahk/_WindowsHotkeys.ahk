@@ -550,7 +550,11 @@ AppsKey::RWin
 ;  HOTKEY:  Win + Mouse-Wheel Up/Down
 ;  ACTION:  Turn computer volume up/down
 ;
++#Up::
+!#Up::
 ^#Up::
++#Down::
+!#Down::
 ^#Down::
 #MButton::
 #WheelUp::
@@ -560,38 +564,37 @@ AppsKey::RWin
 ^#WheelDown::
 
 	VolumeLevel_Increment := 2
-	; VolumeLevel_Increment := 10
 
-	SoundGet, VolumeLevel_BeforeEdits
-
-	VolumeLevel_BeforeEdits := Round(VolumeLevel_BeforeEdits)
-
-	; Note that [ SoundSet ... ] is used instead of [ Send {Volume_Up} ], etc. because of combo key-presses
-	; not handshaking well with the [ Send ... ] function in AHK - e.g. winkey-mousescroll was
-	; triggering the start-menu inbetween multiple scrolls + more issues (generally glitchy)
-	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {
-		; Toggle Mute
+	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {  ; Mute On/Off
 		SoundSet, +1, , MUTE
-	} Else If (A_ThisHotkey=="#WheelUp") {
-		; Volume Up
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
-		SoundSet , +%NewVolumeLevel_Increment%
-	} Else If (A_ThisHotkey=="^#WheelUp") {
-		; Volume Up ( Slower )
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
-		SoundSet , +%NewVolumeLevel_Increment%
-	} Else If (A_ThisHotkey=="#WheelDown") {
-		; Volume Down
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment )
-		SoundSet , -%NewVolumeLevel_Increment%
-	} Else If (A_ThisHotkey=="^#WheelDown") {
-		; Volume Down ( Slower )
-		NewVolumeLevel_Increment := ( VolumeLevel_Increment * 2 )
-		SoundSet , -%NewVolumeLevel_Increment%
+
+	} Else {
+
+		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up")) {  ; Volume Up
+			vDelta := "+" ( VolumeLevel_Increment * 5 )
+
+		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down")) {  ; Volume Down
+			vDelta := "-" ( VolumeLevel_Increment * 5 )
+
+		} Else If (A_ThisHotkey=="#WheelUp") {  ; Volume Up
+			vDelta := "+" ( VolumeLevel_Increment )
+
+		} Else If (A_ThisHotkey=="^#WheelUp") {  ; Volume Up ( More )
+			vDelta := "+" ( VolumeLevel_Increment * 2 )
+
+
+		} Else If (A_ThisHotkey=="#WheelDown") {  ; Volume Down
+			vDelta := "-" ( VolumeLevel_Increment )
+
+		} Else If (A_ThisHotkey=="^#WheelDown") {  ; Volume Down ( More )
+			vDelta := "-" ( VolumeLevel_Increment * 2 )
+
+		}
+
+		SoundSet , %vDelta%
+
 	}
-
 	ShowVolumeLevel()
-
 	Return
 
 ; ------------------------------------------------------------

@@ -1,8 +1,16 @@
-<# ------------------------------------------------------------ #>
+# ------------------------------------------------------------
+#
+# PowerShell Modules Sync
+#
+# ------------------------------------------------------------
+If ($False) { ### RUN THIS SCRIPT:
 
-<#   Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://ps.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs;   #>
 
-<# ------------------------------------------------------------ #>
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Start-Process PowerShell.exe $(New-Object Net.WebClient).DownloadString("https://ps.mcavallo.com/$((Date).Ticks).ps1") -Verb RunAs; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+
+}
+# ------------------------------------------------------------
 
 If (("AllSigned","Default","Restricted","Undefined") -contains (Get-ExecutionPolicy)) {
 	Set-ExecutionPolicy "RemoteSigned" -Force;
@@ -17,7 +25,7 @@ If (! (Get-Command "git")) {
 
 	Write-Host "Info:  Local PowerShell Version: $(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;
 
-	<# ------------------------------------------------------------ #>
+	# ------------------------------------------------------------
 
 	$AliasName="grep"; $AliasCommand="Select-String";
 	Write-Host "Info:  Checking for Alias `"${AliasName}`"..." -ForegroundColor Gray;
@@ -41,7 +49,7 @@ If (! (Get-Command "git")) {
 		New-Alias -Name "${AliasName}" -Value "${AliasCommand}";
 	}
 
-	<# ------------------------------------------------------------ #>
+	# ------------------------------------------------------------
 
 	Write-Host "Info:  Syncing local git repository to origin `"https://github.com/mcavallo-git/Coding.git`"..." -ForegroundColor Green;
 

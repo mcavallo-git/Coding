@@ -553,20 +553,20 @@ AppsKey::RWin
 ;  HOTKEY:  Ctrl/Shift/Alt + WinKey + Right/Left (Arrow)
 ;  ACTION:  Turn screen brightness up (right) or down (left)
 
-
 +#Left::
 !#Left::
 ^#Left::
 	BS := new BrightnessSetter()
-	BS.SetBrightness(-2)
-	return
+	BS.SetBrightness(-1)
+	Return
 
 +#Right::
 !#Right::
 ^#Right::
 	BS := new BrightnessSetter()
-	BS.SetBrightness(+2)
-	return
+	BS.SetBrightness(+1)
+	Return
+
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + Mouse-Wheel Up/Down

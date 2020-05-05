@@ -525,31 +525,53 @@ AppsKey::RWin
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + O
 ;  ACTION:  Opens "Programs & Features" in the Control Panel
-;
+
 #O::
 	Run "c:\windows\system32\appwiz.cpl"
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + ` (Tilde)
 ;  ACTION:  Keyboard-Command for a Mouse-Left-Click
-;
+
 #`::
 	MouseClick, Left
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Alt + ` (Tilde)
 ;  ACTION:  Keyboard-Command for a Mouse-Right-Click
-;
+
 !`::
 	MouseClick, Right
 	Return
-;
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Ctrl/Shift/Alt + WinKey + Right/Left (Arrow)
+;  ACTION:  Turn screen brightness up (right) or down (left)
+
+
++#Left::
+!#Left::
+^#Left::
+	BS := new BrightnessSetter()
+	BS.SetBrightness(-2)
+	return
+
++#Right::
+!#Right::
+^#Right::
+	BS := new BrightnessSetter()
+	BS.SetBrightness(+2)
+	return
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + Mouse-Wheel Up/Down
 ;  ACTION:  Turn computer volume up/down
-;
+
 +#Up::
 !#Up::
 ^#Up::

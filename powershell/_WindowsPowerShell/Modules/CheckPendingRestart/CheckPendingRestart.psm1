@@ -71,7 +71,8 @@ Function CheckPendingRestart() {
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
 	} Else {
 		<# Reboot NOT required#>
-		Write-Host -NoNewLine "Info:  Restart not required (no pending-reboot flags found)" -ForegroundColor "Cyan" -BackgroundColor "Black";
+		Write-Host -NoNewLine "Info:  Restart not required" -NoNewline -ForegroundColor "Cyan" -BackgroundColor "Black";
+		Write-Host -NoNewLine "  (no pending-reboot flags found)" -ForegroundColor "Gray" -BackgroundColor "Black";
 	}
 
 	Return;

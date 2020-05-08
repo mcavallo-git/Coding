@@ -22,10 +22,22 @@ vi "/vmfs/volumes'datastore1/VMDIR/VMNAME.vmx";
 svga.vramSize = "2073600"
 svga.present = "TRUE"
 svga.guestBackedPrimaryAware = "TRUE"
+
+
+# ------------------------------------------------------------
+#
+# VMware ESXi VMs --> Disable VM Display-Resizing
+#  > Step 1: Shut down the VM
+#   > Step 2: SSH into the ESXi host & locate target VM's ".vmx" configuration file
+#    > Step 3: Add the following configuration lines to the end of aforementioned ".vmx" configuration file
+#     > Step 4: Power VM on and test
+#
+
 guestInfo.svga.wddm.modeset = "FALSE"
 guestInfo.svga.wddm.modesetCCD = "FALSE"
 guestInfo.svga.wddm.modesetLegacySingle = "FALSE"
 guestInfo.svga.wddm.modesetLegacyMulti = "FALSE"
+
 
 
 # ------------------------------------------------------------

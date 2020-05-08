@@ -63,7 +63,7 @@ Function CheckPendingRestart() {
 
 	If ($RebootRequired -Eq $True) {
 		<# Reboot the machine (only after user presses 'y') #>
-		Write-Host -NoNewLine "`n`nInfo:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
+		Write-Host -NoNewLine "Info:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		While ($KeyPress.Character -NE "y") {
 			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
@@ -71,7 +71,7 @@ Function CheckPendingRestart() {
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
 	} Else {
 		<# Reboot NOT required#>
-		Write-Host -NoNewLine "`n`nInfo:  Restart not required (no pending-reboot flags found)" -ForegroundColor "Cyan" -BackgroundColor "Black";
+		Write-Host -NoNewLine "Info:  Restart not required (no pending-reboot flags found)" -ForegroundColor "Cyan" -BackgroundColor "Black";
 	}
 
 	Return;

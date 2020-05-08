@@ -13,9 +13,9 @@ Function CheckPendingRestart() {
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
-
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); CheckPendingRestart; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; CheckPendingRestart;
-
+		<# Check if a reboot is required #>
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		CheckPendingRestart;
 
 	}
 	# ------------------------------------------------------------
@@ -63,7 +63,7 @@ Function CheckPendingRestart() {
 
 	If ($RebootRequired -Eq $True) {
 		<# Reboot the machine (only after user presses 'y') #>
-		Write-Host -NoNewLine "System restart required - Press 'y' to confirm and reboot this machine, now..." -BackgroundColor "Black" -ForegroundColor "Yellow";
+		Write-Host -NoNewLine "`n`nInfo:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		While ($KeyPress.Character -NE "y") {
 			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
@@ -71,7 +71,7 @@ Function CheckPendingRestart() {
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
 	} Else {
 		<# Reboot NOT required#>
-		Write-Host -NoNewLine "No pending-reboot flags found" -BackgroundColor "Black" -ForegroundColor "Green";
+		Write-Host -NoNewLine "`n`nInfo:  Restart not required (no pending-reboot flags found)" -ForegroundColor "Cyan" -BackgroundColor "Black";
 	}
 
 	Return;

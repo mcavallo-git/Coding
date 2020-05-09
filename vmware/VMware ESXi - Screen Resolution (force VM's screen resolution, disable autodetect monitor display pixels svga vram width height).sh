@@ -1,30 +1,22 @@
 #!/bin/sh
 # ------------------------------------------------------------
 #
-# Backend command for selecting VM setting: "Video Card" > "Specify custom settings" > "Total video memory" >  [ 8 ] MB
+# Backend command for selecting VM setting: "Video Card" > "Specify custom settings" > "Total video memory" > [ 8 ] MB
+#  > Note: Increases total video memory allocated to a target VM (to allow for larger resolution outputs)
+#  > Note: The minimum [ svga.vramSize ] required for a target resolution can be quickly calculated by multiplying desired-width by desired-height, both in pixels (regarding display resolution)
+#             - e.g. If a 1920x1080 resolution is desired, one should set [ svga.vramSize=2073600 ] to a MINIMUM of 2073600 (which is in bytes), since 1920 * 1080 = 2073600
 #
-vi "/vmfs/volumes'datastore1/VMDIR/VMNAME.vmx";
-svga.autodetect = "FALSE"
-svga.minVRAMSize = "8388608"
-
-# Reload the VM's config (applies any changes made to the VM's ".vmx" config-file)
-ESXI_VM_NAME="VM_NAME"; ID_VM=$(vim-cmd vmsvc/getallvms | sed -e '1d' -e 's/ \[.*$//' | awk '$1 ~ /^[0-9]+$/ {print $1":"substr($0,8,80)}' | sed -rne "s/^([0-9]+):(${ESXI_VM_NAME}\s*)$/\1/p";); echo "ID_VM: ${ID_VM}"; vim-cmd vmsvc/reload ${ID_VM};
-
-
-
-# ------------------------------------------------------------
-#
-# Increase total video memory allocated to a target VM (to allow for larger resolution outputs)
 #  > Step 1: Shutdown the VM, then manually SSH into the ESXi server and edit said VM's ".vmx" config file
 #   > Step 2: Add the following lines to said ".vmx" config-file
-#    > Note: The [ svga.vramSize ] config-value can be quickly calculated by multiplying desired-max-width by desired-max-height you wish to grant to target VM (regarding display resolution)
-#             - e.g. If a 1920x1080 resolution is desired to be the maximum resolution allocated for a given VM, then one would set [ svga.vramSize=2073600 ] in the target VM's ".vmx" config-file, since 1920 * 1080 = 2073600
 #
+
+# Open the VM's ".vmx" config-file for editing
 vi "/vmfs/volumes'datastore1/VMDIR/VMNAME.vmx";
-# ... (Add the following lines to the bottom of the ".vmx" file)
-svga.vramSize = "2073600"
+
+# Modify (or add, if not found) the following config-name = config-value pairs to the VM's ".vmx" config-file
+svga.vramSize = "8388608"
+svga.autodetect = "FALSE"
 svga.present = "TRUE"
-svga.guestBackedPrimaryAware = "TRUE"
 
 # Reload the VM's config (applies any changes made to the VM's ".vmx" config-file)
 ESXI_VM_NAME="VM_NAME"; ID_VM=$(vim-cmd vmsvc/getallvms | sed -e '1d' -e 's/ \[.*$//' | awk '$1 ~ /^[0-9]+$/ {print $1":"substr($0,8,80)}' | sed -rne "s/^([0-9]+):(${ESXI_VM_NAME}\s*)$/\1/p";); echo "ID_VM: ${ID_VM}"; vim-cmd vmsvc/reload ${ID_VM};

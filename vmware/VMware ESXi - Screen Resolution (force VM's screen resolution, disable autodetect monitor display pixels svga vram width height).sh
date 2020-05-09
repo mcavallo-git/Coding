@@ -1,14 +1,13 @@
 #!/bin/sh
 # ------------------------------------------------------------
 #
-# Force a resolution onto a VM which is powered-on and has VMware Tools currently running
+# Backend command for selecting VM setting: "Video Card" > "Specify custom settings" > "Total video memory" >  [ 8 ] MB
 #
+vi "/vmfs/volumes'datastore1/VMDIR/VMNAME.vmx";
+svga.autodetect = "FALSE"
+svga.minVRAMSize = "8388608"
+# vmotion.checkpointSVGAPrimarySize = "8388608"
 
-ESXI_VM_NAME="YOUR_VM_NAME_HERE";
-SCREEN_WIDTH="1366";
-SCREEN_HEIGHT="768";
-ID_VM=$(vim-cmd vmsvc/getallvms | sed -e '1d' -e 's/ \[.*$//' | awk '$1 ~ /^[0-9]+$/ {print $1":"substr($0,8,80)}' | sed -rne "s/^([0-9]+):(${ESXI_VM_NAME}\s*)$/\1/p";); echo "ID_VM: ${ID_VM}";
-vim-cmd vmsvc/setscreenres ${ID_VM} ${SCREEN_WIDTH} ${SCREEN_HEIGHT};
 
 
 # ------------------------------------------------------------
@@ -24,6 +23,7 @@ svga.present = "TRUE"
 svga.guestBackedPrimaryAware = "TRUE"
 
 
+
 # ------------------------------------------------------------
 #
 # VMware ESXi VMs --> Disable VM Display-Resizing
@@ -32,11 +32,23 @@ svga.guestBackedPrimaryAware = "TRUE"
 #    > Step 3: Add the following configuration lines to the end of aforementioned ".vmx" configuration file
 #     > Step 4: Power VM on and test
 #
-
+vi "/vmfs/volumes'datastore1/VMDIR/VMNAME.vmx";
 guestInfo.svga.wddm.modeset = "FALSE"
 guestInfo.svga.wddm.modesetCCD = "FALSE"
 guestInfo.svga.wddm.modesetLegacySingle = "FALSE"
 guestInfo.svga.wddm.modesetLegacyMulti = "FALSE"
+
+
+
+# ------------------------------------------------------------
+#
+# Force a resolution onto a VM which is powered-on and has VMware Tools currently running
+#
+ESXI_VM_NAME="YOUR_VM_NAME_HERE";
+SCREEN_WIDTH="1366";
+SCREEN_HEIGHT="768";
+ID_VM=$(vim-cmd vmsvc/getallvms | sed -e '1d' -e 's/ \[.*$//' | awk '$1 ~ /^[0-9]+$/ {print $1":"substr($0,8,80)}' | sed -rne "s/^([0-9]+):(${ESXI_VM_NAME}\s*)$/\1/p";); echo "ID_VM: ${ID_VM}";
+vim-cmd vmsvc/setscreenres ${ID_VM} ${SCREEN_WIDTH} ${SCREEN_HEIGHT};
 
 
 

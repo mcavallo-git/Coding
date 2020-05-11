@@ -820,6 +820,17 @@ LShift & RShift::
 
 
 ; ------------------------------------------------------------
+;  HOTKEY:  WinKey + 8
+;  ACTION:  Wait a random duration of time (example)
+#8::
+	Random, RandomTime, 15000, 20000
+	TrayTip, AHK, % ( "Sleeping for [ " RandomTime " ] ms" )  ; Toast Notification
+	Sleep %RandomTime%
+	TrayTip, AHK, % ( "Sleep for [ " RandomTime " ] ms has finished" )  ; Toast Notification
+	Return
+
+
+; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + 9
 ;  ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
 #9::

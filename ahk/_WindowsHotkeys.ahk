@@ -823,10 +823,10 @@ LShift & RShift::
 ;  HOTKEY:  WinKey + 8
 ;  ACTION:  Wait a random duration of time (example)
 #8::
-	Random, RandomTime, 15000, 20000
-	TrayTip, AHK, % ( "Sleeping for [ " RandomTime " ] ms" )  ; Toast Notification
-	Sleep %RandomTime%
-	TrayTip, AHK, % ( "Sleep for [ " RandomTime " ] ms has finished" )  ; Toast Notification
+	Random, RandomSleep_15s_to_20s, 15000, 20000
+	TrayTip, AHK, % ( "Sleeping for [ " RandomSleep_15s_to_20s " ] ms" )  ; Toast Notification
+	Sleep %RandomSleep_15s_to_20s%
+	TrayTip, AHK, % ( "Sleep for [ " RandomSleep_15s_to_20s " ] ms has finished" )  ; Toast Notification
 	Return
 
 

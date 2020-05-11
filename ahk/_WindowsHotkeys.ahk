@@ -12,6 +12,20 @@
 ;
 ; Runtime-Global Settings
 
+#Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
+
+#HotkeyInterval 2000  ; https://www.autohotkey.com/docs/commands/_HotkeyInterval.htm
+
+#MaxHotkeysPerInterval 2000  ; https://www.autohotkey.com/docs/commands/_MaxHotkeysPerInterval.htm
+
+#SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
+
+; #EscapeChar \  ; https://www.autohotkey.com/docs/commands/_EscapeChar.htm
+
+; #InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
+
+; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
+
 SetBatchLines, -1  ; https://www.autohotkey.com/docs/commands/SetBatchLines.htm
 
 SetWorkingDir, %A_ScriptDir%  ; https://www.autohotkey.com/docs/commands/SetWorkingDir.htm
@@ -23,20 +37,6 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 ; FileEncoding, UTF-8  ; https://www.autohotkey.com/docs/commands/FileEncoding.htm
 
 ; #ErrorStdOut  ; https://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
-
-#HotkeyInterval 2000  ; https://www.autohotkey.com/docs/commands/_HotkeyInterval.htm
-
-#MaxHotkeysPerInterval 2000  ; https://www.autohotkey.com/docs/commands/_MaxHotkeysPerInterval.htm
-
-#Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
-
-#SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
-
-; #EscapeChar \  ; https://www.autohotkey.com/docs/commands/_EscapeChar.htm
-
-; #InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
-
-; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
 
 
 ; ------------------------------------------------------------

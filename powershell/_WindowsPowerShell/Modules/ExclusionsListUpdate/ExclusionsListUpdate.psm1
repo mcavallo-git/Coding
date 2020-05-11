@@ -520,9 +520,10 @@ function ExclusionsListUpdate {
 				};
 			};
 			$LiveWD = (Get-MpPreference);
-			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Output "None"; } Else { $LiveWD.ExclusionExtension; }
-			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Output "None"; } Else { $LiveWD.ExclusionPath; }
-			Write-Output "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Output "None"; } Else { $LiveWD.ExclusionProcess; }
+			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Output "0"; } Else { $LiveWD.ExclusionExtension.Count; }
+			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Output "0"; } Else { $LiveWD.ExclusionPath.Count; }
+			Write-Output "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Output "0"; } Else { $LiveWD.ExclusionProcess.Count; }
+			Write-Output "`nWindows Defender (Removed Exclusions) - Processes:"; If ($LiveWD.ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { $LiveWD.ProcessExclusions_Removed.Count; }
 		}
 		#
 		# ------------------------------------------------------------

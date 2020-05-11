@@ -510,6 +510,22 @@ function ExclusionsListUpdate {
 					}
 				}
 			}
+			# Cleanup exclusions for programs which do not exist locally
+			$ProcessExclusions_All = ((Get-MpPreference).ExclusionProcess);
+			$ProcessExclusions_Removed = @();
+			$ProcessExclusions_All | ForEach-Object {
+				If ((Test-Path -LiteralPath ("$_")) -NE $True) {
+					$ProcessExclusions_Removed += ("$_");
+					Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
+				};
+			};
+			Write-Output "`n`n";
+			Write-Output "`$ProcessExclusions_All.Count: $($ProcessExclusions_All.Count) `n";
+			Write-Output "`$ProcessExclusions_Invalid.Count: $($ProcessExclusions_Invalid.Count) `n";
+			Write-Output "`n`n";
+			}
+
+
 			$LiveWD = (Get-MpPreference);
 			Write-Host "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionPath; }
 			Write-Host "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionProcess; }

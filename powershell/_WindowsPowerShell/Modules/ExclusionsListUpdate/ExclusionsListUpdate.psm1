@@ -523,7 +523,7 @@ function ExclusionsListUpdate {
 			Write-Host "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionPath; }
 			Write-Host "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionProcess; }
 			If (($ProcessExclusions_Removed.Count) -Gt 0) {
-				Write-Host "`nWindows Defender (Removed Exclusions) - Processes which don't exist:"; $ProcessExclusions_Removed;
+				Write-Host "`nWindows Defender (Removed Exclusions) - Processes which don't exist locally (anymore):"; $ProcessExclusions_Removed;
 			}
 		}
 		#

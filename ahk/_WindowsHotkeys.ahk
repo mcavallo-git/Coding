@@ -820,9 +820,19 @@ LShift & RShift::
 
 
 ; ------------------------------------------------------------
+;  HOTKEY:  WinKey + 9
+;  ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
+#9::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	Send {PrintScreen}
+	Return
+
+
+; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + 0
 ;  ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
 #0::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	WinMove,A,, 0, 0
 	Return
 
@@ -1017,7 +1027,7 @@ AwaitModifierKeyup() {
 	KeyWait RCtrl   ; Wait for [ Right-Control ] to be released
 	KeyWait RShift  ; Wait for [ Right-Shift ] to be released
 	KeyWait RWin    ; Wait for [ Right-Win ] to be released
-	Sleep 100
+	Sleep 10
 }
 
 

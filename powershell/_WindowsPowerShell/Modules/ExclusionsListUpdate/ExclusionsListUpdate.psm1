@@ -51,16 +51,16 @@ function ExclusionsListUpdate {
 
 	$IncludeEntertainment = If ($PSBoundParameters.ContainsKey('Entertainment')) { $True } Else { $False };
 
-	Write-Host "";
-	Write-Host "  Exclusions List Update  " -BackgroundColor ("Black") -ForegroundColor ("Green");
-	Write-Host "";
-	Write-Host "  Antivirus Software:  " -BackgroundColor ("Black") -ForegroundColor ("Green");
-	If ($ESET -eq $True) { Write-Host "    ESET    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
-	If ($MalwarebytesAntiMalware -eq $True) { Write-Host "    MalwarebytesAntiMalware    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
-	If ($MalwarebytesAntiRansomware -eq $True) { Write-Host "    MalwarebytesAntiRansomware    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
-	If ($MalwarebytesAntiExploit -eq $True) { Write-Host "    MalwarebytesAntiExploit    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
-	If ($WindowsDefender -eq $True) { Write-Host "    WindowsDefender    " -BackgroundColor ("Black") -ForegroundColor ("Green"); }
-	Write-Host "";
+	Write-Output "";
+	Write-Output "  Exclusions List Update  ";
+	Write-Output "";
+	Write-Output "  Antivirus Software:  ";
+	If ($ESET -eq $True) { Write-Output "    ESET    "; }
+	If ($MalwarebytesAntiMalware -eq $True) { Write-Output "    MalwarebytesAntiMalware    "; }
+	If ($MalwarebytesAntiRansomware -eq $True) { Write-Output "    MalwarebytesAntiRansomware    "; }
+	If ($MalwarebytesAntiExploit -eq $True) { Write-Output "    MalwarebytesAntiExploit    "; }
+	If ($WindowsDefender -eq $True) { Write-Output "    WindowsDefender    "; }
+	Write-Output "";
 	
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
@@ -367,7 +367,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $Null) {
 				If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
 				} Else {
 					If (Test-Path $_) {
 						$FoundFilepaths += $_;
@@ -375,12 +375,12 @@ function ExclusionsListUpdate {
 					If ($WindowsDefender -eq $True) {
 						Add-MpPreference -ExclusionPath "$_" -ErrorAction "SilentlyContinue";
 						If ($? -eq $True) {
-							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
+							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 						} Else {
 							If (Test-Path $_) {
-								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
 							} Else {
-								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
 							}
 						}
 					}
@@ -393,9 +393,9 @@ function ExclusionsListUpdate {
 				If ($WindowsDefender -eq $True) {
 					Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
 					If ($? -eq $True) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
 					}
 				}
 			}
@@ -404,7 +404,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses | ForEach-Object {
 			If ($_ -ne $Null) {
 				If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping Exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
 				} Else {
 					$Each_Dirname = $_.Dirname;
 					If ($_.AddDir -ne "") {
@@ -414,7 +414,7 @@ function ExclusionsListUpdate {
 					$Each_Parent = If (($_.Parent -ne $Null) -And ($_.Parent -ne ""))  { $_.Parent } Else { "" };
 					$Each_Depth = If (($_.Depth -ne $Null) -And ($_.Depth -ne ""))  { [Int]$_.Depth } Else { "" };
 					If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
-						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
 						If ($Each_Parent -eq "") {
 							If ($Each_Depth -eq "") {
 								# Matching on [ top level directory ] & [ basename ]
@@ -443,10 +443,10 @@ function ExclusionsListUpdate {
 		#
 		#
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Host "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Host "None"; } Else { $FoundFilepaths; }
-			Write-Host "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Host "None"; } Else { $FoundProcesses; }
-			Write-Host "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Host "None"; } Else { $FoundExtensions; }
-			Write-Host "`n";
+			Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
+			Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
+			Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
+			Write-Output "`n";
 		}
 		#
 		#
@@ -474,15 +474,15 @@ function ExclusionsListUpdate {
 			If ($MalwarebytesAssistant -eq $Null) {
 				
 				# Cannot find Exclusions tool/utility
-				Write-Host "";
-				Write-Host (("  Error: Unable to find Exclusions utility `"")+($MBAR_FindBasename)+("`" in directory `"")+($MBAR_SearchDirname)+("`"  ")) -BackgroundColor ("Black") -ForegroundColor ("Red");
-				Write-Host "";
+				Write-Output "";
+				Write-Output (("  Error: Unable to find Exclusions utility `"")+($MBAR_FindBasename)+("`" in directory `"")+($MBAR_SearchDirname)+("`"  "));
+				Write-Output "";
 
 			} Else {
 				
-				Write-Host "";
-				Write-Host ("MalwarebytesAssistant: "+($MalwarebytesAssistant));
-				Write-Host "";
+				Write-Output "";
+				Write-Output ("MalwarebytesAssistant: "+($MalwarebytesAssistant));
+				Write-Output "";
 
 				# Found Exclusions tool/utility - add any/all exclusions
 				# $FoundProcesses | Select-Object -Unique | ForEach-Object {
@@ -498,15 +498,15 @@ function ExclusionsListUpdate {
 		#
 		If ($WindowsDefender -eq $True) {
 			$FoundProcesses | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Host "Adding Defender Process-Exclusion: `"$_`"..."; }
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender Process-Exclusion: `"$_`"..."; }
 				Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue";
 				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 				} Else {
 					If (Test-Path $_) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Host (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
 					}
 				}
 			}
@@ -516,22 +516,20 @@ function ExclusionsListUpdate {
 				If ((Test-Path -LiteralPath ("$_")) -NE $True) {
 					$ProcessExclusions_Removed += ("$_");
 					Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
+					Write-Output "Removing Defender Process-Exclusion: `"$_`"...";
 				};
 			};
 			$LiveWD = (Get-MpPreference);
-			Write-Host "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionExtension; }
-			Write-Host "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionPath; }
-			Write-Host "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Host "None"; } Else { $LiveWD.ExclusionProcess; }
-			If (($ProcessExclusions_Removed.Count) -Gt 0) {
-				Write-Host "`nWindows Defender (Removed Exclusions) - Processes which don't exist locally (anymore):"; $ProcessExclusions_Removed;
-			}
+			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Output "None"; } Else { $LiveWD.ExclusionExtension; }
+			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Output "None"; } Else { $LiveWD.ExclusionPath; }
+			Write-Output "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Output "None"; } Else { $LiveWD.ExclusionProcess; }
 		}
 		#
 		# ------------------------------------------------------------
 		#
 		$WaitCloseSeconds = 60;
-		Write-Host "`nClosing after ${WaitCloseSeconds}s...";
-		Write-Host "`n";
+		Write-Output "`nClosing after ${WaitCloseSeconds}s...";
+		Write-Output "`n";
 		Start-Sleep -Seconds ${WaitCloseSeconds};
 	}
 }
@@ -561,11 +559,11 @@ function ESET_ExportModifier {
 	)
 
 	If ((Test-Path -Path ("$ESET_ExportToCopyFrom")) -eq $False) {
-		Write-Host "";
-		Write-Host "  Error in function `"ESET_ExportModifier`"  " -BackgroundColor ("Black") -ForegroundColor ("Yellow");
-		Write-Host "";
-		Write-Host "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `n`n    $ESET_ExportToCopyFrom    `n`n" -BackgroundColor ("Black") -ForegroundColor ("Yellow");
-		Write-Host "";
+		Write-Output "";
+		Write-Output "  Error in function `"ESET_ExportModifier`"  ";
+		Write-Output "";
+		Write-Output "    Please go to ESET > 'Setup' > 'Import/Export Settings' > 'Export settings' to path: `n`n    $ESET_ExportToCopyFrom    `n`n";
+		Write-Output "";
 		Return 1;
 	} Else {
 		$Dirname_NewImport = ((${Env:USERPROFILE})+("\Desktop\eset-import"));

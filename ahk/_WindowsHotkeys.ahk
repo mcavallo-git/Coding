@@ -804,8 +804,8 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Left-Shift + Right-Shift  (Both Shifts/Shift-Keys)
-;  ACTION:  Maximize Current Window
+;  HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
+;  ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
 ;
 ; VKA0 & VKA1::     ;VKA1 = RShift
 ; VKA1 & VKA0::     ;VKA0 = LShift
@@ -817,10 +817,18 @@ RShift & LShift::
 LShift & RShift::
 	ActiveWindow_ToggleRestoreMaximize()
 	Return
-;
+
+
 ; ------------------------------------------------------------
+;  HOTKEY:  WinKey + 0
+;  ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
+#0::
+	WinMove,A,, 0, 0
+	Return
+
+
 ; ------------------------------------------------------------
-;  Win+J - [DevOps] - Startup Node.JS (Git-Bash) && Postman
+;  Win+J - Start Node.JS (Git-Bash) && Postman
 ;
 ; #J::
 ; 	; - -

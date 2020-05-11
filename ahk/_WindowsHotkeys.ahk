@@ -1427,58 +1427,52 @@ Nanoseconds() {
 
 
 ;
+;	Open_Exe
+;   |--> Opens target exeutable & sets its window to be active
+;
+Open_Exe(ExeFullpath) {
+	Global VERBOSE_OUTPUT
+	Timeout := 10
+	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+	If (ProcessExist(ExeBasename) == True) {
+		; Executable IS running
+		If (VERBOSE_OUTPUT = True) {
+			TextToolTip := "Activating """ ExeBasename """"
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
+		}
+		ExePID := GetPID(ExeBasename)
+		WinActivate, ahk_pid %ExePID%
+	} Else If (FileExist(ExeFullpath)) {
+		; Executable NOT running but IS found locally
+		If (VERBOSE_OUTPUT = True) {
+			TextToolTip := "Opening """ ExeBasename """"
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
+		}
+		; Run, %ExeFullpath%
+		Run %ExeFullpath%,,, ExePID
+		Process, Wait, %ExeBasename%, %Timeout%
+		; ExePID := GetPID(ExeBasename)
+		WinActivate, ahk_pid %ExePID%
+	} Else {
+		; Executable NOT running & NOT found locally
+		If (VERBOSE_OUTPUT = True) {
+			TextToolTip := "File not found: """ ExeFullpath """"
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
+		}
+	}
+	Return
+}
+
+;
 ;	OpenChrome
 ;   |--> Opens the "Google Chrome" Application
 ;
 OpenChrome() {
-	Global VERBOSE_OUTPUT
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	EXE_NICKNAME := "Google Chrome"
 	ExeFullpath := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
-	If (ProcessExist(ExeBasename) == True) {
-		; Executable IS running - Activate the associated Window based on PID
-		If (VERBOSE_OUTPUT = True) {
-			Text_TrayTip := "Activating """ EXE_NICKNAME """"
-			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		; Set Chrome as the Active Window
-		ExePID := GetPID(ExeBasename)
-		WinActivate, ahk_pid %ExePID%
-	} Else If (FileExist(ExeFullpath)) {
-		; Executable is NOT running but IS found locally
-		If (VERBOSE_OUTPUT = True) {
-			Text_TrayTip := "Opening """ EXE_NICKNAME """"
-			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		; Open Chrome
-		; RunAs, %A_UserName%
-		Run, %ExeFullpath%
-		WinWait,Chrome,,10
-		; Set Chrome as the Active Window
-		ExePID := GetPID(ExeBasename)
-		WinActivate, ahk_pid %ExePID%
-	} Else {
-		; Executable is NOT running and NOT found locally
-		If (VERBOSE_OUTPUT = True) {
-			Text_TrayTip=Application not Found "%ExeFullpath%"
-			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-	}
-	; =====
-	; Processname=processname.exe
-	; Process, Exist, %Processname%
-	; If !ErrorLevel
-	; {
-	; 	MsgBox, % "Process " Processname " does not exist"
-	; 	return
-	; }
-	; pid := ErrorLevel
-	; IfWinNotActive, % "ahk_pid " pid
-	; {
-	; WinActivate, % "ahk_pid " pid
-	; }
-	; =====
+	Open_Exe(ExeFullpath)
 	Return
 }
 
@@ -1532,10 +1526,14 @@ OpenPasswordGenerator() {
 ;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
 ;
 OpenVisualStudioCode() {
-	VSCode_Executable := "C:\Program Files\Microsoft VS Code\Code.exe"
-	VSCode_UserDataDir := "--user-data-dir=""" A_AppData "\Code"""
-	VSCode_Workspace := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
-	Run, %VSCode_Executable% %VSCode_UserDataDir% %VSCode_Workspace%
+	ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
+	ExeArg1 := "--user-data-dir=""" A_AppData "\Code"""
+	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
+	ExeArguments := ExeArg1 " " ExeArg2
+	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+	Run, %ExeFullpath% %ExeArguments%
+	ExePID := GetPID(ExeBasename)
+	WinActivate, ahk_pid %ExePID%
 	Return
 }
 

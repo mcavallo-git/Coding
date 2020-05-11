@@ -523,7 +523,7 @@ AppsKey::RWin
 	Return
 ; 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + O
+;  HOTKEY:  Windows-Key + O (not zero, the letter O)
 ;  ACTION:  Opens "Programs & Features" in the Control Panel
 
 #O::

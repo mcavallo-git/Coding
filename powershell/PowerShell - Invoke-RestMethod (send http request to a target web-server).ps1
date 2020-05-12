@@ -4,12 +4,6 @@
 
 $HttpRequest = @{};
 
-$HttpRequest.HttpHeaders = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
-# $HttpRequest.HttpHeaders.Add("X-DATE", 'mm/dd/yyyy')
-# $HttpRequest.HttpHeaders.Add("X-SIGNATURE", 'some_token')
-# $HttpRequest.HttpHeaders.Add("X-API-KEY", 'some_user')
-# $HttpRequest.HttpHeaders.Add("USER_AGENT", 'some_user')
-
 #
 # "Public IP address prefix"
 # https://docs.microsoft.com/en-us/azure/virtual-network/public-ip-address-prefix
@@ -34,6 +28,13 @@ $HttpRequest.Url = (
 );
 
 Write-Host $HttpRequest.Url;
+
+
+$HttpRequest.HttpHeaders = (New-Object "System.Collections.Generic.Dictionary[[String],[String]]");
+# $HttpRequest.HttpHeaders.Add("X-DATE", 'mm/dd/yyyy');
+# $HttpRequest.HttpHeaders.Add("X-SIGNATURE", 'some_token');
+# $HttpRequest.HttpHeaders.Add("X-API-KEY", 'some_user');
+# $HttpRequest.HttpHeaders.Add("USER_AGENT", 'some_user');
 
 $HttpRequest.Response = (`
 	Invoke-RestMethod `

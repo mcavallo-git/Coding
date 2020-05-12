@@ -1,46 +1,38 @@
+# ------------------------------------------------------------
 #
-# Organize Azure's Public CIDR list by-region
+# PowerShell - HTTP GET/POST Requests
 #
+# ------------------------------------------------------------
 
 $HttpRequest = @{};
 
 #
-# "Public IP address prefix"
-# https://docs.microsoft.com/en-us/azure/virtual-network/public-ip-address-prefix
-#			-match 'href="https://www.microsoft.com/download/details.aspx?id=56519"'
-#			-match 'href="confirmation.aspx?id=56519"'
-#				--> output_azure_ipv4.json
+# Request URL
 #
-#	https://www.microsoft.com/en-us/download/details.aspx?id=41653
-#		-match 'href="confirmation.aspx?id=41653"'    ( Full-URL: https://www.microsoft.com/en-us/download/confirmation.aspx?id=41653 )
-#				--> output_azure_ipv4.json
+$HttpRequest.Url = "https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_$(Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat '%Y%m%d').json";  # Microsoft Azure Datacenter IP Ranges
+
 #
-
-$LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y%m%d");
-
-$HttpRequest.Example_Urls = @(
-	"https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20190415.json",
-	"https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20200511.json"
-);
-
-$HttpRequest.Url = (
-	("https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_")+($LastMondaysDate)+(".json")
-);
-
-Write-Host $HttpRequest.Url;
-
-
+# Request Headers
+#
 $HttpRequest.HttpHeaders = (New-Object "System.Collections.Generic.Dictionary[[String],[String]]");
 # $HttpRequest.HttpHeaders.Add("X-DATE", 'mm/dd/yyyy');
 # $HttpRequest.HttpHeaders.Add("X-SIGNATURE", 'some_token');
 # $HttpRequest.HttpHeaders.Add("X-API-KEY", 'some_user');
 # $HttpRequest.HttpHeaders.Add("USER_AGENT", 'some_user');
 
+
+#
+# Call the HTTP Request
+#
 $HttpRequest.Response = (`
 	Invoke-RestMethod `
 		-Uri ($HttpRequest.Url) `
 		-Headers ($HttpRequest.HttpHeaders) `
 );
+
+
+# ------------------------------------------------------------
+
 
 $Region_MatchAnyOf = @();
 # $Region_MatchAnyOf += "_"; # Items with a blank 'region'
@@ -204,3 +196,17 @@ ForEach ($EachRegion In (($RegionCIDR).GetEnumerator())) {
 Start "${OutputDir}";
 
 # $CurrentDirname = (Get-Item -Path ".\").FullName;
+
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.microsoft.com  |  "Azure Public IP address prefix | Microsoft Docs"  |  https://docs.microsoft.com/en-us/azure/virtual-network/public-ip-address-prefix
+#
+#   docs.microsoft.com  |  "Download [Deprecating] Microsoft Azure Datacenter IP Ranges from Official Microsoft Download Center"  |  https://www.microsoft.com/en-us/download/details.aspx?id=41653
+#
+#   docs.microsoft.com  |  "Microsoft Azure Datacenter IP Ranges (2020-05-11)"  |  https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20200511.json
+#
+# ------------------------------------------------------------

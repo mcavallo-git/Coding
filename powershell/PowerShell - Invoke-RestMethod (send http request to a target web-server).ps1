@@ -24,9 +24,10 @@ $HttpRequest.HttpHeaders = New-Object "System.Collections.Generic.Dictionary[[St
 
 $LastMondaysDate = (Get-Date (Get-Date 0:00).AddDays(-([int](Get-date).DayOfWeek)+1) -UFormat "%Y%m%d");
 
-# $HttpRequest.Url = (
-# 	"https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20190415.json"
-# );
+$HttpRequest.Urls = @(
+	"https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20190415.json",
+	"https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_20200511.json"
+);
 
 $HttpRequest.Url = (
 	("https://download.microsoft.com/download/7/1/D/71D86715-5596-4529-9B13-DA13A5DE5B63/ServiceTags_Public_")+($LastMondaysDate)+(".json")

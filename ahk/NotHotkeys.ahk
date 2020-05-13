@@ -27,7 +27,8 @@
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	ToolTip, "Running Crafting Loop"
+	Echo_Tooltip := "Running Crafting Hotkeys"
+	ToolTip, %Echo_Tooltip%
 	ClearTooltip(5000)
 
 	Loop 2 {
@@ -83,7 +84,10 @@ ClearTooltip(Period) {
 	SetTimer, %Label%, -%Period%
 	Return
 }
-ToolTip, "Script Reloaded"
+
+Echo_Tooltip := "Script Reloaded"
+ToolTip, %Echo_Tooltip%
 ClearTooltip(2000)
+
 
 ; ------------------------------------------------------------

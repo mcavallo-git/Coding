@@ -1687,7 +1687,7 @@ PasteClipboard_TextOrBinary() {
 }
 CustomMsgboxButtons_ClipboardTextOrBinary: 
 	IfWinNotExist, Text or Binary
-			return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+			Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
 	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off 
 	WinActivate 
 	ControlSetText, Button1, &Text

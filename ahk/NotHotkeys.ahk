@@ -42,7 +42,8 @@
 		; ------------------------------------------------------------
 		; Part 2-of-3 Level 83 Start Craft
 		;   |--> Hotkey:  Ctrl + Shift + 1
-		Send ^+{1}
+		Send {[}
+		; Send ^+{1}
 		Sleep 36000
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
@@ -51,7 +52,8 @@
 		; ------------------------------------------------------------
 		; Part 3-of-3 Level 83 Start Craft
 		;   |--> Hotkey:  Ctrl + Shift + 2
-		Send ^+{2}
+		Send {]}
+		; Send ^+{2}
 		Sleep 14000
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait

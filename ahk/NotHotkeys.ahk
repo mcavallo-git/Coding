@@ -95,9 +95,4 @@ RemoveToolTip() {
 }
 
 
-Echo_Tooltip := "Script Reloaded"
-ToolTip, %Echo_Tooltip%
-ClearTooltip(2000)
-
-
 ; ------------------------------------------------------------

@@ -1162,7 +1162,7 @@ GetPID(ProcName) {
 
 
 ;
-; Get_ahk_id_from_title
+; Get_ahk_id_from_pid
 ;   |--> Input: WinPID to Target
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;

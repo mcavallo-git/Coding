@@ -37,7 +37,8 @@
 
 		; ------------------------------------------------------------
 		; Part 2-of-3 Level 83 Start Craft
-		Send {LAlt up}{RAlt up}{LAlt down}{5}{LAlt up}
+		;   |--> Hotkey:  Ctrl + Shift + 1
+		Send ^+{1}
 		Sleep 36000
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
@@ -45,14 +46,14 @@
 
 		; ------------------------------------------------------------
 		; Part 3-of-3 Level 83 Start Craft
-		Send {LAlt up}{RAlt up}{LAlt down}{-}{LAlt up}
+		;   |--> Hotkey:  Ctrl + Shift + 2
+		Send ^+{2}
 		Sleep 14000
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
 		Sleep %RandomSleep%
 
-		Sleep 2000
-
+		Sleep 3000
 	}
 
 	Return

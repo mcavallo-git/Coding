@@ -64,12 +64,26 @@ VERBOSE_OUTPUT := True
 			Echo_Tooltip := "Crating 83* Gear (loop " A_Index "/"  MaxLoops ")"
 			ToolTip, %Echo_Tooltip%
 			ClearTooltip(15000)
+			Sleep 100
 			; ------------------------------------------------------------
-			; Part 1-of-3 - Synthesize
-			ControlSend,, \, ahk_pid %ExePID%
-			Sleep 2000  ; Wait for synthesize to finish
+			; Clear Windows
+			Loop 2 {
+				ControlSend,, {Escape}, ahk_pid %ExePID%
+				Random, RandomSleep, 250, 1000  ; Random wait
+				Sleep %RandomSleep%
+			}
+			Sleep 1000
+			; ------------------------------------------------------------
+			; Part 1-of-3 - Open Crafting Window & Select Synthesize
+			ControlSend,, N, ahk_pid %ExePID%
+			Sleep 2000
+			Loop 4 {
+				ControlSend,, =, ahk_pid %ExePID%
+				Random, RandomSleep, 500, 1000  ; Random wait
+				Sleep %RandomSleep%
+			}
 			Random, RandomSleep, 1000, 2000  ; Random wait
-			Sleep %RandomSleep%
+			Sleep 2000  ; Wait for synthesize to finish
 			; ------------------------------------------------------------
 			; Part 2-of-3 Level 83 Start Craft
 			;   |--> Hotkey:  [
@@ -89,9 +103,7 @@ VERBOSE_OUTPUT := True
 			Random, RandomSleep, 1000, 5000  ; Random wait
 			Sleep %RandomSleep%
 		}
-
 	}
-
 	Return
 
 

@@ -57,58 +57,52 @@ VERBOSE_OUTPUT := True
 		ToolTip, %Echo_Tooltip%
 		ClearTooltip(5000)
 		MaxLoops := 25
-		Loop %MaxLoops% {
-			; ------------------------------------------------------------
-			; General padding at the start of the loop and after each repeat
-			Sleep 3000
-			Echo_Tooltip := "Crating 83* Gear (loop " A_Index "/"  MaxLoops ")"
-			ToolTip, %Echo_Tooltip%
-			ClearTooltip(15000)
-			Sleep 100
-			; ------------------------------------------------------------
-			; Part 1-of-3 - Select Synthesize
-			;   Clear Windows
-			ControlSend,, N, ahk_pid %ExePID%
-			Random, RandomSleep, 1000, 2000  ; Random wait
-			Sleep %RandomSleep%
-			ControlSend,, =, ahk_pid %ExePID%
-			Random, RandomSleep, 500, 1000  ; Random wait
-			Sleep %RandomSleep%
-			;   Open Crafting Window
-			ControlSend,, {Escape}, ahk_pid %ExePID%
-			Random, RandomSleep, 1000, 2000  ; Random wait
-			Sleep %RandomSleep%
-			;   Clear Windows
-			ControlSend,, N, ahk_pid %ExePID%
-			Random, RandomSleep, 1000, 2000  ; Random wait
-			Sleep %RandomSleep%
-			;   Select Synthesize
+		MsgBox, 3, FFXIV AutoCraft, Is the 'Crafting Log' open with desired item selected?
+		IfMsgBox Yes
+		{
 			Sleep 2000
-			Loop 3 {
+			Loop 4 {
 				ControlSend,, =, ahk_pid %ExePID%
 				Random, RandomSleep, 500, 1000  ; Random wait
 				Sleep %RandomSleep%
 			}
-			Random, RandomSleep, 1000, 2000  ; Random wait
-			Sleep 2000  ; Wait for synthesize to finish
-			; ------------------------------------------------------------
-			; Part 2-of-3 Level 83 Start Craft
-			;   |--> Hotkey:  [
-			;
-			ControlSend,,[, ahk_pid %ExePID%
-			Sleep 36000
-			Sleep 2000  ; General padding to let craft complete
-			Random, RandomSleep, 1000, 5000  ; Random wait
-			Sleep %RandomSleep%
-			; ------------------------------------------------------------
-			; Part 3-of-3 Level 83 Start Craft
-			;   |--> Hotkey:  ]
-			;
-			ControlSend,,], ahk_pid %ExePID%
-			Sleep 14000
-			Sleep 2000  ; General padding to let craft complete
-			Random, RandomSleep, 1000, 5000  ; Random wait
-			Sleep %RandomSleep%
+			Loop %MaxLoops% {
+				; ------------------------------------------------------------
+				; General padding at the start of the loop and after each repeat
+				Sleep 3000
+				Echo_Tooltip := "Crating 83* Gear (loop " A_Index "/"  MaxLoops ")"
+				ToolTip, %Echo_Tooltip%
+				ClearTooltip(15000)
+				Sleep 100
+				; ------------------------------------------------------------
+				; Part 1-of-3 Level 83 Start Craft
+				;   |--> Hotkey:  [
+				;
+				ControlSend,,[, ahk_pid %ExePID%
+				Sleep 36000
+				Sleep 2000  ; General padding to let craft complete
+				Random, RandomSleep, 1000, 5000  ; Random wait
+				Sleep %RandomSleep%
+				; ------------------------------------------------------------
+				; Part 2-of-3 Level 83 Start Craft
+				;   |--> Hotkey:  ]
+				;
+				ControlSend,,], ahk_pid %ExePID%
+				Sleep 14000
+				Sleep 2000  ; General padding to let craft complete
+				Random, RandomSleep, 1000, 5000  ; Random wait
+				Sleep %RandomSleep%
+				; ------------------------------------------------------------
+				; Part 3-of-3 - Select Synthesize
+				Sleep 2000
+				Loop 2 {
+					ControlSend,, =, ahk_pid %ExePID%
+					Random, RandomSleep, 500, 1000  ; Random wait
+					Sleep %RandomSleep%
+				}
+				Random, RandomSleep, 1000, 2000  ; Random wait
+				Sleep 2000  ; Wait for synthesize to finish
+			}
 		}
 	}
 	Return

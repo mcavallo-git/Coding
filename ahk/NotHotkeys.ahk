@@ -36,7 +36,7 @@
 		Sleep 2000  ; Wait for synthesize to finish
 
 		; ------------------------------------------------------------
-		; Part 1-of-3 Level 83 Start Craft
+		; Part 2-of-3 Level 83 Start Craft
 		Send {LAlt up}{RAlt up}{LAlt down}{5}{LAlt up}
 		Sleep 36000
 		Sleep 2000  ; General padding to let craft complete
@@ -44,14 +44,14 @@
 		Sleep %RandomSleep%
 
 		; ------------------------------------------------------------
-		; Part 2-of-3 Level 83 Start Craft
+		; Part 3-of-3 Level 83 Start Craft
 		Send {LAlt up}{RAlt up}{LAlt down}{-}{LAlt up}
 		Sleep 14000
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
 		Sleep %RandomSleep%
 	}
-	
+
 	Return
 
 

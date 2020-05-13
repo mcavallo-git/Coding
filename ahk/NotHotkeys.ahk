@@ -27,6 +27,7 @@ SetKeyDelay, 0, -1
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	MouseMove, 999, 759
 	Echo_Tooltip := "Move 'Synthesize' button to here"
 	ToolTip, %Echo_Tooltip%
 	ClearTooltip(15000)

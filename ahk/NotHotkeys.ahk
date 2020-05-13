@@ -42,7 +42,6 @@ VERBOSE_OUTPUT := True
 ; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + -
 ;  ACTION:  Craft it up
-#2::
 #-::
 	Global VERBOSE_OUTPUT
 	SetKeyDelay, 0, -1
@@ -53,12 +52,9 @@ VERBOSE_OUTPUT := True
 	ExeBasename := "ffxiv_dx11.exe"
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
-		Exe_ahk_id := Get_ahk_id_from_pid(ExePID)
-
 		Echo_Tooltip := "Running Crafting Hotkeys"
 		ToolTip, %Echo_Tooltip%
 		ClearTooltip(5000)
-
 		WinTitle := "FINAL FANTASY XIV"
 		MaxLoops := 25
 		Loop %MaxLoops% {
@@ -70,11 +66,7 @@ VERBOSE_OUTPUT := True
 			ClearTooltip(15000)
 			; ------------------------------------------------------------
 			; Part 1-of-3 - Synthesize
-			; MouseClick, Left, 999, 759
-			; ControlClick, x999 y759, %WinTitle%  ; Clicks at a set of coordinates. Note the lack of a comma between X and Y.
-			; ControlSend,,{Shift}\, %WinTitle%  ; Send keypress directly to target window
-			ControlSend,, {Shift Down}{\}{Shift Up}, ahk_id %Exe_ahk_id%
-			; ControlSend,, {Shift Down}\{Shift Up}, ahk_pid %ExePID%
+			ControlSend,, \, ahk_pid %ExePID%
 			Sleep 2000  ; Wait for synthesize to finish
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep %RandomSleep%
@@ -107,7 +99,6 @@ VERBOSE_OUTPUT := True
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
-#1::
 #Escape::
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
@@ -145,32 +136,6 @@ ClearTooltip(Period) {
 	Label := "RemoveToolTip"
 	SetTimer, %Label%, -%Period%
 	Return
-}
-
-
-;
-; Get_ahk_id_from_pid
-;   |--> Input: WinPID to Target
-;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
-;
-Get_ahk_id_from_pid(WinPid) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
-}
-
-
-;
-; Get_ahk_id_from_title
-;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
-;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
-;
-Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
 }
 
 

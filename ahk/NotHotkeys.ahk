@@ -85,6 +85,16 @@ ClearTooltip(Period) {
 	Return
 }
 
+;
+; RemoveToolTip  (function)
+;   |--> Removes any Tooltips found
+;
+RemoveToolTip() {
+	ToolTip
+	Return
+}
+
+
 Echo_Tooltip := "Script Reloaded"
 ToolTip, %Echo_Tooltip%
 ClearTooltip(2000)

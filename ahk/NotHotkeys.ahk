@@ -50,6 +50,9 @@
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
 		Sleep %RandomSleep%
+
+		Sleep 2000
+
 	}
 
 	Return

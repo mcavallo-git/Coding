@@ -31,7 +31,7 @@
 	ToolTip, %Echo_Tooltip%
 	ClearTooltip(5000)
 
-	Loop 2 {
+	Loop 25 {
 		Sleep 3000
 
 		; ------------------------------------------------------------

@@ -27,8 +27,8 @@
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	ToolTip, "Script Reloaded"
-	ClearTooltip(2000)
+	ToolTip, "Running Crafting Loop"
+	ClearTooltip(5000)
 
 	Loop 2 {
 		Sleep 3000

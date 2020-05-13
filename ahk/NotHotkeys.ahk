@@ -71,6 +71,9 @@ VERBOSE_OUTPUT := True
 			ControlSend,, N, ahk_pid %ExePID%
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep %RandomSleep%
+			ControlSend,, =, ahk_pid %ExePID%
+			Random, RandomSleep, 500, 1000  ; Random wait
+			Sleep %RandomSleep%
 			;   Open Crafting Window
 			ControlSend,, {Escape}, ahk_pid %ExePID%
 			Random, RandomSleep, 1000, 2000  ; Random wait
@@ -81,7 +84,7 @@ VERBOSE_OUTPUT := True
 			Sleep %RandomSleep%
 			;   Select Synthesize
 			Sleep 2000
-			Loop 4 {
+			Loop 3 {
 				ControlSend,, =, ahk_pid %ExePID%
 				Random, RandomSleep, 500, 1000  ; Random wait
 				Sleep %RandomSleep%

@@ -95,7 +95,7 @@ VERBOSE_OUTPUT := True
 				; ------------------------------------------------------------
 				; Part 3-of-3 - Select Synthesize
 				Sleep 2000
-				Loop 2 {
+				Loop 3 {
 					ControlSend,, =, ahk_pid %ExePID%
 					Random, RandomSleep, 500, 1000  ; Random wait
 					Sleep %RandomSleep%

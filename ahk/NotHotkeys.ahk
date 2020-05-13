@@ -27,9 +27,12 @@
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	Sleep 2000
+	ToolTip, "Script Reloaded"
+	ClearTooltip(2000)
 
 	Loop 2 {
+		Sleep 3000
+
 		; ------------------------------------------------------------
 		; Part 1-of-3 - Synthesize
 		MouseClick, Left, 999, 759
@@ -52,8 +55,6 @@
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
 		Sleep %RandomSleep%
-
-		Sleep 3000
 	}
 
 	Return
@@ -70,5 +71,19 @@
 	IfMsgBox, Yes, Edit
 	Return
 
+
+; ------------------------------------------------------------
+;
+; ClearTooltip  (function)
+;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
+;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;
+ClearTooltip(Period) {
+	Label := "RemoveToolTip"
+	SetTimer, %Label%, -%Period%
+	Return
+}
+ToolTip, "Script Reloaded"
+ClearTooltip(2000)
 
 ; ------------------------------------------------------------

@@ -66,25 +66,17 @@ VERBOSE_OUTPUT := True
 			ClearTooltip(15000)
 			Sleep 100
 			; ------------------------------------------------------------
-			; Clear Windows
-			Loop 2 {
-				ControlSend,, {Escape}, ahk_pid %ExePID%
-				Random, RandomSleep, 1000, 2000  ; Random wait
-				Sleep %RandomSleep%
-			}
-			Sleep 1000
-			; ------------------------------------------------------------
 			; Part 1-of-3 - Select Synthesize
 			;   Clear Windows
-			ControlSend,, {Escape}, ahk_pid %ExePID%
-			Random, RandomSleep, 1000, 2000  ; Random wait
-			Sleep %RandomSleep%
-			;   Open Crafting Window
 			ControlSend,, N, ahk_pid %ExePID%
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep %RandomSleep%
-			;   Clear Windows
+			;   Open Crafting Window
 			ControlSend,, {Escape}, ahk_pid %ExePID%
+			Random, RandomSleep, 1000, 2000  ; Random wait
+			Sleep %RandomSleep%
+			;   Clear Windows
+			ControlSend,, N, ahk_pid %ExePID%
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep %RandomSleep%
 			;   Select Synthesize

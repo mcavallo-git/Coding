@@ -38,6 +38,8 @@
 		; Part 1-of-3 - Synthesize
 		MouseClick, Left, 999, 759
 		Sleep 2000  ; Wait for synthesize to finish
+		Random, RandomSleep, 1000, 2000  ; Random wait
+		Sleep %RandomSleep%
 
 		; ------------------------------------------------------------
 		; Part 2-of-3 Level 83 Start Craft

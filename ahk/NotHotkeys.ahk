@@ -49,13 +49,13 @@ VERBOSE_OUTPUT := True
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+	WinTitle := "FINAL FANTASY XIV"
 	ExeBasename := "ffxiv_dx11.exe"
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
 		Echo_Tooltip := "Running Crafting Hotkeys"
 		ToolTip, %Echo_Tooltip%
 		ClearTooltip(5000)
-		WinTitle := "FINAL FANTASY XIV"
 		MaxLoops := 25
 		Loop %MaxLoops% {
 			; ------------------------------------------------------------
@@ -69,13 +69,25 @@ VERBOSE_OUTPUT := True
 			; Clear Windows
 			Loop 2 {
 				ControlSend,, {Escape}, ahk_pid %ExePID%
-				Random, RandomSleep, 250, 1000  ; Random wait
+				Random, RandomSleep, 1000, 2000  ; Random wait
 				Sleep %RandomSleep%
 			}
 			Sleep 1000
 			; ------------------------------------------------------------
-			; Part 1-of-3 - Open Crafting Window & Select Synthesize
+			; Part 1-of-3 - Select Synthesize
+			;   Clear Windows
+			ControlSend,, {Escape}, ahk_pid %ExePID%
+			Random, RandomSleep, 1000, 2000  ; Random wait
+			Sleep %RandomSleep%
+			;   Open Crafting Window
 			ControlSend,, N, ahk_pid %ExePID%
+			Random, RandomSleep, 1000, 2000  ; Random wait
+			Sleep %RandomSleep%
+			;   Clear Windows
+			ControlSend,, {Escape}, ahk_pid %ExePID%
+			Random, RandomSleep, 1000, 2000  ; Random wait
+			Sleep %RandomSleep%
+			;   Select Synthesize
 			Sleep 2000
 			Loop 4 {
 				ControlSend,, =, ahk_pid %ExePID%
@@ -88,7 +100,7 @@ VERBOSE_OUTPUT := True
 			; Part 2-of-3 Level 83 Start Craft
 			;   |--> Hotkey:  [
 			;
-			ControlSend,,[, %WinTitle%  ; Send keypress directly to target window
+			ControlSend,,[, ahk_pid %ExePID%
 			Sleep 36000
 			Sleep 2000  ; General padding to let craft complete
 			Random, RandomSleep, 1000, 5000  ; Random wait
@@ -97,7 +109,7 @@ VERBOSE_OUTPUT := True
 			; Part 3-of-3 Level 83 Start Craft
 			;   |--> Hotkey:  ]
 			;
-			ControlSend,,], %WinTitle%  ; Send keypress directly to target window
+			ControlSend,,], ahk_pid %ExePID%
 			Sleep 14000
 			Sleep 2000  ; General padding to let craft complete
 			Random, RandomSleep, 1000, 5000  ; Random wait

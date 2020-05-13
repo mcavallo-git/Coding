@@ -18,28 +18,7 @@
 
 #SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
 
-; ------------------------------------------------------------
-;  HOTKEY:  WinKey + =
-;  ACTION:  Show synthesize location
-\::
-	SetKeyDelay, 0, -1
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
-	WinTitle := "FINAL FANTASY XIV"
-	ControlSend,,[, %WinTitle%
-	Sleep 1000
-	WinTitle := "cmd.exe"
-	ControlSend,,ipconfig{Enter}, %WinTitle%
-	Sleep 1000
-	Echo_Tooltip := "Test ControlCommand"
-	ToolTip, %Echo_Tooltip%
-	ClearTooltip(3000)
-	Return
-
+VERBOSE_OUTPUT := True
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + =
@@ -63,6 +42,7 @@
 ;  HOTKEY:  WinKey + -
 ;  ACTION:  Craft it up
 #-::
+	Global VERBOSE_OUTPUT
 	SetKeyDelay, 0, -1
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
@@ -74,10 +54,14 @@
 	ToolTip, %Echo_Tooltip%
 	ClearTooltip(5000)
 	WinTitle := "FINAL FANTASY XIV"
-	Loop 25 {
+	MaxLoops := 25
+	Loop %MaxLoops% {
 		; ------------------------------------------------------------
 		; General padding at the start of the loop and after each repeat
 		Sleep 3000
+		Echo_Tooltip := "Crating 83* Gear (loop " A_Index "/"  MaxLoops ")"
+		ToolTip, %Echo_Tooltip%
+		ClearTooltip(15000)
 		; ------------------------------------------------------------
 		; Part 1-of-3 - Synthesize
 		; MouseClick, Left, 999, 759
@@ -121,7 +105,6 @@
 
 
 ; ------------------------------------------------------------
-
 
 
 ;

@@ -21,7 +21,7 @@
 ; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + =
 ;  ACTION:  Show synthesize location
-#-::
+#=::
 SetKeyDelay, 0, -1
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0

@@ -19,6 +19,21 @@
 #SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
 
 ; ------------------------------------------------------------
+;  HOTKEY:  WinKey + =
+;  ACTION:  Show synthesize location
+#-::
+SetKeyDelay, 0, -1
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	Echo_Tooltip := "Move 'Synthesize' button to here"
+	ToolTip, %Echo_Tooltip%
+	ClearTooltip(15000)
+	Return
+
+
+; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + -
 ;  ACTION:  Craft it up
 #-::
@@ -30,31 +45,25 @@
 	Echo_Tooltip := "Running Crafting Hotkeys"
 	ToolTip, %Echo_Tooltip%
 	ClearTooltip(5000)
-
 	Loop 25 {
 		Sleep 3000
-
 		; ------------------------------------------------------------
 		; Part 1-of-3 - Synthesize
 		MouseClick, Left, 999, 759
 		Sleep 2000  ; Wait for synthesize to finish
 		Random, RandomSleep, 1000, 2000  ; Random wait
 		Sleep %RandomSleep%
-
 		; ------------------------------------------------------------
 		; Part 2-of-3 Level 83 Start Craft
 		;   |--> Hotkey:  Ctrl + Shift + 1
-		; Send ^+{1}
 		Send {[}
 		Sleep 36000
 		Sleep 2000  ; General padding to let craft complete
 		Random, RandomSleep, 1000, 5000  ; Random wait
 		Sleep %RandomSleep%
-
 		; ------------------------------------------------------------
 		; Part 3-of-3 Level 83 Start Craft
 		;   |--> Hotkey:  Ctrl + Shift + 2
-		; Send ^+{2}
 		Send {]}
 		Sleep 14000
 		Sleep 2000  ; General padding to let craft complete

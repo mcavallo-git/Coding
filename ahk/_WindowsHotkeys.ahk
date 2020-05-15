@@ -1647,12 +1647,12 @@ PasteClipboardAsText() {
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
-	If (VERBOSE_OUTPUT == True) {
-		TrayTip, AHK,
-		(LTrim
-			Pasting the Text version of the Clipboard
-		)  ; Toast Notification
-	}
+	; If (VERBOSE_OUTPUT == True) {
+	; 	TrayTip, AHK,
+	; 	(LTrim
+	; 		Pasting the Text version of the Clipboard
+	; 	)  ; Toast Notification
+	; }
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
 	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)

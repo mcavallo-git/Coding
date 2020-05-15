@@ -6,7 +6,7 @@
 #
 # Simple search
 #
-[System.IO.Directory]::EnumerateFiles("C:\","mongo.exe","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
+[System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
 
 
 # ------------------------------------------------------------

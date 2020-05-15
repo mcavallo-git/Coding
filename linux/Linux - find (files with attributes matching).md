@@ -92,6 +92,18 @@ find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/j
 <hr /></details></li><br />
 
 
+
+<li><details open><summary>
+		<span>Cleanup old Jenkins' build-artifacts</span>
+	</summary>
+<pre><code>
+filesize_GREATER_THAN="1048576c"; # > 1MB
+MAX_RETENTION_DAYS="1"; 
+find /var/lib/jenkins/jobs/ -type 'f' -mtime +${MAX_RETENTION_DAYS} -size "+${filesize_GREATER_THAN}" -iname "*.msi" -exec rm -rf '{}' \;
+</code></pre>
+<hr /></details></li><br />
+
+
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>

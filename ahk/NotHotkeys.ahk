@@ -60,8 +60,8 @@ VERBOSE_OUTPUT := True
 		MsgBox, 3, FFXIV AutoCraft, Is the 'Crafting Log' open with desired item selected?
 		IfMsgBox Yes
 		{
-			Sleep 2000
-			WinSet, Disable, , ahk_pid %ExePID%
+			Sleep 1000
+			WinSet, Disable,, ahk_pid %ExePID%
 			Sleep 2000
 			Loop 4 {
 				ControlSend,, =, ahk_pid %ExePID%
@@ -105,6 +105,7 @@ VERBOSE_OUTPUT := True
 				Random, RandomSleep, 1000, 2000  ; Random wait
 				Sleep 2000  ; Wait for synthesize to finish
 			}
+			WinSet, Enable,, ahk_pid %ExePID%
 		}
 	}
 	Return

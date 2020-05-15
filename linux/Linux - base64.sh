@@ -1,8 +1,8 @@
 #!/bin/sh
 # ------------------------------------------------------ #
-
+#
 # Linux - Basic Base64 String Encoding/Decoding
-
+#
 # ------------------------------------------------------ #
 
 ### ENCODE
@@ -10,12 +10,14 @@ plaintext="Some string to encode to base64"; \
 encoded_b64=$(echo -n ${plaintext} | base64 --wrap=0); \
 echo $encoded_b64;
 
+
 # ------------------------------------------------------ #
 
 ### DECODE
 encoded_b64="U29tZSBzdHJpbmcgdG8gZW5jb2Rl"; \
 decoded_b64=$(echo -e "${encoded_b64}" | base64 --decode); \
 echo -e "${decoded_b64}";
+
 
 # ------------------------------------------------------ #
 
@@ -42,5 +44,5 @@ Keyfile_Base64=$(echo -n "$(cat /var/lib/mongo/keyfile)" | base64 --wrap=0); ech
 Keyfile_Base64="PASTE_YOUR_BASE64_KEY_HERE"; Keyfile_AbsPath="/var/lib/mongo/keyfile"; Keyfile_Chown="mongod:mongod"; Keyfile_Chmod="0400"; if [ -f "${Keyfile_AbsPath}" ]; then cp "${Keyfile_AbsPath}" "${Keyfile_AbsPath}.$(date +'%Y%m%d_%H%M%S').bak"; fi; Keyfile_Plaintext=$(echo -e "${Keyfile_Base64}" | base64 --decode); Keyfile_Plaintext=$(echo -e "${Keyfile_Base64}" | base64 --decode); echo -e "${Keyfile_Plaintext}" > "${Keyfile_AbsPath}"; chown "${Keyfile_Chown}" "${Keyfile_AbsPath}"; chmod "${Keyfile_Chmod}" "${Keyfile_AbsPath}";
 fi;
 
-# ------------------------------------------------------ #
 
+# ------------------------------------------------------ #

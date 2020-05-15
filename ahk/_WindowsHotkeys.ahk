@@ -593,10 +593,10 @@ AppsKey::RWin
 	} Else {
 
 		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up")) {  ; Volume Up
-			vDelta := "+" ( VolumeLevel_Increment * 5 )
+			vDelta := "+" ( VolumeLevel_Increment )
 
 		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down")) {  ; Volume Down
-			vDelta := "-" ( VolumeLevel_Increment * 5 )
+			vDelta := "-" ( VolumeLevel_Increment )
 
 		} Else If (A_ThisHotkey=="#WheelUp") {  ; Volume Up
 			vDelta := "+" ( VolumeLevel_Increment )

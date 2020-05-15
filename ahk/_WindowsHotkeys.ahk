@@ -152,9 +152,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
+;  HOTKEY:  Shift + Win + P
 ;  HOTKEY:  Ctrl + Win + P
 ;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
+^#P::
 +#P::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
@@ -1642,14 +1644,14 @@ PasteClipboardAsBinary() {
 ;
 PasteClipboardAsText() {
 	Global VERBOSE_OUTPUT
-	SetKeyDelay, 0, -1
+	SetKeyDelay, 1, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
 	If (VERBOSE_OUTPUT == True) {
-		; TrayTip, AHK,
-		; (LTrim
-		; 	Pasting the Text version of the Clipboard
-		; )  ; Toast Notification
+		TrayTip, AHK,
+		(LTrim
+			Pasting the Text version of the Clipboard
+		)  ; Toast Notification
 	}
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""

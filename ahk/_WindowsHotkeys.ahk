@@ -1644,7 +1644,7 @@ PasteClipboardAsBinary() {
 ;
 PasteClipboardAsText() {
 	Global VERBOSE_OUTPUT
-	SetKeyDelay, 1, -1
+	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
 	If (VERBOSE_OUTPUT == True) {

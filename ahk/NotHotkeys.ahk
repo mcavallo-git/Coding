@@ -67,7 +67,8 @@ ExeWinTitle := "FINAL FANTASY XIV"
 		IfMsgBox Yes
 		{
 			Sleep 1000
-			WinSet, Disable,, ahk_pid %ExePID%
+			; WinSet, Disable,, ahk_pid %ExePID%
+			OverlayOn(ExeBasename)
 			Sleep 2000
 			Loop 4 {
 				ControlSend,, =, ahk_pid %ExePID%
@@ -111,7 +112,8 @@ ExeWinTitle := "FINAL FANTASY XIV"
 				Random, RandomSleep, 1000, 2000  ; Random wait
 				Sleep 2000  ; Wait for synthesize to finish
 			}
-			WinSet, Enable,, ahk_pid %ExePID%
+			; WinSet, Enable,, ahk_pid %ExePID%
+			OverlayOff(ExeBasename)
 		}
 	}
 	Return
@@ -122,10 +124,8 @@ ExeWinTitle := "FINAL FANTASY XIV"
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 #Escape::
-	If (ProcessExist(ExeBasename) == True) {
-		ExePID := GetPID(ExeBasename)
-		WinSet, Enable,, ahk_pid %ExePID%
-	}
+	Global ExeBasename
+	OverlayOff(ExeBasename)
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
@@ -173,6 +173,36 @@ ClearTooltip(Period) {
 GetPID(ProcName) {
 	Process, Exist, %ProcName%
 	Return %ErrorLevel%
+}
+
+
+;
+; OverlayOff  (function)
+;	  |--> Removes overlay from in-front of target window, restoring access to the user
+;
+OverlayOff(ExeBasename) {
+	If (ProcessExist(ExeBasename) == True) {
+		ExePID := GetPID(ExeBasename)
+		WinSet, AlwaysOnTop, Off, ahk_pid %ExePID%
+		WinSet, ExStyle, -0x20, ahk_pid %ExePID%
+		WinSet, Transparent, OFF, ahk_pid %ExePID%
+	}
+	Return
+}
+
+
+;
+; OverlayOn  (function)
+;	  |--> Creates an overlay which blocks a target window, denying access from the user until it is removed or otherwise closed
+;
+OverlayOn(ExeBasename) {
+	If (ProcessExist(ExeBasename) == True) {
+		ExePID := GetPID(ExeBasename)
+		WinSet, AlwaysOnTop, On, ahk_pid %ExePID%
+		WinSet, Transparent, 80, ahk_pid %ExePID%
+		WinSet, ExStyle, +0x20, ahk_pid %ExePID%
+	}
+	Return
 }
 
 

@@ -522,6 +522,19 @@ function SyncRegistry {
 
 		# Power Settings
 		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
+			Props=@(
+				@{
+					Description="Power Settings - Set to [ 1 ] to enable 'fast startup', [ 0 ] to disable 'fast startup'.";
+					Hotfix=$Null;
+					Name="HiberbootEnabled";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0";
 			Props=@(
 				@{

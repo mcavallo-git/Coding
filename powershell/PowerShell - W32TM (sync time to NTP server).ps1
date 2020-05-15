@@ -44,7 +44,8 @@ NET STOP W32TIME;
 # $ManualPeerList=[String]::Join(" ",($NtpPeers | ForEach-Object {"$_$Ntp_SetSyncInterval_3600s"}));
 # $ManualPeerList="time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9";
 # w32tm.exe /config /manualpeerlist:"$ManualPeerList" /syncfromflags:manual;
-w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
+# w32tm.exe /config /manualpeerlist:"time.nist.gov,0x9 time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9" /syncfromflags:manual;
+w32tm.exe /config /manualpeerlist:"time.google.com,0x9 north-america.pool.ntp.org,0x9 time.windows.com,0x9 time.nist.gov,0x9" /syncfromflags:manual;
 #  |
 #  |-->  /syncfromflags   -->  "Sets what sources the NTP client should synchronize from"
 #  |-->  /manualpeerlist  -->  "Set the manual peer list to peers, which is a space-delimited list of Domain Name System (DNS) and/or IP addresses"

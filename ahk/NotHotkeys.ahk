@@ -196,4 +196,13 @@ RemoveToolTip() {
 }
 
 
+
+; ------------------------------------------------------------
+;
+; Citation(s)
+;
+;   autohotkey.com  |  "WinSet, Disable... not working as expected - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/103478-winset-disable-not-working-as-expected/
+;
+;   www.autohotkey.com  |  "WinSet - Syntax & Usage | AutoHotkey"  |  https://www.autohotkey.com/docs/commands/WinSet.htm#Style
+;
 ; ------------------------------------------------------------

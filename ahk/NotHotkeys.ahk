@@ -22,35 +22,41 @@ VERBOSE_OUTPUT := True
 
 
 ; ------------------------------------------------------------
+
+ExeBasename := "ffxiv_dx11.exe"
+
+ExeWinTitle := "FINAL FANTASY XIV"
+
+; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + =
 ;  ACTION:  Show synthesize location
-#=::
-	SetKeyDelay, 0, -1
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
-	; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
-	MouseMove, 999, 759
-	Echo_Tooltip := "Move 'Synthesize' button to here"
-	ToolTip, %Echo_Tooltip%
-	ClearTooltip(15000)
-	Return
+; #=::
+; 	SetKeyDelay, 0, -1
+; 	CoordMode, Mouse, Screen
+; 	SetDefaultMouseSpeed, 0
+; 	SetControlDelay, -1
+; 	; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+; 	; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+; 	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+; 	MouseMove, 999, 759
+; 	Echo_Tooltip := "Move 'Synthesize' button to here"
+; 	ToolTip, %Echo_Tooltip%
+; 	ClearTooltip(15000)
+; 	Return
 
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + -
 ;  ACTION:  Craft it up
 #-::
-	Global VERBOSE_OUTPUT
 	SetKeyDelay, 0, -1
+	; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-	ExeBasename := "ffxiv_dx11.exe"
-	; WinTitle := "FINAL FANTASY XIV"
+	Global ExeBasename
+	Global ExeWinTitle
+	Global VERBOSE_OUTPUT
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
 		Echo_Tooltip := "Running Crafting Hotkeys"
@@ -116,6 +122,10 @@ VERBOSE_OUTPUT := True
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 #Escape::
+	If (ProcessExist(ExeBasename) == True) {
+		ExePID := GetPID(ExeBasename)
+		WinSet, Enable,, ahk_pid %ExePID%
+	}
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?

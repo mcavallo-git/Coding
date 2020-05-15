@@ -291,6 +291,13 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
+					Description="Set to [ 1 ] to [ set the Preview Pane as hidden in File Explorer (and lock/disable the user from enabling it) ]. Set to [ 0 ] or [ deleted ] to [ set the Preview Pane as hidden in File Explorer (but allow the user to enable it) ]";
+					Name="NoReadingPane"; 
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				},
+				@{
 					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
 					Name="NoRecentDocsHistory"; 
 					Type="DWord";

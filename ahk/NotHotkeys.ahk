@@ -30,7 +30,7 @@ VERBOSE_OUTPUT := True
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	; SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+	; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 	MouseMove, 999, 759
 	Echo_Tooltip := "Move 'Synthesize' button to here"
@@ -48,9 +48,9 @@ VERBOSE_OUTPUT := True
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-	WinTitle := "FINAL FANTASY XIV"
+	; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	ExeBasename := "ffxiv_dx11.exe"
+	; WinTitle := "FINAL FANTASY XIV"
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
 		Echo_Tooltip := "Running Crafting Hotkeys"
@@ -60,6 +60,8 @@ VERBOSE_OUTPUT := True
 		MsgBox, 3, FFXIV AutoCraft, Is the 'Crafting Log' open with desired item selected?
 		IfMsgBox Yes
 		{
+			Sleep 2000
+			WinSet, Disable, , ahk_pid %ExePID%
 			Sleep 2000
 			Loop 4 {
 				ControlSend,, =, ahk_pid %ExePID%

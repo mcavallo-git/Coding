@@ -107,12 +107,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   HOTKEY:  Win + -
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
+#IfWinNotExist, ahk_class FFXIVGAME
 #-::
 #NumpadSub::
 	AwaitModifierKeyup()
 	SetKeyDelay, 0, -1
 	; StringToType := StringRepeat("-",60)
-	SendInput, ------------------------------------------------------------
+		SendInput, ------------------------------------------------------------
 	Return
 
 
@@ -126,6 +127,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #NumpadAdd::
 	CreateCitationsFooter()
 	Return
+
+#IfWinNotExist
 
 
 ; ------------------------------------------------------------
@@ -1226,6 +1229,7 @@ GetTimezoneOffset_P() {
 	Return %RET_VAL%
 }
 
+
 ;
 ; GetWindowSpecs
 ;   |--> Gets Specs for currently-active window
@@ -1297,10 +1301,8 @@ GetWindowSpecs() {
 
 	Return
 }
-
-
 ;
-; GetWindowSpecs_OnClick_LV_WindowSpecs
+; GetWindowSpecs_OnClick_LV_WindowSpecs  ^^^ NEEDED BY GET_WINDOW_SPECS()  ^^^
 ;   |--> Sub-Function of "GetWindowSpecs()"
 ;
 GetWindowSpecs_OnClick_LV_WindowSpecs() {

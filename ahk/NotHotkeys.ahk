@@ -20,6 +20,9 @@
 
 VERBOSE_OUTPUT := True
 
+CurrentlyCrafting := False
+
+Target_ahk_id=
 
 ; ------------------------------------------------------------
 
@@ -46,6 +49,60 @@ ExeWinTitle := "FINAL FANTASY XIV"
 
 
 ; ------------------------------------------------------------
+;
+; Listen for a given window to appear
+;
+
+Gui +LastFound  ; this is needed
+DllCall("RegisterShellHookWindow", UInt,WinExist())
+MsgNum := DllCall("RegisterWindowMessage", Str,"SHELLHOOK")
+OnMessage(MsgNum,"ShellMessage")
+
+ShellMessage(wParam, lParam, msg, hwnd) {
+	Global CurrentlyCrafting
+	Global ExeBasename
+	Global ExeWinTitle
+	Global LastActiveWindowID
+	Global Target_ahk_id
+	Global VERBOSE_OUTPUT
+	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+	If (VERBOSE_OUTPUT = True) {
+		Echo_Tooltip=
+		Echo_Tooltip := Echo_Tooltip "wParam = "  wParam "`n"
+		Echo_Tooltip := Echo_Tooltip "lParam = "  lParam "`n"
+		Echo_Tooltip := Echo_Tooltip "msg = "  msg "`n"
+		Echo_Tooltip := Echo_Tooltip "hwnd = "  hwnd "`n"
+		Echo_Tooltip := Echo_Tooltip "Target_ahk_id = "  Target_ahk_id "`n"
+		ToolTip, %Echo_Tooltip%
+		; ClearTooltip(5000)
+	}
+	If (CurrentlyCrafting = True) {
+		If (ProcessExist(ExeBasename) == True) {
+			ExePID := GetPID(ExeBasename)
+			Target_ahk_id := Get_ahk_id_from_pid(ExePID)
+			WinSet, AlwaysOnTop, Off, ahk_pid %ExePID%
+			If ( wParam = 4 And WinExist( "ahk_id " lParam ) ) {  ; HSHELL_WINDOWACTIVATED = 4
+				IfWinExist, %ExeWinTitle% ahk_id %lParam%
+				{
+					BlockInput, MouseMove  ; Kill mouse interaction
+					Loop {
+						Sleep, 1
+						IfWinNotActive, %ExeWinTitle%  ; Use last found window
+						{
+							BlockInPut, MouseMoveOff  ; Restore mouse interaction
+							Break
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+
+
+; ------------------------------------------------------------
 ;  HOTKEY:  WinKey + -
 ;  ACTION:  Craft it up
 #-::
@@ -54,11 +111,14 @@ ExeWinTitle := "FINAL FANTASY XIV"
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
+	Global CurrentlyCrafting
 	Global ExeBasename
 	Global ExeWinTitle
+	Global Target_ahk_id
 	Global VERBOSE_OUTPUT
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
+		Target_ahk_id := Get_ahk_id_from_pid(ExePID)
 		Echo_Tooltip := "Running Crafting Hotkeys"
 		ToolTip, %Echo_Tooltip%
 		ClearTooltip(5000)
@@ -66,6 +126,7 @@ ExeWinTitle := "FINAL FANTASY XIV"
 		MsgBox, 3, FFXIV AutoCraft, Is the 'Crafting Log' open with desired item selected?
 		IfMsgBox Yes
 		{
+			CurrentlyCrafting := True
 			Sleep 1000
 			; WinSet, Disable,, ahk_pid %ExePID%
 			OverlayOn(ExeBasename)
@@ -112,6 +173,7 @@ ExeWinTitle := "FINAL FANTASY XIV"
 				Random, RandomSleep, 1000, 2000  ; Random wait
 				Sleep 2000  ; Wait for synthesize to finish
 			}
+			CurrentlyCrafting := False
 			; WinSet, Enable,, ahk_pid %ExePID%
 			OverlayOff(ExeBasename)
 		}
@@ -124,7 +186,11 @@ ExeWinTitle := "FINAL FANTASY XIV"
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 #Escape::
+	Global CurrentlyCrafting
 	Global ExeBasename
+	Global ExeWinTitle
+	Global VERBOSE_OUTPUT
+	CurrentlyCrafting := False
 	OverlayOff(ExeBasename)
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
@@ -134,7 +200,10 @@ ExeWinTitle := "FINAL FANTASY XIV"
 
 
 ; ------------------------------------------------------------
-
+; ------------------------------------------------------------
+; ---                       FUNCTIONS                      ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
 
 ;
 ; AwaitModifierKeyup  (function)
@@ -166,6 +235,19 @@ ClearTooltip(Period) {
 
 
 ;
+; Get_ahk_id_from_pid
+;   |--> Input: WinPID to Target
+;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
+;
+Get_ahk_id_from_pid(WinPid) {
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
+	dat_ahk_id=ahk_id %output_var%
+	Return dat_ahk_id
+}
+
+
+;
 ;	GetPID
 ;   |--> Returns PID if process IS found
 ;   |--> Returns 0 if process is NOT found
@@ -183,9 +265,9 @@ GetPID(ProcName) {
 OverlayOff(ExeBasename) {
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
-		WinSet, AlwaysOnTop, Off, ahk_pid %ExePID%
-		WinSet, ExStyle, -0x20, ahk_pid %ExePID%
-		WinSet, Transparent, OFF, ahk_pid %ExePID%
+		; WinSet, AlwaysOnTop, Off, ahk_pid %ExePID%
+		; WinSet, ExStyle, -0x20, ahk_pid %ExePID%
+		; WinSet, Transparent, OFF, ahk_pid %ExePID%
 	}
 	Return
 }
@@ -198,9 +280,9 @@ OverlayOff(ExeBasename) {
 OverlayOn(ExeBasename) {
 	If (ProcessExist(ExeBasename) == True) {
 		ExePID := GetPID(ExeBasename)
-		WinSet, AlwaysOnTop, On, ahk_pid %ExePID%
-		WinSet, Transparent, 80, ahk_pid %ExePID%
-		WinSet, ExStyle, +0x20, ahk_pid %ExePID%
+		; WinSet, AlwaysOnTop, On, ahk_pid %ExePID%
+		; WinSet, Transparent, 80, ahk_pid %ExePID%
+		; WinSet, ExStyle, +0x20, ahk_pid %ExePID%
 	}
 	Return
 }

@@ -20,7 +20,7 @@
 
 CurrentlyCrafting := 0
 
-VerboseOutput := 1
+VerboseOutput := 0
 
 ExeBasename := "ffxiv_dx11.exe"
 
@@ -66,24 +66,11 @@ WatchCursor:
 
 ; ------------------------------------------------------------
 
-
-#IfWinActive, ahk_class FFXIVGAME
-LButton::
-RButton::
-	Global ExeBasename
-	MouseGetPos, , , WinID, control
-	WinGetClass, WinClass, ahk_id %WinID%
-	If (WinClass == "FFXIVGAME") {
-		If (CurrentlyCrafting == 0) {
-			If (A_ThisHotkey=="LButton") {
-				Send {LButton}
-			} Else If (A_ThisHotkey=="RButton") {
-				Send {RButton}
-			}
-		}
-	}
-	Return
-#IfWinActive
+#If WinActive("ahk_class FFXIVGAME") and (CurrentlyCrafting == 1)
+	LButton::
+	RButton::
+		Return
+#If
 
 
 ; ------------------------------------------------------------

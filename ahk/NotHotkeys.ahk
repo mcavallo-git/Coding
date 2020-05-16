@@ -29,7 +29,21 @@ ExeWinTitle := "FINAL FANTASY XIV"
 ExeWinClass := "FFXIVGAME"
 
 ; ------------------------------------------------------------
+;
+;  HOTKEY:  (AUTO)
+;  ACTION:  Block mouse-interactions if FFXIV window is active && crafting is occurring
+;
+#If WinActive("ahk_class FFXIVGAME") and (CurrentlyCrafting == 1)
+	LButton::
+	RButton::
+		Return
+#If
 
+; ------------------------------------------------------------
+;
+;  HOTKEY:  (AUTO)
+;  ACTION:  Watch the cursor constantly to ensure it catches mistakes before the user accidentally clicks into the window while crafting, etc.
+;
 SetTimer, WatchCursor, 10
 Return
 
@@ -63,14 +77,6 @@ WatchCursor:
 		; BlockInPut, Off            ;  Restore full interaction
 	}
 	Return
-
-; ------------------------------------------------------------
-
-#If WinActive("ahk_class FFXIVGAME") and (CurrentlyCrafting == 1)
-	LButton::
-	RButton::
-		Return
-#If
 
 
 ; ------------------------------------------------------------

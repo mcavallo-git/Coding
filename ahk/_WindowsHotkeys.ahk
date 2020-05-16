@@ -55,7 +55,7 @@ CR=`r
 
 LF=`n
 
-VERBOSE_OUTPUT := True
+VerboseOutput := True
 
 ; ------------------------------------------------------------
 ;
@@ -694,7 +694,7 @@ WheelRight::
 ;  ACTION:  Foxit PhantomPDF - Add Text
 ;
 ; #A::
-; 	Global VERBOSE_OUTPUT
+; 	Global VerboseOutput
 ; 	CoordMode, Mouse, Screen
 ; 	SetDefaultMouseSpeed, 0
 ; 	SetControlDelay, -1
@@ -704,7 +704,7 @@ WheelRight::
 ; 	WinGet, WinProcessName, ProcessName, A
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (VERBOSE_OUTPUT = True) {
+; 		If (VerboseOutput = True) {
 ; 			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
 ; 		}
 ; 		x_loc = 223
@@ -716,7 +716,7 @@ WheelRight::
 ; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 ; 	}
 ; 	; } Else {
-; 	; 	If (VERBOSE_OUTPUT = True) {
+; 	; 	If (VerboseOutput = True) {
 ; 	; 		TrayTip, AHK, Foxit PhantomPDF`nMUST be active (to add text), 4, 1  ; Toast Notification
 ; 	; 	}
 ; 	; }
@@ -1462,12 +1462,12 @@ Nanoseconds() {
 ;   |--> Opens target exeutable & sets its window to be active
 ;
 Open_Exe(ExeFullpath) {
-	Global VERBOSE_OUTPUT
+	Global VerboseOutput
 	Timeout := 10
 	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
 	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running
-		If (VERBOSE_OUTPUT = True) {
+		If (VerboseOutput = True) {
 			TextToolTip := "Activating """ ExeBasename """"
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -1476,7 +1476,7 @@ Open_Exe(ExeFullpath) {
 		WinActivate, ahk_pid %ExePID%
 	} Else If (FileExist(ExeFullpath)) {
 		; Executable NOT running but IS found locally
-		If (VERBOSE_OUTPUT = True) {
+		If (VerboseOutput = True) {
 			TextToolTip := "Opening """ ExeBasename """"
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -1488,7 +1488,7 @@ Open_Exe(ExeFullpath) {
 		WinActivate, ahk_pid %ExePID%
 	} Else {
 		; Executable NOT running & NOT found locally
-		If (VERBOSE_OUTPUT = True) {
+		If (VerboseOutput = True) {
 			TextToolTip := "File not found: """ ExeFullpath """"
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -1513,7 +1513,7 @@ OpenChrome() {
 ;   |--> Opens Roboform's Password Generator executable
 ;
 OpenPasswordGenerator() {
-	Global VERBOSE_OUTPUT
+	Global VerboseOutput
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
@@ -1524,13 +1524,13 @@ OpenPasswordGenerator() {
 	If (WinExist(WinTitle_Login)) {
 		WinActivate, %WinTitle_Login%
 	} Else If (WinExist(WinTitle)) {
-		If (VERBOSE_OUTPUT = True) {
+		If (VerboseOutput = True) {
 			Text_TrayTip := "Activating existing instance of """ WinTitle """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
-		If (VERBOSE_OUTPUT = True) {
+		If (VerboseOutput = True) {
 			Text_TrayTip := "Opening new-instance of """ WinTitle """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -1622,7 +1622,7 @@ OpenVSCode() {
 ;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
 ;
 PasteClipboardAsBinary() {
-	Global VERBOSE_OUTPUT
+	Global VerboseOutput
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Sleep, 100
@@ -1643,11 +1643,11 @@ PasteClipboardAsBinary() {
 ;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
 ;
 PasteClipboardAsText() {
-	Global VERBOSE_OUTPUT
+	Global VerboseOutput
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
-	; If (VERBOSE_OUTPUT == True) {
+	; If (VerboseOutput == True) {
 	; 	TrayTip, AHK,
 	; 	(LTrim
 	; 		Pasting the Text version of the Clipboard

@@ -44,9 +44,6 @@ ExeWinClass := "FFXIVGAME"
 ;  HOTKEY:  (AUTO)
 ;  ACTION:  Watch the cursor constantly to ensure it catches mistakes before the user accidentally clicks into the window while crafting, etc.
 ;
-SetTimer, WatchCursor, 10
-Return
-
 WatchCursor:
 	Global CurrentlyCrafting
 	Global VerboseOutput
@@ -78,6 +75,8 @@ WatchCursor:
 	}
 	Return
 
+SetTimer, WatchCursor, 10
+	Return
 
 ; ------------------------------------------------------------
 ;

@@ -62,15 +62,12 @@ ExeWinClass := "FFXIVGAME"
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	Global Active_HWND
 	Global CurrentlyCrafting
 	Global ExeBasename
-	Global ExeWinClass
 	Global ExeWinTitle
-	Global Target_HWND
 	Global VerboseOutput
+	AwaitModifierKeyup()
 	ExePID := GetPID(ExeBasename)
-	Target_HWND := WinActive(ahk_pid %ExePID%)
 	SetTimer, IfCrafting_BlockMouse, Off
 	Echo_Tooltip := "Running Crafting Hotkeys"
 	ToolTip, %Echo_Tooltip%
@@ -167,7 +164,29 @@ ExeWinClass := "FFXIVGAME"
 ;  ACTION:  Win the gamble
 ;
 #If WinActive("ahk_class FFXIVGAME")
-	#=::
+	#1::
+		SetKeyDelay, 0, -1
+		; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		Global ExeBasename
+		Global VerboseOutput
+		AwaitModifierKeyup()
+		ExePID := GetPID(ExeBasename)
+		Exe_ahk_Id := WinActive(ahk_pid %ExePID%)
+		Sleep 1000
+		Loop 2 {
+			ControlSend,, =, ahk_id %Exe_ahk_Id%
+			Random, RandomSleep, 500, 1000  ; Random wait
+			Sleep %RandomSleep%
+		}
+		ControlSend,, Up, ahk_id %Exe_ahk_Id%
+		Random, RandomSleep, 500, 1000  ; Random wait
+		Sleep %RandomSleep%
+		ControlSend,, =, ahk_id %Exe_ahk_Id%
+		Random, RandomSleep, 500, 1000  ; Random wait
+		Sleep %RandomSleep%
 		Return
 #If
 

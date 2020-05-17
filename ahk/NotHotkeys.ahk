@@ -50,43 +50,6 @@ ExeWinClass := "FFXIVGAME"
 
 ; ------------------------------------------------------------
 ;
-;  HOTKEY:  (AUTO)
-;  ACTION:  Watch the cursor constantly to ensure it catches mistakes before the user accidentally clicks into the window while crafting, etc.
-;
-WatchCursor:
-	Global CurrentlyCrafting
-	Global VerboseOutput
-	CoordMode, Mouse, Screen
-	MouseGetPos, , , WinID, control
-	WinGetClass, WinClass, ahk_id %WinID%
-	KillMouseInteraction := 0
-	If (WinClass == "FFXIVGAME") {
-		If (CurrentlyCrafting == 1) {
-			Echo_Tooltip := "Block mouse interaction`n |--> In-game & crafting"
-			KillMouseInteraction := 1
-		} Else {
-			Echo_Tooltip := "Allow mouse interaction`n |--> Not currently crafting"
-		}
-	} Else {
-		Echo_Tooltip := "Allow mouse interaction`n |--> Not in Game"
-	}
-	If (KillMouseInteraction == 1) {
-		BlockInput, MouseMove      ;  Kill mouse interaction
-		ToolTip, %Echo_Tooltip%
-		ClearTooltip(10000)
-	} Else {
-		BlockInPut, MouseMoveOff   ;  Restore mouse interaction
-		If (VerboseOutput > 0) {
-			ToolTip, %Echo_Tooltip%
-			ClearTooltip(10000)
-		}
-		; BlockInPut, Off            ;  Restore full interaction
-	}
-	Return
-
-
-; ------------------------------------------------------------
-;
 ;  HOTKEY:  WinKey + -
 ;  ACTION:  Craft it up
 ;
@@ -113,7 +76,7 @@ WatchCursor:
 	IfMsgBox Yes
 	{
 		Sleep 1000
-		SetTimer, WatchCursor, 10
+		SetTimer, IfCrafting_BlockMouse, 50
 		CurrentlyCrafting := 1
 		; WinSet, Disable,, ahk_pid %ExePID%
 		; OverlayOn(ExeBasename)
@@ -161,7 +124,7 @@ WatchCursor:
 			Sleep 2000  ; Wait for synthesize to finish
 		}
 		CurrentlyCrafting := 0
-		SetTimer, WatchCursor, Off
+		SetTimer, IfCrafting_BlockMouse, Off
 		Sleep 1000
 		; WinSet, Enable,, ahk_pid %ExePID%
 		; OverlayOff(ExeBasename)
@@ -240,6 +203,45 @@ Get_ahk_id_from_pid(WinPid) {
 GetPID(ProcName) {
 	Process, Exist, %ProcName%
 	Return %ErrorLevel%
+}
+
+
+
+;
+;
+;  IfCrafting_BlockMouse()
+;   |--> Block the mouse from being used while the FFXIV window is active and crafting is occurring
+;
+IfCrafting_BlockMouse() {
+	Global CurrentlyCrafting
+	Global VerboseOutput
+	CoordMode, Mouse, Screen
+	MouseGetPos, , , WinID, control
+	WinGetClass, WinClass, ahk_id %WinID%
+	KillMouseInteraction := 0
+	If (WinClass == "FFXIVGAME") {
+		If (CurrentlyCrafting == 1) {
+			Echo_Tooltip := "Block mouse interaction`n |--> In-game & crafting"
+			KillMouseInteraction := 1
+		} Else {
+			Echo_Tooltip := "Allow mouse interaction`n |--> Not currently crafting"
+		}
+	} Else {
+		Echo_Tooltip := "Allow mouse interaction`n |--> Not in Game"
+	}
+	If (KillMouseInteraction == 1) {
+		BlockInput, MouseMove      ;  Kill mouse interaction
+		ToolTip, %Echo_Tooltip%
+		ClearTooltip(10000)
+	} Else {
+		BlockInPut, MouseMoveOff   ;  Restore mouse interaction
+		If (VerboseOutput > 0) {
+			ToolTip, %Echo_Tooltip%
+			ClearTooltip(10000)
+		}
+		; BlockInPut, Off            ;  Restore full interaction
+	}
+	Return
 }
 
 

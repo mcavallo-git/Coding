@@ -201,7 +201,7 @@ ExeWinClass := "FFXIVGAME"
 			Random, RandomSleep, 500, 1000  ; Random wait
 			Sleep %RandomSleep%
 			; Wait until the "Currency" window disappears (by-itself after a short duration)
-			Sleep 5000
+			Sleep 7500
 		}
 		Enable_FFXIV_MouseEvents()
 		Sleep 1000

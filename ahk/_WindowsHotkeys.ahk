@@ -67,11 +67,19 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                   HOTKEY-LISTENERS                   ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+
+; ------------------------------------------------------------
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 ~#Escape::
-	Reload
+	BlockInPut, Off  ;  Restore full interaction
+	Reload  ; Reload this script
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
 	IfMsgBox, Yes, Edit

@@ -87,6 +87,8 @@ ExeWinClass := "FFXIVGAME"
 
 		; ------------------------------------------------------------
 		; Part 1-of-4 - Select "Synthesize"
+			;   |--> Hotkey:  =
+			;         |--> In-game, assign this hotkey to the "Confirm" command (found under "System" -> "Keybind" -> "System" tab)
 		;
 		Sleep 2000
 		Loop 4 {
@@ -97,6 +99,7 @@ ExeWinClass := "FFXIVGAME"
 		Loop %MaxLoops% {
 			; ------------------------------------------------------------
 			; General padding at the start of the loop and after each repeat
+			;
 			Sleep 3000
 			Echo_Tooltip := "Crating 83* Gear (loop " A_Index "/"  MaxLoops ")"
 			ToolTip, %Echo_Tooltip%
@@ -105,6 +108,7 @@ ExeWinClass := "FFXIVGAME"
 			; ------------------------------------------------------------
 			; Part 2-of-4 - Run the first macro (of two) for a "Level 83 Star Craft"
 			;   |--> Hotkey:  [
+			;         |--> In-game, assign this hotkey to the hotbar position which contains the first crafting macro
 			;
 			ControlSend,,[, ahk_pid %ExePID%
 			Sleep 36000
@@ -114,6 +118,7 @@ ExeWinClass := "FFXIVGAME"
 			; ------------------------------------------------------------
 			; Part 3-of-4 Run the second macro (of two) for a "Level 83 Star Craft"
 			;   |--> Hotkey:  ]
+			;         |--> In-game, assign this hotkey to the hotbar position which contains the second crafting macro
 			;
 			ControlSend,,], ahk_pid %ExePID%
 			Sleep 14000
@@ -122,6 +127,8 @@ ExeWinClass := "FFXIVGAME"
 			Sleep %RandomSleep%
 			; ------------------------------------------------------------
 			; Part 4-of-4 - Re-select "Synthesize"
+			;   |--> Hotkey:  =
+			;         |--> In-game, assign this hotkey to the "Confirm" command (found under "System" -> "Keybind" -> "System" tab)
 			;
 			Sleep 2000
 			Loop 3 {

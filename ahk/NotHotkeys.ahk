@@ -156,57 +156,57 @@ ExeWinClass := "FFXIVGAME"
 #If
 
 
-; ------------------------------------------------------------
-;
-;  HOTKEY:  WinKey + =
-;  ACTION:  Win the gamble
-;
-#If WinActive("ahk_class FFXIVGAME")
-	#1::
-		SetKeyDelay, 0, -1
-		; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-		CoordMode, Mouse, Screen
-		SetDefaultMouseSpeed, 0
-		SetControlDelay, -1
-		Global ExeBasename
-		Global VerboseOutput
-		AwaitModifierKeyup()
-		ExePID := GetPID(ExeBasename)
-		Exe_ahk_Id := WinActive(ahk_pid %ExePID%)
-		Sleep 250
-		Disable_FFXIV_MouseEvents()
-		MaxLoops := 25
-		Loop %MaxLoops% {
-			Sleep 250
-			; Send 2 * "Confirm" keypresses
-			Loop 2 {
-				ControlSend,, =, ahk_id %Exe_ahk_Id%
-				Random, RandomSleep, 1000, 2000  ; Random wait
-				Sleep %RandomSleep%
-			}
-			; Send right-arrow keypress
-			ControlSend,, {Right}, ahk_id %Exe_ahk_Id%
-			Random, RandomSleep, 50, 250  ; Random wait
-			Sleep %RandomSleep%
-			; Send up-arrow keypress
-			ControlSend,, {Up}, ahk_id %Exe_ahk_Id%
-			Random, RandomSleep, 50, 250  ; Random wait
-			Sleep %RandomSleep%
-			; Send "Confirm" keypress (Begin Game)
-			ControlSend,, =, ahk_id %Exe_ahk_Id%
-			GameWinWait := 500
-			Sleep %GameWinWait%  ; Wait exactly long enough to punch the target on the max-payout spot
-			; Send "Confirm" keypress (Punch the game)
-			ControlSend,, =, ahk_id %Exe_ahk_Id%
-			Random, RandomSleep, 500, 1000  ; Random wait
-			Sleep %RandomSleep%
-			; Wait until the "Currency" window disappears (by-itself after a short duration)
-			Sleep 7500
-		}
-		Enable_FFXIV_MouseEvents()
-		Sleep 1000
-		Return
-#If
+; ; ------------------------------------------------------------
+; ;
+; ;  HOTKEY:  WinKey + =
+; ;  ACTION:  Win the gamble
+; ;
+; #If WinActive("ahk_class FFXIVGAME")
+; 	#1::
+; 		SetKeyDelay, 0, -1
+; 		; SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
+; 		CoordMode, Mouse, Screen
+; 		SetDefaultMouseSpeed, 0
+; 		SetControlDelay, -1
+; 		Global ExeBasename
+; 		Global VerboseOutput
+; 		AwaitModifierKeyup()
+; 		ExePID := GetPID(ExeBasename)
+; 		Exe_ahk_Id := WinActive(ahk_pid %ExePID%)
+; 		Sleep 250
+; 		Disable_FFXIV_MouseEvents()
+; 		MaxLoops := 25
+; 		Loop %MaxLoops% {
+; 			Sleep 250
+; 			; Send 2 * "Confirm" keypresses
+; 			Loop 2 {
+; 				ControlSend,, =, ahk_id %Exe_ahk_Id%
+; 				Random, RandomSleep, 1000, 2000  ; Random wait
+; 				Sleep %RandomSleep%
+; 			}
+; 			; Send right-arrow keypress
+; 			ControlSend,, {Right}, ahk_id %Exe_ahk_Id%
+; 			Random, RandomSleep, 50, 250  ; Random wait
+; 			Sleep %RandomSleep%
+; 			; Send up-arrow keypress
+; 			ControlSend,, {Up}, ahk_id %Exe_ahk_Id%
+; 			Random, RandomSleep, 50, 250  ; Random wait
+; 			Sleep %RandomSleep%
+; 			; Send "Confirm" keypress (Begin Game)
+; 			ControlSend,, =, ahk_id %Exe_ahk_Id%
+; 			GameWinWait := 500
+; 			Sleep %GameWinWait%  ; Wait exactly long enough to punch the target on the max-payout spot
+; 			; Send "Confirm" keypress (Punch the game)
+; 			ControlSend,, =, ahk_id %Exe_ahk_Id%
+; 			Random, RandomSleep, 500, 1000  ; Random wait
+; 			Sleep %RandomSleep%
+; 			; Wait until the "Currency" window disappears (by-itself after a short duration)
+; 			Sleep 7500
+; 		}
+; 		Enable_FFXIV_MouseEvents()
+; 		Sleep 1000
+; 		Return
+; #If
 
 
 ; ------------------------------------------------------------
@@ -246,6 +246,30 @@ ClearTooltip(Period) {
 
 
 ;
+;	Disable_FFXIV_MouseEvents
+;   |--> Shorthand command for disabling mouse-moves and mouse-clicks targeted at the FFXIV window
+;
+Disable_FFXIV_MouseEvents() {
+	Global Block_FFXIV_MouseClicks
+	Block_FFXIV_MouseClicks := 1
+	SetTimer, IfCrafting_BlockMouse, 50
+	Return
+}
+
+
+;
+;	Enable_FFXIV_MouseEvents
+;   |--> Shorthand command for enabling mouse-moves and mouse-clicks targeted at the FFXIV window
+;
+Enable_FFXIV_MouseEvents() {
+	Global Block_FFXIV_MouseClicks
+	Block_FFXIV_MouseClicks := 0
+	SetTimer, IfCrafting_BlockMouse, Off
+	Return
+}
+
+
+;
 ; Get_ahk_id_from_pid
 ;   |--> Input: WinPID to Target
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
@@ -266,29 +290,6 @@ Get_ahk_id_from_pid(WinPid) {
 GetPID(ProcName) {
 	Process, Exist, %ProcName%
 	Return %ErrorLevel%
-}
-
-
-;
-;	Disable_FFXIV_MouseEvents
-;   |--> Shorthand command for disabling mouse-moves and mouse-clicks targeted at the FFXIV window
-;
-Disable_FFXIV_MouseEvents() {
-	Global Block_FFXIV_MouseClicks
-	Block_FFXIV_MouseClicks := 1
-	SetTimer, IfCrafting_BlockMouse, 50
-	Return
-}
-
-;
-;	Enable_FFXIV_MouseEvents
-;   |--> Shorthand command for enabling mouse-moves and mouse-clicks targeted at the FFXIV window
-;
-Enable_FFXIV_MouseEvents() {
-	Global Block_FFXIV_MouseClicks
-	Block_FFXIV_MouseClicks := 0
-	SetTimer, IfCrafting_BlockMouse, Off
-	Return
 }
 
 

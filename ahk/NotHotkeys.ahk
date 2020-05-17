@@ -176,7 +176,6 @@ SetTimer, WatchCursor, 10
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 ~#Escape::
-#=::
 	BlockInPut, Off  ;  Restore full interaction
 	Reload  ; Reload this script
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.

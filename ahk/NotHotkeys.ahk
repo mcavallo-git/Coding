@@ -18,7 +18,7 @@
 
 #SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
 
-CurrentlyCrafting := 0
+Block_FFXIV_MouseClicks := 0
 
 VerboseOutput := 0
 
@@ -62,13 +62,13 @@ ExeWinClass := "FFXIVGAME"
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	Global CurrentlyCrafting
+	Global Block_FFXIV_MouseClicks
 	Global ExeBasename
 	Global ExeWinTitle
 	Global VerboseOutput
 	AwaitModifierKeyup()
+	Enable_FFXIV_MouseEvents()
 	ExePID := GetPID(ExeBasename)
-	SetTimer, IfCrafting_BlockMouse, Off
 	Echo_Tooltip := "Running Crafting Hotkeys"
 	ToolTip, %Echo_Tooltip%
 	ClearTooltip(5000)
@@ -77,8 +77,8 @@ ExeWinClass := "FFXIVGAME"
 	IfMsgBox Yes
 	{
 		Sleep 1000
-		SetTimer, IfCrafting_BlockMouse, 50
-		CurrentlyCrafting := 1
+		Disable_FFXIV_MouseEvents()
+		Block_FFXIV_MouseClicks := 1
 		; WinSet, Disable,, ahk_pid %ExePID%
 		; OverlayOn(ExeBasename)
 
@@ -136,8 +136,8 @@ ExeWinClass := "FFXIVGAME"
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep 2000  ; Wait for synthesize to finish
 		}
-		CurrentlyCrafting := 0
-		SetTimer, IfCrafting_BlockMouse, Off
+		Block_FFXIV_MouseClicks := 0
+		Enable_FFXIV_MouseEvents()
 		Sleep 1000
 		; WinSet, Enable,, ahk_pid %ExePID%
 		; OverlayOff(ExeBasename)
@@ -151,7 +151,7 @@ ExeWinClass := "FFXIVGAME"
 ;  HOTKEY:  Right-MouseClick
 ;  ACTION:  Block mouseclick events if the FFXIV window is active && crafting is occurring
 ;
-#If WinActive("ahk_class FFXIVGAME") and (CurrentlyCrafting == 1)
+#If WinActive("ahk_class FFXIVGAME") and (Block_FFXIV_MouseClicks == 1)
 	LButton::
 	RButton::
 		Return
@@ -178,14 +178,14 @@ ExeWinClass := "FFXIVGAME"
 		Sleep 1000
 		Loop 2 {
 			ControlSend,, =, ahk_id %Exe_ahk_Id%
-			Random, RandomSleep, 500, 1000  ; Random wait
+			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep %RandomSleep%
 		}
 		ControlSend,, Up, ahk_id %Exe_ahk_Id%
-		Random, RandomSleep, 500, 1000  ; Random wait
+		Random, RandomSleep, 1000, 2000  ; Random wait
 		Sleep %RandomSleep%
 		ControlSend,, =, ahk_id %Exe_ahk_Id%
-		Random, RandomSleep, 500, 1000  ; Random wait
+		Random, RandomSleep, 1000, 2000  ; Random wait
 		Sleep %RandomSleep%
 		Return
 #If
@@ -252,19 +252,42 @@ GetPID(ProcName) {
 
 
 ;
+;	Disable_FFXIV_MouseEvents
+;   |--> Shorthand command for disabling mouse-moves and mouse-clicks targeted at the FFXIV window
+;
+Disable_FFXIV_MouseEvents() {
+	Global Block_FFXIV_MouseClicks
+	Block_FFXIV_MouseClicks := 1
+	SetTimer, IfCrafting_BlockMouse, 50
+	Return
+}
+
+;
+;	Enable_FFXIV_MouseEvents
+;   |--> Shorthand command for enabling mouse-moves and mouse-clicks targeted at the FFXIV window
+;
+Enable_FFXIV_MouseEvents() {
+	Global Block_FFXIV_MouseClicks
+	Block_FFXIV_MouseClicks := 0
+	SetTimer, IfCrafting_BlockMouse, Off
+	Return
+}
+
+
+;
 ;
 ;  IfCrafting_BlockMouse()
 ;   |--> Block the mouse from being used while the FFXIV window is active and crafting is occurring
 ;
 IfCrafting_BlockMouse() {
-	Global CurrentlyCrafting
+	Global Block_FFXIV_MouseClicks
 	Global VerboseOutput
 	CoordMode, Mouse, Screen
 	MouseGetPos, , , WinID, control
 	WinGetClass, WinClass, ahk_id %WinID%
 	KillMouseInteraction := 0
 	If (WinClass == "FFXIVGAME") {
-		If (CurrentlyCrafting == 1) {
+		If (Block_FFXIV_MouseClicks == 1) {
 			Echo_Tooltip := "Block mouse interaction`n |--> In-game & crafting"
 			KillMouseInteraction := 1
 		} Else {

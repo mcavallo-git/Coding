@@ -84,9 +84,6 @@ WatchCursor:
 	}
 	Return
 
-SetTimer, WatchCursor, 10
-	Return
-
 
 ; ------------------------------------------------------------
 ;
@@ -115,8 +112,9 @@ SetTimer, WatchCursor, 10
 	MsgBox, 3, FFXIV AutoCraft, Is the 'Crafting Log' open with desired item selected?
 	IfMsgBox Yes
 	{
-		CurrentlyCrafting := 1
 		Sleep 1000
+		SetTimer, WatchCursor, 10
+		CurrentlyCrafting := 1
 		; WinSet, Disable,, ahk_pid %ExePID%
 		; OverlayOn(ExeBasename)
 		Sleep 2000
@@ -163,6 +161,8 @@ SetTimer, WatchCursor, 10
 			Sleep 2000  ; Wait for synthesize to finish
 		}
 		CurrentlyCrafting := 0
+		SetTimer, WatchCursor, Off
+		Sleep 1000
 		; WinSet, Enable,, ahk_pid %ExePID%
 		; OverlayOff(ExeBasename)
 	}

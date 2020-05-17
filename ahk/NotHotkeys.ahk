@@ -221,7 +221,6 @@ GetPID(ProcName) {
 }
 
 
-
 ;
 ;
 ;  IfCrafting_BlockMouse()
@@ -308,7 +307,6 @@ RemoveToolTip() {
 	ToolTip
 	Return
 }
-
 
 
 ; ------------------------------------------------------------

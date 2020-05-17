@@ -175,25 +175,34 @@ ExeWinClass := "FFXIVGAME"
 		Exe_ahk_Id := WinActive(ahk_pid %ExePID%)
 		Sleep 250
 		Disable_FFXIV_MouseEvents()
-		Sleep 250
-		; Send 2 * "Confirm" keypresses
-		Loop 2 {
-			ControlSend,, =, ahk_id %Exe_ahk_Id%
-			Random, RandomSleep, 1000, 2000  ; Random wait
+		MaxLoops := 25
+		Loop %MaxLoops% {
+			Sleep 250
+			; Send 2 * "Confirm" keypresses
+			Loop 2 {
+				ControlSend,, =, ahk_id %Exe_ahk_Id%
+				Random, RandomSleep, 1000, 2000  ; Random wait
+				Sleep %RandomSleep%
+			}
+			; Send right-arrow keypress
+			ControlSend,, {Right}, ahk_id %Exe_ahk_Id%
+			Random, RandomSleep, 50, 250  ; Random wait
 			Sleep %RandomSleep%
+			; Send up-arrow keypress
+			ControlSend,, {Up}, ahk_id %Exe_ahk_Id%
+			Random, RandomSleep, 50, 250  ; Random wait
+			Sleep %RandomSleep%
+			; Send "Confirm" keypress (Begin Game)
+			ControlSend,, =, ahk_id %Exe_ahk_Id%
+			GameWinWait := 500
+			Sleep %GameWinWait%  ; Wait exactly long enough to punch the target on the max-payout spot
+			; Send "Confirm" keypress (Punch the game)
+			ControlSend,, =, ahk_id %Exe_ahk_Id%
+			Random, RandomSleep, 500, 1000  ; Random wait
+			Sleep %RandomSleep%
+			; Wait until the "Currency" window disappears (by-itself after a short duration)
+			Sleep 5000
 		}
-		; Send right-arrow keypress
-		ControlSend,, {Right}, ahk_id %Exe_ahk_Id%
-		Random, RandomSleep, 50, 250  ; Random wait
-		Sleep %RandomSleep%
-		; Send up-arrow keypress
-		ControlSend,, {Up}, ahk_id %Exe_ahk_Id%
-		Random, RandomSleep, 50, 250  ; Random wait
-		Sleep %RandomSleep%
-		; Send "Confirm" keypress
-		ControlSend,, =, ahk_id %Exe_ahk_Id%
-		Random, RandomSleep, 1000, 2000  ; Random wait
-		Sleep %RandomSleep%
 		Enable_FFXIV_MouseEvents()
 		Sleep 1000
 		Return

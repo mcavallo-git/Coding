@@ -71,6 +71,7 @@ ExeWinClass := "FFXIVGAME"
 	Global VerboseOutput
 	ExePID := GetPID(ExeBasename)
 	Target_HWND := WinActive(ahk_pid %ExePID%)
+	SetTimer, IfCrafting_BlockMouse, Off
 	Echo_Tooltip := "Running Crafting Hotkeys"
 	ToolTip, %Echo_Tooltip%
 	ClearTooltip(5000)
@@ -83,6 +84,10 @@ ExeWinClass := "FFXIVGAME"
 		CurrentlyCrafting := 1
 		; WinSet, Disable,, ahk_pid %ExePID%
 		; OverlayOn(ExeBasename)
+
+		; ------------------------------------------------------------
+		; Part 1-of-4 - Select "Synthesize"
+		;
 		Sleep 2000
 		Loop 4 {
 			ControlSend,, =, ahk_pid %ExePID%
@@ -98,7 +103,7 @@ ExeWinClass := "FFXIVGAME"
 			ClearTooltip(15000)
 			Sleep 100
 			; ------------------------------------------------------------
-			; Part 1-of-3 Level 83 Start Craft
+			; Part 2-of-4 - Run the first macro (of two) for a "Level 83 Star Craft"
 			;   |--> Hotkey:  [
 			;
 			ControlSend,,[, ahk_pid %ExePID%
@@ -107,7 +112,7 @@ ExeWinClass := "FFXIVGAME"
 			Random, RandomSleep, 1000, 5000  ; Random wait
 			Sleep %RandomSleep%
 			; ------------------------------------------------------------
-			; Part 2-of-3 Level 83 Start Craft
+			; Part 3-of-4 Run the second macro (of two) for a "Level 83 Star Craft"
 			;   |--> Hotkey:  ]
 			;
 			ControlSend,,], ahk_pid %ExePID%
@@ -116,7 +121,8 @@ ExeWinClass := "FFXIVGAME"
 			Random, RandomSleep, 1000, 5000  ; Random wait
 			Sleep %RandomSleep%
 			; ------------------------------------------------------------
-			; Part 3-of-3 - Select Synthesize
+			; Part 4-of-4 - Re-select "Synthesize"
+			;
 			Sleep 2000
 			Loop 3 {
 				ControlSend,, =, ahk_pid %ExePID%

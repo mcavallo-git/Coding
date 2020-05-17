@@ -78,7 +78,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
 ;
 ~#Escape::
-	BlockInPut, Off  ;  Restore full interaction
+	BlockInPut, Off  ;  Stop blocking input (e.g. restore full interaction)
 	Reload  ; Reload this script
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?

@@ -648,7 +648,8 @@ WheelLeft::
 WheelRight::
 	Send ^{PgDn}
 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Shift + Insert
 ;  ACTION:  If running Ubuntu via WSL (Windows Subsystem for Linux), Paste the clipboard
@@ -693,7 +694,7 @@ WheelRight::
 
 ; 	Return
 
-;
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + A
 ;  ACTION:  Foxit PhantomPDF - Add Text
@@ -956,7 +957,8 @@ LShift & RShift::
 ; 		;
 ; 	}
 ; 	Return
-;
+
+
 ; ------------------------------------------------------------
 ;  Win + T - Get Windows Environment Vars
 ;
@@ -977,7 +979,8 @@ CapsLock::
 +CapsLock::
 	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
 	Return
-	
+
+
 ; ----------------------------------------------------
 ;  HOTKEY:  Num Lock
 ;  ACTION:  Permanently DISABLE Numlock (unless pressed with shift, which toggles it as-normal)
@@ -994,9 +997,9 @@ CapsLock::
 
 
 ; ------------------------------------------------------------
-;
-; >>  FUNCTIONS  <<
-;
+; ------------------------------------------------------------
+; ---                       FUNCTIONS                      ---
+; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
 

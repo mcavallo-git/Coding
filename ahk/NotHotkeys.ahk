@@ -78,7 +78,6 @@ ExeWinClass := "FFXIVGAME"
 	{
 		Sleep 1000
 		Disable_FFXIV_MouseEvents()
-		Block_FFXIV_MouseClicks := 1
 		; WinSet, Disable,, ahk_pid %ExePID%
 		; OverlayOn(ExeBasename)
 
@@ -136,7 +135,6 @@ ExeWinClass := "FFXIVGAME"
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep 2000  ; Wait for synthesize to finish
 		}
-		Block_FFXIV_MouseClicks := 0
 		Enable_FFXIV_MouseEvents()
 		Sleep 1000
 		; WinSet, Enable,, ahk_pid %ExePID%
@@ -175,18 +173,29 @@ ExeWinClass := "FFXIVGAME"
 		AwaitModifierKeyup()
 		ExePID := GetPID(ExeBasename)
 		Exe_ahk_Id := WinActive(ahk_pid %ExePID%)
-		Sleep 1000
+		Sleep 250
+		Disable_FFXIV_MouseEvents()
+		Sleep 250
+		; Send 2 * "Confirm" keypresses
 		Loop 2 {
 			ControlSend,, =, ahk_id %Exe_ahk_Id%
 			Random, RandomSleep, 1000, 2000  ; Random wait
 			Sleep %RandomSleep%
 		}
-		ControlSend,, Up, ahk_id %Exe_ahk_Id%
-		Random, RandomSleep, 1000, 2000  ; Random wait
+		; Send right-arrow keypress
+		ControlSend,, {Right}, ahk_id %Exe_ahk_Id%
+		Random, RandomSleep, 50, 250  ; Random wait
 		Sleep %RandomSleep%
+		; Send up-arrow keypress
+		ControlSend,, {Up}, ahk_id %Exe_ahk_Id%
+		Random, RandomSleep, 50, 250  ; Random wait
+		Sleep %RandomSleep%
+		; Send "Confirm" keypress
 		ControlSend,, =, ahk_id %Exe_ahk_Id%
 		Random, RandomSleep, 1000, 2000  ; Random wait
 		Sleep %RandomSleep%
+		Enable_FFXIV_MouseEvents()
+		Sleep 1000
 		Return
 #If
 

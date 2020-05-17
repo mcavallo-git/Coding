@@ -115,14 +115,15 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   HOTKEY:  Win + -
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
-#IfWinNotExist, ahk_class FFXIVGAME
+#If !WinActive("ahk_class FFXIVGAME")
 #-::
 #NumpadSub::
 	AwaitModifierKeyup()
 	SetKeyDelay, 0, -1
 	; StringToType := StringRepeat("-",60)
-		SendInput, ------------------------------------------------------------
+	SendInput, ------------------------------------------------------------
 	Return
+#If
 
 
 ; ------------------------------------------------------------
@@ -130,13 +131,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   HOTKEY:  Win + [ Plus-Key ]
 ;   ACTION:  Create a citations footer (refer to function description for more info)
 ;
+#If !WinActive("ahk_class FFXIVGAME")
 #=::
 #+::
 #NumpadAdd::
 	CreateCitationsFooter()
 	Return
-
-#IfWinNotExist
+#If
 
 
 ; ------------------------------------------------------------

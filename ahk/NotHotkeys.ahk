@@ -172,7 +172,7 @@ SetTimer, WatchCursor, 10
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Win + Esc
-;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
+;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
 ;
 ~#Escape::
 	BlockInPut, Off  ;  Restore full interaction

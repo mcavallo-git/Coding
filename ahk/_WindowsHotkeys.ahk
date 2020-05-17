@@ -55,7 +55,7 @@ CR=`r
 
 LF=`n
 
-VerboseOutput := True
+VerboseOutput := 1
 
 ; ------------------------------------------------------------
 ;
@@ -718,7 +718,7 @@ WheelRight::
 ; 	WinGet, WinProcessName, ProcessName, A
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (VerboseOutput = True) {
+; 		If (VerboseOutput == 1) {
 ; 			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
 ; 		}
 ; 		x_loc = 223
@@ -730,7 +730,7 @@ WheelRight::
 ; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 ; 	}
 ; 	; } Else {
-; 	; 	If (VerboseOutput = True) {
+; 	; 	If (VerboseOutput == 1) {
 ; 	; 		TrayTip, AHK, Foxit PhantomPDF`nMUST be active (to add text), 4, 1  ; Toast Notification
 ; 	; 	}
 ; 	; }
@@ -1482,7 +1482,7 @@ Open_Exe(ExeFullpath) {
 	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
 	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running
-		If (VerboseOutput = True) {
+		If (VerboseOutput == 1) {
 			TextToolTip := "Activating """ ExeBasename """"
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -1491,7 +1491,7 @@ Open_Exe(ExeFullpath) {
 		WinActivate, ahk_pid %ExePID%
 	} Else If (FileExist(ExeFullpath)) {
 		; Executable NOT running but IS found locally
-		If (VerboseOutput = True) {
+		If (VerboseOutput == 1) {
 			TextToolTip := "Opening """ ExeBasename """"
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -1503,7 +1503,7 @@ Open_Exe(ExeFullpath) {
 		WinActivate, ahk_pid %ExePID%
 	} Else {
 		; Executable NOT running & NOT found locally
-		If (VerboseOutput = True) {
+		If (VerboseOutput == 1) {
 			TextToolTip := "File not found: """ ExeFullpath """"
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -1539,13 +1539,13 @@ OpenPasswordGenerator() {
 	If (WinExist(WinTitle_Login)) {
 		WinActivate, %WinTitle_Login%
 	} Else If (WinExist(WinTitle)) {
-		If (VerboseOutput = True) {
+		If (VerboseOutput == 1) {
 			Text_TrayTip := "Activating existing instance of """ WinTitle """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
-		If (VerboseOutput = True) {
+		If (VerboseOutput == 1) {
 			Text_TrayTip := "Opening new-instance of """ WinTitle """"
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -1662,7 +1662,7 @@ PasteClipboardAsText() {
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
-	; If (VerboseOutput == True) {
+	; If (VerboseOutput == 1) {
 	; 	TrayTip, AHK,
 	; 	(LTrim
 	; 		Pasting the Text version of the Clipboard

@@ -38,14 +38,16 @@ ExeWinClass := "FFXIVGAME"
 
 ; ------------------------------------------------------------
 ;
-;  HOTKEY:  (AUTO)
-;  ACTION:  Block mouse-interactions if FFXIV window is active && crafting is occurring
+;   HOTKEY:  Win + Esc
+;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
 ;
-#If WinActive("ahk_class FFXIVGAME") and (CurrentlyCrafting == 1)
-	LButton::
-	RButton::
-		Return
-#If
+~#Escape::
+	BlockInPut, Off  ;  Restore full interaction
+	Reload  ; Reload this script
+	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
+	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
+	IfMsgBox, Yes, Edit
+	Return
 
 
 ; ------------------------------------------------------------
@@ -134,16 +136,15 @@ ExeWinClass := "FFXIVGAME"
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Win + Esc
-;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
+;  HOTKEY:  Left-MouseClick
+;  HOTKEY:  Right-MouseClick
+;  ACTION:  Block mouseclick events if the FFXIV window is active && crafting is occurring
 ;
-~#Escape::
-	BlockInPut, Off  ;  Restore full interaction
-	Reload  ; Reload this script
-	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
-	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
-	IfMsgBox, Yes, Edit
-	Return
+#If WinActive("ahk_class FFXIVGAME") and (CurrentlyCrafting == 1)
+	LButton::
+	RButton::
+		Return
+#If
 
 
 ; ------------------------------------------------------------

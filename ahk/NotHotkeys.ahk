@@ -172,7 +172,6 @@ SetTimer, WatchCursor, 10
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Win + Esc
-;   HOTKEY:  WinKey + =
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
 ~#Escape::

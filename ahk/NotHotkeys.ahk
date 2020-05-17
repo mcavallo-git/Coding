@@ -28,6 +28,14 @@ ExeWinTitle := "FINAL FANTASY XIV"
 
 ExeWinClass := "FFXIVGAME"
 
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                   HOTKEY-LISTENERS                   ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+
 ; ------------------------------------------------------------
 ;
 ;  HOTKEY:  (AUTO)
@@ -38,6 +46,7 @@ ExeWinClass := "FFXIVGAME"
 	RButton::
 		Return
 #If
+
 
 ; ------------------------------------------------------------
 ;
@@ -77,6 +86,7 @@ WatchCursor:
 
 SetTimer, WatchCursor, 10
 	Return
+
 
 ; ------------------------------------------------------------
 ;
@@ -167,15 +177,8 @@ SetTimer, WatchCursor, 10
 ;
 ~#Escape::
 #=::
-	Global CurrentlyCrafting
-	Global ExeBasename
-	Global ExeWinClass
-	Global ExeWinTitle
-	Global VerboseOutput
-	CurrentlyCrafting := 0
-	AwaitModifierKeyup()
 	BlockInPut, Off  ;  Restore full interaction
-	Reload
+	Reload  ; Reload this script
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
 	IfMsgBox, Yes, Edit

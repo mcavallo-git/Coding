@@ -70,7 +70,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) be tested/applied on the fly)
 ;
-#Escape::
+~#Escape::
 	Reload
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
@@ -277,16 +277,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  ?????
-;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
-;
-; ?????::
-; 	TZ_OFFSET := GetTimezoneOffset()
-;   Send %TZ_OFFSET%
-; 	Return
-
-
-; ------------------------------------------------------------
 ;
 ;  HOTKEY:  Win + F1
 ;  ACTION:  Edit this Script (the one you're reading right now)
@@ -319,7 +309,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		MouseClick, Left, 848, 575
 		Sleep 7500
 	}
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + Ctrl + Z
 ;  HOTKEY:  Win + Shift + Z
@@ -337,7 +328,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 ;SC163::   ;"Fn" Key
 ;Return
-;
+
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + [
 ;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
@@ -460,6 +452,16 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	; Monitor_ShowScreenSaver()
 	Reload
 	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  ?????
+;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
+;
+; ?????::
+; 	TZ_OFFSET := GetTimezoneOffset()
+;   Send %TZ_OFFSET%
+; 	Return
 
 
 ; ------------------------------------------------------------

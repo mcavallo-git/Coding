@@ -27,7 +27,7 @@ function SyncRegistry {
 			$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
 			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 		} Else {
-			Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n" -BackgroundColor Black -ForegroundColor Yellow;
+			Write-Output "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n";
 		}
 	} Else {
 		<# Script >> IS << running as Admin - Continue #>
@@ -664,9 +664,18 @@ function SyncRegistry {
 		$Name="MaxCompressionLevel";
 		$Type="DWord";
 		[UInt32]$Value = 0x00000002;
-		Write-Host "";
-		Write-Host "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-		Write-Host -NoNewLine "`n";
+		Write-Output "";
+		Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+		Write-Output "`n";
+		Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
+
+		$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.TerminalServer::TS_SERVER_WDDM_GRAPHICS_DRIVER
+		$Name="fEnableWddmDriver";
+		$Type="DWord";
+		[UInt32]$Value = 0x00000000;
+		Write-Output "";
+		Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Use WDDM graphics display driver for Remote Desktop Connections' to:  [ 0 (Disabled) - 'If you disable this policy setting, Remote Desktop Connections will NOT use WDDM graphics display driver. In this case, the Remote Desktop Connections will use XDDM graphics display driver.' ],  [ 1 (Enabled) - 'If you enable or do not configure this policy setting, Remote Desktop Connections will use WDDM graphics display driver.' ]";
+		Write-Output "`n";
 		Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
 
@@ -718,7 +727,7 @@ function SyncRegistry {
 				$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
 				Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 			} Else {
-				Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n" -BackgroundColor Black -ForegroundColor Yellow;
+				Write-Output "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n";
 			}
 		} Else {
 			<# Script >> IS << running as Admin - Continue #>
@@ -734,7 +743,7 @@ function SyncRegistry {
 					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
-						Write-Host "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found" -ForegroundColor Yellow;
+						Write-Output "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
 						ForEach ($Each_PSDrive In $PSDrives) {
 							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
@@ -743,13 +752,13 @@ function SyncRegistry {
 							}
 						}
 						If ($Each_PSDrive_Root -Ne $Null) {
-							Write-Host "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"" -ForegroundColor "Yellow";
+							Write-Output "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
 							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 						}
 					}
 				}
 
-				Write-Host ("`n$($EachRegEdit.Path)");
+				Write-Output ("`n$($EachRegEdit.Path)");
 				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key - If not found, then create it (unless it is to-be-deleted)
@@ -762,7 +771,7 @@ function SyncRegistry {
 						#
 						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 						If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
-							Write-Host (("  |-->  Created Key")) -ForegroundColor "Green";
+							Write-Output (("  |-->  Created Key"));
 						}
 					}
 
@@ -784,12 +793,12 @@ function SyncRegistry {
 							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								Write-Host "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date) ${EchoDetails}" -ForegroundColor "DarkGray";
+								Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date) ${EchoDetails}";
 
 							} Else {
 
 								# Update the Property
-								Write-Host "  |-->  Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}" -ForegroundColor "Yellow";
+								Write-Output "  |-->  Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
 								Set-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
 							}
@@ -801,14 +810,14 @@ function SyncRegistry {
 								# Delete the Registry-Key
 								Remove-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 								If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) {
-									Write-Host (("  |-->  Deleted Key")) -ForegroundColor "Magenta";
+									Write-Output "  |-->  Deleted Key";
 									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 								}
 
 							} Else {
 
 								# Delete the Property
-								Write-Host "  |-->  Deleting Property `"$($EachProp.Name)`" ${EchoDetails}" -ForegroundColor "Magenta";
+								Write-Output "  |-->  Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
 								Remove-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
 
 							}
@@ -820,13 +829,13 @@ function SyncRegistry {
 						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Host "  |-->  Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}" -ForegroundColor "Yellow";
+							Write-Output "  |-->  Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
 							New-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
 
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							Write-Host "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted) ${EchoDetails}" -ForegroundColor "DarkGray";
+							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted) ${EchoDetails}";
 
 						}
 
@@ -839,7 +848,7 @@ function SyncRegistry {
 		}
 	}
 
-	Write-Host -NoNewLine "`n`n  Press any key to exit..." -BackgroundColor Black -ForegroundColor Magenta;
+	Write-Output "`n`n  Press any key to exit...";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 }

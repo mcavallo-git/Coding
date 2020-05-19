@@ -1,17 +1,29 @@
 # ------------------------------------------------------------
 
-<# Check-for & Download available Windows Updates #>
-((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
-<# Open the "Windows Update" page within Windows' "Settings" App #>
-Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate"));
+
+<# (ALL EXCEPT INSTALL NOW) #>
+<# Windows Updates - Open, Check-for, and Download "Windows Updates" (let user select the "Install Now" button) #>
+Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate")); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
 
 
-<# Create a shortcut on current user's Desktop which triggers Windows Updates' "Check for updates" command then opens the "Windows Update" page within Windows' "Settings" App #>
+<# (ALL EXCEPT INSTALL NOW) #>
+<# Windows Updates (Creates a shortcut on the desktop) - Open, Check-for, and Download "Windows Updates" (let user select the "Install Now" button) #>
 $NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut("${Home}\Desktop\Check for Updates.lnk");
 $NewShortcut.TargetPath=("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
-$NewShortcut.Arguments=("-Command `"((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow()); Start-Process -Filepath ('C:\Windows\explorer.exe') -ArgumentList (@('ms-settings:windowsupdate'));`"");
+$NewShortcut.Arguments=("-Command `"Start-Process -Filepath ('C:\Windows\explorer.exe') -ArgumentList (@('ms-settings:windowsupdate')); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());`"");
 $NewShortcut.WorkingDirectory=("");
 $NewShortcut.Save();
+
+
+# ------------------------------------------------------------
+
+
+<# Windows Updates - Just do check-for + download available "Windows Updates" #>
+((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
+
+
+<# Windows Updates - Just open "Windows Updates" #>
+Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate"));
 
 
 # ------------------------------------------------------------

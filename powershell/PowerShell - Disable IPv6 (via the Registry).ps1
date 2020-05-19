@@ -4,7 +4,13 @@
 #
 # ------------------------------------------------------------
 
-Break #In case you paste this in to PowerShell ISE and press run script:)
+
+
+
+
+# ------------------------------------------------------------
+
+
 
 # Check if IPv4 IP address is preferred
 Ping $Env:COMPUTERNAME;

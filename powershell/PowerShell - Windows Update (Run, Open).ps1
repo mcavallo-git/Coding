@@ -1,5 +1,6 @@
 
 
+<# Open the "Windows Update" page within Windows' "Settings" App #>
 Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate"));
 
 

@@ -78,6 +78,27 @@ UsoClient.exe StartScan
 
 
 # ------------------------------------------------------------
+# TO-BE-TESTED --> "To Install all downloaded Updates and restart the computer if required" (from michlstechblog.info)
+
+If ($True) {
+	$oInstaller=(New-Object -ComObject Microsoft.Update.Session).CreateUpdateInstaller();
+	$aUpdates=New-Object -ComObject Microsoft.Update.UpdateColl;
+	((New-Object -ComObject Microsoft.Update.Session).CreateupdateSearcher().Search("IsAssigned=1 and IsHidden=0 and IsInstalled=0 and Type='Software'")).Updates|%{
+			if(!$_.EulaAccepted){$_.EulaAccepted=$true};
+			[void]$aUpdates.Add($_);
+	}
+	$oInstaller.ForceQuiet=$true;
+	$oInstaller.Updates=$aUpdates;
+	if($oInstaller.Updates.count -ge 1){
+		write-host "Installing " $oInstaller.Updates.count "Updates";
+		if($oInstaller.Install().RebootRequired){Restart-Computer};
+	} else {
+		write-host "No updates detected";
+	}
+}
+
+
+# ------------------------------------------------------------
 # Deprecated - Using wuauclt.exe
 
 # wuauclt.exe /updatenow
@@ -88,6 +109,8 @@ UsoClient.exe StartScan
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Launch the Windows Settings app - UWP applications | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/uwp/launch-resume/launch-settings-app
+#
+#   michlstechblog.info  |  "Windows 10: Trigger detecting updates from command line"  |  https://michlstechblog.info/blog/windows-10-trigger-detecting-updates-from-command-line/
 #
 #   omgdebugging.com  |  "Command Line Equivalent of wuauclt in Windows 10 / Windows Server 2016"  |  https://omgdebugging.com/2017/10/09/command-line-equivalent-of-wuauclt-in-windows-10-windows-server-2016/
 #

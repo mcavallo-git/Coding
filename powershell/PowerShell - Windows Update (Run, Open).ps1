@@ -1,6 +1,10 @@
 
 
-<# Open the "Windows Update" page within Windows' "Settings" App #>
+<# Windows Updates - Open, Check-for, and Download "Windows Updates" (let user select the "Install Now" button) #>
+Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate")); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
+
+
+<# Windows Updates - Open the "Windows Update" page within Windows' "Settings" App #>
 Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate"));
 
 

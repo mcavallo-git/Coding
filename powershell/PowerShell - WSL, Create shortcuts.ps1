@@ -1,4 +1,12 @@
+# ------------------------------------------------------------
+If ($False) {  # RUN THIS SCRIPT REMOTELY
 
+
+Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20WSL,%20Create%20shortcuts.ps1")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+
+}
+# ------------------------------------------------------------
 
 $Distro_DirsAbove = "$HOME\AppData\Local\Packages";
 $Distro_DirsBelow = "\LocalState\rootfs";

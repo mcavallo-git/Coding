@@ -3,28 +3,41 @@
 # Windows - Disable IPv6 via the Registry
 #
 # ------------------------------------------------------------
+If ($False) { # RUN THIS SCRIPT REMOTELY
 
 
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Disable%20IPv6%20(via%20the%20Registry).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
-
+}
 # ------------------------------------------------------------
+#
+# Verify that the user does, indeed wish to disable IPv6 (require them to press 'y' (for yes)
+#
 
+Write-Output -NoNewLine "Info:  Disable IPv6 Networking to/from this Machine? (y/n)";
+$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+If ($KeyPress.Character -Eq "y") {
+	Write-Output "Info:  Confirmed - Disabling IPv6....";
+	# Check if IPv4 IP address is preferred
+	Ping $Env:COMPUTERNAME;
 
+	# If the previous ping command responds with an IPv6 address (such as ::1), run following registry setting to disable IPv6 via the Registry --> reboot to apply the change
+	New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x20 -PropertyType "DWord";
 
-# Check if IPv4 IP address is preferred
-Ping $Env:COMPUTERNAME;
+	# If DisabledComponents exists, use the set cmdlet
+	Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x20;
 
-# If the previous ping command responds with an IPv6 address (such as ::1), run following registry setting to disable IPv6 via the Registry --> reboot to apply the change
-New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x20 -PropertyType "DWord";
+	# Write-Host "You need to reboot the computer in order for the changes to take effect";
+	# Restart-Computer
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+	CheckPendingRestart;
 
-# If DisabledComponents exists, use the set cmdlet
-Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x20;
+} Else {
+	Write-Output "Info:  Cancelled, exiting...";
+	Start-Sleep 10;
 
-# Write-Host "You need to reboot the computer in order for the changes to take effect";
-# Restart-Computer
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-CheckPendingRestart;
+}
 
 
 # ------------------------------------------------------------

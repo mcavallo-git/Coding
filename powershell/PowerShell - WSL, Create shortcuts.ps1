@@ -70,13 +70,11 @@ ForEach ($EachLocalDir In $Haystack_LocalDirs) {
 }
 
 ForEach ($EachResolvedArr In $LocalDistros_Resolved) {
-
 	$NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut($EachResolvedArr.Shortcut_Location);
 	$NewShortcut.TargetPath=($EachResolvedArr.Shortcut_Target);
-	$NewShortcut.Arguments=($EachResolvedArr.Shortcut_Arguments );
+	$NewShortcut.Arguments=($EachResolvedArr.Shortcut_Arguments);
 	$NewShortcut.WorkingDirectory=($EachResolvedArr.Shortcut_WorkingDir);
 	$NewShortcut.Save();
 	$NewShortcut.FullName; # Show the filepath of the newly-created shortcut
-
 }
 

@@ -5,7 +5,7 @@
 #
 
 If ($True) {
-	Write-Output -NoNewLine "Info:  Yes or no? (y/n)";
+	Write-Output "Info:  Yes or no? (y/n)";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If ($KeyPress.Character -Eq "y") {
 		Write-Output "Info:  You selected `"y`"";
@@ -20,7 +20,7 @@ If ($True) {
 # Wait endlessly for a single keypress
 #
 
-Write-Output -NoNewLine "Info:  System restart required - Press 'y' to confirm and reboot this machine, now...";
+Write-Output "Info:  System restart required - Press 'y' to confirm and reboot this machine, now...";
 $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 While ($KeyPress.Character -NE "y") {
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

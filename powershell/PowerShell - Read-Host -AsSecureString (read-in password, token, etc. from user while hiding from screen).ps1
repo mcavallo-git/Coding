@@ -5,7 +5,7 @@
 #
 
 If ($True) {
-	Write-Host -NoNewLine "Info:  Yes or no? (y/n)" -ForegroundColor "Yellow" -BackgroundColor "Black";
+	Write-Output -NoNewLine "Info:  Yes or no? (y/n)" -ForegroundColor "Yellow" -BackgroundColor "Black";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If ($KeyPress.Character -Eq "y") {
 		Write-Output "Info:  You selected `"y`"";
@@ -20,7 +20,7 @@ If ($True) {
 # Wait endlessly for a single keypress
 #
 
-Write-Host -NoNewLine "Info:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
+Write-Output -NoNewLine "Info:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
 $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 While ($KeyPress.Character -NE "y") {
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
@@ -33,16 +33,16 @@ While ($KeyPress.Character -NE "y") {
 #
 
 $UsernamePlaintext = Read-Host -Prompt 'Type an example Username (in plaintext)';
-Write-Host "You typed `"${UsernamePlaintext}`"";
+Write-Output "You typed `"${UsernamePlaintext}`"";
 
 
 # ------------------------------------------------------------
 #
-# # Read a Securestring in from the user & convert it to plaintext
+# Read a Securestring in from the user & convert it to plaintext
 #
 
 $SecureString_ToPlainText = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode($(Read-Host -AsSecureString -Prompt 'Type an example securestring'))));
-Write-Host "You typed `"${SecureString_ToPlainText}`"";
+Write-Output "You typed `"${SecureString_ToPlainText}`"";
 
 
 # ------------------------------------------------------------

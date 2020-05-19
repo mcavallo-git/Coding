@@ -1,6 +1,6 @@
 
 
-explorer ms-settings:windowsupdate
+Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate"));
 
 
 # ------------------------------------------------------------

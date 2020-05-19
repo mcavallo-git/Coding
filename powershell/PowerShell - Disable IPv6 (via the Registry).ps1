@@ -15,7 +15,7 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointM
 # Ask user if they wish to disable IPv6 Networking for this machine
 #
 
-Write-Output -NoNewLine "Info:  Disable IPv6 Networking to/from this Machine? (y/n)";
+Write-Output "Info:  Disable IPv6 Networking to/from this Machine? (y/n)";
 $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 If ($KeyPress.Character -Eq "y") {
 	Write-Output "Info:  Confirmed - Disabling IPv6....";

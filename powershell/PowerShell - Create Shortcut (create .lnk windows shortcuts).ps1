@@ -1,3 +1,4 @@
+# ------------------------------------------------------------
 
 <# Example Shortcut #>
 
@@ -7,3 +8,6 @@ $NewShortcut.TargetPath=("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.
 $NewShortcut.Arguments=("-Command `"Start-Process -Filepath ('C:\Windows\explorer.exe') -ArgumentList (@('ms-settings:windowsupdate')); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());`"");
 $NewShortcut.WorkingDirectory=("");
 $NewShortcut.Save();
+
+
+# ------------------------------------------------------------

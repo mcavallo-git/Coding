@@ -854,6 +854,18 @@ LShift & RShift::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Send {PrintScreen}
 	Return
+!#9::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	Send !{PrintScreen}
+	Return
+^#9::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	Send ^{PrintScreen}
+	Return
++#9::
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	Send +{PrintScreen}
+	Return
 
 
 ; ------------------------------------------------------------

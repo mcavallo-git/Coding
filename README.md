@@ -254,7 +254,6 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="multimedia"><br />Multimedia<br /><br /></h5></th></tr>
 <tr><td><strong>AirServer Universal</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Airplay+, Google Cast+, Miracast</i></sub></td><td><a href="https://www.airserver.com/Download/MacPC">Download (mirror)</a></td></tr>
 <tr><td><strong>Audacity</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source source, cross-platform audio software</a></i></sub></td><td><a href="https://www.fosshub.com/Audacity.html?download">Download (mirror)</a></td></tr>
-<tr><td><strong>Dynamic Theme</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Updates/applies bing background & windows spotlight</a></i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH1ZBKW">Download (source)</a></td></tr>
 <tr><td><strong>Greenshot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source Screenshot Program<br />&nbsp;&nbsp;&nbsp;Replaces/Upgrades Print screen & Snipping tool</a></i></sub></td><td><a href="https://getgreenshot.org/downloads/">Download (source)</a></td></tr>
 <tr><td><strong>iTunes</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Apple's Media Library/Player/Radio & Device-Manager Utility</a></i></sub></td><td><a href="https://apple.co/ms">Download (source)</a></td></tr>
 <tr><td><strong>Paint.NET</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Image & Photo Editing Software<br />&nbsp;&nbsp;&nbsp;<a href="https://www.getpaint.net/doc/latest/KeyboardMouseCommands.html">View Keyboard & Mouse Commands (Hotkeys)</a></i></sub></td><td><a href="https://www.dotpdn.com/downloads/pdn.html">Download (source)</a></td></tr>
@@ -269,6 +268,8 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="personalization"><br />Personalization<br /><br /></h5></th></tr>
+<tr><td><strong>Fonts - Fira Code</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Contains ligatures for programming multi-character combinations</a></i></sub></td><td><a href="https://fonts.google.com/specimen/Fira+Code">Download (source)</a></td></tr>
+<tr><td><strong>Dynamic Theme</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Updates/applies bing background & windows spotlight</a></i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH1ZBKW">Download (source)</a></td></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

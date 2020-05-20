@@ -268,7 +268,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="personalization"><br />Personalization<br /><br /></h5></th></tr>
-<tr><td><strong>Fonts - Fira Code</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Contains ligatures for programming multi-character combinations</a></i></sub></td><td><a href="https://fonts.google.com/specimen/Fira+Code">Download (source)</a></td></tr>
+<tr><td><strong>Fonts - Fira Code</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Ligature Font (has extra chars like triple equals)</a></i></sub></td><td><a href="https://fonts.google.com/specimen/Fira+Code">Download (source)</a></td></tr>
 <tr><td><strong>Dynamic Theme</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Updates/applies bing background & windows spotlight</a></i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH1ZBKW">Download (source)</a></td></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
 <!-- -->

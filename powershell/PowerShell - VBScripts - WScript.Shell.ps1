@@ -1,5 +1,4 @@
-
-# ---------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 #	WScript.Shell
 #		SendKeys
@@ -17,22 +16,23 @@ $Activators.SHIFT="+";
 #	Ex) Open the start-menu and type a string into it (must wait [some] milliseconds for the start-menu to open before sending string to it)
 #
 $Shell = (New-Object -ComObject WScript.Shell);
-
 $Shell.SendKeys("^{ESC}");
 Start-Sleep -Milliseconds 100;
 $Shell.SendKeys("powershell.exe");
 
-#
-# ex) One-Liner to open the Start Menu
-#
 
+#
+# Ex) One-Liner to open the Start Menu
+#
 (New-Object -ComObject WScript.Shell).SendKeys('^{ESC}');
+#
+#		.bat/.cmd:   PowerShell -Command "(New-Object -ComObject WScript.Shell).SendKeys('^{ESC}');"
+#
+#		.vbs:        WScript.CreateObject("WScript.Shell").SendKeys "^{ESC}"
+#
 
-#		.bat/.cmd:          powershell -command "(New-Object -ComObject WScript.Shell).SendKeys('^{ESC}');"
 
-#		.vbs:    WScript.CreateObject("WScript.Shell").SendKeys "^{ESC}"
-
-# ---------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 #	WScript.Shell - Popup
 #		-->	Show a popup message
@@ -42,12 +42,10 @@ $Shell.SendKeys("powershell.exe");
 (New-Object -ComObject WScript.Shell).Popup("Demo Message", 5, "Hello World", 3);
 
 
-
-# ---------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#		docs.microsoft.com, "SendKeys statement"
-#			https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sendkeys-statement
+#   docs.microsoft.com  |  "SendKeys statement"  |  https://docs.microsoft.com/en-us/office/vba/language/reference/user-interface-help/sendkeys-statement
 #
-#
+# ------------------------------------------------------------

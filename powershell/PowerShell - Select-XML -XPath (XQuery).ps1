@@ -3,7 +3,15 @@
 #	PowerShell
 #		Select-XML --> "Finds text in an XML string or document"
 #
+# ------------------------------------------------------------
 
+$XmlFullpath = "$(${Env:USERPROFILE})\Desktop\eset-export.xml"; `
+$XmlDoc = (Get-Content -LiteralPath ("${XmlFullpath}")) -as [Xml];
+$XmlDoc.GetType();
+#			IsPublic IsSerial Name                                     BaseType
+#			-------- -------- ----                                     --------
+#			True     False    XmlDocument                              System.Xml.XmlNode
+$XmlDoc.Node.InnerXML;
 
 
 # ------------------------------------------------------------
@@ -42,7 +50,6 @@ $XmlContents `
 };
 
 
-
 # ------------------------------------------------------------
 # Example
 #   |--> View an ESET export's excluded processes
@@ -57,7 +64,6 @@ Select-Xml `
 };
 
 
-
 # ------------------------------------------------------------
 # Example
 #   |--> View an ESET export's excluded filepaths
@@ -70,18 +76,6 @@ Select-Xml `
 	$_.Node | Format-List;
 	# ($_.Node.InnerXML) <# Node/Element's Inner-HTML #>
 };
-
-
-
-# ------------------------------------------------------------
-
-
-$XmlFullpath = "$(${Env:USERPROFILE})\Desktop\eset-export.xml"; `
-$XmlDoc = (Get-Content $XmlFullpath) -as [Xml];
-$XmlDoc.GetType();
-#			IsPublic IsSerial Name                                     BaseType
-#			-------- -------- ----                                     --------
-#			True     False    XmlDocument                              System.Xml.XmlNode
 
 
 # ------------------------------------------------------------

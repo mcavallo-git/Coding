@@ -4,6 +4,9 @@
 #
 # ------------------------------------------------------------
 
+$HTTP_Methods = @("Default", "Delete", "Get", "Head", "Merge", "Options", "Patch", "Post", "Put", "Trace");
+
+# ------------------------------------------------------------
 #
 # PowerShell - HTTP POST Request
 #  |--> Required the name="..."'s property-values for the username & password fields

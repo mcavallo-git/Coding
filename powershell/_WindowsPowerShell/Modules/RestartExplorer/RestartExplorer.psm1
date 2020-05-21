@@ -2,6 +2,7 @@
 #	Restart-Explorer
 # 	|--> ... Restarts Windows Explorer
 #
+# ------------------------------------------------------------
 function Restart-Explorer {
 	Param(
 	)

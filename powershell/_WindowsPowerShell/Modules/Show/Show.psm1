@@ -1,3 +1,4 @@
+# ------------------------------------------------------------
 #
 #	PowerShell - Show
 #		|
@@ -5,6 +6,8 @@
 #		|
 #		|--> Example:     PowerShell -Command ("Show `$MyInvocation -Methods")
 #
+# ------------------------------------------------------------
+
 Function Show() {
 	Param(
 		[Switch]$AlwaysGetHelp,
@@ -16,7 +19,16 @@ Function Show() {
 		[Switch]$NoValue,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
 
+
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Show/Show.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; `
+		Show @{"a"="b";"c"="d";};
+
+
+	}
+	# ------------------------------------------------------------
 	$ForceGetHelp = ($PSBoundParameters.ContainsKey('AlwaysGetHelp'));
 	$ShowGetHelp = (-Not $PSBoundParameters.ContainsKey('NoGetHelp'));
 	$ShowMethods = (-Not $PSBoundParameters.ContainsKey('NoMethods'));

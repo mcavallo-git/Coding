@@ -7,7 +7,7 @@
 # ------------------------------------------------------------ 
 
 
-<# Update PowerShell console width to 16384 characters#>
+<# Update PowerShell console width to 16384 characters #>
 If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); };
 
 

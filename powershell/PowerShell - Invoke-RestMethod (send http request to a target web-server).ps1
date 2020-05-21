@@ -7,7 +7,7 @@
 #
 # PowerShell - HTTP POST Request
 #  |--> Required the name="..."'s property-values for the username & password fields
-#  |--> Required the value="..."'s property-value for the form-submit button
+#  |--> Required the value="..."'s property-value for the form-submit button/action
 #
 $HttpRequest = @{};
 $HttpRequest.Uri = "https://example-login.com";

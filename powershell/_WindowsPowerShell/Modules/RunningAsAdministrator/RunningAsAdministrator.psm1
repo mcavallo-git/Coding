@@ -1,9 +1,11 @@
 # ------------------------------------------------------------
+#
 # @RunningAsAdministrator
 #   |--> Determine if Runtime-User is an Administrator
 #     |--> The SID (Security Identifier) value "S-1-5-32-544" refers to the "Administrator" user, and is static across Windows installs
 #     |--> This is what happens a user right-clicks & selects "Run as Administrator" on a given executable in Windows
 #
+# ------------------------------------------------------------
 Function RunningAsAdministrator {
 	Param(
 	)

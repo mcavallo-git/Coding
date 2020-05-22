@@ -1,8 +1,7 @@
 # ------------------------------------------------------------
 
-<# Example Shortcut #>
 
-<# Windows Updates (Creates a shortcut on the desktop) - Open, Check-for, and Download "Windows Updates" (let user select the "Install Now" button) #>
+<# Create a "Windows Updates" shortcut on the desktop #> 
 $Filepath_NewShortcut = "${Home}\Desktop\Check for Updates.lnk";
 $NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut("${Filepath_NewShortcut}");
 $NewShortcut.TargetPath=("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe");
@@ -13,7 +12,7 @@ $NewShortcut.Save();
 <# Run the shortcut as Admin #>
 $Bytes_NewShortcut = [System.IO.File]::ReadAllBytes("${Filepath_NewShortcut}");
 $Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); <# Perform a Bitwise-OR which checks the "Run as administrator" option on the shortcut #>
-[System.IO.File]::WriteAllBytes("${Filepath_NewShortcut}", ${Bytes_NewShortcut})
+[System.IO.File]::WriteAllBytes("${Filepath_NewShortcut}", ${Bytes_NewShortcut});
 
 
 # ------------------------------------------------------------

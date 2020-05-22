@@ -10,6 +10,18 @@ $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
 # ------------------------------------------------------------
 #
+# "Press 'y' to confirm..."
+#
+
+Write-Host -NoNewLine "`n`n  Press 'y' to confirm...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+If ($KeyPress.Character -Eq "y") {
+	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+}
+
+
+# ------------------------------------------------------------
+#
 # "Press 'Escape' to close this window..."
 #
 
@@ -22,10 +34,10 @@ While ($KeyPress.VirtualKeyCode -NE 27) {
 
 # ------------------------------------------------------------
 #
-# "Press 'y' to confirm..."
+# Require 'y' to proceed
 #
 
-Write-Host -NoNewLine "`n`n  Press 'y' to confirm...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
+Write-Host -NoNewLine "`n`n  Press 'y' to proceed...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
 $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 While ($KeyPress.Character -NE "y") {
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');

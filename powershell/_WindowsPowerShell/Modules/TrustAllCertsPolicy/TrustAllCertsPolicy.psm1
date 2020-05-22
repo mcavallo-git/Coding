@@ -33,7 +33,16 @@ function TrustAllCertsPolicy {
 	} Else {
 		<# Script >> IS << running as Admin - Continue #>
 
+
+
+		Write-Host -NoNewLine "`n`n  Do you wish to Trust all HTTPS certificates received during this PowerShell session? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		If ($KeyPress.Character -Eq "y") {
+			Write-Host -NoNewLine "   Confirmed - Errors which are normally thrown for invalid HTTPS certificates will be ignored for the remainder of this session...`n`n" -BackgroundColor "Black" -ForegroundColor "Teal";
+
 <# Trust all HTTPS certificates received during the current PowerShell session (including out-of-the-box localhost HTTPS certs on IIS servers) #>
+
+<#
 Add-Type @"
     using System.Net;
     using System.Security.Cryptography.X509Certificates;
@@ -45,13 +54,45 @@ Add-Type @"
         }
     }
 "@;
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy;
+#>
 
+If (-Not ([System.Management.Automation.PSTypeName]'ServerCertificateValidationCallback').Type) {
 
-		Write-Host -NoNewLine "`n`n  Do you wish to Trust all HTTPS certificates received during this PowerShell session? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
-		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-		If ($KeyPress.Character -Eq "y") {
-			Write-Host -NoNewLine "   Confirmed - Errors which are normally thrown for invalid HTTPS certificates will be ignored for the remainder of this session...`n`n" -BackgroundColor "Black" -ForegroundColor "Teal";
-			[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy;
+$certCallback=@"
+    using System;
+    using System.Net;
+    using System.Net.Security;
+    using System.Security.Cryptography.X509Certificates;
+    public class ServerCertificateValidationCallback
+    {
+        public static void Ignore()
+        {
+            if(ServicePointManager.ServerCertificateValidationCallback ==null)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += 
+                    delegate
+                    (
+                        Object obj, 
+                        X509Certificate certificate, 
+                        X509Chain chain, 
+                        SslPolicyErrors errors
+                    )
+                    {
+                        return true;
+                    };
+            }
+        }
+    }
+"@;
+Add-Type $certCallback;
+}
+
+$AllProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12';
+[System.Net.ServicePointManager]::SecurityProtocol = $AllProtocols;
+
+[ServerCertificateValidationCallback]::Ignore();
+
 		} Else {
 			Write-Host -NoNewLine "   Denied - Exiting...`n`n" -BackgroundColor "Black" -ForegroundColor "Gray";
 		}
@@ -73,6 +114,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   stackoverflow.com  |  ".net - Powershell v3 Invoke-WebRequest HTTPS error - Stack Overflow"  |  https://stackoverflow.com/a/46254549
 #
 #   stackoverflow.com  |  ".net - Powershell v3 Invoke-WebRequest HTTPS error - Stack Overflow"  |  https://stackoverflow.com/a/15841856
 #

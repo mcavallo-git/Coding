@@ -56,7 +56,7 @@ Add-Type @"
 
 
 	}
-
+	Start-Sleep 10
 	Return;
 
 }

@@ -37,7 +37,7 @@ $PSM1.Verbosity = 0;
 # ------------------------------------------------------------
 
 ## Determine if we just ran this script (before updating it) or not
-If ($Env:UpdatedCodebase -eq $null) {
+If ($Env:UpdatedCodebase -eq $Null) {
 	$PSM1.Iteration = 1;
 } Else {
 	$PSM1.Iteration = 2;
@@ -420,7 +420,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 $CommandExists = @{};
 
-If ($Env:UpdatedCodebase -eq $null) {
+If ($Env:UpdatedCodebase -eq $Null) {
 
 	# Iteration 1/2: Upon login, before [ updating from git-repo ]
 
@@ -436,7 +436,7 @@ If ($Env:UpdatedCodebase -eq $null) {
 			-Url ("https://github.com/${GithubOwner}/${GithubRepo}") `
 			-LocalDirname ("${HOME}");
 
-	$Env:UpdatedCodebase = $true;
+	$Env:UpdatedCodebase = $True;
 	
 	Set-Location ("${HOME}");
 
@@ -463,7 +463,7 @@ If ($Env:UpdatedCodebase -eq $null) {
 	
 	}
 
-	$Env:UpdatedCodebase = $null;
+	$Env:UpdatedCodebase = $Null;
 	
 }
 

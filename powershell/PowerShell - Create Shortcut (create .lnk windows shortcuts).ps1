@@ -12,7 +12,7 @@ $NewShortcut.Save();
 
 <# Run the shortcut as Admin #>
 $Bytes_NewShortcut = [System.IO.File]::ReadAllBytes("${Filepath_NewShortcut}");
-$Bytes_NewShortcut[0x15] = ($bytes[0x15] -bor 0x20); <# Perform a Bitwise-OR which checks the "Run as administrator" option on the shortcut #>
+$Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); <# Perform a Bitwise-OR which checks the "Run as administrator" option on the shortcut #>
 [System.IO.File]::WriteAllBytes("${Filepath_NewShortcut}", ${Bytes_NewShortcut})
 
 

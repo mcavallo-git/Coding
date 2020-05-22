@@ -50,7 +50,7 @@ Add-Type @"
 		Write-Host -NoNewLine "`n`n  Do you wish to Trust all HTTPS certificates received during this PowerShell session? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		If ($KeyPress.Character -Eq "y") {
-			Write-Host -NoNewLine "`n`n  Confirmed - Errors which are normally thrown for invalid HTTPS certificates will be ignored for the remainder of this session...`n`n" -BackgroundColor "Black" -ForegroundColor "Teal";
+			Write-Host -NoNewLine "   Confirmed - Errors which are normally thrown for invalid HTTPS certificates will be ignored for the remainder of this session...`n`n" -BackgroundColor "Black" -ForegroundColor "Teal";
 			[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy;
 		}
 

@@ -52,6 +52,8 @@ Add-Type @"
 		If ($KeyPress.Character -Eq "y") {
 			Write-Host -NoNewLine "   Confirmed - Errors which are normally thrown for invalid HTTPS certificates will be ignored for the remainder of this session...`n`n" -BackgroundColor "Black" -ForegroundColor "Teal";
 			[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy;
+		} Else {
+			Write-Host -NoNewLine "   Denied - Exiting...`n`n" -BackgroundColor "Black" -ForegroundColor "Gray";
 		}
 
 

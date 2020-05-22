@@ -6,14 +6,14 @@ function TrustAllCertsPolicy {
 
 
 		<# Trust all HTTPS certificates received during the current PowerShell session (including out-of-the-box localhost HTTPS certs on IIS servers) #>
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/TrustAllCertsPolicy/TrustAllCertsPolicy.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; SyncRegistry;
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/TrustAllCertsPolicy/TrustAllCertsPolicy.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; TrustAllCertsPolicy;
 
 
 	}
 	# ------------------------------------------------------------
 
 	# If ((RunningAsAdministrator) -Ne ($True)) {
-	# 	PrivilegeEscalation -Command ("SyncRegistry") {
+	# 	PrivilegeEscalation -Command ("TrustAllCertsPolicy") {
 	# } Else {
 
 	<# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>

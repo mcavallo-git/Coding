@@ -844,8 +844,13 @@ WheelRight::
 	GetVideoController_Command := "PowerShell.exe -Command ""(Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution | Out-String;"""
 	GetVideoController_ReturnVal := GetCommandOutput(GetVideoController_Command)
 	GetVideoController_Trimmed := := StrReplace(StrReplace(StrReplace(GetVideoController_ReturnVal, "`n", ""), "`v", ""), "`r", "")
-	; GetVideoControllerVals :=  Trim(GetVideoControllerVals)
-	MsgBox %GetVideoController_Trimmed%
+	MsgBox,
+		(LTrim
+			Logfile_Timestamped = %Logfile_Timestamped%
+			GetVideoController_Command = %GetVideoController_Command%
+			GetVideoController_ReturnVal = %GetVideoController_ReturnVal%
+			GetVideoController_Trimmed = %GetVideoController_Trimmed%
+		)
 	FileAppend, %GetVideoController_Trimmed%, %Logfile_Timestamped%
 	Run, Notepad "%Logfile_Timestamped%"
 	Return

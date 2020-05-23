@@ -840,8 +840,9 @@ WheelRight::
 	; SpaceUp_Loop(50)
 	; ClickLoop(1724,749)
 	; Run PowerShell.exe -Command &{((Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams) | Out-String).Trim() | Set-Clipboard},, hide
+	Global USER_DESKTOP
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
-	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" TIMESTAMP ".log"
+	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" COMPUTERNAME "_" USERNAME "_" TIMESTAMP ".log"
 	Command_GetVideoControllerVals := "PowerShell.exe -Command ""Get-CimInstance -ClassName CIM_VideoController | Out-String;"""
 	GetVideoControllerVals := GetCommandOutput(Command_GetVideoControllerVals)
 	FileAppend, %GetVideoControllerVals%, %Logfile_Timestamped%

@@ -846,10 +846,13 @@ WheelRight::
 	GetVideoController_Trimmed := := StrReplace(StrReplace(StrReplace(GetVideoController_ReturnVal, "`n", ""), "`v", ""), "`r", "")
 	MsgBox,
 		(LTrim
-			Logfile_Timestamped = %Logfile_Timestamped%
-			GetVideoController_Command = %GetVideoController_Command%
-			GetVideoController_ReturnVal = %GetVideoController_ReturnVal%
-			GetVideoController_Trimmed = %GetVideoController_Trimmed%
+			Logfile_Timestamped = [%Logfile_Timestamped%]
+
+			GetVideoController_Command = [%GetVideoController_Command%]
+
+			GetVideoController_ReturnVal = [%GetVideoController_ReturnVal%]
+
+			GetVideoController_Trimmed = [%GetVideoController_Trimmed%]
 		)
 	FileAppend, %GetVideoController_Trimmed%, %Logfile_Timestamped%
 	Run, Notepad "%Logfile_Timestamped%"

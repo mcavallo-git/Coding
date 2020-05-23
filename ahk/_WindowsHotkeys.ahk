@@ -828,12 +828,10 @@ WheelRight::
 ; ------------------------------------------------------------
 ;  HOTKEY:  Alt + Win + C
 ;           Ctrl + Win + C
-;           Shift + Win + C
 ;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
 !#C::
 ^#C::
-+C::
 	; WinTitle=Task Scheduler
 	; WinTitle=Visual Studio Code
 	; SpaceUp_Loop(50, WinTitle)
@@ -843,10 +841,12 @@ WheelRight::
 	Global USER_DESKTOP
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" TIMESTAMP ".log"
-	Command_GetVideoControllerVals := "PowerShell.exe -Command ""(Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution | Out-String;"""
-	GetVideoControllerVals := GetCommandOutput(Command_GetVideoControllerVals)
-	GetVideoControllerVals :=  Trim(GetVideoControllerVals)
-	FileAppend, %GetVideoControllerVals%, %Logfile_Timestamped%
+	GetVideoController_Command := "PowerShell.exe -Command ""(Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution | Out-String;"""
+	GetVideoController_ReturnVal := GetCommandOutput(GetVideoController_Command)
+	GetVideoController_Trimmed := := StrReplace(StrReplace(StrReplace(GetVideoController_ReturnVal, "`n", ""), "`v", ""), "`r", "")
+	; GetVideoControllerVals :=  Trim(GetVideoControllerVals)
+	MsgBox %GetVideoController_Trimmed%
+	FileAppend, %GetVideoController_Trimmed%, %Logfile_Timestamped%
 	Run, Notepad "%Logfile_Timestamped%"
 	Return
 

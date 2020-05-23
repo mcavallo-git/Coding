@@ -1244,8 +1244,11 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 ;   |--> Returns the standard output returned from a CMD (ComSpec) command
 ;
 GetCommandOutput(CMD_Command) {
+	MsgBox %CMD_Command%
 	WScript_Shell_Exec := RunWaitOne(CMD_Command)
+	MsgBox %WScript_Shell_Exec%
 	WScripl_Shell_StdOut := WScript_Shell_Exec.stdout.readall()
+	MsgBox %WScripl_Shell_StdOut%
 	Return WScripl_Shell_StdOut
 }
 

@@ -1245,7 +1245,7 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 ;
 GetCommandOutput(CMD_Command) {
 	MsgBox %CMD_Command%
-	WScript_Shell_Exec := RunWaitOne(CMD_Command)
+	WScript_Shell_Exec := RunWaitMany(CMD_Command)
 	MsgBox %WScript_Shell_Exec%
 	WScripl_Shell_StdOut := WScript_Shell_Exec.stdout.readall()
 	MsgBox %WScripl_Shell_StdOut%
@@ -1920,7 +1920,7 @@ RunWaitMany(CMD_Commands) {
 	; Send the commands to execute, separated by newline
 	WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
 	; Read and return the output of all commands
-	Return exec.StdOut.ReadAll()
+	Return WScript_Shell_Exec.StdOut.ReadAll()
 }
 
 

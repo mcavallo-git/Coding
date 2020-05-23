@@ -355,13 +355,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SysGet, ViewportHeightBefore, 79
 	; Save current mouse coordinates
 	MouseGetPos, MouseX, MouseY
-
 	; Send an Escape keypress to close any old Projection menus
 	Send {Escape}
 	Sleep 250
-
 	If (A_OSVersion="WIN_7") {  ; Windows7
-
 		If (A_ThisHotkey=="^#[") {
 			; Duplicate Monitors
 			x_loc := 874
@@ -375,9 +372,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Sleep 2000
 		MouseClick, Left, %x_loc%, %y_loc%
 		Sleep 100
-		
 	} Else If (SubStr(A_OSVersion, 1, 4)="10.0") {  ; Windows10
-
 		; Open the "Projection" window
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 250
@@ -426,13 +421,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 			}
 		}
 	}
-
 	MouseMove, %MouseX%, %MouseY%
-
 	SysGet, MonitorCountAfter, MonitorCount
 	SysGet, ViewportWidthAfter, 78
 	SysGet, ViewportHeightAfter, 79
-
 	; Read the registry to check for display scaling (percentage (%) based, applied in Windows' "Display Settings", and requires a reboot to update)
 	KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
 	PropertyName := "DpiScalingVer"
@@ -470,8 +462,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		; From:  https://superuser.com/a/1050763
 		;
 		; ------------------------------------------------------------
-
-	MsgBox, 
+	MsgBox,
 	(LTrim
 		x_loc = %x_loc%
 		y_loc = %y_loc%
@@ -485,7 +476,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Win8DpiScaling = %Win8DpiScaling%
 		LogPixels = %LogPixels%
 	)
-
+	ClearTooltip(10000)
 	Return
 
 
@@ -835,15 +826,24 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Ctrl + Win + C
+;  HOTKEY:  Alt + Win + C
+;           Ctrl + Win + C
+;           Shift + Win + C
 ;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
+!#C::
 ^#C::
++C::
 	; WinTitle=Task Scheduler
 	; WinTitle=Visual Studio Code
 	; SpaceUp_Loop(50, WinTitle)
 	; SpaceUp_Loop(50)
-	ClickLoop(1724,749)
+	; ClickLoop(1724,749)
+	; Run PowerShell.exe -Command &{((Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams) | Out-String).Trim() | Set-Clipboard},, hide
+	
+	Command_GetVideoControllerVals := "PowerShell.exe -Command ""Get-CimInstance -ClassName CIM_VideoController | Out-String;"""
+	GetVideoControllerVals := GetCommandOutput(Command_GetVideoControllerVals)
+	ToolTip, %GetVideoControllerVals%
 	Return
 
 
@@ -1237,6 +1237,17 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 
 
 ;
+;	GetCommandOutput
+;   |--> Returns the standard output returned from a CMD (ComSpec) command
+;
+GetCommandOutput(CMD_Command) {
+	WScript_Shell_Exec := RunWaitOne(CMD_Command)
+	WScripl_Shell_StdOut := WScript_Shell_Exec.stdout.readall()
+	Return WScripl_Shell_StdOut
+}
+
+
+;
 ;	GetPID
 ;   |--> Returns PID if process IS found
 ;   |--> Returns 0 if process is NOT found
@@ -1270,7 +1281,6 @@ GetTimezoneOffset() {
 	T2 := A_NowUTC
 	EnvSub, T1, %T2%, M
 	MINUTES_DIFF := T1
-
 	; SetFormat, float, 2.0
 	TZ_SIGN := ""
 	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
@@ -1290,7 +1300,6 @@ GetTimezoneOffset() {
 	If (Abs(TZ_REMAINDER) < 10) {
 		TZ_REMAINDER = 0%TZ_REMAINDER%
 	}
-
 	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
 	RET_VAL := StrReplace(RET_VAL, ".", "")
 
@@ -1316,10 +1325,8 @@ GetTimezoneOffset_P() {
 ;   |--> Gets Specs for currently-active window
 ;
 GetWindowSpecs() {
-
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
-
 	WinGetActiveStats, Title, Width, Height, Left, Top
 	WinGetTitle, WinTitle, A
 	WinGetText, WinText, A
@@ -1329,9 +1336,7 @@ GetWindowSpecs() {
 	WinGet, WinProcessName, ProcessName, A
 	WinGet, WinProcessPath, ProcessPath, A
 	WinGet, ControlNames, ControlList, A	; Get all control names in this window
-	
 	; Create the ListView with two columns
-
 	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
 	Gui, Font, s10, Tahoma
 	Gui, Font, s10, Consolas
@@ -1344,7 +1349,6 @@ GetWindowSpecs() {
 	GUI_WIDTH := 1000
 	GUI_BACKGROUND_COLOR = 1E1E1E
 	GUI_TEXT_COLOR = FFFFFF
-	
 	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
 	GUI_OPT = r%GUI_ROWCOUNT%
 	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
@@ -1354,9 +1358,7 @@ GetWindowSpecs() {
 	GUI_OPT = %GUI_OPT% Grid
 	GUI_OPT = %GUI_OPT% NoSortHdr
 	; GUI_OPT = %GUI_OPT% AltSubmit
-
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
-
 	LV_Add("", "WinTitle", WinTitle)
 	LV_Add("", "WinClass", WinClass)
 	LV_Add("", "ProcessName", WinProcessName)
@@ -1370,16 +1372,11 @@ GetWindowSpecs() {
 	LV_Add("", "Height", Height)
 	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
 	LV_Add("", "A_SendLevel", A_SendLevel)
-
 	LV_ModifyCol(1, "AutoHdr Text Left")
-
 	LV_ModifyCol(2, "AutoHdr Text Left")
-
 	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
-
 	; Display the window and return. The script will be notified whenever the user double clicks a row.
 	Gui, Show
-
 	Return
 }
 ;

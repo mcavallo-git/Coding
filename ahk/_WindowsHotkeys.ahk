@@ -841,9 +841,9 @@ WheelRight::
 	Global USER_DESKTOP
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" TIMESTAMP ".log"
-	Command_Get_CIM_VideoController := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
-	CIM_VideoController := GetCommandOutput(Command_Get_CIM_VideoController)
-	CIM_VideoController := StrReplace(StrReplace(StrReplace(CIM_VideoController, "`n", ""), "`v", ""), "`r", "")
+	Command_Get_CurrentVerticalResolution := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
+	CurrentVerticalResolution := GetCommandOutput(Command_Get_CurrentVerticalResolution)
+	CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
 	Return
 
 

@@ -425,7 +425,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SysGet, MonitorCountAfter, MonitorCount
 	SysGet, ViewportWidthAfter, 78
 	SysGet, ViewportHeightAfter, 79
-	; Read the registry to check for display scaling (percentage (%) based, applied in Windows' "Display Settings", and requires a reboot to update)
+	; Check-for Windows' percentage (%) based display scaling
+	Get_CurrentVerticalResolution := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
+	CurrentVerticalResolution := GetCommandOutput(Get_CurrentVerticalResolution)
+	CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
+	; Read the registry to check for display scaling
 	KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
 	PropertyName := "DpiScalingVer"
 		RegRead, DpiScalingVer, %KeyName%, %PropertyName%
@@ -837,13 +841,6 @@ WheelRight::
 	; SpaceUp_Loop(50, WinTitle)
 	; SpaceUp_Loop(50)
 	; ClickLoop(1724,749)
-	; Run PowerShell.exe -Command &{((Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams) | Out-String).Trim() | Set-Clipboard},, hide
-	Global USER_DESKTOP
-	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
-	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" TIMESTAMP ".log"
-	Command_Get_CurrentVerticalResolution := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
-	CurrentVerticalResolution := GetCommandOutput(Command_Get_CurrentVerticalResolution)
-	CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
 	Return
 
 

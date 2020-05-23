@@ -1244,7 +1244,6 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 ;   |--> Returns the standard output returned from a CMD (ComSpec) command
 ;
 GetCommandOutput(CMD_Command) {
-	MsgBox %CMD_Command%
 	WScript_Shell_StdOut := RunWaitMany(CMD_Command)
 	Return WScript_Shell_StdOut
 }

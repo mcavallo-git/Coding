@@ -840,10 +840,14 @@ WheelRight::
 	; SpaceUp_Loop(50)
 	; ClickLoop(1724,749)
 	; Run PowerShell.exe -Command &{((Get-CimInstance -Namespace root\wmi -ClassName WmiMonitorBasicDisplayParams) | Out-String).Trim() | Set-Clipboard},, hide
-	
+	Global COMPUTERNAME
+	Global USER_DESKTOP
+	Global USERNAME
+	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" COMPUTERNAME "_" USERNAME "_" TIMESTAMP ".log"
 	Command_GetVideoControllerVals := "PowerShell.exe -Command ""Get-CimInstance -ClassName CIM_VideoController | Out-String;"""
 	GetVideoControllerVals := GetCommandOutput(Command_GetVideoControllerVals)
-	ToolTip, %GetVideoControllerVals%
+	FileAppend, %GetVideoControllerVals%, %Logfile_Timestamped%
+	Run, Notepad "%Logfile_Timestamped%"
 	Return
 
 
@@ -1782,6 +1786,9 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 ;   |--> Gets Windows Environment Vars (output to file)
 ;
 PrintEnv() {
+	Global COMPUTERNAME
+	Global USER_DESKTOP
+	Global USERNAME
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
 	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"

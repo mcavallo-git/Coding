@@ -1785,7 +1785,7 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 ;   |--> Gets Windows Environment Vars (output to file)
 ;
 PrintEnv() {
-	FormatTime,TIMESTAMP,,yyyyMMdd-HHmmss
+	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
 	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
 	; - -
@@ -2121,7 +2121,7 @@ TempFile() {
 ;          Timestamp := Timestamp()
 ;
 Timestamp() {
-	FormatTime,Timestamp,,yyyyMMdd-HHmmss
+	FormatTime,Timestamp,,yyyyMMddTHHmmss
 	Return %Timestamp%
 }
 

@@ -843,6 +843,7 @@ WheelRight::
 	Global COMPUTERNAME
 	Global USER_DESKTOP
 	Global USERNAME
+	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" COMPUTERNAME "_" USERNAME "_" TIMESTAMP ".log"
 	Command_GetVideoControllerVals := "PowerShell.exe -Command ""Get-CimInstance -ClassName CIM_VideoController | Out-String;"""
 	GetVideoControllerVals := GetCommandOutput(Command_GetVideoControllerVals)

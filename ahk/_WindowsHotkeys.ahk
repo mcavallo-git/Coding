@@ -843,7 +843,7 @@ WheelRight::
 	Global USER_DESKTOP
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_Timestamped := USER_DESKTOP "\CIM_VideoController_" TIMESTAMP ".log"
-	Command_GetVideoControllerVals := "PowerShell.exe -Command ""Get-CimInstance -ClassName CIM_VideoController | Out-String;"""
+	Command_GetVideoControllerVals := "PowerShell.exe -Command ""(Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution | Out-String;"""
 	GetVideoControllerVals := GetCommandOutput(Command_GetVideoControllerVals)
 	FileAppend, %GetVideoControllerVals%, %Logfile_Timestamped%
 	Run, Notepad "%Logfile_Timestamped%"

@@ -1245,11 +1245,8 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 ;
 GetCommandOutput(CMD_Command) {
 	MsgBox %CMD_Command%
-	WScript_Shell_Exec := RunWaitMany(CMD_Command)
-	MsgBox %WScript_Shell_Exec%
-	WScripl_Shell_StdOut := WScript_Shell_Exec.stdout.readall()
-	MsgBox %WScripl_Shell_StdOut%
-	Return WScripl_Shell_StdOut
+	WScript_Shell_StdOut := RunWaitMany(CMD_Command)
+	Return WScript_Shell_StdOut
 }
 
 

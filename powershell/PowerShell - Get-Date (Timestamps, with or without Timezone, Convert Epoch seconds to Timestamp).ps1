@@ -3,9 +3,8 @@
 # PowerShell - Get-Date (Timestamps, with or without Timezone)
 # 
 # ------------------------------------------------------------
-# Timestamp (WITH Timezone)
-# 
 
+(Get-Date -UFormat '%Y%m%d-%H%M%S');
 
 # Timestamp, No-Timezone, Windows-filename compatible
 $TimestampFilename = (Get-Date -UFormat '%Y%m%d-%H%M%S');

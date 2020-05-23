@@ -355,11 +355,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SysGet, ViewportHeightBefore, 79
 	; Save current mouse coordinates
 	MouseGetPos, MouseX, MouseY
+
 	; Send an Escape keypress to close any old Projection menus
 	Send {Escape}
 	Sleep 250
-	If (A_OSVersion="WIN_7") {
-		; Windows7
+
+	If (A_OSVersion="WIN_7") {  ; Windows7
+
 		If (A_ThisHotkey=="^#[") {
 			; Duplicate Monitors
 			x_loc := 874
@@ -372,11 +374,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 2000
 		MouseClick, Left, %x_loc%, %y_loc%
-		Sleep 1
+		Sleep 100
 		
-	} Else If (SubStr(A_OSVersion, 1, 4)="10.0") {
+	} Else If (SubStr(A_OSVersion, 1, 4)="10.0") {  ; Windows10
 
-		; Windows10
+		; Open the "Projection" window
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 250
 		StartMilliseconds := A_TickCount
@@ -430,6 +432,59 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SysGet, MonitorCountAfter, MonitorCount
 	SysGet, ViewportWidthAfter, 78
 	SysGet, ViewportHeightAfter, 79
+
+	; Read the registry to check for display scaling (percentage (%) based, applied in Windows' "Display Settings", and requires a reboot to update)
+	KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
+	PropertyName := "DpiScalingVer"
+		RegRead, DpiScalingVer, %KeyName%, %PropertyName%
+	PropertyName := "Win8DpiScaling"
+		RegRead, Win8DpiScaling, %KeyName%, %PropertyName%
+	PropertyName := "DpiScalingVer"
+		RegRead, LogPixels, %KeyName%, %PropertyName%
+		; ------------------------------------------------------------
+		;
+		; DpiScalingVer    ; originally 1000
+		; Win8DpiScaling   ; originally 0 
+		; LogPixels        ; originally absent
+		;
+		; DPI--->Scale Factor
+		;   96 === x60  <-- 100%
+		;  120 === x78  <-- 125%
+		;  144 === x90  <-- 150%
+		;  192 === xC0  <-- 200%
+		;  240 === xF0  <-- 250%
+		;
+		; From:  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
+		;
+		; ------------------------------------------------------------
+		; HKEY_CURRENT_CONFIG\System\CurrentControlSet\Control\Video
+		;
+		; DefaultSetting.XResolution
+		; REG_DWORD
+		; 0x00000400 (1024)
+		;
+		; DefaultSetting.YResolution
+		; REG_DWORD
+		; 0x00000300 (768)
+		;
+		; From:  https://superuser.com/a/1050763
+		;
+		; ------------------------------------------------------------
+
+	MsgBox, 
+	(LTrim
+		x_loc = %x_loc%
+		y_loc = %y_loc%
+		
+		ViewportWidthBefore = %ViewportWidthBefore%
+		ViewportWidthAfter = %ViewportWidthAfter%
+		ViewportHeightBefore = %ViewportHeightBefore%
+		ViewportHeightAfter = %ViewportHeightAfter%
+		
+		DpiScalingVer = %DpiScalingVer%
+		Win8DpiScaling = %Win8DpiScaling%
+		LogPixels = %LogPixels%
+	)
 
 	Return
 
@@ -2636,5 +2691,7 @@ If (False) {
 ;   www.autohotkey.com  |  "[HELP!] How to WinActivate without specifying window title? - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/102763-help-how-to-winactivate-without-specifying-window-title/
 ;
 ;   www.reddit.com  |  "Brightness script? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/5u2lvi/brightness_script/
+;
+;   www.tenforums.com  |  "Resolution mismatch when using "Change the size of text..." - Windows 10 Forums"  |  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
 ;
 ; ------------------------------------------------------------

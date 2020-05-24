@@ -57,6 +57,8 @@ LF=`n
 
 VerboseOutput := 1
 
+DebugOutput := 0
+
 ; ------------------------------------------------------------
 ;
 ; Setup a group for targeting [Windows Explorer] windows
@@ -422,21 +424,22 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		}
 	}
 	MouseMove, %MouseX%, %MouseY%
-	SysGet, MonitorCountAfter, MonitorCount
-	SysGet, ViewportWidthAfter, 78
-	SysGet, ViewportHeightAfter, 79
-	; Check-for Windows' percentage (%) based display scaling
-	Get_CurrentVerticalResolution := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
-	CurrentVerticalResolution := GetCommandOutput(Get_CurrentVerticalResolution)
-	CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
-	; Read the registry to check for display scaling
-	KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
-	PropertyName := "DpiScalingVer"
-		RegRead, DpiScalingVer, %KeyName%, %PropertyName%
-	PropertyName := "Win8DpiScaling"
-		RegRead, Win8DpiScaling, %KeyName%, %PropertyName%
-	PropertyName := "DpiScalingVer"
-		RegRead, LogPixels, %KeyName%, %PropertyName%
+	If (DebugOutput == 1) {
+		SysGet, MonitorCountAfter, MonitorCount
+		SysGet, ViewportWidthAfter, 78
+		SysGet, ViewportHeightAfter, 79
+		; Check-for Windows' percentage (%) based display scaling
+		Get_CurrentVerticalResolution := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
+		CurrentVerticalResolution := GetCommandOutput(Get_CurrentVerticalResolution)
+		CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
+		; Read the registry to check for display scaling
+		KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
+		PropertyName := "DpiScalingVer"
+			RegRead, DpiScalingVer, %KeyName%, %PropertyName%
+		PropertyName := "Win8DpiScaling"
+			RegRead, Win8DpiScaling, %KeyName%, %PropertyName%
+		PropertyName := "DpiScalingVer"
+			RegRead, LogPixels, %KeyName%, %PropertyName%
 		; ------------------------------------------------------------
 		;
 		; DpiScalingVer    ; originally 1000
@@ -466,21 +469,21 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		; From:  https://superuser.com/a/1050763
 		;
 		; ------------------------------------------------------------
-	MsgBox,
-	(LTrim
-		x_loc = %x_loc%
-		y_loc = %y_loc%
-		
-		ViewportWidthBefore = %ViewportWidthBefore%
-		ViewportWidthAfter = %ViewportWidthAfter%
-		ViewportHeightBefore = %ViewportHeightBefore%
-		ViewportHeightAfter = %ViewportHeightAfter%
-		
-		DpiScalingVer = %DpiScalingVer%
-		Win8DpiScaling = %Win8DpiScaling%
-		LogPixels = %LogPixels%
-	)
-	ClearTooltip(10000)
+		MsgBox,
+		(LTrim
+			x_loc = %x_loc%
+			y_loc = %y_loc%
+			
+			ViewportWidthBefore = %ViewportWidthBefore%
+			ViewportWidthAfter = %ViewportWidthAfter%
+			ViewportHeightBefore = %ViewportHeightBefore%
+			ViewportHeightAfter = %ViewportHeightAfter%
+			
+			DpiScalingVer = %DpiScalingVer%
+			Win8DpiScaling = %Win8DpiScaling%
+			LogPixels = %LogPixels%
+		)
+	}
 	Return
 
 

@@ -23,6 +23,8 @@ esxcli software vib list;
 
 esxcli software vib list | grep -i ahci
 
+esxcli software vib list | grep -i net
+
 esxcli software vib list | grep -i nic
 
 esxcli software vib list | grep -i asmedia

@@ -98,8 +98,17 @@ esxcli software vib install -v "https://hostupdate.vmware.com/software/VUM/PRODU
 #
 ### Ex) Remove specific driver(s) based on their "name"
 #
-esxcli software vib remove --vibname="net51-r8169";
+# [root@esxi:~] > esxcli software vib list | grep -i net | grep sky;
+# net51-sky2                     1.20-2vft.510.0.0.799733              VFrontDe  CommunitySupported  2020-05-25
+#
 esxcli software vib remove --vibname="net51-sky2";
+
+
+# [root@esxi:~] esxcli software vib list | grep -i net | grep r8169
+# net51-r8169                    6.011.00-2vft.510.0.0.799733          VFrontDe  CommunitySupported  2020-05-25
+#
+esxcli software vib remove --vibname="net51-r8169";
+
 
 # ------------------------------------------------------------
 #
@@ -107,7 +116,10 @@ esxcli software vib remove --vibname="net51-sky2";
 #
 ### Ex) Remove specific driver(s) based on syntax their "name:version"
 #
+
 esxcli software vib remove --vibname="VFrontDe_bootbank_net51-sky2_1.20-2vft.510.0.0.799733"; esxcli software vib remove --vibname="VFrontDe_bootbank_net51-sr81696.011.00-2vft.510.0.0.799733";
+
+
 #  [NoMatchError]
 #  No VIB matching VIB search specification 'VFrontDe_bootbank_net51-sky2_1.20-2vft.510.0.0.799733'.
 #  Please refer to the log file for more details.

@@ -20,7 +20,7 @@ $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 If ($KeyPress.Character -Eq "y") {
 	Write-Output "Info:  Confirmed - Disabling IPv6....";
 	<# If the previous ping command responds with an IPv6 address (such as ::1), run following registry setting to disable IPv6 via the Registry --> reboot for the change to take effect #>
-	Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents"  -Type "DWord" -Value 0x20;
+	Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents"  -Type "DWord" -Value 0x20;
 	<# Restore the previously-defined networking security protocol #>
 	[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	<# Check for pending reboot #>

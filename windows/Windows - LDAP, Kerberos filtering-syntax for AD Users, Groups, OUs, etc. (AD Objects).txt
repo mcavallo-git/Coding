@@ -1,0 +1,24 @@
+# ------------------------------------------------------------
+#
+# Windows - LDAP, Kerberos filtering-syntax for AD Users, Groups, OUs, etc. (AD Objects)
+#   |
+#   |--> Get a prebuilt LDAP search filter for a given AD object
+#
+
+Run (WinKey+R) the program "dsa.msc" (opens "Active Directory Users and Computers")
+ > If "dsa.msc" is not found, or not installed:
+  > AD Controllers should have it pre-installed (in Windows), if you can RDP into one of those, that would be the quickest way to open "dsa.msc"
+  > Otherwise, instal RSAT (Remote Server Administration Tools) to remotely manage the AD Controllers
+   > Alternatively (NOT PREFERRED), you could add the role "Active Directory Domain Services" to a WinServer instance, but this should be avoided it said server is NOT a designated AD controller
+
+Within "Active Directory Users and Computers":
+ > Click "View" (top option), make sure that "Advanced Features" is checked (check it if it isnt)
+  > Locate your desired Active Directory User Account, Group, OU, or other AD object
+   > Righ-click your desired AD object > select "Properties" (near-bottom of dropdown, bolded)
+    > Popup window should open for your AD object
+     > Select tab "Attribute Editor"
+      > Scroll down to row with column "Attribute" equal to "distinguishedName"
+       > The Column "Value" will contain the select AD objects LDAP/Kerberos styled filter (which may be used to target said object, or even act as said object, if password is passed along-with in certain calls)
+
+
+# ------------------------------------------------------------

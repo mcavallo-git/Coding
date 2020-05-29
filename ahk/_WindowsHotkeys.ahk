@@ -1061,15 +1061,27 @@ CapsLock::
 ;  HOTKEY:  Num Lock
 ;  ACTION:  Permanently DISABLE Numlock (unless pressed with shift, which toggles it as-normal)
 ;
-; Numlock::
-; ^Numlock::
-; !Numlock::
-; #Numlock::
-; 	SetNumlockState, On
-; 	Return
-; +Numlock::
-; 	SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
-; 	Return
+Numlock::
+^Numlock::
+!Numlock::
+#Numlock::
+	NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+	If (NumLockEnabled_BeforeKeypress == 0) {
+		SetNumlockState, On
+	} Else {
+		TextToolTip := "Disable NumLock via Shift+NumLock"
+		ToolTip, %TextToolTip%
+		ClearTooltip(3000)
+	}
+	Return
+
++Numlock::
+	NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+	If (NumLockEnabled_BeforeKeypress == 1) {
+		SetNumlockState, Off
+	}
+	; SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
+	Return
 
 
 ; ------------------------------------------------------------

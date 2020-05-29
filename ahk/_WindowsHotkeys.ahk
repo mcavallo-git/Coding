@@ -853,17 +853,17 @@ WheelRight::
 ;
 #F::
 	; Verify that Effective File Search exists
-	; exe_filepath := "C:`\Program Files (x86)`\efs`\search.exe"
+	; ExeFilepath := "C:`\Program Files (x86)`\efs`\search.exe"
 	efs=\Effective File Search.efsp
 	; iso=C:\ISO
-	exe_filepath := "C:`\ISO`\Effective File Search.efsp"
-	exe_filepath2=%A_MyDocuments%%efs%
-	; MsgBox, % exe_filepath2
-	If (FileExist(exe_filepath)) {
-		Run, %exe_filepath%
+	ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
+	ExeFilepath2=%A_MyDocuments%%efs%
+	; MsgBox, % ExeFilepath2
+	If (FileExist(ExeFilepath)) {
+		Run, %ExeFilepath%
 	} Else {
-		If (FileExist(exe_filepath2)) {
-			Run, %exe_filepath2%
+		If (FileExist(ExeFilepath2)) {
+			Run, %ExeFilepath2%
 		} Else {
 			; If EFS does NOT exist, offer user the URL to download it
 			exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
@@ -1059,26 +1059,51 @@ CapsLock::
 
 ; ----------------------------------------------------
 ;  HOTKEY:  Num Lock
-;  ACTION:  Permanently DISABLE Numlock (unless pressed with shift, which toggles it as-normal)
+;  ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
+;           Allow for a specific config-file, if exists, to keep Numlock disabled by-default (for specific hardware/VM use-cases)
 ;
 Numlock::
 ^Numlock::
 !Numlock::
 #Numlock::
-	NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
-	If (NumLockEnabled_BeforeKeypress == 0) {
-		SetNumlockState, On
+	ConfigFilepath_KeepNumlockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
+	If (FileExist(ConfigFilepath_KeepNumlockDisabled)) {
+		; Reverse Action - Keep Numlock disabled by-default
+		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+		If (NumLockEnabled_BeforeKeypress == 1) {
+			SetNumlockState, Off
+		} Else {
+			TextToolTip := "Enable NumLock via Shift+NumLock"
+			ToolTip, %TextToolTip%
+			ClearTooltip(3000)
+		}
 	} Else {
-		TextToolTip := "Disable NumLock via Shift+NumLock"
-		ToolTip, %TextToolTip%
-		ClearTooltip(3000)
+		; Default Action - Keep Numlock enabled by-default
+		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+		If (NumLockEnabled_BeforeKeypress == 0) {
+			SetNumlockState, On
+		} Else {
+			TextToolTip := "Disable NumLock via Shift+NumLock"
+			ToolTip, %TextToolTip%
+			ClearTooltip(3000)
+		}
 	}
 	Return
 
 +Numlock::
-	NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
-	If (NumLockEnabled_BeforeKeypress == 1) {
-		SetNumlockState, Off
+	ConfigFilepath_KeepNumlockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
+	If (FileExist(ConfigFilepath_KeepNumlockDisabled)) {
+		; Reverse Action - Allow Shift+Numlock to enable NumLock
+		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+		If (NumLockEnabled_BeforeKeypress == 0) {
+			SetNumlockState, On
+		}
+	} Else {
+		; Default Action - Allow Shift+Numlock to disable NumLock
+		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+		If (NumLockEnabled_BeforeKeypress == 1) {
+			SetNumlockState, Off
+		}
 	}
 	; SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
 	Return

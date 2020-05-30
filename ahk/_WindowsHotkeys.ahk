@@ -232,7 +232,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Types the contents of target file
 ;
 #G::
-	FilePathToRead=%USERPROFILE%\.gpg_git\personal.passphrase
+	FilePathToRead=%USERPROFILE%\.ahk\#g
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return
@@ -243,7 +243,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Types the contents of target file
 ;
 #W::
-	FilePathToRead=%USERPROFILE%\.gpg_git\work.passphrase
+	FilePathToRead=%USERPROFILE%\.ahk\#w
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return

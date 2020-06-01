@@ -24,7 +24,6 @@ connectionProperties.user=SQL_USERNAME
 connectionProperties.password=SQL_PASSWORD
 
 maxConnections=50
-poolPreparedStatements=true
 
 
 REM ------------------------------------------------------------
@@ -32,6 +31,8 @@ REM
 REM Citation(s)
 REM 
 REM   developercommunity.visualstudio.com  |  ""The "GetReferenceNearestTargetFrameworkTask" task was not found." when building app project with reference to library project if .NET Core cross-platform development workload not installed - Developer Community"  |  https://developercommunity.visualstudio.com/content/problem/137779/the-getreferencenearesttargetframeworktask-task-wa.html
+REM 
+REM   stackoverflow.com  |  "java - Pooling PreparedStatement on Tomcat with MySQL - Stack Overflow"  |  https://stackoverflow.com/a/4632217
 REM 
 REM   stackoverflow.com  |  "node.js - How to fix ReferenceError: primordials is not defined in node - Stack Overflow"  |  https://stackoverflow.com/a/55926692
 REM 

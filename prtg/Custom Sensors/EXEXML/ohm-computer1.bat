@@ -9,9 +9,13 @@ REM
 REM ------------------------------------------------------------
 
 
+REM    Pre-Req - Open Hardware Monitor  -->  https://openhardwaremonitor.org/downloads/
+
+
+
 REM Here we create the RAM drive for the temporary files used by all the PRTG bat scripts
 REM -P (persistent) doesnt work, it will be unformatted after reboot
-IF NOT EXIST Z: ( C:\windows\system32\imdisk.exe -a -u 0 -m Z: -s 64M -p "/fs:ntfs /q /y /v:RAMDRIVE" -o awe )
+REM IF NOT EXIST Z: ( C:\windows\system32\imdisk.exe -a -u 0 -m Z: -s 64M -p "/fs:ntfs /q /y /v:RAMDRIVE" -o awe )
 
 C:
 CD \prtg

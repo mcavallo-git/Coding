@@ -7,11 +7,15 @@ REM    "%USERPROFILE%\Documents\GitHub\Coding\prtg\Custom Sensors\EXEXML\ohm-com
 REM 
 REM 
 REM ------------------------------------------------------------
-
-
-REM    Pre-Req - Open Hardware Monitor  -->  https://openhardwaremonitor.org/downloads/
-
-
+REM
+REM 
+REM  ! ! !   Pre-Req - Open Hardware Monitor  -->  https://openhardwaremonitor.org/downloads/
+REM
+REM
+REM  ! ! !   Pre-Req - Perl  -->  https://www.perl.org/get.html
+REM
+REM
+REM ------------------------------------------------------------
 
 REM Here we create the RAM drive for the temporary files used by all the PRTG bat scripts
 REM -P (persistent) doesnt work, it will be unformatted after reboot

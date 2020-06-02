@@ -36,47 +36,6 @@ CALL :OHMCOMPUTERHW %1 %2 %3
 
 REM ------------------------------------------------------------
 
-:CALC
-@ECHO off
-REM Copyright (C) 2016 unknown14725
-REM version 1    (2014.12.15)
-REM version 1.01 (2016.06.27) Removed a typo in the Perl function
-REM Requires Perl
-::
-REM These perl one-liners should handle any calculation, but please avoid using too many spaces, as batch arguments are limited to 9.
-REM Windows' shell SET /A is limited to 32bit integer, and I tried using a "calc.exe" found on sourceforge, but it had some nasty
-REM bugs with certain calculations. So here I'm trying my luck with Perl instead.
-REM These one-liners require the use of quotes, and I got really stuck trying to figure out how to get it implemented in FOR /F
-REM without causing problems in the syntax, so I had to give up. That's why I chose to use this external bat file instead.
-::
-REM EXAMPLES:
-REM              calc.bat float 10/3
-REM              calc.bat round2 10/3
-::
-REM I'm no good at perl stuff, and I spent like a total of two minutes writing this bat, so if anyone has a better
-REM solution for a one-liner, feel free to suggest.
-
-SET "tempdrive=C:\prtg\"
-
-SET "calc_dot_bat=%tempdrive%calc.bat"
-
-ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV));print \"\n\"" %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round3" perl -W -e "print sprintf('%%%%.3f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round4" perl -W -e "print sprintf('%%%%.4f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round5" perl -W -e "print sprintf('%%%%.5f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round6" perl -W -e "print sprintf('%%%%.6f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round7" perl -W -e "print sprintf('%%%%.7f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round8" perl -W -e "print sprintf('%%%%.8f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-ECHO IF /I "%%1" EQU "Round9" perl -W -e "print sprintf('%%%%.9f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
-
-EXIT /B
-
-
-REM ------------------------------------------------------------
-
 :PINGCHECK
 @ECHO off
 SETLOCAL EnableDelayedExpansion
@@ -179,7 +138,9 @@ GOTO :eof
 
 REM Create subroutine file "calc.bat"
 SET "tempdrive=C:\prtg\"
+
 SET "calc_dot_bat=%tempdrive%calc.bat"
+
 ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV));print \"\n\"" %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
 ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
 ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
@@ -192,10 +153,13 @@ ECHO IF /I "%%1" EQU "Round7" perl -W -e "print sprintf('%%%%.7f ',eval(join('',
 ECHO IF /I "%%1" EQU "Round8" perl -W -e "print sprintf('%%%%.8f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
 ECHO IF /I "%%1" EQU "Round9" perl -W -e "print sprintf('%%%%.9f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
 
+CD "%tempdrive%"
+
+FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+
+REM FOR /F "tokens=* usebackq" %%A IN (`"%calc_dot_bat% round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
 
 REM CPU core0-3 average temp
-REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
-FOR /F "tokens=* usebackq" %%A IN (`"%calc_dot_bat% round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
 ECHO    ^<result^>
 ECHO        ^<Channel^>CPU Cores Average Temp^</Channel^>
 ECHO        ^<Value^>%intelavg%^</Value^>

@@ -167,7 +167,8 @@ GOTO :eof
 
 :: CPU core0-3 average temp
 
-FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+FOR /F "tokens=* usebackq" %%A IN (`"CALL :CALC round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
 ECHO    ^<result^>
 ECHO        ^<Channel^>CPU Cores Average Temp^</Channel^>
 ECHO        ^<Value^>%intelavg%^</Value^>

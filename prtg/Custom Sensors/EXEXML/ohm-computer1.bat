@@ -1,5 +1,13 @@
 @ECHO off
 SETLOCAL EnableDelayedExpansion
+REM ------------------------------------------------------------
+REM 
+REM 
+REM    "%USERPROFILE%\Documents\GitHub\Coding\prtg\Custom Sensors\EXEXML\ohm-computer1.bat"
+REM 
+REM 
+REM ------------------------------------------------------------
+
 
 :: Here we create the RAM drive for the temporary files used by all the PRTG bat scripts
 :: -P (persistent) doesnt work, it will be unformatted after reboot
@@ -64,17 +72,15 @@ SETLOCAL EnableDelayedExpansion
 :: Usage
 ::      pingcheck.bat hostname
 
-C:
-CD \prtg
-IF EXIST Z: (
-    IF NOT EXIST Z:\temp MKDIR Z:\temp
-    SET "tempdrive=Z:\temp\"
-) ELSE ( SET "tempdrive=temp\" )
-
 :: HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT  CMD.EXE
 :: Ping the host 1 time and store it in the temp file (we also check to see if RAM drive Z: is available)
+
+SET "tempdrive=C:\prtg\"
+
 SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
+
 PING -n 1 %1>%tempfilename%
+
 FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"unreachable" %tempfilename%') DO          (
     ECHO ^<Error^>1^</Error^>
     ECHO ^<Text^>^[%~n0^] %%A^</Text^>
@@ -122,12 +128,8 @@ SETLOCAL EnableDelayedExpansion
 :: Open Hardware Monitor for computer1
 
 :: Here you can change the drive and working directory used by this script. Remember to create the directory first!
-C:
-CD \prtg
-IF EXIST Z: (
-    IF NOT EXIST Z:\temp MKDIR Z:\temp
-    SET "tempdrive=Z:\temp\"
-) ELSE ( SET "tempdrive=temp\" )
+
+SET "tempdrive=C:\prtg\"
 
 SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
 

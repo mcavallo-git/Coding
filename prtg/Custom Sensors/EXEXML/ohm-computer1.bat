@@ -9,8 +9,8 @@ REM
 REM ------------------------------------------------------------
 
 
-:: Here we create the RAM drive for the temporary files used by all the PRTG bat scripts
-:: -P (persistent) doesnt work, it will be unformatted after reboot
+REM Here we create the RAM drive for the temporary files used by all the PRTG bat scripts
+REM -P (persistent) doesnt work, it will be unformatted after reboot
 IF NOT EXIST Z: ( C:\windows\system32\imdisk.exe -a -u 0 -m Z: -s 64M -p "/fs:ntfs /q /y /v:RAMDRIVE" -o awe )
 
 C:
@@ -30,35 +30,39 @@ REM ------------------------------------------------------------
 
 :CALC
 @ECHO off
-:: Copyright (C) 2016 unknown14725
-:: version 1    (2014.12.15)
-:: version 1.01 (2016.06.27) Removed a typo in the Perl function
-:: Requires Perl
+REM Copyright (C) 2016 unknown14725
+REM version 1    (2014.12.15)
+REM version 1.01 (2016.06.27) Removed a typo in the Perl function
+REM Requires Perl
 ::
-:: These perl one-liners should handle any calculation, but please avoid using too many spaces, as batch arguments are limited to 9.
-:: Windows' shell SET /A is limited to 32bit integer, and I tried using a "calc.exe" found on sourceforge, but it had some nasty
-:: bugs with certain calculations. So here I'm trying my luck with Perl instead.
-:: These one-liners require the use of quotes, and I got really stuck trying to figure out how to get it implemented in FOR /F
-:: without causing problems in the syntax, so I had to give up. That's why I chose to use this external bat file instead.
+REM These perl one-liners should handle any calculation, but please avoid using too many spaces, as batch arguments are limited to 9.
+REM Windows' shell SET /A is limited to 32bit integer, and I tried using a "calc.exe" found on sourceforge, but it had some nasty
+REM bugs with certain calculations. So here I'm trying my luck with Perl instead.
+REM These one-liners require the use of quotes, and I got really stuck trying to figure out how to get it implemented in FOR /F
+REM without causing problems in the syntax, so I had to give up. That's why I chose to use this external bat file instead.
 ::
-:: EXAMPLES:
-::              calc.bat float 10/3
-::              calc.bat round2 10/3
+REM EXAMPLES:
+REM              calc.bat float 10/3
+REM              calc.bat round2 10/3
 ::
-:: I'm no good at perl stuff, and I spent like a total of two minutes writing this bat, so if anyone has a better
-:: solution for a one-liner, feel free to suggest.
+REM I'm no good at perl stuff, and I spent like a total of two minutes writing this bat, so if anyone has a better
+REM solution for a one-liner, feel free to suggest.
 
-IF /I "%1" EQU "float"  perl -w -e "print eval(join('',@ARGV));print \"\n\"" %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round0" perl -W -e "print sprintf('%%.0f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round1" perl -W -e "print sprintf('%%.1f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round2" perl -W -e "print sprintf('%%.2f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round3" perl -W -e "print sprintf('%%.3f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round4" perl -W -e "print sprintf('%%.4f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round5" perl -W -e "print sprintf('%%.5f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round6" perl -W -e "print sprintf('%%.6f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round7" perl -W -e "print sprintf('%%.7f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round8" perl -W -e "print sprintf('%%.8f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
-IF /I "%1" EQU "Round9" perl -W -e "print sprintf('%%.9f ',eval(join('',@ARGV)));print \"\n\""  %2 %3 %4 %5 %6 %7 %8 %9
+SET "tempdrive=C:\prtg\"
+
+SET "calc_dot_bat=%tempdrive%calc.bat"
+
+ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV));print \"\n\"" %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round3" perl -W -e "print sprintf('%%%%.3f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round4" perl -W -e "print sprintf('%%%%.4f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round5" perl -W -e "print sprintf('%%%%.5f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round6" perl -W -e "print sprintf('%%%%.6f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round7" perl -W -e "print sprintf('%%%%.7f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round8" perl -W -e "print sprintf('%%%%.8f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round9" perl -W -e "print sprintf('%%%%.9f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
 
 EXIT /B
 
@@ -68,12 +72,12 @@ REM ------------------------------------------------------------
 :PINGCHECK
 @ECHO off
 SETLOCAL EnableDelayedExpansion
-:: This script will check to see if a host is reachable by ping. If not it will generate an error and wil quit the current cmd.exe
-:: Usage
-::      pingcheck.bat hostname
+REM This script will check to see if a host is reachable by ping. If not it will generate an error and wil quit the current cmd.exe
+REM Usage
+REM      pingcheck.bat hostname
 
-:: HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT  CMD.EXE
-:: Ping the host 1 time and store it in the temp file (we also check to see if RAM drive Z: is available)
+REM HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT  CMD.EXE
+REM Ping the host 1 time and store it in the temp file (we also check to see if RAM drive Z: is available)
 
 SET "tempdrive=C:\prtg\"
 
@@ -125,9 +129,9 @@ REM ------------------------------------------------------------
 @ECHO off
 SETLOCAL EnableDelayedExpansion
 
-:: Open Hardware Monitor for computer1
+REM Open Hardware Monitor for computer1
 
-:: Here you can change the drive and working directory used by this script. Remember to create the directory first!
+REM Here you can change the drive and working directory used by this script. Remember to create the directory first!
 
 SET "tempdrive=C:\prtg\"
 
@@ -135,24 +139,24 @@ SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
 
 IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
 
-:: Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
+REM Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
 WMIC %remoteaccess% /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename%
 
-:: Fan RPM
+REM Fan RPM
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/0" %tempfilename%`) DO ( CALL :setVariable fan1 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/1" %tempfilename%`) DO ( CALL :setVariable fan2 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/2" %tempfilename%`) DO ( CALL :setVariable fan3 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/3" %tempfilename%`) DO ( CALL :setVariable fan4 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/4" %tempfilename%`) DO ( CALL :setVariable fan5 %%B )
 
-:: Intel CPU temperatures
+REM Intel CPU temperatures
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/0" %tempfilename%`) DO ( CALL :setVariable intel0 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/1" %tempfilename%`) DO ( CALL :setVariable intel1 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/2" %tempfilename%`) DO ( CALL :setVariable intel2 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/3" %tempfilename%`) DO ( CALL :setVariable intel3 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/4" %tempfilename%`) DO ( CALL :setVariable intel4 %%B )
 
-:: Motherboard temperatures
+REM Motherboard temperatures
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :setVariable motherboard0 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/2" %tempfilename%`) DO ( CALL :setVariable motherboard2 %%B )
 FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/3" %tempfilename%`) DO ( CALL :setVariable motherboard3 %%B )
@@ -165,10 +169,25 @@ GOTO :eof
 
 :Finalize
 
-:: CPU core0-3 average temp
+REM Create subroutine file "calc.bat"
+SET "tempdrive=C:\prtg\"
+SET "calc_dot_bat=%tempdrive%calc.bat"
+ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV));print \"\n\"" %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round3" perl -W -e "print sprintf('%%%%.3f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round4" perl -W -e "print sprintf('%%%%.4f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round5" perl -W -e "print sprintf('%%%%.5f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round6" perl -W -e "print sprintf('%%%%.6f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round7" perl -W -e "print sprintf('%%%%.7f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round8" perl -W -e "print sprintf('%%%%.8f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
+ECHO IF /I "%%1" EQU "Round9" perl -W -e "print sprintf('%%%%.9f ',eval(join('',@ARGV)));print \"\n\""  %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9 >> %calc_dot_bat%
 
+
+REM CPU core0-3 average temp
 REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
-FOR /F "tokens=* usebackq" %%A IN (`"CALL :CALC round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+FOR /F "tokens=* usebackq" %%A IN (`"%calc_dot_bat% round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
 ECHO    ^<result^>
 ECHO        ^<Channel^>CPU Cores Average Temp^</Channel^>
 ECHO        ^<Value^>%intelavg%^</Value^>
@@ -179,7 +198,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: Motherboard CPU temp
+REM Motherboard CPU temp
 
 ECHO    ^<result^>
 ECHO        ^<Channel^>Motherboard CPU Temp^</Channel^>
@@ -191,7 +210,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: Motherboard case temp
+REM Motherboard case temp
 
 ECHO    ^<result^>
 ECHO        ^<Channel^>Motherboard 3 Temp^</Channel^>
@@ -203,9 +222,9 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: Fans
+REM Fans
 
-:: Side fan auto (CHA_FAN1) (4 pin header)
+REM Side fan auto (CHA_FAN1) (4 pin header)
 ECHO    ^<result^>
 ECHO        ^<Channel^>Fan 1^</Channel^>
 ECHO        ^<Value^>%fan1%^</Value^>
@@ -217,7 +236,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: H60 radiator/rear fan auto (CPU_FAN) (4 pin header)
+REM H60 radiator/rear fan auto (CPU_FAN) (4 pin header)
 ECHO    ^<result^>
 ECHO        ^<Channel^>Fan 2^</Channel^>
 ECHO        ^<Value^>%fan2%^</Value^>
@@ -229,7 +248,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: Top fan adj auto (PWR_FAN1) (4 pin header)
+REM Top fan adj auto (PWR_FAN1) (4 pin header)
 ECHO    ^<result^>
 ECHO        ^<Channel^>Fan 3^</Channel^>
 ECHO        ^<Value^>%fan3%^</Value^>
@@ -241,7 +260,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: H60 cpu pump auto (CHA_FAN2) (3 pin header)
+REM H60 cpu pump auto (CHA_FAN2) (3 pin header)
 ECHO    ^<result^>
 ECHO        ^<Channel^>Fan 4^</Channel^>
 ECHO        ^<Value^>%fan4%^</Value^>
@@ -253,7 +272,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: External fan adj (PWR_FAN2) (3 pin header)
+REM External fan adj (PWR_FAN2) (3 pin header)
 ECHO    ^<result^>
 ECHO        ^<Channel^>Fan 5^</Channel^>
 ECHO        ^<Value^>%fan5%^</Value^>
@@ -265,7 +284,7 @@ ECHO        ^<ShowChart^>1^</ShowChart^>
 ECHO        ^<ShowTable^>1^</ShowTable^>
 ECHO    ^</result^>
 
-:: CPU single cores
+REM CPU single cores
 
 ECHO    ^<result^>
 ECHO        ^<Channel^>CPU Core 0 Temp^</Channel^>
@@ -317,7 +336,7 @@ ECHO        ^<ShowChart^>0^</ShowChart^>
 ECHO        ^<ShowTable^>0^</ShowTable^>
 ECHO    ^</result^>
 
-:: Motherboard chipset (?) temp
+REM Motherboard chipset (?) temp
 
 ECHO    ^<result^>
 ECHO        ^<Channel^>Motherboard 2 Temp^</Channel^>

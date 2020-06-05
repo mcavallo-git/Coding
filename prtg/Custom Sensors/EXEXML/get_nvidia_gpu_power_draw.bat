@@ -6,7 +6,7 @@ echo ^<result^>
 echo        ^<channel^>GPU0 Power Draw^</channel^>
 echo ^<float^>1^</float^> 
 echo ^<value^>
-"C:\Program files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=power.draw --format="csv,nounits,noheader" --id=0
+nvidia-smi.exe --query-gpu=power.draw --format="csv,nounits,noheader" --id=0
 echo ^</value^>
 echo ^</result^>
 
@@ -14,7 +14,7 @@ echo ^<result^>
 echo        ^<channel^>GPU1 Power Draw^</channel^>
 echo ^<float^>1^</float^> 
 echo ^<value^>
-"C:\Program files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=power.draw --format="csv,nounits,noheader" --id=1
+nvidia-smi.exe --query-gpu=power.draw --format="csv,nounits,noheader" --id=1
 echo ^</value^>
 echo ^</result^>
 

@@ -5,14 +5,14 @@ echo ^<prtg^>
 echo ^<result^>
 echo        ^<channel^>GPU0 Utilization^</channel^>
 echo ^<value^>
-"C:\Program files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0
+"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0
 echo ^</value^>
 echo ^</result^>
 
 echo ^<result^>
 echo        ^<channel^>GPU1 Utilization^</channel^>
 echo ^<value^>
-"C:\Program files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=1
+"C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=1
 echo ^</value^>
 echo ^</result^>
 

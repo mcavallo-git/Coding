@@ -1,4 +1,4 @@
-REM @ECHO off
+@ECHO off
 SETLOCAL EnableDelayedExpansion
 REM ------------------------------------------------------------
 REM 
@@ -25,8 +25,6 @@ CALL :GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR %1 %2 %3
 CALL :OUTPUT_XML_HEADER
 
 CALL :OUTPUT_RESULTS %1 %2 %3
-
-PAUSE
 
 CALL :OUTPUT_XML_FOOTER
 

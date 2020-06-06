@@ -166,27 +166,27 @@ REM
 
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
-	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print ""\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9"" " > %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print \"\n \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" " > %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round3" perl -W -e "print sprintf('%%%%.3f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round3" perl -W -e "print sprintf('%%%%.3f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round4" perl -W -e "print sprintf('%%%%.4f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round4" perl -W -e "print sprintf('%%%%.4f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round5" perl -W -e "print sprintf('%%%%.5f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round5" perl -W -e "print sprintf('%%%%.5f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round6" perl -W -e "print sprintf('%%%%.6f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round6" perl -W -e "print sprintf('%%%%.6f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round7" perl -W -e "print sprintf('%%%%.7f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round7" perl -W -e "print sprintf('%%%%.7f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round8" perl -W -e "print sprintf('%%%%.8f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round8" perl -W -e "print sprintf('%%%%.8f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 	ECHO ECHO. >> %calc_dot_bat%
-	ECHO IF /I "%%1" EQU "Round9" perl -W -e "print sprintf('%%%%.9f ',eval(join('',@ARGV))); print %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9" >> %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "Round9" perl -W -e "print sprintf('%%%%.9f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" >> %calc_dot_bat%
 
 	CD "%tempdrive%"
 

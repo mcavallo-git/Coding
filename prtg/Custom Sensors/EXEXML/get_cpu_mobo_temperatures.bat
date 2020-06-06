@@ -42,6 +42,14 @@ REM
 	SET "tempdrive=C:\temp\"
 	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
+	REM Start OpenHardwareMonitor as admin and give it at least 30 seconds to get on its feet
+	REM PowerShell -Command "If (-Not (Get-WmiObject -List -Namespace 'Root\OpenHardwareMonitor')) { Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; };"
+	REM PowerShell -Command "$StartTime=(Get-Date); While ((($StartTime.AddSeconds(30)) -gt (Get-Date)) -And ((Get-WmiObject -List -Namespace 'Root\OpenHardwareMonitor') -Eq $Null)) { Start-Sleep -Seconds 1; };"
+	PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
+
+	REM Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
+	PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\Wbem\WMIC.exe') -ArgumentList (@('%remoteaccess% /namespace:\\Root\OpenHardwareMonitor','Path Sensor','Get Value,Identifier')) -Verb 'RunAs' -PassThru | More | Out-File '%tempfilename%';"
+
 	EXIT /B
 
 
@@ -113,14 +121,6 @@ REM
 	SET "tempfilename=%tempdrive%%~n0_%1_2.tmp"
 
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
-
-	REM Start OpenHardwareMonitor as admin and give it at least 30 seconds to get on its feet
-	REM PowerShell -Command "If (-Not (Get-WmiObject -List -Namespace 'Root\OpenHardwareMonitor')) { Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; };"
-	REM PowerShell -Command "$StartTime=(Get-Date); While ((($StartTime.AddSeconds(30)) -gt (Get-Date)) -And ((Get-WmiObject -List -Namespace 'Root\OpenHardwareMonitor') -Eq $Null)) { Start-Sleep -Seconds 1; };"
-	PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
-
-	REM Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
-	PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\Wbem\WMIC.exe') -ArgumentList (@('%remoteaccess% /namespace:\\Root\OpenHardwareMonitor','Path Sensor','Get Value,Identifier')) -Verb 'RunAs' -PassThru | More | Out-File '%tempfilename%';"
 
 	REM Fan RPM
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )

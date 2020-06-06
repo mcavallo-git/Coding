@@ -39,9 +39,7 @@ REM
 	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
 	REM Start OpenHardwareMonitor as admin and give it at least 30 seconds to get on its feet
-	REM PowerShell -Command "If (-Not (Get-WmiObject -List -Namespace 'Root\OpenHardwareMonitor')) { Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; };"
-	REM PowerShell -Command "$StartTime=(Get-Date); While ((($StartTime.AddSeconds(30)) -gt (Get-Date)) -And ((Get-WmiObject -List -Namespace 'Root\OpenHardwareMonitor') -Eq $Null)) { Start-Sleep -Seconds 1; };"
-	PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
+	REM PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
 
 	EXIT /B
 

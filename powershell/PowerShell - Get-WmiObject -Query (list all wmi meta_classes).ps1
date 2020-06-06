@@ -16,10 +16,9 @@ Get-WmiObject -Query "SELECT * FROM meta_class" `
 | Where-Object { $_.Properties -NE @{} } `
 | Select-Object -Property Name,Properties `
 | Sort-Object -Property Name -Unique `
-| Format-Table -AutoSize <# | ForEach-Object { Write-Output "`n$($_.Name)`n$($_.Properties -join ', ')"; } #> `
+| ForEach-Object { Write-Output "$($($_.Name.PadRight(120)))  { $($_.Properties -join ', ') }"; } #> `
 | Out-File -Width 16384 -Append "${Logfile}"; `
 Notepad "${Logfile}";
-
 
 
 # ------------------------------------------------------------

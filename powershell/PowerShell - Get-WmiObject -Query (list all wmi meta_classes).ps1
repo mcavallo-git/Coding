@@ -15,7 +15,7 @@ If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize =
 Get-WmiObject -Query "SELECT * FROM meta_class" `
 | Where-Object { $_.Properties -NE @{} } `
 | Sort-Object -Property Name -Unique `
-| Format-Table -AutoSize `
+| ForEach-Object { Write-Output "`n"; Write-Output $_.Name; Write-Output $_.Properties; } `
 | Out-File -Width 16384 -Append "${Logfile}"; `
 Notepad "${Logfile}";
 

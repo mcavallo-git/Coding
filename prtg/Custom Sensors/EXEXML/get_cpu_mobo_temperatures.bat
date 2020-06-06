@@ -26,9 +26,9 @@ CALL :OUTPUT_XML_HEADER
 
 CALL :OUTPUT_RESULTS %1 %2 %3
 
-CALL :OUTPUT_XML_FOOTER
-
 PAUSE
+
+CALL :OUTPUT_XML_FOOTER
 
 EXIT /B
 
@@ -52,7 +52,6 @@ REM
 REM     PING_CHECK
 REM
 :PING_CHECK
-	@ECHO off
 	SETLOCAL EnableDelayedExpansion
 	REM HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT CMD.EXE
 	REM Ping the host 1 time and store it in the temp file
@@ -107,17 +106,20 @@ REM
 REM     GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR
 REM
 :GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR
-	@ECHO off
 	SETLOCAL EnableDelayedExpansion
 
 	REM Open Hardware Monitor for computer1
 
 	REM Here you can change the drive and working directory used by this script. Remember to create the directory first!
 
+	PowerShell -Command "Get-Service 'OpenHardwareMonitor' | Where-Object { $_.Running -Eq $False } | Start-Service;";
+
+	REM TASKLIST /V /NH /FI "IMAGENAME eq OpenHardwareMonitor.exe"
+
 	SET "tempdrive=C:\temp\"
 	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
-	SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
+	SET "tempfilename=%tempdrive%_%~n0_%1_2.tmp"
 
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
 
@@ -169,7 +171,7 @@ REM
 
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
-	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print ""\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9""" > %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print ""\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9"" " > %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV))); print ""\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9""" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV))); print ""\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9""" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV))); print ""\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9""" >> %calc_dot_bat%

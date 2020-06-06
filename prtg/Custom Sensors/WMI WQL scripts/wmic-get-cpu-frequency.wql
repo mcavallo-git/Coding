@@ -1,1 +1,1 @@
-Select CurrentClockSpeed FROM CPU
+Select CurrentClockSpeed FROM Win32_Processor

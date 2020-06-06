@@ -1,1 +1,1 @@
-PowerShell -Command "Get-Service | Where-Object { ($_.DisplayName -Like '*PRTG*') } | ForEach-Object { Write-Host 'Restarting service $($_.DisplayName)...'; $_ | Restart-Service; };"
+PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-Command Get-Service | Where-Object { ($_.DisplayName -Like (Write-Output *PRTG*)) } | Restart-Service;') -Verb 'RunAs' -Wait -PassThru | Out-Null;"

@@ -14,8 +14,9 @@ $Logfile = "${Home}\Desktop\WMI_Classes_$($(${Env:USERNAME}).Trim())@$($(${Env:C
 If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); }; <# Update PowerShell console width to 16384 characters #> `
 Get-WmiObject -Query "SELECT * FROM meta_class" `
 | Where-Object { $_.Properties -NE @{} } `
+| Select-Object -Property Name,Property `
 | Sort-Object -Property Name -Unique `
-| ForEach-Object { Write-Output "`n$($_.Name)`n$($_.Properties -join ', ')"; } `
+| Format-Table -AutoSize <# | ForEach-Object { Write-Output "`n$($_.Name)`n$($_.Properties -join ', ')"; } #> `
 | Out-File -Width 16384 -Append "${Logfile}"; `
 Notepad "${Logfile}";
 

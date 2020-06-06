@@ -17,7 +17,7 @@ Get-WmiObject -Query "SELECT * FROM meta_class" `
 | Where-Object { $_.Properties -NE @{} } `
 | Select-Object -Property Name,Properties `
 | Sort-Object -Property Name -Unique `
-| ForEach-Object { $EachLine=@(); $_.Properties | ForEach-Object { $EachLine += "$($_.Name)"; }; Write-Output "$($($_.Name.PadRight(120)))  { $($EachLine -join ', ') }" | Out-File -Width 16384 -Append "${Logfile_txt}"; Write-Output "$($_.Name)`t$($EachLine -join '`t')}" | Out-File -Width 16384 -Append "${Logfile_csv}"; }; `
+| ForEach-Object { $EachLine=@(); $_.Properties | ForEach-Object { $EachLine += "$($_.Name)"; }; Write-Output "$($($_.Name.PadRight(120)))  { $($EachLine -join ', ') }" | Out-File -Width 16384 -Append "${Logfile_txt}"; Write-Output "$($_.Name)`t$($EachLine -join `"`t`")}" | Out-File -Width 16384 -Append "${Logfile_csv}"; }; `
 Notepad "${Logfile_txt}";
 Notepad "${Logfile_csv}";
 

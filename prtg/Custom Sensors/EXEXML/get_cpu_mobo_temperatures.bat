@@ -21,8 +21,9 @@ REM Here we create the RAM drive for the temporary files used by all the PRTG ba
 REM -P (persistent) doesnt work, it will be unformatted after reboot
 REM IF NOT EXIST Z: ( C:\windows\system32\imdisk.exe -a -u 0 -m Z: -s 64M -p "/fs:ntfs /q /y /v:RAMDRIVE" -o awe )
 
-C:
-CD \prtg
+REM Create temp-directory (if it doesn't already exist)
+SET "tempdrive=C:\temp\"
+IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
 ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^>
 ECHO ^<prtg^>

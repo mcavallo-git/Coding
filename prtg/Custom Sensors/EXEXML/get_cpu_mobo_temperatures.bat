@@ -167,7 +167,7 @@ REM
 
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
-	REM ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" " > %calc_dot_bat%
+	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" " > %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%

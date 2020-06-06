@@ -2,9 +2,7 @@
 
 REM Create directory (if it doesn't already exist)
 SET "tempdrive=C:\temp\"
-IF NOT EXIST "%tempdrive%" (
-	MKDIR "%tempdrive%"
-)
+IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
 
 REM ------------------------------------------------------------

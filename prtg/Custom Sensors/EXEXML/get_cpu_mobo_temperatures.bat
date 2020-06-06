@@ -47,7 +47,8 @@ REM      pingcheck.bat hostname
 REM HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT  CMD.EXE
 REM Ping the host 1 time and store it in the temp file (we also check to see if RAM drive Z: is available)
 
-SET "tempdrive=C:\prtg\"
+SET "tempdrive=C:\temp\"
+IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
 SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
 
@@ -101,7 +102,8 @@ REM Open Hardware Monitor for computer1
 
 REM Here you can change the drive and working directory used by this script. Remember to create the directory first!
 
-SET "tempdrive=C:\prtg\"
+SET "tempdrive=C:\temp\"
+IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
 SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
 
@@ -138,7 +140,8 @@ GOTO :eof
 :Finalize
 
 REM Create subroutine file "calc.bat"
-SET "tempdrive=C:\prtg\"
+SET "tempdrive=C:\temp\"
+IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
 SET "calc_dot_bat=%tempdrive%calc.bat"
 

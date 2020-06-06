@@ -57,7 +57,7 @@ REM
 	SET "tempdrive=C:\temp\"
 	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
-	SET "tempfilename=%tempdrive%~%~n0_%1.tmp"
+	SET "tempfilename=%tempdrive%%~n0_%1.tmp"
 
 	PING -n 1 %1>%tempfilename%
 
@@ -110,7 +110,7 @@ REM
 	SET "tempdrive=C:\temp\"
 	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
 
-	SET "tempfilename=%tempdrive%_%~n0_%1_2.tmp"
+	SET "tempfilename=%tempdrive%%~n0_%1_2.tmp"
 
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
 
@@ -166,7 +166,7 @@ REM
 
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
-	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" " > %calc_dot_bat%
+	REM ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" " > %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round2" perl -W -e "print sprintf('%%%%.2f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%

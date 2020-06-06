@@ -22,11 +22,7 @@ CALL :PING_CHECK %1
 
 CALL :GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR %1 %2 %3
 
-CALL :OUTPUT_XML_HEADER
-
 CALL :OUTPUT_RESULTS %1 %2 %3
-
-CALL :OUTPUT_XML_FOOTER
 
 EXIT /B
 
@@ -182,6 +178,10 @@ REM
 	CD "%tempdrive%"
 
 	FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+	
+	REM Output XML Header
+	ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^>
+	ECHO ^<prtg^>
 
 	REM CPU core0-3 average temp
 	ECHO    ^<result^>
@@ -334,27 +334,7 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^>
 	ECHO    ^</result^>
 
-	EXIT /B
-
-
-REM ------------------------------------------------------------
-REM
-REM     OUTPUT_XML_HEADER
-REM
-: OUTPUT_XML_HEADER
-
-	ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^>
-	ECHO ^<prtg^>
-
-	EXIT /B
-
-
-REM ------------------------------------------------------------
-REM
-REM     OUTPUT_XML_FOOTER
-REM
-: OUTPUT_XML_FOOTER
-
+	REM Output XML Footer
 	ECHO ^</prtg^>
 
 	EXIT /B

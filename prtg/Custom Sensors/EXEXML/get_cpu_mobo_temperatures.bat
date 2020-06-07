@@ -114,6 +114,7 @@ REM
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
 
 	REM Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
+	REM    WMIC.exe /namespace:\\Root\OpenHardwareMonitor Path Sensor Get Value,Identifier
 	PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\Wbem\WMIC.exe') -ArgumentList (@('%remoteaccess% /namespace:\\Root\OpenHardwareMonitor','Path Sensor','Get Value,Identifier')) -Verb 'RunAs' -PassThru | More | Out-File '%tempfilename%';"
 
 	REM Fan RPM

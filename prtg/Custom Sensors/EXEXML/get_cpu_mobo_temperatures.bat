@@ -107,7 +107,7 @@ REM
 	SETLOCAL EnableDelayedExpansion
 
 	SET "tempdrive=C:\temp\"
-	SET "tempfilename=%tempdrive%%~n0_%1_2.tmp"
+	SET "tempfilename=%tempdrive%GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR_%1.tmp"
 
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
 

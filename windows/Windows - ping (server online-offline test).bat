@@ -1,5 +1,5 @@
 @SETLOCAL enableextensions enabledelayedexpansion
-@ECHO off
+@ECHO OFF
 	
 	REM     This program is designed to run via scheduled task (every minute) to ping a host IP or URL.
 	REM     Logging only occurs on failed pings.

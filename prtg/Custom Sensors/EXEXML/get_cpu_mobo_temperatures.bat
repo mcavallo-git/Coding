@@ -36,9 +36,7 @@ REM
 :SETUP_LOGGING
 
 	REM Create temp-directory (if it doesn't already exist) - Note (from "MKDIR /?"): "MKDIR creates any intermediate directories in the path, if needed"
-
 	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
-
 	IF NOT EXIST "%tempdrive%" ( MKDIR "%tempdrive%" )
 
 	REM Start OpenHardwareMonitor as admin and give it at least 30 seconds to get on its feet

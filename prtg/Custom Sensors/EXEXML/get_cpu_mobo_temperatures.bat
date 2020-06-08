@@ -153,6 +153,8 @@ REM
 :OUTPUT_RESULTS
 
 	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
+	SET "tempfilename=%tempdrive%OUTPUT_RESULTS_%1.tmp"
+
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
 	REM Create subroutine batch-file "calc.bat"
@@ -171,8 +173,8 @@ REM
 	CD "%tempdrive%"
 
 	REM Output XML Header
-	ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^>
-	ECHO ^<prtg^>
+	ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^> > %tempfilename%
+	ECHO ^<prtg^> >> %tempfilename%
 
 	REM REM CPU core0-3 average temp
 	REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
@@ -187,147 +189,150 @@ REM
 	REM ECHO    ^</result^>
 
 	REM Motherboard CPU temp
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Motherboard CPU Temp^</Channel^>
-	ECHO        ^<Value^>%motherboard0%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard CPU Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard0%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM Motherboard case temp
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Motherboard 3 Temp^</Channel^>
-	ECHO        ^<Value^>%motherboard3%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard 3 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard3%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM Side fan auto (CHA_FAN1) (4 pin header)
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Fan 1^</Channel^>
-	ECHO        ^<Value^>%fan1%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Custom^</Unit^>
-	ECHO        ^<CustomUnit^>rpm^</CustomUnit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan 1^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%fan1%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
+	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM H60 radiator/rear fan auto (CPU_FAN) (4 pin header)
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Fan 2^</Channel^>
-	ECHO        ^<Value^>%fan2%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Custom^</Unit^>
-	ECHO        ^<CustomUnit^>rpm^</CustomUnit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan 2^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%fan2%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
+	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM Top fan adj auto (PWR_FAN1) (4 pin header)
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Fan 3^</Channel^>
-	ECHO        ^<Value^>%fan3%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Custom^</Unit^>
-	ECHO        ^<CustomUnit^>rpm^</CustomUnit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan 3^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%fan3%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
+	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM H60 cpu pump auto (CHA_FAN2) (3 pin header)
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Fan 4^</Channel^>
-	ECHO        ^<Value^>%fan4%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Custom^</Unit^>
-	ECHO        ^<CustomUnit^>rpm^</CustomUnit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan 4^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%fan4%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
+	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM External fan adj (PWR_FAN2) (3 pin header)
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Fan 5^</Channel^>
-	ECHO        ^<Value^>%fan5%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Custom^</Unit^>
-	ECHO        ^<CustomUnit^>rpm^</CustomUnit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan 5^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%fan5%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
+	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM CPU single cores
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>CPU Core 0 Temp^</Channel^>
-	ECHO        ^<Value^>%intel0%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>0^</ShowChart^>
-	ECHO        ^<ShowTable^>0^</ShowTable^>
-	ECHO    ^</result^>
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>CPU Core 1 Temp^</Channel^>
-	ECHO        ^<Value^>%intel1%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>0^</ShowChart^>
-	ECHO        ^<ShowTable^>0^</ShowTable^>
-	ECHO    ^</result^>
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>CPU Core 2 Temp^</Channel^>
-	ECHO        ^<Value^>%intel2%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>0^</ShowChart^>
-	ECHO        ^<ShowTable^>0^</ShowTable^>
-	ECHO    ^</result^>
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>CPU Core 3 Temp^</Channel^>
-	ECHO        ^<Value^>%intel3%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>0^</ShowChart^>
-	ECHO        ^<ShowTable^>0^</ShowTable^>
-	ECHO    ^</result^>
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>CPU Package Temp^</Channel^>
-	ECHO        ^<Value^>%intel4%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>0^</ShowChart^>
-	ECHO        ^<ShowTable^>0^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>CPU Core 0 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%intel0%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>0^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>0^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>CPU Core 1 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%intel1%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>0^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>0^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>CPU Core 2 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%intel2%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>0^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>0^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>CPU Core 3 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%intel3%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>0^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>0^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>CPU Package Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%intel4%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>0^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>0^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM Motherboard chipset (?) temp
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>Motherboard 2 Temp^</Channel^>
-	ECHO        ^<Value^>%motherboard2%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard 2 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard2%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
 
 	REM Output XML Footer
-	ECHO ^</prtg^>
+	ECHO ^</prtg^> >> %tempfilename%
+
+	REM Send the ECHO'ed contents to STDOUT
+	TYPE %tempfilename%
 
 	EXIT /B
 

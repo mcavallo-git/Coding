@@ -9,7 +9,7 @@ yum -y install openldap*;
 ldapsearch \
 -x \
 -h "DC_FQDN_or_IPv4" \
--D "DC=example,DC=com" \
+-D "CN=LOGIN_USER_CN,AD-Auth,OU=Users,DC=example,DC=com" \
 -W \
 -b "dc=example,dc=com" \
 -s sub "(cn=*)" cn mail sn;

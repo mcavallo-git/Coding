@@ -158,7 +158,7 @@ REM
 
 	REM Create subroutine file "calc.bat"
 	SET "tempdrive=C:\temp\"
-	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
+	IF NOT EXIST "%tempdrive%" ( MKDIR "%tempdrive%" )
 
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 

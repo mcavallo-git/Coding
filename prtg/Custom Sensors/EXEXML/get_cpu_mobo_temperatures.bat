@@ -170,22 +170,21 @@ REM
 
 	CD "%tempdrive%"
 
-	FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
-	
 	REM Output XML Header
 	ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^>
 	ECHO ^<prtg^>
 
-	REM CPU core0-3 average temp
-	ECHO    ^<result^>
-	ECHO        ^<Channel^>CPU Cores Average Temp^</Channel^>
-	ECHO        ^<Value^>%intelavg%^</Value^>
-	ECHO        ^<Mode^>Absolute^</Mode^>
-	ECHO        ^<Unit^>Temperature^</Unit^>
-	ECHO        ^<Float^>1^</Float^>
-	ECHO        ^<ShowChart^>1^</ShowChart^>
-	ECHO        ^<ShowTable^>1^</ShowTable^>
-	ECHO    ^</result^>
+	REM REM CPU core0-3 average temp
+	REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+	REM ECHO    ^<result^>
+	REM ECHO        ^<Channel^>CPU Cores Average Temp^</Channel^>
+	REM ECHO        ^<Value^>%intelavg%^</Value^>
+	REM ECHO        ^<Mode^>Absolute^</Mode^>
+	REM ECHO        ^<Unit^>Temperature^</Unit^>
+	REM ECHO        ^<Float^>1^</Float^>
+	REM ECHO        ^<ShowChart^>1^</ShowChart^>
+	REM ECHO        ^<ShowTable^>1^</ShowTable^>
+	REM ECHO    ^</result^>
 
 	REM Motherboard CPU temp
 	ECHO    ^<result^>

@@ -1,5 +1,7 @@
-@ECHO off
+@ECHO OFF
+
 SETLOCAL EnableDelayedExpansion
+
 REM ------------------------------------------------------------
 REM 
 REM 
@@ -36,7 +38,8 @@ REM
 	REM Create temp-directory (if it doesn't already exist)
 
 	SET "tempdrive=C:\temp\"
-	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
+
+	IF NOT EXIST "%tempdrive%" ( MKDIR "%tempdrive%" )
 
 	REM Start OpenHardwareMonitor as admin and give it at least 30 seconds to get on its feet
 	REM PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
@@ -49,50 +52,47 @@ REM
 REM     PING_CHECK
 REM
 :PING_CHECK
-	SETLOCAL EnableDelayedExpansion
 	REM HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT CMD.EXE
 	REM Ping the host 1 time and store it in the temp file
 
 	SET "tempdrive=C:\temp\"
-	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
+	SET "tempfilename=%tempdrive%PING_CHECK_%1.tmp"
 
-	SET "tempfilename=%tempdrive%%~n0_%1.tmp"
+	PING -n 1 %1 > %tempfilename%
 
-	PING -n 1 %1>%tempfilename%
-
-	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"unreachable" %tempfilename%') DO          (
-			ECHO ^<Error^>1^</Error^>
-			ECHO ^<Text^>^[%~n0^] %%A^</Text^>
-			ECHO ^</prtg^>
-			EXIT 5
+	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"unreachable" %tempfilename%') DO (
+		ECHO ^<Error^>1^</Error^>
+		ECHO ^<Text^>^[%~n0^] %%A^</Text^>
+		ECHO ^</prtg^>
+		EXIT 5
 	)
 
-	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"could not find" %tempfilename%') DO       (
-			ECHO ^<Error^>1^</Error^>
-			ECHO ^<Text^>^[%~n0^] %%A^</Text^>
-			ECHO ^</prtg^>
-			EXIT 5
+	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"could not find" %tempfilename%') DO (
+		ECHO ^<Error^>1^</Error^>
+		ECHO ^<Text^>^[%~n0^] %%A^</Text^>
+		ECHO ^</prtg^>
+		EXIT 5
 	)
 
-	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"timed out" %tempfilename%') DO    (
-			ECHO ^<Error^>1^</Error^>
-			ECHO ^<Text^>^[%~n0^] %1: %%A^</Text^>
-			ECHO ^</prtg^>
-			EXIT 5
+	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"timed out" %tempfilename%') DO (
+		ECHO ^<Error^>1^</Error^>
+		ECHO ^<Text^>^[%~n0^] %1: %%A^</Text^>
+		ECHO ^</prtg^>
+		EXIT 5
 	)
 
-	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"expired" %tempfilename%') DO          (
-			ECHO ^<Error^>1^</Error^>
-			ECHO ^<Text^>^[%~n0^] %%A^</Text^>
-			ECHO ^</prtg^>
-			EXIT 5
+	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"expired" %tempfilename%') DO (
+		ECHO ^<Error^>1^</Error^>
+		ECHO ^<Text^>^[%~n0^] %%A^</Text^>
+		ECHO ^</prtg^>
+		EXIT 5
 	)
 
-	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"failed" %tempfilename%') DO      (
-			ECHO ^<Error^>1^</Error^>
-			ECHO ^<Text^>^[%~n0^] %%A^</Text^>
-			ECHO ^</prtg^>
-			EXIT 5
+	FOR /F "tokens=*" %%A IN ('FINDSTR /I /C:"failed" %tempfilename%') DO (
+		ECHO ^<Error^>1^</Error^>
+		ECHO ^<Text^>^[%~n0^] %%A^</Text^>
+		ECHO ^</prtg^>
+		EXIT 5
 	)
 
 	EXIT /B
@@ -107,8 +107,6 @@ REM
 	SETLOCAL EnableDelayedExpansion
 
 	SET "tempdrive=C:\temp\"
-	IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
-
 	SET "tempfilename=%tempdrive%%~n0_%1_2.tmp"
 
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
@@ -156,12 +154,10 @@ REM     OUTPUT_RESULTS
 REM
 :OUTPUT_RESULTS
 
-	REM Create subroutine file "calc.bat"
 	SET "tempdrive=C:\temp\"
-	IF NOT EXIST "%tempdrive%" ( MKDIR "%tempdrive%" )
-
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
+	REM Create subroutine batch-file "calc.bat"
 	ECHO IF /I "%%1" EQU "float"  perl -w -e "print eval(join('',@ARGV)); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\" " > %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round0" perl -W -e "print sprintf('%%%%.0f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%
 	ECHO IF /I "%%1" EQU "Round1" perl -W -e "print sprintf('%%%%.1f ',eval(join('',@ARGV))); print \"\n %%2 %%3 %%4 %%5 %%6 %%7 %%8 %%9\"" >> %calc_dot_bat%

@@ -35,9 +35,9 @@ REM     SETUP_LOGGING
 REM
 :SETUP_LOGGING
 
-	REM Create temp-directory (if it doesn't already exist)
+	REM Create temp-directory (if it doesn't already exist) - Note (from "MKDIR /?"): "MKDIR creates any intermediate directories in the path, if needed"
 
-	SET "tempdrive=C:\temp\"
+	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 
 	IF NOT EXIST "%tempdrive%" ( MKDIR "%tempdrive%" )
 
@@ -55,7 +55,7 @@ REM
 	REM HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT CMD.EXE
 	REM Ping the host 1 time and store it in the temp file
 
-	SET "tempdrive=C:\temp\"
+	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 	SET "tempfilename=%tempdrive%PING_CHECK_%1.tmp"
 
 	PING -n 1 %1 > %tempfilename%
@@ -106,7 +106,7 @@ REM
 
 	SETLOCAL EnableDelayedExpansion
 
-	SET "tempdrive=C:\temp\"
+	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 	SET "tempfilename=%tempdrive%GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR_%1.tmp"
 
 	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
@@ -154,7 +154,7 @@ REM     OUTPUT_RESULTS
 REM
 :OUTPUT_RESULTS
 
-	SET "tempdrive=C:\temp\"
+	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 	SET "calc_dot_bat=%tempdrive%calc.bat"
 
 	REM Create subroutine batch-file "calc.bat"

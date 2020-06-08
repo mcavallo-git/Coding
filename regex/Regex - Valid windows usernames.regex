@@ -1,0 +1,40 @@
+#!/bin/bash
+# ------------------------------------------------------------
+#
+# Regex - Valid windows usernames
+#
+# ------------------------------------------------------------
+
+#
+# DomainName\Username
+#
+^[a-zA-Z][a-zA-Z0-9‌​\-\.]{0,61}[a-zA-Z]\\(\w[\.\- ]?)*\w‌​$
+
+
+#
+# DomainName-Only
+#
+^[a-zA-Z][a-zA-Z0-9‌​\-\.]{0,61}[a-zA-Z]$
+
+
+#
+# Username-Only
+#
+^(\w[\.\- ]?)*\w‌​$
+
+
+# ------------------------------------------------------------
+#
+# Example(s)
+#
+
+### NEED POWERSHELL EXAMPLE, HERE
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#		stackoverflow.com | "c# 4.0 - What is the Regex for Windows Domain Username in C#? - Stack Overflow" | https://stackoverflow.com/a/33079236
+#
+# ------------------------------------------------------------

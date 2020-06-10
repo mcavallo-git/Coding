@@ -7,7 +7,7 @@
 1.us.pool.ntp.org, pool.ntp.org, time-a-g.nist.gov, time.google.com
 
 ### If using 3 NTP Hostnames
-1.us.pool.ntp.org, time-a-g.nist.gov, time.google.com
+pool.ntp.org, time.nist.gov, time.google.com
 
 ### If using 2 NTP Hostnames
 pool.ntp.org, time.nist.gov

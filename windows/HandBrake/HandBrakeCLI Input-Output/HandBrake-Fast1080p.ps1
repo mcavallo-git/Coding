@@ -42,7 +42,7 @@ Write-Output "`n`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
 # ------------------------------------------------------------
 
 # Download Handbrake runtime executable (if it doesn't exist)
-If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $False) {
+If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
 	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 
@@ -76,7 +76,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $False) {
 # ------------------------------------------------------------
 
 # Ensure that Handbrake runtime executable exists
-If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $True) {
+If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	# Compress videos from the input directory into the output directory
 	Set-Location -Path ("${ThisDir}\");
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {

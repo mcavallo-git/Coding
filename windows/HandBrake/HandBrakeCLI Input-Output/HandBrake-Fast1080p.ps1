@@ -38,6 +38,7 @@ $OutputExtension = "mp4";
 # Write-Output "`n`$OutputDir = [ ${OutputDir} ]";
 # Write-Output "`n`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
 
+
 # ------------------------------------------------------------
 
 # Download Handbrake runtime executable (if it doesn't exist)
@@ -76,6 +77,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
 # Ensure that Handbrake runtime executable exists
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
+	
 	# Compress videos from the input directory into the output directory
 	Set-Location -Path ("${ThisDir}\");
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {

@@ -38,14 +38,14 @@ $OutputExtension = "mp4";
 # Download Handbrake runtime executable (if it doesn't exist)
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $False) {
 
-	Write-Output "`nFile not found:  [ ${ExeArchive_Local} ]`nDownloading from [ ${ExeArchive_Url} ]...";
-
 	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
+
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
+
 	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 
 	# Download HandBrakeCLI
-	Write-Output "`nDownloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
+	Write-Output "`nFile not found:  [ ${ExeArchive_Local} ]`nDownloading from [ ${ExeArchive_Url} ]...";
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 	# Unpack the downloaded archive

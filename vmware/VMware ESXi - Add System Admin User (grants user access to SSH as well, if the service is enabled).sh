@@ -20,6 +20,20 @@ fi;
 
 
 # ------------------------------------------------------------
+
+if [ 0 -eq 1 ]; then
+
+USERNAME_TO_DELETE="test-user";
+
+# Delete a system user account from ESXi:
+esxcli system account remove -i "${USERNAME_TO_DELETE}";
+
+esxcli system account list;
+
+fi;
+
+
+# ------------------------------------------------------------
 # Citation(s)
 #
 #   pubs.vmware.com  |  "vSphere Command-Line Interface Reference"  |  https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vcli.ref.doc_50%2Fvcli-right.html

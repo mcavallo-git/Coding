@@ -38,30 +38,28 @@ $OutputExtension = "mp4";
 # Download Handbrake runtime executable (if it doesn't exist)
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $False) {
 
+	Write-Output "`nFile not found:  [ ${ExeArchive_Local} ]`nDownloading from [ ${ExeArchive_Url} ]...";
+
 	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
 	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 
 	# Download HandBrakeCLI
-	Write-Host "";
-	Write-Host "Downloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
+	Write-Output "`nDownloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 	# Unpack the downloaded archive
-	Write-Host "";
-	Write-Host "Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
+	Write-Output "`nUnpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
 	Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 
 	# Cleanup the archive once it has been unpacked
 	$ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
 	If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
-		Write-Host "";
-		Write-Host "HandBrakeCLI executable path NOT FOUND" -ForegroundColor ("Red");
+		Write-Output "`nHandBrakeCLI executable path NOT FOUND" -ForegroundColor ("Red");
 		Start-Sleep 60;
 		Exit 1;
 	} Else {
-		Write-Host "";
-		Write-Host "Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]"
+		Write-Output "`nMoving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]"
 		Move-Item -Path ("${ExeArchive_HandBrakeCLI}") -Destination ("${HandBrakeCLI}") -Force;
 	}
 
@@ -77,20 +75,16 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $True) {
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 		$EachInputFile = $_.FullName;
 		$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
-		Write-Host "";
-		Write-Host "`$EachInputFile = [ ${EachInputFile} ]";
-		Write-Host "`$EachOutputFile = [ ${EachOutputFile} ]";
+		Write-Output "`n`$EachInputFile = [ ${EachInputFile} ]`n`$EachOutputFile = [ ${EachOutputFile} ]";
 		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" -i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
 		If ((Test-Path -Path ("${EachOutputFile}")) -Eq $True) {
 			Remove-Item -Path ("${EachInputFile}") -Force;
 		}
-		Write-Host "";
+		Write-Output "";
 	}
 
 	# Open the exported-files directory
-	Write-Host "";
-	Write-Host "Finished Script - Opening output directory @  [ ${OutputDir} ]";
-	Write-Host "";
+	Write-Output "`nFinished Script - Opening output directory @  [ ${OutputDir} ]`n";
 
 	Explorer.exe "${OutputDir}";
 

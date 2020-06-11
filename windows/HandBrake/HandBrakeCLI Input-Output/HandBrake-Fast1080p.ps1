@@ -12,18 +12,18 @@
 #   . "${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI Input-Output\HandBrake-Fast1080p.ps1"
 #
 #
-# ------------------------------------------------------------
-
-
+#
 # ------------------------------------------------------------
 # 
 # Instantiate Runtime Variable(s)
 #
-# HandBrakeCLI.exe
 
 $ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
+
 $ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
+
 $InputDir = ("${ThisDir}\Input");
+
 $OutputDir = ("${ThisDir}\Output");
 
 $HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
@@ -32,42 +32,46 @@ $HandBrake_Preset = "Fast 1080p30";
 
 $OutputExtension = "mp4";
 
+
 # ------------------------------------------------------------
 
-$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
+# Download Handbrake runtime executable (if it doesn't exist)
+If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $False) {
 
-$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
+	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
+	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
+	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 
-$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
-
-# Download HandBrakeCLI
-Write-Host "";
-Write-Host "Downloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-# Unpack the downloaded archive
-Write-Host "";
-Write-Host "Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
-Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
-
-# Cleanup the archive once it has been unpacked
-# Remove-Item -Path ("${Env:TEMP}\esxi-create-bootmedia.ps1");
-
-$ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
-
-
-If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
+	# Download HandBrakeCLI
 	Write-Host "";
-	Write-Host "HandBrakeCLI executable path NOT FOUND" -ForegroundColor ("Red");
-	Start-Sleep 60;
-	Exit 1;
+	Write-Host "Downloading  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]  ...";
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
-
-} Else {
+	# Unpack the downloaded archive
 	Write-Host "";
-	Write-Host "Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]"
-	
-	Move-Item -Path ("${ExeArchive_HandBrakeCLI}") -Destination ("${HandBrakeCLI}") -Force;
+	Write-Host "Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
+	Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 
+	# Cleanup the archive once it has been unpacked
+	$ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
+	If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
+		Write-Host "";
+		Write-Host "HandBrakeCLI executable path NOT FOUND" -ForegroundColor ("Red");
+		Start-Sleep 60;
+		Exit 1;
+	} Else {
+		Write-Host "";
+		Write-Host "Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]"
+		Move-Item -Path ("${ExeArchive_HandBrakeCLI}") -Destination ("${HandBrakeCLI}") -Force;
+	}
+
+}
+
+
+# ------------------------------------------------------------
+
+# Ensure that Handbrake runtime executable exists
+If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $True) {
 	# Compress videos from the input directory into the output directory
 	Set-Location -Path ("${ThisDir}\");
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
@@ -91,13 +95,11 @@ If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
 	Explorer.exe "${OutputDir}";
 
 	# Wait a few seconds (for user to read the terminal, etc.) before exiting
-	# Start-Sleep -Seconds 60;
+	Start-Sleep -Seconds 60;
 
-	Start-Sleep 60;
 	Exit 0;
 
 }
-
 
 
 # ------------------------------------------------------------

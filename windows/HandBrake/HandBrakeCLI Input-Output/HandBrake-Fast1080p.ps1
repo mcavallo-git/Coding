@@ -32,6 +32,12 @@ $HandBrake_Preset = "Fast 1080p30";
 
 $OutputExtension = "mp4";
 
+Write-Output "`n`$ThisScript = [ ${ThisScript} ]";
+Write-Output "`n`$ThisDir = [ ${ThisDir} ]";
+Write-Output "`n`$InputDir = [ ${InputDir} ]";
+Write-Output "`n`$OutputDir = [ ${OutputDir} ]";
+Write-Output "`n`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
+
 
 # ------------------------------------------------------------
 

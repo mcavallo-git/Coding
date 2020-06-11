@@ -51,7 +51,8 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Ne $False) {
 	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 
 	# Download HandBrakeCLI
-	Write-Output "`nFile not found:  [ ${ExeArchive_Local} ]`nDownloading from [ ${ExeArchive_Url} ]...";
+	Write-Output "`nFile not found:  [ ${HandBrakeCLI} ]";
+	Write-Output "`nDownloading archive-version of HandBrakeCLI from  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]...";
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 	# Unpack the downloaded archive

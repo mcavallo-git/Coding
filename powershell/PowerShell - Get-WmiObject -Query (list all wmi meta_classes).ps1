@@ -9,13 +9,14 @@
 # List all WMIC Namespaces
 #
 
-Get-WmiObject -Namespace "Root" -Class "__Namespace" | Select Name
+Get-WmiObject -Namespace "ROOT" -Class "__Namespace" | Select Name;
 
 
 # ------------------------------------------------------------
 #
 # Output all to a logfile & display all available methods for each WMI class
 #
+
 $Logfile_txt = "${Home}\Desktop\WMI_Classes_$($(${Env:USERNAME}).Trim())@$($(${Env:COMPUTERNAME}).Trim())" + $(If(${Env:USERDNSDOMAIN}){Write-Output ((".") + ($(${Env:USERDNSDOMAIN}).Trim()))}) +"_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log.txt"; `
 $Logfile_csv = "${Logfile_txt}.csv"; `
 If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); }; <# Update PowerShell console width to 16384 characters #> `

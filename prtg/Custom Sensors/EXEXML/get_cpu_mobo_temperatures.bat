@@ -5,7 +5,7 @@ SETLOCAL EnableDelayedExpansion
 REM ------------------------------------------------------------
 REM 
 REM 
-REM    cmd.exe /K "%USERPROFILE%\Documents\GitHub\Coding\prtg\Custom Sensors\EXEXML\ohm-computer1.bat"
+REM    cmd.exe /K "%USERPROFILE%\Documents\GitHub\Coding\prtg\Custom Sensors\EXEXML\get_cpu_mobo_temperatures.bat"
 REM 
 REM 
 REM ------------------------------------------------------------

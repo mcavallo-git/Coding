@@ -127,7 +127,12 @@ REM
 	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 	SET "tempfilename=%tempdrive%GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR_%1.tmp"
 
-	IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
+	REM IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
+	IF NOT ""%1""=="""" (
+		SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3"
+	) ELSE (
+		SET "remoteaccess="
+	)
 
 	REM Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
 

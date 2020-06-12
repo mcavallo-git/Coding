@@ -27,8 +27,7 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	$EachSensorReading_Obj.Path = (($CsvImport.Paths)[$i]);
 	$EachSensorReading_Obj.Description = (($CsvImport.Descriptions)[$i]);
 	$EachSensorReading_Obj.Value = (($CsvImport.Values)[$i]);
-
-	$EachSensorReading_Obj.Component = "";
+	# Boil-down the results to Shorthand/Nickname versions for each PC component
 	If (($EachSensorReading_Obj.Path) -Match "/lpc/") {
 		$EachSensorReading_Obj.Description = "Motherboard - $($EachSensorReading_Obj.Description)";
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/") {
@@ -40,11 +39,7 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "hdd/") {
 		$EachSensorReading_Obj.Description = "Disk - $($EachSensorReading_Obj.Description)";
 	}
-
-
 	$Ohw_SensorReadings += $EachSensorReading_Obj;
-
-	# $Obj_OhwUpdatedValues[(($CsvImport.Paths)[$i])] = (($CsvImport.Values)[$i]);
 }
 
 $XmlOutput_Arr = @();

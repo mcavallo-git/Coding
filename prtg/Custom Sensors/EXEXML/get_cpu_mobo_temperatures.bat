@@ -133,14 +133,14 @@ REM
 
 
 	REM AMD CPU temperatures
-	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )  ### REFERENCE ONLY
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )
-	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE intel1 %%B )
-	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE intel2 %%B )
-	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE intel3 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
-	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
-	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
+	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp0 %%B )  ### REFERENCE ONLY
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp0 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp1 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp2 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp3 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp4 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp4 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE cputemp4 %%B )
 
 	REM Motherboard temperatures
 	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard1 %%B )
@@ -199,10 +199,10 @@ REM
 
 
 	REM REM CPU core0-3 average temp
-	REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
+	REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%cputemp0%+%cputemp1%+%cputemp2%+%cputemp3%)/4"`) DO SET cputempavg=%%A
 	REM ECHO    ^<result^>
 	REM ECHO        ^<Channel^>CPU Cores Average Temp^</Channel^>
-	REM ECHO        ^<Value^>%intelavg%^</Value^>
+	REM ECHO        ^<Value^>%cputempavg%^</Value^>
 	REM ECHO        ^<Mode^>Absolute^</Mode^>
 	REM ECHO        ^<Unit^>Temperature^</Unit^>
 	REM ECHO        ^<Float^>1^</Float^>
@@ -273,10 +273,10 @@ REM
 	ECHO    ^</result^> >> %tempfilename%
 
 
-	REM Side fan auto (CHA_FAN1) (4 pin header)
+	REM Motherboard 4-Pin headers (All)
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Fan 1^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%fan1%^</Value^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan #1^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%mobo_fan1%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
 	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
@@ -285,11 +285,9 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
-
-	REM H60 radiator/rear fan auto (CPU_FAN) (4 pin header)
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Fan 2^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%fan2%^</Value^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan #2^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%mobo_fan2%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
 	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
@@ -298,11 +296,9 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
-
-	REM Top fan adj auto (PWR_FAN1) (4 pin header)
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Fan 3^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%fan3%^</Value^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan #3^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%mobo_fan3%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
 	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
@@ -311,12 +307,9 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
-
-
-	REM H60 cpu pump auto (CHA_FAN2) (3 pin header)
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Fan 4^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%fan4%^</Value^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan #4^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%mobo_fan4%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
 	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
@@ -325,11 +318,20 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
-
-	REM External fan adj (PWR_FAN2) (3 pin header)
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Fan 5^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%fan5%^</Value^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan #5^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%mobo_fan5%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
+	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Fan #6^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%mobo_fan6%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Custom^</Unit^> >> %tempfilename%
 	ECHO        ^<CustomUnit^>rpm^</CustomUnit^> >> %tempfilename%
@@ -343,7 +345,7 @@ REM
 	REM CPU single cores
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>CPU Core 0 Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%intel0%^</Value^> >> %tempfilename%
+	ECHO        ^<Value^>%cputemp0%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
@@ -352,7 +354,7 @@ REM
 	ECHO    ^</result^> >> %tempfilename%
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>CPU Core 1 Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%intel1%^</Value^> >> %tempfilename%
+	ECHO        ^<Value^>%cputemp1%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
@@ -361,7 +363,7 @@ REM
 	ECHO    ^</result^> >> %tempfilename%
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>CPU Core 2 Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%intel2%^</Value^> >> %tempfilename%
+	ECHO        ^<Value^>%cputemp2%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
@@ -370,7 +372,7 @@ REM
 	ECHO    ^</result^> >> %tempfilename%
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>CPU Core 3 Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%intel3%^</Value^> >> %tempfilename%
+	ECHO        ^<Value^>%cputemp3%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
@@ -379,7 +381,7 @@ REM
 	ECHO    ^</result^> >> %tempfilename%
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>CPU Package Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%intel4%^</Value^> >> %tempfilename%
+	ECHO        ^<Value^>%cputemp4%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%

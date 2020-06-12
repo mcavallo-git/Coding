@@ -9,7 +9,7 @@
 # List all WMIC Namespaces
 #
 
-Get-WmiObject -Namespace "Root" -Class "__Namespace" | Select Name
+Get-WmiObject -Namespace "ROOT" -Class "__Namespace" | Select Name;
 
 
 # ------------------------------------------------------------

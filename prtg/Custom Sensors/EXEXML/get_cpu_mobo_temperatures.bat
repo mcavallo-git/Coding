@@ -128,20 +128,18 @@ REM
 	SET "tempfilename=%tempdrive%GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR_%1.tmp"
 
 	REM IF [%1]==[] ( SET "remoteaccess=" ) ELSE ( SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3" )
-	IF NOT ""%1""=="""" (
-		SET "remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3"
-	) ELSE (
-		SET "remoteaccess="
-	)
+	REM ECHO "CALLING [ WMIC %remoteaccess% /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename% ] ..."
+	REM WMIC %remoteaccess% /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename%
+
 
 	REM Because WMIC outputs UNICODE we need to use MORE to 'convert' it to UTF-8 (to avoid all characters having a space inbetween)
-
-	ECHO "CALLING [ WMIC %remoteaccess% /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename% ] ..."
-	
-	WMIC %remoteaccess% /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename%
-
-	REM WMIC %remoteaccess% /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE
-
+	IF [%1]==[] (
+		ECHO "CALLING [ WMIC remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3 /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename% ] ..."
+		WMIC remoteaccess=/NODE:%1 /USER:%2 /PASSWORD:%3 /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename%
+	) ELSE (
+		ECHO "CALLING [ WMIC remoteaccess= /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename% ] ..."
+		WMIC remoteaccess= /namespace:\\Root\OpenHardwareMonitor Path Sensor  Get Value,Identifier |MORE > %tempfilename%
+	)
 	REM PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\Wbem\WMIC.exe') -ArgumentList (@('%remoteaccess% /namespace:\\Root\OpenHardwareMonitor','Path Sensor','Get Value,Identifier')) -Verb 'RunAs' -PassThru | More | Out-File '%tempfilename%';"
 
 	REM 

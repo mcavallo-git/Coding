@@ -5,8 +5,14 @@
 
 
 # ------------------------------------------------------------
+#
+# List all WMIC Namespaces
+#
+
+gwmi -namespace "root" -class "__Namespace" | Select Name
 
 
+# ------------------------------------------------------------
 #
 # Output all to a logfile & display all available methods for each WMI class
 #

@@ -138,31 +138,14 @@ REM
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
 
 	REM Motherboard temperatures
-	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard0 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard0 %%B )
-	echo ""
-	echo "SET_VARIABLE = %SET_VARIABLE%"
-
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard1 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard1 %%B )
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard2 %%B )
-	echo ""
-	echo "SET_VARIABLE = %SET_VARIABLE%"
-
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
-	echo ""
-	echo "SET_VARIABLE = %SET_VARIABLE%"
-
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
-	echo ""
-	echo "SET_VARIABLE = %SET_VARIABLE%"
-
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
-	echo "SET_VARIABLE = %SET_VARIABLE%"
-	echo ""
-
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
-	echo ""
-	echo "SET_VARIABLE = %SET_VARIABLE%"
-
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard4 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard5 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard6 %%B )
+	
 
 	EXIT /B
 
@@ -204,9 +187,11 @@ REM
 
 	CD "%tempdrive%"
 
+
 	REM Output XML Header
 	ECHO ^<?xml version="1.0" encoding="Windows-1252" ?^> > %tempfilename%
 	ECHO ^<prtg^> >> %tempfilename%
+
 
 	REM REM CPU core0-3 average temp
 	REM FOR /F "tokens=* usebackq" %%A IN (`"calc.bat round2 (%intel0%+%intel1%+%intel2%+%intel3%)/4"`) DO SET intelavg=%%A
@@ -220,10 +205,11 @@ REM
 	REM ECHO        ^<ShowTable^>1^</ShowTable^>
 	REM ECHO    ^</result^>
 
-	REM Motherboard CPU temp
+
+	REM Motherboard Temps
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Motherboard CPU Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%motherboard0%^</Value^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard Temperature #1^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard1%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
@@ -231,16 +217,18 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
+
 	REM Motherboard case temp
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>Motherboard 3 Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%motherboard3%^</Value^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard2%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
 	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
+
 
 	REM Side fan auto (CHA_FAN1) (4 pin header)
 	ECHO    ^<result^> >> %tempfilename%
@@ -254,6 +242,7 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
+
 	REM H60 radiator/rear fan auto (CPU_FAN) (4 pin header)
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>Fan 2^</Channel^> >> %tempfilename%
@@ -265,6 +254,7 @@ REM
 	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
+
 
 	REM Top fan adj auto (PWR_FAN1) (4 pin header)
 	ECHO    ^<result^> >> %tempfilename%
@@ -278,6 +268,8 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
+
+
 	REM H60 cpu pump auto (CHA_FAN2) (3 pin header)
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>Fan 4^</Channel^> >> %tempfilename%
@@ -290,6 +282,7 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
+
 	REM External fan adj (PWR_FAN2) (3 pin header)
 	ECHO    ^<result^> >> %tempfilename%
 	ECHO        ^<Channel^>Fan 5^</Channel^> >> %tempfilename%
@@ -301,6 +294,8 @@ REM
 	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
+
+
 
 	REM CPU single cores
 	ECHO    ^<result^> >> %tempfilename%
@@ -349,16 +344,6 @@ REM
 	ECHO        ^<ShowTable^>0^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
-	REM Motherboard chipset (?) temp
-	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Motherboard 2 Temp^</Channel^> >> %tempfilename%
-	ECHO        ^<Value^>%motherboard2%^</Value^> >> %tempfilename%
-	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
-	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
-	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
-	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
-	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
-	ECHO    ^</result^> >> %tempfilename%
 
 	REM Output XML Footer
 	ECHO ^</prtg^> >> %tempfilename%

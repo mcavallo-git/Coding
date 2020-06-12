@@ -154,11 +154,11 @@ REM
 	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )  ### REFERENCE ONLY
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan1 %%B )
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/1" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan2 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/2" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan3 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/2" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan3 %%B )
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/3" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan3 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/4" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan4 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/4" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan4 %%B )
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/5" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan5 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/6" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan6 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/6" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan6 %%B )
 	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/7" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan7 %%B )
 	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/8" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan8 %%B )
 

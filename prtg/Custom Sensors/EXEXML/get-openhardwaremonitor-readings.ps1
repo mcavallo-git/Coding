@@ -1,5 +1,12 @@
+# ------------------------------------------------------------
+# 
+# 
+#    PowerShell.exe -File "${Home}\Documents\GitHub\Coding\prtg\Custom Sensors\EXEXML\get-openhardwaremonitor-readings.ps1"
+# 
+# 
+# ------------------------------------------------------------
 
-# Get only the Second and Third lines from OpenHardwareMonitor's logfile (second line is column title, third row is values)
+# Get the Temperature, fan speeds, etc. through Dell's oproprietary config but nt on the 730...Openhardware"'s  OpenHardwareMonitor's logfile (second line is column title, third row is values)
 
 $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
 
@@ -40,7 +47,7 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 	$EachSensorReading_Obj.Value;
 
 	$XmlOutput_Arr += "   <result>";
-	$XmlOutput_Arr += "       <Channel>`"$(${EachSensorReading_Obj}.Description)`"</Channel>";
+	$XmlOutput_Arr += "       <Channel>$(${EachSensorReading_Obj}.Description) ($(${EachSensorReading_Obj}.Path)`")</Channel>";
 	$XmlOutput_Arr += "       <Value>`"$(${EachSensorReading_Obj}.Value)`"</Value>";
 	$XmlOutput_Arr += "       <Mode>Absolute</Mode>";
 
@@ -50,11 +57,12 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 	} ElseIf ((${EachSensorPath} -Match "/control/") -Or (${EachSensorPath} -Match "/fan/")) { # Use units of Rotations per Minute (RPM) for fans and liquid-cooling pumps
 		$XmlOutput_Arr += "       <Unit>Custom</Unit>";
 		$XmlOutput_Arr += "       <CustomUnit>RPM</CustomUnit>";
+
 	} ElseIf (${EachSensorPath} -Match "/voltage/") { # Use units of Volts (V) for electric-pressure readings
 		$XmlOutput_Arr += "       <Unit>Custom</Unit>";
 		$XmlOutput_Arr += "       <CustomUnit>Volts</CustomUnit>";
-	}
 
+	}
 	$XmlOutput_Arr += "       <Float>1</Float>";
 	$XmlOutput_Arr += "       <ShowChart>0</ShowChart>";
 	$XmlOutput_Arr += "       <ShowTable>0</ShowTable>";

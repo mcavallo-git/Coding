@@ -152,7 +152,6 @@ $XmlOutput += (${XmlOutput_Arr} -join "`n");
 Write-Output $XmlOutput;
 
 
-
 # ------------------------------------------------------------
 # 
 # Citation(s)

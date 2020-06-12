@@ -28,16 +28,21 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	$EachSensorReading_Obj.Description = (($CsvImport.Descriptions)[$i]);
 	$EachSensorReading_Obj.Value = (($CsvImport.Values)[$i]);
 	# Boil-down the results to Shorthand/Nickname versions for each PC component
-	If (($EachSensorReading_Obj.Path) -Match "/lpc/") {
-		$EachSensorReading_Obj.Description = "Motherboard - $($EachSensorReading_Obj.Description)";
-	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/") {
-		$EachSensorReading_Obj.Description = "CPU - $($EachSensorReading_Obj.Description)";
-	} ElseIf (($EachSensorReading_Obj.Path) -Match "/ram/") {
-		$EachSensorReading_Obj.Description = "Memory - $($EachSensorReading_Obj.Description)";
-	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/") {
-		$EachSensorReading_Obj.Description = "GPU - $($EachSensorReading_Obj.Description)";
-	} ElseIf (($EachSensorReading_Obj.Path) -Match "hdd/") {
-		$EachSensorReading_Obj.Description = "Disk - $($EachSensorReading_Obj.Description)";
+	If ((($EachSensorReading_Obj.Path) -Match "/lpc/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^Motherboard"))) {
+		$EachSensorReading_Obj.Description = "Motherboard $($EachSensorReading_Obj.Description)";
+
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "cpu/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^CPU"))) {
+		$EachSensorReading_Obj.Description = "CPU $($EachSensorReading_Obj.Description)";
+
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "/ram/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^Memory"))) {
+		$EachSensorReading_Obj.Description = "Memory $($EachSensorReading_Obj.Description)";
+
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "gpu/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^GPU"))) {
+		$EachSensorReading_Obj.Description = "GPU $($EachSensorReading_Obj.Description)";
+
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "hdd/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^Disk"))) {
+		$EachSensorReading_Obj.Description = "Disk $($EachSensorReading_Obj.Description)";
+
 	}
 	$Ohw_SensorReadings += $EachSensorReading_Obj;
 }

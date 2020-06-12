@@ -57,7 +57,7 @@ REM
 		SET PID_OHW=%%a
 	)
 	IF %PID_OHW%==No (
-		PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
+		PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 5;"
 	)
 
 	EXIT /B

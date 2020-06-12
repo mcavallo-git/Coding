@@ -20,6 +20,8 @@ PowerShell -Command "Set-ExecutionPolicy ByPass -Scope CurrentUser -Force; If (-
 
 CALL :SETUP_LOGGING
 
+CALL :START_OPEN_HARDWARE_MONITOR
+
 CALL :PING_CHECK %1
 
 CALL :GET_TEMPS_FROM_OPEN_HARDWARE_MONITOR %1 %2 %3
@@ -39,8 +41,24 @@ REM
 	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 	IF NOT EXIST "%tempdrive%" ( MKDIR "%tempdrive%" )
 
-	REM Start OpenHardwareMonitor as admin and give it at least 30 seconds to get on its feet
-	REM PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
+	EXIT /B
+
+
+REM ------------------------------------------------------------
+REM
+REM     START_OPEN_HARDWARE_MONITOR
+REM
+:START_OPEN_HARDWARE_MONITOR
+
+	REM Start OpenHardwareMonitor as admin and wait long enough for the service to get on its feet (if its not already running)
+	SET EXE_OHW=OpenHardwareMonitor.exe
+	SET PID_OHW=No
+	FOR /F "tokens=2-2" %%a IN ('TASKLIST /FI "IMAGENAME eq %EXE_OHW%"') DO (
+		SET PID_OHW=%%a
+	)
+	IF %PID_OHW%==No (
+		PowerShell -Command "Start-Process -Filepath ('C:\ISO\OpenHardwareMonitor\OpenHardwareMonitor.exe') -Verb 'RunAs' -PassThru; Start-Sleep -Seconds 15;"
+	)
 
 	EXIT /B
 
@@ -50,8 +68,10 @@ REM
 REM     PING_CHECK
 REM
 :PING_CHECK
-	REM HERE WE CHECK TO SEE IF HOST IS ONLINE. IF NOT, WE GENERATE A WARNING, FINALIZE THE XML, AND QUIT CMD.EXE
-	REM Ping the host 1 time and store it in the temp file
+
+	REM Check to see if target host is online
+	REM  > If host IS online, continue with the script as-intended
+	REM  > If host is NOT online, throw a warning & exit the script
 
 	SET "tempdrive=C:\temp\get_cpu_mobo_temperatures\"
 	SET "tempfilename=%tempdrive%PING_CHECK_%1.tmp"

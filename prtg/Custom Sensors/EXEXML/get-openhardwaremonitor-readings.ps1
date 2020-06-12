@@ -39,9 +39,9 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/fan/") {
 		$EachSensorReading_Obj.Description = "Mobo Fans (RPM), $($EachSensorReading_Obj.Description)";
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/voltage/") {
-		$EachSensorReading_Obj.Description = "Mobo Voltages, $($EachSensorReading_Obj.Description)";
+		$EachSensorReading_Obj.Description = "Mobo Power, $($EachSensorReading_Obj.Description)";
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/temperature/") {
-		$EachSensorReading_Obj.Description = "Mobo temps, $($EachSensorReading_Obj.Description)";
+		$EachSensorReading_Obj.Description = "Mobo Temps, $($EachSensorReading_Obj.Description)";
 
 
 	# ------------------------------------------------------------

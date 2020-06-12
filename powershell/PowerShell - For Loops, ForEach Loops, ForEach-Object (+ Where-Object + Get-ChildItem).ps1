@@ -19,17 +19,28 @@ Exit 1;
 # For(...) Loops
 #   |--> Single Conditional (Example)
 #
-For ($i = 0; $i -lt 10; $i++) {
+For ($i = 0; $i -LT 10; $i++) {
 	Write-Host "`$i:$i";
 }
+
 
 #
 # For(...) Loops
 #   |--> Multiple Conditionals (Example)
 #
-For (($i = 0), ($j = 0); $i -lt 10 -and $j -lt 10; $i++,$j++) {
+For (($i = 0), ($j = 0); $i -LT 10 -And $j -LT 10; $i++, $j++) {
 	Write-Host "`$i:$i";
 	Write-Host "`$j:$j";
+}
+
+
+#
+# For(...) Loops
+#   |--> Based on size of array
+#
+$DatArray = @(1,"a",2,"b",3,"c");
+For ($i=0; ($i -LT $DatArray.Count); $i++) {
+	Write-Host "`$DatArray[${i}] = $($DatArray[${i}])";
 }
 
 

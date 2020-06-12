@@ -96,7 +96,6 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/throughput/") {
 		$EachSensorReading_Obj.Description = "GPU Rx/Tx, $($EachSensorReading_Obj.Description)";
-	}
 
 
 	# ------------------------------------------------------------

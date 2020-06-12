@@ -68,7 +68,7 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 
 $XmlOutput_Arr += "</prtg>";
 
-$XmlOutput += (${XmlOutput_Arr} -join ';');
+$XmlOutput += (${XmlOutput_Arr} -join '`n');
 
 Write-Output $XmlOutput;
 

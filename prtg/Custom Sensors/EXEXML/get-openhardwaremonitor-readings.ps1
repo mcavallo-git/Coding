@@ -41,14 +41,15 @@ $XmlOutput_Arr += "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>";
 $XmlOutput_Arr += "<prtg>";
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
-	# $EachSensorReading_Obj.Path;
-	# $EachSensorReading_Obj.Description;
-	# $EachSensorReading_Obj.Value;
-	$XmlOutput_Arr += "   <result>";
-	$XmlOutput_Arr += "       <Channel>$(${EachSensorReading_Obj}.Description) ($(${EachSensorReading_Obj}.Path)`")</Channel>";
-	$XmlOutput_Arr += "       <Value>`"$(${EachSensorReading_Obj}.Value)`"</Value>";
-	$XmlOutput_Arr += "       <Mode>Absolute</Mode>";
 
+	$EachSensorPath = $EachSensorReading_Obj.Path;
+	$EachSensorDesc = $EachSensorReading_Obj.Description;
+	$EachSensorVal = $EachSensorReading_Obj.Value;
+
+	$XmlOutput_Arr += "   <result>";
+	$XmlOutput_Arr += "       <Channel>${EachSensorDesc} (${EachSensorPath})</Channel>";
+	$XmlOutput_Arr += "       <Value>${EachSensorVal}</Value>";
+	$XmlOutput_Arr += "       <Mode>Absolute</Mode>";
 	If (${EachSensorPath} -Match "/temperature/") { # Use units of Degrees-Celsius (°C) for temperature readings
 		$XmlOutput_Arr += "       <Unit>Temperature</Unit>";
 	} ElseIf ((${EachSensorPath} -Match "/control/") -Or (${EachSensorPath} -Match "/fan/")) { # Use units of Rotations per Minute (RPM) for fans and liquid-cooling pumps
@@ -58,7 +59,6 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 		$XmlOutput_Arr += "       <Unit>Custom</Unit>";
 		$XmlOutput_Arr += "       <CustomUnit>Volts</CustomUnit>";
 	}
-
 	$XmlOutput_Arr += "       <Float>1</Float>";
 	$XmlOutput_Arr += "       <ShowChart>0</ShowChart>";
 	$XmlOutput_Arr += "       <ShowTable>0</ShowTable>";

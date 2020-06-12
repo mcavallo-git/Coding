@@ -21,6 +21,9 @@ dig +short google.com
 # ------------------------------------------------------------
 #
 # Use a proxy-server for DNS resolution
+#  |--> from [ man dig ]:
+#    "If @server is also specified, it affects only the
+#     initial query for the root zone name servers."
 #
 
 dig @8.8.8.8 google.com

@@ -1,6 +1,6 @@
 @ECHO OFF
 
-SETLOCAL EnableDelayedExpansion
+REM SETLOCAL EnableDelayedExpansion
 
 REM ------------------------------------------------------------
 REM 
@@ -431,8 +431,12 @@ REM
 
 
 REM ------------------------------------------------------------
-REM
+REM 
 REM Citation(s)
+REM 
+REM   docs.microsoft.com  |  "wmic - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic?redirectedfrom=MSDN
+REM
+REM   docs.microsoft.com  |  "WMIC switches: Windows Management Instrumentation (WMI); Scripting | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc787035(v=ws.10)?redirectedfrom=MSDN
 REM
 REM   pastebin.com  |  "[Batch] calc - Pastebin.com"  |  https://pastebin.com/Kr35D3A4
 REM
@@ -443,5 +447,6 @@ REM
 REM   pastebin.com  |  "[Batch] pingcheck - Pastebin.com"  |  https://pastebin.com/1ESd9Tv9
 REM
 REM   sites.google.com  |  "Example 2 (WMI/OHM) - Custom sensors for PRTG"  |  https://sites.google.com/site/prtghowto/example-2
-REM
+REM 
+REM 
 REM ------------------------------------------------------------

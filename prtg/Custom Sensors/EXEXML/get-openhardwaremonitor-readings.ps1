@@ -28,19 +28,19 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	$EachSensorReading_Obj.Description = (($CsvImport.Descriptions)[$i]);
 	$EachSensorReading_Obj.Value = (($CsvImport.Values)[$i]);
 	# Boil-down the results to Shorthand/Nickname versions for each PC component
-	If ((($EachSensorReading_Obj.Path) -Match "/lpc/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^Motherboard"))) {
+	If ((($EachSensorReading_Obj.Path) -Match "/lpc/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "^Motherboard")) {
 		$EachSensorReading_Obj.Description = "Motherboard $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "cpu/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^CPU"))) {
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "cpu/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "^CPU")) {
 		$EachSensorReading_Obj.Description = "CPU $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "/ram/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^Memory"))) {
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "/ram/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "^Memory")) {
 		$EachSensorReading_Obj.Description = "Memory $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "gpu/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^GPU"))) {
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "gpu/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "^GPU")) {
 		$EachSensorReading_Obj.Description = "GPU $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "hdd/") -And (-Not (($EachSensorReading_Obj.Description) -Match "^Disk"))) {
+	} ElseIf ((($EachSensorReading_Obj.Path) -Match "hdd/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "^Disk")) {
 		$EachSensorReading_Obj.Description = "Disk $($EachSensorReading_Obj.Description)";
 
 	}

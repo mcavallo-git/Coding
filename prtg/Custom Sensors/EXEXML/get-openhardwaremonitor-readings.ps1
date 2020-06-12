@@ -27,6 +27,21 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	$EachSensorReading_Obj.Path = (($CsvImport.Paths)[$i]);
 	$EachSensorReading_Obj.Description = (($CsvImport.Descriptions)[$i]);
 	$EachSensorReading_Obj.Value = (($CsvImport.Values)[$i]);
+
+	$EachSensorReading_Obj.Component = "";
+	If (($EachSensorReading_Obj.Path) -Match "/lpc/") {
+		$EachSensorReading_Obj.Description = "Motherboard - $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/") {
+		$EachSensorReading_Obj.Description = "CPU - $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "/ram/") {
+		$EachSensorReading_Obj.Description = "Memory - $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/") {
+		$EachSensorReading_Obj.Description = "GPU - $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "hdd/") {
+		$EachSensorReading_Obj.Description = "Disk - $($EachSensorReading_Obj.Description)";
+	}
+
+
 	$Ohw_SensorReadings += $EachSensorReading_Obj;
 
 	# $Obj_OhwUpdatedValues[(($CsvImport.Paths)[$i])] = (($CsvImport.Values)[$i]);
@@ -44,7 +59,7 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 	$EachSensorVal  = ("$($EachSensorReading_Obj.Value)" -Replace "`"", "");
 
 	$XmlOutput_Arr += "   <result>";
-	$XmlOutput_Arr += "       <Channel>${EachSensorDesc} (${EachSensorPath})</Channel>";
+	$XmlOutput_Arr += "       <Channel>${EachSensorDesc}</Channel>";
 	$XmlOutput_Arr += "       <Value>${EachSensorVal}</Value>";
 	$XmlOutput_Arr += "       <Mode>Absolute</Mode>";
 	If (${EachSensorPath} -Match "/temperature/") { # Use units of Degrees-Celsius (°C) for temperature readings

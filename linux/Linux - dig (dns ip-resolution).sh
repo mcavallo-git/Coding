@@ -1,28 +1,51 @@
 #!/bin/sh
+# ------------------------------------------------------------
 #
 # Linux - dig
 # 	|--> use dig to identify DNS info regarding a given host/domain
 #
+# ------------------------------------------------------------
 
-
+#
 # Get all readily-available DNS Information
-dig google.com ANY
+#
+dig any google.com
 
 
-# Get one, single IPv4
-dig google.com +short
+#
+# Quickly resolve an IPv4 address for target hostname/fqdn
+#
+dig +short google.com
 
 
+# ------------------------------------------------------------
+#
+# Use a proxy-server for DNS resolution
+#
+
+dig @8.8.8.8 google.com
+
+dig @208.67.222.222 google.com
+
+
+
+
+# ------------------------------------------------------------
+#
 # Get A-Record(s) (IPv4)
+#
 dig google.com A
 
 
+#
 # Get MX Record(s) (Email)
+#
 dig google.com MX
 
 
-
+#
 # Get TXT Record(s)
+#
 dig google.com TXT
 
 

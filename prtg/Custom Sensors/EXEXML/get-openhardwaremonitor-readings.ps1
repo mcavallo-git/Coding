@@ -42,9 +42,9 @@ $XmlOutput_Arr += "<prtg>";
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
 
-	$EachSensorPath = $EachSensorReading_Obj.Path;
-	$EachSensorDesc = $EachSensorReading_Obj.Description;
-	$EachSensorVal = $EachSensorReading_Obj.Value;
+	$EachSensorPath = ($EachSensorReading_Obj.Path | ForEach-Object { $_ -Replace "`"", ""; })
+	$EachSensorDesc = ($EachSensorReading_Obj.Description | ForEach-Object { $_ -Replace "`"", ""; })
+	$EachSensorVal  = ($EachSensorReading_Obj.Value | ForEach-Object { $_ -Replace "`"", ""; })
 
 	$XmlOutput_Arr += "   <result>";
 	$XmlOutput_Arr += "       <Channel>${EachSensorDesc} (${EachSensorPath})</Channel>";

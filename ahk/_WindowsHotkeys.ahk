@@ -1088,6 +1088,7 @@ Numlock::
 			ClearTooltip(3000)
 		}
 	}
+	Sleep 500
 	Return
 
 +Numlock::
@@ -1106,6 +1107,7 @@ Numlock::
 		}
 	}
 	; SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
+	Sleep 500
 	Return
 
 

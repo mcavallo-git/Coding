@@ -27,24 +27,92 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	$EachSensorReading_Obj.Path = (($CsvImport.Paths)[$i]);
 	$EachSensorReading_Obj.Description = (($CsvImport.Descriptions)[$i]);
 	$EachSensorReading_Obj.Value = (($CsvImport.Values)[$i]);
+	#
 	# Boil-down the results to Shorthand/Nickname versions for each PC component
-	If ((($EachSensorReading_Obj.Path) -Match "/lpc/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "Motherboard")) {
-		$EachSensorReading_Obj.Description = "Motherboard $($EachSensorReading_Obj.Description)";
+	#
+	# ------------------------------------------------------------
+	#
+	# Mobo Readings
+	#
+	If (($EachSensorReading_Obj.Path) -Match "lpc/.+/control/") {
+		$EachSensorReading_Obj.Description = "Mobo Fans (%), $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/fan/") {
+		$EachSensorReading_Obj.Description = "Mobo Fans (RPM), $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/voltage/") {
+		$EachSensorReading_Obj.Description = "Mobo Voltages, $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/temperature/") {
+		$EachSensorReading_Obj.Description = "Mobo temps, $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "cpu/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "CPU")) {
-		$EachSensorReading_Obj.Description = "CPU $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "/ram/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "Memory")) {
-		$EachSensorReading_Obj.Description = "Memory $($EachSensorReading_Obj.Description)";
+	# ------------------------------------------------------------
+	#
+	# Processor (CPU) Readings
+	#
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/load/") {
+		$EachSensorReading_Obj.Description = "CPU Load, $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/power/") {
+		$EachSensorReading_Obj.Description = "CPU Power, $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/temperature/") {
+		$EachSensorReading_Obj.Description = "CPU Temps, $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/clock/") {
+		$EachSensorReading_Obj.Description = "CPU Clock, $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "gpu/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "GPU")) {
-		$EachSensorReading_Obj.Description = "GPU $($EachSensorReading_Obj.Description)";
 
-	} ElseIf ((($EachSensorReading_Obj.Path) -Match "hdd/") -And ("$($EachSensorReading_Obj.Description)" -NotMatch "Disk")) {
-		$EachSensorReading_Obj.Description = "Disk $($EachSensorReading_Obj.Description)";
+	# ------------------------------------------------------------
+	#
+	# Memory (RAM) Readings
+	#
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "/ram/load/") {
+		$EachSensorReading_Obj.Description = "RAM Load, $($EachSensorReading_Obj.Description)";
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "/ram/data/") {
+		$EachSensorReading_Obj.Description = "RAM Data, $($EachSensorReading_Obj.Description)";
 
+
+	# ------------------------------------------------------------
+	#
+	# Graphics Card (GPU) Readings
+	#
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/temperature/") {
+		$EachSensorReading_Obj.Description = "GPU Temps, $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/clock/") {
+		$EachSensorReading_Obj.Description = "GPU Clock, $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/control/") {
+		$EachSensorReading_Obj.Description = "GPU Fan (%), $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/fan/") {
+		$EachSensorReading_Obj.Description = "GPU Fan (RPM), $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/smalldata/") {
+		$EachSensorReading_Obj.Description = "GPU Totals, $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/load/") {
+		$EachSensorReading_Obj.Description = "GPU Load, $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/power/") {
+		$EachSensorReading_Obj.Description = "GPU Power, $($EachSensorReading_Obj.Description)";
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/throughput/") {
+		$EachSensorReading_Obj.Description = "GPU Rx/Tx, $($EachSensorReading_Obj.Description)";
 	}
+
+
+	# ------------------------------------------------------------
+	#
+	# Storage Disk (HDD/SSD) Readings
+	#
+
+	} ElseIf (($EachSensorReading_Obj.Path) -Match "hdd/.+/load/") {
+		$EachSensorReading_Obj.Description = "Disk Load, $($EachSensorReading_Obj.Description)";
+
+
+	# ------------------------------------------------------------
+	}
+
 	$Ohw_SensorReadings += $EachSensorReading_Obj;
+
 }
 
 $XmlOutput_Arr = @();

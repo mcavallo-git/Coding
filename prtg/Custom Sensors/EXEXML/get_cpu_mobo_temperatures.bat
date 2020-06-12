@@ -121,21 +121,26 @@ REM
 
 	REM Fan RPM
 	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )  ### REFERENCE ONLY
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/1" %tempfilename%`) DO ( CALL :SET_VARIABLE fan2 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/2" %tempfilename%`) DO ( CALL :SET_VARIABLE fan3 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/3" %tempfilename%`) DO ( CALL :SET_VARIABLE fan4 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/4" %tempfilename%`) DO ( CALL :SET_VARIABLE fan5 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan1 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/1" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan2 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/2" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan3 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/3" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan3 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/4" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan4 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/5" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan5 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/6" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan6 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/7" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan7 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/8" %tempfilename%`) DO ( CALL :SET_VARIABLE mobo_fan8 %%B )
 
-	REM Intel CPU temperatures
+
+	REM AMD CPU temperatures
 	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )  ### REFERENCE ONLY
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE intel1 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE intel2 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE intel3 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE intel1 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE intel2 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE intel3 %%B )
 	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
 
 	REM Motherboard temperatures
 	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard1 %%B )
@@ -217,11 +222,49 @@ REM
 	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
 	ECHO    ^</result^> >> %tempfilename%
 
-
-	REM Motherboard case temp
 	ECHO    ^<result^> >> %tempfilename%
-	ECHO        ^<Channel^>Motherboard 3 Temp^</Channel^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard Temperature #2^</Channel^> >> %tempfilename%
 	ECHO        ^<Value^>%motherboard2%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+	
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard Temperature #3^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard3%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+	
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard Temperature #4^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard4%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard Temperature #5^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard5%^</Value^> >> %tempfilename%
+	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
+	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
+	ECHO        ^<Float^>1^</Float^> >> %tempfilename%
+	ECHO        ^<ShowChart^>1^</ShowChart^> >> %tempfilename%
+	ECHO        ^<ShowTable^>1^</ShowTable^> >> %tempfilename%
+	ECHO    ^</result^> >> %tempfilename%
+
+	ECHO    ^<result^> >> %tempfilename%
+	ECHO        ^<Channel^>Motherboard Temperature #6^</Channel^> >> %tempfilename%
+	ECHO        ^<Value^>%motherboard6%^</Value^> >> %tempfilename%
 	ECHO        ^<Mode^>Absolute^</Mode^> >> %tempfilename%
 	ECHO        ^<Unit^>Temperature^</Unit^> >> %tempfilename%
 	ECHO        ^<Float^>1^</Float^> >> %tempfilename%

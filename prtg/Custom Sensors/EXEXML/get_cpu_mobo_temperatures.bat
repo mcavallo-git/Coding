@@ -113,24 +113,56 @@ REM
 	REM    WMIC.exe /namespace:\\Root\OpenHardwareMonitor Path Sensor Get Value,Identifier
 	PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\Wbem\WMIC.exe') -ArgumentList (@('%remoteaccess% /namespace:\\Root\OpenHardwareMonitor','Path Sensor','Get Value,Identifier')) -Verb 'RunAs' -PassThru | More | Out-File '%tempfilename%';"
 
+	REM 
+	REM WMIC - Formatting WMIC queries to handle OpenHardware Monitor requests for "Your" hardware
+	REM  >  Run "OpenHardware Monitor" -->  click "File" (top-left) then "Save Report...".
+	REM   >  Inspect the exported report - notice that most lines in the report should have a description at the start of each line (just like OpenHardware's Table), followed by Avg/Min/Max Values, with the path to the sensor in parenthesis just after
+	REM 
+
 	REM Fan RPM
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/1" %tempfilename%`) DO ( CALL :SET_VARIABLE fan2 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/2" %tempfilename%`) DO ( CALL :SET_VARIABLE fan3 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/3" %tempfilename%`) DO ( CALL :SET_VARIABLE fan4 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/4" %tempfilename%`) DO ( CALL :SET_VARIABLE fan5 %%B )
+	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )  ### REFERENCE ONLY
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/0" %tempfilename%`) DO ( CALL :SET_VARIABLE fan1 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/1" %tempfilename%`) DO ( CALL :SET_VARIABLE fan2 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/2" %tempfilename%`) DO ( CALL :SET_VARIABLE fan3 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/3" %tempfilename%`) DO ( CALL :SET_VARIABLE fan4 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/fan/4" %tempfilename%`) DO ( CALL :SET_VARIABLE fan5 %%B )
 
 	REM Intel CPU temperatures
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE intel1 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE intel2 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE intel3 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
+	REM    FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/intelcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )  ### REFERENCE ONLY
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE intel0 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE intel1 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE intel2 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE intel3 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/amdcpu/0/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE intel4 %%B )
 
 	REM Motherboard temperatures
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard0 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard2 %%B )
-	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
+	REM FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6776f/temperature/0" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard0 %%B )
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/1" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard0 %%B )
+	echo ""
+	echo "SET_VARIABLE = %SET_VARIABLE%"
+
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/2" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard2 %%B )
+	echo ""
+	echo "SET_VARIABLE = %SET_VARIABLE%"
+
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/3" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
+	echo ""
+	echo "SET_VARIABLE = %SET_VARIABLE%"
+
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/4" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
+	echo ""
+	echo "SET_VARIABLE = %SET_VARIABLE%"
+
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/5" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
+	echo "SET_VARIABLE = %SET_VARIABLE%"
+	echo ""
+
+	FOR /F "tokens=1,2 usebackq" %%A IN (`FINDSTR /I /C:"/lpc/nct6798d/temperature/6" %tempfilename%`) DO ( CALL :SET_VARIABLE motherboard3 %%B )
+	echo ""
+	echo "SET_VARIABLE = %SET_VARIABLE%"
+
 
 	EXIT /B
 

@@ -182,10 +182,10 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="remote-access"><br />Remote Access & Administration<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="remote-access"><br />Remote Control, Desktop Sharing<br /><br /></h5></th></tr>
 <tr><td><strong>LogMeIn Rescue</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;e.g. "LogMeIn Rescue Technician Console"<br />&nbsp;&nbsp;&nbsp;Screen-sharing & Remote-support application</i></sub></td><td><a href="https://help.logmein.com/articles/en_US/Downloads/Technician-Console-Desktop-App">Download (source)</a></td></tr>
 <tr><td><strong>Parsec</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop capturing/streaming application<br />&nbsp;&nbsp;&nbsp;Designed for cloud-based gaming through video streaming<br />&nbsp;&nbsp;&nbsp;Troubleshooting - <sub><a href="https://support.parsecgaming.com/hc/en-us/articles/115003937292">Hosting Parsec On A Laptop With Both Nvidia and Intel GPUs</a></sub></i></sub></td><td><a href="https://parsecgaming.com/downloads/">Download (source)</a></td></tr>
-<tr><td><strong>Remote Mouse</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Mouse & Keyboard control via Phone</i></sub></td><td><a href="https://www.remotemouse.net/downloads/RemoteMouse.exe">Download (source)</a></td></tr>
+<tr><td><strong>Remote Mouse</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote MnK (Mouse & Keyboard) control via Phone</i></sub></td><td><a href="https://www.remotemouse.net/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.remotemouse.net/downloads/RemoteMouse.exe">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Royal TS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross-Platform Remote Management Solution<br />&nbsp;&nbsp;&nbsp;Includes Tools to manage Hyper-V, RDP,<br />&nbsp;&nbsp;&nbsp;SSH, SFTP, Teamviewer, VMware, & more</i></sub></td><td><a href="https://www.royalapps.com/ts/win/download">Download (mirror)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://content.royalapplications.com/Help/RoyalTS/V3/index.html?ui_keyboardshortcuts.htm">Royal TS - Keyboard Shortcuts</a></sub></td></tr>
 <tr><td><strong>RSAT (Remote Server Administration Tools)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Allows for scalable management of Windows<br />&nbsp;&nbsp;&nbsp;Servers' attached Roles, Features, & more</i></sub></td><td><a href="https://www.microsoft.com/en-us/download/details.aspx?id=45520">Download (source)</a></td></tr>
 <tr><td><strong>Splashtop Personal</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Client</i></sub></td><td><a href="https://www.splashtop.com/downloadstart?product=stp&platform=windows-client">Download (source)</a></td></tr>
@@ -226,7 +226,7 @@ This file (on GitHub):
 <tr><td><strong>LG OnScreen Control</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Driver + Software for LG 34UC88-B Display/Monitor</i></sub></td><td><a href="https://www.lg.com/uk/search.lg?search=onscreen+control">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.lg.com/uk/support/support-product/lg-34UC88-B">View Drivers & Software</a></sub></td></tr>
 <tr><td><strong>Logitech G Hub</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Keyboard/Mouse RGB (+3rd Party Tools)</i></sub></td><td><a href="https://support.logi.com/hc/en-us/articles/360025298133">Download (source)</a></td></tr>
 <tr><td><strong>Logitech Options</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Enhanced functionality for Logitech devices</i></sub></td><td><a href="https://www.logitech.com/en-us/product/options">Download (source)</a></td></tr>
-<tr><td><strong>Logitech SetPoint</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mouse/Keyboard Hotkey Manager</i></sub></td><td><a href="http://support.logitech.com/software/setpoint">Download (source)</a></td></tr>
+<tr><td><strong>Logitech SetPoint</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Hotkey manager for Logitech mouse/keyboard devices</i></sub></td><td><a href="http://support.logitech.com/software/setpoint">Download (source)</a></td></tr>
 <tr><td><strong>Logitech Unifying Software</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Add/Remove devices to a Unifying receiver</i></sub></td><td><a href="https://support.logi.com/hc/en-001/articles/360025297913-Unifying-Software">Download (source)</a></td></tr>
 <tr><td><strong>Media Feature Pack for Windows</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Required for iCloud Desktop App</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/mediafeaturepack">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://software-download.microsoft.com/db/Windows_MediaFeaturePack_x64_1903_V1.msu?t=4ee189cc-b6e5-4270-9584-668bb77cb922&e=1578037636&h=a44afb20246abe7c34d751332e02df5d">Download (v1903, direct)</a></sub></td></tr>
 <tr><td><strong>Netgear Switch Discovery Tool</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Locates Netgear Smart Switches on LAN</i></sub></td><td><a href="https://www.netgear.com/support/product/GS908E.aspx#download">Download (source)</a></td></tr>
@@ -243,7 +243,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="monitoring"><br />Monitoring<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="monitoring"><br />Monitoring (Hardware, Service-Status)<br /><br /></h5></th></tr>
 <tr><td><strong>Core Temp <sub>(Core Temp)</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
 <tr><td><strong>CPU-Z</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;freeware System Profiling and Monitoring Application<br />&nbsp;&nbsp;&nbsp;Shows CPU, Memory, Motherboard, and GPU Hardware Info</i></sub></td><td><a href="https://www.cpuid.com/softwares/cpu-z.html">Download (source)</a></td></tr>
 <tr><td><strong>CrystalDiskInfo</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Pulls HDD S.M.A.R.T. Statistics<br />&nbsp;&nbsp;&nbsp;Checks HDD Sector Health</i></sub></td><td><a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfoInstaller">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://crystalmark.info/redirect.php?product=CrystalDiskInfo">Download (portable)</a></sub></td></tr>
@@ -254,6 +254,7 @@ This file (on GitHub):
 <tr><td><strong>PRTG Client <sub>PRTG Desktop</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Paessler AG<br />&nbsp;&nbsp;&nbsp;Allows you to manage multiple PRTG servers</i></sub></td><td><a href="https://www.paessler.com/prtg-desktop-app#downloads">Download (source)</a></td></tr>
 <tr><td><strong>PRTG Server <sub>PRTG Certificate Importer</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Paessler AG<br />&nbsp;&nbsp;&nbsp;Pulls SSL Certs from Windows Certificate Store</i></sub></td><td><a href="https://www.paessler.com/tools/certificateimporter">Download (source)</a></sub></td></tr>
 <tr><td><strong>PRTG Server <sub>PRTG Network Monitor</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Paessler AG<br />&nbsp;&nbsp;&nbsp;Agentless network monitoring software</i></sub></td><td><a href="https://www.paessler.com/prtg">Download (source)</a></td></tr>
+<tr><td><strong>Uptime Robot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Uptime monitoring service (primarily for HTTP/HTTPS hosts)<br />&nbsp;&nbsp;&nbsp;Free for up-to 50 monitors<br />&nbsp;&nbsp;&nbsp;Free monitors poll every 5 minutes</i></sub></td><td><a href="https://uptimerobot.com/">View (service)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

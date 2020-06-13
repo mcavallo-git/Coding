@@ -1,0 +1,26 @@
+# ------------------------------------------------------------
+#
+#   Match anything except a newline char
+#
+
+
+[^\n]+
+
+
+# ------------------------------------------------------------
+#
+#   Match anything except a newline char and grab the entire line (from ^ to $)
+#
+
+^[^\n]*$
+
+
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   stackoverflow.com  |  "python - How to matches anything except space and new line? - Stack Overflow"  |  https://stackoverflow.com/a/23235232
+#
+# ------------------------------------------------------------

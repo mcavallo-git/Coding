@@ -46,6 +46,13 @@
 '
 '
 ' ------------------------------------------------------------
+' Consolidated Steps 2 & 3 (from above)
+'
+'
+'   $ProtoBak=[Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${Home}\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
+'
+'
+' ------------------------------------------------------------
 '
 ' RUN THIS SCRIPT (VIA CMD):
 '

@@ -1,13 +1,49 @@
 ' ------------------------------------------------------------
 '
-' USE NOTEPAD REPLACER TO REDIRECT NOTEPAD.exe TO:
-'   C:\Users\USERNAME\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs
+' Intended Use:
+'  | 
+'  |->   Replaces [ Notepad.exe ] with [ VS-Code INTO a static Workspace (essential) ]
+'  |
+'  |->   Leverages "Notepad Replacer" (free, open source tool) which redirects "notepad.exe"
+'  |       calls to whatever target you tell it to - in this instance, it should redirect to
+'  |       [ "wscript.exe" ".../VSCode-Redirect.vbs" ]
+'  |
+'  |->   All filetypes which are desired to always use VS-Code as their default editor should
+'          be "Opened With" (right click in Windows > "Open With") the default "Notepad.exe",
+'          which will be redirected to this script, which opens VS-code with into said
+'          code-workspace (so you have all your workstation/user-specific configs!)
 '
 '
-' SET WSCRIPT.EXE AS THE DEFAULT HANDLER FOR .VBS FILES
-'  > RIGHT-CLICK ANY [ .vbs ] FILE -> "Open-with" -> "Choose another app"
-'   > Either [ select "Microsoft ® Windows Based Script Host" ] or [ choose "More Apps" -> "Look for another app on this PC" -> goto "C:\Windows\System32\wscript.exe" ]
-'    > Check "Always use this app to open .vbs files" -> Select "OK" to confirm and complete setting wscript to be the default handler for .vbs files
+' ------------------------------------------------------------
+'
+' [Step 1/3] Download "Notepad Replacer"
+'   |
+'   |--> Automatically via PowerShell convenience-script (forces TLS 1.2, downloads to your "Downloads" directory):
+'   |      $ProtoBak=[Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+'   |
+'   |-->  Manually via "Notepad Replacer" source (BinaryFortress) URL @ https://www.binaryfortress.com/Data/Download/?package=notepadreplacer
+'
+'
+' [Step 2/3] Install & configure "Notepad Replacer" to redirect "notepad.exe" to [ this-script ]
+'   |
+'   |--> Automatically via PowerShell convenience-script (some click-through & license acceptance still req'd):
+'   |      Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${Home}\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
+'   |
+'   |-->  Manually by opening "NotepadReplacerSetup*.exe" runtime & browsing to this file
+'
+'
+' [Step 3/3] Ensure that "wscript.exe" is the default handler for ".vbs"-extensioned files
+'   |
+'   |--> Right-Click any ".vbs" file (such as this script) -> "Open-with" -> "Choose another app"
+'   |
+'   |--> Select "wscript.exe", which has full-name of "Microsoft ® Windows Based Script Host"
+'   |
+'   |--> If neither of these options present themself, manually set "wscript.exe" by selecting "More Apps" -> "Look for another app on this PC" -> goto "C:\Windows\System32\wscript.exe" ]
+'   |
+'   |--> Check "Always use this app to open .vbs files" -> Select "OK" to confirm
+'   |
+'   |--> You have completed setting "wscript.exe" to be the default handler for ".vbs"-extensioned files
+'
 '
 ' ------------------------------------------------------------
 '
@@ -62,5 +98,7 @@ CreateObject("Wscript.Shell").Run RunCommand, 0, False
 '   stackoverflow.com  |  "Can I pick up environment variables in vbscript WSH script?"  |  https://stackoverflow.com/a/904747
 '
 '   tutorialspoint.com  |  "VBScript If..ElseIf..Else Statements"  |  https://www.tutorialspoint.com/vbscript/vbscript_if_elseif_else_statement.htm
+'
+'   www.binaryfortress.com  |  "Frequently Asked Questions (FAQ) • Notepad Replacer by Binary Fortress Software"  |  https://www.binaryfortress.com/NotepadReplacer/FAQ/
 '
 ' ------------------------------------------------------------

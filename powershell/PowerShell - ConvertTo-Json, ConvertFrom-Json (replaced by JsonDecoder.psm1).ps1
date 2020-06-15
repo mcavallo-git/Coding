@@ -3,12 +3,20 @@
 # PowerShell - Get Windows OS' build info
 #
 # ------------------------------------------------------------
-
+#
 # Converting  >>> to <<<  JSON
 #  |
 #  |--> Use the PowerShell native "ConvertTo-Json" method
+#
 
-ConvertTo-Json -InputObject ( @{ integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="test-string";}; }) -Depth 100;
+ConvertTo-Json -InputObject (@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) -Depth 100;
+
+
+# WITH character encoding on the output-string (default in ConvertTo-JSON):
+(@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) | ConvertTo-Json -Depth 100;
+
+# With NO character encoding on the output-string (default in ConvertTo-JSON):
+(@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) | ConvertTo-Json -Depth 100 | ForEach-Object { [System.Text.RegularExpressions.Regex]::Unescape($_); }
 
 
 # ------------------------------------------------------------

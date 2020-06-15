@@ -39,6 +39,8 @@ JsonDecoder -InputObject ('{"integer":1,"string":"string","array":[1,2,"a","b"],
 #
 #   docs.microsoft.com  |  "ConvertTo-Json - Converts an object to a JSON-formatted string"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json
 #
-#   docs.microsoft.com  |  "Import-Module - Adds modules to the current session"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/import-module?view=powershell-7
+#   docs.microsoft.com  |  "Import-Module - Adds modules to the current session"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/import-module
+#
+#   stackoverflow.com  |  "PowerShell: ConvertTo-Json problem containing special characters - Stack Overflow"  |  https://stackoverflow.com/a/37706732
 #
 # ------------------------------------------------------------

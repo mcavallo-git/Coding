@@ -16,7 +16,7 @@ ConvertTo-Json -InputObject (@{integer=1; string="string"; array=@(1,2,"a","b");
 (@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) | ConvertTo-Json -Depth 100;
 
 # With NO character encoding on the output-string (default in ConvertTo-JSON):
-(@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) | ConvertTo-Json -Depth 100 | ForEach-Object { [System.Text.RegularExpressions.Regex]::Unescape($_); }
+(@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) | ConvertTo-Json -Depth 100 | ForEach-Object { [System.Text.RegularExpressions.Regex]::Unescape($_); };
 
 
 # ------------------------------------------------------------

@@ -41,7 +41,7 @@ exit 1;
 
 # ------------------------------------------------------------
 #
-# Setup a blank public SSH-key for a target user (fill it in with your desired public key(s))
+# Setup a public SSH-key for target ESXi SSH-user (user must have "Admin" privilege to use SSH)
 #
 
 USER_NAME="DAT_USER";
@@ -50,6 +50,9 @@ chmod 0755 "/etc/ssh/keys-${USER_NAME}/";
 touch "/etc/ssh/keys-${USER_NAME}/authorized_keys";
 chmod 1600 "/etc/ssh/keys-${USER_NAME}/authorized_keys";
 chown "${USER_NAME}:${USER_NAME}" "/etc/ssh/keys-${USER_NAME}/authorized_keys";
+
+# Add a public/private keypair to the target-user's whitelisted ssh-keys
+echo "COPY_PASTE_YOUR_PUBLIC_KEY_HERE" >> "/etc/ssh/keys-${USER_NAME}/authorized_keys";
 
 
 # ------------------------------------------------------------

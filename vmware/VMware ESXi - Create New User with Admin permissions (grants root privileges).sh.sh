@@ -6,9 +6,12 @@ if [ 1 -eq 1 ]; then
 
 USER_NAME="DAT_USER";
 
-USER_PASS="DAT_PASS"; # Password must have 1*Letter, 1*Number, 1*Special-Char
+esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -c="${USER_PASS}";
+# Enter password manually
 
-esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p="${USER_PASS}" -c="${USER_PASS}";
+# ### Avoid setting the password on the command line, e.g. do not use the "-p" argument - this triggers a prompt for a more secure, less logged-in-plaintext form of password entry
+# USER_PASS="DAT_PASS"; # Password must have 1*Letter, 1*Number, 1*Special-Char
+# esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p="${USER_PASS}" -c="${USER_PASS}";
 
 esxcli system permission set --id "${USER_NAME}" --role "Admin";
 
@@ -32,7 +35,27 @@ esxcli system account list;
 
 fi;
 
-
+# ------------------------------------------------------------
+#
+# > esxcli system account add --help
+#
+#   Usage: esxcli system account add [cmd options]
+#   
+#   Description:
+#     add                   Create a new local user account.
+#   
+#   Cmd options:
+#     -d|--description=<str>
+#                           User description, e.g. full name.
+#     -i|--id=<str>         User ID, e.g. "administrator". (required)
+#     -p|--password=<str>   User password. (secret)
+#                           WARNING: Providing secret values on the command line is insecure because it may be logged or preserved in history files. Instead,
+#                           specify this option with no value on the command line, and enter the value on the supplied prompt.
+#     -c|--password-confirmation=<str>
+#                           Password confirmation. Required if password is specified. (secret)
+#                           WARNING: Providing secret values on the command line is insecure because it may be logged or preserved in history files. Instead,
+#                           specify this option with no value on the command line, and enter the value on the supplied prompt.
+#   
 # ------------------------------------------------------------
 # Citation(s)
 #

@@ -6,8 +6,9 @@ if [ 1 -eq 1 ]; then
 
 USER_NAME="DAT_USER";
 
-esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}";
-# Enter password manually
+esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p -c;
+# Enter value for 'password':  (TYPE/PASTE DESIRED PASSWORD)
+# Enter value for 'password-confirmation':  (TYPE/PASTE DESIRED PASSWORD)
 
 # ### Avoid setting the password on the command line, e.g. do not use the "-p" argument - this triggers a prompt for a more secure, less logged-in-plaintext form of password entry
 # USER_PASS="DAT_PASS"; # Password must have 1*Letter, 1*Number, 1*Special-Char

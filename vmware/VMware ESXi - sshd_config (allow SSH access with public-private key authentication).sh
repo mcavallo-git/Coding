@@ -1,10 +1,11 @@
 #!/bin/sh
 exit 1;
+
+
 # ------------------------------------------------------------
 #
-#   Allowing SSH access to ESXi/ESX hosts with public/private key authentication
+# Setting-up ESXi SSH private-key authentication
 #
-# ------------------------------------------------------------
 
 ### 1. Generate public/private keys. For more information, see the OpenBSD Reference Manual section in the OpenBSD.
 ###   Notes:
@@ -34,10 +35,28 @@ vi "/etc/ssh/sshd_config";
 ### 5. Reload the SSH service (updates the SSH server's config with the values from /etc/ssh/sshd_config):
 /etc/init.d/SSH restart;
 
+#!/bin/sh
+exit 1;
+
+
+# ------------------------------------------------------------
+#
+# Setup a blank public SSH-key for a target user (fill it in with your desired public key(s))
+#
+
+USER_NAME="DAT_USER";
+mkdir -p "/etc/ssh/keys-${USER_NAME}/";
+chmod 0755 "/etc/ssh/keys-${USER_NAME}/";
+touch "/etc/ssh/keys-${USER_NAME}/authorized_keys";
+chmod 1600 "/etc/ssh/keys-${USER_NAME}/authorized_keys";
+chown "${USER_NAME}:${USER_NAME}" "/etc/ssh/keys-${USER_NAME}/authorized_keys";
+
 
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   github.com  |  "Search · filename:"esxi sshd_config" · GitHub"  |  https://github.com/mcavallo-git/Coding/search?q=filename%3A%22esxi+sshd_config%22
 #
 #   kb.vmware.com  |  "Allowing SSH access to ESXi/ESX hosts with public/private key authentication (1002866)"  |  https://kb.vmware.com/s/article/1002866
 #

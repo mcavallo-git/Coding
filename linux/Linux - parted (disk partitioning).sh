@@ -61,7 +61,7 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 
 # ------------------------------------------------------------
 #
-# Script to create partitions using remaining space on target device
+# Script to create partitions using desired space on target device
 #
 
 if [ 1 ]; then

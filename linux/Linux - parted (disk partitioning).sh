@@ -96,13 +96,6 @@ else
 	FSTAB_VALS_1="${DEVICE}";
 fi;
 
-# Pull default bootup-mount-config-values from existing device's values
-FSTAB_VALS_2="${MOUNT_PATH}";
-FSTAB_VALS_3=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';);
-FSTAB_VALS_4=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';);
-FSTAB_VALS_5=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';);
-FSTAB_VALS_6=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';);
-
 if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
 	# Device mounted at-bootup by its device-path (best practice is to use device UUID)
 	echo "";
@@ -121,7 +114,8 @@ else
 	echo " |";
 	echo " |--> To mount device on-bootup (permanently add mount), copy-paste the following line to modify \"/etc/fstab\":";
 	echo "------------------------------------------------------------";
-	echo "echo '${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}' >> '/etc/fstab';";
+	# Pull default bootup-mount-config-values from existing device's values
+	echo "echo \"${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> '/etc/fstab';";
 	echo "------------------------------------------------------------";
 	echo "";
 	if [ 0 -eq 1 ]; then  # ENABLE ONCE FSTAB FILE CHANGES ARE DONE AUTOMATICALLY

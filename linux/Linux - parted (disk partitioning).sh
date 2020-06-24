@@ -149,6 +149,8 @@ echo "";
 echo "PARTITION=\"/dev/NEW_PARTITION\"; mkdir -p \"${MOUNT_PATH}\"; sudo mount -t \"${FS_TYPE}\" \"\${PARTITION}\" \"${MOUNT_PATH}\";";
 echo "";
 echo "Note: Device will not be mounted at-bootup (device bootup-mount-config pulled from \"/etc/fstab\" - you must modify this to configure bootup mounts)";
+echo "  |";
+echo "  |-->  Update this using command:  	echo \"${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> \"/etc/fstab\";";
 echo "";
 
 fi;

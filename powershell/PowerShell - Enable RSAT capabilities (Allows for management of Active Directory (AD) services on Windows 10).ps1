@@ -1,5 +1,15 @@
-#!/bin/bash
+# ------------------------------------------------------------
+#
+# Install Active Directory (AD) Management Tools in the RSAT package line (uses auto-admin upgrade for terminal during install)
+#
 
+PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-Command Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online;') -Verb 'RunAs' -Wait -PassThru | Out-Null;"
+
+
+# ------------------------------------------------------------
+#
+# Base-coommand (Without auto-run-as-admin
+#
 
 Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online;
 

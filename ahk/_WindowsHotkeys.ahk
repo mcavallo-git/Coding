@@ -257,12 +257,12 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ; Timestamp		:::		Win + Ctrl + D
 ; Timestamp		:::		Win + Alt + D
 ;
-#D up::
-^#D up::
-!#D up::
-+#D up::
-+^#D up::
-+!#D up::
+#D::
+^#D::
+!#D::
++#D::
++^#D::
++!#D::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	TimezoneOffset := GetTimezoneOffset_P()

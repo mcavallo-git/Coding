@@ -10,7 +10,10 @@
 
 # Gmail example(s):
 from:foo subject:bar
-
+  |
+  |--> In Layman's terms, require BOTH of the following:
+        1 - Find emails with the word "foo" in either [ the email-address ] or [ email-account-alias (nickname) ]
+        2 - Find emails with the word "bar" in the subject
 
 
 # ------------------------------------------------------------

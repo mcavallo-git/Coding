@@ -90,13 +90,13 @@ echo "";
 echo "Obtaining UUID for device \"${DEVICE}\" from listings in \"/dev/disk/by-uuid\"...";
 DEVICE_UUID=$(ls -al "/dev/disk/by-uuid" | grep "^l" | grep "../../$(basename ${DEVICE})\$" | awk '{print $9}';);
 if [ -n "${DEVICE_UUID}" ]; then
-	echo "";
-	echo "Info:  Resolved device \"${DEVICE}\" to UUID \"${DEVICE_UUID}\"";
-	FSTAB_VALS_1="UUID=${DEVICE_UUID}";
+  echo "";
+  echo "Info:  Resolved device \"${DEVICE}\" to UUID \"${DEVICE_UUID}\"";
+  FSTAB_VALS_1="UUID=${DEVICE_UUID}";
 else
-	echo "";
-	echo "Info:  Unable to resolve device \"${DEVICE}\" to a UUID";
-	FSTAB_VALS_1="${DEVICE}";
+  echo "";
+  echo "Info:  Unable to resolve device \"${DEVICE}\" to a UUID";
+  FSTAB_VALS_1="${DEVICE}";
 fi;
 
 # Pull default bootup-mount-config-values from existing device's values
@@ -107,34 +107,34 @@ FSTAB_VALS_5=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';);
 FSTAB_VALS_6=$(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';);
 
 if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
-	# Device mounted at-bootup by its device-path (best practice is to use device UUID)
-	echo "";
-	echo "Info:  Found boot config (by-path) for device \"${DEVICE}\" in \"/etc/fstab\":";
-	echo "Warning:  Best practice is to mount by device UUID, as it remains static per-device (but device paths & labels are not forced to be static)";
-	cat "/etc/fstab" | grep "^${DEVICE}";
+  # Device mounted at-bootup by its device-path (best practice is to use device UUID)
+  echo "";
+  echo "Info:  Found boot config (by-path) for device \"${DEVICE}\" in \"/etc/fstab\":";
+  echo "Warning:  Best practice is to mount by device UUID, as it remains static per-device (but device paths & labels are not forced to be static)";
+  cat "/etc/fstab" | grep "^${DEVICE}";
 elif [ $(cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
-	# Device mounted at-bootup by its UUID
-	echo "";
-	echo "Info:  Found boot config (by-UUID) for device \"${DEVICE}\" in \"/etc/fstab\":";
-	cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}";
+  # Device mounted at-bootup by its UUID
+  echo "";
+  echo "Info:  Found boot config (by-UUID) for device \"${DEVICE}\" in \"/etc/fstab\":";
+  cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}";
 else
-	# Device not currently mounted at-boot
-	echo "";
-	echo "Warning: Device will not be mounted at-bootup (device bootup-mount-config found in \"/etc/fstab\")";
-	echo " |";
-	echo " |--> To mount device on-bootup (permanently add mount), copy-paste the following line to modify \"/etc/fstab\":";
-	echo "------------------------------------------------------------";
-	echo "echo '${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}' >> '/etc/fstab';";
-	echo "------------------------------------------------------------";
-	echo "";
-	if [ 0 -eq 1 ]; then  # ENABLE ONCE FSTAB FILE CHANGES ARE DONE AUTOMATICALLY
-		echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  System reboot is required to apply change(s)";
-		read -p "  |--> Reboot, now? (y/n)  " -n 1 -t 60 -r;
-		echo "";
-		if [[ $REPLY =~ ^[Yy]$ ]]; then
-			reboot now;
-		fi;
-	fi;
+  # Device not currently mounted at-boot
+  echo "";
+  echo "Warning: Device will not be mounted at-bootup (device bootup-mount-config found in \"/etc/fstab\")";
+  echo " |";
+  echo " |--> To mount device on-bootup (permanently add mount), copy-paste the following line to modify \"/etc/fstab\":";
+  echo "------------------------------------------------------------";
+  echo "echo '${FSTAB_DEVICE} ${MOUNT_PATH} ${FSTAB_VALS_3} ${FSTAB_VALS_4} ${FSTAB_VALS_5} ${FSTAB_VALS_6}' >> '/etc/fstab';";
+  echo "------------------------------------------------------------";
+  echo "";
+  if [ 0 -eq 1 ]; then  # ENABLE ONCE FSTAB FILE CHANGES ARE DONE AUTOMATICALLY
+    echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  System reboot is required to apply change(s)";
+    read -p "  |--> Reboot, now? (y/n)  " -n 1 -t 60 -r;
+    echo "";
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      reboot now;
+    fi;
+  fi;
 fi;
 
 echo "";

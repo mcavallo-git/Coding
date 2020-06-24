@@ -1,0 +1,48 @@
+# ------------------------------------------------------------
+#
+# CSV - Escaping reserved characters
+#
+# ------------------------------------------------------------
+#
+# Escaping commas (using double-quotes)
+#
+
+To escape a comma character in a CSV-field, wrap the entire field's contents with double-quotes
+
+
+#
+# Example-1 (intended outcome is 3-fields, but this line is 4 because of the last comma):
+#
+field1,field2,field3andalso,field3
+      |
+ (Corrected)
+      |
+      v
+field1,field2,"field3andalso,field3"
+
+
+# ------------------------------------------------------------
+#
+# Escaping double-quotes (by doubling-up on them)
+#
+
+To escape a double-quote character in a CSV-field, replace all double-quotes in target field with two (2) double-quotes, then wrap the entire field's contents with double-quotes
+
+#
+# Example-1 (intended outcome is 3-fields, but this line is 4 because of the last comma):
+#
+field1,field2,field3with"doublequote
+      |
+ (Corrected)
+      |
+      v
+field1,field2,"field3with""doublequote"
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)#
+#
+#   stackoverflow.com  |  "Is there a way to include commas in CSV columns without breaking the formatting? - Stack Overflow"  |  https://stackoverflow.com/a/4617967
+#
+# ------------------------------------------------------------

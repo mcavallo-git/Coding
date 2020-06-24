@@ -849,27 +849,31 @@ WheelRight::
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + F
-;  ACTION:  Effective File Search - Open a new Instance of EFS
+;  ACTION:  (REPLACED ON 20200624T112345) Effective File Search - Open a new Instance of EFS
 ;
 #F::
-	; Verify that Effective File Search exists
-	; ExeFilepath := "C:`\Program Files (x86)`\efs`\search.exe"
-	efs=\Effective File Search.efsp
-	; iso=C:\ISO
-	ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
-	ExeFilepath2=%A_MyDocuments%%efs%
-	; MsgBox, % ExeFilepath2
-	If (FileExist(ExeFilepath)) {
-		Run, %ExeFilepath%
-	} Else {
-		If (FileExist(ExeFilepath2)) {
-			Run, %ExeFilepath2%
+	If (1 == 0) {
+		; ------------------------------------------------------------
+		; OLD RUNTIME - Open "Effective File Search" (software)
+		; ------------------------------------------------------------
+		; ExeFilepath := "C:`\Program Files (x86)`\efs`\search.exe"
+		efs=\Effective File Search.efsp
+		; iso=C:\ISO
+		ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
+		ExeFilepath2=%A_MyDocuments%%efs%
+		; MsgBox, % ExeFilepath2
+		If (FileExist(ExeFilepath)) {
+			Run, %ExeFilepath%
 		} Else {
-			; If EFS does NOT exist, offer user the URL to download it
-			exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
-			MsgBox, 4, Download EFS?, Effective File Search not found`n`nDownload EFS Now?
-			IfMsgBox Yes
-				Run, chrome.exe %exe_download_url%
+			If (FileExist(ExeFilepath2)) {
+				Run, %ExeFilepath2%
+			} Else {
+				; If EFS does NOT exist, offer user the URL to download it
+				exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
+				MsgBox, 4, Download EFS?, Effective File Search not found`n`nDownload EFS Now?
+				IfMsgBox Yes
+					Run, chrome.exe %exe_download_url%
+			}
 		}
 	}
 	Return

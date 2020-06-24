@@ -49,11 +49,13 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 # ------------------------------------------------------------
 #
 # STEP 2 - Determine partition-type based-on currently-existent partition types
-# !!! AUTOMATICALLY DONE VIA SCRIPT, BELOW !!!
+# !!! AUTOMATICALLY DONE VIA SCRIPT, BELOW - ALSO CAN BE MANUALLY DONE IN STEP 0 !!!
 #  |--> parted "/dev/sda" "print";  # Or without targeting a specific device:   parted -l;
 #        |--> If target disk's "Partition Table" has value "msdos", then it is formatted using MBR, so use "primary" partition type
 #        |--> If target disk's "Partition Table" has value "gpt", then it is formatted using GPT, so use "logical" partition type
 #
+
+# ------------------------------------------------------------
 
 if [ 1 ]; then
 

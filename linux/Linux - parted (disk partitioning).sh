@@ -70,7 +70,7 @@ DEVICE="/dev/sdb";           #  !!! ENTER VALUE(S), HERE !!!  (see above for det
 START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
-MOUNT_PATH="/EXAMPLE-PATH";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
+MOUNT_PATH="/EXAMPLE_PATH";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 
 
 echo "";

@@ -19,7 +19,7 @@
 #
 #
 # ------------------------------------------------------------
-#	Syntax
+#	Gmail Syntax
 #
 #		AND as a conditional
 #
@@ -36,7 +36,7 @@ from:foo subject:bar
 
 
 # ------------------------------------------------------------
-#	Syntax
+# Gmail Syntax
 #
 #		OR as a conditional
 #
@@ -55,7 +55,7 @@ from:foo OR subject:bar
 
 
 # ------------------------------------------------------------
-#	Syntax
+# Gmail Syntax
 #
 #		NOT as a conditional
 #
@@ -73,7 +73,7 @@ NOT from:foo
 
 
 # ------------------------------------------------------------
-#	Syntax
+# Gmail Syntax
 #
 #		AROUND
 #
@@ -91,7 +91,7 @@ foo AROUND 50 bar
 
 
 # ------------------------------------------------------------
-#	Syntax
+# Gmail Syntax
 #
 #		Phrases
 #
@@ -105,7 +105,7 @@ foo AROUND 50 bar
 
 
 # ------------------------------------------------------------
-#	Synax
+# Gmail Syntax
 #
 #		Grouping conditionals
 #
@@ -120,7 +120,7 @@ foo AROUND 50 bar
 
 
 # ------------------------------------------------------------
-#	Syntax
+# Gmail Syntax
 #
 # 	Combine multi-field searches (to+from+subject, etc.) in the "Has the words" Gmail-filter field
 #			--> Useful search operators you can access from the basic dialog include:

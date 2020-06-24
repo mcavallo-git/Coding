@@ -149,10 +149,8 @@ echo "Mount your newly-created partition via command:";
 echo "";
 echo "PARTITION=\"/dev/NEW_PARTITION\"; mkdir -p \"${MOUNT_PATH}\"; sudo mount -t \"${FS_TYPE}\" \"\${PARTITION}\" \"${MOUNT_PATH}\";";
 echo "";
-
-	echo "";
-	echo "Warning: Device will not be mounted at-bootup (device bootup-mount-config pulled from \"/etc/fstab\" - you must modify this to configure bootup mounts)";
-	echo "";
+echo "Note: Device will not be mounted at-bootup (device bootup-mount-config pulled from \"/etc/fstab\" - you must modify this to configure bootup mounts)";
+echo "";
 
 fi;
 # |

@@ -72,19 +72,16 @@ END_BYTE="429496729599B";    #  !!! ENTER VALUE(S), HERE !!!  (see above for det
 FS_TYPE="xfs";               #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 MOUNT_PATH="/EXAMPLE_PATH";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 
-
 echo "";
 echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";
 PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
-
 
 echo "";
 echo "Constructing a \"${FS_TYPE}\" filesystem on device \"${DEVICE}\"";
 echo "[SCRIPT-CALL]>  mkfs.${FS_TYPE} \"${DEVICE}\";";
 echo "";
 mkfs.${FS_TYPE} "${DEVICE}";
-
 
 echo "";
 echo "Obtaining UUID for device \"${DEVICE}\" from listings in \"/dev/disk/by-uuid\"...";

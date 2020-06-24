@@ -115,12 +115,13 @@ else
 	echo " |--> To mount device on-bootup (permanently add mount), copy-paste the following line to modify \"/etc/fstab\":";
 	echo "------------------------------------------------------------";
 	# Pull default bootup-mount-config-values from existing device's values
-	echo "echo \"${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> \"/etc/fstab\";";
+	echo "echo \"UUID=${DEVICE_UUID} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> \"/etc/fstab\";";
 	echo " |";
 	read -p " |--> Apply this change to \"/etc/fstab\", now? (y/n)  " -n 1 -t 60 -r;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		echo "${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)" >> "/etc/fstab";
+		# echo "${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)" >> "/etc/fstab";
+		echo "UUID=${DEVICE_UUID} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)" >> "/etc/fstab";
 		REPLY="";
 		echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  System reboot is required to apply change(s)";
 		read -p "  |--> Reboot, now? (y/n)  " -n 1 -t 60 -r;
@@ -150,7 +151,7 @@ echo "PARTITION=\"/dev/NEW_PARTITION\"; mkdir -p \"${MOUNT_PATH}\"; sudo mount -
 echo "";
 echo "Note: Device will not be mounted at-bootup (device bootup-mount-config pulled from \"/etc/fstab\" - you must modify this to configure bootup mounts)";
 echo "  |";
-echo "  |-->  Update this using command:  	echo \"${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> \"/etc/fstab\";";
+echo "  |-->  Update this using command:  	echo \"UUID=${DEVICE_UUID} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> \"/etc/fstab\";";
 echo "";
 
 fi;

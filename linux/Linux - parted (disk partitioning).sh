@@ -1,14 +1,22 @@
 #!/bin/bash
 exit 1;
 # ------------------------------------------------------------
-# Parted - Create a new partition
+#
+# STEP 1 - Determine current partitions' sizes (based on start- & end-bytes)
 #
 
-# Determine partition's disk-size (based on start- & end-bytes)
 for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
+
+#
+#  ^
+#  |
 #  |--> Set start-byte to 1 byte past the LAST partition's end-byte (in B)
+#  |
 #  |--> Set end-byte to the total disk size (in B)
 #
+
+
+
 ### EXAMPLE --> for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 #
 # BYT;
@@ -29,8 +37,9 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 #      |--> FS_TYPE="xfs";
 #
 
+# ------------------------------------------------------------
 #
-# Determine partition-type based-on currently-existent partition types
+# STEP 2 - Determine partition-type based-on currently-existent partition types
 # !!! AUTOMATICALLY DONE VIA SCRIPT, BELOW !!!
 #  |--> parted "/dev/sda" "print";  # Or without targeting a specific device:   parted -l;
 #        |--> If target disk's "Partition Table" has value "msdos", then it is formatted using MBR, so use "primary" partition type

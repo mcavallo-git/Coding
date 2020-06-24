@@ -2,6 +2,14 @@
 exit 1;
 # ------------------------------------------------------------
 #
+# STEP 0 - Inspect attached devices using "parted" utility
+#
+
+SEPARATOR="$(printf -- '-%.0s' {1..60};)"; for EACH_DEVICE in /dev/sd? ; do echo ${SEPARATOR}; parted "${EACH_DEVICE}" print; done; echo ${SEPARATOR};
+
+
+# ------------------------------------------------------------
+#
 # STEP 1 - Determine partition-size, down to the byte (required) using start & end byte "landmarks" of existing partitions
 #
 

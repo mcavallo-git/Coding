@@ -146,8 +146,8 @@ fdisk -l "${DEVICE}";
 
 echo "";
 echo "Mount your newly-created partition via command:";
-echo "   mkdir -p \"${MOUNT_PATH}\";";
-echo "   sudo mount -t \"${FS_TYPE}\" \"/dev/[YOUR_NEW_PARTITION]\" \"${MOUNT_PATH}\";";
+echo "";
+echo "PARTITION=\"/dev/NEW_PARTITION\"; mkdir -p \"${MOUNT_PATH}\"; sudo mount -t \"${FS_TYPE}\" \"\${PARTITION}\" \"${MOUNT_PATH}\";";
 echo "";
 
 fi;

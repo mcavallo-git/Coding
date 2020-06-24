@@ -1,4 +1,23 @@
-
+# ------------------------------------------------------------
+#
+# Using Gmail Filters ( https://mail.google.com/mail/#settings/filters )
+#
+#
+#  To test a Gmail filter (e.g. perform a "dry-run" of what mail the filter will catch):
+#    > Browse to Gmail ( https://mail.google.com/mail/#settings/filters )
+#     > Paste query in top-middle bar with placeholder "Search mail" and press enter to dry-run the query
+#
+# 
+#  To create a new Gmail filter (to automate handling of incoming email):
+#    > Browse to Gmail ( https://mail.google.com/mail/#settings/filters )
+#     > Login to desired Google account (click top-right icon > "Add another account" to change)
+#      > Click the cog/gear icon ⚙️ (top-right)
+#       > Click "See all settings" (top of cog-dropdown options)
+#        > Click "Filters and Blocked Addresses" (top-middle, tab)
+#         > Click "Create a new filter" (bottom-middle of filters table)
+#          > Create filter as-intended (paste custom queries into the "Has the words" field)
+#
+#
 # ------------------------------------------------------------
 #	Syntax
 #

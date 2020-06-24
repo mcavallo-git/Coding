@@ -2,7 +2,7 @@
 exit 1;
 # ------------------------------------------------------------
 #
-# STEP 1 - Determine current partitions' sizes (based on start- & end-bytes)
+# STEP 1 - Determine partition-size, down to the byte (required) using start & end byte "landmarks" of existing partitions
 #
 
 for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;

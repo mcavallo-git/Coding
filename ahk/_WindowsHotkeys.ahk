@@ -849,7 +849,7 @@ WheelRight::
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + F
-;  ACTION:  (REPLACED ON 20200624T112345) Effective File Search - Open a new Instance of EFS
+;  ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
 ;
 #F::
 	If (1 == 0) {

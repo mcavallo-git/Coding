@@ -36,7 +36,8 @@ racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
 #
 # Fixing unnecesarilly high fan speeds on Dell PowerEdge R730xd Server(s)
 #   |--> MCavallo, 20200625T081712
-#   |--> To resolve this, I ended up having to:
+#   |-->  To resolve this, I ended up having to perform the following steps (as setting the temperature/fan speed settings the way they should be wasn't getting applied, and needed this order-of-events before it would "stick")
+
 #
 #         > Browse to iDRAC
 #          > Launch remote Java IPMI connection

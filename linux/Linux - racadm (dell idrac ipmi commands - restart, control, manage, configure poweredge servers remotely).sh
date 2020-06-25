@@ -37,21 +37,24 @@ racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
 # Fixing unnecesarilly high fan speeds on Dell PowerEdge R730xd Server(s)
 #   |--> MCavallo, 20200625T081712
 #   |-->  To resolve this, I ended up having to perform the following steps (as setting the temperature/fan speed settings the way they should be wasn't getting applied, and needed this order-of-events before it would "stick")
-
+#
 #
 #         > Browse to iDRAC
 #          > Launch remote Java IPMI connection
+#
 #
 #         > Browse to ESXI (host OS)
 #          > Shut down all VMs
 #           > Enter Maintenance mode
 #            > Reboot server
 #
+#
 #         > Enter "System Setup" (BIOS) during bootup (F2) 
 #          > System Settings
 #           > System Profile
 #            > Set to "Performance per Watt (OS)"
 #             > Save and Exit (Reboot Server)
+#
 #
 #         > Browse to iDRAC
 #          > On the left navigation within iDRAC, dropdown the Hardware section (hit the + next to it)
@@ -68,11 +71,11 @@ racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
 #               > Click "Apply" (bottom-right)
 #                > Popup appears asking to reboot to apply changes, select "Reboot Now"
 #
+#
 #         > SSH into iDRAC
 #          > Run command "racadm racreset soft" to restart iDRAC and fully apply new configuration
 #
-
-
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

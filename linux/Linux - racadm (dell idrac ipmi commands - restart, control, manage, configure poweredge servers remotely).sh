@@ -55,11 +55,17 @@ racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
 #         > Browse to iDRAC
 #          > On the left navigation within iDRAC, dropdown the Hardware section (hit the + next to it)
 #           > Select "Fans" under the Hardware dropdown
-#            > At the top of the window, select "Fan Configuration" or "Fan Setup" (or similar sounding option)
+#            > At the top of the window, select "Setup" (or similar sounding option)
 #             > Modify EVERY value to anything other than what they're currently set-to (just to trigger ANY change on each value) - I speculate that a BIOS update may have corrupted these values
-#              > When popup appears to reboot server, select "Reboot now"
-#             > Repeat these steps except in Fan settings, set to "Minimum Power", and select "Default" option for every other field
-#              > When popup appears to reboot server, select "Reboot now"
+#              > Click "Apply" (bottom-right)
+#               > Popup appears asking to reboot to apply changes, select "Reboot Now"
+#             > Repeat these steps except on the Fan "Setup" page, apply the following configuration:
+#              > Set "Thermal Profile" to "Minimum Power"
+#              > Set "Maximum Exhaust Temperature Limit" to "Default (70 deg-C)"
+#              > Set "Fan Speed Offset" to "Off"
+#              > Set "Minimum Fan Speed in PWM" to "Default"
+#               > Click "Apply" (bottom-right)
+#                > Popup appears asking to reboot to apply changes, select "Reboot Now"
 #
 #         > SSH into iDRAC
 #          > Run command "racadm racreset soft" to restart iDRAC and fully apply new configuration

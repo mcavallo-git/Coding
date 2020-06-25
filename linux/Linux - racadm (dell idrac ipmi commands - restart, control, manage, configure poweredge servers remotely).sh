@@ -67,6 +67,8 @@ racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
 #
 #   www.dell.com  |  "Integrated Dell Remote Access Controller 8 (iDRAC8) and iDRAC7 v2.20.20.20 User's Guide"  |  https://www.dell.com/support/manuals/us/en/04/idrac7-8-with-lc-v2.20.20.20/idrac8_2.10.10.10_ug-v2/modifying-thermal-settings-using-racadm?guid=guid-476e0462-fb31-4dac-be4a-3af3801ae556&lang=en-us
 #
+#   www.dell.com  |  "PowerEdge R730xd cooling / fan noise issue - Dell Community"  |  https://www.dell.com/community/PowerEdge-Hardware-General/PowerEdge-R730xd-cooling-fan-noise-issue/td-p/7187458
+#
 #   www.dell.com  |  "Solved: Re: racadm racreset vs Reset idrac - Dell Community"  |  https://www.dell.com/community/Systems-Management-General/racadm-racreset-vs-Reset-idrac/m-p/7315091#M27654
 #
 # ------------------------------------------------------------

@@ -6,6 +6,7 @@
 
 
 # iDRAC v8
+racadm racreset soft
 racadm racreset hard -f
 
 

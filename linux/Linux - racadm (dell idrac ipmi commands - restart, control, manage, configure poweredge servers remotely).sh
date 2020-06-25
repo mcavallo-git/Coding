@@ -74,6 +74,8 @@ racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
 #
 #   www.dell.com  |  "PowerEdge R730xd cooling / fan noise issue - Dell Community"  |  https://www.dell.com/community/PowerEdge-Hardware-General/PowerEdge-R730xd-cooling-fan-noise-issue/td-p/7187458
 #
+#   www.dell.com  |  "Solved: r730xd excessive fan speed - Dell Community"  |  https://www.dell.com/community/PowerEdge-Hardware-General/r730xd-excessive-fan-speed/td-p/4586254
+#
 #   www.dell.com  |  "Solved: Re: racadm racreset vs Reset idrac - Dell Community"  |  https://www.dell.com/community/Systems-Management-General/racadm-racreset-vs-Reset-idrac/m-p/7315091#M27654
 #
 # ------------------------------------------------------------

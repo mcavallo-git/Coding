@@ -16,7 +16,26 @@ racadm reset -h
 
 # ------------------------------------------------------------
 #
-#  Disabling functionality for PCI devices which jack up the fan speed on PowerEdge Servers 
+#  Disabling functionality for PCI devices which jack up the fan speed on PowerEdge Servers
+
+#
+# Get the current thermal settings
+#
+
+racadm get system.thermalsettings
+
+racadm get system.thermalsettings.ThirdPartyPCIFanResponse
+#  ^ Returns Enabled (1) or Disabled (0)
+
+
+racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
+#  ^ Disable PCI fan response
+
+
+# ------------------------------------------------------------
+#
+# Fixing unnecesarilly high fan speeds on Dell PowerEdge R730xd Server(s)
+#   |--> MCavallo, 20200625T081712
 #   |--> To resolve this, I ended up having to:
 #
 #         > Browse to iDRAC
@@ -45,20 +64,6 @@ racadm reset -h
 #         > SSH into iDRAC
 #          > Run command "racadm racreset soft" to restart iDRAC and fully apply new configuration
 #
-
-
-#
-# Get the current thermal settings
-#
-
-racadm get system.thermalsettings
-
-racadm get system.thermalsettings.ThirdPartyPCIFanResponse
-#  ^ Returns Enabled (1) or Disabled (0)
-
-
-racadm set system.thermalsettings.ThirdPartyPCIFanResponse 0
-#  ^ Disable PCI fan response
 
 
 # ------------------------------------------------------------

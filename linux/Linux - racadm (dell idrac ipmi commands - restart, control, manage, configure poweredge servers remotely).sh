@@ -17,12 +17,42 @@ racadm reset -h
 # ------------------------------------------------------------
 #
 #  Disabling functionality for PCI devices which jack up the fan speed on PowerEdge Servers 
+#   |--> To resolve this, I ended up having to:
+#
+#         > Browse to iDRAC
+#          > Launch remote Java IPMI connection
+#
+#         > Browse to ESXI (host OS)
+#          > Shut down all VMs
+#           > Enter Maintenance mode
+#            > Reboot server
+#
+#         > Enter "System Setup" (BIOS) during bootup (F2) 
+#          > System Settings
+#           > System Profile
+#            > Set to "Performance per Watt (OS)"
+#             > Save and Exit (Reboot Server)
+#
+#         > Browse to iDRAC
+#          > On the left navigation within iDRAC, dropdown the Hardware section (hit the + next to it)
+#           > Select "Fans" under the Hardware dropdown
+#            > At the top of the window, select "Fan Configuration" or "Fan Setup" (or similar sounding option)
+#             > Modify EVERY value to anything other than what they're currently set-to (just to trigger ANY change on each value) - I speculate that a BIOS update may have corrupted these values
+#              > When popup appears to reboot server, select "Reboot now"
+#             > Repeat these steps except in Fan settings, set to "Minimum Power", and select "Default" option for every other field
+#              > When popup appears to reboot server, select "Reboot now"
+#
+#         > SSH into iDRAC
+#          > Run command "racadm racreset soft" to restart iDRAC and fully apply new configuration
 #
 
 
 #
-# Get the current setting for the fan speed
+# Get the current thermal settings
 #
+
+racadm get system.thermalsettings
+
 racadm get system.thermalsettings.ThirdPartyPCIFanResponse
 #  ^ Returns Enabled (1) or Disabled (0)
 

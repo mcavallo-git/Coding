@@ -14,20 +14,26 @@ REM
 REM ------------------------------------------------------------
 
 REM Static Directory equal to the dirname of wherever OpenHardware Monitor's EXE file
-SET OPEN_HARDWARE_MONITOR_LOGS_DIRNAME="C:\ISO\OpenHardwareMonitor"
+SET OPEN_HARDWARE_MONITOR_LOGS_DIRNAME=C:\ISO\OpenHardwareMonitor
 
-FOR /F "tokens=3 delims=/" %a IN ('ECHO %NOW_DATE%') DO SET NOW_YEAR=%a
-FOR /F "tokens=1 delims=/" %a IN ('ECHO %NOW_DATE%') DO SET NOW_MONTH=%a
-FOR /F "tokens=2 delims=/" %a IN ('ECHO %NOW_DATE%') DO SET NOW_DAY=%a
+FOR /F "tokens=1,2,3 delims=/" %%a IN ("%NOW_DATE%") DO (
+	SET NOW_YEAR=%%c
+	SET NOW_MONTH=%%a
+	SET NOW_DAY=%%b
+)
+
+REM FOR /F "tokens=3 delims=/" %%a IN ("%NOW_DATE%") DO SET NOW_YEAR=%a
+REM FOR /F "tokens=1 delims=/" %%a IN ("%NOW_DATE%") DO SET NOW_MONTH=%a
+REM FOR /F "tokens=2 delims=/" %%a IN ("%NOW_DATE%") DO SET NOW_DAY=%a
 
 ECHO NOW_YEAR=%NOW_YEAR%
 ECHO NOW_MONTH=%NOW_MONTH%
 ECHO NOW_DAY=%NOW_DAY%
 
 REM Dynamic filename which cannot be changed (unless OpenHardware Monitor's developers change)
-SET OPEN_HARDWARE_MONITOR_LOGS_BASENAME="OpenHardwareMonitorLog-%NOW_YEAR%-%NOW_MONTH%-%NOW_DAY%.csv"
+SET OPEN_HARDWARE_MONITOR_LOGS_BASENAME=OpenHardwareMonitorLog-%NOW_YEAR%-%NOW_MONTH%-%NOW_DAY%.csv
 
-SET OPEN_HARDWARE_MONITOR_LOGS_FULLPATH="%OPEN_HARDWARE_MONITOR_LOGS_DIRNAME%\%OPEN_HARDWARE_MONITOR_LOGS_BASENAME%"
+SET OPEN_HARDWARE_MONITOR_LOGS_FULLPATH=%OPEN_HARDWARE_MONITOR_LOGS_DIRNAME%\%OPEN_HARDWARE_MONITOR_LOGS_BASENAME%
 
 ECHO OPEN_HARDWARE_MONITOR_LOGS_FULLPATH=%OPEN_HARDWARE_MONITOR_LOGS_FULLPATH%
 

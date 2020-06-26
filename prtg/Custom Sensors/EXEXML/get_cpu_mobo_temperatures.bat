@@ -145,8 +145,8 @@ REM
 	REM PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\Wbem\WMIC.exe') -ArgumentList (@('%remoteaccess% /namespace:\\Root\OpenHardwareMonitor','Path Sensor','Get Value,Identifier')) -Verb 'RunAs' -PassThru | More | Out-File '%tempfilename%';"
 
 	REM 
-	REM  WMIC - Formatting WMIC queries to handle OpenHardware Monitor requests for "Your" hardware
-	REM   >  Run "OpenHardware Monitor" -->  click "File" (top-left) then "Save Report...".
+	REM  WMIC - Formatting WMIC queries to handle Open Hardware Monitor requests for "Your" hardware
+	REM   >  Run "Open Hardware Monitor" -->  click "File" (top-left) then "Save Report...".
 	REM    >  Inspect the exported report - notice that most lines in the report should have a description at the start of each line (just like OpenHardware's Table), followed by Avg/Min/Max Values, with the path to the sensor in parenthesis just after
 	REM 
 

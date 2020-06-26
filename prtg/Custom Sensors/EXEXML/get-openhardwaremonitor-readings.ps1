@@ -33,7 +33,12 @@ $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
 $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').csv";
 $TempLog_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').tmp.csv";
 
-$Logfile_XmlOutput = "${Logfile_Dirname}\OpenHardwareMonitorLog-latest.xml";
+$Logfile_XmlOutput_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-latest";
+$Logfile_XmlOutput_All = "${Logfile_XmlOutput_Basename}-all.xml";
+$Logfile_XmlOutput_CPU = "${Logfile_XmlOutput_Basename}-cpu.xml";
+$Logfile_XmlOutput_GPU = "${Logfile_XmlOutput_Basename}-gpu.xml";
+$Logfile_XmlOutput_MOB = "${Logfile_XmlOutput_Basename}-mobo.xml";
+$Logfile_XmlOutput_RAM = "${Logfile_XmlOutput_Basename}-ram.xml";
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
@@ -138,44 +143,78 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 
 }
 
-$XmlOutput_Arr = @();
+$XmlOutput_Array_All = @();
+$XmlOutput_Array_CPU = @();
+$XmlOutput_Array_GPU = @();
+$XmlOutput_Array_MOB = @();
+$XmlOutput_Array_RAM = @();
 
-$XmlOutput_Arr += "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>";
-$XmlOutput_Arr += "<prtg>";
+$XmlHeader = @();
+$XmlHeader += "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>";
+$XmlHeader += "<prtg>";
+
+$XmlOutput_Array_All += ${XmlHeader};
+$XmlOutput_Array_CPU += ${XmlHeader};
+$XmlOutput_Array_GPU += ${XmlHeader};
+$XmlOutput_Array_MOB += ${XmlHeader};
+$XmlOutput_Array_RAM += ${XmlHeader};
+
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
 
 	$EachSensorPath = ("$($EachSensorReading_Obj.Path)" -Replace "`"", "");
 	$EachSensorDesc = ("$($EachSensorReading_Obj.Description)" -Replace "`"", "");
 	$EachSensorVal  = ("$($EachSensorReading_Obj.Value)" -Replace "`"", "");
+	$EachSensor_XmlArr = @();
 
-	$XmlOutput_Arr += "   <result>";
-	$XmlOutput_Arr += "       <Channel>${EachSensorDesc}</Channel>";
-	$XmlOutput_Arr += "       <Value>${EachSensorVal}</Value>";
-	$XmlOutput_Arr += "       <Mode>Absolute</Mode>";
+	$EachSensor_XmlArr += "   <result>";
+	$EachSensor_XmlArr += "       <Channel>${EachSensorDesc}</Channel>";
+	$EachSensor_XmlArr += "       <Value>${EachSensorVal}</Value>";
+	$EachSensor_XmlArr += "       <Mode>Absolute</Mode>";
 	If (${EachSensorPath} -Match "/temperature/") { # Use units of Degrees-Celsius (°C) for temperature readings
-		$XmlOutput_Arr += "       <Unit>Temperature</Unit>";
+		$EachSensor_XmlArr += "       <Unit>Temperature</Unit>";
 	} ElseIf ((${EachSensorPath} -Match "/control/") -Or (${EachSensorPath} -Match "/fan/")) { # Use units of Rotations per Minute (RPM) for fans and liquid-cooling pumps
-		$XmlOutput_Arr += "       <Unit>Custom</Unit>";
-		$XmlOutput_Arr += "       <CustomUnit>RPM</CustomUnit>";
+		$EachSensor_XmlArr += "       <Unit>Custom</Unit>";
+		$EachSensor_XmlArr += "       <CustomUnit>RPM</CustomUnit>";
 	} ElseIf (${EachSensorPath} -Match "/voltage/") { # Use units of Volts (V) for electric-pressure readings
-		$XmlOutput_Arr += "       <Unit>Custom</Unit>";
-		$XmlOutput_Arr += "       <CustomUnit>Volts</CustomUnit>";
+		$EachSensor_XmlArr += "       <Unit>Custom</Unit>";
+		$EachSensor_XmlArr += "       <CustomUnit>Volts</CustomUnit>";
 	}
-	$XmlOutput_Arr += "       <Float>1</Float>";
-	$XmlOutput_Arr += "       <ShowChart>0</ShowChart>";
-	$XmlOutput_Arr += "       <ShowTable>0</ShowTable>";
-	$XmlOutput_Arr += "   </result>";
+	$EachSensor_XmlArr += "       <Float>1</Float>";
+	$EachSensor_XmlArr += "       <ShowChart>0</ShowChart>";
+	$EachSensor_XmlArr += "       <ShowTable>0</ShowTable>";
+	$EachSensor_XmlArr += "   </result>";
+
+	$XmlOutput_Array_All += $EachSensor_XmlArr;
+
+	If (${EachSensorDesc} -Match "CPU") {
+		$XmlOutput_Array_CPU += $EachSensor_XmlArr;
+	} ElseIf (${EachSensorDesc} -Match "GPU") {
+		$XmlOutput_Array_GPU += $EachSensor_XmlArr;
+	} ElseIf (${EachSensorDesc} -Match "Mobo") {
+		$XmlOutput_Array_MOB += $EachSensor_XmlArr;
+	} ElseIf (${EachSensorDesc} -Match "RAM") {
+		$XmlOutput_Array_RAM += $EachSensor_XmlArr;
+	}
 
 };
 
-$XmlOutput_Arr += "</prtg>";
+# Add the footer to finish up the XML output
+$XmlFooter = @();
+$XmlFooter += "</prtg>";
+$XmlOutput_Array_All += ${XmlFooter};
+$XmlOutput_Array_CPU += ${XmlFooter};
+$XmlOutput_Array_GPU += ${XmlFooter};
+$XmlOutput_Array_MOB += ${XmlFooter};
+$XmlOutput_Array_RAM += ${XmlFooter};
 
-$XmlOutput += (${XmlOutput_Arr} -join "`n");
 
-# Write-Output $XmlOutput;
-
-Write-Output "${XmlOutput}" | Out-File "${Logfile_XmlOutput}";
+# Output the XML contents to output files (separated by-category, as well as one combined file)
+Write-Output (${XmlOutput_Array_All} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_All}";
+Write-Output (${XmlOutput_Array_CPU} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
+Write-Output (${XmlOutput_Array_GPU} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
+Write-Output (${XmlOutput_Array_MOB} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_MOB}";
+Write-Output (${XmlOutput_Array_RAM} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
 
 
 # ------------------------------------------------------------

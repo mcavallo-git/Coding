@@ -1,9 +1,17 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 
-
 FOR /F "tokens=2 delims= " %a IN ('date /t') DO SET NOW_DATE=%a
+
 ECHO NOW_DATE=%NOW_DATE%
+
+FOR /F "tokens=3 delims=/" %a IN ('ECHO %NOW_DATE%') DO SET NOW_YEAR=%a
+FOR /F "tokens=1 delims=/" %a IN ('ECHO %NOW_DATE%') DO SET NOW_MONTH=%a
+FOR /F "tokens=2 delims=/" %a IN ('ECHO %NOW_DATE%') DO SET NOW_DAY=%a
+
+ECHO NOW_YEAR=%NOW_YEAR%
+ECHO NOW_MONTH=%NOW_MONTH%
+ECHO NOW_DAY=%NOW_DAY%
 
 
 REM ------------------------------------------------------------

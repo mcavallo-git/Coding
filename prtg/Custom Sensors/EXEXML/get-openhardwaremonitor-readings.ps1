@@ -6,34 +6,41 @@
 # 
 # ------------------------------------------------------------
 #
-# PRTG - Parse OpenHardware Monitor's CSV logs
+# PRTG - Parse CSV logs output from "Open Hardware Monitor (e.g. OHW)" (system health monitoring software)
 #
 # ------------------------------------------------------------
 #
-# STEP 1) Setting-up CSV logging in OpenHardware Monitor:
-#  > Run OpenHardware Monitor
+# STEP 1) Setup Open Hardware Monitor (OHW)
+#  > Download from URL:  https://openhardwaremonitor.org/downloads/
+#   > Place OHW's downloaded files into directory "C:\ISO\OpenHardwareMonitor\" (modifiable, below - see variable "$Logfile_Dirname")
+#
+# ------------------------------------------------------------
+#
+# STEP 2) Setting-up CSV logging in OHW:
+#  > Run OHW
 #   > Select "Options" (top)
 #    > Select "Log Sensors" (will have a checkmark next to it if actively logging to CSV)
 #
 # ------------------------------------------------------------
 #
-# STEP 2/3) Setting-up Scheduled Task to run PowerShell script in Windows (simpler than setting up PRTG to run PowerShell scripts as SYSTEM, directly)
+# STEP 3) Setting-up Scheduled Task to run PowerShell script in Windows (simpler than setting up PRTG to run PowerShell scripts as SYSTEM, directly)
 #  > Create a Scheduled Task to run this PowerShell script every minute
 #
 # ------------------------------------------------------------
 #
-# STEP 3/3) Create a new PRTG "EXE/Script Advanced" Sensor to run a batch-file with one, single line, being: [  TYPE %Logfile_XmlOutput%  ] (whatever path this .ps1 file outputs-to)
+# STEP 4) Create a new PRTG "EXE/Script Advanced" Sensor to run a batch-file with one, single line, being: [  TYPE %Logfile_XmlOutput%  ] (whatever path this .ps1 file outputs-to)
 #
 # ------------------------------------------------------------
-
-
-
+#
 # Get the Temperature, fan speeds, etc. through Dell's oproprietary config but nt on the 730...Openhardware"'s  OpenHardwareMonitor's logfile (second line is column title, third row is values)
+#
+
 $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
 $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').csv";
-$TempLog_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').tmp.csv";
 
-$Logfile_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-Latest";
+# ------------------------------------------------------------
+
+$Logfile_Basename = "${Logfile_Dirname}\OHW-CurrentValue";
 
 $Logfile_XmlOutput_All = "${Logfile_Basename}-ALL.xml";
 
@@ -47,6 +54,7 @@ $Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD.txt";
 
 $Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU.txt";
 
+# NVidia offers a free EXE utility named "NVidia System Management Interface (SMI)" which allows for command-line parameters to specify intended output
 $Exe_NVidia_SMI = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";
 $Args_NVidia_SMI = @("--query-gpu=utilization.gpu","--format=`"csv,nounits,noheader`"","--id=0");
 

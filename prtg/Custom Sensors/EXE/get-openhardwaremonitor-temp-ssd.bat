@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-Latest-Temp-SSD.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-CurrentValue-Temp-SSD.txt

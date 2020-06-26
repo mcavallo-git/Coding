@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-Latest-Temp-CPU.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-CurrentValue-Temp-CPU.txt

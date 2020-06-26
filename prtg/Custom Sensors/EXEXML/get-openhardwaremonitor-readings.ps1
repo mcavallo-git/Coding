@@ -43,6 +43,7 @@ $Logfile_TempOutput_SSD = "${Logfile_XmlOutput_Basename}-SSD-Temp.txt";
 
 $Logfile_TempOutput_FAN_PMP = "${Logfile_XmlOutput_Basename}-FAN-Pump.txt";
 $Logfile_TempOutput_FAN_RAD = "${Logfile_XmlOutput_Basename}-FAN-Radiator.txt";
+$Logfile_TempOutput_FAN_SSD = "${Logfile_XmlOutput_Basename}-FAN-SSD.txt";
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
@@ -155,8 +156,10 @@ $XmlOutput_Array_All = @();
 $Temp_CPU = "";
 $Temp_GPU = "";
 $Temp_SSD = "";
+
 $Speed_FAN_PMP = "";
 $Speed_FAN_RAD = "";
+$Speed_FAN_SSD = "";
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
@@ -199,6 +202,8 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 		$Speed_FAN_PMP = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #2") {
 		$Speed_FAN_RAD = "${EachSensorVal}";
+	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #4") {
+		$Speed_FAN_SSD = "${EachSensorVal}";
 	}
 
 };
@@ -211,6 +216,7 @@ Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_TempOutput_GPU}";
 Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_SSD}";
 Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_TempOutput_FAN_PMP}";
 Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_FAN_RAD}";
+Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_FAN_SSD}";
 
 
 # ------------------------------------------------------------

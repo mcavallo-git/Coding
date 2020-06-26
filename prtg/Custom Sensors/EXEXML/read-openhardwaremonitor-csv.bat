@@ -33,11 +33,10 @@ REM ------------------------------------------------------------
 FOR /f "usebackq tokens=1-4 delims=," %%a IN ("sample1.csv") DO (ECHO %%a %%b %%c %%d )
 
 
-
 REM ------------------------------------------------------------
 REM
 REM Citation(s)
 REM
-REM   domain  |  "title"  |  url
+REM   stackoverflow.com  |  "read csv file through windows batch file and create txt file - Stack Overflow"  |  https://stackoverflow.com/a/24928087
 REM
 REM ------------------------------------------------------------

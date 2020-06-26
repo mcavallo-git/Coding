@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-latest.xml
+TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-latest-RAM.xml

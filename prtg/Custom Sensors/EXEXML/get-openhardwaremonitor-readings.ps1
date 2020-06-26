@@ -37,8 +37,8 @@ $Logfile_XmlOutput_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-latest"
 $Logfile_XmlOutput_All = "${Logfile_XmlOutput_Basename}-all.xml";
 $Logfile_XmlOutput_CPU = "${Logfile_XmlOutput_Basename}-CPU.xml";
 $Logfile_XmlOutput_GPU = "${Logfile_XmlOutput_Basename}-GPU.xml";
-$Logfile_XmlOutput_MOB = "${Logfile_XmlOutput_Basename}-MOB.xml";
 $Logfile_XmlOutput_RAM = "${Logfile_XmlOutput_Basename}-RAM.xml";
+$Logfile_XmlOutput_SSD = "${Logfile_XmlOutput_Basename}-SSD.xml";
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
@@ -149,14 +149,14 @@ $XmlFooter = "</prtg>";
 $XmlOutput_Array_All = @();
 $XmlOutput_Array_CPU = @();
 $XmlOutput_Array_GPU = @();
-$XmlOutput_Array_MOB = @();
 $XmlOutput_Array_RAM = @();
+$XmlOutput_Array_SSD = @();
 
 $XmlOutput_Array_All += ${XmlHeader};
 $XmlOutput_Array_CPU += ${XmlHeader};
 $XmlOutput_Array_GPU += ${XmlHeader};
-$XmlOutput_Array_MOB += ${XmlHeader};
 $XmlOutput_Array_RAM += ${XmlHeader};
+$XmlOutput_Array_SSD += ${XmlHeader};
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
@@ -186,14 +186,14 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 
 	$XmlOutput_Array_All += $EachSensor_XmlArr;
 
-	If (${EachSensorDesc} -Match "CPU") {
+	If (${EachSensorDesc} -Match "CPU Package") {
 		$XmlOutput_Array_CPU += $EachSensor_XmlArr;
-	} ElseIf (${EachSensorDesc} -Match "GPU") {
+	} ElseIf (${EachSensorDesc} -Match "GPU Core") {
 		$XmlOutput_Array_GPU += $EachSensor_XmlArr;
-	} ElseIf (${EachSensorDesc} -Match "Mobo") {
-		$XmlOutput_Array_MOB += $EachSensor_XmlArr;
 	} ElseIf (${EachSensorDesc} -Match "RAM") {
 		$XmlOutput_Array_RAM += $EachSensor_XmlArr;
+	} ElseIf (${EachSensorDesc} -Match "Mobo Temps, Temperature #2") {
+		$XmlOutput_Array_SSD += $EachSensor_XmlArr;
 	}
 
 };
@@ -202,8 +202,8 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 Write-Output (("${XmlHeader}")+(${XmlOutput_Array_All} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
 Write-Output (("${XmlHeader}")+(${XmlOutput_Array_CPU} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
 Write-Output (("${XmlHeader}")+(${XmlOutput_Array_GPU} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
-Write-Output (("${XmlHeader}")+(${XmlOutput_Array_MOB} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_MOB}";
 Write-Output (("${XmlHeader}")+(${XmlOutput_Array_RAM} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
+Write-Output (("${XmlHeader}")+(${XmlOutput_Array_SSD} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_SSD}";
 
 
 # ------------------------------------------------------------

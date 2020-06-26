@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current.xml
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-All.xml

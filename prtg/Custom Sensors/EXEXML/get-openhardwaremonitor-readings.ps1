@@ -152,12 +152,6 @@ $XmlOutput_Array_GPU = @();
 $XmlOutput_Array_RAM = @();
 $XmlOutput_Array_SSD = @();
 
-$XmlOutput_Array_All += ${XmlHeader};
-$XmlOutput_Array_CPU += ${XmlHeader};
-$XmlOutput_Array_GPU += ${XmlHeader};
-$XmlOutput_Array_RAM += ${XmlHeader};
-$XmlOutput_Array_SSD += ${XmlHeader};
-
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
 
@@ -199,11 +193,11 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 };
 
 # Output the XML contents to output files (separated by-category, as well as one combined file)
-Write-Output (("${XmlHeader}")+(${XmlOutput_Array_All} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
-Write-Output (("${XmlHeader}")+(${XmlOutput_Array_CPU} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
-Write-Output (("${XmlHeader}")+(${XmlOutput_Array_GPU} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
-Write-Output (("${XmlHeader}")+(${XmlOutput_Array_RAM} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
-Write-Output (("${XmlHeader}")+(${XmlOutput_Array_SSD} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_SSD}";
+Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
+Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_CPU} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
+Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_GPU} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
+Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_RAM} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
+Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_SSD} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_SSD}";
 
 
 # ------------------------------------------------------------

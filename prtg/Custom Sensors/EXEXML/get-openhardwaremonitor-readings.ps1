@@ -34,7 +34,7 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 $TempLog_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').tmp.csv";
 
 $Logfile_XmlOutput_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-latest";
-$Logfile_XmlOutput_All = "${Logfile_XmlOutput_Basename}-all.xml";
+$Logfile_XmlOutput_All = "${Logfile_XmlOutput_Basename}-ALL.xml";
 $Logfile_XmlOutput_CPU = "${Logfile_XmlOutput_Basename}-CPU.xml";
 $Logfile_XmlOutput_GPU = "${Logfile_XmlOutput_Basename}-GPU.xml";
 $Logfile_XmlOutput_RAM = "${Logfile_XmlOutput_Basename}-RAM.xml";

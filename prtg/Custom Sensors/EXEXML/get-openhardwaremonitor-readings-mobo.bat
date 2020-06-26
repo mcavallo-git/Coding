@@ -1,1 +1,0 @@
-TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-latest-MOB.xml

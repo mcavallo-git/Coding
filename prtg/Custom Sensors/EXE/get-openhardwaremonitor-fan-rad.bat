@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-CurrentValue-FAN-Radiator.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-FAN-Radiator.txt

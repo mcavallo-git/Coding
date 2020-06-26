@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-CurrentValue-Temp-GPU.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Temp-GPU.txt

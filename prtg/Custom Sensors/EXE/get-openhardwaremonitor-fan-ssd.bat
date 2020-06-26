@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-CurrentValue-FAN-SSD.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-FAN-SSD.txt

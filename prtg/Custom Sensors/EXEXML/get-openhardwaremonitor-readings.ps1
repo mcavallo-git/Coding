@@ -40,7 +40,7 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 
 # ------------------------------------------------------------
 
-$Logfile_Basename = "${Logfile_Dirname}\OHW-CurrentValue";
+$Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
 
 $Logfile_XmlOutput_All = "${Logfile_Basename}-ALL.xml";
 

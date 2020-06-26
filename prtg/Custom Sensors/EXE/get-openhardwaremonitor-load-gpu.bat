@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-CurrentValue-Load-GPU.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Load-GPU.txt

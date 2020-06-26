@@ -27,10 +27,12 @@ OPEN_HARDWARE_MONITOR_LOGS_BASENAME="OpenHardwareMonitorLog-%NOW_YEAR%-%NOW_MONT
 
 OPEN_HARDWARE_MONITOR_LOGS_FULLPATH="%OPEN_HARDWARE_MONITOR_LOGS_DIRNAME%\%OPEN_HARDWARE_MONITOR_LOGS_BASENAME%"
 
+ECHO OPEN_HARDWARE_MONITOR_LOGS_FULLPATH=%OPEN_HARDWARE_MONITOR_LOGS_FULLPATH%
+
 
 REM ------------------------------------------------------------
 
-FOR /f "usebackq tokens=1-4 delims=," %%a IN ("sample1.csv") DO (ECHO %%a %%b %%c %%d )
+REM FOR /f "usebackq tokens=1-4 delims=," %%a IN ("sample1.csv") DO (ECHO %%a %%b %%c %%d )
 
 
 REM ------------------------------------------------------------

@@ -143,15 +143,14 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 
 }
 
+$XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
+$XmlFooter = "</prtg>";
+
 $XmlOutput_Array_All = @();
 $XmlOutput_Array_CPU = @();
 $XmlOutput_Array_GPU = @();
 $XmlOutput_Array_MOB = @();
 $XmlOutput_Array_RAM = @();
-
-$XmlHeader = @();
-$XmlHeader += "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>";
-$XmlHeader += "<prtg>";
 
 $XmlOutput_Array_All += ${XmlHeader};
 $XmlOutput_Array_CPU += ${XmlHeader};
@@ -199,22 +198,12 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 
 };
 
-# Add the footer to finish up the XML output
-$XmlFooter = @();
-$XmlFooter += "</prtg>";
-$XmlOutput_Array_All += ${XmlFooter};
-$XmlOutput_Array_CPU += ${XmlFooter};
-$XmlOutput_Array_GPU += ${XmlFooter};
-$XmlOutput_Array_MOB += ${XmlFooter};
-$XmlOutput_Array_RAM += ${XmlFooter};
-
-
 # Output the XML contents to output files (separated by-category, as well as one combined file)
-Write-Output (${XmlOutput_Array_All} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_All}";
-Write-Output (${XmlOutput_Array_CPU} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
-Write-Output (${XmlOutput_Array_GPU} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
-Write-Output (${XmlOutput_Array_MOB} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_MOB}";
-Write-Output (${XmlOutput_Array_RAM} -join "`n") | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
+Write-Output (("${XmlHeader}")+(${XmlOutput_Array_All} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
+Write-Output (("${XmlHeader}")+(${XmlOutput_Array_CPU} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
+Write-Output (("${XmlHeader}")+(${XmlOutput_Array_GPU} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
+Write-Output (("${XmlHeader}")+(${XmlOutput_Array_MOB} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_MOB}";
+Write-Output (("${XmlHeader}")+(${XmlOutput_Array_RAM} -join "`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
 
 
 # ------------------------------------------------------------

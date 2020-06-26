@@ -56,11 +56,6 @@ $Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU.txt";
 
 # NVidia offers a free EXE utility named "NVidia System Management Interface (SMI)" which allows for command-line parameters to specify intended output
 $Exe_NVidiaSMI = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";
-$Args_NVidiaSMI_Load = @("--query-gpu=utilization.gpu","--format=`"csv,nounits,noheader`"","--id=0");
-$Args_NVidiaSMI_Temperature = @("--query-gpu=temperature.gpu","--format=`"csv,nounits,noheader`"","--id=0");
-
-# "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe" --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0
-
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
@@ -167,14 +162,12 @@ $Speed_FAN_PMP = "";
 $Speed_FAN_RAD = "";
 $Speed_FAN_SSD = "";
 
-$Load_GPU = (Start-Process -Filepath ("${Exe_NVidiaSMI}") -ArgumentList (${Args_NVidiaSMI_Load}) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue"));
-If ($False) {
-	$Temp_GPU = (Start-Process -Filepath ("${Exe_NVidiaSMI}") -ArgumentList (${Args_NVidiaSMI_Temperature}) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue"));
-	$Temp_GPU = (Start-Process -Filepath ("${Exe_NVidiaSMI}") -ArgumentList (${Args_NVidiaSMI_Temperature}) -RedirectStandardError ("C:\ISO\OpenHardwareMonitor\__stderr-gpu-temp.txt") -RedirectStandardOutput ("C:\ISO\OpenHardwareMonitor\__stdout-gpu-temp.txt") -Wait -PassThru -ErrorAction ("SilentlyContinue"));
-}
-
-# $Load_CPU = ""; <# Obtain via separate PRTG sensor (WMI suggested) #>
-# $Load_SSD = ""; <# Obtain via separate PRTG Sensor (Need suggestion, here) #>
+$Dirname_RevertTo = ((Get-Location).Path);
+$Dirname_NVidiaSMI = (Split-Path -Path ("${Exe_NVidiaSMI}") -Parent);
+Set-Location -Path ("${Dirname_NVidiaSMI}");
+$Load_GPU = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
+$Temp_GPU = (nvidia-smi.exe --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0);
+Set-Location -Path ("${Dirname_RevertTo}");
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)

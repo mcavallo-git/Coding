@@ -42,7 +42,7 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 
 $Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
 
-$Logfile_XmlOutput_All = "${Logfile_Basename}-ALL.xml";
+$Logfile_XmlOutput_All = "${Logfile_Basename}-All.xml";
 
 $Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
 $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";

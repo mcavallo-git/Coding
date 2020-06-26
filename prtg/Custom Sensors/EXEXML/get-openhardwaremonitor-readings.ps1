@@ -196,7 +196,7 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 	If (${EachSensorDesc} -Match "CPU Temps, CPU Package") {
 		$XmlOutput_Array_CPU += $EachSensor_XmlArr;
 		$Temp_CPU = "${EachSensorVal}";
-	} ElseIf (${EachSensorDesc} -Match "GPU Core") {
+	} ElseIf (${EachSensorDesc} -Match "GPU Temps, GPU Core") {
 		$XmlOutput_Array_GPU += $EachSensor_XmlArr;
 		$Temp_GPU = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Match "RAM") {

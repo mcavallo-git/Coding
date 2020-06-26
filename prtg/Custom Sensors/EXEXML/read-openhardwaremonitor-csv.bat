@@ -1,4 +1,5 @@
 @ECHO OFF
+@SETLOCAL enableextensions disabledelayedexpansion
 
 REM ------------------------------------------------------------
 REM
@@ -40,7 +41,9 @@ ECHO OPEN_HARDWARE_MONITOR_LOGS_FULLPATH=%OPEN_HARDWARE_MONITOR_LOGS_FULLPATH%
 
 REM ------------------------------------------------------------
 
-REM FOR /f "usebackq tokens=1-4 delims=," %%a IN ("sample1.csv") DO (ECHO %%a %%b %%c %%d )
+for /F "tokens=*" %%G in ('type "%%~x"') do set "lastline=%%G"
+
+FOR /f "usebackq tokens=1-4 delims=," %%a IN ("%OPEN_HARDWARE_MONITOR_LOGS_FULLPATH%") DO (ECHO %%a %%b %%c %%d )
 
 
 REM ------------------------------------------------------------

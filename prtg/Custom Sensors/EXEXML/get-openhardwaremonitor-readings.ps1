@@ -5,6 +5,28 @@
 # 
 # 
 # ------------------------------------------------------------
+#
+# PRTG - Parse OpenHardware Monitor's CSV logs
+#
+# ------------------------------------------------------------
+#
+# STEP 1) Setting-up CSV logging in OpenHardware Monitor:
+#  > Run OpenHardware Monitor
+#   > Select "Options" (top)
+#    > Select "Log Sensors" (will have a checkmark next to it if actively logging to CSV)
+#
+# ------------------------------------------------------------
+#
+# STEP 2/3) Setting-up Scheduled Task to run PowerShell script in Windows (simpler than setting up PRTG to run PowerShell scripts as SYSTEM, directly)
+#  > Create a Scheduled Task to run this PowerShell script every minute
+#
+# ------------------------------------------------------------
+#
+# STEP 3/3) Create a new PRTG "EXE/Script Advanced" Sensor to run a batch-file with one, single line, being: [  TYPE %Logfile_XmlOutput%  ] (whatever path this .ps1 file outputs-to)
+#
+# ------------------------------------------------------------
+
+
 
 # Get the Temperature, fan speeds, etc. through Dell's oproprietary config but nt on the 730...Openhardware"'s  OpenHardwareMonitor's logfile (second line is column title, third row is values)
 $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";

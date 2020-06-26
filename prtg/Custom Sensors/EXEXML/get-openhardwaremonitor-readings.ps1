@@ -166,7 +166,7 @@ $Dirname_RevertTo = ((Get-Location).Path);
 $Dirname_NVidiaSMI = (Split-Path -Path ("${Exe_NVidiaSMI}") -Parent);
 Set-Location -Path ("${Dirname_NVidiaSMI}");
 $Load_GPU = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
-$Temp_GPU = (nvidia-smi.exe --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0);
+# $Temp_GPU = (nvidia-smi.exe --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0);
 Set-Location -Path ("${Dirname_RevertTo}");
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {

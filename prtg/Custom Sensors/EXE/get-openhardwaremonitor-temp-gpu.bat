@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-Latest-GPU-Temp.txt
+TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-Latest-Temp-GPU.txt

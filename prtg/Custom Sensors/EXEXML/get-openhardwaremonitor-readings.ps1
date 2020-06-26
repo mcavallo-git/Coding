@@ -33,17 +33,22 @@ $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
 $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').csv";
 $TempLog_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').tmp.csv";
 
-$Logfile_XmlOutput_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-Latest";
+$Logfile_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-Latest";
 
-$Logfile_XmlOutput_All = "${Logfile_XmlOutput_Basename}-ALL.xml";
+$Logfile_XmlOutput_All = "${Logfile_Basename}-ALL.xml";
 
-$Logfile_TempOutput_CPU = "${Logfile_XmlOutput_Basename}-CPU-Temp.txt";
-$Logfile_TempOutput_GPU = "${Logfile_XmlOutput_Basename}-GPU-Temp.txt";
-$Logfile_TempOutput_SSD = "${Logfile_XmlOutput_Basename}-SSD-Temp.txt";
+$Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
+$Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
+$Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD.txt";
 
-$Logfile_TempOutput_FAN_PMP = "${Logfile_XmlOutput_Basename}-FAN-Pump.txt";
-$Logfile_TempOutput_FAN_RAD = "${Logfile_XmlOutput_Basename}-FAN-Radiator.txt";
-$Logfile_TempOutput_FAN_SSD = "${Logfile_XmlOutput_Basename}-FAN-SSD.txt";
+$Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump.txt";
+$Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator.txt";
+$Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD.txt";
+
+$Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU.txt";
+
+$Exe_NVidia_SMI = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";
+$Args_NVidia_SMI = @("--query-gpu=utilization.gpu","--format=`"csv,nounits,noheader`"","--id=0");
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
@@ -61,10 +66,12 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	$EachSensorReading_Obj.Path = (($CsvImport.Paths)[$i]);
 	$EachSensorReading_Obj.Description = (($CsvImport.Descriptions)[$i]);
 	$EachSensorReading_Obj.Value = (($CsvImport.Values)[$i]);
+	# ------------------------------------------------------------
 	#
 	# Boil-down the results to Shorthand/Nickname versions for each PC component
 	#
 	# ------------------------------------------------------------
+
 	#
 	# Mobo Readings
 	#
@@ -77,8 +84,6 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "lpc/.+/temperature/") {
 		$EachSensorReading_Obj.Description = "Mobo Temps, $($EachSensorReading_Obj.Description)";
 
-
-	# ------------------------------------------------------------
 	#
 	# Processor (CPU) Readings
 	#
@@ -91,8 +96,6 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/clock/") {
 		$EachSensorReading_Obj.Description = "CPU Clock, $($EachSensorReading_Obj.Description)";
 
-
-	# ------------------------------------------------------------
 	#
 	# Memory (RAM) Readings
 	#
@@ -101,12 +104,9 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "/ram/data/") {
 		$EachSensorReading_Obj.Description = "RAM Data, $($EachSensorReading_Obj.Description)";
 
-
-	# ------------------------------------------------------------
 	#
 	# Graphics Card (GPU) Readings
 	#
-
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/temperature/") {
 		$EachSensorReading_Obj.Description = "GPU Temps, $($EachSensorReading_Obj.Description)";
 
@@ -131,21 +131,15 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/throughput/") {
 		$EachSensorReading_Obj.Description = "GPU Rx/Tx, $($EachSensorReading_Obj.Description)";
 
-
-	# ------------------------------------------------------------
 	#
 	# Storage Disk (HDD/SSD) Readings
 	#
-
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "hdd/.+/load/") {
 		$EachSensorReading_Obj.Description = "Disk Load, $($EachSensorReading_Obj.Description)";
 
-
 	# ------------------------------------------------------------
 	}
-
 	$Ohw_SensorReadings += $EachSensorReading_Obj;
-
 }
 
 $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
@@ -160,6 +154,10 @@ $Temp_SSD = "";
 $Speed_FAN_PMP = "";
 $Speed_FAN_RAD = "";
 $Speed_FAN_SSD = "";
+
+# $Load_CPU = ""; <# Obtain via separate PRTG sensor (WMI suggested) #>
+$Load_GPU = (Start-Process -Filepath ("${Exe_NVidia_SMI}") -ArgumentList (${Args_NVidia_SMI}) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue"));
+# $Load_SSD = ""; <# Obtain via separate PRTG Sensor (Need suggestion, here) #>
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
@@ -211,12 +209,12 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 # Output the XML contents to output files (separated by-category, as well as one combined file)
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
 
-Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_TempOutput_CPU}";
-Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_TempOutput_GPU}";
-Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_SSD}";
-Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_TempOutput_FAN_PMP}";
-Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_FAN_RAD}";
-Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_FAN_SSD}";
+Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
+Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
+Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
+Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
+Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
+Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
 
 
 # ------------------------------------------------------------

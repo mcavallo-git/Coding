@@ -164,7 +164,7 @@ $Speed_FAN_RAD = "";
 $Speed_FAN_SSD = "";
 
 # $Load_CPU = ""; <# Obtain via separate PRTG sensor (WMI suggested) #>
-$Load_GPU = (Start-Process -Filepath ("${Exe_NVidia_SMI}") -ArgumentList (${Args_NVidia_SMI}) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue"));
+$Load_GPU = (((Start-Process -Filepath ("${Exe_NVidia_SMI}") -ArgumentList (${Args_NVidia_SMI}) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue")).CPU) * (100.00));
 # $Load_SSD = ""; <# Obtain via separate PRTG Sensor (Need suggestion, here) #>
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
@@ -220,9 +220,12 @@ Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")
 Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
 Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
 Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
+
 Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
 Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
 Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
+
+Write-Output "${Load_GPU}:OK" | Out-File -NoNewline "${Logfile_GPU_Load}";
 
 
 # ------------------------------------------------------------

@@ -33,12 +33,19 @@ $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
 $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').csv";
 $TempLog_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').tmp.csv";
 
-$Logfile_XmlOutput_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-latest";
+$Logfile_XmlOutput_Basename = "${Logfile_Dirname}\OpenHardwareMonitorLog-Latest";
+
 $Logfile_XmlOutput_All = "${Logfile_XmlOutput_Basename}-ALL.xml";
+
 $Logfile_XmlOutput_CPU = "${Logfile_XmlOutput_Basename}-CPU.xml";
 $Logfile_XmlOutput_GPU = "${Logfile_XmlOutput_Basename}-GPU.xml";
 $Logfile_XmlOutput_RAM = "${Logfile_XmlOutput_Basename}-RAM.xml";
 $Logfile_XmlOutput_SSD = "${Logfile_XmlOutput_Basename}-SSD.xml";
+
+$Logfile_TempOutput_CPU = "${Logfile_XmlOutput_Basename}-CPU-Temp.txt";
+$Logfile_TempOutput_GPU = "${Logfile_XmlOutput_Basename}-GPU-Temp.txt";
+# $Logfile_TempOutput_RAM = "${Logfile_XmlOutput_Basename}-RAM-Temp.txt";
+$Logfile_TempOutput_SSD = "${Logfile_XmlOutput_Basename}-SSD-Temp.txt";
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
@@ -147,10 +154,16 @@ $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
 $XmlFooter = "</prtg>";
 
 $XmlOutput_Array_All = @();
+
 $XmlOutput_Array_CPU = @();
 $XmlOutput_Array_GPU = @();
 $XmlOutput_Array_RAM = @();
 $XmlOutput_Array_SSD = @();
+
+$Temp_CPU = "";
+$Temp_GPU = "";
+# $Temp_RAM = "";
+$Temp_SSD = "";
 
 # $Obj_OhwUpdatedValues.Keys | ForEach-Object {
 ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Based)
@@ -182,22 +195,33 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 
 	If (${EachSensorDesc} -Match "CPU Temps, CPU Package") {
 		$XmlOutput_Array_CPU += $EachSensor_XmlArr;
+		$Temp_CPU = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Match "GPU Core") {
 		$XmlOutput_Array_GPU += $EachSensor_XmlArr;
+		$Temp_GPU = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Match "RAM") {
 		$XmlOutput_Array_RAM += $EachSensor_XmlArr;
+		# $Temp_RAM = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Match "Mobo Temps, Temperature #2") {
 		$XmlOutput_Array_SSD += $EachSensor_XmlArr;
+		$Temp_SSD = "${EachSensorVal}";
 	}
 
 };
 
 # Output the XML contents to output files (separated by-category, as well as one combined file)
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
+
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_CPU} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_CPU}";
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_GPU} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_GPU}";
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_RAM} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_RAM}";
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_SSD} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_SSD}";
+
+
+Write-Output "${Temp_CPU}" | Out-File -NoNewline "${Logfile_TempOutput_CPU}";
+Write-Output "${Temp_GPU}" | Out-File -NoNewline "${Logfile_TempOutput_GPU}";
+# Write-Output "${Temp_RAM}" | Out-File -NoNewline "${Logfile_TempOutput_RAM}";
+Write-Output "${Temp_SSD}" | Out-File -NoNewline "${Logfile_TempOutput_SSD}";
 
 
 # ------------------------------------------------------------

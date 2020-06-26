@@ -1,3 +1,5 @@
+@ECHO OFF
+
 REM ------------------------------------------------------------
 REM
 REM PRTG - Parse OpenHardware Monitor's CSV logs

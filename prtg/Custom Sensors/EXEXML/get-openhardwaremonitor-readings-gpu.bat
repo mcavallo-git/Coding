@@ -1,1 +1,0 @@
-TYPE C:\ISO\OpenHardwareMonitor\OpenHardwareMonitorLog-latest-GPU.xml

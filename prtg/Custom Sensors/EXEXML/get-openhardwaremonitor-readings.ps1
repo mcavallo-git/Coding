@@ -218,10 +218,10 @@ Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_RAM} -join "`n")+("`n")
 Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_SSD} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_SSD}";
 
 
-Write-Output "${Temp_CPU}:ok" | Out-File -NoNewline "${Logfile_TempOutput_CPU}";
-Write-Output "${Temp_GPU}:ok" | Out-File -NoNewline "${Logfile_TempOutput_GPU}";
-# Write-Output "${Temp_RAM}:ok" | Out-File -NoNewline "${Logfile_TempOutput_RAM}";
-Write-Output "${Temp_SSD}:ok" | Out-File -NoNewline "${Logfile_TempOutput_SSD}";
+Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_TempOutput_CPU}";
+Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_TempOutput_GPU}";
+# Write-Output "${Temp_RAM}:OK" | Out-File -NoNewline "${Logfile_TempOutput_RAM}";
+Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_TempOutput_SSD}";
 
 
 # ------------------------------------------------------------

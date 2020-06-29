@@ -9,6 +9,8 @@ exit 0;
 # ------------------------------------------------------------
 #
 # Install Certbot  (Lets-Encrypt HTTPS/SSL certificate management tool for Linux)
+#  |
+#  |--> Refer to Certbot Documentation @:  https://certbot.eff.org/all-instructions
 #
 
 # To Install Certbot on Debian-based Linux Distros (e.g. Debian, Ubuntu) EXCLUDING Raspbian
@@ -119,7 +121,7 @@ find "/etc/letsencrypt/" -name "*${DN}*"; # Double-Check to make sure the domain
 #
 # Citation(s)
 #
-#   certbot.eff.org  |  "Certbot - All Instructions"  |  https://certbot.eff.org/all-instructions/#centos-6-apache
+#   certbot.eff.org  |  "Certbot - All Instructions"  |  https://certbot.eff.org/all-instructions
 #
 #   dev.to  |  "Let's Encrypt: Renew Wildcard Certificate With Certbot - DEV"  |  https://dev.to/nabbisen/let-s-encrypt-renew-wildcard-certificate-manually-with-certbot-1jp
 #

@@ -1,5 +1,4 @@
 
-
 <# Generate a list of all ".msi" file installation attempts - Note that Event Log will only go back as far as the space allows for regarding logfile storage-space #> 
 If ($True) {
 	<# Replace with general event-viewer search string to match-on, then narrow it down as needed (e.g. you can search for ".msi" to show for installed MSI packages, etc.) #>

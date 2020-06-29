@@ -2,15 +2,12 @@
 
 <# Generate a list of all ".msi" file installation attempts - Note that Event Log will only go back as far as the space allows for regarding logfile storage-space #> 
 If ($True) {
-
 	<# Replace with general event-viewer search string to match-on, then narrow it down as needed (e.g. you can search for ".msi" to show for installed MSI packages, etc.) #>
 	$MatchText_1 = "*Windows Installer*";
 	$MatchText_2 = "*.msi*";
-
 	<# Replace with specific text to exclude if-found in the log #>
 	$ExcludeText_1 = "EXCLUDE / IGNORE LINES THAT MATCH THIS TEXT";
 	$ExcludeText_2 = "ALSO EXCLUDE / IGNORE LINES THAT MATCH THIS TEXT";
-
 	<# Parse ALL the logs! #>
 	$Logfile = "${Home}\Desktop\InstalledProgramHistory_$($(${Env:USERNAME}).Trim())@$($(${Env:COMPUTERNAME}).Trim())" + $(If(${Env:USERDNSDOMAIN}){Write-Output ((".") + ($(${Env:USERDNSDOMAIN}).Trim()))}) +"_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
 	$EventLogs_MsiInstallAttempts = ( `
@@ -21,15 +18,12 @@ If ($True) {
 			| Where-Object {$_.Message -Like "${MatchText_1}"} `
 			| Where-Object {$_.Message -Like "${MatchText_2}"} `
 	 );
-
 	<# Output the logs to target logfile #>
 	$EventLogs_MsiInstallAttempts `
 		| Format-Table -AutoSize `
 		| Out-File "${Logfile}";
-
 	<# Open the log in Notepad for viewing #>
 	Notepad "${Logfile}";
-
 }
 
 

@@ -1,16 +1,26 @@
 
 
+
+If ($True) {
+<# Replace with general event-viewer search string to match-on, then narrow it down as needed (e.g. you can search for ".msi" to show for installed MSI packages, etc.) #>
+$MatchText_1 = "*";
+$MatchText_2 = "*";
+<# Replace with specific text to exclude if-found in the log #>
+$ExcludeText_1 = "*Product: Config Manager -- Installation completed successfully.*";
+$ExcludeText_2 = "ALSO EXCLUDE / IGNORE LINES THAT MATCH THIS TEXT";
+<# Parse ALL the logs! #>
 $Logfile = "${Home}\Desktop\InstalledProgramHistory_$($(${Env:USERNAME}).Trim())@$($(${Env:COMPUTERNAME}).Trim())" + $(If(${Env:USERDNSDOMAIN}){Write-Output ((".") + ($(${Env:USERDNSDOMAIN}).Trim()))}) +"_$(Get-Date -UFormat '%Y%m%d-%H%M%S').log;"; `
 Get-EventLog -LogName "Application" -Source "MsiInstaller" `
 | Select-Object UserName, TimeGenerated, Message `
-| Where-Object {$_.Message -NotLike "*Product: Config Manager -- Installation completed successfully.*"} `
-| Where-Object {$_.Message -NotLike "*IGNORE_A*"} `
-| Where-Object {$_.Message -NotLike "*IGNORE_A*"} `
-| Where-Object {$_.Message -Like "*MATCH_A*"} `
-| Where-Object {$_.Message -Like "*MATCH_B*"} `
+| Where-Object {$_.Message -NotLike "${ExcludeText_1}"} `
+| Where-Object {$_.Message -NotLike "${ExcludeText_2}"} `
+| Where-Object {$_.Message -Like "${MatchText_1}"} `
+| Where-Object {$_.Message -Like "${MatchText_2}"} `
 | Format-Table -AutoSize `
-| Out-File -Width 16384 "${Logfile}"; `
+| Out-File "${Logfile}"; `
 Notepad "${Logfile}";
+<# | Out-File -Width 16384 "${Logfile}"; #>
+}
 
 
 # NOTE: Event Log will only go back as far as the space alloted for which its log-files.

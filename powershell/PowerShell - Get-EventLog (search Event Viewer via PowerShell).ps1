@@ -34,6 +34,8 @@ If ($True) {
 #
 #   docs.microsoft.com  |  "Get-EventLog - Gets the events in an event log, or a list of the event logs, on the local computer or remote computers"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-eventlog
 #
+#   docs.microsoft.com  |  "Get-WinEvent - Gets events from event logs and event tracing log files on local and remote computers"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/Get-WinEvent
+#
 #   stackoverflow.com  |  "eventviewer - How to filter windows event log with wildcard? - Server Fault"  |  https://serverfault.com/a/840387
 #
 #   stackoverflow.com  |  "Windows Event Log, can you xpath filter for string NOT equal? - Stack Overflow"  |  https://stackoverflow.com/a/51140552

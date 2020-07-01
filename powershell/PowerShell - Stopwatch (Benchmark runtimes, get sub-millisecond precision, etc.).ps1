@@ -18,6 +18,12 @@ If ($True) {
 	$Benchmark.Stop();
 	$Benchmark | Format-List;
 
+
+	$Benchmark.IsRunning;            # Ex:  False
+	$Benchmark.Elapsed;              # Ex:  00:00:02.1047087
+	$Benchmark.ElapsedMilliseconds;  # Ex:  2104
+	$Benchmark.ElapsedTicks;         # Ex:  5343986
+
 }
 
 

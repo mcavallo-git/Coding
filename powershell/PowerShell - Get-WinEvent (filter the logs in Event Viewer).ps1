@@ -16,11 +16,12 @@
 # $EID_Unlocked = 4801; #(Security event)
 #
 
-$Logon_Events = Get-EventLog -Logname ("Security") -InstanceId (4624);
+$Logon_Events = Get-EventLog -Logname ("Security") -Source ("Microsoft-Windows-Security-Auditing") -InstanceId (4624);
 
-# $EventLogs_LogonLogoffs = (Get-EventLog -LogName "Security" -InstanceId 1,2,4624,4647,4778,4779,4800,4801,6000,6005 | Select-Object UserName,TimeGenerated,Message);
-$EventLogs_LogonLogoffs = (Get-EventLog -LogName "Security" -InstanceId 1,2,4624,4647,4778,4779,4800,4801,6000,6005);
-$EventLogs_LogonLogoffs[0..4] | Format-Table -AutoSize;
+$EventLogs_LogonLogoffs = (Get-EventLog -LogName ("Security") -Source ("Microsoft-Windows-Security-Auditing") -InstanceId (1,2,4624,4647,4778,4779,4800,4801,6000,6005));
+
+$EventLogs_LogonLogoffs[0] | Format-List; <# Show the first item in the returned reults as an example #>
+
 
 # ------------------------------------------------------------
 #

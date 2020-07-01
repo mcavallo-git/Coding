@@ -18,7 +18,7 @@ True
 PS C:\Windows\system32> @("AAA","BBB") -contains 'BBB'
 True
 
-PS C:\Windows\system32> @("AAA","BBB") -contains 'bbb'    <-- ! ! ! "Array -contains ..." seems to be case insensitive
+PS C:\Windows\system32> @("AAA","BBB") -contains 'bbb'    <-- ! ! ! "Array -contains ..." seems to be case IN-sensitive (NOT case sensitive)
 True                                                      <-- ! ! !
 
 

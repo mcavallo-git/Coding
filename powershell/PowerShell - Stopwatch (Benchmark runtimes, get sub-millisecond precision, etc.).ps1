@@ -14,7 +14,7 @@ If ($True) {
 
 	# Start the benchmark, run some code, stop the benchmark, show the results
 	$Benchmark.Start();
-	Start-Sleep -Seconds (2);
+	Start-Sleep -Seconds (65);
 	$Benchmark.Stop();
 	$Benchmark | Format-List;
 
@@ -23,6 +23,7 @@ If ($True) {
 	$Benchmark.Elapsed;              # Ex:  00:00:02.1047087
 	$Benchmark.ElapsedMilliseconds;  # Ex:  2104
 	$Benchmark.ElapsedTicks;         # Ex:  5343986
+	$Benchmark.Elapsed.TotalSeconds; # Ex:  90.5865709
 
 }
 

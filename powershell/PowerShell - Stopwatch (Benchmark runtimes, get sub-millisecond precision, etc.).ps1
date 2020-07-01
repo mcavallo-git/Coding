@@ -1,14 +1,24 @@
 
+If ($True) {
 
-$Benchmark = New-Object System.Diagnostics.Stopwatch;
+	$Benchmark = New-Object System.Diagnostics.Stopwatch;
 
-$Benchmark.Start();
+	# Start the benchmark, run some code, stop the benchmark, show the results
+	$Benchmark.Start();
+	Start-Sleep -Seconds (1);
+	$Benchmark.Stop();
+	$Benchmark | Format-List;
 
-$Benchmark.Stop();
+	# Reuse the same benchmark multiple times by resetting it (ideally to save on memory)
+	$Benchmark.Reset();
 
-$Benchmark;
+	# Start the benchmark, run some code, stop the benchmark, show the results
+	$Benchmark.Start();
+	Start-Sleep -Seconds (2);
+	$Benchmark.Stop();
+	$Benchmark | Format-List;
 
-
+}
 
 
 # ------------------------------------------------------------

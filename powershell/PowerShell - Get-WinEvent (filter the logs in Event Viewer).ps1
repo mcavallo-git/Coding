@@ -18,7 +18,7 @@
 
 $Logon_Events = Get-EventLog -Logname ("Security") -InstanceId (4624);
 
-$EventLogs_LogonLogoffs = (Get-EventLog -LogName "Security" | Where-Object {@(1,2,4624,4647,4778,4779,4800,4801,6000,6005) -Contains ($_.InstanceId)} | Select-Object UserName,TimeGenerated,Message);
+$EventLogs_LogonLogoffs = (Get-EventLog -LogName "Security" -InstanceId 1,2,4624,4647,4778,4779,4800,4801,6000,6005 | Select-Object UserName,TimeGenerated,Message);
 $EventLogs_LogonLogoffs | Format-Table -AutoSize | Out-File "${Logfile}";
 
 # ------------------------------------------------------------

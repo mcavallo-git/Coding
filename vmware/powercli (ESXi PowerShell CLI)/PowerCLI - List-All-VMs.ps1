@@ -72,11 +72,9 @@ If ($True) {
 		$ESXi_LoginPass = (Read-Host -AsSecureString -Prompt ("`nEnter Password"));
 	}
 
-	$PlainText_LoginPass = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode(${ESXi_LoginPass})));
-
 	$vSphere_ConnectionStream = (
 		Connect-VIServer `
-			-Password (${PlainText_LoginPass}) `
+			-Password ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode(${ESXi_LoginPass}))) `
 			-Port ("${ESXi_ServerPort}") `
 			-Protocol ("${ESXi_ServerProtocol}") `
 			-User ("${ESXi_LoginUser}") `

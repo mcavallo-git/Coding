@@ -5,6 +5,18 @@
 
 If ($True) {
 
+
+
+	If ($args -NE $Null) {
+		If ($args.Contains('-All')) {
+			$LatestLogOnly = $False;
+		}
+		If ($args.Contains('-PRTG')) {
+			$PRTG_Request = $True;
+			$API_Request = $True;
+		}
+	}
+
 	# Pre-Reqs: Check-for (and install if not found) the VMware PowerCLI PowerShell Module
 	If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {
 		# Pre-Reqs: Check-for (and install if not found) the NuGet PowerShell Module-Repository
@@ -25,11 +37,9 @@ If ($True) {
 
 	If ($vSphere_ConnectionStream -NE $Null) {
 
-	# Do some action with the now-connected vSphere Hypervisor (ESXi Server) 
+		# Do some action with the now-connected vSphere Hypervisor (ESXi Server) 
 
-	# Get-Datastore | Format-List;
-
-	Get-VM | Sort-Object -Property Name | Format-Table -Autosize
+		Get-VM | Sort-Object -Property Name | Format-Table -Autosize
 
 	}
 
@@ -42,9 +52,16 @@ If ($True) {
 #
 # Citation(s)
 #
-#
 #   powercli-core.readthedocs.io  |  "Connect-VIServer"  |  https://powercli-core.readthedocs.io/en/latest/cmd_connect.html#connect-viserver
 #
 #   powercli-core.readthedocs.io  |  "Disconnect-VIServer"  |  https://powercli-core.readthedocs.io/en/latest/cmd_disconnect.html#disconnect-viserver
+#
+#   pubs.vmware.com  |  "Connect-VIServer - vSphere PowerCLI Cmdlets Reference"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc%2FConnect-VIServer.html
+#
+#   pubs.vmware.com  |  "Disconnect-VIServer - vSphere PowerCLI Cmdlets Reference"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc%2FDisconnect-VIServer.html
+#
+#   pubs.vmware.com  |  "Get-VM - vSphere PowerCLI Cmdlets Reference"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc%2FGet-VM.html
+#
+#   pubs.vmware.com  |  "Get-VMHost - vSphere PowerCLI Cmdlets Reference"  |  https://pubs.vmware.com/vsphere-51/index.jsp?topic=%2Fcom.vmware.powercli.cmdletref.doc%2FGet-VMHost.html
 #
 # ------------------------------------------------------------

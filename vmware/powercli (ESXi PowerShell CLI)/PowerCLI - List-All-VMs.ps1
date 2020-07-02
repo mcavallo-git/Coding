@@ -5,17 +5,25 @@
 
 If ($True) {
 
-
+	$ESXi_Server = $Null;
+	$ESXi_User = $Null;
+	$ESXi_Pass = $Null;
 
 	If ($args -NE $Null) {
-		If ($args.Contains('-All')) {
-			$LatestLogOnly = $False;
+		If ($args.Contains('-Server')) {
+			$ESXi_Server = $Server;
 		}
-		If ($args.Contains('-PRTG')) {
-			$PRTG_Request = $True;
-			$API_Request = $True;
+		If ($args.Contains('-User')) {
+			$ESXi_User = $User;
+		}
+		If ($args.Contains('-Pass')) {
+			$ESXi_Pass = $Pass;
 		}
 	}
+
+	Write-Output "`$Server = [ $(${Server}) ]";
+	Write-Output "`$ESXi_User = [ $(${ESXi_User}) ]";
+	Write-Output "`$ESXi_Pass = [ $(${ESXi_Pass}) ]";
 
 	# Pre-Reqs: Check-for (and install if not found) the VMware PowerCLI PowerShell Module
 	If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {

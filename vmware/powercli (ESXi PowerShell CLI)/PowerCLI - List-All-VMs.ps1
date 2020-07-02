@@ -72,15 +72,27 @@ If ($True) {
 		$ESXi_LoginPass = (Read-Host -AsSecureString -Prompt ("`nEnter Password"));
 	}
 
+	$PlainText_LoginPass = ([System.Runtime.InteropServices.Marshal]::PtrToStringUni([System.Runtime.InteropServices.Marshal]::SecureStringToCoTaskMemUnicode(${ESXi_LoginPass})));
+
 	$vSphere_ConnectionStream = (
 		Connect-VIServer `
-			-Password (${ESXi_LoginPass}) `
+			-Password (${PlainText_LoginPass}) `
 			-Port ("${ESXi_ServerPort}") `
 			-Protocol ("${ESXi_ServerProtocol}") `
 			-User ("${ESXi_LoginUser}") `
 			-Server ("${ESXi_Server}") `
 			-SaveCredentials `
 	);
+
+	# $vSphere_ConnectionStream = (
+	# 	Connect-VIServer `
+	# 		-Password (${ESXi_LoginPass}) `
+	# 		-Port ("${ESXi_ServerPort}") `
+	# 		-Protocol ("${ESXi_ServerProtocol}") `
+	# 		-User ("${ESXi_LoginUser}") `
+	# 		-Server ("${ESXi_Server}") `
+	# 		-SaveCredentials `
+	# );
 
 	If ($vSphere_ConnectionStream -NE $Null) {
 

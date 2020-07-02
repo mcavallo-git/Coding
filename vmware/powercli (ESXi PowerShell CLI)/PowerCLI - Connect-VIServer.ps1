@@ -8,7 +8,7 @@ Connect-VIServer
 	-Password ${Password} `
 	-Port ${Port} `
 	-Protocol ${Protocol} `
-	-SaveCredentials ${SaveCredentials} `
+	-SaveCredentials <#Switch#> `
 	-Server ${Server} `
 	-Session ${Session} `
 	-User ${User} `

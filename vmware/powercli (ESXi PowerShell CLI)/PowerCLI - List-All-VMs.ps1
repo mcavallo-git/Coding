@@ -1,29 +1,43 @@
 # ------------------------------------------------------------
 #
-# VMware PowerCLI - Install NuGet Repo & VMware PowerCLI PowerShell Module, then connect to a target vSphere (ESXi) Server & create a VM
+# VMware PowerCLI - Install NuGet Repo & VMware PowerCLI PowerShell Module, then connect to a target VMware vSphere Hypervisor (ESXi) Server/Host
 #
 
 If ($True) {
 
+	$ESXi_LoginPass = $Null;
+	$ESXi_LoginUser = $Null;
 	$ESXi_Server = $Null;
-	$ESXi_User = $Null;
-	$ESXi_Pass = $Null;
+	$ESXi_ServerPort = "443";
+	$ESXi_ServerProtocol = "https";
 
 	If ($args -NE $Null) {
+		If ($args.Contains('-LoginPass')) {
+			If (($LoginPass.GetType().Name) -Eq ("SecureString")) {
+				$ESXi_LoginPass = $LoginPass;
+			} Else {
+				$ESXi_LoginPass = ConvertTo-SecureString -String ("${LoginPass}") -AsPlainText -Force;
+			}
+		}
+		If ($args.Contains('-LoginUser')) {
+			$ESXi_LoginUser = $LoginUser;
+		}
 		If ($args.Contains('-Server')) {
 			$ESXi_Server = $Server;
 		}
-		If ($args.Contains('-User')) {
-			$ESXi_User = $User;
+		If ($args.Contains('-ServerPort')) {
+			$ESXi_ServerPort = $ServerPort;
 		}
-		If ($args.Contains('-Pass')) {
-			$ESXi_Pass = $Pass;
+		If ($args.Contains('-ServerProtocol')) {
+			$ESXi_ServerProtocol = $ServerProtocol;
 		}
 	}
 
-	Write-Output "`$Server = [ $(${Server}) ]";
-	Write-Output "`$ESXi_User = [ $(${ESXi_User}) ]";
-	Write-Output "`$ESXi_Pass = [ $(${ESXi_Pass}) ]";
+	Write-Output "`$ESXi_Server = [ $(${ESXi_Server}) ]";
+	Write-Output "`$ESXi_ServerPort = [ $(${ESXi_ServerPort}) ]";
+	Write-Output "`$ESXi_ServerProtocol = [ $(${ESXi_ServerProtocol}) ]";
+	Write-Output "`$ESXi_LoginUser = [ $(${ESXi_LoginUser}) ]";
+	Write-Output "`$ESXi_LoginPass = [ $(${ESXi_LoginPass}) ]";
 
 	# Pre-Reqs: Check-for (and install if not found) the VMware PowerCLI PowerShell Module
 	If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {
@@ -39,9 +53,15 @@ If ($True) {
 	}
 
 	# Ignore Invalid HTTPS Certs (for LAN servers, etc.)
-	Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore" -Confirm:$False;
+	# Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore" -Confirm:$False;
 
-	$vSphere_ConnectionStream = Connect-VIServer -Server ($(Read-Host 'Enter FQDN/IP of vSphere Server')) -Port "443" -Protocol "https";
+	
+	If ($ESXi_Server -Eq $Null) {
+		$ESXi_Server = (Read-Host 'Enter FQDN/IP of vSphere Server');
+	}
+
+
+	$vSphere_ConnectionStream = Connect-VIServer -Server ("${ESXi_Server}") -Port ("443") -Protocol "https";
 
 	If ($vSphere_ConnectionStream -NE $Null) {
 

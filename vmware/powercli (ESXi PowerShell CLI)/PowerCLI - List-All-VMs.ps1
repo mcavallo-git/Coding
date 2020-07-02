@@ -82,16 +82,6 @@ If ($True) {
 			-SaveCredentials `
 	);
 
-	# $vSphere_ConnectionStream = (
-	# 	Connect-VIServer `
-	# 		-Password (${ESXi_LoginPass}) `
-	# 		-Port ("${ESXi_ServerPort}") `
-	# 		-Protocol ("${ESXi_ServerProtocol}") `
-	# 		-User ("${ESXi_LoginUser}") `
-	# 		-Server ("${ESXi_Server}") `
-	# 		-SaveCredentials `
-	# );
-
 	If ($vSphere_ConnectionStream -NE $Null) {
 
 		# Do some action with the now-connected vSphere Hypervisor (ESXi Server) 

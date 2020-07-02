@@ -60,6 +60,19 @@ If ($True) {
 		$ESXi_Server = (Read-Host 'Enter FQDN/IP of vSphere Server');
 	}
 
+Connect-VIServer
+-Server
+-AllLinked
+-Credential
+-Force
+-Menu
+-NotDefault
+-Password
+-Port
+-Protocol
+-SaveCredentials
+-Session
+-User
 
 	$vSphere_ConnectionStream = Connect-VIServer -Server ("${ESXi_Server}") -Port ("443") -Protocol "https";
 

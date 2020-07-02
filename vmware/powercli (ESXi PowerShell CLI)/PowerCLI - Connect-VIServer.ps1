@@ -25,8 +25,8 @@ If ($True) {
 
 	If ($vSphere_ConnectionStream -NE $Null) {
 
-	# Do some action with the now-connected vSphere Hypervisor (ESXi Server) 
-	Get-Datastore | Format-List;
+		# Do some action with the now-connected vSphere Hypervisor (ESXi Server) 
+		Get-Datastore | Format-List;
 
 	}
 

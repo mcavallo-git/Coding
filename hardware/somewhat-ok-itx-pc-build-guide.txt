@@ -27,7 +27,7 @@ Take the long rectangular I/O Shield (which matches your motherboard to your cas
 
 
 (Step 3 - CPU)
-Take out CPU, do not bend pins (be gentle), and line up the colored/notched corner (look for a triangle/etc.) for which way it should be oriented. Lift the little latch on mobo, remove plastic blocker, gently lay CPU onto mobo, then close the latch, slowly. You should have to apply some force, but not too much. About the same as ~if you were to rest just the weight of your hand on it should be all that is needed.
+Take out CPU, do not bend pins (be gentle), and line up the colored/notched corner (look for a triangle/etc.) for which way it should be oriented. Lift the CPU locking-lever to release it (metal, shiny, paperclip-looking latch/lever which is usually at the bottom of the CPU socket, running just-longer than the length of the socket itself). If there is a plastic blocker/placeholder in the CPU slot, remove it. Gently lay CPU into the Mobo's CPU socket, making sure to line up the notched/marked corners as you install it. Once CPU is fully in the socket, slowly lower/close the CPU locking-lever - It may need to go away-from-then-back-towards the socket to lock into place --> Force-wise, you should only have to apply as much force as resting your hand on the lever would be worth (e.g. not much force needed).
 
 
 (Step 4.1 - CPU Cooler - Prep)

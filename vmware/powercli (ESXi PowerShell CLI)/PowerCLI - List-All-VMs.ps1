@@ -10,6 +10,7 @@ If ($True) {
 	$ESXi_Server = $Null;
 	$ESXi_ServerPort = "443";
 	$ESXi_ServerProtocol = "https";
+	$ESXi_IgnoreInvalidSslCertificates = $False;
 
 	If ($args -NE $Null) {
 		If ($args.Contains('-LoginPass')) {
@@ -31,11 +32,15 @@ If ($True) {
 		If ($args.Contains('-ServerProtocol')) {
 			$ESXi_ServerProtocol = $ServerProtocol;
 		}
+		If ($args.Contains('-IgnoreInvalidSslCertificates')) {
+			$ESXi_IgnoreInvalidSslCertificates = $True;
+		}
 	}
 
 	Write-Output "`$ESXi_Server = [ $(${ESXi_Server}) ]";
 	Write-Output "`$ESXi_ServerPort = [ $(${ESXi_ServerPort}) ]";
 	Write-Output "`$ESXi_ServerProtocol = [ $(${ESXi_ServerProtocol}) ]";
+	Write-Output "`$ESXi_IgnoreInvalidSslCertificates = [ $(${ESXi_IgnoreInvalidSslCertificates}) ]";
 	Write-Output "`$ESXi_LoginUser = [ $(${ESXi_LoginUser}) ]";
 	Write-Output "`$ESXi_LoginPass = [ $(${ESXi_LoginPass}) ]";
 
@@ -53,28 +58,29 @@ If ($True) {
 	}
 
 	# Ignore Invalid HTTPS Certs (for LAN servers, etc.)
-	# Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore" -Confirm:$False;
-
-	
-	If ($ESXi_Server -Eq $Null) {
-		$ESXi_Server = (Read-Host 'Enter FQDN/IP of vSphere Server');
+	If ($ESXi_IgnoreInvalidSslCertificates -Eq $True) {
+		Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore" -Confirm:$False;
 	}
 
-Connect-VIServer
--Server
--AllLinked
--Credential
--Force
--Menu
--NotDefault
--Password
--Port
--Protocol
--SaveCredentials
--Session
--User
+	If ($ESXi_Server -Eq $Null) {
+		$ESXi_Server = (Read-Host -Prompt ("`nEnter FQDN/IP of vSphere Server"));
+	}
+	If ($ESXi_LoginUser -Eq $Null) {
+		$ESXi_LoginUser = (Read-Host -Prompt ("`nEnter Username"));
+	}
+	If ($ESXi_LoginPass -Eq $Null) {
+		$ESXi_LoginPass = (Read-Host -AsSecureString -Prompt ("`nEnter Password"));
+	}
 
-	$vSphere_ConnectionStream = Connect-VIServer -Server ("${ESXi_Server}") -Port ("443") -Protocol "https";
+	$vSphere_ConnectionStream = (
+		Connect-VIServer `
+			-Password (${ESXi_LoginPass}) `
+			-Port ("${ESXi_ServerPort}") `
+			-Protocol ("${ESXi_ServerProtocol}") `
+			-User ("${ESXi_LoginUser}") `
+			-Server ("${ESXi_Server}") `
+			-SaveCredentials `
+	);
 
 	If ($vSphere_ConnectionStream -NE $Null) {
 

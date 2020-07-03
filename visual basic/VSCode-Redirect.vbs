@@ -24,7 +24,7 @@
 '   |-->  Manually via "Notepad Replacer" source (BinaryFortress) URL @ https://www.binaryfortress.com/Data/Download/?package=notepadreplacer
 '
 '
-' [Step 2/3] Install & configure "Notepad Replacer" to redirect "notepad.exe" to [ this-script ]
+' [Step 2/3] Install & configure "Notepad Replacer" to redirect from [ notepad.exe ] towards [ this-script ]
 '   |
 '   |--> Automatically via PowerShell convenience-script (some click-through & license acceptance still req'd):
 '   |      Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${Home}\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };

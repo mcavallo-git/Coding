@@ -77,7 +77,7 @@
 		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true,
-		"{boneal,CodingVault,irsahost}/**/*": true
+		"{CodingVault,work-boneal,work-gvs}/**/*": true
 	},
 	"files.watcherExclude": {
 		"**/.*": true

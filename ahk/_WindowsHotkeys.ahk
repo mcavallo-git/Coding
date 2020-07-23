@@ -313,8 +313,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #F3::
 	Loop {
+		DownloadWaitDuration_EachClip := 90000
 		MouseClick, Left, 861, 947
-		Sleep 90000
+		Sleep %DownloadWaitDuration_EachClip%
 		MouseClick, Left, 1420, 905
 		Sleep 1000
 		MouseClick, Left, 848, 575

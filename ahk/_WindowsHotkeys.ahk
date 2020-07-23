@@ -312,16 +312,62 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
 #F3::
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetKeyDelay, 0, -1
+	SetControlDelay, -1
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+
+	WaitForDownload_MaxSeconds := 90000
+	WinTitle := "Xbox Console Companion"
+
+	; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
+
+	; ControlGetText, OutputVar , Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+
+	; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+
+	
+	; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
+	EmptyVar =
+	Loop 50 {
+		ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
+		If (VarListA <> %EmptyVar%) {
+			MsgBox, "List at A_Index %A_Index% has contents ""%VarListA%"""
+			Sleep 1000
+			Break
+		}
+		If (A_Index > 50000) {
+			Break
+		}
+		Continue
+	}
+
+	Control := "ApplicationFrameTitleBarWindow1"
+	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
+	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
+
+	Control := "Windows.UI.Core.CoreWindow1"
+	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
+	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
+	
+	Control := "ApplicationFrameTitleBarWindow2"
+	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
+	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
+	
+	Control := "ApplicationFrameInputSinkWindow1"
+	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
+	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
+
 	Loop {
-		DownloadWaitDuration_EachClip := 90000
 		MouseClick, Left, 861, 947
-		Sleep %DownloadWaitDuration_EachClip%
+		Sleep %WaitForDownload_MaxSeconds%
 		MouseClick, Left, 1420, 905
 		Sleep 1000
 		MouseClick, Left, 848, 575
 		Sleep 7500
 	}
-
+	Return
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + Ctrl + Z
@@ -494,7 +540,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #RButton::
 	FollowDuration := 10
-	GetCursorCoordinates(FollowDuration)
+	ShowCursorCoordinates(FollowDuration)
 	Return
 
 
@@ -1283,23 +1329,6 @@ GetCommandOutput(CMD_Command) {
 
 
 ;
-;	GetCursorCoordinates
-;   |--> Displays a tooltip with the coordinates right next to the cursor's current location
-;
-GetCursorCoordinates(FollowDuration) {
-	CoordMode, Mouse, Screen
-	PollDuration_ms := 10
-	Loop_Iterations := Floor((1000 * FollowDuration) / PollDuration_ms)
-	Loop %Loop_Iterations% {
-		MouseGetPos, MouseX, MouseY
-		Tooltip, x%MouseX% y%MouseY%
-		Sleep %PollDuration_ms%
-	}
-	ClearTooltip(0)
-}
-
-
-;
 ;	GetPID
 ;   |--> Returns PID if process IS found
 ;   |--> Returns 0 if process is NOT found
@@ -1981,6 +2010,23 @@ SendSpace() {
 
 
 ;
+;	ShowCursorCoordinates
+;   |--> Displays a tooltip with the coordinates right next to the cursor's current location
+;
+ShowCursorCoordinates(FollowDuration) {
+	CoordMode, Mouse, Screen
+	PollDuration_ms := 10
+	Loop_Iterations := Floor((1000 * FollowDuration) / PollDuration_ms)
+	Loop %Loop_Iterations% {
+		MouseGetPos, MouseX, MouseY
+		Tooltip, x%MouseX% y%MouseY%
+		Sleep %PollDuration_ms%
+	}
+	ClearTooltip(0)
+}
+
+
+;
 ;	ShowVolumeLevel
 ;   |--> Show a tooltip with the volume as an integer, as well as filled-bars around it to intuitively show the volume, as well as a mute icon around the integer if muted
 ;
@@ -2644,15 +2690,16 @@ If (False) {
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
-;   |--> Clipboard:  https://www.autohotkey.com/docs/misc/Clipboard.htm
-;   |--> GetKeyState:  https://www.autohotkey.com/docs/commands/GetKeyState.htm
-;   |--> Hotkey:  https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
-;   |--> KeyWait:  https://www.autohotkey.com/docs/commands/KeyWait.htm
-;   |--> Menu:  https://www.autohotkey.com/docs/commands/Menu.htm
-;   |--> Run/RunWait:  https://www.autohotkey.com/docs/commands/Run.htm
-;   |--> SetTimer:  https://www.autohotkey.com/docs/commands/SetTimer.htm
-;   |--> SysGet:  https://www.autohotkey.com/docs/commands/SysGet.htm
-;   |--> SplitPath:  https://www.autohotkey.com/docs/commands/SplitPath.htm
+;   |--> Clipboard:       https://www.autohotkey.com/docs/misc/Clipboard.htm
+;   |--> ControlGetText:  https://www.autohotkey.com/docs/commands/ControlGetText.htm
+;   |--> GetKeyState:     https://www.autohotkey.com/docs/commands/GetKeyState.htm
+;   |--> Hotkey:          https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
+;   |--> KeyWait:         https://www.autohotkey.com/docs/commands/KeyWait.htm
+;   |--> Menu:            https://www.autohotkey.com/docs/commands/Menu.htm
+;   |--> Run/RunWait:     https://www.autohotkey.com/docs/commands/Run.htm
+;   |--> SetTimer:        https://www.autohotkey.com/docs/commands/SetTimer.htm
+;   |--> SysGet:          https://www.autohotkey.com/docs/commands/SysGet.htm
+;   |--> SplitPath:       https://www.autohotkey.com/docs/commands/SplitPath.htm
 ;
 ; ------------------------------------------------------------
 ;
@@ -2713,6 +2760,8 @@ If (False) {
 ;   www.autohotkey.com  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 ;   www.autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
+;
+;   www.autohotkey.com  |  "ControlGet List - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/7649-controlget-list/
 ;
 ;   www.autohotkey.com  |  "determine if scaling is not 100% for monitor of a window, change PerMonitorSettings in registry, reflect change, verify - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=160615#p160615
 ; 

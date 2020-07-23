@@ -26,7 +26,7 @@
 
 ; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
 
-SetBatchLines, -1  ; https://www.autohotkey.com/docs/commands/SetBatchLines.htm
+; SetBatchLines, -1  ; https://www.autohotkey.com/docs/commands/SetBatchLines.htm
 
 SetWorkingDir, %A_ScriptDir%  ; https://www.autohotkey.com/docs/commands/SetWorkingDir.htm
 
@@ -51,9 +51,9 @@ USER_DESKTOP := USERPROFILE "\Desktop"
  
 USER_DOCUMENTS := USERPROFILE "\Documents"
 
-CR=`r
+CR := "`r"
 
-LF=`n
+LF := "`n"
 
 VerboseOutput := 1
 
@@ -84,9 +84,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Reload  ; Reload this script
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
 	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
-	IfMsgBox, Yes, Edit
+	; IfMsgBox, Yes, Edit
+	If (A_MsgBoxResult = "Yes") {
+		Edit
+	}
 	Return
-
 
 ; ------------------------------------------------------------
 ;   HOTKEY:  ???
@@ -194,7 +196,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	WinProcessName := WinGetProcessName(A)
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	if (WinProcessName == "chrome.exe") {
-			{
+		If (WinActive("LastPass")) {  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
+			If (WinActive("Duo Security")) {
 				FormatTime,DatTimestamp,,yyyy-MM-dd_HH-mm-ss
 				EchoStr := A_ComputerName " " DatTimestamp " " WinProcessName
 				Send {Blind}{Text}%EchoStr%
@@ -218,7 +221,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	; RET_VAL = %USERNAME%
-	RET_VAL = %USERDOMAIN%-%A_UserName%
+	RET_VAL := USERDOMAIN "-" A_UserName
   Send %RET_VAL%
 	Return
 
@@ -228,7 +231,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Types the contents of target file
 ;
 #G::
-	FilePathToRead=%USERPROFILE%\.ahk\#g
+	FilePathToRead := "%USERPROFILE%\.ahk\#g"
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return
@@ -239,7 +242,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Types the contents of target file
 ;
 #W::
-	FilePathToRead=%USERPROFILE%\.ahk\#w
+	FilePathToRead := "%USERPROFILE%\.ahk\#w"
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return
@@ -323,37 +326,46 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 	; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
 
-	
 	; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
-	EmptyVar =
-	Loop 50 {
-		ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
-		If (VarListA <> %EmptyVar%) {
-			MsgBox, "List at A_Index %A_Index% has contents ""%VarListA%"""
-			Sleep 1000
-			Break
-		}
-		If (A_Index > 50000) {
-			Break
-		}
-		Continue
-	}
 
-	Control := "ApplicationFrameTitleBarWindow1"
-	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
-	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
+	; EmptyVar =
+	; Loop 50 {
+	; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
+	; 	Tooltip, "List at A_Index %A_Index% has contents ""%VarListA%"""
+	; 	If (VarListA <> %EmptyVar%) {
+	; 		; MsgBox, "List at A_Index %A_Index% has contents ""%VarListA%"""
+	; 		Sleep 10000
+	; 		Break
+	; 	} Else {
+	; 		Sleep 100
+	; 	}
+	; 	If (A_Index > 50000) {
+	; 		Break
+	; 	}
+	; 	Continue
+	; }
 
-	Control := "Windows.UI.Core.CoreWindow1"
-	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
-	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
-	
-	Control := "ApplicationFrameTitleBarWindow2"
-	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
-	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
-	
-	Control := "ApplicationFrameInputSinkWindow1"
-	ControlGetText, ControlGetText_OutputVar, %Control%, Xbox Console Companion
-	MsgBox, "ControlGetText ""%Control%"" = ""%ControlGetText_OutputVar%""
+	; ClassNN := ControlGetClassNN(Control , WinTitle, WinText, ExcludeTitle, ExcludeText)
+
+	; ClassNN := ControlGetClassNN(ControlGetFocus("A"))
+	; MsgBox, "ClassNN = [%ClassNN%]"
+	; Sleep 5000
+
+	; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow1", "Xbox Console Companion")
+	; MsgBox, %OutputVar%
+	; Sleep 5000
+
+	; OutputVar := ControlGetText("Windows.UI.Core.CoreWindow1", "Xbox Console Companion")
+	; MsgBox, %OutputVar%
+	; Sleep 5000
+
+	; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow2", "Xbox Console Companion")
+	; MsgBox, %OutputVar%
+	; Sleep 5000
+
+	; OutputVar := ControlGetText("ApplicationFrameInputSinkWindow1", "Xbox Console Companion")
+	; MsgBox, %OutputVar%
+	; Sleep 5000
 
 	Loop {
 		MouseClick, Left, 861, 947
@@ -395,7 +407,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SetControlDelay, -1
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 	; Save current monitor config (to compare against once it's been updated)
-	SysGet, MonitorCountBefore, MonitorCount
+	SysGet, MonitorCountBefore, 80
 	SysGet, ViewportWidthBefore, 78
 	SysGet, ViewportHeightBefore, 79
 	; Save current mouse coordinates
@@ -443,7 +455,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 				; Wait until the new monitor layout is loaded
 				Loop 30 {
 					Sleep 100
-					SysGet, MonitorCountAfter, MonitorCount
+					SysGet, MonitorCountAfter, 80
 					If (MonitorCountAfter != MonitorCountBefore) {
 						Break
 					}
@@ -468,11 +480,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	}
 	MouseMove, %MouseX%, %MouseY%
 	If (DebugOutput == 1) {
-		SysGet, MonitorCountAfter, MonitorCount
+		SysGet, MonitorCountAfter, 80
 		SysGet, ViewportWidthAfter, 78
 		SysGet, ViewportHeightAfter, 79
 		; Check-for Windows' percentage (%) based display scaling
-		Get_CurrentVerticalResolution := "PowerShell.exe -Command ""([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).trim();"""
+		Get_CurrentVerticalResolution := "PowerShell.exe -Command '([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).Trim();'"
 		CurrentVerticalResolution := GetCommandOutput(Get_CurrentVerticalResolution)
 		CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
 		; Read the registry to check for display scaling
@@ -734,7 +746,7 @@ AppsKey::RWin
 !WheelDown::
 	MouseClick,WheelDown,,,15,0,D,R
 	Return
-;
+
 ; ------------------------------------------------------------
 ;  HOTKEY:  "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
 ;  ACTION:  Change Tabs Left or Right
@@ -745,29 +757,6 @@ WheelLeft::
 WheelRight::
 	Send ^{PgDn}
 	Return
-
-
-; ------------------------------------------------------------
-;  HOTKEY:  Shift + Insert
-;  ACTION:  If running Ubuntu via WSL (Windows Subsystem for Linux), Paste the clipboard
-;
-
-; RShift & Insert::
-; LShift & Insert::
-; 	SetKeyDelay, 0, -1
-
-; 	; ------------------------------------------------------------
-; 	; Determine if currently-active window is WSL
-; 	IsUbuntuWSL := 0
-; 	If (StrLen(A_OSVersion) >= 2) {
-; 		StringLeft, OS_FirstTwoChars, A_OSVersion, 2
-; 		If ( OS_FirstTwoChars = "10" ) {
-; 			WinGet, ActiveProcessName, ProcessName, A
-; 			If ( ActiveProcessName = "ubuntu.exe" ) {
-; 				IsUbuntuWSL := 1
-; 			}
-; 		}
-; 	}
 
 ; 	; ------------------------------------------------------------
 
@@ -804,7 +793,7 @@ WheelRight::
 ; 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 ; 	WinGetTitle, WinTitle, A
 ; 	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
-; 	WinGet, WinProcessName, ProcessName, A
+; 	WinProcessName := WinGetProcessName(A)
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
 ; 		If (VerboseOutput == 1) {
@@ -892,10 +881,10 @@ WheelRight::
 		; OLD RUNTIME - Open "Effective File Search" (software)
 		; ------------------------------------------------------------
 		; ExeFilepath := "C:`\Program Files (x86)`\efs`\search.exe"
-		efs=\Effective File Search.efsp
+		efs := "\Effective File Search.efsp"
 		; iso=C:\ISO
 		ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
-		ExeFilepath2=%A_MyDocuments%%efs%
+		ExeFilepath2 := A_MyDocuments efs
 		; MsgBox, % ExeFilepath2
 		If (FileExist(ExeFilepath)) {
 			Run, %ExeFilepath%
@@ -906,8 +895,9 @@ WheelRight::
 				; If EFS does NOT exist, offer user the URL to download it
 				exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
 				MsgBox, 4, Download EFS?, Effective File Search not found`n`nDownload EFS Now?
-				IfMsgBox Yes
+				If (A_MsgBoxResult = "Yes") {
 					Run, chrome.exe %exe_download_url%
+				}
 			}
 		}
 	}
@@ -1002,14 +992,14 @@ LShift & RShift::
 ; 		Increment_Width := 14
 ; 		Increment_Height := 7
 ; 		; Prep Monitor Widths/Heights
-; 		SysGet, MonitorCount, MonitorCount , N
+; 		SysGet, DesktopMonitorCount, 80 , N
 ; 		BoundsLeft = -1
 ; 		BoundsRight = -1
 ; 		BoundsTop = -1
 ; 		BoundsBottom = -1
 ; 		BoundsCenterHoriz = 0
 ; 		BoundsCenterVert = 0
-; 		Loop, %MonitorCount% {
+; 		Loop, %DesktopMonitorCount% {
 ; 			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
 ; 			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
 ; 			If (BoundsLeft < MonitorWorkAreaLeft)
@@ -1162,7 +1152,7 @@ Numlock::
 ;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
-	WinGet, WinState, MinMax, A
+	WinState := WinGetMinMax(A)
 	If (WinState<=0) { ; Window is not maximized - maximize it
 		WinMaximize A
 	}
@@ -1175,9 +1165,8 @@ ActiveWindow_Maximize() {
 ;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
 ;
 ActiveWindow_ToggleRestoreMaximize() {
-	WinGet, WinState, MinMax, A
-	WinGet, WinStyle, Style, A
-	; WinGet, OutputVar, MinMax 
+	WinState := WinGetMinMax(A)
+	WinStyle := WinGetStyle(A)
 	If (WinState>0) { ; Window is maximized - restore it
 		WinRestore A
 	} Else If (WinState=0) { ; Window is neither maximized nor minimized - maximize it
@@ -1255,7 +1244,7 @@ CreateCitationsFooter() {
 	SetKeyDelay, 0, -1
 	LF := "`n"
 	Dashes := "------------------------------------------------------------"
-	CitationsFooter := LF Dashes LF LF "Citation(s)" LF LF "domain  |  ""title""  |  url" LF LF Dashes
+	CitationsFooter := LF Dashes LF LF "Citation(s)" LF LF "domain  |  `"title`"  |  url" LF LF Dashes
 	Send %LF%
 	Send {Space}{Shift Down}{Home}{Shift Up}{Delete}
 	Send %CitationsFooter%
@@ -1308,9 +1297,8 @@ CommentCurrentLine_NoSpace() {
 ;
 Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
+	ControlGet, OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
+	Return ahk_id %OutputVar%
 }
 
 
@@ -1342,9 +1330,10 @@ GetPID(ProcName) {
 ;
 Get_ahk_id_from_pid(WinPid) {
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, output_var, Hwnd,,, ahk_pid %WinPid%
-	dat_ahk_id=ahk_id %output_var%
-	Return dat_ahk_id
+	ControlGet, OutputVar, Hwnd,,, ahk_pid %WinPid%
+	Return ahk_id %OutputVar%
+	; dat_ahk_id=ahk_id %output_var%
+	; Return dat_ahk_id
 }
 
 
@@ -1407,12 +1396,12 @@ GetWindowSpecs() {
 	WinGetActiveStats, Title, Width, Height, Left, Top
 	WinGetTitle, WinTitle, A
 	WinGetText, WinText, A
-	WinGet, WinID, ID, A
-	WinGet, WinPID, PID, A
+	WinID := WinGetPID(A)
+	WinPID := WinGetPID(A)
 	WinGetClass, WinClass, A
-	WinGet, WinProcessName, ProcessName, A
-	WinGet, WinProcessPath, ProcessPath, A
-	WinGet, ControlNames, ControlList, A	; Get all control names in this window
+	WinProcessName := WinGetProcessName(A)
+	WinProcessPath := WinGetProcessPath(A)
+	ControlNames := WinGetControls(A)  ; Get all control names in this window
 	; Create the ListView with two columns
 	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
 	Gui, Font, s10, Tahoma
@@ -1473,8 +1462,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
 
 			Copy this to the clipboard?
 		)
-		IfMsgBox Yes
-		{
+		If (A_MsgBoxResult = "Yes") {
 			Clipboard := ValSelected
 		}
 		; Gui, WindowSpecs:Default
@@ -1733,44 +1721,6 @@ OpenVisualStudioCode() {
 OpenVSCode() {
 	OpenVisualStudioCode()
 	Return
-	; Set Path to VSCode Executable
-	; VSCode_Dir=C:\Program Files\Microsoft VS Code
-	; VSCode_Exe=%VSCode_Dir%\Code.exe
-	; ; Set Path to VSCode Workspace
-	; Repos_Dirname=GitHub
-	; GitHub_Dir=%A_MyDocuments%\%Repos_Dirname%
-	; ; Runtime Vars
-	; WinTitle=%Repos_Dirname% - Visual Studio Code
-	; SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	; if !WinExist(WinTitle) {
-	; 	; MsgBox,0,AHK-Log,VSCode-Window NOT found
-	; 	Run, %VSCode_Exe% %GitHub_Dir%,,Hide,WinPID
-	; 	WinWait,%WinTitle%,,15
-	; }
-	; ; SysGet, MonitorCount, MonitorCount, N
-	; ; WinPID := WinExist(WinTitle)
-	; if (WinExist(WinTitle)) {
-	; 	if (A_OSVersion = "WIN_7") {
-	; 		WinMove,%WinTitle%,,-8,-8,1936,1056
-	; 	} Else {
-	; 		WinMove,%WinTitle%,,0,0,1920,1040
-	; 	}
-	; 	WinActivate,%WinTitle%
-	; 	WinMaximize,%WinTitle%
-	; }
-	; WinGet, WinPID, PID, %WinTitle%
-	; WinGet, ProcessName, ProcessName, %WinTitle%
-	; WinGet, ProcessPath, ProcessPath, %WinTitle%
-	; MsgBox, 0, Active Window Specs,
-	; 	(LTrim
-	; 		➣ A_Temp:   %A_Temp%
-	; 		➣ A_OSVersion:   %A_OSVersion%
-	; 		➣ WinTitle:   %WinTitle%
-	; 		➣ ProcessName:   %ProcessName%
-	; 		➣ ProcessPath:   %ProcessPath%
-	; 		➣ WinPID:   %WinPID%
-	; 	)
-	; Return
 }
 
 
@@ -1813,7 +1763,7 @@ PasteClipboardAsText() {
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
 	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
-	Loop, Parse, ClipboardDuped, `n, `r
+	Loop, Parse, ClipboardDuped, "`n", "`r"
 	{
 		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
 		Send {Blind}{Text}%ClipboardSend%
@@ -1834,12 +1784,12 @@ PasteClipboardAsText() {
 PasteClipboard_TextOrBinary() {
 	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50 
 	MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
-	IfMsgBox Yes
-	{  ; Paste the Text version of the Clipboard
+	If (A_MsgBoxResult = "Yes") {
+		; Paste the Text version of the Clipboard
 		PasteClipboardAsText()
 	}
-	IfMsgBox No
-	{  ; Paste the Binary version of the Clipboard
+	If (A_MsgBoxResult = "No") {
+		; Paste the Binary version of the Clipboard
 		PasteClipboardAsBinary()
 	}
 	Return
@@ -1866,7 +1816,7 @@ PrintEnv() {
 	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
 	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
 	; - -
-	KnownWinEnvVars=
+	KnownWinEnvVars :=
 	(LTrim
 	==========================================================================
 
@@ -2028,18 +1978,18 @@ ShowCursorCoordinates(FollowDuration) {
 ;
 ShowVolumeLevel() {
 	CoordMode, Mouse, Screen
-	Icon_MutedSpeaker=🔇
-	Icon_SpeakerLowVolume=🔈
-	Icon_SpeakerMediumVolume=🔉
-	Icon_SpeakerHighVolume=🔊
-	Icon_VolumeFilled=⬛️
-	Icon_VolumeBlanks=⬜️
+	Icon_MutedSpeaker := 🔇
+	Icon_SpeakerLowVolume := 🔈
+	Icon_SpeakerMediumVolume := 🔉
+	Icon_SpeakerHighVolume := 🔊
+	Icon_VolumeFilled := ⬛️
+	Icon_VolumeBlanks := ⬜️
 	; Get the volume & mute current-settings
 	SoundGet, NewVolumeLevel
 	SoundGet, MasterMute, , MUTE
 	; Final volume level
 	NewVolumeLevel := Round( NewVolumeLevel )
-	NewVolumeLevelPercentage=%NewVolumeLevel%`%
+	NewVolumeLevelPercentage := NewVolumeLevel "`%"
 	; Build the volume-bars (out-of dingbats/utf8+ icons)
 	Total_IconCount_MaxVolume := 20
 	IconCount_TopBot_Filled := Round( ( NewVolumeLevel / 100 ) * Total_IconCount_MaxVolume)
@@ -2081,7 +2031,7 @@ ShowVolumeLevel() {
 		Echo_Middle_Center := Mute_Padding A_Space A_Space NewVolumeLevel A_Space A_Space Mute_Padding
 	}
 	Echo_TopBot_Center := StringRepeat( A_Space , 0 )
-	Echo_Tooltip=
+	Echo_Tooltip := ""
 	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf "`n"
 	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf "`n"
 	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
@@ -2105,7 +2055,7 @@ ShowVolumeLevel() {
 ShowWindowTitles() {
 	Gui, WinTitles:Default
 	Gui, Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
-	WinGet, Window, List
+	Window := WinGetList(A)
 	Loop %Window% {
 		Id:=Window%A_Index%
 		WinGetTitle, TVar , % "ahk_id " Id
@@ -2256,6 +2206,19 @@ XBox_DownloadDelete_GameClips() {
 }
 
 
+;
+; SendDashedLine
+;   |--> Output a line ------------------------------------------------------------ of dashes
+;
+SendDashedLine() {
+	AwaitModifierKeyup()
+	SetKeyDelay, 0, -1
+	; StringToType := StringRepeat("-",60)
+	SendInput, ------------------------------------------------------------
+	Return
+}
+
+
 ; ------------------------------------------------------------
 ;
 ; Laptop Brightness Class
@@ -2375,7 +2338,7 @@ class BrightnessSetter {
 	{
 		static PostMessagePtr := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "user32.dll", "Ptr"), "AStr", A_IsUnicode ? "PostMessageW" : "PostMessageA", "Ptr")
 			  ,WM_SHELLHOOK := DllCall("RegisterWindowMessage", "Str", "SHELLHOOK", "UInt")
-		if A_OSVersion in WIN_VISTA,WIN_7
+		if ((A_OSVersion=="WIN_VISTA")||(A_OSVersion=="WIN_7"))
 			return
 		BrightnessSetter._RealiseOSDWindowIfNeeded()
 		; Thanks to YashMaster @ https://github.com/YashMaster/Tweaky/blob/master/Tweaky/BrightnessHandler.h for realising this could be done:
@@ -2567,7 +2530,7 @@ If (False) {
 		SetDefaultMouseSpeed, 0
 		SetControlDelay, -1
 		; WinGetTitle, WinTitle, A
-		WinTitle=NoxPlayer
+		WinTitle := "NoxPlayer"
 		x_loc := (A_ScreenWidth - 20)
 		y_loc := 315
 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
@@ -2582,12 +2545,12 @@ If (False) {
 	; WinGetActiveStats, WinTitle, Width, Height, X, Y
 	; WinGetText, WinText, A
 	; MsgBox, 4, , WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10  ; 10-second timeout.
-	; IfMsgBox, Yes
+	; If (A_MsgBoxResult = "Yes")
 		; Return
-	; IfMsgBox, No
+	; If (A_MsgBoxResult = "No")
 		; MsgBox, WinText `n%WinText%
 		; Return
-	; IfMsgBox, Timeout
+	; If (A_MsgBoxResult = "Timeout")
 		; Return
 	; Return
 ;
@@ -2650,16 +2613,14 @@ If (False) {
 		; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
 
 		MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
-		IfMsgBox Yes
-		{
+
+		If (A_MsgBoxResult = "Yes") {
 			; TrayTip, AHK, Leftmost Button Selected  ; Toast Notification
 		}
-		IfMsgBox No
-		{
+		If (A_MsgBoxResult = "No") {
 			; TrayTip, AHK, Center Button Selected  ; Toast Notification
 		}
-		IfMsgBox Cancel
-		{
+		If (A_MsgBoxResult = "Cancel") {
 			; TrayTip, AHK, Rightmost Button Selected  ; Toast Notification
 		}
 

@@ -288,9 +288,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
-;
 ;  HOTKEY:  Win + F1
 ;  ACTION:  Edit this Script (the one you're reading right now)
+;
 #F1::
 	Run Notepad %A_ScriptFullPath%
 	Return
@@ -307,11 +307,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 
 ; ------------------------------------------------------------
+; HOTKEY:  Win + F3  (or "#SC03D")
+; ACTION:  Xbox Captures - Download & Delete recordings/captures via XBox's Windows 10 built-in application
+;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
-; #SC03D::   ; Win + F3
 #F3::
-	; Win10 Download & Delete Recordings via XBox Win10 App
-	;  (MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND)
 	Loop {
 		MouseClick, Left, 861, 947
 		Sleep 90000

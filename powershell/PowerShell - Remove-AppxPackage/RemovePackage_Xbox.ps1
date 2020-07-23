@@ -1,11 +1,17 @@
 
 
+
+# Get locally-available Xbox apps (across all users on the local device) - must run in an elevated (run as admin) terminal --> shows apps that you may have uninstalled but want to re-install, and already exist, locally
+Get-AppXPackage -AllUsers -Name "Microsoft.Xbox*" | Sort-Object -Property Name | Format-Table -AutoSize;
+
+
+
 # Uninstall the built-in Xbox app(s) which come pre-packaged with stock installs of Win10 / WinServer2016 / WinServer2019
-PowerShell -Command ("Get-AppxPackage *Xbox* | Remove-AppxPackage;");
+Get-AppxPackage -Name "Microsoft.Xbox*" | Remove-AppxPackage;
 
 
 # Re-install the built-in Xbox app(s) which come pre-packaged with stock installs of Win10 / WinServer2016 / WinServer2019
-Get-AppXPackage -allusers | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
+Get-AppXPackage -AllUsers -Name "Microsoft.Xbox*" | Foreach { Write-Host "Attempting to install package `"$($_.Name)`"..." -ForegroundColor "Cyan"; Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"; };
 
 
 # ------------------------------------------------------------

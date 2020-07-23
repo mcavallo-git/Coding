@@ -298,7 +298,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + F2
-;  ACTION:  Win10 Download & Delete Recordings via XBox Win10 App  !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
+;  ACTION:  Opens a window (GetKeyCodes.ahk) which displays verbose keypress info, live (allowing user to press combo keys and view how it is interpreted by AHK)
 ;
 #F2::
 	GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"

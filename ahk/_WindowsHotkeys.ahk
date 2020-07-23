@@ -492,16 +492,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Output cursor location
 ;
 #RButton::
-	CoordMode, Mouse, Screen
-	MouseGetPos, MouseX, MouseY
-	Tooltip, x%MouseX% y%MouseY%
-	ClearTooltip(10000)
-	; MsgBox,
-	; (LTrim
-	; Pointer Location
-	; ➣X_loc:   %MouseX%
-	; ➣Y_loc:   %MouseY%
-	; )
+	FollowDuration := 10
+	GetCursorCoordinates(FollowDuration)
 	Return
 
 
@@ -1286,6 +1278,23 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 GetCommandOutput(CMD_Command) {
 	WScript_Shell_StdOut := RunWaitMany(CMD_Command)
 	Return WScript_Shell_StdOut
+}
+
+
+;
+;	GetCursorCoordinates
+;   |--> Displays a tooltip with the coordinates right next to the cursor's current location
+;
+GetCursorCoordinates(FollowDuration) {
+	CoordMode, Mouse, Screen
+	PollDuration_ms := 10
+	Loop_Iterations := Floor((1000 * FollowDuration) / PollDuration_ms)
+	Loop %Loop_Iterations% {
+		MouseGetPos, MouseX, MouseY
+		Tooltip, x%MouseX% y%MouseY%
+		Sleep %PollDuration_ms%
+	}
+	ClearTooltip(0)
 }
 
 

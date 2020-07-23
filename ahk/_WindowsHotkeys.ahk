@@ -317,8 +317,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 
-	WaitForDownload_MaxSeconds := 90000
-	WinTitle := "Xbox Console Companion"
+	WaitForDownload_MaxSeconds := 30000
+	; WaitForDownload_MaxSeconds := 90000
+	; WinTitle := "Xbox Console Companion"
 
 	; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
 
@@ -367,7 +368,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	; MsgBox, %OutputVar%
 	; Sleep 5000
 
-	Loop {
+	Loop 2000 {
 		MouseClick, Left, 861, 947
 		Sleep %WaitForDownload_MaxSeconds%
 		MouseClick, Left, 1420, 905

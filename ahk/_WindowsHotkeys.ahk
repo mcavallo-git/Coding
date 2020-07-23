@@ -331,9 +331,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	; EmptyVar =
 	; Loop 50 {
 	; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
-	; 	Tooltip, "List at A_Index %A_Index% has contents ""%VarListA%"""
+	; 	Tooltip, "List at A_Index %A_Index% has contents `"%VarListA%`""
 	; 	If (VarListA <> %EmptyVar%) {
-	; 		; MsgBox, "List at A_Index %A_Index% has contents ""%VarListA%"""
+	; 		; MsgBox, "List at A_Index %A_Index% has contents `"%VarListA%`""
 	; 		Sleep 10000
 	; 		Break
 	; 	} Else {
@@ -1318,7 +1318,8 @@ GetCommandOutput(CMD_Command) {
 ;   |--> Returns 0 if process is NOT found
 ;
 GetPID(ProcName) {
-	Process, Exist, %ProcName%
+	ProcessExist,, %ProcName%
+	; ProcessExist, OutputVar, %ProcName%
 	Return %ErrorLevel%
 }
 
@@ -1345,7 +1346,7 @@ GetTimezoneOffset() {
 	RET_VAL := ""
 	T1 := A_Now
 	T2 := A_NowUTC
-	EnvSub, T1, %T2%, M
+	T1 -= %T2% , M
 	MINUTES_DIFF := T1
 	; SetFormat, float, 2.0
 	TZ_SIGN := ""
@@ -1360,13 +1361,13 @@ GetTimezoneOffset() {
 	}
 	; Hours - Left-Pad with Zeroes
 	If (Abs(TZ_QUOTIENT) < 10) {
-		TZ_QUOTIENT = 0%TZ_QUOTIENT%
+		TZ_QUOTIENT := "0`%" TZ_QUOTIENT
 	}
 	; Minutes - Left-Pad with Zeroes
 	If (Abs(TZ_REMAINDER) < 10) {
-		TZ_REMAINDER = 0%TZ_REMAINDER%
+		TZ_REMAINDER := "0`%" TZ_REMAINDER
 	}
-	RET_VAL = %TZ_SIGN%%TZ_QUOTIENT%%TZ_REMAINDER%
+	RET_VAL := TZ_SIGN TZ_QUOTIENT TZ_REMAINDER
 	RET_VAL := StrReplace(RET_VAL, ".", "")
 
 	; TZ_REMAINDER := "GMT +" Floor(T1/60)
@@ -1393,7 +1394,7 @@ GetTimezoneOffset_P() {
 GetWindowSpecs() {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
-	WinGetActiveStats, Title, Width, Height, Left, Top
+	WinGetPos, Left, Top, Width, Height, A
 	WinGetTitle, WinTitle, A
 	WinGetText, WinText, A
 	WinID := WinGetPID(A)
@@ -1413,16 +1414,16 @@ GetWindowSpecs() {
 	
 	GUI_ROWCOUNT := 12
 	GUI_WIDTH := 1000
-	GUI_BACKGROUND_COLOR = 1E1E1E
-	GUI_TEXT_COLOR = FFFFFF
+	GUI_BACKGROUND_COLOR := "1E1E1E"
+	GUI_TEXT_COLOR := "FFFFFF"
 	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
-	GUI_OPT = r%GUI_ROWCOUNT%
-	GUI_OPT = %GUI_OPT% w%GUI_WIDTH%
-	GUI_OPT = %GUI_OPT% gGetWindowSpecs_OnClick_LV_WindowSpecs
-	GUI_OPT = %GUI_OPT% Background%GUI_BACKGROUND_COLOR%
-	GUI_OPT = %GUI_OPT% C%GUI_TEXT_COLOR%
-	GUI_OPT = %GUI_OPT% Grid
-	GUI_OPT = %GUI_OPT% NoSortHdr
+	GUI_OPT := "r" GUI_ROWCOUNT
+	GUI_OPT := GUI_OPT " w" GUI_WIDTH
+	GUI_OPT := GUI_OPT " gGetWindowSpecs_OnClick_LV_WindowSpecs"
+	GUI_OPT := GUI_OPT "Background" GUI_BACKGROUND_COLOR
+	GUI_OPT := GUI_OPT "C" GUI_TEXT_COLOR
+	GUI_OPT := GUI_OPT "Grid"
+	GUI_OPT := GUI_OPT "NoSortHdr"
 	; GUI_OPT = %GUI_OPT% AltSubmit
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 	LV_Add("", "WinTitle", WinTitle)
@@ -1471,7 +1472,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
 	; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
 	LV_Verbosity := 0
 	If ( LV_Verbosity = 1 ) {
-		TooltipOutput = A_GuiEvent=[%A_GuiEvent%], A_EventInfo=[%A_EventInfo%]
+		TooltipOutput := "A_GuiEvent=[" A_GuiEvent "], A_EventInfo=[" A_EventInfo "]"
 		ToolTip, %TooltipOutput%
 		SetTimer, RemoveToolTip, -2500
 	}
@@ -1613,7 +1614,7 @@ Open_Exe(ExeFullpath) {
 	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running
 		If (VerboseOutput == 1) {
-			TextToolTip := "Activating """ ExeBasename """"
+			TextToolTip := "Activating `"" ExeBasename "`""
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
 		}
@@ -1622,19 +1623,19 @@ Open_Exe(ExeFullpath) {
 	} Else If (FileExist(ExeFullpath)) {
 		; Executable NOT running but IS found locally
 		If (VerboseOutput == 1) {
-			TextToolTip := "Opening """ ExeBasename """"
+			TextToolTip := "Opening `"" ExeBasename "`""
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
 		}
 		; Run, %ExeFullpath%
-		Run %ExeFullpath%,,, ExePID
-		Process, Wait, %ExeBasename%, %Timeout%
+		ExitCode := RunWait(%ExeFullpath%,,, ExePID)
+		; WinWait "ahk_pid " ExePID
 		; ExePID := GetPID(ExeBasename)
 		WinActivate, ahk_pid %ExePID%
 	} Else {
 		; Executable NOT running & NOT found locally
 		If (VerboseOutput == 1) {
-			TextToolTip := "File not found: """ ExeFullpath """"
+			TextToolTip := "File not found: `"" ExeFullpath "`""
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
 		}
@@ -1670,13 +1671,13 @@ OpenPasswordGenerator() {
 		WinActivate, %WinTitle_Login%
 	} Else If (WinExist(WinTitle)) {
 		If (VerboseOutput == 1) {
-			Text_TrayTip := "Activating existing instance of """ WinTitle """"
+			Text_TrayTip := "Activating existing instance of `"" WinTitle "`""
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
 		If (VerboseOutput == 1) {
-			Text_TrayTip := "Opening new-instance of """ WinTitle """"
+			Text_TrayTip := "Opening new-instance of `"" WinTitle "`""
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		Run, %ProcessPath%
@@ -1686,11 +1687,11 @@ OpenPasswordGenerator() {
 		} Else If (WinExist(WinTitle_Login)) {
 			WinActivate, %WinTitle_Login%
 		} Else {
-			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds "s reached while waiting for """ WinTitle """"
+			Text_TrayTip := "Error - Max wait-timeout of " MaxWaitSeconds "s reached while waiting for `"" WinTitle "`""
 			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 	} Else {
-		Text_TrayTip := "Error - ProcessPath not found:  """ ProcessPath """"
+		Text_TrayTip := "Error - ProcessPath not found:  `"" ProcessPath "`""
 		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 	}
 	Return
@@ -1703,7 +1704,7 @@ OpenPasswordGenerator() {
 ;
 OpenVisualStudioCode() {
 	ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
-	ExeArg1 := "--user-data-dir=""" A_AppData "\Code"""
+	ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
 	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
 	ExeArguments := ExeArg1 " " ExeArg2
 	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
@@ -1739,8 +1740,8 @@ PasteClipboardAsBinary() {
 	Sleep, 100
 	Send {Blind}{Text}%Clipboard%
 	Sleep, 100
-	ClipboardDuped = ; Avoid caching clipboard-contents in memory
-	ClipboardSend = ; Avoid caching clipboard-contents in memory
+	ClipboardDuped := ""  ; Avoid caching clipboard-contents in memory
+	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 	Return
 }
 
@@ -1767,12 +1768,12 @@ PasteClipboardAsText() {
 	{
 		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
 		Send {Blind}{Text}%ClipboardSend%
-		ClipboardSend = ; Avoid caching clipboard-contents in memory
+		ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 		Sleep 100
 	}
 	Sleep, 100
-	ClipboardDuped = ; Avoid caching clipboard-contents in memory
-	ClipboardSend = ; Avoid caching clipboard-contents in memory
+	ClipboardDuped := ""  ; Avoid caching clipboard-contents in memory
+	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 	Return
 }
 
@@ -1794,9 +1795,10 @@ PasteClipboard_TextOrBinary() {
 	}
 	Return
 }
-CustomMsgboxButtons_ClipboardTextOrBinary: 
-	IfWinNotExist, Text or Binary
-			Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+CustomMsgboxButtons_ClipboardTextOrBinary:
+	If (WinExist("Text or Binary")=0) {
+		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+	}
 	SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off 
 	WinActivate 
 	ControlSetText, Button1, &Text
@@ -1815,66 +1817,65 @@ PrintEnv() {
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
 	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
-	; - -
-	KnownWinEnvVars :=
-	(LTrim
-	==========================================================================
-
-	*** Environment Vars - Current Session ***
-
-	TIMESTAMP = %TIMESTAMP%
-
-	--------------------------------------------------------------------------
-
-	*** Windows Environment Vars (Long-standing) ***
-
-	COMPUTERNAME         %COMPUTERNAME%
-	USERNAME             %USERNAME%
-	USERDOMAIN           %USERDOMAIN%
-	LOGONSERVER          %LOGONSERVER%
-	
-	ALLUSERSPROFILE      %ALLUSERSPROFILE%
-	APPDATA              %APPDATA%
-	COMMONPROGRAMFILES   %COMMONPROGRAMFILES%
-	HOMEDRIVE            %HOMEDRIVE%
-	HOMEPATH             %HOMEPATH%
-	LOCALAPPDATA         %LOCALAPPDATA%
-	PROGRAMDATA          %PROGRAMDATA%
-	PROGRAMFILES         %PROGRAMFILES%
-	PUBLIC               %PUBLIC%
-	SYSTEMDRIVE          %SYSTEMDRIVE%
-	SYSTEMROOT           %SYSTEMROOT%
-	TEMP                 %TEMP%
-	TMP                  %TMP%
-	USERPROFILE          %USERPROFILE%
-	WINDIR               %WINDIR%
-
-	--------------------------------------------------------------------------
-
-	*** Autohotkey Vars ***
-
-	A_AhkVersion: %A_AhkVersion%
-	A_AhkPath: %A_AhkPath%
-	A_IsUnicode: %A_IsUnicode%
-	A_IsCompiled: %A_IsCompiled%
-	
-	A_WorkingDir: %A_WorkingDir%
-	A_ScriptDir: %A_ScriptDir%
-
-	A_ScriptName: %A_ScriptName%
-	A_ScriptFullPath: %A_ScriptFullPath%
-
-	A_LineFile: %A_LineFile%
-	A_LineNumber: %A_LineNumber%
-
-	A_ThisLabel: %A_ThisLabel%
-	A_ThisFunc: %A_ThisFunc%
-
-	==========================================================================
-	)
-	; - -
-	FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
-	Run, Notepad "%Logfile_EnvVars_Timestamp%"
+	; KnownWinEnvVars :=
+	; (LTrim
+	; ==========================================================================
+	;
+	; *** Environment Vars - Current Session ***
+	;
+	; TIMESTAMP = %TIMESTAMP%
+	;
+	; --------------------------------------------------------------------------
+	;
+	; *** Windows Environment Vars (Long-standing) ***
+	;
+	; COMPUTERNAME         %COMPUTERNAME%
+	; USERNAME             %USERNAME%
+	; USERDOMAIN           %USERDOMAIN%
+	; LOGONSERVER          %LOGONSERVER%
+	;
+	; ALLUSERSPROFILE      %ALLUSERSPROFILE%
+	; APPDATA              %APPDATA%
+	; COMMONPROGRAMFILES   %COMMONPROGRAMFILES%
+	; HOMEDRIVE            %HOMEDRIVE%
+	; HOMEPATH             %HOMEPATH%
+	; LOCALAPPDATA         %LOCALAPPDATA%
+	; PROGRAMDATA          %PROGRAMDATA%
+	; PROGRAMFILES         %PROGRAMFILES%
+	; PUBLIC               %PUBLIC%
+	; SYSTEMDRIVE          %SYSTEMDRIVE%
+	; SYSTEMROOT           %SYSTEMROOT%
+	; TEMP                 %TEMP%
+	; TMP                  %TMP%
+	; USERPROFILE          %USERPROFILE%
+	; WINDIR               %WINDIR%
+	;
+	; --------------------------------------------------------------------------
+	;
+	; *** Autohotkey Vars ***
+	;
+	; A_AhkVersion: %A_AhkVersion%
+	; A_AhkPath: %A_AhkPath%
+	; A_IsUnicode: %A_IsUnicode%
+	; A_IsCompiled: %A_IsCompiled%
+	;
+	; A_WorkingDir: %A_WorkingDir%
+	; A_ScriptDir: %A_ScriptDir%
+	;
+	; A_ScriptName: %A_ScriptName%
+	; A_ScriptFullPath: %A_ScriptFullPath%
+	;
+	; A_LineFile: %A_LineFile%
+	; A_LineNumber: %A_LineNumber%
+	;
+	; A_ThisLabel: %A_ThisLabel%
+	; A_ThisFunc: %A_ThisFunc%
+	;
+	; ==========================================================================
+	; )
+	; ; - -
+	; FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
+	; Run, Notepad "%Logfile_EnvVars_Timestamp%"
 	Return
 }
 
@@ -1894,7 +1895,7 @@ ProcessExist(ProcName) {
 ;   |--> Removes any SplashText found
 ;
 RemoveSplashText() {
-	SplashTextOff
+	; SplashTextOff
 	Return
 }
 
@@ -1917,7 +1918,7 @@ RemoveToolTip() {
 ;
 RunWaitOne(CMD_Command) {
 	WScript_Shell := ComObjCreate("WScript.Shell")
-	Run_Command := ComSpec " /C """ CMD_Command """ "
+	Run_Command := ComSpec " /C `"" CMD_Command "`" "
 	WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
 	Return WScript_Shell_Exec
 }
@@ -2004,8 +2005,8 @@ ShowVolumeLevel() {
 	VolumeBars_Middle := DisplayedIcons_Middle_Filled DisplayedIcons_Middle_Blanks
 	TrimCount_TopBot := Round( StrLen( VolumeBars_TopBot ) / 2 )
 	TrimCount_Middle := Round( StrLen( VolumeBars_Middle ) / 2 )
-	StringTrimRight, Echo_TopBot_LeftHalf, VolumeBars_TopBot, TrimCount_TopBot
-	StringTrimLeft, Echo_TopBot_RightHalf, VolumeBars_TopBot, TrimCount_TopBot
+	Echo_TopBot_LeftHalf := RTrim(SubStr(VolumeBars_TopBot, 0, (StrLen(VolumeBars_TopBot)-TrimCount_TopBot) ))
+	Echo_TopBot_RightHalf := RTrim(SubStr(VolumeBars_TopBot, TrimCount_TopBot, StrLen(VolumeBars_TopBot)))
 	Echo_TopBot_LeftHalf := Icon_SpeakerMediumVolume A_Space A_Space A_Space Echo_TopBot_LeftHalf
 	Echo_TopBot_RightHalf := Echo_TopBot_RightHalf A_Space A_Space Icon_SpeakerHighVolume
 	Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
@@ -2148,9 +2149,8 @@ TabSpace_Loop(LoopIterations) {
 ;
 TempFile() {
 	TempFile_Dirname := A_Temp "\AutoHotkey\"
-	IfNotExist, %TempFile_Dirname%
-	{
-		FileCreateDir, %TempFile_Dirname%
+	If (!FileExist("%TempFile_Dirname%")) {
+		DirCreate "%TempFile_Dirname%"
 	}
 	TempFile_Basename := A_Now "." A_MSec
 	TempFile_Fullpath := TempFile_Dirname TempFile_Basename
@@ -2629,8 +2629,7 @@ If (False) {
 	}
 
 	CustomMsgboxButtons_UNIQUE_NAME_HERE() {
-		IfWinNotExist, Popup_MsgBox_WindowTitle
-		{
+		If (WinExist(Popup_MsgBox_WindowTitle)) {
 			Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
 		}
 		SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 

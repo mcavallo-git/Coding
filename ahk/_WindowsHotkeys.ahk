@@ -231,7 +231,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Types the contents of target file
 ;
 #G::
-	FilePathToRead := "%USERPROFILE%\.ahk\#g"
+	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	FilePathToRead := OutDirname "\.ahk\#g"
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return
@@ -242,7 +243,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Types the contents of target file
 ;
 #W::
-	FilePathToRead := "%USERPROFILE%\.ahk\#w"
+	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	FilePathToRead := OutDirname "\.ahk\#w"
 	FileRead, FilePathContents, %FilePathToRead%
 	SendInput, %FilePathContents%
 	Return

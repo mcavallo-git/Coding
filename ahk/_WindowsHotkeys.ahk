@@ -635,8 +635,8 @@ AppsKey::RWin
 ;  ACTION:  Opens "USERPROFILE" directory
 ; 
 #E::
-	SplitPath, A_MyDocuments, , UserProfileDirname
-	Run %UserProfileDirname%
+	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	Run "%OutDirname%"
 	Return
 ; 
 ; ------------------------------------------------------------
@@ -1611,7 +1611,7 @@ Nanoseconds() {
 Open_Exe(ExeFullpath) {
 	Global VerboseOutput
 	Timeout := 10
-	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+	SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
 	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running
 		If (VerboseOutput == 1) {
@@ -1708,7 +1708,7 @@ OpenVisualStudioCode() {
 	ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
 	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
 	ExeArguments := ExeArg1 " " ExeArg2
-	SplitPath, ExeFullpath, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+	SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
 	Run, %ExeFullpath% %ExeArguments%
 	ExePID := GetPID(ExeBasename)
 	WinActivate, ahk_pid %ExePID%

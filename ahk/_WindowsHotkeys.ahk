@@ -2110,7 +2110,10 @@ SpaceUp_Loop(LoopIterations) {
 StringRepeat(StrToRepeat, Multiplier) {
 	ReturnedVal := ""
 	If (Multiplier > 0) {
-		Loop, %Multiplier% {
+		Loop {
+			If (A_Index > Multiplier) {
+				Break
+			}
 			ReturnedVal .= StrToRepeat
 		}
 	}

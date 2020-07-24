@@ -6,8 +6,8 @@ WORKING_DIR="${HOME}\Desktop";
 echo "Setting working-directory to \"${WORKING_DIR}\"";
 cd "${WORKING_DIR}";
 
-# DEBUG_MODE=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES
-DEBUG_MODE=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
+DEBUG_MODE=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES
+# DEBUG_MODE=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
 # ------------------------------------------------------------
 

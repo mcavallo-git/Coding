@@ -280,7 +280,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator
 	Global RFC3339_DateAndTimeField_Separator
-	Global RFC3339_UTC_ZeroHourReplacement
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	YMD_Separator := RFC3339_YearMonthDay_Separator
@@ -1412,7 +1411,7 @@ GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
 GetTimezoneOffset(ByRef Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", StripCharacter:=".") {
-	; Global RFC3339_UTC_ZeroHourReplacement
+	Global RFC3339_UTC_ZeroHourReplacement
 	Time_CurrentTZ := A_Now
 	Time_UTC := A_NowUTC
 	TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")

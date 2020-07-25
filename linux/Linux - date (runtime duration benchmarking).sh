@@ -27,6 +27,8 @@ echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 #		      This way, we can format it however we want without concern of inaccuracies existing between multiple date/timestamp values
 #
 #
+if [ 1 -eq 1 ]; then
+
 START_SECONDS_NANOSECONDS=$(date +'%s.%N');
 START_EPOCHSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
 START_NANOSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
@@ -74,5 +76,6 @@ echo "\$TOTAL_MICROSECONDS = [${TOTAL_MICROSECONDS}]";
 
 echo "Duration: ${TOTAL_DURATION}   (Ran [${START_DATETIME}] to [${END_DATETIME}])";
 
+fi;
 
 # ------------------------------------------------------------

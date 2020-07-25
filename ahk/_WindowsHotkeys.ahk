@@ -198,8 +198,8 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	if (WinProcessName == "chrome.exe") {
 		If (WinActive("LastPass")) {  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
 			If (WinActive("Duo Security")) {
-				FormatTime,DatTimestamp,,yyyy-MM-dd_HH-mm-ss
-				EchoStr := A_ComputerName " " DatTimestamp " " WinProcessName
+				FormatTime,NowTimestamp,,yyyy-MM-dd_HH-mm-ss
+				EchoStr := A_ComputerName " " NowTimestamp " " WinProcessName
 				Send {Blind}{Text}%EchoStr%
 			} Else {
 				Send {Blind}{Text}%A_ComputerName% 
@@ -271,18 +271,18 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Needle_AltWin := "!#D"
 	Needle_CtrlWin := "^#D"
 	If InStr(A_ThisHotkey, Needle_Win) {  ; Win
-		FormatTime, DatTimestamp, ,yyyyMMddTHHmmss
+		FormatTime, NowTimestamp, ,yyyyMMddTHHmmss
 	} Else If InStr(A_ThisHotkey, Needle_AltWin) {  ; Alt + Win
-		FormatTime, DatTimestamp, ,yyyy.MM.dd-HH.mm.ss
+		FormatTime, NowTimestamp, ,yyyy.MM.dd-HH.mm.ss
 	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) {  ; Ctrl + Win
-		FormatTime, DatTimestamp, ,yyyy-MM-ddTHH-mm-ss
+		FormatTime, NowTimestamp, ,yyyy-MM-ddTHH-mm-ss
 	} Else {
-		FormatTime, DatTimestamp, ,yyyyMMddTHHmmss
+		FormatTime, NowTimestamp, ,yyyyMMddTHHmmss
 	}
-	Keys := DatTimestamp
+	Keys := NowTimestamp
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
 		TZ_OFFSET := GetTimezoneOffset()
-		Keys := DatTimestamp TZ_OFFSET
+		Keys := NowTimestamp TZ_OFFSET
 	}
   Send %Keys%
 	Return
@@ -1367,8 +1367,10 @@ GetTimezoneOffset() {
 	RET_VAL := ""
 	T1 := A_Now
 	T2 := A_NowUTC
-	T1 -= %T2% , M
-	MINUTES_DIFF := T1
+	; T1 -= %T2% , M
+	MINUTES_DIFF := DateDiff(T1, T2, "Minutes")
+	; MINUTES_DIFF := DateDiff("%T1%", "%T2%", "Minutes")
+	; MINUTES_DIFF := T1
 	; SetFormat, float, 2.0
 	TZ_SIGN := ""
 	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
@@ -1382,17 +1384,17 @@ GetTimezoneOffset() {
 	}
 	; Hours - Left-Pad with Zeroes
 	If (Abs(TZ_QUOTIENT) < 10) {
-		TZ_QUOTIENT := "0`%" TZ_QUOTIENT
+		TZ_QUOTIENT := "0" TZ_QUOTIENT
 	}
 	; Minutes - Left-Pad with Zeroes
 	If (Abs(TZ_REMAINDER) < 10) {
-		TZ_REMAINDER := "0`%" TZ_REMAINDER
+		TZ_REMAINDER := "0" TZ_REMAINDER
 	}
+	; TZ_REMAINDER := "GMT +" Floor(T1/60)  ; ???
 	RET_VAL := TZ_SIGN TZ_QUOTIENT TZ_REMAINDER
 	RET_VAL := StrReplace(RET_VAL, ".", "")
-
-	; TZ_REMAINDER := "GMT +" Floor(T1/60)
-	Return %RET_VAL%
+	TrayTip, AHK, "RET_VAL = [%RET_VAL%]"
+	Return RET_VAL
 }
 
 

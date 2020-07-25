@@ -267,17 +267,17 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	OutputFormat := "yyyyMMddTHHmmss"
-	If InStr(A_ThisHotkey, "#D") {  ; Win
+	If (A_ThisHotkey = "#D") {  ; Win
 		OutputFormat := "yyyyMMddTHHmmss"
-	} Else If InStr(A_ThisHotkey, "!#D") {  ; Alt + Win
+	} Else If (A_ThisHotkey = "!#D") {  ; Alt + Win
 		OutputFormat := "yyyy.MM.dd-HH.mm.ss"
-	} Else If InStr(A_ThisHotkey, "^#D") {  ; Ctrl + Win
+	} Else If (A_ThisHotkey = "^#D") {  ; Ctrl + Win
 		OutputFormat := "yyyy-MM-ddTHH-mm-ss"
 	} Else {
 		OutputFormat := "yyyyMMddTHHmmss"
 	}
 	Keys := GetTimestamp(OutputFormat)
-	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
+	If (InStr(A_ThisHotkey, "+") = 1) { ; Shift - concat the timezone onto the output timestamp
 		Output_TZ := ""
 		GetTimezoneOffset(Output_TZ)
 		; Output_TZ_P := ""
@@ -1358,12 +1358,6 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(OutputFormat) {
-	If (False) {
-		Output_TZ := ""
-		GetTimezoneOffset(Output_TZ)
-		Output_TZ_P := ""
-		GetTimezoneOffset(Output_TZ_P)
-	}
 	OutputTimestamp := FormatTime("",OutputFormat)
 	Return OutputTimestamp
 }

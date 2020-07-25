@@ -49,8 +49,9 @@ sleep 0.5; # Example command - sleep half a second
 
 END_SECONDS_NANOSECONDS=$(date +'%s.%N');
 END_EPOCHSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
-END_MILLISECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-3);
+END_NANOSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
 END_MICROSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-6);
+END_MILLISECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-3);
 END_DATETIME=$(date --date=@${END_SECONDS_NANOSECONDS} +'%Y-%m-%d %H:%M:%S');
 
 TOTAL_DECIMALSECONDS=$(echo "${END_SECONDS_NANOSECONDS} - ${START_SECONDS_NANOSECONDS}" | bc);
@@ -77,8 +78,9 @@ echo "DATE_AS_WEEKDAY = [ ${DATE_AS_WEEKDAY} ]";
 echo "";
 echo "END_SECONDS_NANOSECONDS = [ ${END_SECONDS_NANOSECONDS} ]";
 echo "END_EPOCHSECONDS = [ ${END_EPOCHSECONDS} ]";
-echo "END_MILLISECONDS = [ ${END_MILLISECONDS} ]";
+echo "END_NANOSECONDS = [ ${END_NANOSECONDS} ]";
 echo "END_MICROSECONDS = [ ${END_MICROSECONDS} ]";
+echo "END_MILLISECONDS = [ ${END_MILLISECONDS} ]";
 echo "END_DATETIME = [ ${END_DATETIME} ]";
 echo "";
 echo "TOTAL_DECIMALSECONDS = [ ${TOTAL_DECIMALSECONDS} ]";
@@ -87,7 +89,7 @@ echo "TOTAL_MILLISECONDS = [ ${TOTAL_MILLISECONDS} ]";
 echo "TOTAL_MICROSECONDS = [ ${TOTAL_MICROSECONDS} ]";
 echo "TOTAL_DURATION = [ ${TOTAL_DURATION} ]";
 echo "";
-echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_MICROSECONDS} ] to [ ${END_DATETIME}.${END_MICROSECONDS} ])";
+echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_NANOSECONDS} ] to [ ${END_DATETIME}.${END_NANOSECONDS} ])";
 echo "";
 
 fi;

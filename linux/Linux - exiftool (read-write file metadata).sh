@@ -9,6 +9,10 @@ exiftool -s example.mp4
 exiftool -s -s -s -createdate example.mp4
 
 
+# exiftool - get one, specific metadata tag's value for target file
+#  |--> Example: get the "FileCreateDate" metadata tag's value for a target ".mp4" extensioned-file
+exiftool -s -s -s -FileCreateDate example.mp4
+
 
 # ------------------------------------------------------------
 #

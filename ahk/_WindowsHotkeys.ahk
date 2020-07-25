@@ -10,7 +10,8 @@
 ;
 ; ------------------------------------------------------------
 ;
-; Runtime-Global Settings
+; Runtime Globals (Settings)
+;
 
 #Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
 
@@ -41,7 +42,8 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; ------------------------------------------------------------
 ;
-; Runtime Global Vars
+; Runtime Globals (Variables)
+;
 
 ; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
 
@@ -59,9 +61,21 @@ VerboseOutput := 1
 
 DebugMode := 0
 
+;
+; RFC3339 - Timestamps (Internet date-time standardization-values) (https://tools.ietf.org/html/rfc3339)
+;  |-->  Example RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
+;
+RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
+RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
+RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
+RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
+RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
+
+
 ; ------------------------------------------------------------
 ;
-; Setup a group for targeting [Windows Explorer] windows
+; Setup targeting [ Windows Explorer ]-classed windows
+;
 
 GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
 
@@ -261,32 +275,51 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #D::
 ^#D::
 !#D::
+!^#D::
 +#D::
 +^#D::
 +!#D::
++!^#D::
+	Global RFC3339_YearMonthDay_Separator
+	Global RFC3339_HourMinuteSecond_Separator
+	Global RFC3339_DecimalSeconds_Separator
+	Global RFC3339_DateAndTimeField_Separator
+	Global RFC3339_UTC_ZeroHourReplacement
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	Timestamp_Format := "yyyyMMddTHHmmss"
-	Separator_YearMonthDay := "-"
-	Separator_HourMinuteSecond := ":"
-	; NOTE: Per [ABNF] and ISO8601, the "T" and "Z" characters in this syntax may alternatively be lower case "t" or "z" respectively.
-	Separator_BetweenDateAndTime := "T"
-	Replacement_UTC_ZeroHour := "Z"
-	If (StrReplace(A_ThisHotkey,"+","") = "#D") {  ; Win
-		Timestamp_Format := "yyyyMMddTHHmmss"
-	} Else If (StrReplace(A_ThisHotkey,"+","") = "!#D") {  ; Alt + Win
-		Timestamp_Format := "yyyy.MM.dd-HH.mm.ss"
-	} Else If (StrReplace(A_ThisHotkey,"+","") = "^#D") {  ; Ctrl + Win
-		Timestamp_Format := "yyyy-MM-ddTHH-mm-ss"
-	} Else {
-		Timestamp_Format := "yyyyMMddTHHmmss"
+	YMD_Separator := RFC3339_YearMonthDay_Separator
+	HMS_Separator := RFC3339_HourMinuteSecond_Separator
+	Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+	DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+	Add_Microseconds := 0
+	If (StrReplace(A_ThisHotkey,"+","") = "#D") {  ; HOTKEY:  Win + D
+		; Output a "filename-friendly" timestamp
+		;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."
+		YMD_Separator := ""
+		HMS_Separator := ""
+		DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+	} Else If (StrReplace(A_ThisHotkey,"+","") = "!#D") {  ; HOTKEY:  Alt + Win + D
+		; Default to RFC 3339 format
+	} Else If (StrReplace(A_ThisHotkey,"+","") = "^#D") {  ; HOTKEY:  Ctrl + Win + D
+		; Default to RFC 3339 format
+	} Else If (StrReplace(A_ThisHotkey,"+","") = "!^#D") {  ; HOTKEY:  Ctrl + Alt + Win + D
+		; Default to RFC 3339 format --> Add Microseconds
+		Add_Microseconds := 1
+	} Else { ; Fallthrough
+		; Default to RFC 3339 format
 	}
-	Keys := GetTimestamp(Timestamp_Format)
-	If (InStr(A_ThisHotkey, "+") = 1) { ; Shift - concat the timezone onto the output timestamp
+	; Get the base-timestamp
+	Keys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
+	; Add [ fractions-of-a-second ] onto output timestamp
+	If (Add_Microseconds = 1) {
+		GetMicroseconds(Current_Microseconds)
+		Keys := Keys Microseconds_Separator Current_Microseconds
+	}
+	; Add [ Timezone ] onto output timestamp
+	If (InStr(A_ThisHotkey, "+") = 1) {
+		; HOTKEY:  Shift + [ ... ] + Win + D
 		Output_TZ := ""
-		GetTimezoneOffset(Output_TZ)
-		; Output_TZ_P := ""
-		; GetTimezoneOffset(Output_TZ_P)
+		GetTimezoneOffset(Output_TZ, HMS_Separator)
 		Keys := Keys Output_TZ
 	}
 	Send(Keys)
@@ -1362,8 +1395,12 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |--> Example:  GetTimestamp("yyyy.MM.dd-HH.mm.ss")
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
-GetTimestamp(OutputFormat) {
-	Return FormatTime("",OutputFormat)
+GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
+	; Global RFC3339_YearMonthDay_Separator
+	; Global RFC3339_HMS_Separator
+	; Global RFC3339_DateAndTimeField_Separator
+	Timestamp_Format := "yyyy" YMD_Separator "MM" YMD_Separator "dd" DT_Field_Separator "HH" HMS_Separator "mm" HMS_Separator "ss"
+	Return FormatTime("",Timestamp_Format)
 }
 
 
@@ -1371,27 +1408,38 @@ GetTimestamp(OutputFormat) {
 ; GetTimezoneOffset
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
-GetTimezoneOffset(ByRef OutputTZ, Separator_HourMinute:="", Replacement_UTC_ZeroHour:="Z") {
+GetTimezoneOffset(ByRef Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", StripCharacter:=".") {
+	; Global RFC3339_UTC_ZeroHourReplacement
 	Time_CurrentTZ := A_Now
 	Time_UTC := A_NowUTC
 	TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")
 	TZ_UTC_HourOffset := Floor(TZ_UTC_LocalOffset/60)
 	TZ_UTC_MinuteOffset := TZ_UTC_LocalOffset - TZ_UTC_HourOffset*60
 	; +/- Timezone ahead/behind UTC determination
-	TZ_UTC_AheadBehind_Sign := ""
+	TZ_UTC_PositiveNegative_Sign := ""
 	If (TZ_UTC_HourOffset<0.0) {
-		TZ_UTC_AheadBehind_Sign := "-"
+		TZ_UTC_PositiveNegative_Sign := "-"
 		TZ_UTC_HourOffset *= -1
 	} Else {
-		TZ_UTC_AheadBehind_Sign := "+"
+		TZ_UTC_PositiveNegative_Sign := "+"
 	}
 	; Hours - Left-Pad with zeroes as-needed
 	TZ_UTC_HourOffset_Padded := Format("{:02}", TZ_UTC_HourOffset)
 	; Minutes - Left-Pad with zeroes as-needed
 	TZ_UTC_MinuteOffset_Padded := Format("{:02}", TZ_UTC_MinuteOffset)
-	; Pass a value such as a colon ":" to parameter "Separator_HourMinute" to add/modify the hours/minutes separator
-	OutputTZ := TZ_UTC_AheadBehind_Sign TZ_UTC_HourOffset_Padded Separator_HourMinute TZ_UTC_MinuteOffset_Padded
-	OutputTZ := StrReplace(OutputTZ, ".", "")
+	Output_TZ := ""
+	If ((TZ_UTC_HourOffset = 0.0) && (StrLen(UTC_ReplacementStr) > 0)) {
+		; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
+		Output_TZ := UTC_ReplacementStr
+	} Else {
+		Output_TZ := Output_TZ TZ_UTC_PositiveNegative_Sign
+		Output_TZ := Output_TZ TZ_UTC_HourOffset_Padded
+		Output_TZ := Output_TZ HMS_Separator
+		Output_TZ := Output_TZ TZ_UTC_MinuteOffset_Padded
+	}
+	If (StrLen(StripCharacter) > 0) {
+		Output_TZ := StrReplace(Output_TZ, StripCharacter, "")
+	}
 	Return
 }
 
@@ -1403,7 +1451,7 @@ GetTimezoneOffset(ByRef OutputTZ, Separator_HourMinute:="", Replacement_UTC_Zero
 GetTimezoneOffset_P(ByRef Output_TZ_P) {
 	Output_TZ_P := ""
 	GetTimezoneOffset(Output_TZ_P)
-	Output_TZ_P := StrReplace(Output_TZ, "+", "P")
+	Output_TZ_P := StrReplace(Output_TZ_P, "+", "P")
 	Return
 }
 
@@ -1525,27 +1573,43 @@ LockWorkstation() {
 
 
 ;
-; Microseconds
+; GetMicroseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
 ;   |--> Example call:
-;          TrayTip, AHK, % ( "Microseconds = [ " Microseconds() " ]" )  ; Toast Notification
+;          GetMicroseconds(CurrentMicroseconds)
 ;
-Microseconds() {
+GetMicroseconds(ByRef OutputVar) {
 	vIntervals := 0
 	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
-	A_USec := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
-	Return %A_USec%
+	OutputVar := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
+	Return
 }
 
 
 ;
-; Milliseconds
+; GetMilliseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
 ;   |--> Example call:
-;          TrayTip, AHK, % ( "Milliseconds = [ " Milliseconds() " ]" )  ; Toast Notification
+;          GetMilliseconds(CurrentMilliseconds)
 ;
-Milliseconds() {
-	Return %A_MSec%
+GetMilliseconds(ByRef OutputVar) {
+	OutputVar := A_MSec
+	Return
+}
+
+;
+; GetNanoseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
+;   |--> Example call:
+;          GetNanoseconds(CurrentNanoseconds)
+;
+GetNanoseconds(ByRef OutputVar) {
+	vIntervals := 0
+	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+	; vDate := 1601
+	; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+	OutputVar := Format("{:07}00", Mod(vIntervals, 10000000))
+	Return
 }
 
 
@@ -1605,22 +1669,6 @@ Monitor_ShowScreenSaver() {
 	; |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
 	;
 	Return
-}
-
-
-;
-; Nanoseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
-;   |--> Example call:
-;          TrayTip, AHK, % ( "Nanoseconds = [ " Nanoseconds() " ]" )  ; Toast Notification
-;
-Nanoseconds() {
-	vIntervals := 0
-	DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
-	; vDate := 1601
-	; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-	A_NSec := Format("{:07}00", Mod(vIntervals, 10000000))
-	Return %A_NSec%
 }
 
 
@@ -2179,18 +2227,6 @@ TempFile() {
 	TempFile_Basename := A_Now "." A_MSec
 	TempFile_Fullpath := TempFile_Dirname TempFile_Basename
 	Return %TempFile_Fullpath%
-}
-
-
-;
-; Timestamp
-;   |--> Gets the current Timestamp in a format which is compatible/ready-to-be-used-within filenames
-;   |--> Example call:
-;          Timestamp := Timestamp()
-;
-Timestamp() {
-	FormatTime,Timestamp,,yyyyMMddTHHmmss
-	Return %Timestamp%
 }
 
 

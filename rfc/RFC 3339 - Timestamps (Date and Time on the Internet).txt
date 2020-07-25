@@ -4,7 +4,18 @@ RFC 3339 - Timestamps, Date and Time on the Internet
 
 ------------------------------------------------------------
 
-PowerShell
+Linux -> Bash
+
+Input Command
+date --rfc-3339='seconds';
+
+Output Command
+date --rfc-3339='seconds';
+
+
+------------------------------------------------------------
+
+Windows -> PowerShell
 
 Input Command
 Get-Date "2019-11-23T17:00:50+00:00";
@@ -15,7 +26,7 @@ Get-Date -UFormat "%Y:%m:%dT%H:%M:%S%Z";
 
 ------------------------------------------------------------
 
-CMD (batch file) 
+Windows -> CMD (batch file) 
 
 Input Command
 [ NEED SOLN HERE ]
@@ -33,7 +44,7 @@ echo %DAT_DATE%_%DAT_TIME%
 
 ------------------------------------------------------------
 
-CMD (cmd.exe)
+Windows -> CMD (cmd.exe)
 
 Input Command
 [ NEED SOLN HERE ]

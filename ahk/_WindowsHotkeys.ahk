@@ -302,7 +302,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Add_Timezone := 1
 		KeysPressed := StrReplace(KeysPressed,"!","")
 	}
-	TrayTip, AHK, "A_ThisHotkey = [%A_ThisHotkey%], KeysPressed = [%KeysPressed%]"
+	TrayTip, AHK, "A_ThisHotkey = [" A_ThisHotkey "], KeysPressed = [" KeysPressed "]"
 	If (KeysPressed = "#D") {  ; Win + D
 		; Output a "filename-friendly" timestamp
 		;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."

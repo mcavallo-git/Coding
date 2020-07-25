@@ -29,6 +29,8 @@ echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 
 if [ 1 -eq 1 ]; then
 
+VERBOSE_OUTPUT=1;
+
 START_SECONDS_NANOSECONDS=$(date +'%s.%N');
 START_EPOCHSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
 START_NANOSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
@@ -43,11 +45,9 @@ DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d')";
 DATE_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
 
 
-# Place command(s) to benchmark, here...
-sleep 0.5; # Example command - sleep half a second
+echo "RUNNING COMMAND(S) TO BENCHMARK...";
+sleep 0.5;
 
-
-VERBOSE_OUTPUT=1;
 
 END_SECONDS_NANOSECONDS=$(date +'%s.%N');
 END_EPOCHSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);

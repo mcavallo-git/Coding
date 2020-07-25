@@ -1170,13 +1170,22 @@ ActiveWindow_Maximize() {
 ActiveWindow_ToggleRestoreMaximize() {
 	WinState := WinGetMinMax(A)
 	WinStyle := WinGetStyle(A)
-	If (WinState>0) { ; Window is maximized - restore it
-		WinRestore A
-	} Else If (WinState=0) { ; Window is neither maximized nor minimized - maximize it
+	TestVar := 1
+	TrayTipString := "WinState=[ %WinState% ]"
+	If (WinState = 0) {  ; 0: The window is neither minimized nor maximized
 		WinMaximize A
-	} Else If (WinState<0) { ; Window is minimized - restore it, I guess?
+		TrayTipString := "%TrayTipString%, If-Catch-1"
+	} Else If (WinState = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
 		WinRestore A
+		TrayTipString := "%TrayTipString%, If-Catch-2"
+	} Else If (WinState = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
+		WinRestore A
+		TrayTipString := "%TrayTipString%, If-Catch-3"
+	} Else {  ; Fallthrough-catch
+		WinMaximize A
+		TrayTipString := "%TrayTipString%, If-Catch-4"
 	}
+	TrayTip, AHK, %TrayTipString%
 	Return
 }
 
@@ -1423,10 +1432,10 @@ GetWindowSpecs() {
 	GUI_OPT := "r" GUI_ROWCOUNT
 	GUI_OPT := GUI_OPT " w" GUI_WIDTH
 	GUI_OPT := GUI_OPT " gGetWindowSpecs_OnClick_LV_WindowSpecs"
-	GUI_OPT := GUI_OPT "Background" GUI_BACKGROUND_COLOR
-	GUI_OPT := GUI_OPT "C" GUI_TEXT_COLOR
-	GUI_OPT := GUI_OPT "Grid"
-	GUI_OPT := GUI_OPT "NoSortHdr"
+	GUI_OPT := GUI_OPT " Background" GUI_BACKGROUND_COLOR
+	GUI_OPT := GUI_OPT " C" GUI_TEXT_COLOR
+	GUI_OPT := GUI_OPT " Grid"
+	GUI_OPT := GUI_OPT " NoSortHdr"
 	; GUI_OPT = %GUI_OPT% AltSubmit
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 	LV_Add("", "WinTitle", WinTitle)

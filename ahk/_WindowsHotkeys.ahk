@@ -296,12 +296,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	KeysPressed := A_ThisHotkey
 	If (InStr(A_ThisHotkey, "+") = 1) {  ; Shift + [...]
 		Add_Microseconds := 1
+		KeysPressed := StrReplace(KeysPressed,"+","")
 	}
 	If (InStr(A_ThisHotkey, "!") = 1) {  ; Alt + [...]
 		Add_Timezone := 1
+		KeysPressed := StrReplace(KeysPressed,"!","")
 	}
-	KeysPressed := StrReplace(KeysPressed,"+","")
-	KeysPressed := StrReplace(KeysPressed,"!","")
+	TrayTip, AHK, "A_ThisHotkey = [%A_ThisHotkey%], KeysPressed = [%KeysPressed%]"
 	If (KeysPressed = "#D") {  ; Win + D
 		; Output a "filename-friendly" timestamp
 		;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."

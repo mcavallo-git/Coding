@@ -275,7 +275,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 !^#D::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + Win + D)
 +^#D::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + Win + D)
 +!#D::   ;  20200725T080613.297487-0500  (Shift + Alt + Win + D)
-+!^#D::  ;  (For some reason, Microsoft made [ Alt + Ctrl + Shift + Win ] open the office-app --> See https://superuser.com/a/1484507  (Shift + Ctrl + Alt + Win + D)
++!^#D::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + Win + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + Win ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
 	Global RFC3339_YearMonthDay_Separator
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator

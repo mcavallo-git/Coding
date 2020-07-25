@@ -277,11 +277,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		OutputFormat := "yyyyMMddTHHmmss"
 	}
 	Keys := GetTimestamp(OutputFormat)
+
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
-		; TZ_OFFSET := GetTimezoneOffset()
-		; TZ_OFFSET_P := GetTimezoneOffset_P()
-		Keys := Keys TZ_OFFSET
+		TZ_Offset := % GetTimezoneOffset()
+		TZ_Offset_P := % GetTimezoneOffset_P()
+		Keys := Keys TZ_Offset
 	}
+
 	Send(Keys)
 	Return
 
@@ -563,16 +565,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	; Monitor_ShowScreenSaver()
 	Reload
 	Return
-
-
-; ------------------------------------------------------------
-;  HOTKEY:  ?????
-;  ACTION:  On-the-fly Timezone w/ format: [  -0500  ]
-;
-; ?????::
-; 	TZ_OFFSET := GetTimezoneOffset()
-;   Send %TZ_OFFSET%
-; 	Return
 
 
 ; ------------------------------------------------------------
@@ -1366,11 +1358,8 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(OutputFormat) {
-	; TimezoneOffset := GetTimezoneOffset_P()
-	Needle_Win := "#D"
-	Needle_AltWin := "!#D"
-	Needle_CtrlWin := "^#D"
-	; FormatTime, OutputTimestamp, , %OutputFormat%
+	; TZ_Offset := GetTimezoneOffset()
+	; TZ_Offset_P := GetTimezoneOffset_P()
 	OutputTimestamp := FormatTime("",OutputFormat)
 	Return OutputTimestamp
 }
@@ -1381,37 +1370,28 @@ GetTimestamp(OutputFormat) {
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
 GetTimezoneOffset() {
-	RET_VAL := ""
-	T1 := A_Now
-	T2 := A_NowUTC
-	; T1 -= %T2% , M
-	MINUTES_DIFF := DateDiff(T1, T2, "Minutes")
-	; MINUTES_DIFF := DateDiff("%T1%", "%T2%", "Minutes")
-	; MINUTES_DIFF := T1
-	; SetFormat, float, 2.0
-	TZ_SIGN := ""
-	TZ_QUOTIENT := Floor(MINUTES_DIFF/60)
-	TZ_REMAINDER := MINUTES_DIFF - TZ_QUOTIENT*60
+	OutputTZ := ""
+	Time_CurrentTZ := A_Now
+	Time_UTC := A_NowUTC
+	TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")
+	TZ_UTC_HourOffset := Floor(TZ_UTC_LocalOffset/60)
+	TZ_UTC_MinuteOffset := TZ_UTC_LocalOffset - TZ_UTC_HourOffset*60
 	; +/- Timezone ahead/behind UTC determination
-	If (TZ_QUOTIENT<0.0) {
-		TZ_SIGN := "-"
-		TZ_QUOTIENT *= -1
+	TZ_UTC_AheadBehind_Sign := ""
+	If (TZ_UTC_HourOffset<0.0) {
+		TZ_UTC_AheadBehind_Sign := "-"
+		TZ_UTC_HourOffset *= -1
 	} Else {
-		TZ_SIGN := "+"
+		TZ_UTC_AheadBehind_Sign := "+"
 	}
-	; Hours - Left-Pad with Zeroes
-	If (Abs(TZ_QUOTIENT) < 10) {
-		TZ_QUOTIENT := "0" TZ_QUOTIENT
-	}
-	; Minutes - Left-Pad with Zeroes
-	If (Abs(TZ_REMAINDER) < 10) {
-		TZ_REMAINDER := "0" TZ_REMAINDER
-	}
-	; TZ_REMAINDER := "GMT +" Floor(T1/60)  ; ???
-	RET_VAL := TZ_SIGN TZ_QUOTIENT TZ_REMAINDER
-	RET_VAL := StrReplace(RET_VAL, ".", "")
-	TrayTip, AHK, "RET_VAL = [%RET_VAL%]"
-	Return RET_VAL
+	; Hours - Left-Pad with zeroes as-needed
+	TZ_UTC_HourOffset_Padded := Format("{:02}", TZ_UTC_HourOffset)
+	; Minutes - Left-Pad with zeroes as-needed
+	TZ_UTC_MinuteOffset_Padded := Format("{:02}", TZ_UTC_MinuteOffset)
+	OutputTZ := TZ_UTC_AheadBehind_Sign TZ_UTC_HourOffset_Padded TZ_UTC_MinuteOffset_Padded
+	OutputTZ := StrReplace(OutputTZ, ".", "")
+	TrayTip, AHK, "OutputTZ = [%OutputTZ%]"
+	Return OutputTZ
 }
 
 
@@ -1420,10 +1400,10 @@ GetTimezoneOffset() {
 ;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
 ;
 GetTimezoneOffset_P() {
-	RET_VAL := ""
+	OutputTZ := ""
 	TZ_OFFSET := GetTimezoneOffset()
-	RET_VAL := StrReplace(TZ_OFFSET, "+", "P")
-	Return %RET_VAL%
+	OutputTZ := StrReplace(TZ_OFFSET, "+", "P")
+	Return %OutputTZ%
 }
 
 

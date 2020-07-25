@@ -263,7 +263,8 @@ function SyncRegistry {
 				@{
 					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'Onedrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
 					Name="(Default)"; 
-					Type="REG_SZ";
+					# Type="REG_SZ";
+					Type="String";
 					Val_Default="OneDrive";
 					Value="OneDrive";
 					Delete=$True; <# ! Delete this Property ! #>
@@ -527,7 +528,7 @@ function SyncRegistry {
 				@{
 					Description="Microsoft Office (Windows 10 Application) - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
 					Name="(Default)"; 
-					Type="REG_SZ";
+					Type="String";
 					Value="rundll32";
 					Delete=$False;
 				}

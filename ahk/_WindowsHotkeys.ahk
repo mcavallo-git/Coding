@@ -292,24 +292,28 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Microseconds_Separator := RFC3339_DecimalSeconds_Separator
 	DT_Field_Separator := RFC3339_DateAndTimeField_Separator
 	Add_Microseconds := 0
-	If (StrReplace(A_ThisHotkey,"+","") = "#D") {  ; Win + D
+	Add_Timezone := 0
+	KeysPressed := A_ThisHotkey
+	If (InStr(A_ThisHotkey, "+") = 1) {  ; Shift + [...]
+		Add_Microseconds := 1
+	}
+	If (InStr(A_ThisHotkey, "!") = 1) {  ; Alt + [...]
+		Add_Timezone := 1
+	}
+	KeysPressed := StrReplace(KeysPressed,"+","")
+	KeysPressed := StrReplace(KeysPressed,"!","")
+	If (KeysPressed = "#D") {  ; Win + D
 		; Output a "filename-friendly" timestamp
 		;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."
 		YMD_Separator := ""
 		HMS_Separator := ""
 		DT_Field_Separator := RFC3339_DateAndTimeField_Separator
-	} Else If (StrReplace(A_ThisHotkey,"+","") = "^#D") {  ; Ctrl + Win + D
+	} Else If (KeysPressed = "^#D") {  ; Ctrl + Win + D
 		; Default to RFC 3339 format
-	} Else If (StrReplace(A_ThisHotkey,"+","") = "!#D") {  ; Alt + Win + D
-		; Default to RFC 3339 format, but replace the "T" with a space " " between date & time fields
-		DT_Field_Separator := " "
-	} Else If (StrReplace(A_ThisHotkey,"+","") = "!^#D") {  ; Ctrl + Alt + Win + D
-		; Default to RFC 3339 format --> Add Microseconds
-		Add_Microseconds := 1
 	} Else { ; Fallthrough
 		; Default to RFC 3339 format
 	}
-	; Get the base-timestamp
+	; Get the current timestamp
 	Keys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
 	; Add [ fractions-of-a-second ] onto output timestamp
 	If (Add_Microseconds = 1) {
@@ -317,7 +321,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Keys := Keys Microseconds_Separator Current_Microseconds
 	}
 	; Add [ Timezone ] onto output timestamp
-	If (InStr(A_ThisHotkey, "+") = 1) {  ; Shift + [ ... ]
+	If (Add_Timezone = 1) {
 		Output_TZ := ""
 		GetTimezoneOffset(Output_TZ, HMS_Separator)
 		Keys := Keys Output_TZ

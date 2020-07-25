@@ -193,7 +193,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 #H::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	WinProcessName := WinGetProcessName(A)
+	WinProcessName := WinGetProcessName("A")
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 	if (WinProcessName == "chrome.exe") {
 		If (WinActive("LastPass")) {  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
@@ -796,7 +796,7 @@ WheelRight::
 ; 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
 ; 	WinGetTitle, WinTitle, A
 ; 	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
-; 	WinProcessName := WinGetProcessName(A)
+; 	WinProcessName := WinGetProcessName("A")
 ; 	MatchProcessName=FoxitPhantomPDF.exe
 ; 	If (InStr(WinProcessName, MatchProcessName)) {
 ; 		If (VerboseOutput == 1) {
@@ -960,7 +960,7 @@ LShift & RShift::
 ;  ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
 #0::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	WinMove,A,, 0, 0
+	WinMove, A, , 0, 0
 	Return
 
 
@@ -1155,9 +1155,9 @@ Numlock::
 ;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
-	WinState := WinGetMinMax(A)
+	WinState := WinGetMinMax("A")
 	If (WinState<=0) { ; Window is not maximized - maximize it
-		WinMaximize A
+		WinMaximize "A"
 	}
 	Return
 }
@@ -1168,22 +1168,27 @@ ActiveWindow_Maximize() {
 ;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
 ;
 ActiveWindow_ToggleRestoreMaximize() {
-	WinState := WinGetMinMax(A)
-	WinStyle := WinGetStyle(A)
+	WinState := WinGetMinMax("A")
+	WinStyle := WinGetStyle("A")
 	TestVar := 1
 	TrayTipString := "WinState=[ %WinState% ]"
-	If (WinState = 0) {  ; 0: The window is neither minimized nor maximized
-		WinMaximize A
-		TrayTipString := "%TrayTipString%, If-Catch-1"
-	} Else If (WinState = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
-		WinRestore A
-		TrayTipString := "%TrayTipString%, If-Catch-2"
-	} Else If (WinState = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
-		WinRestore A
-		TrayTipString := "%TrayTipString%, If-Catch-3"
-	} Else {  ; Fallthrough-catch
-		WinMaximize A
-		TrayTipString := "%TrayTipString%, If-Catch-4"
+	If ("%WinState%" = "") {  ; ??? Window-state not pulled as-intended
+		WinMaximize("A")
+		TrayTipString := "%TrayTipString%, Do WinMaximize"
+	} Else {
+		If (WinState = 0) {  ; 0: The window is neither minimized nor maximized
+			WinMaximize("A")
+			TrayTipString := "%TrayTipString%, Do WinMaximize"
+		} Else If (WinState = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
+			WinRestore("A")
+			TrayTipString := "%TrayTipString%, Do WinRestore"
+		} Else If (WinState = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
+			WinRestore("A")
+			TrayTipString := "%TrayTipString%, Do WinRestore"
+		} Else {  ; Fallthrough-catch
+			WinMaximize("A")
+			TrayTipString := "%TrayTipString%, Do WinMaximize"
+		}
 	}
 	TrayTip, AHK, %TrayTipString%
 	Return
@@ -1409,12 +1414,12 @@ GetWindowSpecs() {
 	WinGetPos, Left, Top, Width, Height, A
 	WinGetTitle, WinTitle, A
 	WinGetText, WinText, A
-	WinID := WinGetPID(A)
-	WinPID := WinGetPID(A)
+	WinID := WinGetPID("A")
+	WinPID := WinGetPID("A")
 	WinGetClass, WinClass, A
-	WinProcessName := WinGetProcessName(A)
-	WinProcessPath := WinGetProcessPath(A)
-	ControlNames := WinGetControls(A)  ; Get all control names in this window
+	WinProcessName := WinGetProcessName("A")
+	WinProcessPath := WinGetProcessPath("A")
+	ControlNames := WinGetControls("A")  ; Get all control names in this window
 	; Create the ListView with two columns
 	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
 	Gui, Font, s10, Tahoma
@@ -2068,7 +2073,7 @@ ShowVolumeLevel() {
 ShowWindowTitles() {
 	Gui, WinTitles:Default
 	Gui, Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
-	Window := WinGetList(A)
+	Window := WinGetList("A")
 	Loop %Window% {
 		Id:=Window%A_Index%
 		WinGetTitle, TVar , % "ahk_id " Id

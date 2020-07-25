@@ -358,7 +358,8 @@ function SyncRegistry {
 				@{
 					Description="Delete the list of MRU (Most Recently Used) items";
 					Name="(Default)"; 
-					Type="REG_SZ";
+					# Type="REG_SZ";
+					Type="String";
 					Value="";
 					Delete=$True; <# ! Delete this Property ! #>
 				}

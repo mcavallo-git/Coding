@@ -266,17 +266,22 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 +!#D::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	OutputFormat := "yyyyMMddTHHmmss"
+	Timestamp_Format := "yyyyMMddTHHmmss"
+	Separator_YearMonthDay := "-"
+	Separator_HourMinuteSecond := ":"
+	; NOTE: Per [ABNF] and ISO8601, the "T" and "Z" characters in this syntax may alternatively be lower case "t" or "z" respectively.
+	Separator_BetweenDateAndTime := "T"
+	Replacement_UTC_ZeroHour := "Z"
 	If (StrReplace(A_ThisHotkey,"+","") = "#D") {  ; Win
-		OutputFormat := "yyyyMMddTHHmmss"
+		Timestamp_Format := "yyyyMMddTHHmmss"
 	} Else If (StrReplace(A_ThisHotkey,"+","") = "!#D") {  ; Alt + Win
-		OutputFormat := "yyyy.MM.dd-HH.mm.ss"
+		Timestamp_Format := "yyyy.MM.dd-HH.mm.ss"
 	} Else If (StrReplace(A_ThisHotkey,"+","") = "^#D") {  ; Ctrl + Win
-		OutputFormat := "yyyy-MM-ddTHH-mm-ss"
+		Timestamp_Format := "yyyy-MM-ddTHH-mm-ss"
 	} Else {
-		OutputFormat := "yyyyMMddTHHmmss"
+		Timestamp_Format := "yyyyMMddTHHmmss"
 	}
-	Keys := GetTimestamp(OutputFormat)
+	Keys := GetTimestamp(Timestamp_Format)
 	If (InStr(A_ThisHotkey, "+") = 1) { ; Shift - concat the timezone onto the output timestamp
 		Output_TZ := ""
 		GetTimezoneOffset(Output_TZ)
@@ -1358,8 +1363,7 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(OutputFormat) {
-	OutputTimestamp := FormatTime("",OutputFormat)
-	Return OutputTimestamp
+	Return FormatTime("",OutputFormat)
 }
 
 
@@ -1367,7 +1371,7 @@ GetTimestamp(OutputFormat) {
 ; GetTimezoneOffset
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
-GetTimezoneOffset(ByRef OutputTZ) {
+GetTimezoneOffset(ByRef OutputTZ, Separator_HourMinute:="", Replacement_UTC_ZeroHour:="Z") {
 	Time_CurrentTZ := A_Now
 	Time_UTC := A_NowUTC
 	TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")
@@ -1385,7 +1389,8 @@ GetTimezoneOffset(ByRef OutputTZ) {
 	TZ_UTC_HourOffset_Padded := Format("{:02}", TZ_UTC_HourOffset)
 	; Minutes - Left-Pad with zeroes as-needed
 	TZ_UTC_MinuteOffset_Padded := Format("{:02}", TZ_UTC_MinuteOffset)
-	OutputTZ := TZ_UTC_AheadBehind_Sign TZ_UTC_HourOffset_Padded TZ_UTC_MinuteOffset_Padded
+	; Pass a value such as a colon ":" to parameter "Separator_HourMinute" to add/modify the hours/minutes separator
+	OutputTZ := TZ_UTC_AheadBehind_Sign TZ_UTC_HourOffset_Padded Separator_HourMinute TZ_UTC_MinuteOffset_Padded
 	OutputTZ := StrReplace(OutputTZ, ".", "")
 	Return
 }

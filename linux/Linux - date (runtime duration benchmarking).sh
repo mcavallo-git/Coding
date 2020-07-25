@@ -41,24 +41,20 @@ START_TIMESTAMP_COMPACT="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d%H%M%S')";
 START_SECONDS="$(date --date=@${START_EPOCHSECONDS} +'%s')";
 START_FRACTION_SECONDS="$(date --date=@${START_EPOCHSECONDS} +'%N')";
 DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d')";
-TODAY_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
+DATE_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
 
 
 # Command here...
 sleep 0.5; # Example command - sleep half a second
 
 
-END_TIMESTAMP=$(date +'%s.%N');
-END_EPOCHSECONDS=$(echo ${END_TIMESTAMP} | cut --delimiter '.' --fields 1);
-END_MILLISECONDS=$(echo ${END_TIMESTAMP} | cut --delimiter '.' --fields 2 | cut --characters 1-3);
-END_MICROSECONDS=$(echo ${END_TIMESTAMP} | cut --delimiter '.' --fields 2 | cut --characters 1-6);
-END_DATETIME=$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%d %H:%M:%S');
+END_SECONDS_NANOSECONDS=$(date +'%s.%N');
+END_EPOCHSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
+END_MILLISECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-3);
+END_MICROSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-6);
+END_DATETIME=$(date --date=@${END_SECONDS_NANOSECONDS} +'%Y-%m-%d %H:%M:%S');
 
-END_DATETIME="$(date +'%Y-%m-%d %H:%M:%S')";
-
-
-TOTAL_DECIMALSECONDS=$(echo "${END_TIMESTAMP} - ${START_TIMESTAMP}" | bc)
-
+TOTAL_DECIMALSECONDS=$(echo "${END_SECONDS_NANOSECONDS} - ${START_TIMESTAMP}" | bc);
 TOTAL_EPOCHSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimiter '.' --fields 1));
 TOTAL_MILLISECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-3));
 TOTAL_MICROSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-6));
@@ -66,13 +62,42 @@ TOTAL_MICROSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimite
 TOTAL_DURATION=$(printf '%02dh %02dm %02d.%06ds' $(echo "${TOTAL_EPOCHSECONDS}/3600" | bc) $(echo "(${TOTAL_EPOCHSECONDS}%3600)/60" | bc) $(echo "${TOTAL_EPOCHSECONDS}%60" | bc) $(echo ${TOTAL_MICROSECONDS}));
 
 echo "\$START_TIMESTAMP = [${START_TIMESTAMP}]  ";
-echo "\$END_TIMESTAMP = [${END_TIMESTAMP}]  ";
+echo "\$END_SECONDS_NANOSECONDS = [${END_SECONDS_NANOSECONDS}]  ";
 
 echo "\$TOTAL_DECIMALSECONDS = [${TOTAL_DECIMALSECONDS}]  ";
 
 echo "\$TOTAL_EPOCHSECONDS = [${TOTAL_EPOCHSECONDS}]";
 echo "\$TOTAL_MILLISECONDS = [${TOTAL_MILLISECONDS}]";
 echo "\$TOTAL_MICROSECONDS = [${TOTAL_MICROSECONDS}]";
+
+echo "";
+echo "START_SECONDS_NANOSECONDS = [ ${START_SECONDS_NANOSECONDS} ]";
+echo "START_EPOCHSECONDS = [ ${START_EPOCHSECONDS} ]";
+echo "START_NANOSECONDS = [ ${START_NANOSECONDS} ]";
+echo "START_MICROSECONDS = [ ${START_MICROSECONDS} ]";
+echo "START_MILLISECONDS = [ ${START_MILLISECONDS} ]";
+echo "START_DATETIME = [ ${START_DATETIME} ]";
+echo "START_TIMESTAMP = [ ${START_TIMESTAMP} ]";
+echo "START_TIMESTAMP_FILENAME = [ ${START_TIMESTAMP_FILENAME} ]";
+echo "START_TIMESTAMP_COMPACT = [ ${START_TIMESTAMP_COMPACT} ]";
+echo "START_SECONDS = [ ${START_SECONDS} ]";
+echo "START_FRACTION_SECONDS = [ ${START_FRACTION_SECONDS} ]";
+echo "";
+echo "DATE_AS_YMD = [ ${DATE_AS_YMD} ]";
+echo "DATE_AS_WEEKDAY = [ ${DATE_AS_WEEKDAY} ]";
+echo "";
+echo "END_SECONDS_NANOSECONDS = [ ${END_SECONDS_NANOSECONDS} ]";
+echo "END_EPOCHSECONDS = [ ${END_EPOCHSECONDS} ]";
+echo "END_MILLISECONDS = [ ${END_MILLISECONDS} ]";
+echo "END_MICROSECONDS = [ ${END_MICROSECONDS} ]";
+echo "END_DATETIME = [ ${END_DATETIME} ]";
+echo "";
+echo "TOTAL_DECIMALSECONDS = [ ${TOTAL_DECIMALSECONDS} ]";
+echo "TOTAL_EPOCHSECONDS = [ ${TOTAL_EPOCHSECONDS} ]";
+echo "TOTAL_MILLISECONDS = [ ${TOTAL_MILLISECONDS} ]";
+echo "TOTAL_MICROSECONDS = [ ${TOTAL_MICROSECONDS} ]";
+echo "TOTAL_DURATION = [ ${TOTAL_DURATION} ]";
+echo "";
 
 echo "Duration: ${TOTAL_DURATION}   (Ran [${START_DATETIME}] to [${END_DATETIME}])";
 

@@ -267,11 +267,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	OutputFormat := "yyyyMMddTHHmmss"
-	If (A_ThisHotkey = "#D") {  ; Win
+	If (StrReplace(A_ThisHotkey,"+","") = "#D") {  ; Win
 		OutputFormat := "yyyyMMddTHHmmss"
-	} Else If (A_ThisHotkey = "!#D") {  ; Alt + Win
+	} Else If (StrReplace(A_ThisHotkey,"+","") = "!#D") {  ; Alt + Win
 		OutputFormat := "yyyy.MM.dd-HH.mm.ss"
-	} Else If (A_ThisHotkey = "^#D") {  ; Ctrl + Win
+	} Else If (StrReplace(A_ThisHotkey,"+","") = "^#D") {  ; Ctrl + Win
 		OutputFormat := "yyyy-MM-ddTHH-mm-ss"
 	} Else {
 		OutputFormat := "yyyyMMddTHHmmss"

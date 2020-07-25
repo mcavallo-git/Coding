@@ -520,6 +520,21 @@ function SyncRegistry {
 		};
 
 
+		# Office (Windows 10 Application, ~2019+) Settings
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Classes\ms-officeapp\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Microsoft Office (Windows 10 Application) - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
+					Name="(Default)"; 
+					Type="REG_SZ";
+					Value="rundll32";
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Power Settings
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
@@ -924,6 +939,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #
 #   stackoverflow.com  |  "The IDynamicPropertyCmdletProvider interface is not implemented by this provider"  |  https://stackoverflow.com/a/54237993
+#
+#   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
 #

@@ -31,7 +31,13 @@ if [ 1 -eq 1 ]; then
 
 VERBOSE_OUTPUT=1;
 
+if [ ! -v START_INPUT_DATE} ] || [ -z "${START_INPUT_DATE}" ]; then
+START_INPUT_DATE="";
 START_SECONDS_NANOSECONDS=$(date +'%s.%N');
+else
+START_SECONDS_NANOSECONDS=$(date --date="${START_INPUT_DATE}" +'%s.%N');
+fi;
+
 START_EPOCHSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
 START_NANOSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
 START_MICROSECONDS=$(echo ${START_NANOSECONDS} | cut --characters 1-6);
@@ -66,6 +72,8 @@ TOTAL_MICROSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimite
 TOTAL_DURATION=$(printf '%02dh %02dm %02d.%06ds' $(echo "${TOTAL_EPOCHSECONDS}/3600" | bc) $(echo "(${TOTAL_EPOCHSECONDS}%3600)/60" | bc) $(echo "${TOTAL_EPOCHSECONDS}%60" | bc) $(echo ${TOTAL_MICROSECONDS}));
 
 if [ ${VERBOSE_OUTPUT} -eq 1 ]; then
+echo "";
+echo "START_INPUT_DATE = [ ${START_INPUT_DATE} ]";
 echo "";
 echo "START_SECONDS_NANOSECONDS = [ ${START_SECONDS_NANOSECONDS} ]";
 echo "START_EPOCHSECONDS = [ ${START_EPOCHSECONDS} ]";

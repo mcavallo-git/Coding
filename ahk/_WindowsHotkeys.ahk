@@ -57,7 +57,7 @@ LF := "`n"
 
 VerboseOutput := 1
 
-DebugOutput := 0
+DebugMode := 0
 
 ; ------------------------------------------------------------
 ;
@@ -405,6 +405,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 #[::
 #]::
+	Global DebugMode
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
@@ -482,7 +483,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		}
 	}
 	MouseMove, %MouseX%, %MouseY%
-	If (DebugOutput == 1) {
+	If (DebugMode = 1) {
 		SysGet, MonitorCountAfter, 80
 		SysGet, ViewportWidthAfter, 78
 		SysGet, ViewportHeightAfter, 79
@@ -1168,29 +1169,32 @@ ActiveWindow_Maximize() {
 ;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
 ;
 ActiveWindow_ToggleRestoreMaximize() {
+	Global DebugMode
 	WinState := WinGetMinMax("A")
 	WinStyle := WinGetStyle("A")
 	TestVar := 1
-	TrayTipString := "WinState=[ %WinState% ]"
+	DebugString := "WinState=[ %WinState% ]"
 	If ("%WinState%" = "") {  ; ??? Window-state not pulled as-intended
 		WinMaximize("A")
-		TrayTipString := "%TrayTipString%, Do WinMaximize"
+		DebugString := "%DebugString%, Do WinMaximize"
 	} Else {
 		If (WinState = 0) {  ; 0: The window is neither minimized nor maximized
 			WinMaximize("A")
-			TrayTipString := "%TrayTipString%, Do WinMaximize"
+			DebugString := "%DebugString%, Do WinMaximize"
 		} Else If (WinState = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
 			WinRestore("A")
-			TrayTipString := "%TrayTipString%, Do WinRestore"
+			DebugString := "%DebugString%, Do WinRestore"
 		} Else If (WinState = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
 			WinRestore("A")
-			TrayTipString := "%TrayTipString%, Do WinRestore"
+			DebugString := "%DebugString%, Do WinRestore"
 		} Else {  ; Fallthrough-catch
 			WinMaximize("A")
-			TrayTipString := "%TrayTipString%, Do WinMaximize"
+			DebugString := "%DebugString%, Do WinMaximize"
 		}
 	}
-	TrayTip, AHK, %TrayTipString%
+	If (DebugMode = 1) {
+		TrayTip, AHK, %DebugString%
+	}
 	Return
 }
 
@@ -1411,15 +1415,15 @@ GetTimezoneOffset_P() {
 GetWindowSpecs() {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
-	WinGetPos, Left, Top, Width, Height, A
-	WinGetTitle, WinTitle, A
-	WinGetText, WinText, A
+	WinGetPos(Left, Top, Width, Height, "A")
+	WinClass := WinGetClass("A")
 	WinID := WinGetPID("A")
 	WinPID := WinGetPID("A")
-	WinGetClass, WinClass, A
 	WinProcessName := WinGetProcessName("A")
 	WinProcessPath := WinGetProcessPath("A")
-	ControlNames := WinGetControls("A")  ; Get all control names in this window
+	WinText := WinGetText("A")
+	WinTitle := WinGetTitle("A")
+	WinControls := WinGetControls("A")  ; Get all control names in this window
 	; Create the ListView with two columns
 	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
 	Gui, Font, s10, Tahoma
@@ -1447,7 +1451,7 @@ GetWindowSpecs() {
 	LV_Add("", "WinClass", WinClass)
 	LV_Add("", "ProcessName", WinProcessName)
 	LV_Add("", "ProcessPath", WinProcessPath)
-	LV_Add("", "ControlList", ControlNames)
+	LV_Add("", "ControlList", WinControls)
 	LV_Add("", "ID", WinID)
 	LV_Add("", "PID", WinPID)
 	LV_Add("", "Left", Left)

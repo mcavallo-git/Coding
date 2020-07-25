@@ -40,7 +40,7 @@ echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 
 # ------------------------------------------------------------
 # Detailed Benchmark
-#  |--> Calls "date" only once before & after command(s) -  (e.g. makes sure to only grab one timestamp).
+#  |--> Calls "date" only once before & once after benchmarked-command(s) (e.g. forces single-source, parameter-based referencing of start & end timestamps).
 #       Also, performs date-time calculations & datetime/string re-formatting operations >AFTER< the benchmark has finished, not during.
 #       This way, we can format the strings as-needed while minimizing inaccuracies with the datetime values.
 #

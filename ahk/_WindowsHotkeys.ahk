@@ -280,7 +280,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 +^#D::
 +!#D::
 +!^#D::
-+^!#D::
 	Global RFC3339_YearMonthDay_Separator
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator

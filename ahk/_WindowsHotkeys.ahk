@@ -268,18 +268,19 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  HOTKEY:  Win + D
 ;  ACTION:  Types a variety of timestamp strings
 ;
-; Timestamp		:::		Win + Shift + D
-; Timestamp		:::		Win + Ctrl + D
 ; Timestamp		:::		Win + Alt + D
+; Timestamp		:::		Win + Ctrl + D
+; Timestamp		:::		Win + Shift + D
 ;
 #D::
-^#D::
 !#D::
-!^#D::
+^#D::
 +#D::
+!^#D::
 +^#D::
 +!#D::
 +!^#D::
++^!#D::
 	Global RFC3339_YearMonthDay_Separator
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator
@@ -294,15 +295,15 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Add_Microseconds := 0
 	Add_Timezone := 0
 	KeysPressed := A_ThisHotkey
-	If (InStr(A_ThisHotkey, "+") = 1) {  ; Shift + [...]
+	If (InStr(KeysPressed, "+") = 1) {  ; Shift + [...]
 		Add_Microseconds := 1
 		KeysPressed := StrReplace(KeysPressed,"+","")
 	}
-	If (InStr(A_ThisHotkey, "!") = 1) {  ; Alt + [...]
+	If (InStr(KeysPressed, "!") = 1) {  ; Alt + [...]
 		Add_Timezone := 1
 		KeysPressed := StrReplace(KeysPressed,"!","")
 	}
-	TrayTip, AHK, "A_ThisHotkey = [" A_ThisHotkey "], KeysPressed = [" KeysPressed "]"
+	TrayTip, AHK, A_ThisHotkey=[%A_ThisHotkey%] KeysPressed=[%KeysPressed%] Add_Microseconds=[%Add_Microseconds%] Add_Timezone=[%Add_Timezone%]
 	If (KeysPressed = "#D") {  ; Win + D
 		; Output a "filename-friendly" timestamp
 		;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."
@@ -323,9 +324,9 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	}
 	; Add [ Timezone ] onto output timestamp
 	If (Add_Timezone = 1) {
-		Output_TZ := ""
-		GetTimezoneOffset(Output_TZ, HMS_Separator)
-		Keys := Keys Output_TZ
+		Current_TZ := ""
+		GetTimezoneOffset(Current_TZ, HMS_Separator)
+		Keys := Keys Current_TZ
 	}
 	Send(Keys)
 	Return

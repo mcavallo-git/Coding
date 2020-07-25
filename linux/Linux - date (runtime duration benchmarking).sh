@@ -42,8 +42,6 @@ DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d')";
 TODAY_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
 
 
-# ------------------------------------------------------------
-
 # Command here...
 sleep 0.5; # Example command - sleep half a second
 
@@ -75,3 +73,6 @@ echo "\$TOTAL_MILLISECONDS = [${TOTAL_MILLISECONDS}]";
 echo "\$TOTAL_MICROSECONDS = [${TOTAL_MICROSECONDS}]";
 
 echo "Duration: ${TOTAL_DURATION}   (Ran [${START_DATETIME}] to [${END_DATETIME}])";
+
+
+# ------------------------------------------------------------

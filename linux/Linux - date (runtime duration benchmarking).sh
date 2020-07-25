@@ -26,7 +26,7 @@ echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 #		 |--> Make sure that the "date" command is called only once (e.g. make sure to only grab one timestamp)
 #		      This way, we can format it however we want without concern of inaccuracies existing between multiple date/timestamp values
 #
-#
+
 if [ 1 -eq 1 ]; then
 
 START_SECONDS_NANOSECONDS=$(date +'%s.%N');
@@ -102,5 +102,6 @@ echo "";
 echo "Duration: ${TOTAL_DURATION}   (Ran [${START_DATETIME}] to [${END_DATETIME}])";
 
 fi;
+
 
 # ------------------------------------------------------------

@@ -95,7 +95,7 @@ echo "";
 fi;
 
 echo "";
-echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_NANOSECONDS} ] to [ ${END_DATETIME}.${END_NANOSECONDS} ])";
+echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_MICROSECONDS} ] to [ ${END_DATETIME}.${END_MICROSECONDS} ])";
 echo "";
 
 fi;

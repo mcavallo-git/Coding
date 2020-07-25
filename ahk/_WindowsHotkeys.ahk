@@ -266,25 +266,23 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 +!#D::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	TimezoneOffset := GetTimezoneOffset_P()
-	Needle_Win := "#D"
-	Needle_AltWin := "!#D"
-	Needle_CtrlWin := "^#D"
-	If InStr(A_ThisHotkey, Needle_Win) {  ; Win
-		FormatTime, NowTimestamp, ,yyyyMMddTHHmmss
-	} Else If InStr(A_ThisHotkey, Needle_AltWin) {  ; Alt + Win
-		FormatTime, NowTimestamp, ,yyyy.MM.dd-HH.mm.ss
-	} Else If InStr(A_ThisHotkey, Needle_CtrlWin) {  ; Ctrl + Win
-		FormatTime, NowTimestamp, ,yyyy-MM-ddTHH-mm-ss
+	OutputFormat := "yyyyMMddTHHmmss"
+	If InStr(A_ThisHotkey, "#D") {  ; Win
+		OutputFormat := "yyyyMMddTHHmmss"
+	} Else If InStr(A_ThisHotkey, "!#D") {  ; Alt + Win
+		OutputFormat := "yyyy.MM.dd-HH.mm.ss"
+	} Else If InStr(A_ThisHotkey, "^#D") {  ; Ctrl + Win
+		OutputFormat := "yyyy-MM-ddTHH-mm-ss"
 	} Else {
-		FormatTime, NowTimestamp, ,yyyyMMddTHHmmss
+		OutputFormat := "yyyyMMddTHHmmss"
 	}
-	Keys := NowTimestamp
+	Keys := GetTimestamp(OutputFormat)
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
-		TZ_OFFSET := GetTimezoneOffset()
-		Keys := NowTimestamp TZ_OFFSET
+		; TZ_OFFSET := GetTimezoneOffset()
+		; TZ_OFFSET_P := GetTimezoneOffset_P()
+		Keys := Keys TZ_OFFSET
 	}
-  Send %Keys%
+	Send(Keys)
 	Return
 
 
@@ -1356,6 +1354,25 @@ Get_ahk_id_from_pid(WinPid) {
 	Return ahk_id %OutputVar%
 	; dat_ahk_id=ahk_id %output_var%
 	; Return dat_ahk_id
+}
+
+
+;
+; GetTimestamp
+;   |--> Returns the current datetime formatted as-needed
+;   |
+;   |--> Example:  GetTimestamp("yyyyMMddTHHmmss")
+;   |--> Example:  GetTimestamp("yyyy.MM.dd-HH.mm.ss")
+;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
+;
+GetTimestamp(OutputFormat) {
+	; TimezoneOffset := GetTimezoneOffset_P()
+	Needle_Win := "#D"
+	Needle_AltWin := "!#D"
+	Needle_CtrlWin := "^#D"
+	; FormatTime, OutputTimestamp, , %OutputFormat%
+	OutputTimestamp := FormatTime("",OutputFormat)
+	Return OutputTimestamp
 }
 
 

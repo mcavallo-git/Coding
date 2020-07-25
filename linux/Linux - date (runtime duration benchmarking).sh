@@ -1,14 +1,32 @@
 #!/bin/bash
 
 # ------------------------------------------------------------
-# Simple Timestamp
+# Filename Timestamp
 
-DATETIMESTAMP="$(date +'%Y%m%d_%H%M%S')";
+DATETIME="$(date +'%Y%m%d_%H%M%S')";
+echo "DATETIME_RFC3339 = [${DATETIME}]";
+
 
 # ------------------------------------------------------------
 # RFC-3339 Timestamp
 
-DATETIMESTAMP="$(date --rfc-3339='seconds';)";
+DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";
+echo "DATETIME_RFC3339 = [${DATETIME_RFC3339}]";
+
+
+# ------------------------------------------------------------
+# Default Format
+
+# As-of mid 2019, the default output-format is '%a %b %d %H:%M:%S %Z %Y' for date
+if [ "$(date)" == "$(date +'%a %b %d %H:%M:%S %Z %Y')" ]; then
+	echo "Output strings use the same (default) format of '%a %b %d %H:%M:%S %Z %Y'!";
+fi;
+
+# Convert from epoch seconds (seconds since 'the epoch', e.g. "1970-01-01 00:00:00") and output using MySQL's DateTime format (YYYY-MM-DD hh:mm:ss)
+date --date=@1298589405 +'%Y-%m-%d %H:%M:%S';
+
+# Ex) Get the datetime 1 second just-before the epoch
+date --utc --date='1969-12-31 23:59:59' +'%s';
 
 
 # ------------------------------------------------------------
@@ -21,10 +39,10 @@ echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 
 
 # ------------------------------------------------------------
-#
-# 	Date-Time Vars
-#		 |--> Make sure that the "date" command is called only once (e.g. make sure to only grab one timestamp)
-#		      This way, we can format it however we want without concern of inaccuracies existing between multiple date/timestamp values
+# Detailed Benchmark
+#  |--> Calls "date" only once before & after command(s) -  (e.g. makes sure to only grab one timestamp).
+#       Also, performs date-time calculations & datetime/string re-formatting operations >AFTER< the benchmark has finished, not during.
+#       This way, we can format the strings as-needed while minimizing inaccuracies with the datetime values.
 #
 
 if [ 1 -eq 1 ]; then
@@ -37,6 +55,16 @@ START_SECONDS_NANOSECONDS=$(date +'%s.%N');
 else
 START_SECONDS_NANOSECONDS=$(date --date="${START_INPUT_DATE}" +'%s.%N');
 fi;
+echo "Benchmark Started";
+
+
+echo "RUNNING COMMAND(S)...";
+sleep 0.5;
+
+
+echo "Benchmark Finished";
+
+END_SECONDS_NANOSECONDS=$(date +'%s.%N');
 
 START_EPOCHSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
 START_NANOSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
@@ -51,12 +79,6 @@ START_SECONDS="$(date --date=@${START_EPOCHSECONDS} +'%s')";
 DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d')";
 DATE_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
 
-
-echo "RUNNING COMMAND(S) TO BENCHMARK...";
-sleep 0.5;
-
-
-END_SECONDS_NANOSECONDS=$(date +'%s.%N');
 END_EPOCHSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
 END_NANOSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
 END_MICROSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-6);

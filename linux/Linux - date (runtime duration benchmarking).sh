@@ -43,9 +43,11 @@ DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d')";
 DATE_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
 
 
-# Command here...
+# Place command(s) to benchmark, here...
 sleep 0.5; # Example command - sleep half a second
 
+
+VERBOSE_OUTPUT=1;
 
 END_SECONDS_NANOSECONDS=$(date +'%s.%N');
 END_EPOCHSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
@@ -61,6 +63,7 @@ TOTAL_MICROSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimite
 
 TOTAL_DURATION=$(printf '%02dh %02dm %02d.%06ds' $(echo "${TOTAL_EPOCHSECONDS}/3600" | bc) $(echo "(${TOTAL_EPOCHSECONDS}%3600)/60" | bc) $(echo "${TOTAL_EPOCHSECONDS}%60" | bc) $(echo ${TOTAL_MICROSECONDS}));
 
+if [ ${VERBOSE_OUTPUT} -eq 1 ]; then
 echo "";
 echo "START_SECONDS_NANOSECONDS = [ ${START_SECONDS_NANOSECONDS} ]";
 echo "START_EPOCHSECONDS = [ ${START_EPOCHSECONDS} ]";
@@ -88,6 +91,9 @@ echo "TOTAL_EPOCHSECONDS = [ ${TOTAL_EPOCHSECONDS} ]";
 echo "TOTAL_MILLISECONDS = [ ${TOTAL_MILLISECONDS} ]";
 echo "TOTAL_MICROSECONDS = [ ${TOTAL_MICROSECONDS} ]";
 echo "TOTAL_DURATION = [ ${TOTAL_DURATION} ]";
+echo "";
+fi;
+
 echo "";
 echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_NANOSECONDS} ] to [ ${END_DATETIME}.${END_NANOSECONDS} ])";
 echo "";

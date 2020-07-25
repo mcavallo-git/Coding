@@ -277,13 +277,13 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		OutputFormat := "yyyyMMddTHHmmss"
 	}
 	Keys := GetTimestamp(OutputFormat)
-
 	If InStr(A_ThisHotkey, "+") { ; Shift - concat the timezone onto the output timestamp
-		TZ_Offset := % GetTimezoneOffset()
-		TZ_Offset_P := % GetTimezoneOffset_P()
-		Keys := Keys TZ_Offset
+		Output_TZ := ""
+		GetTimezoneOffset(Output_TZ)
+		; Output_TZ_P := ""
+		; GetTimezoneOffset(Output_TZ_P)
+		Keys := Keys Output_TZ
 	}
-
 	Send(Keys)
 	Return
 
@@ -1358,8 +1358,12 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(OutputFormat) {
-	; TZ_Offset := GetTimezoneOffset()
-	; TZ_Offset_P := GetTimezoneOffset_P()
+	If (False) {
+		Output_TZ := ""
+		GetTimezoneOffset(Output_TZ)
+		Output_TZ_P := ""
+		GetTimezoneOffset(Output_TZ_P)
+	}
 	OutputTimestamp := FormatTime("",OutputFormat)
 	Return OutputTimestamp
 }
@@ -1369,8 +1373,7 @@ GetTimestamp(OutputFormat) {
 ; GetTimezoneOffset
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
-GetTimezoneOffset() {
-	OutputTZ := ""
+GetTimezoneOffset(ByRef OutputTZ) {
 	Time_CurrentTZ := A_Now
 	Time_UTC := A_NowUTC
 	TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")
@@ -1390,8 +1393,7 @@ GetTimezoneOffset() {
 	TZ_UTC_MinuteOffset_Padded := Format("{:02}", TZ_UTC_MinuteOffset)
 	OutputTZ := TZ_UTC_AheadBehind_Sign TZ_UTC_HourOffset_Padded TZ_UTC_MinuteOffset_Padded
 	OutputTZ := StrReplace(OutputTZ, ".", "")
-	TrayTip, AHK, "OutputTZ = [%OutputTZ%]"
-	Return OutputTZ
+	Return
 }
 
 
@@ -1399,11 +1401,11 @@ GetTimezoneOffset() {
 ; GetTimezoneOffset_P
 ;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
 ;
-GetTimezoneOffset_P() {
-	OutputTZ := ""
-	TZ_OFFSET := GetTimezoneOffset()
-	OutputTZ := StrReplace(TZ_OFFSET, "+", "P")
-	Return %OutputTZ%
+GetTimezoneOffset_P(ByRef Output_TZ_P) {
+	Output_TZ_P := ""
+	GetTimezoneOffset(Output_TZ_P)
+	Output_TZ_P := StrReplace(Output_TZ, "+", "P")
+	Return
 }
 
 

@@ -37,6 +37,7 @@ START_NANOSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fi
 START_MICROSECONDS=$(echo ${START_NANOSECONDS} | cut --characters 1-6);
 START_MILLISECONDS=$(echo ${START_NANOSECONDS} | cut --characters 1-3);
 START_DATETIME="$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%dT%H:%M:%S')";
+START_TIMEZONE="$(date --date=@${START_EPOCHSECONDS} +'%z')";
 START_TIMESTAMP="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d_%H%M%S')";
 START_TIMESTAMP_FILENAME="$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%d_%H-%M-%S')";
 START_TIMESTAMP_COMPACT="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d%H%M%S')";
@@ -55,6 +56,7 @@ END_NANOSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields
 END_MICROSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-6);
 END_MILLISECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-3);
 END_DATETIME=$(date --date=@${END_SECONDS_NANOSECONDS} +'%Y-%m-%dT%H:%M:%S');
+END_TIMEZONE="$(date --date=@${END_SECONDS_NANOSECONDS} +'%z')";
 
 TOTAL_DECIMALSECONDS=$(echo "${END_SECONDS_NANOSECONDS} - ${START_SECONDS_NANOSECONDS}" | bc);
 TOTAL_EPOCHSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimiter '.' --fields 1));
@@ -95,7 +97,7 @@ echo "";
 fi;
 
 echo "";
-echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_MICROSECONDS} ] to [ ${END_DATETIME}.${END_MICROSECONDS} ])";
+echo "Duration: ${TOTAL_DURATION}   (Ran from [ ${START_DATETIME}.${START_MICROSECONDS}${START_TIMEZONE} ] to [ ${END_DATETIME}.${END_MICROSECONDS}${END_TIMEZONE} ])";
 echo "";
 
 fi;

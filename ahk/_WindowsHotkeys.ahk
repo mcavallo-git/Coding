@@ -266,20 +266,16 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Win + D
-;  ACTION:  Types a variety of timestamp strings
+;  ACTION:  Types one of a dynamic set of timestamp-strings
 ;
-; Timestamp		:::		Win + Alt + D
-; Timestamp		:::		Win + Ctrl + D
-; Timestamp		:::		Win + Shift + D
-;
-#D::
-!#D::
-^#D::
-+#D::
-!^#D::
-+^#D::
-+!#D::
-+!^#D::
+#D::     ;  20200725T080521              (Base Case + Win + D)
+!#D::    ;  20200725T080550-0500         (Alt + Win + D)
+^#D::    ;  2020-07-25T08:05:55          (Ctrl + Win + D)
++#D::    ;  20200725T080557.608027       (Shift + Win + D)
+!^#D::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + Win + D)
++^#D::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + Win + D)
++!#D::   ;  20200725T080613.297487-0500  (Shift + Alt + Win + D)
++!^#D::  ;  (For some reason, Microsoft made [ Alt + Ctrl + Shift + Win ] open the office-app --> See https://superuser.com/a/1484507  (Shift + Ctrl + Alt + Win + D)
 	Global RFC3339_YearMonthDay_Separator
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator

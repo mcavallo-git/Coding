@@ -627,10 +627,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
 		Color_ResolvedName := "???"
 		FFXIV_Nickname := "???"
-		If ((ColorComponent_Blue<=60) && (ColorComponent_Green<=60) && (ColorComponent_Red<=60)) {
+		If ((ColorComponent_Blue<=70) && (ColorComponent_Green<=70) && (ColorComponent_Red<=70)) {
 			Color_ResolvedName := "Too-Dark"
 			FFXIV_Nickname := "Too-Dark"
-		} Else If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue)>=20) && ((ColorComponent_Green-ColorComponent_Blue)>=20)) {
+		} Else If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue)>=20) && ((ColorComponent_Green-ColorComponent_Blue)>=15)) {
 			Color_ResolvedName := "Yellow"
 			FFXIV_Nickname := "Centered"
 		} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {

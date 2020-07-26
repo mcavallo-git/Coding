@@ -601,15 +601,17 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;  ACTION:  Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
 ;
 ^#RButton::
+	Global DebugMode
 	CoordMode, Mouse, Screen
-	OutputFile := A_Desktop "\rgblogging.txt"
-	file := FileOpen(OutputFile, "w")
-	; FileAppend "Another line.`n", "C:\Users\mcava\Desktop\Test.txt"
-	If (FileExist("%OutputFile%")) {
-		FileDelete OutputFile
+	If (DebugMode = 1) {
+		TrayTip, AHK, %DebugString%
+		OutputFile := A_Desktop "\rgblogging.txt"
+		file := FileOpen(OutputFile, "w")
+		If (FileExist("%OutputFile%")) {
+			FileDelete OutputFile
+		}
+		file.write("`n")
 	}
-	; FileAppend "`n", "%OutputFile%"
-	file.write("`n")
 	PollDuration_ms := 10
 	FollowDuration_Seconds := 600
 	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
@@ -622,26 +624,35 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		ColorDelta_BlueGreen := Abs(ColorComponent_Blue - ColorComponent_Green)
 		ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
 		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
-		Color_ResolvedName := "??"
+		Color_ResolvedName := "???"
+		FFXIV_Nickname := "???"
 		If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue) >= 25) && ((ColorComponent_Green-ColorComponent_Blue) >= 25)) {
 			Color_ResolvedName := "Yellow"
+			FFXIV_Nickname := "Centered"
 		} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
-			Color_ResolvedName := "Red"
+			Color_ResolvedName := "Magenta"
+			FFXIV_Nickname := "Good"
 		} Else If ((ColorComponent_Green >= 40) && ((ColorComponent_Green - ColorComponent_Blue) >= 15) && ((ColorComponent_Green - ColorComponent_Red) >= 15) && (ColorDelta_BlueRed <= 15)) {
 			Color_ResolvedName := "Green"
+			FFXIV_Nickname := "Pliant"
 		} Else If (((ColorComponent_Blue/ColorComponent_Green) <= 1.35) && ((ColorComponent_Green/ColorComponent_Red) <= 1.35) && ((ColorComponent_Blue/ColorComponent_Red) <= 1.35)) {
 			Color_ResolvedName := "White"
+			FFXIV_Nickname := "Normal"
 		} Else If (((ColorComponent_Blue - ColorComponent_Green) >= 10) && ((ColorComponent_Blue - ColorComponent_Red) >= 20) && ((ColorComponent_Green - ColorComponent_Red) >= 5)) {
 			Color_ResolvedName := "Blue"
+			FFXIV_Nickname := "Sturdy"
 		}
-		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
-		Tooltip, %TooltipOutput%
-		; FileAppend ("%TooltipOutput%"), "%OutputFile%"
-		; file.write("Another line.`n")
-		file.write("%TooltipOutput%`n")
+		; TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
+		; Tooltip, %TooltipOutput%
+		Tooltip, FFXIV_Nickname
+		If (DebugMode = 1) {
+			file.write("%TooltipOutput%`n")
+		}
 		Sleep %PollDuration_ms%
 	}
-	file.close()
+	If (DebugMode = 1) {
+		file.close()
+	}
 	ClearTooltip(0)
 	Return
 

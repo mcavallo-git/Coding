@@ -2035,7 +2035,7 @@ ShowCursorCoordinates(FollowDuration) {
 	CoordMode, Mouse, Screen
 	PollDuration_ms := 10
 	Loop_Iterations := Floor((1000 * FollowDuration) / PollDuration_ms)
-	Loop %Loop_Iterations% {
+	Loop Loop_Iterations {
 		MouseGetPos, MouseX, MouseY
 		Tooltip, x%MouseX% y%MouseY%
 		Sleep %PollDuration_ms%
@@ -2128,7 +2128,7 @@ ShowWindowTitles() {
 	Gui, WinTitles:Default
 	Gui, Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
 	Window := WinGetList("A")
-	Loop %Window% {
+	Loop Window {
 		Id:=Window%A_Index%
 		WinGetTitle, TVar , % "ahk_id " Id
 		If (Tvar != "") {
@@ -2162,7 +2162,7 @@ ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
 ;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
 ;
 SpaceUp_Loop(LoopIterations) {
-	Loop %LoopIterations% {
+	Loop LoopIterations {
 		Sleep 500
 		Send {SC039}
 		SendSpace()
@@ -2206,7 +2206,7 @@ StrLenUnicode(data) {
 ;   |--> Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of checkboxes need to be selected individually to update from a Git repo
 ;
 TabSpace_Loop(LoopIterations) {
-	Loop %LoopIterations% {
+	Loop LoopIterations {
 		Send {Tab}
 		Sleep 10
 		Send {Space}

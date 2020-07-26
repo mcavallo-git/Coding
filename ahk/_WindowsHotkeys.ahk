@@ -609,15 +609,16 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	; Tooltip, %TooltipOutput%
 	; Sleep 5000
 	; If (ContinueScript = "Yes") {
-	MsgBox, 3, FFXIV AutoCraft, Is the Collectibles 'Synthesize' window open?
-	IfMsgBox Yes
-	{
-		Tooltip, "Left-click the center of the `"Condition`" color-bubble`n(just under the `"C`" in `"Condition`")"
-		KeyWait, LButton, D
-		MouseGetPos, ColorCenter_X, ColorCenter_Y
-		ColorCenter_Vars := ("ColorCenter_X = [ " ColorCenter_X " ], ColorCenter_Y = [ " ColorCenter_Y " ]")
-		Tooltip, %ColorCenter_Vars%
-		Sleep 5000
+	; MsgBox, 3, FFXIV AutoCraft, Is the Collectibles 'Synthesize' window open?
+	; IfMsgBox Yes
+	; {
+		; WhereToClick := "Left-click the center of the `"Condition`" color-bubble`n(just under the `"C`" in `"Condition`")"
+		; Tooltip, WhereToClick
+		; KeyWait, LButton, D
+		; MouseGetPos, ColorCenter_X, ColorCenter_Y
+		; ColorCenter_Vars := ("ColorCenter_X = [ " ColorCenter_X " ], ColorCenter_Y = [ " ColorCenter_Y " ]")
+		; Tooltip, %ColorCenter_Vars%
+		; Sleep 5000
 		If (DebugMode = 1) {
 			TrayTip, AHK, %DebugString%
 			OutputFile := A_Desktop "\rgblogging.txt"
@@ -671,7 +672,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		If (DebugMode = 1) {
 			Logfile.close()
 		}
-	}
+	; }
 	DebugMode := 0
 	ClearTooltip(0)
 	Return
@@ -2122,6 +2123,7 @@ ShowCursorCoordinates(FollowDuration_Seconds) {
 		Sleep %PollDuration_ms%
 	}
 	ClearTooltip(0)
+	Return
 }
 
 
@@ -2828,22 +2830,24 @@ If (False) {
 ;   |
 ;   |--> Hotkey Modifier Symbols:  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 ;
-;     #    Win
+;     #      Win
 ;
-;     !    Alt
+;     !      Alt
 ;
-;     +    Shift
+;     +      Shift
 ;
-;     ^    Ctrl
+;     ^      Ctrl
 ;
-;     <    Use the LEFT modifier key, e.g. <# (LWin), <! (LAlt), <+ (LShift), <^ (LCtrl)
+;            NOTE: Most full-sized querty keyboards have two of each modifier key, one on the left of the spacebar, one to the right
 ;
-;     >    Use the RIGHT modifier key, e.g. ># (RWin), >! (RAlt), >+ (RShift), >^ (RCtrl)
+;     <      Use the LEFT modifier key, e.g. <# (LWin), <! (LAlt), <+ (LShift), <^ (LCtrl)
 ;
-;          AppsKey  (Application or Menu key, keycap symbol looks like a document w/ 3 lines)
+;     >      Use the RIGHT modifier key, e.g. ># (RWin), >! (RAlt), >+ (RShift), >^ (RCtrl)
+;
+;   AppsKey  (Application or Menu key, keycap symbol looks like a document w/ 3 lines)
 ;
 ; ------------------------------------------------------------
-;	
+;
 ; Citation(s)
 ;
 ;   answers.microsoft.com  |  "Shortcut to sound control panel?"  |  https://answers.microsoft.com/en-us/windows/forum/windows_10-start/shortcut-to-sound-control-panel/32d5a6e7-fa92-4ca7-9033-cd38ba525542

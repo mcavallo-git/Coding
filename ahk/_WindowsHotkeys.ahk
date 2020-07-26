@@ -611,7 +611,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		ColorComponent_Blue := (Color & 0xFF)
 		ColorComponent_Green := ((Color & 0xFF00) >> 8)
 		ColorComponent_Red := ((Color & 0xFF0000) >> 16)
-		TooltipOutput := "Color = [ %Color% ], Blue = [ %ColorComponent_Blue% ], Green = [ %ColorComponent_Green% ], Red = [ %ColorComponent_Red% ]"
+		TooltipOutput := "Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ]"
 		Tooltip, %TooltipOutput%
 		Sleep %PollDuration_ms%
 	}

@@ -588,11 +588,34 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 ; ------------------------------------------------------------
 ;  HOTKEY:  Windows-Key + Right-Click
-;  ACTION:  Output cursor location
+;  ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 #RButton::
-	FollowDuration := 10
-	ShowCursorCoordinates(FollowDuration)
+	FollowDuration_Seconds := 10
+	ShowCursorCoordinates(FollowDuration_Seconds)
+	Return
+
+
+; ------------------------------------------------------------
+;  HOTKEY:  Ctrl + Win + Right-Click
+;  ACTION:  Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
+;
+^#RButton::
+	CoordMode, Mouse, Screen
+	PollDuration_ms := 10
+	FollowDuration_Seconds := 600
+	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
+	Loop Loop_Iterations {
+		MouseGetPos, MouseX, MouseY
+		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
+		ColorComponent_Blue := (Color & 0xFF)
+		ColorComponent_Green := ((Color & 0xFF00) >> 8)
+		ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+		TooltipOutput := "Color = [ %Color% ], Blue = [ %ColorComponent_Blue% ], Green = [ %ColorComponent_Green% ], Red = [ %ColorComponent_Red% ]"
+		Tooltip, %TooltipOutput%
+		Sleep %PollDuration_ms%
+	}
+	ClearTooltip(0)
 	Return
 
 
@@ -2031,10 +2054,10 @@ SendSpace() {
 ;	ShowCursorCoordinates
 ;   |--> Displays a tooltip with the coordinates right next to the cursor's current location
 ;
-ShowCursorCoordinates(FollowDuration) {
+ShowCursorCoordinates(FollowDuration_Seconds) {
 	CoordMode, Mouse, Screen
 	PollDuration_ms := 10
-	Loop_Iterations := Floor((1000 * FollowDuration) / PollDuration_ms)
+	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
 	Loop Loop_Iterations {
 		MouseGetPos, MouseX, MouseY
 		Tooltip, x%MouseX% y%MouseY%

@@ -623,7 +623,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
 		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
 		Color_ResolvedName := "??"
-		If ((ColorDelta_BlueGreen >= 30) && (ColorDelta_GreenRed <= 10) && (ColorDelta_BlueRed >= 30)) {
+		If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue) >= 25) && ((ColorComponent_Green-ColorComponent_Blue) >= 25)) {
 			Color_ResolvedName := "Yellow"
 		} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
 			Color_ResolvedName := "Red"

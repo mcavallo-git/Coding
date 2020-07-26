@@ -642,7 +642,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 			Color_ResolvedName := "Blue"
 			FFXIV_Nickname := "Sturdy"
 		}
-		; TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
+		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
 		; Tooltip, %TooltipOutput%
 		Tooltip, %FFXIV_Nickname%
 		If (DebugMode = 1) {

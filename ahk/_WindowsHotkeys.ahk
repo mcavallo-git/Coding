@@ -602,10 +602,18 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 ^#RButton::
 	CoordMode, Mouse, Screen
+	OutputFile := A_Desktop "\rgblogging.txt"
+	file := FileOpen(OutputFile, "w")
+	; FileAppend "Another line.`n", "C:\Users\mcava\Desktop\Test.txt"
+	If (FileExist("%OutputFile%")) {
+		FileDelete OutputFile
+	}
+	; FileAppend "`n", "%OutputFile%"
+	file.write("`n")
 	PollDuration_ms := 10
 	FollowDuration_Seconds := 600
 	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
-	Loop Loop_Iterations {
+	Loop Loop_Iterations {  ; Loop %Loop_Iterations% {
 		MouseGetPos, MouseX, MouseY
 		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
 		ColorComponent_Blue := (Color & 0xFF)
@@ -617,17 +625,23 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		Color_ResolvedName := "??"
 		If ((ColorDelta_BlueGreen > 30) && (ColorDelta_GreenRed < 10) && (ColorDelta_BlueRed > 30)) {
 			Color_ResolvedName := "Yellow"
-		} Else If (((ColorComponent_Red - ColorComponent_Blue) > 20) && ((ColorComponent_Red - ColorComponent_Green) > 30) && ((ColorComponent_Blue - ColorComponent_Green) > 10)) {
+		} Else If (((ColorComponent_Red/ColorComponent_Green) > 1.1) && ((ColorComponent_Red/ColorComponent_Blue) > 1.1) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
 			Color_ResolvedName := "Red"
-		} Else If ((ColorComponent_Green > 40) && ((ColorComponent_Green - ColorComponent_Blue) > 20) && ((ColorComponent_Green - ColorComponent_Red) > 20) && (ColorDelta_BlueRed < 15)) {
+		} Else If ((ColorComponent_Green > 40) && ((ColorComponent_Green - ColorComponent_Blue) > 15) && ((ColorComponent_Green - ColorComponent_Red) > 15) && (ColorDelta_BlueRed < 15)) {
 			Color_ResolvedName := "Green"
+		} Else If (((ColorComponent_Blue/ColorComponent_Green) < 1.25) && ((ColorComponent_Green/ColorComponent_Red) < 1.25) && ((ColorComponent_Blue/ColorComponent_Red) < 1.25)) {
+			Color_ResolvedName := "White"
 		} Else If (((ColorComponent_Blue - ColorComponent_Green) > 10) && ((ColorComponent_Blue - ColorComponent_Red) > 20) && ((ColorComponent_Green - ColorComponent_Red) > 5)) {
 			Color_ResolvedName := "Blue"
 		}
-		TooltipOutput := "Color_ResolvedName = " Color_ResolvedName "`n Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ]"
+		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
 		Tooltip, %TooltipOutput%
+		; FileAppend ("%TooltipOutput%"), "%OutputFile%"
+		; file.write("Another line.`n")
+		file.write("%TooltipOutput%`n")
 		Sleep %PollDuration_ms%
 	}
+	file.close()
 	ClearTooltip(0)
 	Return
 

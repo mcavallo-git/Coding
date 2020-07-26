@@ -59,7 +59,7 @@ LF := "`n"
 
 VerboseOutput := 1
 
-DebugMode := 1
+DebugMode := 0
 
 ;
 ; RFC3339 - Timestamps (Internet date-time standardization-values) (https://tools.ietf.org/html/rfc3339)
@@ -602,6 +602,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ;
 ^#RButton::
 	Global DebugMode
+	DebugMode := 1
 	CoordMode, Mouse, Screen
 	If (DebugMode = 1) {
 		TrayTip, AHK, %DebugString%
@@ -653,6 +654,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	If (DebugMode = 1) {
 		Logfile.close()
 	}
+	DebugMode := 0
 	ClearTooltip(0)
 	Return
 

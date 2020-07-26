@@ -611,12 +611,10 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		ColorComponent_Blue := (Color & 0xFF)
 		ColorComponent_Green := ((Color & 0xFF00) >> 8)
 		ColorComponent_Red := ((Color & 0xFF0000) >> 16)
-
 		ColorDelta_BlueGreen := Abs(ColorComponent_Blue - ColorComponent_Green)
 		ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
 		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
 		ColorDelta_BlueRed := Abs(ColorComponent_Red - ColorComponent_Blue)
-
 		Color_ResolvedName := "??"
 		If ((ColorDelta_BlueGreen > 30) && (ColorDelta_GreenRed < 10) && (ColorDelta_BlueRed > 30)) {
 			Color_ResolvedName := "Yellow"
@@ -627,7 +625,6 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		} Else If (((ColorComponent_Blue - ColorComponent_Green) > 10) && ((ColorComponent_Blue - ColorComponent_Red) > 20) && ((ColorComponent_Green - ColorComponent_Red) > 5)) {
 			Color_ResolvedName := "Blue"
 		}
-
 		TooltipOutput := "Color_ResolvedName = " Color_ResolvedName "`n Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ]"
 		Tooltip, %TooltipOutput%
 		Sleep %PollDuration_ms%

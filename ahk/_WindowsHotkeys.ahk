@@ -604,10 +604,15 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Global DebugMode
 	DebugMode := 1
 	CoordMode, Mouse, Screen
+	; ContinueScript := MsgBox(4, "FFXIV Auto-Collectibles", "Is the Collectibles 'Synthesize' window open?", "YesNo")
+	; TooltipOutput := "ContinueScript = [%ContinueScript%]"
+	; Tooltip, %TooltipOutput%
+	; Sleep 5000
+	; If (ContinueScript = "Yes") {
 	MsgBox, 3, FFXIV AutoCraft, Is the Collectibles 'Synthesize' window open?
 	IfMsgBox Yes
 	{
-		Tooltip, "Left-click the center of the color-bubble`n(just under the `"C`" in `"Condition`")"
+		Tooltip, "Left-click the center of the `"Condition`" color-bubble`n(just under the `"C`" in `"Condition`")"
 		KeyWait, LButton, D
 		MouseGetPos, ColorCenter_X, ColorCenter_Y
 		ColorCenter_Vars := ("ColorCenter_X = [ " ColorCenter_X " ], ColorCenter_Y = [ " ColorCenter_Y " ]")

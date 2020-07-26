@@ -59,7 +59,7 @@ LF := "`n"
 
 VerboseOutput := 1
 
-DebugMode := 0
+DebugMode := 1
 
 ;
 ; RFC3339 - Timestamps (Internet date-time standardization-values) (https://tools.ietf.org/html/rfc3339)
@@ -626,26 +626,26 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
 		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
 		Color_ResolvedName := "???"
-		FFXIV_Nickname := "???"
+		; FFXIV_Nickname := "???"
 		If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue) >= 25) && ((ColorComponent_Green-ColorComponent_Blue) >= 25)) {
 			Color_ResolvedName := "Yellow"
-			FFXIV_Nickname := "Centered"
+			; FFXIV_Nickname := "Centered"
 		} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
 			Color_ResolvedName := "Magenta"
-			FFXIV_Nickname := "Good"
+			; FFXIV_Nickname := "Good"
 		} Else If ((ColorComponent_Green >= 40) && ((ColorComponent_Green - ColorComponent_Blue) >= 15) && ((ColorComponent_Green - ColorComponent_Red) >= 15) && (ColorDelta_BlueRed <= 15)) {
 			Color_ResolvedName := "Green"
-			FFXIV_Nickname := "Pliant"
+			; FFXIV_Nickname := "Pliant"
 		} Else If (((ColorComponent_Blue/ColorComponent_Green) <= 1.35) && ((ColorComponent_Green/ColorComponent_Red) <= 1.35) && ((ColorComponent_Blue/ColorComponent_Red) <= 1.35)) {
 			Color_ResolvedName := "White"
-			FFXIV_Nickname := "Normal"
-		} Else If (((ColorComponent_Blue - ColorComponent_Green) >= 10) && ((ColorComponent_Blue - ColorComponent_Red) >= 20) && ((ColorComponent_Green - ColorComponent_Red) >= 5)) {
+			; FFXIV_Nickname := "Normal"
+		} Else If ( (((ColorComponent_Blue-ColorComponent_Green)>=10)||((ColorComponent_Blue>=245)&&(ColorComponent_Green>=235))) && ((ColorComponent_Blue - ColorComponent_Red) >= 20) && ((ColorComponent_Green - ColorComponent_Red) >= 5)) {
 			Color_ResolvedName := "Blue"
-			FFXIV_Nickname := "Sturdy"
+			; FFXIV_Nickname := "Sturdy"
 		}
 		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
-		; Tooltip, %TooltipOutput%
-		Tooltip, %FFXIV_Nickname%
+		Tooltip, %TooltipOutput%
+		; Tooltip, %FFXIV_Nickname%
 		If (DebugMode = 1) {
 			Logfile.write("%TooltipOutput%`n")
 		}

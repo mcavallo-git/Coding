@@ -2838,7 +2838,7 @@ If (False) {
 ;
 ;     ^      Ctrl
 ;
-;            NOTE: Most full-sized querty keyboards have two of each modifier key, one on the left of the spacebar, one to the right
+;            NOTE: Most full-sized querty keyboards have two of each modifier key, one to the left-side of the spacebar, one to the right
 ;
 ;     <      Use the LEFT modifier key, e.g. <# (LWin), <! (LAlt), <+ (LShift), <^ (LCtrl)
 ;

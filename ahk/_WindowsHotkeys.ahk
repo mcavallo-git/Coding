@@ -604,58 +604,68 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	Global DebugMode
 	DebugMode := 1
 	CoordMode, Mouse, Screen
-	If (DebugMode = 1) {
-		TrayTip, AHK, %DebugString%
-		OutputFile := A_Desktop "\rgblogging.txt"
-		Logfile := FileOpen(OutputFile, "w")
-		If (FileExist("%OutputFile%")) {
-			FileDelete OutputFile
-		}
-		Logfile.write("`n")
-	}
-	PollDuration_ms := 10
-	FollowDuration_Seconds := 600
-	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
-	Loop Loop_Iterations {  ; Loop %Loop_Iterations% {
-		MouseGetPos, MouseX, MouseY
-		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
-		ColorComponent_Blue := (Color & 0xFF)
-		ColorComponent_Green := ((Color & 0xFF00) >> 8)
-		ColorComponent_Red := ((Color & 0xFF0000) >> 16)
-		ColorDelta_BlueGreen := Abs(ColorComponent_Blue - ColorComponent_Green)
-		ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
-		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
-		Color_ResolvedName := "???"
-		FFXIV_Nickname := "???"
-		If ((ColorComponent_Blue<=70) && (ColorComponent_Green<=70) && (ColorComponent_Red<=70)) {
-			Color_ResolvedName := "Too-Dark"
-			FFXIV_Nickname := "Too-Dark"
-		} Else If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue)>=20) && ((ColorComponent_Green-ColorComponent_Blue)>=15)) {
-			Color_ResolvedName := "Yellow"
-			FFXIV_Nickname := "Centered"
-		} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
-			Color_ResolvedName := "Magenta"
-			FFXIV_Nickname := "Good"
-		} Else If ((ColorComponent_Green >= 40) && ((ColorComponent_Green - ColorComponent_Blue) >= 15) && ((ColorComponent_Green - ColorComponent_Red) >= 15) && (ColorDelta_BlueRed <= 15)) {
-			Color_ResolvedName := "Green"
-			FFXIV_Nickname := "Pliant"
-		} Else If (((ColorComponent_Blue/ColorComponent_Green) <= 1.35) && ((ColorComponent_Green/ColorComponent_Red) <= 1.35) && ((ColorComponent_Blue/ColorComponent_Red) <= 1.35)) {
-			Color_ResolvedName := "White"
-			FFXIV_Nickname := "Normal"
-		} Else If ( (((ColorComponent_Blue-ColorComponent_Green)>=10)||((ColorComponent_Blue>=245)&&(ColorComponent_Green>=235))) && ((ColorComponent_Blue - ColorComponent_Red) >= 20) && ((ColorComponent_Green - ColorComponent_Red) >= 5)) {
-			Color_ResolvedName := "Blue"
-			FFXIV_Nickname := "Sturdy"
-		}
-		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
-		Tooltip, %TooltipOutput%
-		; Tooltip, %FFXIV_Nickname%
+	MsgBox, 3, FFXIV AutoCraft, Is the Collectibles 'Synthesize' window open?
+	IfMsgBox Yes
+	{
+		Tooltip, "Left-click the center of the color-bubble`n(just under the `"C`" in `"Condition`")"
+		KeyWait, LButton, D
+		MouseGetPos, ColorCenter_X, ColorCenter_Y
+		ColorCenter_Vars := ("ColorCenter_X = [ " ColorCenter_X " ], ColorCenter_Y = [ " ColorCenter_Y " ]")
+		Tooltip, %ColorCenter_Vars%
+		Sleep 5000
 		If (DebugMode = 1) {
-			Logfile.write("%TooltipOutput%`n")
+			TrayTip, AHK, %DebugString%
+			OutputFile := A_Desktop "\rgblogging.txt"
+			Logfile := FileOpen(OutputFile, "w")
+			If (FileExist("%OutputFile%")) {
+				FileDelete OutputFile
+			}
+			Logfile.write("`n")
 		}
-		Sleep %PollDuration_ms%
-	}
-	If (DebugMode = 1) {
-		Logfile.close()
+		PollDuration_ms := 10
+		FollowDuration_Seconds := 600
+		Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
+		Loop Loop_Iterations {  ; Loop %Loop_Iterations% {
+			MouseGetPos, MouseX, MouseY
+			Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
+			ColorComponent_Blue := (Color & 0xFF)
+			ColorComponent_Green := ((Color & 0xFF00) >> 8)
+			ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+			ColorDelta_BlueGreen := Abs(ColorComponent_Blue - ColorComponent_Green)
+			ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
+			ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
+			Color_ResolvedName := "???"
+			FFXIV_Nickname := "???"
+			If ((ColorComponent_Blue<=70) && (ColorComponent_Green<=70) && (ColorComponent_Red<=70)) {
+				Color_ResolvedName := "Too-Dark"
+				FFXIV_Nickname := "Too-Dark"
+			} Else If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue)>=20) && ((ColorComponent_Green-ColorComponent_Blue)>=15)) {
+				Color_ResolvedName := "Yellow"
+				FFXIV_Nickname := "Centered"
+			} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
+				Color_ResolvedName := "Magenta"
+				FFXIV_Nickname := "Good"
+			} Else If ((ColorComponent_Green >= 40) && ((ColorComponent_Green - ColorComponent_Blue) >= 15) && ((ColorComponent_Green - ColorComponent_Red) >= 15) && (ColorDelta_BlueRed <= 15)) {
+				Color_ResolvedName := "Green"
+				FFXIV_Nickname := "Pliant"
+			} Else If (((ColorComponent_Blue/ColorComponent_Green) <= 1.35) && ((ColorComponent_Green/ColorComponent_Red) <= 1.35) && ((ColorComponent_Blue/ColorComponent_Red) <= 1.35)) {
+				Color_ResolvedName := "White"
+				FFXIV_Nickname := "Normal"
+			} Else If ( (((ColorComponent_Blue-ColorComponent_Green)>=10)||((ColorComponent_Blue>=245)&&(ColorComponent_Green>=235))) && ((ColorComponent_Blue - ColorComponent_Red) >= 20) && ((ColorComponent_Green - ColorComponent_Red) >= 5)) {
+				Color_ResolvedName := "Blue"
+				FFXIV_Nickname := "Sturdy"
+			}
+			TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
+			Tooltip, %TooltipOutput%
+			; Tooltip, %FFXIV_Nickname%
+			If (DebugMode = 1) {
+				Logfile.write("%TooltipOutput%`n")
+			}
+			Sleep %PollDuration_ms%
+		}
+		If (DebugMode = 1) {
+			Logfile.close()
+		}
 	}
 	DebugMode := 0
 	ClearTooltip(0)

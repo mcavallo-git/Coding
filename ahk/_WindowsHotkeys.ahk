@@ -606,11 +606,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 	If (DebugMode = 1) {
 		TrayTip, AHK, %DebugString%
 		OutputFile := A_Desktop "\rgblogging.txt"
-		file := FileOpen(OutputFile, "w")
+		Logfile := FileOpen(OutputFile, "w")
 		If (FileExist("%OutputFile%")) {
 			FileDelete OutputFile
 		}
-		file.write("`n")
+		Logfile.write("`n")
 	}
 	PollDuration_ms := 10
 	FollowDuration_Seconds := 600
@@ -646,12 +646,12 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		; Tooltip, %TooltipOutput%
 		Tooltip, FFXIV_Nickname
 		If (DebugMode = 1) {
-			file.write("%TooltipOutput%`n")
+			Logfile.write("%TooltipOutput%`n")
 		}
 		Sleep %PollDuration_ms%
 	}
 	If (DebugMode = 1) {
-		file.close()
+		Logfile.close()
 	}
 	ClearTooltip(0)
 	Return

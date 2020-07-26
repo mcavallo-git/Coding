@@ -59,7 +59,7 @@ LF := "`n"
 
 VerboseOutput := 1
 
-DebugMode := 0
+DebugMode := 1
 
 ;
 ; RFC3339 - Timestamps (Internet date-time standardization-values) (https://tools.ietf.org/html/rfc3339)
@@ -644,7 +644,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 		}
 		; TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
 		; Tooltip, %TooltipOutput%
-		Tooltip, FFXIV_Nickname
+		Tooltip, %FFXIV_Nickname%
 		If (DebugMode = 1) {
 			Logfile.write("%TooltipOutput%`n")
 		}

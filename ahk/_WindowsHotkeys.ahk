@@ -61,6 +61,7 @@ VerboseOutput := 1
 
 DebugMode := 1
 
+
 ;
 ; RFC3339 - Timestamps (Internet date-time standardization-values) (https://tools.ietf.org/html/rfc3339)
 ;  |-->  Example RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
@@ -80,6 +81,17 @@ RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone
 GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
 
 GroupAdd, Explorer, ahk_class CabinetWClass
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                     SPINUP-CHECKS                     ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+If (DebugMode == 1) {
+	TrayTip, AHK, Debug-Mode ON  ; Toast Notification
+}
 
 
 ; ------------------------------------------------------------

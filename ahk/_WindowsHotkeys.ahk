@@ -663,6 +663,7 @@ AppsKey::RWin
 ; ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
 ; 
 #S::
+	TrayTip, AHK, Opening "Sound - Playback"  ; Toast Notification
 	;
 	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
 	; Run control.exe /name Microsoft.Sound
@@ -675,7 +676,6 @@ AppsKey::RWin
 	; Run "control.exe mmsys.cpl,,2"
 	; Run control mmsys.cpl,,3
 	;
-	TrayTip, AHK, Opening "Sound - Playback"  ; Toast Notification
 	RunWaitOne("control.exe mmsys.cpl,,0")  ; Playback
 	; RunWaitOne("control.exe mmsys.cpl,,1")  ; Recording
 	; RunWaitOne("control.exe mmsys.cpl,,2")  ; Sounds
@@ -2012,7 +2012,12 @@ RemoveToolTip() {
 ;
 RunWaitOne(CMD_Command) {
 	WScript_Shell := ComObjCreate("WScript.Shell")
-	Run_Command := ComSpec " /C `"" CMD_Command "`" "
+	Run_Command := A_ComSpec " /C `"" CMD_Command "`" "
+	If (DebugMode = 1) {
+		TooltipOutput := "Run_Command=[" Run_Command "]"
+		Tooltip, %TooltipOutput%
+		ClearTooltip(7500)
+	}
 	WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
 	Return WScript_Shell_Exec
 }

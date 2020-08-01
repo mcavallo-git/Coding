@@ -59,8 +59,8 @@ LF := "`n"
 
 VerboseOutput := 1
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ;
@@ -91,7 +91,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ; ------------------------------------------------------------
 
 If (DebugMode == 1) {
-	TrayTip, AHK, Debug-Mode ON  ; Toast Notification
+	TrayTip, AHK Version, %A_AhkVersion%  ; Toast Notification
 }
 
 
@@ -908,9 +908,9 @@ WheelRight::
 ;  HOTKEY:  Win + C
 ;  ACTION:  Open Google Chrome
 ;
-#C::
-	OpenChrome()
-	Return
+; #C::
+; 	OpenChrome()
+; 	Return
 
 
 ; ------------------------------------------------------------
@@ -1365,6 +1365,21 @@ CommentCurrentLine_NoSpace() {
 
 
 ;
+; DoLogging
+;   |--> Log given text to target file
+;
+DoLogging(LogText) {
+	; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
+	OutputLogfile := "C:\Users\" A_UserName "\Desktop" "\debug-logging.txt"
+	FileAppend,
+	(
+%LogText%
+	), %OutputLogfile%
+	Return
+}
+
+
+;
 ; Get_ahk_id_from_title
 ;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
@@ -1418,6 +1433,7 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |
 ;   |--> Example:  GetTimestamp("yyyyMMddTHHmmss")
 ;   |--> Example:  GetTimestamp("yyyy.MM.dd-HH.mm.ss")
+;   |--> Example:  GetTimestamp("yyyy.MM.dd HH:mm:ss")
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {

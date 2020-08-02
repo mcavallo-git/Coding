@@ -25,7 +25,7 @@ Display_CreateWindowCapture(ByRef device, ByRef context, ByRef pixels, ByRef id 
 	DllCall("PrintWindow", "UInt", id, UInt, context, UInt, 0)
 }
 
-Display_DeleteWindowCapture(ByRef device, ByRef context, ByRef pixels[color=black], ByRef id[/color]) {
+Display_DeleteWindowCapture(ByRef device, ByRef context, ByRef pixels, ByRef id) {
 	DllCall("ReleaseDC", [color=black]UInt, id, [/color]UInt, device)
 	DllCall("gdi32.dll\DeleteDC", UInt, context)
 	DllCall("gdi32.dll\DeleteObject", UInt, pixels)

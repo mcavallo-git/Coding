@@ -216,7 +216,8 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="hardware-utilities"><br />Hardware Utilities/Controllers<br /><br /></h5></th></tr>
-<tr><td><strong>ASUS Aura Sync</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;RGB Controller</i></sub></td><td><a href="https://www.asus.com/campaign/aura/us/download.php">Download (source)</a></td></tr>
+<tr><td><strong>ASUS Aura Sync</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;ASUS Mobo - ARGB/RGB (Lighting) Controller</i></sub></td><td><a href="https://www.asus.com/campaign/aura/us/download.php">Download (source)</a></td></tr>
+<tr><td><strong>ASUS AI Suite III</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;ASUS Mobo - Fan Controller</i></sub></td><td><a href="https://www.asus.com/Motherboards/PRIME-X570-PRO/HelpDesk_Download/">Download (source) <sub><i>Win10 > Utilities > Show More</i></sub></a></td></tr>
 <tr><td><strong>AMD Ryzen/Radeon Drivers</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;2019-Dec: <a href="https://www.amd.com/en/support/previous-drivers/graphics/amd-radeon-5700-series/amd-radeon-rx-5700-series/amd-radeon-rx-5700-xt">Stability - 19.7.5/19.8.1/19.9.1/19.10.1</a></i></sub></td><td><a href="https://www.amd.com/en/support">Download (source)</a></td></tr>
 <tr><td><strong>BalenaEtcher</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Drive Imaging Utility (.iso & .img, especially)</i></sub></td><td><a href="https://www.balena.io/etcher/">Download (source)</a></td></tr>
 <tr><td><strong>Corsair iCUE</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Fan-Speed & RGB Lighting controller<br />&nbsp;&nbsp;&nbsp;<a href="https://help.corsair.com/hc/en-us/articles/360025166712-Perform-a-clean-reinstallation-of-the-Corsair-Utility-Engine-iCUE-">View documentation - Clean iCUE reinstallation</a></i></sub></td><td><a href="https://www.corsair.com/us/en/downloads">Download (source)</a></td></tr>

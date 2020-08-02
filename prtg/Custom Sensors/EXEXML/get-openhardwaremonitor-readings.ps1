@@ -49,11 +49,12 @@ $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
 $Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD.txt";
 
 $Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump.txt";
-$Logfile_FanSpeed_PMP_PRC = "${Logfile_Basename}-FanPercent-Pump.txt";
 $Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator.txt";
-$Logfile_FanSpeed_RAD_PRC = "${Logfile_Basename}-FanPercent-Radiator.txt";
 $Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD.txt";
-$Logfile_FanSpeed_SSD_PRC = "${Logfile_Basename}-FanPercent-SSD.txt";
+
+$Logfile_FanSpeed_PMP_PRC = "${Logfile_Basename}-FanPercentage-Pump.txt";
+$Logfile_FanSpeed_RAD_PRC = "${Logfile_Basename}-FanPercentage-Radiator.txt";
+$Logfile_FanSpeed_SSD_PRC = "${Logfile_Basename}-FanPercentage-SSD.txt";
 
 $Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU.txt";
 
@@ -214,15 +215,15 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 		$Temp_SSD = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #6") {
 		$Speed_FAN_PMP = "${EachSensorVal}";
-	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (% PWM), Fan #6") {
+	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (% PWM), Fan Control #6") {
 		$Speed_FAN_PMP_PRC = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #2") {
 		$Speed_FAN_RAD = "${EachSensorVal}";
-	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (% PWM), Fan #2") {
+	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (% PWM), Fan Control #2") {
 		$Speed_FAN_RAD_PRC = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #4") {
 		$Speed_FAN_SSD = "${EachSensorVal}";
-	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (% PWM), Fan #4") {
+	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (% PWM), Fan Control #4") {
 		$Speed_FAN_SSD_PRC = "${EachSensorVal}";
 	}
 

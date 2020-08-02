@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-FAN-Pump.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Fan-Pump.txt

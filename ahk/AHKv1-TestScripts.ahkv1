@@ -113,7 +113,7 @@ If (DebugMode == 1) {
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Win + C
-;   ACTION:  Gets input from user and verifies that it is a positive integer, then runs a loop with the the total number of loop-iterations set equal to the positive integer value previously given by user
+;   ACTION:  ~*~ Test-Hotkey (functionality varies frequently) ~*~
 ;
 #C::
 	; Require integer-typed user input

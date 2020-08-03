@@ -45,8 +45,8 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ;
@@ -118,7 +118,7 @@ If (DebugMode == 1) {
 #C::
 	; Require integer-typed user input
 	IntegerInput := LoopUntil_UserInputs_PositiveInteger()
-	MsgBox, % "User input matching positive integer: [" IntegerInput "]"
+	MsgBox, % "Final positive integer value (given by user): [" IntegerInput "]"
 	Return
 
 
@@ -240,7 +240,7 @@ GetInput_PositiveInteger(ErrorDisplayType:="TrayTip") {
 	UserInput_ToNumber := ConvertStringToInt(UserInput)
 	If (Input_CancelledOutOf != 0) {
 		; ERROR:  User cancelled/declined to enter a value into input-field
-		ErrorText := "!! Error !! - User cancelled-out of the input window"
+		ErrorText := "!! Error !! - User cancelled out of a required input window"
 		; Set the return-value to be blank (to denote errors on-return)
 		UserInput_ToNumber := ""
 	} Else If ((!(UserInput_ToNumber is integer)) || (UserInput_ToNumber==0)) {

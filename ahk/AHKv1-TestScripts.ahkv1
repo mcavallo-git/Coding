@@ -113,26 +113,33 @@ If (DebugMode == 1) {
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Win + C
-;   ACTION:  Run Test-Commands
+;   ACTION:  Gets input from user and verifies that it is a positive integer, then runs a loop with the the total number of loop-iterations set equal to the positive integer value previously given by user
 ;
 #C::
+	GetIntegerInput()
+	Return
+
+;
+; GetIntegerInput
+;   |--> Gets input from user and verifies that it is a positive integer, then runs a loop with the the total number of loop-iterations set equal to the positive integer value previously given by user
+;
+GetIntegerInput() {
 	; Save the timestamp at the start of your script's runtime
 	StartTime := A_TickCount
 	; Test-Case: Simulate a start time of 1 hour, 1 minute, and 1 second earlier than the actual start-time (3661000 milliseconds earlier, to be exact)
 	InputWinTitle := "Enter a positive integer"
 	InputPrompt := "Loop how many times? (Enter a positive integer)"
 	InputBox, UserInput, %InputWinTitle%, %InputPrompt%,,350,125
-	Input_CancelledOtOf := ErrorLevel
+	Input_CancelledOutOf := ErrorLevel
 	; Convert String to Int
 	; UserInput_ToNumber := ("0" . UserInput) , UserInput_ToNumber += 0
 	UserInput_ToNumber := ConvertStringToInt(UserInput)
 	; Log the values
 	ToolTipText := ""
+	ToolTipText := ToolTipText "Input_CancelledOutOf = [" Input_CancelledOutOf "]" "`n"
 	ToolTipText := ToolTipText "UserInput = [" UserInput "]" "`n"
 	ToolTipText := ToolTipText "UserInput_ToNumber = [" UserInput_ToNumber "]" "`n"
-	ToolTipText := ToolTipText "Input_CancelledOtOf = [" Input_CancelledOtOf "]" "`n"
-	ToolTipText := ToolTipText "`n"
-	If (Input_CancelledOtOf != 0) {
+	If (Input_CancelledOutOf != 0) {
 		; Detect if user cancelled/declined to enter a value into previous input-field
 		ErrorText := "!! Error !!" "`n`n" "User cancelled-out of the input window"
 		Msgbox %ErrorText%
@@ -144,19 +151,18 @@ If (DebugMode == 1) {
 		; User input an integer-typed vaue
 		UserInput := ("0" . UserInput) , UserInput += 0
 		Loop %UserInput% {
-			ToolTipText_Loop := ToolTipText "A_Index = [" A_Index "]" "`n"
+			; Calculate elapsed time, format it to be readable, and output it to the screen
+			TimeElapsed := FormatTickCountDifference(StartTime, A_TickCount, 1)
+			ToolTipText_Loop := ToolTipText "TimeElapsed = [" TimeElapsed "]" "`n"
+			ToolTipText_Loop := ToolTipText_Loop "`n"
+			ToolTipText_Loop := ToolTipText_Loop "A_Index = [" A_Index "]" "`n"
 			Tooltip, %ToolTipText_Loop%
 			Sleep 1000
 		}
-		; Save the timestamp at the end of your script's runtime
-		EndTime := A_TickCount
-		; Calculate elapsed time, format it to be readable, and output it to the screen
-		TimeElapsed := FormatTickCountDifference(StartTime, EndTime, 1)
-		ToolTipText := "TimeElapsed:  " TimeElapsed
-		Tooltip, %ToolTipText%
 	}
 	ClearTooltip(7500)
 	Return
+}
 
 
 ; ------------------------------------------------------------

@@ -117,12 +117,8 @@ If (DebugMode == 1) {
 ;
 #C::
 	; Require integer-typed user input
-	IntegerInput := GetInput_PositiveInteger()
-	If (IntegerInput != "") {
-		MsgBox, % "VALID user input: [" IntegerInput "]"
-	} Else {
-		MsgBox, % "INVALID user input: [" IntegerInput "]"
-	}
+	IntegerInput := LoopUntil_UserInputs_PositiveInteger()
+	MsgBox, % "User input matching positive integer: [" IntegerInput "]"
 	Return
 
 
@@ -236,21 +232,37 @@ FormatTickCountDifference(StartTime, EndTime, Show_MS := 0) {
 ; GetInput_PositiveInteger
 ;   |--> Gets input from user and verifies that it is a positive integer, then runs a loop with the the total number of loop-iterations set equal to the positive integer value previously given by user
 ;
-GetInput_PositiveInteger() {
+GetInput_PositiveInteger(ErrorDisplayType:="TrayTip") {
 	InputBox, UserInput, % "Enter a positive integer", % "Loop how many times? (Enter a positive integer)",,350,125
 	Input_CancelledOutOf := ErrorLevel
 	; Convert String to Int
+	ErrorText := ""
 	UserInput_ToNumber := ConvertStringToInt(UserInput)
 	If (Input_CancelledOutOf != 0) {
 		; ERROR:  User cancelled/declined to enter a value into input-field
-		ErrorText := "!! Error !!" "`n`n" "User cancelled-out of the input window"
-		Msgbox, % ErrorText
+		ErrorText := "!! Error !! - User cancelled-out of the input window"
+		; Set the return-value to be blank (to denote errors on-return)
+		UserInput_ToNumber := ""
 	} Else If ((!(UserInput_ToNumber is integer)) || (UserInput_ToNumber==0)) {
 		; ERROR:  Non-integer input by user
-		ErrorText := "!! Error !!" "`n" "Invalid input value of [" UserInput "] received" "`n`n" "Expected Format:" "`n" "Input must be a positive integer (any whole number greater than zero)"
-		Msgbox, % ErrorText
+		ErrorText := "!! Error !! - Invalid input value:  [" UserInput "]" "`n`n" "Input must be a positive integer"
+		; Set the return-value to be blank (to denote errors on-return)
+		UserInput_ToNumber := ""
 	} Else {
-		; No more work to do here - Input is already formatted as an integer
+		; If the user followed instructions and input a value matching the requested type, then there's no more work to do here
+	}
+	If (ErrorText != "") {
+		; Error message exists
+		Switch (ErrorDisplayType) {
+			Case "TrayTip":
+				TrayTip, %A_ScriptName%, %ErrorText%  ; Toast Notification
+			Case "Msgbox":
+				Msgbox, % ErrorText  ; Popup Message
+			Case "Tooltip":
+				ToolTip, % ErrorText  ; Tooltip next to cursor
+			Default:
+				; Do nothing by-default (do not show error-message)
+		}
 	}
 	Return %UserInput_ToNumber%
 }
@@ -265,6 +277,20 @@ GetPID(ProcName)
 {
 	Process, Exist, %ProcName%
 	Return %ErrorLevel%
+}
+
+
+;
+;	LoopUntil_UserInputs_PositiveInteger
+;   |--> Perform a while loop which keeps running until either the user gives an input which matches this function-call's requested type, or until this script is killed
+;
+LoopUntil_UserInputs_PositiveInteger() {
+	; Require integer-typed user input
+	IntegerInput := ""
+	While (IntegerInput == "") {
+		IntegerInput := GetInput_PositiveInteger()
+	}
+	Return IntegerInput
 }
 
 

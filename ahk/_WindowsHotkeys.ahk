@@ -103,6 +103,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
 ;
@@ -118,6 +119,7 @@ If (DebugMode == 1) {
 	Return
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  ???
 ;   ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
 ;
@@ -134,6 +136,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + Z
 ;   ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
@@ -143,6 +146,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + -
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
@@ -157,6 +161,7 @@ If (DebugMode == 1) {
 #If
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + =
 ;   HOTKEY:  Win + [ Plus-Key ]
 ;   ACTION:  Create a citations footer (refer to function description for more info)
@@ -171,6 +176,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + V
 ;   ACTION:  Open VS Code
 ;
@@ -180,6 +186,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Ctrl + Shift + V
 ;   HOTKEY:  Ctrl + Alt + V
 ;   HOTKEY:  Ctrl + Win + V
@@ -194,9 +201,10 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Shift + Win + P
-;  HOTKEY:  Ctrl + Win + P
-;  ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
+;
+;   HOTKEY:  Shift + Win + P
+;   HOTKEY:  Ctrl + Win + P
+;   ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 ^#P::
 +#P::
@@ -205,8 +213,9 @@ If (DebugMode == 1) {
 	Return
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + P
-;  ACTION:  Open RoboForm's Generate-Password Executable
+;
+;   HOTKEY:  Win + P
+;   ACTION:  Open RoboForm's Generate-Password Executable
 ;
 #P::
 	OpenPasswordGenerator()
@@ -214,8 +223,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + H
-;  ACTION:  Type the COMPUTERNAME
+;
+;   HOTKEY:  Win + H
+;   ACTION:  Type the COMPUTERNAME
 ;
 #H::
 	SetKeyDelay, 0, -1
@@ -241,8 +251,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + U
-;  ACTION:  Type the DOMAIN-USERNAME
+;
+;   HOTKEY:  Win + U
+;   ACTION:  Type the DOMAIN-USERNAME
 ;
 #U::
 	SetKeyDelay, 0, -1
@@ -254,8 +265,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + G
-;  ACTION:  Types the contents of target file
+;
+;   HOTKEY:  Win + G
+;   ACTION:  Types the contents of target file
 ;
 #G::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
@@ -266,8 +278,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + W
-;  ACTION:  Types the contents of target file
+;
+;   HOTKEY:  Win + W
+;   ACTION:  Types the contents of target file
 ;
 #W::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
@@ -278,8 +291,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + D
-;  ACTION:  Types one of a dynamic set of timestamp-strings
+;
+;   HOTKEY:  Win + D
+;   ACTION:  Types one of a dynamic set of timestamp-strings
 ;
 #D::     ;  20200725T080521              (Base Case + Win + D)
 !#D::    ;  20200725T080550-0500         (Alt + Win + D)
@@ -342,8 +356,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + F1
-;  ACTION:  Edit this Script (the one you're reading right now)
+;
+;   HOTKEY:  Win + F1
+;   ACTION:  Edit this Script (the one you're reading right now)
 ;
 #F1::
 	Run Notepad %A_ScriptFullPath%
@@ -351,8 +366,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + F2
-;  ACTION:  Opens a window (GetKeyCodes.ahk) which displays verbose keypress info, live (allowing user to press combo keys and view how it is interpreted by AHK)
+;
+;   HOTKEY:  Win + F2
+;   ACTION:  Opens a window (GetKeyCodes.ahk) which displays verbose keypress info, live (allowing user to press combo keys and view how it is interpreted by AHK)
 ;
 #F2::
 	GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
@@ -434,9 +450,10 @@ If (DebugMode == 1) {
 	Return
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + Ctrl + Z
-;  HOTKEY:  Win + Shift + Z
-;  ACTION:  Show all (current) Window Titles
+;
+;   HOTKEY:  Win + Ctrl + Z
+;   HOTKEY:  Win + Shift + Z
+;   ACTION:  Show all (current) Window Titles
 ;
 ^#Z::
 +#Z::
@@ -445,16 +462,18 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Fn Key (X1 Carbon)
-;  ACTION:  Set Fn to perform Ctrl action, instead
+;
+;   HOTKEY:  Fn Key (X1 Carbon)
+;   ACTION:  Set Fn to perform Ctrl action, instead
 ;
 ;SC163::   ;"Fn" Key
 ;Return
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + [
-;  ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
+;
+;   HOTKEY:  Windows-Key + [
+;   ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;
 #[::
 #]::
@@ -600,8 +619,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + Right-Click
-;  ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
+;
+;   HOTKEY:  Windows-Key + Right-Click
+;   ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 #RButton::
 	FollowDuration_Seconds := 10
@@ -610,8 +630,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Ctrl + Win + Right-Click
-;  ACTION:  Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
+;
+;   HOTKEY:  Ctrl + Win + Right-Click
+;   ACTION:  Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
 ;
 ^#RButton::
 	FollowDuration_Seconds := 10
@@ -620,9 +641,10 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  WinKey + L
-;  ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
-
+;
+;   HOTKEY:  WinKey + L
+;   ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
+;
 #L::
 	LockWorkstation()
 	; Monitor_ShowScreenSaver()
@@ -631,9 +653,9 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  AppsKey
-;  ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
+;   HOTKEY:  AppsKey
+;   ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 ; *AppsKey::
 ; 	Send {Blind}{RWin down}
@@ -646,8 +668,9 @@ AppsKey::RWin
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + N
-;  ACTION:  Opens "View Network Connections" (in the Control Panel)
+;
+;   HOTKEY:  Windows-Key + N
+;   ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
 	TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
@@ -687,8 +710,9 @@ AppsKey::RWin
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + E
-;  ACTION:  Opens "USERPROFILE" directory
+;
+;   HOTKEY:  Windows-Key + E
+;   ACTION:  Opens "USERPROFILE" directory
 ; 
 #E::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
@@ -696,36 +720,40 @@ AppsKey::RWin
 	Return
 ; 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + O (not zero, the letter O)
-;  ACTION:  Opens "Programs & Features" in the Control Panel
-
+;
+;   HOTKEY:  Windows-Key + O (not zero, the letter O)
+;   ACTION:  Opens "Programs & Features" in the Control Panel
+;
 #O::
 	Run "c:\windows\system32\appwiz.cpl"
 	Return
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + ` (Tilde)
-;  ACTION:  Keyboard-Command for a Mouse-Left-Click
-
+;
+;   HOTKEY:  Windows-Key + ` (Tilde)
+;   ACTION:  Keyboard-Command for a Mouse-Left-Click
+;
 #`::
 	MouseClick, Left
 	Return
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Alt + ` (Tilde)
-;  ACTION:  Keyboard-Command for a Mouse-Right-Click
-
+;
+;   HOTKEY:  Alt + ` (Tilde)
+;   ACTION:  Keyboard-Command for a Mouse-Right-Click
+;
 !`::
 	MouseClick, Right
 	Return
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Ctrl/Shift/Alt + WinKey + Right/Left (Arrow)
-;  ACTION:  Turn screen brightness up (right) or down (left)
-
+;
+;   HOTKEY:  Ctrl/Shift/Alt + WinKey + Right/Left (Arrow)
+;   ACTION:  Turn screen brightness up (right) or down (left)
+;
 +#Left::
 !#Left::
 ^#Left::
@@ -742,8 +770,9 @@ AppsKey::RWin
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + Mouse-Wheel Up/Down
-;  ACTION:  Turn computer volume up/down
+;
+;   HOTKEY:  Win + Mouse-Wheel Up/Down
+;   ACTION:  Turn computer volume up/down
 
 +#Up::
 !#Up::
@@ -793,8 +822,9 @@ AppsKey::RWin
 	Return
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Alt + Mouse-Wheel Up/Down
-;  ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
+;
+;   HOTKEY:  Alt + Mouse-Wheel Up/Down
+;   ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
 ;
 !WheelUp::
 	MouseClick,WheelUp,,,15,0,D,R
@@ -805,8 +835,9 @@ AppsKey::RWin
 	Return
 
 ; ------------------------------------------------------------
-;  HOTKEY:  "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
-;  ACTION:  Change Tabs Left or Right
+;
+;   HOTKEY:  "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
+;   ACTION:  Change Tabs Left or Right
 ;
 WheelLeft::
 	Send ^{PgUp}
@@ -839,8 +870,9 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + A
-;  ACTION:  Foxit PhantomPDF - Add Text
+;
+;   HOTKEY:  Windows-Key + A
+;   ACTION:  Foxit PhantomPDF - Add Text
 ;
 ; #A::
 ; 	Global VerboseOutput
@@ -873,10 +905,11 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Ctrl + WinKey + K
-;  HOTKEY:  Ctrl + Shift  + K
-;  HOTKEY:  Right-WinKey  + K
-;  ACTION:  Send a Checkmark
+;
+;   HOTKEY:  Ctrl + WinKey + K
+;   HOTKEY:  Ctrl + Shift  + K
+;   HOTKEY:  Right-WinKey  + K
+;   ACTION:  Send a Checkmark
 ;
 ^+K::
 ^!K::
@@ -890,8 +923,9 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Left-WinKey + K
-;  ACTION:  Send a Thumbs-Up
+;
+;   HOTKEY:  Left-WinKey + K
+;   ACTION:  Send a Thumbs-Up
 ;
 <#K::
 	SetKeyDelay, 0, -1
@@ -905,8 +939,9 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Win + C
-;  ACTION:  Open Google Chrome
+;
+;   HOTKEY:  Win + C
+;   ACTION:  Open Google Chrome
 ;
 ; #C::
 ; 	OpenChrome()
@@ -914,9 +949,10 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Alt + Win + C
+;
+;   HOTKEY:  Alt + Win + C
 ;           Ctrl + Win + C
-;  ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
+;   ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
 !#C::
 ^#C::
@@ -929,8 +965,9 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Windows-Key + F
-;  ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
+;
+;   HOTKEY:  Windows-Key + F
+;   ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
 ;
 #F::
 	If (1 == 0) {
@@ -962,8 +999,9 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
-;  ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
+;
+;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
+;   ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
 ;
 ; VKA0 & VKA1::     ;VKA1 = RShift
 ; VKA1 & VKA0::     ;VKA0 = LShift
@@ -978,8 +1016,10 @@ LShift & RShift::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  WinKey + 8
-;  ACTION:  Wait a random duration of time (example)
+;
+;   HOTKEY:  WinKey + 8
+;   ACTION:  Wait a random duration of time (example)
+;
 #8::
 	Random, RandomSleep_15s_to_20s, 15000, 20000
 	TrayTip, AHK, % ( "Sleeping for [ " RandomSleep_15s_to_20s " ] ms" )  ; Toast Notification
@@ -989,8 +1029,10 @@ LShift & RShift::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  WinKey + 9
-;  ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
+;
+;   HOTKEY:  WinKey + 9
+;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
+;
 #9::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Send {PrintScreen}
@@ -1010,8 +1052,10 @@ LShift & RShift::
 
 
 ; ------------------------------------------------------------
-;  HOTKEY:  WinKey + 0
-;  ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
+;
+;   HOTKEY:  WinKey + 0
+;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
+;
 #0::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	WinMove, A, , 0, 0
@@ -1122,15 +1166,19 @@ LShift & RShift::
 
 
 ; ------------------------------------------------------------
-;  Win + T - Get Windows Environment Vars
+;
+;   HOTKEY:  WinKey + T
+;   ACTION:  Get Windows Environment Vars
 ;
 #T::
 	PrintEnv()
 	Return
 
+
 ; ------------------------------------------------------------
-;  HOTKEY:  Caps Lock
-;  ACTION:  Permanently DISABLE Capslock (unless pressed with shift, which toggles it as-normal)
+;
+;   HOTKEY:  Caps Lock
+;   ACTION:  Permanently DISABLE Capslock (unless pressed with shift, which toggles it as-normal)
 ;
 CapsLock::
 ^CapsLock::
@@ -1144,8 +1192,8 @@ CapsLock::
 
 
 ; ----------------------------------------------------
-;  HOTKEY:  Num Lock
-;  ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
+;   HOTKEY:  Num Lock
+;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
 ;           Allow for a specific config-file, if exists, to keep Numlock disabled by-default (for specific hardware/VM use-cases)
 ;
 Numlock::

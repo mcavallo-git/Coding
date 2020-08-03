@@ -1,0 +1,259 @@
+; ------------------------------------------------------------
+;
+; ahkv1-tester.ahk1, by Cavalol
+;   |
+;   |--> Test/Debug Hotkeys for Windows-based Workstaitons
+;   |
+;   |--> Runs via "Autohotkey" (AHK) - Download @ https://www.autohotkey.com/download/
+;
+; ------------------------------------------------------------
+;
+; Runtime Globals (Settings)
+;
+
+#Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
+
+#HotkeyInterval 2000  ; https://www.autohotkey.com/docs/commands/_HotkeyInterval.htm
+
+#MaxHotkeysPerInterval 2000  ; https://www.autohotkey.com/docs/commands/_MaxHotkeysPerInterval.htm
+
+#SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
+
+; #EscapeChar \  ; https://www.autohotkey.com/docs/commands/_EscapeChar.htm
+
+; #InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
+
+; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
+
+; SetBatchLines, -1  ; https://www.autohotkey.com/docs/commands/SetBatchLines.htm
+
+SetWorkingDir, %A_ScriptDir%  ; https://www.autohotkey.com/docs/commands/SetWorkingDir.htm
+
+DetectHiddenWindows, On  ; https://www.autohotkey.com/docs/commands/DetectHiddenWindows.htm
+
+SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCapsLockState.htm
+
+; FileEncoding, UTF-8  ; https://www.autohotkey.com/docs/commands/FileEncoding.htm
+
+; #ErrorStdOut  ; https://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
+
+
+; ------------------------------------------------------------
+;
+; Runtime Globals (Variables)
+;
+
+; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
+
+DebugMode := 1
+; DebugMode := 0
+
+
+;
+; RFC3339 - Timestamps (Internet date-time standardization-values) (https://tools.ietf.org/html/rfc3339)
+;  |-->  Example RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
+;
+RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
+RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
+RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
+RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
+RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
+
+
+; ------------------------------------------------------------
+;
+; Setup targeting [ Windows Explorer ]-classed windows
+;
+
+GroupAdd, Explorer, ahk_class ExploreWClass ; Unused on Vista and later
+
+GroupAdd, Explorer, ahk_class CabinetWClass
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                     SPINUP-CHECKS                     ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+If (DebugMode == 1) {
+	Debug_WelcomeText := ""
+	Debug_WelcomeText := "DebugMode     = [" DebugMode "]" "`n"
+	Debug_WelcomeText := "A_AhkVersion  = [" A_AhkVersion "]" "`n"
+	Debug_WelcomeText := "A_OSVersion   = [" A_OSVersion "]" "`n"
+	Debug_WelcomeText := "A_ScriptName  = [" A_ScriptName "]" "`n"
+	; TrayTip, AHK, %Debug_WelcomeText%  ; Toast Notification
+	Tooltip, %Debug_WelcomeText%  ; Toast Notification
+}
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                   HOTKEY-LISTENERS                   ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+
+; ------------------------------------------------------------
+;   HOTKEY:  Win + Esc
+;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
+;
+~#Escape::
+	BlockInPut, Off  ;  Stop blocking input (e.g. restore full interaction)
+	Reload  ; Reload this script
+	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
+	MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
+	; IfMsgBox, Yes, Edit
+	If (A_MsgBoxResult = "Yes") {
+		Edit
+	}
+	Return
+
+
+; ------------------------------------------------------------
+;   HOTKEY:  Win + C
+;   ACTION:  Run Test-Commands
+;
+#C::
+	; Save the timestamp at the start of your script's runtime
+	StartTime := A_TickCount
+	; Test-Case: Simulate a start time of 1 hour, 1 minute, and 1 second earlier than the actual start-time (3661000 milliseconds earlier, to be exact)
+	InputWinTitle := "Enter an integer"
+	InputPrompt := "Loop how many times?"
+	InputBox, UserInput, %InputWinTitle%, %InputPrompt%,,250,125
+	Input_CancelledOtOf := ErrorLevel
+	; Convert String to Int
+	UserInput_ToNumber := ("0" . UserInput) , UserInput_ToNumber += 0
+	; Log the values
+	ToolTipText := ""
+	ToolTipText := ToolTipText "UserInput = [" UserInput "]" "`n" "`n"
+	ToolTipText := ToolTipText "UserInput_ToNumber = [" UserInput_ToNumber "]" "`n" "`n"
+	ToolTipText := ToolTipText "Input_CancelledOutOf = [" Input_CancelledOutOf "]" "`n" "`n"
+	If (Input_CancelledOutOf != 0) {
+		; Detect if user cancelled/declined to enter a value into previous input-field
+		ToolTipText := ToolTipText "User cancelled-out of the input window"
+		Tooltip, %ToolTipText%
+	} Else If ((!(UserInput_ToNumber is integer)) || (UserInput_ToNumber==0)) {
+		; Non-integer input by user
+		ToolTipText := ToolTipText "Error: Input must be an integer with value greater than 0 (received value of [" UserInput "], instead)"
+		Tooltip, %ToolTipText%
+	} Else {
+		; User input an integer-typed vaue
+		UserInput := ("0" . UserInput) , UserInput += 0
+		Loop %UserInput% {
+			ToolTipText := "A_Index = [" A_Index "]" "`n" "UserInput = [" UserInput "]"
+			Tooltip, %ToolTipText%
+			Sleep 1000
+		}
+		; Save the timestamp at the end of your script's runtime
+		EndTime := A_TickCount
+		; Calculate elapsed time, format it to be readable, and output it to the screen
+		TimeElapsed := FormatTickCountDifference(StartTime, EndTime, 1)
+		ToolTipText := "TimeElapsed:  " TimeElapsed
+		Tooltip, %ToolTipText%
+	}
+	ClearTooltip(7500)
+	Return
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                       FUNCTIONS                      ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+
+;
+; ClearTooltip
+;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
+;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;
+ClearTooltip(Period) {
+	SetTimer, RemoveToolTip, -%Period%
+	Return
+}
+
+
+;
+; ConvertStringToInt
+;   |--> Attempt to convert a string-typed variable to an integer
+;
+ConvertStringToInt(StringVar) {
+	IntVar := ("0" . StringVar) , IntVar += 0
+	Return %IntVar%
+}
+
+
+;
+; DoLogging
+;   |--> Log given text to target file
+;
+DoLogging(LogOutput, FunctionName:="", LineNumber:=0) {
+	TextPrepend := ""
+	If (FunctionName != "") {
+		TextPrepend := "Function [" FunctionName "]"
+	}
+	If (LineNumber != 0) {
+		Formatted_LineNumber := Format("{:02}", LineNumber)
+		TextPrepend := "Line [" Formatted_LineNumber "]"
+	}
+	If (TextPrepend != "") {
+		TextPrepend := "[" TextPrepend "]"
+	}
+	LogOutputNewline := LogOutput "`n"
+	; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
+	Filepath_Logfile := A_Desktop "\logging-" A_ScriptName ".txt"
+	FileAppend, %LogOutputNewline%, %Filepath_Logfile%
+	Return
+}
+
+
+;
+; FormatTickCountDifference
+;   |--> Formats the datetime between a start date and an end date (obtained via "StartTime := A_TickCount" &
+;
+FormatTickCountDifference(StartTime, EndTime, Show_MS := 0) {
+	Returnval := ""
+	ElapsedTime_MS := EndTime - StartTime
+	FormattedHours := SubStr(0 Floor(ElapsedTime_MS / 3600000), -1)
+	FormattedMinutes := SubStr(0 Floor((ElapsedTime_MS - FormattedHours * 3600000) / 60000), -1)
+	FormattedSeconds := SubStr(0 Floor((ElapsedTime_MS - FormattedHours * 3600000 - FormattedMinutes * 60000) / 1000), -1)
+	FormattedMilliseconds := SubStr(0 ElapsedTime_MS - FormattedHours * 3600000 - FormattedMinutes * 60000 - FormattedSeconds * 1000, -2)
+	If (Show_MS == 0) {
+		Returnval := FormattedHours "h " FormattedMinutes "m " FormattedSeconds "s"
+	} Else {
+		Returnval := FormattedHours "h " FormattedMinutes "m " FormattedSeconds "." FormattedMilliseconds "s "
+	}
+	Return Returnval
+}
+
+
+;
+;	GetPID
+;   |--> Returns PID if process IS found
+;   |--> Returns 0 if process is NOT found
+;
+GetPID(ProcName)
+{
+	Process, Exist, %ProcName%
+	Return %ErrorLevel%
+}
+
+
+;
+; RemoveToolTip
+;   |--> Removes any Tooltips found
+;
+RemoveToolTip() {
+	ToolTip
+	Return
+}
+
+
+; ------------------------------------------------------------
+;
+; Citation(s)
+;
+;   autohotkey.com  |  "Converting string to number - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/21271-converting-string-to-number/
+;
+; ------------------------------------------------------------

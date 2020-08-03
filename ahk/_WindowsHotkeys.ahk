@@ -4,7 +4,7 @@
 ;   |
 ;   |--> Effective Hotkeys for Windows-based Workstaitons
 ;   |
-;   |--> Runs via "Autohotkey" (AHK) - Download @ https://www.autohotkey.com/download/
+;   |--> Runs via "Autohotkey" (AHK)  >> VERSION 2 << - Download @ https://www.autohotkey.com/download/2.0/
 ;   |
 ;   |--> Download this script:  https://raw.githubusercontent.com/mcavallo-git/Coding/master/ahk/_WindowsHotkeys.ahk
 ;

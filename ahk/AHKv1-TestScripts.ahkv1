@@ -119,51 +119,6 @@ If (DebugMode == 1) {
 	GetIntegerInput()
 	Return
 
-;
-; GetIntegerInput
-;   |--> Gets input from user and verifies that it is a positive integer, then runs a loop with the the total number of loop-iterations set equal to the positive integer value previously given by user
-;
-GetIntegerInput() {
-	; Save the timestamp at the start of your script's runtime
-	StartTime := A_TickCount
-	; Test-Case: Simulate a start time of 1 hour, 1 minute, and 1 second earlier than the actual start-time (3661000 milliseconds earlier, to be exact)
-	InputWinTitle := "Enter a positive integer"
-	InputPrompt := "Loop how many times? (Enter a positive integer)"
-	InputBox, UserInput, %InputWinTitle%, %InputPrompt%,,350,125
-	Input_CancelledOutOf := ErrorLevel
-	; Convert String to Int
-	; UserInput_ToNumber := ("0" . UserInput) , UserInput_ToNumber += 0
-	UserInput_ToNumber := ConvertStringToInt(UserInput)
-	; Log the values
-	ToolTipText := ""
-	ToolTipText := ToolTipText "Input_CancelledOutOf = [" Input_CancelledOutOf "]" "`n"
-	ToolTipText := ToolTipText "UserInput = [" UserInput "]" "`n"
-	ToolTipText := ToolTipText "UserInput_ToNumber = [" UserInput_ToNumber "]" "`n"
-	If (Input_CancelledOutOf != 0) {
-		; Detect if user cancelled/declined to enter a value into previous input-field
-		ErrorText := "!! Error !!" "`n`n" "User cancelled-out of the input window"
-		Msgbox %ErrorText%
-	} Else If ((!(UserInput_ToNumber is integer)) || (UserInput_ToNumber==0)) {
-		; Non-integer input by user
-		ErrorText := "!! Error !!" "`n" "Invalid input value of [" UserInput "] received" "`n`n" "Expected Format:" "`n" "Input must be a positive integer"
-		Msgbox %ErrorText%
-	} Else {
-		; User input an integer-typed vaue
-		UserInput := ("0" . UserInput) , UserInput += 0
-		Loop %UserInput% {
-			; Calculate elapsed time, format it to be readable, and output it to the screen
-			TimeElapsed := FormatTickCountDifference(StartTime, A_TickCount, 1)
-			ToolTipText_Loop := ToolTipText "TimeElapsed = [" TimeElapsed "]" "`n"
-			ToolTipText_Loop := ToolTipText_Loop "`n"
-			ToolTipText_Loop := ToolTipText_Loop "A_Index = [" A_Index "]" "`n"
-			Tooltip, %ToolTipText_Loop%
-			Sleep 1000
-		}
-	}
-	ClearTooltip(7500)
-	Return
-}
-
 
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
@@ -234,6 +189,51 @@ FormatTickCountDifference(StartTime, EndTime, Show_MS := 0) {
 		Returnval := FormattedHours "h " FormattedMinutes "m " FormattedSeconds "." FormattedMilliseconds "s "
 	}
 	Return Returnval
+}
+
+
+;
+; GetIntegerInput
+;   |--> Gets input from user and verifies that it is a positive integer, then runs a loop with the the total number of loop-iterations set equal to the positive integer value previously given by user
+;
+GetIntegerInput() {
+	; Save the timestamp at the start of your script's runtime
+	StartTime := A_TickCount
+	; Test-Case: Simulate a start time of 1 hour, 1 minute, and 1 second earlier than the actual start-time (3661000 milliseconds earlier, to be exact)
+	InputWinTitle := "Enter a positive integer"
+	InputPrompt := "Loop how many times? (Enter a positive integer)"
+	InputBox, UserInput, %InputWinTitle%, %InputPrompt%,,350,125
+	Input_CancelledOutOf := ErrorLevel
+	; Convert String to Int
+	UserInput_ToNumber := ConvertStringToInt(UserInput)
+	; Log the values
+	ToolTipText := ""
+	ToolTipText := ToolTipText "Input_CancelledOutOf = [" Input_CancelledOutOf "]" "`n"
+	ToolTipText := ToolTipText "UserInput = [" UserInput "]" "`n"
+	ToolTipText := ToolTipText "UserInput_ToNumber = [" UserInput_ToNumber "]" "`n"
+	If (Input_CancelledOutOf != 0) {
+		; Detect if user cancelled/declined to enter a value into previous input-field
+		ErrorText := "!! Error !!" "`n`n" "User cancelled-out of the input window"
+		Msgbox %ErrorText%
+	} Else If ((!(UserInput_ToNumber is integer)) || (UserInput_ToNumber==0)) {
+		; Non-integer input by user
+		ErrorText := "!! Error !!" "`n" "Invalid input value of [" UserInput "] received" "`n`n" "Expected Format:" "`n" "Input must be a positive integer (any whole number greater than zero)"
+		Msgbox %ErrorText%
+	} Else {
+		Loop %UserInput_ToNumber% {
+			; Calculate elapsed time, format it to be readable, and output it to the screen
+			TimeElapsed := FormatTickCountDifference(StartTime, A_TickCount, 1)
+			ToolTipText_Loop := "A_Index = [" A_Index "]" "`n"
+			ToolTipText_Loop := ToolTipText_Loop "TimeElapsed = [" TimeElapsed "]" "`n"
+			ToolTipText_Loop := ToolTipText_Loop "`n"
+			ToolTipText_Loop := ToolTipText_Loop ToolTipText
+			Tooltip, %ToolTipText_Loop%
+			Random, RandomSleep, 500, 1000
+			Sleep %RandomSleep%
+		}
+	}
+	ClearTooltip(7500)
+	Return
 }
 
 

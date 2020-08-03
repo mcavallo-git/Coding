@@ -59,8 +59,8 @@ LF := "`n"
 
 VerboseOutput := 1
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ;

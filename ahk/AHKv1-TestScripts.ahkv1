@@ -78,12 +78,11 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 
 If (DebugMode == 1) {
 	Debug_WelcomeText := ""
-	Debug_WelcomeText := "DebugMode     = [" DebugMode "]" "`n"
-	Debug_WelcomeText := "A_AhkVersion  = [" A_AhkVersion "]" "`n"
-	Debug_WelcomeText := "A_OSVersion   = [" A_OSVersion "]" "`n"
-	Debug_WelcomeText := "A_ScriptName  = [" A_ScriptName "]" "`n"
-	; TrayTip, AHK, %Debug_WelcomeText%  ; Toast Notification
-	Tooltip, %Debug_WelcomeText%  ; Toast Notification
+	Debug_WelcomeText := Debug_WelcomeText "|" "`n"
+	Debug_WelcomeText := Debug_WelcomeText "|->    A_AhkVersion:   " A_AhkVersion "`n"
+	Debug_WelcomeText := Debug_WelcomeText "|" "`n"
+	Debug_WelcomeText := Debug_WelcomeText "|->    A_OSVersion:     " A_OSVersion "`n"
+	TrayTip, %A_ScriptName%, %Debug_WelcomeText%  ; Toast Notification
 }
 
 
@@ -95,6 +94,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
 ;
@@ -111,6 +111,7 @@ If (DebugMode == 1) {
 
 
 ; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + C
 ;   ACTION:  Run Test-Commands
 ;
@@ -118,31 +119,33 @@ If (DebugMode == 1) {
 	; Save the timestamp at the start of your script's runtime
 	StartTime := A_TickCount
 	; Test-Case: Simulate a start time of 1 hour, 1 minute, and 1 second earlier than the actual start-time (3661000 milliseconds earlier, to be exact)
-	InputWinTitle := "Enter an integer"
-	InputPrompt := "Loop how many times?"
-	InputBox, UserInput, %InputWinTitle%, %InputPrompt%,,250,125
+	InputWinTitle := "Enter a positive integer"
+	InputPrompt := "Loop how many times? (Enter a positive integer)"
+	InputBox, UserInput, %InputWinTitle%, %InputPrompt%,,350,125
 	Input_CancelledOtOf := ErrorLevel
 	; Convert String to Int
-	UserInput_ToNumber := ("0" . UserInput) , UserInput_ToNumber += 0
+	; UserInput_ToNumber := ("0" . UserInput) , UserInput_ToNumber += 0
+	UserInput_ToNumber := ConvertStringToInt(UserInput)
 	; Log the values
 	ToolTipText := ""
-	ToolTipText := ToolTipText "UserInput = [" UserInput "]" "`n" "`n"
-	ToolTipText := ToolTipText "UserInput_ToNumber = [" UserInput_ToNumber "]" "`n" "`n"
-	ToolTipText := ToolTipText "Input_CancelledOutOf = [" Input_CancelledOutOf "]" "`n" "`n"
-	If (Input_CancelledOutOf != 0) {
+	ToolTipText := ToolTipText "UserInput = [" UserInput "]" "`n"
+	ToolTipText := ToolTipText "UserInput_ToNumber = [" UserInput_ToNumber "]" "`n"
+	ToolTipText := ToolTipText "Input_CancelledOtOf = [" Input_CancelledOtOf "]" "`n"
+	ToolTipText := ToolTipText "`n"
+	If (Input_CancelledOtOf != 0) {
 		; Detect if user cancelled/declined to enter a value into previous input-field
-		ToolTipText := ToolTipText "User cancelled-out of the input window"
-		Tooltip, %ToolTipText%
+		ErrorText := "!! Error !!" "`n`n" "User cancelled-out of the input window"
+		Msgbox %ErrorText%
 	} Else If ((!(UserInput_ToNumber is integer)) || (UserInput_ToNumber==0)) {
 		; Non-integer input by user
-		ToolTipText := ToolTipText "Error: Input must be an integer with value greater than 0 (received value of [" UserInput "], instead)"
-		Tooltip, %ToolTipText%
+		ErrorText := "!! Error !!" "`n" "Invalid input value of [" UserInput "] received" "`n`n" "Expected Format:" "`n" "Input must be a positive integer"
+		Msgbox %ErrorText%
 	} Else {
 		; User input an integer-typed vaue
 		UserInput := ("0" . UserInput) , UserInput += 0
 		Loop %UserInput% {
-			ToolTipText := "A_Index = [" A_Index "]" "`n" "UserInput = [" UserInput "]"
-			Tooltip, %ToolTipText%
+			ToolTipText_Loop := ToolTipText "A_Index = [" A_Index "]" "`n"
+			Tooltip, %ToolTipText_Loop%
 			Sleep 1000
 		}
 		; Save the timestamp at the end of your script's runtime

@@ -5,7 +5,9 @@
 
 Get-Service -ErrorAction "SilentlyContinue" `
 | Where-Object { `
-	(($_.Name -Like "*ASUS*") -Or ($_.DisplayName -Like "*ASUS*")) `
+	(($_.Name -Like "ASUS*") -Or ($_.DisplayName -Like "ASUS*")) `
+	-Or (($_.Name -Like "ROG Live*") -Or ($_.DisplayName -Like "ROG Live*")) `
+	-Or (($_.Name -Like "ARMOURY CRATE*") -Or ($_.DisplayName -Like "ARMOURY CRATE*")) `
 } `
 | Select-Object -Property DisplayName `
 | Sort-Object -Property DisplayName `
@@ -33,6 +35,21 @@ Get-Service -Name ("wuauserv") -ErrorAction "SilentlyContinue" `
 	Write-Host "`n$($MyInvocation.MyCommand.Name) - Task: Stopping Service `"$($_.Name)`" ...  " -ForegroundColor "Gray"; `
 	Stop-Service -Name ($_.Name) -Force -NoWait -ErrorAction "SilentlyContinue"; `
 } `
+;
+
+
+#
+#
+# STOP service(s) by Name/DisplayName
+#
+
+Get-Service -ErrorAction "SilentlyContinue" `
+| Where-Object { `
+	(($_.Name -Like "ASUS*") -Or ($_.DisplayName -Like "ASUS*")) `
+	-Or (($_.Name -Like "ROG Live*") -Or ($_.DisplayName -Like "ROG Live*")) `
+	-Or (($_.Name -Like "ARMOURY CRATE*") -Or ($_.DisplayName -Like "ARMOURY CRATE*")) `
+} `
+| Stop-Service `
 ;
 
 

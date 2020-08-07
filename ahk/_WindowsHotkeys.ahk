@@ -675,9 +675,9 @@ AppsKey::RWin
 #N::
 	TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
 	ViewNetworkConnections_PATH := WINDIR "\System32\ncpa.cpl"
-	Run %ViewNetworkConnections_PATH%
-	; ViewNetworkConnections_CLSID=::{7007acc7-3202-11d1-aad2-00805fc1270e}  ; CLSID (Windows Class Identifier) for 'View Network Connections'
-	; Run %ViewNetworkConnections_CLSID%
+	ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
+	; Run %ViewNetworkConnections_PATH%
+	Run %ViewNetworkConnections_CLSID%
 	Return
 
 

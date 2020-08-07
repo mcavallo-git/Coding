@@ -263,11 +263,10 @@ function SyncRegistry {
 				@{
 					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'Onedrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
 					Name="(Default)"; 
-					# Type="REG_SZ";
 					Type="String";
 					Val_Default="OneDrive";
 					Value="OneDrive";
-					Delete=$True; <# ! Delete this Property ! #>
+					Delete=$False; <# ! Delete this Property ! #>
 				}
 			)
 		};

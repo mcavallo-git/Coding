@@ -7,9 +7,11 @@
 # ------------------------------------------------------------
 
 If ($True) {
-	<# Create a rule to allow 80/443 through the firewall#> New-NetFirewallRule -DisplayName "HTTP,HTTPS Web Server Whitelisting (TCP 80,443)" -Description "HTTP,HTTPS - Allow Inbound TCP Traffic on Port(s) 80,443" -Direction ("Inbound") -Action ("Allow") -EdgeTraversalPolicy ("Allow") -Protocol ("TCP") -LocalPort (80,443) -Profile ("Private,Domain");
+	If ($False) {
+		<# Allow HTTP requests through the firewall #> New-NetFirewallRule -DisplayName "Web Servers - HTTP (TCP 80)" -Description "HTTP - Allow Inbound TCP Traffic on Port 80" -Direction ("Inbound") -Action ("Allow") -EdgeTraversalPolicy ("Allow") -Protocol ("TCP") -LocalPort (80) -Profile ("Private,Domain");
+	}
+	<# Allow HTTPS requests through the firewall #> New-NetFirewallRule -DisplayName "Web Servers - HTTPS (TCP 443)" -Description "HTTPS - Allow Inbound TCP Traffic on Port 443" -Direction ("Inbound") -Action ("Allow") -EdgeTraversalPolicy ("Allow") -Protocol ("TCP") -LocalPort (443) -Profile ("Private,Domain");
 }
-
 
 
 # ------------------------------------------------------------

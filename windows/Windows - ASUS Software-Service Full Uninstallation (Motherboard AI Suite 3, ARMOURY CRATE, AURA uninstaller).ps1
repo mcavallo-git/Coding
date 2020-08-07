@@ -30,9 +30,8 @@ AURA Creator
 
 # ------------------------------------------------------------
 #
-# REMOVE EXISTING, LEFTOVER SERVICES
+# REMOVE EXISTENT LEFTOVER SERVICES
 #
-
 
 Get-Service -ErrorAction "SilentlyContinue" `
 | Where-Object { `
@@ -43,7 +42,8 @@ Get-Service -ErrorAction "SilentlyContinue" `
 	$_ | Stop-Service; `
 	Start-Sleep -Milliseconds (250); `
 	Write-Host "`nInfo: Deleting Service `"$($_.Name)`"...  " -ForegroundColor "Yellow"; `
-	sc delete "$($_.Name)"; `
+	Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("delete","$($_.Name)")) -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
+	Start-Sleep -Milliseconds (250); `
 } `
 ;
 

@@ -273,6 +273,7 @@ function SyncRegistry {
 		};
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
+			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint ' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
 					Name="(Default)"; 
@@ -285,6 +286,7 @@ function SyncRegistry {
 		};
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-439F-9D0E-BE7D32FDF154}";
+			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Enterprise' individual's icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
 					Name="(Default)"; 

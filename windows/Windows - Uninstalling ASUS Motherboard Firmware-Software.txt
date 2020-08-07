@@ -1,0 +1,23 @@
+Open "Programs and Features"
+> Uninstall the following applications (by name):
+
+AI Suite 3
+AMD Software
+AMD_Chipset_Drivers
+ARMOURY CRATE Lite Service
+ARMOURY CRATE Lite Service
+ASUS Framework Service
+AURA
+AURA lighting effect add-on
+AURA lighting effect add-on x64
+AURA service
+ROG Live Service
+
+
+
+
+
+
+
+
+

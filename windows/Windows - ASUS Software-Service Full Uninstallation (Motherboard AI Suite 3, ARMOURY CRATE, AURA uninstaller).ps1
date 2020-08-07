@@ -1,6 +1,9 @@
 # ------------------------------------------------------------
+#
+# UNINSTALL THE FOLLOWING PROGRAM(S) (Win7 style exes) by opening "appwiz.cpl" ("Programs and Features") and right-clicking -> selecting "Uninstall" on each (wait til all are uninstalled to restart)
+#
 
-UNINSTALL THE FOLLOWING PROGRAM(S) (Win7 style exes) by opening "appwiz.cpl" ("Programs and Features") and right-clicking -> selecting "Uninstall" on each (wait til all are uninstalled to restart)
+#  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
 AI Suite 3
 AMD Software
@@ -15,11 +18,34 @@ ROG Live Service
 
 
 # ------------------------------------------------------------
+#
+# UNINSTALL THE FOLLOWING APPLICATION(S) (Win10 style apps) by [ typing their name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
+#
 
-UNINSTALL THE FOLLOWING APPLICATION(S) (Win10 style apps) by [ typing their name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
+#  > FIND VIA START-MENU, THEN UNINSTALL:
 
 ARMOURY CRATE
 AURA Creator
+
+
+# ------------------------------------------------------------
+#
+# REMOVE EXISTING, LEFTOVER SERVICES
+#
+
+
+Get-Service -ErrorAction "SilentlyContinue" `
+| Where-Object { `
+	(($_.Name -Like "ASUS*") -Or ($_.DisplayName -Like "ASUS*")) `
+	-Or (($_.Name -Like "ROG Live*") -Or ($_.DisplayName -Like "ROG Live*")) `
+	-Or (($_.Name -Like "ARMOURY CRATE*") -Or ($_.DisplayName -Like "ARMOURY CRATE*")) `
+} | ForEach-Object { `
+	$_ | Stop-Service; `
+	Start-Sleep -Milliseconds (250); `
+	Write-Host "`nInfo: Deleting Service `"$($_.Name)`"...  " -ForegroundColor "Yellow"; `
+	sc delete "$($_.Name)"; `
+} `
+;
 
 
 # ------------------------------------------------------------

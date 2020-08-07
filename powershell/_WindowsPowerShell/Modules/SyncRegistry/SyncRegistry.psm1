@@ -264,8 +264,8 @@ function SyncRegistry {
 					Description="Explorer Settings - Set Delete=`$True to hide the OneDrive personal (default) cloud icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
 					Name="(Default)"; 
 					Type="String";
-					Val_Default="OneDrive";
-					Value="OneDrive";
+					Val_Default="OneDrive - Personal";
+					Value="OneDrive - Personal";
 					Delete=$False;
 				}
 			)

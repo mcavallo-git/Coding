@@ -261,12 +261,37 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
 			Props=@(
 				@{
-					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'Onedrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
+					Description="Explorer Settings - Set this value to [ DELETED ] to hide the 'OneDrive' Icon from Windows Explorer, [ CREATED ] to add the 'OneDrive' icon";
+					Description="Explorer Settings - Set Delete=`$True to hide the OneDrive personal (default) cloud icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
 					Name="(Default)"; 
 					Type="String";
 					Val_Default="OneDrive";
 					Value="OneDrive";
-					Delete=$False; <# ! Delete this Property ! #>
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
+				@{
+					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint ' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
+					Name="(Default)"; 
+					Type="String";
+					Val_Default="Getac Video";
+					Value="Getac Video";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-439F-9D0E-BE7D32FDF154}";
+				@{
+					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Enterprise' individual's icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
+					Name="(Default)"; 
+					Type="String";
+					Val_Default="OneDrive - Getac Video";
+					Value="OneDrive - Getac Video";
+					Delete=$True; <# ! Delete this Property ! #>
 				}
 			)
 		};

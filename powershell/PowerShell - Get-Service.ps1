@@ -17,6 +17,7 @@ Get-Service -ErrorAction "SilentlyContinue" `
 #
 # List services which are have the "Running" status
 #
+
 Get-Service -ErrorAction "SilentlyContinue" `
 | Where-Object { `
 	($_.Status -eq "Running") `
@@ -24,7 +25,6 @@ Get-Service -ErrorAction "SilentlyContinue" `
 ;
 
 
-# ------------------------------------------------------------
 #
 # STOP service(s) by Name
 #
@@ -38,7 +38,6 @@ Get-Service -Name ("wuauserv") -ErrorAction "SilentlyContinue" `
 ;
 
 
-#
 #
 # STOP service(s) by Name/DisplayName
 #

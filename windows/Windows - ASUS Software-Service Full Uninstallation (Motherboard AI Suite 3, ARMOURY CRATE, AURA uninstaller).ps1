@@ -49,3 +49,23 @@ Get-Service -ErrorAction "SilentlyContinue" `
 
 
 # ------------------------------------------------------------
+#
+# REMOVE EXISTENT LEFTOVER EXECUTABLES  (FROM "C:\Windows\System32")
+#
+
+$Parent_Directory = "C:\Windows\System32";
+$Filenames_To_Remove = @();
+$Filenames_To_Remove += ("AsusDownloadAgent.exe");
+$Filenames_To_Remove += ("AsusDownLoadLicense.exe");
+$Filenames_To_Remove += ("AsusUpdateCheck.exe");
+Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -ErrorAction "SilentlyContinue" `
+| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
+| ForEach-Object { `
+	$Each_Fullpath = ("$($_.FullName)");
+	Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
+	Remove-Item -Path ("${Each_Fullpath}") -Force; `
+} `
+;
+
+
+# ------------------------------------------------------------

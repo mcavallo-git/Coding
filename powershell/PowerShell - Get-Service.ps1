@@ -56,6 +56,10 @@ Get-Service -ErrorAction "SilentlyContinue" `
 # ------------------------------------------------------------
 # Citation(s)
 #
-#  docs.microsoft.com  |  "Get-Service - Gets the services on the computer."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service?view=powershell-7
+#  docs.microsoft.com  |  "Get-Service - Gets the services on the computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service?view=powershell-5.1
+#
+#  docs.microsoft.com  |  "Start-Service - Starts one or more running services"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-service?view=powershell-5.1
+#
+#  docs.microsoft.com  |  "Stop-Service - Stops one or more running services"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service?view=powershell-5.1
 #
 # ------------------------------------------------------------

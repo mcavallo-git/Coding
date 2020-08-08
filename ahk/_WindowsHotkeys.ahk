@@ -118,6 +118,7 @@ If (DebugMode == 1) {
 	}
 	Return
 
+
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  ???
@@ -133,6 +134,54 @@ If (DebugMode == 1) {
 ; 	(PSEUDO-CODE)  OPEN WINDOW AS ADMIN
 ; ;;;
 ; 	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Apps-Key
+;   ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
+;
+AppsKey::RWin
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Caps-Lock
+;   ACTION:  Permanently DISABLE Capslock (unless the user pressed combo keypress  [ Shift + Caps-Lock ]  which toggles Caps-Lock as-normal)
+;
+CapsLock::
+^CapsLock::
+!CapsLock::
+#CapsLock::
+	SetCapsLockState, Off
+	Return
++CapsLock::
+	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
+	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Pause-Break
+;   ACTION:  Replace functionality with combo keypress  [ Ctrl + Alt + Shift + Z ]  (set in whatever app you please)
+;
+Pause::
+	Send ^!+Z
+	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Scroll-Lock
+;   ACTION:  Replace functionality with combo keypress  [ Alt + F10 ]  (set in whatever app you please)
+;
+ScrollLock::
+	Send !F10
+	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	Fullpath_OpenInExplorer := OutDirname "\Videos"
+	; Run "%Fullpath_OpenInExplorer%"  ; Open the directory
+		TrayTip, AHK, Recording Saved to: `n"%Fullpath_OpenInExplorer%"  ; Toast Notification
+	Return
 
 
 ; ------------------------------------------------------------
@@ -654,21 +703,6 @@ If (DebugMode == 1) {
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  AppsKey
-;   ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
-;
-; *AppsKey::
-; 	Send {Blind}{RWin down}
-; 	Return
-; *AppsKey up::
-; 	Send {Blind}{RWin up}
-; 	Return
-
-AppsKey::RWin
-
-
-; ------------------------------------------------------------
-;
 ;   HOTKEY:  Windows-Key + N
 ;   ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
@@ -1172,22 +1206,6 @@ LShift & RShift::
 ;
 #T::
 	PrintEnv()
-	Return
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Caps Lock
-;   ACTION:  Permanently DISABLE Capslock (unless pressed with shift, which toggles it as-normal)
-;
-CapsLock::
-^CapsLock::
-!CapsLock::
-#CapsLock::
-	SetCapsLockState, Off
-	Return
-+CapsLock::
-	SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
 	Return
 
 

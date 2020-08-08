@@ -40,8 +40,8 @@ For (($i = 0), ($j = 0); $i -LT 10 -And $j -LT 10; $i++, $j++) {
 #
 $DatArray = @(1,"a",2,"b",3,"c");
 For ($i=0; ($i -LT $DatArray.Count); $i++) {
-	Write-Host "`$i:$i";
-	Write-Host "`$DatArray[${i}] = $($DatArray[${i}])";
+	$EachItem = ($DatArray[${i}]);
+	Write-Host "`$DatArray[${i}] = ${EachItem}";
 }
 
 

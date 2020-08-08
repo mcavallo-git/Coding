@@ -23,17 +23,6 @@ duosecurity.com
 
 <!-- ------------------------------------------------------------ -->
 
-<h3>Electronic Arts (EA), Origin</h3>
-<pre><code>
-
-ea.com,
-origin.com
-
-</code></pre>
-<hr />
-
-<!-- ------------------------------------------------------------ -->
-
 <h3>Immuniweb</h3>
 <pre><code>
 

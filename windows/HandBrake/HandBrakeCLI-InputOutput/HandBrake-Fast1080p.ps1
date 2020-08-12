@@ -40,8 +40,8 @@ $HandBrake_Preset = "Very Fast 1080p30";
 
 $OutputExtension = "mp4";
 
-$Framerate_MatchSourceVideo = $True;
-# $Framerate_MatchSourceVideo = $False;
+$Framerate_MatchSource = $True;
+# $Framerate_MatchSource = $False;
 
 # Write-Output "`n`$ThisScript = [ ${ThisScript} ]";
 # Write-Output "`n`$ThisDir = [ ${ThisDir} ]";
@@ -56,7 +56,7 @@ $Framerate_MatchSourceVideo = $True;
 #
 
 $Opt_VariableFramerate = "";
-If ($Framerate_MatchSourceVideo -Eq $True) {
+If ($Framerate_MatchSource -Eq $True) {
 	$Opt_VariableFramerate = "--vfr ";
 }
 

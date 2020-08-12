@@ -36,9 +36,12 @@ $OutputDir = ("${ThisDir}\Output");
 
 $HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
 
-$HandBrake_Preset = "Fast 1080p30";
+$HandBrake_Preset = "Very Fast 1080p30";
 
 $OutputExtension = "mp4";
+
+# $Framerate_MatchSourceVideo = $True;
+$Framerate_MatchSourceVideo = $False;
 
 # Write-Output "`n`$ThisScript = [ ${ThisScript} ]";
 # Write-Output "`n`$ThisDir = [ ${ThisDir} ]";
@@ -57,6 +60,11 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
 
 	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
+
+	$Opt_VariableFramerate = "";
+	If ($Framerate_MatchSourceVideo -Eq $True) {
+		$Opt_VariableFramerate = "--vfr ";
+	}
 
 	# Download HandBrakeCLI
 	Write-Output "`nFile not found:  [ ${HandBrakeCLI} ]";
@@ -92,7 +100,10 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$EachInputFile = $_.FullName;
 		$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
 		Write-Output "`n`$EachInputFile = [ ${EachInputFile} ]`n`$EachOutputFile = [ ${EachOutputFile} ]";
-		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" -i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
+		#
+		# !! Perform the actual encoding !!
+		#
+		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${Opt_VariableFramerate}-i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
 		If ((Test-Path -Path ("${EachOutputFile}")) -Eq $True) {
 			Remove-Item -Path ("${EachInputFile}") -Force;
 		}

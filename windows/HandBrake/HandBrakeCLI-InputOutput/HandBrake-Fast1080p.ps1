@@ -8,19 +8,15 @@
 # ------------------------------------------------------------
 # RUN THIS SCRIPT:
 #
-#
-#   . "${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1"
+If ($False) {
+
+. "${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1"
 
 
+PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-File ${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1') -Verb 'RunAs' -Wait -PassThru | Out-Null;"
 
-# PowerShell -Command "
-Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-File ${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1"') -Verb 'RunAs' -Wait -PassThru | Out-Null;
-# "
 
-# PowerShell -Command "
-Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-Command Get-Service | Where-Object { ($_.DisplayName -Like (Write-Output *PRTG*)) } | Restart-Service;') -Verb 'RunAs' -Wait -PassThru | Out-Null;
-# "
-
+}
 
 #
 #

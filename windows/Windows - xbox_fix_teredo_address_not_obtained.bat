@@ -11,9 +11,9 @@ REM
 REM
 REM   1. Press the Windows button on your device or keyboard, or you can select the Windows icon in the lower-left corner of the main screen.
 REM
-REM   2. Select Settings > Gaming, and then select Xbox Networking.
+REM   2. Open Win10 Settings > Select "Gaming" (Xbox Icon, middle-right) > Select "Xbox Networking" (left tab)
 REM
-REM   3. Select Fix it. Windows will try to detect and fix known issues with Teredo. Note You might need to restart your PC for changes to take effect after pressing the Fix it button.
+REM   3. Under "Xbox Live multiplayer" (bottom) click "Fix it" - Windows will try to detect and fix known issues with Teredo. Note: You might need to restart your PC for changes to take effect after pressing the "Fix it" button.
 REM
 
 

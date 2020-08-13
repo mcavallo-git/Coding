@@ -7,7 +7,6 @@ REM ------------------------------------------------------------
 REM
 REM METHOD 1
 REM
-
 REM
 REM   1. Press the Windows button on your device or keyboard, or you can select the Windows icon in the lower-left corner of the main screen.
 REM
@@ -15,13 +14,11 @@ REM   2. Open Win10 Settings > Select "Gaming" (Xbox Icon, middle-right) > Selec
 REM
 REM   3. Under "Xbox Live multiplayer" (bottom) click "Fix it" - Windows will try to detect and fix known issues with Teredo. Note: You might need to restart your PC for changes to take effect after pressing the "Fix it" button.
 REM
-
-
+REM
 REM ------------------------------------------------------------
 REM
-REM METHOD 2 (relable back in 2016-2017)
+REM METHOD 2 (reliable around 2016-2017 and earlier)
 REM
-
 REM
 REM   1. Open Win + X menu and choose Device Manager from the list.
 REM 
@@ -35,13 +32,11 @@ REM   5. Restart your PC and re-enable Teredo with this line in Command Prompt (
 REM 
 REM   6. Make sure to NOT manually install the Teredo Tunneling Pseudo-Interface adapter as it might cause trouble since it reinstalls automatically
 REM
-
-
+REM
 REM ------------------------------------------------------------
 REM
 REM METHOD 2 (less relable)
 REM
-
 REM
 REM   1. CMD /C "NETSH interface Teredo set state disable"
 REM
@@ -49,8 +44,7 @@ REM   2. CMD /C "TIMEOUT /T 3"
 REM
 REM   3. CMD /C "NETSH interface Teredo set state type=default"
 REM
-
-
+REM
 REM ------------------------------------------------------------
 REM
 REM Citation(s)

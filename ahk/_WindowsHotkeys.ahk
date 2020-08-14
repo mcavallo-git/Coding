@@ -805,6 +805,22 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  AppsKey + Mouse-Wheel Up
+;            AppsKey + Mouse-Wheel Down
+;   ACTION:  Simulate a Mouse Left-Click (instead of scrolling up/down)
+;
+AppsKey & WheelUp::
+AppsKey & WheelDown::
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	MouseGetPos, MouseX, MouseY
+	MouseClick, Left, %MouseX%, %MouseY%
+	Sleep 10
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + Mouse-Wheel Up/Down
 ;   ACTION:  Turn computer volume up/down
 

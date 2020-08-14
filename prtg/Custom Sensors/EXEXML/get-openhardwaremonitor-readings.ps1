@@ -234,31 +234,31 @@ Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")
 
 
 # GPU Load
-If (([String]::IsNullOrEmpty(${Load_GPU})) -And (([Int]${Load_GPU}) > 0)) {
-	Write-Output "$([Int]${Load_GPU}):OK" | Out-File -NoNewline "${Logfile_GPU_Load}";
+If ([String]::IsNullOrEmpty(${Load_GPU})) {
+	Write-Output "${Load_GPU}:OK" | Out-File -NoNewline "${Logfile_GPU_Load}";
 } Else {
-	Write-Output "$([Int]${Load_GPU}):DOWN" | Out-File -NoNewline "${Logfile_GPU_Load}";
+	Write-Output "${Load_GPU}:DOWN" | Out-File -NoNewline "${Logfile_GPU_Load}";
 }
 # Write-Output "$([Int]${Load_GPU}):OK" | Out-File -NoNewline "${Logfile_GPU_Load}";
 
 
 # CPU Temp
-If (([String]::IsNullOrEmpty(${Temp_CPU})) -And (([Int]${Temp_CPU}) > 0)) {
-	Write-Output "$([Int]${Temp_CPU}):OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
+If ([String]::IsNullOrEmpty(${Temp_CPU})) {
+	Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
 } Else {
-	Write-Output "$([Int]${Temp_CPU}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
+	Write-Output "${Temp_CPU}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
 }
 # GPU Temp
-If (([String]::IsNullOrEmpty(${Temp_GPU})) -And (([Int]${Temp_GPU}) > 0)) {
-	Write-Output "$([Int]${Temp_GPU}):OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
+If ([String]::IsNullOrEmpty(${Temp_GPU})) {
+	Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
 } Else {
-	Write-Output "$([Int]${Temp_GPU}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
+	Write-Output "${Temp_GPU}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
 }
 # SSD Temp
-If (([String]::IsNullOrEmpty(${Temp_SSD})) -And (([Int]${Temp_SSD}) > 0)) {
-	Write-Output "$([Int]${Temp_SSD}):OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
+If ([String]::IsNullOrEmpty(${Temp_SSD})) {
+	Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
 } Else {
-	Write-Output "$([Int]${Temp_SSD}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
+	Write-Output "${Temp_SSD}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
 }
 # Write-Output "$([Int]${Temp_CPU}):OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
 # Write-Output "$([Int]${Temp_GPU}):OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
@@ -266,22 +266,22 @@ If (([String]::IsNullOrEmpty(${Temp_SSD})) -And (([Int]${Temp_SSD}) > 0)) {
 
 
 # Water-Pump Fan-Speed (RPM)
-If (([String]::IsNullOrEmpty(${Speed_FAN_PMP})) -And (([Int]${Speed_FAN_PMP}) > 0)) {
-	Write-Output "$([Int]${Speed_FAN_PMP}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
+If ([String]::IsNullOrEmpty(${Speed_FAN_PMP})) {
+	Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
 } Else {
-	Write-Output "$([Int]${Speed_FAN_PMP}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
+	Write-Output "${Speed_FAN_PMP}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
 }
 # Reservoir Fan-Speed (RPM)
-If (([String]::IsNullOrEmpty(${Speed_FAN_RAD})) -And (([Int]${Speed_FAN_RAD}) > 0)) {
-	Write-Output "$([Int]${Speed_FAN_RAD}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
+If ([String]::IsNullOrEmpty(${Speed_FAN_RAD})) {
+	Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
 } Else {
-	Write-Output "$([Int]${Speed_FAN_RAD}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
+	Write-Output "${Speed_FAN_RAD}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
 }
 # SSD Fan-Speed (RPM)
-If (([String]::IsNullOrEmpty(${Speed_FAN_SSD})) -And (([Int]${Speed_FAN_SSD}) > 0)) {
-	Write-Output "$([Int]${Speed_FAN_SSD}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
+If ([String]::IsNullOrEmpty(${Speed_FAN_SSD})) {
+	Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
 } Else {
-	Write-Output "$([Int]${Speed_FAN_SSD}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
+	Write-Output "${Speed_FAN_SSD}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
 }
 # Write-Output "$([Int]${Speed_FAN_PMP}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
 # Write-Output "$([Int]${Speed_FAN_RAD}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
@@ -289,22 +289,22 @@ If (([String]::IsNullOrEmpty(${Speed_FAN_SSD})) -And (([Int]${Speed_FAN_SSD}) > 
 
 
 # Water-Pump Fan-Speed (% Max)
-If (([String]::IsNullOrEmpty(${Speed_FAN_PMP_PRC})) -And (([Int]${Speed_FAN_PMP_PRC}) > 0)) {
-	Write-Output "$([Int]${Speed_FAN_PMP_PRC}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
+If ([String]::IsNullOrEmpty(${Speed_FAN_PMP_PRC})) {
+	Write-Output "${Speed_FAN_PMP_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
 } Else {
-	Write-Output "$([Int]${Speed_FAN_PMP_PRC}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
+	Write-Output "${Speed_FAN_PMP_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
 }
 # Reservoir Fan-Speed (% Max)
-If (([String]::IsNullOrEmpty(${Speed_FAN_RAD_PRC})) -And (([Int]${Speed_FAN_RAD_PRC}) > 0)) {
-	Write-Output "$([Int]${Speed_FAN_RAD_PRC}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";
+If ([String]::IsNullOrEmpty(${Speed_FAN_RAD_PRC})) {
+	Write-Output "${Speed_FAN_RAD_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";
 } Else {
-	Write-Output "$([Int]${Speed_FAN_RAD_PRC}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";
+	Write-Output "${Speed_FAN_RAD_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";
 }
 # SSD Fan-Speed (% Max)
-If (([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC})) -And (([Int]${Speed_FAN_SSD_PRC}) > 0)) {
-	Write-Output "$([Int]${Speed_FAN_SSD_PRC}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}";
+If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC})) {
+	Write-Output "${Speed_FAN_SSD_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}";
 } Else {
-	Write-Output "$([Int]${Speed_FAN_SSD_PRC}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}";
+	Write-Output "${Speed_FAN_SSD_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}";
 }
 # Write-Output "$([Int]${Speed_FAN_PMP_PRC}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
 # Write-Output "$([Int]${Speed_FAN_RAD_PRC}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";

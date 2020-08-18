@@ -20,6 +20,25 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
+<h5>Module Sync - Linux (Bash)</h5>
+<details><summary><i>Show/Hide Content</i></summary>
+	<p>
+		<ol>
+			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
+			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
+			<li>
+				<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
+				<pre><code>curl -ssL https://centos.sh | bash</code></pre>
+			</li>
+		</ol>
+	</p>
+</details>
+
+<hr />
+
+
+<!-- ------------------------------------------------------------ -->
+
 <h5>Module Sync - Windows (PowerShell)</h5>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
@@ -42,25 +61,6 @@ This file (on GitHub):
 			<li>
 				<div><sub>Fallback Method:</sub>&nbsp;</div>
 				<pre><sub><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></sub></pre>
-			</li>
-		</ol>
-	</p>
-</details>
-
-<hr />
-
-
-<!-- ------------------------------------------------------------ -->
-
-<h5>Module Sync - Linux (Bash)</h5>
-<details><summary><i>Show/Hide Content</i></summary>
-	<p>
-		<ol>
-			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
-			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
-			<li>
-				<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
-				<pre><code>curl -ssL https://centos.sh | bash</code></pre>
 			</li>
 		</ol>
 	</p>

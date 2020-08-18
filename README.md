@@ -118,14 +118,14 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="benchmarking-results"><br />Benchmarking (Results)<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="benchmarking-results"><br />Benchmarking Reference/Results<br /><br /></h5></th></tr>
 <tr><td><strong>3DMark Results (CPU/GPU)</sub></strong> <sub><br />&nbsp;&nbsp;&nbsp;Based on results from various 3DMark software<br/>&nbsp;&nbsp;&nbsp;Quickly compare processors and/or video cards<br/>&nbsp;&nbsp;&nbsp;</i></sub></td><td>View Results:<sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.3dmark.com/search#/?mode=basic">3DMark Search - Basic</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.3dmark.com/search#/?mode=advanced">3DMark Search - Advanced</a></sub></td></tr>
 <tr><td><strong>Passmark Results (CPU)</strong> <sub><br />&nbsp;&nbsp;&nbsp;Based on results from Passmark's <a href="https://www.passmark.com/products/performancetest/">PerformanceTest</a> software<br />&nbsp;&nbsp;&nbsp;CPU (Processor) benchmark results<br />&nbsp;&nbsp;&nbsp;Quickly compare different processors</sub></td><td>View Results:<sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.cpubenchmark.net/high_end_cpus.html">cpubenchmark.net - Best Performance</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.cpubenchmark.net/cpu_value_available.html">cpubenchmark.net - Best Value</a></sub></td></tr>
 <tr><td><strong>Passmark Results (GPU)</strong> <sub><br />&nbsp;&nbsp;&nbsp;Based on results from Passmark's <a href="https://www.passmark.com/products/performancetest/">PerformanceTest</a> software<br />&nbsp;&nbsp;&nbsp;Video Card (Graphics Card / GPU) benchmark results<br />&nbsp;&nbsp;&nbsp;Quickly compare different video cards</sub></td><td>View Results:<sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.videocardbenchmark.net/high_end_gpus.html">videocardbenchmark.net - Best Performance</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.videocardbenchmark.net/gpu_value.html">videocardbenchmark.net - Best Value</a></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="benchmarking-tools"><br />Benchmarking (Tools)<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="benchmarking-tools"><br />Benchmarking Software<br /><br /></h5></th></tr>
 <tr><td><strong>3DMark Fire Strike</strong> <sub><br />&nbsp;&nbsp;&nbsp;GPU Benchmark<i><br />&nbsp;&nbsp;&nbsp;DirectX 11 Benchmark (Graphics Cards, GPU)</i></sub></td><td><a href="https://store.steampowered.com/app/402290/3DMark_Fire_Strike_benchmarks/">Download (steam)</a></sub></td></tr>
 <tr><td><strong>3DMark Time Spy</strong> <sub><br />&nbsp;&nbsp;&nbsp;GPU Benchmark<i><br />&nbsp;&nbsp;&nbsp;DirectX 12 Benchmark (Graphics Cards, GPU)</i></sub></td><td><a href="https://store.steampowered.com/app/496100/3DMark_Time_Spy_benchmark/">Download (steam)</a></sub></td></tr>
 <tr><td><strong>CineBench R20</strong> <sub>by Maxon<br />&nbsp;&nbsp;&nbsp;CPU Benchmark<i><br />&nbsp;&nbsp;&nbsp;Real-World Cross-Platform Test Suite</i></sub></td><td><a href="https://www.maxon.net/en-us/support/downloads/#collapse-64981">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="http://http.maxon.net/pub/cinebench/CinebenchR20.zip">Download (direct)</a></sub></td></tr>

@@ -1,0 +1,36 @@
+------------------------------------------------------------
+
+Product Name:
+  Gen-X Magnetic Charging+Data Cables
+
+Product Description:
+  3-pack of Gen-X magnetic cables + 3 magnetic tips per-cable (1*USB-C, 1*Micro-USB, 1*Lightning-Pin)
+
+Product URL (specific):
+  https://www.amazon.com/stores/page/B5831F83-99AB-4B3A-AFD9-7A81FA287C60  <-- Brand: "Smart&Cool"
+
+Product URL (general):
+  https://www.amazon.com/s?k=Gen-X+Magnetic+Charging+Cable
+
+Note(s):
+  Look for the ovular-shaped magnetic connectors (NOT a circle, but rather shaped like a racetrack - the circles suck as they drag on many devices which need the small form factor which the oval brings)
+
+
+------------------------------------------------------------
+
+Use-Cases (devices to keep a Gen-X connector in, long-term):
+
+  • Battery backups
+
+  • Label Printer (charging)
+
+  • Qi Charging Pads/Stands (charging)
+    |
+    |--> Allows for ad-hoc phone charging w/o needing to insert a connector directly into said phone
+
+  • Xbox controllers
+
+  • Wireless headphones/headsets (charging)
+
+
+------------------------------------------------------------

@@ -30,7 +30,7 @@ This file (on GitHub):
 				<div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
 				<pre><code>curl -ssL https://centos.sh | bash</code></pre>
 			</li>
-			<li>Upon completion, run command "sync_cloud_infrastructure" to verify sync worked/is-working as-intended</li>
+			<li>Verify by running "sync_cloud_infrastructure" (after initial sync completes)</li>
 		</ol>
 	</p>
 </details>

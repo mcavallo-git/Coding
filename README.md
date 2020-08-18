@@ -460,10 +460,10 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<li>
-	<strong><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></strong>
-	<strong><a href="hotkeys/browser-hotkeys.txt">(Continued) Web-Browser & Windows-Explorer Hotkeys</a></strong>
-</li>
+<ul>
+	<li><strong><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></strong></li>
+	<li><strong><a href="hotkeys/browser-hotkeys.txt">(Continued) Web-Browser & Windows-Explorer Hotkeys</a></strong></li>
+</ul>
 
 <hr />
 

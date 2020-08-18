@@ -1,4 +1,5 @@
-<h3>Microsoft Edge - Uninstall App<br/><sub><i>(Auto Installs via Windows Updates as-of August 2020)</i></sub></h3>
+<h3>Microsoft Edge - Uninstall App<h3>
+<h6><i>(Auto Installs via Windows Updates as-of August 2020)</i></h6>
 <hr/>
 <h6>Open an elevated Command Prompt terminal</h6>
 <ul>

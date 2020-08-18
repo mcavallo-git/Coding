@@ -2,7 +2,7 @@
 <hr />
 <ul>
 	<li>Open an elevated command prompt window (type "cmd.exe" into start menu, right-click it, select "Run as administrator")</li>
-	<li>Run (copy-paste) the following commands:</li>
+	<li>Run the following commands (copy-paste into cmd terminal):</li>
 	<li><pre><code>cd %PROGRAMFILES(X86)%\Microsoft\Edge\Application\8*\Installer</code></pre></li>
 	<li><pre><code>.\setup.exe --uninstall --force-uninstall --system-level</code></pre></li>
 	<li>Done</li>

@@ -8,7 +8,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h3 id="windows-tips-tricks">Windows - Essential Resources</h3>
+<h3 id="windows-one-time-setup">Windows - One-time setup (per device)</h3>
 <details open><summary><i>Show/Hide Content</i></summary>
 <p>
 

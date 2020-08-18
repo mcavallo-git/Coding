@@ -454,7 +454,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong><a href="windows#windows-tips-tricks">(Continued) Windows Tips/Tricks</a></strong>
+	<strong><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></strong>
 </li>
 
 <hr />

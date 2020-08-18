@@ -35,3 +35,9 @@ Hotkey(s):
 
 
 # ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   www.system-overload.org  |  "Windows Shortcuts"  |  https://www.system-overload.org/windows-shortcuts.html
+#
+# ------------------------------------------------------------

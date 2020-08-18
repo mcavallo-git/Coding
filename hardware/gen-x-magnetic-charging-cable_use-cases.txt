@@ -28,9 +28,9 @@ Use-Cases (devices to keep a Gen-X connector in, long-term):
     |
     |--> Allows for ad-hoc phone charging w/o needing to insert a connector directly into said phone
 
-  • Xbox controllers
-
   • Wireless headphones/headsets (charging)
+
+  • Xbox controllers
 
 
 ------------------------------------------------------------

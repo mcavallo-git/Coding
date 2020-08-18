@@ -5,8 +5,8 @@
 <ul>
 	<li><pre><code>cd %PROGRAMFILES(X86)%\Microsoft\Edge\Application\8*\Installer</code></pre></li>
 	<li><pre><code>.\setup.exe --uninstall --force-uninstall --system-level</code></pre></li>
-	<li>Done</li>
 </ul>
+<h6>Done</h6>
 <h6><i><sub>Note: If the "8*" directory wasn't found in the first command, replace the "8*" with the version of edge which was installed during windows updates, such as "9*", etc.</sub></i></h6>
 <hr />
 <h5>Citation(s)</h5>

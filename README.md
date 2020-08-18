@@ -120,8 +120,8 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="benchmarking-results"><br />Benchmarking (Results)<br /><br /></h5></th></tr>
 <tr><td><strong>3DMark results</strong> <sub><br />&nbsp;&nbsp;&nbsp;3DMark benchmarking software - Publicly Uploaded Results<br/>&nbsp;&nbsp;&nbsp;Searchable by hardware components<br/>&nbsp;&nbsp;&nbsp;</i></sub></td><td><a href="https://www.3dmark.com/search">View Results</a></td></tr>
-<tr><td><strong>Passmark - cpubenchmark.net </strong> <sub><br />&nbsp;&nbsp;&nbsp;CPU Benchmark Results<br />&nbsp;&nbsp;&nbsp;Allows for quick/rough comparisons of CPU hardware</sub></td><td><a href="https://www.cpubenchmark.net/high_end_cpus.html">View High-End CPUs</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.cpubenchmark.net/cpu_value_available.html">View Best-Value CPUs</a></td></tr>
-<tr><td><strong>Passmark - videocardbenchmark.net </strong> <sub><br />&nbsp;&nbsp;&nbsp;Video Card (GPU) Benchmark Results<br />&nbsp;&nbsp;&nbsp;Allows for quick/rough comparisons of GPU hardware</sub></td><td><a href="https://www.videocardbenchmark.net/high_end_gpus.html">View High-End GPUs</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.videocardbenchmark.net/gpu_value.html">View Best-Value GPUs</a></td></tr>
+<tr><td><strong>Passmark - cpubenchmark.net </strong> <sub><br />&nbsp;&nbsp;&nbsp;CPU Benchmark Results<br />&nbsp;&nbsp;&nbsp;Quick-/Rough-Comparisons of CPU hardware</sub></td><td><a href="https://www.cpubenchmark.net/high_end_cpus.html">View High-End CPUs</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.cpubenchmark.net/cpu_value_available.html">View Best-Value CPUs</a></td></tr>
+<tr><td><strong>Passmark - videocardbenchmark.net </strong> <sub><br />&nbsp;&nbsp;&nbsp;Video Card (GPU) Benchmark Results<br />&nbsp;&nbsp;&nbsp;Quick-/Rough-Comparisons of GPU hardware</sub></td><td><a href="https://www.videocardbenchmark.net/high_end_gpus.html">View High-End GPUs</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.videocardbenchmark.net/gpu_value.html">View Best-Value GPUs</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

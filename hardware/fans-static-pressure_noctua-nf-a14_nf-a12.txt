@@ -1,0 +1,4 @@
+
+Noctua NF-A14 - https://noctua.at/en/nf-a14-industrialppc-3000-pwm/specification
+
+Noctua NF-A12 - https://noctua.at/en/nf-a12x25-pwm/specification

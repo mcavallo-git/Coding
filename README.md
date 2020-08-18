@@ -20,7 +20,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5>Windows - PowerShell Module (Sync)</h5>
+<h5>Module Sync - Windows (PowerShell)</h5>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
@@ -52,7 +52,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5>Linux - Bash Module (Sync)</h5>
+<h5>Module Sync - Linux (Bash)</h5>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>

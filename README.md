@@ -454,7 +454,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong><a href="windows#workstation-installs">(Continued) Windows Tips/Tricks</a></strong>
+	<strong><a href="windows#windows-tips-tricks">(Continued) Windows Tips/Tricks</a></strong>
 </li>
 
 <hr />

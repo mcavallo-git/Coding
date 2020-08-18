@@ -2242,12 +2242,12 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 ;
 ShowVolumeLevel() {
 	CoordMode, Mouse, Screen
-	Icon_MutedSpeaker := 🔇
-	Icon_SpeakerLowVolume := 🔈
-	Icon_SpeakerMediumVolume := 🔉
-	Icon_SpeakerHighVolume := 🔊
-	Icon_VolumeFilled := ⬛️
-	Icon_VolumeBlanks := ⬜️
+	Icon_MutedSpeaker := "🔇"
+	Icon_SpeakerLowVolume := "🔈"
+	Icon_SpeakerMediumVolume := "🔉"
+	Icon_SpeakerHighVolume := "🔊"
+	Icon_VolumeFilled := "⬛️"
+	Icon_VolumeBlanks := "⬜️"
 	; Get the volume & mute current-settings
 	SoundGet, NewVolumeLevel
 	SoundGet, MasterMute, , MUTE
@@ -2268,14 +2268,14 @@ ShowVolumeLevel() {
 	VolumeBars_Middle := DisplayedIcons_Middle_Filled DisplayedIcons_Middle_Blanks
 	TrimCount_TopBot := Round( StrLen( VolumeBars_TopBot ) / 2 )
 	TrimCount_Middle := Round( StrLen( VolumeBars_Middle ) / 2 )
-	Echo_TopBot_LeftHalf := RTrim(SubStr(VolumeBars_TopBot, 0, (StrLen(VolumeBars_TopBot)-TrimCount_TopBot) ))
+	Echo_TopBot_LeftHalf := RTrim(SubStr(VolumeBars_TopBot, 1, (StrLen(VolumeBars_TopBot)-TrimCount_TopBot) ))
 	Echo_TopBot_RightHalf := RTrim(SubStr(VolumeBars_TopBot, TrimCount_TopBot, StrLen(VolumeBars_TopBot)))
 	Echo_TopBot_LeftHalf := Icon_SpeakerMediumVolume A_Space A_Space A_Space Echo_TopBot_LeftHalf
 	Echo_TopBot_RightHalf := Echo_TopBot_RightHalf A_Space A_Space Icon_SpeakerHighVolume
 	Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
 	Echo_Middle_RightHalf := Echo_TopBot_RightHalf
 	IconSlice_Middle_EachSide := 3
-	Mute_AddSpaces := 3
+	Mute_AddSpaces := 2
 	Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
 	Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
 	; Show mute status next to the integer volume level

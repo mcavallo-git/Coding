@@ -24,7 +24,7 @@ Use-Cases (devices to keep a Gen-X connector in, long-term):
 
   • Bluetooth label-printer (charging)
 
-  • Qi Charging Pads/Stands (powering)
+  • Qi charging-pads/stands (powering)
     |
     |--> Allows for ad-hoc phone charging w/o needing to insert a connector directly into said phone
 

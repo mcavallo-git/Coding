@@ -1,4 +1,4 @@
-<h3 id="uninstall_guide">Microsoft Edge - Remove, Uninstall<h3>
+<h2 id="uninstall_guide">Microsoft Edge - Remove, Uninstall<h2>
 <h6><i>(Auto Installs via Windows Updates as-of August 2020)</i></h6>
 <hr/>
 <h3>Step 1/2: Open an elevated Command Prompt terminal</h3>

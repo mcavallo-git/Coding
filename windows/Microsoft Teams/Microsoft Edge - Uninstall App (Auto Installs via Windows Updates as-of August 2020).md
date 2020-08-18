@@ -1,13 +1,13 @@
 <h3>Microsoft Edge - Uninstall App<br/><sub><i>(Auto Installs via Windows Updates as-of August 2020)</i></sub></h3>
 <hr />
+<h6>Open an elevated command prompt window (open start-menu > type "cmd.exe" > right-click cmd.exe (e.g. "Command Prompt") > select "Run as administrator")</h6>
+<h6>Run the following commands (copy-paste into cmd terminal):</h6>
 <ul>
-	<li>Open an elevated command prompt window (type "cmd.exe" into start menu, right-click it, select "Run as administrator")</li>
-	<li>Run the following commands (copy-paste into cmd terminal):</li>
 	<li><pre><code>cd %PROGRAMFILES(X86)%\Microsoft\Edge\Application\8*\Installer</code></pre></li>
 	<li><pre><code>.\setup.exe --uninstall --force-uninstall --system-level</code></pre></li>
 	<li>Done</li>
-	<li><i><sub>Note: If the "8*" directory wasn't found in the first command, replace the "8*" with the version of edge which was installed during windows updates, such as "9*", etc.</sub></i></li>
 </ul>
+<h6><i><sub>Note: If the "8*" directory wasn't found in the first command, replace the "8*" with the version of edge which was installed during windows updates, such as "9*", etc.</sub></i></h6>
 <hr />
 <h5>Citation(s)</h5>
 <ul>

@@ -24,12 +24,13 @@ This file (on GitHub):
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
-			<li>Prereq: Debian-based Linux environment (Ubuntu, Raspbian, Debian, etc.)</li>
+			<li>Prereq: Debian- or Fedora-based Linux environment (Ubuntu, Raspbian, CentOS, RHEL, etc.)</li>
 			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
 			<li>
-				<div>If Pre-Reqs are met, run the following command to sync Bash Modules: </div>
+				<div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
 				<pre><code>curl -ssL https://centos.sh | bash</code></pre>
 			</li>
+			<li>Upon completion, run command "sync_cloud_infrastructure" to verify sync worked/is-working as-intended</li>
 		</ol>
 	</p>
 </details>

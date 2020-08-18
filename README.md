@@ -454,7 +454,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 
 <li>
-	<strong><a href="https://github.com/mcavallo-git/Coding/tree/master/windows#workstation-installs">(Continued) Windows Tips/Tricks</a></strong>
+	<strong><a href="windows#workstation-installs">(Continued) Windows Tips/Tricks</a></strong>
 </li>
 
 <hr />

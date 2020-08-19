@@ -16,6 +16,7 @@ AURA
 AURA lighting effect add-on
 AURA lighting effect add-on x64
 AURA Service
+GALAX GAMER RGB
 ROG Live Service
 
 
@@ -46,7 +47,7 @@ If ($True) {
 	} | ForEach-Object {
 		$_ | Stop-Service;
 		Start-Sleep -Milliseconds (250);
-		Write-Host "`nInfo: Deleting Service `"$($_.Name)`"...  " -ForegroundColor "Yellow";
+		Write-Host "`nInfo: Deleting Service w/ Name = `"$($_.Name)`", DisplayName = `"$($_.DisplayName)`" ...  " -ForegroundColor "Yellow";
 		Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("delete","$($_.Name)")) -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 		Start-Sleep -Milliseconds (250);
 	};
@@ -77,46 +78,22 @@ If ($True) {
 	<# !!  Note: I had to boot into Safe Mode (w/o networking or command prompt) to delete the Prog-Files / Prof-Files-X86 directories, below  !! #>
 
 	<# Remove the "All MB" app's directory - Afterwards, reboot, then attempt to uninstall from "appwiz.cpl", at which point it won't find the "Setup.exe" runtime and will ask if you wish to remove it from the list of installed programs > Confirm via "Yes"/etc.  #>
-	$Parent_Directory = "C:\Program Files (x86)\InstallShield Installation Information";
-	$Filenames_To_Remove = @();
-	$Filenames_To_Remove += ("AMD");
-	$Filenames_To_Remove += ("{93795eb8-bd86-4d4d-ab27-ff80f9467b37}");
-	Get-ChildItem -Path ("${Parent_Directory}") -Directory -Force -ErrorAction "SilentlyContinue" `
-	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
-	| ForEach-Object {
-		$Each_Fullpath = ("$($_.FullName)");
-		Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
-		Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-		Get-Item -Path ("${Each_Fullpath}") -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-	};
+	# $Parent_Directory = "C:\Program Files (x86)\InstallShield Installation Information";
+	# $Filenames_To_Remove = @();
+	# $Filenames_To_Remove += ("{93795eb8-bd86-4d4d-ab27-ff80f9467b37}");
+	# Get-ChildItem -Path ("${Parent_Directory}") -Directory -Force -ErrorAction "SilentlyContinue" `
+	# | Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
+	# | ForEach-Object {
+	# 	$Each_Fullpath = ("$($_.FullName)");
+	# 	Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
+	# 	Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
+	# 	Get-Item -Path ("${Each_Fullpath}") -ErrorAction "SilentlyContinue" | Remove-Item -Path ("${Each_Fullpath}") -Force;
+	# };
 
 	<# PROG-FILES #>
-	$Parent_Directory = "C:\Program Files";
-	$Filenames_To_Remove = @();
-	$Filenames_To_Remove += ("AMD");
-	$Filenames_To_Remove += ("ASUS");
-	Get-ChildItem -Path ("${Parent_Directory}") -Directory -Force -ErrorAction "SilentlyContinue" `
-	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
-	| ForEach-Object {
-		$Each_Fullpath = ("$($_.FullName)");
-		Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
-		Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-		Get-Item -Path ("${Each_Fullpath}") -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-	};
-
-	<# PROG-FILES X86 #>
-	$Parent_Directory = "C:\Program Files (x86)";
-	$Filenames_To_Remove = @();
-	$Filenames_To_Remove += ("AMD");
-	$Filenames_To_Remove += ("ASUS");
-	Get-ChildItem -Path ("${Parent_Directory}") -Directory -Force -ErrorAction "SilentlyContinue" `
-	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
-	| ForEach-Object {
-		$Each_Fullpath = ("$($_.FullName)");
-		Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
-		Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-		Get-Item -Path ("${Each_Fullpath}") -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-	};
+	Remove-Item "C:\Program Files\ASUS"; # Hit "A" then Enter (to select 'Yes to all' deletion option) 
+	Remove-Item "C:\Program Files (x86)\ASUS"; # --> A --> Enter
+	Remove-Item "C:\Program Files (x86)\InstallShield Installation Information\{93795eb8-bd86-4d4d-ab27-ff80f9467b37}"; # --> A --> Enter
 
 }
 

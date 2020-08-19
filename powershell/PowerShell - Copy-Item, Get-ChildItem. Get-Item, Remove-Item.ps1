@@ -70,4 +70,6 @@ Get-ChildItem -Path ("C:\Windows\System32") -File -Recurse -Depth (1) -Force -Er
 #
 #   docs.microsoft.com  |  "Remove-Item - Deletes the specified items"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-5.1
 #
+#   stackoverflow.com  |  "How can I delete files with PowerShell without confirmation? - Stack Overflow"  |  https://stackoverflow.com/a/43611773
+#
 # ------------------------------------------------------------

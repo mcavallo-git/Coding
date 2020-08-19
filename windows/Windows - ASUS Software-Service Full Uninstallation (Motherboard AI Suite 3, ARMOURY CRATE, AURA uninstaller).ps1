@@ -172,7 +172,7 @@ $RegistryKeys_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\ASUS";
 $RegistryKeys_ToDelete | ForEach-Object {
 	$Each_RegistryKey = "$_";
 	Get-Item -Path ("Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc") | ForEach-Object {
-		Write-Host "Removing registry key `"${Each_RegistryKey}`" ...";
+		Write-Host "Removing Registry Key `"${Each_RegistryKey}`" ...";
 		Remove-Item -Force -Path ("$Each_RegistryKey") | Out-Null;
 	}
 };

@@ -10,6 +10,7 @@ All MB   <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
 AI Suite 3
 AMD Software
 AMD_Chipset_Drivers
+ARMOURY CRATE Service
 ARMOURY CRATE Lite Service
 ASUS Framework Service
 AURA

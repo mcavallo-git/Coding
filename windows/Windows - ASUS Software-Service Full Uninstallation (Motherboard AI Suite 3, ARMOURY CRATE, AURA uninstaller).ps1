@@ -5,8 +5,9 @@
 
 #  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
+All MB   *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO ***
+
 AI Suite 3
-All MB
 AMD Software
 AMD_Chipset_Drivers
 ARMOURY CRATE Lite Service
@@ -55,8 +56,8 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# REMOVE EXISTENT LEFTOVER FILES & DIRECTORIES 
-
+# REMOVE EXISTENT LEFTOVER FILES/DIRECTORIES 
+#
 If ($True) {
 
 	<# SYSTEM-32 #>
@@ -83,9 +84,42 @@ If ($True) {
 		$Each_Fullpath = ("$($_.FullName)");
 		Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
 		Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-		<# Remove-Item -Path ("${Each_Fullpath}") -Recurse -Force; #>
 	};
 
+}
+
+
+# ------------------------------------------------------------
+#
+# "All MB" - UNINSTALL / REMOVE APP
+#
+If ($True) {
+	#
+	# Application “All MB” must be disabled/uninstalled by stopping it from the BIOS
+	#
+	# Step 1/2 - Enter your device’s BIOS:
+	#  |
+	#  |--> From Windows:
+	#  |     |--> Open the Start Menu
+	#  |     |--> Type “UEFI” into start menu
+	#  |     |--> Select “Change advanced startup options”
+	#  |     |--> Select “Restart now”
+	#  |     |--> Wait for blue screen options...
+	#  |     |--> Select “Troubleshoot”
+	#  |     |--> Select “Advanced options”
+	#  |     |--> Select “UEFI Firmwate Settings”
+	#  |     |--> Select “Restart”
+	#  |
+	#  |--> From POST (during your device’s power-on/boot up phase)
+	#        |--> Spam either F2 or Delete (depending on your motherboard specification) on the keyboard to enter BIOS 
+	#        |--> Stop spamming F2 or Delete (depending on your motherboard specification) if the windows loading icon appears (as it is too late by then, and BIOS likely needs to be entered thru windows - see previous step or retry by rebooting)
+	#
+	# Step 2/2 - Once you’re in the BIOS, disable Armoury Crate:
+	#  |--> Hit F7 for Advanced
+	#  |--> Goto tab “Tools”
+	#  |--> Select “ASUS Armoury Crate”
+	#  |--> Set option “Download & Install ARMOURY CRATE app” to “Disabled”
+	#
 }
 
 

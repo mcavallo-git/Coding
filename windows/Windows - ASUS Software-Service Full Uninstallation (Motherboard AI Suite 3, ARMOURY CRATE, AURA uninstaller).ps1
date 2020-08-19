@@ -71,41 +71,24 @@ If ($True) {
 
 If ($True) {
 
-	<# SYSTEM-32 #>
-	$Parent_Directory = "C:\Windows\System32";
-	$Filenames_To_Remove = @();
-	$Filenames_To_Remove += ("AsusDownloadAgent.exe");
-	$Filenames_To_Remove += ("AsusDownLoadLicense.exe");
-	$Filenames_To_Remove += ("AsusUpdateCheck.exe");
-	Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -ErrorAction "SilentlyContinue" `
-	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
-	| ForEach-Object {
-		$Each_Fullpath = ("$($_.FullName)");
-		Write-Host "Removing file with path  `"${Each_Fullpath}`" ...";
-		Remove-Item -Path ("${Each_Fullpath}") -Force;
+	$Paths_ToDelete = @();
+
+	$Paths_ToDelete += "C:\Program Files\ASUS";
+	$Paths_ToDelete += "C:\Program Files (x86)\ASUS";
+	$Paths_ToDelete += "C:\Program Files (x86)\InstallShield Installation Information\{93795eb8-bd86-4d4d-ab27-ff80f9467b37}"; # --> A --> Enter
+	$Paths_ToDelete += "C:\ProgramData\ASUS";
+	$Paths_ToDelete += "${Env:LocalAppData}\ASUS";
+	$Paths_ToDelete += "C:\Windows\System32\AsusDownloadAgent.exe";
+	$Paths_ToDelete += "C:\Windows\System32\AsusDownLoadLicense.exe";
+	$Paths_ToDelete += "C:\Windows\System32\AsusUpdateCheck.exe";
+
+	$Paths_ToDelete | ForEach-Object {
+		$Each_PathToDelete = "$_";
+		If (Test-Path -Path ("${Each_PathToDelete}")) {
+			Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
+			Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$false;
+		};
 	};
-
-	<# !!  Note: I had to boot into Safe Mode (w/o networking or command prompt) to delete the Prog-Files / Prof-Files-X86 directories, below  !! #>
-
-	<# Remove the "All MB" app's directory - Afterwards, reboot, then attempt to uninstall from "appwiz.cpl", at which point it won't find the "Setup.exe" runtime and will ask if you wish to remove it from the list of installed programs > Confirm via "Yes"/etc.  #>
-	# $Parent_Directory = "C:\Program Files (x86)\InstallShield Installation Information";
-	# $Filenames_To_Remove = @();
-	# $Filenames_To_Remove += ("{93795eb8-bd86-4d4d-ab27-ff80f9467b37}");
-	# Get-ChildItem -Path ("${Parent_Directory}") -Directory -Force -ErrorAction "SilentlyContinue" `
-	# | Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
-	# | ForEach-Object {
-	# 	$Each_Fullpath = ("$($_.FullName)");
-	# 	Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
-	# 	Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
-	# 	Get-Item -Path ("${Each_Fullpath}") -ErrorAction "SilentlyContinue" | Remove-Item -Path ("${Each_Fullpath}") -Force;
-	# };
-
-	<# PROG-FILES #>
-	Remove-Item "C:\Program Files\ASUS"; # Hit "A" then Enter (to select 'Yes to all' deletion option) 
-	Remove-Item "C:\Program Files (x86)\ASUS"; # --> A --> Enter
-	Remove-Item "C:\Program Files (x86)\InstallShield Installation Information\{93795eb8-bd86-4d4d-ab27-ff80f9467b37}"; # --> A --> Enter
-	Remove-Item "C:\ProgramData\ASUS"; # --> A --> Enter
-	Remove-Item "${Env:LocalAppData}\ASUS"; # --> A --> Enter
 
 }
 
@@ -117,65 +100,65 @@ If ($True) {
 
 If ($True) {
 
-	$RegistryKeys_ToDelete = @();
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.ServiceMediator.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.ServiceMediator";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.AuraSdkManager.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.AuraSdkManager";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\asus.aura";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\asus.aura.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS.OneClickCtrl.9";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS.Update3WebControl.3";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\asusac";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraExtCardHal.Hal.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraMBHal.Hal";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraMBHal.Hal.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraOddHal.Hal";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraOddHal.Hal.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS-Display.Hal";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS-Display.Hal.1.0.2";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSGCDriverInitialClient";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSGCDriverUpdateClient";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsusGCGridServiceSetup";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoCreateAsync";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoCreateAsync.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreClass";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreClass.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreMachineClass";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreMachineClass.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CredentialDialogMachine";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CredentialDialogMachine.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachine";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachine.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachineFallback";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachineFallback.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassSvc";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassSvc.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.ProcessLauncher";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.ProcessLauncher.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3COMClassService";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3COMClassService.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachine";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachine.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachineFallback";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachineFallback.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc.1.0";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk.1";
-	$RegistryKeys_ToDelete += "Registry::HKEY_CURRENT_USER\Software\ASUS";
-	$RegistryKeys_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\ASUS";
+	$Paths_ToDelete = @();
 
-	<# Delete all associated registry keys #>
-	$RegistryKeys_ToDelete | ForEach-Object {
-		$Each_RegistryKey = "$_";
-		If (Test-Path -Path ("${Each_RegistryKey}")) {
-			Write-Host "Removing Registry Key `"${Each_RegistryKey}`" ...";
-			Remove-Item -Path ("$Each_RegistryKey") -Recurse -Force -Confirm:$false;
-			<# Remove-Item -Path ("$Each_RegistryKey") -Recurse -Force -Confirm:$false | Out-Null; #>
-		}
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.ServiceMediator.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.ServiceMediator";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.AuraSdkManager.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.AuraSdkManager";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\asus.aura";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\asus.aura.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS.OneClickCtrl.9";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS.Update3WebControl.3";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\asusac";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraExtCardHal.Hal.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraMBHal.Hal";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraMBHal.Hal.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraOddHal.Hal";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraOddHal.Hal.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS-Display.Hal";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS-Display.Hal.1.0.2";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSGCDriverInitialClient";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSGCDriverUpdateClient";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsusGCGridServiceSetup";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoCreateAsync";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoCreateAsync.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreClass";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreClass.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreMachineClass";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreMachineClass.1";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CredentialDialogMachine";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CredentialDialogMachine.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachine";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachine.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachineFallback";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachineFallback.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassSvc";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassSvc.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.ProcessLauncher";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.ProcessLauncher.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3COMClassService";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3COMClassService.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachine";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachine.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachineFallback";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachineFallback.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc.1.0";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk.1";
+	$Paths_ToDelete += "Registry::HKEY_CURRENT_USER\Software\ASUS";
+	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\ASUS";
+
+	$Paths_ToDelete | ForEach-Object {
+		$Each_PathToDelete = "$_";
+		If (Test-Path -Path ("${Each_PathToDelete}")) {
+			Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
+			Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$false;
+		};
 	};
 
+	#
 	# Locating remaining registry keys to-delete (based on specific hardware) #>
 	#   |
 	#   |--> Download ASUS Aura (Zip file) - Do not install it, but rather open the packaged directory "LightingService\aac" and locate the target "Aac...exe" file for the hardware which you previously configured RGB/ARGB on. e.g. for motherboards, use "AacMBSetup.exe" #>
@@ -185,6 +168,7 @@ If ($True) {
 	#   |     |-->   AacMBSetup.exe -install -log aac-log.txt
 	#   |
 	#   |--> Once the program has ran, open it, search for GUIDs wrapped with curly-braces within the log file, and copy the interior string (without the curly-braces). Then, open regedit.exe, select "Computer" (at the top of the left area of regedit) to select the entire registry, then search it (CTRL + F) for the copied GUID  -->  Delete any keys it finds
+	#
 
 }
 

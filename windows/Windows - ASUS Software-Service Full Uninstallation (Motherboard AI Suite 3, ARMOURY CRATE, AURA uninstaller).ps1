@@ -171,7 +171,8 @@ If ($True) {
 		$Each_RegistryKey = "$_";
 		If (Test-Path -Path ("${Each_RegistryKey}")) {
 			Write-Host "Removing Registry Key `"${Each_RegistryKey}`" ...";
-			Remove-Item -Force -Path ("$Each_RegistryKey") | Out-Null;
+			Remove-Item -Path ("$Each_RegistryKey") -Recurse -Force -Confirm:$false;
+			<# Remove-Item -Path ("$Each_RegistryKey") -Recurse -Force -Confirm:$false | Out-Null; #>
 		}
 	};
 

@@ -1,5 +1,12 @@
 # ------------------------------------------------------------
 #
+# ASUS SOFTWARE REMOVAL
+#  |
+#  |-->  https://www.reddit.com/r/pcmasterrace/comments/eyqieh/asus_armoury_crateaura_complete_removal/
+#
+#
+# ------------------------------------------------------------
+#
 # UNINSTALL THE FOLLOWING PROGRAM(S) (Win7 style exes) by opening "appwiz.cpl" ("Programs and Features") and right-clicking -> selecting "Uninstall" on each (wait til all are uninstalled to restart)
 #
 
@@ -94,6 +101,8 @@ If ($True) {
 	Remove-Item "C:\Program Files\ASUS"; # Hit "A" then Enter (to select 'Yes to all' deletion option) 
 	Remove-Item "C:\Program Files (x86)\ASUS"; # --> A --> Enter
 	Remove-Item "C:\Program Files (x86)\InstallShield Installation Information\{93795eb8-bd86-4d4d-ab27-ff80f9467b37}"; # --> A --> Enter
+	Remove-Item "C:\ProgramData\ASUS"; # --> A --> Enter
+	Remove-Item "${Env:LocalAppData}\ASUS"; # --> A --> Enter
 
 }
 

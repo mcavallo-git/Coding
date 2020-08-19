@@ -6,6 +6,7 @@
 #  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
 AI Suite 3
+All MB
 AMD Software
 AMD_Chipset_Drivers
 ARMOURY CRATE Lite Service

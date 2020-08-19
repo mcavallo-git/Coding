@@ -42,7 +42,7 @@ AURA Creator
 
 # ------------------------------------------------------------
 #
-# REMOVE EXISTENT LEFTOVER SERVICES
+# REMOVE ASUS SERVICES
 #
 
 If ($True) {
@@ -66,7 +66,7 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# REMOVE EXISTENT LEFTOVER FILES/DIRECTORIES 
+# REMOVE ASUS FILES & DIRECTORIES 
 #
 If ($True) {
 
@@ -105,6 +105,82 @@ If ($True) {
 	Remove-Item "C:\Program Files (x86)\InstallShield Installation Information\{93795eb8-bd86-4d4d-ab27-ff80f9467b37}"; # --> A --> Enter
 	Remove-Item "C:\ProgramData\ASUS"; # --> A --> Enter
 	Remove-Item "${Env:LocalAppData}\ASUS"; # --> A --> Enter
+
+}
+
+
+# ------------------------------------------------------------
+#
+# REMOVE ASUS REGISTRY ENTRIES
+#
+If ($True) {
+
+Remove-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
+
+Registry::HKEY_CLASSES_ROOT\
+
+$RegistryKeys_ToDelete = @();
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.ServiceMediator.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.ServiceMediator";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.AuraSdkManager.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsRogAuraService.AuraSdkManager";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\asus.aura";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\asus.aura.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS.OneClickCtrl.9";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS.Update3WebControl.3";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\asusac";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraExtCardHal.Hal.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraMBHal.Hal";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraMBHal.Hal.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraOddHal.Hal";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSAuraOddHal.Hal.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS-Display.Hal";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUS-Display.Hal.1.0.2";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSGCDriverInitialClient";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSGCDriverUpdateClient";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\AsusGCGridServiceSetup";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoCreateAsync";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoCreateAsync.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreClass";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreClass.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreMachineClass";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CoreMachineClass.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CredentialDialogMachine";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.CredentialDialogMachine.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachine";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachine.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachineFallback";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassMachineFallback.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassSvc";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.OnDemandCOMClassSvc.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.ProcessLauncher";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.ProcessLauncher.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3COMClassService";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3COMClassService.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachine";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachine.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachineFallback";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebMachineFallback.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc.1.0";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk";
+$RegistryKeys_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk.1";
+$RegistryKeys_ToDelete += "Registry::HKEY_CURRENT_USER\Software\ASUS";
+$RegistryKeys_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\ASUS";
+
+<# Delete all associated registry keys #>
+$RegistryKeys_ToDelete | ForEach-Object { Remove-Item -Force -Path ("$_") | Out-Null; };
+
+# Locating remaining registry keys to-delete (based on specific hardware) #>
+#   |
+#   |--> Download ASUS Aura (Zip file) - Do not install it, but rather open the packaged directory "LightingService\aac" and locate the target "Aac...exe" file for the hardware which you previously configured RGB/ARGB on. e.g. for motherboards, use "AacMBSetup.exe" #>
+#   |
+#   |--> Open a command prompt, change directory to the "LightingService\aac" directory, and run the following command (replacing associated .exe as-needed): #>
+#   |     |
+#   |     |-->   AacMBSetup.exe -install -log aac-log.txt
+#   |
+#   |--> Once the program has ran, open it, search for GUIDs wrapped with curly-braces within the log file, and copy the interior string (without the curly-braces). Then, open regedit.exe, select "Computer" (at the top of the left area of regedit) to select the entire registry, then search it (CTRL + F) for the copied GUID  -->  Delete any keys it finds
+
 
 }
 

@@ -2,6 +2,8 @@
 #
 # ASUS SOFTWARE REMOVAL
 #  |
+#  |-->  https://rog.asus.com/forum/showthread.php?114773-Armoury-Crate-not-recognizing-devices-and-unable-to-control-RGB
+#  |
 #  |-->  https://www.reddit.com/r/pcmasterrace/comments/eyqieh/asus_armoury_crateaura_complete_removal/
 #
 #

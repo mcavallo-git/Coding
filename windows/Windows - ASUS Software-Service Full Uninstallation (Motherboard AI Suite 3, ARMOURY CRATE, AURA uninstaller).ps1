@@ -82,7 +82,8 @@ If ($True) {
 	| ForEach-Object {
 		$Each_Fullpath = ("$($_.FullName)");
 		Write-Host "Removing directory with path  `"${Each_Fullpath}`" ...";
-		Remove-Item -Path ("${Each_Fullpath}") -Force;
+		Get-ChildItem -Path ("${Each_Fullpath}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Remove-Item -Force;
+		<# Remove-Item -Path ("${Each_Fullpath}") -Recurse -Force; #>
 	};
 
 }

@@ -169,9 +169,9 @@ If ($True) {
 	<# Delete all associated registry keys #>
 	$RegistryKeys_ToDelete | ForEach-Object {
 		$Each_RegistryKey = "$_";
-		Get-Item -Path ("Registry::HKEY_CLASSES_ROOT\ASUSUpdate.Update3WebSvc") | ForEach-Object {
+		If (Test-Path -Path ("${Each_RegistryKey}")) {
 			Write-Host "Removing Registry Key `"${Each_RegistryKey}`" ...";
-			<# Remove-Item -Force -Path ("$Each_RegistryKey") | Out-Null; #>
+			Remove-Item -Force -Path ("$Each_RegistryKey") | Out-Null;
 		}
 	};
 

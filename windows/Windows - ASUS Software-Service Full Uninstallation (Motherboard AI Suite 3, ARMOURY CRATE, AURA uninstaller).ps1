@@ -5,7 +5,7 @@
 
 #  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
-All MB   *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO ***
+All MB   <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
 
 AI Suite 3
 AMD Software

@@ -13,7 +13,7 @@ ASUS Framework Service
 AURA
 AURA lighting effect add-on
 AURA lighting effect add-on x64
-AURA service
+AURA Service
 ROG Live Service
 
 

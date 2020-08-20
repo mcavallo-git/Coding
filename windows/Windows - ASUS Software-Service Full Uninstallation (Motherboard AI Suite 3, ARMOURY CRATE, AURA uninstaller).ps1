@@ -170,7 +170,7 @@ If ($True) {
 	#         |--> Run the setup, walkthrough it as-normal, then open aac-log.txt
 	#         |
 	#         |--> Search for lines containing, SPECIFICALLY:
-	#         |      "Detected related package"   <-- These are the bad/old driver GUIDs
+	#         |      "Detected related package"   <-- These lines contain the {...GUIDs...} for old, deprecated versions of the ASUS AURA HAL AAC Driver which should be removed/uninstalled
 	#         |
 	#         |--> Search these lines for GUIDs wrapped with curly-braces within the log file, and copy the interior string (without the curly-braces).
 	#         |
@@ -180,6 +180,19 @@ If ($True) {
 	#         |
 	#         |--> For any keys that it finds, back them up to a temporary storage location of your choice (such as desktop), then delete them
 	#
+
+	$Paths_ToDelete = @();
+	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Dependencies\{D800D836-DE15-4B00-8273-521F022CD837}";
+	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{D800D836-DE15-4B00-8273-521F022CD837}";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\Installer\Dependencies\D800D836-DE15-4B00-8273-521F022CD837";
+
+	$Paths_ToDelete | ForEach-Object {
+		$Each_PathToDelete = "$_";
+		If (Test-Path -Path ("${Each_PathToDelete}")) {
+			Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
+			Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$false;
+		};
+	};
 
 }
 

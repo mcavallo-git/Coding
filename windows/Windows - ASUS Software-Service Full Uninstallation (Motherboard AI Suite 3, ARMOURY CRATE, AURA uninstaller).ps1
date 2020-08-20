@@ -76,6 +76,7 @@ If ($True) {
 	$Paths_ToDelete += "C:\Program Files\ASUS";
 	$Paths_ToDelete += "C:\Program Files (x86)\ASUS";
 	$Paths_ToDelete += "C:\Program Files (x86)\InstallShield Installation Information\{93795eb8-bd86-4d4d-ab27-ff80f9467b37}"; # --> A --> Enter
+	$Paths_ToDelete += "C:\Program Files (x86)\LightingService";
 	$Paths_ToDelete += "C:\ProgramData\ASUS";
 	$Paths_ToDelete += "${Env:LocalAppData}\ASUS";
 	$Paths_ToDelete += "C:\Windows\System32\AsusDownloadAgent.exe";

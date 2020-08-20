@@ -204,6 +204,34 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
+# REMOVE HAL AAC DRIVERS THE PROPER WAY
+#
+#   Computer\HKEY_CLASSES_ROOT\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}\Instance\{E9BBD754-6CF4-492E-BA89-782177A2771B}\Instance\{E7C8DA76-C9B9-4297-8681-DD878330AFE7}
+#     |
+#     |-->  Possibly remove "Registry::HKEY_CLASSES_ROOT\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}"
+#
+#
+#   Computer\HKEY_CLASSES_ROOT\Installer\Products\638D008D51ED00B4283725F120C28D73\SourceList
+#     |
+#     |-->  Possibly remove "Registry::HKEY_CLASSES_ROOT\Installer\Products\638D008D51ED00B4283725F120C28D73"
+#
+#
+#   Computer\HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}\Instance\{E9BBD754-6CF4-492E-BA89-782177A2771B}\Instance\{E7C8DA76-C9B9-4297-8681-DD878330AFE7}
+#     |
+#     |-->  Possibly remove "Registry::HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}"
+#
+#
+#   Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}\Instance\{E9BBD754-6CF4-492E-BA89-782177A2771B}\Instance\{E7C8DA76-C9B9-4297-8681-DD878330AFE7}
+#     |
+#     |-->  Under the key "HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}\Instance\{E9BBD754-6CF4-492E-BA89-782177A2771B}\Instance"
+#             |
+#             |-->  Open each key and copy the command held in property "UninstallString" into an admin command prompt terminal
+#             |
+#             |-->  Running just this key's uninstall commands removed all other registry keys tied to the invalid GUID as of 20200819T200238 run
+#
+#
+# ------------------------------------------------------------
+#
 # "All MB" - UNINSTALL / REMOVE APP
 #
 If ($True) {

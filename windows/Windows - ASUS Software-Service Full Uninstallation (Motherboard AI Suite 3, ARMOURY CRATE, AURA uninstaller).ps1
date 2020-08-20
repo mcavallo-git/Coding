@@ -182,6 +182,7 @@ If ($True) {
 	#         |       (USE THE FOLLOWING SCRIPT - REPLACE GUID AT END OF STRINGS)
 	#         |
 	#         |--> Once complete, rerun the previous driver installation .exe command (the one using -install -log log.txt)
+	#                 AacMBSetup.exe -install -log log.txt
 	#
 
 	$Paths_ToDelete = @();

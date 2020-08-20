@@ -164,10 +164,20 @@ If ($True) {
 	#   |--> Download ASUS Aura (Zip file) - Do not install it, but rather open the packaged directory "LightingService\aac" and locate the target "Aac...exe" file for the hardware which you previously configured RGB/ARGB on. e.g. for motherboards, use "AacMBSetup.exe" #>
 	#   |
 	#   |--> Open a command prompt, change directory to the "LightingService\aac" directory, and run the following command (replacing associated .exe as-needed): #>
-	#   |     |
-	#   |     |-->   AacMBSetup.exe -install -log aac-log.txt
-	#   |
-	#   |--> Once the program has ran, open it, search for GUIDs wrapped with curly-braces within the log file, and copy the interior string (without the curly-braces). Then, open regedit.exe, select "Computer" (at the top of the left area of regedit) to select the entire registry, then search it (CTRL + F) for the copied GUID  -->  Delete any keys it finds
+	#         |
+	#         |--> AacMBSetup.exe -install -log aac-log.txt
+	#         |
+	#         |--> Run the setup, walkthrough it as-normal, then open aac-log.txt
+	#         |
+	#         |--> Search for lines containing, SPECIFICALLY: "Detected related package"
+	#         |
+	#         |--> Search these lines for GUIDs wrapped with curly-braces within the log file, and copy the interior string (without the curly-braces).
+	#         |
+	#         |--> Open regedit.exe > select "Computer" (top-left) to select the entire registry
+	#         |
+	#         |--> Search (CTRL + F) the entire Computer (the "entire local registry") for the copied GUID
+	#         |
+	#         |--> For any keys that it finds, back them up to a temporary storage location of your choice (such as desktop), then delete them
 	#
 
 }

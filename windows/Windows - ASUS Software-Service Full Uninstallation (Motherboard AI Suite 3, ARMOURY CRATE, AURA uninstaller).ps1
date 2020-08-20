@@ -169,7 +169,8 @@ If ($True) {
 	#         |
 	#         |--> Run the setup, walkthrough it as-normal, then open aac-log.txt
 	#         |
-	#         |--> Search for lines containing, SPECIFICALLY: "Detected related package"
+	#         |--> Search for lines containing, SPECIFICALLY:
+	#         |      "Detected related package"   <-- These are the bad/old driver GUIDs
 	#         |
 	#         |--> Search these lines for GUIDs wrapped with curly-braces within the log file, and copy the interior string (without the curly-braces).
 	#         |

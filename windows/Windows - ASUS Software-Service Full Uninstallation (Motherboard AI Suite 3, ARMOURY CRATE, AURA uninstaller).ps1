@@ -165,9 +165,9 @@ If ($True) {
 	#   |
 	#   |--> Open a command prompt, change directory to the "LightingService\aac" directory, and run the following command (replacing associated .exe as-needed): #>
 	#         |
-	#         |--> AacMBSetup.exe -install -log aac-log.txt
+	#         |--> AacMBSetup.exe -install -log log.txt
 	#         |
-	#         |--> Run the setup, walkthrough it as-normal, then open aac-log.txt
+	#         |--> Run the setup, walkthrough it as-normal, then open log.txt
 	#         |
 	#         |--> Search for lines containing, SPECIFICALLY:
 	#         |      "Detected related package"   <-- These lines contain the {...GUIDs...} for old, deprecated versions of the ASUS AURA HAL AAC Driver which should be removed/uninstalled
@@ -179,6 +179,9 @@ If ($True) {
 	#         |--> Search (CTRL + F) the entire Computer (the "entire local registry") for the copied GUID
 	#         |
 	#         |--> For any keys that it finds, back them up to a temporary storage location of your choice (such as desktop), then delete them
+	#         |       (USE THE FOLLOWING SCRIPT - REPLACE GUID AT END OF STRINGS)
+	#         |
+	#         |--> Once complete, rerun the previous driver installation .exe command (the one using -install -log log.txt)
 	#
 
 	$Paths_ToDelete = @();

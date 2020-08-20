@@ -181,7 +181,7 @@ If ($True) {
 	#         |--> For any keys that it finds, back them up to a temporary storage location of your choice (such as desktop), then delete them
 	#         |       (USE THE FOLLOWING SCRIPT - REPLACE GUID AT END OF STRINGS)
 	#         |
-	#         |--> Once complete, rerun the previous driver installation .exe command (the one using -install -log log.txt)
+	#         |--> Once complete, reboot, then rerun the previous driver installation .exe command (the one using -install -log log.txt)
 	#                 AacMBSetup.exe -install -log log.txt
 	#
 

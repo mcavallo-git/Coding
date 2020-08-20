@@ -184,7 +184,7 @@ If ($True) {
 	$Paths_ToDelete = @();
 	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Dependencies\{D800D836-DE15-4B00-8273-521F022CD837}";
 	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{D800D836-DE15-4B00-8273-521F022CD837}";
-	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\Installer\Dependencies\D800D836-DE15-4B00-8273-521F022CD837";
+	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\Installer\Dependencies\{D800D836-DE15-4B00-8273-521F022CD837}";
 
 	$Paths_ToDelete | ForEach-Object {
 		$Each_PathToDelete = "$_";

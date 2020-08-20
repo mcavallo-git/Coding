@@ -160,11 +160,11 @@ If ($True) {
 	};
 
 	#
-	# Locating remaining registry keys to-delete (based on specific hardware) #>
+	# Locating remaining registry keys to-delete (based on specific hardware)
 	#   |
-	#   |--> Download ASUS Aura (Zip file) - Do not install it, but rather open the packaged directory "LightingService\aac" and locate the target "Aac...exe" file for the hardware which you previously configured RGB/ARGB on. e.g. for motherboards, use "AacMBSetup.exe" #>
+	#   |--> Download ASUS Aura (Zip file) - Do not install it, but rather open the packaged directory "LightingService\aac" and locate the target "Aac...exe" file for the hardware which you previously configured RGB/ARGB on. e.g. for motherboards, use "AacMBSetup.exe"
 	#   |
-	#   |--> Open a command prompt, change directory to the "LightingService\aac" directory, and run the following command (replacing associated .exe as-needed): #>
+	#   |--> Open a command prompt, change directory to the "LightingService\aac" directory, and run the following command (replacing associated .exe as-needed):
 	#         |
 	#         |--> AacMBSetup.exe -install -log log.txt
 	#         |
@@ -179,25 +179,15 @@ If ($True) {
 	#         |
 	#         |--> Search (CTRL + F) the entire Computer (the "entire local registry") for the copied GUID
 	#         |
-	#         |--> For any keys that it finds, back them up to a temporary storage location of your choice (such as desktop), then delete them
-	#         |       (USE THE FOLLOWING SCRIPT - REPLACE GUID AT END OF STRINGS)
+	#         |--> For any keys that it finds, search for a nested property "UninstallString", then run that command in an admin CMD window. Follow it up by running all of its siblings' "UninstallString" commands in same CMD window
+	#         |     |
+	#         |     |--> Example) Under the key "HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\{9C9E903E-BBC7-4A0E-8326-ED6AC85B9FCC}\Instance\{E9BBD754-6CF4-492E-BA89-782177A2771B}\Instance", open each key and copy every command held in property "UninstallString" into an admin command prompt terminal
+	#         |     |
+	#         |     |-->  Running just this key's uninstall commands removed all other registry keys tied to the invalid GUID as of 20200819T200238 run
 	#         |
 	#         |--> Once complete, reboot, then rerun the previous driver installation .exe command (the one using -install -log log.txt)
 	#                 AacMBSetup.exe -install -log log.txt
 	#
-
-	$Paths_ToDelete = @();
-	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Installer\Dependencies\{D800D836-DE15-4B00-8273-521F022CD837}";
-	$Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{D800D836-DE15-4B00-8273-521F022CD837}";
-	$Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\Installer\Dependencies\{D800D836-DE15-4B00-8273-521F022CD837}";
-
-	$Paths_ToDelete | ForEach-Object {
-		$Each_PathToDelete = "$_";
-		If (Test-Path -Path ("${Each_PathToDelete}")) {
-			Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
-			Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$false;
-		};
-	};
 
 }
 

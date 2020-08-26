@@ -879,14 +879,14 @@ AppsKey & WheelDown::
 !WheelUp::
 	MouseClick,WheelUp,,,15,0,D,R
 	Return
-;
 !WheelDown::
 	MouseClick,WheelDown,,,15,0,D,R
 	Return
 
+
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  "Rock" the Mouse's Wheel Left or Right   (Mouse-Wheel-Left or Mouse-Wheel-Right)
+;   HOTKEY:  Mouse-Wheel Left-/Right-Tilt (e.g. "Rock" the Mouse-Wheel Left/Right)
 ;   ACTION:  Change Tabs Left or Right
 ;
 WheelLeft::
@@ -895,6 +895,7 @@ WheelLeft::
 WheelRight::
 	Send ^{PgDn}
 	Return
+
 
 ; 	; ------------------------------------------------------------
 

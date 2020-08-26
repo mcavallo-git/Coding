@@ -198,7 +198,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "   |";
 		Write-Output "   |-->  Please copy videos (to-compress) into input directory  `"${InputDir}`" ...`n";
 		Write-Output "   |";
-		Write-Output "   |-->  Opening input directory ...`n";
+		Write-Output "   |-->  Opening input directory, now ...`n";
 		Write-Output "";
 		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 		Explorer.exe "${InputDir}";

@@ -55,11 +55,6 @@ $Timestamps_IncludeDecimalSeconds = $False;
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
-# Write-Output "`n`$WorkingDir = [ ${WorkingDir} ]";
-# Write-Output "`n`$InputDir = [ ${InputDir} ]";
-# Write-Output "`n`$OutputDir = [ ${OutputDir} ]";
-# Write-Output "`n`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
-
 
 # ------------------------------------------------------------
 #

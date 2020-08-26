@@ -38,11 +38,11 @@ $OutputExtension = "mp4";
 
 $MaxRetries_NameCollision = 500;
 
-$Framerate_MatchSource = $True;
-# $Framerate_MatchSource = $False;
-
 $AspectRatio_MatchSource = $True;
 # $AspectRatio_MatchSource = $False;
+
+$Framerate_MatchSource = $True;
+# $Framerate_MatchSource = $False;
 
 $Timestamps_IncludeDecimalSeconds = $False;
 # $Timestamps_IncludeDecimalSeconds = $True;
@@ -143,11 +143,26 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	# Determine Video/Audio/Picture options (based on dynamic settings at the top of this script)
 	#
 	$ExtraOptions = "";
-	If ($Framerate_MatchSource -Eq $True) {
-		$ExtraOptions = "--vfr ${ExtraOptions}";
+
+	# Audio Options
+	If ($True) {
+		# Settings from https://stackoverflow.com/a/58126508
+		$ExtraOptions = "--all-subtitles ${ExtraOptions}";
+		$ExtraOptions = "--audio 1,1,2,3,4,5,6,7,8,9,10,11 ${ExtraOptions}";
+		$ExtraOptions = "--aencoder ca_aac,copy,copy,copy,copy,copy,copy,copy,copy,copy,copy,copy ${ExtraOptions}";
+		$ExtraOptions = "--mixdown dpl2,7point1,7point1,7point1,7point1,7point1,7point1,7point1,7point1,7point1,7point1,7point1 ${ExtraOptions}";
+		$ExtraOptions = "--audio-copy-mask aac,ac3,eac3,truehd,dts,dtshd ${ExtraOptions}";
+		$ExtraOptions = "--audio-fallback aac ${ExtraOptions}";
 	}
+
+	# Picture Options
 	If ($AspectRatio_MatchSource -Eq $True) {
 		$ExtraOptions = "--non-anamorphic ${ExtraOptions}";
+	}
+
+	# Video Options
+	If ($Framerate_MatchSource -Eq $True) {
+		$ExtraOptions = "--vfr ${ExtraOptions}";
 	}
 
 	$TotalVideoEncodes = 0;
@@ -298,5 +313,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 #   handbrake.fr  |  "Command line reference"  |  https://handbrake.fr/docs/en/latest/cli/command-line-reference.html
 #
 #   reddit.com  |  "A HandBrake script to run through subfolders and convert to a custom preset"  |  https://www.reddit.com/r/PleX/comments/9anvle/a_handbrake_script_to_run_through_subfolders_and/
+#
+#   stackoverflow.com  |  "video - Multiple audio tracks with handbrake - Stack Overflow"  |  https://stackoverflow.com/a/58126508
 #
 # ------------------------------------------------------------

@@ -194,6 +194,11 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	Write-Output "";
 	Write-Output "------------------------------------------------------------";
 	Write-Output "";
+	Write-Output "`$ExtraOptions:";
+	Write-Output "$ExtraOptions:";
+	Write-Output "";
+	Write-Output "------------------------------------------------------------";
+	Write-Output "";
 
 	<# Walk through the input directory's contained video files, one-by-one #>
 	For ($i=0; ($i -LT $InputFullNames_Arr.Count); $i++) {

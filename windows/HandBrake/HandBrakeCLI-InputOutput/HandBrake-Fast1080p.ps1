@@ -67,8 +67,9 @@ $DoEncoding_InSameWindow = $True;
 #
 $Dirnames_EnsureAllExist = @();
 $Dirnames_EnsureAllExist += "${WorkingDir}";
-$Dirnames_EnsureAllExist += "${InputDir}"
-$Dirnames_EnsureAllExist += "${OutputDir}");
+$Dirnames_EnsureAllExist += "${InputDir}";
+$Dirnames_EnsureAllExist += "${OutputDir}";
+
 $Dirnames_EnsureAllExist | ForEach-Object {
 	$EachDirname_ToEnsureExists = "$_";
 	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {

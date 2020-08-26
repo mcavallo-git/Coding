@@ -134,6 +134,12 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 	# ------------------------------------------------------------
 	#
+	# Prep the ActiveX Assemblies so we can later use its Recycle-Bin file-removal module in an effort to avoid using the "remove-item" module (which more-permanently deletes the files)
+	#
+	Add-Type -AssemblyName Microsoft.VisualBasic;
+
+	# ------------------------------------------------------------
+	#
 	# Determine Video/Audio/Picture options (based on dynamic settings at the top of this script)
 	#
 	$ExtraOptions = "";
@@ -156,9 +162,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
 		${ActiveXDataObject_RecordSet}.MoveFirst();
 	}
-
-	<# Prep the Recycle-Bin deletion method (instead of permanent delete thru remove-item #>
-	Add-Type -AssemblyName Microsoft.VisualBasic;
 
 	<# Walk through the input directory's contained video files, one-by-one #>
 	  ### Set-Location -Path ("${WorkingDir}\");
@@ -243,19 +246,21 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "";
 		Write-Output "Info:   ENCODING COMPLETE";
 		Write-Output "  |";
-		Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
+		Write-Output "  |-->  Total Encoding Count:  `"${TotalVideoEncodes}`"";
+		Write-Output "  |";
+		Write-Output "  |-->  Opening Output-Directory  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
 		Write-Output "! ! !  INPUT DIRECTORY EMPTY";
 		Write-Output "  |";
-		Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
+		Write-Output "  |-->  Copy your videos (to-compress) into Input-Directory  `"${InputDir}`"";
 		Write-Output "  |";
-		Write-Output "  |-->  Opening input directory, now ...";
+		Write-Output "  |-->  Opening Input-Directory, now ...";
+		Write-Output "";
 		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("");
 		Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("");
-		Write-Output "";
 		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 		Explorer.exe "${InputDir}";
 	}

@@ -36,6 +36,8 @@ $HandBrake_Preset = "Very Fast 1080p30";
 
 $OutputExtension = "mp4";
 
+$MaxRetries_NameCollision = 500;
+
 $Framerate_MatchSource = $True;
 # $Framerate_MatchSource = $False;
 
@@ -170,6 +172,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
 		$FirstLoop_DoQuickNaming = $True;
+		$NameCollision_LoopIterations = 0;
 		Do {
 			$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
 			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
@@ -178,18 +181,33 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			If (${FirstLoop_DoQuickNaming} -Eq $True) {
 				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}";
 			} Else {
-				If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
-					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${DecimalTimestampShort}";
-				} Else {
-					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${TimestampShort}";
-				}
+				# If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
+				# 	$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${DecimalTimestampShort}";
+				# } Else {
+				# 	$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${TimestampShort}";
+				# }
+				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${NameCollision_LoopIterations}";
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 			$FirstLoop_DoQuickNaming = $False;
-			Write-Output "Info:  Verifying filename not already taken:  [ ${EachOutput_FullName} ]...";
-		} While ((Test-Path "${EachOutput_FullName}") -Eq ($True));
-		Write-Output "Info:  Output filename verified and set to:  [ ${EachOutput_FullName} ]...";
-		Write-Output "";
+			Write-Output "Info:  Checking if filename is already taken:  [ ${EachOutput_FullName} ]...";
+			$NameCollision_LoopIterations++;
+		} While (((Test-Path "${EachOutput_FullName}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
+
+		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
+			Write-Output "";
+			Write-Output "Error:  Max retries of ${MaxRetries_NameCollision} reached while trying to find a unique output filename"
+			Write-Output "  |";
+			Write-Output "  |-->  Input-File Fullpath:  `"${EachInput_FullName}`"";
+			Write-Output "  |";
+			Write-Output "  |-->  Input-File Basename (w/o extension):  `"${EachInput_BasenameNoExt}`"";
+			Write-Output "";
+			Start-Sleep 60;
+			Exit 1;
+
+		} Else {
+			Write-Output "Info:  Output filename verified and set to:  [ ${EachOutput_FullName} ]...";
+			Write-Output "";
 
 		# ----------------------------------------------- #
 		#                                                 #

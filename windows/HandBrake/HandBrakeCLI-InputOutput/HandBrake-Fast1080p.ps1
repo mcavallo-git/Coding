@@ -28,15 +28,17 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointM
 # Instantiate Runtime Variable(s)
 #
 
-$ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
+<# Determine if running locally or remotely - handle both scenarios #>
+$WorkingDir = "${Env:UserProfile}\Desktop\HandbrakeCLI";
+If ((($MyInvocation.MyCommand).Source) -NE ("")) {
+	$WorkingDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
+}
 
-$ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
+$InputDir = ("${WorkingDir}\InputVideos");
 
-$InputDir = ("${ThisDir}\InputVideos");
+$OutputDir = ("${WorkingDir}\OutputVideos");
 
-$OutputDir = ("${ThisDir}\OutputVideos");
-
-$HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
+$HandBrakeCLI = ("${WorkingDir}\HandBrakeCLI.exe");
 
 $HandBrake_Preset = "Very Fast 1080p30";
 
@@ -54,8 +56,7 @@ $Timestamps_IncludeDecimalSeconds = $False;
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
-# Write-Output "`n`$ThisScript = [ ${ThisScript} ]";
-# Write-Output "`n`$ThisDir = [ ${ThisDir} ]";
+# Write-Output "`n`$WorkingDir = [ ${WorkingDir} ]";
 # Write-Output "`n`$InputDir = [ ${InputDir} ]";
 # Write-Output "`n`$OutputDir = [ ${OutputDir} ]";
 # Write-Output "`n`$HandBrakeCLI = [ ${HandBrakeCLI} ]";
@@ -156,7 +157,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	$TotalVideoEncodes = 0;
 
 	<# Walk through the input directory's contained video files, one-by-one #>
-	  ### Set-Location -Path ("${ThisDir}\");
+	  ### Set-Location -Path ("${WorkingDir}\");
 	  ### Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 	  ### 	$EachInput_BasenameNoExt = "$($_.BaseName)";
 	  ### 	$EachInput_FullName = "$($_.FullName)";

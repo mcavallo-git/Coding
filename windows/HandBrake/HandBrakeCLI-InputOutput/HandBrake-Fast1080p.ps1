@@ -118,6 +118,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp";
 		$EachInput_FullName = "$($_.FullName)";
 		$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
+		Write-Output "------------------------------------------------------------";
 		Write-Output "";
 		Write-Output "Using `$EachInput_FullName = [ ${EachInput_FullName} ]";
 		Write-Output "";

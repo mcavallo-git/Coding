@@ -111,14 +111,32 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 # Ensure that Handbrake runtime executable exists
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	
-	# Compress videos from the input directory into the output directory
-	Set-Location -Path ("${ThisDir}\");
-	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
-		$EachInput_BasenameNoExt = "$($_.BaseName)";
-		$EachInput_FullName = "$($_.FullName)";
+	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
+
+	$Directory_ToSearch = "${InputDir}";
+	$Filetype_ToDetect = "video";
+	$ActiveXDataObject_Connection = (New-Object -com ADODB.Connection);
+	$ActiveXDataObject_RecordSet = (New-Object -com ADODB.Recordset);
+	${ActiveXDataObject_Connection}.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';");
+	${ActiveXDataObject_RecordSet}.Open("SELECT System.ItemPathDisplay FROM SYSTEMINDEX WHERE System.Kind = '${Filetype_ToDetect}' AND System.ItemPathDisplay LIKE '${Directory_ToSearch}\%'", ${ActiveXDataObject_Connection});
+	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
+		${ActiveXDataObject_RecordSet}.MoveFirst();
+	}
+	<# Walk through the input directory's contained video files, one-by-one #>
+
+	# Set-Location -Path ("${ThisDir}\");
+	# Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
+	# 	$EachInput_BasenameNoExt = "$($_.BaseName)";
+	# 	$EachInput_FullName = "$($_.FullName)";
+
+	While (${ActiveXDataObject_RecordSet}.EOF -NE $True) {
+		$EachInput_FullName = (${ActiveXDataObject_RecordSet}.Fields.Item("System.ItemPathDisplay").Value);
+		$EachInput_BasenameNoExt = ((Get-Item -Path ("${EachInput_FullName}")).Basename);
+
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
 		Write-Output "`$EachInput_FullName = [ ${EachInput_FullName} ]";
+		Write-Output "`$EachInput_BasenameNoExt = [ ${EachInput_BasenameNoExt} ]";
 		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
 		$FirstLoop_DoQuickNaming = $True;
@@ -168,6 +186,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Start-Sleep -Seconds (10);
 		Write-Output "";
 
+		${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
 	}
 
 	# Open the exported-files directory

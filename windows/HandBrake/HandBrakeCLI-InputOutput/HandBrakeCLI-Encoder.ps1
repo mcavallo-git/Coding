@@ -38,6 +38,9 @@ $OutputExtension = "mp4";
 
 $MaxRetries_NameCollision = 500;
 
+$Audio_MaxPreservation = $False;
+# $Audio_MaxPreservation = $True;
+
 $AspectRatio_MatchSource = $True;
 # $AspectRatio_MatchSource = $False;
 
@@ -145,7 +148,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	$ExtraOptions = "";
 
 	# Audio Options
-	If ($True) {
+	If (${Audio_MaxPreservation} -Eq $True) {
 		# Settings from https://stackoverflow.com/a/58126508
 		$ExtraOptions = "--all-subtitles ${ExtraOptions}";
 		$ExtraOptions = "--audio 1,1,2,3,4,5,6,7,8,9,10,11 ${ExtraOptions}";

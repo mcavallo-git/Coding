@@ -46,6 +46,9 @@ $Framerate_MatchSource = $True;
 $AspectRatio_MatchSource = $True;
 # $AspectRatio_MatchSource = $False;
 
+$DoEncoding_InSameWindow = $True;
+# $DoEncoding_InSameWindow = $False;
+
 # Write-Output "`n`$ThisScript = [ ${ThisScript} ]";
 # Write-Output "`n`$ThisDir = [ ${ThisDir} ]";
 # Write-Output "`n`$InputDir = [ ${InputDir} ]";
@@ -132,8 +135,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		#                                                 #
 		#   ! ! !   Perform the actual encoding   ! ! !   #
 		#                                                 #
-		$DoEncoding_InSameWindow = $True;
-		# $DoEncoding_InSameWindow = $False;
 		If (${DoEncoding_InSameWindow} -Eq $False) {
 			$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"")  -Wait); $EachExitCode=$?;
 		} Else {

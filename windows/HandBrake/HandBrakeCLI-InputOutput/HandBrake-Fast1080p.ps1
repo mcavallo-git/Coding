@@ -213,53 +213,55 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			Write-Output "Info:  Output filename verified and set to:  [ ${EachOutput_FullName} ]...";
 			Write-Output "";
 
-		# ----------------------------------------------- #
-		#                                                 #
-		#   ! ! !   Perform the actual encoding   ! ! !   #
-		#                                                 #
-		If (${DoEncoding_InSameWindow} -Eq $False) {
-			$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"")  -Wait); $EachExitCode=$?;
+			# ----------------------------------------------- #
+			#                                                 #
+			#   ! ! !   Perform the actual encoding   ! ! !   #
+			#                                                 #
+			If (${DoEncoding_InSameWindow} -Eq $False) {
+				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"")  -Wait); $EachExitCode=$?;
+			} Else {
+				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
+			}
+			If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
+				$TotalVideoEncodes++;
+				Write-Output "`n`n";
+				Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
+				Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
+				<# Send the input file to the recycle bin #>
+				# Remove-Item -Path ("${EachInput_FullName}") -Force;
+				# [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile('d:\foo.txt','OnlyErrorDialogs','SendToRecycleBin');
+				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachInput_FullName}",'OnlyErrorDialogs','SendToRecycleBin');
+			}
+			Write-Output "";
+
+			${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
+		}
+
+		# Open the exported-files directory
+		If ($TotalVideoEncodes -GT 0) {
+			Write-Output "";
+			Write-Output "Info:   ENCODING COMPLETE";
+			Write-Output "  |";
+			Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
+			Write-Output "";
+			Explorer.exe "${OutputDir}";
 		} Else {
-			$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
+			Write-Output "";
+			Write-Output "! ! !  INPUT DIRECTORY EMPTY";
+			Write-Output "  |";
+			Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
+			Write-Output "  |";
+			Write-Output "  |-->  Opening input directory, now ...";
+			Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("");
+			Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("");
+			Write-Output "";
+			Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+			Explorer.exe "${InputDir}";
 		}
-		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
-			$TotalVideoEncodes++;
-			Write-Output "`n`n";
-			Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
-			Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
-			<# Send the input file to the recycle bin #>
-			# Remove-Item -Path ("${EachInput_FullName}") -Force;
-			# [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile('d:\foo.txt','OnlyErrorDialogs','SendToRecycleBin');
-			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachInput_FullName}",'OnlyErrorDialogs','SendToRecycleBin');
-		}
-		Write-Output "";
-
-		${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
-	}
-
-	# Open the exported-files directory
-	If ($TotalVideoEncodes -GT 0) {
-		Write-Output "";
-		Write-Output "Info:   ENCODING COMPLETE";
-		Write-Output "  |";
-		Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
-		Write-Output "";
-		Explorer.exe "${OutputDir}";
-	} Else {
-		Write-Output "";
-		Write-Output "! ! !  INPUT DIRECTORY EMPTY";
-		Write-Output "  |";
-		Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
-		Write-Output "  |";
-		Write-Output "  |-->  Opening input directory, now ...";
-		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("");
-		Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("");
-		Write-Output "";
-		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
-		Explorer.exe "${InputDir}";
-	}
 
 	Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+
+	}
 
 }
 

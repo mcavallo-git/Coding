@@ -115,26 +115,29 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	Set-Location -Path ("${ThisDir}\");
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 		$EachInput_BasenameNoExt = "$($_.BaseName)";
-		$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp";
 		$EachInput_FullName = "$($_.FullName)";
-		$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
 		Write-Output "`$EachInput_FullName = [ ${EachInput_FullName} ]";
 		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
+		$FirstLoop_DoQuickNaming = $True;
 		Do {
 			$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
 			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
 			$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
 			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
-			If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
-				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";
+			If (${FirstLoop_DoQuickNaming} -Eq $True) {
+				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp";
 			} Else {
-				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${TimestampShort}";
+				If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
+					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";
+				} Else {
+					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${TimestampShort}";
+				}
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
-
+			$FirstLoop_DoQuickNaming = $False;
 			Write-Output "Verifying `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
 		} While ((Test-Path "${EachOutput_FullName}") -Eq ($True));
 		Write-Output "Verified. Using `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";

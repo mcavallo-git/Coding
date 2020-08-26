@@ -131,18 +131,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 # Double-check that the Handbrake runtime executable exists
 #
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
-	
-	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
-	$Directory_ToSearch = "${InputDir}";
-	$Filetype_ToDetect = "video";
-	$ActiveXDataObject_Connection = (New-Object -com ADODB.Connection);
-	$ActiveXDataObject_RecordSet = (New-Object -com ADODB.Recordset);
-	${ActiveXDataObject_Connection}.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';");
-	${ActiveXDataObject_RecordSet}.Open("SELECT System.ItemPathDisplay FROM SYSTEMINDEX WHERE System.Kind = '${Filetype_ToDetect}' AND System.ItemPathDisplay LIKE '${Directory_ToSearch}\%'", ${ActiveXDataObject_Connection});
-	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
-		${ActiveXDataObject_RecordSet}.MoveFirst();
-	}
-
 
 	# ------------------------------------------------------------
 	#
@@ -157,6 +145,17 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	}
 
 	$TotalVideoEncodes = 0;
+
+	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
+	$Directory_ToSearch = "${InputDir}";
+	$Filetype_ToDetect = "video";
+	$ActiveXDataObject_Connection = (New-Object -com ADODB.Connection);
+	$ActiveXDataObject_RecordSet = (New-Object -com ADODB.Recordset);
+	${ActiveXDataObject_Connection}.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';");
+	${ActiveXDataObject_RecordSet}.Open("SELECT System.ItemPathDisplay FROM SYSTEMINDEX WHERE System.Kind = '${Filetype_ToDetect}' AND System.ItemPathDisplay LIKE '${Directory_ToSearch}\%'", ${ActiveXDataObject_Connection});
+	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
+		${ActiveXDataObject_RecordSet}.MoveFirst();
+	}
 
 	<# Prep the Recycle-Bin deletion method (instead of permanent delete thru remove-item #>
 	Add-Type -AssemblyName Microsoft.VisualBasic;

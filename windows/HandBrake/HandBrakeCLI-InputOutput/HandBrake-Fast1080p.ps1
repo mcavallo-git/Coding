@@ -93,16 +93,20 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
 	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
 	# Download HandBrakeCLI
-	# Write-Output "`nFile not found:  [ ${HandBrakeCLI} ]";
-	Write-Output "`nDownloading archive-version of HandBrakeCLI from  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]...";
+	Write-Output "";
+	Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${HandBrakeCLI} ]";
+	Write-Output "";
+	Write-Output "Info:  Downloading archive-version of HandBrakeCLI from  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]...";
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	# Unpack the downloaded archive
-	Write-Output "`nUnpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
+	Write-Output "";
+	Write-Output "Info:  Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
 	Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 	# Clean-up the archive once it has been unpacked
 	$ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
 	If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
-		Write-Output "`n`n  Error:  FILE NOT FOUND (HandBrakeCLI executable) at path `"${ExeArchive_HandBrakeCLI}`"`n`n";
+		Write-Output "";
+		Write-Output "ERROR:  FILE NOT FOUND (HandBrakeCLI executable) at path `"${ExeArchive_HandBrakeCLI}`"`n`n";
 		If ($True) {
 			# Wait 60 seconds before proceeding
 			Start-Sleep 60;
@@ -113,7 +117,8 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 		}
 		Exit 1;
 	} Else {
-		Write-Output "`nMoving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]"
+		Write-Output "";
+		Write-Output "Info:  Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${HandBrakeCLI} ]";
 		Move-Item -Path ("${ExeArchive_HandBrakeCLI}") -Destination ("${HandBrakeCLI}") -Force;
 	}
 }
@@ -161,8 +166,8 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
-		Write-Output "`$EachInput_FullName = [ ${EachInput_FullName} ]";
-		Write-Output "`$EachInput_BasenameNoExt = [ ${EachInput_BasenameNoExt} ]";
+		Write-Output "Info:  Current input ${Filetype_ToDetect}-file:  [ ${EachInput_FullName} ]";
+		# Write-Output "`$EachInput_BasenameNoExt = [ ${EachInput_BasenameNoExt} ]";
 		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
 		$FirstLoop_DoQuickNaming = $True;
@@ -182,9 +187,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 			$FirstLoop_DoQuickNaming = $False;
-			Write-Output "Verifying `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
+			Write-Output "Info:  Verifying filename not already taken:  [ ${EachOutput_FullName} ]...";
 		} While ((Test-Path "${EachOutput_FullName}") -Eq ($True));
-		Write-Output "Verified. Using `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
+		Write-Output "Info:  Output filename verified and set to:  [ ${EachOutput_FullName} ]...";
 		Write-Output "";
 
 		# ----------------------------------------------- #
@@ -200,7 +205,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			$TotalVideoEncodes++;
 			Write-Output "`n`n";
 			Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
-			Write-Output " |-->  Removing input file from path:  `"${EachInput_FullName}`"";
+			Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
 			Remove-Item -Path ("${EachInput_FullName}") -Force;
 		}
 		Write-Output "";
@@ -211,18 +216,18 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	# Open the exported-files directory
 	If ($TotalVideoEncodes -GT 0) {
 		Write-Output "";
-		Write-Output " ! ! !   ENCODING COMPLETE   ! ! !";
-		Write-Output "   |";
-		Write-Output "   |-->  Opening output directory  `"${OutputDir}`" ...";
+		Write-Output "Info:  >>  ENCODING COMPLETE  <<";
+		Write-Output "  |";
+		Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
-		Write-Output " X X X   INPUT DIRECTORY EMPTY   X X X";
-		Write-Output "   |";
-		Write-Output "   |-->  Please copy videos (to-compress) into input directory  `"${InputDir}`" ...";
-		Write-Output "   |";
-		Write-Output "   |-->  Opening input directory, now ...";
+		Write-Output "Info:  >>  INPUT DIRECTORY EMPTY  <<";
+		Write-Output "  |";
+		Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
+		Write-Output "  |";
+		Write-Output "  |-->  Opening input directory, now ...";
 		Write-Output "";
 		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 		Explorer.exe "${InputDir}";

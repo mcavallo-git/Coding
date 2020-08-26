@@ -195,7 +195,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	Write-Output "------------------------------------------------------------";
 	Write-Output "";
 	Write-Output "`$ExtraOptions:";
-	Write-Output "$ExtraOptions:";
+	Write-Output "${ExtraOptions}";
 	Write-Output "";
 	Write-Output "------------------------------------------------------------";
 	Write-Output "";

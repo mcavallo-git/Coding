@@ -69,7 +69,7 @@ $Dirnames_EnsureAllExist = @();
 $Dirnames_EnsureAllExist += "${WorkingDir}";
 $Dirnames_EnsureAllExist += "${InputDir}"
 $Dirnames_EnsureAllExist += "${OutputDir}");
-$Dirnames_EnsureAllExist| ForEach-Object {
+$Dirnames_EnsureAllExist | ForEach-Object {
 	$Dirname_EnsureExists = "$_";
 	If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
 		Write-Output "";

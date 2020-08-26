@@ -1,9 +1,10 @@
 
 # Pad-Right
-Write-Output "$('pad'.PadRight(50))right";
+Write-Output "$('pad'.PadRight(50,'-'))right";
+
 
 # Pad-Left
-Write-Output "pad$('left'.PadLeft(50))";
+Write-Output "pad$('left'.PadLeft(50,'-'))";
 
 
 # ------------------------------------------------------------

@@ -15,6 +15,8 @@ If ($False) {
 
 PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-File ${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1') -Verb 'RunAs' -Wait -PassThru | Out-Null;"
 
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-InputOutput/HandBrake-Fast1080p.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
 
 }
 
@@ -30,9 +32,9 @@ $ThisScript = (Split-Path $MyInvocation.MyCommand.Name -Leaf);
 
 $ThisDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 
-$InputDir = ("${ThisDir}\Input");
+$InputDir = ("${ThisDir}\InputVideos");
 
-$OutputDir = ("${ThisDir}\Output");
+$OutputDir = ("${ThisDir}\OutputVideos");
 
 $HandBrakeCLI = ("${ThisDir}\HandBrakeCLI.exe");
 
@@ -107,12 +109,40 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
 
 # ------------------------------------------------------------
+#
+# Make sure the input and output directories exist
+#
+If ((Test-Path -Path ("${InputDir}")) -Eq ($False)) {
+	New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
+	If ((Test-Path -Path ("${InputDir}")) -Eq ($False)) {
+		Write-Output "";
+		Write-Output " X X X   ERROR:  Unable to create input-directory `"${InputDir}`"";
+		Write-Output "   |";
+		Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
+		Start-Sleep 30;
+		Exit 1;
+	}
+}
+If ((Test-Path -Path ("${OutputDir}")) -Eq ($False)) {
+	New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
+	If ((Test-Path -Path ("${OutputDir}")) -Eq ($False)) {
+		Write-Output "";
+		Write-Output " X X X   ERROR:  Unable to create output-directory `"${OutputDir}`"";
+		Write-Output "   |";
+		Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
+		Start-Sleep 30;
+		Exit 1;
+	}
+}
 
-# Ensure that Handbrake runtime executable exists
+
+# ------------------------------------------------------------
+#
+# Double-check that the Handbrake runtime executable exists
+#
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	
 	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
-
 	$Directory_ToSearch = "${InputDir}";
 	$Filetype_ToDetect = "video";
 	$ActiveXDataObject_Connection = (New-Object -com ADODB.Connection);

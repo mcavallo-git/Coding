@@ -82,7 +82,6 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 			Start-Sleep 30;
 			Exit 1;
 		}
-		Write-Output "";
 	}
 }
 

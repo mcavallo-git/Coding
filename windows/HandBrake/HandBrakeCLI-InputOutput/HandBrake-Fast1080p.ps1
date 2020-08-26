@@ -141,6 +141,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
 		}
 		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
+			Write-Output "`n`n";
+			Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
+			Write-Output " |-->  Removing input file from path:  `"${EachInput_FullName}`"";
 			Remove-Item -Path ("${EachInput_FullName}") -Force;
 		}
 		Write-Output "";

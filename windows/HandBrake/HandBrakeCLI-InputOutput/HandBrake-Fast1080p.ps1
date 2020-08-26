@@ -179,8 +179,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "";
 		Write-Output "`$EachInput_FullName = [${EachInput_FullName}]";
 		Write-Output "";
-		Write-Output "`$EachConversion = [${EachConversion}]";
-		Write-Output "";
 		Write-Output "`$EachExitCode = [${EachExitCode}]";
 		Write-Output "";
 		Start-Sleep -Seconds (10);

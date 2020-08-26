@@ -69,8 +69,6 @@ $Dirnames_EnsureAllExist = @();
 $Dirnames_EnsureAllExist += "${WorkingDir}";
 $Dirnames_EnsureAllExist += "${InputDir}";
 $Dirnames_EnsureAllExist += "${OutputDir}";
-
-$Dirnames_EnsureAllExist = @(1,"a",2,"b",3,"c");
 For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 	$EachDirname_ToEnsureExists = ($Dirnames_EnsureAllExist[${i}]);
 	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {

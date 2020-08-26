@@ -220,14 +220,14 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	# Open the exported-files directory
 	If ($TotalVideoEncodes -GT 0) {
 		Write-Output "";
-		Write-Output "Info:  >>  ENCODING COMPLETE  <<";
+		Write-Output "✓ ✓ ✓   ENCODING COMPLETE";
 		Write-Output "  |";
 		Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
-		Write-Output "Info:  >>  INPUT DIRECTORY EMPTY  <<";
+		Write-Output "! ! !  INPUT DIRECTORY EMPTY";
 		Write-Output "  |";
 		Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
 		Write-Output "  |";

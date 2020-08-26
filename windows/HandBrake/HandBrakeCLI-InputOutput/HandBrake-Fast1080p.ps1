@@ -122,13 +122,14 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
 		${ActiveXDataObject_RecordSet}.MoveFirst();
 	}
+
+	$TotalVideoEncodes = 0;
+
 	<# Walk through the input directory's contained video files, one-by-one #>
-
-	# Set-Location -Path ("${ThisDir}\");
-	# Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
-	# 	$EachInput_BasenameNoExt = "$($_.BaseName)";
-	# 	$EachInput_FullName = "$($_.FullName)";
-
+	  ### Set-Location -Path ("${ThisDir}\");
+	  ### Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
+	  ### 	$EachInput_BasenameNoExt = "$($_.BaseName)";
+	  ### 	$EachInput_FullName = "$($_.FullName)";
 	While (${ActiveXDataObject_RecordSet}.EOF -NE $True) {
 		$EachInput_FullName = (${ActiveXDataObject_RecordSet}.Fields.Item("System.ItemPathDisplay").Value);
 		$EachInput_BasenameNoExt = ((Get-Item -Path ("${EachInput_FullName}")).Basename);
@@ -171,6 +172,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
 		}
 		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
+			$TotalVideoEncodes++;
 			Write-Output "`n`n";
 			Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
 			Write-Output " |-->  Removing input file from path:  `"${EachInput_FullName}`"";
@@ -182,16 +184,22 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	}
 
 	# Open the exported-files directory
-	Write-Output "";
-	Write-Output " ! ! !   ENCODING COMPLETE   ! ! !";
-	Write-Output "";
-	Write-Output "Opening output directory  `"${OutputDir}`" ...`n";
-	Write-Output "";
-
-	Explorer.exe "${OutputDir}";
-
-	# Wait a few seconds (for user to read the terminal, etc.) before exiting
-	Start-Sleep -Seconds 3;
+	If ($TotalVideoEncodes -GT 0) {
+		Write-Output "";
+		Write-Output " ! ! !   ENCODING COMPLETE   ! ! !";
+		Write-Output "";
+		Write-Output "Opening output directory  `"${OutputDir}`" ...`n";
+		Write-Output "";
+		Explorer.exe "${OutputDir}";
+		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+	} Else {
+		Write-Output "";
+		Write-Output " X X X   NO INPUT VIDEOS FOUND  X X X";
+		Write-Output "";
+		Write-Output "Please copy videos-to-compress to directory  `"${InputDir}`" ...`n";
+		Write-Output "";
+		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+	}
 
 	Exit 0;
 

@@ -60,10 +60,10 @@ $Dirnames_EnsureAllExist = @();
 $Dirnames_EnsureAllExist += "${WorkingDir}";
 $Dirnames_EnsureAllExist += "${InputDir}";
 $Dirnames_EnsureAllExist += "${OutputDir}";
+Write-Output "";
 For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 	$EachDirname_ToEnsureExists = ($Dirnames_EnsureAllExist[${i}]);
 	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
-		Write-Output "";
 		Write-Output "Info:  Creating Directory `"${EachDirname_ToEnsureExists}`"...";
 		New-Item -ItemType "Directory" -Path ("${EachDirname_ToEnsureExists}\") | Out-Null;
 		If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {

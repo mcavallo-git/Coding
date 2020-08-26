@@ -109,7 +109,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	Set-Location -Path ("${ThisDir}\");
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
 		$EachInput_BasenameNoExt = "$($_.BaseName)";
-		$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}";
+		$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp";
 		$EachInput_FullName = "$($_.FullName)";
 		$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 		Write-Output "";
@@ -124,7 +124,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			# $TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
 			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
 			# $DecimalSec_Mod_Padded = (([String]((${EpochDate}%1))).Substring(2).PadRight(5,"0"));
-			$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${DecimalTimestampShort}";
+			$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 		};
 

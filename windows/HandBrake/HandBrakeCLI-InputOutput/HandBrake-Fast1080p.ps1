@@ -97,7 +97,12 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	# Unpack the downloaded archive
 	Write-Output "";
-	Write-Output "Info:  Unpacking  [ ${ExeArchive_Local} ]  into  [ ${ExeArchive_Unpacked} ]  ...";
+	Write-Output "Info:  Unpacking archive:";
+	Write-Output "  |";
+	Write-Output "  |-->  Source (archive path):  `"${ExeArchive_Local}`"";
+	Write-Output "  |";
+	Write-Output "  |-->  Destination (unpacked directory):  `"${ExeArchive_Unpacked}`"";
+	Write-Output "";
 	Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 	# Clean-up the archive once it has been unpacked
 	$ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
@@ -167,8 +172,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
-		Write-Output "Info:  Current input ${Filetype_ToDetect}-file:  [ ${EachInput_FullName} ]";
-		# Write-Output "`$EachInput_BasenameNoExt = [ ${EachInput_BasenameNoExt} ]";
+		Write-Output "Info:  Prepping input ${Filetype_ToDetect}-file  `"${EachInput_FullName}`"";
 		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
 		$FirstLoop_DoQuickNaming = $True;
@@ -190,7 +194,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 			$FirstLoop_DoQuickNaming = $False;
-			Write-Output "Info:  Checking if filename is already taken:  [ ${EachOutput_FullName} ]...";
+			Write-Output "Info:  Checking filename availability:  `"${EachOutput_FullName}`"...";
 			$NameCollision_LoopIterations++;
 		} While (((Test-Path "${EachOutput_FullName}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
 

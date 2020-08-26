@@ -70,12 +70,12 @@ $Dirnames_EnsureAllExist += "${WorkingDir}";
 $Dirnames_EnsureAllExist += "${InputDir}"
 $Dirnames_EnsureAllExist += "${OutputDir}");
 $Dirnames_EnsureAllExist | ForEach-Object {
-	$Dirname_EnsureExists = "$_";
-	If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
+	$EachDirname_ToEnsureExists = "$_";
+	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 		Write-Output "";
 		Write-Output "Info:  Creating Directory `"${Dirname_EnsureExists}`"...";
 		New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
-		If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
+		If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 			Write-Output "";
 			Write-Output "ERROR:  Unable to create directory `"${Dirname_EnsureExists}`"";
 			Write-Output "   |";

@@ -152,6 +152,8 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 	$TotalVideoEncodes = 0;
 
+	$InputFullNames_Arr = @();
+
 	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
 	$Directory_ToSearch = "${InputDir}";
 	$Filetype_ToDetect = "video";
@@ -162,15 +164,27 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
 		${ActiveXDataObject_RecordSet}.MoveFirst();
 	}
+	# Don't leave this array in memory too long, as it seems to not reserve its query cache appropriately and can be overwritten by other powershell query-caches - Drop its cache into an array ASAP
+	While (${ActiveXDataObject_RecordSet}.EOF -NE $True) {
+		$InputFullNames_Arr += "$(${ActiveXDataObject_RecordSet}.Fields.Item('System.ItemPathDisplay').Value)";
+		${ActiveXDataObject_RecordSet}.MoveNext(); <# KEEP the [ .MoveNext() ] AS THE LAST-ITEM IN THIS  WHILE LOOP (as it is responsible for iterating to the next item every loop) #>
+	}
+
+	Write-Output "";
+	Write-Output "------------------------------------------------------------";
+	Write-Output "";
+	Write-Output "`$InputFullNames_Arr:";
+	Write-Output "";
+	$InputFullNames_Arr | Format-List;
+	Write-Output "";
+	Write-Output "------------------------------------------------------------";
+	Write-Output "";
 
 	<# Walk through the input directory's contained video files, one-by-one #>
-	  ### Set-Location -Path ("${WorkingDir}\");
-	  ### Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
-	  ### 	$EachInput_BasenameNoExt = "$($_.BaseName)";
-	  ### 	$EachInput_FullName = "$($_.FullName)";
-	While (${ActiveXDataObject_RecordSet}.EOF -NE $True) {
-		$EachInput_FullName = (${ActiveXDataObject_RecordSet}.Fields.Item("System.ItemPathDisplay").Value);
+	For ($i=0; ($i -LT $InputFullNames_Arr.Count); $i++) {
+		$EachInput_FullName = ($InputFullNames_Arr[${i}]);
 		$EachInput_BasenameNoExt = ((Get-Item -Path ("${EachInput_FullName}")).Basename);
+
 
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
@@ -238,8 +252,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 		}
 
-		<# KEEP AS LAST-ITEM IN WHILE LOOP --> Iterate to the next input video-file (if another exists) #>
-		${ActiveXDataObject_RecordSet}.MoveNext();
 	}
 
 	# Open the exported-files directory

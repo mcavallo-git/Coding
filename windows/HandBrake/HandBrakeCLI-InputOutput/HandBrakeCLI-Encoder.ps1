@@ -238,7 +238,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 		}
 
-		<# KEEP AS LAST-ITEM IN WHILE LOOP --> Iterate to the next ActiveX Input Item (Input Video File, if another exists) #>
+		<# KEEP AS LAST-ITEM IN WHILE LOOP --> Iterate to the next input video-file (if another exists) #>
 		${ActiveXDataObject_RecordSet}.MoveNext();
 	}
 

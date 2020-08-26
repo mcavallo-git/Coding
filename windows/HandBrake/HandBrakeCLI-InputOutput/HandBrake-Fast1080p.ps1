@@ -73,11 +73,11 @@ $Dirnames_EnsureAllExist | ForEach-Object {
 	$EachDirname_ToEnsureExists = "$_";
 	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 		Write-Output "";
-		Write-Output "Info:  Creating Directory `"${Dirname_EnsureExists}`"...";
+		Write-Output "Info:  Creating Directory `"${EachDirname_ToEnsureExists}`"...";
 		New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
 		If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 			Write-Output "";
-			Write-Output "ERROR:  Unable to create directory `"${Dirname_EnsureExists}`"";
+			Write-Output "ERROR:  Unable to create directory `"${EachDirname_ToEnsureExists}`"";
 			Write-Output "   |";
 			Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
 			Start-Sleep 30;

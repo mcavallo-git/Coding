@@ -236,8 +236,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			}
 			Write-Output "";
 
-			${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
 		}
+
+		${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
 
 	}
 

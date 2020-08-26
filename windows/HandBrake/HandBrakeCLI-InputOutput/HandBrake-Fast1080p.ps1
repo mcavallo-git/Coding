@@ -70,8 +70,9 @@ $Dirnames_EnsureAllExist += "${WorkingDir}";
 $Dirnames_EnsureAllExist += "${InputDir}";
 $Dirnames_EnsureAllExist += "${OutputDir}";
 
-$Dirnames_EnsureAllExist | ForEach-Object {
-	$EachDirname_ToEnsureExists = "$_";
+$Dirnames_EnsureAllExist = @(1,"a",2,"b",3,"c");
+For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
+	$EachDirname_ToEnsureExists = ($Dirnames_EnsureAllExist[${i}]);
 	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 		Write-Output "";
 		Write-Output "Info:  Creating Directory `"${EachDirname_ToEnsureExists}`"...";
@@ -81,6 +82,7 @@ $Dirnames_EnsureAllExist | ForEach-Object {
 			Write-Output "ERROR:  Unable to create directory `"${EachDirname_ToEnsureExists}`"";
 			Write-Output "   |";
 			Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
+			Write-Output "";
 			Start-Sleep 30;
 			Exit 1;
 		}

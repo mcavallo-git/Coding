@@ -55,6 +55,7 @@ $DecimalSec_Split = [Decimal]"0.$($(Get-Date -UFormat ('%s')).Split('.')[1].Trim
 # Method 2 of obtaining (milli-/micro-) seconds past the decimal
 #
 $DecimalSec_Mod = (([Decimal](Get-Date -UFormat ('%s')))%1);
+$DecimalSec_Mod_Padded = "$(([Decimal](Get-Date -UFormat ('%s')))%1)".Substring(2).PadRight(5,'0');
 
 
 # ------------------------------------------------------------

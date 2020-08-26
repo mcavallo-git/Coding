@@ -239,9 +239,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 	Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 
-	Exit 0;
-
-
 }
 
 

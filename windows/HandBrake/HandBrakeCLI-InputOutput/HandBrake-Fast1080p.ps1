@@ -191,7 +191,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "   |-->  Opening output directory  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
-		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	} Else {
 		Write-Output "";
 		Write-Output " X X X   INPUT DIRECTORY EMPTY   X X X";
@@ -202,8 +201,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "";
 		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 		Explorer.exe "${InputDir}";
-		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	}
+
+	Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 
 	Exit 0;
 

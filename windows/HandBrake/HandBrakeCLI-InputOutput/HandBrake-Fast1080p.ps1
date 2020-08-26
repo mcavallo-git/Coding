@@ -182,12 +182,16 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	}
 
 	# Open the exported-files directory
-	Write-Output "`nFinished Script - Opening output directory @  [ ${OutputDir} ]`n";
+	Write-Output "";
+	Write-Output " ! ! !   ENCODING COMPLETE   ! ! !";
+	Write-Output "";
+	Write-Output "Opening output directory  `"${OutputDir}`" ...`n";
+	Write-Output "";
 
 	Explorer.exe "${OutputDir}";
 
 	# Wait a few seconds (for user to read the terminal, etc.) before exiting
-	Start-Sleep -Seconds 10;
+	Start-Sleep -Seconds 3;
 
 	Exit 0;
 

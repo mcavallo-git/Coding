@@ -112,9 +112,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
 		Write-Output "`n`$EachInputFile = [ ${EachInputFile} ]`n`$EachOutputFile = [ ${EachOutputFile} ]";
 
-		#
-		# !! Perform the actual encoding !!
-		#
+		#                                                 # 
+		#   ! ! !   Perform the actual encoding   ! ! !   #
+		#                                                 # 
 		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
 		If ((Test-Path -Path ("${EachOutputFile}")) -Eq $True) {
 			Remove-Item -Path ("${EachInputFile}") -Force;

@@ -60,6 +60,22 @@ Get-ChildItem -Path ("C:\Windows\System32") -File -Recurse -Depth (1) -Force -Er
 
 # ------------------------------------------------------------
 #
+# Get-Item --> Get target filepath's dirname, basename, file-extension, etc.
+#
+If ($True) {
+	$FullPath = "${PSCommandPath}";
+	$PathItem = (Get-Item -Path "${FullPath}");
+	Write-Host "";
+	Write-Host "`n `${PathItem}.FullName  = `"$( ${PathItem}.FullName )`"";
+	Write-Host "`n `${PathItem}.DirectoryName  = `"$( ${PathItem}.DirectoryName )`"";
+	Write-Host "`n `${PathItem}.Name  = `"$( ${PathItem}.Name )`"";
+	Write-Host "`n `${PathItem}.Basename  = `"$( ${PathItem}.Basename )`"";
+	Write-Host "`n `${PathItem}.Extension  = `"$( ${PathItem}.Extension )`"";
+}
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Copy-Item - Copies an item from one location to another"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/copy-item?view=powershell-5.1

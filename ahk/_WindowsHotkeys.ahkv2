@@ -96,14 +96,11 @@ If (DebugMode == 1) {
 
 ; ------------------------------------------------------------
 ;
-; Update the [ Tray & Start-Menu Icons ] (only if icon file exists)
+; Tray-Icon - Use a custom one instead of default AHK Icon (in Notification area next to clock, bottom-right)
 ;
 
 If (FileExist("_WindowsHotkeys.ico")) {
 	Menu, Tray, Icon, _WindowsHotkeys.ico
-	If (DebugMode == 1) {
-		TrayTip, AHK, "A_IconFile = [%A_IconFile%]`nA_IconNumber = [%A_IconNumber%]"  ; Toast Notification
-	}
 }
 
 

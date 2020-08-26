@@ -194,10 +194,14 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	} Else {
 		Write-Output "";
-		Write-Output " X X X   NO INPUT VIDEOS FOUND  X X X";
+		Write-Output " X X X   INPUT DIRECTORY EMPTY   X X X";
 		Write-Output "   |";
-		Write-Output "   |-->  Please copy videos-to-compress to directory  `"${InputDir}`" ...`n";
+		Write-Output "   |-->  Please copy videos (to-compress) into input directory  `"${InputDir}`" ...`n";
+		Write-Output "   |";
+		Write-Output "   |-->  Opening input directory ...`n";
 		Write-Output "";
+		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+		Explorer.exe "${InputDir}";
 		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	}
 

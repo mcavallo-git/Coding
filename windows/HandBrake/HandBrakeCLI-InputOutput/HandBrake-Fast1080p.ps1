@@ -220,7 +220,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	# Open the exported-files directory
 	If ($TotalVideoEncodes -GT 0) {
 		Write-Output "";
-		Write-Output "✓ ✓ ✓   ENCODING COMPLETE";
+		Write-Output "Info:   ENCODING COMPLETE";
 		Write-Output "  |";
 		Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
 		Write-Output "";

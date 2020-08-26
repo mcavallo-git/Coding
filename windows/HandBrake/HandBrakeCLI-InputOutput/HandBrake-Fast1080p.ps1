@@ -132,7 +132,8 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		#                                                 #
 		#   ! ! !   Perform the actual encoding   ! ! !   #
 		#                                                 #
-		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`""); $EachExitCode=$?;
+		# $EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`""); $EachExitCode=$?;
+		$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
 		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
 			Remove-Item -Path ("${EachInput_FullName}") -Force;
 		}

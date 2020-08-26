@@ -237,31 +237,31 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
 		}
 
-		# Open the exported-files directory
-		If ($TotalVideoEncodes -GT 0) {
-			Write-Output "";
-			Write-Output "Info:   ENCODING COMPLETE";
-			Write-Output "  |";
-			Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
-			Write-Output "";
-			Explorer.exe "${OutputDir}";
-		} Else {
-			Write-Output "";
-			Write-Output "! ! !  INPUT DIRECTORY EMPTY";
-			Write-Output "  |";
-			Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
-			Write-Output "  |";
-			Write-Output "  |-->  Opening input directory, now ...";
-			Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("");
-			Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("");
-			Write-Output "";
-			Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
-			Explorer.exe "${InputDir}";
-		}
-
-		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
-
 	}
+
+	# Open the exported-files directory
+	If ($TotalVideoEncodes -GT 0) {
+		Write-Output "";
+		Write-Output "Info:   ENCODING COMPLETE";
+		Write-Output "  |";
+		Write-Output "  |-->  Opening output directory  `"${OutputDir}`" ...";
+		Write-Output "";
+		Explorer.exe "${OutputDir}";
+	} Else {
+		Write-Output "";
+		Write-Output "! ! !  INPUT DIRECTORY EMPTY";
+		Write-Output "  |";
+		Write-Output "  |-->  Copy your videos (to-compress) into input-directory  `"${InputDir}`"";
+		Write-Output "  |";
+		Write-Output "  |-->  Opening input directory, now ...";
+		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("");
+		Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("");
+		Write-Output "";
+		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+		Explorer.exe "${InputDir}";
+	}
+
+	Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 
 }
 

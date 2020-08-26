@@ -177,12 +177,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			Remove-Item -Path ("${EachInput_FullName}") -Force;
 		}
 		Write-Output "";
-		Write-Output "`$EachInput_FullName = [${EachInput_FullName}]";
-		Write-Output "";
-		Write-Output "`$EachExitCode = [${EachExitCode}]";
-		Write-Output "";
-		Start-Sleep -Seconds (10);
-		Write-Output "";
 
 		${ActiveXDataObject_RecordSet}.MoveNext(); <# Iterate onto the next ActiveX Input Item (Input Video File, if another exists) #>
 	}

@@ -63,20 +63,31 @@ $DoEncoding_InSameWindow = $True;
 
 # ------------------------------------------------------------
 #
-# Dynamic Settings (based on runtime variable(s), above
+# Make sure the working-directory, input-directory, and output-directory all exist
 #
+@(${WorkingDir}, ${InputDir}, ${OutputDir}) | ForEach-Object {
+	$Dirname_EnsureExists = "$_";
+	If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
+		Write-Output "";
+		Write-Output "Info:  Creating Directory `"${Dirname_EnsureExists}`"...";
+		New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
+		If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
+			Write-Output "";
+			Write-Output "ERROR:  Unable to create directory `"${Dirname_EnsureExists}`"";
+			Write-Output "   |";
+			Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
+			Start-Sleep 30;
+			Exit 1;
+		}
+		Write-Output "";
+	}
+}
 
-$ExtraOptions = "";
-If ($Framerate_MatchSource -Eq $True) {
-	$ExtraOptions = "--vfr ${ExtraOptions}";
-}
-If ($AspectRatio_MatchSource -Eq $True) {
-	$ExtraOptions = "--non-anamorphic ${ExtraOptions}";
-}
 
 # ------------------------------------------------------------
-
+#
 # Download Handbrake runtime executable (if it doesn't exist)
+#
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
@@ -110,29 +121,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
 # ------------------------------------------------------------
 #
-# Make sure the working-directory, input-directory, and output-directory all exist
-#
-@(${WorkingDir}, ${InputDir}, ${OutputDir}) | ForEach-Object {
-	$Dirname_EnsureExists = "$_";
-	If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
-		Write-Output "";
-		Write-Output "Info:  Creating Directory `"${Dirname_EnsureExists}`"...";
-		New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
-		If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
-			Write-Output "";
-			Write-Output "ERROR:  Unable to create directory `"${Dirname_EnsureExists}`"";
-			Write-Output "   |";
-			Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
-			Start-Sleep 30;
-			Exit 1;
-		}
-		Write-Output "";
-	}
-}
-
-
-# ------------------------------------------------------------
-#
 # Double-check that the Handbrake runtime executable exists
 #
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
@@ -146,6 +134,18 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	${ActiveXDataObject_RecordSet}.Open("SELECT System.ItemPathDisplay FROM SYSTEMINDEX WHERE System.Kind = '${Filetype_ToDetect}' AND System.ItemPathDisplay LIKE '${Directory_ToSearch}\%'", ${ActiveXDataObject_Connection});
 	If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
 		${ActiveXDataObject_RecordSet}.MoveFirst();
+	}
+
+	# ------------------------------------------------------------
+	#
+	# Determine Video/Audio/Picture options (based on dynamic settings at the top of this script)
+	#
+	$ExtraOptions = "";
+	If ($Framerate_MatchSource -Eq $True) {
+		$ExtraOptions = "--vfr ${ExtraOptions}";
+	}
+	If ($AspectRatio_MatchSource -Eq $True) {
+		$ExtraOptions = "--non-anamorphic ${ExtraOptions}";
 	}
 
 	$TotalVideoEncodes = 0;

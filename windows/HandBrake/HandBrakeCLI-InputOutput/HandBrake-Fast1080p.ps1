@@ -188,7 +188,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "";
 		Write-Output " ! ! !   ENCODING COMPLETE   ! ! !";
 		Write-Output "   |";
-		Write-Output "   |-->  Opening output directory  `"${OutputDir}`" ...`n";
+		Write-Output "   |-->  Opening output directory  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
@@ -198,7 +198,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "   |";
 		Write-Output "   |-->  Please copy videos (to-compress) into input directory  `"${InputDir}`" ...";
 		Write-Output "   |";
-		Write-Output "   |-->  Opening input directory, now ...`n";
+		Write-Output "   |-->  Opening input directory, now ...";
 		Write-Output "";
 		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 		Explorer.exe "${InputDir}";

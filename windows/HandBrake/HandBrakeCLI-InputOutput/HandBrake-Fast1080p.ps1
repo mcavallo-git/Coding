@@ -43,6 +43,9 @@ $OutputExtension = "mp4";
 $Framerate_MatchSource = $True;
 # $Framerate_MatchSource = $False;
 
+$AspectRatio_MatchSource = $True;
+# $AspectRatio_MatchSource = $False;
+
 # Write-Output "`n`$ThisScript = [ ${ThisScript} ]";
 # Write-Output "`n`$ThisDir = [ ${ThisDir} ]";
 # Write-Output "`n`$InputDir = [ ${InputDir} ]";
@@ -55,9 +58,12 @@ $Framerate_MatchSource = $True;
 # Dynamic Settings (based on runtime variable(s), above
 #
 
-$Opt_VariableFramerate = "";
+$ExtraOptions = "";
 If ($Framerate_MatchSource -Eq $True) {
-	$Opt_VariableFramerate = "--vfr ";
+	$ExtraOptions = "--vfr ${ExtraOptions}";
+}
+If ($AspectRatio_MatchSource -Eq $True) {
+	$ExtraOptions = "--non-anamorphic ${ExtraOptions}";
 }
 
 # ------------------------------------------------------------
@@ -105,14 +111,16 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$EachInputFile = $_.FullName;
 		$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
 		Write-Output "`n`$EachInputFile = [ ${EachInputFile} ]`n`$EachOutputFile = [ ${EachOutputFile} ]";
+
 		#
 		# !! Perform the actual encoding !!
 		#
-		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${Opt_VariableFramerate}-i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
+		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
 		If ((Test-Path -Path ("${EachOutputFile}")) -Eq $True) {
 			Remove-Item -Path ("${EachInputFile}") -Force;
 		}
 		Write-Output "";
+
 	}
 
 	# Open the exported-files directory

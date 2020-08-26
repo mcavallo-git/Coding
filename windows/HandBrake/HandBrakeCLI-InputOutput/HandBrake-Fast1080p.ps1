@@ -200,7 +200,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "   |";
 		Write-Output "   |-->  Opening input directory, now ...`n";
 		Write-Output "";
-		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 		Explorer.exe "${InputDir}";
 		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	}

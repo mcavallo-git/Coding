@@ -6,21 +6,14 @@
 # 	Extract [ HandBrakeCLI.exe ] from aforementioned URL (downloads as a .zip archive as-of 20191222-070342 CST)
 # 	Place the extracted file at filepath [ C:\Program Files\HandBrake\HandBrakeCLI.exe ]
 # ------------------------------------------------------------
-# RUN THIS SCRIPT:
 #
-If ($False) {
+If ($False) { # RUN THIS SCRIPT REMOTELY:
 
-# . "${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1"
 
-# PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-File ${Home}\Documents\GitHub\Coding\windows\HandBrake\HandBrakeCLI-InputOutput\HandBrake-Fast1080p.ps1') -Verb 'RunAs' -Wait -PassThru | Out-Null;"
-
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-InputOutput/HandBrake-Fast1080p.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-InputOutput/HandBrake-Fast1080p.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }
-
-#
-#
 #
 # ------------------------------------------------------------
 #

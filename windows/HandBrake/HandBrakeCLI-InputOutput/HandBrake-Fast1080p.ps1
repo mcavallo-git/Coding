@@ -74,7 +74,7 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 	If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 		Write-Output "";
 		Write-Output "Info:  Creating Directory `"${EachDirname_ToEnsureExists}`"...";
-		New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
+		New-Item -ItemType "Directory" -Path ("${EachDirname_ToEnsureExists}\") | Out-Null;
 		If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 			Write-Output "";
 			Write-Output "ERROR:  Unable to create directory `"${EachDirname_ToEnsureExists}`"";

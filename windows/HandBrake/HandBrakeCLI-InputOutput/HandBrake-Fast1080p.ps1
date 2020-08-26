@@ -55,6 +55,9 @@ $Timestamps_IncludeDecimalSeconds = $False;
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
+Write-Output "";
+Write-Output "Info:  Using working directory `"${WorkingDir}`"...";
+
 
 # ------------------------------------------------------------
 #

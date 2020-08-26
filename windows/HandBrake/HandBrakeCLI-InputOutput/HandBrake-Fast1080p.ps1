@@ -108,16 +108,33 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	# Compress videos from the input directory into the output directory
 	Set-Location -Path ("${ThisDir}\");
 	Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
-		$EachInputFile = $_.FullName;
-		$EachOutputFile = "${OutputDir}\$($_.BaseName).${OutputExtension}";
-		Write-Output "`n`$EachInputFile = [ ${EachInputFile} ]`n`$EachOutputFile = [ ${EachOutputFile} ]";
+		$EachInput_BasenameNoExt = "$($_.BaseName)";
+		$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}";
+		$EachInput_FullName = "$($_.FullName)";
+		$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
+		Write-Output "";
+		Write-Output "`$EachInput_FullName = [ ${EachInput_FullName} ]";
+		Write-Output "`$EachOutput_FullName = [ ${EachOutput_FullName} ]";
 
-		#                                                 # 
+		<# Determine a filename which is fully unique (not already taken - e.g. do our best to not overwrite any existing files in the output directory #>
+		While ((Test-Path "${EachOutput_FullName}") -Eq ($True)) {
+			<# Do filename timestamping down to decimal-seconds #>
+			$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
+			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
+			# $TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
+			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
+			# $DecimalSec_Mod_Padded = (([String]((${EpochDate}%1))).Substring(2).PadRight(5,"0"));
+			$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${DecimalTimestampShort}";
+			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
+		};
+
+		# ----------------------------------------------- #
+		#                                                 #
 		#   ! ! !   Perform the actual encoding   ! ! !   #
-		#                                                 # 
-		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInputFile}`" -o `"${EachOutputFile}`""); $EachExitCode=$?;
-		If ((Test-Path -Path ("${EachOutputFile}")) -Eq $True) {
-			Remove-Item -Path ("${EachInputFile}") -Force;
+		#                                                 #
+		$EachConversion = (Start-Process -Wait -FilePath "${HandBrakeCLI}" -ArgumentList "--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`""); $EachExitCode=$?;
+		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
+			Remove-Item -Path ("${EachInput_FullName}") -Force;
 		}
 		Write-Output "";
 

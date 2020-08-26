@@ -95,19 +95,10 @@ Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($C
 
 # ------------------------------------------------------------
 #
-#   PowerShell - While Loops
+# PowerShell - While Loops
 #
-# ------------------------------------------------------------
-
-# Reboot the machine (only after user presses 'y')
-Write-Host -NoNewLine "`n`n  Restart required - Press 'y' to confirm and reboot this machine, now...`n`n" -BackgroundColor "Black" -ForegroundColor "Yellow";
-$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-While ($KeyPress.Character -NE "y") {
-	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-}
-Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
-
-
+#   (SEE SEPARATE FILE - "PowerShell - While Loops.ps1" (or similar name)
+#
 # ------------------------------------------------------------
 #
 #	Get-ChildItem

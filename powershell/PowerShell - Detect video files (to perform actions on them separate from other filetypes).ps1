@@ -5,7 +5,7 @@ $Filetype_ToDetect = "video";
 
 $ActiveXDataObject_Connection = (New-Object -com ADODB.Connection);
 $ActiveXDataObject_RecordSet = (New-Object -com ADODB.Recordset);
-$objConnection.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';");
+${ActiveXDataObject_Connection}.Open("Provider=Search.CollatorDSO;Extended Properties='Application=Windows';");
 ${ActiveXDataObject_RecordSet}.Open("SELECT System.ItemPathDisplay FROM SYSTEMINDEX WHERE System.Kind = '${Filetype_ToDetect}' AND System.ItemPathDisplay LIKE '${Directory_ToSearch}\%'", ${ActiveXDataObject_Connection});
 If (${ActiveXDataObject_RecordSet}.EOF -Eq $False) {
 	${ActiveXDataObject_RecordSet}.MoveFirst();

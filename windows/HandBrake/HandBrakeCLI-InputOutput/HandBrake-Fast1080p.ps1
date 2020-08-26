@@ -46,6 +46,9 @@ $Framerate_MatchSource = $True;
 $AspectRatio_MatchSource = $True;
 # $AspectRatio_MatchSource = $False;
 
+$Timestamps_IncludeDecimalSeconds = $False;
+# $Timestamps_IncludeDecimalSeconds = $True;
+
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
@@ -116,20 +119,24 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$EachInput_FullName = "$($_.FullName)";
 		$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 		Write-Output "";
-		Write-Output "`$EachInput_FullName = [ ${EachInput_FullName} ]";
-		Write-Output "`$EachOutput_FullName = [ ${EachOutput_FullName} ]";
-
-		<# Determine a filename which is fully unique (not already taken - e.g. do our best to not overwrite any existing files in the output directory #>
-		While ((Test-Path "${EachOutput_FullName}") -Eq ($True)) {
-			<# Do filename timestamping down to decimal-seconds #>
+		Write-Output "Using `$EachInput_FullName = [ ${EachInput_FullName} ]";
+		Write-Output "";
+		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
+		Do {
 			$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
 			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
-			# $TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
+			$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
 			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
-			# $DecimalSec_Mod_Padded = (([String]((${EpochDate}%1))).Substring(2).PadRight(5,"0"));
-			$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";
+			If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
+				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";
+			} Else {
+				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${TimestampShort}";
+			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
-		};
+
+			Write-Output "Testing `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
+		} While ((Test-Path "${EachOutput_FullName}") -Eq ($True));
+		Write-Output "Using `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
 
 		# ----------------------------------------------- #
 		#                                                 #

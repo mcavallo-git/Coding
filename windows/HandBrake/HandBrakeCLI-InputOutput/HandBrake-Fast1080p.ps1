@@ -110,28 +110,23 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
 # ------------------------------------------------------------
 #
-# Make sure the input and output directories exist
+# Make sure the working-directory, input-directory, and output-directory all exist
 #
-If ((Test-Path -Path ("${InputDir}")) -Eq ($False)) {
-	New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
-	If ((Test-Path -Path ("${InputDir}")) -Eq ($False)) {
+@(${WorkingDir}, ${InputDir}, ${OutputDir}) | ForEach-Object {
+	$Dirname_EnsureExists = "$_";
+	If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
 		Write-Output "";
-		Write-Output " X X X   ERROR:  Unable to create input-directory `"${InputDir}`"";
-		Write-Output "   |";
-		Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
-		Start-Sleep 30;
-		Exit 1;
-	}
-}
-If ((Test-Path -Path ("${OutputDir}")) -Eq ($False)) {
-	New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
-	If ((Test-Path -Path ("${OutputDir}")) -Eq ($False)) {
+		Write-Output "Info:  Creating Directory `"${Dirname_EnsureExists}`"...";
+		New-Item -ItemType "Directory" -Path ("${InputDir}\") | Out-Null;
+		If ((Test-Path -Path ("${Dirname_EnsureExists}")) -Eq ($False)) {
+			Write-Output "";
+			Write-Output "ERROR:  Unable to create directory `"${Dirname_EnsureExists}`"";
+			Write-Output "   |";
+			Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
+			Start-Sleep 30;
+			Exit 1;
+		}
 		Write-Output "";
-		Write-Output " X X X   ERROR:  Unable to create output-directory `"${OutputDir}`"";
-		Write-Output "   |";
-		Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
-		Start-Sleep 30;
-		Exit 1;
 	}
 }
 

@@ -179,9 +179,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}";
 			} Else {
 				If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
-					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";
+					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${DecimalTimestampShort}";
 				} Else {
-					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${TimestampShort}";
+					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${TimestampShort}";
 				}
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";

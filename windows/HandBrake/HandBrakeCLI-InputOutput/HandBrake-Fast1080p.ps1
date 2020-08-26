@@ -141,6 +141,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		${ActiveXDataObject_RecordSet}.MoveFirst();
 	}
 
+
 	# ------------------------------------------------------------
 	#
 	# Determine Video/Audio/Picture options (based on dynamic settings at the top of this script)

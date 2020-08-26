@@ -3,8 +3,12 @@
 
 
 # Ex) Create a test file on the desktop and run it
-Set-Content -Path ("${Env:UserProfile}\Desktop\test.ps1") -Value ("Split-Path `$PSCommandPath");
-. "${Env:UserProfile}\Desktop\test.ps1";
+
+If ($True) {
+	$Path_TestScript = "${Env:UserProfile}\Desktop\test_set-content_$(Get-Date -UFormat '%Y%m%d-%H%M%S').ps1";
+	Set-Content -Path ("${Path_TestScript}") -Value ("Split-Path `"`${PSCommandPath}`" | Format-List;");
+	. "${Path_TestScript}";
+}
 
 
 # ------------------------------------------------------------

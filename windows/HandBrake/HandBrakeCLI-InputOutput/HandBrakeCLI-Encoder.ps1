@@ -21,7 +21,7 @@ If ($False) { # RUN THIS SCRIPT REMOTELY:
 #
 
 <# Determine if running locally or remotely - handle both scenarios #>
-$WorkingDir = "${Env:UserProfile}\Desktop\HandbrakeCLI";
+$WorkingDir = "${Env:UserProfile}\Desktop\HandBrakeCLI";
 If ((($MyInvocation.MyCommand).Source) -NE ("")) {
 	$WorkingDir = (Split-Path $MyInvocation.MyCommand.Path -Parent);
 }
@@ -86,7 +86,7 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 
 # ------------------------------------------------------------
 #
-# Download Handbrake runtime executable (if it doesn't exist)
+# Download HandBrake runtime executable (if it doesn't exist)
 #
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
@@ -131,7 +131,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
 # ------------------------------------------------------------
 #
-# Double-check that the Handbrake runtime executable exists
+# Double-check that the HandBrake runtime executable exists
 #
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 

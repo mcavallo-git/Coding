@@ -159,6 +159,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 	$TotalVideoEncodes = 0;
 
+	<# Prep the Recycle-Bin deletion method (instead of permanent delete thru remove-item #>
+	Add-Type -AssemblyName Microsoft.VisualBasic;
+
 	<# Walk through the input directory's contained video files, one-by-one #>
 	  ### Set-Location -Path ("${WorkingDir}\");
 	  ### Get-ChildItem -Path ("${InputDir}\") -Exclude (".gitignore") | ForEach-Object {
@@ -210,7 +213,10 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			Write-Output "`n`n";
 			Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
 			Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
-			Remove-Item -Path ("${EachInput_FullName}") -Force;
+			<# Send the input file to the recycle bin #>
+			# Remove-Item -Path ("${EachInput_FullName}") -Force;
+			# [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile('d:\foo.txt','OnlyErrorDialogs','SendToRecycleBin');
+			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachInput_FullName}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
 		Write-Output "";
 

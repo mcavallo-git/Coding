@@ -248,14 +248,14 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "  |";
 		Write-Output "  |-->  Total Encoding Count:  `"${TotalVideoEncodes}`"";
 		Write-Output "  |";
-		Write-Output "  |-->  Opening Output-Directory  `"${OutputDir}`" ...";
+		Write-Output "  |-->  Opening Output-Directory:  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
 		Write-Output "! ! !  INPUT DIRECTORY EMPTY";
 		Write-Output "  |";
-		Write-Output "  |-->  Copy your videos (to-compress) into Input-Directory  `"${InputDir}`"";
+		Write-Output "  |-->  Copy your videos (to-compress) into Input-Directory:  `"${InputDir}`"";
 		Write-Output "  |";
 		Write-Output "  |-->  Opening Input-Directory, now ...";
 		Write-Output "";

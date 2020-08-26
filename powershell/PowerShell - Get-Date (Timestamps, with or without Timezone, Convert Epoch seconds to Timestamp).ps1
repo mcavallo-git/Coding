@@ -28,12 +28,17 @@ Write-Host ${Timestamp_RFC3339};
 
 # Timestamp, Filename-compatible w/ decimal-seconds
 If ($True) {
+
 	$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
+
 	$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
+
 	$TimestampLong = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S")));
 	$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
+
 	$DecimalTimestampLong = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
 	$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
+
 	Write-Host "`n`n";
 	Write-Host "`$EpochDate = [ ${EpochDate} ]";
 	Write-Host "";
@@ -45,6 +50,7 @@ If ($True) {
 	Write-Host "`$TimestampShort = [ ${TimestampShort} ]";
 	Write-Host "`$DecimalTimestampShort = [ ${DecimalTimestampShort} ]";
 	Write-Host "`n`n";
+
 }
 
 

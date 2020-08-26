@@ -3,7 +3,7 @@
 # Split-Path --> Get either dirname or basename (only)
 #
 If ($True) {
-	$FullPath = "${PSCommandPath}";
+	$FullPath = "${PSHOME}";
 	$SplitPath_Parent = (Split-Path -Path ("${FullPath}") -Parent);  <# Dirname #>
 	$SplitPath_Leaf = (Split-Path -Path ("${FullPath}") -Leaf);  <# Basename #>
 	Write-Host "";
@@ -19,14 +19,15 @@ If ($True) {
 # Get-Item --> Get target filepath's dirname, basename, file-extension, etc.
 #
 If ($True) {
-	$FullPath = "${PSCommandPath}";
+	$FullPath = "${PSHOME}";
 	$PathItem = (Get-Item -Path "${FullPath}");
 	Write-Host "";
-	Write-Host "`n `${PathItem}.FullName  = `"$( ${PathItem}.FullName )`"";
-	Write-Host "`n `${PathItem}.DirectoryName  = `"$( ${PathItem}.DirectoryName )`"";
-	Write-Host "`n `${PathItem}.Name  = `"$( ${PathItem}.Name )`"";
-	Write-Host "`n `${PathItem}.Basename  = `"$( ${PathItem}.Basename )`"";
-	Write-Host "`n `${PathItem}.Extension  = `"$( ${PathItem}.Extension )`"";
+	$PathItem | Format-List -Property ([String][Char]42);
+	# Write-Host "`n `${PathItem}.FullName  = `"$( ${PathItem}.FullName )`"";
+	# Write-Host "`n `${PathItem}.DirectoryName  = `"$( ${PathItem}.DirectoryName )`"";
+	# Write-Host "`n `${PathItem}.Name  = `"$( ${PathItem}.Name )`"";
+	# Write-Host "`n `${PathItem}.Basename  = `"$( ${PathItem}.Basename )`"";
+	# Write-Host "`n `${PathItem}.Extension  = `"$( ${PathItem}.Extension )`"";
 }
 
 

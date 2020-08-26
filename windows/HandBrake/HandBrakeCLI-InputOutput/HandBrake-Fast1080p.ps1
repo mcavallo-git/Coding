@@ -196,7 +196,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "";
 		Write-Output " X X X   INPUT DIRECTORY EMPTY   X X X";
 		Write-Output "   |";
-		Write-Output "   |-->  Please copy videos (to-compress) into input directory  `"${InputDir}`" ...`n";
+		Write-Output "   |-->  Please copy videos (to-compress) into input directory  `"${InputDir}`" ...";
 		Write-Output "   |";
 		Write-Output "   |-->  Opening input directory, now ...`n";
 		Write-Output "";

@@ -176,7 +176,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
 			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
 			If (${FirstLoop_DoQuickNaming} -Eq $True) {
-				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp";
+				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}";
 			} Else {
 				If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
 					$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.comp.${DecimalTimestampShort}";

@@ -187,16 +187,16 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	If ($TotalVideoEncodes -GT 0) {
 		Write-Output "";
 		Write-Output " ! ! !   ENCODING COMPLETE   ! ! !";
-		Write-Output "";
-		Write-Output "Opening output directory  `"${OutputDir}`" ...`n";
+		Write-Output "   |";
+		Write-Output "   |-->  Opening output directory  `"${OutputDir}`" ...`n";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	} Else {
 		Write-Output "";
 		Write-Output " X X X   NO INPUT VIDEOS FOUND  X X X";
-		Write-Output "";
-		Write-Output "Please copy videos-to-compress to directory  `"${InputDir}`" ...`n";
+		Write-Output "   |";
+		Write-Output "   |-->  Please copy videos-to-compress to directory  `"${InputDir}`" ...`n";
 		Write-Output "";
 		Start-Sleep -Seconds 30; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
 	}

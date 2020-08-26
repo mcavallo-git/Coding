@@ -120,7 +120,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
-		Write-Output "Using `$EachInput_FullName = [ ${EachInput_FullName} ]";
+		Write-Output "`$EachInput_FullName = [ ${EachInput_FullName} ]";
 		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
 		Do {
@@ -135,9 +135,9 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 
-			Write-Output "Testing `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
+			Write-Output "Verifying `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
 		} While ((Test-Path "${EachOutput_FullName}") -Eq ($True));
-		Write-Output "Using `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
+		Write-Output "Verified. Using `$EachOutput_FullName = [ ${EachOutput_FullName} ]...";
 		Write-Output "";
 
 		# ----------------------------------------------- #

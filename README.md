@@ -290,6 +290,7 @@ This file (on GitHub):
 <tr><td><strong>Twitch App</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
 <tr><td><strong>VirtualDub</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source Video Capture/Processing Utility<br />&nbsp;&nbsp;&nbsp;Use XVid Video Compression via:<br />&nbsp;&nbsp;&nbsp;   Video > Compression > "Xvid ..." > OK</i></sub></td><td><a href="https://sourceforge.net/projects/virtualdub/files/latest/download">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://sourceforge.net/projects/virtualdubffmpeginputplugin/">Download (FFMpeg Codec)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.xvid.com/download/">Download (XVid - EXE)</a><br />&nbsp;&nbsp;&nbsp; &uarr; Download exe & codecs<br />&nbsp;&nbsp;&nbsp;<a href="https://downloads.xvid.com/downloads/">View XVid Source</a></sub></td></tr>
 <tr><td><strong>VLC</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-source, Cross-Platform Multimedia Player</i></sub></td><td><a href="https://www.videolan.org/vlc/index.html">Download (source)</a></td></tr>
+<tr><td><strong>Xbox App</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Xbox Application for Windows 10</i></sub></td><td><a href="https://www.xbox.com/en-US/apps/xbox-app-for-windows-10">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

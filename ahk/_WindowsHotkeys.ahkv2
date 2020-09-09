@@ -1059,20 +1059,18 @@ WheelRight::
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			Sleep 2400
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
-
-			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			Sleep 2400
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
-
-			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			Sleep 2400
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
+			; Loop 3 {
+			; 	ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			; 	Sleep 2400
+			; 	Random, RandomSleep, 100, 150
+			; 	Sleep %RandomSleep%
+			; }
+			Loop 144 {
+				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+				Sleep 50
+				Random, RandomSleep, 100, 150
+				Sleep %RandomSleep%
+			}
 
 			ControlSend,, {3}, ahk_pid %ExePID%  ; Sharpcast
 			Sleep 100
@@ -1084,21 +1082,13 @@ WheelRight::
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			Sleep 2400
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
-
-			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			Sleep 2400
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
-
-			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			Sleep 2400
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
-
+			Loop 144 {
+				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+				Sleep 50
+				Random, RandomSleep, 100, 150
+				Sleep %RandomSleep%
+			}
+			
 			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
 			Sleep 3100
 			Random, RandomSleep, 100, 150

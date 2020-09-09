@@ -1067,7 +1067,7 @@ WheelRight::
 			}
 
 			ControlSend,, {3}, ahk_pid %ExePID%  ; Sharpcast
-			Sleep 100
+			Sleep 350
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 

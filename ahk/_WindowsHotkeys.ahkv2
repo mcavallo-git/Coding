@@ -1034,71 +1034,104 @@ WheelRight::
 
 		Loop {
 
-			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
-			Sleep 3100
+			; Blizzard III
+			TotalSleep := 3370
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+			ControlSend,, {q}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
+
+			; Enochian
+			ControlSend,, {2}, ahk_pid %ExePID%
+			Sleep 10
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend,, {2}, ahk_pid %ExePID%  ; Enochian
-			Sleep 350
+			; Thunder III
+			TotalSleep := 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
+			ControlSend,, {r}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 
-			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 2200
+			; Blizzard IV
+			TotalSleep := 2690
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
+			ControlSend,, {Shift Down}q{Shift Up}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 
-			ControlSend {Shift Down}q{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
-			Sleep 2400
+			; Fire III
+			TotalSleep := 3370
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
-
-			ControlSend,, {e}, ahk_pid %ExePID%  ; Fire III
-			Sleep 3100
-			Random, RandomSleep, 100, 150
-			Sleep %RandomSleep%
+			ControlSend,, {e}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 
 			Loop 3 {
-				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-				Sleep 2400
+				; Fire IV
+				TotalSleep := 2690
 				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
+				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%
+				RemainingSleep := (TotalSleep - RandomSleep)
+				Sleep %RemainingSleep%
 			}
 
-			ControlSend,, {3}, ahk_pid %ExePID%  ; Sharpcast
-			Sleep 350
+			; Sharpcast
+			ControlSend,, {3}, ahk_pid %ExePID%
+			Sleep 10
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Alt Down}e{Alt Up}, ahk_pid %ExePID%  ; Fire
-			Sleep 2100
+  		; Fire
+			TotalSleep := 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
-
-			Loop 3 {
-				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-				Sleep 2400
-				Random, RandomSleep, 100, 150
-				Sleep %RandomSleep%
-			}
+			ControlSend,, {Alt Down}e{Alt Up}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 			
-			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
-			Sleep 3100
+			Loop 3 {
+				; Fire IV
+				TotalSleep := 2690
+				Random, RandomSleep, 100, 150
+				Sleep %RandomSleep%
+				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%
+				RemainingSleep := (TotalSleep - RandomSleep)
+				Sleep %RemainingSleep%
+			}
+
+			; Blizzard III
+			TotalSleep := 3370
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
+			ControlSend,, {q}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 
-			ControlSend {Shift Down}q{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
-			Sleep 2400
+			; Blizzard IV
+			TotalSleep := 2690
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
+			ControlSend,, {Shift Down}q{Shift Up}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 
-			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 2200
+			; Thunder III
+			TotalSleep := 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
+			ControlSend,, {r}, ahk_pid %ExePID%
+			RemainingSleep := (TotalSleep - RandomSleep)
+			Sleep %RemainingSleep%
 
-			Sleep 1000  ; Give Enochian enough time to cool down
+			; Give Enochian enough time to cool down
+			Sleep 1000
 
 		}
 

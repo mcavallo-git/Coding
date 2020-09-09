@@ -1059,15 +1059,10 @@ WheelRight::
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			; Loop 3 {
-			; 	ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-			; 	Sleep 2400
-			; 	Random, RandomSleep, 100, 150
-			; 	Sleep %RandomSleep%
-			; }
-			Loop 144 {
+			Loop 3 {
 				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-				Sleep 50
+				Sleep 2400
+				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
 			}
 
@@ -1081,9 +1076,10 @@ WheelRight::
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			Loop 144 {
+			Loop 3 {
 				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
-				Sleep 50
+				Sleep 2400
+				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
 			}
 			

@@ -1045,7 +1045,7 @@ WheelRight::
 			Sleep %RandomSleep%
 
 			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 2100
+			Sleep 1900
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
@@ -1110,9 +1110,11 @@ WheelRight::
 			Sleep %RandomSleep%
 
 			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 2100
+			Sleep 1900
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
+
+			Sleep 1000  ; Give Enochian enough time to cool down
 
 		}
 

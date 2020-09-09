@@ -1035,6 +1035,7 @@ WheelRight::
 		Loop {
 
 			; Blizzard III
+			ControlSend,, {q}, ahk_pid %ExePID%
 			TotalSleep := 3370
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1049,6 +1050,7 @@ WheelRight::
 			Sleep %RandomSleep%
 
 			; Thunder III
+			ControlSend,, {r}, ahk_pid %ExePID%
 			TotalSleep := 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1057,6 +1059,7 @@ WheelRight::
 			Sleep %RemainingSleep%
 
 			; Blizzard IV
+			ControlSend,, {Shift Down}q{Shift Up}, ahk_pid %ExePID%
 			TotalSleep := 2690
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1065,6 +1068,7 @@ WheelRight::
 			Sleep %RemainingSleep%
 
 			; Fire III
+			ControlSend,, {e}, ahk_pid %ExePID%
 			TotalSleep := 3370
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1074,6 +1078,7 @@ WheelRight::
 
 			Loop 3 {
 				; Fire IV
+				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%
 				TotalSleep := 2690
 				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
@@ -1089,6 +1094,7 @@ WheelRight::
 			Sleep %RandomSleep%
 
   		; Fire
+			ControlSend,, {Alt Down}e{Alt Up}, ahk_pid %ExePID%
 			TotalSleep := 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1098,6 +1104,7 @@ WheelRight::
 			
 			Loop 3 {
 				; Fire IV
+				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%
 				TotalSleep := 2690
 				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
@@ -1107,6 +1114,7 @@ WheelRight::
 			}
 
 			; Blizzard III
+			ControlSend,, {q}, ahk_pid %ExePID%
 			TotalSleep := 3370
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1115,6 +1123,7 @@ WheelRight::
 			Sleep %RemainingSleep%
 
 			; Blizzard IV
+			ControlSend,, {Shift Down}q{Shift Up}, ahk_pid %ExePID%
 			TotalSleep := 2690
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
@@ -1123,6 +1132,7 @@ WheelRight::
 			Sleep %RemainingSleep%
 
 			; Thunder III
+			ControlSend,, {r}, ahk_pid %ExePID%
 			TotalSleep := 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%

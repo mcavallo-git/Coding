@@ -116,7 +116,8 @@ If (FileExist("_WindowsHotkeys.ico")) {
 ;   HOTKEY:  Win + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
 ;
-~#Escape::
+#Escape::
+; ~#Escape::
 	BlockInPut, Off  ;  Stop blocking input (e.g. restore full interaction)
 	Reload  ; Reload this script
 	Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
@@ -575,6 +576,8 @@ ScrollLock::
 			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
 				; Projection menu detected --> select related option (duplicate/extend)
 				Sleep 250
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 				If (A_ThisHotkey=="#[") {
 					; Duplicate Monitors
 					x_loc := (A_ScreenWidth - 20)
@@ -589,6 +592,8 @@ ScrollLock::
 				; Wait until the new monitor layout is loaded
 				Loop 30 {
 					Sleep 100
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 					SysGet, MonitorCountAfter, 80
 					If (MonitorCountAfter != MonitorCountBefore) {
 						Break
@@ -597,9 +602,13 @@ ScrollLock::
 				; Click outside of the Projection menu to close it
 				MouseClick, Left, %MouseX%, %MouseY%
 				Sleep 100
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 				; Send an Escape keypress to ensure the Projection menu closes
 				Send {Escape}
 				Sleep 100
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 				Break
 			} Else If (LoopingForMilliseconds > 2000) {
 				MsgBox, 
@@ -609,6 +618,8 @@ ScrollLock::
 				Break
 			} Else {
 				Sleep 10
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 			}
 		}
 	}
@@ -1001,11 +1012,121 @@ WheelRight::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Win + C
-;   ACTION:  Open Google Chrome
+;   ACTION:  Open Google Chrome <-- OpenChrome()
 ;
-; #C::
-; 	OpenChrome()
-; 	Return
+#C::
+	SetKeyDelay, 25, -1
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	; ExeBasename := "ffxiv_dx11.exe"
+	; ExePID := GetPID(ExeBasename)
+	WinTitle := "FINAL FANTASY XIV"
+	ExePID := WinGetPID(WinTitle)
+	If (ExePID != "") {  ; WinGetPID  <-- This function returns the Process ID (PID) of the specified window. If there is no matching window, an empty string is returned.
+
+		Loop {
+
+			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
+			Sleep 3300
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend,, {2}, ahk_pid %ExePID%  ; Enochian
+			Sleep 400
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
+			Sleep 2300
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}{q}{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
+			Sleep 2600
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend,, {e}, ahk_pid %ExePID%  ; Fire III
+			Sleep 3300
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
+			ControlSend {Shift Up}, ahk_pid %ExePID%
+			Sleep 2550
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
+			ControlSend {Shift Up}, ahk_pid %ExePID%
+			Sleep 2550
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
+			ControlSend {Shift Up}, ahk_pid %ExePID%
+			Sleep 2550
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend,, {3}, ahk_pid %ExePID%  ; Sharpcast
+			Sleep 400
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Alt Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire
+			ControlSend {Alt Up}, ahk_pid %ExePID%
+			Sleep 2250
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
+			ControlSend {Shift Up}, ahk_pid %ExePID%
+			Sleep 2550
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
+			ControlSend {Shift Up}, ahk_pid %ExePID%
+			Sleep 2550
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}, ahk_pid %ExePID%
+			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
+			ControlSend {Shift Up}, ahk_pid %ExePID%
+			Sleep 2550
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
+			Sleep 3300
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend {Shift Down}{q}{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
+			Sleep 2600
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
+			Sleep 2300
+			Random, RandomSleep, 100, 150
+			Sleep %RandomSleep%
+
+		}
+
+	}
+
+	Return
 
 
 ; ------------------------------------------------------------
@@ -2629,6 +2750,8 @@ class BrightnessSetter {
 				if (BrightnessSetter._FindAndSetOSDWindow())
 					return
 				Sleep 100
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 			}
 		}
 	}
@@ -2758,6 +2881,8 @@ BrightnessSetter_new() {
 ;			SC029::
 ;			SplashTextOn, 250, 40, Debugging, Command Sent
 ;			Sleep 500
+			Random, RandomSleep, 1000, 1500
+			Sleep %RandomSleep%
 ;			SplashTextOff
 ; 		-- Remainder of your script
 ; 

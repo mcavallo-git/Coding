@@ -1030,26 +1030,6 @@ WheelRight::
 	; ExePID := GetPID(ExeBasename)
 	ExePID := WinGetPID(WinTitle)
 
-	TooltipOutput := "A_ControlDelay=[" A_ControlDelay "]"
-	TrayTip, AHK, % ( TooltipOutput )  ; Toast Notification
-
-	; {Blind}{Text}
-
-	; ControlSend "R", ahk_pid %ExePID%  ; Fire IV
-
-	; ControlSend,, {R}, ahk_pid %ExePID%  ; Blizzard III
-	; ControlSend,, {Shift down}r{Shift up}, ahk_pid %ExePID%  ; Blizzard III
-
-	; ControlSend {Shift down}, ahk_pid %ExePID%
-	; Sleep 25
-	; ControlSend {r}, ahk_pid %ExePID%  ; Fire IV
-	; Sleep 25
-	; ControlSend {Shift up}, ahk_pid %ExePID%
-	; Sleep 25
-	; ControlSend {Shift down}r{Shift up}, ahk_pid %ExePID%
-
-
-	; If (ExePID == "zzz") {  ; WinGetPID  <-- This function returns the Process ID (PID) of the specified window. If there is no matching window, an empty string is returned.
 	If (ExePID != "") {  ; WinGetPID  <-- This function returns the Process ID (PID) of the specified window. If there is no matching window, an empty string is returned.
 
 		Loop {

@@ -1068,7 +1068,6 @@ WheelRight::
 			Loop 144 {
 				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
 				Sleep 50
-				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
 			}
 
@@ -1085,7 +1084,6 @@ WheelRight::
 			Loop 144 {
 				ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
 				Sleep 50
-				Random, RandomSleep, 100, 150
 				Sleep %RandomSleep%
 			}
 			

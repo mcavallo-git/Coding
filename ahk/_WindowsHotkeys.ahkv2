@@ -1015,110 +1015,122 @@ WheelRight::
 ;   ACTION:  Open Google Chrome <-- OpenChrome()
 ;
 #C::
-	SetKeyDelay, 25, -1
+	SetKeyDelay 25
+	SetControlDelay -1
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
-	SetControlDelay, -1
+	; SetControlDelay, -1
 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+
 	; ExeBasename := "ffxiv_dx11.exe"
-	; ExePID := GetPID(ExeBasename)
 	WinTitle := "FINAL FANTASY XIV"
+
+	; ExePID := GetPID(ExeBasename)
 	ExePID := WinGetPID(WinTitle)
+
+	TooltipOutput := "A_ControlDelay=[" A_ControlDelay "]"
+	TrayTip, AHK, % ( TooltipOutput )  ; Toast Notification
+
+	; {Blind}{Text}
+
+	; ControlSend "R", ahk_pid %ExePID%  ; Fire IV
+
+	; ControlSend,, {R}, ahk_pid %ExePID%  ; Blizzard III
+	; ControlSend,, {Shift down}r{Shift up}, ahk_pid %ExePID%  ; Blizzard III
+
+	; ControlSend {Shift down}, ahk_pid %ExePID%
+	; Sleep 25
+	; ControlSend {r}, ahk_pid %ExePID%  ; Fire IV
+	; Sleep 25
+	; ControlSend {Shift up}, ahk_pid %ExePID%
+	; Sleep 25
+	; ControlSend {Shift down}r{Shift up}, ahk_pid %ExePID%
+
+
+	; If (ExePID == "zzz") {  ; WinGetPID  <-- This function returns the Process ID (PID) of the specified window. If there is no matching window, an empty string is returned.
 	If (ExePID != "") {  ; WinGetPID  <-- This function returns the Process ID (PID) of the specified window. If there is no matching window, an empty string is returned.
 
 		Loop {
 
 			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
-			Sleep 3300
+			Sleep 3100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
 			ControlSend,, {2}, ahk_pid %ExePID%  ; Enochian
-			Sleep 400
+			Sleep 350
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
 			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 2300
+			Sleep 2100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}{q}{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
-			Sleep 2600
+			ControlSend {Shift Down}q{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
 			ControlSend,, {e}, ahk_pid %ExePID%  ; Fire III
-			Sleep 3300
+			Sleep 3100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
-			ControlSend {Shift Up}, ahk_pid %ExePID%
-			Sleep 2550
+			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
-			ControlSend {Shift Up}, ahk_pid %ExePID%
-			Sleep 2550
+			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
-			ControlSend {Shift Up}, ahk_pid %ExePID%
-			Sleep 2550
+			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
 			ControlSend,, {3}, ahk_pid %ExePID%  ; Sharpcast
-			Sleep 400
+			Sleep 100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Alt Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire
-			ControlSend {Alt Up}, ahk_pid %ExePID%
-			Sleep 2250
+			ControlSend {Alt Down}e{Alt Up}, ahk_pid %ExePID%  ; Fire
+			Sleep 2100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
-			ControlSend {Shift Up}, ahk_pid %ExePID%
-			Sleep 2550
+			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
-			ControlSend {Shift Up}, ahk_pid %ExePID%
-			Sleep 2550
+			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}, ahk_pid %ExePID%
-			ControlSend {e}, ahk_pid %ExePID%  ; Fire IV
-			ControlSend {Shift Up}, ahk_pid %ExePID%
-			Sleep 2550
+			ControlSend,, {Shift Down}e{Shift Up}, ahk_pid %ExePID%  ; Fire IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
 			ControlSend,, {q}, ahk_pid %ExePID%  ; Blizzard III
-			Sleep 3300
+			Sleep 3100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
-			ControlSend {Shift Down}{q}{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
-			Sleep 2600
+			ControlSend {Shift Down}q{Shift Up}, ahk_pid %ExePID%  ; Blizzard IV
+			Sleep 2400
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
 			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 2300
+			Sleep 2100
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 

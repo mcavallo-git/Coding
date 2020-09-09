@@ -1051,7 +1051,7 @@ WheelRight::
 
 			; Thunder III
 			ControlSend,, {r}, ahk_pid %ExePID%
-			TotalSleep := 2400
+			TotalSleep := 2600
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 			ControlSend,, {r}, ahk_pid %ExePID%
@@ -1133,7 +1133,7 @@ WheelRight::
 
 			; Thunder III
 			ControlSend,, {r}, ahk_pid %ExePID%
-			TotalSleep := 2400
+			TotalSleep := 2600
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 			ControlSend,, {r}, ahk_pid %ExePID%

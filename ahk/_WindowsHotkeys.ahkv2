@@ -1045,7 +1045,7 @@ WheelRight::
 			Sleep %RandomSleep%
 
 			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 1900
+			Sleep 2200
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 
@@ -1094,7 +1094,7 @@ WheelRight::
 			Sleep %RandomSleep%
 
 			ControlSend,, {r}, ahk_pid %ExePID%  ; Thunder III
-			Sleep 1900
+			Sleep 2200
 			Random, RandomSleep, 100, 150
 			Sleep %RandomSleep%
 

@@ -113,8 +113,11 @@ REM ------------------------------------------------------------
 : WMIC_MOBO
 	ECHO. >> %output_file%
 	ECHO. >> %output_file%
-	ECHO              -- MOTHERBOARD INFO -- >> %output_file%
+	ECHO              -- MOBO (MOTHERBOARD) GENERAL INFO -- >> %output_file%
 	wmic baseboard get manufacturer,product,serialnumber | findstr /r /v "^$" >> %output_file%
+	ECHO. >> %output_file%
+	ECHO              -- MOBO (MOTHERBOARD) RAM LIMITS / SLOTS -- >> %output_file%
+	wmic memphysical get memorydevices,maxcapacity | findstr /r /v "^$" >> %output_file%
 	EXIT /b	
 	
 : WMIC_MODEL
@@ -141,9 +144,7 @@ REM ------------------------------------------------------------
 : WMIC_RAM
 	ECHO. >> %output_file%
 	ECHO. >> %output_file%
-	ECHO              -- MOBO RAM LIMITS / SLOTS -- >> %output_file%
-	wmic memphysical get memorydevices,maxcapacity | findstr /r /v "^$" >> %output_file%
-	ECHO. >> %output_file%
 	ECHO              -- RAM MODULES (CAPACITY IN BYTES) -- >> %output_file%
-	wmic memorychip get tag,banklabel,capacity,speed,devicelocator | findstr /r /v "^$" >> %output_file%
+	wmic memorychip get BankLabel,Capacity,DeviceLocator,FormFactor,Manufacturer,PartNumber,Speed | findstr /r /v "^$" >> %output_file%
+
 	EXIT /b

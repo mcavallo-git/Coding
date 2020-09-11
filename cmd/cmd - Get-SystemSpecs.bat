@@ -113,10 +113,10 @@ REM ------------------------------------------------------------
 : WMIC_MOTHERBOARD
 	ECHO. >> %output_file%
 	ECHO. >> %output_file%
-	ECHO              -- MOTHERBOARD (GENERAL INFO) -- >> %output_file%
+	ECHO              -- MOTHERBOARD GENERAL INFO -- >> %output_file%
 	wmic baseboard get manufacturer,product,serialnumber | findstr /r /v "^$" >> %output_file%
 	ECHO. >> %output_file%
-	ECHO              -- MOTHERBOARD (RAM LIMITS / SLOTS) -- >> %output_file%
+	ECHO              -- MOTHERBOARD RAM LIMITS (MAXCAPACITY IN KILOBYTES) -- >> %output_file%
 	wmic memphysical get memorydevices,maxcapacity | findstr /r /v "^$" >> %output_file%
 	EXIT /b	
 	

@@ -20,7 +20,7 @@ REM ------------------------------------------------------------
 	CALL :WMIC_MODEL  REM /* PC MODEL/NAME */
 	CALL :.
 	CALL :WMIC_LOGIN   REM /* LOGIN USERNAME/DOMAIN */
-	CALL :WMIC_MOBO     REM /* MOTHERBOARD */
+	CALL :WMIC_MOTHERBOARD     REM /* MOTHERBOARD */
 	CALL :.
 	CALL :WMIC_RAM       REM /* MEMORY */
 	CALL :WMIC_CPU        REM /* PROCESSOR(S) */
@@ -110,13 +110,13 @@ REM ------------------------------------------------------------
 	wmic computersystem get domain,username,partofdomain,primaryownername | findstr /r /v "^$" >> %output_file%
 	EXIT /b	
 	
-: WMIC_MOBO
+: WMIC_MOTHERBOARD
 	ECHO. >> %output_file%
 	ECHO. >> %output_file%
-	ECHO              -- MOBO (MOTHERBOARD) GENERAL INFO -- >> %output_file%
+	ECHO              -- MOTHERBOARD (GENERAL INFO) -- >> %output_file%
 	wmic baseboard get manufacturer,product,serialnumber | findstr /r /v "^$" >> %output_file%
 	ECHO. >> %output_file%
-	ECHO              -- MOBO (MOTHERBOARD) RAM LIMITS / SLOTS -- >> %output_file%
+	ECHO              -- MOTHERBOARD (RAM LIMITS / SLOTS) -- >> %output_file%
 	wmic memphysical get memorydevices,maxcapacity | findstr /r /v "^$" >> %output_file%
 	EXIT /b	
 	

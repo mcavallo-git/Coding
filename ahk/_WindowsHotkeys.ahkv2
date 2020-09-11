@@ -829,14 +829,14 @@ ScrollLock::
 ;            AppsKey + Mouse-Wheel Down
 ;   ACTION:  Simulate a Mouse Left-Click (instead of scrolling up/down)
 ;
-AppsKey & WheelUp::
-AppsKey & WheelDown::
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-	MouseGetPos, MouseX, MouseY
-	MouseClick, Left, %MouseX%, %MouseY%
-	Sleep 10
-	Return
+; AppsKey & WheelUp::
+; AppsKey & WheelDown::
+; 	CoordMode, Mouse, Screen
+; 	SetDefaultMouseSpeed, 0
+; 	MouseGetPos, MouseX, MouseY
+; 	MouseClick, Left, %MouseX%, %MouseY%
+; 	Sleep 10
+; 	Return
 
 
 ; ------------------------------------------------------------
@@ -856,6 +856,8 @@ AppsKey & WheelDown::
 ^#MButton::
 ^#WheelUp::
 ^#WheelDown::
+AppsKey & WheelUp::
+AppsKey & WheelDown::
 
 	VolumeLevel_Increment := 2
 
@@ -864,10 +866,10 @@ AppsKey & WheelDown::
 
 	} Else {
 
-		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up")) {  ; Volume Up
+		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up") || (A_ThisHotkey=="AppsKey & WheelUp")) {  ; Volume Up
 			vDelta := "+" ( VolumeLevel_Increment )
 
-		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down")) {  ; Volume Down
+		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down") || (A_ThisHotkey=="AppsKey & WheelDown")) {  ; Volume Down
 			vDelta := "-" ( VolumeLevel_Increment )
 
 		} Else If (A_ThisHotkey=="#WheelUp") {  ; Volume Up

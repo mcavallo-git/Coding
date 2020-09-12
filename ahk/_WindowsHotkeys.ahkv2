@@ -187,10 +187,10 @@ Pause::
 ;
 ScrollLock::
 	Send !F10
-	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	Fullpath_OpenInExplorer := OutDirname "\Videos"
+	; SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	; Fullpath_OpenInExplorer := OutDirname "\Videos"
 	; Run "%Fullpath_OpenInExplorer%"  ; Open the directory
-		TrayTip, AHK, Recording Saved to: `n"%Fullpath_OpenInExplorer%"  ; Toast Notification
+	; TrayTip, AHK, Recording Saved to: `n"%Fullpath_OpenInExplorer%"  ; Toast Notification
 	Return
 
 

@@ -287,25 +287,7 @@ ScrollLock::
 ;   ACTION:  Type the COMPUTERNAME
 ;
 #H::
-	SetKeyDelay, 0, -1
-	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	WinProcessName := WinGetProcessName("A")
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-	if (WinProcessName == "chrome.exe") {
-		If (WinActive("LastPass")) {  ; IfWinActive - https://www.autohotkey.com/docs/commands/WinActive.htm
-			If (WinActive("Duo Security")) {
-				FormatTime,NowTimestamp,,yyyy-MM-dd_HH-mm-ss
-				EchoStr := A_ComputerName " " NowTimestamp " " WinProcessName
-				Send {Blind}{Text}%EchoStr%
-			} Else {
-				Send {Blind}{Text}%A_ComputerName% 
-			}
-		} Else {
-			Send {Blind}{Text}%A_ComputerName% 
-		}
-	} Else {
-		Send {Blind}{Text}%A_ComputerName% 
-	}
+	SendHostname()
 	Return
 
 
@@ -2296,6 +2278,33 @@ RunWaitMany(CMD_Commands) {
 	Return WScript_Shell_Exec.StdOut.ReadAll()
 }
 
+
+;
+;	SendHostname
+;   |--> Send (type) the current device's Hostname - intended to be used for quick form filling
+;
+SendHostname() {
+	SetKeyDelay, 0, -1
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	HostName_VerbosityLevel := 0
+	WinProcessName := WinGetProcessName("A")
+	WinClass := WinGetClass("A")
+	If (WinProcessName == "chrome.exe") {
+		If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( WinClass == "Chrome_WidgetWin_1" ) ) {
+			; IfWinActive   ///   https://www.autohotkey.com/docs/commands/WinActive.htm  (v1)   ///   https://lexikos.github.io/v2/docs/commands/WinActive.htm  (v2)
+			HostName_VerbosityLevel := 1
+		}
+	}
+	If (HostName_VerbosityLevel >= 1) {
+		FormatTime,NowTimestamp,,yyyy-MM-dd_HH-mm-ss
+		EchoStr := A_ComputerName " " NowTimestamp " " WinProcessName
+		Send {Blind}{Text}%EchoStr%
+	} Else {
+		Send {Blind}{Text}%A_ComputerName% 
+	}
+	Return
+}
 
 ;
 ;	SendSpace

@@ -172,21 +172,22 @@ CapsLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Pause-Break
-;   ACTION:  Replace functionality with combo keypress  [ Ctrl + Alt + Shift + Z ]  (set in whatever app you please)
+;   HOTKEY:  Pause Break / Pause-Break / PauseBreak
+;   ACTION:  Replace functionality with combo keypress  [ Alt + Shift + F10 ]  (set in whatever app you please)
 ;
 Pause::
-	Send ^!+Z
+	; Send ^!+Z
+	Send !+{F10}
 	Return
 
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Scroll-Lock
+;   HOTKEY:  Scroll Lock / Scroll-Lock / ScrollLock
 ;   ACTION:  Replace functionality with combo keypress  [ Alt + F10 ]  (set in whatever app you please)
 ;
 ScrollLock::
-	Send !F10
+	Send !{F10}
 	; SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	; Fullpath_OpenInExplorer := OutDirname "\Videos"
 	; Run "%Fullpath_OpenInExplorer%"  ; Open the directory

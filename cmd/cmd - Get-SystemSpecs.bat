@@ -31,7 +31,7 @@ REM ------------------------------------------------------------
 	
 	START notepad.exe %output_file%
 
-	TIMEOUT /T 5
+	REM TIMEOUT /T 5
 	
 	EXIT
 

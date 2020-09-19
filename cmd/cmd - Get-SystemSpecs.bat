@@ -95,7 +95,7 @@ REM ------------------------------------------------------------
 	ECHO. >> %output_file%
 	ECHO. >> %output_file%
 	ECHO              -- STORAGE DEVICES/DISKS (SIZE IN BYTES) -- >> %output_file%
-	wmic diskdrive get index,caption,size | findstr /r /v "^$" >> %output_file%
+	wmic diskdrive get Caption,DeviceID,Index,Partitions,Size | findstr /r /v "^$" >> %output_file%
 	EXIT /b	
 	
 : WMIC_GRAPHICS

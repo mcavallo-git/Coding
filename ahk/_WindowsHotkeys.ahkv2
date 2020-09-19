@@ -312,9 +312,12 @@ ScrollLock::
 ;   ACTION:  Types the contents of target file
 ;
 #G::
+	KeysPressed := A_ThisHotkey
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	FileToPaste := OutDirname "\.ahk\#g"
-	ExeToRequire_Legend := OutDirname "\.ahk\#g-exe"
+	; FileToPaste := OutDirname "\.ahk\#g"
+	; ExeToRequire_Legend := OutDirname "\.ahk\#g-exe"
+	FileToPaste := OutDirname "\.ahk\" KeysPressed
+	ExeToRequire_Legend := FileToPaste "-exe"
 	DoPaste := 0
 	If (FileExist(ExeToRequire_Legend)) {
 		; Get required/whitelisted exe fullpath to match active against
@@ -323,18 +326,18 @@ ScrollLock::
 		If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
 			DoPaste := 1
 			If (DebugMode == 1) {
-				TrayTip, AHK, % ("ALLOWING paste - Exe match-results: ExeToRequire_Fullpath=[" ExeToRequire_Fullpath  "] WinProcessPath=[" WinProcessPath  "]")
+				Msgbox, % ("ALLOWING paste" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
 			}
 		} Else {
 			DoPaste := 0
 			If (DebugMode == 1) {
-				TrayTip, AHK, % ("BLOCKING paste - Exe match-results: ExeToRequire_Fullpath=[" ExeToRequire_Fullpath  "] WinProcessPath=[" WinProcessPath  "]")
+				Msgbox, % ("BLOCKING paste (required exe must be the currently-active window)" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
 			}
 		}
 	} Else {
 		DoPaste := 1
 		If (DebugMode == 1) {
-			TrayTip, AHK, % ("ALLOWING paste - config-file not found: ExeToRequire_Legend=[" ExeToRequire_Legend  "]")
+			Msgbox, % ("ALLOWING paste - config-file not found:" "`n`n" "ExeToRequire_Legend=[" ExeToRequire_Legend  "]")
 		}
 	}
 	If (DoPaste == 1) {

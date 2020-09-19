@@ -47,7 +47,7 @@ sc delete nvlddmkm
 
 
 REM
-REM STEP 4 - Reinstall your desired drivers from NVidia with the CLEAN install option (note: do not use Express settings, as it does not allow this)
+REM STEP 4 - Reinstall your desired drivers from NVIDIA with the CLEAN install option (note: do not use Express settings, as it does not allow this)
 REM
 
 

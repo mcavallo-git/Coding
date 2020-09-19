@@ -310,46 +310,53 @@ ScrollLock::
 ;
 ;   HOTKEY:  WinKey + G
 ;   HOTKEY:  WinKey + W
-;   ACTION:  Types the contents of target file (optionally requiring that currently-active window matches a secondary file's contained path)
+;   ACTION:  Types the contents of target file - Optionally, only perform the paste if the currently active window's executable filepath matches a predefined 'whitelisted' exe-filepath
 ;
 #G::
 #W::
 	KeysPressed := A_ThisHotkey
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	FileToPaste := OutDirname "\.ahk\" KeysPressed
-	ExeToRequire_Legend := FileToPaste "-exe"
+	FileToPaste_Legend := OutDirname "\.ahk\" KeysPressed
+	ExeToRequire_Legend := FileToPaste_Legend "-exe"
+	FileToPaste_Contents := ""
+	ExeToRequire_Fullpath := ""
 	DoPaste := 0
-	If (FileExist(FileToPaste)) {
+	If (FileExist(FileToPaste_Legend)) {
 		If (FileExist(ExeToRequire_Legend)) {
 			; Get required/whitelisted exe fullpath to match active against
 			FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
 			WinProcessPath := WinGetProcessPath("A")
 			If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
+				; Exe path-matching succeeded
 				DoPaste := 1
 				If (DebugMode == 1) {
 					TrayTip, AHK, % ("ALLOWING paste (" A_ThisHotkey ")" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'")
 				}
 			} Else {
+				; Exe path-matching failed
 				DoPaste := 0
 				If (DebugMode == 1) {
 					TrayTip, AHK, % ("BLOCKING paste (" A_ThisHotkey ")" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'")
 				}
 			}
 		} Else {
+			; Skip matching on the active window's executable fullpath
 			DoPaste := 1
 			If (DebugMode == 1) {
 				TrayTip, AHK, % ("ALLOWING paste (" A_ThisHotkey ")" "`n" "Whitelist-file not found: [" ExeToRequire_Legend "]")
 			}
 		}
 	} Else {
+		; Paste file not found
 		DoPaste := 0
 		If (DebugMode == 1) {
-				TrayTip, AHK, % ("BLOCKING paste (" A_ThisHotkey ")" "`n" "File-to-paste not found: [" FileToPaste "]")
+				TrayTip, AHK, % ("BLOCKING paste (" A_ThisHotkey ")" "`n" "File-to-paste not found: [" FileToPaste_Legend "]")
 		}
 	}
 	If (DoPaste == 1) {
-		FileRead, FilePathContents, %FileToPaste%
-		SendInput, %FilePathContents%
+		; Paste the contents of target file
+		FileRead, FileToPaste_Contents, %FileToPaste_Legend%
+		SendInput, %FileToPaste_Contents%
 	}
 	Return
 

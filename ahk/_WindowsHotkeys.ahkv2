@@ -808,6 +808,28 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  WinKey/AppsKey + XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)
+;   ACTION:  Select previous track in media player
+;
+#XButton1::
+AppsKey & XButton1::
+	Send {Media_Prev}
+	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  WinKey/AppsKey + XButton2 (Mouse-Button 5, Mouse 'Front' Side-Button)
+;   ACTION:  Select next track in media player
+;
+#XButton2::
+AppsKey & XButton2::
+	Send {Media_Next}
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  AppsKey + Mouse-Wheel Up
 ;            AppsKey + Mouse-Wheel Down
 ;   ACTION:  Simulate a Mouse Left-Click (instead of scrolling up/down)
@@ -875,6 +897,7 @@ AppsKey & WheelDown::
 	}
 	ShowVolumeLevel()
 	Return
+
 
 ; ------------------------------------------------------------
 ;
@@ -3096,6 +3119,8 @@ If (False) {
 ; List of Keys:  https://www.autohotkey.com/docs/KeyList.htm
 ;   |
 ;   |--> Modifiers Keys:  https://www.autohotkey.com/docs/KeyList.htm#modifier
+;   |
+;   |--> Multimedia Keys:  https://www.autohotkey.com/docs/KeyList.htm#multimedia
 ;
 ; ------------------------------------------------------------
 ;
@@ -3132,6 +3157,8 @@ If (False) {
 ;   docs.microsoft.com  |  "wscript | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/wscript
 ;
 ;   docs.microsoft.com  |  "WM_SYSCOMMAND message"  |  https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;
+;   gist.github.com  |  "Media keys shortcuts for AutoHotkey · GitHub"  |  https://gist.github.com/mistic100/d3c0c1eb63fb7e4ee545
 ;
 ;   github.com  |  "AutoHotkeyScripts/LaptopBrightnessSetter at master · qwerty12/AutoHotkeyScripts · GitHub"  |  https://github.com/qwerty12/AutoHotkeyScripts/tree/master/LaptopBrightnessSetter
 ;

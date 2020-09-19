@@ -314,30 +314,35 @@ ScrollLock::
 #G::
 	KeysPressed := A_ThisHotkey
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	; FileToPaste := OutDirname "\.ahk\#g"
-	; ExeToRequire_Legend := OutDirname "\.ahk\#g-exe"
 	FileToPaste := OutDirname "\.ahk\" KeysPressed
 	ExeToRequire_Legend := FileToPaste "-exe"
 	DoPaste := 0
 	If (FileExist(ExeToRequire_Legend)) {
-		; Get required/whitelisted exe fullpath to match active against
-		FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
-		WinProcessPath := WinGetProcessPath("A")
-		If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
-			DoPaste := 1
-			If (DebugMode == 1) {
-				Msgbox, % ("ALLOWING paste" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
+		If (FileExist(ExeToRequire_Legend)) {
+			; Get required/whitelisted exe fullpath to match active against
+			FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
+			WinProcessPath := WinGetProcessPath("A")
+			If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
+				DoPaste := 1
+				If (DebugMode == 1) {
+					Msgbox, % ("ALLOWING paste" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
+				}
+			} Else {
+				DoPaste := 0
+				If (DebugMode == 1) {
+					Msgbox, % ("BLOCKING paste (required exe must be the currently-active window)" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
+				}
 			}
 		} Else {
-			DoPaste := 0
+			DoPaste := 1
 			If (DebugMode == 1) {
-				Msgbox, % ("BLOCKING paste (required exe must be the currently-active window)" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
+				Msgbox, % ("ALLOWING paste (legend-file not found - no required exe defined)" "`n`n" "ExeToRequire_Legend=[" ExeToRequire_Legend "]")
 			}
 		}
 	} Else {
-		DoPaste := 1
+		DoPaste := 0
 		If (DebugMode == 1) {
-			Msgbox, % ("ALLOWING paste - config-file not found:" "`n`n" "ExeToRequire_Legend=[" ExeToRequire_Legend  "]")
+			Msgbox, % ("BLOCKING paste (filepath not found)" "`n`n" "FileToPaste=[" FileToPaste "]")
 		}
 	}
 	If (DoPaste == 1) {

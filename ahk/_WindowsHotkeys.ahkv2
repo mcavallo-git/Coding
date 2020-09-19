@@ -59,8 +59,8 @@ LF := "`n"
 
 VerboseOutput := 1
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ;
@@ -313,9 +313,34 @@ ScrollLock::
 ;
 #G::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	FilePathToRead := OutDirname "\.ahk\#g"
-	FileRead, FilePathContents, %FilePathToRead%
-	SendInput, %FilePathContents%
+	FileToPaste := OutDirname "\.ahk\#g"
+	ExeToRequire_Legend := OutDirname "\.ahk\#g-exe"
+	DoPaste := 0
+	If (FileExist(ExeToRequire_Legend)) {
+		; Get required/whitelisted exe fullpath to match active against
+		FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
+		WinProcessPath := WinGetProcessPath("A")
+		If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
+			DoPaste := 1
+			If (DebugMode == 1) {
+				TrayTip, AHK, % ("ALLOWING paste - Exe match-results: ExeToRequire_Fullpath=[" ExeToRequire_Fullpath  "] WinProcessPath=[" WinProcessPath  "]")
+			}
+		} Else {
+			DoPaste := 0
+			If (DebugMode == 1) {
+				TrayTip, AHK, % ("BLOCKING paste - Exe match-results: ExeToRequire_Fullpath=[" ExeToRequire_Fullpath  "] WinProcessPath=[" WinProcessPath  "]")
+			}
+		}
+	} Else {
+		DoPaste := 1
+		If (DebugMode == 1) {
+			TrayTip, AHK, % ("ALLOWING paste - config-file not found: ExeToRequire_Legend=[" ExeToRequire_Legend  "]")
+		}
+	}
+	If (DoPaste == 1) {
+		FileRead, FilePathContents, %FileToPaste%
+		SendInput, %FilePathContents%
+	}
 	Return
 
 
@@ -326,8 +351,8 @@ ScrollLock::
 ;
 #W::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	FilePathToRead := OutDirname "\.ahk\#w"
-	FileRead, FilePathContents, %FilePathToRead%
+	FileToPaste := OutDirname "\.ahk\#w"
+	FileRead, FilePathContents, %FileToPaste%
 	SendInput, %FilePathContents%
 	Return
 
@@ -366,7 +391,7 @@ ScrollLock::
 		Add_Timezone := 1
 		KeysPressed := StrReplace(KeysPressed,"!","")
 	}
-	If (DebugMode = 1) {
+	If (DebugMode == 1) {
 		TrayTip, AHK, A_ThisHotkey=[%A_ThisHotkey%] KeysPressed=[%KeysPressed%] Add_Microseconds=[%Add_Microseconds%] Add_Timezone=[%Add_Timezone%]
 	}
 	If (KeysPressed = "#D") {  ; Win + D
@@ -607,7 +632,7 @@ ScrollLock::
 		}
 	}
 	MouseMove, %MouseX%, %MouseY%
-	If (DebugMode = 1) {
+	If (DebugMode == 1) {
 		SysGet, MonitorCountAfter, 80
 		SysGet, ViewportWidthAfter, 78
 		SysGet, ViewportHeightAfter, 79
@@ -1487,7 +1512,7 @@ ActiveWindow_ToggleRestoreMaximize() {
 			DebugString := "%DebugString%, Do WinMaximize"
 		}
 	}
-	If (DebugMode = 1) {
+	If (DebugMode == 1) {
 		TrayTip, AHK, %DebugString%
 	}
 	Return
@@ -2271,7 +2296,7 @@ RemoveToolTip() {
 RunWaitOne(CMD_Command) {
 	WScript_Shell := ComObjCreate("WScript.Shell")
 	Run_Command := A_ComSpec " /C `"" CMD_Command "`" "
-	If (DebugMode = 1) {
+	If (DebugMode == 1) {
 		TooltipOutput := "Run_Command=[" Run_Command "]"
 		Tooltip, %TooltipOutput%
 		ClearTooltip(7500)
@@ -2365,7 +2390,7 @@ ShowCursorCoordinates(FollowDuration_Seconds) {
 ShowCursorPixelColor(FollowDuration_Seconds) {
 	Global DebugMode
 	CoordMode, Mouse, Screen
-	If (DebugMode = 1) {
+	If (DebugMode == 1) {
 		TrayTip, AHK, %DebugString%
 		OutputFile := A_Desktop "\rgblogging.txt"
 		Logfile := FileOpen(OutputFile, "w")
@@ -2410,12 +2435,12 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
 		Tooltip, %TooltipOutput%
 		; Tooltip, %FFXIV_Nickname%
-		If (DebugMode = 1) {
+		If (DebugMode == 1) {
 			Logfile.write("%TooltipOutput%`n")
 		}
 		Sleep %PollDuration_ms%
 	}
-	If (DebugMode = 1) {
+	If (DebugMode == 1) {
 		Logfile.close()
 	}
 	ClearTooltip(0)

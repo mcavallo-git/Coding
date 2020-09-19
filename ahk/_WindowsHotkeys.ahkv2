@@ -328,28 +328,30 @@ ScrollLock::
 				; Exe path-matching succeeded
 				DoPaste := 1
 				If (DebugMode == 1) {
-					TrayTip, AHK, % ("ALLOWING paste (" A_ThisHotkey ")" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'")
+					TrayTip, AHK, % ("Info - Allowing paste" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'")
 				}
 			} Else {
 				; Exe path-matching failed
 				DoPaste := 0
-				; If (DebugMode == 1) {
-					; !! Always show this error !!
-					TrayTip, AHK, % ("Error - BLOCKING paste (" A_ThisHotkey ")" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'")
-				; }
+				If (DebugMode == 1) {
+					TrayTip, AHK, % ("Error (invalid exe) - Blocking paste" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'")
+				} Else {
+					; !! Always show at-least the shortened form of this error !!
+					TrayTip, AHK, % ("Error (invalid exe) - Blocking paste")
+				}
 			}
 		} Else {
 			; Skip matching on the active window's executable fullpath
 			DoPaste := 1
 			If (DebugMode == 1) {
-				TrayTip, AHK, % ("ALLOWING paste (" A_ThisHotkey ")" "`n" "Whitelist-file not found: [" ExeToRequire_Legend "]")
+				TrayTip, AHK, % ("Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])")
 			}
 		}
 	} Else {
 		; Paste file not found
 		DoPaste := 0
 		If (DebugMode == 1) {
-				TrayTip, AHK, % ("Error - BLOCKING paste (" A_ThisHotkey ")" "`n" "File-to-paste not found: [" FileToPaste_Legend "]")
+				TrayTip, AHK, % ("Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]")
 		}
 	}
 	If (DoPaste == 1) {

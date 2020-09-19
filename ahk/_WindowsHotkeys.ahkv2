@@ -358,6 +358,9 @@ ScrollLock::
 		FileRead, FileToPaste_Contents, %FileToPaste_Legend%
 		SendInput, %FileToPaste_Contents%
 	}
+	; Clear variable-contents to avoid unintentional caching of file-contents (especially to avoid large file caching)
+	FileToPaste_Contents := ""
+	ExeToRequire_Fullpath := ""
 	Return
 
 

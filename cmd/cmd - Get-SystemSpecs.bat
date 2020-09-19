@@ -30,6 +30,8 @@ REM ------------------------------------------------------------
 	CALL :WMIC_NIC           REM /* NETWORK INFO */
 	
 	START notepad.exe %output_file%
+
+	TIMEOUT /T 5
 	
 	EXIT
 

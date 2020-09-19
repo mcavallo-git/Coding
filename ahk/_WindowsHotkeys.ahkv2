@@ -308,16 +308,18 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Win + G
-;   ACTION:  Types the contents of target file
+;   HOTKEY:  WinKey + G
+;   HOTKEY:  WinKey + W
+;   ACTION:  Types the contents of target file (optionally requiring that currently-active window matches a secondary file's contained path)
 ;
 #G::
+#W::
 	KeysPressed := A_ThisHotkey
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	FileToPaste := OutDirname "\.ahk\" KeysPressed
 	ExeToRequire_Legend := FileToPaste "-exe"
 	DoPaste := 0
-	If (FileExist(ExeToRequire_Legend)) {
+	If (FileExist(FileToPaste)) {
 		If (FileExist(ExeToRequire_Legend)) {
 			; Get required/whitelisted exe fullpath to match active against
 			FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
@@ -325,43 +327,30 @@ ScrollLock::
 			If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
 				DoPaste := 1
 				If (DebugMode == 1) {
-					Msgbox, % ("ALLOWING paste" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
+					TrayTip, AHK, % ("ALLOWING paste (" A_ThisHotkey ")" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'")
 				}
 			} Else {
 				DoPaste := 0
 				If (DebugMode == 1) {
-					Msgbox, % ("BLOCKING paste (required exe must be the currently-active window)" "`n`n" "ExeToRequire_Fullpath" "`n" ExeToRequire_Fullpath "`n`n" "WinProcessPath" "`n" WinProcessPath "`n`n" "FileToPaste" "`n" FileToPaste "]")
+					TrayTip, AHK, % ("BLOCKING paste (" A_ThisHotkey ")" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'")
 				}
 			}
 		} Else {
 			DoPaste := 1
 			If (DebugMode == 1) {
-				Msgbox, % ("ALLOWING paste (legend-file not found - no required exe defined)" "`n`n" "ExeToRequire_Legend=[" ExeToRequire_Legend "]")
+				TrayTip, AHK, % ("ALLOWING paste (" A_ThisHotkey ")" "`n" "Whitelist-file not found: [" ExeToRequire_Legend "]")
 			}
 		}
 	} Else {
 		DoPaste := 0
 		If (DebugMode == 1) {
-			Msgbox, % ("BLOCKING paste (filepath not found)" "`n`n" "FileToPaste=[" FileToPaste "]")
+				TrayTip, AHK, % ("BLOCKING paste (" A_ThisHotkey ")" "`n" "File-to-paste not found: [" FileToPaste "]")
 		}
 	}
 	If (DoPaste == 1) {
 		FileRead, FilePathContents, %FileToPaste%
 		SendInput, %FilePathContents%
 	}
-	Return
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Win + W
-;   ACTION:  Types the contents of target file
-;
-#W::
-	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	FileToPaste := OutDirname "\.ahk\#w"
-	FileRead, FilePathContents, %FileToPaste%
-	SendInput, %FilePathContents%
 	Return
 
 

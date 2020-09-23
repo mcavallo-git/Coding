@@ -20,7 +20,6 @@ Copy-Item -Path ($From) -Destination ($To) -Force;
 # Download and use "Json-Decoder" instead of using less-powerful (but native) "ConvertFrom-Json"
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
 
-
 <# Prep all non-matching metadata files to match their associated media-files' basenames #>
 ForEach ($EachExt In @('GIF','JPG','MOV','PNG')) {
 	For ($i = 0; $i -LT 10; $i++) {

@@ -17,20 +17,24 @@ If ($True) {
 			Get-ChildItem "./*/*.${EachExt}(${i}).json" | ForEach-Object {
 				$Each_FullName = "$($_.FullName)";
 				$Each_NewFullName = (("${Each_FullName}").Replace(".${EachExt}(${i}).json","(${i}).${EachExt}.json"));
+				Write-Host "Renaming  `"${Each_FullName}`" to `"${Each_NewFullName}`" ...";
 				Rename-Item -Path ("${Each_FullName}") -NewName ("${Each_NewFullName}");
 			}
 		}
 	}
 
-	<# Remove excess "metadata.json" files #>
+	<# Remove excess directory metadata files matching basic filenames such as "metadata.json", "metadata(1).json", "metadata(2).json", etc. #>
 	$Parent_Directory = ".";
 	$Filenames_To_Remove = @();
-	$Filenames_To_Remove += ("metadata*.json");
+	$Filenames_To_Remove += ("metadata.json");
+	For ($i = 0; $i -LT 50; $i++) {
+		$Filenames_To_Remove += ("metadata(${i}).json");
+	}
 	Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -ErrorAction "SilentlyContinue" `
 	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
 	| ForEach-Object { `
 		$Each_Fullpath = ("$($_.FullName)");
-		Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
+		Write-Host "Removing `"${Each_Fullpath}`" ...";
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Each_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 	}
 
@@ -79,9 +83,9 @@ If ($True) {
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 			<# Delete old file(s) to the Recycle Bin #>
-			Write-Host "Removing file with path  `"${EachMetadata_Fullpath}`"  ..."; `
+			Write-Host "Removing `"${EachMetadata_Fullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
-			Write-Host "Removing file with path  `"${EachMediaFile_CurrentFullpath}`"  ..."; `
+			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
 	}
@@ -112,10 +116,11 @@ If ($True) {
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 			<# Delete old file(s) to recycle bin #>
-			Write-Host "Removing file with path  `"${EachMediaFile_CurrentFullpath}`"  ..."; `
+			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
 	}
+
 	<# Message to user to let them manually remove invalid "...(1).JPG" files #>
 	Write-Host "`n`n"
 	Write-Host "!!! Manual action required !!!";

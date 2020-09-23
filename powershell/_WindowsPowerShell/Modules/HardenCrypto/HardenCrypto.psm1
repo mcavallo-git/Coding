@@ -2,7 +2,7 @@
 If ($False) { # RUN THIS SCRIPT ON-THE-FLY:
 
 
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCrypto/HardenCrypto.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; HardenCrypto;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCrypto/HardenCrypto.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command HardenCrypto;
 
 }
 # ------------------------------------------------------------

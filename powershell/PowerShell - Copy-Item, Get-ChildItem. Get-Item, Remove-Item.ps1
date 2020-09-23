@@ -67,8 +67,28 @@ If ($True) {
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+			<# Delete old file(s) to the Recycle Bin #>
 			Write-Host "Removing file with path  `"${EachMetadata_Fullpath}`"  ..."; `
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
+			Write-Host "Removing file with path  `"${EachMediaFile_CurrentFullpath}`"  ..."; `
+			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
+		}
+	}
+
+	<# Update remaining files which dont have related metadata #>
+	ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
+		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
+			$EachMediaFile_CurrentFullpath = ($_.FullName);
+			$EachMediaFile_BaseName= ($_.BaseName);
+			$EachMediaFile_DirectoryName = ($_.DirectoryName);
+			$EachMediaFile_GrandDirname = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
+			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirname}\${EachMediaFile_BaseName}";
+			<# Update the date-created timestamp/datetime on the target media file  #>
+			$EachCreation_Date = (Get-Date "${EachMediaFile_DirectoryName}");
+			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_Date);
+			<# Copy files to the conjoined folder #>
+			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+			<# Delete old file(s) to recycle bin #>
 			Write-Host "Removing file with path  `"${EachMediaFile_CurrentFullpath}`"  ..."; `
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}

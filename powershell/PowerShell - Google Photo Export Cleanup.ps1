@@ -12,6 +12,8 @@ If ($True) {
 	Add-Type -AssemblyName Microsoft.VisualBasic;
 
 	<# Prep all non-matching metadata files to match their associated media-files' basenames #>
+	Write-Host "";
+	Write-Host "Info: Prepping all non-matching metadata files to match their associated media-files' basenames";
 	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
 		For ($i = 0; $i -LT 10; $i++) {
 			Get-ChildItem "./*/*.${EachExt}(${i}).json" | ForEach-Object {
@@ -24,6 +26,8 @@ If ($True) {
 	}
 
 	<# Remove excess directory metadata files matching basic filenames such as "metadata.json", "metadata(1).json", "metadata(2).json", etc. #>
+	Write-Host "";
+	Write-Host "Info: Removing excess directory metadata files";
 	$Parent_Directory = ".";
 	$Filenames_To_Remove = @();
 	$Filenames_To_Remove += ("metadata.json");
@@ -39,6 +43,8 @@ If ($True) {
 	}
 
 	<# Locate all json metadata files #>
+	Write-Host "";
+	Write-Host "Info: Updating media files which have associated JSON metadata content files";
 	(Get-Item ".\*\*.json") | ForEach-Object {
 		$EachMetadata_Fullpath = ($_.FullName);
 		$EachMetadata_BaseName = ($_.BaseName);
@@ -91,6 +97,8 @@ If ($True) {
 	}
 
 	<# Update remaining files which don't have related metadata #>
+	Write-Host "";
+	Write-Host "Info: Updating media files based off of directory name (yyyy-mm-dd format)";
 	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
 		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
 			$EachMediaFile_CurrentFullpath = ($_.FullName);

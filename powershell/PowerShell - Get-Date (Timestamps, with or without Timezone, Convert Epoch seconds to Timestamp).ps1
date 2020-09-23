@@ -100,8 +100,6 @@ Write-Host "";
 }
 
 
-
-
 # ------------------------------------------------------------
 # Relative DateTime Queries (Common English Statements)
 #   |
@@ -112,6 +110,19 @@ $GetDate_LastMonday = (Get-Date 0:0).AddDays(1 + ([Int](Get-Date).DayOfWeek * -1
 $LastMondaysDate = (Get-Date 0:0).AddDays(1 + ([Int](Get-Date).DayOfWeek * -1));
 
 Write-Host (Get-Date $LastMondaysDate -UFormat "%Y-%m-%d");
+
+
+# ------------------------------------------------------------
+# 
+# Set date-created and last-modified datetime/timestamp on target file
+#
+If ($True) {
+	$Filepath_UpdateTimestamps = "${Home}\Desktop\file-created-on-1970-01-01.txt";
+	Set-Content -Path ("${Filepath_UpdateTimestamps}") -Value ("");
+	$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+	(Get-Item "${Filepath_UpdateTimestamps}").CreationTime = ($Updated_CreationTime);
+	(Get-Item "${Filepath_UpdateTimestamps}").LastWriteTime = ($Updated_CreationTime);
+}
 
 
 # ------------------------------------------------------------

@@ -5,8 +5,11 @@
 
 If ($True) {
 
-	# Download and use "Json-Decoder" instead of using less-powerful (but native) "ConvertFrom-Json"
+	<# Download and use "Json-Decoder" instead of using less-powerful (but native) "ConvertFrom-Json" #>
 	Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
+	
+	<# Required to use Recycle Bin action 'SendToRecycleBin' #>
+	Add-Type -AssemblyName Microsoft.VisualBasic;
 
 	<# Prep all non-matching metadata files to match their associated media-files' basenames #>
 	ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
@@ -28,7 +31,7 @@ If ($True) {
 	| ForEach-Object { `
 		$Each_Fullpath = ("$($_.FullName)");
 		Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
-		Remove-Item -Path ("${Each_Fullpath}") -Force; `
+		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Each_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 	}
 
 	<# Locate all json metadata files #>
@@ -50,6 +53,8 @@ If ($True) {
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
+			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
 	}
 

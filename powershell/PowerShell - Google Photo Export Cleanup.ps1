@@ -70,7 +70,8 @@ If ($True) {
 			$EachMediaFile_GrandDirname = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
 			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirname}\${EachMediaFile_Name}";
 			<# Update the date-created timestamp/datetime on the target media file  #>
-			$EachCreation_Date = (Get-Date "${EachMediaFile_DirectoryName}");
+			$EachCreation_EpochSeconds = (Get-Date -Date ("${EachMediaFile_DirectoryName}") -UFormat ("%s"));
+			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_Date);
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;

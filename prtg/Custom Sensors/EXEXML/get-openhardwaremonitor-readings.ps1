@@ -48,6 +48,11 @@ $Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
 $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
 $Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD.txt";
 
+$Logfile_Freq_CPU_Core = "${Logfile_Basename}-Freq-CPU-Core.txt";
+$Logfile_Freq_GPU_Core = "${Logfile_Basename}-Freq-GPU-Core.txt";
+$Logfile_Freq_GPU_Mem = "${Logfile_Basename}-Freq-GPU-Mem.txt";
+$Logfile_Freq_GPU_Shad = "${Logfile_Basename}-Freq-GPU-Shad.txt";
+
 $Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump.txt";
 $Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator.txt";
 $Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD.txt";
@@ -105,7 +110,7 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/temperature/") {
 		$EachSensorReading_Obj.Description = "CPU Temps, $($EachSensorReading_Obj.Description)";
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "cpu/.+/clock/") {
-		$EachSensorReading_Obj.Description = "CPU Clock, $($EachSensorReading_Obj.Description)";
+		$EachSensorReading_Obj.Description = "CPU Clocks, $($EachSensorReading_Obj.Description)";
 
 	#
 	# Memory (RAM) Readings
@@ -122,7 +127,7 @@ For ($i=0; ($i -LT (($CsvImport.Paths).Count)); $i++) {
 		$EachSensorReading_Obj.Description = "GPU Temps, $($EachSensorReading_Obj.Description)";
 
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/clock/") {
-		$EachSensorReading_Obj.Description = "GPU Clock, $($EachSensorReading_Obj.Description)";
+		$EachSensorReading_Obj.Description = "GPU Clocks, $($EachSensorReading_Obj.Description)";
 
 	} ElseIf (($EachSensorReading_Obj.Path) -Match "gpu/.+/control/") {
 		$EachSensorReading_Obj.Description = "GPU Fan (% PWM), $($EachSensorReading_Obj.Description)";
@@ -161,6 +166,11 @@ $XmlOutput_Array_All = @();
 $Temp_CPU = "";
 $Temp_GPU = "";
 $Temp_SSD = "";
+
+$Freq_CPU_Core = "";
+$Freq_GPU_Core = "";
+$Freq_GPU_Mem = "";
+$Freq_GPU_Shad = "";
 
 $Speed_FAN_PMP = "";
 $Speed_FAN_PMP_PRC = "";
@@ -209,8 +219,16 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 
 	If (${EachSensorDesc} -Eq "CPU Temps, CPU Package") {
 		$Temp_CPU = "${EachSensorVal}";
+	} ElseIf (${EachSensorDesc} -Eq "CPU Clocks, CPU Core #1") {
+		$Freq_CPU_Core = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "GPU Temps, GPU Core") {
 		$Temp_GPU = "${EachSensorVal}";
+	} ElseIf (${EachSensorDesc} -Eq "GPU Clocks, GPU Core") {
+		$Freq_GPU_Core = "${EachSensorVal}";
+	} ElseIf (${EachSensorDesc} -Eq "GPU Clocks, GPU Memory") {
+		$Freq_GPU_Mem = "${EachSensorVal}";
+	} ElseIf (${EachSensorDesc} -Eq "GPU Clocks, GPU Shader") {
+		$Freq_GPU_Shad = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Temps, Temperature #2") {
 		$Temp_SSD = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #6") {
@@ -262,6 +280,31 @@ If ([String]::IsNullOrEmpty(${Temp_SSD})) {
 	Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
 }
 
+
+# Frequency/Clock - CPU Temp
+If ([String]::IsNullOrEmpty(${Freq_CPU_Core})) {
+	Write-Output "${Freq_CPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Freq_CPU_Core}";
+} Else {
+	Write-Output "${Freq_CPU_Core}:OK" | Out-File -NoNewline "${Logfile_Freq_CPU_Core}";
+}
+# Frequency/Clock - GPU Core
+If ([String]::IsNullOrEmpty(${Freq_GPU_Core})) {
+	Write-Output "${Freq_GPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Freq_GPU_Core}";
+} Else {
+	Write-Output "${Freq_GPU_Core}:OK" | Out-File -NoNewline "${Logfile_Freq_GPU_Core}";
+}
+# Frequency/Clock - GPU Memory
+If ([String]::IsNullOrEmpty(${Freq_GPU_Mem})) {
+	Write-Output "${Freq_GPU_Mem}:DOWN" | Out-File -NoNewline "${Logfile_Freq_GPU_Mem}";
+} Else {
+	Write-Output "${Freq_GPU_Mem}:OK" | Out-File -NoNewline "${Logfile_Freq_GPU_Mem}";
+}
+# Frequency/Clock - GPU Shader
+If ([String]::IsNullOrEmpty(${Freq_GPU_Shad})) {
+	Write-Output "${Freq_GPU_Shad}:DOWN" | Out-File -NoNewline "${Logfile_Freq_GPU_Shad}";
+} Else {
+	Write-Output "${Freq_GPU_Shad}:OK" | Out-File -NoNewline "${Logfile_Freq_GPU_Shad}";
+}
 
 
 # Water-Pump Fan-Speed (RPM)

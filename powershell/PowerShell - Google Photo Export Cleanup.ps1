@@ -84,16 +84,18 @@ If ($True) {
 
 		<# Ensure associated media-file exists #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
-			<# Update the date-created timestamp/datetime on the target media file  #>
-			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+			<# Update the date-created & last-modified timestamp/datetime on the target media file  #>
+			(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($EachCreation_DateTime);
+			(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($EachCreation_DateTime);
 			<# Delete old file(s) to the Recycle Bin #>
 			Write-Host "Removing `"${EachMetadata_Fullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
+
 	}
 
 	<# Update remaining files which don't have related metadata #>
@@ -117,12 +119,12 @@ If ($True) {
 			}
 			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
 			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
-			<# Update the date-created timestamp/datetime on the target media file  #>
-			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList ${DateComponent_yyyy}, ${DateComponent_mm}, ${DateComponent_dd}, 0, 0, 0, 0);
-			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
-			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_Date);
-			<# Copy files to the conjoined folder #>
+			<# Copy media file to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+			<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList ${DateComponent_yyyy}, ${DateComponent_mm}, ${DateComponent_dd}, 0, 0, 0, 0);
+			(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($EachCreation_Date);
+			(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($EachCreation_Date);
 			<# Delete old file(s) to recycle bin #>
 			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');

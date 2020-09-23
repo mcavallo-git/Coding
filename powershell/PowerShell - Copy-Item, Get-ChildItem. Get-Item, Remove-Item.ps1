@@ -92,6 +92,8 @@ Get-ChildItem -Path ("C:\Windows\System32") -File -Recurse -Depth (1) -Force -Er
 #
 # Citation(s)
 #
+#   docs.microsoft.com  |  "about_Properties - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_properties?view=powershell-5.1
+#
 #   docs.microsoft.com  |  "Copy-Item - Copies an item from one location to another"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/copy-item?view=powershell-5.1
 #
 #   docs.microsoft.com  |  "Get-ChildItem - Gets the items and child items in one or more specified locations"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem?view=powershell-5.1

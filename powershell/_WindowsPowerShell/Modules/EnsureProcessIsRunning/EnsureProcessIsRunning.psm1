@@ -1,3 +1,11 @@
+If ($False) {
+# RUN THIS SCRIPT REMOTELY / ON-THE-FLY:
+
+
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+
+}
 #
 # PowerShell - EnsureProcessIsRunning
 #   |--> Description

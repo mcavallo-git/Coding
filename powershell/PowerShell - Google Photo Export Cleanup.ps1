@@ -79,8 +79,8 @@ If ($True) {
 				If (${Updated_CreationTime} -NE $Null) {
 					<# Copy media file to the conjoined folder #>
 					Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
-					Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 					<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+					Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 					(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
 					(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);
 					<# Delete old file(s) to recycle bin #>
@@ -105,7 +105,8 @@ If ($True) {
 		$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
 		$EachMediaFile_Name = $EachMetadata_Object.title;
 		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
-		$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
+		$Original_CreationTime = $Null;
+		$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 		<# By default, look for media-filename as the metadata-filename minus the ".json" extension #>
 		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
 		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirName}\${EachMetadata_BaseName}";
@@ -133,11 +134,13 @@ If ($True) {
 		}
 		<# Ensure associated media-file exists #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
+			$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 			<# Update the date-created & last-modified timestamp/datetime on the target media file  #>
-			(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($EachCreation_DateTime);
-			(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($EachCreation_DateTime);
+			Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
+			(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = (${Updated_CreationTime});
+			(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = (${Updated_CreationTime});
 			<# Delete old file(s) to the Recycle Bin #>
 			Write-Host "Removing `"${EachMetadata_Fullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
@@ -175,8 +178,8 @@ If ($True) {
 			If (${Updated_CreationTime} -NE $Null) {
 				<# Copy media file to the conjoined folder #>
 				Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
-				Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 				<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+				Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 				(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
 				(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);
 				<# Delete old file(s) to recycle bin #>

@@ -23,6 +23,7 @@ If ($True) {
 			Get-ChildItem "./*/*.${EachExt}(${i}).json" | ForEach-Object {
 				$Each_FullName = "$($_.FullName)";
 				$Each_NewFullName = (("${Each_FullName}").Replace(".${EachExt}(${i}).json","(${i}).${EachExt}.json"));
+				Write-Host "";
 				Write-Host "Renaming  `"${Each_FullName}`" to `"${Each_NewFullName}`" ...";
 				Rename-Item -Path ("${Each_FullName}") -NewName ("${Each_NewFullName}");
 			}
@@ -43,6 +44,7 @@ If ($True) {
 	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
 	| ForEach-Object { `
 		$Each_Fullpath = ("$($_.FullName)");
+		Write-Host "";
 		Write-Host "Removing `"${Each_Fullpath}`" ...";
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Each_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 	}

@@ -47,7 +47,7 @@ If ($True) {
 
 	<# Update media files using metadata on each file #>
 	Write-Host "";
-	Write-Host "Info: Updating media files based off of directory name (yyyy-mm-dd format)";
+	Write-Host "Info: Updating media files based off of on-file metadata w/ fallback to directory name (in yyyy-mm-dd format)";
 	$Encoding_ASCII = ([System.Text.Encoding]::ASCII);
 	$Encoding_UNICODE = ([System.Text.Encoding]::UNICODE)
 	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
@@ -97,7 +97,7 @@ If ($True) {
 
 	<# Update media files using metadata on associated .json file #>
 	Write-Host "";
-	Write-Host "Info: Updating media files which have associated JSON metadata content files";
+	Write-Host "Info: Updating media files based off of associated .json metadata file-content";
 	(Get-Item ".\*\*.json") | ForEach-Object {
 		$EachMetadata_Fullpath = ($_.FullName);
 		$EachMetadata_BaseName = ($_.BaseName);

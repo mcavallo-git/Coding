@@ -22,10 +22,12 @@ If ($True) {
 	$FullPath = "C:\foo.txt";
 	$Basename_NoExt = [IO.Path]::GetFileNameWithoutExtension("${FullPath}");
 	$ExtensionOnly = [IO.Path]::GetExtension("${FullPath}");
+	$DirNameOnly = [IO.Path]::GetDirectoryName("${FullPath}");
 	Write-Host "";
 	Write-Host "`n `$FullPath = `"${FullPath}`"";
 	Write-Host "`n `$Basename_NoExt  = `"${Basename_NoExt}`"";
 	Write-Host "`n `$ExtensionOnly  = `"${ExtensionOnly}`"";
+	Write-Host "`n `$DirNameOnly  = `"${DirNameOnly}`"";
 	Write-Host "";
 }
 

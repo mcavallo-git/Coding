@@ -65,7 +65,7 @@ If ($True) {
 			If ("${Each_DateTaken_Unmodified}" -NE "") {
 				<# Remove Unicode Characters from string #>
 				$Each_DateTaken_NoUnicodeChars = "";
-				[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unmodified})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [char]$_; };};
+				[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unmodified})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [Char]$_; };};
 				$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}"));
 			} Else {
 				<# Fallback to regex-parsing out the date component from the media-file's dirname (in yyyy-mm-dd format) #>

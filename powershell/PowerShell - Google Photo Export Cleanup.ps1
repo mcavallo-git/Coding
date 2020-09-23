@@ -44,17 +44,29 @@ If ($True) {
 		$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
 		$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
 		$EachMediaFile_Name = $EachMetadata_Object.title;
+		$EachMediaFile_BaseName = [IO.Path]::GetFileNameWithoutExtension("${EachMediaFile_Name}");
+		$EachMediaFile_Ext = [IO.Path]::GetExtension("${EachMediaFile_Name}");
 		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
 		$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMediaFile_Name}";
 		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMediaFile_Name}";
 		<# Handle boundary cases with differences between metadata filename and actual filename #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $False) {
+			<# Handle the file being named the same as the metadata-file minus the ".json" extension #>
 			If ((Test-Path "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}") -Eq $True) {
 				$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
 				$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
-			} Else If ((Test-Path "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}") -Eq $True) {
-
+			} Else {
+				$Google_Filename_MaxCharsWithExt = 51;
+				$EachBaseNameLength_NoExt = ($Google_Filename_MaxCharsWithExt - ("${EachMediaFile_Ext}".Length));
+				<# Handle filenames which excede Google's maximum filename character-length (seems to be 51 including period + extension (as-of 20200922T213406) ) #>
+				If (("${EachMediaFile_BaseName}".Length) -NE (${EachBaseNameLength_NoExt})) {
+					$Test_EachMediaFile_BaseName = ("${EachMediaFile_BaseName}".Substring(0,${EachBaseNameLength_NoExt}));
+					If ((Test-Path "${EachMetadata_DirectoryName}\${Test_EachMediaFile_BaseName}${EachMediaFile_Ext}") -Eq $True) {
+						$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${Test_EachMediaFile_BaseName}${EachMediaFile_Ext}";
+						$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${Test_EachMediaFile_BaseName}${EachMediaFile_Ext}";
+					}
+				}
 			}
 		}
 

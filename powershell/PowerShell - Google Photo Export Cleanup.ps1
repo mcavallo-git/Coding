@@ -5,9 +5,12 @@
 
 If ($True) {
 
-	<# Download and use "Json-Decoder" instead of using less-powerful (but native) "ConvertFrom-Json" #>
+	<# Include module "Get-FileMetadata" #>
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-FileMetadata/Get-FileMetadata.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command Get-FileMetadata;
+
+	<# Include module "JsonDecoder" #>
 	Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
-	
+
 	<# Required to use Recycle Bin action 'SendToRecycleBin' #>
 	Add-Type -AssemblyName Microsoft.VisualBasic;
 
@@ -42,7 +45,57 @@ If ($True) {
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Each_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 	}
 
-	<# Locate all json metadata files #>
+	<# Update media files using metadata on each file #>
+	Write-Host "";
+	Write-Host "Info: Updating media files based off of directory name (yyyy-mm-dd format)";
+	$Encoding_ASCII = ([System.Text.Encoding]::ASCII);
+	$Encoding_UNICODE = ([System.Text.Encoding]::UNICODE)
+	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
+		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
+			$EachMediaFile_CurrentFullpath = ($_.FullName);
+			$EachMediaFile_Name= ($_.Name);
+			$EachMediaFile_DirectoryName = ($_.DirectoryName);
+			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
+			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
+			$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
+			$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+			$Each_Metadata = (Get-FileMetadata -File "${EachMediaFile_CurrentFullpath}");
+			$Each_DateTaken_Unmodified = "$(${Each_Metadata}.'Date taken')";
+			<# Attempt to use metadata attached to the file, first #>
+			If ("${Each_DateTaken_Unmodified}" -NE "") {
+				<# Remove Unicode Characters from string #>
+				$Each_DateTaken_NoUnicodeChars = "";
+				[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unmodified})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [char]$_; };};
+				$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}"));
+			} Else {
+				<# Fallback to regex-parsing out the date component from the media-file's dirname (in yyyy-mm-dd format) #>
+				$EachMediaFile_Directory_BaseName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
+				$Needle   = [Regex]::Match($EachMediaFile_Directory_BaseName, '^(\d\d\d\d)-(\d\d)-(\d\d).*');
+				$DateComponent_yyyy=1970;
+				$DateComponent_mm=1;
+				$DateComponent_dd=1;
+				If ($Needle.Success -ne $False) {
+					$DateComponent_yyyy=($Needle.Groups[1]).Value;
+					$DateComponent_mm=($Needle.Groups[2]).Value;
+					$DateComponent_dd=($Needle.Groups[3]).Value;
+				}
+				$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList ${DateComponent_yyyy}, ${DateComponent_mm}, ${DateComponent_dd}, 0, 0, 0, 0);
+			}
+			If (${Updated_CreationTime} -NE $Null) {
+				<# Copy media file to the conjoined folder #>
+				Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+				Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
+				<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+				(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
+				(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);
+				<# Delete old file(s) to recycle bin #>
+				Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
+				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
+			}
+		}
+	}
+
+	<# Update media files using metadata on associated .json file #>
 	Write-Host "";
 	Write-Host "Info: Updating media files which have associated JSON metadata content files";
 	(Get-Item ".\*\*.json") | ForEach-Object {
@@ -81,7 +134,6 @@ If ($True) {
 				}
 			}
 		}
-
 		<# Ensure associated media-file exists #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
 			<# Copy files to the conjoined folder #>
@@ -92,40 +144,6 @@ If ($True) {
 			<# Delete old file(s) to the Recycle Bin #>
 			Write-Host "Removing `"${EachMetadata_Fullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
-			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
-			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
-		}
-
-	}
-
-	<# Update remaining files which don't have related metadata #>
-	Write-Host "";
-	Write-Host "Info: Updating media files based off of directory name (yyyy-mm-dd format)";
-	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
-		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
-			$EachMediaFile_CurrentFullpath = ($_.FullName);
-			$EachMediaFile_Name= ($_.Name);
-			$EachMediaFile_DirectoryName = ($_.DirectoryName);
-			<# Regex parse out the media-file's dirname's date component (in yyyy-mm-dd format) #>
-			$EachMediaFile_Directory_BaseName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
-			$Needle   = [Regex]::Match($EachMediaFile_Directory_BaseName, '^(\d\d\d\d)-(\d\d)-(\d\d).*');
-			$DateComponent_yyyy=1970;
-			$DateComponent_mm=1;
-			$DateComponent_dd=1;
-			If ($Needle.Success -ne $False) {
-				$DateComponent_yyyy=($Needle.Groups[1]).Value;
-				$DateComponent_mm=($Needle.Groups[2]).Value;
-				$DateComponent_dd=($Needle.Groups[3]).Value;
-			}
-			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
-			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
-			<# Copy media file to the conjoined folder #>
-			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
-			<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
-			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList ${DateComponent_yyyy}, ${DateComponent_mm}, ${DateComponent_dd}, 0, 0, 0, 0);
-			(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($EachCreation_Date);
-			(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($EachCreation_Date);
-			<# Delete old file(s) to recycle bin #>
 			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}

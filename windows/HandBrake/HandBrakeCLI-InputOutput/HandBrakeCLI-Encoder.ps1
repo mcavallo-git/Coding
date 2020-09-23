@@ -267,8 +267,6 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 				Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
 				Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
 				<# Send the input file to the Recycle Bin #>
-				# Remove-Item -Path ("${EachInput_FullName}") -Force;
-				# [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile('d:\foo.txt','OnlyErrorDialogs','SendToRecycleBin');
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachInput_FullName}",'OnlyErrorDialogs','SendToRecycleBin');
 			}
 			Write-Output "";

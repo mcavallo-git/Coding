@@ -1,5 +1,15 @@
 # ------------------------------------------------------------
 # 
+# Delete file by sending to Recycle Bin
+# 
+${Filepath_ToDelete} = "${Home}\Desktop\tester.txt";
+Add-Type -AssemblyName Microsoft.VisualBasic; <# Required to use Recycle Bin action 'SendToRecycleBin' #>
+[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin');
+
+
+
+# ------------------------------------------------------------
+# 
 # Empty Recycle Bin -> Show popup w/ text "Empty the Recycle Bin?" -> If "Yes" button is selected, them Empty the Recycle Bin
 # 
 powershell.exe -NoProfile -WindowStyle Hidden -Command "[void] [System.Reflection.Assembly]::LoadWithPartialName('System.Windows.Forms'); If (([System.Windows.Forms.MessageBox]::Show('Empty the Recycle Bin?','Confirmation Required',[System.Windows.Forms.MessageBoxButtons]::YesNo)) -Eq 'Yes') { cmd.exe /C 'ECHO Y|powershell.exe -NoProfile -Command Clear-RecycleBin'; };";

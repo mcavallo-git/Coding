@@ -427,6 +427,21 @@ function SyncRegistry {
 			)
 		};
 
+		# Prefetch
+		#  |--> Disable it
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
+			Props=@(
+				@{
+					Description="Windows Prefetch Settings:  0=[Off], 1=[Application launch prefetching enabled], 2=[Boot prefetching enabled], 3=[Applaunch and Boot enabled (Optimal and Default)]"; 
+					Name="EnablePrefetcher";
+					Type="DWord";
+					Value=("0");
+					Delete=$False;
+				}
+			)
+		};
+
 
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
@@ -972,6 +987,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
+#
+#   winbuzzer.com  |  "Windows 10: How to Disable/Enable Prefetch and Superfetch - WinBuzzer"  |  https://winbuzzer.com/2020/03/14/windows-10-how-to-disable-enable-prefetch-and-superfetch-xcxwbt/
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
 #

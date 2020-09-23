@@ -72,6 +72,7 @@ If ($True) {
 			}
 			<# Attempt to use metadata attached to the file, first #>
 			If (${Each_DateTaken_Unicode} -NE $Null) {
+				Write-Host "Passed Each_DateTaken_Unicode test for `"${EachMediaFile_Name}`"";
 				<# Remove Unicode Characters from string #>
 				$Each_DateTaken_NoUnicodeChars = "";
 				[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unicode})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [Char]$_; };};
@@ -87,6 +88,8 @@ If ($True) {
 					Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 					[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 				}
+			} Else {
+				Write-Host "Failed Each_DateTaken_Unicode test for `"${EachMediaFile_Name}`"";
 			}
 			$Each_Metadata = $Null;
 		}

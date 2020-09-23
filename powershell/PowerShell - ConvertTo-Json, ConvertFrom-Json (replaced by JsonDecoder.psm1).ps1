@@ -1,6 +1,8 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get Windows OS' build info
+# PowerShell - PowerShell - ConvertTo-Json, ConvertFrom-Json (replaced by JsonDecoder.psm1)
+#               |
+#               |-->  EX) Get Windows OS' build info
 #
 # ------------------------------------------------------------
 #

@@ -68,12 +68,13 @@ $Exe_NVidiaSMI = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
-$CsvTrimmer = (Get-Content -Path ("${Logfile_Fullpath}"));
+$LogContent_FirstTwoLines = (Get-Content -Path ("${Logfile_Fullpath}") -TotalCount 2);
+$LogContent_LastLine = (Get-Content -Path ("${Logfile_Fullpath}") -Tail 1);
 
 $CsvImport = @{};
-$CsvImport.Paths = (@("$($CsvTrimmer[0])").Split(","));
-$CsvImport.Descriptions = (@("$($CsvTrimmer[1])").Split(","));
-$CsvImport.Values = (("$($CsvTrimmer[-1])").Split(","));
+$CsvImport.Paths = (@("$($LogContent_FirstTwoLines[0])").Split(","));
+$CsvImport.Descriptions = (@("$($LogContent_FirstTwoLines[1])").Split(","));
+$CsvImport.Values = (@("$($LogContent_LastLine)").Split(","));
 
 $Ohw_SensorReadings = @();
 

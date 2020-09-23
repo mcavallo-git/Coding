@@ -43,7 +43,16 @@ If ($True) {
 		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
 		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
 		<# Ensure associated media-file exists #>
-		If (Test-Path "${EachMediaFile_CurrentFullpath}") {
+		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $False) {
+			ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
+				$EachMediaFile_TestFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}.${EachExt}";
+				If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
+					$EachMediaFile_CurrentFullpath = "${EachMediaFile_TestFullpath}";
+					Break;
+				}
+			}
+		}
+		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
 			<# Get the date-created timestamp/datetime from the json-file #>
 			$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
 			$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});

@@ -64,11 +64,11 @@ If ($True) {
 			<# Check various metadata tag-names #>
 			$PropName = "Date taken"; <# PNG, HEIC #>
 			If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
-				$Each_DateTaken_Unicode = (${Each_Metadata}[${Prop}]);
+				$Each_DateTaken_Unicode = (${Each_Metadata}."${Prop}");
 			}
 			$PropName = "Media created"; <# MP4s #>
 			If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
-				$Each_DateTaken_Unicode = (${Each_Metadata}[${Prop}]);
+				$Each_DateTaken_Unicode = (${Each_Metadata}."${Prop}");
 			}
 			<# Attempt to use metadata attached to the file, first #>
 			If (${Each_DateTaken_Unicode} -NE $Null) {
@@ -88,6 +88,7 @@ If ($True) {
 					[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 				}
 			}
+			$Each_Metadata = $Null;
 		}
 	}
 

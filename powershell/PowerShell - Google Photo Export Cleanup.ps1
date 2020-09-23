@@ -22,7 +22,7 @@ If ($True) {
 		}
 	}
 
-	<# Remove Excess "metadata.json" files #>
+	<# Remove excess "metadata.json" files #>
 	$Parent_Directory = ".";
 	$Filenames_To_Remove = @();
 	$Filenames_To_Remove += ("metadata.json");
@@ -37,27 +37,18 @@ If ($True) {
 	<# Locate all json metadata files #>
 	(Get-Item ".\*\*.json") | ForEach-Object {
 		$EachMetadata_Fullpath = ($_.FullName);
-		$EachMetadata_BaseName= ($_.BaseName);
 		$EachMetadata_DirectoryName = ($_.DirectoryName);
 		$EachMetaData_GrandDirname = (Split-Path -Path ("${EachMetadata_DirectoryName}") -Parent);
+		<# Parse the metadata file for media filename & date-created timestamp/datetime #>
+		$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
+		$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
+		$EachMetadata_BaseName = $EachMetadata_Object.title;
+		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
+		$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
 		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
 		<# Ensure associated media-file exists #>
-		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $False) {
-			ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
-				$EachMediaFile_TestFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}.${EachExt}";
-				If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
-					$EachMediaFile_CurrentFullpath = "${EachMediaFile_TestFullpath}";
-					Break;
-				}
-			}
-		}
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
-			<# Get the date-created timestamp/datetime from the json-file #>
-			$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
-			$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
-			$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
-			$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 			<# Update the date-created timestamp/datetime on the target media file  #>
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
 			<# Copy files to the conjoined folder #>
@@ -70,7 +61,7 @@ If ($True) {
 		}
 	}
 
-	<# Update remaining files which dont have related metadata #>
+	<# Update remaining files which don't have related metadata #>
 	ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
 		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
 			$EachMediaFile_CurrentFullpath = ($_.FullName);

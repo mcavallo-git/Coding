@@ -117,11 +117,12 @@ Write-Host (Get-Date $LastMondaysDate -UFormat "%Y-%m-%d");
 # Set date-created and last-modified datetime/timestamp on target file
 #
 If ($True) {
-	$Filepath_UpdateTimestamps = "${Home}\Desktop\file-created-on-1970-01-01.txt";
+	$Filepath_UpdateTimestamps = "${Home}\Desktop\file-created-on-01-Jan-1990.txt";
 	Set-Content -Path ("${Filepath_UpdateTimestamps}") -Value ("");
-	$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+	$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1990, 1, 1, 0, 1, 1, 1);
 	(Get-Item "${Filepath_UpdateTimestamps}").CreationTime = ($Updated_CreationTime);
 	(Get-Item "${Filepath_UpdateTimestamps}").LastWriteTime = ($Updated_CreationTime);
+	explorer.exe "$([IO.Path]::GetDirectoryName("${Filepath_UpdateTimestamps}"))";
 }
 
 

@@ -108,6 +108,14 @@ If ($True) {
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
 	}
+	<# Message to user to let them manually remove invalid "...(1).JPG" files #>
+	Write-Host "`n`n"
+	Write-Host "!!! Manual action required !!!";
+	Write-Host "";
+	Write-Host "    For some reason, Google leaves-in invalid photos with a (1) at the end of their name, while also mixing in other (1) photos/videos which are valid.";
+	Write-Host "";
+	Write-Host "    Please view the output directory and manually remove these files (view as folder using 'Large icons' view and locate .jpg files with no thumbnails)";
+	Write-Host "`n`n";
 
 }
 

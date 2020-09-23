@@ -20,6 +20,26 @@ Copy-Item -Path ($From) -Destination ($To) -Force;
 # Download and use "Json-Decoder" instead of using less-powerful (but native) "ConvertFrom-Json"
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
 
+
+Get-ChildItem "./*/*.png(1).json" | ForEach-Object {
+
+$NewName = (($_.Name).Replace(".png(1).json","(1).png.json"));
+
+$NewName;
+Rename-Item -NewName { $_.Name -replace ".png(1).json","(1).png.json" };
+}
+
+<# Prep all non-matching metadata files to match their associated media-files' basenames #>
+ForEach ($EachExt In @('GIF','JPG','MOV','PNG')) {
+	For ($i = 0; $i -LT 10; $i++) {
+		Get-ChildItem "./*/*..${EachExt}(${i}).json" | ForEach-Object {
+			$Each_FullName = "$($_.FullName)";
+			$Each_NewFullName = (("${Each_FullName}").Replace("..${EachExt}(${i}).json","(${i}).${EachExt}.json"));
+			Rename-Item -Path ("${Each_FullName}") -NewName ("${Each_NewFullName}");
+		}
+	}
+}
+
 <# Locate all json metadata files #>
 (Get-Item ".\*\*.json") | ForEach-Object {
 	$EachMetadata_Fullpath = ($_.FullName);

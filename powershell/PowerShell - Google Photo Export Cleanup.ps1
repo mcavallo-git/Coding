@@ -19,6 +19,18 @@ If ($True) {
 		}
 	}
 
+	<# Remove Excess "metadata.json" files #>
+	$Parent_Directory = ".";
+	$Filenames_To_Remove = @();
+	$Filenames_To_Remove += ("metadata.json");
+	Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -ErrorAction "SilentlyContinue" `
+	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
+	| ForEach-Object { `
+		$Each_Fullpath = ("$($_.FullName)");
+		Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
+		Remove-Item -Path ("${Each_Fullpath}") -Force; `
+	}
+
 	<# Locate all json metadata files #>
 	(Get-Item ".\*\*.json") | ForEach-Object {
 		$EachMetadata_Fullpath = ($_.FullName);

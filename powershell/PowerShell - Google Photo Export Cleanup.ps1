@@ -94,6 +94,7 @@ If ($True) {
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 			<# Update the date-created & last-modified timestamp/datetime on the target media file  #>
+			Write-Host "";
 			Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 			(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = (${Updated_CreationTime});
 			(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = (${Updated_CreationTime});
@@ -141,6 +142,7 @@ If ($True) {
 					<# Copy media file to the conjoined folder #>
 					Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 					<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+					Write-Host "";
 					Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 					(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
 					(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);
@@ -186,6 +188,7 @@ If ($True) {
 				<# Copy media file to the conjoined folder #>
 				Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 				<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+				Write-Host "";
 				Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
 				(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
 				(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);

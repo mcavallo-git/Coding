@@ -56,6 +56,8 @@ $DoEncoding_InSameWindow = $True;
 Write-Output "";
 Write-Output "Info:  Using working directory `"${WorkingDir}`"...";
 
+$Benchmark = New-Object System.Diagnostics.Stopwatch;
+
 
 # ------------------------------------------------------------
 #
@@ -256,16 +258,23 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			#                                                 #
 			#   ! ! !   Perform the actual encoding   ! ! !   #
 			#                                                 #
+			${Benchmark}.Reset();
+			${Benchmark}.Start();
 			If (${DoEncoding_InSameWindow} -Eq $False) {
 				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"")  -Wait); $EachExitCode=$?;
 			} Else {
 				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
 			}
+			${Benchmark}.Stop();
 			If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
 				$TotalVideoEncodes++;
 				Write-Output "`n`n";
 				Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
-				Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
+				Write-Output "  |";
+				Write-Output "  |-->  Encoding duration:  $(${Benchmark}.Elapsed.TotalSeconds) seconds";
+				Write-Output "  |";
+				Write-Output "  |-->  Input filepath:  `"${EachInput_FullName}`"";
+				Write-Output "  |-->  Output filepath:  `"${EachOutput_FullName}`"";
 				(Get-Item "${EachOutput_FullName}").CreationTime = ((Get-Item "${EachInput_FullName}").CreationTime);
 				(Get-Item "${EachOutput_FullName}").LastWriteTime = ((Get-Item "${EachInput_FullName}").CreationTime);
 				<# Send the input file to the Recycle Bin #>

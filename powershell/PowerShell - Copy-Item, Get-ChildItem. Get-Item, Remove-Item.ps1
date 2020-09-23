@@ -21,14 +21,6 @@ Copy-Item -Path ($From) -Destination ($To) -Force;
 Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
 
 
-Get-ChildItem "./*/*.png(1).json" | ForEach-Object {
-
-$NewName = (($_.Name).Replace(".png(1).json","(1).png.json"));
-
-$NewName;
-Rename-Item -NewName { $_.Name -replace ".png(1).json","(1).png.json" };
-}
-
 <# Prep all non-matching metadata files to match their associated media-files' basenames #>
 ForEach ($EachExt In @('GIF','JPG','MOV','PNG')) {
 	For ($i = 0; $i -LT 10; $i++) {
@@ -56,7 +48,6 @@ ForEach ($EachExt In @('GIF','JPG','MOV','PNG')) {
 		<# Update the date-created timestamp/datetime on the target media file  #>
 		(Get-Item "${EachMediaFile_Fullpath}").CreationTime = ($EachCreation_DateTime);
 		<# .CreationTime=("02 June 2020 03:22:03 UTC") #>
-
 	}
 }
 
@@ -75,8 +66,7 @@ Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -Er
 	$Each_Fullpath = ("$($_.FullName)");
 	Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
 	Remove-Item -Path ("${Each_Fullpath}") -Force; `
-} `
-;
+}
 
 
 # ------------------------------------------------------------

@@ -37,7 +37,7 @@ If ($True) {
 			<# Update the date-created timestamp/datetime on the target media file  #>
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
 			<# Copy files to the conjoined folder #>
-			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}");
+			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 		}
 	}
 

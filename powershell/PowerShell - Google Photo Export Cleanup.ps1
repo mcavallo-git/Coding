@@ -247,10 +247,11 @@ If ($True) {
 	<# Handle invalid "...(1).JPG" files by putting them in a directory and letting user manually inspect and delete them #>
 	$Filepath_InvalidFiles = ".\possible-invalid-files_to-be-checked";
 	New-Item -ItemType "Directory" -Path ("${Filepath_InvalidFiles}") | Out-Null;
+	Set-Content -Path ("${Filepath_InvalidFiles}\_manually-check_if-these-files-are-valid.txt") -Value ("");
 	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
 		Get-ChildItem -Path (".\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Like "*(1).${EachExt}" } | ForEach-Object { Move-Item -Path ("$($_.FullName)") -Destination ("${Filepath_InvalidFiles}\$($_.Name)"); }
 	}
-	Write-Host "`n`n"
+	Write-Host "`n`n";
 	Write-Host "!!! Manual action required !!!";
 	Write-Host "";
 	Write-Host "    For some reason, Google leaves-in invalid photos with a (1) at the end of their name, while also mixing in other (1) photos/videos which are valid.";
@@ -259,7 +260,6 @@ If ($True) {
 	Write-Host "     |";
 	Write-Host "     |--> Manually inspect & remove any files which are deemed invalid files (start by viewing folder using 'Large icons' view and locate files with no thumbnails)";
 	Write-Host "`n`n";
-
 	explorer.exe "${Filepath_InvalidFiles}";
 
 };

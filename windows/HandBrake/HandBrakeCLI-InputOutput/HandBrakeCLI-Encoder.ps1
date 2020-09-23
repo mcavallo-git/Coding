@@ -266,6 +266,8 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 				Write-Output "`n`n";
 				Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
 				Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
+				(Get-Item "${EachOutput_FullName}").CreationTime = ((Get-Item "${EachInput_FullName}").CreationTime);
+				(Get-Item "${EachOutput_FullName}").LastWriteTime = ((Get-Item "${EachInput_FullName}").CreationTime);
 				<# Send the input file to the Recycle Bin #>
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachInput_FullName}",'OnlyErrorDialogs','SendToRecycleBin');
 			}

@@ -48,10 +48,10 @@ $Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
 $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
 $Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD.txt";
 
-$Logfile_Freq_CPU_Core = "${Logfile_Basename}-Freq-CPU-Core.txt";
-$Logfile_Freq_GPU_Core = "${Logfile_Basename}-Freq-GPU-Core.txt";
-$Logfile_Freq_GPU_Mem = "${Logfile_Basename}-Freq-GPU-Mem.txt";
-$Logfile_Freq_GPU_Shad = "${Logfile_Basename}-Freq-GPU-Shad.txt";
+$Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core.txt";
+$Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core.txt";
+$Logfile_Clock_GPU_Mem = "${Logfile_Basename}-Clock-GPU-Mem.txt";
+$Logfile_Clock_GPU_Shad = "${Logfile_Basename}-Clock-GPU-Shad.txt";
 
 $Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump.txt";
 $Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator.txt";
@@ -167,10 +167,10 @@ $Temp_CPU = "";
 $Temp_GPU = "";
 $Temp_SSD = "";
 
-$Freq_CPU_Core = "";
-$Freq_GPU_Core = "";
-$Freq_GPU_Mem = "";
-$Freq_GPU_Shad = "";
+$Clock_CPU_Core = "";
+$Clock_GPU_Core = "";
+$Clock_GPU_Mem = "";
+$Clock_GPU_Shad = "";
 
 $Speed_FAN_PMP = "";
 $Speed_FAN_PMP_PRC = "";
@@ -220,15 +220,15 @@ ForEach ($EachSensorReading_Obj In ${Ohw_SensorReadings}) { # ForEach (Array-Bas
 	If (${EachSensorDesc} -Eq "CPU Temps, CPU Package") {
 		$Temp_CPU = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "CPU Clocks, CPU Core #1") {
-		$Freq_CPU_Core = "${EachSensorVal}";
+		$Clock_CPU_Core = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "GPU Temps, GPU Core") {
 		$Temp_GPU = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "GPU Clocks, GPU Core") {
-		$Freq_GPU_Core = "${EachSensorVal}";
+		$Clock_GPU_Core = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "GPU Clocks, GPU Memory") {
-		$Freq_GPU_Mem = "${EachSensorVal}";
+		$Clock_GPU_Mem = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "GPU Clocks, GPU Shader") {
-		$Freq_GPU_Shad = "${EachSensorVal}";
+		$Clock_GPU_Shad = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Temps, Temperature #2") {
 		$Temp_SSD = "${EachSensorVal}";
 	} ElseIf (${EachSensorDesc} -Eq "Mobo Fans (RPM), Fan #6") {
@@ -282,28 +282,28 @@ If ([String]::IsNullOrEmpty(${Temp_SSD})) {
 
 
 # Frequency/Clock - CPU Temp
-If ([String]::IsNullOrEmpty(${Freq_CPU_Core})) {
-	Write-Output "${Freq_CPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Freq_CPU_Core}";
+If ([String]::IsNullOrEmpty(${Clock_CPU_Core})) {
+	Write-Output "${Clock_CPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}";
 } Else {
-	Write-Output "${Freq_CPU_Core}:OK" | Out-File -NoNewline "${Logfile_Freq_CPU_Core}";
+	Write-Output "${Clock_CPU_Core}:OK" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}";
 }
 # Frequency/Clock - GPU Core
-If ([String]::IsNullOrEmpty(${Freq_GPU_Core})) {
-	Write-Output "${Freq_GPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Freq_GPU_Core}";
+If ([String]::IsNullOrEmpty(${Clock_GPU_Core})) {
+	Write-Output "${Clock_GPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}";
 } Else {
-	Write-Output "${Freq_GPU_Core}:OK" | Out-File -NoNewline "${Logfile_Freq_GPU_Core}";
+	Write-Output "${Clock_GPU_Core}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}";
 }
 # Frequency/Clock - GPU Memory
-If ([String]::IsNullOrEmpty(${Freq_GPU_Mem})) {
-	Write-Output "${Freq_GPU_Mem}:DOWN" | Out-File -NoNewline "${Logfile_Freq_GPU_Mem}";
+If ([String]::IsNullOrEmpty(${Clock_GPU_Mem})) {
+	Write-Output "${Clock_GPU_Mem}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}";
 } Else {
-	Write-Output "${Freq_GPU_Mem}:OK" | Out-File -NoNewline "${Logfile_Freq_GPU_Mem}";
+	Write-Output "${Clock_GPU_Mem}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}";
 }
 # Frequency/Clock - GPU Shader
-If ([String]::IsNullOrEmpty(${Freq_GPU_Shad})) {
-	Write-Output "${Freq_GPU_Shad}:DOWN" | Out-File -NoNewline "${Logfile_Freq_GPU_Shad}";
+If ([String]::IsNullOrEmpty(${Clock_GPU_Shad})) {
+	Write-Output "${Clock_GPU_Shad}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}";
 } Else {
-	Write-Output "${Freq_GPU_Shad}:OK" | Out-File -NoNewline "${Logfile_Freq_GPU_Shad}";
+	Write-Output "${Clock_GPU_Shad}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}";
 }
 
 

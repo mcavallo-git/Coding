@@ -1,0 +1,1 @@
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Mem.txt

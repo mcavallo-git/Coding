@@ -41,17 +41,14 @@ Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-I
 }
 
 
-
 # ------------------------------------------------------------
 #
 # REMOVE FILES WHILE FIRST VERIFYING THAT THEY EXIST
 #
 
-$Parent_Directory = "C:\Windows\System32";
+$Parent_Directory = ".";
 $Filenames_To_Remove = @();
-$Filenames_To_Remove += ("AsusDownloadAgent.exe");
-$Filenames_To_Remove += ("AsusDownLoadLicense.exe");
-$Filenames_To_Remove += ("AsusUpdateCheck.exe");
+$Filenames_To_Remove += ("metadata.json");
 Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -ErrorAction "SilentlyContinue" `
 | Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
 | ForEach-Object { `

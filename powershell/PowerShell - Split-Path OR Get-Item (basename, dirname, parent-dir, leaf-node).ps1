@@ -16,6 +16,20 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
+# IO.Path --> Remove extension from filename or fullpath
+#
+If ($True) {
+	$FullPath = "C:\foo.txt";
+	$Basename_NoExt = [IO.Path]::GetFileNameWithoutExtension("${FullPath}");
+	Write-Host "";
+	Write-Host "`n `$FullPath = `"${FullPath}`"";
+	Write-Host "`n `$Basename_NoExt  = `"${Basename_NoExt}`"";
+	Write-Host "";
+}
+
+
+# ------------------------------------------------------------
+#
 # Get-Item --> Get target filepath's dirname, basename, file-extension, etc.
 #
 If ($True) {

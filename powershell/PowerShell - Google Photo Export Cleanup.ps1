@@ -16,6 +16,7 @@ If ($True) {
 
 	<# Prep all non-matching metadata files to match their associated media-files' basenames #>
 	Write-Host "";
+	Write-Host "------------------------------------------------------------";
 	Write-Host "Info: Prepping all non-matching metadata files to match their associated media-files' basenames";
 	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
 		For ($i = 0; $i -LT 10; $i++) {
@@ -30,6 +31,7 @@ If ($True) {
 
 	<# Remove excess directory metadata files matching basic filenames such as "metadata.json", "metadata(1).json", "metadata(2).json", etc. #>
 	Write-Host "";
+	Write-Host "------------------------------------------------------------";
 	Write-Host "Info: Removing excess directory metadata files";
 	$Parent_Directory = ".";
 	$Filenames_To_Remove = @();
@@ -47,6 +49,7 @@ If ($True) {
 
 	<# Update media files using metadata on associated .json file #>
 	Write-Host "";
+	Write-Host "------------------------------------------------------------";
 	Write-Host "Info: Updating media files based off of associated .json metadata file-content";
 	(Get-Item ".\*\*.json") | ForEach-Object {
 		$EachMetadata_Fullpath = ($_.FullName);
@@ -104,6 +107,7 @@ If ($True) {
 
 	<# Update media files using metadata on each file #>
 	Write-Host "";
+	Write-Host "------------------------------------------------------------";
 	Write-Host "Info: Updating media files based off of self-contained metadata (already on each file)";
 	$Encoding_ASCII = ([System.Text.Encoding]::ASCII);
 	$Encoding_UNICODE = ([System.Text.Encoding]::UNICODE)
@@ -153,6 +157,7 @@ If ($True) {
 
 	<# Update media files using directory name (in yyyy-mm-dd format) #>
 	Write-Host "";
+	Write-Host "------------------------------------------------------------";
 	Write-Host "Info: Updating media files based off of directory name (in yyyy-mm-dd format)";
 	$Encoding_ASCII = ([System.Text.Encoding]::ASCII);
 	$Encoding_UNICODE = ([System.Text.Encoding]::UNICODE)

@@ -96,9 +96,9 @@ If ($True) {
 			$NameCollision_LoopIterations = 0;
 			Do {
 				If (${NameCollision_LoopIterations} -Eq 0) {
-					$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}";
+					$EachMediaFile_FinalFullpath = "$([System.IO.Path]::GetDirectoryName(${EachMediaFile_FinalFullpath}))\$([System.IO.Path]::GetFileNameWithoutExtension(${EachMediaFile_FinalFullpath}))$([IO.Path]::GetExtension("${EachMediaFile_FinalFullpath}"))"
 				} Else {
-					$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}.${NameCollision_LoopIterations}";
+					$EachMediaFile_FinalFullpath = "$([System.IO.Path]::GetDirectoryName(${EachMediaFile_FinalFullpath}))\$([System.IO.Path]::GetFileNameWithoutExtension(${EachMediaFile_FinalFullpath})).${NameCollision_LoopIterations}$([IO.Path]::GetExtension("${EachMediaFile_FinalFullpath}"))"
 				}
 				$NameCollision_LoopIterations++;
 			} While (((Test-Path "${EachMediaFile_FinalFullpath}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
@@ -159,9 +159,9 @@ If ($True) {
 						$NameCollision_LoopIterations = 0;
 						Do {
 							If (${NameCollision_LoopIterations} -Eq 0) {
-								$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}";
+								$EachMediaFile_FinalFullpath = "$([System.IO.Path]::GetDirectoryName(${EachMediaFile_FinalFullpath}))\$([System.IO.Path]::GetFileNameWithoutExtension(${EachMediaFile_FinalFullpath}))$([IO.Path]::GetExtension("${EachMediaFile_FinalFullpath}"))"
 							} Else {
-								$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}.${NameCollision_LoopIterations}";
+								$EachMediaFile_FinalFullpath = "$([System.IO.Path]::GetDirectoryName(${EachMediaFile_FinalFullpath}))\$([System.IO.Path]::GetFileNameWithoutExtension(${EachMediaFile_FinalFullpath})).${NameCollision_LoopIterations}$([IO.Path]::GetExtension("${EachMediaFile_FinalFullpath}"))"
 							}
 							$NameCollision_LoopIterations++;
 						} While (((Test-Path "${EachMediaFile_FinalFullpath}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
@@ -218,9 +218,9 @@ If ($True) {
 				$NameCollision_LoopIterations = 0;
 				Do {
 					If (${NameCollision_LoopIterations} -Eq 0) {
-						$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}";
+						$EachMediaFile_FinalFullpath = "$([System.IO.Path]::GetDirectoryName(${EachMediaFile_FinalFullpath}))\$([System.IO.Path]::GetFileNameWithoutExtension(${EachMediaFile_FinalFullpath}))$([IO.Path]::GetExtension("${EachMediaFile_FinalFullpath}"))"
 					} Else {
-						$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}.${NameCollision_LoopIterations}";
+						$EachMediaFile_FinalFullpath = "$([System.IO.Path]::GetDirectoryName(${EachMediaFile_FinalFullpath}))\$([System.IO.Path]::GetFileNameWithoutExtension(${EachMediaFile_FinalFullpath})).${NameCollision_LoopIterations}$([IO.Path]::GetExtension("${EachMediaFile_FinalFullpath}"))"
 					}
 					$NameCollision_LoopIterations++;
 				} While (((Test-Path "${EachMediaFile_FinalFullpath}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));

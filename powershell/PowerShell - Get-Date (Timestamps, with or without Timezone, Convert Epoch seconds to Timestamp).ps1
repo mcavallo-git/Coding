@@ -114,7 +114,7 @@ Write-Host (Get-Date $LastMondaysDate -UFormat "%Y-%m-%d");
 
 # ------------------------------------------------------------
 # 
-# Set date-created and last-modified datetime/timestamp on target file
+# Set file "Date Created" and "Last Modified" datetime/timestamp(s)
 #
 If ($True) {
 	$Filepath_UpdateTimestamps = "${Home}\Desktop\file-created-01-Jan-1990.txt";

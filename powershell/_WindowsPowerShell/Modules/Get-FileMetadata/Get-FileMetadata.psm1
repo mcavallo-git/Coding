@@ -5,104 +5,67 @@
 
 #>
 # ------------------------------------------------------------
-Function Get-FileMetadata {
+function Get-FileMetaData
+{
 	<#
-		.SYNOPSIS
-			Get file metadata from files in a target folder.
-		
-		.DESCRIPTION
-			Retreives file metadata from files in a target path, or file paths, to display information on the target files.
-			Useful for understanding application files and identifying metadata stored in them. Enables the administrator to view metadata for application control scenarios.
+	.SYNOPSIS
+		Get-FileMetaData returns metadata information about a single file.
 
-		.NOTES
-			Author: Aaron Parker
-			Twitter: @stealthpuppy
-		
-		.LINK
-			https://github.com/aaronparker/Install-VisualCRedistributables
+	.DESCRIPTION
+		This function will return all metadata information about a specific file. It can be used to access the information stored in the filesystem.
+	
+	.EXAMPLE
+		Get-FileMetaData -File "c:\temp\image.jpg"
 
-		.OUTPUTS
-			[System.Array]
+		Get information about an image file.
 
-		.PARAMETER Path
-			A target path in which to scan files for metadata.
+	.EXAMPLE
+		Get-FileMetaData -File "c:\temp\image.jpg" | Select Dimensions
 
-		.PARAMETER Include
-			Gets only the specified items.
+		Show the dimensions of the image.
 
-		.EXAMPLE
-			Get-FileMetadata -Path "C:\Users\aaron\AppData\Local\GitHubDesktop"
+	.EXAMPLE
+		Get-ChildItem -Path .\ -Filter *.exe | foreach {Get-FileMetaData -File $_.Name | Select Name,"File version"}
 
-			Description:
-			Scans the folder specified in the Path variable and returns the metadata for each file.
+		Show the file version of all binary files in the current folder.
 	#>
-	[CmdletBinding(SupportsShouldProcess = $False)]
-	[OutputType([Array])]
-	Param (
-		[Parameter(Mandatory = $True, Position = 0, ValueFromPipeline = $True, ValueFromPipelineByPropertyName = $True, `
-				HelpMessage = 'Specify a target path, paths or a list of files to scan for metadata.')]
-		[Alias('FullName', 'PSPath')]
-		[string[]]$Path,
 
-		[Parameter(Mandatory = $False, Position = 1, ValueFromPipeline = $False, `
-				HelpMessage = 'Gets only the specified items.')]
-		[Alias('Filter')]
-		[string[]]$Include = @('*.exe', '*.dll', '*.ocx', '*.msi', '*.ps1', '*.vbs', '*.js', '*.cmd', '*.bat')
-	)
-	Begin {
-		# Measure time taken to gather data
-		$StopWatch = [system.diagnostics.stopwatch]::StartNew()
+	param([Parameter(Mandatory=$True)][string]$File = $(throw "Parameter -File is required."))
 
-		# RegEx to grab CN from certificates
-		$FindCN = "(?:.*CN=)(.*?)(?:,\ O.*)"
-
-		Write-Verbose "Beginning metadata trawling."
-		$Files = @()
+	if(!(Test-Path -Path $File))
+	{
+		throw "File does not exist: $File"
+		Exit 1
 	}
-	Process {
-		# For each path in $Path, check that the path exists
-		ForEach ($Loc in $Path) {
-			If (Test-Path -Path $Loc -IsValid) {
-				# Get the item to determine whether it's a file or folder
-				If ((Get-Item -Path $Loc).PSIsContainer) {
-					# Target is a folder, so trawl the folder for .exe and .dll files in the target and sub-folders
-					Write-Verbose "Getting metadata for files in folder: $Loc"
-					$items = Get-ChildItem -Path $Loc -Recurse -Include $Include
-				}
-				Else {
-					# Target is a file, so just get metadata for the file
-					Write-Verbose "Getting metadata for file: $Loc"
-					$items = Get-Item -Path $Loc
-				}
 
-				# Create an array from what was returned for specific data and sort on file path
-				$Files += $items | Select-Object @{Name = "Path"; Expression = {$_.FullName}}, `
-				@{Name = "Owner"; Expression = {(Get-Acl -Path $_.FullName).Owner}}, `
-				@{Name = "Vendor"; Expression = {$(((Get-AcDigitalSignature -Path $_ -ErrorAction SilentlyContinue).Subject -replace $FindCN, '$1') -replace '"', "")}}, `
-				@{Name = "Company"; Expression = {$_.VersionInfo.CompanyName}}, `
-				@{Name = "Description"; Expression = {$_.VersionInfo.FileDescription}}, `
-				@{Name = "Product"; Expression = {$_.VersionInfo.ProductName}}, `
-				@{Name = "ProductVersion"; Expression = {$_.VersionInfo.ProductVersion}}, `
-				@{Name = "FileVersion"; Expression = {$_.VersionInfo.FileVersion}}
-			}
-			Else {
-				Write-Error "Path does not exist: $Loc"
-			}
+	$tmp = Get-ChildItem $File
+	$pathname = $tmp.DirectoryName
+	$filename = $tmp.Name
+
+	$shellobj = New-Object -ComObject Shell.Application
+	$folderobj = $shellobj.namespace($pathname)
+	$fileobj = $folderobj.parsename($filename)
+	$results = New-Object PSOBJECT
+	for($a=0; $a -le 294; $a++)
+	{
+		if($folderobj.getDetailsOf($folderobj, $a) -and $folderobj.getDetailsOf($fileobj, $a)) 
+		{
+			$hash += @{$($folderobj.getDetailsOf($folderobj, $a)) = $($folderobj.getDetailsOf($fileobj, $a))}
+			$results | Add-Member $hash -Force
 		}
 	}
-	End {
+	$results
+}
 
-		# Return the array of file paths and metadata
-		$StopWatch.Stop()
-		Write-Verbose "Metadata trawling complete. Script took $($StopWatch.Elapsed.TotalMilliseconds) ms to complete."
-		Return $Files | Sort-Object -Property Path
-	}
+<# Only export the module if the caller is attempting to import it #>
+If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
+	Export-ModuleMember -Function "Get-MetaData";
 }
 
 
 # ------------------------------------------------------------
 # Citation(s)
 #
-#   www.powershellgallery.com  |  "PowerShell Gallery | Private/Get-FileMetadata.ps1 1.3.7.60"  |  https://www.powershellgallery.com/packages/VcRedist/1.3.7.60/Content/Private%5CGet-FileMetadata.ps1
+#   gallery.technet.microsoft.com  |  "Script Get-FileMetaData"  |  https://gallery.technet.microsoft.com/scriptcenter/Get-FileMetaData-3a7ddea7
 #
 # ------------------------------------------------------------

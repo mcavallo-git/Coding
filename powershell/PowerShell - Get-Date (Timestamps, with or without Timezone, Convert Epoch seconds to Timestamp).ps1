@@ -80,7 +80,7 @@ $DecimalSec_Mod_Padded = "$(([Decimal](Get-Date -UFormat ('%s')))%1)".Substring(
 
 If ($True) {
 
-# Example: Convert a timestamp from UTC to current timezone
+# Example: Convert a timestamp from UTC to device's current timezone
 $TZ_Source = [System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object { $_.Id -Eq "UTC" };
 $TZ_Destination = [System.TimeZoneInfo]::GetSystemTimeZones() |  Where-Object { $_.Id -Eq "$((Get-TimeZone).Id)" };
 

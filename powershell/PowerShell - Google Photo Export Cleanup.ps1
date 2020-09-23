@@ -63,7 +63,11 @@ If ($True) {
 		$EachMediaFile_Name = $EachMetadata_Object.title;
 		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
 		$Original_CreationTime = $Null;
-		$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
+		$Updated_CreationTime_UTC = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor(${EachCreation_EpochSeconds}));
+		<# Convert timestamp from UTC to device's current timezone #>
+		$TZ_Source = [System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object { $_.Id -Eq "UTC" };
+		$TZ_Destination = [System.TimeZoneInfo]::GetSystemTimeZones() |  Where-Object { $_.Id -Eq "$((Get-TimeZone).Id)" };
+		$Updated_CreationTime = [System.TimeZoneInfo]::ConvertTime($Updated_CreationTime_UTC, $TZ_Source, $TZ_Destination);
 		<# By default, look for media-filename as the metadata-filename minus the ".json" extension #>
 		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
 		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirName}\${EachMetadata_BaseName}";
@@ -137,9 +141,9 @@ If ($True) {
 				$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
 				$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
 				$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+				<# Check various metadata tag-names #>
 				$Each_Metadata = (Get-FileMetadata -File "${EachMediaFile_CurrentFullpath}");
 				$Each_DateTaken_Unicode = $Null;
-				<# Check various metadata tag-names #>
 				$PropName = "Date taken"; <# PNG, HEIC #>
 				If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
 					$Each_DateTaken_Unicode = (${Each_Metadata}.${PropName});
@@ -153,7 +157,7 @@ If ($True) {
 					<# Remove Unicode Characters from string #>
 					$Each_DateTaken_NoUnicodeChars = "";
 					[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unicode})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [Char]$_; };};
-					$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}"));
+					$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}")); <# Note: Date taken should already include timezone #>
 					If (${Updated_CreationTime} -NE $Null) {
 						<# Determine unique output-filename(s) #>
 						$NameCollision_LoopIterations = 0;

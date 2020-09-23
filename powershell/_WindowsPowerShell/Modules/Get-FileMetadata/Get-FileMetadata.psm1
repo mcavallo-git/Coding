@@ -1,8 +1,7 @@
 # ------------------------------------------------------------
 <# RUN THIS SCRIPT ON-THE-FLY:
 
-
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-FileMetadata/Get-FileMetadata.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-FileMetadata/Get-FileMetadata.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command Get-FileMetadata;
 
 #>
 # ------------------------------------------------------------

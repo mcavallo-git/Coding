@@ -12,7 +12,7 @@ If ($True) {
 	Add-Type -AssemblyName Microsoft.VisualBasic;
 
 	<# Prep all non-matching metadata files to match their associated media-files' basenames #>
-	ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
+	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
 		For ($i = 0; $i -LT 10; $i++) {
 			Get-ChildItem "./*/*.${EachExt}(${i}).json" | ForEach-Object {
 				$Each_FullName = "$($_.FullName)";
@@ -25,7 +25,7 @@ If ($True) {
 	<# Remove excess "metadata.json" files #>
 	$Parent_Directory = ".";
 	$Filenames_To_Remove = @();
-	$Filenames_To_Remove += ("metadata.json");
+	$Filenames_To_Remove += ("metadata*.json");
 	Get-ChildItem -Path ("${Parent_Directory}") -File -Recurse -Depth (1) -Force -ErrorAction "SilentlyContinue" `
 	| Where-Object { (${Filenames_To_Remove}) -Contains ("$($_.Name)"); } `
 	| ForEach-Object { `
@@ -39,32 +39,34 @@ If ($True) {
 		$EachMetadata_Fullpath = ($_.FullName);
 		$EachMetadata_BaseName = ($_.BaseName);
 		$EachMetadata_DirectoryName = ($_.DirectoryName);
-		$EachMetaData_GrandDirname = (Split-Path -Path ("${EachMetadata_DirectoryName}") -Parent);
+		$EachMetaData_GrandDirName = (Split-Path -Path ("${EachMetadata_DirectoryName}") -Parent);
 		<# Parse the metadata file for media filename & date-created timestamp/datetime #>
 		$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
 		$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
 		$EachMediaFile_Name = $EachMetadata_Object.title;
-		$EachMediaFile_BaseName = [IO.Path]::GetFileNameWithoutExtension("${EachMediaFile_Name}");
-		$EachMediaFile_Ext = [IO.Path]::GetExtension("${EachMediaFile_Name}");
 		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
 		$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
-		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMediaFile_Name}";
-		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMediaFile_Name}";
+		<# By default, look for media-filename as the metadata-filename minus the ".json" extension #>
+		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
+		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirName}\${EachMetadata_BaseName}";
 		<# Handle boundary cases with differences between metadata filename and actual filename #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $False) {
-			<# Handle the file being named the same as the metadata-file minus the ".json" extension #>
-			If ((Test-Path "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}") -Eq $True) {
-				$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
-				$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
+			<# Fallback #1: Test for the metadata contents' contained filename (often has errors regarding duplicate filenames, etc.) #>
+			If ((Test-Path "${EachMetadata_DirectoryName}\${EachMediaFile_Name}") -Eq $True) {
+				$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMediaFile_Name}";
+				$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirName}\${EachMediaFile_Name}";
 			} Else {
+				<# Fallback #1: Test for metadata contents' contained filename - BUT for filenames over max characters (see below) #>
 				$Google_Filename_MaxCharsWithExt = 51;
-				$EachBaseNameLength_NoExt = ($Google_Filename_MaxCharsWithExt - ("${EachMediaFile_Ext}".Length));
+				$EachMediaFile_BaseName = [IO.Path]::GetFileNameWithoutExtension("${EachMediaFile_Name}");
+				$EachMediaFile_Ext = [IO.Path]::GetExtension("${EachMediaFile_Name}");
+				$EachBaseName_MaxLength_NoExt = ($Google_Filename_MaxCharsWithExt - ("${EachMediaFile_Ext}".Length));
 				<# Handle filenames which excede Google's maximum filename character-length (seems to be 51 including period + extension (as-of 20200922T213406) ) #>
-				If (("${EachMediaFile_BaseName}".Length) -NE (${EachBaseNameLength_NoExt})) {
-					$Test_EachMediaFile_BaseName = ("${EachMediaFile_BaseName}".Substring(0,${EachBaseNameLength_NoExt}));
-					If ((Test-Path "${EachMetadata_DirectoryName}\${Test_EachMediaFile_BaseName}${EachMediaFile_Ext}") -Eq $True) {
-						$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${Test_EachMediaFile_BaseName}${EachMediaFile_Ext}";
-						$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${Test_EachMediaFile_BaseName}${EachMediaFile_Ext}";
+				If (("${EachMediaFile_BaseName}".Length) -GT (${EachBaseName_MaxLength_NoExt})) {
+					$Test_Sliced_BaseName = ("${EachMediaFile_BaseName}".Substring(0,${EachBaseName_MaxLength_NoExt}));
+					If ((Test-Path "${EachMetadata_DirectoryName}\${Test_Sliced_BaseName}${EachMediaFile_Ext}") -Eq $True) {
+						$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${Test_Sliced_BaseName}${EachMediaFile_Ext}";
+						$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirName}\${Test_Sliced_BaseName}${EachMediaFile_Ext}";
 					}
 				}
 			}
@@ -90,15 +92,21 @@ If ($True) {
 			$EachMediaFile_CurrentFullpath = ($_.FullName);
 			$EachMediaFile_Name= ($_.Name);
 			$EachMediaFile_DirectoryName = ($_.DirectoryName);
+			<# Regex parse out the media-file's dirname's date component (in yyyy-mm-dd format) #>
 			$EachMediaFile_Directory_BaseName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
-			<# Parse the date off-of directory date-names ending with "... #2", "... #3", etc. #>
-			For ($i = 100; $i -GT 0; $i--) {
-				$EachMediaFile_Directory_BaseName = (("${EachMediaFile_Directory_BaseName}").Replace(" #${i}",""));
+			$Needle   = [Regex]::Match($EachMediaFile_Directory_BaseName, '^(\d\d\d\d)-(\d\d)-(\d\d).*');
+			$DateComponent_yyyy=1970;
+			$DateComponent_mm=1;
+			$DateComponent_dd=1;
+			If ($Needle.Success -ne $False) {
+				$DateComponent_yyyy=($Needle.Groups[1]).Value;
+				$DateComponent_mm=($Needle.Groups[2]).Value;
+				$DateComponent_dd=($Needle.Groups[3]).Value;
 			}
-			$EachMediaFile_GrandDirname = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
-			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirname}\${EachMediaFile_Name}";
+			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
+			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
 			<# Update the date-created timestamp/datetime on the target media file  #>
-			$EachCreation_EpochSeconds = (Get-Date -Date ("${EachMediaFile_Directory_BaseName}") -UFormat ("%s"));
+			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList ${DateComponent_yyyy}, ${DateComponent_mm}, ${DateComponent_dd}, 0, 0, 0, 0);
 			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_Date);
 			<# Copy files to the conjoined folder #>
@@ -117,7 +125,7 @@ If ($True) {
 	Write-Host "    Please view the output directory and manually remove these files (view as folder using 'Large icons' view and locate .jpg files with no thumbnails)";
 	Write-Host "`n`n";
 
-}
+};
 
 
 # ------------------------------------------------------------

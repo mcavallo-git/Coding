@@ -37,16 +37,27 @@ If ($True) {
 	<# Locate all json metadata files #>
 	(Get-Item ".\*\*.json") | ForEach-Object {
 		$EachMetadata_Fullpath = ($_.FullName);
+		$EachMetadata_BaseName = ($_.BaseName);
 		$EachMetadata_DirectoryName = ($_.DirectoryName);
 		$EachMetaData_GrandDirname = (Split-Path -Path ("${EachMetadata_DirectoryName}") -Parent);
 		<# Parse the metadata file for media filename & date-created timestamp/datetime #>
 		$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
 		$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
-		$EachMetadata_BaseName = $EachMetadata_Object.title;
+		$EachMediaFile_Name = $EachMetadata_Object.title;
 		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
 		$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
-		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
-		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
+		$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMediaFile_Name}";
+		$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMediaFile_Name}";
+		<# Handle boundary cases with differences between metadata filename and actual filename #>
+		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $False) {
+			If ((Test-Path "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}") -Eq $True) {
+				$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
+				$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
+			} Else If ((Test-Path "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}") -Eq $True) {
+
+			}
+		}
+
 		<# Ensure associated media-file exists #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
 			<# Update the date-created timestamp/datetime on the target media file  #>
@@ -62,20 +73,20 @@ If ($True) {
 	}
 
 	<# Update remaining files which don't have related metadata #>
-	ForEach ($EachExt In @('GIF','HEIC','JPG','MOV','MP4','PNG')) {
+	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
 		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
 			$EachMediaFile_CurrentFullpath = ($_.FullName);
 			$EachMediaFile_Name= ($_.Name);
 			$EachMediaFile_DirectoryName = ($_.DirectoryName);
-			$EachMediaFile_Directory_Basename = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
+			$EachMediaFile_Directory_BaseName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
 			<# Parse the date off-of directory date-names ending with "... #2", "... #3", etc. #>
 			For ($i = 100; $i -GT 0; $i--) {
-				$EachMediaFile_Directory_Basename = (("${EachMediaFile_Directory_Basename}").Replace(" #${i}",""));
+				$EachMediaFile_Directory_BaseName = (("${EachMediaFile_Directory_BaseName}").Replace(" #${i}",""));
 			}
 			$EachMediaFile_GrandDirname = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
 			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirname}\${EachMediaFile_Name}";
 			<# Update the date-created timestamp/datetime on the target media file  #>
-			$EachCreation_EpochSeconds = (Get-Date -Date ("${EachMediaFile_Directory_Basename}") -UFormat ("%s"));
+			$EachCreation_EpochSeconds = (Get-Date -Date ("${EachMediaFile_Directory_BaseName}") -UFormat ("%s"));
 			$EachCreation_Date = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_Date);
 			<# Copy files to the conjoined folder #>

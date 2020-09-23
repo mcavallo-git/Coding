@@ -137,7 +137,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 
 	# ------------------------------------------------------------
 	#
-	# Prep the ActiveX Assemblies so we can later use its Recycle-Bin file-removal module in an effort to avoid using the "remove-item" module (which more-permanently deletes the files)
+	# Prep the ActiveX Assemblies so we can later use its Recycle Bin file-removal module in an effort to avoid using the "remove-item" module (which more-permanently deletes the files)
 	#
 	Add-Type -AssemblyName Microsoft.VisualBasic;
 
@@ -266,7 +266,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 				Write-Output "`n`n";
 				Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
 				Write-Output "  |-->  Removing input file from path:  `"${EachInput_FullName}`"";
-				<# Send the input file to the recycle bin #>
+				<# Send the input file to the Recycle Bin #>
 				# Remove-Item -Path ("${EachInput_FullName}") -Force;
 				# [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile('d:\foo.txt','OnlyErrorDialogs','SendToRecycleBin');
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachInput_FullName}",'OnlyErrorDialogs','SendToRecycleBin');

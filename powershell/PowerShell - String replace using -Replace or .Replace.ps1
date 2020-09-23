@@ -4,7 +4,7 @@
 # 	|
 # 	|--> String replace via .Replace()   !!!  CASE SENSITIVE  !!!
 # 	|
-# 	|--> String replace via -Replace     !!!  CASE IN-SENSITIVE  !!!
+# 	|--> String replace via -Replace     !!!  CASE IN-SENSITIVE  !!!  (uses regex-matching)
 #
 # ------------------------------------------------------------
 

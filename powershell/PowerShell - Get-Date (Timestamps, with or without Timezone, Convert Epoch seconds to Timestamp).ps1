@@ -79,17 +79,19 @@ $DecimalSec_Mod_Padded = "$(([Decimal](Get-Date -UFormat ('%s')))%1)".Substring(
 #
 
 If ($True) {
-	
-# Example: Convert a timestamp from UTC to CST (UTC-5)
-$TZ_Source = [System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object { $_.Id -Match "UTC" };
-$TZ_Destination = [System.TimeZoneInfo]::GetSystemTimeZones() |  Where-Object { $_.Id -Match "$((Get-TimeZone).Id)" };
 
-$Timestamp_Source = '2018-12-25T00:00:00';
+# Example: Convert a timestamp from UTC to CST (UTC-5)
+$TZ_Source = [System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object { $_.Id -Eq "UTC" };
+$TZ_Destination = [System.TimeZoneInfo]::GetSystemTimeZones() |  Where-Object { $_.Id -Eq "$((Get-TimeZone).Id)" };
+
+# $Timestamp_Source = '2018-12-25T00:00:00';
+$Timestamp_Source = 'Aug 1, 2020, 4:06:27 AM';
+$Timestamp_Source = [System.TimeZoneInfo]::ConvertTime($Timestamp_Source, $TZ_Source, $TZ_Source);
 $Timestamp_Destination = [System.TimeZoneInfo]::ConvertTime($Timestamp_Source, $TZ_Source, $TZ_Destination);
 
 Write-Host "";
-Write-Host "`$TZ_Source = `"${Timestamp_Source}`"";
-Write-Host "`$TZ_Destination = `"${Timestamp_Destination}`"";
+Write-Host "`$TZ_Source = `"${TZ_Source}`"";
+Write-Host "`$TZ_Destination = `"${TZ_Destination}`"";
 Write-Host "";
 Write-Host "`$Timestamp_Source = `"${Timestamp_Source}`"";
 Write-Host "`$Timestamp_Destination = `"${Timestamp_Destination}`"";

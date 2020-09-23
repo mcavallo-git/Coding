@@ -640,7 +640,7 @@ function SyncRegistry {
 				},
 				@{
 					Description="The scheduling category. This value can be set to High, Medium, or Low."; 
-					Name="Scheluding Category";
+					Name="Scheduling Category";
 					Type="String";
 					Value=("High");
 					Delete=$False;

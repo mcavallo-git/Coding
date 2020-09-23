@@ -269,6 +269,8 @@ If ($True) {
 #
 # Citation(s)
 #
-#   See "PowerShell - Copy-Item, Get-ChildItem. Get-Item, Remove-Item.ps1" (in same directory in repository)
+#   docs.microsoft.com  |  "about_Properties - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_properties?view=powershell-5.1
+#
+#   github.com  |  "Coding/PowerShell - Copy-Item, Get-ChildItem. Get-Item, Remove-Item.ps1 at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/master/powershell/PowerShell%20-%20Copy-Item,%20Get-ChildItem.%20Get-Item,%20Remove-Item.ps1
 #
 # ------------------------------------------------------------

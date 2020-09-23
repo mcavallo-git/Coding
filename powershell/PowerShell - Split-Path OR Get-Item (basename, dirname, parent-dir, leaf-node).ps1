@@ -16,14 +16,16 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# IO.Path --> Remove extension from filename or fullpath
+# IO.Path --> Get basename without extension or get just the extension
 #
 If ($True) {
 	$FullPath = "C:\foo.txt";
 	$Basename_NoExt = [IO.Path]::GetFileNameWithoutExtension("${FullPath}");
+	$ExtensionOnly = [IO.Path]::GetExtension("${FullPath}");
 	Write-Host "";
 	Write-Host "`n `$FullPath = `"${FullPath}`"";
 	Write-Host "`n `$Basename_NoExt  = `"${Basename_NoExt}`"";
+	Write-Host "`n `$ExtensionOnly  = `"${ExtensionOnly}`"";
 	Write-Host "";
 }
 
@@ -60,6 +62,8 @@ $ThisScript = (Split-Path -Path ($MyInvocation.MyCommand.Name) -Leaf);
 #   docs.microsoft.com  |  "Get-Item - Gets the item at the specified location"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-item?view=powershell-5.1
 #
 #   docs.microsoft.com  |  "Split-Path - Returns the specified part of a path"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/split-path?view=powershell-5.1
+#
+#   stackoverflow.com  |  "file - Removing path and extension from filename in powershell - Stack Overflow"  |  https://stackoverflow.com/a/12503910
 #
 #   stackoverflow.com  |  "file - Removing path and extension from filename in powershell - Stack Overflow"  |  https://stackoverflow.com/a/32634452
 #

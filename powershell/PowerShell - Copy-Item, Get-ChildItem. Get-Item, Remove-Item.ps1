@@ -36,17 +36,20 @@ ForEach ($EachExt In @('GIF','JPG','MOV','PNG')) {
 	$EachMetadata_Fullpath = ($_.FullName);
 	$EachMetadata_BaseName= ($_.BaseName);
 	$EachMetadata_DirectoryName = ($_.DirectoryName);
-	$EachMediaFile_Fullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
+	$EachMetaData_GrandDirname = (Split-Path -Path ("${EachMetadata_DirectoryName}") -Parent);
+	$EachMediaFile_CurrentFullpath = "${EachMetadata_DirectoryName}\${EachMetadata_BaseName}";
+	$EachMediaFile_FinalFullpath = "${EachMetaData_GrandDirname}\${EachMetadata_BaseName}";
 	<# Ensure associated media-file exists #>
-	If (Test-Path "${EachMediaFile_Fullpath}") {
+	If (Test-Path "${EachMediaFile_CurrentFullpath}") {
 		<# Get the date-created timestamp/datetime from the json-file #>
 		$EachMetadata_Contents = [IO.File]::ReadAllText("${EachMetadata_Fullpath}");
 		$EachMetadata_Object = JsonDecoder -InputObject (${EachMetadata_Contents});
-		$EachCreation_EpochSeconds = $EachMetadata_Object.creationTime.timestamp;
+		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
 		$EachCreation_DateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EachCreation_EpochSeconds));
 		<# Update the date-created timestamp/datetime on the target media file  #>
-		(Get-Item "${EachMediaFile_Fullpath}").CreationTime = ($EachCreation_DateTime);
-		<# .CreationTime=("02 June 2020 03:22:03 UTC") #>
+		(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
+		<# Copy files to the conjoined folder #>
+		Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}");
 	}
 }
 

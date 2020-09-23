@@ -22,7 +22,7 @@ If ($True) {
 		For ($i = 0; $i -LT 10; $i++) {
 			Get-ChildItem "./*/*.${EachExt}(${i}).json" | ForEach-Object {
 				$Each_FullName = "$($_.FullName)";
-				$Each_NewFullName = (("${Each_FullName}").Replace(".${EachExt}(${i}).json","(${i}).${EachExt}.json"));
+				$Each_NewFullName = ("${Each_FullName}" -Replace "\.${EachExt}\(${i}\)\.json","(${i}).${EachExt}.json");
 				Write-Host "";
 				Write-Host "Renaming  `"${Each_FullName}`" to `"${Each_NewFullName}`" ...";
 				Rename-Item -Path ("${Each_FullName}") -NewName ("${Each_NewFullName}");

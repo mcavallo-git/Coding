@@ -16,6 +16,7 @@ Copy-Item -Path ($From) -Destination ($To) -Force;
 #
 # GOOGLE PHOTOS EXPORTS --> UPDATE MEDIA'S DATE-CREATED TIMESTAMP/DATETIME ON MEDIA FILES BASED OFF OF THEIR ASSOCIATED METADATA (JSON) FILES' CONTENTS
 #
+
 If ($True) {
 
 	# Download and use "Json-Decoder" instead of using less-powerful (but native) "ConvertFrom-Json"
@@ -50,7 +51,7 @@ If ($True) {
 			<# Update the date-created timestamp/datetime on the target media file  #>
 			(Get-Item "${EachMediaFile_CurrentFullpath}").CreationTime = ($EachCreation_DateTime);
 			<# Copy files to the conjoined folder #>
-			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}");
+			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 		}
 	}
 

@@ -32,9 +32,9 @@ Rename-Item -NewName { $_.Name -replace ".png(1).json","(1).png.json" };
 <# Prep all non-matching metadata files to match their associated media-files' basenames #>
 ForEach ($EachExt In @('GIF','JPG','MOV','PNG')) {
 	For ($i = 0; $i -LT 10; $i++) {
-		Get-ChildItem "./*/*..${EachExt}(${i}).json" | ForEach-Object {
+		Get-ChildItem "./*/*.${EachExt}(${i}).json" | ForEach-Object {
 			$Each_FullName = "$($_.FullName)";
-			$Each_NewFullName = (("${Each_FullName}").Replace("..${EachExt}(${i}).json","(${i}).${EachExt}.json"));
+			$Each_NewFullName = (("${Each_FullName}").Replace(".${EachExt}(${i}).json","(${i}).${EachExt}.json"));
 			Rename-Item -Path ("${Each_FullName}") -NewName ("${Each_NewFullName}");
 		}
 	}

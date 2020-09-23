@@ -135,4 +135,6 @@ Write-Host (Get-Date $LastMondaysDate -UFormat "%Y-%m-%d");
 #
 #		stackoverflow.com  |  "Powershell - Round down to nearest whole number - Stack Overflow"  |  https://stackoverflow.com/a/5864061
 #
+#		www.craigforrester.com  |  "Convert Times Between Time Zones with PowerShell"  |  https://www.craigforrester.com/posts/convert-times-between-time-zones-with-powershell/
+#
 # ------------------------------------------------------------

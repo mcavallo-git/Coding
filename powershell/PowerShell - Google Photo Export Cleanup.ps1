@@ -45,56 +45,6 @@ If ($True) {
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Each_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 	}
 
-	<# Update media files using metadata on each file #>
-	Write-Host "";
-	Write-Host "Info: Updating media files based off of self-contained metadata (already on each file)";
-	$Encoding_ASCII = ([System.Text.Encoding]::ASCII);
-	$Encoding_UNICODE = ([System.Text.Encoding]::UNICODE)
-	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
-		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
-			$EachMediaFile_CurrentFullpath = ($_.FullName);
-			$EachMediaFile_Name= ($_.Name);
-			$EachMediaFile_DirectoryName = ($_.DirectoryName);
-			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
-			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
-			$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
-			$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
-			$Each_Metadata = (Get-FileMetadata -File "${EachMediaFile_CurrentFullpath}");
-			$Each_DateTaken_Unicode = $Null;
-			<# Check various metadata tag-names #>
-			$PropName = "Date taken"; <# PNG, HEIC #>
-			If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
-				$Each_DateTaken_Unicode = (${Each_Metadata}.${PropName});
-			}
-			$PropName = "Media created"; <# MP4s #>
-			If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
-				$Each_DateTaken_Unicode = (${Each_Metadata}.${PropName});
-			}
-			<# Attempt to use metadata attached to the file, first #>
-			If (${Each_DateTaken_Unicode} -NE $Null) {
-				Write-Host "Passed Each_DateTaken_Unicode test for `"${EachMediaFile_Name}`"";
-				<# Remove Unicode Characters from string #>
-				$Each_DateTaken_NoUnicodeChars = "";
-				[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unicode})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [Char]$_; };};
-				$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}"));
-				If (${Updated_CreationTime} -NE $Null) {
-					<# Copy media file to the conjoined folder #>
-					Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
-					<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
-					Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
-					(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
-					(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);
-					<# Delete old file(s) to recycle bin #>
-					Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
-					[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
-				}
-			} Else {
-				Write-Host "Failed Each_DateTaken_Unicode test for `"${EachMediaFile_Name}`"";
-			}
-			$Each_Metadata = $Null;
-		}
-	}
-
 	<# Update media files using metadata on associated .json file #>
 	Write-Host "";
 	Write-Host "Info: Updating media files based off of associated .json metadata file-content";
@@ -149,6 +99,56 @@ If ($True) {
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMetadata_Fullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 			Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
+		}
+	}
+
+	<# Update media files using metadata on each file #>
+	Write-Host "";
+	Write-Host "Info: Updating media files based off of self-contained metadata (already on each file)";
+	$Encoding_ASCII = ([System.Text.Encoding]::ASCII);
+	$Encoding_UNICODE = ([System.Text.Encoding]::UNICODE)
+	ForEach ($EachExt In @('GIF','HEIC','JPEG','JPG','MOV','MP4','PNG')) {
+		(Get-Item ".\*\*.${EachExt}") | ForEach-Object {
+			$EachMediaFile_CurrentFullpath = ($_.FullName);
+			$EachMediaFile_Name= ($_.Name);
+			$EachMediaFile_DirectoryName = ($_.DirectoryName);
+			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
+			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
+			$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
+			$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+			$Each_Metadata = (Get-FileMetadata -File "${EachMediaFile_CurrentFullpath}");
+			$Each_DateTaken_Unicode = $Null;
+			<# Check various metadata tag-names #>
+			$PropName = "Date taken"; <# PNG, HEIC #>
+			If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
+				$Each_DateTaken_Unicode = (${Each_Metadata}.${PropName});
+			}
+			$PropName = "Media created"; <# MP4s #>
+			If ([Bool]($Each_Metadata.PSobject.Properties.name -match "${PropName}")) {
+				$Each_DateTaken_Unicode = (${Each_Metadata}.${PropName});
+			}
+			<# Attempt to use metadata attached to the file, first #>
+			If (${Each_DateTaken_Unicode} -NE $Null) {
+				Write-Host "Passed Each_DateTaken_Unicode test for `"${EachMediaFile_Name}`"";
+				<# Remove Unicode Characters from string #>
+				$Each_DateTaken_NoUnicodeChars = "";
+				[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unicode})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [Char]$_; };};
+				$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}"));
+				If (${Updated_CreationTime} -NE $Null) {
+					<# Copy media file to the conjoined folder #>
+					Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
+					<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
+					Write-Host "Updating `"${EachMediaFile_Name}`".CreationTime from `"${Original_CreationTime}`" to `"${Updated_CreationTime}`"...";
+					(Get-Item "${EachMediaFile_FinalFullpath}").CreationTime = ($Updated_CreationTime);
+					(Get-Item "${EachMediaFile_FinalFullpath}").LastWriteTime = ($Updated_CreationTime);
+					<# Delete old file(s) to recycle bin #>
+					Write-Host "Removing `"${EachMediaFile_CurrentFullpath}`" ...";
+					[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
+				}
+			} Else {
+				Write-Host "Failed Each_DateTaken_Unicode test for `"${EachMediaFile_Name}`"";
+			}
+			$Each_Metadata = $Null;
 		}
 	}
 

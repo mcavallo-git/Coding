@@ -11,6 +11,8 @@ If ($True) {
 	<# Required to use Recycle Bin action 'SendToRecycleBin' #>
 	Add-Type -AssemblyName Microsoft.VisualBasic;
 
+	$MaxRetries_NameCollision = 500;
+
 	<# Prep all non-matching metadata files to match their associated media-files' basenames #>
 	Write-Host "";
 	Write-Host "------------------------------------------------------------";
@@ -90,6 +92,16 @@ If ($True) {
 		<# Ensure associated media-file exists #>
 		If ((Test-Path "${EachMediaFile_CurrentFullpath}") -Eq $True) {
 			$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
+			<# Determine unique output-filename(s) #>
+			$NameCollision_LoopIterations = 0;
+			Do {
+				If (${NameCollision_LoopIterations} -Eq 0) {
+					$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}";
+				} Else {
+					$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}.${NameCollision_LoopIterations}";
+				}
+				$NameCollision_LoopIterations++;
+			} While (((Test-Path "${EachMediaFile_FinalFullpath}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
 			<# Copy files to the conjoined folder #>
 			Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 			<# Update the date-created & last-modified timestamp/datetime on the target media file  #>
@@ -143,6 +155,16 @@ If ($True) {
 					[System.Text.Encoding]::Convert([System.Text.Encoding]::UNICODE, ${Encoding_ASCII}, ${Encoding_UNICODE}.GetBytes(${Each_DateTaken_Unicode})) | ForEach-Object { If (([Char]$_) -NE ([Char]"?")) { $Each_DateTaken_NoUnicodeChars += [Char]$_; };};
 					$Updated_CreationTime = (Get-Date -Date ("${Each_DateTaken_NoUnicodeChars}"));
 					If (${Updated_CreationTime} -NE $Null) {
+						<# Determine unique output-filename(s) #>
+						$NameCollision_LoopIterations = 0;
+						Do {
+							If (${NameCollision_LoopIterations} -Eq 0) {
+								$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}";
+							} Else {
+								$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}.${NameCollision_LoopIterations}";
+							}
+							$NameCollision_LoopIterations++;
+						} While (((Test-Path "${EachMediaFile_FinalFullpath}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
 						<# Copy media file to the conjoined folder #>
 						Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 						<# Update the date-created & last-modified timestamp/datetime on the new media file  #>
@@ -192,6 +214,16 @@ If ($True) {
 			}
 			$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList ${DateComponent_yyyy}, ${DateComponent_mm}, ${DateComponent_dd}, 0, 0, 0, 0);
 			If (${Updated_CreationTime} -NE $Null) {
+				<# Determine unique output-filename(s) #>
+				$NameCollision_LoopIterations = 0;
+				Do {
+					If (${NameCollision_LoopIterations} -Eq 0) {
+						$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}";
+					} Else {
+						$EachMediaFile_FinalFullpath = "${EachMediaFile_FinalFullpath}.${NameCollision_LoopIterations}";
+					}
+					$NameCollision_LoopIterations++;
+				} While (((Test-Path "${EachMediaFile_FinalFullpath}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
 				<# Copy media file to the conjoined folder #>
 				Copy-Item -Path ("${EachMediaFile_CurrentFullpath}") -Destination ("${EachMediaFile_FinalFullpath}") -Force;
 				<# Update the date-created & last-modified timestamp/datetime on the new media file  #>

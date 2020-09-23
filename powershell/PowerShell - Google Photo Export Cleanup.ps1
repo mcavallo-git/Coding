@@ -153,6 +153,7 @@ If ($True) {
 					[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${EachMediaFile_CurrentFullpath}",'OnlyErrorDialogs','SendToRecycleBin');
 				}
 			} Else {
+				Write-Host "";
 				Write-Host "No valid metadata creation-dates found on `"${EachMediaFile_Name}`"";
 			}
 			$Each_Metadata = $Null;

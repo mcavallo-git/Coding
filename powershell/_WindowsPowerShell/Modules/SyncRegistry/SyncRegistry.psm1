@@ -413,7 +413,6 @@ function SyncRegistry {
 		}
 
 		# IPv6
-		#  |--> Disable it
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters";
 			Props=@(
@@ -422,21 +421,6 @@ function SyncRegistry {
 					Name="DisabledComponents";
 					Type="DWord";
 					Value=("255");
-					Delete=$False;
-				}
-			)
-		};
-
-		# Prefetch
-		#  |--> Disable it
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
-			Props=@(
-				@{
-					Description="Windows Prefetch Settings:  0=[Off], 1=[Application launch prefetching enabled], 2=[Boot prefetching enabled], 3=[Applaunch and Boot enabled (Optimal and Default)]"; 
-					Name="EnablePrefetcher";
-					Type="DWord";
-					Value=("0");
 					Delete=$False;
 				}
 			)
@@ -606,6 +590,72 @@ function SyncRegistry {
 		};
 
 
+		# Prefetch
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
+			Props=@(
+				@{
+					Description="Windows Prefetch Settings:  0=[Off], 1=[Application launch prefetching enabled], 2=[Boot prefetching enabled], 3=[Applaunch and Boot enabled (Optimal and Default)]"; 
+					Name="EnablePrefetcher";
+					Type="DWord";
+					Value=("0");
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multimedia - Gaming Priority
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games";
+			Props=@(
+				@{
+					Description="Determines the percentage of CPU resources that should be guaranteed to low-priority tasks (Defaults to 20). Rounds up to the nearest value of 10. A value of 0 is also treated as 10."; 
+					Name="SystemResponsiveness";
+					Type="DWord";
+					Value=("1");
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multimedia - System Responsiveness
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
+			Props=@(
+				@{
+					Description="The GPU priority. The range of values is 0-31. This priority is not yet used."; 
+					Name="GPU Priority";
+					Type="DWord";
+					Value=("8");
+					Delete=$False;
+				},
+				@{
+					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2."; 
+					Name="Priority";
+					Type="DWord";
+					Value=("6");
+					Delete=$False;
+				},
+				@{
+					Description="The scheduling category. This value can be set to High, Medium, or Low."; 
+					Name="Scheluding Category";
+					Type="String";
+					Value=("High");
+					Delete=$False;
+				},
+				@{
+					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used."; 
+					Name="SFIO Priority";
+					Type="String";
+					Value=("High");
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Shutdown/Restart Settings
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
@@ -699,6 +749,8 @@ function SyncRegistry {
 				}
 			)
 		};
+
+
 		# Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services!MaxCompressionLevel"; <# Example of Registry Path w/ inline Property name #>
 
 
@@ -948,11 +1000,13 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   docs.microsoft.com  |  "[MS-GPPREF]: StartMenuVista Inner Element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/1d9120b4-aa9d-4ea8-89b7-cb64f79b83d5
 #
+#   docs.microsoft.com  |  "Adhering to System Policy Settings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/desktop/policy/adhering-to-system-policy-settings
+#
 #   docs.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
 #
 #   docs.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
 #
-#   docs.microsoft.com  |  "Adhering to System Policy Settings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/desktop/policy/adhering-to-system-policy-settings
+#   docs.microsoft.com  |  "Multimedia Class Scheduler Service - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/procthread/multimedia-class-scheduler-service
 #
 #   docs.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
 #
@@ -991,6 +1045,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   winbuzzer.com  |  "Windows 10: How to Disable/Enable Prefetch and Superfetch - WinBuzzer"  |  https://winbuzzer.com/2020/03/14/windows-10-how-to-disable-enable-prefetch-and-superfetch-xcxwbt/
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
+#
+#   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #
 #   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
 #

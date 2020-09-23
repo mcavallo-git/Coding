@@ -68,6 +68,10 @@ If ($True) {
 			$EachMediaFile_Name= ($_.Name);
 			$EachMediaFile_DirectoryName = ($_.DirectoryName);
 			$EachMediaFile_Directory_Basename = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
+			<# Parse the date off-of directory date-names ending with "... #2", "... #3", etc. #>
+			For ($i = 100; $i -GT 0; $i--) {
+				$EachMediaFile_Directory_Basename = (("${EachMediaFile_Directory_Basename}").Replace(" #${i}",""));
+			}
 			$EachMediaFile_GrandDirname = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
 			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirname}\${EachMediaFile_Name}";
 			<# Update the date-created timestamp/datetime on the target media file  #>

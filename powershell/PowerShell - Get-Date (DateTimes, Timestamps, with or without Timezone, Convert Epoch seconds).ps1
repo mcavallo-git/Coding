@@ -3,6 +3,11 @@
 # PowerShell - Get-Date (Timestamps, with or without Timezone)
 # 
 # ------------------------------------------------------------
+#
+# Note --> Example-date used in emails:
+#   Wed, 23 Sep 2020 14:06:25 -0700 (PDT)
+#
+# ------------------------------------------------------------
 
 $(Get-Date -UFormat '%Y%m%d-%H%M%S');
 

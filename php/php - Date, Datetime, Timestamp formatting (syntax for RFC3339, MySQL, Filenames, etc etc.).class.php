@@ -29,6 +29,9 @@ if (class_exists('Date')===false) {
 		const RFC2822_MICROSECONDS = "D, d M Y H:i:s.u O";
 		//    Mon, 15 Aug 2005 15:52:01.457896 +0000   "D, d M Y H:i:s.u O"
 
+		const EMAIL_SOURCE_TIMESTAMP = "???";
+		//    Mon, 15 Aug 2005 15:52:01 -0700 (PDT)    "Y-m-d.H-i-s"
+
 		const FILENAME_TIMESTAMP = "Y-m-d.H-i-s";
 		//    2005-08-15.15-52-01                   "Y-m-d.H-i-s"
 
@@ -216,11 +219,11 @@ if (!function_exists('format_date_from_mysql')) {
 // ------------------------------------------------------------
 // Citation(s)
 //
-//   php.net  |  "date (format chars)"  |  https://www.php.net/manual/en/function.date.php
+//   php.net  |  "PHP: date - Manual"  |  https://www.php.net/manual/en/function.date.php
 //
-//   php.net  |  "DateTime (class)"  |  https://php.net/manual/en/class.datetime.php
+//   php.net  |  "PHP: DateTime - Manual (class)"  |  https://php.net/manual/en/class.datetime.php
 //
-//   php.net  |  "DateTime::createFromFormat"  |  https://php.net/manual/en/datetime.createfromformat.php
+//   php.net  |  "PHP: DateTime::createFromFormat - Manual (lists characters for formatting output)"  |  https://www.php.net/manual/en/function.date.php
 //
 // ------------------------------------------------------------
 

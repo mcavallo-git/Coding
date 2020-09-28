@@ -6,7 +6,7 @@ $Benchmark.Reset(); <# Reuse same benchmark/stopwatch object by resetting it #>
 $Benchmark.Start();
 Start-Sleep -Seconds (1); <# REPLACE THIS LINE WITH COMMAND OR PROCESS TO-BENCHMARK #>
 $Benchmark.Stop();
-$Benchmark.Elapsed;
+Write-Output "`$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
 }
 
 

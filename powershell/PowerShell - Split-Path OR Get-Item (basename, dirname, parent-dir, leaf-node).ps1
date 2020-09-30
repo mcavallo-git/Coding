@@ -12,6 +12,9 @@ If ($True) {
 	Write-Host "`n `$SplitPath_Parent  = `"${SplitPath_Parent}`"";
 	Write-Host "`n `$SplitPath_Leaf  = `"${SplitPath_Leaf}`"";
 }
+If ($True) {
+	$Dirname_System32 = (Split-Path -Path ("${Env:ComSpec}") -Parent);
+}
 
 
 # ------------------------------------------------------------

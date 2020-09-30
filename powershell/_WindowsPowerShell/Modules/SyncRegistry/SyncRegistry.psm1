@@ -613,7 +613,9 @@ function SyncRegistry {
 					Description="Determines the percentage of CPU resources that should be guaranteed to low-priority tasks (Defaults to 20). Rounds up to the nearest value of 10. A value of 0 is also treated as 10."; 
 					Name="SystemResponsiveness";
 					Type="DWord";
-					Value=("1");
+					Val_Default=("20");
+					Val_Gaming=("1");
+					Value=("20");
 					Delete=$False;
 				}
 			)
@@ -628,6 +630,8 @@ function SyncRegistry {
 					Description="The GPU priority. The range of values is 0-31. This priority is not yet used."; 
 					Name="GPU Priority";
 					Type="DWord";
+					Val_Default=("8");
+					Val_Gaming=("8");
 					Value=("8");
 					Delete=$False;
 				},
@@ -635,21 +639,27 @@ function SyncRegistry {
 					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2."; 
 					Name="Priority";
 					Type="DWord";
-					Value=("6");
+					Val_Default=("2");
+					Val_Gaming=("6");
+					Value=("2");
 					Delete=$False;
 				},
 				@{
 					Description="The scheduling category. This value can be set to High, Medium, or Low."; 
 					Name="Scheduling Category";
 					Type="String";
-					Value=("High");
+					Val_Default=("Medium");
+					Val_Gaming=("High");
+					Value=("Medium");
 					Delete=$False;
 				},
 				@{
 					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used."; 
 					Name="SFIO Priority";
 					Type="String";
-					Value=("High");
+					Val_Default=("Normal");
+					Val_Gaming=("High");
+					Value=("Normal");
 					Delete=$False;
 				}
 			)

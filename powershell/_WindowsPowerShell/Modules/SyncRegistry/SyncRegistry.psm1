@@ -633,7 +633,7 @@ function SyncRegistry {
 					Val_Default=("8");
 					Val_Gaming=("8");
 					Value=("8");
-					Delete=$False;
+					Delete=$True;
 				},
 				@{
 					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2."; 
@@ -642,7 +642,7 @@ function SyncRegistry {
 					Val_Default=("2");
 					Val_Gaming=("6");
 					Value=("2");
-					Delete=$False;
+					Delete=$True;
 				},
 				@{
 					Description="The scheduling category. This value can be set to High, Medium, or Low."; 
@@ -651,7 +651,7 @@ function SyncRegistry {
 					Val_Default=("Medium");
 					Val_Gaming=("High");
 					Value=("Medium");
-					Delete=$False;
+					Delete=$True;
 				},
 				@{
 					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used."; 
@@ -660,7 +660,7 @@ function SyncRegistry {
 					Val_Default=("Normal");
 					Val_Gaming=("High");
 					Value=("Normal");
-					Delete=$False;
+					Delete=$True;
 				}
 			)
 		};

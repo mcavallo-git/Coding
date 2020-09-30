@@ -11,8 +11,10 @@ $AdvOptions_ShowAll = $True; <# Show hidden advanced power options, settings, co
 
 If ($AdvOptions_ShowAll -Eq $True) {
 	$AdvOpt_ShowHide = "-ATTRIB_HIDE";
+	$Text_ShowHide = "shown";
 } Else {
 	$AdvOpt_ShowHide = "+ATTRIB_HIDE";
+	$Text_ShowHide = "hidden";
 }
 
 # Hard disk burst ignore time
@@ -124,7 +126,7 @@ powercfg.exe -attributes 54533251-82be-4824-96c1-47b60b740d00 7b224883-b3cc-4d79
 # Processor performance history count
 powercfg.exe -attributes 54533251-82be-4824-96c1-47b60b740d00 7d24baa7-0b84-480f-840c-1b0743c00f5f ${AdvOpt_ShowHide};
 
-# Processor performance core parking over utilization threshold
+# Processor performance core parking overutilization threshold
 powercfg.exe -attributes 54533251-82be-4824-96c1-47b60b740d00 943c8cb6-6f93-4227-ad87-e9a3feec08d1 ${AdvOpt_ShowHide};
 
 # Processor performance increase time
@@ -144,6 +146,27 @@ powercfg.exe -attributes 54533251-82be-4824-96c1-47b60b740d00 dfd10d17-d5eb-45dd
 
 # Processor performance core parking max cores
 powercfg.exe -attributes 54533251-82be-4824-96c1-47b60b740d00 ea062031-0e34-4ff1-9b6d-eb1059334028 ${AdvOpt_ShowHide};
+
+Write-Output "";
+Write-Output "------------------------------------------------------------";
+Write-Output "Windows 10 - Advanced Power Options are now ${Text_ShowHide}";
+Write-Output "------------------------------------------------------------";
+Write-Output "AMD Ryzen Balanced plan  -->  SETUP EFFICIENT CORE THROTTLING";
+Write-Output "";
+Write-Output "> Open 'Power & sleep settings' (type it into Win10 start menu and click the name to open it)";
+Write-Output " > Click 'Additional power settings' (right side) -> Ensure that power plan 'AMD Ryzen Balanced' is active";
+Write-Output "  > Click 'Change plan settings' next to 'AMD Ryzen Balanced' then click 'Change advanced power settings'";
+Write-Output "   > Set option 'Processor performance core parking min cores' to value '10%'";
+Write-Output "   > Set option 'Processor performance core parking increase time' to value '1 Time check intervals'";
+Write-Output "   > Set option 'Processor performance decrease policy' to value 'Rocket'";
+Write-Output "   > Set option 'Processor idle threshold scaling' to value 'Enable scaling'";
+Write-Output "   > Set option 'Processor performance core parking decrease time' to value '2 Time check intervals'";
+Write-Output "  > Close 'Additional power settings' (Win7 style control panel) window";
+Write-Output " > Back in Win10's settings, under 'Performance and Energy', set the draggable bar to the middle setting";
+Write-Output "  > Verify that the text just above the bar reads as 'Power mode: Better performance'";
+Write-Output "> Verify desired CPU core-clock throttling monitoring software such as OpenHardwareMonitor";
+Write-Output "";
+Write-Output "------------------------------------------------------------";
 
 }
 

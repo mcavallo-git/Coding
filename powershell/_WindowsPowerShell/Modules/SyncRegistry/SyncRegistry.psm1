@@ -894,7 +894,7 @@ function SyncRegistry {
 						#
 						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 						If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
-							Write-Output (("  |-->  Created Key"));
+							Write-Output (("  |-->  !! Created Key"));
 						}
 					}
 
@@ -921,7 +921,7 @@ function SyncRegistry {
 							} Else {
 
 								# Update the Property
-								Write-Output "  |-->  Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
+								Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
 								Set-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
 							}
@@ -933,14 +933,14 @@ function SyncRegistry {
 								# Delete the Registry-Key
 								Remove-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 								If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) {
-									Write-Output "  |-->  Deleted Key";
+									Write-Output "  |-->  !! Deleted Key";
 									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 								}
 
 							} Else {
 
 								# Delete the Property
-								Write-Output "  |-->  Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
+								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
 								Remove-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
 
 							}
@@ -952,7 +952,7 @@ function SyncRegistry {
 						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Output "  |-->  Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
+							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
 							New-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
 
 						} Else {

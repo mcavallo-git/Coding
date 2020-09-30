@@ -165,6 +165,7 @@ Write-Output "  > Close 'Additional power settings' (Win7 style control panel) w
 Write-Output " > Back in Win10's settings, under 'Performance and Energy', set the draggable bar to the middle setting";
 Write-Output "  > Verify that the text just above the bar reads as 'Power mode: Better performance'";
 Write-Output "> Verify desired CPU core-clock throttling monitoring software such as OpenHardwareMonitor";
+Write-Output "> Done";
 Write-Output "";
 Write-Output "------------------------------------------------------------";
 

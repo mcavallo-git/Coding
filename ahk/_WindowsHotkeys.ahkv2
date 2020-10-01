@@ -205,6 +205,20 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  Numpad Enter (during FPS games)
+;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
+;
+#If WinActive("ahk_exe Overwatch.exe")  ; #If WinActive("ahk_class TankWindowClass")
+	NumpadEnter:: Return
+#If
+
+#If WinActive("ahk_exe destiny2.exe")  ; #If WinActive("ahk_class Tiger D3D Window")
+	NumpadEnter:: Return
+#If
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Win + -
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;

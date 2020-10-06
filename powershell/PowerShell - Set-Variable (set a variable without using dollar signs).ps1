@@ -1,9 +1,11 @@
 
 <# Example - Set the variable [ $IsLinux ] #>
 
-$SetVal = If($IsLinux -ne $null){$IsLinux} ElseIf((Test-Path "/bin") -And (-Not (Test-Path "/Library"))){$true} Else{$false};
-
-Set-Variable -Name "IsLinux" -Scope "Global" -Visibility "Public" -Option "ReadOnly, AllScope" -Value $SetVal;
+If ((Test-Path "/bin") -And (-Not (Test-Path "/Library"))) {
+	Set-Variable -Name "IsLinux" -Scope "Global" -Visibility "Public" -Option "ReadOnly, AllScope" -Value (1);
+} Else {
+	Set-Variable -Name "IsLinux" -Scope "Global" -Visibility "Public" -Option "ReadOnly, AllScope" -Value (0);
+};
 
 
 # ------------------------------------------------------------

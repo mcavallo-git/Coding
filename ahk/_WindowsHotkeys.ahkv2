@@ -2265,46 +2265,31 @@ PrintEnv() {
 	(LTrim
 	--------------------------------------------------------------------------------------------
 
-	*** Windows Env-Vars ***
-
-	A_AppData		%A_AppData%
-	A_AppDataCommon	%A_AppDataCommon%
-	A_ComputerName		%A_ComputerName%
-	A_ComSpec		%A_ComSpec%
-	A_Desktop		%A_Desktop%
-	A_DesktopCommon	%A_DesktopCommon%
-	A_Is64bitOS		%A_Is64bitOS%
-	A_IsAdmin		%A_IsAdmin%
-	A_Language		%A_Language%
-	A_MyDocuments		%A_MyDocuments%
-	A_OSVersion		%A_OSVersion%
-	A_ProgramFiles		%A_ProgramFiles%
-	A_PtrSize			%A_PtrSize%
-	A_ScreenDPI		%A_ScreenDPI%
-	A_ScreenHeight		%A_ScreenHeight%
-	A_ScreenWidth		%A_ScreenWidth%
-	A_Temp			%A_Temp%
-	A_UserName		%A_UserName%
-	A_WinDir		%A_WinDir%
-
-	--------------------------------------------------------------------------------------------
-
 	*** AHK Env-Vars ***
 
+	A_AhkPath:		%A_AhkPath%
 	A_AhkVersion:		%A_AhkVersion%
 	A_AutoTrim:		%A_AutoTrim%
 	A_ControlDelay:		%A_ControlDelay%
+	A_Cursor:		%A_Cursor%
+	A_DefaultGui:		%A_DefaultGui%
+	A_DefaultListView:	%A_DefaultListView%
 	A_DefaultMouseSpeed:	%A_DefaultMouseSpeed%
+	A_DefaultTreeVie:	%A_DefaultTreeView%
 	A_IconNumber:		%A_IconNumber%
 	A_IconTip:		%A_IconTip%
 	A_IsCompiled:		%A_IsCompiled%
 	A_IsUnicode:		%A_IsUnicode%
 	A_KeyDelay:		%A_KeyDelay%
+	A_KeyDuration:		%A_KeyDuration%
 	A_LineNumber:		%A_LineNumber%
 	A_MouseDelay:		%A_MouseDelay%
 	A_MSec:			%A_MSec%
 	A_Now:			%A_Now%
+	A_NowUTC:		%A_NowUTC%
 	A_PriorHotkey:		%A_PriorHotkey%
+	A_ScriptDir:		%A_ScriptDir%
+	A_ScriptFullPath:		%A_ScriptFullPath%
 	A_ScriptName:		%A_ScriptName%
 	A_SendLevel:		%A_SendLevel%
 	A_SendMode:		%A_SendMode%
@@ -2318,18 +2303,39 @@ PrintEnv() {
 
 	--------------------------------------------------------------------------------------------
 
-	*** Windows/AHK Env-Vars - Larger Values***
+	*** Windows Env-Vars ***
 
-	A_AhkPath:		%A_AhkPath%
-	A_ScriptDir:		%A_ScriptDir%
-	A_Programs		%A_Programs%
+	A_AppData:		%A_AppData%
+	A_AppDataCommon	%A_AppDataCommon%
+	A_ComputerName:		%A_ComputerName%
+	A_ComSpec:		%A_ComSpec%
+	A_Desktop:		%A_Desktop%
+	A_DesktopCommon	%A_DesktopCommon%
+	A_IPAddress1:		%A_IPAddress1%
+	A_Is64bitOS:		%A_Is64bitOS%
+	A_IsAdmin:		%A_IsAdmin%
+	A_Language:		%A_Language%
+	A_MyDocuments:		%A_MyDocuments%
+	A_OSVersion:		%A_OSVersion%
+	A_ProgramFiles:		%A_ProgramFiles%
+	A_Programs:		%A_Programs%
 	A_ProgramsCommon	%A_ProgramsCommon%
-	A_StartMenu		%A_StartMenu%
+	A_PtrSize:		%A_PtrSize%
+	A_ScreenDPI:		%A_ScreenDPI%
+	A_ScreenHeight:		%A_ScreenHeight%
+	A_ScreenWidth:		%A_ScreenWidth%
+	A_StartMenu:		%A_StartMenu%
 	A_StartMenuCommon	%A_StartMenuCommon%
-	A_Startup		%A_Startup%
+	A_Startup:		%A_Startup%
+	A_Temp:			%A_Temp%
+	A_UserName:		%A_UserName%
+	A_WinDir:		%A_WinDir%
 
 	--------------------------------------------------------------------------------------------
 	)
+
+	; Note: For some reason, adding newlines to MsgBox makes it not wrap text
+
 	;
 	; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	; Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"

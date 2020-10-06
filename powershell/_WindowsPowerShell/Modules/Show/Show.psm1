@@ -144,7 +144,8 @@ Function Show() {
 			}
 			If ($ShowValue -eq $True) {
 				Write-Output "`n=====  VALUE  =====  ( hide via -NoValue )  ================`n";
-				$EachArg | Format-List;
+				# $EachArg | Format-List; <# Less Verbose #>
+				$EachArg | Format-List -Property ([String][Char]42); <# More Verbose - Equivalent to [ $EachArg | Format-List *; ] #>
 			}
 		Write-Output "`n------------------------------------------------------------";
 		}

@@ -1795,7 +1795,7 @@ GetWindowSpecs() {
 	Gui, WindowSpecs:Default
 	WinGetPos(Left, Top, Width, Height, "A")
 	WinClass := WinGetClass("A")
-	WinID := WinGetPID("A")
+	WinID := WinGetID("A")
 	WinPID := WinGetPID("A")
 	WinProcessName := WinGetProcessName("A")
 	WinProcessPath := WinGetProcessPath("A")

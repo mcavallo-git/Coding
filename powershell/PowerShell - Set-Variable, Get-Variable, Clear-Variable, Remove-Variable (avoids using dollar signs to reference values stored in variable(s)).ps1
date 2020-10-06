@@ -30,7 +30,7 @@ If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
 
 Clear-Variable -Name 'IsLinux';
 
-#  If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0 };  # <-- Returns 1 because the variable still exists
+If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0 };  # <-- Returns 1 because the variable still exists
 
 
 # ------------------------------------------------------------
@@ -42,7 +42,7 @@ Clear-Variable -Name 'IsLinux';
 
 Remove-Variable -Name 'IsLinux';
 
-#  If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0 };  # <-- Returns 0 because the variable no-longer exists
+If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0 };  # <-- Returns 0 because the variable no-longer exists
 
 
 # ------------------------------------------------------------

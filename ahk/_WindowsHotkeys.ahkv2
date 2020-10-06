@@ -1811,17 +1811,10 @@ GetWindowSpecs() {
 	Gui, Font, s10, Open Sans
 	Gui, Font, s10, Fira Code
 	Gui, Color, 1E1E1E
-	
-	GUI_ROWCOUNT := 12
-	; GUI_WIDTH := 1000
-
-	; max := (max1 := StrLen(value1)>StrLen(value2) ? StrLen(value1):StrLen(value2)) > (max2 := StrLen(value3)>StrLen(value4) ? StrLen(value3):StrLen(value4)) ? max1:max2
-	; max := (StrLen(value1)>StrLen(value2) ? StrLen(value1):StrLen(value2)) > (StrLen(value3)>StrLen(value4) ? StrLen(value3):StrLen(value4)) ? (StrLen(value1)>StrLen(value2) ? StrLen(value1):StrLen(value2)):(StrLen(value3)>StrLen(value4) ? StrLen(value3):StrLen(value4))
-
-	; GUI_WIDTH := (StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath))
+	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
 	GUI_WIDTH := ((StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)) > (StrLen(WinControls)>StrLen(WinClass) ? StrLen(WinControls):StrLen(WinClass)) ? (StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)):(StrLen(WinControls)>StrLen(WinClass) ? StrLen(WinControls):StrLen(WinClass)))
-	GUI_WIDTH := GUI_WIDTH * 10
-
+	GUI_ROWCOUNT := 12
+	GUI_WIDTH := 125 + Ceil(GUI_WIDTH * 8)  ; <-- 8 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
 	GUI_BACKGROUND_COLOR := "1E1E1E"
 	GUI_TEXT_COLOR := "FFFFFF"
 	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary

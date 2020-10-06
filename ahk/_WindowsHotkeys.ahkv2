@@ -2211,68 +2211,87 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 ;   |--> Gets Windows Environment Vars (output to file)
 ;
 PrintEnv() {
+	; --- Custom Globals
 	Global COMPUTERNAME
 	Global USER_DESKTOP
 	Global USERNAME
+	; --- Windows Default-Globals
+	ALLUSERSPROFILE := EnvGet("ALLUSERSPROFILE")
+	APPDATA := EnvGet("APPDATA")
+	COMMONPROGRAMFILES := EnvGet("COMMONPROGRAMFILES")
+	COMPUTERNAME := EnvGet("COMPUTERNAME")
+	HOMEDRIVE := EnvGet("HOMEDRIVE")
+	HOMEPATH := EnvGet("HOMEPATH")
+	LOCALAPPDATA := EnvGet("LOCALAPPDATA")
+	LOGONSERVER := EnvGet("LOGONSERVER")
+	PROGRAMDATA := EnvGet("PROGRAMDATA")
+	; PROGRAMFILES := EnvGet("PROGRAMFILES")
+	PUBLIC := EnvGet("PUBLIC")
+	SYSTEMDRIVE := EnvGet("SYSTEMDRIVE")
+	SYSTEMROOT := EnvGet("SYSTEMROOT")
+	TEMP := EnvGet("TEMP")
+	TMP := EnvGet("TMP")
+	USERDOMAIN := EnvGet("USERDOMAIN")
+	USERNAME := EnvGet("USERNAME")
+	USERPROFILE := EnvGet("USERPROFILE")
+	WINDIR := EnvGet("WINDIR")
+
 	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
 	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
 	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
 	; KnownWinEnvVars :=
-	; (LTrim
-	; ==========================================================================
-	;
-	; *** Environment Vars - Current Session ***
-	;
-	; TIMESTAMP = %TIMESTAMP%
-	;
-	; --------------------------------------------------------------------------
-	;
-	; *** Windows Environment Vars (Long-standing) ***
-	;
-	; COMPUTERNAME         %COMPUTERNAME%
-	; USERNAME             %USERNAME%
-	; USERDOMAIN           %USERDOMAIN%
-	; LOGONSERVER          %LOGONSERVER%
-	;
-	; ALLUSERSPROFILE      %ALLUSERSPROFILE%
-	; APPDATA              %APPDATA%
-	; COMMONPROGRAMFILES   %COMMONPROGRAMFILES%
-	; HOMEDRIVE            %HOMEDRIVE%
-	; HOMEPATH             %HOMEPATH%
-	; LOCALAPPDATA         %LOCALAPPDATA%
-	; PROGRAMDATA          %PROGRAMDATA%
-	; PROGRAMFILES         %PROGRAMFILES%
-	; PUBLIC               %PUBLIC%
-	; SYSTEMDRIVE          %SYSTEMDRIVE%
-	; SYSTEMROOT           %SYSTEMROOT%
-	; TEMP                 %TEMP%
-	; TMP                  %TMP%
-	; USERPROFILE          %USERPROFILE%
-	; WINDIR               %WINDIR%
-	;
-	; --------------------------------------------------------------------------
-	;
-	; *** Autohotkey Vars ***
-	;
-	; A_AhkVersion: %A_AhkVersion%
-	; A_AhkPath: %A_AhkPath%
-	; A_IsUnicode: %A_IsUnicode%
-	; A_IsCompiled: %A_IsCompiled%
-	;
-	; A_WorkingDir: %A_WorkingDir%
-	; A_ScriptDir: %A_ScriptDir%
-	;
-	; A_ScriptName: %A_ScriptName%
-	; A_ScriptFullPath: %A_ScriptFullPath%
-	;
-	; A_LineFile: %A_LineFile%
-	; A_LineNumber: %A_LineNumber%
-	;
-	; A_ThisLabel: %A_ThisLabel%
-	; A_ThisFunc: %A_ThisFunc%
-	;
-	; ==========================================================================
-	; )
+	Msgbox,
+	(LTrim
+	==========================================================================
+	
+	*** Environment Vars - Current Session ***
+	
+	TIMESTAMP = %TIMESTAMP%
+	
+	--------------------------------------------------------------------------
+	
+	*** Windows Environment Vars (Long-standing) ***
+		
+	ALLUSERSPROFILE		%ALLUSERSPROFILE%
+	APPDATA			%APPDATA%
+	COMMONPROGRAMFILES	%COMMONPROGRAMFILES%
+	COMPUTERNAME		%COMPUTERNAME%
+	HOMEDRIVE		%HOMEDRIVE%
+	HOMEPATH		%HOMEPATH%
+	LOCALAPPDATA		%LOCALAPPDATA%
+	LOGONSERVER		%LOGONSERVER%
+	PROGRAMDATA		%PROGRAMDATA%
+	PROGRAMFILES		%PROGRAMFILES%
+	PUBLIC			%PUBLIC%
+	SYSTEMDRIVE		%SYSTEMDRIVE%
+	SYSTEMROOT		%SYSTEMROOT%
+	TEMP			%TEMP%
+	TMP			%TMP%
+	USERDOMAIN		%USERDOMAIN%
+	USERNAME		%USERNAME%
+	USERPROFILE		%USERPROFILE%
+	WINDIR			%WINDIR%
+	
+	--------------------------------------------------------------------------
+	
+	*** Autohotkey Vars ***
+
+	A_AhkPath:	%A_AhkPath%
+	A_AhkVersion:	%A_AhkVersion%
+	A_IsCompiled:	%A_IsCompiled%
+	A_IsUnicode:	%A_IsUnicode%
+	A_LineFile:	%A_LineFile%
+	A_LineNumber:	%A_LineNumber%
+	A_ScriptDir:	%A_ScriptDir%
+	A_ScriptFullPath:	%A_ScriptFullPath%
+	A_ScriptName:	%A_ScriptName%
+	A_SendLevel:	%A_SendLevel%
+	A_ThisFunc:	%A_ThisFunc%
+	A_ThisLabel:	%A_ThisLabel%
+	A_WorkingDir:	%A_WorkingDir%
+
+	==========================================================================
+	)
 	; ; - -
 	; FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
 	; Run, Notepad "%Logfile_EnvVars_Timestamp%"

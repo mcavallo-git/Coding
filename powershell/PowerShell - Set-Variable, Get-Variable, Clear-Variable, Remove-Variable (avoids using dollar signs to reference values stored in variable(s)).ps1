@@ -24,7 +24,8 @@ If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
 Set-Variable -Name 'URL' -Value 'http://google.com';
 Set-Variable -Name 'HTTP_Request' -Value ([System.Net.WebRequest]::Create((Get-Variable -Name 'URL').Value));
 ((Get-Variable -Name 'HTTP_Request').Value).Timeout=5000;
-Set-Variable -Name 'HTTP_Status' -Value ([Int](((Get-Variable -Name 'HTTP_Request').Value).GetResponse()).StatusCode);
+Set-Variable -Name 'HTTP_Response' -Value (((Get-Variable -Name 'HTTP_Request').Value).GetResponse());
+Set-Variable -Name 'HTTP_Status' -Value ([Int]((Get-Variable -Name 'HTTP_Response').Value).StatusCode);
 
 
 # ------------------------------------------------------------

@@ -20,6 +20,12 @@ If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
 
 (Get-Variable -Name 'IsLinux').Value;
 
+# Note: You may also set object-properties by using Get-Variable (see the following example)
+Set-Variable -Name 'URL' -Value 'http://google.com';
+Set-Variable -Name 'HTTP_Request' -Value ([System.Net.WebRequest]::Create((Get-Variable -Name 'URL').Value));
+((Get-Variable -Name 'HTTP_Request').Value).Timeout = (5000);
+Set-Variable -Name 'HTTP_Status' -Value ([Int](((Get-Variable -Name 'HTTP_Request').Value).GetResponse()).StatusCode);
+
 
 # ------------------------------------------------------------
 # Clear-Variable

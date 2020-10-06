@@ -1793,6 +1793,7 @@ GetTimezoneOffset_P(ByRef Output_TZ_P) {
 GetWindowSpecs() {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
+	Gui, Destroy
 	WinGetPos(Left, Top, Width, Height, "A")
 	WinClass := WinGetClass("A")
 	WinID := WinGetID("A")

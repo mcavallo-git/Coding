@@ -21,6 +21,17 @@ $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("${Downlo
 $ProtoBak=[Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
+
+# ------------------------------------------------------------
+#
+# Invoke-WebRequest
+#   |
+#   |--> Has a pre-built-in -TimeoutSec parameter
+#
+
+Invoke-WebRequest -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${Home}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

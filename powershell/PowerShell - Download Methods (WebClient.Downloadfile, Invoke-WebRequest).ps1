@@ -26,7 +26,7 @@ $ProtoBak=[Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]
 #
 # Invoke-WebRequest
 #   |
-#   |--> Has a pre-built-in -TimeoutSec parameter
+#   |--> Has pre-built-in timeout parameter [ -TimeoutSec ]
 #
 
 Invoke-WebRequest -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${Home}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
@@ -36,6 +36,8 @@ Invoke-WebRequest -Uri ("https://www.binaryfortress.com/Data/Download/?package=n
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "WebClient.DownloadFile Method - Downloads the resource with the specified URI to a local file"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.webclient.downloadfile
+#   docs.microsoft.com  |  "Invoke-WebRequest (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/invoke-webrequest?view=powershell-5.1
+#
+#   docs.microsoft.com  |  "WebClient.DownloadFile Method (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.webclient.downloadfile
 #
 # ------------------------------------------------------------

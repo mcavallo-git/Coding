@@ -17,7 +17,7 @@ Function UpdateDotNetRegistry() {
 	If ($False) { # RUN THIS SCRIPT:
 
 
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/UpdateDotNetRegistry/UpdateDotNetRegistry.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; UpdateDotNetRegistry;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/UpdateDotNetRegistry/UpdateDotNetRegistry.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'UpdateDotNetRegistry' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\UpdateDotNetRegistry\UpdateDotNetRegistry.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; UpdateDotNetRegistry;
 
 
 	}

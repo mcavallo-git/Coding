@@ -102,8 +102,11 @@ IpInSubnet "172.168.0.45/32" "172.168.0.0/16";
 # Expecting:  $False
 IpInSubnet "192.168.0.65/32" "192.168.0.32/27";
 
+
+# ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-# Thanks to [ http://www.gi-architects.co.uk/2016/02/powershell-check-If-ip-or-subnet-matchesfits ]
+#   www.gi-architects.co.uk  |  "Powershell check if ip or subnet belong to each other | GI Architects"  |  http://www.gi-architects.co.uk/2016/02/powershell-check-If-ip-or-subnet-matchesfits
 #
+# ------------------------------------------------------------

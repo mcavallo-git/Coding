@@ -49,12 +49,12 @@ If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  'Clear-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs'  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/clear-variable?view=powershell-5.1
+#   docs.microsoft.com  |  "Clear-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/clear-variable?view=powershell-5.1
 #
-#   docs.microsoft.com  |  'Get-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs'  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/remove-variable?view=powershell-5.1
+#   docs.microsoft.com  |  "Get-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/remove-variable?view=powershell-5.1
 #
-#   docs.microsoft.com  |  'Remove-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs'  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-variable?view=powershell-5.1
+#   docs.microsoft.com  |  "Remove-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-variable?view=powershell-5.1
 #
-#   docs.microsoft.com  |  'Set-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs'  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-variable?view=powershell-5.1
+#   docs.microsoft.com  |  "Set-Variable (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/set-variable?view=powershell-5.1
 #
 # ------------------------------------------------------------

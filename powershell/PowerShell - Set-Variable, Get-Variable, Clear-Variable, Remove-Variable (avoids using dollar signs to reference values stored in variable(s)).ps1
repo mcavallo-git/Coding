@@ -2,13 +2,15 @@
 # ------------------------------------------------------------
 # Set-Variable
 #  |
-#  |--> Ex) Set the variable [ $IsLinux ]
+#  |--> Ex) Set the variable  [ $IsLinux ]  (if it isn't already set)
 
-If ((Test-Path '/bin') -And (-Not (Test-Path '/Library'))) {
-	Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value (1);
-} Else {
-	Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value (0);
-};
+If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
+	If ((Test-Path '/bin') -And (-Not (Test-Path '/Library'))) {
+		Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value (1);
+	} Else {
+		Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value (0);
+	}
+}
 
 
 # ------------------------------------------------------------

@@ -1794,7 +1794,7 @@ GetWindowSpecs() {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
 	Gui, Destroy
-	WinGetPos(Left, Top, Width, Height, "A")
+	WinGetPos(Pos_X, Pos_Y, Width, Height, "A")
 	WinClass := WinGetClass("A")
 	WinID := WinGetID("A")
 	WinPID := WinGetPID("A")
@@ -1812,7 +1812,7 @@ GetWindowSpecs() {
 	Gui, Font, s10, Fira Code
 	Gui, Color, 1E1E1E
 	
-	GUI_ROWCOUNT := 12
+	GUI_ROWCOUNT := 11
 	GUI_WIDTH := 1000
 	GUI_BACKGROUND_COLOR := "1E1E1E"
 	GUI_TEXT_COLOR := "FFFFFF"
@@ -1833,12 +1833,11 @@ GetWindowSpecs() {
 	LV_Add("", "ControlList", WinControls)
 	LV_Add("", "ID", WinID)
 	LV_Add("", "PID", WinPID)
-	LV_Add("", "Left", Left)
-	LV_Add("", "Top", Top)
+	LV_Add("", "Pos_X", Pos_X)
+	LV_Add("", "Pos_Y", Pos_Y)
 	LV_Add("", "Width", Width)
 	LV_Add("", "Height", Height)
-	LV_Add("", "Mimic in AHK", "WinMove,,,%Left%,%Top%,%Width%,%Height%")
-	LV_Add("", "A_SendLevel", A_SendLevel)
+	; LV_Add("", "Mimic in AHK", "WinMove,,,%Pos_X%,%Pos_Y%,%Width%,%Height%")
 	LV_ModifyCol(1, "AutoHdr Text Left")
 	LV_ModifyCol(2, "AutoHdr Text Left")
 	; LV_ModifyCol()  ; Auto-size each column to fit its contents.

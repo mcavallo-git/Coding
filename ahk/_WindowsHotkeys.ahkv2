@@ -2236,65 +2236,108 @@ PrintEnv() {
 	USERPROFILE := EnvGet("USERPROFILE")
 	WINDIR := EnvGet("WINDIR")
 
-	FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
-	Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
-	Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
+	;
+	; *** Windows Env-Vars ***
+	;
+	; ALLUSERSPROFILE		%ALLUSERSPROFILE%
+	; APPDATA			%APPDATA%
+	; COMMONPROGRAMFILES	%COMMONPROGRAMFILES%
+	; COMPUTERNAME		%COMPUTERNAME%
+	; HOMEDRIVE		%HOMEDRIVE%
+	; HOMEPATH		%HOMEPATH%
+	; LOCALAPPDATA		%LOCALAPPDATA%
+	; LOGONSERVER		%LOGONSERVER%
+	; PROGRAMDATA		%PROGRAMDATA%
+	; PROGRAMFILES		%PROGRAMFILES%
+	; PUBLIC			%PUBLIC%
+	; SYSTEMDRIVE		%SYSTEMDRIVE%
+	; SYSTEMROOT		%SYSTEMROOT%
+	; TEMP			%TEMP%
+	; TMP			%TMP%
+	; USERDOMAIN		%USERDOMAIN%
+	; USERNAME		%USERNAME%
+	; USERPROFILE		%USERPROFILE%
+	; WINDIR			%WINDIR%
+	;
+
 	; KnownWinEnvVars :=
 	Msgbox,
 	(LTrim
-	==============================================
-	
-	*** Environment Vars - Current Session ***
-	
-	TIMESTAMP = %TIMESTAMP%
-	
 	--------------------------------------------------------------------------------------------
-	
-	*** Windows Environment Vars (Long-standing) ***
-		
-	ALLUSERSPROFILE		%ALLUSERSPROFILE%
-	APPDATA			%APPDATA%
-	COMMONPROGRAMFILES	%COMMONPROGRAMFILES%
-	COMPUTERNAME		%COMPUTERNAME%
-	HOMEDRIVE		%HOMEDRIVE%
-	HOMEPATH		%HOMEPATH%
-	LOCALAPPDATA		%LOCALAPPDATA%
-	LOGONSERVER		%LOGONSERVER%
-	PROGRAMDATA		%PROGRAMDATA%
-	PROGRAMFILES		%PROGRAMFILES%
-	PUBLIC			%PUBLIC%
-	SYSTEMDRIVE		%SYSTEMDRIVE%
-	SYSTEMROOT		%SYSTEMROOT%
-	TEMP			%TEMP%
-	TMP			%TMP%
-	USERDOMAIN		%USERDOMAIN%
-	USERNAME		%USERNAME%
-	USERPROFILE		%USERPROFILE%
-	WINDIR			%WINDIR%
-	
+
+	*** Windows Env-Vars ***
+
+	A_AppData		%A_AppData%
+	A_AppDataCommon	%A_AppDataCommon%
+	A_ComputerName		%A_ComputerName%
+	A_ComSpec		%A_ComSpec%
+	A_Desktop		%A_Desktop%
+	A_DesktopCommon	%A_DesktopCommon%
+	A_Is64bitOS		%A_Is64bitOS%
+	A_IsAdmin		%A_IsAdmin%
+	A_Language		%A_Language%
+	A_MyDocuments		%A_MyDocuments%
+	A_OSVersion		%A_OSVersion%
+	A_ProgramFiles		%A_ProgramFiles%
+	A_PtrSize			%A_PtrSize%
+	A_ScreenDPI		%A_ScreenDPI%
+	A_ScreenHeight		%A_ScreenHeight%
+	A_ScreenWidth		%A_ScreenWidth%
+	A_Temp			%A_Temp%
+	A_UserName		%A_UserName%
+	A_WinDir		%A_WinDir%
+
 	--------------------------------------------------------------------------------------------
-	
-	*** Autohotkey Vars ***
 
-	A_AhkPath:	%A_AhkPath%
-	A_AhkVersion:	%A_AhkVersion%
-	A_IsCompiled:	%A_IsCompiled%
-	A_IsUnicode:	%A_IsUnicode%
-	A_LineFile:	%A_LineFile%
-	A_LineNumber:	%A_LineNumber%
-	A_ScriptDir:	%A_ScriptDir%
-	A_ScriptFullPath:	%A_ScriptFullPath%
-	A_ScriptName:	%A_ScriptName%
-	A_SendLevel:	%A_SendLevel%
-	A_ThisFunc:	%A_ThisFunc%
-	A_ThisLabel:	%A_ThisLabel%
-	A_WorkingDir:	%A_WorkingDir%
+	*** AHK Env-Vars ***
 
-	==============================================
+	A_AhkVersion:		%A_AhkVersion%
+	A_AutoTrim:		%A_AutoTrim%
+	A_ControlDelay:		%A_ControlDelay%
+	A_DefaultMouseSpeed:	%A_DefaultMouseSpeed%
+	A_IconNumber:		%A_IconNumber%
+	A_IconTip:		%A_IconTip%
+	A_IsCompiled:		%A_IsCompiled%
+	A_IsUnicode:		%A_IsUnicode%
+	A_KeyDelay:		%A_KeyDelay%
+	A_LineNumber:		%A_LineNumber%
+	A_MouseDelay:		%A_MouseDelay%
+	A_MSec:			%A_MSec%
+	A_Now:			%A_Now%
+	A_PriorHotkey:		%A_PriorHotkey%
+	A_ScriptName:		%A_ScriptName%
+	A_SendLevel:		%A_SendLevel%
+	A_SendMode:		%A_SendMode%
+	A_StringCaseSense:	%A_StringCaseSense%
+	A_ThisFunc:		%A_ThisFunc%
+	A_ThisLabel:		%A_ThisLabel%
+	A_ThisHotkey:		%A_ThisHotkey%
+	A_TimeSincePriorHotkey:	%A_TimeSincePriorHotkey%
+	A_WinDelay:		%A_WinDelay%
+	A_WorkingDir:		%A_WorkingDir%
+
+	--------------------------------------------------------------------------------------------
+
+	*** Windows/AHK Env-Vars - Larger Values***
+
+	A_AhkPath:		%A_AhkPath%
+	A_ScriptDir:		%A_ScriptDir%
+	A_Programs		%A_Programs%
+	A_ProgramsCommon	%A_ProgramsCommon%
+	A_StartMenu		%A_StartMenu%
+	A_StartMenuCommon	%A_StartMenuCommon%
+	A_Startup		%A_Startup%
+
+	--------------------------------------------------------------------------------------------
 	)
-	; ; - -
+	;
+	; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
+	; Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
+	; Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
+	;
 	; FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
 	; Run, Notepad "%Logfile_EnvVars_Timestamp%"
+	;
 	Return
 }
 

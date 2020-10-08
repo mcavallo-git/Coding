@@ -15,9 +15,8 @@ DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
 DAT_ARRAY+=("Val-4");
-ARRAY_LENGTH=${#DAT_ARRAY[@]};
-echo "\$ARRAY_LENGTH = [ ${ARRAY_LENGTH} ]";
-for (( i=0; i<${ARRAY_LENGTH}; i++ )); do
+# ARRAY_LENGTH=${#DAT_ARRAY[@]};
+for (( i=0; i<${#DAT_ARRAY[@]}; i++ )); do
 echo "\${DAT_ARRAY[$i]} = [ ${DAT_ARRAY[$i]} ]";
 done;
 

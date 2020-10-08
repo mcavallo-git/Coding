@@ -1,6 +1,20 @@
 #/bin/bash
 
 
+# check if a URL is valid or not
+TARGET_URL="https://www.google.com";
+echo "";
+echo "Info:  Testing URL for validity:  [ ${TARGET_URL} ]";
+# check whether URL returns an HTTP code of 200 (e.g. if the website exists and responds 'normally')
+if [ "$(curl -Is ${TARGET_URL} | head -n 1 | awk '{print $2}')" == "200" ]; then
+echo "";
+echo "Info:  URL validated - Returned an HTTP code of 200";
+else
+echo "";
+echo "Error:  Invalid URL - Failed to return an HTTP code of 200";
+fi;
+
+
 # get the WAN-IP of a the current linux instance
 curl https://ipinfo.io/ip
 
@@ -220,3 +234,12 @@ Options: (H) means HTTP/HTTPS only, (F) means FTP only
  -w, --write-out FORMAT  Use output FORMAT after completion
      --xattr         Store metadata in extended file attributes
  -q                  Disable .curlrc (must be first parameter)
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   unix.stackexchange.com  |  "monitoring - Health check of web page using curl - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/84820
+#
+# ------------------------------------------------------------

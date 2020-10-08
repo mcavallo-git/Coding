@@ -1,17 +1,33 @@
 #!/bin/bash
+# ------------------------------------------------------------
+
+# GENERAL USER DISABLE:
+USER_NAME="ubuntu"; usermod --expiredate "1" --shell "$(which nologin)" "${USER_NAME}";
+
+# (UNDO DISABLE) GENERAL USER RE-ENABLE:
+USER_NAME="ubuntu"; usermod --expiredate "" --shell "$(which bash)" "${USER_NAME}";
+
+
+# ------------------------------------------------------------
+
+# Disable target user's shell access
+USER_NAME="bar";
+usermod --shell "$(which nologin)" "${USER_NAME}";
+
+# (UNDO DISABLE) Restore target user's shell access
+USER_NAME="bar";
+usermod --shell "$(which bash)" "${USER_NAME}";
+
 
 # ------------------------------------------------------------
 
 # Expire target user (Disable target user by enforcing a 'user-expiration date' onto said user (using some date in the past))
 USER_NAME="bar";
-sudo usermod --expiredate 1 "${USER_NAME}"; # expiredate can be YYYY-MM-DD or days since the epoch (1970-01-01)
+usermod --expiredate "1" "${USER_NAME}"; # date-format: [ YYYY-MM-DD ] or [ days since epoch (1970-01-01) ]
 
-
-# ------------------------------------------------------------
-
-# Remove Expiration from user (Re-enable target user by removing the 'user-expiration date' from said user)
+# (UNDO EXPIRATION) Remove Expiration from user
 USER_NAME="bar";
-sudo usermod --expiredate "" "${USER_NAME}"; # passing an empty expiredate ("") removes/disables expiration
+usermod --expiredate "" "${USER_NAME}"; # date-format: [ "" (empty) ] removes/disables expiration
 
 
 # ------------------------------------------------------------

@@ -74,9 +74,9 @@ else
 		echo "        ${EACH_KEY}	-  ${EACH_DOCKER_IMAGE}  (${EACH_CONTAINER_ID})";
 	done;
 
-	MAX_READ_WAIT=20; read -p "Select: " -t ${MAX_READ_WAIT} -r;
+	READ_TIMEOUT=20; read -p "Select: " -t ${READ_TIMEOUT} -r;
 	if [ -z "${REPLY}" ]; then
-		echo "Error: Response timed out after ${MAX_READ_WAIT}s";
+		echo "Error: Response timed out after ${READ_TIMEOUT}s";
 	else
 		USER_SELECTION_KEY=$((0+"${REPLY}"));
 		if [ -z "${ARR_CONTAINER_IDS[${USER_SELECTION_KEY}]}" ]; then

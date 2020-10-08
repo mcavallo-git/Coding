@@ -6,10 +6,10 @@
 # ------------------------------------------------------------
 
 # GENERAL USER DISABLE:
-USER_NAME="ubuntu"; usermod --expiredate "1" --shell "$(which nologin)" "${USER_NAME}";
+USER_NAME="bar"; usermod --expiredate "1" --shell "$(which nologin)" "${USER_NAME}";
 
 # (UNDO DISABLE) GENERAL USER RE-ENABLE:
-USER_NAME="ubuntu"; usermod --expiredate "" --shell "$(which bash)" "${USER_NAME}";
+USER_NAME="bar"; usermod --expiredate "" --shell "$(which bash)" "${USER_NAME}";
 
 
 # ------------------------------------------------------------

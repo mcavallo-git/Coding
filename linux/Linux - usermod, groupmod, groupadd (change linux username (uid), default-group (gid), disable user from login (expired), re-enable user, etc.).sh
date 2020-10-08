@@ -2,10 +2,25 @@
 
 # ------------------------------------------------------------
 
+# Expire target user (Disable target user by enforcing a 'user-expiration date' onto said user (using some date in the past))
+USER_NAME="bar";
+sudo usermod --expiredate 1 "${USER_NAME}"; # expiredate can be YYYY-MM-DD or days since the epoch (1970-01-01)
+
+
+# ------------------------------------------------------------
+
+# Remove Expiration from user (Re-enable target user by removing the 'user-expiration date' from said user)
+USER_NAME="bar";
+sudo usermod --expiredate "" "${USER_NAME}"; # passing an empty expiredate ("") removes/disables expiration
+
+
+# ------------------------------------------------------------
+
 # Change existent user's primary/default group
 USER_NAME="bar";
 PRIMARY_GROUP_NAME="foo";
 usermod -g "${PRIMARY_GROUP_NAME}" "${USER_NAME}";
+
 
 # ------------------------------------------------------------
 

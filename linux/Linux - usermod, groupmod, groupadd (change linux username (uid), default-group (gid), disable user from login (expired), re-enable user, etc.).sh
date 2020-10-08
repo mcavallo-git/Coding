@@ -24,7 +24,6 @@ usermod -g "${PRIMARY_GROUP_NAME}" "${USER_NAME}";
 
 # ------------------------------------------------------------
 
-
 # Change existent user's UID
 USER_NAME="foo";
 UPDATED_UID="500";

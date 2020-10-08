@@ -15,8 +15,10 @@ DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
 DAT_ARRAY+=("Val-4");
-for DAT_ITEM in "${DAT_ARRAY[@]}"; do
-echo "${DAT_ITEM}";
+ARRAY_LENGTH=${#DAT_ARRAY[@]};
+echo "\$ARRAY_LENGTH = [ ${ARRAY_LENGTH} ]";
+for (( i=0; i<${ARRAY_LENGTH}; i++ )); do
+echo "\${DAT_ARRAY[$i]} = [ ${DAT_ARRAY[$i]} ]";
 done;
 
 
@@ -206,6 +208,8 @@ echo -e "\n\n";
 # -------------------------------------------------------------
 #
 # Citation(s)
+#
+#   www.cyberciti.biz  |  "How To Find BASH Shell Array Length ( number of elements ) - nixCraft"  |  https://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/
 #
 #   gnu.org  |  "6.7 Arrays"  |  https://www.gnu.org/software/bash/manual/html_node/Arrays.html
 #

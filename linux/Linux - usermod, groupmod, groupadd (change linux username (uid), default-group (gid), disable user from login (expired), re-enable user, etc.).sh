@@ -132,4 +132,10 @@ groupmod --gid ${NEW_GID} ${GROUP_NAME};
 OLDGID=1001 && NEWGID=625 && find / -gid ${OLDGID} ! -type l -exec chgrp ${NEWGID} {} \;
 
 
-# ------------------------------------------------------------ #
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   askubuntu.com  |  "How to enable or disable a user? - Ask Ubuntu"  |  https://askubuntu.com/a/607108
+#
+# ------------------------------------------------------------

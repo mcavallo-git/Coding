@@ -1,7 +1,7 @@
 # @ECHO OFF
 # ------------------------------------------------------------
 # !!! Prerequisite !!!
-# 	HandBrakeCLI must be installed for this script to function as-intended
+# 	HandBrakeCLI must be installed for this script to function as-intended (It will attempt to auto-download)
 # 	Download [ HandBrakeCLI ] Application from URL [ https://handbrake.fr/downloads2.php ]
 # 	Extract [ HandBrakeCLI.exe ] from aforementioned URL (downloads as a .zip archive as-of 20191222-070342 CST)
 # 	Place the extracted file at filepath [ C:\Program Files\HandBrake\HandBrakeCLI.exe ]

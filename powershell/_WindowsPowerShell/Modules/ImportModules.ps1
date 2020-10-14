@@ -6,7 +6,7 @@
 If ($False) { ### RUN THIS SCRIPT:
 
 
-Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 
@@ -74,7 +74,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 $PackageProvider = "NuGet";
 If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
-	[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
+	[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
 		Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
 	[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 }

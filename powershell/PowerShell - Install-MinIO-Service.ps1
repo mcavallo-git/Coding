@@ -15,8 +15,8 @@ $Path_ServiceInstaller = "${WorkingDir}\${ServiceName}.exe";
 $Path_ServiceConfig = "${WorkingDir}\${ServiceName}.xml";
 If ((Test-Path "${Dir_Logs}") -Eq $False) { New-Item -Force -ItemType "Directory" -Path ("${Dir_Logs}\") | Out-Null; }
 If ((Test-Path "${Dir_Data}") -Eq $False) { New-Item -Force -ItemType "Directory" -Path ("${Dir_Data}\") | Out-Null; }
-If ((Test-Path "${WorkingDir}\mongod.exe") -Eq $False) { $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri ("https://dl.min.io/server/minio/release/windows-amd64/minio.exe") -OutFile ("${Path_MainRuntime}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; };
-If ((Test-Path "${WorkingDir}\${ServiceName}.exe") -Eq $False) { $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri ("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe") -OutFile ("${Path_ServiceInstaller}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; };
+If ((Test-Path "${WorkingDir}\mongod.exe") -Eq $False) { $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri ("https://dl.min.io/server/minio/release/windows-amd64/minio.exe") -OutFile ("${Path_MainRuntime}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; };
+If ((Test-Path "${WorkingDir}\${ServiceName}.exe") -Eq $False) { $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri ("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe") -OutFile ("${Path_ServiceInstaller}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; };
 $ServiceArguments = @();
 $ServiceArguments += "server";
 $ServiceArguments += "`"${Dir_Data}`"";

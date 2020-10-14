@@ -9,7 +9,7 @@ pipeline {
 			steps {
 				powershell(
 					returnStatus:true,
-					script:'''[Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;'''
+					script:'''[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;'''
 				)
 			}
 		}

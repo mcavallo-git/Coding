@@ -1828,6 +1828,7 @@ GetWindowSpecs() {
 	; GUI_OPT = %GUI_OPT% AltSubmit
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 	LV_Add("", "WinTitle", WinTitle)
+	LV_Add("", "WinText", WinText)
 	LV_Add("", "WinClass", WinClass)
 	LV_Add("", "ProcessName", WinProcessName)
 	LV_Add("", "ProcessPath", WinProcessPath)
@@ -2103,14 +2104,25 @@ OpenPasswordGenerator() {
 ;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
 ;
 OpenVisualStudioCode() {
-	ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
-	ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
-	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
-	ExeArguments := ExeArg1 " " ExeArg2
-	SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
-	Run, %ExeFullpath% %ExeArguments%
-	ExePID := GetPID(ExeBasename)
-	WinActivate, ahk_pid %ExePID%
+	If (1 == 1) {
+		Notepad_ExeFullpath := A_WinDir "\System32\notepad.exe"
+		Run, %Notepad_ExeFullpath%
+	} Else {
+		ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
+		ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
+		ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
+		ExeArguments := ExeArg1 " " ExeArg2
+		SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+		Run, %ExeFullpath% %ExeArguments%
+		; ExePID := GetPID(ExeBasename)
+		; WinActivate, ahk_pid %ExePID%
+	}
+	WinTitle := " - Visual Studio Code"
+	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring Code.exe
+	WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	; PS1_Start_AHK_ScheduledTask := "PowerShell.exe -Command 'Start-ScheduledTask -TaskName (Write-Output *_WindowsHotkeys*);'"
+	; ScheduledTask_ReturnCode := GetCommandOutput(Get_CurrentVerticalResolution)
 	Return
 }
 

@@ -12,15 +12,15 @@ If (1 -Eq 1) {
 	Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null;
 	Start-ScheduledTask -TaskName ((GV TEMP_Name).Value);
 	Start-Sleep -Seconds 1;
-	Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:$False;
+	Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0));
 }
 
 # As a one-liner:
-If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat %s); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null; Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:$False; };
+If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat %s); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null; Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0)); };
 
 
-# As a nested command intended to be used from an external app kicking off this command through a cmd or powershell prompt:
-powershell.exe -Command 'If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat %s); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null; Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:$False; };'
+# As a nested command intended to be used from an external app kicking off this command through cmd
+cmd.exe /C "powershell.exe -Command ""If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat %s); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value); Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0)); };"""
 
 
 # ------------------------------------------------------------

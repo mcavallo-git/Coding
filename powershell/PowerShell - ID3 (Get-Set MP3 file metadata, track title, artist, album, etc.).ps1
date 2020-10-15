@@ -8,7 +8,7 @@ $NewTitle = "";
 $TagLib_Obj = [TagLib.File]::Create( (Resolve-Path "${TagLib_Filepath}") );
 $TagLib_Obj.Tag.Title = "${NewTitle}";
 $TagLib_Obj.Save();
-
+$TagLib_Obj = $Null;
 
 # ------------------------------------------------------------
 #

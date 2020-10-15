@@ -4,12 +4,19 @@
 #  |
 #  |--> Ex) Set the variable  [ $IsLinux ]  (if it isn't already set)
 
+
+SV IsLinux $(If ((Test-Path '/bin') -And (-Not (Test-Path '/Library'))) { 1 } Else { 0 });
+
+# #  ^
+# #  Methods BOTH set variable $IsLinux with the same value, but the bottom approach adds the functionality of making $IsLinux a global, read-only variable
+# #  v
+
 If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
+	Set-Variable -Name 'LinuxDirsExist' -Value (0);
 	If ((Test-Path '/bin') -And (-Not (Test-Path '/Library'))) {
-		Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value (1);
-	} Else {
-		Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value (0);
-	}
+		Set-Variable -Name 'LinuxDirsExist' -Value (1);
+	};
+	Set-Variable -Name 'IsLinux' -Scope 'Global' -Visibility 'Public' -Option 'ReadOnly, AllScope' -Value ((Get-Variable -Name 'LinuxDirsExist').Value);
 }
 
 
@@ -22,7 +29,7 @@ If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
 
 (Get-Variable IsLinux).Value;
 
-(Get-Variable -Name 'IsLinux').Value;    
+(Get-Variable -Name 'IsLinux').Value;
 
 
 # Note: You may also set object-properties by using Get-Variable (see the following example)

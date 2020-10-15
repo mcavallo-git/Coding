@@ -2414,7 +2414,7 @@ RunExe_NON_Admin(Exe_Path) {
 	Semicolon := ";"
 	RunCommand_NonAdmin := "
 		(
-			powershell.exe -Command "
+			powershell.exe -WindowStyle Hidden -Command "
 			If ([Boolean](1)) {
 				SV TEMP_Command %Exe_Path%%Semicolon%
 				SV TEMP_Name (Get-Date -UFormat `%s)%Semicolon%

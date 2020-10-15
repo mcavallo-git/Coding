@@ -2407,10 +2407,12 @@ RemoveToolTip() {
 ;   |--> Opens target program without administrative rights (by using a Scheduled Task de-escalation workaround)
 ;
 RunExe_NON_Admin(Exe_Path) {
-	TrayTip, AHK,
-	(LTrim
-		Opening "%Exe_Path%"...
-	)  ; Toast Notification
+	If (DebugMode == 1) {
+		TrayTip, AHK,
+		(LTrim
+			Opening NON-Admin version of "%Exe_Path%"...
+		)  ; Toast Notification
+	}
 	Semicolon := ";"
 	RunCommand_NonAdmin := "
 		(

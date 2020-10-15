@@ -2,12 +2,12 @@
 Install-Module -Name ("ID3") -Scope ("CurrentUser") -Force -AllowClobber;
 Import-Module "ID3";
 
-$TargetFile = "${Home}\Desktop\test-file.mp3";
+$TagLib_Filepath = "${Home}\Desktop\test-file.mp3";
 $NewTitle = "";
 
-$TagLib_File = [TagLib.File]::Create( (Resolve-Path "${TargetFile}") );
-$TagLib_File.Tag.Title = "${NewTitle}";
-$TagLib_File.Save();
+$TagLib_Obj = [TagLib.File]::Create( (Resolve-Path "${TagLib_Filepath}") );
+$TagLib_Obj.Tag.Title = "${NewTitle}";
+$TagLib_Obj.Save();
 
 
 # ------------------------------------------------------------

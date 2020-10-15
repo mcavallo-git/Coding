@@ -5,7 +5,7 @@ Import-Module "ID3";
 $TagLib_FullName = "${Home}\Desktop\test-file.mp3";
 $NewTitle = "";
 
-$TagLib_Obj = [TagLib.File]::Create( (Resolve-Path "${TagLib_FullName}") );
+$TagLib_Obj = [TagLib.File]::Create("${TagLib_FullName}");
 $TagLib_Obj.Tag.Title = "${NewTitle}";
 $TagLib_Obj.Save();
 $TagLib_Obj = $Null;

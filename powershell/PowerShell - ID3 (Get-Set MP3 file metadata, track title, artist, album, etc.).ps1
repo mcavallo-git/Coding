@@ -1,5 +1,6 @@
 
 Install-Module -Name ("ID3") -Scope ("CurrentUser") -Force -AllowClobber;
+Import-Module "ID3";
 
 $TargetFile = "${Home}\Desktop\test-file.mp3";
 $NewTitle = "";

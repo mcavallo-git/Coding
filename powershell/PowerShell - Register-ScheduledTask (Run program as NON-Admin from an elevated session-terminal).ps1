@@ -15,6 +15,10 @@ If (1 -Eq 1) {
 	Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:$False;
 }
 
+# As a one-liner:
+If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat %s); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null; Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:$False; }
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

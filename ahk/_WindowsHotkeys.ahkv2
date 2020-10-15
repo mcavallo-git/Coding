@@ -2109,7 +2109,7 @@ OpenVisualStudioCode() {
 	WinTitle := " - Visual Studio Code"
 	If (!WinExist(WinTitle)) {
 		;
-		; Run a NON-admin version of VS Code
+		; Run a NON-admin version of Visual Studio Code (VS Code)
 		;  |
 		;  |--> Otherwise the functionality of opening files directly from windows explorer into VS code is entirely lost/broken (while VS
 		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to

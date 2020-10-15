@@ -18,4 +18,6 @@ $TagLib_File.Save();
 #
 #   www.powershellgallery.com  |  "PowerShell Gallery | ID3 1.1"  |  https://www.powershellgallery.com/packages/ID3
 #
+#   www.powershellgallery.com  |  "PowerShell Gallery | id3.psm1 1.1"  |  https://www.powershellgallery.com/packages/ID3/1.1/Content/id3.psm1
+#
 # ------------------------------------------------------------

@@ -18,7 +18,12 @@ If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
 #  |
 #  |--> Ex) Get the value held by variable [ $IsLinux ]
 
-(Get-Variable -Name 'IsLinux').Value;
+(GV IsLinux).Value;
+
+(Get-Variable IsLinux).Value;
+
+(Get-Variable -Name 'IsLinux').Value;    
+
 
 # Note: You may also set object-properties by using Get-Variable (see the following example)
 Set-Variable -Name 'URL' -Value 'http://google.com';

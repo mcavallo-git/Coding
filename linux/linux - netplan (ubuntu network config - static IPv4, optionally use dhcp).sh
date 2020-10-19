@@ -13,6 +13,10 @@ network:
       nameservers:
         addresses: [192.168.1.1,8.8.8.8]  # Primary DNSv4 192.168.1.1, Secondary DNSv4 8.8.8.8
 
+#
+#  Note: For DHCP config reference, see Citation(s) (below)
+#
+
 
 # ------------------------------------------------------------
 #

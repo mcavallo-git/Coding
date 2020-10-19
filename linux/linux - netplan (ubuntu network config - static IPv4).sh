@@ -4,7 +4,6 @@
 
 network:
   version: 2
-  renderer: networkd
   ethernets:
     eth0:
       addresses: [192.168.1.25/24]  # Static IPv4 192.168.1.25
@@ -12,10 +11,6 @@ network:
       gateway4: 192.168.1.1  # Network Gateway IPv4 192.168.1.1
       nameservers:
         addresses: [192.168.1.1,8.8.8.8]  # Primary DNSv4 192.168.1.1, Secondary DNSv4 8.8.8.8
-
-#
-#  Note: For DHCP config reference, see Citation(s) (below)
-#
 
 
 # ------------------------------------------------------------

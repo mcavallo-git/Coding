@@ -6,7 +6,12 @@
 # 
 
 if [ -e "/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf" ]; then
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^wifi.powersave/c\wifi.powersave = 2" "/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf";
+  sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^wifi.powersave/c\wifi.powersave = 2" "/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf";
+  if [ $(which iwconfig 2>'/dev/null' | wc -l;) -le 0 ]; then
+    apt-get update -y;
+    apt-get install -y wireless-tools;
+  fi;
+  iwconfig wlan0 poweroff;
 fi;
 
 

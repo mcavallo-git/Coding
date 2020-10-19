@@ -11,7 +11,7 @@ if [ -e "/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf" ]; then
     apt-get update -y;
     apt-get install -y wireless-tools;
   fi;
-  iwconfig wlan0 poweroff;
+  iwconfig wlan0 txpower off;
 fi;
 
 

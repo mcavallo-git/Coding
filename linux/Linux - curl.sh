@@ -15,6 +15,10 @@ echo "Error:  Invalid URL - Failed to return an HTTP code of 200";
 fi;
 
 
+# download a file from a given URL
+curl -o "docker-compose.yml" "https://raw.githubusercontent.com/rundeck/docker-zoo/master/basic/docker-compose.yml";
+
+
 # get the WAN-IP of a the current linux instance
 curl https://ipinfo.io/ip
 
@@ -239,6 +243,8 @@ Options: (H) means HTTP/HTTPS only, (F) means FTP only
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   stackoverflow.com  |  "Azure RedHat vm yum update fails with 'SSL peer rejected your certificate as expired.'"  |  https://stackoverflow.com/a/53445712
 #
 #   unix.stackexchange.com  |  "monitoring - Health check of web page using curl - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/84820
 #

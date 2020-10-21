@@ -1,6 +1,6 @@
 
 
-### REFER TO GUIDE @ https://www.linuxuprising.com/2020/07/ubuntu-how-to-free-up-port-53-used-by.html
+# Refer to guide @  [ https://www.linuxuprising.com/2020/07/ubuntu-how-to-free-up-port-53-used-by.html ]
 
 
 # ------------------------------------------------------------

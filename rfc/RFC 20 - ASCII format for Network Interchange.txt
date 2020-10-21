@@ -1,0 +1,20 @@
+------------------------------------------------------------
+
+RFC 20 - ASCII format for Network Interchange
+
+# ------------------------------------------------------------
+
+Refer to image: "ASCII Table" @ https://upload.wikimedia.org/wikipedia/commons/d/dd/ASCII-Table.svg"
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   datatracker.ietf.org  |  "RFC 20 - ASCII format for network interchange"  |  https://datatracker.ietf.org/doc/rfc20/
+#
+#   tools.ietf.org  |  "RFC 20 - ASCII format for network interchange"  |  https://tools.ietf.org/html/rfc20
+#
+#   upload.wikimedia.org  |  "ASCII Table"  |  https://upload.wikimedia.org/wikipedia/commons/d/dd/ASCII-Table.svg
+#
+# ------------------------------------------------------------

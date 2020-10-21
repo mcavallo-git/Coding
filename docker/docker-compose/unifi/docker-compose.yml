@@ -1,11 +1,8 @@
 
-# docker pull linuxserver/unifi-controller:latest
-# docker pull linuxserver/unifi-controller:arm64v8-latest
-
 version: "2.1"
 services:
   unifi-controller:
-    image: linuxserver/unifi-controller
+    image: linuxserver/unifi-controller:arm64v8-latest
     container_name: unifi-controller
     environment:
       - PUID=1000

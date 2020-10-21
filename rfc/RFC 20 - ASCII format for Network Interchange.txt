@@ -4,7 +4,7 @@ RFC 20 - ASCII format for Network Interchange
 
 # ------------------------------------------------------------
 
-Refer to image: "ASCII Table" @ https://upload.wikimedia.org/wikipedia/commons/d/dd/ASCII-Table.svg"
+Refer to image: "ASCII Table" at [ https://upload.wikimedia.org/wikipedia/commons/d/dd/ASCII-Table.svg ]
 
 
 # ------------------------------------------------------------

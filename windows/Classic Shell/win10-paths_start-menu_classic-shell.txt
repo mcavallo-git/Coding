@@ -1,5 +1,4 @@
 
-
 TASKBAR
 %APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar
 
@@ -22,4 +21,3 @@ OTHER (Not sure exactly what these are)
 
 --> Pinned Items, Taskbar (Win10) (Shortcut)
 %APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar
-

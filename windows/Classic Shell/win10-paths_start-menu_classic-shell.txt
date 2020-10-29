@@ -1,10 +1,10 @@
 
 
-START MENU
-%appdata%\Microsoft\Internet Explorer\Quick Launch\User Pinned\StartMenu
-
-TASKBAR
+TASKBAR (Classic Shell)
 %appdata%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar
+
+START MENU (Windows 10)
+%appdata%\Microsoft\Internet Explorer\Quick Launch\User Pinned\StartMenu
 
 OTHER (Not sure exactly what these are)
 "%APPDATA%\Microsoft\Internet Explorer\Quick Launch"

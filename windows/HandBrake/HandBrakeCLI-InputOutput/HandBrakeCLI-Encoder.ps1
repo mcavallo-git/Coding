@@ -293,7 +293,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "  |";
 		Write-Output "  |-->  Total Encoding Count:  `"${TotalVideoEncodes}`"";
 		Write-Output "  |";
-		Write-Output "  |-->  Opening Output-Directory:  `"${OutputDir}`" ...";
+		Write-Output "  |-->  Opening Output-Directory (in Windows Explorer):  `"${OutputDir}`" ...";
 		Write-Output "";
 		Explorer.exe "${OutputDir}";
 	} Else {
@@ -302,7 +302,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "  |";
 		Write-Output "  |-->  Copy your videos (to-compress) into Input-Directory:  `"${InputDir}`"";
 		Write-Output "  |";
-		Write-Output "  |-->  Opening Input-Directory, now ...";
+		Write-Output "  |-->  Opening Input-Directory (in Windows Explorer):  `"${InputDir}`" ...";
 		Write-Output "";
 		$FileContents_CallThisScriptAgain = "Call this script again via:`n`n`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-InputOutput/HandBrakeCLI-Encoder.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=`$ProtoBak;`n`n";
 		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("${FileContents_CallThisScriptAgain}");

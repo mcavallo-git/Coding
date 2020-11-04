@@ -908,7 +908,7 @@ AppsKey & XButton2::
 ;   HOTKEY:  WinKey + Mouse-Wheel Up/Down
 ;            Ctrl/Alt/Shift + WinKey + Up/Down (Arrow-Key)
 ;   ACTION:  Turn computer volume up/down
-
+;
 +#Up::
 !#Up::
 ^#Up::

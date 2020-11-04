@@ -871,7 +871,7 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  WinKey/AppsKey + Spacebar
+;   HOTKEY:  Ctrl/Alt/Shift + WinKey + Spacebar
 ;   ACTION:  Pause/Play Media (in currently-active media player)
 ;
 +#Space::

@@ -985,29 +985,6 @@ WheelRight::
 	Return
 
 
-; 	; ------------------------------------------------------------
-
-; 	; Use RegexReplace to strip leading whitespace from every copied line
-; 	ClipboardDuped := Clipboard
-; 	ClipboardDuped := RegExReplace(ClipboardDuped, "m)^[ `t]*|[ `t]*$")
-
-; 	Newline=`n
-; 	Echo_Tooltip := A_Space
-; 	Echo_Tooltip := Echo_Tooltip Newline "  StrLen(ClipboardDuped) = [ " StrLen(ClipboardDuped) " ]"
-; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
-; 	TrayTip, AHK, %Echo_Tooltip%  ; Toast Notification
-
-; 	; If ( IsUbuntuWSL = 1 ) {
-; 	; 	; TrayTip, AHK, Pasting Clipboard into Ubuntu WSL Instance  ; Toast Notification
-; 	; 	; ; Send {Blind}{Text}%ClipboardDuped%
-; 	; } Else {
-; 	; 	; Send {Shift}{Insert}
-; 	; 	TrayTip, AHK, WSL Instance Not Found Locally  ; Toast Notification
-; 	; }
-
-; 	Return
-
-
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Windows-Key + A

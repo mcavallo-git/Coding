@@ -1,0 +1,49 @@
+On a desktop computer, perform the following actions:
+
+• Connect a USB flash drive of 8GB or greater size which contains no data (or data which is 'okay to be deleted') - all of the data must be wiped to format the drive as Windows 10 Installation Media. If there are files on there which you care about, and you have no other flash drives, move them to some other medium of storage.
+
+• Browse to google.com and search "Create Windows 10 Installation Media", then click the first returned result owned by the "microsoft.com" domain
+
+• Download and run the Windows 10 "Create Windows 10 Installation Media" tool
+
+• Wait for the tool to load
+
+• Hit "Accept" (Terms & Conditions)
+
+• Wait for the tool to load
+
+• Select "Create Installation Media ..." (radio button) 
+
+• Click "Next"
+
+• Make sure the following options are selected:
+
+• Language: English (United States)
+Edition: Windows 10
+Architecture: 64-bit (x64)
+
+• (Note: If one of the above options isn't selected, uncheck the checkbox just below the options, then manually set them to the aforementioned values)
+
+• Click "Next"
+
+• Select "USB flash drive" (radio button)
+
+• Click "Next"
+
+• Select your flash drive (light grey (or dark navy) highlight denotes selection)
+
+• Click "Next"
+
+• Wait for "Progress" to reach 100%
+
+• Click "Finish"
+
+• Wait for tool to load
+
+• In the notification area of your taskbar (bottom right, next to the clock), click the USB icon and select "Eject ..." next to the newly-formatted USB flash drive
+
+• Power down the destination computer (which you want to format with Windows 10) and plug the USB flash drive into it.
+
+• Power on the USB flash drive, and make sure to boot to it <-- NOTE: This varies greatly from PC to PC (more specifically, from motherboard to motherboard), and may require entering the BIOS to complete. If so, common best-practice is to spam potential activation keys for entering the BIOS on most common PC models during bootup. In-short, power on the PC, then spam F2, F8, F10, and DELETE until you enter BIOS, then configure the "Primary Boot Device" to "External USB Drive". !!! Revert this change once complete (set it to "Windows 10", or whichever local disk contains Windows 10, once you're FULLY up and running (have logged in to Windows, created user, etc.), otherwise anytime you boot with a USB drive plugged in, it'll try to boot to it)  !!!
+
+• (Need remaining steps to format drive, here)

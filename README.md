@@ -8,7 +8,7 @@ This file (on GitHub):
 
 <br id="devops-resource-reference" />
 <br />
-<div style="text-align:left;"><a href="https://cava.lol"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></a></div>
+<div style="text-align:left;"><a href="https://github.com/mcavallo-git"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></a></div>
 
 <h3 ><a href="https://cava.lol">https://cava.lol</a> - DevOps Resource Reference</h3>
 <br />

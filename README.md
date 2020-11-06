@@ -6,9 +6,9 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<div id="devops-resource-reference" style="text-align:left;"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></div>
+<div id="devops-resource-reference" style="text-align:left;"><a href="https://cava.lol"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></a></div>
 
-<h3 >https://cava.lol - DevOps Resource Reference</h3>
+<h3 ><a href="https://cava.lol">https://cava.lol</a> - DevOps Resource Reference</h3>
 <br />
 
 <details><summary><i>What is DevOps?</i></summary>

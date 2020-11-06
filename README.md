@@ -6,7 +6,8 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<h3 id="devops-resource-reference">https://cava.lol - DevOps Resource Reference</h3>
+<br id="devops-resource-reference" /><br /><br /><br /><br /><br /><br />
+<h3 >https://cava.lol - DevOps Resource Reference</h3>
 <details><summary><i>What is DevOps?</i></summary>
 	<br />
 	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>

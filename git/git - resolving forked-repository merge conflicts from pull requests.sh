@@ -24,4 +24,6 @@ git pull https://github.com/SmartThingsCommunity/SmartThingsPublic.git master;
 #
 #   docs.github.com  |  "Syncing a fork - GitHub Docs"  |  https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/syncing-a-fork
 #
+#   www.git-tower.com  |  "How do I delete a local branch in Git? | Learn Version Control with Git"  |  https://www.git-tower.com/learn/git/faq/delete-local-branch/
+#
 # ------------------------------------------------------------

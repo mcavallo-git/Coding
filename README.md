@@ -6,7 +6,7 @@ This file (on GitHub):
 
 --- ------------------------------------------------------------- -->
 
-<div id="devops-resource-reference" style="text-align:left;"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="250" /></div>
+<div id="devops-resource-reference" style="text-align:left;"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></div>
 
 <h3 >https://cava.lol - DevOps Resource Reference</h3>
 <br />

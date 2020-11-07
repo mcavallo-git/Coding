@@ -745,6 +745,7 @@ ScrollLock::
 ;   ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 ;
 #L::
+AppsKey & L::
 	LockWorkstation()
 	; Monitor_ShowScreenSaver()
 	Reload

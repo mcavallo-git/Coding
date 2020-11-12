@@ -218,14 +218,14 @@ ScrollLock::
 			TrayTip, AHK, % ( "Clicking 'Edit' > 'Add Text' in Foxit PhantomPDF" )  ; Toast Notification
 		}
 		; Click the "Edit" tab
-		x_loc := 223
-		y_loc := 40
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		xpos := 223
+		ypos := 40
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
 		Sleep 100
 		; Click the "Add Text" button
-		x_loc := 338
-		y_loc := 87
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		xpos := 338
+		ypos := 87
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
 		Return
 	;
 	;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
@@ -242,14 +242,14 @@ ScrollLock::
 			TrayTip, AHK, % ( "Clicking 'Edit' > 'Bold' in Foxit PhantomPDF" )  ; Toast Notification
 		}
 		; Click the "Edit" tab
-		x_loc := 223
-		y_loc := 40
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		xpos := 223
+		ypos := 40
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
 		Sleep 100
 		; Click the "B" (Bold) button
-		x_loc := 448
-		y_loc := 106
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		xpos := 448
+		ypos := 106
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
 		Return
 	;
 	;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
@@ -267,9 +267,9 @@ ScrollLock::
 		}
 		Sleep 100
 		; Click the "Redo" button
-		x_loc := 186
-		y_loc := 15
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		xpos := 182
+		ypos := 12
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
 		Return
 #If
 
@@ -655,16 +655,16 @@ ScrollLock::
 	If (A_OSVersion="WIN_7") {  ; Windows7
 		If (A_ThisHotkey=="^#[") {
 			; Duplicate Monitors
-			x_loc := 874
-			y_loc := 520
+			xpos := 874
+			ypos := 520
 		} Else If (A_ThisHotkey=="^#]") {
 			; Extend Monitors
-			x_loc := 1044
-			y_loc := 520
+			xpos := 1044
+			ypos := 520
 		}
 		Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
 		Sleep 2000
-		MouseClick, Left, %x_loc%, %y_loc%
+		MouseClick, Left, %xpos%, %ypos%
 		Sleep 100
 	} Else If (SubStr(A_OSVersion, 1, 4)="10.0") {  ; Windows10
 		; Open the "Projection" window
@@ -682,15 +682,15 @@ ScrollLock::
 			Sleep %RandomSleep%
 				If (A_ThisHotkey=="#[") {
 					; Duplicate Monitors
-					x_loc := (A_ScreenWidth - 20)
-					y_loc := 210
+					xpos := (A_ScreenWidth - 20)
+					ypos := 210
 				} Else If (A_ThisHotkey=="#]") {
 					; Extend Monitors
-					x_loc := (A_ScreenWidth - 20)
-					y_loc := 315
+					xpos := (A_ScreenWidth - 20)
+					ypos := 315
 				}
 				; Select Projection menu option
-				MouseClick, Left, %x_loc%, %y_loc%
+				MouseClick, Left, %xpos%, %ypos%
 				; Wait until the new monitor layout is loaded
 				Loop 30 {
 					Sleep 100
@@ -773,8 +773,8 @@ ScrollLock::
 		; ------------------------------------------------------------
 		MsgBox,
 		(LTrim
-			x_loc = %x_loc%
-			y_loc = %y_loc%
+			xpos = %xpos%
+			ypos = %ypos%
 			
 			ViewportWidthBefore = %ViewportWidthBefore%
 			ViewportWidthAfter = %ViewportWidthAfter%
@@ -2556,13 +2556,33 @@ SendSpace() {
 ;   |--> Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 ShowCursorCoordinates(FollowDuration_Seconds) {
-	CoordMode, Mouse, Screen
-	PollDuration_ms := 10
+	; PollDuration_ms := 10
+	; PollDuration_ms := 50
+	; PollDuration_ms := 100
+	PollDuration_ms := 250
 	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
 	Loop Loop_Iterations {
-		MouseGetPos, MouseX, MouseY
-		Tooltip, x%MouseX% y%MouseY%
-		Sleep %PollDuration_ms%
+		Tooltip_Cursor := ""
+		;
+		; Screen: "Coordinates are relative to the desktop (entire screen)."
+		;
+		CoordMode, Mouse, Screen
+		MouseGetPos, xpos_screen, ypos_screen
+		Tooltip_Cursor := Tooltip_Cursor "   Screen:   x" xpos_screen "   y" ypos_screen "`n"
+		;
+		; Window: "Coordinates are relative to the active window."
+		;
+		CoordMode, Mouse, Window
+		MouseGetPos, xpos_window, ypos_window
+		Tooltip_Cursor := Tooltip_Cursor "Window:   x" xpos_window "   y" ypos_window "`n"
+		;
+		; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
+		;
+		CoordMode, Mouse, Client
+		MouseGetPos, xpos_client, ypos_client
+		Tooltip_Cursor := Tooltip_Cursor "    Client:   x" xpos_client "   y" ypos_client "`n"
+		Tooltip, % ( Tooltip_Cursor )
+		Sleep % ( PollDuration_ms )
 	}
 	ClearTooltip(0)
 	Return
@@ -2576,6 +2596,7 @@ ShowCursorCoordinates(FollowDuration_Seconds) {
 ShowCursorPixelColor(FollowDuration_Seconds) {
 	Global DebugMode
 	CoordMode, Mouse, Screen
+	CoordMode, Pixel, Screen
 	If (DebugMode == 1) {
 		TrayTip, AHK, % ( DebugString )  ; Toast Notification
 		OutputFile := A_Desktop "\rgblogging.txt"
@@ -2701,10 +2722,10 @@ ShowVolumeLevel() {
 	OutputHeight := 50
 	StartMenuHeight := 40
 	; On-Screen Tooltip Location - X Coordinate (Left to Right)
-	x_loc := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
+	xpos := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
 	; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
-	y_loc := ( A_ScreenHeight - ( OutputHeight * 3 ) )
-	ToolTip, %Echo_Tooltip%, %x_loc%, %y_loc%
+	ypos := ( A_ScreenHeight - ( OutputHeight * 3 ) )
+	ToolTip, %Echo_Tooltip%, %xpos%, %ypos%
 	ClearTooltip(750)
 	Return
 }
@@ -3187,9 +3208,9 @@ If (False) {
 		SetControlDelay, -1
 		; WinGetTitle, WinTitle, A
 		WinTitle := "NoxPlayer"
-		x_loc := (A_ScreenWidth - 20)
-		y_loc := 315
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		xpos := (A_ScreenWidth - 20)
+		ypos := 315
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
 	}
 
 }

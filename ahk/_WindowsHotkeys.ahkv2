@@ -57,8 +57,6 @@ CR := "`r"
 
 LF := "`n"
 
-VerboseOutput := 1
-
 ; DebugMode := 1
 DebugMode := 0
 
@@ -471,7 +469,7 @@ ScrollLock::
 ;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 ;
 #F3::
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	SetKeyDelay, 0, -1
 	SetControlDelay, -1
 	CoordMode, Mouse, Screen
@@ -602,8 +600,8 @@ ScrollLock::
 		Loop {
 			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
 			WinGetTitle, WinTitle, A
-			WinGetClass, WinClass, A
-			If ((WinTitle = "Project") && (WinClass = "Windows.UI.Core.CoreWindow")) {
+			WinGetClass, Win_ahk_class, A
+			If ((WinTitle = "Project") && (Win_ahk_class = "Windows.UI.Core.CoreWindow")) {
 				; Projection menu detected --> select related option (duplicate/extend)
 				Sleep 250
 			Random, RandomSleep, 1000, 1500
@@ -1002,34 +1000,27 @@ WheelRight::
 ;   HOTKEY:  Windows-Key + A
 ;   ACTION:  Foxit PhantomPDF - Add Text
 ;
-; #A::
-; 	Global VerboseOutput
-; 	CoordMode, Mouse, Screen
-; 	SetDefaultMouseSpeed, 0
-; 	SetControlDelay, -1
-; 	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
-; 	WinGetTitle, WinTitle, A
-; 	; MatchTitle=Foxit PhantomPDF ; PDF Titles can override this (in Foxit)
-; 	WinProcessName := WinGetProcessName("A")
-; 	MatchProcessName=FoxitPhantomPDF.exe
-; 	If (InStr(WinProcessName, MatchProcessName)) {
-; 		If (VerboseOutput == 1) {
-; 			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
-; 		}
-; 		x_loc = 223
-; 		y_loc = 40
-; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-; 		Sleep 100
-; 		x_loc = 355
-; 		y_loc = 63
-; 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-; 	}
-; 	; } Else {
-; 	; 	If (VerboseOutput == 1) {
-; 	; 		TrayTip, AHK, Foxit PhantomPDF`nMUST be active (to add text), 4, 1  ; Toast Notification
-; 	; 	}
-; 	; }
-; 	Return
+#If WinActive("ahk_exe FoxitPhantomPDF.exe")  ; #If WinActive("ahk_class classFoxitPhantom")
+	#A::
+		Global DebugMode
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+		WinGetTitle, WinTitle, A
+		If (DebugMode == 1) {
+			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
+		}
+		x_loc := 223
+		y_loc := 40
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Sleep 100
+		x_loc := 338
+		y_loc := 87
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Return
+#If
 
 
 ; ------------------------------------------------------------
@@ -1077,7 +1068,7 @@ WheelRight::
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	; SetControlDelay, -1
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 
@@ -1676,7 +1667,7 @@ DoLogging(LogText) {
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
 Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	ControlGet, OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
 	Return ahk_id %OutputVar%
 }
@@ -1710,7 +1701,7 @@ GetPID(ProcName) {
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
 Get_ahk_id_from_pid(WinPid) {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	ControlGet, OutputVar, Hwnd,,, ahk_pid %WinPid%
 	Return ahk_id %OutputVar%
 	; dat_ahk_id=ahk_id %output_var%
@@ -1796,10 +1787,10 @@ GetWindowSpecs() {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
 	Gui, Destroy
-	WinClass := WinGetClass("A")
+	Win_ahk_class := WinGetClass("A")
 	WinID := WinGetID("A")
 	WinPID := WinGetPID("A")
-	WinProcessName := WinGetProcessName("A")
+	Win_ahk_exe := WinGetProcessName("A")
 	WinProcessPath := WinGetProcessPath("A")
 	WinText := WinGetText("A")
 	WinTitle := WinGetTitle("A")
@@ -1815,7 +1806,7 @@ GetWindowSpecs() {
 	Gui, Font, s10, Fira Code
 	Gui, Color, 1E1E1E
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
-	GUI_WIDTH := ((StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)) > (StrLen(WinControls)>StrLen(WinClass) ? StrLen(WinControls):StrLen(WinClass)) ? (StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)):(StrLen(WinControls)>StrLen(WinClass) ? StrLen(WinControls):StrLen(WinClass)))
+	GUI_WIDTH := ((StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)) > (StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)) ? (StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)):(StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)))
 	GUI_ROWCOUNT := 14
 	GUI_WIDTH := 125 + Ceil(GUI_WIDTH * 8)  ; <-- 8 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
 	GUI_BACKGROUND_COLOR := "1E1E1E"
@@ -1832,8 +1823,8 @@ GetWindowSpecs() {
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 	LV_Add("", "WinTitle", WinTitle)
 	LV_Add("", "WinText", WinText)
-	LV_Add("", "WinClass", WinClass)
-	LV_Add("", "ProcessName", WinProcessName)
+	LV_Add("", "ahk_class", Win_ahk_class)
+	LV_Add("", "ahk_exe", Win_ahk_exe)
 	LV_Add("", "ProcessPath", WinProcessPath)
 	LV_Add("", "ControlList", WinControls)
 	LV_Add("", "ID", WinID)
@@ -2013,12 +2004,12 @@ Monitor_ShowScreenSaver() {
 ;   |--> Opens target exeutable & sets its window to be active
 ;
 Open_Exe(ExeFullpath) {
-	Global VerboseOutput
+	Global DebugMode
 	Timeout := 10
 	SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
 	If (ProcessExist(ExeBasename) == True) {
 		; Executable IS running
-		If (VerboseOutput == 1) {
+		If (DebugMode == 1) {
 			TextToolTip := "Activating `"" ExeBasename "`""
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -2027,7 +2018,7 @@ Open_Exe(ExeFullpath) {
 		WinActivate, ahk_pid %ExePID%
 	} Else If (FileExist(ExeFullpath)) {
 		; Executable NOT running but IS found locally
-		If (VerboseOutput == 1) {
+		If (DebugMode == 1) {
 			TextToolTip := "Opening `"" ExeBasename "`""
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -2039,7 +2030,7 @@ Open_Exe(ExeFullpath) {
 		WinActivate, ahk_pid %ExePID%
 	} Else {
 		; Executable NOT running & NOT found locally
-		If (VerboseOutput == 1) {
+		If (DebugMode == 1) {
 			TextToolTip := "File not found: `"" ExeFullpath "`""
 			ToolTip, %TextToolTip%
 			ClearTooltip(2000)
@@ -2064,7 +2055,7 @@ OpenChrome() {
 ;   |--> Opens Roboform's Password Generator executable
 ;
 OpenPasswordGenerator() {
-	Global VerboseOutput
+	Global DebugMode
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
 	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
@@ -2075,13 +2066,13 @@ OpenPasswordGenerator() {
 	If (WinExist(WinTitle_Login)) {
 		WinActivate, %WinTitle_Login%
 	} Else If (WinExist(WinTitle)) {
-		If (VerboseOutput == 1) {
+		If (DebugMode == 1) {
 			Text_TrayTip := "Activating existing instance of `"" WinTitle "`""
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
 		WinActivate, %WinTitle%
 	} Else If (FileExist(ProcessPath)) {
-		If (VerboseOutput == 1) {
+		If (DebugMode == 1) {
 			Text_TrayTip := "Opening new-instance of `"" WinTitle "`""
 			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
 		}
@@ -2108,7 +2099,7 @@ OpenPasswordGenerator() {
 ;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
 ;
 OpenVisualStudioCode() {
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	WinWait_TimeoutSeconds := 5
 	WinTitle := " - Visual Studio Code"
 	If (!WinExist(WinTitle)) {
@@ -2158,7 +2149,7 @@ OpenVSCode() {
 ;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
 ;
 PasteClipboardAsBinary() {
-	Global VerboseOutput
+	Global DebugMode
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Sleep, 100
@@ -2179,16 +2170,16 @@ PasteClipboardAsBinary() {
 ;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
 ;
 PasteClipboardAsText() {
-	Global VerboseOutput
+	Global DebugMode
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	ClipboardDuped:=Clipboard
-	; If (VerboseOutput == 1) {
-	; 	TrayTip, AHK,
-	; 	(LTrim
-	; 		Pasting the Text version of the Clipboard
-	; 	)  ; Toast Notification
-	; }
+	If (DebugMode == 1) {
+		TrayTip, AHK,
+		(LTrim
+			Pasting the Text version of the Clipboard
+		)  ; Toast Notification
+	}
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
 	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
@@ -2485,19 +2476,19 @@ RunWaitMany(CMD_Commands) {
 SendHostname() {
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	SetTitleMatchMode, 2 ; Title must CONTAIN [ WinTitle ] as a substring
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	HostName_VerbosityLevel := 0
-	WinProcessName := WinGetProcessName("A")
-	WinClass := WinGetClass("A")
-	If (WinProcessName == "chrome.exe") {
-		If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( WinClass == "Chrome_WidgetWin_1" ) ) {
+	Win_ahk_exe := WinGetProcessName("A")
+	Win_ahk_class := WinGetClass("A")
+	If (Win_ahk_exe == "chrome.exe") {
+		If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( Win_ahk_class == "Chrome_WidgetWin_1" ) ) {
 			; IfWinActive   ///   https://www.autohotkey.com/docs/commands/WinActive.htm  (v1)   ///   https://lexikos.github.io/v2/docs/commands/WinActive.htm  (v2)
 			HostName_VerbosityLevel := 1
 		}
 	}
 	If (HostName_VerbosityLevel >= 1) {
 		FormatTime,NowTimestamp,,yyyy-MM-dd_HH-mm-ss
-		EchoStr := A_ComputerName " " NowTimestamp " " WinProcessName
+		EchoStr := A_ComputerName " " NowTimestamp " " Win_ahk_exe
 		Send {Blind}{Text}%EchoStr%
 	} Else {
 		Send {Blind}{Text}%A_ComputerName% 

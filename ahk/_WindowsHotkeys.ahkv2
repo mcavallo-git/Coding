@@ -10,7 +10,16 @@
 ;
 ; ------------------------------------------------------------
 ;
-; Runtime Globals (Settings)
+; Global Variables - User-Defined
+;
+
+DebugMode := 1
+; DebugMode := 0
+
+
+; ------------------------------------------------------------
+;
+; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
 ;
 
 #Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
@@ -42,26 +51,17 @@ SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCa
 
 ; ------------------------------------------------------------
 ;
-; Runtime Globals (Variables)
+; Global Variables - Standardized / Statics
 ;
 
-; #NoEnv  ; Prevents environment vars from being used (occurs when a var is called/referenced without being instantiated)
-
-A_SYSTEM32 := WINDIR "\System32"
-
-USER_DESKTOP := USERPROFILE "\Desktop"
- 
-USER_DOCUMENTS := USERPROFILE "\Documents"
-
+;
+; Newline Characters
+;
 CR := "`r"
-
 LF := "`n"
 
-; DebugMode := 1
-DebugMode := 0
-
 ;
-; RFC3339-Specific Variables - Used for Timestamps ( Internet date-time standardization-values, https://tools.ietf.org/html/rfc3339 )
+; RFC3339-Specific Variables ( Internet date-time/timestamp standardization values, https://tools.ietf.org/html/rfc3339 )
 ;  |
 ;  |-->  Example - RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
 ;
@@ -87,7 +87,7 @@ GroupAdd, Explorer, ahk_class CabinetWClass
 ; Show the Version of AHK currently being used to compile this code
 ;
 If (DebugMode == 1) {
-	TrayTip, AHK, "Version:`n%A_AhkVersion%"  ; Toast Notification
+	TrayTip, AHK, % ( "Version:" "`n" A_AhkVersion )  ; Toast Notification
 }
 
 
@@ -187,7 +187,7 @@ ScrollLock::
 	; SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	; Fullpath_OpenInExplorer := OutDirname "\Videos"
 	; Run "%Fullpath_OpenInExplorer%"  ; Open the directory
-	; TrayTip, AHK, Recording Saved to: `n"%Fullpath_OpenInExplorer%"  ; Toast Notification
+	TrayTip, AHK, % ( "Recording Saved to:" "`n" Fullpath_OpenInExplorer )  ; Toast Notification
 	Return
 
 
@@ -202,28 +202,73 @@ ScrollLock::
 
 
 ; ------------------------------------------------------------
-;
-;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
-;   ACTION:  Foxit PhantomPDF - Add Text
-;
 #If WinActive("ahk_exe FoxitPhantomPDF.exe")  ; #If WinActive("ahk_class classFoxitPhantom")
+	;
+	;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
+	;   ACTION:  Edit > Add Text
+	;
 	#A::
 		Global DebugMode
 		CoordMode, Mouse, Screen
 		SetDefaultMouseSpeed, 0
 		SetControlDelay, -1
-		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 		WinGetTitle, WinTitle, A
 		If (DebugMode == 1) {
-			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
+			TrayTip, AHK, % ( "Clicking 'Edit' > 'Add Text' in Foxit PhantomPDF" )  ; Toast Notification
 		}
+		; Click the "Edit" tab
 		x_loc := 223
 		y_loc := 40
 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 		Sleep 100
+		; Click the "Add Text" button
 		x_loc := 338
 		y_loc := 87
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Return
+	;
+	;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
+	;   ACTION:  Edit > Bold
+	;
+	^B::
+		Global DebugMode
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+		WinGetTitle, WinTitle, A
+		If (DebugMode == 1) {
+			TrayTip, AHK, % ( "Clicking 'Edit' > 'Bold' in Foxit PhantomPDF" )  ; Toast Notification
+		}
+		; Click the "Edit" tab
+		x_loc := 223
+		y_loc := 40
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Sleep 100
+		; Click the "B" (Bold) button
+		x_loc := 448
+		y_loc := 106
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Return
+	;
+	;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
+	;   ACTION:  Redo
+	;
+	^Y::
+		Global DebugMode
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+		WinGetTitle, WinTitle, A
+		If (DebugMode == 1) {
+			TrayTip, AHK, % ( "Clicking 'Redo' in Foxit PhantomPDF" )  ; Toast Notification
+		}
+		Sleep 100
+		; Click the "Redo" button
+		x_loc := 186
+		y_loc := 15
 		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
 		Return
 #If
@@ -369,30 +414,30 @@ ScrollLock::
 				; Exe path-matching succeeded
 				DoPaste := 1
 				If (DebugMode == 1) {
-					TrayTip, AHK, % ("Info - Allowing paste" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'")
+					TrayTip, AHK, % ( "Info - Allowing paste" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'" )  ; Toast Notification
 				}
 			} Else {
 				; Exe path-matching failed
 				DoPaste := 0
 				If (DebugMode == 1) {
-					TrayTip, AHK, % ("Error (invalid exe) - Blocking paste" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'")
+					TrayTip, AHK, % ( "Error (invalid exe) - Blocking paste" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'" )  ; Toast Notification
 				} Else {
 					; !! Always show at-least the shortened form of this error !!
-					TrayTip, AHK, % ("Error (invalid exe) - Blocking paste")
+					TrayTip, AHK, % ( "Error (invalid exe) - Blocking paste" )  ; Toast Notification
 				}
 			}
 		} Else {
 			; Skip matching on the active window's executable fullpath
 			DoPaste := 1
 			If (DebugMode == 1) {
-				TrayTip, AHK, % ("Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])")
+				TrayTip, AHK, % ( "Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])" )  ; Toast Notification
 			}
 		}
 	} Else {
 		; Paste file not found
 		DoPaste := 0
 		If (DebugMode == 1) {
-				TrayTip, AHK, % ("Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]")
+				TrayTip, AHK, % ( "Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]" )  ; Toast Notification
 		}
 	}
 	If (DoPaste == 1) {
@@ -441,7 +486,7 @@ ScrollLock::
 		KeysPressed := StrReplace(KeysPressed,"!","")
 	}
 	If (DebugMode == 1) {
-		TrayTip, AHK, A_ThisHotkey=[%A_ThisHotkey%] KeysPressed=[%KeysPressed%] Add_Microseconds=[%Add_Microseconds%] Add_Timezone=[%Add_Timezone%]
+		TrayTip, AHK, % ( "A_ThisHotkey=[" A_ThisHotkey "] KeysPressed=[" KeysPressed "] Add_Microseconds=[" Add_Microseconds "] Add_Timezone=[" Add_Timezone "] ")  ; Toast Notification
 	}
 	If (KeysPressed = "#D") {  ; WinKey + D
 		; Output a "filename-friendly" timestamp
@@ -785,7 +830,7 @@ AppsKey & L::
 ;   ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
 #N::
-	TrayTip, AHK, Opening "View Network Connections"  ; Toast Notification
+	TrayTip, AHK, % ( "Opening 'View Network Connections'" )  ; Toast Notification
 	ViewNetworkConnections_PATH := WINDIR "\System32\ncpa.cpl"
 	ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
 	; Run %ViewNetworkConnections_PATH%
@@ -798,7 +843,7 @@ AppsKey & L::
 ; ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
 ; 
 #S::
-	TrayTip, AHK, Opening "Sound - Playback"  ; Toast Notification
+	TrayTip, AHK, % ( "Opening 'Sound' > 'Playback'" )  ; Toast Notification
 	;
 	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
 	; Run control.exe /name Microsoft.Sound
@@ -912,7 +957,7 @@ AppsKey & Space::
 	KeyState_Ctrl := GetKeyState("Ctrl")
 	KeyState_Shift := GetKeyState("Shift")
 	If (DebugMode == 1) {
-		TrayTip, AHK, % "KeyState_Alt = [ " KeyState_Alt " ]" "`n" "KeyState_Ctrl = [ " KeyState_Ctrl " ]" "`n" "KeyState_Shift = [ " KeyState_Shift " ]"  ; Toast Notification
+		TrayTip, AHK, % ( "KeyState_Alt = [" KeyState_Alt "]" "`n" "KeyState_Ctrl = [" KeyState_Ctrl "]" "`n" "KeyState_Shift = [" KeyState_Shift "]" )  ; Toast Notification
 	}
 	If ( (KeyState_Alt = 1) || (KeyState_Ctrl = 1) || (KeyState_Shift = 1) ) {  ; Additional modifier pressed
 		Send {Media_Play_Pause}
@@ -1273,9 +1318,9 @@ LShift & RShift::
 ;
 #8::
 	Random, RandomSleep_15s_to_20s, 15000, 20000
-	TrayTip, AHK, % ( "Sleeping for [ " RandomSleep_15s_to_20s " ] ms" )  ; Toast Notification
+	TrayTip, AHK, % ( "Sleeping for [" RandomSleep_15s_to_20s "] ms" )  ; Toast Notification
 	Sleep %RandomSleep_15s_to_20s%
-	TrayTip, AHK, % ( "Sleep for [ " RandomSleep_15s_to_20s " ] ms has finished" )  ; Toast Notification
+	TrayTip, AHK, % ( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" )  ; Toast Notification
 	Return
 
 
@@ -1529,7 +1574,7 @@ ActiveWindow_ToggleRestoreMaximize() {
 		}
 	}
 	If (DebugMode == 1) {
-		TrayTip, AHK, %DebugString%
+		TrayTip, AHK, % ( DebugString )  ; Toast Notification
 	}
 	Return
 }
@@ -2233,7 +2278,6 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
 PrintEnv() {
 	; --- Custom Globals
 	Global COMPUTERNAME
-	Global USER_DESKTOP
 	Global USERNAME
 	; --- Windows Default-Globals
 	ALLUSERSPROFILE := EnvGet("ALLUSERSPROFILE")
@@ -2358,8 +2402,8 @@ PrintEnv() {
 
 	;
 	; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
-	; Logfile_EnvVars := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
-	; Logfile_EnvVars_Timestamp := USER_DESKTOP "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
+	; Logfile_EnvVars := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
+	; Logfile_EnvVars_Timestamp := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
 	;
 	; FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
 	; Run, Notepad "%Logfile_EnvVars_Timestamp%"
@@ -2533,7 +2577,7 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 	Global DebugMode
 	CoordMode, Mouse, Screen
 	If (DebugMode == 1) {
-		TrayTip, AHK, %DebugString%
+		TrayTip, AHK, % ( DebugString )  ; Toast Notification
 		OutputFile := A_Desktop "\rgblogging.txt"
 		Logfile := FileOpen(OutputFile, "w")
 		If (FileExist("%OutputFile%")) {
@@ -3227,13 +3271,13 @@ If (False) {
 		MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
 
 		If (A_MsgBoxResult = "Yes") {
-			; TrayTip, AHK, Leftmost Button Selected  ; Toast Notification
+			TrayTip, AHK, % ( "Leftmost Button Selected" )  ; Toast Notification
 		}
 		If (A_MsgBoxResult = "No") {
-			; TrayTip, AHK, Center Button Selected  ; Toast Notification
+			TrayTip, AHK, % ( "Center Button Selected" )  ; Toast Notification
 		}
 		If (A_MsgBoxResult = "Cancel") {
-			; TrayTip, AHK, Rightmost Button Selected  ; Toast Notification
+			TrayTip, AHK, % ( "Rightmost Button Selected" )  ; Toast Notification
 		}
 
 		Return

@@ -203,7 +203,35 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Numpad Enter (during FPS games)
+;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
+;   ACTION:  Foxit PhantomPDF - Add Text
+;
+#If WinActive("ahk_exe FoxitPhantomPDF.exe")  ; #If WinActive("ahk_class classFoxitPhantom")
+	#A::
+		Global DebugMode
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+		WinGetTitle, WinTitle, A
+		If (DebugMode == 1) {
+			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
+		}
+		x_loc := 223
+		y_loc := 40
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Sleep 100
+		x_loc := 338
+		y_loc := 87
+		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
+		Return
+#If
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Numpad-Enter  (while [ any FPS game ] is active)
 ;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
 ;
 #If WinActive("ahk_exe Overwatch.exe")  ; #If WinActive("ahk_class TankWindowClass")
@@ -217,31 +245,32 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  WinKey + -
+;   HOTKEY:  WinKey + Minus-Key  (while [ FFXIV ] is NOT active)
 ;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 ;
 #If !WinActive("ahk_class FFXIVGAME")
-#-::
-#NumpadSub::
-	AwaitModifierKeyup()
-	SetKeyDelay, 0, -1
-	; StringToType := StringRepeat("-",60)
-	SendInput, ------------------------------------------------------------
-	Return
+	#-::
+	#NumpadSub::
+		AwaitModifierKeyup()
+		SetKeyDelay, 0, -1
+		; StringToType := StringRepeat("-",60)
+		SendInput, ------------------------------------------------------------
+		Return
 #If
+
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  WinKey + =
-;   HOTKEY:  WinKey + [ Plus-Key ]
+;   HOTKEY:  WinKey + Equals-Key  (while [ FFXIV ] is NOT active)
+;   HOTKEY:  WinKey + Plus-Key    (while [ FFXIV ] is NOT active)
 ;   ACTION:  Create a citations footer (refer to function description for more info)
 ;
 #If !WinActive("ahk_class FFXIVGAME")
-#=::
-#+::
-#NumpadAdd::
-	CreateCitationsFooter()
-	Return
+	#=::
+	#+::
+	#NumpadAdd::
+		CreateCitationsFooter()
+		Return
 #If
 
 
@@ -993,34 +1022,6 @@ WheelLeft::
 WheelRight::
 	Send ^{PgDn}
 	Return
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Windows-Key + A
-;   ACTION:  Foxit PhantomPDF - Add Text
-;
-#If WinActive("ahk_exe FoxitPhantomPDF.exe")  ; #If WinActive("ahk_class classFoxitPhantom")
-	#A::
-		Global DebugMode
-		CoordMode, Mouse, Screen
-		SetDefaultMouseSpeed, 0
-		SetControlDelay, -1
-		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
-		WinGetTitle, WinTitle, A
-		If (DebugMode == 1) {
-			TrayTip, AHK, Adding Text-Field in `nvia Foxit PhantomPDF, 4, 1  ; Toast Notification
-		}
-		x_loc := 223
-		y_loc := 40
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-		Sleep 100
-		x_loc := 338
-		y_loc := 87
-		ControlClick, x%x_loc% y%y_loc%, %WinTitle%
-		Return
-#If
 
 
 ; ------------------------------------------------------------

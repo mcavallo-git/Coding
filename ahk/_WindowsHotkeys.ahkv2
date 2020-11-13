@@ -327,34 +327,39 @@ ScrollLock::
 		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 
-		Win_ahk_id := WinGet_ahk_id("A")
+		Win_ahk_id := WinGetID("A")
+		Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
+		Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
 		Win_ahk_exe := WinGetProcessName("A")
-		Win10_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
 		Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
 
-		Tooltip, % ( "Win_ahk_pid = [" Win_ahk_pid "]" "`n" "Win_ahk_id = [" Win_ahk_id "]" "`n" "Win_ahk_exe = [" Win_ahk_exe "]" )
-
+		Win10_ahk_id := WinGet_ahk_id("A")
+		Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
+		Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
+		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
+		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
 
 		; --- WORKING --- 
 		If (0) {
-			WinMaximize("A")
-		}
 
-		If (0) {
+			WinMaximize("A")
+
 			Win_ahk_id := WinGetID("A")
 			WinMaximize, ahk_id %Win_ahk_id%
+
+			WinMaximize("ahk_exe %Win_ahk_exe%")
+			WinMaximize("ahk_id %Win_ahk_id%")
+
+			WinMaximize, ahk_exe %Win_ahk_exe%
+
+			; --- NOT-WORKING --- 
+
+			; WinMaximize ("ahk_id %Win_ahk_id%")
+
 		}
 
-		; --- NOT-WORKING --- 
-		; WinMaximize ("ahk_id %Win_ahk_id%")
-		; WinMaximize("ahk_exe %Win_ahk_exe%")
+		WinMove, ahk_id %Win_ahk_id%,, 50, 50, 1200, 800
 
-		; Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
-		; Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
-		; WinText := WinGetText("ahk_id %Win_ahk_id%")
-		; WinTitle := WinGetTitle("ahk_id %Win_ahk_id%")
-
-		
 		; WinMove, 50, 50, 750, 600, ahk_id %Win_ahk_id%  ; Resize target window for consistent results
 		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"  ; Resize target window for consistent results
 		; WinMove 50, 50, 750, 600, % WinTitle  ; Resize target window for consistent results
@@ -362,7 +367,8 @@ ScrollLock::
 		; WinMove X, Y , Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText
 
 		; WinMove, A, , 0, 0
-		WinMove, ahk_id %Win_ahk_id%, , 0, 0
+		; WinMaximize("ahk_id %Win_ahk_id%")
+		; WinMove, ahk_id %Win_ahk_id%, , 0, 0
 
 		; ControlMove X, Y, Width, Height, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
 

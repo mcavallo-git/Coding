@@ -313,6 +313,7 @@ ScrollLock::
 ; ------------------------------------------------------------
 ;
 ; NON - FFXIV Hotkeys (Hotkeys applied anytime FFXIV is NOT active)
+;
 #If !WinActive("ahk_class FFXIVGAME")
 	;
 	;   HOTKEY:  WinKey + Minus-Key   ( - )

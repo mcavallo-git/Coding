@@ -3053,10 +3053,9 @@ XBox_DownloadDelete_GameClips() {
 		; Click "On Xbox Live" (Tab within "Captures")
 		MouseClick, Left, 220, 138
 		Sleep 7500
-		; Click "Everything v" (Dropdown within "On Xbox Live")
-		MouseClick, Left, 267, 182
-		Sleep 7500
-		; Select "Game clips" (second from top option - go all the way up then down 1)
+		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
+		MouseClick, Left, 221, 181
+		Sleep 2000
 		Send {Up}
 		Sleep 1000
 		Send {Up}

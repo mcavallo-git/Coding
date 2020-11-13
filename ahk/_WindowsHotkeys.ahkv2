@@ -3005,10 +3005,12 @@ XBox_DownloadDelete_GameClips() {
 	; Prep window-location & dimensions
 	If ((Win_min_max_state == -1) || (Win_min_max_state == 1)) {
 		; WinRestore("ahk_id %Win_ahk_id%")
+		WinActivate(WinTitle)
 		WinRestore(Win_title)
 		Sleep 1000
 	}
 	; WinMove, "ahk_id %Win_ahk_id%",, -7, 0, 1280, 800
+	WinActivate(WinTitle)
 	WinMove(Win_title,, -7, 0, 1280, 800)
 	Sleep 1000
 

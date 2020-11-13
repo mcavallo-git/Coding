@@ -22,31 +22,29 @@ DebugMode := 1
 ; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
 ;
 
-#Persistent  ; https://www.autohotkey.com/docs/commands/_Persistent.htm
+#Persistent  ; https://lexikos.github.io/v2/docs/commands/_Persistent.htm
 
-#HotkeyInterval 2000  ; https://www.autohotkey.com/docs/commands/_HotkeyInterval.htm
+#HotkeyInterval 2000  ; https://lexikos.github.io/v2/docs/commands/_HotkeyInterval.htm
 
-#MaxHotkeysPerInterval 2000  ; https://www.autohotkey.com/docs/commands/_MaxHotkeysPerInterval.htm
+#MaxHotkeysPerInterval 2000  ; https://lexikos.github.io/v2/docs/commands/_MaxHotkeysPerInterval.htm
 
-#SingleInstance Force  ; https://www.autohotkey.com/docs/commands/_SingleInstance.htm
+#SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
 
-; #EscapeChar \  ; https://www.autohotkey.com/docs/commands/_EscapeChar.htm
+DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
 
-; #InstallKeybdHook  ; https://www.autohotkey.com/docs/commands/_InstallKeybdHook.htm
+; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
 
-; #UseHook off  ; https://www.autohotkey.com/docs/commands/_UseHook.htm
+; #InstallKeybdHook  ; https://lexikos.github.io/v2/docs/commands/_InstallKeybdHook.htm
 
-; SetBatchLines, -1  ; https://www.autohotkey.com/docs/commands/SetBatchLines.htm
+; #UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 
-SetWorkingDir, %A_ScriptDir%  ; https://www.autohotkey.com/docs/commands/SetWorkingDir.htm
+SetWorkingDir %A_ScriptDir%  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
 
-DetectHiddenWindows, On  ; https://www.autohotkey.com/docs/commands/DetectHiddenWindows.htm
+SetCapsLockState Off  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 
-SetCapsLockState, Off  ; https://www.autohotkey.com/docs/commands/SetNumScrollCapsLockState.htm
+; FileEncoding, UTF-8  ; https://lexikos.github.io/v2/docs/commands/FileEncoding.htm
 
-; FileEncoding, UTF-8  ; https://www.autohotkey.com/docs/commands/FileEncoding.htm
-
-; #ErrorStdOut  ; https://www.autohotkey.com/docs/commands/_ErrorStdOut.htm
+; #ErrorStdOut  ; https://lexikos.github.io/v2/docs/commands/_ErrorStdOut.htm
 
 
 ; ------------------------------------------------------------
@@ -328,29 +326,56 @@ ScrollLock::
 		SetKeyDelay, 0, -1
 		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
-		WinGetTitle, WinTitle, A
-		Win_ahk_exe := WinGet_ahk_exe("A")
-		Win_ahk_id := WinGet_ahk_id("A") 
-		Win_ahk_pid := WinGetPID("A")
+
+		Win_ahk_id := WinGet_ahk_id("A")
+
+		Win_ahk_exe := WinGetProcessName("A")
+		Win10_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
+
+		Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
+
+
+		Tooltip, % ( "Win_ahk_pid = [" Win_ahk_pid "]" "`n" "Win_ahk_id = [" Win_ahk_id "]" "`n" "Win_ahk_exe = [" Win_ahk_exe "]" )
+
+		; Resize target window for consistent results
+		WinMove, 50, 50, 750, 600, ahk_id %Win_ahk_id%
+		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"
+		; WinMove 50, 50, 750, 600, % WinTitle
+		; WinMove 50, 50, 750, 600, "Xbox Console Companion"
+		; WinMove 50, 50, 750, 600, %WinTitle%
+		; WinMove X, Y , Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText
+		; ControlMove X, Y, Width, Height, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+
+		; --- WORKING --- 
+		If (0) {
+			WinMaximize("A")
+		}
+
+		If (0) {
+			Win_ahk_id := WinGetID("A")
+			WinMaximize, ahk_id %Win_ahk_id%
+		}
+
+		; --- NOT-WORKING --- 
+		; WinMaximize ("ahk_id %Win_ahk_id%")
+		; WinMaximize("ahk_exe %Win_ahk_exe%")
+
+		; Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
+		; Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
+		; WinText := WinGetText("ahk_id %Win_ahk_id%")
+		; WinTitle := WinGetTitle("ahk_id %Win_ahk_id%")
+
+		If (False) {
+
 
 		If (DebugMode == 1) {
 			TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
 		}
 
-		Msgbox, % ( "Win_ahk_pid = [" Win_ahk_pid "]" "`n" "Win_ahk_id = [" Win_ahk_id "]" "`n" "Win_ahk_exe = [" Win_ahk_exe "]" )
-
-		; Resize target window for consistent results
-		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"
-		; WinMove 50, 50, 750, 600, % WinTitle
-		; WinMove 50, 50, 750, 600, "Xbox Console Companion"
-		; WinMove 50, 50, 750, 600, %WinTitle%
-
-		If (False) {
-
-		; Click ABC_____
-		xpos := 223
-		ypos := 40
-		ControlClick, x%xpos% y%ypos%, %WinTitle%
+		; ; Click ABC_____
+		; xpos := 223
+		; ypos := 40
+		; ControlClick, x%xpos% y%ypos%, "ahk_id %Win_ahk_id%"
 
 		WaitForDownload_MaxSeconds := 30000
 		; WaitForDownload_MaxSeconds := 90000
@@ -534,18 +559,18 @@ ScrollLock::
 		If (FileExist(ExeToRequire_Legend)) {
 			; Get required/whitelisted exe fullpath to match active against
 			FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
-			WinProcessPath := WinGetProcessPath("A")
-			If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == WinProcessPath)) {
+			Win_fullpath := WinGetProcessPath("A")
+			If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == Win_fullpath)) {
 				; Exe path-matching succeeded
 				DoPaste := 1
 				If (DebugMode == 1) {
-					TrayTip, AHK, % ( "Info - Allowing paste" "`n" "WinProcessPath == '" ExeToRequire_Fullpath "'" )  ; Toast Notification
+					TrayTip, AHK, % ( "Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'" )  ; Toast Notification
 				}
 			} Else {
 				; Exe path-matching failed
 				DoPaste := 0
 				If (DebugMode == 1) {
-					TrayTip, AHK, % ( "Error (invalid exe) - Blocking paste" "`n" "WinProcessPath != '" ExeToRequire_Fullpath "'" )  ; Toast Notification
+					TrayTip, AHK, % ( "Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'" )  ; Toast Notification
 				} Else {
 					; !! Always show at-least the shortened form of this error !!
 					TrayTip, AHK, % ( "Error (invalid exe) - Blocking paste" )  ; Toast Notification
@@ -1589,8 +1614,8 @@ Numlock::
 ;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
-	Win_IsMinRestMax := WinGetMinMax("A")
-	If (Win_IsMinRestMax<=0) { ; Window is not maximized - maximize it
+	Win_MinRestoredOrMax := WinGetMinMax("A")
+	If (Win_MinRestoredOrMax<=0) { ; Window is not maximized - maximize it
 		WinMaximize "A"
 	}
 	Return
@@ -1603,21 +1628,21 @@ ActiveWindow_Maximize() {
 ;
 ActiveWindow_ToggleRestoreMaximize() {
 	Global DebugMode
-	Win_IsMinRestMax := WinGetMinMax("A")
+	Win_MinRestoredOrMax := WinGetMinMax("A")
 	WinStyle := WinGetStyle("A")
 	TestVar := 1
-	DebugString := "Win_IsMinRestMax=[ %Win_IsMinRestMax% ]"
-	If ("%Win_IsMinRestMax%" = "") {  ; ??? Window-state not pulled as-intended
+	DebugString := "Win_MinRestoredOrMax=[ %Win_MinRestoredOrMax% ]"
+	If ("%Win_MinRestoredOrMax%" = "") {  ; ??? Window-state not pulled as-intended
 		WinMaximize("A")
 		DebugString := "%DebugString%, Do WinMaximize"
 	} Else {
-		If (Win_IsMinRestMax = 0) {  ; 0: The window is neither minimized nor maximized
+		If (Win_MinRestoredOrMax = 0) {  ; 0: The window is neither minimized nor maximized
 			WinMaximize("A")
 			DebugString := "%DebugString%, Do WinMaximize"
-		} Else If (Win_IsMinRestMax = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
+		} Else If (Win_MinRestoredOrMax = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
 			WinRestore("A")
 			DebugString := "%DebugString%, Do WinRestore"
-		} Else If (Win_IsMinRestMax = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
+		} Else If (Win_MinRestoredOrMax = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
 			WinRestore("A")
 			DebugString := "%DebugString%, Do WinRestore"
 		} Else {  ; Fallthrough-catch
@@ -1885,16 +1910,19 @@ GetWindowSpecs() {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
 	Gui, Destroy
-	Win_ahk_class := WinGetClass("A")
-	Win_ahk_id := WinGet_ahk_id("A") 
-	Win_ahk_pid := WinGetPID("A")
-	Win_ahk_exe := WinGet_ahk_exe("A")
-	WinProcessPath := WinGetProcessPath("A")
-	WinText := WinGetText("A")
-	WinTitle := WinGetTitle("A")
-	WinControls := WinGetControls("A")  ; Get all control names in this window
-	WinGetPos(Pos_X, Pos_Y, Width, Height, "A")
-	Win_IsMinRestMax := WinGetMinMax("A")
+
+	Win_ahk_id := WinGetID("A")
+
+	Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
+	Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
+	Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
+	Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
+	WinText := WinGetText("ahk_id %Win_ahk_id%")
+	WinTitle := WinGetTitle("ahk_id %Win_ahk_id%")
+	WinControls := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
+	Win_MinRestoredOrMax := WinGetMinMax("ahk_id %Win_ahk_id%")
+	WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
+	Win_is_win10_app := WinGet_is_win10_app("A")
 	; Create the ListView with two columns
 	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
 	Gui, Font, s10, Tahoma
@@ -1904,8 +1932,12 @@ GetWindowSpecs() {
 	Gui, Font, s10, Fira Code
 	Gui, Color, 1E1E1E
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
-	GUI_WIDTH := ((StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)) > (StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)) ? (StrLen(WinTitle)>StrLen(WinProcessPath) ? StrLen(WinTitle):StrLen(WinProcessPath)):(StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)))
-	GUI_ROWCOUNT := 14
+	GUI_WIDTH := ((StrLen(WinTitle)>StrLen(Win_fullpath) ? StrLen(WinTitle):StrLen(Win_fullpath)) > (StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)) ? (StrLen(WinTitle)>StrLen(Win_fullpath) ? StrLen(WinTitle):StrLen(Win_fullpath)):(StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)))
+	If (Win_is_win10_app == 0) {
+		GUI_ROWCOUNT := 16
+	} Else {
+		GUI_ROWCOUNT := 27
+	}
 	GUI_WIDTH := 125 + Ceil(GUI_WIDTH * 8)  ; <-- 8 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
 	GUI_BACKGROUND_COLOR := "1E1E1E"
 	GUI_TEXT_COLOR := "FFFFFF"
@@ -1918,21 +1950,63 @@ GetWindowSpecs() {
 	GUI_OPT := GUI_OPT " Grid"
 	GUI_OPT := GUI_OPT " NoSortHdr"
 	; GUI_OPT = %GUI_OPT% AltSubmit
+
+	; Draw the grid/table
+
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
+	LV_Add("", "", "")
 	LV_Add("", "WinTitle", WinTitle)
 	LV_Add("", "WinText", WinText)
 	LV_Add("", "ahk_class", Win_ahk_class)
 	LV_Add("", "ahk_exe", Win_ahk_exe)
 	LV_Add("", "ahk_id", Win_ahk_id)
 	LV_Add("", "ahk_pid", Win_ahk_pid)
-	LV_Add("", "ProcessPath", WinProcessPath)
+	LV_Add("", "ProcessPath", Win_fullpath)
 	LV_Add("", "ControlList", WinControls)
-	LV_Add("", "Pos_X", Pos_X)
-	LV_Add("", "Pos_Y", Pos_Y)
-	LV_Add("", "Width", Width)
-	LV_Add("", "Height", Height)
-	LV_Add("", "Win_IsMinRestMax", Win_IsMinRestMax)
-	; LV_Add("", "Mimic in AHK", "WinMove,,,%Pos_X%,%Pos_Y%,%Width%,%Height%")
+	LV_Add("", "Win_MinRestoredOrMax", Win_MinRestoredOrMax)
+	; LV_Add("", "xpos", xpos)
+	; LV_Add("", "ypos", ypos)
+	; LV_Add("", "Width", Win_Width)
+	; LV_Add("", "height", Win_Height)
+	LV_Add("", "xpos, ypos", ( xpos ", " ypos ) )
+	LV_Add("", "width, height", ( Win_Width ", " Win_Height ) )
+	; LV_Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_Width%,%Win_Height%")
+	
+	; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
+	LV_Add("", "", "")
+	If (Win_is_win10_app == 0) {
+		LV_Add("", "Is Win10 App?", "No")
+	} Else {
+		LV_Add("", "Is Win10 App?", "Yes")
+		; Get the Win10-App's stats
+		Win10_ahk_id := WinGet_ahk_id("A")
+		Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
+		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
+		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
+		Win10_ProcessPath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
+		Win10_Text := WinGetText("ahk_id %Win10_ahk_id%")
+		Win10_Title := WinGetTitle("ahk_id %Win10_ahk_id%")
+		Win10_Controls := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
+		Win10_MinRestoredOrMax := WinGetMinMax("ahk_id %Win10_ahk_id%")
+		WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
+		; Show the Win10-App's stats
+		LV_Add("", "Win10_Title", Win10_Title)
+		LV_Add("", "Win10_Text", Win10_Text)
+		LV_Add("", "Win10_ahk_class", Win10_ahk_class)
+		LV_Add("", "Win10_ahk_exe", Win10_ahk_exe)
+		LV_Add("", "Win10_ahk_id", Win10_ahk_id)
+		LV_Add("", "Win10_ahk_pid", Win10_ahk_pid)
+		LV_Add("", "Win10_ProcessPath", Win10_ProcessPath)
+		LV_Add("", "Win10_Controls", Win10_Controls)
+		; LV_Add("", "Win10_xpos", Win10_xpos)
+		; LV_Add("", "Win10_ypos", Win10_ypos)
+		; LV_Add("", "Win10_Width", Win10_Width)
+		; LV_Add("", "Win10_Height", Win10_Height)
+		LV_Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
+		LV_Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
+		LV_Add("", "Win10_MinRestoredOrMax", Win10_MinRestoredOrMax)
+	}
+	LV_Add("", "", "")
 	LV_ModifyCol(1, "AutoHdr Text Left")
 	LV_ModifyCol(2, "AutoHdr Text Left")
 	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
@@ -2911,27 +2985,12 @@ TempFile() {
 
 
 ;
-; WinGet_ahk_exe
-;   |--> Determines target process (exe)'s [ basename ]
-;   |--> Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
-;
-WinGet_ahk_exe(WinTitle) {
-	Win_ahk_exe := WinGetProcessName(WinTitle)
-	If (Win_ahk_exe = "ApplicationFrameHost.exe") {
-		ControlGet, Win_ahk_id, Hwnd,, Windows.UI.Core.CoreWindow1, %WinTitle%
-		; Win_ahk_id := ControlGetHwnd("Windows.UI.Core.CoreWindow1", "A")
-		If (Win_ahk_id) {
-			Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
-		}
-	}
-	Return Win_ahk_exe
-}
-
-
-;
 ; WinGet_ahk_id
+;   |
 ;   |--> Determines target process (exe)'s [ unique ID (e.g. 'HWND', which is short for "handle to window") ]
 ;   |--> Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
+;   |
+;   |--> Ex)   Win_ahk_id := WinGet_ahk_id("A") 
 ;
 WinGet_ahk_id(WinTitle) {
 	Win_ahk_exe := WinGetProcessName(WinTitle)
@@ -2942,6 +3001,23 @@ WinGet_ahk_id(WinTitle) {
 		Win_ahk_id := WinGetID(WinTitle)
 	}
 	Return Win_ahk_id
+}
+
+
+;
+; WinGet_is_win10_app
+;   |
+;   |--> Determines if target-app is running in "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
+;   |
+;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
+;
+WinGet_is_win10_app(WinTitle) {
+	Win_ahk_exe := WinGetProcessName(WinTitle)
+	Win_is_win10_app := 0
+	If (Win_ahk_exe = "ApplicationFrameHost.exe") {
+		Win_is_win10_app := 1
+	}
+	Return Win_is_win10_app
 }
 
 

@@ -3016,21 +3016,6 @@ XBox_DownloadDelete_GameClips() {
 
 	Tooltip_Header := A_ThisFunc "`n" "----------"
 
-	Tooltip, % ( Tooltip_Header "`n" "Resizing '" WinTitle "' window..." ), 1, 1
-	WinActivate("ahk_id %Win_ahk_id%")
-	Sleep 1000
-
-	; Prep window-location & dimension/size
-	If (Win_size_state != "restored") {
-		WinActivate("ahk_id %Win_ahk_id%")
-		; WinRestore(Win_title)
-		WinRestore("ahk_id %Win_ahk_id%")
-		Sleep 100
-	}
-	WinActivate("ahk_id %Win_ahk_id%")
-	WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800)
-	Sleep 1000
-
 	; Use_ControlClick := 1
 	Use_ControlClick := 0
 	If (Use_ControlClick == 1) {
@@ -3071,8 +3056,26 @@ XBox_DownloadDelete_GameClips() {
 
 		Tooltip_StartupJobs := Tooltip_Header
 
-		Loop 3 {
+		Loop 4 {
 			If (A_Index == 1) {
+				;
+				; Resizing 'Xbox Console Companion' Window
+				;
+				Tooltip_NewStats := ( "Prepping '" WinTitle "' window location & size)..." )
+				Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+				WinActivate("ahk_id %Win_ahk_id%")
+				Sleep 500
+				If (Win_size_state != "restored") {
+					WinActivate("ahk_id %Win_ahk_id%")
+					WinRestore("ahk_id %Win_ahk_id%")
+					Sleep 1000
+				}
+				WinActivate("ahk_id %Win_ahk_id%")
+				WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800) ; Move the window to a known static location to build off-of
+				Sleep 500
+				Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
+				Sleep 500
+			} Else If (A_Index == 2) {
 				;
 				; Loading 'Captures' tab ...
 				;
@@ -3088,9 +3091,9 @@ XBox_DownloadDelete_GameClips() {
 					If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
 						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
 						WinActivate("ahk_id %Win_ahk_id%")
-						If (PixelSearch(Px, Py, 61, 167, 280, 207, 0xFFFFFF, 0)) {
+						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
 							WaitDuration_Seconds := Round( ((A_TickCount-TickCount_LoadCaptures)/1000), 1)
-							Tooltip_StartupJobs := Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done"
+							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 500
 							Break
@@ -3099,7 +3102,7 @@ XBox_DownloadDelete_GameClips() {
 						}
 					}
 				}
-			} Else If (A_Index == 2) {
+			} Else If (A_Index == 3) {
 				;
 				; Loading 'On Xbox Live' (tab)...
 				;
@@ -3115,9 +3118,9 @@ XBox_DownloadDelete_GameClips() {
 					If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
 						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
 						WinActivate("ahk_id %Win_ahk_id%")
-						If (PixelSearch(Px, Py, 61, 167, 280, 207, 0xFFFFFF, 0)) {
+						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
 							WaitDuration_Seconds := Round( ((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
-							Tooltip_StartupJobs := Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done"
+							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 500
 							Break
@@ -3126,13 +3129,12 @@ XBox_DownloadDelete_GameClips() {
 						}
 					}
 				}
-			} Else If (A_Index == 3) {
+			} Else If (A_Index == 4) {
 				;
 				; Loading 'Game clips' (filter)...
 				;
-				Tooltip_NewStats := "Showing 'Game Clips' (only)..."
-				Tooltip_StartupJobs := Tooltip_StartupJobs "`n" Tooltip_NewStats
-				Tooltip, % ( Tooltip_StartupJobs ), 1, 1
+				Tooltip_NewStats := ( "Showing 'Game Clips' (only) ..." )
+				Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 				WinActivate("ahk_id %Win_ahk_id%")
 				MouseClick, Left, 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
 				Sleep 500
@@ -3147,6 +3149,8 @@ XBox_DownloadDelete_GameClips() {
 				Sleep 250
 				WinActivate("ahk_id %Win_ahk_id%")
 				Send {Enter}
+				Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
+				Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 				Sleep 1000
 			}
 		}
@@ -3156,17 +3160,17 @@ XBox_DownloadDelete_GameClips() {
 		TickCount_BeforeFirstClip := A_TickCount
 
 		Loop {
-
+			Tooltip_EachVideo_Stats := Tooltip_Header
 			Clip_Iteration := A_Index
 			BufferMatch := 0
 			DownloadMatch := 0
 			If (MaxClipsToDownload > 0) {
-				Tooltip_EachVideo_Stats := Tooltip_Header "`n" "Processing Clip # " Clip_Iteration "/" MaxClipsToDownload ":"
+				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing Clip # " Clip_Iteration "/" MaxClipsToDownload ":"
 				If (Clip_Iteration >= MaxClipsToDownload) {
 					Break  ; Allow limiting the total # of clips to download
 				}
 			} Else {
-				Tooltip_EachVideo_Stats := Tooltip_Header "`n" "Processing Clip # " Clip_Iteration ":"
+				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing Clip # " Clip_Iteration ":"
 			}
 
 			;
@@ -3195,7 +3199,7 @@ XBox_DownloadDelete_GameClips() {
 					} Else {
 						BufferMatch := 1
 						WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartBuffer)/1000), 1)
-						Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done"
+						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 						Sleep 1000
 						Break
@@ -3228,7 +3232,7 @@ XBox_DownloadDelete_GameClips() {
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
 						DownloadMatch := 1
 						WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartDownload)/1000), 1)
-						Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done"
+						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 						Sleep 1500
 						Break
@@ -3251,7 +3255,7 @@ XBox_DownloadDelete_GameClips() {
 				MouseClick, Left, 515, 450  ; Confirm clip-deletion (via "OK" button on popup)
 				Sleep 500
 				Tooltip_NewStats := Tooltip_NewStats "  Done"
-				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done"
+				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 				Sleep 1500
 				Clips_Processed := Clips_Processed + 1
@@ -3263,7 +3267,7 @@ XBox_DownloadDelete_GameClips() {
 				If (DownloadMatch != 1) {
 					Tooltip_NewStats := Tooltip_NewStats "`n" "   Download unable to complete"
 				}
-				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done"
+				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 				Sleep 2500
 			}

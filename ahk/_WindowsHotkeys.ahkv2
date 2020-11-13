@@ -3091,7 +3091,7 @@ XBox_DownloadDelete_GameClips() {
 				If (Color_DL_Button_LeftSide == Color_NotDownloading) {
 					Break
 				} Else {
-					Tooltip, % ( "Waiting for download to finish (A_Index=[" A_Index "])" )
+					Tooltip, % ( "Waiting for download to finish" "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
 				}
 				; Color=[0x272727], Coords=[x418 y773] ; while NOT downloading
 				; Color=[0x595758], Coords=[x418 y773] ; while DOWNLOADING

@@ -3083,27 +3083,32 @@ XBox_DownloadDelete_GameClips() {
 		Loop {
 			; Wait for the next video to load
 			Tooltip, % ( "Waiting for the next video to load..." ), 0, 0
+			Sleep 1000
 			Loop {
-				Sleep 2000
+				Sleep 100
 				; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
 				Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
 				Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
 				Color_Thumbnail_TopRight := PixelGetColor(900, 215)
 				Color_Thumbnail_BotRight := PixelGetColor(900, 470)
 				If ((Color_Thumbnail_BotLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopRight == Color_Thumbnail_Buffering) && (Color_Thumbnail_BotRight == Color_Thumbnail_Buffering)) {
-					Tooltip, % ( "Waiting for the next video to load..." "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" ), 0, 0
+					Tooltip_Echo := "Waiting for the next video to load..."
+					If (DebugMode == 1) {
+						Tooltip_Echo := ( Tooltip_Echo "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
+					}
+					Tooltip, %Tooltip_Echo%, 0, 0
 				} Else {
 					Break
 				}
 			}
 			Sleep 1000
-			Tooltip, % ( "Starting download" ), 0, 0
+			Tooltip, % ( "Downloading next clip..." ), 0, 0
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
-			Sleep 4000
+			Sleep 2000
 			Loop {
-				Sleep 1000
+				Sleep 100
 				; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
 				DownloadStart_xpos := 418
 				DownloadStart_ypos := 771
@@ -3113,11 +3118,15 @@ XBox_DownloadDelete_GameClips() {
 				If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
 					Break
 				} Else {
-					Tooltip, % ( "Waiting for download to finish..." "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" ), 0, 0
+					Tooltip_Echo := "Waiting for download to finish..."
+					If (DebugMode == 1) {
+						Tooltip_Echo := ( Tooltip_Echo "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
+					}
+					Tooltip, %Tooltip_Echo%, 0, 0
 				}
 			}
 			Sleep 1000
-			Tooltip, % ( "Deleting clip" ), 0, 0
+			Tooltip, % ( "Download complete - deleting clip" ), 0, 0
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731
@@ -3127,9 +3136,7 @@ XBox_DownloadDelete_GameClips() {
 			MouseClick, Left, 515, 450
 			Sleep 1000
 		}
-
 	}
-
 
 	; Open the output-videos directory
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive

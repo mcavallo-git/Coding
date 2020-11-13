@@ -2999,6 +2999,8 @@ XBox_DownloadDelete_GameClips() {
 	Win_min_max_state := WinGetMinMax("ahk_id %Win_ahk_id%")
 
 	Tooltip, % ( A_ThisFunc "`n" "Resizing '" WinTitle "' window..." ), 1, 1
+	WinActivate(WinTitle)
+	Sleep 1000
 
 	; Prep window-location & dimensions
 	If ((Win_min_max_state == -1) || (Win_min_max_state == 1)) {

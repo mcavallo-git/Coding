@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2660,6 +2660,13 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 	PollDuration_ms := 10
 	FollowDuration_Seconds := 600
 	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
+
+	Last_MouseX := 0
+	Last_MouseY := 0
+	Last_Blue := 0
+	Last_Green := 0
+	Last_Red := 0
+
 	Loop Loop_Iterations {  ; Loop %Loop_Iterations% {
 		MouseGetPos, MouseX, MouseY
 		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
@@ -2693,9 +2700,17 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		TooltipOutput := "Color=[" Color "], Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "]"
 		Tooltip, %TooltipOutput%
 		; Tooltip, %FFXIV_Nickname%
-		If (DebugMode == 1) {
-			Logfile.write("%TooltipOutput%`n")
+		If (Last_MouseX != MouseX) || (Last_MouseY != MouseY) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red) {
+			; Only perform certain updates if a change in color or mouse-position was detected
+			If (DebugMode == 1) {
+				Logfile.write("%TooltipOutput%`n")
+			}
 		}
+		Last_MouseX := MouseX
+		Last_MouseY := MouseY
+		Last_Blue := ColorComponent_Blue
+		Last_Green := ColorComponent_Green
+		Last_Red := ColorComponent_Red
 		Sleep %PollDuration_ms%
 	}
 	If (DebugMode == 1) {
@@ -3054,34 +3069,80 @@ XBox_DownloadDelete_GameClips() {
 		Color_DL_Button_NotDownloading := "0x171717"
 		Color_DL_Button_Downloading := "0x595758"
 
-		Sleep 2500
+		Loop 2 {
+			If (A_Index == 1) {
+				;
+				; Loading 'Captures' tab ...
+				;
+				TickCount_LoadCaptures := A_TickCount
+				WinActivate("ahk_id %Win_ahk_id%")
+				MouseClick, Left, 23, 314  ; Load 'Captures' tab (left-panel)
+				Sleep 500
+				Loop {
+					TimeWaited_Seconds := Round( ((A_TickCount-TickCount_LoadCaptures)/1000), 1)
+					Tooltip_NewStats := ( "Loading 'Captures' tab - " TimeWaited_Seconds "s ..." )
+					Tooltip, % ( Tooltip_Header "`n" Tooltip_NewStats ), 1, 1
+					Sleep 100
+					If ( TimeWaited_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
+						WinActivate("ahk_id %Win_ahk_id%")
+						If (PixelSearch(Px, Py, 61, 167, 280, 207, 0xFFFFFF, 0)) {
+							TimeWaited_Seconds := Round( ((A_TickCount-TickCount_LoadCaptures)/1000), 1)
+							Tooltip_NewStats := ( "Loading 'Captures' tab - " TimeWaited_Seconds "s ..." )
+							Tooltip_NewStats := ( Tooltip_NewStats "  Done" )
+							Tooltip, % ( Tooltip_Header "`n" Tooltip_NewStats ), 1, 1
+							Sleep 500
+							Break
+						} Else {
+							Continue
+						}
+					}
+				}
+			} Else If (A_Index == 2) {
+				;
+				; Loading 'On Xbox Live' tab ...
+				;
+				TickCount_LoadXboxLive := A_TickCount
+				WinActivate("ahk_id %Win_ahk_id%")
+				MouseClick, Left, 220, 138  ; Load 'On Xbox Live' tab (top-option within 'Captures')
+				Sleep 500
+				Loop {
+					TimeWaited_Seconds := Round( ((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
+					Tooltip_NewStats := ( "Loading 'On Xbox Live' tab - " TimeWaited_Seconds "s ..." )
+					Tooltip, % ( Tooltip_Header "`n" Tooltip_NewStats ), 1, 1
+					Sleep 100
+					If ( TimeWaited_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
+						WinActivate("ahk_id %Win_ahk_id%")
+						If (PixelSearch(Px, Py, 61, 167, 280, 207, 0xFFFFFF, 0)) {
+							TimeWaited_Seconds := Round( ((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
+							Tooltip_NewStats := ( "Loading 'On Xbox Live' tab - " TimeWaited_Seconds "s ..." )
+							Tooltip_NewStats := ( Tooltip_NewStats "  Done" )
+							Tooltip, % ( Tooltip_Header "`n" Tooltip_NewStats ), 1, 1
+							Sleep 500
+							Break
+						} Else {
+							Continue
+						}
+					}
+				}
+			}
+		}
 
-		; Click "Captures" (Left Tab)
-		Tooltip, % ( Tooltip_Header "`n" "Opening 'Captures' tab..." ), 1, 1
-		WinActivate("ahk_id %Win_ahk_id%")
-		MouseClick, Left, 23, 314
-		Sleep 7500
-
-		; Click "On Xbox Live" (Tab within "Captures")
-		Tooltip, % ( Tooltip_Header "`n" "Selecting 'On Xbox Live'..." ), 1, 1
-		WinActivate("ahk_id %Win_ahk_id%")
-		MouseClick, Left, 220, 138
-		Sleep 7500
-
-		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
-		Tooltip, % ( Tooltip_Header "`n" "Showing 'Game Clips' (to filter-out 'Screenshots')..." ), 1, 1
+		; Show 'Game clips', only - (under the "Everything v" dropdown - second option from the top)
+		Tooltip, % ( Tooltip_Header "`n" "Showing 'Game Clips' (only)..." ), 1, 1
 		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 221, 181
-		Sleep 2000
+		Sleep 500
 		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Up}
-		Sleep 1000
+		Sleep 250
 		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Up}
-		Sleep 1000
+		Sleep 250
 		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Down}
-		Sleep 1000
+		Sleep 250
 		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Enter}
 		Sleep 1000
@@ -3104,13 +3165,11 @@ XBox_DownloadDelete_GameClips() {
 				Tooltip_EachVideo_Stats := Tooltip_Header "`n" "Processing Clip # " Clip_Iteration ":"
 			}
 
+			;
+			; Buffering...
+			;
+			TickCount_StartBuffer := A_TickCount
 			Loop {
-				;
-				; Buffering...
-				;
-				If (A_Index == 1) {
-					TickCount_StartBuffer := A_TickCount
-				}
 				TimeWaited_Seconds := Round( ((A_TickCount-TickCount_StartBuffer)/1000), 1)
 				; TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
 				Tooltip_NewStats := ( "Buffer duration: " TimeWaited_Seconds "s ..." )
@@ -3141,13 +3200,13 @@ XBox_DownloadDelete_GameClips() {
 					}
 				}
 			}
-			
+
+			;
+			; Downloading...
+			;
+			TickCount_StartDownload := A_TickCount
 			Loop {
-				;
-				; Downloading...
-				;
 				If (A_Index == 1) {
-					TickCount_StartDownload := A_TickCount
 					WinActivate("ahk_id %Win_ahk_id%")
 					MouseClick, Left, 546, 774  ; Click "Download" on currently selected clip
 				}

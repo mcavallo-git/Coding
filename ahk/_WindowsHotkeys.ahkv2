@@ -3070,7 +3070,7 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 1000
 		WinActivate(WinTitle)
 		Send {Enter}
-		Sleep 7500
+		Sleep 1000
 		Loop {
 			; Wait for the next video to load
 			Sleep 7500

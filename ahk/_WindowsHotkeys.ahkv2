@@ -3103,9 +3103,9 @@ XBox_DownloadDelete_GameClips() {
 					Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 					If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
-						; Check the "On This PC" and "On Xbox Live" tabs for existence by matching their known locations areas against white text (0xFFFFFF), which appears as the tab loads
+						; Check the "On This PC" and "On Xbox Live" tabs for existence by matching their known locations areas against near-white text (0xF0F0F0), which appears as the tab loads
 						WinActivate("ahk_id %Win_ahk_id%")
-						If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xFFFFFF, 0)) {
+						If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xF0F0F0, 0)) {
 							WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
 							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1

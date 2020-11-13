@@ -3194,10 +3194,9 @@ XBox_DownloadDelete_GameClips() {
 		Loop {
 
 			Tooltip_EachVideo_Stats := Tooltip_Header
-			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Net Files processed: " MediaFiles_Processed
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Net files-processed: " MediaFiles_Processed
 			Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
-			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Completed duration: " Total_RuntimeDuration_Seconds
-			Tooltip_Closer := Tooltip_Closer "`n" Tooltip_Runtime
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
 
 			MediaFile_Iteration := A_Index
 			TickCount_FileExists := A_TickCount
@@ -3360,39 +3359,37 @@ XBox_DownloadDelete_GameClips() {
 
 	}
 
+
+	Tooltip_Closer_Stats := Tooltip_Header
+	Tooltip_Closer_Stats := Tooltip_EachVideo_Stats "`n" "Net files-processed: " MediaFiles_Processed
+	Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
+	Tooltip_Closer_Stats := Tooltip_EachVideo_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
+	Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+	Sleep 2000
+
 	If (MediaFiles_Processed > 0) {
 
-		Tooltip_Closer := Tooltip_Header
-
-		Tooltip_Closer := Tooltip_Closer "`n" "Total Files processed: " MediaFiles_Processed
-		
-		Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
-		Tooltip_Runtime := "Total Runtime: " Total_RuntimeDuration_Seconds
-		Tooltip_Closer := Tooltip_Closer "`n" Tooltip_Runtime
-
-		Tooltip, % ( Tooltip_Closer ), 1, 1
-		Sleep 2000
-
 		; Open the timestamping script (renames files to their basename plus their metadata created-on date)
-		Tooltip_Closer := Tooltip_Closer "`n" "Opening metadata-timestamper script..."
-		Tooltip, % ( Tooltip_Closer ), 1, 1
+		Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
+		Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 		Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
 		Sleep 2000
 
 		; Open the output-videos directory
-		Tooltip_Closer := Tooltip_Closer "`n" "Opening output directory..."
-		Tooltip, % ( Tooltip_Closer ), 1, 1
+		Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
+		Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 		SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 		Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
 		Run "%Fullpath_XboxCaptures%"
 		Sleep 2000
 
-		Tooltip_Closer := Tooltip_Closer "`n" "Runtime complete"
-		Tooltip, % ( Tooltip_Closer ), 1, 1
+		Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Runtime complete"
+		Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 
-		ClearTooltip(15000)
 
 	}
+
+	ClearTooltip(15000)
 
 	Return
 

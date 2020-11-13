@@ -328,23 +328,13 @@ ScrollLock::
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 
 		Win_ahk_id := WinGet_ahk_id("A")
-
 		Win_ahk_exe := WinGetProcessName("A")
 		Win10_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
-
 		Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
 
 
 		Tooltip, % ( "Win_ahk_pid = [" Win_ahk_pid "]" "`n" "Win_ahk_id = [" Win_ahk_id "]" "`n" "Win_ahk_exe = [" Win_ahk_exe "]" )
 
-		; Resize target window for consistent results
-		WinMove, 50, 50, 750, 600, ahk_id %Win_ahk_id%
-		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"
-		; WinMove 50, 50, 750, 600, % WinTitle
-		; WinMove 50, 50, 750, 600, "Xbox Console Companion"
-		; WinMove 50, 50, 750, 600, %WinTitle%
-		; WinMove X, Y , Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText
-		; ControlMove X, Y, Width, Height, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
 
 		; --- WORKING --- 
 		If (0) {
@@ -365,77 +355,92 @@ ScrollLock::
 		; WinText := WinGetText("ahk_id %Win_ahk_id%")
 		; WinTitle := WinGetTitle("ahk_id %Win_ahk_id%")
 
+		
+		WinMove, 50, 50, 750, 600, ahk_id %Win_ahk_id%  ; Resize target window for consistent results
+		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"  ; Resize target window for consistent results
+		; WinMove 50, 50, 750, 600, % WinTitle  ; Resize target window for consistent results
+		; WinMove 50, 50, 750, 600, %WinTitle%  ; Resize target window for consistent results
+		; WinMove X, Y , Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText
+		; ControlMove X, Y, Width, Height, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+
+		Loop
+		{
+			Sleep 100
+			MouseGetPos,, WhichWindow, WhichControl
+			try ControlGetPos x, y, w, h, WhichControl, WhichWindow
+			ToolTip WhichControl "`nX" X "`tY" Y "`nW" W "`t" H
+		}
+
 		If (False) {
 
+			If (DebugMode == 1) {
+				TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
+			}
 
-		If (DebugMode == 1) {
-			TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
-		}
+			; ; Click ABC_____
+			; xpos := 223
+			; ypos := 40
+			; ControlClick, x%xpos% y%ypos%, "ahk_id %Win_ahk_id%"
 
-		; ; Click ABC_____
-		; xpos := 223
-		; ypos := 40
-		; ControlClick, x%xpos% y%ypos%, "ahk_id %Win_ahk_id%"
+			WaitForDownload_MaxSeconds := 30000
+			; WaitForDownload_MaxSeconds := 90000
+			; WinTitle := "Xbox Console Companion"
 
-		WaitForDownload_MaxSeconds := 30000
-		; WaitForDownload_MaxSeconds := 90000
-		; WinTitle := "Xbox Console Companion"
+			; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
 
-		; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
+			; ControlGetText, OutputVar , Control, WinTitle, WinText, ExcludeTitle, ExcludeText
 
-		; ControlGetText, OutputVar , Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+			; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
 
-		; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+			; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
 
-		; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
+			; EmptyVar =
+			; Loop 50 {
+			; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
+			; 	Tooltip, "List at A_Index %A_Index% has contents `"%VarListA%`""
+			; 	If (VarListA <> %EmptyVar%) {
+			; 		; MsgBox, "List at A_Index %A_Index% has contents `"%VarListA%`""
+			; 		Sleep 10000
+			; 		Break
+			; 	} Else {
+			; 		Sleep 100
+			; 	}
+			; 	If (A_Index > 50000) {
+			; 		Break
+			; 	}
+			; 	Continue
+			; }
 
-		; EmptyVar =
-		; Loop 50 {
-		; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
-		; 	Tooltip, "List at A_Index %A_Index% has contents `"%VarListA%`""
-		; 	If (VarListA <> %EmptyVar%) {
-		; 		; MsgBox, "List at A_Index %A_Index% has contents `"%VarListA%`""
-		; 		Sleep 10000
-		; 		Break
-		; 	} Else {
-		; 		Sleep 100
-		; 	}
-		; 	If (A_Index > 50000) {
-		; 		Break
-		; 	}
-		; 	Continue
-		; }
+			; ClassNN := ControlGetClassNN(Control , WinTitle, WinText, ExcludeTitle, ExcludeText)
 
-		; ClassNN := ControlGetClassNN(Control , WinTitle, WinText, ExcludeTitle, ExcludeText)
+			; ClassNN := ControlGetClassNN(ControlGetFocus("A"))
+			; MsgBox, "ClassNN = [%ClassNN%]"
+			; Sleep 5000
 
-		; ClassNN := ControlGetClassNN(ControlGetFocus("A"))
-		; MsgBox, "ClassNN = [%ClassNN%]"
-		; Sleep 5000
+			; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow1", "Xbox Console Companion")
+			; MsgBox, %OutputVar%
+			; Sleep 5000
 
-		; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow1", "Xbox Console Companion")
-		; MsgBox, %OutputVar%
-		; Sleep 5000
+			; OutputVar := ControlGetText("Windows.UI.Core.CoreWindow1", "Xbox Console Companion")
+			; MsgBox, %OutputVar%
+			; Sleep 5000
 
-		; OutputVar := ControlGetText("Windows.UI.Core.CoreWindow1", "Xbox Console Companion")
-		; MsgBox, %OutputVar%
-		; Sleep 5000
+			; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow2", "Xbox Console Companion")
+			; MsgBox, %OutputVar%
+			; Sleep 5000
 
-		; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow2", "Xbox Console Companion")
-		; MsgBox, %OutputVar%
-		; Sleep 5000
+			; OutputVar := ControlGetText("ApplicationFrameInputSinkWindow1", "Xbox Console Companion")
+			; MsgBox, %OutputVar%
+			; Sleep 5000
 
-		; OutputVar := ControlGetText("ApplicationFrameInputSinkWindow1", "Xbox Console Companion")
-		; MsgBox, %OutputVar%
-		; Sleep 5000
-
-		Loop 2000 {
-			MouseClick, Left, 861, 947
-			Sleep %WaitForDownload_MaxSeconds%
-			MouseClick, Left, 1420, 905
-			Sleep 1000
-			MouseClick, Left, 848, 575
-			Sleep 7500
-		}
+			Loop 2000 {
+				MouseClick, Left, 861, 947
+				Sleep %WaitForDownload_MaxSeconds%
+				MouseClick, Left, 1420, 905
+				Sleep 1000
+				MouseClick, Left, 848, 575
+				Sleep 7500
+			}
 
 		}
 
@@ -1614,8 +1619,8 @@ Numlock::
 ;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
-	Win_MinRestoredOrMax := WinGetMinMax("A")
-	If (Win_MinRestoredOrMax<=0) { ; Window is not maximized - maximize it
+	Win_window_state := WinGetMinMax("A")
+	If (Win_window_state<=0) { ; Window is not maximized - maximize it
 		WinMaximize "A"
 	}
 	Return
@@ -1628,21 +1633,21 @@ ActiveWindow_Maximize() {
 ;
 ActiveWindow_ToggleRestoreMaximize() {
 	Global DebugMode
-	Win_MinRestoredOrMax := WinGetMinMax("A")
+	Win_window_state := WinGetMinMax("A")
 	WinStyle := WinGetStyle("A")
 	TestVar := 1
-	DebugString := "Win_MinRestoredOrMax=[ %Win_MinRestoredOrMax% ]"
-	If ("%Win_MinRestoredOrMax%" = "") {  ; ??? Window-state not pulled as-intended
+	DebugString := "Win_window_state=[ %Win_window_state% ]"
+	If ("%Win_window_state%" = "") {  ; ??? Window-state not pulled as-intended
 		WinMaximize("A")
 		DebugString := "%DebugString%, Do WinMaximize"
 	} Else {
-		If (Win_MinRestoredOrMax = 0) {  ; 0: The window is neither minimized nor maximized
+		If (Win_window_state = 0) {  ; 0: The window is neither minimized nor maximized
 			WinMaximize("A")
 			DebugString := "%DebugString%, Do WinMaximize"
-		} Else If (Win_MinRestoredOrMax = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
+		} Else If (Win_window_state = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
 			WinRestore("A")
 			DebugString := "%DebugString%, Do WinRestore"
-		} Else If (Win_MinRestoredOrMax = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
+		} Else If (Win_window_state = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
 			WinRestore("A")
 			DebugString := "%DebugString%, Do WinRestore"
 		} Else {  ; Fallthrough-catch
@@ -1912,35 +1917,57 @@ GetWindowSpecs() {
 	Gui, Destroy
 
 	Win_ahk_id := WinGetID("A")
-
+	Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
+	Win_text := WinGetText("ahk_id %Win_ahk_id%")
 	Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
 	Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
 	Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
 	Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
-	WinText := WinGetText("ahk_id %Win_ahk_id%")
-	WinTitle := WinGetTitle("ahk_id %Win_ahk_id%")
-	WinControls := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
-	Win_MinRestoredOrMax := WinGetMinMax("ahk_id %Win_ahk_id%")
+	Win_control_names := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
+	Win_window_state := WinGetMinMax("ahk_id %Win_ahk_id%")
 	WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
 	Win_is_win10_app := WinGet_is_win10_app("A")
-	; Create the ListView with two columns
-	; Note that [ Gui, {configs...} ] declarations must come DIRECTLY (as-in the PREVIOUS LINE) BEFORE [ Gui, Add, ... ]
-	Gui, Font, s10, Tahoma
-	Gui, Font, s10, Consolas
-	Gui, Font, s10, Courier New
-	Gui, Font, s10, Open Sans
-	Gui, Font, s10, Fira Code
-	Gui, Color, 1E1E1E
+	
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
-	GUI_WIDTH := ((StrLen(WinTitle)>StrLen(Win_fullpath) ? StrLen(WinTitle):StrLen(Win_fullpath)) > (StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)) ? (StrLen(WinTitle)>StrLen(Win_fullpath) ? StrLen(WinTitle):StrLen(Win_fullpath)):(StrLen(WinControls)>StrLen(Win_ahk_class) ? StrLen(WinControls):StrLen(Win_ahk_class)))
-	If (Win_is_win10_app == 0) {
-		GUI_ROWCOUNT := 16
-	} Else {
-		GUI_ROWCOUNT := 27
+	Win_longest_field := ((StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)) > (StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)) ? (StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)):(StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)))
+	Win10_longest_field := 0
+
+	If (Win_is_win10_app == 1) {
+		; Get the Win10-App's stats
+		Win10_ahk_id := WinGet_ahk_id("A")
+		Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
+		Win10_text := WinGetText("ahk_id %Win10_ahk_id%")
+		Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
+		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
+		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
+		Win10_fullpath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
+		Win10_window_state := WinGetMinMax("ahk_id %Win10_ahk_id%")
+		Win10_control_names := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
+		WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
+
+		; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
+		Win10_longest_field := ((StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)) > (StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)) ? (StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)):(StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)))
+
 	}
-	GUI_WIDTH := 125 + Ceil(GUI_WIDTH * 8)  ; <-- 8 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
+
+	GUI_WIDTH := (StrLen(Win_longest_field)>StrLen(Win10_longest_field) ? StrLen(Win_longest_field):StrLen(Win10_longest_field))
+
+
+	GUI_WIDTH := 125 + Ceil(Win_longest_field * 8)  ; <-- 8 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
+
+	; Table Row-Count
+	GUI_ROWCOUNT := 18
+	If (Win_is_win10_app == 1) {
+		GUI_ROWCOUNT := GUI_ROWCOUNT + 11
+	}
+	If (DebugMode == 1) {
+		GUI_ROWCOUNT := GUI_ROWCOUNT + 3
+	}
+
+	; Table Colors ( Background-Fill / Foreground-Text )
 	GUI_BACKGROUND_COLOR := "1E1E1E"
 	GUI_TEXT_COLOR := "FFFFFF"
+
 	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
 	GUI_OPT := "r" GUI_ROWCOUNT
 	GUI_OPT := GUI_OPT " w" GUI_WIDTH
@@ -1951,19 +1978,25 @@ GetWindowSpecs() {
 	GUI_OPT := GUI_OPT " NoSortHdr"
 	; GUI_OPT = %GUI_OPT% AltSubmit
 
-	; Draw the grid/table
-
+	; Draw the 'ListView' (grid/table) with two columns
+	;  |--> Note that [ Gui, {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui, Add, ... ]
+	Gui, Font, s10, Tahoma
+	Gui, Font, s10, Consolas
+	Gui, Font, s10, Courier New
+	Gui, Font, s10, Open Sans
+	Gui, Font, s10, Fira Code
+	Gui, Color, 1E1E1E
 	Gui, Add, ListView, %GUI_OPT%, Key|Value
 	LV_Add("", "", "")
-	LV_Add("", "WinTitle", WinTitle)
-	LV_Add("", "WinText", WinText)
-	LV_Add("", "ahk_class", Win_ahk_class)
-	LV_Add("", "ahk_exe", Win_ahk_exe)
-	LV_Add("", "ahk_id", Win_ahk_id)
-	LV_Add("", "ahk_pid", Win_ahk_pid)
-	LV_Add("", "ProcessPath", Win_fullpath)
-	LV_Add("", "ControlList", WinControls)
-	LV_Add("", "Win_MinRestoredOrMax", Win_MinRestoredOrMax)
+	LV_Add("", "Win_title", Win_title)
+	LV_Add("", "Win_text", Win_text)
+	LV_Add("", "Win_ahk_class", Win_ahk_class)
+	LV_Add("", "Win_ahk_exe", Win_ahk_exe)
+	LV_Add("", "Win_ahk_id", Win_ahk_id)
+	LV_Add("", "Win_ahk_pid", Win_ahk_pid)
+	LV_Add("", "Win_fullpath", Win_fullpath)
+	LV_Add("", "Win_control_names", Win_control_names)
+	LV_Add("", "Win_window_state", Win_window_state)
 	; LV_Add("", "xpos", xpos)
 	; LV_Add("", "ypos", ypos)
 	; LV_Add("", "Width", Win_Width)
@@ -1978,35 +2011,31 @@ GetWindowSpecs() {
 		LV_Add("", "Is Win10 App?", "No")
 	} Else {
 		LV_Add("", "Is Win10 App?", "Yes")
-		; Get the Win10-App's stats
-		Win10_ahk_id := WinGet_ahk_id("A")
-		Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
-		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
-		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
-		Win10_ProcessPath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
-		Win10_Text := WinGetText("ahk_id %Win10_ahk_id%")
-		Win10_Title := WinGetTitle("ahk_id %Win10_ahk_id%")
-		Win10_Controls := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
-		Win10_MinRestoredOrMax := WinGetMinMax("ahk_id %Win10_ahk_id%")
-		WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
 		; Show the Win10-App's stats
-		LV_Add("", "Win10_Title", Win10_Title)
-		LV_Add("", "Win10_Text", Win10_Text)
+		LV_Add("", "Win10_title", Win10_title)
+		LV_Add("", "Win10_text", Win10_text)
 		LV_Add("", "Win10_ahk_class", Win10_ahk_class)
 		LV_Add("", "Win10_ahk_exe", Win10_ahk_exe)
 		LV_Add("", "Win10_ahk_id", Win10_ahk_id)
 		LV_Add("", "Win10_ahk_pid", Win10_ahk_pid)
-		LV_Add("", "Win10_ProcessPath", Win10_ProcessPath)
-		LV_Add("", "Win10_Controls", Win10_Controls)
+		LV_Add("", "Win10_fullpath", Win10_fullpath)
+		LV_Add("", "Win10_control_names", Win10_control_names)
+		LV_Add("", "Win10_window_state", Win10_window_state)
 		; LV_Add("", "Win10_xpos", Win10_xpos)
 		; LV_Add("", "Win10_ypos", Win10_ypos)
 		; LV_Add("", "Win10_Width", Win10_Width)
 		; LV_Add("", "Win10_Height", Win10_Height)
 		LV_Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
 		LV_Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
-		LV_Add("", "Win10_MinRestoredOrMax", Win10_MinRestoredOrMax)
 	}
 	LV_Add("", "", "")
+	If (DebugMode == 1) {
+		LV_Add("", "Win_longest_field", Win_longest_field)
+		LV_Add("", "Win10_longest_field", Win10_longest_field)
+		LV_Add("", "GUI_WIDTH", GUI_WIDTH)
+		LV_Add("", "GUI_OPT", GUI_OPT)
+		LV_Add("", "", "")
+	}
 	LV_ModifyCol(1, "AutoHdr Text Left")
 	LV_ModifyCol(2, "AutoHdr Text Left")
 	; LV_ModifyCol()  ; Auto-size each column to fit its contents.

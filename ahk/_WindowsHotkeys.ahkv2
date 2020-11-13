@@ -3075,18 +3075,18 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 1000
 		Loop {
 			; Wait for the next video to load
-			Tooltip, % ( "Waiting for the next video to load" )
+			Tooltip, % ( "Waiting for the next video to load" ), 0, 0
 			Sleep 7500
+			Tooltip, % ( "Downloading next clip" ), 0, 0
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
-			; Sleep %WaitForDownload_MaxSeconds%
-			Sleep 1000
+			Sleep 4000
 			Loop {
 				Sleep 1000
 				; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x272727)
-				DownloadStart_xpos := 418
-				DownloadStart_ypos := 773
+				DownloadStart_xpos := 426
+				DownloadStart_ypos := 771
 				Color_DL_Button_LeftSide := PixelGetColor(DownloadStart_xpos, DownloadStart_ypos)  ; PixelGetColor, Color, MouseX, MouseY
 				Color_NotDownloading := "0x272727"
 				Color_IsDownloading := "0x595758"
@@ -3094,12 +3094,12 @@ XBox_DownloadDelete_GameClips() {
 				If ("%Color_DL_Button_LeftSide%" = "%Color_NotDownloading%") {
 					Break
 				} Else {
-					Tooltip, % ( "Waiting for download to finish" "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
+					Tooltip, % ( "Waiting for download to finish" "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" ), 0, 0
 				}
 				; Color=[0x272727], Coords=[x418 y773] ; while NOT downloading
 				; Color=[0x595758], Coords=[x418 y773] ; while DOWNLOADING
 			}
-			Tooltip, % ( "Deleting Clip" )
+			Tooltip, % ( "Deleting clip" ), 0, 0
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731

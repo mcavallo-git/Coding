@@ -3090,7 +3090,8 @@ XBox_DownloadDelete_GameClips() {
 				Color_DL_Button_LeftSide := PixelGetColor(DownloadStart_xpos, DownloadStart_ypos)  ; PixelGetColor, Color, MouseX, MouseY
 				Color_NotDownloading := "0x272727"
 				Color_IsDownloading := "0x595758"
-				If (Color_DL_Button_LeftSide == Color_NotDownloading) {
+				; If (Color_DL_Button_LeftSide == Color_NotDownloading) {
+				If ("%Color_DL_Button_LeftSide%" = "%Color_NotDownloading%") {
 					Break
 				} Else {
 					Tooltip, % ( "Waiting for download to finish" "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )

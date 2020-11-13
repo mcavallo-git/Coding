@@ -1619,8 +1619,8 @@ Numlock::
 ;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
-	Win_window_state := WinGetMinMax("A")
-	If (Win_window_state<=0) { ; Window is not maximized - maximize it
+	Win_min_max_state := WinGetMinMax("A")
+	If (Win_min_max_state<=0) { ; Window is not maximized - maximize it
 		WinMaximize "A"
 	}
 	Return
@@ -1633,21 +1633,21 @@ ActiveWindow_Maximize() {
 ;
 ActiveWindow_ToggleRestoreMaximize() {
 	Global DebugMode
-	Win_window_state := WinGetMinMax("A")
+	Win_min_max_state := WinGetMinMax("A")
 	WinStyle := WinGetStyle("A")
 	TestVar := 1
-	DebugString := "Win_window_state=[ %Win_window_state% ]"
-	If ("%Win_window_state%" = "") {  ; ??? Window-state not pulled as-intended
+	DebugString := "Win_min_max_state=[ %Win_min_max_state% ]"
+	If ("%Win_min_max_state%" = "") {  ; ??? Window-state not pulled as-intended
 		WinMaximize("A")
 		DebugString := "%DebugString%, Do WinMaximize"
 	} Else {
-		If (Win_window_state = 0) {  ; 0: The window is neither minimized nor maximized
+		If (Win_min_max_state == 0) {  ; 0: The window is neither minimized nor maximized
 			WinMaximize("A")
 			DebugString := "%DebugString%, Do WinMaximize"
-		} Else If (Win_window_state = -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
+		} Else If (Win_min_max_state == -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
 			WinRestore("A")
 			DebugString := "%DebugString%, Do WinRestore"
-		} Else If (Win_window_state = 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
+		} Else If (Win_min_max_state == 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
 			WinRestore("A")
 			DebugString := "%DebugString%, Do WinRestore"
 		} Else {  ; Fallthrough-catch
@@ -1924,7 +1924,7 @@ GetWindowSpecs() {
 	Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
 	Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
 	Win_control_names := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
-	Win_window_state := WinGetMinMax("ahk_id %Win_ahk_id%")
+	Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
 	WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
 	Win_is_win10_app := WinGet_is_win10_app("A")
 	
@@ -1941,7 +1941,7 @@ GetWindowSpecs() {
 		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
 		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
 		Win10_fullpath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
-		Win10_window_state := WinGetMinMax("ahk_id %Win10_ahk_id%")
+		Win10_min_max_state := WinGet_size_state("ahk_id %Win10_ahk_id%")
 		Win10_control_names := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
 		WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
 
@@ -1996,7 +1996,7 @@ GetWindowSpecs() {
 	LV_Add("", "Win_ahk_pid", Win_ahk_pid)
 	LV_Add("", "Win_fullpath", Win_fullpath)
 	LV_Add("", "Win_control_names", Win_control_names)
-	LV_Add("", "Win_window_state", Win_window_state)
+	LV_Add("", "Win_size_state", Win_size_state)
 	; LV_Add("", "xpos", xpos)
 	; LV_Add("", "ypos", ypos)
 	; LV_Add("", "Width", Win_Width)
@@ -2020,7 +2020,7 @@ GetWindowSpecs() {
 		LV_Add("", "Win10_ahk_pid", Win10_ahk_pid)
 		LV_Add("", "Win10_fullpath", Win10_fullpath)
 		LV_Add("", "Win10_control_names", Win10_control_names)
-		LV_Add("", "Win10_window_state", Win10_window_state)
+		LV_Add("", "Win10_size_state", Win10_size_state)
 		; LV_Add("", "Win10_xpos", Win10_xpos)
 		; LV_Add("", "Win10_ypos", Win10_ypos)
 		; LV_Add("", "Win10_Width", Win10_Width)
@@ -3047,6 +3047,27 @@ WinGet_is_win10_app(WinTitle) {
 		Win_is_win10_app := 1
 	}
 	Return Win_is_win10_app
+}
+
+
+;
+; WinGet_size_state
+;   |
+;   |--> Returns "Minimized", "Restored", or "Maximized" depending on the value returned from WinGetMinMax
+;   |
+;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
+;
+WinGet_size_state(WinTitle) {
+	Win_min_max_state := WinGetMinMax(WinTitle)
+	Win_size_state := ""
+	If (Win_min_max_state == 0) {
+		Win_size_state := "restored"
+	} Else If (Win_min_max_state == -1) {
+		Win_size_state := "minimized"
+	} Else If (Win_min_max_state == 1) {
+		Win_size_state := "maximized"
+	}
+	Return Win_size_state
 }
 
 

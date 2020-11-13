@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -218,7 +218,7 @@ ScrollLock::
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 		WinGetTitle, WinTitle, A
 		If (DebugMode == 1) {
-			TrayTip, AHK, % ( "Clicking 'Edit' > 'Add Text' in Foxit PhantomPDF" )  ; Toast Notification
+			TrayTip, AHK, % ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" )  ; Toast Notification
 		}
 		; Click the "Edit" tab
 		xpos := 223
@@ -242,7 +242,7 @@ ScrollLock::
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 		WinGetTitle, WinTitle, A
 		If (DebugMode == 1) {
-			TrayTip, AHK, % ( "Clicking 'Edit' > 'Bold' in Foxit PhantomPDF" )  ; Toast Notification
+			TrayTip, AHK, % ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" )  ; Toast Notification
 		}
 		; Click the "Edit" tab
 		xpos := 223
@@ -266,7 +266,7 @@ ScrollLock::
 		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 		WinGetTitle, WinTitle, A
 		If (DebugMode == 1) {
-			TrayTip, AHK, % ( "Clicking 'Redo' in Foxit PhantomPDF" )  ; Toast Notification
+			TrayTip, AHK, % ( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" )  ; Toast Notification
 		}
 		; Click the "Redo" button
 		xpos := 187
@@ -312,6 +312,114 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
+;
+#If WinActive("Xbox Console Companion")  ; #If WinActive("ahk_class ApplicationFrameWindow")  ; #If WinActive("ahk_exe ApplicationFrameHost.exe")
+	;
+	; HOTKEY:  WinKey + F3  (or "#SC03D")
+	; ACTION:  Xbox Captures - Download & Delete recordings/captures via XBox's Windows 10 built-in application
+	;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
+	;
+	#F3::
+		Global DebugMode
+		CoordMode, Mouse, Screen
+		SetDefaultMouseSpeed, 0
+		SetControlDelay, -1
+		SetKeyDelay, 0, -1
+		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+		WinGetTitle, WinTitle, A
+		Win_ahk_exe := WinGet_ahk_exe("A")
+		Win_ahk_id := WinGet_ahk_id("A") 
+		Win_ahk_pid := WinGetPID("A")
+
+		If (DebugMode == 1) {
+			TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
+		}
+
+		Msgbox, % ( "Win_ahk_pid = [" Win_ahk_pid "]" "`n" "Win_ahk_id = [" Win_ahk_id "]" "`n" "Win_ahk_exe = [" Win_ahk_exe "]" )
+
+		; Resize target window for consistent results
+		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"
+		; WinMove 50, 50, 750, 600, % WinTitle
+		; WinMove 50, 50, 750, 600, "Xbox Console Companion"
+		; WinMove 50, 50, 750, 600, %WinTitle%
+
+		If (False) {
+
+		; Click ABC_____
+		xpos := 223
+		ypos := 40
+		ControlClick, x%xpos% y%ypos%, %WinTitle%
+
+		WaitForDownload_MaxSeconds := 30000
+		; WaitForDownload_MaxSeconds := 90000
+		; WinTitle := "Xbox Console Companion"
+
+		; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
+
+		; ControlGetText, OutputVar , Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+
+		; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
+
+		; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
+
+		; EmptyVar =
+		; Loop 50 {
+		; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
+		; 	Tooltip, "List at A_Index %A_Index% has contents `"%VarListA%`""
+		; 	If (VarListA <> %EmptyVar%) {
+		; 		; MsgBox, "List at A_Index %A_Index% has contents `"%VarListA%`""
+		; 		Sleep 10000
+		; 		Break
+		; 	} Else {
+		; 		Sleep 100
+		; 	}
+		; 	If (A_Index > 50000) {
+		; 		Break
+		; 	}
+		; 	Continue
+		; }
+
+		; ClassNN := ControlGetClassNN(Control , WinTitle, WinText, ExcludeTitle, ExcludeText)
+
+		; ClassNN := ControlGetClassNN(ControlGetFocus("A"))
+		; MsgBox, "ClassNN = [%ClassNN%]"
+		; Sleep 5000
+
+		; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow1", "Xbox Console Companion")
+		; MsgBox, %OutputVar%
+		; Sleep 5000
+
+		; OutputVar := ControlGetText("Windows.UI.Core.CoreWindow1", "Xbox Console Companion")
+		; MsgBox, %OutputVar%
+		; Sleep 5000
+
+		; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow2", "Xbox Console Companion")
+		; MsgBox, %OutputVar%
+		; Sleep 5000
+
+		; OutputVar := ControlGetText("ApplicationFrameInputSinkWindow1", "Xbox Console Companion")
+		; MsgBox, %OutputVar%
+		; Sleep 5000
+
+		Loop 2000 {
+			MouseClick, Left, 861, 947
+			Sleep %WaitForDownload_MaxSeconds%
+			MouseClick, Left, 1420, 905
+			Sleep 1000
+			MouseClick, Left, 848, 575
+			Sleep 7500
+		}
+
+		}
+
+		Return
+#If
+
+
+; ------------------------------------------------------------
+;
 ; NON - FFXIV Hotkeys (Hotkeys applied anytime FFXIV is NOT active)
 ;
 #If !WinActive("ahk_class FFXIVGAME")
@@ -321,10 +429,7 @@ ScrollLock::
 	;
 	#-::
 	#NumpadSub::
-		AwaitModifierKeyup()
-		SetKeyDelay, 0, -1
-		SendInput, ------------------------------------------------------------
-		; StringToType := StringRepeat("-",60)
+		SendDashedLine()
 		Return
 	;
 	;   HOTKEY:  WinKey + Equals-Key  ( = )
@@ -556,79 +661,6 @@ ScrollLock::
 	Run %GetKeyCodes%
 	Return
 
-
-; ------------------------------------------------------------
-; HOTKEY:  WinKey + F3  (or "#SC03D")
-; ACTION:  Xbox Captures - Download & Delete recordings/captures via XBox's Windows 10 built-in application
-;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
-;
-#F3::
-	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	SetKeyDelay, 0, -1
-	SetControlDelay, -1
-	CoordMode, Mouse, Screen
-	SetDefaultMouseSpeed, 0
-
-	WaitForDownload_MaxSeconds := 30000
-	; WaitForDownload_MaxSeconds := 90000
-	; WinTitle := "Xbox Console Companion"
-
-	; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
-
-	; ControlGetText, OutputVar , Control, WinTitle, WinText, ExcludeTitle, ExcludeText
-
-	; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
-
-	; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
-
-	; EmptyVar =
-	; Loop 50 {
-	; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
-	; 	Tooltip, "List at A_Index %A_Index% has contents `"%VarListA%`""
-	; 	If (VarListA <> %EmptyVar%) {
-	; 		; MsgBox, "List at A_Index %A_Index% has contents `"%VarListA%`""
-	; 		Sleep 10000
-	; 		Break
-	; 	} Else {
-	; 		Sleep 100
-	; 	}
-	; 	If (A_Index > 50000) {
-	; 		Break
-	; 	}
-	; 	Continue
-	; }
-
-	; ClassNN := ControlGetClassNN(Control , WinTitle, WinText, ExcludeTitle, ExcludeText)
-
-	; ClassNN := ControlGetClassNN(ControlGetFocus("A"))
-	; MsgBox, "ClassNN = [%ClassNN%]"
-	; Sleep 5000
-
-	; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow1", "Xbox Console Companion")
-	; MsgBox, %OutputVar%
-	; Sleep 5000
-
-	; OutputVar := ControlGetText("Windows.UI.Core.CoreWindow1", "Xbox Console Companion")
-	; MsgBox, %OutputVar%
-	; Sleep 5000
-
-	; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow2", "Xbox Console Companion")
-	; MsgBox, %OutputVar%
-	; Sleep 5000
-
-	; OutputVar := ControlGetText("ApplicationFrameInputSinkWindow1", "Xbox Console Companion")
-	; MsgBox, %OutputVar%
-	; Sleep 5000
-
-	Loop 2000 {
-		MouseClick, Left, 861, 947
-		Sleep %WaitForDownload_MaxSeconds%
-		MouseClick, Left, 1420, 905
-		Sleep 1000
-		MouseClick, Left, 848, 575
-		Sleep 7500
-	}
-	Return
 
 ; ------------------------------------------------------------
 ;
@@ -1854,9 +1886,9 @@ GetWindowSpecs() {
 	Gui, WindowSpecs:Default
 	Gui, Destroy
 	Win_ahk_class := WinGetClass("A")
-	WinID := WinGetID("A")
-	WinPID := WinGetPID("A")
-	Win_ahk_exe := WinGetProcessName("A")
+	Win_ahk_id := WinGet_ahk_id("A") 
+	Win_ahk_pid := WinGetPID("A")
+	Win_ahk_exe := WinGet_ahk_exe("A")
 	WinProcessPath := WinGetProcessPath("A")
 	WinText := WinGetText("A")
 	WinTitle := WinGetTitle("A")
@@ -1891,10 +1923,10 @@ GetWindowSpecs() {
 	LV_Add("", "WinText", WinText)
 	LV_Add("", "ahk_class", Win_ahk_class)
 	LV_Add("", "ahk_exe", Win_ahk_exe)
+	LV_Add("", "ahk_id", Win_ahk_id)
+	LV_Add("", "ahk_pid", Win_ahk_pid)
 	LV_Add("", "ProcessPath", WinProcessPath)
 	LV_Add("", "ControlList", WinControls)
-	LV_Add("", "ID", WinID)
-	LV_Add("", "PID", WinPID)
 	LV_Add("", "Pos_X", Pos_X)
 	LV_Add("", "Pos_Y", Pos_Y)
 	LV_Add("", "Width", Width)
@@ -2535,6 +2567,19 @@ RunWaitMany(CMD_Commands) {
 
 
 ;
+; SendDashedLine
+;   |--> Output a line ------------------------------------------------------------ of dashes
+;
+SendDashedLine() {
+	AwaitModifierKeyup()
+	SetKeyDelay, 0, -1
+	; StringToType := StringRepeat("-",60)
+	SendInput, ------------------------------------------------------------
+	Return
+}
+
+
+;
 ;	SendHostname
 ;   |--> Send (type) the current device's Hostname - intended to be used for quick form filling
 ;
@@ -2560,6 +2605,7 @@ SendHostname() {
 	}
 	Return
 }
+
 
 ;
 ;	SendSpace
@@ -2865,6 +2911,41 @@ TempFile() {
 
 
 ;
+; WinGet_ahk_exe
+;   |--> Determines target process (exe)'s [ basename ]
+;   |--> Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
+;
+WinGet_ahk_exe(WinTitle) {
+	Win_ahk_exe := WinGetProcessName(WinTitle)
+	If (Win_ahk_exe = "ApplicationFrameHost.exe") {
+		ControlGet, Win_ahk_id, Hwnd,, Windows.UI.Core.CoreWindow1, %WinTitle%
+		; Win_ahk_id := ControlGetHwnd("Windows.UI.Core.CoreWindow1", "A")
+		If (Win_ahk_id) {
+			Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
+		}
+	}
+	Return Win_ahk_exe
+}
+
+
+;
+; WinGet_ahk_id
+;   |--> Determines target process (exe)'s [ unique ID (e.g. 'HWND', which is short for "handle to window") ]
+;   |--> Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
+;
+WinGet_ahk_id(WinTitle) {
+	Win_ahk_exe := WinGetProcessName(WinTitle)
+	If (Win_ahk_exe = "ApplicationFrameHost.exe") {
+		ControlGet, Win_ahk_id, Hwnd,, Windows.UI.Core.CoreWindow1, %WinTitle%
+		; Win_ahk_id := ControlGetHwnd("Windows.UI.Core.CoreWindow1", "A")
+	} Else {
+		Win_ahk_id := WinGetID(WinTitle)
+	}
+	Return Win_ahk_id
+}
+
+
+;
 ; XBox_DownloadDelete_GameClips
 ;   |--> Win10 Download & Delete Recordings via XBox Win10 App
 ;
@@ -2896,19 +2977,6 @@ XBox_DownloadDelete_GameClips() {
 		MouseClick, Left, 848, 575
 		Sleep 7500
 	}
-	Return
-}
-
-
-;
-; SendDashedLine
-;   |--> Output a line ------------------------------------------------------------ of dashes
-;
-SendDashedLine() {
-	AwaitModifierKeyup()
-	SetKeyDelay, 0, -1
-	; StringToType := StringRepeat("-",60)
-	SendInput, ------------------------------------------------------------
 	Return
 }
 
@@ -3453,10 +3521,13 @@ If (False) {
 ;
 ;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
 ;
+;   www.autohotkey.com  |  "Windows 10? AutoHotkey Window Title, etc. - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=164262#p164262
+;
 ;   www.autohotkey.com  |  "[HELP!] How to WinActivate without specifying window title? - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/102763-help-how-to-winactivate-without-specifying-window-title/
 ;
 ;   www.reddit.com  |  "Brightness script? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/5u2lvi/brightness_script/
 ;
 ;   www.tenforums.com  |  "Resolution mismatch when using "Change the size of text..." - Windows 10 Forums"  |  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
+;
 ;
 ; ------------------------------------------------------------

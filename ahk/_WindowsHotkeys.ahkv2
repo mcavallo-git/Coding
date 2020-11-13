@@ -754,7 +754,7 @@ ScrollLock::
 ;   ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 #RButton::
-	FollowDuration_Seconds := 20
+	FollowDuration_Seconds := 10
 	ShowCursorCoordinates(FollowDuration_Seconds)
 	Return
 
@@ -765,7 +765,7 @@ ScrollLock::
 ;   ACTION:  Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
 ;
 ^#RButton::
-	FollowDuration_Seconds := 20
+	FollowDuration_Seconds := 10
 	ShowCursorPixelColor(FollowDuration_Seconds)
 	Return
 

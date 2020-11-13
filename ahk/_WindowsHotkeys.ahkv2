@@ -3049,14 +3049,17 @@ XBox_DownloadDelete_GameClips() {
 		; WaitForDownload_MaxSeconds := 90000
 
 		Sleep 2500
+		Tooltip, % ( "Selecting 'Captures'" ), 0, 0
 		; Click "Captures" (Left Tab)
 		WinActivate(WinTitle)
 		MouseClick, Left, 23, 314
 		Sleep 7500
+		Tooltip, % ( "Selecting 'On Xbox Live'" ), 0, 0
 		; Click "On Xbox Live" (Tab within "Captures")
 		WinActivate(WinTitle)
 		MouseClick, Left, 220, 138
 		Sleep 7500
+		Tooltip, % ( "Filtering to only show 'Game Clips'" ), 0, 0
 		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
 		WinActivate(WinTitle)
 		MouseClick, Left, 221, 181

@@ -3190,7 +3190,8 @@ XBox_DownloadDelete_GameClips() {
 			}
 		}
 
-		MediaFiles_Processed := 0
+		; MediaFiles_Processed := 0
+		MediaFiles_Processed := 2
 		TickCount_BeforeFirstDownload := A_TickCount
 
 		Loop {
@@ -3258,8 +3259,6 @@ XBox_DownloadDelete_GameClips() {
 				If (A_Index == 1) {
 					WinActivate("ahk_id %Win_ahk_id%")
 					MouseClick, Left, %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
-					Sleep 10
-					MouseMove, 0, 0
 				}
 				Sleep 100
 				WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
@@ -3270,6 +3269,7 @@ XBox_DownloadDelete_GameClips() {
 				; }
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
 				If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
+					MouseMove, 0, 0
 					; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
 					WinActivate("ahk_id %Win_ahk_id%")
 					; Color_DL_Button_LeftSide := PixelGetColor(418, 772)

@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2983,9 +2983,7 @@ XBox_DownloadDelete_GameClips() {
 
 	WinTitle := "Xbox Console Companion"
 
-	If (DebugMode == 1) {
-		TrayTip, AHK, % ( WinTitle ":" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
-	}
+	Tooltip, % ( A_ThisFunc "`n" "Starting 'downloading & delete clips' script..." ), 0, 0
 
 	; Win_ahk_id := WinGetID("A")
 	Win_ahk_id := WinGetID(WinTitle)
@@ -3053,17 +3051,17 @@ XBox_DownloadDelete_GameClips() {
 		Color_DL_Button_Downloading := "0x595758"
 
 		Sleep 2500
-		Tooltip, % ( "Selecting 'Captures'" ), 0, 0
+		Tooltip, % ( A_ThisFunc "`n" "Opening 'Captures' tab..." ), 0, 0
 		; Click "Captures" (Left Tab)
 		WinActivate(WinTitle)
 		MouseClick, Left, 23, 314
 		Sleep 7500
-		Tooltip, % ( "Selecting 'On Xbox Live'" ), 0, 0
+		Tooltip, % ( A_ThisFunc "`n" "Selecting 'On Xbox Live'..." ), 0, 0
 		; Click "On Xbox Live" (Tab within "Captures")
 		WinActivate(WinTitle)
 		MouseClick, Left, 220, 138
 		Sleep 7500
-		Tooltip, % ( "Filtering to only show 'Game Clips'" ), 0, 0
+		Tooltip, % ( A_ThisFunc "`n" "Filtering-out 'Screenshots'..." ), 0, 0
 		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
 		WinActivate(WinTitle)
 		MouseClick, Left, 221, 181
@@ -3082,7 +3080,7 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 1000
 		Loop {
 			; Wait for the next video to load
-			Tooltip, % ( "Waiting for the next video to load..." ), 0, 0
+			Tooltip, % ( A_ThisFunc "`n" "Waiting for the next video to load..." ), 0, 0
 			Sleep 1000
 			Loop {
 				Sleep 100
@@ -3102,7 +3100,7 @@ XBox_DownloadDelete_GameClips() {
 				}
 			}
 			Sleep 1000
-			Tooltip, % ( "Downloading next clip..." ), 0, 0
+			Tooltip, % ( A_ThisFunc "`n" "Downloading next clip..." ), 0, 0
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
@@ -3126,7 +3124,7 @@ XBox_DownloadDelete_GameClips() {
 				}
 			}
 			Sleep 1000
-			Tooltip, % ( "Download complete - deleting clip" ), 0, 0
+			Tooltip, % ( A_ThisFunc "`n" "Download complete - deleting clip" ), 0, 0
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731

@@ -3072,6 +3072,8 @@ XBox_DownloadDelete_GameClips() {
 		Send {Enter}
 		Sleep 7500
 		Loop {
+			; Wait for the next video to load
+			Sleep 7500
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
@@ -3083,7 +3085,7 @@ XBox_DownloadDelete_GameClips() {
 			; Confirm clip-deletion ("Okay", etc.)
 			WinActivate(WinTitle)
 			MouseClick, Left, 515, 450
-			Sleep 7500
+			Sleep 1000
 		}
 
 	}

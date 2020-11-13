@@ -1926,7 +1926,6 @@ GetWindowSpecs() {
 	Win_control_names := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
 	Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
 	WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
-	Win_is_win10_app := WinGet_is_win10_app("A")
 	
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
 	Win_longest_field := 0
@@ -1934,9 +1933,8 @@ GetWindowSpecs() {
 	Win_longest_field := StrLen_Max(Win_longest_field, Win_fullpath)
 	Win_longest_field := StrLen_Max(Win_longest_field, Win_control_names)
 	Win_longest_field := StrLen_Max(Win_longest_field, Win_ahk_class)
-	; Win_longest_field := ((StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)) > (StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)) ? (StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)):(StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)))
-	; Win10_longest_field := 0
 
+	Win_is_win10_app := WinGet_is_win10_app("A")
 	If (Win_is_win10_app == 1) {
 		; Get the Win10-App's stats
 		Win10_ahk_id := WinGet_ahk_id("A")
@@ -1946,20 +1944,19 @@ GetWindowSpecs() {
 		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
 		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
 		Win10_fullpath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
-		Win10_min_max_state := WinGet_size_state("ahk_id %Win10_ahk_id%")
 		Win10_control_names := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
+		Win10_size_state := WinGet_size_state("ahk_id %Win10_ahk_id%")
 		WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
 
-		; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
+		; Update the longest text-field
 		Win_longest_field := StrLen_Max(Win_longest_field, Win10_title)
 		Win_longest_field := StrLen_Max(Win_longest_field, Win10_fullpath)
 		Win_longest_field := StrLen_Max(Win_longest_field, Win10_control_names)
 		Win_longest_field := StrLen_Max(Win_longest_field, Win10_ahk_class)
-		; Win10_longest_field := ((StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)) > (StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)) ? (StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)):(StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)))
 
 	}
 
-	; --- TOTAL WIDTH ---
+	; --- TABLE - TOTAL WIDTH ---
 	GUI_LONGEST_FIELD := StrLen(Win_longest_field)
 	GUI_BASE_WIDTH := 200
 	If (Win_is_win10_app == 1) {
@@ -1967,7 +1964,7 @@ GetWindowSpecs() {
 	}
 	GUI_WIDTH := GUI_BASE_WIDTH + Ceil( GUI_LONGEST_FIELD * 8 )  ; <-- 8 to 8.5 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
 
-	; --- TOTAL ROWS ---
+	; --- TABLE - TOTAL ROWS ---
 	GUI_ROWCOUNT := 1  ; Header-Row
 	GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; Win-Rows
 	If (Win_is_win10_app == 1) {
@@ -1978,11 +1975,11 @@ GetWindowSpecs() {
 	}
 
 
-	; --- TABLE-COLORS ---
+	; --- TABLE - COLORS ---
 	GUI_BACKGROUND_COLOR := "1E1E1E"
 	GUI_TEXT_COLOR := "FFFFFF"
 
-	; --- LIST-CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
+	; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
 	GUI_OPT := "r" GUI_ROWCOUNT
 	GUI_OPT := GUI_OPT " w" GUI_WIDTH
 	GUI_OPT := GUI_OPT " gGetWindowSpecs_OnClick_LV_WindowSpecs"

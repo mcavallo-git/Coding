@@ -3000,17 +3000,17 @@ XBox_DownloadDelete_GameClips() {
 	Win_min_max_state := WinGetMinMax("ahk_id %Win_ahk_id%")
 
 	Tooltip, % ( A_ThisFunc "`n" "Resizing '" WinTitle "' window..." ), 1, 1
-	WinActivate(WinTitle)
+	WinActivate("ahk_id %Win_ahk_id%")
 	Sleep 1000
 
 	; Prep window-location & dimension/size
 	If (Win_size_state != "restored") {
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		; WinRestore(Win_title)
 		WinRestore("ahk_id %Win_ahk_id%")
 		Sleep 100
 	}
-	WinActivate(WinTitle)
+	WinActivate("ahk_id %Win_ahk_id%")
 	WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800)
 	Sleep 1000
 
@@ -3044,11 +3044,11 @@ XBox_DownloadDelete_GameClips() {
 
 	} Else {
 
-		WaitForDownload_MaxSeconds := 30000
-		; WaitForDownload_MaxSeconds := 45000
-		; WaitForDownload_MaxSeconds := 90000
+		MaxClipsToDownload := 0
+		MaxClipsToDownload := 3
 
 		Color_Thumbnail_Buffering := "0x2E2E2E"
+
 		Color_DL_Button_NotDownloading := "0x171717"
 		Color_DL_Button_Downloading := "0x595758"
 
@@ -3056,47 +3056,57 @@ XBox_DownloadDelete_GameClips() {
 
 		; Click "Captures" (Left Tab)
 		Tooltip, % ( A_ThisFunc "`n" "Opening 'Captures' tab..." ), 1, 1
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 23, 314
 		Sleep 7500
 
 		; Click "On Xbox Live" (Tab within "Captures")
 		Tooltip, % ( A_ThisFunc "`n" "Selecting 'On Xbox Live'..." ), 1, 1
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 220, 138
 		Sleep 7500
 
 		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
 		Tooltip, % ( A_ThisFunc "`n" "Showing 'Game Clips' (to filter-out 'Screenshots')..." ), 1, 1
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 221, 181
 		Sleep 2000
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Up}
 		Sleep 1000
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Up}
 		Sleep 1000
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Down}
 		Sleep 1000
-		WinActivate(WinTitle)
+		WinActivate("ahk_id %Win_ahk_id%")
 		Send {Enter}
 		Sleep 1000
 
 		Loop {
-			; Wait for the next video to load
+			Clip_Iteration := A_Index
+			If ((MaxClipsToDownload > 0) && (Clip_Iteration >= MaxClipsToDownload)) {
+				Break  ; Allow limiting the total # of clips to download
+			}
+			Tooltip_EachVideo_Stats := A_ThisFunc
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "----------"
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Clip # " Clip_Iteration
 			Loop {
+				;
+				; Buffering...
+				;
 				TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
-				Tooltip_Echo := ( "Waiting for the next video to buffer..." "`n" "Duration: " TimeWaited_Seconds "s" )
+				Tooltip_NewStats := ( "Buffer duration: " TimeWaited_Seconds "s ..." )
+				Tooltip_Debug := ( "" )
 				If (DebugMode == 1) {
-					Tooltip_Echo := ( Tooltip_Echo "`n" "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
+					Tooltip_Debug := ( "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
 				}
-				Tooltip, % ( A_ThisFunc "`n" Tooltip_Echo ), 1, 1
+				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
 				Sleep 100
 				If ( TimeWaited_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
 					; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
-					WinActivate(WinTitle)
+					WinActivate("ahk_id %Win_ahk_id%")
 					Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
 					Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
 					Color_Thumbnail_TopRight := PixelGetColor(900, 215)
@@ -3104,46 +3114,64 @@ XBox_DownloadDelete_GameClips() {
 					If ((Color_Thumbnail_BotLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopRight == Color_Thumbnail_Buffering) && (Color_Thumbnail_BotRight == Color_Thumbnail_Buffering)) {
 						Continue
 					} Else {
+						Tooltip_NewStats := Tooltip_NewStats "  Done"
+						Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
+						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+						Sleep 1000
 						Break
 					}
 				}
 			}
-			Tooltip, % ( A_ThisFunc "`n" "Buffering complete" ), 1, 1
-			Sleep 1000
-			; Click "Download" on currently selected clip
-			WinActivate(WinTitle)
-			MouseClick, Left, 546, 774
+			
 			Loop {
-				TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
-				Tooltip_Echo := ( "Downloading clip..." "`n" "Duration: " TimeWaited_Seconds "s" )
-				If (DebugMode == 1) {
-					Tooltip_Echo := ( Tooltip_Echo "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
+				;
+				; Downloading...
+				;
+				If (A_Index == 1) {
+					WinActivate("ahk_id %Win_ahk_id%")
+					MouseClick, Left, 546, 774  ; Click "Download" on currently selected clip
 				}
-				Tooltip, % ( A_ThisFunc "`n" Tooltip_Echo ), 1, 1
+				TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
+				Tooltip_NewStats := ( "Download duration: " TimeWaited_Seconds "s ..." )
+				Tooltip_Debug := ( "" )
+				If (DebugMode == 1) {
+					Tooltip_Debug := ( "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
+				}
+				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
 				Sleep 100
 				If ( TimeWaited_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
 					; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
-					WinActivate(WinTitle)
+					WinActivate("ahk_id %Win_ahk_id%")
 					Color_DL_Button_LeftSide := PixelGetColor(418, 771)
-					; Color=[0x171717], Coords=[x418 y773]  ; while NOT downloading
-					; Color=[0x595758], Coords=[x418 y773]  ; WHILE downloading
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
+						Tooltip_NewStats := Tooltip_NewStats "  Done"
+						Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
+						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+						Sleep 1500
 						Break
 					}
 				}
 			}
-			Tooltip, % ( A_ThisFunc "`n" "Download complete" ), 1, 1
+			;
+			; Deleting...
+			;
+			Tooltip_NewStats := "Deleting ..."
+			Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+			WinActivate("ahk_id %Win_ahk_id%")
+			MouseClick, Left, 890, 731  ; Click "Delete" once download has finished
+			Sleep 1000
+			Tooltip_NewStats := Tooltip_NewStats " Confirming deletion ..."
+			Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+			WinActivate("ahk_id %Win_ahk_id%")
+			MouseClick, Left, 515, 450  ; Confirm clip-deletion (via "OK" button on popup)
+			Sleep 500
+			Tooltip_NewStats := Tooltip_NewStats "  Done"
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
+			Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 			Sleep 1500
-			Tooltip, % ( A_ThisFunc "`n" "Deleting clip" ), 1, 1
-			; Click "Delete" once download has finished
-			WinActivate(WinTitle)
-			MouseClick, Left, 890, 731
-			Sleep 1000
-			; Confirm clip-deletion ("Okay", etc.)
-			WinActivate(WinTitle)
-			MouseClick, Left, 515, 450
-			Sleep 1000
+
 		}
+
 	}
 
 	; Open the output-videos directory

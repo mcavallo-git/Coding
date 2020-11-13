@@ -3051,18 +3051,21 @@ XBox_DownloadDelete_GameClips() {
 		Color_DL_Button_Downloading := "0x595758"
 
 		Sleep 2500
-		Tooltip, % ( A_ThisFunc "`n" "Opening 'Captures' tab..." ), 1, 1
+
 		; Click "Captures" (Left Tab)
+		Tooltip, % ( A_ThisFunc "`n" "Opening 'Captures' tab..." ), 1, 1
 		WinActivate(WinTitle)
 		MouseClick, Left, 23, 314
 		Sleep 7500
-		Tooltip, % ( A_ThisFunc "`n" "Selecting 'On Xbox Live'..." ), 1, 1
+
 		; Click "On Xbox Live" (Tab within "Captures")
+		Tooltip, % ( A_ThisFunc "`n" "Selecting 'On Xbox Live'..." ), 1, 1
 		WinActivate(WinTitle)
 		MouseClick, Left, 220, 138
 		Sleep 7500
-		Tooltip, % ( A_ThisFunc "`n" "Showing 'Game Clips' (to filter-out 'Screenshots')..." ), 1, 1
+
 		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
+		Tooltip, % ( A_ThisFunc "`n" "Showing 'Game Clips' (to filter-out 'Screenshots')..." ), 1, 1
 		WinActivate(WinTitle)
 		MouseClick, Left, 221, 181
 		Sleep 2000
@@ -3078,49 +3081,52 @@ XBox_DownloadDelete_GameClips() {
 		WinActivate(WinTitle)
 		Send {Enter}
 		Sleep 1000
+
 		Loop {
 			; Wait for the next video to load
-			Tooltip, % ( A_ThisFunc "`n" "Waiting for the next video to load..." ), 1, 1
-			Sleep 1000
 			Loop {
+				TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
+				Tooltip_Echo := ( "Waiting for the next video to load..." "`n" "Duration: " TimeWaited_Seconds "s" )
+				If (DebugMode == 1) {
+					Tooltip_Echo := ( Tooltip_Echo "`n" "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
+				}
+				Tooltip, % ( A_ThisFunc "`n" Tooltip_Echo ), 1, 1
 				Sleep 100
-				; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
-				Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
-				Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
-				Color_Thumbnail_TopRight := PixelGetColor(900, 215)
-				Color_Thumbnail_BotRight := PixelGetColor(900, 470)
-				If ((Color_Thumbnail_BotLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopRight == Color_Thumbnail_Buffering) && (Color_Thumbnail_BotRight == Color_Thumbnail_Buffering)) {
-					Tooltip_Echo := "Waiting for the next video to load..."
-					If (DebugMode == 1) {
-						Tooltip_Echo := ( Tooltip_Echo "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
+				If ( TimeWaited_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+					; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
+					WinActivate(WinTitle)
+					Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
+					Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
+					Color_Thumbnail_TopRight := PixelGetColor(900, 215)
+					Color_Thumbnail_BotRight := PixelGetColor(900, 470)
+					If ((Color_Thumbnail_BotLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopRight == Color_Thumbnail_Buffering) && (Color_Thumbnail_BotRight == Color_Thumbnail_Buffering)) {
+						Continue
+					} Else {
+						Break
 					}
-					Tooltip, %Tooltip_Echo%, 0, 0
-				} Else {
-					Break
 				}
 			}
 			Sleep 1000
-			Tooltip, % ( A_ThisFunc "`n" "Downloading next clip..." ), 1, 1
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
-			Sleep 2000
 			Loop {
+				TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
+				Tooltip_Echo := ( "Downloading clip..." "`n" "Duration: " TimeWaited_Seconds "s" )
+				If (DebugMode == 1) {
+					Tooltip_Echo := ( Tooltip_Echo "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
+				}
+				Tooltip, % ( A_ThisFunc "`n" Tooltip_Echo ), 1, 1
 				Sleep 100
-				; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
-				DownloadStart_xpos := 418
-				DownloadStart_ypos := 771
-				Color_DL_Button_LeftSide := PixelGetColor(DownloadStart_xpos, DownloadStart_ypos)
-				; Color=[0x171717], Coords=[x418 y773] ; while NOT downloading
-				; Color=[0x595758], Coords=[x418 y773] ; while DOWNLOADING
-				If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
-					Break
-				} Else {
-					Tooltip_Echo := "Waiting for download to finish..."
-					If (DebugMode == 1) {
-						Tooltip_Echo := ( Tooltip_Echo "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
+				If ( TimeWaited_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+					; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
+					WinActivate(WinTitle)
+					Color_DL_Button_LeftSide := PixelGetColor(418, 771)
+					; Color=[0x171717], Coords=[x418 y773]  ; while NOT downloading
+					; Color=[0x595758], Coords=[x418 y773]  ; WHILE downloading
+					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
+						Break
 					}
-					Tooltip, %Tooltip_Echo%, 0, 0
 				}
 			}
 			Sleep 1000

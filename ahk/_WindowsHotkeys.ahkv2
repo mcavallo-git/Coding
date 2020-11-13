@@ -2983,6 +2983,10 @@ XBox_DownloadDelete_GameClips() {
 
 	WinTitle := "Xbox Console Companion"
 
+	If (DebugMode == 1) {
+		TrayTip, AHK, % ( WinTitle ":" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
+	}
+
 	; Win_ahk_id := WinGetID("A")
 	Win_ahk_id := WinGetID(WinTitle)
 	Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
@@ -3000,83 +3004,87 @@ XBox_DownloadDelete_GameClips() {
 
 	; Prep window-location & dimensions
 	If ((Win_min_max_state == -1) || (Win_min_max_state == 1)) {
-		WinRestore("ahk_id %Win_ahk_id%")
+		; WinRestore("ahk_id %Win_ahk_id%")
+		WinRestore(Win_title)
 		Sleep 1000
 	}
-	WinMove, "ahk_id %Win_ahk_id%",, -7, 0, 1280, 800
+	; WinMove, "ahk_id %Win_ahk_id%",, -7, 0, 1280, 800
+	WinMove(Win_title,, -7, 0, 1280, 800)
 	Sleep 1000
 
-	If (DebugMode == 1) {
-		TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
-	}
-	Sleep 1000
+	; Use_ControlClick := 1
+	Use_ControlClick := 0
+	If (Use_ControlClick == 1) {
+		
+		; Click "Captures" (Left Tab)
+		xpos := 30
+		ypos := 313
 
-	; Click "Captures" (Left Tab)
-	xpos := 30
-	ypos := 313
+		; ControlClick "Windows.UI.Core.CoreWindow1", ahk_id %Win_ahk_pid%,,,, "NA x%xpos% y%ypos%"
+		; ControlClick "Toolbar321", WinTitle,,,, "NA x192 y10"  ; Clicks in NA mode at coordinates that are relative to a named control.
 
-	; ControlClick "Windows.UI.Core.CoreWindow1", ahk_id %Win_ahk_pid%,,,, "NA x%xpos% y%ypos%"
-	; ControlClick "Toolbar321", WinTitle,,,, "NA x192 y10"  ; Clicks in NA mode at coordinates that are relative to a named control.
+		; ControlClick("x%xpos% y%ypos%", "ahk_id %Win_ahk_id%")
+		; ControlClick "x%xpos% y%ypos%", "ahk_class %Win_ahk_class%"
+		; ControlClick "x%xpos% y%ypos%", "ahk_exe %Win_ahk_exe%"
+		; ControlClick "x%xpos% y%ypos%", "ahk_pid %Win_ahk_pid%"
+		; ControlClick(x30 y313, Win_title)
+		; MouseClick, Left, %xpos%, %ypos%
 
-	; ControlClick "x%xpos% y%ypos%", "ahk_id %Win_ahk_id%"
-	; ControlClick "x%xpos% y%ypos%", "ahk_class %Win_ahk_class%"
-	; ControlClick "x%xpos% y%ypos%", "ahk_exe %Win_ahk_exe%"
-	ControlClick "x%xpos% y%ypos%", "ahk_pid %Win10_ahk_pid%"
-	; ControlClick, x%xpos% y%ypos%, "Xbox Console Companion"
-	; ControlClick "x%xpos% y%ypos%", "ahk_id %Win10_ahk_id%"
+		; ControlSend,, {q}, ahk_pid %ExePID%
+		ControlSend,, {TAB}, ahk_pid %Win_ahk_pid%
+		; ControlSend,, {TAB}, "ahk_id %Win_ahk_id%"
 
-	; ControlClick, x%xpos% y%ypos%, WinTitle
-	; ControlClick "x55 y77", WinTitle  ; Clicks at a set of coordinates. Note the lack of a comma between X and Y.
-	; ControlClick, x%xpos% y%ypos%, %WinTitle%
+		; ControlClick "x%xpos% y%ypos%", "ahk_pid %Win10_ahk_pid%"
+		
+		; ControlClick, x%xpos% y%ypos%, WinTitle
+		; ControlClick "x55 y77", WinTitle  ; Clicks at a set of coordinates. Note the lack of a comma between X and Y.
+		; ControlClick, x%xpos% y%ypos%, %WinTitle%
 
-
-	If (False) {
+	} Else {
 
 		WaitForDownload_MaxSeconds := 30000
+		; WaitForDownload_MaxSeconds := 45000
 		; WaitForDownload_MaxSeconds := 90000
-
-		; MouseClick, Left, 861, 947
-		; Sleep %WaitForDownload_MaxSeconds%
-
-		; Loop 2000 {
-		; 	MouseClick, Left, 861, 947
-		; 	Sleep %WaitForDownload_MaxSeconds%
-		; 	MouseClick, Left, 1420, 905
-		; 	Sleep 1000
-		; 	MouseClick, Left, 848, 575
-		; 	Sleep 7500
-		; }
 
 		Sleep 2500
 		; Click "Captures" (Left Tab)
-		; MouseClick, Left, 23, 314
-		xpos := 35
-		ypos := 314
-		ControlClick, x%xpos% y%ypos%, "ahk_id %Win_ahk_id%"
+		MouseClick, Left, 23, 314
 		Sleep 7500
 		; Click "On Xbox Live" (Tab within "Captures")
-		MouseClick, Left, 240, 138
+		MouseClick, Left, 220, 138
 		Sleep 7500
 		; Click "Everything v" (Dropdown within "On Xbox Live")
-		MouseClick, Left, 255, 178
+		MouseClick, Left, 267, 182
 		Sleep 7500
-		; Click "Game clips" (Option on "Everything v" Dropdown)
-		MouseClick, Left, 233, 220
+		; Select "Game clips" (second from top option - go all the way up then down 1)
+		Send {Up}
+		Sleep 1000
+		Send {Up}
+		Sleep 1000
+		Send {Down}
+		Sleep 1000
+		Send {Enter}
 		Sleep 7500
 		Loop {
 			; Click "Download" on currently selected clip
-			MouseClick, Left, 861, 947
-			Sleep 30000
+			MouseClick, Left, 546, 774
+			Sleep %WaitForDownload_MaxSeconds%
 			; Click "Delete" once download has finished
-			MouseClick, Left, 1420, 905
+			MouseClick, Left, 890, 731
 			Sleep 1000
 			; Confirm clip-deletion ("Okay", etc.)
-			MouseClick, Left, 848, 575
+			MouseClick, Left, 515, 450
 			Sleep 7500
 		}
 
 	}
+
+	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
+	Run "%Fullpath_XboxCaptures%"  ; Open the output-videos directory
+
 	Return
+
 }
 
 

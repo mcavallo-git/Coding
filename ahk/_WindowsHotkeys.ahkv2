@@ -3019,6 +3019,8 @@ XBox_DownloadDelete_GameClips() {
 
 	Tooltip_Header := A_ThisFunc "`n" "----------"
 
+	TickCount_RuntimeStart := A_TickCount
+
 	; Use_ControlClick := 1
 	Use_ControlClick := 0
 
@@ -3103,10 +3105,8 @@ XBox_DownloadDelete_GameClips() {
 					Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 					If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
-						; Check the "On This PC" and "On Xbox Live" tabs for existence by matching their known locations areas against near-white text (0xF0F0F0), which appears as the tab loads
 						WinActivate("ahk_id %Win_ahk_id%")
-						If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xF0F0F0, 0)) {
-							WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
+						If ( PixelSearch(Px, Py, 61, 140, 280, 140, 0xF0F0F0, 0) ) {  ; Check a line of pixels which runs across the "On This PC" and "On Xbox Live" tabs for text matching a near-white color (0xF0F0F0), which appears as the tab loads
 							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 500
@@ -3130,10 +3130,8 @@ XBox_DownloadDelete_GameClips() {
 					Tooltip_NewStats := ( "Loading 'On Xbox Live' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 					If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
-						; Check the "By date" and "Everything" dropdowns for existence by matching their known locations areas against white text (0xFFFFFF), which appears as the tab loads
 						WinActivate("ahk_id %Win_ahk_id%")
-						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
-							WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
+						If ( PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0) ) {  ; Check a line of pixels which runs across the "By date" and "Everything" dropdowns for text matching a white color (0xFFFFFF), which appears as the tab loads
 							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 500
@@ -3193,14 +3191,23 @@ XBox_DownloadDelete_GameClips() {
 
 		MediaFiles_Processed := 0
 
-		TickCount_BeforeFirstDownload := A_TickCount
-
 		Loop {
 
 			Tooltip_EachVideo_Stats := Tooltip_Header
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Net Files processed: " MediaFiles_Processed
+			Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
+			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Completed duration: " Total_RuntimeDuration_Seconds
+			Tooltip_Closer := Tooltip_Closer "`n" Tooltip_Runtime
+
 			MediaFile_Iteration := A_Index
-			BufferMatch := 0
-			DownloadMatch := 0
+			TickCount_FileExists := A_TickCount
+
+			NextDownloadExists_Passed := 0
+			Buffer_Passed := 0
+			Download_Passed := 0
+			;
+			; Processing File # ... / ...
+			;
 			If (MaxFilesToDownload > 0) {
 				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing File # " MediaFile_Iteration "/" MaxFilesToDownload ":"
 				If (MediaFile_Iteration >= MaxFilesToDownload) {
@@ -3211,73 +3218,104 @@ XBox_DownloadDelete_GameClips() {
 			}
 
 			;
-			; Buffering...
+			; File-check duration ...
 			;
-			TickCount_StartBuffer := A_TickCount
 			Loop {
 				Sleep 100
-				WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
-				Tooltip_NewStats := ( "Buffer duration: " WaitDuration_Seconds "s ..." )
+				WaitDuration_Seconds := Round(((A_TickCount-TickCount_FileExists)/1000), 1)
+				Tooltip_NewStats := ( "File-check duration: " WaitDuration_Seconds "s ..." )
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
 				If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
-					; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
 					WinActivate("ahk_id %Win_ahk_id%")
-					Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
-					Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
-					Color_Thumbnail_TopRight := PixelGetColor(900, 215)
-					Color_Thumbnail_BotRight := PixelGetColor(900, 470)
-					If ((Color_Thumbnail_BotLeft == Color_Buffering_GameClips) && (Color_Thumbnail_TopLeft == Color_Buffering_GameClips) && (Color_Thumbnail_TopRight == Color_Buffering_GameClips) && (Color_Thumbnail_BotRight == Color_Buffering_GameClips)) {
-						Continue  ; Still Buffering (Game clip)
-					} Else If ((Color_Thumbnail_BotLeft == Color_Buffering_Screenshots) && (Color_Thumbnail_TopLeft == Color_Buffering_Screenshots) && (Color_Thumbnail_TopRight == Color_Buffering_Screenshots) && (Color_Thumbnail_BotRight == Color_Buffering_Screenshots)) {
-						Continue  ; Still Buffering (Screenshot)
+					If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {  ; Check a line of pixels which runs across the filename for the top line-item (on the left area of the 'Captures' tab) for text matching any color between a medium-light gray (0xD4D4D4) and white (0xFFFFFF), which appears as the file's line-item becomes selectable (and begins to buffer if already selected)
+						NextDownloadExists_Passed := 1
+						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
+						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+						Break
 					} Else {
-						BufferMatch := 1
-						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
-						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
-						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
-						Sleep 1000
-						Break
+						If ( WaitDuration_Seconds > 10 ) {
+							; First file still not found - Assume no more files exist
+							NextDownloadExists_Passed := 0
+							Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Not found" )
+							Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+							Break
+						} Else {
+							Continue
+						}
 					}
 				}
 			}
 
-			;
-			; Downloading...
-			;
-			TickCount_StartDownload := A_TickCount
-			DownloadBtn_XPos_LeftInterior := 418  ; Same xpos for [ Game clips ] & [ Screenshots ]
-			DownloadBtn_XPos_Center := 542  ; Same xpos for [ Game clips ] & [ Screenshots ]
-			If (Download_MediaType == "Game clips") {
-				DownloadBtn_YPos_Center := 772  ; Game clips
-			} Else {
-				DownloadBtn_YPos_Center := 730  ; Screenshots
-			}
-			Loop {
-				If (A_Index == 1) {
-					WinActivate("ahk_id %Win_ahk_id%")
-					MouseClick, Left, %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
-				}
-				Sleep 100
-				WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
-				Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
-				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
-				If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
-					MouseMove, 0, 0
-					; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
-					WinActivate("ahk_id %Win_ahk_id%")
-					Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
-					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
-						DownloadMatch := 1
-						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
-						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
-						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
-						Sleep 1500
-						Break
+			If ( NextDownloadExists_Passed == 1 ) {
+
+				;
+				; Buffering...
+				;
+				TickCount_StartBuffer := A_TickCount
+				Loop {
+					Sleep 100
+					WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
+					Tooltip_NewStats := ( "Buffer duration: " WaitDuration_Seconds "s ..." )
+					Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+					If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
+						; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
+						WinActivate("ahk_id %Win_ahk_id%")
+						Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
+						Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
+						Color_Thumbnail_TopRight := PixelGetColor(900, 215)
+						Color_Thumbnail_BotRight := PixelGetColor(900, 470)
+						If ((Color_Thumbnail_BotLeft == Color_Buffering_GameClips) && (Color_Thumbnail_TopLeft == Color_Buffering_GameClips) && (Color_Thumbnail_TopRight == Color_Buffering_GameClips) && (Color_Thumbnail_BotRight == Color_Buffering_GameClips)) {
+							Continue  ; Still Buffering (Game clip)
+						} Else If ((Color_Thumbnail_BotLeft == Color_Buffering_Screenshots) && (Color_Thumbnail_TopLeft == Color_Buffering_Screenshots) && (Color_Thumbnail_TopRight == Color_Buffering_Screenshots) && (Color_Thumbnail_BotRight == Color_Buffering_Screenshots)) {
+							Continue  ; Still Buffering (Screenshot)
+						} Else {
+							Buffer_Passed := 1
+							Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
+							Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+							Sleep 1000
+							Break
+						}
 					}
 				}
+
+				;
+				; Downloading...
+				;
+				TickCount_StartDownload := A_TickCount
+				DownloadBtn_XPos_LeftInterior := 418  ; Same xpos for [ Game clips ] & [ Screenshots ]
+				DownloadBtn_XPos_Center := 542  ; Same xpos for [ Game clips ] & [ Screenshots ]
+				If (Download_MediaType == "Game clips") {
+					DownloadBtn_YPos_Center := 772  ; Game clips
+				} Else {
+					DownloadBtn_YPos_Center := 730  ; Screenshots
+				}
+				Loop {
+					If (A_Index == 1) {
+						WinActivate("ahk_id %Win_ahk_id%")
+						MouseClick, Left, %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
+					}
+					Sleep 100
+					WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
+					Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
+					Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+					If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
+						MouseMove, 0, 0
+						; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
+						WinActivate("ahk_id %Win_ahk_id%")
+						Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
+						If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
+							Download_Passed := 1
+							Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
+							Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+							Sleep 1500
+							Break
+						}
+					}
+				}
+
 			}
 
-			If ((BufferMatch == 1) && (DownloadMatch == 1)) {
+			If ((NextDownloadExists_Passed == 1) && (Buffer_Passed == 1) && (Download_Passed == 1)) {
 				;
 				; Deleting...
 				;
@@ -3302,12 +3340,16 @@ XBox_DownloadDelete_GameClips() {
 				Sleep 1500
 				MediaFiles_Processed := MediaFiles_Processed + 1
 			} Else {
-				Tooltip_NewStats := "!! Error(s) detected:"
-				If (BufferMatch != 1) {
-					Tooltip_NewStats := Tooltip_NewStats "`n" "   Buffering unable to complete"
-				}
-				If (DownloadMatch != 1) {
-					Tooltip_NewStats := Tooltip_NewStats "`n" "   Download unable to complete"
+				Tooltip_NewStats := "Info:  "
+				If (NextDownloadExists_Passed != 1) {
+					Tooltip_NewStats := Tooltip_NewStats "`n" "All " Download_MediaType " have been downloaded"
+				} Else {
+					If (Buffer_Passed != 1) {
+						Tooltip_NewStats := Tooltip_NewStats "`n" "Error:  Buffering unable to complete"
+					}
+					If (Download_Passed != 1) {
+						Tooltip_NewStats := Tooltip_NewStats "`n" "Error:  Download unable to complete"
+					}
 				}
 				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats )
 				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
@@ -3321,7 +3363,13 @@ XBox_DownloadDelete_GameClips() {
 	If (MediaFiles_Processed > 0) {
 
 		Tooltip_Closer := Tooltip_Header
+
 		Tooltip_Closer := Tooltip_Closer "`n" "Total Files processed: " MediaFiles_Processed
+		
+		Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
+		Tooltip_Runtime := "Total Runtime: " Total_RuntimeDuration_Seconds
+		Tooltip_Closer := Tooltip_Closer "`n" Tooltip_Runtime
+
 		Tooltip, % ( Tooltip_Closer ), 1, 1
 		Sleep 2000
 

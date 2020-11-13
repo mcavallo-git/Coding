@@ -3091,9 +3091,9 @@ XBox_DownloadDelete_GameClips() {
 				Color_Thumbnail_TopRight := PixelGetColor(900, 215)
 				Color_Thumbnail_BotRight := PixelGetColor(900, 470)
 				If ((Color_Thumbnail_BotLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopRight == Color_Thumbnail_Buffering) && (Color_Thumbnail_BotRight == Color_Thumbnail_Buffering)) {
-					Break
-				} Else {
 					Tooltip, % ( "Waiting for the next video to load..." "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" ), 0, 0
+				} Else {
+					Break
 				}
 			}
 			Sleep 1000
@@ -3116,6 +3116,7 @@ XBox_DownloadDelete_GameClips() {
 					Tooltip, % ( "Waiting for download to finish..." "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" ), 0, 0
 				}
 			}
+			Sleep 1000
 			Tooltip, % ( "Deleting clip" ), 0, 0
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)

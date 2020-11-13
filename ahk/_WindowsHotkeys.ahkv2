@@ -3063,6 +3063,12 @@ XBox_DownloadDelete_GameClips() {
 
 		Tooltip_StartupJobs := Tooltip_Header
 
+		If (Download_MediaType == "Game clips") {
+			WaitDuration_MediaType := 1.5
+		} Else {
+			WaitDuration_MediaType := 0.5
+		}
+
 		Loop 4 {
 			If (A_Index == 1) {
 				;
@@ -3215,7 +3221,7 @@ XBox_DownloadDelete_GameClips() {
 				; 	Tooltip_Debug := ( "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
 				; }
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
-				If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+				If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
 					; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
 					WinActivate("ahk_id %Win_ahk_id%")
 					Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
@@ -3261,11 +3267,11 @@ XBox_DownloadDelete_GameClips() {
 				; 	Tooltip_Debug := ( "`n" "A_Index=[" A_Index "]" "`n" "Color_DL_Button_LeftSide=[" Color_DL_Button_LeftSide "]" )
 				; }
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
-				If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+				If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
 					; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
 					WinActivate("ahk_id %Win_ahk_id%")
 					; Color_DL_Button_LeftSide := PixelGetColor(418, 772)
-					Color_DL_Button_LeftSide := PixelGetColor(%DownloadBtn_XPos_LeftInterior%, %DownloadBtn_YPos_Center%)
+					Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
 						DownloadMatch := 1
 						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)

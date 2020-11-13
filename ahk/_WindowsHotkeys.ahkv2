@@ -3048,30 +3048,40 @@ XBox_DownloadDelete_GameClips() {
 
 		Sleep 2500
 		; Click "Captures" (Left Tab)
+		WinActivate(WinTitle)
 		MouseClick, Left, 23, 314
 		Sleep 7500
 		; Click "On Xbox Live" (Tab within "Captures")
+		WinActivate(WinTitle)
 		MouseClick, Left, 220, 138
 		Sleep 7500
 		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
+		WinActivate(WinTitle)
 		MouseClick, Left, 221, 181
 		Sleep 2000
+		WinActivate(WinTitle)
 		Send {Up}
 		Sleep 1000
+		WinActivate(WinTitle)
 		Send {Up}
 		Sleep 1000
+		WinActivate(WinTitle)
 		Send {Down}
 		Sleep 1000
+		WinActivate(WinTitle)
 		Send {Enter}
 		Sleep 7500
 		Loop {
 			; Click "Download" on currently selected clip
+			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
 			Sleep %WaitForDownload_MaxSeconds%
 			; Click "Delete" once download has finished
+			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731
 			Sleep 1000
 			; Confirm clip-deletion ("Okay", etc.)
+			WinActivate(WinTitle)
 			MouseClick, Left, 515, 450
 			Sleep 7500
 		}

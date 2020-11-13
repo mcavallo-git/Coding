@@ -203,7 +203,7 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   APP-SPECIFIC HOTKEYS:  Foxit PhantomPDF
+;   APP-SPECIFIC HOTKEY(S):  Foxit PhantomPDF
 ;
 #If WinActive("ahk_exe FoxitPhantomPDF.exe")  ; #If WinActive("ahk_class classFoxitPhantom")
 	;
@@ -286,7 +286,7 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   APP-SPECIFIC HOTKEYS:  Overwatch
+;   APP-SPECIFIC HOTKEY(S):  Overwatch
 ;
 #If WinActive("ahk_exe Overwatch.exe")  ; #If WinActive("ahk_class TankWindowClass")
 	;
@@ -299,7 +299,7 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   APP-SPECIFIC HOTKEYS:  Destiny 2
+;   APP-SPECIFIC HOTKEY(S):  Destiny 2
 ;
 #If WinActive("ahk_exe destiny2.exe")  ; #If WinActive("ahk_class Tiger D3D Window")
 	;

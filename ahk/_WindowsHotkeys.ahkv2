@@ -3306,7 +3306,6 @@ XBox_DownloadDelete_GameClips() {
 				WinActivate("ahk_id %Win_ahk_id%")
 				MouseClick, Left, 519, 449  ; Confirm file-deletion (via "OK" button on popup)
 				Sleep 500
-				Tooltip_NewStats := Tooltip_NewStats "  Done"
 				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 				Sleep 1500
@@ -3319,7 +3318,7 @@ XBox_DownloadDelete_GameClips() {
 				If (DownloadMatch != 1) {
 					Tooltip_NewStats := Tooltip_NewStats "`n" "   Download unable to complete"
 				}
-				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
+				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats )
 				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 				Sleep 2500
 			}

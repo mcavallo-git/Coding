@@ -2999,7 +2999,9 @@ XBox_DownloadDelete_GameClips() {
 
 	Win_min_max_state := WinGetMinMax("ahk_id %Win_ahk_id%")
 
-	Tooltip, % ( A_ThisFunc "`n" "Resizing '" WinTitle "' window..." ), 1, 1
+	Tooltip_Header := A_ThisFunc "`n" "----------"
+
+	Tooltip, % ( Tooltip_Header "`n" "Resizing '" WinTitle "' window..." ), 1, 1
 	WinActivate("ahk_id %Win_ahk_id%")
 	Sleep 1000
 
@@ -3055,19 +3057,19 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 2500
 
 		; Click "Captures" (Left Tab)
-		Tooltip, % ( A_ThisFunc "`n" "Opening 'Captures' tab..." ), 1, 1
+		Tooltip, % ( Tooltip_Header "`n" "Opening 'Captures' tab..." ), 1, 1
 		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 23, 314
 		Sleep 7500
 
 		; Click "On Xbox Live" (Tab within "Captures")
-		Tooltip, % ( A_ThisFunc "`n" "Selecting 'On Xbox Live'..." ), 1, 1
+		Tooltip, % ( Tooltip_Header "`n" "Selecting 'On Xbox Live'..." ), 1, 1
 		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 220, 138
 		Sleep 7500
 
 		; Only show "Game clips" (second from top option under the "Everything v" dropdown)
-		Tooltip, % ( A_ThisFunc "`n" "Showing 'Game Clips' (to filter-out 'Screenshots')..." ), 1, 1
+		Tooltip, % ( Tooltip_Header "`n" "Showing 'Game Clips' (to filter-out 'Screenshots')..." ), 1, 1
 		WinActivate("ahk_id %Win_ahk_id%")
 		MouseClick, Left, 221, 181
 		Sleep 2000
@@ -3084,14 +3086,20 @@ XBox_DownloadDelete_GameClips() {
 		Send {Enter}
 		Sleep 1000
 
+		Clips_Processed := 0
+
 		Loop {
 			Clip_Iteration := A_Index
-			If ((MaxClipsToDownload > 0) && (Clip_Iteration >= MaxClipsToDownload)) {
-				Break  ; Allow limiting the total # of clips to download
+			BufferMatch := 0
+			DownloadMatch := 0
+			If (MaxClipsToDownload > 0) {
+				Tooltip_EachVideo_Stats := Tooltip_Header "`n" "Clip # " Clip_Iteration "/" MaxClipsToDownload
+				If (Clip_Iteration >= MaxClipsToDownload) {
+					Break  ; Allow limiting the total # of clips to download
+				}
+			} Else {
+				Tooltip_EachVideo_Stats := Tooltip_Header "`n" "Clip # " Clip_Iteration
 			}
-			Tooltip_EachVideo_Stats := A_ThisFunc
-			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "----------"
-			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Clip # " Clip_Iteration
 			Loop {
 				;
 				; Buffering...
@@ -3114,6 +3122,7 @@ XBox_DownloadDelete_GameClips() {
 					If ((Color_Thumbnail_BotLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopLeft == Color_Thumbnail_Buffering) && (Color_Thumbnail_TopRight == Color_Thumbnail_Buffering) && (Color_Thumbnail_BotRight == Color_Thumbnail_Buffering)) {
 						Continue
 					} Else {
+						BufferMatch := 1
 						Tooltip_NewStats := Tooltip_NewStats "  Done"
 						Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
 						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
@@ -3144,6 +3153,7 @@ XBox_DownloadDelete_GameClips() {
 					WinActivate("ahk_id %Win_ahk_id%")
 					Color_DL_Button_LeftSide := PixelGetColor(418, 771)
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
+						DownloadMatch := 1
 						Tooltip_NewStats := Tooltip_NewStats "  Done"
 						Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
 						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
@@ -3152,36 +3162,70 @@ XBox_DownloadDelete_GameClips() {
 					}
 				}
 			}
-			;
-			; Deleting...
-			;
-			Tooltip_NewStats := "Deleting ..."
-			Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
-			WinActivate("ahk_id %Win_ahk_id%")
-			MouseClick, Left, 890, 731  ; Click "Delete" once download has finished
-			Sleep 1000
-			Tooltip_NewStats := Tooltip_NewStats " Confirming deletion ..."
-			Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
-			WinActivate("ahk_id %Win_ahk_id%")
-			MouseClick, Left, 515, 450  ; Confirm clip-deletion (via "OK" button on popup)
-			Sleep 500
-			Tooltip_NewStats := Tooltip_NewStats "  Done"
-			Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
-			Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
-			Sleep 1500
+
+			If ((BufferMatch == 1) && (DownloadMatch == 1)) {
+				;
+				; Deleting...
+				;
+				Tooltip_NewStats := "Deleting ..."
+				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+				WinActivate("ahk_id %Win_ahk_id%")
+				MouseClick, Left, 890, 731  ; Click "Delete" once download has finished
+				Sleep 1000
+				Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
+				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+				WinActivate("ahk_id %Win_ahk_id%")
+				MouseClick, Left, 515, 450  ; Confirm clip-deletion (via "OK" button on popup)
+				Sleep 500
+				Tooltip_NewStats := Tooltip_NewStats "  Done"
+				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
+				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+				Sleep 1500
+				Clips_Processed := Clips_Processed + 1
+			} Else {
+				Tooltip_NewStats := "!! Error(s) detected:"
+				If (BufferMatch != 1) {
+					Tooltip_NewStats := Tooltip_NewStats "`n" "   Buffering unable to complete"
+				}
+				If (DownloadMatch != 1) {
+					Tooltip_NewStats := Tooltip_NewStats "`n" "   Download unable to complete"
+				}
+				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" Tooltip_NewStats
+				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+				Sleep 2500
+			}
 
 		}
 
 	}
 
-	; Open the output-videos directory
-	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
-	Run "%Fullpath_XboxCaptures%"
+	If (Clips_Processed > 0) {
 
-	; Show the file-timestamper script (renames downloaded xbox clips with timestamp in filename)
-	Sleep 500
-	Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
+		Tooltip_Closer := Tooltip_Header
+		Tooltip_Closer := Tooltip_Closer "`n" "Total Clips processed: " Clips_Processed
+		Tooltip, % ( Tooltip_Closer ), 1, 1
+		Sleep 2000
+
+		; Open the timestamping script (renames files to their basename plus their metadata created-on date)
+		Tooltip_Closer := Tooltip_Closer "`n" "Opening metadata-timestamper script..."
+		Tooltip, % ( Tooltip_Closer ), 1, 1
+		Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
+		Sleep 2000
+
+		; Open the output-videos directory
+		Tooltip_Closer := Tooltip_Closer "`n" "Opening output directory..."
+		Tooltip, % ( Tooltip_Closer ), 1, 1
+		SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+		Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
+		Run "%Fullpath_XboxCaptures%"
+		Sleep 2000
+
+		Tooltip_Closer := Tooltip_Closer "`n" "Runtime complete"
+		Tooltip, % ( Tooltip_Closer ), 1, 1
+
+		ClearTooltip(15000)
+
+	}
 
 	Return
 

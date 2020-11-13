@@ -3066,7 +3066,7 @@ XBox_DownloadDelete_GameClips() {
 		If (Download_MediaType == "Game clips") {
 			WaitDuration_MediaType := 1.5
 		} Else {
-			WaitDuration_MediaType := 0.5
+			WaitDuration_MediaType := 0.1
 		}
 
 		Loop 4 {

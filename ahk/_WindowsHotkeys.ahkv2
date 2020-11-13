@@ -3080,7 +3080,7 @@ XBox_DownloadDelete_GameClips() {
 			; Wait for the next video to load
 			Tooltip, % ( "Waiting for the next video to load" ), 0, 0
 			Sleep 7500
-			Tooltip, % ( "Downloading next clip" ), 0, 0
+			Tooltip, % ( "Starting download" ), 0, 0
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774

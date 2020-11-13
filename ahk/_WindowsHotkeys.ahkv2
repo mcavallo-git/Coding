@@ -3265,7 +3265,6 @@ XBox_DownloadDelete_GameClips() {
 					MouseMove, 0, 0
 					; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
 					WinActivate("ahk_id %Win_ahk_id%")
-					; Color_DL_Button_LeftSide := PixelGetColor(418, 772)
 					Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
 						DownloadMatch := 1

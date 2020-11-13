@@ -3050,7 +3050,7 @@ XBox_DownloadDelete_GameClips() {
 
 	} Else {
 
-		Download_MediaType := "Game clips"   ;  "Game clips" || "Screenshots"
+		; Download_MediaType := "Game clips"   ;  "Game clips" || "Screenshots"
 		Download_MediaType := "Screenshots"  ;  "Game clips" || "Screenshots"
 
 		MaxFilesToDownload := 0  ; 0 = Unlimited

@@ -3083,6 +3083,9 @@ XBox_DownloadDelete_GameClips() {
 	Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
 	Run "%Fullpath_XboxCaptures%"  ; Open the output-videos directory
 
+	Sleep 500
+	Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
+
 	Return
 
 }

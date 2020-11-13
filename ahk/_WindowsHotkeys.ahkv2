@@ -3216,7 +3216,6 @@ XBox_DownloadDelete_GameClips() {
 				; }
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
 				If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
-
 					; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
 					WinActivate("ahk_id %Win_ahk_id%")
 					Color_Thumbnail_BotLeft := PixelGetColor(425, 470)

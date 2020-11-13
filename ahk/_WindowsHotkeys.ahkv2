@@ -3073,6 +3073,7 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 1000
 		Loop {
 			; Wait for the next video to load
+			Tooltip, % ( "Waiting for the next video to load" )
 			Sleep 7500
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
@@ -3089,10 +3090,13 @@ XBox_DownloadDelete_GameClips() {
 				Color_IsDownloading := "0x595758"
 				If (Color_DL_Button_LeftSide == Color_NotDownloading) {
 					Break
+				} Else {
+					Tooltip, % ( "Waiting for Download to finish (A_Index=[" A_Index "])" )
 				}
 				; Color=[0x272727], Coords=[x418 y773] ; while NOT downloading
 				; Color=[0x595758], Coords=[x418 y773] ; while DOWNLOADING
 			}
+			Tooltip, % ( "Deleting Clip" )
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731

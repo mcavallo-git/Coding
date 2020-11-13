@@ -3064,7 +3064,6 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 1000
 		Send {Enter}
 		Sleep 7500
-
 		Loop {
 			; Click "Download" on currently selected clip
 			MouseClick, Left, 546, 774

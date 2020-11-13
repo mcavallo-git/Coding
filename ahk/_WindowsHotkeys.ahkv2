@@ -3065,6 +3065,7 @@ XBox_DownloadDelete_GameClips() {
 		Sleep 1000
 		Send {Enter}
 		Sleep 7500
+
 		Loop {
 			; Click "Download" on currently selected clip
 			MouseClick, Left, 546, 774
@@ -3079,10 +3080,13 @@ XBox_DownloadDelete_GameClips() {
 
 	}
 
+
+	; Open the output-videos directory
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
-	Run "%Fullpath_XboxCaptures%"  ; Open the output-videos directory
+	Run "%Fullpath_XboxCaptures%"
 
+	; Show the file-timestamper script (renames downloaded xbox clips with timestamp in filename)
 	Sleep 500
 	Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
 

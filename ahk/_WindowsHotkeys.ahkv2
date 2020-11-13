@@ -2989,6 +2989,7 @@ XBox_DownloadDelete_GameClips() {
 	Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
 	Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
 	Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
+	Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
 
 	Win10_ahk_id := WinGet_ahk_id(WinTitle)
 	Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
@@ -3002,18 +3003,15 @@ XBox_DownloadDelete_GameClips() {
 	WinActivate(WinTitle)
 	Sleep 1000
 
-	; Prep window-location & dimensions
-	If ((Win_min_max_state == -1) || (Win_min_max_state == 1)) {
-		; WinRestore("ahk_id %Win_ahk_id%")
+	; Prep window-location & dimension/size
+	If (Win_size_state != "restored") {
 		WinActivate(WinTitle)
-		; WinRestore(WinTitle)
-		WinRestore(Win_title)
-		Sleep 1000
+		; WinRestore(Win_title)
+		WinRestore("ahk_id %Win_ahk_id%")
+		Sleep 100
 	}
-	; WinMove, "ahk_id %Win_ahk_id%",, -7, 0, 1280, 800
 	WinActivate(WinTitle)
-	; WinMove(WinTitle,, -7, 0, 1280, 800)
-	WinMove(Win_title,, -7, 0, 1280, 800)
+	WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800)
 	Sleep 1000
 
 	; Use_ControlClick := 1

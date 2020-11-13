@@ -3200,10 +3200,10 @@ XBox_DownloadDelete_GameClips() {
 
 			Loop {
 
-				Tooltip_EachVideo_Stats := Tooltip_Header
-				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Net files-processed: " MediaFiles_Processed
+				Tooltip_EachFile_Stats := Tooltip_Header
+				Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net " Tooltip_NewStats " processed: " MediaFiles_Processed
 				Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
-				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
+				Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
 
 				MediaFile_Iteration := A_Index
 				TickCount_FileExists := A_TickCount
@@ -3215,12 +3215,12 @@ XBox_DownloadDelete_GameClips() {
 				; Processing File # ... / ...
 				;
 				If (MaxFilesToDownload > 0) {
-					Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing File # " MediaFile_Iteration "/" MaxFilesToDownload ":"
+					Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Processing File # " MediaFile_Iteration "/" MaxFilesToDownload ":"
 					If (MediaFile_Iteration >= MaxFilesToDownload) {
 						Break  ; Allow limiting the total # of files to download
 					}
 				} Else {
-					Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing File # " MediaFile_Iteration ":"
+					Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Processing File # " MediaFile_Iteration ":"
 				}
 
 				;
@@ -3230,20 +3230,20 @@ XBox_DownloadDelete_GameClips() {
 					Sleep 100
 					WaitDuration_Seconds := Round(((A_TickCount-TickCount_FileExists)/1000), 1)
 					Tooltip_NewStats := ( "File-check duration: " WaitDuration_Seconds "s ..." )
-					Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+					Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
 					If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
 						WinActivate("ahk_id %Win_ahk_id%")
 						If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {  ; Check a line of pixels which runs across the filename for the top line-item (on the left area of the 'Captures' tab) for text matching any color between a medium-light gray (0xD4D4D4) and white (0xFFFFFF), which appears as the file's line-item becomes selectable (and begins to buffer if already selected)
 							NextDownloadExists_Passed := 1
-							Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
-							Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+							Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
+							Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 							Break
 						} Else {
 							If ( WaitDuration_Seconds > 10 ) {
 								; First file still not found - Assume no more files exist
 								NextDownloadExists_Passed := 0
-								Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Not found" )
-								Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+								Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Not found" )
+								Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 								Break
 							} Else {
 								Continue
@@ -3262,7 +3262,7 @@ XBox_DownloadDelete_GameClips() {
 						Sleep 100
 						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
 						Tooltip_NewStats := ( "Buffer duration: " WaitDuration_Seconds "s ..." )
-						Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+						Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
 						If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
 							; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
 							WinActivate("ahk_id %Win_ahk_id%")
@@ -3276,8 +3276,8 @@ XBox_DownloadDelete_GameClips() {
 								Continue  ; Still Buffering (Screenshot)
 							} Else {
 								Buffer_Passed := 1
-								Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
-								Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+								Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
+								Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 								Sleep 1000
 								Break
 							}
@@ -3303,7 +3303,7 @@ XBox_DownloadDelete_GameClips() {
 						Sleep 100
 						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
 						Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
-						Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+						Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
 						If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
 							MouseMove, 0, 0
 							; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
@@ -3311,8 +3311,8 @@ XBox_DownloadDelete_GameClips() {
 							Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
 							If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
 								Download_Passed := 1
-								Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
-								Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+								Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
+								Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 								Sleep 1500
 								Break
 							}
@@ -3332,17 +3332,17 @@ XBox_DownloadDelete_GameClips() {
 						DeleteBtn_YPos_Center := 618  ; Screenshots
 					}
 					Tooltip_NewStats := "Deleting ..."
-					Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+					Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
 					WinActivate("ahk_id %Win_ahk_id%")
 					MouseClick, Left, %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
 					Sleep 1000
 					Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
-					Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
+					Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
 					WinActivate("ahk_id %Win_ahk_id%")
 					MouseClick, Left, 519, 449  ; Confirm file-deletion (via "OK" button on popup)
 					Sleep 500
-					Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
-					Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+					Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
+					Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 					Sleep 1500
 					MediaFiles_Processed := MediaFiles_Processed + 1
 				} Else {
@@ -3357,18 +3357,17 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip_NewStats := Tooltip_NewStats "`n" "Error:  Download unable to complete"
 						}
 					}
-					Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats )
-					Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
+					Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats )
+					Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 					Sleep 2500
 				}
 
 			}
 
-
 			Tooltip_Closer_Stats := Tooltip_Header
-			Tooltip_Closer_Stats := Tooltip_EachVideo_Stats "`n" "Net files-processed: " MediaFiles_Processed
+			Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net files-processed: " MediaFiles_Processed
 			Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
-			Tooltip_Closer_Stats := Tooltip_EachVideo_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
+			Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
 			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 			Sleep 2000
 
@@ -3394,11 +3393,11 @@ XBox_DownloadDelete_GameClips() {
 
 			}
 
-			ClearTooltip(15000)
-
 		}
 
 	}
+
+	ClearTooltip(10000)
 
 	Return
 

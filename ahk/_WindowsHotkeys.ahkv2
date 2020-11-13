@@ -3088,7 +3088,7 @@ XBox_DownloadDelete_GameClips() {
 			; Wait for the next video to load
 			Loop {
 				TimeWaited_Seconds := Round( (((A_Index-1)*100)/1000), 1 )
-				Tooltip_Echo := ( "Waiting for the next video to load..." "`n" "Duration: " TimeWaited_Seconds "s" )
+				Tooltip_Echo := ( "Waiting for the next video to buffer..." "`n" "Duration: " TimeWaited_Seconds "s" )
 				If (DebugMode == 1) {
 					Tooltip_Echo := ( Tooltip_Echo "`n" "`n" "A_Index=[" A_Index "]" "`n" "Color_Thumbnail_BotLeft=[" Color_Thumbnail_BotLeft "]" "`n" "Color_Thumbnail_TopLeft=[" Color_Thumbnail_TopLeft "]" "`n" "Color_Thumbnail_TopRight=[" Color_Thumbnail_TopRight "]" "`n" "Color_Thumbnail_BotRight=[" Color_Thumbnail_BotRight "]" )
 				}
@@ -3108,6 +3108,7 @@ XBox_DownloadDelete_GameClips() {
 					}
 				}
 			}
+			Tooltip, % ( A_ThisFunc "`n" "Buffering complete" ), 1, 1
 			Sleep 1000
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
@@ -3131,8 +3132,9 @@ XBox_DownloadDelete_GameClips() {
 					}
 				}
 			}
-			Sleep 1000
-			Tooltip, % ( A_ThisFunc "`n" "Download complete - deleting clip" ), 1, 1
+			Tooltip, % ( A_ThisFunc "`n" "Download complete" ), 1, 1
+			Sleep 1500
+			Tooltip, % ( A_ThisFunc "`n" "Deleting clip" ), 1, 1
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731

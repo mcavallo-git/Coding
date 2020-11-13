@@ -2983,8 +2983,6 @@ XBox_DownloadDelete_GameClips() {
 
 	WinTitle := "Xbox Console Companion"
 
-	Tooltip, % ( A_ThisFunc "`n" "Starting 'downloading & delete clips' script..." ), 1, 1
-
 	; Win_ahk_id := WinGetID("A")
 	Win_ahk_id := WinGetID(WinTitle)
 	Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
@@ -3000,16 +2998,20 @@ XBox_DownloadDelete_GameClips() {
 
 	Win_min_max_state := WinGetMinMax("ahk_id %Win_ahk_id%")
 
+	Tooltip, % ( A_ThisFunc "`n" "Resizing '" WinTitle "' window..." ), 1, 1
+
 	; Prep window-location & dimensions
 	If ((Win_min_max_state == -1) || (Win_min_max_state == 1)) {
 		; WinRestore("ahk_id %Win_ahk_id%")
 		WinActivate(WinTitle)
-		WinRestore(Win_title)
+		WinRestore(WinTitle)
+		; WinRestore(Win_title)
 		Sleep 1000
 	}
 	; WinMove, "ahk_id %Win_ahk_id%",, -7, 0, 1280, 800
 	WinActivate(WinTitle)
-	WinMove(Win_title,, -7, 0, 1280, 800)
+	WinMove(WinTitle,, -7, 0, 1280, 800)
+	; WinMove(Win_title,, -7, 0, 1280, 800)
 	Sleep 1000
 
 	; Use_ControlClick := 1

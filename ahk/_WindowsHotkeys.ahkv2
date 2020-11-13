@@ -3046,8 +3046,7 @@ XBox_DownloadDelete_GameClips() {
 
 	} Else {
 
-		MaxClipsToDownload := 0
-		MaxClipsToDownload := 3
+		MaxClipsToDownload := 0  ; 0 = Unlimited
 
 		Color_Thumbnail_Buffering := "0x2E2E2E"
 
@@ -3155,8 +3154,8 @@ XBox_DownloadDelete_GameClips() {
 			}
 		}
 
-		Clips_Processed := 0
-		TickCount_BeforeFirstClip := A_TickCount
+		MediaFiles_Processed := 0
+		TickCount_BeforeFirstDownload := A_TickCount
 		Loop {
 			Tooltip_EachVideo_Stats := Tooltip_Header
 			Clip_Iteration := A_Index
@@ -3254,7 +3253,7 @@ XBox_DownloadDelete_GameClips() {
 				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 				Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 				Sleep 1500
-				Clips_Processed := Clips_Processed + 1
+				MediaFiles_Processed := MediaFiles_Processed + 1
 			} Else {
 				Tooltip_NewStats := "!! Error(s) detected:"
 				If (BufferMatch != 1) {
@@ -3272,10 +3271,10 @@ XBox_DownloadDelete_GameClips() {
 
 	}
 
-	If (Clips_Processed > 0) {
+	If (MediaFiles_Processed > 0) {
 
 		Tooltip_Closer := Tooltip_Header
-		Tooltip_Closer := Tooltip_Closer "`n" "Total Clips processed: " Clips_Processed
+		Tooltip_Closer := Tooltip_Closer "`n" "Total Clips processed: " MediaFiles_Processed
 		Tooltip, % ( Tooltip_Closer ), 1, 1
 		Sleep 2000
 

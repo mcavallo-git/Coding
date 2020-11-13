@@ -3101,7 +3101,7 @@ XBox_DownloadDelete_GameClips() {
 					WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
 					Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
-					If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+					If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
 						WinActivate("ahk_id %Win_ahk_id%")
 						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
@@ -3128,7 +3128,7 @@ XBox_DownloadDelete_GameClips() {
 					WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
 					Tooltip_NewStats := ( "Loading 'On Xbox Live' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
-					If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
+					If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
 						WinActivate("ahk_id %Win_ahk_id%")
 						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
@@ -3258,6 +3258,8 @@ XBox_DownloadDelete_GameClips() {
 				If (A_Index == 1) {
 					WinActivate("ahk_id %Win_ahk_id%")
 					MouseClick, Left, %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
+					Sleep 10
+					MouseMove, 0, 0
 				}
 				Sleep 100
 				WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
@@ -3287,16 +3289,16 @@ XBox_DownloadDelete_GameClips() {
 				;
 				; Deleting...
 				;
-				DeleteBtn_XPos_Center := 890  ; Same xpos for [ Game clips ] & [ Screenshots ]
+				DeleteBtn_XPos_TrashCan := 853  ; Same xpos for [ Game clips ] & [ Screenshots ]
 				If (Download_MediaType == "Game clips") {
 					DeleteBtn_YPos_Center := 731  ; Game clips
 				} Else {
-					DeleteBtn_YPos_Center := 630  ; Screenshots
+					DeleteBtn_YPos_Center := 618  ; Screenshots
 				}
 				Tooltip_NewStats := "Deleting ..."
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
 				WinActivate("ahk_id %Win_ahk_id%")
-				MouseClick, Left, %DeleteBtn_XPos_Center%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
+				MouseClick, Left, %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
 				Sleep 1000
 				Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1

@@ -3054,6 +3054,7 @@ XBox_DownloadDelete_GameClips() {
 		Download_MediaType := "Screenshots"  ;  "Game clips" || "Screenshots"
 
 		MaxFilesToDownload := 0  ; 0 = Unlimited
+		MaxFilesToDownload := 2
 
 		Color_Buffering_GameClips := "0x2E2E2E"
 		Color_Buffering_Screenshots := "0x171717"
@@ -3066,7 +3067,7 @@ XBox_DownloadDelete_GameClips() {
 		If (Download_MediaType == "Game clips") {
 			WaitDuration_MediaType := 1.5
 		} Else {
-			WaitDuration_MediaType := 0.1
+			WaitDuration_MediaType := 1.0
 		}
 
 		Loop 4 {
@@ -3190,8 +3191,8 @@ XBox_DownloadDelete_GameClips() {
 			}
 		}
 
-		; MediaFiles_Processed := 0
-		MediaFiles_Processed := 2
+		MediaFiles_Processed := 0
+
 		TickCount_BeforeFirstDownload := A_TickCount
 
 		Loop {

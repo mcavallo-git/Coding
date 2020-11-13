@@ -2658,7 +2658,7 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		Logfile.write("`n")
 	}
 	PollDuration_ms := 10
-	FollowDuration_Seconds := 600
+	FollowDuration_Seconds := 10
 	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
 
 	Last_MouseX := 0
@@ -2715,6 +2715,8 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 	}
 	If (DebugMode == 1) {
 		Logfile.close()
+		Sleep 250
+		Run, Notepad "%OutputFile%"
 	}
 	ClearTooltip(0)
 	Return
@@ -3046,7 +3048,7 @@ XBox_DownloadDelete_GameClips() {
 
 	} Else {
 
-		MaxClipsToDownload := 0  ; 0 = Unlimited
+		MaxFilesToDownload := 0  ; 0 = Unlimited
 
 		Color_Thumbnail_Buffering := "0x2E2E2E"
 
@@ -3156,18 +3158,20 @@ XBox_DownloadDelete_GameClips() {
 
 		MediaFiles_Processed := 0
 		TickCount_BeforeFirstDownload := A_TickCount
+
 		Loop {
+
 			Tooltip_EachVideo_Stats := Tooltip_Header
-			Clip_Iteration := A_Index
+			MediaFile_Iteration := A_Index
 			BufferMatch := 0
 			DownloadMatch := 0
-			If (MaxClipsToDownload > 0) {
-				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing Clip # " Clip_Iteration "/" MaxClipsToDownload ":"
-				If (Clip_Iteration >= MaxClipsToDownload) {
-					Break  ; Allow limiting the total # of clips to download
+			If (MaxFilesToDownload > 0) {
+				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing File # " MediaFile_Iteration "/" MaxFilesToDownload ":"
+				If (MediaFile_Iteration >= MaxFilesToDownload) {
+					Break  ; Allow limiting the total # of files to download
 				}
 			} Else {
-				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing Clip # " Clip_Iteration ":"
+				Tooltip_EachVideo_Stats := Tooltip_EachVideo_Stats "`n" "Processing File # " MediaFile_Iteration ":"
 			}
 
 			;
@@ -3210,7 +3214,7 @@ XBox_DownloadDelete_GameClips() {
 			Loop {
 				If (A_Index == 1) {
 					WinActivate("ahk_id %Win_ahk_id%")
-					MouseClick, Left, 546, 774  ; Click "Download" on currently selected clip
+					MouseClick, Left, 546, 774  ; Click "Download" on currently selected file
 				}
 				Sleep 100
 				WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartDownload)/1000), 1)
@@ -3221,7 +3225,7 @@ XBox_DownloadDelete_GameClips() {
 				; }
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats Tooltip_Debug ), 1, 1
 				If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
-					; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
+					; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
 					WinActivate("ahk_id %Win_ahk_id%")
 					Color_DL_Button_LeftSide := PixelGetColor(418, 771)
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
@@ -3247,7 +3251,7 @@ XBox_DownloadDelete_GameClips() {
 				Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
 				Tooltip, % ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats ), 1, 1
 				WinActivate("ahk_id %Win_ahk_id%")
-				MouseClick, Left, 515, 450  ; Confirm clip-deletion (via "OK" button on popup)
+				MouseClick, Left, 515, 450  ; Confirm file-deletion (via "OK" button on popup)
 				Sleep 500
 				Tooltip_NewStats := Tooltip_NewStats "  Done"
 				Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
@@ -3274,7 +3278,7 @@ XBox_DownloadDelete_GameClips() {
 	If (MediaFiles_Processed > 0) {
 
 		Tooltip_Closer := Tooltip_Header
-		Tooltip_Closer := Tooltip_Closer "`n" "Total Clips processed: " MediaFiles_Processed
+		Tooltip_Closer := Tooltip_Closer "`n" "Total Files processed: " MediaFiles_Processed
 		Tooltip, % ( Tooltip_Closer ), 1, 1
 		Sleep 2000
 

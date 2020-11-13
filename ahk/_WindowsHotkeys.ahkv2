@@ -1929,8 +1929,13 @@ GetWindowSpecs() {
 	Win_is_win10_app := WinGet_is_win10_app("A")
 	
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
-	Win_longest_field := ((StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)) > (StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)) ? (StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)):(StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)))
-	Win10_longest_field := 0
+	Win_longest_field := 0
+	Win_longest_field := StrLen_Max(Win_longest_field, Win_title)
+	Win_longest_field := StrLen_Max(Win_longest_field, Win_fullpath)
+	Win_longest_field := StrLen_Max(Win_longest_field, Win_control_names)
+	Win_longest_field := StrLen_Max(Win_longest_field, Win_ahk_class)
+	; Win_longest_field := ((StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)) > (StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)) ? (StrLen(Win_title)>StrLen(Win_fullpath) ? StrLen(Win_title):StrLen(Win_fullpath)):(StrLen(Win_control_names)>StrLen(Win_ahk_class) ? StrLen(Win_control_names):StrLen(Win_ahk_class)))
+	; Win10_longest_field := 0
 
 	If (Win_is_win10_app == 1) {
 		; Get the Win10-App's stats
@@ -1946,29 +1951,38 @@ GetWindowSpecs() {
 		WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
 
 		; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
-		Win10_longest_field := ((StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)) > (StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)) ? (StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)):(StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)))
+		Win_longest_field := StrLen_Max(Win_longest_field, Win10_title)
+		Win_longest_field := StrLen_Max(Win_longest_field, Win10_fullpath)
+		Win_longest_field := StrLen_Max(Win_longest_field, Win10_control_names)
+		Win_longest_field := StrLen_Max(Win_longest_field, Win10_ahk_class)
+		; Win10_longest_field := ((StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)) > (StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)) ? (StrLen(Win10_title)>StrLen(Win10_fullpath) ? StrLen(Win10_title):StrLen(Win10_fullpath)):(StrLen(Win10_control_names)>StrLen(Win10_ahk_class) ? StrLen(Win10_control_names):StrLen(Win10_ahk_class)))
 
 	}
 
-	GUI_WIDTH := (StrLen(Win_longest_field)>StrLen(Win10_longest_field) ? StrLen(Win_longest_field):StrLen(Win10_longest_field))
-
-
-	GUI_WIDTH := 125 + Ceil(Win_longest_field * 8)  ; <-- 8 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
-
-	; Table Row-Count
-	GUI_ROWCOUNT := 18
+	; --- TOTAL WIDTH ---
+	GUI_LONGEST_FIELD := StrLen(Win_longest_field)
+	GUI_BASE_WIDTH := 200
 	If (Win_is_win10_app == 1) {
-		GUI_ROWCOUNT := GUI_ROWCOUNT + 11
+		GUI_BASE_WIDTH := GUI_BASE_WIDTH + 64
+	}
+	GUI_WIDTH := GUI_BASE_WIDTH + Ceil( GUI_LONGEST_FIELD * 8 )  ; <-- 8 to 8.5 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
+
+	; --- TOTAL ROWS ---
+	GUI_ROWCOUNT := 1  ; Header-Row
+	GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; Win-Rows
+	If (Win_is_win10_app == 1) {
+		GUI_ROWCOUNT := GUI_ROWCOUNT + 11  ; Win10-Rows
 	}
 	If (DebugMode == 1) {
-		GUI_ROWCOUNT := GUI_ROWCOUNT + 3
+		GUI_ROWCOUNT := GUI_ROWCOUNT + 3  ; Debug-Rows
 	}
 
-	; Table Colors ( Background-Fill / Foreground-Text )
+
+	; --- TABLE-COLORS ---
 	GUI_BACKGROUND_COLOR := "1E1E1E"
 	GUI_TEXT_COLOR := "FFFFFF"
 
-	; Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary
+	; --- LIST-CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
 	GUI_OPT := "r" GUI_ROWCOUNT
 	GUI_OPT := GUI_OPT " w" GUI_WIDTH
 	GUI_OPT := GUI_OPT " gGetWindowSpecs_OnClick_LV_WindowSpecs"
@@ -2007,10 +2021,8 @@ GetWindowSpecs() {
 	
 	; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
 	LV_Add("", "", "")
-	If (Win_is_win10_app == 0) {
-		LV_Add("", "Is Win10 App?", "No")
-	} Else {
-		LV_Add("", "Is Win10 App?", "Yes")
+	LV_Add("", "Is Win10 App?", ((Win_is_win10_app==1) ? ("Yes"):("No")))
+	If (Win_is_win10_app == 1) {
 		; Show the Win10-App's stats
 		LV_Add("", "Win10_title", Win10_title)
 		LV_Add("", "Win10_text", Win10_text)
@@ -2028,14 +2040,13 @@ GetWindowSpecs() {
 		LV_Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
 		LV_Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
 	}
-	LV_Add("", "", "")
 	If (DebugMode == 1) {
-		LV_Add("", "Win_longest_field", Win_longest_field)
-		LV_Add("", "Win10_longest_field", Win10_longest_field)
-		LV_Add("", "GUI_WIDTH", GUI_WIDTH)
-		LV_Add("", "GUI_OPT", GUI_OPT)
 		LV_Add("", "", "")
+		LV_Add("", "GUI_LONGEST_FIELD", GUI_LONGEST_FIELD)
+		LV_Add("", "GUI_WIDTH", GUI_WIDTH)
+		; LV_Add("", "GUI_OPT", GUI_OPT)
 	}
+	LV_Add("", "", "")
 	LV_ModifyCol(1, "AutoHdr Text Left")
 	LV_ModifyCol(2, "AutoHdr Text Left")
 	; LV_ModifyCol()  ; Auto-size each column to fit its contents.
@@ -2969,6 +2980,22 @@ StringRepeat(StrToRepeat, Multiplier) {
 		}
 	}
 	Return ReturnedVal
+}
+
+
+;
+; StrLen_Max
+;   |--> Compare two strings - return the longer string (whichever has more characters in it)
+;
+StrLen_Max(Str_1, Str_2) {
+	; StrLen_LongestString := 0
+	; If ( StrLen(Str_1) > StrLen(Str_2) ) {
+	; 	StrLen_LongestString := StrLen(Str_1)
+	; } Else {
+	; 	StrLen_LongestString := StrLen(Str_2)
+	; }
+	; Return StrLen_LongestString
+	Return ( (StrLen(Str_1)>StrLen(Str_2)) ? (Str_1) : (Str_2) )
 }
 
 

@@ -2657,9 +2657,8 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		}
 		Logfile.write("`n")
 	}
+
 	PollDuration_ms := 10
-	FollowDuration_Seconds := 10
-	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
 
 	Last_MouseX := 0
 	Last_MouseY := 0
@@ -2667,7 +2666,12 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 	Last_Green := 0
 	Last_Red := 0
 
-	Loop Loop_Iterations {  ; Loop %Loop_Iterations% {
+	TickCount_BeforeLoop := A_TickCount
+
+	; Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
+	; Loop Loop_Iterations {
+
+	Loop {
 		MouseGetPos, MouseX, MouseY
 		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
 		ColorComponent_Blue := (Color & 0xFF)
@@ -2677,41 +2681,38 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
 		ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
 		Color_ResolvedName := "???"
-		FFXIV_Nickname := "???"
 		If ((ColorComponent_Blue<=70) && (ColorComponent_Green<=70) && (ColorComponent_Red<=70)) {
 			Color_ResolvedName := "Too-Dark"
-			FFXIV_Nickname := "Too-Dark"
 		} Else If ((ColorDelta_GreenRed <= 10) && ((ColorComponent_Red-ColorComponent_Blue)>=20) && ((ColorComponent_Green-ColorComponent_Blue)>=15)) {
 			Color_ResolvedName := "Yellow"
-			FFXIV_Nickname := "Centered"
 		} Else If (((ColorComponent_Red/ColorComponent_Green) >= 1.1) && ((ColorComponent_Red - ColorComponent_Green) >= 10) && ((ColorComponent_Red/ColorComponent_Blue) >= 1.1) && ((ColorComponent_Red - ColorComponent_Blue) >= 10) && ((ColorComponent_Blue-ColorComponent_Green) >= -5)) {
 			Color_ResolvedName := "Magenta"
-			FFXIV_Nickname := "Good"
 		} Else If ((ColorComponent_Green >= 40) && ((ColorComponent_Green - ColorComponent_Blue) >= 15) && ((ColorComponent_Green - ColorComponent_Red) >= 15) && (ColorDelta_BlueRed <= 15)) {
 			Color_ResolvedName := "Green"
-			FFXIV_Nickname := "Pliant"
 		} Else If (((ColorComponent_Blue/ColorComponent_Green) <= 1.35) && ((ColorComponent_Green/ColorComponent_Red) <= 1.35) && ((ColorComponent_Blue/ColorComponent_Red) <= 1.35)) {
 			Color_ResolvedName := "White"
-			FFXIV_Nickname := "Normal"
 		} Else If ( (((ColorComponent_Blue-ColorComponent_Green)>=10)||((ColorComponent_Blue>=245)&&(ColorComponent_Green>=235))) && ((ColorComponent_Blue - ColorComponent_Red) >= 20) && ((ColorComponent_Green - ColorComponent_Red) >= 5)) {
 			Color_ResolvedName := "Blue"
-			FFXIV_Nickname := "Sturdy"
 		}
-		TooltipOutput := "Color=[" Color "], Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "]"
+		WaitDuration_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 1)
+		TooltipOutput := "Color=[" Color "] Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "], WaitDuration_Seconds=[" WaitDuration_Seconds "]"
 		Tooltip, %TooltipOutput%
-		; Tooltip, %FFXIV_Nickname%
-		If (Last_MouseX != MouseX) || (Last_MouseY != MouseY) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red) {
-			; Only perform certain updates if a change in color or mouse-position was detected
+		If ((Last_MouseX != MouseX) || (Last_MouseY != MouseY) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red)) {
+			; Only perform certain updates if any discernible change is detected (amongst colors & mouse position values)
 			If (DebugMode == 1) {
 				Logfile.write("%TooltipOutput%`n")
 			}
+			Last_MouseX := MouseX
+			Last_MouseY := MouseY
+			Last_Blue := ColorComponent_Blue
+			Last_Green := ColorComponent_Green
+			Last_Red := ColorComponent_Red
 		}
-		Last_MouseX := MouseX
-		Last_MouseY := MouseY
-		Last_Blue := ColorComponent_Blue
-		Last_Green := ColorComponent_Green
-		Last_Red := ColorComponent_Red
-		Sleep %PollDuration_ms%
+		If ( WaitDuration_Seconds > FollowDuration_Seconds ) {
+			Break
+		} Else {
+			Sleep %PollDuration_ms%
+		}
 	}
 	If (DebugMode == 1) {
 		Logfile.close()
@@ -3086,14 +3087,14 @@ XBox_DownloadDelete_GameClips() {
 				Sleep 500
 				Loop {
 					Sleep 100
-					WaitDuration_Seconds := Round( ((A_TickCount-TickCount_LoadCaptures)/1000), 1)
+					WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
 					Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 					If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
 						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
 						WinActivate("ahk_id %Win_ahk_id%")
 						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
-							WaitDuration_Seconds := Round( ((A_TickCount-TickCount_LoadCaptures)/1000), 1)
+							WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
 							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 500
@@ -3113,14 +3114,14 @@ XBox_DownloadDelete_GameClips() {
 				Sleep 500
 				Loop {
 					Sleep 100
-					WaitDuration_Seconds := Round( ((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
+					WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
 					Tooltip_NewStats := ( "Loading 'On Xbox Live' (tab): " WaitDuration_Seconds "s ..." )
 					Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 					If ( WaitDuration_Seconds > 1.5 ) {  ; Wait a minimum short-duration per download
 						; Check the "By date" and "Everything" dropdowns for existence by matching their known select-dropdown text areas against white text (0xFFFFFF)
 						WinActivate("ahk_id %Win_ahk_id%")
 						If (PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0)) {
-							WaitDuration_Seconds := Round( ((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
+							WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
 							Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 500
@@ -3180,7 +3181,7 @@ XBox_DownloadDelete_GameClips() {
 			TickCount_StartBuffer := A_TickCount
 			Loop {
 				Sleep 100
-				WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartBuffer)/1000), 1)
+				WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
 				Tooltip_NewStats := ( "Buffer duration: " WaitDuration_Seconds "s ..." )
 				Tooltip_Debug := ( "" )
 				; If (DebugMode == 1) {
@@ -3198,7 +3199,7 @@ XBox_DownloadDelete_GameClips() {
 						Continue
 					} Else {
 						BufferMatch := 1
-						WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartBuffer)/1000), 1)
+						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
 						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 						Sleep 1000
@@ -3217,7 +3218,7 @@ XBox_DownloadDelete_GameClips() {
 					MouseClick, Left, 546, 774  ; Click "Download" on currently selected file
 				}
 				Sleep 100
-				WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartDownload)/1000), 1)
+				WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
 				Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
 				Tooltip_Debug := ( "" )
 				; If (DebugMode == 1) {
@@ -3230,7 +3231,7 @@ XBox_DownloadDelete_GameClips() {
 					Color_DL_Button_LeftSide := PixelGetColor(418, 771)
 					If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
 						DownloadMatch := 1
-						WaitDuration_Seconds := Round( ((A_TickCount-TickCount_StartDownload)/1000), 1)
+						WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
 						Tooltip_EachVideo_Stats := ( Tooltip_EachVideo_Stats "`n" Tooltip_NewStats "  Done" )
 						Tooltip, % ( Tooltip_EachVideo_Stats ), 1, 1
 						Sleep 1500

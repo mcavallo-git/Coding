@@ -203,7 +203,7 @@ ScrollLock::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Foxit PhantomPDF
 ;
-#If WinActive("ahk_exe FoxitPhantomPDF.exe")  ; #If WinActive("ahk_class classFoxitPhantom")
+#If WinActive("ahk_exe FoxitPhantomPDF.exe")
 	;
 	;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
 	;   ACTION:  Edit > Add Text
@@ -286,7 +286,7 @@ ScrollLock::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Overwatch
 ;
-#If WinActive("ahk_exe Overwatch.exe")  ; #If WinActive("ahk_class TankWindowClass")
+#If WinActive("ahk_exe Overwatch.exe")
 	;
 	;   HOTKEY:  Numpad-Enter  (while [ Overwatch ] is active)
 	;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
@@ -299,7 +299,7 @@ ScrollLock::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Destiny 2
 ;
-#If WinActive("ahk_exe destiny2.exe")  ; #If WinActive("ahk_class Tiger D3D Window")
+#If WinActive("ahk_exe destiny2.exe")
 	;
 	;   HOTKEY:  Numpad-Enter  (while [ Destiny 2 ] is active)
 	;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
@@ -312,139 +312,15 @@ ScrollLock::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
 ;
-#If WinActive("Xbox Console Companion")  ; #If WinActive("ahk_class ApplicationFrameWindow")  ; #If WinActive("ahk_exe ApplicationFrameHost.exe")
+; #If WinActive("Xbox Console Companion")
+#If WinExist("Xbox Console Companion")
 	;
 	; HOTKEY:  WinKey + F3  (or "#SC03D")
 	; ACTION:  Xbox Captures - Download & Delete recordings/captures via XBox's Windows 10 built-in application
 	;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 	;
 	#F3::
-		Global DebugMode
-		CoordMode, Mouse, Screen
-		SetDefaultMouseSpeed, 0
-		SetControlDelay, -1
-		SetKeyDelay, 0, -1
-		; SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-		SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
-
-		Win_ahk_id := WinGetID("A")
-		Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
-		Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
-		Win_ahk_exe := WinGetProcessName("A")
-		Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
-
-		Win10_ahk_id := WinGet_ahk_id("A")
-		Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
-		Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
-		Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
-		Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
-
-		; --- WORKING --- 
-		If (0) {
-
-			WinMaximize("A")
-
-			Win_ahk_id := WinGetID("A")
-			WinMaximize, ahk_id %Win_ahk_id%
-
-			WinMaximize("ahk_exe %Win_ahk_exe%")
-			WinMaximize("ahk_id %Win_ahk_id%")
-
-			WinMaximize, ahk_exe %Win_ahk_exe%
-
-			; --- NOT-WORKING --- 
-
-			; WinMaximize ("ahk_id %Win_ahk_id%")
-
-		}
-
-		WinMove, ahk_id %Win_ahk_id%,, 50, 50, 1200, 800
-
-		; WinMove, 50, 50, 750, 600, ahk_id %Win_ahk_id%  ; Resize target window for consistent results
-		; WinMove 50, 50, 750, 600, "ahk_pid %Win_ahk_pid%"  ; Resize target window for consistent results
-		; WinMove 50, 50, 750, 600, % WinTitle  ; Resize target window for consistent results
-		; WinMove 50, 50, 750, 600, %WinTitle%  ; Resize target window for consistent results
-		; WinMove X, Y , Width, Height, WinTitle, WinText, ExcludeTitle, ExcludeText
-
-		; WinMove, A, , 0, 0
-		; WinMaximize("ahk_id %Win_ahk_id%")
-		; WinMove, ahk_id %Win_ahk_id%, , 0, 0
-
-		; ControlMove X, Y, Width, Height, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
-
-		If (False) {
-
-			If (DebugMode == 1) {
-				TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
-			}
-
-			; ; Click ABC_____
-			; xpos := 223
-			; ypos := 40
-			; ControlClick, x%xpos% y%ypos%, "ahk_id %Win_ahk_id%"
-
-			WaitForDownload_MaxSeconds := 30000
-			; WaitForDownload_MaxSeconds := 90000
-			; WinTitle := "Xbox Console Companion"
-
-			; ControlSend, ApplicationFrameTitleBarWindow1, {PGDN}, Xbox Console Companion
-
-			; ControlGetText, OutputVar , Control, WinTitle, WinText, ExcludeTitle, ExcludeText
-
-			; ControlGet, OutputVar, SubCommand , Value, Control, WinTitle, WinText, ExcludeTitle, ExcludeText
-
-			; ControlGet, VarListA, List,, ThunderRT6ListBox2, Xbox Console Companion
-
-			; EmptyVar =
-			; Loop 50 {
-			; 	ControlGet, VarListA, List,, ApplicationFrameTitleBarWindow1, Xbox Console Companion
-			; 	Tooltip, "List at A_Index %A_Index% has contents `"%VarListA%`""
-			; 	If (VarListA <> %EmptyVar%) {
-			; 		; MsgBox, "List at A_Index %A_Index% has contents `"%VarListA%`""
-			; 		Sleep 10000
-			; 		Break
-			; 	} Else {
-			; 		Sleep 100
-			; 	}
-			; 	If (A_Index > 50000) {
-			; 		Break
-			; 	}
-			; 	Continue
-			; }
-
-			; ClassNN := ControlGetClassNN(Control , WinTitle, WinText, ExcludeTitle, ExcludeText)
-
-			; ClassNN := ControlGetClassNN(ControlGetFocus("A"))
-			; MsgBox, "ClassNN = [%ClassNN%]"
-			; Sleep 5000
-
-			; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow1", "Xbox Console Companion")
-			; MsgBox, %OutputVar%
-			; Sleep 5000
-
-			; OutputVar := ControlGetText("Windows.UI.Core.CoreWindow1", "Xbox Console Companion")
-			; MsgBox, %OutputVar%
-			; Sleep 5000
-
-			; OutputVar := ControlGetText("ApplicationFrameTitleBarWindow2", "Xbox Console Companion")
-			; MsgBox, %OutputVar%
-			; Sleep 5000
-
-			; OutputVar := ControlGetText("ApplicationFrameInputSinkWindow1", "Xbox Console Companion")
-			; MsgBox, %OutputVar%
-			; Sleep 5000
-
-			Loop 2000 {
-				MouseClick, Left, 861, 947
-				Sleep %WaitForDownload_MaxSeconds%
-				MouseClick, Left, 1420, 905
-				Sleep 1000
-				MouseClick, Left, 848, 575
-				Sleep 7500
-			}
-
-		}
-
+		XBox_DownloadDelete_GameClips()
 		Return
 #If
 
@@ -1635,25 +1511,23 @@ ActiveWindow_Maximize() {
 ActiveWindow_ToggleRestoreMaximize() {
 	Global DebugMode
 	Win_min_max_state := WinGetMinMax("A")
-	WinStyle := WinGetStyle("A")
-	TestVar := 1
 	DebugString := "Win_min_max_state=[ %Win_min_max_state% ]"
 	If ("%Win_min_max_state%" = "") {  ; ??? Window-state not pulled as-intended
 		WinMaximize("A")
-		DebugString := "%DebugString%, Do WinMaximize"
+		DebugString := DebugString "`n" " |--> Do WinMaximize"
 	} Else {
 		If (Win_min_max_state == 0) {  ; 0: The window is neither minimized nor maximized
 			WinMaximize("A")
-			DebugString := "%DebugString%, Do WinMaximize"
+			DebugString := DebugString "`n" " |--> Do WinMaximize"
 		} Else If (Win_min_max_state == -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
 			WinRestore("A")
-			DebugString := "%DebugString%, Do WinRestore"
+			DebugString := DebugString "`n" " |--> Do WinRestore"
 		} Else If (Win_min_max_state == 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
 			WinRestore("A")
-			DebugString := "%DebugString%, Do WinRestore"
+			DebugString := DebugString "`n" " |--> Do WinRestore"
 		} Else {  ; Fallthrough-catch
 			WinMaximize("A")
-			DebugString := "%DebugString%, Do WinMaximize"
+			DebugString := DebugString "`n" " |--> Do WinMaximize"
 		}
 	}
 	If (DebugMode == 1) {
@@ -3099,32 +2973,108 @@ WinGet_size_state(WinTitle) {
 ;   |--> Win10 Download & Delete Recordings via XBox Win10 App
 ;
 XBox_DownloadDelete_GameClips() {
-	;	CoordMode, Mouse, Screen
+	Global DebugMode
+	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
-	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	Sleep 2500
-	; "Captures" (Left Tab)
-	MouseClick, Left, 23, 314
-	Sleep 7500
-	; "On Xbox Live" (Tab within "Captures")
-	MouseClick, Left, 240, 138
-	Sleep 7500
-	; "Everything v" (Dropdown within "On Xbox Live")
-	MouseClick, Left, 255, 178
-	Sleep 7500
-	; "Game clips" (Option on "Everything v" Dropdown)
-	MouseClick, Left, 233, 220
-	Sleep 7500
-	Loop {
-		MouseClick, Left, 861, 947
-		Sleep 30000
-		; Sleep 15000
-		; Sleep 10000
-		MouseClick, Left, 1420, 905
+	SetKeyDelay, 0, -1
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+
+	WinTitle := "Xbox Console Companion"
+
+	; Win_ahk_id := WinGetID("A")
+	Win_ahk_id := WinGetID(WinTitle)
+	Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
+	Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
+	Win_ahk_exe := WinGetProcessName("ahk_id %Win_ahk_id%")
+	Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
+
+	Win10_ahk_id := WinGet_ahk_id(WinTitle)
+	Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
+	Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
+	Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
+	Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
+
+	Win_min_max_state := WinGetMinMax("ahk_id %Win_ahk_id%")
+
+	; Prep window-location & dimensions
+	If ((Win_min_max_state == -1) || (Win_min_max_state == 1)) {
+		WinRestore("ahk_id %Win_ahk_id%")
 		Sleep 1000
-		MouseClick, Left, 848, 575
+	}
+	WinMove, "ahk_id %Win_ahk_id%",, -7, 0, 1280, 800
+	Sleep 1000
+
+	If (DebugMode == 1) {
+		TrayTip, AHK, % ( "XBox Console Companion:" "`n" "Downloading & Deleting Clips" )  ; Toast Notification
+	}
+	Sleep 1000
+
+	; Click "Captures" (Left Tab)
+	xpos := 30
+	ypos := 313
+
+	; ControlClick "Windows.UI.Core.CoreWindow1", ahk_id %Win_ahk_pid%,,,, "NA x%xpos% y%ypos%"
+	; ControlClick "Toolbar321", WinTitle,,,, "NA x192 y10"  ; Clicks in NA mode at coordinates that are relative to a named control.
+
+	; ControlClick "x%xpos% y%ypos%", "ahk_id %Win_ahk_id%"
+	; ControlClick "x%xpos% y%ypos%", "ahk_class %Win_ahk_class%"
+	; ControlClick "x%xpos% y%ypos%", "ahk_exe %Win_ahk_exe%"
+	ControlClick "x%xpos% y%ypos%", "ahk_pid %Win10_ahk_pid%"
+	; ControlClick, x%xpos% y%ypos%, "Xbox Console Companion"
+	; ControlClick "x%xpos% y%ypos%", "ahk_id %Win10_ahk_id%"
+
+	; ControlClick, x%xpos% y%ypos%, WinTitle
+	; ControlClick "x55 y77", WinTitle  ; Clicks at a set of coordinates. Note the lack of a comma between X and Y.
+	; ControlClick, x%xpos% y%ypos%, %WinTitle%
+
+
+	If (False) {
+
+		WaitForDownload_MaxSeconds := 30000
+		; WaitForDownload_MaxSeconds := 90000
+
+		; MouseClick, Left, 861, 947
+		; Sleep %WaitForDownload_MaxSeconds%
+
+		; Loop 2000 {
+		; 	MouseClick, Left, 861, 947
+		; 	Sleep %WaitForDownload_MaxSeconds%
+		; 	MouseClick, Left, 1420, 905
+		; 	Sleep 1000
+		; 	MouseClick, Left, 848, 575
+		; 	Sleep 7500
+		; }
+
+		Sleep 2500
+		; Click "Captures" (Left Tab)
+		; MouseClick, Left, 23, 314
+		xpos := 35
+		ypos := 314
+		ControlClick, x%xpos% y%ypos%, "ahk_id %Win_ahk_id%"
 		Sleep 7500
+		; Click "On Xbox Live" (Tab within "Captures")
+		MouseClick, Left, 240, 138
+		Sleep 7500
+		; Click "Everything v" (Dropdown within "On Xbox Live")
+		MouseClick, Left, 255, 178
+		Sleep 7500
+		; Click "Game clips" (Option on "Everything v" Dropdown)
+		MouseClick, Left, 233, 220
+		Sleep 7500
+		Loop {
+			; Click "Download" on currently selected clip
+			MouseClick, Left, 861, 947
+			Sleep 30000
+			; Click "Delete" once download has finished
+			MouseClick, Left, 1420, 905
+			Sleep 1000
+			; Confirm clip-deletion ("Okay", etc.)
+			MouseClick, Left, 848, 575
+			Sleep 7500
+		}
+
 	}
 	Return
 }

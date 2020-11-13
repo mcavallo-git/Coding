@@ -3054,7 +3054,7 @@ XBox_DownloadDelete_GameClips() {
 		Download_MediaType := "Screenshots"  ;  "Game clips" || "Screenshots"
 
 		MaxFilesToDownload := 0  ; 0 = Unlimited
-		MaxFilesToDownload := 2
+		; MaxFilesToDownload := 2
 
 		Color_Buffering_GameClips := "0x2E2E2E"
 		Color_Buffering_Screenshots := "0x171717"

@@ -3061,7 +3061,7 @@ XBox_DownloadDelete_GameClips() {
 				;
 				; Resizing 'Xbox Console Companion' Window
 				;
-				Tooltip_NewStats := ( "Prepping '" WinTitle "' window location & size)..." )
+				Tooltip_NewStats := ( "Prepping Xbox window..." )
 				Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 				WinActivate("ahk_id %Win_ahk_id%")
 				Sleep 500

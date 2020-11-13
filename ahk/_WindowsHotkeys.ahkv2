@@ -2690,7 +2690,7 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 			Color_ResolvedName := "Blue"
 			FFXIV_Nickname := "Sturdy"
 		}
-		TooltipOutput := "Color_ResolvedName = [" Color_ResolvedName "] Color = [ " Color " ], Blue = [ " ColorComponent_Blue " ], Green = [ " ColorComponent_Green " ], Red = [ " ColorComponent_Red " ], OutputFile = [ " OutputFile " ]"
+		TooltipOutput := "Color=[" Color "], Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "]"
 		Tooltip, %TooltipOutput%
 		; Tooltip, %FFXIV_Nickname%
 		If (DebugMode == 1) {
@@ -3077,7 +3077,22 @@ XBox_DownloadDelete_GameClips() {
 			; Click "Download" on currently selected clip
 			WinActivate(WinTitle)
 			MouseClick, Left, 546, 774
-			Sleep %WaitForDownload_MaxSeconds%
+			; Sleep %WaitForDownload_MaxSeconds%
+			Sleep 1000
+			Loop {
+				Sleep 1000
+				; Check the leftmost side of the "Download" button to see if it is still downloading the current clip (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x272727)
+				DownloadStart_xpos := 418
+				DownloadStart_ypos := 773
+				Color_DL_Button_LeftSide := PixelGetColor(DownloadStart_xpos, DownloadStart_ypos)  ; PixelGetColor, Color, MouseX, MouseY
+				Color_NotDownloading := "0x272727"
+				Color_IsDownloading := "0x595758"
+				If (Color_DL_Button_LeftSide == Color_NotDownloading) {
+					Break
+				}
+				; Color=[0x272727], Coords=[x418 y773] ; while NOT downloading
+				; Color=[0x595758], Coords=[x418 y773] ; while DOWNLOADING
+			}
 			; Click "Delete" once download has finished
 			WinActivate(WinTitle)
 			MouseClick, Left, 890, 731

@@ -3055,6 +3055,8 @@ XBox_DownloadDelete_GameClips() {
 		MaxFilesToDownload := 0  ; 0 = Unlimited
 		; MaxFilesToDownload := 2
 
+		MediaFiles_Processed := 0
+
 		Color_Buffering_GameClips := "0x2E2E2E"
 		Color_Buffering_Screenshots := "0x171717"
 
@@ -3064,11 +3066,9 @@ XBox_DownloadDelete_GameClips() {
 		Loop 2 {
 
 			If ( A_Index == 1 ) {
-				Download_MediaType := "Screenshots"  ;  "Game clips" || "Screenshots"
-			} Else If ( A_Index == 2 ) {
-				Download_MediaType := "Game clips"   ;  "Game clips" || "Screenshots"
+				Download_MediaType := "Screenshots"  ;  Download "Screenshots"
 			} Else {
-				Break
+				Download_MediaType := "Game clips"   ;  Download "Game clips"
 			}
 
 			Tooltip_StartupJobs := Tooltip_Header
@@ -3080,7 +3080,9 @@ XBox_DownloadDelete_GameClips() {
 			}
 
 			Loop 4 {
+
 				Tooltip_NewStats := ""
+
 				If (A_Index == 1) {
 					;
 					; Resizing 'Xbox Console Companion' Window
@@ -3196,8 +3198,6 @@ XBox_DownloadDelete_GameClips() {
 					}
 				}
 			}
-
-			MediaFiles_Processed := 0
 
 			Loop {
 
@@ -3372,27 +3372,27 @@ XBox_DownloadDelete_GameClips() {
 			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 			Sleep 2000
 
-			If (MediaFiles_Processed > 0) {
+		}
 
-				; Open the timestamping script (renames files to their basename plus their metadata created-on date)
-				Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
-				Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-				Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
-				Sleep 2000
+		If (MediaFiles_Processed > 0) {
 
-				; Open the output-videos directory
-				Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
-				Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-				SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-				Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
-				Run "%Fullpath_XboxCaptures%"
-				Sleep 2000
+			; Open the timestamping script (renames files to their basename plus their metadata created-on date)
+			Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
+			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+			Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
+			Sleep 2000
 
-				Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
-				Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-				Sleep 2000
+			; Open the output-videos directory
+			Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
+			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+			SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+			Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
+			Run "%Fullpath_XboxCaptures%"
+			Sleep 2000
 
-			}
+			Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
+			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+			Sleep 2000
 
 		}
 

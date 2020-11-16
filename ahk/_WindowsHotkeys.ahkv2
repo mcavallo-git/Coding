@@ -3066,9 +3066,9 @@ XBox_DownloadDelete_GameClips() {
 		Loop 2 {
 
 			If ( A_Index == 1 ) {
-				Download_MediaType := "Screenshots"  ;  Download "Screenshots"
-			} Else {
 				Download_MediaType := "Game clips"   ;  Download "Game clips"
+			} Else {
+				Download_MediaType := "Screenshots"  ;  Download "Screenshots"
 			}
 
 			Tooltip_StartupJobs := Tooltip_Header

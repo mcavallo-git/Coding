@@ -3361,6 +3361,7 @@ XBox_DownloadDelete_GameClips() {
 					Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats )
 					Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 					Sleep 2500
+					Break
 				}
 
 			}

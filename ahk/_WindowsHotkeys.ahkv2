@@ -3080,6 +3080,7 @@ XBox_DownloadDelete_GameClips() {
 			}
 
 			Loop 4 {
+				Tooltip_NewStats := ""
 				If (A_Index == 1) {
 					;
 					; Resizing 'Xbox Console Companion' Window
@@ -3201,9 +3202,9 @@ XBox_DownloadDelete_GameClips() {
 			Loop {
 
 				Tooltip_EachFile_Stats := Tooltip_Header
-				Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net " Tooltip_NewStats " processed: " MediaFiles_Processed
+				Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net " Download_MediaType " processed: " MediaFiles_Processed
 				Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
-				Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net runtime duration: " Total_RuntimeDuration_Seconds
+				Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net Runtime duration: " Total_RuntimeDuration_Seconds "s"
 
 				MediaFile_Iteration := A_Index
 				TickCount_FileExists := A_TickCount

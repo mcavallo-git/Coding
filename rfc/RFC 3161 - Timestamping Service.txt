@@ -30,6 +30,6 @@ Note: Port 318 (both TCP and UDP) is the standard port used by the Time Stamp Pr
 #
 #   knowledge.digicert.com  |  "RFC3161 compliant Time Stamp Authority (TSA) server"  |  https://knowledge.digicert.com/generalinformation/INFO4231.html
 #
-#   tools.ietf.com  |  "RFC 3161 - Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)"  |  https://tools.ietf.org/html/rfc3161
+#   tools.ietf.org  |  "RFC 3161 - Internet X.509 Public Key Infrastructure Time-Stamp Protocol (TSP)"  |  https://tools.ietf.org/html/rfc3161
 #
 # ------------------------------------------------------------

@@ -2,19 +2,75 @@
 # ------------------------------------------------------------
 if [ 0 -eq 1 ]; then # RUN THIS SCRIPT REMOTELY:
 
+# Run this script remotely - use default runtime values
 curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh?t=$(date +'%s.%N')" | bash;
+
+
+# Run this script remotely - set runtime values as inline parameters
+curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/sync_cloud_infrastructure?t=$(date +'%s.%N')" | bash -s -- --dry-run 0 --working-dir "${HOME}/Videos/Captures";
 
 fi;
 # ------------------------------------------------------------
 
-# DEBUG_MODE=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES
-DEBUG_MODE=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
+DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
+
+# DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
 
 # ------------------------------------------------------------
+# Parse inline arguments (passed to current script)
 
-WORKING_DIR="${HOME}/Videos/Captures";
+ARGS=("$@");
+ARGS_COUNT=${#ARGS[@]};
 
-if [ ! -d "${WORKING_DIR}" ]; then
+for (( i=0;i<$ARGS_COUNT;i++ )); do # Walk through any inline-arguments passed to this function
+
+	EACH_ARG=${ARGS[${i}]};
+
+	# Check if this is the last inline-argument or if there are more to follow
+	if [ $((${i}+1)) -eq ${ARGS_COUNT} ]; then # if this is the last argument
+		NEXT_ARG="";
+	else
+		NEXT_ARG=${ARGS[$((${i}+1))]};
+		if [[ "${NEXT_ARG}" == "--"* ]]; then # Do not allow inline-arguments starting with "--..." to use the next bash-argument as an associated value if it, also, starts with "--..."
+			NEXT_ARG="";
+		fi;
+	fi;
+
+	if [ -n "${EACH_ARG}" ]; then # Parse each non-empty inline argument
+
+		# Parse working-directory declarations
+		if [ "${EACH_ARG}" == "--working-dir" ] && [ -n "${NEXT_ARG}" ]; then
+			if [ ! -v WORKING_DIR ]; then
+				WORKING_DIR="${NEXT_ARG}";
+			fi;
+		fi;
+
+		# Parse dry-run / non-dry-run calls
+		if [ "${EACH_ARG}" == "--force" ]; then # --force
+			DRY_RUN=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES
+		elif [ "${EACH_ARG}" == "--dry-run" ] && [ -n "${NEXT_ARG}" ] && [ "${NEXT_ARG}" == "0" ]; then # --dry-run 0
+			DRY_RUN=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES
+		elif [ "${EACH_ARG}" == "--dry-run" ] && [ -n "${NEXT_ARG}" ] && [ "${NEXT_ARG}" == "false" ]; then # --dry-run false
+			DRY_RUN=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES
+		fi;
+
+	fi;
+
+done;
+
+# ------------------------------------------------------------
+#
+# Instantiate essential runtime variables (which were not passed as inline-arguments to this script)
+#
+
+if [ ! -v WORKING_DIR ]; then
+	if [ -v DEFAULT_WORKING_DIR ]; then
+		WORKING_DIR="${DEFAULT_WORKING_DIR}";
+	fi;
+fi;
+
+# ------------------------------------------------------------
+if [ ! -d "${WORKING_DIR}" ]; then # Ensure working-directory exists
 
 	echo "";
 	echo "Error:  Working-directory not found: ${WORKING_DIR}";
@@ -54,7 +110,7 @@ else
 
 	for EACH_FILE_EXTENSION in "${FILE_EXTENSIONS_ARR[@]}"; do
 
-		if [ ${DEBUG_MODE} -eq 1 ]; then
+		if [ ${DRY_RUN} -eq 1 ]; then
 			echo "************************************************************";
 			echo "EACH_FILE_EXTENSION: ${EACH_FILE_EXTENSION}";
 		fi;
@@ -64,7 +120,7 @@ else
 			FILENAME_STARTSWITH="${EACH_FILENAME_STARTSWITH}";
 			FILENAME_GLOBMATCH="${FILENAME_STARTSWITH}*.${EACH_FILE_EXTENSION}";
 
-			if [ ${DEBUG_MODE} -eq 1 ]; then
+			if [ ${DRY_RUN} -eq 1 ]; then
 				echo "============================================================";
 				echo "FILENAME_STARTSWITH: ${FILENAME_STARTSWITH}";
 				echo "FILENAME_GLOBMATCH: ${FILENAME_GLOBMATCH}";
@@ -78,14 +134,14 @@ else
 
 					EACH_NEW_FILENAME="${FILENAME_STARTSWITH} ${EACH_CREATE_DATE}.${EACH_FILE_EXTENSION}";
 
-					if [ ${DEBUG_MODE} -eq 1 ]; then
+					if [ ${DRY_RUN} -eq 1 ]; then
 						echo "------------------------------------------------------------";
 						echo "EACH_FILENAME:       ${EACH_FILENAME}";
 						echo "EACH_CREATE_DATE:    ${EACH_CREATE_DATE}";
 						echo "EACH_NEW_FILENAME:   ${EACH_NEW_FILENAME}";
 					fi;
 
-					if [ ${DEBUG_MODE} -eq 1 ]; then  # Dry-run mode
+					if [ ${DRY_RUN} -eq 1 ]; then  # Dry-run mode
 						echo "  Skipping File-Rename (Dry-Run Mode)";
 					else  # If NOT running in dry-run mode
 						if [ -n "${EACH_CREATE_DATE}" ]; then  # If the created-on date resolved as-intended

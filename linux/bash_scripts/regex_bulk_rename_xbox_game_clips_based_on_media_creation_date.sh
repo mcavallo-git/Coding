@@ -12,7 +12,7 @@ DEBUG_MODE=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
 # ------------------------------------------------------------
 
-WORKING_DIR="${HOME}\Desktop";
+WORKING_DIR="${HOME}/Videos/Captures";
 
 
 if [ ! -d "${WORKING_DIR}" ]; then

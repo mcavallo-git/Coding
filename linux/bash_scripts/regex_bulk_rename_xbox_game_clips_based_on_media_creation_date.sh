@@ -86,11 +86,13 @@ else
 					fi;
 
 					if [ ${DEBUG_MODE} -eq 0 ]; then  # If not running in dry-run mode
-						if [ -n "${EACH_NEW_FILENAME}" ]; then  # If new filename is not blank
-							if [ "${EACH_FILENAME}" != "${EACH_NEW_FILENAME}" ]; then  # If new filename is not equal to original filename
-								# Rename the file
-								echo "  Renaming \"${EACH_FILENAME}\" to \"${EACH_NEW_FILENAME}\"";
-								mv "${EACH_FILENAME}" "${EACH_NEW_FILENAME}";
+						if [ -n "${EACH_CREATE_DATE}" ]; then  # If the created-on date resolved as-intended
+							if [ -n "${EACH_NEW_FILENAME}" ]; then  # If new filename is not blank
+								if [ "${EACH_FILENAME}" != "${EACH_NEW_FILENAME}" ]; then  # If new filename is not equal to original filename
+									# Rename the file
+									echo "  Renaming \"${EACH_FILENAME}\" to \"${EACH_NEW_FILENAME}\"";
+									mv "${EACH_FILENAME}" "${EACH_NEW_FILENAME}";
+								fi;
 							fi;
 						fi;
 					fi;

@@ -1,3 +1,10 @@
+#!/bin/bash
+# ------------------------------------------------------------
+if [ 0 -eq 1 ]; then # RUN THIS SCRIPT REMOTELY:
+
+curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh?t=$(date +'%s.%N')" | bash;
+
+fi;
 # ------------------------------------------------------------
 
 # DEBUG_MODE=0;  # DEBUG OFF - PERFORM THE RENAMING OF FILES

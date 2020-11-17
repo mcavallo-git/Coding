@@ -1,0 +1,47 @@
+# ------------------------------------------------------------
+
+RFC 3966 - (Phone Numbers) The tel URI for Telephone Numbers (ITU standard E.123)
+
+# ------------------------------------------------------------
+
+>>> NATIONAL PHONE NUMBER SYNTAX:
+(123) 456 7890
+
+
+>>> INTERNATIONAL PHONE NUMBER SYNTAX:
++1 123 456 7890
+
+
+# ------------------------------------------------------------
+
+>>> BREAKDOWN:
+
+  Phone numbers should...
+    ✔USE✔ Space delimitation 
+    ✔USE✔ parenthesis to enclose optional parts of a national phone number
+    ╳NOT╳ contain any hyphen (-) character(s)
+    ╳NOT╳ contain any En Dash (–) character(s)
+    ╳NOT╳ contain any Em Dash (—) character(s)
+
+
+# ------------------------------------------------------------
+
+
+
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   datatracker.ietf.org  |  "RFC 3966 - The tel URI for Telephone Numbers"  |  https://datatracker.ietf.org/doc/rfc3966/
+#
+#   en.wikipedia.org  |  "E.123 - Wikipedia"  |  https://en.wikipedia.org/wiki/E.123
+#
+#   tools.ietf.org  |  "RFC 3966 - The tel URI for Telephone Numbers"  |  https://tools.ietf.org/html/rfc3966#:~:text=On%20a%20public%20HTML%20page,3732%22%3E1%2D555%2D
+#
+#   www.quora.com  |  "Should I use an en dash or a hyphen in a phone number? - Quora"  |  https://www.quora.com/Should-I-use-an-en-dash-or-a-hyphen-in-a-phone-number#:~:text=The%20official%20answer%20according%20to,of%20a%20national%20phone%20number.
+#
+#   www.rfc-editor.org  |  "https://www.rfc-editor.org/rfc/rfc2806.txt"  |  https://www.rfc-editor.org/rfc/rfc2806.txt
+#
+# ------------------------------------------------------------

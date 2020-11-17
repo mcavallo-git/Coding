@@ -5,7 +5,6 @@ if [ 0 -eq 1 ]; then # RUN THIS SCRIPT REMOTELY:
 # Run this script remotely - use default runtime values
 curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh?t=$(date +'%s.%N')" | bash;
 
-
 # Run this script remotely - set runtime values as inline parameters
 curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/sync_cloud_infrastructure?t=$(date +'%s.%N')" | bash -s -- --dry-run 0 --working-dir "${HOME}/Videos/Captures";
 
@@ -15,6 +14,7 @@ fi;
 DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
 # DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
+
 
 # ------------------------------------------------------------
 # Parse inline arguments (passed to current script)
@@ -58,6 +58,7 @@ for (( i=0;i<$ARGS_COUNT;i++ )); do # Walk through any inline-arguments passed t
 
 done;
 
+
 # ------------------------------------------------------------
 #
 # Instantiate essential runtime variables (which were not passed as inline-arguments to this script)
@@ -68,6 +69,7 @@ if [ ! -v WORKING_DIR ]; then
 		WORKING_DIR="${DEFAULT_WORKING_DIR}";
 	fi;
 fi;
+
 
 # ------------------------------------------------------------
 if [ ! -d "${WORKING_DIR}" ]; then # Ensure working-directory exists
@@ -83,9 +85,6 @@ else
 	echo "";
 	echo "Info:  Setting working-directory to \"${WORKING_DIR}\"";
 	cd "${WORKING_DIR}";
-
-
-	# ------------------------------------------------------------
 
 	unset FILENAME_STARTSWITH_ARR; declare -a FILENAME_STARTSWITH_ARR; # [Re-]Instantiate bash array
 	FILENAME_STARTSWITH_ARR+=("Destiny 2");

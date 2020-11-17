@@ -15,7 +15,6 @@ DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
 # DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
 
-
 # ------------------------------------------------------------
 # Parse inline arguments (passed to current script)
 
@@ -58,7 +57,6 @@ for (( i=0;i<$ARGS_COUNT;i++ )); do # Walk through any inline-arguments passed t
 
 done;
 
-
 # ------------------------------------------------------------
 #
 # Instantiate essential runtime variables (which were not passed as inline-arguments to this script)
@@ -69,7 +67,6 @@ if [ ! -v WORKING_DIR ]; then
 		WORKING_DIR="${DEFAULT_WORKING_DIR}";
 	fi;
 fi;
-
 
 # ------------------------------------------------------------
 if [ ! -d "${WORKING_DIR}" ]; then # Ensure working-directory exists
@@ -163,9 +160,3 @@ else
 	done;
 
 fi;
-
-# ------------------------------------------------------------
-
-fi;
-
-# ------------------------------------------------------------

@@ -36,13 +36,13 @@ Write speeds (measured using CDM 7.0):
 # 2 (Secondary Suggestion)
 
 URL:  https://amazon.com/dp/B07BPKKYHY
-Note(s):  Relatively small form factor. Sturdy/solid feel (metal housing)
 
 Brand:  Samsung
 Model:  BAR Plus
 Model:  MUF-32BE4/AM
 Capacity:  32 GB / 64 GB / 128 GB / 256 GB
 Warranty:  5-Year Limited Warranty
+Note(s):  Relatively small form factor. Sturdy/solid feel (metal housing)
 
 Read speeds (measured using CDM 7.0):
    Sequential 1MiB (Q=  8, T= 1):   226.498 MB/s [    216.0 IOPS] < 36858.04 us>    <==    0.544x the rate of #1

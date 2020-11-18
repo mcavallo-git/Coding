@@ -9,7 +9,7 @@ Nov-2020 Flash Drive Suggestions
 
 # 1 (Primary Suggestion)
 
-URL:  https://amazon.com/dp/B01MU8TZRV
+URL (Amazon):  https://amazon.com/dp/B01MU8TZRV
 
 Brand:  SanDisk
 Series:  Extreme Pro
@@ -35,7 +35,7 @@ Write speeds (measured using CDM 7.0):
 
 # 2 (Secondary Suggestion)
 
-URL:  https://amazon.com/dp/B07BPKKYHY
+URL (Amazon):  https://amazon.com/dp/B07BPKKYHY
 
 Brand:  Samsung
 Model:  BAR Plus
@@ -61,7 +61,7 @@ Write speeds (measured using CDM 7.0):
 
 # 3 (Tertiary Suggestion)
 
-URL:  https://amazon.com/dp/B081QSHG13
+URL (Amazon):  https://amazon.com/dp/B081QSHG13
 
 Brand:  SanDisk
 Model:  Ultra
@@ -88,7 +88,7 @@ Write speeds (measured using CDM 7.0):
 
 # Tidy (Carrying lanyards)
 
-URL:   https://amazon.com/dp/B00W8W8BNQ
+URL (Amazon):   https://amazon.com/dp/B00W8W8BNQ
 
 Note(s):  Good for color-coding multiple drives of same type. Use a cheap carabeaner ( such as https://amazon.com/dp/B01N294TGE ) to hold/organize unused lanyards
 

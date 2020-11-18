@@ -449,12 +449,12 @@ function SyncRegistry {
 		};
 
 
-		# Explorer Settings ('Pin to Quick Access' context menu option(s))
+		# Explorer Settings ('Pin to Quick access' context menu option(s))
 		$RegEdits += @{
 			Path="Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
 					Name="(Default)";
 					Type="String";
 					Val_Default="";
@@ -467,7 +467,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
 					Name="(Default)";
 					Type="String";
 					Val_Default="";

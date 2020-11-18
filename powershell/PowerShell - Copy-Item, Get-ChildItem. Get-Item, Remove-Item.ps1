@@ -83,7 +83,7 @@ Get-ChildItem -Path ("C:\Windows\System32") -File -Recurse -Depth (1) -Force -Er
 | ForEach-Object { `
 	$Each_Fullpath = ("$($_.FullName)");
 	Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
-	Remove-Item -Path ("$Each_Fullpath") -Recurse -Force -Confirm:$false; `
+	Remove-Item -Path ("$Each_Fullpath") -Recurse -Force -Confirm:$False; `
 } `
 ;
 

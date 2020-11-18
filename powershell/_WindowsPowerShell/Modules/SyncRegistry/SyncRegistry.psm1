@@ -441,7 +441,7 @@ function SyncRegistry {
 					Description="Explorer Settings - Enable [ hiding of 'Include in library' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
 					Name="(Default)";
 					Type="String";
-					Val_Default="{3dad6c5d-2167-4cae-9914-f99e41c12cfa}";
+					Val_Default="{3DAD6C5D-2167-4CAE-9914-F99E41C12CFA}";
 					Value="";
 					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}

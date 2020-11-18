@@ -13,7 +13,7 @@ fi;
 
 DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
-# DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
+DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
 
 # ------------------------------------------------------------
 # Parse inline arguments (passed to current script)
@@ -72,7 +72,7 @@ fi;
 if [ ! -d "${WORKING_DIR}" ]; then # Ensure working-directory exists
 
 	echo "";
-	echo "Error:  Working-directory not found: ${WORKING_DIR}";
+	echo "Error:  Working-directory not found: \"${WORKING_DIR}\"";
 	echo "";
 	echo "Info:  Please [re-]create working-directory, populate it with media-files downloaded from the 'Xbox Console Companion' app, & re-run this script";
 	echo "";

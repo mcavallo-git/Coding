@@ -1,0 +1,102 @@
+------------------------------------------------------------
+Nov-2020 - Ultrawide Monitor Research
+------------------------------------------------------------
+
+*** Top-Tier Options ***
+
+  Refresh Rate  >=  144 Hz
+
+  Resolution  >=  3440 x 1440
+
+  Charging via USB-C (Power Delivery) >= 65 Watts
+
+
+------------------------------------------------------------
+
+Brand + Model:  Dell U4919DW
+
+Price:  $1,594.00
+
+Screen Size:  49"
+Resolution:  5120 x 1440
+Response Time:  5ms
+
+Panel Type:  IPS
+Refresh Rate:  60 Hz
+
+DisplayPort:  1 x DP 1.4 (HDCP 2.2)
+HDMI: 2 x HDMI 2.0 (HDCP 2.2)
+
+URL (Amazon):  https://amazon.com/dp/B08FXV7ZFQ/
+URL (Newegg):  https://www.newegg.com/dell-u4919dw-49/p/N82E16824260628
+URL (Manufacturer):  https://www.dell.com/en-us/work/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories#techspecs_section
+
+
+------------------------------------------------------------
+
+Brand + Model:  LG 49WL95C-W
+
+Price:  $1,469.99
+
+Panel Type:  IPS
+Refresh Rate:  60 Hz
+Response Time:  5ms (GTG)
+
+Screen Size:  49"  (14.40" x 47.84" x 4.50")
+Resolution:  5120 x 1440
+
+DisplayPort:  1 x DP 1.4 (HDCP 2.2)
+HDMI: 2 x HDMI ??? (HDCP ???)
+
+URL (Amazon):  https://amazon.com/dp/B07PJQKLTW
+URL (Newegg):  https://www.newegg.com/lg-49wl95c-w-49/p/N82E16824025946
+URL (Manufacturer):  https://www.lg.com/us/monitors/lg-49WL95C-W-ultrawide-monitor
+
+
+------------------------------------------------------------
+
+Brand + Model:  LG 34UC88-B
+
+Price:  $529.99
+
+Panel Type:  IPS
+Refresh Rate:  75 Hz
+Response Time:  5 ms
+
+Screen Size:  34"
+Resolution:  3440 x 1440
+
+DisplayPort:  1 x DP v1.2 (HDCP 1.3)
+HDMI:  2 x HDMI v2.0 (HDCP 2.?)
+
+URL (Amazon):  https://www.amazon.com/dp/B07DPXJZJ9
+URL (Newegg):  https://www.newegg.com/lg-34uc88-b-34-ultrawide-qhd/p/N82E16824025343
+URL (Manufacturer):  https://www.lg.com/us/monitors/lg-34UC88-B-ultrawide-monitor
+
+
+------------------------------------------------------------
+
+Brand + Model:  
+
+Price:  $
+
+Panel Type:  
+Refresh Rate:  
+
+Screen Size:  
+Resolution:  
+
+
+Response Time:
+
+URL (Amazon):  https://amazon.com/dp/
+URL (Newegg):  https://www.newegg.com/
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   www.overclock.net  |  "[Guide] Overclocking Your Monitor | Overclock.net"  |  https://www.overclock.net/threads/guide-overclocking-your-monitor.1493866/
+
+------------------------------------------------------------

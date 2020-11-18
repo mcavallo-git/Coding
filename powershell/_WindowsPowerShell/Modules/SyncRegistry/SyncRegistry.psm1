@@ -361,7 +361,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\EPP";
+			Path="Registry::HKEY_CLASSES_ROOT\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}";
 			Props=@(
 				@{
 					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 2/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
@@ -374,7 +374,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Drive\shellex\ContextMenuHandlers\EPP";
+			Path="Registry::HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\EPP";
 			Props=@(
 				@{
 					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 3/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
@@ -387,7 +387,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}";
+			Path="Registry::HKEY_CLASSES_ROOT\Drive\shellex\ContextMenuHandlers\EPP";
 			Props=@(
 				@{
 					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 4/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";

@@ -433,12 +433,28 @@ function SyncRegistry {
 		};
 
 
+		# Explorer Settings ('Include in library' context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Library Location";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Include in library' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="{3dad6c5d-2167-4cae-9914-f99e41c12cfa}";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
 		# Explorer Settings ('Pin to Quick Access' context menu option(s))
 		$RegEdits += @{
 			Path="Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ setting this property's value to blank ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
 					Name="(Default)";
 					Type="String";
 					Val_Default="";
@@ -451,7 +467,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ setting this property's value to blank ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
 					Name="(Default)";
 					Type="String";
 					Val_Default="";
@@ -1220,6 +1236,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
 #
 #   winaero.com  |  "How To Remove Pin to Quick Access Context Menu in Windows 10"  |  https://winaero.com/remove-pin-quick-access-menu-windows-10/
+#
+#   winaero.com  |  "Remove Include in Library Context Menu in Windows 10"  |  https://winaero.com/remove-include-library-windows-10/
 #
 #   winaero.com  |  "Remove OneDrive Context Menu in Windows 10"  |  https://winaero.com/remove-onedrive-context-menu-windows-10/
 #

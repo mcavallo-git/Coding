@@ -2690,7 +2690,6 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		} Else {
 			Sleep %PollDuration_ms%
 		}
-
 		MouseGetPos, MouseX, MouseY
 		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
 		ColorComponent_Blue := (Color & 0xFF)
@@ -3464,9 +3463,9 @@ Youtube_EditDraft_Submit() {
 				xpos_rightedge := xpos + 40
 				Loop {
 					Sleep 100
-					If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x065FD4, 50)) {
+					If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 ) ) {
 						Break
-					} Else If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x196CD7, 50)) {
+					} Else If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 ) ) {
 						Break
 					}
 				}
@@ -3479,9 +3478,9 @@ Youtube_EditDraft_Submit() {
 				Loop 3 {
 					Loop {
 						Sleep 100
-						If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x065FD4, 50)) {
+						If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 ) ) {
 							Break
-						} Else If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x196CD7, 50)) {
+						} Else If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 ) ) {
 							Break
 						}
 					}
@@ -3495,9 +3494,9 @@ Youtube_EditDraft_Submit() {
 				xpos_rightedge := xpos + 40
 				Loop {
 					Sleep 100
-					If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x065FD4, 50)) {
+					If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 ) ) {
 						Break
-					} Else If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x196CD7, 50)) {
+					} Else If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 ) ) {
 						Break
 					}
 				}

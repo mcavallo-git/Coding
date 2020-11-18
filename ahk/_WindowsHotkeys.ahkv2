@@ -2352,6 +2352,10 @@ PrintEnv() {
 	USERNAME := EnvGet("USERNAME")
 	USERPROFILE := EnvGet("USERPROFILE")
 	WINDIR := EnvGet("WINDIR")
+	
+	Viewport_Width := SysGet(78)
+	Viewport_Height := SysGet(79)
+	Monitor_Count := SysGet(80)
 
 	;
 	; *** Windows Env-Vars ***
@@ -2418,6 +2422,10 @@ PrintEnv() {
 	A_WinDelay:		%A_WinDelay%
 	A_WorkingDir:		%A_WorkingDir%
 
+	Viewport_Width:		%A_WorkingDir%
+	A_WorkingDir:		%A_WorkingDir%
+	A_WorkingDir:		%A_WorkingDir%
+
 	------------------------------------ PrintEnv() ------------------------------------
 
 	*** Windows Env-Vars ***
@@ -2447,6 +2455,14 @@ PrintEnv() {
 	A_Temp:			%A_Temp%
 	A_UserName:		%A_UserName%
 	A_WinDir:		%A_WinDir%
+
+	--------------------------------------------------------------------------------------------
+
+	*** SysGet Values ***
+
+	78 - Viewport_Width :=	%Viewport_Width%
+	79 - Viewport_Height :=	%Viewport_Height%
+	80 - Monitor_Count :=	%Monitor_Count%
 
 	--------------------------------------------------------------------------------------------
 	)
@@ -3455,7 +3471,9 @@ Youtube_EditDraft_Submit() {
 		;
 		WinPos_Width := 1734
 		WinPos_Height := 1407
-		WinPos_Left := ( A_ScreenWidth - 7 ) - WinPos_Width
+		Viewport_Width := SysGet(78)
+		; WinPos_Left := ( A_ScreenWidth - 7 ) - WinPos_Width
+		WinPos_Left := ( Viewport_Width - 7 ) - WinPos_Width
 		WinPos_Top := 0
 		WinMove(WinTitle,, WinPos_Left, WinPos_Top, WinPos_Width, WinPos_Height) ; Move the window to a known static location to build off-of
 		Loop {

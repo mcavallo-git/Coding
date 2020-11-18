@@ -81,10 +81,13 @@ function HardenCrypto {
 			#   |--> Both basic security logic, as well as general best practice (see citations, below) recommend to set both the 64-bit registry (default target via New-ItemProperty) as well as the 32-bit registry so that processes running web requests use the user-defined request protocols, as-intended
 			#
 
-			<# ============================== #>
-			<# Locate the .NET Framework v4 key to modify #> 
+			# ------------------------------------------------------------
+			#
+			# .NET Framework v4 - Simplify management (by handing off control to OS) & enforce strong cryptography
+			#
+
 			$GlobPath_DotNet4 = (Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*');
-			$RelPath_HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($GlobPath_DotNet4.PSChildName)");
+			$RelPath_HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($GlobPath_DotNet4.PSChildName)"); <# Locate the .NET Framework v4 key to modify #> 
 
 			<# Update the 64-bit registry #>
 			$Registry_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
@@ -100,7 +103,6 @@ function HardenCrypto {
 			$SubKey_DotNet4_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
 			$SubKey_DotNet4_32bit.SetValue("SchUseStrongCrypto", 1, 4);  <# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
 			$SubKey_DotNet4_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
-
 
 			<# Grant additional user(s) access rights onto this, specific, key #>
 			If ($False) {

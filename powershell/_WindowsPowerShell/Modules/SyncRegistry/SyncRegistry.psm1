@@ -1090,9 +1090,9 @@ function SyncRegistry {
 
 					$EchoDetails = "";
 
-					If ($GetEachItemProp -NE $Null) { # Registry-Key-Property exists
+					If ($GetEachItemProp -NE $Null) {  # Property exists
 
-						If (($EachProp.Delete) -Eq $False) { # Property should NOT be deleted
+						If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
 
 							$EachProp.LastValue = $GetEachItemProp;
 								
@@ -1130,7 +1130,7 @@ function SyncRegistry {
 
 						}
 
-					} Else { # Registry-Key-Property does NOT exist
+					} Else {  # Property does NOT exist
 
 						If (($EachProp.Delete) -Eq $False) {
 

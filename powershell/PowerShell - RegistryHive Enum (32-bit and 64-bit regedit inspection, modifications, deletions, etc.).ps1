@@ -17,9 +17,6 @@ $RegistryHives.Arch_64bit.HKPD=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Micr
 $RegistryHives.Arch_64bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::Users, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_USERS #>
 
 
-_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));
-$Registry_HKLM_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));
-
 
 # ------------------------------------------------------------
 #

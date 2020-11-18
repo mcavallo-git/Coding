@@ -1,4 +1,27 @@
 # ------------------------------------------------------------
+
+$RegistryHives = @{};
+$RegistryHives.Arch_32bit = @{};
+$RegistryHives.Arch_32bit.HKCC=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::CurrentConfig, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_CURRENT_CONFIG #>
+$RegistryHives.Arch_32bit.HKCR=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::ClassesRoot, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_CLASSES_ROOT #>
+$RegistryHives.Arch_32bit.HKCU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::CurrentUser, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_CURRENT_USER  #>
+$RegistryHives.Arch_32bit.HKLM=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_LOCAL_MACHINE #>
+$RegistryHives.Arch_32bit.HKPD=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::PerformanceData, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_PERFORMANCE_DATA  #>
+$RegistryHives.Arch_32bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::Users, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_USERS #>
+$RegistryHives.Arch_64bit = @{};
+$RegistryHives.Arch_64bit.HKCC=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::CurrentConfig, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_CURRENT_CONFIG #>
+$RegistryHives.Arch_64bit.HKCR=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::ClassesRoot, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_CLASSES_ROOT #>
+$RegistryHives.Arch_64bit.HKCU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::CurrentUser, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_CURRENT_USER  #>
+$RegistryHives.Arch_64bit.HKLM=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_LOCAL_MACHINE #>
+$RegistryHives.Arch_64bit.HKPD=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::PerformanceData, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_PERFORMANCE_DATA  #>
+$RegistryHives.Arch_64bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::Users, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_USERS #>
+
+
+_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));
+$Registry_HKLM_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));
+
+
+# ------------------------------------------------------------
 #
 # .NET Framework v4 - Simplify protocol-management (by handing off control to OS) & Enforce strong cryptography
 #   |

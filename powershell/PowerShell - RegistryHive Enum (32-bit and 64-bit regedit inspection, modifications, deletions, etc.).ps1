@@ -9,8 +9,8 @@
 #   |--> Creating these keys forces any version of .NET 4.x below 4.6.2 to use strong crypto instead of allowing SSL 3.0 by default
 #
 
-$GlobPath_DotNet4 = (Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*');
-$RelPath_HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($GlobPath_DotNet4.PSChildName)"); <# Locate the .NET Framework v4 key to modify #> 
+$VersionInstalled_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);  <# Determine the installed version of .NET v4.x #> 
+$RelPath_HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\${VersionInstalled_DotNet4}");
 
 <# Update the 64-bit registry #>
 $Registry_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>

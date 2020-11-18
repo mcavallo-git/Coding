@@ -1,6 +1,8 @@
 ------------------------------------------------------------
 
 Flash Drive suggestions (MCavallo)
+ |
+ |--> URL:  https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/flash-drive-reccomendations.txt
 
 ------------------------------------------------------------
 

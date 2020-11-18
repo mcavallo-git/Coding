@@ -83,7 +83,7 @@ function HardenCrypto {
 
 			# ------------------------------------------------------------
 			#
-			# .NET Framework v4 - Simplify management (by handing off control to OS) & enforce strong cryptography
+			# .NET Framework v4 - Simplify protocol-management (by handing off control to OS) & Enforce strong cryptography
 			#   |
 			#   |--> Creating these keys forces any version of .NET 4.x below 4.6.2 to use strong crypto instead of allowing SSL 3.0 by default
 			#

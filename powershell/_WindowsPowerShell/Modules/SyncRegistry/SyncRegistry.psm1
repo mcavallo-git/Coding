@@ -985,13 +985,13 @@ function SyncRegistry {
 								Write-Output (("  |-->  !! Created Key"));
 							}
 						} Else {
-							Write-Output "  |-->  Skipping Key-creation for `"$($EachRegEdit.Path)`" (property is to-be-deleted)";
+							Write-Output "  |-->  Skipping Key-creation (property is to-be-deleted)";
 						}
 					} Else {
 						If (($EachProp.Delete) -eq $False) {  # Property isn't to-be-deleted
-							Write-Output "  |-->  Skipping Key-creation for `"$($EachRegEdit.Path)`" (already exists)";
+							Write-Output "  |-->  Skipping Key-creation (already exists)";
 						} Else {
-							Write-Output "  |-->  Planning to delete a property within key `"$($EachRegEdit.Path)`"";
+							Write-Output "  |-->  Planning to delete a property within key";
 						}
 					}
 

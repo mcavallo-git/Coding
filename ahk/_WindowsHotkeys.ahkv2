@@ -3025,6 +3025,7 @@ XBox_DownloadDelete_GameClips() {
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
+	AwaitModifierKeyup()
 
 	WinTitle := "Xbox Console Companion"
 
@@ -3447,6 +3448,7 @@ Youtube_EditDraft_Submit() {
 	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	AwaitModifierKeyup()
 	WinTitle := "Channel videos - YouTube Studio - Google Chrome"
 	If (WinExist(WinTitle)) {
 		;

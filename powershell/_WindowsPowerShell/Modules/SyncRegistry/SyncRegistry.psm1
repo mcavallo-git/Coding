@@ -984,18 +984,10 @@ function SyncRegistry {
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
 								Write-Output (("  |-->  !! Created Key"));
 							}
-						} Else {
-							Write-Output "  |-->  Skipping Key-creation (property is to-be-deleted)";
-						}
-					} Else {
-						If (($EachProp.Delete) -eq $False) {  # Property isn't to-be-deleted
-							Write-Output "  |-->  Skipping Key-creation (already exists)";
-						} Else {
-							Write-Output "  |-->  Planning to delete a property within key";
 						}
 					}
 
-					# # Check for each Property
+					# Check for each Property
 					Try {
 						# $GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
 						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));

@@ -3431,6 +3431,7 @@ Youtube_EditDraft_Submit() {
 	Global DebugMode
 	CoordMode, Mouse, Screen
 	SetControlDelay, -1
+	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	WinTitle := "Channel videos - YouTube Studio - Google Chrome"

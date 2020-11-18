@@ -3465,12 +3465,6 @@ Youtube_EditDraft_Submit() {
 		;
 		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
 		;
-		Set_Width := 1734
-		Set_Height := 1407
-		Viewport_Width := SysGet(78)
-		Set_xpos := ( Viewport_Width + 7 ) - Set_Width
-		Set_ypos := 0
-		; WinMove(WinTitle,, Set_xpos, Set_ypos, Set_Width, Set_Height) ; Move the window to a known static location to build off-of
 		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to a known static location to build off-of
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"

@@ -83,27 +83,27 @@ function HardenCrypto {
 
 			<# ============================== #>
 			<# Locate the .NET Framework v4 key to modify #> 
-			$Key_DotNet4 = (Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*');
-			$HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($Key_DotNet4.PSChildName)");
+			$GlobPath_DotNet4 = (Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*');
+			$RelPath_HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\$($GlobPath_DotNet4.PSChildName)");
 
 			<# Update the 64-bit registry #>
-			$Registry_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
-			$SubKey_64bit = $Registry_64bit.OpenSubKey("${HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
-			$SubKey_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
-			$SubKey_64bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
+			$Registry_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
+			$SubKey_DotNet4_64bit = $Registry_HKLM_64bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+			$SubKey_DotNet4_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
+			$SubKey_DotNet4_64bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
 
 			<# Update the 32-bit registry #>
-			$Registry_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
-			$SubKey_32bit = $Registry_32bit.OpenSubKey("${HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
-			$SubKey_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
-			$SubKey_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
+			$Registry_HKLM_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
+			$SubKey_DotNet4_32bit = $Registry_HKLM_32bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+			$SubKey_DotNet4_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
+			$SubKey_DotNet4_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
 
 
 			<# Grant additional user(s) access rights onto this, specific, key #>
 			If ($False) {
 				<# Get the registry key's access controls #>
-				$KeyAccess_64bit = ($Registry_64bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
-				$KeyAccess_32bit = ($Registry_32bit.OpenSubKey("${HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
+				$KeyAccess_64bit = ($Registry_HKLM_64bit.OpenSubKey("${RelPath_HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
+				$KeyAccess_32bit = ($Registry_HKLM_32bit.OpenSubKey("${RelPath_HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
 					<# Prep the updated access rules/controls #>
 					$AccessControl_64bit = $KeyAccess_64bit.GetAccessControl();
 					$AccessControl_32bit = $KeyAccess_32bit.GetAccessControl();

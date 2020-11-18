@@ -83,7 +83,7 @@ Write speeds (measured using CDM 7.0):
 
 ------------------------------------------------------------
 
-# Lanyards
+# - (Carrying lanyards)
 
 URL:   https://amazon.com/dp/B00W8W8BNQ
 
@@ -92,15 +92,14 @@ Note(s):  Good for color-coding multiple drives of same type. Use a cheap carabe
 
 ------------------------------------------------------------
 
-# 'Bad' speed comparison
+# X ('Bad' speed comparison/reference)
 
 Brand:  ???
 Model:  ???
 Model:  ???
 Capacity:  128 MB
 Warranty:  Already-trashed
-
-Note(s):  I am including these speeds to get your feet on the ground with 'bad' flash drive speeds For reference, here are the speeds on a 128 MB flash drive I got during a "Picture Your Pets With Santa" humane society fundraiser:
+Note(s):  I am including these speeds for acclimating oneself to 'bad' flash drive speeds. These speeds were measured on a 128 MB flash drive I received (actually paid-for (to obtain digital copies of photos)) during a "Picture Your Pets With Santa" humane society fundraiser.
 
 Read speeds (measured using CDM 7.0):
    Sequential 1MiB (Q=  8, T= 1):    16.567 MB/s [     15.8 IOPS] <478205.00 us>    <==    0.040x the rate of #1

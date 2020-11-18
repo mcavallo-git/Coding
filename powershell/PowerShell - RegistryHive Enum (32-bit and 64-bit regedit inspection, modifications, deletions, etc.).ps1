@@ -27,18 +27,20 @@ $RegistryHives.Arch_64bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Micro
 
 
 <# Grab a value from the 32- & 64-bit registries, separately #>
-Get-ItemPropertyValue -LiteralPath ("Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome") -Name ("(Default)") -ErrorAction ("Stop");
-$RelPath_HKCR_ExampleKey="Folder\shell\pintohome";
-$SubKey_64bit=($RegistryHives.Arch_64bit.HKCR).OpenSubKey("${RelPath_HKCR_ExampleKey}", $True);
-$PropVal_64bit = $SubKey_64bit.GetValue("(Default)");
+$HKCR_KeyName="Folder\shell\pintohome";
+$PropertyName = "AppliesTo";
+Write-Output "";
+Write-Output "Getting 64-bit Value...";
+$SubKey_64bit=($RegistryHives.Arch_64bit.HKCR).OpenSubKey("${HKCR_KeyName}", $True);
+$PropVal_64bit = $SubKey_64bit.GetValue("${PropertyName}");
 $SubKey_64bit.Close();
-$SubKey_32bit=($RegistryHives.Arch_32bit.HKCR).OpenSubKey("${RelPath_HKCR_ExampleKey}", $True);
-$PropVal_32bit = $SubKey_32bit.GetValue("(Default)");
+Write-Output "${PropertyName} = ${PropVal_64bit}";
+Write-Output "";
+Write-Output "Getting 32-bit Value...";
+$SubKey_32bit=($RegistryHives.Arch_32bit.HKCR).OpenSubKey("${HKCR_KeyName}", $True);
+$PropVal_32bit = $SubKey_32bit.GetValue("${PropertyName}");
 $SubKey_32bit.Close();
-Write-Output "";
-Write-Output "`${PropVal_64bit} = ${PropVal_64bit}";
-Write-Output "`${PropVal_32bit} = ${PropVal_32bit}";
-Write-Output "";
+Write-Output "${PropertyName} = ${PropVal_32bit}";
 Write-Output "";
 
 }

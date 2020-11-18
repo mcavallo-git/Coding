@@ -985,10 +985,10 @@ function SyncRegistry {
 								Write-Output (("  |-->  !! Created Key"));
 							}
 						} Else {
-							Write-Output "  |-->  Skipping Key-creation for `"$($EachProp.Path)`" (property is to-be-deleted)";
+							Write-Output "  |-->  Skipping Key-creation for `"$($EachRegEdit.Path)`" (property is to-be-deleted)";
 						}
 					} Else {
-						Write-Output "  |-->  Skipping Key-creation for `"$($EachProp.Path)`" (already exists)";
+						Write-Output "  |-->  Skipping Key-creation for `"$($EachRegEdit.Path)`" (already exists)";
 					}
 
 					# # Check for each Property

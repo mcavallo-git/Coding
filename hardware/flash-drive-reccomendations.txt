@@ -1,8 +1,9 @@
 ------------------------------------------------------------
 
-Nov-2020 Flash Drive Suggestions (MCavallo)
+Nov-2020 Flash Drive Suggestions
  |
  |--> URL:  https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/flash-drive-reccomendations.txt
+
 
 ------------------------------------------------------------
 
@@ -85,7 +86,7 @@ Write speeds (measured using CDM 7.0):
 
 ------------------------------------------------------------
 
-# - (Carrying lanyards)
+# Tidy (Carrying lanyards)
 
 URL:   https://amazon.com/dp/B00W8W8BNQ
 
@@ -94,7 +95,7 @@ Note(s):  Good for color-coding multiple drives of same type. Use a cheap carabe
 
 ------------------------------------------------------------
 
-# X ('Bad' speed comparison/reference)
+# Bad ('Bad' speed comparison/reference)
 
 Brand:  ???
 Model:  ???

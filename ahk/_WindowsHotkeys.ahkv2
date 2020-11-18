@@ -2663,6 +2663,7 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 	Global DebugMode
 	CoordMode, Mouse, Screen
 	CoordMode, Pixel, Screen
+	FollowDuration_ms := (1000 * FollowDuration_Seconds)
 	If (DebugMode == 1) {
 		TrayTip, AHK, % ( DebugString )  ; Toast Notification
 		OutputFile := A_Desktop "\rgblogging.txt"
@@ -2672,29 +2673,30 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		}
 		Logfile.write("`n")
 	}
-
 	PollDuration_ms := 10
-	; PollDuration_ms := 100
-
-	Resolve_ColorName := 0
-
+	Show_ResolvedColorName := 0
 	Last_MouseX := 0
 	Last_MouseY := 0
 	Last_Blue := 0
 	Last_Green := 0
 	Last_Red := 0
-
 	TickCount_BeforeLoop := A_TickCount
-
-	FollowDuration_ms := (1000 * FollowDuration_Seconds)
-
 	Loop {
+		Runtime_Net_ms := (A_TickCount-TickCount_BeforeLoop)
+		RemainingHover_ms := (FollowDuration_ms - Runtime_Net_ms)
+		RemainingHover_Seconds := Round((RemainingHover_ms/1000), 1)
+		If ( RemainingHover_Seconds <= 0 ) {
+			Break
+		} Else {
+			Sleep %PollDuration_ms%
+		}
+
 		MouseGetPos, MouseX, MouseY
 		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
 		ColorComponent_Blue := (Color & 0xFF)
 		ColorComponent_Green := ((Color & 0xFF00) >> 8)
 		ColorComponent_Red := ((Color & 0xFF0000) >> 16)
-		If (Resolve_ColorName == 1) {
+		If (Show_ResolvedColorName == 1) {
 			ColorDelta_BlueGreen := Abs(ColorComponent_Blue - ColorComponent_Green)
 			ColorDelta_GreenRed := Abs(ColorComponent_Green - ColorComponent_Red)
 			ColorDelta_BlueRed := Abs(ColorComponent_Blue - ColorComponent_Red)
@@ -2713,11 +2715,8 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 				Color_ResolvedName := "Blue"
 			}
 		}
-		Runtime_Net_ms := (A_TickCount-TickCount_BeforeLoop)
-		RemainingHover_ms := (FollowDuration_ms - Runtime_Net_ms)
-		RemainingHover_Seconds := Round((RemainingHover_ms/1000), 1)
 		TooltipOutput := ""
-		If (Resolve_ColorName == 1) {
+		If (Show_ResolvedColorName == 1) {
 			TooltipOutput := TooltipOutput "Color_ResolvedName=[" Color_ResolvedName "] " "`n"
 		}
 		TooltipOutput := TooltipOutput "Color=[ " Color " ] " "`n"
@@ -2726,15 +2725,14 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		TooltipOutput := TooltipOutput "Blue=[" ColorComponent_Blue "] " "`n"
 		TooltipOutput := TooltipOutput "Green=[" ColorComponent_Green "] " "`n"
 		TooltipOutput := TooltipOutput "Red=[" ColorComponent_Red "] " "`n"
-		TooltipOutput := TooltipOutput "RemainingHover_Seconds=[" RemainingHover_Seconds "] " "`n"
 		If (DebugMode == 1) {
 			TooltipOutput := TooltipOutput "OutputFile=[" OutputFile "] " "`n"
 		}
-		Tooltip, %TooltipOutput%
 		If ((Last_MouseX != MouseX) || (Last_MouseY != MouseY) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red)) {
-			; Only perform certain updates if any discernible change is detected (amongst colors & mouse position values)
+			Tooltip, %TooltipOutput%
+			; Only perform updates if any discernible change is detected (amongst colors & mouse position values)
 			If (DebugMode == 1) {
-				LogfileOutput := TooltipOutput "Color=[" Color "] Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "], RemainingHover_Seconds=[" RemainingHover_Seconds "]"
+				LogfileOutput := TooltipOutput "Color=[" Color "] Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "]"
 				Logfile.write("%LogfileOutput%`n")
 			}
 			Last_MouseX := MouseX
@@ -2742,11 +2740,6 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 			Last_Blue := ColorComponent_Blue
 			Last_Green := ColorComponent_Green
 			Last_Red := ColorComponent_Red
-		}
-		If ( RemainingHover_Seconds <= 0 ) {
-			Break
-		} Else {
-			Sleep %PollDuration_ms%
 		}
 	}
 	If (DebugMode == 1) {

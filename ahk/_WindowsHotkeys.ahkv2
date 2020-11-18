@@ -2380,7 +2380,7 @@ PrintEnv() {
 	; KnownWinEnvVars :=
 	Msgbox,
 	(LTrim
-	--------------------------------------------------------------------------------------------
+	------------------------------------ PrintEnv() ------------------------------------
 
 	*** AHK Env-Vars ***
 
@@ -2418,7 +2418,7 @@ PrintEnv() {
 	A_WinDelay:		%A_WinDelay%
 	A_WorkingDir:		%A_WorkingDir%
 
-	--------------------------------------------------------------------------------------------
+	------------------------------------ PrintEnv() ------------------------------------
 
 	*** Windows Env-Vars ***
 
@@ -3024,7 +3024,6 @@ XBox_DownloadDelete_GameClips() {
 	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
 	AwaitModifierKeyup()
 
 	WinTitle := "Xbox Console Companion"
@@ -3454,7 +3453,11 @@ Youtube_EditDraft_Submit() {
 		;
 		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
 		;
-		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to a known static location to build off-of
+		WinPos_Width := 1734
+		WinPos_Height := 1407
+		WinPos_Left := ( A_ScreenWidth - 7 ) - WinPos_Width
+		WinPos_Top := 0
+		WinMove(WinTitle,, WinPos_Left, WinPos_Top, WinPos_Width, WinPos_Height) ; Move the window to a known static location to build off-of
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"
 			Tooltip, % ( Tooltip_Header ), 1, 1

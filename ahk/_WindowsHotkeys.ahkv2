@@ -2422,10 +2422,6 @@ PrintEnv() {
 	A_WinDelay:		%A_WinDelay%
 	A_WorkingDir:		%A_WorkingDir%
 
-	Viewport_Width:		%A_WorkingDir%
-	A_WorkingDir:		%A_WorkingDir%
-	A_WorkingDir:		%A_WorkingDir%
-
 	------------------------------------ PrintEnv() ------------------------------------
 
 	*** Windows Env-Vars ***

@@ -97,6 +97,10 @@ URL (Newegg):  https://www.newegg.com/
 
  Citation(s)
 
+   www.testufo.com  |  "UFO Test: Frame Skipping Checker"  |  https://www.testufo.com/frameskipping
+
    www.overclock.net  |  "[Guide] Overclocking Your Monitor | Overclock.net"  |  https://www.overclock.net/threads/guide-overclocking-your-monitor.1493866/
+
+   www.youtube.com  |  "How to Overclock your MONITOR (2020 Tutorial) | Easy Guide with Tips and Tricks - YouTube"  |  https://www.youtube.com/watch?v=FfVEUHlCxjI
 
 ------------------------------------------------------------

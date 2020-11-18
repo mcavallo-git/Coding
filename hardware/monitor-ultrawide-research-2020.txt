@@ -97,7 +97,7 @@ URL (Newegg):  https://www.newegg.com/
 
  Citation(s)
 
-   www.testufo.com  |  "UFO Test: Frame Skipping Checker"  |  https://www.testufo.com/frameskipping
+   www.testufo.com  |  "UFO Test: Frame Skipping Checker"  |  https://www.testufo.com/frameskipping#horiz=10&vert=10
 
    www.overclock.net  |  "[Guide] Overclocking Your Monitor | Overclock.net"  |  https://www.overclock.net/threads/guide-overclocking-your-monitor.1493866/
 

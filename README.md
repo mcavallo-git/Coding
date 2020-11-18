@@ -312,6 +312,8 @@ This file (on GitHub):
 <tr><td><strong>Fonts - Fira Code</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Ligature Font (has extra chars like triple equals)</a></i></sub></td><td><a href="https://fonts.google.com/specimen/Fira+Code">Download (source)</a></td></tr>
 <tr><td><strong>Fonts - Roboto</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mechanical skeleton w/ mostly geometric forms</a></i></sub></td><td><a href="https://fonts.google.com/specimen/Roboto">Download (source)</a></td></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Use 'Dynamic Theme', instead<br />&nbsp;&nbsp;&nbsp;Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
+<tr><td><strong>ShellMenuView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Modifies explorer's right-click menu/dropdown options</i></sub></td><td><a href="https://www.nirsoft.net/utils/shell_menu_view.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.nirsoft.net/utils/shmnview-x64.zip">Download (source)</a></sub></td></tr>
+<tr><td><strong>ShellExView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Displays installed shell extensions<br />&nbsp;&nbsp;&nbsp;Allows enabling/disabling shell extensions</i></sub></td><td><a href="https://www.nirsoft.net/utils/shexview.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.nirsoft.net/utils/shexview-x64.zip">Download (source)</a></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

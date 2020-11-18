@@ -189,14 +189,14 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="DateTimes - Sets the clock to use NTP";
-					Name="Type"; 
+					Name="Type";
 					Type="String";
 					Value="NTP";
 					Delete=$False;
 				},
 				@{
 					Description="DateTimes - $?";
-					Name="ServiceMain"; 
+					Name="ServiceMain";
 					Type="String";
 					Value="SvchostEntry_W32Time";
 					Delete=$False;
@@ -211,7 +211,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - Set to [ 1 ] to Disable or [ 0 ] to Enable `"Aero Shake`" in Windows 10";
-					Name="NoWindowMinimizingShortcuts"; 
+					Name="NoWindowMinimizingShortcuts";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
@@ -226,28 +226,28 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
-					Name="Hidden"; 
+					Name="Hidden";
 					Type="String";
 					Value="SHOW";
 					Delete=$False;
 				},
 				@{
 					Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide empty drives`"";
-					Name="HideDrivesWithNoMedia"; 
+					Name="HideDrivesWithNoMedia";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
 					Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide extensions for known file types`"";
-					Name="HideFileExt"; 
+					Name="HideFileExt";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
 					Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide folder merge conflicts`"";
-					Name="HideMergeConflicts"; 
+					Name="HideMergeConflicts";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
@@ -262,7 +262,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the OneDrive personal (default) cloud icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
-					Name="(Default)"; 
+					Name="(Default)";
 					Type="String";
 					Val_Default="OneDrive - Personal";
 					Value="OneDrive - Personal";
@@ -274,8 +274,8 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
 			Props=@(
 				@{
-					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint ' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
-					Name="(Default)"; 
+					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
+					Name="(Default)";
 					Type="String";
 					Val_Default="Getac Video";
 					Value="Getac Video";
@@ -288,7 +288,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Enterprise' individual's icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
-					Name="(Default)"; 
+					Name="(Default)";
 					Type="String";
 					Val_Default="OneDrive - Getac Video";
 					Value="OneDrive - Getac Video";
@@ -296,16 +296,88 @@ function SyncRegistry {
 				}
 			)
 		};
+
+
+		# Explorer Settings ('OneDrive' context menu option(s))
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of OneDrive-related options in Windows Explorer's right-click dropdown menu ] by [ creating this property with a blank value ]. Disable by [ deleting this property ]";
-					Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}"; 
+					Description="Explorer Settings - Enable [ hiding of 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Cast to Device' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
 					Type="String";
 					Val_Default="";
 					Value="";
 					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Microsoft Defender' context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\EPP";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' context menu option(s) when right-clicking FILES in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\EPP";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' context menu option(s) when right-clicking FOLDERS/DIRECTORIES in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Share' context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\ModernSharing";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Share' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
 				}
 			)
 		};
@@ -317,28 +389,28 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
-					Name="NoRecentDocsMenu"; 
+					Name="NoRecentDocsMenu";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
-					Name="HideRunAsVerb"; 
+					Name="HideRunAsVerb";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to [ set the Preview Pane as hidden in File Explorer (and lock/disable the user from enabling it) ]. Set to [ 0 ] or [ deleted ] to [ set the Preview Pane as hidden in File Explorer (but allow the user to enable it) ]";
-					Name="NoReadingPane"; 
+					Name="NoReadingPane";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
-					Name="NoRecentDocsHistory"; 
+					Name="NoRecentDocsHistory";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
@@ -350,21 +422,21 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
-					Name="NoRecentDocsMenu"; 
+					Name="NoRecentDocsMenu";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
-					Name="HideRunAsVerb"; 
+					Name="HideRunAsVerb";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
-					Name="NoRecentDocsHistory"; 
+					Name="NoRecentDocsHistory";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
@@ -376,14 +448,14 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Explorer Settings - When this policy is set, applications that provide their own file or open dialog boxes must remove any equivalent functionality to the places bar. Applications that use the common dialog box library will comply with this policy";
-					Name="NoPlacesBar"; 
+					Name="NoPlacesBar";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
 				},
 				@{
 					Description="Explorer Settings - When this policy is set, applications that provide their own file or open dialog boxes must not display an MRU (Most Recently Used) list in these dialog boxes. Applications that use the common dialog box library will comply with this policy";
-					Name="NoFileMru"; 
+					Name="NoFileMru";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
@@ -395,7 +467,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Delete the list of MRU (Most Recently Used) items";
-					Name="(Default)"; 
+					Name="(Default)";
 					# Type="REG_SZ";
 					Type="String";
 					Value="";
@@ -415,7 +487,7 @@ function SyncRegistry {
 				Props=@(
 					@{
 						Description="Explorer Settings - Defines the application opened when a user right-clicks an Image file (in Windows Explorer) and selects the `"Edit`" command.";
-						Name="(Default)"; 
+						Name="(Default)";
 						Type="REG_EXPAND_SZ";
 						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
 						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
@@ -430,7 +502,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters";
 			Props=@(
 				@{
-					Description="IPv6 Network Settings -->  [ 32 = 'Prefer IPv4 over IPv6' ], [ 255 = 'Disable IPv6' ], [ 16 = 'disable IPv6 on all nontunnel interfaces' ], [ 1 = 'disable IPv6 on all tunnel interfaces' ], [ 17 = 'disable IPv6 on all nontunnel interfaces (except the loopback) and on IPv6 tunnel interface' ]"; 
+					Description="IPv6 Network Settings -->  [ 32 = 'Prefer IPv4 over IPv6' ], [ 255 = 'Disable IPv6' ], [ 16 = 'disable IPv6 on all nontunnel interfaces' ], [ 1 = 'disable IPv6 on all tunnel interfaces' ], [ 17 = 'disable IPv6 on all nontunnel interfaces (except the loopback) and on IPv6 tunnel interface' ]";
 					Name="DisabledComponents";
 					Type="DWord";
 					Value=("255");
@@ -460,7 +532,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
-					Name="WindowArrangementActive"; 
+					Name="WindowArrangementActive";
 					Type="String";
 					Value=1;
 					Delete=$False;
@@ -473,21 +545,21 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
-					Name="SnapFill"; 
+					Name="SnapFill";
 					Type="String";
 					Value=1;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
-					Name="SnapAssist"; 
+					Name="SnapAssist";
 					Type="String";
 					Value=0;
 					Delete=$False;
 				},
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
-					Name="JointResize"; 
+					Name="JointResize";
 					Type="String";
 					Value=1;
 					Delete=$False;
@@ -502,7 +574,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
-					Name="SubscribedContent-353698Enabled"; 
+					Name="SubscribedContent-353698Enabled";
 					Type="String";
 					Value=0;
 					Delete=$False;
@@ -565,7 +637,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Microsoft Office (Windows 10 Application) - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
-					Name="(Default)"; 
+					Name="(Default)";
 					Type="String";
 					Value="rundll32";
 					Delete=$False;
@@ -608,7 +680,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
 			Props=@(
 				@{
-					Description="Windows Prefetch Settings:  0=[Off], 1=[Application launch prefetching enabled], 2=[Boot prefetching enabled], 3=[Applaunch and Boot enabled (Optimal and Default)]"; 
+					Description="Windows Prefetch Settings:  0=[Off], 1=[Application launch prefetching enabled], 2=[Boot prefetching enabled], 3=[Applaunch and Boot enabled (Optimal and Default)]";
 					Name="EnablePrefetcher";
 					Type="DWord";
 					Value=("0");
@@ -623,7 +695,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
 			Props=@(
 				@{
-					Description="Determines the percentage of CPU resources that should be guaranteed to low-priority tasks (Defaults to 20). Rounds up to the nearest value of 10. A value of 0 is also treated as 10."; 
+					Description="Determines the percentage of CPU resources that should be guaranteed to low-priority tasks (Defaults to 20). Rounds up to the nearest value of 10. A value of 0 is also treated as 10.";
 					Name="SystemResponsiveness";
 					Type="DWord";
 					Val_Default=("20");
@@ -640,40 +712,40 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games";
 			Props=@(
 				@{
-					Description="The GPU priority. The range of values is 0-31. This priority is not yet used."; 
+					Description="The GPU priority. The range of values is 0-31. This priority is not yet used.";
 					Name="GPU Priority";
 					Type="DWord";
 					Val_Default=("8");
 					Val_Gaming=("8");
 					Value=("8");
-					Delete=$True;
+					Delete=$True; <# ! Delete this Property ! #>
 				},
 				@{
-					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2."; 
+					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2.";
 					Name="Priority";
 					Type="DWord";
 					Val_Default=("2");
 					Val_Gaming=("6");
 					Value=("2");
-					Delete=$True;
+					Delete=$True; <# ! Delete this Property ! #>
 				},
 				@{
-					Description="The scheduling category. This value can be set to High, Medium, or Low."; 
+					Description="The scheduling category. This value can be set to High, Medium, or Low.";
 					Name="Scheduling Category";
 					Type="String";
 					Val_Default=("Medium");
 					Val_Gaming=("High");
 					Value=("Medium");
-					Delete=$True;
+					Delete=$True; <# ! Delete this Property ! #>
 				},
 				@{
-					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used."; 
+					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used.";
 					Name="SFIO Priority";
 					Type="String";
 					Val_Default=("Normal");
 					Val_Gaming=("High");
 					Value=("Normal");
-					Delete=$True;
+					Delete=$True; <# ! Delete this Property ! #>
 				}
 			)
 		};
@@ -685,7 +757,7 @@ function SyncRegistry {
 			Props=@(
 				@{
 					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
-					Name="AutoEndTasks"; 
+					Name="AutoEndTasks";
 					Type="String";
 					Value=1;
 					Delete=$False;
@@ -826,7 +898,7 @@ function SyncRegistry {
 				Props=@(
 					@{
 						Description="Defines the vSphere Client's [ IP address/ Name ] cached connection-urls";
-						Name="RecentConnections"; 
+						Name="RecentConnections";
 						Type="String";
 						Value="";
 						Delete=$False;
@@ -840,7 +912,7 @@ function SyncRegistry {
 				Props=@(
 					@{
 						Description="Blocks (1) or Unblocks (0) Apps from being able to trigger the OneDrive's `"Files On-Demand`" feature";
-						Name="Enabled"; 
+						Name="Enabled";
 						Type="DWord";
 						Value=1;
 						Delete=$False;
@@ -1067,9 +1139,13 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   winaero.com  |  "Remove OneDrive Context Menu in Windows 10"  |  https://winaero.com/remove-onedrive-context-menu-windows-10/
 #
+#   winaero.com  |  "Remove Restore Previous Versions Context Menu in Windows 10"  |  https://winaero.com/remove-previous-versions-windows-10/
+#
 #   winbuzzer.com  |  "Windows 10: How to Disable/Enable Prefetch and Superfetch - WinBuzzer"  |  https://winbuzzer.com/2020/03/14/windows-10-how-to-disable-enable-prefetch-and-superfetch-xcxwbt/
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
+#
+#   www.ghacks.net  |  "Remove Windows 10 Context Menu bloat - gHacks Tech News"  |  https://www.ghacks.net/2017/07/09/remove-windows-10-context-menu-bloat/
 #
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #

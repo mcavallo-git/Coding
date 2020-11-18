@@ -433,6 +433,35 @@ function SyncRegistry {
 		};
 
 
+		# Explorer Settings ('Pin to Quick Access' context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ setting this property's value to blank ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick Access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ setting this property's value to blank ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+
+
 		# Explorer Settings (cont.)
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
@@ -1189,6 +1218,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
+#
+#   winaero.com  |  "How To Remove Pin to Quick Access Context Menu in Windows 10"  |  https://winaero.com/remove-pin-quick-access-menu-windows-10/
 #
 #   winaero.com  |  "Remove OneDrive Context Menu in Windows 10"  |  https://winaero.com/remove-onedrive-context-menu-windows-10/
 #

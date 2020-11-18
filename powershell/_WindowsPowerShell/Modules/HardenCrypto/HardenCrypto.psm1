@@ -89,13 +89,16 @@ function HardenCrypto {
 			<# Update the 64-bit registry #>
 			$Registry_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 			$SubKey_DotNet4_64bit = $Registry_HKLM_64bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
-			$SubKey_DotNet4_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
+			<# Note: The third argument passed to '.SetValue()' is the 'RegistryValueKind' --> A value of '4' creates/sets a 'DWORD' typed property #>
+			$SubKey_DotNet4_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
+			$SubKey_DotNet4_64bit.SetValue("SchUseStrongCrypto", 1, 4);  <# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
 			$SubKey_DotNet4_64bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
 
 			<# Update the 32-bit registry #>
 			$Registry_HKLM_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));  <# Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 			$SubKey_DotNet4_32bit = $Registry_HKLM_32bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
-			$SubKey_DotNet4_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Update the key #> <# DWords' native RegistryValueKind is 4 #>
+			$SubKey_DotNet4_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
+			$SubKey_DotNet4_32bit.SetValue("SchUseStrongCrypto", 1, 4);  <# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
 			$SubKey_DotNet4_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
 
 
@@ -253,6 +256,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   docs.microsoft.com  |  "ServicePointManager.SecurityProtocol Property (System.Net) - Gets/Sets the security protocol used by the ServicePoint objects managed by the ServicePointManager object"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.securityprotocol
 #
 #   docs.microsoft.com  |  "Solving the TLS 1.0 Problem - Security documentation | Microsoft Docs"  |  https://docs.microsoft.com/en-us/security/solving-tls1-problem
+#
+#   docs.microsoft.com  |  "Transport Layer Security (TLS) best practices with the .NET Framework | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls
 #
 #   powershellpainrelief.blogspot.com  |  "Powershell - Pain Relief by R.T.Edwards: Powershell: Working With The Registry Part 2"  |  http://powershellpainrelief.blogspot.com/2014/07/powershell-working-with-registry-part-2.html
 #

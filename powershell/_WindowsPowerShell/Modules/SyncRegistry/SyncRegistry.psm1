@@ -296,6 +296,19 @@ function SyncRegistry {
 				}
 			)
 		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of OneDrive-related options in Windows Explorer's right-click dropdown menu ] by [ creating this property with a blank value ]. Disable by [ deleting this property ]";
+					Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}"; 
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
+				}
+			)
+		};
 
 
 		# Explorer Settings (cont.)
@@ -1051,6 +1064,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
+#
+#   winaero.com  |  "Remove OneDrive Context Menu in Windows 10"  |  https://winaero.com/remove-onedrive-context-menu-windows-10/
 #
 #   winbuzzer.com  |  "Windows 10: How to Disable/Enable Prefetch and Superfetch - WinBuzzer"  |  https://winbuzzer.com/2020/03/14/windows-10-how-to-disable-enable-prefetch-and-superfetch-xcxwbt/
 #

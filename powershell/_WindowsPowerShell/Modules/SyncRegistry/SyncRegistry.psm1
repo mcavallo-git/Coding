@@ -279,7 +279,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="Getac Video";
 					Value="Getac Video";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -292,7 +292,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="OneDrive - Getac Video";
 					Value="OneDrive - Getac Video";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -356,7 +356,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -369,7 +369,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -382,7 +382,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -395,7 +395,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -411,7 +411,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -443,7 +443,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -456,7 +456,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -550,7 +550,7 @@ function SyncRegistry {
 					# Type="REG_SZ";
 					Type="String";
 					Value="";
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -797,7 +797,7 @@ function SyncRegistry {
 					Val_Default=("8");
 					Val_Gaming=("8");
 					Value=("8");
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				},
 				@{
 					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2.";
@@ -806,7 +806,7 @@ function SyncRegistry {
 					Val_Default=("2");
 					Val_Gaming=("6");
 					Value=("2");
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				},
 				@{
 					Description="The scheduling category. This value can be set to High, Medium, or Low.";
@@ -815,7 +815,7 @@ function SyncRegistry {
 					Val_Default=("Medium");
 					Val_Gaming=("High");
 					Value=("Medium");
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				},
 				@{
 					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used.";
@@ -824,7 +824,7 @@ function SyncRegistry {
 					Val_Default=("Normal");
 					Val_Gaming=("High");
 					Value=("Normal");
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -919,7 +919,7 @@ function SyncRegistry {
 					Name="UseWindowsUpdate";
 					Type="DWord";
 					Value=2;
-					Delete=$True; <# ! Delete this Property ( deletes entire Key if Name="(Default)" ) ! #>
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};

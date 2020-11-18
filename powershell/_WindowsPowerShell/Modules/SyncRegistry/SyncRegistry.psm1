@@ -351,7 +351,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\EPP";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' context menu option(s) when right-clicking FILES in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 1/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
 					Name="(Default)";
 					Type="String";
 					Val_Default="";
@@ -364,7 +364,33 @@ function SyncRegistry {
 			Path="Registry::HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\EPP";
 			Props=@(
 				@{
-					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' context menu option(s) when right-clicking FOLDERS/DIRECTORIES in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 2/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Drive\shellex\ContextMenuHandlers\EPP";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 3/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <# ! Delete this Property ! #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 4/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
 					Name="(Default)";
 					Type="String";
 					Val_Default="";

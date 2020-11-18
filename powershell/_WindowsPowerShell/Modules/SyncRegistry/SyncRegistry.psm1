@@ -303,11 +303,19 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
 			Props=@(
 				@{
+					Description="Explorer Settings - Enable [ hiding of 'Troubleshoot compatibility' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
+				},
+				@{
 					Description="Explorer Settings - Enable [ hiding of 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
 					Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
 					Type="String";
 					Val_Default="";
-					Value="Play to menu";
+					Value="";
 					Delete=$False;
 				},
 				@{

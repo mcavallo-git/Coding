@@ -3465,16 +3465,18 @@ Youtube_EditDraft_Submit() {
 		;
 		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
 		;
+		WinActivate(WinTitle)
+		Sleep 100
 		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to a known static location to build off-of
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"
-			Tooltip, % ( Tooltip_Header ), 1, 1
+			Tooltip, % ( Tooltip_Header ), 1, 112
 			xpos := 94
 			ypos := 61
 			ControlClick, x%xpos% y%ypos%, %WinTitle%
 			Sleep 2000
 			Tooltip_Header := "Youtube - Click 'Edit Draft'"
-			Tooltip, % ( Tooltip_Header ), 1, 1
+			Tooltip, % ( Tooltip_Header ), 1, 112
 			xpos := 1601
 			ypos := 414
 			xpos_rightedge := xpos + 20
@@ -3496,7 +3498,7 @@ Youtube_EditDraft_Submit() {
 			ControlClick, x%xpos% y%ypos%, %WinTitle%
 			Sleep 100
 			Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
-			Tooltip, % ( Tooltip_Header ), 1, 1
+			Tooltip, % ( Tooltip_Header ), 1, 112
 			xpos := 1274
 			ypos := 1313
 			xpos_rightedge := xpos + 20
@@ -3520,7 +3522,7 @@ Youtube_EditDraft_Submit() {
 			}
 			Sleep 100
 			Tooltip_Header := "Youtube - Click 'Close'"
-			Tooltip, % ( Tooltip_Header ), 1, 1
+			Tooltip, % ( Tooltip_Header ), 1, 112
 			xpos := 1056
 			ypos := 955
 			xpos_rightedge := xpos + 20
@@ -3533,7 +3535,7 @@ Youtube_EditDraft_Submit() {
 				Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
 				Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
 				Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-				Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+				Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
 				If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
 					Break
 				}

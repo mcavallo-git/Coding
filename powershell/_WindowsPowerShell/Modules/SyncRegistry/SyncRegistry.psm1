@@ -1114,7 +1114,7 @@ function SyncRegistry {
 							If (($EachProp.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key
-								Remove-Item -Force -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
+								Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
 								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
 									Write-Output "  |-->  !! Deleted Key";
 									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)

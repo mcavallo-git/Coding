@@ -223,7 +223,7 @@ This file (on GitHub):
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="file-storage"><br />File-Storage<br /><br /></h5></th></tr>
-<tr><td><strong>7-Zip</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-Source file archiver<br />&nbsp;&nbsp;&nbsp;Leverages the LZMA 2 compression algorithm</i></sub></td><td><a href="https://www.7-zip.org/download.html">Download (source)</a></td></tr>
+<tr><td><strong>7-Zip</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open-Source file archiver<br />&nbsp;&nbsp;&nbsp;Leverages the LZMA 2 compression algorithm<br />&nbsp;&nbsp;&nbsp;Tools > Options > 7-Zip > Uncheck "CRC SHA"<br />&nbsp;&nbsp;&nbsp;Leverages the LZMA 2 compression algorithm</i></sub></td><td><a href="https://www.7-zip.org/download.html">Download (source)</a></td></tr>
 <tr><td><strong>Box</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop App(s)</i></sub></td><td><a href="https://www.box.com/resources/downloads">Download (source)</a></td></tr>
 <tr><td><strong>Cryptomator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Client-Side Cloud-Encryption</i></sub></td><td><a href="https://cryptomator.org/downloads/#winDownload">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://cryptomator.org/downloads/win/thanks/">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Dropbox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop App(s)</i></sub></td><td><a href="https://www.dropbox.com/install">Download (source)</a></td></tr>

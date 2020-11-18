@@ -970,7 +970,7 @@ function SyncRegistry {
 				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key
-					If ((Test-Path -LiteralPath ("$($EachRegEdit.Path)")) -Eq $False) { # Key doesn't exist (yet)
+					If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
 						If (($EachProp.Delete) -eq $False) {  # Property isn't to-be-deleted
 							# Create the key
 							#
@@ -981,7 +981,7 @@ function SyncRegistry {
 							#
 							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 							# If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
-							If ((Test-Path -LiteralPath ("$($EachRegEdit.Path)")) -Eq $True) {
+							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
 								Write-Output (("  |-->  !! Created Key"));
 							}
 						} Else {
@@ -998,7 +998,7 @@ function SyncRegistry {
 					# # Check for each Property
 					Try {
 						# $GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
-						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ("$($EachRegEdit.Path)") -Name ($EachProp.Name) -ErrorAction ("Stop"));
+						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
 					} Catch {
 						$GetEachItemProp = $Null;
 					};
@@ -1031,7 +1031,7 @@ function SyncRegistry {
 								# Delete the Registry-Key
 								Remove-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 								# If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) {
-								If ((Test-Path -LiteralPath ("$($EachRegEdit.Path)")) -Eq $False) {
+								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
 									Write-Output "  |-->  !! Deleted Key";
 									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 								}
@@ -1041,7 +1041,7 @@ function SyncRegistry {
 								# Delete the Property
 								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
 								# Remove-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
-								Remove-ItemProperty -Force -LiteralPath ("$($EachRegEdit.Path)") -Name ($EachProp.Name) | Out-Null;
+								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
 
 							}
 
@@ -1054,7 +1054,7 @@ function SyncRegistry {
 							# Create the Property
 							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
 							# New-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
-							New-ItemProperty -Force -LiteralPath ("$($EachRegEdit.Path)") -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
 
 						} Else {
 

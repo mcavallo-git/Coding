@@ -134,12 +134,10 @@ else
 						echo "------------------------------------------------------------";
 						echo "EACH_FILENAME:       ${EACH_FILENAME}";
 						echo "EACH_CREATE_DATE:    ${EACH_CREATE_DATE}";
-						echo "EACH_NEW_FILENAME:   ${EACH_NEW_FILENAME}";
+						echo "EACH_NEW_FILENAME:   ${EACH_NEW_FILENAME}   !!! Skipping File-Rename (Dry-Run Mode) !!!";
 					fi;
 
-					if [ ${DRY_RUN} -eq 1 ]; then  # Dry-run mode
-						echo "  Skipping File-Rename (Dry-Run Mode)";
-					else  # If NOT running in dry-run mode
+					if [ ${DRY_RUN} -eq 0 ]; then  # If NOT running in dry-run mode
 						if [ -n "${EACH_CREATE_DATE}" ]; then  # If the created-on date resolved as-intended
 							if [ -n "${EACH_NEW_FILENAME}" ]; then  # If new filename is not blank
 								if [ "${EACH_FILENAME}" != "${EACH_NEW_FILENAME}" ]; then  # If new filename is not equal to original filename

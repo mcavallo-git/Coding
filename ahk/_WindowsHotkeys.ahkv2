@@ -3459,7 +3459,7 @@ Youtube_EditDraft_Submit() {
 			xpos := 94
 			ypos := 61
 			ControlClick, x%xpos% y%ypos%, %WinTitle%
-			Sleep 1000
+			Sleep 2500
 			Tooltip_Header := "Youtube - Click 'Edit Draft'"
 			Tooltip, % ( Tooltip_Header ), 1, 1
 			xpos := 1601
@@ -3479,6 +3479,7 @@ Youtube_EditDraft_Submit() {
 					Break
 				}
 			}
+			Sleep 250
 			ControlClick, x%xpos% y%ypos%, %WinTitle%
 			Sleep 100
 			Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"

@@ -3436,13 +3436,13 @@ XBox_DownloadDelete_GameClips() {
 ;
 ; Youtube_EditDraft_Submit
 ;   |--> Click "Edit Draft" then "Next"*3 then "Submit" to walk Youtube videos from "Draft" to live state
+;   |-->  !!!  MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
+;
 ;
 Youtube_EditDraft_Submit() {
 	Global DebugMode
-	; CoordMode, Mouse, Screen
-	; CoordMode, Pixel, Screen
-	CoordMode, Mouse, Window
-	CoordMode, Pixel, Window
+	CoordMode, Mouse, Screen
+	CoordMode, Pixel, Screen
 	SetControlDelay, -1
 	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
@@ -3450,10 +3450,9 @@ Youtube_EditDraft_Submit() {
 	WinTitle := "Channel videos - YouTube Studio - Google Chrome"
 	If (WinExist(WinTitle)) {
 		;
-		; !!! MAKE SURE TO OPEN YOUTUBE ON RIGHT-HALF OF RIGHT-MOST ULTRAWIDE 3440x1440 MONITOR !!!
-		;
 		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
 		;
+		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to a known static location to build off-of
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"
 			Tooltip, % ( Tooltip_Header ), 1, 1

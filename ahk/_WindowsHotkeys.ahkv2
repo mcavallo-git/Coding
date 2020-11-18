@@ -3539,7 +3539,7 @@ Youtube_EditDraft_Submit() {
 				}
 			}
 			ControlClick, x%xpos% y%ypos%, %WinTitle%
-			Sleep 1000
+			Sleep 250
 		}
 	}
 	ClearTooltip(10000)

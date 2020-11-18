@@ -95,7 +95,7 @@ Note(s):  Good for color-coding multiple drives of same type. Use a cheap carabe
 
 ------------------------------------------------------------
 
-# Bad ('Bad' speed comparison/reference)
+# Bad (speed comparison/reference)
 
 Brand:  ???
 Model:  ???
@@ -116,5 +116,14 @@ Write speeds (measured using CDM 7.0):
        Random 4KiB (Q= 32, T=16):     0.057 MB/s [     13.9 IOPS] <1377851.40 us>   <==    0.004x the rate of #1
        Random 4KiB (Q=  1, T= 1):     0.055 MB/s [     13.4 IOPS] < 73033.55 us>    <==    0.004x the rate of #1
 
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   crystalmark.info  |  "Download CrystalDiskMark7_0_0h.exe - CrystalDiskMark - OSDN"  |  https://crystalmark.info/redirect.php?product=CrystalDiskMarkInstaller
+
+   www.microsoft.com  |  "Get CrystalDiskMark - Microsoft Store"  |  https://www.microsoft.com/en-us/p/crystaldiskmark/9nblggh4z6f2?rtc=1&activetab=pivot:overviewtab
 
 ------------------------------------------------------------

@@ -28,7 +28,7 @@ $RegistryHives.Arch_64bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Micro
 
 <# Grab a value from the 32- & 64-bit registries, separately #>
 $HKCR_KeyName="Folder\shell\pintohome";
-$PropertyName = "AppliesTo";
+$PropertyName = "(Default)";
 Write-Output "";
 Write-Output "Getting 64-bit Value...";
 $SubKey_64bit=($RegistryHives.Arch_64bit.HKCR).OpenSubKey("${HKCR_KeyName}", $True);

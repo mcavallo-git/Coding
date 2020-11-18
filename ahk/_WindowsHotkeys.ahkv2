@@ -3465,13 +3465,12 @@ Youtube_EditDraft_Submit() {
 		;
 		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
 		;
-		WinPos_Width := 1734
-		WinPos_Height := 1407
+		Set_Width := 1734
+		Set_Height := 1407
 		Viewport_Width := SysGet(78)
-		; WinPos_Left := ( A_ScreenWidth - 7 ) - WinPos_Width
-		WinPos_Left := ( Viewport_Width - 7 ) - WinPos_Width
-		WinPos_Top := 0
-		WinMove(WinTitle,, WinPos_Left, WinPos_Top, WinPos_Width, WinPos_Height) ; Move the window to a known static location to build off-of
+		Set_xpos := ( Viewport_Width + 7 ) - Set_Width
+		Set_ypos := 0
+		WinMove(WinTitle,, Set_xpos, Set_ypos, Set_Width, Set_Height) ; Move the window to a known static location to build off-of
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"
 			Tooltip, % ( Tooltip_Header ), 1, 1

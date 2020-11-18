@@ -1,6 +1,13 @@
 # ------------------------------------------------------------
+#
+# Instantiate methods to to 32- & 64-bit registries (which exist simultaneously on 64-bit Windows systems)
+#
+
+If ($True) {
 
 $RegistryHives = @{};
+
+<# 32-bit Registry Access #>
 $RegistryHives.Arch_32bit = @{};
 $RegistryHives.Arch_32bit.HKCC=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::CurrentConfig, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_CURRENT_CONFIG #>
 $RegistryHives.Arch_32bit.HKCR=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::ClassesRoot, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_CLASSES_ROOT #>
@@ -8,6 +15,8 @@ $RegistryHives.Arch_32bit.HKCU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Micr
 $RegistryHives.Arch_32bit.HKLM=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_LOCAL_MACHINE #>
 $RegistryHives.Arch_32bit.HKPD=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::PerformanceData, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_PERFORMANCE_DATA  #>
 $RegistryHives.Arch_32bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::Users, [Microsoft.Win32.RegistryView]::Registry32));  <# HKEY_USERS #>
+
+<# 64-bit Registry Access #>
 $RegistryHives.Arch_64bit = @{};
 $RegistryHives.Arch_64bit.HKCC=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::CurrentConfig, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_CURRENT_CONFIG #>
 $RegistryHives.Arch_64bit.HKCR=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::ClassesRoot, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_CLASSES_ROOT #>
@@ -16,6 +25,23 @@ $RegistryHives.Arch_64bit.HKLM=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Micr
 $RegistryHives.Arch_64bit.HKPD=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::PerformanceData, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_PERFORMANCE_DATA  #>
 $RegistryHives.Arch_64bit.HKU=([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::Users, [Microsoft.Win32.RegistryView]::Registry64));  <# HKEY_USERS #>
 
+
+<# Grab a value from the 32- & 64-bit registries, separately #>
+Get-ItemPropertyValue -LiteralPath ("Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome") -Name ("(Default)") -ErrorAction ("Stop");
+$RelPath_HKCR_ExampleKey="Folder\shell\pintohome";
+$SubKey_64bit=($RegistryHives.Arch_64bit.HKCR).OpenSubKey("${RelPath_HKCR_ExampleKey}", $True);
+$PropVal_64bit = $SubKey_64bit.GetValue("(Default)");
+$SubKey_64bit.Close();
+$SubKey_32bit=($RegistryHives.Arch_32bit.HKCR).OpenSubKey("${RelPath_HKCR_ExampleKey}", $True);
+$PropVal_32bit = $SubKey_32bit.GetValue("(Default)");
+$SubKey_32bit.Close();
+Write-Output "";
+Write-Output "`${PropVal_64bit} = ${PropVal_64bit}";
+Write-Output "`${PropVal_32bit} = ${PropVal_32bit}";
+Write-Output "";
+Write-Output "";
+
+}
 
 
 # ------------------------------------------------------------

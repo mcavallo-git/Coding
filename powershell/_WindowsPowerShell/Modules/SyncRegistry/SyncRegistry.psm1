@@ -970,7 +970,8 @@ function SyncRegistry {
 				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key - If not found, then create it (unless it is to-be-deleted)
-					If (((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) -And (($EachProp.Delete) -eq $False)) {
+					# If (((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) -And (($EachProp.Delete) -eq $False)) {
+					If (((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) -And (($EachProp.Delete) -eq $False)) {
 						#
 						# New-Item -Force
 						#   |--> Upside - Creates ALL parent registry keys
@@ -978,14 +979,16 @@ function SyncRegistry {
 						#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 						#
 						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
-						If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
+						# If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $True) {
+						If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
 							Write-Output (("  |-->  !! Created Key"));
 						}
 					}
 
 					# # Check for each Property
 					Try {
-						$GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
+						# $GetEachItemProp = (Get-ItemPropertyValue -Path ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
+						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
 					} Catch {
 						$GetEachItemProp = $Null;
 					};
@@ -1017,7 +1020,8 @@ function SyncRegistry {
 
 								# Delete the Registry-Key
 								Remove-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
-								If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) {
+								# If ((Test-Path -Path ($EachRegEdit.Path)) -Eq $False) {
+								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
 									Write-Output "  |-->  !! Deleted Key";
 									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 								}
@@ -1026,7 +1030,8 @@ function SyncRegistry {
 
 								# Delete the Property
 								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
-								Remove-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
+								# Remove-ItemProperty -Force -Path ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
+								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
 
 							}
 

@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2715,15 +2715,15 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 			}
 		}
 		TooltipOutput := ""
+		TooltipOutput := TooltipOutput "Coords=[ x" MouseX " y" MouseY " ]" "`n"
+		TooltipOutput := TooltipOutput "Color=[" Color "]" "`n"
+		TooltipOutput := TooltipOutput "Color=[rgb( " ColorComponent_Red " , " ColorComponent_Green " , " ColorComponent_Blue " )]" "`n"
+		TooltipOutput := TooltipOutput "Blue=[" ColorComponent_Blue "]" "`n"
+		TooltipOutput := TooltipOutput "Green=[" ColorComponent_Green "]" "`n"
+		TooltipOutput := TooltipOutput "Red=[" ColorComponent_Red "]" "`n"
 		If (Show_ResolvedColorName == 1) {
 			TooltipOutput := TooltipOutput "Color_ResolvedName=[" Color_ResolvedName "] " "`n"
 		}
-		TooltipOutput := TooltipOutput "Color=[ " Color " ] " "`n"
-		TooltipOutput := TooltipOutput "Color=[ rgb ( " ColorComponent_Red " , " ColorComponent_Green " , " ColorComponent_Blue " ) ]" "`n"
-		TooltipOutput := TooltipOutput "Coords=[ x" MouseX " y" MouseY " ] " "`n"
-		TooltipOutput := TooltipOutput "Blue=[" ColorComponent_Blue "] " "`n"
-		TooltipOutput := TooltipOutput "Green=[" ColorComponent_Green "] " "`n"
-		TooltipOutput := TooltipOutput "Red=[" ColorComponent_Red "] " "`n"
 		If (DebugMode == 1) {
 			TooltipOutput := TooltipOutput "OutputFile=[" OutputFile "] " "`n"
 		}
@@ -2731,7 +2731,7 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 			Tooltip, %TooltipOutput%
 			; Only perform updates if any discernible change is detected (amongst colors & mouse position values)
 			If (DebugMode == 1) {
-				LogfileOutput := TooltipOutput "Color=[" Color "] Coords=[x%MouseX% y%MouseY%], Color_ResolvedName=[" Color_ResolvedName "], Blue=[" ColorComponent_Blue "], Green=[" ColorComponent_Green "], Red=[" ColorComponent_Red "], OutputFile=[" OutputFile "]"
+				LogfileOutput := StrReplace(TooltipOutput,"`n"," ")
 				Logfile.write("%LogfileOutput%`n")
 			}
 			Last_MouseX := MouseX
@@ -3439,8 +3439,10 @@ XBox_DownloadDelete_GameClips() {
 ;
 Youtube_EditDraft_Submit() {
 	Global DebugMode
-	CoordMode, Mouse, Screen
-	CoordMode, Pixel, Screen
+	; CoordMode, Mouse, Screen
+	; CoordMode, Pixel, Screen
+	CoordMode, Mouse, Window
+	CoordMode, Pixel, Window
 	SetControlDelay, -1
 	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
@@ -3457,30 +3459,36 @@ Youtube_EditDraft_Submit() {
 				Break
 			} Else {
 				Sleep 1000
-				Tooltip, % ( "Youtube - Click 'Edit Draft'" ), 1, 1
-				xpos := 1604
+				Tooltip_Header := "Youtube - Click 'Edit Draft'"
+				Tooltip, % ( Tooltip_Header ), 1, 1
+				xpos := 1600
 				ypos := 414
 				xpos_rightedge := xpos + 40
 				Loop {
 					Sleep 100
-					If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 ) ) {
-						Break
-					} Else If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 ) ) {
+					PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+					PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+					Tooltip_Debug := ( Tooltip_Header "`n" )
+					Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
+					Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
+					Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+					If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
 						Break
 					}
 				}
 				ControlClick, x%xpos% y%ypos%, %WinTitle%
 				Sleep 100
-				Tooltip, % ( "Youtube - Click 'Next' > 'Next' > 'Save'" ), 1, 1
+				Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
+				Tooltip, % ( Tooltip_Header ), 1, 1
 				xpos := 1272
 				ypos := 1313
 				xpos_rightedge := xpos + 40
 				Loop 3 {
 					Loop {
 						Sleep 100
-						If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 ) ) {
-							Break
-						} Else If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 ) ) {
+						PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+						PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+						If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
 							Break
 						}
 					}
@@ -3488,22 +3496,24 @@ Youtube_EditDraft_Submit() {
 					Sleep 100
 				}
 				Sleep 100
-				Tooltip, % ( "Youtube - Click 'Close'" ), 1, 1
+				Tooltip_Header := "Youtube - Click 'Close'"
+				Tooltip, % ( Tooltip_Header ), 1, 1
 				xpos := 1056
 				ypos := 955
 				xpos_rightedge := xpos + 40
 				Loop {
 					Sleep 100
-					If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 ) ) {
-						Break
-					} Else If ( PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 ) ) {
+					PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+					PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+					If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
 						Break
 					}
 				}
 				ControlClick, x%xpos% y%ypos%, %WinTitle%
 				Sleep 1000
 			}
-			Tooltip, % ( "Chrome - Click 'Refresh'" ), 1, 1
+			Tooltip_Header := "Chrome - Click 'Refresh'"
+			Tooltip, % ( Tooltip_Header ), 1, 1
 			xpos := 94
 			ypos := 61
 			ControlClick, x%xpos% y%ypos%, %WinTitle%

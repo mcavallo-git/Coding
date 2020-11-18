@@ -317,7 +317,6 @@ ScrollLock::
 	;
 	; HOTKEY:  WinKey + F3  (or "#SC03D")
 	; ACTION:  Xbox Captures - Download & Delete recordings/captures via XBox's Windows 10 built-in application
-	;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
 	;
 	#F3::
 		XBox_DownloadDelete_GameClips()
@@ -332,9 +331,8 @@ ScrollLock::
 ; #If WinExist("Youtube")
 #If WinExist("Channel videos - YouTube Studio - Google Chrome")
 	;
-	; HOTKEY:  WinKey + F3  (or "#SC03D")
-	; ACTION:  Xbox Captures - Download & Delete recordings/captures via XBox's Windows 10 built-in application
-	;   |-->   !!! MAKE SURE TO HIDE SCREENSHOTS BEFOREHAND !!!
+	; HOTKEY:  WinKey + F4
+	; ACTION:  Youtube - Walk uploads from "Draft" to live state
 	;
 	#F4::
 		Youtube_EditDraft_Submit()
@@ -3435,43 +3433,69 @@ Youtube_EditDraft_Submit() {
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	WinTitle := "Channel videos - YouTube Studio - Google Chrome"
-	xpos := 6757
-	ypos := 414
-	;
-	; !!! MAKE SURE TO OPEN YOUTUBE ON RIGHT-HALF OF RIGHT-MOST ULTRAWIDE 3440x1440 MONITOR !!!
-	;
-	; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
-	;
-	Loop {
-		If (ypos >= 1380) {
-			Break
-		} Else {
-			Sleep 1000
-			Tooltip, % ( "Youtube - Click 'Edit Draft'" ), 1, 1
-			; Youtube - Click 'Edit Draft'
-			xpos := 1604
-			ypos := 414
-			ControlClick, x%xpos% y%ypos%, %WinTitle%
-			Sleep 2500
-			Tooltip, % ( "Youtube - Click 'Next' > 'Next' > 'Save'" ), 1, 1
-			Loop 3 {
-				xpos := 1300
-				ypos := 1329
+	If (WinExist(WinTitle)) {
+		;
+		; !!! MAKE SURE TO OPEN YOUTUBE ON RIGHT-HALF OF RIGHT-MOST ULTRAWIDE 3440x1440 MONITOR !!!
+		;
+		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
+		;
+		Loop {
+			If (ypos >= 1380) {
+				Break
+			} Else {
+				Sleep 1000
+				Tooltip, % ( "Youtube - Click 'Edit Draft'" ), 1, 1
+				xpos := 1604
+				ypos := 414
+				xpos_rightedge := xpos + 40
+				Loop {
+					Sleep 100
+					If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x065FD4, 50)) {
+						Break
+					} Else If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x196CD7, 50)) {
+						Break
+					}
+				}
+				ControlClick, x%xpos% y%ypos%, %WinTitle%
+				Sleep 100
+				Tooltip, % ( "Youtube - Click 'Next' > 'Next' > 'Save'" ), 1, 1
+				xpos := 1272
+				ypos := 1313
+				xpos_rightedge := xpos + 40
+				Loop 3 {
+					Loop {
+						Sleep 100
+						If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x065FD4, 50)) {
+							Break
+						} Else If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x196CD7, 50)) {
+							Break
+						}
+					}
+					ControlClick, x%xpos% y%ypos%, %WinTitle%
+					Sleep 100
+				}
+				Sleep 100
+				Tooltip, % ( "Youtube - Click 'Close'" ), 1, 1
+				xpos := 1056
+				ypos := 955
+				xpos_rightedge := xpos + 40
+				Loop {
+					Sleep 100
+					If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x065FD4, 50)) {
+						Break
+					} Else If (PixelSearch(Px, Py, %xpos%, %ypos%, %xpos_rightedge%, %ypos%, 0x196CD7, 50)) {
+						Break
+					}
+				}
 				ControlClick, x%xpos% y%ypos%, %WinTitle%
 				Sleep 1000
 			}
-			Sleep 2000
-			Tooltip, % ( "Youtube - Click 'Close'" ), 1, 1
-			xpos := 1074
-			ypos := 957
+			Tooltip, % ( "Chrome - Click 'Refresh'" ), 1, 1
+			xpos := 94
+			ypos := 61
 			ControlClick, x%xpos% y%ypos%, %WinTitle%
-			Sleep 1000
+			Sleep 500
 		}
-		Tooltip, % ( "Chrome - Click 'Refresh'" ), 1, 1
-		xpos := 94
-		ypos := 61
-		ControlClick, x%xpos% y%ypos%, %WinTitle%
-		Sleep 3000
 	}
 	ClearTooltip(10000)
 	Return

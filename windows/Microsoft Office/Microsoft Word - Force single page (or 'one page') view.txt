@@ -1,5 +1,15 @@
 
-See Citation(s), below
+Microsoft Word - Steps to force single-page (or 'one-page') view
+
+"
+Open Microsoft Word
+ > Open the default template while @  [ %APPDATA%\Microsoft\Templates ].
+  > Open the file named either [ Normal.dotm ] or [ Normal.dotx ]
+   > On the view tab, click "page layout"
+    > In the zoom panel, click "one page"
+     > Save and close.
+      > You can change a lot of other default settings here, too, such as font size, style, etc.
+"
 
 
 ------------------------------------------------------------

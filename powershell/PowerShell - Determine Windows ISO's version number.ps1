@@ -48,7 +48,7 @@ Write-Host "Version Number (Windows ISO):   !!!   ${ISO_VersionNumber}   !!!";
 
 Start-Sleep -Seconds (1);
 
-# $Mounted_ISO | Dismount-DiskImage | Out-Null;
+${Mounted_ISO} | Dismount-DiskImage | Out-Null;
 
 <# Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force; #>
 <# $Install_Wim = "${MountDir}\sources\install.wim"; #>

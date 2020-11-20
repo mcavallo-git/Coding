@@ -39,7 +39,7 @@ If ($True) {
 	$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
 
 	Write-Output "${ISO_Version_Combined}";
-	Write-Output "${DISM_Info}";
+	# Write-Output "${DISM_Info}";
 
 	Start-Sleep -Seconds (1);
 

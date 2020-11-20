@@ -18,8 +18,19 @@ $Install_Esd = "${MountDir}\sources\install.esd";
 Set-Variable -Name "DriveLetter" -Scope "Script" -Value "";
 $Possible_DriveLetters = @("C","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 
-$Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; }; };
+Write-Host " z z z 1 ";
+
+ForEach ($EachDriveLetter In (${Possible_DriveLetters})) {
+	If ((Test-Path -Path ("${EachDriveLetter}:\")) -Eq $False) {
+		$DriveLetter = $_;
+		Break;
+	};
+};
+
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
+
+Write-Host " z z z 2 ";
+
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 Start-Sleep -Seconds (1);

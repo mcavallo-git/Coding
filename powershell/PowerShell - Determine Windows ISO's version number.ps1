@@ -12,8 +12,6 @@ If ($False) {
 
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
-$Install_Wim = "${MountDir}\sources\install.wim";
-$Install_Esd = "${MountDir}\sources\install.esd";
 
 Set-Variable -Name "DriveLetter" -Scope "Script" -Value "";
 $Possible_DriveLetters = @("E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
@@ -36,14 +34,13 @@ Start-Sleep -Seconds (1);
 
 Write-Host "`${DriveLetter} = [${DriveLetter}]";
 
-<# Get version # of Windows (stored within the .iso file) #>
+<# Get the version # of Windows (stored within the .iso file) #>
 $Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 $Install_Esd_Desktop = ( "${Home}\Desktop\install.esd" );
 
 Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force;
 
-# $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:0);
-$DISM_Info = (C:\Windows\system32\Dism.exe "/Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1");
+$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:0);
 
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 $ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
@@ -54,7 +51,8 @@ Start-Sleep -Seconds (1);
 # $Mounted_ISO | Dismount-DiskImage | Out-Null;
 
 <# Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force; #>
-
+<# $Install_Wim = "${MountDir}\sources\install.wim"; #>
+<# $Install_Esd = "${MountDir}\sources\install.esd"; #>
 
 # ------------------------------------------------------------
 #

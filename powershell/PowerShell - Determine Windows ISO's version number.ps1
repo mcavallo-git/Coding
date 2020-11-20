@@ -29,7 +29,7 @@ $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 $MatchResults = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 $ISO_VersionNumber = "$(${MatchResults[0]})";
 Write-Host "";
-Write-Host "Windows 10 ISO's Version Number:  ${ISO_VersionNumber}";
+Write-Host "Windows ISO's Version Number:  ${ISO_VersionNumber}";
 
 }
 

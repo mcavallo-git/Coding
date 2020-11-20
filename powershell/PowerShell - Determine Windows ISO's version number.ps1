@@ -31,9 +31,7 @@ Write-Host "Version Number (Windows ISO):  ${ISO_VersionNumber}";
 Write-Host "";
 $Mounted_ISO | Dismount-DiskImage | Out-Null;
 
-
 # Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
-
 
 };
 

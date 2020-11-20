@@ -28,6 +28,9 @@
 #
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
+$Install_Wim = "${MountDir}\sources\install.wim";
+$Install_Esd = "${MountDir}\sources\install.esd";
+
 $DriveLetter = "";
 $Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; }; };
@@ -45,8 +48,6 @@ $Mounted_ISO | Dismount-DiskImage | Out-Null;
 #
 $WimIndexSource = $Null;
 $WimIndexDest = $Null;
-$Install_Wim = "${MountDir}\sources\install.wim";
-$Install_Esd = "${MountDir}\sources\install.esd";
 $InvalidWimIndices = @();
 If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 	If ((Test-Path ("${Install_Esd}")) -Eq $True) {

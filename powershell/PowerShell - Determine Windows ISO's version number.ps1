@@ -16,7 +16,7 @@ $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
 
 Set-Variable -Name "DriveLetter" -Scope "Script" -Value "";
-$Possible_DriveLetters = @("C","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+$Possible_DriveLetters = @("E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 
 Write-Host " z z z 1 ";
 

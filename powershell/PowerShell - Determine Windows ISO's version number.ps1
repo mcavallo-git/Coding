@@ -38,8 +38,6 @@ Write-Host "`${DriveLetter} = [${DriveLetter}]";
 $Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 $Install_Esd_Desktop = ( "${Home}\Desktop\install.esd" );
 
-Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force;
-
 $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:0);
 
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
@@ -50,6 +48,7 @@ Start-Sleep -Seconds (1);
 
 ${Mounted_ISO} | Dismount-DiskImage | Out-Null;
 
+<# Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force; #>
 <# Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force; #>
 <# $Install_Wim = "${MountDir}\sources\install.wim"; #>
 <# $Install_Esd = "${MountDir}\sources\install.esd"; #>

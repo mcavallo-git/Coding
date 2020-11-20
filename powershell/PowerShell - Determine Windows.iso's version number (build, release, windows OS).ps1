@@ -14,7 +14,7 @@ If ($True) {
 
 	$ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 
-	$Possible_DriveLetters = @("E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+	$Possible_DriveLetters = @("D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 	ForEach ($EachDriveLetter In (${Possible_DriveLetters})) {
 		If ((Test-Path -Path ("${EachDriveLetter}:\")) -Eq $False) {
 			Set-Variable -Name "DriveLetter" -Scope "Script" -Value "${EachDriveLetter}";
@@ -37,6 +37,7 @@ If ($True) {
 	$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
 
 	Write-Output "${ISO_Version_Combined}";
+	Write-Output "${DISM_Info}";
 
 	${Mounted_ISO} | Dismount-DiskImage | Out-Null;
 

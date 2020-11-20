@@ -25,8 +25,7 @@ Start-Sleep -Seconds (1);
 $Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
-$MatchResults = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
-$ISO_VersionNumber = "$(${MatchResults})";
+$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 Write-Host "Version Number (Windows ISO):   !!!   ${ISO_VersionNumber}   !!!";
 $Mounted_ISO | Dismount-DiskImage | Out-Null;
 

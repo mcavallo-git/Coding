@@ -4,14 +4,12 @@
 #
 # ------------------------------------------------------------
 
-If ($True) {
-
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
 
-Set-Variable -Name 'DriveLetter' -Scope 'Global' -Visibility 'Public' -Option 'AllScope' -Value '';
+Set-Variable -Name "DriveLetter" -Scope "Script" -Value "";
 $Possible_DriveLetters = @("C","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; }; };
@@ -19,18 +17,18 @@ $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 Start-Sleep -Seconds (1);
-}
+};
 
+Write-Host "`${DriveLetter} = [${DriveLetter}]";
 
 <# Get version # of Windows (stored within the .iso file) #>
 $Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 $Install_Esd_Desktop = ( "${Home}\Desktop\install.esd" );
 
-Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force; 
+Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force;
 
-$DISM_Info = (Start-Process -Filepath ("C:\Windows\system32\Dism.exe") -ArgumentList (@("/Get-WimInfo","/WimFile:${Install_Esd_MountPath}","/index:1")) -NoNewWindow -Wait -PassThru -ErrorAction SilentlyContinue);
-
-# $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+# $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:0);
+$DISM_Info = (C:\Windows\system32\Dism.exe "/Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1");
 
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 $ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
@@ -38,11 +36,9 @@ Write-Host "Version Number (Windows ISO):   !!!   ${ISO_VersionNumber}   !!!";
 
 Start-Sleep -Seconds (1);
 
-$Mounted_ISO | Dismount-DiskImage | Out-Null;
+# $Mounted_ISO | Dismount-DiskImage | Out-Null;
 
 <# Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force; #>
-
-};
 
 
 # ------------------------------------------------------------

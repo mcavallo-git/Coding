@@ -3,6 +3,12 @@
 # Determine the version number of a given Windows ".iso" image-file
 #
 # ------------------------------------------------------------
+If ($False) {
+
+. "${Home}\Documents\GitHub\Coding\powershell\PowerShell - Determine Windows ISO's version number.ps1";
+
+}
+# ------------------------------------------------------------
 
 $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";

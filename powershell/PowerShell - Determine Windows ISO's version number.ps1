@@ -40,7 +40,6 @@ If ($True) {
 	$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 	Write-Host "";
 	Write-Host "Version Number (Windows ISO):";
-	Write-Host "";
 	Write-Host "${ISO_VersionNumber}";
 	Write-Host "";
 

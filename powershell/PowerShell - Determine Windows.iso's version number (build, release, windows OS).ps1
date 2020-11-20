@@ -39,6 +39,8 @@ If ($True) {
 	Write-Output "${ISO_Version_Combined}";
 	Write-Output "${DISM_Info}";
 
+	Start-Sleep -Seconds (1);
+
 	${Mounted_ISO} | Dismount-DiskImage | Out-Null;
 
 }

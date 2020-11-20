@@ -15,19 +15,22 @@ $Possible_DriveLetters = @("C","E","F","G","H","I","J","K","L","M","N","O","P","
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; }; };
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {
-	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
-	Start-Sleep -Seconds (1);
+New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
+Start-Sleep -Seconds (1);
 }
-Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
-$Mounted_ISO | Dismount-DiskImage | Out-Null;
+
+# Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 
 <# Get version # of Windows (stored within the .iso file) #>
-$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd} /index:1);
+$Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
+$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 $MatchResults = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
-$ISO_VersionNumber = "$(${MatchResults[0]})";
+$ISO_VersionNumber = "$(${MatchResults})";
 Write-Host "";
 Write-Host "Version Number tied to Windows ISO:  ${ISO_VersionNumber}";
+
+$Mounted_ISO | Dismount-DiskImage | Out-Null;
 
 };
 

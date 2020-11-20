@@ -24,6 +24,8 @@ If ($True) {
 
 	$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
+	Start-Sleep -Seconds (1);
+
 	<# Get the version # of Windows (stored within the .iso file) #>
 	$Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 

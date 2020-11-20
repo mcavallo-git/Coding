@@ -28,7 +28,10 @@ $Install_Esd_Desktop = ( "${Home}\Desktop\install.esd" );
 
 Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force; 
 
-$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+$DISM_Info = (Start-Process -Filepath ("C:\Windows\system32\Dism.exe") -ArgumentList (@("/Get-WimInfo","/WimFile:${Install_Esd_MountPath}","/index:1")) -NoNewWindow -Wait -PassThru -ErrorAction SilentlyContinue);
+
+# $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 $ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 Write-Host "Version Number (Windows ISO):   !!!   ${ISO_VersionNumber}   !!!";

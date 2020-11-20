@@ -97,6 +97,16 @@ If (($WimIndexSource) -Eq ($Null)) {
 } Else {
 
 	#
+	# Get version # of Windows (stored within the .iso file)
+	#	
+	$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd} /index:1);
+	$Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
+	$MatchResults = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
+	$ISO_VersionNumber = "$(${MatchResults[0]})";
+	Write-Host "";
+	Write-Host "Windows-ISO's Version Number:  ${ISO_VersionNumber}";
+
+	#
 	# Auditing trail to ensure that the target Windows sub-image was used (source)
 	#
 	Write-Host "";

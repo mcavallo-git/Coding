@@ -36,7 +36,7 @@ If ($True) {
 
 	Copy-Item ("${Install_Esd_MountPath}") ("${Install_Esd_Desktop}") -Force;
 
-	$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:0);
+	$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
 
 	$Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 	$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");

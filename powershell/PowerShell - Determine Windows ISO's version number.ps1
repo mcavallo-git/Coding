@@ -10,8 +10,11 @@ $ISO_Fullpath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
-$DriveLetter = "";
+
+# $DriveLetter = "";
+Set-Variable -Name 'DriveLetter' -Scope 'Global' -Visibility 'Public' -Option 'AllScope' -Value '';
 $Possible_DriveLetters = @("C","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; }; };
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {

@@ -19,7 +19,6 @@ New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 Start-Sleep -Seconds (1);
 }
 
-
 <# Get version # of Windows (stored within the .iso file) #>
 $Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);

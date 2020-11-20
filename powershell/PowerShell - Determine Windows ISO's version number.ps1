@@ -21,17 +21,15 @@ If ((Test-Path ("${MountDir}")) -Eq $False) {
 Copy-Item ("${DriveLetter}:\*") ("${MountDir}\") -Recurse -Force;
 $Mounted_ISO | Dismount-DiskImage | Out-Null;
 
-#
-# Get version # of Windows (stored within the .iso file)
-#	
+<# Get version # of Windows (stored within the .iso file) #>
 $DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd} /index:1);
 $Regex_Win10_VersionNum = "Version\s*:\s*[\d]+\.[\d]+\.[\d]+\.[\d]+\s*";
 $MatchResults = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 $ISO_VersionNumber = "$(${MatchResults[0]})";
 Write-Host "";
-Write-Host "Windows ISO's Version Number:  ${ISO_VersionNumber}";
+Write-Host "Version Number tied to Windows ISO:  ${ISO_VersionNumber}";
 
-}
+};
 
 
 # ------------------------------------------------------------

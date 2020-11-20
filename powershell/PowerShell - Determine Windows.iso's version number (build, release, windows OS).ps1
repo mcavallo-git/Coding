@@ -27,7 +27,7 @@ If ($True) {
 	<# Get the version # of Windows (stored within the .iso file) #>
 	$Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
 
-	$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+	$DISM_Info = (Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
 
 	$Regex_Win10_VersionNum = "Version\s+:\s+[\d]+\.[\d]+\.[\d]+\s*";
 	$Regex_Win10_BuildNum = "ServicePack\s+Build\s+:\s+[\d]+\s*";

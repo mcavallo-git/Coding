@@ -18,7 +18,7 @@ $Possible_DriveLetters = @("E","F","G","H","I","J","K","L","M","N","O","P","Q","
 
 ForEach ($EachDriveLetter In (${Possible_DriveLetters})) {
 	If ((Test-Path -Path ("${EachDriveLetter}:\")) -Eq $False) {
-		$DriveLetter = $_;
+		$DriveLetter = "${EachDriveLetter}";
 		Break;
 	};
 };

@@ -29,11 +29,11 @@ If ($True) {
 
 	$DISM_Info = (DISM /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:0);
 
-	$Regex_Win10_VersionNum = "^Version\s*:\s*[\d]+\.[\d]+\.[\d]+\s*$";
-	$Regex_Win10_BuildNum = "^ServicePack Build\s*:\s*[\d]+\s*$";
+	$Regex_Win10_VersionNum = "Version :\s*[\d]+\.[\d]+\.[\d]+\s*";
+	$Regex_Win10_BuildNum = "ServicePack Build :\s*[\d]+\s*";
 	
 	$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
-	$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
+	$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
 	$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
 
 	Write-Output "${ISO_Version_Combined}";

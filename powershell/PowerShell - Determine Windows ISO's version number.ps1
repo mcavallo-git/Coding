@@ -11,7 +11,6 @@ $MountDir = "${Home}\Desktop\Mount";
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
 
-# $DriveLetter = "";
 Set-Variable -Name 'DriveLetter' -Scope 'Global' -Visibility 'Public' -Option 'AllScope' -Value '';
 $Possible_DriveLetters = @("C","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 

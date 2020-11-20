@@ -25,8 +25,6 @@ ForEach ($EachDriveLetter In (${Possible_DriveLetters})) {
 
 $Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
-Write-Host " z z z 2 ";
-
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 Start-Sleep -Seconds (1);

@@ -344,7 +344,7 @@ Joy32::
 	; SET ANY EXISTENT GAME-WINDOW ACTIVE UPON JOYSTICK BUTTON-/TRIGGER-PRESS
 	;
 	; If (DebugMode == 1) {
-		Tooltip, % ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
+	Tooltip, % ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
 	; }
 	Return
 

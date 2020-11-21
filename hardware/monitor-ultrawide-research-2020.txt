@@ -10,48 +10,90 @@ Nov-2020 - Ultrawide Monitor Research
 
   Charging via USB-C (Power Delivery) >= 65 Watts
 
+------------------------------------------------------------
+
+Brand + Model:  Asus ROG Switft PG35VQ
+
+Price:  $2899.99
+
+Panel Type:  VA
+Refresh Rate: 200 Hz 
+Response Time:  2 ms
+
+Screen Size:  35"
+Resolution:  3440 X 1440
+Curvature:  1800R
+
+URL (Amazon):  https://www.amazon.com/dp/B07VTTZ4TD
+URL (Manufacturer):  https://rog.asus.com/monitors/above-34-inches/rog-swift-pg35vq-model/spec/
 
 ------------------------------------------------------------
 
-Brand + Model:  Dell U4919DW
+Brand + Model:  Alienware AW3821DW
 
-Price:  $1,594.00
-
-Screen Size:  49"
-Resolution:  5120 x 1440
-Response Time:  5ms
+Price:  $1899.99
 
 Panel Type:  IPS
-Refresh Rate:  60 Hz
+Refresh Rate:  144 Hz
+Response Time:  1 ms
 
-DisplayPort:  1 x DP 1.4 (HDCP 2.2)
-HDMI: 2 x HDMI 2.0 (HDCP 2.2)
+Screen Size:  38"
+Resolution:  3840 x 1600
+Curvature:  2300R
 
-URL (Amazon):  https://amazon.com/dp/B08FXV7ZFQ/
-URL (Newegg):  https://www.newegg.com/dell-u4919dw-49/p/N82E16824260628
-URL (Manufacturer):  https://www.dell.com/en-us/work/shop/dell-ultrasharp-49-curved-monitor-u4919dw/apd/210-arnw/monitors-monitor-accessories#techspecs_section
-
+URL (Amazon):  
+URL (Manufacturer):  https://www.dell.com/en-us/shop/alienware-38-curved-gaming-monitor-aw3821dw/apd/210-axvg/monitors-monitor-accessories
 
 ------------------------------------------------------------
 
-Brand + Model:  LG 49WL95C-W
+Brand + Model:  Samsung Odyssey G9 (G97T)
 
-Price:  $1,469.99
+Price:  $1399.99
 
-Panel Type:  IPS
-Refresh Rate:  60 Hz
-Response Time:  5ms (GTG)
+Panel Type:  VA
+Refresh Rate:  240 Hz
+Response Time:  1 ms
 
-Screen Size:  49"  (14.40" x 47.84" x 4.50")
+Screen Size:  48.8"
 Resolution:  5120 x 1440
+Curvature:  1000R
 
-DisplayPort:  1 x DP 1.4 (HDCP 2.2)
-HDMI: 2 x HDMI ??? (HDCP ???)
+URL (Amazon):  https://www.amazon.com/dp/B088HH6LW5
+URL (Manufacturer):  https://www.samsung.com/us/business/products/computing/monitors/g-series/odyssey-g9-series-49-curved-lc49g97tssnxdc/
 
-URL (Amazon):  https://amazon.com/dp/B07PJQKLTW
-URL (Newegg):  https://www.newegg.com/lg-49wl95c-w-49/p/N82E16824025946
-URL (Manufacturer):  https://www.lg.com/us/monitors/lg-49WL95C-W-ultrawide-monitor
+------------------------------------------------------------
 
+Brand + Model:  Alienware AW3820DW
+
+Price:  $999.99
+
+Panel Type:  Fast IPS Nano Color
+Refresh Rate:  120 Hz
+Response Time:  2 ms
+
+Screen Size:  34"
+Resolution:  3440 x 1440
+Curvature:  1900R
+
+URL (Amazon):  https://www.amazon.com/dp/B07YLGH9Q5
+URL (Manufacturer):  https://www.dell.com/en-us/shop/new-alienware-34-curved-gaming-monitor-aw3420dw/apd/210-atzq/monitors-monitor-accessories
+
+------------------------------------------------------------
+
+Brand + Model:  ASUS XG43VQ
+
+Price:  $699.99
+
+Panel Type:  VA
+Refresh Rate:  120 Hz
+Response Time:  1 ms
+
+Screen Size:  43"
+Resolution:  3840 x 1200
+Curvature:  1800R
+
+URL (Amazon):  https://amazon.com/dp/B082XZKQN6
+URL (Manufacturer):  https://rog.asus.com/Monitors/Above-34-Inches/ROG%20STRIX%20XG43VQ-Model/
 
 ------------------------------------------------------------
 
@@ -65,6 +107,7 @@ Response Time:  5 ms
 
 Screen Size:  34"
 Resolution:  3440 x 1440
+Curvature:  1900R  (need to verify this)
 
 DisplayPort:  1 x DP v1.2 (HDCP 1.3)
 HDMI:  2 x HDMI v2.0 (HDCP 2.?)
@@ -72,59 +115,6 @@ HDMI:  2 x HDMI v2.0 (HDCP 2.?)
 URL (Amazon):  https://www.amazon.com/dp/B07DPXJZJ9
 URL (Newegg):  https://www.newegg.com/lg-34uc88-b-34-ultrawide-qhd/p/N82E16824025343
 URL (Manufacturer):  https://www.lg.com/us/monitors/lg-34UC88-B-ultrawide-monitor
-
-
-------------------------------------------------------------
-
-Brand + Model:  Alienware AW3820DW
-
-Price:  $999.99
-
-Panel Type:  Fast IPS Nano Color
-Refresh Rate:  120 Hz
-
-Screen Size:  34"
-Resolution:  3440 x 1440
-Response Time:  2 ms
-
-URL (Amazon):  https://www.amazon.com/dp/B07YLGH9Q5
-URL (Manufacturer):  https://www.dell.com/en-us/shop/new-alienware-34-curved-gaming-monitor-aw3420dw/apd/210-atzq/monitors-monitor-accessories
-
-
-------------------------------------------------------------
-
-Brand + Model:  Alienware AW3821DW
-
-Price:  $1899.99
-
-Panel Type:  IPS
-Refresh Rate:  144 Hz
-
-Screen Size:  38"
-Resolution:  3840 x 1600
-Response Time:  1 ms
-
-URL (Amazon):  
-URL (Manufacturer):  https://www.dell.com/en-us/shop/alienware-38-curved-gaming-monitor-aw3821dw/apd/210-axvg/monitors-monitor-accessories
-
-
-------------------------------------------------------------
-
-Brand + Model:  Asus ROG Switft PG35VQ
-
-Price:  $2899.99
-
-Panel Type:  VA
-Refresh Rate: 200 Hz 
-
-Screen Size:  35"
-Curvature:  1800R
-Resolution:  3440 X 1440
-Response Time:  2 ms
-
-URL (Amazon):  https://www.amazon.com/dp/B07VTTZ4TD
-URL (Manufacturer):  https://rog.asus.com/monitors/above-34-inches/rog-swift-pg35vq-model/spec/
-
 
 ------------------------------------------------------------
 
@@ -134,10 +124,11 @@ Price:  $
 
 Panel Type:  
 Refresh Rate:  
+Response Time:  
 
 Screen Size:  
 Resolution:  
-Response Time:  
+Curvature:  
 
 URL (Amazon):  https://amazon.com/dp/
 URL (Manufacturer):  

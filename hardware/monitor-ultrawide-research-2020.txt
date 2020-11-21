@@ -97,7 +97,7 @@ URL (Manufacturer):  https://rog.asus.com/Monitors/Above-34-Inches/ROG%20STRIX%2
 
 ------------------------------------------------------------
 
-Brand + Model:  LG 34UC88-B
+Brand + Model:  LG 34UC88-B  (MCavallo's Display)
 
 Price:  $529.99
 

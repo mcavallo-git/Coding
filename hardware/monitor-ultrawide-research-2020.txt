@@ -4,7 +4,7 @@ Nov-2020 - Ultrawide Monitor Research
 
 *** Top-Tier Options ***
 
-  Refresh Rate  >=  144 Hz
+  Refresh Rate  >=  120 Hz
 
   Resolution  >=  3440 x 1440
 
@@ -76,6 +76,58 @@ URL (Manufacturer):  https://www.lg.com/us/monitors/lg-34UC88-B-ultrawide-monito
 
 ------------------------------------------------------------
 
+Brand + Model:  Alienware AW3820DW
+
+Price:  $999.99
+
+Panel Type:  Fast IPS Nano Color
+Refresh Rate:  120 Hz
+
+Screen Size:  34"
+Resolution:  3440 x 1440
+Response Time:  2 ms
+
+URL (Amazon):  https://www.amazon.com/dp/B07YLGH9Q5
+URL (Manufacturer):  https://www.dell.com/en-us/shop/new-alienware-34-curved-gaming-monitor-aw3420dw/apd/210-atzq/monitors-monitor-accessories
+
+
+------------------------------------------------------------
+
+Brand + Model:  Alienware AW3821DW
+
+Price:  $1899.99
+
+Panel Type:  IPS
+Refresh Rate:  144 Hz
+
+Screen Size:  38"
+Resolution:  3840 x 1600
+Response Time:  1 ms
+
+URL (Amazon):  
+URL (Manufacturer):  https://www.dell.com/en-us/shop/alienware-38-curved-gaming-monitor-aw3821dw/apd/210-axvg/monitors-monitor-accessories
+
+
+------------------------------------------------------------
+
+Brand + Model:  Asus ROG Switft PG35VQ
+
+Price:  $2899.99
+
+Panel Type:  VA
+Refresh Rate: 200 Hz 
+
+Screen Size:  35"
+Curvature:  1800R
+Resolution:  3440 X 1440
+Response Time:  2 ms
+
+URL (Amazon):  https://www.amazon.com/dp/B07VTTZ4TD
+URL (Manufacturer):  https://rog.asus.com/monitors/above-34-inches/rog-swift-pg35vq-model/spec/
+
+
+------------------------------------------------------------
+
 Brand + Model:  
 
 Price:  $
@@ -85,13 +137,10 @@ Refresh Rate:
 
 Screen Size:  
 Resolution:  
-
-
-Response Time:
+Response Time:  
 
 URL (Amazon):  https://amazon.com/dp/
-URL (Newegg):  https://www.newegg.com/
-
+URL (Manufacturer):  
 
 ------------------------------------------------------------
 

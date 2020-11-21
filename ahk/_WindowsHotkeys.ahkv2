@@ -598,15 +598,6 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Fn Key (X1 Carbon)
-;   ACTION:  Set Fn to perform Ctrl action, instead
-;
-;SC163::   ;"Fn" Key
-;Return
-
-
-; ------------------------------------------------------------
-;
 ;   HOTKEY:  Windows-Key + [
 ;   ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;

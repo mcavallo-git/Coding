@@ -118,14 +118,6 @@ URL (Manufacturer):  https://www.lg.com/us/monitors/lg-34UC88-B-ultrawide-monito
 
 ------------------------------------------------------------
 
-Brand + Model:  Philips Brilliance 499P9H
-
-Note:  Just lol
-
-URL (Amazon):  https://www.amazon.com/dp/B07MCMFRK8
-
-------------------------------------------------------------
-
 Brand + Model:  
 
 Price:  $
@@ -140,6 +132,14 @@ Curvature:
 
 URL (Amazon):  https://amazon.com/dp/
 URL (Manufacturer):  
+
+------------------------------------------------------------
+
+Brand + Model:  Philips Brilliance 499P9H
+
+Note:  Just lol
+
+URL (Amazon):  https://www.amazon.com/dp/B07MCMFRK8
 
 ------------------------------------------------------------
 

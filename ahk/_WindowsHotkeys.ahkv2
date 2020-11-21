@@ -967,6 +967,7 @@ AppsKey & XButton2::
 ;            Ctrl/Alt/Shift + WinKey + Up/Down (Arrow-Key)
 ;   ACTION:  Turn computer volume up/down
 ;
+
 +#Up::
 !#Up::
 ^#Up::
@@ -981,40 +982,44 @@ AppsKey & XButton2::
 ^#WheelDown::
 AppsKey & WheelUp::
 AppsKey & WheelDown::
-
 	VolumeLevel_Increment := 2
-
 	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {  ; Mute On/Off
 		SoundSet, +1, , MUTE
-
 	} Else {
-
-		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up") || (A_ThisHotkey=="AppsKey & WheelUp")) {  ; Volume Up
-			vDelta := "+" ( VolumeLevel_Increment )
-
-		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down") || (A_ThisHotkey=="AppsKey & WheelDown")) {  ; Volume Down
-			vDelta := "-" ( VolumeLevel_Increment )
-
-		} Else If (A_ThisHotkey=="#WheelUp") {  ; Volume Up
-			vDelta := "+" ( VolumeLevel_Increment )
-
-		} Else If (A_ThisHotkey=="^#WheelUp") {  ; Volume Up ( More )
-			vDelta := "+" ( VolumeLevel_Increment * 2 )
-
-
-		} Else If (A_ThisHotkey=="#WheelDown") {  ; Volume Down
-			vDelta := "-" ( VolumeLevel_Increment )
-
-		} Else If (A_ThisHotkey=="^#WheelDown") {  ; Volume Down ( More )
-			vDelta := "-" ( VolumeLevel_Increment * 2 )
-
+		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up") || (A_ThisHotkey=="AppsKey & WheelUp")) {
+			vDelta := "+" ( VolumeLevel_Increment )  ; Volume Up
+		} Else If (A_ThisHotkey=="#WheelUp") {
+			vDelta := "+" ( VolumeLevel_Increment )  ; Volume Up
+		} Else If (A_ThisHotkey=="^#WheelUp") {
+			vDelta := "+" ( VolumeLevel_Increment * 2 )  ; Volume Up ( double )
+		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down") || (A_ThisHotkey=="AppsKey & WheelDown")) {
+			vDelta := "-" ( VolumeLevel_Increment )  ; Volume Down
+		} Else If (A_ThisHotkey=="#WheelDown") {
+			vDelta := "-" ( VolumeLevel_Increment )  ; Volume Down
+		} Else If (A_ThisHotkey=="^#WheelDown") {
+			vDelta := "-" ( VolumeLevel_Increment * 2 )  ; Volume Down ( double )
 		}
-
 		SoundSet , %vDelta%
-
 	}
 	ShowVolumeLevel()
 	Return
+; Three-Key Hotkeys
+#If GetKeyState("AppsKey", "P")
+	Alt & Up::  ; AppsKey + Alt + Up
+	Ctrl & Up::  ; AppsKey + Ctrl + Up
+	Shift & Up::  ; AppsKey + Shift + Up
+		VolumeLevel_Increment := 2
+		SoundSet , % ( "+" VolumeLevel_Increment )
+		ShowVolumeLevel()
+		Return
+	Alt & Down::  ; AppsKey + Alt + Down
+	Ctrl & Down::  ; AppsKey + Ctrl + Down
+	Shift & Down::  ; AppsKey + Shift + Down
+		VolumeLevel_Increment := 2
+		SoundSet , % ( "-" VolumeLevel_Increment )
+		ShowVolumeLevel()
+		Return
+#If
 
 
 ; ------------------------------------------------------------

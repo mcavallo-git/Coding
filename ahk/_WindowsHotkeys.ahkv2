@@ -2048,8 +2048,16 @@ Open_Exe(ExeFullpath) {
 ;   |--> Opens the "Google Chrome" Application
 ;
 OpenChrome() {
-	ExeFullpath := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-	Open_Exe(ExeFullpath)
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	Exe_Path := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	; Open_Exe(Exe_Path)
+	WinWait_TimeoutSeconds := 5
+	WinTitle := " - Google Chrome"
+	If (!WinExist(WinTitle)) {
+		RunExe_NON_Admin(Exe_Path)
+	}
+	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

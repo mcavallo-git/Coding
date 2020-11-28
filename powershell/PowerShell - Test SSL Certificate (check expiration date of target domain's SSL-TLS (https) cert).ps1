@@ -39,24 +39,25 @@ If ($True) {
 
 		Try {
 			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());
-			($HttpWebResponses.$i).Dispose();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";
 			($HttpWebRequests.$i).Abort();
+			($HttpWebResponses.$i).Dispose();
 		};
 
 		$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);
-		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
-		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
-		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
+		$certName = $DomainCertificate.GetName();
+		$certThumbprint = $DomainCertificate.GetCertHashString();
+		$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
+		$certIssuer = $DomainCertificate.GetIssuerName();
+		$certExpDateStr = $DomainCertificate.GetExpirationDateString();
+		$certExpDateObj = [DateTime]::Parse($certExpDateStr, $Null);
+
+		[Int]$ValidDaysRemaining = ($certExpDateObj - $(Get-Date)).Days;
 
 		<# Show the certificate's 'days til expiration' and 'expiration datetime' #>
-		Write-Output "Certificate expires in [ $ValidDaysRemaining ] days (expiration datetime is [ $($ExpDate_Obj.ToString()) ]).";
+		Write-Output "Certificate expires in [ $ValidDaysRemaining ] days (expiration datetime is [ $($certExpDateObj.ToString()) ]).";
 		If ($ValidDaysRemaining -LE $ValidDaysRemaining_WarningLimit) {
-			$certName = $DomainCertificate.GetName();
-			$certThumbprint = $DomainCertificate.GetCertHashString();
-			$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
-			$certIssuer = $DomainCertificate.GetIssuerName();
 			Write-Output Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer;
 		}
 

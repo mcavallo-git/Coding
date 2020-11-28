@@ -8,7 +8,7 @@ If ($True) {
 
 	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
 
-	# $HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
+	$HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
 	
 	$HttpWebRequest_MaximumAutomaticRedirections = 1; <# Integer -> The maximum number of redirects that the request follows #>
 

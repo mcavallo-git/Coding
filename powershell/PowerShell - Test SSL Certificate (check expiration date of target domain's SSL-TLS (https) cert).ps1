@@ -29,7 +29,6 @@ If ($True) {
 		$EachDomain = ($DomainsToCheck[${i}]);
 
 		Write-Output "------------------------------------------------------------";
-
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
 		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);

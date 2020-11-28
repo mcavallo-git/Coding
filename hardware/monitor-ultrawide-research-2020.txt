@@ -97,6 +97,27 @@ URL (Manufacturer):  https://rog.asus.com/Monitors/Above-34-Inches/ROG%20STRIX%2
 
 ------------------------------------------------------------
 
+Brand + Model:  LG 34GP83A-B
+
+Price:  $799.99
+
+Panel Type:  IPS
+Refresh Rate:  144 Hz
+Response Time:  1 ms
+
+Screen Size:  34"
+Resolution:  3440 x 1440
+Curvature:  ____R
+Dimensions (w/o stand):  32.3"-Width x 14.2"-Height x 4.1"-Depth
+
+DisplayPort:  1 x DP v1.4 (at least)
+HDMI:  2 x HDMI v2.0 (at least)
+
+URL (Amazon):  https://www.amazon.com/dp/B08DWD38VX
+URL (Manufacturer):  https://www.lg.com/us/monitors/lg-34gp83a-b-gaming-monitor
+
+------------------------------------------------------------
+
 Brand + Model:  LG 34UC88-B  (MCavallo's Display)
 
 Price:  $529.99
@@ -107,10 +128,11 @@ Response Time:  5 ms
 
 Screen Size:  34"
 Resolution:  3440 x 1440
-Curvature:  1900R  (need to verify this)
+Curvature:  1900R  (NEED TO VERIFY)
+Dimensions (w/o stand):  32.2"-Width x 14.2"-Height x 3.5"-Depth
 
-DisplayPort:  1 x DP v1.2 (HDCP 1.3)
-HDMI:  2 x HDMI v2.0 (HDCP 2.?)
+DisplayPort:  1 x DP v1.2
+HDMI:  2 x HDMI v2.0
 
 URL (Amazon):  https://www.amazon.com/dp/B07DPXJZJ9
 URL (Newegg):  https://www.newegg.com/lg-34uc88-b-34-ultrawide-qhd/p/N82E16824025343

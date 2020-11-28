@@ -26,7 +26,7 @@ If ($True) {
 		$HttpWebRequest = [System.Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
-		$HttpWebRequest.KeepAlive = $HttpWebRequest_MaximumAutomaticRedirections;
+		$HttpWebRequest.MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {

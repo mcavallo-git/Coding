@@ -30,8 +30,6 @@ If ($True) {
 
 		Write-Output "------------------------------------------------------------";
 
-		# Write-Host "`$DomainsToCheck[${i}] = ${DomainsToCheck}";
-
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
 		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);

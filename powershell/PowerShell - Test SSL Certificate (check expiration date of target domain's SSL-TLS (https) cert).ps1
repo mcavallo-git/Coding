@@ -21,7 +21,7 @@ If ($True) {
 		Write-Host "------------------------------------------------------------";
 		Write-Host "Requesting SSL Certificate from `"$EachDomain`" ...  " -NoNewLine;
 
-		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
+		$HttpWebRequest = [System.Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;

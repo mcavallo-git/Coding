@@ -30,9 +30,10 @@ If ($True) {
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
-			(($HttpWebRequest.GetResponse()).Close() | Out-Null);
+			$HttpWebResponse = ($HttpWebRequest.GetResponse());
+			$HttpWebResponse.Close();
 		} Catch {
-			Write-Host ($_) -ForegroundColor "Red";
+			Write-Host ($_) -ForegroundColor "Magenta";
 		};
 
 		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);
@@ -40,8 +41,8 @@ If ($True) {
 		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
 
-		Write-Output "Expiration DateTime=[ $($ExpDate_Obj.ToString()) ]";
-		Write-Output "Certificate expires in [ $ValidDaysRemaining ] days.";
+		# Write-Output "Expiration DateTime=[ $($ExpDate_Obj.ToString()) ]";
+		Write-Output "Certificate expires in [ $ValidDaysRemaining ] days (expiration timestamp is [ $($ExpDate_Obj.ToString()) ]).";
 		If ($ValidDaysRemaining -LE $ValidDaysRemaining_WarningLimit) {
 			$certName = $DomainCertificate.GetName();
 			$certThumbprint = $DomainCertificate.GetCertHashString();

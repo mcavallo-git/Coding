@@ -5,7 +5,6 @@ If ($True) {
 		"https://cava.lol/",
 		"https://cava.sh/",
 		"https://centos.sh/",
-		"https://centralized.host/",
 		"https://mcavallo.com/",
 		"https://mcavallo.net/",
 		"https://mcavallo.work/",

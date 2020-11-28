@@ -53,13 +53,12 @@ Function TestHostCertificate() {
 		Write-Output "------------------------------------------------------------";
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
-		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
-		($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
-		($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
-		($HttpWebRequests.$i).ReadWriteTimeout = $HttpWebRequest_Timeout;
-		($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
-
 		Try {
+			($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
+			($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+			($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
+			($HttpWebRequests.$i).ReadWriteTimeout = $HttpWebRequest_Timeout;
+			($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
 			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());
 			# ($HttpWebResponses.$i).Close();
 			($HttpWebResponses.$i).Dispose();
@@ -68,23 +67,26 @@ Function TestHostCertificate() {
 			($HttpWebRequests.$i).Abort();
 		};
 
-		$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);
-		$certName = $DomainCertificate.GetName();
-		$certThumbprint = $DomainCertificate.GetCertHashString();
-		$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
-		$certIssuer = $DomainCertificate.GetIssuerName();
-		$certExpDateStr = $DomainCertificate.GetExpirationDateString();
-		$certExpDateObj = [DateTime]::Parse($certExpDateStr, $Null);
+		If ($HttpWebRequests -NE $Null) {
 
-		[Int]$ValidDaysRemaining = ($certExpDateObj - $(Get-Date)).Days;
+			$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);
+			$certName = $DomainCertificate.GetName();
+			$certThumbprint = $DomainCertificate.GetCertHashString();
+			$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
+			$certIssuer = $DomainCertificate.GetIssuerName();
+			$certExpDateStr = $DomainCertificate.GetExpirationDateString();
+			$certExpDateObj = [DateTime]::Parse($certExpDateStr, $Null);
 
-		<# Show the certificate's 'days til expiration' and 'expiration datetime' #>
-		Write-Output "Certificate Expiration Date = [ $certExpDateStr ]  (in [ $ValidDaysRemaining ] days)";
-		Write-Output "Certificate Effective Date = [ $certEffectiveDate ]";
-		Write-Output "Certificate Name = [ $certName ]";
-		Write-Output "Certificate Thumbprint = [ $certThumbprint ]";
-		Write-Output "Certificate Issuer = [ $certIssuer ]";
+			[Int]$ValidDaysRemaining = ($certExpDateObj - $(Get-Date)).Days;
 
+			<# Show the certificate's 'days til expiration' and 'expiration datetime' #>
+			Write-Output "Certificate Expiration Date = [ $certExpDateStr ]  (in [ $ValidDaysRemaining ] days)";
+			Write-Output "Certificate Effective Date = [ $certEffectiveDate ]";
+			Write-Output "Certificate Name = [ $certName ]";
+			Write-Output "Certificate Thumbprint = [ $certThumbprint ]";
+			Write-Output "Certificate Issuer = [ $certIssuer ]";
+
+		}
 	}
 
 	Write-Output "------------------------------------------------------------";

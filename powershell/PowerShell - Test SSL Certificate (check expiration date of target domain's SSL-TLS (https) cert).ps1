@@ -18,39 +18,34 @@ If ($True) {
 
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation (ignore SSL warnings) #>
 
-	$HttpWebRequests = @{};
-	$HttpWebResponses = @{};
+	ForEach ($EachDomain In $DomainsToCheck) {
 
-	# ForEach ($EachDomain In $DomainsToCheck) {
-	For ($i=0; ($i -LT $DomainsToCheck.Count); $i++) {
-		$EachDomain = ($DomainsToCheck[${i}]);
+		$HttpWebRequest = $Null;
+		$HttpWebResponse = $Null;
 
 		Write-Output "------------------------------------------------------------";
-
-		# Write-Host "`$DomainsToCheck[${i}] = ${DomainsToCheck}";
-
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
-		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
-		($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
-		($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
-		($HttpWebRequests.$i).MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
-		($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
+		$HttpWebRequest = [System.Net.HttpWebRequest]::Create($EachDomain);
+		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
+		$HttpWebRequest.MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
+		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
-			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());
-			($HttpWebResponses.$i).Close();
-			($HttpWebResponses.$i).Dispose();
+			$HttpWebResponse = ($HttpWebRequest.GetResponse());
+			$HttpWebResponse.Dispose();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";
+			$HttpWebRequest.Abort();
 		};
 
-		$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);
+		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);
 		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
 		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
 
-		# Write-Output "Expiration DateTime=[ $($ExpDate_Obj.ToString()) ]";
+		<# Show the certificate expiration value(s) #>
 		Write-Output "Certificate expires in [ $ValidDaysRemaining ] days (expiration timestamp is [ $($ExpDate_Obj.ToString()) ]).";
 		If ($ValidDaysRemaining -LE $ValidDaysRemaining_WarningLimit) {
 			$certName = $DomainCertificate.GetName();
@@ -59,10 +54,6 @@ If ($True) {
 			$certIssuer = $DomainCertificate.GetIssuerName();
 			Write-Output Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer;
 		}
-
-		# ($HttpWebRequests.$i) = $Null;
-		# ($HttpWebResponses.$i) = $Null;
-		# Remove-Variable ("HttpWebRequests.$i");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}
 

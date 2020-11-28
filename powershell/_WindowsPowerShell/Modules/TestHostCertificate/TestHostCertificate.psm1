@@ -53,21 +53,22 @@ Function TestHostCertificate() {
 	For ($i=0; ($i -LT $DomainsToCheck.Count); $i++) {
 		$EachDomain = ($DomainsToCheck[${i}]);
 
-		Write-Output "------------------------------------------------------------";
 		Write-Output "";
+		Write-Output "------------------------------------------------------------";
 
 		<# Autocorrect domains without colons ":" in their url strings (unless disabled) #>
 		If (($EachDomain -Match ":") -Eq $False) {
 			If ($AllowSchemaPrepend -Eq $True) {
 				$PrependSchema = "https://"
-				Write-Host "Info:  Modifying domain from `"${EachDomain}`" to `"${PrependSchema}${EachDomain}`"   (no colon found for schema in request string, disable this functionality by passing -NoSchemaPrepend)";
+				Write-Output "";
+				Write-Output "Info:  Modifying query from  `"${EachDomain}`"  to  `"${PrependSchema}${EachDomain}`"  (no colon found for schema in request string, disable this functionality by passing -NoSchemaPrepend)";
 				${EachDomain} = "${PrependSchema}${EachDomain}";
 			}
 		}
 
 		Try {
-			Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 			Write-Output "";
+			Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 			($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
 			($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 			($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
@@ -77,6 +78,7 @@ Function TestHostCertificate() {
 			# ($HttpWebResponses.$i).Close();
 			($HttpWebResponses.$i).Dispose();
 		} Catch {
+			Write-Host "";
 			Write-Host ($_) -ForegroundColor "Magenta";
 			($HttpWebRequests.$i).Abort();
 		};
@@ -93,6 +95,7 @@ Function TestHostCertificate() {
 			[Int]$ValidDaysRemaining = ($certExpDateObj - $(Get-Date)).Days;
 
 			<# Show the certificate's 'days til expiration' and 'expiration datetime' #>
+			Write-Output "";
 			Write-Output "Certificate Expiration Date = [ $certExpDateStr ]  <-- [ $ValidDaysRemaining ] days away";
 			Write-Output "Certificate Effective Date = [ $certEffectiveDate ]";
 			Write-Output "Certificate Name = [ $certName ]";
@@ -100,10 +103,9 @@ Function TestHostCertificate() {
 			Write-Output "Certificate Issuer = [ $certIssuer ]";
 		}
 
-		Write-Output "";
-
 	}
 
+	Write-Output "";
 	Write-Output "------------------------------------------------------------";
 
 	Return;

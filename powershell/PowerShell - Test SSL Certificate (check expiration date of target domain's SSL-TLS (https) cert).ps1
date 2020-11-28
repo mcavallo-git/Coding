@@ -90,6 +90,8 @@ If ($True) {
 #
 #   stackoverflow.com  |  ".net - Is there a correct way to dispose of a httpwebrequest? - Stack Overflow"  |  https://stackoverflow.com/a/42241479
 #
+#   stackoverflow.com  |  "C# HttpWebRequest times out after two server 500 errors - Stack Overflow"  |  https://stackoverflow.com/q/4033159
+#
 #   woshub.com  |  "Checking SSL/TLS Certificate Expiration Date with PowerShell | Windows OS Hub"  |  https://woshub.com/check-ssl-tls-certificate-expiration-date-powershell/
 #
 #   www.reddit.com  |  "Using Invoke-WebRequest with -Outfile while preserving filename : PowerShell"  |  https://www.reddit.com/r/PowerShell/comments/5h0zmw/using_invokewebrequest_with_outfile_while/

@@ -8,7 +8,7 @@ If ($True) {
 
 	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
 
-	$HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
+	# $HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
 	
 	$HttpWebRequest_MaximumAutomaticRedirections = 1; <# Integer -> The maximum number of redirects that the request follows #>
 
@@ -20,38 +20,34 @@ If ($True) {
 
 	ForEach ($EachDomain In $DomainsToCheck) {
 
-		Write-Host "------------------------------------------------------------";
-		Write-Host "Requesting SSL Certificate from `"$EachDomain`" ...  " -NoNewLine;
+		Write-Output "------------------------------------------------------------";
+		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
 		$HttpWebRequest = [System.Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
-		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
+		# $HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
 		$HttpWebRequest.MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
 			(($HttpWebRequest.GetResponse()).Close() | Out-Null);
 		} Catch {
-			# Write-Host URL check error $EachDomain`: $_ -f Red;
-			Write-Host $_ -f Red;
+			Write-Host ($_) -ForegroundColor "Red";
 		};
 
 		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);
 		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
 		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
-
-		Write-Host "Expiration DateTime=[ $($ExpDate_Obj.ToString()) ]";
-
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
-		If ($ValidDaysRemaining -GT $ValidDaysRemaining_WarningLimit) {
-			Write-Host "The certificate for domain `"$EachDomain`" expires in [ $ValidDaysRemaining ] days." -f Green;
-		} Else {
+
+		Write-Output "Expiration DateTime=[ $($ExpDate_Obj.ToString()) ]";
+		Write-Output "Certificate expires in [ $ValidDaysRemaining ] days.";
+		If ($ValidDaysRemaining -LE $ValidDaysRemaining_WarningLimit) {
 			$certName = $DomainCertificate.GetName();
 			$certThumbprint = $DomainCertificate.GetCertHashString();
 			$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
 			$certIssuer = $DomainCertificate.GetIssuerName();
-			Write-Host "The certificate for domain `"$EachDomain`" expires in [ $ValidDaysRemaining ] days." -f Yellow;
-			Write-Host Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer -f Yellow;
+			Write-Output Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer;
 		}
 
 
@@ -60,7 +56,7 @@ If ($True) {
 
 	}
 
-	Write-Host "------------------------------------------------------------";
+	Write-Output "------------------------------------------------------------";
 
 }
 

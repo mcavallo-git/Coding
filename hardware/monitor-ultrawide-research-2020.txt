@@ -107,7 +107,7 @@ Response Time:  1 ms
 
 Screen Size:  34"
 Resolution:  3440 x 1440
-Curvature:  ____R
+Curvature:  1900R  (NEED TO VERIFY)
 Dimensions (w/o stand):  32.3"-Width x 14.2"-Height x 4.1"-Depth
 
 DisplayPort:  1 x DP v1.4 (at least)

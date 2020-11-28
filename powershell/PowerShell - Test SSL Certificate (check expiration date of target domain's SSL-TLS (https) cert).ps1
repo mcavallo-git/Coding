@@ -18,25 +18,33 @@ If ($True) {
 
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation (ignore SSL warnings) #>
 
-	ForEach ($EachDomain In $DomainsToCheck) {
+	$HttpWebRequests = @{};
+	$HttpWebResponses = @{};
+
+	# ForEach ($EachDomain In $DomainsToCheck) {
+	For ($i=0; ($i -LT $DomainsToCheck.Count); $i++) {
+		$EachDomain = ($DomainsToCheck[${i}]);
 
 		Write-Output "------------------------------------------------------------";
+
+		# Write-Host "`$DomainsToCheck[${i}] = ${DomainsToCheck}";
+
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
-		$HttpWebRequest = [System.Net.HttpWebRequest]::Create($EachDomain);
-		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
-		# $HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
-		$HttpWebRequest.MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
-		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
+		$HttpWebRequests.$i = [System.Net.HttpWebRequest]::Create($EachDomain);
+		$HttpWebRequests.$i.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+		# $HttpWebRequests.$i.KeepAlive = $HttpWebRequest_KeepAlive;
+		$HttpWebRequests.$i.MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
+		$HttpWebRequests.$i.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
-			$HttpWebResponse = ($HttpWebRequest.GetResponse());
-			$HttpWebResponse.Close();
+			$HttpWebResponses.$i = ($HttpWebRequests.$i.GetResponse());
+			$HttpWebResponses.$i.Close();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";
 		};
 
-		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);
+		$DomainCertificate = ($HttpWebRequests.$i.ServicePoint.Certificate);
 		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
 		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
@@ -51,9 +59,9 @@ If ($True) {
 			Write-Output Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer;
 		}
 
-		$HttpWebRequest = $Null;
-		$HttpWebResponse = $Null;
-		# Remove-Variable ("HttpWebRequest");  <# Delete the value held by the variable AND the variable reference itself. #>
+		$HttpWebRequests.$i = $Null;
+		$HttpWebResponses.$i = $Null;
+		# Remove-Variable ("HttpWebRequests.$i");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}
 

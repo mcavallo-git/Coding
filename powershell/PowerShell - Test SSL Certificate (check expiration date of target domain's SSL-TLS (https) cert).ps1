@@ -19,7 +19,7 @@ If ($True) {
 	ForEach ($EachDomain In $DomainsToCheck) {
 
 		Write-Host "------------------------------------------------------------";
-		Write-Host "Requesting SSL Certificate from domain `"$EachDomain`" ...  " -NoNewLine;
+		Write-Host "Requesting SSL Certificate from `"$EachDomain`" ...  " -NoNewLine;
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;

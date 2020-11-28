@@ -20,7 +20,7 @@ If ($True) {
 
 		Write-Host "------------------------------------------------------------";
 		Write-Host "Domain=[ $EachDomain ]";
-		Write-Host "Requesting SSL Certificate from Domain..." -NoNewLine;
+		Write-Host "Requesting SSL Certificate from Domain...  " -NoNewLine;
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;

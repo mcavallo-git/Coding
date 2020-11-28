@@ -31,20 +31,20 @@ If ($True) {
 
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
 
-		$HttpWebRequests.$i = [System.Net.HttpWebRequest]::Create($EachDomain);
-		$HttpWebRequests.$i.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
-		# $HttpWebRequests.$i.KeepAlive = $HttpWebRequest_KeepAlive;
-		$HttpWebRequests.$i.MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
-		$HttpWebRequests.$i.Timeout = $HttpWebRequest_Timeout;
+		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
+		($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+		($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
+		($HttpWebRequests.$i).MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
+		($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
 
 		Try {
-			$HttpWebResponses.$i = ($HttpWebRequests.$i.GetResponse());
-			# $HttpWebResponses.$i.Close();
+			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());
+			# ($HttpWebResponses.$i).Close();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";
 		};
 
-		$DomainCertificate = ($HttpWebRequests.$i.ServicePoint.Certificate);
+		$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);
 		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
 		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
@@ -59,8 +59,8 @@ If ($True) {
 			Write-Output Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer;
 		}
 
-		# $HttpWebRequests.$i = $Null;
-		# $HttpWebResponses.$i = $Null;
+		# ($HttpWebRequests.$i) = $Null;
+		# ($HttpWebResponses.$i) = $Null;
 		# Remove-Variable ("HttpWebRequests.$i");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}

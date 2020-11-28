@@ -2,8 +2,14 @@
 If ($True) {
 
 	$DomainsToCheck = @(
+		"https://cava.lol/",
+		"https://cava.sh/",
+		"https://centos.sh/",
+		"https://centralized.host/",
 		"https://mcavallo.com/",
-		"https://cava.lol/"
+		"https://mcavallo.net/",
+		"https://mcavallo.work/",
+		"https://rhel.sh/"
 	);
 
 	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
@@ -40,7 +46,7 @@ If ($True) {
 
 		Try {
 			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());
-			($HttpWebResponses.$i).Close();
+			# ($HttpWebResponses.$i).Close();
 			($HttpWebResponses.$i).Dispose();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";

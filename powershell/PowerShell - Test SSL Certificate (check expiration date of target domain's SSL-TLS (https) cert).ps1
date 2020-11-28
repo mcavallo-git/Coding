@@ -11,11 +11,9 @@ If ($True) {
 		"https://rhel.sh/"
 	);
 
-	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
+	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get the certificate from the first domain reached (without following any 301/302/etc. redirects) ] #>
 
 	$HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
-	
-	# $HttpWebRequest_MaximumAutomaticRedirections = 1; <# Integer -> The maximum number of redirects that the request follows #>
 
 	$HttpWebRequest_Timeout = 3000; <# Integer -> Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
 
@@ -39,7 +37,6 @@ If ($True) {
 		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
 		($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 		($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
-		# ($HttpWebRequests.$i).MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
 		($HttpWebRequests.$i).ReadWriteTimeout = $HttpWebRequest_Timeout;
 		($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
 

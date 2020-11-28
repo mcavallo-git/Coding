@@ -3,13 +3,15 @@ If ($True) {
 
 	$ValidDaysRemaining_WarningLimit = 30;
 
-	$TimeoutMs = 10000;
+	$HttpWebRequest_Timeout = 10000; <# Milliseconds #>
+	
+	$HttpWebRequest_AllowAutoRedirect = $False; <# True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
 
 	$DomainsToCheck = @(
-		"https://google.com/"
+		"https://mcavallo.com/"
 	);
 
-	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation #>
+	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation (ignore SSL warnings) #>
 
 	ForEach ($EachDomain In $DomainsToCheck) {
 		
@@ -17,11 +19,16 @@ If ($True) {
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
 
-		$HttpWebRequest.Timeout = $TimeoutMs;
+		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
+
+		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 
 		Try { $HttpWebRequest.GetResponse() | Out-Null } Catch { Write-Host URL check error $EachDomain`: $_ -f Red };
 
 		$ExpDate_String = $HttpWebRequest.ServicePoint.Certificate.GetExpirationDateString();
+
+		# GetEffectiveDateString
+		# GetExpirationDateString
 
 		$ExpDate_Obj = [DateTime]::ParseExact($ExpDate_String, "dd/MM/yyyy HH:mm:ss", $Null);
 

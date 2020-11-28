@@ -51,7 +51,9 @@ Function TestHostCertificate() {
 		$EachDomain = ($DomainsToCheck[${i}]);
 
 		Write-Output "------------------------------------------------------------";
+		Write-Output "";
 		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
+		Write-Output "";
 
 		Try {
 			($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
@@ -85,6 +87,8 @@ Function TestHostCertificate() {
 			Write-Output "Certificate Thumbprint = [ $certThumbprint ]";
 			Write-Output "Certificate Issuer = [ $certIssuer ]";
 		}
+
+		Write-Output "";
 
 	}
 

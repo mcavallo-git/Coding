@@ -17,7 +17,7 @@ If ($True) {
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation (ignore SSL warnings) #>
 
 	ForEach ($EachDomain In $DomainsToCheck) {
-		
+
 		Write-Host "Requesting certificate status from domain `"$EachDomain`" ...";
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
@@ -56,6 +56,8 @@ If ($True) {
 		}
 
 		Write-Host "------------------------------------------------------------";
+
+		$HttpWebRequest = $Null;
 
 	}
 

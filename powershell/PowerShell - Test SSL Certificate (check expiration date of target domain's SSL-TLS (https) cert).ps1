@@ -24,7 +24,11 @@ If ($True) {
 
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 
-		Try { $HttpWebRequest.GetResponse() | Out-Null } Catch { Write-Host URL check error $EachDomain`: $_ -f Red };
+		Try {
+			$HttpWebRequest.GetResponse() | Out-Null;
+		} Catch {
+			Write-Host URL check error $EachDomain`: $_ -f Red;
+		};
 
 		$ExpDate_String = $HttpWebRequest.ServicePoint.Certificate.GetExpirationDateString();
 
@@ -58,6 +62,8 @@ If ($True) {
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   docs.microsoft.com  |  "DateTime.ParseExact Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.datetime.parseexact?view=netframework-4.8
 #
 #   docs.microsoft.com  |  "ServicePointManager.ServerCertificateValidationCallback Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.servercertificatevalidationcallback?view=netframework-4.8
 #

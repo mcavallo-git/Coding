@@ -33,6 +33,7 @@ If ($True) {
 
 		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
 		($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+		($HttpWebRequests.$i).CachePolicy = "noCachePolicy";
 		($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
 		($HttpWebRequests.$i).MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
 		($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
@@ -79,6 +80,8 @@ If ($True) {
 #   docs.microsoft.com  |  "DateTime.Parse Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.datetime.parse?view=netframework-4.8
 #
 #   docs.microsoft.com  |  "DateTime.ParseExact Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.datetime.parseexact?view=netframework-4.8
+#
+#   docs.microsoft.com  |  "HttpWebRequest Class (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest?view=netframework-4.8
 #
 #   docs.microsoft.com  |  "HttpWebRequest.KeepAlive Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.keepalive?view=netframework-4.8
 #

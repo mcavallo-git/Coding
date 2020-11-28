@@ -57,7 +57,8 @@ If ($True) {
 
 		Write-Host "------------------------------------------------------------";
 
-		$HttpWebRequest = $Null;
+		# $HttpWebRequest = $Null;
+		Remove-Variable ($HttpWebRequest);
 
 	}
 

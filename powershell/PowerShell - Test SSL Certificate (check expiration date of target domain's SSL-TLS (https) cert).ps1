@@ -26,7 +26,7 @@ If ($True) {
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
-			$HttpWebRequest.GetResponse() | Out-Null;
+			(($HttpWebRequest.GetResponse()).Close() | Out-Null);
 		} Catch {
 			# Write-Host URL check error $EachDomain`: $_ -f Red;
 			Write-Host $_ -f Red;
@@ -52,8 +52,8 @@ If ($True) {
 
 		Write-Host "------------------------------------------------------------";
 
-		# $HttpWebRequest = $Null;
-		Remove-Variable ("HttpWebRequest");  <# Delete the value held by the variable AND the variable reference itself. #>
+		$HttpWebRequest = $Null;
+		# Remove-Variable ("HttpWebRequest");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}
 

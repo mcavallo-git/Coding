@@ -33,10 +33,10 @@ If ($True) {
 
 		($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
 		($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
-		($HttpWebRequests.$i).CachePolicy = "noCachePolicy";
 		($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;
 		($HttpWebRequests.$i).MaximumAutomaticRedirections = $HttpWebRequest_MaximumAutomaticRedirections;
 		($HttpWebRequests.$i).Timeout = $HttpWebRequest_Timeout;
+		($HttpWebRequests.$i).ReadWriteTimeout = $HttpWebRequest_Timeout;
 
 		Try {
 			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());

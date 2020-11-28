@@ -22,11 +22,16 @@ Function TestHostCertificate() {
 
 	}
 
-	$DomainsToCheck = @(
+	$Demo_DomainsToCheck = @(
 		"https://google.com/",
 		"https://microsoft.com/",
 		"https://docs.microsoft.com/"
 	);
+
+	<# If user didn't pass any domains to this script, then demo some test-domains to test the certificates of #>
+	If ($DomainsToCheck -Eq $Null) {
+		$DomainsToCheck = ${Demo_DomainsToCheck};
+	}
 
 	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get the certificate from the first domain reached (without following any 301/302/etc. redirects) ] #>
 

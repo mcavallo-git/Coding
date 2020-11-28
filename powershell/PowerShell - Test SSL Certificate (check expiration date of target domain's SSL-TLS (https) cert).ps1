@@ -65,7 +65,6 @@ If ($True) {
 
 		# ($HttpWebRequests.$i) = $Null;
 		# ($HttpWebResponses.$i) = $Null;
-		# Remove-Variable ("HttpWebRequests.$i");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}
 

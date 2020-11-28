@@ -43,7 +43,7 @@ Set-Variable -Name 'HTTP_Status' -Value ([Int]((Get-Variable -Name 'HTTP_Respons
 # ------------------------------------------------------------
 # Clear-Variable
 #  |
-#  |--> Deletes the value of a variable.
+#  |--> Deletes the value of a variable & KEEPS the variable reference.
 #  |
 #  |--> Ex) Delete the value-of variable [ $IsLinux ]
 
@@ -55,7 +55,7 @@ If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0
 # ------------------------------------------------------------
 # Remove-Variable
 #  |
-#  |--> Deletes a variable and its value.
+#  |--> Deletes the value of a variable & DELETES the variable reference.
 #  |
 #  |--> Ex) Delete the value-of AND unset variable [ $IsLinux ]
 

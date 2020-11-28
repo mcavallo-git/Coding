@@ -4,7 +4,7 @@
 #		|
 #		|--> Description:  Pulls the details of the https-cert (if any) attached to a given hostname
 #		|
-#		|--> Example:     PowerShell -Command ("TestHostCertificate `$MyInvocation -Methods")
+#		|--> Example:     PowerShell -Command ("TestHostCertificate 'https://google.com';")
 #
 # ------------------------------------------------------------
 

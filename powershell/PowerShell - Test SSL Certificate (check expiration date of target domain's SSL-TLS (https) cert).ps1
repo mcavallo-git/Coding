@@ -39,10 +39,10 @@ If ($True) {
 
 		Try {
 			($HttpWebResponses.$i) = (($HttpWebRequests.$i).GetResponse());
+			($HttpWebResponses.$i).Dispose();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";
 			($HttpWebRequests.$i).Abort();
-			($HttpWebResponses.$i).Dispose();
 		};
 
 		$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);

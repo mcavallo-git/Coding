@@ -10,7 +10,7 @@ If ($True) {
 
 	$HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
 	
-	$HttpWebRequest_MaximumAutomaticRedirections = 0; <# Integer -> The maximum number of redirects that the request follows #>
+	$HttpWebRequest_MaximumAutomaticRedirections = 1; <# Integer -> The maximum number of redirects that the request follows #>
 
 	$HttpWebRequest_Timeout = 3000; <# Integer -> Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
 

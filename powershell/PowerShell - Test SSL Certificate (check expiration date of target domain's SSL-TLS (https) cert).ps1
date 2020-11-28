@@ -6,9 +6,9 @@ If ($True) {
 		"https://cava.lol/"
 	);
 
-	$HttpWebRequest_Timeout = 10000; <# Milliseconds #>
-	
+	$HttpWebRequest_Timeout = 10000; <# Web request timeout, in milliseconds #>
 	$HttpWebRequest_AllowAutoRedirect = $False; <# True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
+	$HttpWebRequest_KeepAlive = $False; <# True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
 
 	$ValidDaysRemaining_WarningLimit = 30;
 
@@ -19,10 +19,9 @@ If ($True) {
 		Write-Host "Checking domain `"$EachDomain`" ..." -f Green;
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
-
-		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
-
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
+		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
 			$HttpWebRequest.GetResponse() | Out-Null;
@@ -30,12 +29,11 @@ If ($True) {
 			Write-Host URL check error $EachDomain`: $_ -f Red;
 		};
 
-		$ExpDate_String = $HttpWebRequest.ServicePoint.Certificate.GetExpirationDateString();
+		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);
 
-		# GetEffectiveDateString
-		# GetExpirationDateString
+		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
 
-		$ExpDate_Obj = [DateTime]::ParseExact($ExpDate_String, "dd/MM/yyyy HH:mm:ss", $Null);
+		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
 
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
 
@@ -43,10 +41,10 @@ If ($True) {
 			Write-Host "The certificate for domain `"$EachDomain`" expires in [ $ValidDaysRemaining ] days." -f Green;
 			Write-Host $ExpDate_Obj -f Green;
 		} Else {
-			$certName = $HttpWebRequest.ServicePoint.Certificate.GetName();
-			$certThumbprint = $HttpWebRequest.ServicePoint.Certificate.GetCertHashString();
-			$certEffectiveDate = $HttpWebRequest.ServicePoint.Certificate.GetEffectiveDateString();
-			$certIssuer = $HttpWebRequest.ServicePoint.Certificate.GetIssuerName();
+			$certName = $DomainCertificate.GetName();
+			$certThumbprint = $DomainCertificate.GetCertHashString();
+			$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
+			$certIssuer = $DomainCertificate.GetIssuerName();
 			Write-Host "The certificate for domain `"$EachDomain`" expires in [ $ValidDaysRemaining ] days." -f Yellow;
 			Write-Host $ExpDate_Obj -f Yellow;
 			Write-Host Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer -f Yellow;
@@ -63,9 +61,15 @@ If ($True) {
 #
 # Citation(s)
 #
+#   docs.microsoft.com  |  "DateTime.Parse Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.datetime.parse?view=netframework-4.8
+#
 #   docs.microsoft.com  |  "DateTime.ParseExact Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.datetime.parseexact?view=netframework-4.8
 #
+#   docs.microsoft.com  |  "HttpWebRequest.KeepAlive Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.keepalive?view=netframework-4.8
+#
 #   docs.microsoft.com  |  "ServicePointManager.ServerCertificateValidationCallback Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.servercertificatevalidationcallback?view=netframework-4.8
+#
+#   stackoverflow.com  |  ".net - Is there a correct way to dispose of a httpwebrequest? - Stack Overflow"  |  https://stackoverflow.com/a/42241479
 #
 #   woshub.com  |  "Checking SSL/TLS Certificate Expiration Date with PowerShell | Windows OS Hub"  |  https://woshub.com/check-ssl-tls-certificate-expiration-date-powershell/
 #

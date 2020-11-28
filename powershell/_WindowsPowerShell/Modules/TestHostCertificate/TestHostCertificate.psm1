@@ -68,7 +68,6 @@ Function TestHostCertificate() {
 		};
 
 		If ($HttpWebRequests -NE $Null) {
-
 			$DomainCertificate = (($HttpWebRequests.$i).ServicePoint.Certificate);
 			$certName = $DomainCertificate.GetName();
 			$certThumbprint = $DomainCertificate.GetCertHashString();
@@ -85,8 +84,8 @@ Function TestHostCertificate() {
 			Write-Output "Certificate Name = [ $certName ]";
 			Write-Output "Certificate Thumbprint = [ $certThumbprint ]";
 			Write-Output "Certificate Issuer = [ $certIssuer ]";
-
 		}
+
 	}
 
 	Write-Output "------------------------------------------------------------";

@@ -18,19 +18,48 @@ Note(s):
 
 ------------------------------------------------------------
 
+Summary:
+The Gen-X Magnetic USB cables and tips are a life-changer, but just like any tool, the way they're used defines their effectiveness as a tool.
+
+------------------------------------------------------------
+
+Inquiry #1:
+Do Gen-X Mini USB (not Micro USB) connector tips exist?
+
+Inquiry #2 (follow-up inquiry to #1):
+Is it worthwhile to manufacture Mini USB Gen-X connector tips if they don't exist on the market, yet?
+
+Business Logic:
+Now, in all honesty, I am by no means a manufacturing guru (quite the opposite), but it seems like it would be relatively cost-effective to manufacture an older standard, as it would likely be something already in the wheelhouse of existing manufacturing facilities, and would also be a chance to take a much, much older product (Mini USB) and sell it at a great markup compared to its need in today's market.
+
+I have scoured most providers that manufacture Gen-X magnetic cables, connectors & tips, and I have yet to find a single one that makes a Mini USB connector tip/plug (not Micro USB, but Mini USB, the older standard). For how I use these devices, I'm completely certain there is a market that exists for Mini USB Gen-X connector tips (as, say, a 3-pack without cables), and I do firmly believe many existing Gen-X cable owners would jump at the chance to add more compatibility to their existing Gen-X cables.
+
+------------------------------------------------------------
+
+Where I use Gen-X cables:
+I do use these on over 20 devices, with nearly all of them containing a rechargeable lithium ion battery, and most having a Micro USB port (which I put a Gen-X style tip into and leave in it, long-term). I will rotate the devices through a couple of cables that I keep easily accessible (under my TV, at my PC, and at my workbench), and remove them once fully charged.
+
 Use-Cases (devices to keep a Gen-X connector in, long-term):
+  • Bluetooth Label-Printer (charging)
+  • IoT Devices (charging)
+  • Qi Charging Pads/Stands (powering)  ** Allows for ad-hoc phone charging w/o needing to insert a connector directly into said phone
+  • USB Power Banks (charging)
+  • Wireless Game Controllers (charging)
+  • Wireless Headphones/Headsets (charging)
+  • Wireless Mice (charging)
 
-  • Battery backups (charging)
+Again, these devices are above are nearly all charge once, unplug, and use the charge over the coming days, weeks, or even months before needing another charge.
 
-  • Bluetooth label-printer (charging)
+------------------------------------------------------------
 
-  • Qi charging-pads/stands (powering)
-    |
-    |--> Allows for ad-hoc phone charging w/o needing to insert a connector directly into said phone
+Where I avoid using Gen-X cables:
+I do not use these to charge my phone - I have, indeed, tried to use them for such (and gave them more than a fair run - using them as my daily driver for charging my phone every day/night for 2-3 weeks on end), but I ended up determining that Gen-X connectors aren't optimal for keeping in one's primary cell phone due to a few main sticking-points (see following points).
 
-  • Wireless headphones/headsets (charging)
+Why I avoid Gen-X cables with my phone:
+1) I ran into too many scenarios where I needed to charge my phone and didn't have the small yellow tool to remove the plug from my phone's charging port, which made me have to use my fingernails to carefully remove the connector from my phone's charging port.
 
-  • Xbox controllers
+2) Once I removed the connector from my phone to charge it (with a hardwired, non Gen-X (e.g. 'normal') style cable), I had nowhere to reliably store the Gen-X connector tip/plug. This is the crux of why I stopped using Gen-X cables/tips with my phone - by nature, the only time I would remove the tip from my phone would be because I didn't have a Gen-X matching charging cable, which would be when I was out and about, using a friend's charger, etc., and therefore I would have to keep this tiny, easy to lose connector tip/plug in my pocket or elsewhere while I was out of my element. I never lost any tips this way, but it was enough of a concern to ruin the convenience of the cable for phone-charging.
 
+3) These cables only support up to 3.0 amps of current (at the USB standard of 5 volts), and I have been unable to locate any Gen-X cables supporting USB-C on both ends w/ PD (Power Delivery) support - therefore, so they're unable to charge my phone at its optimal 25W charging rate (Samsung Galaxy Note 20)
 
 ------------------------------------------------------------

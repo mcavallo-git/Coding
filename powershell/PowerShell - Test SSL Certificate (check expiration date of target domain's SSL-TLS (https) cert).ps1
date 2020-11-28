@@ -10,7 +10,7 @@ If ($True) {
 
 	$HttpWebRequest_KeepAlive = $False; <# True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
 
-	$HttpWebRequest_Timeout = 10000; <# Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
+	$HttpWebRequest_Timeout = 3000; <# Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
 
 	$ValidDaysRemaining_WarningLimit = 30;
 
@@ -18,6 +18,7 @@ If ($True) {
 
 	ForEach ($EachDomain In $DomainsToCheck) {
 
+		Write-Host "------------------------------------------------------------";
 		Write-Host "Domain=[ $EachDomain ]  (checking SSL certificate expiration-date...)";
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
@@ -50,12 +51,13 @@ If ($True) {
 			Write-Host Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer -f Yellow;
 		}
 
-		Write-Host "------------------------------------------------------------";
 
 		$HttpWebRequest = $Null;
 		# Remove-Variable ("HttpWebRequest");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}
+
+	Write-Host "------------------------------------------------------------";
 
 }
 

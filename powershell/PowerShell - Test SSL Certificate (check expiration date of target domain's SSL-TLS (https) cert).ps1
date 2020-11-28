@@ -23,7 +23,7 @@ If ($True) {
 
 		$ExpDate_String = $HttpWebRequest.ServicePoint.Certificate.GetExpirationDateString();
 
-		$ExpDate_Obj = [DateTime]::ParseExact($ExpDate_String, “dd/MM/yyyy HH:mm:ss”, $null);
+		$ExpDate_Obj = [DateTime]::ParseExact($ExpDate_String, "dd/MM/yyyy HH:mm:ss", $Null);
 
 		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
 
@@ -54,5 +54,7 @@ If ($True) {
 #   docs.microsoft.com  |  "ServicePointManager.ServerCertificateValidationCallback Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.servercertificatevalidationcallback?view=netframework-4.8
 #
 #   woshub.com  |  "Checking SSL/TLS Certificate Expiration Date with PowerShell | Windows OS Hub"  |  https://woshub.com/check-ssl-tls-certificate-expiration-date-powershell/
+#
+#   www.tutorialspoint.com  |  "How to get website SSL certificate validity dates with PowerShell?"  |  https://www.tutorialspoint.com/how-to-get-website-ssl-certificate-validity-dates-with-powershell
 #
 # ------------------------------------------------------------

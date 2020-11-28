@@ -39,7 +39,7 @@ If ($True) {
 
 		Try {
 			$HttpWebResponses.$i = ($HttpWebRequests.$i.GetResponse());
-			$HttpWebResponses.$i.Close();
+			# $HttpWebResponses.$i.Close();
 		} Catch {
 			Write-Host ($_) -ForegroundColor "Magenta";
 		};

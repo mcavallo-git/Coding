@@ -58,7 +58,7 @@ If ($True) {
 		Write-Host "------------------------------------------------------------";
 
 		# $HttpWebRequest = $Null;
-		Remove-Variable ("HttpWebRequest");
+		Remove-Variable ("HttpWebRequest");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}
 

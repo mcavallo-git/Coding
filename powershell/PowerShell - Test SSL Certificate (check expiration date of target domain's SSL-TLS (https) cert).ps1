@@ -28,7 +28,8 @@ If ($True) {
 		Try {
 			$HttpWebRequest.GetResponse() | Out-Null;
 		} Catch {
-			Write-Host URL check error $EachDomain`: $_ -f Red;
+			# Write-Host URL check error $EachDomain`: $_ -f Red;
+			Write-Host $_ -f Red;
 		};
 
 		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);

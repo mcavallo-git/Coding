@@ -18,7 +18,7 @@ If ($True) {
 
 	ForEach ($EachDomain In $DomainsToCheck) {
 		
-		Write-Host "Checking domain `"$EachDomain`" ..." -f Green;
+		Write-Host "Requesting certificate status from domain `"$EachDomain`" ...";
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
 
@@ -55,7 +55,7 @@ If ($True) {
 			Write-Host Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer -f Yellow;
 		}
 
-		Write-Host "------------------------------------------------------------" `n;
+		Write-Host "------------------------------------------------------------";
 
 	}
 

@@ -10,6 +10,7 @@
 
 Function TestHostCertificate() {
 	Param(
+		[Switch]$NoSchemaPrepend,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$DomainsToCheck
 	)
 	# ------------------------------------------------------------
@@ -21,6 +22,9 @@ Function TestHostCertificate() {
 
 
 	}
+	# ------------------------------------------------------------
+
+	$AllowSchemaPrepend = (-Not $PSBoundParameters.ContainsKey('NoSchemaPrepend'));
 
 	$Demo_DomainsToCheck = @(
 		"https://google.com/",
@@ -46,16 +50,24 @@ Function TestHostCertificate() {
 	$HttpWebRequests = @{};
 	$HttpWebResponses = @{};
 
-	# ForEach ($EachDomain In $DomainsToCheck) {
 	For ($i=0; ($i -LT $DomainsToCheck.Count); $i++) {
 		$EachDomain = ($DomainsToCheck[${i}]);
 
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
-		Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
-		Write-Output "";
+
+		<# Autocorrect domains without colons ":" in their url strings (unless disabled) #>
+		If (($EachDomain -Match ":") -Eq $False) {
+			If ($AllowSchemaPrepend -Eq $True) {
+				$PrependSchema = "https://"
+				Write-Host "Info:  Modifying domain from `"${EachDomain}`" to `"${PrependSchema}${EachDomain}`"   (no colon found for schema in request string, disable this functionality by passing -NoSchemaPrepend)";
+				${EachDomain} = "${PrependSchema}${EachDomain}";
+			}
+		}
 
 		Try {
+			Write-Output "Requesting SSL Certificate from `"$EachDomain`" ...  ";
+			Write-Output "";
 			($HttpWebRequests.$i) = [System.Net.HttpWebRequest]::Create($EachDomain);
 			($HttpWebRequests.$i).AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 			($HttpWebRequests.$i).KeepAlive = $HttpWebRequest_KeepAlive;

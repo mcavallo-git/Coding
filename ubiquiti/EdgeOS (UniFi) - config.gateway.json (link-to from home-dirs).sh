@@ -10,8 +10,15 @@ CONFIG_GATEWAY_JSON_2="${CONFIG_DIR_2}/config.gateway.json";
 
 
 # Show config.gateway.json filepaths (where they must be placed to function through Ubiquiti's UniFi Controller)
-echo -e "\n""config.gateway.json (filepath option 1/2):""\n""   \"${CONFIG_GATEWAY_JSON_1}\"";
-echo -e "\n""config.gateway.json (filepath option 2/2):""\n""   \"${CONFIG_GATEWAY_JSON_2}\"";
+echo "";
+echo "Info:  config.gateway.json (filepath option 1/2):  \"${CONFIG_GATEWAY_JSON_1}\"";
+echo "Info:  Calling [ ls -al \"${CONFIG_DIR_1}\"; ] ...";
+ls -al "${CONFIG_DIR_1}";
+echo "";
+echo "Info:  config.gateway.json (filepath option 2/2):  \"${CONFIG_GATEWAY_JSON_2}\"";
+echo "Info:  Calling [ ls -al \"${CONFIG_DIR_2}\"; ] ...";
+ls -al "${CONFIG_DIR_2}";
+echo "";
 
 
 # Create config.gateway.json (if it doesn't already exist)

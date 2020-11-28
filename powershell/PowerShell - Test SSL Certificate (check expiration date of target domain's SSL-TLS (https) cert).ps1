@@ -6,13 +6,15 @@ If ($True) {
 		"https://cava.lol/"
 	);
 
-	$HttpWebRequest_AllowAutoRedirect = $False; <# True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
+	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
 
-	$HttpWebRequest_KeepAlive = $False; <# True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
+	$HttpWebRequest_KeepAlive = $False; <# Boolean -> True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
+	
+	$HttpWebRequest_MaximumAutomaticRedirections = 0; <# Integer -> The maximum number of redirects that the request follows #>
 
-	$HttpWebRequest_Timeout = 3000; <# Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
+	$HttpWebRequest_Timeout = 3000; <# Integer -> Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
 
-	$ValidDaysRemaining_WarningLimit = 30;
+	$ValidDaysRemaining_WarningLimit = 30; <# Integer -> Warn the user if the certificate expires before this many days (from now) #>
 
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation (ignore SSL warnings) #>
 
@@ -24,6 +26,7 @@ If ($True) {
 		$HttpWebRequest = [System.Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
 		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
+		$HttpWebRequest.KeepAlive = $HttpWebRequest_MaximumAutomaticRedirections;
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {
@@ -71,6 +74,8 @@ If ($True) {
 #   docs.microsoft.com  |  "DateTime.ParseExact Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.datetime.parseexact?view=netframework-4.8
 #
 #   docs.microsoft.com  |  "HttpWebRequest.KeepAlive Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.keepalive?view=netframework-4.8
+#
+#   docs.microsoft.com  |  "HttpWebRequest.MaximumAutomaticRedirections Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.httpwebrequest.maximumautomaticredirections?view=netframework-4.8
 #
 #   docs.microsoft.com  |  "ServicePointManager.ServerCertificateValidationCallback Property (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.servercertificatevalidationcallback?view=netframework-4.8
 #

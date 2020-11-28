@@ -2,13 +2,9 @@
 If ($True) {
 
 	$DomainsToCheck = @(
-		"https://cava.lol/",
-		"https://cava.sh/",
-		"https://centos.sh/",
-		"https://mcavallo.com/",
-		"https://mcavallo.net/",
-		"https://mcavallo.work/",
-		"https://rhel.sh/"
+		"https://google.com/",
+		"https://microsoft.com/",
+		"https://docs.microsoft.com/"
 	);
 
 	$HttpWebRequest_AllowAutoRedirect = $False; <# Boolean -> True=[ Follow 301/302/etc. redirects ], False=[ Get the certificate from the first domain reached (without following any 301/302/etc. redirects) ] #>

@@ -59,8 +59,8 @@ If ($True) {
 			Write-Output Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer;
 		}
 
-		$HttpWebRequests.$i = $Null;
-		$HttpWebResponses.$i = $Null;
+		# $HttpWebRequests.$i = $Null;
+		# $HttpWebResponses.$i = $Null;
 		# Remove-Variable ("HttpWebRequests.$i");  <# Delete the value held by the variable AND the variable reference itself. #>
 
 	}

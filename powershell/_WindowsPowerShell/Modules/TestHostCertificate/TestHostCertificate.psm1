@@ -81,7 +81,7 @@ Function TestHostCertificate() {
 			[Int]$ValidDaysRemaining = ($certExpDateObj - $(Get-Date)).Days;
 
 			<# Show the certificate's 'days til expiration' and 'expiration datetime' #>
-			Write-Output "Certificate Expiration Date = [ $certExpDateStr ]  (in [ $ValidDaysRemaining ] days)";
+			Write-Output "Certificate Expiration Date = [ $certExpDateStr ]  <-- [ $ValidDaysRemaining ] days away";
 			Write-Output "Certificate Effective Date = [ $certEffectiveDate ]";
 			Write-Output "Certificate Name = [ $certName ]";
 			Write-Output "Certificate Thumbprint = [ $certThumbprint ]";

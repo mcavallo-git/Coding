@@ -6,9 +6,11 @@ If ($True) {
 		"https://cava.lol/"
 	);
 
-	$HttpWebRequest_Timeout = 10000; <# Web request timeout, in milliseconds #>
 	$HttpWebRequest_AllowAutoRedirect = $False; <# True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
+
 	$HttpWebRequest_KeepAlive = $False; <# True=[ Keep HTTP connections open for the default duration of 2-minutes before closing the socket ], False=[ Close the socket immediately after retrieving the requested data ] #>
+
+	$HttpWebRequest_Timeout = 10000; <# Web request timeout (in milliseconds), e.g. abort the web request if it takes longer than this duration #>
 
 	$ValidDaysRemaining_WarningLimit = 30;
 
@@ -19,8 +21,11 @@ If ($True) {
 		Write-Host "Checking domain `"$EachDomain`" ..." -f Green;
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
+
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
+
 		$HttpWebRequest.KeepAlive = $HttpWebRequest_KeepAlive;
+
 		$HttpWebRequest.Timeout = $HttpWebRequest_Timeout;
 
 		Try {

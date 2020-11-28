@@ -18,7 +18,7 @@ If ($True) {
 
 	ForEach ($EachDomain In $DomainsToCheck) {
 
-		Write-Host "Requesting certificate status from domain `"$EachDomain`" ...";
+		Write-Host "Domain=[ $EachDomain ]  (checking SSL certificate expiration-date...)";
 
 		$HttpWebRequest = [Net.HttpWebRequest]::Create($EachDomain);
 		$HttpWebRequest.AllowAutoRedirect = $HttpWebRequest_AllowAutoRedirect;
@@ -32,23 +32,20 @@ If ($True) {
 		};
 
 		$DomainCertificate = ($HttpWebRequest.ServicePoint.Certificate);
-
 		$ExpDate_String = $DomainCertificate.GetExpirationDateString();
-
 		$ExpDate_Obj = [DateTime]::Parse($ExpDate_String, $Null);
 
-		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
+		Write-Host "Expiration DateTime=[ $($ExpDate_Obj.ToString()) ]";
 
+		[Int]$ValidDaysRemaining = ($ExpDate_Obj - $(Get-Date)).Days;
 		If ($ValidDaysRemaining -GT $ValidDaysRemaining_WarningLimit) {
 			Write-Host "The certificate for domain `"$EachDomain`" expires in [ $ValidDaysRemaining ] days." -f Green;
-			Write-Host "Expiration DateTime: [ $($ExpDate_Obj.ToString()) ]";
 		} Else {
 			$certName = $DomainCertificate.GetName();
 			$certThumbprint = $DomainCertificate.GetCertHashString();
 			$certEffectiveDate = $DomainCertificate.GetEffectiveDateString();
 			$certIssuer = $DomainCertificate.GetIssuerName();
 			Write-Host "The certificate for domain `"$EachDomain`" expires in [ $ValidDaysRemaining ] days." -f Yellow;
-			Write-Host "Expiration DateTime: [ $($ExpDate_Obj.ToString()) ]";
 			Write-Host Details:`n`nCert name: $certName`Cert thumbprint: $certThumbprint`nCert effective date: $certEffectiveDate`nCert issuer: $certIssuer -f Yellow;
 		}
 

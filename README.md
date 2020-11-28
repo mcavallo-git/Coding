@@ -34,9 +34,12 @@ This file (on GitHub):
 			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
 			<li>
 				<div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
-				<pre><code>curl -ssL https://centos.sh | bash</code></pre>
+				<pre><code>curl -ssL https://mcavallo.com | bash</code></pre>
 			</li>
-			<li>Verify by running "sync_cloud_infrastructure" (after initial sync completes)</li>
+			<li>
+				<div>Once initial sync completes, you may trigger a manual re-sync via command: </div>
+				<pre><code>sync_cloud_infrastructure</code></pre>
+			</li>
 		</ol>
 	</p>
 </details>
@@ -66,7 +69,7 @@ This file (on GitHub):
 				<pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;</code></pre>
 			</li>
 			<li>
-				<div><sub>Fallback Method:</sub>&nbsp;</div>
+				<div>Fallback Method:</div>
 				<pre><sub><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></sub></pre>
 			</li>
 		</ol>

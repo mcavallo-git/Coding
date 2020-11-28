@@ -1,15 +1,16 @@
 
 If ($True) {
 
-	$ValidDaysRemaining_WarningLimit = 30;
+	$DomainsToCheck = @(
+		"https://mcavallo.com/",
+		"https://cava.lol/"
+	);
 
 	$HttpWebRequest_Timeout = 10000; <# Milliseconds #>
 	
 	$HttpWebRequest_AllowAutoRedirect = $False; <# True=[ Follow 301/302/etc. redirects ], False=[ Get domain certificate without redirects ] #>
 
-	$DomainsToCheck = @(
-		"https://mcavallo.com/"
-	);
+	$ValidDaysRemaining_WarningLimit = 30;
 
 	[System.Net.ServicePointManager]::ServerCertificateValidationCallback = { $True }; <# Disable certificate validation (ignore SSL warnings) #>
 

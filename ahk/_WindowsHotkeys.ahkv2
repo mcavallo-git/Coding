@@ -920,6 +920,25 @@ AppsKey & L::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  AppsKey + Left/Right/Up/Down
+;   ACTION:  Replace AppsKey with RWin and send command
+;
+AppsKey & Left::
+	Send {LWin up}{RWin up}{LWin down}{Left}{LWin up}
+	Return
+AppsKey & Right::
+	Send {LWin up}{RWin up}{LWin down}{Right}{LWin up}
+	Return
+AppsKey & Up::
+	Send {LWin up}{RWin up}{LWin down}{Up}{LWin up}
+	Return
+AppsKey & Down::
+	Send {LWin up}{RWin up}{LWin down}{Down}{LWin up}
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Alt + ` (Tilde)
 ;   ACTION:  Keyboard-Command for a Mouse-Right-Click
 ;

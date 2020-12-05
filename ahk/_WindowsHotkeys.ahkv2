@@ -995,16 +995,55 @@ AppsKey & XButton2::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  WinKey + Mouse-Wheel Up/Down
-;            Ctrl/Alt/Shift + WinKey/AppsKey + Up/Down (Arrow-Key)
-;   ACTION:  Turn computer volume up/down
 ;
-+#Up::
-!#Up::
-^#Up::
-+#Down::
-!#Down::
-^#Down::
+; 3-Key Hotkeys  (Using AppsKey, LWin, or RWin)
+;
+#If GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
+	;
+	;   ACTION:  Volume Up
+	;
+	Alt & Up::
+	Ctrl & Up::
+	Shift & Up::
+		VolumeLevel_Increment := 2
+		SoundSet , % ( "+" VolumeLevel_Increment )
+		ShowVolumeLevel()
+		Return
+	;
+	;   ACTION:  Volume Down
+	;
+	Alt & Down::
+	Ctrl & Down::
+	Shift & Down::
+		VolumeLevel_Increment := 2
+		SoundSet , % ( "-" VolumeLevel_Increment )
+		ShowVolumeLevel()
+		Return	
+	;
+	;   ACTION:  Goto previous track  (in active media player)
+	;
+	Alt & Left::
+	Ctrl & Left::
+	Shift & Left::
+		Send {Media_Prev}
+		Return
+	;
+	;   ACTION:  Goto next track  (in active media player)
+	;
+	Alt & Right::
+	Ctrl & Right::
+	Shift & Right::
+		Send {Media_Next}
+		Return
+	;
+	;   ACTION:  Pause current track  (in active media player)
+	;
+	Alt & Space::
+	Ctrl & Space::
+	Shift & Space::
+		Send {Media_Play_Pause}
+		Return
+#If
 #MButton::
 #WheelUp::
 #WheelDown::
@@ -1034,23 +1073,6 @@ AppsKey & WheelDown::
 	}
 	ShowVolumeLevel()
 	Return
-; Three-Key Hotkeys
-#If GetKeyState("AppsKey", "P")
-	Alt & Up::  ; AppsKey + Alt + Up
-	Ctrl & Up::  ; AppsKey + Ctrl + Up
-	Shift & Up::  ; AppsKey + Shift + Up
-		VolumeLevel_Increment := 2
-		SoundSet , % ( "+" VolumeLevel_Increment )
-		ShowVolumeLevel()
-		Return
-	Alt & Down::  ; AppsKey + Alt + Down
-	Ctrl & Down::  ; AppsKey + Ctrl + Down
-	Shift & Down::  ; AppsKey + Shift + Down
-		VolumeLevel_Increment := 2
-		SoundSet , % ( "-" VolumeLevel_Increment )
-		ShowVolumeLevel()
-		Return
-#If
 
 
 ; ------------------------------------------------------------

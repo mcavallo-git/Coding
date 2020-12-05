@@ -950,29 +950,6 @@ AppsKey & L::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Ctrl/Alt/Shift + WinKey + Spacebar
-;   ACTION:  Pause/Play Media (in currently-active media player)
-;
-+#Space::
-!#Space::
-^#Space::
-	Send {Media_Play_Pause}
-	Return
-AppsKey & Space::
-	KeyState_Alt := GetKeyState("Alt")
-	KeyState_Ctrl := GetKeyState("Ctrl")
-	KeyState_Shift := GetKeyState("Shift")
-	If (DebugMode == 1) {
-		TrayTip, AHK, % ( "KeyState_Alt = [" KeyState_Alt "]" "`n" "KeyState_Ctrl = [" KeyState_Ctrl "]" "`n" "KeyState_Shift = [" KeyState_Shift "]" )  ; Toast Notification
-	}
-	If ( (KeyState_Alt = 1) || (KeyState_Ctrl = 1) || (KeyState_Shift = 1) ) {  ; Additional modifier pressed
-		Send {Media_Play_Pause}
-	}
-	Return
-
-
-; ------------------------------------------------------------
-;
 ;   HOTKEY:  WinKey/AppsKey + XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)
 ;   ACTION:  Goto Previous Track (in currently-active media player)
 ;

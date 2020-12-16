@@ -1131,7 +1131,23 @@ WheelRight::
 ;   ACTION:  Open Google Chrome <-- OpenChrome()
 ;
 #C::
-	OpenChrome()
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+
+	; OpenChrome()
+	
+	; Loop 500 {
+	; 	Sleep 10
+	; 	MouseClick, Right
+	; }
+
+	Loop 2000 {
+		If (WinActive("Minecraft")) {
+			MouseClick, Left
+		}
+		Sleep 750
+	}
+
 	Return
 
 
@@ -1530,7 +1546,7 @@ ClickLoop(MouseX,MouseY) {
 ;        script, etc. which contains Web-Urls to sources which assisted in building said script
 ;
 CreateCitationsFooter() {
-	AwaitModifierKeyup()
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Revert_A_KeyDelay := A_KeyDelay
 	SetKeyDelay, 0, -1
 	LF := "`n"
@@ -2507,7 +2523,7 @@ RunWaitMany(CMD_Commands) {
 ;   |--> Output a line ------------------------------------------------------------ of dashes
 ;
 SendDashedLine() {
-	AwaitModifierKeyup()
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetKeyDelay, 0, -1
 	; StringToType := StringRepeat("-",60)
 	SendInput, ------------------------------------------------------------
@@ -2959,7 +2975,7 @@ XBox_DownloadDelete_GameClips() {
 	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	AwaitModifierKeyup()
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 
 	WinTitle := "Xbox Console Companion"
 
@@ -3382,7 +3398,7 @@ Youtube_EditDraft_Submit() {
 	SetDefaultMouseSpeed, 0
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	AwaitModifierKeyup()
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	WinTitle := "Channel videos - YouTube Studio - Google Chrome"
 	If (WinExist(WinTitle)) {
 		;

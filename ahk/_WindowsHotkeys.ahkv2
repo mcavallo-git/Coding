@@ -1142,10 +1142,12 @@ WheelRight::
 	; }
 
 	Loop 2000 {
-		If (WinActive("Minecraft")) {
+		If (!(WinActive("Minecraft"))) {
+			Break
+		} Else {
 			MouseClick, Left
+			Sleep 750
 		}
-		Sleep 750
 	}
 
 	Return
@@ -1163,7 +1165,7 @@ WheelRight::
 	; WinTitle=Visual Studio Code
 	; SpaceUp_Loop(50, WinTitle)
 	; SpaceUp_Loop(50)
-	; ClickLoop(1724,749)
+	; ClickLoop(1724,749,1000)
 	Return
 
 
@@ -1530,11 +1532,16 @@ ClearTooltip(Period) {
 ;	ClickLoop
 ;   |--> Clicks indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
 ;
-ClickLoop(MouseX,MouseY) {
+ClickLoop(MouseX,MouseY,Timeout) {
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetKeyDelay, 0, -1
+	If (Timeout < 250) {
+		Timeout := 250
+	}
 	Loop {
-		Sleep 1000
+		Sleep %Timeout%
 		MouseClick, Left, %MouseX%, %MouseY%
-		Sleep 1000
 	}
 	Return
 }

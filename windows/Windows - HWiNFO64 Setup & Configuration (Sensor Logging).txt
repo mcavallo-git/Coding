@@ -42,7 +42,7 @@ Open HWiNFO64
           > Click "OK" in the "Font" window  *** closes window ***
         > Click the colored square to the right of text "Background:"  *** "Color" window opens ***
           > Click "Define Custom Colors >>"
-            > Set values { "Red"="30", "Green"="30", "Blue"="30" }
+            > Set values { "Red"="0", "Green"="0", "Blue"="0" }
             > Click "OK" in the "Color" window *** closes window ***
         > Click the colored square to the right of text "Text:"  *** "Color" window opens ***
           > Click "Define Custom Colors >>"
@@ -58,7 +58,7 @@ Open HWiNFO64
           > Click "OK" in the "Font" window  *** closes window ***
         > Click the colored square to the right of text "Background:"  *** "Color" window opens ***
           > Click "Define Custom Colors >>"
-            > Set values { "Red"="30", "Green"="30", "Blue"="30" }
+            > Set values { "Red"="0", "Green"="0", "Blue"="0" }
             > Click "OK" in the "Color" window *** closes window ***
         > Click the colored square to the right of text "Text:"  *** "Color" window opens ***
           > Click "Define Custom Colors >>"

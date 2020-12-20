@@ -66,44 +66,14 @@ Open HWiNFO64
             > Click "OK" in the "Color" window *** closes window ***
 
 "OSD (RTSS) Tab - HWiNFO64 Sensor Settings
-  > !! Check option "Show value in OSD" by clicking each of the following device sensors (below), then checking the box to the left of "Show value in OSD"
+  > !! Set option(s) [ "Show value in OSD" to Checked ], [ "Show label in OSD" to Checked ], & [ "Use color:" to white (Red="255", Green="255", Blue="255") ] for each of the following sensors:
 
-    > "CPU [#0]: ..." (device/sensor category) - show the following value(s) in OSD:
-      > "Core ... Effective Clock" (multiple)
-      > "Average Effective Clock"
-
-    > "Memory Timings" (device/sensor category) - show the following value(s) in OSD:
-      > "Memory Clock"
-
-    > "S.M.A.R.T.: PCIe SSD ..." (device/sensor category) - show the following value(s) in OSD:
-      > "Drive Temperature"
-
-    > "Drive: PCIe SSD ..." (device/sensor category) - show the following value(s) in OSD:
-      > "Read Rate"
-      > "Write Rate"
-
-    > "GPU [#0]: ..." (device/sensor category) - show the following value(s) in OSD:
-      > "GPU Temperature"
+    > "GPU [#0]: ..."
       > "GPU Core Voltage"
-      > "GPU Power (Total)"
       > "GPU Clock"
-      > "GPU Memory Clock"
-      > "GPU Video Clock"
-      > "GPU Core Load"
-      > "GPU Memory Controller Load"
-      > "GPU Video Engine Load"
-      > "GPU Bus Load"
-      > "GPU Memory Usage"
 
-    > "RTSS" (device/sensor category) - show the following value(s) in OSD:
+    > "RTSS"
       > "Framerate"
-
-    > "Network: ..." (device/sensor category) - show the following value(s) in OSD:
-      > "Current DL rate"
-      > "Current UP rate"
-
-
-
 
 
 ------------------------------------------------------------

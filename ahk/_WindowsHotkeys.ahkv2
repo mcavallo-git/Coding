@@ -1131,8 +1131,6 @@ WheelRight::
 ;   ACTION:  Open Google Chrome <-- OpenChrome()
 ;
 #C::
-	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 
 	; OpenChrome()
 	
@@ -1141,14 +1139,33 @@ WheelRight::
 	; 	MouseClick, Right
 	; }
 
-	Loop 2000 {
-		If (!(WinActive("Minecraft"))) {
-			Break
-		} Else {
-			MouseClick, Left
-			Sleep 750
+	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	WinTitle := "Minecraft* 1."
+	Max_LoopDuration_Seconds := 7200
+	Milliseconds_BetweenClicks := 750
+	If (WinExist(WinTitle)) {
+		TickCount_BeforeLoop := A_TickCount
+		Loop {
+			Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 1)
+			If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
+				Tooltip, % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
+				Break
+			} Else {
+				If (WinActive(WinTitle)) {
+					Tooltip, % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+					MouseClick, Left
+					Sleep %Milliseconds_BetweenClicks%
+				} Else {
+					Tooltip, % "Stopped Minecraft auto-clicker (MC window lost focus"
+					Break
+				}
+			}
 		}
+	} Else {
+		Tooltip, % "WinTitle '" WinTitle "' not found to exist"
 	}
+	ClearTooltip(5000)
 
 	Return
 
@@ -2364,6 +2381,7 @@ PrintEnv() {
 	A_ThisFunc:		%A_ThisFunc%
 	A_ThisLabel:		%A_ThisLabel%
 	A_ThisHotkey:		%A_ThisHotkey%
+	A_TickCount:		%A_TickCount%
 	A_TimeSincePriorHotkey:	%A_TimeSincePriorHotkey%
 	A_WinDelay:		%A_WinDelay%
 	A_WorkingDir:		%A_WorkingDir%

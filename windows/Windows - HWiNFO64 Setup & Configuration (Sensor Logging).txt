@@ -69,6 +69,7 @@ Open HWiNFO64
   > !! Set option(s) [ "Show value in OSD" to Checked ], [ "Show label in OSD" to Checked ], & [ "Use color:" to white (Red="255", Green="255", Blue="255") ] for each of the following sensors:
 
     > "GPU [#0]: ..."
+      > "GPU Power (Total)"
       > "GPU Core Voltage"
       > "GPU Clock"
 

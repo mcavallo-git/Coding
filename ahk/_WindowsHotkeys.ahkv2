@@ -1141,7 +1141,7 @@ WheelRight::
 
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	WinTitle := "Minecraft* 1."
+	WinTitle := "Minecraft"
 	Max_LoopDuration_Seconds := 7200
 	Milliseconds_BetweenClicks := 750
 	If (WinExist(WinTitle)) {

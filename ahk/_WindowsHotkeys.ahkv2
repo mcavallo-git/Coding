@@ -1128,46 +1128,56 @@ WheelRight::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  WinKey + C
-;   ACTION:  Open Google Chrome <-- OpenChrome()
+;   ACTION:  Open Google Chrome
 ;
-#C::
 
-	; OpenChrome()
-	
-	; Loop 500 {
-	; 	Sleep 10
-	; 	MouseClick, Right
-	; }
+#If !WinActive("Minecraft")
+	#C::
+		OpenChrome()
+		Return
+;
+;   ACTION:  Minecraft - do various actions
+;
+#If WinActive("Minecraft")
+	#C::			
+		SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+		AwaitModifierKeyup()  ; Wait until all modifier keys are released
+		WinTitle := "Minecraft"
+		Max_LoopDuration_Seconds := 7200
+		Milliseconds_BetweenClicks := 750
 
-	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	WinTitle := "Minecraft"
-	Max_LoopDuration_Seconds := 7200
-	Milliseconds_BetweenClicks := 750
-	If (WinExist(WinTitle)) {
-		TickCount_BeforeLoop := A_TickCount
-		Loop {
-			Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 1)
-			If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
-				Tooltip, % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
-				Break
-			} Else {
-				If (WinActive(WinTitle)) {
-					Tooltip, % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
-					MouseClick, Left
-					Sleep %Milliseconds_BetweenClicks%
-				} Else {
-					Tooltip, % "Stopped Minecraft auto-clicker (MC window lost focus"
+		Do_SwordAttackSpam := 1
+		; Do_SwordAttackSpam := 0
+
+		If (Do_SwordAttackSpam == 0) {
+			; Minecraft - Spam right click (for placing piston to blow through bedrock)
+			Loop 500 {
+				Sleep 10
+				MouseClick, Right
+			}
+		} Else {
+			; Minecraft - Sword attack spam
+			TickCount_BeforeLoop := A_TickCount
+			Loop {
+				Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
+				If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
+					Tooltip, % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
 					Break
+				} Else {
+					If (WinActive(WinTitle)) {
+						Tooltip, % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+						MouseClick, Left
+						Sleep %Milliseconds_BetweenClicks%
+					} Else {
+						Tooltip, % "Stopped Minecraft auto-clicker (MC window lost focus"
+						Break
+					}
 				}
 			}
+			ClearTooltip(5000)
 		}
-	} Else {
-		Tooltip, % "WinTitle '" WinTitle "' not found to exist"
-	}
-	ClearTooltip(5000)
-
-	Return
+		Return
+#If
 
 
 ; ------------------------------------------------------------

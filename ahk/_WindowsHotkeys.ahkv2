@@ -280,7 +280,7 @@ ScrollLock::
 	;   HOTKEY:  XButton2 (Mouse-Button 5, Mouse 'Forward' Side-Button)  (while [ Cyberpunk ] is active)
 	;   ACTION:  Press [ Left Mouse Click ] key, instead
 	;
-	XButton2:: LButton
+	XButton2:: Tab
 	;
 	;   HOTKEY:  CapsLock (while [ Cyberpunk ] is active)
 	;   ACTION:  Press [ Tab ] key, instead
@@ -1153,15 +1153,28 @@ WheelRight::
 ;   ACTION:  Open Google Chrome
 ;
 
-#If !WinActive("Minecraft")
+#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe")
 	#C::
 		OpenChrome()
+		Return
+;
+;   ACTION:  Cyberpunk - Farm Athletics EXP
+;
+#If WinActive("ahk_exe Cyberpunk2077.exe")
+	#C::
+		Loop {
+			Loop 10 {
+				Send {Space}
+				Sleep 250
+			}
+			Sleep 1000
+		}
 		Return
 ;
 ;   ACTION:  Minecraft - do various actions
 ;
 #If WinActive("Minecraft")
-	#C::			
+	#C::
 		SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 		AwaitModifierKeyup()  ; Wait until all modifier keys are released
 		WinTitle := "Minecraft"

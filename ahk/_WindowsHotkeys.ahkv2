@@ -1163,11 +1163,8 @@ WheelRight::
 #If WinActive("ahk_exe Cyberpunk2077.exe")
 	#C::
 		Loop {
-			Loop 10 {
-				Send {Space}
-				Sleep 250
-			}
-			Sleep 1000
+			Send {Space}
+			Sleep 10
 		}
 		Return
 ;

@@ -1148,7 +1148,6 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-
 #If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe")
 ;
 ;   HOTKEY:  WinKey + C
@@ -1159,6 +1158,7 @@ WheelRight::
 	Return
 #If WinActive("ahk_exe Cyberpunk2077.exe")
 ;
+;   HOTKEY:  WinKey + C
 ;   ACTION:  Cyberpunk - Farm Athletics EXP (run while standing under a ledge)
 ;
 #C::
@@ -1169,6 +1169,7 @@ WheelRight::
 	Return
 #If WinActive("Minecraft")
 ;
+;   HOTKEY:  WinKey + C
 ;   ACTION:  Minecraft - do various actions
 ;
 #C::

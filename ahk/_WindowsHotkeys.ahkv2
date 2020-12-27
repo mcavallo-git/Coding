@@ -1159,7 +1159,7 @@ WheelRight::
 	Return
 #If WinActive("ahk_exe Cyberpunk2077.exe")
 ;
-;   ACTION:  Cyberpunk - Farm Athletics EXP
+;   ACTION:  Cyberpunk - Farm Athletics EXP (run while standing under a ledge)
 ;
 #C::
 	Loop {

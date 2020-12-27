@@ -1148,67 +1148,67 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
+
+#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
 ;
-
-#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe")
-	#C::
-		OpenChrome()
-		Return
+#C::
+	OpenChrome()
+	Return
+#If WinActive("ahk_exe Cyberpunk2077.exe")
 ;
 ;   ACTION:  Cyberpunk - Farm Athletics EXP
 ;
-#If WinActive("ahk_exe Cyberpunk2077.exe")
-	#C::
-		Loop {
-			Send {Space}
-			Sleep 10
-		}
-		Return
+#C::
+	Loop {
+		Send {Space}
+		Sleep 10
+	}
+	Return
+#If WinActive("Minecraft")
 ;
 ;   ACTION:  Minecraft - do various actions
 ;
-#If WinActive("Minecraft")
-	#C::
-		SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-		AwaitModifierKeyup()  ; Wait until all modifier keys are released
-		WinTitle := "Minecraft"
-		Max_LoopDuration_Seconds := 7200
-		Milliseconds_BetweenClicks := 750
+#C::
+	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	WinTitle := "Minecraft"
+	Max_LoopDuration_Seconds := 7200
+	Milliseconds_BetweenClicks := 750
 
-		Do_SwordAttackSpam := 1
-		; Do_SwordAttackSpam := 0
+	Do_SwordAttackSpam := 1
+	; Do_SwordAttackSpam := 0
 
-		If (Do_SwordAttackSpam == 0) {
-			; Minecraft - Spam right click (for placing piston to blow through bedrock)
-			Loop 500 {
-				Sleep 10
-				MouseClick, Right
-			}
-		} Else {
-			; Minecraft - Sword attack spam
-			TickCount_BeforeLoop := A_TickCount
-			Loop {
-				Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
-				If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
-					Tooltip, % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
-					Break
+	If (Do_SwordAttackSpam == 0) {
+		; Minecraft - Spam right click (for placing piston to blow through bedrock)
+		Loop 500 {
+			Sleep 10
+			MouseClick, Right
+		}
+	} Else {
+		; Minecraft - Sword attack spam
+		TickCount_BeforeLoop := A_TickCount
+		Loop {
+			Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
+			If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
+				Tooltip, % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
+				Break
+			} Else {
+				If (WinActive(WinTitle)) {
+					Tooltip, % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+					MouseClick, Left
+					Sleep %Milliseconds_BetweenClicks%
 				} Else {
-					If (WinActive(WinTitle)) {
-						Tooltip, % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
-						MouseClick, Left
-						Sleep %Milliseconds_BetweenClicks%
-					} Else {
-						Tooltip, % "Stopped Minecraft auto-clicker (MC window lost focus"
-						Break
-					}
+					Tooltip, % "Stopped Minecraft auto-clicker (MC window lost focus"
+					Break
 				}
 			}
-			ClearTooltip(5000)
 		}
-		Return
+		ClearTooltip(5000)
+	}
+	Return
 #If
 
 

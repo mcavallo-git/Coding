@@ -2,11 +2,12 @@
 
 # ------------------------------------------------------------
 
-
+if [ 1 -eq 1 ]; then
 # parse domain from a given URL
 TARGET_URL="https://www.google.com";
 TARGET_DOMAIN="$(echo ${TARGET_URL} | awk -F[/:] '{print $4}')";
 echo "Info:  URL [ ${TARGET_URL} ] contains domain [ ${TARGET_DOMAIN} ]";
+fi;
 
 
 # ------------------------------------------------------------

@@ -1,32 +1,71 @@
 #/bin/bash
 
+# ------------------------------------------------------------
 
-# check if a URL is valid or not
+
+# parse domain from a given URL
+TARGET_URL="https://www.google.com";
+TARGET_DOMAIN="$(echo ${TARGET_URL} | awk -F[/:] '{print $4}')";
+echo "Info:  URL [ ${TARGET_URL} ] contains domain [ ${TARGET_DOMAIN} ]";
+
+
+# ------------------------------------------------------------
+
+
+if [ 1 -eq 1 ]; then
+# check if current device is connected to the internet (or not)
+WAN_TEST_IPV4="8.8.8.8";
+WAN_TEST_RETURN_CODE="$(ping -c 1 -w 1 -W 1 ${WAN_TEST_IPV4} 1>'/dev/null' 2>&1; echo $?;)";
+if [ ${WAN_TEST_RETURN_CODE} -ne 0 ]; then
+# ping error'ed out
+echo "";
+echo "Error:  Unable to ping base case IPv4 address [ ${WAN_TEST_IPV4} ]";
+fi;
+fi;
+
+
+# ------------------------------------------------------------
+
+
+if [ 1 -eq 1 ]; then
+# check if a URL is valid (or not)
 TARGET_URL="https://www.google.com";
 echo "";
-echo "Info:  Testing URL for validity:  [ ${TARGET_URL} ]";
+echo "Info:  Calling  [ curl -ILs ${TARGET_URL} | grep '^HTTP/' | tail -n 1 | awk '{print \$2}' ]...";
+RESPONSE_HTTP_CODE="$(curl -ILs ${TARGET_URL} | grep '^HTTP/' | tail -n 1 | awk '{print $2}')";
+echo "Info:  HTTP response code returned:  [ ${RESPONSE_HTTP_CODE} ]";
 # check whether URL returns an HTTP code of 200 (e.g. if the website exists and responds 'normally')
-if [ "$(curl -Is ${TARGET_URL} | head -n 1 | awk '{print $2}')" == "200" ]; then
+if [ "${RESPONSE_HTTP_CODE}" == "200" ]; then
 echo "";
-echo "Info:  URL validated - Returned an HTTP code of 200";
+echo "Info:  URL validated";
 else
 echo "";
-echo "Error:  Invalid URL - Failed to return an HTTP code of 200";
+echo "Error:  Invalid URL";
 fi;
+fi;
+
+
+# ------------------------------------------------------------
 
 
 # download a file from a given URL
 curl -o "docker-compose.yml" "https://raw.githubusercontent.com/rundeck/docker-zoo/master/basic/docker-compose.yml";
 
 
+# ------------------------------------------------------------
+
+
 # get the WAN-IP of a the current linux instance
 curl https://ipinfo.io/ip
 
 
+# ------------------------------------------------------------
+
+
 # get HTTP Headers, SSL/TLS Info
 curl -vvI https://www.google.com
-curl -vvI https://www.google.com
 
+# ------------------------------------------------------------
 
 # try to open a Websocket Connection
 curl -iiv \
@@ -39,8 +78,14 @@ curl -iiv \
 https://echo.websocket.org:8443
 
 
+# ------------------------------------------------------------
+
+
 # connect to a host with a given username:passsword combo
 curl -u "USER:PASS" "FQDN/REQUEST_URI";
+
+
+# ------------------------------------------------------------
 
 
 # determine if current environment is an AWS EC2 isntance (sketchy b/c of non-https)
@@ -54,6 +99,9 @@ curl "http://169.254.169.254/latest/meta-data/";
 ### if you get anything other than a '200' then it means it's not an EC2 instance.
 #
 ###  Thanks to Rico on StackOverflow: https://stackoverflow.com/questions/21442658/how-to-identify-amazon-aws-ec2-instance
+
+
+# ------------------------------------------------------------
 
 
 # curl --help
@@ -245,6 +293,10 @@ Options: (H) means HTTP/HTTPS only, (F) means FTP only
 # Citation(s)
 #
 #   stackoverflow.com  |  "Azure RedHat vm yum update fails with 'SSL peer rejected your certificate as expired.'"  |  https://stackoverflow.com/a/53445712
+#
+#   stackoverflow.com  |  "regex - How to extract domain name from url? - Stack Overflow"  |  https://stackoverflow.com/a/11385736
+#
+#   stackoverflow.com  |  "unix - Exit status of ping command - Stack Overflow"  |  https://stackoverflow.com/a/26153862
 #
 #   unix.stackexchange.com  |  "monitoring - Health check of web page using curl - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/84820
 #

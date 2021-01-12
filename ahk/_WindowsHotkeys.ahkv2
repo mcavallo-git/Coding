@@ -3469,7 +3469,7 @@ Youtube_EditDraft_Submit() {
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	WinTitle := "Channel videos - YouTube Studio - Google Chrome"
+	WinTitle := "Channel content - YouTube Studio - Google Chrome"
 	If (WinExist(WinTitle)) {
 		;
 		; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!

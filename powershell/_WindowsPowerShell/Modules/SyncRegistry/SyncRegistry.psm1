@@ -251,6 +251,13 @@ function SyncRegistry {
 					Type="DWord";
 					Value=0;
 					Delete=$False;
+				},
+				@{
+					Description="Show or hide seconds on the system tray clock. 0=[Hide], 1=[Show]";
+					Name="ShowSecondsInSystemClock";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
 				}
 			)
 		};
@@ -785,6 +792,21 @@ function SyncRegistry {
 		};
 
 
+		# Processor resource designations
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\PriorityControl";
+			Props=@(
+				@{
+					Description="This default value specifies the priority to give to the application running in the foreground. 0=[Foreground and background applications equally responsive], 1=[Foreground application more responsive than background], 2=[Best foreground application response time]";
+					Name="Win32PrioritySeparation";
+					Type="DWord";
+					Value=("0");
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Multimedia - Gaming Priority
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
@@ -1249,6 +1271,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   www.ghacks.net  |  "Remove Windows 10 Context Menu bloat - gHacks Tech News"  |  https://www.ghacks.net/2017/07/09/remove-windows-10-context-menu-bloat/
 #
+#   www.howtogeek.com  |  "How to Make Windows 10’s Taskbar Clock Display Seconds"  |  https://www.howtogeek.com/325096/how-to-make-windows-10s-taskbar-clock-display-seconds/
+#
 #   www.howtogeek.com  |  "How to Remove the 'Send To' Menu from Windows' Context Menu"  |  https://www.howtogeek.com/howto/windows-vista/disable-the-send-to-folder-on-the-windows-explorer-context-menu/
 #
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
@@ -1256,6 +1280,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
 #
 #   www.tenforums.com  |  "Add or Remove Scan with Microsoft Defender Context Menu in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/18145-add-remove-scan-microsoft-defender-context-menu-windows-10-a.html
+#
+#   www.thewindowsclub.net  |  "Processor Scheduling in Windows 10 for better performance"  |  https://www.thewindowsclub.com/processor-scheduling-in-windows-7-8
 #
 #   www.windows-security.org  |  "Configure compression for RemoteFX data | Windows security encyclopedia"  |  https://www.windows-security.org/e1ff617ad228f804ca6ac298beee92a1/configure-compression-for-remotefx-data
 #

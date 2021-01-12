@@ -392,7 +392,7 @@ ScrollLock::
 ;   APP-SPECIFIC HOTKEY(S):  Youtube
 ;
 ; #If WinExist("Youtube")
-#If WinExist("Channel videos - YouTube Studio - Google Chrome")
+#If WinExist("Channel content - YouTube Studio - Google Chrome")
 	;
 	; HOTKEY:  WinKey + F4
 	; ACTION:  Youtube - Walk uploads from "Draft" to live state

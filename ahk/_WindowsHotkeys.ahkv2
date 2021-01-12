@@ -2392,9 +2392,7 @@ PrintEnv() {
 	; KnownWinEnvVars :=
 	Msgbox,
 	(LTrim
-	------------------------------------ PrintEnv() ------------------------------------
-
-	*** AHK Env-Vars ***
+	------------------------------------ AHK Env-Vars ------------------------------------
 
 	A_AhkPath:		%A_AhkPath%
 	A_AhkVersion:		%A_AhkVersion%
@@ -2431,9 +2429,7 @@ PrintEnv() {
 	A_WinDelay:		%A_WinDelay%
 	A_WorkingDir:		%A_WorkingDir%
 
-	------------------------------------ PrintEnv() ------------------------------------
-
-	*** Windows Env-Vars ***
+	------------------------------------ Windows Env-Vars ------------------------------------
 
 	A_AppData:		%A_AppData%
 	A_AppDataCommon	%A_AppDataCommon%
@@ -2461,9 +2457,7 @@ PrintEnv() {
 	A_UserName:		%A_UserName%
 	A_WinDir:		%A_WinDir%
 
-	--------------------------------------------------------------------------------------------
-
-	*** SysGet Values ***
+	------------------------------------ SysGet Values ------------------------------------
 
 	78 - Viewport_Width :=	%Viewport_Width%
 	79 - Viewport_Height :=	%Viewport_Height%

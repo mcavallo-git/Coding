@@ -26,7 +26,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5>Module Sync - Bash (Linux)</h5>
+<h5>Bash (Shellscript) Module Sync to [ <a href="https://github.com/mcavallo-git/cloud-infrastructure/tree/master/">mcavallo-git/cloud-infrastructure</a> ] GitHub Repo</h5>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
@@ -49,7 +49,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5>Module Sync - PowerShell (Windows)</h5>
+<h5>PowerShell Module Sync to [ <a href="https://github.com/mcavallo-git/Coding/tree/master/powershell/_WindowsPowerShell/Modules">mcavallo-git/Coding</a> ] GitHub Repo</h5>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
@@ -70,7 +70,7 @@ This file (on GitHub):
 			</li>
 			<li>
 				<div>Fallback Method:</div>
-				<pre><sub><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></sub></pre>
+				<pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></pre>
 			</li>
 		</ol>
 	</p>

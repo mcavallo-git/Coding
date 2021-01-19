@@ -1710,8 +1710,8 @@ Duplicate_Keypress() {
 		}
 	}
 	TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
-	ToolTip, % ( TooltipOutput )
 	Loop {
+		ToolTip, % ( TooltipOutput )
 		Send % KeyPressed
 		Sleep 10
 	}

@@ -649,6 +649,16 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  WinKey + F8
+;   ACTION:  Send duplicate keypresses
+;
+#F8::
+	Duplicate_Keypress()
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  WinKey + Ctrl + Z
 ;   HOTKEY:  WinKey + Shift + Z
 ;   ACTION:  Show all (current) Window Titles
@@ -1680,6 +1690,28 @@ DoLogging(LogText) {
 	Return
 }
 
+
+;
+; Duplicate_Keypress
+;   |--> Get user-entered keypress & repeatedly send a duplicate (mock) keypress indefinitely afterwards
+;
+Duplicate_Keypress() {
+	KeyPressed := ""
+	Loop {
+		ToolTip, % ( "Press a key (will be duplicated)" "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
+		; Get the key to duplicate from the user
+		Input, KeyPressed, "L1 T1"
+		If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
+			Break
+		}
+	}
+	ClearTooltip(10)
+	Loop {
+		Send % KeyPressed
+		Sleep 10
+	}
+	Return
+}
 
 ;
 ; Get_ahk_id_from_title

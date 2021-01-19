@@ -1698,18 +1698,24 @@ DoLogging(LogText) {
 Duplicate_Keypress() {
 	KeyPressed := ""
 	Loop {
-		ToolTip, % ( "Press a key (will be duplicated)" "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
+		TooltipOutput := ( "Press a key (will be duplicated)" )
+		If (DebugMode == 1) {
+			TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
+		}
+		ToolTip, % ( TooltipOutput )
 		; Get the key to duplicate from the user
 		Input, KeyPressed, "L1 T1"
 		If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
 			Break
 		}
 	}
-	ClearTooltip(10)
+	TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
+	ToolTip, % ( TooltipOutput )
 	Loop {
 		Send % KeyPressed
 		Sleep 10
 	}
+	ClearTooltip(10)
 	Return
 }
 

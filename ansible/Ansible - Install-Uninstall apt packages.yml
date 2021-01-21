@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Remove apt package discover
+      apt:
+              pkg: discover
+              purge: yes
+              state: absent
+    - name: Add apt package repository for package apt-fast
+      ansible.builtin.apt_repository:
+              repo: ppa:apt-fast/stable
+              state: present
+    - name: Add apt package apt-fast
+      apt:
+              pkg: apt-fast
+              state: present
+# ------------------------------------------------------------
+#
+# Execute via:
+#   sudo ansible-playbook playbook.yml
+#
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.ansible.com  |  "ansible.builtin.apt – Manages apt-packages — Ansible Documentation"  |  https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html
+#
+#   docs.ansible.com  |  "ansible.builtin.apt_repository – Add and remove APT repositories — Ansible Documentation"  |  https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_repository_module.html
+#
+#   docs.ansible.com  |  "ansible.builtin.debug – Print statements during execution — Ansible Documentation"  |  https://docs.ansible.com/ansible/latest/collections/ansible/builtin/debug_module.html
+#
+#   docs.ansible.com  |  "Playbook Keywords — Ansible Documentation"  |  https://docs.ansible.com/ansible/latest/reference_appendices/playbooks_keywords.html#task
+#
+# ------------------------------------------------------------

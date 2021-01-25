@@ -96,6 +96,7 @@ else
 	cd "${WORKING_DIR}";
 
 	unset FILENAME_STARTSWITH_ARR; declare -a FILENAME_STARTSWITH_ARR; # [Re-]Instantiate bash array
+	FILENAME_STARTSWITH_ARR+=("Cyberpunk 2077");
 	FILENAME_STARTSWITH_ARR+=("Destiny 2");
 	FILENAME_STARTSWITH_ARR+=("Fallout 76");
 	FILENAME_STARTSWITH_ARR+=("Halo The Master Chief Collection");

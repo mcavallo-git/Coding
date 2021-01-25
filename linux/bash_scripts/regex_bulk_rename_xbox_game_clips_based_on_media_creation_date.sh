@@ -109,6 +109,7 @@ else
 	FILENAME_STARTSWITH_ARR+=("Sea of Thieves");
 	FILENAME_STARTSWITH_ARR+=("STAR WARS");
 	FILENAME_STARTSWITH_ARR+=("Tom Clancy's The Division 2");
+	FILENAME_STARTSWITH_ARR+=("Torchlight");
 	FILENAME_STARTSWITH_ARR+=("Warframe");
 	FILENAME_STARTSWITH_ARR+=("Warhammer Vermintide 2");
 	FILENAME_STARTSWITH_ARR+=("World War Z");

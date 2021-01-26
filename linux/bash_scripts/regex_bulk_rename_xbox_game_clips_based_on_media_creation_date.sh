@@ -96,6 +96,11 @@ else
 	cd "${WORKING_DIR}";
 
 	unset FILENAME_STARTSWITH_ARR; declare -a FILENAME_STARTSWITH_ARR; # [Re-]Instantiate bash array
+	FILENAME_STARTSWITH_ARR+=("Apex Legends");
+	FILENAME_STARTSWITH_ARR+=("Battlefield");
+	FILENAME_STARTSWITH_ARR+=("Brawl Stars");
+	FILENAME_STARTSWITH_ARR+=("Call of Duty");
+	FILENAME_STARTSWITH_ARR+=("Clash of Clans");
 	FILENAME_STARTSWITH_ARR+=("Cyberpunk 2077");
 	FILENAME_STARTSWITH_ARR+=("Destiny 2");
 	FILENAME_STARTSWITH_ARR+=("Fallout 76");
@@ -109,11 +114,12 @@ else
 	FILENAME_STARTSWITH_ARR+=("Red Dead Redemption 2");
 	FILENAME_STARTSWITH_ARR+=("Rocket League");
 	FILENAME_STARTSWITH_ARR+=("Sea of Thieves");
-	FILENAME_STARTSWITH_ARR+=("STAR WARS");
+	FILENAME_STARTSWITH_ARR+=("Star Wars");
 	FILENAME_STARTSWITH_ARR+=("Tom Clancy's The Division 2");
 	FILENAME_STARTSWITH_ARR+=("Torchlight");
 	FILENAME_STARTSWITH_ARR+=("Warframe");
 	FILENAME_STARTSWITH_ARR+=("Warhammer Vermintide 2");
+	FILENAME_STARTSWITH_ARR+=("World of Warcraft");
 	FILENAME_STARTSWITH_ARR+=("World War Z");
 
 	unset FILE_EXTENSIONS_ARR; declare -a FILE_EXTENSIONS_ARR; # [Re-]Instantiate bash array

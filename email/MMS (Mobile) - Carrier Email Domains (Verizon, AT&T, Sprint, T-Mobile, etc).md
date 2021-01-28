@@ -1,49 +1,43 @@
 <!-- ------------------------------------------------------------ -->
 
-### Mobile-Data MMS/SMS Email-Domains (Carriers - Verizon, AT&T, Sprint, T-Mobile, Spectrum, etc.)
+### Cell Phone Carrier Email Domains for [ MMS ] Message Conversion
+
+MMS  |  AllTel  |  1234567890@mms.alltel.net
+
+MMS  |  AT&T  |  1234567890@mms.att.net
+
+MMS  |  Boost Mobile  |  1234567890@myboostmobile.com
+
+MMS  |  Cricket Wireless  |  1234567890@mms.mycricket.com
+
+MMS  |  Metro PCS  |  1234567890@mymetropcs.com
+
+MMS  |  Nextel  |  1234567890@messaging.nextel.com
+
+MMS  |  Spectrum  |  1234567890@mypixmessages.com
+
+MMS  |  Sprint  |  1234567890@pm.sprint.com
+
+MMS  |  Straight Talk  |  1234567890@mypixmessages.com
+
+MMS  |  T-Mobile  |  1234567890@tmomail.net
+
+MMS  |  U.S. Cellular  |  1234567890@mms.uscc.net
+
+MMS  |  Verizon  |  1234567890@vzwpix.com
+
+MMS  |  Virgin Mobile  |  1234567890@vmpix.com
+
 
 <!-- ------------------------------------------------------------ -->
 
+### Cell Phone Carrier Email Domains for [ SMS ] Message Conversion
 
-1234567890@mms.alltel.net (AllTel MMS)
+###### Note: ⚠️!⚠️ SMS messages are limited to 160 characters - Any characters beyond the 160 character limit are truncated ⚠️!⚠️
 
+SMS  |  Spectrum  |  1234567890@vtext.com
 
-1234567890@mms.att.net (AT&T MMS)
-
-
-1234567890@myboostmobile.com (Boosy Mobile MMS)
-
-
-1234567890@mms.mycricket.com (Cricket Wireless MMS)
-
-
-1234567890@mymetropcs.com (Metro PCS MMS)
-
-
-1234567890@pm.sprint.com (Sprint MMS)
-
-
-1234567890@messaging.nextel.com (Nextel MMS)
-
-
-Spectrum MMS - Unknown / undefined
-Spectrum SMS - See Verizon SMS
-
-
-1234567890@mypixmessages.com (Straight Talk MMS)
-
-
-1234567890@tmomail.net (T-Mobile MMS)
-
-
-1234567890@mms.uscc.net (U.S. Cellular MMS)
-
-
-1234567890@vzwpix.com (Verizon MMS)
-1234567890@vtext.com (Verizon SMS ⚠️!⚠️ 160 CHARACTER MAXIMUM  ⚠️!⚠️)
-
-
-1234567890@vmpix.com (Virgin Mobile MMS)
+SMS  |  Verizon  |  1234567890@vtext.com
 
 
 <!-- ------------------------------------------------------------ -->

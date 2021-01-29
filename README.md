@@ -126,7 +126,7 @@ This file (on GitHub):
 <tr><td><strong>Notepad Replacer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Redirects NotePad.exe to VSCode, NP++, etc.<br />&nbsp;&nbsp;&nbsp;Text Editor Path:  <b>C:\Program Files\Microsoft VS Code\Code.exe</b></i></sub></td><td><a href="https://www.binaryfortress.com/NotepadReplacer/Download/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.binaryfortress.com/Data/Download/?package=notepadreplacer&log=100">Download (direct)</a></sub></td></tr>
 <tr><td><strong>RoboForm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-platform secure password manager</i></sub></td><td><a href="https://www.roboform.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git Merge Conflict Resolver</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
-<tr><td><strong>Webull</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Commission-Free Stock Trading Application</i></sub></td><td><a href="https://www.webull.com/">View (source)</a></td></tr>
+<tr><td><strong>Webull</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Commission-Free Stock Trading Application/Service</i></sub></td><td><a href="https://www.webull.com/">View (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

@@ -34,4 +34,6 @@ FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
 
 START explorer.exe "%OUTPUT_DIR%"
 
-TIMEOUT /T 30
+REM TIMEOUT /T 30
+
+EXIT

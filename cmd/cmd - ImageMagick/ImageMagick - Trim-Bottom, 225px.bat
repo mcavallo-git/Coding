@@ -46,7 +46,7 @@ FOR %%I IN ("%INPUT_DIR%\*.%EXT%") DO (
 REM	Open the output directory once finished
 START explorer.exe "%OUTPUT_DIR%"
 
-TIMEOUT /T 30
+REM TIMEOUT /T 30
 
 EXIT
 

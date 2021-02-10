@@ -18,7 +18,7 @@ echo "${CRON_CONTENTS}" > "${DAT_CRON}" && chown "root:root" "${DAT_CRON}" && ch
 
 # ------------------------------------------------------------
 #
-# !!! NOTE: You're most likely best off using a cronjob to run the journalctl compression commands than setting journalctl's config settings !!!
+# !!! NOTE: You're most likely best off using the above cronjob to run the journalctl compression commands than setting journalctl's config settings !!!
 #
 # Set journalctl's config to enforce the max disk size allowed for logfiles
 # if [ -f "/etc/systemd/journald.conf" ]; then

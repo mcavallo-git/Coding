@@ -1,7 +1,19 @@
 #!/bin/bash
+# ------------------------------------------------------------
 
 # Remove logfiles older than 90 days & make sure that, net, the logfiles don't add up to over 5 GB (otherwise trim them back until they do)
-journalctl --vacuum-time=90d --vacuum-size=5G;
+sudo journalctl --vacuum-time=90d --vacuum-size=5G;
+
+
+# ------------------------------------------------------------
+
+# Setup a cronjob to auto-cleanup logfiles every day at 02:00 AM
+
+sudo -i;  # must act as root to perform these actions;
+
+DAT_CRON="/etc/cron.d/CRON_journalctl_logfile_cleanup";
+CRON_CONTENTS="0 2 * * * root journalctl --vacuum-time=90d --vacuum-size=5G;"
+echo "${CRON_CONTENTS}" > "${DAT_CRON}" && chown "root:root" "${DAT_CRON}" && chmod 0644 "${DAT_CRON}"; SERVICE_NAME="cron"; /usr/sbin/service "${SERVICE_NAME}" restart 2>'/dev/null'; SERVICE_NAME="crond"; /usr/sbin/service "${SERVICE_NAME}" restart 2>'/dev/null';
 
 
 # ------------------------------------------------------------

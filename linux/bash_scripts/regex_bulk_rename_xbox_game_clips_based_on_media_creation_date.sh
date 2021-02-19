@@ -121,8 +121,8 @@ else
 	FILENAME_STARTSWITH_ARR+=("Warframe");
 	FILENAME_STARTSWITH_ARR+=("Warhammer Vermintide 2");
 	FILENAME_STARTSWITH_ARR+=("World of Warcraft");
-	FILENAME_STARTSWITH_ARR+=("Worms W.M.D");
 	FILENAME_STARTSWITH_ARR+=("World War Z");
+	FILENAME_STARTSWITH_ARR+=("Worms W.M.D");
 
 	unset FILE_EXTENSIONS_ARR; declare -a FILE_EXTENSIONS_ARR; # [Re-]Instantiate bash array
 	FILE_EXTENSIONS_ARR+=("mp4");

@@ -117,9 +117,11 @@ else
 	FILENAME_STARTSWITH_ARR+=("Star Wars");
 	FILENAME_STARTSWITH_ARR+=("Tom Clancy's The Division 2");
 	FILENAME_STARTSWITH_ARR+=("Torchlight");
+	FILENAME_STARTSWITH_ARR+=("Ultimate Chicken Horse");
 	FILENAME_STARTSWITH_ARR+=("Warframe");
 	FILENAME_STARTSWITH_ARR+=("Warhammer Vermintide 2");
 	FILENAME_STARTSWITH_ARR+=("World of Warcraft");
+	FILENAME_STARTSWITH_ARR+=("Worms W.M.D");
 	FILENAME_STARTSWITH_ARR+=("World War Z");
 
 	unset FILE_EXTENSIONS_ARR; declare -a FILE_EXTENSIONS_ARR; # [Re-]Instantiate bash array

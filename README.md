@@ -34,11 +34,11 @@ This file (on GitHub):
 			<li>Prereq: SSH Terminal w/ Elevated Privileges, e.g. running as "root" user (or as any sudoer)</li>
 			<li>
 				<div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
-				<pre><code>curl -ssL https://mcavallo.com/sh | bash</code></pre>
+				<pre><code>curl -ssL https://mcavallo.com/sh | bash -s -- --all;</code></pre>
 			</li>
 			<li>
 				<div>Once initial sync completes, you may trigger a manual re-sync via command: </div>
-				<pre><code>sync_cloud_infrastructure</code></pre>
+				<pre><code>sync_cloud_infrastructure;</code></pre>
 			</li>
 		</ol>
 	</p>

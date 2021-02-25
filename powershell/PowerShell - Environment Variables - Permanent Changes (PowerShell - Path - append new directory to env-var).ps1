@@ -12,7 +12,7 @@ If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldS
 #
 
 <# Update the max characters-per-line for the Powershell console by increasing the output buffer size (to see all of \${Env:PATH}, specifically) #>
-Ir(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
+If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $rawUI = $Host.UI.RawUI;
   $oldSize = $rawUI.BufferSize;
   $typeName = $oldSize.GetType( ).FullName;
@@ -49,7 +49,7 @@ $EnvPath = (${Env:Path}).Split(';');
 # Aappend to  > >  USER environment variable  < <  Permanently add a directory to the user's path (doesn't apply to other users on the same system)
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
 $UserPath = ((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path);
-Ir (((${Env:Path}).Split(';') | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {
+If (((${Env:Path}).Split(';') | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {
 	[System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
 }
 
@@ -57,7 +57,7 @@ Ir (((${Env:Path}).Split(';') | Where-Object { $_ -Eq "C:\Program Files\Git\cmd"
 # Append to  > >  SYSTEM environment variable  < <  Permanently add a directory to the system path (applies to all users on the same system)
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
 $SystemPath = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path);
-Ir (((${Env:Path}).Split(';') | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {
+If (((${Env:Path}).Split(';') | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {
 	[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
 }
 

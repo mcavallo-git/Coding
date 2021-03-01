@@ -675,7 +675,9 @@ ScrollLock::
 ;   ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;
 #[::
+AppsKey & [::
 #]::
+AppsKey & ]::
 	Global DebugMode
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
@@ -691,11 +693,11 @@ ScrollLock::
 	Send {Escape}
 	Sleep 250
 	If (A_OSVersion="WIN_7") {  ; Windows7
-		If (A_ThisHotkey=="^#[") {
+		If ((A_ThisHotkey=="#[") || (A_ThisHotkey=="AppsKey & [")) {
 			; Duplicate Monitors
 			xpos := 874
 			ypos := 520
-		} Else If (A_ThisHotkey=="^#]") {
+		} Else If ((A_ThisHotkey=="#]") || (A_ThisHotkey=="AppsKey & ]")) {
 			; Extend Monitors
 			xpos := 1044
 			ypos := 520
@@ -716,13 +718,13 @@ ScrollLock::
 			If ((WinTitle = "Project") && (Win_ahk_class = "Windows.UI.Core.CoreWindow")) {
 				; Projection menu detected --> select related option (duplicate/extend)
 				Sleep 250
-			Random, RandomSleep, 1000, 1500
-			Sleep %RandomSleep%
-				If (A_ThisHotkey=="#[") {
+				Random, RandomSleep, 1000, 1500
+				Sleep %RandomSleep%
+				If ((A_ThisHotkey=="#[") || (A_ThisHotkey=="AppsKey & [")) {
 					; Duplicate Monitors
 					xpos := (A_ScreenWidth - 20)
 					ypos := 210
-				} Else If (A_ThisHotkey=="#]") {
+				} Else If ((A_ThisHotkey=="#]") || (A_ThisHotkey=="AppsKey & ]")) {
 					; Extend Monitors
 					xpos := (A_ScreenWidth - 20)
 					ypos := 315
@@ -732,8 +734,8 @@ ScrollLock::
 				; Wait until the new monitor layout is loaded
 				Loop 30 {
 					Sleep 100
-			Random, RandomSleep, 1000, 1500
-			Sleep %RandomSleep%
+					Random, RandomSleep, 1000, 1500
+					Sleep %RandomSleep%
 					SysGet, MonitorCountAfter, 80
 					If (MonitorCountAfter != MonitorCountBefore) {
 						Break
@@ -742,13 +744,13 @@ ScrollLock::
 				; Click outside of the Projection menu to close it
 				MouseClick, Left, %MouseX%, %MouseY%
 				Sleep 100
-			Random, RandomSleep, 1000, 1500
-			Sleep %RandomSleep%
+				Random, RandomSleep, 1000, 1500
+				Sleep %RandomSleep%
 				; Send an Escape keypress to ensure the Projection menu closes
 				Send {Escape}
 				Sleep 100
-			Random, RandomSleep, 1000, 1500
-			Sleep %RandomSleep%
+				Random, RandomSleep, 1000, 1500
+				Sleep %RandomSleep%
 				Break
 			} Else If (LoopingForMilliseconds > 2000) {
 				MsgBox, 

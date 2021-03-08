@@ -509,7 +509,7 @@ ScrollLock::
 ;   HOTKEY:  Alt + Z
 ;   ACTION:  If VSCode is active, enable Text Wrap in it - Otherwise, bring up the GeForce Experience Overlay (must manually set hotkey in said overlay to match +!z)
 ;
-#UseHook False  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+#UseHook False  ; Disable the catching of hotkeys sent by this script (stops infinite loops)  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 !z::
 	SetKeyDelay, 0, -1
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
@@ -526,7 +526,7 @@ ScrollLock::
 		Send +!z
 	}
 	Return
-#UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+#UseHook True  ; Enable the catching of hotkeys sent by this script  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 
 
 ; ------------------------------------------------------------

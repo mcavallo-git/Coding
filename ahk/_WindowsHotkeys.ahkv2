@@ -506,6 +506,31 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  Alt + Z
+;   ACTION:  If VSCode is active, enable Text Wrap in it - Otherwise, bring up the GeForce Experience Overlay (must manually set hotkey in said overlay to match +!z)
+;
+#UseHook False  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+!z::
+	SetKeyDelay, 0, -1
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	WinTitle := " - Visual Studio Code"
+	If (WinActive(WinTitle)) {
+		Send !z
+		; Win_ahk_id := WinGetID("A")
+		; Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
+		; ControlSend,, !z, ahk_pid %Win_ahk_pid%
+		; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid %Win_ahk_pid%"
+	} Else {
+  	; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
+		Send +!z
+	}
+	Return
+#UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  WinKey + G
 ;   HOTKEY:  WinKey + W
 ;   ACTION:  Types the contents of target file - Optionally, only perform the paste if the currently active window's executable filepath matches a predefined 'whitelisted' exe-filepath

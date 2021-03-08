@@ -1486,54 +1486,55 @@ LShift & RShift::
 ; ----------------------------------------------------
 ;   HOTKEY:  Num Lock
 ;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
-;           Allow for a specific config-file, if exists, to keep Numlock disabled by-default (for specific hardware/VM use-cases)
+;           Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
 ;
-Numlock::
-^Numlock::
-!Numlock::
-#Numlock::
-	ConfigFilepath_KeepNumlockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
-	If (FileExist(ConfigFilepath_KeepNumlockDisabled)) {
-		; Reverse Action - Keep Numlock disabled by-default
-		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
-		If (NumLockEnabled_BeforeKeypress == 1) {
-			SetNumlockState, Off
-		} Else {
-			TextToolTip := "Enable NumLock via Shift+NumLock"
-			ToolTip, %TextToolTip%
-			ClearTooltip(3000)
-		}
-	} Else {
-		; Default Action - Keep Numlock enabled by-default
-		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
+NumLock::
+^NumLock::
+!NumLock::
+#NumLock::
+	ConfigFilepath_KeepNumLockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
+	If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
+		; Default - Keep NumLock enabled
+		NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
 		If (NumLockEnabled_BeforeKeypress == 0) {
-			SetNumlockState, On
+			SetNumLockState, On
+			; SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
 		} Else {
 			TextToolTip := "Disable NumLock via Shift+NumLock"
 			ToolTip, %TextToolTip%
 			ClearTooltip(3000)
 		}
+	} Else {
+		; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
+		NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+		If (NumLockEnabled_BeforeKeypress == 1) {
+			SetNumLockState, Off
+			; SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+		} Else {
+			TextToolTip := "Enable NumLock via Shift+NumLock"
+			ToolTip, %TextToolTip%
+			ClearTooltip(3000)
+		}
 	}
-	Sleep 500
 	Return
 
-+Numlock::
-	ConfigFilepath_KeepNumlockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
-	If (FileExist(ConfigFilepath_KeepNumlockDisabled)) {
-		; Reverse Action - Allow Shift+Numlock to enable NumLock
-		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
-		If (NumLockEnabled_BeforeKeypress == 0) {
-			SetNumlockState, On
-		}
++NumLock::
+	ConfigFilepath_KeepNumLockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
+	If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
+		; Default - Allow Shift+NumLock to toggle NumLock
+		; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+		; If (NumLockEnabled_BeforeKeypress == 1) {
+		; 	; SetNumLockState, Off
+		; 	SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+		; }
+		SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
 	} Else {
-		; Default Action - Allow Shift+Numlock to disable NumLock
-		NumLockEnabled_BeforeKeypress := GetKeyState("Numlock", "T")
-		If (NumLockEnabled_BeforeKeypress == 1) {
-			SetNumlockState, Off
+		; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
+		NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+		If (NumLockEnabled_BeforeKeypress == 0) {
+			SetNumLockState, On
 		}
 	}
-	; SetNumlockState, % GetKeyState("Numlock", "T") ? "Off" : "On"
-	Sleep 500
 	Return
 
 

@@ -178,7 +178,7 @@ ScrollLock::
 ;   HOTKEY:  WinKey + Z
 ;   ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
 ;
-#Z::
+#z::
 	GetWindowSpecs()
 	Return
 
@@ -192,7 +192,7 @@ ScrollLock::
 	;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
 	;   ACTION:  Edit > Add Text
 	;
-	#A::
+	#a::
 		Global DebugMode
 		CoordMode, Mouse, Screen
 		SetDefaultMouseSpeed, 0
@@ -216,7 +216,7 @@ ScrollLock::
 	;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
 	;   ACTION:  Edit > Bold
 	;
-	^B::
+	^b::
 		Global DebugMode
 		CoordMode, Mouse, Screen
 		SetDefaultMouseSpeed, 0
@@ -240,7 +240,7 @@ ScrollLock::
 	;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
 	;   ACTION:  Redo
 	;
-	^Y::
+	^y::
 		Global DebugMode
 		; CoordMode, Mouse, Window
 		SetDefaultMouseSpeed, 0
@@ -434,7 +434,7 @@ ScrollLock::
 ;   HOTKEY:  WinKey + V
 ;   ACTION:  Open VS Code
 ;
-#V::
+#v::
 	OpenVisualStudioCode()
 	Return
 
@@ -446,9 +446,9 @@ ScrollLock::
 ;   HOTKEY:  Ctrl + WinKey + V
 ;   ACTION:  Paste the Clipboard
 ;
-*^+V::
-*^!V::
-*^#V::
+*^+v::
+*^!v::
+*^#v::
 	; PasteClipboardAsText()
 	PasteClipboardAsBinary()
 	Return
@@ -460,8 +460,8 @@ ScrollLock::
 ;   HOTKEY:  Ctrl + WinKey + P
 ;   ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
-^#P::
-+#P::
+^#p::
++#p::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
 	Return
@@ -471,7 +471,7 @@ ScrollLock::
 ;   HOTKEY:  WinKey + P
 ;   ACTION:  Open RoboForm's Generate-Password Executable
 ;
-#P::
+#p::
 	OpenPasswordGenerator()
 	Return
 
@@ -481,7 +481,7 @@ ScrollLock::
 ;   HOTKEY:  WinKey + H
 ;   ACTION:  Type the COMPUTERNAME
 ;
-#H::
+#h::
 	SendHostname()
 	Return
 
@@ -491,7 +491,7 @@ ScrollLock::
 ;   HOTKEY:  WinKey + U
 ;   ACTION:  Type the DOMAIN-USERNAME
 ;
-#U::
+#u::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Object_WMI_Service := ComObjGet("winmgmts:{impersonationLevel=impersonate}!\\" A_ComputerName "\root\cimv2")
@@ -535,8 +535,8 @@ ScrollLock::
 ;   HOTKEY:  WinKey + W
 ;   ACTION:  Types the contents of target file - Optionally, only perform the paste if the currently active window's executable filepath matches a predefined 'whitelisted' exe-filepath
 ;
-#G::
-#W::
+#g::
+#w::
 	KeysPressed := A_ThisHotkey
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	FileToPaste_Legend := OutDirname "\.ahk\" KeysPressed
@@ -595,14 +595,14 @@ ScrollLock::
 ;   HOTKEY:  WinKey + D
 ;   ACTION:  Types one of a dynamic set of timestamp-strings
 ;
-#D::     ;  20200725T080521              (Base Case + WinKey + D)
-!#D::    ;  20200725T080550-0500         (Alt + WinKey + D)
-^#D::    ;  2020-07-25T08:05:55          (Ctrl + WinKey + D)
-+#D::    ;  20200725T080557.608027       (Shift + WinKey + D)
-!^#D::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
-+^#D::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
-+!#D::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
-+!^#D::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + Win ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
+#d::     ;  20200725T080521              (Base Case + WinKey + D)
+!#d::    ;  20200725T080550-0500         (Alt + WinKey + D)
+^#d::    ;  2020-07-25T08:05:55          (Ctrl + WinKey + D)
++#d::    ;  20200725T080557.608027       (Shift + WinKey + D)
+!^#d::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
++^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
++!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
++!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + Win ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
 	Global RFC3339_YearMonthDay_Separator
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator
@@ -692,8 +692,8 @@ ScrollLock::
 ;   HOTKEY:  WinKey + Shift + Z
 ;   ACTION:  Show all (current) Window Titles
 ;
-^#Z::
-+#Z::
+^#z::
++#z::
 	ShowWindowTitles()
 	Return
 
@@ -885,8 +885,8 @@ AppsKey & ]::
 ;   HOTKEY:  WinKey + L
 ;   ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
 ;
-#L::
-AppsKey & L::
+#l::
+AppsKey & l::
 	LockWorkstation()
 	; Monitor_ShowScreenSaver()
 	Reload
@@ -898,7 +898,7 @@ AppsKey & L::
 ;   HOTKEY:  Windows-Key + N
 ;   ACTION:  Opens "View Network Connections" (in the Control Panel)
 ; 
-#N::
+#n::
 	TrayTip, AHK, % ( "Opening 'View Network Connections'" )  ; Toast Notification
 	ViewNetworkConnections_PATH := WINDIR "\System32\ncpa.cpl"
 	ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
@@ -911,7 +911,7 @@ AppsKey & L::
 ; HOTKEY:  Windows-Key + S
 ; ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
 ; 
-#S::
+#s::
 	TrayTip, AHK, % ( "Opening 'Sound' > 'Playback'" )  ; Toast Notification
 	;
 	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
@@ -940,7 +940,7 @@ AppsKey & L::
 ;   HOTKEY:  Windows-Key + E
 ;   ACTION:  Opens "USERPROFILE" directory
 ; 
-#E::
+#e::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	Run "%OutDirname%"
 	Return
@@ -950,7 +950,7 @@ AppsKey & L::
 ;   HOTKEY:  Windows-Key + O (not zero, the letter O)
 ;   ACTION:  Opens "Programs & Features" in the Control Panel
 ;
-#O::
+#o::
 	Run "c:\windows\system32\appwiz.cpl"
 	Return
 
@@ -1161,10 +1161,10 @@ WheelRight::
 ;   HOTKEY:  Right-WinKey  + K
 ;   ACTION:  Send a Checkmark
 ;
-^+K::
-^!K::
-^#K::
->#K::
+^+k::
+^!k::
+^#k::
+>#k::
 	SetKeyDelay, 0, -1
 	; Send ✔
 	; Send 🗸  ; Light Check Mark
@@ -1177,7 +1177,7 @@ WheelRight::
 ;   HOTKEY:  Left-WinKey + K
 ;   ACTION:  Send a Thumbs-Up
 ;
-<#K::
+<#k::
 	SetKeyDelay, 0, -1
 	; Send 👍
 	; Send 👍🏿  ; Thumbs Up: Dark Skin Tone
@@ -1194,7 +1194,7 @@ WheelRight::
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
 ;
-#C::
+#c::
 	OpenChrome()
 	Return
 #If WinActive("ahk_exe Cyberpunk2077.exe")
@@ -1202,7 +1202,7 @@ WheelRight::
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Cyberpunk - Farm Athletics EXP
 ;
-#C::
+#c::
 	Loop {
 		WinActivate Cyberpunk
 		Send {Space}  ; Jump Spam
@@ -1215,7 +1215,7 @@ WheelRight::
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Minecraft - do various actions
 ;
-#C::
+#c::
 	SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	WinTitle := "Minecraft"
@@ -1262,8 +1262,8 @@ WheelRight::
 ;           Ctrl + WinKey + C
 ;   ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
-!#C::
-^#C::
+!#c::
+^#c::
 	; WinTitle=Task Scheduler
 	; WinTitle=Visual Studio Code
 	; SpaceUp_Loop(50, WinTitle)
@@ -1277,7 +1277,7 @@ WheelRight::
 ;   HOTKEY:  Windows-Key + F
 ;   ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
 ;
-#F::
+#f::
 	If (1 == 0) {
 		; ------------------------------------------------------------
 		; OLD RUNTIME - Open "Effective File Search" (software)
@@ -1314,7 +1314,7 @@ WheelRight::
 ; VKA0 & VKA1::     ;VKA1 = RShift
 ; VKA1 & VKA0::     ;VKA0 = LShift
 ; SC02A & SC136::   ;SC136 = RShift
-; SC136 & SC02A::   ;SC02A = LShift
+; SC136 & SC02a::   ;SC02A = LShift
 ; >+LShift::        ;>+ = RShift (Modifier)
 ; <+RShift::        ;<+ = LShift (Modifier)
 RShift & LShift::
@@ -1373,7 +1373,7 @@ LShift & RShift::
 ; ------------------------------------------------------------
 ;  Win+J - Start Node.JS (Git-Bash) && Postman
 ;
-; #J::
+; #j::
 ; 	; - -
 ; 	SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
 ; 	; - -
@@ -1478,7 +1478,7 @@ LShift & RShift::
 ;   HOTKEY:  WinKey + T
 ;   ACTION:  Get Windows Environment Vars
 ;
-#T::
+#t::
 	PrintEnv()
 	Return
 

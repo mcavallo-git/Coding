@@ -1098,7 +1098,7 @@ function SyncRegistry {
 							#
 							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
-								Write-Output (("  |-->  !! Created Key"));
+								Write-Output (("  |-->  !! Created this Registry Key"));
 							}
 						}
 					}

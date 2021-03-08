@@ -494,8 +494,12 @@ ScrollLock::
 #U::
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	; RET_VAL = %USERNAME%
-	RET_VAL := USERDOMAIN "-" A_UserName
+	Object_WMI_Service := ComObjGet("winmgmts:{impersonationLevel=impersonate}!\\" A_ComputerName "\root\cimv2")
+	For objComputer in Object_WMI_Service.ExecQuery("Select * from Win32_ComputerSystem") {
+		Domain := objComputer.Domain, Workgroup := objComputer.Workgroup
+	}
+	USERDOMAIN := EnvGet("USERDOMAIN")
+	RET_VAL := A_UserName "@" Domain "_via_" USERDOMAIN
   Send %RET_VAL%
 	Return
 
@@ -4123,6 +4127,8 @@ If (False) {
 ;   www.autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
 ;
 ;   www.autohotkey.com  |  "ControlGet List - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/7649-controlget-list/
+;
+;   www.autohotkey.com  |  "Detect Current Windows Domain - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/77940-detect-current-windows-domain/?p=495386
 ;
 ;   www.autohotkey.com  |  "determine if scaling is not 100% for monitor of a window, change PerMonitorSettings in registry, reflect change, verify - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=160615#p160615
 ; 

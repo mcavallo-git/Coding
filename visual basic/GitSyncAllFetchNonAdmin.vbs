@@ -1,0 +1,55 @@
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/GitSyncAll/GitSyncAll.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'GitSyncAll' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\GitSyncAll\GitSyncAll.psm1', ((Get-Variable -Name 'HOME').Value))); }; GitSyncAll -Fetch;"" ", 0, True
+
+
+' ------------------------------------------------------------
+'
+' Create a Scheduled Task (which targets this script) by using the following values:
+'
+'
+'   General:
+'     Name:  GitSyncAll -Fetch
+'     Location:  \
+'     Author:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'     Description:  GitSyncAll -Fetch
+'     Security Options:
+'        When running the task, use the following user account:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'        (SELECT) Run only when user is logged on
+'        (UNCHECK)  Run with highest privileges
+'
+'
+'   Trigger:
+'     (1) Begin the task:  At log on
+'          |--> Specific User:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'          |--> Delay task for:  15 seconds
+'          |--> Stop task if it runs loger than:  30 seconds
+'          |--> (CHECK) Enabled
+'
+'
+'   Action:
+'     Action:          Start a program
+'     Program/script:  C:\Windows\System32\wscript.exe
+'     Add arguments:   "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAllFetchNonAdmin.vbs"
+'     Start in (optional):
+'
+'
+'   Conditions:
+'     (UNCHECK ALL)
+'     (CHECK) Start only if the following network connection is available: [ Any connection ]
+'
+'
+'   Settings:
+'     (CHECK)    Allow task to be run on demand
+'     (UNCHECK)  Run as soon as possible after a scheduled start is missed
+'     (UNCHECK)  If the task fails, restart every: ...
+'     (UNCHECK)  Stop this task if it runs longer than:
+'     (CHECK)    If the running task does not end when requested, force it to stop
+'     (UNCHECK)  If the task is not scheduled to run again, delete it after: ...
+'
+'
+' ------------------------------------------------------------
+'
+' Citation(s)
+'
+'   git-scm.com  |  "Git"  |  https://git-scm.com
+'
+' ------------------------------------------------------------

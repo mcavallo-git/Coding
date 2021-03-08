@@ -83,15 +83,19 @@ function GitSyncAll {
 				$GitConfig.Regex = @{};
 				$GitConfig.Regex.HTTPS = '(\s*url\ =\ )(https\:\/\/)(github\.com)(\/)(.+)';
 				$GitConfig.Regex.SSH = '$1git@$3:$5';
+				$GitConfig.Regex.SSHCommand = '^\s*sshcommand = (.+)';
 
 				$GitConfig.Content = @{};
-				$GitConfig.Content.HTTPS = Get-Content -Path ($GitConfig.Path);
-				$GitConfig.Content.FoundUrlHTTPS = If (($GitConfig.Content.HTTPS -match ($GitConfig.Regex.HTTPS)) -ne $Null) { $true } Else { $false };
+				$GitConfig.Content.Full = Get-Content -Path ($GitConfig.Path);
+				$GitConfig.Content.RegexTest_HTTPS = If (($GitConfig.Content.Full -match ($GitConfig.Regex.HTTPS)) -ne $Null) { $True } Else { $False };
+				$GitConfig.Content.RegexTest_SSHCommand = If (($GitConfig.Content.Full -match ($GitConfig.Regex.SSHCommand)) -ne $Null) { $True } Else { $False };
 
-				# Convert any HTTPS Urls found in .git/config to SSH-notation
-				If ($GitConfig.Content.FoundUrlHTTPS -eq $true) {
-					$GitConfig.Content.SSH = ($GitConfig.Content.HTTPS -replace ($GitConfig.Regex.HTTPS),($GitConfig.Regex.SSH));
-					Set-Content -Path ($GitConfig.Path) -Value ($GitConfig.Content.SSH);
+				# If an "ssh_command" is instantiated (in .git/config), convert any HTTPS URLs to SSH URLs
+				If ($GitConfig.Content.RegexTest_SSHCommand -eq $True) {
+					If ($GitConfig.Content.RegexTest_HTTPS -eq $True) {
+						$GitConfig.Content.SSH = ($GitConfig.Content.Full -replace ($GitConfig.Regex.HTTPS),($GitConfig.Regex.SSH));
+						Set-Content -Path ($GitConfig.Path) -Value ($GitConfig.Content.SSH);
+					}
 				}
 				
 			}

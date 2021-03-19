@@ -135,6 +135,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\KDiff3"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Malwarebytes"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Mailbird"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\McAfee"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft Office 15"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft VS Code"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\nodejs"));
@@ -151,6 +152,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Mailbird"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Malwarebytes Anti-Exploit"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Malwarebytes' Anti-Malware"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\McAfee"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft Office"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft OneDrive"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Mobatek"));
@@ -234,6 +236,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Depth=""; Parent=""; Basename="mbam.exe"; }; # Malwarebytes
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Depth=""; Parent=""; Basename="mbamtray.exe"; }; # Malwarebytes
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Depth=""; Parent=""; Basename="mbamservice.exe"; }; # Malwarebytes
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="McAfee"; Depth=""; Parent=""; Basename="*.exe"; }; # McAfee Agent, DLP, Endpoint Security, MCP
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 64-bit (older)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office\root\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 64-bit (newer)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="Code.exe"; }; # VS Code
@@ -270,6 +273,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Malwarebytes Anti-Exploit"; Depth="1"; Parent=""; Basename="mb*.exe"; }; # Malwarebytes
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Malwarebytes' Anti-Malware"; Depth="1"; Parent=""; Basename="mb*.exe"; }; # Malwarebytes
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Malwarebytes' Anti-Malware\Chameleon"; Depth="1"; Parent=""; Basename="*.exe"; }; # Malwarebytes
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="McAfee"; Depth=""; Parent=""; Basename="*.exe"; }; # McAfee Endpoint Security, Management of Native Encryption, System Information Reporter
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin"; Depth="2"; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2017\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.com"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2017\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.exe"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)

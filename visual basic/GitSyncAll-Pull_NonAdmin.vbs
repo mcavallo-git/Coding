@@ -32,7 +32,9 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '
 '   Conditions:
-'     (UNCHECK ALL)
+'     (UNCHECK)  Start the task only if the computer is idle for: ...
+'     (UNCHECK)  Start the task only if the computer is on AC power
+'     (UNCHECK)  Wake the computer to run this task
 '     (CHECK) Start only if the following network connection is available: [ Any connection ]
 '
 '

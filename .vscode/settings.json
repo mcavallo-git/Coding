@@ -4,7 +4,7 @@
 		"editor.tabSize": 2
 	},
 	"[yaml]": {
-		"editor.autoIndent": "none",
+		"editor.autoIndent": "keep",
 		"editor.insertSpaces": true,
 		"editor.tabSize": 1
 	},
@@ -76,13 +76,16 @@
 		"**/{settings.json,vscode.settings,*.code-workspace}": "jsonc",
 		"*.txt": "plaintext"
 	},
+	"files.defaultLanguage": "plaintext",
 	"files.eol": "\n",
 	"files.exclude": {
-		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,unknown}": true,
+		"**/{B,b}{O,o}{N,n}{E,e}{A,a}{L,l}*/**": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true,
 		"{CodingVault,work-boneal,work-gvs}/**/*": true
 	},
+	"files.hotExit": "off",
 	"files.watcherExclude": {
 		"**/.*": true
 	},
@@ -95,6 +98,7 @@
 	"git.detectSubmodules": false,
 	"git.detectSubmodulesLimit": 1,
 	"git.enabled": false,
+	"git.path": null,
 	"git.promptToSaveFilesBeforeCommit": "never",
 	"html.autoClosingTags": true,
 	"html.format.endWithNewline": true,
@@ -107,13 +111,15 @@
 	"markdown.preview.doubleClickToSwitchToEditor": false,
 	"npm.autoDetect": "off",
 	"npm.fetchOnlinePackageInfo": false,
+	"php.validate.enable": false,
 	"scm.diffDecorations": "none",
 	"search.collapseResults": "alwaysCollapse",
 	"search.exclude": {
-		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
-		"**/{boneal_vault,CodingVault}": true,
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,unknown}": true,
+		"**/{B,b}{O,o}{N,n}{E,e}{A,a}{L,l}*/**": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/~$*.{xls,xlsx,doc,docx}": true
+		"**/~$*.{xls,xlsx,doc,docx}": true,
+		"{CodingVault,work-boneal,work-gvs}/**/*": true
 	},
 	"search.quickOpen.includeHistory": false,
 	"search.quickOpen.includeSymbols": false,
@@ -129,13 +135,18 @@
 	"sync.quietSync": true,
 	"sync.removeExtensions": true,
 	"sync.syncExtensions": true,
+	"terminal.external.linuxExec": "",
 	"terminal.integrated.copyOnSelection": true,
 	"terminal.integrated.cursorBlinking": true,
 	"terminal.integrated.rendererType": "canvas",
 	"typescript.format.insertSpaceAfterConstructor": true,
 	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,
 	"typescript.tsc.autoDetect": "off",
+	"update.showReleaseNotes": false,
 	"window.closeWhenEmpty": true,
+	"window.newWindowDimensions": "maximized",
+	"window.openFoldersInNewWindow": "on",
+	"window.restoreFullscreen": true,
 	"window.zoomLevel": 0,
 	"workbench.colorTheme": "Default Dark+",
 	"workbench.editor.closeOnFileDelete": true,
@@ -150,6 +161,7 @@
 	"workbench.panel.defaultLocation": "right",
 	"workbench.settings.editor": "json",
 	"workbench.settings.openDefaultKeybindings": true,
+	"workbench.startupEditor": "newUntitledFile",
 	"workbench.tips.enabled": false,
 	"xmlTools.enforcePrettySelfClosingTagOnFormat": true,
 	"xmlTools.xmlFormatterImplementation": "classic",

@@ -80,10 +80,8 @@
 	"files.eol": "\n",
 	"files.exclude": {
 		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,unknown}": true,
-		"**/{B,b}{O,o}{N,n}{E,e}{A,a}{L,l}*/**": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/~$*.{xls,xlsx,doc,docx}": true,
-		"{CodingVault,work-boneal,work-gvs}/**/*": true
+		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"files.hotExit": "off",
 	"files.watcherExclude": {
@@ -116,10 +114,8 @@
 	"search.collapseResults": "alwaysCollapse",
 	"search.exclude": {
 		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,unknown}": true,
-		"**/{B,b}{O,o}{N,n}{E,e}{A,a}{L,l}*/**": true,
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/~$*.{xls,xlsx,doc,docx}": true,
-		"{CodingVault,work-boneal,work-gvs}/**/*": true
+		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"search.quickOpen.includeHistory": false,
 	"search.quickOpen.includeSymbols": false,

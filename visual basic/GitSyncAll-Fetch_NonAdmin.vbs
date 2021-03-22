@@ -9,19 +9,17 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   General:
 '     Name:  GitFetchAll
 '     Location:  \
-'     Author:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'     Author:  (Windows user who will have their [ %USERPROFILE%\Documents\GitHub ] user directory affected)
 '     Description:  GitSyncAll -Fetch
 '     Security Options:
-'        When running the task, use the following user account:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'        When running the task, use the following user account:  (Same as Author (above))
 '        (SELECT) Run only when user is logged on
 '        (UNCHECK)  Run with highest privileges
 '
 '
 '   Trigger:
 '     (1) Begin the task:  At log on
-'          |--> Specific User:  (WINDOWS USER TO PULL REPOS AT LOGON FOR)
-'          |--> Delay task for:  15 seconds
-'          |--> Stop task if it runs loger than:  30 seconds
+'          |--> Specific User:  (Same as Author (above))
 '          |--> (UNCHECK) Enabled   *!* Make this task only be run manually *!*
 '
 '
@@ -29,7 +27,6 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Action:          Start a program
 '     Program/script:  C:\Windows\System32\wscript.exe
 '     Add arguments:   "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Fetch_NonAdmin.vbs"
-'     Start in (optional):
 '
 '
 '   Conditions:
@@ -41,7 +38,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     (CHECK)    Allow task to be run on demand
 '     (UNCHECK)  Run as soon as possible after a scheduled start is missed
 '     (UNCHECK)  If the task fails, restart every: ...
-'     (UNCHECK)  Stop this task if it runs longer than:
+'     (CHECK)  Stop this task if it runs longer than:  2 minutes
 '     (CHECK)    If the running task does not end when requested, force it to stop
 '     (UNCHECK)  If the task is not scheduled to run again, delete it after: ...
 '

@@ -6,13 +6,16 @@
 #>
 # ------------------------------------------------------------
 #
-#	GitSyncAll
-#		Performs batch-actions on every sub-git-directories found within a given directory
+#	PowerShell - GitSyncAll
+#		|
+#		|--> Description:
+#		|      Module to Fetch and/or Pull all Git repositories foudn within the [ %USERPROFILE%\Documents\GitHub ] user directory
+#		|
+#		|--> Example Call(s):
+#		       GitSyncAll -Fetch
+#		       GitSyncAll -Pull
 #
 function GitSyncAll {
-	#
-	# Module to Fetch & Pull all Repositories in a given directory [ %USERPROFILE%\Documents\GitHub ] Directory 
-	#
 	Param(
 
 		[String]$Directory = ("${HOME}"),

@@ -132,7 +132,7 @@
 	"sync.autoUpload": true,
 	"sync.forceDownload": false,
 	"sync.forceUpload": true,
-	"sync.quietSync": true,
+	"sync.quietSync": false,
 	"sync.removeExtensions": true,
 	"sync.syncExtensions": true,
 	"terminal.external.linuxExec": "",

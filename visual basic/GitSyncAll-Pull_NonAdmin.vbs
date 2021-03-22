@@ -1,4 +1,4 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/GitSyncAll/GitSyncAll.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'GitSyncAll' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\GitSyncAll\GitSyncAll.psm1', ((Get-Variable -Name 'HOME').Value))); }; GitSyncAll -Fetch;"" ", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/GitSyncAll/GitSyncAll.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'GitSyncAll' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\GitSyncAll\GitSyncAll.psm1', ((Get-Variable -Name 'HOME').Value))); }; GitSyncAll -Pull;"" ", 0, True
 
 
 ' ------------------------------------------------------------
@@ -7,28 +7,31 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '
 '   General:
-'     Name:  GitSyncAll -Fetch
+'     Name:  GitPullAll
 '     Location:  \
-'     Author:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
-'     Description:  GitSyncAll -Fetch
+'     Author:  (WINDOWS USER TO PULL REPOS AT LOGON FOR)
+'     Description:  GitSyncAll -Pull
 '     Security Options:
-'        When running the task, use the following user account:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'        When running the task, use the following user account:  (WINDOWS USER TO PULL REPOS AT LOGON FOR)
 '        (SELECT) Run only when user is logged on
 '        (UNCHECK)  Run with highest privileges
 '
 '
 '   Trigger:
 '     (1) Begin the task:  At log on
-'          |--> Specific User:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'          |--> Specific User:  (WINDOWS USER TO PULL REPOS AT LOGON FOR)
 '          |--> Delay task for:  15 seconds
 '          |--> Stop task if it runs loger than:  30 seconds
+'          |--> (CHECK) Enabled
+'     (2) Begin the task:  On workstation unlock
+'          |--> Specific User:  (WINDOWS USER TO PULL REPOS AT LOGON FOR)
 '          |--> (CHECK) Enabled
 '
 '
 '   Action:
 '     Action:          Start a program
 '     Program/script:  C:\Windows\System32\wscript.exe
-'     Add arguments:   "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAllFetchNonAdmin.vbs"
+'     Add arguments:   "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
 '     Start in (optional):
 '
 '

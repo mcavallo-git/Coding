@@ -19,10 +19,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '   Trigger:
 '     (1) Begin the task:  At log on
-'          |--> Specific User:  (WINDOWS USER TO FETCH REPOS AT LOGON FOR)
+'          |--> Specific User:  (WINDOWS USER TO PULL REPOS AT LOGON FOR)
 '          |--> Delay task for:  15 seconds
 '          |--> Stop task if it runs loger than:  30 seconds
-'          |--> (CHECK) Enabled
+'          |--> (UNCHECK) Enabled   *!* Make this task only be run manually *!*
 '
 '
 '   Action:

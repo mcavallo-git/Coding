@@ -4,7 +4,7 @@
 		"editor.tabSize": 2
 	},
 	"[yaml]": {
-		"editor.autoIndent": "keep",
+		"editor.autoIndent": "none",
 		"editor.insertSpaces": true,
 		"editor.tabSize": 1
 	},

@@ -1,38 +1,63 @@
-# ------------------------------------------------------------
+<# ------------------------------------------------------------ #>
+<#                                                              #>
+<#    Install required roles & features for IIS (Web) Server    #>
+<#                                                              #>
+<# ------------------------------------------------------------ #>
+If ($False) { <# RUN THIS SCRIPT REMOTELY #>
 
+
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Microsoft.Update.AutoUpdate%20(Check%20for%20Updates%20via%20CLI,%20Windows%20Updates).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+
+}
+# ------------------------------------------------------------
+If ($True) {
+
+
+<# Create a "Windows Updates" shortcut on the desktop #> $Filepath_NewShortcut = "${Home}\Desktop\Check for Updates.lnk"; $NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut("${Filepath_NewShortcut}"); $NewShortcut.TargetPath=("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"); $NewShortcut.Arguments=("-Command `"Start-Process -Filepath ('C:\Windows\explorer.exe') -ArgumentList (@('ms-settings:windowsupdate')); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());`""); $NewShortcut.WorkingDirectory=(""); $NewShortcut.Save(); <# Run the shortcut as Admin #> $Bytes_NewShortcut = [System.IO.File]::ReadAllBytes("${Filepath_NewShortcut}"); $Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); [System.IO.File]::WriteAllBytes("${Filepath_NewShortcut}", ${Bytes_NewShortcut}); <# Run the shortcut #> Invoke-Item -Path ("${Filepath_NewShortcut}");
+
+
+}
+# ------------------------------------------------------------
+If ($False) {
 
 <# (ALL EXCEPT INSTALL NOW) #>
+
 <# Windows Updates - Open, Check-for, and Download "Windows Updates" (let user select the "Install Now" button) #>
 Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate")); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
 
+<# Create a "Windows Updates" shortcut on the desktop & run it #> $Filepath_NewShortcut = "${Home}\Desktop\Check for Updates.lnk"; $NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut("${Filepath_NewShortcut}"); $NewShortcut.TargetPath=("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"); $NewShortcut.Arguments=("-Command `"Start-Process -Filepath ('C:\Windows\explorer.exe') -ArgumentList (@('ms-settings:windowsupdate')); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());`""); $NewShortcut.WorkingDirectory=(""); $NewShortcut.Save(); <# Run the shortcut as Admin #> $Bytes_NewShortcut = [System.IO.File]::ReadAllBytes("${Filepath_NewShortcut}"); $Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); [System.IO.File]::WriteAllBytes("${Filepath_NewShortcut}", ${Bytes_NewShortcut}); <# Run the shortcut #> Invoke-Item -Path ("${Filepath_NewShortcut}");
 
-<# (ALL EXCEPT INSTALL NOW) #>
-<# Create a "Windows Updates" shortcut on the desktop #> $Filepath_NewShortcut = "${Home}\Desktop\Check for Updates.lnk"; $NewShortcut = (New-Object -ComObject WScript.Shell).CreateShortcut("${Filepath_NewShortcut}"); $NewShortcut.TargetPath=("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"); $NewShortcut.Arguments=("-Command `"Start-Process -Filepath ('C:\Windows\explorer.exe') -ArgumentList (@('ms-settings:windowsupdate')); ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());`""); $NewShortcut.WorkingDirectory=(""); $NewShortcut.Save(); <# Run the shortcut as Admin #> $Bytes_NewShortcut = [System.IO.File]::ReadAllBytes("${Filepath_NewShortcut}"); $Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); [System.IO.File]::WriteAllBytes("${Filepath_NewShortcut}", ${Bytes_NewShortcut});
-
-
+}
 # ------------------------------------------------------------
-
+If ($False) {
 
 <# Windows Updates - Just do check-for + download available "Windows Updates" #>
 ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
 
-
 <# Windows Updates - Just open "Windows Updates" #>
 Start-Process -Filepath ("C:\Windows\explorer.exe") -ArgumentList (@("ms-settings:windowsupdate"));
 
-
+}
 # ------------------------------------------------------------
+If ($False) {
 
 <# Clear out cached Windows Updates #> Get-Service | Where-Object { $_.DisplayName -Eq 'Windows Update' } | ForEach-Object { Write-Host "Stopping `"$($_.DisplayName)`"..."; $_ | Stop-Service; }; If (Test-Path ("C:\Windows\SoftwareDistribution\Download")) { Move-Item -Path ("C:\Windows\SoftwareDistribution\Download") -Destination ("${Env:APPDATA}\SoftwareDistribution-Download.$(Get-Date -UFormat '%Y%m%d-%H%M%S').bak") -Force; }; Get-Service | Where-Object { $_.DisplayName -Eq 'Windows Update' } | ForEach-Object { Write-Host "Starting `"$($_.DisplayName)`"..."; $_ | Start-Service; }; <# Check-for & Download available Windows Updates #> ((New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow());
 
 
+}
 # ------------------------------------------------------------
+If ($False) {
 
 # Inspect Auto-Update Settings for Windows Update
-# ((New-Object -ComObject Microsoft.Update.AutoUpdate).Settings());
+
+((New-Object -ComObject Microsoft.Update.AutoUpdate).Settings());
 
 
+}
 # ------------------------------------------------------------
+If ($False) {
+
 # TO-BE-TESTED --> "To Install all downloaded Updates and restart the computer if required" (from michlstechblog.info)
 
 If ($True) {
@@ -53,8 +78,9 @@ If ($True) {
 }
 
 
+}
 # ------------------------------------------------------------
-
+If ($False) {
 
 # Deprecated? --> Using UsoClient.exe
 
@@ -98,15 +124,21 @@ UsoClient.exe ScanInstallWait
 UsoClient.exe StartScan
 
 
+}
 # ------------------------------------------------------------
+If ($False) {
+
 # Deprecated - Using wuauclt.exe
 
-# wuauclt.exe /updatenow
+wuauclt.exe /updatenow
 
 
+}
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   docs.microsoft.com  |  "Invoke-Item (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/invoke-item?view=powershell-5.1
 #
 #   docs.microsoft.com  |  "Launch the Windows Settings app - UWP applications | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/uwp/launch-resume/launch-settings-app
 #

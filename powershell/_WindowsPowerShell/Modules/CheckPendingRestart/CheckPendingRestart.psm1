@@ -7,8 +7,8 @@
 #
 Function CheckPendingRestart() {
 	Param(
-		[Switch]$Quiet,
 		[Switch]$AutoApprove,
+		[Switch]$Quiet,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 	# ------------------------------------------------------------

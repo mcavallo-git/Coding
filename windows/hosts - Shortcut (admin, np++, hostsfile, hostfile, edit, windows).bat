@@ -1,1 +1,0 @@
-PowerShell -NoProfile "Start-Process 'C:\Program Files\Notepad++\notepad++.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs'"

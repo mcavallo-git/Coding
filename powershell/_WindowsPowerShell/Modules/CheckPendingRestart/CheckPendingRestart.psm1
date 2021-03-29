@@ -8,6 +8,7 @@
 Function CheckPendingRestart() {
 	Param(
 		[Switch]$Quiet,
+		[Switch]$AutoApprove,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 	# ------------------------------------------------------------
@@ -61,12 +62,16 @@ Function CheckPendingRestart() {
 	}
 
 	If ($RebootRequired -Eq $True) {
-		<# Reboot the machine (only after user presses 'y') #>
-		Write-Host -NoNewLine "Info:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
-		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-		While ($KeyPress.Character -NE "y") {
+		<# Reboot IS required #>
+		If (!($PSBoundParameters.ContainsKey('AutoApprove'))) {
+			<# Require that the user enters a 'y' character into the terminal before rebooting #>
+			Write-Host -NoNewLine "Info:  System restart required - Press 'y' to confirm and reboot this machine, now..." -ForegroundColor "Yellow" -BackgroundColor "Black";
 			$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+			While ($KeyPress.Character -NE "y") {
+				$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+			}
 		}
+		<# Reboot the machine #>
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
 	} Else {
 		<# Reboot NOT required#>

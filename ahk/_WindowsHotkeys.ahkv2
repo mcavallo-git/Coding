@@ -1061,32 +1061,30 @@ AppsKey & XButton2::
 	;
 	;   ACTION:  Goto previous track  (in active media player)
 	;
-	Alt & Left::
 	Ctrl & Left::
 	Shift & Left::
-		Do_BrightnessUpdate := 0
-		If (Do_BrightnessUpdate == 0) {
-			Send {Media_Prev}
-		} Else {
-			; Turn screen brightness down
-			BS := new BrightnessSetter()
-			BS.SetBrightness(-1)
-		}
+		Send {Media_Prev}
 		Return
 	;
 	;   ACTION:  Goto next track  (in active media player)
 	;
-	Alt & Right::
 	Ctrl & Right::
 	Shift & Right::
-		Do_BrightnessUpdate := 0
-		If (Do_BrightnessUpdate == 0) {
-			Send {Media_Next}
-		} Else {
-			; Turn screen brightness up
-			BS := new BrightnessSetter()
-			BS.SetBrightness(+1)
-		}
+		Send {Media_Next}
+		Return
+	;
+	;   ACTION:  Decrease screen brightness
+	;
+	Alt & Left::
+		BS := new BrightnessSetter()
+		BS.SetBrightness(-1)
+		Return
+	;
+	;   ACTION:  Increase screen brightness
+	;
+	Alt & Right::
+		BS := new BrightnessSetter()
+		BS.SetBrightness(+1)
 		Return
 	;
 	;   ACTION:  Pause current track  (in active media player)

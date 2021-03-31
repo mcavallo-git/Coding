@@ -670,6 +670,114 @@ function SyncRegistry {
 		};
 
 
+		# Multitasking - Task view (thumbnail grid layout & wallpaper dimming customization)
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView";
+			Props=@(
+				@{
+					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+					Name="BackgroundDimmingLayer_percent";
+					Type="DWord";
+					Value=20;
+					Delete=$False;
+				},
+				@{
+					Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+					Name="Grid_backgroundPercent";
+					Type="DWord";
+					Value=20;
+					Delete=$False;
+				},
+				@{
+					Description="Changes the hover color when you hover the mouse cursor over thumbnails. Set to [ HEX_COLOR_CODE ] to match your desired hover color, or [ 000000 ] for black";
+					Name="Thumbnail_focus_border_color";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ] or [ 0 = background program windows and icons will be displayed ]";
+					Name="Wallpaper";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multitasking - Alt+Tab view (thumbnail grid layout & wallpaper dimming customization)
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AltTabViewHost";
+			Props=@(
+				@{
+					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+					Name="BackgroundDimmingLayer_percent";
+					Type="DWord";
+					Value=20;
+					Delete=$False;
+				},
+				@{
+					Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+					Name="Grid_backgroundPercent";
+					Type="DWord";
+					Value=20;
+					Delete=$False;
+				},
+				@{
+					Description="Changes the hover color when you hover the mouse cursor over thumbnails. Set to [ HEX_COLOR_CODE ] to match your desired hover color, or [ 000000 ] for black";
+					Name="Thumbnail_focus_border_color";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ] or [ 0 = background program windows and icons will be displayed ]";
+					Name="Wallpaper";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multitasking - Snap Assist view (thumbnail grid layout & wallpaper dimming customization)
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\SnapAssistView";
+			Props=@(
+				@{
+					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+					Name="BackgroundDimmingLayer_percent";
+					Type="DWord";
+					Value=20;
+					Delete=$False;
+				},
+				@{
+					Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+					Name="Grid_backgroundPercent";
+					Type="DWord";
+					Value=20;
+					Delete=$False;
+				},
+				@{
+					Description="Changes the hover color when you hover the mouse cursor over thumbnails. Set to [ HEX_COLOR_CODE ] to match your desired hover color, or [ 000000 ] for black";
+					Name="Thumbnail_focus_border_color";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ] or [ 0 = background program windows and icons will be displayed ]";
+					Name="Wallpaper";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Multitasking - Timeline
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
@@ -1268,6 +1376,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   winbuzzer.com  |  "Windows 10: How to Disable/Enable Prefetch and Superfetch - WinBuzzer"  |  https://winbuzzer.com/2020/03/14/windows-10-how-to-disable-enable-prefetch-and-superfetch-xcxwbt/
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
+#
+#   www.askvg.org  |  "[Windows 10 Tip] Registry Tweaks to Customize UI of Alt+Tab, Task View and Snap Assistant Screens – AskVG"  |  https://www.askvg.com/windows-10-tip-registry-tweaks-to-customize-ui-of-alttab-task-view-and-snap-assistant-screens/
 #
 #   www.ghacks.net  |  "Remove Windows 10 Context Menu bloat - gHacks Tech News"  |  https://www.ghacks.net/2017/07/09/remove-windows-10-context-menu-bloat/
 #

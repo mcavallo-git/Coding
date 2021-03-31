@@ -1,12 +1,18 @@
 {
+	"[tf]": {
+		"editor.autoIndent": "full",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
 	"[typescript]": {
+		"editor.autoIndent": "full",
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
 	"[yaml]": {
-		"editor.autoIndent": "none",
+		"editor.autoIndent": "full",
 		"editor.insertSpaces": true,
-		"editor.tabSize": 1
+		"editor.tabSize": 2
 	},
 	"breadcrumbs.enabled": true,
 	"breadcrumbs.filePath": "on",

@@ -619,7 +619,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System";
 			Props=@(
 				@{
-					Description="Set this value to [ 1 ] to disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
+					Description="Set this value to [ 1 ] to Disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
 					Name="DisableLockWorkstation";
 					Type="DWord";
 					Value=0;
@@ -633,7 +633,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Snap windows ]";
+					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Multitasking feature [ Snap windows ]";
 					Name="WindowArrangementActive";
 					Type="String";
 					Value=1;
@@ -646,21 +646,21 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
+					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
 					Name="SnapFill";
 					Type="String";
 					Value=1;
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
+					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
 					Name="SnapAssist";
 					Type="String";
 					Value=0;
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
+					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
 					Name="JointResize";
 					Type="String";
 					Value=1;
@@ -753,7 +753,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
 			Props=@(
 				@{
-					Description="Power Settings - Set to [ 1 ] to enable 'fast startup', [ 0 ] to disable 'fast startup'.";
+					Description="Power Settings - Set to [ 1 ] to Enable 'fast startup', [ 0 ] to Disable 'fast startup'.";
 					Hotfix=$Null;
 					Name="HiberbootEnabled";
 					Type="DWord";
@@ -766,7 +766,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0";
 			Props=@(
 				@{
-					Description="Power Settings - Set to [2] to enable 'advanced power settings', [1] to disable 'advanced power settings'.";
+					Description="Power Settings - Set to [2] to Enable 'advanced power settings', [1] to Disable 'advanced power settings'.";
 					Hotfix=$Null;
 					Name="Attributes";
 					Type="DWord";

@@ -678,14 +678,14 @@ function SyncRegistry {
 					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
 					Name="BackgroundDimmingLayer_percent";
 					Type="DWord";
-					Value=20;
+					Value=32;
 					Delete=$False;
 				},
 				@{
 					Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
 					Name="Grid_backgroundPercent";
 					Type="DWord";
-					Value=20;
+					Value=32;
 					Delete=$False;
 				},
 				@{
@@ -714,14 +714,14 @@ function SyncRegistry {
 					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
 					Name="BackgroundDimmingLayer_percent";
 					Type="DWord";
-					Value=20;
+					Value=32;
 					Delete=$False;
 				},
 				@{
 					Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
 					Name="Grid_backgroundPercent";
 					Type="DWord";
-					Value=20;
+					Value=32;
 					Delete=$False;
 				},
 				@{
@@ -750,14 +750,14 @@ function SyncRegistry {
 					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
 					Name="BackgroundDimmingLayer_percent";
 					Type="DWord";
-					Value=20;
+					Value=32;
 					Delete=$False;
 				},
 				@{
 					Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
 					Name="Grid_backgroundPercent";
 					Type="DWord";
-					Value=20;
+					Value=32;
 					Delete=$False;
 				},
 				@{

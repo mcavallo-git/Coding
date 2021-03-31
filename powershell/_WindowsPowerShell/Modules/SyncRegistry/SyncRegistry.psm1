@@ -646,20 +646,6 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
-					Description="Set Snap option 'When I snap a window, automatically size it to fill available space' to [ 0 = disabled ], [ 1 = enabled ]";
-					Name="SnapFill";
-					Type="DWord";
-					Value=1;
-					Delete=$False;
-				},
-				@{
-					Description="Set Snap option 'When I snap a window, show what I can snap next to it' to [ 0 = disabled ], [ 1 = enabled ]";
-					Name="SnapAssist";
-					Type="DWord";
-					Value=0;
-					Delete=$False;
-				},
-				@{
 					Description="Set Snap option 'When I resize a snapped window, simultaneously resize any adjacent snapped window' to [ 0 = disabled ], [ 1 = enabled ]";
 					Name="JointResize";
 					Type="DWord";
@@ -671,6 +657,20 @@ function SyncRegistry {
 					Name="MultiTaskingAltTabFilter";
 					Type="DWord";
 					Value=3;
+					Delete=$False;
+				},
+				@{
+					Description="Set Snap option 'When I snap a window, show what I can snap next to it' to [ 0 = disabled ], [ 1 = enabled ]";
+					Name="SnapAssist";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Set Snap option 'When I snap a window, automatically size it to fill available space' to [ 0 = disabled ], [ 1 = enabled ]";
+					Name="SnapFill";
+					Type="DWord";
+					Value=1;
 					Delete=$False;
 				}
 			)

@@ -1179,10 +1179,10 @@ WheelRight::
 ;
 <#k::
 	SetKeyDelay, 0, -1
-	; Send 👍
+	Send 👍  ; Thumbs Up
 	; Send 👍🏿  ; Thumbs Up: Dark Skin Tone
 	; Send 👍🏾  ; Thumbs Up: Medium-Dark Skin Tone
-	Send 👍🏽  ; Thumbs Up: Medium Skin Tone
+	; Send 👍🏽  ; Thumbs Up: Medium Skin Tone
 	; Send 👍🏼  ; Thumbs Up: Medium-Light Skin Tone
 	; Send 👍🏻  ; Thumbs Up: Light Skin Tone
 	Return

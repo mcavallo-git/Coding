@@ -646,24 +646,31 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
-					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Snap feature [ When I snap a window, automatically size it to fill available space ]";
+					Description="Set Snap option 'When I snap a window, automatically size it to fill available space' to [ 0 = disabled ], [ 1 = enabled ]";
 					Name="SnapFill";
-					Type="String";
+					Type="DWord";
 					Value=1;
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Snap feature [ When I snap a window, show what I can snap next to it ]";
+					Description="Set Snap option 'When I snap a window, show what I can snap next to it' to [ 0 = disabled ], [ 1 = enabled ]";
 					Name="SnapAssist";
-					Type="String";
+					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Snap feature [ When I resize a snapped window, simultaneously resize any adjacent snapped window ]";
+					Description="Set Snap option 'When I resize a snapped window, simultaneously resize any adjacent snapped window' to [ 0 = disabled ], [ 1 = enabled ]";
 					Name="JointResize";
-					Type="String";
+					Type="DWord";
 					Value=1;
+					Delete=$False;
+				},
+				@{
+					Description="Set Alt + Tab option 'Pressing Alt + Tab shows' to [ 0 = Open windows and all tabs in Edge ], [ 1 = Open windows and 5 most recent tabs in Edge ], [ 2 = Open windows and 3 most recent tabs in Edge ], [ 3 = Open windows only]";
+					Name="MultiTaskingAltTabFilter";
+					Type="DWord";
+					Value=3;
 					Delete=$False;
 				}
 			)
@@ -696,7 +703,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ] or [ 0 = background program windows and icons will be displayed ]";
+					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ], [ 0 = background program windows and icons will be displayed ]";
 					Name="Wallpaper";
 					Type="DWord";
 					Value=1;
@@ -732,7 +739,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ] or [ 0 = background program windows and icons will be displayed ]";
+					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ], [ 0 = background program windows and icons will be displayed ]";
 					Name="Wallpaper";
 					Type="DWord";
 					Value=1;
@@ -768,7 +775,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ] or [ 0 = background program windows and icons will be displayed ]";
+					Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ], [ 0 = background program windows and icons will be displayed ]";
 					Name="Wallpaper";
 					Type="DWord";
 					Value=1;

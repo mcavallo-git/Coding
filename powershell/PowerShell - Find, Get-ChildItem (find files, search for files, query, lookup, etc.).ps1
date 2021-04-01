@@ -6,15 +6,24 @@
 #
 # Simple search
 #
-[System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
+
+
+# Filename must match EXACTLY
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | ForEach-Object { $_.FullName; }
+
+
+# Filename must contain ONE string
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_A") } | ForEach-Object { $_.FullName; }
+
+
+# Filename must contain TWO strings
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_A") -And ($_.Name -Like "MATCH_B") } | ForEach-Object { $_.FullName; }
 
 
 # ------------------------------------------------------------
 #
-# Simple search
+# Simple search - Example(s)
 #
-
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "Common.Logging.dll" } | ForEach-Object { $_.FullName; }
 
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*.unf") } | ForEach-Object { $_.FullName; }
 
@@ -66,6 +75,13 @@ Get-ChildItem -Path ("$Dirname_TopLevel") -File -Recurse -Force -ErrorAction "Si
 | Where-Object { $_.Name -Like "$Basename_FindFilesMatching" } `
 | ForEach-Object { $_.FullName; } `
 );
+
+
+# ------------------------------------------------------------
+#
+# TO-TEST - Simple search
+#
+[System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
 
 
 # ------------------------------------------------------------

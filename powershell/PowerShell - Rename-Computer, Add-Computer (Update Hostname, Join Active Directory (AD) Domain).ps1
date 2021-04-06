@@ -1,9 +1,7 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Update hostname & join device to target AD
+# PowerShell - Update hostname & join machine to target Active Directory (AD) Domain
 #
-# ------------------------------------------------------------
-
 If ($True) {
 	$ValidHostname = $False;
 	While ($ValidHostname -Eq $False) {
@@ -42,6 +40,15 @@ If ($True) {
 		Start-Process -Filepath ("shutdown") -ArgumentList (@("/t 0","/r")) -NoNewWindow -Wait -PassThru;
 	}
 }
+
+
+# ------------------------------------------------------------
+#
+#	PowerShell - Join VM to Active Directory
+#
+
+Add-Computer -DomainName ("${Domain_Name}") -OUPath ("${OU_Path}") -Credential (New-Object System.Management.Automation.PSCredential(("${Domain_Name}\${Username_Plaintext}"),(ConvertTo-SecureString -String ("${Userpass_Plaintext}") -AsPlainText -Force))); Restart-Computer -Force;
+
 
 
 # ------------------------------------------------------------

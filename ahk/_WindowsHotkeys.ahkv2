@@ -455,6 +455,17 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  WinKey + P
+;   ACTION:  Send a random string
+;
+#p::
+	AwaitModifierKeyup()
+	SendRandomString(18, 1, 1, 0, 0, 1, 0)
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Shift + WinKey + P
 ;   HOTKEY:  Ctrl + WinKey + P
 ;   ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
@@ -463,16 +474,6 @@ ScrollLock::
 +#p::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
-	Return
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  WinKey + P
-;   ACTION:  Generate a random string
-;
-#p::
-	AwaitModifierKeyup()
-	CopyRandomString(18, 1, 1, 0, 0, 1)
 	Return
 
 
@@ -1650,27 +1651,6 @@ ClickLoop(MouseX,MouseY,Timeout) {
 
 
 ;
-;	CopyRandomString
-;   |--> Copies a random string to the clipboard (requires user confirmation)
-;
-CopyRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:=1, AllowUppercaseLetters:=0, AllowSpecialCharacters:=0, CopyStringToClipboard:=1) {
-	MsgBox, 4,, % ( "Generate Random String (overwrites clipboard contents)?" )
-	If (A_MsgBoxResult = "Yes") {
-		RandomString := GetRandomString(DesiredStringLength, AllowNumbers, AllowLowercaseLetters, AllowUppercaseLetters, AllowSpecialCharacters)
-		PasteClipboardAsText(RandomString)
-		If (CopyStringToClipboard == 1) {
-			Clipboard := RandomString
-			If (DebugMode == 1) {
-				Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
-				TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-			}
-		}
-		ClearTooltip(10)
-	}
-}
-
-
-;
 ; CreateCitationsFooter
 ;   |--> Creates a block of text designed for placement at the bottom (footer) of a document,
 ;        script, etc. which contains Web-Urls to sources which assisted in building said script
@@ -2449,7 +2429,11 @@ PasteClipboardAsBinary() {
 	Sleep, 100
 	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text.
 	Sleep, 100
+	BlockInPut, On
+	Sleep, 10
 	Send {Blind}{Text}%Clipboard%
+	Sleep, 10
+	BlockInPut, Off
 	Sleep, 100
 	ClipboardDuped := ""  ; Avoid caching clipboard-contents in memory
 	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
@@ -2480,12 +2464,15 @@ PasteClipboardAsText(StringToPaste:="") {
 	Loop, Parse, %StringToPaste%, "`n", "`r"
 	{
 		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
+		BlockInPut, On
+		Sleep 10
 		Send {Blind}{Text}%ClipboardSend%
+		Sleep 10
+		BlockInPut, Off
 		Sleep 500
 		ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 		Sleep 100
 	}
-	Sleep, 100
 	StringToPaste := ""  ; Avoid caching clipboard-contents in memory
 	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 	Return
@@ -2808,6 +2795,35 @@ SendHostname() {
 		Send {Blind}{Text}%A_ComputerName% 
 	}
 	Return
+}
+
+
+;
+;	SendRandomString
+;   |--> Copies a random string to the clipboard (requires user confirmation)
+;
+SendRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:=1, AllowUppercaseLetters:=0, AllowSpecialCharacters:=0, CopyStringToClipboard:=1, DoConfirmationPopup:=1) {
+	BlockAction := 1
+	If (DoConfirmationPopup==0) {
+		BlockAction := 0
+	} Else {
+		MsgBox, 4,, % ( "Generate Random String (overwrites clipboard contents)?" )
+		If (A_MsgBoxResult = "Yes") {
+			BlockAction := 0
+		}
+	}
+	If ( BlockAction == 0 ) {
+		RandomString := GetRandomString(DesiredStringLength, AllowNumbers, AllowLowercaseLetters, AllowUppercaseLetters, AllowSpecialCharacters)
+		PasteClipboardAsText(RandomString)
+		Sleep 100
+		If (CopyStringToClipboard == 1) {
+			Clipboard := RandomString
+			If (DebugMode == 1) {
+				Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
+				TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			}
+		}
+	}
 }
 
 

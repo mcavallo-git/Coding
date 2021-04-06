@@ -460,7 +460,8 @@ ScrollLock::
 ;
 #p::
 	AwaitModifierKeyup()
-	SendRandomString(18, 1, 1, 0, 0, 1, 0)
+	SendPseudoRandomString()
+	; SendRandomString(18, 1, 1, 0, 0, 1, 0)
 	Return
 
 
@@ -1803,62 +1804,75 @@ GetPID(ProcName) {
 ;	GetRandomString
 ;   |--> Generate a random string of desired length
 ;
-GetRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:=1, AllowUppercaseLetters:=0, AllowSpecialCharacters:=0) {
+GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetters:=1, EnableUppercaseLetters:=0, EnableSpecialCharacters:=0) {
 	ReturnedString := ""
 	AllowedCharacters := ""
 	AllNumbers := "0123456789"
-	If (AllowNumbers == 1) {
+	If (EnableNumbers == 1) {
 		AllowedCharacters := ( AllowedCharacters . AllNumbers )
+	} Else {
+		EnableNumbers := 0
 	}
 	AllLowercase := "abcdefghijklmnopqrstuvwxyz"
-	If (AllowLowercaseLetters == 1) {
+	If (EnableLowercaseLetters == 1) {
 		AllowedCharacters := ( AllowedCharacters . AllLowercase )
+	} Else {
+		EnableLowercaseLetters := 0
 	}
 	AllUppercase := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	If (AllowUppercaseLetters == 1) {
+	If (EnableUppercaseLetters == 1) {
 		AllowedCharacters := ( AllowedCharacters . AllUppercase )
+	} Else {
+		EnableUppercaseLetters := 0
 	}
 	AllSpecial := "!@#$`%^&*"
-	If (AllowSpecialCharacters == 1) {
+	If (EnableSpecialCharacters == 1) {
 		AllowedCharacters := ( AllowedCharacters . AllSpecial )
+	} Else {
+		EnableSpecialCharacters := 0
 	}
-	If ((DesiredStringLength>=5) && (StrLen(AllowedCharacters)!=0)) {
+	MinimumCharacters_NeededForCharTypes := ( EnableNumbers + EnableLowercaseLetters + EnableUppercaseLetters + EnableSpecialCharacters )
+	If ( DesiredStringLength < MinimumCharacters_NeededForCharTypes ) {
+		MsgBox, 0, A_ThisFunc, % ( "Error - String must be at least " MinimumCharacters_NeededForCharTypes " characters long (to meet character type requirements)" )
+	} Else If (StrLen(AllowedCharacters) <= 0) {
+		MsgBox, 0, A_ThisFunc, % ( "Error - No character types were selected (unable to generate a random string from nothing)" )
+	} Else {
 		; Enforce that at least 1 of each allowed character type appears in the string
 		Pos_ForceNum := -1
 		Pos_ForceLower := -1
 		Pos_ForceUpper := -1
 		Pos_ForceSpecial := -1
-		If (AllowUppercaseLetters == 1) {  ; Set the first character to an Uppercase letter (most preferred)
+		If (EnableUppercaseLetters == 1) {  ; Set the first character to an Uppercase letter (most preferred)
 			Pos_ForceUpper := 0
-		} Else If (AllowLowercaseLetters == 1) {  ; Set the first character to an Lowercase letter
+		} Else If (EnableLowercaseLetters == 1) {  ; Set the first character to an Lowercase letter
 			Pos_ForceLower := 0
-		} Else If (AllowNumbers == 1) {  ; Set the first character to an Number
+		} Else If (EnableNumbers == 1) {  ; Set the first character to an Number
 			Pos_ForceNum := 0
-		} Else If (AllowSpecialCharacters == 1) {  ; Set the first character to an Special character
+		} Else If (EnableSpecialCharacters == 1) {  ; Set the first character to an Special character
 			Pos_ForceSpecial := 0
 		}
 		; Force at least one number (if allowed in call)
-		If (AllowNumbers == 1) {
+		If (EnableNumbers == 1) {
 			While ((Pos_ForceNum == -1) || (Pos_ForceNum==Pos_ForceLower) || (Pos_ForceNum==Pos_ForceUpper) || (Pos_ForceNum==Pos_ForceSpecial)) {
 				Random, Pos_ForceNum, 0, % (DesiredStringLength-1)
 			}
 		}
 		; Force at least one lowercase letter (if allowed in call)
-		If (AllowLowercaseLetters == 1) {
+		If (EnableLowercaseLetters == 1) {
 			While ((Pos_ForceLower == -1) || (Pos_ForceLower==Pos_ForceNum) || (Pos_ForceLower==Pos_ForceUpper) || (Pos_ForceLower==Pos_ForceSpecial)) {
 				Random, Pos_ForceLower, 0, % (DesiredStringLength-1)
 			}
 		}
 		; Force at least one uppercase letter (if allowed in call)
 		Pos_ForceUpper := -1
-		If (AllowUppercaseLetters == 1) {
+		If (EnableUppercaseLetters == 1) {
 			While ((Pos_ForceUpper == -1) || (Pos_ForceUpper==Pos_ForceNum) || (Pos_ForceUpper==Pos_ForceLower) || (Pos_ForceUpper==Pos_ForceSpecial)) {
 				Random, Pos_ForceUpper, 0, % (DesiredStringLength-1)
 			}
 		}
 		; Force at least one special character (if allowed in call)
 		Pos_ForceSpecial := -1
-		If (AllowSpecialCharacters == 1) {
+		If (EnableSpecialCharacters == 1) {
 			While ((Pos_ForceSpecial == -1) || (Pos_ForceSpecial==Pos_ForceNum) || (Pos_ForceSpecial==Pos_ForceLower) || (Pos_ForceSpecial==Pos_ForceUpper)) {
 				Random, Pos_ForceSpecial, 0, % (DesiredStringLength-1)
 			}
@@ -2465,11 +2479,11 @@ PasteClipboardAsText(StringToPaste:="") {
 	{
 		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
 		BlockInPut, On
-		Sleep 10
-		Send {Blind}{Text}%ClipboardSend%
-		Sleep 10
+		Sleep 100
+		; Send {Blind}{Text}%ClipboardSend%
+		Send {Blind}{Text}{Raw}%ClipboardSend%
+		Sleep 100
 		BlockInPut, Off
-		Sleep 500
 		ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 		Sleep 100
 	}
@@ -2799,10 +2813,31 @@ SendHostname() {
 
 
 ;
-;	SendRandomString
-;   |--> Copies a random string to the clipboard (requires user confirmation)
+;	SendPseudoRandomString
+;   |--> Sends/Copies a psuedo-random string of characters
 ;
-SendRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:=1, AllowUppercaseLetters:=0, AllowSpecialCharacters:=0, CopyStringToClipboard:=1, DoConfirmationPopup:=1) {
+SendPseudoRandomString(CopyStringToClipboard:=1) {
+	PseudoRandomString := ""
+	PseudoRandomString := PseudoRandomString . GetRandomString(1, 0, 0, 1, 0)  ; 1 Uppercase
+	PseudoRandomString := PseudoRandomString . GetRandomString(9, 1, 1, 0, 0)  ; 9 Lowercase & Numbers
+	PseudoRandomString := PseudoRandomString . GetRandomString(1, 0, 0, 0, 1)  ; 1 Special
+	PseudoRandomString := PseudoRandomString . GetRandomString(9, 1, 1, 0, 0)  ; 9 Lowercase & Numbers
+	PasteClipboardAsText(PseudoRandomString)
+	If (CopyStringToClipboard == 1) {
+		Clipboard := PseudoRandomString
+		If (DebugMode == 1) {
+			Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
+			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+		}
+	}
+}
+
+
+;
+;	SendRandomString
+;   |--> Sends/Copies a random string of characters
+;
+SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetters:=1, EnableUppercaseLetters:=0, EnableSpecialCharacters:=0, CopyStringToClipboard:=1, DoConfirmationPopup:=1) {
 	BlockAction := 1
 	If (DoConfirmationPopup==0) {
 		BlockAction := 0
@@ -2813,9 +2848,8 @@ SendRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters
 		}
 	}
 	If ( BlockAction == 0 ) {
-		RandomString := GetRandomString(DesiredStringLength, AllowNumbers, AllowLowercaseLetters, AllowUppercaseLetters, AllowSpecialCharacters)
+		RandomString := GetRandomString(DesiredStringLength, EnableNumbers, EnableLowercaseLetters, EnableUppercaseLetters, EnableSpecialCharacters)
 		PasteClipboardAsText(RandomString)
-		Sleep 100
 		If (CopyStringToClipboard == 1) {
 			Clipboard := RandomString
 			If (DebugMode == 1) {

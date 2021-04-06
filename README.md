@@ -154,6 +154,12 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
+<tr><th colspan="2"><h5 id="calculations"><br />Calculations<br /><br /></h5></th></tr>
+<tr><td><strong>GCF Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Greatest Common Factor Calculator<br />&nbsp;&nbsp;&nbsp;Determine the greatest/largest integer factor present between a set of numbers</i></sub></td><td><a href="https://www.omnicalculator.com/math/gcf">View (source)</a></td></tr>
+<tr><td><strong>LCM Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Least Common Multiple Calculator<br />&nbsp;&nbsp;&nbsp;Determine the least/lowest common multiple between a set of numbers</i></sub></td><td><a href="https://www.omnicalculator.com/math/lcm">View (source)</a></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
 <tr><th colspan="2"><h5 id="communication"><br />Communication<br /><br /></h5></th></tr>
 <tr><td><strong>Discord</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VoIP & Digital Distribution</i></sub></td><td><a href="https://discordapp.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft Teams</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Chat & App/File-Sharing</i></sub></td><td><a href="https://products.office.com/en-us/microsoft-teams/download-app">Download (source)</a></td></tr>

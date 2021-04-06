@@ -1842,13 +1842,12 @@ GetRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:
 	If (AllowSpecialCharacters == 1) {
 		AllowedCharacters := ( AllowedCharacters . AllSpecial )
 	}
-	If ( (DesiredStringLength>=5) && (StrLen(AllowedCharacters)!=0) ) {
-
+	If ((DesiredStringLength>=5) && (StrLen(AllowedCharacters)!=0)) {
+		; Enforce that at least 1 of each allowed character type appears in the string
 		Pos_ForceNum := -1
 		Pos_ForceLower := -1
 		Pos_ForceUpper := -1
 		Pos_ForceSpecial := -1
-
 		If (AllowUppercaseLetters == 1) {  ; Set the first character to an Uppercase letter (most preferred)
 			Pos_ForceUpper := 0
 		} Else If (AllowLowercaseLetters == 1) {  ; Set the first character to an Lowercase letter
@@ -1858,21 +1857,18 @@ GetRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:
 		} Else If (AllowSpecialCharacters == 1) {  ; Set the first character to an Special character
 			Pos_ForceSpecial := 0
 		}
-
 		; Force at least one number (if allowed in call)
 		If (AllowNumbers == 1) {
 			While ((Pos_ForceNum == -1) || (Pos_ForceNum==Pos_ForceLower) || (Pos_ForceNum==Pos_ForceUpper) || (Pos_ForceNum==Pos_ForceSpecial)) {
 				Random, Pos_ForceNum, 0, % (DesiredStringLength-1)
 			}
 		}
-
 		; Force at least one lowercase letter (if allowed in call)
 		If (AllowLowercaseLetters == 1) {
 			While ((Pos_ForceLower == -1) || (Pos_ForceLower==Pos_ForceNum) || (Pos_ForceLower==Pos_ForceUpper) || (Pos_ForceLower==Pos_ForceSpecial)) {
 				Random, Pos_ForceLower, 0, % (DesiredStringLength-1)
 			}
 		}
-
 		; Force at least one uppercase letter (if allowed in call)
 		Pos_ForceUpper := -1
 		If (AllowUppercaseLetters == 1) {
@@ -1880,7 +1876,6 @@ GetRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:
 				Random, Pos_ForceUpper, 0, % (DesiredStringLength-1)
 			}
 		}
-
 		; Force at least one special character (if allowed in call)
 		Pos_ForceSpecial := -1
 		If (AllowSpecialCharacters == 1) {
@@ -1888,7 +1883,6 @@ GetRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:
 				Random, Pos_ForceSpecial, 0, % (DesiredStringLength-1)
 			}
 		}
-
 		; Build a random string
 		MaxLoopIterations := ( DesiredStringLength * 1000 )
 		PreviousChar := ""

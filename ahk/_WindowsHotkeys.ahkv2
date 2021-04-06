@@ -1751,6 +1751,20 @@ Duplicate_Keypress() {
 
 
 ;
+; Get_ahk_id_from_pid
+;   |--> Input: WinPID to Target
+;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
+;
+Get_ahk_id_from_pid(WinPid) {
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	ControlGet, OutputVar, Hwnd,,, ahk_pid %WinPid%
+	Return ahk_id %OutputVar%
+	; dat_ahk_id=ahk_id %output_var%
+	; Return dat_ahk_id
+}
+
+
+;
 ; Get_ahk_id_from_title
 ;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
@@ -1781,20 +1795,6 @@ GetPID(ProcName) {
 	ProcessExist,, %ProcName%
 	; ProcessExist, OutputVar, %ProcName%
 	Return %ErrorLevel%
-}
-
-
-;
-; Get_ahk_id_from_pid
-;   |--> Input: WinPID to Target
-;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
-;
-Get_ahk_id_from_pid(WinPid) {
-	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	ControlGet, OutputVar, Hwnd,,, ahk_pid %WinPid%
-	Return ahk_id %OutputVar%
-	; dat_ahk_id=ahk_id %output_var%
-	; Return dat_ahk_id
 }
 
 
@@ -4163,6 +4163,8 @@ If (False) {
 ;   www.autohotkey.com  |  "Get Highest and Lowest value - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88376-get-highest-and-lowest-value/?p=560579
 ;
 ;   www.autohotkey.com  |  "How to paste multiline text - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/65421-how-to-paste-multiline-text/
+; 
+;   www.autohotkey.com  |  "How to quickly generate random strings? - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=76052
 ;
 ;   www.autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
 ;
@@ -4191,6 +4193,5 @@ If (False) {
 ;   www.reddit.com  |  "Brightness script? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/5u2lvi/brightness_script/
 ;
 ;   www.tenforums.com  |  "Resolution mismatch when using "Change the size of text..." - Windows 10 Forums"  |  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
-;
 ;
 ; ------------------------------------------------------------

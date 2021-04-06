@@ -449,7 +449,6 @@ ScrollLock::
 *^+v::
 *^!v::
 *^#v::
-	; PasteClipboardAsText()
 	PasteClipboardAsBinary()
 	Return
 
@@ -469,10 +468,11 @@ ScrollLock::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  WinKey + P
-;   ACTION:  Open RoboForm's Generate-Password Executable
+;   ACTION:  Generate a random string
 ;
 #p::
-	OpenPasswordGenerator()
+	AwaitModifierKeyup()
+	CopyRandomString(18, 1, 1, 0, 0, 1)
 	Return
 
 
@@ -1650,6 +1650,27 @@ ClickLoop(MouseX,MouseY,Timeout) {
 
 
 ;
+;	CopyRandomString
+;   |--> Copies a random string to the clipboard (requires user confirmation)
+;
+CopyRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:=1, AllowUppercaseLetters:=0, AllowSpecialCharacters:=0, CopyStringToClipboard:=1) {
+	MsgBox, 4,, % ( "Generate Random String (overwrites clipboard contents)?" )
+	If (A_MsgBoxResult = "Yes") {
+		RandomString := GetRandomString(DesiredStringLength, AllowNumbers, AllowLowercaseLetters, AllowUppercaseLetters, AllowSpecialCharacters)
+		PasteClipboardAsText(RandomString)
+		If (CopyStringToClipboard == 1) {
+			Clipboard := RandomString
+			If (DebugMode == 1) {
+				Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
+				TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
+			}
+		}
+		ClearTooltip(10)
+	}
+}
+
+
+;
 ; CreateCitationsFooter
 ;   |--> Creates a block of text designed for placement at the bottom (footer) of a document,
 ;        script, etc. which contains Web-Urls to sources which assisted in building said script
@@ -1795,6 +1816,107 @@ GetPID(ProcName) {
 	ProcessExist,, %ProcName%
 	; ProcessExist, OutputVar, %ProcName%
 	Return %ErrorLevel%
+}
+
+
+;
+;	GetRandomString
+;   |--> Generate a random string of desired length
+;
+GetRandomString(DesiredStringLength:=20, AllowNumbers:=1, AllowLowercaseLetters:=1, AllowUppercaseLetters:=0, AllowSpecialCharacters:=0) {
+	ReturnedString := ""
+	AllowedCharacters := ""
+	AllNumbers := "0123456789"
+	If (AllowNumbers == 1) {
+		AllowedCharacters := ( AllowedCharacters . AllNumbers )
+	}
+	AllLowercase := "abcdefghijklmnopqrstuvwxyz"
+	If (AllowLowercaseLetters == 1) {
+		AllowedCharacters := ( AllowedCharacters . AllLowercase )
+	}
+	AllUppercase := "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	If (AllowUppercaseLetters == 1) {
+		AllowedCharacters := ( AllowedCharacters . AllUppercase )
+	}
+	AllSpecial := "!@#$`%^&*"
+	If (AllowSpecialCharacters == 1) {
+		AllowedCharacters := ( AllowedCharacters . AllSpecial )
+	}
+	If ( (DesiredStringLength>=5) && (StrLen(AllowedCharacters)!=0) ) {
+
+		Pos_ForceNum := -1
+		Pos_ForceLower := -1
+		Pos_ForceUpper := -1
+		Pos_ForceSpecial := -1
+
+		If (AllowUppercaseLetters == 1) {  ; Set the first character to an Uppercase letter (most preferred)
+			Pos_ForceUpper := 0
+		} Else If (AllowLowercaseLetters == 1) {  ; Set the first character to an Lowercase letter
+			Pos_ForceLower := 0
+		} Else If (AllowNumbers == 1) {  ; Set the first character to an Number
+			Pos_ForceNum := 0
+		} Else If (AllowSpecialCharacters == 1) {  ; Set the first character to an Special character
+			Pos_ForceSpecial := 0
+		}
+
+		; Force at least one number (if allowed in call)
+		If (AllowNumbers == 1) {
+			While ((Pos_ForceNum == -1) || (Pos_ForceNum==Pos_ForceLower) || (Pos_ForceNum==Pos_ForceUpper) || (Pos_ForceNum==Pos_ForceSpecial)) {
+				Random, Pos_ForceNum, 0, % (DesiredStringLength-1)
+			}
+		}
+
+		; Force at least one lowercase letter (if allowed in call)
+		If (AllowLowercaseLetters == 1) {
+			While ((Pos_ForceLower == -1) || (Pos_ForceLower==Pos_ForceNum) || (Pos_ForceLower==Pos_ForceUpper) || (Pos_ForceLower==Pos_ForceSpecial)) {
+				Random, Pos_ForceLower, 0, % (DesiredStringLength-1)
+			}
+		}
+
+		; Force at least one uppercase letter (if allowed in call)
+		Pos_ForceUpper := -1
+		If (AllowUppercaseLetters == 1) {
+			While ((Pos_ForceUpper == -1) || (Pos_ForceUpper==Pos_ForceNum) || (Pos_ForceUpper==Pos_ForceLower) || (Pos_ForceUpper==Pos_ForceSpecial)) {
+				Random, Pos_ForceUpper, 0, % (DesiredStringLength-1)
+			}
+		}
+
+		; Force at least one special character (if allowed in call)
+		Pos_ForceSpecial := -1
+		If (AllowSpecialCharacters == 1) {
+			While ((Pos_ForceSpecial == -1) || (Pos_ForceSpecial==Pos_ForceNum) || (Pos_ForceSpecial==Pos_ForceLower) || (Pos_ForceSpecial==Pos_ForceUpper)) {
+				Random, Pos_ForceSpecial, 0, % (DesiredStringLength-1)
+			}
+		}
+
+		; Build a random string
+		MaxLoopIterations := ( DesiredStringLength * 1000 )
+		PreviousChar := ""
+		Loop MaxLoopIterations {
+			If (StrLen(ReturnedString) >= DesiredStringLength) {
+				Break
+			} Else {
+				EachLoop_AllowedChars := AllowedCharacters
+				If (StrLen(ReturnedString) == Pos_ForceNum) {
+					EachLoop_AllowedChars := AllNumbers  ; Force next char to be a number
+				} Else If (StrLen(ReturnedString) == Pos_ForceLower) {
+					EachLoop_AllowedChars := AllLowercase  ; Force next char to be a lowercase letter
+				} Else If (StrLen(ReturnedString) == Pos_ForceUpper) {
+					EachLoop_AllowedChars := AllUppercase  ; Force next char to be an uppercase letter
+				} Else If (StrLen(ReturnedString) == Pos_ForceSpecial) {
+					EachLoop_AllowedChars := AllSpecial  ; Force next char to be a special character
+				}
+				; Generate a random index based off of the allowed characters' string as a character array, and use that for the 'random' component
+				Random, RandomCharacterIndex, 1, % ( StrLen(EachLoop_AllowedChars) )
+				NextChar := SubStr(EachLoop_AllowedChars, RandomCharacterIndex, 1)
+				If (NextChar != PreviousChar) {  ; Only append the next character if its not a repeat of the last character
+					ReturnedString .= NextChar
+					PreviousChar := NextChar
+				}
+			}
+		}
+	}
+	Return "%ReturnedString%"
 }
 
 
@@ -2343,13 +2465,15 @@ PasteClipboardAsBinary() {
 
 ;
 ; PasteClipboardAsText
-;   |--> Pastes the current clipboard data as text (as-if the user typed it instead of pasted it)
+;   |--> Pastes the current clipboard data (or, if a string is sent as a parameter, pastes the string) as text, e.g. as-if the user typed it instead of pasted it
 ;
-PasteClipboardAsText() {
+PasteClipboardAsText(StringToPaste:="") {
 	Global DebugMode
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	ClipboardDuped:=Clipboard
+	If (StrLen(StringToPaste)<=0) {
+		StringToPaste:=Clipboard
+	}
 	If (DebugMode == 1) {
 		TrayTip, AHK,
 		(LTrim
@@ -2358,16 +2482,17 @@ PasteClipboardAsText() {
 	}
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
-	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
-	Loop, Parse, %ClipboardDuped%, "`n", "`r"
+	VarSetCapacity(ClipboardSend, StrLen(StringToPaste)*2)
+	Loop, Parse, %StringToPaste%, "`n", "`r"
 	{
 		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
 		Send {Blind}{Text}%ClipboardSend%
+		Sleep 500
 		ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 		Sleep 100
 	}
 	Sleep, 100
-	ClipboardDuped := ""  ; Avoid caching clipboard-contents in memory
+	StringToPaste := ""  ; Avoid caching clipboard-contents in memory
 	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
 	Return
 }

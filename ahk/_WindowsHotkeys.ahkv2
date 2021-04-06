@@ -2359,7 +2359,7 @@ PasteClipboardAsText() {
 	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
 	VarSetCapacity(ClipboardSend, StrLen(ClipboardDuped)*2)
-	Loop, Parse, ClipboardDuped, "`n", "`r"
+	Loop, Parse, %ClipboardDuped%, "`n", "`r"
 	{
 		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
 		Send {Blind}{Text}%ClipboardSend%

@@ -24,13 +24,11 @@ MODIFIED_STRING="${EXAMPLE_STRING// /\\ }";
 echo -e "\nEXAMPLE_STRING=\"${EXAMPLE_STRING}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
 
 
-
 # Bash Substring Replacement Example:  Modular Example inteded for copying/pasting into other script(s)
 HAYSTACK="this example, that example";
 NEEDLE="th";
 REPLACEMENT="d";
 MODIFIED_STRING="${HAYSTACK//${NEEDLE}/${REPLACEMENT}}" && echo "${MODIFIED_STRING}";
-
 
 
 # ------------------------------------------------------------

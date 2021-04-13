@@ -5,17 +5,32 @@
 #
 # ------------------------------------------------------------
 #
-### String variable character-replacement, or even substring-replacement
+### Substring Replacement
 #
-# SYNTAX:   ${VARNAME//${NEEDLE}/${REPLACEMENT}}
+# Syntax:
+#         ${VARIABLE_TO_SEARCH//STRING_TO_FIND/STRING_TO_REPLACE_WITH}
+#         ${HAYSTACK//${NEEDLE}/${REPLACEMENT}}   <-- using nested variables
 #
 
+# Bash Substring Replacement Exaxmple: Replace dashes with underscores
+EXAMPLE_STRING="Bash Substring Replacement - Replace-Dashes-With-Underscores";
+MODIFIED_STRING="${EXAMPLE_STRING//-/_}";
+echo -e "\nEXAMPLE_STRING=\"${EXAMPLE_STRING}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
+
+
+# Bash Substring Replacement Exaxmple: Escape spaces with backslashes
+EXAMPLE_STRING="Bash Substring Replacement - Escape spaces with backslashes";
+MODIFIED_STRING="${EXAMPLE_STRING// /\\ }";
+echo -e "\nEXAMPLE_STRING=\"${EXAMPLE_STRING}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
+
+
+
+# Bash Substring Replacement Example:  Modular Example inteded for copying/pasting into other script(s)
 HAYSTACK="this example, that example";
 NEEDLE="th";
 REPLACEMENT="d";
-echo "${HAYSTACK//${NEEDLE}/${REPLACEMENT}}";
+MODIFIED_STRING="${HAYSTACK//${NEEDLE}/${REPLACEMENT}}" && echo "${MODIFIED_STRING}";
 
-EXAMPLE_CHARACTER_REPLACEMENT="Dat-Example-Doe" && echo "${EXAMPLE_CHARACTER_REPLACEMENT//-/_}";
 
 
 # ------------------------------------------------------------
@@ -55,6 +70,8 @@ echo "${VAR_NOT_SET:-${VAR_ALSO_NOT_SET:-72}}";
 # Citation(s)
 #
 #   stackoverflow.com  |  "Case insensitive comparison of strings in shell script"  |  https://stackoverflow.com/a/19411918
+#
+#   tldp.org  |  "Manipulating Strings"  |  https://tldp.org/LDP/abs/html/string-manipulation.html
 #
 #   unix.stackexchange.com  |  "How to input / start a new line in bash terminal?"  |  https://unix.stackexchange.com/a/80820
 #

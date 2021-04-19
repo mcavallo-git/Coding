@@ -20,6 +20,7 @@ $HttpRequest.Body = @{
 	"dat_password" = "PLAINTEXT_PASSWORD"; <# login password-field for username has html property  [ name="dat_password" ] #>
 	"@type" = "do_login";  <# Form which contains aforementioned usename & password has a [ type="submit" ] element with [ value="do_login" ] #>
 }
+$ProgressPreference='SilentlyContinue'; 
 Invoke-WebRequest `
 -UseBasicParsing `
 -Uri ($HttpRequest.Uri) `

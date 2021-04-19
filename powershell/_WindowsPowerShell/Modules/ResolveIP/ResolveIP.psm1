@@ -99,6 +99,8 @@ function ResolveIP {
 				$RegexPattern_Versioned = $RegexPattern_IPv4OR6;
 			}
 			
+			$ProgressPreference='SilentlyContinue'; 
+
 			ForEach ($Each_Resolver In $VersionResolvers) {
 				Try {
 					If ($ReturnedValue -Eq "") {

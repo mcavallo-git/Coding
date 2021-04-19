@@ -396,6 +396,7 @@ function Az_Tutorial {
 		Start "${PowerShell_SourceExe}" "Set-Location -Path '$pwd'; dotnet run;";
 
 		$ErrorActionPreference = $Revertable_ErrorActionPreference;
+		$ProgressPreference='SilentlyContinue'; 
 
 		# Wait for Swagger to be reponsive
 		While (((Invoke-WebRequest -UseBasicParsing -Method HEAD -Uri ($git.local.services.swagger)).StatusCode) -ne (200)) {

@@ -40,7 +40,14 @@ function ExclusionsListUpdate {
 		[Switch]$Verbose
 
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
 
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/ExclusionsListUpdate/ExclusionsListUpdate.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'ExclusionsListUpdate' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ExclusionsListUpdate\ExclusionsListUpdate.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		ExclusionsListUpdate -Defender;
+
+	}
+	# ------------------------------------------------------------
 	$ESET = If ($PSBoundParameters.ContainsKey('ESET')) { $True } Else { $False };
 	$MalwarebytesAntiMalware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiMalware')) { $True } Else { $False };
 	$MalwarebytesAntiRansomware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiRansomware')) { $True } Else { $False };
@@ -90,10 +97,10 @@ function ExclusionsListUpdate {
 
 	} Else {
 
-		#
 		# ------------------------------------------------------------
 		#
 		# User/System Directories
+		#
 
 		$LocalAppData = (${Env:LocalAppData}); # LocalAppData
 
@@ -112,8 +119,8 @@ function ExclusionsListUpdate {
 		$Sys32 = ((${Env:SystemRoot})+("\System32")); # C:\Windows\System32
 
 		$UserProfile = (${Env:USERPROFILE}); # UserProfile
-		
-		#
+
+
 		# ------------------------------------------------------------
 		# -- FILEPATHS -- LocalAppData
 		$ExcludedFilepaths += ((${LocalAppData})+("\Google\Google Apps Sync"));
@@ -404,7 +411,7 @@ function ExclusionsListUpdate {
 				}
 			}
 		}
-		# Determine which process(es) exist locally
+		# Determine which processes exist locally
 		$ExcludedProcesses | ForEach-Object {
 			If ($_ -ne $Null) {
 				If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
@@ -442,9 +449,7 @@ function ExclusionsListUpdate {
 		}
 		# ------------------------------------------------------------
 		#
-		#		REVIEW FINAL EXCLUSIONS-LIST (before applying them)
-		#
-		#
+		# REVIEW FINAL EXCLUSIONS-LIST (before applying them)
 		#
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 			Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
@@ -452,7 +457,6 @@ function ExclusionsListUpdate {
 			Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
 			Write-Output "`n";
 		}
-		#
 		#
 		#
 		# ------------------------------------------------------------
@@ -543,13 +547,10 @@ function ExclusionsListUpdate {
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
 	Export-ModuleMember -Function "ExclusionsListUpdate";
 }
-#
-#
-#
+
+
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-#
-#
-#
+
 function ESET_ExportModifier {
 	Param(
 
@@ -676,27 +677,14 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 # Citation(s)
 #
-#	------------------------------------------------------------
+#   docs.microsoft.com  |  "Add-MpPreference (Defender) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference
 #
-#		docs.microsoft.com
+#   docs.microsoft.com  |  "Select-Xml (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-xml
 #
-#			"Add-MpPreference"
-#			https://docs.microsoft.com/en-us/powershell/module/defender/add-mppreference
+#   docs.microsoft.com  |  "Configure Microsoft Defender Antivirus exclusions on Windows Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus
 #
-#			"Select-Xml"  |  "Finds text in an XML string or document"
-#			https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/select-xml
+#   docs.microsoft.com  |  "Configure and validate exclusions based on extension, name, or location | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
 #
-#			"Configure Windows Defender Antivirus exclusions on Windows Server"
-#			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-server-exclusions-windows-defender-antivirus
-#
-#			"Configure and validate exclusions based on file extension and folder location"
-#			https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-antivirus/configure-extension-file-exclusions-windows-defender-antivirus
-#
-# ------------------------------------------------------------
-#
-#		stackoverflow
-#
-#			"How to monitor Windows Defender real time protection?"
-#			https://superuser.com/questions/1256548 (pulled 2019-05-29_05-57-37)
+#   superuser.com  |  "How to monitor Windows Defender real time protection? - Super User"  |  https://superuser.com/questions/1256548
 #
 # ------------------------------------------------------------

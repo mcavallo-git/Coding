@@ -4,7 +4,15 @@
 #
 Function UserCanEscalatePrivileges {
 	Param(
+
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
+
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/UserCanEscalatePrivileges/UserCanEscalatePrivileges.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'UserCanEscalatePrivileges' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\UserCanEscalatePrivileges\UserCanEscalatePrivileges.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+	}
+	#------------------------------------------------------------
 	$ReturnedVal = $Null;
 
 	# Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator)

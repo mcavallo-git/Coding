@@ -1825,7 +1825,8 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
 	} Else {
 		EnableUppercaseLetters := 0
 	}
-	AllSpecial := "!@#$`%^&*"
+	AllSpecial := "!@#"
+	; AllSpecial := "!@#$`%^&*"
 	If (EnableSpecialCharacters == 1) {
 		AllowedCharacters := ( AllowedCharacters . AllSpecial )
 	} Else {

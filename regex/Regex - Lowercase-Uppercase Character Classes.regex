@@ -1,0 +1,46 @@
+// ------------------------------------------------------------
+//
+// Regex - Lowercase-Uppercase Character Classes
+//
+//   \U  -  Uppercase all letters in the following capture group. Example: \U$1
+//
+//   \u  -  Uppercase only the first character of the following capture group. Example: \u$1
+//
+//   \L  -  Lowercase all letters in the following capture group. Example: \L$1
+//
+//   \l  -  Lowercase only the first character of the following capture group. Example: \l$1
+//
+//   Notes:
+//    |--> Lowercase Character Classes can only be used in the OUTPUT of the regex command
+//    |--> Lowercase Character Classes must be placed directly BEFORE a matched capture group
+//
+// ------------------------------------------------------------
+//
+// Example
+//   \L  -  Lowercase all letters in the following capture group
+//
+
+// Match Regex:
+^([\w ]+)$
+
+// Replacement Regex:
+\L$1
+
+
+// ------------------------------------------------------------
+//
+// Example
+//   \l  -  Lowercase only the first character of the following capture group
+//
+
+// Match Regex:
+(incoming_json\-\>)(\w+)(\W)
+
+// Replacement Regex:
+$1\l$2$3
+
+// Note(s):
+//   In the example replacement [ $1\l$2$3 ] , because [ \l ] only comes directly before the matched capture group [ $2 ], only $2 will be lowercased in the replacement
+
+
+// ------------------------------------------------------------

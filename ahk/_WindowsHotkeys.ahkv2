@@ -4089,8 +4089,8 @@ BrightnessSetter_new() {
 ;			SC029::
 ;			SplashTextOn, 250, 40, Debugging, Command Sent
 ;			Sleep 500
-			Random, RandomSleep, 1000, 1500
-			Sleep %RandomSleep%
+;			Random, RandomSleep, 1000, 1500
+;			Sleep %RandomSleep%
 ;			SplashTextOff
 ; 		-- Remainder of your script
 ; 

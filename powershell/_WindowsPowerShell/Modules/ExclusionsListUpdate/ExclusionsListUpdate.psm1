@@ -9,7 +9,7 @@
 #		|      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
 #		|
 #		|--> Example Call(s):
-#		       ExclusionsListUpdate -Defender
+#		       Import-Module "${Home}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ExclusionsListUpdate\ExclusionsListUpdate.psm1"; ExclusionsListUpdate -Defender;
 #
 # ------------------------------------------------------------
 function ExclusionsListUpdate {

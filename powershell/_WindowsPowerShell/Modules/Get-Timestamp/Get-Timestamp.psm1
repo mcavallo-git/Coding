@@ -1,15 +1,15 @@
 # ------------------------------------------------------------
 #
-# @ GetTimestamp
+# @ Get-Timestamp
 #   |--> Get the current datetime as a string
 #
 # ------------------------------------------------------------
-Function GetTimestamp {
+Function Get-Timestamp {
 	Param()
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/GetTimestamp/GetTimestamp.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'GetTimestamp' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\GetTimestamp\GetTimestamp.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-Timestamp/Get-Timestamp.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'Get-Timestamp' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\Get-Timestamp\Get-Timestamp.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 	}
 	# ------------------------------------------------------------
@@ -21,7 +21,7 @@ Function GetTimestamp {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "GetTimestamp";
+	Export-ModuleMember -Function "Get-Timestamp";
 }
 
 

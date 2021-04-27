@@ -211,15 +211,15 @@ function ExclusionsListUpdate {
 		}
 		# ------------------------------------------------------------
 		# -- EXTENSIONS   (e.g. File Types)
-		$ExcludedExtensions += (".avhd");
-		$ExcludedExtensions += (".avhdx");
-		$ExcludedExtensions += (".iso");
-		$ExcludedExtensions += (".rct");
-		$ExcludedExtensions += (".vhd");
-		$ExcludedExtensions += (".vhdx");
-		$ExcludedExtensions += (".vmcx");
-		$ExcludedExtensions += (".vmrs");
-		$ExcludedExtensions += (".vsv");
+		$ExcludedExtensions += ("avhd");
+		$ExcludedExtensions += ("avhdx");
+		$ExcludedExtensions += ("iso");
+		$ExcludedExtensions += ("rct");
+		$ExcludedExtensions += ("vhd");
+		$ExcludedExtensions += ("vhdx");
+		$ExcludedExtensions += ("vmcx");
+		$ExcludedExtensions += ("vmrs");
+		$ExcludedExtensions += ("vsv");
 		# ------------------------------------------------------------
 		# -- PROCESSES -- AppData\Local
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Dropbox"; Depth=""; Parent=""; Basename="Dropbox.exe"; }; # Dropbox

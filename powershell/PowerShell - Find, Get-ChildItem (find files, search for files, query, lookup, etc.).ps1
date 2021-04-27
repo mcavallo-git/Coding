@@ -12,12 +12,17 @@
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | ForEach-Object { $_.FullName; }
 
 
-# Filename must contain ONE string
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_A") } | ForEach-Object { $_.FullName; }
+# Filename CONTAINS ...
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ANYWHERE*") } | ForEach-Object { $_.FullName; }
 
+# Filename STARTS WITH ...
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") } | ForEach-Object { $_.FullName; }
 
-# Filename must contain TWO strings
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_A") -And ($_.Name -Like "MATCH_B") } | ForEach-Object { $_.FullName; }
+# Filename ENDS WITH ...
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; }
+
+# MATCH MULTIPLE RULES
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") -And ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; }
 
 
 # ------------------------------------------------------------

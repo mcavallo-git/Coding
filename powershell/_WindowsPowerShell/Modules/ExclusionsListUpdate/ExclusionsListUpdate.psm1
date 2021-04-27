@@ -304,6 +304,9 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2017\Professional\MSBuild\15.0\Bin"; Depth="2"; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2017\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.com"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2017\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.exe"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin"; Depth="2"; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.com"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.exe"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 32-bit (older)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\root\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 32-bit (newer)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Depth=""; Parent=""; Basename="MobaXterm.exe"; }; # MobaXTerm SSH-Client

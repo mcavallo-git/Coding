@@ -264,7 +264,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="rg.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mozilla Firefox"; Depth="1"; Parent=""; Basename="*.exe"; }; # Firefox
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NV*.exe"; }; # NVIDIA
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Traps (AV)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\GlobalProtect"; Depth="3"; Parent=""; Basename="*.exe"; }; # Palo Alto Global Protect (VPN)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Palo Alto Traps (Endpoint Security Manager)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="PowerShell"; Depth="2"; Parent=""; Basename="pwsh.exe"; }; # PowerShell
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Qualys\QualysAgent"; Depth="3"; Parent=""; Basename="*.exe"; }; # Qualys Cloud Agent (Remote patching via vendor CDNs)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Synaptics"; Depth=""; Parent=""; Basename="SynTPEnh*.exe"; }; # Synaptics
@@ -275,6 +276,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="XboxApp.exe"; Entertainment=$True; }; # Microsoft XBox Application
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
 		# -- PROCESSES -- Program Files (x86)\
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Cisco\Cisco AnyConnect Secure Mobility Client"; Depth="3"; Parent=""; Basename="*.exe"; }; # Cisco AnyConnect (VPN)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Cisco\Cisco AnyConnect VPN Client"; Depth="3"; Parent=""; Basename="*.exe"; }; # Cisco AnyConnect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Common Files\Oracle\Java"; Depth="2"; Parent=""; Basename="java.exe"; }; # Java
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dell SecureWorks"; Depth="4"; Parent=""; Basename="*.exe"; }; # Dell SecureWorks Red Cloak (monitors netflow, processes, memory, registry, etc.)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="2"; Parent=""; Basename="Dropbox*.exe"; }; # Dropbox + Required-Components

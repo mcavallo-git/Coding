@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - [adsi] & [adsiSearcher] type accelerators (Active Directory (AD) search tools - get OU Path, get AD group memberships)
+# PowerShell - [adsi] & [adsiSearcher] type accelerators (Active Directory (AD) search tools - get OU path, AD group memberships)
 #
 # ------------------------------------------------------------
 

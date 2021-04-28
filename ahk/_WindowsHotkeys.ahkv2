@@ -467,12 +467,16 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Shift + WinKey + P
 ;   HOTKEY:  Ctrl + WinKey + P
+;   HOTKEY:  Shift + Alt + P
+;   HOTKEY:  Shift + Ctrl + P
+;   HOTKEY:  Shift + WinKey + P
 ;   ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 ^#p::
 +#p::
++!p::
++^p::
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	PasteClipboard_TextOrBinary()
 	Return
@@ -604,7 +608,7 @@ ScrollLock::
 !^#d::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
 +^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
 +!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
-+!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + Win ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
++!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
 	Global RFC3339_YearMonthDay_Separator
 	Global RFC3339_HourMinuteSecond_Separator
 	Global RFC3339_DecimalSeconds_Separator
@@ -1753,6 +1757,53 @@ Duplicate_Keypress() {
 
 
 ;
+; EscapeCurlyBraces
+;   |--> Escape Left-Curly-Brace "{" & Right-Curly-Brace "}" characters in a string
+;   |--> Intended to help AHK type curly-brace characters correctly (and not interpret them as open/close block arguments)
+;
+EscapeCurlyBraces(StringToEscape:="") {
+	; str := StrReplace(str, "{", "{{}" ; Sends {
+	; str := StrReplace(str, "}", "{}}" ; Sends }
+	; return StrReplace(str, "{}", "{{}{}}" ; Sends {}
+	ReturnedString := ""
+	StringConsolidated := RegexConsolidateNewlines(StringToEscape)
+	If InStr(StringConsolidated, "`n") {
+		; Iterate over each line in the string
+		For EachKey, EachLine in StrSplit(StringConsolidated,"`n")
+		{
+			; Multi-line string - Iterate over each character in each line
+			Loop, Parse, %EachLine%
+			{
+				If (A_LoopField == "{") {
+						ReturnedString .= "{{}"
+				} Else If (A_LoopField == "}") {
+						ReturnedString .= "{}}"
+				} Else {
+						ReturnedString .= A_LoopField
+				}
+			}
+			ReturnedString := ReturnedString "`n"
+		}
+		; After the for-each loop completes, make sure to trim the final trailing newline before sending the string out the door
+		ReturnedString := SubStr(ReturnedString, 1, -1)
+	} Else {
+		; Single-line string - Iterate over each character in each line 
+		Loop, Parse, %EachLine%
+		{
+			If (A_LoopField == "{") {
+					ReturnedString .= "{{}"
+			} Else If (A_LoopField == "}") {
+					ReturnedString .= "{}}"
+			} Else {
+					ReturnedString .= A_LoopField
+			}
+		}
+	}
+	Return "%ReturnedString%"
+}
+
+
+;
 ; Get_ahk_id_from_pid
 ;   |--> Input: WinPID to Target
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
@@ -2439,19 +2490,22 @@ PasteClipboardAsBinary() {
 	Global DebugMode
 	SetKeyDelay, 0, -1
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	Sleep, 100
+	Sleep, 250
 	Clipboard := ClipboardAll
-	Sleep, 100
+	Sleep, 25
 	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text.
-	Sleep, 100
-	BlockInPut, On
-	Sleep, 10
-	Send {Blind}{Text}%Clipboard%
-	Sleep, 10
-	BlockInPut, Off
-	Sleep, 100
-	ClipboardDuped := ""  ; Avoid caching clipboard-contents in memory
-	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
+	; Sleep, 25
+	; BlockInPut, On
+	Sleep, 25
+	; ClipboardSend := EscapeCurlyBraces(Clipboard)
+	; Send {Blind}{Text}%Clipboard%
+	; Send {Blind}{Text}%ClipboardSend%
+	; Send %ClipboardSend%
+	Send % EscapeCurlyBraces(Clipboard)
+	Sleep, 25
+	; BlockInPut, Off
+	; Sleep, 25
+	ClipboardSend := ""  ; Avoid caching clipboard contents in memory
 	Return
 }
 
@@ -2464,6 +2518,7 @@ PasteClipboardAsText(StringToPaste:="") {
 	Global DebugMode
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	Sleep 250
 	If (StrLen(StringToPaste)<=0) {
 		StringToPaste:=Clipboard
 	}
@@ -2473,23 +2528,34 @@ PasteClipboardAsText(StringToPaste:="") {
 			Pasting the Text version of the Clipboard
 		)  ; Toast Notification
 	}
-	; Trim each line before pasting it (To avoid auto-indentation on Notepad++, VS-Code, & other IDE's)
 	ClipboardSend := ""
-	VarSetCapacity(ClipboardSend, StrLen(StringToPaste)*2)
-	Loop, Parse, %StringToPaste%, "`n", "`r"
+	VarSetCapacity(ClipboardSend, StrLen(StringToPaste)*2)  ; Avoid letting AHK handle blobs / heavy binary data (by setting the max capacity in bytes using 'VarSetCapacity')
+	; VarSetCapacity(LoopString, StrLen(StringToPaste)*2)  ; Avoid letting AHK handle blobs / heavy binary data (by setting the max capacity in bytes using 'VarSetCapacity')
+	; LoopString := RegexConsolidateNewlines(StringToPaste)
+	; Loop, Parse, %LoopString%
+	Loop, Parse, % RegexConsolidateNewlines(StringToPaste)
 	{
-		ClipboardSend := (A_Index=1?"":"`r`n") Trim(A_LoopField)
-		BlockInPut, On
-		Sleep 100
+		If (A_LoopField == "{") {
+			; ClipboardSend := "{{}"
+			Send {{}
+		} Else If (A_LoopField == "}") {
+			; ClipboardSend := "{}}"
+			Send {}}
+		} Else If ((A_LoopField=="`n")||(A_LoopField=="`r")) {
+			; ClipboardSend := "`n"
+			; Sleep 25
+			Send {`n}
+			; Sleep 25
+		} Else {
+			; ClipboardSend := A_LoopField
+			Send %A_LoopField%
+		}
+		; Send %ClipboardSend%
 		; Send {Blind}{Text}%ClipboardSend%
-		Send {Blind}{Text}{Raw}%ClipboardSend%
-		Sleep 100
-		BlockInPut, Off
-		ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
-		Sleep 100
+		; Send {Blind}{Text}{Raw}%ClipboardSend%
 	}
-	StringToPaste := ""  ; Avoid caching clipboard-contents in memory
-	ClipboardSend := ""  ; Avoid caching clipboard-contents in memory
+	ClipboardSend := ""  ; Avoid caching clipboard contents in memory
+	StringToPaste := ""  ; Avoid caching clipboard contents in memory
 	Return
 }
 
@@ -2677,6 +2743,17 @@ PrintEnv() {
 ;
 ProcessExist(ProcName) {
   Return (GetPID(ProcName)>0) ? True : False
+}
+
+
+;
+; RegexConsolidateNewlines
+;   |--> The characters '`n' & '`r' are interpreted the same (by Windows) when AHK 'types' them in (sends them).
+;
+RegexConsolidateNewlines(StringToConsolidate:="") {
+	; ReturnedString := RegExReplace(StringToConsolidate, "\r\n?|\n\r?", "\n")
+	; Return "%ReturnedString%"
+	Return RegExReplace(StringToConsolidate, "\r\n?|\n\r?", "`n")
 }
 
 
@@ -4245,10 +4322,13 @@ If (False) {
 ; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
 ;   |--> Clipboard:       https://www.autohotkey.com/docs/misc/Clipboard.htm
 ;   |--> ControlGetText:  https://www.autohotkey.com/docs/commands/ControlGetText.htm
+;   |--> For Each:        https://www.autohotkey.com/docs/commands/For.htm
 ;   |--> GetKeyState:     https://www.autohotkey.com/docs/commands/GetKeyState.htm
 ;   |--> Hotkey:          https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
 ;   |--> KeyWait:         https://www.autohotkey.com/docs/commands/KeyWait.htm
+;   |--> Loop Parse:      https://www.autohotkey.com/docs/commands/LoopParse.htm
 ;   |--> Menu:            https://www.autohotkey.com/docs/commands/Menu.htm
+;   |--> RegExReplace:    https://www.autohotkey.com/docs/commands/RegExReplace.htm
 ;   |--> Run/RunWait:     https://www.autohotkey.com/docs/commands/Run.htm
 ;   |--> SetTimer:        https://www.autohotkey.com/docs/commands/SetTimer.htm
 ;   |--> SysGet:          https://www.autohotkey.com/docs/commands/SysGet.htm
@@ -4332,6 +4412,8 @@ If (False) {
 ;
 ;   www.autohotkey.com  |  "Get Highest and Lowest value - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88376-get-highest-and-lowest-value/?p=560579
 ;
+;   www.autohotkey.com  |  "How to make AHK to type braces (curly brackets) - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=346714&sid=cf868beb68d8b6fefc7e3e69e7cdaeea#p346714
+;
 ;   www.autohotkey.com  |  "How to paste multiline text - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/65421-how-to-paste-multiline-text/
 ; 
 ;   www.autohotkey.com  |  "How to quickly generate random strings? - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=76052
@@ -4352,6 +4434,8 @@ If (False) {
 ;
 ;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
 ; 
+;   www.autohotkey.com  |  "SendInput %Clipboard% adds double linebreaks for Multiline - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88346-sendinput-clipboard-adds-double-linebreaks-for-multiline/
+; 
 ;   www.autohotkey.com  |  "Single line if statements"  |  https://www.autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ;
 ;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
@@ -4361,6 +4445,8 @@ If (False) {
 ;   www.autohotkey.com  |  "[HELP!] How to WinActivate without specifying window title? - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/102763-help-how-to-winactivate-without-specifying-window-title/
 ;
 ;   www.reddit.com  |  "Brightness script? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/5u2lvi/brightness_script/
+;
+;   www.reddit.com  |  "Possible to do SubStr() on multiple lines at once? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/9f0qan/possible_to_do_substr_on_multiple_lines_at_once/
 ;
 ;   www.tenforums.com  |  "Resolution mismatch when using "Change the size of text..." - Windows 10 Forums"  |  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
 ;

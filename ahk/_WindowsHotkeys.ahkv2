@@ -409,16 +409,27 @@ ScrollLock::
 ;
 #If !WinActive("ahk_class FFXIVGAME")
 	;
-	;   HOTKEY:  WinKey + Minus-Key   ( - )
+	;   HOTKEY:  WinKey + Minus-Key         ( - )
+	;            Alt + WinKey + Minus-Key   ( - )
+	;            Ctrl + WinKey + Minus-Key  ( - )
+	;            Shift + WinKey + Minus-Key ( - )
 	;   ACTION:  Type a line of -----'s (override default windows-hotkey for the magnifier tool)
 	;
 	#-::
 	#NumpadSub::
-		SendDashedLine()
+		SendDashedLine(60)
+		Return
+	!#-::
+	^#-::
+	+#-::
+	!#NumpadSub::
+	^#NumpadSub::
+	+#NumpadSub::
+		SendDashedLine(30)
 		Return
 	;
 	;   HOTKEY:  WinKey + Equals-Key  ( = )
-	;   HOTKEY:  WinKey + Plus-Key    ( + )
+	;            WinKey + Plus-Key    ( + )
 	;   ACTION:  Create a citations footer (refer to function description for more info)
 	;
 	#=::
@@ -2819,16 +2830,15 @@ RunWaitMany(CMD_Commands) {
 
 ;
 ; SendDashedLine
-;   |--> Output a line ------------------------------------------------------------ of dashes
+;   |--> Output a line of dashes
 ;
-SendDashedLine() {
+SendDashedLine(DashLength:=60) {
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetKeyDelay, 0, -1
 	; StringToType := StringRepeat("-",60)
-	SendInput % "------------------------------------------------------------"
+	SendInput {- %DashLength%}
 	Return
 }
-
 
 ;
 ;	SendHostname

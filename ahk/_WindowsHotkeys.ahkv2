@@ -4067,7 +4067,6 @@ BrightnessSetter_new() {
 }
 
 
-
 ; ------------------------------------------------------------
 ;
 ; Under Construction:   Duplicate currently-active Window
@@ -4091,13 +4090,11 @@ BrightnessSetter_new() {
   ;                                  ;
 
 
-
   ;                                  ;
  ;;;                                ;;;
 ;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
  ;;;                                ;;;
   ;                                  ;
-
 
 
   ;                                  ;

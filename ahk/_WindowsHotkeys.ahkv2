@@ -1665,26 +1665,30 @@ CreateCitationsFooter() {
 	Revert_A_KeyDelay := A_KeyDelay
 	SetKeyDelay, 0, -1
 	LF := "`n"
-	Dashes := "------------------------------------------------------------"
-	CitationsFooter := LF Dashes LF LF "Citation(s)" LF LF "domain  |  `"title`"  |  url" LF LF Dashes
-	Send %LF%
-	Send {Space}{Shift Down}{Home}{Shift Up}{Delete}
-	Send %CitationsFooter%
-	Send {LControl Down}{q}{LControl Up}
-	Send {Up}
-	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
-	Send {Up}
-	Send {LControl Down}{q}{LControl Up}
-	Send {Home}{Right}{Space}{Space}
-	Send {Up}
-	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
-	Send {Up}
-	Send {LControl Down}{q}{LControl Up}
-	Send {Up}
-	Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
-	Send {Up}
-	Send {LControl Down}{q}{LControl Up}
-	Send {Up}
+	SendInput % LF
+	SendInput {Space}{Shift Down}{Home}{Shift Up}{Delete}
+	SendInput % LF
+	SendInput % "------------------------------------------------------------"
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput % LF
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+	SendInput % LF
+	SendInput % "Citation(s)"
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput % LF
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+	SendInput % LF
+	SendInput % "domain  |  `"title`"  |  url"
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput % LF
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+	SendInput % LF
+	SendInput % "------------------------------------------------------------"
+	SendInput {LControl Down}{q}{LControl Up}
+	SendInput {Up 2}{Left 26}{Space 2}
 	SetKeyDelay, %Revert_A_KeyDelay%, -1
 	Return
 }
@@ -1762,9 +1766,6 @@ Duplicate_Keypress() {
 ;   |--> Intended to help AHK type curly-brace characters correctly (and not interpret them as open/close block arguments)
 ;
 EscapeCurlyBraces(StringToEscape:="") {
-	; str := StrReplace(str, "{", "{{}" ; Sends {
-	; str := StrReplace(str, "}", "{}}" ; Sends }
-	; return StrReplace(str, "{}", "{{}{}}" ; Sends {}
 	ReturnedString := ""
 	StringConsolidated := RegexConsolidateNewlines(StringToEscape)
 	If InStr(StringConsolidated, "`n") {
@@ -1775,11 +1776,11 @@ EscapeCurlyBraces(StringToEscape:="") {
 			Loop, Parse, %EachLine%
 			{
 				If (A_LoopField == "{") {
-						ReturnedString .= "{{}"
+						ReturnedString := ReturnedString "{{}"
 				} Else If (A_LoopField == "}") {
-						ReturnedString .= "{}}"
+						ReturnedString := ReturnedString "{}}"
 				} Else {
-						ReturnedString .= A_LoopField
+						ReturnedString := ReturnedString A_LoopField
 				}
 			}
 			ReturnedString := ReturnedString "`n"
@@ -1791,15 +1792,15 @@ EscapeCurlyBraces(StringToEscape:="") {
 		Loop, Parse, %EachLine%
 		{
 			If (A_LoopField == "{") {
-					ReturnedString .= "{{}"
+					ReturnedString := ReturnedString "{{}"
 			} Else If (A_LoopField == "}") {
-					ReturnedString .= "{}}"
+					ReturnedString := ReturnedString "{}}"
 			} Else {
-					ReturnedString .= A_LoopField
+					ReturnedString := ReturnedString A_LoopField
 			}
 		}
 	}
-	Return "%ReturnedString%"
+	Return ReturnedString
 }
 
 
@@ -2484,7 +2485,7 @@ OpenVSCode() {
 
 ;
 ; PasteClipboardAsBinary
-;   |--> Pastes the current clipboard data as binary-data (as-if the user somehow entered it without pasting it off the Clipboard)
+;   |--> Pastes the current clipboard data as binary-data (as if the user typed it instead of pasting it)
 ;
 PasteClipboardAsBinary() {
 	Global DebugMode
@@ -2493,69 +2494,37 @@ PasteClipboardAsBinary() {
 	Sleep, 250
 	Clipboard := ClipboardAll
 	Sleep, 25
-	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text.
-	; Sleep, 25
-	; BlockInPut, On
+	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
 	Sleep, 25
-	; ClipboardSend := EscapeCurlyBraces(Clipboard)
-	; Send {Blind}{Text}%Clipboard%
-	; Send {Blind}{Text}%ClipboardSend%
-	; Send %ClipboardSend%
-	Send % EscapeCurlyBraces(Clipboard)
+	SendInput % EscapeCurlyBraces(Clipboard)
 	Sleep, 25
-	; BlockInPut, Off
-	; Sleep, 25
-	ClipboardSend := ""  ; Avoid caching clipboard contents in memory
 	Return
 }
 
 
 ;
 ; PasteClipboardAsText
-;   |--> Pastes the current clipboard data (or, if a string is sent as a parameter, pastes the string) as text, e.g. as-if the user typed it instead of pasted it
+;   |--> Types the current clipboard's contained data, character-by-character (as if the user typed it instead of pasting it)
 ;
 PasteClipboardAsText(StringToPaste:="") {
 	Global DebugMode
 	SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Sleep 250
-	If (StrLen(StringToPaste)<=0) {
-		StringToPaste:=Clipboard
-	}
-	If (DebugMode == 1) {
-		TrayTip, AHK,
-		(LTrim
-			Pasting the Text version of the Clipboard
-		)  ; Toast Notification
-	}
-	ClipboardSend := ""
-	VarSetCapacity(ClipboardSend, StrLen(StringToPaste)*2)  ; Avoid letting AHK handle blobs / heavy binary data (by setting the max capacity in bytes using 'VarSetCapacity')
-	; VarSetCapacity(LoopString, StrLen(StringToPaste)*2)  ; Avoid letting AHK handle blobs / heavy binary data (by setting the max capacity in bytes using 'VarSetCapacity')
-	; LoopString := RegexConsolidateNewlines(StringToPaste)
-	; Loop, Parse, %LoopString%
-	Loop, Parse, % RegexConsolidateNewlines(StringToPaste)
+	Loop, Parse, % RegexConsolidateNewlines((StrLen(StringToPaste)<=0)?(Clipboard):(StringToPaste))
 	{
 		If (A_LoopField == "{") {
-			; ClipboardSend := "{{}"
-			Send {{}
+			SendInput {{}
 		} Else If (A_LoopField == "}") {
-			; ClipboardSend := "{}}"
-			Send {}}
+			SendInput {}}
 		} Else If ((A_LoopField=="`n")||(A_LoopField=="`r")) {
-			; ClipboardSend := "`n"
-			; Sleep 25
-			Send {`n}
-			; Sleep 25
+			Sleep 25
+			SendInput {`n}
+			Sleep 25
 		} Else {
-			; ClipboardSend := A_LoopField
-			Send %A_LoopField%
+			SendInput %A_LoopField%
 		}
-		; Send %ClipboardSend%
-		; Send {Blind}{Text}%ClipboardSend%
-		; Send {Blind}{Text}{Raw}%ClipboardSend%
 	}
-	ClipboardSend := ""  ; Avoid caching clipboard contents in memory
-	StringToPaste := ""  ; Avoid caching clipboard contents in memory
 	Return
 }
 
@@ -2751,9 +2720,7 @@ ProcessExist(ProcName) {
 ;   |--> The characters '`n' & '`r' are interpreted the same (by Windows) when AHK 'types' them in (sends them).
 ;
 RegexConsolidateNewlines(StringToConsolidate:="") {
-	; ReturnedString := RegExReplace(StringToConsolidate, "\r\n?|\n\r?", "\n")
-	; Return "%ReturnedString%"
-	Return RegExReplace(StringToConsolidate, "\r\n?|\n\r?", "`n")
+	Return RegExReplace(StringToConsolidate,"\r\n?|\n\r?","`n")
 }
 
 

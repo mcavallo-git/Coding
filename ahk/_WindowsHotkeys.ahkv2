@@ -1689,6 +1689,7 @@ CreateCitationsFooter() {
 	SendInput % "------------------------------------------------------------"
 	SendInput {LControl Down}{q}{LControl Up}
 	SendInput {Up 2}{Left 26}{Space 2}
+	SendInput {End}{Shift Down}{Left 3}{Shift Up}
 	SetKeyDelay, %Revert_A_KeyDelay%, -1
 	Return
 }
@@ -2824,7 +2825,7 @@ SendDashedLine() {
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetKeyDelay, 0, -1
 	; StringToType := StringRepeat("-",60)
-	SendInput, ------------------------------------------------------------
+	SendInput % "------------------------------------------------------------"
 	Return
 }
 

@@ -5,22 +5,21 @@
 
 If ($True) {
 
-<# Backup current settings #>
 $Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
-powercfg.exe /Q >"${Env:TEMP}\powercfg-Q_${Start_Timestamp}.txt";
-powercfg.exe /Qh >"${Env:TEMP}\powercfg-Qh__${Start_Timestamp}.txt";
-
-$Visibility = "Show";
-# $Visibility = "Hide";
-
-If ($AdvOptions_ShowAll -Eq $True) {
-	$AdvOpt_ShowHide = "-ATTRIB_HIDE";
-	$Text_ShowHide = "shown";
-} Else {
-	$AdvOpt_ShowHide = "+ATTRIB_HIDE";
-	$Text_ShowHide = "hidden";
+$LogFile="${Env:TEMP}\SetPowercfg\LogFile_$(GetTimestamp -DateFormat '%Y-%m-%dT%H-%M-%S').log";
+If ((Test-Path -Path (Split-Path -Path ("${LogFile}") -Parent)) -Eq ($False)) {
+	New-Item -ItemType "Directory" -Path (Split-Path -Path ("${LogFile}") -Parent) | Out-Null;
 }
 
+Function DoLogging {
+Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
+$OutString="[$(GetTimestamp) INFO $($MyInvocation.MyCommand.Name)] ${Text}"; DoLogging -LogFile "${LogFile}" -Text "${OutString}"; Write-Host "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
+};
+
+Function GetTimestamp {
+Param([String]$DateFormat="%Y-%m-%dT%H:%M:%S");
+Return (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat (${DateFormat})))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
+};
 
 Function SetPowercfg {
 	Param(
@@ -32,15 +31,17 @@ Function SetPowercfg {
 	);
 	$SettingChanged=$False;
 	$SettingStatus_PreCheck=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting});
-	$SettingShown_PreCheck = If ($SettingStatus_PreCheck -Eq "None") { "shown"; } Else { "hidden"; };
+	$SettingShown_PreCheck=If ($SettingStatus_PreCheck -Eq "None") { "shown"; } Else { "hidden"; };
 	If ("${Visibility}" -Eq "Show") {
 		<# Show the setting on 'advanced power options' #>
 		If ($SettingShown_PreCheck -Eq "shown") {
 			<# Setting already set as-requested #>
-			Write-Host "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			DoLogging -LogFile "${LogFile}" -Text "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			| Out-File -Width 16384 -Append "${LogFile}"; `
+
 		} Else {
 			<# Update the setting via powercfg.exe #>
-			Write-Host "INFO: Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			DoLogging -LogFile "${LogFile}" -Text "INFO: Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} -ATTRIB_HIDE);
 			$SettingChanged=$True;
 		}
@@ -48,24 +49,31 @@ Function SetPowercfg {
 		<# Hide the setting on 'advanced power options' #>E
 		If ($SettingShown_PreCheck -Eq "hidden") {
 			<# Setting already requested #>
-			Write-Host "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			DoLogging -LogFile "${LogFile}" -Text "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 		} Else {
-			Write-Host "INFO: Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			DoLogging -LogFile "${LogFile}" -Text "INFO: Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			<# Update the setting via powercfg.exe #>
 			$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} +ATTRIB_HIDE);
 			$SettingChanged=$True;
 		}
 	} Else {
-		Write-Host "INFO: Power option visibility is [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+		DoLogging -LogFile "${LogFile}" -Text "INFO: Power option visibility is [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 	}
 	$SettingShown_PostCheck=${SettingStatus_PreCheck};
 	If (${SettingChanged} -Eq $True) {
 		$SettingStatus_PostCheck=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting});
-		$SettingShown_PostCheck = If ($SettingStatus_PreCheck -Eq "None") { "shown"; } Else { "hidden"; };
+		$SettingShown_PostCheck=If ($SettingStatus_PreCheck -Eq "None") { "shown"; } Else { "hidden"; };
 	}
 	# Return ${SettingShown_PostCheck};
 	Return;
 }
+
+<# Backup current settings #>
+powercfg.exe /Q >"${Env:TEMP}\powercfg-Q_${Start_Timestamp}.txt";
+powercfg.exe /Qh >"${Env:TEMP}\powercfg-Qh__${Start_Timestamp}.txt";
+
+$Visibility="Show";
+# $Visibility="Hide";
 
 # Hard disk burst ignore time
 SetPowercfg -GUID_Group SUB_DISK -GUID_Setting DISKBURSTIGNORE -Visibility ${Visibility};
@@ -198,32 +206,34 @@ SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting CPDECREASETIME -Visibility $
 # Processor performance core parking max cores
 SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting CPMAXCORES -Visibility ${Visibility};
 
-Write-Output "------------------------------------------------------------";
-Write-Output "Windows 10 - Advanced power options visibility set to [ ${Visibility} ]";
-Write-Output "------------------------------------------------------------";
-Write-Output "";
-Write-Output "  v v v     !!! AMD (RYZEN) PROCESSORS ONLY !!!     v v v";
-Write-Output "";
-Write-Output "AMD Ryzen Balanced plan  -->  SETUP EFFICIENT CORE THROTTLING";
-Write-Output "";
-Write-Output "> Open 'Power & sleep settings' (type it into Win10 start menu and click the name to open it)";
-Write-Output " > Click 'Additional power settings' (right side) -> Ensure that power plan 'AMD Ryzen Balanced' is active";
-Write-Output "  > Click 'Change plan settings' next to 'AMD Ryzen Balanced' then click 'Change advanced power settings'";
-Write-Output "   > Set option 'Allow throttle states' to value 'Enabled'";
-Write-Output "   > Set option 'Minimum processor state' to value '15%'";
-Write-Output "   > Set option 'Maximum processor state' to value '100%'";
-Write-Output "   > Set option 'Processor performance core parking min cores' to value '10%'";
-Write-Output "   > Set option 'Processor performance core parking increase time' to value '1 Time check intervals'";
-Write-Output "   > Set option 'Processor performance decrease policy' to value 'Rocket'";
-Write-Output "   > Set option 'Processor idle threshold scaling' to value 'Enable scaling'";
-Write-Output "   > Set option 'Processor performance core parking decrease time' to value '2 Time check intervals'";
-Write-Output "  > Close 'Additional power settings' (Win7 style control panel) window";
-Write-Output " > Back in Win10's settings, under 'Performance and Energy', set the draggable bar to the middle setting";
-Write-Output "  > Verify that the text just above the bar reads as 'Power mode: Better performance'";
-Write-Output "> Verify that CPU core-clock is throttling as-desired via monitoring software such as 'OpenHardwareMonitor'";
-Write-Output "> Done";
-Write-Output "";
-Write-Output "------------------------------------------------------------";
+If ($False) {
+	Write-Host "------------------------------------------------------------";
+	Write-Host "Windows 10 - Advanced power options visibility set to [ ${Visibility} ]";
+	Write-Host "------------------------------------------------------------";
+	Write-Host "";
+	Write-Host "  v v v     !!! AMD (RYZEN) PROCESSORS ONLY !!!     v v v";
+	Write-Host "";
+	Write-Host "AMD Ryzen Balanced plan  -->  SETUP EFFICIENT CORE THROTTLING";
+	Write-Host "";
+	Write-Host "> Open 'Power & sleep settings' (type it into Win10 start menu and click the name to open it)";
+	Write-Host " > Click 'Additional power settings' (right side) -> Ensure that power plan 'AMD Ryzen Balanced' is active";
+	Write-Host "  > Click 'Change plan settings' next to 'AMD Ryzen Balanced' then click 'Change advanced power settings'";
+	Write-Host "   > Set option 'Allow throttle states' to value 'Enabled'";
+	Write-Host "   > Set option 'Minimum processor state' to value '15%'";
+	Write-Host "   > Set option 'Maximum processor state' to value '100%'";
+	Write-Host "   > Set option 'Processor performance core parking min cores' to value '10%'";
+	Write-Host "   > Set option 'Processor performance core parking increase time' to value '1 Time check intervals'";
+	Write-Host "   > Set option 'Processor performance decrease policy' to value 'Rocket'";
+	Write-Host "   > Set option 'Processor idle threshold scaling' to value 'Enable scaling'";
+	Write-Host "   > Set option 'Processor performance core parking decrease time' to value '2 Time check intervals'";
+	Write-Host "  > Close 'Additional power settings' (Win7 style control panel) window";
+	Write-Host " > Back in Win10's settings, under 'Performance and Energy', set the draggable bar to the middle setting";
+	Write-Host "  > Verify that the text just above the bar reads as 'Power mode: Better performance'";
+	Write-Host "> Verify that CPU core-clock is throttling as-desired via monitoring software such as 'OpenHardwareMonitor'";
+	Write-Host "> Done";
+	Write-Host "";
+	Write-Host "------------------------------------------------------------";
+}
 
 }
 
@@ -235,36 +245,36 @@ Write-Output "------------------------------------------------------------";
 #
 If ($False) {
 
-	$powerSettingTable = Get-WmiObject -Namespace root\cimv2\power -Class Win32_PowerSetting
-	$powerSettingInSubgroubTable = Get-WmiObject -Namespace root\cimv2\power -Class Win32_PowerSettingInSubgroup
+	$powerSettingTable=Get-WmiObject -Namespace root\cimv2\power -Class Win32_PowerSetting
+	$powerSettingInSubgroubTable=Get-WmiObject -Namespace root\cimv2\power -Class Win32_PowerSettingInSubgroup
 
 	Get-WmiObject -Namespace root\cimv2\power -Class Win32_PowerSettingCapabilities | ForEach-Object {
-		$tmp = $_.ManagedElement
-		$tmp = $tmp.Remove(0, $tmp.LastIndexOf('{') + 1)
-		$tmp = $tmp.Remove($tmp.LastIndexOf('}'))
+		$tmp=$_.ManagedElement
+		$tmp=$tmp.Remove(0, $tmp.LastIndexOf('{') + 1)
+		$tmp=$tmp.Remove($tmp.LastIndexOf('}'))
 
-		$guid = $tmp
+		$guid=$tmp
 
-		$s = ($powerSettingInSubgroubTable | Where-Object PartComponent -Match "$guid")
+		$s=($powerSettingInSubgroubTable | Where-Object PartComponent -Match "$guid")
 
 		if (!$s) {
 			return
 		}
 
-		$tmp = $s.GroupComponent
-		$tmp = $tmp.Remove(0, $tmp.LastIndexOf('{') + 1)
-		$tmp = $tmp.Remove($tmp.LastIndexOf('}'))
+		$tmp=$s.GroupComponent
+		$tmp=$tmp.Remove(0, $tmp.LastIndexOf('{') + 1)
+		$tmp=$tmp.Remove($tmp.LastIndexOf('}'))
 
-		$groupguid = $tmp
+		$groupguid=$tmp
 
-		$s = ($powerSettingTable | Where-Object InstanceID -Match "$guid")
+		$s=($powerSettingTable | Where-Object InstanceID -Match "$guid")
 
-		$descr = [string]::Format("# {0}", $s.ElementName)
-		$runcfg = [string]::Format("powercfg -attributes {0} {1} -ATTRIB_HIDE", $groupguid, $guid)
+		$descr=[string]::Format("# {0}", $s.ElementName)
+		$runcfg=[string]::Format("powercfg -attributes {0} {1} -ATTRIB_HIDE", $groupguid, $guid)
 
-		Write-Output $descr
-		Write-Output $runcfg
-		Write-Output ""
+		Write-Host $descr
+		Write-Host $runcfg
+		Write-Host ""
 	}
 
 }

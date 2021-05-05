@@ -56,8 +56,6 @@ Function SyncPowercfg() {
 			If ($SettingShown_PreCheck -Eq "shown") {
 				<# Setting already set as-requested #>
 				DoLogging -LogFile "${LogFile}" -Text "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
-				| Out-File -Width 16384 -Append "${LogFile}"; `
-
 			} Else {
 				<# Update the setting via powercfg.exe #>
 				DoLogging -LogFile "${LogFile}" -Text "INFO: Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";

@@ -26,6 +26,9 @@ $(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,
 
 # ------------------------------------------------------------
 
+$TzOffset_WithColon = ((Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
+$TzOffset_NoColon = ((Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",'$3'));
+
 # Timestamp, Filename-compatible w/ decimal-seconds
 If ($True) {
 

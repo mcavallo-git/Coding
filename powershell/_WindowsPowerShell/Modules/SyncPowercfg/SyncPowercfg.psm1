@@ -28,7 +28,7 @@ Function SyncPowercfg() {
 	Function DoLogging {
 		Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
 		$Timestamp_Decimal=(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat ("%Y-%m-%dT%H:%M:%S")))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
-		$OutString="[${Timestamp_Decimal} INFO $($MyInvocation.MyCommand.Name)] ${Text}";
+		$OutString="[${Timestamp_Decimal} ${Level} $($MyInvocation.MyCommand.Name)] ${Text}";
 		Write-Host "${OutString}";
 		Write-Output "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
 	};
@@ -48,10 +48,10 @@ Function SyncPowercfg() {
 			<# Show the setting on 'advanced power options' #>
 			If ($SettingShown_PreCheck -Eq "shown") {
 				<# Setting already set as-requested #>
-				DoLogging -LogFile "${LogFile}" -Text "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Level "SKIPPED" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			} Else {
 				<# Update the setting via powercfg.exe #>
-				DoLogging -LogFile "${LogFile}" -Text "INFO: Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Text "Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} -ATTRIB_HIDE);
 				$SettingChanged=$True;
 			}
@@ -59,15 +59,15 @@ Function SyncPowercfg() {
 			<# Hide the setting on 'advanced power options' #>E
 			If ($SettingShown_PreCheck -Eq "hidden") {
 				<# Setting already requested #>
-				DoLogging -LogFile "${LogFile}" -Text "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Level "SKIPPED" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			} Else {
-				DoLogging -LogFile "${LogFile}" -Text "INFO: Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Text "Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				<# Update the setting via powercfg.exe #>
 				$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} +ATTRIB_HIDE);
 				$SettingChanged=$True;
 			}
 		} Else {
-			DoLogging -LogFile "${LogFile}" -Text "INFO: Power option visibility is [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			DoLogging -LogFile "${LogFile}" -Text "Power option visibility is [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 		}
 		$SettingShown_PostCheck=${SettingStatus_PreCheck};
 		If (${SettingChanged} -Eq $True) {

@@ -56,7 +56,7 @@ Function SyncPowercfg() {
 				$SettingChanged=$True;
 			}
 		} ElseIf ("${Visibility}" -Eq "hidden") {
-			<# Hide the setting on 'advanced power options' #>E
+			<# Hide the setting on 'advanced power options' #>
 			If ($SettingShown_PreCheck -Eq "hidden") {
 				<# Setting already requested #>
 				DoLogging -LogFile "${LogFile}" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";

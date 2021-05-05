@@ -13,7 +13,7 @@
 # TimestampFilename                20210505T171718
 $([String](Get-Date -UFormat '%Y%m%dT%H%M%S'));
 
-# TimestampFilename_TZ             20210505T171718-04                   <# BEST FOR FILENAMES #>
+# TimestampFilename_TZ             20210505T171718-04                  <# BEST FOR FILENAMES #>
 $([String](Get-Date -Format 'yyyyMMddThhmmsszz'));
 
 # TimestampShort                   20210505171718

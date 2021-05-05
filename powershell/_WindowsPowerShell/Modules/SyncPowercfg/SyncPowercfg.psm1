@@ -51,7 +51,7 @@ Function SyncPowercfg() {
 				DoLogging -LogFile "${LogFile}" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			} Else {
 				<# Update the setting via powercfg.exe #>
-				DoLogging -LogFile "${LogFile}" -Level "WARN" -Text "Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Level "WARN" -Text "Applying power option visibility of [ ${Visibility} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} -ATTRIB_HIDE);
 				$SettingChanged=$True;
 			}
@@ -62,7 +62,7 @@ Function SyncPowercfg() {
 				DoLogging -LogFile "${LogFile}" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			} Else {
 				<# Update the setting via powercfg.exe #>
-				DoLogging -LogFile "${LogFile}" -Level "WARN" -Text "Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Level "WARN" -Text "Applying power option visibility of [ ${Visibility} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} +ATTRIB_HIDE);
 				$SettingChanged=$True;
 			}

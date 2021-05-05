@@ -9,8 +9,23 @@
 # ------------------------------------------------------------
 
 
-"Hello City!".Replace("City","World"); # Outputs: 'Hello World!'
+"Hello City!".Replace("City","World");   <# Returns "Hello World!" #>
+
+"Hello City!" -Replace "city","World");  <# Returns "Hello World!" #>
 
 
-"Hello City!" -Replace "city","World"); # Outputs: 'Hello World!'
+'00:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[] [00] [00] [00]" #>
+'-05:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[-] [05] [00] [00]" #>
+'+13:45:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[+] [13] [45] [00]" #>
+$([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';
 
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.microsoft.com  |  "about_Comparison_Operators - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators?view=powershell-5.1#replacement-operator
+#
+#   powershell.org  |  "Regular Expressions are a -replace's best friend – PowerShell.org"  |  https://powershell.org/2013/08/regular-expressions-are-a-replaces-best-friend/
+#
+# ------------------------------------------------------------

@@ -80,14 +80,15 @@ Function SyncPowercfg() {
 
 	<# Setup Logfile #>
 	$Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
-	$LogFile="${Env:TEMP}\SetPowercfg\LogFile_${Start_Timestamp}.log";
-	If ((Test-Path -Path (Split-Path -Path ("${LogFile}") -Parent)) -Eq ($False)) {
-		New-Item -ItemType "Directory" -Path (Split-Path -Path ("${LogFile}") -Parent) | Out-Null;
+	$LogDir="${Env:TEMP}\SetPowercfg";
+	$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
+	If ((Test-Path -Path ("${LogDir}") -Parent)) -Eq ($False)) {
+		New-Item -ItemType "Directory" -Path ("${LogDir}") | Out-Null;
 	}
 
 	<# Backup current settings #>
-	powercfg.exe /Q >"${Env:TEMP}\powercfg-Q_${Start_Timestamp}.txt";
-	powercfg.exe /Qh >"${Env:TEMP}\powercfg-Qh__${Start_Timestamp}.txt";
+	powercfg.exe /Q >"${LogDir}\powercfg-Q_${Start_Timestamp}.txt";
+	powercfg.exe /Qh >"${LogDir}\powercfg-Qh__${Start_Timestamp}.txt";
 
 	<# Show header text in console & logfile #>
 	DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";

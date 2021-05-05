@@ -9,21 +9,20 @@
 #
 # ------------------------------------------------------------
 
-# TimestampFilename               20210505-160708
-$(Get-Date -UFormat '%Y%m%d-%H%M%S');
+# TimestampFilename                20210505-164348
+$([String](Get-Date -UFormat '%Y%m%d-%H%M%S'));
 
-# TimestampShort                  20210505160531
-$(Get-Date -UFormat '%Y%m%d%H%M%S');
+# TimestampShort                   20210505164348
+$([String](Get-Date -UFormat '%Y%m%d%H%M%S'));
 
-# TimestampShort_TZ               20210505160512-04
-$(Get-Date -UFormat '%Y%m%d%H%M%S%Z');
+# TimestampShort_TZ                20210505164348-04
+$([String](Get-Date -UFormat '%Y%m%d%H%M%S%Z'));
 
-# Timestamp_RFC3339               2021-05-05T16:11:09-04
-$(Get-Date -UFormat '%Y-%m-%dT%H:%M:%S%Z');
+# Timestamp_RFC3339                2021-05-05T16:43:48-04:00
+$(([String](Get-Date -UFormat '%Y-%m-%dT%H:%M:%S%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
 
-# Timestamp_DecimalSeconds_TZ     2021-05-05T16:04:36.51783-04
-$(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ('%s')))))) -UFormat ('%Y-%m-%dT%H:%M:%S')))+(([String](($([Decimal](Get-Date -UFormat ('%s')))%1))).Substring(1).PadRight(6,'0'))+(Get-Date -UFormat ('%Z')));
-
+# Timestamp_RFC3339_Microseconds   2021-05-05T16:43:48.59023-04:00
+$(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ('%s')))))) -UFormat ('%Y-%m-%dT%H:%M:%S')))+(([String](($([Decimal](Get-Date -UFormat ('%s')))%1))).Substring(1).PadRight(6,'0'))+(Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
 
 # ------------------------------------------------------------
 

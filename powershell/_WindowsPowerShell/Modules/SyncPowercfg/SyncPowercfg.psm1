@@ -87,8 +87,8 @@ Function SyncPowercfg() {
 	}
 
 	<# Backup current settings #>
-	powercfg.exe /Q >"${LogDir}\powercfg-Q_${Start_Timestamp}.txt";
-	powercfg.exe /Qh >"${LogDir}\powercfg-Qh__${Start_Timestamp}.txt";
+	powercfg.exe /Q >"${LogDir}\powercfg-Q_${Start_Timestamp}.bak.txt";
+	powercfg.exe /Qh >"${LogDir}\powercfg-Qh__${Start_Timestamp}.bak.txt";
 
 	<# Show header text in console & logfile #>
 	DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";

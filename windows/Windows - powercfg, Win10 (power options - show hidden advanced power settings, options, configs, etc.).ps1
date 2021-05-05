@@ -40,7 +40,7 @@ Function SetPowercfg {
 			Write-Host "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 		} Else {
 			<# Update the setting via powercfg.exe #>
-			Write-Host "INFO: Applying power option visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			Write-Host "INFO: Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} -ATTRIB_HIDE);
 			$SettingChanged=$True;
 		}
@@ -50,7 +50,7 @@ Function SetPowercfg {
 			<# Setting already requested #>
 			Write-Host "INFO: (Skipped) Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 		} Else {
-			Write-Host "INFO: Applying power option visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+			Write-Host "INFO: Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			<# Update the setting via powercfg.exe #>
 			$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} +ATTRIB_HIDE);
 			$SettingChanged=$True;

@@ -25,19 +25,19 @@ Function DoLogging {
 	}
 
 	<# Get the current datetime as a string #>
-	$Get-Timestamp = (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat ("%Y-%m-%dT%H:%M:%S")))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z"))); 
+	$GetTimestamp = (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat ("%Y-%m-%dT%H:%M:%S")))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z"))); 
 
 	If ($False) {
 		<# Define the logging filepath & Ensure that the logging directory exists #>
 		$LogDir = "${env:SystemDrive}\ISO\Logs";
-		$LogFile = "${LogDir}\Logfile_$(Get-Timestamp).log";
+		$LogFile = "${LogDir}\Logfile_$(GetTimestamp).log";
 		If ((Test-Path -Path (${LogDir})) -Eq ($False)) {
 			New-Item -ItemType "Directory" -Path (${FullPath_LoggingDir}) | Out-Null;
 		}
 		Set-Location -Path (${LogDir});
 	}
 
-	$OutString = "[$(${Get-Timestamp}) INFO $($MyInvocation.MyCommand.Name)] ${Text}";
+	$OutString = "[$(${GetTimestamp}) INFO $($MyInvocation.MyCommand.Name)] ${Text}";
 
 	<# Write the output to target logfile #>
 	Write-Output "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";

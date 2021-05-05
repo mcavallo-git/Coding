@@ -71,7 +71,7 @@ If (! (Get-Command "git")) {
 
 		<# Get current DateTime with microsecond precision #>
 		$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
-		$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
+		$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($EpochDate));
 		$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
 
 		New-Item -ItemType ("Directory") -Path "${REPO_DIR_WIN32}" | Out-Null;

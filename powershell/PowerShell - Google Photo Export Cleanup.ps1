@@ -63,7 +63,7 @@ If ($True) {
 		$EachMediaFile_Name = $EachMetadata_Object.title;
 		$EachCreation_EpochSeconds = $EachMetadata_Object.photoTakenTime.timestamp;
 		$Original_CreationTime = $Null;
-		$Updated_CreationTime_UTC = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor(${EachCreation_EpochSeconds}));
+		$Updated_CreationTime_UTC = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${EachCreation_EpochSeconds}));
 		<# Convert timestamp from UTC to device's current timezone #>
 		$TZ_Source = [System.TimeZoneInfo]::GetSystemTimeZones() | Where-Object { $_.Id -Eq "UTC" };
 		$TZ_Destination = [System.TimeZoneInfo]::GetSystemTimeZones() |  Where-Object { $_.Id -Eq "$((Get-TimeZone).Id)" };
@@ -140,7 +140,7 @@ If ($True) {
 				$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
 				$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
 				$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
-				$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+				$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0);
 				<# Check various metadata tag-names #>
 				$Each_Metadata = (Get-FileMetadata -File "${EachMediaFile_CurrentFullpath}");
 				$Each_DateTaken_Unicode = $Null;
@@ -204,7 +204,7 @@ If ($True) {
 			$EachMediaFile_GrandDirName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Parent);
 			$EachMediaFile_FinalFullpath = "${EachMediaFile_GrandDirName}\${EachMediaFile_Name}";
 			$Original_CreationTime = (Get-Item ${EachMediaFile_CurrentFullpath}).CreationTime;
-			$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0);
+			$Updated_CreationTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0);
 			<# Fallback to regex-parsing out the date component from the media-file's dirname (in yyyy-mm-dd format) #>
 			$EachMediaFile_Directory_BaseName = (Split-Path -Path ("${EachMediaFile_DirectoryName}") -Leaf);
 			$Needle   = [Regex]::Match($EachMediaFile_Directory_BaseName, '^(\d\d\d\d)-(\d\d)-(\d\d).*');

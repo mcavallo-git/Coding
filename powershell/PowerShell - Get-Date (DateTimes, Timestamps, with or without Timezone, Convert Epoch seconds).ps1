@@ -34,7 +34,7 @@ If ($True) {
 
 	$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
 
-	$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
+	$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($EpochDate));
 
 	$TimestampLong = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S")));
 	$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));

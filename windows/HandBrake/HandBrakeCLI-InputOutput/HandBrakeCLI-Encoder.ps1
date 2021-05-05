@@ -220,7 +220,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$NameCollision_LoopIterations = 0;
 		Do {
 			$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
-			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970, 1, 1, 0, 0, 0, 0).AddSeconds([Math]::Floor($EpochDate));
+			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($EpochDate));
 			$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
 			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
 			If (${FirstLoop_DoQuickNaming} -Eq $True) {

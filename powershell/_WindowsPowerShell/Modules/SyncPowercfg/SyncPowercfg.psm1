@@ -91,7 +91,7 @@ Function SyncPowercfg() {
 	<# Show header text in console & logfile #>
 	DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 	DoLogging -LogFile "${LogFile}" -Text "Windows 10 - Setting advanced power options' visibility to [ ${Visibility} ]";
-	DoLogging -LogFile "${LogFile}" -Text "Logfile located @ [ ${LogFile} ]";
+	DoLogging -LogFile "${LogFile}" -Text "Logfile: [ ${LogFile} ]";
 	DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 
 	# Hard disk burst ignore time

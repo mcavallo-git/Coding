@@ -1,13 +1,18 @@
 # ------------------------------------------------------------
 #
-# @ Get-Timestamp
-#   |--> Get the current datetime as a string
+# PowerShell - Get-Timestamp
+#   |
+#   |--> Description:  Get the current datetime as a string
+#   |
+#   |--> Example:      Get-Timestamp
+#                      Get-Timestamp -Filename
 #
 # ------------------------------------------------------------
-Function Get-Timestamp {
 
+Function Get-Timestamp {
 	Param(
-		[String]$DateFormat="%Y-%m-%dT%H:%M:%S%Z",
+		[String]$Format="yyyy-MM-ddThh:mm:ss.FFFzzz",
+		[Switch]$Filename
 	);
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
@@ -16,24 +21,13 @@ Function Get-Timestamp {
 
 	}
 	# ------------------------------------------------------------
-	$Add_TZ=$False;
-	If (${DateFormat} -contains "%Z") {
-		$Add_TZ=$True;
+	$ReturnVal="";
+	If ($PSBoundParameters.ContainsKey('Filename')) {
+		$ReturnVal=$([String](Get-Date -Format 'yyyyMMddThhmmsszz'));
+	} Else {
+		$ReturnVal=$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz'));
 	}
-	$ReturnVal = "";
-	<# Avoid determining GMT (Daylight Savings Time) offset by pulling the UTC hours-offset from the "Get-Date" cmdlet (which is automatically updated with respect to GMT) and the UTC minutes-offset from the "Get-TimeZone" cmdlet #>
-	$TZ_Offset=((Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
-	Return (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat (${DateFormat})))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
-
-
-	Return $(
-		([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ('%s')))))) -UFormat ('%Y-%m-%dT%H:%M:%S')))
-		+
-		(([String](($([Decimal](Get-Date -UFormat ('%s')))%1))).Substring(1).PadRight(6,'0'))
-		+
-		(Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3')
-	);
-
+	Return ${ReturnVal}
 	# ------------------------------------------------------------
 }
 
@@ -43,4 +37,12 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 }
 
 
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#		docs.microsoft.com  |  "Custom date and time format strings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings?view=netframework-4.8
+#
+#		docs.microsoft.com  |  "Get-Date - Gets the current date and time"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
+#
 # ------------------------------------------------------------

@@ -4,7 +4,7 @@
 #		|
 #		|--> Description:  (Windows 10) Show/Hide additional advanced power options (beyond the defaults)
 #		|
-#		|--> Example:     PowerShell -Command ("SyncPowercfg -Visibility 'shown';")
+#		|--> Example:      PowerShell -Command ("SyncPowercfg -Visibility 'shown';")
 #
 # ------------------------------------------------------------
 

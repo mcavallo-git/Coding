@@ -20,7 +20,7 @@
 
 '+13:45:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[+] [13] [45] [00]" #>
 
-$([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';
+$TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'); <# Returns ":00" (minutes offset for current system's timezone) #>
 
 
 # ------------------------------------------------------------

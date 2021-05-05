@@ -21,14 +21,19 @@ Function Get-Timestamp {
 
 	}
 	# ------------------------------------------------------------
+
 	$ReturnVal="";
+
 	If ($PSBoundParameters.ContainsKey('Filename')) {
-		$ReturnVal=$([String](Get-Date -Format 'yyyyMMddThhmmsszz'));
+		$ReturnVal=$([String](Get-Date -Format "yyyyMMddThhmmsszz"));
 	} Else {
-		$ReturnVal=$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz'));
+		$ReturnVal=$([String](Get-Date -Format "${Format}"));
 	}
-	Return ${ReturnVal}
+
+	Return ${ReturnVal};
+
 	# ------------------------------------------------------------
+	
 }
 
 <# Only export the module if the caller is attempting to import it #>

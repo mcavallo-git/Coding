@@ -1,9 +1,12 @@
 # ------------------------------------------------------------
 #
-#   Windows 10 - Show additional advanced power options (beyond the defaults)
+#   Windows 10 - Show/Hide additional advanced power options (beyond the defaults)
 #
 
 If ($True) {
+
+$Visibility="shown";
+# $Visibility="hidden";
 
 $Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
 $LogFile="${Env:TEMP}\SetPowercfg\LogFile_$(GetTimestamp -DateFormat '%Y-%m-%dT%H-%M-%S').log";
@@ -32,7 +35,7 @@ Function SetPowercfg {
 	$SettingChanged=$False;
 	$SettingStatus_PreCheck=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting});
 	$SettingShown_PreCheck=If ($SettingStatus_PreCheck -Eq "None") { "shown"; } Else { "hidden"; };
-	If ("${Visibility}" -Eq "Show") {
+	If ("${Visibility}" -Eq "shown") {
 		<# Show the setting on 'advanced power options' #>
 		If ($SettingShown_PreCheck -Eq "shown") {
 			<# Setting already set as-requested #>
@@ -45,7 +48,7 @@ Function SetPowercfg {
 			$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} -ATTRIB_HIDE);
 			$SettingChanged=$True;
 		}
-	} ElseIf ("${Visibility}" -Eq "Hide") {
+	} ElseIf ("${Visibility}" -Eq "hidden") {
 		<# Hide the setting on 'advanced power options' #>E
 		If ($SettingShown_PreCheck -Eq "hidden") {
 			<# Setting already requested #>
@@ -72,8 +75,10 @@ Function SetPowercfg {
 powercfg.exe /Q >"${Env:TEMP}\powercfg-Q_${Start_Timestamp}.txt";
 powercfg.exe /Qh >"${Env:TEMP}\powercfg-Qh__${Start_Timestamp}.txt";
 
-$Visibility="Show";
-# $Visibility="Hide";
+<# Show header text in console & logfile #>
+DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
+DoLogging -LogFile "${LogFile}" -Text "Windows 10 - Setting advanced power options' visibility to [ ${Visibility} ]";
+DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 
 # Hard disk burst ignore time
 SetPowercfg -GUID_Group SUB_DISK -GUID_Setting DISKBURSTIGNORE -Visibility ${Visibility};
@@ -208,9 +213,6 @@ SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting CPMAXCORES -Visibility ${Vis
 
 If ($False) {
 	Write-Host "------------------------------------------------------------";
-	Write-Host "Windows 10 - Advanced power options visibility set to [ ${Visibility} ]";
-	Write-Host "------------------------------------------------------------";
-	Write-Host "";
 	Write-Host "  v v v     !!! AMD (RYZEN) PROCESSORS ONLY !!!     v v v";
 	Write-Host "";
 	Write-Host "AMD Ryzen Balanced plan  -->  SETUP EFFICIENT CORE THROTTLING";

@@ -79,6 +79,7 @@ Function SyncPowercfg() {
 	};
 
 	<# Setup Logfile #>
+	$Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
 	$LogFile="${Env:TEMP}\SetPowercfg\LogFile_${Start_Timestamp}.log";
 	If ((Test-Path -Path (Split-Path -Path ("${LogFile}") -Parent)) -Eq ($False)) {
 		New-Item -ItemType "Directory" -Path (Split-Path -Path ("${LogFile}") -Parent) | Out-Null;

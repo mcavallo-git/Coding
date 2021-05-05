@@ -9,20 +9,31 @@
 #
 # ------------------------------------------------------------
 
-# TimestampFilename                20210505-164348
-$([String](Get-Date -UFormat '%Y%m%d-%H%M%S'));
 
-# TimestampShort                   20210505164348
-$([String](Get-Date -UFormat '%Y%m%d%H%M%S'));
+# TimestampFilename                20210505T171718
+$([String](Get-Date -UFormat '%Y%m%dT%H%M%S'));
 
-# TimestampShort_TZ                20210505164348-04
-$([String](Get-Date -UFormat '%Y%m%d%H%M%S%Z'));
+# TimestampFilename_TZ             20210505T171718-04                   <# BEST FOR FILENAMES #>
+$([String](Get-Date -Format 'yyyyMMddThhmmsszz'));
 
-# Timestamp_RFC3339                2021-05-05T16:43:48-04:00
-$(([String](Get-Date -UFormat '%Y-%m-%dT%H:%M:%S%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
+# TimestampShort                   20210505171718
+$([String](Get-Date -Format 'yyyyMMddhhmmss'));
 
-# Timestamp_RFC3339_Microseconds   2021-05-05T16:43:48.59023-04:00
-$(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ('%s')))))) -UFormat ('%Y-%m-%dT%H:%M:%S')))+(([String](($([Decimal](Get-Date -UFormat ('%s')))%1))).Substring(1).PadRight(6,'0'))+(Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
+# TimestampShort_TZ                20210505171718-04
+$([String](Get-Date -Format 'yyyyMMddhhmmsszz'));
+
+# Timestamp_RFC3339                2021-05-05T05:17:18-04:00
+$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz'));
+
+# Timestamp_RFC3339_Milliseconds   2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
+$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz'));
+
+# Timestamp_RFC3339_Microseconds   2021-05-05T05:17:18.066992-04:00
+$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFzzz'));
+
+# Timestamp_RFC3339_MaxPrecision   2021-05-05T05:17:18.0674926-04:00
+$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFFzzz'));
+
 
 # ------------------------------------------------------------
 
@@ -168,6 +179,8 @@ If ($True) {
 # Citation(s)
 #
 #		devblogs.microsoft.com  |  "PowerTip: Remove First Two Letters of String | Scripting Blog"  |  https://devblogs.microsoft.com/scripting/powertip-remove-first-two-letters-of-string/
+#
+#		docs.microsoft.com  |  "Custom date and time format strings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-date-and-time-format-strings?view=netframework-4.8
 #
 #		docs.microsoft.com  |  "Get-Date - Gets the current date and time"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
 #

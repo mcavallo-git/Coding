@@ -1,11 +1,16 @@
 # ------------------------------------------------------------
 #
-# "String".Substring(START,END);
+#  "String".Substring(START);        <# The substring starts at a specified character position and continues to the end of the string #>
+#
+#  "String".Substring(START,END);    <# The substring starts at a specified character position and has a specified length #>
 #
 # ------------------------------------------------------------
 
-$EpochDate = ([Decimal](Get-Date -UFormat ("%s"))); `
-$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) ); `
+
+"12345678".Substring(3);  <# Returns "45678" #>
+
+
+"12345678".Substring(3,3);  <# Returns "456" #>
 
 
 # ------------------------------------------------------------

@@ -28,7 +28,9 @@ Function SyncPowercfg() {
 	Function DoLogging {
 		Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
 		$Timestamp_Decimal=(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat ("%Y-%m-%dT%H:%M:%S")))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
-		$OutString="[${Timestamp_Decimal} INFO $($MyInvocation.MyCommand.Name)] ${Text}"; DoLogging -LogFile "${LogFile}" -Text "${OutString}"; Write-Host "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
+		$OutString="[${Timestamp_Decimal} INFO $($MyInvocation.MyCommand.Name)] ${Text}";
+		Write-Host "${OutString}";
+		Write-Output "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
 	};
 
 	Function SetPowercfg {

@@ -4,7 +4,7 @@
 #		|
 #		|--> Description:  (Windows 10) Show/Hide additional advanced power options (beyond the defaults)
 #		|
-#		|--> Example:     PowerShell -Command ("SyncPowercfg `$MyInvocation -Methods")
+#		|--> Example:     PowerShell -Command ("SyncPowercfg -Visibility 'shown';")
 #
 # ------------------------------------------------------------
 
@@ -295,6 +295,8 @@ Function SyncPowercfg() {
 		}
 
 	}
+
+	Return;
 
 }
 <# Only export the module if the caller is attempting to import it #>

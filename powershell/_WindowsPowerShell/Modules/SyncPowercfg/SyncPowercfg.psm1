@@ -24,20 +24,15 @@ Function SyncPowercfg() {
 	}
 	# ------------------------------------------------------------
 
-	$Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
-	$LogFile="${Env:TEMP}\SetPowercfg\LogFile_$(GetTimestamp -DateFormat '%Y-%m-%dT%H-%M-%S').log";
-	If ((Test-Path -Path (Split-Path -Path ("${LogFile}") -Parent)) -Eq ($False)) {
-		New-Item -ItemType "Directory" -Path (Split-Path -Path ("${LogFile}") -Parent) | Out-Null;
-	}
 
 	Function DoLogging {
-	Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
-	$OutString="[$(GetTimestamp) INFO $($MyInvocation.MyCommand.Name)] ${Text}"; DoLogging -LogFile "${LogFile}" -Text "${OutString}"; Write-Host "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
+		Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
+		$OutString="[$(GetTimestamp) INFO $($MyInvocation.MyCommand.Name)] ${Text}"; DoLogging -LogFile "${LogFile}" -Text "${OutString}"; Write-Host "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
 	};
 
 	Function GetTimestamp {
-	Param([String]$DateFormat="%Y-%m-%dT%H:%M:%S");
-	Return (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat (${DateFormat})))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
+		Param([String]$DateFormat="%Y-%m-%dT%H:%M:%S");
+		Return (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat (${DateFormat})))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
 	};
 
 	Function SetPowercfg {
@@ -83,6 +78,13 @@ Function SyncPowercfg() {
 		}
 		# Return ${SettingShown_PostCheck};
 		Return;
+	}
+
+	<# Setup Logfile #>
+	$Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
+	$LogFile="${Env:TEMP}\SetPowercfg\LogFile_$(GetTimestamp -DateFormat '%Y-%m-%dT%H-%M-%S').log";
+	If ((Test-Path -Path (Split-Path -Path ("${LogFile}") -Parent)) -Eq ($False)) {
+		New-Item -ItemType "Directory" -Path (Split-Path -Path ("${LogFile}") -Parent) | Out-Null;
 	}
 
 	<# Backup current settings #>

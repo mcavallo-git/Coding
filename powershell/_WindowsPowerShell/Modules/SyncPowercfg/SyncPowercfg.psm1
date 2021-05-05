@@ -48,10 +48,10 @@ Function SyncPowercfg() {
 			<# Show the setting on 'advanced power options' #>
 			If ($SettingShown_PreCheck -Eq "shown") {
 				<# Setting already set as-requested #>
-				DoLogging -LogFile "${LogFile}" -Level "SKIPPED" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			} Else {
 				<# Update the setting via powercfg.exe #>
-				DoLogging -LogFile "${LogFile}" -Text "Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Level "WARN" -Text "Applying power option visibility of [ shown ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} -ATTRIB_HIDE);
 				$SettingChanged=$True;
 			}
@@ -59,10 +59,10 @@ Function SyncPowercfg() {
 			<# Hide the setting on 'advanced power options' #>E
 			If ($SettingShown_PreCheck -Eq "hidden") {
 				<# Setting already requested #>
-				DoLogging -LogFile "${LogFile}" -Level "SKIPPED" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
+				DoLogging -LogFile "${LogFile}" -Text "Power option already has visibility of [ ${SettingShown_PreCheck} ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 			} Else {
-				DoLogging -LogFile "${LogFile}" -Text "Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				<# Update the setting via powercfg.exe #>
+				DoLogging -LogFile "${LogFile}" -Level "WARN" -Text "Applying power option visibility of [ hidden ] for GUID_Group=[ ${GUID_Group} ] & GUID_Setting=[ ${GUID_Setting} ]";
 				$SettingAction=(C:\Windows\System32\powercfg.exe -attributes ${GUID_Group} ${GUID_Setting} +ATTRIB_HIDE);
 				$SettingChanged=$True;
 			}

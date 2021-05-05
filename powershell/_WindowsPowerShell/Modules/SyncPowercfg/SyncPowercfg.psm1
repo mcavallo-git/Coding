@@ -27,7 +27,7 @@ Function SyncPowercfg() {
 
 	Function DoLogging {
 		Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
-		$Timestamp_Decimal=$(([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ('%s')))))) -UFormat ('%Y-%m-%dT%H:%M:%S')))+(([String](($([Decimal](Get-Date -UFormat ('%s')))%1))).Substring(1).PadRight(6,'0'))+(Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
+		$Timestamp_Decimal=$([String](Get-Date -Format "${Format}"));
 		$OutString="[${Timestamp_Decimal} ${Level} $($MyInvocation.MyCommand.Name)] ${Text}";
 		Write-Host "${OutString}";
 		Write-Output "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
@@ -79,7 +79,7 @@ Function SyncPowercfg() {
 	};
 
 	<# Setup Logfile #>
-	$Start_Timestamp=(Get-Date -UFormat '%Y%m%d-%H%M%S');
+	$Start_Timestamp=$([String](Get-Date -Format "yyyyMMddThhmmsszz"));
 	$LogDir="${Env:TEMP}\SetPowercfg";
 	$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
 	If ((Test-Path -Path ("${LogDir}") -Parent)) -Eq ($False)) {

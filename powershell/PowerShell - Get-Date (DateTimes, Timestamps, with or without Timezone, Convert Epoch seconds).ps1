@@ -9,31 +9,6 @@
 #
 # ------------------------------------------------------------
 
-$(Get-Date -UFormat '%Y%m%d-%H%M%S');
-
-# Timestamp, No-Timezone, Windows-filename compatible        
-#   Ex)    
-$TimestampFilename = (Get-Date -UFormat '%Y%m%d-%H%M%S');
-Write-Host ${TimestampFilename};
-
-# Timestamp, No-Timezone, Readable w/ minumum characters        Ex)   20210505160531
-$Timestamp = (Get-Date -UFormat '%Y%m%d%H%M%S');
-Write-Host ${Timestamp};
-
-# Timestamp, +Timezone        Ex)   20210505160512-04
-$Timestamp_TZ = (Get-Date -UFormat '%Y%m%d%H%M%S%Z');
-Write-Host ${Timestamp_TZ};
-
-# Timestamp, RFC3339-Compliant        Ex)   2021-05-05T16:04:36.51783-04
-$Timestamp_RFC3339 = (Get-Date -UFormat '%Y:%m:%dT%H:%M:%S%Z');
-Write-Host ${Timestamp_RFC3339};
-
-# Timestamp, +Timezone +MicroSeconds        Ex)    2021-05-05T16:04:36.51783-04
-$Timestamp_DecimalSeconds_TZ = (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat ("%Y-%m-%dT%H:%M:%S")))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z")));
-Write-Host ${Timestamp_DecimalSeconds_TZ};
-
-# ------------------------------------------------------------
-
 # TimestampFilename               20210505-160708
 $(Get-Date -UFormat '%Y%m%d-%H%M%S');
 

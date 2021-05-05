@@ -149,7 +149,7 @@ Function SyncPowercfg() {
 	SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting PERFINCTHRESHOLD -Visibility ${Visibility};
 
 	# Processor performance increase threshold for Processor Power Efficiency Class 1
-	SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting PERFINCTHRESHOLD -Visibility ${Visibility};
+	SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting PERFINCTHRESHOLD1 -Visibility ${Visibility};
 
 	# Processor performance core parking min cores
 	SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting CPMINCORES -Visibility ${Visibility};

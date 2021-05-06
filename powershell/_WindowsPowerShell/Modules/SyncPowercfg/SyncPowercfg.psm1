@@ -79,7 +79,7 @@ Function SyncPowercfg() {
 	};
 
 	<# Setup Logfile #>
-	$Start_Timestamp=$([String](Get-Date -Format "yyyyMMddThhmmsszz"));
+	$Start_Timestamp=(Get-Date -Format "yyyyMMddThhmmsszz");
 	$LogDir="${Env:TEMP}\SetPowercfg";
 	$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
 	If ((Test-Path -Path ("${LogDir}")) -Eq ($False)) {

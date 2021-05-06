@@ -25,10 +25,10 @@ $(Get-Date -Format 'yyyyMMddhhmmsszz');
 # Timestamp_RFC3339                2021-05-05T05:17:18-04:00
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz');
 
-# Timestamp_RFC3339_Milliseconds   2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
+# Timestamp_RFC3339_ms             2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz');
 
-# Timestamp_RFC3339_Microseconds   2021-05-05T05:17:18.066992-04:00
+# Timestamp_RFC3339_μs             2021-05-05T05:17:18.066992-04:00
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFzzz');
 
 # Timestamp_RFC3339_MaxPrecision   2021-05-05T05:17:18.0674926-04:00

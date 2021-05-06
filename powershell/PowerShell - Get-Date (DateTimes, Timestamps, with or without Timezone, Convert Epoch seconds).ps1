@@ -11,28 +11,28 @@
 
 
 # TimestampFilename                20210505T171718
-$([String](Get-Date -UFormat '%Y%m%dT%H%M%S'));
+$(Get-Date -UFormat '%Y%m%dT%H%M%S');
 
 # TimestampFilename_TZ             20210505T171718-04                  <# BEST FOR FILENAMES #>
-$([String](Get-Date -Format 'yyyyMMddThhmmsszz'));
+$(Get-Date -Format 'yyyyMMddThhmmsszz');
 
 # TimestampShort                   20210505171718
-$([String](Get-Date -Format 'yyyyMMddhhmmss'));
+$(Get-Date -Format 'yyyyMMddhhmmss');
 
 # TimestampShort_TZ                20210505171718-04
-$([String](Get-Date -Format 'yyyyMMddhhmmsszz'));
+$(Get-Date -Format 'yyyyMMddhhmmsszz');
 
 # Timestamp_RFC3339                2021-05-05T05:17:18-04:00
-$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz'));
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz');
 
 # Timestamp_RFC3339_Milliseconds   2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
-$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz'));
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz');
 
 # Timestamp_RFC3339_Microseconds   2021-05-05T05:17:18.066992-04:00
-$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFzzz'));
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFzzz');
 
 # Timestamp_RFC3339_MaxPrecision   2021-05-05T05:17:18.0674926-04:00
-$([String](Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFFzzz'));
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFFzzz');
 
 
 # ------------------------------------------------------------
@@ -47,11 +47,11 @@ If ($True) {
 
 	$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($EpochDate));
 
-	$TimestampLong = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S")));
-	$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
+	$TimestampLong = (Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S"));
+	$TimestampShort = (Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"));
 
-	$DecimalTimestampLong = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
-	$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
+	$DecimalTimestampLong = ( (Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y-%m-%d_%H-%M-%S")) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
+	$DecimalTimestampShort = ( (Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
 
 	Write-Host "`n`n";
 	Write-Host "`$EpochDate = [ ${EpochDate} ]";

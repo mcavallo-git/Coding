@@ -30,7 +30,6 @@ $(Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz')
 
 # Timestamp_RFC3339_ms             2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')
 
 # Timestamp_RFC3339_μs             2021-05-05T05:17:18.066992-04:00
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.ffffffzzz')

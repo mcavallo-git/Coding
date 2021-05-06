@@ -14,7 +14,7 @@
 $(Get-Date -UFormat '%Y%m%dT%H%M%S');
 
 # TimestampFilename_TZ             20210505T171718-04                  <# BEST FOR FILENAMES #>
-$(Get-Date -Format 'yyyyMMddThhmmsszz');
+$(Get-Date -Format 'yyyyMMddThhmmss.FFFzz');
 
 # TimestampShort                   20210505171718
 $(Get-Date -Format 'yyyyMMddhhmmss');

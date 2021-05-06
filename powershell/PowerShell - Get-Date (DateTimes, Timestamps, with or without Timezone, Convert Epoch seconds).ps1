@@ -14,10 +14,10 @@
 $(Get-Date -Format 'yyyyMMddThhmmss')
 
 # Timestamp_Filename_ms            20210505T171718.066
-$(Get-Date -Format 'yyyyMMddThhmmss.FFF')
+$(Get-Date -Format 'yyyyMMddThhmmss.fff')
 
 # Timestamp_Filename_ms_TZ         20210505T171718.066-04               <# BEST FOR FILENAMES #>
-$(Get-Date -Format 'yyyyMMddThhmmss.FFFzz')
+$(Get-Date -Format 'yyyyMMddThhmmss.fffzz')
 
 # Timestamp_Short                  20210505171718
 $(Get-Date -Format 'yyyyMMddhhmmss')
@@ -29,13 +29,14 @@ $(Get-Date -Format 'yyyyMMddhhmmsszz')
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz')
 
 # Timestamp_RFC3339_ms             2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFzzz')
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')
 
 # Timestamp_RFC3339_μs             2021-05-05T05:17:18.066992-04:00
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFzzz')
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.ffffffzzz')
 
 # Timestamp_RFC3339_MaxPrecision   2021-05-05T05:17:18.0674926-04:00
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.FFFFFFFzzz')
+$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffffffzzz')
 
 
 # ------------------------------------------------------------

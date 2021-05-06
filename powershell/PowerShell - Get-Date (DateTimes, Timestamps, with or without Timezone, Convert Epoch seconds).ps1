@@ -10,19 +10,19 @@
 # ------------------------------------------------------------
 
 
-# TimestampFilename                20210505T171718
+# Timestamp_Filename               20210505T171718
 $(Get-Date -Format 'yyyyMMddThhmmss')
 
-# TimestampFilename_ms             20210505T171718.066
+# Timestamp_Filename_ms            20210505T171718.066
 $(Get-Date -Format 'yyyyMMddThhmmss.FFF')
 
-# TimestampFilename_ms_TZ          20210505T171718.066-04               <# BEST FOR FILENAMES #>
+# Timestamp_Filename_ms_TZ         20210505T171718.066-04               <# BEST FOR FILENAMES #>
 $(Get-Date -Format 'yyyyMMddThhmmss.FFFzz')
 
-# TimestampShort                   20210505171718
+# Timestamp_Short                  20210505171718
 $(Get-Date -Format 'yyyyMMddhhmmss')
 
-# TimestampShort_TZ                20210505171718-04
+# Timestamp_Short_TZ               20210505171718-04
 $(Get-Date -Format 'yyyyMMddhhmmsszz')
 
 # Timestamp_RFC3339                2021-05-05T05:17:18-04:00

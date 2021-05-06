@@ -11,7 +11,7 @@
 
 Function Get-Timestamp {
 	Param(
-		[String]$Format="yyyy-MM-ddThh:mm:ss.FFFzzz",
+		[String]$Format="yyyy-MM-ddThh:mm:ss.fffzzz",
 		[Switch]$Filename
 	);
 	# ------------------------------------------------------------

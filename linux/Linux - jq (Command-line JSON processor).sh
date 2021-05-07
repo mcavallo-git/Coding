@@ -1,45 +1,47 @@
 #!/bin/bash
 # ------------------------------------------------------------
+#
 # Install jq
 #
-
-# DEBIAN - Install jq
-apt-get update -y; apt-get install -y "jq";
-
-# RHEL - Install jq
-curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
+if [ $(which apt-get 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Debian, Ubuntu, etc.
+	apt-get update -y; apt-get install -y "jq";
+elif [ $(which yum 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
+	curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
+fi;
 
 
 # ------------------------------------------------------------
 # jq - Convert a bash associative array to a JSON object
 #
+unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY+=(["Key A"]="Val One");
+DAT_ARRAY+=(["Key B"]="Val Two");
+DAT_ARRAY+=(["Key 100"]="100");
+DAT_ARRAY+=(["Key 200"]="200");
+JSON_OUTPUT=$(for i in "${!DAT_ARRAY[@]}"; do echo "$i"; echo "${DAT_ARRAY[$i]}"; done | jq -n -R 'reduce inputs as $i ({}; . + { ($i): (input|(tonumber? // .)) })');
+JSON_COMPRESSED=$(echo ${JSON_OUTPUT} | jq -c .);
+echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMPRESSED}";
+
+
+# ------------------------------------------------------------
+# jq - Convert a bash indexed array (non-associative) to a JSON object
+#
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY=();
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
 DAT_ARRAY+=("Val-4");
-for i in "${!DAT_ARRAY[@]}"; do echo "$i"; echo "${DAT_ARRAY[$i]}"; done | jq -n -R 'reduce inputs as $i ({}; . + { ($i): (input|(tonumber? // .)) })';
-
-
-# ------------------------------------------------------------
-# jq - Convert a bash NON-associative array a JSON object
-#
-
-unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
-DAT_ARRAY=();
-DAT_ARRAY+=("Item-One");
-DAT_ARRAY+=("Item-One");
-DAT_ARRAY+=("Item-Two");
-DAT_ARRAY+=("Item-A");
-DAT_ARRAY+=("Item-A");
-DAT_ARRAY+=("Item-B");
-printf '%s\n' "${DAT_ARRAY[@]}" | jq -R . | jq -s .;
+JSON_OUTPUT=$(printf '%s\n' "${DAT_ARRAY[@]}" | jq -R . | jq -s .);
+JSON_COMPRESSED=$(echo ${JSON_OUTPUT} | jq -c .);
+echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMPRESSED}";
 
 
 # ------------------------------------------------------------
 # jq - Get the first 2 items in the "items" property's array (which is within/just-under the main JSON object)
 #
-curl "https://ip-ranges.atlassian.com" | jq '.items[0:2]';
+JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
+echo "${JSON_INPUT}" | jq '.items[0:2]';
 
 
 # ------------------------------------------------------------
@@ -47,7 +49,8 @@ curl "https://ip-ranges.atlassian.com" | jq '.items[0:2]';
 #   |--> Parse the "items" property from the top-level JSON object
 #   |---> Parse all nested "cidr" properties within said "item" property
 #
-curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr';
+JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
+echo "${JSON_INPUT}" | jq '.items[] | .cidr';
 
 
 # ------------------------------------------------------------
@@ -56,7 +59,8 @@ curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr';
 #   |---> Parse all nested "cidr" properties within said "item" property
 #   |----> Slice off all double-quotes (prepping for output)
 #
-curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr' | tr -d '"';
+JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
+echo "${JSON_INPUT}" | jq '.items[] | .cidr' | tr -d '"';
 
 
 # ------------------------------------------------------------

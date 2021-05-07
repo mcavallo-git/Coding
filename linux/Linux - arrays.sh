@@ -10,7 +10,7 @@
 #   |--> Note:  Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
 
-unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash indexed array (-a)
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
@@ -28,7 +28,7 @@ done;
 #   |--> Note:  Bash only supports one-dimensional arrays, e.g. no sub-arrays (no arrays within arrays)
 #
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
+unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash associative array (-A)
 DAT_ARRAY+=(["Key A"]="Val One");
 DAT_ARRAY+=(["Key B"]="Val Two");
 DAT_ARRAY+=(["Key A"]="Overwrite A");
@@ -52,8 +52,8 @@ if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then echo "1 key is set"; else echo "0 key no
 # Two Arrays Keyed with the same indices
 #
 
-unset ARR_CONTAINER_IDS; declare -A ARR_CONTAINER_IDS; # [Re-]Instantiate bash array
-unset ARR_DOCKER_IMAGES; declare -A ARR_DOCKER_IMAGES; # [Re-]Instantiate bash array
+unset ARR_CONTAINER_IDS; declare -A ARR_CONTAINER_IDS; # [Re-]Instantiate bash associative array (-A)
+unset ARR_DOCKER_IMAGES; declare -A ARR_DOCKER_IMAGES; # [Re-]Instantiate bash associative array (-A)
 
 DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
 
@@ -100,7 +100,7 @@ fi;
 # Non-Associative Arrays in Bash
 #
 
-unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash indexed array (-a)
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
 echo "${DAT_ITEM}";
@@ -110,7 +110,7 @@ done;
 # #  Methods have equivalent output
 # #  v
 
-unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash indexed array (-a)
 DAT_ARRAY=();
 DAT_ARRAY+=("Item-One");
 DAT_ARRAY+=("Item-One");
@@ -126,7 +126,7 @@ done;
 # #  Methods have equivalent output
 # #  v
 
-unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash indexed array (-a)
 DAT_ARRAY=( \
 "Item-One" \
 "Item-One" \
@@ -150,7 +150,7 @@ done;
 #			the [ tr ] (translate) method to sort items as-intended
 #
 
-unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
+unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash associative array (-A)
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
 DAT_ARRAY_SORTED_NO_DUPES=($(echo "${DAT_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
 for DAT_ITEM in "${DAT_ARRAY_SORTED_NO_DUPES[@]}"; do
@@ -165,16 +165,16 @@ done;
 #	Then, combine all arrays and find unique items amongst their net result;
 #
 
-unset DAT_A_ARRAY; declare -a DAT_A_ARRAY; DAT_A_ARRAY=("Item-One" "Item-Two");
-unset DAT_B_ARRAY; declare -a DAT_B_ARRAY; DAT_B_ARRAY=("Item-A" "Item-B");
-unset DAT_C_ARRAY; declare -a DAT_C_ARRAY; DAT_C_ARRAY=("Item-B" "Item-One");
-unset DAT_D_ARRAY; declare -a DAT_D_ARRAY; DAT_D_ARRAY=("Item-B" "Item-C" "Item-Two" "Item-Two");
+unset DAT_A_ARRAY; declare -a DAT_A_ARRAY; DAT_A_ARRAY=("Item-One" "Item-Two"); # [Re-]Instantiate bash indexed array (-a)
+unset DAT_B_ARRAY; declare -a DAT_B_ARRAY; DAT_B_ARRAY=("Item-A" "Item-B"); # [Re-]Instantiate bash indexed array (-a)
+unset DAT_C_ARRAY; declare -a DAT_C_ARRAY; DAT_C_ARRAY=("Item-B" "Item-One"); # [Re-]Instantiate bash indexed array (-a)
+unset DAT_D_ARRAY; declare -a DAT_D_ARRAY; DAT_D_ARRAY=("Item-B" "Item-C" "Item-Two" "Item-Two"); # [Re-]Instantiate bash indexed array (-a)
 
-unset ARRAY_LETTERS; declare -a ARRAY_LETTERS; ARRAY_LETTERS=("A" "B" "C" "D");
+unset ARRAY_LETTERS; declare -a ARRAY_LETTERS; ARRAY_LETTERS=("A" "B" "C" "D"); # [Re-]Instantiate bash indexed array (-a)
 
 echo -e "\n\n";
 
-unset ALL_ITEMS_ARRAY; declare -a ALL_ITEMS_ARRAY; # [Re-]Instantiate bash array
+unset ALL_ITEMS_ARRAY; declare -a ALL_ITEMS_ARRAY; # [Re-]Instantiate bash indexed array (-a)
 
 for EACH_ARRAY_LETTER in "${ARRAY_LETTERS[@]}"; do
 

@@ -11,13 +11,39 @@ curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/j
 
 
 # ------------------------------------------------------------
-# Get the first 2 items in the "items" property's array (which is within/just-under the main JSON object)
+# jq - Convert a bash associative array to a JSON object
+#
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY+=("Val-1");
+DAT_ARRAY+=("Val-2");
+DAT_ARRAY+=("Val-3");
+DAT_ARRAY+=("Val-4");
+for i in "${!DAT_ARRAY[@]}"; do echo "$i"; echo "${DAT_ARRAY[$i]}"; done | jq -n -R 'reduce inputs as $i ({}; . + { ($i): (input|(tonumber? // .)) })';
+
+
+# ------------------------------------------------------------
+# jq - Convert a bash NON-associative array a JSON object
+#
+
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY=();
+DAT_ARRAY+=("Item-One");
+DAT_ARRAY+=("Item-One");
+DAT_ARRAY+=("Item-Two");
+DAT_ARRAY+=("Item-A");
+DAT_ARRAY+=("Item-A");
+DAT_ARRAY+=("Item-B");
+printf '%s\n' "${DAT_ARRAY[@]}" | jq -R . | jq -s .;
+
+
+# ------------------------------------------------------------
+# jq - Get the first 2 items in the "items" property's array (which is within/just-under the main JSON object)
 #
 curl "https://ip-ranges.atlassian.com" | jq '.items[0:2]';
 
 
 # ------------------------------------------------------------
-# Grab JSON from the given URL
+# jq - Grab JSON from the given URL
 #   |--> Parse the "items" property from the top-level JSON object
 #   |---> Parse all nested "cidr" properties within said "item" property
 #
@@ -25,7 +51,7 @@ curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr';
 
 
 # ------------------------------------------------------------
-# Grab JSON from the given URL
+# jq - Grab JSON from the given URL
 #   |--> Parse the "items" property from the top-level JSON object
 #   |---> Parse all nested "cidr" properties within said "item" property
 #   |----> Slice off all double-quotes (prepping for output)
@@ -34,7 +60,7 @@ curl "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr' | tr -d '"';
 
 
 # ------------------------------------------------------------
-# Grab JSON from the given URL
+# jq - Grab JSON from the given URL
 #   |--> Parse the "items" property from the top-level JSON object
 #   |---> Parse all nested "cidr" properties within said "item" property
 #   |----> Slice off all double-quotes (prepping for output)
@@ -68,5 +94,9 @@ cat "/etc/docker/daemon.json" | jq;
 #   stackoverflow.com  |  "bash - Add new element to existing JSON array with jq - Stack Overflow"  |  https://stackoverflow.com/a/42248841
 #
 #   stackoverflow.com  |  "bash - Modify a key-value in a json using jq - Stack Overflow"  |  https://stackoverflow.com/a/42717073
+#
+#   stackoverflow.com  |  "Constructing a json hash from a bash associative array - Stack Overflow"  |  https://stackoverflow.com/a/44792751
+#
+#   stackoverflow.com  |  "How to format a bash array as a JSON array"  |  https://stackoverflow.com/a/26809318
 #
 # ------------------------------------------------------------

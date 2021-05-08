@@ -1,0 +1,1 @@
+Invoke-Command {rundll32.exe user32.dll,LockWorkStation}; <# Lock Computer #>

@@ -189,9 +189,9 @@ echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\${BEFORE}" -e "a\\$
 
 # ------------------------------------------------------------
 #
-# Use sed to search a file for lines starting/ending with specific string(s)
+# Search the contents of a file for lines starting/ending with specific string(s)
 # 
-# Example) Only return lines which start with "from" and end with "where"
+#   Example) Only return lines which start with "from" and end with "where"
 #
 if [ -n "$(sed -n -e '/from/,/where/ p' file.txt)" ]; then
 	echo "File DOES contain substring"; # ==> Note: outputs entire file-contents if a match is found
@@ -202,15 +202,14 @@ fi;
 
 # ------------------------------------------------------------
 #
-# sed + head + sed
-#   |--> Remove top 1 line from piped output
+# Remove top 1 line from piped output using [ sed + head + sed ]
 #
 df -h | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d'; 
 
 
 # ------------------------------------------------------------
-# sed + head + sed
-#   |--> Remove top X lines from piped output
+#
+# Remove top X lines from piped output using [ sed + head + sed ]
 #
 SED_REVERSE_METHOD1='1!G;h;$!d';  # use with  [ sed '1!G;h;$!d' ]
 SED_REVERSE_METHOD2='1!G;h;$p';   # use with  [ sed -n '1!G;h;$p' ]

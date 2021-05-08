@@ -79,7 +79,7 @@ Function Show() {
 				#
 				$ListProperties = (`
 					Get-Member -InputObject ($EachArg) -View ("All") `
-						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True } ` <# Matches *Property* and *Properties* #>
+						| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; }
 				);
 				Write-Output "`n=====  PROPERTIES  =====  ( hide via -NoProperties )  ======`n";
 				If ($ListProperties -Ne $Null) {

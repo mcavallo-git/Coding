@@ -54,6 +54,14 @@ fi;
 
 # ------------------------------------------------------------
 # 
+# CamelCase a string with underscores (preverving any underscores)
+#
+
+echo "TEST_VARIABLE_NAME" | sed -e 's/\(.*\)/\L\1/' | sed -r 's/(^)([a-z])/\U\2/g' | sed -r 's/(_)([a-z])/_\U\2/g';
+
+
+# ------------------------------------------------------------
+# 
 # Remove duplicated lines in a target file (while keeping one copy of each line)
 #
 
@@ -296,26 +304,30 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #
 # Citation(s)
 #
+#   codereview.stackexchange.com  |  "regex - Transform snake_case to camelCase with sed - Code Review Stack Exchange"  |  https://codereview.stackexchange.com/a/140424
+#
 #   docs.oracle.com  |  "Font Configuration Files"  |  https://docs.oracle.com/javase/8/docs/technotes/guides/intl/fontconfig.html
 #
 #   docs.oracle.com  |  "java.awt (SE-8) - Class Font"  |  https://docs.oracle.com/javase/8/docs/api/java/awt/Font.html
 #
-# 	docstore.mik.ua  |  "A.3 Command Summary for sed docstore.mik.ua/orelly/unix/sedawk/appa_03.htm"  |  https://docstore.mik.ua/orelly/unix/sedawk/appa_03.htm
+#   docstore.mik.ua  |  "A.3 Command Summary for sed docstore.mik.ua/orelly/unix/sedawk/appa_03.htm"  |  https://docstore.mik.ua/orelly/unix/sedawk/appa_03.htm
 #
-# 	stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
+#   stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #
-# 	stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292
+#   stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292
 #
-# 	stackoverflow.com  |  "Sed - An Introduction and Tutorial by Bruce Barnett"  |  https://www.grymoire.com/Unix/Sed.html#uh-42
+#   stackoverflow.com  |  "How can I reverse the order of lines in a file?"  |  https://stackoverflow.com/a/744093
 #
-# 	stackoverflow.com  |  "How can I reverse the order of lines in a file?"  |  https://stackoverflow.com/a/744093
+#   stackoverflow.com  |  "Sed - An Introduction and Tutorial by Bruce Barnett"  |  https://www.grymoire.com/Unix/Sed.html#uh-42
 #
-# 	unix.stackexchange.com  |  "How can I use sed to replace a multi-line string?"  |  https://unix.stackexchange.com/a/26290
+#   stackoverflow.com  |  "regex - sed one-liner to convert all uppercase to lowercase? - Stack Overflow"  |  https://stackoverflow.com/a/4581564
 #
-# 	unix.stackexchange.com  |  "linux - Remove duplicate lines from a file but leave 1 occurrence"  |  https://unix.stackexchange.com/a/504047
+#   unix.stackexchange.com  |  "How can I use sed to replace a multi-line string?"  |  https://unix.stackexchange.com/a/26290
 #
-# 	www.cyberciti.biz  |  "Linux Shell – How To Remove Duplicate Text Lines"  |  www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/
+#   unix.stackexchange.com  |  "linux - Remove duplicate lines from a file but leave 1 occurrence"  |  https://unix.stackexchange.com/a/504047
 #
-# 	www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques
+#   www.cyberciti.biz  |  "Linux Shell – How To Remove Duplicate Text Lines"  |  www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/
+#
+#   www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques
 #
 # ------------------------------------------------------------

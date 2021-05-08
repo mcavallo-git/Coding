@@ -191,8 +191,9 @@ echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\${BEFORE}" -e "a\\$
 #
 # Search the contents of a file for lines starting/ending with specific string(s)
 # 
-#   Example) Only return lines which start with "from" and end with "where"
 #
+
+# Example) Only return lines which start with "from" and end with "where"
 if [ -n "$(sed -n -e '/from/,/where/ p' file.txt)" ]; then
 	echo "File DOES contain substring"; # ==> Note: outputs entire file-contents if a match is found
 else

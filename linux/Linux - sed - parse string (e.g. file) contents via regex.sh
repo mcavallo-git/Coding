@@ -331,6 +331,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #
 #   unix.stackexchange.com  |  "linux - Remove duplicate lines from a file but leave 1 occurrence"  |  https://unix.stackexchange.com/a/504047
 #
+#   unix.stackexchange.com  |  "shell script - Convert underscore to PascalCase, ie UpperCamelCase - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/196241
+#
 #   www.cyberciti.biz  |  "Linux Shell – How To Remove Duplicate Text Lines"  |  www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/
 #
 #   www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques

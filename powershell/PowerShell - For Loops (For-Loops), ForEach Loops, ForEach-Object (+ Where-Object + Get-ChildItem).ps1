@@ -15,7 +15,7 @@ If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq 
 }
 
 
-<#   PSCustomObject  ->  use  [ Get-Member + Where-Object + ForEach-Object ]   #>
+<#   PSCustomObjects  ->  use  [ Get-Member + Where-Object + ForEach-Object ]   #>
 $Var = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
 If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
 	Get-Member -InputObject ($Var) -View ("All") `

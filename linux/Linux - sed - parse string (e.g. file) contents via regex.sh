@@ -54,10 +54,15 @@ fi;
 
 # ------------------------------------------------------------
 # 
-# CamelCase a string with underscores (preverving any underscores)
+# CamelCase a string with underscores (with or without the underscores in the output string)
 #
 
-echo "TEST_VARIABLE_NAME" | sed -e 's/\(.*\)/\L\1/' | sed -r 's/(^)([a-z])/\U\2/g' | sed -r 's/(_)([a-z])/_\U\2/g';
+BaseString="TEST_VARIABLE_NAME"; \
+CamelCase_NoUnderscores=$(echo "${BaseString}" | sed -e 's/\(.*\)/\L\1/' | sed -r 's/(^|_)([a-z])/\U\2/g'); \
+CamelCase_KeepUnderscores=$(echo "${BaseString}" | sed -e 's/\(.*\)/\L\1/' | sed -r 's/(^)([a-z])/\U\2/g' | sed -r 's/(_)([a-z])/_\U\2/g'); \
+echo "\$BaseString=[${BaseString}]"; \
+echo "\$CamelCase_NoUnderscores=[${CamelCase_NoUnderscores}]"; \
+echo "\$CamelCase_KeepUnderscores=[${CamelCase_KeepUnderscores}]";
 
 
 # ------------------------------------------------------------

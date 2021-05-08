@@ -10,7 +10,8 @@ Exit 1;
 $Var=(Get-Service | Select-Object -First 10);
 If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
 	ForEach ($EachItem In ${Var}) {
-		Write-Host $EachItem;
+		$EachItem;
+		Write-Host "------------------------------";
 	}
 }
 

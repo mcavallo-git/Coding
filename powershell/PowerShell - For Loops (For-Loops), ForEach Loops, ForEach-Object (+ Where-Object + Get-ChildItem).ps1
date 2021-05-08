@@ -64,23 +64,53 @@ Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs\*.msi") -File -Recurse -For
 
 
 # ------------------------------------------------------------
-#
-#   PowerShell - ForEach & ForEach-Object Loops
-#
+
+<# ARRAYS -> use  [ ForEach ] #>
+
+<# Array Example #>
+$Var=@('a','b','c','d','e','f');
+If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
+	ForEach ($EachItem In ${Var}) {
+		Write-Host $EachItem;
+	}
+}
+
+<# Array Example #>
+$Var=(Get-Service);
+If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
+	ForEach ($EachItem In ${Var}) {
+		Write-Host $EachItem;
+	}
+}
+
 # ------------------------------------------------------------
 
-# ForEach (USE FOR ARRAYS)
-ForEach ($EachLetter In @('a','b','c','d','e','f')) {
-	Write-Host $EachLetter;
+<# OBJECTS -> use  [ ForEach-Object ]  #>
+$Var=@{"YOUR"="VAR";"HERE"=".";};
+If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
+	$Var | ForEach-Object {
+		Write-Output "------------------------------------------------------------";
+		$_ | Format-Table;
+		Write-Output "------------------------------------------------------------";
+	}
 }
 
-
-# ForEach-Object (USE FOR HASH TABLES)
-Get-WindowsOptionalFeature -Online | ForEach-Object {
-	Write-Output "------------------------------------------------------------";
-	$_ | Format-Table;
-	Write-Output "------------------------------------------------------------";
+<#  HASH TABLES -> use  [ Get-Member + Where-Object + ForEach-Object ]  #>
+$Var = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
+If ($Var.GetType().Name -Eq "PSCustomObject") {
+	Get-Member -InputObject ($Var) -View ("All") `
+	| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
+	| ForEach-Object {
+		$EACH_KEY = "$($_.Name)";
+		If ($Var.(${EACH_KEY}) -eq $Null) {
+			$EACH_VAL="`$Null";
+		} Else {
+			$EACH_VAL=$Var.(${EACH_KEY});
+		}
+		Write-Host "EACH_KEY=$($EACH_KEY)  ///  EACH_VAL=$($EACH_VAL)";
+	};
 }
+
 
 # ForEach-Object using '.Keys' method to walk through an object by iterating through its property-names
 $CommandString = $MyInvocation.MyCommand.Name;

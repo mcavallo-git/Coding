@@ -37,7 +37,7 @@ JsonDecoder -InputObject ('{"integer":1,"string":"string","array":[1,2,"a","b"],
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "ConvertTo-Json - Converts a JSON-formatted string to a custom object or a hash table"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json
+#   docs.microsoft.com  |  "ConvertFrom-Json - Converts a JSON-formatted string to a custom object or a hash table."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertfrom-json
 #
 #   docs.microsoft.com  |  "ConvertTo-Json - Converts an object to a JSON-formatted string"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/convertto-json
 #

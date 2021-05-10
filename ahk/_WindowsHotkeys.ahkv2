@@ -1773,11 +1773,12 @@ Duplicate_Keypress() {
 
 
 ;
-; EscapeCurlyBraces
-;   |--> Escape Left-Curly-Brace "{" & Right-Curly-Brace "}" characters in a string
-;   |--> Intended to help AHK type curly-brace characters correctly (and not interpret them as open/close block arguments)
+; EscapeSpecialCharacters
+;   |--> Escape Special characters "{}!^#+" in Curly-Braces "{" CHAR_HERE "}"
+;   |--> Intended to help AHK type curly-brace characters correctly (and not interpret them as open/close block arguments
+;   |--> Also intended to help AHK type CTRL (^), ALT (!), SHIFT (+), and WINKEY (#) special characters correctly (and not interpret them as modifier keypresses when parsing strings)
 ;
-EscapeCurlyBraces(StringToEscape:="") {
+EscapeSpecialCharacters(StringToEscape:="") {
 	ReturnedString := ""
 	StringConsolidated := RegexConsolidateNewlines(StringToEscape)
 	If InStr(StringConsolidated, "`n") {
@@ -1788,11 +1789,13 @@ EscapeCurlyBraces(StringToEscape:="") {
 			Loop, Parse, %EachLine%
 			{
 				If (A_LoopField == "{") {
-						ReturnedString := ReturnedString "{{}"
+					ReturnedString := ReturnedString "{{}"
 				} Else If (A_LoopField == "}") {
-						ReturnedString := ReturnedString "{}}"
+					ReturnedString := ReturnedString "{}}"
+				} Else If ((A_LoopField=="^")||(A_LoopField=="+")||(A_LoopField=="!")||(A_LoopField=="#")) {
+					ReturnedString := ReturnedString "{" A_LoopField "}"
 				} Else {
-						ReturnedString := ReturnedString A_LoopField
+					ReturnedString := ReturnedString A_LoopField
 				}
 			}
 			ReturnedString := ReturnedString "`n"
@@ -1801,14 +1804,16 @@ EscapeCurlyBraces(StringToEscape:="") {
 		ReturnedString := SubStr(ReturnedString, 1, -1)
 	} Else {
 		; Single-line string - Iterate over each character in each line 
-		Loop, Parse, %EachLine%
+		Loop, Parse, %StringConsolidated%
 		{
 			If (A_LoopField == "{") {
-					ReturnedString := ReturnedString "{{}"
+				ReturnedString := ReturnedString "{{}"
 			} Else If (A_LoopField == "}") {
-					ReturnedString := ReturnedString "{}}"
+				ReturnedString := ReturnedString "{}}"
+			} Else If ((A_LoopField=="^")||(A_LoopField=="+")||(A_LoopField=="!")||(A_LoopField=="#")) {
+				ReturnedString := ReturnedString "{" A_LoopField "}"
 			} Else {
-					ReturnedString := ReturnedString A_LoopField
+				ReturnedString := ReturnedString A_LoopField
 			}
 		}
 	}
@@ -2508,7 +2513,7 @@ PasteClipboardAsBinary() {
 	Sleep, 25
 	Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
 	Sleep, 25
-	SendInput % EscapeCurlyBraces(Clipboard)
+	SendInput % EscapeSpecialCharacters(Clipboard)
 	Sleep, 25
 	Return
 }
@@ -2525,17 +2530,28 @@ PasteClipboardAsText(StringToPaste:="") {
 	Sleep 250
 	Loop, Parse, % RegexConsolidateNewlines((StrLen(StringToPaste)<=0)?(Clipboard):(StringToPaste))
 	{
+		; DoSleep := 0
+		SendChar := ""
 		If (A_LoopField == "{") {
-			SendInput {{}
+			SendChar := "{" "{" "}"
 		} Else If (A_LoopField == "}") {
-			SendInput {}}
+			SendChar := "{" "}" "}"
+		} Else If ((A_LoopField=="^")||(A_LoopField=="+")||(A_LoopField=="!")||(A_LoopField=="#")) {
+			SendChar := "{" A_LoopField "}"
+			; SendRaw %A_LoopField%
 		} Else If ((A_LoopField=="`n")||(A_LoopField=="`r")) {
-			Sleep 25
-			SendInput {`n}
-			Sleep 25
+			SendChar := "{" "`n" "}"
+			; DoSleep := 1
 		} Else {
-			SendInput %A_LoopField%
+			SendChar := A_LoopField
 		}
+		; If (DoSleep == 1) {
+		; 	Sleep 50
+		; }
+		SendInput %SendChar%
+		; If (DoSleep == 1) {
+			; Sleep 50
+		; }
 	}
 	Return
 }

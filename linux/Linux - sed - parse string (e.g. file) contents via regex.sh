@@ -288,6 +288,14 @@ fi;
 
 # ------------------------------------------------------------
 # 
+# Example)  Parse Terraform's latest version from their downloads URL ( as they intentionally do not provide a pointer to the "latest" version of Terraform - reference: https://github.com/hashicorp/terraform/issues/9803 )
+#
+TERRAFORM_LATEST_VERSION=$(curl https://www.terraform.io/downloads.html | grep 'https://releases.hashicorp.com/terraform/' | grep -i 'linux' | head -n 1 | sed -re "s/^.+https:\/\/releases\.hashicorp\.com\/terraform\/([0-9\.]+)\/.+$/\1/");
+echo "\${TERRAFORM_LATEST_VERSION}=[${TERRAFORM_LATEST_VERSION}]";
+
+
+# ------------------------------------------------------------
+# 
 # Example)  Parse NGINX runtime user's name from nginx.conf
 #
 if [ -f "/etc/nginx/nginx.conf" ]; then

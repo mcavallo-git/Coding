@@ -102,7 +102,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
-					Description="Cortana/Search Settings - Set to [ 0 ] to Disable or [ 1 ] to Enable Cortana.";
+					Description="Cortana/Search Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable Cortana.";
 					Name="AllowCortana";
 					Type="DWord";
 					Value=0;
@@ -116,7 +116,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Cortana/Search Settings - Set to [ 1 ] to Enable or [ 0 ] to Disable Cortana's ability to send search-resutls to Bing.com.";
+					Description="Cortana/Search Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable Cortana's ability to send search-resutls to Bing.com.";
 					Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
 					Name="BingSearchEnabled";
 					Type="DWord";
@@ -211,7 +211,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer";
 			Props=@(
 				@{
-					Description="Explorer Settings - Set to [ 1 ] to Disable or [ 0 ] to Enable `"Aero Shake`" in Windows 10";
+					Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 1/2)";
 					Name="NoWindowMinimizingShortcuts";
 					Type="DWord";
 					Value=1;
@@ -225,6 +225,13 @@ function SyncRegistry {
 		$RegEdits += @{
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
+				@{
+					Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 2/2)";
+					Name="DisallowShaking";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				},
 				@{
 					Description="Explorer Settings - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
 					Name="Hidden";
@@ -498,7 +505,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ Run as different user ] right-click option";
 					Name="HideRunAsVerb";
 					Type="DWord";
 					Value=0;
@@ -512,7 +519,7 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
+					Description="Set to [ DELETED ] to Enable, [ 1 ] to Disable the 'most recently used files list' feature";
 					Name="NoRecentDocsHistory";
 					Type="DWord";
 					Value=1;
@@ -531,14 +538,14 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ Run as different user ] right-click option";
+					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the 'Run as different user' right-click option";
 					Name="HideRunAsVerb";
 					Type="DWord";
 					Value=0;
 					Delete=$False;
 				},
 				@{
-					Description="Set to [ 1 ] to Disable, [ DELETED ] to Enable the [ most recently used files list ] feature";
+					Description="Set to [ DELETED ] to Enable, [ 1 ] to Disable the 'most recently used files list' feature";
 					Name="NoRecentDocsHistory";
 					Type="DWord";
 					Value=1;
@@ -620,7 +627,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System";
 			Props=@(
 				@{
-					Description="Set this value to [ 1 ] to Disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
+					Description="Set this value to [ 0 ] to Enable, [ 1 ] to Disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
 					Name="DisableLockWorkstation";
 					Type="DWord";
 					Value=0;
@@ -791,7 +798,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
+					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
 					Name="SubscribedContent-353698Enabled";
 					Type="String";
 					Value=0;
@@ -869,7 +876,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
 			Props=@(
 				@{
-					Description="Power Settings - Set to [ 1 ] to Enable 'fast startup', [ 0 ] to Disable 'fast startup'.";
+					Description="Power Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable 'fast startup'.";
 					Hotfix=$Null;
 					Name="HiberbootEnabled";
 					Type="DWord";
@@ -989,7 +996,7 @@ function SyncRegistry {
 			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
 			Props=@(
 				@{
-					Description="Set to [ 1 ] to Disable, [ 0 ] to Enable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
 					Name="AutoEndTasks";
 					Type="String";
 					Value=1;
@@ -1355,8 +1362,6 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
 #
-#   microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
-#
 #   social.msdn.microsoft.com  |  ".NET Framework 3.5 doesn't install. Windows 10.. Error code: 0x800F081F"  |  https://social.msdn.microsoft.com/Forums/en-US/4ea808e7-c503-4f99-9480-aa8e6938be3d
 #
 #   social.technet.microsoft.com  |  "GPO : runas hide show"  |  https://social.technet.microsoft.com/Forums/en-US/f2889321-7531-4fde-bb28-f5f141c251b6/gpo-runas-hide-show?forum=winserverDS
@@ -1393,11 +1398,15 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   www.howtogeek.com  |  "How to Remove the 'Send To' Menu from Windows' Context Menu"  |  https://www.howtogeek.com/howto/windows-vista/disable-the-send-to-folder-on-the-windows-explorer-context-menu/
 #
+#   www.microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
+#
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #
-#   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
-#
 #   www.tenforums.com  |  "Add or Remove Scan with Microsoft Defender Context Menu in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/18145-add-remove-scan-microsoft-defender-context-menu-windows-10-a.html
+#
+#   www.tenforums.com  |  "How to Enable or Disable Aero Shake in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4417-how-enable-disable-aero-shake-windows-10-a.html
+#
+#   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
 #
 #   www.thewindowsclub.net  |  "Processor Scheduling in Windows 10 for better performance"  |  https://www.thewindowsclub.com/processor-scheduling-in-windows-7-8
 #

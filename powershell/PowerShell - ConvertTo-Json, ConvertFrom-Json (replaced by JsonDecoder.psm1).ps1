@@ -13,6 +13,9 @@
 
 ConvertTo-Json -InputObject (@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) -Depth 100;
 
+<# "-Compress" --> Removes newlines and leading-spaces from output #>
+ConvertTo-Json -InputObject (@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) -Depth 100 -Compress;
+
 
 # WITH character encoding on the output-string (default in ConvertTo-JSON):
 (@{integer=1; string="string"; array=@(1,2,"a","b"); object=@{"obj-int"=2;"obj-str"="<div>test-string</div>";};}) | ConvertTo-Json -Depth 100;

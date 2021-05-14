@@ -5,13 +5,10 @@
 # ------------------------------------------------------------
 
 <# Step 1 #>
-	<# Press combo-keypress ALT+F7 #>
+	Clear-History; Remove-Item -Path "$((Get-PSReadlineOption).HistorySavePath)" -Force;
 
 <# Step 2 #>
-	Clear-History;
-
-<# Step 3/3 #>
-	$HistoryCache = ((Get-PSReadlineOption).HistorySavePath); Remove-Item -Path ("${HistoryCache}") -Force;
+	<# Press combo-keypress ALT+F7 #>
 
 
 # ------------------------------------------------------------

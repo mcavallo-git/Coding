@@ -13,6 +13,9 @@
 # Timestamp_Filename               20210505T171718
 $(Get-Date -Format 'yyyyMMddThhmmss')
 
+# Timestamp_Filename_TZ            20210505T171718-04
+$(Get-Date -Format 'yyyyMMddThhmmsszz')
+
 # Timestamp_Filename_ms            20210505T171718.066
 $(Get-Date -Format 'yyyyMMddThhmmss.fff')
 
@@ -28,7 +31,7 @@ $(Get-Date -Format 'yyyyMMddhhmmsszz')
 # Timestamp_RFC3339                2021-05-05T05:17:18-04:00
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz')
 
-# Timestamp_RFC3339_ms             2021-05-05T05:17:18.066-04:00        <# BEST FOR LOGGING #>
+# Timestamp_RFC3339_ms             2021-05-05T05:17:18.066-04:00      <# BEST FOR LOG-OUTPUTS #>
 $(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')
 
 # Timestamp_RFC3339_μs             2021-05-05T05:17:18.066992-04:00

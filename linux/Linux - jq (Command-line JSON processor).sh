@@ -74,7 +74,7 @@ for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .c
 
 
 # ------------------------------------------------------------
-# Replace JSON Dynamically
+# jq - Replace JSON Dynamically
 #
 cat "/etc/docker/daemon.json" | jq;
 jq --arg SETPROP "local" '."log-driver" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
@@ -82,6 +82,34 @@ jq --arg SETPROP "25m" '."log-opts"."max-size" = $SETPROP' "/etc/docker/daemon.j
 jq --arg SETPROP "1" '."log-opts"."max-file" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
 jq --arg SETPROP "false" '."log-opts"."compress" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
 cat "/etc/docker/daemon.json" | jq;
+
+
+# ------------------------------------------------------------
+# jq - Search a JSON array for a specific value
+
+if [ "1" == "1" ]; then
+echo "------------------------------------------------------------";
+CONTENTS_JSON="[\"refs/heads/dev\",\"refs/heads/main\",\"refs/heads/master\"]";
+TEMP_JSON=$(mktemp);
+echo -e "\n${CONTENTS_JSON}" > "${TEMP_JSON}";
+echo -e "\nCreated temporary file \"${TEMP_JSON}\" with (JSON) contents: ${CONTENTS_JSON}";
+echo -e "\n------------------------------------------------------------";
+echo -e "\nTest 1.1 - jq 'index( \"refs/heads/dev\" )'..."; cat "${TEMP_JSON}" | jq 'index( "refs/heads/dev" )';
+echo -e "\nTest 1.2 - jq 'index( \"refs/heads/main\" )'..."; cat "${TEMP_JSON}" | jq 'index( "refs/heads/main" )';
+echo -e "\nTest 1.3 - jq 'index( \"refs/heads/master\" )'..."; cat "${TEMP_JSON}" | jq 'index( "refs/heads/master" )';
+echo -e "\nTest 1.4 - jq 'index( \"refs/heads/invalid\" )'..."; cat "${TEMP_JSON}" | jq 'index( "refs/heads/invalid" )';
+echo -e "\nTest 1.5 - jq 'index( \"invalid/dev\" )'..."; cat "${TEMP_JSON}" | jq 'index( "invalid/dev" )';
+echo -e "\n------------------------------------------------------------";
+echo -e "\nTest 2.1 - jq 'any(. == \"refs/heads/dev\" )'..."; cat "${TEMP_JSON}" | jq 'any(. == "refs/heads/dev")';
+echo -e "\nTest 2.2 - jq 'any(. == \"refs/heads/main\" )'..."; cat "${TEMP_JSON}" | jq 'any(. == "refs/heads/main")';
+echo -e "\nTest 2.3 - jq 'any(. == \"refs/heads/master\" )'..."; cat "${TEMP_JSON}" | jq 'any(. == "refs/heads/master")';
+echo -e "\nTest 2.4 - jq 'any(. == \"refs/heads/invalid\" )'..."; cat "${TEMP_JSON}" | jq 'any(. == "refs/heads/invalid")';
+echo -e "\nTest 2.5 - jq 'any(. == \"invalid/dev\" )'..."; cat "${TEMP_JSON}" | jq 'any(. == "invalid/dev")';
+echo -e "\n------------------------------------------------------------";
+echo -e "\nRemoving temporary file \"${TEMP_JSON}\"...";
+rm -f "${TEMP_JSON}";
+echo -e "\n------------------------------------------------------------";
+fi;
 
 
 # ------------------------------------------------------------
@@ -102,5 +130,7 @@ cat "/etc/docker/daemon.json" | jq;
 #   stackoverflow.com  |  "Constructing a json hash from a bash associative array - Stack Overflow"  |  https://stackoverflow.com/a/44792751
 #
 #   stackoverflow.com  |  "How to format a bash array as a JSON array"  |  https://stackoverflow.com/a/26809318
+#
+#   stackoverflow.com  |  "json - How to check if element exists in array with jq - Stack Overflow"  |  https://stackoverflow.com/a/43269105
 #
 # ------------------------------------------------------------

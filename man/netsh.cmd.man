@@ -1,0 +1,657 @@
+
+
+// ------------------------------------------------------------
+//  netsh  ?
+//
+
+
+
+Usage: netsh [-a AliasFile] [-c Context] [-r RemoteMachine] [-u [DomainName\]UserName] [-p Password | *]
+             [Command | -f ScriptFile]
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a list of entries.
+advfirewall    - Changes to the `netsh advfirewall' context.
+branchcache    - Changes to the `netsh branchcache' context.
+bridge         - Changes to the `netsh bridge' context.
+delete         - Deletes a configuration entry from a list of entries.
+dhcpclient     - Changes to the `netsh dhcpclient' context.
+dnsclient      - Changes to the `netsh dnsclient' context.
+dump           - Displays a configuration script.
+exec           - Runs a script file.
+firewall       - Changes to the `netsh firewall' context.
+help           - Displays a list of commands.
+http           - Changes to the `netsh http' context.
+interface      - Changes to the `netsh interface' context.
+ipsec          - Changes to the `netsh ipsec' context.
+lan            - Changes to the `netsh lan' context.
+mbn            - Changes to the `netsh mbn' context.
+namespace      - Changes to the `netsh namespace' context.
+netio          - Changes to the `netsh netio' context.
+p2p            - Changes to the `netsh p2p' context.
+ras            - Changes to the `netsh ras' context.
+rpc            - Changes to the `netsh rpc' context.
+set            - Updates configuration settings.
+show           - Displays information.
+trace          - Changes to the `netsh trace' context.
+wcn            - Changes to the `netsh wcn' context.
+wfp            - Changes to the `netsh wfp' context.
+winhttp        - Changes to the `netsh winhttp' context.
+winsock        - Changes to the `netsh winsock' context.
+wlan           - Changes to the `netsh wlan' context.
+
+The following sub-contexts are available:
+ advfirewall branchcache bridge dhcpclient dnsclient firewall http interface ipsec lan mbn namespace netio p2p ras rpc trace wcn wfp winhttp winsock wlan
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+// ------------------------------------------------------------
+//  netsh advfirewall ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+consec         - Changes to the `netsh advfirewall consec' context.
+dump           - Displays a configuration script.
+export         - Exports the current policy to a file.
+firewall       - Changes to the `netsh advfirewall firewall' context.
+help           - Displays a list of commands.
+import         - Imports a policy file into the current policy store.
+mainmode       - Changes to the `netsh advfirewall mainmode' context.
+monitor        - Changes to the `netsh advfirewall monitor' context.
+reset          - Resets the policy to the default out-of-box policy.
+set            - Sets the per-profile or global settings.
+show           - Displays profile or global properties.
+
+The following sub-contexts are available:
+ consec firewall mainmode monitor
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh branchcache ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+exportkey      - Exports the content information key.
+flush          - Flushes the contents of the cache.
+help           - Displays a list of commands.
+importkey      - Imports a new content information key.
+reset          - Resets the BranchCache service.
+set            - Sets configuration parameters.
+show           - Displays configuration parameters.
+smb            - Changes to the `netsh branchcache smb' context.
+
+The following sub-contexts are available:
+ smb
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh bridge ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+install        - Installs the component corresponding to the current context.
+set            - Sets configuration information.
+show           - Displays information.
+uninstall      - Removes the component corresponding to the current context.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh dhcpclient ?
+//
+
+
+list                          - Lists all the commands available.
+help                          - Displays help.
+?                             - Displays help.
+trace                         - Enable or disable tracing for DHCP client, Dump the last 100 traces. 
+
+
+
+// ------------------------------------------------------------
+//  netsh dnsclient ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a table.
+delete         - Deletes a configuration entry from a table.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+set            - Sets configuration information.
+show           - Displays information.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh firewall ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds firewall configuration.
+delete         - Deletes firewall configuration.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+set            - Sets firewall configuration.
+show           - Shows firewall configuration.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh http ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a table.
+delete         - Deletes a configuration entry from a table.
+dump           - Displays a configuration script.
+flush          - Flushes internal data.
+help           - Displays a list of commands.
+show           - Displays information.
+update         - Updates a configuration entry to a table.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh http add ?
+//
+
+The following commands are available:
+
+Commands in this context:
+add cacheparam - Adds an HTTP service cache parameter
+add iplisten   - Adds an IP address to the IP listen list.
+add setting    - Adds a global setting to the service.
+add sslcert    - Adds an SSL server certificate binding.
+add timeout    - Adds a global timeout to the service.
+add urlacl     - Adds an URL reservation entry.
+
+
+// ------------------------------------------------------------
+//  netsh http add sslcert ?
+//
+
+Usage: add sslcert hostnameport=<name:port> | ipport=<ipaddr:port> | ccs=<port>
+        appid=<GUID>
+        [certhash=<string>]
+        [certstorename=<string>]
+        [verifyclientcertrevocation=enable|disable]
+        [verifyrevocationwithcachedclientcertonly=enable|disable]
+        [usagecheck=enable|disable]
+        [revocationfreshnesstime=<u-int>]
+        [urlretrievaltimeout=<u-int>]
+        [sslctlidentifier=<string>]
+        [sslctlstorename=<string>]
+        [dsmapperusage=enable|disable]
+        [clientcertnegotiation=enable|disable]
+        [reject=enable|disable]
+        [disablehttp2=enable|disable]
+
+Parameters:
+
+    Tag - Value
+    ipport - IP address and port for the binding.
+    hostnameport  - Unicode hostname and port for binding.
+    ccs - Central Certificate Store binding.
+    certhash - The SHA hash of the certificate. This hash is
+               20 bytes long and specified as a hex string.
+    appid - GUID to identify the owning application.
+    certstorename - Store name for the certificate. Required for
+                    Hostname based configurations. Defaults to MY
+                    for IP based configurations. Certificate must
+                    be stored in the local machine context.
+    verifyclientcertrevocation - Turns on/off verification of revocation
+                                 of client certificates.
+    verifyrevocationwithcachedclientcertonly - Turns on/off usage of only
+                                               cached client certificate for
+                                               revocation checking.
+    usagecheck - Turns on/off usage check. Default is enabled.
+    revocationfreshnesstime - Time interval to check for an updated
+                              certificate revocation list (CRL). If this
+                              value is 0, then the new CRL is updated only
+                              if the previous one expires. (in seconds)
+    urlretrievaltimeout - Timeout on attempt to retrieve certificate
+                          revocation list for the remote URL (in
+                          milliseconds)
+
+    sslctlidentifier - List the certificate issuers that can be
+                       trusted. This list can be a subset of the
+                       certificate issuers that are trusted by the
+                       machine.
+    sslctlstorename - Store name under LOCAL_MACHINE where
+                      SslCtlIdentifier is stored.
+    dsmapperusage - Turns on/off DS mappers. Default is disabled.
+    clientcertnegotiation - Turns on/off negotiation of certificate. Default
+                            is disabled.
+    reject - Enable/disable 'Reject Mode'. When enabled, any
+             new matching connection is immediately dropped.
+    disablehttp2 - Enable/disable http2. When set, HTTP2
+                   is disabled for new matching connections immediately.
+
+Remarks: adds a new SSL server certificate binding and corresponding client
+         certificate policies for an IP address or hostname and a port.
+
+Examples:
+
+ add sslcert ipport=1.1.1.1:443 certhash=0102030405060708090A0B0C0D0E0F1011121314 appid={00112233-4455-6677-8899-AABBCCDDEEFF}
+ add sslcert hostnameport=www.contoso.com:443 certhash=0102030405060708090A0B0C0D0E0F1011121314 appid={00112233-4455-6677-8899-AABBCCDDEEFF} certstorename=MY
+ add sslcert ccs=443 appid={00112233-4455-6677-8899-AABBCCDDEEFF}
+
+
+// ------------------------------------------------------------
+//  netsh interface ?
+//
+
+
+The following commands are available:
+
+Commands in this context:
+6to4           - Changes to the `netsh interface 6to4' context.
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+httpstunnel    - Changes to the `netsh interface httpstunnel' context.
+ipv4           - Changes to the `netsh interface ipv4' context.
+ipv6           - Changes to the `netsh interface ipv6' context.
+isatap         - Changes to the `netsh interface isatap' context.
+portproxy      - Changes to the `netsh interface portproxy' context.
+set            - Sets configuration information.
+show           - Displays information.
+tcp            - Changes to the `netsh interface tcp' context.
+teredo         - Changes to the `netsh interface teredo' context.
+
+The following sub-contexts are available:
+ 6to4 httpstunnel ipv4 ipv6 isatap portproxy tcp teredo
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh ipsec ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+dynamic        - Changes to the `netsh ipsec dynamic' context.
+help           - Displays a list of commands.
+static         - Changes to the `netsh ipsec static' context.
+
+The following sub-contexts are available:
+ dynamic static
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh lan ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a table.
+delete         - Deletes a configuration entry from a table.
+dump           - Displays a configuration script.
+export         - Saves LAN profiles to XML files.
+help           - Displays a list of commands.
+reconnect      - Reconnects on an interface.
+set            - Configures settings on interfaces.
+show           - Displays information.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh mbn ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a table.
+connect        - Connects to a Mobile Broadband network.
+delete         - Deletes a configuration entry from a table.
+disconnect     - Disconnects from a Mobile Broadband network.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+set            - Sets configuration information.
+show           - Displays information.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh namespace ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+show           - Displays information.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh netio ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a table.
+delete         - Deletes a configuration entry from a table.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+show           - Displays information.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh p2p ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+group          - Changes to the `netsh p2p group' context.
+help           - Displays a list of commands.
+idmgr          - Changes to the `netsh p2p idmgr' context.
+pnrp           - Changes to the `netsh p2p pnrp' context.
+
+The following sub-contexts are available:
+ group idmgr pnrp
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh ras ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+aaaa           - Changes to the `netsh ras aaaa' context.
+add            - Adds items to a table.
+delete         - Removes items from a table.
+diagnostics    - Changes to the `netsh ras diagnostics' context.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+ip             - Changes to the `netsh ras ip' context.
+ipv6           - Changes to the `netsh ras ipv6' context.
+set            - Sets configuration information.
+show           - Displays information.
+
+The following sub-contexts are available:
+ aaaa diagnostics ip ipv6
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh rpc ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Creates an Add list of subnets. 
+delete         - Creates a Delete list of subnets. 
+dump           - Displays a configuration script.
+filter         - Changes to the `netsh rpc filter' context.
+help           - Displays a list of commands.
+reset          - Resets the selective binding settings to 'none' (listen on all interfaces). 
+show           - Displays the selective binding state for each subnet on the system.
+The following sub-contexts are available:
+ filter
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh trace ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+convert        - Converts a trace file to an HTML report.
+correlate      - Normalizes or filters a trace file to a new output file.
+diagnose       - Start a diagnose session.
+dump           - Displays a configuration script.
+export         - Exports a scenario to a WPR profile.
+help           - Displays a list of commands.
+merge          - Merges trace files and adds symbols metadata.
+postreset      - 
+show           - List interfaces, providers and tracing state.
+start          - Starts tracing.
+stop           - Stops tracing.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh wcn ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+enroll         - Connects to a wireless network.
+help           - Displays a list of commands.
+query          - Queries information about a WCN device.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh wfp ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+capture        - Captures real-time diagnostic information.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+set            - Sets WFP diagnostic options.
+show           - Shows WFP configuration and state.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh winhttp ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+import         - Imports WinHTTP proxy settings.
+reset          - Resets WinHTTP settings.
+set            - Configures WinHTTP settings.
+show           - Displays currents settings.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh winsock ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+audit          - Displays a list of Winsock LSPs that have been installed and removed.
+dump           - Displays a configuration script.
+help           - Displays a list of commands.
+remove         - Removes a Winsock LSP from the system.
+reset          - Resets the Winsock Catalog to a clean state.
+set            - Sets Winsock options.
+show           - Displays information.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+
+
+
+// ------------------------------------------------------------
+//  netsh wlan ?
+//
+
+
+
+The following commands are available:
+
+Commands in this context:
+?              - Displays a list of commands.
+add            - Adds a configuration entry to a table.
+connect        - Connects to a wireless network.
+delete         - Deletes a configuration entry from a table.
+disconnect     - Disconnects from a wireless network.
+dump           - Displays a configuration script.
+export         - Saves WLAN profiles to XML files.
+help           - Displays a list of commands.
+IHV            - Commands for IHV logging.
+refresh        - Refresh hosted network settings.
+reportissues   - Generate WLAN smart trace report.
+set            - Sets configuration information.
+show           - Displays information.
+start          - Start hosted network.
+stop           - Stop hosted network.
+
+To view help for a command, type the command, followed by a space, and then
+ type ?.
+

@@ -1,0 +1,66 @@
+PINENTRY-CURSES(1)                           General Commands Manual                          PINENTRY-CURSES(1)
+
+NAME
+       pinentry-curses - PIN or pass-phrase entry dialog for GnuPG
+
+SYNOPSIS
+       pinentry-curses [OPTION...]
+
+DESCRIPTION
+       pinentry-curses  is  a program that allows for secure entry of PINs or pass phrases.  That means it tries
+       to take care that the entered information is not swapped to disk or temporarily  stored  anywhere.   This
+       functionality  is  particularly  useful  for entering pass phrases when using encryption software such as
+       GnuPG or e-mail clients using the same.  It uses an open protocol and is therefore not tied to particular
+       software.
+
+       pinentry-curses  implements  a  PIN entry dialog using the curses tool kit, meaning that it is useful for
+       users working in text mode without the X Window System.  There are other flavors that implement PIN entry
+       dialogs  that  use  an X tool kit.  If you have installed any of the latter programs then this program is
+       not necessary because the X flavors automatically fall back to text mode if X is not active.
+
+       pinentry-curses is typically used internally by gpg-agent.  Users don't normally have a reason to call it
+       directly.
+
+OPTIONS
+       --version
+              Print the program version and licensing information.
+
+       --help Print a usage message summarizing the most useful command-line options.
+
+       --debug, -d
+              Turn  on  some debugging.  Mostly useful for the maintainers.  Note that this may reveal sensitive
+              information like the entered pass phrase.
+
+       --enhanced, -e
+              Ask for timeouts and insurance, too.  Note that this is currently not fully supported.
+
+       --no-global-grab, -g
+              Grab the keyboard only when the window is focused.  Use this option if you are debugging  software
+              using  pinentry-curses;  otherwise you may not be able to to access your X session anymore (unless
+              you have other means to connect to the machine to kill pinentry-curses).
+
+       --parent-wid N
+              Use window ID N as the parent window for positioning the window.  Note, that  this  is  not  fully
+              supported by all flavors of pinentry.
+
+       --display STRING, --ttyname STRING, --ttytype STRING, --lc-type STRING, --lc-messages STRING
+              These  options  are  used  to pass localization information to pinentry-curses.  They are required
+              because pinentry-curses is usually called by some background  process  which  does  not  have  any
+              information  on the locale and terminal to use.  Assuan protocol options are an alternative way to
+              pass these information.
+
+SEE ALSO
+       pinentry-gtk-2(1), pinentry-qt(1), pinentry-fltk(1), pinentry-gnome3(1),  pinentry-tty(1),  gpg(1),  gpg-
+       agent(1)
+
+       The  full documentation for pinentry-curses is maintained as a Texinfo manual.  If the pinentry-doc pack‐
+       age is installed, the command
+
+              info pinentry
+
+       should give you access to the complete manual.
+
+AUTHOR
+       This manual page was written by Peter Eisentraut for the Debian project.
+
+                                                   27 Jan 2005                                PINENTRY-CURSES(1)

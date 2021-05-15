@@ -1,0 +1,73 @@
+
+>  signtool.exe verify
+
+SignTool Error: A required parameter is missing.
+Usage: signtool verify [options] <filename(s)>
+
+Use the "verify" command to verify embedded or catalog signatures.
+Verification determines if the signing certificate was issued by a trusted
+party, whether that certificate has been revoked, and whether the certificate
+is valid under a specific policy. Options allow you to specify requirements
+that must be met and to specify how to find the catalog, if appropriate.
+
+Catalogs are used by Microsoft and others to sign many files very efficiently.
+Catalog options:
+/a          Automatically attempt to verify the file using all methods. First
+            search for a catalog using all catalog databases. If the file is
+            not signed in any catalog, attempt to verify the embedded
+            signature. When verifying files that may or may not be signed in a
+            catalog, such as Windows files and drivers, this option is the
+            easiest way to ensure that the signature is found.
+/ad         Find the catalog automatically using the default catalog database.
+/as         Find the catalog automatically using the system component (driver)
+            catalog database.
+/ag <GUID>  Find the catalog automatically in the specified catalog database.
+            Catalog databases are identified by GUID.
+            Example GUID: {F750E6C3-38EE-11D1-85E5-00C04FC295EE}
+/c <file>   Specify the catalog file.
+/o <ver>    When verifying a file that is in a signed catalog, verify that the
+            file is valid for the specified platform.
+            Parameter format is: PlatformID:VerMajor.VerMinor.BuildNumber
+/hash <SHA1 | SHA256> Optional hash algorithm to use when searching for
+            a file in a catalog.
+
+SignTool uses the "Windows Driver" Verification Policy by default. The options
+below allow you to use alternate Policies.
+Verification Policy options:
+/pa         Use the "Default Authenticode" Verification Policy.
+/pg <GUID>  Specify the verification policy by GUID (also called ActionID).
+
+Signature requirement options:
+/ca <h>     Verify that the file is signed with an intermediate CA cert with
+            the specified hash. This option may be specified multiple times;
+            one of the specified hashes must match.
+/r <name>   Specify the Subject Name of a Root cert that the signing cert must
+            chain to.
+/sha1 <h>   Verify that the signer certificate has the specified hash. This
+            option may be specified multiple times; one of the specified hashes
+            must match.
+/tw         Generate a Warning if the signature is not timestamped.
+/u <usage>  Generate a Warning if the specified Enhanced Key Usage is not
+            present in the cert. This option may be given multiple times.
+
+Other options:
+/all        Verify all signatures in a file with multiple signatures.
+/ds <index> Verify the signature at <index>.
+/ms         Use multiple verification semantics. This is the default behavior
+            of a Win8 WinVerifyTrust call.
+/sl         Verify sealing signatures for supported file types.
+/p7         Verify PKCS7 files. No existing policies are used for p7 validation.
+            The signature is checked and a chain is built for the signing
+            certificate.
+/bp         Perform the verification with the Biometric mode signing policy.
+/enclave    Perform the verification with the enclave signing policy. This also
+            prints the Unique ID and Author ID information.
+/kp         Perform the verification with the kernel-mode driver signing policy.
+/q          No output on success and minimal output on failure. As always,
+            SignTool returns 0 on success, 1 on failure, and 2 on warning.
+/ph         Print and verify page hash values.
+/d          Print Description and Description URL.
+/v          Print verbose success and status messages. This may also provide
+            slightly more information on error. If you want to see information
+            about the signer, you should use this option.
+/debug      Display additional debug information.

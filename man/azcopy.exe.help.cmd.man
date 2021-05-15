@@ -1,0 +1,673 @@
+------------------------------------------------------------ 
+AzCopy 10.3.4
+Project URL: github.com/Azure/azure-storage-azcopy
+
+AzCopy is a command line tool that moves data into and out of Azure Storage.
+To report issues or to learn more about the tool, go to github.com/Azure/azure-storage-azcopy
+
+The general format of the commands is: 'azcopy [command] [arguments] --[flag-name]=[flag-value]'.
+
+Usage:
+  azcopy [command]
+
+Available Commands:
+  bench       Performs a performance benchmark
+  copy        Copies source data to a destination location
+  doc         Generates documentation for the tool in Markdown format
+  env         Shows the environment variables that you can use to configure the behavior of AzCopy.
+  help        Help about any command
+  jobs        Sub-commands related to managing jobs
+  list        List the entities in a given resource
+  login       Log in to Azure Active Directory (AD) to access Azure Storage resources.
+  logout      Log out to terminate access to Azure Storage resources.
+  make        Create a container or file share.
+  remove      Delete blobs or files from an Azure storage account
+  sync        Replicate source to the destination location
+
+Flags:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+  -h, --help                 help for azcopy
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+      --version              version for azcopy
+
+Use "azcopy [command] --help" for more information about a command.
+------------------------------------------------------------ 
+
+Runs a performance benchmark by uploading test data to a specified destination. The test data is automatically generated.
+
+The benchmark command runs the same upload process as 'copy', except that: 
+
+  - There's no source parameter.  The command requires only a destination URL. In the current release, this destination URL must refer to a blob container.
+  
+  - The payload is described by command line parameters, which control how many files are auto-generated and 
+    how big they are. The generation process takes place entirely in memory. Disk is not used.
+  
+  - Only a few of the optional parameters that are available to the copy command are supported.
+  
+  - Additional diagnostics are measured and reported.
+  
+  - By default, the transferred data is deleted at the end of the test run.
+
+Benchmark mode will automatically tune itself to the number of parallel TCP connections that gives 
+the maximum throughput. It will display that number at the end. To prevent auto-tuning, set the 
+AZCOPY_CONCURRENCY_VALUE environment variable to a specific number of connections. 
+
+All the usual authentication types are supported. However, the most convenient approach for benchmarking is typically
+to create an empty container with a SAS token and use SAS authentication.
+
+Usage:
+  azcopy bench [destination] [flags]
+
+Aliases:
+  bench, ben, benchmark
+
+Examples:
+Run a benchmark test with default parameters (suitable for benchmarking networks up to 1 Gbps):'
+
+   - azcopy bench "https://[account].blob.core.windows.net/[container]?<SAS>"
+
+Run a benchmark test that uploads 100 files, each 2 GiB in size: (suitable for benchmarking on a fast network, e.g. 10 Gbps):'
+
+   - azcopy bench "https://[account].blob.core.windows.net/[container]?<SAS>" --file-count 100 --size-per-file 2G
+
+Same as above, but use 50,000 files, each 8 MiB in size and compute their MD5 hashes (in the same way that the --put-md5 flag does this
+in the copy command). The purpose of --put-md5 when benchmarking is to test whether MD5 computation affects throughput for the 
+selected file count and size:
+
+   - azcopy bench "https://[account].blob.core.windows.net/[container]?<SAS>" --file-count 50000 --size-per-file 8M --put-md5
+
+
+Flags:
+      --blob-type string       defines the type of blob at the destination. Used to allow benchmarking different blob types. Identical to the same-named parameter in the copy command (default "Detect")
+      --block-size-mb float    use this block size (specified in MiB). Default is automatically calculated based on file size. Decimal fractions are allowed - e.g. 0.25. Identical to the same-named parameter in the copy command
+      --delete-test-data       if true, the benchmark data will be deleted at the end of the benchmark run.  Set it to false if you want to keep the data at the destination - e.g. to use it for manual tests outside benchmark mode (default true)
+      --file-count uint        number of auto-generated data files to use (default 100)
+  -h, --help                   help for bench
+      --log-level string       define the log verbosity for the log file, available levels: INFO(all requests/responses), WARNING(slow responses), ERROR(only failed requests), and NONE(no output logs). (default "INFO")
+      --put-md5                create an MD5 hash of each file, and save the hash as the Content-MD5 property of the destination blob/file. (By default the hash is NOT created.) Identical to the same-named parameter in the copy command
+      --size-per-file string   size of each auto-generated data file. Must be a number immediately followed by K, M or G. E.g. 12k or 200G (default "250M")
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+
+Copies source data to a destination location. The supported directions are:
+  - local <-> Azure Blob (SAS or OAuth authentication)
+  - local <-> Azure Files (Share/directory SAS authentication)
+  - local <-> ADLS Gen 2 (SAS, OAuth, or SharedKey authentication)
+  - Azure Blob (SAS or public) -> Azure Blob (SAS or OAuth authentication)
+  - Azure Blob (SAS or public) -> Azure Files (SAS)
+  - Azure Files (SAS) -> Azure Files (SAS)
+  - Azure Files (SAS) -> Azure Blob (SAS or OAuth authentication)
+  - AWS S3 (Access Key) -> Azure Block Blob (SAS or OAuth authentication)
+
+Please refer to the examples for more information.
+
+Advanced:
+
+AzCopy automatically detects the content type of the files when uploading from the local disk, based on the file extension or content (if no extension is specified).
+
+The built-in lookup table is small, but on Unix, it is augmented by the local system's mime.types file(s) if available under one or more of these names:
+
+- /etc/mime.types
+- /etc/apache2/mime.types
+- /etc/apache/mime.types
+
+On Windows, MIME types are extracted from the registry. This feature can be turned off with the help of a flag. Please refer to the flag section.
+
+If you set an environment variable by using the command line, that variable will be readable in your command line history. Consider clearing variables that contain credentials from your command line history.  To keep variables from appearing in your history, you can use a script to prompt the user for their credentials, and to set the environment variable.
+
+Usage:
+  azcopy copy [source] [destination] [flags]
+
+Aliases:
+  copy, cp, c
+
+Examples:
+Upload a single file by using OAuth authentication. If you have not yet logged into AzCopy, please run the azcopy login command before you run the following command.
+
+  - azcopy cp "/path/to/file.txt" "https://[account].blob.core.windows.net/[container]/[path/to/blob]"
+
+Same as above, but this time also compute MD5 hash of the file content and save it as the blob's Content-MD5 property:
+
+  - azcopy cp "/path/to/file.txt" "https://[account].blob.core.windows.net/[container]/[path/to/blob]" --put-md5
+
+Upload a single file by using a SAS token:
+
+  - azcopy cp "/path/to/file.txt" "https://[account].blob.core.windows.net/[container]/[path/to/blob]?[SAS]"
+
+Upload a single file by using a SAS token and piping (block blobs only):
+  
+  - cat "/path/to/file.txt" | azcopy cp "https://[account].blob.core.windows.net/[container]/[path/to/blob]?[SAS]"
+
+Upload an entire directory by using a SAS token:
+  
+  - azcopy cp "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true
+or
+  - azcopy cp "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true --put-md5
+
+Upload a set of files by using a SAS token and wildcard (*) characters:
+ 
+  - azcopy cp "/path/*foo/*bar/*.pdf" "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]"
+
+Upload files and directories by using a SAS token and wildcard (*) characters:
+
+  - azcopy cp "/path/*foo/*bar*" "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true
+
+Download a single file by using OAuth authentication. If you have not yet logged into AzCopy, please run the azcopy login command before you run the following command.
+
+  - azcopy cp "https://[account].blob.core.windows.net/[container]/[path/to/blob]" "/path/to/file.txt"
+
+Download a single file by using a SAS token:
+
+  - azcopy cp "https://[account].blob.core.windows.net/[container]/[path/to/blob]?[SAS]" "/path/to/file.txt"
+
+Download a single file by using a SAS token and then piping the output to a file (block blobs only):
+  
+  - azcopy cp "https://[account].blob.core.windows.net/[container]/[path/to/blob]?[SAS]" > "/path/to/file.txt"
+
+Download an entire directory by using a SAS token:
+  
+  - azcopy cp "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" "/path/to/dir" --recursive=true
+
+A note about using a wildcard character (*) in URLs:
+
+There's only two supported ways to use a wildcard character in a URL. 
+- You can use one just after the final forward slash (/) of a URL. This copies all of the files in a directory directly to the destination without placing them into a subdirectory. 
+- You can also use one in the name of a container as long as the URL refers only to a container and not to a blob. You can use this approach to obtain files from a subset of containers. 
+
+Download the contents of a directory without copying the containing directory itself.
+ 
+  - azcopy cp "https://[srcaccount].blob.core.windows.net/[container]/[path/to/folder]/*?[SAS]" "/path/to/dir"
+
+Download an entire storage account.
+
+  - azcopy cp "https://[srcaccount].blob.core.windows.net/" "/path/to/dir" --recursive
+
+Download a subset of containers within a storage account by using a wildcard symbol (*) in the container name.
+
+  - azcopy cp "https://[srcaccount].blob.core.windows.net/[container*name]" "/path/to/dir" --recursive
+
+Copy a single blob to another blob by using a SAS token.
+
+  - azcopy cp "https://[srcaccount].blob.core.windows.net/[container]/[path/to/blob]?[SAS]" "https://[destaccount].blob.core.windows.net/[container]/[path/to/blob]?[SAS]"
+
+Copy a single blob to another blob by using a SAS token and an OAuth token. You have to use a SAS token at the end of the source account URL, but the destination account doesn't need one if you log into AzCopy by using the azcopy login command. 
+
+  - azcopy cp "https://[srcaccount].blob.core.windows.net/[container]/[path/to/blob]?[SAS]" "https://[destaccount].blob.core.windows.net/[container]/[path/to/blob]"
+
+Copy one blob virtual directory to another by using a SAS token:
+
+  - azcopy cp "https://[srcaccount].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" "https://[destaccount].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true
+
+Copy all blob containers, directories, and blobs from storage account to another by using a SAS token:
+
+  - azcopy cp "https://[srcaccount].blob.core.windows.net?[SAS]" "https://[destaccount].blob.core.windows.net?[SAS]" --recursive=true
+
+Copy a single object to Blob Storage from Amazon Web Services (AWS) S3 by using an access key and a SAS token. First, set the environment variable AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY for AWS S3 source.
+  
+  - azcopy cp "https://s3.amazonaws.com/[bucket]/[object]" "https://[destaccount].blob.core.windows.net/[container]/[path/to/blob]?[SAS]"
+
+Copy an entire directory to Blob Storage from AWS S3 by using an access key and a SAS token. First, set the environment variable AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY for AWS S3 source.
+ 
+  - azcopy cp "https://s3.amazonaws.com/[bucket]/[folder]" "https://[destaccount].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true
+    
+    Please refer to https://docs.aws.amazon.com/AmazonS3/latest/user-guide/using-folders.html to better understand the [folder] placeholder.
+
+Copy all buckets to Blob Storage from Amazon Web Services (AWS) by using an access key and a SAS token. First, set the environment variable AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY for AWS S3 source.
+ 
+  - azcopy cp "https://s3.amazonaws.com/" "https://[destaccount].blob.core.windows.net?[SAS]" --recursive=true
+
+Copy all buckets to Blob Storage from an Amazon Web Services (AWS) region by using an access key and a SAS token. First, set the environment variable AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY for AWS S3 source.
+ 
+  - azcopy cp "https://s3-[region].amazonaws.com/" "https://[destaccount].blob.core.windows.net?[SAS]" --recursive=true
+
+Copy a subset of buckets by using a wildcard symbol (*) in the bucket name. Like the previous examples, you'll need an access key and a SAS token. Make sure to set the environment variable AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY for AWS S3 source.
+
+  - azcopy cp "https://s3.amazonaws.com/[bucket*name]/" "https://[destaccount].blob.core.windows.net?[SAS]" --recursive=true
+
+
+Flags:
+      --blob-type string                     Defines the type of blob at the destination. This is used for uploading blobs and when copying between accounts (default 'Detect'). Valid values include 'Detect', 'BlockBlob', 'PageBlob', and 'AppendBlob'. When copying between accounts, a value of 'Detect' causes AzCopy to use the type of source blob to determine the type of the destination blob. When uploading a file, 'Detect' determines if the file is a VHD or a VHDX file based on the file extension. If the file is ether a VHD or VHDX file, AzCopy treats the file as a page blob. (default "Detect")
+      --block-blob-tier string               upload block blob to Azure Storage using this blob tier. (default "None")
+      --block-size-mb float                  Use this block size (specified in MiB) when uploading to Azure Storage, and downloading from Azure Storage. The default value is automatically calculated based on file size. Decimal fractions are allowed (For example: 0.25).
+      --cache-control string                 Set the cache-control header. Returned on download.
+      --check-length                         Check the length of a file on the destination after the transfer. If there is a mismatch between source and destination, the transfer is marked as failed. (default true)
+      --check-md5 string                     Specifies how strictly MD5 hashes should be validated when downloading. Only available when downloading. Available options: NoCheck, LogOnly, FailIfDifferent, FailIfDifferentOrMissing. (default 'FailIfDifferent') (default "FailIfDifferent")
+      --content-disposition string           Set the content-disposition header. Returned on download.
+      --content-encoding string              Set the content-encoding header. Returned on download.
+      --content-language string              Set the content-language header. Returned on download.
+      --content-type string                  Specifies the content type of the file. Implies no-guess-mime-type. Returned on download.
+      --decompress                           Automatically decompress files when downloading, if their content-encoding indicates that they are compressed. The supported content-encoding values are 'gzip' and 'deflate'. File extensions of '.gz'/'.gzip' or '.zz' aren't necessary, but will be removed if present.
+      --exclude-attributes string            (Windows only) Exclude files whose attributes match the attribute list. For example: A;S;R
+      --exclude-blob-type string             Optionally specifies the type of blob (BlockBlob/ PageBlob/ AppendBlob) to exclude when copying blobs from the container or the account. Use of this flag is not applicable for copying data from non azure-service to service. More than one blob should be separated by ';'. 
+      --exclude-path string                  Exclude these paths when copying. This option does not support wildcard characters (*). Checks relative path prefix(For example: myFolder;myFolder/subDirName/file.pdf). When used in combination with account traversal, paths do not include the container name.
+      --exclude-pattern string               Exclude these files when copying. This option supports wildcard characters (*)
+      --follow-symlinks                      Follow symbolic links when uploading from local file system.
+      --from-to string                       Optionally specifies the source destination combination. For Example: LocalBlob, BlobLocal, LocalBlobFS.
+  -h, --help                                 help for copy
+      --include-attributes string            (Windows only) Include files whose attributes match the attribute list. For example: A;S;R
+      --include-path string                  Include only these paths when copying. This option does not support wildcard characters (*). Checks relative path prefix (For example: myFolder;myFolder/subDirName/file.pdf).
+      --include-pattern string               Include only these files when copying. This option supports wildcard characters (*). Separate files by using a ';'.
+      --log-level string                     Define the log verbosity for the log file, available levels: INFO(all requests/responses), WARNING(slow responses), ERROR(only failed requests), and NONE(no output logs). (default 'INFO'). (default "INFO")
+      --metadata string                      Upload to Azure Storage with these key-value pairs as metadata.
+      --no-guess-mime-type                   Prevents AzCopy from detecting the content-type based on the extension or content of the file.
+      --overwrite string                     Overwrite the conflicting files and blobs at the destination if this flag is set to true. (default 'true') Possible values include 'true', 'false', 'prompt', and 'ifSourceNewer'. (default "true")
+      --page-blob-tier string                Upload page blob to Azure Storage using this blob tier. (default 'None'). (default "None")
+      --preserve-last-modified-time          Only available when destination is file system.
+      --put-md5                              Create an MD5 hash of each file, and save the hash as the Content-MD5 property of the destination blob or file. (By default the hash is NOT created.) Only available when uploading.
+      --recursive                            Look into sub-directories recursively when uploading from local file system.
+      --s2s-detect-source-changed            Check if source has changed after enumerating. 
+      --s2s-handle-invalid-metadata string   Specifies how invalid metadata keys are handled. Available options: ExcludeIfInvalid, FailIfInvalid, RenameIfInvalid. (default 'ExcludeIfInvalid'). (default "ExcludeIfInvalid")
+      --s2s-preserve-access-tier             Preserve access tier during service to service copy. Please refer to [Azure Blob storage: hot, cool, and archive access tiers](https://docs.microsoft.com/azure/storage/blobs/storage-blob-storage-tiers) to ensure destination storage account supports setting access tier. In the cases that setting access tier is not supported, please use s2sPreserveAccessTier=false to bypass copying access tier. (default true).  (default true)
+      --s2s-preserve-properties              Preserve full properties during service to service copy. For AWS S3 and Azure File non-single file source, the list operation doesn't return full properties of objects and files. To preserve full properties, AzCopy needs to send one additional request per object or file. (default true)
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+Generates documentation for the tool in Markdown format, and stores them in the designated location.
+
+By default, the files are stored in a folder named 'doc' inside the current directory.
+
+Usage:
+  azcopy doc [flags]
+
+Flags:
+  -h, --help                     help for doc
+      --output-location string   where to put the generated markdown files (default "./doc")
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+Shows the environment variables that you can use to configure the behavior of AzCopy.
+
+If you set an environment variable by using the command line, that variable will be readable in your command line history. Consider clearing variables that contain credentials from your command line history.  To keep variables from appearing in your history, you can use a script to prompt the user for their credentials, and to set the environment variable.
+
+Usage:
+  azcopy env [flags]
+
+Flags:
+  -h, --help             help for env
+      --show-sensitive   Shows sensitive/secret environment variables.
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+
+INFO: Name: AZCOPY_CONCURRENCY_VALUE
+Current Value:
+Description: Overrides how many HTTP connections work on transfers. By default, this number is determined based on the number of logical cores on the machine.
+
+INFO: Name: AZCOPY_CONCURRENT_FILES
+Current Value:
+Description: Overrides the (approximate) number of files that are in progress at any one time, by controlling how many files we concurrently initiate transfers for.
+
+INFO: Name: AZCOPY_LOG_LOCATION
+Current Value:
+Description: Overrides where the log files are stored, to avoid filling up a disk.
+
+INFO: Name: AZCOPY_JOB_PLAN_LOCATION
+Current Value:
+Description: Overrides where the job plan files (used for progress tracking and resuming) are stored, to avoid filling up a disk.
+
+INFO: Name: AZCOPY_BUFFER_GB
+Current Value:
+Description: Max number of GB that AzCopy should use for buffering data between network and disk. May include decimal point, e.g. 0.5. The default is based on machine size.
+
+INFO: Name: AWS_ACCESS_KEY_ID
+Current Value:
+Description: The AWS access key ID for S3 source used in service to service copy.
+
+INFO: Name: AWS_SECRET_ACCESS_KEY
+Current Value:
+Description: The AWS secret access key for S3 source used in service to service copy.
+
+INFO: Name: AZCOPY_SHOW_PERF_STATES
+Current Value:
+Description: If set, to anything, on-screen output will include counts of chunks by state
+
+INFO: Name: AZCOPY_PACE_PAGE_BLOBS
+Current Value:
+Description: Should throughput for page blobs automatically be adjusted to match Service limits? Default is true. Set to 'false' to disable
+
+INFO: Name: AZCOPY_DEFAULT_SERVICE_API_VERSION
+Current Value:
+Description: Overrides the service API version so that AzCopy could accommodate custom environments such as Azure Stack.
+
+INFO: Name: AZCOPY_SPA_CLIENT_SECRET
+Current Value:
+Description: The Azure Active Directory client secret used for Service Principal authentication
+
+INFO: Name: AZCOPY_SPA_CERT_PASSWORD
+Current Value:
+Description: The password used to decrypt the certificate used for Service Principal authentication.
+
+INFO: Name: AZCOPY_TUNE_TO_CPU
+Current Value:
+Description: Set to false to prevent AzCopy from taking CPU usage into account when auto-tuning its concurrency level (e.g. in the benchmark command).
+
+INFO: Name: AZCOPY_CACHE_PROXY_LOOKUP
+Current Value: 
+Description: By default AzCopy on Windows will cache proxy server lookups at hostname level (not taking URL path into account). Set to any other value than 'true' to disable the cache.
+
+INFO: Name: AZCOPY_USER_AGENT_PREFIX
+Current Value:
+Description: Add a prefix to the default AzCopy User Agent, which is used for telemetry purposes. A space is automatically inserted.
+
+------------------------------------------------------------ 
+Help provides help for any command in the application.
+Simply type azcopy help [path to command] for full details.
+
+Usage:
+  azcopy help [command] [flags]
+
+Flags:
+  -h, --help   help for help
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+Sub-commands related to managing jobs.
+
+Usage:
+  azcopy jobs [command]
+
+Examples:
+azcopy jobs show [jobID]
+
+Available Commands:
+  clean       Remove all log and plan files for all jobs
+  list        Displays information on all jobs
+  remove      Remove all files associated with the given job ID.
+  resume      Resume the existing job with the given job ID.
+  show        Show detailed information for the given job ID
+
+Flags:
+  -h, --help   help for jobs
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+
+Use "azcopy jobs [command] --help" for more information about a command.
+------------------------------------------------------------ 
+List the entities in a given resource. Blob, Files, and ADLS Gen 2 containers, folders, and accounts are supported.
+
+Usage:
+  azcopy list [containerURL] [flags]
+
+Aliases:
+  list, ls
+
+Examples:
+azcopy list [containerURL]
+
+Flags:
+  -h, --help               help for list
+      --machine-readable   Lists file sizes in bytes.
+      --mega-units         Displays units in orders of 1000, not 1024.
+      --running-tally      Counts the total number of files and their sizes.
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+To be authorized to your Azure Storage account, you must assign the **Storage Blob Data Contributor** role to your user account in the context of either the Storage account, parent resource group or parent subscription.
+This command will cache encrypted login information for current user using the OS built-in mechanisms.
+Please refer to the examples for more information.
+
+If you set an environment variable by using the command line, that variable will be readable in your command line history. Consider clearing variables that contain credentials from your command line history.  To keep variables from appearing in your history, you can use a script to prompt the user for their credentials, and to set the environment variable.
+
+Usage:
+  azcopy login [flags]
+
+Examples:
+Log in interactively with default AAD tenant ID set to common:
+- azcopy login
+
+Log in interactively with a specified tenant ID:
+
+   - azcopy login --tenant-id "[TenantID]"
+
+Log in by using the system-assigned identity of a Virtual Machine (VM):
+
+   - azcopy login --identity
+
+Log in by using the user-assigned identity of a VM and a Client ID of the service identity:
+   
+   - azcopy login --identity --identity-client-id "[ServiceIdentityClientID]"
+
+Log in by using the user-assigned identity of a VM and an Object ID of the service identity:
+
+   - azcopy login --identity --identity-object-id "[ServiceIdentityObjectID]"
+
+Log in by using the user-assigned identity of a VM and a Resource ID of the service identity:
+ 
+   - azcopy login --identity --identity-resource-id "/subscriptions/<subscriptionId>/resourcegroups/myRG/providers/Microsoft.ManagedIdentity/userAssignedIdentities/myID"
+
+Log in as a service principal by using a client secret:
+Set the environment variable AZCOPY_SPA_CLIENT_SECRET to the client secret for secret based service principal auth.
+
+   - azcopy login --service-principal
+
+Log in as a service principal by using a certificate and it's password:
+Set the environment variable AZCOPY_SPA_CERT_PASSWORD to the certificate's password for cert based service principal auth
+
+   - azcopy login --service-principal --certificate-path /path/to/my/cert
+
+   Please treat /path/to/my/cert as a path to a PEM or PKCS12 file-- AzCopy does not reach into the system cert store to obtain your certificate.
+   --certificate-path is mandatory when doing cert-based service principal auth.
+
+
+Flags:
+      --aad-endpoint string           The Azure Active Directory endpoint to use. The default (https://login.microsoftonline.com) is correct for the public Azure cloud. Set this parameter when authenticating in a national cloud. Not needed for Managed Service Identity
+      --application-id string         Application ID of user-assigned identity. Required for service principal auth.
+      --certificate-path string       Path to certificate for SPN authentication. Required for certificate-based service principal auth.
+  -h, --help                          help for login
+      --identity                      Log in using virtual machine's identity, also known as managed service identity (MSI).
+      --identity-client-id string     Client ID of user-assigned identity.
+      --identity-object-id string     Object ID of user-assigned identity.
+      --identity-resource-id string   Resource ID of user-assigned identity.
+      --service-principal             Log in via Service Principal Name (SPN) by using a certificate or a secret. The client secret or certificate password must be placed in the appropriate environment variable. Type AzCopy env to see names and descriptions of environment variables.
+      --tenant-id string              The Azure Active Directory tenant ID to use for OAuth device interactive login.
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+This command will remove all of the cached login information for the current user.
+
+Usage:
+  azcopy logout [flags]
+
+Flags:
+  -h, --help   help for logout
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+Create a container or file share represented by the given resource URL.
+
+Usage:
+  azcopy make [resourceURL] [flags]
+
+Aliases:
+  make, mk, mkdir
+
+Examples:
+
+  - azcopy make "https://[account-name].[blob,file,dfs].core.windows.net/[top-level-resource-name]"
+
+
+Flags:
+  -h, --help              help for make
+      --quota-gb uint32   Specifies the maximum size of the share in gigabytes (GiB), 0 means you accept the file service's default quota.
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+"Delete blobs or files from an Azure storage account"
+
+Usage:
+  azcopy remove [resourceURL] [flags]
+
+Aliases:
+  remove, rm, r
+
+Examples:
+
+Remove a single blob by using a SAS token:
+
+   - azcopy rm "https://[account].blob.core.windows.net/[container]/[path/to/blob]?[SAS]"
+
+Remove an entire virtual directory by using a SAS token:
+ 
+   - azcopy rm "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true
+
+Remove only the blobs inside of a virtual directory, but don't remove any subdirectories or blobs within those subdirectories:
+
+   - azcopy rm "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]" --recursive=false
+
+Remove a subset of blobs in a virtual directory (For example: remove only jpg and pdf files, or if the blob name is "exactName"):
+
+   - azcopy rm "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true --include="*.jpg;*.pdf;exactName"
+
+Remove an entire virtual directory but exclude certain blobs from the scope (For example: every blob that starts with foo or ends with bar):
+
+   - azcopy rm "https://[account].blob.core.windows.net/[container]/[path/to/directory]?[SAS]" --recursive=true --exclude="foo*;*bar"
+
+Remove specific blobs and virtual directories by putting their relative paths (NOT URL-encoded) in a file:
+
+   - azcopy rm "https://[account].blob.core.windows.net/[container]/[path/to/parent/dir]" --recursive=true --list-of-files=/usr/bar/list.txt
+   - file content:
+	   dir1/dir2
+	   blob1
+	   blob2
+
+Remove a single file from a Blob Storage account that has a hierarchical namespace (include/exclude not supported):
+
+   - azcopy rm "https://[account].dfs.core.windows.net/[container]/[path/to/file]?[SAS]"
+
+Remove a single directory from a Blob Storage account that has a hierarchical namespace (include/exclude not supported):
+
+   - azcopy rm "https://[account].dfs.core.windows.net/[container]/[path/to/directory]?[SAS]"
+
+
+Flags:
+      --delete-snapshots string   By default, the delete operation fails if a blob has snapshots. Specify 'include' to remove the root blob and all its snapshots; alternatively specify 'only' to remove only the snapshots but keep the root blob.
+      --exclude-path string       Exclude these paths when removing. This option does not support wildcard characters (*). Checks relative path prefix. For example: myFolder;myFolder/subDirName/file.pdf
+      --exclude-pattern string    Exclude files where the name matches the pattern list. For example: *.jpg;*.pdf;exactName
+  -h, --help                      help for remove
+      --include-path string       Include only these paths when removing. This option does not support wildcard characters (*). Checks relative path prefix. For example: myFolder;myFolder/subDirName/file.pdf
+      --include-pattern string    Include only files where the name matches the pattern list. For example: *.jpg;*.pdf;exactName
+      --list-of-files string      Defines the location of a file which contains the list of files and directories to be deleted. The relative paths should be delimited by line breaks, and the paths should NOT be URL-encoded.
+      --log-level string          Define the log verbosity for the log file. Available levels include: INFO(all requests/responses), WARNING(slow responses), ERROR(only failed requests), and NONE(no output logs). (default 'INFO') (default "INFO")
+      --recursive                 Look into sub-directories recursively when syncing between directories.
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 
+
+The last modified times are used for comparison. The file is skipped if the last modified time in the destination is more recent. The supported pairs are:
+  
+  - local <-> Azure Blob (either SAS or OAuth authentication can be used)
+  - Azure Blob <-> Azure Blob (Source must include a SAS or is publicly accessible; either SAS or OAuth authentication can be used for destination)
+  - Azure File <-> Azure File (Source must include a SAS or is publicly accessible; SAS authentication should be used for destination)
+
+The sync command differs from the copy command in several ways:
+
+  1. By default, the recursive flag is true and sync copies all subdirectories. Sync only copies the top-level files inside a directory if the recursive flag is false.
+  2. When syncing between virtual directories, add a trailing slash to the path (refer to examples) if there's a blob with the same name as one of the virtual directories.
+  3. If the 'deleteDestination' flag is set to true or prompt, then sync will delete files and blobs at the destination that are not present at the source.
+
+Advanced:
+
+Please note that if you don't specify a file extension, AzCopy automatically detects the content type of the files when uploading from the local disk, based on the file extension or content.
+
+The built-in lookup table is small but on Unix it is augmented by the local system's mime.types file(s) if available under one or more of these names:
+  
+  - /etc/mime.types
+  - /etc/apache2/mime.types
+  - /etc/apache/mime.types
+
+On Windows, MIME types are extracted from the registry.
+
+Usage:
+  azcopy sync [flags]
+
+Aliases:
+  sync, sc, s
+
+Examples:
+
+Sync a single file:
+
+   - azcopy sync "/path/to/file.txt" "https://[account].blob.core.windows.net/[container]/[path/to/blob]"
+
+Same as above, but also compute an MD5 hash of the file content, and then save that MD5 hash as the blob's Content-MD5 property. 
+
+   - azcopy sync "/path/to/file.txt" "https://[account].blob.core.windows.net/[container]/[path/to/blob]" --put-md5
+
+Sync an entire directory including its subdirectories (note that recursive is by default on):
+
+   - azcopy sync "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]"
+or
+  - azcopy sync "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]" --put-md5
+
+Sync only the files inside of a directory but not subdirectories or the files inside of subdirectories:
+
+   - azcopy sync "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]" --recursive=false
+
+Sync a subset of files in a directory (For example: only jpg and pdf files, or if the file name is "exactName"):
+
+   - azcopy sync "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]" --include="*.jpg;*.pdf;exactName"
+
+Sync an entire directory but exclude certain files from the scope (For example: every file that starts with foo or ends with bar):
+
+   - azcopy sync "/path/to/dir" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]" --exclude="foo*;*bar"
+
+Sync a single blob:
+
+   - azcopy sync "https://[account].blob.core.windows.net/[container]/[path/to/blob]?[SAS]" "https://[account].blob.core.windows.net/[container]/[path/to/blob]"
+
+Sync a virtual directory:
+
+   - azcopy sync "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]?[SAS]" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]" --recursive=true
+
+Sync a virtual directory that has the same name as a blob (add a trailing slash to the path in order to disambiguate):
+
+   - azcopy sync "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]/?[SAS]" "https://[account].blob.core.windows.net/[container]/[path/to/virtual/dir]/" --recursive=true
+
+Sync an Azure File directory (same syntax as Blob):
+
+   - azcopy sync "https://[account].file.core.windows.net/[share]/[path/to/dir]?[SAS]" "https://[account].file.core.windows.net/[share]/[path/to/dir]" --recursive=true
+
+Note: if include and exclude flags are used together, only files matching the include patterns are used, but those matching the exclude patterns are ignored.
+
+
+Flags:
+      --block-size-mb float         Use this block size (specified in MiB) when uploading to Azure Storage or downloading from Azure Storage. Default is automatically calculated based on file size. Decimal fractions are allowed (For example: 0.25).
+      --check-md5 string            Specifies how strictly MD5 hashes should be validated when downloading. This option is only available when downloading. Available values include: NoCheck, LogOnly, FailIfDifferent, FailIfDifferentOrMissing. (default 'FailIfDifferent'). (default "FailIfDifferent")
+      --delete-destination string   Defines whether to delete extra files from the destination that are not present at the source. Could be set to true, false, or prompt. If set to prompt, the user will be asked a question before scheduling files and blobs for deletion. (default 'false'). (default "false")
+      --exclude-attributes string   (Windows only) Exclude files whose attributes match the attribute list. For example: A;S;R
+      --exclude-path string         Exclude these paths when comparing the source against the destination. This option does not support wildcard characters (*). Checks relative path prefix(For example: myFolder;myFolder/subDirName/file.pdf).
+      --exclude-pattern string      Exclude files where the name matches the pattern list. For example: *.jpg;*.pdf;exactName
+  -h, --help                        help for sync
+      --include-attributes string   (Windows only) Include only files whose attributes match the attribute list. For example: A;S;R
+      --include-pattern string      Include only files where the name matches the pattern list. For example: *.jpg;*.pdf;exactName
+      --log-level string            Define the log verbosity for the log file, available levels: INFO(all requests and responses), WARNING(slow responses), ERROR(only failed requests), and NONE(no output logs). (default INFO). (default "INFO")
+      --put-md5                     Create an MD5 hash of each file, and save the hash as the Content-MD5 property of the destination blob or file. (By default the hash is NOT created.) Only available when uploading.
+      --recursive                   True by default, look into sub-directories recursively when syncing between directories. (default true). (default true)
+      --s2s-preserve-access-tier    Preserve access tier during service to service copy. Please refer to [Azure Blob storage: hot, cool, and archive access tiers](https://docs.microsoft.com/azure/storage/blobs/storage-blob-storage-tiers) to ensure destination storage account supports setting access tier. In the cases that setting access tier is not supported, please use s2sPreserveAccessTier=false to bypass copying access tier. (default true).  (default true)
+
+Flags Applying to All Commands:
+      --cap-mbps uint32      Caps the transfer rate, in megabits per second. Moment-by-moment throughput might vary slightly from the cap. If this option is set to zero, or it is omitted, the throughput isn't capped.
+      --output-type string   Format of the command's output. The choices include: text, json. The default value is 'text'. (default "text")
+------------------------------------------------------------ 

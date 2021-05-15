@@ -1,0 +1,23 @@
+KDUMP(8)                                                                 System Manager's Manual                                                                KDUMP(8)
+
+
+
+NAME
+       kdump - This is just a placeholder until real man page has been written
+
+SYNOPSIS
+       kdump [options] start_address...
+
+DESCRIPTION
+       kdump does not have a man page yet.
+
+OPTIONS
+SEE ALSO
+AUTHOR
+       kdump was written by Eric Biederman.
+
+       This manual page was written by Khalid Aziz <khalid.aziz@hp.com>, for the Debian project (but may be used by others).
+
+
+
+                                                                              Jul 27, 2005                                                                      KDUMP(8)

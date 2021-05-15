@@ -1,0 +1,63 @@
+IP-NTABLE(8)                                                                     Linux                                                                     IP-NTABLE(8)
+
+
+
+NAME
+       ip-ntable - neighbour table configuration
+
+SYNOPSIS
+       ip [ OPTIONS ] ntable  { COMMAND | help }
+
+
+       ip ntable change name NAME [ dev DEV ] [ thresh1 VAL ] [ thresh2 VAL ] [ thresh3 VAL ] [ gc_int MSEC ] [ base_reachable MSEC ] [ retrans MSEC ] [ gc_stale MSEC
+               ] [ delay_probe MSEC ] [ queue LEN ] [ app_probs VAL ] [ ucast_probes VAL ] [ mcast_probes VAL ] [ anycast_delay MSEC ] [ proxy_delay MSEC ] [
+               proxy_queue LEN ] [ locktime MSEC ]
+
+       ip ntable show [ dev DEV ] [ name NAME ]
+
+
+DESCRIPTION
+       ip ntable controls the parameters for the neighbour tables.
+
+
+   ip ntable show - list the ip neighbour tables
+       This commands displays neighbour table parameters and statistics.
+
+
+       dev DEV
+              only list the table attached to this device.
+
+
+       name NAME
+              only lists the table with the given name.
+
+
+   ip ntable change - modify table parameter
+       This command allows modifying table parameters such as timers and queue lengths.
+
+       name NAME
+              the name of the table to modify.
+
+
+       dev DEV
+              the name of the device to modify the table values.
+
+
+EXAMPLES
+       ip ntable show dev eth0
+           Shows the neighbour table (IPv4 ARP and IPv6 ndisc) parameters on device eth0.
+
+       ip ntable change name arp_cache queue 8 dev eth0
+           Changes the number of packets queued while address is being resolved from the default value (3) to 8 packets.
+
+
+SEE ALSO
+       ip(8)
+
+
+AUTHOR
+       Manpage by Stephen Hemminger
+
+
+
+iproute2                                                                      20 Dec 2011                                                                  IP-NTABLE(8)

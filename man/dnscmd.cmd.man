@@ -1,0 +1,77 @@
+Usage: DnsCmd <ServerName> <Command> [<Command Parameters>]
+
+<ServerName>:
+  IP address or host name    -- remote or local DNS server
+  .                          -- DNS server on local machine
+<Command>:
+  /Info                      -- Get server information
+  /Config                    -- Reset server or zone configuration
+  /EnumZones                 -- Enumerate zones
+  /Statistics                -- Query/clear server statistics data
+  /ClearCache                -- Clear DNS server cache
+  /WriteBackFiles            -- Write back all zone or root-hint datafile(s)
+  /StartScavenging           -- Initiates server scavenging
+  /IpValidate                -- Validate remote DNS servers
+  /EnumKSPs                  -- Enumerate available key storage providers
+  /ResetListenAddresses      -- Set server IP address(es) to serve DNS requests
+  /ResetForwarders           -- Set DNS servers to forward recursive queries to
+  /ZoneInfo                  -- View zone information
+  /ZoneAdd                   -- Create a new zone on the DNS server
+  /ZoneDelete                -- Delete a zone from DNS server or DS
+  /ZonePause                 -- Pause a zone
+  /ZoneResume                -- Resume a zone
+  /ZoneReload                -- Reload zone from its database (file or DS)
+  /ZoneWriteBack             -- Write back zone to file
+  /ZoneRefresh               -- Force refresh of secondary zone from master
+  /ZoneUpdateFromDs          -- Update a DS integrated zone by data from DS
+  /ZonePrint                 -- Display all records in the zone
+  /ZoneResetType             -- Change zone type
+  /ZoneResetSecondaries      -- Reset secondary\notify information for a zone
+  /ZoneResetScavengeServers  -- Reset scavenging servers for a zone
+  /ZoneResetMasters          -- Reset secondary zone's master servers
+  /ZoneExport                -- Export a zone to file
+  /ZoneChangeDirectoryPartition -- Move a zone to another directory partition
+  /ZoneSeizeKeymasterRole    -- Seize the key master role for a zone
+  /ZoneTransferKeymasterRole -- Transfer the key master role for a zone
+  /ZoneEnumSKDs              -- Enumerate the signing key descriptors for a zone
+  /ZoneAddSKD                -- Create a new signing key descriptor for a zone
+  /ZoneDeleteSKD             -- Delete a signing key descriptor for a zone
+  /ZoneModifySKD             -- Modify a signing key descriptor for a zone
+  /ZoneValidateSigningParameters -- Validate DNSSEC online signing parameters for a zone
+  /ZoneSetSKDState           -- Set Active and/or Standby keys for a signing key descriptor for a zone
+  /ZoneGetSKDState           -- Retrieve dynamic state for a signing key descriptor for a zone
+  /ZonePerformKeyRollover    -- Trigger a key rollover in a signing key descriptor for a zone
+  /ZonePokeKeyRollover       -- Trigger a key rollover in a signing key descriptor for a zone
+  /ZoneSign                  -- Signs the zone using DNSSEC online signing parameters
+  /ZoneUnsign                -- Removes DNSSEC signatures from a signed zone
+  /ZoneResign                -- Regenerate DNSSEC signatures in a signed zone
+  /EnumRecords               -- Enumerate records at a name
+  /RecordAdd                 -- Create a record in zone or RootHints
+  /RecordDelete              -- Delete a record from zone, RootHints or cache
+  /NodeDelete                -- Delete all records at a name
+  /AgeAllRecords             -- Force aging on node(s) in zone
+  /TrustAnchorAdd            -- Create a new trust anchor zone on the DNS server
+  /TrustAnchorDelete         -- Delete a trust anchor zone from DNS server or DS
+  /EnumTrustAnchors          -- Display status information for trust anchors
+  /TrustAnchorsResetType     -- Change zone type for a trust anchor zone
+  /EnumDirectoryPartitions   -- Enumerate directory partitions
+  /DirectoryPartitionInfo    -- Get info on a directory partition
+  /CreateDirectoryPartition  -- Create a directory partition
+  /DeleteDirectoryPartition  -- Delete a directory partition
+  /EnlistDirectoryPartition  -- Add DNS server to partition replication scope
+  /UnenlistDirectoryPartition -- Remove DNS server from replication scope
+  /CreateBuiltinDirectoryPartitions -- Create built-in partitions
+  /ExportSettings            -- Output settings to DnsSettings.txt in the DNS server database directory
+  /OfflineSign               -- Offline signing zone files, including key generation/deletion
+  /EnumTrustPoints           -- Display active refresh information for all trust points
+  /ActiveRefreshAllTrustPoints -- Perform an active refresh on all trust points now
+  /RetrieveRootTrustAnchors  -- Retrieve root trust anchors via HTTPS
+
+<Command Parameters>:
+  DnsCmd <CommandName> /? -- For help info on specific Command
+
+In future versions of Windows, Microsoft might remove dnscmd.exe.
+
+If you currently use dnscmd.exe to configure and manage the DNS server, Microsoft recommends that you transition to Windows PowerShell.
+
+To view a list of commands for DNS server management, type "Get-Command -Module DnsServer" at the Windows PowerShell prompt. Additional information about Windows PowerShell commands for DNS is available at http://go.microsoft.com/fwlink/?LinkId=217627.

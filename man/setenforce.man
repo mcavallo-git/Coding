@@ -1,0 +1,25 @@
+setenforce(8)                                                      SELinux Command Line documentation                                                     setenforce(8)
+
+
+
+NAME
+       setenforce - modify the mode SELinux is running in
+
+SYNOPSIS
+       setenforce [Enforcing|Permissive|1|0]
+
+DESCRIPTION
+       Use Enforcing or 1 to put SELinux in enforcing mode.
+       Use Permissive or 0 to put SELinux in permissive mode.
+
+       If SELinux is disabled and you want to enable it, or SELinux is enabled and you want to disable it, please see selinux(8).
+
+AUTHOR
+       Dan Walsh, <dwalsh@redhat.com>
+
+SEE ALSO
+       selinux(8), getenforce(8), selinuxenabled(8)
+
+
+
+dwalsh@redhat.com                                                             7 April 2004                                                                setenforce(8)

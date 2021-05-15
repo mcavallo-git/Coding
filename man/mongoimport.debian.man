@@ -1,0 +1,155 @@
+MONGOIMPORT(1)                                                                                                                                                   mongodb-manual                                                                                                                                                  MONGOIMPORT(1)
+
+NAME
+       mongoimport - MongoDB
+
+SYNOPSIS
+       The  mongoimport  tool provides a route to import content from a JSON, CSV, or TSV export created by mongoexport, or potentially, another third-party export tool. See the "/administration/import-export" document for a more in depth usage overview, and the "mongoexport" document for more information regarding mongoexport, which
+       provides the inverse "importing" capability.
+
+       Note   Do not use mongoimport and mongoexport for full instance, production backups because they will not reliably capture data type information. Use mongodump and mongorestore as described in "/administration/backups" for this kind of functionality.
+
+OPTIONS
+       mongoimport
+
+       --help Returns a basic help and usage text.
+
+       --verbose, -v
+              Increases the amount of internal reporting returned on the command line. Increase the verbosity with the -v form by including the option multiple times, (e.g. -vvvvv.)
+
+       --version
+              Returns the version of the mongoimport program.
+
+       --host <hostname><:port>, -h
+              Specifies a resolvable hostname for the mongod to which you want to restore the database. By default mongoimport will attempt to connect to a MongoDB process ruining on the localhost port numbered 27017.
+
+              Optionally, specify a port number to connect a MongoDB instance running on a port other than 27017.
+
+              To connect to a replica set, use the --host argument with a setname, followed by a slash and a comma-separated list of host and port names. mongoimport will, given the seed of at least one connected set member, connect to primary node of that set. This option would resemble:
+
+              --host repl0/mongo0.example.net,mongo0.example.net:27018,mongo1.example.net,mongo2.example.net
+
+              You can always connect directly to a single MongoDB instance by specifying the host and port number directly.
+
+       --port <port>
+              Specifies the port number, if the MongoDB instance is not running on the standard port. (i.e. 27017) You may also specify a port number using the mongoimport --host command.
+
+       --ipv6 Enables IPv6 support that allows mongoimport to connect to the MongoDB instance using an IPv6 network. All MongoDB programs and processes, including mongoimport, disable IPv6 support by default.
+
+       --ssl  New in version 2.4: MongoDB added support for SSL connections to mongod instances in mongoimport.
+
+       Note   SSL support in mongoimport is not compiled into the default distribution of MongoDB. See /administration/ssl for more information on SSL and MongoDB.
+
+              Additionally, mongoimport does not support connections to mongod instances that require client certificate validation.
+
+       Allows mongoimport to connect to mongod instance over an SSL connection.
+
+       --username <username>, -u <username>
+              Specifies a username to authenticate to the MongoDB instance, if your database requires authentication. Use in conjunction with the mongoimport --password option to supply a password.
+
+       --password <password>, -p <password>
+              Specifies a password to authenticate to the MongoDB instance. Use in conjunction with the mongoimport --username option to supply a username.
+
+              If you specify a --username without the --password option, mongoimport will prompt for a password interactively.
+
+       --authenticationDatabase <dbname>
+              New in version 2.4.
+
+              Specifies the database that holds the user's (e.g --username) credentials.
+
+              By default, mongoimport assumes that the database specified to the --db argument holds the user's credentials, unless you specify --authenticationDatabase.
+
+              See userSource, /reference/privilege-documents and /reference/user-privileges for more information about delegated authentication in MongoDB.
+
+       --authenticationMechanism <name>
+              New in version 2.4.
+
+              Specifies the authentication mechanism. By default, the authentication mechanism is MONGODB-CR, which is the MongoDB challenge/response authentication mechanism. In the MongoDB Subscriber Edition, mongoimport also includes support for GSSAPI to handle Kerberos authentication.
+
+              See /tutorial/control-access-to-mongodb-with-kerberos-authentication for more information about Kerberos authentication.
+
+       --dbpath <path>
+              Specifies the directory of the MongoDB data files. If used, the --dbpath option enables mongoimport to attach directly to local data files and insert the data without the mongod. To run with --dbpath, mongoimport needs to lock access to the data directory: as a result, no mongod  can  access  the  same  path  while  the
+              process runs.
+
+       --directoryperdb
+              Use the --directoryperdb in conjunction with the corresponding option to mongod, which allows mongoimport to import data into MongoDB instances that have every database's files saved in discrete directories on the disk. This option is only relevant when specifying the --dbpath option.
+
+       --journal
+              Allows mongoexport write to the durability journal to ensure that the data files will remain in a consistent state during the write process. This option is only relevant when specifying the --dbpath option.
+
+       --db <db>, -d <db>
+              Use  the --db option to specify a database for mongoimport to restore data. If you do not specify a <db>, mongoimport creates new databases that correspond to the databases where data originated and data may be overwritten. Use this option to restore data into a MongoDB instance that already has data, or to restore only
+              some data in the specified backup.
+
+       --collection <collection>, -c <collection>
+              Use the --collection option to specify a collection for mongorestore to restore. If you do not specify a <collection>, mongoimport imports all collections created. Existing data may be overwritten. Use this option to restore data into a MongoDB instance that already has data, or to restore only some data in  the  speci‐
+              fied imported data set.
+
+       --fields <field1<,filed2>>, -f <field1[,filed2]>
+              Specify a comma seperatedlist of field names when importing csv or tsv files that do not have field names in the first (i.e. header) line of the file.
+
+       --fieldFile <filename>
+              As an alternative to --fields the --fieldFile option allows you to specify a file (e.g. <file>`) to that holds a list of field names if your csv or tsv file does not include field names in the first (i.e. header) line of the file. Place one field per line.
+
+       --ignoreBlanks
+              In csv and tsv exports, ignore empty fields. If not specified, mongoimport creates fields without values in imported documents.
+
+       --type <json|csv|tsv>
+              Declare the type of export format to import. The default format is JSON, but it's possible to import csv and tsv files.
+
+       --file <filename>
+              Specify the location of a file containing the data to import. mongoimport will read data from standard input (e.g. "stdin.") if you do not specify a file.
+
+       --drop Modifies the importation procedure so that the target instance drops every collection before restoring the collection from the dumped backup.
+
+       --headerline
+              If using "--type csv" or "--type tsv," use the first line as field names. Otherwise, mongoimport will import the first line as a distinct document.
+
+       --upsert
+              Modifies the import process to update existing objects in the database if they match an imported object, while inserting all other objects.
+
+              If you do not specify a field or fields using the --upsertFields mongoimport will upsert on the basis of the _id field.
+
+       --upsertFields <field1[,field2]>
+              Specifies a list of fields for the query portion of the upsert. Use this option if the _id fields in the existing documents don't match the field in the document, but another field or field combination can uniquely identify documents as a basis for performing upsert operations.
+
+              To ensure adequate performance, indexes should exist for this field or fields.
+
+       --stopOnError
+              New in version 2.2.
+
+              Forces mongoimport to halt the import operation at the first error rather than continuing the operation despite errors.
+
+       --jsonArray
+              Changed in version 2.2: The limit on document size increased from 4MB to 16MB.
+
+              Accept import of data expressed with multiple MongoDB document within a single JSON array.
+
+              Use in conjunction with mongoexport --jsonArray to import data written as a single JSON array. Limited to imports of 16 MB or smaller.
+
+USAGE
+       In this example, mongoimport imports the csv formatted data in the /opt/backups/contacts.csv into the collection contacts in the users database on the MongoDB instance running on the localhost port numbered 27017.
+
+       mongoimport --db users --collection contacts --type csv --file /opt/backups/contacts.csv
+
+       In the following example, mongoimport imports the data in the JSON formatted file contacts.json into the collection contacts on the MongoDB instance running on the localhost port number 27017. Journaling is explicitly enabled.
+
+       mongoimport --collection contacts --file contacts.json --journal
+
+       In the next example, mongoimport takes data passed to it on standard input (i.e. with a | pipe.)  and imports it into the collection contacts in the sales database is the MongoDB datafiles located at /srv/mongodb/. if the import process encounters an error, the mongoimport will halt because of the --stopOnError option.
+
+       mongoimport --db sales --collection contacts --stopOnError --dbpath /srv/mongodb/
+
+       In the final example, mongoimport imports data from the file /opt/backups/mdb1-examplenet.json into the collection contacts within the database marketing on a remote MongoDB database. This mongoimport accesses the mongod instance running on the host mongodb1.example.net over port 37017, which requires the username user and the
+       password pass.
+
+       mongoimport --host mongodb1.example.net --port 37017 --username user --password pass --collection contacts --db marketing --file /opt/backups/mdb1-examplenet.json
+
+AUTHOR
+       MongoDB Documentation Project
+
+COPYRIGHT
+       2011-2013, 10gen, Inc.
+
+2.2.3                                                                                                                                                            March 14, 2013                                                                                                                                                  MONGOIMPORT(1)

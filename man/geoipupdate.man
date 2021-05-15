@@ -1,0 +1,63 @@
+GEOIPUPDATE(1)                                                    General Commands Manual                                                   GEOIPUPDATE(1)
+
+NAME
+       geoipupdate - GeoIP2 and GeoIP Legacy Update Program
+
+SYNOPSIS
+       geoipupdate [-Vvh] [-f license_file] [-d target_directory]
+
+DESCRIPTION
+       geoipupdate  automatically updates GeoIP2 and GeoIP Legacy databases for MaxMind customers. The program connects to the MaxMind GeoIP Update server
+       to check for new databases. If a new database is available, the program will download and install it.
+
+       If you are using a firewall, you must have the DNS and HTTP(S) ports open.
+
+OPTIONS
+       -V     Display version information.
+
+       -v     Enable verbose mode. Prints out the steps that geoipupdate takes.
+
+       -d     Install databases to a custom directory. By default geoipupdate installs to /var/lib/GeoIP.
+
+       -f     Use an alternate configuration file. Defaults to /etc/GeoIP.conf.
+
+USAGE
+       Typically you should run geoipupdate weekly. One way to achieve this is to use cron. Below is a sample crontab file that runs geoipupdate  on  each
+       Wednesday at noon:
+
+              # top of crontab
+
+              MAILTO=your@email.com
+
+              0 12 * * 3 BIN_DIR/geoipupdate
+
+              # end of crontab
+
+       To use with a proxy server, update your GeoIP.conf file as specified in the GeoIP.conf man page or set the http_proxy environment variable.
+
+RETURN CODES
+       geoipupdate returns 0 on success and 1 on error.
+
+FILES
+       /etc/GeoIP.conf
+              Configuration file for GeoIP Update. See the GeoIP.conf(5) man page for more information.
+
+AUTHOR
+       Written by T.J. Mather and Boris Zentner.
+
+REPORTING BUGS
+       Report bugs to <support@maxmind.com>.
+
+COPYRIGHT
+       Copyright (C) 2013 MaxMind, Inc.
+
+       This  is  free  software; see the LICENSE file for copying conditions.  There is NO WARRANTY, express or implied, including, but not limited to, NO
+       IMPLIED WARRANTY of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+MORE INFORMATION
+       Visit <https://www.maxmind.com/en/geolocation_landing> to learn more about the GeoIP2 and GeoIP Legacy databases or to sign up for a subscription.
+
+SEE ALSO
+       GeoIP.conf(5), crontab(5)
+
+4th Berkeley Distribution                                               25 Sep 2013                                                         GEOIPUPDATE(1)

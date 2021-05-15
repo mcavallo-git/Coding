@@ -1,0 +1,421 @@
+MongoDB shell version: 2.4.14
+
+> db.listCommands();
+
+_isSelf: no-lock
+  { _isSelf : 1 } INTERNAL ONLY
+
+_migrateClone: no-lock adminOnly  slaveOk
+  internal - should not be called directly
+
+_recvChunkAbort: no-lock adminOnly  slaveOk
+  internal - should not be called directly
+
+_recvChunkCommit: no-lock adminOnly  slaveOk
+  internal - should not be called directly
+
+_recvChunkStart: write-lock adminOnly  slaveOk
+  internal - should not be called directly
+
+_recvChunkStatus: no-lock adminOnly  slaveOk
+  internal - should not be called directly
+
+_transferMods: no-lock adminOnly  slaveOk
+  internal - should not be called directly
+
+aggregate: no-lock
+  { pipeline : [ { <data-pipe-op>: {...}}, ... ] }
+
+applyOps: write-lock
+  internal (sharding)
+  { applyOps : [ ] , preCondition : [ { ns : ... , q : ... , res : ... } ] }
+
+authenticate: no-lock
+  internal
+
+availableQueryOptions: no-lock
+  no help defined
+
+buildInfo: no-lock
+  get version #, etc.
+  { buildinfo:1 }
+
+checkShardingIndex: no-lock
+  Internal command.
+
+
+clone: write-lock
+  clone this database from an instance of the db on another host
+  { clone : "host13" }
+
+cloneCollection: no-lock
+  { cloneCollection: <collection>, from: <host> [,query: <query_filter>] [,copyIndexes:<bool>] }
+  Copies a collection from one server to another. Do not use on a single server as the destination is placed at the same db.collection (namespace) as the source.
+
+
+cloneCollectionAsCapped: write-lock
+  { cloneCollectionAsCapped:<fromName>, toCollection:<toName>, size:<sizeInBytes> }
+
+closeAllDatabases: write-lock adminOnly  slaveOk
+  Close all database files.
+  A new request will cause an immediate reopening; thus, this is mostly for testing purposes.
+
+collMod: write-lock
+  Sets collection options.
+  Example: { collMod: 'foo', usePowerOf2Sizes:true }
+  Example: { collMod: 'foo', index: {keyPattern: {a: 1}, expireAfterSeconds: 600} }
+
+collStats: read-lock
+  { collStats:"blog.posts" , scale : 1 } scale divides sizes e.g. for KB use 1024
+      avgObjSize - in bytes
+
+compact: no-lock
+  compact collection
+  warning: this operation blocks the server and is slow. you can cancel with cancelOp()
+  { compact : <collection_name>, [force:<bool>], [validate:<bool>],
+    [paddingFactor:<num>], [paddingBytes:<num>] }
+    force - allows to run on a replica set primary
+    validate - check records are noncorrupt before adding to newly compacting extents. slower but safer (defaults to true in this version)
+
+
+connPoolStats: no-lock
+  stats about connection pool
+
+connPoolSync: no-lock
+  internal
+
+connectionStatus: no-lock
+  Returns connection-specific information such as logged-in users
+
+convertToCapped: write-lock
+  { convertToCapped:<fromCollectionName>, size:<sizeInBytes> }
+
+copydb: no-lock adminOnly  slaveOk
+  copy a database from another host to this host
+  usage: {copydb: 1, fromhost: <hostname>, fromdb: <db>, todb: <db>[, slaveOk: <bool>, username: <username>, nonce: <nonce>, key: <key>]}
+
+copydbgetnonce: write-lock adminOnly  slaveOk
+  get a nonce for subsequent copy db request from secure server
+  usage: {copydbgetnonce: 1, fromhost: <hostname>}
+
+count: read-lock
+  count objects in collection
+
+create: write-lock
+  create a collection explicitly
+  { create: <ns>[, capped: <bool>, size: <collSizeInBytes>, max: <nDocs>] }
+
+cursorInfo: no-lock
+   example: { cursorInfo : 1 }
+
+dataSize: read-lock
+  determine data size for a set of data in a certain range
+  example: { dataSize:"blog.posts", keyPattern:{x:1}, min:{x:10}, max:{x:55} }
+  min and max parameters are optional. They must either both be included or both omitted
+  keyPattern is an optional parameter indicating an index pattern that would be usefulfor iterating over the min/max bounds. If keyPattern is omitted, it is inferred from the structure of min.
+  note: This command may take a while to run
+
+dbHash: read-lock
+  no help defined
+
+dbStats: read-lock
+  Get stats on a database. Not instantaneous. Slower for databases with large .ns files.
+  Example: { dbStats:1, scale:1 }
+
+diagLogging: write-lock adminOnly  slaveOk
+  http://dochub.mongodb.org/core/monitoring#MonitoringandDiagnostics-DatabaseRecord%2FReplay%28diagLoggingcommand%29
+
+distinct: read-lock
+  { distinct : 'collection name' , key : 'a.b' , query : {} }
+
+driverOIDTest: no-lock
+  no help defined
+
+drop: write-lock
+  drop a collection
+  {drop : <collectionName>}
+
+dropDatabase: write-lock
+  drop (delete) this database
+
+dropIndexes: write-lock
+  drop indexes for a collection
+
+eval: no-lock
+  Evaluate javascript at the server.
+  http://dochub.mongodb.org/core/serversidecodeexecution
+
+features: no-lock
+  return build level feature settings
+
+filemd5: read-lock
+   example: { filemd5 : ObjectId(aaaaaaa) , root : "fs" }
+
+findAndModify: write-lock
+  { findAndModify: "collection", query: {processed:false}, update: {$set: {processed:true}}, new: true}
+  { findAndModify: "collection", query: {processed:false}, remove: true, sort: {priority:-1}}
+  Either update or remove is required, all other fields have default values.
+  Output is in the "value" field
+
+
+forceerror: no-lock
+  for testing purposes only.  forces a user assertion exception
+
+fsync: no-lock adminOnly  slaveOk
+  http://dochub.mongodb.org/core/fsynccommand
+
+geoNear: read-lock
+  http://dochub.mongodb.org/core/geo#GeospatialIndexing-geoNearCommand
+
+geoSearch: read-lock
+  no help defined
+
+geoWalk: read-lock
+  no help defined
+
+getCmdLineOpts: no-lock adminOnly  slaveOk
+  get argv
+
+getLastError: no-lock
+  return error status of the last operation on this connection
+  options:
+    { fsync:true } - fsync before returning, or wait for journal commit if running with --journal
+    { j:true } - wait for journal commit if running with --journal
+    { w:n } - await replication to n servers (including self) before returning
+    { wtimeout:m} - timeout for w in m milliseconds
+
+getLog: no-lock adminOnly  slaveOk
+  { getLog : '*' }  OR { getLog : 'global' }
+
+getParameter: no-lock adminOnly  slaveOk
+  get administrative option(s)
+  example:
+  { getParameter:1, notablescan:1 }
+  supported:
+    authOnPrimaryOnly
+    enableLocalhostAuthBypass
+    enableTestCommands
+    ignoreInitialVersionFailure
+    logLevel
+    logUserIds
+    notablescan
+    quiet
+    releaseConnectionsAfterResponse
+    replApplyBatchSize
+    replIndexPrefetch
+    supportCompatibilityFormPrivilegeDocuments
+    syncdelay
+    textSearchEnabled
+    ttlMonitorEnabled
+  { getParameter:'*' } to get everything
+
+
+getPrevError: no-lock
+  check for errors since last reseterror commandcal
+
+getShardMap: no-lock adminOnly  slaveOk
+  internal
+
+getShardVersion: no-lock adminOnly  slaveOk
+   example: { getShardVersion : 'alleyinsider.foo'  }
+
+getnonce: no-lock
+  internal
+
+getoptime: no-lock
+  internal
+
+group: read-lock
+  http://dochub.mongodb.org/core/aggregation
+
+handshake: no-lock
+  internal
+
+hostInfo: no-lock
+  returns information about the daemon's host
+
+isMaster: no-lock
+  Check if this server is primary for a replica pair/set; also if it is --master or --slave in simple master/slave setups.
+  { isMaster : 1 }
+
+listCommands: no-lock
+  get a list of all db commands
+
+listDatabases: no-lock adminOnly  slaveOk
+  list databases on this server
+
+logRotate: no-lock adminOnly  slaveOk
+  no help defined
+
+logout: no-lock
+  de-authenticate
+
+mapReduce: no-lock
+  Run a map/reduce operation on the server.
+  Note this is used for aggregation, not querying, in MongoDB.
+  http://dochub.mongodb.org/core/mapreduce
+
+mapreduce.shardedfinish: no-lock
+  no help defined
+
+medianKey: no-lock
+  Deprecated internal command. Use splitVector command instead.
+
+
+moveChunk: no-lock adminOnly  slaveOk
+  should not be calling this directly
+
+ping: no-lock
+  a way to check that the server is alive. responds immediately even if server is in a db lock.
+
+profile: write-lock
+  enable or disable performance profiling
+  { profile : <n> }
+  0=off 1=log slow ops 2=log all
+  -1 to get current values
+  http://dochub.mongodb.org/core/databaseprofiler
+
+reIndex: write-lock
+  re-index a collection
+
+renameCollection: write-lock adminOnly  slaveOk
+   example: { renameCollection: foo.a, to: bar.b }
+
+repairDatabase: write-lock
+  repair database.  also compacts. note: slow.
+
+replSetElect: no-lock adminOnly  slaveOk
+  internal
+
+replSetFreeze: no-lock adminOnly  slaveOk
+  { replSetFreeze : <seconds> }'freeze' state of member to the extent we can do that.  What this really means is that
+  this node will not attempt to become primary until the time period specified expires.
+  You can call again with {replSetFreeze:0} to unfreeze sooner.
+  A process restart unfreezes the member also.
+
+  http://dochub.mongodb.org/core/replicasetcommands
+
+replSetFresh: no-lock adminOnly  slaveOk
+  internal
+
+replSetGetRBID: no-lock adminOnly  slaveOk
+  internal
+
+replSetGetStatus: no-lock adminOnly  slaveOk
+  Report status of a replica set from the POV of this server
+  { replSetGetStatus : 1 }
+  http://dochub.mongodb.org/core/replicasetcommands
+
+replSetHeartbeat: no-lock adminOnly  slaveOk
+  internal
+
+replSetInitiate: no-lock adminOnly  slaveOk
+  Initiate/christen a replica set.
+  http://dochub.mongodb.org/core/replicasetcommands
+
+replSetMaintenance: no-lock adminOnly  slaveOk
+  { replSetMaintenance : bool }
+  Enable or disable maintenance mode.
+
+replSetReconfig: no-lock adminOnly  slaveOk
+  Adjust configuration of a replica set
+  { replSetReconfig : config_object }
+  http://dochub.mongodb.org/core/replicasetcommands
+
+replSetStepDown: no-lock adminOnly  slaveOk
+  { replSetStepDown : <seconds> }
+  Step down as primary.  Will not try to reelect self for the specified time period (1 minute if no numeric secs value specified).
+  (If another member with same priority takes over in the meantime, it will stay primary.)
+  http://dochub.mongodb.org/core/replicasetcommands
+
+replSetSyncFrom: no-lock adminOnly  slaveOk
+  { replSetSyncFrom : "host:port" }
+  Change who this member is syncing from.
+
+resetError: no-lock
+  reset error state (used with getpreverror)
+
+resync: write-lock adminOnly  slaveOk
+  resync (from scratch) an out of date replica slave.
+  http://dochub.mongodb.org/core/masterslave
+
+serverStatus: no-lock
+  returns lots of administrative server statistics
+
+setParameter: no-lock adminOnly  slaveOk
+  set administrative option(s)
+  { setParameter:1, <param>:<value> }
+  supported:
+    authOnPrimaryOnly
+    enableLocalhostAuthBypass
+    enableTestCommands
+    ignoreInitialVersionFailure
+    logLevel
+    logUserIds
+    notablescan
+    quiet
+    releaseConnectionsAfterResponse
+    replApplyBatchSize
+    replIndexPrefetch
+    supportCompatibilityFormPrivilegeDocuments
+    syncdelay
+    textSearchEnabled
+    ttlMonitorEnabled
+
+
+setShardVersion: no-lock adminOnly  slaveOk
+   example: { setShardVersion : 'alleyinsider.foo' , version : 1 , configdb : '' }
+
+shardConnPoolStats: no-lock
+  stats about the shard connection pool
+
+shardingState: write-lock adminOnly  slaveOk
+  no help defined
+
+shutdown: no-lock adminOnly  slaveOk
+  shutdown the database.  must be ran against admin db and either (1) ran from localhost or (2) authenticated. If this is a primary in a replica set and there is no member within 10 seconds of its optime, it will not shutdown without force : true.  You can also specify timeoutSecs : N to wait N seconds for other members to catch up.
+
+splitChunk: no-lock adminOnly  slaveOk
+  internal command usage only
+  example:
+   { splitChunk:"db.foo" , keyPattern: {a:1} , min : {a:100} , max: {a:200} { splitKeys : [ {a:150} , ... ]}
+
+splitVector: no-lock
+  Internal command.
+  examples:
+    { splitVector : "blog.post" , keyPattern:{x:1} , min:{x:10} , max:{x:20}, maxChunkSize:200 }
+    maxChunkSize unit in MBs
+    May optionally specify 'maxSplitPoints' and 'maxChunkObjects' to avoid traversing the whole chunk
+
+    { splitVector : "blog.post" , keyPattern:{x:1} , min:{x:10} , max:{x:20}, force: true }
+    'force' will produce one split point even if data is small; defaults to false
+  NOTE: This command may take a while to run
+
+text: read-lock
+  no help defined
+
+top: no-lock adminOnly  slaveOk
+  usage by collection, in micros
+
+touch: no-lock
+  touch collection
+  Page in all pages of memory containing every extent for the given collection
+  { touch : <collection_name>, [data : true] , [index : true] }
+   at least one of data or index must be true; default is both are false
+
+
+unsetSharding: no-lock adminOnly  slaveOk
+   example: { unsetSharding : 1 }
+
+validate: read-lock
+  Validate contents of a namespace by scanning its data structures for correctness.  Slow.
+  Add full:true option to do a more thorough check
+
+whatsmyuri: no-lock
+  {whatsmyuri:1}
+
+writeBacksQueued: no-lock adminOnly  slaveOk
+  Returns whether there are operations in the writeback queue at the time the command was called. This is an internal command
+
+writebacklisten: no-lock adminOnly  slaveOk
+  internal

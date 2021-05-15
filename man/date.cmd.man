@@ -1,0 +1,10 @@
+Displays or sets the date.
+
+DATE [/T | date]
+
+Type DATE without parameters to display the current date setting and
+a prompt for a new one.  Press ENTER to keep the same date.
+
+If Command Extensions are enabled the DATE command supports
+the /T switch which tells the command to just output the
+current date, without prompting for a new date.

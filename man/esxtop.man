@@ -1,0 +1,14 @@
+usage: esxtop [-h] [-v] [-b] [-l] [-s] [-a] [-c config file] [-R vm-support-dir-path] [-d delay] [-n iterations] [-export-entity entity-file] [-import-entity entity-file]
+              -h prints this help menu.
+              -v prints version.
+              -b enables batch mode.
+              -l locks the esxtop objects to those available in the first snapshot.
+              -s enables secure mode.
+              -a show all statistics.
+              -c sets the esxtop configuration file, which by default is .esxtop60rc
+              -R enables replay mode.
+              -d sets the delay between updates in seconds.
+              -n runs esxtop for only n iterations. Use "-n infinity" to run esxtop forever.
+              -----Experimental Features-------------
+              -export-entity writes the entity ids into a file, which can be modified to select interesting entities.
+              -import-entity reads the file of selected entities. If this opion is used, esxtop only shows the data for the selected entities.

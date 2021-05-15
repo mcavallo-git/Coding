@@ -1,0 +1,60 @@
+SERVICE(8)                                    System Manager's Manual                                   SERVICE(8)
+
+NAME
+       service - run a System V init script
+
+SYNOPSIS
+       service SCRIPT COMMAND [OPTIONS]
+
+       service --status-all
+
+       service --help | -h | --version
+
+DESCRIPTION
+       service  runs a System V init script or systemd unit in as predictable an environment as possible, removing
+       most environment variables and with the current working directory set to /.
+
+       The SCRIPT parameter specifies a System V init script, located in /etc/init.d/SCRIPT, or the name of a sys‐
+       temd  unit. The existence of a systemd unit of the same name as a script in /etc/init.d will cause the unit
+       to take precedence over the init.d script.  The supported values of COMMAND depend on the  invoked  script.
+       service  passes COMMAND  and OPTIONS to the init script unmodified. For systemd units, start, stop, status,
+       and reload are passed through to their systemctl/initctl equivalents.
+
+       All scripts should support at least the start and  stop  commands.   As  a  special  case,  if  COMMAND  is
+       --full-restart, the script is run twice, first with the stop command, then with the start command.
+
+       service --status-all runs all init scripts, in alphabetical order, with the status command. The status is [
+       + ] for running services, [ - ] for stopped services and [ ? ] for services without a status command.  This
+       option only calls status for sysvinit jobs.
+
+EXIT CODES
+       service calls the init script and returns the status returned by it.
+
+FILES
+       /etc/init.d
+              The directory containing System V init scripts.
+
+       /{lib,run,etc}/systemd/system
+              The directories containing systemd units.
+
+ENVIRONMENT
+       LANG,  LANGUAGE,  LC_CTYPE,  LC_NUMERIC,  LC_TIME, LC_COLLATE, LC_MONETARY, LC_MESSAGES, LC_PAPER, LC_NAME,
+       LC_ADDRESS, LC_TELEPHONE, LC_MEASUREMENT, LC_IDENTIFICATION, LC_ALL, TERM, PATH
+              The only environment variables passed to the init scripts.
+
+SEE ALSO
+       /etc/init.d/skeleton
+       update-rc.d(8)
+       init(8)
+       invoke-rc.d(8)
+       systemctl(1)
+
+AUTHOR
+       Miloslav Trmac <mitr@redhat.com>, Petter Reinholdtsen <pere@hungry.com>
+
+       Licence: GNU Public Licence v2 (GPLv2)
+
+COPYRIGHT
+       2006 Red Hat, Inc.,  Petter Reinholdtsen <pere@hungry.com>
+
+Jan 206                                                                                                 SERVICE(8)

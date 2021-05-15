@@ -1,0 +1,51 @@
+IP-MADDRESS(8)                                                                   Linux                                                                   IP-MADDRESS(8)
+
+
+
+NAME
+       ip-maddress - multicast addresses management
+
+SYNOPSIS
+       ip [ OPTIONS ] maddress  { COMMAND | help }
+
+
+       ip maddress [ add | del ] MULTIADDR dev NAME
+
+       ip maddress show [ dev NAME ]
+
+
+DESCRIPTION
+       maddress objects are multicast addresses.
+
+
+   ip maddress show - list multicast addresses
+       dev NAME (default)
+              the device name.
+
+
+       ip maddress add - add a multicast address
+
+       ip maddress delete - delete a multicast address
+
+              These commands attach/detach a static link-layer multicast address to listen on the interface.  Note that it is impossible to join protocol multicast
+              groups statically. This command only manages link-layer addresses.
+
+
+              address LLADDRESS (default)
+                     the link-layer multicast address.
+
+
+              dev NAME
+                     the device to join/leave this multicast address.
+
+
+SEE ALSO
+       ip(8)
+
+
+AUTHOR
+       Original Manpage by Michail Litvak <mci@owl.openwall.com>
+
+
+
+iproute2                                                                      20 Dec 2011                                                                IP-MADDRESS(8)

@@ -1,0 +1,129 @@
+GROUPADD(8)                                                     System Management Commands                                                     GROUPADD(8)
+
+NAME
+       groupadd - create a new group
+
+SYNOPSIS
+       groupadd [options] group
+
+DESCRIPTION
+       The groupadd command creates a new group account using the values specified on the command line plus the default values from the system. The new
+       group will be entered into the system files as needed.
+
+OPTIONS
+       The options which apply to the groupadd command are:
+
+       -f, --force
+           This option causes the command to simply exit with success status if the specified group already exists. When used with -g, and the specified
+           GID already exists, another (unique) GID is chosen (i.e.  -g is turned off).
+
+       -g, --gid GID
+           The numerical value of the group's ID. This value must be unique, unless the -o option is used. The value must be non-negative. The default is
+           to use the smallest ID value greater than or equal to GID_MIN and greater than every other group.
+
+           See also the -r option and the GID_MAX description.
+
+       -h, --help
+           Display help message and exit.
+
+       -K, --key KEY=VALUE
+           Overrides /etc/login.defs defaults (GID_MIN, GID_MAX and others). Multiple -K options can be specified.
+
+           Example: -K GID_MIN=100  -K GID_MAX=499
+
+           Note: -K GID_MIN=10,GID_MAX=499 doesn't work yet.
+
+       -o, --non-unique
+           This option permits to add a group with a non-unique GID.
+
+       -p, --password PASSWORD
+           The encrypted password, as returned by crypt(3). The default is to disable the password.
+
+           Note: This option is not recommended because the password (or encrypted password) will be visible by users listing the processes.
+
+           You should make sure the password respects the system's password policy.
+
+       -r, --system
+           Create a system group.
+
+           The numeric identifiers of new system groups are chosen in the SYS_GID_MIN-SYS_GID_MAX range, defined in login.defs, instead of
+           GID_MIN-GID_MAX.
+
+       -R, --root CHROOT_DIR
+           Apply changes in the CHROOT_DIR directory and use the configuration files from the CHROOT_DIR directory.
+
+CONFIGURATION
+       The following configuration variables in /etc/login.defs change the behavior of this tool:
+
+       GID_MAX (number), GID_MIN (number)
+           Range of group IDs used for the creation of regular groups by useradd, groupadd, or newusers.
+
+           The default value for GID_MIN (resp.  GID_MAX) is 1000 (resp. 60000).
+
+       MAX_MEMBERS_PER_GROUP (number)
+           Maximum members per group entry. When the maximum is reached, a new group entry (line) is started in /etc/group (with the same name, same
+           password, and same GID).
+
+           The default value is 0, meaning that there are no limits in the number of members in a group.
+
+           This feature (split group) permits to limit the length of lines in the group file. This is useful to make sure that lines for NIS groups are
+           not larger than 1024 characters.
+
+           If you need to enforce such limit, you can use 25.
+
+           Note: split groups may not be supported by all tools (even in the Shadow toolsuite). You should not use this variable unless you really need
+           it.
+
+       SYS_GID_MAX (number), SYS_GID_MIN (number)
+           Range of group IDs used for the creation of system groups by useradd, groupadd, or newusers.
+
+           The default value for SYS_GID_MIN (resp.  SYS_GID_MAX) is 101 (resp.  GID_MIN-1).
+
+FILES
+       /etc/group
+           Group account information.
+
+       /etc/gshadow
+           Secure group account information.
+
+       /etc/login.defs
+           Shadow password suite configuration.
+
+CAVEATS
+       It is usually recommended to only use groupnames that begin with a lower case letter or an underscore, followed by lower case letters, digits,
+       underscores, or dashes. They can end with a dollar sign. In regular expression terms: [a-z_][a-z0-9_-]*[$]?
+
+       On Debian, the only constraints are that groupnames must neither start with a dash ('-') nor plus ('+') nor tilde ('~') nor contain a colon (':'),
+       a comma (','), or a whitespace (space:' ', end of line: '\n', tabulation: '\t', etc.).
+
+       Groupnames may only be up to 32 characters long.
+
+       You may not add a NIS or LDAP group. This must be performed on the corresponding server.
+
+       If the groupname already exists in an external group database such as NIS or LDAP, groupadd will deny the group creation request.
+
+EXIT VALUES
+       The groupadd command exits with the following values:
+
+       0
+           success
+
+       2
+           invalid command syntax
+
+       3
+           invalid argument to option
+
+       4
+           GID not unique (when -o not used)
+
+       9
+           group name not unique
+
+       10
+           can't update group file
+
+SEE ALSO
+       chfn(1), chsh(1), passwd(1), gpasswd(8), groupdel(8), groupmod(8), login.defs(5), useradd(8), userdel(8), usermod(8).
+
+shadow-utils 4.5                                                        01/25/2018                                                             GROUPADD(8)

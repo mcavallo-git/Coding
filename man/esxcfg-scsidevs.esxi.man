@@ -1,0 +1,22 @@
+esxcfg-scsidevs <options>
+Print the mappings between vmhba names and /dev names
+-l|--list                  List all Logical Devices known on this
+                           system with device information.
+-c|--compact-list           List all Logical Devices each on a
+                           single line, with limited information.
+-u|--uids                  List all Device Unique Identifiers with their primary name.
+-d|--device                Used to filter the --list, --compact-list
+                           and uids commands to limit output to a
+                           specific device.
+-m|--vmfs                  Print mappings for VMFS volumes to their
+                           Service Console partitions and vmhba names.
+-f|--vfat                  Print mappings for VFAT volumes to their
+                           Service Console partitions and vmhba names.
+-a|--hbas                  Print HBA devices with identifying information
+-A|--hba-device-list       Print a mapping between HBAs and the devices it
+                           provides paths to.
+-o|--offline-cos-dev       Offline the COS device corresponding to this vmkernel
+                           device.
+-n|--online-cos-dev        Bring online the COS device corresponding to this vmkernel
+                           device.
+-h|--help                  Show this message.

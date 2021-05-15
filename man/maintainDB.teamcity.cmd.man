@@ -1,0 +1,71 @@
+TeamCity maintenance tool. Copyright 2017 JetBrains s.r.o. All Rights Reserved.
+
+Usage:                                                                        
+  maintainDB <command> [options]                                              
+                                                                              
+Commands:                                                                     
+    backup  - perform data backup to a file                                   
+    restore - restore data from a backup file                                 
+    migrate - migrate data to another database system                         
+                                                                              
+Options:                                                                      
+    -A <data-directory> or --data-dir <data-directory>                        
+         specifies the absolute path to the TeamCity data directory;          
+         if omitted, value of TEAMCITY_DATA_PATH environment variable or
+         default path '%HOME%\.BuildServer' is used
+    -S <source-db-settings> or --source-db <file>  (backup and migrate only)   
+         specifies the absolute path to file with the source database          
+         properties;                                                           
+         if omitted, <data-path>/config/database.properties is used            
+    -T <target-db-settings> or --target-db <file>  (restore and migrate only)  
+         specifies the absolute path to the file with the target database      
+         properties (incompatible with the -I option)                          
+    -I or --target-db-internal (restore only)                                  
+         specifies that a new internal (HSQL) database should be used when     
+         restoring from a database backup (incompatible with the -T option)    
+    -F <backup-archive-file> or --backup-file <backup-archive-file>            
+         during backup and migrate:                                            
+               the file name (without extension) to save the backup to.        
+         during restore:                                                       
+               the full name of the backup zip archive to read the backup from.
+         Can be absolute or relative to the <data-path>/backup directory       
+    -M or --timestamp  (backup only)                                           
+         adds a time stamp suffix to the backup file name                      
+                                                                               
+Scope options:                                                                 
+    -D or --include-database  (backup and restore only)                        
+         includes database into backup/restore                                 
+    -C or --include-config  (backup and restore only)                          
+         includes build configurations settings and plugins into backup/restore
+    -U or --include-supplementary-data  (backup and restore only)              
+         includes supplementary (plugins') data into backup/restore            
+    -L or --include-build-logs  (backup and restore only)                      
+         includes build logs into backup/restore                               
+    -P or --include-personal-changes   (backup and restore only)               
+         includes personal changes into backup/restore                         
+    --basic - a combination of -D -C -U                                        
+         includes database, build configurations settings, plugins             
+         and supplementary data into backup/restore,                           
+         this combination is used for backup by default                        
+         if no other scope options are specified                               
+    --all - a combination of -D -C -U -L -P                                    
+         includes database, build configurations settings, plugins,            
+         personal changes, build logs and supplementary data                   
+         into backup/restore                                                   
+                                                                               
+Other options:                                                                 
+    --continue                                                                 
+         continue to restore after an unsuccessful restore attempt             
+         applicable for restore only                                           
+    --debug                                                                    
+         log debug info (to the log file)                                      
+                                                                               
+Notes:                                                                         
+    Backup with no options backs up build configuration settings and database. 
+    Restore with no options restores all data stored in the backup file.       
+                                                                               
+    Please note that build artifacts are not included into the backup.         
+    See details in the TeamCity online documentation at                        
+ https://confluence.jetbrains.com/display/TCD10/Creating+Backup+via+maintainDB+command-line+tool
+
+Done.

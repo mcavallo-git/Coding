@@ -1,0 +1,95 @@
+------------------------------------------------------------
+
+> wbinfo --help
+
+Usage: wbinfo [OPTION...]
+  -u, --domain-users                                 Lists all domain users
+  -g, --domain-groups                                Lists all domain groups
+  -N, --WINS-by-name=NETBIOS-NAME                    Converts NetBIOS name to IP
+  -I, --WINS-by-ip=IP                                Converts IP address to NetBIOS name
+  -n, --name-to-sid=NAME                             Converts name to sid
+  -s, --sid-to-name=SID                              Converts sid to name
+      --sid-to-fullname=SID                          Converts sid to fullname
+  -R, --lookup-rids=RIDs                             Converts RIDs to names
+      --lookup-sids=Sid-List                         Converts SIDs to types and names
+  -U, --uid-to-sid=UID                               Converts uid to sid
+  -G, --gid-to-sid=GID                               Converts gid to sid
+  -S, --sid-to-uid=SID                               Converts sid to uid
+  -Y, --sid-to-gid=SID                               Converts sid to gid
+      --allocate-uid                                 Get a new UID out of idmap
+      --allocate-gid                                 Get a new GID out of idmap
+      --set-uid-mapping=UID,SID                      Create or modify uid to sid mapping in idmap
+      --set-gid-mapping=GID,SID                      Create or modify gid to sid mapping in idmap
+      --remove-uid-mapping=UID,SID                   Remove uid to sid mapping in idmap
+      --remove-gid-mapping=GID,SID                   Remove gid to sid mapping in idmap
+      --sids-to-unix-ids=Sid-List                    Translate SIDs to Unix IDs
+      --unix-ids-to-sids=ID-List (u<num> g<num>)     Translate Unix IDs to SIDs
+  -t, --check-secret                                 Check shared secret
+  -c, --change-secret                                Change shared secret
+  -P, --ping-dc                                      Check the NETLOGON connection
+  -m, --trusted-domains                              List trusted domains
+      --all-domains                                  List all domains (trusted and own domain)
+      --own-domain                                   List own domain
+      --sequence                                     Deprecated command, see --online-status
+      --online-status                                Show whether domains maintain an active connection
+  -D, --domain-info=STRING                           Show most of the info we have about the domain
+  -i, --user-info=USER                               Get user info
+      --uid-info=UID                                 Get user info from uid
+      --group-info=GROUP                             Get group info
+      --user-sidinfo=SID                             Get user info from sid
+      --gid-info=GID                                 Get group info from gid
+  -r, --user-groups=USER                             Get user groups
+      --user-domgroups=SID                           Get user domain groups
+      --sid-aliases=SID                              Get sid aliases
+      --user-sids=SID                                Get user group sids for user SID
+  -a, --authenticate=user%password                   authenticate user
+      --pam-logon=user%password                      do a pam logon equivalent
+      --logoff                                       log off user
+      --logoff-user=STRING                           username to log off
+      --logoff-uid=INT                               uid to log off
+      --set-auth-user=user%password                  Store user and password used by winbindd (root only)
+      --ccache-save=user%password                    Store user and password for ccache operation
+      --getdcname=domainname                         Get a DC name for a foreign domain
+      --dsgetdcname=domainname                       Find a DC for a domain
+      --dc-info=domainname                           Find the currently known DCs
+      --get-auth-user                                Retrieve user and password used by winbindd (root only)
+  -p, --ping                                         Ping winbindd to see if it is alive
+      --domain=domain                                Define to the domain to restrict operation
+  -K, --krb5auth=user%password                       authenticate user using Kerberos
+      --krb5ccname=krb5ccname                        authenticate user using Kerberos and specific credential cache type
+      --separator                                    Get the active winbind separator
+      --verbose                                      Print additional information per command
+      --change-user-password=STRING                  Change the password for a user
+      --ntlmv1                                       Use NTLMv1 cryptography for user authentication
+      --ntlmv2                                       Use NTLMv2 cryptography for user authentication
+      --lanman                                       Use lanman cryptography for user authentication
+
+Help options:
+  -?, --help                                         Show this help message
+      --usage                                        Display brief usage
+
+
+------------------------------------------------------------
+
+> wbinfo --usage
+
+Usage: wbinfo [-?ugtcPmpV] [-?|--help] [--usage] [-u|--domain-users]
+        [-g|--domain-groups] [-N|--WINS-by-name=NETBIOS-NAME]
+        [-I|--WINS-by-ip=IP] [-n|--name-to-sid=NAME] [-s|--sid-to-name=SID]
+        [--sid-to-fullname=SID] [-R|--lookup-rids=RIDs]
+        [--lookup-sids=Sid-List] [-U|--uid-to-sid=UID] [-G|--gid-to-sid=GID]
+        [-S|--sid-to-uid=SID] [-Y|--sid-to-gid=SID] [--allocate-uid]
+        [--allocate-gid] [--set-uid-mapping=UID,SID]
+        [--set-gid-mapping=GID,SID] [--remove-uid-mapping=UID,SID]
+        [--remove-gid-mapping=GID,SID] [--sids-to-unix-ids=Sid-List]
+        [--unix-ids-to-sids=ID-List (u<num> g<num>)] [-t|--check-secret]
+        [-c|--change-secret] [-P|--ping-dc] [-m|--trusted-domains]
+        [--all-domains] [--own-domain] [--sequence] [--online-status]
+        [-D|--domain-info=STRING] [-i|--user-info=USER] [--uid-info=UID]
+        [--group-info=GROUP] [--user-sidinfo=SID] [--gid-info=GID]
+        [-r|--user-groups=USER] [--user-domgroups=SID] [--sid-aliases=SID]
+        [--user-sids=SID] [-a|--authenticate=user%password]
+        [--pam-logon=user%password] [--logoff] [--logoff-user=STRING]
+        [--logoff-uid=INT] [--set-auth-user=user%password]
+
+------------------------------------------------------------

@@ -1,0 +1,25 @@
+
+>  signtool.exe timestamp
+
+SignTool Error: A required parameter is missing.
+Usage: signtool timestamp [options] <filename(s)>
+
+Use the "timestamp" command to add a timestamp to a previously-signed file.
+The "/t" option is required.
+
+/q          No output on success and minimal output on failure. As always,
+            SignTool returns 0 on success and 1 on failure.
+/t <URL>    Specify the timestamp server's URL.
+/tr <URL>   Specifies the RFC 3161 timestamp server's URL.
+/tseal <URL> Specifies the RFC 3161 timestamp server's URL for timestamping a
+            sealed file.  One of /t, /tr or /tseal is required.
+/td <alg>   Used with the /tr or /tseal switch to request a digest algorithm
+            used by the RFC 3161 timestamp server.
+/tp <index> Timestamps the signature at <index>.
+/p7         Timestamps PKCS7 files.
+/force      Remove any sealing signature that is present in order to timestamp.
+/nosealwarn Warnings for removing a sealing signature do not affect SignTool's
+            return code.
+/v          Print verbose success and status messages. This may also provide
+            slightly more information on error.
+/debug      Display additional debug information.

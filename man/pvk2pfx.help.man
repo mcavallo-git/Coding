@@ -1,0 +1,14 @@
+
+Usage:
+    pvk2pfx -pvk <pvk-file> [-pi <pvk-pswd>] -spc <spc-file>
+           [-pfx <pfx-file> [-po <pfx-pswd>] [-f]]
+
+        -pvk <pvk-file>  - input PVK file name.
+        -spc <spc-file>  - input SPC file name.
+        -pfx <pfx-file>  - output PFX file name.
+        -pi <pvk-pswd>   - PVK password.
+        -po <pfx-pswd>   - PFX password; same as -pi if not given.
+        -f               - force overwrite existing PFX file.
+
+        if -pfx option is not given, an export wizard will pop up. in
+        this case, options -po and -f are ignored.

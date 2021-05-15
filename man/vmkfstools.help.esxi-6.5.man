@@ -1,0 +1,63 @@
+vmkfstools --help
+
+OPTIONS FOR FILE SYSTEMS:
+
+vmkfstools -C --createfs [vmfs5|vmfs6|vfat]
+               -S --setfsname fsName
+               -Y --unmapGranularity #[bBsSkKmMgGtT]
+               -O --unmapPriority <none|low|medium|high>
+           -Z --spanfs span-partition
+           -G --growfs grown-partition
+   deviceName
+
+           -P --queryfs -h --humanreadable
+           -T --upgradevmfs
+   vmfsPath
+           -y --reclaimBlocks vmfsPath [--reclaimBlocksUnit #blocks]
+
+OPTIONS FOR VIRTUAL DISKS:
+
+vmkfstools -c --createvirtualdisk #[bBsSkKmMgGtT]
+               -d --diskformat [zeroedthick
+                               |thin
+                               |eagerzeroedthick
+                               ]
+               -a --adaptertype [deprecated]
+               -W --objecttype [file|vsan|vvol|pmem|upit]
+               --policyFile <fileName>
+           -w --writezeros
+           -j --inflatedisk
+           -k --eagerzero
+           -K --punchzero
+           -U --deletevirtualdisk
+           -E --renamevirtualdisk srcDisk
+           -i --clonevirtualdisk srcDisk
+               -d --diskformat [zeroedthick
+                               |thin
+                               |eagerzeroedthick
+                               |rdm:<device>|rdmp:<device>
+                               |2gbsparse]
+               -W --object [file|vsan|vvol]
+               --policyFile <fileName>
+               -N --avoidnativeclone
+           -X --extendvirtualdisk #[bBsSkKmMgGtT]
+               [-d --diskformat eagerzeroedthick]
+           -M --migratevirtualdisk
+           -r --createrdm /vmfs/devices/disks/...
+           -q --queryrdm
+           -z --createrdmpassthru /vmfs/devices/disks/...
+           -v --verbose #
+           -g --geometry
+           -x --fix [check|repair]
+           -e --chainConsistent
+           -Q --objecttype name/value pair
+           --uniqueblocks childDisk
+   vmfsPath
+
+OPTIONS FOR DEVICES:
+
+           -L --lock [reserve|release|lunreset|targetreset|busreset|readkeys|readresv
+                     ] /vmfs/devices/disks/...
+           -B --breaklock /vmfs/devices/disks/...
+
+vmkfstools -H --help

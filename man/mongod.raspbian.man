@@ -1,0 +1,433 @@
+MONGOD(1)                                                                                                                                                        mongodb-manual                                                                                                                                                       MONGOD(1)
+
+NAME
+       mongod - MongoDB Server
+
+SYNOPSIS
+       mongod is the primary daemon process for the MongoDB system. It handles data requests, manages data format, and performs background management operations.
+
+       This document provides a complete overview of all command line options for mongod. These options are primarily useful for testing purposes. In common operation, use the configuration file options to control the behavior of your database, which is fully capable of all operations described below.
+
+OPTIONS
+       mongod
+
+       --help, -h
+              Returns a basic help and usage text.
+
+       --version
+              Returns the version of the mongod daemon.
+
+       --config <filename>, -f <filename>
+              Specifies a configuration file, that you can use to specify runtime-configurations. While the options are equivalent and accessible via the other command line arguments, the configuration file is the preferred method for runtime configuration of mongod. See the "/reference/configuration-options" document for more infor‐
+              mation about these options.
+
+       --verbose, -v
+              Increases the amount of internal reporting returned on standard output or in the log file specified by --logpath. Use the -v form to control the level of verbosity by including the option multiple times, (e.g. -vvvvv.)
+
+       --quiet
+              Runs the mongod instance in a quiet mode that attempts to limit the amount of output. This option suppresses:
+
+              • output from database commands, including drop, dropIndexes, diagLogging, validate, and clean.
+
+              • replication activity.
+
+              • connection accepted events.
+
+              • connection closed events.
+
+       --port <port>
+              Specifies a TCP port for the mongod to listen for client connections. By default mongod listens for connections on port 27017.
+
+              UNIX-like systems require root privileges to use ports with numbers lower than 1024.
+
+       --bind_ip <ip address>
+              The IP address that the mongod process will bind to and listen for connections. By default mongod listens for connections on the localhost (i.e. 127.0.0.1 address.) You may attach mongod to any interface; however, if you attach mongod to a publicly accessible interface ensure that you have implemented proper authentica‐
+              tion and/or firewall restrictions to protect the integrity of your database.
+
+       --maxConns <number>
+              Specifies the maximum number of simultaneous connections that mongod will accept. This setting will have no effect if it is higher than your operating system's configured maximum connection tracking threshold.
+
+       Note   You cannot set maxConns to a value higher than 20000.
+
+       --objcheck
+              Forces the mongod to validate all requests from clients upon receipt to ensure that clients never insert invalid documents into the database. For objects with a high degree of sub-document nesting, --objcheck can have a small impact on performance. You can set --noobjcheck to disable object checking at run-time.
+
+              Changed in version 2.4: MongoDB enables --objcheck by default, to prevent any client from inserting malformed or invalid BSON into a MongoDB database.
+
+       --noobjcheck
+              New in version 2.4.
+
+              Disables the default document validation that MongoDB performs on all incoming BSON documents.
+
+       --logpath <path>
+              Specify a path for the log file that will hold all diagnostic logging information.
+
+              Unless specified, mongod will output all log information to the standard output. Additionally, unless you also specify --logappend, the logfile will be overwritten when the process restarts.
+
+       Note   The behavior of the logging system may change in the near future in response to the SERVER-4499 case.
+
+       --logappend
+              When specified, this option ensures that mongod appends new entries to the end of the logfile rather than overwriting the content of the log when the process restarts.
+
+       --syslog
+              New in version 2.1.0.
+
+              Sends all logging output to the host's syslog system rather than to standard output or a log file as with --logpath.
+
+       Warning
+              You cannot use --syslog with --logpath.
+
+       --pidfilepath <path>
+              Specify a file location to hold the "PID" or process ID of the mongod process. Useful for tracking the mongod process in combination with the mongod --fork option.
+
+              Without a specified --pidfilepath option, mongos creates no PID file.
+
+       --keyFile <file>
+              Specify the path to a key file to store authentication information. This option is only useful for the connection between replica set members.
+
+       See also
+
+              "Replica Set Security" and "/administration/replica-sets."
+
+       --nounixsocket
+              Disables listening on the UNIX socket. Unless set to false, mongod and mongos provide a UNIX-socket.
+
+       --unixSocketPrefix <path>
+              Specifies a path for the UNIX socket. Unless this option has a value, mongod and mongos, create a socket with the /tmp as a prefix.
+
+       --fork Enables a daemon mode for mongod that runs the process to the background. This is the normal mode of operation, in production and production-like environments, but may not be desirable for testing.
+
+       --auth Enables database authentication for users connecting from remote hosts. configure users via the mongo shell shell. If no users exist, the localhost interface will continue to have access to the database until the you create the first user.
+
+              See the Security and Authentication page for more information regarding this functionality.
+
+       --cpu  Forces mongod to report the percentage of CPU time in write lock. mongod generates output every four seconds. MongoDB writes this data to standard output or the logfile if using the logpath option.
+
+       --dbpath <path>
+              Specify a directory for the mongod instance to store its data. Typical locations include: /srv/mongodb, /var/lib/mongodb or /opt/mongodb
+
+              Unless specified, mongod will look for data files in the default /data/db directory. (Windows systems use the \data\db directory.) If you installed using a package management system. Check the /etc/mongodb.conf file provided by your packages to see the configuration of the dbpath.
+
+       --diaglog <value>
+              Creates a very verbose, diagnostic log for troubleshooting and recording various errors. MongoDB writes these log files in the dbpath directory in a series of files that begin with the string diaglog and end with the initiation time of the logging as a hex string.
+
+              The specified value configures the level of verbosity. Possible values, and their impact are as follows.
+
+                                                                                                                                                        ┌──────┬─────────────────────────────────────┐
+                                                                                                                                                        │Value │ Setting                             │
+                                                                                                                                                        ├──────┼─────────────────────────────────────┤
+                                                                                                                                                        │0     │ off. No logging.                    │
+                                                                                                                                                        ├──────┼─────────────────────────────────────┤
+                                                                                                                                                        │1     │ Log write operations.               │
+                                                                                                                                                        ├──────┼─────────────────────────────────────┤
+                                                                                                                                                        │2     │ Log read operations.                │
+                                                                                                                                                        ├──────┼─────────────────────────────────────┤
+                                                                                                                                                        │3     │ Log both read and write operations. │
+                                                                                                                                                        ├──────┼─────────────────────────────────────┤
+                                                                                                                                                        │7     │ Log write and some read operations. │
+                                                                                                                                                        └──────┴─────────────────────────────────────┘
+
+              You can use the mongosniff tool to replay this output for investigation. Given a typical diaglog file, located at /data/db/diaglog.4f76a58c, you might use a command in the following form to read these files:
+
+              mongosniff --source DIAGLOG /data/db/diaglog.4f76a58c
+
+              --diaglog is for internal use and not intended for most users.
+
+       Warning
+              Setting  the  diagnostic  level  to 0 will cause mongod to stop writing data to the diagnostic log file. However, the mongod instance will continue to keep the file open, even if it is no longer writing data to the file.  If you want to rename, move, or delete the diagnostic log you must cleanly shut down the mongod in‐
+              stance before doing so.
+
+       --directoryperdb
+              Alters the storage pattern of the data directory to store each database's files in a distinct folder. This option will create directories within the --dbpath named for each directory.
+
+              Use this option in conjunction with your file system and device configuration so that MongoDB will store data on a number of distinct disk devices to increase write throughput or disk capacity.
+
+       --journal
+              Enables operation journaling to ensure write durability and data consistency. mongod enables journaling by default on 64-bit builds of versions after 2.0.
+
+       --journalOptions <arguments>
+              Provides functionality for testing. Not for general use, and may affect database integrity.
+
+       --journalCommitInterval <value>
+              Specifies the maximum amount of time for mongod to allow between journal operations. The default value is 100 milliseconds, while possible values range from 2 to 300 milliseconds. Lower values increase the durability of the journal, at the expense of disk performance.
+
+              To force mongod to commit to the journal more frequently, you can specify j:true. When a write operation with j:true pending, mongod will reduce journalCommitInterval to a third of the set value.
+
+       --ipv6 Specify this option to enable IPv6 support. This will allow clients to connect to mongod using IPv6 networks. mongod disables IPv6 support by default in mongod and all utilities.
+
+       --jsonp
+              Permits JSONP access via an HTTP interface. Consider the security implications of allowing this activity before enabling this option.
+
+       --noauth
+              Disable authentication. Currently the default. Exists for future compatibility and clarity.
+
+       --nohttpinterface
+              Disables the HTTP interface.
+
+       --nojournal
+              Disables the durability journaling. By default, mongod enables journaling in 64-bit versions after v2.0.
+
+       --noprealloc
+              Disables the preallocation of data files. This will shorten the start up time in some cases, but can cause significant performance penalties during normal operations.
+
+       --noscripting
+              Disables the scripting engine.
+
+       --notablescan
+              Forbids operations that require a table scan.
+
+       --nssize <value>
+              Specifies the default size for namespace files (i.e .ns). This option has no impact on the size of existing namespace files. The maximum size is 2047 megabytes.
+
+              The default value is 16 megabytes; this provides for approximately 24,000 namespaces. Each collection, as well as each index, counts as a namespace.
+
+       --profile <level>
+              Changes the level of database profiling, which inserts information about operation performance into output of mongod or the log file. The following levels are available:
+
+                                                                                                                                                        ┌──────┬────────────────────────────────────┐
+                                                                                                                                                        │Level │ Setting                            │
+                                                                                                                                                        ├──────┼────────────────────────────────────┤
+                                                                                                                                                        │0     │ Off. No profiling.                 │
+                                                                                                                                                        ├──────┼────────────────────────────────────┤
+                                                                                                                                                        │1     │ On. Only includes slow operations. │
+                                                                                                                                                        ├──────┼────────────────────────────────────┤
+                                                                                                                                                        │2     │ On. Includes all operations.       │
+                                                                                                                                                        └──────┴────────────────────────────────────┘
+
+              Profiling is off by default. Database profiling can impact database performance. Enable this option only after careful consideration.
+
+       --quota
+              Enables a maximum limit for the number data files each database can have. When running with --quota, there are a maximum of 8 data files per database. Adjust the quota with the --quotaFiles option.
+
+       --quotaFiles <number>
+              Modify limit on the number of data files per database. This option requires the --quota setting. The default value for --quotaFiles is 8.
+
+       --rest Enables the simple REST API.
+
+       --repair
+              Runs a repair routine on all databases. This is equivalent to shutting down and running the repairDatabase database command on all databases.
+
+       Warning
+              In general, if you have an intact copy of your data, such as would exist on a very recent backup or an intact member of a replica set, do not use repairDatabase or related options like db.repairDatabase() in the mongo shell or mongod --repair. Restore from an intact copy of your data.
+
+       Note   When using journaling, there is almost never any need to run repairDatabase. In the event of an unclean shutdown, the server will be able restore the data files to a pristine state automatically.
+
+       Changed in version 2.1.2.
+
+       If you run the repair option and have data in a journal file, mongod will refuse to start. In these cases you should start mongod without the --repair option to allow mongod to recover data from the journal. This will complete more quickly and will result in a more consistent and complete data set.
+
+       To continue the repair operation despite the journal files, shut down mongod cleanly and restart with the --repair option.
+
+       Note   --repair copies data from the source data files into new data files in the repairpath, and then replaces the original data files with the repaired data files. If repairpath is on the same device as dbpath, you may interrupt a mongod running --repair without affecting the integrity of the data set.
+
+       --repairpath <path>
+              Specifies the root directory containing MongoDB data files, to use for the --repair operation. Defaults to a _tmp directory within the dbpath.
+
+       --setParameter <options>
+              New in version 2.4.
+
+              Specifies an option to configure on startup.  Specify multiple options with multiple --setParameter options.  See /reference/parameters for full documentation of these parameters. The setParameter database command provides access to many of these parameters. --setParameter supports the following options:
+
+              • enableLocalhostAuthBypass
+
+              • enableTestCommands
+
+              • journalCommitInterval
+
+              • logLevel
+
+              • logUserIds
+
+              • notablescan
+
+              • quiet
+
+              • replApplyBatchSize
+
+              • replIndexPrefetch
+
+              • supportCompatibilityFormPrivilegeDocuments
+
+              • syncdelay
+
+              • traceExceptions
+
+       --slowms <value>
+              Defines the value of "slow," for the --profile option. The database logs all slow queries to the log, even when the profiler is not turned on. When the database profiler is on, mongod the profiler writes to the system.profile collection. See the profile command for more information on the database profiler.
+
+       --smallfiles
+              Enables a mode where MongoDB uses a smaller default file size.  Specifically, --smallfiles reduces the initial size for data files and limits them to 512 megabytes. --smallfiles also reduces the size of each journal files from 1 gigabyte to 128 megabytes.
+
+              Use --smallfiles if you have a large number of databases that each holds a small quantity of data. --smallfiles can lead your mongod to create a large number of files, which may affect performance for larger databases.
+
+       --shutdown
+              Used in control scripts, the --shutdown will cleanly and safely terminate the mongod process. When invoking mongod with this option you must set the --dbpath option either directly or by way of the configuration file and the --config option.
+
+              --shutdown is only available on Linux systems.
+
+       --syncdelay <value>
+              mongod writes data very quickly to the journal, and lazily to the data files. --syncdelay controls how much time can pass before MongoDB flushes data to the database files via an fsync operation. The default setting is 60 seconds.  In almost every situation you should not set this value and use the default setting.
+
+              The serverStatus command reports the background flush thread's status via the backgroundFlushing field.
+
+              syncdelay has no effect on the journal files or journaling.
+
+       Warning
+              If you set --syncdelay to 0, MongoDB will not sync the memory mapped files to disk. Do not set this value on production systems.
+
+       --sysinfo
+              Returns diagnostic system information and then exits. The information provides the page size, the number of physical pages, and the number of available physical pages.
+
+       --upgrade
+              Upgrades the on-disk data format of the files specified by the --dbpath to the latest version, if needed.
+
+              This option only affects the operation of mongod if the data files are in an old format.
+
+       Note   In most cases you should not set this value, so you can exercise the most control over your upgrade process. See the MongoDB release notes (on the download page) for more information about the upgrade process.
+
+       --traceExceptions
+              For internal diagnostic use only.
+
+   Replication Options
+       --replSet <setname>
+              Use this option to configure replication with replica sets. Specify a setname as an argument to this set. All hosts must have the same set name.
+
+       See also
+
+              "/replication," "/administration/replica-sets," and "/reference/replica-configuration"
+
+       --oplogSize <value>
+              Specifies a maximum size in megabytes for the replication operation log (e.g. oplog.) By mongod creates an oplog based on the maximum amount of space available. For 64-bit systems, the op log is typically 5% of available disk space.
+
+              Once the mongod has created the oplog for the first time, changing --oplogSize will not affect the size of the oplog.
+
+       --fastsync
+              In the context of replica set replication, set this option if you have seeded this member with a snapshot of the dbpath of another member of the set. Otherwise the mongod will attempt to perform an initial sync, as though the member were a new member.
+
+       Warning
+              If the data is not perfectly synchronized and mongod starts with fastsync, then the secondary or slave will be permanently out of sync with the primary, which may cause significant consistency problems.
+
+       --replIndexPrefetch
+              New in version 2.2.
+
+              You must use --replIndexPrefetch in conjunction with replSet. The default value is all and available options are:
+
+              • none
+
+              • all
+
+              • _id_only
+
+              By default secondary members of a replica set will load all indexes related to an operation into memory before applying operations from the oplog. You can modify this behavior so that the secondaries will only load the _id index. Specify _id_only or none to prevent the mongod from loading any index into memory.
+
+   Master-Slave Replication
+       These options provide access to conventional master-slave database replication. While this functionality remains accessible in MongoDB, replica sets are the preferred configuration for database replication.
+
+       --master
+              Configures mongod to run as a replication master.
+
+       --slave
+              Configures mongod to run as a replication slave.
+
+       --source <host><:port>
+              For use with the --slave option, the --source option designates the server that this instance will replicate.
+
+       --only <arg>
+              For use with the --slave option, the --only option specifies only a single database to replicate.
+
+       --slavedelay <value>
+              For use with the --slave option, the --slavedelay option configures a "delay" in seconds, for this slave to wait to apply operations from the master node.
+
+       --autoresync
+              For use with the --slave option, the --autoresync option allows this slave to automatically resync if the local data is more than 10 seconds behind the master. This option may be problematic if the oplog is too small (controlled by the --oplogSize option.) If the oplog not large enough to store the difference in changes
+              between the master's current state and the state of the slave, this node will forcibly resync itself unnecessarily. When you set the If the --autoresync option the slave will not attempt an automatic resync more than once in a ten minute period.
+
+   Sharding Cluster Options
+       --configsvr
+              Declares  that  this mongod instance serves as the config database of a sharded cluster. When running with this option, clients will not be able to write data to any database other than config and admin. The default port for mongod with this option is 27019 and mongod writes all data files to the /configdb sub-directory
+              of the --dbpath directory.
+
+       --shardsvr
+              Configures this mongod instance as a shard in a partitioned cluster. The default port for these instances is 27018.  The only effect of --shardsvr is to change the port number.
+
+       --noMoveParanoia
+              Disables a "paranoid mode" for data writes for chunk migration operation. See the chunk migration and moveChunk command documentation for more information.
+
+              By default mongod will save copies of migrated chunks on the "from" server during migrations as "paranoid mode." Setting this option disables this paranoia.
+
+   SSL Options
+       See
+
+              /administration/ssl for full documentation of MongoDB's support.
+
+       --sslOnNormalPorts
+              New in version 2.2.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Enables SSL for mongod. With --sslOnNormalPorts, a mongod requires SSL encryption for all connections on the default MongoDB port, or the port specified by --port. By default, --sslOnNormalPorts is disabled.
+
+       --sslPEMKeyFile <filename>
+              New in version 2.2.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the .pem file that contains both the SSL certificate and key. Specify the file name of the .pem file using relative or absolute paths
+
+       When using --sslOnNormalPorts, you must specify --sslPEMKeyFile.
+
+       --sslPEMKeyPassword <value>
+              New in version 2.2.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the password to de-crypt the certificate-key file (i.e. --sslPEMKeyFile). Only use --sslPEMKeyPassword if the certificate-key file is encrypted. In all cases, mongod will redact the password from all logging and reporting output.
+
+       Changed in version 2.4: --sslPEMKeyPassword is only needed when the private key is encrypted. In earlier versions mongod would require --sslPEMKeyPassword whenever using --sslOnNormalPorts, even when the private key was not encrypted.
+
+       --sslCAFile <filename>
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the .pem file that contains the root certificate chain from the Certificate Authority. Specify the file name of the .pem file using relative or absolute paths
+
+       --sslCRLFile <filename>
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the .pem file that contains the Certificate Revocation List. Specify the file name of the .pem file using relative or absolute paths
+
+       --sslWeakCertificateValidation
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Disables the requirement for SSL certificate validation, that --sslCAFile enables. With --sslWeakCertificateValidation, mongod will accept connections if the client does not present a certificate when establishing the connection.
+
+       If the client presents a certificate and mongod has --sslWeakCertificateValidation enabled, mongod will validate the certificate using the root certificate chain specified by --sslCAFile, and reject clients with invalid certificates.
+
+       Use --sslWeakCertificateValidation if you have a mixed deployment that includes clients that do not or cannot present certificates to mongod.
+
+       --sslFIPSMode
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       When specified, mongod will use the FIPS mode of the installed OpenSSL library. Your system must have a FIPS compliant OpenSSL library to use --sslFIPSMode.
+
+USAGE
+       In common usage, the invocation of mongod will resemble the following in the context of an initialization or control script:
+
+       mongod --config /etc/mongodb.conf
+
+       See the "/reference/configuration-options" for more information on how to configure mongod using the configuration file.
+
+AUTHOR
+       MongoDB Documentation Project
+
+COPYRIGHT
+       2011-2013, 10gen, Inc.
+
+2.2.3                                                                                                                                                            March 14, 2013                                                                                                                                                       MONGOD(1)

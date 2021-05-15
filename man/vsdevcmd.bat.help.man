@@ -1,0 +1,54 @@
+.
+** Visual Studio "15" Developer Command Prompt Help **
+** Version : 15.0
+.
+Syntax: vsdevcmd.bat [options]
+[options] :
+    -arch=architecture : Architecture for compiled binaries/libraries
+           ** x86 [default]
+           ** amd64
+           ** arm
+           ** arm64
+    -host_arch=architecture : Architecture of compiler binaries
+           ** x86 [default]
+           ** amd64
+    -winsdk=version : Version of Windows SDK to select.
+           ** 10.0.xxyyzz.0 : Windows 10 SDK (e.g 10.0.10240.0)
+                              [default : Latest Windows 10 SDK]
+           ** 8.1 : Windows 8.1 SDK
+           ** none : Do not setup Windows SDK variables.
+                     For use with build systems that prefer to
+                     determine Windows SDK version independently.
+    -app_platform=platform : Application Platform Target Type.
+           ** Desktop : Classic Win32 Apps          [default]
+           ** UWP : Universal Windows Platform Apps
+    -no_ext : Only scripts from [VS150COMNTOOLS]\VsDevCmd\Core
+              directory are run during initialization.
+    -no_logo : Suppress printing of the developer command prompt banner.
+    -vcvars_ver=version : Version of VC++ Toolset to select
+           ** [Default]   : If -vcvars_ver=version is NOT specified, the toolset specified by
+                            [VSInstallDir]\VC\Auxiliary\Build\Microsoft.VCToolsVersion.default.txt will be used.
+           ** 14.0        : VS 2015 (v140) VC++ Toolset (installation of the v140 toolset is a prerequisite)
+           ** 14.1x       : VS 2017 (v141) VC++ Toolset, if that version is installed on the system under
+                            [VSInstallDir]\VC\MSVC\Tools\[version].  Where '14.1x' specifies a partial
+                            [version]. The latest [version] directory that matches the specified value will
+                            be used.
+           ** 14.1x.yyyyy : VS 2017 (v141) VC++ Toolset, if that version is installed on the system under
+                            [VSInstallDir]\VC\MSVC\Tools\[version]. Where '14.1x.yyyyy' specifies an
+                            exact [version] directory to be used.
+    -vcvars_spectre_libs=mode : version of libraries to use.
+           ** [Default]   : If -vcvars_spectre_libs=libraries is NOT specified, the project will use the normal
+                            libraries.
+           ** spectre     : The project will use libraries compiled with spectre mitigations.
+    -startdir=mode : configures the current directory after (successful) initialization of the environment.
+           ** none : the command prompt will exist in the same current directory as when invoked
+           ** auto : the command prompt will search for [USERPROFILE]\Source and will change directory
+                     if it exists.
+           ** If -startdir=mode is not provided, the developer command prompt scripts will
+              additionally check for the [VSCMD_START_DIR] environment variable. If not specified,
+              the default behavior will be 'none' mode.
+    -test : Run smoke tests to verify environment integrity in an already-initialized command prompt.
+            Executing with -test will NOT modify the environment, so it must be used in a separate call
+            to vsdevcmd.bat (all other parameters should be the same as when the environment was
+            initialied)
+    -help : prints this help message.

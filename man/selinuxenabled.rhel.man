@@ -1,0 +1,25 @@
+selinuxenabled(8)                                             SELinux Command Line documentation                                             selinuxenabled(8)
+
+
+
+NAME
+       selinuxenabled - tool to be used within shell scripts to determine if selinux is enabled
+
+SYNOPSIS
+       selinuxenabled
+
+DESCRIPTION
+       Indicates whether SELinux is enabled or disabled.
+
+EXIT STATUS
+       It exits with status 0 if SELinux is enabled and 1 if it is not enabled.
+
+AUTHOR
+       Dan Walsh, <dwalsh@redhat.com>
+
+SEE ALSO
+       selinux(8), setenforce(8), getenforce(8)
+
+
+
+dwalsh@redhat.com                                                        7 April 2004                                                        selinuxenabled(8)

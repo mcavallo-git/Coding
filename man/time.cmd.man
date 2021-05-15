@@ -1,0 +1,8 @@
+TIME [/T | time]
+
+Type TIME with no parameters to display the current time setting and a prompt
+for a new one.  Press ENTER to keep the same time.
+
+If Command Extensions are enabled the TIME command supports
+the /T switch which tells the command to just output the
+current time, without prompting for a new time.

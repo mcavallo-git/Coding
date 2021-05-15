@@ -1,0 +1,61 @@
+
+NAME
+    Get-WmiObject
+    
+SYNOPSIS
+    Gets instances of WMI classes or information about the available classes.
+    
+    
+SYNTAX
+    Get-WmiObject [-Class] <String> [[-Property] <String[]>] [-Amended] [-AsJob] [-Authentication {Default | None | 
+    Connect | Call | Packet | PacketIntegrity | PacketPrivacy | Unchanged}] [-Authority <String>] [-ComputerName 
+    <String[]>] [-Credential <PSCredential>] [-DirectRead] [-EnableAllPrivileges] [-Filter <String>] [-Impersonation 
+    {Default | Anonymous | Identify | Impersonate | Delegate}] [-Locale <String>] [-Namespace <String>] 
+    [-ThrottleLimit <Int32>] [<CommonParameters>]
+    
+    Get-WmiObject [[-Class] <String>] [-Amended] [-AsJob] [-Authentication {Default | None | Connect | Call | Packet | 
+    PacketIntegrity | PacketPrivacy | Unchanged}] [-Authority <String>] [-ComputerName <String[]>] [-Credential 
+    <PSCredential>] [-EnableAllPrivileges] [-Impersonation {Default | Anonymous | Identify | Impersonate | Delegate}] 
+    [-List] [-Locale <String>] [-Namespace <String>] [-Recurse] [-ThrottleLimit <Int32>] [<CommonParameters>]
+    
+    Get-WmiObject [-Amended] [-AsJob] [-Authentication {Default | None | Connect | Call | Packet | PacketIntegrity | 
+    PacketPrivacy | Unchanged}] [-Authority <String>] [-ComputerName <String[]>] [-Credential <PSCredential>] 
+    [-DirectRead] [-EnableAllPrivileges] [-Impersonation {Default | Anonymous | Identify | Impersonate | Delegate}] 
+    [-Locale <String>] [-Namespace <String>] -Query <String> [-ThrottleLimit <Int32>] [<CommonParameters>]
+    
+    
+DESCRIPTION
+    Starting in Windows PowerShell 3.0, this cmdlet has been superseded by 
+    Get-CimInstancehttp://technet.microsoft.com/library/jj590758(v=wps.630).aspx.
+    
+    The Get-WmiObject cmdlet gets instances of Windows Management Instrumentation (WMI) classes or information about 
+    the available WMI classes. To specify a remote computer, use the ComputerName parameter. If the List parameter is 
+    specified, the cmdlet gets information about the WMI classes that are available in a specified namespace. If the 
+    Query parameter is specified, the cmdlet runs a WMI query language (WQL) statement.
+    
+    This cmdlet does not use Windows PowerShell remoting to perform remote operations. You can use the ComputerName 
+    parameter of the Get-WmiObject cmdlet even if your computer does not meet the requirements for Windows 
+    PowerShellremoting or is not configured for remoting in Windows PowerShell.
+    
+    Beginning in Windows PowerShell 3.0, the __Server property of the object that Get-WmiObject returns has a 
+    PSComputerName alias. This makes it easier to include the source computer name in output and reports.
+    
+
+RELATED LINKS
+    Online Version: http://go.microsoft.com/fwlink/?LinkId=821595
+    Get-WSManInstance 
+    Invoke-WSManAction 
+    New-WSManInstance 
+    Remove-WSManInstance 
+    Invoke-WmiMethod 
+    Remove-WmiObject 
+    Set-WmiInstance 
+
+REMARKS
+    To see the examples, type: "get-help Get-WmiObject -examples".
+    For more information, type: "get-help Get-WmiObject -detailed".
+    For technical information, type: "get-help Get-WmiObject -full".
+    For online help, type: "get-help Get-WmiObject -online"
+
+
+

@@ -1,0 +1,1064 @@
+semanage(8)                                                                                                                                       semanage(8)
+
+
+
+NAME
+       semanage - SELinux Policy Management tool
+
+
+SYNOPSIS
+       semanage {import,export,login,user,port,interface,module,node,fcontext,boolean,permissive,dontaudit,ibpkey,ibendport}
+                       ...  positional arguments:
+
+       import Import local customizations
+
+       export Output local customizations
+
+       login Manage login mappings between linux users and SELinux confined users
+
+       user Manage SELinux confined users (Roles and levels for an SELinux user)
+
+       port Manage network port type definitions
+
+       interface Manage network interface type definitions
+
+       module Manage SELinux policy modules
+
+       node Manage network node type definitions
+
+       fcontext Manage file context mapping definitions
+
+       boolean Manage booleans to selectively enable functionality
+
+       permissive Manage process type enforcement mode
+
+       dontaudit Disable/Enable dontaudit rules in policy
+
+       ibpkey Manage infiniband pkey type definitions
+
+       ibendport Manage infiniband end port type definitions
+
+
+DESCRIPTION
+       semanage  is  used  to  configure  certain  elements  of  SELinux policy without requiring modification to or recompilation from policy sources.  This
+       includes the mapping from Linux usernames to SELinux user identities (which controls the initial security context assigned to Linux  users  when  they
+       login  and  bounds  their  authorized  role set) as well as security context mappings for various kinds of objects, such as network ports, interfaces,
+       infiniband pkeys and endports, and nodes (hosts) as well as the file context mapping. See the EXAMPLES section  below  for  some  examples  of  common
+       usage.   Note that the semanage login command deals with the mapping from Linux usernames (logins) to SELinux user identities, while the semanage user
+       command deals with the mapping from SELinux user identities to authorized role sets.  In most cases, only the former mapping needs to be  adjusted  by
+       the administrator; the latter is principally defined by the base policy and usually does not require modification.
+
+
+OPTIONS
+       -h, --help
+              List help information
+
+
+SEE ALSO
+       selinux  (8),  semanage-boolean  (8), semanage-dontaudit (8), semanage-export (8), semanage-fcontext (8), semanage-import (8), semanage-interface (8),
+       semanage-login (8), semanage-module (8), semanage-node (8), semanage-permissive (8), semanage-port (8), semanage-user (8) semanage-ibkey  (8),  seman‐
+       age-ibendport (8),
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+       and Russell Coker <rcoker@redhat.com>.
+       Examples by Thomas Bleher <ThomasBleher@gmx.de>.  usage: semanage [-h]
+
+
+
+                                                                           20100223                                                               semanage(8)
+semanage-import(8)                                                                                                                         semanage-import(8)
+
+
+
+NAME
+       semanage-import - SELinux Policy Management import tool
+
+SYNOPSIS
+       semanage import [-h] [-N] [-S STORE] [-f INPUT_FILE]
+
+
+DESCRIPTION
+       semanage  is  used  to  configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources.  semanage
+       import and export can be used to extract the SELinux modifications from one machine and apply them to another. You can put a whole group  of  semanage
+       commands within a file and apply them to a machine in a single transaction.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -f INPUT_FILE, --input_file INPUT_FILE
+              Input file
+
+EXAMPLE
+       Import semanage modifications from another machine
+       # semanage import -f semanage.mods
+
+
+SEE ALSO
+       selinux (8), semanage (8), semanage-export (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                        semanage-import(8)
+semanage-export(8)                                                                                                                         semanage-export(8)
+
+
+
+NAME
+       semanage-export - SELinux Policy Management import tool
+
+SYNOPSIS
+       semanage export [-h] [-S STORE] [-f OUTPUT_FILE]
+
+
+DESCRIPTION
+       semanage  is  used  to  configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources.  semanage
+       import and export can be used to extract the SELinux modifications from one machine and apply them to another. You can put a whole group  of  semanage
+       commands within a file and apply them to a machine in a single transaction.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -f OUTPUT_FILE, --output_file OUTPUT_FILE
+              Output file
+
+
+EXAMPLE
+       Import semanage modifications from another machine
+       # semanage export -f semanage.mods
+       # scp semanage.mod remotemachine:
+       # ssh remotemachine
+       # semanage import -f semanage.mods
+
+
+SEE ALSO
+       selinux (8), semanage (8), semanage-import (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                        semanage-export(8)
+semanage-login(8)                                                                                                                           semanage-login(8)
+
+
+
+NAME
+       semanage-login - SELinux Policy Management linux user to SELinux User mapping tool
+
+SYNOPSIS
+       semanage  login  [-h]  [-n]  [-N]  [-S  STORE] [ --add -s SEUSER -r RANGE LOGIN | --delete LOGIN | --deleteall | --extract | --list [-C] | --modify -s
+       SEUSER -r RANGE LOGIN ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       login controls the mapping between a Linux User and the SELinux User.  It can be used to turn  on confined users.  For example you could define that a
+       particular user or group of users will login to a system as the user_u user.  Prefix the group name with a '%' sign to indicate a group name.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -C, --locallist
+              List local customizations
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -s SEUSER, --seuser SEUSER
+              SELinux user name
+
+       -r RANGE, --range RANGE
+              MLS/MCS Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux  Range
+              for SELinux user defaults to s0.
+
+
+EXAMPLE
+       Modify the default user on the system to the guest_u user
+       # semanage login -m -s guest_u __default__
+       Assign gijoe user on an MLS machine  a range and to the staff_u user
+       # semanage login -a -s staff_u -rSystemLow-Secret gijoe
+       Assign all users in the engineering group to the staff_u user
+       # semanage login -a -s staff_u %engineering
+
+
+SEE ALSO
+       selinux (8), semanage (8), semanage-user (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                         semanage-login(8)
+semanage-user(8)                                                                                                                             semanage-user(8)
+
+
+
+NAME
+       semanage-user - SELinux Policy Management SELinux User mapping tool
+
+SYNOPSIS
+       semanage user [-h] [-n] [-N] [-S STORE] [ --add ( -L LEVEL -R ROLES -r RANGE -s SEUSER selinux_name) | --delete selinux_name | --deleteall | --extract
+       | --list [-C] | --modify ( -L LEVEL -R ROLES -r RANGE -s SEUSER selinux_name ) ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       user controls the mapping between an SELinux User and the roles and MLS/MCS levels.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -L LEVEL, --level LEVEL
+              Default SELinux Level for SELinux user, s0 Default. (MLS/MCS Systems only)
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+       -R [ROLES], --roles [ROLES]
+              SELinux Roles. You must enclose multiple roles within quotes, separate by spaces. Or specify -R multiple times.
+
+
+EXAMPLE
+       List SELinux users
+       # semanage user -l
+       Modify groups for staff_u user
+       # semanage user -m -R "system_r unconfined_r staff_r" staff_u
+       Add level for TopSecret Users
+       # semanage user -a -R "staff_r" -rs0-TopSecret topsecret_u
+
+
+NOTES
+       SELinux users defined in the policy cannot be removed or directly altered. When the -m switch is used on such a user, semanage creates a local SELinux
+       user of the same name, which overrides the original SELinux user.
+
+       As long as a login entry exists that links local SELinux user to a Linux user, given local SELinux user cannot be removed (even if it represents local
+       modification of a SELinux user defined in policy).  In case you want to remove local modification of a SELinux user, you need to  remove  any  related
+       login mapping first. Follow these steps:
+
+              1) Remove all login entries concerning the SELinux user.
+                 To list local customizations of login entries execute:
+                 # semanage login -l -C
+                 or for semanage command form:
+                 # semanage login --extract
+              2) Remove the SELinux user
+              3) Optionally reintroduce removed login entries
+
+
+SEE ALSO
+       selinux (8), semanage (8) semanage-login (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                          semanage-user(8)
+semanage-port(8)                                                                                                                             semanage-port(8)
+
+
+
+NAME
+       semanage-port - SELinux Policy Management port mapping tool
+
+SYNOPSIS
+       semanage  port  [-h]  [-n] [-N] [-S STORE] [ --add -t TYPE -p PROTOCOL -r RANGE port_name | port_range | --delete -p PROTOCOL port_name | port_range |
+       --deleteall | --extract | --list [-C] | --modify -t TYPE -p PROTOCOL -r RANGE port_name | port_range ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources. semanage port
+       controls the port number to port type definitions.
+
+       Default  port  definitions are contained in policy modules and can't be removed without removing corresponding module. Therefore semanage port uses so
+       called local definitions, which are assigned higher priority and override default definitions for the same port.
+
+       semanage port -l lists all port definitions (both default and local) which can result in seemingly conflicting or duplicate entries. Use semanage port
+       -l -C to only list local definitions.
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -t TYPE, --type TYPE
+              SELinux type for the object
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+       -p PROTO, --proto PROTO
+              Protocol for the specified port (tcp|udp) or internet protocol version for the specified node (ipv4|ipv6).
+
+
+EXAMPLE
+       List all port definitions
+       # semanage port -l
+       Allow Apache to listen on tcp port 81
+       # semanage port -a -t http_port_t -p tcp 81
+       Allow sshd to listen on tcp port 8991
+       # semanage port -a -t ssh_port_t -p tcp 8991
+
+
+SEE ALSO
+       selinux (8), semanage (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                          semanage-port(8)
+semanage-interface(8)                                                                                                                   semanage-interface(8)
+
+
+
+NAME
+       semanage-interface - SELinux Policy Management network interface tool
+
+SYNOPSIS
+       semanage  interface [-h] [-n] [-N] [-S STORE] [ --add -t TYPE -r RANGE interface | --delete interface | --deleteall | --extract | --list [-C] | --mod‐
+       ify -t TYPE -r RANGE interface ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       interface controls the labels assigned to network interfaces.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -t TYPE, --type TYPE
+              SELinux type for the object
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+
+EXAMPLE
+       list all interface definitions
+       # semanage interface -l
+
+
+SEE ALSO
+       selinux (8), semanage (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                     semanage-interface(8)
+semanage-module(8)                                                                                                                         semanage-module(8)
+
+
+
+NAME
+       semanage-module - SELinux Policy Management module mapping tool
+
+SYNOPSIS
+       semanage module [-h] [-n] [-N] [-S STORE] (-a | -r | -e | -d | --extract | --list [-C] | --deleteall) [module_name]
+
+
+DESCRIPTION
+       semanage  is  used  to  configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources.  semanage
+       module installs, removes, disables SELinux Policy modules.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -a, --add
+              Install specified module
+
+       -r, --remove
+              Remove specified module
+
+       -d --disable
+              Disable specified module
+
+       -e --enable
+              Enable specified module
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -l, --list
+              List records of the specified object type
+
+       -C, --locallist
+              List local customizations
+
+
+EXAMPLE
+       List all modules
+       # semanage module -l
+       Disable unconfined module
+       # semanage module --disable unconfined
+       Install custom apache policy module
+       # semanage module -a myapache
+
+
+SEE ALSO
+       selinux (8), semanage (8) semodule (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                        semanage-module(8)
+semanage-node(8)                                                                                                                             semanage-node(8)
+
+
+
+NAME
+       semanage-node - SELinux Policy Management node mapping tool
+
+SYNOPSIS
+       semanage  node  [-h]  [-n] [-N] [-S STORE] [ --add -M NETMASK -p PROTOCOL -t TYPE -r RANGE node | --delete -M NETMASK -p PROTOCOL node | --deleteall |
+       --extract | --list [-C] | --modify -M NETMASK -p PROTOCOL -t TYPE -r RANGE node ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       controls the ipaddress to node type definitions.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -M NETMASK, --netmask NETMASK
+              Network Mask
+
+       -t TYPE, --type TYPE
+              SELinux type for the object
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+       -p PROTO, --proto PROTO
+
+              Protocol for the specified port (tcp|udp) or internet protocol version for the specified node (ipv4|ipv6).
+
+
+
+                                                                           20130617                                                          semanage-node(8)
+semanage-fcontext(8)                                                                                                                     semanage-fcontext(8)
+
+
+
+NAME
+       semanage-fcontext - SELinux Policy Management file context tool
+
+
+SYNOPSIS
+       semanage  fcontext [-h] [-n] [-N] [-S STORE] [ --add ( -t TYPE -f FTYPE -r RANGE -s SEUSER | -e EQUAL ) FILE_SPEC ) | --delete ( -t TYPE -f FTYPE | -e
+       EQUAL ) FILE_SPEC ) | --deleteall | --extract | --list [-C] | --modify ( -t TYPE -f FTYPE -r RANGE -s SEUSER | -e EQUAL ) FILE_SPEC ) ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       fcontext  is used to  manage the default file system labeling on an SELinux system.  This command maps file paths using regular expressions to SELinux
+       labels.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -C, --locallist
+              List local customizations
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -e EQUAL, --equal EQUAL
+              Substitute target path with sourcepath when generating default label. This is used with fcontext. Requires source and  target  path  arguments.
+              The context labeling for the target subtree is made equivalent to that defined for the source.
+
+       -f [{a,f,d,c,b,s,l,p}], --ftype [{a,f,d,c,b,s,l,p}]
+              File  Type. This is used with fcontext. Requires a file type as shown in the mode field by ls, e.g. use 'd' to match only directories or 'f' to
+              match only regular files. The following file type options can be  passed:  f  (regular  file),d  (directory),c  (character  device),  b  (block
+              device),s (socket),l (symbolic link),p (named pipe).  If you do not specify a file type, the file type will default to "all files".
+
+
+       -s SEUSER, --seuser SEUSER
+              SELinux user name
+
+       -t TYPE, --type TYPE
+              SELinux Type for the object
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+
+EXAMPLE
+       remember to run restorecon after you set the file context
+       Add file-context for everything under /web
+       # semanage fcontext -a -t httpd_sys_content_t "/web(/.*)?"
+       # restorecon -R -v /web
+
+       Substitute /home1 with /home when setting file context
+       # semanage fcontext -a -e /home /home1
+       # restorecon -R -v /home1
+
+       For home directories under top level directory, for example /disk6/home,
+       execute the following commands.
+       # semanage fcontext -a -t home_root_t "/disk6"
+       # semanage fcontext -a -e /home /disk6/home
+       # restorecon -R -v /disk6
+
+
+SEE ALSO
+       selinux (8), semanage (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                      semanage-fcontext(8)
+semanage-boolean(8)                                                                                                                       semanage-boolean(8)
+
+
+
+NAME
+       semanage-boolean - SELinux Policy Management boolean tool
+
+SYNOPSIS
+       semanage boolean [-h] [-n] [-N] [-S STORE] [ --extract | --deleteall | --list [-C] | --modify ( --on | --off ) boolean ]
+
+
+DESCRIPTION
+       semanage  is  used  to  configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources.  semanage
+       boolean command controls the settings of booleans in SELinux policy.  booleans are if-then-else rules written in SELinux Policy.  They can be used  to
+       customize the way that SELinux Policy rules effect a confined domain.
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -1, --on
+              Enable the boolean
+
+       -0, --off
+              Disable the boolean
+
+
+EXAMPLE
+       Turn on the apache can send mail boolan
+       # semanage boolean -m --on httpd_can_sendmail
+
+       List customized booleans
+       # semanage boolean -l -C
+
+
+SEE ALSO
+       selinux (8), semanage (8) setsebool (8) getsebool (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                       semanage-boolean(8)
+semanage-permissive(8)                                                                                                                 semanage-permissive(8)
+
+
+
+NAME
+       semanage-permissive - SELinux Policy Management permissive mapping tool
+
+SYNOPSIS
+       semanage permissive [-h] (-a | -d | -l) [-n] [-N] [-S STORE] [type]
+
+
+DESCRIPTION
+       semanage  is  used  to  configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources.  semanage
+       permissive adds or removes a SELinux Policy permissive module.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload the policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+
+EXAMPLE
+       List all permissive modules
+       # semanage permissive -l
+       Make httpd_t (Web Server) a permissive domain
+       # semanage permissive -a httpd_t
+
+
+SEE ALSO
+       selinux (8), semanage (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                    semanage-permissive(8)
+semanage-dontaudit(8)                                                                                                                   semanage-dontaudit(8)
+
+
+
+NAME
+       semanage-dontaudit - SELinux Policy Management dontaudit tool
+
+SYNOPSIS
+       semanage dontaudit [-h] [-S STORE] [-N] {on,off}
+
+
+DESCRIPTION
+       semanage  is  used  to  configure certain elements of SELinux policy without requiring modification to or recompilation from policy sources.  semanage
+       dontaudit toggles whether or not dontaudit rules will be in the policy.  Policy writers use dontaudit rules to  cause  confined  applications  to  use
+       alternative  paths.   Dontaudit  rules  are denied but not reported in the logs.  Some times dontaudit rules can cause bugs in applications but policy
+       writers will not realize it since the AVC is not audited.  Turning off dontaudit rules with this command to see if the kernel is blocking an access.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -N, --noreload
+              Do not reload the policy after commit
+
+
+EXAMPLE
+       Turn off dontaudit rules
+       # semanage dontaudit off
+
+
+SEE ALSO
+       selinux (8), semanage (8)
+
+
+AUTHOR
+       This man page was written by Daniel Walsh <dwalsh@redhat.com>
+
+
+
+                                                                           20130617                                                     semanage-dontaudit(8)
+semanage-ibpkey(8)                                                                                                                         semanage-ibpkey(8)
+
+
+
+NAME
+       semanage-ibpkey - SELinux Policy Management ibpkey mapping tool
+
+SYNOPSIS
+       semanage ibpkey [-h] [-n] [-N] [-S STORE] [ --add -t TYPE -x SUBNET_PREFIX -r RANGE ibpkey_name | ibpkey_range | --delete -x SUBNET_PREFIX ibpkey_name
+       | ibpkey_range | --deleteall | --extract | --list [-C] | --modify -t TYPE -x SUBNET_PREFIX -r RANGE ibpkey_name | ibpkey_range ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       ibpkey controls the ibpkey number to ibpkey type definitions.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -t TYPE, --type TYPE
+              SELinux type for the object
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+       -x SUBNET_PREFIX, --subnet_prefix SUBNET_PREFIX
+              Subnet prefix for the specified pkey or range of pkeys.
+
+
+EXAMPLE
+       List all ibpkey definitions
+       # semanage ibpkey -l
+       Label pkey 0x8FFF (limited membership default pkey) as a default pkey type
+       # semanage ibpkey -a -t default_ibpkey_t -x fe80:: 0x8FFF
+
+
+SEE ALSO
+       selinux(8), semanage(8)
+
+
+AUTHOR
+       This man page was written by Daniel Jurgens <danielj@mellanox.com>
+
+
+
+                                                                           20170508                                                        semanage-ibpkey(8)
+semanage-ibendport(8)                                                                                                                   semanage-ibendport(8)
+
+
+
+NAME
+       semanage-ibendport - SELinux Policy Management ibendport mapping tool
+
+SYNOPSIS
+       semanage  ibendport  [-h]  [-n]  [-N] [-S STORE] [ --add -t TYPE -z IBDEV_NAME -r RANGE port | --delete -z IBDEV_NAME port | --deleteall | --extract |
+       --list [-C] | --modify -t TYPE -z IBDEV_NAME -r RANGE port ]
+
+
+DESCRIPTION
+       semanage is used to configure certain elements of SELinux policy without requiring modification to or recompilation  from  policy  sources.   semanage
+       ibendport controls the ibendport number to ibendport type definitions.
+
+
+OPTIONS
+       -h, --help
+              show this help message and exit
+
+       -n, --noheading
+              Do not print heading when listing the specified object type
+
+       -N, --noreload
+              Do not reload policy after commit
+
+       -S STORE, --store STORE
+              Select an alternate SELinux Policy Store to manage
+
+       -C, --locallist
+              List local customizations
+
+       -a, --add
+              Add a record of the specified object type
+
+       -d, --delete
+              Delete a record of the specified object type
+
+       -m, --modify
+              Modify a record of the specified object type
+
+       -l, --list
+              List records of the specified object type
+
+       -E, --extract
+              Extract customizable commands, for use within a transaction
+
+       -D, --deleteall
+              Remove all local customizations
+
+       -t TYPE, --type TYPE
+              SELinux type for the object
+
+       -r RANGE, --range RANGE
+              MLS/MCS  Security Range (MLS/MCS Systems only) SELinux Range for SELinux login mapping defaults to the SELinux user record range. SELinux Range
+              for SELinux user defaults to s0.
+
+       -z IBDEV_NAME, --ibdev_name IBDEV_NAME
+              The name of the infiniband device for the port to be labeled.  (ex. mlx5_0)
+
+
+EXAMPLE
+       List all ibendport definitions
+       # semanage ibendport -l
+       Label mlx4_0 port 2.
+       # semanage ibendport -a -t allowed_ibendport_t -z mlx4_0 2
+
+
+SEE ALSO
+       selinux(8), semanage(8)
+
+
+AUTHOR
+       This man page was written by Daniel Jurgens <danielj@mellanox.com>
+
+
+
+                                                                           20170508                                                     semanage-ibendport(8)

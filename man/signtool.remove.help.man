@@ -1,0 +1,23 @@
+
+>  signtool.exe remove
+
+SignTool Error: A required parameter is missing.
+Usage: signtool remove [options] <filename(s)>
+
+Use the "remove" command to remove the embedded signature(s) or sections of
+the embedded signature on a PE/COFF file.
+
+WARNING: This command will modify the file on the disk. Please create a backup
+copy if you want to preserve the original file.
+
+The option "/c" and/or "/u", or "/s" is required.
+
+/c          Remove all certificates, except for the signer certificate
+            from the signature.
+/q          No output on success and minimal output on failure. As always,
+            SignTool returns 0 on success and 1 on failure.
+/s          Remove the signature(s) entirely.
+/u          Remove the unauthenticated attributes from the signature
+            e.g. Dual signatures and timestamps.
+/v          Print verbose success and status messages. This may also provide
+            slightly more information on error.

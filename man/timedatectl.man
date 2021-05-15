@@ -1,0 +1,119 @@
+TIMEDATECTL(1)                                                                timedatectl                                                                TIMEDATECTL(1)
+
+
+
+NAME
+       timedatectl - Control the system time and date
+
+SYNOPSIS
+       timedatectl [OPTIONS...] {COMMAND}
+
+DESCRIPTION
+       timedatectl may be used to query and change the system clock and its settings.
+
+       Use systemd-firstboot(1) to initialize the system time zone for mounted (but not booted) system images.
+
+OPTIONS
+       The following options are understood:
+
+       --no-ask-password
+           Do not query the user for authentication for privileged operations.
+
+       --adjust-system-clock
+           If set-local-rtc is invoked and this option is passed, the system clock is synchronized from the RTC again, taking the new setting into account. Otherwise,
+           the RTC is synchronized from the system clock.
+
+       -H, --host=
+           Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a
+           container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine
+           manager instance. Container names may be enumerated with machinectl -H HOST.
+
+       -M, --machine=
+           Execute operation on a local container. Specify a container name to connect to.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+       --no-pager
+           Do not pipe output into a pager.
+
+       The following commands are understood:
+
+       status
+           Show current settings of the system clock and RTC.
+
+       set-time [TIME]
+           Set the system clock to the specified time. This will also update the RTC time accordingly. The time may be specified in the format "2012-10-30 18:17:16".
+
+       set-timezone [TIMEZONE]
+           Set the system time zone to the specified value. Available timezones can be listed with list-timezones. If the RTC is configured to be in the local time,
+           this will also update the RTC time. This call will alter the /etc/localtime symlink. See localtime(5) for more information.
+
+       list-timezones
+           List available time zones, one per line. Entries from the list can be set as the system timezone with set-timezone.
+
+       set-local-rtc [BOOL]
+           Takes a boolean argument. If "0", the system is configured to maintain the RTC in universal time. If "1", it will maintain the RTC in local time instead.
+           Note that maintaining the RTC in the local timezone is not fully supported and will create various problems with time zone changes and daylight saving
+           adjustments. If at all possible, keep the RTC in UTC mode. Note that invoking this will also synchronize the RTC from the system clock, unless
+           --adjust-system-clock is passed (see above). This command will change the 3rd line of /etc/adjtime, as documented in hwclock(8).
+
+       set-ntp [BOOL]
+           Takes a boolean argument. Controls whether NTP based network time synchronization is enabled (if available).
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+ENVIRONMENT
+       $SYSTEMD_PAGER
+           Pager to use when --no-pager is not given; overrides $PAGER. Setting this to an empty string or the value "cat" is equivalent to passing --no-pager.
+
+       $SYSTEMD_LESS
+           Override the default options passed to less ("FRSXMK").
+
+EXAMPLES
+       Show current settings:
+
+           $ timedatectl
+                 Local time: Fri, 2012-11-02 09:26:46 CET
+             Universal time: Fri, 2012-11-02 08:26:46 UTC
+             RTC time: Fri, 2012-11-02 08:26:45
+             Timezone: Europe/Warsaw
+                 UTC offset: +0100
+                NTP enabled: no
+           NTP synchronized: no
+            RTC in local TZ: no
+                 DST active: no
+            Last DST change: CEST → CET, DST became inactive
+                 Sun, 2012-10-28 02:59:59 CEST
+                 Sun, 2012-10-28 02:00:00 CET
+            Next DST change: CET → CEST, DST will become active
+                 the clock will jump one hour forward
+                 Sun, 2013-03-31 01:59:59 CET
+                 Sun, 2013-03-31 03:00:00 CEST
+
+       Enable an NTP daemon (chronyd):
+
+           $ timedatectl set-ntp true
+           ==== AUTHENTICATING FOR org.freedesktop.timedate1.set-ntp ===
+           Authentication is required to control whether network time synchronization shall be enabled.
+           Authenticating as: user
+           Password: ********
+           ==== AUTHENTICATION COMPLETE ===
+
+           $ systemctl status chronyd.service
+           chronyd.service - NTP client/server
+               Loaded: loaded (/usr/lib/systemd/system/chronyd.service; enabled)
+               Active: active (running) since Fri, 2012-11-02 09:36:25 CET; 5s ago
+           ...
+
+
+SEE ALSO
+       systemd(1), hwclock(8), date(1), localtime(5), systemctl(1), systemd-timedated.service(8), systemd-firstboot(1)
+
+
+
+systemd 219                                                                                                                                              TIMEDATECTL(1)

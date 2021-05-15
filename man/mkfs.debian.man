@@ -1,0 +1,61 @@
+MKFS(8)                                        System Administration                                       MKFS(8)
+
+NAME
+       mkfs - build a Linux filesystem
+
+SYNOPSIS
+       mkfs [options] [-t type] [fs-options] device [size]
+
+DESCRIPTION
+       This mkfs frontend is deprecated in favour of filesystem specific mkfs.<type> utils.
+
+       mkfs  is  used to build a Linux filesystem on a device, usually a hard disk partition.  The device argument
+       is either the device name (e.g.  /dev/hda1, /dev/sdb2), or a regular file that shall contain  the  filesys‐
+       tem.  The size argument is the number of blocks to be used for the filesystem.
+
+       The exit code returned by mkfs is 0 on success and 1 on failure.
+
+       In  actuality, mkfs is simply a front-end for the various filesystem builders (mkfs.fstype) available under
+       Linux.  The filesystem-specific builder is searched for via your PATH environment setting only.  Please see
+       the filesystem-specific builder manual pages for further details.
+
+OPTIONS
+       -t, --type type
+              Specify  the  type  of  filesystem to be built.  If not specified, the default filesystem type (cur‐
+              rently ext2) is used.
+
+       fs-options
+              Filesystem-specific options to be passed to the real filesystem builder.
+
+       -V, --verbose
+              Produce verbose output, including all filesystem-specific commands that  are  executed.   Specifying
+              this  option  more than once inhibits execution of any filesystem-specific commands.  This is really
+              only useful for testing.
+
+       -V, --version
+              Display version information and exit.  (Option -V will display version information only when  it  is
+              the only parameter, otherwise it will work as --verbose.)
+
+       -h, --help
+              Display help text and exit.
+
+BUGS
+       All  generic  options  must precede and not be combined with filesystem-specific options.  Some filesystem-
+       specific programs do not automatically detect the device size and require the size parameter to  be  speci‐
+       fied.
+
+AUTHORS
+       David Engel (david@ods.com)
+       Fred N. van Kempen (waltje@uwalt.nl.mugnet.org)
+       Ron Sommeling (sommel@sci.kun.nl)
+       The manual page was shamelessly adapted from Remy Card's version for the ext2 filesystem.
+
+SEE ALSO
+       fs(5), badblocks(8), fsck(8), mkdosfs(8), mke2fs(8), mkfs.bfs(8), mkfs.ext2(8), mkfs.ext3(8), mkfs.ext4(8),
+       mkfs.minix(8), mkfs.msdos(8), mkfs.vfat(8), mkfs.xfs(8)
+
+AVAILABILITY
+       The  mkfs  command  is  part  of  the  util-linux  package   and   is   available   from   https://www.ker‐
+       nel.org/pub/linux/utils/util-linux/.
+
+util-linux                                           June 2011                                             MKFS(8)

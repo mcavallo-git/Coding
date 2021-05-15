@@ -1,0 +1,59 @@
+The syntax of this command is:
+
+
+NETDOM QUERY [/Domain:domain] [/Server:server]
+           [/UserD:user] [/PasswordD:[password | *]]
+           [/Verify] [/RESEt] [/Direct] [/SecurePasswordPrompt]
+           WORKSTATION | SERVER | DC | OU | PDC | FSMO | TRUST
+
+NETDOM QUERY Queries the domain for information
+
+/Domain         Specifies the domain on which to query for the information
+
+/UserD          User account used to make the connection with the domain
+                specified by the /Domain argument
+
+/PasswordD      Password of the user account specified by /UserD.  A * means
+                to prompt for the password
+
+/Server         Name of a specific domain controller that should be used to
+                perform the query.
+
+/Verify         For computers, verifies that the secure channel between the
+                computer and the domain controller is operating properly.
+                For trusts, verifies that the the trust between domains is
+                operating properly. Only outbound trust will be verified. The
+                user must have domain administrator credentials to get
+                correct verification results.
+
+/RESEt          Resets the secure channel between the computer and the domain
+                controller; valid only for computer enumeration
+
+/Direct         Applies only for a TRUST query, lists only the direct trust
+                links and omits the domains indirectly trusted through
+                transitive links. Do not use with /Verify.
+
+/SecurePasswordPrompt 
+                Use secure credentials popup to specify credentials. This
+                option should be used when smartcard credentials need to be
+                specified. This option is only in effect when the password 
+                value is supplied as *
+
+WORKSTATION     Query the domain for the list of workstations
+SERVER          Query the domain for the list of servers
+DC              Query the domain for the list of Domain Controllers
+OU              Query the domain for the list of Organizational Units under
+                which the specified user can create a machine object
+PDC             Query the domain for the current Primary Domain Controller
+FSMO            Query the domain for the current list of FSMO owners
+TRUST           Query the domain for the list of its trusts
+
+The trust verify command checks only direct, outbound, Windows trusts. To
+verify an inbound trust, use the NETDOM TRUST command which allows you to
+specify credentials for the trusting domain.
+
+
+NETDOM HELP command | MORE displays Help one screen at a time.
+
+The command completed successfully.
+

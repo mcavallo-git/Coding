@@ -1,0 +1,61 @@
+
+Usage: C:\Program Files (x86)\Microsoft Visual Studio\Installer\vs_installershell.exe -- [command [options]]
+
+Commands:
+  install    Installs a product
+  modify     Modifies an installed product
+  update     Updates an installed product
+  repair     Repairs an installed product
+  resume     Resumes a partial installation, usually after a system reboot
+  export     Creates an installation configuration file from a product
+  uninstall  Uninstalls an installed product
+
+Options:
+  --installPath              The installation directory for the instance to act upon. For the install command, this is where the instance will be installed. For other commands, this is where the previously-installed instance was installed.  [string]
+  --productId                The ID of the product for the instance that will be installed. This is required for the install command, ignored for other commands if --installPath is specified.  [string]
+  --channelId                The ID of the channel for the instance that will be installed. This is required for the install command, ignored for other commands if --installPath is specified.  [string]
+  --channelUri               The URI of the channel manifest.  This can be used for the install command; it is ignored for other commands.  [string]
+  --installChannelUri        The URI of the channel manifest to use for the installation.  The URI specified by --channelUri (which must be specified when --installChannelUri is specified) will be used to detect updates.  If updates are not desired, --channelUri must be specified without an argument.  This can be used for the install command; it is ignored for other commands.  [string]
+  --installCatalogUri        The URI of the catalog manifest to use for the installation.  If specified, the channel manager will attempt to download the catalog manifest from this URI before using the URI in the install channel manifest.  This parameter is used to support offline install, where the layout cache will be created with the product catalog already downloaded.  This can be used for the install command; it is ignored for other commands.  [string]
+  --layoutPath               The layout directory to check for packages before attempting to download them using the location in the manifest. This can be used for the install command; it is ignored for other commands.  [string]
+  --add                      This defines an artifact (group, workload, or component) that is to be added to the installation.  It can appear multiple times on the command line.
+
+                             The required components of the artifact are installed, but not the recommended or optional components. You can control additional components globally using --includeRecommended and/or --includeOptional. For finer-grained control, you can append ";includeRecommended" and/or ";includeOptional" to the artifactId (e.g. "--add Workload1;includeRecommended" or "--add Workload2;includeOptional;includeRecommended").
+
+                             It is optional for the install and modify commands, ignored for the update, repair and uninstall commands.  [string]
+  --remove                   This defines an artifact (group, workload, or component) that is to be removed from the installation.  It can appear multiple times on the command line. It is optional for the install and modify commands, ignored for the update, repair and uninstall commands.  [string]
+  --all                      Installs all workloads and all components.
+  --allWorkloads             Installs all workloads and their required components, no recommended or optional components.
+  --includeRecommended       Includes the recommended components for any workloads that are installed, but not the optional components.  The workloads are specified either with --allWorkloads or --add.
+  --includeOptional          Includes the optional components for any workloads that are installed, but not the recommended components.  The workloads are specified either with --allWorkloads or --add.
+  --campaign                 The identifier of the campaign, for campaign tracking. If supplied, this ID will be logged with the installer's "AppLaunched" telemetry event.  [string]
+  --activityId               An ID that can be used to correlate the installer command with an event in Visual Studio.  If supplied, this ID will be logged with the installer's "AppLaunched" event.  [string]
+  --in                       The URI or path to a response file  [string]
+  --version, -v              Writes the application's version number to the console and exits
+  --passive, -p              If present, the command proceeds with UI, immediately and without user interaction. This option cannot be used with --quiet.
+  --quiet, -q                If present, the command proceeds without UI.  Progress messages are written to stdout and error messages are written to stderr.  This option cannot be used with --passive.
+  --norestart                If present, commands with --passive or --quiet will not automatically restart the machine (if required).  This is ignored if neither --passive nor --quiet are specified.
+  --locale                   The locale to be displayed on the GUI.  [string]
+  --focusedUi                If present, a minimal GUI will be displayed for a client to review before commiting the operation. This option cannot be used with --passive, --quiet, or --remove.
+  --installSessionId         The sessionId from a previous instance of the client, for telemetry.  [string]
+  --runOnce                  Starts a new instance(process) of installer with current set of arguments except the runOnce argument.
+  --addProductLang           This defines the language of an artifact (group, workload, or component) that is to be installed.  It can appear multiple times on the command line. It is optional for the install and modify commands, ignored for the update, repair and uninstall commands. If not present, the installation will use the machine locale.  [string]
+  --removeProductLang        This defines the language of an artifact (group, workload, or component) that is to be removed.  It can appear multiple times on the command line. It is optional for the install and modify commands, ignored for the update, repair and uninstall commands.  [string]
+  --nickname                 This defines the nickname to assign to an installed product. The nickname cannot be longer than 10 characters. It is optional for the install command, ignored for the modify, update, repair and uninstall commands.  [string]
+  --noUpdateInstaller        Prevents the installer from updating itself when quiet is specified. The installer will fail the command and return a non-zero exit code if noUpdateInstaller is specified with quiet when an installer update is required.
+  --productKey               This defines the product key to use for an installed product. It is composed of 25 alphanumeric characters either in the format 'xxxxx-xxxxx-xxxxx-xxxxx-xxxxx' or 'xxxxxxxxxxxxxxxxxxxxxxxxx'. It is optional for the install and update commands, ignored for the repair, modify and uninstall commands.  [string]
+  --cache                    If present, packages will be kept after being installed for subsequent repairs. This will override the global policy setting to be used for subsequent installs, repairs, or modifications. The default policy is to cache packages. This is ignored for the uninstall command.
+  --nocache                  If present, packages will be be deleted after being installed or repaired. They will be downloaded again only if needed and deleted again after use. This will override the global policy setting to be used for subsequent installs, repairs, or modifications. The default policy is to cache packages. This is ignored for the uninstall command.
+  --noWeb                    No to any web download.
+  --force                    Force terminate any running Visual Studio processes.
+  --updateFromVS             Update from VS.
+  --pipe                     This defines the named pipe to connect  [string]
+  --vsix                     URI or path to an additional vsix to install. Ignored if no command is provided.  [string]
+  --flight                   A flight or flights to enable, along with the duration. eg "flight1;7d". This is only seeded during an install operation.  [string]
+  --installerFlight          A flight or flights to enable, along with the duration. eg "flight1;7d"  [string]
+  --path                     Allows for specifying custom install paths like cachePath. eg --path cachePath="C:\Program Files (x86)\Visual Studio"  [string]
+  --installWhileDownloading  Specifies that downloads and installs occur in parallel.
+  --downloadThenInstall      Specifies that all downloads finish before any packages are installed.
+  --previewUpdate            Previews the update allowing for selection before starting
+  --config                   The path to the config file to use to install/modify a product
+  --clone                    Specifies the path to an installed product that will be used to clone selection.  [string]

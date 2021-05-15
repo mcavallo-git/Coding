@@ -1,0 +1,265 @@
+MONGO(1)                                                                                                                                                         mongodb-manual                                                                                                                                                        MONGO(1)
+
+NAME
+       mongo - MongoDB Shell
+
+DESCRIPTION
+       mongo  is  an interactive JavaScript shell interface to MongoDB, which provides a powerful interface for systems administrators as well as a way for developers to test queries and operations directly with the database. mongo also provides a fully functional JavaScript environment for use with a MongoDB. This document addresses
+       the basic invocation of the mongo shell and an overview of its usage.
+
+SYNOPSIS
+       mongo [--shell] [--nodb] [--norc] [--quiet] [--port <port>] [--host <host>] [--eval <JavaScript>] [-u <username>] [--username <username>] [-p <password>] [--password <password>] [--help] [-h] [--version] [--verbose] [--ipv6] [database] [file.js]
+
+INTERFACE
+   Options
+       --shell
+              Enables the shell interface after evaluating a JavaScript file.  If you invoke the mongo command and specify a JavaScript file as an argument, or use --eval to specify JavaScript on the command line, the --shell option provides the user with a shell prompt after the file finishes executing.
+
+       --nodb Prevents the shell from connecting to any database instances. Later, to connect to a database within the shell, see mongo-shell-new-connections.
+
+       --norc Prevents the shell from sourcing and evaluating ~/.mongorc.js on start up.
+
+       --quiet
+              Silences output from the shell during the connection process.
+
+       --port <port>
+              Specifies the port where the mongod or mongos instance is listening. Unless specified mongo connects to mongod instances on port 27017, which is the default mongod port.
+
+       --host <hostname>
+              specifies the host where the mongod or mongos is running to connect to as <hostname>. By default mongo will attempt to connect to a MongoDB process running on the localhost.
+
+       --eval <javascript>
+              Evaluates a JavaScript expression specified as an argument to this option. mongo does not load its own environment when evaluating code: as a result many options of the shell environment are not available.
+
+       --username <username>, -u <username>
+              Specifies a username to authenticate to the MongoDB instance.  Use in conjunction with the --password option to supply a password.  If you specify a username and password but the default database or the specified database do not require authentication, mongo will exit with an exception.
+
+       --password <password>, -p <password>
+              Specifies a password to authenticate to the MongoDB instance.  Use in conjunction with the --username option to supply a username. If you specify a --username without the --password option, mongo will prompt for a password interactively, if the mongod or mongos requires authentication.
+
+       --authenticationDatabase <dbname>
+              New in version 2.4.
+
+              Specifies the database that holds the user's (e.g --username) credentials.
+
+              By default, mongo assumes that the database name specified in the db address holds the user's credentials, unless you specify --authenticationDatabase.
+
+              See userSource, /reference/privilege-documents and /reference/user-privileges for more information about delegated authentication in MongoDB.
+
+       --authenticationMechanism <name>
+              New in version 2.4.
+
+              Specifies the authentication mechanism. By default, the authentication mechanism is MONGODB-CR, which is the MongoDB challenge/response authentication mechanism. In the MongoDB Subscriber Edition, mongo also includes support for GSSAPI to handle Kerberos authentication.
+
+              See /tutorial/control-access-to-mongodb-with-kerberos-authentication for more information about Kerberos authentication.
+
+       --ssl  Enable connection to a mongod or mongos that has SSL encryption.
+
+       --sslPEMKeyFile <filename>
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the .pem file that contains both the SSL certificate and key. Specify the file name of the .pem file using relative or absolute paths
+
+       Required when using the --ssl option if the mongod or mongos has sslCAFile enabled without sslWeakCertificateValidation.
+
+       --sslPEMKeyPassword <value>
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the password to decrypt the root certificate chain specified by --sslPEMKeyFile.
+
+       Only required if the certificate-key file is encrypted.
+
+       --sslCAFile <filename>
+              New in version 2.4.
+
+       Note   The default distribution of MongoDB does not contain support for SSL. To use SSL you can either compile MongoDB with SSL support or use the MongoDB Subscriber Edition. See /administration/ssl for more information about SSL and MongoDB.
+
+       Specifies the .pem file that contains the certificate from the Certificate Authority. Specify the file name of the .pem file using relative or absolute paths
+
+       --help, -h
+              Returns a basic help and usage text.
+
+       --version
+              Returns the version of the shell.
+
+       --verbose
+              Increases the verbosity of the output of the shell during the connection process.
+
+       --ipv6 Enables IPv6 support that allows mongo to connect to the MongoDB instance using an IPv6 network. All MongoDB programs and processes, including mongo, disable IPv6 support by default.
+
+       <db address>
+              Specifies the "database address" of the database to connect to. For example:
+
+              mongo admin
+
+              The above command will connect the mongo shell to the admin database on the local machine. You may specify a remote database instance, with the resolvable hostname or IP address. Separate the database name from the hostname using a / character. See the following examples:
+
+              mongo mongodb1.example.net
+              mongo mongodb1/admin
+              mongo 10.8.8.10/test
+
+       <file.js>
+              Specifies a JavaScript file to run and then exit.  Must be the last option specified.  Use the --shell option to return to a shell after the file finishes running.
+
+   Files
+       ~/.dbshell
+          mongo maintains a history of commands in the .dbshell file.
+
+          Note   mongo does not recorded interaction related to authentication in the history file, including authenticate and db.addUser().
+
+       Warning
+              Versions of Windows mongo.exe earlier than 2.2.0 will save the .dbshell file in the mongo.exe working directory.
+
+       ~/.mongorc.js
+          mongo will read the .mongorc.js file from the home directory of the user invoking mongo. In the file, users can define variables, customize the mongo shell prompt, or update information that they would like updated every time they launch a shell. If you use the shell to evaluate a JavaScript file or expression either on the
+          command line with --eval or by specifying a .js file to mongo, mongo will read the .mongorc.js file after the JavaScript has finished processing.
+
+          Specify the --norc option to disable reading .mongorc.js.
+
+       /tmp/mongo_edit<time_t>.js
+          Created by mongo when editing a file.  If the file exists mongo will append an integer from 1 to 10 to the time value to attempt to create a unique file.
+
+       %TEMP%mongo_edit<time_t>.js
+          Created by mongo.exe on Windows when editing a file.  If the file exists mongo will append an integer from 1 to 10 to the time value to attempt to create a unique file.
+
+   Environment
+       EDITOR Specifies the path to an editor to use with the edit shell command.  A JavaScript variable EDITOR will override the value of EDITOR.
+
+       HOME   Specifies the path to the home directory where mongo will read the .mongorc.js file and write the .dbshell file.
+
+       HOMEDRIVE
+              On Windows systems, HOMEDRIVE specifies the path the directory where mongo will read the .mongorc.js file and write the .dbshell file.
+
+       HOMEPATH
+              Specifies the Windows path to the home directory where mongo will read the .mongorc.js file and write the .dbshell file.
+
+KEYBOARD SHORTCUTS
+       The mongo shell supports the following keyboard shortcuts: [1]
+
+                                                                                                                                         ┌───────────────────┬───────────────────────────────────────────────┐
+                                                                                                                                         │Keybinding         │ Function                                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Up arrow           │ Retrieve previous command from history        │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Down-arrow         │ Retrieve next command from history            │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Home               │ Go to beginning of the line                   │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │End                │ Go to end of the line                         │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Tab                │ Autocomplete method/command                   │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Left-arrow         │ Go backward one character                     │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Right-arrow        │ Go forward one character                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-left-arrow    │ Go backward one word                          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-right-arrow   │ Go forward one word                           │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-left-arrow    │ Go backward one word                          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-right-arrow   │ Go forward one word                           │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-A             │ Go to the beginning of the line               │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-B             │ Go backward one character                     │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-C             │ Exit the mongo shell                          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-D             │ Delete a char (or exit the mongo shell)       │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-E             │ Go to the end of the line                     │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-F             │ Go forward one character                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-G             │ Abort                                         │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-J             │ Accept/evaluate the line                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-K             │ Kill/erase the line                           │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-L or type cls │ Clear the screen                              │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-M             │ Accept/evaluate the line                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-N             │ Retrieve next command from history            │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-P             │ Retrieve previous command from history        │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-R             │ Reverse-search command history                │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-S             │ Forward-search command history                │
+                                                                                                                                         └───────────────────┴───────────────────────────────────────────────┘
+
+                                                                                                                                         │Ctrl-T             │ Transpose characters                          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-U             │ Perform Unix line-discard                     │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-W             │ Perform Unix word-rubout                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-Y             │ Yank                                          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-Z             │ Suspend (job control works in linux)          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-H             │ Backward-delete a character                   │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Ctrl-I             │ Complete, same as Tab                         │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-B             │ Go backward one word                          │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-C             │ Capitalize word                               │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-D             │ Kill word                                     │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-F             │ Go forward one word                           │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-L             │ Change word to lowercase                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-U             │ Change word to uppercase                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-Y             │ Yank-pop                                      │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-Backspace     │ Backward-kill word                            │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta-<             │ Retrieve the first command in command history │
+                                                                                                                                         ├───────────────────┼───────────────────────────────────────────────┤
+                                                                                                                                         │Meta->             │ Retrieve the last command in command history  │
+                                                                                                                                         └───────────────────┴───────────────────────────────────────────────┘
+
+       [1]  MongoDB accommodates multiple keybinding, Since 2.0, mongo includes support for basic emacs keybindings.
+
+USE
+       Typically users invoke the shell with the mongo command at the system prompt. Consider the following examples for other scenarios.
+
+       To connect to a database on a remote host using authentication and a non-standard port, use the following form:
+
+       mongo --username <user> --password <pass> --hostname <host> --port 28015
+
+       Alternatively, consider the following short form:
+
+       mongo -u <user> -p <pass> --host <host> --port 28015
+
+       Replace <user>, <pass>, and <host> with the appropriate values for your situation and substitute or omit the --port as needed.
+
+       To execute a JavaScript file without evaluating the ~/.mongorc.js file before starting a shell session, use the following form:
+
+       mongo --shell --norc alternate-environment.js
+
+       To print return a query as JSON, from the system prompt using the --eval option, use the following form:
+
+       mongo --eval 'db.collection.find().forEach(printjson)'
+
+       Use single quotes (e.g. ') to enclose the JavaScript, as well as the additional JavaScript required to generate this output.
+
+AUTHOR
+       MongoDB Documentation Project
+
+COPYRIGHT
+       2011-2013, 10gen, Inc.
+
+2.2.3                                                                                                                                                            March 14, 2013                                                                                                                                                        MONGO(1)

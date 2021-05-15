@@ -1,0 +1,146 @@
+MONGOEXPORT(1)                                                                                                                                                   mongodb-manual                                                                                                                                                  MONGOEXPORT(1)
+
+NAME
+       mongoexport - MongoDB
+
+SYNOPSIS
+       mongoexport is a utility that produces a JSON or CSV export of data stored in a MongoDB instance. See the "/administration/import-export" document for a more in depth usage overview, and the "mongoimport" document for more information regarding the mongoimport utility, which provides the inverse "importing" capability.
+
+       Note   Do not use mongoimport and mongoexport for full-scale backups because they may not reliably capture data type information. Use mongodump and mongorestore as described in "/administration/backups" for this kind of functionality.
+
+OPTIONS
+       mongoexport
+
+       --help Returns a basic help and usage text.
+
+       --verbose, -v
+              Increases the amount of internal reporting returned on the command line. Increase the verbosity with the -v form by including the option multiple times, (e.g. -vvvvv.)
+
+       --version
+              Returns the version of the mongoexport utility.
+
+       --host <hostname><:port>
+              Specifies a resolvable hostname for the mongod from which you want to export data. By default mongoexport attempts to connect to a MongoDB process ruining on the localhost port number 27017.
+
+              Optionally, specify a port number to connect a MongoDB instance running on a port other than 27017.
+
+              To connect to a replica set, you can specify the replica set seed name, and a seed list of set members, in the following format:
+
+              <replica_set_name>/<hostname1><:port>,<hostname2:<port>,...
+
+       --port <port>
+              Specifies the port number, if the MongoDB instance is not running on the standard port. (i.e. 27017) You may also specify a port number using the mongoexport --host command.
+
+       --ipv6 Enables IPv6 support that allows mongoexport to connect to the MongoDB instance using an IPv6 network. All MongoDB programs and processes, including mongoexport, disable IPv6 support by default.
+
+       --ssl  New in version 2.4: MongoDB added support for SSL connections to mongod instances in mongoexport.
+
+       Note   SSL support in mongoexport is not compiled into the default distribution of MongoDB. See /administration/ssl for more information on SSL and MongoDB.
+
+              Additionally, mongoexport does not support connections to mongod instances that require client certificate validation.
+
+       Allows mongoexport to connect to mongod instance over an SSL connection.
+
+       --username <username>, -u <username>
+              Specifies a username to authenticate to the MongoDB instance, if your database requires authentication. Use in conjunction with the mongoexport --password option to supply a password.
+
+       --password <password>, -p <password>
+              Specifies a password to authenticate to the MongoDB instance. Use in conjunction with the --username option to supply a username.
+
+              If you specify a --username without the --password option, mongoexport will prompt for a password interactively.
+
+       --authenticationDatabase <dbname>
+              New in version 2.4.
+
+              Specifies the database that holds the user's (e.g --username) credentials.
+
+              By default, mongoexport assumes that the database specified to the --db argument holds the user's credentials, unless you specify --authenticationDatabase.
+
+              See userSource, /reference/privilege-documents and /reference/user-privileges for more information about delegated authentication in MongoDB.
+
+       --authenticationMechanism <name>
+              New in version 2.4.
+
+              Specifies the authentication mechanism. By default, the authentication mechanism is MONGODB-CR, which is the MongoDB challenge/response authentication mechanism. In the MongoDB Subscriber Edition, mongoexport also includes support for GSSAPI to handle Kerberos authentication.
+
+              See /tutorial/control-access-to-mongodb-with-kerberos-authentication for more information about Kerberos authentication.
+
+       --dbpath <path>
+              Specifies  the  directory  of  the  MongoDB  data  files. If used, the --dbpath option enables mongoexport to attach directly to local data files and insert the data without the mongod. To run with --dbpath, mongoexport needs to lock access to the data directory: as a result, no mongod can access the same path while the
+              process runs.
+
+       --directoryperdb
+              Use the --directoryperdb in conjunction with the corresponding option to mongod, which allows mongoexport to export data into MongoDB instances that have every database's files saved in discrete directories on the disk. This option is only relevant when specifying the --dbpath option.
+
+       --journal
+              Allows mongoexport operations to access the durability journal to ensure that the export is in a consistent state. This option is only relevant when specifying the --dbpath option.
+
+       --db <db>, -d <db>
+              Use the --db option to specify the name of the database that contains the collection you want to export.
+
+       --collection <collection>, -c <collection>
+              Use the --collection option to specify the collection that you want mongoexport to export.
+
+       --fields <field1[,field2]>, -f <field1[,field2]>
+              Specify a field or number fields to include in the export. All other fields will be excluded from the export. Comma separate a list of fields to limit the fields exported.
+
+       --fieldFile <file>
+              As an alternative to "--fields" the --fieldFile option allows you to specify a file (e.g. <file>`) to hold a list of field names to specify a list of fields to include in the export. All other fields will be excluded from the export. Place one field per line.
+
+       --query <JSON>
+              Provides a JSON document as a query that optionally limits the documents returned in the export.
+
+       --csv  Changes the export format to a comma separated values (CSV) format. By default mongoexport writes data using one JSON document for every MongoDB document.
+
+       --jsonArray
+              Modifies the output of mongoexport to write the entire contents of the export as a single JSON array. By default mongoexport writes data using one JSON document for every MongoDB document.
+
+       --slaveOk, -k
+              Allows mongoexport to read data from secondary or slave nodes when using mongoexport with a replica set. This option is only available if connected to a mongod or mongos and is not available when used with the "mongoexport --dbpath" option.
+
+              This is the default behavior.
+
+       --out <file>, -o <file>
+              Specify a file to write the export to. If you do not specify a file name, the mongoexport writes data to standard output (e.g. stdout).
+
+       --forceTableScan
+              New in version 2.2.
+
+              Forces mongoexport to scan the data store directly: typically, mongoexport saves entries as they appear in the index of the _id field. Use --forceTableScan to skip the index and scan the data directly. Typically there are two cases where this behavior is preferable to the default:
+
+              1. If you have key sizes over 800 bytes that would not be present in the _id index.
+
+              2. Your database uses a custom _id field.
+
+              When you run with --forceTableScan, mongoexport does not use $snapshot. As a result, the export produced by mongoexport can reflect the state of the database at many different points in time.
+
+       Warning
+              Use --forceTableScan with extreme caution and consideration.
+
+USAGE
+       In the following example, mongoexport exports the collection contacts from the users database from the mongod instance running on the localhost port number 27017. This command writes the export data in CSV format into a file located at /opt/backups/contacts.csv.
+
+       mongoexport --db users --collection contacts --csv --out /opt/backups/contacts.csv
+
+       The next example creates an export of the collection contacts from the MongoDB instance running on the localhost port number 27017, with journaling explicitly enabled. This writes the export to the contacts.json file in JSON format.
+
+       mongoexport --db sales --collection contacts --out contacts.json --journal
+
+       The following example exports the collection contacts from the sales database located in the MongoDB data files located at /srv/mongodb/. This operation writes the export to standard output in JSON format.
+
+       mongoexport --db sales --collection contacts --dbpath /srv/mongodb/
+
+       Warning
+              The above example will only succeed if there is no mongod connected to the data files located in the /srv/mongodb/ directory.
+
+       The final example exports the collection contacts from the database marketing . This data resides on the MongoDB instance located on the host mongodb1.example.net running on port 37017, which requires the username user and the password pass.
+
+       mongoexport --host mongodb1.example.net --port 37017 --username user --password pass --collection contacts --db marketing --out mdb1-examplenet.json
+
+AUTHOR
+       MongoDB Documentation Project
+
+COPYRIGHT
+       2011-2013, 10gen, Inc.
+
+2.2.3                                                                                                                                                            March 14, 2013                                                                                                                                                  MONGOEXPORT(1)

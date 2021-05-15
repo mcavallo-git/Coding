@@ -1,0 +1,32 @@
+
+>  signtool.exe catdb
+
+SignTool Error: A required parameter is missing.
+Usage: signtool catdb [options] <filename(s)>
+
+Use the "catdb" command to add or remove catalog files to or from a catalog
+database. Catalog databases are used for automatic lookup of catalog files,
+and are identified by GUID.
+
+Catalog Database options allow you to select which catalog database to operate
+on. If you do not specify a catalog database, SignTool operates on the system
+component (driver) database.
+Catalog Database options:
+/d          Operate on the default catalog database instead of the system
+            component (driver) catalog database.
+/g <GUID>   Operate on the specified catalog database.
+
+Other options specify what to do with the selected catalog database, and other
+behavior. If you do not specify any other options, SignTool will add the
+specified catalogs to the catalog database, replacing any existing catalog
+which has the same name.
+Other options:
+/q          No output on success and minimal output on failure. As always,
+            SignTool returns 0 on success and 1 on failure.
+/r          Remove the specified catalogs from the catalog database.
+/u          Automatically generate a unique name for the added catalogs. The
+            catalog files will be renamed if necessary to prevent name
+            conflicts with existing catalog files.
+/v          Print verbose success and status messages. This may also provide
+            slightly more information on error.
+/debug      Display additional debug information.

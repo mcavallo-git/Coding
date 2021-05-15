@@ -1,0 +1,104 @@
+HOSTNAMECTL(1)                                                                hostnamectl                                                                HOSTNAMECTL(1)
+
+
+
+NAME
+       hostnamectl - Control the system hostname
+
+SYNOPSIS
+       hostnamectl [OPTIONS...] {COMMAND}
+
+DESCRIPTION
+       hostnamectl may be used to query and change the system hostname and related settings.
+
+       This tool distinguishes three different hostnames: the high-level "pretty" hostname which might include all kinds of special characters (e.g. "Lennart's
+       Laptop"), the static hostname which is used to initialize the kernel hostname at boot (e.g. "lennarts-laptop"), and the transient hostname which is a default
+       received from network configuration. If a static hostname is set, and is valid (something other than localhost), then the transient hostname is not used.
+
+       Note that the pretty hostname has little restrictions on the characters used, while the static and transient hostnames are limited to the usually accepted
+       characters of Internet domain names.
+
+       The static hostname is stored in /etc/hostname, see hostname(5) for more information. The pretty hostname, chassis type, and icon name are stored in
+       /etc/machine-info, see machine-info(5).
+
+       Use systemd-firstboot(1) to initialize the system host name for mounted (but not booted) system images.
+
+OPTIONS
+       The following options are understood:
+
+       --no-ask-password
+           Do not query the user for authentication for privileged operations.
+
+       --static, --transient, --pretty
+           If status is used (or no explicit command is given) and one of those fields is given, hostnamectl will print out just this selected hostname.
+
+           If used with set-hostname, only the selected hostname(s) will be updated. When more than one of those options is used, all the specified hostnames will be
+           updated.
+
+       -H, --host=
+           Execute the operation remotely. Specify a hostname, or a username and hostname separated by "@", to connect to. The hostname may optionally be suffixed by a
+           container name, separated by ":", which connects directly to a specific container on the specified host. This will use SSH to talk to the remote machine
+           manager instance. Container names may be enumerated with machinectl -H HOST.
+
+       -M, --machine=
+           Execute operation on a local container. Specify a container name to connect to.
+
+       -h, --help
+           Print a short help text and exit.
+
+       --version
+           Print a short version string and exit.
+
+       The following commands are understood:
+
+       status
+           Show current system hostname and related information.
+
+       set-hostname NAME
+           Set the system hostname to NAME. By default, this will alter the pretty, the static, and the transient hostname alike; however, if one or more of --static,
+           --transient, --pretty are used, only the selected hostnames are changed. If the pretty hostname is being set, and static or transient are being set as well,
+           the specified hostname will be simplified in regards to the character set used before the latter are updated. This is done by replacing spaces with "-" and
+           removing special characters. This ensures that the pretty and the static hostname are always closely related while still following the validity rules of the
+           specific name. This simplification of the hostname string is not done if only the transient and/or static host names are set, and the pretty host name is
+           left untouched.
+
+           Pass the empty string "" as the hostname to reset the selected hostnames to their default (usually "localhost").
+
+       set-icon-name NAME
+           Set the system icon name to NAME. The icon name is used by some graphical applications to visualize this host. The icon name should follow the Icon Naming
+           Specification[1].
+
+           Pass an empty string to reset the icon name to the default value, which is determined from chassis type (see below) and possibly other parameters.
+
+       set-chassis TYPE
+           Set the chassis type to TYPE. The chassis type is used by some graphical applications to visualize the host or alter user interaction. Currently, the
+           following chassis types are defined: "desktop", "laptop", "server", "tablet", "handset", "watch", "embedded", as well as the special chassis types "vm" and
+           "container" for virtualized systems that lack an immediate physical chassis.
+
+           Pass an empty string to reset the chassis type to the default value which is determined from the firmware and possibly other parameters.
+
+       set-deployment ENVIRONMENT
+           Set the deployment environment description.  ENVIRONMENT must be a single word without any control characters. One of the following is suggested:
+           "development", "integration", "staging", "production".
+
+           Pass an empty string to reset to the default empty value.
+
+       set-location LOCATION
+           Set the location string for the system, if it is known.  LOCATION should be a human-friendly, free-form string describing the physical location of the
+           system, if it is known and applicable. This may be as generic as "Berlin, Germany" or as specific as "Left Rack, 2nd Shelf".
+
+           Pass an empty string to reset to the default empty value.
+
+EXIT STATUS
+       On success, 0 is returned, a non-zero failure code otherwise.
+
+SEE ALSO
+       systemd(1), hostname(1), hostname(5), machine-info(5), systemctl(1), systemd-hostnamed.service(8), systemd-firstboot(1)
+
+NOTES
+        1. Icon Naming Specification
+           http://standards.freedesktop.org/icon-naming-spec/icon-naming-spec-latest.html
+
+
+
+systemd 219                                                                                                                                              HOSTNAMECTL(1)

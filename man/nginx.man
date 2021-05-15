@@ -1,0 +1,106 @@
+NGINX(8)                                                                               BSD System Manager's Manual                                                                               NGINX(8)
+
+NAME
+     nginx — HTTP and reverse proxy server, mail proxy server
+
+SYNOPSIS
+     nginx [-?hqTtVv] [-c file] [-g directives] [-p prefix] [-s signal]
+
+DESCRIPTION
+     nginx (pronounced “engine x”) is an HTTP and reverse proxy server, as well as a mail proxy server.  It is known for its high performance, stability, rich feature set, simple configuration, and low
+     resource consumption.
+
+     The options are as follows:
+
+     -?, -h         Print help.
+
+     -c file        Use an alternative configuration file.
+
+     -g directives  Set global configuration directives.  See EXAMPLES for details.
+
+     -p prefix      Set the prefix path.  The default value is /usr/share/nginx.
+
+     -q             Suppress non-error messages during configuration testing.
+
+     -s signal      Send a signal to the master process.  The argument signal can be one of: stop, quit, reopen, reload.  The following table shows the corresponding system signals:
+
+                    stop    SIGTERM
+                    quit    SIGQUIT
+                    reopen  SIGUSR1
+                    reload  SIGHUP
+
+     -t             Do not run, just test the configuration file.  nginx checks the configuration file syntax and then tries to open files referenced in the configuration file.
+
+     -T             Same as -t, but additionally dump configuration files to standard output.
+
+     -V             Print the nginx version, compiler version, and configure script parameters.
+
+     -v             Print the nginx version.
+
+SIGNALS
+     The master process of nginx can handle the following signals:
+
+     SIGINT, SIGTERM  Shut down quickly.
+     SIGHUP           Reload configuration, start the new worker process with a new configuration, and gracefully shut down old worker processes.
+     SIGQUIT          Shut down gracefully.
+     SIGUSR1          Reopen log files.
+     SIGUSR2          Upgrade the nginx executable on the fly.
+     SIGWINCH         Shut down worker processes gracefully.
+
+     While there is no need to explicitly control worker processes normally, they support some signals too:
+
+     SIGTERM          Shut down quickly.
+     SIGQUIT          Shut down gracefully.
+     SIGUSR1          Reopen log files.
+
+DEBUGGING LOG
+     To enable a debugging log, reconfigure nginx to build with debugging:
+
+           ./configure --with-debug ...
+
+     and then set the debug level of the error_log:
+
+           error_log /path/to/log debug;
+
+     It is also possible to enable the debugging for a particular IP address:
+
+           events {
+                   debug_connection 127.0.0.1;
+           }
+
+ENVIRONMENT
+     The NGINX environment variable is used internally by nginx and should not be set directly by the user.
+
+FILES
+     /run/nginx.pid
+             Contains the process ID of nginx.  The contents of this file are not sensitive, so it can be world-readable.
+
+     /etc/nginx/nginx.conf
+             The main configuration file.
+
+     /var/log/nginx/error.log
+             Error log file.
+
+EXIT STATUS
+     Exit status is 0 on success, or 1 if the command fails.
+
+EXAMPLES
+     Test configuration file ~/mynginx.conf with global directives for PID and quantity of worker processes:
+
+           nginx -t -c ~/mynginx.conf \
+                   -g "pid /var/run/mynginx.pid; worker_processes 2;"
+
+SEE ALSO
+     Documentation at http://nginx.org/en/docs/.
+
+     For questions and technical support, please refer to http://nginx.org/en/support.html.
+
+HISTORY
+     Development of nginx started in 2002, with the first public release on October 4, 2004.
+
+AUTHORS
+     Igor Sysoev <igor@sysoev.ru>.
+
+     This manual page was originally written by Sergey A. Osokin <osa@FreeBSD.org.ru> as a result of compiling many nginx documents from all over the world.
+
+BSD                                                                                           June 16, 2015                                                                                           BSD

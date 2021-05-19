@@ -1,5 +1,5 @@
 
-Microsoft Word - Insert the date and time a document was created, last printed, or last saved
+Microsoft Word - Insert the date and time a document was created, last printed, or last saved (into header, footer)
 
 (Refer to citation, below)
 

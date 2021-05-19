@@ -1,7 +1,16 @@
+------------------------------------------------------------
 
 Microsoft Word - Insert the date and time a document was created, last printed, or last saved (into header, footer)
+  |--> Refer to citation, below
 
-(Refer to citation, below)
+------------------------------------------------------------
+
+Microsoft Word
+ > click "Insert" (tab, top)
+ 	> click "Quick Parts" (dropdown under "Text" group) > click "Field"
+		> click "(all)" under "Categories" > click "Date and Time" > click "SaveDate"
+		> set "Date format" to "dd-MMM-yyyy HH:mm:ss"
+			> click OK
 
 
 ------------------------------------------------------------

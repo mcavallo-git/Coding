@@ -1,5 +1,5 @@
 
-/* Get the Size of all Database Tables */
+/* Microsft SQL (MSSQL) - Get all Table sizes in current Database */
 
 SELECT 
 	t.NAME AS TableName
@@ -39,3 +39,14 @@ GROUP BY
 
 ORDER BY 
 	"Capacity (KB)" desc;
+
+
+/*
+------------------------------------------------------------
+
+ Citation(s)
+
+   github.com  |  "Coding/Microsoft SQL - Get all Table sizes in current Database.sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/master/sql/Microsoft%20SQL%20-%20Get%20all%20Table%20sizes%20in%20current%20Database.sql
+
+------------------------------------------------------------
+*/

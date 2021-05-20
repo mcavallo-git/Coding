@@ -1,5 +1,5 @@
 
-/* Microsoft SQL - Get all Column names in a given Database Table (or Tables) */
+/* Microsoft SQL (MSSQL) - Get all Column names in a given Database Table (or Tables) */
 
 SELECT COLUMN_NAME
 
@@ -13,11 +13,11 @@ AND TABLE_SCHEMA = 'Schema'
 
 
 /*
-----------------------------------------------------------
---
--- Citation(s)
---
---   stackoverflow.com  |  "SQL Server: Get table primary key using sql query - Stack Overflow"  |  https://stackoverflow.com/a/3930742
---
-----------------------------------------------------------
+------------------------------------------------------------
+
+ Citation(s)
+
+   stackoverflow.com  |  "SQL Server: Get table primary key using sql query - Stack Overflow"  |  https://stackoverflow.com/a/3930742
+
+------------------------------------------------------------
 */

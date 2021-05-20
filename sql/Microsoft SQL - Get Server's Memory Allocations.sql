@@ -1,4 +1,6 @@
 
+/* Microsoft SQL (MSSQL) - Get Server's Memory Allocations */
+
 SELECT
 	Memory_MB = (pages_kb + awe_allocated_kb + virtual_memory_committed_kb)/1024,
 	*

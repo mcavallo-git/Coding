@@ -330,6 +330,8 @@ Mostly Linux compatible:
 //
 //		stackoverflow.com  |  "Some emojis (e.g. ☁) have two unicode, u'\u2601' and u'\u2601\ufe0f'. What does u'\ufe0f' mean? Is it the same if I delete it?"  |  https://stackoverflow.com/a/38100803
 //
+//		support.microsoft.com  |  "Keyboard shortcuts in Word"  |  https://support.microsoft.com/en-us/topic/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2
+//
 //		unicode.org  |  "Dingbats"  |  https://unicode.org/charts/nameslist/n_2700.html
 //
 //		www.mauvecloud.net  |  "Character Code Finder"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html

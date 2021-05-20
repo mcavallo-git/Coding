@@ -29,11 +29,11 @@ WHERE
 
 
 /*
-----------------------------------------------------------
---
--- Citation(s)
---
---   stackoverflow.com  |  "SQL server query to get the list of columns in a table along with Data types, NOT NULL, and PRIMARY KEY constraints - Stack Overflow"  |  https://stackoverflow.com/a/2418665
---
-----------------------------------------------------------
+------------------------------------------------------------
+
+ Citation(s)
+
+   stackoverflow.com  |  "SQL server query to get the list of columns in a table along with Data types, NOT NULL, and PRIMARY KEY constraints - Stack Overflow"  |  https://stackoverflow.com/a/2418665
+
+------------------------------------------------------------
 */

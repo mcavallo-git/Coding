@@ -1,0 +1,337 @@
+https://emojipedia.org/emojipedia/5.0/
+------------------------------------------------------------
+
+utf8-chartest ∙●○◌☁Δ■💬╳✔✅❎❌⚡⚠️⚠❗❓☢☣⛠⛔✕✖✗✘□☑☒▢✉🔍🔎🔎⛺⛳✆➧⇒➾↶↳✦≠▶▷►◆◇◈◊❖⌨…
+
+------------------------------------------------------------
+
+Get Character Codes  -->  http://www.mauvecloud.net/charsets/CharCodeFinder.html
+ |
+ |--> Paste dingbat/emoji/character/etc. into top input field, then select radio button "Hexadecimal Character Codes"
+
+
+Lookup description/etc. regarding unicode characters  -->  https://www.compart.com/en/unicode
+ |
+ |-->  Paste into top field "Enter a search term..."
+
+
+------------------------------------------------------------
+
+Mostly Linux compatible:
+
+×					Multiplication Sign  |  https://www.compart.com/en/unicode/U+00D7
+
+
+✓					Check Mark  |  https://www.compart.com/en/unicode/U+2713
+
+
+------------------------------------------------------------
+
+•					Bullet  |  https://www.compart.com/en/unicode/U+2022
+∙					Bullet Operator  |  https://www.compart.com/en/unicode/U+2219
+
+
+-					Hyphen-Minus (keyboard key)  |  https://www.compart.com/en/unicode/U+002D
+–					En Dash (Longer than hyphen)  |  https://www.compart.com/en/unicode/U+2013
+—					Em Dash (Longer than hyphen & En Dash)  |  https://www.compart.com/en/unicode/U+2014
+
+
+↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
+↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
+→					Rightwards Arrow (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
+←					Leftwards Arrow (&larr;)  |  https://www.compart.com/en/unicode/U+2190
+↔					LEFT RIGHT ARROW
+↴					RIGHTWARDS ARROW WITH CORNER DOWNWARDS' (U+21B4)  |  https://www.fileformat.info/info/unicode/char/21b4/index.htm
+⬐					LEFTWARDS ARROW WITH TIP DOWNWARDS (U+2B10)  |  https://www.fileformat.info/info/unicode/char/2b10/index.htm
+↶					ANTICLOCKWISE TOP SEMICIRCLE ARROW
+⇒					RIGHTWARDS DOUBLE ARROW
+➾					Open-outlined rightwards arrow
+➧					Squat black rightwards arrow
+
+
+[​]					Zero Width Space (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
+
+
+✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714
+╳					X MARK, LARGE
+
+
+☰					Trigram For Heaven (Hamburger Menu)  |  Unicode Character “☰” (U+2630)  |  https://www.compart.com/en/unicode/U+2630
+⫴					Triple Vertical Bar Binary Relation  |  Unicode Character “⫴” (U+2AF4)  |  https://www.compart.com/en/unicode/U+2AF4
+
+
+⋮					Vertical Ellipsis (Kebab)  |  Unicode Character “⋮” (U+22EE)  |  https://www.compart.com/en/unicode/U+22EE
+︙				Presentation Form For Vertical Horizontal Ellipsis  |  Unicode Character “︙” (U+FE19)  |  https://www.compart.com/en/unicode/U+FE19
+
+
+…					Horizontal Ellipsis  |  Unicode Character “…” (U+2026)  |  https://www.compart.com/en/unicode/U+2026
+⋯					Midline Horizontal Ellipsis  |  Unicode Character “⋯” (U+22EF)  |  https://www.compart.com/en/unicode/U+22EF
+
+
+⊞				 Squared Plus (Winkey / Windows Key)  |  Unicode Character “⊞” (U+229E)  |  https://www.compart.com/en/unicode/U+229E
+
+
+∴					Therefore  |  https://www.compart.com/en/unicode/U+2234
+≠					Not Equal To  |  https://www.compart.com/en/unicode/U+2260
+≡					Identical To  |  https://www.compart.com/en/unicode/U+2261
+
+
+👍			 Thumbs Up Sign  |  Unicode Character “👍” (U+1F44D)  |  https://www.compart.com/en/unicode/U+1F44D
+
+
+⛔				No Entry (Prohibited)  |  Unicode Character “⛔” (U+26D4)  |  https://www.compart.com/en/unicode/U+26D4
+🚫				No Entry Sign (Prohibited)  |  Unicode Character “🚫” (U+1F6AB)  |  https://www.compart.com/en/unicode/U+1F6AB
+⚠️				(65039) WARNING SIGN
+⚠					(9888) WARNING SIGN
+❗					HEAVY EXCLAMATION MARK SYMBOL
+❓					BLACK QUESTION MARK ORNAMENT
+
+
+
+⚙️				Gear Emoji (Gear/Cog Variation)  |  ⚙️ Gear Emoji  |  https://emojipedia.org/gear/ --> https://www.compart.com/en/unicode/U+2699 + https://www.compart.com/en/unicode/U+FE0F
+⚙					Gear (Cog)  |  Unicode Character “⚙” (U+2699)  |  https://www.compart.com/en/unicode/U+2699
+⛭					Gear Without Hub  |  Unicode Character “⛭” (U+26ED)  |  https://www.compart.com/en/unicode/U+26ED
+
+
+°					Degree Sign (Degrees, Temperature - °C, °F)  |  https://www.compart.com/en/unicode/U+00B0
+
+
+🎧 				Headphone
+🖥 				Desktop Computer  |  Unicode Character “🖥” (U+1F5A5)  |  https://www.compart.com/en/unicode/U+1F5A5
+🖥️ 			Emoji: Desktop Computer  |  https://emojiterra.com/desktop-computer/
+
+
+▶					BLACK RIGHT-POINTING TRIANGLE
+▷					WHITE RIGHT-POINTING TRIANGLE
+
+
+►					Black Right-Pointing Pointer  |  Unicode Character “►” (U+25BA)  |  https://www.compart.com/en/unicode/U+25BA
+▻					White Right-Pointing Pointer  |  Unicode Character “▻” (U+25BB)  |  https://www.compart.com/en/unicode/U+25BB
+
+
+❖					Black Diamond Minus White X  |  Unicode Character “❖” (U+2756)  |  https://www.compart.com/en/unicode/U+2756
+✦					BLACK FOUR POINTED STAR
+◆					BLACK DIAMOND
+◇					WHITE DIAMOND
+◈					WHITE DIAMOND CONTAINING BLACK SMALL DIAMOND
+◊					LOZENGE
+⌨					KEYBOARD
+💬				SPEECH BALLOON
+
+
+❎				NEGATIVE SQUARED CROSS MARK
+✅				WHITE HEAVY CHECK MARK
+☑					Ballot box with check
+❌				Cross Mark  |  Unicode Character “❌” (U+274C)  |  https://www.compart.com/en/unicode/U+274C
+☒					Ballot box with X
+✕					MULTIPLICATION X
+✖					HEAVY MULTIPLICATION X
+✗					Ballot X
+✘					Heavy Ballot X
+🗙				Cancellation X  |  Unicode Character “🗙” (U+1F5D9)  |  https://www.compart.com/en/unicode/U+1F5D9
+
+
+○					WHITE CIRCLE
+◌					DOTTED CIRCLE
+●					BLACK CIRCLE
+⚫				 MEDIUM BLACK CIRCLE
+☐					BALLOT BOX
+▢					WHITE SQUARE WITH ROUNDED CORNERS
+☁					CLOUD (Black filled in Chrome)
+☁️				CLOUD v2 (White filled in Chrome)
+Δ					DELTA
+■					BLACK SQUARE
+ℹ️					INFORMATION SOURCE
+
+
+📅       CALENDAR
+⏳ Hourglass Not Done
+⏱️ Stopwatch
+⌚ Watch
+⏰ Alarm Clock
+
+
+💲 Heavy Dollar Sign
+💰 Money Bag
+💵 Dollar Banknote
+
+
+⚡				HIGH VOLTAGE SIGN
+☢				RADIOACTIVE SIGN
+☣				BIOHAZARD SIGN
+⛠					RESTRICTED LEFT ENTRY-1
+🔍				MAGNIFYING LENS (Bottom-Right to Top-Left)
+🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
+🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
+⛺				TENT
+⛳				FLAG IN HOLE
+✆					TELEPHONE LOCATION SIGN
+
+
+📧 E-Mail
+✉️ Envelope (Colored)
+✉  Envelope
+📨 Incoming Envelope
+📦 Package
+📮 Postbox
+
+
+☑️ ✅ ✔️ 🗹 🗸  ✓  ℹ
+
+
+==--  iOS Emojis - Audio-Related  --==
+
+🎧
+🎤
+🎚
+🔈
+🔇
+🔉
+🔊
+🔔
+🔕
+📣
+📢
+
+
+==--  iOS Emojis - Squares, Circles, Diamonds  --==
+
+🔺
+🔻
+🔸
+🔹
+🔶
+🔷
+▪
+▫
+◾
+◽
+◼
+◻
+⬛️
+⬜
+🔳
+🔲
+
+⚪️
+⚫️
+🔘
+🔴
+🔵
+
+
+#==-- Pointing Triangles  --==
+&#x25B2; ▲
+&#x25B4; ▴
+&#x25B6; ▶
+&#x25B8; ▸
+&#x25BA; ►
+&#x25BC; ▼
+&#x25BE; ▾
+&#x25C0; ◀
+&#x25C2; ◂
+&#x25C4; ◄
+
+
+==--  Numbers  --==
+①	Circled digit one
+②	Circled digit two
+③	Circled digit three
+④	Circled digit four
+⑤	Circled digit five
+⑥	Circled digit six
+⑦	Circled digit seven
+⑧	Circled digit eight
+⑨	Circled digit nine
+⑩	Circled number ten
+⑪	Circled number eleven
+⑫	Circled number twelve
+⑬	Circled number thirteen
+⑭	Circled number fourteen
+⑮	Circled number fifteen
+⑯	Circled number sixteen
+⑰	Circled number seventeen
+⑱	Circled number eighteen
+⑲	Circled number nineteen
+⑳	Circled number twenty
+⑴	Parenthesized digit one
+⑵	Parenthesized digit two
+⑶	Parenthesized digit three
+⑷	Parenthesized digit four
+⑸	Parenthesized digit five
+⑹	Parenthesized digit six
+⑺	Parenthesized digit seven
+⑻	Parenthesized digit eight
+⑼	Parenthesized digit nine
+⑽	Parenthesized number ten
+⑾	Parenthesized number eleven
+⑿	Parenthesized number twelve
+⒀	Parenthesized number thirteen
+⒁	Parenthesized number fourteen
+⒂	Parenthesized number fifteen
+⒃	Parenthesized number sixteen
+⒄	Parenthesized number seventeen
+⒅	Parenthesized number eighteen
+⒆	Parenthesized number nineteen
+⒇	Parenthesized number twenty
+⒈	Digit one full stop
+⒉	Digit two full stop
+⒊	Digit three full stop
+⒋	Digit four full stop
+⒌	Digit five full stop
+⒍	Digit six full stop
+⒎	Digit seven full stop
+⒏	Digit eight full stop
+⒐	Digit nine full stop
+⒑	Number ten full stop
+⒒	Number eleven full stop
+⒓	Number twelve full stop
+⒔	Number thirteen full stop
+⒕	Number fourteen full stop
+⒖	Number fifteen full stop
+⒗	Number sixteen full stop
+⒘	Number seventeen full stop
+⒙	Number eighteen full stop
+⒚	Number nineteen full stop
+⒛	Number twenty full stop
+⓪	Circled digit zero
+❶	Dingbat negative circled digit one
+❷	Dingbat negative circled digit two
+❸	Dingbat negative circled digit three
+❹	Dingbat negative circled digit four
+❺	Dingbat negative circled digit five
+❻	Dingbat negative circled digit six
+❼	Dingbat negative circled digit seven
+❽	Dingbat negative circled digit eight
+❾	Dingbat negative circled digit nine
+❿	Dingbat negative circled number ten
+⓫	Dingbat negative circled number evelven
+⓬	Dingbat negative circled number twelve
+⓭	Dingbat negative circled number thirteen
+⓮	Dingbat negative circled number fourteen
+⓯	Dingbat negative circled number fifteen
+⓰	Dingbat negative circled number sixteen
+⓱	Dingbat negative circled number seventeen
+⓲	Dingbat negative circled number eighteen
+⓳	Dingbat negative circled number nineteen
+⓴	Dingbat negative circled number twenty
+
+
+//	------------------------------------------------------------
+//	Citation(s)
+//
+//		compart.com  |  "Unicode - Compart"  |  https://www.compart.com/en/unicode
+//
+//		emojipedia.org  |  "Emojipedia 5.0 Emoji List"  |  https://emojipedia.org/emojipedia/5.0/
+//
+//		en.wikipedia.org  |  "Dingbat - Wikipedia"  |  https://en.wikipedia.org/wiki/Dingbat
+//
+//		stackoverflow.com  |  "HTML character codes for this ▲ or this ▼"  |  |  https://stackoverflow.com/a/11537979
+//
+//		stackoverflow.com  |  "Some emojis (e.g. ☁) have two unicode, u'\u2601' and u'\u2601\ufe0f'. What does u'\ufe0f' mean? Is it the same if I delete it?"  |  https://stackoverflow.com/a/38100803
+//
+//		unicode.org  |  "Dingbats"  |  https://unicode.org/charts/nameslist/n_2700.html
+//
+//		www.mauvecloud.net  |  "Character Code Finder"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html
+//
+// ------------------------------------------------------------

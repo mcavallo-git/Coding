@@ -25,10 +25,12 @@ EXEC sp_MSforeachtable 'DROP TABLE ?'
 GO
 
 
-----------------------------------------------------------
---
--- Citation(s)
---
---   stackoverflow.com  |  "How to drop all tables in a SQL Server database? - Stack Overflow"  |  https://stackoverflow.com/a/8439798
---
-----------------------------------------------------------
+/*
+------------------------------------------------------------
+
+ Citation(s)
+
+   stackoverflow.com  |  "How to drop all tables in a SQL Server database? - Stack Overflow"  |  https://stackoverflow.com/a/8439798
+
+------------------------------------------------------------
+*/

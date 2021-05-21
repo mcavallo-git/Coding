@@ -9,11 +9,15 @@
 # Step 0)
 #   *** ONLY PERFORM IF DEVICE IS STILL CONNECTED TO ITS OLD UNIFI CONTROLLER **
 #    |
-#    |--> Refer to citation "Migrating UNIFI APs to new controller" @ https://community.ui.com/questions/Migrating-UNIFI-APs-to-new-controller/9ca9d8e9-780d-404d-84df-e7762cb810fd
+#    |--> Reference: "Migrating UNIFI APs to new controller" | https://community.ui.com/questions/Migrating-UNIFI-APs-to-new-controller/9ca9d8e9-780d-404d-84df-e7762cb810fd
 #
 
-if [ "1" == "0" ]; then # Reset the device to factory settings
-syswrapper.sh restor-default;
+if [ "1" == "0" ]; then # Reset the device to factory defaults - Reference: "UniFi - How to Reset Devices to Factory Defaults" | https://help.ui.com/hc/en-us/articles/205143490-UniFi-How-to-Reset-Devices-to-Factory-Defaults
+
+set-default  # reset the device to factory defaults
+
+syswrapper.sh restor-default # if set-default doesn't work, try syswrapper.sh restor-default
+
 fi;
 
 
@@ -68,5 +72,7 @@ reboot
 #   community.ui.com  |  "USG set-inform for dummies | Ubiquiti Community"  |  https://community.ui.com/questions/USG-set-inform-for-dummies/38a7e111-1f0a-4937-bbcd-538ef83e1e49
 #
 #   community.ui.com  |  "Migrating UNIFI APs to new controller | Ubiquiti Community"  |  https://community.ui.com/questions/Migrating-UNIFI-APs-to-new-controller/9ca9d8e9-780d-404d-84df-e7762cb810fd
+#
+#   help.ui.com  |  "UniFi - How to Reset Devices to Factory Defaults – Ubiquiti Support and Help Center"  |  https://help.ui.com/hc/en-us/articles/205143490-UniFi-How-to-Reset-Devices-to-Factory-Defaults
 #
 # ------------------------------------------------------------

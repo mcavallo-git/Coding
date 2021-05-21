@@ -1,12 +1,27 @@
 #!/bin/sh
+# ------------------------------------------------------------
 #
 # Unifi Devices - Re-adopt to new controller (USG-3P, APs, Switches, etc.)
 #   |--> Note: These examples reference a controller at IPv4 "192.168.1.27" --> modify this respectively to match the controller's IPv4 in your environment
 # 
 # ------------------------------------------------------------
 #
+# Step 0)
+#   *** ONLY PERFORM IF DEVICE IS STILL CONNECTED TO ITS OLD UNIFI CONTROLLER **
+#    |
+#    |--> Refer to citation "Migrating UNIFI APs to new controller" @ https://community.ui.com/questions/Migrating-UNIFI-APs-to-new-controller/9ca9d8e9-780d-404d-84df-e7762cb810fd
+#
+
+if [ "1" == "0" ]; then # Reset the device to factory settings
+syswrapper.sh restor-default;
+fi;
+
+
+# ------------------------------------------------------------
+#
 # Step 1)
 #   SSH into the device you wish to adopt (this guide assumes you have access to such)
+#   Default admin/password credentials for UniFi devies are username "ubnt" and password "ubnt" (out of the box (OOB) factory default settings)
 
 
 # ------------------------------------------------------------
@@ -14,6 +29,7 @@
 # Step 2.1)
 #   APs & Switches --> directly call the set-inform command from SSH (sudo may be needed, e.g. sudo set-inform ...)
 #
+
 set-inform http://unifi:8080/inform
 
 
@@ -21,6 +37,7 @@ set-inform http://unifi:8080/inform
 # Step 2.2)
 #   USG-3P (Unifi Security Gateway) Requires you to use the "mca-cli" environment before calling the set-inform command
 #
+
 mca-cli
 set-inform http://unifi:8080/inform
 exit
@@ -48,6 +65,8 @@ reboot
 # ------------------------------------------------------------
 # Citation(s)
 #
-#   community.ui.com  |  "USG set-inform for dummies"  |  https://community.ui.com/questions/USG-set-inform-for-dummies/38a7e111-1f0a-4937-bbcd-538ef83e1e49
+#   community.ui.com  |  "USG set-inform for dummies | Ubiquiti Community"  |  https://community.ui.com/questions/USG-set-inform-for-dummies/38a7e111-1f0a-4937-bbcd-538ef83e1e49
+#
+#   community.ui.com  |  "Migrating UNIFI APs to new controller | Ubiquiti Community"  |  https://community.ui.com/questions/Migrating-UNIFI-APs-to-new-controller/9ca9d8e9-780d-404d-84df-e7762cb810fd
 #
 # ------------------------------------------------------------

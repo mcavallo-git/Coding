@@ -4,7 +4,7 @@
 #
 # ------------------------------------------------------------
 
-$ServiceName="MSSQLSERVER";
+$ServiceNames=$("MSSQLSERVER","SQLSERVERAGENT");
 
 # $Logon_Username="LocalSystem"; <# Log on as built-in account 'Local System' #>
 # $Logon_Username="NT Authority\LocalService"; <# Log on as built-in account 'Local Service' #>
@@ -13,7 +13,7 @@ $Logon_Username="NT Authority\NetworkService"; <# Log on as built-in account 'Ne
 $Logon_Password="";
 
 Get-Service `
-| Where-Object { $_.Name -Eq "${ServiceName}" } `
+| Where-Object { ${ServiceNames} -Contains $_.Name; } `
 | ForEach-Object {
 	If ($_.Status -Eq "Running") {
 		$Running_DependentServices = ($_ | Get-Service -DependentServices | Where-Object { $_.Status -Eq "Running" });

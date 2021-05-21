@@ -1,5 +1,7 @@
 
-/* Microsoft SQL (MSSQL) - View Indexes by Name (for Clustered Indexes spanning multiple Tables) */
+/* Microsoft SQL (MSSQL) - Get indexes by-name (for clustered indexes spanning multiple tables) */
+
+-- ------------------------------------------------------------
 
 SELECT
 	a.name AS Index_Name,
@@ -25,7 +27,7 @@ WHERE
 
  Citation(s)
 
-   github.com  |  "Coding/Microsoft SQL - View Indexes by Name (for Clustered Indexes spanning multiple Tables).sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/master/sql/Microsoft%20SQL%20-%20View%20Indexes%20by%20Name%20(for%20Clustered%20Indexes%20spanning%20multiple%20Tables).sql
+   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
 
    stackoverflow.com  |  "tsql - List of all index & index columns in SQL Server DB - Stack Overflow"  |  https://stackoverflow.com/a/765892
 

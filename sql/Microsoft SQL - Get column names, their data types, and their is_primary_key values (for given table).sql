@@ -1,5 +1,7 @@
 
-/* Microsoft SQL (MSSQL) - Get all column names, data types, and if-primary-key (for given table) */
+/* Microsoft SQL (MSSQL) - Get column names, their data types, and their is_primary_key values (for given table) */
+
+-- ------------------------------------------------------------
 
 SELECT 
 	c.name 'Column Name',
@@ -32,6 +34,8 @@ WHERE
 ------------------------------------------------------------
 
  Citation(s)
+
+   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
 
    stackoverflow.com  |  "SQL server query to get the list of columns in a table along with Data types, NOT NULL, and PRIMARY KEY constraints - Stack Overflow"  |  https://stackoverflow.com/a/2418665
 

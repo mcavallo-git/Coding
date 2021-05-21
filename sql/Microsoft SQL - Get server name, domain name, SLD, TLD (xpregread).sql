@@ -1,5 +1,5 @@
 
-/* Microsoft SQL (MSSQL) - Get Server-Name, Domain-Name, SLD, TLD */
+/* Microsoft SQL (MSSQL) - Get server name, domain name, SLD, TLD (xpregread) */
 
 -- ----------------------------------------------------------
 
@@ -21,6 +21,8 @@ DEFAULT_DOMAIN() AS DomainName_SLD;
 ------------------------------------------------------------
 
  Citation(s)
+
+   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
 
    stackoverflow.com  |  "How to get DOMAIN name from SQL Server? - Stack Overflow"  |  https://stackoverflow.com/a/40877756
 

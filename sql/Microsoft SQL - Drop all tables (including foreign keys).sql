@@ -1,4 +1,7 @@
 
+/* Microsoft SQL (MSSQL) - Drop all tables (including foreign keys) */
+
+-- ------------------------------------------------------------
 
 USE "DATABASE_TO_DROP_TABLES_FROM"
 GO
@@ -29,6 +32,8 @@ GO
 ------------------------------------------------------------
 
  Citation(s)
+
+   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
 
    stackoverflow.com  |  "How to drop all tables in a SQL Server database? - Stack Overflow"  |  https://stackoverflow.com/a/8439798
 

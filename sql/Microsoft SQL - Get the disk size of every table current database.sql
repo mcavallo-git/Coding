@@ -1,5 +1,7 @@
 
-/* Microsft SQL (MSSQL) - Get all Table sizes in current Database */
+/* Microsoft SQL (MSSQL) - Get the disk size of every table current database */
+
+-- ------------------------------------------------------------
 
 SELECT 
 	t.NAME AS TableName
@@ -46,7 +48,7 @@ ORDER BY
 
  Citation(s)
 
-   github.com  |  "Coding/Microsoft SQL - Get all Table sizes in current Database.sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/master/sql/Microsoft%20SQL%20-%20Get%20all%20Table%20sizes%20in%20current%20Database.sql
+   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
 
 ------------------------------------------------------------
 */

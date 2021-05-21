@@ -1,5 +1,5 @@
 
-/* Microsoft SQL (MSSQL) - Get all Column names, Data types, and if-primary-key for given Table */
+/* Microsoft SQL (MSSQL) - Get all column names, data types, and if-primary-key (for given table) */
 
 SELECT 
 	c.name 'Column Name',

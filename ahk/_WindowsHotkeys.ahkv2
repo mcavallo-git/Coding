@@ -941,14 +941,10 @@ AppsKey & l::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Windows-Key + N
-;   ACTION:  Opens "View Network Connections" (in the Control Panel)
+;   ACTION:  Opens "View Network Connections"
 ; 
 #n::
-	TrayTip, AHK, % ( "Opening 'View Network Connections'" )  ; Toast Notification
-	ViewNetworkConnections_PATH := WINDIR "\System32\ncpa.cpl"
-	ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
-	; Run %ViewNetworkConnections_PATH%
-	Run %ViewNetworkConnections_CLSID%
+	Open_ViewNetworkConnections()
 	Return
 
 
@@ -2414,6 +2410,20 @@ Open_Exe(ExeFullpath) {
 			ClearTooltip(2000)
 		}
 	}
+	Return
+}
+
+
+;
+;	Open_ViewNetworkConnections
+;   |--> Opens "View Network Connections" (in the Control Panel)
+;
+Open_ViewNetworkConnections() {
+	TrayTip, AHK, % ( "Opening 'View Network Connections'" )  ; Toast Notification
+	; ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
+	; Run %ViewNetworkConnections_CLSID%
+	; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
+	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
 	Return
 }
 

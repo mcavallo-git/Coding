@@ -941,38 +941,33 @@ AppsKey & l::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Windows-Key + N
-;   ACTION:  Opens "View Network Connections"
+;   ACTION:  Opens "View Network Connections" (control panel window)
 ; 
 #n::
-	Open_ViewNetworkConnections()
+	OpenControlPanel_NetworkConnections()
 	Return
 
 
 ; ------------------------------------------------------------
 ; HOTKEY:  Windows-Key + S
-; ACTION:  Opens "Sound Control Panel" (Windows-7 Style, not Windows-10 Style)
+; ACTION:  Opens "Sound" > "Playback" (control panel window)
 ; 
 #s::
-	TrayTip, AHK, % ( "Opening 'Sound' > 'Playback'" )  ; Toast Notification
-	;
-	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
-	; Run control.exe /name Microsoft.Sound
-	; Run control mmsys.cpl
-	;
-	; Note: You can choose which tab you want to open by default. 0 opens the first tab, 1 opens the 2nd tab, and so on.
-	;
-	; Run control mmsys.cpl,,0
-	; Run control mmsys.cpl,,1
-	; Run "control.exe mmsys.cpl,,2"
-	; Run control mmsys.cpl,,3
-	;
-	RunWaitOne("control.exe mmsys.cpl,,0")  ; Playback
-	; RunWaitOne("control.exe mmsys.cpl,,1")  ; Recording
-	; RunWaitOne("control.exe mmsys.cpl,,2")  ; Sounds
-	WinTitle := "Sound"
-	SetTitleMatchMode, 3 ; 3: A window's title must exactly match WinTitle to be a match.
-	WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	OpenControlPanel_Sound("Playback")
+	; OpenControlPanel_Sound("Recording")
+	Return
+
+
+; ------------------------------------------------------------
+; HOTKEY:  Alt + Windows-Key + S
+;          Ctrl + Windows-Key + S
+;          Shift + Windows-Key + S
+; ACTION:  Opens "Sound" > "Recording" (control panel window)
+; 
+!#s::
+^#s::
++#s::
+	OpenControlPanel_Sound("Recording")
 	Return
 
 
@@ -985,7 +980,8 @@ AppsKey & l::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	Run "%OutDirname%"
 	Return
-; 
+
+
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Windows-Key + O (not zero, the letter O)
@@ -2415,15 +2411,53 @@ Open_Exe(ExeFullpath) {
 
 
 ;
-;	Open_ViewNetworkConnections
+;	OpenControlPanel_NetworkConnections
 ;   |--> Opens "View Network Connections" (in the Control Panel)
 ;
-Open_ViewNetworkConnections() {
+OpenControlPanel_NetworkConnections() {
 	TrayTip, AHK, % ( "Opening 'View Network Connections'" )  ; Toast Notification
 	; ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
 	; Run %ViewNetworkConnections_CLSID%
 	; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
 	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
+	Return
+}
+
+
+;
+;	OpenControlPanel_Sound
+;   |--> Opens "Sound" (devices window) using the Windows-7 Style Control Panel view (not Windows-10 Style)
+;
+OpenControlPanel_Sound(TabToOpen:="Playback") {
+	WinTitle := "Sound"
+	SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
+	Tab_Desc := "Playback"
+	Tab_Int := 0
+	If (TabToOpen=="Playback") {
+		Tab_Desc := "Playback"
+		Tab_Int := 0
+	} Else If (TabToOpen=="Recording") {
+		Tab_Desc := "Recording"
+		Tab_Int := 1
+	} Else If (TabToOpen=="Sounds") {
+		Tab_Desc := "Sounds"
+		Tab_Int := 2
+	} Else If (TabToOpen=="Communications") {
+		Tab_Desc := "Communications"
+		Tab_Int := 3
+	} Else {
+		Tab_Desc := "Playback"
+		Tab_Int := 0
+	}
+	If (WinExist(WinTitle)) {
+		WinClose(WinTitle)
+	}
+	TrayTip, AHK, % ( "Opening 'Sound' > '" Tab_Desc "'" )  ; Toast Notification
+	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
+	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
+	; Run control.exe /name Microsoft.Sound
+	WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

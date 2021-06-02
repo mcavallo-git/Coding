@@ -2439,7 +2439,7 @@ OpenChrome() {
 		} Else {
 			TextToolTip := "Chrome executable not found (x64 or x86)."
 			ToolTip, %TextToolTip%
-			ClearTooltip(2000)
+			ClearTooltip(5000)
 		}
 	}
 	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm

@@ -2423,11 +2423,24 @@ Open_Exe(ExeFullpath) {
 ;
 OpenChrome() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	Exe_Path := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	Exe_Path := ""
+	Exe_Path_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
+	Exe_Path_x86 := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	If (FileExist(Exe_Path_x64)) {
+		Exe_Path := Exe_Path_x64
+	} Else If (FileExist(Exe_Path_x86)) {
+		Exe_Path := Exe_Path_x86
+	}
 	WinTitle := " - Google Chrome"
 	WinWait_TimeoutSeconds := 5
 	If (!WinExist(WinTitle)) {
-		RunExe_NON_Admin(Exe_Path)
+		If (Exe_Path != "") {
+			RunExe_NON_Admin(Exe_Path)
+		} Else {
+			TextToolTip := "Chrome executable not found (x64 or x86)."
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
+		}
 	}
 	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm

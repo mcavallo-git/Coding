@@ -2437,9 +2437,8 @@ OpenChrome() {
 		If (Exe_Path != "") {
 			RunExe_NON_Admin(Exe_Path)
 		} Else {
-			TextToolTip := "Chrome executable not found (x64 or x86)."
-			ToolTip, %TextToolTip%
-			ClearTooltip(5000)
+			TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
+			ShowTooltip(TextToolTip,5000)
 		}
 	}
 	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
@@ -3135,6 +3134,25 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 	}
 	ClearTooltip(0)
 	Return
+}
+
+
+;
+;	ShowTooltip
+;   |--> Show a tooltip & make said tooltip follow the mouse around for a given duration
+;
+ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
+	StartMilliseconds := A_TickCount
+	Loop {
+		ToolTip, %TextToolTip%
+		LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
+		If (LoopingForMilliseconds > LoopDuration_ms) {
+			Break
+		} Else {
+			Sleep 50
+		}
+	}
+	ClearTooltip(0)
 }
 
 

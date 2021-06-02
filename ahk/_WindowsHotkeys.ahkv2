@@ -973,22 +973,22 @@ AppsKey & l::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  Windows-Key + O (not zero, the letter O)
+;   ACTION:  Opens "Programs & Features" in the Control Panel
+;
+#o::
+	Run "c:\windows\system32\appwiz.cpl"
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Windows-Key + E
 ;   ACTION:  Opens "USERPROFILE" directory
 ; 
 #e::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	Run "%OutDirname%"
-	Return
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Windows-Key + O (not zero, the letter O)
-;   ACTION:  Opens "Programs & Features" in the Control Panel
-;
-#o::
-	Run "c:\windows\system32\appwiz.cpl"
 	Return
 
 

@@ -46,7 +46,7 @@ $EnvPath = (${Env:Path}).Split([String][Char]59);
 ((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count; <# Count the number of pre-existing exact matches #>
 
 
-# Aappend to  > >  USER environment variable  < <  Permanently add a directory to the user's path (doesn't apply to other users on the same system)
+# Append to  > >  USER environment variable  < <  Permanently add a directory to the user's path (doesn't apply to other users on the same system)
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
 $UserPath = ((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path);
 If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {

@@ -1,0 +1,1 @@
+docker rm --force $(docker stop $(docker ps --all --quiet)); docker rmi --force $(docker images --all --quiet); docker network rm $((docker network ls --format='{{.ID}}  {{.Name}}') | Where-Object { (@("bridge","host","none") -contains (("${_}" -Split "  ")[1])) -Eq $False} | ForEach-Object {("${_}" -Split "  ")[0]}); # remove docker containers, images & networks

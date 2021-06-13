@@ -150,10 +150,10 @@ AppsKey::RWin
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Pause Break / Pause-Break / PauseBreak
+;   HOTKEY:  Scroll Lock / Scroll-Lock / ScrollLock
 ;   ACTION:  Replace functionality with combo keypress  [ Alt + Shift + F10 ]  (set in whatever app you please)
 ;
-Pause::
+ScrollLock::
 	; Send ^!+Z
 	Send !+{F10}
 	Return
@@ -161,15 +161,15 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Scroll Lock / Scroll-Lock / ScrollLock
+;   HOTKEY:  Pause Break / Pause-Break / PauseBreak
 ;   ACTION:  Replace functionality with combo keypress  [ Alt + F10 ]  (set in whatever app you please)
 ;
-ScrollLock::
+Pause::
 	Send !{F10}
-	; SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	; Fullpath_OpenInExplorer := OutDirname "\Videos"
-	; Run "%Fullpath_OpenInExplorer%"  ; Open the directory
+	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	Fullpath_OpenInExplorer := OutDirname "\Videos"
 	TrayTip, AHK, % ( "Recording Saved to:" "`n" Fullpath_OpenInExplorer )  ; Toast Notification
+	Run "%Fullpath_OpenInExplorer%"  ; Open the directory
 	Return
 
 

@@ -15,8 +15,8 @@ If ($True) {
     $PSRepository_Name=("PSGallery");
     If ((Get-PSRepository -Name ("${PSRepository_Name}") -ErrorAction SilentlyContinue) -Eq $Null) {
       Register-PSRepository -Default -Verbose;
-      Set-PSRepository -Name ("${PSRepository_Name}") -PackageManagementProvider ("${PackageProvider_Name}") -InstallationPolicy ("Trusted") -ErrorAction SilentlyContinue;
     }
+    Set-PSRepository -Name ("${PSRepository_Name}") -PackageManagementProvider ("${PackageProvider_Name}") -InstallationPolicy ("Trusted") -ErrorAction SilentlyContinue;
     Install-Module -Name ("${PSModule_Name}") -Repository ("${PSRepository_Name}") -Scope ("CurrentUser") -AllowClobber -Force -Confirm:$False;
   }
 }

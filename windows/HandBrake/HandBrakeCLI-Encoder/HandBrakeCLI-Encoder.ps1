@@ -10,7 +10,7 @@
 If ($False) { # RUN THIS SCRIPT REMOTELY:
 
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }
@@ -99,7 +99,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${HandBrakeCLI} ]";
 	Write-Output "";
 	Write-Output "Info:  Downloading archive-version of HandBrakeCLI from  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]...";
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	# Unpack the downloaded archive
 	Write-Output "";
 	Write-Output "Info:  Unpacking archive:";
@@ -304,7 +304,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		Write-Output "  |";
 		Write-Output "  |-->  Opening Input-Directory (in Windows Explorer):  `"${InputDir}`" ...";
 		Write-Output "";
-		$FileContents_CallThisScriptAgain = "<# Re-run the HandBrakeCLI-Encoder by opening a PowerShell terminal and copy-pasting this line of code into it #> `$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=`$ProtoBak;";
+		$FileContents_CallThisScriptAgain = "<# Re-run the HandBrakeCLI-Encoder by opening a PowerShell terminal and copy-pasting this line of code into it #> `$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=`$ProtoBak;";
 		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("${FileContents_CallThisScriptAgain}");
 		Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("${FileContents_CallThisScriptAgain}");
 		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>

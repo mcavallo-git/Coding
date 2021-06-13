@@ -4,7 +4,7 @@
 #
 
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; <# Force TLS1.2 (otherwise often throws error in Win2016) #>
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; <# Force TLS1.2 (otherwise often throws error in Win2016) #>
 
 $Download_RemoteUrl = "https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe";
 $Download_LocalPath = "${Home}\Desktop\NGINX-Service.exe";
@@ -18,7 +18,7 @@ $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("${Downlo
 # Ex) Download "NotepadReplacer.exe" to the current user's "Downloads" directory
 #
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 

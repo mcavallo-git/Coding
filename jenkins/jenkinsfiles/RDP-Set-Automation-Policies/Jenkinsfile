@@ -14,9 +14,9 @@ pipeline {
 					returnStatus:true,
 					script:'''
 
-						[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;
+						[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Install-PackageProvider -Name ("NuGet") -Force -Confirm:$False;
 
-						[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12; Install-Module -Name ("PolicyFileEditor") -Force -AllowClobber;
+						[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Install-Module -Name ("PolicyFileEditor") -Force -AllowClobber;
 
 						Write-host "";
 						Write-host "View exhaustive list of terminal services group policies (and their associated registry keys) @ [ https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services ]";
@@ -66,7 +66,7 @@ pipeline {
 							Write-Host "`n`nEnvironment Variable `"`${Env:INSTALL_AHK}`" is set with value `"${Env:INSTALL_AHK}`"";
 							Write-Host "`n`nInstalling/Updating Chocolatey...";
 							Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
-							[System.Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12;
+							[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 							Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://chocolatey.org/install.ps1"));
 							Start-Process -Filepath ("choco") -ArgumentList (@("feature","enable","-n=allowGlobalConfirmation")) -NoNewWindow -Wait -PassThru;
 							Write-Host "`n`nInstalling/Updating AutoHotkey...";

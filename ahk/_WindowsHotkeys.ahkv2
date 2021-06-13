@@ -178,7 +178,7 @@ Pause::
 +Pause::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
 	Fullpath_OpenInExplorer := ( OutDirname "\Videos" )
-	TrayTip, AHK, % ( "Opening Directory:" "`n" Fullpath_OpenInExplorer )  ; Toast Notification
+	TrayTip, AHK, % ( "Opening Directory [ " Fullpath_OpenInExplorer " ]" )  ; Toast Notification
 	Run "%Fullpath_OpenInExplorer%"  ; Open the directory
 	Return
 

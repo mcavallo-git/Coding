@@ -4,8 +4,9 @@
 <!-- ------------------------------------------------------------ -->
 
 <!-- Scaling - general approach: -->
-<!--   - Add a <g transform="scale(X)"> DOM element just under the top-level <svg> DOM element -->
-<!--   - Set the value of X to be the desired dimension (ex 500) divided by the current dimension (ex 100) -->
+<!--   - Add a <g transform="scale(X)" viewBox="0 0 ORIGINAL_WIDTH ORIGINAL_HEIGHT"> DOM element just under the top-level <svg> DOM element -->
+<!--   - Set the value of X to be the desired dimension (ex 500) divided by the original dimension (ex 100) -->
+<!--   - Set the value of ORIGINAL_WIDTH ORIGINAL_HEIGHT to the image's original width/height dimensions, respectively -->
 <!--   - Set the width and height equal to the desired dimensions (on the top-level <svg> DOM element) -->
 
 <!-- Example (Scaling) - Transform a 100px*100px SVG image to a 500px*500px SVG image -->
@@ -17,7 +18,7 @@
 
 <!-- ENDING SVG - 500px * 500px SVG image (scaled-up from 100px * 100px) -->
 <svg width="500" height="500">
-	<g transform="scale(5)">
+	<g transform="scale(5)" viewBox="0 0 100 100">
 		<rect width="100" height="100" />
 	</g>
 </svg>

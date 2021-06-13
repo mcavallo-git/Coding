@@ -151,7 +151,7 @@ AppsKey::RWin
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Scroll Lock / Scroll-Lock / ScrollLock
-;   ACTION:  Replace functionality with combo keypress  [ Alt + Shift + F10 ]  (set in whatever app you please)
+;   ACTION:  Replace functionality with combo keypress  [ Alt + Shift + F10 ]  (set in GeForce Experience to hotkey "Toggle Instant Replay On/Off" (under "In-Game Overlay" > "Settings" (cog) > "Keyboard shortcuts"))
 ;
 ScrollLock::
 	; Send ^!+Z
@@ -161,14 +161,24 @@ ScrollLock::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Pause Break / Pause-Break / PauseBreak
-;   ACTION:  Replace functionality with combo keypress  [ Alt + F10 ]  (set in whatever app you please)
+;   HOTKEY:  Pause/Break
+;   ACTION:  Replace functionality with combo keypress  [ Alt + F10 ]  (set in GeForce Experience to hotkey "Save the last 1.0 minutes recorded" (under "In-Game Overlay" > "Settings" (cog) > "Keyboard shortcuts"))
 ;
 Pause::
 	Send !{F10}
+	TrayTip, AHK, % ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in explorer" )  ; Toast Notification
+	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Shift + Pause/Break
+;   ACTION:  Open the current user's Videos directory
+;
++Pause::
 	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	Fullpath_OpenInExplorer := OutDirname "\Videos"
-	TrayTip, AHK, % ( "Recording Saved to:" "`n" Fullpath_OpenInExplorer )  ; Toast Notification
+	Fullpath_OpenInExplorer := ( OutDirname "\Videos" )
+	TrayTip, AHK, % ( "Opening Directory:" "`n" Fullpath_OpenInExplorer )  ; Toast Notification
 	Run "%Fullpath_OpenInExplorer%"  ; Open the directory
 	Return
 

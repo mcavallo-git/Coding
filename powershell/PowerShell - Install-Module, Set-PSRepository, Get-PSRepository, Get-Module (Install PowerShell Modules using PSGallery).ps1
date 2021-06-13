@@ -5,43 +5,26 @@
 # ------------------------------------------------------------
 
 If ($True) {
-	$PSModule_Name=("SqlServer");
-	# $PSModule_Name=("VMware.PowerCLI");
-	If ((Get-Module -ListAvailable -Name "${PSModule_Name}" -ErrorAction SilentlyContinue) -Eq $Null) {
-		[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-		$ProgressPreference="SilentlyContinue";
-		$PackageProvider_Name=("NuGet");
-		Install-PackageProvider `
-			-Name ("${PackageProvider_Name}") `
-			-MinimumVersion ("2.8.5.201") `
-			-Force `
-			-Confirm:$False;
-		$PSRepository_Name=("PSGallery");
-		If ((Get-PSRepository -Name ("${PSRepository_Name}") -ErrorAction SilentlyContinue) -Eq $Null) {
-			Register-PSRepository `
-				-Name ("${PSRepository_Name}") `
-				-PackageManagementProvider ("${PackageProvider_Name}") `
-				-SourceLocation ("https://www.powershellgallery.com/api/v2/") `
-				-PublishLocation ("https://www.powershellgallery.com/api/v2/package/") `
-				-ScriptSourceLocation ("https://www.powershellgallery.com/api/v2/items/psscript/") `
-				-ScriptPublishLocation ("https://www.powershellgallery.com/api/v2/package/") `
-				-InstallationPolicy ("Trusted");
-
-		}
-		Install-Module `
-			-Name ("${PSModule_Name}") `
-			-Repository ("${PSRepository_Name}") `
-			-Scope ("CurrentUser") `
-			-AllowClobber `
-			-Force `
-			-Confirm:$False;
-	}
+  $PSModule_Name=("SqlServer");
+  # $PSModule_Name=("VMware.PowerCLI");
+  If ((Get-Module -ListAvailable -Name "${PSModule_Name}" -ErrorAction SilentlyContinue) -Eq $Null) {
+    [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
+    $ProgressPreference="SilentlyContinue";
+    $PackageProvider_Name=("NuGet");
+    Install-PackageProvider -Name ("${PackageProvider_Name}") -MinimumVersion ("2.8.5.208") -Force -Confirm:$False;
+    $PSRepository_Name=("PSGallery");
+    If ((Get-PSRepository -Name ("${PSRepository_Name}") -ErrorAction SilentlyContinue) -Eq $Null) {
+      Register-PSRepository -Default -Verbose;
+      Set-PSRepository -Name ("${PSRepository_Name}") -PackageManagementProvider ("${PackageProvider_Name}") -InstallationPolicy ("Trusted") -ErrorAction SilentlyContinue;
+    }
+    Install-Module -Name ("${PSModule_Name}") -Repository ("${PSRepository_Name}") -Scope ("CurrentUser") -AllowClobber -Force -Confirm:$False;
+  }
 }
 
 
 # ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
 #   addictivetips.com  |  "How To Add A Trusted Repository In PowerShell In Windows 10"  |  https://www.addictivetips.com/windows-tips/add-a-trusted-repository-in-powershell-windows-10/
 #

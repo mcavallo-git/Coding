@@ -69,8 +69,8 @@ $Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
 $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
 $Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD.txt";
 
-$Logfile_Time_RangeStart = "${Logfile_Basename}-Time-RangeStart.txt";
-$Logfile_Time_RangeEnd = "${Logfile_Basename}-Time-RangeEnd.txt";
+$Logfile_Time_RangeFrom = "${Logfile_Basename}-Time-From.txt";
+$Logfile_Time_RangeTo = "${Logfile_Basename}-Time-To.txt";
 
 # $Logfile_XmlOutput_All = "${Logfile_Basename}-All.xml";
 
@@ -231,8 +231,8 @@ $Temp_CPU = "";
 $Temp_GPU = "";
 $Temp_SSD = "";
 
-$Time_RangeStart = "";
-$Time_RangeEnd = "";
+$Time_RangeFrom = "";
+$Time_RangeTo = "";
 
 # $XmlFooter = "</prtg>";
 # $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
@@ -289,8 +289,8 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 	# $XmlOutput_Array_All += $Each_XmlOutput_Array;
 
 	If (${Each_SensorDescription} -Eq "Time") {
-		$Time_RangeStart = (Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Min}))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
-		$Time_RangeEnd = (Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Max}))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
+		$Time_RangeFrom = (Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Min}))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
+		$Time_RangeTo = (Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Max}))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
 
 	} ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
 		$Temp_CPU = "${Each_Value_Max}";
@@ -330,18 +330,18 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 # ------------------------------
 
-# Time_RangeStart
-If ([String]::IsNullOrEmpty(${Time_RangeStart})) {
-	Write-Output "${Time_RangeStart}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeStart}";
+# Time_RangeFrom
+If ([String]::IsNullOrEmpty(${Time_RangeFrom})) {
+	Write-Output "${Time_RangeFrom}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeFrom}";
 } Else {
-	Write-Output "${Time_RangeStart}:OK" | Out-File -NoNewline "${Logfile_Time_RangeStart}";
+	Write-Output "${Time_RangeFrom}:OK" | Out-File -NoNewline "${Logfile_Time_RangeFrom}";
 }
 
-# Time_RangeEnd
-If ([String]::IsNullOrEmpty(${Time_RangeEnd})) {
-	Write-Output "${Time_RangeEnd}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeEnd}";
+# Time_RangeTo
+If ([String]::IsNullOrEmpty(${Time_RangeTo})) {
+	Write-Output "${Time_RangeTo}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeTo}";
 } Else {
-	Write-Output "${Time_RangeEnd}:OK" | Out-File -NoNewline "${Logfile_Time_RangeEnd}";
+	Write-Output "${Time_RangeTo}:OK" | Out-File -NoNewline "${Logfile_Time_RangeTo}";
 }
 
 # ------------------------------

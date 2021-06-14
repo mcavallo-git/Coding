@@ -510,19 +510,16 @@ If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC}.(${_}))) {
 
 # ------------------------------
 
-# Benchmark (KEEP LAST ITEM)
-
-$Benchmark.Stop();
-$RunDuration=@{};
-$RunDuration.Max=("$(${Benchmark}.Elapsed)");
-If ([String]::IsNullOrEmpty(${RunDuration}.(${_}))) {
-	Write-Output "$(${RunDuration}.${_}):DOWN" | Out-File -NoNewline "${Logfile_RunDuration}-${_}.txt";
-} Else {
-	Write-Output "$(${RunDuration}.${_}):OK" | Out-File -NoNewline "${Logfile_RunDuration}-${_}.txt";
 }
 
-# ------------------------------
+# Benchmark (KEEP AS FINAL RUNTIME (e.g. keep at the very very end of this script)
 
+$Benchmark.Stop();
+$RunDuration=("$(${Benchmark}.Elapsed)");
+If ([String]::IsNullOrEmpty(${RunDuration})) {
+	Write-Output "${RunDuration}:DOWN" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
+} Else {
+	Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
 }
 
 # ------------------------------------------------------------

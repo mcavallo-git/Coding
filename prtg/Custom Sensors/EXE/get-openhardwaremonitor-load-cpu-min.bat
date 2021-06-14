@@ -1,0 +1,1 @@
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Load-CPU-Min.txt

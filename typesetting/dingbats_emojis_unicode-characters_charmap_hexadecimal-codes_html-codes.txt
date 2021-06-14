@@ -31,6 +31,9 @@ Mostly Linux compatible:
 ∙					Bullet Operator  |  https://www.compart.com/en/unicode/U+2219
 
 
+°					Degree Sign (Degrees, Temperature - °C, °F)  |  https://www.compart.com/en/unicode/U+00B0
+
+
 -					Hyphen-Minus (keyboard key)  |  https://www.compart.com/en/unicode/U+002D
 –					En Dash (Longer than hyphen)  |  https://www.compart.com/en/unicode/U+2013
 —					Em Dash (Longer than hyphen & En Dash)  |  https://www.compart.com/en/unicode/U+2014
@@ -91,9 +94,6 @@ Mostly Linux compatible:
 ⚙️				Gear Emoji (Gear/Cog Variation)  |  ⚙️ Gear Emoji  |  https://emojipedia.org/gear/ --> https://www.compart.com/en/unicode/U+2699 + https://www.compart.com/en/unicode/U+FE0F
 ⚙					Gear (Cog)  |  Unicode Character “⚙” (U+2699)  |  https://www.compart.com/en/unicode/U+2699
 ⛭					Gear Without Hub  |  Unicode Character “⛭” (U+26ED)  |  https://www.compart.com/en/unicode/U+26ED
-
-
-°					Degree Sign (Degrees, Temperature - °C, °F)  |  https://www.compart.com/en/unicode/U+00B0
 
 
 🎧 				Headphone

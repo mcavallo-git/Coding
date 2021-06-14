@@ -48,7 +48,7 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 
 $Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
 
-$Logfile_Benchmark_PowerShellRuntime = "${Logfile_Basename}-Benchmark-PowerShellRuntime.xml";
+$Logfile_Benchmark_PSRuntime = "${Logfile_Basename}-Benchmark-PowerShellRuntime.txt";
 
 $Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core.txt";
 $Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core.txt";
@@ -449,11 +449,11 @@ If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC})) {
 # Benchmark (KEEP LAST ITEM)
 
 $Benchmark.Stop();
-$Benchmark_PowerShellRuntime = "$(${Benchmark}.Elapsed)";
-If ([String]::IsNullOrEmpty(${Benchmark_PowerShellRuntime})) {
-	Write-Output "${Benchmark_PowerShellRuntime}:DOWN" | Out-File -NoNewline "${Logfile_Benchmark_PowerShellRuntime}";
+$Benchmark_PSRuntime=("$(${Benchmark}.Elapsed)");
+If ([String]::IsNullOrEmpty(${Benchmark_PSRuntime})) {
+	Write-Output "${Benchmark_PSRuntime}:DOWN" | Out-File -NoNewline "${Logfile_Benchmark_PSRuntime}";
 } Else {
-	Write-Output "${Benchmark_PowerShellRuntime}:OK" | Out-File -NoNewline "${Logfile_Benchmark_PowerShellRuntime}";
+	Write-Output "${Benchmark_PSRuntime}:OK" | Out-File -NoNewline "${Logfile_Benchmark_PSRuntime}";
 }
 
 

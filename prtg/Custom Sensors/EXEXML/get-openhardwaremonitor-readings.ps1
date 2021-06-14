@@ -290,9 +290,9 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 	# $XmlOutput_Array_All += $Each_XmlOutput_Array;
 
 	If (${Each_SensorDescription} -Eq "Time") {
-		$Time_Range.Avg = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Avg})))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
-		$Time_Range.Max = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Max})))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
-		$Time_Range.Min = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Min})))) -UFormat ("%Y-%m-%d_%H-%M-%S"));
+		$Time_Range.Avg = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Avg})))) -UFormat ("%m/%d/%Y %H:%M:%S"));
+		$Time_Range.Max = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Max})))) -UFormat ("%m/%d/%Y %H:%M:%S"));
+		$Time_Range.Min = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value_Min})))) -UFormat ("%m/%d/%Y %H:%M:%S"));
 
 	} ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
 		$Temp_CPU.Avg = "${Each_Value_Avg}";

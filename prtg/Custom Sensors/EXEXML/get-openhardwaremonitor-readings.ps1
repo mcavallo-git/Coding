@@ -316,7 +316,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 		$Speed_FAN_RAD_PRC = "${Each_Value_Max}";
 	} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {
 		$Speed_FAN_SSD = "${Each_Value_Max}";
-	} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {$
+	} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {
 		$Speed_FAN_SSD_PRC = "${Each_Value_Max}";
 	}
 

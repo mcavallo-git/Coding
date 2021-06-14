@@ -7,12 +7,17 @@
 
 ### Find Regex:
 
-((?:[aAcChHlLmMqQsSvV] ?(?:[0-9e,-\.]+ )+(?=[aAcChHlLmMqQsSvVzZ]))+)([Zz]) ?
-
+[Zz]
 
 ### Replace with:
 
-\n$1$2\n
+$0\n\n
+
+
+# ------------------------------------------------------------
+
+Deprecated - Previous attempt at exhaustive SVG Path-Element Regex Query:
+((?:[aAcChHlLmMqQsSvV] ?(?:[0-9e,-\.]+ )+(?=[aAcChHlLmMqQsSvVzZ]))+)([Zz]) ?
 
 
 # ------------------------------------------------------------

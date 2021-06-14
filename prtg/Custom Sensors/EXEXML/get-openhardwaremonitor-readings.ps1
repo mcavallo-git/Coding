@@ -48,7 +48,7 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 
 $Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
 
-$Logfile_Benchmark_PSRuntime = "${Logfile_Basename}-Benchmark-PowerShellRuntime.txt";
+$Logfile_Benchmark_PSRuntime = "${Logfile_Basename}-Benchmark-PSRuntime.txt";
 
 $Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core.txt";
 $Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core.txt";

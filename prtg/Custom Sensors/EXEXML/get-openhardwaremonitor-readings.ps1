@@ -48,29 +48,30 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 
 $Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
 
-$Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core.txt";
-$Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core.txt";
-$Logfile_Clock_GPU_Mem = "${Logfile_Basename}-Clock-GPU-Mem.txt";
-$Logfile_Clock_GPU_Shad = "${Logfile_Basename}-Clock-GPU-Shad.txt";
+$Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core";
+$Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core";
+$Logfile_Clock_GPU_Mem = "${Logfile_Basename}-Clock-GPU-Mem";
+$Logfile_Clock_GPU_Shad = "${Logfile_Basename}-Clock-GPU-Shad";
 
-$Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump.txt";
-$Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator.txt";
-$Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD.txt";
+$Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump";
+$Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator";
+$Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD";
 
-$Logfile_FanSpeed_PMP_PRC = "${Logfile_Basename}-FanPercentage-Pump.txt";
-$Logfile_FanSpeed_RAD_PRC = "${Logfile_Basename}-FanPercentage-Radiator.txt";
-$Logfile_FanSpeed_SSD_PRC = "${Logfile_Basename}-FanPercentage-SSD.txt";
+$Logfile_FanSpeed_PMP_PRC = "${Logfile_Basename}-FanPercentage-Pump";
+$Logfile_FanSpeed_RAD_PRC = "${Logfile_Basename}-FanPercentage-Radiator";
+$Logfile_FanSpeed_SSD_PRC = "${Logfile_Basename}-FanPercentage-SSD";
 
-$Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU.txt";
+$Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU";
+$Logfile_GPU_Memory_Load = "${Logfile_Basename}-Load-GPU-Memory";
 
-$Logfile_RunDuration = "${Logfile_Basename}-RunDuration.txt";
+$Logfile_RunDuration = "${Logfile_Basename}-RunDuration";
 
-$Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
-$Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
-$Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD.txt";
+$Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU";
+$Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU";
+$Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD";
 
-$Logfile_Time_RangeFrom = "${Logfile_Basename}-Time-From.txt";
-$Logfile_Time_RangeTo = "${Logfile_Basename}-Time-To.txt";
+$Logfile_Time_RangeFrom = "${Logfile_Basename}-Time-From";
+$Logfile_Time_RangeTo = "${Logfile_Basename}-Time-To";
 
 # $Logfile_XmlOutput_All = "${Logfile_Basename}-All.xml";
 
@@ -165,7 +166,7 @@ For ($i=0; $i -LT ((${CsvImport}["Paths"]).Count); $i++) {
 		$Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
 
 	} ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
-		$Updated_HeaderDescription=("GPU Totals, ${Each_HeaderDescription}");
+		$Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
 
 	} ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
 		$Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
@@ -219,6 +220,8 @@ $Clock_CPU_Core = "";
 $Clock_GPU_Core = "";
 $Clock_GPU_Mem = "";
 $Clock_GPU_Shad = "";
+
+$GPU_Memory_Load = "";
 
 $Speed_FAN_PMP = "";
 $Speed_FAN_PMP_PRC = "";
@@ -294,11 +297,15 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	} ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
 		$Temp_CPU = "${Each_Value_Max}";
+
 	} ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
 		$Clock_CPU_Core = "${Each_Value_Max}";
 
 	} ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
 		$Temp_GPU = "${Each_Value_Max}";
+	} ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Memory") {
+		$GPU_Memory_Load = "${Each_Value_Max}";
+
 	} ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Core") {
 		$Clock_GPU_Core = "${Each_Value_Max}";
 	} ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
@@ -325,53 +332,59 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 };
 
 # Output the XML contents to output files (separated by-category, as well as one combined file)
-# Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}";
+# Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}.txt";
 
 
 # ------------------------------
 
 # Time_RangeFrom
 If ([String]::IsNullOrEmpty(${Time_RangeFrom})) {
-	Write-Output "${Time_RangeFrom}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeFrom}";
+	Write-Output "${Time_RangeFrom}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeFrom}.txt";
 } Else {
-	Write-Output "${Time_RangeFrom}:OK" | Out-File -NoNewline "${Logfile_Time_RangeFrom}";
+	Write-Output "${Time_RangeFrom}:OK" | Out-File -NoNewline "${Logfile_Time_RangeFrom}.txt";
 }
 
 # Time_RangeTo
 If ([String]::IsNullOrEmpty(${Time_RangeTo})) {
-	Write-Output "${Time_RangeTo}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeTo}";
+	Write-Output "${Time_RangeTo}:DOWN" | Out-File -NoNewline "${Logfile_Time_RangeTo}.txt";
 } Else {
-	Write-Output "${Time_RangeTo}:OK" | Out-File -NoNewline "${Logfile_Time_RangeTo}";
+	Write-Output "${Time_RangeTo}:OK" | Out-File -NoNewline "${Logfile_Time_RangeTo}.txt";
 }
 
 # ------------------------------
 
 # GPU Load
 If ([String]::IsNullOrEmpty(${Load_GPU})) {
-	Write-Output "${Load_GPU}:DOWN" | Out-File -NoNewline "${Logfile_GPU_Load}";
+	Write-Output "${Load_GPU}:DOWN" | Out-File -NoNewline "${Logfile_GPU_Load}.txt";
 } Else {
-	Write-Output "${Load_GPU}:OK" | Out-File -NoNewline "${Logfile_GPU_Load}";
+	Write-Output "${Load_GPU}:OK" | Out-File -NoNewline "${Logfile_GPU_Load}.txt";
+}
+# GPU Memory Load
+If ([String]::IsNullOrEmpty(${GPU_Memory_Load})) {
+	Write-Output "${GPU_Memory_Load}:DOWN" | Out-File -NoNewline "${Logfile_GPU_Memory_Load}.txt";
+} Else {
+	Write-Output "${GPU_Memory_Load}:OK" | Out-File -NoNewline "${Logfile_GPU_Memory_Load}.txt";
 }
 
 # ------------------------------
 
 # CPU Temp
 If ([String]::IsNullOrEmpty(${Temp_CPU})) {
-	Write-Output "${Temp_CPU}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
+	Write-Output "${Temp_CPU}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_CPU}.txt";
 } Else {
-	Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}";
+	Write-Output "${Temp_CPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}.txt";
 }
 # GPU Temp
 If ([String]::IsNullOrEmpty(${Temp_GPU})) {
-	Write-Output "${Temp_GPU}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
+	Write-Output "${Temp_GPU}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_GPU}.txt";
 } Else {
-	Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}";
+	Write-Output "${Temp_GPU}:OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}.txt";
 }
 # SSD Temp
 If ([String]::IsNullOrEmpty(${Temp_SSD})) {
-	Write-Output "${Temp_SSD}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
+	Write-Output "${Temp_SSD}:DOWN" | Out-File -NoNewline "${Logfile_Temperature_SSD}.txt";
 } Else {
-	Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}";
+	Write-Output "${Temp_SSD}:OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}.txt";
 }
 
 
@@ -379,27 +392,27 @@ If ([String]::IsNullOrEmpty(${Temp_SSD})) {
 
 # Frequency/Clock - CPU Temp
 If ([String]::IsNullOrEmpty(${Clock_CPU_Core})) {
-	Write-Output "${Clock_CPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}";
+	Write-Output "${Clock_CPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}.txt";
 } Else {
-	Write-Output "${Clock_CPU_Core}:OK" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}";
+	Write-Output "${Clock_CPU_Core}:OK" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}.txt";
 }
 # Frequency/Clock - GPU Core
 If ([String]::IsNullOrEmpty(${Clock_GPU_Core})) {
-	Write-Output "${Clock_GPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}";
+	Write-Output "${Clock_GPU_Core}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}.txt";
 } Else {
-	Write-Output "${Clock_GPU_Core}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}";
+	Write-Output "${Clock_GPU_Core}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}.txt";
 }
 # Frequency/Clock - GPU Memory
 If ([String]::IsNullOrEmpty(${Clock_GPU_Mem})) {
-	Write-Output "${Clock_GPU_Mem}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}";
+	Write-Output "${Clock_GPU_Mem}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}.txt";
 } Else {
-	Write-Output "${Clock_GPU_Mem}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}";
+	Write-Output "${Clock_GPU_Mem}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}.txt";
 }
 # Frequency/Clock - GPU Shader
 If ([String]::IsNullOrEmpty(${Clock_GPU_Shad})) {
-	Write-Output "${Clock_GPU_Shad}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}";
+	Write-Output "${Clock_GPU_Shad}:DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}.txt";
 } Else {
-	Write-Output "${Clock_GPU_Shad}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}";
+	Write-Output "${Clock_GPU_Shad}:OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}.txt";
 }
 
 
@@ -407,21 +420,21 @@ If ([String]::IsNullOrEmpty(${Clock_GPU_Shad})) {
 
 # Water-Pump Fan-Speed (RPM)
 If ([String]::IsNullOrEmpty(${Speed_FAN_PMP})) {
-	Write-Output "${Speed_FAN_PMP}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
+	Write-Output "${Speed_FAN_PMP}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}.txt";
 } Else {
-	Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}";
+	Write-Output "${Speed_FAN_PMP}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}.txt";
 }
 # Reservoir Fan-Speed (RPM)
 If ([String]::IsNullOrEmpty(${Speed_FAN_RAD})) {
-	Write-Output "${Speed_FAN_RAD}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
+	Write-Output "${Speed_FAN_RAD}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}.txt";
 } Else {
-	Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}";
+	Write-Output "${Speed_FAN_RAD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}.txt";
 }
 # SSD Fan-Speed (RPM)
 If ([String]::IsNullOrEmpty(${Speed_FAN_SSD})) {
-	Write-Output "${Speed_FAN_SSD}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
+	Write-Output "${Speed_FAN_SSD}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}.txt";
 } Else {
-	Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}";
+	Write-Output "${Speed_FAN_SSD}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}.txt";
 }
 
 
@@ -429,21 +442,21 @@ If ([String]::IsNullOrEmpty(${Speed_FAN_SSD})) {
 
 # Water-Pump Fan-Speed (% Max)
 If ([String]::IsNullOrEmpty(${Speed_FAN_PMP_PRC})) {
-	Write-Output "${Speed_FAN_PMP_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
+	Write-Output "${Speed_FAN_PMP_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}.txt";
 } Else {
-	Write-Output "${Speed_FAN_PMP_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}";
+	Write-Output "${Speed_FAN_PMP_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP_PRC}.txt";
 }
 # Reservoir Fan-Speed (% Max)
 If ([String]::IsNullOrEmpty(${Speed_FAN_RAD_PRC})) {
-	Write-Output "${Speed_FAN_RAD_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";
+	Write-Output "${Speed_FAN_RAD_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}.txt";
 } Else {
-	Write-Output "${Speed_FAN_RAD_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}";
+	Write-Output "${Speed_FAN_RAD_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD_PRC}.txt";
 }
 # SSD Fan-Speed (% Max)
 If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC})) {
-	Write-Output "${Speed_FAN_SSD_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}";
+	Write-Output "${Speed_FAN_SSD_PRC}:DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}.txt";
 } Else {
-	Write-Output "${Speed_FAN_SSD_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}";
+	Write-Output "${Speed_FAN_SSD_PRC}:OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD_PRC}.txt";
 }
 
 # ------------------------------
@@ -453,9 +466,9 @@ If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC})) {
 $Benchmark.Stop();
 $RunDuration=("$(${Benchmark}.Elapsed)");
 If ([String]::IsNullOrEmpty(${RunDuration})) {
-	Write-Output "${RunDuration}:DOWN" | Out-File -NoNewline "${Logfile_RunDuration}";
+	Write-Output "${RunDuration}:DOWN" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
 } Else {
-	Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_RunDuration}";
+	Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
 }
 
 

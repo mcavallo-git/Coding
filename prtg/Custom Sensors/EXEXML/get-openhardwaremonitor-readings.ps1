@@ -62,9 +62,11 @@ $Logfile_FanPercentage_RAD = "${Logfile_Basename}-FanPercentage-Radiator";
 $Logfile_FanPercentage_SSD = "${Logfile_Basename}-FanPercentage-SSD";
 
 $Logfile_Load_CPU = "${Logfile_Basename}-Load-CPU";
-
 $Logfile_Load_GPU = "${Logfile_Basename}-Load-GPU";
 $Logfile_Load_GPU_Memory = "${Logfile_Basename}-Load-GPU-Memory";
+
+$Logfile_Power_CPU = "${Logfile_Basename}-Power-CPU";
+$Logfile_Power_GPU = "${Logfile_Basename}-Power-GPU";
 
 $Logfile_RunDuration = "${Logfile_Basename}-RunDuration";
 
@@ -225,6 +227,7 @@ $Clock_GPU_Shad = @{Avg="";Max="";Min="";};
 $GPU_Memory_Load = @{Avg="";Max="";Min="";};
 
 $Load_CPU = @{Avg="";Max="";Min="";};
+$Load_GPU = @{Avg="";Max="";Min="";};
 
 $Speed_FAN_PMP = @{Avg="";Max="";Min="";};
 $Speed_FAN_PMP_PRC = @{Avg="";Max="";Min="";};
@@ -232,6 +235,9 @@ $Speed_FAN_RAD = @{Avg="";Max="";Min="";};
 $Speed_FAN_RAD_PRC = @{Avg="";Max="";Min="";};
 $Speed_FAN_SSD = @{Avg="";Max="";Min="";};
 $Speed_FAN_SSD_PRC = @{Avg="";Max="";Min="";};
+
+$Power_CPU = @{Avg="";Max="";Min="";};
+$Power_GPU = @{Avg="";Max="";Min="";};
 
 $Temp_CPU = @{Avg="";Max="";Min="";};
 $Temp_GPU = @{Avg="";Max="";Min="";};
@@ -243,12 +249,14 @@ $Time_Range = @{Avg="";Max="";Min="";};
 # $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
 # $XmlOutput_Array_All = @();
 
-$Dirname_RevertTo = ((Get-Location).Path);
-$Dirname_NVidiaSMI = (Split-Path -Path ("${Exe_NVidiaSMI}") -Parent);
-Set-Location -Path ("${Dirname_NVidiaSMI}");
-$Load_GPU = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
-# $Temp_GPU = (nvidia-smi.exe --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0);
-Set-Location -Path ("${Dirname_RevertTo}");
+If ($False) {
+	$Dirname_RevertTo = ((Get-Location).Path);
+	$Dirname_NVidiaSMI = (Split-Path -Path ("${Exe_NVidiaSMI}") -Parent);
+	Set-Location -Path ("${Dirname_NVidiaSMI}");
+	$Load_GPU = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
+	# $Temp_GPU = (nvidia-smi.exe --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0);
+	Set-Location -Path ("${Dirname_RevertTo}");
+}
 
 <# Calculated output data based on latest input data #>
 For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
@@ -305,8 +313,18 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 		} ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
 			${Load_CPU}.(${_}) = (${Each_Value}.(${_}));
 
+		} ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
+			${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
+
 		} ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
 			${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
+
+
+		} ElseIf (${Each_SensorDescription} -Eq "GPU Load, CPU Core") {
+			${Load_GPU}.(${_}) = (${Each_Value}.(${_}));
+
+		} ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
+			${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
 
 		} ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
 			${Temp_GPU}.(${_}) = (${Each_Value}.(${_}));
@@ -377,6 +395,15 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# ------------------------------
 
+	# CPU Power
+	If ([String]::IsNullOrEmpty(${Power_CPU}.(${_}))) {
+		Write-Output "$(${Power_CPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Power_CPU}-${_}.txt";
+	} Else {
+		Write-Output "$(${Power_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Power_CPU}-${_}.txt";
+	}
+
+	# ------------------------------
+
 	# GPU Load
 	If ([String]::IsNullOrEmpty(${Load_GPU}.(${_}))) {
 		Write-Output "$(${Load_GPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Load_GPU}-${_}.txt";
@@ -388,6 +415,15 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 		Write-Output "$(${GPU_Memory_Load}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}-${_}.txt";
 	} Else {
 		Write-Output "$(${GPU_Memory_Load}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}-${_}.txt";
+	}
+
+	# ------------------------------
+
+	# GPU Power
+	If ([String]::IsNullOrEmpty(${Power_GPU}.(${_}))) {
+		Write-Output "$(${Power_GPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Power_GPU}-${_}.txt";
+	} Else {
+		Write-Output "$(${Power_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Power_GPU}-${_}.txt";
 	}
 
 	# ------------------------------

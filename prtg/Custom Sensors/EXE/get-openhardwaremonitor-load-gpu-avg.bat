@@ -1,0 +1,1 @@
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Load-GPU-Max.txt

@@ -186,7 +186,7 @@ For ($i=0; $i -LT ((${CsvImport}["Paths"]).Count); $i++) {
 	# ------------------------------
 	}
 
-	If ("${Updated_HeaderDescription}" -NE "${Updated_HeaderDescription}") {
+	If ("${Updated_HeaderDescription}" -NE "") {
 		${CsvImport}["Descriptions"][$i]=("${Updated_HeaderDescription}");
 	}
 

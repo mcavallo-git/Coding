@@ -48,8 +48,6 @@ $Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UForm
 
 $Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
 
-$Logfile_Benchmark_PSRuntime = "${Logfile_Basename}-Benchmark-PSRuntime.txt";
-
 $Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core.txt";
 $Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core.txt";
 $Logfile_Clock_GPU_Mem = "${Logfile_Basename}-Clock-GPU-Mem.txt";
@@ -64,6 +62,8 @@ $Logfile_FanSpeed_RAD_PRC = "${Logfile_Basename}-FanPercentage-Radiator.txt";
 $Logfile_FanSpeed_SSD_PRC = "${Logfile_Basename}-FanPercentage-SSD.txt";
 
 $Logfile_GPU_Load = "${Logfile_Basename}-Load-GPU.txt";
+
+$Logfile_RunDuration = "${Logfile_Basename}-RunDuration.txt";
 
 $Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU.txt";
 $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU.txt";
@@ -451,11 +451,11 @@ If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC})) {
 # Benchmark (KEEP LAST ITEM)
 
 $Benchmark.Stop();
-$Benchmark_PSRuntime=("$(${Benchmark}.Elapsed)");
-If ([String]::IsNullOrEmpty(${Benchmark_PSRuntime})) {
-	Write-Output "${Benchmark_PSRuntime}:DOWN" | Out-File -NoNewline "${Logfile_Benchmark_PSRuntime}";
+$RunDuration=("$(${Benchmark}.Elapsed)");
+If ([String]::IsNullOrEmpty(${RunDuration})) {
+	Write-Output "${RunDuration}:DOWN" | Out-File -NoNewline "${Logfile_RunDuration}";
 } Else {
-	Write-Output "${Benchmark_PSRuntime}:OK" | Out-File -NoNewline "${Logfile_Benchmark_PSRuntime}";
+	Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_RunDuration}";
 }
 
 

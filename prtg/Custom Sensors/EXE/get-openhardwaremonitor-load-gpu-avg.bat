@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Load-GPU-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Load-GPU-Avg.txt

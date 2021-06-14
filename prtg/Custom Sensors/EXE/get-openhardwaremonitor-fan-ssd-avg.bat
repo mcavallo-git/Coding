@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Fan-SSD-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Fan-SSD-Avg.txt

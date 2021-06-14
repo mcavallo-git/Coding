@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Temp-GPU-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Temp-GPU-Avg.txt

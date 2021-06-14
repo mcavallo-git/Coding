@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Mem-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Mem-Avg.txt

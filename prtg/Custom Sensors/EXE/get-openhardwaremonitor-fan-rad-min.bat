@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Fan-Radiator-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Fan-Radiator-Min.txt

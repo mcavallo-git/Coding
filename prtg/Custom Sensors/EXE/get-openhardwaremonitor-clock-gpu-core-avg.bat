@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Core-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Core-Avg.txt

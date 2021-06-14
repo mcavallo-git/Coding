@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Temp-SSD-Max.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Temp-SSD-Min.txt

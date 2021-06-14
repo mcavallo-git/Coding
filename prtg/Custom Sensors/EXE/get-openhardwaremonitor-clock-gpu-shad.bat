@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Shad.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-GPU-Shad-Max.txt

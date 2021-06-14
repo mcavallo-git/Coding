@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-FanPercentage-Radiator.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-FanPercentage-Radiator-Max.txt

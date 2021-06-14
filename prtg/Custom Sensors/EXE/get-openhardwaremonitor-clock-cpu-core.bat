@@ -1,1 +1,1 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-CPU-Core.txt
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-CPU-Core-Max.txt

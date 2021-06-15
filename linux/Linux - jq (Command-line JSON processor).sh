@@ -3,10 +3,26 @@
 #
 # Install jq
 #
-if [ $(which apt-get 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Debian, Ubuntu, etc.
-	apt-get update -y; apt-get install -y "jq";
-elif [ $(which yum 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
-	curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
+if [ $(which jq 2>'/dev/null' | wc -l;) -eq 0 ]; then
+  echo "Downloading/Installing jq...";
+  if [ "$(uname -s)" == "Linux" ] || [[ "${OSTYPE}" == linux-gnu* ]]; then
+    # Install jq for Linux
+    if [ $(which apt-get 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Debian, Ubuntu, etc.
+      apt-get update -y; apt-get install -y "jq";
+    elif [ $(which yum 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
+      curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
+    fi;
+  elif [[ "${OSTYPE}" == "darwin"* ]]; then
+    # Install jq for MacOS
+    echo "Error - Need install logic for [ jq ] on MacOS environments";
+  else
+    # Install jq for Windows
+    mkdir -p "${HOME}/bin";
+    curl -L -o "${HOME}/bin/jq.exe" "https://github.com/stedolan/jq/releases/latest/download/jq-win64.exe";
+  fi;
+  echo "";
+  echo "which jq = [ $(which jq 2>'/dev/null';) ]";
+  echo "";
 fi;
 
 

@@ -1,9 +1,8 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Alternatives for the  [ which ]  command, to adequately test the existence of local commands, methods, programs, etc.
-
-
+# Linux - Test the existence of local commands, methods, programs, etc. while avoiding the command  [ which ]
+#
 
 command -v foo >/dev/null 2>&1 || { echo >&2 "I require foo but it's not installed.  Aborting."; exit 1; }
 
@@ -12,10 +11,6 @@ type foo >/dev/null 2>&1 || { echo >&2 "I require foo but it's not installed.  A
 
 
 hash foo 2>/dev/null || { echo >&2 "I require foo but it's not installed.  Aborting."; exit 1; }
-
-
-
-
 
 
 # ------------------------------------------------------------

@@ -1,7 +1,7 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Linux - Test the existence of local commands, methods, programs, etc. while avoiding the command  [ which ]
+# Linux - Check for the existence of local commands, methods, programs, etc. while avoiding the command  [ which ]
 #
 
 command -v foo >/dev/null 2>&1 || { echo >&2 "I require foo but it's not installed.  Aborting."; exit 1; }

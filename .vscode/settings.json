@@ -1,4 +1,9 @@
 {
+	"[shellscript]": {
+		"editor.autoIndent": "full",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
 	"[tf]": {
 		"editor.autoIndent": "full",
 		"editor.insertSpaces": true,

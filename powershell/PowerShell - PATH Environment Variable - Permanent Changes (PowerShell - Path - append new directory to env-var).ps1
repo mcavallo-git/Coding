@@ -1,17 +1,37 @@
 # ------------------------------------------------------------
 #
-# Show Environment Variables (one-liner)
+# PowerShell - PATH Environment Variable - Permanent Changes (PowerShell - Path - append new directory to env-var)
 #
+# ------------------------------------------------------------
 
-If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem Env: | Format-List;  (${Env:Path}).Split([String][Char]59); 
+
+# USER PATH
+#  |--> Permanently add a directory to the user's PATH  (doesn't affect other users on the same system)
+$AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
+$UserPath = ((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path);
+If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+	[System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
+}
+
+
+# SYSTEM  PATH
+#  |--> Permanently add a directory to the system PATH (applies to all users on the same system)
+$AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
+$SystemPath = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path);
+If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+	[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+}
 
 
 # ------------------------------------------------------------
-#
-# >> SHOW ENVIRONMENT VARIABLES  <<
-#
 
-<# Update the max characters-per-line for the Powershell console by increasing the output buffer size (to see all of \${Env:PATH}, specifically) #>
+# Show Environment Variables (one-liner)
+If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem Env: | Format-List;  (${Env:Path}).Split([String][Char]59); 
+
+
+# Show Environment Variables
+
+# Update the max characters-per-line for the Powershell console by increasing the output buffer size (to see all of \${Env:PATH}, specifically)
 If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $rawUI = $Host.UI.RawUI;
   $oldSize = $rawUI.BufferSize;
@@ -20,18 +40,16 @@ If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
   $rawUI.BufferSize = $newSize;
 }
 
-<# Get Environment Variables #> 
+# Get Environment Variables
 Get-ChildItem Env: | Format-List; 
 
-<# Get the PATH environment variable, using semi-colon delimitation  -  Note:  [String][Char]59 === ";" (one semicolon) #> 
+# Get the PATH environment variable, using semi-colon delimitation  -  Note:  [String][Char]59 === ";" (one semicolon)
 (${Env:Path}).Split([String][Char]59);
 
-#
-# >> SHOW ENVIRONMENT VARIABLES  <<
-#
+
 # ------------------------------------------------------------
 #
-# Show all PATH items (to the console)
+# Output all PATH components to the console
 #
 (${Env:Path}).Split([String][Char]59);
 
@@ -44,22 +62,6 @@ $EnvPath = (${Env:Path}).Split([String][Char]59);
 (${Env:Path}).Split([String][Char]59) | Select-String 'git'; <# Non-exact matching #>
 (${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" } | ForEach-Object { $_ }; <# Exact matching #>
 ((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count; <# Count the number of pre-existing exact matches #>
-
-
-# Append to  > >  USER environment variable  < <  Permanently add a directory to the user's path (doesn't apply to other users on the same system)
-$AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
-$UserPath = ((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path);
-If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {
-	[System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
-}
-
-
-# Append to  > >  SYSTEM environment variable  < <  Permanently add a directory to the system path (applies to all users on the same system)
-$AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
-$SystemPath = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path);
-If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count -Eq 0) {
-	[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
-}
 
 
 # ------------------------------------------------------------

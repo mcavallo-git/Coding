@@ -53,7 +53,6 @@ fi;
 if [ "string" == "value" ]; then echo 1; else echo 0; fi;
 
 
-
 # ------------------------------------------------------------
 #
 #	IF STRING CONTAINS ...
@@ -63,7 +62,6 @@ if [ "string" == "value" ]; then echo 1; else echo 0; fi;
 if [[ "string" == *"needle"* ]]; then echo 1; else echo 0; fi;
 
 
-
 # ------------------------------------------------------------
 #
 #	IF STRING MATCHES REGEX-PATTERN
@@ -71,7 +69,6 @@ if [[ "string" == *"needle"* ]]; then echo 1; else echo 0; fi;
 #
 
 if [[ "string" =~ pattern ]]; then echo 1; else echo 0; fi;
-
 
 
 #
@@ -134,6 +131,16 @@ else
 	COMMAND_FOUND=1;
 fi;
 IS_DOCKER_INSTALLED=${COMMAND_FOUND};
+
+
+# ------------------------------------------------------------
+#
+#	USING [ test ] COMMAND INSTEAD OF [ if-elif-else-fi ] CONDITIONAL BLOCK(S)
+#
+
+test "1" == "0" && echo 1 || echo 0;
+
+TEST_PATH="${HOME}/.bashrc"; test -e "${TEST_PATH}" && echo "Path \"${TEST_PATH}\" DOES exist" || echo "Path \"${TEST_PATH}\" does NOT exist";
 
 
 # ------------------------------------------------------------
@@ -228,7 +235,6 @@ done;
 #					if [[ "$A" =~ ^-?[0-9]+$ ]]   :::   True if $A is an integer (strings, integer, or float input)
 #
 #
-#
 #  ==		Strings:
 #					if [ "$A" == "$B" ]  :::  True if $A is equal to $B
 #  ==		Integers:
@@ -242,7 +248,6 @@ done;
 #					if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A ISNT equal to $B"; fi;
 #
 #
-#
 #  !=		Strings:
 #					if [ "$A" != "$B" ] :::  True if $A not equal to $B
 #  !=		Integers:
@@ -250,7 +255,6 @@ done;
 #					if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see '==' section, above)
 #  !=		Floats/Doubles:
 #					if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A ISNT a different value than $B"; fi;
-#
 #
 #
 #  <		Integers:
@@ -316,14 +320,11 @@ fi;
 
 # ------------------------------------------------------------
 #
-#
 #  null
 #					if [ -z $A ]      :::  True if A is a string and is null (has zero length)
 #
-#
 #  not-null
 #					if [ -n $A ]      :::  True if A is a string and ISNT null (non-zero string-length)
-#
 #
 #
 # ------------------------------------------------------------

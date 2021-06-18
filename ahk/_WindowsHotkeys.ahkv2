@@ -2982,9 +2982,9 @@ SendHostname() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	HostName_VerbosityLevel := 0
 	Win_ahk_exe := WinGetProcessName("A")
-	Win_ahk_class := WinGetClass("A")
+	Win_title := WinGetTitle("A")
 	If (Win_ahk_exe == "chrome.exe") {
-		If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( Win_ahk_class == "Chrome_WidgetWin_1" ) ) {
+		If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( Win_title == "" ) ) {
 			; IfWinActive   ///   https://www.autohotkey.com/docs/commands/WinActive.htm  (v1)   ///   https://lexikos.github.io/v2/docs/commands/WinActive.htm  (v2)
 			HostName_VerbosityLevel := 1
 		}

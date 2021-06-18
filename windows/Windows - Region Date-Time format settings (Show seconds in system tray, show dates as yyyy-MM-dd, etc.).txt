@@ -44,7 +44,7 @@ New-ItemProperty -Force -LiteralPath ($EachProp.Path) -Name ($EachProp.Name) -Pr
 
 # ------------------------------
 
-		> Restart your computer to apply changes
+		> Either kill and restart "explorer.exe", or restart your computer to apply changes
 
 
 ------------------------------------------------------------

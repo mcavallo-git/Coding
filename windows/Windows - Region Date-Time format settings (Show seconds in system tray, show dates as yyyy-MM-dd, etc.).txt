@@ -1,0 +1,44 @@
+
+------------------------------------------------------------
+
+DATE / TIME FORMAT (SET)
+
+> Open the start menu and type "Region" into the start menu, open Region  (Control Panel\All Control Panel Items\Region)
+
+	> Click the "Additional settings" button (opens window "Customize Format")
+
+		> Click the "Time" tab (top)
+			> Under the "Time formats" category...
+				> Set "Short time:" to value "HH:mm"
+				> Set "Long time:" to value "HH:mm:ss"
+				> Click the "Apply" button
+
+	 > Click the "Date" tab (top)
+			> Under the "Date formats" category...
+				> Set "Short date:" to value "yyyy-MM-dd"
+				> Set "Long date:" to value "dddd   dd MMMM, yyyy"
+				> Click the "Apply" button
+			
+			> Click the "OK" button (close window "Customize Format")
+			
+		> Click the "OK" button (close window "Region")
+
+------------------------------------------------------------
+
+SHOW SECONDS ON THE SYSTEM TRAY CLOCK
+
+> Even though you can set the short/long time to have a format which includes seconds ("ss"), they wont show up until you update the registry
+
+  > Open a powershell terminal AS ADMIN and paste the following code into it:
+
+$EachProp = @{
+  Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+  Description="Show or hide seconds on the system tray clock. 0=[Hide], 1=[Show]";
+  Name="ShowSecondsInSystemClock";
+  Type="DWord";
+  Value=1;
+};
+New-ItemProperty -Force -LiteralPath ($EachProp.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+
+
+------------------------------------------------------------

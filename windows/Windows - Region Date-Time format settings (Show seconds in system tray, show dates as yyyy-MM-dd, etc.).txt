@@ -29,7 +29,9 @@ SHOW SECONDS ON THE SYSTEM TRAY CLOCK
 
 > Even though you can set the short/long time to have a format which includes seconds ("ss"), they wont show up until you update the registry
 
-  > Open a powershell terminal AS ADMIN and paste the following code into it:
+	> Open a powershell terminal AS ADMIN and paste the following code into it:
+
+# ------------------------------
 
 $EachProp = @{
   Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
@@ -39,6 +41,10 @@ $EachProp = @{
   Value=1;
 };
 New-ItemProperty -Force -LiteralPath ($EachProp.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+
+# ------------------------------
+
+		> Restart your computer to apply changes
 
 
 ------------------------------------------------------------

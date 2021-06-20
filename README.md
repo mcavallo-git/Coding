@@ -110,8 +110,10 @@ This file (on GitHub):
 <tr><td><strong>Git SCM</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI Integration</i></sub></td><td><a href="https://git-scm.com/download/win">Download (source)</a></td></tr>
 <tr><td><strong>GitHub Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git Daily Driver</i></sub></td><td><a href="https://desktop.github.com">Download (source)</a></td></tr>
 <tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;View <a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">Chrome keyboard shortcuts</a><br />&nbsp;&nbsp;&nbsp;View <a href="https://peter.sh/experiments/chromium-command-line-switches/">Chromium Command Line Switches</a><br />&nbsp;&nbsp;&nbsp;</i>
-<details><summary><i>Chrome hidden settings to apply (via chrome://...)</i></summary><ul>
+<details><summary><i>Chrome settings to apply (some hidden --> under url "chrome://...")</i></summary><ul>
 <li><h4>Browse to <code>chrome://flags/#read-later</code> & disable option "Reading List"</h4></li>
+<li><h4>Browse to <code>chrome://settings/content/camera</code> & disable top toggle (should say "Blocked" below "Camera")</h4></li>
+<li><h4>Browse to <code>chrome://settings/content/location</code> & disable top toggle (should say "Blocked" below "Location")</h4></li>
 <li><h4>Browse to <code>chrome://settings/content/notifications</code> & disable option "Sites can ask to send notifications"</h4></li>
 </ul>
 </details></sub></td><td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a></sub></td></tr>

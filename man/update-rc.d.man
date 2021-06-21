@@ -1,0 +1,109 @@
+UPDATE-RC.D(8)                                                                                 Debian GNU/Linux                                                                                 UPDATE-RC.D(8)
+
+NAME
+       update-rc.d - install and remove System-V style init script links
+
+SYNOPSIS
+       update-rc.d [-f] name remove
+
+       update-rc.d name defaults
+
+       update-rc.d name defaults-disabled
+
+       update-rc.d name disable|enable [ S|2|3|4|5 ]
+
+DESCRIPTION
+       update-rc.d  updates the System V style init script links /etc/rcrunlevel.d/NNname whose target is the script /etc/init.d/name.  These links are run by init when it changes runlevels; they are gener‐
+       ally used to start and stop system services such as daemons.  runlevel is one of the runlevels supported by init, namely, 0123456789S, and NN is the two-digit sequence number that determines where in
+       the sequence init will run the scripts.
+
+       This manpage documents only the usage and behaviour of update-rc.d.  For a discussion of the System V style init script arrangements please see init(8) and the Debian Policy Manual.
+
+INSTALLING INIT SCRIPT LINKS
+       update-rc.d requires dependency and runlevel information to be provided in the init.d script LSB comment header of all init.d scripts.  See the insserv(8) manual page for details about the LSB header
+       format.
+
+       When run with the defaults option, update-rc.d makes links named /etc/rcrunlevel.d/[SK]NNname that point to the script /etc/init.d/name, using runlevel and  dependency  information  from  the  init.d
+       script LSB comment header.
+
+       When  run with the defaults-disabled option, update-rc.d makes links named /etc/rcrunlevel.d/KNNname that point to the script /etc/init.d/name, using dependency information from the init.d script LSB
+       comment header.  This means that the init.d script will be disabled (see below).
+
+       If any files named /etc/rcrunlevel.d/[SK]??name already exist then update-rc.d does nothing.  The program was written this way so that it will never change an existing configuration, which  may  have
+       been customized by the system administrator.  The program will only install links if none are present, i.e., if it appears that the service has never been installed before.
+
+       Older versions of update-rc.d also supported start and stop options.  These options are no longer supported, and are now equivalent to the defaults option.
+
+       A  common system administration error is to delete the links with the thought that this will "disable" the service, i.e., that this will prevent the service from being started.  However, if all links
+       have been deleted then the next time the package is upgraded, the package's postinst script will run update-rc.d again and this will reinstall links at their factory default locations.   The  correct
+       way to disable services is to configure the service as stopped in all runlevels in which it is started by default.  In the System V init system this means renaming the service's symbolic links from S
+       to K.
+
+       The script /etc/init.d/name must exist before update-rc.d is run to create the links.
+
+REMOVING SCRIPTS
+       When invoked with the remove option, update-rc.d removes any links in the /etc/rcrunlevel.d directories to the script /etc/init.d/name.  The script must have been deleted already.  If the  script  is
+       still present then update-rc.d aborts with an error message.
+
+       update-rc.d  is  usually  called  from a package's post-removal script when that script is given the purge argument.  Any files in the /etc/rcrunlevel.d directories that are not symbolic links to the
+       script /etc/init.d/name will be left untouched.
+
+DISABLING INIT SCRIPT START LINKS
+       When run with the disable [ S|2|3|4|5 ] options, update-rc.d modifies existing runlevel links for the script /etc/init.d/name by renaming start links to stop links with a sequence number equal to the
+       difference of 100 minus the original sequence number.
+
+       When  run with the enable [ S|2|3|4|5 ] options, update-rc.d modifies existing runlevel links for the script /etc/init.d/name by renaming stop links to start links with a sequence number equal to the
+       positive difference of current sequence number minus 100, thus returning to the original sequence number that the script had been installed with before disabling it.
+
+       Both of these options only operate on start runlevel links of S, 2, 3, 4 or 5. If no start runlevel is specified after the disable or enable keywords, the script will attempt to modify links  in  all
+       start runlevels.
+
+OPTIONS
+       -f     Force removal of symlinks even if /etc/init.d/name still exists.
+
+EXAMPLES
+       Insert links using the defaults:
+          update-rc.d foobar defaults
+
+       The equivalent dependency header would have start and stop dependencies on $remote_fs and $syslog, and start in runlevels 2-5 and stop in runlevels 0, 1 and 6.
+
+       Remove all links for a script (assuming foobar has been deleted already):
+          update-rc.d foobar remove
+
+       Example of disabling a service:
+          update-rc.d foobar disable
+
+       Example of a command for installing a system initialization-and-shutdown script:
+          update-rc.d foobar defaults
+
+       Example of a command for disabling a system initialization-and-shutdown script:
+          update-rc.d foobar disable
+
+BUGS
+       See http://bugs.debian.org/sysv-rc and http://bugs.debian.org/init-system-helpers.
+
+FILES
+       /etc/init.d/
+              The directory containing the actual init scripts.
+
+       /etc/rc?.d/
+              The directories containing the links used by init and managed by update-rc.d .
+
+       /etc/init.d/skeleton
+              Model for use by writers of init.d scripts.
+
+SEE ALSO
+       Debian Policy Manual,
+       /etc/init.d/skeleton,
+       insserv(8),
+       init(8)
+
+AUTHOR
+       Ian Jackson, Miquel van Smoorenburg
+
+       Licence: GNU Public Licence v2 or Later (GPLv2+)
+
+COPYRIGHT
+       2001 Henrique de Moraes Holschuh
+
+14 November 2005                                                                                                                                                                                UPDATE-RC.D(8)

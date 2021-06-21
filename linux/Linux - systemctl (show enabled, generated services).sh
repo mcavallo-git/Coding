@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------------
 #
-# ENABLE SERVICE @ STARTUP ("Autostart" on bootup - also starts the service when ran)
+#   ENABLE STARTUP SERVICE + START IMMEDIATELY
 #
 
 SVC="nginx";
@@ -20,7 +20,7 @@ fi;
 
 # ------------------------------------------------------------
 #
-# DISABLE SERVICE @ STARTUP (do NOT "autostart" on bootup - also stops the service when ran)
+#   DISABLE STARTUP SERVICE + STOP IMMEDIATELY
 #
 
 SVC="nginx";
@@ -30,7 +30,7 @@ if \
 then
   echo "Info:  Service \"${SVC}\" is either \"enabled\" or \"active\", currently";
   echo "Info:  Calling  [ systemctl disable \"${SVC}.service\" --now; ]  ...";
-  systemctl disable "${SVC}.service" --now; # "enable --now" autostarts service at bootup && starts service immediately
+  systemctl disable "${SVC}.service" --now; # "disable --now" removes service from startup services & stops service immediately
 fi;
 
 

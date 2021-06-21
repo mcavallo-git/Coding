@@ -6,7 +6,6 @@ update-rc.d ${SVC} defaults;
 
 
 # ------------------------------------------------------------
-
 # Remove a startup service (debian distros):
 SVC="nginx";
 systemctl disable "${SVC}.service" --now; # "disable --now" removes service from startup services & stops service immediately

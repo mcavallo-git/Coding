@@ -1,9 +1,11 @@
 
 # Add a startup service (debian distros):
-SERVICE_NAME="unifi"; update-rc.d ${SERVICE_NAME} defaults;
+SERVICE_NAME="unifi"; \
+update-rc.d ${SERVICE_NAME} defaults;
 
 # Remove a startup service (debian distros):
-SERVICE_NAME="unifi"; update-rc.d ${SERVICE_NAME} remove -f;
+SERVICE_NAME="unifi"; \
+update-rc.d ${SERVICE_NAME} remove -f;
 
 
 # ------------------------------------------------------------

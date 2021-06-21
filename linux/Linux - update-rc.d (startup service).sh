@@ -1,11 +1,16 @@
-
+# ------------------------------------------------------------
 # Add a startup service (debian distros):
-SERVICE_NAME="unifi"; \
-update-rc.d ${SERVICE_NAME} defaults;
+SVC="nginx";
+systemctl enable "${SVC}.service" --now; # "enable --now" autostarts service at bootup && starts service immediately
+update-rc.d ${SVC} defaults;
+
+
+# ------------------------------------------------------------
 
 # Remove a startup service (debian distros):
-SERVICE_NAME="unifi"; \
-update-rc.d ${SERVICE_NAME} remove -f;
+SVC="nginx";
+systemctl disable "${SVC}.service" --now; # "disable --now" removes service from startup services & stops service immediately
+update-rc.d ${SVC} remove -f;
 
 
 # ------------------------------------------------------------

@@ -1,3 +1,4 @@
+#!/bin/bash
 # ------------------------------------------------------------
 # Add a startup service (debian distros):
 SVC="nginx";

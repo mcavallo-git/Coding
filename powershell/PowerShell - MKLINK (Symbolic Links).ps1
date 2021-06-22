@@ -4,7 +4,7 @@
 #
 # ------------------------------------------------------------
 
-<# Redirect one directory to another #>
+<# MKLINK - Redirect one directory to another #>
 $REDIRECT_FROM="${HOME}\Desktop\from";
 $REDIRECT_TO="${HOME}\Desktop\to";
 Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C","MKLINK /D `"${REDIRECT_FROM}`" `"${REDIRECT_TO}`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");

@@ -5,11 +5,11 @@
 
 # Method 1 (Best) - More compact
 SV StringVar String` without` quotes` and` with` spaces;
-GV StringVar;
+(GV StringVar).Value;
 
 # Method 2 - Less compact
 SV StringVar -Value (Write-Output String` without` quotes` and` with` spaces);
-GV StringVar;
+(GV StringVar).Value;
 
 
 # ------------------------------------------------------------
@@ -19,22 +19,12 @@ GV StringVar;
 
 # Set a variable to $False without using dollar signs
 SV BooleanFalse ([Boolean](0));
-GV BooleanFalse;
+(GV BooleanFalse).Value;
 
 
 # Set a variable to $True without using dollar signs
 SV BooleanTrue ([Boolean](1));
-GV BooleanTrue;
-
-
-# ------------------------------------------------------------
-#
-# PowerShell - Get variable value without using dollar sign charcters during variable name referencing
-#
-
-((GV StringVar).Value);
-((GV BooleanFalse).Value);
-((GV BooleanTrue).Value);
+(GV BooleanTrue).Value;
 
 
 # ------------------------------------------------------------

@@ -11,6 +11,8 @@ If (Test-Path -PathType "Container" -Path ("${DIR_PATH_TO_TEST}")) {
 	Write-Host "Info - Directory found: `"${DIR_PATH_TO_TEST}`"";
 } Else {
 	Write-Host "Error - Directory not found: `"${DIR_PATH_TO_TEST}`"";
+	Write-Host "Info - Creating directory `"${DIR_PATH_TO_TEST}`"...";
+	New-Item -ItemType "Directory" -Path ("${DIR_PATH_TO_TEST}") | Out-Null;
 }
 
 # ------------------------------------------------------------

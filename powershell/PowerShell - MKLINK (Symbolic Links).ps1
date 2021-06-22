@@ -7,12 +7,12 @@
 <# MKLINK - Redirect one directory to another (via CMD) #>
 $REDIRECT_FROM="${HOME}\Desktop\from";
 $REDIRECT_TO="${HOME}\Desktop\to";
-Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C","MKLINK /D `"${REDIRECT_FROM}`" `"${REDIRECT_TO}`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
+Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C", "MKLINK /D `"${REDIRECT_FROM}`" `"${REDIRECT_TO}`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
 # ------------------------------------------------------------
 
 <# MKLINK - Show all symbolic links (via CMD) #>
-Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C DIR /AL /S `"${HOME}\`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
+Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C", "DIR /AL /S `"${HOME}\`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
 
 # ------------------------------------------------------------

@@ -3,6 +3,17 @@
 #	PowerShell - Where-Object
 #
 # ------------------------------------------------------------
+
+
+# Regular Syntax using [ ... | Where-Object {... ]
+Get-Service | Where-Object { $_.Status -eq "Running" };
+
+
+# Shorthand Syntax using [ ... | ? {... ]
+Get-Service | ? { $_.Status -eq "Running" };
+
+
+# ------------------------------------------------------------
 #
 #		Example
 #			|--> Filtering a set of result hashtables, arrays, etc. using 'like' or 'notlike' matching)
@@ -12,6 +23,8 @@ Get-Process `
 | Where-Object { $_.ProcessName -Like "*PowerShell*" } `
 | Foreach-Object { Write-Host ('-'*60); $_ | Format-List; Write-Host ('='*60); } `
 ;
+
+
 # ------------------------------------------------------------
 #
 #		Example

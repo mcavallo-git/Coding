@@ -5,8 +5,15 @@
 # ------------------------------------------------------------
 
 <# Redirect one directory to another #>
+$REDIRECT_FROM="${HOME}\Desktop\from";
+$REDIRECT_TO="${HOME}\Desktop\to";
+Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C","MKLINK /D `"${REDIRECT_FROM}`" `"${REDIRECT_TO}`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
+
+
+# ------------------------------------------------------------
+
+<# *** WINDOWS FAX AND SCAN *** - Dredirect scans going into [ My Documents -> Scanned Documents ] to be placed on the desktop, instead #>
 If ($True) {
-	<# Ex) Windows Fax and Scan - Set the default scan save location to a different folder other than [ My Documents -> Scanned Documents ] #>
 	$REDIRECT_FROM="${HOME}\Documents\Scanned Documents";
 	$REDIRECT_TO="${HOME}\Desktop";
 	<# Make sure destination directory exists #>

@@ -9,23 +9,26 @@ $REDIRECT_FROM="${HOME}\Desktop\from";
 $REDIRECT_TO="${HOME}\Desktop\to";
 Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C", "MKLINK /D `"${REDIRECT_FROM}`" `"${REDIRECT_TO}`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
+
 # ------------------------------------------------------------
 
 <# MKLINK - Show all symbolic links (via CMD) #>
 Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C", "DIR /AL /S `"${HOME}\`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
+
 # ------------------------------------------------------------
 
-### Determine if target path is a Symbolic Link
+<# MKLINK - Determine if target path is a Symbolic Link #>
 If ((Get-Item "${Home}\Documents").Attributes.ToString() -Match "ReparsePoint") {
 	Write-Host 	"Is a Symbolic Link / MKLink";
 } Else {
 	Write-Host 	"Is NOT a Symbolic Link / MKLink";
 }
 
+
 # ------------------------------------------------------------
 
-<# *** WINDOWS FAX AND SCAN *** - Dredirect scans going into [ My Documents -> Scanned Documents ] to be placed on the desktop, instead #>
+<# Ex)  *** WINDOWS FAX AND SCAN *** - Dredirect scans going into [ My Documents -> Scanned Documents ] to be placed on the desktop, instead #>
 If ($True) {
 	$REDIRECT_FROM="${HOME}\Documents\Scanned Documents";
 	$REDIRECT_TO="${HOME}\Desktop";
@@ -43,8 +46,7 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# From OP:
-#   "It is a pretty minimal implementation, but it should do the trick. Note that this doesn't distinguish between a hard link and a symbolic link. Underneath, they both just take advantage of NTFS reparse points, IIRC."
+# "It is a pretty minimal implementation, but it should do the trick. Note that this doesn't distinguish between a hard link and a symbolic link. Underneath, they both just take advantage of NTFS reparse points, IIRC." (From OP (from ??? reference))
 #
 function Test-ReparsePoint([string]$path) {
 	$file = Get-Item $path -Force -ea SilentlyContinue;

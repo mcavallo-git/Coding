@@ -1,16 +1,29 @@
+# ------------------------------------------------------------
+#
+# PowerShell - Strings   -->   Set a string variable without using quotation characters
+#
+
+<# Method 1 (Best) - Compatible with spaces #>
+SV StringVar -Value (Write-Output *StringWithoutQuotes*);
+
+<# Method 2 - Incompatible with spaces #>
+SV StringVar StringWithoutQuotes;
 
 
-# Set $StringVar to contain a string-typed value of "StringWithoutQuotes"
-SV StringVar StringWithoutQuotes; <# Method 1 #>
-SV StringVar -Value (Write-Output *StringWithoutQuotes*); <# Method 2 #>
-
+# ------------------------------------------------------------
+#
+# PowerShell - Booleans   -->   Set a boolean variable without using dollar sign characters for $True and $False
+#
 
 # Set $BooleanFalse / $BooleanTrue to their respective values
 SV BooleanFalse ([Boolean](0));
 SV BooleanTrue ([Boolean](1));
 
 
-# Get the values for above variable(s)
+# ------------------------------------------------------------
+#
+# PowerShell - Get variable value without using dollar sign charcters during variable name referencing
+#
 ((GV StringVar).Value);
 ((GV BooleanFalse).Value);
 ((GV BooleanTrue).Value);

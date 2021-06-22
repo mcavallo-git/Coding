@@ -12,8 +12,6 @@ Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("/C","MKLINK /D `"${
 # ------------------------------------------------------------
 
 <# MKLINK - Show all symbolic links (via CMD) #>
-$REDIRECT_FROM="${HOME}\Desktop\from";
-$REDIRECT_TO="${HOME}\Desktop\to";
 Start-Process -Filepath ("${env:COMSPEC}") -ArgumentList (@("DIR /AL /S `"${HOME}\`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
 

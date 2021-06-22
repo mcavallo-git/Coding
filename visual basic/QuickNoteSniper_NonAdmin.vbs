@@ -1,10 +1,5 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name 'ONENOTEM' -ErrorAction 'SilentlyContinue') { Stop-Process -Name 'ONENOTEM' -Force -ErrorAction 'SilentlyContinue'; Start-Sleep 1; Remove-Item -Path ('~\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Send to OneNote*') -Force; Start-Sleep 1; Remove-Item -Path ('~\Documents\OneNote Notebooks\Quick Notes*.one') -Force; Exit 200; } Else { Exit 404; }"" ", 0, True
 
-' Program/script:   C:\Windows\System32\wscript.exe
-' Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\QuickNoteSniper_NonAdmin.vbs"
-
-' Trigger: Every [ 5 Minutes ] for a duration of [ 1436 Minutes ] - Stop task if it runs longer than [ 30 seconds ]
-
 
 ' ------------------------------------------------------------
 '
@@ -14,8 +9,8 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '     QuickNoteSniper_NonAdmin
 '
 '   Trigger:
-'     At log on
-'     Repeat every [ 5 Minutes ] for a duration of [ 1436 Minutes ]
+'     On a schedule
+'       At 00:00 every day - After Triggered, repeat every 5 minutes for a duration of 1436 minutes
 '
 '   Settings:
 '     (CHECK)    Stop this task if it runs longer than:  2 minutes
@@ -24,11 +19,5 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\QuickNoteSniper_NonAdmin.vbs"
 '
-'
-' ------------------------------------------------------------
-'
-' Citation(s)
-'
-'   git-scm.com  |  "Git"  |  https://git-scm.com
 '
 ' ------------------------------------------------------------

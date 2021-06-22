@@ -3,10 +3,10 @@
 # PowerShell - Strings   -->   Set a string variable without using quotation characters
 #
 
-<# Method 1 (Best) - Compatible with spaces #>
+# Method 1 (Best) - Compatible with spaces
 SV StringVar -Value (Write-Output *StringWithoutQuotes*);
 
-<# Method 2 - Incompatible with spaces #>
+# Method 2 - Incompatible with spaces
 SV StringVar StringWithoutQuotes;
 
 

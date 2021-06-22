@@ -18,6 +18,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   Run only when user is logged on (CHECKED)
 '   Run with highest privileges (CHECKED)
 '
+'
 ' ------------------------------------------------------------
 '
 ' Citation(s)

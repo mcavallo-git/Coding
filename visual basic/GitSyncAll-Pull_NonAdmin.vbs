@@ -20,19 +20,11 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
 '
 '   Conditions:
-'     (UNCHECK)  Start the task only if the computer is idle for: ...
 '     (UNCHECK)  Start the task only if the computer is on AC power
-'     (UNCHECK)  Wake the computer to run this task
 '     (CHECK)    Start only if the following network connection is available: [ Any connection ]
 '
-'
 '   Settings:
-'     (CHECK)    Allow task to be run on demand
-'     (UNCHECK)  Run as soon as possible after a scheduled start is missed
-'     (UNCHECK)  If the task fails, restart every: ...
 '     (CHECK)    Stop this task if it runs longer than:  15 minutes
-'     (CHECK)    If the running task does not end when requested, force it to stop
-'     (UNCHECK)  If the task is not scheduled to run again, delete it after: ...
 '
 '
 ' ------------------------------------------------------------

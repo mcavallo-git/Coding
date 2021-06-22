@@ -5,17 +5,8 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:
 '
-'
-'   General:
-'     Name:  GitPullAll
-'     Location:  \
-'     Author:  (Windows user who will have their [ %USERPROFILE%\Documents\GitHub ] user directory affected)
-'     Description:  GitSyncAll -Pull
-'     Security Options:
-'        When running the task, use the following user account:  (Same as Author (above))
-'        (SELECT) Run only when user is logged on
-'        (UNCHECK)  Run with highest privileges
-'
+'   Name/Description:
+'     GitSyncAll-Pull_NonAdmin
 '
 '   Trigger:
 '     (1) Begin the task:  At log on
@@ -24,12 +15,9 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     (2) Begin the task:  On workstation unlock
 '          |--> Specific User:  (Same as Author (above))
 '
-'
 '   Action:
-'     Action:          Start a program
-'     Program/script:  C:\Windows\System32\wscript.exe
-'     Add arguments:   "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
-'
+'     Program/script:   C:\Windows\System32\wscript.exe
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
 '
 '   Conditions:
 '     (UNCHECK)  Start the task only if the computer is idle for: ...

@@ -4,12 +4,15 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:
 '
+'   Name/Description:
+'     _WindowsHotkeys_AsAdmin
+'
 '   Trigger:
 '     At log on
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeysAsAdmin.vbs"
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeys_AsAdmin.vbs"
 '
 '   Run only when user is logged on (CHECKED)
 '   Run with highest privileges (CHECKED)

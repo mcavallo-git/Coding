@@ -3,9 +3,9 @@
 # Kick-off a scheduled task via PowerShell
 #
 
-Start-ScheduledTask -TaskName "GitFetchAll";
+Start-ScheduledTask -TaskName "GitSyncAll -Fetch";
 
-Start-ScheduledTask -TaskName "GitPullAll";
+Start-ScheduledTask -TaskName "GitSyncAll -Pull";
 
 
 # ------------------------------------------------------------

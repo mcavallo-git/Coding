@@ -5,36 +5,22 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:
 '
-'
-'   General:
-'     Name:  GitFetchAll
-'     Location:  \
-'     Author:  (Windows user who will have their [ %USERPROFILE%\Documents\GitHub ] user directory affected)
-'     Description:  GitSyncAll -Fetch
-'     Security Options:
-'        When running the task, use the following user account:  (Same as Author (above))
-'        (SELECT) Run only when user is logged on
-'        (UNCHECK)  Run with highest privileges
-'
+'   Name/Description:
+'     GitSyncAll-Fetch_NonAdmin
 '
 '   Trigger:
-'     (1) Begin the task:  At log on
-'          |--> Specific User:  (Same as Author (above))
-'          |--> (UNCHECK) Enabled   *!* Make this task only be run manually *!*
-'
+'     At log on
+'     (UNCHECK) Enabled   *!* Make this task only be run manually - GitSyncAll-Pull will also fetch *!*
 '
 '   Action:
-'     Action:          Start a program
-'     Program/script:  C:\Windows\System32\wscript.exe
-'     Add arguments:   "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Fetch_NonAdmin.vbs"
-'
+'     Program/script:   C:\Windows\System32\wscript.exe
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Fetch_NonAdmin.vbs"
 '
 '   Conditions:
 '     (UNCHECK)  Start the task only if the computer is idle for: ...
 '     (UNCHECK)  Start the task only if the computer is on AC power
 '     (UNCHECK)  Wake the computer to run this task
 '     (CHECK)    Start only if the following network connection is available: [ Any connection ]
-'
 '
 '   Settings:
 '     (CHECK)    Allow task to be run on demand
@@ -43,7 +29,6 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     (CHECK)    Stop this task if it runs longer than:  2 minutes
 '     (CHECK)    If the running task does not end when requested, force it to stop
 '     (UNCHECK)  If the task is not scheduled to run again, delete it after: ...
-'
 '
 ' ------------------------------------------------------------
 '

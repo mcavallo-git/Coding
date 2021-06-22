@@ -17,11 +17,12 @@ GV StringVar;
 # PowerShell - Booleans   -->   Set a boolean variable without using dollar sign characters for $True and $False
 #
 
-# Set $BooleanFalse / $BooleanTrue to their respective values
+# Set a variable to $False without using dollar signs
 SV BooleanFalse ([Boolean](0));
 GV BooleanFalse;
 
 
+# Set a variable to $True without using dollar signs
 SV BooleanTrue ([Boolean](1));
 GV BooleanTrue;
 
@@ -30,6 +31,7 @@ GV BooleanTrue;
 #
 # PowerShell - Get variable value without using dollar sign charcters during variable name referencing
 #
+
 ((GV StringVar).Value);
 ((GV BooleanFalse).Value);
 ((GV BooleanTrue).Value);

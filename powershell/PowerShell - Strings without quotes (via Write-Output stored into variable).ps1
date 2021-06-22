@@ -3,11 +3,13 @@
 # PowerShell - Strings   -->   Set a string variable without using quotation characters
 #
 
-# Method 1 (Best) - Compatible with spaces
-SV StringVar -Value (Write-Output *StringWithoutQuotes*);
+# Method 1 (Best) - More compact
+SV StringVar String` without` quotes` and` with` spaces;
+GV StringVar;
 
-# Method 2 - Incompatible with spaces
-SV StringVar StringWithoutQuotes;
+# Method 2 - Less compact
+SV StringVar -Value (Write-Output String` without` quotes` and` with` spaces);
+GV StringVar;
 
 
 # ------------------------------------------------------------
@@ -17,7 +19,11 @@ SV StringVar StringWithoutQuotes;
 
 # Set $BooleanFalse / $BooleanTrue to their respective values
 SV BooleanFalse ([Boolean](0));
+GV BooleanFalse;
+
+
 SV BooleanTrue ([Boolean](1));
+GV BooleanTrue;
 
 
 # ------------------------------------------------------------

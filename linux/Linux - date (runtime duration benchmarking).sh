@@ -3,14 +3,14 @@
 # ------------------------------------------------------------
 # Filename Timestamp
 
-DATETIME="$(date +'%Y%m%d_%H%M%S')";
+DATETIME="$(date +'%Y%m%d_%H%M%S')";     # 20210623_012648
 echo "DATETIME_RFC3339 = [${DATETIME}]";
 
 
 # ------------------------------------------------------------
 # RFC-3339 Timestamp
 
-DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";
+DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";     # 2021-06-23T01:26:58-0400
 echo "DATETIME_RFC3339 = [${DATETIME_RFC3339}]";
 
 

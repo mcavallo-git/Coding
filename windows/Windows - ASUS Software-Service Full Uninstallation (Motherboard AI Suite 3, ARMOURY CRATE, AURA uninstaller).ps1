@@ -38,13 +38,15 @@
 # UNINSTALL THE FOLLOWING APPLICATION(S) (Win10 style apps) by [ typing their name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
 #
 
-#  > FIND VIA START-MENU, THEN UNINSTALL:
 
+# Remove Windows 10 "Apps"
 @(
 "ARMOURY CRATE",
-"AURA Creator"
+"AURA Creator",
+"Microsoft.ZuneMusic",
+"Microsoft.MicrosoftSolitaireCollection"
 ) | ForEach-Object {
-	Get-AppxPackage | Where-Object { $_.Name -Eq "*${_}*" } | Remove-AppxPackage;
+	Get-AppxPackage -Name "${_}" | Remove-AppxPackage;
 }
 
 

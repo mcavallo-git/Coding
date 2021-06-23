@@ -16,6 +16,18 @@ DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
 DAT_ARRAY+=("Val-4");
+for DAT_ITEM in "${DAT_ARRAY[@]}"; do
+echo "------------------------------";
+echo "${DAT_ITEM}";
+done;
+
+
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY=();
+DAT_ARRAY+=("Val-1");
+DAT_ARRAY+=("Val-2");
+DAT_ARRAY+=("Val-3");
+DAT_ARRAY+=("Val-4");
 for (( i=0; i<${#DAT_ARRAY[@]}; i++ )); do
 echo "\${DAT_ARRAY[$i]} = [ ${DAT_ARRAY[$i]} ]";
 done;
@@ -121,6 +133,7 @@ DAT_ARRAY+=("Item-A");
 DAT_ARRAY+=("Item-A");
 DAT_ARRAY+=("Item-B");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
+echo "------------------------------";
 echo "${DAT_ITEM}";
 done;
 

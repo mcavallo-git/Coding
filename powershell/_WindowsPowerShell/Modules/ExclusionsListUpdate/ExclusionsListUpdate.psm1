@@ -251,6 +251,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="FileZilla FTP Client"; Depth="1"; Parent=""; Basename="*.exe"; }; # Filezilla
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth="5"; Parent=""; Basename="*.exe"; }; # Git
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Greenshot"; Depth=""; Parent=""; Basename="Greenshot.exe"; }; # Greenshot
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="HWiNFO64"; Depth=""; Parent=""; Basename="HWiNFO64.EXE"; }; # HWiNFO64
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Logitech/LogiOptions"; Depth=""; Parent=""; Basename="*.exe"; }; # Logitech Options
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Logitech/SetPointP"; Depth=""; Parent=""; Basename="*.exe"; }; # Logitech SetPoint
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mailbird"; Depth=""; Parent=""; Basename="CefSharp.BrowserSubprocess.exe"; }; # Mailbird
@@ -317,6 +318,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Depth=""; Parent=""; Basename="MobaXterm.exe"; }; # MobaXTerm SSH-Client
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mozilla Maintenance Service"; Depth="1"; Parent=""; Basename="maintenanceservice.exe"; }; # Mozilla Firefox
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="MSBuild"; Depth=""; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="MSI Afterburner"; Depth=""; Parent=""; Basename="MSIAfterburner.exe"; }; # MSI Afterburner (GPU Over/Underclocking Tool)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Notepad++"; Depth=""; Parent=""; Basename="notepad++.exe"; }; # Notepad++
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NVIDIA Web Helper.exe"; }; # NVIDIA
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor"; Depth="3"; Parent=""; Basename="PRTG*.exe"; }; # PRTG

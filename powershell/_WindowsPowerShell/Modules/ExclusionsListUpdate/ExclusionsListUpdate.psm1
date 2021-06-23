@@ -286,9 +286,10 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dell SecureWorks"; Depth="4"; Parent=""; Basename="*.exe"; }; # Dell SecureWorks Red Cloak (monitors netflow, processes, memory, registry, etc.)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="2"; Parent=""; Basename="Dropbox*.exe"; }; # Dropbox + Required-Components
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="5"; Parent=""; Basename="dbxsvc.exe"; }; # Dropbox
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="efs"; Depth="1"; Parent=""; Basename="search.exe"; }; # Effective File Search
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="EasyAntiCheat"; Depth="1"; Parent=""; Basename="EasyAntiCheat.exe"; }; # Chivalry 2 - 'EasyAntiCheat' service
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Overlay"; Basename="EOSOverlayRenderer-Win64-Shipping.exe"; }; # Chivalry 2 - 'EOSOverlayRenderer'
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Win64"; Basename="EpicGamesLauncher.exe"; }; # Chivalry 2 - Epic Games Launcher
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="efs"; Depth="1"; Parent=""; Basename="search.exe"; }; # Effective File Search
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="chrome.exe"; }; # Google Chrome (Browser)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Gpg4win\bin"; Depth="1"; Parent=""; Basename="*.exe"; }; # GpG4Windows
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Depth=""; Parent=""; Basename="DSAService.exe"; }; # Intel Tray-Icon

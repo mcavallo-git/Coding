@@ -14,19 +14,23 @@
 
 #  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
-All MB   <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
+"All MB" must be uninstalled (and disabled) via the motherboard BIOS screen   <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
 
-AI Suite 3
-AMD Software
-AMD_Chipset_Drivers
-ARMOURY CRATE Lite Service
-ASUS Framework Service
-AURA
-AURA lighting effect add-on
-AURA lighting effect add-on x64
-AURA Service
-GALAX GAMER RGB
-ROG Live Service
+@(
+"AI Suite 3", 
+"AMD Software", 
+"AMD_Chipset_Drivers", 
+"ARMOURY CRATE Lite Service", 
+"ASUS Framework Service", 
+"AURA", 
+"AURA lighting effect add-on", 
+"AURA lighting effect add-on x64", 
+"AURA Service", 
+"GALAX GAMER RGB", 
+"ROG Live Service"
+) | ForEach-Object {
+	Get-Package -Name "${_}" -ErrorAction SilentlyContinue | Uninstall-Package;
+}
 
 
 # ------------------------------------------------------------

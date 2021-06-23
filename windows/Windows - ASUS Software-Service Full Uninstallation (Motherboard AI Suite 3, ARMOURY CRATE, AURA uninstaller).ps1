@@ -40,8 +40,12 @@
 
 #  > FIND VIA START-MENU, THEN UNINSTALL:
 
-ARMOURY CRATE
-AURA Creator
+@(
+"ARMOURY CRATE",
+"AURA Creator"
+) | ForEach-Object {
+	Get-AppxPackage | Where-Object { $_.Name -Eq "*${_}*" } | Remove-AppxPackage;
+}
 
 
 # ------------------------------------------------------------

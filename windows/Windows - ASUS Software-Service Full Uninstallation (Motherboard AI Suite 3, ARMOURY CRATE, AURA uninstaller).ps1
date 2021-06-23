@@ -42,9 +42,7 @@
 # Remove Windows 10 "Apps"
 @(
 "ARMOURY CRATE",
-"AURA Creator",
-"Microsoft.ZuneMusic",
-"Microsoft.MicrosoftSolitaireCollection"
+"AURA Creator"
 ) | ForEach-Object {
 	Get-AppxPackage -Name "${_}" | Remove-AppxPackage;
 }

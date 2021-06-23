@@ -19,15 +19,18 @@ Open HWiNFO64
 
 HWiNFO64 - SOLID USER SETTINGS
 
-Prereq:  Download (1/3) "HWiNFO64" (System Information Tool) from URL:  https://www.hwinfo.com/download
+Prereq:  Download (1/4) "HWiNFO64" (System Information Tool) from URL:  https://www.hwinfo.com/download
           > Install once download has completed by running the downloaded file (e.g. by locating the file in windows explorer then double clicking it)
           > Note: Comes pre-packaged with a tool to view metrics and graph them over time, called an OSD (On-Screen Display) - The pre-packaged service which comes with HWiNFO is called 'RivaTuner Statistics Server' (or 'RTSS' for short)
 
 
-Prereq:  Download (2/3) "Roboto" Font from URL:  https://fonts.google.com/specimen/Roboto
+Prereq:  Download (2/4) "Roboto" Font from URL:  https://fonts.google.com/specimen/Roboto
           > Install once download has completed by running the downloaded file (e.g. by locating the file in windows explorer then double clicking it)
 
-Prereq:  Download (2/3) "Fira Code" Font from URL:  https://fonts.google.com/specimen/Fira+Code
+Prereq:  Download (3/4) "Fira Code" Font from URL:  https://fonts.google.com/specimen/Fira+Code
+          > Install once download has completed by running the downloaded file (e.g. by locating the file in windows explorer then double clicking it)
+
+Prereq:  Download (4/4) "Fira Sans" Font from URL:  https://fonts.google.com/specimen/Fira+Sans
           > Install once download has completed by running the downloaded file (e.g. by locating the file in windows explorer then double clicking it)
 
 
@@ -54,9 +57,9 @@ Open HWiNFO64
         > Check "Show in Tray"
         > Set "Truncate to:" to "2" (digits)
         > Click the button next to "Font:" to set the font
-          > Set "Font" to "Roboto"
-          > Set "Font style" to "Medium"
-          > Set "Size" to "13" (type it into field, manually)
+          > Set "Font" to "Fira Sans"
+          > Set "Font style" to "Regular"
+          > Set "Size" to "14" (type it into field, manually)
           > Click "OK" in the "Font" window  *** closes window ***
         > Click the colored square to the right of text "Background:"  *** "Color" window opens ***
           > Click "Define Custom Colors >>"
@@ -70,9 +73,9 @@ Open HWiNFO64
         > Check "Show in Tray"
         > Set "Truncate to:" to "2" (digits)
         > Click the button next to "Font:" to set the font
-          > Set "Font" to "Roboto"
-          > Set "Font style" to "Medium"
-          > Set "Size" to "13" (type it into field, manually)
+          > Set "Font" to "Fira Sans"
+          > Set "Font style" to "Regular"
+          > Set "Size" to "14" (type it into field, manually)
           > Click "OK" in the "Font" window  *** closes window ***
         > Click the colored square to the right of text "Background:"  *** "Color" window opens ***
           > Click "Define Custom Colors >>"

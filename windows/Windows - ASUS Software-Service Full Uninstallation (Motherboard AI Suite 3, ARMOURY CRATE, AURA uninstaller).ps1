@@ -16,6 +16,8 @@
 
 "All MB" must be uninstalled (and disabled) via the motherboard BIOS screen   <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
 
+"AI Suite 3" Will likely need to be uninstalled, manually (for some reason, get-package | uninstall-package doeesnt apply correctly do it.
+
 @(
 "AI Suite 3", 
 "AMD Software", 

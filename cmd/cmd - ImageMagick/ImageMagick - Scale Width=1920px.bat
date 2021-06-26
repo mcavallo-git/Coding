@@ -1,7 +1,16 @@
 @ECHO OFF
-REM		!!! Prerequisite !!! 
+REM ------------------------------------------------------------
+REM		!!! Prerequisite !!!
 REM			ImageMagick" must be installed for this script to function as-intended
 REM			https://www.imagemagick.org/script/download.php#windows
+REM ------------------------------------------------------------
+REM NEED TO SETUP SCRIPT TO DOWNLOAD LATEST PORTABLE IMAGEMAGICK VERSION FROM:
+REM
+REM   SOURCE - https://www.imagemagick.org/script/download.php#windows
+REM
+REM   DIRECT (v7.1.0.2) - https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip
+REM
+REM ------------------------------------------------------------
 ECHO.
 
 SET "INPUT_DIR=Input"

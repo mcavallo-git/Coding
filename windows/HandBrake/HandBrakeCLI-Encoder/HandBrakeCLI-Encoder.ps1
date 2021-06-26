@@ -175,6 +175,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 	$InputFullNames_Arr = @();
 
 	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
+	#  |--> !!! NOTE !!! As-of 2020-06-26, attempting to run this before installing ImageMagick ( https://www.imagemagick.org/script/download.php#windows ) failed to grab the files as-intended. Once ImageMagick was installed, the video typed objects were able to be grabbed as-intended...so add a secondary fallback video query after it, incase the user doesn't have this search/query capability
 	$Directory_ToSearch = "${InputDir}";
 	$Filetype_ToDetect = "video";
 	$ActiveXDataObject_Connection = (New-Object -com ADODB.Connection);
@@ -189,6 +190,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$InputFullNames_Arr += "$(${ActiveXDataObject_RecordSet}.Fields.Item('System.ItemPathDisplay').Value)";
 		${ActiveXDataObject_RecordSet}.MoveNext(); <# KEEP the [ .MoveNext() ] AS THE LAST-ITEM IN THIS  WHILE LOOP (as it is responsible for iterating to the next item every loop) #>
 	}
+
 	# If no files were found, use fallback method of manually looking for files matching a given extension
 	If (${InputFullNames_Arr}.Count -Eq 0) {
 		Get-ChildItem -Path ("${InputDir}") -File -Recurse -Force -ErrorAction "SilentlyContinue" `

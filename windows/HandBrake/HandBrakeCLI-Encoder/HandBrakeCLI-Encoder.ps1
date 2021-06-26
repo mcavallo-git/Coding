@@ -189,6 +189,14 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$InputFullNames_Arr += "$(${ActiveXDataObject_RecordSet}.Fields.Item('System.ItemPathDisplay').Value)";
 		${ActiveXDataObject_RecordSet}.MoveNext(); <# KEEP the [ .MoveNext() ] AS THE LAST-ITEM IN THIS  WHILE LOOP (as it is responsible for iterating to the next item every loop) #>
 	}
+	# If no files were found, use fallback method of manually looking for files matching a given extension
+	If (${InputFullNames_Arr}.Count -Eq 0) {
+		Get-ChildItem -Path ("${InputDir}") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+		| Where-Object { @(".avi",".mkv",".mov",".mp2",".mp4",".mpeg",".mpg",".wmv") -contains $_.Extension } `
+		| ForEach-Object {
+			$InputFullNames_Arr += $_.FullName;
+		}
+	}
 
 	Write-Output "";
 	Write-Output "------------------------------------------------------------";

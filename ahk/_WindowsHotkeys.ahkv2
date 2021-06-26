@@ -926,9 +926,13 @@ AppsKey & ]::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Ctrl + WinKey + Right-Click
+;   HOTKEY:  Shift + WinKey + Right-Click
+;            Ctrl + WinKey + Right-Click
+;            Alt + WinKey + Right-Click
 ;   ACTION:  Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
 ;
++#RButton::
+!#RButton::
 ^#RButton::
 	FollowDuration_Seconds := 10
 	ShowCursorPixelColor(FollowDuration_Seconds)
@@ -1234,13 +1238,21 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe")
+#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
 ;
 #c::
 	OpenChrome()
+	Return
+#If WinActive("ahk_exe Overwatch.exe")
+;
+;   HOTKEY:  WinKey + C
+;   ACTION:  Click rapidly
+;
+#c::
+	ClickLoop(731,1227,25)
 	Return
 #If WinActive("ahk_exe Cyberpunk2077.exe")
 ;

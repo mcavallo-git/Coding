@@ -4,6 +4,14 @@
 #
 # ------------------------------------------------------------
 
+# Get Environment Variables (one-liner)
+Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem env: | Format-Table; Write-Output ---` env:PATH` ---; (${env:Path}).Split([String][Char]59) | Sort-Object; Write-Output ----------------;
+
+
+# ------------------------------------------------------------
+
+# Set Environment Variables
+
 
 #
 # SYSTEM PATH
@@ -12,8 +20,8 @@
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
 If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-	Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
-	[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+  Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
+  [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
 }
 
 
@@ -24,33 +32,9 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
 If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-	Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
-	[System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
+  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
+  [System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
 }
-
-
-# ------------------------------------------------------------
-
-# Show Environment Variables (one-liner)
-If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem Env: | Format-List; (${Env:Path}).Split([String][Char]59); 
-
-
-# Show Environment Variables
-
-# Update the max characters-per-line for the Powershell console by increasing the output buffer size (to see all of \${Env:PATH}, specifically)
-If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) {
-  $rawUI = $Host.UI.RawUI;
-  $oldSize = $rawUI.BufferSize;
-  $typeName = $oldSize.GetType( ).FullName;
-  $newSize = New-Object $typeName (16384, $oldSize.Height);
-  $rawUI.BufferSize = $newSize;
-}
-
-# Get Environment Variables
-Get-ChildItem Env: | Format-List; 
-
-# Get the PATH environment variable, using semi-colon delimitation  -  Note:  [String][Char]59 === ";" (one semicolon)
-(${Env:Path}).Split([String][Char]59);
 
 
 # ------------------------------------------------------------

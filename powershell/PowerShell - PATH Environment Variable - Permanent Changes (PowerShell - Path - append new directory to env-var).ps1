@@ -5,28 +5,28 @@
 # ------------------------------------------------------------
 
 
-# USER PATH
-#  |--> Permanently add a directory to the user's PATH  (doesn't affect other users on the same system)
+# SYSTEM  PATH
+#  |--> Permanently add a directory to current local system's PATH  (applied change to all users on current system)
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
-$UserPath = ((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path);
-If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-	[System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
+$SystemPath = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path);
+If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+	[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
 }
 
 
-# SYSTEM  PATH
-#  |--> Permanently add a directory to the system PATH (applies to all users on the same system)
+# USER PATH
+#  |--> Permanently add a directory to current local user's PATH  (doesn't apply change to other users on current system)
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation"; `
-$SystemPath = ((Get-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment').Path);
-If (((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-	[System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+$UserPath = ((Get-ItemProperty -Path 'Registry::HKEY_CURRENT_USER\Environment').Path);
+If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+	[System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
 }
 
 
 # ------------------------------------------------------------
 
 # Show Environment Variables (one-liner)
-If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem Env: | Format-List;  (${Env:Path}).Split([String][Char]59); 
+If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem Env: | Format-List; (${Env:Path}).Split([String][Char]59); 
 
 
 # Show Environment Variables

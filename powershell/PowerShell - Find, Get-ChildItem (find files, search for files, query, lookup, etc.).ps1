@@ -11,6 +11,8 @@
 # Filename must match EXACTLY
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | ForEach-Object { $_.FullName; }
 
+# Filename must match EXACTLY - Stop searching once first item is found
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | Select-Object -First 1 | ForEach-Object { $_.FullName; };
 
 # Filename CONTAINS ...
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ANYWHERE*") } | ForEach-Object { $_.FullName; }

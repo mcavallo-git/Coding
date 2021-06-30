@@ -1,5 +1,6 @@
 function HardenCryptoV2 {
 	Param(
+		[Switch]$DryRun
 	)
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
@@ -11,6 +12,18 @@ function HardenCryptoV2 {
 
 	}
 	# ------------------------------------------------------------
+	#
+	# Dry Run (Enable via "--DryRun" argument)
+	#
+
+	$RunMode_DryRun = $False;
+	If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
+		$RunMode_DryRun = $True;
+		Write-Output "------------------------------------------------------------";
+		Write-Output "            ! ! ! RUNNING IN DRY RUN MODE ! ! !             "; 
+		Write-Output "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
+		Write-Output "------------------------------------------------------------";
+	}
 
 	# If ((RunningAsAdministrator) -Ne ($True)) {
 	# 	PrivilegeEscalation -Command ("HardenCryptoV2") {
@@ -199,7 +212,9 @@ function HardenCryptoV2 {
 			New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
 			$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
 			${HTTPS_Ciphers} | ForEach-Object {
-				$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
+				If (${RunMode_DryRun} -Eq $False) {
+					$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
+				}
 			};
 			$RegistryKey_Ciphers.Close();
 		}
@@ -230,36 +245,38 @@ function HardenCryptoV2 {
 		# ------------------------------
 
 		If ($False) {
-			<# [Ciphers] Disable weak ciphers #>
-			New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
-			$RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
-			$RegistryKey.CreateSubKey('AES 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('AES 256/256');    <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('DES 56/56');      <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('NULL');           <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC2 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC2 40/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC2 56/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC4 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC4 40/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC4 56/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('RC4 64/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.CreateSubKey('Triple DES 168'); <# Workaround for creating registry keys with forward-slashes in their name #>
-			$RegistryKey.Close();
-			<# [Ciphers] Disable weak ciphers (cont.) #>
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
-			<# [Ciphers] Enable strong ciphers (cont.) #>
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 128/128' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 256/256' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
-			New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
+			If (${RunMode_DryRun} -Eq $False) {
+				<# [Ciphers] Disable weak ciphers #>
+				New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
+				$RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
+				$RegistryKey.CreateSubKey('AES 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('AES 256/256');    <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('DES 56/56');      <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('NULL');           <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC2 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC2 40/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC2 56/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC4 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC4 40/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC4 56/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('RC4 64/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.CreateSubKey('Triple DES 168'); <# Workaround for creating registry keys with forward-slashes in their name #>
+				$RegistryKey.Close();
+				<# [Ciphers] Disable weak ciphers (cont.) #>
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD';
+				<# [Ciphers] Enable strong ciphers (cont.) #>
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 128/128' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 256/256' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
+				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
+			}
 		}
 
 
@@ -278,17 +295,19 @@ function HardenCryptoV2 {
 		#
 
 		If ($False) {
-			Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
-			$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
-			$Name="MaxCompressionLevel";
-			$Type="DWord";
-			[UInt32]$Value = 0x00000002;
-			If ($False) {
-				Write-Output "";
-				Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-				Write-Output "`n";
+			If (${RunMode_DryRun} -Eq $False) {
+				Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
+				$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
+				$Name="MaxCompressionLevel";
+				$Type="DWord";
+				[UInt32]$Value = 0x00000002;
+				If ($False) {
+					Write-Output "";
+					Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+					Write-Output "`n";
+				}
+				Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 			}
-			Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 		}
 
 
@@ -315,7 +334,9 @@ function HardenCryptoV2 {
 					}
 					If ($Each_PSDrive_Root -Ne $Null) {
 						Write-Output "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
-						New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
+						If (${RunMode_DryRun} -Eq $False) {
+							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
+						}
 					}
 				}
 			}
@@ -333,9 +354,12 @@ function HardenCryptoV2 {
 						#   |--> Downside - DELETES all properties & child-keys if key already exists
 						#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 						#
-						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
-						If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
-							Write-Output (("  |-->  !! Created this Registry Key"));
+						Write-Output (("  |-->  Creating this Registry Key"));
+						If (${RunMode_DryRun} -Eq $False) {
+							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
+							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
+								Write-Output (("  |-->  !! Created this Registry Key"));
+							}
 						}
 					}
 				}
@@ -364,7 +388,9 @@ function HardenCryptoV2 {
 
 							# Update the Property
 							Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
-							Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
+							If (${RunMode_DryRun} -Eq $False) {
+								Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
+							}
 
 						}
 
@@ -373,17 +399,22 @@ function HardenCryptoV2 {
 						If (($EachProp.Name) -Eq "(Default)") {
 
 							# Delete the Registry-Key
-							Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
-							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
-								Write-Output "  |-->  !! Deleted Key";
-								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+							Write-Output "  |-->  !! Deleting Key";
+							If (${RunMode_DryRun} -Eq $False) {
+								Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
+								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
+									Write-Output "  |-->  Deleted Key";
+									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+								}
 							}
 
 						} Else {
 
 							# Delete the Property
 							Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
-							Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
+							If (${RunMode_DryRun} -Eq $False) {
+								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
+							}
 
 						}
 
@@ -395,7 +426,9 @@ function HardenCryptoV2 {
 
 						# Create the Property
 						Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
-						New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+						If (${RunMode_DryRun} -Eq $False) {
+							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+						}
 
 					} Else {
 
@@ -479,7 +512,9 @@ function HardenCryptoV2 {
 					} Else {
 						<# Update the Property #>
 						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )  (${Each_RegistryView})";
-						$OpenSubKey.SetValue(${Each_x86x64_Prop}.Name, ${Each_x86x64_Prop}.Value, ${RegistryValueKind}[(${Each_x86x64_Prop}.Type)]["ID"]);
+						If (${RunMode_DryRun} -Eq $False) {
+							$OpenSubKey.SetValue(${Each_x86x64_Prop}.Name, ${Each_x86x64_Prop}.Value, ${RegistryValueKind}[(${Each_x86x64_Prop}.Type)]["ID"]);
+						}
 					}
 				}
 				<# Close the key & flush any updated contents therein to the disk #>

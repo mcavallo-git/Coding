@@ -155,7 +155,7 @@ function HardenCryptoV2 {
 			};
 		}
 
-		<# [Protocols] Client-Side #>
+		<# [Algorithms] Diffie-Hellman #>
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman";
 			Props=@(

@@ -14,26 +14,26 @@
 #  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
 # Remove Windows 7 Apps
-"All MB" must be uninstalled (and disabled) via the motherboard BIOS screen   <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
-
-"AI Suite 3" Will likely need to be uninstalled, manually (for some reason, get-package | uninstall-package doeesnt apply correctly do it.
-
-@(
-"AI Suite 3", 
-"AMD Software", 
-"AMD_Chipset_Drivers", 
-"ARMOURY CRATE Lite Service", 
-"ASUS Framework Service", 
-"AURA", 
-"AURA lighting effect add-on", 
-"AURA lighting effect add-on x64", 
-"AURA Service", 
-"GALAX GAMER RGB", 
-"ROG Live Service"
-) | ForEach-Object {
-  Get-Package -Name "${_}" -ErrorAction SilentlyContinue | Uninstall-Package;
+If ((Get-Package | Where-Object { $_.Name -Eq ("AI sdfSuite 3"); }) -NE $Null) {
+Write-Host "Windows program `"All MB`" must be uninstalled (and disabled) via the motherboard BIOS screen"; <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
+Write-Host "Windows Program `"AI Suite 3`" will need to be uninstalled manually (as, for some reason, Get-Package | Uninstall-Package doeesnt apply correctly do it.)";
+Start-Sleep -Seconds 60;
+Exit 1;
+} Else {
+$ASUS_PACKAGES=@();
+# $ASUS_PACKAGES+="AI Suite 3";
+$ASUS_PACKAGES+="AMD Software";
+# $ASUS_PACKAGES+="AMD_Chipset_Drivers";
+$ASUS_PACKAGES+="ARMOURY CRATE Lite Service";
+$ASUS_PACKAGES+="ASUS Framework Service";
+$ASUS_PACKAGES+="AURA";
+$ASUS_PACKAGES+="AURA lighting effect add-on";
+$ASUS_PACKAGES+="AURA lighting effect add-on x64";
+$ASUS_PACKAGES+="AURA Service";
+$ASUS_PACKAGES+="GALAX GAMER RGB";
+$ASUS_PACKAGES+="ROG Live Service";
+Get-Package | Where-Object { ${ASUS_PACKAGES} -Contains ($_.Name); } | Uninstall-Package;
 }
-
 
 # ------------------------------------------------------------
 #
@@ -41,13 +41,14 @@
 #
 
 
-# Remove Windows 10 "Apps"
-@(
-"ARMOURY CRATE",
-"AURA Creator"
-) | ForEach-Object {
-  Get-AppxPackage -Name "${_}" | Remove-AppxPackage;
-}
+# # Remove Windows 10 "Apps"
+$ASUS_APPX_PACKAGES=@();
+$ASUS_APPX_PACKAGES+="ArmouryCrate";
+$ASUS_APPX_PACKAGES+="AURACreator";
+$ASUS_APPX_PACKAGES | ForEach-Object {
+  $APPX_PACKAGE="${_}";
+	Get-AppxPackage | Where-Object { $_.Name -Like ("*${APPX_PACKAGE}"); } | Remove-AppxPackage;
+};
 
 
 # ------------------------------------------------------------

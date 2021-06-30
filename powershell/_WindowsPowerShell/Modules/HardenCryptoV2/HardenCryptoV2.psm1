@@ -1,6 +1,7 @@
 function HardenCryptoV2 {
 	Param(
-		[Switch]$DryRun
+		[Switch]$DryRun,
+		[Switch]$x86x64
 	)
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
@@ -22,6 +23,13 @@ function HardenCryptoV2 {
 		Write-Output "            ! ! ! RUNNING IN DRY RUN MODE ! ! !             "; 
 		Write-Output "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
 		Write-Output "------------------------------------------------------------";
+		Start-Sleep -Seconds 3;
+	}
+
+
+	$RunMode_x86x64 = $False;
+	If ($PSBoundParameters.ContainsKey('x86x64') -Eq $True) {
+		$RunMode_x86x64 = $True;
 	}
 
 	# If ((RunningAsAdministrator) -Ne ($True)) {
@@ -270,9 +278,6 @@ function HardenCryptoV2 {
 			}
 		}
 
-
-		# ------------------------------
-
 		If ($False) {
 			If (${RunMode_DryRun} -Eq $False) {
 				<# [Ciphers] Disable weak ciphers #>
@@ -308,179 +313,6 @@ function HardenCryptoV2 {
 			}
 		}
 
-
-		# ------------------------------------------------------------
-		#
-		# Group-Policy Setting(s)
-		#
-		#
-		# EXPLANATION - WHY REGISTRY EDITS DON'T AFFECT GROUP POLICIES (GPEDIT.MSC)
-		#  |
-		#  |--> The registry only shows a read-only copy of the settings in the Group Policy Editor (gpedit.msc)
-		#  |
-		#  |--> The values held in the registry at a given point in time are calculated from the combined group policies applied to the workstation & user (and possibly domain) at any given point in time (and from any given user-reference)
-		#  |
-		#  |--> The source of these values is controlled not by setting the registry keys, but by using Group Policy specific commands to set the values which gpedit.msc pulls from, locally
-		#
-
-		If ($False) {
-			If (${RunMode_DryRun} -Eq $False) {
-				Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
-				$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
-				$Name="MaxCompressionLevel";
-				$Type="DWord";
-				[UInt32]$Value = 0x00000002;
-				If ($False) {
-					Write-Output "";
-					Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-					Write-Output "`n";
-				}
-				Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
-			}
-		}
-
-
-		# ------------------------------------------------------------
-
-		ForEach ($EachRegEdit In $RegEdits) {
-			#
-			# Root-Keys
-			#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
-			#   |--> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
-			#
-			If (($EachRegEdit.Path).StartsWith("Registry::") -Eq $False) {
-				$Each_RegEdit_DriveName=(($EachRegEdit.Path).Split(':\')[0]);
-				If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
-					$Each_PSDrive_PSProvider=$Null;
-					$Each_PSDrive_Root=$Null;
-					Write-Output "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
-					ForEach ($Each_PSDrive In $PSDrives) {
-						If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
-							$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
-							$Each_PSDrive_Root=($Each_PSDrive.Root);
-							Break;
-						}
-					}
-					If ($Each_PSDrive_Root -Ne $Null) {
-						Write-Output "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
-						If (${RunMode_DryRun} -Eq $False) {
-							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
-						}
-					}
-				}
-			}
-
-			Write-Output ("`n$($EachRegEdit.Path)");
-			ForEach ($EachProp In $EachRegEdit.Props) {
-
-				# Check for each Key
-				If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
-					If (($EachProp.Delete) -eq $False) {  # Property isn't to-be-deleted
-						# Create the key
-						#
-						# New-Item -Force
-						#   |--> Upside - Creates ALL parent registry keys
-						#   |--> Downside - DELETES all properties & child-keys if key already exists
-						#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
-						#
-						Write-Output (("  |-->  !! Creating Key"));
-						If (${RunMode_DryRun} -Eq $False) {
-							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
-							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
-								Write-Output (("  |-->  Created Key"));
-							}
-						}
-					}
-				}
-
-				# Check for each Property
-				Try {
-					$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
-				} Catch {
-					$GetEachItemProp = $Null;
-				};
-
-				$EchoDetails = "";
-
-				If ($GetEachItemProp -NE $Null) {  # Property exists
-
-					If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
-
-						$EachProp.LastValue = $GetEachItemProp;
-
-						If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
-
-							# Do nothing to the Property (already exists with matching type & value)
-							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already has required value of [ $(${EachProp}.LastValue) ]) ${EchoDetails}";
-
-						} Else {
-
-							# Update the Property
-							Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
-							If (${RunMode_DryRun} -Eq $False) {
-								Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
-							}
-
-						}
-
-					} Else { # Property (or Key) SHOULD be deleted
-
-						If (($EachProp.Name) -Eq "(Default)") {
-
-							# Delete the Registry-Key
-							Write-Output "  |-->  !! Deleting Key";
-							If (${RunMode_DryRun} -Eq $False) {
-								Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
-								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
-									Write-Output "  |-->  Deleted Key";
-									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
-								}
-							}
-
-						} Else {
-
-							# Delete the Property
-							Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
-							If (${RunMode_DryRun} -Eq $False) {
-								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
-							}
-
-						}
-
-					}
-
-				} Else {  # Property does NOT exist
-
-					If (($EachProp.Delete) -Eq $False) {
-
-						# Create the Property
-						Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
-						If (${RunMode_DryRun} -Eq $False) {
-							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
-						}
-
-					} Else {
-
-						# Do nothing to the Property (already deleted)
-						Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted) ${EchoDetails}";
-
-					}
-
-				}
-
-			}
-
-		}
-
-
-		# ------------------------------------------------------------
-
-
-		Write-Host "------------------------------------------------------------";
-		Write-Host "============================================================";
-		Write-Host "------------------------------------------------------------";
-
-
 		# ------------------------------------------------------------
 		#
 		# .NET Framework v4 - Simplify protocol-management (by handing off control to OS) & Enforce strong cryptography
@@ -492,8 +324,6 @@ function HardenCryptoV2 {
 
 		<# Note: Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 		<# Note: The third argument passed to the '.SetValue()' method, here, defines the value for 'RegistryValueKind', which defines the 'type' of the registry property - A value of '4' creates/sets a 'DWORD' typed property #>
-
-		# $RegEdits = @();
 
 		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
 		$RegistryValueKind = @{};
@@ -538,60 +368,222 @@ function HardenCryptoV2 {
 			}
 		}
 
+		# ------------------------------------------------------------
+		#
+		# Group-Policy Setting(s)
+		#
+		#
+		# EXPLANATION - WHY REGISTRY EDITS DON'T AFFECT GROUP POLICIES (GPEDIT.MSC)
+		#  |
+		#  |--> The registry only shows a read-only copy of the settings in the Group Policy Editor (gpedit.msc)
+		#  |
+		#  |--> The values held in the registry at a given point in time are calculated from the combined group policies applied to the workstation & user (and possibly domain) at any given point in time (and from any given user-reference)
+		#  |
+		#  |--> The source of these values is controlled not by setting the registry keys, but by using Group Policy specific commands to set the values which gpedit.msc pulls from, locally
+		#
 
-		# ------------------------------
+		If ($False) {
+			If (${RunMode_DryRun} -Eq $False) {
+				Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
+				$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
+				$Name="MaxCompressionLevel";
+				$Type="DWord";
+				[UInt32]$Value = 0x00000002;
+				If ($False) {
+					Write-Output "";
+					Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+					Write-Output "`n";
+				}
+				Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
+			}
+		}
 
-		<# Update the 64-bit registry && the 32-bit registry entry for each item #>
-		ForEach ($Each_RegistryView In @([Microsoft.Win32.RegistryView]::Registry32, [Microsoft.Win32.RegistryView]::Registry64)) {
 
-			<# Open a stream to the specific registry (32-/64-bit) #>
-			$Registry_HKLM = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, ${Each_RegistryView}));
-			ForEach ($Each_RegEdit In $RegEdits) {
+		# ------------------------------------------------------------
 
-				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
-				$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -Replace "Registry::HKEY_LOCAL_MACHINE\\","");
-				Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)");
-				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
+		If ($RunMode_x86x64 -Eq $False) {
 
-				ForEach ($Each_Prop In ${Each_RegEdit}.Props) {
+			ForEach ($EachRegEdit In $RegEdits) {
+				#
+				# Root-Keys
+				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
+				#   |--> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
+				#
+				If (($EachRegEdit.Path).StartsWith("Registry::") -Eq $False) {
+					$Each_RegEdit_DriveName=(($EachRegEdit.Path).Split(':\')[0]);
+					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
+						$Each_PSDrive_PSProvider=$Null;
+						$Each_PSDrive_Root=$Null;
+						Write-Output "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
+						ForEach ($Each_PSDrive In $PSDrives) {
+							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
+								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
+								$Each_PSDrive_Root=($Each_PSDrive.Root);
+								Break;
+							}
+						}
+						If ($Each_PSDrive_Root -Ne $Null) {
+							Write-Output "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
+							If (${RunMode_DryRun} -Eq $False) {
+								New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
+							}
+						}
+					}
+				}
 
-					$Each_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_Prop}.Name)"));
+				Write-Output ("`n$($EachRegEdit.Path)");
+				ForEach ($EachProp In $EachRegEdit.Props) {
 
-					If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
+					# Check for each Key
+					If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
+						If (($EachProp.Delete) -eq $False) {  # Property isn't to-be-deleted
+							# Create the key
+							#
+							# New-Item -Force
+							#   |--> Upside - Creates ALL parent registry keys
+							#   |--> Downside - DELETES all properties & child-keys if key already exists
+							#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
+							#
+							Write-Output (("  |-->  !! Creating Key"));
+							If (${RunMode_DryRun} -Eq $False) {
+								New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
+								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
+									Write-Output (("  |-->  Created Key"));
+								}
+							}
+						}
+					}
 
-						<# Do nothing to the Property (already exists with matching type & value) #>
-						Write-Output "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])";
+					# Check for each Property
+					Try {
+						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop"));
+					} Catch {
+						$GetEachItemProp = $Null;
+					};
 
-					} Else {
+					$EchoDetails = "";
 
-						If ("$(${Each_Prop}.LastValue)".Trim() -Eq "") {
-							$Each_Prop.LastValue = "(NULL)";
+					If ($GetEachItemProp -NE $Null) {  # Property exists
+
+						If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
+
+							$EachProp.LastValue = $GetEachItemProp;
+
+							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
+
+								# Do nothing to the Property (already exists with matching type & value)
+								Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already has required value of [ $(${EachProp}.LastValue) ]) ${EchoDetails}";
+
+							} Else {
+
+								# Update the Property
+								Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
+								If (${RunMode_DryRun} -Eq $False) {
+									Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
+								}
+
+							}
+
+						} Else { # Property (or Key) SHOULD be deleted
+
+							If (($EachProp.Name) -Eq "(Default)") {
+
+								# Delete the Registry-Key
+								Write-Output "  |-->  !! Deleting Key";
+								If (${RunMode_DryRun} -Eq $False) {
+									Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
+									If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
+										Write-Output "  |-->  Deleted Key";
+										Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+									}
+								}
+
+							} Else {
+
+								# Delete the Property
+								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
+								If (${RunMode_DryRun} -Eq $False) {
+									Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
+								}
+
+							}
+
 						}
 
-						<# Update the Property #>
-						Write-Output "  |-->  !! Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )";
-						If (${RunMode_DryRun} -Eq $False) {
-							$OpenSubKey.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
+					} Else {  # Property does NOT exist
+
+						If (($EachProp.Delete) -Eq $False) {
+
+							# Create the Property
+							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
+							If (${RunMode_DryRun} -Eq $False) {
+								New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+							}
+
+						} Else {
+
+							# Do nothing to the Property (already deleted)
+							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted) ${EchoDetails}";
+
 						}
 
 					}
 
 				}
 
-				<# Close the key & flush any updated contents therein to the disk #>
-				$OpenSubKey.Close();
+			}
+
+		} Else {
+
+			<# Update the 64-bit registry && the 32-bit registry entry for each item #>
+			ForEach ($Each_RegistryView In @([Microsoft.Win32.RegistryView]::Registry32, [Microsoft.Win32.RegistryView]::Registry64)) {
+
+				<# Open a stream to the specific registry (32-/64-bit) #>
+				$Registry_HKLM = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, ${Each_RegistryView}));
+				ForEach ($Each_RegEdit In $RegEdits) {
+
+					<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
+					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -Replace "Registry::HKEY_LOCAL_MACHINE\\","");
+					Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)");
+					$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
+
+					ForEach ($Each_Prop In ${Each_RegEdit}.Props) {
+
+						$Each_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_Prop}.Name)"));
+
+						If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
+
+							<# Do nothing to the Property (already exists with matching type & value) #>
+							Write-Output "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])";
+
+						} Else {
+
+							If ("$(${Each_Prop}.LastValue)".Trim() -Eq "") {
+								$Each_Prop.LastValue = "(NULL)";
+							}
+
+							<# Update the Property #>
+							Write-Output "  |-->  !! Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )";
+							If (${RunMode_DryRun} -Eq $False) {
+								$OpenSubKey.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
+							}
+
+						}
+
+					}
+
+					<# Close the key & flush any updated contents therein to the disk #>
+					$OpenSubKey.Close();
+
+				}
 
 			}
 
 		}
 
-
-		# ------------------------------------------------------------
-
 	}
 
-	Write-Output "`n`n  Press any key to exit...";
-	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+	Return;
 
 }
 

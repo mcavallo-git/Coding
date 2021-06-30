@@ -101,6 +101,36 @@ function HardenCryptoV2 {
 		$RegEdits = @();
 
 		#------------------------------------------------------------
+
+		<# Update Windows and WinHTTP - https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#bkmk_winhttp #>
+		<#   !!! Enable these settings on all clients running earlier versions of Windows before enabling TLS 1.2 and disabling the older protocols on the Configuration Manager servers. Otherwise, you can inadvertently orphan them !!! (as per Microsoft docs) #>
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
+			Props=@(
+				@{
+					Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
+					Name="DefaultSecureProtocols";
+					Type="DWord";
+					Value=0xA00;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
+			Props=@(
+				@{
+					Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
+					Name="DefaultSecureProtocols";
+					Type="DWord";
+					Value=0xA00;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		#------------------------------------------------------------
 		#
 		#  HTTPS PROTOCOLS
 		#

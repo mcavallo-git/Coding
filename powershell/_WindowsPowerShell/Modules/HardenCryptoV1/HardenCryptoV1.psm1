@@ -94,50 +94,72 @@ function HardenCryptoV1 {
 			$VersionInstalled_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);  <# Determine the installed version of .NET v4.x #> 
 			$RelPath_HKLM_DotNet4 = ("SOFTWARE\Microsoft\.NETFramework\${VersionInstalled_DotNet4}");
 
+			<# ------------------------------ #>
 			<# Update the 64-bit registry #>
 			$Registry_HKLM_64bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry64));
-			$SubKey_DotNet4_64bit = $Registry_HKLM_64bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+			<# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+			$SubKey_DotNet4_64bit = $Registry_HKLM_64bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);
 			If (($SubKey_DotNet4_64bit.GetValue("SystemDefaultTlsVersions")) -NE (1)) {
-				$SubKey_DotNet4_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
+				<# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
+				$SubKey_DotNet4_64bit.SetValue("SystemDefaultTlsVersions", 1, 4);
 			}
 			If (($SubKey_DotNet4_64bit.GetValue("SchUseStrongCrypto")) -NE (1)) {
-				$SubKey_DotNet4_64bit.SetValue("SchUseStrongCrypto", 1, 4);  <# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
+				<# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
+				$SubKey_DotNet4_64bit.SetValue("SchUseStrongCrypto", 1, 4);
 			}
-			$SubKey_DotNet4_64bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
+			<# Close the key & flush it to disk (if its contents have been modified) #>
+			$SubKey_DotNet4_64bit.Close();
 
+			<# ------------------------------ #>
 			<# Update the 32-bit registry #>
 			$Registry_HKLM_32bit = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, [Microsoft.Win32.RegistryView]::Registry32));
-			$SubKey_DotNet4_32bit = $Registry_HKLM_32bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);  <# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+			<# Retrieve the specified subkey for read/write access (argument #2 == $True) #>
+			$SubKey_DotNet4_32bit = $Registry_HKLM_32bit.OpenSubKey("${RelPath_HKLM_DotNet4}", $True);
 			If (($SubKey_DotNet4_32bit.GetValue("SystemDefaultTlsVersions")) -NE (1)) {
-				$SubKey_DotNet4_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);  <# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
+				<# Allow the operating system to control the networking protocol used by apps (which run on this version of the .NET Framework) #>
+				$SubKey_DotNet4_32bit.SetValue("SystemDefaultTlsVersions", 1, 4);
 			}
 			If (($SubKey_DotNet4_32bit.GetValue("SchUseStrongCrypto")) -NE (1)) {
-				$SubKey_DotNet4_32bit.SetValue("SchUseStrongCrypto", 1, 4);  <# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
+				<# Enforce strong cryptography, using more secure network protocols (TLS 1.2, TLS 1.1, and TLS 1.0) and blocking protocols that are not secure #>
+				$SubKey_DotNet4_32bit.SetValue("SchUseStrongCrypto", 1, 4);
 			}
-			$SubKey_DotNet4_32bit.Close();  <# Close the key & flush it to disk (if its contents have been modified) #>
+			<# Close the key & flush it to disk (if its contents have been modified) #>
+			$SubKey_DotNet4_32bit.Close();
 
 
 			# ------------------------------------------------------------
 
 			<# Grant additional user(s) access rights onto this, specific, key #>
 			If ($False) {
+				<# ------------------------------ #>
 				<# Get the registry key's access controls #>
+				<#   https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.opensubkey #>
 				$KeyAccess_64bit = ($Registry_HKLM_64bit.OpenSubKey("${RelPath_HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
 				$KeyAccess_32bit = ($Registry_HKLM_32bit.OpenSubKey("${RelPath_HKLM_DotNet4}", [Microsoft.Win32.RegistryKeyPermissionCheck]::ReadWriteSubTree, [System.Security.AccessControl.RegistryRights]::ChangePermissions));
-					<# Prep the updated access rules/controls #>
-					$AccessControl_64bit = $KeyAccess_64bit.GetAccessControl();
-					$AccessControl_32bit = $KeyAccess_32bit.GetAccessControl();
-						<# Grant current-user (self) full control over targeted registry key(s) (required to modify many system registry keys) #>
-						$RegistryAccessRule = New-Object System.Security.AccessControl.RegistryAccessRule("${Env:USERDOMAIN}\${Env:USERNAME}","FullControl","Allow");
-					$AccessControl_64bit.SetAccessRule($RegistryAccessRule);
-					$AccessControl_32bit.SetAccessRule($RegistryAccessRule);
+				<# ------------------------------ #>
+				<# Prep the updated access rules/controls #>
+				<#   https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.getaccesscontrol #>
+				$AccessControl_64bit = $KeyAccess_64bit.GetAccessControl();
+				$AccessControl_32bit = $KeyAccess_32bit.GetAccessControl();
+				<# ------------------------------ #>
+				<# Grant current-user (self) full control over targeted registry key(s) (required to modify many system registry keys) #>
+				<#   https://docs.microsoft.com/en-us/dotnet/api/system.security.accesscontrol.filesystemsecurity.setaccessrule #>
+				$RegistryAccessRule = New-Object System.Security.AccessControl.RegistryAccessRule("${Env:USERDOMAIN}\${Env:USERNAME}","FullControl","Allow");
+				$AccessControl_64bit.SetAccessRule($RegistryAccessRule);
+				$AccessControl_32bit.SetAccessRule($RegistryAccessRule);
+				<# ------------------------------ #>
 				<# Apply the updated access rules/controls #>
+				<#   https://docs.microsoft.com/en-us/dotnet/api/system.io.directory.setaccesscontrol #>
 				$KeyAccess_64bit.SetAccessControl($AccessControl_64bit);
 				$KeyAccess_32bit.SetAccessControl($AccessControl_32bit);
+				<# ------------------------------ #>
 				<# Close the key & flush it to disk (if its contents have been modified) #>
+				<#   https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.close #>
 				$KeyAccess_64bit.Close();
 				$KeyAccess_32bit.Close();
 			}
+
+			# ------------------------------------------------------------
 
 			<# [Protocols] Disable SSL 2.0 #>
 			New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Server';  <# Incoming Connections - IIS/FTP Server(s) #>

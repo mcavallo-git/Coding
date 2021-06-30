@@ -479,17 +479,17 @@ function HardenCryptoV2 {
 
 		<# Build a path to target the registry key .NET Framework's registry key #>
 		$DotNet_HKLM_Searches=@();
-		$DotNet_HKLM_Searches+="SOFTWARE\Microsoft\.NETFramework";
-		$DotNet_HKLM_Searches+="SOFTWARE\Wow6432Node\Microsoft\.NETFramework";
+		$DotNet_HKLM_Searches+="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v*";
+		$DotNet_HKLM_Searches+="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v*";
 
 		<# Search for installed versions of .NET Framework #>
 		${DotNet_HKLM_Searches} | ForEach-Object {
-			$Each_HKLM_RelPath="${_}";
-			((Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\${Each_HKLM_RelPath}\v*").PSChildName) | ForEach-Object {
+			$Each_HKLM_Search="${_}";
+			((Get-Item -Path "${Each_HKLM_Search}").PSChildName) | ForEach-Object {
 				<# Enforce strong encryption methodologies across all local .NET Framework installations #>
 				$RegEdits += @{
-					RelPath="${Each_HKLM_RelPath}\${_}";
-					Path="Registry::HKEY_LOCAL_MACHINE\${Each_HKLM_RelPath}\${_}";
+					RelPath="$("${Each_HKLM_Search}" -Replace "(Registry::HKEY_LOCAL_MACHINE\\)|(\\v\*)","")\${_}";
+					Path="$("${Each_HKLM_Search}" -Replace "\\v\*","")\${_}";
 					Props=@(
 						@{
 							Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";

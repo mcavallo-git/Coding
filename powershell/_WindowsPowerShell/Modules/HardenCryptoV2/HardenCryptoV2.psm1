@@ -520,6 +520,9 @@ function HardenCryptoV2 {
 
 					} Else {
 
+						If ("$(${Each_x86x64_Prop}.LastValue)".Trim() -Eq "") {
+							$Each_x86x64_Prop.LastValue = "(NULL)";
+						}
 						<# Update the Property #>
 						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )";
 						If (${RunMode_DryRun} -Eq $False) {

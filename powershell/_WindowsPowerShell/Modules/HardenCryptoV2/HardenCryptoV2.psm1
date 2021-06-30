@@ -445,6 +445,14 @@ function HardenCryptoV2 {
 
 
 		# ------------------------------------------------------------
+
+
+		Write-Host "------------------------------------------------------------";
+		Write-Host "============================================================";
+		Write-Host "------------------------------------------------------------";
+
+
+		# ------------------------------------------------------------
 		#
 		# .NET Framework v4 - Simplify protocol-management (by handing off control to OS) & Enforce strong cryptography
 		#   |
@@ -456,7 +464,7 @@ function HardenCryptoV2 {
 		<# Note: Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 		<# Note: The third argument passed to the '.SetValue()' method, here, defines the value for 'RegistryValueKind', which defines the 'type' of the registry property - A value of '4' creates/sets a 'DWORD' typed property #>
 
-		$x86x64_RegEdits = @();
+		# $RegEdits = @();
 
 		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
 		$RegistryValueKind = @{};
@@ -479,7 +487,7 @@ function HardenCryptoV2 {
 			$Each_HKLM_RelPath="${_}";
 			((Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\${Each_HKLM_RelPath}\v*").PSChildName) | ForEach-Object {
 				<# Enforce strong encryption methodologies across all local .NET Framework installations #>
-				$x86x64_RegEdits += @{
+				$RegEdits += @{
 					RelPath="${Each_HKLM_RelPath}\${_}";
 					Path="Registry::HKEY_LOCAL_MACHINE\${Each_HKLM_RelPath}\${_}";
 					Props=@(
@@ -510,7 +518,7 @@ function HardenCryptoV2 {
 
 			<# Open a stream to the specific registry (32-/64-bit) #>
 			$Registry_HKLM = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, ${Each_RegistryView}));
-			ForEach ($Each_x86x64_RegEdit In $x86x64_RegEdits) {
+			ForEach ($Each_x86x64_RegEdit In $RegEdits) {
 
 				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
 				Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_x86x64_RegEdit.RelPath)");

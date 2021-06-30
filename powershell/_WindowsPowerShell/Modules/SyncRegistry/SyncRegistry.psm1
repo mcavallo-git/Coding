@@ -48,48 +48,13 @@ function SyncRegistry {
 		#  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 
 		$PSDrives = @();
-
-		$PSDrives += @{
-			Name="HKLM";
-			PSProvider="Registry";
-			Root="HKEY_LOCAL_MACHINE";
-		};
-
-		$PSDrives += @{
-			Name="HKCC";
-			PSProvider="Registry";
-			Root="HKEY_CURRENT_CONFIG";
-		};
-
-		$PSDrives += @{
-			Name="HKCR";
-			PSProvider="Registry";
-			Root="HKEY_CLASSES_ROOT";
-		};
-
-		$PSDrives += @{
-			Name="HKU";
-			PSProvider="Registry";
-			Root="HKEY_USERS";
-		};
-
-		$PSDrives += @{
-			Name="HKCU";
-			PSProvider="Registry";
-			Root="HKEY_CURRENT_USER";
-		};
-
-		$PSDrives += @{
-			Name=$Null;
-			PSProvider="Registry";
-			Root="HKEY_PERFORMANCE_DATA";
-		};
-
-		$PSDrives += @{
-			Name=$Null;
-			PSProvider="Registry";
-			Root="HKEY_DYN_DATA";
-		};
+		$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
+		$PSDrives += @{ Name="HKCC"; PSProvider="Registry"; Root="HKEY_CURRENT_CONFIG";   };
+		$PSDrives += @{ Name="HKCR"; PSProvider="Registry"; Root="HKEY_CLASSES_ROOT";     };
+		$PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
+		$PSDrives += @{ Name="HKCU"; PSProvider="Registry"; Root="HKEY_CURRENT_USER";     };
+		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_PERFORMANCE_DATA"; };
+		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_DYN_DATA";         };
 
 
 		# ------------------------------------------------------------

@@ -506,6 +506,7 @@ function HardenCryptoV2 {
 			ForEach ($Each_x86x64_RegEdit In $x86x64_RegEdits) {
 
 				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
+				Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_x86x64_RegEdit.RelPath)");
 				Write-Output ("`n$($Each_x86x64_RegEdit.Path)  (${Each_RegistryView})");
 				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_x86x64_RegEdit}.RelPath)", $True);
 
@@ -516,12 +517,12 @@ function HardenCryptoV2 {
 					If ((${Each_x86x64_Prop}.LastValue) -Eq (${Each_x86x64_Prop}.Value)) {
 
 						<# Do nothing to the Property (already exists with matching type & value) #>
-						Write-Output "  |-->  Skipping Property `"$(${Each_x86x64_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])  (${Each_RegistryView})";
+						Write-Output "  |-->  Skipping Property `"$(${Each_x86x64_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])";
 
 					} Else {
 
 						<# Update the Property #>
-						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )  (${Each_RegistryView})";
+						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )";
 						If (${RunMode_DryRun} -Eq $False) {
 							$OpenSubKey.SetValue(${Each_x86x64_Prop}.Name, ${Each_x86x64_Prop}.Value, ${RegistryValueKind}[(${Each_x86x64_Prop}.Type)]["ID"]);
 						}

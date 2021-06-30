@@ -13,7 +13,7 @@
 #
 #  > FIND IN "appwiz.cpl", THEN UNINSTALL:
 
-# Remove Windows 7 Apps
+# Remove Windows "Programs"
 If ((Get-Package | Where-Object { $_.Name -Eq ("AI sdfSuite 3"); }) -NE $Null) {
 Write-Host "Windows program `"All MB`" must be uninstalled (and disabled) via the motherboard BIOS screen"; <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
 Write-Host "Windows Program `"AI Suite 3`" will need to be uninstalled manually (as, for some reason, Get-Package | Uninstall-Package doeesnt apply correctly do it.)";
@@ -35,13 +35,13 @@ $ASUS_PACKAGES+="ROG Live Service";
 Get-Package | Where-Object { ${ASUS_PACKAGES} -Contains ($_.Name); } | Uninstall-Package;
 }
 
+
 # ------------------------------------------------------------
 #
 # UNINSTALL THE FOLLOWING APPLICATION(S) (Win10 style apps) by [ typing their name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
 #
 
-
-# # Remove Windows 10 "Apps"
+# # Remove Windows "Apps"
 $ASUS_APPX_PACKAGES=@();
 $ASUS_APPX_PACKAGES+="ArmouryCrate";
 $ASUS_APPX_PACKAGES+="AURACreator";

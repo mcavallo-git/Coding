@@ -464,7 +464,7 @@ function HardenCryptoV2 {
 		<# Note: Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 		<# Note: The third argument passed to the '.SetValue()' method, here, defines the value for 'RegistryValueKind', which defines the 'type' of the registry property - A value of '4' creates/sets a 'DWORD' typed property #>
 
-		$RegEdits = @();
+		# $RegEdits = @();
 
 		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
 		$RegistryValueKind = @{};
@@ -488,7 +488,6 @@ function HardenCryptoV2 {
 			((Get-Item -Path "${Each_HKLM_Search}").PSChildName) | ForEach-Object {
 				<# Enforce strong encryption methodologies across all local .NET Framework installations #>
 				$RegEdits += @{
-					RelPath=(("${Each_HKLM_Search}" -Replace "(Registry::HKEY_LOCAL_MACHINE\\)|(\\v\*)","")+("\${_}"));
 					Path=(("${Each_HKLM_Search}" -Replace "\\v\*","")+("\${_}"));
 					Props=@(
 						@{
@@ -518,31 +517,32 @@ function HardenCryptoV2 {
 
 			<# Open a stream to the specific registry (32-/64-bit) #>
 			$Registry_HKLM = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, ${Each_RegistryView}));
-			ForEach ($Each_x86x64_RegEdit In $RegEdits) {
+			ForEach ($Each_RegEdit In $RegEdits) {
 
 				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
-				Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_x86x64_RegEdit.RelPath)");
-				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_x86x64_RegEdit}.RelPath)", $True);
+				$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -Replace "Registry::HKEY_LOCAL_MACHINE\\","");
+				Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)");
+				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
 
-				ForEach ($Each_x86x64_Prop In ${Each_x86x64_RegEdit}.Props) {
+				ForEach ($Each_Prop In ${Each_RegEdit}.Props) {
 
-					$Each_x86x64_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_x86x64_Prop}.Name)"));
+					$Each_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_Prop}.Name)"));
 
-					If ((${Each_x86x64_Prop}.LastValue) -Eq (${Each_x86x64_Prop}.Value)) {
+					If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
 						<# Do nothing to the Property (already exists with matching type & value) #>
-						Write-Output "  |-->  Skipping Property `"$(${Each_x86x64_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])";
+						Write-Output "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])";
 
 					} Else {
 
-						If ("$(${Each_x86x64_Prop}.LastValue)".Trim() -Eq "") {
-							$Each_x86x64_Prop.LastValue = "(NULL)";
+						If ("$(${Each_Prop}.LastValue)".Trim() -Eq "") {
+							$Each_Prop.LastValue = "(NULL)";
 						}
 
 						<# Update the Property #>
-						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )";
+						Write-Output "  |-->  !! Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )";
 						If (${RunMode_DryRun} -Eq $False) {
-							$OpenSubKey.SetValue(${Each_x86x64_Prop}.Name, ${Each_x86x64_Prop}.Value, ${RegistryValueKind}[(${Each_x86x64_Prop}.Type)]["ID"]);
+							$OpenSubKey.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
 						}
 
 					}

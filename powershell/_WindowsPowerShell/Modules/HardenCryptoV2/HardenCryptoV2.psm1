@@ -464,7 +464,7 @@ function HardenCryptoV2 {
 		<# Note: Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 		<# Note: The third argument passed to the '.SetValue()' method, here, defines the value for 'RegistryValueKind', which defines the 'type' of the registry property - A value of '4' creates/sets a 'DWORD' typed property #>
 
-		# $RegEdits = @();
+		$RegEdits = @();
 
 		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
 		$RegistryValueKind = @{};
@@ -488,8 +488,8 @@ function HardenCryptoV2 {
 			((Get-Item -Path "${Each_HKLM_Search}").PSChildName) | ForEach-Object {
 				<# Enforce strong encryption methodologies across all local .NET Framework installations #>
 				$RegEdits += @{
-					RelPath="$("${Each_HKLM_Search}" -Replace "(Registry::HKEY_LOCAL_MACHINE\\)|(\\v\*)","")\${_}";
-					Path="$("${Each_HKLM_Search}" -Replace "\\v\*","")\${_}";
+					RelPath=(("${Each_HKLM_Search}" -Replace "(Registry::HKEY_LOCAL_MACHINE\\)|(\\v\*)","")+("\${_}"));
+					Path=(("${Each_HKLM_Search}" -Replace "\\v\*","")+("\${_}"));
 					Props=@(
 						@{
 							Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";

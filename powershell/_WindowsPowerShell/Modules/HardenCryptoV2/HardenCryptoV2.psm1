@@ -102,9 +102,11 @@ function HardenCryptoV2 {
 		#
 		
 		$HTTPS_Protocols=@();
+		<# [Ciphers] Disable weak/insecure protocols #>
 		$HTTPS_Protocols+=@{ ProtocolName="SSL 2.0"; Enabled=0; };
 		$HTTPS_Protocols+=@{ ProtocolName="SSL 3.0"; Enabled=0; };
 		$HTTPS_Protocols+=@{ ProtocolName="TLS 1.0"; Enabled=0; };
+		<# [Ciphers] Enable strong/secure protocols #>
 		$HTTPS_Protocols+=@{ ProtocolName="TLS 1.1"; Enabled=1; };
 		$HTTPS_Protocols+=@{ ProtocolName="TLS 1.2"; Enabled=1; };
 
@@ -177,7 +179,7 @@ function HardenCryptoV2 {
 		#
 
 		$HTTPS_Ciphers=@();
-		<# [Ciphers] Disable weak ciphers (cont.) #>
+		<# [Ciphers] Disable weak/insecure ciphers #>
 		$HTTPS_Ciphers+=@{ CipherName="DES 56/56";      Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="NULL";           Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="RC2 128/128";    Enabled=0; };
@@ -187,7 +189,7 @@ function HardenCryptoV2 {
 		$HTTPS_Ciphers+=@{ CipherName="RC4 40/128";     Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="RC4 56/128";     Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="RC4 64/128";     Enabled=0; };
-		<# [Ciphers] Enable strong ciphers #>
+		<# [Ciphers] Enable strong/secure ciphers #>
 		$HTTPS_Ciphers+=@{ CipherName="AES 128/128";    Enabled=1; };
 		$HTTPS_Ciphers+=@{ CipherName="AES 256/256";    Enabled=1; };
 		$HTTPS_Ciphers+=@{ CipherName="Triple DES 168"; Enabled=1; };

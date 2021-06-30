@@ -35,15 +35,6 @@ function HardenCryptoV2 {
 
 
 		# ------------------------------------------------------------
-		# TO-DO
-		#
-		#   Power Settings  -->  Monitor Off after 30-min
-		#   Power Settings  -->  Never Sleep
-		#   Screen Saver  -->  Activate  [ Blank-Screensaver ("None" option) ]  after  [ 20-min ]
-		#
-		#
-
-		# ------------------------------------------------------------
 		# Define any Network Maps which will be required during the runtime
 		#  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 
@@ -102,10 +93,12 @@ function HardenCryptoV2 {
 		#
 		
 		$HTTPS_Protocols=@();
+
 		<# [Ciphers] Disable weak/insecure protocols #>
 		$HTTPS_Protocols+=@{ ProtocolName="SSL 2.0"; Enabled=0; };
 		$HTTPS_Protocols+=@{ ProtocolName="SSL 3.0"; Enabled=0; };
 		$HTTPS_Protocols+=@{ ProtocolName="TLS 1.0"; Enabled=0; };
+
 		<# [Ciphers] Enable strong/secure protocols #>
 		$HTTPS_Protocols+=@{ ProtocolName="TLS 1.1"; Enabled=1; };
 		$HTTPS_Protocols+=@{ ProtocolName="TLS 1.2"; Enabled=1; };
@@ -179,6 +172,7 @@ function HardenCryptoV2 {
 		#
 
 		$HTTPS_Ciphers=@();
+
 		<# [Ciphers] Disable weak/insecure ciphers #>
 		$HTTPS_Ciphers+=@{ CipherName="DES 56/56";      Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="NULL";           Enabled=0; };
@@ -189,6 +183,7 @@ function HardenCryptoV2 {
 		$HTTPS_Ciphers+=@{ CipherName="RC4 40/128";     Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="RC4 56/128";     Enabled=0; };
 		$HTTPS_Ciphers+=@{ CipherName="RC4 64/128";     Enabled=0; };
+
 		<# [Ciphers] Enable strong/secure ciphers #>
 		$HTTPS_Ciphers+=@{ CipherName="AES 128/128";    Enabled=1; };
 		$HTTPS_Ciphers+=@{ CipherName="AES 256/256";    Enabled=1; };
@@ -207,6 +202,7 @@ function HardenCryptoV2 {
 			};
 			$RegistryKey_Ciphers.Close();
 		}
+
 		<# [Ciphers] Enable/Disable each HTTPS Ciphers #>
 		${HTTPS_Ciphers} | ForEach-Object {
 			$CipherName=(${_}.CipherName);
@@ -355,7 +351,7 @@ function HardenCryptoV2 {
 					If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
 
 						$EachProp.LastValue = $GetEachItemProp;
-							
+
 						If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 							# Do nothing to the Property (already exists with matching type & value)
@@ -412,6 +408,85 @@ function HardenCryptoV2 {
 		}
 
 
+		# ------------------------------------------------------------
+		#
+		# .NET Framework v4 - Simplify protocol-management (by handing off control to OS) & Enforce strong cryptography
+		#   |
+		#   |--> Creating these keys forces any version of .NET 4.x below 4.6.2 to use strong crypto instead of allowing SSL 3.0 by default
+		#   |
+		#   |--> https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#configure-for-strong-cryptography
+		#
+
+		<# Note: Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
+		<# Note: The third argument passed to the '.SetValue()' method, here, defines the value for 'RegistryValueKind', which defines the 'type' of the registry property - A value of '4' creates/sets a 'DWORD' typed property #>
+
+		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
+		$RegistryValueKind = @{};
+		${RegistryValueKind}["None"] = @{ID=-1; Description="No data type."; RegType=""; };
+		${RegistryValueKind}["QWord"] = @{ID=11; Description="A 64-bit binary number"; RegType="REG_QWORD"; };
+		${RegistryValueKind}["DWord"] = @{ID=4; Description="A 32-bit binary number"; RegType="REG_DWORD"; };
+		${RegistryValueKind}["Binary"] = @{ID=3; Description="Binary data in any form"; RegType="REG_BINARY"; };
+		${RegistryValueKind}["String"] = @{ID=1; Description="A null-terminated string"; RegType="REG_SZ"; };
+		${RegistryValueKind}["Unknown"] = @{ID=0; Description="An unsupported registry data type. Use this value to specify that the SetValue(String, Object) method should determine the appropriate registry data type when storing a name/value pair."; RegType=""; };
+		${RegistryValueKind}["MultiString"] = @{ID=7; Description="An array of null-terminated strings, terminated by two null characters."; RegType="REG_MULTI_SZ"; };
+		${RegistryValueKind}["ExpandString"] = @{ID=2; Description="A null-terminated string"; RegType="REG_EXPAND_SZ"; };
+
+		<# Determine the installed version of .NET v4.x #> 
+		$VersionInstalled_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);
+
+		<# Build a path to target the registry key .NET Framework's registry key #>
+		$x86x64_RegEdits = @();
+		Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v*" | ForEach-Object {
+			<# Enforce strong encryption methodologies across all local .NET Framework installations #>
+			$x86x64_RegEdits += @{
+				RelPath="SOFTWARE\Microsoft\.NETFramework\$(${_}.PSChildName)";
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\$(${_}.PSChildName)";
+				Props=@(
+					@{
+						Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";
+						Name="SchUseStrongCrypto";
+						Type="DWord";
+						Value=1;
+						Delete=$False;
+					},
+					@{
+						Description="The SystemDefaultTlsVersions setting allows .NET to use the OS configuration. - Set to [ 1 ] to disable, [ 0 ] to enable-by-default.";
+						Name="SystemDefaultTlsVersions";
+						Type="DWord";
+						Value=1;
+						Delete=$False;
+					}
+				)
+			};
+		}
+
+		<# Update the 64-bit registry && the 32-bit registry entry for each item #>
+		ForEach ($Each_RegistryView In @([Microsoft.Win32.RegistryView]::Registry32, [Microsoft.Win32.RegistryView]::Registry64)) {
+			<# Open a stream to the specific registry (32-/64-bit) #>
+			$Registry_HKLM = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, ${Each_RegistryView}));
+			ForEach ($Each_x86x64_RegEdit In $x86x64_RegEdits) {
+				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
+				Write-Output ("`n$($Each_x86x64_RegEdit.Path)  (${Each_RegistryView})");
+				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_x86x64_RegEdit}.RelPath)", $True);
+				ForEach ($Each_x86x64_Prop In ${Each_x86x64_RegEdit}.Props) {
+					$Each_x86x64_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_x86x64_Prop}.Name)"));
+					If ((${Each_x86x64_Prop}.LastValue) -Eq (${Each_x86x64_Prop}.Value)) {
+						<# Do nothing to the Property (already exists with matching type & value) #>
+						Write-Output "  |-->  Skipping Property `"$(${Each_x86x64_Prop}.Name)`" (already up-to-date)  (${Each_RegistryView})";
+					} Else {
+						<# Update the Property #>
+						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )  (${Each_RegistryView})";
+						$OpenSubKey.SetValue(${Each_x86x64_Prop}.Name, ${Each_x86x64_Prop}.Value, ${RegistryValueKind}[(${Each_x86x64_Prop}.Type)]["ID"]);
+					}
+				}
+				<# Close the key & flush any updated contents therein to the disk #>
+				$OpenSubKey.Close();
+			}
+		}
+
+
+		# ------------------------------------------------------------
+
 	}
 
 	Write-Output "`n`n  Press any key to exit...";
@@ -441,6 +516,46 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 # Citation(s)
 #
+#   community.spiceworks.com  |  "Set Registry Key To 'Full Control' For .\USERS - PowerShell - Spiceworks"  |  https://community.spiceworks.com/topic/1517671-set-registry-key-to-full-control-for-users
+#
+#   docs.microsoft.com  |  "How to enable Transport Layer Security (TLS) 1.2 on clients - Configuration Manager | Microsoft Docs"  |  https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#configure-for-strong-cryptography
+#
+#   docs.microsoft.com  |  "Managing SSL/TLS Protocols and Cipher Suites for AD FS | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/manage-ssl-protocols-in-ad-fs
+#
+#   docs.microsoft.com  |  "Protocols in TLS/SSL (Schannel SSP) - Implements versions of the TLS, DTLS and SSL protocols"  |  https://docs.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-
+#
+#   docs.microsoft.com  |  "RegistryKey.Close Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.close
+#
+#   docs.microsoft.com  |  "RegistryKey.GetValue Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.getvalue
+#
+#   docs.microsoft.com  |  "RegistryKey.OpenBaseKey(RegistryHive, RegistryView) Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.openbasekey
+#
+#   docs.microsoft.com  |  "RegistryKey.OpenSubKey Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.opensubkey
+#
+#   docs.microsoft.com  |  "RegistryKey.SetAccessControl(RegistrySecurity) Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.setaccesscontrol
+#
+#   docs.microsoft.com  |  "RegistryKey.SetValue Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.setvalue
+#
+#   docs.microsoft.com  |  "RegistryValueKind Enum (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind
+#
+#   docs.microsoft.com  |  "ServicePointManager.SecurityProtocol Property (System.Net) - Gets/Sets the security protocol used by the ServicePoint objects managed by the ServicePointManager object"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.securityprotocol
+#
+#   docs.microsoft.com  |  "Solving the TLS 1.0 Problem - Security documentation | Microsoft Docs"  |  https://docs.microsoft.com/en-us/security/solving-tls1-problem
+#
 #   docs.microsoft.com  |  "Transport Layer Security (TLS) registry settings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/security/tls/tls-registry-settings#tls-12
+#
+#   docs.microsoft.com  |  "Transport Layer Security (TLS) best practices with the .NET Framework | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls
+#
+#   johnlouros.com  |  "Enabling strong cryptography for all .Net applications | John Louros"  |  https://johnlouros.com/blog/enabling-strong-cryptography-for-all-dot-net-applications
+#
+#   powershellpainrelief.blogspot.com  |  "Powershell - Pain Relief by R.T.Edwards: Powershell: Working With The Registry Part 2"  |  https://powershellpainrelief.blogspot.com/2014/07/powershell-working-with-registry-part-2.html
+#
+#   stackoverflow.com  |  "How to access the 64-bit registry from a 32-bit Powershell instance? - Stack Overflow"  |  https://stackoverflow.com/a/19381092
+#
+#   stackoverflow.com  |  "webclient - Powershell Setting Security Protocol to Tls 1.2 - Stack Overflow"  |  https://stackoverflow.com/a/41674736
+#
+#   stackoverflow.com  |  "windows - How to create a registry entry with a forward slash in the name - Stack Overflow"  |  https://stackoverflow.com/a/18259930
+#
+#   support.nartac.com  |  "What registry keys does IIS Crypto modify? - Nartac Software"  |  https://support.nartac.com/article/16-what-registry-keys-does-iis-crypto-modify
 #
 # ------------------------------------------------------------

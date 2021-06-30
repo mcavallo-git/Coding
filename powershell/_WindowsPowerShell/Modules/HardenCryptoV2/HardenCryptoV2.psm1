@@ -355,11 +355,11 @@ function HardenCryptoV2 {
 						#   |--> Downside - DELETES all properties & child-keys if key already exists
 						#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 						#
-						Write-Output (("  |-->  Creating this Registry Key"));
+						Write-Output (("  |-->  !! Creating Key"));
 						If (${RunMode_DryRun} -Eq $False) {
 							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
-								Write-Output (("  |-->  !! Created this Registry Key"));
+								Write-Output (("  |-->  Created Key"));
 							}
 						}
 					}

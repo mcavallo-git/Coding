@@ -16,6 +16,7 @@
 If ($True) {
 
 	# Remove Windows "Programs"
+
 	If ((Get-Package | Where-Object { $_.Name -Eq ("AI sdfSuite 3"); }) -NE $Null) {
 
 		Write-Host "Windows program `"All MB`" must be uninstalled (and disabled) via the motherboard BIOS screen";
@@ -54,14 +55,19 @@ If ($True) {
 # UNINSTALL THE FOLLOWING APPLICATION(S) (Win10 style apps) by [ typing their name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
 #
 
-# # Remove Windows "Apps"
-$ASUS_APPX_PACKAGES=@();
-$ASUS_APPX_PACKAGES+="ArmouryCrate";
-$ASUS_APPX_PACKAGES+="AURACreator";
-$ASUS_APPX_PACKAGES | ForEach-Object {
-  $APPX_PACKAGE="${_}";
-	Get-AppxPackage | Where-Object { $_.Name -Like ("*${APPX_PACKAGE}"); } | Remove-AppxPackage;
-};
+If ($True) {
+
+	# # Remove Windows "Apps"
+
+	$ASUS_APPX_PACKAGES=@();
+	$ASUS_APPX_PACKAGES+="ArmouryCrate";
+	$ASUS_APPX_PACKAGES+="AURACreator";
+	$ASUS_APPX_PACKAGES | ForEach-Object {
+		$APPX_PACKAGE="${_}";
+		Get-AppxPackage | Where-Object { $_.Name -Like ("*${APPX_PACKAGE}"); } | Remove-AppxPackage;
+	};
+
+}
 
 
 # ------------------------------------------------------------

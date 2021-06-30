@@ -507,7 +507,6 @@ function HardenCryptoV2 {
 
 				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
 				Write-Output ("`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_x86x64_RegEdit.RelPath)");
-				Write-Output ("`n$($Each_x86x64_RegEdit.Path)  (${Each_RegistryView})");
 				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_x86x64_RegEdit}.RelPath)", $True);
 
 				ForEach ($Each_x86x64_Prop In ${Each_x86x64_RegEdit}.Props) {

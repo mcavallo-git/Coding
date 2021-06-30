@@ -460,14 +460,14 @@ function HardenCryptoV2 {
 
 		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
 		$RegistryValueKind = @{};
-		${RegistryValueKind}["None"] = @{ID=-1; Description="No data type."; RegType=""; };
-		${RegistryValueKind}["QWord"] = @{ID=11; Description="A 64-bit binary number"; RegType="REG_QWORD"; };
-		${RegistryValueKind}["DWord"] = @{ID=4; Description="A 32-bit binary number"; RegType="REG_DWORD"; };
-		${RegistryValueKind}["Binary"] = @{ID=3; Description="Binary data in any form"; RegType="REG_BINARY"; };
-		${RegistryValueKind}["String"] = @{ID=1; Description="A null-terminated string"; RegType="REG_SZ"; };
-		${RegistryValueKind}["Unknown"] = @{ID=0; Description="An unsupported registry data type. Use this value to specify that the SetValue(String, Object) method should determine the appropriate registry data type when storing a name/value pair."; RegType=""; };
-		${RegistryValueKind}["MultiString"] = @{ID=7; Description="An array of null-terminated strings, terminated by two null characters."; RegType="REG_MULTI_SZ"; };
-		${RegistryValueKind}["ExpandString"] = @{ID=2; Description="A null-terminated string"; RegType="REG_EXPAND_SZ"; };
+		$RegistryValueKind["None"] = @{ID=-1; Description="No data type."; RegType=""; };
+		$RegistryValueKind["QWord"] = @{ID=11; Description="A 64-bit binary number"; RegType="REG_QWORD"; };
+		$RegistryValueKind["DWord"] = @{ID=4; Description="A 32-bit binary number"; RegType="REG_DWORD"; };
+		$RegistryValueKind["Binary"] = @{ID=3; Description="Binary data in any form"; RegType="REG_BINARY"; };
+		$RegistryValueKind["String"] = @{ID=1; Description="A null-terminated string"; RegType="REG_SZ"; };
+		$RegistryValueKind["Unknown"] = @{ID=0; Description="An unsupported registry data type. Use this value to specify that the SetValue(String, Object) method should determine the appropriate registry data type when storing a name/value pair."; RegType=""; };
+		$RegistryValueKind["MultiString"] = @{ID=7; Description="An array of null-terminated strings, terminated by two null characters."; RegType="REG_MULTI_SZ"; };
+		$RegistryValueKind["ExpandString"] = @{ID=2; Description="A null-terminated string"; RegType="REG_EXPAND_SZ"; };
 
 		<# Build a path to target the registry key .NET Framework's registry key #>
 		$DotNet_HKLM_Searches=@();
@@ -502,6 +502,7 @@ function HardenCryptoV2 {
 			}
 		}
 
+
 		# ------------------------------
 
 		<# Update the 64-bit registry && the 32-bit registry entry for each item #>
@@ -529,6 +530,7 @@ function HardenCryptoV2 {
 						If ("$(${Each_x86x64_Prop}.LastValue)".Trim() -Eq "") {
 							$Each_x86x64_Prop.LastValue = "(NULL)";
 						}
+
 						<# Update the Property #>
 						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )";
 						If (${RunMode_DryRun} -Eq $False) {

@@ -1,11 +1,11 @@
 # ------------------------------------------------------------
 <# RUN THIS SCRIPT ON-THE-FLY:
 
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCrypto/HardenCrypto.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'HardenCrypto' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCrypto\HardenCrypto.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command HardenCrypto;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCryptoV1/HardenCryptoV1.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'HardenCryptoV1' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCryptoV1\HardenCryptoV1.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command HardenCryptoV1;
 
 #>
 # ------------------------------------------------------------
-function HardenCrypto {
+function HardenCryptoV1 {
 	Param(
 		[Switch]$SkipConfirmation,
 		[Switch]$Yes
@@ -244,7 +244,7 @@ function HardenCrypto {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
+	Export-ModuleMember -Function "HardenCryptoV1" -ErrorAction "SilentlyContinue";
 }
 
 

@@ -157,25 +157,18 @@ function HardenCryptoV2 {
 
 		<# [Protocols] Client-Side #>
 		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\SSL 2.0\Client";
+			Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman";
 			Props=@(
 				@{
-					Description="${ProtocolName} - Protocol (HTTPS), client-side - affects a multitude of outgoing connections, including powershell invoke-webrequest/etc. calls - Set to [ 0 ] to disable, [ 1 ] to enable.";
-					Name="Enabled";
+					Description="Diffie-Hellman key bit length (the higher it is, the longer it will take the server to encrypt/decrypt data, but the more secure the data is)";
+					Name="ClientMinKeyBitLength";
 					Type="DWord";
-					Value=${Enabled};
-					Delete=$False;
-				},
-				@{
-					Description="${ProtocolName} - Protocol (HTTPS), client-side - affects a multitude of outgoing connections, including powershell invoke-webrequest/etc. calls - Set to [ 1 ] to disable-by-default, [ 0 ] to enable-by-default.";
-					Name="DisabledByDefault";
-					Type="DWord";
-					Value=${DisabledByDefault};
+					Value=3072;
+					# Value=4096;
 					Delete=$False;
 				}
 			)
 		};
-New-ItemProperty -Force -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman") -Name ("ClientMinKeyBitLength") -PropertyType ("DWord") -Value ("3072") | Out-Null;
 
 
 		#------------------------------------------------------------

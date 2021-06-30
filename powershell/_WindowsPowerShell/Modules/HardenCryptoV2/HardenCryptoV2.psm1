@@ -59,48 +59,13 @@ function HardenCryptoV2 {
 		#  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 
 		$PSDrives = @();
-
-		$PSDrives += @{
-			Name="HKLM";
-			PSProvider="Registry";
-			Root="HKEY_LOCAL_MACHINE";
-		};
-
-		$PSDrives += @{
-			Name="HKCC";
-			PSProvider="Registry";
-			Root="HKEY_CURRENT_CONFIG";
-		};
-
-		$PSDrives += @{
-			Name="HKCR";
-			PSProvider="Registry";
-			Root="HKEY_CLASSES_ROOT";
-		};
-
-		$PSDrives += @{
-			Name="HKU";
-			PSProvider="Registry";
-			Root="HKEY_USERS";
-		};
-
-		$PSDrives += @{
-			Name="HKCU";
-			PSProvider="Registry";
-			Root="HKEY_CURRENT_USER";
-		};
-
-		$PSDrives += @{
-			Name=$Null;
-			PSProvider="Registry";
-			Root="HKEY_PERFORMANCE_DATA";
-		};
-
-		$PSDrives += @{
-			Name=$Null;
-			PSProvider="Registry";
-			Root="HKEY_DYN_DATA";
-		};
+		$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
+		$PSDrives += @{ Name="HKCC"; PSProvider="Registry"; Root="HKEY_CURRENT_CONFIG";   };
+		$PSDrives += @{ Name="HKCR"; PSProvider="Registry"; Root="HKEY_CLASSES_ROOT";     };
+		$PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
+		$PSDrives += @{ Name="HKCU"; PSProvider="Registry"; Root="HKEY_CURRENT_USER";     };
+		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_PERFORMANCE_DATA"; };
+		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_DYN_DATA";         };
 
 
 		# ------------------------------------------------------------
@@ -121,8 +86,7 @@ function HardenCryptoV2 {
 					Value=0xA00;
 					Delete=$False;
 				}
-			)
-		};
+			) };
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
 			Props=@(
@@ -133,8 +97,7 @@ function HardenCryptoV2 {
 					Value=0xA00;
 					Delete=$False;
 				}
-			)
-		};
+			) };
 
 
 		#------------------------------------------------------------
@@ -212,8 +175,7 @@ function HardenCryptoV2 {
 					# Value=4096;
 					Delete=$False;
 				}
-			)
-		};
+			) };
 
 
 		#------------------------------------------------------------

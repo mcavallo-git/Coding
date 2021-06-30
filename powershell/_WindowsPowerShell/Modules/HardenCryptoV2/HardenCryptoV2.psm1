@@ -99,7 +99,6 @@ function HardenCryptoV2 {
 		# ------------------------------------------------------------
 
 		$RegEdits = @();
-		$x86x64_RegEdits = @();
 
 		#------------------------------------------------------------
 		#
@@ -457,6 +456,8 @@ function HardenCryptoV2 {
 		<# Note: Methods which update registry keys such as  [ New-ItemProperty ... ]  often only update the 64bit registry (by default) #>
 		<# Note: The third argument passed to the '.SetValue()' method, here, defines the value for 'RegistryValueKind', which defines the 'type' of the registry property - A value of '4' creates/sets a 'DWORD' typed property #>
 
+		$x86x64_RegEdits = @();
+
 		<# RegistryValueKind - https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind #>
 		$RegistryValueKind = @{};
 		${RegistryValueKind}["None"] = @{ID=-1; Description="No data type."; RegType=""; };
@@ -468,32 +469,37 @@ function HardenCryptoV2 {
 		${RegistryValueKind}["MultiString"] = @{ID=7; Description="An array of null-terminated strings, terminated by two null characters."; RegType="REG_MULTI_SZ"; };
 		${RegistryValueKind}["ExpandString"] = @{ID=2; Description="A null-terminated string"; RegType="REG_EXPAND_SZ"; };
 
-		<# Determine the installed version of .NET v4.x #> 
-		# $VersionInstalled_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);
-
 		<# Build a path to target the registry key .NET Framework's registry key #>
-		Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v*" | ForEach-Object {
-			<# Enforce strong encryption methodologies across all local .NET Framework installations #>
-			$x86x64_RegEdits += @{
-				RelPath="SOFTWARE\Microsoft\.NETFramework\$(${_}.PSChildName)";
-				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\$(${_}.PSChildName)";
-				Props=@(
-					@{
-						Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";
-						Name="SchUseStrongCrypto";
-						Type="DWord";
-						Value=1;
-						Delete=$False;
-					},
-					@{
-						Description="The SystemDefaultTlsVersions setting allows .NET to use the OS configuration. - Set to [ 1 ] to disable, [ 0 ] to enable-by-default.";
-						Name="SystemDefaultTlsVersions";
-						Type="DWord";
-						Value=1;
-						Delete=$False;
-					}
-				)
-			};
+		$DotNet_HKLM_Searches=@();
+		$DotNet_HKLM_Searches+="SOFTWARE\Microsoft\.NETFramework";
+		$DotNet_HKLM_Searches+="SOFTWARE\Wow6432Node\Microsoft\.NETFramework";
+
+		<# Search for installed versions of .NET Framework #>
+		${DotNet_HKLM_Searches} | ForEach-Object {
+			$Each_HKLM_RelPath="${_}";
+			((Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\${Each_HKLM_RelPath}\v*").PSChildName) | ForEach-Object {
+				<# Enforce strong encryption methodologies across all local .NET Framework installations #>
+				$x86x64_RegEdits += @{
+					RelPath="${Each_HKLM_RelPath}\${_}";
+					Path="Registry::HKEY_LOCAL_MACHINE\${Each_HKLM_RelPath}\${_}";
+					Props=@(
+						@{
+							Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";
+							Name="SchUseStrongCrypto";
+							Type="DWord";
+							Value=1;
+							Delete=$False;
+						},
+						@{
+							Description="The SystemDefaultTlsVersions setting allows .NET to use the OS configuration. - Set to [ 1 ] to disable, [ 0 ] to enable-by-default.";
+							Name="SystemDefaultTlsVersions";
+							Type="DWord";
+							Value=1;
+							Delete=$False;
+						}
+					)
+				};
+			}
 		}
 
 		# ------------------------------

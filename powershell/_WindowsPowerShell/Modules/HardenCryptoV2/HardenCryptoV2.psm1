@@ -99,6 +99,7 @@ function HardenCryptoV2 {
 		# ------------------------------------------------------------
 
 		$RegEdits = @();
+		$x86x64_RegEdits = @();
 
 		#------------------------------------------------------------
 		#
@@ -382,7 +383,7 @@ function HardenCryptoV2 {
 						If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 							# Do nothing to the Property (already exists with matching type & value)
-							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date) ${EchoDetails}";
+							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already has required value of [ $(${EachProp}.LastValue) ]) ${EchoDetails}";
 
 						} Else {
 
@@ -468,10 +469,9 @@ function HardenCryptoV2 {
 		${RegistryValueKind}["ExpandString"] = @{ID=2; Description="A null-terminated string"; RegType="REG_EXPAND_SZ"; };
 
 		<# Determine the installed version of .NET v4.x #> 
-		$VersionInstalled_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);
+		# $VersionInstalled_DotNet4 = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0*').PSChildName);
 
 		<# Build a path to target the registry key .NET Framework's registry key #>
-		$x86x64_RegEdits = @();
 		Get-Item -Path "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v*" | ForEach-Object {
 			<# Enforce strong encryption methodologies across all local .NET Framework installations #>
 			$x86x64_RegEdits += @{
@@ -496,30 +496,45 @@ function HardenCryptoV2 {
 			};
 		}
 
+		# ------------------------------
+
 		<# Update the 64-bit registry && the 32-bit registry entry for each item #>
 		ForEach ($Each_RegistryView In @([Microsoft.Win32.RegistryView]::Registry32, [Microsoft.Win32.RegistryView]::Registry64)) {
+
 			<# Open a stream to the specific registry (32-/64-bit) #>
 			$Registry_HKLM = ([Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, ${Each_RegistryView}));
 			ForEach ($Each_x86x64_RegEdit In $x86x64_RegEdits) {
+
 				<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
 				Write-Output ("`n$($Each_x86x64_RegEdit.Path)  (${Each_RegistryView})");
 				$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_x86x64_RegEdit}.RelPath)", $True);
+
 				ForEach ($Each_x86x64_Prop In ${Each_x86x64_RegEdit}.Props) {
+
 					$Each_x86x64_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_x86x64_Prop}.Name)"));
+
 					If ((${Each_x86x64_Prop}.LastValue) -Eq (${Each_x86x64_Prop}.Value)) {
+
 						<# Do nothing to the Property (already exists with matching type & value) #>
-						Write-Output "  |-->  Skipping Property `"$(${Each_x86x64_Prop}.Name)`" (already up-to-date)  (${Each_RegistryView})";
+						Write-Output "  |-->  Skipping Property `"$(${Each_x86x64_Prop}.Name)`" (already has required value of [ $(${EachProp}.LastValue) ])  (${Each_RegistryView})";
+
 					} Else {
+
 						<# Update the Property #>
 						Write-Output "  |-->  !! Updating Property `"$(${Each_x86x64_Prop}.Name)`" (w/ type `"$(${Each_x86x64_Prop}.Type)`" to have value `"$(${Each_x86x64_Prop}.Value)`" instead of (previous) value `"$(${Each_x86x64_Prop}.LastValue)`" )  (${Each_RegistryView})";
 						If (${RunMode_DryRun} -Eq $False) {
 							$OpenSubKey.SetValue(${Each_x86x64_Prop}.Name, ${Each_x86x64_Prop}.Value, ${RegistryValueKind}[(${Each_x86x64_Prop}.Type)]["ID"]);
 						}
+
 					}
+
 				}
+
 				<# Close the key & flush any updated contents therein to the disk #>
 				$OpenSubKey.Close();
+
 			}
+
 		}
 
 

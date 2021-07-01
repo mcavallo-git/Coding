@@ -79,7 +79,8 @@ function HardenCryptoV2 {
 					Value=0xA00;
 					Delete=$False;
 				}
-			) };
+			)
+		};
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
 			Props=@(
@@ -90,7 +91,8 @@ function HardenCryptoV2 {
 					Value=0xA00;
 					Delete=$False;
 				}
-			) };
+			)
+		};
 
 
 		#------------------------------------------------------------

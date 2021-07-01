@@ -91,16 +91,6 @@ function HardenCrypto {
 		$Protos["TLS 1.1"] = If (${AllowProtocols} -Contains "TLS 1.1") { $True; } Else { ${Default}; };
 		$Protos["TLS 1.2"] = If (${AllowProtocols} -Contains "TLS 1.2") { $True; } Else { ${Default}; };
 
-		If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
-			$RunMode_DryRun = $True;
-			Write-Host "------------------------------------------------------------";
-			Write-Host "            ! ! ! RUNNING IN DRY RUN MODE ! ! !             "; 
-			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
-			Write-Host "------------------------------------------------------------";
-			Start-Sleep -Seconds 3;
-		}
-
-
 		If (${RunMode_SkipConfirm} -Eq $False) {
 			#
 			# User Confirmation - Gate A

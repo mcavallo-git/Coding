@@ -14,6 +14,10 @@ function HardenCrypto {
 		# [String[]]$DenyProtocols = @("SSL 2.0","SSL 3.0","TLS 1.0"),
 		[String[]]$AllowProtocols = @("TLS 1.1","TLS 1.2"),
 		[String]$Sku = "Standard_LRS",
+		[Int]$DiffieHellman = "Standard_LRS",
+
+		[ValidateSet(1024,2048,3072,4096)]
+		[Int]$DiffieHellman_KeySize = 3072,
 		[Switch]$DryRun,
 		[Switch]$SkipConfirmation,
 		[Switch]$Yes
@@ -33,12 +37,12 @@ function HardenCrypto {
 	$RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
 	If ($RunningAsAdmin -Eq $False) {
 		<# Script is >> NOT << running as admin  -->  Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator) #>
-		$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
+		$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]${_}).InvokeGet('AdsPath')});
 		$CurrentUser = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name);
 		$CurrentUserWinNT = ("WinNT://$($CurrentUser.Replace("\","/"))");
 		If (($LocalAdmins.Contains($CurrentUser)) -Or ($LocalAdmins.Contains($CurrentUserWinNT))) {
 			$CommandString = $MyInvocation.MyCommand.Name;
-			$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
+			$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -${_}"; If (@('String','Integer','Double').Contains($($PSBoundParameters[${_}]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[${_}])`""; } };
 			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 		} Else {
 			Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n";
@@ -84,9 +88,6 @@ function HardenCrypto {
 		$Protos["TLS 1.1"] = If (${AllowProtocols} -Contains "TLS 1.1") { $True; } Else { ${Default}; };
 		$Protos["TLS 1.2"] = If (${AllowProtocols} -Contains "TLS 1.2") { $True; } Else { ${Default}; };
 
-
-		# TLS 1.1 (enable/disable - enabled by default)
-		$Protocols_Allow_TLS_1_1 = $False;
 		If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
 			$RunMode_DryRun = $True;
 			Write-Host "------------------------------------------------------------";
@@ -184,18 +185,11 @@ function HardenCrypto {
 			#
 			#  HTTPS Protocols
 			#
-			
-			$HTTPS_Protocols=@();
-			$HTTPS_Protocols+=@{ ProtocolName="SSL 2.0"; };
-			$HTTPS_Protocols+=@{ ProtocolName="SSL 3.0"; };
-			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.0"; };
-			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.1"; };
-			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.2"; };
 
-			${HTTPS_Protocols} | ForEach-Object {
+			$Protos.Keys | ForEach-Object {
 				<# Setup enabled/disabled HTTPS Protocols #>
-				$ProtocolName=(${_}.ProtocolName);
-				$Enabled=([int]($Protos[${ProtocolName}]));
+				$ProtocolName=(${_});
+				$Enabled=([int]($Protos[${_}]));
 				$DisabledByDefault=([int](-not (${Enabled})));
 				<# [Protocols] Server-Side #>
 				$RegEdits += @{

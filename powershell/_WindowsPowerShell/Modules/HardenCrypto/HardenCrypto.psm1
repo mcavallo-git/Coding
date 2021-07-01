@@ -108,14 +108,14 @@ function HardenCrypto {
 			#
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$GateA_ConfirmCharacter = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
-			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"");
-			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ $(${AllowProtocols} -join ', ' ) ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
-			Write-Host -NoNewLine ("`n`n");
-			Write-Host -NoNewLine ("Confirm: Press the `"") -ForegroundColor "Yellow";
-			Write-Host -NoNewLine (${GateA_ConfirmCharacter}) -ForegroundColor "Green";
-			Write-Host -NoNewLine ("`" key to confirm and continue:  ") -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "`n";
+			Write-Host -NoNewLine "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
+			Write-Host -NoNewLine "`n";
+			Write-Host -NoNewLine "Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ $(${AllowProtocols} -join ', ' ) ]?" -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "`n`n";
+			Write-Host -NoNewLine "Confirm: Press the `"" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "${GateA_ConfirmCharacter}" -ForegroundColor "Green";
+			Write-Host -NoNewLine "`" key to confirm and continue:  " -ForegroundColor "Yellow";
 			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host "$(${UserKeyPress}.Character)`n";
 			$UserConfirmed_GateA = ((${UserKeyPress}.Character) -Eq (${GateA_ConfirmCharacter}));
 			If (${UserConfirmed_GateA} -NE $True) {

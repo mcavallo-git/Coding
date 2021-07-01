@@ -168,6 +168,8 @@ Mostly Linux compatible:
 ✆					TELEPHONE LOCATION SIGN
 
 
+📁				File Folder  |  Unicode Character “📁” (U+1F4C1)  |  https://www.compart.com/en/unicode/U+1F4C1
+📂				Open File Folder  |  Unicode Character “📂” (U+1F4C2)  |  https://www.compart.com/en/unicode/U+1F4C2
 📧 E-Mail
 ✉️ Envelope (Colored)
 ✉  Envelope

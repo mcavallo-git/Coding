@@ -11,16 +11,22 @@
 
 function HardenCrypto {
 	Param(
-		# [String[]]$DenyProtocols = @("SSL 2.0","SSL 3.0","TLS 1.0"),
-		[String[]]$AllowProtocols = @("TLS 1.1","TLS 1.2"),
+
+		[String[]]$AllowProtocols = @("TLS 1.1","TLS 1.2"),  <# @("SSL 2.0","SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") #>
+
 		[String]$Sku = "Standard_LRS",
+
 		[Int]$DiffieHellman = "Standard_LRS",
 
-		[ValidateSet(1024,2048,3072,4096)]
+		[ValidateSet(512, 1024,2048,3072,4096)]
 		[Int]$DiffieHellman_KeySize = 3072,
+
 		[Switch]$DryRun,
+
 		[Switch]$SkipConfirmation,
+
 		[Switch]$Yes
+
 	)
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
@@ -238,11 +244,10 @@ function HardenCrypto {
 				Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman";
 				Props=@(
 					@{
-						Description="Diffie-Hellman key bit length (the higher it is, the longer it will take the server to encrypt/decrypt data, but the more secure the data is)";
+						Description="Diffie-Hellman key size (in bits - the higher it is, the more secure the encryption is with outgoing data, but the longer it will take the server to encrypt it as well)";
 						Name="ClientMinKeyBitLength";
 						Type="DWord";
-						Value=3072;
-						# Value=4096;
+						Value=${DiffieHellman_KeySize};
 						Delete=$False;
 					}
 				)

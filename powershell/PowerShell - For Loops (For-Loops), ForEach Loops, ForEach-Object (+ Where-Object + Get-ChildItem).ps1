@@ -1,7 +1,7 @@
 Exit 1;
 # ------------------------------------------------------------
 #
-#   PowerShell - For(...) Loops
+#   PowerShell - Iterating through objects using For(...) loops
 #
 # ------------------------------------------------------------
 

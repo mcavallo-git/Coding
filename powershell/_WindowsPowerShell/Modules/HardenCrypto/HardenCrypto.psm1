@@ -161,7 +161,7 @@ function HardenCrypto {
 						Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
 						Name="DefaultSecureProtocols";
 						Type="DWord";
-						Value=($(If ($Protos["TLS 1.1"] -Or $Protos["TLS 1.2"]) { 0xA00 } Else { 0x000 }) -bor $(If ($Protos["SSL 3.0"] -Or $Protos["TLS 1.0"]) { 0x0A0 } Else { 0x000 }));
+						Value=( $(If ($Protos["SSL 2.0"] -Or $Protos["SSL 3.0"] -Or $Protos["TLS 1.0"]) { 0x0A0 } Else { 0x000 }) -bor $(If ($Protos["TLS 1.1"] -Or $Protos["TLS 1.2"]) { 0xA00 } Else { 0x000 }) );
 						Delete=$False;
 					}
 				)
@@ -173,7 +173,7 @@ function HardenCrypto {
 						Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
 						Name="DefaultSecureProtocols";
 						Type="DWord";
-						Value=($(If ($Protos["TLS 1.1"] -Or $Protos["TLS 1.2"]) { 0xA00 } Else { 0x000 }) -bor $(If ($Protos["SSL 3.0"] -Or $Protos["TLS 1.0"]) { 0x0A0 } Else { 0x000 }));
+						Value=( $(If ($Protos["SSL 2.0"] -Or $Protos["SSL 3.0"] -Or $Protos["TLS 1.0"]) { 0x0A0 } Else { 0x000 }) -bor $(If ($Protos["TLS 1.1"] -Or $Protos["TLS 1.2"]) { 0xA00 } Else { 0x000 }) );
 						Delete=$False;
 					}
 				)
@@ -186,20 +186,16 @@ function HardenCrypto {
 			#
 			
 			$HTTPS_Protocols=@();
-
-			<# [Ciphers] Disable weak/insecure protocols #>
-			$HTTPS_Protocols+=@{ ProtocolName="SSL 2.0"; Enabled=0; };
-			$HTTPS_Protocols+=@{ ProtocolName="SSL 3.0"; Enabled=0; };
-			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.0"; Enabled=0; };
-
-			<# [Ciphers] Enable strong/secure protocols #>
-			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.1"; Enabled=1; };
-			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.2"; Enabled=1; };
+			$HTTPS_Protocols+=@{ ProtocolName="SSL 2.0"; };
+			$HTTPS_Protocols+=@{ ProtocolName="SSL 3.0"; };
+			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.0"; };
+			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.1"; };
+			$HTTPS_Protocols+=@{ ProtocolName="TLS 1.2"; };
 
 			${HTTPS_Protocols} | ForEach-Object {
 				<# Setup enabled/disabled HTTPS Protocols #>
 				$ProtocolName=(${_}.ProtocolName);
-				$Enabled=([int](${_}.Enabled));
+				$Enabled=([int]($Protos[${ProtocolName}]));
 				$DisabledByDefault=([int](-not (${Enabled})));
 				<# [Protocols] Server-Side #>
 				$RegEdits += @{

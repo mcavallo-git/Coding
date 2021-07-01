@@ -6,12 +6,23 @@ Exit 1;
 # ------------------------------------------------------------
 
 
-<#   Arrays  ->  use  [ ForEach ]   #>
+<#   Arrays  ->  use [ ForEach-Object ]   #>
 $Var=(Get-Service | Select-Object -First 10);
 If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
-	ForEach ($EachItem In ${Var}) {
-		$EachItem;
+	# Arrays - Option 1:  use [ ForEach-Object ]
+	$Var | ForEach-Object {
+		$Each_Key="???";
+		$Each_Val=$_;
+		# $Each_Val=$Var.(${Each_Key});
 		Write-Host "------------------------------";
+		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
+	}
+	# Arrays - Option 2:  use [ For ]
+	For ($Each_Key=0; $Each_Key -LT $Var.Count; $Each_Key++) {
+		$Each_Val=$Var[${Each_Key}];
+		# $Each_Val=$Var.(${Each_Key});
+		Write-Host "------------------------------";
+		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
 	}
 }
 
@@ -22,14 +33,14 @@ If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Nam
 	Get-Member -InputObject ($Var) -View ("All") `
 	| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
 	| ForEach-Object {
-		$EACH_KEY = "$($_.Name)";
-		If ($Var.(${EACH_KEY}) -eq $Null) {
-			$EACH_VAL="`$Null";
+		$Each_Key = "$($_.Name)";
+		If ($Var.(${Each_Key}) -eq $Null) {
+			$Each_Val="`$Null";
 		} Else {
-			$EACH_VAL=$Var.(${EACH_KEY});
+			$Each_Val=$Var.(${Each_Key});
 		}
 		Write-Host "------------------------------";
-		Write-Host "EACH_KEY=$($EACH_KEY)  ///  EACH_VAL=$($EACH_VAL)";
+		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
 	};
 }
 
@@ -40,10 +51,10 @@ $Var["Property 1"]="Value 1";
 $Var["Property 2"]="Value 2";
 If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
 	$Var.Keys | ForEach-Object {
-		$EACH_KEY=$_;
-		$EACH_VAL=$Var[$_];
+		$Each_Key=$_;
+		$Each_Val=$Var[${Each_Key}];
 		Write-Host "------------------------------";
-		Write-Host "EACH_KEY=$($EACH_KEY)  ///  EACH_VAL=$($EACH_VAL)";
+		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
 	}
 }
 
@@ -200,6 +211,8 @@ Get-ChildItem -Path "/" -Filter "gpg.exe" -File -Recurse -Force -ErrorAction "Si
 #   docs.microsoft.com  |  "FileInfo Class (System.IO)"  |  https://docs.microsoft.com/en-us/dotnet/api/system.io.fileinfo
 #
 #   docs.microsoft.com  |  "ForEach-Object"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/foreach-object
+#
+#   ridicurious.com  |  "Deep Dive: PowerShell Loops and Iterations | RidiCurious.com"  |  https://ridicurious.com/2019/10/10/powershell-loops-and-iterations/
 #
 #   social.technet.microsoft.com  |  "sort-object multiple properties - use descending first RRS feed"  |  https://social.technet.microsoft.com/Forums/windowsserver/en-US/e2067689-d28b-4455-9a05-d933e31ab311/sortobject-multiple-properties-use-descending-first?forum=winserverpowershell
 #

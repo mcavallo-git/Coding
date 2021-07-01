@@ -50,7 +50,9 @@ function HardenCryptoOld {
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Do you want to harden the crypto of this device (will set to allow only TLS v1.1 and TLS v1.2 requests outgoing/incoming)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
+			Write-Host -NoNewLine ("`n");
+			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Do you want to harden the cryptography of this device to require outgoing/incoming web requests to use one of [ TLS v1.1 , TLS 1.2 ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
 			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";

@@ -28,18 +28,22 @@ If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Nam
 		} Else {
 			$EACH_VAL=$Var.(${EACH_KEY});
 		}
+		Write-Host "------------------------------";
 		Write-Host "EACH_KEY=$($EACH_KEY)  ///  EACH_VAL=$($EACH_VAL)";
 	};
 }
 
 
-<#   Hash Tables  ->  use  [ ForEach-Object ]   #>
-$Var=@{"YOUR"="VAR";"HERE"=".";};
+<#   Hash Tables  ->  use  [ @{}.Keys ] + [ ForEach-Object ]   #>
+$Var=@{};
+$Var["Property 1"]="Value 1";
+$Var["Property 2"]="Value 2";
 If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
-	$Var | ForEach-Object {
-		Write-Output "------------------------------------------------------------";
-		$_ | Format-Table;
-		Write-Output "------------------------------------------------------------";
+	$Var.Keys | ForEach-Object {
+		$EACH_KEY=$_;
+		$EACH_VAL=$Var[$_];
+		Write-Host "------------------------------";
+		Write-Host "EACH_KEY=$($EACH_KEY)  ///  EACH_VAL=$($EACH_VAL)";
 	}
 }
 

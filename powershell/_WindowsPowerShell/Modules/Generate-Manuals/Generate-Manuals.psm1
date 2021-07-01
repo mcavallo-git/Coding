@@ -10,7 +10,7 @@
 
 function Generate-Manuals {
 	Param(
-		[String]$OutDirname = "${Env:USERPROFILE}\Documents\GitHub\Coding\man";
+		[String]$OutDirname = "${Env:USERPROFILE}\Documents\GitHub\Coding\man"
 	)
 	Process {
 		# ------------------------------------------------------------

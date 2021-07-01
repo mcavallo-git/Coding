@@ -18,7 +18,7 @@ function Get-OS-Info {
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCrypto/HardenCrypto.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'HardenCrypto' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCrypto\HardenCrypto.psm1', ((Get-Variable -Name 'HOME').Value))); }; HardenCrypto -DryRun;
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'Get-OS-Info' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\Get-OS-Info\Get-OS-Info.psm1', ((Get-Variable -Name 'HOME').Value))); }; Get-OS-Info -DryRun;
 
 	}
 
@@ -106,7 +106,7 @@ function Get-OS-Info {
 		Write-Host "View all versions of Windows @ https://docs.microsoft.com/en-us/windows/release-health/release-information";
 		Write-Host "------------------------------------------------------------";
 
-		Return;
+		Return ${OS_Info};
 
 	}
 
@@ -114,7 +114,7 @@ function Get-OS-Info {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
+	Export-ModuleMember -Function "Get-OS-Info" -ErrorAction "SilentlyContinue";
 }
 
 

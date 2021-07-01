@@ -22,6 +22,19 @@ If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq 
 }
 
 
+<#   Hash Tables  ->  use  [ @{}.Keys ] + [ ForEach-Object ]   #>
+$Var=@{};
+$Var["Property 1"]="Value 1";
+$Var["Property 2"]="Value 2";
+$Var["Property 3"]="Value 3";
+If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
+	$Var.Keys | ForEach-Object {
+		Write-Host "------------------------------";
+		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($Var[${_}])";
+	}
+}
+
+
 <#   PSCustomObjects  ->  use  [ Get-Member + Where-Object + ForEach-Object ]   #>
 $Var = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
 If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
@@ -37,19 +50,6 @@ If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Nam
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
 	};
-}
-
-
-<#   Hash Tables  ->  use  [ @{}.Keys ] + [ ForEach-Object ]   #>
-$Var=@{};
-$Var["Property 1"]="Value 1";
-$Var["Property 2"]="Value 2";
-$Var["Property 3"]="Value 3";
-If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
-	$Var.Keys | ForEach-Object {
-		Write-Host "------------------------------";
-		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($Var[${_}])";
-	}
 }
 
 

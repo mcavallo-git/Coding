@@ -161,7 +161,7 @@ Write-Host "Info:  Using Jenkins Server-FQDN `"[ HIDDEN ]`" from file `"${Path_S
 $URL_DownloadAgent = "${Jenkins_FQDN}/jnlpJars/agent.jar";
 Write-Host "";
 Write-Host "Info:  Downloading Service Installer from `"${URL_DownloadAgent}`" to `"${Path_JnlpAgent}`"...";
-Invoke-WebRequest -Uri ("${URL_DownloadAgent}") -OutFile ("${Path_JnlpAgent}");
+Invoke-WebRequest -UseBasicParsing -Uri ("${URL_DownloadAgent}") -OutFile ("${Path_JnlpAgent}");
 If ((Test-Path "${Path_JnlpAgent}") -Eq $False) {
 	Write-Host "";
 	Write-Host "Error:  File empty/invalid: Jekins JNLP Agent (executable which connects nodes to Jenkins) @ filepath `"${Path_JnlpAgent}`", exiting after 60s...";
@@ -183,7 +183,7 @@ $URL_ServiceInstaller = "https://github.com/winsw/winsw/releases/download/v2.7.0
 If ((Test-Path "${Path_ServiceInstaller}") -Eq $False) {
 	Write-Host "";
 	Write-Host "Info:  Downloading Service Installer from `"${URL_ServiceInstaller}`" to `"${Path_ServiceInstaller}`"...";
-	Invoke-WebRequest -Uri ("${URL_ServiceInstaller}") -OutFile ("${Path_ServiceInstaller}");
+	Invoke-WebRequest -UseBasicParsing -Uri ("${URL_ServiceInstaller}") -OutFile ("${Path_ServiceInstaller}");
 }
 If ((Test-Path "${Path_ServiceInstaller}") -Eq $False) {
 	Write-Host "";

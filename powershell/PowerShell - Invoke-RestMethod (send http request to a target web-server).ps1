@@ -21,8 +21,7 @@ $HttpRequest.Body = @{
 	"@type" = "do_login";  <# Form which contains aforementioned usename & password has a [ type="submit" ] element with [ value="do_login" ] #>
 }
 $ProgressPreference='SilentlyContinue'; 
-Invoke-WebRequest `
--UseBasicParsing `
+Invoke-WebRequest -UseBasicParsing `
 -Uri ($HttpRequest.Uri) `
 -Method ($HttpRequest.Method) `
 -Body ($HttpRequest.Body);

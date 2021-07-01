@@ -23,10 +23,10 @@ Set-ExecutionPolicy "RemoteSigned";
 # Download "WinSW.NET4" from "https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe" to "C:\nginx\service\NGINX-Service.exe"
 New-Item -ItemType ("Directory") -Path ("C:\nginx\") | Out-Null;
 New-Item -ItemType ("Directory") -Path ("C:\nginx\service\") | Out-Null;
-$ProgressPreference='SilentlyContinue'; Invoke-WebRequest -Uri ("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe") -OutFile ("C:\nginx\service\NGINX-Service.exe");
+$ProgressPreference='SilentlyContinue'; Invoke-WebRequest -UseBasicParsing -Uri ("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe") -OutFile ("C:\nginx\service\NGINX-Service.exe");
 
 # $(New-Object Net.WebClient).DownloadFile("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe", "C:\nginx\service\NGINX-Service.exe");
-# $ProgressPreference='SilentlyContinue'; Invoke-WebRequest -Uri "https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe" -OutFile "C:\nginx\service\NGINX-Service.exe"
+# $ProgressPreference='SilentlyContinue'; Invoke-WebRequest -UseBasicParsing -Uri "https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe" -OutFile "C:\nginx\service\NGINX-Service.exe"
 
 # ------------------------------------------------------------
 

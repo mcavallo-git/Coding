@@ -47,7 +47,7 @@ Set-Location -Path (${FullPath_WorkingDir});
 $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 $ProgressPreference='SilentlyContinue'; <# Hide Invoke-WebRequest's progress bar #>
-Measure-Command { Invoke-WebRequest -Uri (${URL_AgentZip}) -OutFile ("${FullPath_AgentZip}") -TimeoutSec (15) };
+Measure-Command { Invoke-WebRequest -UseBasicParsing -Uri (${URL_AgentZip}) -OutFile ("${FullPath_AgentZip}") -TimeoutSec (15) };
 [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
  
 # Extract the pipeline agent's zip archive
@@ -58,7 +58,7 @@ Add-Type -AssemblyName ('System.IO.Compression.FileSystem');
 
 
 # Example 2 - Download Notepad Replacer
-Invoke-WebRequest -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${Home}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
+Invoke-WebRequest -UseBasicParsing -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${Home}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
 
 
 # ------------------------------------------------------------

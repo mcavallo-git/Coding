@@ -20,23 +20,45 @@ function Generate-Manuals {
 
 		}
 		# ------------------------------------------------------------
+		
 		$Commands=@();
 		$Commands+="ForEach";
 		$Commands+="ForEach-Object";
 		$Commands+="Get-Command";
 		$Commands+="Get-Help";
+		$Commands+="Get-Item";
 		$Commands+="Get-ItemProperty";
 		$Commands+="Get-WmiObject";
 		$Commands+="Out-File";
-		$Commands | ForEach-Object {
-			If (Get-Command "$_") {
-				$OutFile=("${Env:USERPROFILE}\Documents\GitHub\Coding\man\$((Get-Command "${_}").Name).ps-$(((Get-Command "${_}").CommandType).ToLower()).man");
-				Get-Help "${_}" -Full | Out-File "${OutFile}";
-			} Else {
-				Write-Host "";
-			}
-		}
+		$Commands+="Test-Path";
+		$Commands+="Write-Host";
 
+		$ValidCommands=0;
+
+		$OutDirname="${Env:USERPROFILE}\Documents\GitHub\Coding\man";
+		Write-Host "------------------------------------------------------------";
+		If (Test-Path "${OutDirname}" -PathType "Container") {
+
+			Write-Host "------------------------------------------------------------";
+
+			$Commands | ForEach-Object {
+				If (Get-Command "$_") {
+					$ValidCommands++;
+					$OutFile=("${OutDirname}\$((Get-Command "${_}").Name).ps-$(((Get-Command "${_}").CommandType).ToLower()).man");
+					Get-Help "${_}" -Full | Out-File "${OutFile}";
+				} Else {
+					Write-Host "Error: Command [ ${_} ] not found" -ForegroundColor "Yellow" -BackgroundColor "Black";
+				}
+			}
+
+			Write-Host "------------------------------";
+			Write-Host "Info: Generated [ ${ValidCommands} ] total manuals";
+			Write-Host "Info: Output Directory:  [ ${OutDirname} ]";
+
+		} Else {
+			Write-Host "Error: Output directory [ ${OutDirname} ] doesn't exist" -ForegroundColor "Yellow" -BackgroundColor "Black";
+		}
+		Write-Host "------------------------------------------------------------";
 		# ------------------------------------------------------------
 
 		Return;

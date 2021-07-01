@@ -100,7 +100,7 @@ function HardenCrypto {
 		}
 
 
-		If ((${RunMode_SkipConfirm} -Eq $False)) {
+		If (${RunMode_SkipConfirm} -Eq $False) {
 			#
 			# User Confirmation - Gate A
 			#  |

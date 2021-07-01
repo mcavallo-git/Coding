@@ -109,7 +109,7 @@ function HardenCrypto {
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$GateA_ConfirmCharacter = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
+			Write-Host -NoNewLine ("You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"");
 			Write-Host -NoNewLine ("`n");
 			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ $(${AllowProtocols} -join ', ' ) ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");

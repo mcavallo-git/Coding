@@ -1,16 +1,22 @@
 # ------------------------------------------------------------
 <# RUN THIS SCRIPT ON-THE-FLY:
 
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCryptoV1/HardenCryptoV1.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'HardenCryptoV1' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCryptoV1\HardenCryptoV1.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command HardenCryptoV1;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCryptoOld/HardenCryptoOld.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'HardenCryptoOld' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCryptoOld\HardenCryptoOld.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-Command HardenCryptoOld;
 
 #>
 # ------------------------------------------------------------
-function HardenCryptoV1 {
+function HardenCryptoOld {
 	Param(
 		[Switch]$SkipConfirmation,
 		[Switch]$Yes
 	)
 
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
+
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCrypto/HardenCryptoOld.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'HardenCryptoOld' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCrypto\HardenCryptoOld.psm1', ((Get-Variable -Name 'HOME').Value))); }; HardenCryptoOld -DryRun;
+
+	}
 	<# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
 	$RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
 	If ($RunningAsAdmin -Eq $False) {
@@ -44,7 +50,7 @@ function HardenCryptoV1 {
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Do you want to harden the crypto of this box (will set to allow only TLS v1.1 and TLS v1.2 requests outgoing/incoming)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Do you want to harden the crypto of this device (will set to allow only TLS v1.1 and TLS v1.2 requests outgoing/incoming)?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
 			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";
@@ -266,7 +272,7 @@ function HardenCryptoV1 {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "HardenCryptoV1" -ErrorAction "SilentlyContinue";
+	Export-ModuleMember -Function "HardenCryptoOld" -ErrorAction "SilentlyContinue";
 }
 
 

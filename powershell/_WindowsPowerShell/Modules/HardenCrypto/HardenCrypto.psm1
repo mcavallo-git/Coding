@@ -1,13 +1,24 @@
-function HardenCryptoV2 {
+# ------------------------------------------------------------
+#
+#	PowerShell - HardenCrypto
+#		|
+#		|--> Author:  Vadims Podāns @ https://www.sysadmins.lv
+#		|
+#		|--> Description:  PowerShell script that accepts a list of web URLs and tests each host with a list of SSL protocols: SSLv2, SSLv3, TLS 1.0, TLS 1.1 and TLS 1.2
+#		|
+#		|--> Example(s):  Test-ServerSSLSupport -HostName "localhost"
+#		                  Test-ServerSSLSupport -HostName "www.github.com"
+#
+# ------------------------------------------------------------
+
+function HardenCrypto {
 	Param(
 		[Switch]$DryRun
 	)
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
-
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCryptoV2/HardenCryptoV2.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'HardenCryptoV2' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCryptoV2\HardenCryptoV2.psm1', ((Get-Variable -Name 'HOME').Value))); }; HardenCryptoV2 -DryRun;
-
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/HardenCrypto/HardenCrypto.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'HardenCrypto' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\HardenCrypto\HardenCrypto.psm1', ((Get-Variable -Name 'HOME').Value))); }; HardenCrypto -DryRun;
 
 	}
 	# ------------------------------------------------------------
@@ -26,7 +37,7 @@ function HardenCryptoV2 {
 	}
 
 	# If ((RunningAsAdministrator) -Ne ($True)) {
-	# 	PrivilegeEscalation -Command ("HardenCryptoV2") {
+	# 	PrivilegeEscalation -Command ("HardenCrypto") {
 	# } Else {
 
 	<# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
@@ -564,7 +575,7 @@ function HardenCryptoV2 {
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "HardenCryptoV2" -ErrorAction "SilentlyContinue";
+	Export-ModuleMember -Function "HardenCrypto" -ErrorAction "SilentlyContinue";
 }
 
 

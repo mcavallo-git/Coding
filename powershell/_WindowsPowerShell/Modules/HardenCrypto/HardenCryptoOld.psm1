@@ -50,11 +50,11 @@ function HardenCryptoOld {
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$FirstConfKey = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
+			Write-Host -NoNewLine ("Info: You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Do you want to harden the cryptography of this device to require outgoing/incoming web requests to use one of [ TLS v1.1 , TLS 1.2 ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require outgoing/incoming web requests to use one of [ TLS v1.1 , TLS 1.2 ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
-			Write-Host -NoNewLine ("$($MyInvocation.MyCommand.Name) - Confirm: Press the `"") -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("Confirm: Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ($FirstConfKey) -ForegroundColor "Green";
 			Write-Host -NoNewLine ("`" key to if you are sure:  ") -ForegroundColor "Yellow";
 			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host (($UserKeyPress.Character)+("`n"));

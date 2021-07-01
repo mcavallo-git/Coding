@@ -105,6 +105,7 @@ function Get-OS-Info {
 
 		Return ${OS_Info};
 
+	}
 }
 
 <# Only export the module if the caller is attempting to import it #>

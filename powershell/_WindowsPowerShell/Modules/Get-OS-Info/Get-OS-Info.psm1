@@ -2,10 +2,9 @@
 #
 #	PowerShell - Get-OS-Info
 #		|
-#		|--> Description:  PowerShell script that accepts a list of web URLs and tests each host with a list of SSL protocols: SSLv2, SSLv3, TLS 1.0, TLS 1.1 and TLS 1.2
+#		|--> Description:  PowerShell script which shows the current Windows device's OS info, version, etc.
 #		|
-#		|--> Example(s):  Test-ServerSSLSupport -HostName "localhost"
-#		                  Test-ServerSSLSupport -HostName "www.github.com"
+#		|--> Example(s):  Get-OS-Info
 #
 # ------------------------------------------------------------
 
@@ -22,6 +21,7 @@ function Get-OS-Info {
 		# ------------------------------------------------------------
 
 		$Win32_OperatingSystem = (Get-CimInstance Win32_OperatingSystem);
+
 		$OS_Info = @{
 			IsDesktop = $Null;
 			IsServer = $Null;
@@ -95,10 +95,6 @@ function Get-OS-Info {
 		}
 
 		# ------------------------------
-
-		Write-Host "------------------------------------------------------------";
-		Write-Host "View all versions of Windows @ https://docs.microsoft.com/en-us/windows/release-health/release-information";
-		Write-Host "------------------------------------------------------------";
 
 		Return ${OS_Info};
 

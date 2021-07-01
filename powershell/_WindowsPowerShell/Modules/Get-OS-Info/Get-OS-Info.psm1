@@ -28,7 +28,7 @@ function Get-OS-Info {
 			OS_BuildNumber = $Null;
 			OS_ProductType = $Null;
 			OS_ProductSuite = $Null;
-			URL_MicroftDocs = "https://docs.microsoft.com/en-us/windows/release-health/release-information";
+			URL_MicrosoftDocs = "https://docs.microsoft.com/en-us/windows/release-health/release-information";
 		};
 
 		# ------------------------------

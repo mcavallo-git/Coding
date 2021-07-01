@@ -71,4 +71,6 @@ Invoke-WebRequest -UseBasicParsing -Uri ("https://www.binaryfortress.com/Data/Do
 #
 #   docs.microsoft.com  |  "WebClient.DownloadFile Method (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.webclient.downloadfile
 #
+#   stackoverflow.com  |  "powershell - The response content cannot be parsed because the Internet Explorer engine is not available, or - Stack Overflow"  |  https://stackoverflow.com/a/38054505
+#
 # ------------------------------------------------------------

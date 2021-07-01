@@ -419,6 +419,7 @@ function HardenCrypto {
 				}
 
 				Write-Host "`n$($Each_RegEdit.Path)";
+
 				ForEach ($Each_Prop In $Each_RegEdit.Props) {
 
 					# Check for each Key

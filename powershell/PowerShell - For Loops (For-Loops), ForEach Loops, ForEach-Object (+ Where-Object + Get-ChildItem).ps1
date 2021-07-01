@@ -6,7 +6,7 @@ Exit 1;
 # ------------------------------------------------------------
 
 
-<#   Arrays  ->  use [ ForEach-Object ]   #>
+<#   Arrays  @()   #>
 $Var=@("Value 1","Value 2","Value 3");
 If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
 	# Arrays - Option 1:  use [ ForEach-Object ]
@@ -22,7 +22,9 @@ If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq 
 }
 
 
-<#   Hash Tables  ->  use  [ @{}.Keys ] + [ ForEach-Object ]   #>
+# ------------------------------------------------------------
+
+<#   Hash Tables  @{}  #>
 $Var=@{};
 $Var["Property 1"]="Value 1";
 $Var["Property 2"]="Value 2";
@@ -35,7 +37,9 @@ If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq
 }
 
 
-<#   PSCustomObjects  ->  use  [ Get-Member + Where-Object + ForEach-Object ]   #>
+# ------------------------------------------------------------
+
+<#   PSCustomObjects   #>
 $Var = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
 If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
 	Get-Member -InputObject ($Var) -View ("All") `

@@ -11,6 +11,9 @@
 
 function HardenCrypto {
 	Param(
+		# [String[]]$DenyProtocols = @("SSL 2.0","SSL 3.0","TLS 1.0"),
+		[String[]]$AllowProtocols = @("TLS 1.1","TLS 1.2"),
+		[String]$Sku = "Standard_LRS",
 		[Switch]$DryRun,
 		[Switch]$SkipConfirmation,
 		[Switch]$Yes
@@ -43,7 +46,8 @@ function HardenCrypto {
 	} Else {
 		<# Script >> IS << running as Admin - Continue #>
 
-		<# Dry Run (determine if enabled/disabled) #>
+		# ------------------------------
+		# Dry Run (enabled/disabled)
 		$RunMode_DryRun = $False;
 		If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
 			$RunMode_DryRun = $True;
@@ -54,6 +58,8 @@ function HardenCrypto {
 			Start-Sleep -Seconds 3;
 		}
 
+		# ------------------------------
+		# Skip Confirmation Checks/Gates (enabled/disabled)
 		$RunMode_SkipConfirm = $False;
 		If ($PSBoundParameters.ContainsKey('Yes') -Eq $True) {
 			$RunMode_SkipConfirm = $True;
@@ -62,6 +68,34 @@ function HardenCrypto {
 		} ElseIf (${RunMode_DryRun} -Eq $True) {
 			$RunMode_SkipConfirm = $True;
 		}
+
+		# ------------------------------
+
+		$Protos=@{};
+
+		<# Disable less secure protocols by default #>
+		$Default=$False;
+		$Protos["SSL 2.0"] = If (${AllowProtocols} -Contains "SSL 2.0") { $True; } Else { ${Default}; };
+		$Protos["SSL 3.0"] = If (${AllowProtocols} -Contains "SSL 3.0") { $True; } Else { ${Default}; };
+		$Protos["TLS 1.0"] = If (${AllowProtocols} -Contains "TLS 1.0") { $True; } Else { ${Default}; };
+
+		<# Enable more secure protocols by default #>
+		$Default=$True;
+		$Protos["TLS 1.1"] = If (${AllowProtocols} -Contains "TLS 1.1") { $True; } Else { ${Default}; };
+		$Protos["TLS 1.2"] = If (${AllowProtocols} -Contains "TLS 1.2") { $True; } Else { ${Default}; };
+
+
+		# TLS 1.1 (enable/disable - enabled by default)
+		$Protocols_Allow_TLS_1_1 = $False;
+		If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
+			$RunMode_DryRun = $True;
+			Write-Host "------------------------------------------------------------";
+			Write-Host "            ! ! ! RUNNING IN DRY RUN MODE ! ! !             "; 
+			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
+			Write-Host "------------------------------------------------------------";
+			Start-Sleep -Seconds 3;
+		}
+
 
 		If ((${RunMode_SkipConfirm} -Eq $False)) {
 			#
@@ -74,7 +108,7 @@ function HardenCrypto {
 			Write-Host -NoNewLine ("`n");
 			Write-Host -NoNewLine ("You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require outgoing/incoming web requests to use one of [ TLS v1.1 , TLS 1.2 ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ TLS v1.1 , TLS 1.2 ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
 			Write-Host -NoNewLine ("Confirm: Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine (${GateA_ConfirmCharacter}) -ForegroundColor "Green";
@@ -90,10 +124,13 @@ function HardenCrypto {
 
 			# ------------------------------------------------------------
 			#
-			# Define any Network Maps which will be required during the runtime
+			# Registry Paths
+			#  |
+			#  |--> Define any Network Maps which will be required during the runtime
 			#  |
 			#  |--> Note: Registry Root-Keys are actually Network Maps to the "Registry" PSProvider
 			#
+
 			$PSDrives = @();
 			$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
 			$PSDrives += @{ Name="HKCC"; PSProvider="Registry"; Root="HKEY_CURRENT_CONFIG";   };
@@ -110,12 +147,13 @@ function HardenCrypto {
 
 			#------------------------------------------------------------
 			#
-			# Update Windows and WinHTTP
+			# WinHTTP
 			#  |
 			#  |--> As per Microsoft Documentation @ [ https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#bkmk_winhttp ]
 			#  |
 			#  |--> !!! Enable these settings on all clients running earlier versions of Windows before enabling TLS 1.2 and disabling the older protocols on the Configuration Manager servers. Otherwise, you can inadvertently orphan them !!!
 			#
+
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
 				Props=@(
@@ -123,7 +161,7 @@ function HardenCrypto {
 						Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
 						Name="DefaultSecureProtocols";
 						Type="DWord";
-						Value=0xA00;
+						Value=($(If ($Protos["TLS 1.1"] -Or $Protos["TLS 1.2"]) { 0xA00 } Else { 0x000 }) -bor $(If ($Protos["SSL 3.0"] -Or $Protos["TLS 1.0"]) { 0x0A0 } Else { 0x000 }));
 						Delete=$False;
 					}
 				)
@@ -135,7 +173,7 @@ function HardenCrypto {
 						Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
 						Name="DefaultSecureProtocols";
 						Type="DWord";
-						Value=0xA00;
+						Value=($(If ($Protos["TLS 1.1"] -Or $Protos["TLS 1.2"]) { 0xA00 } Else { 0x000 }) -bor $(If ($Protos["SSL 3.0"] -Or $Protos["TLS 1.0"]) { 0x0A0 } Else { 0x000 }));
 						Delete=$False;
 					}
 				)
@@ -144,7 +182,7 @@ function HardenCrypto {
 
 			#------------------------------------------------------------
 			#
-			#  HTTPS PROTOCOLS
+			#  HTTPS Protocols
 			#
 			
 			$HTTPS_Protocols=@();
@@ -223,7 +261,7 @@ function HardenCrypto {
 
 			#------------------------------------------------------------
 			#
-			#  HTTPS CIPHERS
+			#  HTTPS Ciphers
 			#
 			If ($False) {
 

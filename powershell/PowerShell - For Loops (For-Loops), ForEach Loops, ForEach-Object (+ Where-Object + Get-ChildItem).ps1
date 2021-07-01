@@ -7,22 +7,17 @@ Exit 1;
 
 
 <#   Arrays  ->  use [ ForEach-Object ]   #>
-$Var=(Get-Service | Select-Object -First 10);
+$Var=@("Value 1","Value 2","Value 3");
 If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
 	# Arrays - Option 1:  use [ ForEach-Object ]
 	$Var | ForEach-Object {
-		$Each_Key="???";
-		$Each_Val=$_;
-		# $Each_Val=$Var.(${Each_Key});
 		Write-Host "------------------------------";
-		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
+		Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
 	}
 	# Arrays - Option 2:  use [ For ]
 	For ($Each_Key=0; $Each_Key -LT $Var.Count; $Each_Key++) {
-		$Each_Val=$Var[${Each_Key}];
-		# $Each_Val=$Var.(${Each_Key});
 		Write-Host "------------------------------";
-		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
+		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Var[${Each_Key}])";
 	}
 }
 
@@ -49,12 +44,11 @@ If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Nam
 $Var=@{};
 $Var["Property 1"]="Value 1";
 $Var["Property 2"]="Value 2";
+$Var["Property 3"]="Value 3";
 If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
 	$Var.Keys | ForEach-Object {
-		$Each_Key=$_;
-		$Each_Val=$Var[${Each_Key}];
 		Write-Host "------------------------------";
-		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
+		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($Var[${_}])";
 	}
 }
 

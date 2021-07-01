@@ -4,35 +4,15 @@
 # PowerShell - Get verbose info regarding current Windows OS
 #
 # ------------------------------------------------------------
-
-
-Refer to "Get-OS-Info.psm1"
-
-@ https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1
-
-
-
-# ------------------------------------------------------------
 #
-# PowerShell - Get build info regarding current Windows OS
 #
-# ------------------------------------------------------------
-If ($True) {
-
-
-# PowerShell-native method
-$OS_Build = ([Environment]::OSVersion.Version).Build;
-Write-Host "Build = ${$OS_Build}";
-
-# Alternate method
-$OS_Build = (Get-CimInstance Win32_OperatingSystem).Version;
-Write-Host "Build = ${$OS_Build}";
-
-
-}
-
-
-
+#   Refer to:
+#
+#     Get-OS-Info.psm1
+#
+#       @   https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1
+#
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

@@ -168,9 +168,10 @@ function HardenCryptoV2 {
 					# Value=4096;
 					Delete=$False;
 				}
-			) };
+			)
+		};
 
-		
+
 		#------------------------------------------------------------
 		#
 		#  HTTPS CIPHERS

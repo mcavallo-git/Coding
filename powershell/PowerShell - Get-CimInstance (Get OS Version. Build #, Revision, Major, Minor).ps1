@@ -6,7 +6,9 @@
 # ------------------------------------------------------------
 
 
-Refer to PowerShell Module "Get-OS-Info.psm1" --> https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1
+Refer to "Get-OS-Info.psm1"
+
+@ https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1
 
 
 

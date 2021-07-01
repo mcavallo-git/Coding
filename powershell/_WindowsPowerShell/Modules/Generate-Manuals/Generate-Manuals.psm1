@@ -44,7 +44,7 @@ function Generate-Manuals {
 			$Commands | ForEach-Object {
 				If (Get-Command "$_") {
 					$ValidCommands++;
-					$OutFile=("${OutDirname}\$((Get-Command "${_}").Name).ps-$(((Get-Command "${_}").CommandType).ToLower()).man");
+					$OutFile=("${OutDirname}\$((Get-Command "${_}").Name).ps-$(([String]((Get-Command "${_}").CommandType)).ToLower()).man");
 					Get-Help "${_}" -Full | Out-File "${OutFile}";
 				} Else {
 					Write-Host "Error: Command [ ${_} ] not found" -ForegroundColor "Yellow" -BackgroundColor "Black";

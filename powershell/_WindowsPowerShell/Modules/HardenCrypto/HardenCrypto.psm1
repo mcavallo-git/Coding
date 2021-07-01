@@ -108,7 +108,7 @@ function HardenCrypto {
 			Write-Host -NoNewLine ("`n");
 			Write-Host -NoNewLine ("You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
 			Write-Host -NoNewLine ("`n");
-			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ TLS v1.1 , TLS 1.2 ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine ("Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ ${AllowProtocols} ]?") -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine ("`n`n");
 			Write-Host -NoNewLine ("Confirm: Press the `"") -ForegroundColor "Yellow";
 			Write-Host -NoNewLine (${GateA_ConfirmCharacter}) -ForegroundColor "Green";

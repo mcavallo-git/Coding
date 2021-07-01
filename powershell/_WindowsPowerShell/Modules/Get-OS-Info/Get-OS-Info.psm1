@@ -95,10 +95,6 @@ function Get-OS-Info {
 
 		# ------------------------------
 
-		${OS_Info} | Sort-Object -Property Name | Format-Table;
-
-		# ------------------------------
-
 		Write-Host "------------------------------------------------------------";
 		Write-Host "View all versions of Windows @ https://docs.microsoft.com/en-us/windows/release-health/release-information";
 		Write-Host "------------------------------------------------------------";

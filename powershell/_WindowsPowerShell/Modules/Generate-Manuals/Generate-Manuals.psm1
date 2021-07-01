@@ -10,6 +10,7 @@
 
 function Generate-Manuals {
 	Param(
+		[String]$OutDirname = "${Env:USERPROFILE}\Documents\GitHub\Coding\man";
 	)
 	Process {
 		# ------------------------------------------------------------
@@ -35,7 +36,6 @@ function Generate-Manuals {
 
 		$ValidCommands=0;
 
-		$OutDirname="${Env:USERPROFILE}\Documents\GitHub\Coding\man";
 		Write-Host "------------------------------------------------------------";
 		If (Test-Path "${OutDirname}" -PathType "Container") {
 

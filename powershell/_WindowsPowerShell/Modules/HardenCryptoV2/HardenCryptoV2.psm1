@@ -170,70 +170,73 @@ function HardenCryptoV2 {
 				}
 			) };
 
-
+		
 		#------------------------------------------------------------
 		#
 		#  HTTPS CIPHERS
 		#
-
-		$HTTPS_Ciphers=@();
-
-		<# [Ciphers] Disable weak/insecure ciphers #>
-		$HTTPS_Ciphers+=@{ CipherName="DES 56/56";      Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="NULL";           Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC2 128/128";    Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC2 40/128";     Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC2 56/128";     Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC4 128/128";    Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC4 40/128";     Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC4 56/128";     Enabled=0; };
-		$HTTPS_Ciphers+=@{ CipherName="RC4 64/128";     Enabled=0; };
-
-		<# [Ciphers] Enable strong/secure ciphers #>
-		$HTTPS_Ciphers+=@{ CipherName="AES 128/128";    Enabled=1; };
-		$HTTPS_Ciphers+=@{ CipherName="AES 256/256";    Enabled=1; };
-		$HTTPS_Ciphers+=@{ CipherName="Triple DES 168"; Enabled=1; };
-
-
-		# ------------------------------
-
-		$DoUpdates_OutsideOfLoop=$False;
-
-		<# Setup the parent registry key (to setup ciphers within) just once, then continue referencing it #>
-		If (${DoUpdates_OutsideOfLoop} -Eq $True) {
-			New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
-			$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
-			${HTTPS_Ciphers} | ForEach-Object {
-				If (${RunMode_DryRun} -Eq $False) {
-					$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
-				}
-			};
-			$RegistryKey_Ciphers.Close();
-		}
-
-		<# [Ciphers] Enable/Disable each HTTPS Ciphers #>
-		${HTTPS_Ciphers} | ForEach-Object {
-			$CipherName=(${_}.CipherName);
-			$Enabled=([int](${_}.Enabled));
-			If (${DoUpdates_OutsideOfLoop} -Eq $True) {
-				New-ItemProperty -Force -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${CipherName}" -Name 'Enabled' -Value ${Enabled} -PropertyType 'DWord';
-			} Else {
-				$RegEdits += @{
-					Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${CipherName}";
-					Props=@(
-						@{
-							Description="${CipherName} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
-							Name="Enabled";
-							Type="DWord";
-							Value=${Enabled};
-							Delete=$False;
-						}
-					)
-				};
-			}
-		}
-
 		If ($False) {
+
+			#------------------------------------------------------------
+
+			$HTTPS_Ciphers=@();
+
+			<# [Ciphers] Disable weak/insecure ciphers #>
+			$HTTPS_Ciphers+=@{ CipherName="DES 56/56";      Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="NULL";           Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC2 128/128";    Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC2 40/128";     Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC2 56/128";     Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC4 128/128";    Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC4 40/128";     Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC4 56/128";     Enabled=0; };
+			$HTTPS_Ciphers+=@{ CipherName="RC4 64/128";     Enabled=0; };
+
+			<# [Ciphers] Enable strong/secure ciphers #>
+			$HTTPS_Ciphers+=@{ CipherName="AES 128/128";    Enabled=1; };
+			$HTTPS_Ciphers+=@{ CipherName="AES 256/256";    Enabled=1; };
+			$HTTPS_Ciphers+=@{ CipherName="Triple DES 168"; Enabled=1; };
+
+			$DoUpdates_OutsideOfLoop=$False;
+
+			<# Setup the parent registry key (to setup ciphers within) just once, then continue referencing it #>
+			If (${DoUpdates_OutsideOfLoop} -Eq $True) {
+				New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
+				$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
+				${HTTPS_Ciphers} | ForEach-Object {
+					If (${RunMode_DryRun} -Eq $False) {
+						$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
+					}
+				};
+				$RegistryKey_Ciphers.Close();
+			}
+
+			<# [Ciphers] Enable/Disable each HTTPS Ciphers #>
+			${HTTPS_Ciphers} | ForEach-Object {
+				$CipherName=(${_}.CipherName);
+				$Enabled=([int](${_}.Enabled));
+				If (${DoUpdates_OutsideOfLoop} -Eq $True) {
+					New-ItemProperty -Force -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${CipherName}" -Name 'Enabled' -Value ${Enabled} -PropertyType 'DWord';
+				} Else {
+					$RegEdits += @{
+						Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${CipherName}";
+						Props=@(
+							@{
+								Description="${CipherName} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
+								Name="Enabled";
+								Type="DWord";
+								Value=${Enabled};
+								Delete=$False;
+							}
+						)
+					};
+				}
+			}
+			# ------------------------------------------------------------
+
+		} Else {
+
+			# ------------------------------------------------------------
 			If (${RunMode_DryRun} -Eq $False) {
 				<# [Ciphers] Disable weak ciphers #>
 				New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
@@ -266,7 +269,10 @@ function HardenCryptoV2 {
 				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 256/256' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
 				New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168' -Name 'Enabled' -Value 1 -PropertyType 'DWORD';
 			}
+			# ------------------------------------------------------------
+
 		}
+
 
 		# ------------------------------------------------------------
 		#

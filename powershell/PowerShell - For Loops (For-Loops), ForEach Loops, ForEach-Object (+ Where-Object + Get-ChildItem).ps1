@@ -9,12 +9,12 @@ Exit 1;
 <#   Arrays  @()   #>
 $Var=@("Value 1","Value 2","Value 3");
 If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
-	# Arrays - Option 1:  use [ ForEach-Object ]
+	# Arrays - Option 1:  use [ ForEach-Object ]  (if you DONT need the iterator)
 	$Var | ForEach-Object {
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
 	}
-	# Arrays - Option 2:  use [ For ]
+	# Arrays - Option 2:  use [ For ]  (if you DO need the iterator)
 	For ($Each_Key=0; $Each_Key -LT $Var.Count; $Each_Key++) {
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Var[${Each_Key}])";

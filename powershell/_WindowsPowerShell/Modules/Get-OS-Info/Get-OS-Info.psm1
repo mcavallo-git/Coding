@@ -25,6 +25,10 @@ function Get-OS-Info {
 		$OS_Info=@{
 			IsDesktop=($Null);
 			IsServer=($Null);
+			Env_OSVersion_Platform=([Environment]::OSVersion.Platform);
+			Env_OSVersion_ServicePack=([Environment]::OSVersion.ServicePack);
+			Env_OSVersion_Version=([Environment]::OSVersion.Version);
+			Env_OSVersion_VersionString=([Environment]::OSVersion.VersionString);
 			OS_BuildName=($Null);
 			OS_BuildNumber=(${Win32_OperatingSystem}.BuildNumber);
 			OS_ProductType=($Null);

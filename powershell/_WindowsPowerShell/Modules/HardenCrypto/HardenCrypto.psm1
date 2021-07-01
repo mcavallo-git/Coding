@@ -123,7 +123,7 @@ function HardenCrypto {
 			}
 		}
 		<# Check Skips and/or User Confirmation Gate(s) #>
-		If ((${RunMode_SkipConfirm} -Eq $False) -Or (${UserConfirmed_GateA} -Eq $True)) {
+		If ((${RunMode_SkipConfirm} -Eq $True) -Or (${UserConfirmed_GateA} -Eq $True)) {
 
 			# ------------------------------------------------------------
 			#

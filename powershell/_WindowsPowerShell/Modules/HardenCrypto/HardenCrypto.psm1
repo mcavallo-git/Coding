@@ -4,7 +4,7 @@
 #		|
 #		|--> Description:  PowerShell script that enforces security protocols & cipher suites used during web transactions (calls to port-443/HTTPS network locations)
 #		|
-#		|--> Example(s):  HardenCrypto -DryRun
+#		|--> Example(s):  HardenCrypto -DryRun -AllowProtocols @("TLS 1.2")
 #		                  HardenCrypto -SkipConfirmation
 #
 # ------------------------------------------------------------
@@ -14,12 +14,8 @@ function HardenCrypto {
 
 		[String[]]$AllowProtocols = @("TLS 1.1","TLS 1.2"),  <# @("SSL 2.0","SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") #>
 
-		[String]$Sku = "Standard_LRS",
-
-		[Int]$DiffieHellman = "Standard_LRS",
-
 		[ValidateSet(512, 1024,2048,3072,4096)]
-		[Int]$DiffieHellman_KeySize = 3072,
+		[Int]$DH_KeySize = 3072, <# Diffie-Hellman Key Size #>
 
 		[Switch]$DryRun,
 
@@ -247,7 +243,7 @@ function HardenCrypto {
 						Description="Diffie-Hellman key size (in bits - the higher it is, the more secure the encryption is with outgoing data, but the longer it will take the server to encrypt it as well)";
 						Name="ClientMinKeyBitLength";
 						Type="DWord";
-						Value=${DiffieHellman_KeySize};
+						Value=${DH_KeySize};
 						Delete=$False;
 					}
 				)

@@ -416,8 +416,8 @@ function HardenCrypto {
 				If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist (yet)
 					If ((${Each_Prop}.Delete) -eq $False) {  # Property is NOT to be deleted
 						# Create the key
-						If ((${Each_RegEdit}.Path).Contains("\")) {
 						# If ((${Each_RegEdit}.Path).Contains("/")) {
+						If ((${Each_RegEdit}.Path).Contains("\")) {
 							# Iteratively break apart the registry key (to be created) into its parent registry keys (handles forward slashes in key names)
 							$KeysToCreate=@("$(${Each_RegEdit}.Path)");
 							While ((${KeysToCreate}[-1]).Contains("\")) {

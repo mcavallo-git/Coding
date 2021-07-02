@@ -20,7 +20,7 @@ If (! (Get-Command "git")) {
 	Write-Host "Error:  Please install Git SCM from url:  [  https://git-scm.com/download/win ]" -ForegroundColor Gray;
 
 } Else {
-		
+
 	Write-Host "Info:  Loading personal and system profiles...`n" -ForegroundColor Gray;
 
 	Write-Host "Info:  Local PowerShell Version: $(($($PSVersionTable.PSVersion.Major))+($($PSVersionTable.PSVersion.Minor)/10))`n" -ForegroundColor Gray;

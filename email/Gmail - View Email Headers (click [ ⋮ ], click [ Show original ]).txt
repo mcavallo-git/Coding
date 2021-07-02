@@ -13,7 +13,7 @@ Step-by-Step:
 		> Open email which you wish to view the headers of
 			> Select the ⋮ (vertical ellipsis) menu on the top-right
 				> Select "Show original" from dropdown menu to view the original, low-level headers and body content
-		
+
 # ------------------------------------------------------------
 #
 #		Citation(s)

@@ -37,7 +37,7 @@ $DDNS_UIDS | ForEach {
 if ($ResolvedIPv4s.Length -eq 0)  {
 
 	$ReturnedVal = "No results returned valid IPv4 data (DDNS_UIDS.IPv4.Length===0)";
-	
+
 } else {
 
 	$NsgShowRuleDDNS = `
@@ -48,11 +48,11 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 			--nsg-name ($Az.NsgParentName) `
 			--name ($Az.NsgRuleName) `
 		);
-		
+
 	# $NsgShowRuleDDNS;
 
 	if (($NsgShowRuleDDNS) -eq $null) {
-		
+
 		$NsgRuleCreate = `
 			JsonDecoder -InputObject ( `
 				az network nsg rule create `
@@ -70,9 +70,9 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 					--source-address-prefixes ($ResolvedIPv4s) `
 					--source-port-ranges ("*") `
 		);
-		
+
 		$ReturnedVal = $NsgRuleCreate;
-		
+
 	} else {
 
 		$NsgRuleUpdate = `

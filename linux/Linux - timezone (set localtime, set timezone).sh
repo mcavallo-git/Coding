@@ -1,4 +1,4 @@
-		
+
 ## SET "localtime" & "timezone" to EST (test with date):
 
 	## Ubuntu && Cent-OS

@@ -899,12 +899,12 @@ AppsKey & ]::
 		(LTrim
 			xpos = %xpos%
 			ypos = %ypos%
-			
+
 			ViewportWidthBefore = %ViewportWidthBefore%
 			ViewportWidthAfter = %ViewportWidthAfter%
 			ViewportHeightBefore = %ViewportHeightBefore%
 			ViewportHeightAfter = %ViewportHeightAfter%
-			
+
 			DpiScalingVer = %DpiScalingVer%
 			Win8DpiScaling = %Win8DpiScaling%
 			LogPixels = %LogPixels%
@@ -2109,7 +2109,7 @@ GetWindowSpecs() {
 	Win_control_names := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
 	Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
 	WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
-	
+
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
 	Win_longest_field := 0
 	Win_longest_field := StrLen_Max(Win_longest_field, Win_title)
@@ -2198,7 +2198,7 @@ GetWindowSpecs() {
 	LV_Add("", "xpos, ypos", ( xpos ", " ypos ) )
 	LV_Add("", "width, height", ( Win_Width ", " Win_Height ) )
 	; LV_Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_Width%,%Win_Height%")
-	
+
 	; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
 	LV_Add("", "", "")
 	LV_Add("", "Is Win10 App?", ((Win_is_win10_app==1) ? ("Yes"):("No")))
@@ -2727,7 +2727,7 @@ PrintEnv() {
 	USERNAME := EnvGet("USERNAME")
 	USERPROFILE := EnvGet("USERPROFILE")
 	WINDIR := EnvGet("WINDIR")
-	
+
 	Viewport_Width := SysGet(78)
 	Viewport_Height := SysGet(79)
 	Monitor_Count := SysGet(80)
@@ -3538,7 +3538,7 @@ XBox_DownloadDelete_GameClips() {
 	Use_ControlClick := 0
 
 	If (Use_ControlClick == 1) {
-		
+
 		; Click "Captures" (Left Tab)
 		xpos := 30
 		ypos := 313
@@ -3558,7 +3558,7 @@ XBox_DownloadDelete_GameClips() {
 		; ControlSend,, {TAB}, "ahk_id %Win_ahk_id%"
 
 		; ControlClick "x%xpos% y%ypos%", "ahk_pid %Win10_ahk_pid%"
-		
+
 		; ControlClick, x%xpos% y%ypos%, WinTitle
 		; ControlClick "x55 y77", WinTitle  ; Clicks at a set of coordinates. Note the lack of a comma between X and Y.
 		; ControlClick, x%xpos% y%ypos%, %WinTitle%
@@ -4115,7 +4115,7 @@ class BrightnessSetter {
 		}
 		return False
 	}
-	
+
 	GetDefaultBrightnessIncrement()
 	{
 		static ret := 10
@@ -4144,7 +4144,7 @@ class BrightnessSetter {
 			  ,PowerReadDCValueIndex := DllCall("GetProcAddress", "Ptr", BrightnessSetter.hPowrprofMod, "AStr", "PowerReadDCValueIndex", "Ptr")
 		return DllCall(AC ? PowerReadACValueIndex : PowerReadDCValueIndex, "Ptr", 0, "Ptr", schemeGuid, "Ptr", BrightnessSetter._GUID_VIDEO_SUBGROUP(), "Ptr", BrightnessSetter._GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS(), "UInt*", currBrightness, "UInt") == 0
 	}
-	
+
 	_ShowBrightnessOSD()
 	{
 		static PostMessagePtr := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "user32.dll", "Ptr"), "AStr", A_IsUnicode ? "PostMessageW" : "PostMessageA", "Ptr")
@@ -4420,7 +4420,7 @@ If (False) {
 If (False) {
 
 	CustomPopupButtons_Demo() {
-		
+
 		SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
 		; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
 

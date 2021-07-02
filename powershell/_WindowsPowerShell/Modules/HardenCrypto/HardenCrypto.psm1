@@ -280,19 +280,14 @@ function HardenCrypto {
 			
 			If ($False) {
 
-				$Ciphers_BaseKey="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
-
 				# ------------------------------
 				If (${RunMode_DryRun} -Eq $False) {
-					<# [Ciphers] Disable weak ciphers #>
-					If ((Test-Path -LiteralPath ("${Ciphers_BaseKey}")) -Eq $False) {
-					# If ((Test-Path -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers")) -Eq $False) {
-						# Key doesn't exist (yet)
-						New-Item -Path "${Ciphers_BaseKey}";
-						# New-Item -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
+					<# [Ciphers] Create parent registry keys #>
+					If ((Test-Path -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers")) -Eq $False) {
+						# Key doesn't exist (yet) - Create it
+						New-Item -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
 					}
-					# $RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
-					$RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey(("${Ciphers_BaseKey}" -replace "Registry::HKEY_LOCAL_MACHINE\\",""), $True))
+					$RegistryKey=((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
 					$RegistryKey.CreateSubKey('AES 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
 					$RegistryKey.CreateSubKey('AES 256/256');    <# Workaround for creating registry keys with forward-slashes in their name #>
 					$RegistryKey.CreateSubKey('DES 56/56');      <# Workaround for creating registry keys with forward-slashes in their name #>

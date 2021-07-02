@@ -509,11 +509,11 @@ function HardenCrypto {
 								#     |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 								#
 								New-Item -Force -Path (${Each_RegEdit}.Path) | Out-Null;
+								If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
+									Write-Host "  |-->  Created Key";
+								}
 							}
 
-						}
-						If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
-							Write-Host "  |-->  Created Key";
 						}
 					}
 

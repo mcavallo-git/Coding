@@ -256,7 +256,9 @@ function HardenCrypto {
 			$CipherSuites+=@{ CipherName="AES 128/128";    Enabled=${Default}; };
 			$CipherSuites+=@{ CipherName="AES 256/256";    Enabled=${Default}; };
 			$CipherSuites+=@{ CipherName="Triple DES 168"; Enabled=${Default}; };
-			
+
+
+
 			<# [Ciphers] Enable/Disable each HTTPS Cipher Suite #>
 			$CipherSuites | ForEach-Object {
 				$Each_Name=(${_}.CipherName);
@@ -380,7 +382,7 @@ function HardenCrypto {
 			#
 			ForEach ($Each_RegEdit In $RegEdits) {
 
-				Write-Host "`n$($Each_RegEdit.Path)";
+				Write-Host "`n$(${Each_RegEdit}.Path)";
 
 				# ------------------------------
 				#
@@ -388,8 +390,8 @@ function HardenCrypto {
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
 				#   |--> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
 				#
-				If (($Each_RegEdit.Path).StartsWith("Registry::") -Eq $False) {
-					$Each_RegEdit_DriveName=(($Each_RegEdit.Path).Split(':\')[0]);
+				If ((${Each_RegEdit}.Path).StartsWith("Registry::") -Eq $False) {
+					$Each_RegEdit_DriveName=((${Each_RegEdit}.Path).Split(':\')[0]);
 					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
@@ -411,19 +413,50 @@ function HardenCrypto {
 				}
 
 				# Check for each Key
-				If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
-					If (($Each_Prop.Delete) -eq $False) {  # Property is NOT to be deleted
+				If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist (yet)
+					If ((${Each_Prop}.Delete) -eq $False) {  # Property is NOT to be deleted
 						# Create the key
 						Write-Host "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
 						If (${RunMode_DryRun} -Eq $False) {
-							#
-							# New-Item -Force
-							#   |--> Upside to "-Force" - Creates ALL parent registry keys
-							#   |--> Downside to "-Force" - DELETES all properties & child-keys if key already exists
-							#     |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
-							#
-							New-Item -Force -Path ($Each_RegEdit.Path) | Out-Null;
-							If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $True) {
+
+							If ((${Each_RegEdit}.Path).Contains("/")) {
+
+								#
+								# Registry Key Name w/ Forward Slashes ("/") - Workaround Creation Method
+								#  |
+								#  |--> Required to avoid an issue where [ New-Item ] interprets forward slashes as backslashes ("\") (in either the -Path or -Name values given to it)
+								#  |
+								#  |--> This causes it to create two keys instead of one (with one nested underneath the other), with their names split at the forward slash character
+								#  |
+								#  |--> E.g. Calling [ New-Item -Force -Path  "...\RC4 64/128" ] will create a parent key named "...\RC4 64", then create a child key named "128" underneath of said parent key (Instead of creating a key with a forward slash in the name at "...\RC4 64/128")
+								#
+								$Keys_ToCreate=@();
+								$DirName_Recurse="$(${Each_RegEdit}.Path)";
+								Do {
+									$Keys_ToCreate += "${DirName_Recurse}";
+									$DirName_Recurse=("${DirName_Recurse}" -replace "\\$((${DirName_Recurse} -split "\\")[-1])$","");
+								} While (${DirName_Recurse}.Contains("/"));
+								For ($i=(${Keys_ToCreate}.Count - 1); $i -GE 0; $i-- ) {
+									$Each_RegEdit_BaseName = ((${Keys_ToCreate}[$i] -split "\\")[-1]);
+									$Each_RegEdit_DirName = (${Keys_ToCreate}[$i] -replace "\\$((${Keys_ToCreate}[$i] -split "\\")[-1])$","");
+									Write-Host "------------------------------";
+									Write-Host "Each_RegEdit_DirName=[ ${Each_RegEdit_DirName} ]";
+									Write-Host "Each_RegEdit_BaseName=[ ${Each_RegEdit_BaseName} ]";
+								}
+								Write-Host "------------------------------";
+
+							} Else {
+
+								#
+								# New-Item -Force
+								#   |--> Upside to "-Force" - Creates ALL parent registry keys
+								#   |--> Downside to "-Force" - DELETES all properties & child-keys if key already exists
+								#     |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
+								#
+								New-Item -Force -Path (${Each_RegEdit}.Path) | Out-Null;
+
+							}
+							If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
 								Write-Host "  |-->  Created Key";
 							}
 						}
@@ -434,41 +467,41 @@ function HardenCrypto {
 
 					# Check for each Property
 					Try {
-						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -ErrorAction ("Stop"));
+						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -ErrorAction ("Stop"));
 					} Catch {
 						$GetEachItemProp = $Null;
 					};
 
 					If ($GetEachItemProp -NE $Null) {  # Property exists
 
-						If (($Each_Prop.Delete) -Eq $False) {  # Property should NOT be deleted
+						If ((${Each_Prop}.Delete) -Eq $False) {  # Property should NOT be deleted
 
-							$Each_Prop.LastValue = $GetEachItemProp;
+							${Each_Prop}.LastValue = $GetEachItemProp;
 
-							If (($Each_Prop.LastValue) -Eq ($Each_Prop.Value)) {
+							If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								Write-Host "  |-->  Skipping Property `"$($Each_Prop.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
+								Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
 
 							} Else {
 
 								# Update the Property
-								Write-Host "  |-->  ${Note_Prepend}Updating Property `"$($Each_Prop.Name)`" w/ type `"$($Each_Prop.Type)`" to have value `"$($Each_Prop.Value)`" instead of (previous) value `"$($Each_Prop.LastValue)`"${Note_Append}";
+								Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
-									Set-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -Value ($Each_Prop.Value) | Out-Null;
+									Set-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Value (${Each_Prop}.Value) | Out-Null;
 								}
 
 							}
 
 						} Else { # Property (or Key) SHOULD be deleted
 
-							If (($Each_Prop.Name) -Eq "(Default)") {
+							If ((${Each_Prop}.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key
 								Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
-									Remove-Item -Force -Recurse -LiteralPath ($Each_RegEdit.Path) -Confirm:$False | Out-Null;
-									If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) {
+									Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
+									If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) {
 										Write-Host "  |-->  Deleted Key";
 										Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 									}
@@ -477,9 +510,9 @@ function HardenCrypto {
 							} Else {
 
 								# Delete the Property
-								Write-Host "  |-->  ${Note_Prepend}Deleting Property `"$($Each_Prop.Name)`"${Note_Append}";
+								Write-Host "  |-->  ${Note_Prepend}Deleting Property `"$(${Each_Prop}.Name)`"${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
-									Remove-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -Confirm:$False | Out-Null;
+									Remove-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Confirm:$False | Out-Null;
 								}
 
 							}
@@ -488,18 +521,18 @@ function HardenCrypto {
 
 					} Else {  # Property does NOT exist
 
-						If (($Each_Prop.Delete) -Eq $False) {
+						If ((${Each_Prop}.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Host "  |-->  ${Note_Prepend}Adding Property `"$($Each_Prop.Name)`" w/ type `"$($Each_Prop.Type)`" and value `"$($Each_Prop.Value)`"${Note_Append}";
+							Write-Host "  |-->  ${Note_Prepend}Adding Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" and value `"$(${Each_Prop}.Value)`"${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
-								New-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -PropertyType ($Each_Prop.Type) -Value ($Each_Prop.Value) | Out-Null;
+								New-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -PropertyType (${Each_Prop}.Type) -Value (${Each_Prop}.Value) | Out-Null;
 							}
 
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							Write-Host "  |-->  Skipping Property `"$($Each_Prop.Name)`" (already deleted)";
+							Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already deleted)";
 
 						}
 
@@ -578,13 +611,13 @@ function HardenCrypto {
 				ForEach ($Each_RegEdit In $RegEdits) {
 
 					<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
-					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -replace "Registry::HKEY_LOCAL_MACHINE\\","");
+					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -replace "^((?!\\).)+\\","");
 					Write-Host "`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
 					$Each_SubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
 
-					ForEach ($Each_Prop In ${Each_RegEdit}.Props) {
+					ForEach (${Each_Prop} In ${Each_RegEdit}.Props) {
 
-						$Each_Prop.LastValue = (${Each_SubKey}.GetValue("$(${Each_Prop}.Name)"));
+						${Each_Prop}.LastValue = (${Each_SubKey}.GetValue("$(${Each_Prop}.Name)"));
 
 						If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
@@ -594,7 +627,7 @@ function HardenCrypto {
 						} Else {
 
 							If ("$(${Each_Prop}.LastValue)".Trim() -Eq "") {
-								$Each_Prop.LastValue = "(NULL)";
+								${Each_Prop}.LastValue = "(NULL)";
 							}
 
 							<# Update the Property #>

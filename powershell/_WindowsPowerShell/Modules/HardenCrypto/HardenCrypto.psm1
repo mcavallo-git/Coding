@@ -236,7 +236,8 @@ function HardenCrypto {
 			#
 			#  HTTPS Ciphers
 			#
-			If ($False) {
+			If ($True) {
+			# If ($False) {
 
 				#------------------------------------------------------------
 

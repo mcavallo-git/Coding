@@ -416,37 +416,48 @@ function HardenCrypto {
 				If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist (yet)
 					If ((${Each_Prop}.Delete) -eq $False) {  # Property is NOT to be deleted
 						# Create the key
-						Write-Host "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
-						If (${RunMode_DryRun} -Eq $False) {
-
-							If ((${Each_RegEdit}.Path).Contains("/")) {
-
-								#
-								# Registry Key Name w/ Forward Slashes ("/") - Workaround Creation Method
-								#  |
-								#  |--> Required to avoid an issue where [ New-Item ] interprets forward slashes as backslashes ("\") (in either the -Path or -Name values given to it)
-								#  |
-								#  |--> This causes it to create two keys instead of one (with one nested underneath the other), with their names split at the forward slash character
-								#  |
-								#  |--> E.g. Calling [ New-Item -Force -Path  "...\RC4 64/128" ] will create a parent key named "...\RC4 64", then create a child key named "128" underneath of said parent key (Instead of creating a key with a forward slash in the name at "...\RC4 64/128")
-								#
-								$Keys_ToCreate=@();
-								$DirName_Recurse="$(${Each_RegEdit}.Path)";
-								Do {
-									$Keys_ToCreate += "${DirName_Recurse}";
-									$DirName_Recurse=("${DirName_Recurse}" -replace "\\$((${DirName_Recurse} -split "\\")[-1])$","");
-								} While (${DirName_Recurse}.Contains("/"));
-								For ($i=(${Keys_ToCreate}.Count - 1); $i -GE 0; $i-- ) {
-									$Each_RegEdit_BaseName = ((${Keys_ToCreate}[$i] -split "\\")[-1]);
-									$Each_RegEdit_DirName = (${Keys_ToCreate}[$i] -replace "\\$((${Keys_ToCreate}[$i] -split "\\")[-1])$","");
-									Write-Host "------------------------------";
-									Write-Host "Each_RegEdit_DirName=[ ${Each_RegEdit_DirName} ]";
-									Write-Host "Each_RegEdit_BaseName=[ ${Each_RegEdit_BaseName} ]";
+						If ((${Each_RegEdit}.Path).Contains("\")) {
+						# If ((${Each_RegEdit}.Path).Contains("/")) {
+							# Iteratively break apart the registry key (to be created) into its parent registry keys (handles forward slashes in key names)
+							$KeysToCreate=@("$(${Each_RegEdit}.Path)");
+							While ((${KeysToCreate}[-1]).Contains("\")) {
+								$KeysToCreate+=("$(${KeysToCreate}[-1])" -replace "\\$(("$(${KeysToCreate}[-1])" -split "\\")[-1])$","");
+							};
+							${KeysToCreate};
+							# Iteratively create all parent registry keys (handles forward slashes in key names)
+							For ($i=(${KeysToCreate}.Count - 3); $i -GE 0; $i-- ) { <# Only traverse to the third to lowest item (i=2 and higher)  #>
+								$Each_Child_Key = ((${KeysToCreate}[$i] -split "\\")[-1]);
+								$Each_Parent_Key = ((${KeysToCreate}[$i] -split "\\")[-2]);
+								$Each_Root_Key = (${KeysToCreate}[$i] -replace "\\$((${KeysToCreate}[$i] -split "\\")[-2])\\$((${KeysToCreate}[$i] -split "\\")[-1])$","");
+								# Write-Host "------------------------------"; `
+								# Write-Host "KeysToCreate[$i]=[ $(${KeysToCreate}[$i]) ]"; `
+								# Write-Host "Each_Child_Key=[ ${Each_Child_Key} ]"; `
+								# Write-Host "Each_Parent_Key=[ ${Each_Parent_Key} ]"; `
+								# Write-Host "Each_Root_Key=[ ${Each_Root_Key} ]";
+								If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $False) { # Key doesn't exist (yet)
+									Write-Host "  |-->  ${Note_Prepend}Creating Key [ $(${KeysToCreate}[$i]) ]${Note_Append}";
+									If (${RunMode_DryRun} -Eq $False) {
+										#
+										# Registry Key Name w/ Forward Slashes ("/") - Workaround SubKey-Creation Method
+										#  |
+										#  |--> Required to avoid an issue where [ New-Item ] interprets forward slashes as backslashes ("\") (in either the -Path or -Name values given to it)
+										#  |
+										#  |--> This causes it to create two keys instead of one (with one nested underneath the other), with their names split at the forward slash character
+										#  |
+										#  |--> E.g. Calling [ New-Item -Force -Path  "...\RC4 64/128" ] will create a parent key named "...\RC4 64", then create a child key named "128" underneath of said parent key (Instead of creating a key with a forward slash in the name at "...\RC4 64/128")
+										#
+										$RegistryKey=((Get-Item -Path "${Each_Root_Key}").OpenSubKey("${Each_Parent_Key}", $True));
+										$RegistryKey.CreateSubKey("${Each_Child_Key}");  <# Workaround for creating registry keys with forward-slashes in their name #>
+										$RegistryKey.Close();
+									}
 								}
-								Write-Host "------------------------------";
+							}
+							Write-Host "------------------------------";
 
-							} Else {
-
+						} Else {
+							# Bulk create all parent keys (in one fell swoop) (does NOT handle forward slashes in key names)
+							Write-Host "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
+							If (${RunMode_DryRun} -Eq $False) {
 								#
 								# New-Item -Force
 								#   |--> Upside to "-Force" - Creates ALL parent registry keys
@@ -454,11 +465,10 @@ function HardenCrypto {
 								#     |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 								#
 								New-Item -Force -Path (${Each_RegEdit}.Path) | Out-Null;
-
 							}
-							If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
-								Write-Host "  |-->  Created Key";
-							}
+						}
+						If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
+							Write-Host "  |-->  Created Key";
 						}
 					}
 				}

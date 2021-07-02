@@ -428,7 +428,7 @@ function HardenCrypto {
 					# Check for the key
 					If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist
 						
-							Write-Host "  |-->  Skipping Key (already deleted)";
+							Write-Host "  |-->  Skipping deletion of key (already deleted)";
 
 					} Else { # Key Exists
 
@@ -486,15 +486,16 @@ function HardenCrypto {
 
 									}
 
-								} Else {
+								} <# Else {
 
 									Write-Host "  |-->  Skipping creation of key [ $(${KeysToCreate}[$i]) ] (already exists)";
 
-								}
+								} #>
 
 							}
 
 						} Else {
+
 							# Bulk create all parent keys (in one fell swoop) (does NOT handle forward slashes in key names)
 							Write-Host "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
@@ -506,83 +507,86 @@ function HardenCrypto {
 								#
 								New-Item -Force -Path (${Each_RegEdit}.Path) | Out-Null;
 							}
+
 						}
 						If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
 							Write-Host "  |-->  Created Key";
 						}
 					}
-				}
 
-				ForEach ($Each_Prop In $Each_RegEdit.Props) {
+					# Create/Update/Delete the Registry Key's Properties
+					ForEach ($Each_Prop In $Each_RegEdit.Props) {
 
-					# Check for each Property
-					Try {
-						$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -ErrorAction ("Stop"));
-					} Catch {
-						$GetEachItemProp = $Null;
-					};
+						# Check for each Property
+						Try {
+							$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -ErrorAction ("Stop"));
+						} Catch {
+							$GetEachItemProp = $Null;
+						};
 
-					If ($GetEachItemProp -NE $Null) {  # Property exists
+						If ($GetEachItemProp -NE $Null) {  # Property exists
 
-						If ((${Each_Prop}.Delete) -Eq $False) {  # Property should NOT be deleted
+							If ((${Each_Prop}.Delete) -Eq $False) {  # Property should NOT be deleted
 
-							${Each_Prop}.LastValue = $GetEachItemProp;
+								${Each_Prop}.LastValue = $GetEachItemProp;
 
-							If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
+								If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
-								# Do nothing to the Property (already exists with matching type & value)
-								Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
+									# Do nothing to the Property (already exists with matching type & value)
+									Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
 
-							} Else {
+								} Else {
 
-								# Update the Property
-								Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
-								If (${RunMode_DryRun} -Eq $False) {
-									Set-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Value (${Each_Prop}.Value) | Out-Null;
-								}
-
-							}
-
-						} Else { # Property (or Key) SHOULD be deleted
-
-							If ((${Each_Prop}.Name) -Eq "(Default)") {
-
-								# Delete the Key
-								Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
-								If (${RunMode_DryRun} -Eq $False) {
-									Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
-									If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) {
-										Write-Host "  |-->  Deleted Key";
-										Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+									# Update the Property
+									Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
+									If (${RunMode_DryRun} -Eq $False) {
+										Set-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Value (${Each_Prop}.Value) | Out-Null;
 									}
+
+								}
+
+							} Else { # Property (or Key) SHOULD be deleted
+
+								If ((${Each_Prop}.Name) -Eq "(Default)") {
+
+									# Delete the Key
+									Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
+									If (${RunMode_DryRun} -Eq $False) {
+										Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
+										If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) {
+											Write-Host "  |-->  Deleted Key";
+											Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+										}
+									}
+
+								} Else {
+
+									# Delete the Property
+									Write-Host "  |-->  ${Note_Prepend}Deleting Property `"$(${Each_Prop}.Name)`"${Note_Append}";
+									If (${RunMode_DryRun} -Eq $False) {
+										Remove-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Confirm:$False | Out-Null;
+									}
+
+								}
+
+							}
+
+						} Else {  # Property does NOT exist
+
+							If ((${Each_Prop}.Delete) -Eq $False) {
+
+								# Create the Property
+								Write-Host "  |-->  ${Note_Prepend}Adding Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" and value `"$(${Each_Prop}.Value)`"${Note_Append}";
+								If (${RunMode_DryRun} -Eq $False) {
+									New-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -PropertyType (${Each_Prop}.Type) -Value (${Each_Prop}.Value) | Out-Null;
 								}
 
 							} Else {
 
-								# Delete the Property
-								Write-Host "  |-->  ${Note_Prepend}Deleting Property `"$(${Each_Prop}.Name)`"${Note_Append}";
-								If (${RunMode_DryRun} -Eq $False) {
-									Remove-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Confirm:$False | Out-Null;
-								}
+								# Do nothing to the Property (already deleted)
+								Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already deleted)";
 
 							}
-
-						}
-
-					} Else {  # Property does NOT exist
-
-						If ((${Each_Prop}.Delete) -Eq $False) {
-
-							# Create the Property
-							Write-Host "  |-->  ${Note_Prepend}Adding Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" and value `"$(${Each_Prop}.Value)`"${Note_Append}";
-							If (${RunMode_DryRun} -Eq $False) {
-								New-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -PropertyType (${Each_Prop}.Type) -Value (${Each_Prop}.Value) | Out-Null;
-							}
-
-						} Else {
-
-							# Do nothing to the Property (already deleted)
-							Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already deleted)";
 
 						}
 

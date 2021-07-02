@@ -444,6 +444,9 @@ function HardenCrypto {
 										$RegistryKey.CreateSubKey("${Each_Child_Key}");  <# Workaround for creating registry keys with forward-slashes in their name #>
 										$RegistryKey.Close();
 									}
+								} Else {
+									Write-Host "  |-->  Skipping creation of key [ $(${KeysToCreate}[$i]) ] (already exists)";
+
 								}
 							}
 

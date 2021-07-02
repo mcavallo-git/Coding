@@ -59,7 +59,7 @@ function HardenCrypto {
 		$Update_Note = "!!";
 		If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
 			$RunMode_DryRun = $True;
-			$Update_Note = "!! (Skipped, Dry Run)";
+			$Update_Note = "(Skipped, Dry Run)";
 			Write-Host "------------------------------------------------------------";
 			Write-Host "            > > > RUNNING IN DRY RUN MODE < < <             "; 
 			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 

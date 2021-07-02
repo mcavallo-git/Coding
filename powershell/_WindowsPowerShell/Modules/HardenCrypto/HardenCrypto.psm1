@@ -481,9 +481,12 @@ function HardenCrypto {
 										#  |--> E.g. Calling [ New-Item -Force -Path  "...\RC4 64/128" ] will create a parent key named "...\RC4 64", then create a child key named "128" underneath of said parent key (Instead of creating a key with a forward slash in the name at "...\RC4 64/128")
 										#
 										$RegistryKey=((Get-Item -Path "${Each_Root_Key}").OpenSubKey("${Each_Parent_Key}", $True));
-										$RegistryKey.CreateSubKey("${Each_Child_Key}");  <# Workaround for creating registry keys with forward-slashes in their name #>
-										$RegistryKey.Close();
+										$RegistryKey.CreateSubKey("${Each_Child_Key}") | Out-Null;  <# Workaround for creating registry keys with forward-slashes in their name #>
+										$RegistryKey.Close() | Out-Null;
 
+										If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $True) {
+											Write-Host "  |-->  Created Key";
+										}
 									}
 
 								} <# Else {

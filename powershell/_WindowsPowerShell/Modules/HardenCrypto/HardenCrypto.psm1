@@ -423,7 +423,6 @@ function HardenCrypto {
 							While ((${KeysToCreate}[-1]).Contains("\")) {
 								$KeysToCreate+=("$(${KeysToCreate}[-1])" -replace "\\$(("$(${KeysToCreate}[-1])" -split "\\")[-1])$","");
 							};
-							${KeysToCreate};
 							# Iteratively create all parent registry keys (handles forward slashes in key names)
 							For ($i=(${KeysToCreate}.Count - 3); $i -GE 0; $i-- ) { <# Only traverse to the third to lowest item (i=2 and higher)  #>
 								$Each_Child_Key = ((${KeysToCreate}[$i] -split "\\")[-1]);

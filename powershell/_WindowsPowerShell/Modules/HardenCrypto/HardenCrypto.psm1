@@ -67,6 +67,8 @@ function HardenCrypto {
 			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
 			Write-Host "------------------------------------------------------------";
 			# Start-Sleep -Seconds 3;
+		} Else {
+			Write-Host "------------------------------------------------------------";
 		}
 
 		# ------------------------------

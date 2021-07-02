@@ -582,14 +582,14 @@ function HardenCrypto {
 						Path=(("${Each_HKLM_Search}" -replace "\\v\*","")+("\${_}"));
 						Props=@(
 							@{
-								Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";
+								Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2. Set the SchUseStrongCrypto registry setting to DWORD:00000001 - This value disables the RC4 stream cipher and requires a restart. For more information about this setting, see Microsoft Security Advisory 296038 @ [ https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/2960358 ].";
 								Name="SchUseStrongCrypto";
 								Type="DWord";
 								Value=1;
 								Delete=$False;
 							},
 							@{
-								Description="The SystemDefaultTlsVersions setting allows .NET to use the OS configuration. - Set to [ 1 ] to disable, [ 0 ] to enable-by-default.";
+								Description="The SystemDefaultTlsVersions setting allows .NET to use the OS configuration. For more information, see TLS best practices with the .NET Framework @ [ https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls ]";
 								Name="SystemDefaultTlsVersions";
 								Type="DWord";
 								Value=1;

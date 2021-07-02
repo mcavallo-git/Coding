@@ -64,7 +64,7 @@ function HardenCrypto {
 			Write-Host "            > > > RUNNING IN DRY RUN MODE < < <             "; 
 			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
 			Write-Host "------------------------------------------------------------";
-			Start-Sleep -Seconds 3;
+			# Start-Sleep -Seconds 3;
 		}
 
 		# ------------------------------

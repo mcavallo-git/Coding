@@ -119,25 +119,6 @@ function HardenCrypto {
 		If ((${RunMode_SkipConfirm} -Eq $True) -Or (${UserConfirmed_GateA} -Eq $True)) {
 
 			# ------------------------------------------------------------
-			#
-			# Registry Paths
-			#  |
-			#  |--> Define any Network Maps which will be required during the runtime
-			#  |
-			#  |--> Note: Registry Root-Keys are actually Network Maps to the "Registry" PSProvider
-			#
-
-			$PSDrives = @();
-			$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
-			$PSDrives += @{ Name="HKCC"; PSProvider="Registry"; Root="HKEY_CURRENT_CONFIG";   };
-			$PSDrives += @{ Name="HKCR"; PSProvider="Registry"; Root="HKEY_CLASSES_ROOT";     };
-			$PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
-			$PSDrives += @{ Name="HKCU"; PSProvider="Registry"; Root="HKEY_CURRENT_USER";     };
-			$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_PERFORMANCE_DATA"; };
-			$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_DYN_DATA";         };
-
-
-			# ------------------------------------------------------------
 
 			$RegEdits = @();
 
@@ -280,10 +261,11 @@ function HardenCrypto {
 				$Ciphers_BaseKey="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
 
 				$DoUpdates_OutsideOfLoop=$False;
+
 				<# Setup the parent registry key (to setup cipher suites within) one time, reference it multiple times, then close it after #>
 				If (${DoUpdates_OutsideOfLoop} -Eq $True) {
 					New-Item -Path "${Ciphers_BaseKey}";
-					$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
+					$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey(("${Ciphers_BaseKey}" -replace "Registry::HKEY_LOCAL_MACHINE\\",""), $True));
 					$CipherSuites | ForEach-Object {
 						If (${RunMode_DryRun} -Eq $False) {
 							$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
@@ -401,7 +383,31 @@ function HardenCrypto {
 			# ------------------------------------------------------------
 
 
+			# ------------------------------------------------------------
+			#
+			# Registry Paths
+			#  |
+			#  |--> Define any Network Maps which will be required during the runtime
+			#  |
+			#  |--> Note: Registry Root-Keys are actually Network Maps to the "Registry" PSProvider
+			#
+
+			$PSDrives = @();
+			$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
+			$PSDrives += @{ Name="HKCC"; PSProvider="Registry"; Root="HKEY_CURRENT_CONFIG";   };
+			$PSDrives += @{ Name="HKCR"; PSProvider="Registry"; Root="HKEY_CLASSES_ROOT";     };
+			$PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
+			$PSDrives += @{ Name="HKCU"; PSProvider="Registry"; Root="HKEY_CURRENT_USER";     };
+			$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_PERFORMANCE_DATA"; };
+			$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_DYN_DATA";         };
+
+			# ------------------------------------------------------------
+			#
+			#	ForEach loop to apply Registry Changes
+			#
 			ForEach ($Each_RegEdit In $RegEdits) {
+
+				# ------------------------------
 				#
 				# Root-Keys
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
@@ -443,7 +449,7 @@ function HardenCrypto {
 							#   |--> Downside - DELETES all properties & child-keys if key already exists
 							#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 							#
-							Write-Host "  |-->  !! Creating Key";
+							Write-Host "  |-->  ${Update_Note} Creating Key";
 							If (${RunMode_DryRun} -Eq $False) {
 								New-Item -Force -Path ($Each_RegEdit.Path) | Out-Null;
 								If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $True) {
@@ -476,7 +482,7 @@ function HardenCrypto {
 							} Else {
 
 								# Update the Property
-								Write-Host "  |-->  !! Updating Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" to have value `"$($Each_Prop.Value)`" instead of (previous) value `"$($Each_Prop.LastValue)`" ) ${EchoDetails}";
+								Write-Host "  |-->  ${Update_Note} Updating Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" to have value `"$($Each_Prop.Value)`" instead of (previous) value `"$($Each_Prop.LastValue)`" ) ${EchoDetails}";
 								If (${RunMode_DryRun} -Eq $False) {
 									Set-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -Value ($Each_Prop.Value) | Out-Null;
 								}
@@ -488,7 +494,7 @@ function HardenCrypto {
 							If (($Each_Prop.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key
-								Write-Host "  |-->  !! Deleting Key";
+								Write-Host "  |-->  ${Update_Note} Deleting Key";
 								If (${RunMode_DryRun} -Eq $False) {
 									Remove-Item -Force -Recurse -LiteralPath ($Each_RegEdit.Path) -Confirm:$False | Out-Null;
 									If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) {
@@ -500,7 +506,7 @@ function HardenCrypto {
 							} Else {
 
 								# Delete the Property
-								Write-Host "  |-->  !! Deleting Property `"$($Each_Prop.Name)`" ${EchoDetails}";
+								Write-Host "  |-->  ${Update_Note} Deleting Property `"$($Each_Prop.Name)`" ${EchoDetails}";
 								If (${RunMode_DryRun} -Eq $False) {
 									Remove-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -Confirm:$False | Out-Null;
 								}
@@ -514,7 +520,7 @@ function HardenCrypto {
 						If (($Each_Prop.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Host "  |-->  !! Adding Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" and value `"$($Each_Prop.Value)`" ) ${EchoDetails}";
+							Write-Host "  |-->  ${Update_Note} Adding Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" and value `"$($Each_Prop.Value)`" ) ${EchoDetails}";
 							If (${RunMode_DryRun} -Eq $False) {
 								New-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -PropertyType ($Each_Prop.Type) -Value ($Each_Prop.Value) | Out-Null;
 							}
@@ -577,7 +583,7 @@ function HardenCrypto {
 				((Get-Item -Path "${Each_HKLM_Search}").PSChildName) | ForEach-Object {
 					<# Enforce strong encryption methodologies across all local .NET Framework installations #>
 					$RegEdits += @{
-						Path=(("${Each_HKLM_Search}" -Replace "\\v\*","")+("\${_}"));
+						Path=(("${Each_HKLM_Search}" -replace "\\v\*","")+("\${_}"));
 						Props=@(
 							@{
 								Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2 - Set to [ 0 ] to disable TLS 1.1/1.2, [ 1 ] to enable TLS 1.1/1.2.";
@@ -607,7 +613,7 @@ function HardenCrypto {
 				ForEach ($Each_RegEdit In $RegEdits) {
 
 					<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
-					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -Replace "Registry::HKEY_LOCAL_MACHINE\\","");
+					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -replace "Registry::HKEY_LOCAL_MACHINE\\","");
 					Write-Host "`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
 					$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
 
@@ -627,7 +633,7 @@ function HardenCrypto {
 							}
 
 							<# Update the Property #>
-							Write-Host "  |-->  !! Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )";
+							Write-Host "  |-->  ${Update_Note} Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )";
 							If (${RunMode_DryRun} -Eq $False) {
 								$OpenSubKey.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
 							}

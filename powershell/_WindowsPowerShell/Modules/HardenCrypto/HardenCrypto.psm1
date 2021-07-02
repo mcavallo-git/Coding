@@ -12,10 +12,10 @@
 function HardenCrypto {
 	Param(
 
-		[String[]]$AllowProtocols = @("TLS 1.1","TLS 1.2"),  <# @("SSL 2.0","SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") #>
+		[String[]]$AllowProtocols=@("TLS 1.2"),  <# @("SSL 2.0","SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") #>
 
 		[ValidateSet(512, 1024,2048,3072,4096)]
-		[Int]$DH_KeySize = 3072, <# Diffie-Hellman Key Size #>
+		[Int]$DH_KeySize=3072, <# Diffie-Hellman Key Size #>
 
 		[Switch]$DryRun,
 

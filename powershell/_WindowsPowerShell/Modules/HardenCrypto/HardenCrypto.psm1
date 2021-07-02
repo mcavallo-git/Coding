@@ -441,7 +441,7 @@ function HardenCrypto {
 				If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
 					If (($Each_Prop.Delete) -eq $False) {  # Property is NOT to be deleted
 						# Create the key
-						Write-Host "  |-->  ${Note_Prepend} Creating Key ${Note_Append}";
+						Write-Host "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
 						If (${RunMode_DryRun} -Eq $False) {
 							#
 							# New-Item -Force
@@ -482,7 +482,7 @@ function HardenCrypto {
 							} Else {
 
 								# Update the Property
-								Write-Host "  |-->  ${Note_Prepend} Updating Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" to have value `"$($Each_Prop.Value)`" instead of (previous) value `"$($Each_Prop.LastValue)`" ) ${Note_Append}";
+								Write-Host "  |-->  ${Note_Prepend}Updating Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" to have value `"$($Each_Prop.Value)`" instead of (previous) value `"$($Each_Prop.LastValue)`" )${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
 									Set-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -Value ($Each_Prop.Value) | Out-Null;
 								}
@@ -494,7 +494,7 @@ function HardenCrypto {
 							If (($Each_Prop.Name) -Eq "(Default)") {
 
 								# Delete the Registry-Key
-								Write-Host "  |-->  ${Note_Prepend} Deleting Key";
+								Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
 									Remove-Item -Force -Recurse -LiteralPath ($Each_RegEdit.Path) -Confirm:$False | Out-Null;
 									If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) {
@@ -506,7 +506,7 @@ function HardenCrypto {
 							} Else {
 
 								# Delete the Property
-								Write-Host "  |-->  ${Note_Prepend} Deleting Property `"$($Each_Prop.Name)`" ${Note_Append}";
+								Write-Host "  |-->  ${Note_Prepend}Deleting Property `"$($Each_Prop.Name)`"${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
 									Remove-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -Confirm:$False | Out-Null;
 								}
@@ -520,7 +520,7 @@ function HardenCrypto {
 						If (($Each_Prop.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Host "  |-->  ${Note_Prepend} Adding Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" and value `"$($Each_Prop.Value)`" ) ${Note_Append}";
+							Write-Host "  |-->  ${Note_Prepend}Adding Property `"$($Each_Prop.Name)`" (w/ type `"$($Each_Prop.Type)`" and value `"$($Each_Prop.Value)`" )${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
 								New-ItemProperty -Force -LiteralPath ($Each_RegEdit.Path) -Name ($Each_Prop.Name) -PropertyType ($Each_Prop.Type) -Value ($Each_Prop.Value) | Out-Null;
 							}
@@ -633,7 +633,7 @@ function HardenCrypto {
 							}
 
 							<# Update the Property #>
-							Write-Host "  |-->  ${Note_Prepend} Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )";
+							Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" (w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`" )${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
 								$OpenSubKey.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
 							}

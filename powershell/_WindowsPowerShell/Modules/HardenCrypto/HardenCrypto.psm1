@@ -56,10 +56,12 @@ function HardenCrypto {
 		# ------------------------------
 		# Dry Run (enabled/disabled)
 		$RunMode_DryRun = $False;
+		$Update_Note = "!!";
 		If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) {
 			$RunMode_DryRun = $True;
+			$Update_Note = "(Dry Run - Skipped)";
 			Write-Host "------------------------------------------------------------";
-			Write-Host "            ! ! ! RUNNING IN DRY RUN MODE ! ! !             "; 
+			Write-Host "            > > > RUNNING IN DRY RUN MODE < < <             "; 
 			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
 			Write-Host "------------------------------------------------------------";
 			Start-Sleep -Seconds 3;
@@ -141,11 +143,15 @@ function HardenCrypto {
 
 			#------------------------------------------------------------
 			#
-			# WinHTTP
+			# WinHTTP - Add support for TLS 1.2
 			#  |
-			#  |--> As per Microsoft Documentation @ [ https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#bkmk_winhttp ]
+			#  |--> Only required for earlier versions of Windows (Windows 7 / Windows Server 2012 & earlier) - Windows 8.1, Windows Server 2012 R2, Windows 10, Windows Server 2016, and later versions of Windows natively support TLS 1.2 for client-server communications over WinHTTP
 			#  |
-			#  |--> !!! Enable these settings on all clients running earlier versions of Windows before enabling TLS 1.2 and disabling the older protocols on the Configuration Manager servers. Otherwise, you can inadvertently orphan them !!!
+			#  |--> Reboot is required to apply changes to the Registry
+			#  |
+			#  |--> Enable these settings on all clients running earlier versions of Windows before enabling TLS 1.2 and disabling the older protocols on the Configuration Manager servers. Otherwise, you can inadvertently orphan them
+			#  |
+			#  |--> More info - Refer to Microsoft docs @ [ https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#bkmk_winhttp ]
 			#
 
 			$RegEdits += @{
@@ -182,8 +188,8 @@ function HardenCrypto {
 			$Protos.Keys | ForEach-Object {
 				<# Setup enabled/disabled HTTPS Protocols #>
 				$ProtocolName=(${_});
-				$Enabled=([int]($Protos[${_}]));
-				$DisabledByDefault=([int](-not (${Enabled})));
+				$Each_Enabled=([int]($Protos[${_}]));
+				$Each_DisabledByDefault=([int](-not (${Each_Enabled})));
 				<# [Protocols] Server-Side #>
 				$RegEdits += @{
 					Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\${ProtocolName}\Server";
@@ -192,14 +198,14 @@ function HardenCrypto {
 							Description="${ProtocolName} - Protocol (HTTPS), server-side - affects incoming connections to local IIS/FTP/etc. services - Set to [ 0 ] to disable, [ 1 ] to enable.";
 							Name="Enabled";
 							Type="DWord";
-							Value=${Enabled};
+							Value=${Each_Enabled};
 							Delete=$False;
 						},
 						@{
 							Description="${ProtocolName} - Protocol (HTTPS), server-side - affects incoming connections to local IIS/FTP/etc. services - Set to [ 1 ] to disable-by-default, [ 0 ] to enable-by-default.";
 							Name="DisabledByDefault";
 							Type="DWord";
-							Value=${DisabledByDefault};
+							Value=${Each_DisabledByDefault};
 							Delete=$False;
 						}
 					)
@@ -212,14 +218,14 @@ function HardenCrypto {
 							Description="${ProtocolName} - Protocol (HTTPS), client-side - affects a multitude of outgoing connections, including powershell invoke-webrequest/etc. calls - Set to [ 0 ] to disable, [ 1 ] to enable.";
 							Name="Enabled";
 							Type="DWord";
-							Value=${Enabled};
+							Value=${Each_Enabled};
 							Delete=$False;
 						},
 						@{
 							Description="${ProtocolName} - Protocol (HTTPS), client-side - affects a multitude of outgoing connections, including powershell invoke-webrequest/etc. calls - Set to [ 1 ] to disable-by-default, [ 0 ] to enable-by-default.";
 							Name="DisabledByDefault";
 							Type="DWord";
-							Value=${DisabledByDefault};
+							Value=${Each_DisabledByDefault};
 							Delete=$False;
 						}
 					)
@@ -249,31 +255,36 @@ function HardenCrypto {
 
 				#------------------------------------------------------------
 
-				$HTTPS_Ciphers=@();
+				$CipherSuites=@();
 
 				<# [Ciphers] Disable weak/insecure ciphers #>
-				$HTTPS_Ciphers+=@{ CipherName="DES 56/56";      Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="NULL";           Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC2 128/128";    Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC2 40/128";     Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC2 56/128";     Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC4 128/128";    Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC4 40/128";     Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC4 56/128";     Enabled=0; };
-				$HTTPS_Ciphers+=@{ CipherName="RC4 64/128";     Enabled=0; };
+				$Default=0;
+				$CipherSuites+=@{ CipherName="DES 56/56";      Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="NULL";           Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC2 128/128";    Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC2 40/128";     Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC2 56/128";     Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC4 128/128";    Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC4 40/128";     Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC4 56/128";     Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="RC4 64/128";     Enabled=${Default}; };
 
 				<# [Ciphers] Enable strong/secure ciphers #>
-				$HTTPS_Ciphers+=@{ CipherName="AES 128/128";    Enabled=1; };
-				$HTTPS_Ciphers+=@{ CipherName="AES 256/256";    Enabled=1; };
-				$HTTPS_Ciphers+=@{ CipherName="Triple DES 168"; Enabled=1; };
+				$Default=1;
+				$CipherSuites+=@{ CipherName="AES 128/128";    Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="AES 256/256";    Enabled=${Default}; };
+				$CipherSuites+=@{ CipherName="Triple DES 168"; Enabled=${Default}; };
 
-				$DoUpdates_OutsideOfLoop=$False;
+				# ------------------------------
 
-				<# Setup the parent registry key (to setup ciphers within) just once, then continue referencing it #>
+				$Ciphers_BaseKey="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
+
+				# $DoUpdates_OutsideOfLoop=$False;
+				<# Setup the parent registry key (to setup cipher suites within) one time, reference it multiple times, then close it after #>
 				If (${DoUpdates_OutsideOfLoop} -Eq $True) {
-					New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
+					New-Item -Path "${Ciphers_BaseKey}";
 					$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
-					${HTTPS_Ciphers} | ForEach-Object {
+					$CipherSuites | ForEach-Object {
 						If (${RunMode_DryRun} -Eq $False) {
 							$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
 						}
@@ -281,27 +292,32 @@ function HardenCrypto {
 					$RegistryKey_Ciphers.Close();
 				}
 
-				<# [Ciphers] Enable/Disable each HTTPS Ciphers #>
-				${HTTPS_Ciphers} | ForEach-Object {
-					$CipherName=(${_}.CipherName);
-					$Enabled=([int](${_}.Enabled));
+				<# [Ciphers] Enable/Disable each HTTPS Cipher Suite #>
+				$CipherSuites | ForEach-Object {
+
+					$Each_Name=(${_}.CipherName);
+					$Each_Enabled=([int](${_}.Enabled));
+
 					If (${DoUpdates_OutsideOfLoop} -Eq $True) {
-						New-ItemProperty -Force -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${CipherName}" -Name 'Enabled' -Value ${Enabled} -PropertyType 'DWord';
+						# ([Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine,${env:COMPUTERNAME})).CreateSubKey("SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}");
+						New-ItemProperty -Force -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}" -Name "Enabled" -Value ${Each_Enabled} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
 					} Else {
 						$RegEdits += @{
-							Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${CipherName}";
+							Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}";
 							Props=@(
 								@{
-									Description="${CipherName} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
+									Description="${Each_Name} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
 									Name="Enabled";
 									Type="DWord";
-									Value=${Enabled};
+									Value=${Each_Enabled};
 									Delete=$False;
 								}
 							)
 						};
 					}
+
 				}
+
 				# ------------------------------------------------------------
 
 			} Else {
@@ -327,20 +343,24 @@ function HardenCrypto {
 					$RegistryKey.CreateSubKey('RC4 64/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
 					$RegistryKey.CreateSubKey('Triple DES 168'); <# Workaround for creating registry keys with forward-slashes in their name #>
 					$RegistryKey.Close();
+
 					<# [Ciphers] Disable weak ciphers (cont.) #>
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128' -Name 'Enabled' -Value 0 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 128/128' -Name 'Enabled' -Value 1 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 256/256' -Name 'Enabled' -Value 1 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168' -Name 'Enabled' -Value 1 -PropertyType 'DWORD' | Select-Object -Property "Enabled","PSPath";
+					$Default=0;
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56'   -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL'        -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128' -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128' -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+
 					<# [Ciphers] Enable strong ciphers (cont.) #>
+					$Default=1;
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 128/128'    -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 256/256'    -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
+					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168' -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
 				}
 				# ------------------------------------------------------------
 
@@ -658,7 +678,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   docs.microsoft.com  |  "How to enable Transport Layer Security (TLS) 1.2 on clients - Configuration Manager | Microsoft Docs"  |  https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#configure-for-strong-cryptography
 #
-#   docs.microsoft.com  |  "Managing SSL/TLS Protocols and Cipher Suites for AD FS | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/manage-ssl-protocols-in-ad-fs
+#   docs.microsoft.com  |  "Managing SSL/TLS Protocols and Cipher Suites for AD FS | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/identity/ad-fs/operations/manage-ssl-protocols-in-ad-fs#using-powershell
 #
 #   docs.microsoft.com  |  "Protocols in TLS/SSL (Schannel SSP) - Implements versions of the TLS, DTLS and SSL protocols"  |  https://docs.microsoft.com/en-us/windows/win32/secauthn/protocols-in-tls-ssl--schannel-ssp-
 #

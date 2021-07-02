@@ -1196,8 +1196,6 @@ function SyncRegistry {
 						$GetEachItemProp = $Null;
 					};
 
-					$EchoDetails = "";
-
 					If ($GetEachItemProp -NE $Null) {  # Property exists
 
 						If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
@@ -1207,12 +1205,12 @@ function SyncRegistry {
 							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date) ${EchoDetails}";
+								Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date)";
 
 							} Else {
 
 								# Update the Property
-								Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" ) ${EchoDetails}";
+								Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`" )";
 								Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
 							}
@@ -1231,7 +1229,7 @@ function SyncRegistry {
 							} Else {
 
 								# Delete the Property
-								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`" ${EchoDetails}";
+								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
 								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
 
 							}
@@ -1243,13 +1241,13 @@ function SyncRegistry {
 						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" ) ${EchoDetails}";
+							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" (w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`" )";
 							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
 
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted) ${EchoDetails}";
+							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)";
 
 						}
 

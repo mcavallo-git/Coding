@@ -51,7 +51,6 @@ Function CheckPendingRestart() {
 			} Catch {
 				$PropValue = $Null;
 			};
-			$EchoDetails = "";
 			If ($PropValue -NE $Null) { # Registry-Key-Property exists
 				If ($EachRegEdit.RebootIfValueExists -Eq $True) {
 					$RebootRequired = $True;

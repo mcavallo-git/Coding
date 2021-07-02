@@ -611,11 +611,11 @@ function HardenCrypto {
 					<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
 					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -replace "Registry::HKEY_LOCAL_MACHINE\\","");
 					Write-Host "`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
-					$OpenSubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
+					$Each_SubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
 
 					ForEach ($Each_Prop In ${Each_RegEdit}.Props) {
 
-						$Each_Prop.LastValue = ($OpenSubKey.GetValue("$(${Each_Prop}.Name)"));
+						$Each_Prop.LastValue = (${Each_SubKey}.GetValue("$(${Each_Prop}.Name)"));
 
 						If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
@@ -631,7 +631,7 @@ function HardenCrypto {
 							<# Update the Property #>
 							Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
-								$OpenSubKey.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
+								${Each_SubKey}.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
 							}
 
 						}
@@ -639,7 +639,7 @@ function HardenCrypto {
 					}
 
 					<# Close the key & flush any updated contents therein to the disk #>
-					$OpenSubKey.Close();
+					${Each_SubKey}.Close();
 
 				}
 

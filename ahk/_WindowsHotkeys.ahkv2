@@ -1246,7 +1246,7 @@ WheelRight::
 #c::
 	OpenChrome()
 	Return
-#If WinActive("ahk_exe Overwatch.exe")
+#If WinExist("ahk_exe Overwatch.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Click rapidly

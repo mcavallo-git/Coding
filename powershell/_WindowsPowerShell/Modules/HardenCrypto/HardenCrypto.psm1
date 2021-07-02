@@ -428,11 +428,6 @@ function HardenCrypto {
 								$Each_Child_Key = ((${KeysToCreate}[$i] -split "\\")[-1]);
 								$Each_Parent_Key = ((${KeysToCreate}[$i] -split "\\")[-2]);
 								$Each_Root_Key = (${KeysToCreate}[$i] -replace "\\$((${KeysToCreate}[$i] -split "\\")[-2])\\$((${KeysToCreate}[$i] -split "\\")[-1])$","");
-								# Write-Host "------------------------------"; `
-								# Write-Host "KeysToCreate[$i]=[ $(${KeysToCreate}[$i]) ]"; `
-								# Write-Host "Each_Child_Key=[ ${Each_Child_Key} ]"; `
-								# Write-Host "Each_Parent_Key=[ ${Each_Parent_Key} ]"; `
-								# Write-Host "Each_Root_Key=[ ${Each_Root_Key} ]";
 								If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $False) { # Key doesn't exist (yet)
 									Write-Host "  |-->  ${Note_Prepend}Creating Key [ $(${KeysToCreate}[$i]) ]${Note_Append}";
 									If (${RunMode_DryRun} -Eq $False) {
@@ -451,7 +446,6 @@ function HardenCrypto {
 									}
 								}
 							}
-							Write-Host "------------------------------";
 
 						} Else {
 							# Bulk create all parent keys (in one fell swoop) (does NOT handle forward slashes in key names)

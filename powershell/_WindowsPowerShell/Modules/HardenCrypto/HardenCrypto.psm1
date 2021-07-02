@@ -141,6 +141,7 @@ function HardenCrypto {
 
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
+				Delete=$False;
 				Props=@(
 					@{
 						Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
@@ -153,6 +154,7 @@ function HardenCrypto {
 			};
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
+				Delete=$False;
 				Props=@(
 					@{
 						Description="WinHTTP DefaultSecureProtocols setting - Note that the Configuration Manager supports the most secure protocol that Windows negotiates between both devices - Set to [ 0xA00 to only allow TLS 1.1/1.2 ], [ 0x0A0 to allow SSL 3.0 & TLS 1.0 ], or [ 0xAA0 to allow SSL 3.0 & TLS 1.0/1.1/1.2 (other two options combined) ]";
@@ -178,6 +180,7 @@ function HardenCrypto {
 				<# [Protocols] Server-Side #>
 				$RegEdits += @{
 					Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\${ProtocolName}\Server";
+					Delete=$False;
 					Props=@(
 						@{
 							Description="${ProtocolName} - Protocol (HTTPS), server-side - affects incoming connections to local IIS/FTP/etc. services - Set to [ 0 ] to disable, [ 1 ] to enable.";
@@ -198,6 +201,7 @@ function HardenCrypto {
 				<# [Protocols] Client-Side #>
 				$RegEdits += @{
 					Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\${ProtocolName}\Client";
+					Delete=$False;
 					Props=@(
 						@{
 							Description="${ProtocolName} - Protocol (HTTPS), client-side - affects a multitude of outgoing connections, including powershell invoke-webrequest/etc. calls - Set to [ 0 ] to disable, [ 1 ] to enable.";
@@ -220,6 +224,7 @@ function HardenCrypto {
 			<# [Algorithms] Diffie-Hellman #>
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman";
+				Delete=$False;
 				Props=@(
 					@{
 						Description="Diffie-Hellman key size (in bits - the higher it is, the more secure the encryption is with outgoing data, but the longer it will take the server to encrypt it as well)";
@@ -265,6 +270,7 @@ function HardenCrypto {
 				$Each_Enabled=([int](${_}.Enabled));
 				$RegEdits += @{
 					Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}";
+					Delete=$False;
 					Props=@(
 						@{
 							Description="${Each_Name} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
@@ -412,23 +418,57 @@ function HardenCrypto {
 					}
 				}
 
-				# Check for each Key
-				If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist (yet)
-					If ((${Each_Prop}.Delete) -eq $False) {  # Property is NOT to be deleted
+
+				# ------------------------------------------------------------
+
+				If ((${Each_RegEdit}.Delete) -Eq $True) {
+					
+					# Key SHOULD be deleted
+
+					# Check for the key
+					If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist
+						
+							Write-Host "  |-->  Skipping Key (already deleted)";
+
+					} Else { # Key Exists
+
+						# Delete the key
+						Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
+						If (${RunMode_DryRun} -Eq $False) {
+							Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
+							If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) {
+								Write-Host "  |-->  Deleted Key";
+								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+							}
+						}
+
+					}
+
+				} Else { # ------------------------------------------------------------
+
+					# Key is NOT to be deleted
+
+					# Check for the key
+					If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist
+
 						# Create the key
-						# If ((${Each_RegEdit}.Path).Contains("/")) {
 						If ((${Each_RegEdit}.Path).Contains("\")) {
+
 							# Iteratively break apart the registry key (to be created) into its parent registry keys (handles forward slashes in key names)
 							$KeysToCreate=@("$(${Each_RegEdit}.Path)");
 							While ((${KeysToCreate}[-1]).Contains("\")) {
 								$KeysToCreate+=("$(${KeysToCreate}[-1])" -replace "\\$(("$(${KeysToCreate}[-1])" -split "\\")[-1])$","");
 							};
+
 							# Iteratively create all parent registry keys (handles forward slashes in key names)
 							For ($i=(${KeysToCreate}.Count - 3); $i -GE 0; $i-- ) { <# Only traverse to the third to lowest item (i=2 and higher)  #>
+
 								$Each_Child_Key = ((${KeysToCreate}[$i] -split "\\")[-1]);
 								$Each_Parent_Key = ((${KeysToCreate}[$i] -split "\\")[-2]);
 								$Each_Root_Key = (${KeysToCreate}[$i] -replace "\\$((${KeysToCreate}[$i] -split "\\")[-2])\\$((${KeysToCreate}[$i] -split "\\")[-1])$","");
-								If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $False) { # Key doesn't exist (yet)
+
+								If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $False) { # Key doesn't exist
+
 									Write-Host "  |-->  ${Note_Prepend}Creating Key [ $(${KeysToCreate}[$i]) ]${Note_Append}";
 									If (${RunMode_DryRun} -Eq $False) {
 										#
@@ -443,11 +483,15 @@ function HardenCrypto {
 										$RegistryKey=((Get-Item -Path "${Each_Root_Key}").OpenSubKey("${Each_Parent_Key}", $True));
 										$RegistryKey.CreateSubKey("${Each_Child_Key}");  <# Workaround for creating registry keys with forward-slashes in their name #>
 										$RegistryKey.Close();
+
 									}
+
 								} Else {
+
 									Write-Host "  |-->  Skipping creation of key [ $(${KeysToCreate}[$i]) ] (already exists)";
 
 								}
+
 							}
 
 						} Else {
@@ -503,7 +547,7 @@ function HardenCrypto {
 
 							If ((${Each_Prop}.Name) -Eq "(Default)") {
 
-								# Delete the Registry-Key
+								# Delete the Key
 								Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
 									Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
@@ -588,6 +632,7 @@ function HardenCrypto {
 					<# Enforce strong encryption methodologies across all local .NET Framework installations #>
 					$RegEdits += @{
 						Path=(("${Each_HKLM_Search}" -replace "\\v\*","")+("\${_}"));
+						Delete=$False;
 						Props=@(
 							@{
 								Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2. Set the SchUseStrongCrypto registry setting to DWORD:00000001 - This value disables the RC4 stream cipher and requires a restart. For more information about this setting, see Microsoft Security Advisory 296038 @ [ https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/2960358 ].";

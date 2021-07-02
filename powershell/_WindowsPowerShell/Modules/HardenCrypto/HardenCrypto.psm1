@@ -435,29 +435,29 @@ function HardenCrypto {
 					}
 				}
 
-				Write-Host "`n$($Each_RegEdit.Path)";
-
-				ForEach ($Each_Prop In $Each_RegEdit.Props) {
-
-					# Check for each Key
-					If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
-						If (($Each_Prop.Delete) -eq $False) {  # Property isn't to-be-deleted
-							# Create the key
+				# Check for each Key
+				If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
+					If (($Each_Prop.Delete) -eq $False) {  # Property is NOT to be deleted
+						# Create the key
+						Write-Host "  |-->  ${Update_Note} Creating Key";
+						If (${RunMode_DryRun} -Eq $False) {
 							#
 							# New-Item -Force
-							#   |--> Upside - Creates ALL parent registry keys
-							#   |--> Downside - DELETES all properties & child-keys if key already exists
-							#   |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
+							#   |--> Upside to "-Force" - Creates ALL parent registry keys
+							#   |--> Downside to "-Force" - DELETES all properties & child-keys if key already exists
+							#     |--> Takeaway - Always use  [ Test-Path ... ]  to verify registry keys don't exist before using  [ New-Item -Force ... ]  to create the key
 							#
-							Write-Host "  |-->  ${Update_Note} Creating Key";
-							If (${RunMode_DryRun} -Eq $False) {
-								New-Item -Force -Path ($Each_RegEdit.Path) | Out-Null;
-								If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $True) {
-									Write-Host "  |-->  Created Key";
-								}
+							New-Item -Force -Path ($Each_RegEdit.Path) | Out-Null;
+							If ((Test-Path -LiteralPath ($Each_RegEdit.Path)) -Eq $True) {
+								Write-Host "  |-->  Created Key";
 							}
 						}
 					}
+				}
+
+				Write-Host "`n$($Each_RegEdit.Path)";
+
+				ForEach ($Each_Prop In $Each_RegEdit.Props) {
 
 					# Check for each Property
 					Try {

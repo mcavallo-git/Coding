@@ -460,6 +460,8 @@ function HardenCrypto {
 					}
 				}
 
+				Start-Sleep -Seconds 2;
+
 				Write-Host "`n$($Each_RegEdit.Path)";
 
 				ForEach ($Each_Prop In $Each_RegEdit.Props) {

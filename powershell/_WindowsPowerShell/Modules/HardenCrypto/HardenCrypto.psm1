@@ -234,89 +234,65 @@ function HardenCrypto {
 
 			#------------------------------------------------------------
 			#
-			#  HTTPS Ciphers
+			#  HTTPS Cipher Suites
 			#
-			If ($True) {
-			# If ($False) {
 
-				#------------------------------------------------------------
+			$CipherSuites=@();
 
-				$CipherSuites=@();
+			<# [Ciphers] Disable weak/insecure ciphers #>
+			$Default=0;
+			$CipherSuites+=@{ CipherName="DES 56/56";      Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="NULL";           Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC2 128/128";    Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC2 40/128";     Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC2 56/128";     Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC4 128/128";    Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC4 40/128";     Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC4 56/128";     Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="RC4 64/128";     Enabled=${Default}; };
 
-				<# [Ciphers] Disable weak/insecure ciphers #>
-				$Default=0;
-				$CipherSuites+=@{ CipherName="DES 56/56";      Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="NULL";           Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC2 128/128";    Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC2 40/128";     Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC2 56/128";     Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC4 128/128";    Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC4 40/128";     Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC4 56/128";     Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="RC4 64/128";     Enabled=${Default}; };
+			<# [Ciphers] Enable strong/secure ciphers #>
+			$Default=1;
+			$CipherSuites+=@{ CipherName="AES 128/128";    Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="AES 256/256";    Enabled=${Default}; };
+			$CipherSuites+=@{ CipherName="Triple DES 168"; Enabled=${Default}; };
+			
+			<# [Ciphers] Enable/Disable each HTTPS Cipher Suite #>
+			$CipherSuites | ForEach-Object {
+				$Each_Name=(${_}.CipherName);
+				$Each_Enabled=([int](${_}.Enabled));
+				$RegEdits += @{
+					Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}";
+					Props=@(
+						@{
+							Description="${Each_Name} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
+							Name="Enabled";
+							Type="DWord";
+							Value=${Each_Enabled};
+							Delete=$False;
+						}
+					)
+				};
+			}
 
-				<# [Ciphers] Enable strong/secure ciphers #>
-				$Default=1;
-				$CipherSuites+=@{ CipherName="AES 128/128";    Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="AES 256/256";    Enabled=${Default}; };
-				$CipherSuites+=@{ CipherName="Triple DES 168"; Enabled=${Default}; };
 
-				# ------------------------------
+			# ------------------------------------------------------------
+			
+			If ($False) {
 
 				$Ciphers_BaseKey="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
 
-				$DoUpdates_OutsideOfLoop=$False;
-
-				<# Setup the parent registry key (to setup cipher suites within) one time, reference it multiple times, then close it after #>
-				If (${DoUpdates_OutsideOfLoop} -Eq $True) {
-					New-Item -Path "${Ciphers_BaseKey}";
-					$RegistryKey_Ciphers = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey(("${Ciphers_BaseKey}" -replace "Registry::HKEY_LOCAL_MACHINE\\",""), $True));
-					$CipherSuites | ForEach-Object {
-						If (${RunMode_DryRun} -Eq $False) {
-							$RegistryKey_Ciphers.CreateSubKey(${_}.CipherName); <# Workaround for creating registry keys with forward-slashes in their name #>
-						}
-					};
-					$RegistryKey_Ciphers.Close();
-				}
-
-				<# [Ciphers] Enable/Disable each HTTPS Cipher Suite #>
-				$CipherSuites | ForEach-Object {
-
-					$Each_Name=(${_}.CipherName);
-					$Each_Enabled=([int](${_}.Enabled));
-
-					If (${DoUpdates_OutsideOfLoop} -Eq $True) {
-						# ([Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine,${env:COMPUTERNAME})).CreateSubKey("SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}");
-						New-ItemProperty -Force -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}" -Name "Enabled" -Value ${Each_Enabled} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					} Else {
-						$RegEdits += @{
-							Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\${Each_Name}";
-							Props=@(
-								@{
-									Description="${Each_Name} - Cipher Suite (HTTPS) - Set to [ 0 ] to disable, [ 1 ] to enable.";
-									Name="Enabled";
-									Type="DWord";
-									Value=${Each_Enabled};
-									Delete=$False;
-								}
-							)
-						};
-					}
-
-				}
-
-				# ------------------------------------------------------------
-
-			} Else {
-
-				# ------------------------------------------------------------
+				# ------------------------------
 				If (${RunMode_DryRun} -Eq $False) {
 					<# [Ciphers] Disable weak ciphers #>
-					If ((Test-Path -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers")) -Eq $False) {
+					If ((Test-Path -LiteralPath ("${Ciphers_BaseKey}")) -Eq $False) {
+					# If ((Test-Path -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers")) -Eq $False) {
 						# Key doesn't exist (yet)
-						New-Item -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers';
+						New-Item -Path "${Ciphers_BaseKey}";
+						# New-Item -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
 					}
-					$RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
+					# $RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
+					$RegistryKey = ((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey(("${Ciphers_BaseKey}" -replace "Registry::HKEY_LOCAL_MACHINE\\",""), $True))
 					$RegistryKey.CreateSubKey('AES 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
 					$RegistryKey.CreateSubKey('AES 256/256');    <# Workaround for creating registry keys with forward-slashes in their name #>
 					$RegistryKey.CreateSubKey('DES 56/56');      <# Workaround for creating registry keys with forward-slashes in their name #>
@@ -412,6 +388,8 @@ function HardenCrypto {
 			#
 			ForEach ($Each_RegEdit In $RegEdits) {
 
+				Write-Host "`n$($Each_RegEdit.Path)";
+
 				# ------------------------------
 				#
 				# Root-Keys
@@ -459,10 +437,6 @@ function HardenCrypto {
 						}
 					}
 				}
-
-				Start-Sleep -Seconds 2;
-
-				Write-Host "`n$($Each_RegEdit.Path)";
 
 				ForEach ($Each_Prop In $Each_RegEdit.Props) {
 

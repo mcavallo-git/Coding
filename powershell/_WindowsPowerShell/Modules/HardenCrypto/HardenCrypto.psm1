@@ -279,7 +279,7 @@ function HardenCrypto {
 
 				$Ciphers_BaseKey="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers";
 
-				# $DoUpdates_OutsideOfLoop=$False;
+				$DoUpdates_OutsideOfLoop=$False;
 				<# Setup the parent registry key (to setup cipher suites within) one time, reference it multiple times, then close it after #>
 				If (${DoUpdates_OutsideOfLoop} -Eq $True) {
 					New-Item -Path "${Ciphers_BaseKey}";

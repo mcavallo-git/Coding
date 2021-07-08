@@ -1008,7 +1008,22 @@ function SyncRegistry {
 		};
 
 
-		# Windows Update - Force-pull from Windows instaed of local server
+		# Taskbar - Hide News & Interests
+		$RegEdits += @{
+			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Feeds";
+			Props=@(
+				@{
+					Description="News & Interests on Taskbar in Windows 10 (Show/Hide). Set to [ 0 ] for 'Show icon and text (Default)', set to [ 1 ] for 'Show icon only', set to [ 2 ] for 'Turn off'.";
+					Name="ShellFeedsTaskbarViewMode";
+					Type="DWord";
+					Value=2;
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Windows Update - Force-pull from Windows instead of local server
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
 			Props=@(
@@ -1258,6 +1273,7 @@ function SyncRegistry {
 			}
 
 		}
+
 	}
 
 	Write-Output "`n`n  Press any key to exit...";
@@ -1368,6 +1384,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.tenforums.com  |  "How to Enable or Disable Aero Shake in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4417-how-enable-disable-aero-shake-windows-10-a.html
 #
 #   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
+#
+#   www.thewindowsclub.net  |  "Enable or Disable News and Interests on Taskbar in Windows 10"  |  https://www.thewindowsclub.com/enable-or-disable-news-and-interests-on-taskbar
 #
 #   www.thewindowsclub.net  |  "Processor Scheduling in Windows 10 for better performance"  |  https://www.thewindowsclub.com/processor-scheduling-in-windows-7-8
 #

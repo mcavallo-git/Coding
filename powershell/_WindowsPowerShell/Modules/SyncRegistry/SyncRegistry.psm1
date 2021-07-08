@@ -43,9 +43,7 @@ function SyncRegistry {
 			If (Get-Item "Registry::HKEY_USERS\${UserSID}") {
 				$HKEY_USERS_SID_OR_CURRENT_USER="HKEY_USERS\${UserSID}";
 			} Else {
-				Write-Output "";
-				Write-Output "Error - Base registry key not found for User SID @ [ Registry::HKEY_USERS\${UserSID} ]";
-				Write-Output "`n";
+				Write-Output "`n`nError - Base registry key not found for User SID @ [ Registry::HKEY_USERS\${UserSID} ]`n`n";
 				Exit 1;
 			}
 		}

@@ -1,5 +1,8 @@
 function SyncRegistry {
 	Param(
+
+		[String]$UserSID=""   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- to acquire SID, run the following command in a powershell prompt (making sure to run as the user you want to update the registry for):   ((whoami /user /fo table /nh) -split ' ')
+
 	)
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
@@ -31,6 +34,21 @@ function SyncRegistry {
 	} Else {
 		<# Script >> IS << running as Admin - Continue #>
 
+
+		<# Check if using HKEY_CURRENT_USERS or HKEY_USERS/[SID] #>
+		$HKEY_USERS_SID_OR_CURRENT_USER="";
+		If ("${UserSID}" -Eq "") {
+			$HKEY_USERS_SID_OR_CURRENT_USER="HKEY_CURRENT_USER";
+		} Else {
+			If (Get-Item "Registry::HKEY_USERS\${UserSID}") {
+				$HKEY_USERS_SID_OR_CURRENT_USER="HKEY_USERS\${UserSID}";
+			} Else {
+				Write-Output "";
+				Write-Output "Error - Base registry key not found for User SID @ [ Registry::HKEY_USERS\${UserSID} ]";
+				Write-Output "`n";
+				Exit 1;
+			}
+		}
 
 		# ------------------------------------------------------------
 		# TO-DO
@@ -1278,6 +1296,8 @@ function SyncRegistry {
 
 	Write-Output "`n`n  Press any key to exit...";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+
+	Return;
 
 }
 

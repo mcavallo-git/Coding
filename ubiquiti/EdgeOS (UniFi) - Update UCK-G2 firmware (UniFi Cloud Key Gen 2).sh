@@ -20,8 +20,8 @@ ubnt-systool fwupdate "${FIRMWARE_URL}";
 #
 # Citation(s)
 #
-#   www.ui.com  |  "Ubiquiti - Downloads"  |  https://www.ui.com/download/unifi/unifi-cloud-key-gen2
-#
 #   help.ui.com  |  "UniFi - UDM/UCK: How to Change the UniFi Network Version Using SSH – Ubiquiti Support and Help Center"  |  https://help.ui.com/hc/en-us/articles/216655518-UniFi-UDM-UCK-How-to-Change-the-Controller-Version-Using-SSH-
+#
+#   www.ui.com  |  "Ubiquiti - Downloads"  |  https://www.ui.com/download/unifi/unifi-cloud-key-gen2
 #
 # ------------------------------------------------------------

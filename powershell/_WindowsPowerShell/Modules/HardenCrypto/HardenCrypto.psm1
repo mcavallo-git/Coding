@@ -113,19 +113,38 @@ function HardenCrypto {
 
 			$RegEdits = @();
 
-			#------------------------------------------------------------
+			# ------------------------------------------------------------
 			#
-			# WinHTTP - Add support for TLS 1.2
-			#  |
-			#  |--> Only required for earlier versions of Windows (Windows 7 / Windows Server 2012 & earlier) - Windows 8.1, Windows Server 2012 R2, Windows 10, Windows Server 2016, and later versions of Windows natively support TLS 1.2 for client-server communications over WinHTTP
-			#  |
-			#  |--> Reboot is required to apply changes to the Registry
-			#  |
-			#  |--> Enable these settings on all clients running earlier versions of Windows before enabling TLS 1.2 and disabling the older protocols on the Configuration Manager servers. Otherwise, you can inadvertently orphan them
-			#  |
-			#  |--> More info - Refer to Microsoft docs @ [ https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#bkmk_winhttp ]
+			#  HTTPS Protocols
 			#
 
+			$Protos=@{};
+
+			$All_Protocols = @();
+
+			${All_Protocols} += @("SSL 2.0");
+			${All_Protocols} += @("SSL 3.0");
+			${All_Protocols} += @("TLS 1.0");
+			${All_Protocols} += @("TLS 1.1");
+			${All_Protocols} += @("TLS 1.2");
+
+			${All_Protocols} | ForEach-Object {
+				$Protos["${_}"] = If (${AllowProtocols}.Contains("${_}")) { $True; } Else { $False; };
+			}
+
+
+			# ------------------------------
+			#
+			#  HTTPS - WinHTTP - Add support for TLS 1.2
+			#   |
+			#   |--> Only required for earlier versions of Windows (Windows 7 / Windows Server 2012 & earlier) - Windows 8.1, Windows Server 2012 R2, Windows 10, Windows Server 2016, and later versions of Windows natively support TLS 1.2 for client-server communications over WinHTTP
+			#   |
+			#   |--> !!! Reboot is required to apply Registry changes (old OSes only - Windows 7 / Windows Server 2012 & earlier)
+			#   |
+			#   |--> Enable these settings on all clients running earlier versions of Windows BEFORE enabling TLS 1.2 and disabling the older protocols on the Configuration Manager servers. Otherwise, you can inadvertently orphan them
+			#   |
+			#   |--> More info @ [ https://docs.microsoft.com/en-us/mem/configmgr/core/plan-design/security/enable-tls-1-2-client#bkmk_winhttp ]
+			#
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Internet Settings\WinHttp";
 				Delete=$False;
@@ -153,28 +172,13 @@ function HardenCrypto {
 				)
 			};
 
-
-			#------------------------------------------------------------
+			# ------------------------------
 			#
-			#  HTTPS Protocols
+			#  HTTPS - Update protocols used for incoming requests (IIS Servers) & outgoing requests (all else), alike
 			#
 
-			$Protos=@{};
-
-			$All_Protocols = @();
-
-			${All_Protocols} += @("SSL 2.0");
-			${All_Protocols} += @("SSL 3.0");
-			${All_Protocols} += @("TLS 1.0");
-			${All_Protocols} += @("TLS 1.1");
-			${All_Protocols} += @("TLS 1.2");
-
-			${All_Protocols} | ForEach-Object {
-				$Protos["${_}"] = If (${AllowProtocols}.Contains("${_}")) { $True; } Else { $False; };
-			}
-
+			<# [Protocols] Enable/Disable each HTTPS Protocol from both Client & Server perspectives #>
 			$Protos.Keys | ForEach-Object {
-				<# Setup enabled/disabled HTTPS Protocols #>
 				$ProtocolName=(${_});
 				$Each_Enabled=([int]($Protos[${_}]));
 				$Each_DisabledByDefault=([int](-not (${Each_Enabled})));
@@ -221,21 +225,6 @@ function HardenCrypto {
 					)
 				};
 			}
-
-			<# [Algorithms] Diffie-Hellman #>
-			$RegEdits += @{
-				Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman";
-				Delete=$False;
-				Props=@(
-					@{
-						Description="Diffie-Hellman key size (in bits - the higher it is, the more secure the encryption is with outgoing data, but the longer it will take the server to encrypt it as well)";
-						Name="ClientMinKeyBitLength";
-						Type="DWord";
-						Value=${DH_KeySize};
-						Delete=$False;
-					}
-				)
-			};
 
 
 			#------------------------------------------------------------
@@ -285,6 +274,23 @@ function HardenCrypto {
 					)
 				};
 			}
+
+			# ------------------------------------------------------------
+
+			<# [Algorithms] Diffie-Hellman #>
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\KeyExchangeAlgorithms\Diffie-Hellman";
+				Delete=$False;
+				Props=@(
+					@{
+						Description="Diffie-Hellman key size (in bits - the higher it is, the more secure the encryption is with outgoing data, but the longer it will take the server to encrypt it as well)";
+						Name="ClientMinKeyBitLength";
+						Type="DWord";
+						Value=${DH_KeySize};
+						Delete=$False;
+					}
+				)
+			};
 
 
 			# ------------------------------------------------------------
@@ -376,12 +382,12 @@ function HardenCrypto {
 				# ------------------------------------------------------------
 
 				If ((${Each_RegEdit}.Delete) -Eq $True) {
-					
+
 					# Key SHOULD be deleted
 
 					# Check for the key
 					If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist
-						
+
 							Write-Host "  |-->  Skipping deletion of key (already deleted)";
 
 					} Else { # Key Exists

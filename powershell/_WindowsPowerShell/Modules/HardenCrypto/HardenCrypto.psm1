@@ -84,8 +84,6 @@ function HardenCrypto {
 		DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 		DoLogging -LogFile "${LogFile}" -Text "HardenCrypto - Update HTTPS Protocols & Cipher Suites";
 		DoLogging -LogFile "${LogFile}" -Text "Logfile: [ ${LogFile} ]";
-		DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
-
 
 		# ------------------------------
 		# Dry Run (enabled/disabled)
@@ -99,11 +97,9 @@ function HardenCrypto {
 			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 			DoLogging -LogFile "${LogFile}" -Text "            > > > RUNNING IN DRY RUN MODE < < <             "; 
 			DoLogging -LogFile "${LogFile}" -Text "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
-			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 			# Start-Sleep -Seconds 3;
-		} Else {
-			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 		}
+		DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 
 		# ------------------------------
 		# Skip Confirmation Checks/Gates (enabled/disabled)
@@ -128,21 +124,21 @@ function HardenCrypto {
 		If (${RunMode_SkipConfirm} -Eq $False) {
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$GateA_ConfirmCharacter = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
-			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`n";
-			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`"";
-			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`n";
-			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "${Confirmation_GateA}" -BackgroundColor "Black" -ForegroundColor "Yellow";
-			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`n`n";
+			DoLogging -LogFile "${LogFile}" -Text "";
+			DoLogging -LogFile "${LogFile}" -Text "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`"";
+			DoLogging -LogFile "${LogFile}" -Text "";
+			DoLogging -LogFile "${LogFile}" -Text "${Confirmation_GateA}" -BackgroundColor "Black" -ForegroundColor "Yellow";
+			DoLogging -LogFile "${LogFile}" -Text "";
 			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "Confirm: Press the `"" -ForegroundColor "Yellow";
 			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "${GateA_ConfirmCharacter}" -ForegroundColor "Green";
 			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`" key to confirm and continue:  " -ForegroundColor "Yellow";
 			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); DoLogging -LogFile "${LogFile}" -Text "$(${UserKeyPress}.Character)`n";
 			$UserConfirmed_GateA = ((${UserKeyPress}.Character) -Eq (${GateA_ConfirmCharacter}));
 			If (${UserConfirmed_GateA} -NE $True) {
-				DoLogging -LogFile "${LogFile}" -Text "Error: User confirmation unsuccessful (expected key `"${GateA_ConfirmCharacter}`", received key `"$(${UserKeyPress}.Character)`")";
+				DoLogging -LogFile "${LogFile}" -Text "Error: User confirmation failed (expected keypress `"${GateA_ConfirmCharacter}`", received keypress `"$(${UserKeyPress}.Character)`")";
 			}
 		} Else {
-			DoLogging -LogFile "${LogFile}" -Text "`nSkipping (auto-accepting) confirmation message [ ${Confirmation_GateA} ]";
+			DoLogging -LogFile "${LogFile}" -Text "Skipping (auto-accepting) confirmation message [ ${Confirmation_GateA} ]";
 		}
 
 
@@ -388,7 +384,8 @@ function HardenCrypto {
 			#
 			ForEach ($Each_RegEdit In $RegEdits) {
 
-				DoLogging -LogFile "${LogFile}" -Text "`n$(${Each_RegEdit}.Path)";
+				DoLogging -LogFile "${LogFile}" -Text "";
+				DoLogging -LogFile "${LogFile}" -Text "$(${Each_RegEdit}.Path)";
 
 				# ------------------------------
 				#
@@ -401,7 +398,8 @@ function HardenCrypto {
 					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
-						DoLogging -LogFile "${LogFile}" -Text "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
+						DoLogging -LogFile "${LogFile}" -Text "";
+						DoLogging -LogFile "${LogFile}" -Text "Info:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
 						ForEach ($Each_PSDrive In $PSDrives) {
 							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
@@ -599,7 +597,8 @@ function HardenCrypto {
 
 			}
 
-			DoLogging -LogFile "${LogFile}" -Text "`n------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "";
+			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 
 
 			# ------------------------------------------------------------
@@ -670,7 +669,8 @@ function HardenCrypto {
 
 					<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
 					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -replace "^((?!\\).)+\\","");
-					DoLogging -LogFile "${LogFile}" -Text "`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
+					DoLogging -LogFile "${LogFile}" -Text "";
+					DoLogging -LogFile "${LogFile}" -Text "${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
 					$Each_SubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
 
 					ForEach (${Each_Prop} In ${Each_RegEdit}.Props) {
@@ -705,7 +705,8 @@ function HardenCrypto {
 
 			}
 
-			DoLogging -LogFile "${LogFile}" -Text "`n------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "";
+			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 
 
 		}

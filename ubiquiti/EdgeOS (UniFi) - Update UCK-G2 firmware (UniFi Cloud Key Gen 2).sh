@@ -14,8 +14,8 @@ if [ 1 -eq 1 ]; then
 
 # Firmware - UniFi OS - Cloud Key Gen2 x.xx.xx
 
-FIRMWARE_URL="https://fw-download.ubnt.com/data/unifi-cloudkey/e9cc-UCKG2-2.1.11-1cf4bd8262b64919ac100cc5b69dc0b1.bin";  # v2.1.11
-# FIRMWARE_URL="https://fw-download.ubnt.com/data/unifi-cloudkey/4724-UCKG2-2.1.7-11ca020dba684770b2ebe6a832cb9911.bin";  # v2.1.7
+# FIRMWARE_URL="https://fw-download.ubnt.com/data/unifi-cloudkey/e9cc-UCKG2-2.1.11-1cf4bd8262b64919ac100cc5b69dc0b1.bin";  # v2.1.11
+FIRMWARE_URL="https://fw-download.ubnt.com/data/unifi-cloudkey/4724-UCKG2-2.1.7-11ca020dba684770b2ebe6a832cb9911.bin";  # v2.1.7
 # FIRMWARE_URL="https://fw-download.ubnt.com/data/unifi-cloudkey/fbdc-UCKG2-2.0.27-2ceea428cab74b96bd456d67412b9a6c.bin";  # v2.0.27
 
 ubnt-systool fwupdate "${FIRMWARE_URL}";

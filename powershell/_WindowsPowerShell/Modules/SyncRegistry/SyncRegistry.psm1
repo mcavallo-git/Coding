@@ -41,15 +41,13 @@ function SyncRegistry {
 		$HKEY_USERS_SID_OR_CURRENT_USER="";
 		If ("${UserSID}" -Eq "") {
 			$HKEY_USERS_SID_OR_CURRENT_USER="HKEY_CURRENT_USER";
-		} Else {
-			If (Get-Item "Registry::HKEY_USERS\${UserSID}") {
+		} ElseIf (Get-Item "Registry::HKEY_USERS\${UserSID}") {
 				$HKEY_USERS_SID_OR_CURRENT_USER="HKEY_USERS\${UserSID}";
-			} Else {
-				Write-Output "`n`nError:  Invalid User SID - No registry key exists at:  [  Registry::HKEY_USERS\${UserSID}  ]`n`n";
-				Write-Output "`n`nInfo:   To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])`n`n";
-				Start-Sleep -Seconds (30);
-				Exit 1;
-			}
+		} Else {
+			Write-Output "`n`nError:  Invalid User SID - No registry key exists at:  [  Registry::HKEY_USERS\${UserSID}  ]`n`n";
+			Write-Output "`n`nInfo:   To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])`n`n";
+			Start-Sleep -Seconds (30);
+			Exit 1;
 		}
 
 

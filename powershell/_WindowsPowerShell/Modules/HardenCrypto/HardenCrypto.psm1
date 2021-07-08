@@ -46,10 +46,46 @@ function HardenCrypto {
 			$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -${_}"; If (@('String','Integer','Double').Contains($($PSBoundParameters[${_}]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[${_}])`""; } };
 			Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 		} Else {
-			Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n";
+			Write-Output "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n";
 		}
 	} Else {
 		<# Script >> IS << running as Admin - Continue #>
+
+		# ------------------------------------------------------------
+		#
+		# DoLogging  (Sub-Module)
+		#  |
+		#  |--> Log a message along with a timestamp to target logfile
+		#
+		Function DoLogging {
+			Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO",[String]$BackgroundColor="",[String]$ForegroundColor="",[Switch]$NoNewLine);
+			$Timestamp_Decimal=$([String](Get-Date -Format "${Format}"));
+			$OutString="[${Timestamp_Decimal} ${Level} $($MyInvocation.MyCommand.Name)] ${Text}";
+			$WriteHost_Args = @();
+			If ($PSBoundParameters.ContainsKey('NoNewLine') -Eq $True) { $WriteHost_Args += "-NoNewLine "; };
+			If ($PSBoundParameters.ContainsKey('BackgroundColor') -Eq $True) { $WriteHost_Args += "-BackgroundColor `"${BackgroundColor}`" "; };
+			If ($PSBoundParameters.ContainsKey('ForegroundColor') -Eq $True) { $WriteHost_Args += "-ForegroundColor `"${ForegroundColor}`" "; };
+			$WriteHost_Args += "${OutString}";
+			Write-Host ${WriteHost_Args};
+			Write-Output "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
+		};
+
+		# ------------------------------------------------------------
+
+		<# Setup Logfile #>
+		$Start_Timestamp=(Get-Date -Format "yyyyMMddThhmmsszz");
+		$LogDir="${Env:TEMP}\SetPowercfg";
+		$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
+		If ((Test-Path -Path ("${LogDir}")) -Eq ($False)) {
+			New-Item -ItemType "Directory" -Path ("${LogDir}") | Out-Null;
+		}
+
+		<# Show header text in console & logfile #>
+		DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
+		DoLogging -LogFile "${LogFile}" -Text "HardenCrypto - Update HTTPS Protocols & Cipher Suites";
+		DoLogging -LogFile "${LogFile}" -Text "Logfile: [ ${LogFile} ]";
+		DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
+
 
 		# ------------------------------
 		# Dry Run (enabled/disabled)
@@ -60,13 +96,13 @@ function HardenCrypto {
 			$RunMode_DryRun = $True;
 			$Note_Prepend = "";
 			$Note_Append  = " (NOT APPLIED - Dry Run)";
-			Write-Host "------------------------------------------------------------";
-			Write-Host "            > > > RUNNING IN DRY RUN MODE < < <             "; 
-			Write-Host "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
-			Write-Host "------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "            > > > RUNNING IN DRY RUN MODE < < <             "; 
+			DoLogging -LogFile "${LogFile}" -Text "            NO CHANGES WILL BE MADE TO REGISTRY             "; 
+			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 			# Start-Sleep -Seconds 3;
 		} Else {
-			Write-Host "------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "------------------------------------------------------------";
 		}
 
 		# ------------------------------
@@ -92,21 +128,21 @@ function HardenCrypto {
 		If (${RunMode_SkipConfirm} -Eq $False) {
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$GateA_ConfirmCharacter = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
-			Write-Host -NoNewLine "`n";
-			Write-Host -NoNewLine "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`"";
-			Write-Host -NoNewLine "`n";
-			Write-Host -NoNewLine "${Confirmation_GateA}" -BackgroundColor "Black" -ForegroundColor "Yellow";
-			Write-Host -NoNewLine "`n`n";
-			Write-Host -NoNewLine "Confirm: Press the `"" -ForegroundColor "Yellow";
-			Write-Host -NoNewLine "${GateA_ConfirmCharacter}" -ForegroundColor "Green";
-			Write-Host -NoNewLine "`" key to confirm and continue:  " -ForegroundColor "Yellow";
-			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); Write-Host "$(${UserKeyPress}.Character)`n";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`n";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`"";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`n";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "${Confirmation_GateA}" -BackgroundColor "Black" -ForegroundColor "Yellow";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`n`n";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "Confirm: Press the `"" -ForegroundColor "Yellow";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "${GateA_ConfirmCharacter}" -ForegroundColor "Green";
+			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`" key to confirm and continue:  " -ForegroundColor "Yellow";
+			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); DoLogging -LogFile "${LogFile}" -Text "$(${UserKeyPress}.Character)`n";
 			$UserConfirmed_GateA = ((${UserKeyPress}.Character) -Eq (${GateA_ConfirmCharacter}));
 			If (${UserConfirmed_GateA} -NE $True) {
-				Write-Host "Error: User confirmation unsuccessful (expected key `"${GateA_ConfirmCharacter}`", received key `"$(${UserKeyPress}.Character)`")";
+				DoLogging -LogFile "${LogFile}" -Text "Error: User confirmation unsuccessful (expected key `"${GateA_ConfirmCharacter}`", received key `"$(${UserKeyPress}.Character)`")";
 			}
 		} Else {
-			Write-Host "`nSkipping (auto-accepting) confirmation message [ ${Confirmation_GateA} ]";
+			DoLogging -LogFile "${LogFile}" -Text "`nSkipping (auto-accepting) confirmation message [ ${Confirmation_GateA} ]";
 		}
 
 
@@ -240,7 +276,6 @@ function HardenCrypto {
 			$CipherSuites=@();
 
 			$All_Ciphers=@();
-
 			${All_Ciphers} += "DES 56/56";
 			${All_Ciphers} += "NULL";
 			${All_Ciphers} += "RC2 128/128";
@@ -320,9 +355,9 @@ function HardenCrypto {
 					$Type="DWord";
 					[UInt32]$Value = 0x00000002;
 					If ($False) {
-						Write-Host "";
-						Write-Host "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-						Write-Host "`n";
+						DoLogging -LogFile "${LogFile}" -Text "";
+						DoLogging -LogFile "${LogFile}" -Text "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
+						DoLogging -LogFile "${LogFile}" -Text "`n";
 					}
 					Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 				}
@@ -353,7 +388,7 @@ function HardenCrypto {
 			#
 			ForEach ($Each_RegEdit In $RegEdits) {
 
-				Write-Host "`n$(${Each_RegEdit}.Path)";
+				DoLogging -LogFile "${LogFile}" -Text "`n$(${Each_RegEdit}.Path)";
 
 				# ------------------------------
 				#
@@ -366,7 +401,7 @@ function HardenCrypto {
 					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
-						Write-Host "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
+						DoLogging -LogFile "${LogFile}" -Text "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
 						ForEach ($Each_PSDrive In $PSDrives) {
 							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
@@ -375,7 +410,7 @@ function HardenCrypto {
 							}
 						}
 						If ($Each_PSDrive_Root -Ne $Null) {
-							Write-Host "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
+							DoLogging -LogFile "${LogFile}" -Text "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
 							If (${RunMode_DryRun} -Eq $False) {
 								New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 							}
@@ -393,16 +428,16 @@ function HardenCrypto {
 					# Check for the key
 					If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) { # Key doesn't exist
 
-							Write-Host "  |-->  Skipping deletion of key (already deleted)";
+							DoLogging -LogFile "${LogFile}" -Text "  |-->  Skipping deletion of key (already deleted)";
 
 					} Else { # Key Exists
 
 						# Delete the key
-						Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
+						DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
 						If (${RunMode_DryRun} -Eq $False) {
 							Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
 							If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) {
-								Write-Host "  |-->  Deleted Key";
+								DoLogging -LogFile "${LogFile}" -Text "  |-->  Deleted Key";
 								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 							}
 						}
@@ -434,7 +469,7 @@ function HardenCrypto {
 
 								If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $False) { # Key doesn't exist
 
-									Write-Host "  |-->  ${Note_Prepend}Creating Key [ $(${KeysToCreate}[$i]) ]${Note_Append}";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Creating Key [ $(${KeysToCreate}[$i]) ]${Note_Append}";
 									If (${RunMode_DryRun} -Eq $False) {
 										#
 										# Registry Key Name w/ Forward Slashes ("/") - Workaround SubKey-Creation Method
@@ -450,13 +485,13 @@ function HardenCrypto {
 										$RegistryKey.Close() | Out-Null;
 
 										If ((Test-Path -LiteralPath (${KeysToCreate}[$i])) -Eq $True) {
-											Write-Host "  |-->  Created Key";
+											DoLogging -LogFile "${LogFile}" -Text "  |-->  Created Key";
 										}
 									}
 
 								} <# Else {
 
-									Write-Host "  |-->  Skipping creation of key [ $(${KeysToCreate}[$i]) ] (already exists)";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  Skipping creation of key [ $(${KeysToCreate}[$i]) ] (already exists)";
 
 								} #>
 
@@ -465,7 +500,7 @@ function HardenCrypto {
 						} Else {
 
 							# Bulk create all parent keys (in one fell swoop) (does NOT handle forward slashes in key names)
-							Write-Host "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
+							DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Creating Key${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
 								#
 								# New-Item -Force
@@ -475,7 +510,7 @@ function HardenCrypto {
 								#
 								New-Item -Force -Path (${Each_RegEdit}.Path) | Out-Null;
 								If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $True) {
-									Write-Host "  |-->  Created Key";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  Created Key";
 								}
 							}
 
@@ -501,12 +536,12 @@ function HardenCrypto {
 								If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
 									# Do nothing to the Property (already exists with matching type & value)
-									Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
 
 								} Else {
 
 									# Update the Property
-									Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
 									If (${RunMode_DryRun} -Eq $False) {
 										Set-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Value (${Each_Prop}.Value) | Out-Null;
 									}
@@ -518,11 +553,11 @@ function HardenCrypto {
 								If ((${Each_Prop}.Name) -Eq "(Default)") {
 
 									# Delete the Key
-									Write-Host "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Deleting Key${Note_Append}";
 									If (${RunMode_DryRun} -Eq $False) {
 										Remove-Item -Force -Recurse -LiteralPath (${Each_RegEdit}.Path) -Confirm:$False | Out-Null;
 										If ((Test-Path -LiteralPath (${Each_RegEdit}.Path)) -Eq $False) {
-											Write-Host "  |-->  Deleted Key";
+											DoLogging -LogFile "${LogFile}" -Text "  |-->  Deleted Key";
 											Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 										}
 									}
@@ -530,7 +565,7 @@ function HardenCrypto {
 								} Else {
 
 									# Delete the Property
-									Write-Host "  |-->  ${Note_Prepend}Deleting Property `"$(${Each_Prop}.Name)`"${Note_Append}";
+									DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Deleting Property `"$(${Each_Prop}.Name)`"${Note_Append}";
 									If (${RunMode_DryRun} -Eq $False) {
 										Remove-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -Confirm:$False | Out-Null;
 									}
@@ -544,7 +579,7 @@ function HardenCrypto {
 							If ((${Each_Prop}.Delete) -Eq $False) {
 
 								# Create the Property
-								Write-Host "  |-->  ${Note_Prepend}Adding Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" and value `"$(${Each_Prop}.Value)`"${Note_Append}";
+								DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Adding Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" and value `"$(${Each_Prop}.Value)`"${Note_Append}";
 								If (${RunMode_DryRun} -Eq $False) {
 									New-ItemProperty -Force -LiteralPath (${Each_RegEdit}.Path) -Name (${Each_Prop}.Name) -PropertyType (${Each_Prop}.Type) -Value (${Each_Prop}.Value) | Out-Null;
 								}
@@ -552,7 +587,7 @@ function HardenCrypto {
 							} Else {
 
 								# Do nothing to the Property (already deleted)
-								Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already deleted)";
+								DoLogging -LogFile "${LogFile}" -Text "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already deleted)";
 
 							}
 
@@ -564,7 +599,7 @@ function HardenCrypto {
 
 			}
 
-			Write-Host "`n------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "`n------------------------------------------------------------";
 
 
 			# ------------------------------------------------------------
@@ -635,7 +670,7 @@ function HardenCrypto {
 
 					<# Retrieve the specified subkey w/ write access (arg2: $True=write-access, $False=read-only) #>
 					$Each_RegEdit.RelPath=("$(${Each_RegEdit}.Path)" -replace "^((?!\\).)+\\","");
-					Write-Host "`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
+					DoLogging -LogFile "${LogFile}" -Text "`n${Each_RegistryView}::HKEY_LOCAL_MACHINE\$($Each_RegEdit.RelPath)";
 					$Each_SubKey = $Registry_HKLM.OpenSubKey("$(${Each_RegEdit}.RelPath)", $True);
 
 					ForEach (${Each_Prop} In ${Each_RegEdit}.Props) {
@@ -645,7 +680,7 @@ function HardenCrypto {
 						If ((${Each_Prop}.LastValue) -Eq (${Each_Prop}.Value)) {
 
 							<# Do nothing to the Property (already exists with matching type & value) #>
-							Write-Host "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
+							DoLogging -LogFile "${LogFile}" -Text "  |-->  Skipping Property `"$(${Each_Prop}.Name)`" (already has required value of [ $(${Each_Prop}.LastValue) ])";
 
 						} Else {
 
@@ -654,7 +689,7 @@ function HardenCrypto {
 							}
 
 							<# Update the Property #>
-							Write-Host "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
+							DoLogging -LogFile "${LogFile}" -Text "  |-->  ${Note_Prepend}Updating Property `"$(${Each_Prop}.Name)`" w/ type `"$(${Each_Prop}.Type)`" to have value `"$(${Each_Prop}.Value)`" instead of (previous) value `"$(${Each_Prop}.LastValue)`"${Note_Append}";
 							If (${RunMode_DryRun} -Eq $False) {
 								${Each_SubKey}.SetValue(${Each_Prop}.Name, ${Each_Prop}.Value, ${RegistryValueKind}[(${Each_Prop}.Type)]["ID"]);
 							}
@@ -670,7 +705,7 @@ function HardenCrypto {
 
 			}
 
-			Write-Host "`n------------------------------------------------------------";
+			DoLogging -LogFile "${LogFile}" -Text "`n------------------------------------------------------------";
 
 
 		}
@@ -725,6 +760,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   docs.microsoft.com  |  "RegistryKey.SetValue Method (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registrykey.setvalue
 #
 #   docs.microsoft.com  |  "RegistryValueKind Enum (Microsoft.Win32) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind
+#
+#   docs.microsoft.com  |  "Restrict cryptographic algorithms and protocols - Windows Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/troubleshoot/windows-server/windows-security/restrict-cryptographic-algorithms-protocols-schannel
 #
 #   docs.microsoft.com  |  "ServicePointManager.SecurityProtocol Property (System.Net) - Gets/Sets the security protocol used by the ServicePoint objects managed by the ServicePointManager object"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.servicepointmanager.securityprotocol
 #

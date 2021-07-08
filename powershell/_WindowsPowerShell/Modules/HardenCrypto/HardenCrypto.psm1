@@ -82,20 +82,6 @@ function HardenCrypto {
 
 		# ------------------------------
 
-		$Protos=@{};
-
-		$All_Protocols = @();
-
-		${All_Protocols} += @("SSL 2.0");
-		${All_Protocols} += @("SSL 3.0");
-		${All_Protocols} += @("TLS 1.0");
-		${All_Protocols} += @("TLS 1.1");
-		${All_Protocols} += @("TLS 1.2");
-
-		${All_Protocols} | ForEach-Object {
-			$Protos["${_}"] = If (${AllowProtocols}.Contains("${_}")) { $True; } Else { $False; };
-		}
-
 		If (${RunMode_SkipConfirm} -Eq $False) {
 			#
 			# User Confirmation - Gate A
@@ -170,6 +156,20 @@ function HardenCrypto {
 			#
 			#  HTTPS Protocols
 			#
+
+			$Protos=@{};
+
+			$All_Protocols = @();
+
+			${All_Protocols} += @("SSL 2.0");
+			${All_Protocols} += @("SSL 3.0");
+			${All_Protocols} += @("TLS 1.0");
+			${All_Protocols} += @("TLS 1.1");
+			${All_Protocols} += @("TLS 1.2");
+
+			${All_Protocols} | ForEach-Object {
+				$Protos["${_}"] = If (${AllowProtocols}.Contains("${_}")) { $True; } Else { $False; };
+			}
 
 			$Protos.Keys | ForEach-Object {
 				<# Setup enabled/disabled HTTPS Protocols #>
@@ -257,6 +257,7 @@ function HardenCrypto {
 			${All_Ciphers} += "AES 128/128";
 			${All_Ciphers} += "AES 256/256";
 			${All_Ciphers} += "Triple DES 168";
+
 			${All_Ciphers} | ForEach-Object {
 				$CipherSuites += @{
 					CipherName = "${_}";
@@ -281,52 +282,6 @@ function HardenCrypto {
 						}
 					)
 				};
-			}
-
-
-			# ------------------------------------------------------------
-			
-			If ($False) {
-
-				# ------------------------------
-				If (${RunMode_DryRun} -Eq $False) {
-					<# [Ciphers] Create parent registry keys #>
-					New-Item -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers" -Force;
-					$RegistryKey=((Get-Item -Path 'Registry::HKEY_LOCAL_MACHINE\').OpenSubKey('SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers', $True));
-					$RegistryKey.CreateSubKey('AES 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('AES 256/256');    <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('DES 56/56');      <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('NULL');           <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC2 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC2 40/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC2 56/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC4 128/128');    <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC4 40/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC4 56/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('RC4 64/128');     <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.CreateSubKey('Triple DES 168'); <# Workaround for creating registry keys with forward-slashes in their name #>
-					$RegistryKey.Close();
-
-					<# [Ciphers] Disable weak ciphers (cont.) #>
-					$Default=0;
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\DES 56/56'   -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\NULL'        -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 128/128' -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 40/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC2 56/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 128/128' -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 40/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 56/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\RC4 64/128'  -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-
-					<# [Ciphers] Enable strong ciphers (cont.) #>
-					$Default=1;
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 128/128'    -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\AES 256/256'    -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-					New-ItemProperty -Force -Path 'Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Ciphers\Triple DES 168' -Name "Enabled" -Value ${Default} -PropertyType "DWord" | Select-Object -Property "Enabled","PSPath";
-				}
-				# ------------------------------------------------------------
-
 			}
 
 

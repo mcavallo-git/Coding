@@ -1,7 +1,7 @@
 function SyncRegistry {
 	Param(
 
-		[String]$UserSID=""   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- to acquire SID, run the following command in a powershell prompt (making sure to run as the user you want to update the registry for):   ((whoami /user /fo table /nh) -split ' ')
+		[String]$UserSID=""   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   ((whoami /user /fo table /nh) -split ' ')  #>
 
 	)
 	# ------------------------------------------------------------

@@ -83,7 +83,7 @@ function SyncRegistry {
 
 		# Cortana/Search Settings
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Search";
 			Props=@(
 				@{
 					Description="Cortana/Search Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable Cortana.";
@@ -192,7 +192,7 @@ function SyncRegistry {
 
 		# Explorer Settings
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Policies\Microsoft\Windows\Explorer";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Policies\Microsoft\Windows\Explorer";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 1/2)";
@@ -207,7 +207,7 @@ function SyncRegistry {
 
 		# Explorer Settings (cont.)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 2/2)";
@@ -257,7 +257,7 @@ function SyncRegistry {
 
 		# Explorer Settings (cont.)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the OneDrive personal (default) cloud icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
@@ -270,7 +270,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
@@ -283,7 +283,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-439F-9D0E-BE7D32FDF154}";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-439F-9D0E-BE7D32FDF154}";
 			Props=@(
 				@{
 					Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Enterprise' individual's icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
@@ -479,7 +479,7 @@ function SyncRegistry {
 
 		# Explorer Settings (cont.)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer";
 			Props=@(
 				@{
 					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
@@ -538,7 +538,7 @@ function SyncRegistry {
 			)
 		};
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Comdlg32";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Policies\Comdlg32";
 			Props=@(
 				@{
 					Description="Explorer Settings - When this policy is set, applications that provide their own file or open dialog boxes must remove any equivalent functionality to the places bar. Applications that use the common dialog box library will comply with this policy";
@@ -608,7 +608,7 @@ function SyncRegistry {
 
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Policies\System";
 			Props=@(
 				@{
 					Description="Set this value to [ 0 ] to Enable, [ 1 ] to Disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
@@ -622,7 +622,7 @@ function SyncRegistry {
 
 		# Multitasking - Snap windows (half-screen left/right snapping of windows)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
 			Props=@(
 				@{
 					Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Multitasking feature [ Snap windows ]";
@@ -635,7 +635,7 @@ function SyncRegistry {
 		};
 		# Multitasking - Snap windows (cont.)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
 			Props=@(
 				@{
 					Description="Set Snap option 'When I resize a snapped window, simultaneously resize any adjacent snapped window' to [ 0 = disabled ], [ 1 = enabled ]";
@@ -671,7 +671,7 @@ function SyncRegistry {
 
 		# Multitasking - Task view (thumbnail grid layout & wallpaper dimming customization)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView";
 			Props=@(
 				@{
 					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
@@ -707,7 +707,7 @@ function SyncRegistry {
 
 		# Multitasking - Alt+Tab view (thumbnail grid layout & wallpaper dimming customization)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AltTabViewHost";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AltTabViewHost";
 			Props=@(
 				@{
 					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
@@ -743,7 +743,7 @@ function SyncRegistry {
 
 		# Multitasking - Snap Assist view (thumbnail grid layout & wallpaper dimming customization)
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\SnapAssistView";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\SnapAssistView";
 			Props=@(
 				@{
 					Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
@@ -779,7 +779,7 @@ function SyncRegistry {
 
 		# Multitasking - Timeline
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
 			Props=@(
 				@{
 					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
@@ -794,7 +794,7 @@ function SyncRegistry {
 
 		# Notification Area Icons
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Explorer";
 			Props=@(
 				@{
 					Description="System Tray - Set this value to [ 0 ] to show all icons, [ 1 ] to hide inactive icons (note: the default for this is set under HKLM)";
@@ -810,7 +810,7 @@ function SyncRegistry {
 
 		# Office 2013 Settings
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Office\15.0\Common\General";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Office\15.0\Common\General";
 			Props=@(
 				@{
 					Description="Office 2013 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
@@ -826,7 +826,7 @@ function SyncRegistry {
 
 		# Office 2016 Settings
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Common\General";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Office\16.0\Common\General";
 			Props=@(
 				@{
 					Description="Office 2016 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
@@ -842,7 +842,7 @@ function SyncRegistry {
 
 		# Office (Windows 10 Application, ~2019+) Settings
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Classes\ms-officeapp\Shell\Open\Command";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\ms-officeapp\Shell\Open\Command";
 			Props=@(
 				@{
 					Description="Microsoft Office (Windows 10 Application) - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
@@ -977,7 +977,7 @@ function SyncRegistry {
 
 		# Shutdown/Restart Settings
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Control Panel\Desktop";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
 			Props=@(
 				@{
 					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shutdown/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
@@ -1031,7 +1031,7 @@ function SyncRegistry {
 
 		# Taskbar - Hide News & Interests
 		$RegEdits += @{
-			Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Feeds";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\Feeds";
 			Props=@(
 				@{
 					Description="News & Interests on Taskbar in Windows 10 (Show/Hide). Set to [ 0 ] for 'Show icon and text (Default)', set to [ 1 ] for 'Show icon only', set to [ 2 ] for 'Turn off'.";
@@ -1133,7 +1133,7 @@ function SyncRegistry {
 
 			# VMware vSphere Client Cached-Connections
 			$RegEdits += @{
-				Path="Registry::HKEY_CURRENT_USER\Software\VMware\VMware Infrastructure Client\Preferences";
+				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\VMware\VMware Infrastructure Client\Preferences";
 				Props=@(
 					@{
 						Description="Defines the vSphere Client's [ IP address/ Name ] cached connection-urls";
@@ -1147,7 +1147,7 @@ function SyncRegistry {
 
 			# VMware vSphere Client Cached-Connections
 			$RegEdits += @{
-				Path="Registry::HKEY_CURRENT_USER\Software\Policies\Microsoft\CloudFiles\BlockedApps\*";
+				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Policies\Microsoft\CloudFiles\BlockedApps\*";
 				Props=@(
 					@{
 						Description="Blocks (1) or Unblocks (0) Apps from being able to trigger the OneDrive's `"Files On-Demand`" feature";

@@ -135,7 +135,7 @@ function HardenCrypto {
 
 			# ------------------------------
 			#
-			#  HTTPS - WinHTTP - Add support for TLS 1.2
+			#  HTTPS Protocols (DEPRECATED OSes ONLY - Win7/Server2012 & Earlier) --> WinHTTP - Add support for TLS 1.2
 			#   |
 			#   |--> Only required for earlier versions of Windows (Windows 7 / Windows Server 2012 & earlier) - Windows 8.1, Windows Server 2012 R2, Windows 10, Windows Server 2016, and later versions of Windows natively support TLS 1.2 for client-server communications over WinHTTP
 			#   |
@@ -172,9 +172,10 @@ function HardenCrypto {
 				)
 			};
 
+
 			# ------------------------------
 			#
-			#  HTTPS - Update protocols used for incoming requests (IIS Servers) & outgoing requests (all else), alike
+			#  HTTPS Protocols - Update protocols used for incoming requests (IIS Servers) & outgoing requests (all else), alike
 			#
 
 			<# [Protocols] Enable/Disable each HTTPS Protocol from both Client & Server perspectives #>

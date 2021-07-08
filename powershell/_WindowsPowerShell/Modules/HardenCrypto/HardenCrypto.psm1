@@ -12,7 +12,9 @@
 function HardenCrypto {
 	Param(
 
-		[String[]]$AllowProtocols=@("TLS 1.2"),  <# @("SSL 2.0","SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") #>
+		[String[]]$AllowProtocols=@("TLS 1.1","TLS 1.2"),  <# @("SSL 2.0","SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") #>
+
+		[String[]]$AllowCiphers=@("AES 128/128","AES 256/256","Triple DES 168"),  <# @("DES 56/56","NULL","RC2 128/128","RC2 40/128","RC2 56/128","RC4 128/128","RC4 40/128","RC4 56/128","RC4 64/128","AES 128/128","AES 256/256","Triple DES 168") #>
 
 		[ValidateSet(512, 1024,2048,3072,4096)]
 		[Int]$DH_KeySize=3072, <# Diffie-Hellman Key Size #>
@@ -82,16 +84,17 @@ function HardenCrypto {
 
 		$Protos=@{};
 
-		<# Disable less secure protocols by default #>
-		$Default=$False;
-		$Protos["SSL 2.0"] = If (${AllowProtocols} -Contains "SSL 2.0") { $True; } Else { ${Default}; };
-		$Protos["SSL 3.0"] = If (${AllowProtocols} -Contains "SSL 3.0") { $True; } Else { ${Default}; };
-		$Protos["TLS 1.0"] = If (${AllowProtocols} -Contains "TLS 1.0") { $True; } Else { ${Default}; };
+		$All_Protocols = @();
 
-		<# Enable more secure protocols by default #>
-		$Default=$True;
-		$Protos["TLS 1.1"] = If (${AllowProtocols} -Contains "TLS 1.1") { $True; } Else { ${Default}; };
-		$Protos["TLS 1.2"] = If (${AllowProtocols} -Contains "TLS 1.2") { $True; } Else { ${Default}; };
+		${All_Protocols} += @("SSL 2.0");
+		${All_Protocols} += @("SSL 3.0");
+		${All_Protocols} += @("TLS 1.0");
+		${All_Protocols} += @("TLS 1.1");
+		${All_Protocols} += @("TLS 1.2");
+
+		${All_Protocols} | ForEach-Object {
+			$Protos["${_}"] = If (${AllowProtocols}.Contains("${_}")) { $True; } Else { $False; };
+		}
 
 		If (${RunMode_SkipConfirm} -Eq $False) {
 			#
@@ -240,25 +243,26 @@ function HardenCrypto {
 
 			$CipherSuites=@();
 
-			<# [Ciphers] Disable weak/insecure ciphers #>
-			$Default=0;
-			$CipherSuites+=@{ CipherName="DES 56/56";      Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="NULL";           Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC2 128/128";    Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC2 40/128";     Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC2 56/128";     Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC4 128/128";    Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC4 40/128";     Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC4 56/128";     Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="RC4 64/128";     Enabled=${Default}; };
+			$All_Ciphers=@();
 
-			<# [Ciphers] Enable strong/secure ciphers #>
-			$Default=1;
-			$CipherSuites+=@{ CipherName="AES 128/128";    Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="AES 256/256";    Enabled=${Default}; };
-			$CipherSuites+=@{ CipherName="Triple DES 168"; Enabled=${Default}; };
-
-
+			${All_Ciphers} += "DES 56/56";
+			${All_Ciphers} += "NULL";
+			${All_Ciphers} += "RC2 128/128";
+			${All_Ciphers} += "RC2 40/128";
+			${All_Ciphers} += "RC2 56/128";
+			${All_Ciphers} += "RC4 128/128";
+			${All_Ciphers} += "RC4 40/128";
+			${All_Ciphers} += "RC4 56/128";
+			${All_Ciphers} += "RC4 64/128";
+			${All_Ciphers} += "AES 128/128";
+			${All_Ciphers} += "AES 256/256";
+			${All_Ciphers} += "Triple DES 168";
+			${All_Ciphers} | ForEach-Object {
+				$CipherSuites += @{
+					CipherName = "${_}";
+					Enabled = If (${AllowCiphers}.Contains("${_}")) { $True; } Else { $False; };
+				};
+			}
 
 			<# [Ciphers] Enable/Disable each HTTPS Cipher Suite #>
 			$CipherSuites | ForEach-Object {
@@ -355,9 +359,6 @@ function HardenCrypto {
 					Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 				}
 			}
-
-
-			# ------------------------------------------------------------
 
 
 			# ------------------------------------------------------------

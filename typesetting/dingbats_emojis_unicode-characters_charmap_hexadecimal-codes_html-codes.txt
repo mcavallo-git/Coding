@@ -319,6 +319,33 @@ Mostly Linux compatible:
 ⓴	Dingbat negative circled number twenty
 
 
+// ------------------------------------------------------------
+
+Space Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
+
+[﻿]			ZERO WIDTH NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+FEFF
+[​]			ZERO WIDTH SPACE  |  https://www.compart.com/en/unicode/U+200B
+[᠎]			MONGOLIAN VOWEL SEPARATOR  |  https://www.compart.com/en/unicode/U+180E
+[ ]			HAIR SPACE  |  https://www.compart.com/en/unicode/U+200A
+[ ]			SIX-PER-EM SPACE  |  https://www.compart.com/en/unicode/U+2006
+[ ]			THIN SPACE  |  https://www.compart.com/en/unicode/U+2009
+[ ]			MEDIUM MATHEMATICAL SPACE  |  https://www.compart.com/en/unicode/U+205F
+[ ]			FOUR-PER-EM SPACE (mid space)  |  https://www.compart.com/en/unicode/U+2005
+[ ]			NARROW NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+202F
+[ ]			THREE-PER-EM SPACE (thick space)  |  https://www.compart.com/en/unicode/U+2004
+[ ]			OGHAM SPACE MARK  |  https://www.compart.com/en/unicode/U+1680
+[ ]			EN SPACE (nut)  |  https://www.compart.com/en/unicode/U+2002
+[ ]			EN QUAD  |  https://www.compart.com/en/unicode/U+2000
+[ ]			Space (SP)  |  https://www.compart.com/en/unicode/U+0020
+[ ]			PUNCTUATION SPACE  |  https://www.compart.com/en/unicode/U+2008
+[ ]			FIGURE SPACE  |  https://www.compart.com/en/unicode/U+2007
+[ ]			SPACE  |  https://www.compart.com/en/unicode/U+0020
+[ ]			NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+00A0
+[ ]			EM QUAD  |  https://www.compart.com/en/unicode/U+2001
+[ ]			EM SPACE (mutton)  |  https://www.compart.com/en/unicode/U+2003
+[　]			IDEOGRAPHIC SPACE  |  https://www.compart.com/en/unicode/U+3000
+
+
 //	------------------------------------------------------------
 //	Citation(s)
 //
@@ -328,7 +355,9 @@ Mostly Linux compatible:
 //
 //		en.wikipedia.org  |  "Dingbat - Wikipedia"  |  https://en.wikipedia.org/wiki/Dingbat
 //
-//		stackoverflow.com  |  "HTML character codes for this ▲ or this ▼"  |  |  https://stackoverflow.com/a/11537979
+//		jkorpela.fi  |  "Unicode spaces"  |  https://jkorpela.fi/chars/spaces.html
+//
+//		stackoverflow.com  |  "HTML character codes for this ▲ or this ▼"  |  https://stackoverflow.com/a/11537979
 //
 //		stackoverflow.com  |  "Some emojis (e.g. ☁) have two unicode, u'\u2601' and u'\u2601\ufe0f'. What does u'\ufe0f' mean? Is it the same if I delete it?"  |  https://stackoverflow.com/a/38100803
 //

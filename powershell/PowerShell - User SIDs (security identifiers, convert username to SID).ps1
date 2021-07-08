@@ -1,7 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell
-#   Get User SIDs (Security Identifiers)
+# Windows (PowerShell/CMD) - Get User SIDs (Security Identifiers)
 #
 # ------------------------------------------------------------
 

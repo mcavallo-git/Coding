@@ -23,9 +23,7 @@ function HardenCrypto {
 
 		[Switch]$DryRun,
 
-		[Switch]$SkipConfirmation,
-
-		[Switch]$Yes
+		[Switch]$SkipConfirmation
 
 	)
 	# ------------------------------------------------------------
@@ -74,28 +72,30 @@ function HardenCrypto {
 		# ------------------------------
 		# Skip Confirmation Checks/Gates (enabled/disabled)
 		$RunMode_SkipConfirm = $False;
-		If ($PSBoundParameters.ContainsKey('Yes') -Eq $True) {
-			$RunMode_SkipConfirm = $True;
-		} ElseIf ($PSBoundParameters.ContainsKey('SkipConfirmation') -Eq $True) {
+		If ($PSBoundParameters.ContainsKey('SkipConfirmation') -Eq $True) {
 			$RunMode_SkipConfirm = $True;
 		} ElseIf (${RunMode_DryRun} -Eq $True) {
 			$RunMode_SkipConfirm = $True;
 		}
 
 		# ------------------------------
+		#
+		# User Confirmation - Gate A
+		#  |
+		#  |--> Confirm via "Are you sure ... ? Press [KEY] to continue" (where KEY is randomly generated)
+		#  |
+		#  |--> Skip Gate / Auto-confirm via -SkipConfirmation
+		#
+
+		$Confirmation_GateA="Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ $(${AllowProtocols} -join ', ' ) ]?";
 
 		If (${RunMode_SkipConfirm} -Eq $False) {
-			#
-			# User Confirmation - Gate A
-			#  |
-			#  |--> Confirm via "Are you sure ... ? Press [KEY] to continue" (where KEY is randomly generated)
-			#
 			$ConfirmKeyList = "abcdefghijklmopqrstuvwxyz"; # removed 'n'
 			$GateA_ConfirmCharacter = (Get-Random -InputObject ([char[]]$ConfirmKeyList));
 			Write-Host -NoNewLine "`n";
-			Write-Host -NoNewLine "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`" or `"-Yes`"";
+			Write-Host -NoNewLine "You may skip confirmation requests (e.g. automatically confirm them) using argument `"-SkipConfirmation`"";
 			Write-Host -NoNewLine "`n";
-			Write-Host -NoNewLine "Confirm: Do you want to harden the cryptography of this device to require incoming/outgoing web requests to use only protocols [ $(${AllowProtocols} -join ', ' ) ]?" -BackgroundColor "Black" -ForegroundColor "Yellow";
+			Write-Host -NoNewLine "${Confirmation_GateA}" -BackgroundColor "Black" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine "`n`n";
 			Write-Host -NoNewLine "Confirm: Press the `"" -ForegroundColor "Yellow";
 			Write-Host -NoNewLine "${GateA_ConfirmCharacter}" -ForegroundColor "Green";
@@ -105,7 +105,11 @@ function HardenCrypto {
 			If (${UserConfirmed_GateA} -NE $True) {
 				Write-Host "Error: User confirmation unsuccessful (expected key `"${GateA_ConfirmCharacter}`", received key `"$(${UserKeyPress}.Character)`")";
 			}
+		} Else {
+			Write-Host "`nSkipping (auto-accepting) confirmation message [ ${Confirmation_GateA} ]";
 		}
+
+
 		<# Check Skips and/or User Confirmation Gate(s) #>
 		If ((${RunMode_SkipConfirm} -Eq $True) -Or (${UserConfirmed_GateA} -Eq $True)) {
 

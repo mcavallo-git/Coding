@@ -5,7 +5,9 @@
 #		|--> Description:  PowerShell script that enforces security protocols & cipher suites used during web transactions (calls to port-443/HTTPS network locations)
 #		|
 #		|--> Example(s):  HardenCrypto -DryRun;
-#		                  HardenCrypto -SkipConfirmation -AllowProtocols @("TLS 1.2") -DH_KeySize (3072);
+#		                  HardenCrypto -SkipConfirmation;
+#		                  HardenCrypto -SkipConfirmation -AllowProtocols @("TLS 1.1","TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (3072); <# Medium #>
+#		                  HardenCrypto -SkipConfirmation -AllowProtocols @("TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (4096); <# Strong #>
 #
 # ------------------------------------------------------------
 

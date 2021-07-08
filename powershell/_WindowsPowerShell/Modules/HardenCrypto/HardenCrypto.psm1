@@ -132,9 +132,11 @@ function HardenCrypto {
 			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "Confirm: Press the `"" -ForegroundColor "Yellow";
 			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "${GateA_ConfirmCharacter}" -ForegroundColor "Green";
 			DoLogging -NoNewLine -LogFile "${LogFile}" -Text "`" key to confirm and continue:  " -ForegroundColor "Yellow";
-			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); DoLogging -LogFile "${LogFile}" -Text "$(${UserKeyPress}.Character)`n";
+			$UserKeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown'); DoLogging -LogFile "${LogFile}" -Text "UserKeyPress.Character = [ $(${UserKeyPress}.Character) ]";
 			$UserConfirmed_GateA = ((${UserKeyPress}.Character) -Eq (${GateA_ConfirmCharacter}));
-			If (${UserConfirmed_GateA} -NE $True) {
+			If (${UserConfirmed_GateA} -Eq $True) {
+				DoLogging -LogFile "${LogFile}" -Text "Info:  User confirmation successful (expected keypress `"${GateA_ConfirmCharacter}`", received (matching) keypress `"$(${UserKeyPress}.Character)`")";
+			} Else {
 				DoLogging -LogFile "${LogFile}" -Text "Error: User confirmation failed (expected keypress `"${GateA_ConfirmCharacter}`", received keypress `"$(${UserKeyPress}.Character)`")";
 			}
 		} Else {
@@ -353,7 +355,7 @@ function HardenCrypto {
 					If ($False) {
 						DoLogging -LogFile "${LogFile}" -Text "";
 						DoLogging -LogFile "${LogFile}" -Text "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-						DoLogging -LogFile "${LogFile}" -Text "`n";
+						DoLogging -LogFile "${LogFile}" -Text "";
 					}
 					Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 				}

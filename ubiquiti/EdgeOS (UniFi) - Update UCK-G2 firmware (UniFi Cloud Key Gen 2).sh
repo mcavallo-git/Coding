@@ -3,9 +3,9 @@
 # UniFi - Update Firmware on UCK-G2 (UniFi Cloud Key Gen 2)
 # ------------------------------------------------------------
 #
-# Step 1/2 - Get URL for latest firmware version from Ubiquiti's Downloads portal at:
-#
-#    https://www.ui.com/download/unifi/unifi-cloud-key-gen2
+# Step 1/2 - Get BOTH firmware & software URLs from Ubiquiti's downloads portal @ https://www.ui.com/download/unifi/unifi-cloud-key-gen2
+#  |
+#  |--> Update variables ${FIRMWARE_URL} and ${SOFTWARE_URL} with updated URLs, respectively
 #
 #
 # ------------------------------------------------------------
@@ -13,7 +13,12 @@
 # Step 2/2 - SSH into target [ UniFi Cloud Key Gen 2 ] & run the following command (replacing URL with the updated URL from step 1):
 #
 
+# Firmware - UniFi OS - Cloud Key Gen2 x.xx.xx
 FIRMWARE_URL="https://fw-download.ubnt.com/data/unifi-cloudkey/e9cc-UCKG2-2.1.11-1cf4bd8262b64919ac100cc5b69dc0b1.bin";
+
+# Software -  UniFi Network Application x.x.xx for Debian/Ubuntu Linux and UniFi Cloud Key
+SOFTWARE_URL="https://dl.ui.com/unifi/6.2.26/unifi_sysvinit_all.deb";
+
 ubnt-systool fwupdate "${FIRMWARE_URL}";
 
 

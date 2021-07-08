@@ -1,14 +1,84 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Linux - Count the number of occurrences of a specific characters in a given string
+# Linux - Substr using Bashisms
 #
 # ------------------------------------------------------------
 #
-# Method 1 - Using bashisms
+# Trim the last N characters off a string
 #
 
-# Example 1.1
+# Syntax - Right-Trim
+VAR="1234567890"; echo "${VAR: 0: 5}";   # Outputs "12345"
+VAR="1234567890"; echo "${VAR: 0: 10}";  # Outputs "1234567890"
+VAR="1234567890"; echo "${VAR: 0: 100}"; # Outputs "1234567890" as well (doesn't repeat string, etc.)
+
+# Syntax - Left-Trim
+VAR="1234567890"; echo "${VAR: -5}";     # Outputs "67890"
+VAR="1234567890"; echo "${VAR: -9}";     # Outputs "234567890"
+VAR="1234567890"; echo "${VAR: -10}";    # Outputs "1234567890"
+
+# Boundary cases to look out for
+VAR="1234567890"; echo "${VAR: -11}";    # Outputs ""   !!! BOUNDARY CASE - NEGATIVE VALUE GREATER THAN STRING LENGTH
+VAR="1234567890"; echo "${VAR:-5}";      # Outputs "1234567890"   !!! BOUNDARY CASE - SPACE MISSING AFTER COLON ":"
+
+
+# ---------------
+
+# Trim - Resolving Boundary Cases using "if" conditionals which check string length
+
+# Example - (Trim) Given a PREFIX (string) & a SUFFIX (string), trim the >>> PREFIX <<< down if the concatenation of both PREFIX+SUFFIX is greater than a given character limit
+
+if [ 1 == 1 ]; then
+MAX_LENGTH=15;
+# USE_LEFTMOST_CHARS=0;
+USE_LEFTMOST_CHARS=1;
+PREFIX="1234567890";
+SUFFIX="abcdefghij";
+PREFIX_MAX_LENGTH=$((${MAX_LENGTH}-${#SUFFIX}));
+if [ ${#PREFIX} -gt ${PREFIX_MAX_LENGTH} ]; then
+  if [ ${USE_LEFTMOST_CHARS} -eq 1 ]; then
+    OUTPUT="${PREFIX: 0: ${PREFIX_MAX_LENGTH}}${SUFFIX}";  # Keep the leftmost N characters
+  else
+    OUTPUT="${PREFIX: -${PREFIX_MAX_LENGTH}}${SUFFIX}";  # Keep the rightmost N characters
+  fi;
+else
+  OUTPUT="${PREFIX: 0: ${PREFIX_MAX_LENGTH}}${SUFFIX}";  # Keep all characters
+fi;
+echo ${OUTPUT};
+fi;
+
+# ---------------
+
+# Example - (Trim) Given a PREFIX (string) & a SUFFIX (string), trim the >>> SUFFIX <<< down if the concatenation of both PREFIX+SUFFIX is greater than a given character limit
+if [ 1 == 1 ]; then
+MAX_LENGTH=15;
+# USE_LEFTMOST_CHARS=0;
+USE_LEFTMOST_CHARS=1;
+PREFIX="1234567890";
+SUFFIX="abcdefghij";
+SUFFIX_MAX_LENGTH=$((${MAX_LENGTH}-${#PREFIX}));
+if [ ${#SUFFIX} -gt ${SUFFIX_MAX_LENGTH} ]; then
+  if [ ${USE_LEFTMOST_CHARS} -eq 1 ]; then
+    OUTPUT="${PREFIX}${SUFFIX: 0: ${SUFFIX_MAX_LENGTH}}";  # Keep the leftmost N characters
+  else
+    OUTPUT="${PREFIX}${SUFFIX: -${SUFFIX_MAX_LENGTH}}";  # Keep the rightmost N characters
+  fi;
+else
+  OUTPUT="${PREFIX}${SUFFIX: 0: ${SUFFIX_MAX_LENGTH}}";  # Keep all characters
+fi;
+echo ${OUTPUT};
+fi;
+
+
+
+
+# ------------------------------------------------------------
+#
+# Count the number of occurrences of a specific characters in a given string
+#
+
+# Example - (Substr) Find a needle in a haystack
 if [ 1 -eq 1 ]; then
   HAYSTACK_TO_SEARCH="localhost";
   NEEDLE_TO_FIND=".";
@@ -20,7 +90,7 @@ if [ 1 -eq 1 ]; then
 fi;
 
 
-# Example 1.2
+# Example - (Substr) Find a needle in a haystack
 if [ 1 -eq 1 ]; then
   HAYSTACK_TO_SEARCH="www.example.com";
   NEEDLE_TO_FIND=".";
@@ -54,6 +124,8 @@ fi;
 # ------------------------------------------------------------
 #
 #	Citation(s)
+#
+#   reactgo.com  |  "How to get the last n characters of a string in Bash | Reactgo"  |  https://reactgo.com/bash-get-last-n-characters-string
 #
 #		stackoverflow.com  |  "Count occurrences of a char in a string using Bash"  |  https://stackoverflow.com/a/16679640
 #

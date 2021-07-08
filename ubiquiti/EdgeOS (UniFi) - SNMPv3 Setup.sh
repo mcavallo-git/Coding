@@ -29,8 +29,10 @@ commit
 save
 
 
+# ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#	Thanks to site: https://vext.info/2017/10/08/configuring-snmp-v3-on-ubiquiti-edgerouter-x.html
+#   vext.info  |  "Configuring SNMP v3 on Ubiquiti Edgerouter-X - vext.info"  |  https://vext.info/2017/10/08/configuring-snmp-v3-on-ubiquiti-edgerouter-x.html
 #
+# ------------------------------------------------------------

@@ -45,6 +45,7 @@ function SyncRegistry {
 			} Else {
 				Write-Output "`n`nError:  Invalid User SID - No registry key exists at:  [  Registry::HKEY_USERS\${UserSID}  ]`n`n";
 				Write-Output "`n`nInfo:   To acquire a user's SID, open a powershell terminal as that user & run the following command:   ((whoami /user /fo table /nh) -split ' ')`n`n";
+				Start-Sleep -Seconds (30);
 				Exit 1;
 			}
 		}

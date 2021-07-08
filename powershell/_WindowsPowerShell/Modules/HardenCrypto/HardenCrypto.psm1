@@ -74,7 +74,7 @@ function HardenCrypto {
 
 		<# Setup Logfile #>
 		$Start_Timestamp=(Get-Date -Format "yyyyMMddThhmmsszz");
-		$LogDir="${Env:TEMP}\SetPowercfg";
+		$LogDir="${Env:TEMP}\HardenCrypto";
 		$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
 		If ((Test-Path -Path ("${LogDir}")) -Eq ($False)) {
 			New-Item -ItemType "Directory" -Path ("${LogDir}") | Out-Null;

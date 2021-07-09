@@ -91,7 +91,7 @@ sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/def
 
 # ------------------------------------------------------------
 #
-# Example)  Comment out lines starting with [ ... ]
+# Example)  Comment out lines starting-with or containing a specific substring
 #
 
 ### MongoDB - Disable Replication
@@ -104,6 +104,24 @@ systemctl start mongod;
 ### Bash - Disable "You have new mail in /var/spool/mail/..." alerts
 if [ -n "$(sed -rne 's/^\s*MAIL=.*$/\0/p' '/etc/profile' 2>'/dev/null';)" ]; then \
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/#/' "/etc/profile"; \
+fi;
+
+
+# ------------------------------------------------------------
+#
+# Example)  UN-comment lines starting-with or containing a specific substring
+#
+
+# Uncomment lines starting with  [ # set bell-style none ]
+if [ -f '/etc/inputrc' ]; then
+  if [ $(sed -rne 's/^#\s*(set\s+bell-style\s+none\s*)$/\0/p' '/etc/inputrc' | wc -l 2>'/dev/null';) -gt 0 ]; then
+    ### Bash - Disable the bell sound effect (specifically intended for WSL (Windows Subsystem for Linux)) - https://stackoverflow.com/a/36726662
+    BENCHMARK_START=$(date +'%s.%N');
+    echo -e "\n""Info:  Setting bell-style the bell sound effect in \"/etc/inputrc\")";
+    sed -i".${START_TIMESTAMP}.bak" -r -e 's/^#\s*(set\s+bell-style\s+none\s*)$/\1/' '/etc/inputrc';
+    BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l);
+    test ${ARGS_DEBUG_MODE} -eq 1 && echo "  |--> Finished after ${BENCHMARK_DELTA}s";
+  fi;
 fi;
 
 
@@ -324,6 +342,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #   docs.oracle.com  |  "java.awt (SE-8) - Class Font"  |  https://docs.oracle.com/javase/8/docs/api/java/awt/Font.html
 #
 #   docstore.mik.ua  |  "A.3 Command Summary for sed docstore.mik.ua/orelly/unix/sedawk/appa_03.htm"  |  https://docstore.mik.ua/orelly/unix/sedawk/appa_03.htm
+#
+#   stackoverflow.com  |  "bash - Disable beep in WSL terminal on Windows 10 - Stack Overflow"  |  https://stackoverflow.com/a/36726662
 #
 #   stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #

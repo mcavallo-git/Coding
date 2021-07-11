@@ -33,27 +33,27 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.Servic
 
 # Example 1 - Download Azure Pipelines Agent (for Azure DevOps, previously VSTS, previously previously VSO)
 If ($True) {
- 
+
 # Setup Runtime vars for remote URI(s) && local filepath(s)
 $URL_AgentZip='https://vstsagentpackage.azureedge.net/agent/2.184.2/vsts-agent-win-x64-2.184.2.zip';
 $FullPath_WorkingDir = ((${Home})+('\Downloads\agent'));
 $FullPath_AgentZip=((${FullPath_WorkingDir})+('\')+(Split-Path -Path (${URL_AgentZip}) -Leaf));
- 
+
 # Ensure the working directory exists
 New-Item -ItemType 'Directory' -Path (${FullPath_WorkingDir}) | Out-Null;
 Set-Location -Path (${FullPath_WorkingDir});
- 
+
 # Download the pipeline agent's zip archive
 $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 $ProgressPreference='SilentlyContinue'; <# Hide Invoke-WebRequest's progress bar #>
 Measure-Command { Invoke-WebRequest -UseBasicParsing -Uri (${URL_AgentZip}) -OutFile ("${FullPath_AgentZip}") -TimeoutSec (15) };
 [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
- 
+
 # Extract the pipeline agent's zip archive
 Add-Type -AssemblyName ('System.IO.Compression.FileSystem');
 [System.IO.Compression.ZipFile]::ExtractToDirectory((${FullPath_AgentZip}),(${FullPath_WorkingDir}));
- 
+
 }
 
 

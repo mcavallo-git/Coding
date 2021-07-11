@@ -6,9 +6,9 @@ Corsair ARGB
 
 Connector Housing (3 pin / 4 pin)
   |
-  |--> Dupont:  MX2.54 (male/female)
+  |--> Dupont MX2.54 (male/female)
   |
-  |--> Molex:  50-57-9404 (male), 70107-0003 (female)
+  |--> Molex 50-57-9404 (male), Molex 70107-0003 (female)
 
 
 ------------------------------------------------------------

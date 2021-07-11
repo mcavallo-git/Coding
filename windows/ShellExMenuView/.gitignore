@@ -1,0 +1,2 @@
+# ShellMenuView / ShellExMenuView - Ignore local config files (layout options & config settings for apps specific to local systems, only)
+**/*.cfg

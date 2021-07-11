@@ -14,7 +14,7 @@ $Input="👍";
 Add-Type -AssemblyName ("System.Web");
 
 $Character=@{};
-# $Character.("Characters")=("${Input}".ToCharArray());
+$Character.("Characters")=("${Input}".ToCharArray());
 $Character.("HTML Entity (Decimal)")=@();
 $Character.("HTML Entity (Hex)")=@();
 $Character.("UTF-16 Code (Decimal)")=@();

@@ -6,8 +6,8 @@
 
 # Check if we need to add an assembly (Microsoft .NET class) into this PowerShell session
 
-$Assembly=@{ Class="System.Web.WebUtility"; Namespace="System.Web"; };
-$Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; };
+$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; };
+# $Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; };
 
 $LocalAssemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
 $Assembly_Exists=(${LocalAssemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });

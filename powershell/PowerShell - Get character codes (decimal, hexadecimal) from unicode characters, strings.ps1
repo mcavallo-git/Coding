@@ -7,8 +7,9 @@
 If ($True) {
 
 # $Input="❖";
-$Input="👍";
-# $Input="👍🏽";
+# $Input="👍";
+$Input="👍🏽";
+# $Input=[Char](10);
 # $Input = Read-Host -Prompt 'Enter string/character to get character codes for';
 
 # Check if we need to add a prerequisite assembly (e.g. a Microsoft .NET class) to this PowerShell session

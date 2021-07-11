@@ -11,7 +11,7 @@ $Input="👍";
 # $Input="👍🏽";
 # $Input = Read-Host -Prompt 'Enter string/character to get character codes for';
 
-Add-Type -AssemblyName ("System.Web");  # Adds [System.Net.WebUtility] Class
+Add-Type -AssemblyName ("System.Web");  # Needed to use [System.Net.WebUtility] class
 
 $Character=@{};
 

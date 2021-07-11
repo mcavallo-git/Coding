@@ -121,7 +121,7 @@ Mostly Linux compatible:
 
 ❎				NEGATIVE SQUARED CROSS MARK
 ✅				WHITE HEAVY CHECK MARK
-☑					Ballot box with check
+☑					Ballot box with check (Checkbox)
 ❌				Cross Mark  |  Unicode Character “❌” (U+274C)  |  https://www.compart.com/en/unicode/U+274C
 ☒					Ballot box with X
 ✕					MULTIPLICATION X

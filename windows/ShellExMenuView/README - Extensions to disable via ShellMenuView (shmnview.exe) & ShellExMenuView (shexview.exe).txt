@@ -11,9 +11,8 @@ Explorer --> Right click menu options to disable (reverse lookups)
 |                                    |                      |
 | ---------------------------------- | -------------------- | ------------------------------------------------------------
 |                                    |                      |
-| Convert to PDF in Foxit PhantomPDF | shexview.exe         | Disable "Foxit PDF Thumbnail Handler"
-| Combine files in Foxit PhantomPDF  |  ^                   | Disable "Foxit PhantomPDF Create PDF ToolBar"
-|                                    |                      | Disable "Foxit PhantomPDF Create PDF ToolBar Helper"
+| Convert to PDF in Foxit PhantomPDF | admin powerShell.exe | Get-ChildItem -Path ("C:\Program Files (x86)\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x64.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
+| Combine files in Foxit PhantomPDF |   + regsvr32.exe      | Get-ChildItem -Path ("C:\Program Files\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x86.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
 |                                    |                      |
 | ---------------------------------- | -------------------- | ------------------------------------------------------------
 |                                    |                      |
@@ -35,3 +34,14 @@ Explorer --> Right click menu options to disable (reverse lookups)
 Disable extension name "ContextMenuHandler Class"
 
 
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   support.microsoft.com  |  "How to use the Regsvr32 tool and troubleshoot Regsvr32 error messages"  |  https://support.microsoft.com/en-us/topic/how-to-use-the-regsvr32-tool-and-troubleshoot-regsvr32-error-messages-a98d960a-7392-e6fe-d90a-3f4e0cb543e5
+
+   techdows.com  |  "Disable or remove Foxit Reader's 'Convert to PDF' Right Click Menu item"  |  https://techdows.com/2018/08/disable-or-remove-foxit-reader-convert-to-pdf-right-click-menu-item.html
+
+------------------------------------------------------------

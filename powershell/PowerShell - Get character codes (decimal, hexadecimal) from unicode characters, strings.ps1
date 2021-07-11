@@ -6,10 +6,11 @@
 
 If ($True) {
 
-# $Input="❖";
-# $Input="👍";
 $Input="👍🏽";
-# $Input=[Char](10);
+# $Input="👍";
+# $Input="❖";
+# $Input=[Char](10);  # LF (NL line feed, new line)
+# $Input=[Char](13);  # CR (carriage return)
 # $Input = Read-Host -Prompt 'Enter string/character to get character codes for';
 
 # Check if we need to add a prerequisite assembly (e.g. a Microsoft .NET class) to this PowerShell session

@@ -6,18 +6,22 @@ Explorer --> Right click menu options to disable (reverse lookups)
 | Right-click explorer option           | Exe to disable via         | Extension Name (to disable within exe)                      
 | ===================================== | ========================== | ============================================================
 |                                       |                            |
-| More GpgEX options                    | shexview.exe               | Disable row with [Extension Name]="GpgEX", [Description]="GnuPG shell extensions"
-| Sign and encrypt                      |  ^                         |  ^
+| More GpgEX options                    | shexview.exe  (app $2)     | Disable row(s) matching:  [Extension Name]="GpgEX", [Description]="GnuPG shell extensions"
+| Sign and encrypt                      |                            |
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |  ^                         |
+| Send with Transfer...                 | shexview.exe  (app #2)     | Disable row(s) matching:  [Extension Name]="ContextMenuHandler Class", [Description]="Dropbox Shell Extension"
+| Back up to Dropbox...                 |                            |
+| Move to Dropbox                       |                            |
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |  ^                         |
+| Scan with Microsoft Defender...       | shexview.exe  (app #2)     | Disable row(s) matching:  [Extension Name]="EPP", [Description]="Microsoft Security Client Shell Extension"
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
 |                                       |                            |
-| Send with Transfer...                 | shexview.exe               | Disable row with [Extension Name]="ContextMenuHandler Class", [Description]="Dropbox Shell Extension"
-| Back up to Dropbox...                 |  ^                         |  ^
-| Move to Dropbox                       |  ^                         |  ^
-|                                       |                            |
-| ------------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                       |                            |
-| Scan with Microsoft Defender...       | shexview.exe               | Disable row with [Extension Name]="EPP", [Description]="Microsoft Security Client Shell Extension"
+| (Anything with) Windows Media Player  | shmnview.exe  (app #1)     | Disable row(s) matching:  [Filename]="C:\Program Files (x86)\Windows Media Player\wmplayer.exe"
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
 |                                       |                            |
@@ -25,18 +29,18 @@ Explorer --> Right click menu options to disable (reverse lookups)
 | Combine files in Foxit PhantomPDF...  |                            |
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                       |                            |
+|                                       |  ^                         |
 | Edit with Notepad++                   | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Notepad++\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "NppShell_06.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Notepad++\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "NppShell_06.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
 |                                       |                            |
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                       |                            |
+|                                       |  ^                         |
 | Git GUI Here                          | powershell.exe (as admin)  | Remove-Item -Force -Recurse -LiteralPath ("Registry::HKEY_CLASSES_ROOT\LibraryFolder\background\shell\git_gui") -Confirm:$False | Out-Null;
 |                                       |                            | Remove-Item -Force -Recurse -LiteralPath ("Registry::HKEY_CLASSES_ROOT\Directory\background\shell\git_gui") -Confirm:$False | Out-Null;
 |                                       |                            | Remove-Item -Force -Recurse -LiteralPath ("Registry::HKEY_CLASSES_ROOT\Directory\Shell\git_gui") -Confirm:$False | Out-Null;
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                       |                            |
+|                                       |  ^                         |
 | Git Bash Here                         | powershell.exe (as admin)  | Remove-Item -Force -Recurse -LiteralPath ("Registry::HKEY_CLASSES_ROOT\LibraryFolder\background\shell\git_shell") -Confirm:$False | Out-Null;
 |                                       |                            | Remove-Item -Force -Recurse -LiteralPath ("Registry::HKEY_CLASSES_ROOT\Directory\background\shell\git_shell") -Confirm:$False | Out-Null;
 |                                       |                            | Remove-Item -Force -Recurse -LiteralPath ("Registry::HKEY_CLASSES_ROOT\Directory\Shell\git_shell") -Confirm:$False | Out-Null;
@@ -44,7 +48,7 @@ Explorer --> Right click menu options to disable (reverse lookups)
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
 |                                       |                            |
 | 7-Zip                                 | 7zFM.exe                   | Tools > Options > 7-Zip > Context menu items:
-| CRC SHA >                             |  ^                         |   ☑ Extract to <Folder>
+| CRC SHA >                             |                            |   ☑ Extract to <Folder>
 |                                       |                            |   ☑ Add to archive...
 |                                       |                            |   ☑ Add to <Archive>.zip
 |                                       |                            |   ☐ (UNCHECK ALL OTHER CONTEXT MENU ITEMS)

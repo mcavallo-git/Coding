@@ -26,13 +26,13 @@ If ($True) {
 	$Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
 	# Check if we need to add an assembly (e.g. a Microsoft .NET class) into this PowerShell session
 	If (${Class_ExistsLocally}) {
-		Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (assembly already exists locally)";
+		Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) ) - (assembly already exists locally)";
 	} Else {
-		Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" (required to use class `"$(${Assembly}.Class)`")? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) )? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		If ($KeyPress.Character -Eq "y") {
 			Write-Host "Info:  Confirmed (received `"y`" keypress)";
-			Write-Host "Info:  Calling [ Add-Type `"$(${Assembly}.Namespace)`" ]...";
+			Write-Host "Info:  Calling [ Add-Type `"$(${Assembly}.Namespace)`" ]  ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) )...";
 			Add-Type -AssemblyName ("$(${Assembly}.Namespace)");
 		} Else {
 			Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (did not receive `"y`" keypress)";

@@ -12,11 +12,11 @@ $Character=@{};
 
 $Character.("Character")=${Input};
 
-$Character.("UTF-16 (decimal)")=([Int][Char]${Input});
-$Character.("UTF-16 (hex)")=("0x$('{0:x}' -f ([Int][Char]${Input}))");
+$Character.("UTF-16 Code (Decimal)")=([Int][Char]${Input});
+$Character.("UTF-16 Code (Hex)")=("0x$('{0:x}' -f ([Int][Char]${Input}))");
 
-$Character.("HTML Entity (decimal)")=("&#$([Int][Char]${Input})");
-$Character.("HTML Entity (hex)")=("&#x$('{0:x}' -f ([Int][Char]${Input}))");
+$Character.("HTML Entity (Decimal)")=("&#$([Int][Char]${Input})");
+$Character.("HTML Entity (Hex)")=("&#x$('{0:x}' -f ([Int][Char]${Input}))");
 
 Write-Output ($Character);
 

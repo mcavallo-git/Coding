@@ -16,6 +16,7 @@ $Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; Method="Html
 $Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
 $Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
 If (-Not (${Class_ExistsLocally})) {
+	Write-Host "Info:  Calling [ Add-Type `"$(${Assembly}.Namespace)`" ]  ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) )...";
 	Add-Type -AssemblyName ("$(${Assembly}.Namespace)");
 }
 

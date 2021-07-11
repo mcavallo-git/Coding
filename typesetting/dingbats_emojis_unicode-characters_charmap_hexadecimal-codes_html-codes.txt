@@ -25,6 +25,11 @@ Mostly Linux compatible:
 ✓					Check Mark  |  https://www.compart.com/en/unicode/U+2713
 
 
+☐					Ballot box (empty/unchecked checkbox)
+☑					Ballot box with check (checked checkbox)
+☒					Ballot box with X (X'ed checkbox)
+
+
 ------------------------------------------------------------
 
 •					Bullet  |  https://www.compart.com/en/unicode/U+2022
@@ -119,23 +124,19 @@ Mostly Linux compatible:
 💬				SPEECH BALLOON
 
 
-❎				NEGATIVE SQUARED CROSS MARK
-✅				WHITE HEAVY CHECK MARK
-☑					Ballot box with check (Checkbox)
-❌				Cross Mark  |  Unicode Character “❌” (U+274C)  |  https://www.compart.com/en/unicode/U+274C
-☒					Ballot box with X
 ✕					MULTIPLICATION X
 ✖					HEAVY MULTIPLICATION X
 ✗					Ballot X
 ✘					Heavy Ballot X
 🗙				Cancellation X  |  Unicode Character “🗙” (U+1F5D9)  |  https://www.compart.com/en/unicode/U+1F5D9
-
+❌				Cross Mark  |  Unicode Character “❌” (U+274C)  |  https://www.compart.com/en/unicode/U+274C
+❎				NEGATIVE SQUARED CROSS MARK
+✅				WHITE HEAVY CHECK MARK
 
 ○					WHITE CIRCLE
 ◌					DOTTED CIRCLE
 ●					BLACK CIRCLE
 ⚫				 MEDIUM BLACK CIRCLE
-☐					BALLOT BOX
 ▢					WHITE SQUARE WITH ROUNDED CORNERS
 ☁					CLOUD (Black filled in Chrome)
 ☁️				CLOUD v2 (White filled in Chrome)

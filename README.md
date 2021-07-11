@@ -116,7 +116,7 @@ This file (on GitHub):
 			<li><h4>Browse to <code>https://myaccount.google.com/permissions</code> & disable option "Google Account sign-in prompts"</h4></li>
 		</ul>
 	</details></sub></td><td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a></sub></td></tr>
-<tr><td><strong>Mozilla Firefox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open source web browser dev. by the Mozilla Foundation</i></sub></td><td><a href="https://www.mozilla.org/en-US/firefox/download/thanks/">Download (source)</a></td></tr>
+<tr><td><strong>Mozilla Firefox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Web Browser by the Mozilla Foundation</i></sub></td><td><a href="https://www.mozilla.org/en-US/firefox/download/thanks/">Download (source)</a></td></tr>
 <tr><td><strong>LastPass</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://lastpass.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
 <tr><td><strong>MFA/2FA - OTP Auth (iOS)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MFA/2FA code storage/backup utility w/ widget</i></sub></td><td><a href="https://apps.apple.com/us/app/otp-auth/id659877384">Download (source)</a></td></tr>

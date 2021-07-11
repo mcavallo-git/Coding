@@ -17,6 +17,12 @@ Explorer --> Right click menu options to disable (reverse lookups)
 |                                    |                      |
 | ---------------------------------- | -------------------- | ------------------------------------------------------------
 |                                    |                      |
+| Send with Transfer...              | shexview.exe         | Disable "ContextMenuHandler Class"
+| Back up to Dropbox...              |  ^                   |  ^
+| Move to Dropbox                    |  ^                   |  ^
+|                                    |                      |
+| ---------------------------------- | -------------------- | ------------------------------------------------------------
+|                                    |                      |
 | 7-Zip                              | 7zFM.exe             | Tools > Options > 7-Zip > Context menu items:
 | CRC SHA >                          |  ^                   |   ☑ Extract to <Folder>
 |                                    |                      |   ☑ Add to archive...
@@ -26,15 +32,6 @@ Explorer --> Right click menu options to disable (reverse lookups)
 | ================================== | ==================== | ============================================================
 
 
-
-Convert to PDF in Foxit PhantomPDF
-Combine files in Foxit PhantomPDF
-
-Foxit PDF Thumbnail Handler
-Foxit PhantomPDF Create PDF ToolBar
-Foxit PhantomPDF Create PDF ToolBar Helper
+Disable extension name "ContextMenuHandler Class"
 
 
-Disable extension name "Foxit PDF Thumbnail Handler"
-Disable extension name "Foxit PhantomPDF Create PDF ToolBar"
-Disable extension name "Foxit PhantomPDF Create PDF ToolBar Helper"

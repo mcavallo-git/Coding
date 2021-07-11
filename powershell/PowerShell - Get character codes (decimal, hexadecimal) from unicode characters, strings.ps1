@@ -11,7 +11,13 @@ $Input="👍";
 # $Input="👍🏽";
 # $Input = Read-Host -Prompt 'Enter string/character to get character codes for';
 
-Add-Type -AssemblyName ("System.Web");  # Needed to use .NET class  [System.Net.WebUtility]
+# Check if we need to add a prerequisite assembly (e.g. a Microsoft .NET class) to this PowerShell session
+$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; Method="HtmlEncode"; };
+$Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
+$Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
+If (-Not (${Class_ExistsLocally})) {
+	Add-Type -AssemblyName ("$(${Assembly}.Namespace)");
+}
 
 $Character=@{};
 

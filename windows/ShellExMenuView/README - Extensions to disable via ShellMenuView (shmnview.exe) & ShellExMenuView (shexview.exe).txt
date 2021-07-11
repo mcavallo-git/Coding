@@ -2,38 +2,42 @@
 Explorer --> Right click menu options to disable (reverse lookups)
 ------------------------------------------------------------
 
-| ================================== | ========================== | ============================================================
-| Right-click explorer option        | Exe to disable via         | Extension Name (to disable within exe)                      
-| ================================== | ========================== | ============================================================
-|                                    |                            |
-| More GpgEX options                 | shexview.exe               | Disable "GpgEx"
-| Sign and encrypt                   |  ^                         |  ^
-|                                    |                            |
-| ---------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                    |                            |
-| Convert to PDF in Foxit PhantomPDF | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x64.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x86.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
-| Combine files in Foxit PhantomPDF  |   + regsvr32.exe           |
-|                                    |                            |
-| ---------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                    |                            |
-| Edit with Notepad++                | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Notepad++\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "NppShell_06.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Notepad++\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "NppShell_06.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
-|                                    |   + regsvr32.exe           |
-|                                    |                            |
-| ---------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                    |                            |
-| Send with Transfer...              | shexview.exe               | Disable "ContextMenuHandler Class"
-| Back up to Dropbox...              |  ^                         |  ^
-| Move to Dropbox                    |  ^                         |  ^
-|                                    |                            |
-| ---------------------------------- | -------------------------- | ------------------------------------------------------------
-|                                    |                            |
-| 7-Zip                              | 7zFM.exe                   | Tools > Options > 7-Zip > Context menu items:
-| CRC SHA >                          |  ^                         |   ☑ Extract to <Folder>
-|                                    |                            |   ☑ Add to archive...
-|                                    |                            |   ☑ Add to <Archive>.zip
-|                                    |                            |   ☐ (UNCHECK ALL OTHER CONTEXT MENU ITEMS)
-|                                    |                            |
-| ================================== | -------------------------- | ============================================================
+| ===================================== | ========================== | ============================================================
+| Right-click explorer option           | Exe to disable via         | Extension Name (to disable within exe)                      
+| ===================================== | ========================== | ============================================================
+|                                       |                            |
+| More GpgEX options                    | shexview.exe               | Disable row with [Extension Name]="GpgEX", [Description]="GnuPG shell extensions"
+| Sign and encrypt                      |  ^                         |  ^
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |                            |
+| Send with Transfer...                 | shexview.exe               | Disable row with [Extension Name]="ContextMenuHandler Class", [Description]="Dropbox Shell Extension"
+| Back up to Dropbox...                 |  ^                         |  ^
+| Move to Dropbox                       |  ^                         |  ^
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |                            |
+| Scan with Microsoft Defender...       | shexview.exe               | Disable row with [Extension Name]="EPP", [Description]="Microsoft Security Client Shell Extension"
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |                            |
+| Convert to PDF in Foxit PhantomPDF    | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x64.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x86.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
+| Combine files in Foxit PhantomPDF...  |   + regsvr32.exe           |
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |                            |
+| Edit with Notepad++                   | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Notepad++\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "NppShell_06.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Notepad++\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "NppShell_06.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
+|                                       |   + regsvr32.exe           |
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |                            |
+| 7-Zip                                 | 7zFM.exe                   | Tools > Options > 7-Zip > Context menu items:
+| CRC SHA >                             |  ^                         |   ☑ Extract to <Folder>
+|                                       |                            |   ☑ Add to archive...
+|                                       |                            |   ☑ Add to <Archive>.zip
+|                                       |                            |   ☐ (UNCHECK ALL OTHER CONTEXT MENU ITEMS)
+|                                       |                            |
+| ===================================== | -------------------------- | ============================================================
 
 
 ------------------------------------------------------------

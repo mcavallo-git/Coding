@@ -6,8 +6,8 @@
 
 If ($True) {
 
-$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; };
-# $Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; };
+$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; Method="HtmlEncode"; };
+$Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; Method="ExtractToDirectory"; };
 
 # Check if we need to add an assembly (e.g. a Microsoft .NET class) into this PowerShell session
 $Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });

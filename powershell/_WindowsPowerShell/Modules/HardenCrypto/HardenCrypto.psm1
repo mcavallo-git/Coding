@@ -6,6 +6,7 @@
 #		|
 #		|--> Example(s):  HardenCrypto -DryRun;
 #		                  HardenCrypto -SkipConfirmation;
+#		                  HardenCrypto -SkipConfirmation -AllowProtocols @("SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (3072); <# Weak #>
 #		                  HardenCrypto -SkipConfirmation -AllowProtocols @("TLS 1.1","TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (3072); <# Medium #>
 #		                  HardenCrypto -SkipConfirmation -AllowProtocols @("TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (4096); <# Strong #>
 #
@@ -22,6 +23,8 @@ function HardenCrypto {
 		[Int]$DH_KeySize=3072, <# Diffie-Hellman Key Size #>
 
 		[Switch]$DryRun,
+
+		[Switch]$WeakenDotNet,
 
 		[Switch]$SkipConfirmation
 
@@ -633,6 +636,13 @@ function HardenCrypto {
 			$DotNet_HKLM_Searches+="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v*";
 			$DotNet_HKLM_Searches+="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Microsoft\.NETFramework\v*";
 
+			# ------------------------------
+			# Skip Confirmation Checks/Gates (enabled/disabled)
+			$DotNet_SecureVal = 1;
+			If ($PSBoundParameters.ContainsKey('WeakenDotNet') -Eq $True) {
+				$DotNet_SecureVal = 0;
+			}
+
 			<# Search for installed versions of .NET Framework #>
 			${DotNet_HKLM_Searches} | ForEach-Object {
 				$Each_HKLM_Search="${_}";
@@ -646,14 +656,14 @@ function HardenCrypto {
 								Description="The SchUseStrongCrypto setting allows .NET to use TLS 1.1 and TLS 1.2. Set the SchUseStrongCrypto registry setting to DWORD:00000001 - This value disables the RC4 stream cipher and requires a restart. For more information about this setting, see Microsoft Security Advisory 296038 @ [ https://docs.microsoft.com/en-us/security-updates/SecurityAdvisories/2015/2960358 ].";
 								Name="SchUseStrongCrypto";
 								Type="DWord";
-								Value=1;
+								Value=${DotNet_SecureVal};
 								Delete=$False;
 							},
 							@{
 								Description="The SystemDefaultTlsVersions setting allows .NET to use the OS configuration. For more information, see TLS best practices with the .NET Framework @ [ https://docs.microsoft.com/en-us/dotnet/framework/network-programming/tls ]";
 								Name="SystemDefaultTlsVersions";
 								Type="DWord";
-								Value=1;
+								Value=${DotNet_SecureVal};
 								Delete=$False;
 							}
 						)

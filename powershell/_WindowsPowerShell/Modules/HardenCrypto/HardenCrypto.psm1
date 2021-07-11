@@ -11,7 +11,9 @@
 #
 #		                  <# Medium #> HardenCrypto -SkipConfirmation -AllowProtocols @("TLS 1.1","TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (3072);
 #
-#		                  <# Weak #> HardenCrypto -SkipConfirmation -AllowProtocols @("SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") -AllowCiphers @("DES 56/56","NULL","RC2 128/128","RC2 40/128","RC2 56/128","RC4 128/128","RC4 40/128","RC4 56/128","RC4 64/128","AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (1024);
+#		                  <# Medium-Weak #> HardenCrypto -SkipConfirmation -AllowProtocols @("SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") -AllowCiphers @("AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (2048);
+#
+#		                  <# Weak #> HardenCrypto -SkipConfirmation -AllowProtocols @("SSL 3.0","TLS 1.0","TLS 1.1","TLS 1.2") -AllowCiphers @("DES 56/56","NULL","RC2 128/128","RC2 40/128","RC2 56/128","RC4 128/128","RC4 40/128","RC4 56/128","RC4 64/128","AES 128/128","AES 256/256","Triple DES 168") -DH_KeySize (1024) -WeakenDotNet;
 #
 # ------------------------------------------------------------
 

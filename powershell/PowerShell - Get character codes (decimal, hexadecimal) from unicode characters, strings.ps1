@@ -10,15 +10,15 @@ $Input="❖";
 
 $Character=@{};
 
-$Character.Char=${Input};
+$Character.("Character")=${Input};
 
-$Character.UTF16_Decimal=([Int][Char]${Input});
+$Character.("UTF-16 (decimal)")=([Int][Char]${Input});
+$Character.("UTF-16 (hex)")=("0x$('{0:x}' -f ([Int][Char]${Input}))");
 
-$Character.UTF16_Hexadecimal=("0x$('{0:x}' -f ([Int][Char]${Input}))");
+$Character.("HTML Entity (decimal)")=("&#$([Int][Char]${Input})");
+$Character.("HTML Entity (hex)")=("&#x$('{0:x}' -f ([Int][Char]${Input}))");
 
-Write-Output "`n`n";
-$Character.Keys | Sort-Object | ForEach-Object { Write-Output "${_} = [ $($Character.("${_}")) ]";  };
-Write-Output "`n`n";
+Write-Output ($Character);
 
 }
 

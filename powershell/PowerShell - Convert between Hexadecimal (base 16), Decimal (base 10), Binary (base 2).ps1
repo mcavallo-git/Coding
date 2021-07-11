@@ -1,40 +1,63 @@
 # ------------------------------------------------------------
 #
-#   Decimal (base 10)  -->  Hexadecimal (base 16)
+#   Convert to:   Decimal (integer) (base 10)
 #
 
 
-# DEC TO HEX
-$Value_Base10 = (Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%y%m%d%H%M%S");
-$Value_Base16 = (("0x")+([Convert]::ToString($Value_Base10, 16)));
-Write-Host "`n`n Value in Base-10: $Value_Base10 `n`n Value in Base-16: $Value_Base16 `n`n";
+#   HEX to DEC
+0x000064;  # Method 1 - integers starting in [ 0x ] are converted from hex to dec, by default
+[Convert]::ToString(0x000064, 10);  # Method 2
+[String]::Format("{0:d}", 0x000064);  # Method 3
+"{0:d}" -f 0x000064;  # Method 4
+[Convert]::ToInt32("0x000064",16);  # Method 5 (hex as a string instead of as an int32)
+
+
+# BIN to DEC
+[Convert]::ToInt32("1100100",2);
 
 
 # ------------------------------------------------------------
 #
-#   Hexadecimal (base 16)  -->  Decimal (base 10)
+#   Convert to:   Hexadecimal (base 16)
 #
 
 
-# HEX TO DEC
-$Value_Base16 = "0x061000";
-$Value_Base10 = [Convert]::ToString($Value_Base16, 10);
-Write-Host "`n`n Value in Base-16: $Value_Base16 `n`n Value in Base-10: $Value_Base10 `n`n";
+# DEC to HEX
+"{0:x}" -f 100;  # Method 1
+[String]::Format("{0:x}", 100);  # Method 2
+[Convert]::ToString(100, 16);  # Method 3
+
+
+# BIN to HEX
+[Convert]::ToString([Convert]::ToInt32("1100100",2), 16);  # Method 1
+"{0:x}" -f [Convert]::ToInt32("1100100",2);  # Method 2
+[String]::Format("{0:x}", [Convert]::ToInt32("1100100",2));  # Method 3
 
 
 # ------------------------------------------------------------
 #
-#   Decimal (base 10)  -->  Binary (base 2)
+#   Convert to:   Binary (base 2)
 #
 
 
 # DEC TO BIN
-[Convert]::ToString(129, 2);
+[Convert]::ToString(100, 2);
+
+# HEX TO BIN
+[Convert]::ToString(0x000064, 2);
 
 
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   community.idera.com  |  "Converting Binary String to Integer - Power Tips - Power Tips - IDERA Community"  |  https://community.idera.com/database-tools/powershell/powertips/b/tips/posts/converting-binary-string-to-integer
+#
+#   docs.microsoft.com  |  "Convert.ToInt32 Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.convert.toint32
+#
+#   docs.microsoft.com  |  "Convert.ToString Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.convert.tostring
+#
+#   docs.microsoft.com  |  "about Numeric Literals - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_numeric_literals#numeric-type-accelerators
 #
 #   soykablog.wordpress.com  |  "Convert decimal to hex and binary in Powershell | Soyka's Blog"  |  https://soykablog.wordpress.com/2012/08/22/three-ways-to-convert-decimal-to-hex-in-powershell/
 #

@@ -32,8 +32,12 @@ Explorer --> Context menu (right click) options in Windows explorer (to enable/d
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
 |                                       |                            |
-| Windows Media Player * (all related)  | shmnview.exe  (app #1)     | Disable row(s) matching:  [Filename]="C:\Program Files (x86)\Windows Media Player\wmplayer.exe"
-|                                       |                            | ??? ^ THIS DOESN'T SEEM TO CATCH ALL PLAYLIST ACTIONS ...
+| Windows Media Player * (all related)  | powershell.exe (as admin)  | Get-WindowsOptionalFeature -Online | Where-Object { $_.State -NE "Disabled" } | Where-Object { @("MediaPlayback","WindowsMediaPlayer").Contains($_.FeatureName) -Eq $True } | Disable-WindowsOptionalFeature -Online -NoRestart; <# <-- Disable Windows Media Player [ Windows Features ] #> 
+|                                       |                            |
+|    Add to Windows Media Player list   |                            |
+|    Play with Windows Media Player     |                            |
+|    Shop for music online              |                            |
+|                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
 |                                       |                            |
 | Convert to PDF in Foxit PhantomPDF    | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x64.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x86.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };

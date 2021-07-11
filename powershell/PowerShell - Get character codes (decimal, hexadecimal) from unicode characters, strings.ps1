@@ -5,7 +5,10 @@
 # ------------------------------------------------------------
 
 
-[int][char]"❖";
+$UnicodeChar="❖";
+Write-Host "Character [ ${UnicodeChar} ]"
+$DecimalCode=([Int][Char]${UnicodeChar});
+'{0:x}' -f ([Int][Char]${UnicodeChar});
 
 
 # ------------------------------------------------------------

@@ -1,22 +1,21 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get if type exists, add it if not
+# PowerShell - Get if assembly type (e.g. a Microsoft .NET class) exists locally & adds it, if not
 #
 # ------------------------------------------------------------
 
-# Check if we need to add an assembly (Microsoft .NET class) into this PowerShell session
+If ($True) {
 
 $Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; };
 # $Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; };
 
-$LocalAssemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
-$Assembly_Exists=(${LocalAssemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
-
-If (${Assembly_Exists}) {
+# Check if we need to add an assembly (e.g. a Microsoft .NET class) into this PowerShell session
+$Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
+$Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
+If (${Class_ExistsLocally}) {
 	Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (assembly already exists locally)";
 } Else {
-	Write-Host "Warning:  Microsoft .NET class not found:  `"$(${Assembly}.Namespace)`"";
-	Write-Host "Confirm:  Add-Type `"$(${Assembly}.Namespace)`" (required to use class `"$(${Assembly}.Class)`")? (y/n)";
+	Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" (required to use class `"$(${Assembly}.Class)`")? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If ($KeyPress.Character -Eq "y") {
 		Write-Host "Info:  Confirmed (received `"y`" keypress)";
@@ -25,6 +24,8 @@ If (${Assembly_Exists}) {
 	} Else {
 		Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (did not receive `"y`" keypress)";
 	}
+}
+
 }
 
 

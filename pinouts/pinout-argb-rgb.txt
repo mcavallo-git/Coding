@@ -1,0 +1,23 @@
+------------------------------------------------------------
+ARGB / RGB Pinouts (PC Motherboard Wiring/Connector Housing Termination Standards)
+------------------------------------------------------------
+
+Corsair ARGB connector housing
+
+    General:
+      Male/Female:  MX2.54  (3 pin or 4 pin)
+
+    Specific:
+      Male:     Molex 50-57-9404  (3 pin or 4 pin)
+      Female:   Molex 70107-0003  (3 pin or 4 pin)
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   forum.corsair.com  |  "How To: Make RGB Extension Cables / Repair RGB Fan Connectors - The Corsair User Forums"  |  https://forum.corsair.com/v3/showthread.php?t=174759
+
+   www.youtube.com  |  "Corsair RGB connectors are NOT proprietary! - YouTube"  |  https://www.youtube.com/watch?v=DOj4kYXvzyI
+
+------------------------------------------------------------

@@ -1,4 +1,8 @@
-$NamePartialMatch = "chrome";
+
+If ($True) {
+
+# $NamePartialMatch = "chrome";
+$NamePartialMatch = "*NVDisplay*";
 
 $LiveProcs = (Get-Process -Name $NamePartialMatch | Select * | Where { $_.Id -ne 0 });
 
@@ -67,6 +71,8 @@ If ($UniqueProcs.Count -gt 0) {
 	}
 
 	Write-Host "`n`n";
+
+}
 
 }
 

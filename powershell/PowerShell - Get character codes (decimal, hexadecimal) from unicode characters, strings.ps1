@@ -11,7 +11,7 @@ $Input="👍";
 # $Input="👍🏽";
 # $Input = Read-Host -Prompt 'Enter string/character to get character codes for';
 
-Add-Type -AssemblyName ("System.Web");  # Needed to use [System.Net.WebUtility] class
+Add-Type -AssemblyName ("System.Web");  # Needed to use .NET class  [System.Net.WebUtility]
 
 $Character=@{};
 
@@ -41,7 +41,11 @@ Write-Output ($Character);
 #
 #   community.idera.com  |  "Converting ASCII and Characters - Power Tips - Power Tips - IDERA Community"  |  https://community.idera.com/database-tools/powershell/powertips/b/tips/posts/converting-ascii-and-characters
 #
+#   docs.microsoft.com  |  "Add-Type (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/add-type?view=powershell-5.1
+#
 #   docs.microsoft.com  |  "WebUtility Class (System.Net) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.net.webutility?view=net-5.0
+#
+#   stackoverflow.com  |  "PowerShell - Check if .NET class exists - Stack Overflow"  |  https://stackoverflow.com/a/43648202
 #
 #   stackoverflow.com  |  "What is the best way to escape HTML-specific characters in a string (PowerShell)? - Stack Overflow"  |  https://stackoverflow.com/a/48762484
 #

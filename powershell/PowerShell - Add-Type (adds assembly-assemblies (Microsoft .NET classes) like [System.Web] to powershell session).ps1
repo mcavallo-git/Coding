@@ -6,25 +6,38 @@
 
 If ($True) {
 
-$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; Method="HtmlEncode"; };
-$Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; Method="ExtractToDirectory"; };
+	$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; Method="HtmlEncode"; };
+	$Assembly=@{ Class="System.IO.Compression.ZipFile"; Namespace="System.IO.Compression.FileSystem"; Method="ExtractToDirectory"; };
 
-# Check if we need to add an assembly (e.g. a Microsoft .NET class) into this PowerShell session
-$Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
-$Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
-If (${Class_ExistsLocally}) {
-	Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (assembly already exists locally)";
-} Else {
-	Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" (required to use class `"$(${Assembly}.Class)`")? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
-	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
-	If ($KeyPress.Character -Eq "y") {
-		Write-Host "Info:  Confirmed (received `"y`" keypress)";
-		Write-Host "Info:  Calling [ Add-Type `"$(${Assembly}.Namespace)`" ]...";
+	# ------------------------------
+	# SKIP USER CONFIRMATION & JUST ADD THE ASSEMBLY:
+	$Assembly=@{ Class="System.Net.WebUtility"; Namespace="System.Web"; Method="HtmlEncode"; };
+	$Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
+	$Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
+	# Check if we need to add a prerequisite assembly (e.g. a Microsoft .NET class) to this PowerShell session
+	If (-Not (${Class_ExistsLocally})) {
 		Add-Type -AssemblyName ("$(${Assembly}.Namespace)");
-	} Else {
-		Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (did not receive `"y`" keypress)";
 	}
-}
+
+
+	# ------------------------------
+	# REQUIRE USER CONFIRMATION BEFORE ADDING THE ASSEMBLY:
+	$Local_Assemblies=([System.AppDomain]::CurrentDomain.GetAssemblies() | ForEach-Object { ${_}.GetTypes(); });
+	$Class_ExistsLocally=(${Local_Assemblies} | Where-Object { ${_}.FullName -Eq "$(${Assembly}.Class)"; });
+	# Check if we need to add an assembly (e.g. a Microsoft .NET class) into this PowerShell session
+	If (${Class_ExistsLocally}) {
+		Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (assembly already exists locally)";
+	} Else {
+		Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" (required to use class `"$(${Assembly}.Class)`")? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+		If ($KeyPress.Character -Eq "y") {
+			Write-Host "Info:  Confirmed (received `"y`" keypress)";
+			Write-Host "Info:  Calling [ Add-Type `"$(${Assembly}.Namespace)`" ]...";
+			Add-Type -AssemblyName ("$(${Assembly}.Namespace)");
+		} Else {
+			Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  (did not receive `"y`" keypress)";
+		}
+	}
 
 }
 

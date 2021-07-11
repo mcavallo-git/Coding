@@ -11,13 +11,14 @@ $Input="👍";
 # $Input="👍🏽";
 # $Input = Read-Host -Prompt 'Enter string/character to get character codes for';
 
-Add-Type -AssemblyName ("System.Web");
+Add-Type -AssemblyName ("System.Web");  # Adds [System.Net.WebUtility] Class
 
 $Character=@{};
+
 $Character.("Characters")=("${Input}".ToCharArray());
-$Character.("HtmlEncode")=([System.Net.WebUtility]::HtmlEncode("${Input}"));
 $Character.("HTML Entity (Decimal)")=@();
 $Character.("HTML Entity (Hex)")=@();
+$Character.("HtmlEncode")=([System.Net.WebUtility]::HtmlEncode("${Input}"));
 $Character.("UTF-16 Code (Decimal)")=@();
 $Character.("UTF-16 Code (Hex)")=@();
 

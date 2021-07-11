@@ -8,9 +8,9 @@ If ($True) {
 	Write-Output "Info:  Yes or no? (y/n)";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If ($KeyPress.Character -Eq "y") {
-		Write-Output "Info:  You selected `"y`"";
+		Write-Host "Info:  Confirmed (received `"y`" keypress)";
 	} Else {
-		Write-Output "Info:  You did not select `"y`"";
+		Write-Host "Info:  Skipped (did not receive `"y`" keypress)";
 	}
 }
 

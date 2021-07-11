@@ -4,11 +4,23 @@
 #
 # ------------------------------------------------------------
 
+If ($True) {
 
-$UnicodeChar="❖";
-Write-Host "Character [ ${UnicodeChar} ]"
-$DecimalCode=([Int][Char]${UnicodeChar});
-'{0:x}' -f ([Int][Char]${UnicodeChar});
+$Input="❖";
+
+$Character=@{};
+
+$Character.Char=${Input};
+
+$Character.UTF16_Decimal=([Int][Char]${Input});
+
+$Character.UTF16_Hexadecimal=("0x$('{0:x}' -f ([Int][Char]${Input}))");
+
+Write-Output "`n`n";
+$Character.Keys | Sort-Object | ForEach-Object { Write-Output "${_} = [ $($Character.("${_}")) ]";  };
+Write-Output "`n`n";
+
+}
 
 
 # ------------------------------------------------------------
@@ -16,5 +28,7 @@ $DecimalCode=([Int][Char]${UnicodeChar});
 # Citation(s)
 #
 #   community.idera.com  |  "Converting ASCII and Characters - Power Tips - Power Tips - IDERA Community"  |  https://community.idera.com/database-tools/powershell/powertips/b/tips/posts/converting-ascii-and-characters
+#
+#   www.fileformat.info  |  "Unicode Character 'BLACK DIAMOND MINUS WHITE X' (U+2756)"  |  https://www.fileformat.info/info/unicode/char/2756/index.htm
 #
 # ------------------------------------------------------------

@@ -1,9 +1,9 @@
 ------------------------------------------------------------
-Explorer --> Right click menu options to disable (reverse lookups)
+Explorer --> Context menu (right click) options in Windows explorer (to enable/disable - reverse lookups)
 ------------------------------------------------------------
 
 | ===================================== | ========================== | ============================================================
-| Right-click explorer option           | Exe to disable via         | Extension Name (to disable within exe)                      
+|  Context menu (right click) option    |  Exe to apply changes via  |  Action to take
 | ===================================== | ========================== | ============================================================
 |                                       |                            |
 | More GpgEX options                    | shexview.exe  (app $2)     | Disable row(s) matching:  [Extension Name]="GpgEX", [Description]="GnuPG shell extensions"
@@ -20,9 +20,20 @@ Explorer --> Right click menu options to disable (reverse lookups)
 | Scan with Microsoft Defender...       | shexview.exe  (app #2)     | Disable row(s) matching:  [Extension Name]="EPP", [Description]="Microsoft Security Client Shell Extension"
 |                                       |                            |
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |  ^                         |
+| OneDrive * (all related)              | shexview.exe  (app #2)     | !!! ENABLE !!! row(s) matching:  [Extension Name]="FileSyncEx", [Description]="Microsoft OneDrive Shell Extension"
 |                                       |                            |
-| (Anything with) Windows Media Player  | shmnview.exe  (app #1)     | Disable row(s) matching:  [Filename]="C:\Program Files (x86)\Windows Media Player\wmplayer.exe"
+|    Always keep on this device         |                            |   (KEEP ENABLED)
+|    Free up space                      |                            |   (KEEP ENABLED)
+|    Unlock Personal Vault              |                            |   (KEEP ENABLED)
 |                                       |                            |
+|    View online                        |                            |   (FIND OUT HOW TO DISABLE WITHOUT KILLING ALL OTHER ONEDRIVE CONTEXT MENU ITEMS)
+|    Share                              |                            |   (FIND OUT HOW TO DISABLE WITHOUT KILLING ALL OTHER ONEDRIVE CONTEXT MENU ITEMS)
+|                                       |                            |
+| ------------------------------------- | -------------------------- | ------------------------------------------------------------
+|                                       |                            |
+| Windows Media Player * (all related)  | shmnview.exe  (app #1)     | Disable row(s) matching:  [Filename]="C:\Program Files (x86)\Windows Media Player\wmplayer.exe"
+|                                       |                            | ??? ^ THIS DOESN'T SEEM TO CATCH ALL PLAYLIST ACTIONS ...
 | ------------------------------------- | -------------------------- | ------------------------------------------------------------
 |                                       |                            |
 | Convert to PDF in Foxit PhantomPDF    | powershell.exe (as admin)  | Get-ChildItem -Path ("C:\Program Files (x86)\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x64.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };  <# --- #>  Get-ChildItem -Path ("C:\Program Files\Foxit Software\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "ConvertToPDFShellExtension_x86.dll" } | Select-Object -First 1 | ForEach-Object { Write-Host "Calling [ regsvr32.exe /u `"$($_.FullName)`" ]..."; regsvr32.exe /u "$($_.FullName)"; };
@@ -54,9 +65,6 @@ Explorer --> Right click menu options to disable (reverse lookups)
 |                                       |                            |   ☐ (UNCHECK ALL OTHER CONTEXT MENU ITEMS)
 |                                       |                            |
 | ===================================== | -------------------------- | ============================================================
-
-HKEY_CLASSES_ROOT\Directory\background\shell\git_gui
-HKEY_CLASSES_ROOT\Directory\Shell\git_gui
 
 
 ------------------------------------------------------------

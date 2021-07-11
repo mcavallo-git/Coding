@@ -6,14 +6,14 @@
 
 #   HEX to DEC
 0x000064;  # Method 1 - integers starting in [ 0x ] are converted from hex to dec, by default
-[Convert]::ToString(0x000064, 10);  # Method 2
-[String]::Format("{0:d}", 0x000064);  # Method 3
-"{0:d}" -f 0x000064;  # Method 4
-[Convert]::ToInt32("0x000064",16);  # Method 5 (hex as a string instead of as an int32)
+[Convert]::ToInt32('0x000064',16);  # Method 2 (hex as a string instead of as an int32)
+[Int]([Convert]::ToString(0x000064, 10));  # Method 3
+[Int]([String]::Format('{0:d}', 0x000064));  # Method 4
+[Int]('{0:d}' -f 0x000064);  # Method 5
 
 
 # BIN to DEC
-[Convert]::ToInt32("1100100",2);
+[Convert]::ToInt32('1100100',2);
 
 
 # ------------------------------------------------------------
@@ -23,15 +23,15 @@
 
 
 # DEC to HEX
-"{0:x}" -f 100;  # Method 1
-[String]::Format("{0:x}", 100);  # Method 2
+'{0:x}' -f 100;  # Method 1
+[String]::Format('{0:x}', 100);  # Method 2
 [Convert]::ToString(100, 16);  # Method 3
 
 
 # BIN to HEX
-[Convert]::ToString([Convert]::ToInt32("1100100",2), 16);  # Method 1
-"{0:x}" -f [Convert]::ToInt32("1100100",2);  # Method 2
-[String]::Format("{0:x}", [Convert]::ToInt32("1100100",2));  # Method 3
+[Convert]::ToString([Convert]::ToInt32('1100100',2), 16);  # Method 1
+'{0:x}' -f [Convert]::ToInt32('1100100',2);  # Method 2
+[String]::Format('{0:x}', [Convert]::ToInt32('1100100',2));  # Method 3
 
 
 # ------------------------------------------------------------
@@ -42,6 +42,7 @@
 
 # DEC TO BIN
 [Convert]::ToString(100, 2);
+
 
 # HEX TO BIN
 [Convert]::ToString(0x000064, 2);

@@ -281,6 +281,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
 		# -- PROCESSES -- Program Files (x86)\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="APC\PowerChute Personal Edition"; Depth="3"; Parent=""; Basename="*.exe"; }; # APC PowerChute Personal Edition (Battery Backup Manager)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="ASUS\ROG Live Service"; Depth=""; Parent=""; Basename="ROGLiveService.exe"; }; # ASUS ROG Live Service
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Cisco\Cisco AnyConnect Secure Mobility Client"; Depth="3"; Parent=""; Basename="*.exe"; }; # Cisco AnyConnect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Cisco\Cisco AnyConnect VPN Client"; Depth="3"; Parent=""; Basename="*.exe"; }; # Cisco AnyConnect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Common Files\Oracle\Java"; Depth="2"; Parent=""; Basename="java.exe"; }; # Java

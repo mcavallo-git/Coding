@@ -25,6 +25,6 @@ echo "\${RANDOM_INTEGER} = [ ${RANDOM_INTEGER} ]";
 #
 # Citation(s)
 #
-#   unix.stackexchange.com  |  "shell - Generate random numbers in specific range - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/140756
+#   unix.stackexchange.com  |  "shell - Generate random numbers in specific range - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/140751
 #
 # ------------------------------------------------------------

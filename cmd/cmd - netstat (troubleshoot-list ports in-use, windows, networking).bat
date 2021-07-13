@@ -1,14 +1,22 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 REM
-REM  Determine which process is using a given port
-REM
-
 REM  NETSTAT.EXE
 REM    -a            Displays all connections and listening ports.
 REM    -n            Displays addresses and port numbers in numerical form.
 REM    -o            Displays the owning process ID associated with each connection.
+REM
 
+REM   List all listening ports
+NETSTAT.EXE -nao
+
+
+REM ------------------------------------------------------------
+REM
+REM  Determine which process is using a given port
+REM
+
+REM List only processes listening on a given port (to get their PID from the rightmost column and perform a reverse lookup on)
 NETSTAT.EXE -nao | find ":80 "
 
 

@@ -108,15 +108,15 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	Write-Output "";
 	Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${HandBrakeCLI} ]";
 	Write-Output "";
-	Write-Output "Info:  Downloading archive-version of HandBrakeCLI from  [ ${ExeArchive_Url} ]  to  [ ${ExeArchive_Local} ]...";
+	Write-Output "Info:  Downloading archive-version of HandBrakeCLI";
+	Write-Output "        |--> From:  [ ${ExeArchive_Url} ]";
+	Write-Output "        |--> To:  [ ${ExeArchive_Local} ]";
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	# Unpack the downloaded archive
 	Write-Output "";
 	Write-Output "Info:  Unpacking archive:";
-	Write-Output "  |";
-	Write-Output "  |-->  Source (archive path):  `"${ExeArchive_Local}`"";
-	Write-Output "  |";
-	Write-Output "  |-->  Destination (unpacked directory):  `"${ExeArchive_Unpacked}`"";
+	Write-Output "        |--> Source (archive):  `"${ExeArchive_Local}`"";
+	Write-Output "        |--> Destination (unpacked):  `"${ExeArchive_Unpacked}`"";
 	Write-Output "";
 	Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
 	# Clean-up the archive once it has been unpacked

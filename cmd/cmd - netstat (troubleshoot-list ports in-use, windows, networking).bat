@@ -4,15 +4,19 @@ REM
 REM  Determine which process is using a given port
 REM
 
+REM  NETSTAT.EXE
+REM    -a            Displays all connections and listening ports.
+REM    -n            Displays addresses and port numbers in numerical form.
+REM    -o            Displays the owning process ID associated with each connection.
 
-NETSTAT -nao | find ":80 "
+NETSTAT.EXE -nao | find ":80 "
 
 
 REM ------------------------------------------------------------
 
-NETSTAT -a -b
+NETSTAT.EXE -a -b
 
-NETSTAT -o
+NETSTAT.EXE -o
 
 TIMEOUT /T 60
 

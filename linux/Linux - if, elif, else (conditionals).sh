@@ -301,7 +301,7 @@ done;
 #    |--> Any value greater than 0 for the length of the string means non-integer character(s) were found
 #
 
-if [[ -z ${foo//[0-9]/} ]]; then
+if [ -n "${foo}" ] && [[ -z ${foo//[0-9]/} ]]; then
 	echo "foo is an integer!";
 fi;
 
@@ -313,7 +313,7 @@ fi;
 #
 
 # BASMISM - REQUIRES THE  [ /etc/bash ]  SHELL
-if [[ $((foo)) == $foo ]]; then
+if [ -n "${foo}" ] && [[ $((foo)) == $foo ]]; then
 	echo "foo is an integer!";
 fi;
 

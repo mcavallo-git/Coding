@@ -112,7 +112,7 @@ fi;
 # Example)  UN-comment lines starting-with or containing a specific substring
 #
 
-# Uncomment lines starting with  [ # set bell-style none ]
+# Uncomment lines which match "# set bell-style none"
 if [ -f '/etc/inputrc' ]; then
   if [ $(sed -rne 's/^#\s*(set\s+bell-style\s+none\s*)$/\0/p' '/etc/inputrc' | wc -l 2>'/dev/null';) -gt 0 ]; then
     ### Bash - Disable the bell sound effect (specifically intended for WSL (Windows Subsystem for Linux)) - https://stackoverflow.com/a/36726662
@@ -143,8 +143,8 @@ sed -e '/^\s*$/d' "/etc/hosts";
 # ------------------------------------------------------------
 # 
 # sed
-#  |-->  -i"..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
 #  |-->  -e '/.../d'  -->  remove specific lines, matching a given pattern
+#  |-->  -i"..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
 #
 
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/pattern to match/d' ./infile

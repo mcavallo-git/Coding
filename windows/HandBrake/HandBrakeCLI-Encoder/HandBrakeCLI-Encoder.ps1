@@ -1,12 +1,12 @@
 # @ECHO OFF
 # ------------------------------------------------------------
-# !!! Prerequisite !!!
+# Prerequisites
 #
 # 	HandBrakeCLI must be installed for this script to function as-intended (It will attempt to auto-download)
 #
-# 	Download [ HandBrakeCLI ] Application from URL [ https://handbrake.fr/downloads2.php ]
+# 	Download [ HandBrakeCLI-...-win-x86_64.zip ] from from URL [ https://handbrake.fr/downloads2.php ]
 #
-# 	Extract [ HandBrakeCLI.exe ] from aforementioned URL (downloads as a .zip archive as-of 20191222-070342 CST)
+# 	Extract [ HandBrakeCLI.exe ] from the downloaded [ HandBrakeCLI-...-win-x86_64.zip ] zip archive
 #
 # 	Place the extracted file at filepath [ C:\Program Files\HandBrake\HandBrakeCLI.exe ]
 #
@@ -96,9 +96,14 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 # Download HandBrake runtime executable (if it doesn't exist)
 #
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
-	$ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
+
+	$ExeArchive_Url="https://github.com/HandBrake/HandBrake/releases/download/1.3.3/HandBrakeCLI-1.3.3-win-x86_64.zip";
+	# $ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
+
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
+
 	$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
+
 	# Download HandBrakeCLI
 	Write-Output "";
 	Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${HandBrakeCLI} ]";

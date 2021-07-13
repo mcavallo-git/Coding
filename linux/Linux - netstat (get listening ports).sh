@@ -2,22 +2,25 @@
 # ------------------------------------------------------------
 
 # netstat
-#    -a, --all      Show both listening and non-listening sockets.  With the --interfaces option, show interfaces that are not up
+#    -a, --all         Show both listening and non-listening sockets.  With the --interfaces option, show interfaces that are not up
+#    --numeric, -n     Show numerical addresses instead of trying to determine symbolic host, port or user names.
+#    -l, --listening   Show only listening sockets.  (These are omitted by default.)
+#    -p, --program     Show the PID and name of the program to which each socket belongs.
 #    --tcp|-t
 #    --udp|-u
-#    --numeric, -n   Show numerical addresses instead of trying to determine symbolic host, port or user names.
 
 
-# TCP  LISTENING PORTS
+# LIST OUTGOING PORTS/SOCKETS  (TCP, ANY SOCKET TYPE (LISTEN, ESTABLISHED, TIME-WAIT, ...))
 netstat -atn;
 
-
-# UDP  LISTENING PORTS
+# LIST OUTGOING PORTS/SOCKETS  (UDP, ANY SOCKET TYPE (LISTEN, ESTABLISHED, TIME-WAIT, ...))
 netstat -aun;
 
-
-# TCP & UDP  LISTENING PORTS
+# LIST OUTGOING PORTS/SOCKETS  (TCP & UDP, ANY SOCKET TYPE (LISTEN, ESTABLISHED, TIME-WAIT, ...))
 netstat -atun;
+
+# LIST OUTGOING PORTS/SOCKETS  (TCP & UDP, ONLY LISTENING SOCKET TYPE)
+netstat -tulpen;
 
 
 # ------------------------------------------------------------
@@ -32,6 +35,7 @@ netstat -tulpn | grep :80;
 # Find out the processes PID that opened tcp port 80
 fuser 80/tcp
 # |--> returned:   80/tcp:               8119  8148  8149
+
 
 # ------------------------------------------------------------
 
@@ -48,6 +52,7 @@ ls -l /proc/8149/exe
 
 # Option 2: use lsof Command (get all info for processes on port 80)
 # lsof -i :80
+
 
 # ------------------------------------------------------------
 

@@ -111,7 +111,11 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 	Write-Output "Info:  Downloading archive-version of HandBrakeCLI";
 	Write-Output "        |--> From:  [ ${ExeArchive_Url} ]";
 	Write-Output "        |--> To:  [ ${ExeArchive_Local} ]";
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
+	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
+	$ProgressPreference='SilentlyContinue';
+	$(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}");
+	[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	# Unpack the downloaded archive
 	Write-Output "";
 	Write-Output "Info:  Unpacking archive:";

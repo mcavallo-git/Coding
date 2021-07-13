@@ -23,12 +23,15 @@
 #
 # ------------------------------------------------------------
 #
-# STEP 3) Setting-up Scheduled Task to run PowerShell script in Windows (simpler than setting up PRTG to run PowerShell scripts as SYSTEM, directly)
-#  > Create a Scheduled Task to run this PowerShell script every minute
+# STEP 3) Setup a Scheduled Task to run OpenHardwareMonitor.exe at startup
 #
 # ------------------------------------------------------------
 #
-# STEP 4) Create a new PRTG "EXE/Script Advanced" Sensor to run a batch-file with one, single line, being: [  TYPE %Logfile_XmlOutput%  ] (whatever path this .ps1 file outputs-to)
+# STEP 4) Setup a Scheduled Task to run this PowerShell script at startup, and repeating every minute
+#
+# ------------------------------------------------------------
+#
+# STEP 5) Create a new PRTG Sensor with type "EXE/Script Advanced" which runs a batch file in "../EXE/*.bat" (which target only one of the many sensors' output TXT files, shown below)
 #
 # ------------------------------------------------------------
 

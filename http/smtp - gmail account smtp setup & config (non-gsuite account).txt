@@ -1,0 +1,22 @@
+#!/bin/bash
+# ------------------------------------------------------------
+#  gmail smtp - account setup & smtp config (non-gsuite account)
+# ------------------------------------------------------------
+
+Main relays:
+		smtp.gmail.com
+		smtp-relay.gmail.com
+
+
+More info - See citation(s), below
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   support.google.com  |  "SMTP relay: Route outgoing non-Gmail messages through Google - Google Workspace Admin Help"  |  https://support.google.com/a/answer/2956491?hl=en
+#
+#   support.google.com  |  "Send email from a printer, scanner, or app - Google Workspace Admin Help"  |  https://support.google.com/a/answer/176600?hl=en
+#
+# ------------------------------------------------------------

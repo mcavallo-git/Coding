@@ -3,18 +3,19 @@
 # ------------------------------------------------------------
 
 
-wsl.exe --list --verbose;  # The line starting with an asterisk '*' is the current terminal's Linux distro
-
-# Set default version of WSL to WSL 2
-
-wsl.exe --set-version Ubuntu 2;  # DON'T USE QUOTES ON DISTRO NAME
-
-wsl.exe --set-default-version 2;  
+# Download & Install the WSL 2 updated kernel for x64 systems
+https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 
 # ------------------------------
 
-# Download & Install the WSL 2 updated kernel for x64 systems
-https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+# Determine distros to be updated
+wsl.exe --list --verbose;  # The line starting with an asterisk '*' is the current terminal's Linux distro
+
+# Update desired distros to WSL 2
+wsl.exe --set-version Ubuntu 2;  # DON'T USE QUOTES ON DISTRO NAME
+
+# Update default WSL version to WSL 2
+wsl.exe --set-default-version 2;  
 
 
 # ------------------------------------------------------------

@@ -2,9 +2,13 @@
 # wsl.exe - Update to use WSL 2
 # ------------------------------------------------------------
 
-
-# Download & Install the WSL 2 updated kernel for x64 systems
+# Download & Install the WSL 2 updated kernel for x64 systems (if not installed, already)
 https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+
+# ------------------------------
+
+# Enable the "Virtual Machine Platform" Windows 10 feature
+Get-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" | Where-Object { $_.State -Eq "Disabled" } | Enable-WindowsOptionalFeature -Online;
 
 # ------------------------------
 

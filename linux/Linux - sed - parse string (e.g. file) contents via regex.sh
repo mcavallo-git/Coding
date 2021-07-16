@@ -14,7 +14,23 @@ echo "hello world" | sed -e 's|world|not world|g';
 # Use sed with regex capture group(s) (which are referenced using \1 \2 ... \n - e.g. backslashed-numbers, instead of regex's usual $1 $2 ... $n - e.g. dollar-number syntax)
 #
 
+
+# Match lines in a file
+if [ $(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root" | wc -l;) -eq 0 ]; then
+  echo "No lines matched";
+else
+  echo "At least one line matched!";
+  MATCHED_LINES=$(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root";);
+  echo "\${MATCHED_LINES}=[${MATCHED_LINES}]";
+fi;
+
+# Match lines AND update file (using argument -i"...")
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
+
+
+# Match lines from a curl request
+TERRAFORM_LATEST_VERSION=$(curl https://www.terraform.io/downloads.html | grep 'https://releases.hashicorp.com/terraform/' | grep -i 'linux' | head -n 1 | sed -re "s/^.+https:\/\/releases\.hashicorp\.com\/terraform\/([0-9\.]+)\/.+$/\1/";);
+echo "\${TERRAFORM_LATEST_VERSION}=[${TERRAFORM_LATEST_VERSION}]";
 
 
 # ------------------------------------------------------------

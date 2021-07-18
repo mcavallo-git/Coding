@@ -286,8 +286,6 @@ This file (on GitHub):
 <tr><td><strong>Samsung Magician</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Optimizes Samsung's solid state drives (SSDs)<br />&nbsp;&nbsp;&nbsp;Contains "Secure Erase" tool which securely wipes SSDs</i></sub></td><td><a href="https://www.samsung.com/semiconductor/minisite/ssd/product/consumer/magician/">Download (source)</a></td></tr>
 <tr><td><strong>Sonos desktop controller</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Control LAN Sonos speakers</i></sub></td><td><a href="https://www.sonos.com/redir/controller_software_pc">Download (source)</a></td></tr>
 <tr><td><strong>SpeedFan</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Third Party PWM Fan Software Controller</i></sub></td><td><a href="https://www.almico.com/sfdownload.php">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.cnet.com/SpeedFan/3000-2094_4-10067444.html">Download (mirror)</a></sub></td></tr>
-<tr><td><strong>VMware - All Downloads</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere, VMware Workstation,<br />&nbsp;&nbsp;&nbsp;VMware Fusion, VMware Player, etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
-<tr><td><strong>VMware Workstation Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Desktop Virtualization for a Single (1) VM</i></sub></td><td><a href="https://www.vmware.com/products/workstation-player.html">Download (source)</a></td></tr>
 <tr><td><strong>Yubico Tools</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Configuration Utility/Tool for YubiKeys<br />&nbsp;&nbsp;&nbsp;Sets modes for quick-press ('Short Touch') and long-hold ('Long Touch')<br />&nbsp;&nbsp;&nbsp;Reference: <a href="https://duo.com/docs/yubikey">Configuring YubiKeys for OTP use with Duo</a><br />&nbsp;&nbsp;&nbsp;Reference: <a href="https://duo.com/docs/administration-devices#assigning-a-hardware-token-to-an-administrator">Assigning a Hardware Token to an Administrator</a></i></sub></td><td><a href="https://www.yubico.com/products/services-software/download/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.yubico.com/support/download/yubikey-manager/">Download (YubiKey Manager)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.yubico.com/support/download/yubikey-personalization-tools/">Download (YubiKey Personalization Tool)</a></sub></td></tr>
 <tr><td><strong>WifiInfoView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Displays a table showing local Wi-Fi signals':<br />&nbsp;&nbsp;&nbsp;SSID, RSSI, MAC Address, PHY Type, Channel, Frequency, Quality & More</i></sub></td><td><a href="https://wifiinfoview.en.softonic.com/">Download (source)</a></td></tr>
 <tr><td><strong>WinSW: Windows service wrapper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(in less restrictive license)</i></sub></td><td><a href="https://github.com/kohsuke/winsw/">Download (source)</a></td></tr>
@@ -411,7 +409,8 @@ This file (on GitHub):
 <tr><td><strong>Raspberry Pi OS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Renamed from "Raspbian" in mid 2020 for 64-bit OS release<br />&nbsp;&nbsp;&nbsp;Install OS onto Raspi's SD card using Rufus</i></sub></td><td><a href="https://www.raspberrypi.org/software/operating-systems/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://ubuntu.com/download/raspberry-pi">Download (Ubuntu for Raspi)</a></sub></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Download (Ubuntu 16.04 LTS)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Download (Ubuntu 14.04 LTS)</a></sub></td></tr>
-<tr><td><strong>ESXi</strong> <sub>
+<tr><td><strong>VMware (All Downloads)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere/Workstation/Fusion/Player/etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
+<tr><td><strong>VMware ESXi</strong> <sub>
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
 		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
@@ -428,6 +427,7 @@ This file (on GitHub):
 		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 	</i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>
+<tr><td><strong>VMware Workstation Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Desktop Virtualization for a Single (1) VM</i></sub></td><td><a href="https://www.vmware.com/products/workstation-player.html">Download (source)</a></td></tr>
 <tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Create Win10 Installation Media (Install Media)</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
 <tr><td><strong>Xubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://xubuntu.org/download">Download (source)</a></td></tr>
 <!-- -->

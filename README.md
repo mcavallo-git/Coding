@@ -115,7 +115,9 @@ This file (on GitHub):
 			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable option "Make searches and browsing better"</h4></li>
 			<li><h4>Browse to <code>https://myaccount.google.com/permissions</code> & disable option "Google Account sign-in prompts"</h4></li>
 		</ul>
-	</details></sub></td><td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a></sub></td></tr>
+	</details></sub></td>
+	<td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a><br />&nbsp;&nbsp;&nbsp;<details><summary><i>Download (one-liner, PowerShell)</i></summary><p><ul><li><pre><code>$LocalTempDir = $env:TEMP; $ChromeInstaller = "ChromeInstaller.exe"; (new-object System.Net.WebClient).DownloadFile('http://dl.google.com/chrome/install/375.126/chrome_installer.exe', "$LocalTempDir\$ChromeInstaller"); & "$LocalTempDir\$ChromeInstaller" /silent /install; $Process2Monitor = "ChromeInstaller"; Do { $ProcessesFound = Get-Process | ?{$Process2Monitor -contains $_.Name} | Select-Object -ExpandProperty Name; If ($ProcessesFound) { "Still running: $($ProcessesFound -join ', ')" | Write-Host; Start-Sleep -Seconds 2 } else { rm "$LocalTempDir\$ChromeInstaller" -ErrorAction SilentlyContinue -Verbose } } Until (!$ProcessesFound)</code></pre></li></ul></p></details>
+</sub></td></tr>
 <tr><td><strong>Mozilla Firefox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Web Browser by the Mozilla Foundation</i></sub></td><td><a href="https://www.mozilla.org/en-US/firefox/download/thanks/">Download (source)</a></td></tr>
 <tr><td><strong>LastPass</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://lastpass.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
@@ -532,6 +534,8 @@ This file (on GitHub):
 #   en.wikipedia.org  |  "DevOps"  |  https://en.wikipedia.org/wiki/DevOps
 #
 #   en.wikipedia.org  |  "FreeNAS"  |  https://en.wikipedia.org/wiki/FreeNAS
+#
+#   r-petrenko.medium.com  |  "How to install chrome on windows with powershell? | by Roman Petrenko | Medium"  |  https://r-petrenko.medium.com/how-to-install-chrome-on-windows-with-powershell-290e7346271
 #
 #   reddit.com  |  "[List] Essential Software for your Windows PC"  |  https://www.reddit.com/r/software/comments/8tx8w7/list_essential_software_for_your_windows_pc/
 #

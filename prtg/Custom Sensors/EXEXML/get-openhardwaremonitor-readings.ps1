@@ -323,7 +323,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 			${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
 
 
-		} ElseIf (${Each_SensorDescription} -Eq "GPU Load, CPU Core") {
+		} ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
 			${Load_GPU}.(${_}) = (${Each_Value}.(${_}));
 
 		} ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {

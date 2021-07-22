@@ -2448,7 +2448,7 @@ OpenControlPanel_NetworkConnections() {
 		; Run % (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
 		; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
 		Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
-		WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+		WinWait, %WinTitle%,, 10  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
 	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
@@ -2482,16 +2482,15 @@ OpenControlPanel_Sound(TabToOpen:="Playback") {
 		Tab_Desc := "Playback"
 		Tab_Int := 0
 	}
-	If (WinExist(WinTitle)) {
-		WinClose(WinTitle)
+	If (!WinExist(WinTitle)) {
+		If (DebugMode == 1) {
+			TrayTip, AHK, % ( "Opening '" WinTitle "' > '" Tab_Desc "'" )  ; Toast Notification
+		}
+		Run % (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
+		; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
+		; Run control.exe /name Microsoft.Sound
+		WinWait, %WinTitle%,, 10  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	If (DebugMode == 1) {
-		TrayTip, AHK, % ( "Opening '" WinTitle "' > '" Tab_Desc "'" )  ; Toast Notification
-	}
-	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
-	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
-	; Run control.exe /name Microsoft.Sound
-	WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }

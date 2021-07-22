@@ -2434,14 +2434,23 @@ Open_Exe(ExeFullpath) {
 
 ;
 ;	OpenControlPanel_NetworkConnections
-;   |--> Opens "View Network Connections" (in the Control Panel)
+;   |--> Opens "View Network Connections" (usually found in Control Panel)
 ;
 OpenControlPanel_NetworkConnections() {
-	TrayTip, AHK, % ( "Opening 'View Network Connections'" )  ; Toast Notification
-	; ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
-	; Run %ViewNetworkConnections_CLSID%
-	; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
-	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
+	WinTitle := "Network Connections"
+	SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
+	If (!WinExist(WinTitle)) {
+		If (DebugMode == 1) {
+			TrayTip, AHK, % ( "Opening '" WinTitle "'" )  ; Toast Notification
+		}
+		; ViewNetworkConnections_CLSID := "::{7007acc7-3202-11d1-aad2-00805fc1270e}"  ; CLSID (Windows Class Identifier) for 'View Network Connections'
+		; Run %ViewNetworkConnections_CLSID%
+		; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
+		Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
+		WinWait, %WinTitle%,, 5  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	}
+	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2453,6 +2462,7 @@ OpenControlPanel_NetworkConnections() {
 OpenControlPanel_Sound(TabToOpen:="Playback") {
 	WinTitle := "Sound"
 	SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
+	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	Tab_Desc := "Playback"
 	Tab_Int := 0
 	If (TabToOpen=="Playback") {
@@ -2474,7 +2484,9 @@ OpenControlPanel_Sound(TabToOpen:="Playback") {
 	If (WinExist(WinTitle)) {
 		WinClose(WinTitle)
 	}
-	TrayTip, AHK, % ( "Opening 'Sound' > '" Tab_Desc "'" )  ; Toast Notification
+	If (DebugMode == 1) {
+		TrayTip, AHK, % ( "Opening '" WinTitle "' > '" Tab_Desc "'" )  ; Toast Notification
+	}
 	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
 	; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}
 	; Run control.exe /name Microsoft.Sound
@@ -2515,10 +2527,10 @@ OpenChrome() {
 
 
 ;
-;	OpenPasswordGenerator
+;	OpenRoboformPasswordGenerator
 ;   |--> Opens Roboform's Password Generator executable
 ;
-OpenPasswordGenerator() {
+OpenRoboformPasswordGenerator() {
 	Global DebugMode
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match

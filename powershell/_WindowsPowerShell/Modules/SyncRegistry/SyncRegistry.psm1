@@ -991,13 +991,14 @@ function SyncRegistry {
 
 		# Mouse - Cursor/Pointer Appearance
 		$RegEdits += @{
-			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Cursors";
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Cursors";
 			Props=@(
 				@{
-					Description="Set the mouse sensitivity between a minimum of [ 1 ] and a maximum of [ 20 ] (affects DPI calculations for current mouse)";
-					Name="MouseSensitivity";
+					Description="Set the mouse cursor's appearance - Can be any of [ Magnified, Windows Black (extra large), Windows Black (large), Windows Black, Windows Default (extra large), Windows Default (large), Windows Default, Windows Inverted (extra large), Windows Inverted (large), Windows Inverted, Windows Standard (extra large), Windows Standard (large), Blank (uses the pointer scheme '(None)') ]";
+					Name="(Default)";
 					Type="String";
-					Value=10;
+					Value="Magnified";
+					# Value="Windows Black (extra large)";
 					Delete=$False;
 				}
 			)
@@ -1009,14 +1010,15 @@ function SyncRegistry {
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Mouse";
 			Props=@(
 				@{
-					Description="Set the mouse cursor's appearance - Can be any of [ Magnified, Windows Black (extra large), Windows Black (large), Windows Black, Windows Default (extra large), Windows Default (large), Windows Default, Windows Inverted (extra large), Windows Inverted (large), Windows Inverted, Windows Standard (extra large), Windows Standard (large), Blank (uses the pointer scheme '(None)') ]";
-					Name="(Default)";
+					Description="Set the mouse sensitivity between a minimum of [ 1 ] and a maximum of [ 20 ] (affects DPI calculations for current mouse)";
+					Name="MouseSensitivity";
 					Type="String";
-					Value="Windows Black (extra large)";
+					Value=10;
 					Delete=$False;
 				}
 			)
 		};
+
 
 
 		# SmartScreen for Microsoft Edge, Microsoft Store Apps

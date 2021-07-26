@@ -56,10 +56,12 @@ $Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core";
 $Logfile_Clock_GPU_Mem = "${Logfile_Basename}-Clock-GPU-Mem";
 $Logfile_Clock_GPU_Shad = "${Logfile_Basename}-Clock-GPU-Shad";
 
+$Logfile_FanSpeed_CHA = "${Logfile_Basename}-Fan-Chassis";
 $Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump";
 $Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator";
 $Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD";
 
+$Logfile_FanPercentage_CHA = "${Logfile_Basename}-FanPercentage-Chassis";
 $Logfile_FanPercentage_PMP = "${Logfile_Basename}-FanPercentage-Pump";
 $Logfile_FanPercentage_RAD = "${Logfile_Basename}-FanPercentage-Radiator";
 $Logfile_FanPercentage_SSD = "${Logfile_Basename}-FanPercentage-SSD";
@@ -238,6 +240,8 @@ $Speed_FAN_RAD = @{Avg="";Max="";Min="";};
 $Speed_FAN_RAD_PRC = @{Avg="";Max="";Min="";};
 $Speed_FAN_SSD = @{Avg="";Max="";Min="";};
 $Speed_FAN_SSD_PRC = @{Avg="";Max="";Min="";};
+$Speed_FAN_CHA = @{Avg="";Max="";Min="";};
+$Speed_FAN_CHA_PRC = @{Avg="";Max="";Min="";};
 
 $Power_CPU = @{Avg="";Max="";Min="";};
 $Power_GPU = @{Avg="";Max="";Min="";};
@@ -347,23 +351,29 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
 			${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
 
-		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {
-			${Speed_FAN_PMP}.(${_}) = (${Each_Value}.(${_}));
-
-		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {
-			${Speed_FAN_PMP_PRC}.(${_}) = (${Each_Value}.(${_}));
-
-		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  <# Chassis Fan 1 #>
 			${Speed_FAN_RAD}.(${_}) = (${Each_Value}.(${_}));
 
-		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  <# Chassis Fan 1 #>
 			${Speed_FAN_RAD_PRC}.(${_}) = (${Each_Value}.(${_}));
 
-		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  <# Chassis Fan 2 #>
+			${Speed_FAN_CHA}.(${_}) = (${Each_Value}.(${_}));
+
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  <# Chassis Fan 2 #>
+			${Speed_FAN_CHA_PRC}.(${_}) = (${Each_Value}.(${_}));
+
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  <# Chassis Fan 3 #>
 			${Speed_FAN_SSD}.(${_}) = (${Each_Value}.(${_}));
 
-		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  <# Chassis Fan 3 #>
 			${Speed_FAN_SSD_PRC}.(${_}) = (${Each_Value}.(${_}));
+
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  <# W_PUMP+ #>
+			${Speed_FAN_PMP}.(${_}) = (${Each_Value}.(${_}));
+
+		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  <# W_PUMP+ #>
+			${Speed_FAN_PMP_PRC}.(${_}) = (${Each_Value}.(${_}));
 
 		}
 
@@ -481,19 +491,25 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# ------------------------------
 
-	# Water-Pump Fan-Speed (RPM)
+	# Water-Pump Fan-Speed (RPM)  (W_PUMP+)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_PMP}.(${_}))) {
 		Write-Output "$(${Speed_FAN_PMP}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_PMP}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}-${_}.txt";
 	}
-	# Reservoir Fan-Speed (RPM)
+	# Radiator Fan-Speed (RPM)  (CHA_FAN1)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_RAD}.(${_}))) {
 		Write-Output "$(${Speed_FAN_RAD}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_RAD}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}-${_}.txt";
 	}
-	# SSD Fan-Speed (RPM)
+	# Chassis Fan-Speed (RPM)  (CHA_FAN2)
+	If ([String]::IsNullOrEmpty(${Speed_FAN_CHA}.(${_}))) {
+		Write-Output "$(${Speed_FAN_CHA}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}-${_}.txt";
+	} Else {
+		Write-Output "$(${Speed_FAN_CHA}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}-${_}.txt";
+	}
+	# SSD Fan-Speed (RPM)  (CHA_FAN3)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_SSD}.(${_}))) {
 		Write-Output "$(${Speed_FAN_SSD}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}-${_}.txt";
 	} Else {
@@ -503,24 +519,31 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# ------------------------------
 
-	# Water-Pump Fan-Speed (% Max)
+	# Water-Pump Fan-Speed (% Max)  (W_PUMP+)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_PMP_PRC}.(${_}))) {
 		Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}-${_}.txt";
 	}
-	# Reservoir Fan-Speed (% Max)
+	# Radiator Fan-Speed (% Max)  (CHA_FAN1)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_RAD_PRC}.(${_}))) {
 		Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}-${_}.txt";
 	}
-	# SSD Fan-Speed (% Max)
+	# Chassis Fan-Speed (% Max)  (CHA_FAN2)
+	If ([String]::IsNullOrEmpty(${Speed_FAN_CHA_PRC}.(${_}))) {
+		Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}-${_}.txt";
+	} Else {
+		Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}-${_}.txt";
+	}
+	# SSD Fan-Speed (% Max)  (CHA_FAN3)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC}.(${_}))) {
 		Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}-${_}.txt";
 	}
+
 
 	# ------------------------------
 

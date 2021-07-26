@@ -1,0 +1,1 @@
+TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-FanPercentage-Chassis-Max.txt

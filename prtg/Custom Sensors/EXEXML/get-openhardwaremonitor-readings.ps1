@@ -78,6 +78,7 @@ $Logfile_RunDuration = "${Logfile_Basename}-RunDuration";
 $Logfile_Temperature_CPU = "${Logfile_Basename}-Temp-CPU";
 $Logfile_Temperature_GPU = "${Logfile_Basename}-Temp-GPU";
 $Logfile_Temperature_SSD = "${Logfile_Basename}-Temp-SSD";
+$Logfile_Temperature_T_SENSOR = "${Logfile_Basename}-Temp-T_SENSOR";
 
 $Logfile_Time_Range = "${Logfile_Basename}-Time";
 
@@ -249,6 +250,7 @@ $Power_GPU = @{Avg="";Max="";Min="";};
 $Temp_CPU = @{Avg="";Max="";Min="";};
 $Temp_GPU = @{Avg="";Max="";Min="";};
 $Temp_SSD = @{Avg="";Max="";Min="";};
+$Temp_T_SENSOR = @{Avg="";Max="";Min="";};
 
 $Time_Range = @{Avg="";Max="";Min="";};
 
@@ -362,6 +364,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  <# Chassis Fan 2 #>
 			${Speed_FAN_CHA_PRC}.(${_}) = (${Each_Value}.(${_}));
+			${Temp_T_SENSOR}.(${_}) = ([Double](${Each_Value}.(${_})) - [Double](40.00));
 
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  <# Chassis Fan 3 #>
 			${Speed_FAN_SSD}.(${_}) = (${Each_Value}.(${_}));
@@ -458,6 +461,12 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 		Write-Output "$(${Temp_SSD}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_SSD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Temp_SSD}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}-${_}.txt";
+	}
+	# T_SENSOR Temp
+	If ([String]::IsNullOrEmpty(${Temp_T_SENSOR}.(${_}))) {
+		Write-Output "$(${Temp_T_SENSOR}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}-${_}.txt";
+	} Else {
+		Write-Output "$(${Temp_T_SENSOR}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}-${_}.txt";
 	}
 
 

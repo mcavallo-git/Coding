@@ -17,7 +17,7 @@ If ($True) {
 
 	# Remove Windows "Programs"
 
-	If ((Get-Package | Where-Object { $_.Name -Eq ("AI sdfSuite 3"); }) -NE $Null) {
+	If ((Get-Package | Where-Object { $_.Name -Eq ("AI Suite 3"); }) -NE $Null) {
 
 		Write-Host "Windows program `"All MB`" must be uninstalled (and disabled) via the motherboard BIOS screen";
 				<# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>

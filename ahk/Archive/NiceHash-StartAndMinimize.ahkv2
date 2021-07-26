@@ -1,0 +1,14 @@
+
+SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+
+WinTitle := "NiceHash Miner"
+
+ExeFullpath := % ( EnvGet("LOCALAPPDATA") "\Programs\NiceHash Miner\NiceHashMiner.exe" )
+
+Run % ExeFullpath
+
+WinWait, %WinTitle%,, 30  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+
+If (WinExist(WinTitle)) {
+	WinMinimize, %WinTitle%  ;  Minimizes the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+}

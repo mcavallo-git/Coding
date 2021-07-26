@@ -117,7 +117,7 @@ If ($True) {
     $Each_PathToDelete = "$_";
     If (Test-Path -Path ("${Each_PathToDelete}")) {
       Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
-      Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$false;
+      Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$False;
     };
   };
 

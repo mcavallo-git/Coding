@@ -364,13 +364,13 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  <# Chassis Fan 2 #>
 			${Speed_FAN_CHA_PRC}.(${_}) = (${Each_Value}.(${_}));
-			${Temp_T_SENSOR}.(${_}) = ([Double](${Each_Value}.(${_})) - [Double](40.00));
 
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  <# Chassis Fan 3 #>
 			${Speed_FAN_SSD}.(${_}) = (${Each_Value}.(${_}));
 
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  <# Chassis Fan 3 #>
 			${Speed_FAN_SSD_PRC}.(${_}) = (${Each_Value}.(${_}));
+			${Temp_T_SENSOR}.(${_}) = ([Double](${Each_Value}.(${_})) - [Double](40.00));
 
 		} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  <# W_PUMP+ #>
 			${Speed_FAN_PMP}.(${_}) = (${Each_Value}.(${_}));

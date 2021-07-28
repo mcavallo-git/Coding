@@ -3,11 +3,13 @@ Set WScript_Shell = WScript.CreateObject( "WScript.Shell" )
 
 RunProcess = WScript_Shell.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\Programs\NiceHash Miner\NiceHashMiner.exe"
 
-PowerShell_Command = "PowerShell -Command ""Start-Process -Filepath ('" & RunProcess & "') -Verb ('RunAs') -WindowStyle ('Hidden');"" "
+PowerShell_AsAdmin = "PowerShell -Command ""Start-Process -Filepath ('" & RunProcess & "') -Verb ('RunAs') -WindowStyle ('Hidden');"" "
+PowerShell_NonAdmin = "PowerShell -Command ""Start-Process -Filepath ('" & RunProcess & "') -WindowStyle ('Hidden');"" "
 
-WScript.Echo "RunProcess" & Chr(10) & RunProcess & Chr(10) & Chr(10) & "PowerShell_Command" & Chr(10) & PowerShell_Command
+WScript.Echo "RunProcess" & Chr(10) & RunProcess & Chr(10) & Chr(10) & "PowerShell_AsAdmin" & Chr(10) & PowerShell_AsAdmin & Chr(10) & Chr(10) & "PowerShell_NonAdmin" & Chr(10) & PowerShell_NonAdmin
 
-CreateObject( "WScript.Shell" ).Run PowerShell_Command, 0, True
+' CreateObject( "WScript.Shell" ).Run PowerShell_AsAdmin, 0, True
+CreateObject( "WScript.Shell" ).Run PowerShell_NonAdmin, 0, True
 
 
 ' ------------------------------------------------------------

@@ -1,4 +1,4 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-Object { @('app_nhm','NiceHashMiner').Contains($_.Name) } | Stop-Process;"" -Verb ('RunAs') -WindowStyle ('Hidden')", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-Object { @('app_nhm','NiceHashMiner').Contains($_.Name) } | Stop-Process;"" -Verb ('RunAs') -WindowStyle ('Hidden');", 0, True
 
 
 ' ------------------------------------------------------------
@@ -9,14 +9,17 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-O
 '     NiceHashSniper_AsAdmin
 '
 '   Trigger:
-'     On Workstation Unlock | On Sign-In
+'     At log on
 '
 '   Settings:
-'     (CHECK)    Stop this task if it runs longer than:  2 minutes
+'     (CHECK)    Stop this task if it runs longer than:  1 minute
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NiceHashSniper_AsAdmin.vbs"
+'
+'   Run only when user is logged on (CHECKED)
+'   Run with highest privileges (CHECKED)
 '
 '
 ' ------------------------------------------------------------

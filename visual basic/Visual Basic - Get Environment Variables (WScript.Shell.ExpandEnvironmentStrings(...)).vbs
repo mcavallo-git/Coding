@@ -23,9 +23,6 @@ ReturnString = ReturnString & Newline & Newline
 ReturnString = ReturnString & "USERPROFILE" & Newline & WScript_Shell.ExpandEnvironmentStrings("%USERPROFILE%")
 ReturnString = ReturnString & Newline & Newline
 
-' ReturnString = ReturnString & "OSVersion" & Newline & System.Environment.OSVersion.ToString
-' ReturnString = ReturnString & Newline & Newline
-
 WScript.Echo ReturnString
 
 

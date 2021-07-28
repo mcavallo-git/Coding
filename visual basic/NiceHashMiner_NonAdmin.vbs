@@ -7,15 +7,15 @@
 '
 '   Trigger:
 '     At startup
-'     On workstation lock
+'     On workstation lock (of any user)
 '
 '   Settings:
 '     (UNCHECK)    Stop this task if it runs longer than:  ...
 '
 '   Action:
 '     Program/script:   "%LOCALAPPDATA%\Programs\NiceHash Miner\NiceHashMiner.exe"
-'     Add arguments:    ( NO EXTRA ARGUMENTS )
 '
 '   Run whether user is logged on or not (CHECKED)
+'
 '
 ' ------------------------------------------------------------

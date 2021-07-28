@@ -3,7 +3,7 @@ Set WScript_Shell = Wscript.CreateObject( "Wscript.Shell" )
 
 RunProcess = WScript_Shell.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\Programs\NiceHash Miner\NiceHashMiner.exe"
 
-CreateObject( "WScript.Shell" ).Run "%LOCALAPPDATA%\Programs\NiceHash Miner\NiceHashMiner.exe", 0, True
+CreateObject( "WScript.Shell" ).Run RunProcess, 0, True
 
 
 ' ------------------------------------------------------------

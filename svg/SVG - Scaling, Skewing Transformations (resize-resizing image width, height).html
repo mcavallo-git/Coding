@@ -3,6 +3,19 @@
 <!--   Scaling, Skewing Transformations (Resizing Width, Height)  -->
 <!-- ------------------------------------------------------------ -->
 
+
+<!-- Scale & Center an SVG - general approach: -->
+<!--   - Add the following <g> DOM element just within the <svg> top level DOM element: -->
+<!--       <g transform="translate(PADDING_X PADDING_Y)  scale(X)" viewBox="0 0 ORIGINAL_WIDTH ORIGINAL_HEIGHT"> DOM element just under the top-level <svg> DOM element -->
+<!--   - Set the value of X to be the desired dimension (ex 500) divided by the original dimension (ex 100) -->
+<!--   - Set the value of PADDING_X to be the desired padding from the left of the image -->
+<!--   - Set the value of PADDING_Y to be the desired padding from the top of the image -->
+<!--   - Set the value of ORIGINAL_WIDTH ORIGINAL_HEIGHT to the image's original width/height dimensions, respectively -->
+<!--   - Set the width and height equal to the desired dimensions (on the top-level <svg> DOM element) -->
+
+
+<!-- ------------------------------------------------------------ -->
+
 <!-- Scaling - general approach: -->
 <!--   - Add a <g transform="scale(X)" viewBox="0 0 ORIGINAL_WIDTH ORIGINAL_HEIGHT"> DOM element just under the top-level <svg> DOM element -->
 <!--   - Set the value of X to be the desired dimension (ex 500) divided by the original dimension (ex 100) -->

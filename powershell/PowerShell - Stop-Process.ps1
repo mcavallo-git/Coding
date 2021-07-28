@@ -93,8 +93,9 @@ If ($UniqueProcs.Count -gt 0) {
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
-#		docs.microsoft.com  | "Stop-Process"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process
+#   docs.microsoft.com  | "Stop-Process"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-process
 #
 # ------------------------------------------------------------

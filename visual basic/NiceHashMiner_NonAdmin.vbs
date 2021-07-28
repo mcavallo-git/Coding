@@ -13,11 +13,13 @@ CreateObject( "WScript.Shell" ).Run "%LOCALAPPDATA%\Programs\NiceHash Miner\Nice
 '     On workstation lock
 '
 '   Settings:
-'     (CHECK)    Stop this task if it runs longer than:  1 minute
+'     (UNCHECK)    Stop this task if it runs longer than:  ...
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NiceHashMiner_NonAdmin.vbs"
 '
+'   Run whether user is logged on or not (CHECKED)
+'   Run with highest privileges (CHECKED)
 '
 ' ------------------------------------------------------------

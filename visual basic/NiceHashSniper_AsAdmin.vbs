@@ -1,4 +1,4 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-Object { @('app_nhm','NiceHashMiner').Contains($_.Name) } | Stop-Process;"" -Verb ('RunAs') -WindowStyle ('Hidden');", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-Object { @('app_nhm','excavator','NiceHashMiner').Contains($_.Name) } | Stop-Process -Force; "" ", 0, True
 
 
 ' ------------------------------------------------------------
@@ -10,6 +10,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-O
 '
 '   Trigger:
 '     At log on
+'     On workstation unlock
 '
 '   Settings:
 '     (CHECK)    Stop this task if it runs longer than:  1 minute

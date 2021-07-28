@@ -23,6 +23,9 @@ ReturnString = ReturnString & Newline & Newline
 ReturnString = ReturnString & "USERPROFILE" & Newline & WScript_Shell.ExpandEnvironmentStrings("%USERPROFILE%")
 ReturnString = ReturnString & Newline & Newline
 
+ReturnString = ReturnString & "NiceHashMiner" & Newline & RunProcess = WScript_Shell.ExpandEnvironmentStrings("%LOCALAPPDATA%") & "\Programs\NiceHash Miner\NiceHashMiner.exe"
+ReturnString = ReturnString & Newline & Newline
+
 WScript.Echo ReturnString
 
 
@@ -30,7 +33,7 @@ WScript.Echo ReturnString
 '
 ''' RUN THIS SCRIPT:
 '
-' C:\Windows\System32\wscript.exe "%USERPROFILE%\Documents\GitHub\Coding\visual basic\Visual Basic - Get Environment Variable.vbs"
+' C:\Windows\System32\wscript.exe "%USERPROFILE%\Documents\GitHub\Coding\visual basic\Visual Basic - Get Environment Variables (WScript.Shell.ExpandEnvironmentStrings)"
 '
 '
 ' ------------------------------------------------------------

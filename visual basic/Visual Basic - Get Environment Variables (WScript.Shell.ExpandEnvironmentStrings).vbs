@@ -30,7 +30,7 @@ WScript.Echo ReturnString
 '
 ''' RUN THIS SCRIPT:
 '
-' C:\Windows\System32\wscript.exe "%USERPROFILE%\Documents\GitHub\Coding\visual basic\Visual Basic - Get Environment Variables (WScript.Shell.ExpandEnvironmentStrings(...))"
+' C:\Windows\System32\wscript.exe "%USERPROFILE%\Documents\GitHub\Coding\visual basic\Visual Basic - Get Environment Variables (WScript.Shell.ExpandEnvironmentStrings).vbs"
 '
 '
 ' ------------------------------------------------------------

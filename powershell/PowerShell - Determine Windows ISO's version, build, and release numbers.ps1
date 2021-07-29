@@ -5,7 +5,7 @@
 # ------------------------------------------------------------
 If ($False) {
 
-. "${Home}\Documents\GitHub\Coding\powershell\PowerShell - Determine Windows.iso's version number (build, release, windows OS).ps1";
+. "${Home}\Documents\GitHub\Coding\powershell\PowerShell - Determine Windows ISO's version, build, and release numbers.ps1";
 
 }
 # ------------------------------------------------------------

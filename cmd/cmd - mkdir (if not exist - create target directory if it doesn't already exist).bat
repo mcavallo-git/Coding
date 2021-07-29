@@ -1,8 +1,8 @@
 
 
 REM Create directory (if it doesn't already exist)
-SET "tempdrive=C:\temp\"
-IF NOT EXIST "%tempdrive%" MKDIR "%tempdrive%"
+SET "DIRNAME=C:\temp\"
+IF NOT EXIST "%DIRNAME%" MKDIR "%DIRNAME%"
 
 
 REM ------------------------------------------------------------

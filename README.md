@@ -193,7 +193,7 @@ This file (on GitHub):
 <tr><td><strong>Windows Terminal</strong> <i><sub><br />&nbsp;&nbsp;&nbsp;Terminal Emulator for Windows 10</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a></td></tr>
 <tr><td><strong>WiX</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Installer XML Toolset<br />&nbsp;&nbsp;&nbsp;Builds Windows Installer packages from XML</i></sub></td><td><a href="https://wixtoolset.org/releases/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/wixtoolset/wix3/releases">Download (GitHub)</a></sub></td></tr>
 <tr><td><strong>WSL - All Distros</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux</i></sub></td><td><a href="https://aka.ms/wslstore">Download (source)</a></td></tr>
-<tr><td><strong>WSL - Ubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N9TNGVNDL3Q">Download (18.04 LTS)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/store/productId/9PJN388HP8C9">Download (16.04 LTS)</a></sub></td></tr>
+<tr><td><strong>WSL - Ubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/ubuntu-2004-lts/9n6svws3rx71">Download (20.04 LTS)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/ubuntu-1804-lts/9n9tngvndl3q">Download (18.04 LTS)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/p/ubuntu-1604-lts/9pjn388hp8c9">Download (16.04 LTS)</a></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

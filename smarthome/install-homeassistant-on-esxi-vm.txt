@@ -1,0 +1,65 @@
+# ------------------------------------------------------------
+
+
+INSTALLING HOMEASSISTANT:
+
+
+- Format side-PC with ESXi 6.5-U3 as the OS
+
+
+- Create a new VM on ESXi box  (guide @ https://www.youtube.com/watch?v=IxrF87VBTCg )
+   |--> Guest OS family: Linux
+   |--> Guest OS version: Debian GNU/Linux 9 (64-bit)
+   |--> CPU: 2 (using "2 Cores per Socket" on 1 socket)
+   |--> Memory: 4 GB
+   |--> Hard Disk:  DELETE  (hit "X" on right side)
+   |--> CD/DVD Drive 1:    DELETE  (hit "X" on right side)
+   |--> SCSI Controller 0: DELETE  (hit "X" on right side)
+   |--> SATA Controller 0: DELETE  (hit "X" on right side)
+
+
+- Download & Add HomeAssistant .VMDK disk (file) to HomeAssistant VM
+   |--> Download URL:  https://www.home-assistant.io/installation/linux
+   |--> Upload .VMDK file to the new VM's datastore directory either via SFTP or via the ESXi GUI browser tool
+   |--> On HomeAssistant VM (to attach VMDK disk to):
+         |--> Edit settings
+               |--> Add hard disk > Existing hard disk > (locate .vmdk file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
+               |--> VM Options > Boot Options > Firmware > Set to "EFI"
+
+
+- Attaching USB device(s) to ESXi VM from ESXi Host (pass-through USB)
+   |--> Physically plug-in USB device into ESXi host box
+   |--> On HomeAssistant VM (to attach USB device to):
+         |--> Shut down VM
+         |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
+         |--> Start VM
+
+
+
+# ------------------------------------------------------------
+
+CONFIGURING HOMEASSISTANT:
+
+- Attaching USB device(s) to ESXi VM from ESXi Host (pass-through USB)
+   |--> Physically plug-in USB device into ESXi host box
+   |--> On HomeAssistant VM (to attach USB device to):
+         |--> Shut down VM
+         |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
+         |--> Start VM
+
+- 
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.vmware.com  |  "Add USB Devices from an ESXi Host to a Virtual Machine"  |  https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.vm_admin.doc/GUID-68A08879-1744-4FF9-A856-D66C4AAB68AB.html
+#
+#   www.awesome-ha.com  |  "Awesome Home Assistant"  |  https://www.awesome-ha.com/
+#
+#   www.home-assistant.io  |  "Linux - Home Assistant"  |  https://www.home-assistant.io/installation/linux
+#
+#   www.youtube.com  |  "Install Home Assistant OS in VMware ESXi | Don't Miss These CRITICAL STEPS! - YouTube"  |  https://www.youtube.com/watch?v=IxrF87VBTCg
+#
+# ------------------------------------------------------------

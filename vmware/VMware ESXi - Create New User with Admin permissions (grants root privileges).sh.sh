@@ -23,7 +23,7 @@ fi;
 
 if [ 0 -eq 1 ]; then
 
-USERNAME_TO_DELETE="test-user";
+USERNAME_TO_DELETE="DAT_USER";
 
 # Delete a system user account from ESXi:
 esxcli system account remove -i "${USERNAME_TO_DELETE}";

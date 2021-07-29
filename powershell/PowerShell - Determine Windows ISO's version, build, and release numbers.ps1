@@ -4,6 +4,8 @@
 #
 # ------------------------------------------------------------
 
+### !!! REQUIRES ADMIN PRIVILEGES !!! ###
+
 If ($True) {
 
 	$ISO_Fullpath = "${Home}\Desktop\Windows.iso";

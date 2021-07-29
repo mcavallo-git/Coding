@@ -3,12 +3,6 @@
 # PowerShell - Determine Windows ISO's version, build, and release numbers
 #
 # ------------------------------------------------------------
-If ($False) {
-
-. "${Home}\Documents\GitHub\Coding\powershell\PowerShell - Determine Windows ISO's version, build, and release numbers.ps1";
-
-}
-# ------------------------------------------------------------
 
 If ($True) {
 

@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 
-Installing HomeAssistant as a VM onto an ESXi box
+Installing HomeAssistant (as a VM onto an ESXi instance):
 
 - Format a side PC with ESXi (v6.5 or higher) as the OS
    |--> To download a .ISO image for ESXI 6.5, refer to PowerShell module "ESXI_BootMedia.psm1"
@@ -30,18 +30,9 @@ Installing HomeAssistant as a VM onto an ESXi box
                |--> VM Options > Boot Options > Firmware > Set to "EFI"
 
 
-- Attaching USB device(s) to ESXi VM from ESXi Host (pass-through USB)
-   |--> Physically plug-in USB device into ESXi host box
-   |--> On HomeAssistant VM (to attach USB device to):
-         |--> Shut down VM
-         |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
-         |--> Start VM
-
-
-
 # ------------------------------------------------------------
 
-CONFIGURING HOMEASSISTANT:
+Configuring HomeAssistant:
 
 - Attaching USB device(s) to ESXi VM from ESXi Host (pass-through USB)
    |--> Physically plug-in USB device into ESXi host box
@@ -49,8 +40,6 @@ CONFIGURING HOMEASSISTANT:
          |--> Shut down VM
          |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
          |--> Start VM
-
-- 
 
 
 # ------------------------------------------------------------

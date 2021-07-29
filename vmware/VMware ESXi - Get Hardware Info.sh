@@ -6,7 +6,7 @@ echo "" > "/tmp/hostsvc-hostsummary.$(hostname).log"; # Save output to a logfile
 
 chmod 0600 "/tmp/hostsvc-hostsummary.$(hostname).log";
 
-esxcfg-info | head -n 8 > "/tmp/hostsvc-hostsummary.$(hostname).log"; # Get Server Brand, Make, Model, etc.
+esxcfg-info | head -n 10 > "/tmp/hostsvc-hostsummary.$(hostname).log"; # Get Server Brand, Make, Model, etc.
 
 echo "" > "/tmp/hostsvc-hostsummary.$(hostname).log";
 

@@ -36,6 +36,7 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
    |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of the HomeAssistant VM, using port 8123 (http://VM_IPV4:8123)
    |--> The HomeAssistant portal should walk you through creation of initial admin user, then you should end up at the HomeAssistant home page / GUI
 
+
 # ------------------------------------------------------------
 
 Configuring HomeAssistant:

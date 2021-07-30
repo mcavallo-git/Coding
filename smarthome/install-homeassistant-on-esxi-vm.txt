@@ -11,6 +11,7 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
 
 
 - Create a new VM on ESXi box  (guide @ https://www.youtube.com/watch?v=IxrF87VBTCg )
+   |--> Name:  ANYTHING OTHER THAN "homeassistant" (e.g. name it something like "HomeAssistant-OS")
    |--> Guest OS family: Linux
    |--> Guest OS version: Debian GNU/Linux 9 (64-bit)
    |--> CPU: 2 (using "2 Cores per Socket" on 1 socket)

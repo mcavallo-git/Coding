@@ -25,22 +25,31 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
 - Download & Add HomeAssistant .VMDK disk (file) to HomeAssistant VM
    |--> Download URL:  https://www.home-assistant.io/installation/linux
    |--> Upload .VMDK file to the new VM's datastore directory either via SFTP or via the ESXi GUI browser tool
-   |--> On HomeAssistant VM (to attach VMDK disk to):
+   |--> On the HomeAssistant VM (to attach VMDK disk to):
          |--> Edit settings
                |--> Add hard disk > Existing hard disk > (locate .vmdk file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
                |--> VM Options > Boot Options > Firmware > Set to "EFI"
 
+- Perform initial HomeAssistant setup
+   |--> In ESXi, start the HomeAssistant VM
+   |--> Wait for console to show the URL of the HomeAssistant portal, or (alternatively)...
+   |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of the HomeAssistant VM, using port 8123 (http://VM_IPV4:8123)
+   |--> The HomeAssistant portal should walk you through creation of initial admin user, then you should end up at the HomeAssistant home page / GUI
 
 # ------------------------------------------------------------
 
 Configuring HomeAssistant:
 
 - Attaching USB device(s) to ESXi VM from ESXi Host (pass-through USB)
+   |--> Guide - Reference:  https://www.youtube.com/watch?v=W0HD5mTqocA
    |--> Physically plug-in USB device into ESXi host box
-   |--> On HomeAssistant VM (to attach USB device to):
-         |--> Shut down VM
-         |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
-         |--> Start VM
+   |--> In ESXi, on the HomeAssistant VM (to attach USB device to):
+   |     |--> Shut down VM
+   |     |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
+   |     |--> Start VM
+   |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of the HomeAssistant VM, using port 8123 (http://VM_IPV4:8123)
+   |--> In the HomeAssistant portal select:
+         |--> Supervisor (bottom-left) > System (top-right) > ︙ (next to shutdown host) > Hardware
 
 
 # ------------------------------------------------------------
@@ -52,6 +61,8 @@ Configuring HomeAssistant:
 #   www.awesome-ha.com  |  "Awesome Home Assistant"  |  https://www.awesome-ha.com/
 #
 #   www.home-assistant.io  |  "Linux - Home Assistant"  |  https://www.home-assistant.io/installation/linux
+#
+#   www.youtube.com  |  "How to Add Z-Wave to Home Assistant 2020 - YouTube"  |  https://www.youtube.com/watch?v=W0HD5mTqocA
 #
 #   www.youtube.com  |  "Install Home Assistant OS in VMware ESXi | Don't Miss These CRITICAL STEPS! - YouTube"  |  https://www.youtube.com/watch?v=IxrF87VBTCg
 #

@@ -1,0 +1,4 @@
+
+WHILE ACTIVE:    hass:run
+
+WHILE INACTIVE:  hass:cancel

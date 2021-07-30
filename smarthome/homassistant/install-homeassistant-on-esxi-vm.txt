@@ -48,11 +48,13 @@ Configuring HomeAssistant:
    |     |--> Shut down VM
    |     |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
    |     |--> Start VM
+   |
    |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of the HomeAssistant VM, using port 8123 (http://VM_IPV4:8123)
    |--> In the HomeAssistant portal select:
    |     |--> Supervisor (bottom-left) > System (top-right) > ︙ (next to shutdown host) > Hardware
    |     |--> Locate the USB device's name (such as ttyAMA0 or ttyACM0)
    |           |--> Dropdown the usb device & copy the value for its "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
+   |
    |--> Install the "File editor" add-on via "Supervisor" > "Add-on Store" > search for "File editor" > "Install"
    |--> Start the "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Start"
    |--> Open "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Open Web UI"

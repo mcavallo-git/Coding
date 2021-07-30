@@ -15,7 +15,9 @@ Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) 
 
 #
 # SYSTEM PATH
-#  |--> Permanently add a directory to current system's PATH  (applied change to all users on current system)
+#  |--> Permanently adds a directory to current system's PATH
+#  |--> Applies change to all users on current system
+#  |--> Change persists through machine/session restarts
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
@@ -27,7 +29,9 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 
 #
 # USER PATH
-#  |--> Permanently add a directory to current user's PATH  (doesn't apply change to other users on current system)
+#  |--> Permanently adds a directory to current user's PATH
+#  |--> Doesn't apply change to other users on current system
+#  |--> Change persists through machine/session restarts
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);

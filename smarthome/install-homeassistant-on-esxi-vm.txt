@@ -57,12 +57,15 @@ Configuring HomeAssistant:
    |--> Start the "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Start"
    |--> Open "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Open Web UI"
    |--> In "File editor":
-         |--> Open "/config/configuration.yaml"
-         |--> Add the following code:
+   |     |--> Open "/config/configuration.yaml"
+   |     |--> Add the following code:
 zwave:
  usb_path: /dev/ttyACM0
-         |--> Replace "/dev/ttyUSB0" with the device path from the hardware page for your given USB device
-
+   |     |--> Replace "/dev/ttyUSB0" with the device path from the hardware page for your given USB device
+   |     |--> Save via the Red floppy save icon (top-right)
+   |--> Validate configuration:
+         |--> Install the "Check Home Assistant configuration" add-on via "Supervisor" > "Add-on Store" > search for "configuration" > "Install"
+         |--> Check the configuration via "Configuration" (bottom-left) > "Server Controls" (near bottom) > "Check Configration"
 
 
 # ------------------------------------------------------------

@@ -40,7 +40,7 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
 
 Configuring HomeAssistant:
 
-- Attaching USB device(s) to ESXi VM from ESXi Host (pass-through USB)
+- Attaching a Z-Wave USB device(s) to ESXi VM from ESXi Host (pass-through USB)
    |--> Guide - Reference:  https://www.youtube.com/watch?v=W0HD5mTqocA
    |--> Physically plug-in USB device into ESXi host box
    |--> In ESXi, on the HomeAssistant VM (to attach USB device to):
@@ -49,7 +49,19 @@ Configuring HomeAssistant:
    |     |--> Start VM
    |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of the HomeAssistant VM, using port 8123 (http://VM_IPV4:8123)
    |--> In the HomeAssistant portal select:
-         |--> Supervisor (bottom-left) > System (top-right) > ︙ (next to shutdown host) > Hardware
+   |     |--> Supervisor (bottom-left) > System (top-right) > ︙ (next to shutdown host) > Hardware
+   |     |--> Locate the USB device's name (such as ttyAMA0 or ttyACM0)
+   |           |--> Dropdown the usb device & copy the value for its "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
+   |--> Install the "File editor" add-on via "Supervisor" > "Add-on Store" > search for "File editor" > "Install"
+   |--> Start the "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Start"
+   |--> Open "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Open Web UI"
+   |--> In "File editor":
+         |--> Open "/config/configuration.yaml"
+         |--> Add the following code:
+zwave:
+ usb_path: /dev/ttyACM0
+         |--> Replace "/dev/ttyUSB0" with the device path from the hardware page for your given USB device
+
 
 
 # ------------------------------------------------------------

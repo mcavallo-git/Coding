@@ -41,6 +41,8 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
 
 Configuring HomeAssistant:
 
+- Install 
+
 - Attaching a Z-Wave USB device(s) to ESXi VM from ESXi Host (pass-through USB)
    |--> Guide - Reference:  https://www.youtube.com/watch?v=W0HD5mTqocA
    |--> Physically plug-in USB device into ESXi host box
@@ -54,6 +56,10 @@ Configuring HomeAssistant:
    |     |--> Supervisor (bottom-left) > System (top-right) > ︙ (next to shutdown host) > Hardware
    |     |--> Locate the USB device's name (such as ttyAMA0 or ttyACM0)
    |           |--> Dropdown the usb device & copy the value for its "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
+   |
+   |--> Install the "Z-Wave JS" Integration via "Configuration" > "Integrations" > search for "Z-Wave JS" > "Submit"
+   |     |--> Paste the USB device's path under "USB Device Path"
+   |     |--> If you already have secure Z-Wave devices paired with another Z-Wave integration, get the Network path of it from "/config/.storage/core.config_entries" - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
    |
    |--> Install the "File editor" add-on via "Supervisor" > "Add-on Store" > search for "File editor" > "Install"
    |--> Start the "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Start"
@@ -73,6 +79,8 @@ zwave:
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   community.home-assistant.io  |  "Home Assistant Z-wave Network Key - Configuration / Z-Wave - Home Assistant Community"  |  https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
 #
 #   docs.vmware.com  |  "Add USB Devices from an ESXi Host to a Virtual Machine"  |  https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.vm_admin.doc/GUID-68A08879-1744-4FF9-A856-D66C4AAB68AB.html
 #

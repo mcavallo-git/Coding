@@ -3,32 +3,65 @@
 - Attaching a Z-Wave USB device(s) to HomeAssistant
    |
    |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of HomeAssistant, using port 8123 (http://HOMEASSISTANT_FQDN:8123)
-   |     |--> In the HomeAssistant portal select:
-   |     |--> "Supervisor" (bottom-left) > "System" (top-right) > "︙" (next to shutdown host) > "Hardware"
-   |     |--> Locate the USB device's name (such as ttyAMA0 or ttyACM0)
+   |     |--> In the HomeAssistant portal select "Supervisor" > "System" > "︙" > "Hardware"
+   |           |--> Locate the USB device/key's name or ID (such as ttyAMA0 or ttyACM0)
    |           |--> Dropdown the usb device & copy the value for its "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
    |
-   |--> Install the "Z-Wave JS to MQTT" Supervisor Add-On
-   |     |--> Click "Supervisor" (bottom-left) > "Add-On Store" (top-middle) > Search for "Z-Wave JS to MQTT" > "Install"
-   |     |--> Paste the USB device's path under "USB Device Path"
-   |     |--> If you already have secure Z-Wave devices paired with another Z-Wave integration, get the Network path of it from "/config/.storage/core.config_entries", then disable said integration & restart HomeAssistant (requried to 'release' the USB device for other integrations' use) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
    |
-   |--> Install the "File editor" add-on via "Supervisor" > "Add-on Store" > search for "File editor" > "Install"
-   |--> Start the "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Start"
-   |--> Open "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Open Web UI"
+   |--> Install the "Check Home Assistant configuration" Add-on
+   |     |--> Click "Supervisor" > "Add-on Store" > Search for "Check Home Assistant configuration" > "Install"
+   |     |--> Configure the Add-on (once installed)
+   |           |--> Click "Supervisor" > "Dashboard" > "Check Home Assistant configuration"
+   |           |--> Enable "Start on boot"
+   |           |--> Enable "Show in sidebar"
+   |
+   |
+   |--> Install the "File editor" Add-on
+   |     |--> Click "Supervisor" > "Add-on Store" > Search for "File editor" > "Install"
+   |     |--> Configure the Add-on (once installed)
+   |     |     |--> Click "Supervisor" > "Dashboard" > "File editor"
+   |     |     |--> Enable "Start on boot"
+   |     |     |--> Enable "Show in sidebar"
+   |     |
+   |     |--> Check the configuration via "Configuration" > "Server Controls" (near bottom) > "Check Configration"
+   |
+   |
+   |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
    |--> In "File editor":
    |     |--> Open "/config/configuration.yaml"
    |     |--> Add the following code:
 zwave:
  usb_path: /dev/ttyACM0
    |     |--> Replace "/dev/ttyUSB0" with the device path from the hardware page for your given USB device
-   |     |--> Save via the Red floppy save icon (top-right)
-   |--> Validate configuration:
-   |     |--> Install the "Check Home Assistant configuration" add-on via "Supervisor" > "Add-on Store" > search for "configuration" > "Install"
-   |     |--> Check the configuration via "Configuration" (bottom-left) > "Server Controls" (near bottom) > "Check Configration"
+   |     |--> Save via the Red floppy save icon
+   |     |--> Validate the configuration via "Configuration" > "Server Controls" > "Check Configration"
+   |
+   |
+   |--> Install the "Z-Wave JS to MQTT" Supervisor Add-on
+   |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install"
+   |     |--> Configure the Add-on (once installed)
+   |     |     |--> Click "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT"
+   |     |     |--> Enable "Start on boot"
+   |     |     |--> Enable "Watchdog"
+   |     |     |--> Enable "Show in sidebar"
+   |     |
+   |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave integration, get the Network path of it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart HomeAssistant (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
+   |
    |
    |--> Restart the HomeAssistant host
-         |--> "Supervisor" (bottom-left) > "System" (top-right) > "Reboot Host" (middle-right)
+   |     |--> "Supervisor" > "System" > "Reboot Host"
+   |
+   |
+   |--> Open "Z-Wave JS to MQTT" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT" > "Open Web UI")
+         |
+         |--> Add Z-Wave controller (Z-Wave USB Stick)
+         |     |--> Add your Z-Wave controller (USB device/key) using the initial Add-on's dropdown menus (make sure to select the intended "USB Device Path" as found earlier under "Supervisor" > "System" > "︙" > "Hardware")
+         |
+         |--> Add Z-Wave nodes (Z-Wave Inclusion)
+         |      |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Inclusion" (or "Secure Inclusion" for locks & door openers) > "Start"
+         |
+         |--> Remove Z-Wave nodes (Z-Wave Exclusion)
+                |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Exclusion" > "Start"
 
 
 # ------------------------------------------------------------

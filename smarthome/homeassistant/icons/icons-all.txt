@@ -124,6 +124,7 @@ hass:power-plug
 hass:power-plug-off
 hass:power-sleep
 hass:puzzle
+hass:puzzle-outline
 hass:radiobox-blank
 hass:radio-tower
 hass:ray-vertex

@@ -2,10 +2,18 @@
 
 - Attaching a Z-Wave USB device(s) to HomeAssistant
    |
-   |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of HomeAssistant, using port 8123 (http://HOMEASSISTANT_FQDN:8123)
-   |     |--> In the HomeAssistant portal select "Supervisor" > "System" > "︙" > "Hardware"
-   |           |--> Locate the USB device/key's name or ID (such as ttyAMA0 or ttyACM0)
-   |           |--> Dropdown the usb device & copy the value for its "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
+   |
+   |--> Plug in your Z-Wave USB device into the computer running HomeAssistant
+   |
+   |
+   |--> Browse to the HomeAssistant Portal's URL
+   |     |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of HomeAssistant, using port 8123 (http://HOMEASSISTANT_FQDN:8123)
+   |
+   |
+   |--> Get the Z-Wave USB device's "Device Path"
+   |      |--> In the HomeAssistant portal select "Supervisor" > "System" > "︙" > "Hardware"
+   |      |--> Locate the USB device/key's name or ID (such as ttyAMA0 or ttyACM0)
+   |      |--> Dropdown the usb device & copy the value next to "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
    |
    |
    |--> Install the "Check Home Assistant configuration" Add-on
@@ -25,15 +33,13 @@
    |     |
    |     |--> Check the configuration via "Configuration" > "Server Controls" (near bottom) > "Check Configration"
    |
-   |
-   |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
-   |--> In "File editor":
-   |     |--> Open "/config/configuration.yaml"
-   |     |--> Add the following code:
+   |--> Update the HomeAssistant config with your Z-Wave USB Device's "Device path" value
+   |     |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
+	 |           |--> Open "/config/configuration.yaml" & add the following code to the bottom of the file:
 zwave:
  usb_path: /dev/ttyACM0
-   |     |--> Replace "/dev/ttyUSB0" with the device path from the hardware page for your given USB device
-   |     |--> Save via the Red floppy save icon
+   |     |--> NOTE: Replace the value of "/dev/ttyUSB0" with the "Device path" value from above (on the system hardware page)
+   |     |--> Save the file via the [ Red floppy save icon ]
    |     |--> Validate the configuration via "Configuration" > "Server Controls" > "Check Configration"
    |
    |
@@ -45,10 +51,10 @@ zwave:
    |     |     |--> Enable "Watchdog"
    |     |     |--> Enable "Show in sidebar"
    |     |
-   |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave integration, get the Network path of it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart HomeAssistant (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
+   |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave Integration/Add-on, get the Network path of said key it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart the HomeAssistant host (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
    |
    |
-   |--> Restart the HomeAssistant host
+   |--> Restart the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
    |     |--> "Supervisor" > "System" > "Reboot Host"
    |
    |

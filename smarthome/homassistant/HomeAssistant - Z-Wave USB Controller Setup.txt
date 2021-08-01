@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 
-- Attaching a Z-Wave USB device(s) to HomeAssistant
+- Attaching a Z-Wave USB controller (device/key) to HomeAssistant
    |
    |
    |--> Plug in your Z-Wave USB device into the computer running HomeAssistant

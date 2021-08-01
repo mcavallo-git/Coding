@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+HomeAssistant - Install HomeAssistant OS on ESXI VM (using .vmdk file)
+# ------------------------------------------------------------
 
 Installing HomeAssistant (as a VM onto an ESXi instance):
 

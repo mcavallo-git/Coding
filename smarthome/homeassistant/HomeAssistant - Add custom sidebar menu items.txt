@@ -1,0 +1,47 @@
+------------------------------------------------------------
+HomeAssistant - Add custom sidebar menu items
+------------------------------------------------------------
+
+--- Add the following code to your HomeAssistant "config/configuration.yaml" file:
+
+
+### Custom Sidebar Menu Items
+panel_custom:
+  - name: ha_server_con
+    sidebar_title: ServerControl
+    sidebar_icon: mdi:cog-transfer
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'config/server_control'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
+  - name: ha_integ
+    sidebar_title: Integrations
+    sidebar_icon: mdi:chip
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'config/integrations'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
+  - name: ha_auto
+    sidebar_title: Automations
+    sidebar_icon: mdi:cog-outline
+    js_url: /api/hassio/app/entrypoint.js
+    url_path: 'config/automation'
+    embed_iframe: true
+    require_admin: true
+    config:
+      ingress: core_configurator
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   thesmarthomejourney.com  |  "Customizing the Home Assistant sidebar by adding 3 convenient shortcuts » The smarthome journey"  |  https://thesmarthomejourney.com/2021/02/06/custom-home-assistant-sidebar/
+
+   www.digiblur.com  |  "How to Add Custom Panels in Home Assistant"  |  https://www.digiblur.com/2020/12/how-to-add-custom-panels-in-home.html
+
+------------------------------------------------------------

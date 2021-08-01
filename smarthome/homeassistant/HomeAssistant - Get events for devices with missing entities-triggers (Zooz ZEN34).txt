@@ -1,5 +1,5 @@
 ------------------------------------------------------------
-GET INFO FROM DEVICES WHICH DON'T SHOW UP AS A DEVICE/ENTITY IN THE HOMEASSISTANT PORTAL
+HomeAssistant - Get events for devices with missing entities-triggers (Zooz ZEN34)
 ------------------------------------------------------------
 
 In the HomeAssistant Portal/GUI:

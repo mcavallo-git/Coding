@@ -44,14 +44,16 @@ If ($True) {
 	$PathItem = (Get-Item -Path "${FullPath}");
 	Write-Host "";
 	$PathItem | Format-List -Property ([String][Char]42);
-	# Write-Host "`n `${PathItem}.FullName  = `"$( ${PathItem}.FullName )`"";              <# File's Fullpath #>
-	# Write-Host "`n `${PathItem}.Name  = `"$( ${PathItem}.Name )`"";                      <# File's Basename #>
-	# Write-Host "`n `${PathItem}.Basename  = `"$( ${PathItem}.Basename )`"";              <# File's Basename w/o Extension #>
-	# Write-Host "`n `${PathItem}.Extension  = `"$( ${PathItem}.Extension )`"";            <# File's Extension #>
-	# Write-Host "`n `${PathItem}.DirectoryName  = `"$( ${PathItem}.DirectoryName )`"";    <# Directory Fullpath #>
-	# Write-Host "`n `${PathItem}.DirectoryName  = `"$( ${PathItem}.Directory )`"";        <# Directory File-Object #>
-	# Write-Host "`n `${PathItem}.Directory.Name  = `"$( ${PathItem}.Directory.Name )`"";  <# Directory's Basename #>
-	# Write-Host "`n `${PathItem}.Directory.Parent.FullName  = `"$( ${PathItem}.Directory.Parent.FullName )`"";  <# Directory's Parent-Directory's Fullpath #>
+	Write-Host "`n `${PathItem}.FullName                = `"$( ${PathItem}.FullName )`"";               <# File's Fullpath #>
+	Write-Host "`n `${PathItem}.Name                    = `"$( ${PathItem}.Name )`"";                   <# File's Basename #>
+	Write-Host "`n `${PathItem}.Basename                = `"$( ${PathItem}.Basename )`"";               <# File's Basename w/o Extension #>
+	Write-Host "`n `${PathItem}.Extension               = `"$( ${PathItem}.Extension )`"";              <# File's Extension #>
+	Write-Host "`n `${PathItem}.Parent.FullName         = `"$( ${PathItem}.Parent.FullName )`"";        <# Parent Directory's Fullpath #>
+	Write-Host "`n `${PathItem}.Parent.Name             = `"$( ${PathItem}.Parent.Name )`"";            <# Parent Directory's Basename #>
+	Write-Host "`n `${PathItem}.Parent.Basename         = `"$( ${PathItem}.Parent.Basename )`"";        <# Parent Directory's Basename #>
+	Write-Host "`n `${PathItem}.Parent.Parent.FullName  = `"$( ${PathItem}.Parent.Parent.FullName )`""; <# Grandparent Directory's Fullpath #>
+	Write-Host "`n `${PathItem}.Parent.Parent.Name      = `"$( ${PathItem}.Parent.Parent.Name )`"";     <# Grandparent Directory's Basename #>
+	Write-Host "`n `${PathItem}.Parent.Parent.Basename  = `"$( ${PathItem}.Parent.Parent.Basename )`""; <# Grandparent Directory's Basename #>
 }
 
 

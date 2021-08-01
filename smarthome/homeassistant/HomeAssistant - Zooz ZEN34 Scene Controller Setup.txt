@@ -1,0 +1,7 @@
+------------------------------------------------------------
+
+ Citation(s)
+
+   pcbisolation.com  |  "Integrate Zooz ZEN34 with Home Assistant – PCB Isolation"  |  https://pcbisolation.com/blog/integrate-zooz-zen34-with-home-assistant/
+
+------------------------------------------------------------

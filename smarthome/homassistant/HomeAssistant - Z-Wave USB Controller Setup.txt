@@ -1,0 +1,44 @@
+# ------------------------------------------------------------
+
+- Attaching a Z-Wave USB device(s) to HomeAssistant
+   |
+   |--> In your web browser, browse to the HomeAssistant portal @ the IPv4 address of HomeAssistant, using port 8123 (http://HOMEASSISTANT_FQDN:8123)
+   |     |--> In the HomeAssistant portal select:
+   |     |--> "Supervisor" (bottom-left) > "System" (top-right) > "︙" (next to shutdown host) > "Hardware"
+   |     |--> Locate the USB device's name (such as ttyAMA0 or ttyACM0)
+   |           |--> Dropdown the usb device & copy the value for its "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
+   |
+   |--> Install the "Z-Wave JS" Integration via "Configuration" > "Integrations" > search for "Z-Wave JS" > "Submit"
+   |     |--> Paste the USB device's path under "USB Device Path"
+   |     |--> If you already have secure Z-Wave devices paired with another Z-Wave integration, get the Network path of it from "/config/.storage/core.config_entries" - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
+   |
+   |--> Install the "File editor" add-on via "Supervisor" > "Add-on Store" > search for "File editor" > "Install"
+   |--> Start the "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Start"
+   |--> Open "File editor" add-on via "Supervisor" > "Dashboard" > "File editor" > "Open Web UI"
+   |--> In "File editor":
+   |     |--> Open "/config/configuration.yaml"
+   |     |--> Add the following code:
+zwave:
+ usb_path: /dev/ttyACM0
+   |     |--> Replace "/dev/ttyUSB0" with the device path from the hardware page for your given USB device
+   |     |--> Save via the Red floppy save icon (top-right)
+   |--> Validate configuration:
+         |--> Install the "Check Home Assistant configuration" add-on via "Supervisor" > "Add-on Store" > search for "configuration" > "Install"
+         |--> Check the configuration via "Configuration" (bottom-left) > "Server Controls" (near bottom) > "Check Configration"
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   community.home-assistant.io  |  "Home Assistant Z-wave Network Key - Configuration / Z-Wave - Home Assistant Community"  |  https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
+#
+#   www.awesome-ha.com  |  "Awesome Home Assistant"  |  https://www.awesome-ha.com/
+#
+#   www.home-assistant.io  |  "Linux - Home Assistant"  |  https://www.home-assistant.io/installation/linux
+#
+#   www.reddit.com  |  "Open ZWave or Zwave JS? : homeassistant"  |  https://www.reddit.com/r/homeassistant/comments/mrgnem/open_zwave_or_zwave_js/
+#
+#   www.youtube.com  |  "How to Add Z-Wave to Home Assistant 2020 - YouTube"  |  https://www.youtube.com/watch?v=W0HD5mTqocA
+#
+# ------------------------------------------------------------

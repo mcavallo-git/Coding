@@ -1,0 +1,13 @@
+
+
+mdi:wrench   (File Editor's default icon - angled wrench)
+
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   community.home-assistant.io  |  "HASS Configurator correct iframe configuration - Configuration - Home Assistant Community"  |  https://community.home-assistant.io/t/hass-configurator-correct-iframe-configuration/111936
+
+------------------------------------------------------------

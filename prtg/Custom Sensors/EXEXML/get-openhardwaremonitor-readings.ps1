@@ -105,8 +105,8 @@ ${CsvImport}["Paths"][0]="Time"; <# OHW leaves thefirst row's first column blank
 $RequiredPath="gpu";
 If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
 	$Dirname = [IO.Path]::GetDirectoryName("${Logfile_FullPath}");
-	$Basename =[IO.Path]::GetFileNameWithoutExtension("${Logfile_FullPath}");
-	$Extension [IO.Path]::GetExtension("${Logfile_FullPath}");
+	$Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_FullPath}");
+	$Extension = [IO.Path]::GetExtension("${Logfile_FullPath}");
 	<# Remove any logged data from a previous run #>
 	Get-Item "${Logfile_Basename}*.txt" | Remove-Item -Force;
 	<# Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns) #>

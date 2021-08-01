@@ -8,7 +8,7 @@ In the HomeAssistant Portal/GUI:
  |
  |--> Enter "zwave_js_value_notification" in the "Event to subscribe to" field > Click "Start Listening"
  |
- |--> Trigger the switch/event on the device which is not showing up as a device or entity
+ |--> Physically/Manually trigger the event on the Z-Wave device which is not showing up as an entity (push a button, trigger motion, etc.)
        |
        |--> Copy-down the JSON info returned by the listener
 

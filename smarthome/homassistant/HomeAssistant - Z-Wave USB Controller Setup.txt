@@ -19,19 +19,20 @@
    |--> Install the "Check Home Assistant configuration" Add-on
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "Check Home Assistant configuration" > "Install"
    |     |--> Configure the Add-on (once installed)
-   |           |--> Click "Supervisor" > "Dashboard" > "Check Home Assistant configuration"
-   |                 |--> Enable "Start on boot"    (under tab "Info" (top))
-   |                 |--> Enable "Show in sidebar"  (under tab "Info" (top))
+   |     |     |--> Click "Supervisor" > "Dashboard" > "Check Home Assistant configuration"
+   |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
+   |     |           |--> Enable "Show in sidebar"  (under tab "Info" (top))
+   |     |
+   |     |--> Validate the configuration via "Supervisor" > "Check Home Assistant configuration" > "Start" > "Log" (top right)
    |
    |
    |--> Install the "File editor" Add-on
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "File editor" > "Install"
    |     |--> Configure the Add-on (once installed)
-   |     |     |--> Click "Supervisor" > "Dashboard" > "File editor"
-   |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
-   |     |           |--> Enable "Show in sidebar"  (under tab "Info" (top))
-   |     |
-   |     |--> Check the configuration via "Configuration" > "Server Controls" (near bottom) > "Check Configration"
+   |           |--> Click "Supervisor" > "Dashboard" > "File editor"
+   |                 |--> Enable "Start on boot"    (under tab "Info" (top))
+   |                 |--> Enable "Show in sidebar"  (under tab "Info" (top))
+   |
    |
    |--> Update the HomeAssistant config with your Z-Wave USB Device's "Device path" value
    |     |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
@@ -40,7 +41,7 @@ zwave:
  usb_path: /dev/ttyACM0
    |     |--> NOTE: Replace the value of "/dev/ttyUSB0" with the "Device path" value from above (on the system hardware page)
    |     |--> Save the file via the [ Red floppy save icon ]
-   |     |--> Validate the configuration via "Configuration" > "Server Controls" > "Check Configration"
+   |     |--> Validate the configuration via "Supervisor" > "Check Home Assistant configuration" > "Start" > "Log" (top right)
    |
    |--> Reboot the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
    |     |--> "Supervisor" > "System" > "Reboot Host" > "Reboot Host"

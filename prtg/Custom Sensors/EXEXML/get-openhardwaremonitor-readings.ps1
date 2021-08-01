@@ -95,13 +95,29 @@ $RowCount_HeaderRows=(2);
 $RowCount_DataRows=(60);
 
 $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Fullpath}") -TotalCount (${RowCount_HeaderRows}));
-$LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Fullpath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
-$LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
 $CsvImport = @{};
 ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
 ${CsvImport}["Paths"] = (@("$($LogContent_HeaderRows[0])").Split(","));
 ${CsvImport}["Paths"][0]="Time"; <# OHW leaves thefirst row's first column blank for whatever reason #>
+
+<# Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation) #>
+$RequiredPath="gpu";
+If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
+	$Dirname = [IO.Path]::GetDirectoryName("${Logfile_FullPath}");
+	$Basename =[IO.Path]::GetFileNameWithoutExtension("${Logfile_FullPath}");
+	$Extension [IO.Path]::GetExtension("${Logfile_FullPath}");
+	<# Remove any logged data from a previous run #>
+	Get-Item "${Logfile_Basename}*.txt" | Remove-Item -Force;
+	<# Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns) #>
+	${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddThhmmss.fff')${Extension}");
+	Move-Item -Path ("${Logfile_FullPath}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
+	<# End the current run #>
+	Exit 1;
+}
+
+$LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Fullpath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+$LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
 $DataRows_SensorReadings=@();
 

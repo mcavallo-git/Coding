@@ -1,4 +1,19 @@
 ------------------------------------------------------------
+GET INFO FROM DEVICES WHICH DON'T SHOW UP AS A DEVICE/ENTITY IN THE HOMEASSISTANT PORTAL
+------------------------------------------------------------
+
+In the HomeAssistant Portal/GUI:
+ |
+ |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
+ |
+ |--> Enter "zwave_js_value_notification" in the "Event to subscribe to" field > Click "Start Listening"
+ |
+ |--> Trigger the switch/event on the device which is not showing up as a device or entity
+       |
+       |--> Copy-down the JSON info returned by the listener
+
+
+------------------------------------------------------------
 
  Citation(s)
 

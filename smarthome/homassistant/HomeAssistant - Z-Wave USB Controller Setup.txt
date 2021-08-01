@@ -42,6 +42,8 @@ zwave:
    |     |--> Save the file via the [ Red floppy save icon ]
    |     |--> Validate the configuration via "Configuration" > "Server Controls" > "Check Configration"
    |
+   |--> Reboot the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
+   |     |--> "Supervisor" > "System" > "Reboot Host" > "Reboot Host"
    |
    |--> Install the "Z-Wave JS to MQTT" Supervisor Add-on
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install"
@@ -64,10 +66,6 @@ zwave:
    |     |           |--> Click "Save" bottom-left > Confirm the popup to restart the "Z-Wave JS to MQTT" server/service
    |     |
    |     |--> Note: This is required to allow HomeAssistant to control/inspect the "Z-Wave JS to MQTT" devices/entities
-   |
-   |
-   |--> Restart the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
-   |     |--> "Supervisor" > "System" > "Reboot Host"
    |
    |
    |--> Follow Guide @ https://www.youtube.com/watch?v=DbxBHlo6KiQ to link "Z-Wave JS" Configuration Integration to the "Z-Wave JS to MQTT" Supervisor Add-on's Websocket server

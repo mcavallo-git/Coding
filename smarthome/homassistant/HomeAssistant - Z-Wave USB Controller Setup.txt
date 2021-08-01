@@ -20,16 +20,16 @@
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "Check Home Assistant configuration" > "Install"
    |     |--> Configure the Add-on (once installed)
    |           |--> Click "Supervisor" > "Dashboard" > "Check Home Assistant configuration"
-   |           |--> Enable "Start on boot"
-   |           |--> Enable "Show in sidebar"
+   |                 |--> Enable "Start on boot"    (under tab "Info" (top))
+   |                 |--> Enable "Show in sidebar"  (under tab "Info" (top))
    |
    |
    |--> Install the "File editor" Add-on
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "File editor" > "Install"
    |     |--> Configure the Add-on (once installed)
    |     |     |--> Click "Supervisor" > "Dashboard" > "File editor"
-   |     |     |--> Enable "Start on boot"
-   |     |     |--> Enable "Show in sidebar"
+   |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
+   |     |           |--> Enable "Show in sidebar"  (under tab "Info" (top))
    |     |
    |     |--> Check the configuration via "Configuration" > "Server Controls" (near bottom) > "Check Configration"
    |
@@ -47,16 +47,41 @@ zwave:
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install"
    |     |--> Configure the Add-on (once installed)
    |     |     |--> Click "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT"
-   |     |     |--> Enable "Start on boot"
-   |     |     |--> Enable "Watchdog"
-   |     |     |--> Enable "Show in sidebar"
+   |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
+   |     |           |--> Enable "Watchdog"         (under tab "Info" (top))
+   |     |           |--> Enable "Show in sidebar"  (under tab "Info" (top))
+   |     |           |--> Click "Configuration" (top)
+   |     |     !!!         |--> Set the value for "Host" (port) to "3000"  (under tab "Configuration" (top))
    |     |
    |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave Integration/Add-on, get the Network path of said key it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart the HomeAssistant host (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
+   |
+   |
+   |--> Enable the websockets server for the "Z-Wave JS to MQTT" Supervisor Add-on to communicate with the "Z-Wave JS" Integration
+   |     |
+   |     |--> Click "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT"
+   |     |     |--> Click "Configuration" (top)
+   |     |           |--> Under "Network", enter the value "3000" under the column titled "Host" (should say "Disabled" by default)
+   |     |           |--> Click "Save" bottom-left > Confirm the popup to restart the "Z-Wave JS to MQTT" server/service
+   |     |
+   |     |--> Note: This is required to allow HomeAssistant to control/inspect the "Z-Wave JS to MQTT" devices/entities
    |
    |
    |--> Restart the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
    |     |--> "Supervisor" > "System" > "Reboot Host"
    |
+   |
+   |--> Follow Guide @ https://www.youtube.com/watch?v=DbxBHlo6KiQ to link "Z-Wave JS" Configuration Integration to the "Z-Wave JS to MQTT" Supervisor Add-on's Websocket server
+   |     |
+   |     |--> Configure, then remove the "Z-Wave JS" Configuration Integration which came pre-packaged with "Z-Wave JS to MQTT" 
+   |     |
+   |     |--> Re-Install the "Z-Wave JS" Configuration Integration
+   |           |--> Click "Configuration" > "Integrations" > "+ Add Integration" > Search for "Z-Wave JS" > Click "Z-Wave JS"
+   |                 |
+   |                 |--> Popup titled "Select connection method" should appear
+   |                 |     |--> UNCHECK/DISABLE the "Use the Z-Wave JS Supervisor add-on" checkbox > "Submit"
+   |                 |
+   |                 |--> Popup titled "Z-Wave JS" should appear
+   |                       |--> Set field titled "URL" to value "ws://localhost:3000" (default) > "Submit"
    |
    |--> Open "Z-Wave JS to MQTT" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT" > "Open Web UI")
          |

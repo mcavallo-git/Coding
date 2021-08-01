@@ -58,10 +58,10 @@ zwave:
          |     |--> Add your Z-Wave controller (USB device/key) using the initial Add-on's dropdown menus (make sure to select the intended "USB Device Path" as found earlier under "Supervisor" > "System" > "︙" > "Hardware")
          |
          |--> Add Z-Wave nodes (Z-Wave Inclusion)
-         |      |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Inclusion" (or "Secure Inclusion" for locks & door openers) > "Start"
+         |      |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Inclusion" (or "Secure Inclusion" for locks & door openers) > "Start" > [perform inclusion action/steps on target device (refer to specific device's manual) to include it onto the network]
          |
          |--> Remove Z-Wave nodes (Z-Wave Exclusion)
-                |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Exclusion" > "Start"
+                |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Exclusion" > "Start" > [perform exclusion action/steps on target device (refer to specific device's manual) to exclude it from the network]
 
 
 # ------------------------------------------------------------

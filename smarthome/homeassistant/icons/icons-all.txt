@@ -21,6 +21,7 @@ hass:bell-outline
 hass:bell-plus
 hass:bell-ring
 hass:bell-sleep
+hass:bluetooth
 hass:bookmark
 hass:brightness-
 hass:brightness-5
@@ -106,6 +107,7 @@ hass:microphone
 hass:music-note
 hass:music-note-off
 hass:nature
+hass:nfc
 hass:notification-clear-all
 hass:open-in-new
 hass:original-icon
@@ -197,3 +199,4 @@ hass:white-balance-sunny
 hass:window-closed
 hass:window-open
 hass:z-wave
+hass:zigbee

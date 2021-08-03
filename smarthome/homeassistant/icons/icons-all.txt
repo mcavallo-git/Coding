@@ -132,6 +132,7 @@ hass:radio-tower
 hass:ray-vertex
 hass:refresh
 hass:remote
+hass:restart
 hass:robot
 hass:robot-outline
 hass:robot-vacuum
@@ -172,6 +173,7 @@ hass:user-icon
 hass:vibrate
 hass:video
 hass:view-dashboard
+hass:view-dashboard-outline
 hass:volume-high
 hass:volume-medium
 hass:volume-minus

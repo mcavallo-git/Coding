@@ -54,6 +54,8 @@ hass:content-save
 hass:crop-portrait
 hass:cursor-pointer
 hass:delete
+hass:devices
+hass:devices-outline
 hass:door-closed
 hass:door-open
 hass:dots-horizontal
@@ -145,6 +147,8 @@ hass:server
 hass:server-network
 hass:server-network-off
 hass:settings
+hass:shape
+hass:shape-outline
 hass:shield-check
 hass:shield-home
 hass:shield-lock

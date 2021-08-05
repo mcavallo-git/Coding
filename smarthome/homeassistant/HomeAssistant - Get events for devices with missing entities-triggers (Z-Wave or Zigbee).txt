@@ -65,9 +65,7 @@ In the HomeAssistant Portal/GUI:
              |
              |--> "device_id"
              |
-             |--> "label"
-             |
-             |--> "value"
+             |--> "command"
 
 
 Create an automation based on the info returned by the event listener
@@ -82,8 +80,7 @@ Create an automation based on the info returned by the event listener
  |     |
  |     |--> Event Data:
 device_id: (VALUE FROM LISTENER'S JSON FIELD "device_id")
-label: (VALUE FROM LISTENER'S JSON FIELD "label")
-value: (VALUE FROM LISTENER'S JSON FIELD "value")
+command: (VALUE FROM LISTENER'S JSON FIELD "command")
 |
 |
 |--> If desired, define automation Condition(s) (below Triggers)

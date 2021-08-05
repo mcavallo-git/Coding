@@ -68,10 +68,14 @@ hass:exit-to-app
 hass:eye
 hass:eye-off
 hass:fan
+hass:file
+hass:file-outline
 hass:file-document
+hass:file-document-outline
 hass:file-multiple
+hass:file-multiple-outline
 hass:file-word-box
-hass:file-xml
+hass:file-word-box-outline
 hass:filter-variant
 hass:fire
 hass:flash
@@ -110,6 +114,8 @@ hass:music-note
 hass:music-note-off
 hass:nature
 hass:nfc
+hass:note
+hass:note-outline
 hass:notification-clear-all
 hass:open-in-new
 hass:original-icon
@@ -127,6 +133,7 @@ hass:power
 hass:power-plug
 hass:power-plug-off
 hass:power-sleep
+hass:progress-check
 hass:puzzle
 hass:puzzle-outline
 hass:radiobox-blank

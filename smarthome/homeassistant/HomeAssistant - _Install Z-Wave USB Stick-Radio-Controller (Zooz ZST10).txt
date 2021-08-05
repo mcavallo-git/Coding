@@ -15,7 +15,7 @@ HomeAssistant - Install Z-Wave USB Stick-Radio-Controller (Zooz ZST10).txt
    |--> Get the Z-Wave USB device's "Device Path"
    |      |--> In the HomeAssistant portal select "Supervisor" > "System" > "︙" > "Hardware"
    |      |--> Locate the USB device/key's name or ID (such as ttyAMA0 or ttyACM0)
-   |      |--> Dropdown the usb device & copy the value next to "Device path" (such as "/dev/ttyUSB0" or "/dev/ttyACM0")
+   |      |--> Dropdown the usb device & copy the value next to "Device path" (use the one starting with "/dev/serial/by-id/...")
    |
    |
    |--> Install the "Check Home Assistant configuration" Add-on
@@ -38,10 +38,10 @@ HomeAssistant - Install Z-Wave USB Stick-Radio-Controller (Zooz ZST10).txt
    |
    |--> Update the HomeAssistant config with your Z-Wave USB Device's "Device path" value
    |     |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
-	 |           |--> Open "/config/configuration.yaml" & add the following code to the bottom of the file:
+   |           |--> Open "/config/configuration.yaml" & add the following code to the bottom of the file:
 zwave:
- usb_path: /dev/ttyACM0
-   |     |--> NOTE: Replace the value of "/dev/ttyUSB0" with the "Device path" value from above (on the system hardware page)
+ usb_path: /dev/serial/by-id/...
+   |     |--> NOTE: Replace the value of "/dev/serial/by-id/..." with the "Device path" value from above (on the system hardware page)
    |     |--> Save the file via the [ Red floppy save icon ]
    |     |--> Validate the configuration via "Supervisor" > "Check Home Assistant configuration" > "Start" > "Log" (top right)
    |

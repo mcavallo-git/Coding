@@ -235,12 +235,13 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="dns"><br />DNS CAbundles/CA bundles<sub><br />Domain Name System <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle">Certificate Authority Bundles</a><br />SSL/TLS (HTTPS) Intermediate/Root Certificates</sub><br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="dns"><br />DNS (+CAbundles/CA bundles)<sub><br />Domain Name System <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle">Certificate Authority Bundles</a><br />SSL/TLS (HTTPS) Intermediate/Root Certificates</sub><br /><br /></h5></th></tr>
 <tr><td><strong>COMODO</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
 <tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>
 <tr><td><strong>IdenTrust</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Timestamping Authority (Code-Signing)</i></sub></td><td><a href="https://www.identrust.com/timestamping-authority-server">Download (source)</a></td></tr>
 <tr><td><strong>OpenTimestamps</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Timestamping Authority (Code-Signing)</i></sub></td><td><a href="https://opentimestamps.org/?digest=3bc98a0c89639e3e0b717701877a849bb8b38147402dfb19643cb3bd39894535#stamp-and-verify">Download (source)</a></td></tr>
 <tr><td><strong>Namecheap</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://www.namecheap.com/support/knowledgebase/article.aspx/9393/69/where-do-i-find-ssl-ca-bundle">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle" title="A 'CA bundle' is a file that contains root and intermediate certificates. The end-entity certificate along with a CA bundle constitutes the certificate chain.">What is a CA bundle?</a></sub></td></tr>
+<tr><td><strong>Pi-Hole</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Intended to be ran either on a Raspberry Pi or <a href="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/var/lib/docker-compose/docker-compose.pihole.yml">in a docker container</a><br />&nbsp;&nbsp;&nbsp;Blocking application for Advertisement & Internet Trackers<br />&nbsp;&nbsp;&nbsp;Blocking application for Advertisement & Internet Trackers<br />&nbsp;&nbsp;&nbsp;Acts as a DNS sinkhole & (optionally) a DHCP server</i></sub></td><td><a href="https://pi-hole.net/">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

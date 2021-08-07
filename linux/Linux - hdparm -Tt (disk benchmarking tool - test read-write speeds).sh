@@ -2,7 +2,7 @@
 
 DISK_PATH=$(lsblk | grep disk | awk '{print $1}';);
 
-hdparm -Tt "${DISK_PATH}";
+hdparm -Tt "/dev/${DISK_PATH}";
 
 
 # ------------------------------------------------------------

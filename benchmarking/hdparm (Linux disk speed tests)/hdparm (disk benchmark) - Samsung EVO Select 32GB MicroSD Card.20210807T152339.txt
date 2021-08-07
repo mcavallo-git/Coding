@@ -1,0 +1,11 @@
+------------------------------------------------------------
+
+hdparm (disk benchmark) - Samsung EVO Select 32GB MicroSD Card
+
+------------------------------------------------------------
+
+Timing cached reads:         ___.__ MB/sec
+
+Timing buffered disk reads:  ___.__ MB/sec
+
+------------------------------------------------------------

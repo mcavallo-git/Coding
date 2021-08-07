@@ -1,4 +1,13 @@
 #!/bin/bash
+# ------------------------------------------------------------
+#
+# One-Liner
+#
+
+hdparm -Tt "/dev/$(lsblk | grep disk | awk '{print $1}' | head -n 1;)";
+
+
+# ------------------------------------------------------------
 
 DISK_PATH=$(lsblk | grep disk | awk '{print $1}' | head -n 1;);
 

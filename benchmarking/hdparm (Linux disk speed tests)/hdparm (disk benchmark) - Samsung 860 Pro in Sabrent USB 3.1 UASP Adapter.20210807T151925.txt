@@ -1,0 +1,11 @@
+------------------------------------------------------------
+
+hdparm (disk benchmark) - Samsung 860 Pro in Sabrent USB 3.1 UASP Adapter
+
+------------------------------------------------------------
+
+Timing cached reads:         903.91 MB/sec
+
+Timing buffered disk reads:  247.87 MB/sec
+
+------------------------------------------------------------

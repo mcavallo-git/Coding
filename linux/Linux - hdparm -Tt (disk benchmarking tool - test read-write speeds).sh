@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DISK_PATH=$(lsblk | grep disk | awk '{print $1}';);
+DISK_PATH=$(lsblk | grep disk | awk '{print $1}' | head -n 1;);
 
 hdparm -Tt "/dev/${DISK_PATH}";
 

@@ -1,0 +1,37 @@
+Convert a Docker Compose file
+
+Usage:
+  kompose convert [file] [flags]
+
+Kubernetes Flags:
+      --daemon-set               Generate a Kubernetes daemonset object (deprecated, use --controller instead)
+  -d, --deployment               Generate a Kubernetes deployment object (deprecated, use --controller instead)
+  -c, --chart                    Create a Helm chart for converted objects
+      --replication-controller   Generate a Kubernetes replication controller object (deprecated, use --controller instead)
+
+OpenShift Flags:
+      --build-branch             Specify repository branch to use for buildconfig (default is current branch name)
+      --build-repo               Specify source repository for buildconfig (default is current branch's remote url)
+      --deployment-config        Generate an OpenShift deployment config object
+      --insecure-repository      Specify to use insecure docker repository while generating Openshift image stream object
+
+Flags:
+      --build string              Set the type of build ("local"|"build-config"(OpenShift only)|"none") (default "none")
+      --controller string         Set the output controller ("deployment"|"daemonSet"|"replicationController")
+  -h, --help                      help for convert
+      --indent int                Spaces length to indent generated yaml files (default 2)
+  -j, --json                      Generate resource files into JSON format
+      --multiple-container-mode   Create multiple containers grouped by 'kompose.service.group' label
+  -o, --out string                Specify a file name or directory to save objects to (if path does not exist, a file will be created)
+      --push-image                If we should push the docker image we built (default true)
+      --replicas int              Specify the number of replicas in the generated resource spec (default 1)
+      --stdout                    Print converted objects to stdout
+      --volumes string            Volumes to be generated ("persistentVolumeClaim"|"emptyDir"|"hostPath" | "configMap") (default "persistentVolumeClaim")
+      --with-kompose-annotation   Add kompose annotations to generated resource (default true)
+
+Global Flags:
+      --error-on-warning    Treat any warning as an error
+  -f, --file stringArray    Specify an alternative compose file
+      --provider string     Specify a provider. Kubernetes or OpenShift. (default "kubernetes")
+      --suppress-warnings   Suppress all warnings
+  -v, --verbose             verbose output

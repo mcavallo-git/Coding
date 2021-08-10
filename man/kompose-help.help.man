@@ -1,0 +1,15 @@
+Help provides help for any command in the application.
+Simply type kompose help [path to command] for full details.
+
+Usage:
+  kompose help [command] [flags]
+
+Flags:
+  -h, --help   help for help
+
+Global Flags:
+      --error-on-warning    Treat any warning as an error
+  -f, --file stringArray    Specify an alternative compose file
+      --provider string     Specify a provider. Kubernetes or OpenShift. (default "kubernetes")
+      --suppress-warnings   Suppress all warnings
+  -v, --verbose             verbose output

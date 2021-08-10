@@ -1,0 +1,21 @@
+Generates shell completion code.
+
+Auto completion supports both bash and zsh. Output is to STDOUT.
+
+source <(kompose completion bash)
+source <(kompose completion zsh)
+
+Will load the shell completion code.
+
+Usage:
+  kompose completion SHELL [flags]
+
+Flags:
+  -h, --help   help for completion
+
+Global Flags:
+      --error-on-warning    Treat any warning as an error
+  -f, --file stringArray    Specify an alternative compose file
+      --provider string     Specify a provider. Kubernetes or OpenShift. (default "kubernetes")
+      --suppress-warnings   Suppress all warnings
+  -v, --verbose             verbose output

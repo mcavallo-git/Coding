@@ -1,0 +1,20 @@
+Kompose is a tool to help users who are familiar with docker-compose move to Kubernetes.
+
+Usage:
+  kompose [command]
+
+Available Commands:
+  completion  Output shell completion code
+  convert     Convert a Docker Compose file
+  help        Help about any command
+  version     Print the version of Kompose
+
+Flags:
+      --error-on-warning    Treat any warning as an error
+  -f, --file stringArray    Specify an alternative compose file
+  -h, --help                help for kompose
+      --provider string     Specify a provider. Kubernetes or OpenShift. (default "kubernetes")
+      --suppress-warnings   Suppress all warnings
+  -v, --verbose             verbose output
+
+Use "kompose [command] --help" for more information about a command.

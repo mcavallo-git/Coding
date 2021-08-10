@@ -1,9 +1,0 @@
-
-
-// Find Regex:
-^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$
-
-
-// Replace-with:
-RESOLVE MANUALLY
-

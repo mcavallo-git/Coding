@@ -807,7 +807,7 @@ function SyncRegistry {
 		};
 
 
-		# Office 2013 Settings
+		# Office 2013 Settings - Excel
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Office\15.0\Common\General";
 			Props=@(
@@ -823,7 +823,7 @@ function SyncRegistry {
 		};
 
 
-		# Office 2016 Settings
+		# Office 2016 Settings - Excel
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Office\16.0\Common\General";
 			Props=@(
@@ -833,6 +833,20 @@ function SyncRegistry {
 					Name="AcbControl";
 					Type="DWord";
 					Value=2147483648;
+					Delete=$False;
+				}
+			)
+		};
+		# Office 2016 Settings - Outlook
+		$RegEdits += @{
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail";
+			Props=@(
+				@{
+					Description="Office 2016 Settings - Outlook - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment";
+					Hotfix=$Null;
+					Name="MaxAttachmentMenuItems";
+					Type="DWord";
+					Value=00000000;
 					Delete=$False;
 				}
 			)

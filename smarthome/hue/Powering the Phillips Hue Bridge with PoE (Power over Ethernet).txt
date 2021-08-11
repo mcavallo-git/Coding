@@ -1,0 +1,15 @@
+
+Philips Hue Hub - Powering via PoE (to allow for remote restarts via PoE Power Cycling)
+ |
+ |--> 5V PoE Splitter Amazon URL:  https://amazon.com/dp/B01DOSOCEE
+ |
+ |--> (V2 HUBS ONLY) Barrel Adapter Amazon URL:  https://amazon.com/dp/B01N812NKL
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   daltonflanagan.com  |  "Powering the Phillips Hue Bridge with PoE (Power over Ethernet)"  |  https://daltonflanagan.com/hue-over-poe/
+
+------------------------------------------------------------

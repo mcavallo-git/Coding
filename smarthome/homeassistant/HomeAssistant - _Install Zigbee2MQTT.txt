@@ -1,0 +1,14 @@
+# ------------------------------------------------------------
+HomeAssistant - Install Zigbee2MQTT
+# ------------------------------------------------------------
+
+- Refer to Citation(s), below
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   www.youtube.com  |  "Setting up Zigbee2MQTT and MQTT broker Mosquito in Home Assistant - YouTube"  |  https://www.youtube.com/watch?v=-YeObwEZqL4
+#
+# ------------------------------------------------------------

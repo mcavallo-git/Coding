@@ -4,6 +4,14 @@ HomeAssistant - Install Zigbee2MQTT
 
 - Refer to Citation(s), below
 
+01. Add Add-on Repository [ https://github.com/danielwelch/hassio-zigbee2mqtt ]
+
+02. Install Add-on [ Zigbee2mqtt ]
+
+03. Get USB Zigbee device's "by-id" path, and add to zigbee2mqtt > configuration YAML
+
+04. Install Add-on [ Mosquitto broker ]  (MQTT broker)
+
 
 # ------------------------------------------------------------
 #

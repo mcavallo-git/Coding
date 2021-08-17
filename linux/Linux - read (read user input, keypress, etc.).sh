@@ -7,7 +7,7 @@ read -p "Press any key to continue...  " -n 1 -t 60 -r; # Await single keypress
 # ------------------------------------------------------------
 # Await multiple keypresses (general keyboard string-entry)
 
-if [ 1 ]; then
+if [ 1 -eq 1 ]; then
 	READ_TIMEOUT=60;
 	read -p "Enter a string:  " -t ${READ_TIMEOUT} -r; RETURN_CODE_READ=$?;
 	echo "";
@@ -25,10 +25,10 @@ fi;
 # Await single keypress & Listen for "y" (or "Y")
 
 
-if [ 1 ]; then
+if [ 1 -eq 1 ]; then
   ACTION_DESCRIPTION="ACTION_DESCRIPTION_HERE";
-  READ_TIMEOUT=60;
-  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now? (y/n)  " -n 1 -t 60 -r; RETURN_CODE_READ=$?;
+  READ_TIMEOUT=3;
+  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now? (y/n)  " -n 1 -t ${READ_TIMEOUT} -r; RETURN_CODE_READ=$?;
   echo "";
   if [ ${RETURN_CODE_READ} -gt 128 ]; then
     echo "Error:  Response timed out after ${READ_TIMEOUT}s";

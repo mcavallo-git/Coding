@@ -26,17 +26,17 @@ fi;
 
 
 if [ 1 ]; then
-	READ_TIMEOUT=60;
-	read -p "Perform action [ xyz ], now? (y/n)  " -n 1 -t 60 -r; RETURN_CODE_READ=$?;
-	echo "";
-	if [ ${RETURN_CODE_READ} -gt 128 ]; then
-		echo "Error:  Response timed out after ${READ_TIMEOUT}s";
-	elif [ -n "${REPLY}" ] && [[ $REPLY =~ ^[Yy]$ ]]; then
-		echo "Info:  Confirmed - Performing Action [ xyz ] ...";
-	else
-		echo "Info:  Denied - Skipping action [ xyz ]";
-	fi;
+  ACTION_DESCRIPTION="ACTION_DESCRIPTION_HERE";
+  READ_TIMEOUT=60;
+  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now? (y/n)  " -n 1 -t 60 -r; RETURN_CODE_READ=$?;
+  echo "";
+  if [ ${RETURN_CODE_READ} -gt 128 ]; then
+    echo "Error:  Response timed out after ${READ_TIMEOUT}s";
+  elif [ -n "${REPLY}" ] && [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Info:  Confirmed - Performing Action [ ${ACTION_DESCRIPTION} ] ...";
+  else
+    echo "Info:  Denied - Skipping action [ ${ACTION_DESCRIPTION} ]";
+  fi;
 fi;
-
 
 # ------------------------------------------------------------

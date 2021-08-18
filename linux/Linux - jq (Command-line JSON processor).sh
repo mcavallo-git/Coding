@@ -27,6 +27,23 @@ fi;
 
 
 # ------------------------------------------------------------
+# jq - Modify the value held by a specific JSON property
+#
+if [ 1 -eq 1 ]; then
+EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
+MODIFIED_JSON=$(echo "${EXAMPLE_JSON}" | jq '.key3.key31 = "replaced-value"';);
+MODIFIED_JSON_COMPRESSED=$(echo "${MODIFIED_JSON}" | jq -c .;);
+echo "------------------------------";
+echo "EXAMPLE_JSON = ${EXAMPLE_JSON}";
+echo "------------------------------";
+echo "MODIFIED_JSON = ${MODIFIED_JSON}";
+echo "------------------------------";
+echo "MODIFIED_JSON_COMPRESSED = ${MODIFIED_JSON_COMPRESSED}";
+echo "------------------------------";
+fi;
+
+
+# ------------------------------------------------------------
 # jq - Convert a bash associative array to a JSON object
 #
 unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array

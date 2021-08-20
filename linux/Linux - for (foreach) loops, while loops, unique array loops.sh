@@ -12,6 +12,29 @@
 #   For-Loop(s)
 #
 
+# For-loop on an Indexed Array (in Bash)
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY+=("Val-1");
+DAT_ARRAY+=("Val-2");
+DAT_ARRAY+=("Val-3");
+DAT_ARRAY+=("Val-4");
+for DAT_ITEM in "${DAT_ARRAY[@]}"; do
+echo "------------------------------";
+echo "${DAT_ITEM}";
+done;
+
+
+# For-loop on an Associative Array (in Bash)
+unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY+=(["Key A"]="Val One");
+DAT_ARRAY+=(["Key B"]="Val Two");
+DAT_ARRAY+=(["Key A"]="Overwrite A");
+DAT_ARRAY+=(["Key B"]="Overwrite B");
+for DAT_KEY in "${!DAT_ARRAY[@]}"; do
+DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
+echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
+done;
+
 
 # For-loop, ITERATE (counts from 1 to n - defined in $(seq X))
 MAX_ITERATIONS=120;

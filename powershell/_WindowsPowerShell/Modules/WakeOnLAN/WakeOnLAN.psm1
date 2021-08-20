@@ -10,7 +10,14 @@ Function WakeOnLAN() {
 		<# Address of the network card (MAC address) #>
 		[Parameter(Position=0, ValueFromRemainingArguments)]$mac
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
 
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/WakeOnLAN/WakeOnLAN.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'WakeOnLAN' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\WakeOnLAN\WakeOnLAN.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		WakeOnLAN 'A1:B2:C3:D4:E5:F6';
+
+	}
+	# ------------------------------------------------------------
 	# Validate the Syntax of the user-defined MAC Address
 	If (!(($mac -Like "*:*:*:*:*:*") -Or ($mac -Like "*-*-*-*-*-*"))){
 		$Example_MAC="A6:B5:C4:D3:E2:F1";

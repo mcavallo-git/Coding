@@ -42,7 +42,7 @@ If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq
 
 # ------------------------------------------------------------
 
-<#   Sort a Hash Table  @{}  #>
+<#   Sort a Hash Table @{}   #>
 If ($True) {
 $FTypes_Obj=@{};
 CMD /C FTYPE | Sort-Object | ForEach-Object {

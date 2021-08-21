@@ -1,0 +1,804 @@
+/Irq/BestVcpuRouting [Integer] : 1: try to route the virtual interrupt to the best vcpu; 0 to disable
+/Irq/IRQRebalancePeriod [Integer] : time in ms between attempts to rebalance interrupts
+/Irq/IRQBHConflictWeight [Integer] : relative weight for irq/BH conflict
+/Irq/IRQVcpuConflictWeight [Integer] : relative weight for irq/vcpu conflict
+/Irq/IRQActionAffinityWeight [Integer] : relative weight for action-vcpu affinity
+/Irq/IRQAvoidExclusive [Integer] : avoid placing interrupts on physical CPUs with exclusive affinity set
+/Misc/LogToFile [Integer] : Send vmkernel log messages to /var/log/vmkernel
+/Misc/LogToSerial [Integer] : Send vmkernel log messages to the serial port
+/Misc/DebugLogToSerial [Integer] : Send vmkernel LOG messages to the serial port
+/Misc/LogTimestampUptime [Integer] : Use uptime rather than UTC for vmkernel log
+/Misc/LogWldPrefix [Integer] : Including running world on every log statement
+/Misc/MinimalPanic [Integer] : Don't attempt to coredump after PSODing
+/Misc/BlueScreenTimeout [Integer] : timeout in seconds, 0 is no timeout
+/Misc/HeartbeatTimeout [Integer] : Timeout in seconds, for sending NMI to the locked CPU
+/Misc/HeartbeatInterval [Integer] : Interval in msec to check CPU lockups
+/Misc/HeartbeatPanicTimeout [Integer] : Interval in seconds after which to panic if no heartbeats received
+/Misc/HeapPanicDestroyNonEmpty [Integer] : Panic when a non-empty heap gets destroyed
+/Misc/HeapMgrGuardPages [Integer] : Number of guard pages to insert between heap VA regions
+/Misc/MCEMonitorInterval [Integer] : Interval[0 - 0x7fffffff ms] to check Machine Check Errors(0=never)
+/Misc/DebugBuddyEnable [Integer] : Enable buddy debugging, 0 to disable
+/Misc/EnableHighDMA [Integer] : Enable DMA above 4GB
+/Misc/TimerMaxHardPeriod [Integer] : Maximum hard timer interrupt period in microseconds
+/Misc/TimerTolerance [Integer] : Default timer lateness tolerance in microseconds
+/Misc/WatchdogBacktrace [Integer] : Backtrace on every nth watchdog
+/Misc/BHTimeout [Integer] : Timeout for bottom-half handlers in milliseconds
+/Misc/BhTimeBound [Integer] : Time bound on BH checking in us (microseconds).
+/Misc/IntTimeout [Integer] : Timeout for interrupt handlers in milliseconds
+/Misc/HordeEnabled [Integer] : Enables horde mode
+/Misc/ScreenSaverDelay [Integer] : Delay in minutes before screensaver kicks in
+/Misc/WorldletActivationUS [Integer] : Number of microseconds a worldlet may execute prior to being asked to yield.
+/Misc/WorldletActivationsLimit [Integer] : Number of worldlet activations permissible in each interruption (0==unlimited).
+/Misc/WorldletLoadThreshold [Integer] : Worldlet load/score level below which a placement is deemed desireable
+/Misc/WorldletLocalityBonus [Integer] : load score bonus for keeping a worldlet on it's last PCPU/LLC
+/Misc/WorldletLoosePenalty [Integer] : load penalty for leaving LOOSE affinity topology level
+/Misc/WorldletIRQPenalty [Integer] : constant load penalty for worldlets driven by interrupts
+/Misc/WorldletGreedySampleRun [Integer] : number of runs between greedy samples, controls greedy sampling rate
+/Misc/WorldletGreedySampleMCycles [Integer] : million cycles between greedy samples, controls greedy sampling rate
+/Misc/WorldletRemoteActivateOverhead [Integer] : remote activate overhead, in cycles
+/Misc/WorldletWorldOverheadLLC [Integer] : overhead if worldlet is on the same cache as its affinity world, in cycles
+/Misc/WorldletWorldOverheadRemote [Integer] : overhead if worldlet is on different cache as its affinity world, in percentage
+/Misc/WorldletPreemptOverhead [Integer] : overhead if worldlet preempts a running no-idle world, in percentage
+/Misc/WorldletMigOverheadLLC [Integer] : intra-cache worldlet migration overhead, default = 4/1024=0.39%
+/Misc/WorldletMigOverheadRemote [Integer] : inter-cache worldlet migration overhead, default = 16/1024=1.56%
+/Misc/GuestLibAllowHostInfo [Integer] : Allow guest to read host-level metrics
+/Misc/UserSocketUnixMaxBufferSize [Integer] : Max buffer size for UW unix domain sockets (bytes)
+/Misc/UserDuctDynBufferSize [Integer] : Max buffer size for UW duct (bytes)
+/Misc/NMILint1IntAction [Integer] : Override how a hardware generated NMI is handled: 0=default (panic, unless changed by boot-time option), 1=enter debugger, 2=panic, 3=log and ignore (not recommended).
+/Misc/SIOControlLoglevel [Integer] : Storage I/O Control Log Level
+/Misc/ShaperStatsEnabled [Integer] : Enable stats in shaper module
+/Misc/SIOControlFlag1 [Integer] : Storage I/O Control Internal Flag
+/Misc/SIOControlFlag2 [Integer] : Storage I/O Control Internal Flag
+/Misc/APDTimeout [Integer] : Number of seconds a device can be in APD before failing User World IO.
+/Misc/APDHandlingEnable [Integer] : Enable Storage APD Handling [default: on]
+/Misc/PowerButton [Integer] : Action to take on a momentary press of the soft power button (0=ignore, 1=request graceful system shutdown and power-off)
+/Misc/PowerOffEnable [Integer] : Action to take on system power-off request (0=halt only, 1=power off)
+/Misc/UsbArbitratorAutoStartDisabled [Integer] : Disable automatic start of USB Arbitrator.  If set USB passthrough will not be available until USB arbitrator is started at the command line.
+/Misc/IoFilterWatchdogTimeout [Integer] : Timeout for the I/O filter watchdog in seconds. 0 means the watchdog is disabled. 120 seconds is the minimum timeout value.
+/Misc/vsanWitnessVirtualAppliance [Integer] : Indicates a VSAN witness host running in a Virtual Appliance. VM services (create/register/power on) are blocked
+/Misc/LogPort [String] : Name of serial port to use for logging (none, COM1, COM2, firewire)
+/Misc/GDBPort [String] : Name of serial port to use for GDB debugging (none, COM1, COM2, firewire)
+/Misc/ShellPort [String] : Name of serial port to use for visor shell (none, COM1, COM2, firewire)
+/Misc/ConsolePort [String] : Name of serial port to use for visor console (none, COM1, COM2, firewire)
+/Misc/ProcVerbose [String] : option unused
+/Misc/PreferredHostName [String] : Preferred Host name
+/Misc/WorldletLoadType [String] : Worldlet load type
+/Misc/SIOControlOptions [String] : Storage I/O Control Options
+/Misc/DefaultHardwareVersion [String] : Default Hardware Version
+/Net/MaxGlobalRxQueueCount [Integer] : Global max length of rx queues for all virtual ports on a ESX host that support queueing
+/Net/MaxPortRxQueueLen [Integer] : Max length of the rx queue for virtual ports whose clients support queueing
+/Net/MaxNetifTxQueueLen [Integer] : Max length of the tx queue for the physical NICs
+/Net/LinkFlappingThreshold [Integer] : Max number of link down events per minute before considering a link unstable (0 to deactivate)
+/Net/TeamPolicyUpDelay [Integer] : Delay (ms) before considering an `uplink up' event relevant
+/Net/EnableOuterCsum [Integer] : Enable uplink layer outer checksumming
+/Net/DontOffloadInnerIPv6 [Integer] : Don't offload VXLAN/Geneve inner IPv6 CSO/TSO packets to NICs.
+/Net/UplinkKillAsyncTimeout [Integer] : Timeout (ms) waiting for async when world is killed.
+/Net/UplinkAbortDisconnectTimeout [Integer] : Timeout (ms) waiting for pending calls to finish when disconnecting.
+/Net/UplinkTxQueuesDispEnabled [Integer] : Enables dispatching of port traffic on multiple tx queues
+/Net/NetSchedECNEnabled [Integer] : Enable net scheduler to send congestion notification to switch ports.
+/Net/NetSchedECNThreshold [Integer] : Percentage queue utilization at which net scheduler will start sending congestion notifications to switch ports.
+/Net/GuestTxCopyBreak [Integer] : transmits smaller than this will be copied rather than mapped
+/Net/VmxnetTxCopySize [Integer] : vmxnet tx <= than this will be fully copied with no need for completion.
+/Net/VmxnetCopyTxRunLimit [Integer] : non-Win vmxnet2/3 tx will have at most so many fully copied tx's in a row (65536 and larger means never).
+/Net/VmxnetWinCopyTxRunLimit [Integer] : Win vmxnet2/3 tx will have at most so many fully copied tx's in a row (65536 and larger means never).
+/Net/VmxnetWinUDPTxFullCopy [Integer] : whether Windows vmxnet UDP tx is fullCopy.
+/Net/VmxnetDoTsoSplit [Integer] : whether to split TSO pkts before LPD; 1: halved; 3: VmxnetTsoSplitSize; 2: hybrid.
+/Net/VmxnetTsoSplitSize [Integer] : split (byte) size; only used if DoTsoSplit >= 2.
+/Net/VmxnetTsoSplitBnd [Integer] : when VmxnetDoTsoSplit is 1 or 2, use targetSize as the tsoSplit threshold if the overall pkt list already has this number of pkts.
+/Net/VmxnetBiDirNoTsoSplit [Integer] : For bidirectional traffic, don't do tsoSplit.
+/Net/VmxnetBiDirNeedsTsoTx [Integer] : Need to see Tso Tx to qualify for tsoSplit bidirectional traffic condition.
+/Net/Vmxnet3WinIntrHints [Integer] : whether intr hints are used for Windows vmxnet3.
+/Net/VmxnetDoLroSplit [Integer] : whether for vmxnet LRO avoids aggregating all pkts into a single (> 2 mss) large pkt.
+/Net/VmxnetLroSplitBnd [Integer] : when VmxnetDoLroSplit is non-zero, while pktList is larger than this number, lroSplit is not done.
+/Net/VmknicDoLroSplit [Integer] : whether for vmknic LRO avoids aggregating all pkts into a single (> 2 ms) large pkt.
+/Net/VmknicLroSplitBnd [Integer] : when VmknicDoLroSplit is non-zero, while pktList is larger than this number, lroSplit is not done.
+/Net/UseProc [Integer] : whether or not to populate /proc/vmware/net [0 = disabled, 1 = enabled]
+/Net/UseLegacyProc [Integer] : whether or not to populate legacy entries in  /proc/vmware/net [0 = disabled, 1 = enabled]
+/Net/NotifySwitch [Integer] : Broadcasts an arp request on net handle enable [0 = disabled, 1 = enabled]
+/Net/NetTxDontClusterSize [Integer] : transmits smaller than this will not be subject to clustering/coalescing.
+/Net/NetPktAllocTries [Integer] : Number of tries for allocating pkt within the page.
+/Net/CoalesceTxTimeout [Integer] : set the coalesce timeout in micro-seconds
+/Net/CoalesceFineTxTimeout [Integer] : set the fine coalesce timeout in microseconds
+/Net/CoalesceTimeoutType [Integer] : set the coalesce timeout type: fine(1 ms by default) or coarse (4 ms by default)
+/Net/CoalesceFineTimeoutCPU [Integer] : Set which cpu the fine timer will run on
+/Net/CoalesceDefaultOn [Integer] : whether dynamic coalescing is on by default.[0 = disabled by default, 1 = enabled by default]
+/Net/CoalesceLowTxRate [Integer] : No tx coalescing calibration when the number of pkts tx per timeout is lower than this number.
+/Net/CoalesceLowRxRate [Integer] : No Rx coalescing calibration when the number of pkts Rx per timeout is lower than this number.
+/Net/CoalesceTxAlwaysPoll [Integer] : Whether always poll Tx at coalesce timeout handler.
+/Net/CoalesceMatchedQs [Integer] : Whether to use matched TxRxQ-pairs mode when applicable.
+/Net/CoalesceMultiRxQCalib [Integer] : When not in matched TxRxQ-pairs mode, whether to uses separate RxQ Calib.
+/Net/CoalesceTxQDepthCap [Integer] : Cap of Tx coalescing size.
+/Net/CoalesceRxQDepthCap [Integer] : Cap of Rx coalescing size.
+/Net/vNicTxPollBound [Integer] : max # normalPkts per poll.
+/Net/vNicNumDeferredReset [Integer] : max # normalPkts per poll.
+/Net/vmxnetThroughputWeight [Integer] : How far to favor throughput in vmxnet behavior.
+/Net/CoalesceNoVmmVmkTx [Integer] : Whether to try disable all vmm->vmk tx transitions.
+/Net/CoalesceFavorNoVmmVmkTx [Integer] : Favor disabling all vmm->vmk tx transitions; boost its score by factor of this/64.
+/Net/CoalesceMrqLt [Integer] : Whether to set a RxQ's coalesce to zero based on per-RxQ Low Traffic.
+/Net/CoalesceMrqTriggerReCalib [Integer] : Whether to let individual RxQ's perf change trigger re-calib.
+/Net/CoalesceMrqMetricRxOnly [Integer] : Whether to force individual RxQ's perf metric to be rx pkt cnt only.
+/Net/CoalesceMrqMetricAllowTxOnly [Integer] : Whether to allow's individual RxQ's perf metric to be tx pkt cnt only; if not, it will be tx + rx, or rx only.
+/Net/CoalesceMrqRatioMetric [Integer] : Whether Tx perf score is attributed to RxQ according to rxPktCnt ratio.
+/Net/CoalesceRxLtStopCalib [Integer] : Whether Rx Low Traffic stops Rx calibration.
+/Net/CoalesceMrqOverallStop [Integer] : Whether to use overall performance to stop RxQ Calib.
+/Net/CoalesceFlexMrq [Integer] : Whether to dynamically switch on/off multiRxQCalib.
+/Net/CoalesceRBCRate [Integer] : Target event rate for RateBasedCoalescing
+/Net/NetLatencyAwareness [Integer] : Whether to check vm's latency settings or not for vmxnet2/3
+/Net/NetTuneInterval [Integer] : Tuning interval in seconds.
+/Net/EtherswitchHashSize [Integer] : number of ports on the etherswitch x 2^N is the size of the hash table for looking up MACs
+/Net/EtherswitchHeapMax [Integer] : Maximum size (in Megabytes) the etherswitch module can grow to. (REQUIRES REBOOT!)
+/Net/EtherswitchNumPerPCPUDispatchData [Integer] : The dispatch data number in the etherswitch per-pCPU dispatch data cache. (REQUIRES REBOOT!)
+/Net/EtherswitchAllowFastPath [Integer] : Allow Etherswitch fast path
+/Net/NoLocalCSum [Integer] : if set, don't bother checksumming local tx/rx frames
+/Net/NetPortFlushIterLimit [Integer] : when input is serialized, this bounds the number of times a thread flushes the deferred list.
+/Net/NetPortFlushPktLimit [Integer] : when input is serialized, this bounds the number of pkts a thread flushes from the deferred list.
+/Net/NetPortTrackTxRace [Integer] : if enabled(1), collect statistics on potential tx race between concurrent threads.
+/Net/PortDisableTimeout [Integer] : max timeout delay to wait for ports to complete I/O before disabling.
+/Net/TcpipHeapSize [Integer] : Initial size of the tcpip module heap in megabytes. (REQUIRES REBOOT!)
+/Net/TcpipHeapMax [Integer] : Max megabytes the tcpip module heap can grow to. (REQUIRES REBOOT!)
+/Net/TcpipMaxNetstackInstances [Integer] : Maximum number of TCP/IP stack instances that can exist concurrently. If this number is increased, the TcpipHeapSize should also be increased, by about 2.5 MB per instance. (REQUIRES REBOOT!)
+/Net/TcpipRxDispatchQuota [Integer] : Max # of pkts dispatched into the tcpip stack by an execution context
+/Net/TcpipRxDispatchQueues [Integer] : Max # of dispatch queues used for RX. For low memory systems, this should be minimum value(REQUIRES REBOOT!)
+/Net/TcpipRxDispatchQueueMaxLen [Integer] : Max # of pkts queued into a tcpip vmknic by an execution context (applied when vmknic is created)
+/Net/TcpipLODispatchQueueMaxLen [Integer] : Max # of pkts queued into the per-protocol queue used for dispatching loopback traffic (REQUIRES REBOOT!)
+/Net/TcpipTxDispatchQuota [Integer] : Max # of pkts dispatched from the tcpip stack by an execution context
+/Net/TcpipRxVmknicWorldletAffinityType [Integer] : Use exact affinity for tcpip input worldlet (Takes hold at port creation time)
+/Net/TcpipLogPackets [Integer] : Turns on packet logging for a vmknic on debug builds, in a circular & in-memory buffer (Takes effect during vmknic creation time)
+/Net/TcpipLogPacketsCount [Integer] : Number of packets to log in the in-memory logger. 24570 packets take up about 1.2 MB, and Tx & Rx use separate buffers. (Takes effect during vmknic creation time)
+/Net/TcpipDgramRateLimiting [Integer] : Enable Tx rate limiting for UDP sockets
+/Net/TcpipPendPktSocketFreeTimeout [Integer] : Time Delay in seconds, for freeing UDP sockets that have pending packets for Tx completion
+/Net/MaxPageInQueueLen [Integer] : maximum number of paging requests to queue for guest DMA.
+/Net/MaxBeaconsAtOnce [Integer] : maximum number of beacons to send in one beacon cycle.
+/Net/MaxBeaconVlans [Integer] : maximum number of VLANs to probe with beacons.
+/Net/AdvertisementDuration [Integer] : duration of RARP advertisements
+/Net/TcpipNoBcopyRx [Integer] : Avoid bcopy in tcp rx
+/Net/TcpipCopySmallTx [Integer] : Copy and tx complete small packets for tcp tx
+/Net/TcpipLRONoDelayAck [Integer] : Delayed ack timer not armed for LRO
+/Net/TcpipHWLRONoDelayAck [Integer] : Delayed ack timer not armed for Hardware LRO (socket option needs to be set in addition)
+/Net/TcpipDefLROEnabled [Integer] : LRO enabled for TCP/IP
+/Net/TcpipDefLROMaxLength [Integer] : LRO default max length for TCP/IP
+/Net/TcpipEnableABC [Integer] : Enable Appropriate Byte Counting for TCP (RFC 3465)
+/Net/TcpipEnableFlowtable [Integer] : Enable route caching through the use of flowtable
+/Net/TcpipEnableSendScaling [Integer] : Enable Send-Side Scaling (requires RSS)
+/Net/TcpipIGMPRejoinInterval [Integer] : Delay in seconds between automatic IGMP rejoins when no querier is present
+/Net/TcpipIGMPDefaultVersion [Integer] : Default version of IGMP, in the absence of a querier
+/Net/TcpipTxqMaxUsageThreshold [Integer] : Tx queue usage threshold in percent at which to start throttling
+/Net/TcpipTxqBackoffTimeoutMs [Integer] : Duration (in milli seconds) for which backoff is effective when the tx queue has reached the NET_TCPIP_TXQ_MAX_USAGE_THRESHOLD
+/Net/LinkStatePollTimeout [Integer] : Link State poll timer period in milliseconds.
+/Net/E1000TxCopySize [Integer] : e1000 tx less than or equal to this will be fully copied with no need for completion.
+/Net/E1000TxZeroCopy [Integer] : Use tx zero copy for packets for e1000.
+/Net/E1000IntrCoalesce [Integer] : Whether to enable interrupt coalescing for e1000 vNIC.
+/Net/MinEtherLen [Integer] : Minimum size ethernet frame to transmit
+/Net/MaxPktRxListQueue [Integer] : Maximum packet we can queue in rxList
+/Net/NetBHRxStormThreshold [Integer] : Declare Rx Storm after this number of consecutive rx pkt drops during queuing in NetBH rxList.
+/Net/ReversePathFwdCheck [Integer] : Block the multicast/broadcast packets that come back from physical switches in a teamed environment
+/Net/ReversePathFwdCheckPromisc [Integer] : Block duplicate packet in a teamed environment when the virtual switch is set to Promiscuous mode.
+/Net/Vmxnet2PinRxBuf [Integer] : Pin RX buffers for vmxnet2 clients (windows guest only)
+/Net/Vmxnet3usePNICHash [Integer] : Reuse pnic computed RSS hash.
+/Net/Vmxnet3RSSHashCache [Integer] : Enable RSS hash cache.
+/Net/Vmxnet3RxPollBound [Integer] : max # pkts to receive per timeout for vmxnet3.
+/Net/Vmxnet3PageInBound [Integer] : max # pageIn requests to handle per helper call for vmxnet3.
+/Net/NetVmxnet3TxHangTimeout [Integer] : Detect tx hang in vmxnet3.
+/Net/NetVMTxType [Integer] : Worldlet/world for asynchronous Tx for net devices. 1 for 1WDT/NIC. 2 for 1WDT/VM. 3 for 1WDT/Q
+/Net/NetDeferTxCompletion [Integer] : Whether to defer tx completion to tx worldlet/world.
+/Net/NetRxCopyInTx [Integer] : Whether to enable rx copy in tx worldlet/world.
+/Net/NetSplitRxMode [Integer] : Whether to enable automatic splitRxMode
+/Net/AllowPT [Integer] : Whether to enable UPT/NPA
+/Net/PTSwitchingTimeout [Integer] : Timeout (in ms) when asking the VMX/guest to switch in/out of passthru
+/Net/VmxnetSwLROSL [Integer] : Whether to use ShortLived for vmxnet SW LRO
+/Net/Vmxnet3SwLRO [Integer] : Whether to perform SW LRO on pkts going to a LPD capable vmxnet3
+/Net/Vmxnet3HwLRO [Integer] : Whether to enable HW LRO on pkts going to a LPD capable vmxnet3
+/Net/NetpollSwLRO [Integer] : Whether to perform SW LRO on pkts in netpoll
+/Net/Vmxnet2SwLRO [Integer] : Whether to perform SW LRO on pkts going to a LPD capable vmxnet2
+/Net/Vmxnet2HwLRO [Integer] : Whether to perform HW LRO on pkts going to a LPD capable vmxnet2
+/Net/VmxnetPromDisableLro [Integer] : Whether to disable SW LRO when vNIC goes into promiscuous mode.
+/Net/VmxnetLROThreshold [Integer] : After this # packets, evaluate whether to continue SW LRO
+/Net/VmxnetLROBackoffPeriod [Integer] : After adaptive LRO decided not to do LRO, how many intervals to wait before trying again.
+/Net/VmxnetLROUseRatioNumer [Integer] : If SW LRO reduce pkt count to be smaller than ratio, continue to do LRO. Numerator of ratio.
+/Net/VmxnetLROUseRatioDenom [Integer] : If SW LRO reduce pkt count to be smaller than ratio, continue to do LRO. Denominator of ratio.
+/Net/VmxnetLROMaxLength [Integer] : LRO default max length for TCP/IP
+/Net/NetEnableSwCsumForLro [Integer] : Whether enable software checksum for LRO
+/Net/TsoDumpPkt [Integer] : detailed dump of every <n> pkts
+/Net/IGMPVersion [Integer] : IGMP Version (2 or 3)
+/Net/IGMPQueries [Integer] : Number of IGMP Queries to send during after VMotion/Teaming failover
+/Net/MLDVersion [Integer] : MLD Version (1 or 2)
+/Net/IGMPQueryInterval [Integer] : Interval(in seconds) for IGMP/MLD general query in multicast snooping
+/Net/IGMPV3MaxSrcIPNum [Integer] : Max per-group srouce IP number for IGMP V3
+/Net/MLDV2MaxSrcIPNum [Integer] : Max per-group srouce IP number for MLD V2
+/Net/NetRmDistMacFilter [Integer] : Activate/Deactivate the MAC filter on distributed NetRM
+/Net/NetRmDistSamplingRate [Integer] : Sampling rate on distributed NetRM
+/Net/GuestIPHack [Integer] : Enable guest arp inspection IOChain to get IP
+/Net/BlockGuestBPDU [Integer] : Block guest sourced BPDU frames
+/Net/NetNetqTxPackKpps [Integer] : Max TX queue load (in thousand packet per second) to allow packing on the corresponding RX queue
+/Net/NetNetqTxUnpackKpps [Integer] : Threshold (in thousand packet per second) for TX queue load to trigger unpacking of the corresponding RX queue
+/Net/NetNetqNumaIOCpuPinThreshold [Integer] : CPU threshold for pinning device queues in NUMA I/O
+/Net/NetNetqMaxDefQueueFilters [Integer] : Maximum number of filters for default queue (REQUIRES REBOOT!)
+/Net/NetNetqRxRebalRSSLoadThresholdPerc [Integer] : Threshold percentage to rebalance RSS(Receive Side Scaling) queue
+/Net/NetSchedInFlightMaxBytesDefault [Integer] : Number of bytes fed to the nic for nics with a normal (1Gbps) linkspeed
+/Net/NetSchedInFlightMaxBytesInsane [Integer] : Number of bytes fed to the nic for nics that don't support tx completion coalescing
+/Net/NetSchedCoalesceTxUsecs [Integer] : Maximum number of microseconds the device can delay tx completions
+/Net/NetSchedDefaultResPoolSharesPct [Integer] : Percent share given to unclassified traffic
+/Net/NetSchedSpareBasedShares [Integer] : Enable shares scheduling only on spare bandwidth. Don't bill while doing reservation scheduling
+/Net/NetSchedHeapMaxSizeMB [Integer] : Size of the netsched subsystem heap in MB
+/Net/NetSchedMaxPktSend [Integer] : Maximum number of packets that we can send to the driver at a time
+/Net/NetSchedHClkMQ [Integer] : Enable multiple hardware queue for hclk netsched
+/Net/NetSchedHClkMaxHwQueue [Integer] : Maximum number hardware queue that HClock can use
+/Net/NetSchedHClkLeafQueueDepthPkt [Integer] : Maximum number of packets each HClk leaf node can hold
+/Net/NetShaperQueuePerL3L4Flow [Integer] : Enable queuing per L3/L4 flow hashing
+/Net/VmklnxLROEnabled [Integer] : LRO enabled in vmklinux
+/Net/VmklnxLROMaxAggr [Integer] : LRO max aggr in vmklinux
+/Net/UseHwIPv6Csum [Integer] : When non-zero, use pNIC HW IPv6 csum offload if available
+/Net/UseHwCsumForIPv6Csum [Integer] : When non-zero, use pNIC HW_CSUM, if available, as IPv6 csum offload
+/Net/UseHwTSO6 [Integer] : When non-zero, use pNIC HW IPv6 TSO offload if available
+/Net/UseHwTSO [Integer] : When non-zero, use pNIC HW TSO offload if available
+/Net/EnableDMASgCons [Integer] : When non-zero, enable the DMA SG constraints support in uplink layer
+/Net/NcpLlcSap [Integer] : beacon/color NCP messages created with this SAP (DSAP/SSAP)
+/Net/DVFilterPriorityRdLockEnable [Integer] : Use priority locking in dvfilter to read lock portsets
+/Net/FollowHardwareMac [Integer] : If set to 1, the management interface MAC address will update whenever the hardware MAC address changes.
+/Net/NetInStressTest [Integer] : If set to 1, suppress certain logs to avoid log spew.
+/Net/DCBEnable [Integer] : Enable DCB for FCoE
+/Net/NetTraceEnable [Integer] : Enable virtual network tracing
+/Net/LRODefThreshold [Integer] : After this # packets, evaluate whether to continue SW LRO
+/Net/LRODefBackoffPeriod [Integer] : After adaptive LRO decided not to do LRO, how many intervals to wait before trying again.
+/Net/LRODefUseRatioNumer [Integer] : If SW LRO reduce pkt count to be smaller than ratio, continue to do LRO. Numerator of ratio.
+/Net/LRODefUseRatioDenom [Integer] : If SW LRO reduce pkt count to be smaller than ratio, continue to do LRO. Denominator of ratio.
+/Net/LRODefMaxLength [Integer] : LRO default max length
+/Net/NetDebugRARPTimerInter [Integer] : RARP timer will be triggered at this interval.
+/Net/NetPTMgrWakeupInterval [Integer] : How often the PTMgr will wakeup and trigger the UPT mode switch in second.
+/Net/NetMaxRarpsPerInterval [Integer] : Max number of RARPs dispatched per timer callback.
+/Net/NetPktSlabFreePercentThreshold [Integer] : Percent of free network memory pool, below which an event will be reported.
+/Net/DVSLargeHeapMaxSize [Integer] : Size (in Mbytes) of the dvsLargeHeap used during serialization/deserialization of dvSwitch and dvPort configs (Requires REBOOT)
+/Net/NetEsxfwPassOutboundGRE [Integer] : Whether outbound GRE traffic is passed by ESXi firewall.
+/Net/NetSendRARPOnPortEnablement [Integer] : Ensure one RARP is sent immediately when a port is enabled
+/Net/NetNiocAllowOverCommit [Integer] : Whether allow NIOC overcommit when a vNIC is in connected state for DVS
+/Net/VLANMTUCheckMode [Integer] : VLAN MTU check mode, 0 - broadcast, 1 - unicast
+/Net/NetDiscUpdateIntrvl [Integer] : Interval (in seconds) of networking discovery to update the VLAN information
+/Net/CoalesceScheme [String] : Set the default vNic coalescing scheme.
+/Net/CoalesceParams [String] : Set parameters for the default vNic coalescing scheme.
+/Net/NetTuneHostMode [String] : Set tune mode for networking.
+/Net/NetTuneThreshold [String] : Set threshold in #vms, #vcpus, TotalUtil. n => numPCPUs
+/Net/IGMPRouterIP [String] : Router IP Address for IGMP (generally not necessary to set this)
+/Net/MLDRouterIP [String] : Router IPv6 Address for MLD (generally not necessary to set this)
+/Net/NetSchedDefaultSchedName [String] : Default scheduler name
+/Net/NetSchedQoSSchedName [String] : QoS scheduler name
+/Net/DVFilterBindIpAddress [String] : DVFilter internal communication endpoint
+/Net/TrafficFilterIpAddress [String] : DVFilter internal communication endpoint
+/Net/PVRDMAVmknic [String] : Vmknic for PVRDMA
+/Mem/IdleTax [Integer] : idle memory tax rate
+/Mem/IdleTaxType [Integer] : idle tax type. 0=flat, 1=variable
+/Mem/SampleActivePctMin [Integer] : lower bound for sampled active memory
+/Mem/SampleDirtiedPctMin [Integer] : lower bound for sampled active dirtied memory
+/Mem/ShareScanGHz [Integer] : max page scan rate in MB/sec per GHz of host CPU, 0 to disable
+/Mem/ShareScanTime [Integer] : desired time in minutes to scan entire VM
+/Mem/ShareRateMax [Integer] : per-VM upper limit on pshare scan rate in pages/sec. (0 to disable)
+/Mem/ShareForceSalting [Integer] : PShare salting allows for sharing isolation between multiple VMs and is controlled by the VMX option sched.mem.pshare.salt. Two VMs sharing the same salt will be able to share memory through PShare. This option controls how this VMX option will be used: 0: no salting or isolation between VMs, 1: the value of sched.mem.pshare.salt is honored, 2: each VM will get its own salt unless the sched.mem.pshare.salt is option is non-empty.
+/Mem/CtlMaxPercent [Integer] : vmmemctl limit as percentage of VM max size
+/Mem/AllocGuestLargePage [Integer] : Enable large page backing of guest memory
+/Mem/VMOverheadGrowthLimit [Integer] : Default limit (in MB) on VM overhead memory growth. Valid values are 0 to maximum memory supported and (uint32)-1 which means "unlimited".
+/Mem/MemZipEnable [Integer] : Enable the memory compression cache
+/Mem/MemZipMaxPct [Integer] : Sets the maximum target size for the compression cache as a percentage of VM size
+/Mem/MemZipMaxAllocPct [Integer] : Sets the maximum size for the compression cache as a percentage of allocated VM memory size
+/Mem/MemMinFreePct [Integer] : Percentage of host memory to reserve for accelerating memory allocations when free memory is low, 0 for automatic
+/Mem/MemDefragClientsPerDir [Integer] : Clients that are allowed to defrags per directory.
+/Cpu/HostRebalancePeriod [Integer] : average milliseconds between opportunities for a pcpu to migrate vcpus from within the whole system, 0 to disable
+/Cpu/PackageRebalancePeriod [Integer] : average milliseconds between opportunities for a pcpu to migrate vcpus from within a package, 0 to disable
+/Cpu/L3RebalancePeriod [Integer] : average milliseconds between opportunities for a pcpu to migrate vcpus from within the shared L3 cache, 0 to disable
+/Cpu/L2RebalancePeriod [Integer] : average milliseconds between opportunities for a pcpu to migrate vcpus from within the shared L2 cache, 0 to disable
+/Cpu/HTRebalancePeriod [Integer] : average milliseconds between opportunities for a pcpu to migrate vcpus from within a core
+/Cpu/FairnessRebalancePcpus [Integer] : max number of PCPUs to be considered when doing fairness rebalance, 0 to disable
+/Cpu/WakeupMigrateIdlePcpus [Integer] : max number of PCPUs to be considered when doing wakeup idle rebalance, 0 to disable
+/Cpu/PcpuMigrateIdlePcpus [Integer] : max number of remote PCPUs to be considered when doing pcpu idle rebalance, 0 to disable
+/Cpu/MoveCurrentRunnerPcpus [Integer] : max number of PCPUs to be considered when searching for runner move opportunity, 0 to disable
+/Cpu/CreditAgePeriod [Integer] : period in milliseconds
+/Cpu/NonTimerWakeupRate [Integer] : Disable P state if the running vcpu's non-timer wakeup rate is higher than this threshold, 0 to disable
+/Cpu/CommRateThreshold [Integer] : threshold for inter-schedcontext rate above which the contexts are considered to be related (in num/sec), 0 to disable
+/Cpu/DefaultImpact [Integer] : the default expected efficiency loss when the related contexts are not running on the same LLC (in percentage)
+/Cpu/ActionLoadThreshold [Integer] : load threshold below which vcpu affinity migration is performed, 0 to disable
+/Cpu/BoundLagQuanta [Integer] : number of global quanta before bound lag
+/Cpu/HTWholeCoreThreshold [Integer] : a vcpu with vtime falling behind by this threshold (in ms) is eligible to use the whole core (HT only), 0 to disable (may violate resource settings)
+/Cpu/HTStolenAgeThreshold [Integer] : the amount of htStolen time a vcpu can keep without being aged (in seconds)
+/Cpu/Quantum [Integer] : quantum in milliseconds
+/Cpu/UseMwait [Integer] : use MWAIT vs. HLT in the idle loop; 0: use HLT, 1: use MWAIT if possible, 2: choose by cpu type, 3: spin (not recommended)
+/Cpu/CoschedCrossCall [Integer] : 0: disable cosched on crosscall; 1: enable cosched on crosscall
+/Cpu/CoschedHandoffLLC [Integer] : 0: handoff by switching pcpu; 1: handoff to LLC if possible
+/Cpu/CoschedPollUsec [Integer] : interval between coscheduling skew checks, in usec
+/Cpu/CoschedCostartThreshold [Integer] : costart threshold in usec, costart threshold should be less than costopThreshold
+/Cpu/CoschedCostopThreshold [Integer] : maximum skew between vcpus in usec, 0 to disable
+/Cpu/CoschedHandoffSkip [Integer] : only skip handoff if ready time is smaller than this threshold, in usec, 0 to allow skip always
+/Cpu/CoschedExclusiveAffinity [Integer] : 1 to enable coscheduling for vcpus with exclusive affinity, 0 to disable
+/Cpu/VMAdmitCheckPerVcpuMin [Integer] : Check per-vcpu cpu reservation does not exceed the speed of a single physical  cpu. [0:disabled, 1: enabled]
+/Cpu/MaxSampleRateLg [Integer] : Sampling system services at most (2^MaxSampleRateLg) times a second
+/Cpu/AllowWideVsmp [Integer] : Allow VMs with more VCPUs than host PCPUs, 0 to disable
+/Cpu/LimitEnforcementThreshold [Integer] : Only allows low-vtime children ro run when a group/VM's vtimeLimit is smaller than the global virtual time by less than this threshold (in ms), 0 to disable
+/Numa/RebalancePeriod [Integer] : frequency of NUMA node rebalancing, in milliseconds
+/Numa/SwapInterval [Integer] : frequency of NUMA node swap rebalancing, in units of NUMA rebalance period
+/Numa/SwapConsiderPeriod [Integer] : time between reconsidering a client for swap, in units of NUMA rebalance period
+/Numa/SwapMigrateOnly [Integer] : frequency of NUMA VM migration only considerations, in units of NUMA rebalance period, 0 to disable pure migrations
+/Numa/MigImbalanceThreshold [Integer] : minimum percent load imbalance between nodes to trigger migration
+/Numa/MigThreshold [Integer] : minimum percent load balance improvement to allow single migration/swap
+/Numa/MigThrashThreshold [Integer] : maximum post-migration load imbalance, as percentage of pre-migration imbalance, to prevent thrashing
+/Numa/SwapLoadEnable [Integer] : 1 to enable VM swaps across nodes to balance CPU load, 0 to disable
+/Numa/SwapLocalityEnable [Integer] : 1 to enable VM swaps across nodes to improve memory locality, 0 to disable
+/Numa/RebalanceEnable [Integer] : 1 to enable NUMA rebalancer, 0 to disable it
+/Numa/RebalanceCoresTotal [Integer] : minimum number of total host cores required to enable NUMA rebalancer
+/Numa/RebalanceCoresNode [Integer] : minimum number of cores per node required to enable NUMA rebalancer
+/Numa/MonMigEnable [Integer] : 1 to allow NUMASched monitor migrations, 0 to disallow
+/Numa/CostopSkewAdjust [Integer] : way to handle costop skew, 0:do nothing, 1:interleave vcpus among clients, 2:allow vcpus on all nodes
+/Numa/PageMigEnable [Integer] : 1 to permit NUMASched to manipulate page migration, 0 to disallow it
+/Numa/PageMigRateMax [Integer] : max page migrations per second
+/Numa/PageMigLinearRun [Integer] : page migration candidates for linear scan, 0 to disable
+/Numa/PageMigRandomRun [Integer] : page migration candidates for random scan, 0 to disable
+/Numa/LTermFairnessInterval [Integer] : duration of long term fairness interval in terms of NUMA rebalance period, 0 indicates that long term fairness is disabled
+/Numa/LTermMigImbalThreshold [Integer] : imbalance in long term owed, in percentage, required to trigger migration for long term fairness
+/Numa/MigPreventLTermThresh [Integer] : increase in long term imbalance, in percentage, above which NUMA migration and swaps are not allowed
+/Numa/CoreCapRatioPct [Integer] : The capacity of a core in percent. When exceeded, locality migration is rejected. Set to 0 to disable this check
+/Numa/LocalityWeightMem [Integer] : Benefit of improving memory locality by 1 pct.
+/Numa/LocalityWeightActionAffinity [Integer] : Benefit of improving action affinity by 1.
+/Numa/LargeInterleave [Integer] : Always use large page interleaving; 0 to disable.
+/Numa/PreferHT [Integer] : Prefer using HyperThreads on the same NUMA node over full cores on multiple nodes; 0 to disable.
+/Numa/FollowCoresPerSocket [Integer] : 1: if the vNUMA topology should strickly follow core-per-socket config, 0: to remove the restriction
+/LPage/LPageDefragEnable [Integer] : Enable large page defragmentation
+/LPage/LPageMarkLowNodes [Integer] : Enable marking of nodes with low large pages free
+/LPage/LPageAlwaysTryForNPT [Integer] : Enable always try to alloc large page for NPT
+/LPage/MaxSharedPages [Integer] : Maximum number of shared pages in a 2MB region that may be broken to back the region with a large page
+/LPage/MaxSwappedPagesInitVal [Integer] : Initial value for maximum number of swapped pages in a 2MB region that may be read to back the region with a large page
+/LPage/freePagesThresholdForRemote [Integer] : Maximum number of free small pages on local nodes to allow remote lpages
+/Disk/SharesNormal [Integer] : shares for normal/default disk priority
+/Disk/SharesHigh [Integer] : shares for high disk priority
+/Disk/SharesLow [Integer] : shares for low disk priority
+/Disk/BandwidthCap [Integer] : cap on disk bandwidth (KB/s) usage
+/Disk/ThroughputCap [Integer] : cap on disk throughput (IO/s) usage
+/Disk/SectorMaxDiff [Integer] : Distance in sectors at which disk BW sched affinity stops
+/Disk/SchedQuantum [Integer] : Number of consecutive requests from one World
+/Disk/IdleCredit [Integer] : Amount of idle credit that a VM can gain for IO requests
+/Disk/SchedulerWithReservation [Integer] : Disk IO scheduler (0:default 1:mclock)
+/Disk/SchedQPriorityPercentage [Integer] : Percentage of priority commands to serve from priority queue
+/Disk/SchedQControlSeqReqs [Integer] : Number of consecutive requests from a VM required to raise the outstanding commands to max
+/Disk/SchedQControlVMSwitches [Integer] : Number of switches between commands issued by different VMs required to reduce outstanding commands to SchedNumReqOutstanding
+/Disk/MaxLUN [Integer] : Maximum LUN id (N+1) that is scanned on a target
+/Disk/SupportSparseLUN [Integer] : Support for sparse LUNs if set to one
+/Disk/UseReportLUN [Integer] : Use the REPORT LUN command to speed up scanning for devices
+/Disk/UseDeviceReset [Integer] : Use device reset (instead of bus reset) to reset a SCSI device
+/Disk/UseLunReset [Integer] : Use LUN reset (instead of device/bus reset) to reset a SCSI device
+/Disk/RetryUnitAttention [Integer] : Retry all SCSI commands that return a unit attention error
+/Disk/PathEvalTime [Integer] : The number of seconds between FC path evaluations
+/Disk/DeviceReclaimTime [Integer] : The number of seconds between device re-claim attempts
+/Disk/EnableNaviReg [Integer] : Enable automatic NaviAgent registration with EMC CLARiiON and Invista
+/Disk/DelayOnBusy [Integer] : Delay in milliseconds for completion of commands with a BUSY status
+/Disk/ResetLatency [Integer] : Delay in milliseconds between reset thread wake-ups
+/Disk/MaxResetLatency [Integer] : Delay in milliseconds before logging warnings and spawning new reset worlds if a reset is overdue or taking too long
+/Disk/ResetPeriod [Integer] : Delay in seconds between bus resets retries
+/Disk/ResetMaxRetries [Integer] : Max number of bus reset retries (0=infinite)
+/Disk/ResetThreadMin [Integer] : Min number of reset handler threads
+/Disk/ResetThreadMax [Integer] : Max number of reset handler threads
+/Disk/ResetThreadExpires [Integer] : Life in seconds of an inactive reset handle thread
+/Disk/ResetOverdueLogPeriod [Integer] : Delay in seconds between logs of overdue reset
+/Disk/PreventVMFSOverwrite [Integer] : Prevent overwriting VMFS partitions
+/Disk/DumpMaxRetries [Integer] : Max number of I/O retries during disk dump
+/Disk/DumpPollMaxRetries [Integer] : Max number of device poll retries during disk dump
+/Disk/DumpPollDelay [Integer] : Number of microseconds to wait between polls during a disk dump.
+/Disk/DiskMaxIOSize [Integer] : Max Disk READ/WRITE I/O size before splitting (in KB)
+/Disk/QFullSampleSize [Integer] : Default I/O samples to monitor for detecting non-transient queue full condition. Should be nonzero to enable queue depth throttling. Device specific QFull options will take precedence over this value if set.
+/Disk/QFullThreshold [Integer] : Default BUSY or QFULL threshold, upon which LUN queue depth will be throttled. Should be <= QFullSampleSize if throttling is enabled. Device specific QFull options will take precedence over this value if set.
+/Disk/DiskRetryPeriod [Integer] : Retry period in milliseconds for a command with retry status
+/Disk/DiskReservationThreshold [Integer] : Time window within which refcounted reservations on a device are permitted (in msec)
+/Disk/DiskDelayPDLHelper [Integer] : Delay PDL helper in secs
+/Disk/ReqCallThreshold [Integer] : Threshold in number of pending requests before calling into vmkernel to process the requests
+/Disk/ReturnCCForNoSpace [Integer] : Return CC 0x7/0x27/0x7 in the event where a backing datastore has run out of space as opposed to posting a monitor event to halt the VM
+/Disk/AutoremoveOnPDL [Integer] : Autoremove paths to a disk that is in PDL (Permanent Device Loss)
+/Disk/VSCSIPollPeriod [Integer] : Period in microseconds to poll the vHBAs' queues
+/Disk/VSCSICoalesceCount [Integer] : Frequeuncy with which coalesce callback is called
+/Disk/DisableVSCSIPollInBH [Integer] : Disable VSCSI_Poll in BHCheck
+/Disk/UseIOWorlds [Integer] : Use worlds instead of worldlets for async IO.
+/Disk/VSCSIResvCmdRetryInSecs [Integer] : Time (in secs) to retry on transient errors for Reservation commands for MSCS CAB configs.
+/Disk/VSCSIWriteSameBurstSize [Integer] : Max number of split IOs per write same request.
+/Disk/ApdTokenRetryCount [Integer] : APD Token Retry Count
+/Disk/UseIoPool [Integer] : Enable deferred work execution for the SCSI items. The value is a mask defining the association between workers and items.
+/Disk/NmpMaxCmdExtension [Integer] : Increase the maximum number of commands to be processed at once in NMP
+/Disk/AllowUsbClaimedAsSSD [Integer] : Permit claim rules to mark USB disks as SSD
+/Disk/SchedCostUnit [Integer] : IO Scheduler block Size for accounting
+/Disk/SchedReservationBurst [Integer] : Permit I/O bursts in mclock scheduler with reservations.
+/Disk/FastPathRestoreInterval [Integer] : Time interval (in msec) when IO latency is monitored to evaluate enabling fast path in PSA
+/Disk/SchedQCleanupInterval [Integer] : Time interval (in secs) to cleanup per device unused schedQ list (default = 5 minutes).
+/Disk/FailDiskRegistration [Integer] : Fail device registration if disk has only standby paths and supports only implicit asymmetric logical unit access.
+/Migrate/Enabled [Integer] : Enable hot migration support
+/Migrate/TryToUseDefaultHeap [Integer] : Attempt use the default migration heap when beginning new migrations
+/Migrate/VASpaceReserveCount [Integer] : Number of migrations to reserve virtual address space for at module load time
+/Migrate/VASpaceReserveSize [Integer] : Megabytes of virtual address space to reserve per migration at module load time
+/Migrate/PreCopySwitchoverTimeGoal [Integer] : Goal time in milliseconds to send changed pages after pre-copy completes
+/Migrate/PreCopyMinProgressPerc [Integer] : Minimum allowed transmit to dirty page ratio per pre-copy iteration
+/Migrate/PreCopyPagesPerSend [Integer] : Maximum number of pages to send per precopy transmit
+/Migrate/OutstandingReadKBMax [Integer] : Maximum socket-backed mbuf bytes vMotion will allow to be outstanding while drained concurrently with reads, 0 for unlimited
+/Migrate/VMotionStreamHelpers [Integer] : Number of helpers to allocate for VMotion streams, 0 to dynamically allocate one per stream IP
+/Migrate/VMotionStreamDisable [Integer] : Pretend to not support streams
+/Migrate/VMotionLatencySensitivity [Integer] : Make vMotion helper worlds latency sensitive, avoid transmit delays.
+/Migrate/VMotionResolveSwapType [Integer] : Attempt to resolve swap type during VMotion initialization
+/Migrate/CptCacheMaxSizeMB [Integer] : Maximum checkpoint cache size in MB
+/Migrate/SdpsEnabled [Integer] : Stuns VMotion source in small increments during precopy, 0=disabled, 1=always enabled, 2=dynamic
+/Migrate/SdpsTargetRate [Integer] : Percent by which transmit should be made to exceed dirty
+/Migrate/SdpsDynamicDelaySec [Integer] : Delay, in seconds, between polling when considering enabling SDPS in the first preCopy iteration.
+/Migrate/DiskOpsEnabled [Integer] : Enables VMotion disk-backed operation
+/Migrate/DiskOpsStreamChunks [Integer] : Stream Chunks to allocate on disk
+/Migrate/DiskOpsChunkSize [Integer] : Size of each stream chunk in bytes (will be rounded up to multiple of block size)
+/Migrate/DiskOpsMaxRetries [Integer] : Maximum number of times to retry a diskOp IO upon encountering a reservation conflict
+/Migrate/PreCopyCountDelay [Integer] : Delay preCopy next action every n action posts
+/Migrate/DetectZeroPages [Integer] : Whether vMotion should detect zero pages during page transmission
+/Migrate/PreallocLPages [Integer] : Attempt to prealloc destination pages via large page allocation
+/Migrate/ProhibitFork [Integer] : Prohibit forking from a VM
+/Migrate/TcpTsoDeferTx [Integer] : Use TCP tso defer optimization for transmit
+/Migrate/LowBandwidthSysAlertThreshold [Integer] : Threshold in KB/s for VMotion bandwidth below which a SysAlert is triggered
+/Migrate/NetTimeout [Integer] : Timeout for migration network operations
+/Migrate/NetExpectedLineRateMBps [Integer] : Expected network throughput, in MBps, for bandwidth-delay calculation
+/Migrate/NetLatencyModeThreshold [Integer] : Lowest possible round-trip time, in ms, before vMotion must operate in latency-aware mode.
+/Migrate/TSMaster [Integer] : Pseudo-synchronize clocks for migration to/from this machine
+/Migrate/DisableResumeDuringPageIn [Integer] : Disable observation of resume during page-in flag, always completing page-in before VM resume
+/Migrate/SndBufSize [Integer] : TCP send buffer size for the source
+/Migrate/RcvBufSize [Integer] : TCP receive buffer size for the destination
+/Migrate/BindToVmknic [Integer] : Bind the vMotion socket to a specific vmknic.  0 for never, 1 to bind only with FT, 2 to bind with FT or for multi-vmknic support, 3 to always bind
+/Migrate/AutoBindVmknic [Integer] : Autobind vMotion socket to the vmknic where data comes from. Used only for the vMotion server side, which is the vMotion listening and receiving side
+/Migrate/MonActionWaitSysAlertThresholdMS [Integer] : Threshold in milliseconds for the monitor to process a pre-copy action after which a SysAlert is triggered
+/Migrate/LowMemWaitSysAlertThresholdMS [Integer] : Threshold in milliseconds for the dest host to leave the low-memory state above which a SysAlert is triggered
+/Migrate/GetPageSysAlertThresholdMS [Integer] : Threshold in milliseconds for the source host to prepare a page for transmission above which a SysAlert is triggered
+/Migrate/DebugChecksumMismatch [Integer] : Debug checksum mismatch.
+/Migrate/PanicOnChecksumMismatch [Integer] : 1 for world panic, 2 for vmkernel panic
+/Migrate/RdpiTransitionTimeMs [Integer] : Milliseconds to wait for page-in completion before resuming, if rdpi is enabled
+/Migrate/MigrateCpuMinPctDefault [Integer] : Desired default shared CPU reservation (in %) for VMotions
+/Migrate/MigrateCpuPctPerGb [Integer] : Desired per Gbit shared CPU reservation (in %) for VMotions
+/Migrate/MigrateCpuSharesRegular [Integer] : CPU shares for a regular VMotion
+/Migrate/MigrateCpuSharesHighPriority [Integer] : CPU shares for a high priority VMotion
+/Migrate/Vmknic [String] : vmknic for vMotion vmkernel VNIC
+/Scsi/PassthroughLocking [Integer] : Disable locking for scsi passthrough devices
+/Scsi/LogCmdErrors [Integer] : Log SCSI Device command errors.
+/Scsi/TransFailLogPct [Integer] : Percent of Transient failures seen on Scsi Device that will be logged.
+/Scsi/LogCmdRCErrorsFreq [Integer] : Number of consecutive RC errors to be seen before logging SCSI Device command.
+/Scsi/LogMPCmdErrors [Integer] : Log SCSI Multi-path plugin command errors.
+/Scsi/LogScsiAborts [Integer] : Log SCSI abort errors and success.
+/Scsi/MaxReserveTime [Integer] : Maximum time (in msecs) a system-initiated reservation is normally held (debug only)
+/Scsi/MaxReserveTotalTime [Integer] : Maximum time (in msecs) a system-initiated reservation normally takes from issue to release (debug only)
+/Scsi/MaxReserveBacktrace [Integer] : Log a backtrace if caller exceeds SCSI_MAX_RESERVE_TIME or SCSI_MAX_RESERVE_TOTALTIME (debug only)
+/Scsi/ReserveBacktrace [Integer] : Log a backtrace for all Reserve/Release pairs (debug only)
+/Scsi/SCSITimeout_ScanTime [Integer] : time (in ms) to sleep between checking for timed-out async IO
+/Scsi/SCSITimeout_ReabortTime [Integer] : delay (in ms) after an abort due to timeout before the abort is re-issued
+/Scsi/ScanOnDriverLoad [Integer] : Scan new SCSI buses on device driver load
+/Scsi/TimeoutTMThreadMin [Integer] : Min number of timeout task-mgmt handler threads
+/Scsi/TimeoutTMThreadMax [Integer] : Max number of timeout task-mgmt handler threads
+/Scsi/TimeoutTMThreadExpires [Integer] : Life in seconds of timeout task mgmt handler thread
+/Scsi/TimeoutTMThreadRetry [Integer] : Delay in milliseconds before retrying taskmgmt which failed or for which the I/O did not complete
+/Scsi/TimeoutTMThreadLatency [Integer] : Delay in ms before waking up new task mgmt thread 
+/Scsi/LunCleanupInterval [Integer] : Timeout interval for lun entries in esx.conf. Any lun entry which was seen more than the configured no. of days ago, will be deleted by the daily cleanup operation
+/Scsi/ScsiRestartStalledQueueLatency [Integer] : Delay in ms before restarting a stalled queue 
+/Scsi/CompareLUNNumber [Integer] : Consider LUN number when determining LUN identity.
+/Scsi/UseAdaptiveRetries [Integer] : Use adaptive retries for transient errors.
+/Scsi/ChangeQErrSetting [Integer] : Change the QErr value of devices to 0x0.
+/Scsi/ScanSync [Integer] : Force LU scanning operations to be synchronous if set.
+/Scsi/FailVMIOonAPD [Integer] : Fast fail VM IOs on APD Timeout.
+/Scsi/ScsiVVolPESNRO [Integer] : Default schedNumReqOutstanding value for a PE LUN.
+/Scsi/SCSIStrictSPCVersionChecksForPEs [Integer] : Only LUNs with version >= SCSI_ANSI_SCSI3_SPC4 can be PEs
+/Scsi/SCSIEnableIOLatencyMsgs [Integer] : Enable or disable storage latency-related error messages from PSA
+/Scsi/SCSIEnableDescToFixedConv [Integer] : Enable or disable conversion of descriptor format sense to fixed for older plugins
+/User/ReaddirRetries [Integer] : Maximum number of retries when reading entries from directories
+/User/PTEDisableNX [Integer] : Disables the use of NX bit in user pagetable entries
+/NFS/DiskFileLockUpdateFreq [Integer] : Time (in seconds) between updates to a disk lock file [8-3600]
+/NFS/LockUpdateTimeout [Integer] : Time (in seconds) before we abort an outstanding lock update
+/NFS/LockRenewMaxFailureNumber [Integer] : Number of update failures before a disk file lock is declared stale
+/NFS/HeartbeatFrequency [Integer] : Time in seconds between heartbeats
+/NFS/HeartbeatTimeout [Integer] : Time in seconds before we abort an outstanding heartbeat
+/NFS/HeartbeatDelta [Integer] : Time in seconds since the last successful update before we send a heartbeat
+/NFS/HeartbeatMaxFailures [Integer] : Number of sequential failures before we mark a volume as down
+/NFS/ApdStartCount [Integer] : Number of failed heartbeat updates after which APD START timer is triggered
+/NFS/MaxVolumes [Integer] : Maximum number of mounted NFS v3 volumes. TCP/IP heap must be increased accordingly (Requires reboot)
+/NFS/SendBufferSize [Integer] : Default size of socket's send buffer in KB
+/NFS/ReceiveBufferSize [Integer] : Default Size of socket's receive buffer in KB
+/NFS/VolumeRemountFrequency [Integer] : Time in seconds before attempting to remount a volume
+/NFS/SyncRetries [Integer] : Number of retries before synchronous IO fails (10 seconds per retry)
+/NFS/LogNfsStat3 [Integer] : Log nfsstat3 code
+/NFS/MaxQueueDepth [Integer] : Maximum per-Volume queue depth
+/NFS41/MaxRead [Integer] : Maximum read transfer size in bytes (use the smaller of this value and the server advertised value
+/NFS41/MaxWrite [Integer] : Maximum write transfer size in bytes (use the smaller of this value and the server advertised value
+/NFS41/MountTimeout [Integer] : Mount timeout in seconds
+/NFS41/IOTaskRetry [Integer] : Synchronous IO task number of retries
+/NFS41/EOSDelay [Integer] : Request EOS safety delay in seconds
+/NFS41/MaxVolumes [Integer] : Maximum number of mounted NFS v4.1 volumes. TCP/IP heap must be increased accordingly (Requires reboot)
+/NFS41/SendBufSize [Integer] : Socket send buffer size in kilobytes (using default if set to zero)
+/NFS41/RecvBufSize [Integer] : Socket receive buffer size in kilobytes (using default if set to zero)
+/VMFS3/OpenWithoutJournal [Integer] : Open file system when out of space for journal allocation, allowing reads and no meta-data updates
+/VMFS3/MaxHeapSizeMB [Integer] : Maximum size (in MB) to which the VMFS heap is allowed to grow
+/VMFS3/MaxextendedTxnsUsingfs3Heap [Integer] : Maximum number of extended transactions for which log space can be allocated from VMFS3 heap when the extendedTxnRegion is full
+/VMFS3/StAtExclLockEnd [Integer] :  Generate Back Trace in FS3_EndIOExclusive
+/VMFS3/MaxAddressableSpaceTB [Integer] : Maximum size of all open files that VMFS cache will support before eviction mechanisms kicks in.
+/VMFS3/MinAddressableSpaceTB [Integer] : Minimum size of all open files that VMFS cache will support.
+/VMFS3/PBCapMissRatioIntervalSec [Integer] : Frequency (in seconds) that the Capacity Miss Ratio is computed for the VMFS Pointer Block cache.
+/VMFS3/HardwareAcceleratedLocking [Integer] : Enable hardware accelerated VMFS locking (requires compliant hardware). Please see http://kb.vmware.com/kb/2094604 before disabling this option.
+/VMFS3/FailVolumeOpenIfAPD [Integer] : Fail VMFS volume open operation if the underlying device is deemed to be under an all-paths-down condition
+/VMFS3/EnableBlockDelete [Integer] : Enable VMFS block delete when UNMAP is issued from guest OS
+/VMFS3/UseATSForHBOnVMFS5 [Integer] : Use ATS for HB on ATS supported VMFS5 volumes
+/VMFS3/LFBCSlabSizeMaxMB [Integer] : Maximum size (in MB) to which the VMFS affinity manager cluster cache is allowed to grow.
+/BufferCache/SoftMaxDirty [Integer] : Flush immediately if this many buffers are dirty (percent)
+/BufferCache/HardMaxDirty [Integer] : Block writers if this many buffers are dirty (percent)
+/BufferCache/PerFileHardMaxDirty [Integer] : Block writers if this many buffers of a given file are dirtied (percent)
+/BufferCache/FlushInterval [Integer] : Flush periodically at this interval (msec)
+/DataMover/HardwareAcceleratedMove [Integer] : Enable hardware accelerated VMFS data movement (requires compliant hardware)
+/DataMover/HardwareAcceleratedInit [Integer] : Enable hardware accelerated VMFS data initialization (requires compliant hardware)
+/DataMover/MaxHeapSize [Integer] : Maximum size of the heap in MB used for data movement
+/COW/COWMaxHeapSizeMB [Integer] : Maximum size (in MB) to which the COW heap is allowed to grow
+/COW/COWREPageCacheEviction [Integer] : VMFSSparse metadata cache eviction: 0 - disabled, 1 enabled
+/COW/COWMaxREPageCacheszMB [Integer] : Maximum size (in MB) of VMFSSparse metadata cache size before cache eviction kicks in
+/COW/COWMinREPageCacheszMB [Integer] : Minimum size (in MB) of VMFSSparse metadata cache size. Valid when cache eviction enabled.
+/Power/UsePStates [Integer] : In Custom policy, use ACPI P-states to save power when processor is busy
+/Power/UseCStates [Integer] : In Custom policy, use ACPI C-states when processor is idle
+/Power/MaxCpuLoad [Integer] : In Custom policy, CPU utilization threshold below which CPU frequency can be dynamically adjusted
+/Power/MinFreqPct [Integer] : In Custom policy, do not use P-states slower than the given percentage of full CPU speed
+/Power/MaxFreqPct [Integer] : In Custom policy, do not use P-states faster than the given percentage of full CPU speed, rounded up to the next available P-state
+/Power/TimerHz [Integer] : In Custom policy, dynamic power management timer sampling rate
+/Power/CStateMaxLatency [Integer] : In Custom policy, avoid a C-state whose latency is larger than this value (us)
+/Power/CStateResidencyCoef [Integer] : In Custom policy, avoid a C-state whose latency * CStateResidencyCoef > predicted residence time
+/Power/CStatePredictionCoef [Integer] : In Custom policy, predict non-timer wakeup with error probability p, where CStatePredictionCoef = -ln(1 - p) * (1 << 20)
+/Power/PerfBias [Integer] : In Custom policy, Performance Energy Bias Hint (Intel-only), where 0-15 specify the exact value, while 16-18 choose an automatically determined value from a preset policy: 16=Low Power, 17=Balanced, 18=High Performance
+/Power/PerfBiasEnable [Integer] : Use Performance Energy Bias Hint
+/Power/ChargeMemoryPct [Integer] : Percentage of idle power consumed by memory
+/FSS/FSSLightWeightProbe [Integer] : Enable light-weight efficient probe of ESX supported datastores
+/FT/NoWaitOnSocket [Integer] : Don't wait on socket
+/FT/FlushSleep [Integer] : Sleep time in milliseconds when nothing to flush
+/FT/LogBufferStallSleep [Integer] : Sleep time in milliseconds when log buffer is full on the primary
+/FT/AckIntervalMin [Integer] : Minimum time in microseconds between acks
+/FT/AckIntervalMax [Integer] : Maximum time in microseconds between acks
+/FT/HeartbeatCount [Integer] : Number of failed heartbeats before declare dead.
+/FT/HostTimeout [Integer] : Time in milliseconds before declare FT host dead
+/FT/UseHostMonitor [Integer] : Use the host monitor to ping the other host
+/FT/BackupExtraTimeout [Integer] : Extra milliseconds before backup declares primary dead
+/FT/LogTimeout [Integer] : Time in milliseconds to wait on log socket
+/FT/ExtraLogTimeout [Integer] : Time in milliseconds for temporary increase in timeout
+/FT/PrimaryConnectTimeout [Integer] : Time in milliseconds to wait when connecting to the primary
+/FT/BackupConnectTimeout [Integer] : Time in milliseconds to wait for the backup to connect
+/FT/GlobalFlushWorld [Integer] : Use a global async flush world
+/FT/FlushReservationMin [Integer] : The minimum amount of CPU to reserve for the async flush world
+/FT/FlushReservationMax [Integer] : The maximum amount of CPU to reserve for the async flush world
+/FT/MinWriteSize [Integer] : Minimum amount of data to write to flush socket
+/FT/FlushWorldlet [Integer] : Flush the buffer from a worldlet
+/FT/FillWorldlet [Integer] : Fill the buffer from a worldlet
+/FT/FillAffinity [Integer] : Set the fill world/worldlet affinity to the tcp worldlet
+/FT/XmitSyncQueueLen [Integer] : Length of the Tx synchronization queue
+/FT/MaxFlushInterval [Integer] : Maximum amount of microseconds to wait before writing to flush socket
+/FT/ChargeVMXForFlush [Integer] : Charge the VMX world for log flushing instead of the global flush world
+/FT/GoodExecLatency [Integer] : Latency considered good execution latency(ms)
+/FT/BadExecLatency [Integer] : Latency considered bad execution latency(ms)
+/FT/slowdownPctMax [Integer] : Maximum primary vm CPU slowdown pct
+/FT/slowdownTimeMax [Integer] : Maximum primary vm CPU slowdown duration in seconds
+/FT/adjUpPct [Integer] : CPU speedup adjustment pct parameter 
+/FT/adjDownPct [Integer] : CPU slowdown adjustment pct parameter 
+/FT/adjDownInt [Integer] : CPU adjust down interval in seconds
+/FT/adjUpInt [Integer] : CPU adjust up interval in seconds
+/FT/execLatExtra [Integer] : Extra execution latency allowed in msec
+/FT/maxLowerBound [Integer] : CPU minimum alloc.max allowed in pct 
+/FT/ExecLatencyKill [Integer] : Time to wait for good latency before killing a slow backup(ms)
+/FT/TCPNoDelayPrimary [Integer] : Set TCP_NODELAY on the socket on the primary
+/FT/TCPNoDelayBackup [Integer] : Set TCP_NODELAY on the socket on the backup
+/FT/TCPSndBufSize [Integer] : TCP send buffer size for the primary
+/FT/TCPRcvBufSize [Integer] : TCP receive buffer size for the backup
+/FT/BindToVmknic [Integer] : Bind the FT socket to a specific vmknic
+/FT/TCPPersistTimer [Integer] : TCP persist timer time in milliseconds
+/FT/IORetryTimes [Integer] : Maximum disk I/O reissuing times on I/O error
+/FT/IORetryInterval [Integer] : Sleep interval (msec) between I/O reissuing on I/O error
+/FT/IORetryExtraInterval [Integer] : Sleep extra interval (msec) between I/O reissuing on I/O error
+/FT/CheckForProgress [Integer] : Check for progress on the backup and/or primary
+/FT/PanicNoProgressMS [Integer] : Milliseconds before panic if progress isn't made
+/FT/CoreDumpNoProgressMS [Integer] : Milliseconds before live coredump vmm and vmx if progress isn't made
+/FT/CheckFCPathState [Integer] : Check storage path state
+/FT/ShortFlushDebugMS [Integer] : Short millisecond interval for debugging flushing delays
+/FT/LongFlushDebugMS [Integer] : Long millisecond interval for debugging flushing delays
+/FT/FTCptConcurrentSend [Integer] : Send non-diff pages in parallel with diffing rather than after
+/FT/FTCptDiffThreads [Integer] : Number of threads for diffing pages
+/FT/FTCptPagePolicy [Integer] : Page placement policy for side data.  < 2^16: Use a specific node mask, 0x10000: Put pages anywhere, 0x10001: Match nodes with VM, 0x10002: Avoid matching nodes with VM
+/FT/FTCptNumaIndex [Integer] : Index dirty pages by NUMA node.  Workers will use the index to prefer local work.
+/FT/FTCptStartTimeout [Integer] : Time in milliseconds for the primary to wait for the FT connection from the secondary
+/FT/FTCptThreadPolicy [Integer] : Policy for placing helper threads.  < 2^16: Use a fixed NUMA node mask, 0x10000: Put threads anywhere, 0x10001: Match threads to a dynamic node index
+/FT/FTCptLogTimeout [Integer] : Time in milliseconds to wait for FT log entries (read or write)
+/FT/FTCptDiskWriteTimeout [Integer] : Time in milliseconds for backup site to wait for a disk IO to complete
+/FT/FTCptMinInterval [Integer] : Time in milliseconds to wait between two forced checkpoints
+/FT/FTCptStatsInterval [Integer] : If nonzero, force a flush of the kernel stats buffer in this many seconds
+/FT/FTCptMaxPktsDelay [Integer] : Max number of packets in the delayed queue before forcing a checkpoint
+/FT/FTCptVcpuMinUsage [Integer] : VCPU usage in percentage below which the VM will be considered for forced checkpoint
+/FT/FTCptPoweroff [Integer] : Poweroff the primary: If set to 1, primary is powered off after the next checkpoint, if set to 2, primary is powered off if/when there are any outstanding IOs in flight
+/FT/FTCptSndBufSize [Integer] : TCP send buffer size for the primary
+/FT/FTCptRcvBufSize [Integer] : TCP receive buffer size for the backup
+/FT/FTCptDontSendPages [Integer] : Don't send over modified pages - for testing only
+/FT/FTCptDontDelayPkts [Integer] : Don't delay network packets - for testing only
+/FT/FTCptWaitOnSocket [Integer] : Wait when socket is empty
+/FT/FTCptDelayCheckpoint [Integer] : Delay checkpoint if no network packet waiting
+/FT/FTCptDiffCap [Integer] : Max percent pages via diffs (EXPERIMENTAL, failover will not work if not 100)
+/FT/FTCptDisableFailover [Integer] : Disable failovers (testing only)
+/FT/FTCptNumConnections [Integer] : # of data connections to use for page sending
+/FT/FTCptNetDelayNoCpt [Integer] : Delay to impose on VM network output in ms
+/FT/FTCptEpochSample [Integer] : Single epoch sampling time in ms
+/FT/FTCptEpochWait [Integer] : Wait in ms after epoch sampling
+/FT/FTCptIORetryTimes [Integer] : Maximum retries on disk I/O error
+/FT/FTCptIORetryInterval [Integer] : Sleep interval (in ms) between retries on disk I/O error
+/FT/FTCptIORetryExtraInterval [Integer] : Extra sleep interval (in ms) between retries on disk I/O error
+/FT/Vmknic [String] : Vmknic for FT vmkernel VNIC
+/FT/FTCptEpochList [String] : List of potential epochs to try in order of increasing value
+/DirentryCache/MaxDentryPerObj [Integer] : Maximum directory entries cached per directory
+/HBR/HbrStaticHeapMinBaseMB [Integer] : A base value in MB for the minimum size of the active heap
+/HBR/HbrStaticHeapMaxBaseMB [Integer] : A base value in MB for the maximum size of the active heap
+/HBR/HbrRuntimeHeapMinBaseMB [Integer] : A base value in MB for the minimum size of the initial heap
+/HBR/HbrRuntimeHeapMaxBaseMB [Integer] : A base value in MB for the maximum size of the initial heap
+/HBR/HbrBitmapAllocTimeoutMS [Integer] : A timeout in MS for how long we will wait to allocate a bitmap
+/HBR/HbrBitmapVMMinStorageGB [Integer] : An estimation of the minimum storage allocated per VM in gigabytes
+/HBR/HbrBitmapVMMaxStorageGB [Integer] : An estimation of the maximum storage allocated per VM in gigabytes
+/HBR/HbrResourceHeapSizeMB [Integer] : A base value in MB for the size of the resource heap
+/HBR/HbrResourceHeapPerVMSizeKB [Integer] : The additional amount of memory in KB per supported VM to add to the resource heap size
+/HBR/HbrResourceHeapUtilization [Integer] : Expected usable percentage of the resource heap (minus overheads, fragmentation)
+/HBR/HbrResourceMaxDiskContexts [Integer] : The maximum number of resource contexts allowed in disk phase for all VMs.
+/HBR/HbrDemandLogIOPerVM [Integer] : Number of concurrent demand log copies per VM
+/HBR/OpportunisticBlockListSize [Integer] : Number of blocks to keep around in a LRU list for opportunistic replication
+/HBR/TransferFileExtentSize [Integer] : Chunk size for config file transfers
+/HBR/CopySnapDiskMaxExtentCount [Integer] : Number of extents for a single snapshot disk that can be copied in parallel
+/HBR/DisconnectedEventDelayMs [Integer] : Time to wait (while attempting reconnection) before posting a 'no connection to HBR server' event
+/HBR/ProgressReportIntervalMs [Integer] : Interval between per-disk progress updates to hostd
+/HBR/WireChecksum [Integer] : Use wire checksums
+/HBR/DisableChecksumOffload [Integer] : Disable the use of SSE CRC32 instruction
+/HBR/HelperQueueMaxRequests [Integer] : Maximum number of helper requests the helper queue can support
+/HBR/HelperQueueMaxWorlds [Integer] : Maximum number of world processing helper queue requests
+/HBR/ReconnectFailureDelaySecs [Integer] : Additional delay in seconds added per reconnection failure for a session
+/HBR/ReconnectMaxDelaySecs [Integer] : Maximum delay in seconds between reconnection attempts for a session
+/HBR/RetryMinDelaySecs [Integer] : Minimum server request retry delay in seconds (for non-fatal errors)
+/HBR/RetryMaxDelaySecs [Integer] : Maximum server request retry delay in seconds (for non-fatal errors)
+/HBR/DemandlogReadRetries [Integer] : Number of times we retry an internal read (for the demand log) before aborting the delta.
+/HBR/DemandlogWriteRetries [Integer] : Number of times we retry a demand log write before aborting the delta.
+/HBR/DemandlogRetryDelayMs [Integer] : Delay in milliseconds for retrying a demand log write.
+/HBR/DemandlogExtentHashBuckets [Integer] : Number of hash buckets to use to track extents that haven't been read.
+/HBR/ResourceServerHashBuckets [Integer] : Number of hash buckets to use to track remote HBR servers.
+/HBR/NetworkerRecvHashBuckets [Integer] : Number of hash buckets to use to track commands waiting to receive a response.
+/HBR/DemandlogSendHashBuckets [Integer] : Number of hash buckets to use to track extents that have been sent.
+/HBR/HbrMaxUnmapsInFlight [Integer] : Maximum expected number of SCSI UNMAP commands in flight on a single disk.
+/HBR/HbrMaxUnmapExtents [Integer] : Maximum expected number of extents for SCSI UNMAP commands.
+/HBR/MigrateFlushTimerSecs [Integer] : Time between attempt to flush the state to the persistent file during migration.
+/HBR/SyncTransferRetrySleepSecs [Integer] : Time in seconds to wait after a failure before retrying a sync operation.
+/HBR/XferBitmapCheckIntervalSecs [Integer] : Time in seconds to wait before checking the transfer bitmap for availability of dirty blocks.
+/HBR/CopySnapFidHashBuckets [Integer] : Number of hash buckets to use to track the snapshot disks open to copy to demand log.
+/HBR/DemandlogIoTimeoutSecs [Integer] : Timeout for IOs for demand log operations.
+/HBR/LocalReadIoTimeoutSecs [Integer] : Timeout for IOs for dce local reads.
+/HBR/PsfIoTimeoutSecs [Integer] : Timeout for IOs for persistent state file/demand log metadata.
+/HBR/ChecksumUseChecksumInfo [Integer] : Use disk checksum info to help speed up transfering valid blocks of data.
+/HBR/ChecksumRegionSize [Integer] : Size in blocks of one checksum region, corresponding to one network request
+/HBR/ChecksumZoneSize [Integer] : Size in regions of one checksum zone for which allocation information will be cached
+/HBR/ChecksumIoSize [Integer] : Size in blocks of a checksum read I/O
+/HBR/ChecksumMaxIo [Integer] : Maximum number of I/O chunks read in parallel for checksum
+/HBR/ChecksumPerSlice [Integer] : Maximum number of I/O chunks read in each slice for checksum
+/HBR/ChecksumUseAllocInfo [Integer] : Use disk allocation info to help speed up checksumming
+/HBR/TransferDiskPerSlice [Integer] : Maximum number of blocks that will be read in each slice
+/HBR/TransferDiskMaxIo [Integer] : Maximum number of blocks that will be read in parallel
+/HBR/TransferDiskMaxNetwork [Integer] : Maximum number of blocks that will be transferred in parallel
+/HBR/TransferMaxContExtents [Integer] : Maximum number of contiguous extents that will be coalesced into a single update
+/HBR/DemandlogTransferIoSize [Integer] : Size in blocks of a demandlog transfer read I/O
+/HBR/DemandlogTransferMaxIo [Integer] : Maximum number of demandlog transfer I/O chunks issued in parallel
+/HBR/DemandlogTransferMaxNetwork [Integer] : Maximum number of demandlog chunks transferred in parallel
+/HBR/DemandlogTransferPerSlice [Integer] : Maximum number of demandlog transfer I/O chunks issued per slice
+/HBR/NetworkUseCubic [Integer] : Use the cubic TCP congestion algorithm for HBR sockets
+/HBR/ErrThrottleDceRead [Integer] : Throttle DCE Read errors.
+/HBR/ErrThrottleChecksumIO [Integer] : Throttle Checksum I/O errors.
+/HBR/HbrMinExtentBreakGB [Integer] : Disks with capacity under this number of gigabytes will have the min extent size.
+/HBR/HbrMinExtentSizeKB [Integer] : Minimum extent size used for disks in kilobytes.
+/HBR/HbrLowerExtentBreakGB [Integer] : Disks with capacity between the min extent break and this number of gigabytes will have the lower extent size.
+/HBR/HbrLowerExtentSizeKB [Integer] : Lower extent size used for disks in kilobytes.
+/HBR/HbrUpperExtentBreakGB [Integer] : Disks with capacity between the lower extent break and this number of gigabytes will have the upper extent size.
+/HBR/HbrUpperExtentSizeKB [Integer] : Upper extent size used for disks in kilobytes.
+/HBR/HbrMaxExtentSizeKB [Integer] : Maximum extent size in kilobytes. Used for disks with capacity over the upper extent break.
+/HBR/HbrDisableNetCompression [Integer] : Disable end-to-end network compression.
+/HBR/HbrMaxGuestXferWhileDeltaMB [Integer] : Maximum single SCSI command transfer size (in megabytes) that will be tolerated while a delta is taking place.
+/HBR/HbrOptimizeFullSync [Integer] : Skip transfer of changed blocks during full sync to avoid sending them twice between the full sync and the subsequent delta.
+/Digest/AlgoType [Integer] : Digest Crypto Hash Type (1=SHA-1, 2=SHA-256).
+/Digest/BlockSize [Integer] : Blocksize in the original VMDK to compute crypto hash codes. In pages of 4K size. Value needs to be power of 2.
+/Digest/CollisionEnabled [Integer] : Enable collision detection (0=disabled, 1=enabled)
+/Digest/JournalCoverage [Integer] : Journal coverage in MB. Value needs to be power of 2.
+/Digest/UpdateOnClose [Integer] : Enable crypto-hash updates on DiskLib_Close (0=disabled, 1=enabled).
+/CBRC/DCacheSize [Integer] : Size of CBRC Data Cache in MB. This cannot be changed if CBRC.Enable is set to 1.
+/CBRC/DCacheMemReserved [Integer] : Memory consumed by CBRC Data Cache (in MB)
+/CBRC/DigestJournalBootInterval [Integer] : Interval (in minutes) for which Digest Journal is temporarily disabled to avoid interfering with the boot process
+/SvMotion/SvMotionAvgDisksPerVM [Integer] : Initial Storage vMotion Heap Size is proportional to this setting
+/Nmp/NmpPReservationCmdRetryTime [Integer] : Time (in secs) to retry on transient errors for Persistent reservation commands for MSCS CAB configs
+/SunRPC/WorldletAffinity [Integer] : TX Affinity: 0 - Disabled, 1 - Issuing world, 2 - Exact RX worldlet
+/SunRPC/MaxConnPerIP [Integer] : Max number of TCP/IP connection per IP
+/SunRPC/SendLowat [Integer] : Send buffer lowat (%)
+/XvMotion/VMFSOptimizations [Integer] : Enable VMFS-specific IO optimizations
+/VFLASH/MaxCacheFileSizeMB [Integer] : Maximum VFC cache file size (in MB) supported
+/VFLASH/MaxHeapSizeMB [Integer] : Maximum size (in MB) to which the vFlash heap is allowed to grow
+/VFLASH/CacheStatsEnable [Integer] : vFlash cache statistics enable ?
+/VFLASH/CacheStatsFromVFC [Integer] : Use cache statistics from VFC module ?
+/VFLASH/MaxDiskFileSizeGB [Integer] : Maximum supported disk size (in GB) with vFlash configuration
+/ISCSI/MaxIoSizeKB [Integer] : Maximum Software iSCSI I/O size (in KB) (REQUIRES REBOOT!)
+/VSAN-iSCSI/iclCoalesce [Integer] : Try to coalesce PDUs before sending
+/VSAN-iSCSI/iclPartialReceiveLen [Integer] : Minimum read size for partially received data segment
+/VSAN-iSCSI/iclSendSpace [Integer] : Default send socket buffer size
+/VSAN-iSCSI/iclRecvSpace [Integer] : Default receive socket buffer size
+/VSAN-iSCSI/blockBENumThreads [Integer] : Number of threads per backing file
+/VSAN-iSCSI/iscsiPingTimeout [Integer] : Interval between ping (NOP-Out) requests, in seconds
+/VSAN-iSCSI/iscsiLoginTimeout [Integer] : Time to wait for vitd to finish Login Phase, in seconds
+/VSAN-iSCSI/iscsiMaxCmdsNDelta [Integer] : Number of commands the initiator can send without confirmation
+/VSAN-iSCSI/ctlWorkerThreads [Integer] : Number of worker threads. -1 means auto-calculate based on CPU count
+/VSAN-iSCSI/ctlVerbose [Integer] : Show SCSI errors returned to initiator
+/VSAN-iSCSI/ctlInquiryPQNoLUN [Integer] : return a "bad LUN" peripheral qualifier for unknown LUNs
+/VSAN-iSCSI/camSortIOQueues [Integer] : Sort IO queues to try and optimize disk access patterns
+/VSAN-iSCSI/scsiSettleDelay [Integer] : Delay to allow devices to settle after a SCSI bus reset (ms)
+/VSAN-iSCSI/vitLogLevel [Integer] : Logging level for vit module
+/VSAN-iSCSI/vitTraceEnable [Integer] : Enable Vit module trace to vsantraces
+/VSAN-iSCSI/vitTraceEnableFailure [Integer] : Enable Vit module failure trace to vsantraces
+/VSAN-iSCSI/vitTraceEnableIO [Integer] : Enable Vit module I/O trace to vsantraces
+/VSAN-iSCSI/vitTraceEnableVerbose [Integer] : Enable Vit module verbose trace to vsantraces
+/VSAN-iSCSI/vitPerfStats [Integer] : Enable Vit module collection of performance statistics
+/VSAN-iSCSI/fssBENumThreads [Integer] : Number of threads servicing FSS io taskqueue
+/Virsto/Enabled [Integer] : Use Virsto format for new disks
+/Virsto/DiskFormatVersion [Integer] : Virsto Disk Format version
+/Virsto/SharedHeapLimit [Integer] : Shared heap limit for Virsto module in MB
+/Virsto/InstanceHeapLimit [Integer] : Heap limit for each Virsto instance in MB
+/Virsto/MsecBeforeMetaFlush [Integer] : Force Virsto metadata flush after this many msec
+/Virsto/GweFetchExtentsFactor [Integer] : Multiplier controlling how many on-disk extents fetched based on GWE request size
+/Virsto/MapBlocksMin [Integer] : Map block cache minimum for each Virsto instance (in count of 4KB blocks)
+/Virsto/MapBlocksFlushThreshold [Integer] : Map block cache dirty entries threshold when metadata flush is forced (in count of 4KB blocks)
+/Virsto/FlusherRegistryThreshold [Integer] : Flusher registry data size threshold (percentage) when metadata flush is forced
+/Virsto/RecordsPerFormatWrite [Integer] : Number of (LSAR) records written per format write operation
+/Virsto/MaxMFRetryCount [Integer] : How many times Virsto metadata flusher would retry in case of transient error
+/LSOM/blkAttrCacheSizePercent [Integer] : BlkAttr cache size percent growth rate with peak value (100%) caching almost all blkattrs for the diskgroup
+/VSAN/ClomRepairDelay [Integer] : Minutes to wait for absent components to come back before starting repair
+/VSAN/ClomMaxComponentSizeGB [Integer] : Maximum component size used for new placements
+/VSAN/ClomRebalanceThreshold [Integer] : Percentage disk fullness after which rebalancing is triggered
+/VSAN/ClomMaxDiskUsageRepairComps [Integer] : Max percentage disk fullness that can be reached for object repairs
+/VSAN/SwapThickProvisionDisabled [Integer] : Turn off default thick provisioning type for VM swap object and allow user to control the provisioning type using policy.
+/VSAN/DomLongOpTraceMS [Integer] : Trace ops that take more than the specified value in milliseconds
+/VSAN/DomLongOpUrgentTraceMS [Integer] : Urgent trace ops that take more than the specified value in milliseconds
+/VSAN/DomBriefIoTraces [Integer] : Enables a brief set of per-IO DOM traces for debugging
+/VSAN/DomFullIoTraces [Integer] : Enables full set of per-IO DOM traces; if disabled, IO op traces go to the per-op trace table
+/VSAN/TraceEnableDom [Integer] : DOM tracing enabled
+/VSAN/TraceEnableDomIo [Integer] : DOMIO tracing enabled
+/VSAN/TraceEnableLsom [Integer] : LSOM tracing enabled
+/VSAN/TraceEnableCmmds [Integer] : CMMDS/CMMDSResolver tracing enabled
+/VSAN/TraceEnableRdt [Integer] : RDT tracing enabled
+/VSAN/TraceEnablePlog [Integer] : PLOG tracing enabled
+/VSAN/TraceEnableSsdLog [Integer] : SSDLOG tracing enabled
+/VSAN/TraceEnableVirsto [Integer] : Virsto tracing enabled
+/VSAN/TraceGlobalBandwidthLimit [Integer] : Max number of traces per second (0 to disable limits)
+/VSAN/TraceGlobalBandwidthLimitPeriodMs [Integer] : Add BANDWIDTH_LIMIT * PERIOD_MS tokens (traces) every PERIOD_MS.
+/VSAN/TraceGlobalMaxRolloverPeriods [Integer] : Maximum number of periods where unused bandwidth can accumulate
+/VSAN/PerTraceBandwidthLimit [Integer] : Max number of traces per second (0 to disable limits)
+/VSAN/PerTraceBandwidthLimitPeriodMs [Integer] : Add BANDWIDTH_LIMIT * PERIOD_MS tokens (traces) every PERIOD_MS.
+/VSAN/PerTraceMaxRolloverPeriods [Integer] : Maximum number of periods where unused bandwidth can accumulate
+/VSAN/ObjectScrubsPerYear [Integer] : Config option to set the scrub rate for DOM scrubber.
+/VSAN/VsanSparseEnabled [Integer] : Enable auto-creation of vsanSparse instead of vmfsSparse redologs, for vSAN 2.0 datastore only
+/VSAN/VsanSparseCacheThreshold [Integer] : Maximum number of nodes in single VsanSparse cache, each node holds up-to 256 entries
+/VSAN/VsanSparseCacheOverEvict [Integer] : Percentage of VsanSparseCacheThreshold to add to eviction
+/VSAN/VsanSparseSpeculativePrefetch [Integer] : Number of bytes to add onto each extent interrogation request
+/VSAN/VsanSparseMaxExtentsPrefetch [Integer] : Maximum number of extents to fetch during interrogation
+/VSAN/VsanSparseParallelLookup [Integer] : Request written extent data from each layer in parallel
+/VSAN/TraceEnableVsanSparse [Integer] : VsanSparse tracing enabled
+/VSAN/TraceEnableVsanSparseIO [Integer] : VsanSparse per-IO tracing enabled
+/VSAN/TraceEnableVsanSparseVerbose [Integer] : VsanSparse very verbose tracing enabled
+/VSAN/VsanSparseHeapSize [Integer] : Maximum heap size for VsanSparse snapshot consolidation buffers(in KiB)
+/VSAN/VsanSparseRetainCacheOnSnapshots [Integer] : Try to retain VsanSparse in-memory cache content when taking VM snapshots
+/VSAN/VsanSparseRetainCacheTTL [Integer] : Maximum time to retain VsanSparse in-memory cache content between snapshots, in seconds
+/VSAN/DedupScope [Integer] : Dedup Scope for all-flash disk groups
+/VSAN/AutoTerminateGhostVm [Integer] : Automatically terminate ghost vm(s) during network partition
+/VSAN/DefaultHostDecommissionMode [String] : Default host decommission mode for this host
+/UserVars/ActiveDirectoryPreferredDomainControllers [String] : Preferred Domain Controllers for Active Directory
+/UserVars/ActiveDirectoryVerifyCAMCertificate [Integer] : Enable or disable verification of SSL certificate for vSphere Authentication Proxy server
+/UserVars/ESXiShellTimeOut [Integer] : Time before automatically disabling local and remote shell access (in seconds, 0 disables).  Takes effect after the services are restarted. 
+/UserVars/DcuiTimeOut [Integer] : Idle time before DCUI is automatically logged out (in seconds, 0 disables).
+/UserVars/ESXiShellInteractiveTimeOut [Integer] : Idle time before an interactive shell is automatically logged out (in seconds, 0 disables).  Takes effect only for newly logged in sessions.
+/UserVars/SuppressShellWarning [Integer] : Don't show warning for enabled local and remote shell access
+/UserVars/SuppressHyperthreadWarning [Integer] : Don't show warning for potential security vulnerability due to hyperthreading
+/UserVars/EsximageNetTimeout [Integer] : Set the timeout in seconds for downloading VIBs (0=no timeout)
+/UserVars/EsximageNetRetries [Integer] : Set the number of times to retry in case of failure while downloading VIBs
+/UserVars/EsximageNetRateLimit [Integer] : Set the maximum rate, in bytes/sec, for downloading VIBs (0=no limit)
+/UserVars/ProductLockerLocation [String] : Path to VMware Tools repository
+/UserVars/ToolsRamdisk [Integer] : Use VMware Tools repository from /tools ramdisk.
+/UserVars/SuppressCoredumpWarning [Integer] : Don't show warning for disabled or unconfigured coredump target
+/UserVars/HostdStatsstoreRamdiskSize [Integer] : Set the size, in megabytes, of the ramdisk used to store hostd stats (0=use default)
+/UserVars/ESXiVPsDisabledProtocols [String] : ESXi VPs disabled protocols. Choices are sslv3, tlsv1, tlsv1.1, tlsv1.2. By default sslv3 is disabled. If no protocol is specified, all protocols are enabled.
+/UserVars/ESXiVPsAllowedCiphers [String] : ESXi VPs allowed ciphers. List of allowed ciphers tobe used by the VPs. Must bein the form accepted by theSSL_CTX_set_cipher_list API.
+/UserVars/HardwareHealthSyncTime [Integer] : Time to refresh hardware health sensor state with VC (in minutes, 0 disables).
+/UserVars/HardwareHealthIgnoredSensors [String] : List of colon-seperated sensor ID's to ignore for alarm generation.
+/UserVars/HostClientSessionTimeout [Integer] : Default timeout for Host Client sessions in seconds
+/UserVars/HostClientEnableVisualEffects [Integer] : Whether or not to enable visual effects for Host Client
+/UserVars/HostClientEnableMOTDNotification [Integer] : Whether or not to enable MOTD notification on login for Host Client
+/UserVars/HostClientCEIPOptIn [Integer] : Whether or not to opt-in for CEIP in Host Client, 0 for ask, 1 for yes, 2 for no
+/UserVars/HostClientShowOnlyRecentObjects [Integer] : Whether or not to show only recent objects in Host Client
+/UserVars/HostClientDefaultConsole [String] : Default console type in Host Client
+/UserVars/HostClientWelcomeMessage [String] : Welcome message displayed on login in Host Client

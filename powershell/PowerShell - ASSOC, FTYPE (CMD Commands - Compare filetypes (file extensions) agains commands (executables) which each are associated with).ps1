@@ -18,28 +18,21 @@ FTYPE [<FileType>[=[<OpenCommandString>]]]
 CMD /C FTYPE
 
 # Walk through the list of filetypes
+If ($True) {
 $Assocs_Obj=@{};
 $FTypes_Obj=@{};
 CMD /C ASSOC | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $Assocs_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
 CMD /C FTYPE | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $FTypes_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
-# $Assocs_Sorted_Obj = ($Assocs_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($Assocs_Obj.("${_}"))";}; });
-# $FTypes_Sorted_Obj = ($FTypes_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($FTypes_Obj.("${_}"))";}; });
-# $Assocs_Sorted_Obj | Format-Table -AutoSize;
-# $FTypes_Sorted_Obj | Format-Table -AutoSize;
-
-PS C:\Windows\system32> $aaa="abcdef;"
-
-"abcdef;" -replace "^((?:(?!;).)+)(;)?$",'$1';
-# abcdef
-
-"abcdef:" -replace "^((?:(?!;).)+)(;)?$",'$1';
-# abcdef:
-
-
 $Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
-	$Assoc_to_FType_Key=(${Assocs_Obj}.("${_}"));
-	@{"${_}"="$(${FTypes_Obj}.("${Assoc_to_FType_Key}"))";};
+	$Assoc_Key = "${_}";
+	$Assoc_Val = (${Assocs_Obj}.("${Assoc_Key}") -replace "^((?:(?!;).)+)(;)?$","`$1");
+	$FType_Key = ("${Assoc_Val}");
+	$FType_Val = (${FTypes_Obj}.("${FType_Key}"));
+	[PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"Assoc_Val"="${Assoc_Val}";"FType_Val"="${FType_Val}";};
 });
+$Assocs_Resolved_Obj | Format-Table -AutoSize;
+}
+
 
 # ------------------------------------------------------------
 

@@ -70,6 +70,7 @@ Write-Host "------------------------------------------------------------";
 
 <#   List a Hash Table w/ multiple properties (using Format-Table) via [PSCustomObject]  #>
 If ($True) {
+If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); }; <# Update PowerShell console width to 16384 characters #>
 $Assocs_Obj=@{};
 $FTypes_Obj=@{};
 CMD /C ASSOC | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $Assocs_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };

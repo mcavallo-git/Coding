@@ -7,7 +7,10 @@ Exit 1;
 
 
 <#   Arrays  @()   #>
-$Var=@("Value 1","Value 2","Value 3");
+$Var = @();
+$Var += @("Value 1");
+$Var += @("Value 2");
+$Var += @("Value 3");
 If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
 	# Arrays - Option 1:  use [ ForEach-Object ]  (use if you DON'T need the iterator (array key) for each item)
 	$Var | ForEach-Object {
@@ -34,6 +37,32 @@ If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($Var[${_}])";
 	}
+}
+
+
+# ------------------------------------------------------------
+
+<#   Sort a Hash Table  @{}  #>
+If ($True) {
+$FTypes_Obj=@{};
+CMD /C FTYPE | Sort-Object | ForEach-Object {
+	$Components=("${_}".Split("="));
+	$FileType=(${Components}[0]);
+	$OpenCommandString=(${Components}[1..$(${Components}.Count)]);
+	$FTypes_Obj.("${FileType}")=("${OpenCommandString}");
+}
+$FTypes_Sorted_Obj = ($FTypes_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($FTypes_Obj.("${_}"))";}; });
+Write-Host "------------------------------------------------------------";
+$FTypes_Sorted_Obj | Format-Table -AutoSize;
+<# !!! Note - This ends up as an an unusual hash table scenario, where it performs normally when you to reference the keys and values held within each key (by string value reference) ... #>
+Write-Host "------------------------------------------------------------";
+${FTypes_Sorted_Obj}.Keys[1];
+$FTypes_Sorted_Obj.("$(${FTypes_Sorted_Obj}.Keys[1])");
+<# But it ALSO allows you to reference its contained items by integer (iterator) reference as well, which does not commonly work with hash tables (by default) #>
+Write-Host "------------------------------------------------------------";
+$FTypes_Sorted_Obj.Item(1).Keys;
+$FTypes_Sorted_Obj.Item(1).Values;
+Write-Host "------------------------------------------------------------";
 }
 
 

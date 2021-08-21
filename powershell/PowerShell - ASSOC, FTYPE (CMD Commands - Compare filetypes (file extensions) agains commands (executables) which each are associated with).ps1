@@ -30,10 +30,16 @@ $Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
 	$FType_Val = (${FTypes_Obj}.("${FType_Key}"));
 	[PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"FType_Key"="${FType_Key}";"FType_Val"="${FType_Val}";};
 });
-<# Show Columns [ ASSOC + FTYPE ] #>
-$Assocs_Resolved_Obj | Format-Table -AutoSize;
-<# Show Columns [ FTYPE ONLY ] #>
-<# $Assocs_Resolved_Obj | Select-Object -Property FType_Key,FType_Val | Sort-Object -Property FType_Key; #>
+<# Show [ ASSOC + FTYPE ] relationships #>
+<# Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as ".txt" of ".js") #>
+Write-Host "Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as `".txt`" of `".js`")";
+$Assocs_Resolved_Obj | Sort-Object -Property Assoc_Key | Format-Table -AutoSize;
+<# Sort/Organize based on the column [ FType_Key ] (such as "txtfile" of "JSFile") #>
+Write-Host "Sort/Organize based on the column [ FType_Key ] (such as `"txtfile`" of `"JSFile`")";
+$Assocs_Resolved_Obj | Sort-Object -Property FType_Key | Format-Table -AutoSize;
+<# Sort/Organize based on the column [ FType_Val ] (such as "txtfile" of "JSFile") #>
+Write-Host "Sort/Organize based on the column [ FType_Val ] (such as `"%SystemRoot%\system32\NOTEPAD.EXE %1;`")";
+$Assocs_Resolved_Obj | Sort-Object -Property FType_Val | Format-Table -AutoSize;
 }
 
 

@@ -18,16 +18,10 @@ FTYPE [<FileType>[=[<OpenCommandString>]]]
 CMD /C FTYPE
 
 # Walk through the list of filetypes
-$FTYPES_OBJ=@{};
-CMD /C FTYPE | Sort-Object | ForEach-Object {
-	$COMPONENTS=("${_}".Split("="));
-	$EXTENSION=(${COMPONENTS}[0]);
-	$COMMAND=(${COMPONENTS}[1..$(${COMPONENTS}.Count)]);
-	$FTYPES_OBJ.("${EXTENSION}") = ("${COMMAND}");
-}
-$FTYPES_OBJ.Keys | Sort-Object | ForEach-Object {
-	@{"${_}" = "$($FTYPES_OBJ.("${_}"))";};
-} | Format-Table;
+$FTypes_Obj=@{};
+CMD /C FTYPE | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $FTypes_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
+$FTypes_Sorted_Obj = ($FTypes_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($FTypes_Obj.("${_}"))";}; });
+$FTypes_Sorted_Obj | Format-Table -AutoSize;
 
 
 # ------------------------------------------------------------

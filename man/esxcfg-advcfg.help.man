@@ -1,0 +1,41 @@
+Usage: esxcfg-advcfg <options> [<adv cfg Path>]
+   -g|--get                Get the value of the VMkernel advanced
+                           configuration option
+   -s|--set <value>        Set the value of the VMkernel advanced
+                           configuration option
+   -d|--default            Reset a VMkernel advanced config option to default
+   -l|--list               List all VMkernel advanced config options
+   -q|--quiet              Suppress output
+   -k|--set-kernel         Set a VMkernel load time option value for the next boot.
+   -j|--get-kernel         Get a VMkernel load time option value for the next boot.
+   -c|--get-config         Get the value of a specific line in esx.conf.
+   -m|--set-message        Set DCUI welcome message.
+   -u|--uuid               Ensure the Vmkernel system UUID is set and print it.
+   -G|--get-user-var       Get the value of a user specified generic value.
+                           Requires the --user-var option.
+   -S|--set-user-var       Set the value of a user specified generic value.
+                           Requires the --user-var option.
+   -D|--del-user-var       Delete the value of user specified generic value.
+                           Requires the --user-var option.
+   -U|--user-var           The name of the user variable to user for
+                           --get-user-var --set-user-var and --delete-user-var.
+   -A|--add-option <name>  This adds an advanced variable to /UserVars tree of the
+                           Advanced Options.  This is different from the
+                           --user-var options, which do not show in the VCUI and
+                           only contain simple user vars for use at boot time.
+                           An advanced option requires the --add-type,
+                           --add-desc, --add-default, --add-name and
+                           --add-min, --add-max if type is int
+   -T|--add-type           The type of user advanced option to add,
+                           must be either 'string' or 'int'
+   -E|--add-desc           The description of the user advanced option to add
+   -F|--add-default        The default value of the user advanced option to add
+   -N|--add-min            The min value of the user advanced option to add (int only)
+   -M|--add-max            The max value of the user advanced option to add (int only)
+   -H|--add-hidden <val>   The hidden value of the user advanced option to add,
+                           must be either true or false. (default false)
+   -L|--del-option <name>  Delete a UserVars advanced option added with the -A command
+   -V|--has-option <name>  Return 0 from the command if the option exists return 1 otherwise
+   -h|--help               Show this message.
+   -r|--restore            Restore all advanced options from the configuration
+                           file. (FOR INTERNAL USE ONLY).

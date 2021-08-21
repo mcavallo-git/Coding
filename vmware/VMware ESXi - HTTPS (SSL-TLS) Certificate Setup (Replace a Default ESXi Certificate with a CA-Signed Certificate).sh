@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 
 # Replace a Default HTTPS Certificate with a CA-Signed Certificate (onto target [ ESXi ] instance)

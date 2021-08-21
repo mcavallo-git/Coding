@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ### Refer to article(s) in Citation(s), below
 

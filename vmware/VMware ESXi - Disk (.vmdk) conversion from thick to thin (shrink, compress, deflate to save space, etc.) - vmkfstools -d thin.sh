@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ### NOTE: You must shut down any virrtual machine(s) attached to disks which you intend to copy/resize to OR from
 

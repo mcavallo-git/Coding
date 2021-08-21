@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 
 # Locate all vmdk files easily parsed from datastores && get each of theirs' dick-usage

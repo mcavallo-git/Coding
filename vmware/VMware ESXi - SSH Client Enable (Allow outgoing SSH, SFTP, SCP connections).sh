@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 
 # Linux - ESXi SSH Client Enable (Allow outgoing SSH, SFTP, SCP connections)

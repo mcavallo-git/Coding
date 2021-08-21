@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ### Check ESXi's stored hostname-value
 esxcfg-advcfg -g "/Misc/hostname";

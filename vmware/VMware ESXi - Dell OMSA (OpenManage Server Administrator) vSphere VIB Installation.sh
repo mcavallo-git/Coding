@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # ------------------------------------------------------------
 # Setting up Dell EMC OMSA for ESXi host management

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Add a new "TCP-IP Stack" to ESXi's "Networking" dashboard
 esxcli network ip netstack add -N="TCP-IP-NEW-STACK-NAME";

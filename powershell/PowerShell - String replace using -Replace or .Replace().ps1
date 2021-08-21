@@ -8,26 +8,25 @@
 #
 # ------------------------------------------------------------
 
-
 "Hello City!".Replace("City","World");   <# Returns "Hello World!" #>
 
 "Hello City!" -Replace "city","World");  <# Returns "Hello World!" #>
 
 
-'00:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[] [00] [00] [00]" #>
+'00:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";   <# Returns "[] [00] [00] [00]" #>
 
-'-05:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[-] [05] [00] [00]" #>
+'-05:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";   <# Returns "[-] [05] [00] [00]" #>
 
-'+13:45:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$",'[$1] [$2] [$3] [$4]';   <# Returns "[+] [13] [45] [00]" #>
+'+13:45:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";   <# Returns "[+] [13] [45] [00]" #>
 
-$TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'); <# Returns ":00" (minutes offset for current system's timezone) #>
+$TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",":`$3"); $TZ_MinutesOffset; <# Returns ":00" (minutes offset for current system's timezone) #>
+
 
 # ------------------------------------------------------------
 
-"htmlfile;" -replace "^((?:(?!;).)+)(;)?$",'$1';  <# Returns "htmlfile" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
+"htmlfile;" -replace "^((?:(?!;).)+)(;)?$","`$1";  <# Returns "htmlfile" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
 
-"htmlfile:" -replace "^((?:(?!;).)+)(;)?$",'$1';  <# Returns "htmlfile:" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
-
+"htmlfile:" -replace "^((?:(?!;).)+)(;)?$","`$1";  <# Returns "htmlfile:" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
 
 
 # ------------------------------------------------------------

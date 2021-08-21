@@ -81,7 +81,10 @@ $Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
 	$FType_Val = (${FTypes_Obj}.("${FType_Key}"));
 	[PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"FType_Key"="${FType_Key}";"FType_Val"="${FType_Val}";};
 });
+<# Show Columns [ ASSOC + FTYPE ] #>
 $Assocs_Resolved_Obj | Format-Table -AutoSize;
+<# Show Columns [ FTYPE ONLY ] #>
+<# $Assocs_Resolved_Obj | Select-Object -Property FType_Key,FType_Val | Sort-Object -Property FType_Key; #>
 }
 
 

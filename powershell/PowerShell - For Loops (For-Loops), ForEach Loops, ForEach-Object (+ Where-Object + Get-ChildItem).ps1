@@ -68,6 +68,25 @@ Write-Host "------------------------------------------------------------";
 
 # ------------------------------------------------------------
 
+<#   List a Hash Table w/ multiple properties (using Format-Table) via [PSCustomObject]  #>
+If ($True) {
+$Assocs_Obj=@{};
+$FTypes_Obj=@{};
+CMD /C ASSOC | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $Assocs_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
+CMD /C FTYPE | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $FTypes_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
+$Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
+	$Assoc_Key = "${_}";
+	$Assoc_Val = (${Assocs_Obj}.("${Assoc_Key}") -replace "^((?:(?!;).)+)(;)?$","`$1");
+	$FType_Key = ("${Assoc_Val}");
+	$FType_Val = (${FTypes_Obj}.("${FType_Key}"));
+	[PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"Assoc_Val"="${Assoc_Val}";"FType_Val"="${FType_Val}";};
+});
+$Assocs_Resolved_Obj | Format-Table -AutoSize;
+}
+
+
+# ------------------------------------------------------------
+
 <#   PSCustomObjects   #>
 $Var = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
 If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Name -Eq "Object")) {

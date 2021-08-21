@@ -22,6 +22,13 @@
 
 $TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'); <# Returns ":00" (minutes offset for current system's timezone) #>
 
+# ------------------------------------------------------------
+
+"htmlfile;" -replace "^((?:(?!;).)+)(;)?$",'$1';  <# Returns "htmlfile" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
+
+"htmlfile:" -replace "^((?:(?!;).)+)(;)?$",'$1';  <# Returns "htmlfile:" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
+
+
 
 # ------------------------------------------------------------
 #

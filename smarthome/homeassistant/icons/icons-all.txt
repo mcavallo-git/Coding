@@ -100,6 +100,9 @@ hass:image-filter-frames
 hass:information-outline
 hass:leaf
 hass:lightbulb
+hass:lightbulb-outline
+hass:lightbulb-off
+hass:lightbulb-off-outline
 hass:link
 hass:lock
 hass:lock-open

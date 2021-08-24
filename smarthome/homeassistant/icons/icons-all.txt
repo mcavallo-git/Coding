@@ -11,10 +11,13 @@ hass:arrow-right
 hass:arrow-top-right
 hass:arrow-up
 hass:autorenew
+hass:bag-personal
+hass:bag-personal-outline
 hass:battery
-hass:battery-
 hass:battery-alert
+hass:battery-negative
 hass:battery-outline
+hass:battery-positive
 hass:battery-unknown
 hass:bell
 hass:bell-outline

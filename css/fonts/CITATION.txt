@@ -2,6 +2,8 @@
 
  Citation(s)
 
+   fonts.google.com  |  "Google Fonts"  |  https://fonts.google.com/
+
    materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com
 
 ------------------------------------------------------------

@@ -2,7 +2,7 @@
 // Regex - HTML non-matching DOM-object blocks (on single line)
 // ------------------------------------------------------------
 
-// Find lines with more opening DOM-blocks than closing DOM-blocks
+// Find lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
 // Find Regex:
 ^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$
@@ -13,7 +13,7 @@ RESOLVE MANUALLY
 
 // ------------------------------------------------------------
 
-// Find lines with more closing DOM-blocks than opening DOM-blocks
+// Find lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
 
 // Find Regex:
 ^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$

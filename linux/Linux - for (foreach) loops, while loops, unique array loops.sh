@@ -12,6 +12,15 @@
 #   For-Loop(s)
 #
 
+
+# For-loop - Integer iteration ( using range {START..END} syntax ) - Bash 3.0+ only
+for i in {1..10}; do echo "\$i = ${i}"; done;
+
+
+# For-loop - Integer iteration ( using range {START..END..INCREMENT} syntax ) - Bash 4.0+ only
+for i in {1..10..2}; do echo "\$i = ${i}"; done;
+
+
 # For-loop on an Indexed Array (in Bash)
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY+=("Val-1");
@@ -36,9 +45,21 @@ echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
 
 
-# For-loop, ITERATE (counts from 1 to n - defined in $(seq X))
-MAX_ITERATIONS=120;
-for i in $(seq ${MAX_ITERATIONS}); do echo "\$i = ${i}"; done;
+# For-loop integer iteration using range {START..END} syntax, such as {1..10}
+if [ $(echo "${BASH_VERSION}" | cut --delimiter="." --fields=1;) -ge 3 ]; then
+for i in {1..10}; do echo "\$i = ${i}"; done;
+else
+echo "Bash 3.0+ is required to use [ for-loop integer iteration using range {START..END} ] syntax - current bash version is [ ${BASH_VERSION} ]";
+for i in $(seq 10); do echo "\$i = ${i}"; done;
+fi;
+
+
+# For-loop integer iteration using range {START..END..INCREMENT} syntax, such as {1..10..2}
+if [ $(echo "${BASH_VERSION}" | cut --delimiter="." --fields=1;) -ge 4 ]; then
+for i in {1..10..2}; do echo "\$i = ${i}"; done;
+else
+echo "Bash 4.0+ is required to use [ for-loop integer iteration using range {START..END..INCREMENT} ] syntax - current bash version is [ ${BASH_VERSION} ]";
+fi;
 
 
 # For-loop, ITERATE + CONDITIONAL (counts from 1 to n - defined in $(seq X), breaks if given conditional is matched)
@@ -174,6 +195,8 @@ done;
 #	
 #		stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #	
-#		www.cyberciti.biz  |  "Bash For Loop Examples - nixCraft"  |  https://www.cyberciti.biz/faq/bash-for-loop/
+#   www.cyberciti.biz  |  "Bash For Loop Examples - nixCraft"  |  https://www.cyberciti.biz/faq/bash-for-loop/
+#
+#   www.cyberciti.biz  |  "How do I check my bash version? - nixCraft"  |  https://www.cyberciti.biz/faq/how-do-i-check-my-bash-version/
 #
 # ------------------------------------------------------------

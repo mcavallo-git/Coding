@@ -145,3 +145,9 @@ fi;
 
 
 # ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   stackoverflow.com  |  "How can I format a number to 2 decimal places in Perl? - Stack Overflow"  |  https://stackoverflow.com/a/35044678
+#
+# ------------------------------------------------------------

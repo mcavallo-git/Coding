@@ -32,10 +32,18 @@ date --utc --date='1969-12-31 23:59:59' +'%s';
 # ------------------------------------------------------------
 # Simple Benchmark
 
+if [ 1 -eq 1 ]; then
+
 BENCHMARK_START=$(date +'%s.%N');
 sleep 3;
-BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l);
+if [ $(which bc 2>'/dev/null' | wc -l;) -gt 0 ]; then
+BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l;);
+else
+BENCHMARK_DELTA=$(perl -le "print($(date +'%s.%N') - ${BENCHMARK_START})");
+fi;
 echo "  |--> Finished after ${BENCHMARK_DELTA}s";
+
+fi;
 
 
 # ------------------------------------------------------------

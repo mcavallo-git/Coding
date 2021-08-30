@@ -11,4 +11,6 @@ HomeAssistant - Install Node-RED
 #
 #   community.home-assistant.io  |  "Home Assistant Community Add-on: Node-RED - Home Assistant OS - Home Assistant Community"  |  https://community.home-assistant.io/t/home-assistant-community-add-on-node-red/55023
 #
+#   www.juanmtech.com  |  "How to get started with Node-RED and Home Assistant | JuanMTech"  |  https://www.juanmtech.com/get-started-with-node-red-and-home-assistant/
+#
 # ------------------------------------------------------------

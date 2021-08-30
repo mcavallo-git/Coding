@@ -1,22 +1,14 @@
 # ------------------------------------------------------------
-HomeAssistant - Install Zigbee2MQTT
+HomeAssistant - Install Node-RED
 # ------------------------------------------------------------
 
 - Refer to Citation(s), below
-
-01. Add Add-on Repository [ https://github.com/danielwelch/hassio-zigbee2mqtt ]
-
-02. Install Add-on [ Zigbee2mqtt ]
-
-03. Get USB Zigbee device's "by-id" path, and add to zigbee2mqtt > configuration YAML
-
-04. Install Add-on [ Mosquitto broker ]  (MQTT broker)
 
 
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
-#   www.youtube.com  |  "Setting up Zigbee2MQTT and MQTT broker Mosquito in Home Assistant - YouTube"  |  https://www.youtube.com/watch?v=-YeObwEZqL4
+#   community.home-assistant.io  |  "Home Assistant Community Add-on: Node-RED - Home Assistant OS - Home Assistant Community"  |  https://community.home-assistant.io/t/home-assistant-community-add-on-node-red/55023
 #
 # ------------------------------------------------------------

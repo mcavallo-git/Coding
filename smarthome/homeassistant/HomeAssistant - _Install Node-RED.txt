@@ -1,0 +1,14 @@
+# ------------------------------------------------------------
+HomeAssistant - Install Node-RED
+# ------------------------------------------------------------
+
+- Refer to Citation(s), below
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   community.home-assistant.io  |  "Home Assistant Community Add-on: Node-RED - Home Assistant OS - Home Assistant Community"  |  https://community.home-assistant.io/t/home-assistant-community-add-on-node-red/55023
+#
+# ------------------------------------------------------------

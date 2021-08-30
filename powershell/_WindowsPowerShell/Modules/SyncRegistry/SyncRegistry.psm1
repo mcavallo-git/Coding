@@ -189,6 +189,20 @@ function SyncRegistry {
 		};
 
 
+		# Desktop Background Color
+		$RegEdits += @{
+			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Colors";
+			Props=@(
+				@{
+					Description="Defines a user's desktop background color using space-delimited R G B syntax (such as '255 255 255' for white, '255 0 0' for red, '0 255 0' for green, and '0 0 255' for blue)";
+					Name="Background";
+					Type="String";
+					Value="34 34 34";
+					Delete=$False;
+				}
+			)
+		};
+
 		# Explorer Settings
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Explorer";

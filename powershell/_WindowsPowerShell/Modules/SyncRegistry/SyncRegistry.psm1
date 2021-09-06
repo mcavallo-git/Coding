@@ -619,21 +619,6 @@ function SyncRegistry {
 		};
 
 
-		# Lock Screen Wallpaper
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization";
-			Props=@(
-				@{
-					Description="Sets the default/system lock screen image/background/wallpaper to the path defined in this property's value";
-					Name="LockScreenImage";
-					Type="String";
-					Value="C:\ISO\lock-screen-wallpaper.png";
-					Delete=$False;
-				}
-			)
-		};
-
-
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
@@ -1451,8 +1436,6 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
-#
-#   winaero.com  |  "How to change default lock screen image in Windows 10"  |  https://winaero.com/how-to-change-default-lock-screen-image-in-windows-10/
 #
 #   winaero.com  |  "How To Remove Pin to Quick Access Context Menu in Windows 10"  |  https://winaero.com/remove-pin-quick-access-menu-windows-10/
 #

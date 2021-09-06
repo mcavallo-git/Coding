@@ -1,4 +1,5 @@
 hass:account
+hass:air-humidifier-off
 hass:alert
 hass:alert-circle
 hass:altimeter
@@ -34,6 +35,9 @@ hass:calendar-clock
 hass:cancel
 hass:cast
 hass:cast-connected
+hass:ceiling-fan
+hass:ceiling-fan-light
+hass:chair-rolling
 hass:chart-line
 hass:check-outline
 hass:check-circle
@@ -71,6 +75,17 @@ hass:exit-to-app
 hass:eye
 hass:eye-off
 hass:fan
+hass:fan-alert
+hass:fan-auto
+hass:fan-chevron-down
+hass:fan-chevron-up
+hass:fan-minus
+hass:fan-off
+hass:fan-plus
+hass:fan-remove
+hass:fan-speed-1
+hass:fan-speed-2
+hass:fan-speed-3
 hass:file
 hass:file-outline
 hass:file-document
@@ -81,6 +96,8 @@ hass:file-word-box
 hass:file-word-box-outline
 hass:filter-variant
 hass:fire
+hass:fire-alert
+hass:fire-off
 hass:flash
 hass:flash-off
 hass:flower
@@ -170,6 +187,7 @@ hass:skip-next
 hass:skip-previous
 hass:sleep
 hass:snowflake
+hass:snowflake-off
 hass:square
 hass:square-outline
 hass:stop
@@ -180,7 +198,17 @@ hass:television-off
 hass:textbox
 hass:text-to-speech
 hass:thermometer
+hass:thermometer-alert
+hass:thermometer-chevron-down
+hass:thermometer-chevron-up
+hass:thermometer-high
+hass:thermometer-off
+hass:thermometer-lines
+hass:thermometer-low
+hass:thermometer-minus
+hass:thermometer-plus
 hass:thermostat
+hass:thermostat-box
 hass:timer
 hass:timer-off
 hass:timer-sand
@@ -219,3 +247,12 @@ hass:window-closed
 hass:window-open
 hass:z-wave
 hass:zigbee
+
+
+------------------------------------------------------------
+
+Citation(s)
+
+  materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com/
+
+------------------------------------------------------------

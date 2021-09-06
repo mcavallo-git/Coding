@@ -618,7 +618,6 @@ function SyncRegistry {
 			)
 		};
 
-
 		# Lock Screen Wallpaper
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization";

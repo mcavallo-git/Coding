@@ -618,6 +618,7 @@ function SyncRegistry {
 			)
 		};
 
+
 		# Lock Screen Wallpaper
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization";
@@ -632,6 +633,7 @@ function SyncRegistry {
 			)
 		};
 
+
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
@@ -645,6 +647,7 @@ function SyncRegistry {
 				}
 			)
 		};
+
 
 		# Multitasking - Snap windows (half-screen left/right snapping of windows)
 		$RegEdits += @{

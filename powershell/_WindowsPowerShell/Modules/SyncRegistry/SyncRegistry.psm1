@@ -619,6 +619,20 @@ function SyncRegistry {
 		};
 
 
+		# Lock Screen Wallpaper
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization";
+			Props=@(
+				@{
+					Description="Sets the default/system lock screen image/background/wallpaper to the path defined in this property's value";
+					Name="LockScreenImage";
+					Type="String";
+					Value="C:\ISO\lock-screen-wallpaper.png";
+					Delete=$False;
+				}
+			)
+		};
+
 		# Lock Workstation (Enable/Disable)
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";

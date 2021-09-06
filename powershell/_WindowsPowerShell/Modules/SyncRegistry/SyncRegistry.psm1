@@ -338,14 +338,14 @@ function SyncRegistry {
 					Value="Play to menu";
 					Delete=$False;
 				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$False;
-				},
+				# @{
+				# 	Description="Explorer Settings - Enable [ hiding of 'OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+				# 	Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
+				# 	Type="String";
+				# 	Val_Default="";
+				# 	Value="";
+				# 	Delete=$False;
+				# },
 				@{
 					Description="Explorer Settings - Enable [ hiding of 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
 					Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";

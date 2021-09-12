@@ -17,10 +17,7 @@ CrystalDiskMark 6.0.0 x64 (C) 2007-2017 hiyohiyo
   Test : 100 MiB [D: 0.6% (0.3/58.8 GiB)] (x2)  [Interval=5 sec]
   Date : 2018/09/14 15:06:01
     OS : Windows 7 Professional SP1 [6.1 Build 7601] (x64)
-  
 
-
-	Matt,
 
 SD card link
 https://www.amazon.com/PNY-Elite-Performance-Memory-P-SDX64U395-GE/dp/B00WWBCSG4/ref=sr_1_8?ie=UTF8&qid=1536952403&sr=8-8&keywords=SD+card+64GB+Class+10

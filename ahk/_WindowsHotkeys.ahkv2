@@ -166,7 +166,7 @@ ScrollLock::
 ;
 Pause::
 	Send !{F10}
-	TrayTip, AHK, % ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in explorer" )  ; Toast Notification
+	TrayTip, AHK, % ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" )  ; Toast Notification
 	Return
 
 

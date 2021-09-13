@@ -68,7 +68,7 @@ function HardenCrypto {
 		#
 		Function DoLogging {
 			Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO",[String]$BackgroundColor="",[String]$ForegroundColor="",[Switch]$NoNewLine);
-			$Timestamp_Decimal=$([String](Get-Date -Format "${Format}"));
+			$Timestamp_Decimal=$([String](Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.fffzzz'));
 			$OutString="[${Timestamp_Decimal} ${Level} $($MyInvocation.MyCommand.Name)] ${Text}";
 			$WriteHost_Args = @();
 			If ($PSBoundParameters.ContainsKey('NoNewLine') -Eq $True) { $WriteHost_Args += "-NoNewLine "; };
@@ -82,7 +82,7 @@ function HardenCrypto {
 		# ------------------------------------------------------------
 
 		<# Setup Logfile #>
-		$Start_Timestamp=(Get-Date -Format "yyyyMMddThhmmsszz");
+		$Start_Timestamp=(Get-Date -Format "yyyyMMddTHHmmsszz");
 		$LogDir="${Env:TEMP}\HardenCrypto";
 		$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
 		If ((Test-Path -Path ("${LogDir}")) -Eq ($False)) {

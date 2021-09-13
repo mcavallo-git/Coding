@@ -25,7 +25,7 @@ Function Get-Timestamp {
 	$ReturnVal="";
 
 	If ($PSBoundParameters.ContainsKey('Filename')) {
-		$ReturnVal=$([String](Get-Date -Format "yyyyMMddThhmmsszz"));
+		$ReturnVal=$([String](Get-Date -Format "yyyyMMddTHHmmsszz"));
 	} Else {
 		$ReturnVal=$([String](Get-Date -Format "${Format}"));
 	}

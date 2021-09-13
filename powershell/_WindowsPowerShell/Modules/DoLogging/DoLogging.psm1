@@ -25,7 +25,7 @@ Function DoLogging {
 	}
 
 	<# Get the current datetime as a string #>
-	$GetTimestamp = (([String](Get-Date -Date ((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($([Decimal](Get-Date -UFormat ("%s")))))) -UFormat ("%Y-%m-%dT%H:%M:%S")))+(([String](($([Decimal](Get-Date -UFormat ("%s")))%1))).Substring(1).PadRight(6,"0"))+(Get-Date -UFormat ("%Z"))); 
+	$GetTimestamp = $(Get-Date -Format 'yyyyMMddTHHmmss.fffzz');
 
 	If ($False) {
 		<# Define the logging filepath & Ensure that the logging directory exists #>

@@ -27,7 +27,7 @@ Function SyncPowercfg() {
 
 	Function DoLogging {
 		Param([String]$LogFile="",[String]$Text="",[String]$Level="INFO");
-		$Timestamp_Decimal=$([String](Get-Date -Format "${Format}"));
+		$Timestamp_Decimal=$([String](Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.fffzzz'));
 		$OutString="[${Timestamp_Decimal} ${Level} $($MyInvocation.MyCommand.Name)] ${Text}";
 		Write-Host "${OutString}";
 		Write-Output "${OutString}" | Out-File -Width 16384 -Append "${LogFile}";
@@ -79,7 +79,7 @@ Function SyncPowercfg() {
 	};
 
 	<# Setup Logfile #>
-	$Start_Timestamp=(Get-Date -Format "yyyyMMddThhmmsszz");
+	$Start_Timestamp=(Get-Date -Format "yyyyMMddTHHmmsszz");
 	$LogDir="${Env:TEMP}\SetPowercfg";
 	$LogFile="${LogDir}\LogFile_${Start_Timestamp}.log";
 	If ((Test-Path -Path ("${LogDir}")) -Eq ($False)) {

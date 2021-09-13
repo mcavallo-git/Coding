@@ -118,7 +118,7 @@ If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" })
 	<# Remove any logged data from a previous run #>
 	Get-Item "${Logfile_Basename}*.txt" | Remove-Item -Force;
 	<# Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns) #>
-	${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddThhmmss.fff')${Extension}");
+	${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
 	Move-Item -Path ("${Logfile_FullPath}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
 	<# End the current run #>
 	Exit 1;

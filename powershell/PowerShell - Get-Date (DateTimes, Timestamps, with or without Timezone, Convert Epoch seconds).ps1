@@ -11,34 +11,34 @@
 
 
 # Timestamp_Filename               20210505T171718
-$(Get-Date -Format 'yyyyMMddThhmmss')
+$(Get-Date -Format 'yyyyMMddTHHmmss')
 
 # Timestamp_Filename_TZ            20210505T171718-04
-$(Get-Date -Format 'yyyyMMddThhmmsszz')
+$(Get-Date -Format 'yyyyMMddTHHmmsszz')
 
 # Timestamp_Filename_ms            20210505T171718.066
-$(Get-Date -Format 'yyyyMMddThhmmss.fff')
+$(Get-Date -Format 'yyyyMMddTHHmmss.fff')
 
 # Timestamp_Filename_ms_TZ         20210505T171718.066-04               <# BEST FOR FILENAMES #>
-$(Get-Date -Format 'yyyyMMddThhmmss.fffzz')
+$(Get-Date -Format 'yyyyMMddTHHmmss.fffzz')
 
 # Timestamp_Short                  20210505171718
-$(Get-Date -Format 'yyyyMMddhhmmss')
+$(Get-Date -Format 'yyyyMMddHHmmss')
 
 # Timestamp_Short_TZ               20210505171718-04
-$(Get-Date -Format 'yyyyMMddhhmmsszz')
+$(Get-Date -Format 'yyyyMMddHHmmsszz')
 
 # Timestamp_RFC3339                2021-05-05T05:17:18-04:00
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:sszzz')
+$(Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzz')
 
 # Timestamp_RFC3339_ms             2021-05-05T05:17:18.066-04:00      <# BEST FOR LOG-OUTPUTS #>
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')
+$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.fffzzz')
 
 # Timestamp_RFC3339_μs             2021-05-05T05:17:18.066992-04:00
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.ffffffzzz')
+$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.ffffffzzz')
 
 # Timestamp_RFC3339_MaxPrecision   2021-05-05T05:17:18.0674926-04:00
-$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffffffzzz')
+$(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.fffffffzzz')
 
 
 # ------------------------------------------------------------

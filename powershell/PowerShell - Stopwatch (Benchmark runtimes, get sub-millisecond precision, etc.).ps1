@@ -2,8 +2,7 @@
 
 If ($True) { <# Start the benchmark, run some code, stop the benchmark, show the results #> 
 $Benchmark = New-Object System.Diagnostics.Stopwatch;
-$Benchmark.Reset(); <# Reuse same benchmark/stopwatch object by resetting it #>
-$Benchmark.Start();
+$Benchmark.Restart(); <# [Re-]Start the stopwatch #>
 Start-Sleep -Seconds (1); <# REPLACE THIS LINE WITH COMMAND OR PROCESS TO-BENCHMARK #>
 $Benchmark.Stop();
 Write-Output "`$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";

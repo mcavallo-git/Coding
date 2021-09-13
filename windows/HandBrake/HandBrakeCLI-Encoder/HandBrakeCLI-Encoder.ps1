@@ -243,18 +243,10 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 		$FirstLoop_DoQuickNaming = $True;
 		$NameCollision_LoopIterations = 0;
 		Do {
-			$EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
-			$EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($EpochDate));
-			$TimestampShort = ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S")));
-			$DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
+			$DecimalTimestampShort = $(Get-Date -Format 'yyyyMMddTHHmmss.ffffffzz');
 			If (${FirstLoop_DoQuickNaming} -Eq $True) {
 				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}";
 			} Else {
-				# If ($Timestamps_IncludeDecimalSeconds -Eq $True) {
-				# 	$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${DecimalTimestampShort}";
-				# } Else {
-				# 	$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${TimestampShort}";
-				# }
 				$EachOutput_BasenameNoExt = "${EachInput_BasenameNoExt}.${NameCollision_LoopIterations}";
 			}
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";

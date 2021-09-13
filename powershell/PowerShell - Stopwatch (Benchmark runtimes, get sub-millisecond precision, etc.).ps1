@@ -14,7 +14,7 @@ Write-Output "`$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
 <# Example benchmark between two approaches of achieving a similar outcome to determine which method is faster #>
 
 If ($True) {
-$LoopIterations = 10000;
+$LoopIterations = 10000000;
 $Benchmark = New-Object System.Diagnostics.Stopwatch;
 <# Test method 1 of getting timestamps w/ decimal-based seconds + timezone #>
 $DecimalTimestampShort = $Null;

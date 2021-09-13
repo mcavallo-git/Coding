@@ -19,8 +19,14 @@ $(Get-Date -Format 'yyyyMMddTHHmmsszz')
 # Timestamp_Filename_ms            20210505T171718.066
 $(Get-Date -Format 'yyyyMMddTHHmmss.fff')
 
-# Timestamp_Filename_ms_TZ         20210505T171718.066-04               <# BEST FOR FILENAMES #>
+# Timestamp_Filename_μs            20210505T171718.066992
+$(Get-Date -Format 'yyyyMMddTHHmmss.ffffff')
+
+# Timestamp_Filename_ms_TZ         20210505T171718.066-04
 $(Get-Date -Format 'yyyyMMddTHHmmss.fffzz')
+
+# Timestamp_Filename_μs_TZ         20210505T171718.066992-04            <# BEST FOR FILENAMES #>
+$(Get-Date -Format 'yyyyMMddTHHmmss.ffffffzz')
 
 # Timestamp_Short                  20210505171718
 $(Get-Date -Format 'yyyyMMddHHmmss')

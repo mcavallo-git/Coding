@@ -47,7 +47,9 @@ Mostly Linux compatible:
 ↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
 ↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
 →					Rightwards Arrow (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
-←					Leftwards Arrow (&larr;)  |  https://www.compart.com/en/unicode/U+2190
+←					Leftwards Arrow  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
+↑					Upwards Arrow    (&uarr;)  |  https://www.compart.com/en/unicode/U+2191
+↓					Downwards Arrow  (&darr;)  |  https://www.compart.com/en/unicode/U+2193
 ↔					LEFT RIGHT ARROW
 ↴					RIGHTWARDS ARROW WITH CORNER DOWNWARDS' (U+21B4)  |  https://www.fileformat.info/info/unicode/char/21b4/index.htm
 ⬐					LEFTWARDS ARROW WITH TIP DOWNWARDS (U+2B10)  |  https://www.fileformat.info/info/unicode/char/2b10/index.htm

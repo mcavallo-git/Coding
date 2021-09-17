@@ -14,6 +14,7 @@ SV StringVar -Value (Write-Output String` without` quotes` and` with` spaces);
 # Example String w/o quotes using ticks to escape spaces in strings
 If (Test-Path C:\Program` Files\Notepad++\notepad++.exe) { Start-Process C:\Program` Files\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } ElseIf (Test-Path C:\Program` Files` (x86)\Notepad++\notepad++.exe) { Start-Process C:\Program` Files` (x86)\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } Else { Start-Process C:\Windows\System32\notepad.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; };
 
+
 # ------------------------------------------------------------
 #
 # PowerShell - Booleans   -->   Set a boolean variable without using dollar sign characters for $True and $False

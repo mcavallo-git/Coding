@@ -12,7 +12,7 @@ SV StringVar -Value (Write-Output String` without` quotes` and` with` spaces);
 (GV StringVar).Value;
 
 # Example String w/o quotes using ticks to escape spaces in strings
-If (Test-Path C:\Program` Files\Notepad++\notepad++.exe) { Start-Process C:\Program` Files\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } ElseIf (Test-Path C:\Program` Files` (x86)\Notepad++\notepad++.exe) { Start-Process C:\Program` Files` (x86)\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } Else { Start-Process C:\Windows\System32\notepad.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; };
+If (Test-Path C:\Program` Files\Notepad++\notepad++.exe) { Start-Process C:\Program` Files\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } ElseIf (Test-Path C:\Program` Files` `(x86`)\Notepad++\notepad++.exe) { Start-Process C:\Program` Files` `(x86`)\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } Else { Start-Process C:\Windows\System32\notepad.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; };
 
 
 # ------------------------------------------------------------

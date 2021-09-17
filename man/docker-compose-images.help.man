@@ -1,0 +1,5 @@
+List images used by the created containers.
+Usage: images [options] [--] [SERVICE...]
+
+Options:
+    -q, --quiet  Only display IDs

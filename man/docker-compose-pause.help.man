@@ -1,0 +1,3 @@
+Pause services.
+
+Usage: pause [SERVICE...]

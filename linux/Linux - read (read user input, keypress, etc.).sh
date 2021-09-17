@@ -41,3 +41,25 @@ fi;
 
 
 # ------------------------------------------------------------
+# Double-confirmation
+if [ 1 -eq 1 ]; then
+  echo -e "";
+  echo -e "! !        ! !                                         ! !        ! !";
+  echo -e "! ! NOTICE ! !  THIS IS A DOUBLE CONFIRMATION MESSAGE  ! ! NOTICE ! !";
+  echo -e "! !   |    ! !  PLEASE READ IT BEFORE HITTING Y (YES)  ! !        ! !";
+  echo -e "      |";
+  read -p "      |--> Are you sure you want to continue? (y/n)  " -n 1 -t 60 -r; # Await single keypress
+  echo -e "";
+  if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
+    echo -e "      |";
+    read -p "      |--> Are you completely positive you wish to continue? (y/n)  " -n 1 -t 60 -r; # Await single keypress
+    echo -e "";
+    if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
+      echo "Confirmed twice!";
+    fi;
+  fi;
+fi;
+
+
+
+# ------------------------------------------------------------

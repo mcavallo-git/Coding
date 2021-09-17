@@ -150,6 +150,7 @@
 	"terminal.external.linuxExec": "",
 	"terminal.integrated.copyOnSelection": true,
 	"terminal.integrated.cursorBlinking": true,
+	"terminal.integrated.fontFamily": "'Fira Code', 'Consolas', 'Courier New', 'monospace'",
 	"terminal.integrated.rendererType": "canvas",
 	"typescript.format.insertSpaceAfterConstructor": true,
 	"typescript.format.placeOpenBraceOnNewLineForFunctions": true,

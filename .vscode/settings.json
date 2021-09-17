@@ -1,24 +1,29 @@
 {
-	"[shellscript]": {
+	"[helm]": {
 		"editor.autoIndent": "full",
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
-	"[tf]": {
-		"editor.autoIndent": "full",
-		"editor.insertSpaces": true,
-		"editor.tabSize": 2
-	},
-	"[typescript]": {
-		"editor.autoIndent": "full",
-		"editor.insertSpaces": true,
-		"editor.tabSize": 2
-	},
-	"[yaml]": {
-		"editor.autoIndent": "full",
-		"editor.insertSpaces": true,
-		"editor.tabSize": 2
-	},
+  "[shellscript]": {
+    "editor.autoIndent": "full",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[tf]": {
+    "editor.autoIndent": "full",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.autoIndent": "full",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
+  "[yaml]": {
+    "editor.autoIndent": "full",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
 	"breadcrumbs.enabled": true,
 	"breadcrumbs.filePath": "on",
 	"breadcrumbs.symbolPath": "off",

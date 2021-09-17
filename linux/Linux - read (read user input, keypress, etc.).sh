@@ -41,7 +41,11 @@ fi;
 
 
 # ------------------------------------------------------------
-# Double-confirmation
+#
+# Require two confirmation keypresses before proceeding
+#
+
+
 if [ 1 -eq 1 ]; then
   echo -e "";
   echo -e "! !        ! !                                         ! !        ! !";

@@ -50,62 +50,96 @@ Mostly Linux compatible:
 ←					Leftwards Arrow  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
 ↑					Upwards Arrow    (&uarr;)  |  https://www.compart.com/en/unicode/U+2191
 ↓					Downwards Arrow  (&darr;)  |  https://www.compart.com/en/unicode/U+2193
-↔					LEFT RIGHT ARROW
-↴					RIGHTWARDS ARROW WITH CORNER DOWNWARDS' (U+21B4)  |  https://www.fileformat.info/info/unicode/char/21b4/index.htm
-⬐					LEFTWARDS ARROW WITH TIP DOWNWARDS (U+2B10)  |  https://www.fileformat.info/info/unicode/char/2b10/index.htm
-↶					ANTICLOCKWISE TOP SEMICIRCLE ARROW
-⇒					RIGHTWARDS DOUBLE ARROW
-➾					Open-outlined rightwards arrow
-➧					Squat black rightwards arrow
+↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195
+↔ 				Left Right Arrow (&LeftRightArrow;)  |  https://www.compart.com/en/unicode/U+2194
+⇅					Upwards Arrow Leftwards of Downwards Arrow  (&udarr;) (&UpArrowDownArrow;)  |  https://www.compart.com/en/unicode/U+21C5
+↴					Rightwards Arrow with Corner Downwards  |  https://www.compart.com/en/unicode/U+21B4
+⬐					Leftwards Arrow with Tip Downwards  |  https://www.compart.com/en/unicode/U+2B10
+↶					Anticlockwise Top Semicircle Arrow  (&curvearrowleft;)  |  https://www.compart.com/en/unicode/U+21B6
+
+⇒					Rightwards Double Arrow (&Rightarrow;)  |  https://www.compart.com/en/unicode/U+21D2
+⇏					Rightwards Double Arrow with Stroke  |  https://www.compart.com/en/unicode/U+21CF
+➾					Open-Outlined Rightwards Arrow   |  https://www.compart.com/en/unicode/U+27BE
+➧ 				Squat Black Rightwards Arrow  |  https://www.compart.com/en/unicode/U+27A7
 
 
 [​]					Zero Width Space (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
 
 
+------------------------------------------------------------
+
+Character Set “x-Adobe-Zapf-Dingbats-Encoding” 
+ |--> https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
+
+
 ✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714
-╳					X MARK, LARGE
+✔️				Heavy Check Mark (Colored)  |  https://www.compart.com/en/unicode/U+2714
+🗸				 Light Check Mark  |  https://www.compart.com/en/unicode/U+1F5F8
+✓					Check Mark (&check;)  |  https://www.compart.com/en/unicode/U+2713
+
+╳					(X MARK, LARGE) Box Drawings Light Diagonal Cross  |  https://www.compart.com/en/unicode/U+2573
+×					Multiplication Sign  (&times;) |  https://www.compart.com/en/unicode/U+00D7
+
+✕					Multiplication X  |  https://www.compart.com/en/unicode/U+2715
+✖					Heavy Multiplication X  |  https://www.compart.com/en/unicode/U+2716
+✗					Ballot X  |  https://www.compart.com/en/unicode/U+2717
+✘					Heavy Ballot X  |  https://www.compart.com/en/unicode/U+2718
+🗙				 Cancellation X  |  https://www.compart.com/en/unicode/U+1F5D9
+❌				 Cross Mark  |  https://www.compart.com/en/unicode/U+274C
+❎					Negative Squared Cross Mark  |  https://www.compart.com/en/unicode/U+274E
+✅					White Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2705
+
+ℹ					Information Source  |  https://www.compart.com/en/unicode/U+2139
+
+☐					(Empty/Unchecked Checkbox) Ballot Box  |  https://www.compart.com/en/unicode/U+2610
+☒					(X'ed checkbox) Ballot Box with X  |  https://www.compart.com/en/unicode/U+2612
+☑					(Checked Checkbox) Ballot Box with Check  |  https://www.compart.com/en/unicode/U+2611
+☑️				Ballot Box with Check (Colored)  |  https://emojipedia.org/check-box-with-check/
 
 
-☰					Trigram For Heaven (Hamburger Menu)  |  Unicode Character “☰” (U+2630)  |  https://www.compart.com/en/unicode/U+2630
-⫴					Triple Vertical Bar Binary Relation  |  Unicode Character “⫴” (U+2AF4)  |  https://www.compart.com/en/unicode/U+2AF4
-
-
-⋮					Vertical Ellipsis (Kebab)  |  Unicode Character “⋮” (U+22EE)  |  https://www.compart.com/en/unicode/U+22EE
-︙				Presentation Form For Vertical Horizontal Ellipsis  |  Unicode Character “︙” (U+FE19)  |  https://www.compart.com/en/unicode/U+FE19
-
-
-…					Horizontal Ellipsis  |  Unicode Character “…” (U+2026)  |  https://www.compart.com/en/unicode/U+2026
-⋯					Midline Horizontal Ellipsis  |  Unicode Character “⋯” (U+22EF)  |  https://www.compart.com/en/unicode/U+22EF
-
-
-⊞				 Squared Plus (Winkey / Windows Key)  |  Unicode Character “⊞” (U+229E)  |  https://www.compart.com/en/unicode/U+229E
-
-
-∴					Therefore  |  https://www.compart.com/en/unicode/U+2234
-≠					Not Equal To  |  https://www.compart.com/en/unicode/U+2260
-≡					Identical To  |  https://www.compart.com/en/unicode/U+2261
-
-
-👍			 Thumbs Up Sign  |  Unicode Character “👍” (U+1F44D)  |  https://www.compart.com/en/unicode/U+1F44D
-
-
-⛔				No Entry (Prohibited)  |  Unicode Character “⛔” (U+26D4)  |  https://www.compart.com/en/unicode/U+26D4
-🚫				No Entry Sign (Prohibited)  |  Unicode Character “🚫” (U+1F6AB)  |  https://www.compart.com/en/unicode/U+1F6AB
-⚠️				(65039) WARNING SIGN
-⚠					(9888) WARNING SIGN
-❗					HEAVY EXCLAMATION MARK SYMBOL
-❓					BLACK QUESTION MARK ORNAMENT
+------------------------------------------------------------
 
 
 
-⚙️				Gear Emoji (Gear/Cog Variation)  |  ⚙️ Gear Emoji  |  https://emojipedia.org/gear/ --> https://www.compart.com/en/unicode/U+2699 + https://www.compart.com/en/unicode/U+FE0F
-⚙					Gear (Cog)  |  Unicode Character “⚙” (U+2699)  |  https://www.compart.com/en/unicode/U+2699
-⛭					Gear Without Hub  |  Unicode Character “⛭” (U+26ED)  |  https://www.compart.com/en/unicode/U+26ED
+☰					Trigram For Heaven (Hamburger Menu)  |  https://www.compart.com/en/unicode/U+2630
+⫴					Triple Vertical Bar Binary Relation  |  https://www.compart.com/en/unicode/U+2AF4
 
 
-🎧 				Headphone
-🖥 				Desktop Computer  |  Unicode Character “🖥” (U+1F5A5)  |  https://www.compart.com/en/unicode/U+1F5A5
-🖥️ 			Emoji: Desktop Computer  |  https://emojiterra.com/desktop-computer/
+⋮					Vertical Ellipsis (Kebab) (&vellip;)  |  https://www.compart.com/en/unicode/U+22EE
+︙				 Presentation Form For Vertical Horizontal Ellipsis  |  https://www.compart.com/en/unicode/U+FE19
+
+
+…					Horizontal Ellipsis (&mldr;)  |  https://www.compart.com/en/unicode/U+2026
+⋯					Midline Horizontal Ellipsis (&ctdot;)  |  https://www.compart.com/en/unicode/U+22EF
+
+
+⊞				 Squared Plus (Winkey / Windows Key) (&plusb;)  |  Unicode Character “⊞” (U+229E)  |  https://www.compart.com/en/unicode/U+229E
+
+
+∴					Therefore (&therefore;)  |  https://www.compart.com/en/unicode/U+2234
+≠					Not Equal To (&ne;)  |  https://www.compart.com/en/unicode/U+2260
+≡					Identical To (&equiv;)  |  https://www.compart.com/en/unicode/U+2261
+
+
+👍			 Thumbs Up Sign  |  https://www.compart.com/en/unicode/U+1F44D
+
+
+⛔				 No Entry  |  https://www.compart.com/en/unicode/U+26D4
+🚫				No Entry Sign  |  https://www.compart.com/en/unicode/U+1F6AB
+⚠️				Warning Sign (Colored)  |  https://emojipedia.org/warning/
+⚠					Warning Sign  |  https://www.compart.com/en/unicode/U+9888
+❗					Heavy Exclamation Mark Symbol  |  https://www.compart.com/en/unicode/U+2757
+❓					Black Question Mark Ornament  |  https://www.compart.com/en/unicode/U+2753
+❓					Black Question Mark Ornament  |  https://www.compart.com/en/unicode/U+65039
+
+
+⚙️				Gear (Cog) (Colored)  |  https://emojipedia.org/gear/
+⚙					Gear (Cog)  |  https://www.compart.com/en/unicode/U+2699
+⛭					Gear Without Hub  |  https://www.compart.com/en/unicode/U+26ED
+
+
+🖥 				Desktop Computer  |  https://www.compart.com/en/unicode/U+1F5A5
+🖥️ 			Desktop Computer (Colored)  |  https://emojipedia.org/desktop-computer/
 
 
 ▶					BLACK RIGHT-POINTING TRIANGLE
@@ -126,15 +160,6 @@ Mostly Linux compatible:
 💬				SPEECH BALLOON
 
 
-✕					MULTIPLICATION X
-✖					HEAVY MULTIPLICATION X
-✗					Ballot X
-✘					Heavy Ballot X
-🗙				Cancellation X  |  Unicode Character “🗙” (U+1F5D9)  |  https://www.compart.com/en/unicode/U+1F5D9
-❌				Cross Mark  |  Unicode Character “❌” (U+274C)  |  https://www.compart.com/en/unicode/U+274C
-❎				NEGATIVE SQUARED CROSS MARK
-✅				WHITE HEAVY CHECK MARK
-
 ○					WHITE CIRCLE
 ◌					DOTTED CIRCLE
 ●					BLACK CIRCLE
@@ -147,11 +172,12 @@ Mostly Linux compatible:
 ℹ️					INFORMATION SOURCE
 
 
-📅       CALENDAR
-⏳ Hourglass Not Done
-⏱️ Stopwatch
-⌚ Watch
-⏰ Alarm Clock
+📅				Calendar  |  https://www.compart.com/en/unicode/U+1F4C5
+⏳					Hourglass with Flowing Sand  |  https://www.compart.com/en/unicode/U+23F3
+⏱					Stopwatch  |  https://www.compart.com/en/unicode/U+23F1
+⏱️					Stopwatch (Colored)  |  https://www.compart.com/en/unicode/U+23F1
+⌚					Watch  |  https://www.compart.com/en/unicode/U+231A
+⏰					Alarm Clock  |  https://www.compart.com/en/unicode/U+23F0
 
 
 💲 Heavy Dollar Sign
@@ -171,22 +197,19 @@ Mostly Linux compatible:
 ✆					TELEPHONE LOCATION SIGN
 
 
-📁				File Folder  |  Unicode Character “📁” (U+1F4C1)  |  https://www.compart.com/en/unicode/U+1F4C1
-📂				Open File Folder  |  Unicode Character “📂” (U+1F4C2)  |  https://www.compart.com/en/unicode/U+1F4C2
-📧 E-Mail
-✉️ Envelope (Colored)
-✉  Envelope
-📨 Incoming Envelope
-📦 Package
-📮 Postbox
-
-
-☑️ ✅ ✔️ 🗹 🗸  ✓  ℹ
+📁				File Folder  |  https://www.compart.com/en/unicode/U+1F4C1
+📂				Open File Folder  |  https://www.compart.com/en/unicode/U+1F4C2
+📧				E-Mail Symbol  |  https://www.compart.com/en/unicode/U+1F4E7
+✉					Envelope  |  https://www.compart.com/en/unicode/U+2709
+✉️				Envelope (Colored)  |  https://www.compart.com/en/unicode/U+2709
+📨				Incoming Envelope  |  https://www.compart.com/en/unicode/U+1F4E8
+📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
+📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
 
 
 ==--  iOS Emojis - Audio-Related  --==
 
-🎧
+🎧 				Headphone  |  https://www.compart.com/en/unicode/U+1F3A7
 🎤
 🎚
 🔈

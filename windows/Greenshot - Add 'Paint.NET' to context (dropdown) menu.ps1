@@ -3,6 +3,7 @@
 # Greenshot - Add 'Paint.NET' to context (dropdown) menu
 #
 
+
 If ($True) {
 $FULLPATH_GREENSHOT_INI="${env:APPDATA}\Greenshot\Greenshot.ini";
 $INI_CONTENT="";

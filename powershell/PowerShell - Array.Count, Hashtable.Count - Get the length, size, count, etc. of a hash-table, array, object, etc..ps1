@@ -1,13 +1,33 @@
+# ------------------------------------------------------------
+#
+# PowerShell - Array.Count, Hashtable.Count - Get the length, size, count, etc. of a hash-table, array, object, etc.
+#
+# ------------------------------------------------------------
+#
+# Hash Tables (Objects)  -  "Hashtable.Count Gets the number of key/value pairs contained in the Hashtable" -Microsoft
+#
 
-#	PowerShell - @().Count and @{}.Count
-#		|--> Get the length, size, count, etc. of a hash-table, array, object, etc.
+@{ a=1; b=2 }.Count;  # Returns 2
 
 
-@{ a=1; b=2 }.Count; <# "Hashtable.Count Gets the number of key/value pairs contained in the Hashtable" #>
+# ------------------------------------------------------------
+#
+# Arrays  -  "To determine how many items are in an array, use the Length property or its Count alias. Longlength is useful if the array contains more than 2,147,483,647 elements."  - Microsoft
+#
+
+@(1,3).Count;  # Returns 2
+
+@(1..500).Count;  # Returns 500
 
 
-@(1,3).Count; <# "To determine how many items are in an array, use the Length property or its Count alias" #>
+# ------------------------------------------------------------
+#
+# Strings  -  Use String.Count if you only want to return the number of elements in a variable & avoid counting the length of characters in a string variable
+#
 
+"String".Count;  # Returns 1
+
+"String".Length; # Returns 6
 
 
 # ------------------------------------------------------------

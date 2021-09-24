@@ -1,7 +1,7 @@
 # ------------------------------------------------------------
 #
 #
-#  Greenshot - Add 'Paint.NET' to context (dropdown) menu
+#  Greenshot - Add 'Paint.NET' to context menu options
 #   |
 #   |--> Right click the Greenshot Icon in the Tray on the Taskbar (bottom right of screen, next to clock)
 #         |

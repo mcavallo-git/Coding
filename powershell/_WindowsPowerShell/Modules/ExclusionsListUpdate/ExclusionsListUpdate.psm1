@@ -424,9 +424,9 @@ function ExclusionsListUpdate {
 							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 						} Else {
 							If (Test-Path $_) {
-								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+								If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
 							} Else {
-								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+								If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
 							}
 						}
 					}
@@ -439,9 +439,9 @@ function ExclusionsListUpdate {
 				If ($WindowsDefender -eq $True) {
 					Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
 					If ($? -eq $True) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+						If (!($PSBoundParameters.ContainsKey('Quiet')))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
 					}
 				}
 			}
@@ -547,9 +547,9 @@ function ExclusionsListUpdate {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 				} Else {
 					If (Test-Path $_) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
 					} Else {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
 					}
 				}
 			}

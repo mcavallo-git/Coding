@@ -441,7 +441,7 @@ function ExclusionsListUpdate {
 					If ($? -eq $True) {
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 					} Else {
-						If (!($PSBoundParameters.ContainsKey('Quiet')))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
 					}
 				}
 			}

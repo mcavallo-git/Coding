@@ -35,8 +35,8 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions = @(),
 
 		[Switch]$Entertainment,
-
 		[Switch]$Quiet,
+		[Switch]$RemoveMissing,
 		[Switch]$Verbose
 
 	)
@@ -554,19 +554,24 @@ function ExclusionsListUpdate {
 				}
 			}
 			# Cleanup exclusions for programs which do not exist locally
-			$ProcessExclusions_Removed = @();
-			((Get-MpPreference).ExclusionProcess) | ForEach-Object {
-				If ((Test-Path -LiteralPath ("$_")) -NE $True) {
-					$ProcessExclusions_Removed += ("$_");
-					Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
-					Write-Output "Removing Defender Process-Exclusion: `"$_`"...";
-				};
-			};
-			$LiveWD = (Get-MpPreference);
-			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions:"; If ($LiveWD.ExclusionExtension -eq $Null) { Write-Output "0"; } Else { $LiveWD.ExclusionExtension.Count; }
-			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths:"; If ($LiveWD.ExclusionPath -eq $Null) { Write-Output "0"; } Else { $LiveWD.ExclusionPath.Count; }
-			Write-Output "`nWindows Defender (Live Exclusions) - Processes:"; If ($LiveWD.ExclusionProcess -eq $Null) { Write-Output "0"; } Else { $LiveWD.ExclusionProcess.Count; }
-			Write-Output "`nWindows Defender (Removed Exclusions) - Processes:"; If ($LiveWD.ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { $LiveWD.ProcessExclusions_Removed.Count; }
+			$FinalExclusions = @{};
+			${FinalExclusions}.ProcessExclusions_Removed = @();
+			If ($PSBoundParameters.ContainsKey('RemoveMissing')) { 
+				((Get-MpPreference).ExclusionProcess) | ForEach-Object {
+					If ((Test-Path -LiteralPath ("$_")) -NE $True) {
+						${FinalExclusions}.ProcessExclusions_Removed += ("$_");
+						Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
+						Write-Output "Removing Defender Process-Exclusion: `"$_`"...";
+					}
+				}
+				Write-Output "`nWindows Defender (Removed Exclusions) - Processes:"; If (${FinalExclusions}.ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ProcessExclusions_Removed.Count; }
+			}
+			${FinalExclusions}.ExclusionExtension = ((Get-MpPreference).ExclusionExtension);
+			${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
+			${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
+			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions:"; If (${FinalExclusions}.ExclusionExtension -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; }
+			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths:"; If (${FinalExclusions}.ExclusionPath -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; }
+			Write-Output "`nWindows Defender (Live Exclusions) - Processes:"; If (${FinalExclusions}.ExclusionProcess -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionProcess.Count; }
 		}
 		#
 		# ------------------------------------------------------------

@@ -16,6 +16,8 @@ $INI_CONTENT+="`n";
 $INI_CONTENT+="Argument.Paint.NET=`"{0}`"";
 $INI_CONTENT+="`n";
 $INI_CONTENT+="RunInbackground.Paint.NET=True";
+Write-Host "";
+Write-Host "Greenshot - Add 'Paint.NET' to context (dropdown) menu`n";
 Write-Host "Ensure the following content exists in `"${FULLPATH_GREENSHOT_INI}`:`n`n";
 Write-Host "${INI_CONTENT}" -NoNewLine -ForegroundColor "Yellow" -BackgroundColor "Black";
 Write-Host "`n`n";

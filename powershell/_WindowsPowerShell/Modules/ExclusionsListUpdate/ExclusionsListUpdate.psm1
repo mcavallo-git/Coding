@@ -71,7 +71,7 @@ function ExclusionsListUpdate {
 	If ($MalwarebytesAntiExploit -eq $True) { Write-Output "    MalwarebytesAntiExploit    "; }
 	If ($WindowsDefender -eq $True) { Write-Output "    WindowsDefender    "; }
 	Write-Output "";
-	
+
 	$FoundFilepaths = @();
 	$FoundExtensions = @();
 	$FoundProcesses = @();
@@ -90,7 +90,7 @@ function ExclusionsListUpdate {
 			$PSCommandArgs += $args[$i];
 			$i++;
 		}
-		
+
 		$CommandString="`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
 		$CommandString+=" ExclusionsListUpdate";
 		If ($ESET -eq $True) {                           $CommandString+=" -ESET"; }
@@ -522,9 +522,9 @@ function ExclusionsListUpdate {
 			$MBAR_FindBasename = "malwarebytes_assistant.exe";
 
 			$MalwarebytesAssistant = (Get-ChildItem -Path ("${MBAR_SearchDirname}") -Filter ("${MBAR_FindBasename}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
-			
+
 			If ($MalwarebytesAssistant -eq $Null) {
-				
+
 				# Cannot find Malwarebytes' exclusions tool/utility
 				Write-Output "";
 				Write-Output "  Error: Unable to find Malwarebytes' exclusions tool/utility `"${MBAR_FindBasename}`" in directory `"${MBAR_SearchDirname}`"  ";

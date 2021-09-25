@@ -15,9 +15,6 @@
 function ExclusionsListUpdate {
 	Param(
 
-		[ValidateSet("Add","Get","Remove")]
-		[String]$Action = "Add",
-
 		[Switch]$ESET,
 		[String]$ESET_ExportToCopyFrom = "",
 
@@ -34,6 +31,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses = @(),
 		$ExcludedExtensions = @(),
 
+		[Switch]$DryRun,
 		[Switch]$Entertainment,
 		[Switch]$Quiet,
 		[Switch]$RemoveMissing,
@@ -48,18 +46,23 @@ function ExclusionsListUpdate {
 
 	}
 	# ------------------------------------------------------------
+
 	$ESET = If ($PSBoundParameters.ContainsKey('ESET')) { $True } Else { $False };
+	$ESET_ExportToCopyFrom = If ($ESET_ExportToCopyFrom -Ne "") { $ESET_ExportToCopyFrom } Else { ((${Env:USERPROFILE})+("\Desktop\eset-export.xml")) };
 	$MalwarebytesAntiMalware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiMalware')) { $True } Else { $False };
 	$MalwarebytesAntiRansomware = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiRansomware')) { $True } Else { $False };
 	$MalwarebytesAntiExploit = If ($PSBoundParameters.ContainsKey('MalwarebytesAntiExploit')) { $True } Else { $False };
 	$WindowsDefender = If (($PSBoundParameters.ContainsKey('WindowsDefender')) -Or ($PSBoundParameters.ContainsKey('Defender'))) { $True } Else { $False };
 
-	$ESET_ExportToCopyFrom = If ($ESET_ExportToCopyFrom -Ne "") { $ESET_ExportToCopyFrom } Else { ((${Env:USERPROFILE})+("\Desktop\eset-export.xml")) };
-
 	$IncludeEntertainment = If ($PSBoundParameters.ContainsKey('Entertainment')) { $True } Else { $False };
+
+	$RunMode_DryRun = If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) { $True } Else { $False };
 
 	Write-Output "";
 	Write-Output "  Exclusions List Update  ";
+	If (${RunMode_DryRun} -Eq $True) { <# NOT running in Dry Run mode #>
+		Write-Output "  *** DRY RUN MODE ACTIVE ***";
+	}
 	Write-Output "";
 	Write-Output "  Antivirus Software:  ";
 	If ($ESET -eq $True) { Write-Output "    ESET    "; }
@@ -318,6 +321,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.exe"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 32-bit (older)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\root\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 32-bit (newer)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft\Edge\Application"; Depth="1"; Parent=""; Basename="msedge.exe"; }; # Microsoft Edge
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Depth=""; Parent=""; Basename="MobaXterm.exe"; }; # MobaXTerm SSH-Client
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mozilla Maintenance Service"; Depth="1"; Parent=""; Basename="maintenanceservice.exe"; }; # Mozilla Firefox
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="MSBuild"; Depth=""; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
@@ -419,14 +423,16 @@ function ExclusionsListUpdate {
 						$FoundFilepaths += $_;
 					}
 					If ($WindowsDefender -eq $True) {
-						Add-MpPreference -ExclusionPath "$_" -ErrorAction "SilentlyContinue";
-						If ($? -eq $True) {
-							If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
-						} Else {
-							If (Test-Path $_) {
-								If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+						If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+							Add-MpPreference -ExclusionPath "$_" -ErrorAction "SilentlyContinue";
+							If ($? -eq $True) {
+								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 							} Else {
-								If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+								If (Test-Path $_) {
+									If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+								} Else {
+									If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+								}
 							}
 						}
 					}
@@ -437,11 +443,13 @@ function ExclusionsListUpdate {
 			If ($_ -ne $Null) {
 				$FoundExtensions += $_;
 				If ($WindowsDefender -eq $True) {
-					Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
-					If ($? -eq $True) {
-						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
-					} Else {
-						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+					If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+						Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
+						If ($? -eq $True) {
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
+						} Else {
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+						}
 					}
 				}
 			}
@@ -484,12 +492,12 @@ function ExclusionsListUpdate {
 		}
 		# ------------------------------------------------------------
 		#
-		# REVIEW FINAL EXCLUSIONS-LIST (before applying them)
+		# Show Filepaths/Processes found locally (before applying exclusions for them)
 		#
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
-			Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
-			Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
+			Write-Output "`n""Exclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
+			Write-Output "`n""Exclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
+			Write-Output "`n""Exclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
 			Write-Output "`n";
 		}
 		#
@@ -500,7 +508,9 @@ function ExclusionsListUpdate {
 		#		Construct an Import-file which contains all exclusions
 		#
 		If ($ESET -eq $True) {
-			$ExitCode = ESET_ExportModifier -ESET_ExportToCopyFrom ($ESET_ExportToCopyFrom) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
+			If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+				$ExitCode = ESET_ExportModifier -ESET_ExportToCopyFrom ($ESET_ExportToCopyFrom) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
+			}
 		}
 		# ------------------------------------------------------------
 		#
@@ -516,21 +526,23 @@ function ExclusionsListUpdate {
 			
 			If ($MalwarebytesAssistant -eq $Null) {
 				
-				# Cannot find Exclusions tool/utility
+				# Cannot find Malwarebytes' exclusions tool/utility
 				Write-Output "";
-				Write-Output (("  Error: Unable to find Exclusions utility `"")+($MBAR_FindBasename)+("`" in directory `"")+($MBAR_SearchDirname)+("`"  "));
+				Write-Output "  Error: Unable to find Malwarebytes' exclusions tool/utility `"${MBAR_FindBasename}`" in directory `"${MBAR_SearchDirname}`"  ";
 				Write-Output "";
 
 			} Else {
-				
+
+				#	Found Malwarebytes' exclusions tool/utility
 				Write-Output "";
-				Write-Output ("MalwarebytesAssistant: "+($MalwarebytesAssistant));
+				Write-Output "  Info: Malwarebytes' exclusions tool/utility found with path `"${MalwarebytesAssistant}`"  ";
 				Write-Output "";
 
-				# Found Exclusions tool/utility - add any/all exclusions
-				# $FoundProcesses | Select-Object -Unique | ForEach-Object {
-				# 	$MalwarebytesAssistant --exclusions add "$_"
-				# }
+				If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+					$FoundProcesses | Select-Object -Unique | ForEach-Object {
+						$MalwarebytesAssistant --exclusions add "$_"
+					}
+				}
 
 			}
 		}
@@ -540,38 +552,45 @@ function ExclusionsListUpdate {
 		#		Apply directly via PowerShell built-in command(s)
 		#
 		If ($WindowsDefender -eq $True) {
-			$FoundProcesses | Select-Object -Unique | ForEach-Object {
-				If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender Process-Exclusion: `"$_`"..."; }
-				Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue";
-				If ($? -eq $True) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
-				} Else {
-					If (Test-Path $_) {
-						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+
+			If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+				<# Apply process exclusions for matching files found locally #>
+				$FoundProcesses | Select-Object -Unique | ForEach-Object {
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender Process-Exclusion: `"$_`"..."; }
+					Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue";
+					If ($? -eq $True) {
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 					} Else {
-						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						If (Test-Path $_) {
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+						} Else {
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+						}
 					}
 				}
-			}
-			# Cleanup exclusions for programs which do not exist locally
-			$FinalExclusions = @{};
-			${FinalExclusions}.ProcessExclusions_Removed = @();
-			If ($PSBoundParameters.ContainsKey('RemoveMissing')) { 
-				((Get-MpPreference).ExclusionProcess) | ForEach-Object {
-					If ((Test-Path -LiteralPath ("$_")) -NE $True) {
-						${FinalExclusions}.ProcessExclusions_Removed += ("$_");
-						Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
-						Write-Output "Removing Defender Process-Exclusion: `"$_`"...";
+				If ($PSBoundParameters.ContainsKey('RemoveMissing')) {
+					<# Remove process exclusions for files NOT found locally #>
+					$ProcessExclusions_Removed = @();
+					((Get-MpPreference).ExclusionProcess) | ForEach-Object {
+						If ((Test-Path -LiteralPath ("$_")) -NE $True) {
+							$ProcessExclusions_Removed += ("$_");
+							Write-Output "Removing Defender Process-Exclusion: `"$_`"...";
+							If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+								Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
+							}
+						}
 					}
+					Write-Output "`nWindows Defender (Removed Exclusions) - Processes: $(${ProcessExclusions_Removed}.Count;)"; If ($ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { ${ProcessExclusions_Removed}.Count; }
 				}
-				Write-Output "`nWindows Defender (Removed Exclusions) - Processes:"; If (${FinalExclusions}.ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ProcessExclusions_Removed.Count; }
 			}
-			${FinalExclusions}.ExclusionExtension = ((Get-MpPreference).ExclusionExtension);
-			${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
-			${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
-			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions:"; If (${FinalExclusions}.ExclusionExtension -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; }
-			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths:"; If (${FinalExclusions}.ExclusionPath -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; }
-			Write-Output "`nWindows Defender (Live Exclusions) - Processes:"; If (${FinalExclusions}.ExclusionProcess -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionProcess.Count; }
+			# $FinalExclusions = @{};
+			# ${FinalExclusions}.ExclusionExtension = ((Get-MpPreference).ExclusionExtension);
+			# ${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
+			# ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
+			$FinalExclusions = (Get-MpPreference);
+			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; };)";
+			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; };)";
+			Write-Output "`nWindows Defender (Live Exclusions) - Processes: $(If (${FinalExclusions}.ExclusionProcess -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionProcess.Count; };)";
 		}
 		#
 		# ------------------------------------------------------------

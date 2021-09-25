@@ -84,7 +84,7 @@ function ExclusionsListUpdate {
 	# Require Escalated Privileges
 	If ((RunningAsAdministrator) -ne ($True)) {
 
-		Write-Host "ERROR - Requires elevated permissions - Please re-run as Administrator";
+		Write-Output "ERROR - Requires elevated permissions - Please re-run as Administrator";
 		Exit 1;
 
 		<#

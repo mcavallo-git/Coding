@@ -583,8 +583,15 @@ function ExclusionsListUpdate {
 					Write-Output "`nWindows Defender (Removed Exclusions) - Processes: $(${ProcessExclusions_Removed}.Count;)"; If ($ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { ${ProcessExclusions_Removed}.Count; }
 				}
 				<# Ensure that exclusions lists set by "Add-MpPreference" are actually used #>
-				Write-Output "`nInfo:  Group Policy configurations may block local exclusions from being included/applied as-intended. To avoid this, either [ update the registry ] or [ run the SyncRegistry module ] to allow local exclusions to be used as-intended:";
-				Write-Output "         <# Run the SyncRegistry module #> `$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/SyncRegistry/SyncRegistry.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=`$ProtoBak; If (-Not (Get-Command -Name 'SyncRegistry' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1', ((Get-Variable -Name 'HOME').Value))); }; SyncRegistry;";
+				If ($True) {
+					Write-Output "`nSetting Registry Key values to ensure that exclusions lists set by `"Add-MpPreference`" are actually used";
+					<# Configure local setting override for monitoring file and program activity on your computer - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection #>
+					If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") | Out-Null; };
+					Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") -Name ("LocalSettingOverrideDisableOnAccessProtection") -Value (1) | Out-Null;
+					<# Configure local administrator merge behavior for lists  -  https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::DisableLocalAdminMerge #>
+					If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") | Out-Null; };
+					Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") -Name ("DisableLocalAdminMerge") -Value (0) | Out-Null;
+				}
 			}
 			# $FinalExclusions = @{};
 			# ${FinalExclusions}.ExclusionExtension = ((Get-MpPreference).ExclusionExtension);

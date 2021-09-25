@@ -98,6 +98,7 @@ function ExclusionsListUpdate {
 		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString+=" -MalwarebytesAntiRansomware"; }
 		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString+=" -MalwarebytesAntiExploit"; }
 		If ($WindowsDefender -eq $True) {                $CommandString+=" -WindowsDefender"; }
+		If ($RunMode_DryRun -eq $True) {                 $CommandString+=" -DryRun"; }
 		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString+=" -Quiet"; }
 		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString+=" -Verbose"; }
 

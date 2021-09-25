@@ -554,6 +554,49 @@ function ExclusionsListUpdate {
 		If ($WindowsDefender -eq $True) {
 
 			If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
+				<# Ensure that exclusions lists set by "Add-MpPreference" are actually used #>
+				If ($True) {
+
+					$EachRegEdit=@{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"; };
+					$EachProp=@{ Name="LocalSettingOverrideDisableOnAccessProtection"; Value=1; Description="Configure local setting override for monitoring file and program activity on your computer"; URL="https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection";};
+					<# Check the Key's Property #> Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null;
+					<# Create the Key #> If (-Not (Test-Path -Path ($EachRegEdit.Path))) { New-Item -Force -Path ($EachRegEdit.Path); } | Out-Null;
+					<# Set the Key's Property #> Set-ItemProperty -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
+					<# Show the Key #> Get-Item -Path ($EachRegEdit.Path) | Out-Null;
+
+
+
+
+					$EachRegEdit=@{ Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender"; };
+					$EachProp=@{ Name="DisableLocalAdminMerge"; Value=0; Description="Configure local administrator merge behavior for lists"; URL="https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::DisableLocalAdminMerge";};
+					
+					Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) | Out-Null; <# Check the Key's Property #>
+					
+					If (-Not (Test-Path -Path ($EachRegEdit.Path))) {
+						# Create the Key
+						New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
+					} 
+
+					# Check the Key's Property
+					Try { $GetEachItemProp=(Get-ItemPropertyValue -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -ErrorAction ("Stop")); } Catch { $GetEachItemProp=$Null; };
+					If ($GetEachItemProp -Eq $Null) {
+						# Create the Key's Property
+						New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+					} Else {
+						If (($GetEachItemProp) -NE ($EachProp.Value)) {
+							<# Update the Key's Property #>
+							Set-ItemProperty -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
+						}
+					}
+
+
+				
+					Get-Item -Path ($EachRegEdit.Path) | Out-Null; <# Show the Key #>
+
+
+
+
+				
 				<# Apply process exclusions for matching files found locally #>
 				$FoundProcesses | Select-Object -Unique | ForEach-Object {
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender Process-Exclusion: `"$_`"..."; }

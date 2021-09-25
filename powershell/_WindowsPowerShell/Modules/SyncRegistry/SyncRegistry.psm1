@@ -1291,7 +1291,22 @@ function SyncRegistry {
 						$GetEachItemProp = $Null;
 					};
 
-					If ($GetEachItemProp -NE $Null) {  # Property exists
+					If ($GetEachItemProp -Eq $Null) {  # Property does NOT exist
+
+						If (($EachProp.Delete) -Eq $False) {
+
+							# Create the Property
+							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`"";
+							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
+
+						} Else {
+
+							# Do nothing to the Property (already deleted)
+							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)";
+
+						}
+
+					} Else {  # Property exists
 
 						If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
 
@@ -1328,21 +1343,6 @@ function SyncRegistry {
 								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
 
 							}
-
-						}
-
-					} Else {  # Property does NOT exist
-
-						If (($EachProp.Delete) -Eq $False) {
-
-							# Create the Property
-							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`"";
-							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
-
-						} Else {
-
-							# Do nothing to the Property (already deleted)
-							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)";
 
 						}
 

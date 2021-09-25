@@ -10,7 +10,7 @@ ${DISM_Disk}=((Get-Disk | Where-Object { $_.OperationalStatus -Eq "Offline" }).N
 
 ${DISM_Disk} | ForEach-Object { Set-Disk -Number ($_) -IsOffline ($False); }; <# Set offline disk(s) to online #>
 
-${DISM_Volume}=((Get-Volume | Where-Object { ($_.FileSystemLabel -Eq "Windows") -And (-Not (@("C","D") -Contains $_.DriveLetter)) }).DriveLetter); Start-Process -Filepath ("C:\Windows\System32\Dism.exe") -ArgumentList (@("/image:${DISM_Volume}:\","/optimize-image","/boot")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue"); <# Optimize image through DISM #>
+${DISM_Volume}=((Get-Volume | Where-Object { ($_.FileSystemLabel -Eq "Windows") -And (-Not (@("C","D") -Contains $_.DriveLetter)) }).DriveLetter); Start-Process -Filepath ("C:\Windows\System32\Dism.exe") -ArgumentList (@("/image:${DISM_Volume}:\","/optimize-image","/boot")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); <# Optimize image through DISM #>
 
 ${DISM_Disk} | ForEach-Object { Set-Disk -Number ($_) -IsOffline ($True); }; <# Set originally-offline disk(s) back to offline #>
 

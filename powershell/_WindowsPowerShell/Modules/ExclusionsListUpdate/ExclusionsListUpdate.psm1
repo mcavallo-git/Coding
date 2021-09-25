@@ -540,7 +540,7 @@ function ExclusionsListUpdate {
 
 				If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 					$FoundProcesses | Select-Object -Unique | ForEach-Object {
-						Start-Process -Filepath ("${MalwarebytesAssistant}") -ArgumentList (@("--exclusions add `"$_`"")) -NoNewWindow  -Wait -PassThru -ErrorAction ("SilentlyContinue");
+						Start-Process -Filepath ("${MalwarebytesAssistant}") -ArgumentList (@("--exclusions add `"$_`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue");
 					}
 				}
 

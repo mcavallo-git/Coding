@@ -279,7 +279,7 @@ If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $True) {
 			If (${DoEncoding_InSameWindow} -Eq $False) {
 				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"")  -Wait); $EachExitCode=$?;
 			} Else {
-				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow  -Wait -PassThru); $EachExitCode=$?;
+				$EachConversion = (Start-Process -Filepath ("${HandBrakeCLI}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow -Wait -PassThru); $EachExitCode=$?;
 			}
 			${Benchmark}.Stop();
 			If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {

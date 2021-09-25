@@ -1103,6 +1103,33 @@ function SyncRegistry {
 		};
 
 
+		# Windows/Microsoft Defender - Don't allow Group Policy settings to block the usage of local exclusions list
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection";
+			Props=@(
+				@{
+					Description="0=[DISABLED], 1=[ENABLED] - Configure local setting override for monitoring file and program activity on your computer. This policy setting configures a local override for the configuration of monitoring for file and program activity on your computer. This setting can only be set by Group Policy. If you ENABLE (1) this setting, the local preference setting will take priority over Group Policy. If you DISABLE (0) or do not configure this setting (DELETED), Group Policy will take priority over the local preference setting. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection";
+					Name="LocalSettingOverrideDisableOnAccessProtection";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender";
+			Props=@(
+				@{
+					Description="0=[ENABLED], 1=[DISABLED] - Configure local administrator merge behavior for lists. This policy setting controls whether or not complex list settings configured by a local administrator are merged with Group Policy settings. This setting applies to lists such as threats and Exclusions. If you ENABLE (0) or do not configure this setting, unique items defined in Group Policy and in preference settings configured by the local administrator will be merged into the resulting effective policy. In the case of conflicts, Group policy Settings will override preference settings. If you DISABLE (1) this setting, only items defined by Group Policy will be used in the resulting effective policy. Group Policy settings will override preference settings configured by the local administrator. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::DisableLocalAdminMerge";
+					Name="DisableLocalAdminMerge";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Windows Update - Force-pull from Windows instead of local server
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
@@ -1291,7 +1318,7 @@ function SyncRegistry {
 						$GetEachItemProp = $Null;
 					};
 
-					If ($GetEachItemProp -Eq $Null) {  # Property does NOT exist
+					If ($GetEachItemProp -Eq $Null) {
 
 						If (($EachProp.Delete) -Eq $False) {
 

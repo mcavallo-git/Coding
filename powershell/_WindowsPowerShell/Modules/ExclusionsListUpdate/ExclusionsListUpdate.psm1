@@ -91,16 +91,15 @@ function ExclusionsListUpdate {
 			$i++;
 		}
 		
-		$CommandString = "`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
-		$CommandString = "$CommandString ExclusionsListUpdate";
-
-		If ($ESET -eq $True) {                           $CommandString = "$CommandString -ESET"; }
-		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiMalware"; }
-		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString = "$CommandString -MalwarebytesAntiRansomware"; }
-		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString = "$CommandString -MalwarebytesAntiExploit"; }
-		If ($WindowsDefender -eq $True) {                $CommandString = "$CommandString -WindowsDefender"; }
-		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString = "$CommandString -Quiet"; }
-		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString = "$CommandString -Verbose"; }
+		$CommandString="`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
+		$CommandString+=" ExclusionsListUpdate";
+		If ($ESET -eq $True) {                           $CommandString+=" -ESET"; }
+		If ($MalwarebytesAntiMalware -eq $True) {        $CommandString+=" -MalwarebytesAntiMalware"; }
+		If ($MalwarebytesAntiRansomware -eq $True) {     $CommandString+=" -MalwarebytesAntiRansomware"; }
+		If ($MalwarebytesAntiExploit -eq $True) {        $CommandString+=" -MalwarebytesAntiExploit"; }
+		If ($WindowsDefender -eq $True) {                $CommandString+=" -WindowsDefender"; }
+		If ($PSBoundParameters.ContainsKey('Quiet')) {   $CommandString+=" -Quiet"; }
+		If ($PSBoundParameters.ContainsKey('Verbose')) { $CommandString+=" -Verbose"; }
 
 		<# Import Module 'PrivilegeEscalation' #>
 		If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { 

@@ -503,9 +503,9 @@ function ExclusionsListUpdate {
 		# Show Filepaths/Processes found locally (before applying exclusions for them)
 		#
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Output "`n""Exclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
-			Write-Output "`n""Exclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
-			Write-Output "`n""Exclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
+			Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
+			Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
+			Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
 			Write-Output "`n";
 		}
 		#

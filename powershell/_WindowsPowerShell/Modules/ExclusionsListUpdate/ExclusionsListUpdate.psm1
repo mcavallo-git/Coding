@@ -84,6 +84,11 @@ function ExclusionsListUpdate {
 	# Require Escalated Privileges
 	If ((RunningAsAdministrator) -ne ($True)) {
 
+		Write-Host "ERROR - Requires elevated permissions - Please re-run as Administrator";
+		Exit 1;
+
+		<#
+
 		$PSCommandArgs = @();
 		$i=0;
 		While ($i -lt $args.Length) {
@@ -104,13 +109,15 @@ function ExclusionsListUpdate {
 		If ($PSBoundParameters.ContainsKey('RemoveMissing')) { $CommandString+=" -RemoveMissing"; }
 		If ($PSBoundParameters.ContainsKey('Verbose')) {       $CommandString+=" -Verbose"; }
 
-		<# Import Module 'PrivilegeEscalation' #>
+		# Import Module 'PrivilegeEscalation'
 		If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { 
 			$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 		}
 
-		<# Re-run this command w/ Administrator privileges #>
+		# Re-run this command w/ Administrator privileges
 		PrivilegeEscalation -Command ("${CommandString}");
+
+		#>
 
 	} Else {
 

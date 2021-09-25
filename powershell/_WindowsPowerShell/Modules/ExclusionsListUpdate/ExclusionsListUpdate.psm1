@@ -85,7 +85,6 @@ function ExclusionsListUpdate {
 	If ((RunningAsAdministrator) -ne ($True)) {
 
 		Write-Output "ERROR - Requires elevated permissions - Please re-run as Administrator";
-		# Exit 1;
 
 		<#
 

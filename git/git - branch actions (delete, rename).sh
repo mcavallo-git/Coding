@@ -1,3 +1,20 @@
+#!/bin/bash
+# ------------------------------------------------------------
+
+
+# Get current branch name
+CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
+echo "CHECKOUT_BRANCH=[ ${CHECKOUT_BRANCH} ]";
+
+
+# ------------------------------------------------------------
+#
+# Reset current local branch to match remote (origin) branch  -->  Note that this is more effective than [ git reset --hard "HEAD"; ] as it resets the local to match the remote
+#
+CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
+git reset --hard "origin/${CHECKOUT_BRANCH}";
+
+
 # ------------------------------------------------------------
 
 # Rename branch, local repository
@@ -20,8 +37,17 @@ git push "repo-name" ":branch-name";
 # Delete branch, local & remote repository (both)
 git branch -D "branch-name" && git push "repo-name" -v --delete "branch-name";
 
+
 # ------------------------------------------------------------
+
 
 # Test git commands (rename, delete, etc.) safely @ https://try.github.io
 
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   stackoverflow.com  |  "How to get the current branch name in Git? - Stack Overflow"  |  https://stackoverflow.com/a/12142066
+#
 # ------------------------------------------------------------

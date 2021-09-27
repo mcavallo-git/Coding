@@ -260,7 +260,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Cryptomator"; Depth=""; Parent=""; Basename="Cryptomator.exe"; }; # Cryptomator
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Docker"; Depth="8"; Parent=""; Basename="*.exe"; }; # Docker Desktop
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Dolby"; Depth=""; Parent=""; Basename="DolbyDAX2API.exe"; }; # Dolby Audio
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Epic Games\Chivalry2"; Depth=""; Parent=""; Basename="*.exe"; }; # Chivalry 2
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Epic Games\Chivalry2"; Depth=""; Parent=""; Basename="*.exe"; Entertainment=$True; }; # Chivalry 2
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="FileZilla FTP Client"; Depth="1"; Parent=""; Basename="*.exe"; }; # Filezilla
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Git"; Depth="5"; Parent=""; Basename="*.exe"; }; # Git
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Greenshot"; Depth=""; Parent=""; Basename="Greenshot.exe"; }; # Greenshot
@@ -286,12 +286,13 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Qualys\QualysAgent"; Depth="3"; Parent=""; Basename="*.exe"; }; # Qualys Cloud Agent (Remote patching via vendor CDNs)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Synaptics"; Depth=""; Parent=""; Basename="SynTPEnh*.exe"; }; # Synaptics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="TortoiseGit"; Depth=""; Parent=""; Basename="*.exe"; }; # TortoiseGit
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent=""; Basename="DiskMark64.exe"; }; # Crystal Disk Mark
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="IGCC.exe"; }; # Intel Graphics
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="IGCCTray.exe"; }; # Intel Graphics
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="nvcplui.exe"; }; # NVidia Control Panel GUI
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="XboxApp.exe"; Entertainment=$True; }; # Microsoft XBox Application
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="WIndowsTerminal.exe"; Entertainment=$True; }; # Windows Terminal
+		# $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent=""; Basename="DiskMark64.exe"; }; # Crystal Disk Mark
+		# $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="nvcplui.exe"; }; # NVidia Control Panel GUI
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\*IntelGraphicsExperience*"; Depth="0"; Parent=""; Basename="IGCC.exe"; }; # Intel Graphics
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\*IntelGraphicsExperience*"; Depth="1"; Parent=""; Basename="IGCCTray.exe"; }; # Intel Graphics
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\Microsoft.WindowsTerminal*"; Depth="0"; Parent=""; Basename="WindowsTerminal.exe"; }; # Windows Terminal
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\Microsoft.XboxGamingOverlay*"; Depth="0"; Parent=""; Basename="GameBar.exe"; Entertainment=$True; }; # Xbox Game Bar
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\Microsoft.XboxGamingOverlay*"; Depth="0"; Parent=""; Basename="GameBarFTServer.exe"; Entertainment=$True; }; # Xbox Game Bar
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
 		# -- PROCESSES -- Program Files (x86)\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="APC\PowerChute Personal Edition"; Depth="3"; Parent=""; Basename="*.exe"; }; # APC PowerChute Personal Edition (Battery Backup Manager)
@@ -302,9 +303,9 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dell SecureWorks"; Depth="4"; Parent=""; Basename="*.exe"; }; # Dell SecureWorks Red Cloak (monitors netflow, processes, memory, registry, etc.)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="2"; Parent=""; Basename="Dropbox*.exe"; }; # Dropbox + Required-Components
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Dropbox"; Depth="5"; Parent=""; Basename="dbxsvc.exe"; }; # Dropbox
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="EasyAntiCheat"; Depth="1"; Parent=""; Basename="EasyAntiCheat.exe"; }; # Chivalry 2 - 'EasyAntiCheat' service
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Overlay"; Basename="EOSOverlayRenderer-Win64-Shipping.exe"; }; # Chivalry 2 - 'EOSOverlayRenderer'
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Win64"; Basename="EpicGamesLauncher.exe"; }; # Chivalry 2 - Epic Games Launcher
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="EasyAntiCheat"; Depth="1"; Parent=""; Basename="EasyAntiCheat.exe"; Entertainment=$True; }; # Chivalry 2 - 'EasyAntiCheat' service
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Overlay"; Basename="EOSOverlayRenderer-Win64-Shipping.exe"; Entertainment=$True; }; # Chivalry 2 - 'EOSOverlayRenderer'
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Win64"; Basename="EpicGamesLauncher.exe"; Entertainment=$True; }; # Chivalry 2 - Epic Games Launcher
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="efs"; Depth="1"; Parent=""; Basename="search.exe"; }; # Effective File Search
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="chrome.exe"; }; # Google Chrome (Browser)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="GnuPG\bin"; Depth="0"; Parent=""; Basename="*.exe"; }; # GPG/GnuPG Agent (GpG4Windows)
@@ -337,7 +338,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Depth=""; Parent=""; Basename="MobaXterm.exe"; }; # MobaXTerm SSH-Client
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mozilla Maintenance Service"; Depth="1"; Parent=""; Basename="maintenanceservice.exe"; }; # Mozilla Firefox
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="MSBuild"; Depth=""; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="MSI Afterburner"; Depth=""; Parent=""; Basename="MSIAfterburner.exe"; }; # MSI Afterburner (GPU Over/Underclocking Tool)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="MSI Afterburner"; Depth=""; Parent=""; Basename="MSIAfterburner.exe"; Entertainment=$True; }; # MSI Afterburner (GPU Over/Underclocking Tool)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Notepad++"; Depth=""; Parent=""; Basename="notepad++.exe"; }; # Notepad++
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NVIDIA Web Helper.exe"; }; # NVIDIA
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor"; Depth="3"; Parent=""; Basename="PRTG*.exe"; }; # PRTG
@@ -379,7 +380,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mfevtps.exe"; }; # McAfee Process Validation service
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mmc.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="rundll32.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="RuntimeBroker.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="RuntimeBroker.exe"; }; # Used by Windows 10 Style Apps (Speculation)
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="SearchIndexer.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="sihost.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smartscreen.exe"; };
@@ -414,7 +415,7 @@ function ExclusionsListUpdate {
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir="Documents\MobaXterm"; Depth=""; Parent=""; Basename="Motty.exe"; };
 		# -- PROCESSES -- NVIDIA Driver-related
-		$NVDriverPath = (Get-ChildItem -Path ("C:\Windows\System32\DriverStore\FileRepository") -Filter ("NVTelemetryContainer.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.Directory.Parent.FullName; });
+		$NVDriverPath = (Get-ChildItem -Path ("${Sys32}\DriverStore\FileRepository") -Filter ("NVTelemetryContainer.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.Directory.Parent.FullName; });
 		If ($NVDriverPath -Ne $Null) {
 			$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DRIVERS\NVIDIA Corporation\Drs"; Depth="1"; Parent=""; Basename="dbInstaller.exe"; };
 			$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="MCU.exe"; };

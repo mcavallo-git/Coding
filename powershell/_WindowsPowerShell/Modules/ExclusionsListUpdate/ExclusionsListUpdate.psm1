@@ -387,8 +387,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wininit.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="winlogon.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WLANExt.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WUDFHost.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wsl.exe"; }; # WSL (Windows Subsystem for Linux)
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WUDFHost.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="GfxDownloadWrapper.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxCUIService.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEM.exe"; };

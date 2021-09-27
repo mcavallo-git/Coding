@@ -127,8 +127,6 @@ function ExclusionsListUpdate {
 
 		$LocalAppData = (${Env:LocalAppData}); # LocalAppData
 
-		$WindowsApps = ((${Env:LocalAppData})+("\Microsoft\WindowsApps")); # WindowsApps
-
 		$ProgData = ((${Env:SystemDrive})+("\ProgramData")); # ProgData
 
 		$ProgFilesX64 = ((${Env:SystemDrive})+("\Program Files")); # ProgFilesX64
@@ -143,6 +141,8 @@ function ExclusionsListUpdate {
 
 		$UserProfile = (${Env:USERPROFILE}); # UserProfile
 
+		# $WindowsApps = ((${Env:LocalAppData})+("\Microsoft\WindowsApps")); # WindowsApps
+		# $WindowsApps = ((${ProgFilesX64})+("\WindowsApps")); # WindowsApps
 
 		# ------------------------------------------------------------
 		# -- FILEPATHS -- LocalAppData
@@ -291,6 +291,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="IGCCTray.exe"; }; # Intel Graphics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="nvcplui.exe"; }; # NVidia Control Panel GUI
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="XboxApp.exe"; Entertainment=$True; }; # Microsoft XBox Application
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="WIndowsTerminal.exe"; Entertainment=$True; }; # Windows Terminal
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
 		# -- PROCESSES -- Program Files (x86)\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="APC\PowerChute Personal Edition"; Depth="3"; Parent=""; Basename="*.exe"; }; # APC PowerChute Personal Edition (Battery Backup Manager)

@@ -240,9 +240,9 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="ubuntu*.exe"; }; # WSL (Windows Subsystem for Linux)
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="onedrive*.exe"; }; # Microsoft Onedrive
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\OneDrive"; Depth="3"; Parent=""; Basename="file*.exe"; }; # Microsoft Onedrive
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams"; Depth="1"; Parent=""; Basename="Update.exe"; }; # Microsoft Teams
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="1"; Parent=""; Basename="Squirrel.exe"; }; # Microsoft Teams
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="1"; Parent=""; Basename="Teams.exe"; }; # Microsoft Teams
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams"; Depth="0"; Parent=""; Basename="Update.exe"; }; # Microsoft Teams
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="0"; Parent=""; Basename="Squirrel.exe"; }; # Microsoft Teams
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="0"; Parent=""; Basename="Teams.exe"; }; # Microsoft Teams
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Postman.exe"; }; # Postman
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Update.exe"; }; # Postman
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Squirrel.exe"; }; # Postman

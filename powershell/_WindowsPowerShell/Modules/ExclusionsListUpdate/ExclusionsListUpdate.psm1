@@ -287,8 +287,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="*IntelGraphicsExperience*"; Basename="IGCC.exe"; }; # Intel Graphics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent="*IntelGraphicsExperience*"; Basename="IGCCTray.exe"; }; # Intel Graphics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.WindowsTerminal*"; Basename="WindowsTerminal.exe"; }; # Windows Terminal
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBar.exe"; Entertainment=$True; }; # Xbox Game Bar
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBarFTServer.exe"; Entertainment=$True; }; # Xbox Game Bar
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBar.exe"; Entertainment=$True; }; # Xbox Game Bar
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBarFTServer.exe"; Entertainment=$True; }; # Xbox Game Bar
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
 		# -- PROCESSES -- Program Files (x86)\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="APC\PowerChute Personal Edition"; Depth="3"; Parent=""; Basename="*.exe"; }; # APC PowerChute Personal Edition (Battery Backup Manager)

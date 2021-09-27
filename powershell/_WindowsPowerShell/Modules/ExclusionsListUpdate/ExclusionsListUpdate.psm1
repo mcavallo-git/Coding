@@ -87,7 +87,7 @@ function ExclusionsListUpdate {
 		Write-Output "  ! ! ! ERROR - Requires elevated permissions - Please re-run as Administrator  ! ! !`n";
 
 		If ($False) {
-			# Rebuild the run-string for the current script to run as admin
+			# Rebuild the run-string to execute current script with elevated privileges (e.g. using "Run as administrator")
 			$PSCommandArgs = @();
 			$i=0;
 			While ($i -lt $args.Length) {

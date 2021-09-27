@@ -243,9 +243,9 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams"; Depth="0"; Parent=""; Basename="Update.exe"; }; # Microsoft Teams
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="0"; Parent=""; Basename="Squirrel.exe"; }; # Microsoft Teams
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="0"; Parent=""; Basename="Teams.exe"; }; # Microsoft Teams
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Postman.exe"; }; # Postman
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Update.exe"; }; # Postman
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="2"; Parent=""; Basename="Squirrel.exe"; }; # Postman
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="1"; Parent=""; Basename="Postman.exe"; }; # Postman
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="1"; Parent=""; Basename="Update.exe"; }; # Postman
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Postman"; Depth="1"; Parent=""; Basename="Squirrel.exe"; }; # Postman
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Programs\Microsoft VS Code"; Depth=""; Parent=""; Basename="Code*.exe"; }; # VS Code
 		# -- PROCESSES -- Program Files\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="7-Zip"; Depth="2"; Parent=""; Basename="7z*.exe"; }; # 7-Zip

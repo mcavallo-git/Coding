@@ -86,37 +86,33 @@ function ExclusionsListUpdate {
 
 		Write-Output "  ! ! ! ERROR - Requires elevated permissions - Please re-run as Administrator  ! ! !`n";
 
-		<#
-
-		$PSCommandArgs = @();
-		$i=0;
-		While ($i -lt $args.Length) {
-			$PSCommandArgs += $args[$i];
-			$i++;
+		If ($False) {
+			# Rebuild the run-string for the current script to run as admin
+			$PSCommandArgs = @();
+			$i=0;
+			While ($i -lt $args.Length) {
+				$PSCommandArgs += $args[$i];
+				$i++;
+			}
+			$CommandString="`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
+			$CommandString+=" ExclusionsListUpdate";
+			If ($ESET -eq $True) {                                 $CommandString+=" -ESET"; }
+			If ($MalwarebytesAntiMalware -eq $True) {              $CommandString+=" -MalwarebytesAntiMalware"; }
+			If ($MalwarebytesAntiRansomware -eq $True) {           $CommandString+=" -MalwarebytesAntiRansomware"; }
+			If ($MalwarebytesAntiExploit -eq $True) {              $CommandString+=" -MalwarebytesAntiExploit"; }
+			If ($WindowsDefender -eq $True) {                      $CommandString+=" -WindowsDefender"; }
+			If ($PSBoundParameters.ContainsKey('DryRun')) {        $CommandString+=" -DryRun"; }
+			If ($PSBoundParameters.ContainsKey('Entertainment')) { $CommandString+=" -Entertainment"; }
+			If ($PSBoundParameters.ContainsKey('Quiet')) {         $CommandString+=" -Quiet"; }
+			If ($PSBoundParameters.ContainsKey('RemoveMissing')) { $CommandString+=" -RemoveMissing"; }
+			If ($PSBoundParameters.ContainsKey('Verbose')) {       $CommandString+=" -Verbose"; }
+			# Import Module 'PrivilegeEscalation'
+			If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { 
+				$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+			}
+			# Re-run this command w/ Administrator privileges
+			PrivilegeEscalation -Command ("${CommandString}");
 		}
-
-		$CommandString="`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
-		$CommandString+=" ExclusionsListUpdate";
-		If ($ESET -eq $True) {                                 $CommandString+=" -ESET"; }
-		If ($MalwarebytesAntiMalware -eq $True) {              $CommandString+=" -MalwarebytesAntiMalware"; }
-		If ($MalwarebytesAntiRansomware -eq $True) {           $CommandString+=" -MalwarebytesAntiRansomware"; }
-		If ($MalwarebytesAntiExploit -eq $True) {              $CommandString+=" -MalwarebytesAntiExploit"; }
-		If ($WindowsDefender -eq $True) {                      $CommandString+=" -WindowsDefender"; }
-		If ($PSBoundParameters.ContainsKey('DryRun')) {        $CommandString+=" -DryRun"; }
-		If ($PSBoundParameters.ContainsKey('Entertainment')) { $CommandString+=" -Entertainment"; }
-		If ($PSBoundParameters.ContainsKey('Quiet')) {         $CommandString+=" -Quiet"; }
-		If ($PSBoundParameters.ContainsKey('RemoveMissing')) { $CommandString+=" -RemoveMissing"; }
-		If ($PSBoundParameters.ContainsKey('Verbose')) {       $CommandString+=" -Verbose"; }
-
-		# Import Module 'PrivilegeEscalation'
-		If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { 
-			$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-		}
-
-		# Re-run this command w/ Administrator privileges
-		PrivilegeEscalation -Command ("${CommandString}");
-
-		#>
 
 	} Else {
 

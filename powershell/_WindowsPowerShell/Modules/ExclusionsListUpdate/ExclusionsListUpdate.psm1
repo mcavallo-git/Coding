@@ -270,8 +270,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Depth=""; Parent=""; Basename="mbamtray.exe"; }; # Malwarebytes
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Malwarebytes"; Depth=""; Parent=""; Basename="mbamservice.exe"; }; # Malwarebytes
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="McAfee"; Depth=""; Parent=""; Basename="*.exe"; }; # McAfee Agent, DLP, Endpoint Security, MCP
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 64-bit (older)
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office\root\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 64-bit (newer)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office"; Depth="2"; Parent="Office[0-9][0-9]"; Basename="*.exe"; }; # Office 64-bit (older)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office\root"; Depth="2"; Parent="Office[0-9][0-9]"; Basename="*.exe"; }; # Office 64-bit (newer)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="Code.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="rg.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mozilla Firefox"; Depth="1"; Parent=""; Basename="*.exe"; }; # Firefox
@@ -284,11 +284,11 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="TortoiseGit"; Depth=""; Parent=""; Basename="*.exe"; }; # TortoiseGit
 		# $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent=""; Basename="DiskMark64.exe"; }; # Crystal Disk Mark
 		# $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="nvcplui.exe"; }; # NVidia Control Panel GUI
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\*IntelGraphicsExperience*"; Depth="0"; Parent=""; Basename="IGCC.exe"; }; # Intel Graphics
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\*IntelGraphicsExperience*"; Depth="1"; Parent=""; Basename="IGCCTray.exe"; }; # Intel Graphics
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\Microsoft.WindowsTerminal*"; Depth="0"; Parent=""; Basename="WindowsTerminal.exe"; }; # Windows Terminal
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\Microsoft.XboxGamingOverlay*"; Depth="0"; Parent=""; Basename="GameBar.exe"; Entertainment=$True; }; # Xbox Game Bar
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps\Microsoft.XboxGamingOverlay*"; Depth="0"; Parent=""; Basename="GameBarFTServer.exe"; Entertainment=$True; }; # Xbox Game Bar
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="*IntelGraphicsExperience*"; Basename="IGCC.exe"; }; # Intel Graphics
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent="*IntelGraphicsExperience*"; Basename="IGCCTray.exe"; }; # Intel Graphics
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.WindowsTerminal*"; Basename="WindowsTerminal.exe"; }; # Windows Terminal
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBar.exe"; Entertainment=$True; }; # Xbox Game Bar
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBarFTServer.exe"; Entertainment=$True; }; # Xbox Game Bar
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
 		# -- PROCESSES -- Program Files (x86)\
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="APC\PowerChute Personal Edition"; Depth="3"; Parent=""; Basename="*.exe"; }; # APC PowerChute Personal Edition (Battery Backup Manager)
@@ -328,8 +328,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin"; Depth="2"; Parent=""; Basename="MSBuild.exe"; }; # MSBuild - Code-Compiler for ASP.NET Apps
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.com"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Visual Studio\2019\Professional\Common7\IDE"; Depth="1"; Parent=""; Basename="devenv.exe"; }; # DevEnv - Visual Studio (main exe, both GUI & CLI)
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 32-bit (older)
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\root\Office[0-9][0-9]"; Depth="1"; Parent=""; Basename="*.exe"; }; # Office 32-bit (newer)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office"; Depth="2"; Parent="Office[0-9][0-9]"; Basename="*.exe"; }; # Office 32-bit (older)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft Office\root"; Depth="2"; Parent="Office[0-9][0-9]"; Basename="*.exe"; }; # Office 32-bit (newer)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Microsoft\Edge\Application"; Depth="1"; Parent=""; Basename="msedge.exe"; }; # Microsoft Edge
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mobatek"; Depth=""; Parent=""; Basename="MobaXterm.exe"; }; # MobaXTerm SSH-Client
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Mozilla Maintenance Service"; Depth="1"; Parent=""; Basename="maintenanceservice.exe"; }; # Mozilla Firefox
@@ -490,10 +490,10 @@ function ExclusionsListUpdate {
 						} Else {
 							If ($Each_Depth -eq "") {
 								# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
-								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | ForEach-Object { $_.FullName; });
+								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Like "$Each_Parent" } | ForEach-Object { $_.FullName; });
 							} Else {
 								# Matching on [ top level directory ], [ basename ], [ parent directory name ] & [ depth ]
-								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq "$Each_Parent" } | ForEach-Object { $_.FullName; });
+								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Like "$Each_Parent" } | ForEach-Object { $_.FullName; });
 							}
 						}
 					}

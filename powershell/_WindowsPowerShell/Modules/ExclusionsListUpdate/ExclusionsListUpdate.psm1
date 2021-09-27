@@ -237,7 +237,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="GitHubDesktop"; Depth="8"; Parent=""; Basename="*.exe"; }; # GitHub Desktop
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="software_reporter_tool.exe"; };
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="python*.exe"; }; # Python
-		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="ubuntu*.exe"; }; # Windows Subsystem for Linux (WSL)
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="ubuntu*.exe"; }; # WSL (Windows Subsystem for Linux)
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="onedrive*.exe"; }; # Microsoft Onedrive
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\OneDrive"; Depth="3"; Parent=""; Basename="file*.exe"; }; # Microsoft Onedrive
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams"; Depth="1"; Parent=""; Basename="Update.exe"; }; # Microsoft Teams
@@ -252,11 +252,13 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="amdow.exe"; }; # AMD-Radeon (GPU)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="AMDRSSrcExt.exe"; }; # AMD-Radeon (GPU)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="RadeonSettings.exe"; }; # AMD-Radeon (GPU)
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="Ahk2Exe.exe"; }; # AutoHotkey
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey*.exe"; }; # AutoHotkey
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth="1"; Parent=""; Basename="*.exe"; };  # Classic Shell
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Common Files\McAfee\SystemCore"; Depth="1"; Parent=""; Basename="*.exe"; };  # McAfee Management Service
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="Ahk2Exe.exe"; }; # AHK (AutoHotkey)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey*.exe"; }; # AHK (AutoHotkey)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey-v2"; Depth="0"; Parent=""; Basename="AutoHotkey*.exe"; }; # AHK (AutoHotkey)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth="1"; Parent=""; Basename="*.exe"; }; # Classic Shell
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Common Files\McAfee\SystemCore"; Depth="1"; Parent=""; Basename="*.exe"; }; # McAfee Management Service
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Cryptomator"; Depth=""; Parent=""; Basename="Cryptomator.exe"; }; # Cryptomator
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Docker"; Depth="8"; Parent=""; Basename="*.exe"; }; # Docker Desktop
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Dolby"; Depth=""; Parent=""; Basename="DolbyDAX2API.exe"; }; # Dolby Audio
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Epic Games\Chivalry2"; Depth=""; Parent=""; Basename="*.exe"; }; # Chivalry 2
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="FileZilla FTP Client"; Depth="1"; Parent=""; Basename="*.exe"; }; # Filezilla
@@ -280,7 +282,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NV*.exe"; }; # NVIDIA
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\GlobalProtect"; Depth="3"; Parent=""; Basename="*.exe"; }; # Palo Alto Global Protect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Palo Alto Traps (Endpoint Security Manager)
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="PowerShell"; Depth="2"; Parent=""; Basename="pwsh.exe"; }; # PowerShell
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="PowerShell"; Depth="2"; Parent=""; Basename="*.exe"; }; # PowerShell 7+
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Qualys\QualysAgent"; Depth="3"; Parent=""; Basename="*.exe"; }; # Qualys Cloud Agent (Remote patching via vendor CDNs)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Synaptics"; Depth=""; Parent=""; Basename="SynTPEnh*.exe"; }; # Synaptics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="TortoiseGit"; Depth=""; Parent=""; Basename="*.exe"; }; # TortoiseGit
@@ -304,6 +306,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Epic Games"; Depth="5"; Parent="Win64"; Basename="EpicGamesLauncher.exe"; }; # Chivalry 2 - Epic Games Launcher
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="efs"; Depth="1"; Parent=""; Basename="search.exe"; }; # Effective File Search
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Google\Chrome"; Depth=""; Parent=""; Basename="chrome.exe"; }; # Google Chrome (Browser)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="GnuPG\bin"; Depth="0"; Parent=""; Basename="*.exe"; }; # GPG/GnuPG Agent (GpG4Windows)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Gpg4win\bin"; Depth="1"; Parent=""; Basename="*.exe"; }; # GpG4Windows
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Depth=""; Parent=""; Basename="DSAService.exe"; }; # Intel Tray-Icon
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Intel"; Depth=""; Parent=""; Basename="DSATray.exe"; }; # Intel Tray-Icon
@@ -359,32 +362,33 @@ function ExclusionsListUpdate {
 		# -- PROCESSES -- ProgData
 		# $ExcludedProcesses += ((${ProgData})+("\..."));
 		# -- PROCESSES -- Sys32
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="ApplicationFrameHost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="AUDIODG.EXE"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="BackgroundTransferHost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="conhost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="csrss.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="CxAudMsg64.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="dashost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="DbxSvc.exe"; }; # Dropbox
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="DllHost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="dwm.exe"; }; # Desktop Window Manager
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="dxdiag.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="fontdrvhost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="lsass.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="mfevtps.exe"; }; # McAfee Process Validation service
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="mmc.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="rundll32.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="RuntimeBroker.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="SearchIndexer.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="sihost.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="smartscreen.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="smss.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="Taskmgr.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="wininit.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="winlogon.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="WLANExt.exe"; };
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="1"; Parent=""; Basename="WUDFHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="ApplicationFrameHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="AUDIODG.EXE"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="BackgroundTransferHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="conhost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="csrss.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="CxAudMsg64.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dashost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="DbxSvc.exe"; }; # Dropbox
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="DllHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dwm.exe"; }; # Desktop Window Manager
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dxdiag.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="fontdrvhost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="lsass.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mfevtps.exe"; }; # McAfee Process Validation service
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mmc.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="rundll32.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="RuntimeBroker.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="SearchIndexer.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="sihost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smartscreen.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smss.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="Taskmgr.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wininit.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="winlogon.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WLANExt.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WUDFHost.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wsl.exe"; }; # WSL (Windows Subsystem for Linux)
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="GfxDownloadWrapper.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxCUIService.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEM.exe"; };

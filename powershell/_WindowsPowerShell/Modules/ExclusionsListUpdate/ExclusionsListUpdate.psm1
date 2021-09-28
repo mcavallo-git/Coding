@@ -237,6 +237,8 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="python*.exe"; }; # Python
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="ubuntu*.exe"; }; # WSL (Windows Subsystem for Linux)
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft"; Depth="3"; Parent=""; Basename="onedrive*.exe"; }; # Microsoft Onedrive
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft SDKs\Azure"; Depth=""; Parent=""; Basename="*.cmd"; }; # Microsoft Azure CLI (Az CLI)
+		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft SDKs\Azure"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Azure CLI (Az CLI)
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\OneDrive"; Depth="3"; Parent=""; Basename="file*.exe"; }; # Microsoft Onedrive
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams"; Depth="0"; Parent=""; Basename="Update.exe"; }; # Microsoft Teams
 		$ExcludedProcesses += @{ Dirname=${LocalAppData}; AddDir="Microsoft\Teams\current"; Depth="0"; Parent=""; Basename="Squirrel.exe"; }; # Microsoft Teams
@@ -288,7 +290,7 @@ function ExclusionsListUpdate {
 		# $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth=""; Parent=""; Basename="nvcplui.exe"; }; # NVidia Control Panel GUI
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="*IntelGraphicsExperience*"; Basename="IGCC.exe"; }; # Intel Graphics
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent="*IntelGraphicsExperience*"; Basename="IGCCTray.exe"; }; # Intel Graphics
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.WindowsTerminal*"; Basename="WindowsTerminal.exe"; }; # Windows Terminal
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.WindowsTerminal*"; Basename="*.exe"; }; # Windows Terminal
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBar.exe"; Entertainment=$True; }; # Xbox Game Bar
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="1"; Parent="Microsoft.XboxGamingOverlay*"; Basename="GameBarFTServer.exe"; Entertainment=$True; }; # Xbox Game Bar
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Windows Defender Advanced Threat Protection"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft Security Center / Defender / Defender ATP (Advanced Threat Protection)
@@ -412,6 +414,8 @@ function ExclusionsListUpdate {
 		# $ExcludedProcesses += @{ Dirname=${SysRoot}; AddDir="WinSxS"; Depth="2"; Parent=""; Basename="TiWorker.exe"; }; # Windows Module Installer Worker - Takes forever to find
 		# -- PROCESSES -- UserProfile
 		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir="Documents\MobaXterm"; Depth=""; Parent=""; Basename="Motty.exe"; };
+		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir=".azure-kubectl"; Depth=""; Parent=""; Basename="*.exe"; }; # kubectl (Microsoft Azure Kubernetes Service (AKS) Main Exe)
+		$ExcludedProcesses += @{ Dirname=${UserProfile}; AddDir=".azure-kubelogin"; Depth=""; Parent=""; Basename="*.exe"; }; # kubelogin (Microsoft Azure Kubernetes Service (AKS) OAuth Exe)
 		# -- PROCESSES -- NVIDIA Driver-related
 		$NVDriverPath = (Get-ChildItem -Path ("${Sys32}\DriverStore\FileRepository") -Filter ("NVTelemetryContainer.exe") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.Directory.Parent.FullName; });
 		If ($NVDriverPath -Ne $Null) {

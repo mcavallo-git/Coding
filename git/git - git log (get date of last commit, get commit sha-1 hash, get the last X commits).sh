@@ -50,6 +50,8 @@ git log --oneline --max-count 10;
 #
 # Citation(s)
 #
+#   git-scm.com  |  "Git - git-log Documentation"  |  https://git-scm.com/docs/git-log
+#
 #   stackoverflow.com  |  "command line - How to change Git log date formats - Stack Overflow"  |  https://stackoverflow.com/a/34778736
 #
 # ------------------------------------------------------------

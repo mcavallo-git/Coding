@@ -1,6 +1,6 @@
+------------------------------------------------------------------------------------------------------------------------
 Slmgr.vbs Options for Volume Activation
-
-------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------
 
 Table 2. Slmgr.vbs command-line options
 
@@ -20,6 +20,8 @@ Account with the required privilege on the remote computer
 [Password]
 
 Password for the account with required privileges on the remote computer
+
+------------------------------------------------------------------------------------------------------------------------
 
 Global options
 
@@ -73,6 +75,8 @@ This operation does not require elevated privileges.
 Display the activation expiration date for the product. By default, this refers to the current Windows edition and is primarily useful for KMS clients, because MAK and retail activation is perpetual.
 
 Specifying the [Activation ID] parameter displays the activation expiration date of the specified edition associated with that Activation ID.This operation does not require elevated privileges.
+
+------------------------------------------------------------------------------------------------------------------------
 
 Advanced options
 
@@ -137,7 +141,9 @@ Displays installation ID for offline activation.
 
 Activate product with user-provided confirmation ID.
 
-Volume Licensing: KMS client options
+------------------------------------------------------------------------------------------------------------------------
+
+Volume Licensing: Key Management Service (KMS) client options:
 
 TABLE 4
 Option
@@ -174,7 +180,9 @@ This option disables KMS host caching. This setting instructs the client to use 
 
 This operation must be run from an elevated command prompt.
 
-KMS host configuration
+------------------------------------------------------------------------------------------------------------------------
+
+Volume Licensing: Key Management Service (KMS) host configuration options:
 
 TABLE 5
 Option
@@ -233,7 +241,9 @@ This operation must be run from an elevated command prompt.
 
 This option sets a value in the registry that limits volume activation to a single type. Activation Type 1 limits activation to Active Directory only; 2 limits it to KMS activation; 3 to token-based activation. The 0 option allows any activation type and is the default value.
 
-Token-based activation configuration
+------------------------------------------------------------------------------------------------------------------------
+
+Volume Licensing: Token-based Activation Options:
 
 TABLE 6
 Option
@@ -274,7 +284,9 @@ List valid token-based activation certificates that can activate installed softw
 
 Force token-based activation using the identified certificate. The optional personal identification number (PIN) is provided to unlock the private key without a PIN prompt when using certificates that are protected by hardware (for example, smart cards).
 
-Active Directory-based activation configuration
+------------------------------------------------------------------------------------------------------------------------
+
+Volume Licensing: Active Directory (AD) Activation Options:
 
 TABLE 7
 Option

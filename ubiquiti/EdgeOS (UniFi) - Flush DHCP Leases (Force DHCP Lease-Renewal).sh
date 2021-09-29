@@ -6,8 +6,9 @@
 #
 
 
+
 # One-liner - Flush all DHCP Leases (EdgeOS/UniFi)
-FL="${HOME}/flush-dhcp-leases"; QM="$(printf \\x3f;)"; echo "LV=\"/var/run/dnsmasq-dhcp.leases\" && R1='(((25[0-5]|2[0-4][0-9]|[01]${QM}[0-9][0-9]${QM})\\.){3}(25[0-5]|2[0-4][0-9]|[01]${QM}[0-9][0-9]${QM}))' && R2='(3[0-2]|[1-2]${QM}[0-9])' && R3='(25[0-5]|2[0-4][0-9]|[01]${QM}[0-9]${QM}[0-9])' && SS=\"s/^\\\\S+_eth1_(\${R1}\\\\-\${R2})\\\\ .+\\\$/\\\\1/p\" && CR=\$(show dhcp statistics | sed -rne \"\${SS}\";) && FS=\"\${IFS}\" && IFS=\$'\\n'; for EC in \${CR}; do OT=\$(echo \"\${EC}\" | cut -d '-' -f 1 | cut -d '.' -f 1-3); SD=\"/^.+ \${OT}.\${R3} .+\\\$/d\"; sed -re \"\${SD}\" -i \"\${LV}\"; done; IFS=\"\${FS}\" && cp -f \"\${LV}\" \"/config/\$(basename \${LV})\" && service dhcpd restart && sleep 3 && clear dhcp leases && echo \"DHCP leases flushed\";" > "${FL}"; chmod 0770 "${FL}"; sudo "${FL}";
+FL="${HOME}/flush-dhcp-leases"; QM="$(printf \\x3f;)"; echo "LV=\"/var/run/dnsmasq-dhcp.leases\" && R1='(((25[0-5]|2[0-4][0-9]|[01]${QM}[0-9][0-9]${QM})\\.){3}(25[0-5]|2[0-4][0-9]|[01]${QM}[0-9][0-9]${QM}))' && R2='(3[0-2]|[1-2]${QM}[0-9])' && R3='(25[0-5]|2[0-4][0-9]|[01]${QM}[0-9]${QM}[0-9])' && SS=\"s/^\\\\S+_eth1_(\${R1}\\\\-\${R2})\\\\ .+\\\$/\\\\1/p\" && CR=\$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print \$2; }' | sed 's/\/.*$//' | grep '\.' | sed -rne 's/^((10|172|192)\.[0-9]{1,3}\.[0-9]{1,3})\.[0-9]{1,3}$/\1.0-24/p';) && FS=\"\${IFS}\" && IFS=\$'\\n'; for EC in \${CR}; do OT=\$(echo \"\${EC}\" | cut -d '-' -f 1 | cut -d '.' -f 1-3); SD=\"/^.+ \${OT}.\${R3} .+\\\$/d\"; sed -re \"\${SD}\" -i \"\${LV}\"; done; IFS=\"\${FS}\" && cp -f \"\${LV}\" \"/config/\$(basename \${LV})\" && service dhcpd restart && sleep 3 && clear dhcp leases && echo \"DHCP leases flushed\";" > "${FL}"; chmod 0770 "${FL}"; sudo "${FL}";
 
 #  |
 #  |-->  Note that, for some reason, question mark characters cannot be typed in EdgeOS/UniFi terminals, so we need to back-convert it to an ASCII character from its hexadecimal value (via QM="$(printf \\x3f;)" ) 
@@ -22,7 +23,7 @@ REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]
 REGEX_MATCH_NETMASK_BITS='(3[0-2]|[1-2]?[0-9])' && \
 REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
 SED_SUBNET_CIDRS="s/^\\S+_eth1_(${REGEX_MATCH_IPv4_ADDRESS}\\-${REGEX_MATCH_NETMASK_BITS})\\ .+\$/\\1/p" && \
-SUBNET_CIDRS=$(show dhcp statistics | sed -rne "${SED_SUBNET_CIDRS}";) && \
+SUBNET_CIDRS="$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.' | sed -rne 's/^((10|172|192)\.[0-9]{1,3}\.[0-9]{1,3})\.[0-9]{1,3}$/\1.0-24/p';)" && \
 ROLLBACK_IFS="${IFS}" && IFS=$'\n'; \
 for EACH_SUBNET_CIDR in ${SUBNET_CIDRS}; do \
 echo "Info:  [ Step 1 ]  Flushing DHCP leases for CIDR \"${EACH_SUBNET_CIDR}\" from cache-file \"${LIVE_DNSMASQ_LEASES}\"" && \
@@ -41,6 +42,8 @@ echo "Info:  [ Step 3 ]  Flushing contents of cache-files '/var/run/dhcpd.leases
 clear dhcp leases && \
 echo "Info:  Done - All DHCP leases have been flushed"; \
 fi;
+
+# SUBNET_CIDRS=$(show dhcp statistics | sed -rne "${SED_SUBNET_CIDRS}";) && \
 
 
 # SUBNET_CIDR=$(show dhcp statistics | sed -rne "s/^\S+_eth1_((((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))\-(3[0-2]|[1-2]?[0-9]))\ .+$/\1/p";)

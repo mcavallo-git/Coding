@@ -1,28 +1,36 @@
+// ------------------------------------------------------------
 
-...
-
-Results:
-
-I discovered that if any of these five characters:
-	"<>'&
-appeared in the SSID, the snom 870 would fail to make a successful WLAN connection.
+// I discovered that if any of these five characters:
+"<>'&
+// appeared in the SSID, the snom 870 would fail to make a successful WLAN connection.
 
 
-I also discovered that if any of these five characters:
-	"<>'&
-appeared in the WPA2-PSK password, the snom 870 would fail to make a successful WLAN connection.
+// I also discovered that if any of these five characters:
+"<>'&
+// appeared in the WPA2-PSK password, the snom 870 would fail to make a successful WLAN connection.
 
 
-Conversely, I discovered that all these characters can appear in an SSID and/or a WPA2-PSK password:
-	abcdefghijklmnopqrstuvwxyz
-	ABCDEFGHIJKLMNOPQRSTUVWXYZ
-	1234567890
-	$@^`,|%;.~()/\{}:?[]=-+_#!
+// Conversely, I discovered that all these characters can appear in an SSID and/or a WPA2-PSK password:
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+1234567890
+$@^`,|%;.~()/\{}:?[]=-+_#!
 
-#
-#	Citation(s)
-#
-#		Shoutout to snom user 'Max3' for his forum response @ http://forum.snom.com/index.php?showtopic=6785&p=16505
-#
-#		Max3's response:
-#
+
+// ------------------------------------------------------------
+
+// Note that dingbats (UTF-16, UTF-32 special characters) may also be used in Wi-Fi SSIDs, such as:
+✔️
+👍
+
+
+
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   forum.snom.com  |  "Max3's response"  |  http://forum.snom.com/index.php?showtopic=6785&p=16505
+//
+//   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+//
+// ------------------------------------------------------------

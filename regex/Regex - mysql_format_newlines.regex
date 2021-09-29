@@ -1,9 +1,20 @@
-
+// ------------------------------------------------------------
+//
 // Regex
 // Format a MySQL query with newlines
+//
 
 // Find:
 \s+((?:SELECT)|(?:,)|(?:FROM)|(?:(?:LEFT|INNER|OUTER)\s+JOIN)|(?:GROUP\s+BY)|(?:WHERE)|(?:AND)|(?:OR))\s+
 
 // Replacement:
 \n$1\ 
+
+
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+//
+// ------------------------------------------------------------

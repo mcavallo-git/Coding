@@ -284,6 +284,8 @@ Replacement: ```\u$1\l$2$3```
 ***
 ### Citation(s)
 
+###### * regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+
 ###### * ruby-doc.org  |  "Regexp"  |  https://ruby-doc.org/core-2.1.1/Regexp.html
 
 ###### * stackoverflow.com  |  "Javascript: negative lookbehind equivalent?"  |  https://stackoverflow.com/a/27213663

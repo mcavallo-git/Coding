@@ -1,29 +1,29 @@
-# ------------------------------------------------------------
-#
-#  Regex: SVG Path-Splitting
-#  	Designed to simplify SVG modification
-#
-# ------------------------------------------------------------
+// ------------------------------------------------------------
+//
+//  Regex: SVG Path-Splitting
+//  	Designed to simplify SVG modification
+//
+// ------------------------------------------------------------
 
-### Find Regex:
-
+// Find:
 [Zz]
 
-### Replace with:
-
+// Replace with:
 $0\n\n
 
 
-# ------------------------------------------------------------
+// ------------------------------------------------------------
 
-Deprecated - Previous attempt at exhaustive SVG Path-Element Regex Query:
+// Deprecated - Previous attempt at exhaustive SVG Path-Element Regex Query:
 ((?:[aAcChHlLmMqQsSvV] ?(?:[0-9e,-\.]+ )+(?=[aAcChHlLmMqQsSvVzZ]))+)([Zz]) ?
 
 
-# ------------------------------------------------------------
-#
-#	Citation(s)
-#
-#		developer.mozilla.org  |  "Paths - SVG: Scalable Vector Graphics | MDN"  |  https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
-#
-# ------------------------------------------------------------
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   developer.mozilla.org  |  "Paths - SVG: Scalable Vector Graphics | MDN"  |  https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+//
+//   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+//
+// ------------------------------------------------------------

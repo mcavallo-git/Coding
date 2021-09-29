@@ -1,26 +1,28 @@
-# ------------------------------------------------------------
-#
-#   Match anything except a newline char
-#
+// ------------------------------------------------------------
+//
+//   Match anything except a newline char
+//
 
-
+// Find:
 [^\n]+
 
 
-# ------------------------------------------------------------
-#
-#   Match anything except a newline char and grab the entire line (from ^ to $)
-#
+// ------------------------------------------------------------
+//
+//   Match anything except a newline char and grab the entire line (from ^ to $)
+//
 
+// Find:
 ^[^\n]*$
 
 
 
-
-# ------------------------------------------------------------
-#
-# Citation(s)
-#
-#   stackoverflow.com  |  "python - How to matches anything except space and new line? - Stack Overflow"  |  https://stackoverflow.com/a/23235232
-#
-# ------------------------------------------------------------
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+//
+//   stackoverflow.com  |  "python - How to matches anything except space and new line? - Stack Overflow"  |  https://stackoverflow.com/a/23235232
+//
+// ------------------------------------------------------------

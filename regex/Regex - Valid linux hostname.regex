@@ -1,10 +1,16 @@
-#!/bin/bash
+// ------------------------------------------------------------
+// Regex - Valid linux hostnames
 
-# Regex - Valid linux hostnames
 
-
+// Find:
 ^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$
 
+
+
+// ------------------------------------------------------------
+//
+// Example
+//
 
 VALID_HOSTNAME_TEST="test-this-hostname"; \
 if [ "${VALID_HOSTNAME_TEST}" == "$(echo ${VALID_HOSTNAME_TEST} | grep --extended-regexp '^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9\-]*[A-Za-z0-9])$';)" ]; then \
@@ -21,10 +27,12 @@ else \
 fi;
 
 
-# ------------------------------------------------------------
-#
-# Citation(s)
-#
-#		regextester.com | "Match a valid hostname" | https://www.regextester.com/23
-#
-# ------------------------------------------------------------
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   regextester.com | "Match a valid hostname" | https://www.regextester.com/23
+//
+//   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+//
+// ------------------------------------------------------------

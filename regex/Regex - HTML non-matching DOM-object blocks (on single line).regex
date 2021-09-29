@@ -2,7 +2,45 @@
 // Regex - HTML non-matching DOM-object blocks (on single line)
 // ------------------------------------------------------------
 
-// Find lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
+
+//
+// More Opening than Closing DOM blocks - Match lines with:
+//  |-->  4 or more opening HTML DOM blocks
+//  |-->  3 or less closing HTML DOM blocks
+//
+
+// Match Regex:
+^(?=(?:.*<(sub)((?!>).)*>){4,})(?=(?:.*<\/(sub)((?!>).)*>){0,3})(.*)$
+
+// Replace-with:
+RESOLVE MANUALLY
+
+
+// ------------------------------
+
+
+//
+// More Closing than Opening DOM blocks - Match lines with:
+//  |-->  4 or more closing HTML DOM blocks
+//  |-->  3 or less opening HTML DOM blocks
+//
+
+// Match Regex:
+^(?=(?:.*<\/(sub)((?!>).)*>){4,})(?=(?:.*<(sub)((?!>).)*>){0,3})(.*)$
+
+// Replace-with:
+RESOLVE MANUALLY
+
+
+// ------------------------------------------------------------
+// ------------------------------------------------------------
+// ------------------------------------------------------------
+
+
+OLD APPROACH:
+
+
+// Match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
 // Find Regex:
 ^((?!<\/sub>).)*(<sub>((?!<\/sub>).)*){2}((?!<\/sub>).)*<\/sub>((?!<\/sub>).)*$
@@ -11,9 +49,7 @@
 RESOLVE MANUALLY
 
 
-// ------------------------------------------------------------
-
-// Find lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
+// Match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
 
 // Find Regex:
 ^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(<\/sub>((?!<sub>).)*){2,}$

@@ -1,20 +1,18 @@
 // ------------------------------------------------------------
 // Regex - HTML non-matching DOM-object blocks (on single line)
 // ------------------------------------------------------------
-
-// APPROACH 1
-
 //
+// APPROACH 1
+//
+
+
+
 // More Opening than Closing DOM blocks - Match lines with:
 //  |-->  2 or more opening HTML DOM blocks
 //  |-->  1 or less closing HTML DOM blocks
-//
 
-// Match Regex:
+// Find:
 ^(?=(?:.*<(sub)((?!>).)*>){2,})(?=(?:.*<\/(sub)((?!>).)*>){0,1})(.*)$
-
-// Replace-with:
-RESOLVE MANUALLY
 
 
 // ------------------------------
@@ -26,36 +24,26 @@ RESOLVE MANUALLY
 //  |-->  1 or less opening HTML DOM blocks
 //
 
-// Match Regex:
+// Find:
 ^(?=(?:.*<\/(sub)((?!>).)*>){2,})(?=(?:.*<(sub)((?!>).)*>){0,1})(.*)$
 
 
-(?<!<sub>)<sub>{0,3}(?!<sub>)
-
-// Replace-with:
-RESOLVE MANUALLY
-
-
 // ------------------------------------------------------------
-
+//
 // APPROACH A
+//
+
 
 // Match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
-// Find Regex:
+// Find:
 ^((?!<\/sub>).)*(<sub>((?!<\/sub>).)*){2}((?!<\/sub>).)*<\/sub>((?!<\/sub>).)*$
-
-// Replace-with:
-RESOLVE MANUALLY
 
 
 // Match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
 
-// Find Regex:
+// Find:
 ^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(<\/sub>((?!<sub>).)*){2,}$
-
-// Replace-with:
-RESOLVE MANUALLY
 
 
 // ------------------------------------------------------------

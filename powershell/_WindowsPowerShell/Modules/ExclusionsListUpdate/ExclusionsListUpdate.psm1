@@ -279,6 +279,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="Code.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="rg.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mozilla Firefox"; Depth="1"; Parent=""; Basename="*.exe"; }; # Firefox
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NETworkManager"; Depth="1"; Parent=""; Basename="NETworkManager.exe"; }; # NETworkManager (Networking Tool)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NV*.exe"; }; # NVIDIA
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\GlobalProtect"; Depth="3"; Parent=""; Basename="*.exe"; }; # Palo Alto Global Protect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Palo Alto Traps (Endpoint Security Manager)

@@ -5,12 +5,12 @@
 
 //
 // More Opening than Closing DOM blocks - Match lines with:
-//  |-->  4 or more opening HTML DOM blocks
-//  |-->  3 or less closing HTML DOM blocks
+//  |-->  2 or more opening HTML DOM blocks
+//  |-->  1 or less closing HTML DOM blocks
 //
 
 // Match Regex:
-^(?=(?:.*<(sub)((?!>).)*>){4,})(?=(?:.*<\/(sub)((?!>).)*>){0,3})(.*)$
+^(?=(?:.*<(sub)((?!>).)*>){2,})(?=(?:.*<\/(sub)((?!>).)*>){0,1})(.*)$
 
 // Replace-with:
 RESOLVE MANUALLY
@@ -21,12 +21,12 @@ RESOLVE MANUALLY
 
 //
 // More Closing than Opening DOM blocks - Match lines with:
-//  |-->  4 or more closing HTML DOM blocks
-//  |-->  3 or less opening HTML DOM blocks
+//  |-->  2 or more closing HTML DOM blocks
+//  |-->  1 or less opening HTML DOM blocks
 //
 
 // Match Regex:
-^(?=(?:.*<\/(sub)((?!>).)*>){4,})(?=(?:.*<(sub)((?!>).)*>){0,3})(.*)$
+^(?=(?:.*<\/(sub)((?!>).)*>){2,})(?=(?:.*<(sub)((?!>).)*>){0,1})(.*)$
 
 // Replace-with:
 RESOLVE MANUALLY

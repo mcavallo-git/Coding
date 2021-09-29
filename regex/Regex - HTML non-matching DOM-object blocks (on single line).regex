@@ -2,6 +2,7 @@
 // Regex - HTML non-matching DOM-object blocks (on single line)
 // ------------------------------------------------------------
 
+// APPROACH 1
 
 //
 // More Opening than Closing DOM blocks - Match lines with:
@@ -28,15 +29,16 @@ RESOLVE MANUALLY
 // Match Regex:
 ^(?=(?:.*<\/(sub)((?!>).)*>){2,})(?=(?:.*<(sub)((?!>).)*>){0,1})(.*)$
 
+
+(?<!<sub>)<sub>{0,3}(?!<sub>)
+
 // Replace-with:
 RESOLVE MANUALLY
 
 
 // ------------------------------------------------------------
 
-
-OLD APPROACH:
-
+// APPROACH A
 
 // Match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 

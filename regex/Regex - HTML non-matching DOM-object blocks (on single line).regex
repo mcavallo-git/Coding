@@ -5,18 +5,17 @@
 // APPROACH 1
 //
 
-
-
+//
 // More Opening than Closing DOM blocks - Match lines with:
 //  |-->  2 or more opening HTML DOM blocks
 //  |-->  1 or less closing HTML DOM blocks
+//
 
 // Find:
 ^(?=(?:.*<(sub)((?!>).)*>){2,})(?=(?:.*<\/(sub)((?!>).)*>){0,1})(.*)$
 
 
 // ------------------------------
-
 
 //
 // More Closing than Opening DOM blocks - Match lines with:

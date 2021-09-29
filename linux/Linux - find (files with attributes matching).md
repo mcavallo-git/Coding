@@ -118,6 +118,17 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
+		<span>Extensions - List unique file extensions (sorted) for all files contained within a directory & subdirectories</span>
+	</summary>
+<pre><code>
+for EACH_FILE in $(find "/var/log" -type "f";); do echo "${EACH_FILE##*.}"; done | sort -u;
+</code></pre>
+<hr /></details></li><br />
+
+
+<!-- ------------------------------------------------------------ -->
+
+<li><details open><summary>
 		<span>Extension (single) - Find files matching one, single extension</span>
 	</summary>
 <pre><code>

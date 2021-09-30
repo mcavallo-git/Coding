@@ -112,7 +112,10 @@ sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/def
 # ------------------------------------------------------------
 #
 # Example)  Comment out lines starting-with or containing a specific substring
+#  |
+#  |--> Uses the sed regex-replacement syntax of [ s/^#*/#/ ] to replace [ matched lines ] with [ their same value but with a pound-sign "#" prepended to them ]  -  https://www.gnu.org/software/sed/manual/html_node/The-_0022s_0022-Command.html
 #
+
 
 ### MongoDB - Disable Replication
 systemctl stop mongod; \
@@ -384,5 +387,7 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #   www.cyberciti.biz  |  "Linux Shell – How To Remove Duplicate Text Lines"  |  www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/
 #
 #   www.gnu.org  |  "sed, a stream editor"  |  https://www.gnu.org/software/sed/manual/sed.html#Multiline-techniques
+#
+#   www.gnu.org  |  "The "s" Command (sed, a stream editor)"  |  https://www.gnu.org/software/sed/manual/html_node/The-_0022s_0022-Command.html
 #
 # ------------------------------------------------------------

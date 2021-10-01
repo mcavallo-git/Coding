@@ -6,4 +6,8 @@
 
    materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com
 
+   stackoverflow.com  |  ".net - How do I change a font's metadata (specifically a title)? - Stack Overflow"  |  https://stackoverflow.com/a/53427523
+
+   www.glyphrstudio.com  |  "❖ Glyphr Studio"  |  http://www.glyphrstudio.com/online/
+
 ------------------------------------------------------------

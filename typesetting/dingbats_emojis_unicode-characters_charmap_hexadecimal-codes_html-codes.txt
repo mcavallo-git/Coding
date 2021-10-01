@@ -207,6 +207,13 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
 
 
+🔑				Key  |  https://www.compart.com/en/unicode/U+1F511
+🔒				Lock  |  https://www.compart.com/en/unicode/U+1F512
+🔓				Open Lock  |  https://www.compart.com/en/unicode/U+1F513
+🔐				Closed Lock with Key  |  https://www.compart.com/en/unicode/U+1F510
+🔏				Lock with Ink Pen  |  https://www.compart.com/en/unicode/U+1F50F
+
+
 ==--  iOS Emojis - Audio-Related  --==
 
 🎧 				Headphone  |  https://www.compart.com/en/unicode/U+1F3A7

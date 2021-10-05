@@ -10,7 +10,9 @@
 
 "Hello City!".Replace("City","World");   <# Returns "Hello World!" #>
 
-"Hello City!" -Replace "city","World");  <# Returns "Hello World!" #>
+"Hello City!".Replace("city","World");   <# Returns "Hello City!" - CASE SENsitive #>
+
+"Hello City!" -Replace "city","World";  <# Returns "Hello World!" - CASE INsensitive #>
 
 
 '00:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";   <# Returns "[] [00] [00] [00]" #>

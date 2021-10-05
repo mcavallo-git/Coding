@@ -1,0 +1,22 @@
+# ------------------------------------------------------------
+#
+#   iOS - Installing custom TTF font(s)
+#
+# ------------------------------------------------------------
+
+
+1) Download TTF font(s) to local iOS device's storage (from cloud storage, email, etc.)
+
+
+2) Install as a profile onto iOS device using the "Fontcase" app @ https://apps.apple.com/us/app/id1205074470
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   www.reddit.com  |  "How to Install Custom Fonts on your iPad or iPhone using the free Fontcase App : apple"  |  https://www.reddit.com/r/apple/comments/hcpvqg/how_to_install_custom_fonts_on_your_ipad_or/
+#
+#   www.youtube.com  |  "How to Install Custom Fonts on your iPad or iPhone using the free Fontcase App - YouTube"  |  https://www.youtube.com/watch?v=FaccGvPXu6A&t=1s
+#
+# ------------------------------------------------------------

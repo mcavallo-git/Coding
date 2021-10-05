@@ -35,6 +35,7 @@ function ExclusionsListUpdate {
 		[Switch]$Entertainment,
 		[Switch]$Quiet,
 		[Switch]$RemoveMissing,
+		[Switch]$UseAdminUserDirs,
 		[Switch]$Verbose
 
 	)
@@ -98,16 +99,17 @@ function ExclusionsListUpdate {
 			}
 			$CommandString="`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
 			$CommandString+=" ExclusionsListUpdate";
-			If ($ESET -eq $True) {                                 $CommandString+=" -ESET"; }
-			If ($MalwarebytesAntiMalware -eq $True) {              $CommandString+=" -MalwarebytesAntiMalware"; }
-			If ($MalwarebytesAntiRansomware -eq $True) {           $CommandString+=" -MalwarebytesAntiRansomware"; }
-			If ($MalwarebytesAntiExploit -eq $True) {              $CommandString+=" -MalwarebytesAntiExploit"; }
-			If ($WindowsDefender -eq $True) {                      $CommandString+=" -WindowsDefender"; }
-			If ($PSBoundParameters.ContainsKey('DryRun')) {        $CommandString+=" -DryRun"; }
-			If ($PSBoundParameters.ContainsKey('Entertainment')) { $CommandString+=" -Entertainment"; }
-			If ($PSBoundParameters.ContainsKey('Quiet')) {         $CommandString+=" -Quiet"; }
-			If ($PSBoundParameters.ContainsKey('RemoveMissing')) { $CommandString+=" -RemoveMissing"; }
-			If ($PSBoundParameters.ContainsKey('Verbose')) {       $CommandString+=" -Verbose"; }
+			If ($ESET -eq $True) {                                    $CommandString+=" -ESET"; }
+			If ($MalwarebytesAntiMalware -eq $True) {                 $CommandString+=" -MalwarebytesAntiMalware"; }
+			If ($MalwarebytesAntiRansomware -eq $True) {              $CommandString+=" -MalwarebytesAntiRansomware"; }
+			If ($MalwarebytesAntiExploit -eq $True) {                 $CommandString+=" -MalwarebytesAntiExploit"; }
+			If ($WindowsDefender -eq $True) {                         $CommandString+=" -WindowsDefender"; }
+			If ($PSBoundParameters.ContainsKey('DryRun')) {           $CommandString+=" -DryRun"; }
+			If ($PSBoundParameters.ContainsKey('Entertainment')) {    $CommandString+=" -Entertainment"; }
+			If ($PSBoundParameters.ContainsKey('Quiet')) {            $CommandString+=" -Quiet"; }
+			If ($PSBoundParameters.ContainsKey('RemoveMissing')) {    $CommandString+=" -RemoveMissing"; }
+			If ($PSBoundParameters.ContainsKey('UseAdminUserDirs')) { $CommandString+=" -UseAdminUserDirs"; }
+			If ($PSBoundParameters.ContainsKey('Verbose')) {          $CommandString+=" -Verbose"; }
 			# Import Module 'PrivilegeEscalation'
 			If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { 
 				$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
@@ -141,6 +143,15 @@ function ExclusionsListUpdate {
 
 		# $WindowsApps = ((${Env:LocalAppData})+("\Microsoft\WindowsApps")); # WindowsApps
 		# $WindowsApps = ((${ProgFilesX64})+("\WindowsApps")); # WindowsApps
+
+		If (!($PSBoundParameters.ContainsKey('UseAdminUserDirs'))) {
+			# Use non-admin username (instead of Admin Username) for user-directory paths
+			$NonAdmin_Username=((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1]);
+			If ("${env:USERNAME}".ToLower() -NE "${NonAdmin_Username}".ToLower()) {
+				$LocalAppData = ("${LocalAppData}" -Replace "${env:USERNAME}","${NonAdmin_Username}"); <# C:\Users\${NonAdmin_Username}\AppData\Local #>
+				$UserProfile = ("${UserProfile}" -Replace "${env:USERNAME}","${NonAdmin_Username}"); <# C:\Users\${NonAdmin_Username} #>
+			}
+		}
 
 		# ------------------------------------------------------------
 		# -- FILEPATHS -- LocalAppData
@@ -205,7 +216,6 @@ function ExclusionsListUpdate {
 		# -- FILEPATHS -- SysRoot
 		# -
 		# -- FILEPATHS -- UserProfile
-		$UserProfile=(${Env:UserProfile});
 		$ExcludedFilepaths += ((${UserProfile})+("\Dropbox"));
 		$ExcludedFilepaths += ((${UserProfile})+("\Documents\Github"));
 		# -- FILEPATHS (Environment-Based) -- OneDrive Synced Dir(s)

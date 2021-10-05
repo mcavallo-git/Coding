@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e2408b3e-44d1-4ec5-aa69-64c801797cdb",
+		"_postman_id": "8e6fc825-2b26-49b3-9609-648648adff90",
 		"name": "Vendor APIs (GFL)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -11,12 +11,12 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "010e025e-ed92-48f6-ba75-dfa0bba1a7a1",
 						"exec": [
 							"",
 							"// Pre-request Script",
 							"// NOTE: Postman Sandbox API reference: \"Global functions (pm.*)\"",
 							"// NOTE: https://learning.getpostman.com/docs/postman/scripts/postman_sandbox_api_reference/",
+							"/*",
 							"var scheme_fqdn = pm.variables.get('scheme_fqdn');",
 							"var token_url = scheme_fqdn+\"/login\";",
 							"pm.sendRequest({",
@@ -89,7 +89,8 @@
 							"\t\t\t\tconsole.log(\"Set environment Variable \\\"gfl_me\\\" to value \\\"{{gfl_me}}\\\"\");",
 							"\t\t}",
 							"\t}",
-							"});"
+							"});",
+							"*/"
 						],
 						"type": "text/javascript"
 					}
@@ -104,10 +105,6 @@
 						"type": "text"
 					}
 				],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
 					"raw": "{{scheme_fqdn}}/api/v1/listing?limit=50&category=GIFTCARD&platform=xbox_live_gold&status=onsale&digital_deliverable=code&shipping_within_days=0,0&sort=onsale:desc&price=400,3500&accept_currency=USD",
 					"host": [
@@ -165,7 +162,6 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "c72fa6fb-8416-4897-80c9-b27bc9fef443",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -175,7 +171,6 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "b65405d6-0b38-4ef8-836c-10df33ea32a5",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -185,7 +180,6 @@
 	],
 	"variable": [
 		{
-			"id": "d6c91eb6-7618-48a4-93d1-cba3f6a3e9e0",
 			"key": "scheme_fqdn",
 			"value": "https://production-gameflip.fingershock.com",
 			"type": "string"

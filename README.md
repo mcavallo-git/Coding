@@ -195,13 +195,14 @@ This file (on GitHub):
 <tr><td><strong>VMware PowerCLI / vSphere CLI</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;vSphere Hypervisor (ESXi) PowerShell Tools<br />&nbsp;&nbsp;&nbsp;<a href="https://code.vmware.com/web/tool/11.5.0/vmware-powercli">View Documentation (source)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://powercli-core.readthedocs.io/">View Documentation (core)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.vmware.com/support/developer/PowerCLI/">View Documentation (developer)</a></i></sub></td><td><a href="https://www.powershellgallery.com/packages/VMware.PowerCLI/11.5.0.14912921">Download (VMware PowerCLI)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/group/vmware/get-download?downloadGroup=VS-CLI-670">Download (vSphere CLI)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://code.vmware.com/tools">Download (other tools)</a><br />&nbsp;&nbsp;&nbsp;<details><summary><i>Download (one-liner, PowerShell)</i></summary><p><ol><li><pre><code>Install-Module -Name VMware.PowerCLI -AllowClobber -Scope CurrentUser -Force;</code></pre></li></ol></p></details></sub></td></tr>
 <tr><td><strong>Windows Terminal</strong> <i><sub><br />&nbsp;&nbsp;&nbsp;Terminal Emulator for Windows 10<br />&nbsp;&nbsp;&nbsp;
 <details><summary>Adding "Git Bash" to Windows Terminal</summary><p>
-<pre>Open "Windows Terminal" > "⚙️ Settings"<br />> "+ Add a new profile" > Enter the following:</pre><br />
+<pre>Open "Windows Terminal" > "⚙️ Settings" > "+ Add a new profile" > Enter the following:<br />
 <ul>
-<li><pre><code>Name: Git Bash</code></pre></li>
-<li><pre><code>Command Line: "C:\Program Files\Git\bin\bash.exe" --login -i</code></pre></li>
-<li><pre><code>Starting Directory: %USERPROFILE%\Desktop</code></pre></li>
-<li><pre><code>Icon: "C:\Program Files\Git\mingw64\share\git\git-for-windows.ico"</code></pre></li>
+<li>Name: Git Bash</li>
+<li>Command Line: "C:\Program Files\Git\bin\bash.exe" --login -i</li>
+<li>Starting Directory: %USERPROFILE%\Desktop</li>
+<li>Icon: "C:\Program Files\Git\mingw64\share\git\git-for-windows.ico"</li>
 </ul>
+</pre>
 </p>
 </details>
 </i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a></td></tr>

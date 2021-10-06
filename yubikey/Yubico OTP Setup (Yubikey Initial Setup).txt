@@ -1,36 +1,40 @@
 ------------------------------------------------------------
 
-Yubico OTP Setup (Yubikey Initial Setup)
+SETUP YUBICO OTP
 
-------------------------------------------------------------
---- If using "Yubikey Manager" ---
-
-
-Open "Yubikey Manager"
- > click "Applications" (top)
-  > under "Short Touch (Slot 1)", click "Configure"
-   > select "Yubico OTP" and click "Next >"
-    > Public ID --> click (check) "Use serial" (middle-right)
-    > Private ID --> click "Generate"
-    > Secret key --> click "Generate"
-     > !!! If desired, copy values to a SECURED backup location - Note: Best practice for hardware keys is to never copy these values down and to leave them on the key, only)
-      > click (check) "Upload"
-       > click "✔ Finish"
-
-
-------------------------------------------------------------
---- If using "Yubikey Personalization Tool" ---
-
-
-Open "Yubikey Personalization Tool"
- > click "Yubico OTP" (top-left)
-  > click "Quick"
-   > click "Configuration Slot 1"
-    > click (uncheck) "Hide values"
-     > Copy all click (uncheck) "Hide values"
+=== If using "Yubikey Manager"
+ > Open "Yubikey Manager"
+  > click "Applications" (top)
+   > click "Configure" under either "Short Touch (Slot 1)" or "Long Touch (Slot 2)" (depending on which you wish to set - if unknown, set Short Touch)
+    > select "Yubico OTP" and click "Next >"
+     > Public ID --> click (check) "Use serial" (middle-right)
+     > Private ID --> click "Generate"
+     > Secret key --> click "Generate"
       > !!! If desired, copy values to a SECURED backup location - Note: Best practice for hardware keys is to never copy these values down and to leave them on the key, only)
-       > click "Write Configuration"
-        > click "Upload to Yubico"
+       > click (check) "Upload"
+        > click "✔ Finish"
+
+=== If using "Yubikey Personalization Tool"
+ > Open "Yubikey Personalization Tool"
+  > click "Yubico OTP" (top-left)
+   > click "Quick"
+    > click "Configuration Slot 1" or "Configuration Slot 2" (depending on which you wish to set - if unknown, set Slot 1)
+     > click (uncheck) "Hide values"
+      > Copy all click (uncheck) "Hide values"
+       > !!! If desired, copy values to a SECURED backup location - Note: Best practice for hardware keys is to never copy these values down and to leave them on the key, only)
+        > click "Write Configuration"
+         > click "Upload to Yubico"
+
+
+------------------------------------------------------------
+
+VERIFY YUBICO OTP
+
+Once the key has been uploaded to Yubico's servers, verify that it is functioning as-intended (after previous step has been completed)
+ > Open web browser to https://demo.yubico.com/otp/verify
+  > click the "Yubico OTP" text field (to set it active)
+   > insert Yubikey (to-be-tested) & either short or long press it, depending on which key you want to test
+    > click "VALIDATE" and view results
 
 
 ------------------------------------------------------------

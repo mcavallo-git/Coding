@@ -1,0 +1,36 @@
+------------------------------------------------------------
+
+Yubico OTP Setup (Yubikey Initial Setup)
+
+------------------------------------------------------------
+--- If using "Yubikey Manager" ---
+
+
+Open "Yubikey Manager"
+ > click "Applications" (top)
+  > under "Short Touch (Slot 1)", click "Configure"
+   > select "Yubico OTP" and click "Next >"
+    > Public ID --> click (check) "Use serial" (middle-right)
+    > Private ID --> click "Generate"
+    > Secret key --> click "Generate"
+     > !!! If desired, copy values to a SECURED backup location - Note: Best practice for hardware keys is to never copy these values down and to leave them on the key, only)
+      > click (check) "Upload"
+       > click "✔ Finish"
+
+
+------------------------------------------------------------
+--- If using "Yubikey Personalization Tool" ---
+
+
+Open "Yubikey Personalization Tool"
+ > click "Yubico OTP" (top-left)
+  > click "Quick"
+   > click "Configuration Slot 1"
+    > click (uncheck) "Hide values"
+     > Copy all click (uncheck) "Hide values"
+      > !!! If desired, copy values to a SECURED backup location - Note: Best practice for hardware keys is to never copy these values down and to leave them on the key, only)
+       > click "Write Configuration"
+        > click "Upload to Yubico"
+
+
+------------------------------------------------------------

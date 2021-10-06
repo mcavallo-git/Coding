@@ -1,0 +1,27 @@
+# ------------------------------------------------------------
+
+
+Why SMS text messaging as a form of 2FA,MFA (multi-factor authentication) is inherently insecure
+
+
+# ------------------------------------------------------------
+
+
+"SIM-Swapping" scams/schemes are fradulent, premeditated exploits where a 'hacker' must first obtain personal/private information about their target (a separate individual with one or more accounts which the hacker intends to 'hack into') before swapping the target individual's phone number to point a device which the hacker controls before performing SMS 2FA/MFA verification procedures which send codes to the hacker-controlled device.
+
+The categories of personal/private information which the hacker must acquire is defined by their target individual's phone company in the form of answers to all of the possible security questions which said phone company could ask while attempting to verify an individual's identity in an account-reset procedure (social security number, birthday, etc.). The hacker then masquerades as their target and resets the device which their target's phone number points to to be one which the hacker controls, followed by the sending of any desired SMS/MFA authentication codes to it.
+
+The article at [ https://www.cnbc.com/2018/11/21/hacker-lifts-1-million-in-cryptocurrency-using-mans-phone-number.html ] is one historical example where hackers exploited the insecure nature of SMS text messaging as a form of MFA to hack multiple people's Coinbase accounts - Coinbase being a service which stores/houses its users' cryptocurrency wallets & allows them to trade between cryptocurrencies, currencies, etc. - which resulted in the hackers draining hundreds of thousands of dollars worth of cryptocurrency from said accounts. 
+
+This is why it is much less secure to use SMS text message for multifactor authentication / 2FA instead of using a one-time passcode (OTP), or (even better), a hardware token (such as a YubiKey)
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   en.wikipedia.org  |  "SIM swap scam - Wikipedia"  |  https://en.wikipedia.org/wiki/SIM_swap_scam
+#
+#   www.cnbc.com  |  "Hacker lifts $1 million in cryptocurrency using man's phone number"  |  https://www.cnbc.com/2018/11/21/hacker-lifts-1-million-in-cryptocurrency-using-mans-phone-number.html
+#
+# ------------------------------------------------------------

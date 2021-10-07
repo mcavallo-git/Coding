@@ -143,7 +143,7 @@ If (FileExist("_WindowsHotkeys.ico")) {
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Apps-Key
-;   ACTION:  Replace functionality with that of the right Windows-Key by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
+;   ACTION:  Replace functionality with that of the right WinKey by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 AppsKey::RWin
 
@@ -744,7 +744,7 @@ Pause::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  WinKey + Ctrl + Z
-;   HOTKEY:  WinKey + Shift + Z
+;            WinKey + Shift + Z
 ;   ACTION:  Show all (current) Window Titles
 ;
 ^#z::
@@ -755,9 +755,11 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + Ctrl + R
+;   HOTKEY:  Alt + WinKey + R
+;            Ctrl + WinKey + R
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
 ;
+!#r::
 ^#r::
 	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
 	Return
@@ -765,8 +767,8 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + [
-;   ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
+;   HOTKEY:  WinKey + [
+;   ACTION:  FOLLOW-UP HOTKEY TO: WinKey P   :::   Click "Duplicate" monitors
 ;
 #[::
 AppsKey & [::
@@ -925,7 +927,7 @@ AppsKey & ]::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + Right-Click
+;   HOTKEY:  WinKey + Right-Click
 ;   ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 #RButton::
@@ -964,7 +966,7 @@ AppsKey & l::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + N
+;   HOTKEY:  WinKey + N
 ;   ACTION:  Opens "View Network Connections" (control panel window)
 ; 
 #n::
@@ -973,7 +975,7 @@ AppsKey & l::
 
 
 ; ------------------------------------------------------------
-; HOTKEY:  Windows-Key + S
+; HOTKEY:  WinKey + S
 ; ACTION:  Opens "Sound" > "Playback" (control panel window)
 ; 
 #s::
@@ -983,9 +985,9 @@ AppsKey & l::
 
 
 ; ------------------------------------------------------------
-; HOTKEY:  Alt + Windows-Key + S
-;          Ctrl + Windows-Key + S
-;          Shift + Windows-Key + S
+; HOTKEY:  Alt + WinKey + S
+;          Ctrl + WinKey + S
+;          Shift + WinKey + S
 ; ACTION:  Opens "Sound" > "Recording" (control panel window)
 ; 
 !#s::
@@ -997,7 +999,7 @@ AppsKey & l::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + O (not zero, the letter O)
+;   HOTKEY:  WinKey + O (not zero, the letter O)
 ;   ACTION:  Opens "Programs & Features" in the Control Panel
 ;
 #o::
@@ -1007,7 +1009,7 @@ AppsKey & l::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + E
+;   HOTKEY:  WinKey + E
 ;   ACTION:  Opens "USERPROFILE" directory
 ; 
 #e::
@@ -1018,7 +1020,7 @@ AppsKey & l::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + ` (Tilde)
+;   HOTKEY:  WinKey + ` (Tilde)
 ;   ACTION:  Keyboard-Command for a Mouse-Left-Click
 ;
 #`::
@@ -1341,7 +1343,7 @@ WheelRight::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Windows-Key + F
+;   HOTKEY:  WinKey + F
 ;   ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
 ;
 #f::

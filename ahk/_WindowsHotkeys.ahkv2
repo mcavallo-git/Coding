@@ -743,8 +743,8 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  WinKey + Ctrl + Z
-;            WinKey + Shift + Z
+;   HOTKEY:  Ctrl + WinKey + Z
+;            Shift + WinKey + Z
 ;   ACTION:  Show all (current) Window Titles
 ;
 ^#z::
@@ -757,10 +757,12 @@ Pause::
 ;
 ;   HOTKEY:  Alt + WinKey + R
 ;            Ctrl + WinKey + R
+;            Shift + WinKey + R
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
 ;
 !#r::
 ^#r::
++#r::
 	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
 	Return
 

@@ -755,6 +755,16 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  Windows-Key + Ctrl + R
+;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
+;
+^#r::
+	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
+	Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Windows-Key + [
 ;   ACTION:  FOLLOW-UP HOTKEY TO: Windows-key P   :::   Click "Duplicate" monitors
 ;
@@ -4545,6 +4555,8 @@ If (False) {
 ;   github.com  |  "AutoHotkeyScripts/LaptopBrightnessSetter at master · qwerty12/AutoHotkeyScripts · GitHub"  |  https://github.com/qwerty12/AutoHotkeyScripts/tree/master/LaptopBrightnessSetter
 ;
 ;   stackoverflow.com  |  "How can I set AutoHotKey's code to run only in chrome?"  |  https://stackoverflow.com/a/50180863
+;
+;   stackoverflow.com  |  "powershell - Setting screen resolution on Windows 10 - Stack Overflow"  |  https://stackoverflow.com/a/49375988
 ;
 ;   www.autohotkey.com  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;

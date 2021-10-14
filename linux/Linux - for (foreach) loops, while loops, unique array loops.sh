@@ -14,14 +14,18 @@
 
 
 # For-loop - Integer iteration ( using range {START..END} syntax ) - Bash 3.0+ only
-for i in {1..10}; do echo "\$i = ${i}"; done;
+for i in {1..10}; do
+echo "\$i = ${i}";
+done;
 
 
 # For-loop - Integer iteration ( using range {START..END..INCREMENT} syntax ) - Bash 4.0+ only
-for i in {1..10..2}; do echo "\$i = ${i}"; done;
+for i in {1..10..2}; do
+echo "\$i = ${i}";
+done;
 
 
-# For-loop on an array (?) of strings (in Bash)
+# For-loop on a predefined Indexed Array (?) (in Bash)
 for EACH_DOMAIN in "google.com" "hotmail.com" "microsoft.com" "yahoo.com"; do
 echo "";
 echo -n "EACH_DOMAIN=[ $(printf '%-15s' "${EACH_DOMAIN}";) ]   "; echo | openssl s_client -servername "${EACH_DOMAIN}" -connect "${EACH_DOMAIN}:443" 2>/dev/null | openssl x509 -noout -dates | grep 'notAfter';

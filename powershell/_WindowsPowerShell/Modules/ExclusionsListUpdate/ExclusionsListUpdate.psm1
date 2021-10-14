@@ -286,6 +286,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="McAfee"; Depth=""; Parent=""; Basename="*.exe"; }; # McAfee Agent, DLP, Endpoint Security, MCP
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office"; Depth="2"; Parent="Office[0-9][0-9]"; Basename="*.exe"; }; # Office 64-bit (older)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft Office\root"; Depth="2"; Parent="Office[0-9][0-9]"; Basename="*.exe"; }; # Office 64-bit (newer)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft OneDrive"; Depth=""; Parent=""; Basename="*.exe"; }; # Microsoft OneDrive
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="Code.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="rg.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mozilla Firefox"; Depth="1"; Parent=""; Basename="*.exe"; }; # Firefox

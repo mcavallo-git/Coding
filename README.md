@@ -160,6 +160,7 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="calculations"><br />Calculations<br /><br /></h5></th></tr>
 <tr><td><strong>GCF Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Greatest Common Factor Calculator<br />&nbsp;&nbsp;&nbsp;Determine the greatest/largest integer factor present between a set of numbers</i></sub></td><td><a href="https://www.omnicalculator.com/math/gcf">View (source)</a></td></tr>
 <tr><td><strong>LCM Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Least Common Multiple Calculator<br />&nbsp;&nbsp;&nbsp;Determine the least/lowest common multiple between a set of numbers</i></sub></td><td><a href="https://www.omnicalculator.com/math/lcm">View (source)</a></td></tr>
+<tr><td><strong>Virtual TI-83/TI-89 Calculator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Emulator for TI-83 Calculator<br />&nbsp;&nbsp;&nbsp;Emulator for TI-89 Calculator<br />&nbsp;&nbsp;&nbsp;Originally manufactured/developed by Texas Instruments</i></sub></td><td><a href="https://www.videomathteacher.com/free-resources/free-downloadable-math-calculators/download-free-virtual-ti-calculator-online/">View (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

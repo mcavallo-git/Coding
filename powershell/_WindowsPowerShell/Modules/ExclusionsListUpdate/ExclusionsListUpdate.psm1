@@ -639,11 +639,12 @@ function ExclusionsListUpdate {
 			# ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
 			$FinalExclusions = (Get-MpPreference);
 			Write-Output "`n";
-			If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output "Windows Defender (Removed Exclusions) - Filepaths: $(${FilepathExclusions_Removed}.Count;)"; };
-			If (Test-Path -Path ("Variable:\ProcessExclusions_Removed")) { Write-Output "Windows Defender (Removed Exclusions) - Processes: $(${ProcessExclusions_Removed}.Count;)"; };
-			Write-Output "Windows Defender (Live Exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; };)";
-			Write-Output "Windows Defender (Live Exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; };)";
-			Write-Output "Windows Defender (Live Exclusions) - Processes: $(If (${FinalExclusions}.ExclusionProcess -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionProcess.Count; };)";
+			Write-Output "Windows Defender (Removed Exclusions) - Filepaths: $(If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output (${FilepathExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
+			Write-Output "Windows Defender (Removed Exclusions) - Processes: $(If (Test-Path -Path ("Variable:\ProcessExclusions_Removed")) { Write-Output (${ProcessExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
+			Write-Output "`n";
+			Write-Output "Windows Defender (Live Exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";
+			Write-Output "Windows Defender (Live Exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -NE $Null) { Write-Output (${FinalExclusions}.ExclusionPath.Count); } Else { Write-Output "0"; };)";
+			Write-Output "Windows Defender (Live Exclusions) - Processes: $(If (${FinalExclusions}.ExclusionProcess -NE $Null) { Write-Output (${FinalExclusions}.ExclusionProcess.Count); } Else { Write-Output "0"; };)";
 		}
 		#
 		# ------------------------------------------------------------

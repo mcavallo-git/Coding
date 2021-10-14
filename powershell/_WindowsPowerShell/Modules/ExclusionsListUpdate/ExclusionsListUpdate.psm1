@@ -447,11 +447,11 @@ function ExclusionsListUpdate {
 				$FoundExtensions += $_;
 				If ($WindowsDefender -Eq $True) {
 					If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
-						Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
+						Add-MpPreference -ExclusionExtension "$_" -ErrorAction "Continue";
 						If ($? -Eq $True) {
-							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
 						} Else {
-							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to exlude extension:   `"$_`""); }
 						}
 					}
 				}
@@ -461,12 +461,12 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
 			If ($_ -NE $Null) {
 				If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Skipping exclusion (to include, call with `"-Entertainment`"):  `"$_`""); }
 				} Else {
 					If (Test-Path -Path ("$_")) {
 						$FoundFilepaths += $_;
 					} Else {
-						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
 					}
 				}
 			}
@@ -475,7 +475,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses | ForEach-Object {
 			If ($_ -NE $Null) {
 				If (($_.Entertainment -Eq $True) -And ($IncludeEntertainment -Eq $False)) {
-					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Skipping exclusion (to include, call with `"-Entertainment`"):  [ ")+($_)+(" ]")); }
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Skipping exclusion (to include, call with `"-Entertainment`"):  `"$_`""); }
 				} Else {
 					$Each_Dirname = $_.Dirname;
 					If ($_.AddDir -NE "") {
@@ -575,14 +575,14 @@ function ExclusionsListUpdate {
 				$FoundProcesses | Select-Object -Unique | ForEach-Object {
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:  `"$_`"..."; }
 					$EXIT_CODE=0;
-					Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
+					Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
 					If (${EXIT_CODE} -Eq 0) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:     `"$_`""); }
 					} Else {
 						If (Test-Path $_) {
-							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude process:   [ ")+($_)+(" ]")); }
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
 						} Else {
-							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (process doesn't exist)   [ ")+($_)+(" ]")); }
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
 						}
 					}
 				}
@@ -590,14 +590,14 @@ function ExclusionsListUpdate {
 				(${FoundFilepaths} + ${FoundProcesses}) | Select-Object -Unique | ForEach-Object {
 					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath: `"$_`"..."; }
 					$EXIT_CODE=0;
-					Add-MpPreference -ExclusionPath "$_" -ErrorAction "SilentlyContinue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
+					Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
 					If (${EXIT_CODE} -Eq 0) {
-						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
+						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:    `"$_`""); }
 					} Else {
 						If (Test-Path $_) {
-							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude filepath:   [ ")+($_)+(" ]")); }
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:    `"$_`""); }
 						} Else {
-							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Skipping exclusion (filepath doesn't exist)   [ ")+($_)+(" ]")); }
+							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for process:     `"$_`""); }
 						}
 					}
 				}
@@ -607,7 +607,7 @@ function ExclusionsListUpdate {
 					((Get-MpPreference).ExclusionPath) | ForEach-Object {
 						If ((Test-Path -LiteralPath ("$_")) -NE $True) {
 							$FilepathExclusions_Removed += ("$_");
-							Write-Output "Removing Defender Filepath-Exclusion: `"$_`"...";
+							Write-Output "Removing Defender exclusion for filepath:    `"$_`"...";
 							If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 								Remove-MpPreference -ExclusionPath ("$_") -ErrorAction "SilentlyContinue";
 							}
@@ -618,7 +618,7 @@ function ExclusionsListUpdate {
 					((Get-MpPreference).ExclusionProcess) | ForEach-Object {
 						If ((Test-Path -LiteralPath ("$_")) -NE $True) {
 							$ProcessExclusions_Removed += ("$_");
-							Write-Output "Removing Defender Process-Exclusion: `"$_`"...";
+							Write-Output "Removing Defender exclusion for process:     `"$_`"...";
 							If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 								Remove-MpPreference -ExclusionProcess ("$_") -ErrorAction "SilentlyContinue";
 							}

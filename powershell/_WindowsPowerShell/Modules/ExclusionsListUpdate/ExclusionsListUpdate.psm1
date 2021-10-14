@@ -639,7 +639,7 @@ function ExclusionsListUpdate {
 			# ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
 			$FinalExclusions = (Get-MpPreference);
 			Write-Output "`n";
-			If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output "Windows Defender (Removed Exclusions) - Processes: $(${FilepathExclusions_Removed}.Count;)"; };
+			If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output "Windows Defender (Removed Exclusions) - Filepaths: $(${FilepathExclusions_Removed}.Count;)"; };
 			If (Test-Path -Path ("Variable:\ProcessExclusions_Removed")) { Write-Output "Windows Defender (Removed Exclusions) - Processes: $(${ProcessExclusions_Removed}.Count;)"; };
 			Write-Output "Windows Defender (Live Exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; };)";
 			Write-Output "Windows Defender (Live Exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; };)";

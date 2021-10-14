@@ -267,6 +267,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey-v2"; Depth="0"; Parent=""; Basename="AutoHotkey*.exe"; }; # AHK (AutoHotkey)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth="1"; Parent=""; Basename="*.exe"; }; # Classic Shell
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Common Files\McAfee\SystemCore"; Depth="1"; Parent=""; Basename="*.exe"; }; # McAfee Management Service
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="CONEXANT"; Depth=""; Parent=""; Basename="*.exe"; }; # Conexant SmartAudio (audio driver)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Cryptomator"; Depth=""; Parent=""; Basename="Cryptomator.exe"; }; # Cryptomator
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Docker"; Depth="8"; Parent=""; Basename="*.exe"; }; # Docker Desktop
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Dolby"; Depth=""; Parent=""; Basename="DolbyDAX2API.exe"; }; # Dolby Audio

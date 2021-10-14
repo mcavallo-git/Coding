@@ -641,10 +641,10 @@ function ExclusionsListUpdate {
 			# ${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
 			# ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
 			$FinalExclusions = (Get-MpPreference);
-			Write-Output "`n";
+			Write-Output "";
 			Write-Output "Windows Defender (Removed exclusions) - Filepaths: $(If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output (${FilepathExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
 			Write-Output "Windows Defender (Removed exclusions) - Processes: $(If (Test-Path -Path ("Variable:\ProcessExclusions_Removed")) { Write-Output (${ProcessExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
-			Write-Output "`n";
+			Write-Output "";
 			Write-Output "Windows Defender (Live exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -NE $Null) { Write-Output (${FinalExclusions}.ExclusionPath.Count); } Else { Write-Output "0"; };)";
 			Write-Output "Windows Defender (Live exclusions) - Processes: $(If (${FinalExclusions}.ExclusionProcess -NE $Null) { Write-Output (${FinalExclusions}.ExclusionProcess.Count); } Else { Write-Output "0"; };)";
 			Write-Output "Windows Defender (Live exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";

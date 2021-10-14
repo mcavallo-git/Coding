@@ -71,11 +71,11 @@ Mostly Linux compatible:
 Character Set “x-Adobe-Zapf-Dingbats-Encoding” 
  |--> https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
 
-
 ✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714
 ✔️				Heavy Check Mark (Colored)  |  https://www.compart.com/en/unicode/U+2714
 🗸				 Light Check Mark  |  https://www.compart.com/en/unicode/U+1F5F8
 ✓					Check Mark (&check;)  |  https://www.compart.com/en/unicode/U+2713
+√					Square Root  |  https://www.compart.com/en/unicode/U+221a
 
 ╳					(X MARK, LARGE) Box Drawings Light Diagonal Cross  |  https://www.compart.com/en/unicode/U+2573
 ×					Multiplication Sign  (&times;) |  https://www.compart.com/en/unicode/U+00D7

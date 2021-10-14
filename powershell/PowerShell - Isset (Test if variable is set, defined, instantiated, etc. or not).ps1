@@ -4,15 +4,15 @@
 #
 
 # Syntax:
-If (Test-Path Variable:\VARNAME) { Write-Host "VAR IS SET"; } Else { Write-Host "VAR NOT SET"; };
+If (Test-Path -Path "Variable:\Tester") { Write-Host "Variable `$Tester IS set" -ForegroundColor "Green"; } Else { Write-Host "Variable `$Tester is NOT set" -ForegroundColor "Yellow"; };
 
 
 # Example (var IS set):
-$VarName="Tester"; Set-Variable -Name "${VarName}"; If (Test-Path "Variable:\${VarName}") { Write-Host "Variable `$${VarName} IS set!" -ForegroundColor "Green"; } Else { Write-Host "Variable `$${VarName} is NOT set" -ForegroundColor "Yellow"; };
+$VarName="Tester"; Set-Variable -Name "${VarName}"; If (Test-Path -Path "Variable:\${VarName}") { Write-Host "Variable `$${VarName} IS set" -ForegroundColor "Green"; } Else { Write-Host "Variable `$${VarName} is NOT set" -ForegroundColor "Yellow"; };
 
 
 # Example (var NOT set):
-$VarName="Tester"; Set-Variable -Name "${VarName}"; Remove-Variable -Name "${VarName}"; If (Test-Path "Variable:\${VarName}") { Write-Host "Variable `$${VarName} IS set!" -ForegroundColor "Green"; } Else { Write-Host "Variable `$${VarName} is NOT set" -ForegroundColor "Yellow"; };
+$VarName="Tester"; Set-Variable -Name "${VarName}"; Remove-Variable -Name "${VarName}"; If (Test-Path -Path "Variable:\${VarName}") { Write-Host "Variable `$${VarName} IS set" -ForegroundColor "Green"; } Else { Write-Host "Variable `$${VarName} is NOT set" -ForegroundColor "Yellow"; };
 
 
 # ------------------------------------------------------------

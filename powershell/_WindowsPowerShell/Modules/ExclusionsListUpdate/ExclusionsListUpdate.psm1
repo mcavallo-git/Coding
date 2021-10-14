@@ -584,9 +584,11 @@ function ExclusionsListUpdate {
 			If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 				<# Apply process exclusions for matching files found locally #>
 				$FoundProcesses | Select-Object -Unique | ForEach-Object {
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender Process-Exclusion: `"$_`"..."; }
-					Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue";
-					If ($? -eq $True) {
+					If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender Process & Filepath Exclusions: `"$_`"..."; }
+					$EXIT_CODE=0;
+					Add-MpPreference -ExclusionProcess "$_" -ErrorAction "SilentlyContinue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
+					Add-MpPreference -ExclusionPath "$_" -ErrorAction "SilentlyContinue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
+					If (${EXIT_CODE} -Eq 0) {
 						If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for process   [ ")+($_)+(" ]")); }
 					} Else {
 						If (Test-Path $_) {

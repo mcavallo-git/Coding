@@ -21,6 +21,14 @@ for i in {1..10}; do echo "\$i = ${i}"; done;
 for i in {1..10..2}; do echo "\$i = ${i}"; done;
 
 
+# For-loop on an array (?) of strings (in Bash)
+for EACH_DOMAIN in "google.com" "hotmail.com" "microsoft.com" "yahoo.com"; do
+echo "";
+echo -n "EACH_DOMAIN=[ $(printf '%-15s' "${EACH_DOMAIN}";) ]   "; echo | openssl s_client -servername "${EACH_DOMAIN}" -connect "${EACH_DOMAIN}:443" 2>/dev/null | openssl x509 -noout -dates | grep 'notAfter';
+echo "";
+done;
+
+
 # For-loop on an Indexed Array (in Bash)
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY+=("Val-1");
@@ -189,12 +197,12 @@ done;
 #
 # Citation(s)
 #
-#		stackoverflow.com  |  "How do I use a for-each loop to iterate over file paths in bash?"  |  https://stackoverflow.com/a/15066129
-#	
-#		stackoverflow.com  |  "Loop through a comma-separated shell variable - Stack Overflow"  |  https://stackoverflow.com/a/27703327
-#	
-#		stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
-#	
+#   stackoverflow.com  |  "How do I use a for-each loop to iterate over file paths in bash?"  |  https://stackoverflow.com/a/15066129
+#
+#   stackoverflow.com  |  "Loop through a comma-separated shell variable - Stack Overflow"  |  https://stackoverflow.com/a/27703327
+#
+#   stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
+#
 #   www.cyberciti.biz  |  "Bash For Loop Examples - nixCraft"  |  https://www.cyberciti.biz/faq/bash-for-loop/
 #
 #   www.cyberciti.biz  |  "How do I check my bash version? - nixCraft"  |  https://www.cyberciti.biz/faq/how-do-i-check-my-bash-version/

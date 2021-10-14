@@ -68,11 +68,11 @@ function ExclusionsListUpdate {
 	}
 	Write-Output "";
 	Write-Output "  Antivirus Software:  ";
-	If ($ESET -eq $True) { Write-Output "    ESET    "; }
-	If ($MalwarebytesAntiMalware -eq $True) { Write-Output "    MalwarebytesAntiMalware    "; }
-	If ($MalwarebytesAntiRansomware -eq $True) { Write-Output "    MalwarebytesAntiRansomware    "; }
-	If ($MalwarebytesAntiExploit -eq $True) { Write-Output "    MalwarebytesAntiExploit    "; }
-	If ($WindowsDefender -eq $True) { Write-Output "    WindowsDefender    "; }
+	If ($ESET -Eq $True) { Write-Output "    ESET    "; }
+	If ($MalwarebytesAntiMalware -Eq $True) { Write-Output "    MalwarebytesAntiMalware    "; }
+	If ($MalwarebytesAntiRansomware -Eq $True) { Write-Output "    MalwarebytesAntiRansomware    "; }
+	If ($MalwarebytesAntiExploit -Eq $True) { Write-Output "    MalwarebytesAntiExploit    "; }
+	If ($WindowsDefender -Eq $True) { Write-Output "    WindowsDefender    "; }
 	Write-Output "";
 
 	$FoundFilepaths = @();
@@ -99,11 +99,11 @@ function ExclusionsListUpdate {
 			}
 			$CommandString="`$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; `$ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
 			$CommandString+=" ExclusionsListUpdate";
-			If ($ESET -eq $True) {                                    $CommandString+=" -ESET"; }
-			If ($MalwarebytesAntiMalware -eq $True) {                 $CommandString+=" -MalwarebytesAntiMalware"; }
-			If ($MalwarebytesAntiRansomware -eq $True) {              $CommandString+=" -MalwarebytesAntiRansomware"; }
-			If ($MalwarebytesAntiExploit -eq $True) {                 $CommandString+=" -MalwarebytesAntiExploit"; }
-			If ($WindowsDefender -eq $True) {                         $CommandString+=" -WindowsDefender"; }
+			If ($ESET -Eq $True) {                                    $CommandString+=" -ESET"; }
+			If ($MalwarebytesAntiMalware -Eq $True) {                 $CommandString+=" -MalwarebytesAntiMalware"; }
+			If ($MalwarebytesAntiRansomware -Eq $True) {              $CommandString+=" -MalwarebytesAntiRansomware"; }
+			If ($MalwarebytesAntiExploit -Eq $True) {                 $CommandString+=" -MalwarebytesAntiExploit"; }
+			If ($WindowsDefender -Eq $True) {                         $CommandString+=" -WindowsDefender"; }
 			If ($PSBoundParameters.ContainsKey('DryRun')) {           $CommandString+=" -DryRun"; }
 			If ($PSBoundParameters.ContainsKey('Entertainment')) {    $CommandString+=" -Entertainment"; }
 			If ($PSBoundParameters.ContainsKey('Quiet')) {            $CommandString+=" -Quiet"; }
@@ -450,10 +450,10 @@ function ExclusionsListUpdate {
 					If (Test-Path $_) {
 						$FoundFilepaths += $_;
 					}
-					If ($WindowsDefender -eq $True) {
+					If ($WindowsDefender -Eq $True) {
 						If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 							Add-MpPreference -ExclusionPath "$_" -ErrorAction "SilentlyContinue";
-							If ($? -eq $True) {
+							If ($? -Eq $True) {
 								If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output (("Successfully added exclusion for filepath   [ ")+($_)+(" ]")); }
 							} Else {
 								If (Test-Path $_) {
@@ -470,10 +470,10 @@ function ExclusionsListUpdate {
 		$ExcludedExtensions | Select-Object -Unique | ForEach-Object {
 			If ($_ -ne $Null) {
 				$FoundExtensions += $_;
-				If ($WindowsDefender -eq $True) {
+				If ($WindowsDefender -Eq $True) {
 					If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 						Add-MpPreference -ExclusionExtension "$_" -ErrorAction "SilentlyContinue";
-						If ($? -eq $True) {
+						If ($? -Eq $True) {
 							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Successfully added exclusion for extension   [ ")+($_)+(" ]")); }
 						} Else {
 							If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output (("Error(s) encountered while trying to exlude extension:   [ ")+($_)+(" ]")); }
@@ -497,8 +497,8 @@ function ExclusionsListUpdate {
 					$Each_Depth = If (($_.Depth -ne $Null) -And ($_.Depth -ne ""))  { [Int]$_.Depth } Else { "" };
 					If ((Test-Path $Each_Dirname) -And ($Each_Basename -ne "")) {
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Searching `"${Each_Dirname}`" for `"${Each_Basename}`"..."; }
-						If ($Each_Parent -eq "") {
-							If ($Each_Depth -eq "") {
+						If ($Each_Parent -Eq "") {
+							If ($Each_Depth -Eq "") {
 								# Matching on [ top level directory ] & [ basename ]
 								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 							} Else {
@@ -506,7 +506,7 @@ function ExclusionsListUpdate {
 								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -Depth ($Each_Depth) -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 							}
 						} Else {
-							If ($Each_Depth -eq "") {
+							If ($Each_Depth -Eq "") {
 								# Matching on [ top level directory ], [ basename ] & [ parent directory name ]
 								$FoundProcesses += (Get-ChildItem -Path ("$Each_Dirname") -Filter ("$Each_Basename") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Like "$Each_Parent" } | ForEach-Object { $_.FullName; });
 							} Else {
@@ -523,9 +523,9 @@ function ExclusionsListUpdate {
 		# Show Filepaths/Processes found locally (before applying exclusions for them)
 		#
 		If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-			Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
-			Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
-			Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
+			Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -Eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
+			Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -Eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
+			Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -Eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
 			Write-Output "`n";
 		}
 		#
@@ -535,7 +535,7 @@ function ExclusionsListUpdate {
 		# ESET Exclusions 
 		#		Construct an Import-file which contains all exclusions
 		#
-		If ($ESET -eq $True) {
+		If ($ESET -Eq $True) {
 			If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 				$ExitCode = ESET_ExportModifier -ESET_ExportToCopyFrom ($ESET_ExportToCopyFrom) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
 			}
@@ -545,14 +545,14 @@ function ExclusionsListUpdate {
 		# Malwarebytes Anti-Ransomware
 		#		Use [ malwarebytes_assistant.exe --exclusions add "FILEPATH" ] to add exclusions
 		#
-		If ($MalwarebytesAntiRansomware -eq $True) {
+		If ($MalwarebytesAntiRansomware -Eq $True) {
 
 			$MBAR_SearchDirname = ((${ProgFilesX64})+("\Malwarebytes"));
 			$MBAR_FindBasename = "malwarebytes_assistant.exe";
 
 			$MalwarebytesAssistant = (Get-ChildItem -Path ("${MBAR_SearchDirname}") -Filter ("${MBAR_FindBasename}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 
-			If ($MalwarebytesAssistant -eq $Null) {
+			If ($MalwarebytesAssistant -Eq $Null) {
 
 				# Cannot find Malwarebytes' exclusions tool/utility
 				Write-Output "";
@@ -579,7 +579,7 @@ function ExclusionsListUpdate {
 		# Windows Defender Exclusions
 		#		Apply directly via PowerShell built-in command(s)
 		#
-		If ($WindowsDefender -eq $True) {
+		If ($WindowsDefender -Eq $True) {
 
 			If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
 				<# Apply process exclusions for matching files found locally #>
@@ -610,7 +610,7 @@ function ExclusionsListUpdate {
 							}
 						}
 					}
-					Write-Output "`nWindows Defender (Removed Exclusions) - Processes: $(${ProcessExclusions_Removed}.Count;)"; If ($ProcessExclusions_Removed -eq $Null) { Write-Output "0"; } Else { ${ProcessExclusions_Removed}.Count; }
+					Write-Output "`nWindows Defender (Removed Exclusions) - Processes: $(${ProcessExclusions_Removed}.Count;)"; If ($ProcessExclusions_Removed -Eq $Null) { Write-Output "0"; } Else { ${ProcessExclusions_Removed}.Count; }
 				}
 				<# Ensure that exclusions lists set by "Add-MpPreference" are actually used #>
 				If ($True) {
@@ -628,9 +628,9 @@ function ExclusionsListUpdate {
 			# ${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
 			# ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
 			$FinalExclusions = (Get-MpPreference);
-			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; };)";
-			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; };)";
-			Write-Output "`nWindows Defender (Live Exclusions) - Processes: $(If (${FinalExclusions}.ExclusionProcess -eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionProcess.Count; };)";
+			Write-Output "`nWindows Defender (Live Exclusions) - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionExtension.Count; };)";
+			Write-Output "`nWindows Defender (Live Exclusions) - Filepaths: $(If (${FinalExclusions}.ExclusionPath -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionPath.Count; };)";
+			Write-Output "`nWindows Defender (Live Exclusions) - Processes: $(If (${FinalExclusions}.ExclusionProcess -Eq $Null) { Write-Output "0"; } Else { ${FinalExclusions}.ExclusionProcess.Count; };)";
 		}
 		#
 		# ------------------------------------------------------------
@@ -663,7 +663,7 @@ function ESET_ExportModifier {
 
 	)
 
-	If ((Test-Path -Path ("$ESET_ExportToCopyFrom")) -eq $False) {
+	If ((Test-Path -Path ("$ESET_ExportToCopyFrom")) -Eq $False) {
 		Write-Output "";
 		Write-Output "  Error in function `"ESET_ExportModifier`"  ";
 		Write-Output "";
@@ -674,7 +674,7 @@ function ESET_ExportModifier {
 		$Dirname_NewImport = ((${Env:USERPROFILE})+("\Desktop\eset-import"));
 		$Basename_NewImport = (("eset-import_")+(Get-Date -UFormat "%Y%m%d-%H%M%S")+(".xml"));
 		$Fullpath_NewImport = (($Dirname_NewImport)+("\")+($Basename_NewImport));
-		If ((Test-Path -Path ($Dirname_NewImport)) -eq $false) {
+		If ((Test-Path -Path ($Dirname_NewImport)) -Eq $False) {
 			New-Item -ItemType "Directory" -Path ($Dirname_NewImport) | Out-Null;
 		}
 		Set-Content -Path ($Fullpath_NewImport) -Value (Get-Content -Path ("$ESET_ExportToCopyFrom"));

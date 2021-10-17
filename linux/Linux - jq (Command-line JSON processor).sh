@@ -146,6 +146,119 @@ fi;
 
 
 # ------------------------------------------------------------
+# jq - Example:  Find files named "appsettings.json" in target directory (Visual Studio Project) & perform replacements on each matching .json file via jq
+#
+
+if [ 1 -eq 1 ]; then
+  #
+  # Inputs variables (override with values relative to target deployment environment)
+  AQMP_SERVICE_NAME="${AQMP_SERVICE_NAME:-Azure Service Bus}";  # "Azure Service Bus" or "RabbitMQ"
+  HOST_SCHEME_FQDN="${HOST_SCHEME_FQDN:-https://example.com}";  # Endpoint URL ingested by the Kestrel Web Server for ASP.NET Core
+  RABBITMQ_HOSTNAME="${RABBITMQ_HOSTNAME:-rabbitmq}";
+  SERVICE_BUS_CONNECTION_STRING="${SERVICE_BUS_CONNECTION_STRING:-}";  # Azure Service Bus connection string
+  SERVICE_BUS_NAME="${SERVICE_BUS_NAME:-azure-service-bus-name}";  # Resource Name of target Azure Service Bus to use
+  SQL_SERVER_NAME="${SQL_SERVER_NAME:-azure-sql-server-name}";  # Resource Name of target Azure (PAAS) SQL Server to use
+  SQL_DATABASE_NAME="${SQL_DATABASE_NAME:-database-name}";  # Resource Name of target Azure (PAAS) SQL Database to use
+  #
+  # Calculated variables (based off of inputs)
+  SERVICE_BUS_URI="sb://${SERVICE_BUS_NAME}.servicebus.windows.net";  # Azure Service Bus endpoint URI
+  SQL_CONNECTION_STRING="Server=Data Source=${SQL_SERVER_NAME};Initial Catalog=${SQL_DATABASE_NAME}";
+  #
+  # Find files named "appsettings.json" in target directory (Visual Studio Project)
+  for EACH_FILE_TO_JQ in $(find "${FULLPATH_VS_SLN_DIRECTORY}" -type "f" -iname "appsettings.json";); do
+    echo -e "EACH_FILE_TO_JQ = [ ${EACH_FILE_TO_JQ} ]";
+    EACH_JSON_CONTENTS="$(cat "${EACH_FILE_TO_JQ}";)";
+    UPDATED_JSON_CONTENTS="${EACH_JSON_CONTENTS}";
+    #
+    # jq - replace/set/update property [ .applicationUrl ]
+    #
+    PROPERTY_KEY_TO_GET=".applicationUrl";
+    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
+      PROPERTY_DESCRIPTION="Application URL/FQDN";
+      PROPERTY_KEY_TO_SET="${PROPERTY_KEY_TO_GET}";
+      PROPERTY_VAL_TO_SET="\"${HOST_SCHEME_FQDN}\"";
+      UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
+      echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+    fi;
+    #
+    # jq - check-for/get property [ .Bus ]
+    #
+    PROPERTY_KEY_TO_GET=".Bus";
+    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
+      # Service Bus Update
+      if [ "${AQMP_SERVICE_NAME}" == "Azure Service Bus" ]; then
+        #
+        # jq - replace/set/update property [ .Bus.ServiceBus.ConnectionString ]
+        #
+        PROPERTY_DESCRIPTION="Service Bus Connection String";
+        PROPERTY_KEY_TO_SET=".Bus.ServiceBus.ConnectionString";
+        PROPERTY_VAL_TO_SET="\"${SERVICE_BUS_CONNECTION_STRING}\"";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+        #
+        # jq - replace/set/update property [ .Bus.ServiceBus.ServiceUri ]
+        #
+        PROPERTY_DESCRIPTION="Service Bus Service URI";
+        PROPERTY_KEY_TO_SET=".Bus.ServiceBus.ServiceUri";
+        PROPERTY_VAL_TO_SET="\"${SERVICE_BUS_URI}\"";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+      fi;
+      # RabbitMQ Update/Remove
+      if [ "${AQMP_SERVICE_NAME}" == "RabbitMQ" ]; then
+        #
+        # jq - replace/set/update property [ .Bus.RabbitMq.Host ]
+        #
+        PROPERTY_DESCRIPTION="RabbitMQ Hostname";
+        PROPERTY_KEY_TO_SET=".Bus.RabbitMq.Host";
+        PROPERTY_VAL_TO_SET="\"${RABBITMQ_HOSTNAME}\"";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+      else
+        #
+        # jq - delete property [ .Bus.RabbitMq ]
+        #
+        PROPERTY_DESCRIPTION="Remove RabbitMQ from JSON";
+        PROPERTY_KEY_TO_SET=".Bus";
+        PROPERTY_VAL_TO_SET="del(.RabbitMq)";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+      fi;
+    fi;
+    #
+    # jq - replace/set/update property [ .SqlServer.FilesDbConnection ]
+    #
+    PROPERTY_KEY_TO_GET=".SqlServer.FilesDbConnection";
+    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
+      PROPERTY_DESCRIPTION="SQL Server Connection String";
+      PROPERTY_KEY_TO_SET="${PROPERTY_KEY_TO_GET}";
+      PROPERTY_VAL_TO_SET="\"${SQL_CONNECTION_STRING}\"";
+      UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
+      echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+    fi;
+    if [ "${UPDATED_JSON_CONTENTS}" == "${EACH_JSON_CONTENTS}" ]; then
+      # No changes required - Do not update target [ appsettings.json ] file
+      echo -e " (No Changes) File contents are already up-to-date""\n";
+      echo "${EACH_JSON_CONTENTS}" | jq;
+    else
+      # Changes required - Update target [ appsettings.json ] file
+      echo "${EACH_JSON_CONTENTS}" | jq;
+      echo "";
+      echo "||| ↑ ↑ ↑ ↑ ↑ ↑ ||| ↓ ↓ ↓ ↓ ↓ ↓ |||";
+      echo "||| ↑ ↑ ↑ BEFORE ↑ ↑ ↑ ||| ↓ ↓ ↓ AFTER ↓ ↓ ↓ |||";
+      echo "||| ↑ ↑ ↑ WORKAROUND(S) ↑ ↑ ↑ ||| ↓ ↓ ↓ WORKAROUND(S) ↓ ↓ ↓ |||";
+      echo "||| ↑ ↑ ↑ ↑ ↑ ↑ ||| ↓ ↓ ↓ ↓ ↓ ↓ |||";
+      echo "";
+      echo "${UPDATED_JSON_CONTENTS}" | jq;
+      echo "";
+      cp --force --verbose "${EACH_FILE_TO_JQ}" "${EACH_FILE_TO_JQ}.bak";
+      echo -e "${UPDATED_JSON_CONTENTS}" | jq > "${EACH_FILE_TO_JQ}";
+    fi;
+  done;
+fi;
+
+
+# ------------------------------------------------------------
 # Citation(s)
 #
 #   github.com  |  "Releases · stedolan/jq · GitHub"  |  https://github.com/stedolan/jq/releases

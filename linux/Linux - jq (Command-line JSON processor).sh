@@ -27,6 +27,31 @@ fi;
 
 
 # ------------------------------------------------------------
+# jq - Check if a specific JSON property exists
+#
+if [ 1 -eq 1 ]; then
+EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
+echo "------------------------------";
+echo "EXAMPLE_JSON = ${EXAMPLE_JSON}";
+echo "------------------------------";
+PROPERTY_KEY_TO_GET=".key3";
+if [ "$(echo "${EXAMPLE_JSON}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
+echo "Info - JSON property verified to exist: \"${PROPERTY_KEY_TO_GET}\"";
+else
+echo "Error - JSON property not found: \"${PROPERTY_KEY_TO_GET}\"";
+fi;
+echo "------------------------------";
+PROPERTY_KEY_TO_GET=".key4";
+if [ "$(echo "${EXAMPLE_JSON}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
+echo "Info - JSON property verified to exist: \"${PROPERTY_KEY_TO_GET}\"";
+else
+echo "Error - JSON property not found: \"${PROPERTY_KEY_TO_GET}\"";
+fi;
+echo "------------------------------";
+fi;
+
+
+# ------------------------------------------------------------
 # jq - Modify the value held by a specific JSON property
 #
 if [ 1 -eq 1 ]; then

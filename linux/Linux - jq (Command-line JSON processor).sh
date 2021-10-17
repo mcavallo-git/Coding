@@ -296,6 +296,8 @@ fi;
 #
 #   stackoverflow.com  |  "bash - Add new element to existing JSON array with jq - Stack Overflow"  |  https://stackoverflow.com/a/42248841
 #
+#   stackoverflow.com  |  "bash - jq returning null as string if the json is empty - Stack Overflow"  |  https://stackoverflow.com/a/53135202
+#
 #   stackoverflow.com  |  "bash - Modify a key-value in a json using jq - Stack Overflow"  |  https://stackoverflow.com/a/42717073
 #
 #   stackoverflow.com  |  "Constructing a json hash from a bash associative array - Stack Overflow"  |  https://stackoverflow.com/a/44792751

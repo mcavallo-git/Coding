@@ -85,12 +85,24 @@ echo "REMAINDER:  [ ${REMAINDER} ]";
 
 # ------------------------------------------------------------
 #
-### String variable to-Lowercase
-#
-#   SYNTAX:   ${VARNAME,,}
+### String variable to-Lowercase  -->  https://stackoverflow.com/a/2264537
 #
 
-EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE,,}";
+#
+# POSIX compliant approach(es):
+#
+#  (awk) SYNTAX:  echo "$a" | awk '{print tolower($0)}';
+EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE}" | awk '{print tolower($0)}';
+#
+#  (tr) SYNTAX:  echo "$a" | tr '[:upper:]' '[:lower:]';
+EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE}" | tr '[:upper:]' '[:lower:]';
+
+
+#
+# Non-POSIX compliant approach(es):
+#
+#  (bashism) SYNTAX:   ${VARNAME,,}
+EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE,,}";  # Bashism requiring Bash v4.0+
 
 
 # ------------------------------------------------------------
@@ -122,6 +134,8 @@ echo "${VAR_NOT_SET:-${VAR_ALSO_NOT_SET:-72}}";
 #   betterprogramming.pub  |  "24 Bashism To Avoid for POSIX-Compliant Shell Scripts | by Shinichi Okada | Aug, 2021 | Better Programming"  |  https://betterprogramming.pub/24-bashism-to-avoid-for-posix-compliant-shell-scripts-8e7c09e0f49a
 #
 #   stackoverflow.com  |  "Case insensitive comparison of strings in shell script"  |  https://stackoverflow.com/a/19411918
+#
+#   stackoverflow.com  |  "How to convert a string to lower case in Bash? - Stack Overflow"  |  https://stackoverflow.com/a/2264537
 #
 #   stackoverflow.com  |  "Remove first character of a string in Bash - Stack Overflow"  |  https://stackoverflow.com/a/46699430
 #

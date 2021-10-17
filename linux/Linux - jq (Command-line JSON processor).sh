@@ -27,7 +27,7 @@ fi;
 
 
 # ------------------------------------------------------------
-# jq - Check if a specific JSON property exists
+# jq - Check if a specific JSON property exists (or not)
 #
 if [ 1 -eq 1 ]; then
 EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';

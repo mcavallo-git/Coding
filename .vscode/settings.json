@@ -76,7 +76,6 @@
 	"explorer.sortOrder": "default",
 	"extensions.closeExtensionDetailsOnViewChange": true,
 	"extensions.ignoreRecommendations": true,
-	"extensions.showRecommendationsOnlyOnDemand": true,
 	"files.associations": {
 		"*.txt": "plaintext",
 		"**/{settings.json,vscode.settings,*.code-workspace}": "jsonc",
@@ -97,7 +96,7 @@
 	"files.eol": "\n",
 	"files.exclude": {
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,unknown}": true,
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"files.hotExit": "off",
@@ -127,11 +126,12 @@
 	"npm.autoDetect": "off",
 	"npm.fetchOnlinePackageInfo": false,
 	"php.validate.enable": false,
+	"redhat.telemetry.enabled": false,
 	"scm.diffDecorations": "none",
 	"search.collapseResults": "alwaysCollapse",
 	"search.exclude": {
 		"**/{desktop.ini,node_modules,*.lnk,*.url}": true,
-		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,unknown}": true,
+		"**/*.{7z,ico,jpeg,jpg,pdf,pdn,png,sign,so,svg,unknown}": true,
 		"**/~$*.{xls,xlsx,doc,docx}": true
 	},
 	"search.quickOpen.includeHistory": false,
@@ -170,6 +170,7 @@
 	"workbench.editor.highlightModifiedTabs": true,
 	"workbench.editor.revealIfOpen": true,
 	"workbench.editor.tabSizing": "shrink",
+	"workbench.editor.untitled.hint": "hidden",
 	"workbench.enableExperiments": false,
 	"workbench.list.horizontalScrolling": true,
 	"workbench.list.keyboardNavigation": "filter",

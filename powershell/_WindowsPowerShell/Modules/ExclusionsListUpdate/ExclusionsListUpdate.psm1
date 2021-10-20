@@ -42,11 +42,14 @@ function ExclusionsListUpdate {
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
+		# Upgrade to 'Run as admin' before downloading & executing script
+		PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/ExclusionsListUpdate/ExclusionsListUpdate.psm1)) ).Content) } Catch {}; If (-Not (Get-Command -Name (Write-Output ExclusionsListUpdate) -ErrorAction SilentlyContinue)) { Import-Module ([String]::Format((((GV HOME).Value)+(Write-Output \Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ExclusionsListUpdate\ExclusionsListUpdate.psm1)), ((GV HOME).Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value); ExclusionsListUpdate -Defender -Entertainment -RemoveMissing;') -Verb RunAs -Wait -PassThru | Out-Null;";
+
+
+		# If you're already in an admin terminal:
 		SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/ExclusionsListUpdate/ExclusionsListUpdate.psm1)) ).Content) } Catch {}; If (-Not (Get-Command -Name (Write-Output ExclusionsListUpdate) -ErrorAction SilentlyContinue)) { Import-Module ([String]::Format((((GV HOME).Value)+(Write-Output \Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ExclusionsListUpdate\ExclusionsListUpdate.psm1)), ((GV HOME).Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
 
-		ExclusionsListUpdate -Defender -Entertainment;
-		ExclusionsListUpdate -Defender -DryRun;
-		ExclusionsListUpdate -Defender;
+		ExclusionsListUpdate -Defender -Entertainment -RemoveMissing;
 
 	}
 	# ------------------------------------------------------------
@@ -142,11 +145,8 @@ function ExclusionsListUpdate {
 
 		$UserProfile = (${Env:USERPROFILE}); # UserProfile
 
-		# $WindowsApps = ((${Env:LocalAppData})+("\Microsoft\WindowsApps")); # WindowsApps
-		# $WindowsApps = ((${ProgFilesX64})+("\WindowsApps")); # WindowsApps
-
 		If (!($PSBoundParameters.ContainsKey('UseAdminUserDirs'))) {
-			# Use non-admin username (instead of Admin Username) for user-directory paths
+			# Use NON-admin username (instead of Admin Username) for user-directory paths  (Default Action)
 			$NonAdmin_Username=((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1]);
 			If ("${env:USERNAME}".ToLower() -NE "${NonAdmin_Username}".ToLower()) {
 				$LocalAppData = ("${LocalAppData}" -Replace "${env:USERNAME}","${NonAdmin_Username}"); <# C:\Users\${NonAdmin_Username}\AppData\Local #>

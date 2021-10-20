@@ -1,0 +1,1 @@
+Refer to "mintty-help.exe.man"

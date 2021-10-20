@@ -13,7 +13,7 @@
 # Configure choco
 #
 
-<# choco - Auto-accept (skip) confirmation prompts during choco installs,upgrades,etc. #> choco feature enable -n=allowGlobalConfirmation;
+<# Configure choco (one-liner) - Auto-accept (skip) confirmation prompts during choco installs,upgrades,etc. #> choco feature enable -n=allowGlobalConfirmation;
 
 
 # ------------------------------
@@ -23,12 +23,13 @@
 
 <# Install NETworkManager via choco (one-liner) #> If ((GCM choco -ErrorAction SilentlyContinue) -NE ((GV null).Value)) { choco install networkmanager; };
 
+
 # ------------------------------
 #
 # Uninstall choco
 #
 
-<# Uninstall choco (one-liner) #> PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Remove-Item -Recurse -Force -Path (((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey));') -Verb RunAs -Wait -PassThru | Out-Null;";
+<# Uninstall choco (one-liner) #> PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; If (Test-Path ((((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey)))) { Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Remove-Item -Recurse -Force -Path (((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey)); Start-Sleep -Seconds 60') -Verb RunAs -Wait -PassThru | Out-Null; }";
 
 
 # ------------------------------------------------------------

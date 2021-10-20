@@ -5,7 +5,7 @@
 #  |--> Script wil auto-upgrade to admin if needed
 #
 
-PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-Command Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online;') -Verb 'RunAs' -Wait -PassThru | Out-Null;"
+PowerShell -Command "Start-Process -Filepath ('C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe') -ArgumentList ('-Command Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability -Online;') -Verb 'RunAs' -Wait -PassThru | Out-Null;";
 
 
 # ------------------------------------------------------------

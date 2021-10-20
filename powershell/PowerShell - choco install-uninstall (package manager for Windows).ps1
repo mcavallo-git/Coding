@@ -13,7 +13,15 @@
 # Configure choco
 #
 
-<# Configure choco (one-liner) - Auto-accept (skip) confirmation prompts during choco installs,upgrades,etc. #> choco feature enable -n=allowGlobalConfirmation;
+<# Upgrade choco (one-liner) #> PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command If (GCM choco -ErrorAction SilentlyContinue) { Start-Process -Filepath ((GCM choco).Source) -ArgumentList (Write-Output feature` enable` -n=allowGlobalConfirmation) -Verb RunAs -Wait -PassThru | Out-Null; Start-Process -Filepath ((GCM choco).Source) -ArgumentList (Write-Output upgrade` all` -y) -Verb RunAs -Wait -PassThru | Out-Null; Start-Process -Filepath ((GCM choco).Source) -ArgumentList (Write-Output --version) -NoNewWindow -Wait -PassThru | Out-Null; Start-Sleep -Seconds 5;}') -Verb RunAs -Wait -PassThru | Out-Null;";
+
+
+# ------------------------------
+#
+# Upgrade choco
+#
+
+<# Upgrade choco (one-liner) #> PowerShell -Command "If (GCM choco -ErrorAction SilentlyContinue) { Start-Process -Filepath ((GCM choco).Source) -ArgumentList (Write-Output upgrade` all` -y) -Verb RunAs -Wait -PassThru | Out-Null; Start-Sleep -Seconds 5; }";
 
 
 # ------------------------------

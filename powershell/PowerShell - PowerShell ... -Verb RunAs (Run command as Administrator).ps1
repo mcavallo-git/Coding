@@ -29,6 +29,10 @@ PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM p
 PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Set-Location ((GCI env:\TEMP).Value); SV ProgressPreference SilentlyContinue; Invoke-WebRequest -UseBasicParsing -Uri (Write-Output https://aka.ms/installazurecliwindows) -OutFile (Write-Output .\AzureCLI.msi); Start-Process ((GCM msiexec).Source) -ArgumentList (Write-Output /I` AzureCLI.msi` /quiet) -Wait; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 
 
+<# PowerShell/pwsh - Run as admin (child terminal) - Install Azure PowerShell Module #>
+PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name Az -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
+
+
 <# PowerShell/pwsh - Run as admin (child terminal) - Run Get-System-Specs #>
 PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; (New-Object System.Net.WebClient).DownloadFile((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/cmd/cmd%20-%20Get-SystemSpecs.bat),(((GCI env:\TEMP).Value)+(Write-Output \Get-SystemSpecs.bat))); Start-Process -Filepath ((GCI env:\ComSpec).Value) -ArgumentList (@((Write-Output /C),(((GCI env:\TEMP).Value)+(Write-Output \Get-SystemSpecs.bat)))) -Verb RunAs -Wait -PassThru; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 

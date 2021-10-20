@@ -150,12 +150,19 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 ▻					White Right-Pointing Pointer  |  Unicode Character “▻” (U+25BB)  |  https://www.compart.com/en/unicode/U+25BB
 
 
-❖					Black Diamond Minus White X  |  Unicode Character “❖” (U+2756)  |  https://www.compart.com/en/unicode/U+2756
-✦					BLACK FOUR POINTED STAR
+⭐					White Medium Star  |  https://www.compart.com/en/unicode/U+2B50
+★				 	Black Star  |  https://www.compart.com/en/unicode/U+2605
+☆				 	White Star  |  https://www.compart.com/en/unicode/U+2603
+✦					Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
+
+
+❖					Black Diamond Minus White X  |  “❖” U+2756 Black Diamond Minus White X Unicode Character  |  https://www.compart.com/en/unicode/U+2756
 ◆					BLACK DIAMOND
 ◇					WHITE DIAMOND
 ◈					WHITE DIAMOND CONTAINING BLACK SMALL DIAMOND
 ◊					LOZENGE
+
+
 ⌨					KEYBOARD
 💬				SPEECH BALLOON
 

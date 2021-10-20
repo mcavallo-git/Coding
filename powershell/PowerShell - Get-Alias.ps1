@@ -5,8 +5,13 @@
 # ------------------------------------------------------------
 
 
-$AliasLookup="Get-ChildItem"; `
-Get-Alias | Where-Object {($_.ResolvedCommandName -Like "*${AliasLookup}*") -Or ($_.ResolvedCommand -Like "*${AliasLookup}*") -Or ($_.ReferencedCommand -Like "*${AliasLookup}*") -Or ($_.Definition -Like "*${AliasLookup}*") -Or ($_.Name -Like "*${AliasLookup}*");};
+$AliasLookup="Get-Command";  <# Lookup Aliases #>  Get-Alias | Where-Object {($_.ResolvedCommandName -Like "*${AliasLookup}*") -Or ($_.ResolvedCommand -Like "*${AliasLookup}*") -Or ($_.ReferencedCommand -Like "*${AliasLookup}*") -Or ($_.Definition -Like "*${AliasLookup}*") -Or ($_.Name -Like "*${AliasLookup}*");};
+
+
+$AliasLookup="Get-ChildItem";  <# Lookup Aliases #>  Get-Alias | Where-Object {($_.ResolvedCommandName -Like "*${AliasLookup}*") -Or ($_.ResolvedCommand -Like "*${AliasLookup}*") -Or ($_.ReferencedCommand -Like "*${AliasLookup}*") -Or ($_.Definition -Like "*${AliasLookup}*") -Or ($_.Name -Like "*${AliasLookup}*");};
+
+
+$AliasLookup="Write-Output";  <# Lookup Aliases #>  Get-Alias | Where-Object {($_.ResolvedCommandName -Like "*${AliasLookup}*") -Or ($_.ResolvedCommand -Like "*${AliasLookup}*") -Or ($_.ReferencedCommand -Like "*${AliasLookup}*") -Or ($_.Definition -Like "*${AliasLookup}*") -Or ($_.Name -Like "*${AliasLookup}*");};
 
 
 # ------------------------------------------------------------

@@ -29,7 +29,7 @@
 # Uninstall choco
 #
 
-<# Uninstall choco (one-liner) #> PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; If (Test-Path ((((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey)))) { Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Remove-Item -Recurse -Force -Path (((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null; }";
+<# Uninstall choco (one-liner) #> PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; If (Test-Path ((((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey)))) { Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Remove-Item -Verbose -Recurse -Force -Path (((GCI env:\PROGRAMDATA).Value)+(Write-Output \chocolatey)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null; }";
 
 
 # ------------------------------------------------------------

@@ -293,6 +293,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Microsoft VS Code"; Depth=""; Parent=""; Basename="rg.exe"; }; # VS Code
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Mozilla Firefox"; Depth="1"; Parent=""; Basename="*.exe"; }; # Firefox
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NETworkManager"; Depth="1"; Parent=""; Basename="NETworkManager.exe"; }; # NETworkManager (Networking Tool)
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="nodejs"; Depth="1"; Parent=""; Basename="node.exe"; }; # Node.js Javascript Runtime
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NV*.exe"; }; # NVIDIA
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\GlobalProtect"; Depth="3"; Parent=""; Basename="*.exe"; }; # Palo Alto Global Protect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Palo Alto Traps (Endpoint Security Manager)
@@ -395,7 +396,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mmc.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="rundll32.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="RuntimeBroker.exe"; }; # Used by Windows 10 Style Apps (Speculation)
-		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="SearchIndexer.exe"; };
+		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="SearchIndexer.exe"; }; # Microsoft Windows Search Indexer
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="sihost.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smartscreen.exe"; };
 		$ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smss.exe"; };

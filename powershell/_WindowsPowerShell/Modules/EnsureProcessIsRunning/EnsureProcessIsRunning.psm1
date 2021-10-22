@@ -9,8 +9,8 @@
 #		|      Given a Process-Path (and optionally, Name), this module ensures that said process is running, and starts it if it isn't
 #		|
 #		|--> Example Call(s):
-#		       EnsureProcessIsRunning -Name 'kleopatra' -Path 'C:\Program Files (x86)\Gpg4win\bin\kleopatra.exe' -WindowStyle 'Hidden';
-#		       EnsureProcessIsRunning -Name 'nginx' -Path 'C:\ISO\NGINX\nginx.exe' -WorkingDirectory 'C:\ISO\NGINX' -StopExisting -Quiet;
+#		       EnsureProcessIsRunning -Name 'kleopatra' -Path 'C:\Program Files (x86)\Gpg4win\bin\kleopatra.exe' -WindowStyle 'Hidden'  -Quiet;
+#		       EnsureProcessIsRunning -Name 'nginx' -Path 'C:\ISO\NGINX\nginx.exe' -WorkingDirectory 'C:\ISO\NGINX' -StopExisting -WindowStyle 'Hidden' -Quiet;
 #
 # ------------------------------------------------------------
 function EnsureProcessIsRunning {

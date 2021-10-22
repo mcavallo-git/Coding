@@ -176,6 +176,25 @@ Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs\*.msi") -File -Recurse -For
 # ------------------------------------------------------------
 
 # ForEach-Object using '.Keys' method to walk through an object by iterating through its property-names
+
+# Hash Table '.Keys' ForEach-Object loop  -  Example #1
+If ($True) {
+	$WriteHost_SplatParams = @{};
+	$WriteHost_SplatParams.("Object")=("`nParameter splatting demo - Passing parameters to the [ Write-Host ] command`n");
+	$WriteHost_SplatParams.("ForegroundColor")=("Yellow");
+	$WriteHost_SplatParams.("BackgroundColor")=("Magenta");
+	$WriteHost_SplatParams_AsString = (
+		($WriteHost_SplatParams.Keys | ForEach-Object {
+			Write-Output "-$(${_})";
+			Write-Output "`"$(${WriteHost_SplatParams}[${_}])`"";
+		}) -replace "`n","``n" -join " "
+	);
+	Write-Host "Calling [ Write-Host ${WriteHost_SplatParams_AsString}; ]...";
+	Write-Host @WriteHost_SplatParams;
+}
+
+
+# Hash Table '.Keys' ForEach-Object loop  -  Example #2
 $CommandString = $MyInvocation.MyCommand.Name;
 $PSBoundParameters.Keys | ForEach-Object {
 	$CommandString += " -$_";

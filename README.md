@@ -109,7 +109,7 @@ This file (on GitHub):
 	<details><summary>Google Account & Google Chrome - settings to apply</summary>
 		<ul>
 			<li><h4>Browse to <code>chrome://flags/#read-later</code> & disable option "Reading List"</h4></li>
-				<ul><li><h6>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the "&#x2603; Add bookmark"/"&#x2605; Edit bookmark" button</h6></li></ul></li>
+				<ul><li><h6>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the "&#x2606; Add bookmark"/"&#x2605; Edit bookmark" button</h6></li></ul></li>
 			<li><h4>Browse to <code>chrome://settings/content/camera</code> & disable top toggle (should say "Blocked" below "Camera")</h4></li>
 			<li><h4>Browse to <code>chrome://settings/content/location</code> & disable top toggle (should say "Blocked" below "Location")</h4></li>
 			<li><h4>Browse to <code>chrome://settings/content/notifications</code> & disable option "Sites can ask to send notifications"</h4></li>

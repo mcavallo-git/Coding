@@ -1,3 +1,4 @@
+# ------------------------------------------------------------
 
 # Download & Install .NET Core Updated Version(s) from:
 # https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/install
@@ -36,10 +37,12 @@ $AppMatches | Sort-Object Name | Format-Table Name;
 # }
 
 
-# ---------------------------------------------------------------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
-#		docs.microsoft.com, "Get-WmiObject"
-#			https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject?view=powershell-5.1
+#   docs.microsoft.com  |  "Get-WmiObject"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject
 #
+#   docs.microsoft.com  |  "Win32\_Product class | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/desktop/msiprov/win32-product
+#
+# ------------------------------------------------------------

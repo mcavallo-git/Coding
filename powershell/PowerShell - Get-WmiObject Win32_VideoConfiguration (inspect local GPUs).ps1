@@ -1,3 +1,4 @@
+# ------------------------------------------------------------
 
 $ExternalGpuNames = @();
 
@@ -13,11 +14,13 @@ If ($ExternalGpuNames.Count -Gt 0) {
 	Write-Host "No External GPU(s) found";
 }
 
-# ---------------------------------------------------------------------------------------------------------------------- #
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
-#		docs.microsoft.com  |  "Win32_VideoController class"  |  https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-videocontroller
+#   docs.microsoft.com  |  "Get-WmiObject"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject
 #
-#		docs.microsoft.com  |  "Win32_VideoConfiguration class"  |  https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-videoconfiguration
+#   docs.microsoft.com  |  "Win32_VideoConfiguration class - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/desktop/cimwin32prov/win32-videoconfiguration
 #
+# ------------------------------------------------------------

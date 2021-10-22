@@ -31,6 +31,8 @@ function EnsureProcessIsRunning {
 
 		[Switch]$Minimized,
 
+		[String]$WorkingDirectory="",
+
 		[ValidateSet('Normal','Hidden','Minimized','Maximized')]
 		[String]$WindowStyle="Normal",
 
@@ -55,79 +57,82 @@ function EnsureProcessIsRunning {
 		If ([String]::IsNullOrEmpty("${Name}") -Eq $False) {
 			# Find processes matching given [ Name ]  OR  [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info: Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";
+				Write-Host "EnsureProcessIsRunning:  Info:  Checking for Local Process w/ Name `"${Name}`" OR Path `"${Path}`"";
+			}
+			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Write-Host "EnsureProcessIsRunning:  Debug: Calling [ Get-Process | Where-Object { ((`$_.Path -Eq `"${Path}`") -Or (`$_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty `"Id`" ]";
+				(Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
 			}
 			$Returned_PID = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
-
-			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
-				Write-Host "Calling [ Get-Process | Where-Object { ((`$_.Path -Eq `"${Path}`") -Or (`$_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty `"Id`" ]";
-				Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id";
-			}
-
 		} Else {
 			# Find processes only matching given [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-				Write-Host "EnsureProcessIsRunning:  Info: Checking for Local Process w/ Path `"${Path}`"";
+				Write-Host "EnsureProcessIsRunning:  Info:  Checking for Local Process w/ Path `"${Path}`"";
+			}
+			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Write-Host "EnsureProcessIsRunning:  Debug: Calling [ Get-Process | Where-Object { (`$_.Path -Eq `"${Path}`"); } | Select-Object -ExpandProperty `"Id`" ]";
+				(Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 			}
 			$Returned_PID = (Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
-
-			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
-				Write-Host "Calling [ Get-Process | Where-Object { (`$_.Path -Eq `"${Path}`"); } | Select-Object -ExpandProperty `"Id`" ]";
-				Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id";
-			}
 		}
 
 		If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
-			Write-Host "EnsureProcessIsRunning:  Debug - Returned_PID=[ ${Returned_PID} ]";
+			Write-Host "EnsureProcessIsRunning:  Debug: Returned_PID=[ ${Returned_PID} ]";
 		}
 
-		If (${Returned_PID} -Eq $Null) {
 
+		If (${Returned_PID} -Eq $Null) {
+			# Need to start the process (as it was not found to already be running)
+
+			# Build a hash table of parameters to splat into the "Start-Process" module
+			$StartProcess_SplatParams = @{};
+			$StartProcess_SplatParams.("Filepath")=("${Path}");
+			$StartProcess_SplatParams.("WindowStyle")=("${WindowStyle}");
 			If (($PSBoundParameters.ContainsKey('RunAsAdmin') -Eq $True) -Or ($PSBoundParameters.ContainsKey('AsAdmin') -Eq $True)) {
-				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
-					# Start Process [ AS-ADMIN ] & [ WITH ARGS ]
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
-					}
-					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -Verb ("RunAs") -WindowStyle ("${WindowStyle}");
-				} Else {
-					# Start Process [ AS-ADMIN ] & [ NO ARGS ]
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -Verb (`"RunAs`") -WindowStyle (`"${WindowStyle}`"); ]";
-					}
-					Start-Process -Filepath ("${Path}") -Verb ("RunAs") -WindowStyle ("${WindowStyle}");
-				}
-			} Else {
-				If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
-					# Start Process [ NON-ADMIN ] & [ WITH ARGS ]
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -ArgumentList (`"${Args}`") -WindowStyle (`"${WindowStyle}`"); ]";
-					}
-					Start-Process -Filepath ("${Path}") -ArgumentList ("${Args}") -WindowStyle ("${WindowStyle}");
-				} Else {
-					# Start Process [ NON-ADMIN ] & [ NO ARGS ]
-					If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-						Write-Host "EnsureProcessIsRunning:  Info: Calling [ Start-Process -Filepath (`"${Path}`") -WindowStyle (`"${WindowStyle}`"); ]";
-					}
-					Start-Process -Filepath ("${Path}") -WindowStyle ("${WindowStyle}");
-				}
+				$StartProcess_SplatParams.("Verb")=("RunAs");  # Run using:  [ RUN AS ADMIN ]
 			}
+			If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
+				$StartProcess_SplatParams.("ArgumentList")=("${Args}"); # Run using:  [ ADDITIONAL INLINE ARGUMENTS ]
+			}
+
+			# Start the Process
+			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+				$StartProcess_SplatParams_AsString = (($StartProcess_SplatParams.Keys | ForEach-Object { Write-Output "-$(${_})"; Write-Output "`"$(${StartProcess_SplatParams}[${_}])`""; }) -replace "`n","``n" -join " ");
+				Write-Host "EnsureProcessIsRunning:  Info:  Calling [ Start-Process ${StartProcess_SplatParams_AsString}; ]...";
+			}
+			$EXIT_CODE=0;
+			Start-Process @StartProcess_SplatParams;  $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
 
 			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
-				Write-Host "EnsureProcessIsRunning:  Debug - Returned_PID=[ ${Returned_PID} ]";
+				Write-Host "EnsureProcessIsRunning:  Debug: EXIT_CODE=[ ${EXIT_CODE} ]";
 			}
 
-			# Re-Check to ensure that process is now running (after just being started)
+			# Re-check to ensure that process is now running (after just being started)
 			If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
 				# Find processes matching given [ Name ] and given [ Path ]
+				If (($PSBoundParameters.ContainsKey('Debug'))) {
+					Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Where-Object { `$_.Name -eq `"${Name}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
+					(Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
+				}
 				$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
 			} Else {
 				# Find processes only matching given [ Path ]
+				If (($PSBoundParameters.ContainsKey('Debug'))) {
+					Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
+					(Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+				}
 				$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 			}
 
 			If ($Returned_PID -Eq $Null) {
 				Write-Host "EnsureProcessIsRunning:  Error: Failed to start Process `"${Path}`"" -ForegroundColor "Red";
+			} Else {
+				If (!($PSBoundParameters.ContainsKey('Quiet'))) {
+					Write-Host "EnsureProcessIsRunning:  Info:  Successfully started Process";
+				}
+				If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+					Write-Host "EnsureProcessIsRunning:  Debug: Returned_PID=[ ${Returned_PID} ]";
+				}
 			}
 
 		}
@@ -150,6 +155,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # Citation(s)
 #
 #   docs.microsoft.com  |  "About Functions Advanced Parameters"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_functions_advanced_parameters?view=powershell-5.1&redirectedfrom=MSDN
+#
+#   docs.microsoft.com  |  "about Splatting - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting
 #
 #   docs.microsoft.com  |  "Start-Process - Starts one or more processes on the local computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process?view=powershell-5.1
 #

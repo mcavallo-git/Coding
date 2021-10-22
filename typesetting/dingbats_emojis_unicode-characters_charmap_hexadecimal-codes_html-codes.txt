@@ -152,7 +152,7 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 
 ⭐					White Medium Star  |  https://www.compart.com/en/unicode/U+2B50
 ★				 	Black Star  |  https://www.compart.com/en/unicode/U+2605
-☆				 	White Star  |  https://www.compart.com/en/unicode/U+2603
+☆				 	White Star  |  https://www.compart.com/en/unicode/U+2606
 ✦					Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
 
 

@@ -6,11 +6,11 @@
 #		|      EnsureProcessIsRunning
 #		|
 #		|--> Description:
-#		|      Given a Process-Path (and optionally, Name), this module ensures that said process is running, and starts it if it isn't
+#		|      Given a Process Path (and optionally, Process Name), ensure that said process is running (start it if it isn't)
 #		|
 #		|--> Example Call(s):
-#		       EnsureProcessIsRunning -Name 'kleopatra' -Path 'C:\Program Files (x86)\Gpg4win\bin\kleopatra.exe' -WindowStyle 'Hidden'  -Quiet;
-#		       EnsureProcessIsRunning -Name 'nginx' -Path 'C:\ISO\NGINX\nginx.exe' -WorkingDirectory 'C:\ISO\NGINX' -StopExisting -WindowStyle 'Hidden' -Quiet;
+#		       EnsureProcessIsRunning -Name 'kleopatra' -Path 'C:\Program Files (x86)\Gpg4win\bin\kleopatra.exe' -Quiet;
+#		       EnsureProcessIsRunning -Name 'nginx' -Path 'C:\ISO\NGINX\nginx.exe' -WorkingDirectory 'C:\ISO\NGINX' -StopExisting -Quiet;
 #
 # ------------------------------------------------------------
 function EnsureProcessIsRunning {
@@ -24,7 +24,7 @@ function EnsureProcessIsRunning {
 		[String]$Args,
 
 		[ValidateSet('Normal','Hidden','Minimized','Maximized')]
-		[String]$WindowStyle="Normal",
+		[String]$WindowStyle="Hidden",
 
 		[String]$WorkingDirectory="",
 

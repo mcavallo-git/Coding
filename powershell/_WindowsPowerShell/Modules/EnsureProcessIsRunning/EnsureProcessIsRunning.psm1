@@ -29,20 +29,20 @@ function EnsureProcessIsRunning {
 
 		[String]$Args,
 
-		[Switch]$Minimized,
-
 		[ValidateSet('Normal','Hidden','Minimized','Maximized')]
 		[String]$WindowStyle="Normal",
 
 		[String]$WorkingDirectory="",
 
 		[Switch]$AsAdmin,
+		[Switch]$Minimized,
+		[Switch]$StopExisting,
+
 		[Switch]$Quiet,
-		[Switch]$RunAsAdmin
 
 	)
 
-	$Returned_PID = $Null;
+	$Returned_PIDs = $Null;
 
 	If ([String]::IsNullOrEmpty("${Path}") -Eq $True) {
 		Write-Host "EnsureProcessIsRunning:  Error: Must specify a process path to be ensured is-running" -ForegroundColor "Yellow";
@@ -52,7 +52,9 @@ function EnsureProcessIsRunning {
 		Write-Host "EnsureProcessIsRunning:  Error: Path not found: `"${Path}`"" -ForegroundColor "Yellow";
 
 	} Else {
-	
+
+		$GetProcess = $Null;
+
 		If ([String]::IsNullOrEmpty("${Name}") -Eq $False) {
 			# Find processes matching given [ Name ]  OR  [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
@@ -62,7 +64,7 @@ function EnsureProcessIsRunning {
 				Write-Host "EnsureProcessIsRunning:  Debug: Calling [ Get-Process | Where-Object { ((`$_.Path -Eq `"${Path}`") -Or (`$_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty `"Id`" ]";
 				(Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
 			}
-			$Returned_PID = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); } | Select-Object -ExpandProperty "Id");
+			$GetProcess = (Get-Process | Where-Object { (($_.Path -Eq "${Path}") -Or ($_.Name -Eq "${Name}")); });
 		} Else {
 			# Find processes only matching given [ Path ]
 			If (!($PSBoundParameters.ContainsKey('Quiet'))) {
@@ -72,15 +74,25 @@ function EnsureProcessIsRunning {
 				Write-Host "EnsureProcessIsRunning:  Debug: Calling [ Get-Process | Where-Object { (`$_.Path -Eq `"${Path}`"); } | Select-Object -ExpandProperty `"Id`" ]";
 				(Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 			}
-			$Returned_PID = (Get-Process | Where-Object { $_.Path -Eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+			$GetProcess = (Get-Process | Where-Object { $_.Path -Eq "${Path}"; });
 		}
 
-		If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
-			Write-Host "EnsureProcessIsRunning:  Debug: Returned_PID=[ ${Returned_PID} ]";
+		# If Process is already running
+		If (${GetProcess} -NE $Null) {
+			$Returned_PIDs = (${GetProcess} | Select-Object -ExpandProperty "Id");
+			Get-Process | Where-Object { (($_.Name -Eq "chrome") -Or ($_.Path -Eq "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe")); } | Stop-Process -Force;
+			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
+				Write-Host "EnsureProcessIsRunning:  Debug: Returned_PIDs=[ ${Returned_PIDs} ]";
+			}
+			If ($PSBoundParameters.ContainsKey('StopExisting') -Eq $True) {
+				# Stop existing process(es)
+				Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue; ]..";
+				Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue;
+			}
 		}
 
+		If (${GetProcess} -Eq $Null) {
 
-		If (${Returned_PID} -Eq $Null) {
 			# Need to start the process (as it was not found to already be running)
 
 			# Build a hash table of parameters to splat into the "Start-Process" module
@@ -116,24 +128,24 @@ function EnsureProcessIsRunning {
 					Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Where-Object { `$_.Name -eq `"${Name}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
 					(Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
 				}
-				$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
+				$Returned_PIDs = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
 			} Else {
 				# Find processes only matching given [ Path ]
 				If (($PSBoundParameters.ContainsKey('Debug'))) {
 					Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
 					(Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 				}
-				$Returned_PID = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
+				$Returned_PIDs = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 			}
 
-			If ($Returned_PID -Eq $Null) {
+			If ($Returned_PIDs -Eq $Null) {
 				Write-Host "EnsureProcessIsRunning:  Error: Failed to start Process `"${Path}`"" -ForegroundColor "Red";
 			} Else {
 				If (!($PSBoundParameters.ContainsKey('Quiet'))) {
 					Write-Host "EnsureProcessIsRunning:  Info:  Successfully started Process";
 				}
 				If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
-					Write-Host "EnsureProcessIsRunning:  Debug: Returned_PID=[ ${Returned_PID} ]";
+					Write-Host "EnsureProcessIsRunning:  Debug: Returned_PIDs=[ ${Returned_PIDs} ]";
 				}
 			}
 
@@ -142,7 +154,7 @@ function EnsureProcessIsRunning {
 	}
 
 	If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-		Return ${Returned_PID};
+		Return ${Returned_PIDs};
 	}
 
 }

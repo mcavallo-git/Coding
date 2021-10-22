@@ -12,12 +12,14 @@ $NewService_SplatParams = @{
   StartupType = "Automatic";  <# Valid values are [ Automatic, Disabled, Manual, Boot, System ] #>
   Description = "This is a test service.";
 }
-New-Service @NewService_SplatParams;
+New-Service @NewService_SplatParams;  <# use "Splatting" to pass arguments to module #>
 
 
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   docs.microsoft.com  |  "about Splatting - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_splatting
 #
 #   docs.microsoft.com  |  "New-Service (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-service
 #

@@ -10,6 +10,12 @@
 #    --udp|-u
 
 
+# Install netstat (Debian distros)
+apt-get -y update; apt-get -y install net-tools;
+
+
+# ------------------------------------------------------------
+
 # LIST OUTGOING PORTS/SOCKETS  (TCP, ANY SOCKET TYPE (LISTEN, ESTABLISHED, TIME-WAIT, ...))
 netstat -atn;
 

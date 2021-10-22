@@ -38,7 +38,7 @@ function EnsureProcessIsRunning {
 		[Switch]$Minimized,
 		[Switch]$StopExisting,
 
-		[Switch]$Quiet,
+		[Switch]$Quiet
 
 	)
 

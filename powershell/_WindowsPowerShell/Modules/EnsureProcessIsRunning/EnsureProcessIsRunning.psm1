@@ -88,6 +88,7 @@ function EnsureProcessIsRunning {
 				# Stop existing process(es)
 				Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue; ]..";
 				Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue;
+				${GetProcess}=$Null;
 			}
 		}
 

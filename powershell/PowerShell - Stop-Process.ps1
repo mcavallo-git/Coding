@@ -1,3 +1,30 @@
+# ------------------------------------------------------------
+#
+# PowerShell - Stop Process(es)
+#
+
+
+# General Syntax (Example #1)
+Stop-Process -Name "chrome" -ErrorAction SilentlyContinue;
+
+
+# General Syntax (Example #3)
+Get-Process -Name "chrome" -ErrorAction SilentlyContinue | Stop-Process -Force;
+
+
+# General Syntax (Example #3)   !!! CLEANEST (?) APPROACH  -  AVOIDS THE USE OF [ -ErrorAction SilentlyContinue ] (PRESERVES ERRORS)  !!!
+Get-Process | Where-Object { (($_.Name -Eq "chrome") -Or ($_.Path -Eq "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe")); } | Stop-Process -Force;
+
+
+# General Syntax (Example #4)
+$Returned_PIDs=(Get-Process | Where-Object { (($_.Name -Eq "chrome") -Or ($_.Path -Eq "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe")); } | Select-Object -ExpandProperty "Id");
+Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue;
+
+
+# ------------------------------------------------------------
+
+
+# Stop-Process - Detailed Apprach
 
 If ($True) {
 

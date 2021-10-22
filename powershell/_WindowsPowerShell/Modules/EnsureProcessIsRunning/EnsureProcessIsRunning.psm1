@@ -87,7 +87,7 @@ function EnsureProcessIsRunning {
 			}
 			If ($PSBoundParameters.ContainsKey('StopExisting') -Eq $True) {
 				# Stop existing process(es)
-				Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue; ]..";
+				Write-Host "EnsureProcessIsRunning:  Debug: Calling [ Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue; ]..";
 				Stop-Process -Id (${Returned_PIDs}) -Force -ErrorAction SilentlyContinue;
 				${GetProcess}=$Null;
 			}
@@ -127,14 +127,14 @@ function EnsureProcessIsRunning {
 			If ([String]::IsNullOrEmpty("${Name}") -Eq $True) {
 				# Find processes matching given [ Name ] and given [ Path ]
 				If (($PSBoundParameters.ContainsKey('Debug'))) {
-					Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Where-Object { `$_.Name -eq `"${Name}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
+					Write-Host "EnsureProcessIsRunning:  Debug: Calling [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Where-Object { `$_.Name -eq `"${Name}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
 					(Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
 				}
 				$Returned_PIDs = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Where-Object { $_.Name -eq "${Name}"; } | Select-Object -ExpandProperty "Id");
 			} Else {
 				# Find processes only matching given [ Path ]
 				If (($PSBoundParameters.ContainsKey('Debug'))) {
-					Write-Host "EnsureProcessIsRunning:  Debug: Calling  [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
+					Write-Host "EnsureProcessIsRunning:  Debug: Calling [ (Get-Process | Where-Object { `$_.Path -eq `"${Path}`"; } | Select-Object -ExpandProperty `"Id`"); ]..";
 					(Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 				}
 				$Returned_PIDs = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");

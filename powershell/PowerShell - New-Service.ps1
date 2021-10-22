@@ -12,7 +12,7 @@ $NewService_SplatParams = @{
   StartupType = "Automatic";  <# Valid values are [ Automatic, Disabled, Manual, Boot, System ] #>
   Description = "This is a test service.";
 }
-New-Service @NewService_SplatParams;  <# use "Splatting" to pass arguments to module #>
+New-Service @NewService_SplatParams;  <# use "splatting" to pass parameters #>
 
 
 # ------------------------------------------------------------

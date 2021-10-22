@@ -24,7 +24,7 @@ function EnsureProcessIsRunning {
 		[String]$Args,
 
 		[ValidateSet('Normal','Hidden','Minimized','Maximized')]
-		[String]$WindowStyle="Hidden",
+		[String]$WindowStyle="Normal",
 
 		[String]$WorkingDirectory="",
 

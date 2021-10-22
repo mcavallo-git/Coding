@@ -1,15 +1,17 @@
 # ------------------------------------------------------------
 #
-#	PowerShell Module
-#		|
-#		|--> Name:
-#		|      ExclusionsListUpdate
-#		|
-#		|--> Description:
-#		|      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
-#		|
-#		|--> Example Call(s):
-#		       Import-Module "${Home}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ExclusionsListUpdate\ExclusionsListUpdate.psm1"; ExclusionsListUpdate -Defender -DryRun;
+# PowerShell Module
+#   |
+#   |--> Name:
+#   |      ExclusionsListUpdate
+#   |
+#   |--> Description:
+#   |      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
+#   |
+#   |--> Example Call(s):
+#          ExclusionsListUpdate -Defender -Entertainment -RemoveMissing;
+#          ExclusionsListUpdate -ESET -MalwarebytesAntiRansomware -Defender;
+#          ExclusionsListUpdate -Defender -DryRun;
 #
 # ------------------------------------------------------------
 function ExclusionsListUpdate {

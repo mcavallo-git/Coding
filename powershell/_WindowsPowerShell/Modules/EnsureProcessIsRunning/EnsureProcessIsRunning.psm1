@@ -31,15 +31,14 @@ function EnsureProcessIsRunning {
 
 		[Switch]$Minimized,
 
-		[String]$WorkingDirectory="",
-
 		[ValidateSet('Normal','Hidden','Minimized','Maximized')]
 		[String]$WindowStyle="Normal",
 
-		[Switch]$AsAdmin,
-		[Switch]$RunAsAdmin,
+		[String]$WorkingDirectory="",
 
-		[Switch]$Quiet
+		[Switch]$AsAdmin,
+		[Switch]$Quiet,
+		[Switch]$RunAsAdmin
 
 	)
 

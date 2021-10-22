@@ -7,7 +7,6 @@
 #		|--> Example:     PowerShell -Command ("Show `$MyInvocation -Methods")
 #
 # ------------------------------------------------------------
-
 Function Show() {
 	Param(
 		[Switch]$AlwaysGetHelp,

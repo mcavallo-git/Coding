@@ -92,7 +92,10 @@ function EnsureProcessIsRunning {
 				$StartProcess_SplatParams.("Verb")=("RunAs");  # Run using:  [ RUN AS ADMIN ]
 			}
 			If ([String]::IsNullOrEmpty("${Args}") -Eq $False) {
-				$StartProcess_SplatParams.("ArgumentList")=("${Args}"); # Run using:  [ ADDITIONAL INLINE ARGUMENTS ]
+				$StartProcess_SplatParams.("ArgumentList")=("${Args}"); # Run using:  [ COMMAND-SPECIFIC INLINE ARGUMENTS ]
+			}
+			If ([String]::IsNullOrEmpty("${WorkingDirectory}") -Eq $False) {
+				$StartProcess_SplatParams.("WorkingDirectory")=("${WorkingDirectory}"); # Run using:  [ WORKING DIRECTORY ]
 			}
 
 			# Start the Process

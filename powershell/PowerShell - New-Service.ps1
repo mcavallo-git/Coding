@@ -1,7 +1,8 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Add a service via "New-Service"
+# PowerShell - Create/Add a new service
 #
+
 
 $NewService_SplatParams = @{
   Name = "TestService";
@@ -13,10 +14,11 @@ $NewService_SplatParams = @{
 }
 New-Service @NewService_SplatParams;
 
+
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "New-Service - Creates a new Windows service"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-service?view=powershell-5.1
+#   docs.microsoft.com  |  "New-Service (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-service
 #
 # ------------------------------------------------------------

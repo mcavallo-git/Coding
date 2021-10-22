@@ -1,8 +1,10 @@
 # ------------------------------------------------------------
 #
-# List all services matching a given Name (Unique-ID) or DisplayName (shown under the "Name" column in services.msc, ridiculously enough)
+# PowerShell - Get (list) service(s) by name 
 #
 
+
+# Get (list) services matching a given Name (Unique-ID) or DisplayName (shown under the "Name" column in services.msc, ridiculously enough)
 Get-Service -ErrorAction "SilentlyContinue" `
 | Where-Object { `
 	(($_.Name -Like "ASUS*") -Or ($_.DisplayName -Like "ASUS*")) `
@@ -14,10 +16,7 @@ Get-Service -ErrorAction "SilentlyContinue" `
 ;
 
 
-#
-# List services which are have the "Running" status
-#
-
+# Get (list) services which have the "Running" status
 Get-Service -ErrorAction "SilentlyContinue" `
 | Where-Object { `
 	($_.Status -eq "Running") `
@@ -25,40 +24,9 @@ Get-Service -ErrorAction "SilentlyContinue" `
 ;
 
 
-#
-# STOP service(s) by Name
-#
-
-Get-Service -Name ("wuauserv") -ErrorAction "SilentlyContinue" `
-| Where-Object { $_.Status -eq "Running"} `
-| ForEach-Object { `
-	Write-Host "`n$($MyInvocation.MyCommand.Name) - Task: Stopping Service `"$($_.Name)`" ...  " -ForegroundColor "Gray"; `
-	Stop-Service -Name ($_.Name) -Force -NoWait -ErrorAction "SilentlyContinue"; `
-} `
-;
-
-
-#
-# STOP service(s) by Name/DisplayName
-#
-
-Get-Service -ErrorAction "SilentlyContinue" `
-| Where-Object { `
-	(($_.Name -Like "ASUS*") -Or ($_.DisplayName -Like "ASUS*")) `
-	-Or (($_.Name -Like "ROG Live*") -Or ($_.DisplayName -Like "ROG Live*")) `
-	-Or (($_.Name -Like "ARMOURY CRATE*") -Or ($_.DisplayName -Like "ARMOURY CRATE*")) `
-} `
-| Stop-Service `
-;
-
-
 # ------------------------------------------------------------
 # Citation(s)
 #
-#  docs.microsoft.com  |  "Get-Service - Gets the services on the computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service?view=powershell-5.1
-#
-#  docs.microsoft.com  |  "Start-Service - Starts one or more running services"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-service?view=powershell-5.1
-#
-#  docs.microsoft.com  |  "Stop-Service - Stops one or more running services"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/stop-service?view=powershell-5.1
+#  docs.microsoft.com  |  "Get-Service (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-service
 #
 # ------------------------------------------------------------

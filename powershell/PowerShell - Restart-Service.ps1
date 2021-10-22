@@ -1,29 +1,24 @@
-@ECHO OFF
+# ------------------------------------------------------------
+#
+# PowerShell - Restart service(s) by name 
+#
 
 
-# Restart TeamCity Web-Server
-
+# Restart TeamCity Web Server
 TASKKILL /F /FI "IMAGENAME eq TeamCityService.exe"
 Restart-Service -Name "TeamCity"
-
 TIMEOUT /T 60
 
 
-
-# Restart TeamCity Build-Server
-
+# Restart TeamCity Build Server
 TASKKILL /F /FI "IMAGENAME eq TeamCityAgentService-windows-x86-32.exe"
 Restart-Service -Name "TCBuildAgent"
-
 TIMEOUT /T 60
 
 
-
-# Restart TeamCity Build-Server
-
+# Restart TeamCity Build Server
 TASKKILL /F /FI "IMAGENAME eq nginx.exe"
 Restart-Service -Name "NGINX-Service"
-
 TIMEOUT /T 60
 
 
@@ -57,6 +52,6 @@ ForEach ($EachService In $IRSA_Enterprise_Services) { `
 # ------------------------------------------------------------
 # Citation(s)
 #
-#  docs.microsoft.com  |  "Restart-Service"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-service?view=powershell-6
+#  docs.microsoft.com  |  "Restart-Service (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-service
 #
 # ------------------------------------------------------------

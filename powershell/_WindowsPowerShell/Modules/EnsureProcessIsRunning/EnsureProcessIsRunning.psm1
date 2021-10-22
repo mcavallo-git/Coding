@@ -1,24 +1,18 @@
-If ($False) {
-# RUN THIS SCRIPT REMOTELY / ON-THE-FLY:
-
-
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-
-
-}
+# ------------------------------------------------------------
 #
-# PowerShell - EnsureProcessIsRunning
-#   |--> Description
-#   |      |--> Given a Process-Path (and optionally, Name), this module ensures that said process is running, and starts it if it isn't
-#   |
-#   |--> Returns:
-#   |      |--> PID(s) of Running Process(es) which match input name/path
-#   |      |--> $Null  (If Process is NOT running and could not be started)
-#   |
-#   |--> Example (Task Scheduler)
-#          Program/Script:    wscript
-#          Add Arguments:     CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""EnsureProcessIsRunning -Name 'Greenshot' -Path 'C:\Program Files\Greenshot\Greenshot.exe' -AsAdmin -Quiet;"" ", 0, True
+#	PowerShell Module
+#		|
+#		|--> Name:
+#		|      EnsureProcessIsRunning
+#		|
+#		|--> Description:
+#		|      Given a Process-Path (and optionally, Name), this module ensures that said process is running, and starts it if it isn't
+#		|
+#		|--> Example Call(s):
+#		       EnsureProcessIsRunning -Name 'kleopatra' -Path 'C:\Program Files (x86)\Gpg4win\bin\kleopatra.exe' -WindowStyle 'Hidden';
+#		       EnsureProcessIsRunning -Name 'nginx' -Path 'C:\ISO\NGINX\nginx.exe' -WorkingDirectory 'C:\ISO\NGINX' -StopExisting -Quiet;
 #
+# ------------------------------------------------------------
 function EnsureProcessIsRunning {
 	Param(
 
@@ -41,6 +35,13 @@ function EnsureProcessIsRunning {
 		[Switch]$Quiet
 
 	)
+	# ------------------------------------------------------------
+	If ($False) { # RUN THIS SCRIPT:
+
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+	}
+	# ------------------------------------------------------------
 
 	$Returned_PIDs = $Null;
 

@@ -18,7 +18,6 @@ services:
       target: 80
     environment:
     - NGINX_HOST=${NGINX_HOST:-localhost}
-    - NGINX_LOG_FORMAT=${NGINX_LOG_FORMAT:-log_verbosity_3}
     - NGINX_PORT=${NGINX_PORT:-80}
 
 # ------------------------------------------------------------

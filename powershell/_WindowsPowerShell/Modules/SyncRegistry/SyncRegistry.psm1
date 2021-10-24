@@ -1103,6 +1103,21 @@ function SyncRegistry {
 		};
 
 
+		# Telemetry - Disable (as much as possible)  -  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::AllowTelemetry
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DataCollection";
+			Props=@(
+				@{
+					Description="Requires Windows 10 Enterprise Edition - Changes the level of diagnostic and usage (telemetry) data sent to Microsoft - 0=[Diagnostic data off], 1=[Send required diagnostic data], 2=[Send optional diagnostic data]",
+					Name="AllowTelemetry";
+					Type="DWord";
+					Value=0;
+					Delete=$False;
+				}
+			)
+		};
+
+
 		# Windows/Microsoft Defender - Don't allow Group Policy settings to block the usage of local exclusions list
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection";
@@ -1429,6 +1444,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   docs.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
 #
 #   docs.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
+#
+#   docs.microsoft.com  |  "Manage connections from Windows 10 and Windows 11 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#1816-feedback--diagnostics
 #
 #   docs.microsoft.com  |  "Multimedia Class Scheduler Service - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/procthread/multimedia-class-scheduler-service
 #

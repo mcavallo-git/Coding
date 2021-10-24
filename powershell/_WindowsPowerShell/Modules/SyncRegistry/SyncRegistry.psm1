@@ -634,6 +634,67 @@ function SyncRegistry {
 		};
 
 
+		# Multimedia - Gaming Priority
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
+			Props=@(
+				@{
+					Description="Determines the percentage of CPU resources that should be guaranteed to low-priority tasks (Defaults to 20). Rounds up to the nearest value of 10. A value of 0 is also treated as 10.";
+					Name="SystemResponsiveness";
+					Type="DWord";
+					Val_Default=("20");
+					Val_Gaming=("1");
+					Value=("20");
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Multimedia - System Responsiveness
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games";
+			Props=@(
+				@{
+					Description="The GPU priority. The range of values is 0-31. This priority is not yet used.";
+					Name="GPU Priority";
+					Type="DWord";
+					Val_Default=("8");
+					Val_Gaming=("8");
+					Value=("8");
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				},
+				@{
+					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2.";
+					Name="Priority";
+					Type="DWord";
+					Val_Default=("2");
+					Val_Gaming=("6");
+					Value=("2");
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				},
+				@{
+					Description="The scheduling category. This value can be set to High, Medium, or Low.";
+					Name="Scheduling Category";
+					Type="String";
+					Val_Default=("Medium");
+					Val_Gaming=("High");
+					Value=("Medium");
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				},
+				@{
+					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used.";
+					Name="SFIO Priority";
+					Type="String";
+					Val_Default=("Normal");
+					Val_Gaming=("High");
+					Value=("Normal");
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
 		# Multitasking - Snap windows (half-screen left/right snapping of windows)
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
@@ -937,67 +998,6 @@ function SyncRegistry {
 					Type="DWord";
 					Value=("0");
 					Delete=$False;
-				}
-			)
-		};
-
-
-		# Multimedia - Gaming Priority
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
-			Props=@(
-				@{
-					Description="Determines the percentage of CPU resources that should be guaranteed to low-priority tasks (Defaults to 20). Rounds up to the nearest value of 10. A value of 0 is also treated as 10.";
-					Name="SystemResponsiveness";
-					Type="DWord";
-					Val_Default=("20");
-					Val_Gaming=("1");
-					Value=("20");
-					Delete=$False;
-				}
-			)
-		};
-
-
-		# Multimedia - System Responsiveness
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games";
-			Props=@(
-				@{
-					Description="The GPU priority. The range of values is 0-31. This priority is not yet used.";
-					Name="GPU Priority";
-					Type="DWord";
-					Val_Default=("8");
-					Val_Gaming=("8");
-					Value=("8");
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				},
-				@{
-					Description="The task priority. The range of values is 1 (low) to 8 (high). For tasks with a Scheduling Category of High, this value is always treated as 2.";
-					Name="Priority";
-					Type="DWord";
-					Val_Default=("2");
-					Val_Gaming=("6");
-					Value=("2");
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				},
-				@{
-					Description="The scheduling category. This value can be set to High, Medium, or Low.";
-					Name="Scheduling Category";
-					Type="String";
-					Val_Default=("Medium");
-					Val_Gaming=("High");
-					Value=("Medium");
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				},
-				@{
-					Description="The scheduled I/O priority. This value can be set to Idle, Low, Normal, or High. This value is not used.";
-					Name="SFIO Priority";
-					Type="String";
-					Val_Default=("Normal");
-					Val_Gaming=("High");
-					Value=("Normal");
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};

@@ -1,0 +1,46 @@
+version: '3.2'
+services:
+  frontend:
+    hostname: '${DOCKER_HOSTNAME:-nginx}'
+    container_name: '${DOCKER_CONTAINER_NAME:-nginx}'
+    build:
+      context: .  # Path to directory containing "Dockerfile"
+      args:
+      - NGINX_IMAGE_NAME=${NGINX_IMAGE_NAME:-library/nginx}
+      - NGINX_IMAGE_TAG=${NGINX_IMAGE_TAG:-alpine}
+      - NGINX_CONFIG_ROOT=${NGINX_CONFIG_ROOT:-/etc/nginx}
+      - NGINX_WEBROOT=${NGINX_WEBROOT:-/usr/share/nginx/html/}
+    # env_file:
+    #   - .env
+    restart: always
+    ports:
+    - published: 80
+      target: 80
+    environment:
+    - NGINX_HOST=${NGINX_HOST:-localhost}
+    - NGINX_LOG_FORMAT=${NGINX_LOG_FORMAT:-log_verbosity_3}
+    - NGINX_PORT=${NGINX_PORT:-80}
+
+# ------------------------------------------------------------
+#
+#  Build this docker-compose.yaml file
+#
+#    >   docker-compose --file="docker-compose.yml" up --build -d;  # Spin up container
+#
+#    >   docker logs "frontend";   # View logs from container
+#
+#    >   docker exec -it "frontend" "/bin/sh";  # Bash into docker container
+#
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.docker.com  |  "Compose CLI environment variables | Docker Documentation"  |  https://docs.docker.com/compose/reference/envvars/#compose_project_name
+#
+#   docs.docker.com  |  "Overview of docker-compose CLI | Docker Documentation"  |  https://docs.docker.com/compose/reference/
+#
+#   hub.docker.com  |  "Nginx - Official Image | Docker Hub"  |  https://hub.docker.com/_/nginx?tab=description&page=1&ordering=last_updated
+#
+#   stackoverflow.com  |  "Use docker-compose env variable in Dockerbuild file - Stack Overflow"  |  https://stackoverflow.com/a/55839276
+#
+# ------------------------------------------------------------

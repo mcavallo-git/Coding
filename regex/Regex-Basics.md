@@ -135,15 +135,26 @@
 ### Lookaround
 
 * ```?=```		Lookahead   (or "Positive Lookahead", subcategory of "LookArounds")  -  Syntax:  (?=RegexHere)
-* ```?!```		Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
+
 								Positive Lookaheads assert that what immediately follows the current position in the string is "RegexHere"
+
 									Ex:   ```q(?=u)```   -   matches a "q" followed by a "u"
+
+* ```?!```		Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
+* ```[^]```		Often performs similarly to a Negated Character Class, or [^abc] to match anthing other than a, b, or c
+
 								Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
+
 									Ex:   ```q(?!u)```   -   matches a "q" NOT followed by a "u"
+
 									Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```  -  match lines which do NOT have the word 'ignoreme' or 'ignoreme2' anywhere in them
+
 									Ex:   ```^((?!foobar).)*$```  -  match lines which do NOT have the word 'foobar' anywhere in them
+
 									Ex:   ```^((?!<a).)*</a>```  -  match lines which have a closing HTML DOM </a> block without a matching opening HTML DOM <a> blocks before it on that same line
+
 									Ex:   ```^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$```  -  match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
+
 									Ex:   ```^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$```    -  match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
 * ```?<=```		Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)

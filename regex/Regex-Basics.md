@@ -158,14 +158,23 @@
 									Ex:   ```^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$```    -  match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
 * ```?<=```		Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
-* ```?<!```		Negative Lookbehind   (subcategory of "LookArounds")  -  Syntax:  (?<!RegexHere)
+
 								Positive Lookbehinds assert that what immediately precedes the current position in the string is "RegexHere"
+
+* ```?<!```		Negative Lookbehind   (subcategory of "LookArounds")  -  Syntax:  (?<!RegexHere)
+
 								Negative Lookbehinds assert that what immediately precedes the current position in the string is NOT "RegexHere"
+
 									Ex: (?<=q)u   -   matches a "u" preceded by a "q"
+
 									Ex: (?<!q)u   -   matches a "u" NOT preceded by a "q"
+
 									Ex: (?<!host)\.com   -   matches ".com" NOT preceded by "host"
+
 								NOTE: Javascript only supports Negative-Lookbehinds in the latest version of Chrome (as-of 2019-08-01)
+									|
 									|--> As a workaround, Negative Lookbehinds can be rebuilt as a negative lookahead (which is commonly supported in Javascript) as follows:
+
 									Ex: ((?!q).|^)u   -   matches a "u" NOT preceded by a "q"
 
 

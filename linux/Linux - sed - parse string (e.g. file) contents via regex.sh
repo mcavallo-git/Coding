@@ -180,11 +180,11 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/pattern to match/d' ./infile
 
 # ------------------------------------------------------------
 #
-#        [[:space:]]
-#               Example: trim whitespace off of the beginning & end of a string
+#  sed - Trim leading/trailing whitespace off of a string   (e.g. remove spaces at the beginning & end of a string)
 #
 
-JAVA_ARGS="$(echo -e "${JAVA_ARGS}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')";
+# sed - Trim leading/trailing whitespace
+echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
 
 
 # ------------------------------------------------------------
@@ -388,6 +388,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #   unix.stackexchange.com  |  "linux - Remove duplicate lines from a file but leave 1 occurrence"  |  https://unix.stackexchange.com/a/504047
 #
 #   unix.stackexchange.com  |  "shell script - Convert underscore to PascalCase, ie UpperCamelCase - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/196241
+#
+#   unix.stackexchange.com  |  "shell script - How do I trim leading and trailing whitespace from each line of some output? - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/205854
 #
 #   www.cyberciti.biz  |  "Linux Shell – How To Remove Duplicate Text Lines"  |  www.cyberciti.biz/faq/unix-linux-shell-removing-duplicate-lines/
 #

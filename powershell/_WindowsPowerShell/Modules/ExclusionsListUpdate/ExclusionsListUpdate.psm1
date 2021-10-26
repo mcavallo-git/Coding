@@ -297,6 +297,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NETworkManager"; Depth="1"; Parent=""; Basename="NETworkManager.exe"; }; # NETworkManager (Networking Tool)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="nodejs"; Depth="1"; Parent=""; Basename="node.exe"; }; # Node.js Javascript Runtime
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="NVIDIA Corporation"; Depth=""; Parent=""; Basename="NV*.exe"; }; # NVIDIA
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="obs-studio"; Depth=""; Parent=""; Basename="*.exe"; }; # OBS Studio
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\GlobalProtect"; Depth="3"; Parent=""; Basename="*.exe"; }; # Palo Alto Global Protect (VPN)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Palo Alto Traps (Endpoint Security Manager)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="PowerShell"; Depth="2"; Parent=""; Basename="*.exe"; }; # PowerShell 7+

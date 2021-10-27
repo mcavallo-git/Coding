@@ -76,15 +76,14 @@
 		<Line>Item10.Command=%windir%\System32\wsl.exe</Line>
 		<Line>Item10.Link=%windir%\System32\wsl.exe</Line>
 		<Line>Item10.Label=WSL (Ubuntu)</Line>
-		<Line>Item10.Icon=%windir%\System32\wsl.exe, 1</Line>
 		<Line>Item10.Settings=NOEXPAND</Line>
 		<Line>Item11.Command="C:\Program Files\Git\git-bash.exe" --cd-to-home</Line>
 		<Line>Item11.Link=C:\Program Files\Git\git-bash.exe</Line>
 		<Line>Item11.Label=Git-Bash ❖</Line>
 		<Line>Item11.Tip=%HOMEDRIVE%</Line>
 		<Line>Item11.Icon=%SystemDrive%\Program Files\Git\mingw64\share\git\git-for-windows.ico</Line>
-		<Line>Item12.Command="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"</Line>
-		<Line>Item12.Link=%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe</Line>
+		<Line>Item12.Command="C:\Program Files\PowerShell\7\pwsh.exe" -WorkingDirectory ~</Line>
+		<Line>Item12.Link=C:\Program Files\PowerShell\7\pwsh.exe</Line>
 		<Line>Item12.Label=PowerShell ⊞</Line>
 		<Line>Item12.Settings=NOEXPAND</Line>
 		<Line>Item13.Command=C:\Windows\System32\cmd.exe</Line>

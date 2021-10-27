@@ -5,23 +5,23 @@
 <h2>Skype Hyperlinks, Contact-Info, Conference Call, etc.</h2>
 
 <hr />
-<code><a href="skype:example-email-1@example.com?userinfo">example-email-1@example.com - userinfo</a></code>
+<pre><code><a href="skype:example-email-1@example.com?userinfo">example-email-1@example.com - userinfo</a></code></pre></code>
 <hr />
-<code><a href="skype:example-email-1@example.com?chat">example-email-1@example.com - chat</a></code>
+<pre><code><a href="skype:example-email-1@example.com?chat">example-email-1@example.com - chat</a></code></pre></code>
 <hr />
-<code><a href="skype:example-email-1@example.com;example-email-2@example.com?chat">example-email-1@example.com + example-email-2@example.com- conference chat</a></code>
+<pre><code><a href="skype:example-email-1@example.com;example-email-2@example.com?chat">example-email-1@example.com + example-email-2@example.com - conference chat</a></code></pre></code>
 <hr />
-<code><a href="skype:example-email-1@example.com?add">example-email-1@example.com - add</a></code>
+<pre><code><a href="skype:example-email-1@example.com?add">example-email-1@example.com - add</a></code></pre></code>
 <hr />
-<code><a href="skype:example-email-1@example.com?voicemail">example-email-1@example.com - voicemail</a></code>
+<pre><code><a href="skype:example-email-1@example.com?voicemail">example-email-1@example.com - voicemail</a></code></pre></code>
 <hr />
-<code><a href="skype:example-email-1@example.com?call">example-email-1@example.com - call</a></code>
+<pre><code><a href="skype:example-email-1@example.com?call">example-email-1@example.com - call</a></code></pre></code>
 <hr />
-<code><a href="skype:+12223334444?call">+1 (222) 333-4444 - skype call</a></code>
+<pre><code><a href="skype:+12223334444?call">+1 (222) 333-4444 - skype call</a></code></pre></code>
 <hr />
-<code><a href="tel://+12223334444">+1 (222) 333-4444 - phone call (opt. 1)</a></code>
+<pre><code><a href="tel://+12223334444">+1 (222) 333-4444 - phone call (opt. 1)</a></code></pre></code>
 <hr />
-<code><a href="callto://+12223334444">+1 (222) 333-4444 - phone call(opt. 2)</a></code>
+<pre><code><a href="callto://+12223334444">+1 (222) 333-4444 - phone call(opt. 2)</a></code></pre></code>
 <hr />
 
 <sub>

@@ -2,7 +2,7 @@
 	On GitHub:  https://github.com/mcavallo-git/Coding/tree/master/html
 -->
 
-<h2>HTML anchor (&#60;a&#62;) elements which send the user to Skype to perform various actions<sub><i>(call a given Skype user, view their profile, leave a voicemail, etc.)</i></sub></h2>
+<h2>HTML anchor (&#60;a&#62;) elements which send the user to Skype to perform various actions <h4><sub><i>(call a given Skype user, view their profile, leave a voicemail, etc.)</i></sub></h4></h2>
 <hr />
 
 

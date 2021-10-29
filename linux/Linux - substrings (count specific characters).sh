@@ -5,11 +5,14 @@
 #
 # ------------------------------------------------------------
 #
-# Count the # of characters in a string (e.g. Get the length of a string as an integer value) (Bashism)
+# Count the # of characters in a string (e.g. Get the length of a string as an integer value)
 #
 
 VAR="12345"; echo "${#VAR}";        # Outputs "5"
 VAR="1234567890"; echo "${#VAR}";   # Outputs "10"
+
+echo -n "12345" | wc -c;        # Outputs "5"
+echo -n "1234567890" | wc -c;   # Outputs "10"
 
 
 # ------------------------------------------------------------
@@ -137,6 +140,8 @@ fi;
 #   reactgo.com  |  "How to get the last n characters of a string in Bash | Reactgo"  |  https://reactgo.com/bash-get-last-n-characters-string
 #
 #		stackoverflow.com  |  "Count occurrences of a char in a string using Bash"  |  https://stackoverflow.com/a/16679640
+#
+#   unix.stackexchange.com  |  "bash - What kinds of string interpolation does POSIX sh support? - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/389659
 #
 #   unix.stackexchange.com  |  "text processing - How to count the number of a specific character in each line? - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/18742
 #

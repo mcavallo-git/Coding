@@ -758,11 +758,15 @@ Pause::
 ;   HOTKEY:  Alt + WinKey + R
 ;            Ctrl + WinKey + R
 ;            Shift + WinKey + R
+;            Shift + Alt + R
+;            Shift + Ctrl + R
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
 ;
 !#r::
 ^#r::
 +#r::
++!r::
++^r::
 	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
 	Return
 

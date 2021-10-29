@@ -5,6 +5,18 @@
 #
 # ------------------------------------------------------------
 #
+# Count the # of characters in a string (e.g. Get the length of a string as an integer value)
+#
+
+VAR="12345"; echo "${#VAR}";
+###  Outputs "5"
+
+VAR="1234567890"; echo "${#VAR}";
+###  Outputs "10"
+
+
+# ------------------------------------------------------------
+#
 ### Left-Trim
 #
 #   SYNTAX:   ${VARIABLE_TO_TRIM:N}

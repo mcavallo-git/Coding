@@ -197,6 +197,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\McAfee"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft Office"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft OneDrive"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft\Xamarin\NuGet"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Mobatek"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Notepad++"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Razer"));

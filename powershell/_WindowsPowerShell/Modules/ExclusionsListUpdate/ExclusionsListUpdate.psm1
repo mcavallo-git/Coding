@@ -196,6 +196,8 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Malwarebytes' Anti-Malware"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\McAfee"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft Office"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft SDKs\UWPNuGetPackages"));
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft Visual Studio\Shared\Packages"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft OneDrive"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Microsoft\Xamarin\NuGet"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Mobatek"));

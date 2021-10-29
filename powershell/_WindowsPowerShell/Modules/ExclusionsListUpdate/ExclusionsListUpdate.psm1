@@ -210,6 +210,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Splashtop"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\WinDirStat"));
 		# -- FILEPATHS -- ProgData
+		$ExcludedFilepaths += ((${ProgData})+("\Package Cache"));
 		$ExcludedFilepaths += ((${ProgData})+("\Sage"));
 		$ExcludedFilepaths += ((${ProgData})+("\Sage Software"));
 		# -- FILEPATHS -- Sys32

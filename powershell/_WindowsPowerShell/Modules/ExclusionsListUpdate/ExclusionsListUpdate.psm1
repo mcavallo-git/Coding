@@ -184,6 +184,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\PowerShell"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Python*"));
 		# -- FILEPATHS -- ProgFiles X86
+		$ExcludedFilepaths += ((${ProgFilesX86})+("\Android\android-sdk-tools"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Common Files\Sage"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Dropbox"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\efs"));

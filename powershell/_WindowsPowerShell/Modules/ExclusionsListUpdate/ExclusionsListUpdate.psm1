@@ -169,6 +169,8 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\AutoHotkey"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Classic Shell"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Cryptomator"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\dotnet"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\dotnet\sdk\NuGetFallbackFolder"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\ESET"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\FileZilla FTP Client"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Git"));
@@ -184,6 +186,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\NVIDIA Corporation"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\paint.net"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\PowerShell"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\Python*"));
 		# -- FILEPATHS -- ProgFiles X86
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Common Files\Sage"));
 		$ExcludedFilepaths += ((${ProgFilesX86})+("\Dropbox"));
@@ -217,7 +220,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${SysDrive})+("\ISO\BingBackground"));
 		$ExcludedFilepaths += ((${SysDrive})+("\ISO\QuickNoteSniper"));
 		# -- FILEPATHS -- SysRoot
-		# -
+		$ExcludedFilepaths += ((${SysRoot})+("\ServiceProfiles\NetworkService\.nuget"));
 		# -- FILEPATHS -- UserProfile
 		$ExcludedFilepaths += ((${UserProfile})+("\Dropbox"));
 		$ExcludedFilepaths += ((${UserProfile})+("\Documents\Github"));
@@ -470,7 +473,8 @@ function ExclusionsListUpdate {
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Skipping exclusion (to include, call with `"-Entertainment`"):  `"$_`""); }
 				} Else {
 					If (Test-Path -Path ("$_")) {
-						$FoundFilepaths += $_;
+						# $FoundFilepaths += $_;
+						$FoundFilepaths += ((Get-Item -Path "${_}").FullName);
 					} Else {
 						If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
 					}

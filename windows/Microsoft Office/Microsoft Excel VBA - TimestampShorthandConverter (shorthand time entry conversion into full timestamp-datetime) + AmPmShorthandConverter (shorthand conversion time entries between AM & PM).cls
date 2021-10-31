@@ -33,42 +33,58 @@ disableEvents
 '
 Private Sub Worksheet_Change(ByVal Target As Excel.Range)
     On Error Resume Next 'Stop any possible runtime errors and halting code
-    If (RUN_MACRO = 1) Then ' Determine if this Macro is Enabled (if not - goto else)
-        
-        ' Check to see if last action was a Paste/Autofill
-        Dim USER_JUST_PASTED_SOMETHING As Integer ' 1 ===> Last-Action was a Paste/Autofill,  0 ===> Last-Action was a Manual Data Entry
+    If (RUN_MACRO = 1) Then
+        ' ------------------------------------------------------------
+        '
+        '   Macro is Enabled
+        '
+        '     Continue with logic processing (disable this macro by setting variable "RUN_MACRO" to a value of "0")
+        '
+        Dim USER_JUST_PASTED_SOMETHING As Integer ' Value of "0"="Previous action was a manual/user data entry (such as a keypress)"  ///  Value of "1"="Previous action was a paste or autofill"
         Dim UNDO_LIST As String ' Get the undo List to capture the last action performed by user
         UndoList = Application.CommandBars("Standard").Controls("&Undo").List(1)
+        '
+        ' Determine the previous action's type
+        '
         If (Left(UndoList, 5) = "Paste") Then
-            USER_JUST_PASTED_SOMETHING = 1 ' Paste/Autofill was last action]
+            USER_JUST_PASTED_SOMETHING = 1 ' Previous action was a paste or autofill
         Else
-            USER_JUST_PASTED_SOMETHING = 0  ' Manual Data Entry was last action]
+            USER_JUST_PASTED_SOMETHING = 0  ' Previous action was a manual/user data entry (such as a keypress)
         End If
-        
-        If (USER_JUST_PASTED_SOMETHING = 0) Then ' Last-Action was Manually Entered Data (Hits on the Keyboard, etc.)
-            
-            Application.enableEvents = False ' Stop events from firing from these actions (infinite loop scenario)
-            
+        If (USER_JUST_PASTED_SOMETHING = 0) Then ' Previous action was a manual/user data entry (such as a keypress)
+            Application.enableEvents = False  ' Disable page events from being able to fire this macro (to avoid an infinite loop scenario)
+            '
             ' Define the Range of Cells covered by this Macro
+            '
             If ((Not Intersect(Target, Range("C1:Z500")) Is Nothing) And (Target.Cells.Count = 1) And (Len(Target.Value) > 0)) Then
-                
                 Dim REPLACEMENT_VALUE ' Value to Overwrite Cell-Value with
-                Dim DO_REPLACEMENT As Integer ' 1 ==> Follow through and replace the cell's value, 0 ==> Do not replace value
+                Dim DO_REPLACEMENT As Integer ' Value of "0"="Do not replace the cell's contents"  ///  Value of "1"="Replace the cell's contents"
                 DO_REPLACEMENT = 1
-                
-                Dim VALID_LAST_VALUE ' If there was a VALID previous value in this cell, set to 1, otherwise, set to 0
+                '
+                ' Determine if the cell (whose edit triggered this macro) contained or did not contain a value before the edit occurred
+                '
+                Dim VALID_LAST_VALUE
                 If ((Not IsEmpty(LAST_VALUE)) And (IsNumeric(LAST_VALUE)) And (LAST_VALUE > 0)) Then
-                    VALID_LAST_VALUE = 1
+                    VALID_LAST_VALUE = 1  ' The cell (whose edit triggered this macro) contained a value before the edit occurred
                 Else
-                    VALID_LAST_VALUE = 0
+                    VALID_LAST_VALUE = 0  ' The cell (whose edit triggered this macro) did not contain a value before the edit occurred
                 End If
-                
                 If ((IsNumeric(Target.Value)) And (Target.Value > 0) And (Target.Value <> 0)) Then
                     If (Target.Value < 1) Then
-                        ' Handler for Time-Based Entries (Includes inline colons entered by user, such as '1:43')
+                        ' ------------------------------------------------------------
+                        '
+                        '   Handler for time-based entries:
+                        '
+                        '     Use the value entered by user, directly (including inline colons)  -  Example(s):  "1:43"-left-at->"1:43"
+                        '
                         REPLACEMENT_VALUE = Target.Value
                     Else
-                        ' Handler for Numeric Entries
+                        ' ------------------------------------------------------------
+                        '
+                        '   Handler for numeric entries:
+                        '
+                        '     TimestampShorthandConverter - Shorthand time entry conversion into full timestamp/datetime  -  Example(s):  "5"-converted-to->"05:00" (5am),  "14"-converted-to->"14:00" (2pm)
+                        '
                         Dim VALID_PARSED_TIME As Integer
                         Dim PARSED_MINUTES As Integer
                         Dim PARSED_HOURS As Integer
@@ -90,38 +106,59 @@ Private Sub Worksheet_Change(ByVal Target As Excel.Range)
                         End If
                     End If
                 Else
-                    ' Handler - NON-Numeric Entries
+                    ' ------------------------------------------------------------
+                    '
+                    '   Handler for NON-numeric entries:
+                    '
+                    '     AmPmShorthandConverter - Shorthand conversion of time entries between AM & PM
+                    '
                     If ((VALID_LAST_VALUE = 1) And (Target.Value > 0) And (Len(Target.Value) < 3)) Then
+                        '
                         ' Switch time between AM/PM (If there was a value in the cell prior to entering non-numeric value)
+                        '
                         If (LAST_VALUE < 0.5) Then
                             REPLACEMENT_VALUE = LAST_VALUE + 0.5  'switch AM to PM by typing any characters
                         Else
                             REPLACEMENT_VALUE = LAST_VALUE - 0.5  'switch PM to AM by typing any characters
                         End If
                     Else
+                        '
                         ' Allow generic entries for empty cells
+                        '
                         DO_REPLACEMENT = 0
                         Target.NumberFormat = "@"
                     End If
                 End If
-                ' Only replace the cell's value if the macro logic has deemed it appropriate
+                '
+                ' Only replace the cell's value if the macro logic (ran above, previous to this point in the macro) has deemed it appropriate
+                '
                 If (DO_REPLACEMENT = 1) Then
+                    '
+                    ' Replace the cell's contents
+                    '
                     Target.Value = REPLACEMENT_VALUE
                     Target.NumberFormat = "h:mm AM/PM"
                 Else
-                    ' Do not do replacement of cell's contents
+                    '
+                    ' Do not replace the cell's contents
+                    '
                     Target.NumberFormat = "@"
                 End If
             End If
         Else
-            ' LAST-ACTION WAS A PASTE/AUTOFILL
+            '
+            ' Previous action was a paste or autofill
+            '
         End If
-    Else ' Macro is Disabled
-    
-        ' Do nothing if disabled
-        
+    Else
+        ' ------------------------------------------------------------
+        '
+        '   Macro is Disabled
+        '
+        '     Do nothing if disabled (enable this macro by setting variable "RUN_MACRO" to a value of "1")
+        '
     End If
-    Application.enableEvents = True 'Allow page events again
+    Application.enableEvents = True ' Re-Enable page events to be able to fire this macro (again)
     On Error GoTo 0 'Allow run time errors again
 End Sub
 '

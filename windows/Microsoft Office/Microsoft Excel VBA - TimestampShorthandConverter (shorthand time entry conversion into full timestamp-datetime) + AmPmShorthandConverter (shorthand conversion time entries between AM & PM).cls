@@ -3,11 +3,11 @@ BEGIN
   MultiUse = -1  'True
 END
 Attribute VB_Name = "TimestampAmPmShorthandConverter"
-Attribute VB_Description = "Microsoft Excel VBA - TimestampShorthandConverter (shorthand time entry conversion into full timestamp-datetime) + AmPmShorthandConverter (shorthand conversion time entries between AM & PM)"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = True
+Attribute VB_Description = "Microsoft Excel VBA - TimestampShorthandConverter (shorthand time entry conversion into full timestamp-datetime) + AmPmShorthandConverter (shorthand conversion time entries between AM & PM)"
 ' GLOBAL VARIABLES
 Dim BREAKPOINT As Integer 'set this to 1 or 0 whenever you need a breakpoint in the middle of code (to check vals, etc.)
 Dim LAST_VALUE 'Keeps Old_Data when cell is changed (to revert back to)

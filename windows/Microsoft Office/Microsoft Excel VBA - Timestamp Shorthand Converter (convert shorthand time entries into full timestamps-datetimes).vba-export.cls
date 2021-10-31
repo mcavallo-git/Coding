@@ -3,7 +3,7 @@ BEGIN
   MultiUse = -1  'True
 END
 Attribute VB_Name = "TimestampShorthandConverter"
-Attribute VB_Description = "Microsoft Excel VBA - [ Timestamp Shorthand Converter (converts shorthand time entries into full timestamps-datetimes) ] + [ AM<->PM Shorthand Converter (allows entry of a non-numeric value in a time-formatted cell to act as a trigger to switch the time entry in the target cell between AM & PM (assuming there is an entry in the cell prior to entering the non-numeric trigger value)) ]"
+Attribute VB_Description = "Microsoft Excel VBA - [ TimestampShorthandConverter (shorthand time entry conversion into full timestamp-datetime) ] + [ AmPmShorthandConverter (shorthand conversion time entries between AM & PM) ]"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True

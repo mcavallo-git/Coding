@@ -1,0 +1,38 @@
+NAME
+    Add-VpnConnection
+
+SYNOPSIS
+    Adds a VPN connection to the Connection Manager phone book.
+
+
+SYNTAX
+    Add-VpnConnection [[-RememberCredential]] [[-UseWinlogonCredential]] [[-EapConfigXmlStream] <XmlDocument>] [-Name]
+    <String> [-ServerAddress] <String> [[-TunnelType] {Pptp | L2tp | Sstp | Ikev2 | Automatic}] [[-EncryptionLevel]
+    {NoEncryption | Optional | Required | Maximum | Custom}] [[-AuthenticationMethod] {Pap | Chap | MSChapv2 | Eap |
+    MachineCertificate}] [[-SplitTunneling]] [[-AllUserConnection]] [[-L2tpPsk] <String>] [-CimSession <CimSession[]>]
+    [-DnsSuffix <String>] [-Force] [-IdleDisconnectSeconds <UInt32>] [-MachineCertificateEKUFilter <String[]>]
+    [-MachineCertificateIssuerFilter <X509Certificate2>] [-PassThru] [-ServerList <CimInstance[]>] [-ThrottleLimit
+    <Int32>] [-Confirm] [-WhatIf] [<CommonParameters>]
+
+    Add-VpnConnection [[-RememberCredential]] [-PlugInApplicationID] <String> [-Name] <String> [-ServerAddress]
+    <String> [[-SplitTunneling]] [-CimSession <CimSession[]>] [-DnsSuffix <String>] [-Force] [-IdleDisconnectSeconds
+    <UInt32>] [-PassThru] [-ServerList <CimInstance[]>] [-ThrottleLimit <Int32>] -CustomConfiguration <XmlDocument>
+    [-Confirm] [-WhatIf] [<CommonParameters>]
+
+
+DESCRIPTION
+    The Add-VpnConnection cmdlet adds a VPN connection with the specified parameters to the Connection Manager phone
+    book. If errors occur when you create the VPN profile, the cmdlet returns the error information.
+
+
+RELATED LINKS
+    Get-VpnConnection
+    Set-VpnConnection
+    Remove-VpnConnection
+    New-EapConfiguration
+
+REMARKS
+    To see the examples, type: "Get-Help Add-VpnConnection -Examples"
+    For more information, type: "Get-Help Add-VpnConnection -Detailed"
+    For technical information, type: "Get-Help Add-VpnConnection -Full"
+    For online help, type: "Get-Help Add-VpnConnection -Online"

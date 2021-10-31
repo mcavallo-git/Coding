@@ -2,7 +2,7 @@ VERSION 1.0 CLASS
 BEGIN
   MultiUse = -1  'True
 END
-Attribute VB_Name = "TimestampShorthandConverter"
+Attribute VB_Name = "TimestampAmPmShorthandConverter"
 Attribute VB_Description = "Microsoft Excel VBA - TimestampShorthandConverter (shorthand time entry conversion into full timestamp-datetime) + AmPmShorthandConverter (shorthand conversion time entries between AM & PM)"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
@@ -125,6 +125,3 @@ Private Sub Worksheet_Change(ByVal Target As Excel.Range)
     On Error GoTo 0 'Allow run time errors again
 End Sub
 '
-
-
-

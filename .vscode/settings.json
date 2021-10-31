@@ -80,6 +80,7 @@
 		"*.txt": "plaintext",
 		"**/{settings.json,vscode.settings,*.code-workspace}": "jsonc",
 		"**/*.{ahk,ahk?,ahk??}": "ahk",
+		"**/*.{cls}": "vb",
 		"**/*.{conf,conf.template,dist,mfa,no_mfa,nginx,password_auth}": "shellscript",
 		"**/*.{ejs,svg,xaml}": "html",
 		"**/*.{preset,royal-key-sequence}": "powershell",

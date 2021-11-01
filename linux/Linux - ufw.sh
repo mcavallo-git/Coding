@@ -27,9 +27,9 @@ ufw enable; # enable ufw module
 
 # ------------------------------------------------------------
 
-ufw status numbered; # List UFW rules by-ID
+ufw status numbered; # List UFW rules by ID
 
-ufw delete RULE_ID;  # Delete UFW rules by-ID
+ufw delete RULE_ID;  # Delete UFW rules by ID
 
 
 # ------------------------------------------------------------

@@ -55,11 +55,13 @@ function GitSyncAll {
 	$ReposFetched = @();
 	$ReposPulled = @();
 
+	$Action = "";
 	If ($PSBoundParameters.ContainsKey("Pull") -Eq $True) {
 		$Action = "Pull";
 	} ElseIf ($PSBoundParameters.ContainsKey("Fetch") -Eq $True) {
 		$Action = "Fetch";
 	} Else {
+		# Default Action
 		$Action = "Fetch";
 	}
 
@@ -106,7 +108,7 @@ function GitSyncAll {
 
 			Set-Location -Path ${EachRepoDirFullpath};
 			$GitSyncPadding = ((${EachRepoDirBasename}.Length)+(2));
-			If ($Action -Eq "Pull") {
+			If ("${Action}" -Eq "Pull") {
 
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
@@ -126,7 +128,7 @@ function GitSyncAll {
 				}
 				# Write-Host "$($MyInvocation.MyCommand.Name) - Fetch + pull complete." -ForegroundColor Green;
 				
-			} ElseIf ($Action -Eq "Fetch") {
+			} ElseIf ("${Action}" -Eq "Fetch") {
 
 				# Fetch updates, only (no pull)
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Fetching updates for repository `"";
@@ -137,7 +139,7 @@ function GitSyncAll {
 				Write-Host "Fetch complete." -ForegroundColor Green;
 
 			} Else {
-				Write-Host "Unhandled Value for Parameter `$Action: `"$($Action)`" " -ForegroundColor Yellow;
+				Write-Host "Unhandled Value for Parameter `${Action}: `"${Action}`" " -ForegroundColor Yellow;
 
 			}
 
@@ -148,10 +150,10 @@ function GitSyncAll {
 
 		}
 	
-		Write-Host "`n`n$($MyInvocation.MyCommand.Name) - All Repositories $($Action)ed" -ForegroundColor Green;
+		Write-Host "`n`n$($MyInvocation.MyCommand.Name) - All Repositories ${Action}ed" -ForegroundColor Green;
 
 	} Else {
-		Write-Host "$($MyInvocation.MyCommand.Name) - No git repositories found in `"$($Directory)`"`n" -ForegroundColor Yellow;
+		Write-Host "$($MyInvocation.MyCommand.Name) - No git repositories found in `"${Directory}`"`n" -ForegroundColor Yellow;
 	}
 
 

@@ -28,15 +28,15 @@ echo "    |--> LOGFILE:  \"${OUTPUT_RESULTS_TO}\"";
 
 ### Inline-argument #1 equal to "replace" attempts to automatically correct non-LF line-endings
 # if [ -n "$1" ] && [ "$1" == "replace" ]; then
-# 	dos2unix --help;
+#   dos2unix --help;
 # fi;
 
 echo "";
 
 # ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#		stackoverflow.com  |  "How do you search for files containing dos line endings (CRLF) with grep on Linux?"  |  https://stackoverflow.com/a/73969
+#   stackoverflow.com  |  "How do you search for files containing dos line endings (CRLF) with grep on Linux?"  |  https://stackoverflow.com/a/73969
 #
 # ------------------------------------------------------------

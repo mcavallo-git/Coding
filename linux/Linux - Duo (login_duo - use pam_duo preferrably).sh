@@ -10,20 +10,20 @@ cd duo_unix-1.11.1
 
 vi /etc/duo/pam_duo.conf
 #
-#		[duo]
-#		; Duo integration key
-#		ikey = [INTEGRATION-KEY-HERE]
-#		; Duo secret key
-#		skey = [SECRET-KEY-HERE]
-#		; Duo API host
-#		host = [HOST-API-HERE]
-#		; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
-#		; this mode will allow login without 2FA.
-#		; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting
-#		; enabled may result in you being locked out of your system.
-#		failmode = safe
-#		; Send command for Duo Push authentication
-#		;pushinfo = yes
+#   [duo]
+#   ; Duo integration key
+#   ikey = [INTEGRATION-KEY-HERE]
+#   ; Duo secret key
+#   skey = [SECRET-KEY-HERE]
+#   ; Duo API host
+#   host = [HOST-API-HERE]
+#   ; `failmode = safe` In the event of errors with this configuration file or connection to the Duo service
+#   ; this mode will allow login without 2FA.
+#   ; `failmode = secure` This mode will deny access in the above cases. Misconfigurations with this setting
+#   ; enabled may result in you being locked out of your system.
+#   failmode = safe
+#   ; Send command for Duo Push authentication
+#   ;pushinfo = yes
 #
 ### Additional options - See Duo's PAM Config-options:
 ###			https://duo.com/docs/duounix#duo-configuration-options

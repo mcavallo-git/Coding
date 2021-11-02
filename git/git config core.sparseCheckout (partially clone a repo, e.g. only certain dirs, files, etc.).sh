@@ -2,12 +2,12 @@
 #
 # ------------------------------------------------------------
 #
-#	git config core.sparseCheckout 
-#	 |--> partially clone a repo, e.g. only certain dirs, files, etc.
+# git config core.sparseCheckout 
+#  |--> partially clone a repo, e.g. only certain dirs, files, etc.
 #
 # ------------------------------------------------------------
 #
-#	[ Begin citation.1 (see citation(s), below) ...]
+# [ Begin citation (see citation(s), below) ...]
 #
 # What you are trying to do is called a sparse checkout, and that feature was added in git 1.7.0 (Feb. 2012). The steps to do a sparse clone are as follows:
 mkdir <repo>
@@ -30,34 +30,35 @@ git pull origin master
 #
 # As a function:
 function git_sparse_clone() (
-	rurl="$1" localdir="$2" && shift 2
+  rurl="$1" localdir="$2" && shift 2
 
-	mkdir -p "$localdir"
-	cd "$localdir"
+  mkdir -p "$localdir"
+  cd "$localdir"
 
-	git init
-	git remote add -f origin "$rurl"
+  git init
+  git remote add -f origin "$rurl"
 
-	git config core.sparseCheckout true
+  git config core.sparseCheckout true
 
-	# Loops over remaining args
-	for i; do
-		echo "$i" >> .git/info/sparse-checkout
-	done
+  # Loops over remaining args
+  for i; do
+    echo "$i" >> .git/info/sparse-checkout
+  done
 
-	git pull origin master
+  git pull origin master
 )
 #
 # Usage:
 git_sparse_clone "http://github.com/tj/n" "./local/location" "/bin"
 #
 #
-#	[ End citation.1 ]
+# [ End citation ]
+#
 #
 # ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#	1) Thanks to StackOverflow users [ Chronial ] & [ Nick Bull ] on forum [ https://stackoverflow.com/a/13738951 ]
+#   stackoverflow.com  |  "How do I clone a subdirectory only of a Git repository? - Stack Overflow"  |  https://stackoverflow.com/a/13738951
 #
 # ------------------------------------------------------------

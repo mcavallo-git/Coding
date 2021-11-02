@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #
-# the command 'cut' separates fields by a given delimiter as well as which index they appear in (which can then be complemented, or flipped to get an inverse set)
+# The command 'cut' separates fields by a given delimiter as well as which index they appear in (which can then be complemented, or flipped to get an inverse set)
 #
-#	Example:
+# Example:
 #
 
 USER_GROUPLIST=$(groups "$(whoami)" | cut --delimiter=" " --fields=1,2 --complement);

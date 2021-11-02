@@ -29,11 +29,11 @@ docker exec \
 ;
 
 # ------------------------------------------------------------
-#	
-#	Citation(s)
 #
-#		jenkins.io  |  "Installing Jenkins"  |  https://jenkins.io/doc/book/installing/
+# Citation(s)
 #
-#		hub.docker.com  |  "jenkinsci/blueocean"  |  https://hub.docker.com/r/jenkinsci/blueocean/
+#   jenkins.io  |  "Installing Jenkins"  |  https://jenkins.io/doc/book/installing/
+#
+#   hub.docker.com  |  "jenkinsci/blueocean"  |  https://hub.docker.com/r/jenkinsci/blueocean/
 #
 # ------------------------------------------------------------

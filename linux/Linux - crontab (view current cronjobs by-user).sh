@@ -18,8 +18,10 @@ done;
 fi;
 
 
+# ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#	Thanks to cyberciti user [ Dovryak ] on forum [ https://www.cyberciti.biz/faq/linux-show-what-cron-jobs-are-setup/ ]
+#   www.cyberciti.biz  |  "Linux List / Display and view all cron jobs - nixCraft"  |  https://www.cyberciti.biz/faq/linux-show-what-cron-jobs-are-setup
 #
+# ------------------------------------------------------------

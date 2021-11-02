@@ -1,8 +1,7 @@
 
 # -------------------------------------------------------------
 #
-# dotnet
-#		Installation for Linux (specifically Ubuntu 16.04)
+# Linux - Installation of dotnet on Linux (specifically Ubuntu 16.04)
 #
 # -------------------------------------------------------------
 
@@ -20,11 +19,11 @@ sudo apt update -y;
 
 sudo apt install -y dotnet-sdk-2.2;
 
-# -------------------------------------------------------------
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #
-#		dotnet.microsoft.com
-#			"Install .NET Core SDK on Linux Ubuntu 16.04 - x64"
-#			 https://dotnet.microsoft.com/download/linux-package-manager/ubuntu16-04/sdk-current
+#   docs.microsoft.com  |  "Install .NET on Linux Distributions | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/core/install/linux
 #
+# ------------------------------------------------------------

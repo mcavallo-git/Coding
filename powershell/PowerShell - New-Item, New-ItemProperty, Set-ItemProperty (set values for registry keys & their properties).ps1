@@ -50,9 +50,9 @@ Set-ItemProperty -Force -Path ('Registry::HKEY_CURRENT_USER\Software\Microsoft\W
 #
 # Citation(s)
 #
-#		docs.microsoft.com  |  "New-ItemProperty (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty
+#   docs.microsoft.com  |  "New-ItemProperty (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty
 #
-#		docs.microsoft.com  |  "Set-ItemProperty (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
+#   docs.microsoft.com  |  "Set-ItemProperty (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
 #
 #   stackoverflow.com  |  "New-Item recursive registry keys"  |  https://stackoverflow.com/a/21770519
 #

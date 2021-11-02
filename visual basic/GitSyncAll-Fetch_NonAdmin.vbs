@@ -9,7 +9,9 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     GitSyncAll-Fetch_NonAdmin
 '
 '   Trigger:
-'     At log on - SET AS DISABLED (uncheck "Enabled" under "Triggers" --> Allows task to be run manually)
+'     (1) Begin the task:  At log on
+'          |--> Specific User:  (Same as Author (above))
+'          |--> Delay task for:  0 seconds
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

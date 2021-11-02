@@ -42,12 +42,12 @@ Get-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name);
 
 # ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#		docs.microsoft.com  |  "Get-ItemProperty (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-itemproperty
+#   docs.microsoft.com  |  "Get-ItemProperty (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-itemproperty
 #
-#		ss64.com  |  "New-ItemProperty - Set a new property, for an item at a given location"  |  https://ss64.com/ps/new-itemproperty.html
+#   ss64.com  |  "New-ItemProperty - Set a new property, for an item at a given location"  |  https://ss64.com/ps/new-itemproperty.html
 #
-#		www.windowscentral.com  |  "How to fix high CPU usage after installing update KB4512941 on Windows 10 | Windows Central"  |  https://www.windowscentral.com/how-fix-high-cpu-usage-after-installing-update-kb4512941-windows-10
+#   www.windowscentral.com  |  "How to fix high CPU usage after installing update KB4512941 on Windows 10 | Windows Central"  |  https://www.windowscentral.com/how-fix-high-cpu-usage-after-installing-update-kb4512941-windows-10
 #
 # ------------------------------------------------------------

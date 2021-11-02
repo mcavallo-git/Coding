@@ -22,7 +22,6 @@ function GitSyncAll {
 
 		[Int]$ConfigSearchDepth = 3,
 
-		[String]$Action = "Pull",
 		[Switch]$Fetch,
 		[Switch]$Pull,
 
@@ -56,9 +55,11 @@ function GitSyncAll {
 	$ReposFetched = @();
 	$ReposPulled = @();
 
-	If (($PSBoundParameters.ContainsKey("Pull") -Eq $True) -Or ("$Action" -Eq "Pull")) {
+	If ($PSBoundParameters.ContainsKey("Pull") -Eq $True) {
 		$Action = "Pull";
-	} ElseIf ($PSBoundParameters.ContainsKey("Action") -Eq $False) {
+	} ElseIf ($PSBoundParameters.ContainsKey("Fetch") -Eq $True) {
+		$Action = "Fetch";
+	} Else {
 		$Action = "Fetch";
 	}
 
@@ -105,7 +106,7 @@ function GitSyncAll {
 
 			Set-Location -Path ${EachRepoDirFullpath};
 			$GitSyncPadding = ((${EachRepoDirBasename}.Length)+(2));
-			If (($Action -eq "Pull") -Or ($PSBoundParameters.ContainsKey("Pull") -Eq $True)) {
+			If ($Action -Eq "Pull") {
 
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Pulling updates for repository `"";
 				Write-Host -NoNewline "${EachRepoDirBasename}" -ForegroundColor Yellow;
@@ -125,7 +126,7 @@ function GitSyncAll {
 				}
 				# Write-Host "$($MyInvocation.MyCommand.Name) - Fetch + pull complete." -ForegroundColor Green;
 				
-			} ElseIf (($Action -eq "Fetch") -Or ($PSBoundParameters.ContainsKey("Fetch") -Eq $True)) {
+			} ElseIf ($Action -Eq "Fetch") {
 
 				# Fetch updates, only (no pull)
 				Write-Host -NoNewline "$($MyInvocation.MyCommand.Name) - Task: Fetching updates for repository `"";

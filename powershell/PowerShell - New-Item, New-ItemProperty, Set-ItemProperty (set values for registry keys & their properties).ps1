@@ -4,9 +4,9 @@
 #
 
 #
-# Ex)  Create a directory
+# Example)  Create a directory
 #
-New-Item -ItemType "Directory" -Path ("${Home}\Desktop\ExampleDirectory_$(Get-Date -UFormat '%Y%m%d-%H%M%S')") | Out-Null;
+New-Item -ItemType ("Directory") -Path ("${Home}\Desktop\ExampleDirectory_$(Get-Date -UFormat '%Y%m%d-%H%M%S')") | Out-Null;
 
 
 # ------------------------------------------------------------
@@ -15,7 +15,7 @@ New-Item -ItemType "Directory" -Path ("${Home}\Desktop\ExampleDirectory_$(Get-Da
 #
 
 #
-# Ex)  Create registry key properties
+# Example)  Create registry key properties
 #
 $EachProp = @{
 	Path="Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
@@ -32,7 +32,7 @@ New-ItemProperty -Force -LiteralPath ($EachProp.Path) -Name ($EachProp.Name) -Pr
 # PowerShell - Set-ItemProperty
 #
 
-# Ex)  Create registry keys & set registry key properties
+# Example)  Create registry keys & set registry key properties
 #
 # Creating Registry keys using  [ New-Item -Force ... ]
 #   |--> Pros  : Creates ALL parent registry keys
@@ -44,6 +44,62 @@ If ((Test-Path -Path ('Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\Cu
 	New-Item -Force -Path ('Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') | Out-Null;
 }
 Set-ItemProperty -Force -Path ('Registry::HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced') -Name ('Hidden') -Value (0) | Out-Null;
+
+
+# ------------------------------------------------------------
+
+<# Example)  Set Chrome Homepage #>
+If ($True) {
+
+	$RegEdit = @{};
+	$RegEdit.Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\RestoreOnStartupURLs";
+	$RegEdit.Name="1";
+	$RegEdit.Type="String";
+	$RegEdit.Description="Chrome Homepage URL, where the Registry Key's Property Name is equal to the corresponding tab opened (e.g. 1 for first tab opened, 2 for second, etc.)";
+	$RegEdit.Value="https://www.google.com";
+
+	If ((Test-Path -Path (${RegEdit}.Path)) -Eq $True) {
+		$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -ErrorAction ("Stop"));
+		If ((${GetEachItemProp}) -Eq (${RegEdit}.Value)) {
+			If ($DebugMode -Eq $True) { Write-Output "$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')  |  Info:  (Skipped) Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" is already set to value `"$(${RegEdit}.Value)`""; }
+		} Else {
+			If ($DebugMode -Eq $True) { Write-Output "$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')  |  Info:  Setting Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" to value `"$(${RegEdit}.Value)`"..."; }
+			Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
+		}
+	} Else {
+		If ($DebugMode -Eq $True) { Write-Output "$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')  |  Info:  Creating Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" with type `"$(${RegEdit}.Type)`" and value `"$(${RegEdit}.Value)`"..."; }
+		New-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -PropertyType (${RegEdit}.Type) -Value (${RegEdit}.Value);
+	}
+
+}
+
+
+# ------------------------------------------------------------
+
+<# Example)  Set Edge Homepage #>
+If ($True) {
+
+	$RegEdit = @{};
+	$RegEdit.Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs";
+	$RegEdit.Name="1";
+	$RegEdit.Type="String";
+	$RegEdit.Description="Chrome Homepage URL, where the Registry Key's Property Name is equal to the corresponding tab opened (e.g. 1 for first tab opened, 2 for second, etc.)";
+	$RegEdit.Value="https://www.google.com";
+
+	If ((Test-Path -Path (${RegEdit}.Path)) -Eq $True) {
+		$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -ErrorAction ("Stop"));
+		If ((${GetEachItemProp}) -Eq (${RegEdit}.Value)) {
+			If ($DebugMode -Eq $True) { Write-Output "$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')  |  Info:  (Skipped) Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" is already set to value `"$(${RegEdit}.Value)`""; }
+		} Else {
+			If ($DebugMode -Eq $True) { Write-Output "$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')  |  Info:  Setting Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" to value `"$(${RegEdit}.Value)`"..."; }
+			Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
+		}
+	} Else {
+		If ($DebugMode -Eq $True) { Write-Output "$(Get-Date -Format 'yyyy-MM-ddThh:mm:ss.fffzzz')  |  Info:  Creating Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" with type `"$(${RegEdit}.Type)`" and value `"$(${RegEdit}.Value)`"..."; }
+		New-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -PropertyType (${RegEdit}.Type) -Value (${RegEdit}.Value);
+	}
+
+}
 
 
 # ------------------------------------------------------------

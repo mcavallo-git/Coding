@@ -4,6 +4,16 @@
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
+	"[json]": {
+		"editor.autoIndent": "full",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
+	"[jsonc]": {
+		"editor.autoIndent": "full",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
 	"[shellscript]": {
 		"editor.autoIndent": "full",
 		"editor.insertSpaces": true,

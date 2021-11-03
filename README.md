@@ -108,10 +108,16 @@ This file (on GitHub):
 <tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;View <a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">Chrome keyboard shortcuts</a><br />&nbsp;&nbsp;&nbsp;View <a href="https://peter.sh/experiments/chromium-command-line-switches/">Chromium command line switches</a><br />&nbsp;&nbsp;&nbsp;</i>
 	<details><summary>Google Account & Google Chrome - settings to apply</summary>
 		<ul>
-			<li><h4>Browse to <code>chrome://settings/content/camera</code> & disable top toggle (should say "Blocked" below "Camera")</h4></li>
-			<li><h4>Browse to <code>chrome://settings/content/location</code> & disable top toggle (should say "Blocked" below "Location")</h4></li>
-			<li><h4>Browse to <code>chrome://settings/content/notifications</code> & disable option "Sites can ask to send notifications"</h4></li>
-			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable option "Make searches and browsing better"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/content/camera</code> & select "Don't allow sites to use your camera"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/content/location</code> & select "Don't allow sites to see your location"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/content/microphone</code> & select "Don't allow sites to use your microphone"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/content/notifications</code> & select "Don't allow sites to send notifications"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/content/popups</code> & select "Don't allow sites to send pop-ups or use redirects"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Autocomplete searches and URLs"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Help improve Chrome's features and performance"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Make searches and browsing better"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Enhanced spell check"</h4></li>
+			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Google Drive search suggestions"</h4></li>
 			<li><h4>Browse to <code>https://myaccount.google.com/permissions</code> & disable option "Google Account sign-in prompts"</h4></li>
 			<li><h4>Browse to <code>chrome://flags/#read-later</code> & disable option "Reading List" <sub><i>(deprecated in chrome v95.0+)</i></sub></h4></li>
 				<ul>

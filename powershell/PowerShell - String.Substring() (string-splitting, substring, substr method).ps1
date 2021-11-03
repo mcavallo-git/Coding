@@ -1,16 +1,27 @@
 # ------------------------------------------------------------
 #
-#  "String".Substring(START);        <# The substring starts at a specified character position and continues to the end of the string #>
+#  "String".Substring(startIndex);         <# The substring starts at a specified character position and continues to the end of the string #>
 #
-#  "String".Substring(START,END);    <# The substring starts at a specified character position and has a specified length #>
+#  "String".Substring(startIndex,length);  <# The substring starts at a specified character position and has a specified length #>
 #
 # ------------------------------------------------------------
+#
+# Substring(startIndex)
+#  |
+#  |--> https://docs.microsoft.com/en-us/dotnet/api/system.string.substring#System_String_Substring_System_Int32_
+#
+
+$StartIndex=3;  "12345678".Substring(${StartIndex});  # Returns "45678"
 
 
-"12345678".Substring(3);  <# Returns "45678" #>
+# ------------------------------
+#
+# Substring(startIndex, length)
+#  |
+#  |--> https://docs.microsoft.com/en-us/dotnet/api/system.string.substring#System_String_Substring_System_Int32_System_Int32_
+#
 
-
-"12345678".Substring(3,3);  <# Returns "456" #>
+$StartIndex=3;  $Length=3;  "12345678".Substring(${StartIndex}, ${Length});  # Returns "456"
 
 
 # ------------------------------------------------------------

@@ -48,7 +48,7 @@ apt-get -y update;
 
 apt-get -y install oracle-java8-installer;
 
-dpkg -l | grep oracle;
+dpkg -L | grep oracle;
 
 ## Option 1
 

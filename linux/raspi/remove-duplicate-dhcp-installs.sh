@@ -6,7 +6,7 @@
 
 # Reason: Multiple DHCP services installed
 
-sudo dpkg -l | grep -i 'dhcp' | grep -i 'client'; # Show all client-based DHCP services
+sudo dpkg -L | grep -i 'dhcp' | grep -i 'client'; # Show all client-based DHCP services
 
 sudo apt-get remove -y dhcpcd5; # Remove unwanted DHCP service (see citation for reasoning)
 

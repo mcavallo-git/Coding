@@ -1,7 +1,7 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-#	Linux - bash completionisms (e.g. bashisms)
+#	Linux - Shell Expansions (e.g. "Bashisms" or "Bash Completionisms")  -  https://www.gnu.org/software/bash/manual/html_node/#toc-Shell-Expansions-1
 #
 # ------------------------------------------------------------
 #
@@ -14,69 +14,72 @@ VAR="12345"; echo "${#VAR}";
 VAR="1234567890"; echo "${#VAR}";
 ###  Outputs "10"
 
+# ------------------------------------------------------------
+#
+# Shell Parameter Expansion (e.g. "Substring Expansion")  -  https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+#
+
+# General Syntax (two options)
+${parameter:offset}
+${parameter:offset:length}
+
+
+# ------------------------------
+#
+#  Substring Expansion (Option 1)  (Left Trim/Slice)  -  https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+#
+#  Syntax:   ${parameter:offset}
+#
+
+# Example(s)
+parameter="1234567890"; offset=3;  echo "${parameter:offset}";    # Parameter Expansion  - Returns "4567890"  -  Slices leftmost ${offset} chars
+parameter="1234567890"; offset=3;  echo "${parameter: -offset}";  # Parameter Expansion  - Returns "890"  -  Returns rightmost ${offset} chars
+parameter="1234567890"; offset=3;  echo "${parameter:-offset}";   # Parameter Substitution - Returns "1234567890"
+
+
+# ------------------------------
+#
+#  Substring Expansion (Option 2)  (Substr, including Right Trim/Slice)  -  https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+#
+#  Syntax:   ${parameter:offset:length}
+#
+
+# Example(s)
+parameter="1234567890"; offset=0;  length=3; echo "${parameter:offset:length}";    # Returns "123"      -  Starts at pos 0, goes 3 chars
+parameter="1234567890"; offset=0;  length=3; echo "${parameter:offset: -length}";  # Returns "1234567"  -  Starts at pos 0, goes til 3 chars til end
+
+
+parameter="1234567890"; offset=2;  length=2; echo "${parameter:offset:length}";    # Returns "34"  -  Starts at pos 2, goes 2 chars
+parameter="1234567890"; offset=2;  length=2; echo "${parameter:offset: -length}";  # Returns "345678"  -  Starts at pos 2, goes til 2 chars til end
+
+
+parameter="1234567890"; offset=-6; length=2; echo "${parameter:offset:length}";    # Returns "56"  -  Starts at pos 6 til end, goes 2 chars
+parameter="1234567890"; offset=-6; length=2; echo "${parameter:offset: -length}";  # Returns "5678"  -  Starts at pos 6 til end, goes til 2 chars til end
+parameter="1234567890"; offset=-6; length=1; echo "${parameter:offset: -length}";  # Returns "56789"  -  Starts at pos 6 til end, goes til 1 char til end
+
+parameter="1234567890"; offset=4;  length=4; echo "${parameter:offset: -length}";  # Returns "56"  -  Starts at pos 4, goes til 4 chars til end
+parameter="1234567890"; offset=4;  length=5; echo "${parameter:offset: -length}";  # Returns "5"   -  Starts at pos 4, goes til 5 chars til end
+parameter="1234567890"; offset=4;  length=6; echo "${parameter:offset: -length}";  # Returns ""    -  Starts at pos 4, goes til 6 chars til end
+
 
 # ------------------------------------------------------------
 #
-### Left-Trim
+# Substring Replacement
 #
-#   SYNTAX:   ${VARIABLE_TO_TRIM:N}
-#                                 ^
-#                                 |-- Trims N characters off the left side of the string
-#
-
-# Bash Left-Trim Example: Remove the first N characters from a string
-VARIABLE_TO_TRIM="ABCDEF";
-
-N=1; echo "${VARIABLE_TO_TRIM:${N}}";
-###  Outputs  "BCDEF"
-
-echo "${VARIABLE_TO_TRIM:2}";
-###  Outputs  "CDEF"
-
-N=3; echo "${VARIABLE_TO_TRIM:${N}}";
-###  Outputs  "DEF"
-
-
-# ------------------------------------------------------------
-#
-### Left-Slice
-#
-#   SYNTAX:   ${VARIABLE_TO_SLICE::N}
-#                                  ^
-#                                  |-- Keeps N characters from the left side of the string
-#
-
-# Bash Left-Slice Example: Remove the first N characters from a string
-VARIABLE_TO_SLICE="ABCDEF";
-
-N=1; echo "${VARIABLE_TO_SLICE::${N}}";
-###  Outputs  "A"
-
-echo "${VARIABLE_TO_SLICE::2}";
-###  Outputs  "AB"
-
-N=4; echo "${VARIABLE_TO_SLICE::${N}}";
-###  Outputs  "ABCD"
-
-
-# ------------------------------------------------------------
-#
-### Substring Replacement
-#
-#   SYNTAX:   ${VARIABLE_TO_SEARCH//STRING_TO_FIND/STRING_TO_REPLACE_WITH}
+#   SYNTAX:   ${parameter//STRING_TO_FIND/STRING_TO_REPLACE_WITH}
 #             ${HAYSTACK//${NEEDLE}/${REPLACEMENT}}   <-- using nested variables
 #
 
 # Bash Substring Replacement Exaxmple: Replace dashes with underscores
-EXAMPLE_STRING="Bash Substring Replacement - Replace-Dashes-With-Underscores";
-MODIFIED_STRING="${EXAMPLE_STRING//-/_}";
-echo -e "\nEXAMPLE_STRING=\"${EXAMPLE_STRING}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
+parameter="Bash Substring Replacement - Replace-Dashes-With-Underscores";
+MODIFIED_STRING="${parameter//-/_}";
+echo -e "\nEXAMPLE_STRING=\"${parameter}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
 
 
 # Bash Substring Replacement Exaxmple: Escape spaces with backslashes
-EXAMPLE_STRING="Bash Substring Replacement - Escape spaces with backslashes";
-MODIFIED_STRING="${EXAMPLE_STRING// /\\ }";
-echo -e "\nEXAMPLE_STRING=\"${EXAMPLE_STRING}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
+parameter="Bash Substring Replacement - Escape spaces with backslashes";
+MODIFIED_STRING="${parameter// /\\ }";
+echo -e "\nEXAMPLE_STRING=\"${parameter}\"\nMODIFIED_STRING=\"${MODIFIED_STRING}\"\m";
 
 
 # Bash Substring Replacement Example:  Modular Example inteded for copying/pasting into other script(s)
@@ -104,32 +107,33 @@ echo "REMAINDER:  [ ${REMAINDER} ]";
 # POSIX compliant approach(es):
 #
 #  (awk) SYNTAX:  echo "$a" | awk '{print tolower($0)}';
-EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE}" | awk '{print tolower($0)}';
+parameter="Dat-Example-Doe" && echo "${parameter}" | awk '{print tolower($0)}';
 #
 #  (tr) SYNTAX:  echo "$a" | tr '[:upper:]' '[:lower:]';
-EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE}" | tr '[:upper:]' '[:lower:]';
+parameter="Dat-Example-Doe" && echo "${parameter}" | tr '[:upper:]' '[:lower:]';
 
 
 #
 # Non-POSIX compliant approach(es):
 #
-#  (bashism) SYNTAX:   ${VARNAME,,}
-EXAMPLE_TO_LOWERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_LOWERCASE,,}";  # Bashism requiring Bash v4.0+
+#  (bashism) SYNTAX:   ${parameter,,}
+parameter="Dat-Example-Doe" && echo "${parameter,,}";  # Bashism requiring Bash v4.0+
 
 
 # ------------------------------------------------------------
 #
 ### String variable to-Uppercase
 #
-#   SYNTAX:   ${VARNAME^^}
+#   SYNTAX:   ${parameter^^}
 #
 
-EXAMPLE_TO_UPPERCASE="Dat-Example-Doe" && echo "${EXAMPLE_TO_UPPERCASE^^}";
+parameter="Dat-Example-Doe" && echo "${parameter^^}";
 
 
 # ------------------------------------------------------------
 #
-### Type-agnostic - Parameter substitution (uses a fallback/default value (or parameter) if primary is unset)
+### Parameter Substitution - If main variable referenced is empty/unset, will fall back to a separate value (specified with a ":-" separator within the "${}" variable block directly after the variable name)
+#
 
 echo "${VAR_NOT_SET:-55}";
 
@@ -154,5 +158,9 @@ echo "${VAR_NOT_SET:-${VAR_ALSO_NOT_SET:-72}}";
 #   tldp.org  |  "Manipulating Strings"  |  https://tldp.org/LDP/abs/html/string-manipulation.html
 #
 #   unix.stackexchange.com  |  "How to input / start a new line in bash terminal?"  |  https://unix.stackexchange.com/a/80820
+#
+#   www.gnu.org  |  "Top (Bash Reference Manual)"  |  https://www.gnu.org/software/bash/manual/html_node/#toc-Shell-Expansions-1
+#
+#   www.gnu.org  |  "Shell Parameter Expansion (Bash Reference Manual)"  |  https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
 #
 # ------------------------------------------------------------

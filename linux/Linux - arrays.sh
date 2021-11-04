@@ -89,7 +89,7 @@ else
 		echo "        ${EACH_KEY}	-  ${EACH_DOCKER_IMAGE}  (${EACH_CONTAINER_ID})";
 	done;
 
-	READ_TIMEOUT=20; read -p "Select: " -t ${READ_TIMEOUT} -r;
+	READ_TIMEOUT=20; read -p "Select: " -t ${READ_TIMEOUT} <'/dev/tty';
 	if [ -z "${REPLY}" ]; then
 		echo "Error: Response timed out after ${READ_TIMEOUT}s";
 	else

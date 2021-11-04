@@ -6,7 +6,7 @@
 
 
 if [ 1 -eq 1 ]; then
-ASCII_INTEGER="63";
+ASCII_INTEGER="64";
 ASCII_HEXADECIMAL="$(printf \\x%x ${ASCII_INTEGER})";  # convert integer to hexadecimal
 ASCII_OCTAL="$(printf \\%03o ${ASCII_INTEGER})";  # convert integer to octal
 ASCII_CHARACTER_FROM_HEX="$(printf "${ASCII_HEXADECIMAL}";)";  # get character 
@@ -22,16 +22,26 @@ fi;
 
 
 # ------------------------------------------------------------
-
+#
+# SAME AS ABOVE - Just using shorthand syntax
+#
 
 if [ 0 -eq 1 ]; then
-printf \\%03o 63;  # \077
-printf \\x%x 63;  # \077
 
-printf $(printf \\%03o 63);  # ?
-printf '\x3f';  # ?
-printf '%b' '\077';  # ?
-printf '\077';  # ?
+# Building the "?" character in a roundabout way
+printf \\%03o 63;  # Returns "\077"
+printf \\x%x 63;   # Returns "\077"
+printf $(printf \\%03o 63);  # Returns "?"
+printf '\x3f';               # Returns "?"
+printf '%b' '\077';          # Returns "?"
+printf '\077';               # Returns "?"
+
+# Building the "@" character in a roundabout way
+printf $(printf \\%03o 64);  # Returns "@"
+printf '\x40';               # Returns "@"
+printf '%b' '\100';          # Returns "@"
+printf '\100';               # Returns "@"
+
 fi;
 
 

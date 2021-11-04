@@ -70,3 +70,9 @@ fi;
 
 
 # ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   superuser.com  |  "command line - Possible to get a bash script to accept input from terminal if its stdin has been redirected? - Super User"  |  https://superuser.com/a/834508
+#
+# ------------------------------------------------------------

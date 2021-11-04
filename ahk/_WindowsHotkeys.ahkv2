@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2646,7 +2646,9 @@ Open_VisualStudioCode() {
 ;
 Open_WindowsTerminal() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	Exe_Path := ( EnvGet("APPDATA") "\ClassicShell\Pinned\Windows Terminal.lnk" )
+	Exe_Path := "explorer.exe"
+	Win10App_PackageFamilyName := "Microsoft.WindowsTerminal_8wekyb3d8bbwe"  ; Acquired via powershell call [ (Get-AppxPackage Microsoft.WindowsTerminal).PackageFamilyName; ] 
+	Exe_Args := ( "shell:AppsFolder\" Win10App_PackageFamilyName "!App")
 	WinTitle := ""
 	WinText := "DesktopWindowXamlSource"
 	WinWait_TimeoutSeconds := 5
@@ -2658,7 +2660,7 @@ Open_WindowsTerminal() {
 		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to
 		;       open file in admin instance of code.exe', etc.
 		;
-		RunExe_NON_Admin(Exe_Path)
+		RunExe_NON_Admin(Exe_Path, Exe_Args)
 		;
 		; !! vv DEPRECATED METHODOLOGY/APPROACH vv !!
 		;
@@ -2963,21 +2965,25 @@ RemoveToolTip() {
 ; RunExe_NON_Admin
 ;   |--> Opens target program without administrative rights (by using a Scheduled Task de-escalation workaround)
 ;
-RunExe_NON_Admin(Exe_Path) {
+RunExe_NON_Admin(Exe_Path, Exe_Args:="") {
 	If (DebugMode == 1) {
 		TrayTip, AHK,
 		(LTrim
-			Opening NON-Admin version of "%Exe_Path%"...
+			Opening NON-Admin version of Exe: "%Execute%"...
 		)  ; Toast Notification
 	}
 	Semicolon := ";"
+	Add_Args := ""
+	If (Exe_Args != "") {
+		Add_Args := " -Argument (Write-Output %Exe_Args%)"
+	}
 	RunCommand_NonAdmin := "
 		(
 			powershell.exe -WindowStyle Hidden -Command "
 			If ([Boolean](1)) {
-				SV TEMP_Command '%Exe_Path%'%Semicolon%
+				SV TEMP_Execute '%Exe_Path%'%Semicolon%
 				SV TEMP_Name (Get-Date -UFormat `%s)%Semicolon%
-				SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value))%Semicolon%
+				SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value))%Add_Argument%%Semicolon%
 				SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date))%Semicolon%
 				Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value)%Semicolon%
 				Start-ScheduledTask -TaskName ((GV TEMP_Name).Value)%Semicolon%

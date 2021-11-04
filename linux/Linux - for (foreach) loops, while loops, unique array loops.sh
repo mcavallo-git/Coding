@@ -28,7 +28,7 @@ done;
 # For-loop on a predefined Indexed Array (?) (in Bash)
 for EACH_DOMAIN in "google.com" "hotmail.com" "microsoft.com" "yahoo.com"; do
 echo "";
-echo -n "EACH_DOMAIN=[ $(printf '%-15s' "${EACH_DOMAIN}";) ]   "; echo | openssl s_client -servername "${EACH_DOMAIN}" -connect "${EACH_DOMAIN}:443" 2>/dev/null | openssl x509 -noout -dates | grep 'notAfter';
+echo -n "EACH_DOMAIN=[ $(printf '%-15s' "${EACH_DOMAIN}";) ]   "; echo | openssl s_client -servername "${EACH_DOMAIN}" -connect "${EACH_DOMAIN}:443" 2>'/dev/null' | openssl x509 -noout -dates | grep 'notAfter';
 echo "";
 done;
 

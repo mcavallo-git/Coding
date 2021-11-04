@@ -3,7 +3,7 @@
 
 
 # Grab all services into a variable (requires 'sed' package)
-ALL_SERVICES=$(service --status-all 2>/dev/null | sed --regexp-extended --quiet --expression='s/^\ \[ (\+|\-) \]\ \ (\S+)$/\2/p');
+ALL_SERVICES=$(service --status-all 2>'/dev/null' | sed --regexp-extended --quiet --expression='s/^\ \[ (\+|\-) \]\ \ (\S+)$/\2/p');
 echo "${ALL_SERVICES}";
 
 

@@ -74,7 +74,7 @@ MOUNT_PATH="/EXAMPLE_PATH";  #  !!! ENTER VALUE(S), HERE !!!  (see above for det
 
 echo "";
 echo "Calling  [ parted \"${DEVICE}\" mkpart \"${PART_TYPE}\" \"${FS_TYPE}\" \"${START_BYTE}\" \"${END_BYTE}\"; ]  ...";
-PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
+PART_TYPE="primary"; if [ $(parted "${DEVICE}" print | grep '^Partition Table:' | grep 'gpt' 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then PART_TYPE="logical"; fi;
 parted "${DEVICE}" mkpart "${PART_TYPE}" "${FS_TYPE}" "${START_BYTE}" "${END_BYTE}";
 
 echo "";
@@ -96,13 +96,13 @@ else
 	FSTAB_VALS_1="${DEVICE}";
 fi;
 
-if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
+if [ $(cat "/etc/fstab" | grep "^${DEVICE}" 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then
 	# Device mounted at-bootup by its device-path (best practice is to use device UUID)
 	echo "";
 	echo "Info:  Found boot config (by-path) for device \"${DEVICE}\" in \"/etc/fstab\":";
 	echo "Warning:  Best practice is to mount by device UUID, as it remains static per-device (but device paths & labels are not forced to be static)";
 	cat "/etc/fstab" | grep "^${DEVICE}";
-elif [ $(cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}" 1>/dev/null 2>&1; echo $?;) -eq 0 ]; then
+elif [ $(cat "/etc/fstab" | grep "^UUID=${DEVICE_UUID}" 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then
 	# Device mounted at-bootup by its UUID
 	echo "";
 	echo "Info:  Found boot config (by-UUID) for device \"${DEVICE}\" in \"/etc/fstab\":";

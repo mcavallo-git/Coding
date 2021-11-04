@@ -7,10 +7,10 @@
 
 SVC="nginx";
 if \
-  [ "$(systemctl is-enabled ${SVC}.service 2>/dev/null;)" != "enabled" ] || \
-  [ "$(systemctl is-active ${SVC}.service 2>/dev/null;)" != "active" ] || \
-  [ $(systemctl is-enabled ${SVC}.service 1>/dev/null 2>&1; echo $?;) -ne 0 ] || \
-  [ $(systemctl is-active ${SVC}.service 1>/dev/null 2>&1; echo $?;) -ne 0 ]; \
+  [ "$(systemctl is-enabled ${SVC}.service 2>'/dev/null';)" != "enabled" ] || \
+  [ "$(systemctl is-active ${SVC}.service 2>'/dev/null';)" != "active" ] || \
+  [ $(systemctl is-enabled ${SVC}.service 1>'/dev/null' 2>&1; echo $?;) -ne 0 ] || \
+  [ $(systemctl is-active ${SVC}.service 1>'/dev/null' 2>&1; echo $?;) -ne 0 ]; \
 then
   echo "Info:  Service \"${SVC}\" is not both \"enabled\" and \"active\", currently";
   echo "Info:  Calling  [ systemctl enable \"${SVC}.service\" --now; ]  ...";
@@ -25,8 +25,8 @@ fi;
 
 SVC="nginx";
 if \
-  [ "$(systemctl is-enabled ${SVC}.service 2>/dev/null;)" == "enabled" ] || \
-  [ "$(systemctl is-active ${SVC}.service 2>/dev/null;)" == "active" ]; \
+  [ "$(systemctl is-enabled ${SVC}.service 2>'/dev/null';)" == "enabled" ] || \
+  [ "$(systemctl is-active ${SVC}.service 2>'/dev/null';)" == "active" ]; \
 then
   echo "Info:  Service \"${SVC}\" is either \"enabled\" or \"active\", currently";
   echo "Info:  Calling  [ systemctl disable \"${SVC}.service\" --now; ]  ...";

@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -484,7 +484,7 @@ Pause::
 ;   ACTION:  Open VS Code
 ;
 #v::
-	OpenVisualStudioCode()
+	Open_VisualStudioCode()
 	Return
 
 
@@ -976,7 +976,7 @@ AppsKey & l::
 ;   ACTION:  Opens "View Network Connections" (control panel window)
 ; 
 #n::
-	OpenControlPanel_NetworkConnections()
+	Open_ControlPanel_NetworkConnections()
 	Return
 
 
@@ -985,8 +985,8 @@ AppsKey & l::
 ; ACTION:  Opens "Sound" > "Playback" (control panel window)
 ; 
 #s::
-	OpenControlPanel_Sound("Playback")
-	; OpenControlPanel_Sound("Recording")
+	Open_ControlPanel_Sound("Playback")
+	; Open_ControlPanel_Sound("Recording")
 	Return
 
 
@@ -999,7 +999,7 @@ AppsKey & l::
 !#s::
 ^#s::
 +#s::
-	OpenControlPanel_Sound("Recording")
+	Open_ControlPanel_Sound("Recording")
 	Return
 
 
@@ -1262,7 +1262,7 @@ WheelRight::
 ;   ACTION:  Open Google Chrome
 ;
 #c::
-	OpenChrome()
+	Open_Chrome()
 	Return
 #If WinActive("ahk_exe Overwatch.exe")
 ;
@@ -1551,9 +1551,21 @@ LShift & RShift::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  WinKey + T
-;   ACTION:  Get Windows Environment Vars
+;   ACTION:  Open Windows Terminal
 ;
 #t::
+	Open_WindowsTerminal()
+	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Alt + WinKey + T
+;            Ctrl + WinKey + T
+;   ACTION:  Get Windows Environment Vars
+;
+!#t::
+^#t::
 	PrintEnv()
 	Return
 
@@ -2450,11 +2462,11 @@ Open_Exe(ExeFullpath) {
 
 
 ;
-;	OpenControlPanel_NetworkConnections
+;	Open_ControlPanel_NetworkConnections
 ;   |--> Opens "View Network Connections"
 ;   |--> Open manually via [ Start Menu search for "View Network Connections" ] or [ "Settings (Win10 App)" > "Network & Internet" > "Ethernet" (left menu) > "Change adapter options" (top right) ]
 ;
-OpenControlPanel_NetworkConnections() {
+Open_ControlPanel_NetworkConnections() {
 	WinTitle := "Network Connections"
 	SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
@@ -2473,11 +2485,11 @@ OpenControlPanel_NetworkConnections() {
 
 
 ;
-;	OpenControlPanel_Sound
+;	Open_ControlPanel_Sound
 ;   |--> Opens "Sound Control Panel"
 ;   |--> Open manually via [ Start Menu search for "Change system sounds" ] or [ "Settings (Win10 App)" > "System" > "Sound" (left menu) > "Sound Control Panel" (top right) ]
 ;
-OpenControlPanel_Sound(TabToOpen:="Playback") {
+Open_ControlPanel_Sound(TabToOpen:="Playback") {
 	WinTitle := "Sound"
 	SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
@@ -2514,10 +2526,10 @@ OpenControlPanel_Sound(TabToOpen:="Playback") {
 
 
 ;
-;	OpenChrome
+;	Open_Chrome
 ;   |--> Opens the "Google Chrome" Application
 ;
-OpenChrome() {
+Open_Chrome() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	Exe_Path := ""
 	Exe_Path_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
@@ -2544,10 +2556,10 @@ OpenChrome() {
 
 
 ;
-;	OpenRoboformPasswordGenerator
+;	Open_RoboformPasswordGenerator
 ;   |--> Opens Roboform's Password Generator executable
 ;
-OpenRoboformPasswordGenerator() {
+Open_RoboformPasswordGenerator() {
 	Global DebugMode
 	AwaitModifierKeyup()  ; Wait until all modifier keys are released
 	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
@@ -2588,15 +2600,17 @@ OpenRoboformPasswordGenerator() {
 
 
 ;
-; OpenVisualStudioCode
-;   |--> Opens Microsoft's "Visual Studio Code" Application (Free Source Code Editor / IDE)
+; Open_VisualStudioCode
+;   |--> Opens Microsoft's "Visual Studio Code" application (e.g. "VS Code" or "VSCode") - VS Code is a Free Source Code Editor & IDE
 ;
-OpenVisualStudioCode() {
+Open_VisualStudioCode() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	Exe_Path := "C:\Windows\System32\notepad.exe"
 	WinTitle := " - Visual Studio Code"
+	WinText := "Chrome Legacy Window"
 	WinWait_TimeoutSeconds := 5
-	If (!WinExist(WinTitle)) {
+	; If (!WinExist(WinTitle)) {
+	If (!WinExist(WinTitle,WinText)) {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)
 		;  |
@@ -2620,18 +2634,48 @@ OpenVisualStudioCode() {
 		; !! ^^ DEPRECATED METHODOLOGY/APPROACH ^^ !!
 		;
 	}
-	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%, %WinText%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
 
 ;
-; OpenVSCode
-;   |--> Opens the "Visual Studio Code" Application
+; Open_WindowsTerminal
+;   |--> Opens Microsoft's "Windows Terminal" application - Windows Terminal is a tabbed terminal utility for Windows
 ;
-OpenVSCode() {
-	OpenVisualStudioCode()
+Open_WindowsTerminal() {
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	Exe_Path := ( EnvGet("APPDATA") "\ClassicShell\Pinned\Windows Terminal.lnk" )
+	WinTitle := ""
+	WinText := "DesktopWindowXamlSource"
+	WinWait_TimeoutSeconds := 5
+	If (!WinExist(WinTitle,WinText)) {
+		;
+		; Run a NON-admin version of Visual Studio Code (VS Code)
+		;  |
+		;  |--> Otherwise the functionality of opening files directly from windows explorer into VS code is entirely lost/broken (while VS
+		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to
+		;       open file in admin instance of code.exe', etc.
+		;
+		RunExe_NON_Admin(Exe_Path)
+		;
+		; !! vv DEPRECATED METHODOLOGY/APPROACH vv !!
+		;
+		; If ( 0 == 1 ) {
+		; 	ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
+		; 	ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
+		; 	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
+		; 	ExeArguments := ExeArg1 " " ExeArg2
+		; 	ExeCommmand_Final := ExeFullpath " " ExeArguments
+		; 	Run, %ExeFullpath% %ExeArguments%
+		; }
+		;
+		; !! ^^ DEPRECATED METHODOLOGY/APPROACH ^^ !!
+		;
+	}
+	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%, %WinText%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

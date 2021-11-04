@@ -6,7 +6,7 @@ read -p "Press any key to continue...  " -n 1 -t 60 <'/dev/tty'; # Await single 
 
 
 # AVOID USING [ -r ] --> USE ABOVE METHODOLOGY OF [ <'/dev/tty' ], INSTEAD
-# read -p "Press any key to continue...  " -n 1 -t 60 -r; # Note: [ -r ] breaks on curl commands (fails read immediately, returning exit code 1)
+# read -p "Press any key to continue...  " -n 1 -t 60 -r;  # !!! Note: [ -r ] breaks on curl commands (fails read immediately, returning exit code 1)
 
 # ------------------------------------------------------------
 # Await multiple keypresses (general keyboard string-entry)

@@ -3,12 +3,9 @@
 # Get/List installed package(s)/application(s)
 #
 
-
 $PackageNameContains="Help"; Get-AppxPackage | Sort-Object -Property Name | Where-Object { $_.Name -Like "*${PackageNameContains}*" };
 
-
 $PackageNameContains="DynamicTheme"; Get-AppxPackage | Sort-Object -Property Name | Where-Object { $_.Name -Like "*${PackageNameContains}*" };
-
 
 $PackageNameContains="Microsoft.WindowsTerminal"; Get-AppxPackage | Sort-Object -Property Name | Where-Object { $_.Name -Like "*${PackageNameContains}*" };
 
@@ -18,9 +15,12 @@ $PackageNameContains="Microsoft.WindowsTerminal"; Get-AppxPackage | Sort-Object 
 # Run a local package/application 
 #
 
+# As a one-liner (with no single quotes, double quotes, or dollar signs anywhere in the call):
+SV AppNameContains (Write-Output Microsoft.WindowsTerminal); SV AppNameResolved (Get-AppxPackage | Where-Object { ((((GV _).Value).Name).Contains(((GV AppNameContains).Value))) } | Select-Object -ExpandProperty PackageFamilyName); SV ExplorerTarget ((Write-Output shell:AppsFolder\)+((GV AppNameResolved).Value)+(Write-Output !App)); explorer.exe ((GV ExplorerTarget).Value);;
 
-# As a one-liner:
-SV AppNameContains (Write-Output Microsoft.WindowsTerminal); explorer.exe shell:AppsFolder\$(Get-AppxPackage | Where-Object { ((((GV _).Value).Name).Contains(((GV AppNameContains).Value))) -Eq $True } | Select-Object -ExpandProperty PackageFamilyName;)!App;
+
+# As a one-liner in a powershell run command:
+PowerShell -Command "SV AppNameContains (Write-Output Microsoft.WindowsTerminal); SV AppNameResolved (Get-AppxPackage | Where-Object { ((((GV _).Value).Name).Contains(((GV AppNameContains).Value))) } | Select-Object -ExpandProperty PackageFamilyName); SV ExplorerTarget ((Write-Output shell:AppsFolder\)+((GV AppNameResolved).Value)+(Write-Output !App)); explorer.exe ((GV ExplorerTarget).Value);";
 
 
 # Expanded:
@@ -54,7 +54,6 @@ Get-ChildItem -Path ("${Home}\Desktop") -File -Recurse -Force -ErrorAction "Sile
 # Show available "*Appx*" cmdlets
 #
 Get-Command | Where-Object { $_.Name -Like '*appx*' };
-
 
 
 # ------------------------------------------------------------

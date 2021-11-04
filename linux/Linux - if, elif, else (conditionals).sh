@@ -104,11 +104,11 @@ if [ -n "$0" ]; then
 	elif [[ "${DK_CMD}" == "/bash_quality_assurance" ]] || [[ "${DK_CMD}" == "/bashqa" ]]; then
 		echo "Quality Assurance";
 	else
-		echo "\n\n$ 0: Un-handled Bash Command: \"${0}\"\n\n";
+		echo -e "\n\n$ 0: Un-handled Bash Command: \"${0}\"\n\n";
 		exit 1;
 	fi;
 else 
-	echo "\n\n$ 0: Variable is either unset or contains a null value\n\n";
+	echo -e "\n\n$ 0: Variable is either unset or contains a null value\n\n";
 	exit 1;
 fi;
 exit 0;

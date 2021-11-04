@@ -2543,6 +2543,9 @@ Open_Chrome() {
 	WinWait_TimeoutSeconds := 5
 	If (!WinExist(WinTitle)) {
 		If (Exe_Path != "") {
+			;
+			; Run a NON-admin version of Google Chrome
+			;
 			RunExe_NON_Admin(Exe_Path)
 		} Else {
 			TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
@@ -2619,20 +2622,6 @@ Open_VisualStudioCode() {
 		;       open file in admin instance of code.exe', etc.
 		;
 		RunExe_NON_Admin(Exe_Path)
-		;
-		; !! vv DEPRECATED METHODOLOGY/APPROACH vv !!
-		;
-		; If ( 0 == 1 ) {
-		; 	ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
-		; 	ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
-		; 	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
-		; 	ExeArguments := ExeArg1 " " ExeArg2
-		; 	ExeCommmand_Final := ExeFullpath " " ExeArguments
-		; 	Run, %ExeFullpath% %ExeArguments%
-		; }
-		;
-		; !! ^^ DEPRECATED METHODOLOGY/APPROACH ^^ !!
-		;
 	}
 	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	WinActivate, %WinTitle%, %WinText%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
@@ -2654,27 +2643,9 @@ Open_WindowsTerminal() {
 	WinWait_TimeoutSeconds := 5
 	If (!WinExist(WinTitle,WinText)) {
 		;
-		; Run a NON-admin version of Visual Studio Code (VS Code)
-		;  |
-		;  |--> Otherwise the functionality of opening files directly from windows explorer into VS code is entirely lost/broken (while VS
-		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to
-		;       open file in admin instance of code.exe', etc.
+		; Run a NON-admin version of Windows Terminal
 		;
 		RunExe_NON_Admin(Exe_Path, Exe_Args)
-		;
-		; !! vv DEPRECATED METHODOLOGY/APPROACH vv !!
-		;
-		; If ( 0 == 1 ) {
-		; 	ExeFullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
-		; 	ExeArg1 := "--user-data-dir=`"" A_AppData "\Code`""
-		; 	ExeArg2 := A_MyDocuments "\GitHub\cloud-infrastructure\.vscode\github.code-workspace"
-		; 	ExeArguments := ExeArg1 " " ExeArg2
-		; 	ExeCommmand_Final := ExeFullpath " " ExeArguments
-		; 	Run, %ExeFullpath% %ExeArguments%
-		; }
-		;
-		; !! ^^ DEPRECATED METHODOLOGY/APPROACH ^^ !!
-		;
 	}
 	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	WinActivate, %WinTitle%, %WinText%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm

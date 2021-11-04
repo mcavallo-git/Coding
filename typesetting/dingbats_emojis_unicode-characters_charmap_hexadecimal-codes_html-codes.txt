@@ -214,6 +214,10 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
 
 
+🗑				Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1
+🗑️				Wastebasket Emoji  |  https://emojipedia.org/wastebasket/
+
+
 🔑				Key  |  https://www.compart.com/en/unicode/U+1F511
 🔒				Lock  |  https://www.compart.com/en/unicode/U+1F512
 🔓				Open Lock  |  https://www.compart.com/en/unicode/U+1F513

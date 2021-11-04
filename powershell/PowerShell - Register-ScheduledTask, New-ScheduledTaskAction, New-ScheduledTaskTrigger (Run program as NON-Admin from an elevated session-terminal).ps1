@@ -5,9 +5,9 @@
 #  |--> Remove admin-permissions by creating a temporary scheduled task which runs [target runtime] with NON-elevated permissions
 #
 If (1 -Eq 1) {
-	SV TEMP_Command C:\Windows\System32\notepad.exe;
+	SV TEMP_Execute C:\Windows\System32\notepad.exe;
 	SV TEMP_Name (Get-Date -UFormat (([String][Char]37)+([String][Char]115)));
-	SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value));
+	SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value));
 	SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date));
 	Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null;
 	Start-ScheduledTask -TaskName ((GV TEMP_Name).Value);
@@ -16,11 +16,11 @@ If (1 -Eq 1) {
 }
 
 # As a one-liner:
-If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat (([String][Char]37)+([String][Char]115))); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null; Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0)); };
+If (1 -Eq 1) { SV TEMP_Execute C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat (([String][Char]37)+([String][Char]115))); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value) | Out-Null; Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0)); };
 
 
 # As a nested command intended to be used from an external app kicking off this command through cmd
-cmd.exe /C "powershell.exe -WindowStyle Hidden -Command ""If (1 -Eq 1) { SV TEMP_Command C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat (([String][Char]37)+([String][Char]115))); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Command).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value); Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0)); };"""
+cmd.exe /C "powershell.exe -WindowStyle Hidden -Command ""If (1 -Eq 1) { SV TEMP_Execute C:\Windows\System32\notepad.exe; SV TEMP_Name (Get-Date -UFormat (([String][Char]37)+([String][Char]115))); SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value)); SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date)); Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value); Start-ScheduledTask -TaskName ((GV TEMP_Name).Value); Start-Sleep -Seconds 1; Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0)); };"""
 
 
 # ------------------------------------------------------------

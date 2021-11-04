@@ -8,10 +8,10 @@
 # Count the # of characters in a string (e.g. Get the length of a string as an integer value)
 #
 
-VAR="12345"; echo "${#VAR}";
+parameter="12345"; echo "${#parameter}";
 ###  Outputs "5"
 
-VAR="1234567890"; echo "${#VAR}";
+parameter="1234567890"; echo "${#parameter}";
 ###  Outputs "10"
 
 # ------------------------------------------------------------

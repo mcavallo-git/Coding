@@ -19,6 +19,7 @@ Lookup description/etc. regarding unicode characters  -->  https://www.compart.c
 
 Mostly Linux compatible:
 
+
 ×					Multiplication Sign  |  https://www.compart.com/en/unicode/U+00D7
 
 
@@ -31,6 +32,7 @@ Mostly Linux compatible:
 
 
 ------------------------------------------------------------
+
 
 •					Bullet  |  https://www.compart.com/en/unicode/U+2022
 ∙					Bullet Operator  |  https://www.compart.com/en/unicode/U+2219
@@ -64,12 +66,11 @@ Mostly Linux compatible:
 
 
 [​]					Zero Width Space (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
-
+						|
+						|--> For more space chars, see "Whitespace Characters" (below)
 
 ------------------------------------------------------------
 
-Character Set “x-Adobe-Zapf-Dingbats-Encoding” 
- |--> https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
 
 ✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714
 ✔️				Heavy Check Mark (Colored)  |  https://www.compart.com/en/unicode/U+2714
@@ -77,8 +78,10 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 ✓					Check Mark (&check;)  |  https://www.compart.com/en/unicode/U+2713
 √					Square Root  |  https://www.compart.com/en/unicode/U+221a
 
+
 ╳					(X MARK, LARGE) Box Drawings Light Diagonal Cross  |  https://www.compart.com/en/unicode/U+2573
 ×					Multiplication Sign  (&times;) |  https://www.compart.com/en/unicode/U+00D7
+
 
 ✕					Multiplication X  |  https://www.compart.com/en/unicode/U+2715
 ✖					Heavy Multiplication X  |  https://www.compart.com/en/unicode/U+2716
@@ -89,7 +92,6 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 ❎					Negative Squared Cross Mark  |  https://www.compart.com/en/unicode/U+274E
 ✅					White Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2705
 
-ℹ					Information Source  |  https://www.compart.com/en/unicode/U+2139
 
 ☐					(Empty/Unchecked Checkbox) Ballot Box  |  https://www.compart.com/en/unicode/U+2610
 ☒					(X'ed checkbox) Ballot Box with X  |  https://www.compart.com/en/unicode/U+2612
@@ -97,15 +99,15 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 ☑️				Ballot Box with Check (Colored)  |  https://emojipedia.org/check-box-with-check/
 
 
-------------------------------------------------------------
-
+▢					WHITE SQUARE WITH ROUNDED CORNERS
+■					BLACK SQUARE
 
 
 ☰					Trigram For Heaven (Hamburger Menu)  |  https://www.compart.com/en/unicode/U+2630
 ⫴					Triple Vertical Bar Binary Relation  |  https://www.compart.com/en/unicode/U+2AF4
 
 
-⋮					Vertical Ellipsis (Kebab) (&vellip;)  |  https://www.compart.com/en/unicode/U+22EE
+⋮					Vertical Ellipsis (&vellip;) (Kebab)  |  https://www.compart.com/en/unicode/U+22EE
 ︙				 Presentation Form For Vertical Horizontal Ellipsis  |  https://www.compart.com/en/unicode/U+FE19
 
 
@@ -113,15 +115,38 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 ⋯					Midline Horizontal Ellipsis (&ctdot;)  |  https://www.compart.com/en/unicode/U+22EF
 
 
-⊞				 Squared Plus (Winkey / Windows Key) (&plusb;)  |  Unicode Character “⊞” (U+229E)  |  https://www.compart.com/en/unicode/U+229E
+⊞				 Squared Plus (&plusb;) (Windows Key / Winkey)  |  https://www.compart.com/en/unicode/U+229E
 
 
+ℹ					Information Source  |  https://www.compart.com/en/unicode/U+2139
 ∴					Therefore (&therefore;)  |  https://www.compart.com/en/unicode/U+2234
 ≠					Not Equal To (&ne;)  |  https://www.compart.com/en/unicode/U+2260
 ≡					Identical To (&equiv;)  |  https://www.compart.com/en/unicode/U+2261
+Δ					Greek Capital Letter Delta  |  https://www.compart.com/en/unicode/U+0394
+Σ					Greek Capital Letter Sigma  |  https://www.compart.com/en/unicode/U+03A3
+⅀					Double-Struck N-Ary Summation  |  https://www.compart.com/en/unicode/U+2140
 
 
-👍			 Thumbs Up Sign  |  https://www.compart.com/en/unicode/U+1F44D
+👁				Eye  |  https://www.compart.com/en/unicode/U+1F441
+👆				White Up Pointing Backhand Index  |  https://www.compart.com/en/unicode/U+1F446
+👇				White Down Pointing Backhand Index  |  https://www.compart.com/en/unicode/U+1F447
+👍				Thumbs Up Sign  |  https://www.compart.com/en/unicode/U+1F44D
+👎				Thumbs Down Sign  |  https://www.compart.com/en/unicode/U+1F44E
+
+
+📅				Calendar  |  https://www.compart.com/en/unicode/U+1F4C5
+⏳					Hourglass with Flowing Sand  |  https://www.compart.com/en/unicode/U+23F3
+⏱					Stopwatch  |  https://www.compart.com/en/unicode/U+23F1
+⏱️				 Stopwatch (Colored)  |  https://www.compart.com/en/unicode/U+23F1
+⌚					Watch  |  https://www.compart.com/en/unicode/U+231A
+⏰					Alarm Clock  |  https://www.compart.com/en/unicode/U+23F0
+
+
+🔑				Key  |  https://www.compart.com/en/unicode/U+1F511
+🔒				Lock  |  https://www.compart.com/en/unicode/U+1F512
+🔓				Open Lock  |  https://www.compart.com/en/unicode/U+1F513
+🔐				Closed Lock with Key  |  https://www.compart.com/en/unicode/U+1F510
+🔏				Lock with Ink Pen  |  https://www.compart.com/en/unicode/U+1F50F
 
 
 ⛔				 No Entry  |  https://www.compart.com/en/unicode/U+26D4
@@ -133,96 +158,87 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 ❓					Black Question Mark Ornament  |  https://www.compart.com/en/unicode/U+65039
 
 
-⚙️				Gear (Cog) (Colored)  |  https://emojipedia.org/gear/
-⚙					Gear (Cog)  |  https://www.compart.com/en/unicode/U+2699
-⛭					Gear Without Hub  |  https://www.compart.com/en/unicode/U+26ED
-
-
-🖥 				Desktop Computer  |  https://www.compart.com/en/unicode/U+1F5A5
-🖥️ 			Desktop Computer (Colored)  |  https://emojipedia.org/desktop-computer/
-
-
-▶					BLACK RIGHT-POINTING TRIANGLE
-▷					WHITE RIGHT-POINTING TRIANGLE
-
-
-►					Black Right-Pointing Pointer  |  Unicode Character “►” (U+25BA)  |  https://www.compart.com/en/unicode/U+25BA
-▻					White Right-Pointing Pointer  |  Unicode Character “▻” (U+25BB)  |  https://www.compart.com/en/unicode/U+25BB
-
-
-⭐					White Medium Star  |  https://www.compart.com/en/unicode/U+2B50
-★				 	Black Star  |  https://www.compart.com/en/unicode/U+2605
-☆				 	White Star  |  https://www.compart.com/en/unicode/U+2606
-✦					Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
-
-
-❖					Black Diamond Minus White X  |  “❖” U+2756 Black Diamond Minus White X Unicode Character  |  https://www.compart.com/en/unicode/U+2756
-◆					BLACK DIAMOND
-◇					WHITE DIAMOND
-◈					WHITE DIAMOND CONTAINING BLACK SMALL DIAMOND
-◊					LOZENGE
-
-
-⌨					KEYBOARD
-💬				SPEECH BALLOON
-
-
-○					WHITE CIRCLE
-◌					DOTTED CIRCLE
-●					BLACK CIRCLE
-⚫				 MEDIUM BLACK CIRCLE
-▢					WHITE SQUARE WITH ROUNDED CORNERS
-☁					CLOUD (Black filled in Chrome)
-☁️				CLOUD v2 (White filled in Chrome)
-Δ					DELTA
-■					BLACK SQUARE
-ℹ️					INFORMATION SOURCE
-
-
-📅				Calendar  |  https://www.compart.com/en/unicode/U+1F4C5
-⏳					Hourglass with Flowing Sand  |  https://www.compart.com/en/unicode/U+23F3
-⏱					Stopwatch  |  https://www.compart.com/en/unicode/U+23F1
-⏱️					Stopwatch (Colored)  |  https://www.compart.com/en/unicode/U+23F1
-⌚					Watch  |  https://www.compart.com/en/unicode/U+231A
-⏰					Alarm Clock  |  https://www.compart.com/en/unicode/U+23F0
-
-
-💲 Heavy Dollar Sign
-💰 Money Bag
-💵 Dollar Banknote
-
-
-⚡				HIGH VOLTAGE SIGN
-☢				RADIOACTIVE SIGN
-☣				BIOHAZARD SIGN
-⛠					RESTRICTED LEFT ENTRY-1
-🔍				MAGNIFYING LENS (Bottom-Right to Top-Left)
-🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
-🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
-⛺				TENT
-⛳				FLAG IN HOLE
-✆					TELEPHONE LOCATION SIGN
-
-
 📁				File Folder  |  https://www.compart.com/en/unicode/U+1F4C1
 📂				Open File Folder  |  https://www.compart.com/en/unicode/U+1F4C2
+💬 				Speech Balloon  |  https://www.compart.com/en/unicode/U+1F4AC
 📧				E-Mail Symbol  |  https://www.compart.com/en/unicode/U+1F4E7
 ✉					Envelope  |  https://www.compart.com/en/unicode/U+2709
 ✉️				Envelope (Colored)  |  https://www.compart.com/en/unicode/U+2709
 📨				Incoming Envelope  |  https://www.compart.com/en/unicode/U+1F4E8
 📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
+🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1
+🗑️				 Wastebasket Emoji  |  https://emojipedia.org/wastebasket/
 
 
-🗑				Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1
-🗑️				Wastebasket Emoji  |  https://emojipedia.org/wastebasket/
+⌨ 				Keyboard  |  https://www.compart.com/en/unicode/U+2328
+🖥 				 Desktop Computer  |  https://www.compart.com/en/unicode/U+1F5A5
+🖥️ 			 Desktop Computer (Colored)  |  https://emojipedia.org/desktop-computer/
+☁				  Cloud  (black-filled in Chrome)  |  https://www.compart.com/en/unicode/U+2601
+☁️				Cloud Emoji   (white-filled in Chrome)  |  https://emojipedia.org/cloud/
 
 
-🔑				Key  |  https://www.compart.com/en/unicode/U+1F511
-🔒				Lock  |  https://www.compart.com/en/unicode/U+1F512
-🔓				Open Lock  |  https://www.compart.com/en/unicode/U+1F513
-🔐				Closed Lock with Key  |  https://www.compart.com/en/unicode/U+1F510
-🔏				Lock with Ink Pen  |  https://www.compart.com/en/unicode/U+1F50F
+⚙️				Gear (Cog) (Colored)  |  https://emojipedia.org/gear/
+⚙					Gear (Cog)  |  https://www.compart.com/en/unicode/U+2699
+⛭					Gear Without Hub  |  https://www.compart.com/en/unicode/U+26ED
+
+
+⚡				High Voltage Sign  |  https://www.compart.com/en/unicode/U+26A1
+💧				Droplet  |  https://www.compart.com/en/unicode/U+1F4A7
+☢️			Radioactive Sign Emoji  |  https://emojipedia.org/radioactive/
+☢				Radioactive Sign  |  https://www.compart.com/en/unicode/U+2622
+☣️			Biohazard Sign Emoji  |  https://emojipedia.org/biohazard/
+☣				Biohazard Sign  |  https://www.compart.com/en/unicode/U+2623
+
+
+💲					Heavy Dollar Sign
+💰					Money Bag
+💵				 Dollar Banknote
+
+
+⛠					RESTRICTED LEFT ENTRY-1
+🔍				MAGNIFYING LENS (Bottom-Right to Top-Left)
+🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
+🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
+⛺				 TENT
+⛳				 FLAG IN HOLE
+✆					TELEPHONE LOCATION SIGN
+
+
+==--  Basic Shapes  --==
+
+
+❖					Black Diamond Minus White X  |  https://www.compart.com/en/unicode/U+2756
+◆					BLACK DIAMOND
+◇					WHITE DIAMOND
+◈					WHITE DIAMOND CONTAINING BLACK SMALL DIAMOND
+◊					LOZENGE
+
+
+○					WHITE CIRCLE
+◌					DOTTED CIRCLE
+●					BLACK CIRCLE
+⚫				 MEDIUM BLACK CIRCLE
+
+
+▷					White Right-Pointing Triangle  |  https://www.compart.com/en/unicode/U+25B7
+▻					White Right-Pointing Pointer  |  https://www.compart.com/en/unicode/U+25BB
+▶					Black Right-Pointing Triangle  |  https://www.compart.com/en/unicode/U+25B6
+►					Black Right-Pointing Pointer  |  https://www.compart.com/en/unicode/U+25BA
+▸					Black Right-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25B8
+◄					Black Left-Pointing Pointer  |  https://www.compart.com/en/unicode/U+25C4
+◀					Black Left-Pointing Triangle  |  https://www.compart.com/en/unicode/U+25C0
+◂					Black Left-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25C2
+▲					Black Up-Pointing Triangle  |  https://www.compart.com/en/unicode/U+25B2
+▴					Black Up-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25B4
+▼					Black Down-Pointing Triangle  |  https://www.compart.com/en/unicode/U+25BC
+▾					Black Down-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25BE
+
+
+⭐					White Medium Star  |  https://www.compart.com/en/unicode/U+2B50
+★				 	Black Star  |  https://www.compart.com/en/unicode/U+2605
+☆				 	White Star  |  https://www.compart.com/en/unicode/U+2606
+✦					Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
 
 
 ==--  iOS Emojis - Audio-Related  --==
@@ -264,19 +280,6 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 🔘
 🔴
 🔵
-
-
-#==-- Pointing Triangles  --==
-&#x25B2; ▲
-&#x25B4; ▴
-&#x25B6; ▶
-&#x25B8; ▸
-&#x25BA; ►
-&#x25BC; ▼
-&#x25BE; ▾
-&#x25C0; ◀
-&#x25C2; ◂
-&#x25C4; ◄
 
 
 ==--  Numbers  --==
@@ -365,7 +368,7 @@ Character Set “x-Adobe-Zapf-Dingbats-Encoding”
 
 // ------------------------------------------------------------
 
-Space Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
+Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 
 [﻿]			ZERO WIDTH NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+FEFF
 [​]			ZERO WIDTH SPACE  |  https://www.compart.com/en/unicode/U+200B
@@ -394,6 +397,8 @@ Space Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 //	Citation(s)
 //
 //		compart.com  |  "Unicode - Compart"  |  https://www.compart.com/en/unicode
+//
+//		compart.com  |  "Character Set “x-Adobe-Zapf-Dingbats-Encoding”"  |  https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
 //
 //		emojipedia.org  |  "Emojipedia 5.0 Emoji List"  |  https://emojipedia.org/emojipedia/5.0/
 //

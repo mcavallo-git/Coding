@@ -1,30 +1,56 @@
 # ------------------------------------------------------------
 #
-#   PowerShell - Get-ChildItem
+# PowerShell - Get-ChildItem
 #
 # ------------------------------------------------------------
 #
-# Simple search
+# Get-ChildItem - Find local files whose...
 #
 
 
-# Filename must match EXACTLY
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | ForEach-Object { $_.FullName; }
-
-# Filename must match EXACTLY - Stop searching once first item is found
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | Select-Object -First 1 | ForEach-Object { $_.FullName; };
-
 # Filename CONTAINS ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ANYWHERE*") } | ForEach-Object { $_.FullName; }
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ANYWHERE*") } | ForEach-Object { $_.FullName; };
+
+
+# Filename EQUALS (matches exactly) ...
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | ForEach-Object { $_.FullName; };
+
 
 # Filename STARTS WITH ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") } | ForEach-Object { $_.FullName; }
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") } | ForEach-Object { $_.FullName; };
+
 
 # Filename ENDS WITH ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; }
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; };
 
-# MATCH MULTIPLE RULES
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") -And ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; }
+
+#   Filename STARTS WITH ...
+#     &&  Filename ENDS WITH ...
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") -And ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; };
+
+
+#
+#   Filename (basename of file) CONTAINS ...
+#     &&  Basename of parent directory CONTAINS ...
+#     &&  Basename of grandparent directory CONTAINS ...
+#
+If ($True) {
+	$Dirname_TopLevel="${Env:LOCALAPPDATA}\Packages"; # Directory to search within
+	$Basename_FindFilesMatching="*"; # Basename like ....
+	$Basename_ParentDirectory="Settings"; # Parent directory matches ...
+	$Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # Grandparent directory like ...
+	Get-ChildItem -Path ("${Env:LOCALAPPDATA}\Packages") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
+		| Where-Object { $_.Directory.Parent.Name -Like "$Basename_ParentsParentsDirectory" } `
+		| Where-Object { $_.Directory.Name -Like "$Basename_ParentDirectory" } `
+		| Where-Object { $_.Name -Like "$Basename_FindFilesMatching" } `
+		| ForEach-Object { $_.FullName; } `
+	;
+}
+
+
+# Filename EQUALS (matches exactly) ...
+#   &&  Only return the first matched file found
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | Select-Object -First 1 | ForEach-Object { $_.FullName; };
 
 
 # ------------------------------------------------------------
@@ -67,28 +93,10 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue
 
 # ------------------------------------------------------------
 #
-# Advanced search
+# TO-DO:  Debug & resolve most effective syntax for using "[System.IO.Directory]::EnumerateFiles(...)" in place of "Get-Childitem ..." (if applicable)
 #
 
-
-$Basename_FindFilesMatching="*";
-$Basename_ParentDirectory="Settings"; # one step back (first directory name)
-$Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
-$Dirname_TopLevel="${Env:USERPROFILE}\AppData\Local\Packages"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
-(`
-Get-ChildItem -Path ("$Dirname_TopLevel") -File -Recurse -Force -ErrorAction "SilentlyContinue" `
-| Where-Object { $_.Directory.Parent.Name -Like "$Basename_ParentsParentsDirectory" } `
-| Where-Object { $_.Directory.Name -Like "$Basename_ParentDirectory" } `
-| Where-Object { $_.Name -Like "$Basename_FindFilesMatching" } `
-| ForEach-Object { $_.FullName; } `
-);
-
-
-# ------------------------------------------------------------
-#
-# TO-TEST - Simple search
-#
-[System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
+# [System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
 
 
 # ------------------------------------------------------------

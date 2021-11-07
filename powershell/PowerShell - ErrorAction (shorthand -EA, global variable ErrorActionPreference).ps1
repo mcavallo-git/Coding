@@ -11,6 +11,16 @@
 
 -EA 3   ==   -ErrorAction Inquire
 
+# -----
+
+-EA:0   ==   -ErrorAction:SilentlyContinue
+
+-EA:1   ==   -ErrorAction:Stop
+
+-EA:2   ==   -ErrorAction:Continue
+
+-EA:3   ==   -ErrorAction:Inquire
+
 
 # ------------------------------------------------------------
 #

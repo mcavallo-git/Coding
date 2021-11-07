@@ -1,7 +1,9 @@
 Exit 1;
 # ------------------------------------------------------------
 #
-#   PowerShell - Iterating through objects using For(...) loops
+#   PowerShell - Iterating/Looping through iterations in PowerShell using:
+#     For(...) {...}
+#     ForEach-Object { ... }   (shorthand syntax "%")
 #
 # ------------------------------------------------------------
 

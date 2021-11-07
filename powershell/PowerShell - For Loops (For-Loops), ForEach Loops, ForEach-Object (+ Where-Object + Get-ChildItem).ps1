@@ -3,7 +3,7 @@ Exit 1;
 #
 #   PowerShell - Iterating/Looping through iterations in PowerShell using:
 #     For(...) {...}
-#     ForEach-Object { ... }   (shorthand syntax "%")
+#     ForEach-Object { ... }   (shorthand syntax "% { ... }")
 #
 # ------------------------------------------------------------
 

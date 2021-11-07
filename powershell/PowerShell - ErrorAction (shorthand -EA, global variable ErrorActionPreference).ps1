@@ -28,9 +28,13 @@
 #
 
 If ($True) {
+	# Save the current value of preference parameter "ErrorActionPreference" (before modifying it)
 	$Revertable_ErrorActionPreference = $ErrorActionPreference;
+	# Update preference parameter "ErrorActionPreference"
 	$ErrorActionPreference = ("SilentlyContinue");
 	<# Do some action (which requires $ErrorActionPreference to be some value other than default) #>
+	Write-Host "This requires EA to be 0!"; Start-Sleep -Seconds (3);
+	# Revert preference parameter "ErrorActionPreference"
 	$ErrorActionPreference = $Revertable_ErrorActionPreference;
 }
 

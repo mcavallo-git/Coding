@@ -8,31 +8,31 @@
 #
 
 
-# Filename CONTAINS ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ANYWHERE*") } | ForEach-Object { $_.FullName; };
+# Filename contains "___"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*___*") } | ForEach-Object { $_.FullName; };
 
 
-# Filename EQUALS (matches exactly) ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | ForEach-Object { $_.FullName; };
+# Filename equals (matches exactly) "___.exe"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Name -Eq "___.exe" } | ForEach-Object { $_.FullName; };
 
 
-# Filename STARTS WITH ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") } | ForEach-Object { $_.FullName; };
+# Filename starts with "___"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "___*") } | ForEach-Object { $_.FullName; };
 
 
-# Filename ENDS WITH ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; };
+# Filename ends with "___"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "*___") } | ForEach-Object { $_.FullName; };
 
 
 #   Filename STARTS WITH ...
 #     &&  Filename ENDS WITH ...
-Get-ChildItem -Path ("C:\") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") -And ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; };
+Get-ChildItem -Path ("C:\ISO") -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") -And ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; };
 
 
 #
 #   Filename (basename of file) CONTAINS ...
-#     &&  Basename of parent directory CONTAINS ...
-#     &&  Basename of grandparent directory CONTAINS ...
+#     &&  Parent directory's basename CONTAINS ...
+#     &&  Grandparent directory's basename CONTAINS ...
 #
 If ($True) {
 	$Dirname_TopLevel="${Env:LOCALAPPDATA}\Packages"; # Directory to search within

@@ -1,4 +1,51 @@
 Exit 1;
+
+# ------------------------------------------------------------
+#
+#   PowerShell - Iterating/Looping through iterations in PowerShell using:
+#     For(...) {...}
+#     ForEach-Object { ... }   (shorthand syntax "% { ... }")
+#
+# ------------------------------------------------------------
+
+#
+#   For(...) Loops   (iterative / integer based)
+#
+
+
+# General Syntax
+For (<Init>; <Condition>; <Repeat>) {
+	<Statement list>
+}
+
+
+# Single conditional for(...) loop  (based on static start/stop)
+For ($i = 0; $i -LT 10; $i++) {
+	Write-Host "`$i:$i";
+}
+
+
+# Single conditional for(...) loop  (based on dynamic start/stop)
+$DatArray = @(1,"a",2,"b",3,"c");
+For ($i=0; ($i -LT $DatArray.Count); $i++) {
+	$EachItem = ($DatArray[${i}]);
+	Write-Host "`$DatArray[${i}] = ${EachItem}";
+}
+
+
+# Multiple conditional for(...) loop
+For (($i = 0), ($j = 0); $i -LT 10 -And $j -LT 10; $i++, $j++) {
+	Write-Host "`$i:$i";
+	Write-Host "`$j:$j";
+}
+
+
+# "Infinite" for(...) loop
+For (;;) {
+	Write-Host "Infinite Loop ( Ctrl+C to cancel )";
+}
+
+
 # ------------------------------------------------------------
 #
 #   PowerShell - Iterating/Looping through iterations in PowerShell using:
@@ -113,56 +160,6 @@ If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Nam
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
 	};
-}
-
-
-# ------------------------------------------------------------
-#
-# For(...) Loops
-#   |--> General Syntax
-#
-###  For (<Init>; <Condition>; <Repeat>)
-###  {
-###    <Statement list>
-###  }
-
-
-#
-# For(...) Loops
-#   |--> Single Conditional (Example)
-#
-For ($i = 0; $i -LT 10; $i++) {
-	Write-Host "`$i:$i";
-}
-
-
-#
-# For(...) Loops
-#   |--> Multiple Conditionals (Example)
-#
-For (($i = 0), ($j = 0); $i -LT 10 -And $j -LT 10; $i++, $j++) {
-	Write-Host "`$i:$i";
-	Write-Host "`$j:$j";
-}
-
-
-#
-# For(...) Loops
-#   |--> Based on size of array
-#
-$DatArray = @(1,"a",2,"b",3,"c");
-For ($i=0; ($i -LT $DatArray.Count); $i++) {
-	$EachItem = ($DatArray[${i}]);
-	Write-Host "`$DatArray[${i}] = ${EachItem}";
-}
-
-
-#
-# For(...) Loops
-#   |--> Infinite Loop (Example)
-#
-For (;;) {
-	Write-Host "Infinite Loop ( Ctrl+C to cancel )";
 }
 
 

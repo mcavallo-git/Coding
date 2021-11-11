@@ -3,12 +3,15 @@
 # ------------------------------------------------------------
 
 # Download & Install the WSL 2 updated kernel for x64 systems (if not installed, already)
-https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
+PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Set-Location ((GCI env:\TEMP).Value); SV ProgressPreference SilentlyContinue; Invoke-WebRequest -UseBasicParsing -Uri (Write-Output https://aka.ms/wsl2kernelmsix64) -OutFile (Write-Output .\wsl_update_x64.msi); Start-Process ((GCM msiexec).Source) -ArgumentList (Write-Output /I` wsl_update_x64.msi` /quiet) -Wait; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 
+
+# Source URL:  https://aka.ms/wsl2kernelmsix64       # Direct URL:  https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi
 # ------------------------------
 
 # Enable the "Virtual Machine Platform" Windows 10 feature
 Get-WindowsOptionalFeature -Online -FeatureName "VirtualMachinePlatform" | Where-Object { $_.State -Eq "Disabled" } | Enable-WindowsOptionalFeature -Online;
+
 
 # ------------------------------
 

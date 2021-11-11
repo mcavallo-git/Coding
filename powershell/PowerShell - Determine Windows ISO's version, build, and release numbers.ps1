@@ -24,6 +24,8 @@ If ($True) {
 		};
 	};
 
+	Write-Output "`$DriveLetter = [ ${DriveLetter} ]";
+
 	$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
 
 	Start-Sleep -Seconds (1);

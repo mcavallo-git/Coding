@@ -12,9 +12,25 @@ Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) 
 
 # Set Environment Variables
 
+# env:REPOS_DIR  (SYSTEM-SCOPED)
+$Env_Name = "REPOS_DIR";
+$Env_Value = "C:\_REPOS";
+Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+
+
+# env:REPOS_DIR  (USER-SCOPED)
+$Env_Name = "REPOS_DIR";
+$Env_Value = "C:\_REPOS";
+Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+
+
+# ------------------------------
+
 
 #
-# SYSTEM PATH
+# env:PATH  (SYSTEM-SCOPED)
 #  |--> Permanently adds a directory to current system's PATH
 #  |--> Applies change to all users on current system
 #  |--> Change persists through machine/session restarts
@@ -28,7 +44,7 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 
 
 #
-# USER PATH
+# env:PATH  (USER-SCOPED)
 #  |--> Permanently adds a directory to current user's PATH
 #  |--> Doesn't apply change to other users on current system
 #  |--> Change persists through machine/session restarts

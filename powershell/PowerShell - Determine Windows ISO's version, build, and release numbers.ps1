@@ -3,6 +3,12 @@
 # PowerShell - Determine Windows ISO's version, build, and release numbers
 #
 # ------------------------------------------------------------
+If ($False) { # RUN THIS SCRIPT:
+
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Determine%20Windows%20ISO%27s%20version%2C%20build%2C%20and%20release%20numbers.ps1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'Show' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\Show\Show.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+
+}
+# ------------------------------------------------------------
 
 ### !!! REQUIRES ADMIN PRIVILEGES !!! ###
 

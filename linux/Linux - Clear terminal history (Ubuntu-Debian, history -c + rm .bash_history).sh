@@ -3,10 +3,9 @@
 # Linux - Clear the cached/saved terminal history
 # Distros: Debian, Ubuntu, etc.
 
-history -c;
-rm ~/.bash_history;
- 
- 
+history -c; test -e ~/.bash_history && rm ~/.bash_history;
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

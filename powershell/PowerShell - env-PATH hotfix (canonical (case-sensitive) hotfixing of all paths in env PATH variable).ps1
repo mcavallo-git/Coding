@@ -14,22 +14,26 @@ If ($True) {
 	Write-Host "Backed up the SYSTEM-scoped environment variable PATH to `"${EnvVars_BackupPath}`"";
 	$ResolvedArr=@();
 	$UpdatePath = $False;
-	((${SystemPath}).Split([String][Char]59)) | Sort-Object -Unique | Where-Object { "${_}" -NE ""; <# Ignore blank paths - e.g. if PATH starts with ";" #> } | ForEach-Object {
-		$Path_NonCanonical=([System.IO.Path]::GetFullPath("${_}"));
-		If ((Test-Path "${Path_NonCanonical}") -Eq $False) {
-			$Path_Canonical="${Path_NonCanonical}";
+	((${SystemPath}).Split([String][Char]59)) | Sort-Object -Unique | ForEach-Object {
+		If ("${_}" -Eq "") { <# Blank PATH item(s) - e.g. if PATH item is simply a semicolon ";" #>
+			$UpdatePath = $True;
 		} Else {
-			$Path_Canonical=(Get-ChildItem -Path ($Path_NonCanonical.TrimEnd('\')).Replace("\","\*") | Where FullName -IEQ ($Path_NonCanonical.TrimEnd('\')) | Select -ExpandProperty FullName);
-			If ("${Path_Canonical}" -Eq "") {
+			$Path_NonCanonical=([System.IO.Path]::GetFullPath("${_}"));
+			If ((Test-Path "${Path_NonCanonical}") -Eq $False) {
 				$Path_Canonical="${Path_NonCanonical}";
-			} ElseIf (${Path_NonCanonical}[-1] -Eq "\") {
-				$Path_Canonical += "\";
+			} Else {
+				$Path_Canonical=(Get-ChildItem -Path ($Path_NonCanonical.TrimEnd('\')).Replace("\","\*") | Where FullName -IEQ ($Path_NonCanonical.TrimEnd('\')) | Select -ExpandProperty FullName);
+				If ("${Path_Canonical}" -Eq "") {
+					$Path_Canonical="${Path_NonCanonical}";
+				} ElseIf (${Path_NonCanonical}[-1] -Eq "\") {
+					$Path_Canonical += "\";
+				}
+				If (-Not ("${Path_NonCanonical}" -CEq "${Path_Canonical}")) {
+					$UpdatePath = $True;
+				}
 			}
-			If (-Not ("${Path_NonCanonical}" -CEq "${Path_Canonical}")) {
-				$UpdatePath = $True;
-			}
+			$ResolvedArr+="${Path_Canonical}";
 		}
-		$ResolvedArr+="${Path_Canonical}";
 	}
 	If (${UpdatePath} -Eq $True) {
 		$Updated_RegistryProp=(${ResolvedArr} -join ";");
@@ -46,22 +50,26 @@ If ($True) {
 	Write-Host "Backed up the USER-scoped environment variable PATH to `"${EnvVars_BackupPath}`"";
 	$ResolvedArr=@();
 	$UpdatePath = $False;
-	((${UserPath}).Split([String][Char]59)) | Sort-Object -Unique | Where-Object { "${_}" -NE ""; <# Ignore blank paths - e.g. if PATH starts with ";" #> } | ForEach-Object {
-		$Path_NonCanonical=([System.IO.Path]::GetFullPath("${_}"));
-		If ((Test-Path "${Path_NonCanonical}") -Eq $False) {
-			$Path_Canonical="${Path_NonCanonical}";
+	((${UserPath}).Split([String][Char]59)) | Sort-Object -Unique | ForEach-Object {
+		If ("${_}" -Eq "") { <# Blank PATH item(s) - e.g. if PATH item is simply a semicolon ";" #>
+			$UpdatePath = $True;
 		} Else {
-			$Path_Canonical=(Get-ChildItem -Path ($Path_NonCanonical.TrimEnd('\')).Replace("\","\*") | Where FullName -IEQ ($Path_NonCanonical.TrimEnd('\')) | Select -ExpandProperty FullName);
-			If ("${Path_Canonical}" -Eq "") {
+			$Path_NonCanonical=([System.IO.Path]::GetFullPath("${_}"));
+			If ((Test-Path "${Path_NonCanonical}") -Eq $False) {
 				$Path_Canonical="${Path_NonCanonical}";
-			} ElseIf (${Path_NonCanonical}[-1] -Eq "\") {
-				$Path_Canonical += "\";
+			} Else {
+				$Path_Canonical=(Get-ChildItem -Path ($Path_NonCanonical.TrimEnd('\')).Replace("\","\*") | Where FullName -IEQ ($Path_NonCanonical.TrimEnd('\')) | Select -ExpandProperty FullName);
+				If ("${Path_Canonical}" -Eq "") {
+					$Path_Canonical="${Path_NonCanonical}";
+				} ElseIf (${Path_NonCanonical}[-1] -Eq "\") {
+					$Path_Canonical += "\";
+				}
+				If (-Not ("${Path_NonCanonical}" -CEq "${Path_Canonical}")) {
+					$UpdatePath = $True;
+				}
 			}
-			If (-Not ("${Path_NonCanonical}" -CEq "${Path_Canonical}")) {
-				$UpdatePath = $True;
-			}
+			$ResolvedArr+="${Path_Canonical}";
 		}
-		$ResolvedArr+="${Path_Canonical}";
 	}
 	If (${UpdatePath} -Eq $True) {
 		$Updated_RegistryProp=(${ResolvedArr} -join ";");

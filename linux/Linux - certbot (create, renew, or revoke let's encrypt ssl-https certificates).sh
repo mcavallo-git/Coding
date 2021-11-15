@@ -42,8 +42,7 @@ certbot certificates;
 
 # ------------------------------------------------------------
 #
-# CREATE SSL CERTIFICATE(S) - WILDCARD
-# RENEW SSL CERTIFICATE(S) - WILDCARD
+# WILDCARD  -  CREATE/RENEW SSL CERTIFICATE(S)
 #  |
 #  |--> Same command required for both (as-of June-2020) for wildcard certs through Let's Encrypt (as no simplified/all-in-one certbot renew command exists for LE cert-renewal):
 #
@@ -53,7 +52,7 @@ DN="example.com"; certbot certonly --manual --manual-public-ip-logging-ok --serv
 
 # ------------------------------------------------------------
 #
-# CREATE SSL CERTIFICATE(S) - NON-WILDCARD
+# NON-WILDCARD  -  CREATE SSL CERTIFICATE(S)
 #
 
 #

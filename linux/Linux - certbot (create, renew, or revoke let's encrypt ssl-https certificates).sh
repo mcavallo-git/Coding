@@ -13,6 +13,13 @@ exit 0;
 #  |--> Refer to Certbot Documentation @:  https://certbot.eff.org/all-instructions
 #
 
+
+# Install just certbot (not certbot+nginx
+apt-get -y update; apt-get -y install letsencrypt;
+
+
+if [ 0 -eq 1 ]; then # Install Certbot + NGINX
+
 # To Install Certbot on Debian-based Linux Distros (e.g. Debian, Ubuntu) EXCLUDING Raspbian
 add-apt-repository --yes --update ppa:certbot/certbot; apt-get -y install python-certbot-nginx;
 
@@ -21,6 +28,8 @@ wget "https://dl.eff.org/certbot-auto" && chmod 755 certbot-auto;
 
 # To Install Certbot on Raspbian (e.g. Raspberry-Pi 3 / Raspberry-Pi 4)
 sed -i "$ a\deb http://ftp.debian.org/debian jessie-backports main" /etc/apt/sources.list; apt-get -y update; apt-get -y install certbot -t jessie-backports -y --force-yes; apt-get -y install python-certbot-nginx -t jessie-backports -y --force-yes;
+
+fi;
 
 
 # ------------------------------------------------------------
@@ -130,5 +139,7 @@ find "/etc/letsencrypt/" -name "*${DN}*"; # Double-Check to make sure the domain
 #   medium.com  |  "How to obtain a wildcard ssl certificate from Let’s Encrypt and setup Nginx to use wildcard subdomain"  |  https://medium.com/@utkarsh_verma/how-to-obtain-a-wildcard-ssl-certificate-from-lets-encrypt-and-setup-nginx-to-use-wildcard-cfb050c8b33f
 #
 #   packages.debian.org  |  "Package: dpkg-dev (1.19.7) - Debian package development tools"  |  https://packages.debian.org/sid/dpkg-dev
+#
+#   serverspace.us  |  "How to Get Let's Encrypt SSL on Ubuntu 20.04 - Serverspace"  |  https://serverspace.us/support/help/how-to-get-lets-encrypt-ssl-on-ubuntu/
 #
 # ------------------------------------------------------------

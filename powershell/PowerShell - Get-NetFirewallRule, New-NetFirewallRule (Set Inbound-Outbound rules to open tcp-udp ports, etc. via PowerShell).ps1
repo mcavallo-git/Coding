@@ -75,6 +75,7 @@ New-NetFirewallRule `
 -Action Allow `
 -Profile Private `
 -EdgeTraversalPolicy Allow `
+-RemoteAddress "LocalSubnet" `
 -Protocol ICMPv4 `
 -IcmpType 8 `
 ;

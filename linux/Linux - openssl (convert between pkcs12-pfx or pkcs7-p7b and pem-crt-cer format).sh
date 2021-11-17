@@ -7,7 +7,7 @@
 
 if [ 1 -eq 1 ]; then
 FULLPATH_PFX_CERT="/path/to/pfx/certificate.pfx";
-read -p "Enter certificate password for file \"${FULLPATH_PFX_CERT}\" (or hit enter for no password):  " -s -a CERT_PASS -t 60 <'/dev/tty'; fi;
+read -p "Enter certificate password for file \"${FULLPATH_PFX_CERT}\" (or hit enter for no password):  " -s -a CERT_PASS -t 60 <'/dev/tty';
 openssl pkcs12 -in "${FULLPATH_PFX_CERT}" -password "pass:${CERT_PASS}" -clcerts -nokeys | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "${FULLPATH_PFX_CERT}.crt.pem";
 openssl pkcs12 -in "${FULLPATH_PFX_CERT}" -password "pass:${CERT_PASS}" -nocerts -nodes | sed -ne '/-BEGIN PRIVATE KEY-/,/-END PRIVATE KEY-/p' > "${FULLPATH_PFX_CERT}.key.pem";
 openssl pkcs12 -in "${FULLPATH_PFX_CERT}" -password "pass:${CERT_PASS}" -cacerts -nokeys | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "${FULLPATH_PFX_CERT}.chain.pem";

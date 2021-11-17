@@ -50,9 +50,9 @@ If ($True) {
 			Write-Host "";
 			Write-Host "Step $(${STEP_NUM}++;${STEP_NUM};):  Copy your PEM-formatted SSL/TLS " -NoNewLine;
 			Write-Host "${TYPE_OF_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host " file (" -NoNewLine;
-			Write-Host "`"${LETS_ENCRYPT_CERT}`" for Let's Encrypt certs" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host ") to filepath `"" -NoNewLine;
+			Write-Host " file (`"" -NoNewLine;
+			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
+			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" " -NoNewLine;
 
@@ -66,9 +66,9 @@ If ($True) {
 			Write-Host "";
 			Write-Host "Step $(${STEP_NUM}++;${STEP_NUM};):  Copy your PEM-formatted SSL/TLS " -NoNewLine;
 			Write-Host "${TYPE_OF_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host " file (" -NoNewLine;
-			Write-Host "`"${LETS_ENCRYPT_CERT}`" for Let's Encrypt certs" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host ") to filepath `"" -NoNewLine;
+			Write-Host " file (`"" -NoNewLine;
+			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
+			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" " -NoNewLine;
 
@@ -82,9 +82,9 @@ If ($True) {
 			Write-Host "";
 			Write-Host "Step $(${STEP_NUM}++;${STEP_NUM};):  Copy your PEM-formatted SSL/TLS " -NoNewLine;
 			Write-Host "${TYPE_OF_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host " file (" -NoNewLine;
-			Write-Host "`"${LETS_ENCRYPT_CERT}`" for Let's Encrypt certs" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host ") to filepath `"" -NoNewLine;
+			Write-Host " file (`"" -NoNewLine;
+			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
+			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" " -NoNewLine;
 

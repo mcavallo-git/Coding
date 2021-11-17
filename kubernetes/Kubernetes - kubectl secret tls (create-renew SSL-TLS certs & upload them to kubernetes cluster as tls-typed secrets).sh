@@ -36,8 +36,15 @@ CERT="fullchain"; cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" 
 CERT="privkey";   cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 ls -al "${OUTDIR}";
 
+# Get expiration date of certificate
+CERT_EXP_DATE="$(openssl x509 -in "${OUTDIR}/cert.pem" -text -noout | sed -rne 's/^\s*not\s*after\s*:\s*(.+)$/\1/pi' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+CERT_EXP_DATE_SHORTHAND="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H:%M:%SZ';)";
+CERT_EXP_DATE_FILENAME="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H-%M-%SZ';)";
+
+
 # Convert cert from PEM to PFX (PKCS12) format
 openssl pkcs12 -export -out "${OUTDIR}/$(basename "${OUTDIR}";).pfx" -in "${OUTDIR}/fullchain.pem" -inkey "${OUTDIR}/privkey.pem";
+
 
 # Show output dir
 echo -e "Opening output directory \"${OUTDIR}\"...\n  (or \"C:\\ISO\\Certificates_SSL\\$(basename "${OUTDIR}";)\" in Windows)"; explorer.exe "C:\\ISO\\Certificates_SSL\\$(basename "${OUTDIR}";)";

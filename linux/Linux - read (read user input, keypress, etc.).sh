@@ -30,7 +30,7 @@ fi;
 
 if [ 1 -eq 1 ]; then
   read -p "Enter certificate password for file \"FULLPATH_PFX_CERT\" (or hit enter for no password):  " -s -a CERT_PASS -t 60 <'/dev/tty'; echo "";
-  echo "Password is [ ${#VAR} ] characters long";
+  echo "Password is [ ${#CERT_PASS} ] characters long";
 fi;
 
 

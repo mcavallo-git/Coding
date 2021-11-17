@@ -1,18 +1,19 @@
-#!/bin/bash
-
+#!/bin/vbash
 # ------------------------------------------------------------
 #
 # EdgeOS (UniFi) - Flush DHCP Leases (Force DHCP Lease-Renewal)
 #
 
 
-
 # One-liner - Flush all DHCP Leases (EdgeOS/UniFi)
 FL="${HOME}/flush-dhcp-leases"; QM="$(printf \\x3f;)"; echo "LV=\"/var/run/dnsmasq-dhcp.leases\" && R1='(((25[0-5]|2[0-4][0-9]|[01]${QM}[0-9][0-9]${QM})\\.){3}(25[0-5]|2[0-4][0-9]|[01]${QM}[0-9][0-9]${QM}))' && R2='(3[0-2]|[1-2]${QM}[0-9])' && R3='(25[0-5]|2[0-4][0-9]|[01]${QM}[0-9]${QM}[0-9])' && SS=\"s/^\\\\S+_eth1_(\${R1}\\\\-\${R2})\\\\ .+\\\$/\\\\1/p\" && CR=\$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print \$2; }' | sed 's/\/.*$//' | grep '\.' | sed -rne 's/^((10|172|192)\.[0-9]{1,3}\.[0-9]{1,3})\.[0-9]{1,3}$/\1.0-24/p';) && FS=\"\${IFS}\" && IFS=\$'\\n'; for EC in \${CR}; do OT=\$(echo \"\${EC}\" | cut -d '-' -f 1 | cut -d '.' -f 1-3); SD=\"/^.+ \${OT}.\${R3} .+\\\$/d\"; sed -re \"\${SD}\" -i \"\${LV}\"; done; IFS=\"\${FS}\" && cp -f \"\${LV}\" \"/config/\$(basename \${LV})\" && service dhcpd restart && sleep 3 && clear dhcp leases && echo \"DHCP leases flushed\";" > "${FL}"; chmod 0770 "${FL}"; sudo "${FL}";
 
-#  |
-#  |-->  Note that, for some reason, question mark characters cannot be typed in EdgeOS/UniFi terminals, so we need to back-convert it to an ASCII character from its hexadecimal value (via QM="$(printf \\x3f;)" ) 
 
+#  ^
+#  |-- Note that, for some reason, question mark characters cannot be typed in EdgeOS/UniFi terminals
+#       |--> To use a question mark '?' character, convert it from it's ASCII hex code via QM="$(printf \\x3f;)"
+#
+# ------------------------------
 
 # Decompressed one-liner (above)'s source code
 sudo -i;

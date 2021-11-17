@@ -54,7 +54,7 @@ If ($True) {
 			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host "`" " -NoNewLine;
+			Write-Host "`" ";
 
 			# Private Key (1 of 3 SSL/TLS files)
 			$TYPE_OF_CERT="Private Key";
@@ -70,7 +70,7 @@ If ($True) {
 			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host "`" " -NoNewLine;
+			Write-Host "`" ";
 
 			# Public Root Certificate(s) for Certificate Issuer (1 of 3 SSL/TLS files)
 			$TYPE_OF_CERT="CABundle";
@@ -86,7 +86,7 @@ If ($True) {
 			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host "`" " -NoNewLine;
+			Write-Host "`" ";
 
 			# Open the PRTG certificates directory to assist user in placing their SSL/TLS files
 			explorer.exe "${PRTG_CERTS_DIR}";

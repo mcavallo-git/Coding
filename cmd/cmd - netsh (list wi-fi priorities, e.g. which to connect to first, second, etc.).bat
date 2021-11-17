@@ -22,8 +22,8 @@ NETSH WLAN SET profileorder name="wlan_secondary" interface="Intel(R) Wireless" 
 
 REM ------------------------------------------------------------
 REM
-REM	Citation(s)
+REM Citation(s)
 REM
-REM		ss64.com  |  "WMIC.exe"  |  https://ss64.com/nt/wmic.html
+REM   ss64.com  |  "WMIC.exe"  |  https://ss64.com/nt/wmic.html
 REM
 REM ------------------------------------------------------------

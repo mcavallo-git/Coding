@@ -12,10 +12,10 @@ REM HOST_NAME="FQDN"; echo | openssl s_client -servername "${HOST_NAME}" -connec
 
 REM ------------------------------------------------------------
 REM
-REM  Citation(s)
+REM Citation(s)
 REM
-REM    docs.microsoft.com  |  "Netsh commands for HTTP - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/http/netsh-commands-for-http
+REM   docs.microsoft.com  |  "Netsh commands for HTTP - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/http/netsh-commands-for-http
 REM
-REM    weblog.west-wind.com  |  "Hosting SignalR under SSL/https"  |  https://weblog.west-wind.com/posts/2013/sep/23/hosting-signalr-under-sslhttps
+REM   weblog.west-wind.com  |  "Hosting SignalR under SSL/https"  |  https://weblog.west-wind.com/posts/2013/sep/23/hosting-signalr-under-sslhttps
 REM
 REM ------------------------------------------------------------

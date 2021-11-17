@@ -42,12 +42,12 @@ DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase
 
 REM ------------------------------------------------------------
 REM
-REM  Citation(s)
+REM Citation(s)
 REM
-REM  	microsoft.com  |  "Download Windows 10"  |  https://www.microsoft.com/en-us/software-download/windows10
+REM   microsoft.com  |  "Download Windows 10"  |  https://www.microsoft.com/en-us/software-download/windows10
 REM
-REM  	windowscentral.com  |  "How to use DISM command tool to repair Windows 10 image"  |  https://www.windowscentral.com/how-use-dism-command-line-utility-repair-windows-10-image
+REM   windowscentral.com  |  "How to use DISM command tool to repair Windows 10 image"  |  https://www.windowscentral.com/how-use-dism-command-line-utility-repair-windows-10-image
 REM
-REM  	laptopmag.com  |  "How to Save Space By Cleaning Windows' WinSxS Folder"  |  https://www.laptopmag.com/articles/clean-winsxs-folder-to-save-space
+REM   laptopmag.com  |  "How to Save Space By Cleaning Windows' WinSxS Folder"  |  https://www.laptopmag.com/articles/clean-winsxs-folder-to-save-space
 REM
 REM ------------------------------------------------------------

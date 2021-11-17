@@ -50,7 +50,7 @@ SHUTDOWN /R /T 0
 
 REM ------------------------------------------------------------
 REM 
-REM  Citation(s)
+REM Citation(s)
 REM 
 REM   www.infopackets.com  |  "How to Reset Admin Password for Windows Vista, 7, 8 and 10"  |  https://www.infopackets.com/news/9483/how-reset-any-password-windows-vista-7-8-10
 REM 

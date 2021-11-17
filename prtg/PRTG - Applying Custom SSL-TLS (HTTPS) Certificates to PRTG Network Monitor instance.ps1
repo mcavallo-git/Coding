@@ -14,13 +14,16 @@ If ($True) {
 	}
 
 	If (("${PRTG_CERTS_DIR}" -Eq "") -Or ((Test-Path -PathType "Container" -Path ("${PRTG_CERTS_DIR}")) -Eq $False)) {
+		Write-Host "------------------------------";
 		Write-Host "";
-		Write-Host "ERROR  -  PRTG's certificates directory not found to exist at either the following standard locations:";
-		Write-Host "   `"${PRTG_PROGRAM_DIR_32BIT}\cert`"";
-		Write-Host "      or";
-		Write-Host "   `"${PRTG_PROGRAM_DIR_64BIT}\cert`"";
+		Write-Host "  ERROR  -  PRTG's certificates directory not found to exist at either the following standard locations:";
+		Write-Host "     `"${PRTG_PROGRAM_DIR_32BIT}\cert`"";
+		Write-Host "        or";
+		Write-Host "     `"${PRTG_PROGRAM_DIR_64BIT}\cert`"";
 		Write-Host "";
-		Write-Host "Exiting...";
+		Write-Host "  Exiting...";
+		Write-Host "";
+		Write-Host "------------------------------";
 
 	} Else {
 
@@ -34,8 +37,9 @@ If ($True) {
 
 			Write-Host "------------------------------";
 			Write-Host "";
-			Write-Host "ERROR  -  Requires elevated permissions - Please re-run as Administrator";
+			Write-Host "  ERROR  -  Requires elevated permissions - Please re-run as Administrator";
 			Write-Host "";
+			Write-Host "------------------------------";
 
 		} Else {
 

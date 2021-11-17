@@ -28,6 +28,12 @@ date --date=@1298589405 +'%Y-%m-%d %H:%M:%S';
 # Ex) Get the datetime 1 second just-before the epoch
 date --utc --date='1969-12-31 23:59:59' +'%s';
 
+# ------------------------------------------------------------
+# Convert between longhand & shorthand date formats
+
+# Ex) Convert a longhand date to shorthand date format (in UTC)
+date --utc --date="Feb 15 03:37:34 2022 EST" +'%Y-%m-%dT%H:%M:%SZ';
+
 
 # ------------------------------------------------------------
 # Simple Benchmark

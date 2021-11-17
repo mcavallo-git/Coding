@@ -13,10 +13,10 @@ read -p "Press any key to continue...  " -n 1 -t 60 <'/dev/tty'; # Await single 
 
 if [ 1 -eq 1 ]; then
 	READ_TIMEOUT=60;
-	read -p "Enter a string:  " -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
+	read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
 	echo "";
-	if [ ${RETURN_CODE_READ} -le 128 ] && [ -n "${REPLY}" ]; then
-		echo "Info:  Response received: \"${REPLY}\"";
+	if [ ${RETURN_CODE_READ} -le 128 ] && [ -n "${USER_RESPONSE}" ]; then
+		echo "Info:  Response received: \"${USER_RESPONSE}\"";
 	elif [ ${RETURN_CODE_READ} -gt 128 ]; then
 		echo "Error:  Response timed out after ${READ_TIMEOUT}s";
 	else
@@ -32,11 +32,12 @@ fi;
 if [ 1 -eq 1 ]; then
   ACTION_DESCRIPTION="ACTION_DESCRIPTION_HERE";
   READ_TIMEOUT=3;
-  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now? (y/n)  " -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
+  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now? (y/n)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
+  
   echo "";
   if [ ${RETURN_CODE_READ} -gt 128 ]; then
     echo "Error:  Response timed out after ${READ_TIMEOUT}s";
-  elif [ -n "${REPLY}" ] && [[ $REPLY =~ ^[Yy]$ ]]; then
+  elif [ -n "${USER_RESPONSE}" ] && [[ ${USER_RESPONSE} =~ ^[Yy]$ ]]; then
     echo "Info:  Confirmed - Performing Action [ ${ACTION_DESCRIPTION} ] ...";
   else
     echo "Info:  Denied - Skipping action [ ${ACTION_DESCRIPTION} ]";
@@ -47,6 +48,8 @@ fi;
 # ------------------------------------------------------------
 #
 # Require two confirmation keypresses before proceeding
+#
+#   Note: If no "-a VARNAME" argument is passed to "read", then it will save the user's input to the variable "$REPLY"  (by default)
 #
 
 

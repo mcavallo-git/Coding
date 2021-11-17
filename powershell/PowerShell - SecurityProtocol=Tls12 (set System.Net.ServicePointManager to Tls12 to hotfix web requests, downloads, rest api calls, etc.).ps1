@@ -7,17 +7,20 @@
 #  |--> Set to TLS 1.2 to hotfix errors thrown when performing web requests via PowerShell (namely in Windows Server 2016 (near-stock)) 
 #
 
+# Append TLS 1.2 to any existing allowed/available SSL/TLS (HTTPS) web request protocol(s)
+[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
 
-# Append TLS 1.2 to any existing SSL/TLS (HTTPS) web request protocol(s)
-[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12;
 
-
-# Force TLS 1.2 for SSL/TLS (HTTPS) web request protocol(s)
+# Force TLS 1.2 for SSL/TLS (HTTPS) for allowed/available web request protocol(s)
 [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-
 $ProgressPreference='SilentlyContinue'; <# Hide Invoke-WebRequest's progress bar #>
+Invoke-WebRequest -URI "https://www.google.com";
 
-$WebResponse = (Invoke-WebRequest -URI "https://www.google.com");
+
+# Force SSL 3.0 (heavily deprecated) for allowed/available SSL/TLS (HTTPS) web request protocol(s)  -  Should fail if using secure cryptography (via registry settings)
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Ssl3;
+$ProgressPreference='SilentlyContinue'; <# Hide Invoke-WebRequest's progress bar #>
+Invoke-WebRequest -URI "https://www.google.com";
 
 
 # ------------------------------------------------------------

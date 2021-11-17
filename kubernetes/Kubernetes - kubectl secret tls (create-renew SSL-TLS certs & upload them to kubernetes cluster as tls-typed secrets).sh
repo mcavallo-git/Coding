@@ -37,8 +37,8 @@ CERT="privkey";   cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" 
 ls -al "${OUTDIR}";
 
 # Get expiration date of certificate
-CERT_EXP_DATE="$(openssl x509 -in "${OUTDIR}/cert.pem" -text -noout | sed -rne 's/^\s*not\s*after\s*:\s*(.+)$/\1/pi' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
-CERT_EXP_DATE_SHORTHAND="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H:%M:%SZ';)";
+CERT_EXP_DATE="$(openssl x509 -in "${OUTDIR}/cert.pem" -text -noout | sed -rne 's/^\s*[Nn]ot\s*[Aa]fter\s*(:|=)\s*(.+)$/\2/pi' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+CERT_EXP_DATE_SHORTHAND="$(date --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H:%M:%S%z';)";
 CERT_EXP_DATE_FILENAME="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H-%M-%SZ';)";
 
 

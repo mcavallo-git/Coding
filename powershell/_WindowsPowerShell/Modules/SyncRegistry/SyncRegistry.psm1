@@ -495,17 +495,17 @@ function SyncRegistry {
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer";
 			Props=@(
 				@{
-					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
-					Name="NoRecentDocsMenu";
-					Type="DWord";
-					Value=1;
-					Delete=$False;
-				},
-				@{
 					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ Run as different user ] right-click option";
 					Name="HideRunAsVerb";
 					Type="DWord";
 					Value=0;
+					Delete=$False;
+				},
+				@{
+					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable [ Microsoft Meet Now ] (taskbar camera icon - part of the Skype communication platform)";
+					Name="HideSCAMeetNow";
+					Type="DWord";
+					Value=1;
 					Delete=$False;
 				},
 				@{
@@ -521,19 +521,19 @@ function SyncRegistry {
 					Type="DWord";
 					Value=1;
 					Delete=$False;
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer";
-			Props=@(
+				},
 				@{
 					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
 					Name="NoRecentDocsMenu";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
-				},
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer";
+			Props=@(
 				@{
 					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the 'Run as different user' right-click option";
 					Name="HideRunAsVerb";
@@ -542,8 +542,22 @@ function SyncRegistry {
 					Delete=$False;
 				},
 				@{
+					Description="Set to [ 0 ] to Enable, [ 1 ] to Disable [ Microsoft Meet Now ] (taskbar camera icon - part of the Skype communication platform)";
+					Name="HideSCAMeetNow";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				},
+				@{
 					Description="Set to [ DELETED ] to Enable, [ 1 ] to Disable the 'most recently used files list' feature";
 					Name="NoRecentDocsHistory";
+					Type="DWord";
+					Value=1;
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
+					Name="NoRecentDocsMenu";
 					Type="DWord";
 					Value=1;
 					Delete=$False;
@@ -1428,6 +1442,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # Citation(s)
 #
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
+#
+#   answers.microsoft.com  |  "Microsoft Meet Now fouled up my microphone settings - Microsoft Community"  |  https://answers.microsoft.com/en-us/skype/forum/all/microsoft-meet-now-fouled-up-my-microphone/1b6e05a8-b651-4404-89a7-b24c83403c1e
 #
 #   autohotkey.com  |  "Windows key (#) + letter keeps locking the pc (even if it is not #L)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=46949&sid=490d0a443a7f78557b54c2bfb079350f#p46949
 #

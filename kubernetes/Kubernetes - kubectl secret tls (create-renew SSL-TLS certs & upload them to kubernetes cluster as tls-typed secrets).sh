@@ -28,7 +28,7 @@ certbot certonly --manual --manual-public-ip-logging-ok --server "https://acme-v
 
 # Copy certs to output dir
 if [ -z "${DN}" ]; then read -p "Enter domain name to create/renew SSL/TLS certificates for:  " -a DN -t 60 <'/dev/tty'; fi;
-OUTDIR="/mnt/c/ISO/Certificates_SSL/tls-${DN//./-}.$(date +'%Y%m%dT%H%M%S')";
+OUTDIR="/mnt/c/ISO/Certificates_SSL/wildcard-${DN//./-}.$(date +'%Y%m%dT%H%M%S')";
 mkdir -p "${OUTDIR}";
 CERT="cert";      cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 CERT="chain";     cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
@@ -37,10 +37,10 @@ CERT="privkey";   cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" 
 ls -al "${OUTDIR}";
 
 # Convert cert from PEM to PFX (PKCS12) format
-openssl pkcs12 -export -out "${OUTDIR}/wildcard-${DN//./-}.pfx" -in "${OUTDIR}/fullchain.pem" -inkey "${OUTDIR}/privkey.pem";
+openssl pkcs12 -export -out "${OUTDIR}/$(basename "${OUTDIR}";).pfx" -in "${OUTDIR}/fullchain.pem" -inkey "${OUTDIR}/privkey.pem";
 
 # Show output dir
-explorer.exe "C:\\ISO\\Certificates_SSL\\$(basename "${OUTDIR}";)";
+echo -e "Opening output directory \"${OUTDIR}\"...\n  (or \"C:\\ISO\\Certificates_SSL\\$(basename "${OUTDIR}";)\" in Windows)"; explorer.exe "C:\\ISO\\Certificates_SSL\\$(basename "${OUTDIR}";)";
 # > 7-zip all certs together
 #  > Zip the 7-zip
 #   > Attach to password vault item "SSL Cert - *.${DN}"

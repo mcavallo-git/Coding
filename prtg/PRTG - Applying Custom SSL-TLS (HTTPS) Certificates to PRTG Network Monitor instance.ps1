@@ -94,13 +94,14 @@ If ($True) {
 			# ------------------------------
 			# Open the PRTG certificates directory to assist user in placing their SSL/TLS files
 			explorer.exe "${PRTG_CERTS_DIR}";
-			Write-Host "";
 
 			# ------------------------------
 
 		}
 
 	}
+
+	Write-Host "";
 
 }
 

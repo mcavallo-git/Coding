@@ -44,10 +44,10 @@ New-NetFirewallRule `
 ;
 
 
-<# TCP 27017 (MongoDB) Firewall Inbound Whitelisting #>
+<# TCP 27017 (MongoDB) Firewall inbound Whitelisting #>
 New-NetFirewallRule `
 -DisplayName "MongoDB (TCP 27017)" `
--Description "MongoDB - Allow Inbound TCP Traffic on Port(s) 27017" `
+-Description "MongoDB - Allow inbound TCP Traffic on Port(s) 27017" `
 -Direction Inbound `
 -Action Allow `
 -EdgeTraversalPolicy Allow `
@@ -58,7 +58,7 @@ New-NetFirewallRule `
 
 <# TCP 3389 (Microsoft SQL) Firewall Inbound Whitelisting #>
 New-NetFirewallRule `
--DisplayName "GVS Microsoft SQL (TCP 3389)" `
+-DisplayName "Microsoft SQL (TCP 3389)" `
 -Description "Microsoft SQL - Allow Inbound TCP Traffic on Port(s) 3389" `
 -Direction Inbound `
 -Action Allow `
@@ -69,8 +69,8 @@ New-NetFirewallRule `
 
 <# ICMPv4 Type 8 (Echo Request / Ping) Firewall Inbound Whitelisting #>
 New-NetFirewallRule `
--DisplayName "PRTG_Network_Monitor_Server (ICMPv4)" `
--Description "PRTG Server - Allow/Respond to Inbound Network 'Pings' (ICMP Echo Requests)" `
+-DisplayName "Pings (ICMPv4 Type 8 'Echo Request')" `
+-Description "Pings - Allow/Respond-to Inbound ICMPv4 Type 8 (Echo Request) Packets" `
 -Direction Inbound `
 -Action Allow `
 -Profile Private `
@@ -87,5 +87,7 @@ New-NetFirewallRule `
 #   docs.microsoft.com  |  "New-NetFirewallRule - Creates a new inbound or outbound firewall rule and adds the rule to the target computer"  |  https://docs.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=win10-ps
 #
 #   docs.microsoft.com  |  "Get-NetFirewallRule - Retrieves firewall rules from the target computer"  |  https://docs.microsoft.com/en-us/powershell/module/netsecurity/new-netfirewallrule?view=win10-ps
+#
+#   social.technet.microsoft.com  |  "Add ICMPv4/v6 Echo Request Using PowerShell"  |  https://social.technet.microsoft.com/Forums/windowsserver/en-US/fb095c94-1565-4fc8-9bf1-3a21a44a4365
 #
 # ------------------------------------------------------------

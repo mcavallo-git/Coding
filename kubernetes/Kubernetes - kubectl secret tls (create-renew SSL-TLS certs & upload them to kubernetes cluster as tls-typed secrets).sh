@@ -19,27 +19,31 @@ apt-get -y update; apt-get -y install letsencrypt;
 ### CREATE/RENEW CERT:
 # ------------------------------
 
-# Create/renew wildcard SSL/TLS (HTTPS) certificate
+# Get the domain to create/renew SSL/TLS certs for
 if [ -z "${DN}" ]; then read -p "Enter domain name to create/renew SSL/TLS certificates for:  " -a DN -t 60 <'/dev/tty'; fi;
+
+# Create/renew wildcard SSL/TLS (HTTPS) certificate
 certbot certonly --manual --manual-public-ip-logging-ok --server "https://acme-v02.api.letsencrypt.org/directory" --preferred-challenges dns-01 -d "${DN}" -d "*.${DN}"; certbot certificates -d "${DN}";
+
+# Get the expiration date of the latest SSL/TLS certificate for target domain
+CERT_EXP_DATE="$(openssl x509 -in "/etc/letsencrypt/live/${DN}/cert.pem" -text -noout | sed -rne 's/^\s*[Nn]ot\s*[Aa]fter\s*(:|=)\s*(.+)$/\2/pi' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+CERT_EXP_DATE_SHORTHAND="$(date --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H:%M:%S%z';)";
+CERT_EXP_DATE_FILENAME="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H-%M-%SZ';)";
 
 
 # ------------------------------
 
-# Copy certs to output dir
+# Get the domain to create/renew SSL/TLS certs for
 if [ -z "${DN}" ]; then read -p "Enter domain name to create/renew SSL/TLS certificates for:  " -a DN -t 60 <'/dev/tty'; fi;
-OUTDIR="/mnt/c/ISO/Certificates_SSL/wildcard-${DN//./-}.$(date +'%Y%m%dT%H%M%S')";
+
+# Copy certs to output dir
+OUTDIR="/mnt/c/ISO/Certificates_SSL/wildcard-${DN//./-}.expires-${CERT_EXP_DATE_FILENAME}";
 mkdir -p "${OUTDIR}";
 CERT="cert";      cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 CERT="chain";     cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 CERT="fullchain"; cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 CERT="privkey";   cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 ls -al "${OUTDIR}";
-
-# Get expiration date of certificate
-CERT_EXP_DATE="$(openssl x509 -in "${OUTDIR}/cert.pem" -text -noout | sed -rne 's/^\s*[Nn]ot\s*[Aa]fter\s*(:|=)\s*(.+)$/\2/pi' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
-CERT_EXP_DATE_SHORTHAND="$(date --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H:%M:%S%z';)";
-CERT_EXP_DATE_FILENAME="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H-%M-%SZ';)";
 
 
 # Convert cert from PEM to PFX (PKCS12) format

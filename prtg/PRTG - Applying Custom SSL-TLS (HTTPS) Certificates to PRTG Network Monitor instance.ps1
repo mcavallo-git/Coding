@@ -52,7 +52,7 @@ If ($True) {
 			#
 			Write-Host "------------------------------";
 			Write-Host "";
-			Write-Host "  Backing up existing PRTG certificates directory`n    to filepath: `"${PRTG_CERTS_DIR}.bak.${TIMESTAMP}`"...";
+			Write-Host "  Backing up existing PRTG certificates directory`n  to filepath: `"${PRTG_CERTS_DIR}.bak.${TIMESTAMP}`"...";
 			Copy-Item -Path ("${PRTG_CERTS_DIR}") -Destination ("${PRTG_CERTS_DIR}.bak.${TIMESTAMP}") -Force -Recurse;
 			Write-Host "";
 

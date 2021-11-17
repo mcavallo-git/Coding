@@ -12,16 +12,25 @@ read -p "Press any key to continue...  " -n 1 -t 60 <'/dev/tty'; # Await single 
 # Await multiple keypresses (general keyboard string-entry)
 
 if [ 1 -eq 1 ]; then
-	READ_TIMEOUT=60;
-	read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
-	echo "";
-	if [ ${RETURN_CODE_READ} -le 128 ] && [ -n "${USER_RESPONSE}" ]; then
-		echo "Info:  Response received: \"${USER_RESPONSE}\"";
-	elif [ ${RETURN_CODE_READ} -gt 128 ]; then
-		echo "Error:  Response timed out after ${READ_TIMEOUT}s";
-	else
-		echo "Info:  Response's string-length is zero (empty/unset)";
-	fi;
+  READ_TIMEOUT=60;
+  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
+  echo "";
+  if [ ${RETURN_CODE_READ} -le 128 ] && [ -n "${USER_RESPONSE}" ]; then
+    echo "Info:  Response received: \"${USER_RESPONSE}\"";
+  elif [ ${RETURN_CODE_READ} -gt 128 ]; then
+    echo "Error:  Response timed out after ${READ_TIMEOUT}s";
+  else
+    echo "Info:  Response's string-length is zero (empty/unset)";
+  fi;
+fi;
+
+
+# ------------------------------------------------------------
+# Hide input string (for a more secure string entry, etc.)
+
+if [ 1 -eq 1 ]; then
+  read -p "Enter certificate password for file \"FULLPATH_PFX_CERT\" (or hit enter for no password):  " -s -a CERT_PASS -t 60 <'/dev/tty'; echo "";
+  echo "Password is [ ${#VAR} ] characters long";
 fi;
 
 

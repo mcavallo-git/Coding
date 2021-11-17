@@ -37,7 +37,7 @@ If ($True) {
 
 		} Else {
 
-			$TIMESTAMP=(Get-Date -Format 'yyyyMMddTHHmmss.ffffffzz');
+			$TIMESTAMP=(Get-Date -Format 'yyyyMMddTHHmmss');
 			$STEP_NUM=0;
 
 			# Certificate (1 of 3 SSL/TLS files)

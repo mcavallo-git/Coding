@@ -52,15 +52,15 @@ echo -e "Opening output directory \"${OUTDIR}\"...\n  (or \"C:\\ISO\\Certificate
 if [ -z "${DN}" ]; then read -p "Enter domain name to create/renew SSL/TLS certificates for:  " -a DN -t 60 <'/dev/tty'; fi;
 
 # Delete & recreate the ssl/tls cert on AKS cluster for namespace "default"
-kubectl --namespace "default" delete secret tls "tls-${DN//./-}" --ignore-not-found;
-kubectl --namespace "default" create secret tls "tls-${DN//./-}" --key="/etc/letsencrypt/live/${DN}/privkey.pem" --cert="/etc/letsencrypt/live/${DN}/fullchain.pem";
+kubectl --namespace "default" delete secret tls "wildcard-${DN//./-}" --ignore-not-found;
+kubectl --namespace "default" create secret tls "wildcard-${DN//./-}" --key="/etc/letsencrypt/live/${DN}/privkey.pem" --cert="/etc/letsencrypt/live/${DN}/fullchain.pem";
 
 
 # ------------------------------
 
 # DEBUG  -->  Verify/check the [ tls private-key ] & [ tls certificate ] secret values currently active on the AKS cluster
-KUBECTL_TLS_KEY=$(kubectl --namespace "default" get secret "tls-${DN//./-}" --output go-template="{{index .data \"tls.key\" | base64decode }}");  echo "KUBECTL_TLS_KEY=[${KUBECTL_TLS_KEY}]";
-KUBECTL_TLS_CRT=$(kubectl --namespace "default" get secret "tls-${DN//./-}" --output go-template="{{index .data \"tls.crt\" | base64decode }}");  echo "KUBECTL_TLS_CRT=[${KUBECTL_TLS_KEY}]";
+KUBECTL_TLS_KEY=$(kubectl --namespace "default" get secret "wildcard-${DN//./-}" --output go-template="{{index .data \"tls.key\" | base64decode }}");  echo "KUBECTL_TLS_KEY=[${KUBECTL_TLS_KEY}]";
+KUBECTL_TLS_CRT=$(kubectl --namespace "default" get secret "wildcard-${DN//./-}" --output go-template="{{index .data \"tls.crt\" | base64decode }}");  echo "KUBECTL_TLS_CRT=[${KUBECTL_TLS_KEY}]";
 
 
 # ------------------------------------------------------------

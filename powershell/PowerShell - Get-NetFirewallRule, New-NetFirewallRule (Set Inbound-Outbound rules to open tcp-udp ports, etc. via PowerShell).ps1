@@ -69,8 +69,8 @@ New-NetFirewallRule `
 
 <# ICMPv4 Type 8 (Echo Request / Ping) Firewall Inbound Whitelisting #>
 New-NetFirewallRule `
--DisplayName "Pings (ICMPv4 Type 8 'Echo Request')" `
--Description "Pings - Allow/Respond-to Inbound ICMPv4 Type 8 (Echo Request) Packets" `
+-DisplayName "ICMPv4 Type 8 'Echo Request' (Pings)" `
+-Description "ICMPv4 Type 8 'Echo Request' - Allow/Respond-to 'Ping' network packets" `
 -Direction Inbound `
 -Action Allow `
 -Profile Private `

@@ -365,9 +365,7 @@ function ExclusionsListUpdate {
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor"; Depth="0"; Parent=""; Basename="paessler*.exe"; }; # PRTG Server
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor\python"; Depth=""; Parent=""; Basename="*.exe"; }; # PRTG Server (python/pip)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="PRTG Network Monitor\Sensor System"; Depth="2"; Parent=""; Basename="*"; }; # PRTG Server
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="CefSharp.BrowserSubprocess.exe"; Entertainment=$True; }; # Razer Core X Chroma
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="GameManagerService*.exe"; Entertainment=$True; }; # Razer Core X Chroma
-		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="Razer*.exe"; Entertainment=$True; }; # Razer Core X Chroma
+		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer"; Depth=""; Parent=""; Basename="*.exe"; Entertainment=$True; }; # Razer Synapse (Core X Chroma PCIe eGPU)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Razer Chroma SDK\bin"; Depth="1"; Parent=""; Basename="Rz*.exe"; Entertainment=$True; }; # Razer Core X Chroma
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Reflector 3"; Depth=""; Parent=""; Basename="Reflector3.exe"; }; # Reflector (Airplay Server)
 		$ExcludedProcesses += @{ Dirname=${ProgFilesX86}; AddDir="Royal TS V5"; Depth=""; Parent=""; Basename="RoyalTS.exe"; }; # Royal TS (Remote Management)

@@ -37,7 +37,7 @@ CERT="privkey";   cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" 
 ls -al "${OUTDIR}";
 
 # Convert cert from PEM to PFX (PKCS12) format
-openssl pkcs12 -export -out "${OUTDIR}/tls-${DN//./-}.pfx" -in "${OUTDIR}/fullchain.pem" -inkey "${OUTDIR}/privkey.pem";
+openssl pkcs12 -export -out "${OUTDIR}/wildcard.${DN//./-}.pfx" -in "${OUTDIR}/fullchain.pem" -inkey "${OUTDIR}/privkey.pem";
 
 # Show output dir
 explorer.exe "C:\\ISO\\Certificates_SSL\\$(basename "${OUTDIR}";)";

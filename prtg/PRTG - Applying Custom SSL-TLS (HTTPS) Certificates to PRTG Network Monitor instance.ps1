@@ -52,7 +52,7 @@ If ($True) {
 			#
 			Write-Host "------------------------------";
 			Write-Host "";
-			Write-Host "  Backing up existing PRTG certificates directory to filepath:`n    `"${PRTG_CERTS_DIR}.bak.${TIMESTAMP}`"..." -NoNewLine;
+			Write-Host "  Backing up existing PRTG certificates directory`n    to filepath: `"${PRTG_CERTS_DIR}.bak.${TIMESTAMP}`"...";
 			Copy-Item -Path ("${PRTG_CERTS_DIR}") -Destination ("${PRTG_CERTS_DIR}.bak.${TIMESTAMP}") -Force -Recurse;
 			Write-Host "";
 
@@ -71,7 +71,7 @@ If ($True) {
 			Write-Host "${TYPE_OF_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host " file (`"" -NoNewLine;
 			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
+			Write-Host "`" for Let's Encrypt certs)`n           to filepath: `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" ";
 			Write-Host "";
@@ -90,7 +90,7 @@ If ($True) {
 			Write-Host "${TYPE_OF_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host " file (`"" -NoNewLine;
 			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
+			Write-Host "`" for Let's Encrypt certs)`n           to filepath: `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" ";
 			Write-Host "";
@@ -109,7 +109,7 @@ If ($True) {
 			Write-Host "${TYPE_OF_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host " file (`"" -NoNewLine;
 			Write-Host "${LETS_ENCRYPT_CERT}" -NoNewLine -ForegroundColor "Yellow";
-			Write-Host "`" for Let's Encrypt certs) to filepath `"" -NoNewLine;
+			Write-Host "`" for Let's Encrypt certs)`n           to filepath: `"" -NoNewLine;
 			Write-Host "${PRTG_CERTS_DIR}\${PRTG_CERT}" -NoNewLine -ForegroundColor "Yellow";
 			Write-Host "`" ";
 			Write-Host "";

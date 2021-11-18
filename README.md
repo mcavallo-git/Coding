@@ -353,7 +353,6 @@ This file (on GitHub):
 <tr><td><strong>HTML CSS Color</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Online color library and color tools for developers.<br />&nbsp;&nbsp;&nbsp;Quick color nickname lookups (given a hex color code)</i></sub></td><td><a href="https://www.htmlcsscolor.com/hex/4d4dff">View (source)</a></td></tr>
 <tr><td><strong>IconViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Allows viewing, copying, and saving (as .ico files) icons contained within programs (.exe) & libraries</i></sub></td><td><a href="https://www.botproductions.com/iconview/iconview.html">Download (source)</a></td></tr>
 <tr><td><strong>Image Converters</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image conversion between different image file formats (.ico, .jpg, .png, .svg, etc.)
-	<br />&nbsp;&nbsp;&nbsp;
 	<table>
 	<!-- <tr><th></th><th></th></tr> -->
 	<tr><td><a href="https://icoconvert.com/">PNG to ICO</a></td><td><a href="https://icoconvert.com/">JPG to ICO</a></td></tr>

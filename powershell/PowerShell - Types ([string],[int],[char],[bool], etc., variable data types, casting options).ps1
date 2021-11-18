@@ -23,14 +23,16 @@
 #
 # Citation(s)
 #
-#		docs.microsoft.com  |  "Get-Date - Gets the current date and time."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
+#   docs.microsoft.com  |  "Get-Date - Gets the current date and time."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
 #
-#		docs.microsoft.com  |  "Math.Floor Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.math.floor
+#   docs.microsoft.com  |  "Math.Floor Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.math.floor
 #
-#		stackoverflow.com  |  "Powershell Data Types - PowerShell - SS64.com"  |  https://ss64.com/ps/syntax-datatypes.html
+#   docs.microsoft.com  |  "Types - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/scripting/lang-spec/chapter-04?view=powershell-7.2
 #
-#		stackoverflow.com  |  "Midnight last Monday in Powershell"  |  https://stackoverflow.com/a/42578179
+#   stackoverflow.com  |  "Powershell Data Types - PowerShell - SS64.com"  |  https://ss64.com/ps/syntax-datatypes.html
 #
-#		stackoverflow.com  |  "Powershell - Round down to nearest whole number - Stack Overflow"  |  https://stackoverflow.com/a/5864061
+#   stackoverflow.com  |  "Midnight last Monday in Powershell"  |  https://stackoverflow.com/a/42578179
+#
+#   stackoverflow.com  |  "Powershell - Round down to nearest whole number - Stack Overflow"  |  https://stackoverflow.com/a/5864061
 #
 # ------------------------------------------------------------

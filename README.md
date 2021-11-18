@@ -357,11 +357,11 @@ This file (on GitHub):
 	<table>
 	<tr><th colspan="3">Web-based converter(s)</th></tr>
 	<tr><td></td><td></td></tr>
-	<tr><td><br />&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a><br />&nbsp;</td><td><br />&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a><br />&nbsp;</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td></tr>
-	<tr><td><br />&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a><br />&nbsp;</td><td><br />&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a><br />&nbsp;</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td></tr>
-	<tr><td><br />&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a><br />&nbsp;</td><td><br />&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a><br />&nbsp;</td></tr>
+	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td></tr>
 	</table>
 	</i></sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">View (source)</a></td></tr>

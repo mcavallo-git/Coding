@@ -357,21 +357,21 @@ This file (on GitHub):
 			<td>
 				<table>
 					<tr><th colspan="2">Web-based image converter(s)</th></tr>
-					<tr><td></td><td></td></tr>
+					<tr><td colspan="2"></td></tr>
 					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td></td><td></td></tr>
+					<tr><td colspan="2"></td></tr>
 					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td></td><td></td></tr>
+					<tr><td colspan="2"></td></tr>
 					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td></td><td></td></tr>
+					<tr><td colspan="2"></td></tr>
 				</table>
 			</td>
 			<td>
 				<table>
 					<tr><th colspan="2">Windows-based image converter(s)</th></tr>
-					<tr><td></td><td></td></tr>
-					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td></td><td></td></tr>
+					<tr><td colspan="2"></td></tr>
+					<tr><td colspan="2">&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td></tr>
+					<tr><td colspan="2"></td></tr>
 				</table>
 			</td>
 		</tr></table>

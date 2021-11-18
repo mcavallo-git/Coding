@@ -353,16 +353,18 @@ This file (on GitHub):
 <tr><td><strong>HTML CSS Color</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Online color library and color tools for developers.<br />&nbsp;&nbsp;&nbsp;Quick color nickname lookups (given a hex color code)</i></sub></td><td><a href="https://www.htmlcsscolor.com/hex/4d4dff">View (source)</a></td></tr>
 <tr><td><strong>IconViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Allows viewing, copying, and saving (as .ico files) icons contained within programs (.exe) & libraries</i></sub></td><td><a href="https://www.botproductions.com/iconview/iconview.html">Download (source)</a></td></tr>
 <tr><td><strong>Image Converters</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image conversion between different image file formats (.ico, .jpg, .png, .svg, etc.)
+<br />&nbsp;&nbsp;&nbsp;Local (Windows) converter(s):  XnView - <a href="https://www.xnview.com/en/xnview/#downloads">Download (source)</a>
 	<table>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
+	<tr><th colspan="3"><h5 id="personalization"><br />Web-based converter(s)<br /><br /></h5></th></tr>
+	<tr><td></td><td></td><td></td></tr>
+	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
+	<tr><td></td><td></td><td></td></tr>
+	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
+	<tr><td></td><td></td><td></td></tr>
+	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
+	<tr><td></td><td></td><td></td></tr>
 	</table>
-	</i></sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">Download (source)</a></td></tr>
+	</i></sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">View (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI - Compress, Trim, Resize (etc.) Images</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-Q16-HDRI-x64-dll.exe">Download (direct, installer v7.1.0.2)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip">Download (direct, portable v7.1.0.2)</a></sub></td></tr>
 <tr><td><strong>iTunes</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Apple's Media Library/Player/Radio & Device-Manager Utility</i></sub></td><td><a href="https://apple.co/ms">Download (source)</a></td></tr>
 <tr><td><strong>OBS Studio <sub>'Open Broadcaster Software'</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform screen capture ('screencap') utility<br />&nbsp;&nbsp;&nbsp;Allows saving/recording screencaps to local disk<br />&nbsp;&nbsp;&nbsp;Allows live streaming/broadcasting to web services (such as<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitch, YouTube, Facebook Live, Twitter, etc.)<br />&nbsp;&nbsp;&nbsp;<a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/OBS-Studio/screencap-tutorial_obs-studio_installation-setup.pdf">View Installation/Setup Guide</a></i></sub></td><td><a href="https://obsproject.com/download">Download (source)</a></td></tr>

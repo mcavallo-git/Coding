@@ -356,7 +356,7 @@ This file (on GitHub):
 	<br />&nbsp;&nbsp;&nbsp;
 	<table>
 	<!-- <tr><th></th><th></th></tr> -->
-	<tr><td><a href="https://icoconvert.com/">PNG to ICO</a></td><td><a href="https://icoconvert.com/">JPG to ICO</a></td></tr>
+	<tr><th><a href="https://icoconvert.com/">PNG to ICO</a></th><th><a href="https://icoconvert.com/">JPG to ICO</a></th></tr>
 	<tr><td><a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a></td><td><a href="https://www.pngtosvg.com/">PNG to SVG</a></td></tr>
 	<tr><td><a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a></td><td><a href="https://convertio.co/svg-png/">SVG to PNG</a></td></tr>
 	<!-- <tr><td></td><td></td></tr> -->

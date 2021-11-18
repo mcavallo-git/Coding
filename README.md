@@ -366,8 +366,8 @@ This file (on GitHub):
 	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td></tr>
 	</table>
-	</tr></td>
-	<tr><td>
+	</td>
+	<td>
 	<table>
 	<tr><th colspan="3">Local (Windows) converter(s)</th></tr>
 	<tr><td></td><td></td></tr>

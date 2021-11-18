@@ -1,8 +1,8 @@
 # ------------------------------------------------------------
-# 
+#
 # PowerShell Data-Types (Variable casting options)
 #  |--> For insight into numeric precision for applications without being wasteful regarding system resources)
-# 
+#
 # ------------------------------------------------------------
 #
 #   [string]    Fixed-length string of Unicode characters

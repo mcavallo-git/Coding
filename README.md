@@ -368,10 +368,10 @@ This file (on GitHub):
 			</td>
 			<td>
 				<table>
-					<tr><th colspan="2">Windows-based image converter(s)</th></tr>
-					<tr><td colspan="2"></td></tr>
-					<tr><td colspan="2">&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td colspan="2"></td></tr>
+					<tr><th>Windows-based image converter(s)</th></tr>
+					<tr><td></td></tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td></tr>
+					<tr><td></td></tr>
 				</table>
 			</td>
 		</tr></table>

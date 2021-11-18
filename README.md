@@ -368,7 +368,7 @@ This file (on GitHub):
 			</td>
 			<td>
 				<table>
-					<tr><th colspan="2">Local (Windows) image converter(s)</th></tr>
+					<tr><th colspan="2">Windows-based image converter(s)</th></tr>
 					<tr><td></td><td></td></tr>
 					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td></tr>
 					<tr><td></td><td></td></tr>

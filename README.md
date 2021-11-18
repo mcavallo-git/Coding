@@ -357,23 +357,23 @@ This file (on GitHub):
 			<td>
 				<table>
 					<tr><th colspan="2">Web-based</th></tr>
-					<tr><td colspan="2"></td></tr>
-					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td colspan="2"></td></tr>
-					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td colspan="2"></td></tr>
-					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td colspan="2"></td></tr>
+					<tr><th colspan="2"></th></tr>
+					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</th></tr>
+					<tr><th colspan="2"></th></tr>
+					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</th></tr>
+					<tr><th colspan="2"></th></tr>
+					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</th></tr>
+					<tr><th colspan="2"></th></tr>
 				</table>
-			</td>
-			<td>
+			</th>
+			<th>
 				<table>
 					<tr><th>Windows-based</th></tr>
-					<tr><td></td></tr>
-					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td></tr>
-					<tr><td></td></tr>
+					<tr><th></th></tr>
+					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</th></tr>
+					<tr><th></th></tr>
 				</table>
-			</td>
+			</th>
 		</tr></table>
 	</i></sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">View (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI - Compress, Trim, Resize (etc.) Images</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-Q16-HDRI-x64-dll.exe">Download (direct, installer v7.1.0.2)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip">Download (direct, portable v7.1.0.2)</a></sub></td></tr>

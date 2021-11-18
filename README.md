@@ -356,13 +356,13 @@ This file (on GitHub):
 <br />&nbsp;&nbsp;&nbsp;Local (Windows) converter(s):  XnView - <a href="https://www.xnview.com/en/xnview/#downloads">Download (source)</a>
 	<table>
 	<tr><th colspan="3">Web-based converter(s)</th></tr>
-	<tr><td></td><td></td><td></td></tr>
-	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td><td></td></tr>
-	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td><td></td></tr>
-	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td><td></td></tr>
+	<tr><td></td><td></td></tr>
+	<tr><td><br /><a href="https://icoconvert.com/">PNG to ICO</a><br /></td><td><br /><a href="https://icoconvert.com/">JPG to ICO</a><br /></td></tr>
+	<tr><td></td><td></td></tr>
+	<tr><td><br /><a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a><br /></td><td><br /><a href="https://www.pngtosvg.com/">PNG to SVG</a><br /></td></tr>
+	<tr><td></td><td></td></tr>
+	<tr><td><br /><a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a><br /></td><td><br /><a href="https://convertio.co/svg-png/">SVG to PNG</a><br /></td></tr>
+	<tr><td></td><td></td></tr>
 	</table>
 	</i></sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">View (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI - Compress, Trim, Resize (etc.) Images</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-Q16-HDRI-x64-dll.exe">Download (direct, installer v7.1.0.2)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip">Download (direct, portable v7.1.0.2)</a></sub></td></tr>

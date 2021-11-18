@@ -375,7 +375,7 @@ This file (on GitHub):
 				</table>
 			</th>
 		</tr></table>
-	</sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">View (source)</a></td></tr>
+	</sub></td><td><a href="https://convertio.co/svg-png/">View (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI - Compress, Trim, Resize (etc.) Images</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-Q16-HDRI-x64-dll.exe">Download (direct, installer v7.1.0.2)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip">Download (direct, portable v7.1.0.2)</a></sub></td></tr>
 <tr><td><strong>iTunes</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Apple's Media Library/Player/Radio & Device-Manager Utility</i></sub></td><td><a href="https://apple.co/ms">Download (source)</a></td></tr>
 <tr><td><strong>OBS Studio <sub>'Open Broadcaster Software'</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform screen capture ('screencap') utility<br />&nbsp;&nbsp;&nbsp;Allows saving/recording screencaps to local disk<br />&nbsp;&nbsp;&nbsp;Allows live streaming/broadcasting to web services (such as<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitch, YouTube, Facebook Live, Twitter, etc.)<br />&nbsp;&nbsp;&nbsp;<a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/OBS-Studio/screencap-tutorial_obs-studio_installation-setup.pdf">View Installation/Setup Guide</a></i></sub></td><td><a href="https://obsproject.com/download">Download (source)</a></td></tr>

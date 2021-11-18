@@ -357,7 +357,7 @@ This file (on GitHub):
 	<table>
 	<tr><td>
 	<table>
-	<tr><th colspan="2">Web-based converter(s)</th></tr>
+	<tr><th colspan="2">Web-based image converter(s)</th></tr>
 	<tr><td></td><td></td></tr>
 	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td></tr>
@@ -369,7 +369,7 @@ This file (on GitHub):
 	</td>
 	<td>
 	<table>
-	<tr><th colspan="2">Local (Windows) converter(s)</th></tr>
+	<tr><th colspan="2">Local (Windows) image converter(s)</th></tr>
 	<tr><td></td><td></td></tr>
 	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td></tr>

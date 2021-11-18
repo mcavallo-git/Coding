@@ -352,30 +352,29 @@ This file (on GitHub):
 <tr><td><strong>HandBrakeCLI</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Video Transcoding via CLI<br />&nbsp;&nbsp;&nbsp;<a href="https://handbrake.fr/docs/en/latest/cli/command-line-reference.html">Command line reference</a></i></sub></td><td><a href="https://handbrake.fr/downloads2.php">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<details><summary>Run HandBrakeCLI-Encoder (PowerShell one-liner)</summary><p><ol><li><pre><code><# Run HandBrakeCLI-Encoder #> SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);</code></pre></li></ol></p></details></sub></td></tr></td></tr>
 <tr><td><strong>HTML CSS Color</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Online color library and color tools for developers.<br />&nbsp;&nbsp;&nbsp;Quick color nickname lookups (given a hex color code)</i></sub></td><td><a href="https://www.htmlcsscolor.com/hex/4d4dff">View (source)</a></td></tr>
 <tr><td><strong>IconViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Allows viewing, copying, and saving (as .ico files) icons contained within programs (.exe) & libraries</i></sub></td><td><a href="https://www.botproductions.com/iconview/iconview.html">Download (source)</a></td></tr>
-<tr><td><strong>Image Converters</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image conversion between different image file formats (.ico, .jpg, .png, .svg, etc.)
-	<br />&nbsp;&nbsp;&nbsp;
-	<table>
-	<tr><td>
-	<table>
-	<tr><th colspan="2">Web-based image converter(s)</th></tr>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
-	</table>
-	</td>
-	<td>
-	<table>
-	<tr><th colspan="2">Local (Windows) image converter(s)</th></tr>
-	<tr><td></td><td></td></tr>
-	<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td></tr>
-	<tr><td></td><td></td></tr>
-	</table>
-	</tr></td>
-	</table>
+<tr><td><strong>Image Converters</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image conversion between different image file formats (.ico, .jpg, .png, .svg, etc.)<br />&nbsp;&nbsp;&nbsp;
+	<table><tr>
+			<td>
+				<table>
+					<tr><th colspan="2">Web-based image converter(s)</th></tr>
+					<tr><td></td><td></td></tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
+					<tr><td></td><td></td></tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</td></tr>
+					<tr><td></td><td></td></tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</td></tr>
+					<tr><td></td><td></td></tr>
+				</table>
+			</td>
+			<td>
+				<table>
+					<tr><th colspan="2">Local (Windows) image converter(s)</th></tr>
+					<tr><td></td><td></td></tr>
+					<tr><td>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;</td></tr>
+					<tr><td></td><td></td></tr>
+				</table>
+			</td>
+		</tr></table>
 	</i></sub></td><td><a href="https://www.xnview.com/en/xnview/#downloads">View (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI - Compress, Trim, Resize (etc.) Images</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-Q16-HDRI-x64-dll.exe">Download (direct, installer v7.1.0.2)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip">Download (direct, portable v7.1.0.2)</a></sub></td></tr>
 <tr><td><strong>iTunes</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Apple's Media Library/Player/Radio & Device-Manager Utility</i></sub></td><td><a href="https://apple.co/ms">Download (source)</a></td></tr>

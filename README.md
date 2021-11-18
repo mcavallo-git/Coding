@@ -355,7 +355,7 @@ This file (on GitHub):
 <tr><td><strong>Image Converters</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image conversion between different image file formats (.ico, .jpg, .png, .svg, etc.)
 <br />&nbsp;&nbsp;&nbsp;Local (Windows) converter(s):  XnView - <a href="https://www.xnview.com/en/xnview/#downloads">Download (source)</a>
 	<table>
-	<tr><th colspan="3"><h5 id="personalization"><br />Web-based converter(s)<br /><br /></h5></th></tr>
+	<tr><th colspan="3">Web-based converter(s)</th></tr>
 	<tr><td></td><td></td><td></td></tr>
 	<tr><td></td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</td><td>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</td></tr>
 	<tr><td></td><td></td><td></td></tr>

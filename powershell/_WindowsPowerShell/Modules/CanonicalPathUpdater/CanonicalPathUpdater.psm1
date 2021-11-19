@@ -145,7 +145,7 @@ Function CanonicalPathUpdater() {
 		}
 
 		Write-Host "`n";
-		Write-Host "Info:  You must reboot your machine to apply changes. You may do so from powershell via command 'Restart-Computer'" -ForegroundColor "Yellow";
+		Write-Host "Info:  You must reboot your workstation to apply changes. You may do so from powershell via command 'Restart-Computer'" -ForegroundColor "Yellow";
 		Write-Host "`n";
 
 	}

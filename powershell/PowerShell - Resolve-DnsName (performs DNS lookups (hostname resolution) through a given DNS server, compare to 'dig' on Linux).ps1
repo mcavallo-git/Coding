@@ -5,13 +5,13 @@
 # Basic DNS query example(s)
 #
 
-Resolve-DnsName -Name "example.com" -Server "8.8.8.8";  # Google DNS Server(s)
+Resolve-DnsName -Name "example.com" -Server "8.8.8.8" -QuickTimeout;  # Google DNS Server(s)
 
 
-Resolve-DnsName -Name "example.com" -Server "1.1.1.1";  # CloudFlare DNS Server(s)
+Resolve-DnsName -Name "example.com" -Server "1.1.1.1" -QuickTimeout;  # CloudFlare DNS Server(s)
 
 
-Resolve-DnsName -Name "example.com" -Server "4.4.4.4";  # INVALID (forced fail) --> Nonexistent DNS Server(s)
+Resolve-DnsName -Name "example.com" -Server "4.4.4.4" -QuickTimeout;  # INVALID (forced fail) --> Nonexistent DNS Server(s)
 
 
 # ------------------------------------------------------------

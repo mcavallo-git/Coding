@@ -2,8 +2,17 @@
 # PowerShell - Get-CimInstance
 
 
-# Get the user behind the current 'Run as administrator' terminal/command
-$NonAdmin_Username=((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1]);
+# Non-Admin Username (with domain)  -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
+$NonAdmin_SAM_Username=((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName); $NonAdmin_SAM_Username;
+
+
+# Non-Admin Username (w/o domain)  -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
+$NonAdmin_Username=((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1]); $NonAdmin_Username;
+
+
+# Verbose Info  -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
+(Get-CimInstance -ClassName "Win32_ComputerSystem") | Format-List *;
+
 
 
 # ------------------------------------------------------------

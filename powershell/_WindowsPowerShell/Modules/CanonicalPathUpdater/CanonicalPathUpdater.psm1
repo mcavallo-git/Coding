@@ -33,6 +33,7 @@ Function CanonicalPathUpdater() {
 	If ($RunningAsAdmin -Eq $False) {
 		# ------------------------------
 		# NOT running as Admin --> Rerun as admin
+		Write-Host "ERROR:  Requires elevated privileges (please run using the 'Run as administrator' option)";
 
 	} Else {
 

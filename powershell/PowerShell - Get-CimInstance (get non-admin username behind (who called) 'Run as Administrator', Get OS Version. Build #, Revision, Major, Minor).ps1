@@ -18,14 +18,14 @@ $NonAdmin_SAM_Username=(${NonAdmin_UserDetails}.UserName);
 
 # Non-Admin Username (w/o domain)
 $NonAdmin_Username=(((${NonAdmin_UserDetails}.UserName).Split("\"))[1]);
-  Write-Output ${NonAdmin_UserSID};
+  Write-Output ${NonAdmin_Username};
 
 # Non-Admin User's Domain
 $NonAdmin_User_Domain=(${NonAdmin_UserDetails}.DNSHostName);
   Write-Output ${NonAdmin_User_Domain};
 
-# FINALLY, get the Non-Admin User's SID
-$NonAdmin_UserSID=((Get-CimInstance -ClassName "Win32_UserAccount" -Filter "UserName='$(${NonAdmin_UserDetails}.UserName)'").SID);
+# Non-Admin User's SID
+$NonAdmin_UserSID=((Get-CimInstance -ClassName "Win32_UserAccount" -Filter "Name='$((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1])' and Domain='$((Get-CimInstance -ClassName "Win32_ComputerSystem").DNSHostName)'").SID);
   Write-Output ${NonAdmin_UserSID};
 
 }

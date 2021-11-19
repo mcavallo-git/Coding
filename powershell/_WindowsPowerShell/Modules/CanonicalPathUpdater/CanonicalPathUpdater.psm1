@@ -9,20 +9,12 @@
 # ------------------------------------------------------------
 Function CanonicalPathUpdater() {
 	Param(
-		[Switch]$AlwaysGetHelp,
-		[Switch]$NoGetHelp,
-		[Switch]$NoMethods,
-		[Switch]$NoOther,
-		[Switch]$NoProperties,
-		[Switch]$NoRegistry,
-		[Switch]$NoValue,
 		[Parameter(Position=0, ValueFromRemainingArguments)]$inline_args
 	)
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CanonicalPathUpdater/CanonicalPathUpdater.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-		CanonicalPathUpdater;
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/CanonicalPathUpdater/CanonicalPathUpdater.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; CanonicalPathUpdater;
 
 	}
 

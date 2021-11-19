@@ -183,6 +183,7 @@ Mostly Linux compatible:
 ⛭					Gear Without Hub  |  https://www.compart.com/en/unicode/U+26ED
 
 
+⏻				Power Symbol  |  https://www.compart.com/en/unicode/U+23FB
 ⚡				High Voltage Sign  |  https://www.compart.com/en/unicode/U+26A1
 💧				Droplet  |  https://www.compart.com/en/unicode/U+1F4A7
 ☢️			Radioactive Sign Emoji  |  https://emojipedia.org/radioactive/

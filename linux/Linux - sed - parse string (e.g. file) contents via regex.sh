@@ -30,7 +30,7 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 c
 
 
 # Find & replace lines which match either [ hostname: ] or [ container_name: ] (update the value which comes after them)
-NEW_DOCKER_NAME=”dat-docker-name”; sed -i -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"${NEW_DOCKER_NAME}\"\3/" "./docker-compose.yml";
+NEW_DOCKER_NAME="dat-docker-name"; sed -i -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"${NEW_DOCKER_NAME}\"\3/" "./docker-compose.yml";
 
 # Match lines from a curl request
 TERRAFORM_LATEST_VERSION=$(curl https://www.terraform.io/downloads.html | grep 'https://releases.hashicorp.com/terraform/' | grep -i 'linux' | head -n 1 | sed -re "s/^.+https:\/\/releases\.hashicorp\.com\/terraform\/([0-9\.]+)\/.+$/\1/";);

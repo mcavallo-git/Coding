@@ -1,18 +1,31 @@
 # ------------------------------------------------------------
-# PowerShell - Get-CimInstance
+#
+# PowerShell  -  Get-CimInstance -ClassName "Win32_..."
+#
+# ------------------------------------------------------------
+
+# Non-Admin User Details -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
+
+# Get all obtaining info  -  Pertains to either [ the user running this command ] or [ the user BEHIND the admin who is running this command ]
+$NonAdmin_UserDetails=(Get-CimInstance -ClassName "Win32_ComputerSystem"); $NonAdmin_UserDetails | Format-List *;
+
+# Non-Admin Username (with domain)
+$NonAdmin_SAM_Username=(${NonAdmin_UserDetails}.UserName); $NonAdmin_SAM_Username;
+
+# Non-Admin Username (w/o domain)
+$NonAdmin_Username=(((${NonAdmin_UserDetails}.UserName).Split("\"))[1]); $NonAdmin_Username;
+
+# Non-Admin User's Domain
+$NonAdmin_User_Domain=(${NonAdmin_UserDetails}.DNSHostName); $NonAdmin_User_Domain;
+
+# FINALLY, get the Non-Admin User's SID
+$NonAdmin_UserSID=((Get-CimInstance -ClassName "Win32_UserAccount" -Filter "Name='${NonAdmin_Username}' and Domain='${NonAdmin_User_Domain}'").SID)
 
 
-# Non-Admin Username (with domain)  -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
-$NonAdmin_SAM_Username=((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName); $NonAdmin_SAM_Username;
+# ------------------------------
 
-
-# Non-Admin Username (w/o domain)  -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
-$NonAdmin_Username=((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1]); $NonAdmin_Username;
-
-
-# Verbose Info  -  Get info about the non-admin user who kicked off the current 'Run as administrator' terminal/command
-(Get-CimInstance -ClassName "Win32_ComputerSystem") | Format-List *;
-
+# Get all users' info
+$All_UserDetails=(Get-CimInstance -ClassName "Win32_UserAccount"); $All_UserDetails | Format-List *;
 
 
 # ------------------------------------------------------------

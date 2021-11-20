@@ -37,6 +37,7 @@ Function CanonicalPathUpdater() {
 
 		If ($True) {
 			<# SYSTEM PATH - Resolve all filepaths to their canonical filepaths (resolve upper/lower case filepaths to whatever the exact case-sensitive filepath) #>
+			Write-Host "`n";
 			$SystemPath=(Get-ItemPropertyValue -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment") -Name ("Path"));
 			$EnvVars_BackupPath="$([System.IO.Path]::GetFullPath(${env:TEMP}))\env-PATH.system.$(Get-Date -Format 'yyyyMMddTHHmmss.ffffffzz').bak.txt";
 			Set-Content -Path "${EnvVars_BackupPath}" -Value "${SystemPath}";
@@ -73,6 +74,7 @@ Function CanonicalPathUpdater() {
 
 		If ($True) {
 			<# USER PATH (Admin User) - Resolve all filepaths to their canonical filepaths (resolve upper/lower case filepaths to whatever the exact case-sensitive filepath) #>
+			Write-Host "`n";
 			$UserPath=(Get-ItemPropertyValue -LiteralPath ("Registry::HKEY_CURRENT_USER\Environment") -Name ("Path"));
 			$EnvVars_BackupPath="$([System.IO.Path]::GetFullPath(${env:TEMP}))\env-PATH.user.$(Get-Date -Format 'yyyyMMddTHHmmss.ffffffzz').bak.txt";
 			Set-Content -Path "${EnvVars_BackupPath}" -Value "${UserPath}";
@@ -109,6 +111,7 @@ Function CanonicalPathUpdater() {
 
 		If ($True) {
 			<# USER PATH (NON-Admin User) - Resolve all filepaths to their canonical filepaths (resolve upper/lower case filepaths to whatever the exact case-sensitive filepath) #>
+			Write-Host "`n";
 			# ------------------------------
 			$NonAdmin_UserSID=((Get-CimInstance -ClassName "Win32_UserAccount" -Filter "Name='$((((Get-CimInstance -ClassName "Win32_ComputerSystem").UserName).Split("\"))[1])' and Domain='$((Get-CimInstance -ClassName "Win32_ComputerSystem").DNSHostName)'").SID);
 			# $NonAdmin_UserPath=(Get-ItemPropertyValue -LiteralPath ("Registry::HKEY_CURRENT_USER\Environment") -Name ("Path"));

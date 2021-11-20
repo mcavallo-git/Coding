@@ -25,7 +25,7 @@ Function CanonicalPathUpdater() {
 		# ------------------------------
 		# NOT running as Admin --> Rerun as admin
 		Write-Host "`n";
-		Write-Host "Error:  Requires elevated privileges (please run using the 'Run as administrator' option)" -ForegroundColor "Red" -BackgroundColor "Black";
+		Write-Host "Error:  Requires elevated privileges (please re-run this module using the 'Run as administrator' option)" -ForegroundColor "Red" -BackgroundColor "Black";
 		Write-Host "`n";
 
 		# $MyInvocation.MyCommand.Name

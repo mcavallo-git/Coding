@@ -18,12 +18,15 @@ Function CanonicalPathUpdater() {
 
 	}
 
+	Write-Host "`n";
+
 	<# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
 	$RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
 	If ($RunningAsAdmin -Eq $False) {
 		# ------------------------------
 		# NOT running as Admin --> Rerun as admin
-		Write-Host "ERROR:  Requires elevated privileges (please run using the 'Run as administrator' option)";
+		Write-Host "Error:  Requires elevated privileges (please run using the 'Run as administrator' option)" -ForegroundColor "Red" -BackgroundColor "Black";
+		Write-Host "`n";
 
 		# $MyInvocation.MyCommand.Name
 

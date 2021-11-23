@@ -19,7 +19,6 @@ set interfaces ethernet eth0 traffic-­policy out shaper1
 commit ; save
 exit
 
-
 #
 #   In this example, a shaper policy shaper1 is defined and applied to the out direction on interface eth0, which has 100 Mbps bandwidth.
 #
@@ -47,7 +46,6 @@ exit
 #   For EdgeRouter modules that include a switch interface, the traffic policy will need
 #     to be applied to the switch interface (switch0) rather than the single Ethernet interface (eth1).
 #
-
 
 
 # ------------------------------------------------------------

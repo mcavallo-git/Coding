@@ -1,18 +1,21 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# EdgeOS (UniFi) - mca-ctrl -t dump-cfg (get currently-running config in JSON format).sh
+# EdgeOS (UniFi) - config - mca-ctrl -t dump-cfg (get currently-running config in JSON format).sh
 #
 # ------------------------------------------------------------
 #
-# Copy/Download current config (in JSON format) from your USG
+# EdgeOS - Copy/Download current config (in JSON format)
 #
 
+
 # Step 1 - SSH into your Unifi device (USG, for example)
+
 
 # Step 2 - Export the config to JSON format via the following commands
 mca-ctrl -t dump-cfg > "$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
 mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
+
 
 # Step 3 - Download the exported JSON file via your SFTP tool of choice (file placed in user's home-directory)
 
@@ -39,6 +42,6 @@ mca-ctrl -t dump-cfg > "${HOME}/$(hostname).$(date +'%Y-%m-%d_%H-%M-%S').config.
 #
 # Citation(s)
 #
-# 	help.ubnt.com  |  "UniFi - USG Advanced Configuration"  |  https://help.ubnt.com/hc/en-us/articles/215458888
+#   help.ubnt.com  |  "UniFi - USG Advanced Configuration"  |  https://help.ubnt.com/hc/en-us/articles/215458888
 #
 # ------------------------------------------------------------

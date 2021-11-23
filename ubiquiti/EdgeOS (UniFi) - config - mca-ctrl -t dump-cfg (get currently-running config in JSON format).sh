@@ -14,7 +14,7 @@
 
 # Step 2 - Export the config to JSON format via the following commands
 mca-ctrl -t dump-cfg > "$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
-mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
+# mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
 
 
 # Step 3 - Download the exported JSON file via your SFTP tool of choice (file placed in user's home-directory)

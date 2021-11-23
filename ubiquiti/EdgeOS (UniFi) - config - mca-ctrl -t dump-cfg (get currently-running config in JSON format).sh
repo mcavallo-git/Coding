@@ -17,7 +17,7 @@ mca-ctrl -t dump-cfg > "$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/m
 # mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
 
 
-# Step 3 - Download the exported JSON file via your SFTP tool of choice (file placed in user's home-directory)
+# Step 3 - Download the exported JSON file via your SFTP tool of choice (the JSON file will have been placed in user's home directory)
 
 
 # ------------------------------------------------------------

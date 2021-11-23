@@ -1,5 +1,8 @@
 #!/bin/bash
-
+# ------------------------------------------------------------
+#
+# EdgeOS (UniFi) - mca-ctrl -t dump-cfg (get currently-running config in JSON format).sh
+#
 # ------------------------------------------------------------
 #
 # Copy/Download current config (in JSON format) from your USG
@@ -10,9 +13,6 @@
 # Step 2 - Export the config to JSON format via the following commands
 mca-ctrl -t dump-cfg > "$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
 mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
-
-#  |
-#  |--> Reverse-engineers the current config and outputs what it would take to rebuild it as a JSON config-file
 
 # Step 3 - Download the exported JSON file via your SFTP tool of choice (file placed in user's home-directory)
 

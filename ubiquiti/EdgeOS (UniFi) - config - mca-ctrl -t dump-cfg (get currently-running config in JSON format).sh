@@ -13,7 +13,7 @@
 
 
 # Step 2 - Export the config to JSON format via the following command (which saves the config to the logged-in (via SSH) user's home directory, regardless if they're masquerading as root or not (via sudo))
-OUTFILE="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json"; mca-ctrl -t dump-cfg > "${OUTFILE}"; echo "OUTFILE=[ ${OUTFILE} ]";
+OUTFILE="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl_-t_dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json"; mca-ctrl -t dump-cfg > "${OUTFILE}"; echo "OUTFILE=[ ${OUTFILE} ]";
 
 
 # Step 3 - Download the exported JSON file via your SFTP tool of choice (the JSON file will have been placed in user's home directory)

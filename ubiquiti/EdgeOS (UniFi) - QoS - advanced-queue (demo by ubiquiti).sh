@@ -64,9 +64,9 @@ set traffic-control advanced-queue filters match 299 description Default
 set traffic-control advanced-queue filters match 299 target 299
 
 
-# 8. Commit the changes and save the configuration.
-commit
-save
+# 8. Commit the changes, save the configuration, and exit configuration mode
+commit ; save
+exit
 
 
 # ------------------------------------------------------------

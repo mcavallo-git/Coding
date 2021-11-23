@@ -9,14 +9,15 @@
 #
 
 configure
-set traffic­policy shaper shaper1 bandwidth 100mbit
-set traffic­policy shaper shaper1 default bandwidth 60mbit
-set traffic­policy shaper shaper1 class 2 bandwidth 20mbit
-set traffic­policy shaper shaper1 class 2 match client2 ip source address 10.0.1.2/32
-set traffic­policy shaper shaper1 class 3 bandwidth 20mbit
-set traffic­policy shaper shaper1 class 3 match client3 ip source address 10.0.1.3/32
-set interfaces ethernet eth0 traffic­policy out shaper1
-commit
+set traffic-policy shaper shaper1 bandwidth 100mbit
+set traffic-policy shaper shaper1 default bandwidth 60mbit
+set traffic-policy shaper shaper1 class 2 bandwidth 20mbit
+set traffic-policy shaper shaper1 class 2 match client2 ip source address 10.0.1.2/32
+set traffic-policy shaper shaper1 class 3 bandwidth 20mbit
+set traffic-policy shaper shaper1 class 3 match client3 ip source address 10.0.1.3/32
+set interfaces ethernet eth0 traffic-­policy out shaper1
+commit ; save
+exit
 
 
 #
@@ -76,26 +77,21 @@ set traffic-policy shaper client-down default burst '1k'
 set traffic-policy shaper client-down default ceiling '100%'
 set traffic-policy shaper client-down default queue-type 'fair-queue'
 set interfaces ethernet eth1 traffic-policy out 'client-down'
-commit
-save
+commit ; save
+exit
 
 
 
 # UPLOAD SHAPER
+#   Note:  One class is for each client
 configure
 set traffic-policy limiter client-up class 1 bandwidth '512kbit'
 set traffic-policy limiter client-up class 1 burst '1mb'
 set traffic-policy limiter client-up class 1 match ADDR ip source address '10.0.3.2/32'
 set traffic-policy limiter client-up default bandwidth '1000mbit'
 set interfaces ethernet eth1 traffic-policy in 'client-up'
-commit
-save
-
-#
-# Note:
-#   One class is for each client
-#
-
+commit ; save
+exit
 
 
 # ------------------------------------------------------------

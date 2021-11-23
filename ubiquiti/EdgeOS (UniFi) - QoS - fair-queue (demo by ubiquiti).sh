@@ -22,7 +22,8 @@
 configure
 set traffic-policy fair-queue fair1 hash-interval 10
 set interfaces ethernet eth0 traffic-policy out fair1
-commit; save
+commit ; save
+exit
 
 
 #

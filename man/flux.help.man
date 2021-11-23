@@ -1,0 +1,3769 @@
+
+Command line utility for assembling Kubernetes CD pipelines the GitOps way.
+
+Usage:
+  flux [command]
+
+Examples:
+  # Check prerequisites
+  flux check --pre
+
+  # Install the latest version of Flux
+  flux install
+
+  # Create a source for a public Git repository
+  flux create source git webapp-latest \
+    --url=https://github.com/stefanprodan/podinfo \
+    --branch=master \
+    --interval=3m
+
+  # List GitRepository sources and their status
+  flux get sources git
+
+  # Trigger a GitRepository source reconciliation
+  flux reconcile source git flux-system
+
+  # Export GitRepository sources in YAML format
+  flux export source git --all > sources.yaml
+
+  # Create a Kustomization for deploying a series of microservices
+  flux create kustomization webapp-dev \
+    --source=webapp-latest \
+    --path="./deploy/webapp/" \
+    --prune=true \
+    --interval=5m \
+    --health-check="Deployment/backend.webapp" \
+    --health-check="Deployment/frontend.webapp" \
+    --health-check-timeout=2m
+
+  # Trigger a git sync of the Kustomization's source and apply changes
+  flux reconcile kustomization webapp-dev --with-source
+
+  # Suspend a Kustomization reconciliation
+  flux suspend kustomization webapp-dev
+
+  # Export Kustomizations in YAML format
+  flux export kustomization --all > kustomizations.yaml
+
+  # Resume a Kustomization reconciliation
+  flux resume kustomization webapp-dev
+
+  # Delete a Kustomization
+  flux delete kustomization webapp-dev
+
+  # Delete a GitRepository source
+  flux delete source git webapp-latest
+
+  # Uninstall Flux and delete CRDs
+  flux uninstall
+
+Available Commands:
+  bootstrap   Bootstrap toolkit components
+  check       Check requirements and installation
+  completion  Generates completion scripts for various shells
+  create      Create or update sources and resources
+  delete      Delete sources and resources
+  export      Export resources in YAML format
+  get         Get the resources and their status
+  help        Help about any command
+  install     Install or upgrade Flux
+  logs        Display formatted logs for Flux components
+  reconcile   Reconcile sources and resources
+  resume      Resume suspended resources
+  suspend     Suspend resources
+  trace       trace an in-cluster object throughout the GitOps delivery pipeline
+  tree        Print the resources reconciled by Flux
+  uninstall   Uninstall Flux and its custom resource definitions
+  version     Print the client and server-side components version information.
+
+Flags:
+      --context string      kubernetes context to use
+  -h, --help                help for flux
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+  -v, --version             version for flux
+
+Use "flux [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The bootstrap sub-commands bootstrap the toolkit components on the targeted Git provider.
+
+Usage:
+  flux bootstrap [command]
+
+Available Commands:
+  git         Bootstrap toolkit components in a Git repository
+  github      Bootstrap toolkit components in a GitHub repository
+  gitlab      Bootstrap toolkit components in a GitLab repository
+
+Flags:
+      --author-email string                    author email for Git commits
+      --author-name string                     author name for Git commits (default "Flux")
+      --branch string                          Git branch (default "main")
+      --ca-file string                         path to TLS CA file used for validating self-signed certificates
+      --cluster-domain string                  internal cluster domain (default "cluster.local")
+      --commit-message-appendix string         string to add to the commit messages, e.g. '[ci skip]'
+      --components strings                     list of components, accepts comma-separated values (default [source-controller,kustomize-controller,helm-controller,notification-controller])
+      --components-extra strings               list of components in addition to those supplied or defaulted, accepts comma-separated values
+      --gpg-key-id string                      key id for selecting a particular key
+      --gpg-key-ring string                    path to GPG key ring for signing commits
+      --gpg-passphrase string                  passphrase for decrypting GPG private key
+  -h, --help                                   help for bootstrap
+      --image-pull-secret string               Kubernetes secret name used for pulling the toolkit images from a private registry
+      --log-level logLevel                     log level, available options are: (debug, info, error) (default info)
+      --network-policy                         deny ingress access to the toolkit controllers from other namespaces using network policies (default true)
+      --private-key-file string                path to a private key file used for authenticating to the Git SSH server
+      --recurse-submodules                     when enabled, configures the GitRepository source to initialize and include Git submodules in the artifact it produces
+      --registry string                        container registry where the toolkit images are published (default "ghcr.io/fluxcd")
+      --secret-name string                     name of the secret the sync credentials can be found in or stored to (default "flux-system")
+      --ssh-ecdsa-curve ecdsaCurve             SSH ECDSA public key curve (p256, p384, p521) (default p384)
+      --ssh-hostname string                    SSH hostname, to be used when the SSH host differs from the HTTPS one
+      --ssh-key-algorithm publicKeyAlgorithm   SSH public key algorithm (rsa, ecdsa, ed25519) (default ecdsa)
+      --ssh-rsa-bits rsaKeyBits                SSH RSA public key bit size (multiplies of 8) (default 2048)
+      --token-auth                             when enabled, the personal access token will be used instead of SSH deploy key
+      --toleration-keys strings                list of toleration keys used to schedule the components pods onto nodes with matching taints
+  -v, --version string                         toolkit version, when specified the manifests are downloaded from https://github.com/fluxcd/flux2/releases
+      --watch-all-namespaces                   watch for custom resources in all namespaces, if set to false it will only watch the namespace where the toolkit is installed (default true)
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux bootstrap [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The bootstrap git command commits the toolkit components manifests to the
+branch of a Git repository. It then configures the target cluster to synchronize with
+the repository. If the toolkit components are present on the cluster, the bootstrap
+command will perform an upgrade if needed.
+
+Usage:
+  flux bootstrap git [flags]
+
+Examples:
+  # Run bootstrap for a Git repository and authenticate with your SSH agent
+  flux bootstrap git --url=ssh://git@example.com/repository.git
+
+  # Run bootstrap for a Git repository and authenticate using a password
+  flux bootstrap git --url=https://example.com/repository.git --password=<password>
+
+  # Run bootstrap for a Git repository with a passwordless private key
+  flux bootstrap git --url=ssh://git@example.com/repository.git --private-key-file=<path/to/private.key>
+
+  # Run bootstrap for a Git repository with a private key and password
+  flux bootstrap git --url=ssh://git@example.com/repository.git --private-key-file=<path/to/private.key> --password=<password>
+
+
+Flags:
+  -h, --help                    help for git
+      --interval duration       sync interval (default 1m0s)
+  -p, --password string         basic authentication password
+      --path safeRelativePath   path relative to the repository root, when specified the cluster sync will be scoped to this path
+  -s, --silent                  assumes the deploy key is already setup, skips confirmation
+      --url string              Git repository URL
+  -u, --username string         basic authentication username (default "git")
+
+Global Flags:
+      --author-email string                    author email for Git commits
+      --author-name string                     author name for Git commits (default "Flux")
+      --branch string                          Git branch (default "main")
+      --ca-file string                         path to TLS CA file used for validating self-signed certificates
+      --cluster-domain string                  internal cluster domain (default "cluster.local")
+      --commit-message-appendix string         string to add to the commit messages, e.g. '[ci skip]'
+      --components strings                     list of components, accepts comma-separated values (default [source-controller,kustomize-controller,helm-controller,notification-controller])
+      --components-extra strings               list of components in addition to those supplied or defaulted, accepts comma-separated values
+      --context string                         kubernetes context to use
+      --gpg-key-id string                      key id for selecting a particular key
+      --gpg-key-ring string                    path to GPG key ring for signing commits
+      --gpg-passphrase string                  passphrase for decrypting GPG private key
+      --image-pull-secret string               Kubernetes secret name used for pulling the toolkit images from a private registry
+      --kubeconfig string                      absolute path to the kubeconfig file
+      --log-level logLevel                     log level, available options are: (debug, info, error) (default info)
+  -n, --namespace string                       the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --network-policy                         deny ingress access to the toolkit controllers from other namespaces using network policies (default true)
+      --private-key-file string                path to a private key file used for authenticating to the Git SSH server
+      --recurse-submodules                     when enabled, configures the GitRepository source to initialize and include Git submodules in the artifact it produces
+      --registry string                        container registry where the toolkit images are published (default "ghcr.io/fluxcd")
+      --secret-name string                     name of the secret the sync credentials can be found in or stored to (default "flux-system")
+      --ssh-ecdsa-curve ecdsaCurve             SSH ECDSA public key curve (p256, p384, p521) (default p384)
+      --ssh-hostname string                    SSH hostname, to be used when the SSH host differs from the HTTPS one
+      --ssh-key-algorithm publicKeyAlgorithm   SSH public key algorithm (rsa, ecdsa, ed25519) (default ecdsa)
+      --ssh-rsa-bits rsaKeyBits                SSH RSA public key bit size (multiplies of 8) (default 2048)
+      --timeout duration                       timeout for this operation (default 5m0s)
+      --token-auth                             when enabled, the personal access token will be used instead of SSH deploy key
+      --toleration-keys strings                list of toleration keys used to schedule the components pods onto nodes with matching taints
+      --verbose                                print generated objects
+  -v, --version string                         toolkit version, when specified the manifests are downloaded from https://github.com/fluxcd/flux2/releases
+      --watch-all-namespaces                   watch for custom resources in all namespaces, if set to false it will only watch the namespace where the toolkit is installed (default true)
+
+------------------------------------------------------------
+
+The bootstrap github command creates the GitHub repository if it doesn't exists and
+commits the toolkit components manifests to the main branch.
+Then it configures the target cluster to synchronize with the repository.
+If the toolkit components are present on the cluster,
+the bootstrap command will perform an upgrade if needed.
+
+Usage:
+  flux bootstrap github [flags]
+
+Examples:
+  # Create a GitHub personal access token and export it as an env var
+  export GITHUB_TOKEN=<my-token>
+
+  # Run bootstrap for a private repository owned by a GitHub organization
+  flux bootstrap github --owner=<organization> --repository=<repository name>
+
+  # Run bootstrap for a private repository and assign organization teams to it
+  flux bootstrap github --owner=<organization> --repository=<repository name> --team=<team1 slug> --team=<team2 slug>
+
+  # Run bootstrap for a private repository and assign organization teams with their access level(e.g maintain, admin) to it
+  flux bootstrap github --owner=<organization> --repository=<repository name> --team=<team1 slug>:<access-level>
+
+  # Run bootstrap for a repository path
+  flux bootstrap github --owner=<organization> --repository=<repository name> --path=dev-cluster
+
+  # Run bootstrap for a public repository on a personal account
+  flux bootstrap github --owner=<user> --repository=<repository name> --private=false --personal=true
+
+  # Run bootstrap for a private repository hosted on GitHub Enterprise using SSH auth
+  flux bootstrap github --owner=<organization> --repository=<repository name> --hostname=<domain> --ssh-hostname=<domain>
+
+  # Run bootstrap for a private repository hosted on GitHub Enterprise using HTTPS auth
+  flux bootstrap github --owner=<organization> --repository=<repository name> --hostname=<domain> --token-auth
+
+  # Run bootstrap for an existing repository with a branch named main
+  flux bootstrap github --owner=<organization> --repository=<repository name> --branch=main
+
+Flags:
+  -h, --help                    help for github
+      --hostname string         GitHub hostname (default "github.com")
+      --interval duration       sync interval (default 1m0s)
+      --owner string            GitHub user or organization name
+      --path safeRelativePath   path relative to the repository root, when specified the cluster sync will be scoped to this path
+      --personal                if true, the owner is assumed to be a GitHub user; otherwise an org
+      --private                 if true, the repository is setup or configured as private (default true)
+      --read-write-key          if true, the deploy key is configured with read/write permissions
+      --reconcile               if true, the configured options are also reconciled if the repository already exists
+      --repository string       GitHub repository name
+      --team strings            GitHub team and the access to be given to it(team:maintain). Defaults to maintainer access if no access level is specified (also accepts comma-separated values)
+
+Global Flags:
+      --author-email string                    author email for Git commits
+      --author-name string                     author name for Git commits (default "Flux")
+      --branch string                          Git branch (default "main")
+      --ca-file string                         path to TLS CA file used for validating self-signed certificates
+      --cluster-domain string                  internal cluster domain (default "cluster.local")
+      --commit-message-appendix string         string to add to the commit messages, e.g. '[ci skip]'
+      --components strings                     list of components, accepts comma-separated values (default [source-controller,kustomize-controller,helm-controller,notification-controller])
+      --components-extra strings               list of components in addition to those supplied or defaulted, accepts comma-separated values
+      --context string                         kubernetes context to use
+      --gpg-key-id string                      key id for selecting a particular key
+      --gpg-key-ring string                    path to GPG key ring for signing commits
+      --gpg-passphrase string                  passphrase for decrypting GPG private key
+      --image-pull-secret string               Kubernetes secret name used for pulling the toolkit images from a private registry
+      --kubeconfig string                      absolute path to the kubeconfig file
+      --log-level logLevel                     log level, available options are: (debug, info, error) (default info)
+  -n, --namespace string                       the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --network-policy                         deny ingress access to the toolkit controllers from other namespaces using network policies (default true)
+      --private-key-file string                path to a private key file used for authenticating to the Git SSH server
+      --recurse-submodules                     when enabled, configures the GitRepository source to initialize and include Git submodules in the artifact it produces
+      --registry string                        container registry where the toolkit images are published (default "ghcr.io/fluxcd")
+      --secret-name string                     name of the secret the sync credentials can be found in or stored to (default "flux-system")
+      --ssh-ecdsa-curve ecdsaCurve             SSH ECDSA public key curve (p256, p384, p521) (default p384)
+      --ssh-hostname string                    SSH hostname, to be used when the SSH host differs from the HTTPS one
+      --ssh-key-algorithm publicKeyAlgorithm   SSH public key algorithm (rsa, ecdsa, ed25519) (default ecdsa)
+      --ssh-rsa-bits rsaKeyBits                SSH RSA public key bit size (multiplies of 8) (default 2048)
+      --timeout duration                       timeout for this operation (default 5m0s)
+      --token-auth                             when enabled, the personal access token will be used instead of SSH deploy key
+      --toleration-keys strings                list of toleration keys used to schedule the components pods onto nodes with matching taints
+      --verbose                                print generated objects
+  -v, --version string                         toolkit version, when specified the manifests are downloaded from https://github.com/fluxcd/flux2/releases
+      --watch-all-namespaces                   watch for custom resources in all namespaces, if set to false it will only watch the namespace where the toolkit is installed (default true)
+
+------------------------------------------------------------
+
+The bootstrap gitlab command creates the GitLab repository if it doesn't exists and
+commits the toolkit components manifests to the master branch.
+Then it configures the target cluster to synchronize with the repository.
+If the toolkit components are present on the cluster,
+the bootstrap command will perform an upgrade if needed.
+
+Usage:
+  flux bootstrap gitlab [flags]
+
+Examples:
+  # Create a GitLab API token and export it as an env var
+  export GITLAB_TOKEN=<my-token>
+
+  # Run bootstrap for a private repository using HTTPS token authentication
+  flux bootstrap gitlab --owner=<group> --repository=<repository name> --token-auth
+
+  # Run bootstrap for a private repository using SSH authentication
+  flux bootstrap gitlab --owner=<group> --repository=<repository name>
+
+  # Run bootstrap for a repository path
+  flux bootstrap gitlab --owner=<group> --repository=<repository name> --path=dev-cluster
+
+  # Run bootstrap for a public repository on a personal account
+  flux bootstrap gitlab --owner=<user> --repository=<repository name> --private=false --personal --token-auth
+
+  # Run bootstrap for a private repository hosted on a GitLab server
+  flux bootstrap gitlab --owner=<group> --repository=<repository name> --hostname=<domain> --token-auth
+
+  # Run bootstrap for a an existing repository with a branch named main
+  flux bootstrap gitlab --owner=<organization> --repository=<repository name> --branch=main --token-auth
+
+Flags:
+  -h, --help                    help for gitlab
+      --hostname string         GitLab hostname (default "gitlab.com")
+      --interval duration       sync interval (default 1m0s)
+      --owner string            GitLab user or group name
+      --path safeRelativePath   path relative to the repository root, when specified the cluster sync will be scoped to this path
+      --personal                if true, the owner is assumed to be a GitLab user; otherwise a group
+      --private                 if true, the repository is setup or configured as private (default true)
+      --read-write-key          if true, the deploy key is configured with read/write permissions
+      --reconcile               if true, the configured options are also reconciled if the repository already exists
+      --repository string       GitLab repository name
+      --team strings            GitLab teams to be given maintainer access (also accepts comma-separated values)
+
+Global Flags:
+      --author-email string                    author email for Git commits
+      --author-name string                     author name for Git commits (default "Flux")
+      --branch string                          Git branch (default "main")
+      --ca-file string                         path to TLS CA file used for validating self-signed certificates
+      --cluster-domain string                  internal cluster domain (default "cluster.local")
+      --commit-message-appendix string         string to add to the commit messages, e.g. '[ci skip]'
+      --components strings                     list of components, accepts comma-separated values (default [source-controller,kustomize-controller,helm-controller,notification-controller])
+      --components-extra strings               list of components in addition to those supplied or defaulted, accepts comma-separated values
+      --context string                         kubernetes context to use
+      --gpg-key-id string                      key id for selecting a particular key
+      --gpg-key-ring string                    path to GPG key ring for signing commits
+      --gpg-passphrase string                  passphrase for decrypting GPG private key
+      --image-pull-secret string               Kubernetes secret name used for pulling the toolkit images from a private registry
+      --kubeconfig string                      absolute path to the kubeconfig file
+      --log-level logLevel                     log level, available options are: (debug, info, error) (default info)
+  -n, --namespace string                       the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --network-policy                         deny ingress access to the toolkit controllers from other namespaces using network policies (default true)
+      --private-key-file string                path to a private key file used for authenticating to the Git SSH server
+      --recurse-submodules                     when enabled, configures the GitRepository source to initialize and include Git submodules in the artifact it produces
+      --registry string                        container registry where the toolkit images are published (default "ghcr.io/fluxcd")
+      --secret-name string                     name of the secret the sync credentials can be found in or stored to (default "flux-system")
+      --ssh-ecdsa-curve ecdsaCurve             SSH ECDSA public key curve (p256, p384, p521) (default p384)
+      --ssh-hostname string                    SSH hostname, to be used when the SSH host differs from the HTTPS one
+      --ssh-key-algorithm publicKeyAlgorithm   SSH public key algorithm (rsa, ecdsa, ed25519) (default ecdsa)
+      --ssh-rsa-bits rsaKeyBits                SSH RSA public key bit size (multiplies of 8) (default 2048)
+      --timeout duration                       timeout for this operation (default 5m0s)
+      --token-auth                             when enabled, the personal access token will be used instead of SSH deploy key
+      --toleration-keys strings                list of toleration keys used to schedule the components pods onto nodes with matching taints
+      --verbose                                print generated objects
+  -v, --version string                         toolkit version, when specified the manifests are downloaded from https://github.com/fluxcd/flux2/releases
+      --watch-all-namespaces                   watch for custom resources in all namespaces, if set to false it will only watch the namespace where the toolkit is installed (default true)
+
+------------------------------------------------------------
+
+The check command will perform a series of checks to validate that
+the local environment is configured correctly and if the installed components are healthy.
+
+Usage:
+  flux check [flags]
+
+Examples:
+  # Run pre-installation checks
+  flux check --pre
+
+  # Run installation checks
+  flux check
+
+Flags:
+      --components strings         list of components, accepts comma-separated values (default [source-controller,kustomize-controller,helm-controller,notification-controller])
+      --components-extra strings   list of components in addition to those supplied or defaulted, accepts comma-separated values
+  -h, --help                       help for check
+      --poll-interval duration     how often the health checker should poll the cluster for the latest state of the resources. (default 5s)
+      --pre                        only run pre-installation checks
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The completion sub-command generates completion scripts for various shells
+
+Usage:
+  flux completion [command]
+
+Available Commands:
+  bash        Generates bash completion scripts
+  fish        Generates fish completion scripts
+  powershell  Generates powershell completion scripts
+  zsh         Generates zsh completion scripts
+
+Flags:
+  -h, --help   help for completion
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux completion [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+Generates bash completion scripts
+
+Usage:
+  flux completion bash [flags]
+
+Examples:
+To load completion run
+
+. <(flux completion bash)
+
+To configure your bash shell to load completions for each session add to your bashrc
+
+# ~/.bashrc or ~/.profile
+command -v flux >/dev/null && . <(flux completion bash)
+
+Flags:
+  -h, --help   help for bash
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+Generates fish completion scripts
+
+Usage:
+  flux completion fish [flags]
+
+Examples:
+To configure your fish shell to load completions for each session write this script to your completions dir:
+
+flux completion fish > ~/.config/fish/completions/flux.fish
+
+See http://fishshell.com/docs/current/index.html#completion-own for more details
+
+Flags:
+  -h, --help   help for fish
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+Generates powershell completion scripts
+
+Usage:
+  flux completion powershell [flags]
+
+Examples:
+To load completion run
+
+. <(flux completion powershell)
+
+To configure your powershell shell to load completions for each session add to your powershell profile
+
+Windows:
+
+cd "$env:USERPROFILE\Documents\WindowsPowerShell\Modules"
+flux completion >> flux-completion.ps1
+
+Linux:
+
+cd "${XDG_CONFIG_HOME:-"$HOME/.config/"}/powershell/modules"
+flux completion >> flux-completions.ps1
+
+Flags:
+  -h, --help   help for powershell
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+Generates zsh completion scripts
+
+Usage:
+  flux completion zsh [flags]
+
+Examples:
+To load completion run
+
+. <(flux completion zsh)
+
+To configure your zsh shell to load completions for each session add to your zshrc
+
+# ~/.zshrc or ~/.profile
+command -v flux >/dev/null && . <(flux completion zsh)
+
+or write a cached file in one of the completion directories in your ${fpath}:
+
+echo "${fpath// /\n}" | grep -i completion
+flux completion zsh > _flux
+
+mv _flux ~/.oh-my-zsh/completions  # oh-my-zsh
+mv _flux ~/.zprezto/modules/completion/external/src/  # zprezto
+
+Flags:
+  -h, --help   help for zsh
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create sub-commands generate sources and resources.
+
+Usage:
+  flux create [command]
+
+Available Commands:
+  alert          Create or update a Alert resource
+  alert-provider Create or update a Provider resource
+  helmrelease    Create or update a HelmRelease resource
+  image          Create or update resources dealing with image automation
+  kustomization  Create or update a Kustomization resource
+  receiver       Create or update a Receiver resource
+  secret         Create or update Kubernetes secrets
+  source         Create or update sources
+  tenant         Create or update a tenant
+
+Flags:
+      --export              export in YAML format to stdout
+  -h, --help                help for create
+      --interval duration   source sync interval (default 1m0s)
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux create [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The create alert command generates a Alert resource.
+
+Usage:
+  flux create alert [name] [flags]
+
+Examples:
+  # Create an Alert for kustomization events
+  flux create alert \
+  --event-severity info \
+  --event-source Kustomization/flux-system \
+  --provider-ref slack \
+  flux-system
+
+Flags:
+      --event-severity string   severity of events to send alerts for
+      --event-source strings    sources that should generate alerts (<kind>/<name>), also accepts comma-separated values
+  -h, --help                    help for alert
+      --provider-ref string     reference to provider
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create alert-provider command generates a Provider resource.
+
+Usage:
+  flux create alert-provider [name] [flags]
+
+Examples:
+  # Create a Provider for a Slack channel
+  flux create alert-provider slack \
+  --type slack \
+  --channel general \
+  --address https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK \
+  --secret-ref webhook-url
+
+  # Create a Provider for a Github repository
+  flux create alert-provider github-podinfo \
+  --type github \
+  --address https://github.com/stefanprodan/podinfo \
+  --secret-ref github-token
+
+Flags:
+      --address string      path to either the git repository, chat provider or webhook
+      --channel string      channel to send messages to in the case of a chat provider
+  -h, --help                help for alert-provider
+      --secret-ref string   name of secret containing authentication token
+      --type string         type of provider
+      --username string     bot username used by the provider
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The helmrelease create command generates a HelmRelease resource for a given HelmRepository source.
+
+Usage:
+  flux create helmrelease [name] [flags]
+
+Aliases:
+  helmrelease, hr
+
+Examples:
+  # Create a HelmRelease with a chart from a HelmRepository source
+  flux create hr podinfo \
+    --interval=10m \
+    --source=HelmRepository/podinfo \
+    --chart=podinfo \
+    --chart-version=">4.0.0"
+
+  # Create a HelmRelease with a chart from a GitRepository source
+  flux create hr podinfo \
+    --interval=10m \
+    --source=GitRepository/podinfo \
+    --chart=./charts/podinfo
+
+  # Create a HelmRelease with a chart from a Bucket source
+  flux create hr podinfo \
+    --interval=10m \
+    --source=Bucket/podinfo \
+    --chart=./charts/podinfo
+
+  # Create a HelmRelease with values from local YAML files
+  flux create hr podinfo \
+    --source=HelmRepository/podinfo \
+    --chart=podinfo \
+    --values=./my-values1.yaml \
+    --values=./my-values2.yaml
+
+  # Create a HelmRelease with values from a Kubernetes secret
+  kubectl -n app create secret generic my-secret-values \
+	--from-file=values.yaml=/path/to/my-secret-values.yaml
+  flux -n app create hr podinfo \
+    --source=HelmRepository/podinfo \
+    --chart=podinfo \
+    --values-from=Secret/my-secret-values
+
+  # Create a HelmRelease with a custom release name
+  flux create hr podinfo \
+    --release-name=podinfo-dev
+    --source=HelmRepository/podinfo \
+    --chart=podinfo \
+
+  # Create a HelmRelease targeting another namespace than the resource
+  flux create hr podinfo \
+    --target-namespace=test \
+    --create-target-namespace=true \
+    --source=HelmRepository/podinfo \
+    --chart=podinfo
+
+  # Create a HelmRelease using a source from a different namespace
+  flux create hr podinfo \
+    --namespace=default \
+    --source=HelmRepository/podinfo.flux-system \
+    --chart=podinfo
+
+  # Create a HelmRelease definition on disk without applying it on the cluster
+  flux create hr podinfo \
+    --source=HelmRepository/podinfo \
+    --chart=podinfo \
+    --values=./values.yaml \
+    --export > podinfo-release.yaml
+
+Flags:
+      --chart string                        Helm chart name or path
+      --chart-version string                Helm chart version, accepts a semver range (ignored for charts from GitRepository sources)
+      --crds crds                           upgrade CRDs policy, available options are: (Skip, Create, CreateReplace)
+      --create-target-namespace             create the target namespace if it does not exist
+      --depends-on strings                  HelmReleases that must be ready before this release can be installed, supported formats '<name>' and '<namespace>/<name>'
+  -h, --help                                help for helmrelease
+      --release-name string                 name used for the Helm release, defaults to a composition of '[<target-namespace>-]<HelmRelease-name>'
+      --service-account string              the name of the service account to impersonate when reconciling this HelmRelease
+      --source helmChartSource              source that contains the chart in the format '<kind>/<name>.<namespace>', where kind must be one of: (HelmRepository, GitRepository, Bucket)
+      --target-namespace string             namespace to install this release, defaults to the HelmRelease namespace
+      --values strings                      local path to values.yaml files, also accepts comma-separated values
+      --values-from helmReleaseValuesFrom   Kubernetes object reference that contains the values.yaml data key in the format '<kind>/<name>', where kind must be one of: (Secret, ConfigMap)
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create image sub-commands work with image automation objects; that is,
+object controlling updates to git based on e.g., new container images
+being available.
+
+Usage:
+  flux create image [command]
+
+Available Commands:
+  policy      Create or update an ImagePolicy object
+  repository  Create or update an ImageRepository object
+  update      Create or update an ImageUpdateAutomation object
+
+Flags:
+  -h, --help   help for image
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux create image [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The create image policy command generates an ImagePolicy resource.
+An ImagePolicy object calculates a "latest image" given an image
+repository and a policy, e.g., semver.
+
+The image that sorts highest according to the policy is recorded in
+the status of the object.
+
+Usage:
+  flux create image policy [name] [flags]
+
+Examples:
+  # Create an ImagePolicy to select the latest stable release
+  flux create image policy podinfo \
+    --image-ref=podinfo \
+    --select-semver=">=1.0.0"
+
+  # Create an ImagePolicy to select the latest main branch build tagged as "${GIT_BRANCH}-${GIT_SHA:0:7}-$(date +%s)"
+  flux create image policy podinfo \
+    --image-ref=podinfo \
+    --select-numeric=asc \
+	--filter-regex='^main-[a-f0-9]+-(?P<ts>[0-9]+)' \
+	--filter-extract='$ts'
+
+Flags:
+      --filter-extract string   replacement pattern (using capture groups from --filter-regex) to use for sorting
+      --filter-regex string     regular expression pattern used to filter the image tags
+  -h, --help                    help for policy
+      --image-ref string        the name of an image repository object
+      --select-alpha string     use alphabetical sorting to select image; either "asc" meaning select the last, or "desc" meaning select the first
+      --select-numeric string   use numeric sorting to select image; either "asc" meaning select the last, or "desc" meaning select the first
+      --select-semver string    a semver range to apply to tags; e.g., '1.x'
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create image repository command generates an ImageRepository resource.
+An ImageRepository object specifies an image repository to scan.
+
+Usage:
+  flux create image repository [name] [flags]
+
+Examples:
+  # Create an ImageRepository object to scan the alpine image repository:
+  flux create image repository alpine-repo --image alpine --interval 20m
+
+  # Create an image repository that uses an image pull secret (assumed to
+  # have been created already):
+  flux create image repository myapp-repo \
+    --secret-ref image-pull \
+    --image ghcr.io/example.com/myapp --interval 5m
+
+  # Create a TLS secret for a local image registry using a self-signed
+  # host certificate, and use it to scan an image. ca.pem is a file
+  # containing the CA certificate used to sign the host certificate.
+  flux create secret tls local-registry-cert --ca-file ./ca.pem
+  flux create image repository app-repo \
+    --cert-secret-ref local-registry-cert \
+    --image local-registry:5000/app --interval 5m
+
+  # Create a TLS secret with a client certificate and key, and use it
+  # to scan a private image registry.
+  flux create secret tls client-cert \
+    --cert-file client.crt --key-file client.key
+  flux create image repository app-repo \
+    --cert-secret-ref client-cert \
+    --image registry.example.com/private/app --interval 5m
+
+Flags:
+      --cert-ref string         the name of a secret to use for TLS certificates
+  -h, --help                    help for repository
+      --image string            the image repository to scan; e.g., library/alpine
+      --scan-timeout duration   a timeout for scanning; this defaults to the interval if not set
+      --secret-ref string       the name of a docker-registry secret to use for credentials
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create image update command generates an ImageUpdateAutomation resource.
+An ImageUpdateAutomation object specifies an automated update to images
+mentioned in YAMLs in a git repository.
+
+Usage:
+  flux create image update [name] [flags]
+
+Examples:
+  # Configure image updates for the main repository created by flux bootstrap
+  flux create image update flux-system \
+    --git-repo-ref=flux-system \
+    --git-repo-path="./clusters/my-cluster" \
+    --checkout-branch=main \
+    --author-name=flux \
+    --author-email=flux@example.com \
+    --commit-template="{{range .Updated.Images}}{{println .}}{{end}}"
+
+  # Configure image updates to push changes to a different branch, if the branch doesn't exists it will be created
+  flux create image update flux-system \
+    --git-repo-ref=flux-system \
+    --git-repo-path="./clusters/my-cluster" \
+    --checkout-branch=main \
+    --push-branch=image-updates \
+    --author-name=flux \
+    --author-email=flux@example.com \
+    --commit-template="{{range .Updated.Images}}{{println .}}{{end}}"
+
+Flags:
+      --author-email string      the email to use for commit author
+      --author-name string       the name to use for commit author
+      --checkout-branch string   the branch to checkout
+      --commit-template string   a template for commit messages
+      --git-repo-path string     path to the directory containing the manifests to be updated, defaults to the repository root
+      --git-repo-ref string      the name of a GitRepository resource with details of the upstream Git repository
+  -h, --help                     help for update
+      --push-branch string       the branch to push commits to, defaults to the checkout branch if not specified
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The kustomization source create command generates a Kustomize resource for a given source.
+
+Usage:
+  flux create kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks
+
+Examples:
+  # Create a Kustomization resource from a source at a given path
+  flux create kustomization contour \
+    --source=GitRepository/contour \
+    --path="./examples/contour/" \
+    --prune=true \
+    --interval=10m \
+    --health-check="Deployment/contour.projectcontour" \
+    --health-check="DaemonSet/envoy.projectcontour" \
+    --health-check-timeout=3m
+
+  # Create a Kustomization resource that depends on the previous one
+  flux create kustomization webapp \
+    --depends-on=contour \
+    --source=GitRepository/webapp \
+    --path="./deploy/overlays/dev" \
+    --prune=true \
+    --interval=5m
+
+  # Create a Kustomization using a source from a different namespace
+  flux create kustomization podinfo \
+    --namespace=default \
+    --source=GitRepository/podinfo.flux-system \
+    --path="./deploy/overlays/dev" \
+    --prune=true \
+    --interval=5m
+
+  # Create a Kustomization resource that references a Bucket
+  flux create kustomization secrets \
+    --source=Bucket/secrets \
+    --prune=true \
+    --interval=5m
+
+Flags:
+      --decryption-provider decryptionProvider   decryption provider, available options are: (sops)
+      --decryption-secret string                 set the Kubernetes secret name that contains the OpenPGP private keys used for sops decryption
+      --depends-on strings                       Kustomization that must be ready before this Kustomization can be applied, supported formats '<name>' and '<namespace>/<name>', also accepts comma-separated values
+      --health-check strings                     workload to be included in the health assessment, in the format '<kind>/<name>.<namespace>'
+      --health-check-timeout duration            timeout of health checking operations (default 2m0s)
+  -h, --help                                     help for kustomization
+      --path safeRelativePath                    path to the directory containing a kustomization.yaml file (default ./)
+      --prune                                    enable garbage collection
+      --service-account string                   the name of the service account to impersonate when reconciling this Kustomization
+      --source kustomizationSource               source that contains the Kubernetes manifests in the format '[<kind>/]<name>.<namespace>', where kind must be one of: (GitRepository, Bucket), if kind is not specified it defaults to GitRepository
+      --target-namespace string                  overrides the namespace of all Kustomization objects reconciled by this Kustomization
+      --wait                                     enable health checking of all the applied resources
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create receiver command generates a Receiver resource.
+
+Usage:
+  flux create receiver [name] [flags]
+
+Examples:
+  # Create a Receiver
+  flux create receiver github-receiver \
+	--type github \
+	--event ping \
+	--event push \
+	--secret-ref webhook-token \
+	--resource GitRepository/webapp \
+	--resource HelmRepository/webapp
+
+Flags:
+      --event strings       also accepts comma-separated values
+  -h, --help                help for receiver
+      --resource strings    also accepts comma-separated values
+      --secret-ref string   
+      --type string
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create source sub-commands generate Kubernetes secrets specific to Flux.
+
+Usage:
+  flux create secret [command]
+
+Available Commands:
+  git         Create or update a Kubernetes secret for Git authentication
+  helm        Create or update a Kubernetes secret for Helm repository authentication
+  tls         Create or update a Kubernetes secret with TLS certificates
+
+Flags:
+  -h, --help   help for secret
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux create secret [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The create secret git command generates a Kubernetes secret with Git credentials.
+For Git over SSH, the host and SSH keys are automatically generated and stored in the secret.
+For Git over HTTP/S, the provided basic authentication credentials are stored in the secret.
+
+Usage:
+  flux create secret git [name] [flags]
+
+Examples:
+  # Create a Git SSH authentication secret using an ECDSA P-521 curve public key
+
+  flux create secret git podinfo-auth \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --ssh-key-algorithm=ecdsa \
+    --ssh-ecdsa-curve=p521
+
+  # Create a Git SSH authentication secret with a passwordless private key from file
+  # The public SSH host key will still be gathered from the host
+  flux create secret git podinfo-auth \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --private-key-file=./private.key
+
+  # Create a Git SSH authentication secret with a passworded private key from file
+  # The public SSH host key will still be gathered from the host
+  flux create secret git podinfo-auth \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --private-key-file=./private.key \
+    --password=<password>
+
+  # Create a secret for a Git repository using basic authentication
+  flux create secret git podinfo-auth \
+    --url=https://github.com/stefanprodan/podinfo \
+    --username=username \
+    --password=password
+
+  # Create a Git SSH secret on disk
+  flux create secret git podinfo-auth \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --export > podinfo-auth.yaml
+
+  # Print the deploy key
+  yq eval '.stringData."identity.pub"' podinfo-auth.yaml
+
+  # Encrypt the secret on disk with Mozilla SOPS
+  sops --encrypt --encrypted-regex '^(data|stringData)$' \
+    --in-place podinfo-auth.yaml
+
+Flags:
+      --ca-file string                         path to TLS CA file used for validating self-signed certificates
+  -h, --help                                   help for git
+  -p, --password string                        basic authentication password
+      --private-key-file string                path to a passwordless private key file used for authenticating to the Git SSH server
+      --ssh-ecdsa-curve ecdsaCurve             SSH ECDSA public key curve (p256, p384, p521) (default p384)
+      --ssh-key-algorithm publicKeyAlgorithm   SSH public key algorithm (rsa, ecdsa, ed25519) (default ecdsa)
+      --ssh-rsa-bits rsaKeyBits                SSH RSA public key bit size (multiplies of 8) (default 2048)
+      --url string                             git address, e.g. ssh://git@host/org/repository
+  -u, --username string                        basic authentication username
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create secret helm command generates a Kubernetes secret with basic authentication credentials.
+
+Usage:
+  flux create secret helm [name] [flags]
+
+Examples:
+ # Create a Helm authentication secret on disk and encrypt it with Mozilla SOPS
+  flux create secret helm repo-auth \
+    --namespace=my-namespace \
+    --username=my-username \
+    --password=my-password \
+    --export > repo-auth.yaml
+
+  sops --encrypt --encrypted-regex '^(data|stringData)$' \
+    --in-place repo-auth.yaml
+
+  # Create a Helm authentication secret using a custom TLS cert
+  flux create secret helm repo-auth \
+    --username=username \
+    --password=password \
+    --cert-file=./cert.crt \
+    --key-file=./key.crt \
+    --ca-file=./ca.crt
+
+Flags:
+      --ca-file string     TLS authentication CA file path
+      --cert-file string   TLS authentication cert file path
+  -h, --help               help for helm
+      --key-file string    TLS authentication key file path
+  -p, --password string    basic authentication password
+  -u, --username string    basic authentication username
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create secret tls command generates a Kubernetes secret with certificates for use with TLS.
+
+Usage:
+  flux create secret tls [name] [flags]
+
+Examples:
+ # Create a TLS secret on disk and encrypt it with Mozilla SOPS.
+  # Files are expected to be PEM-encoded.
+  flux create secret tls certs \
+    --namespace=my-namespace \
+    --cert-file=./client.crt \
+    --key-file=./client.key \
+    --export > certs.yaml
+
+  sops --encrypt --encrypted-regex '^(data|stringData)$' \
+    --in-place certs.yaml
+
+Flags:
+      --ca-file string     TLS authentication CA file path
+      --cert-file string   TLS authentication cert file path
+  -h, --help               help for tls
+      --key-file string    TLS authentication key file path
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The create source sub-commands generate sources.
+
+Usage:
+  flux create source [command]
+
+Available Commands:
+  bucket      Create or update a Bucket source
+  git         Create or update a GitRepository source
+  helm        Create or update a HelmRepository source
+
+Flags:
+      --fetch-timeout duration   set a timeout for fetch operations performed by source-controller (e.g. 'git clone' or 'helm repo update')
+  -h, --help                     help for source
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux create source [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The create source bucket command generates a Bucket resource and waits for it to be downloaded.
+For Buckets with static authentication, the credentials are stored in a Kubernetes secret.
+
+Usage:
+  flux create source bucket [name] [flags]
+
+Examples:
+  # Create a source for a Bucket using static authentication
+  flux create source bucket podinfo \
+	--bucket-name=podinfo \
+    --endpoint=minio.minio.svc.cluster.local:9000 \
+	--insecure=true \
+	--access-key=myaccesskey \
+	--secret-key=mysecretkey \
+    --interval=10m
+
+  # Create a source for an Amazon S3 Bucket using IAM authentication
+  flux create source bucket podinfo \
+	--bucket-name=podinfo \
+	--provider=aws \
+    --endpoint=s3.amazonaws.com \
+	--region=us-east-1 \
+    --interval=10m
+
+Flags:
+      --access-key string               the bucket access key
+      --bucket-name string              the bucket name
+      --endpoint string                 the bucket endpoint address
+  -h, --help                            help for bucket
+      --insecure                        for when connecting to a non-TLS S3 HTTP endpoint
+      --provider sourceBucketProvider   the S3 compatible storage provider name, available options are: (generic, aws) (default generic)
+      --region string                   the bucket region
+      --secret-key string               the bucket secret key
+      --secret-ref string               the name of an existing secret containing credentials
+
+Global Flags:
+      --context string           kubernetes context to use
+      --export                   export in YAML format to stdout
+      --fetch-timeout duration   set a timeout for fetch operations performed by source-controller (e.g. 'git clone' or 'helm repo update')
+      --interval duration        source sync interval (default 1m0s)
+      --kubeconfig string        absolute path to the kubeconfig file
+      --label strings            set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+
+------------------------------------------------------------
+
+The create source git command generates a GitRepository resource and waits for it to sync.
+For Git over SSH, host and SSH keys are automatically generated and stored in a Kubernetes secret.
+For private Git repositories, the basic authentication credentials are stored in a Kubernetes secret.
+
+Usage:
+  flux create source git [name] [flags]
+
+Examples:
+  # Create a source from a public Git repository master branch
+  flux create source git podinfo \
+    --url=https://github.com/stefanprodan/podinfo \
+    --branch=master
+
+  # Create a source for a Git repository pinned to specific git tag
+  flux create source git podinfo \
+    --url=https://github.com/stefanprodan/podinfo \
+    --tag="3.2.3"
+
+  # Create a source from a public Git repository tag that matches a semver range
+  flux create source git podinfo \
+    --url=https://github.com/stefanprodan/podinfo \
+    --tag-semver=">=3.2.0 <3.3.0"
+
+  # Create a source for a Git repository using SSH authentication
+  flux create source git podinfo \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --branch=master
+
+  # Create a source for a Git repository using SSH authentication and an
+  # ECDSA P-521 curve public key
+  flux create source git podinfo \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --branch=master \
+    --ssh-key-algorithm=ecdsa \
+    --ssh-ecdsa-curve=p521
+
+  # Create a source for a Git repository using SSH authentication and a
+  #	passwordless private key from file
+  # The public SSH host key will still be gathered from the host
+  flux create source git podinfo \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --branch=master \
+    --private-key-file=./private.key
+
+  # Create a source for a Git repository using SSH authentication and a
+  # private key with a password from file
+  # The public SSH host key will still be gathered from the host
+  flux create source git podinfo \
+    --url=ssh://git@github.com/stefanprodan/podinfo \
+    --branch=master \
+    --private-key-file=./private.key \
+    --password=<password>
+
+  # Create a source for a Git repository using basic authentication
+  flux create source git podinfo \
+    --url=https://github.com/stefanprodan/podinfo \
+    --username=username \
+    --password=password
+
+Flags:
+      --branch string                          git branch
+      --ca-file string                         path to TLS CA file used for validating self-signed certificates
+      --git-implementation gitImplementation   the Git implementation to use, available options are: (go-git, libgit2)
+  -h, --help                                   help for git
+  -p, --password string                        basic authentication password
+      --private-key-file string                path to a passwordless private key file used for authenticating to the Git SSH server
+      --recurse-submodules                     when enabled, configures the GitRepository source to initialize and include Git submodules in the artifact it produces
+      --secret-ref string                      the name of an existing secret containing SSH or basic credentials
+  -s, --silent                                 assumes the deploy key is already setup, skips confirmation
+      --ssh-ecdsa-curve ecdsaCurve             SSH ECDSA public key curve (p256, p384, p521) (default p384)
+      --ssh-key-algorithm publicKeyAlgorithm   SSH public key algorithm (rsa, ecdsa, ed25519) (default ecdsa)
+      --ssh-rsa-bits rsaKeyBits                SSH RSA public key bit size (multiplies of 8) (default 2048)
+      --tag string                             git tag
+      --tag-semver string                      git tag semver range
+      --url string                             git address, e.g. ssh://git@host/org/repository
+  -u, --username string                        basic authentication username
+
+Global Flags:
+      --context string           kubernetes context to use
+      --export                   export in YAML format to stdout
+      --fetch-timeout duration   set a timeout for fetch operations performed by source-controller (e.g. 'git clone' or 'helm repo update')
+      --interval duration        source sync interval (default 1m0s)
+      --kubeconfig string        absolute path to the kubeconfig file
+      --label strings            set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+
+------------------------------------------------------------
+
+The create source helm command generates a HelmRepository resource and waits for it to fetch the index.
+For private Helm repositories, the basic authentication credentials are stored in a Kubernetes secret.
+
+Usage:
+  flux create source helm [name] [flags]
+
+Examples:
+  # Create a source for a public Helm repository
+  flux create source helm podinfo \
+    --url=https://stefanprodan.github.io/podinfo \
+    --interval=10m
+
+  # Create a source for a Helm repository using basic authentication
+  flux create source helm podinfo \
+    --url=https://stefanprodan.github.io/podinfo \
+    --username=username \
+    --password=password
+
+  # Create a source for a Helm repository using TLS authentication
+  flux create source helm podinfo \
+    --url=https://stefanprodan.github.io/podinfo \
+    --cert-file=./cert.crt \
+    --key-file=./key.crt \
+    --ca-file=./ca.crt
+
+Flags:
+      --ca-file string      TLS authentication CA file path
+      --cert-file string    TLS authentication cert file path
+  -h, --help                help for helm
+      --key-file string     TLS authentication key file path
+      --pass-credentials    pass credentials to all domains
+  -p, --password string     basic authentication password
+      --secret-ref string   the name of an existing secret containing TLS or basic auth credentials
+      --url string          Helm repository address
+  -u, --username string     basic authentication username
+
+Global Flags:
+      --context string           kubernetes context to use
+      --export                   export in YAML format to stdout
+      --fetch-timeout duration   set a timeout for fetch operations performed by source-controller (e.g. 'git clone' or 'helm repo update')
+      --interval duration        source sync interval (default 1m0s)
+      --kubeconfig string        absolute path to the kubeconfig file
+      --label strings            set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+
+------------------------------------------------------------
+
+The create tenant command generates namespaces, service accounts and role bindings to limit the
+reconcilers scope to the tenant namespaces.
+
+Usage:
+  flux create tenant [flags]
+
+Examples:
+  # Create a tenant with access to a namespace 
+  flux create tenant dev-team \
+    --with-namespace=frontend \
+    --label=environment=dev
+
+  # Generate tenant namespaces and role bindings in YAML format
+  flux create tenant dev-team \
+    --with-namespace=frontend \
+    --with-namespace=backend \
+	--export > dev-team.yaml
+
+Flags:
+      --cluster-role string      cluster role of the tenant role binding (default "cluster-admin")
+  -h, --help                     help for tenant
+      --with-namespace strings   namespace belonging to this tenant
+
+Global Flags:
+      --context string      kubernetes context to use
+      --export              export in YAML format to stdout
+      --interval duration   source sync interval (default 1m0s)
+      --kubeconfig string   absolute path to the kubeconfig file
+      --label strings       set labels on the resource (can specify multiple labels with commas: label1=value1,label2=value2)
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete sub-commands delete sources and resources.
+
+Usage:
+  flux delete [command]
+
+Available Commands:
+  alert          Delete a Alert resource
+  alert-provider Delete a Provider resource
+  helmrelease    Delete a HelmRelease resource
+  image          Delete image automation objects
+  kustomization  Delete a Kustomization resource
+  receiver       Delete a Receiver resource
+  source         Delete sources
+
+Flags:
+  -h, --help     help for delete
+  -s, --silent   delete resource without asking for confirmation
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux delete [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The delete alert command removes the given Alert from the cluster.
+
+Usage:
+  flux delete alert [name] [flags]
+
+Examples:
+  # Delete an Alert and the Kubernetes resources created by it
+  flux delete alert main
+
+Flags:
+  -h, --help   help for alert
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete alert-provider command removes the given Provider from the cluster.
+
+Usage:
+  flux delete alert-provider [name] [flags]
+
+Examples:
+  # Delete a Provider and the Kubernetes resources created by it
+  flux delete alert-provider slack
+
+Flags:
+  -h, --help   help for alert-provider
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete helmrelease command removes the given HelmRelease from the cluster.
+
+Usage:
+  flux delete helmrelease [name] [flags]
+
+Aliases:
+  helmrelease, hr
+
+Examples:
+  # Delete a Helm release and the Kubernetes resources created by it
+  flux delete hr podinfo
+
+Flags:
+  -h, --help   help for helmrelease
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete image sub-commands delete image automation objects.
+
+Usage:
+  flux delete image [command]
+
+Available Commands:
+  policy      Delete an ImagePolicy object
+  repository  Delete an ImageRepository object
+  update      Delete an ImageUpdateAutomation object
+
+Flags:
+  -h, --help   help for image
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux delete image [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The delete image policy command deletes the given ImagePolicy from the cluster.
+
+Usage:
+  flux delete image policy [name] [flags]
+
+Examples:
+  # Delete an image policy
+  flux delete image policy alpine3.x
+
+Flags:
+  -h, --help   help for policy
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete image repository command deletes the given ImageRepository from the cluster.
+
+Usage:
+  flux delete image repository [name] [flags]
+
+Examples:
+  # Delete an image repository
+  flux delete image repository alpine
+
+Flags:
+  -h, --help   help for repository
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete image update command deletes the given ImageUpdateAutomation from the cluster.
+
+Usage:
+  flux delete image update [name] [flags]
+
+Examples:
+  # Delete an image update automation
+  flux delete image update latest-images
+
+Flags:
+  -h, --help   help for update
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete kustomization command deletes the given Kustomization from the cluster.
+
+Usage:
+  flux delete kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks
+
+Examples:
+  # Delete a kustomization and the Kubernetes resources created by it
+  flux delete kustomization podinfo
+
+Flags:
+  -h, --help   help for kustomization
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete receiver command removes the given Receiver from the cluster.
+
+Usage:
+  flux delete receiver [name] [flags]
+
+Examples:
+  # Delete an Receiver and the Kubernetes resources created by it
+  flux delete receiver main
+
+Flags:
+  -h, --help   help for receiver
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete source sub-commands delete sources.
+
+Usage:
+  flux delete source [command]
+
+Available Commands:
+  bucket      Delete a Bucket source
+  git         Delete a GitRepository source
+  helm        Delete a HelmRepository source
+
+Flags:
+  -h, --help   help for source
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux delete source [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The delete source bucket command deletes the given Bucket from the cluster.
+
+Usage:
+  flux delete source bucket [name] [flags]
+
+Examples:
+  # Delete a Bucket source
+  flux delete source bucket podinfo
+
+Flags:
+  -h, --help   help for bucket
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete source git command deletes the given GitRepository from the cluster.
+
+Usage:
+  flux delete source git [name] [flags]
+
+Examples:
+  # Delete a Git repository
+  flux delete source git podinfo
+
+Flags:
+  -h, --help   help for git
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The delete source helm command deletes the given HelmRepository from the cluster.
+
+Usage:
+  flux delete source helm [name] [flags]
+
+Examples:
+  # Delete a Helm repository
+  flux delete source helm podinfo
+
+Flags:
+  -h, --help   help for helm
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+  -s, --silent              delete resource without asking for confirmation
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export sub-commands export resources in YAML format.
+
+Usage:
+  flux export [command]
+
+Available Commands:
+  alert          Export Alert resources in YAML format
+  alert-provider Export Provider resources in YAML format
+  helmrelease    Export HelmRelease resources in YAML format
+  image          Export image automation objects
+  kustomization  Export Kustomization resources in YAML format
+  receiver       Export Receiver resources in YAML format
+  source         Export sources
+
+Flags:
+      --all    select all resources
+  -h, --help   help for export
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux export [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The export alert command exports one or all Alert resources in YAML format.
+
+Usage:
+  flux export alert [name] [flags]
+
+Examples:
+  # Export all Alert resources
+  flux export alert --all > alerts.yaml
+
+  # Export a Alert
+  flux export alert main > main.yaml
+
+Flags:
+  -h, --help   help for alert
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export alert-provider command exports one or all Provider resources in YAML format.
+
+Usage:
+  flux export alert-provider [name] [flags]
+
+Examples:
+  # Export all Provider resources
+  flux export alert-provider --all > alert-providers.yaml
+
+  # Export a Provider
+  flux export alert-provider slack > slack.yaml
+
+Flags:
+  -h, --help   help for alert-provider
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export helmrelease command exports one or all HelmRelease resources in YAML format.
+
+Usage:
+  flux export helmrelease [name] [flags]
+
+Aliases:
+  helmrelease, hr
+
+Examples:
+  # Export all HelmRelease resources
+  flux export helmrelease --all > kustomizations.yaml
+
+  # Export a HelmRelease
+  flux export hr my-app > app-release.yaml
+
+Flags:
+  -h, --help   help for helmrelease
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export image sub-commands export image automation objects in YAML format.
+
+Usage:
+  flux export image [command]
+
+Available Commands:
+  policy      Export ImagePolicy resources in YAML format
+  repository  Export ImageRepository resources in YAML format
+  update      Export ImageUpdateAutomation resources in YAML format
+
+Flags:
+  -h, --help   help for image
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux export image [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The export image policy command exports one or all ImagePolicy resources in YAML format.
+
+Usage:
+  flux export image policy [name] [flags]
+
+Examples:
+  # Export all ImagePolicy resources
+  flux export image policy --all > image-policies.yaml
+
+  # Export a specific policy
+  flux export image policy alpine1x > alpine1x.yaml
+
+Flags:
+  -h, --help   help for policy
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export image repository command exports one or all ImageRepository resources in YAML format.
+
+Usage:
+  flux export image repository [name] [flags]
+
+Examples:
+  # Export all ImageRepository resources
+  flux export image repository --all > image-repositories.yaml
+
+  # Export a specific ImageRepository resource
+  flux export image repository alpine > alpine.yaml
+
+Flags:
+  -h, --help   help for repository
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export image update command exports one or all ImageUpdateAutomation resources in YAML format.
+
+Usage:
+  flux export image update [name] [flags]
+
+Examples:
+  # Export all ImageUpdateAutomation resources
+  flux export image update --all > updates.yaml
+
+  # Export a specific automation
+  flux export image update latest-images > latest.yaml
+
+Flags:
+  -h, --help   help for update
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export kustomization command exports one or all Kustomization resources in YAML format.
+
+Usage:
+  flux export kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks
+
+Examples:
+  # Export all Kustomization resources
+  flux export kustomization --all > kustomizations.yaml
+
+  # Export a Kustomization
+  flux export kustomization my-app > kustomization.yaml
+
+Flags:
+  -h, --help   help for kustomization
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export receiver command exports one or all Receiver resources in YAML format.
+
+Usage:
+  flux export receiver [name] [flags]
+
+Examples:
+  # Export all Receiver resources
+  flux export receiver --all > receivers.yaml
+
+  # Export a Receiver
+  flux export receiver main > main.yaml
+
+Flags:
+  -h, --help   help for receiver
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The export source sub-commands export sources in YAML format.
+
+Usage:
+  flux export source [command]
+
+Available Commands:
+  bucket      Export Bucket sources in YAML format
+  git         Export GitRepository sources in YAML format
+  helm        Export HelmRepository sources in YAML format
+
+Flags:
+  -h, --help               help for source
+      --with-credentials   include credential secrets
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux export source [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The export source git command exports one or all Bucket sources in YAML format.
+
+Usage:
+  flux export source bucket [name] [flags]
+
+Examples:
+  # Export all Bucket sources
+  flux export source bucket --all > sources.yaml
+
+  # Export a Bucket source including the static credentials
+  flux export source bucket my-bucket --with-credentials > source.yaml
+
+Flags:
+  -h, --help   help for bucket
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+      --with-credentials    include credential secrets
+
+------------------------------------------------------------
+
+The export source git command exports one or all GitRepository sources in YAML format.
+
+Usage:
+  flux export source git [name] [flags]
+
+Examples:
+  # Export all GitRepository sources
+  flux export source git --all > sources.yaml
+
+  # Export a GitRepository source including the SSH key pair or basic auth credentials
+  flux export source git my-private-repo --with-credentials > source.yaml
+
+Flags:
+  -h, --help   help for git
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+      --with-credentials    include credential secrets
+
+------------------------------------------------------------
+
+The export source git command exports one or all HelmRepository sources in YAML format.
+
+Usage:
+  flux export source helm [name] [flags]
+
+Examples:
+  # Export all HelmRepository sources
+  flux export source helm --all > sources.yaml
+
+  # Export a HelmRepository source including the basic auth credentials
+  flux export source helm my-private-repo --with-credentials > source.yaml
+
+Flags:
+  -h, --help   help for helm
+
+Global Flags:
+      --all                 select all resources
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+      --with-credentials    include credential secrets
+
+------------------------------------------------------------
+
+The get sub-commands print the statuses of Flux resources.
+
+Usage:
+  flux get [command]
+
+Available Commands:
+  alert-providers Get Provider statuses
+  alerts          Get Alert statuses
+  all             Get all resources and statuses
+  helmreleases    Get HelmRelease statuses
+  images          Get image automation object status
+  kustomizations  Get Kustomization statuses
+  receivers       Get Receiver statuses
+  sources         Get source statuses
+
+Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+  -h, --help                     help for get
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux get [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The get alert-provider command prints the statuses of the resources.
+
+Usage:
+  flux get alert-providers [flags]
+
+Aliases:
+  alert-providers, alert-provider
+
+Examples:
+  # List all Providers and their status
+  flux get alert-providers
+
+Flags:
+  -h, --help   help for alert-providers
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get alert command prints the statuses of the resources.
+
+Usage:
+  flux get alerts [flags]
+
+Aliases:
+  alerts, alert
+
+Examples:
+  # List all Alerts and their status
+  flux get alerts
+
+Flags:
+  -h, --help   help for alerts
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get all command print the statuses of all resources.
+
+Usage:
+  flux get all [flags]
+
+Examples:
+  # List all resources in a namespace
+  flux get all --namespace=flux-system
+
+  # List all resources in all namespaces
+  flux get all --all-namespaces
+
+Flags:
+  -h, --help   help for all
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get helmreleases command prints the statuses of the resources.
+
+Usage:
+  flux get helmreleases [flags]
+
+Aliases:
+  helmreleases, hr, helmrelease
+
+Examples:
+  # List all Helm releases and their status
+  flux get helmreleases
+
+Flags:
+  -h, --help   help for helmreleases
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get image sub-commands print the status of image automation objects.
+
+Usage:
+  flux get images [flags]
+  flux get images [command]
+
+Aliases:
+  images, image
+
+Available Commands:
+  all         Get all image statuses
+  policy      Get ImagePolicy status
+  repository  Get ImageRepository status
+  update      Get ImageUpdateAutomation status
+
+Flags:
+  -h, --help   help for images
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+Use "flux get images [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The get image sub-commands print the statuses of all image objects.
+
+Usage:
+  flux get images all [flags]
+
+Examples:
+  # List all image objects in a namespace
+  flux get images all --namespace=flux-system
+
+  # List all image objects in all namespaces
+  flux get images all --all-namespaces
+
+Flags:
+  -h, --help   help for all
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get image policy command prints the status of ImagePolicy objects.
+
+Usage:
+  flux get images policy [flags]
+
+Examples:
+  # List all image policies and their status
+  flux get image policy
+
+ # List image policies from all namespaces
+  flux get image policy --all-namespaces
+
+Flags:
+  -h, --help   help for policy
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get image repository command prints the status of ImageRepository objects.
+
+Usage:
+  flux get images repository [flags]
+
+Examples:
+  # List all image repositories and their status
+  flux get image repository
+
+ # List image repositories from all namespaces
+  flux get image repository --all-namespaces
+
+Flags:
+  -h, --help   help for repository
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get image update command prints the status of ImageUpdateAutomation objects.
+
+Usage:
+  flux get images update [flags]
+
+Examples:
+  # List all image update automation object and their status
+  flux get image update
+
+ # List image update automations from all namespaces
+  flux get image update --all-namespaces
+
+Flags:
+  -h, --help   help for update
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get kustomizations command prints the statuses of the resources.
+
+Usage:
+  flux get kustomizations [flags]
+
+Aliases:
+  kustomizations, ks, kustomization
+
+Examples:
+  # List all kustomizations and their status
+  flux get kustomizations
+
+Flags:
+  -h, --help   help for kustomizations
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get receiver command prints the statuses of the resources.
+
+Usage:
+  flux get receivers [flags]
+
+Aliases:
+  receivers, receiver
+
+Examples:
+  # List all Receiver and their status
+  flux get receivers
+
+Flags:
+  -h, --help   help for receivers
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get source sub-commands print the statuses of the sources.
+
+Usage:
+  flux get sources [flags]
+  flux get sources [command]
+
+Aliases:
+  sources, source
+
+Available Commands:
+  all         Get all source statuses
+  bucket      Get Bucket source statuses
+  chart       Get HelmChart statuses
+  git         Get GitRepository source statuses
+  helm        Get HelmRepository source statuses
+
+Flags:
+  -h, --help   help for sources
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+Use "flux get sources [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The get sources all command print the statuses of all sources.
+
+Usage:
+  flux get sources all [flags]
+
+Examples:
+  # List all sources in a namespace
+  flux get sources all --namespace=flux-system
+
+  # List all sources in all namespaces
+  flux get sources all --all-namespaces
+
+Flags:
+  -h, --help   help for all
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get sources bucket command prints the status of the Bucket sources.
+
+Usage:
+  flux get sources bucket [flags]
+
+Examples:
+  # List all Buckets and their status
+  flux get sources bucket
+
+ # List buckets from all namespaces
+  flux get sources helm --all-namespaces
+
+Flags:
+  -h, --help   help for bucket
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get sources chart command prints the status of the HelmCharts.
+
+Usage:
+  flux get sources chart [flags]
+
+Examples:
+  # List all Helm charts and their status
+  flux get sources chart
+
+ # List Helm charts from all namespaces
+  flux get sources chart --all-namespaces
+
+Flags:
+  -h, --help   help for chart
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get sources git command prints the status of the GitRepository sources.
+
+Usage:
+  flux get sources git [flags]
+
+Examples:
+  # List all Git repositories and their status
+  flux get sources git
+
+ # List Git repositories from all namespaces
+  flux get sources git --all-namespaces
+
+Flags:
+  -h, --help   help for git
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+The get sources helm command prints the status of the HelmRepository sources.
+
+Usage:
+  flux get sources helm [flags]
+
+Examples:
+  # List all Helm repositories and their status
+  flux get sources helm
+
+ # List Helm repositories from all namespaces
+  flux get sources helm --all-namespaces
+
+Flags:
+  -h, --help   help for helm
+
+Global Flags:
+  -A, --all-namespaces           list the requested object(s) across all namespaces
+      --context string           kubernetes context to use
+      --kubeconfig string        absolute path to the kubeconfig file
+  -n, --namespace string         the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --no-header                skip the header when printing the results
+      --status-selector string   specify the status condition name and the desired state to filter the get result, e.g. ready=false
+      --timeout duration         timeout for this operation (default 5m0s)
+      --verbose                  print generated objects
+  -w, --watch                    After listing/getting the requested object, watch for changes.
+
+------------------------------------------------------------
+
+Help provides help for any command in the application.
+Simply type flux help [path to command] for full details.
+
+Usage:
+  flux help [command] [flags]
+
+Flags:
+  -h, --help   help for help
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The install command deploys Flux in the specified namespace.
+If a previous version is installed, then an in-place upgrade will be performed.
+
+Usage:
+  flux install [flags]
+
+Examples:
+  # Install the latest version in the flux-system namespace
+  flux install --version=latest --namespace=flux-system
+
+  # Install a specific version and a series of components
+  flux install --version=v0.0.7 --components="source-controller,kustomize-controller"
+
+  # Install Flux onto tainted Kubernetes nodes
+  flux install --toleration-keys=node.kubernetes.io/dedicated-to-flux
+
+  # Dry-run install
+  flux install --export | kubectl apply --dry-run=client -f- 
+
+  # Write install manifests to file
+  flux install --export > flux-system.yaml
+
+Flags:
+      --cluster-domain string      internal cluster domain (default "cluster.local")
+      --components strings         list of components, accepts comma-separated values (default [source-controller,kustomize-controller,helm-controller,notification-controller])
+      --components-extra strings   list of components in addition to those supplied or defaulted, accepts comma-separated values
+      --export                     write the install manifests to stdout and exit
+  -h, --help                       help for install
+      --image-pull-secret string   Kubernetes secret name used for pulling the toolkit images from a private registry
+      --log-level logLevel         log level, available options are: (debug, info, error) (default info)
+      --network-policy             deny ingress access to the toolkit controllers from other namespaces using network policies (default true)
+      --registry string            container registry where the toolkit images are published (default "ghcr.io/fluxcd")
+      --toleration-keys strings    list of toleration keys used to schedule the components pods onto nodes with matching taints
+  -v, --version string             toolkit version, when specified the manifests are downloaded from https://github.com/fluxcd/flux2/releases
+      --watch-all-namespaces       watch for custom resources in all namespaces, if set to false it will only watch the namespace where the toolkit is installed (default true)
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The logs command displays formatted logs from various Flux components.
+
+Usage:
+  flux logs [flags]
+
+Examples:
+  # Print the reconciliation logs of all Flux custom resources in your cluster
+  flux logs --all-namespaces
+  
+  # Print all logs of all Flux custom resources newer than 2 minutes
+  flux logs --all-namespaces --since=2m
+
+  # Stream logs for a particular log level
+  flux logs --follow --level=error --all-namespaces
+
+  # Filter logs by kind, name and namespace
+  flux logs --kind=Kustomization --name=podinfo --namespace=default
+
+  # Print logs when Flux is installed in a different namespace than flux-system
+  flux logs --flux-namespace=my-namespace
+    
+
+Flags:
+  -A, --all-namespaces          displays logs for objects across all namespaces
+      --flux-namespace string   the namespace where the Flux components are running (default "flux-system")
+  -f, --follow                  specifies if the logs should be streamed
+  -h, --help                    help for logs
+      --kind string             displays errors of a particular toolkit kind e.g GitRepository
+      --level logLevel          log level, available options are: (debug, info, error)
+      --name string             specifies the name of the object logs to be displayed
+      --since duration          Only return logs newer than a relative duration like 5s, 2m, or 3h. Defaults to all logs. Only one of since-time / since may be used.
+      --since-time string       Only return logs after a specific date (RFC3339). Defaults to all logs. Only one of since-time / since may be used.
+      --tail int                lines of recent log file to display (default -1)
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile sub-commands trigger a reconciliation of sources and resources.
+
+Usage:
+  flux reconcile [command]
+
+Available Commands:
+  alert          Reconcile an Alert
+  alert-provider Reconcile a Provider
+  helmrelease    Reconcile a HelmRelease resource
+  image          Reconcile image automation objects
+  kustomization  Reconcile a Kustomization resource
+  receiver       Reconcile a Receiver
+  source         Reconcile sources
+
+Flags:
+  -h, --help   help for reconcile
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux reconcile [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The reconcile alert command triggers a reconciliation of an Alert resource and waits for it to finish.
+
+Usage:
+  flux reconcile alert [name] [flags]
+
+Examples:
+  # Trigger a reconciliation for an existing alert
+  flux reconcile alert main
+
+Flags:
+  -h, --help   help for alert
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile alert-provider command triggers a reconciliation of a Provider resource and waits for it to finish.
+
+Usage:
+  flux reconcile alert-provider [name] [flags]
+
+Examples:
+  # Trigger a reconciliation for an existing provider
+  flux reconcile alert-provider slack
+
+Flags:
+  -h, --help   help for alert-provider
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+
+The reconcile kustomization command triggers a reconciliation of a HelmRelease resource and waits for it to finish.
+
+Usage:
+  flux reconcile helmrelease [name] [flags]
+
+Aliases:
+  helmrelease, hr
+
+Examples:
+  # Trigger a HelmRelease apply outside of the reconciliation interval
+  flux reconcile hr podinfo
+
+  # Trigger a reconciliation of the HelmRelease's source and apply changes
+  flux reconcile hr podinfo --with-source
+
+Flags:
+  -h, --help          help for helmrelease
+      --with-source   reconcile HelmRelease source
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile sub-commands trigger a reconciliation of image automation objects.
+
+Usage:
+  flux reconcile image [command]
+
+Available Commands:
+  repository  Reconcile an ImageRepository
+  update      Reconcile an ImageUpdateAutomation
+
+Flags:
+  -h, --help   help for image
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux reconcile image [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The reconcile image repository command triggers a reconciliation of an ImageRepository resource and waits for it to finish.
+
+Usage:
+  flux reconcile image repository [name] [flags]
+
+Examples:
+  # Trigger an scan for an existing image repository
+  flux reconcile image repository alpine
+
+Flags:
+  -h, --help   help for repository
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile image update command triggers a reconciliation of an ImageUpdateAutomation resource and waits for it to finish.
+
+Usage:
+  flux reconcile image update [name] [flags]
+
+Examples:
+  # Trigger an automation run for an existing image update automation
+  flux reconcile image update latest-images
+
+Flags:
+  -h, --help   help for update
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+
+The reconcile kustomization command triggers a reconciliation of a Kustomization resource and waits for it to finish.
+
+Usage:
+  flux reconcile kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks
+
+Examples:
+  # Trigger a Kustomization apply outside of the reconciliation interval
+  flux reconcile kustomization podinfo
+
+  # Trigger a sync of the Kustomization's source and apply changes
+  flux reconcile kustomization podinfo --with-source
+
+Flags:
+  -h, --help          help for kustomization
+      --with-source   reconcile Kustomization source
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile receiver command triggers a reconciliation of a Receiver resource and waits for it to finish.
+
+Usage:
+  flux reconcile receiver [name] [flags]
+
+Examples:
+  # Trigger a reconciliation for an existing receiver
+  flux reconcile receiver main
+
+Flags:
+  -h, --help   help for receiver
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile source sub-commands trigger a reconciliation of sources.
+
+Usage:
+  flux reconcile source [command]
+
+Available Commands:
+  bucket      Reconcile a Bucket source
+  git         Reconcile a GitRepository source
+  helm        Reconcile a HelmRepository source
+
+Flags:
+  -h, --help   help for source
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux reconcile source [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The reconcile source command triggers a reconciliation of a Bucket resource and waits for it to finish.
+
+Usage:
+  flux reconcile source bucket [name] [flags]
+
+Examples:
+  # Trigger a reconciliation for an existing source
+  flux reconcile source bucket podinfo
+
+Flags:
+  -h, --help   help for bucket
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile source command triggers a reconciliation of a GitRepository resource and waits for it to finish.
+
+Usage:
+  flux reconcile source git [name] [flags]
+
+Examples:
+  # Trigger a git pull for an existing source
+  flux reconcile source git podinfo
+
+Flags:
+  -h, --help   help for git
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The reconcile source command triggers a reconciliation of a HelmRepository resource and waits for it to finish.
+
+Usage:
+  flux reconcile source helm [name] [flags]
+
+Examples:
+  # Trigger a reconciliation for an existing source
+  flux reconcile source helm podinfo
+
+Flags:
+  -h, --help   help for helm
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume sub-commands resume a suspended resource.
+
+Usage:
+  flux resume [command]
+
+Available Commands:
+  alert         Resume a suspended Alert
+  helmrelease   Resume a suspended HelmRelease
+  image         Resume image automation objects
+  kustomization Resume a suspended Kustomization
+  receiver      Resume a suspended Receiver
+  source        Resume sources
+
+Flags:
+      --all    resume all resources in that namespace
+  -h, --help   help for resume
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux resume [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended Alert resource for reconciliation and waits for it to
+finish the apply.
+
+Usage:
+  flux resume alert [name] [flags]
+
+Examples:
+  # Resume reconciliation for an existing Alert
+  flux resume alert main
+
+Flags:
+  -h, --help   help for alert
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended HelmRelease resource for reconciliation and waits for it to
+finish the apply.
+
+Usage:
+  flux resume helmrelease [name] [flags]
+
+Aliases:
+  helmrelease, hr
+
+Examples:
+  # Resume reconciliation for an existing Helm release
+  flux resume hr podinfo
+
+Flags:
+  -h, --help   help for helmrelease
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume image sub-commands resume suspended image automation objects.
+
+Usage:
+  flux resume image [command]
+
+Available Commands:
+  repository  Resume a suspended ImageRepository
+  update      Resume a suspended ImageUpdateAutomation
+
+Flags:
+  -h, --help   help for image
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux resume image [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended Kustomization resource for reconciliation and waits for it to
+finish the apply.
+
+Usage:
+  flux resume kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks
+
+Examples:
+  # Resume reconciliation for an existing Kustomization
+  flux resume ks podinfo
+
+Flags:
+  -h, --help   help for kustomization
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended Receiver resource for reconciliation and waits for it to
+finish the apply.
+
+Usage:
+  flux resume receiver [name] [flags]
+
+Examples:
+  # Resume reconciliation for an existing Receiver
+  flux resume receiver main
+
+Flags:
+  -h, --help   help for receiver
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume sub-commands resume a suspended source.
+
+Usage:
+  flux resume source [command]
+
+Available Commands:
+  bucket      Resume a suspended Bucket
+  chart       Resume a suspended HelmChart
+  git         Resume a suspended GitRepository
+  helm        Resume a suspended HelmRepository
+
+Flags:
+  -h, --help   help for source
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux resume source [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended Bucket resource for reconciliation and waits for it to finish.
+
+Usage:
+  flux resume source bucket [name] [flags]
+
+Examples:
+  # Resume reconciliation for an existing Bucket
+  flux resume source bucket podinfo
+
+Flags:
+  -h, --help   help for bucket
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended HelmChart resource for reconciliation and waits for it to finish.
+
+Usage:
+  flux resume source chart [name] [flags]
+
+Examples:
+  # Resume reconciliation for an existing HelmChart
+  flux resume source chart podinfo
+
+Flags:
+  -h, --help   help for chart
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended GitRepository resource for reconciliation and waits for it to finish.
+
+Usage:
+  flux resume source git [name] [flags]
+
+Examples:
+  # Resume reconciliation for an existing GitRepository
+  flux resume source git podinfo
+
+Flags:
+  -h, --help   help for git
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The resume command marks a previously suspended HelmRepository resource for reconciliation and waits for it to finish.
+
+Usage:
+  flux resume source helm [name] [flags]
+
+Examples:
+  # Resume reconciliation for an existing HelmRepository
+  flux resume source helm bitnami
+
+Flags:
+  -h, --help   help for helm
+
+Global Flags:
+      --all                 resume all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend sub-commands suspend the reconciliation of a resource.
+
+Usage:
+  flux suspend [command]
+
+Available Commands:
+  alert         Suspend reconciliation of Alert
+  helmrelease   Suspend reconciliation of HelmRelease
+  image         Suspend image automation objects
+  kustomization Suspend reconciliation of Kustomization
+  receiver      Suspend reconciliation of Receiver
+  source        Suspend sources
+
+Flags:
+      --all    suspend all resources in that namespace
+  -h, --help   help for suspend
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux suspend [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a Alert resource.
+
+Usage:
+  flux suspend alert [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing Alert
+  flux suspend alert main
+
+Flags:
+  -h, --help   help for alert
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a HelmRelease resource.
+
+Usage:
+  flux suspend helmrelease [name] [flags]
+
+Aliases:
+  helmrelease, hr
+
+Examples:
+  # Suspend reconciliation for an existing Helm release
+  flux suspend hr podinfo
+
+Flags:
+  -h, --help   help for helmrelease
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend image sub-commands suspend the reconciliation of an image automation object.
+
+Usage:
+  flux suspend image [command]
+
+Available Commands:
+  repository  Suspend reconciliation of an ImageRepository
+  update      Suspend reconciliation of an ImageUpdateAutomation
+
+Flags:
+  -h, --help   help for image
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux suspend image [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The suspend image repository command disables the reconciliation of a ImageRepository resource.
+
+Usage:
+  flux suspend image repository [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing ImageRepository
+  flux suspend image repository alpine
+
+Flags:
+  -h, --help   help for repository
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend image update command disables the reconciliation of a ImageUpdateAutomation resource.
+
+Usage:
+  flux suspend image update [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing ImageUpdateAutomation
+  flux suspend image update latest-images
+
+Flags:
+  -h, --help   help for update
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a Kustomization resource.
+
+Usage:
+  flux suspend kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks
+
+Examples:
+  # Suspend reconciliation for an existing Kustomization
+  flux suspend ks podinfo
+
+Flags:
+  -h, --help   help for kustomization
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a Receiver resource.
+
+Usage:
+  flux suspend receiver [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing Receiver
+  flux suspend receiver main
+
+Flags:
+  -h, --help   help for receiver
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend sub-commands suspend the reconciliation of a source.
+
+Usage:
+  flux suspend source [command]
+
+Available Commands:
+  bucket      Suspend reconciliation of a Bucket
+  chart       Suspend reconciliation of a HelmChart
+  git         Suspend reconciliation of a GitRepository
+  helm        Suspend reconciliation of a HelmRepository
+
+Flags:
+  -h, --help   help for source
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux suspend source [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a Bucket resource.
+
+Usage:
+  flux suspend source bucket [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing Bucket
+  flux suspend source bucket podinfo
+
+Flags:
+  -h, --help   help for bucket
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a HelmChart resource.
+
+Usage:
+  flux suspend source chart [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing HelmChart
+  flux suspend source chart podinfo
+
+Flags:
+  -h, --help   help for chart
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a GitRepository resource.
+
+Usage:
+  flux suspend source git [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing GitRepository
+  flux suspend source git podinfo
+
+Flags:
+  -h, --help   help for git
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The suspend command disables the reconciliation of a HelmRepository resource.
+
+Usage:
+  flux suspend source helm [name] [flags]
+
+Examples:
+  # Suspend reconciliation for an existing HelmRepository
+  flux suspend source helm bitnami
+
+Flags:
+  -h, --help   help for helm
+
+Global Flags:
+      --all                 suspend all resources in that namespace
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The trace command shows how an object is managed by Flux,
+from which source and revision it comes, and what's the latest reconciliation status.'
+
+Usage:
+  flux trace [name] [flags]
+
+Examples:
+  # Trace a Kubernetes Deployment
+  flux trace my-app --kind=deployment --api-version=apps/v1 --namespace=apps
+
+  # Trace a Kubernetes Pod
+  flux trace redis-master-0 --kind=pod --api-version=v1 -n redis
+
+  # Trace a Kubernetes global object
+  flux trace redis --kind=namespace --api-version=v1
+
+  # Trace a Kubernetes custom resource
+  flux trace redis --kind=helmrelease --api-version=helm.toolkit.fluxcd.io/v2beta1 -n redis
+
+Flags:
+      --api-version string   the Kubernetes object API version, e.g. 'apps/v1'
+  -h, --help                 help for trace
+      --kind string          the Kubernetes object kind, e.g. Deployment'
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The tree command shows the list of resources reconciled by a Flux object.'
+
+Usage:
+  flux tree [command]
+
+Available Commands:
+  kustomization Print the resource inventory of a Kustomization
+
+Flags:
+  -h, --help   help for tree
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+Use "flux tree [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+The tree command prints the resource list reconciled by a Kustomization.'
+
+Usage:
+  flux tree kustomization [name] [flags]
+
+Aliases:
+  kustomization, ks, kustomization
+
+Examples:
+  # Print the resources managed by the root Kustomization
+  flux tree kustomization flux-system
+
+  # Print the Flux resources managed by the root Kustomization
+  flux tree kustomization flux-system --compact
+
+Flags:
+      --compact         list Flux resources only.
+  -h, --help            help for kustomization
+  -o, --output string   the format in which the tree should be printed. can be 'json' or 'yaml'
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+The uninstall command removes the Flux components and the toolkit.fluxcd.io resources from the cluster.
+
+Usage:
+  flux uninstall [flags]
+
+Examples:
+  # Uninstall Flux components, its custom resources and namespace
+  flux uninstall --namespace=flux-system
+
+  # Uninstall Flux but keep the namespace
+  flux uninstall --namespace=infra --keep-namespace=true
+
+Flags:
+      --dry-run          only print the objects that would be deleted
+  -h, --help             help for uninstall
+      --keep-namespace   skip namespace deletion
+  -s, --silent           delete components without asking for confirmation
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+
+Print the client and server-side components version information for the current context.
+
+Usage:
+  flux version [flags]
+
+Examples:
+# Print client and server-side version 
+	flux version
+
+	# Print only client version
+	flux version --client
+
+	# Print information in json format
+	flux version -o json
+
+
+Flags:
+      --client          print only client version
+  -h, --help            help for version
+  -o, --output string   the format in which the information should be printed. can be 'json' or 'yaml' (default "yaml")
+
+Global Flags:
+      --context string      kubernetes context to use
+      --kubeconfig string   absolute path to the kubeconfig file
+  -n, --namespace string    the namespace scope for this operation, can be set with FLUX_SYSTEM_NAMESPACE env var (default "flux-system")
+      --timeout duration    timeout for this operation (default 5m0s)
+      --verbose             print generated objects
+
+------------------------------------------------------------
+

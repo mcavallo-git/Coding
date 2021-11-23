@@ -1,12 +1,12 @@
 # ------------------------------------------------------------
 #
-#	EdgeOS - Advanced Queue'ing (QoS)
+# EdgeOS - Advanced Queue'ing (QoS)
 #
-#		Follow these steps to limit the rate for one LAN device and file-transfer application.
+#   Follow these steps to limit the rate for one LAN device and file-transfer application.
 #
-#		Use HFQ (Host Fairness Queueing) to explicitly and automatically limit the rate for each of the devices in the configured subnet.
+#   Use HFQ (Host Fairness Queueing) to explicitly and automatically limit the rate for each of the devices in the configured subnet.
 #
-#		Allow burst for file-transfer traffic in a short time.
+#   Allow burst for file-transfer traffic in a short time.
 #
 
 
@@ -71,20 +71,20 @@ save
 
 # ------------------------------------------------------------
 #
-#		Additional Guide(s)
+#   Additional Guide(s)
 #
-#		https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
+#   https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
 #
-#		https://help.ubnt.com/hc/en-us/articles/205198380-EdgeRouter-Quality-of-Service-for-Voice-Over-IP-QoS-for-VoIP-
+#   https://help.ubnt.com/hc/en-us/articles/205198380-EdgeRouter-Quality-of-Service-for-Voice-Over-IP-QoS-for-VoIP-
 #
-#		https://community.ubnt.com/t5/EdgeRouter/Help-with-QOS-please/td-p/1764847
+#   https://community.ubnt.com/t5/EdgeRouter/Help-with-QOS-please/td-p/1764847
 #
-#		https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
+#   https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
 #
 # ------------------------------------------------------------
 #
-#		Citation(s)
+#   Citation(s)
 #
-#		https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
+#   https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
 #
 # ------------------------------------------------------------

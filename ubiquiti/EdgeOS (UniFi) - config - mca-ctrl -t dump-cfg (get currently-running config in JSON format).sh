@@ -12,7 +12,7 @@
 # Step 1 - SSH into your Unifi device (USG, for example)
 
 
-# Step 2 - Export the config to JSON format via the following commands
+# Step 2 - Export the config to JSON format (via the following command, which outputs to logged-in user's directory regardless if they're masquerading as root (via sudo) or not)
 mca-ctrl -t dump-cfg > "$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
 # mca-ctrl -t dump-cfg > "${HOME}/mca-ctrl -t dump-cfg.$(date +'%Y%m%d_%H%M%S').$(hostname).json";
 

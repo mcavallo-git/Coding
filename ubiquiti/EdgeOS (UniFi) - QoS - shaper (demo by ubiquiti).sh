@@ -1,11 +1,11 @@
 # ------------------------------------------------------------
 #
-#	EdgeOS - Shaper (QoS)
+# EdgeOS - Shaper (QoS)
 #
-#		A more complicated policy is the shaper policy, which uses the Hierarchical Token Bucket
-#			technique to provide different bandwidth guarantees to different classes of traffic on a network link.
+#   A more complicated policy is the shaper policy, which uses the Hierarchical Token Bucket
+#     technique to provide different bandwidth guarantees to different classes of traffic on a network link.
 #
-#		A simple example is shown below.
+#   A simple example is shown below.
 #
 
 configure
@@ -20,31 +20,31 @@ commit
 
 
 #
-#		In this example, a shaper policy shaper1 is defined and applied to the out direction on interface eth0, which has 100 Mbps bandwidth.
+#   In this example, a shaper policy shaper1 is defined and applied to the out direction on interface eth0, which has 100 Mbps bandwidth.
 #
-#		Two classes of traffic are defined, one for traffic originating from IP address 10.0.1.2
-#			and the other for traffic origination from IP address 10.0.1.3.
+#   Two classes of traffic are defined, one for traffic originating from IP address 10.0.1.2
+#     and the other for traffic origination from IP address 10.0.1.3.
 #
-#		Each of the two classes is guaranteed 20 Mbps of bandwidth for its traffic, meaning
-#			that when under load it guarantees that bandwidth, but can exceed it if there is availability.
+#   Each of the two classes is guaranteed 20 Mbps of bandwidth for its traffic, meaning
+#     that when under load it guarantees that bandwidth, but can exceed it if there is availability.
 #
-#		All other traffic falls into the default class with 60 Mbps reserved bandwidth.
+#   All other traffic falls into the default class with 60 Mbps reserved bandwidth.
 #
-#		So, for example, if the current outgoing traffic on eth0 includes:
-#			20 Mbps from IP 10.0.1.2,
-#			20 Mbps from IP 10.0.1.3, and
-#			80 Mbps from other sources,
-#		the traffic from IP 10.0.1.2 and IP 10.0.1.3 will be sent out at their full rates since
-#		they are each guaranteed 20 Mbps, and the other traffic will only be sent out at 60 Mbps.
+#   So, for example, if the current outgoing traffic on eth0 includes:
+#     20 Mbps from IP 10.0.1.2,
+#     20 Mbps from IP 10.0.1.3, and
+#     80 Mbps from other sources,
+#   the traffic from IP 10.0.1.2 and IP 10.0.1.3 will be sent out at their full rates since
+#   they are each guaranteed 20 Mbps, and the other traffic will only be sent out at 60 Mbps.
 #
 # Note:
 #
-#		The interface mentioned in this example is eth0 (WAN).
+#   The interface mentioned in this example is eth0 (WAN).
 #
-#		When a PPPoE interface is used for WAN, the policy should be applied to pppoeX rather than the Ethernet interface.
+#   When a PPPoE interface is used for WAN, the policy should be applied to pppoeX rather than the Ethernet interface.
 #
-#		For EdgeRouter modules that include a switch interface, the traffic policy will need
-#			to be applied to the switch interface (switch0) rather than the single Ethernet interface (eth1).
+#   For EdgeRouter modules that include a switch interface, the traffic policy will need
+#     to be applied to the switch interface (switch0) rather than the single Ethernet interface (eth1).
 #
 
 
@@ -53,9 +53,9 @@ commit
 #
 # EdgeRouter - Traffic Policies (Shaper) for Upload, Download and VoIP (QoS)
 #
-#		The following example uses two traffic policies (one for upload, one for
-#			download) to limit client 10.0.3.2 to an upload rate of 512Kbps (allowing bursts to 640Kbps)
-#			and downloads of 1Mbit (allowing bursts to 1.5Mbit if the bandwidth is available).
+#   The following example uses two traffic policies (one for upload, one for
+#     download) to limit client 10.0.3.2 to an upload rate of 512Kbps (allowing bursts to 640Kbps)
+#     and downloads of 1Mbit (allowing bursts to 1.5Mbit if the bandwidth is available).
 #
 
 # DOWNLOAD SHAPER
@@ -93,19 +93,19 @@ save
 
 #
 # Note:
-#		One class is for each client
+#   One class is for each client
 #
 
 
 
 # ------------------------------------------------------------
 #
-#		Citation(s)
+#   Citation(s)
 #
-#		community.ui.com  |  "Another QoS related question"  |  https://community.ui.com/questions/Another-QoS-related-question/3b1dbec9-b790-4ce6-a47d-fbf98c0a00b4#answer/aca3d12e-e8a6-4594-9d7d-367b3dc9f035
+#   community.ui.com  |  "Another QoS related question"  |  https://community.ui.com/questions/Another-QoS-related-question/3b1dbec9-b790-4ce6-a47d-fbf98c0a00b4#answer/aca3d12e-e8a6-4594-9d7d-367b3dc9f035
 #
-#		help.ubnt.com  |  "EdgeRouter - Quality of Service (QoS)"  |  https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#6
+#   help.ubnt.com  |  "EdgeRouter - Quality of Service (QoS)"  |  https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#6
 #
-#		help.ubnt.com  |  "EdgeRouter - Quality of Service (QoS) Shaper for Upload/Download and VoIP"  |  https://help.ubnt.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
+#   help.ubnt.com  |  "EdgeRouter - Quality of Service (QoS) Shaper for Upload/Download and VoIP"  |  https://help.ubnt.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
 #
 # ------------------------------------------------------------

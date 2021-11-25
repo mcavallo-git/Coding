@@ -17,8 +17,8 @@ Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 #
 If ($True) {
 
-	# Setup Runtime vars for remote URI(s) && local filepath(s)
-	$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7z-Standalone.zip";
+	# 7-Zip - Set runtime vars for remote URI(s) && local filepath(s)
+	$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7za.exe.zip";
 	$FullPath_7z_Dir = "${env:TEMP}\7-Zip-Standalone";
 	$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
 	$FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
@@ -53,6 +53,12 @@ If ($True) {
 
 	# Run the downloaded/unpacked executable
 	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
+
+	# Handbrake - Set runtime vars for remote URI(s) && local filepath(s)
+	$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/HandBrakeCLI_Input-Output.7z";
+	$FullPath_7z_Dir = "${env:TEMP}\7-Zip-Standalone";
+	$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
+	$FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
 
 
 FILEPATH_ARCHIVE_7Z="${HOME}/var-www-html-20191101_183748.7z";

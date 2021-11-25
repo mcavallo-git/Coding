@@ -54,6 +54,9 @@ $Timestamps_IncludeDecimalSeconds = $False;
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
+$NoWait = $True;
+# $NoWait = $False;
+
 # ------------------------------
 
 $FullPath_7z_Dir = "${env:TEMP}\7za";
@@ -103,7 +106,9 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 			Write-Output "  |";
 			Write-Output "  |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
 			Write-Output "";
-			Start-Sleep 30;
+			If ($NoWait -NE $True) {
+				Start-Sleep 30;
+			}
 			Exit 1;
 		}
 	}
@@ -125,7 +130,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	$ProgressPreference = "SilentlyContinue";
 
 	# HandBrakeCLI - Ensure the executable exists
-	If ($True) {
+	If ($False) {
 	# If ($False) {
 		#
 		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
@@ -223,8 +228,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			Write-Output "";
 			Write-Output "Error:  File Not Found (HandBrakeCLI.exe executable) at path `"${FullPath_HandBrakeCLI_Dir}`"`n`n";
 			If ($True) {
-				# Wait 60 seconds before proceeding
-				# Start-Sleep 60;
+				If ($NoWait -NE $True) {
+					Start-Sleep 60; <# Wait 60 seconds before proceeding #>
+				}
 			} Else {
 				# "Press any key to close this window..."
 				Write-Output -NoNewLine "`n`n  Press any key to close this window...`n`n";
@@ -355,7 +361,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			Write-Output "  |";
 			Write-Output "  |-->  Input-File Basename (no ext.):  `"${EachInput_BasenameNoExt}`"";
 			Write-Output "";
-			Start-Sleep 60;
+			If ($NoWait -NE $True) {
+				Start-Sleep 60; <# Wait a bit (for user to read the terminal, etc.) before exiting #>
+			}
 			Exit 1;
 
 		} Else {
@@ -415,11 +423,15 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		$FileContents_CallThisScriptAgain = "<# Re-run the HandBrakeCLI-Encoder by opening a PowerShell terminal and copy-pasting this line of code into it #> SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);";
 		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("${FileContents_CallThisScriptAgain}");
 		Set-Content -Path ("${InputDir}\_Then re-run script.txt") -Value ("${FileContents_CallThisScriptAgain}");
-		Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+		If ($NoWait -NE $True) {
+			Start-Sleep -Seconds 3; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+		}
 		explorer.exe "${InputDir}";
 	}
 
-	Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+	If ($NoWait -NE $True) {
+		Start-Sleep -Seconds 5; <# Wait a few seconds (for user to read the terminal, etc.) before exiting #>
+	}
 
 }
 

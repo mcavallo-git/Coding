@@ -353,7 +353,10 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 			$FirstLoop_DoQuickNaming = $False;
 			Write-Output "Info:  Checking filename availability:  `"${EachOutput_FullName}`"...";
+			
 			$NameCollision_LoopIterations++;
+
+
 		} While (((Test-Path "${EachOutput_FullName}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
 
 		If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
@@ -370,8 +373,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			Exit 1;
 
 		} Else {
-			Write-Output "";
-			Write-Output "Info:  Output filename verified and set to:  `"${EachOutput_FullName}`"...";
 
 			# ----------------------------------------------- #
 			#                                                 #

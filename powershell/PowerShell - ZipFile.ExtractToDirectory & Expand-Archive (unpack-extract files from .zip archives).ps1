@@ -66,6 +66,31 @@ If ($True) {
 	$FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";
 	$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";
 
+	# HandBrakeCLI - Ensure the working directory exists
+	If ((Test-Path "${FullPath_HandBrakeCLI_Dir}") -NE $True) {
+	New-Item -ItemType ("Directory") -Path ("${FullPath_HandBrakeCLI_Dir}") | Out-Null;
+	}
+
+	# HandBrakeCLI - Ensure the executable exists
+	If ((Test-Path "${FullPath_HandBrakeCLI_Exe}") -NE $True) {
+
+		# Hide Invoke-WebRequest's progress bar
+		$ProgressPreference = "SilentlyContinue";
+
+		# HandBrakeCLI - Download the executable contained in a zip archive
+		[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
+		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_7z}") -OutFile ("${FullPath_HandBrakeCLI_7z}") -TimeoutSec (60);
+
+		# HandBrakeCLI - Extract the zip archive's contents to the working directory
+		Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
+		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_HandBrakeCLI_7z}"),("${FullPath_HandBrakeCLI_Dir}"));
+
+		# HandBrakeCLI - Delete the zip archive (send it to the Recycle Bin) once its been unpacked
+		Add-Type -AssemblyName ("Microsoft.VisualBasic");
+		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_HandBrakeCLI_7z}",'OnlyErrorDialogs','SendToRecycleBin');
+
+	}
+
 	# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
 	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 

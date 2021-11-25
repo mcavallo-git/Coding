@@ -100,7 +100,7 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
-	If ($False) {
+	If ($True) {
 		#
 		# Download HandBrakeCLI.exe from the GitHub Repo "mcavallo-git/Coding"
 		#

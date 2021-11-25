@@ -83,9 +83,10 @@ Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 
 # ------------------------------------------------------------
 #
-# Make sure the working-directory, input-directory, and output-directory all exist
+# Make sure to create and prerequisite directories for this run
 #
 $Dirnames_EnsureAllExist = @();
+$Dirnames_EnsureAllExist += "${FullPath_7z_Dir}";
 $Dirnames_EnsureAllExist += "${FullPath_HandBrakeCLI_Dir}";
 $Dirnames_EnsureAllExist += "${InputDir}";
 $Dirnames_EnsureAllExist += "${OutputDir}";
@@ -120,12 +121,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	
 	# Hide Invoke-WebRequest's progress bar
 	$ProgressPreference = "SilentlyContinue";
-
-	# 7-Zip - Ensure that working directories exist
-	If ((Test-Path "${FullPath_7z_Dir}") -NE $True) {
-		New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
-	}
-
 
 	If ($True) {
 		#

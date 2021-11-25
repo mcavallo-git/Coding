@@ -196,7 +196,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "        |--> Source (archive):  `"${FullPath_HandBrakeCLI_Zip}`"";
 		Write-Output "        |--> Destination (unpacked):  `"${FullPath_HandBrakeCLI_Dir}`"";
 		Write-Output "";
-		Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
+		# Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
+		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_HandBrakeCLI_Zip}"),("${FullPath_HandBrakeCLI_Dir}"));
+		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_HandBrakeCLI_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 
 		# Clean-up the archive once it has been unpacked
 		$FullPath_HandBrakeCLI_Temp = (Get-ChildItem -Path ("${FullPath_HandBrakeCLI_Dir}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
@@ -220,6 +222,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				Move-Item -Path ("${FullPath_HandBrakeCLI_Temp}") -Destination ("${FullPath_HandBrakeCLI_Exe}") -Force;
 			}
 		}
+
 	}
 
 }

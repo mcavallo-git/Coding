@@ -1,20 +1,11 @@
 # ------------------------------------------------------------
 #
-#  PowerShell - Expand-Archive  (unpack-extract files from .zip archives)
-#
-
-
-# General Syntax
-
-Expand-Archive -LiteralPath ("C:\Archive.zip") -DestinationPath ("C:\ArchiveContents");
-
-
-# ------------------------------------------------------------
-#
 # PowerShell - ZipFile.ExtractToDirectory  (unpack-extract files from .zip archives)
 #
 
-# General Syntax
+#
+# General Syntax  -  ZipFile.ExtractToDirectory
+#
 Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 [System.IO.Compression.ZipFile]::ExtractToDirectory(("C:\Archive.zip"),("C:\ArchiveContents"));
 
@@ -62,6 +53,17 @@ If ($True) {
 	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
 }
+
+
+# ------------------------------------------------------------
+#
+#  PowerShell - Expand-Archive  (unpack-extract files from .zip archives)
+#
+
+#
+# General Syntax  -  Expand-Archive
+#
+Expand-Archive -LiteralPath ("C:\Archive.zip") -DestinationPath ("C:\ArchiveContents");
 
 
 # ------------------------------------------------------------

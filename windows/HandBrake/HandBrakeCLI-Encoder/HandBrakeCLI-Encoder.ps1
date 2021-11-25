@@ -231,7 +231,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		}
 
 		# Verify that we have found an executable - Exit if we haven't
-		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Temp}")) -Eq $False) {
+		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			Write-Output "";
 			Write-Output "Error:  File not found matching filename `"HandBrakeCLI*.exe`" under directory `"${FullPath_HandBrakeCLI_Dir}`"";
 			If ($True) {

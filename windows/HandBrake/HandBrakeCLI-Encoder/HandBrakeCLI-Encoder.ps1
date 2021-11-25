@@ -54,8 +54,8 @@ $Timestamps_IncludeDecimalSeconds = $False;
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
-$NoWait = $True;
-# $NoWait = $False;
+$NoWait = $False;
+# $NoWait = $True;
 
 # ------------------------------
 
@@ -66,6 +66,14 @@ $FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
 $FullPath_HandBrakeCLI_Dir = "${env:TEMP}\HandBrakeCLI";
 
 $FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";
+
+# ------------------------------
+
+# Ensure TLS 1.2 exists amongst available HTTPS Protocols
+[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
+
+# Hide Invoke-WebRequest's progress bar
+$ProgressPreference = "SilentlyContinue";
 
 # ------------------------------
 
@@ -123,15 +131,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	Write-Output "";
 	Write-Output "Info:  HandBrakeCLI Executable not found:  `"${FullPath_HandBrakeCLI_Exe}`"";
 
-	# Ensure TLS 1.2 exists amongst available HTTPS Protocols
-	[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
-	
-	# Hide Invoke-WebRequest's progress bar
-	$ProgressPreference = "SilentlyContinue";
-
 	# HandBrakeCLI - Ensure the executable exists
+	# If ($True) {
 	If ($False) {
-	# If ($False) {
 		#
 		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
 		#
@@ -144,7 +146,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
 		$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";
 
-		If ($True) {
+		If ($False) {
+		# If ($True) {
 
 			# 7-Zip - Ensure the executable exists
 			If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {

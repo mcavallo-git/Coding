@@ -115,6 +115,8 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 # Download HandBrakeCLI.exe runtime executable (if it doesn't exist)
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
+	Write-Output "";
+	Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${FullPath_HandBrakeCLI_Exe} ]";
 
 	# Ensure TLS 1.2 exists amongst available HTTPS Protocols
 	[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
@@ -144,17 +146,28 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
 			# 7-Zip - Ensure the executable exists
 			If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
+				Write-Output "";
+				Write-Output "Info:  7-Zip Executable not found:  [ ${FullPath_7z_Exe} ]";
+
+				# Download 7-Zip
+				Write-Output "";
+				Write-Output "Info:  Downloading portable version of 7-Zip...";
+				Write-Output "        |--> From:  [ ${URL_HandBrakeCLI_Zip} ]";
+				Write-Output "        |--> To:  [ ${FullPath_HandBrakeCLI_Zip} ]";
+
 				# 7-Zip - Download the executable contained in a zip archive
-				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
+				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
+
 				# 7-Zip - Extract the zip archive's contents to the working directory
 				[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}"));
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
+
 			}
 			# HandBrakeCLI - Ensure the working directory exists
 			If ((Test-Path "${FullPath_HandBrakeCLI_Dir}") -NE $True) {
 				New-Item -ItemType ("Directory") -Path ("${FullPath_HandBrakeCLI_Dir}") | Out-Null;
 			}
-			# HandBrakeCLI - Download the executable contained in a 7-zip archive
+			# HandBrakeCLI - Download the executable contained within a 7-zip archive
 			Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_7z}") -OutFile ("${FullPath_HandBrakeCLI_7z}") -TimeoutSec (60);
 			# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
 			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
@@ -181,9 +194,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
 		# Download HandBrakeCLI
 		Write-Output "";
-		Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${FullPath_HandBrakeCLI_Exe} ]";
-		Write-Output "";
-		Write-Output "Info:  Downloading archived version of HandBrakeCLI...";
+		Write-Output "Info:  Downloading portable version of HandBrakeCLI...";
 		Write-Output "        |--> From:  [ ${URL_HandBrakeCLI_Zip} ]";
 		Write-Output "        |--> To:  [ ${FullPath_HandBrakeCLI_Zip} ]";
 

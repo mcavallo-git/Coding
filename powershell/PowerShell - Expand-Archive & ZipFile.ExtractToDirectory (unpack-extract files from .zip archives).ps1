@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-#  PowerShell - Expand-Archive (unpack-extract files from .zip archives)
+#  PowerShell - Expand-Archive  (unpack-extract files from .zip archives)
 #
 
 
@@ -11,7 +11,7 @@ Expand-Archive -LiteralPath ("C:\Archives\Draft[v1].Zip") -DestinationPath ("C:\
 
 # ------------------------------------------------------------
 #
-# Example
+# PowerShell - ZipFile.ExtractToDirectory  (unpack-extract files from .zip archives)
 #  |-->  Download a zip archive & unpack it  (note: uses [System.IO.Compression.ZipFile] class instead of Expand-Archive cmdlet)
 #
 

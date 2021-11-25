@@ -201,9 +201,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		# Clean-up the archive once it has been unpacked
 		$FullPath_HandBrakeCLI_Temp = (Get-ChildItem -Path ("${FullPath_HandBrakeCLI_Dir}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
 
-		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Temp}")) -Ne $True) {
+		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Temp}")) -NE $True) {
 			Write-Output "";
-			Write-Output "Error:  File Not Found (HandBrakeCLI executable) at path `"${FullPath_HandBrakeCLI_Temp}`"`n`n";
+			Write-Output "Error:  File Not Found (HandBrakeCLI.exe executable) at path `"${FullPath_HandBrakeCLI_Dir}`"`n`n";
 			If ($True) {
 				# Wait 60 seconds before proceeding
 				Start-Sleep 60;

@@ -148,8 +148,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				# Download 7-Zip
 				Write-Output "";
 				Write-Output "Info:  Downloading portable version of 7-Zip...";
-				Write-Output "        |--> From:  `"${URL_7z_Zip}`"";
-				Write-Output "        |--> To:    `"${FullPath_7z_Zip}`"";
+				Write-Output "        |-->  From:  `"${URL_7z_Zip}`"";
+				Write-Output "        |-->    To:  `"${FullPath_7z_Zip}`"";
 
 				# 7-Zip - Download the executable contained in a zip archive
 				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
@@ -167,8 +167,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			# HandBrakeCLI - Download the executable contained within a 7-zip archive
 			Write-Output "";
 			Write-Output "Info:  Downloading portable version of HandBrakeCLI...";
-			Write-Output "        |--> From:  `"${URL_HandBrakeCLI_7z}`"";
-			Write-Output "        |--> To:    `"${FullPath_HandBrakeCLI_7z}`"";
+			Write-Output "        |-->  From:  `"${URL_HandBrakeCLI_7z}`"";
+			Write-Output "        |-->    To:  `"${FullPath_HandBrakeCLI_7z}`"";
 			Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_7z}") -OutFile ("${FullPath_HandBrakeCLI_7z}") -TimeoutSec (60);
 
 			# 7-Zip - Extract the HandBrakeCLI archive's contents to the working directory
@@ -199,8 +199,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		# Download HandBrakeCLI
 		Write-Output "";
 		Write-Output "Info:  Downloading portable version of HandBrakeCLI...";
-		Write-Output "        |--> From:  `"${URL_HandBrakeCLI_Zip}`"";
-		Write-Output "        |--> To:    `"${FullPath_HandBrakeCLI_Zip}`"";
+		Write-Output "        |-->  From:  `"${URL_HandBrakeCLI_Zip}`"";
+		Write-Output "        |-->    To:  `"${FullPath_HandBrakeCLI_Zip}`"";
 
 		# $(New-Object Net.WebClient).DownloadFile("${URL_HandBrakeCLI_Zip}", "${FullPath_HandBrakeCLI_Zip}");
 		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_Zip}") -OutFile ("${FullPath_HandBrakeCLI_Zip}") -TimeoutSec (60);
@@ -350,9 +350,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			Write-Output "";
 			Write-Output "Error:  Max retries of ${MaxRetries_NameCollision} reached while trying to find a unique output filename"
 			Write-Output "  |";
-			Write-Output "  |-->  Input-File Fullpath:  `"${EachInput_FullName}`"";
+			Write-Output "  |-->  Input-File Fullpath:            `"${EachInput_FullName}`"";
 			Write-Output "  |";
-			Write-Output "  |-->  Input-File Basename (w/o extension):  `"${EachInput_BasenameNoExt}`"";
+			Write-Output "  |-->  Input-File Basename (no ext.):  `"${EachInput_BasenameNoExt}`"";
 			Write-Output "";
 			Start-Sleep 60;
 			Exit 1;

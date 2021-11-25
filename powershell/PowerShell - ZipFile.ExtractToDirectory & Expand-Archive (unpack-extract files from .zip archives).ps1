@@ -53,7 +53,7 @@ If ($True) {
 	# ------------------------------
 
 	# ### 7-Zip - Open the working directory
-	# explorer.exe "${FullPath_7z_Dir}";
+	explorer.exe "${FullPath_7z_Dir}";
 
 	# ### 7-Zip - Run the downloaded/unpacked executable
 	# Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;

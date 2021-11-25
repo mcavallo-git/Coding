@@ -5,6 +5,7 @@
 
 
 # General Syntax
+
 Expand-Archive -LiteralPath ("C:\Archives\Draft[v1].Zip") -DestinationPath ("C:\Reference");
 
 

@@ -136,7 +136,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	#
 
 	If ($False) {
-	# If ($True) {
 
 		#
 		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
@@ -187,7 +186,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "        |--> Source:       `"${FullPath_HandBrakeCLI_7z}`"";
 		Write-Output "        |--> Destination:  `"${FullPath_HandBrakeCLI_Dir}`"";
 		Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}","-bso0","-bsp0","-y")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
-		
+
 		# HandBrakeCLI - Delete the 7-zip archive (send it to the Recycle Bin) once its been unpacked
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_HandBrakeCLI_7z}",'OnlyErrorDialogs','SendToRecycleBin');
 
@@ -227,7 +226,14 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
 		# Ensure we have located all necessary HandBrake CLI path locations
 		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
-			$FullPath_HandBrakeCLI_Exe = (Get-ChildItem -Path ("${FullPath_HandBrakeCLI_Dir}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
+			$FullPath_HandBrakeCLI_Temp = (Get-ChildItem -Path ("${FullPath_HandBrakeCLI_Dir}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
+			If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Temp}")) -Eq $True) {
+				If ("${FullPath_HandBrakeCLI_Temp}" -NE "${FullPath_HandBrakeCLI_Exe}") {
+					Write-Output "";
+					Write-Output "Info:  Moving downloaded/extracted executable from  `"${FullPath_HandBrakeCLI_Temp}`" to `"${FullPath_HandBrakeCLI_Exe}`"";
+					Move-Item -Path ("${FullPath_HandBrakeCLI_Temp}") -Destination ("${FullPath_HandBrakeCLI_Exe}") -Force;
+				}
+			}
 		}
 
 		# Verify that we have found an executable - Exit if we haven't
@@ -245,6 +251,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			}
 			Exit 1;
 		}
+
+		# ------------------------------
 
 	}
 
@@ -351,9 +359,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			$EachOutput_FullName = "${OutputDir}\${EachOutput_BasenameNoExt}.${OutputExtension}";
 			$FirstLoop_DoQuickNaming = $False;
 			Write-Output "Info:  Checking filename availability:  `"${EachOutput_FullName}`"...";
-			
-			$NameCollision_LoopIterations++;
 
+			$NameCollision_LoopIterations++;
 
 		} While (((Test-Path "${EachOutput_FullName}") -Eq ($True)) -And (${NameCollision_LoopIterations} -LT ${MaxRetries_NameCollision}));
 

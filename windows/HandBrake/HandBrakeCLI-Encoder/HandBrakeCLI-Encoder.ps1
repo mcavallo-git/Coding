@@ -399,8 +399,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		Write-Output "Info:   Encoding Complete";
 		Write-Output "  |";
 		Write-Output "  |-->  Total Encoding Count:  `"${TotalVideoEncodes}`"";
-		Write-Output "  |";
-		Write-Output "  |-->  Opening output directory (in Windows Explorer):  ...";
+		# Write-Output "  |";
+		# Write-Output "  |-->  Opening output directory (in Windows Explorer):  ...";
 		Write-Output "";
 		explorer.exe "${OutputDir}";
 	} Else {

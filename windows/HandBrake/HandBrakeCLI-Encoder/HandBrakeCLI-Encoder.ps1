@@ -149,7 +149,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				Write-Output "";
 				Write-Output "Info:  Downloading portable version of 7-Zip...";
 				Write-Output "        |--> Source:       `"${URL_7z_Zip}`"";
-				Write-Output "              |--> Destination:  `"${FullPath_7z_Zip}`"";
+				Write-Output "        |--> Destination:  `"${FullPath_7z_Zip}`"";
 
 				# 7-Zip - Download the executable contained in a zip archive
 				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
@@ -158,7 +158,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				Write-Output "";
 				Write-Output "Info:  Unpacking archive:";
 				Write-Output "        |--> Source:  `"${FullPath_7z_Zip}`"";
-				Write-Output "              |--> Destination:  `"${FullPath_7z_Dir}`"";
+				Write-Output "        |--> Destination:  `"${FullPath_7z_Dir}`"";
 				[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}")) | Out-Null;
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 
@@ -168,14 +168,14 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			Write-Output "";
 			Write-Output "Info:  Downloading portable version of HandBrakeCLI...";
 			Write-Output "        |--> Source:       `"${URL_HandBrakeCLI_7z}`"";
-			Write-Output "              |--> Destination:  `"${FullPath_HandBrakeCLI_7z}`"";
+			Write-Output "        |--> Destination:  `"${FullPath_HandBrakeCLI_7z}`"";
 			Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_7z}") -OutFile ("${FullPath_HandBrakeCLI_7z}") -TimeoutSec (60);
 
 			# 7-Zip - Extract the HandBrakeCLI archive's contents to the working directory
 			Write-Output "";
 			Write-Output "Info:  Unpacking archive:";
 			Write-Output "        |--> Source:       `"${FullPath_HandBrakeCLI_7z}`"";
-			Write-Output "              |--> Destination:  `"${FullPath_HandBrakeCLI_Dir}`"";
+			Write-Output "        |--> Destination:  `"${FullPath_HandBrakeCLI_Dir}`"";
 			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}","-bso0","-bsp0","-y")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 			
 			# HandBrakeCLI - Delete the 7-zip archive (send it to the Recycle Bin) once its been unpacked
@@ -200,7 +200,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "";
 		Write-Output "Info:  Downloading portable version of HandBrakeCLI...";
 		Write-Output "        |--> Source:       `"${URL_HandBrakeCLI_Zip}`"";
-		Write-Output "              |--> Destination:  `"${FullPath_HandBrakeCLI_Zip}`"";
+		Write-Output "        |--> Destination:  `"${FullPath_HandBrakeCLI_Zip}`"";
 
 		# $(New-Object Net.WebClient).DownloadFile("${URL_HandBrakeCLI_Zip}", "${FullPath_HandBrakeCLI_Zip}");
 		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_Zip}") -OutFile ("${FullPath_HandBrakeCLI_Zip}") -TimeoutSec (60);
@@ -209,7 +209,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "";
 		Write-Output "Info:  Unpacking archive:";
 		Write-Output "        |--> Source:       `"${FullPath_HandBrakeCLI_Zip}`"";
-		Write-Output "              |--> Destination:  `"${FullPath_HandBrakeCLI_Dir}`"";
+		Write-Output "        |--> Destination:  `"${FullPath_HandBrakeCLI_Dir}`"";
 
 		# Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
 		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_HandBrakeCLI_Zip}"),("${FullPath_HandBrakeCLI_Dir}")) | Out-Null;

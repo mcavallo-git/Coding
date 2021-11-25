@@ -33,10 +33,6 @@ $InputDir = ("${WorkingDir}\InputVideos");
 
 $OutputDir = ("${WorkingDir}\OutputVideos");
 
-$FullPath_HandBrakeCLI_Dir = "${env:TEMP}\HandBrakeCLI";
-
-$FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";
-
 $HandBrake_Preset = "Very Fast 1080p30";
 
 $OutputExtension = "mp4";
@@ -58,11 +54,32 @@ $Timestamps_IncludeDecimalSeconds = $False;
 $DoEncoding_InSameWindow = $True;
 # $DoEncoding_InSameWindow = $False;
 
+# ------------------------------
+
+$FullPath_7z_Dir = "${env:TEMP}\7za";
+
+$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
+
+$FullPath_HandBrakeCLI_Dir = "${env:TEMP}\HandBrakeCLI";
+
+$FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";
+
+# ------------------------------
+
 Write-Output "";
 Write-Output "Info:  Using working directory `"${WorkingDir}`"...";
 
 $Benchmark = New-Object System.Diagnostics.Stopwatch;
 
+
+# ------------------------------------------------------------
+#
+# Prep the ActiveX Assemblies so we can later use its Recycle Bin file-removal module in an effort to avoid using the "remove-item" module (which more-permanently deletes the files)
+#
+Add-Type -AssemblyName ("Microsoft.VisualBasic");
+
+# ZipArchive - Enable assembly?/class? for zipping/unzipping .zip files
+Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 
 # ------------------------------------------------------------
 #
@@ -104,6 +121,12 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	# Hide Invoke-WebRequest's progress bar
 	$ProgressPreference = "SilentlyContinue";
 
+	# 7-Zip - Ensure that working directories exist
+	If ((Test-Path "${FullPath_7z_Dir}") -NE $True) {
+		New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
+	}
+
+
 	If ($True) {
 		#
 		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
@@ -111,8 +134,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
 		# 7-Zip - Set runtime vars for remote URI(s) && local filepath(s)
 		$URL_7z_Zip = "https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7za.exe.zip";
-		$FullPath_7z_Dir = "${env:TEMP}\7za";
-		$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
 		$FullPath_7z_Zip = "${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_7z_Zip}") -Leaf;)";
 		# HandBrakeCLI - Set runtime vars for remote URI(s) && local filepath(s)
 		$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
@@ -121,17 +142,10 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		If ((Test-Path "${FullPath_HandBrakeCLI_Exe}") -NE $True) {
 			# 7-Zip - Ensure the executable exists
 			If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
-				# 7-Zip - Ensure the working directory exists
-				If ((Test-Path "${FullPath_7z_Dir}") -NE $True) {
-					New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
-				}
 				# 7-Zip - Download the executable contained in a zip archive
 				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
 				# 7-Zip - Extract the zip archive's contents to the working directory
-				Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 				[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}"));
-				# 7-Zip - Delete the zip archive (send it to the Recycle Bin) once its been unpacked
-				Add-Type -AssemblyName ("Microsoft.VisualBasic");
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 			}
 			# HandBrakeCLI - Ensure the working directory exists
@@ -143,7 +157,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
 			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 			# HandBrakeCLI - Delete the 7-zip archive (send it to the Recycle Bin) once its been unpacked
-			Add-Type -AssemblyName ("Microsoft.VisualBasic");
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_HandBrakeCLI_7z}",'OnlyErrorDialogs','SendToRecycleBin');
 		}
 
@@ -167,7 +180,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "Info:  Downloading archive-version of HandBrakeCLI";
 		Write-Output "        |--> From:  [ ${URL_HandBrakeCLI_Zip} ]";
 		Write-Output "        |--> To:  [ ${FullPath_HandBrakeCLI_Zip} ]";
-		$(New-Object Net.WebClient).DownloadFile("${URL_HandBrakeCLI_Zip}", "${FullPath_HandBrakeCLI_Zip}");
+		# $(New-Object Net.WebClient).DownloadFile("${URL_HandBrakeCLI_Zip}", "${FullPath_HandBrakeCLI_Zip}");
+		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_Zip}") -OutFile ("${FullPath_HandBrakeCLI_Zip}") -TimeoutSec (60);
 
 		# Unpack the downloaded archive
 		Write-Output "";
@@ -207,12 +221,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 # Double-check that the HandBrake runtime executable exists
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
-
-	# ------------------------------------------------------------
-	#
-	# Prep the ActiveX Assemblies so we can later use its Recycle Bin file-removal module in an effort to avoid using the "remove-item" module (which more-permanently deletes the files)
-	#
-	Add-Type -AssemblyName ("Microsoft.VisualBasic");
 
 	# ------------------------------------------------------------
 	#

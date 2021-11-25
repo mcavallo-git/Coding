@@ -33,8 +33,6 @@ $InputDir = ("${WorkingDir}\InputVideos");
 
 $OutputDir = ("${WorkingDir}\OutputVideos");
 
-$HandBrakeCLI = ("${WorkingDir}\HandBrakeCLI.exe");
-
 $FullPath_HandBrakeCLI_Dir = "${env:TEMP}\HandBrakeCLI";
 
 $FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";

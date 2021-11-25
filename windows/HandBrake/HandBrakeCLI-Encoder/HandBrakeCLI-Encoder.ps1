@@ -214,7 +214,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 	#
 	# Prep the ActiveX Assemblies so we can later use its Recycle Bin file-removal module in an effort to avoid using the "remove-item" module (which more-permanently deletes the files)
 	#
-	Add-Type -AssemblyName Microsoft.VisualBasic;
+	Add-Type -AssemblyName ("Microsoft.VisualBasic");
 
 	# ------------------------------------------------------------
 	#

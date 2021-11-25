@@ -133,6 +133,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		# 7-Zip - Set runtime vars for remote URI(s) && local filepath(s)
 		$URL_7z_Zip = "https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7za.exe.zip";
 		$FullPath_7z_Zip = "${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_7z_Zip}") -Leaf;)";
+
 		# HandBrakeCLI - Set runtime vars for remote URI(s) && local filepath(s)
 		$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
 		$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";
@@ -152,11 +153,11 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				# Download 7-Zip
 				Write-Output "";
 				Write-Output "Info:  Downloading portable version of 7-Zip...";
-				Write-Output "        |--> From:  [ ${URL_HandBrakeCLI_Zip} ]";
-				Write-Output "        |--> To:  [ ${FullPath_HandBrakeCLI_Zip} ]";
+				Write-Output "        |--> From:  [ ${URL_7z_Zip} ]";
+				Write-Output "        |--> To:  [ ${FullPath_7z_Zip} ]";
 
 				# 7-Zip - Download the executable contained in a zip archive
-				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
+				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
 
 				# 7-Zip - Extract the zip archive's contents to the working directory
 				[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}"));
@@ -187,10 +188,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
 		$FullPath_HandBrakeCLI_Zip=("${Env:TEMP}\$(Split-Path ${URL_HandBrakeCLI_Zip} -Leaf)");
 		# $ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${FullPath_HandBrakeCLI_Zip}))");
-
-		Write-Host "";
-		Write-Host "Info:  `$URL_HandBrakeCLI_Zip=`"${URL_7z_Zip}`"";
-		Write-Host "Info:  `$FullPath_HandBrakeCLI_Zip=`"${FullPath_7z_Zip}`"";
 
 		# Download HandBrakeCLI
 		Write-Output "";

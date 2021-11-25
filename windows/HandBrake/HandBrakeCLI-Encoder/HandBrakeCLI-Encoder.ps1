@@ -159,7 +159,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				Write-Output "Info:  Unpacking archive:";
 				Write-Output "        |--> Source (archive):  `"${FullPath_7z_Zip}`"";
 				Write-Output "        |--> Destination (unpacked):  `"${FullPath_7z_Dir}`"";
-				Write-Output "";
 				[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}")) | Out-Null;
 				[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 
@@ -177,7 +176,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			Write-Output "Info:  Unpacking archive:";
 			Write-Output "        |--> Source (archive):  `"${FullPath_HandBrakeCLI_7z}`"";
 			Write-Output "        |--> Destination (unpacked):  `"${FullPath_HandBrakeCLI_Dir}`"";
-			Write-Output "";
 			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}","-bso0","-bsp0","-y")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 			
 			# HandBrakeCLI - Delete the 7-zip archive (send it to the Recycle Bin) once its been unpacked
@@ -212,7 +210,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "Info:  Unpacking archive:";
 		Write-Output "        |--> Source (archive):  `"${FullPath_HandBrakeCLI_Zip}`"";
 		Write-Output "        |--> Destination (unpacked):  `"${FullPath_HandBrakeCLI_Dir}`"";
-		Write-Output "";
 
 		# Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
 		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_HandBrakeCLI_Zip}"),("${FullPath_HandBrakeCLI_Dir}")) | Out-Null;
@@ -333,7 +330,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		Write-Output "------------------------------------------------------------";
 		Write-Output "";
 		Write-Output "Info:  Prepping input ${Filetype_ToDetect}-file  `"${EachInput_FullName}`"";
-		Write-Output "";
 		<# Determine unique output-filenames by timestamping the end of the output files' basenames (before extension) #>
 		$FirstLoop_DoQuickNaming = $True;
 		$NameCollision_LoopIterations = 0;
@@ -362,8 +358,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			Exit 1;
 
 		} Else {
-			Write-Output "Info:  Output filename verified and set to:  `"${EachOutput_FullName}`"...";
 			Write-Output "";
+			Write-Output "Info:  Output filename verified and set to:  `"${EachOutput_FullName}`"...";
 
 			# ----------------------------------------------- #
 			#                                                 #
@@ -406,7 +402,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		Write-Output "  |";
 		Write-Output "  |-->  Opening Output-Directory (in Windows Explorer):  `"${OutputDir}`" ...";
 		Write-Output "";
-		Explorer.exe "${OutputDir}";
+		explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
 		Write-Output "! ! !  INPUT DIRECTORY EMPTY";

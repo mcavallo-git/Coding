@@ -56,11 +56,13 @@ Source Options ---------------------------------------------------------------
                            Start encoding at a given offset in seconds,
                            frames, or pts (on a 90kHz clock)
                            (e.g. seconds:10, frames:300, pts:900000).
+                           Units must match --stop-at units, if specified.
    --stop-at  <string:number>
                            Stop encoding after a given duration in seconds,
                            frames, or pts (on a 90kHz clock) has passed
                            (e.g. seconds:10, frames:300, pts:900000).
                            Duration is relative to --start-at, if specified.
+                           Units must match --start-at units, if specified.
 
 
 Destination Options ----------------------------------------------------------
@@ -186,6 +188,7 @@ Audio Options ----------------------------------------------------------------
                                copy:truehd
                                copy:dts
                                copy:dtshd
+                               copy:mp2
                                mp3
                                copy:mp3
                                vorbis
@@ -205,7 +208,7 @@ Audio Options ----------------------------------------------------------------
        --audio-copy-mask <string>
                            Set audio codecs that are permitted when the
                            "copy" audio encoder option is specified
-                           (aac/ac3/eac3/truehd/dts/dtshd/mp3/flac)
+                           (aac/ac3/eac3/truehd/dts/dtshd/mp2/mp3/flac)
                            Separated by commas for multiple allowed options.
        --audio-fallback <string>
                            Set audio codec to use when it is not possible
@@ -267,24 +270,7 @@ Audio Options ----------------------------------------------------------------
                                lipshitz_ns
                            Separate tracks by commas.
                            Supported by encoder(s):
-                               none
-                               av_aac
-                               copy:aac
-                               ac3
-                               copy:ac3
-                               eac3
-                               copy:eac3
-                               copy:truehd
-                               copy:dts
-                               copy:dtshd
-                               mp3
-                               copy:mp3
-                               vorbis
                                flac16
-                               flac24
-                               copy:flac
-                               opus
-                               copy
    -A, --aname <string>    Set audio track name(s).
                            Separate tracks by commas.
 
@@ -550,7 +536,17 @@ Filters Options --------------------------------------------------------------
                            Color may be an HTML color name or RGB value.
                            The position of image in pad may also be set.
                            Custom Format:
-                               width=w:height=h:color=c:x=x:y=y
+                               width=w:height=h:color=c:x=x:y=y:top=t:bottom=b:
+                               left=l:right=r
+   --colorspace <string>   Convert colorspace, transfer characteristics or color primaries.
+                           Presets:
+                               bt2020
+                               bt709
+                               bt601-6-525
+                               bt601-6-625
+                           Custom Format:
+                               primaries=p:transfer=t:matrix=m:range=r:
+                               tonemap=t:param=p:desat=d
    -g, --grayscale         Grayscale encoding
    --no-grayscale          Disable preset 'grayscale'
 
@@ -584,6 +580,8 @@ Subtitles Options ------------------------------------------------------------
                            or less is selected. This should locate subtitles
                            for short foreign language segments. Best used in
                            conjunction with --subtitle-forced.
+  -S, --subname <string>   Set subtitle track name(s).
+                           Separate tracks by commas.
   -F, --subtitle-forced[=string]
                            Only display subtitles from the selected stream
                            if the subtitle has the forced flag set. The

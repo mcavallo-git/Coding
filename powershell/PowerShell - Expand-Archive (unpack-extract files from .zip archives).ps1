@@ -51,7 +51,8 @@ If ($True) {
 	# Open the working directory
 	explorer.exe "${FullPath_7z_Dir}";
 
-	. "${FullPath_7z_Exe}" --help;
+	# Run the downloaded/unpacked executable
+	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
 }
 
@@ -61,5 +62,11 @@ If ($True) {
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Expand-Archive"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.archive/expand-archive?view=powershell-7
+#
+#   docs.microsoft.com  |  "Start-Process - Starts one or more processes on the local computer"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process
+#
+#   docs.microsoft.com  |  "ZipFile Class (System.IO.Compression) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.zipfile
+#
+#   docs.microsoft.com  |  "ZipFile.ExtractToDirectory Method (System.IO.Compression) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.io.compression.zipfile.extracttodirectory
 #
 # ------------------------------------------------------------

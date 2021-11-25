@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - ZipFile.ExtractToDirectory  (unpack-extract files from .zip archives)
+# PowerShell  -  ZipFile.ExtractToDirectory  (unpack/extract files from .zip archives)
 #
 
 #
@@ -11,7 +11,9 @@ Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 
 
 #
-# Example - Download a zip archive & unpack it  (note: uses [System.IO.Compression.ZipFile] class instead of Expand-Archive cmdlet)
+# Example  -  ZipFile.ExtractToDirectory
+#  |
+#  |--> Download a zip archive & unpack it  (note: uses [System.IO.Compression.ZipFile] class instead of Expand-Archive cmdlet)
 #
 If ($True) {
 
@@ -57,7 +59,7 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-#  PowerShell - Expand-Archive  (unpack-extract files from .zip archives)
+#  PowerShell  -  Expand-Archive  (unpack/extract files from .zip archives)
 #
 
 #

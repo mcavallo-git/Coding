@@ -265,7 +265,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 	Write-Output "";
-	Write-Output "Info:  HandBrakeCLI.exe located at filepath:  `"${FullPath_HandBrakeCLI_Exe}`"";
+	Write-Output "Info:  HandBrakeCLI.exe found to exist at filepath:  `"${FullPath_HandBrakeCLI_Exe}`"";
 
 	# ------------------------------------------------------------
 	#

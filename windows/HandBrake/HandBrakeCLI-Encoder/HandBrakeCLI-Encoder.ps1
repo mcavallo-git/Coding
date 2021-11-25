@@ -405,9 +405,9 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
-		Write-Output "Warning:  Input directory empty";
-		Write-Output "  |";
-		Write-Output "  |--> To Resolve:  Copy the videos (to-be-compressed) into the input directory: `"${InputDir}`", then re-run this script";
+		Write-Output "!!! Warning:  Input directory empty !!!";
+		Write-Output "     |";
+		Write-Output "     |--> To Resolve:  Copy the videos (to-be-compressed) into the input directory: `"${InputDir}`", then re-run this script";
 		Write-Output "";
 		Write-Output "Info:  Opening input directory (in Windows Explorer), now...";
 		Write-Output "";

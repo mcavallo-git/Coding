@@ -23,7 +23,10 @@ $FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
 $FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
 
 # Ensure the working directory exists
+If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
 New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
+}
+
 Set-Location -Path ("${FullPath_7z_Dir}");
 
 # Hide Invoke-WebRequest's progress bar

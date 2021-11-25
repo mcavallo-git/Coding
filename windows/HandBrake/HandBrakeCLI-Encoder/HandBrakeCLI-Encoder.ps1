@@ -138,11 +138,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
 		$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";
 
-		Write-Host "";
-		Write-Host "Info:  `$URL_7z_Zip=`"${URL_7z_Zip}`"";
-		Write-Host "Info:  `$FullPath_7z_Exe=`"${FullPath_7z_Exe}`"";
-		Write-Host "Info:  `$FullPath_HandBrakeCLI_Exe=`"${FullPath_HandBrakeCLI_Exe}`"";
-
 		If ($True) {
 
 			# 7-Zip - Ensure the executable exists

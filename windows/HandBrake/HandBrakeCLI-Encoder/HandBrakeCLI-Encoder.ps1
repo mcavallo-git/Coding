@@ -129,7 +129,7 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	Write-Output "";
-	Write-Output "Info:  HandBrakeCLI Executable not found:  `"${FullPath_HandBrakeCLI_Exe}`"";
+	Write-Output "Info:  HandBrakeCLI.exe not found:  `"${FullPath_HandBrakeCLI_Exe}`"";
 
 	#
 	# HandBrakeCLI - Ensure the executable exists
@@ -264,6 +264,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 # Double-check that the HandBrake runtime executable exists
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
+	Write-Output "";
+	Write-Output "Info:  HandBrakeCLI.exe located at filepath:  `"${FullPath_HandBrakeCLI_Exe}`"";
 
 	# ------------------------------------------------------------
 	#

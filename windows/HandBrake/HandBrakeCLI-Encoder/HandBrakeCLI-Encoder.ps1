@@ -133,6 +133,12 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		# HandBrakeCLI - Set runtime vars for remote URI(s) && local filepath(s)
 		$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
 		$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";
+
+		Write-Host "";
+		Write-Host "Info:  `$URL_7z_Zip=`"${URL_7z_Zip}`"";
+		Write-Host "Info:  `$FullPath_7z_Exe=`"${FullPath_7z_Exe}`"";
+		Write-Host "Info:  `$FullPath_HandBrakeCLI_Exe=`"${FullPath_HandBrakeCLI_Exe}`"";
+
 		# HandBrakeCLI - Ensure the executable exists
 		If ((Test-Path "${FullPath_HandBrakeCLI_Exe}") -NE $True) {
 			# 7-Zip - Ensure the executable exists
@@ -168,13 +174,18 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		$FullPath_HandBrakeCLI_Zip=("${Env:TEMP}\$(Split-Path ${URL_HandBrakeCLI_Zip} -Leaf)");
 		# $ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${FullPath_HandBrakeCLI_Zip}))");
 
+		Write-Host "";
+		Write-Host "Info:  `$URL_HandBrakeCLI_Zip=`"${URL_7z_Zip}`"";
+		Write-Host "Info:  `$FullPath_HandBrakeCLI_Zip=`"${FullPath_7z_Zip}`"";
+
 		# Download HandBrakeCLI
 		Write-Output "";
 		Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${FullPath_HandBrakeCLI_Exe} ]";
 		Write-Output "";
-		Write-Output "Info:  Downloading archive-version of HandBrakeCLI";
+		Write-Output "Info:  Downloading archived version of HandBrakeCLI...";
 		Write-Output "        |--> From:  [ ${URL_HandBrakeCLI_Zip} ]";
 		Write-Output "        |--> To:  [ ${FullPath_HandBrakeCLI_Zip} ]";
+
 		# $(New-Object Net.WebClient).DownloadFile("${URL_HandBrakeCLI_Zip}", "${FullPath_HandBrakeCLI_Zip}");
 		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_Zip}") -OutFile ("${FullPath_HandBrakeCLI_Zip}") -TimeoutSec (60);
 
@@ -185,8 +196,10 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Output "        |--> Destination (unpacked):  `"${FullPath_HandBrakeCLI_Dir}`"";
 		Write-Output "";
 		Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
+
 		# Clean-up the archive once it has been unpacked
 		$FullPath_HandBrakeCLI_Temp = (Get-ChildItem -Path ("${FullPath_HandBrakeCLI_Dir}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
+
 		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Temp}")) -Ne $True) {
 			Write-Output "";
 			Write-Output "Error:  File Not Found (HandBrakeCLI executable) at path `"${FullPath_HandBrakeCLI_Temp}`"`n`n";

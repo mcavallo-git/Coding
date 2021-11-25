@@ -92,6 +92,7 @@ If ($True) {
 	}
 
 	# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
+	Write-Host "Calling [ Start-Process -Filepath (`"${FullPath_7z_Exe}`") -ArgumentList (@(`"x`",`"${FullPath_HandBrakeCLI_7z}`",`"-o${FullPath_HandBrakeCLI_Dir}`")) -NoNewWindow -Wait -PassThru -ErrorAction (`"SilentlyContinue`") | Out-Null; ]...";
 	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 
 	# ------------------------------

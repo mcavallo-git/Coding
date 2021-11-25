@@ -95,7 +95,8 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 #
 If ((Test-Path -Path ("${HandBrakeCLI}")) -Eq $False) {
 
-	$ExeArchive_Url="https://github.com/HandBrake/HandBrake/releases/download/1.3.3/HandBrakeCLI-1.3.3-win-x86_64.zip";
+	$ExeArchive_Url="https://github.com/HandBrake/HandBrake/releases/download/1.4.2/HandBrakeCLI-1.4.2-win-x86_64.zip";
+	# $ExeArchive_Url="https://github.com/HandBrake/HandBrake/releases/download/1.3.3/HandBrakeCLI-1.3.3-win-x86_64.zip";
 	# $ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 
 	$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");

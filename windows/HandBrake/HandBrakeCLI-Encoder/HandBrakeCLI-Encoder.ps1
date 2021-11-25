@@ -125,7 +125,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	$ProgressPreference = "SilentlyContinue";
 
 	# HandBrakeCLI - Ensure the executable exists
-	If ($False) {
+	If ($True) {
+	# If ($False) {
 		#
 		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
 		#

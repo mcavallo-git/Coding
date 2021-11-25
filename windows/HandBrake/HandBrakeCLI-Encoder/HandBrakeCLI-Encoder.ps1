@@ -195,7 +195,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		} Else {
 			If ("${FullPath_HandBrakeCLI_Temp}" -NE "${FullPath_HandBrakeCLI_Exe}") {
 				Write-Output "";
-				Write-Output "Info:  Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${FullPath_HandBrakeCLI_Exe} ]";
+				Write-Output "Info:  Moving downloaded/extracted executable from  [ ${FullPath_HandBrakeCLI_Temp} ]  to  [ ${FullPath_HandBrakeCLI_Exe} ]";
 				Move-Item -Path ("${FullPath_HandBrakeCLI_Temp}") -Destination ("${FullPath_HandBrakeCLI_Exe}") -Force;
 			}
 		}

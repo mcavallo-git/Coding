@@ -170,10 +170,13 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			}
 			# HandBrakeCLI - Download the executable contained within a 7-zip archive
 			Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_7z}") -OutFile ("${FullPath_HandBrakeCLI_7z}") -TimeoutSec (60);
-			# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
-			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
+			
+			# 7-Zip - Extract the HandBrakeCLI archive's contents to the working directory
+			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}","-bso0","-bsp0","-y")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
+			
 			# HandBrakeCLI - Delete the 7-zip archive (send it to the Recycle Bin) once its been unpacked
 			[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_HandBrakeCLI_7z}",'OnlyErrorDialogs','SendToRecycleBin');
+
 		}
 
 	} Else {

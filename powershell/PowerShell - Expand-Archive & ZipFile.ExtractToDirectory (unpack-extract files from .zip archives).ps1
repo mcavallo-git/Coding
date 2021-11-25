@@ -6,15 +6,22 @@
 
 # General Syntax
 
-Expand-Archive -LiteralPath ("C:\Archives\Draft[v1].Zip") -DestinationPath ("C:\Reference");
+Expand-Archive -LiteralPath ("C:\Archive.zip") -DestinationPath ("C:\ArchiveContents");
 
 
 # ------------------------------------------------------------
 #
 # PowerShell - ZipFile.ExtractToDirectory  (unpack-extract files from .zip archives)
-#  |-->  Download a zip archive & unpack it  (note: uses [System.IO.Compression.ZipFile] class instead of Expand-Archive cmdlet)
 #
 
+# General Syntax
+Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
+[System.IO.Compression.ZipFile]::ExtractToDirectory(("C:\Archive.zip"),("C:\ArchiveContents"));
+
+
+#
+# Example - Download a zip archive & unpack it  (note: uses [System.IO.Compression.ZipFile] class instead of Expand-Archive cmdlet)
+#
 If ($True) {
 
 	# Setup Runtime vars for remote URI(s) && local filepath(s)

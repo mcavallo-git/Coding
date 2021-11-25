@@ -223,7 +223,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			Write-Output "Error:  File Not Found (HandBrakeCLI.exe executable) at path `"${FullPath_HandBrakeCLI_Dir}`"`n`n";
 			If ($True) {
 				# Wait 60 seconds before proceeding
-				Start-Sleep 60;
+				# Start-Sleep 60;
 			} Else {
 				# "Press any key to close this window..."
 				Write-Output -NoNewLine "`n`n  Press any key to close this window...`n`n";

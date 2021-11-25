@@ -50,6 +50,8 @@ If ($True) {
 	# Open the working directory
 	explorer.exe "${FullPath_7z_Dir}";
 
+	${FullPath_7z_Exe} --help;
+
 }
 
 

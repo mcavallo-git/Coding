@@ -99,9 +99,9 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 		New-Item -ItemType "Directory" -Path ("${EachDirname_ToEnsureExists}\") | Out-Null;
 		If ((Test-Path -Path ("${EachDirname_ToEnsureExists}")) -Eq ($False)) {
 			Write-Output "";
-			Write-Output "ERROR:  Unable to create directory `"${EachDirname_ToEnsureExists}`"";
-			Write-Output "   |";
-			Write-Output "   |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
+			Write-Output "Error  Unable to create directory `"${EachDirname_ToEnsureExists}`"";
+			Write-Output "  |";
+			Write-Output "  |-->  Please create this directory manually (via windows explorer, etc.), then re-run this script";
 			Write-Output "";
 			Start-Sleep 30;
 			Exit 1;
@@ -280,7 +280,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 
 	$InputFullNames_Arr = @();
 
-	# Determine which files are video-files from within the input-directory (by using ActiveX Objects)
+	# Determine which files are video-files from within the input directory (by using ActiveX Objects)
 	#  |--> !!! NOTE !!! As-of 2020-06-26, attempting to run this before installing ImageMagick ( https://www.imagemagick.org/script/download.php#windows ) failed to grab the files as-intended. Once ImageMagick was installed, the video typed objects were able to be grabbed as-intended...so add a secondary fallback video query after it, incase the user doesn't have this search/query capability
 	$Directory_ToSearch = "${InputDir}";
 	$Filetype_ToDetect = "video";
@@ -396,20 +396,20 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 	# Open the exported-files directory
 	If ($TotalVideoEncodes -GT 0) {
 		Write-Output "";
-		Write-Output "Info:   ENCODING COMPLETE";
+		Write-Output "Info:   Encoding Complete";
 		Write-Output "  |";
 		Write-Output "  |-->  Total Encoding Count:  `"${TotalVideoEncodes}`"";
 		Write-Output "  |";
-		Write-Output "  |-->  Opening Output-Directory (in Windows Explorer):  `"${OutputDir}`" ...";
+		Write-Output "  |-->  Opening output directory (in Windows Explorer):  ...";
 		Write-Output "";
 		explorer.exe "${OutputDir}";
 	} Else {
 		Write-Output "";
-		Write-Output "! ! !  INPUT DIRECTORY EMPTY";
+		Write-Output "Warning:  Input directory empty";
 		Write-Output "  |";
-		Write-Output "  |-->  Copy your videos (to-compress) into Input-Directory:  `"${InputDir}`"";
-		Write-Output "  |";
-		Write-Output "  |-->  Opening Input-Directory (in Windows Explorer):  `"${InputDir}`" ...";
+		Write-Output "  |--> To Resolve:  Copy the videos (to-be-compressed) into the input directory: `"${InputDir}`", then re-run this script";
+		Write-Output "";
+		Write-Output "Info:  Opening input directory (in Windows Explorer), now...";
 		Write-Output "";
 		$FileContents_CallThisScriptAgain = "<# Re-run the HandBrakeCLI-Encoder by opening a PowerShell terminal and copy-pasting this line of code into it #> SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);";
 		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("${FileContents_CallThisScriptAgain}");

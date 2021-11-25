@@ -54,6 +54,13 @@ If ($True) {
 	# Run the downloaded/unpacked executable
 	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 
+
+FILEPATH_ARCHIVE_7Z="${HOME}/var-www-html-20191101_183748.7z";
+DIR_TO_EXTRACT_INTO="$(basename ${FILEPATH_ARCHIVE_7Z})_unpacked";
+mkdir -p "${DIR_TO_EXTRACT_INTO}";
+7z x "${FILEPATH_ARCHIVE_7Z}" -o${DIR_TO_EXTRACT_INTO};
+
+
 }
 
 

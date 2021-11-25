@@ -122,7 +122,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	# Hide Invoke-WebRequest's progress bar
 	$ProgressPreference = "SilentlyContinue";
 
-	If ($True) {
+	# HandBrakeCLI - Ensure the executable exists
+	If ((Test-Path "${FullPath_HandBrakeCLI_Exe}") -NE $True) {
 		#
 		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
 		#
@@ -139,8 +140,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		Write-Host "Info:  `$FullPath_7z_Exe=`"${FullPath_7z_Exe}`"";
 		Write-Host "Info:  `$FullPath_HandBrakeCLI_Exe=`"${FullPath_HandBrakeCLI_Exe}`"";
 
-		# HandBrakeCLI - Ensure the executable exists
-		If ((Test-Path "${FullPath_HandBrakeCLI_Exe}") -NE $True) {
+		If ($True) {
+
 			# 7-Zip - Ensure the executable exists
 			If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
 				# 7-Zip - Download the executable contained in a zip archive

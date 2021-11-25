@@ -17,7 +17,7 @@ Expand-Archive -LiteralPath 'C:\Archives\Draft[v1].Zip' -DestinationPath C:\Refe
 If ($True) {
 
 # Setup Runtime vars for remote URI(s) && local filepath(s)
-$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/7z-Standalone.zip";
+$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7z-Standalone.zip";
 $FullPath_WorkingDir = "${env:TEMP}\7-Zip-Standalone";
 $FullPath_AgentZip="${FullPath_WorkingDir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
 

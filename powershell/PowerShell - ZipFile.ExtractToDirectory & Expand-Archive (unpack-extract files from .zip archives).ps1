@@ -17,55 +17,67 @@ Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 #
 If ($True) {
 
+	# ------------------------------
+
 	# 7-Zip - Set runtime vars for remote URI(s) && local filepath(s)
-	$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7za.exe.zip";
+	$URL_7z_Zip = "https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7za.exe.zip";
 	$FullPath_7z_Dir = "${env:TEMP}\7-Zip-Standalone";
 	$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
-	$FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
+	$FullPath_7z_Zip = "${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_7z_Zip}") -Leaf;)";
 
-	# Ensure the working directory exists
+	# 7-Zip - Ensure the working directory exists
 	If ((Test-Path "${FullPath_7z_Dir}") -NE $True) {
 	New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
 	}
 
-	# Ensure the executable exists
+	# 7-Zip - Ensure the executable exists
 	If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
 
 		# Hide Invoke-WebRequest's progress bar
-		$ProgressPreference="SilentlyContinue";
+		$ProgressPreference = "SilentlyContinue";
 
-		# Download the executable contained in a zip archive
+		# 7-Zip - Download the executable contained in a zip archive
 		[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
-		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_AgentZip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
+		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
 
-		# Extract the zip archive's contents to the working directory
+		# 7-Zip - Extract the zip archive's contents to the working directory
 		Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}"));
 
-		# Delete the zip archive (send it to the Recycle Bin) once its been unpacked
+		# 7-Zip - Delete the zip archive (send it to the Recycle Bin) once its been unpacked
 		Add-Type -AssemblyName ("Microsoft.VisualBasic");
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 
 	}
 
-	# Open the working directory
-	explorer.exe "${FullPath_7z_Dir}";
+	# ------------------------------
 
-	# Run the downloaded/unpacked executable
-	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
+	# ### 7-Zip - Open the working directory
+	# explorer.exe "${FullPath_7z_Dir}";
 
-	# Handbrake - Set runtime vars for remote URI(s) && local filepath(s)
-	$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/HandBrakeCLI_Input-Output.7z";
-	$FullPath_7z_Dir = "${env:TEMP}\7-Zip-Standalone";
-	$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
-	$FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
+	# ### 7-Zip - Run the downloaded/unpacked executable
+	# Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
 
+	# ------------------------------
 
-FILEPATH_ARCHIVE_7Z="${HOME}/var-www-html-20191101_183748.7z";
-DIR_TO_EXTRACT_INTO="$(basename ${FILEPATH_ARCHIVE_7Z})_unpacked";
-mkdir -p "${DIR_TO_EXTRACT_INTO}";
-7z x "${FILEPATH_ARCHIVE_7Z}" -o${DIR_TO_EXTRACT_INTO};
+	# HandBrakeCLI - Set runtime vars for remote URI(s) && local filepath(s)
+	$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
+	$FullPath_HandBrakeCLI_Dir = "${env:TEMP}\HandBrakeCLI";
+	$FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";
+	$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";
 
+	# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
+	Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
+
+	# ------------------------------
+
+	# HandBrakeCLI - Open the working directory
+	explorer.exe "${FullPath_HandBrakeCLI_Dir}";
+
+	# HandBrakeCLI - Run the downloaded/unpacked executable
+	Start-Process -Filepath ("${FullPath_HandBrakeCLI_Exe}") -ArgumentList (@("--help")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
+
+	# ------------------------------
 
 }
 

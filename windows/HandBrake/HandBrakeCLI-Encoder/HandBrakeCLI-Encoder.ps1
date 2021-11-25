@@ -100,9 +100,15 @@ For ($i=0; ($i -LT $Dirnames_EnsureAllExist.Count); $i++) {
 #
 If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
+	# Ensure TLS 1.2 exists amongst available HTTPS Protocols
+	[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
+	
+	# Hide Invoke-WebRequest's progress bar
+	$ProgressPreference = "SilentlyContinue";
+
 	If ($True) {
 		#
-		# Download HandBrakeCLI.exe from the GitHub Repo "mcavallo-git/Coding"
+		# Download HandBrakeCLI.exe from GitHub Repo "mcavallo-git/Coding"
 		#
 
 		# 7-Zip - Set runtime vars for remote URI(s) && local filepath(s)
@@ -122,8 +128,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 					New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
 				}
 				# 7-Zip - Download the executable contained in a zip archive
-				[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  <# Ensure TLS 1.2 exists amongst available HTTPS Protocols #>
-				$ProgressPreference = "SilentlyContinue";  <# Hide Invoke-WebRequest's progress bar #>
 				Invoke-WebRequest -UseBasicParsing -Uri ("${URL_7z_Zip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
 				# 7-Zip - Extract the zip archive's contents to the working directory
 				Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
@@ -137,8 +141,6 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 				New-Item -ItemType ("Directory") -Path ("${FullPath_HandBrakeCLI_Dir}") | Out-Null;
 			}
 			# HandBrakeCLI - Download the executable contained in a 7-zip archive
-			[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  <# Ensure TLS 1.2 exists amongst available HTTPS Protocols #>
-			$ProgressPreference = "SilentlyContinue";  <# Hide Invoke-WebRequest's progress bar #>
 			Invoke-WebRequest -UseBasicParsing -Uri ("${URL_HandBrakeCLI_7z}") -OutFile ("${FullPath_HandBrakeCLI_7z}") -TimeoutSec (60);
 			# HandBrakeCLI - Extract the 7-zip archive's contents to the working directory
 			Start-Process -Filepath ("${FullPath_7z_Exe}") -ArgumentList (@("x","${FullPath_HandBrakeCLI_7z}","-o${FullPath_HandBrakeCLI_Dir}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue") | Out-Null;
@@ -150,41 +152,37 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 	} Else {
 
 		#
-		# Download HandBrakeCLI.exe from the GitHub Repo "HandBrake/HandBrake"'s releases section
+		# Download HandBrakeCLI.exe from GitHub Repo "HandBrake/HandBrake"'s releases section
 		#
 
-		$ExeArchive_Url="https://github.com/HandBrake/HandBrake/releases/download/1.4.2/HandBrakeCLI-1.4.2-win-x86_64.zip";
-		# $ExeArchive_Url="https://github.com/HandBrake/HandBrake/releases/download/1.3.3/HandBrakeCLI-1.3.3-win-x86_64.zip";
-		# $ExeArchive_Url="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
+		$URL_HandBrakeCLI_Zip="https://github.com/HandBrake/HandBrake/releases/download/1.4.2/HandBrakeCLI-1.4.2-win-x86_64.zip";
+		# $URL_HandBrakeCLI_Zip="https://github.com/HandBrake/HandBrake/releases/download/1.3.3/HandBrakeCLI-1.3.3-win-x86_64.zip";
+		# $URL_HandBrakeCLI_Zip="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 
-		$ExeArchive_Local=("${Env:TEMP}\$(Split-Path ${ExeArchive_Url} -Leaf)");
-
-		$ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${ExeArchive_Local}))");
+		$FullPath_HandBrakeCLI_Zip=("${Env:TEMP}\$(Split-Path ${URL_HandBrakeCLI_Zip} -Leaf)");
+		# $ExeArchive_Unpacked=("${Env:TEMP}\$([IO.Path]::GetFileNameWithoutExtension(${FullPath_HandBrakeCLI_Zip}))");
 
 		# Download HandBrakeCLI
 		Write-Output "";
 		Write-Output "Info:  HandBrakeCLI Executable not found:  [ ${FullPath_HandBrakeCLI_Exe} ]";
 		Write-Output "";
 		Write-Output "Info:  Downloading archive-version of HandBrakeCLI";
-		Write-Output "        |--> From:  [ ${ExeArchive_Url} ]";
-		Write-Output "        |--> To:  [ ${ExeArchive_Local} ]";
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
-		[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-		$ProgressPreference='SilentlyContinue';
-		$(New-Object Net.WebClient).DownloadFile("${ExeArchive_Url}", "${ExeArchive_Local}");
-		[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		Write-Output "        |--> From:  [ ${URL_HandBrakeCLI_Zip} ]";
+		Write-Output "        |--> To:  [ ${FullPath_HandBrakeCLI_Zip} ]";
+		$(New-Object Net.WebClient).DownloadFile("${URL_HandBrakeCLI_Zip}", "${FullPath_HandBrakeCLI_Zip}");
+
 		# Unpack the downloaded archive
 		Write-Output "";
 		Write-Output "Info:  Unpacking archive:";
-		Write-Output "        |--> Source (archive):  `"${ExeArchive_Local}`"";
-		Write-Output "        |--> Destination (unpacked):  `"${ExeArchive_Unpacked}`"";
+		Write-Output "        |--> Source (archive):  `"${FullPath_HandBrakeCLI_Zip}`"";
+		Write-Output "        |--> Destination (unpacked):  `"${FullPath_HandBrakeCLI_Dir}`"";
 		Write-Output "";
-		Expand-Archive -LiteralPath ("${ExeArchive_Local}") -DestinationPath ("${ExeArchive_Unpacked}") -Force;
+		Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
 		# Clean-up the archive once it has been unpacked
-		$ExeArchive_HandBrakeCLI = (Get-ChildItem -Path ("${ExeArchive_Unpacked}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
-		If ((Test-Path -Path ("${ExeArchive_HandBrakeCLI}")) -Ne $True) {
+		$FullPath_HandBrakeCLI_Temp = (Get-ChildItem -Path ("${FullPath_HandBrakeCLI_Dir}") -Depth (0) -File | Where-Object { $_.Name -Like "*HandBrakeCLI*.exe" } | Select-Object -First (1) -ExpandProperty ("FullName"));
+		If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Temp}")) -Ne $True) {
 			Write-Output "";
-			Write-Output "ERROR:  FILE NOT FOUND (HandBrakeCLI executable) at path `"${ExeArchive_HandBrakeCLI}`"`n`n";
+			Write-Output "ERROR:  FILE NOT FOUND (HandBrakeCLI executable) at path `"${FullPath_HandBrakeCLI_Temp}`"`n`n";
 			If ($True) {
 				# Wait 60 seconds before proceeding
 				Start-Sleep 60;
@@ -195,9 +193,11 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 			}
 			Exit 1;
 		} Else {
-			Write-Output "";
-			Write-Output "Info:  Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${FullPath_HandBrakeCLI_Exe} ]";
-			Move-Item -Path ("${ExeArchive_HandBrakeCLI}") -Destination ("${FullPath_HandBrakeCLI_Exe}") -Force;
+			If ("${FullPath_HandBrakeCLI_Temp}" -NE "${FullPath_HandBrakeCLI_Exe}") {
+				Write-Output "";
+				Write-Output "Info:  Moving downloaded/extracted executable from  [ ${ExeArchive_HandBrakeCLI} ]  to  [ ${FullPath_HandBrakeCLI_Exe} ]";
+				Move-Item -Path ("${FullPath_HandBrakeCLI_Temp}") -Destination ("${FullPath_HandBrakeCLI_Exe}") -Force;
+			}
 		}
 	}
 

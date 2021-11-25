@@ -408,8 +408,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		Write-Output "!!! Warning:  Input directory empty !!!";
 		Write-Output "     |";
 		Write-Output "     |--> To Resolve:  Copy the videos (to-be-compressed) into the input directory: `"${InputDir}`", then re-run this script";
-		Write-Output "";
-		Write-Output "Info:  Opening input directory (in Windows Explorer), now...";
+		# Write-Output "";
+		# Write-Output "Info:  Opening input directory (in Windows Explorer), now...";
 		Write-Output "";
 		$FileContents_CallThisScriptAgain = "<# Re-run the HandBrakeCLI-Encoder by opening a PowerShell terminal and copy-pasting this line of code into it #> SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);";
 		Set-Content -Path ("${InputDir}\_Copy video-files here.txt") -Value ("${FileContents_CallThisScriptAgain}");

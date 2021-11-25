@@ -16,36 +16,39 @@ Expand-Archive -LiteralPath ("C:\Archives\Draft[v1].Zip") -DestinationPath ("C:\
 
 If ($True) {
 
-# Setup Runtime vars for remote URI(s) && local filepath(s)
-$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7z-Standalone.zip";
-$FullPath_7z_Dir = "${env:TEMP}\7-Zip-Standalone";
-$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
-$FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
+	# Setup Runtime vars for remote URI(s) && local filepath(s)
+	$URL_AgentZip="https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7z-Standalone.zip";
+	$FullPath_7z_Dir = "${env:TEMP}\7-Zip-Standalone";
+	$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
+	$FullPath_7z_Zip="${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_AgentZip}") -Leaf;)";
 
-# Ensure the working directory exists
-If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
-New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
-}
+	# Ensure the working directory exists
+	If ((Test-Path "${FullPath_7z_Dir}") -NE $True) {
+	New-Item -ItemType ("Directory") -Path ("${FullPath_7z_Dir}") | Out-Null;
+	}
 
-Set-Location -Path ("${FullPath_7z_Dir}");
+	# Ensure the executable exists
+	If ((Test-Path "${FullPath_7z_Exe}") -NE $True) {
 
-# Hide Invoke-WebRequest's progress bar
-$ProgressPreference="SilentlyContinue";
+		# Hide Invoke-WebRequest's progress bar
+		$ProgressPreference="SilentlyContinue";
 
-# Download the zip archive
-[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
-Invoke-WebRequest -UseBasicParsing -Uri ("${URL_AgentZip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
+		# Download the executable contained in a zip archive
+		[System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);
+		Invoke-WebRequest -UseBasicParsing -Uri ("${URL_AgentZip}") -OutFile ("${FullPath_7z_Zip}") -TimeoutSec (60);
 
-# Extract the zip archive
-Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
-[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}"));
+		# Extract the zip archive's contents to the working directory
+		Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
+		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_7z_Zip}"),("${FullPath_7z_Dir}"));
 
-# Send the leftover zip archive to the Recycle Bin (once its unpacked)
-Add-Type -AssemblyName ("Microsoft.VisualBasic");
-[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
+		# Delete the zip archive (send it to the Recycle Bin) once its been unpacked
+		Add-Type -AssemblyName ("Microsoft.VisualBasic");
+		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_7z_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 
-# Open the working directory
-explorer.exe "${FullPath_7z_Dir}";
+	}
+
+	# Open the working directory
+	explorer.exe "${FullPath_7z_Dir}";
 
 }
 

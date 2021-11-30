@@ -1,0 +1,2175 @@
+The Kubernetes package manager
+
+Common actions for Helm:
+
+- helm search:    search for charts
+- helm pull:      download a chart to your local directory to view
+- helm install:   upload the chart to Kubernetes
+- helm list:      list releases of charts
+
+Environment variables:
+
+| Name                               | Description                                                                       |
+|------------------------------------|-----------------------------------------------------------------------------------|
+| $HELM_CACHE_HOME                   | set an alternative location for storing cached files.                             |
+| $HELM_CONFIG_HOME                  | set an alternative location for storing Helm configuration.                       |
+| $HELM_DATA_HOME                    | set an alternative location for storing Helm data.                                |
+| $HELM_DEBUG                        | indicate whether or not Helm is running in Debug mode                             |
+| $HELM_DRIVER                       | set the backend storage driver. Values are: configmap, secret, memory, sql.       |
+| $HELM_DRIVER_SQL_CONNECTION_STRING | set the connection string the SQL storage driver should use.                      |
+| $HELM_MAX_HISTORY                  | set the maximum number of helm release history.                                   |
+| $HELM_NAMESPACE                    | set the namespace used for the helm operations.                                   |
+| $HELM_NO_PLUGINS                   | disable plugins. Set HELM_NO_PLUGINS=1 to disable plugins.                        |
+| $HELM_PLUGINS                      | set the path to the plugins directory                                             |
+| $HELM_REGISTRY_CONFIG              | set the path to the registry config file.                                         |
+| $HELM_REPOSITORY_CACHE             | set the path to the repository cache directory                                    |
+| $HELM_REPOSITORY_CONFIG            | set the path to the repositories file.                                            |
+| $KUBECONFIG                        | set an alternative Kubernetes configuration file (default "~/.kube/config")       |
+| $HELM_KUBEAPISERVER                | set the Kubernetes API Server Endpoint for authentication                         |
+| $HELM_KUBECAFILE                   | set the Kubernetes certificate authority file.                                    |
+| $HELM_KUBEASGROUPS                 | set the Groups to use for impersonation using a comma-separated list.             |
+| $HELM_KUBEASUSER                   | set the Username to impersonate for the operation.                                |
+| $HELM_KUBECONTEXT                  | set the name of the kubeconfig context.                                           |
+| $HELM_KUBETOKEN                    | set the Bearer KubeToken used for authentication.                                 |
+
+Helm stores cache, configuration, and data based on the following configuration order:
+
+- If a HELM_*_HOME environment variable is set, it will be used
+- Otherwise, on systems supporting the XDG base directory specification, the XDG variables will be used
+- When no other location is set a default location will be used based on the operating system
+
+By default, the default directories depend on the Operating System. The defaults are listed below:
+
+| Operating System | Cache Path                | Configuration Path             | Data Path               |
+|------------------|---------------------------|--------------------------------|-------------------------|
+| Linux            | $HOME/.cache/helm         | $HOME/.config/helm             | $HOME/.local/share/helm |
+| macOS            | $HOME/Library/Caches/helm | $HOME/Library/Preferences/helm | $HOME/Library/helm      |
+| Windows          | %TEMP%\helm               | %APPDATA%\helm                 | %APPDATA%\helm          |
+
+Usage:
+  helm [command]
+
+Available Commands:
+  completion  generate autocompletion scripts for the specified shell
+  create      create a new chart with the given name
+  dependency  manage a chart's dependencies
+  env         helm client environment information
+  get         download extended information of a named release
+  help        Help about any command
+  history     fetch release history
+  install     install a chart
+  lint        examine a chart for possible issues
+  list        list releases
+  package     package a chart directory into a chart archive
+  plugin      install, list, or uninstall Helm plugins
+  pull        download a chart from a repository and (optionally) unpack it in local directory
+  repo        add, list, remove, update, and index chart repositories
+  rollback    roll back a release to a previous revision
+  search      search for a keyword in charts
+  show        show information of a chart
+  status      display the status of the named release
+  template    locally render templates
+  test        run tests for a release
+  uninstall   uninstall a release
+  upgrade     upgrade a release
+  verify      verify that a chart at the given path has been signed and is valid
+  version     print the client version information
+
+Flags:
+      --debug                       enable verbose output
+  -h, --help                        help for helm
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+Generate autocompletion scripts for Helm for the specified shell.
+
+Usage:
+  helm completion [command]
+
+Available Commands:
+  bash        generate autocompletion script for bash
+  fish        generate autocompletion script for fish
+  powershell  generate autocompletion script for powershell
+  zsh         generate autocompletion script for zsh
+
+Flags:
+  -h, --help   help for completion
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm completion [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+Generate the autocompletion script for Helm for the bash shell.
+
+To load completions in your current shell session:
+
+    source <(helm completion bash)
+
+To load completions for every new session, execute once:
+- Linux:
+
+      helm completion bash > /etc/bash_completion.d/helm
+
+- MacOS:
+
+      helm completion bash > /usr/local/etc/bash_completion.d/helm
+
+Usage:
+  helm completion bash [flags]
+
+Flags:
+  -h, --help              help for bash
+      --no-descriptions   disable completion descriptions
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Generate the autocompletion script for Helm for the fish shell.
+
+To load completions in your current shell session:
+
+    helm completion fish | source
+
+To load completions for every new session, execute once:
+
+    helm completion fish > ~/.config/fish/completions/helm.fish
+
+You will need to start a new shell for this setup to take effect.
+
+Usage:
+  helm completion fish [flags]
+
+Flags:
+  -h, --help              help for fish
+      --no-descriptions   disable completion descriptions
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Generate the autocompletion script for powershell.
+
+To load completions in your current shell session:
+PS C:\> helm completion powershell | Out-String | Invoke-Expression
+
+To load completions for every new session, add the output of the above command
+to your powershell profile.
+
+Usage:
+  helm completion powershell [flags]
+
+Flags:
+  -h, --help              help for powershell
+      --no-descriptions   disable completion descriptions
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Generate the autocompletion script for Helm for the zsh shell.
+
+To load completions in your current shell session:
+
+    source <(helm completion zsh)
+
+To load completions for every new session, execute once:
+
+    helm completion zsh > "${fpath[1]}/_helm"
+
+Usage:
+  helm completion zsh [flags]
+
+Flags:
+  -h, --help              help for zsh
+      --no-descriptions   disable completion descriptions
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command creates a chart directory along with the common files and
+directories used in a chart.
+
+For example, 'helm create foo' will create a directory structure that looks
+something like this:
+
+    foo/
+    ├── .helmignore   # Contains patterns to ignore when packaging Helm charts.
+    ├── Chart.yaml    # Information about your chart
+    ├── values.yaml   # The default values for your templates
+    ├── charts/       # Charts that this chart depends on
+    └── templates/    # The template files
+        └── tests/    # The test files
+
+'helm create' takes a path for an argument. If directories in the given path
+do not exist, Helm will attempt to create them as it goes. If the given
+destination exists and there are files in that directory, conflicting files
+will be overwritten, but other files will be left alone.
+
+Usage:
+  helm create NAME [flags]
+
+Flags:
+  -h, --help             help for create
+  -p, --starter string   the name or absolute path to Helm starter scaffold
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Manage the dependencies of a chart.
+
+Helm charts store their dependencies in 'charts/'. For chart developers, it is
+often easier to manage dependencies in 'Chart.yaml' which declares all
+dependencies.
+
+The dependency commands operate on that file, making it easy to synchronize
+between the desired dependencies and the actual dependencies stored in the
+'charts/' directory.
+
+For example, this Chart.yaml declares two dependencies:
+
+    # Chart.yaml
+    dependencies:
+    - name: nginx
+      version: "1.2.3"
+      repository: "https://example.com/charts"
+    - name: memcached
+      version: "3.2.1"
+      repository: "https://another.example.com/charts"
+
+
+The 'name' should be the name of a chart, where that name must match the name
+in that chart's 'Chart.yaml' file.
+
+The 'version' field should contain a semantic version or version range.
+
+The 'repository' URL should point to a Chart Repository. Helm expects that by
+appending '/index.yaml' to the URL, it should be able to retrieve the chart
+repository's index. Note: 'repository' can be an alias. The alias must start
+with 'alias:' or '@'.
+
+Starting from 2.2.0, repository can be defined as the path to the directory of
+the dependency charts stored locally. The path should start with a prefix of
+"file://". For example,
+
+    # Chart.yaml
+    dependencies:
+    - name: nginx
+      version: "1.2.3"
+      repository: "file://../dependency_chart/nginx"
+
+If the dependency chart is retrieved locally, it is not required to have the
+repository added to helm by "helm add repo". Version matching is also supported
+for this case.
+
+Usage:
+  helm dependency [command]
+
+Aliases:
+  dependency, dep, dependencies
+
+Available Commands:
+  build       rebuild the charts/ directory based on the Chart.lock file
+  list        list the dependencies for the given chart
+  update      update charts/ based on the contents of Chart.yaml
+
+Flags:
+  -h, --help   help for dependency
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm dependency [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+Build out the charts/ directory from the Chart.lock file.
+
+Build is used to reconstruct a chart's dependencies to the state specified in
+the lock file. This will not re-negotiate dependencies, as 'helm dependency update'
+does.
+
+If no lock file is found, 'helm dependency build' will mirror the behavior
+of 'helm dependency update'.
+
+Usage:
+  helm dependency build CHART [flags]
+
+Flags:
+  -h, --help             help for build
+      --keyring string   keyring containing public keys (default "/root/.gnupg/pubring.gpg")
+      --skip-refresh     do not refresh the local repository cache
+      --verify           verify the packages against signatures
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+List all of the dependencies declared in a chart.
+
+This can take chart archives and chart directories as input. It will not alter
+the contents of a chart.
+
+This will produce an error if the chart cannot be loaded.
+
+Usage:
+  helm dependency list CHART [flags]
+
+Aliases:
+  list, ls
+
+Flags:
+  -h, --help                 help for list
+      --max-col-width uint   maximum column width for output table (default 80)
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Update the on-disk dependencies to mirror Chart.yaml.
+
+This command verifies that the required charts, as expressed in 'Chart.yaml',
+are present in 'charts/' and are at an acceptable version. It will pull down
+the latest charts that satisfy the dependencies, and clean up old dependencies.
+
+On successful update, this will generate a lock file that can be used to
+rebuild the dependencies to an exact version.
+
+Dependencies are not required to be represented in 'Chart.yaml'. For that
+reason, an update command will not remove charts unless they are (a) present
+in the Chart.yaml file, but (b) at the wrong version.
+
+Usage:
+  helm dependency update CHART [flags]
+
+Aliases:
+  update, up
+
+Flags:
+  -h, --help             help for update
+      --keyring string   keyring containing public keys (default "/root/.gnupg/pubring.gpg")
+      --skip-refresh     do not refresh the local repository cache
+      --verify           verify the packages against signatures
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Env prints out all the environment information in use by Helm.
+
+Usage:
+  helm env [flags]
+
+Flags:
+  -h, --help   help for env
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command consists of multiple subcommands which can be used to
+get extended information about the release, including:
+
+- The values used to generate the release
+- The generated manifest file
+- The notes provided by the chart of the release
+- The hooks associated with the release
+
+Usage:
+  helm get [command]
+
+Available Commands:
+  all         download all information for a named release
+  hooks       download all hooks for a named release
+  manifest    download the manifest for a named release
+  notes       download the notes for a named release
+  values      download the values file for a named release
+
+Flags:
+  -h, --help   help for get
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm get [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+This command prints a human readable collection of information about the
+notes, hooks, supplied values, and generated manifest file of the given release.
+
+Usage:
+  helm get all RELEASE_NAME [flags]
+
+Flags:
+  -h, --help              help for all
+      --revision int      get the named release with revision
+      --template string   go template for formatting the output, eg: {{.Release.Name}}
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command downloads hooks for a given release.
+
+Hooks are formatted in YAML and separated by the YAML '---\n' separator.
+
+Usage:
+  helm get hooks RELEASE_NAME [flags]
+
+Flags:
+  -h, --help           help for hooks
+      --revision int   get the named release with revision
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command fetches the generated manifest for a given release.
+
+A manifest is a YAML-encoded representation of the Kubernetes resources that
+were generated from this release's chart(s). If a chart is dependent on other
+charts, those resources will also be included in the manifest.
+
+Usage:
+  helm get manifest RELEASE_NAME [flags]
+
+Flags:
+  -h, --help           help for manifest
+      --revision int   get the named release with revision
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command shows notes provided by the chart of a named release.
+
+Usage:
+  helm get notes RELEASE_NAME [flags]
+
+Flags:
+  -h, --help           help for notes
+      --revision int   get the named release with revision
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command downloads a values file for a given release.
+
+Usage:
+  helm get values RELEASE_NAME [flags]
+
+Flags:
+  -a, --all             dump all (computed) values
+  -h, --help            help for values
+  -o, --output format   prints the output in the specified format. Allowed values: table, json, yaml (default table)
+      --revision int    get the named release with revision
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+Help provides help for any command in the application.
+Simply type helm help [path to command] for full details.
+
+Usage:
+  helm help [command] [flags]
+
+Flags:
+  -h, --help   help for help
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+History prints historical revisions for a given release.
+
+A default maximum of 256 revisions will be returned. Setting '--max'
+configures the maximum length of the revision list returned.
+
+The historical release set is printed as a formatted table, e.g:
+
+    $ helm history angry-bird
+    REVISION    UPDATED                     STATUS          CHART             APP VERSION     DESCRIPTION
+    1           Mon Oct 3 10:15:13 2016     superseded      alpine-0.1.0      1.0             Initial install
+    2           Mon Oct 3 10:15:13 2016     superseded      alpine-0.1.0      1.0             Upgraded successfully
+    3           Mon Oct 3 10:15:13 2016     superseded      alpine-0.1.0      1.0             Rolled back to 2
+    4           Mon Oct 3 10:15:13 2016     deployed        alpine-0.1.0      1.0             Upgraded successfully
+
+Usage:
+  helm history RELEASE_NAME [flags]
+
+Aliases:
+  history, hist
+
+Flags:
+  -h, --help            help for history
+      --max int         maximum number of revision to include in history (default 256)
+  -o, --output format   prints the output in the specified format. Allowed values: table, json, yaml (default table)
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command installs a chart archive.
+
+The install argument must be a chart reference, a path to a packaged chart,
+a path to an unpacked chart directory or a URL.
+
+To override values in a chart, use either the '--values' flag and pass in a file
+or use the '--set' flag and pass configuration from the command line, to force
+a string value use '--set-string'. In case a value is large and therefore
+you want not to use neither '--values' nor '--set', use '--set-file' to read the
+single large value from file.
+
+    $ helm install -f myvalues.yaml myredis ./redis
+
+or
+
+    $ helm install --set name=prod myredis ./redis
+
+or
+
+    $ helm install --set-string long_int=1234567890 myredis ./redis
+
+or
+
+    $ helm install --set-file my_script=dothings.sh myredis ./redis
+
+You can specify the '--values'/'-f' flag multiple times. The priority will be given to the
+last (right-most) file specified. For example, if both myvalues.yaml and override.yaml
+contained a key called 'Test', the value set in override.yaml would take precedence:
+
+    $ helm install -f myvalues.yaml -f override.yaml  myredis ./redis
+
+You can specify the '--set' flag multiple times. The priority will be given to the
+last (right-most) set specified. For example, if both 'bar' and 'newbar' values are
+set for a key called 'foo', the 'newbar' value would take precedence:
+
+    $ helm install --set foo=bar --set foo=newbar  myredis ./redis
+
+
+To check the generated manifests of a release without installing the chart,
+the '--debug' and '--dry-run' flags can be combined.
+
+If --verify is set, the chart MUST have a provenance file, and the provenance
+file MUST pass all verification steps.
+
+There are five different ways you can express the chart you want to install:
+
+1. By chart reference: helm install mymaria example/mariadb
+2. By path to a packaged chart: helm install mynginx ./nginx-1.2.3.tgz
+3. By path to an unpacked chart directory: helm install mynginx ./nginx
+4. By absolute URL: helm install mynginx https://example.com/charts/nginx-1.2.3.tgz
+5. By chart reference and repo url: helm install --repo https://example.com/charts/ mynginx nginx
+
+CHART REFERENCES
+
+A chart reference is a convenient way of referencing a chart in a chart repository.
+
+When you use a chart reference with a repo prefix ('example/mariadb'), Helm will look in the local
+configuration for a chart repository named 'example', and will then look for a
+chart in that repository whose name is 'mariadb'. It will install the latest stable version of that chart
+until you specify '--devel' flag to also include development version (alpha, beta, and release candidate releases), or
+supply a version number with the '--version' flag.
+
+To see the list of chart repositories, use 'helm repo list'. To search for
+charts in a repository, use 'helm search'.
+
+Usage:
+  helm install [NAME] [CHART] [flags]
+
+Flags:
+      --atomic                       if set, the installation process deletes the installation on failure. The --wait flag will be set automatically if --atomic is used
+      --ca-file string               verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string             identify HTTPS client using this SSL certificate file
+      --create-namespace             create the release namespace if not present
+      --dependency-update            update dependencies if they are missing before installing the chart
+      --description string           add a custom description
+      --devel                        use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+      --disable-openapi-validation   if set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
+      --dry-run                      simulate an install
+  -g, --generate-name                generate the name (and omit the NAME parameter)
+  -h, --help                         help for install
+      --insecure-skip-tls-verify     skip tls certificate checks for the chart download
+      --key-file string              identify HTTPS client using this SSL key file
+      --keyring string               location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --name-template string         specify template used to name the release
+      --no-hooks                     prevent hooks from running during install
+  -o, --output format                prints the output in the specified format. Allowed values: table, json, yaml (default table)
+      --pass-credentials             pass credentials to all domains
+      --password string              chart repository password where to locate the requested chart
+      --post-renderer postrenderer   the path to an executable to be used for post rendering. If it exists in $PATH, the binary will be used, otherwise it will try to look for the executable at the given path (default exec)
+      --render-subchart-notes        if set, render subchart notes along with the parent
+      --replace                      re-use the given name, only if that name is a deleted release which remains in the history. This is unsafe in production
+      --repo string                  chart repository url where to locate the requested chart
+      --set stringArray              set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --set-file stringArray         set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+      --set-string stringArray       set STRING values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --skip-crds                    if set, no CRDs will be installed. By default, CRDs are installed if not already present
+      --timeout duration             time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+      --username string              chart repository username where to locate the requested chart
+  -f, --values strings               specify values in a YAML file or a URL (can specify multiple)
+      --verify                       verify the package before using it
+      --version string               specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+      --wait                         if set, will wait until all Pods, PVCs, Services, and minimum number of Pods of a Deployment, StatefulSet, or ReplicaSet are in a ready state before marking the release as successful. It will wait for as long as --timeout
+      --wait-for-jobs                if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command takes a path to a chart and runs a series of tests to verify that
+the chart is well-formed.
+
+If the linter encounters things that will cause the chart to fail installation,
+it will emit [ERROR] messages. If it encounters issues that break with convention
+or recommendation, it will emit [WARNING] messages.
+
+Usage:
+  helm lint PATH [flags]
+
+Flags:
+  -h, --help                     help for lint
+      --set stringArray          set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --set-file stringArray     set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+      --set-string stringArray   set STRING values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --strict                   fail on lint warnings
+  -f, --values strings           specify values in a YAML file or a URL (can specify multiple)
+      --with-subcharts           lint dependent charts
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command lists all of the releases for a specified namespace (uses current namespace context if namespace not specified).
+
+By default, it lists only releases that are deployed or failed. Flags like
+'--uninstalled' and '--all' will alter this behavior. Such flags can be combined:
+'--uninstalled --failed'.
+
+By default, items are sorted alphabetically. Use the '-d' flag to sort by
+release date.
+
+If the --filter flag is provided, it will be treated as a filter. Filters are
+regular expressions (Perl compatible) that are applied to the list of releases.
+Only items that match the filter will be returned.
+
+    $ helm list --filter 'ara[a-z]+'
+    NAME                UPDATED                                  CHART
+    maudlin-arachnid    2020-06-18 14:17:46.125134977 +0000 UTC  alpine-0.1.0
+
+If no results are found, 'helm list' will exit 0, but with no output (or in
+the case of no '-q' flag, only headers).
+
+By default, up to 256 items may be returned. To limit this, use the '--max' flag.
+Setting '--max' to 0 will not return all results. Rather, it will return the
+server's default, which may be much higher than 256. Pairing the '--max'
+flag with the '--offset' flag allows you to page through results.
+
+Usage:
+  helm list [flags]
+
+Aliases:
+  list, ls
+
+Flags:
+  -a, --all                  show all releases without any filter applied
+  -A, --all-namespaces       list releases across all namespaces
+  -d, --date                 sort by release date
+      --deployed             show deployed releases. If no other is specified, this will be automatically enabled
+      --failed               show failed releases
+  -f, --filter string        a regular expression (Perl compatible). Any releases that match the expression will be included in the results
+  -h, --help                 help for list
+  -m, --max int              maximum number of releases to fetch (default 256)
+      --offset int           next release index in the list, used to offset from start value
+  -o, --output format        prints the output in the specified format. Allowed values: table, json, yaml (default table)
+      --pending              show pending releases
+  -r, --reverse              reverse the sort order
+  -l, --selector string      Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Works only for secret(default) and configmap storage backends.
+  -q, --short                output short (quiet) listing format
+      --superseded           show superseded releases
+      --time-format string   format time using golang time formatter. Example: --time-format "2006-01-02 15:04:05Z0700"
+      --uninstalled          show uninstalled releases (if 'helm uninstall --keep-history' was used)
+      --uninstalling         show releases that are currently being uninstalled
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command packages a chart into a versioned chart archive file. If a path
+is given, this will look at that path for a chart (which must contain a
+Chart.yaml file) and then package that directory.
+
+Versioned chart archives are used by Helm package repositories.
+
+To sign a chart, use the '--sign' flag. In most cases, you should also
+provide '--keyring path/to/secret/keys' and '--key keyname'.
+
+  $ helm package --sign ./mychart --key mykey --keyring ~/.gnupg/secring.gpg
+
+If '--keyring' is not specified, Helm usually defaults to the public keyring
+unless your environment is otherwise configured.
+
+Usage:
+  helm package [CHART_PATH] [...] [flags]
+
+Flags:
+      --app-version string       set the appVersion on the chart to this version
+  -u, --dependency-update        update dependencies from "Chart.yaml" to dir "charts/" before packaging
+  -d, --destination string       location to write the chart. (default ".")
+  -h, --help                     help for package
+      --key string               name of the key to use when signing. Used if --sign is true
+      --keyring string           location of a public keyring (default "/root/.gnupg/pubring.gpg")
+      --passphrase-file string   location of a file which contains the passphrase for the signing key. Use "-" in order to read from stdin.
+      --sign                     use a PGP private key to sign this package
+      --version string           set the version on the chart to this semver version
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Manage client-side Helm plugins.
+
+Usage:
+  helm plugin [command]
+
+Available Commands:
+  install     install one or more Helm plugins
+  list        list installed Helm plugins
+  uninstall   uninstall one or more Helm plugins
+  update      update one or more Helm plugins
+
+Flags:
+  -h, --help   help for plugin
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm plugin [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+This command allows you to install a plugin from a url to a VCS repo or a local path.
+
+Usage:
+  helm plugin install [options] <path|url>... [flags]
+
+Aliases:
+  install, add
+
+Flags:
+  -h, --help             help for install
+      --version string   specify a version constraint. If this is not specified, the latest version is installed
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+list installed Helm plugins
+
+Usage:
+  helm plugin list [flags]
+
+Aliases:
+  list, ls
+
+Flags:
+  -h, --help   help for list
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+uninstall one or more Helm plugins
+
+Usage:
+  helm plugin uninstall <plugin>... [flags]
+
+Aliases:
+  uninstall, rm, remove
+
+Flags:
+  -h, --help   help for uninstall
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+update one or more Helm plugins
+
+Usage:
+  helm plugin update <plugin>... [flags]
+
+Aliases:
+  update, up
+
+Flags:
+  -h, --help   help for update
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Retrieve a package from a package repository, and download it locally.
+
+This is useful for fetching packages to inspect, modify, or repackage. It can
+also be used to perform cryptographic verification of a chart without installing
+the chart.
+
+There are options for unpacking the chart after download. This will create a
+directory for the chart and uncompress into that directory.
+
+If the --verify flag is specified, the requested chart MUST have a provenance
+file, and MUST pass the verification process. Failure in any part of this will
+result in an error, and the chart will not be saved locally.
+
+Usage:
+  helm pull [chart URL | repo/chartname] [...] [flags]
+
+Aliases:
+  pull, fetch
+
+Flags:
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+  -d, --destination string         location to write the chart. If this and tardir are specified, tardir is appended to this (default ".")
+      --devel                      use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored.
+  -h, --help                       help for pull
+      --insecure-skip-tls-verify   skip tls certificate checks for the chart download
+      --key-file string            identify HTTPS client using this SSL key file
+      --keyring string             location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password where to locate the requested chart
+      --prov                       fetch the provenance file, but don't perform verification
+      --repo string                chart repository url where to locate the requested chart
+      --untar                      if set to true, will untar the chart after downloading it
+      --untardir string            if untar is specified, this flag specifies the name of the directory into which the chart is expanded (default ".")
+      --username string            chart repository username where to locate the requested chart
+      --verify                     verify the package before using it
+      --version string             specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command consists of multiple subcommands to interact with chart repositories.
+
+It can be used to add, remove, list, and index chart repositories.
+
+Usage:
+  helm repo [command]
+
+Available Commands:
+  add         add a chart repository
+  index       generate an index file given a directory containing packaged charts
+  list        list chart repositories
+  remove      remove one or more chart repositories
+  update      update information of available charts locally from chart repositories
+
+Flags:
+  -h, --help   help for repo
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm repo [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+add a chart repository
+
+Usage:
+  helm repo add [NAME] [URL] [flags]
+
+Flags:
+      --allow-deprecated-repos     by default, this command will not allow adding official repos that have been permanently deleted. This disables that behavior
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+      --force-update               replace (overwrite) the repo if it already exists
+  -h, --help                       help for add
+      --insecure-skip-tls-verify   skip tls certificate checks for the repository
+      --key-file string            identify HTTPS client using this SSL key file
+      --no-update                  Ignored. Formerly, it would disabled forced updates. It is deprecated by force-update.
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password
+      --password-stdin             read chart repository password from stdin
+      --username string            chart repository username
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Read the current directory and generate an index file based on the charts found.
+
+This tool is used for creating an 'index.yaml' file for a chart repository. To
+set an absolute URL to the charts, use '--url' flag.
+
+To merge the generated index with an existing index file, use the '--merge'
+flag. In this case, the charts found in the current directory will be merged
+into the existing index, with local charts taking priority over existing charts.
+
+Usage:
+  helm repo index [DIR] [flags]
+
+Flags:
+  -h, --help           help for index
+      --merge string   merge the generated index into the given index
+      --url string     url of chart repository
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+list chart repositories
+
+Usage:
+  helm repo list [flags]
+
+Aliases:
+  list, ls
+
+Flags:
+  -h, --help            help for list
+  -o, --output format   prints the output in the specified format. Allowed values: table, json, yaml (default table)
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+remove one or more chart repositories
+
+Usage:
+  helm repo remove [REPO1 [REPO2 ...]] [flags]
+
+Aliases:
+  remove, rm
+
+Flags:
+  -h, --help   help for remove
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Update gets the latest information about charts from the respective chart repositories.
+Information is cached locally, where it is used by commands like 'helm search'.
+
+You can optionally specify a list of repositories you want to update.
+	$ helm repo update <repo_name> ...
+To update all the repositories, use 'helm repo update'.
+
+Usage:
+  helm repo update [REPO1 [REPO2 ...]] [flags]
+
+Aliases:
+  update, up
+
+Flags:
+      --fail-on-repo-update-fail   update fails if any of the repository updates fail
+  -h, --help                       help for update
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command rolls back a release to a previous revision.
+
+The first argument of the rollback command is the name of a release, and the
+second is a revision (version) number. If this argument is omitted, it will
+roll back to the previous release.
+
+To see revision numbers, run 'helm history RELEASE'.
+
+Usage:
+  helm rollback <RELEASE> [REVISION] [flags]
+
+Flags:
+      --cleanup-on-fail    allow deletion of new resources created in this rollback when rollback fails
+      --dry-run            simulate a rollback
+      --force              force resource update through delete/recreate if needed
+  -h, --help               help for rollback
+      --history-max int    limit the maximum number of revisions saved per release. Use 0 for no limit (default 10)
+      --no-hooks           prevent hooks from running during rollback
+      --recreate-pods      performs pods restart for the resource if applicable
+      --timeout duration   time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+      --wait               if set, will wait until all Pods, PVCs, Services, and minimum number of Pods of a Deployment, StatefulSet, or ReplicaSet are in a ready state before marking the release as successful. It will wait for as long as --timeout
+      --wait-for-jobs      if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Search provides the ability to search for Helm charts in the various places
+they can be stored including the Artifact Hub and repositories you have added.
+Use search subcommands to search different locations for charts.
+
+Usage:
+  helm search [command]
+
+Available Commands:
+  hub         search for charts in the Artifact Hub or your own hub instance
+  repo        search repositories for a keyword in charts
+
+Flags:
+  -h, --help   help for search
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm search [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+Search for Helm charts in the Artifact Hub or your own hub instance.
+
+Artifact Hub is a web-based application that enables finding, installing, and
+publishing packages and configurations for CNCF projects, including publicly
+available distributed charts Helm charts. It is a Cloud Native Computing
+Foundation sandbox project. You can browse the hub at https://artifacthub.io/
+
+The [KEYWORD] argument accepts either a keyword string, or quoted string of rich
+query options. For rich query options documentation, see
+https://artifacthub.github.io/hub/api/?urls.primaryName=Monocular%20compatible%20search%20API#/Monocular/get_api_chartsvc_v1_charts_search
+
+Previous versions of Helm used an instance of Monocular as the default
+'endpoint', so for backwards compatibility Artifact Hub is compatible with the
+Monocular search API. Similarly, when setting the 'endpoint' flag, the specified
+endpoint must also be implement a Monocular compatible search API endpoint.
+Note that when specifying a Monocular instance as the 'endpoint', rich queries
+are not supported. For API details, see https://github.com/helm/monocular
+
+Usage:
+  helm search hub [KEYWORD] [flags]
+
+Flags:
+      --endpoint string      Hub instance to query for charts (default "https://hub.helm.sh")
+  -h, --help                 help for hub
+      --max-col-width uint   maximum column width for output table (default 50)
+  -o, --output format        prints the output in the specified format. Allowed values: table, json, yaml (default table)
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Search reads through all of the repositories configured on the system, and
+looks for matches. Search of these repositories uses the metadata stored on
+the system.
+
+It will display the latest stable versions of the charts found. If you
+specify the --devel flag, the output will include pre-release versions.
+If you want to search using a version constraint, use --version.
+
+Examples:
+
+    # Search for stable release versions matching the keyword "nginx"
+    $ helm search repo nginx
+
+    # Search for release versions matching the keyword "nginx", including pre-release versions
+    $ helm search repo nginx --devel
+
+    # Search for the latest stable release for nginx-ingress with a major version of 1
+    $ helm search repo nginx-ingress --version ^1.0.0
+
+Repositories are managed with 'helm repo' commands.
+
+Usage:
+  helm search repo [keyword] [flags]
+
+Flags:
+      --devel                use development versions (alpha, beta, and release candidate releases), too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+  -h, --help                 help for repo
+      --max-col-width uint   maximum column width for output table (default 50)
+  -o, --output format        prints the output in the specified format. Allowed values: table, json, yaml (default table)
+  -r, --regexp               use regular expressions for searching repositories you have added
+      --version string       search using semantic versioning constraints on repositories you have added
+  -l, --versions             show the long listing, with each version of each chart on its own line, for repositories you have added
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command consists of multiple subcommands to display information about a chart
+
+Usage:
+  helm show [command]
+
+Aliases:
+  show, inspect
+
+Available Commands:
+  all         show all information of the chart
+  chart       show the chart's definition
+  crds        show the chart's CRDs
+  readme      show the chart's README
+  values      show the chart's values
+
+Flags:
+  -h, --help   help for show
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+Use "helm show [command] --help" for more information about a command.
+
+------------------------------------------------------------
+
+
+This command inspects a chart (directory, file, or URL) and displays all its content
+(values.yaml, Chart.yaml, README)
+
+Usage:
+  helm show all [CHART] [flags]
+
+Flags:
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+      --devel                      use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+  -h, --help                       help for all
+      --insecure-skip-tls-verify   skip tls certificate checks for the chart download
+      --key-file string            identify HTTPS client using this SSL key file
+      --keyring string             location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password where to locate the requested chart
+      --repo string                chart repository url where to locate the requested chart
+      --username string            chart repository username where to locate the requested chart
+      --verify                     verify the package before using it
+      --version string             specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command inspects a chart (directory, file, or URL) and displays the contents
+of the Chart.yaml file
+
+Usage:
+  helm show chart [CHART] [flags]
+
+Flags:
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+      --devel                      use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+  -h, --help                       help for chart
+      --insecure-skip-tls-verify   skip tls certificate checks for the chart download
+      --key-file string            identify HTTPS client using this SSL key file
+      --keyring string             location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password where to locate the requested chart
+      --repo string                chart repository url where to locate the requested chart
+      --username string            chart repository username where to locate the requested chart
+      --verify                     verify the package before using it
+      --version string             specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command inspects a chart (directory, file, or URL) and displays the contents
+of the CustomResourceDefintion files
+
+Usage:
+  helm show crds [CHART] [flags]
+
+Flags:
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+      --devel                      use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+  -h, --help                       help for crds
+      --insecure-skip-tls-verify   skip tls certificate checks for the chart download
+      --key-file string            identify HTTPS client using this SSL key file
+      --keyring string             location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password where to locate the requested chart
+      --repo string                chart repository url where to locate the requested chart
+      --username string            chart repository username where to locate the requested chart
+      --verify                     verify the package before using it
+      --version string             specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command inspects a chart (directory, file, or URL) and displays the contents
+of the README file
+
+Usage:
+  helm show readme [CHART] [flags]
+
+Flags:
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+      --devel                      use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+  -h, --help                       help for readme
+      --insecure-skip-tls-verify   skip tls certificate checks for the chart download
+      --key-file string            identify HTTPS client using this SSL key file
+      --keyring string             location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password where to locate the requested chart
+      --repo string                chart repository url where to locate the requested chart
+      --username string            chart repository username where to locate the requested chart
+      --verify                     verify the package before using it
+      --version string             specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command inspects a chart (directory, file, or URL) and displays the contents
+of the values.yaml file
+
+Usage:
+  helm show values [CHART] [flags]
+
+Flags:
+      --ca-file string             verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string           identify HTTPS client using this SSL certificate file
+      --devel                      use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+  -h, --help                       help for values
+      --insecure-skip-tls-verify   skip tls certificate checks for the chart download
+      --jsonpath string            supply a JSONPath expression to filter the output
+      --key-file string            identify HTTPS client using this SSL key file
+      --keyring string             location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --pass-credentials           pass credentials to all domains
+      --password string            chart repository password where to locate the requested chart
+      --repo string                chart repository url where to locate the requested chart
+      --username string            chart repository username where to locate the requested chart
+      --verify                     verify the package before using it
+      --version string             specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command shows the status of a named release.
+The status consists of:
+- last deployment time
+- k8s namespace in which the release lives
+- state of the release (can be: unknown, deployed, uninstalled, superseded, failed, uninstalling, pending-install, pending-upgrade or pending-rollback)
+- revision of the release
+- description of the release (can be completion message or error message, need to enable --show-desc)
+- list of resources that this release consists of, sorted by kind
+- details on last test suite run, if applicable
+- additional notes provided by the chart
+
+Usage:
+  helm status RELEASE_NAME [flags]
+
+Flags:
+  -h, --help            help for status
+  -o, --output format   prints the output in the specified format. Allowed values: table, json, yaml (default table)
+      --revision int    if set, display the status of the named release with revision
+      --show-desc       if set, display the description message of the named release
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Render chart templates locally and display the output.
+
+Any values that would normally be looked up or retrieved in-cluster will be
+faked locally. Additionally, none of the server-side testing of chart validity
+(e.g. whether an API is supported) is done.
+
+Usage:
+  helm template [NAME] [CHART] [flags]
+
+Flags:
+  -a, --api-versions stringArray     Kubernetes api versions used for Capabilities.APIVersions
+      --atomic                       if set, the installation process deletes the installation on failure. The --wait flag will be set automatically if --atomic is used
+      --ca-file string               verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string             identify HTTPS client using this SSL certificate file
+      --create-namespace             create the release namespace if not present
+      --dependency-update            update dependencies if they are missing before installing the chart
+      --description string           add a custom description
+      --devel                        use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+      --disable-openapi-validation   if set, the installation process will not validate rendered templates against the Kubernetes OpenAPI Schema
+      --dry-run                      simulate an install
+  -g, --generate-name                generate the name (and omit the NAME parameter)
+  -h, --help                         help for template
+      --include-crds                 include CRDs in the templated output
+      --insecure-skip-tls-verify     skip tls certificate checks for the chart download
+      --is-upgrade                   set .Release.IsUpgrade instead of .Release.IsInstall
+      --key-file string              identify HTTPS client using this SSL key file
+      --keyring string               location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --kube-version string          Kubernetes version used for Capabilities.KubeVersion
+      --name-template string         specify template used to name the release
+      --no-hooks                     prevent hooks from running during install
+      --output-dir string            writes the executed templates to files in output-dir instead of stdout
+      --pass-credentials             pass credentials to all domains
+      --password string              chart repository password where to locate the requested chart
+      --post-renderer postrenderer   the path to an executable to be used for post rendering. If it exists in $PATH, the binary will be used, otherwise it will try to look for the executable at the given path (default exec)
+      --release-name                 use release name in the output-dir path.
+      --render-subchart-notes        if set, render subchart notes along with the parent
+      --replace                      re-use the given name, only if that name is a deleted release which remains in the history. This is unsafe in production
+      --repo string                  chart repository url where to locate the requested chart
+      --set stringArray              set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --set-file stringArray         set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+      --set-string stringArray       set STRING values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+  -s, --show-only stringArray        only show manifests rendered from the given templates
+      --skip-crds                    if set, no CRDs will be installed. By default, CRDs are installed if not already present
+      --skip-tests                   skip tests from templated output
+      --timeout duration             time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+      --username string              chart repository username where to locate the requested chart
+      --validate                     validate your manifests against the Kubernetes cluster you are currently pointing at. This is the same validation performed on an install
+  -f, --values strings               specify values in a YAML file or a URL (can specify multiple)
+      --verify                       verify the package before using it
+      --version string               specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+      --wait                         if set, will wait until all Pods, PVCs, Services, and minimum number of Pods of a Deployment, StatefulSet, or ReplicaSet are in a ready state before marking the release as successful. It will wait for as long as --timeout
+      --wait-for-jobs                if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+The test command runs the tests for a release.
+
+The argument this command takes is the name of a deployed release.
+The tests to be run are defined in the chart that was installed.
+
+Usage:
+  helm test [RELEASE] [flags]
+
+Flags:
+      --filter strings     specify tests by attribute (currently "name") using attribute=value syntax or '!attribute=value' to exclude a test (can specify multiple or separate values with commas: name=test1,name=test2)
+  -h, --help               help for test
+      --logs               dump the logs from test pods (this runs after all tests are complete, but before any cleanup)
+      --timeout duration   time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command takes a release name and uninstalls the release.
+
+It removes all of the resources associated with the last release of the chart
+as well as the release history, freeing it up for future use.
+
+Use the '--dry-run' flag to see which releases will be uninstalled without actually
+uninstalling them.
+
+Usage:
+  helm uninstall RELEASE_NAME [...] [flags]
+
+Aliases:
+  uninstall, del, delete, un
+
+Flags:
+      --description string   add a custom description
+      --dry-run              simulate a uninstall
+  -h, --help                 help for uninstall
+      --keep-history         remove all associated resources and mark the release as deleted, but retain the release history
+      --no-hooks             prevent hooks from running during uninstallation
+      --timeout duration     time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+      --wait                 if set, will wait until all the resources are deleted before returning. It will wait for as long as --timeout
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+This command upgrades a release to a new version of a chart.
+
+The upgrade arguments must be a release and chart. The chart
+argument can be either: a chart reference('example/mariadb'), a path to a chart directory,
+a packaged chart, or a fully qualified URL. For chart references, the latest
+version will be specified unless the '--version' flag is set.
+
+To override values in a chart, use either the '--values' flag and pass in a file
+or use the '--set' flag and pass configuration from the command line, to force string
+values, use '--set-string'. In case a value is large and therefore
+you want not to use neither '--values' nor '--set', use '--set-file' to read the
+single large value from file.
+
+You can specify the '--values'/'-f' flag multiple times. The priority will be given to the
+last (right-most) file specified. For example, if both myvalues.yaml and override.yaml
+contained a key called 'Test', the value set in override.yaml would take precedence:
+
+    $ helm upgrade -f myvalues.yaml -f override.yaml redis ./redis
+
+You can specify the '--set' flag multiple times. The priority will be given to the
+last (right-most) set specified. For example, if both 'bar' and 'newbar' values are
+set for a key called 'foo', the 'newbar' value would take precedence:
+
+    $ helm upgrade --set foo=bar --set foo=newbar redis ./redis
+
+Usage:
+  helm upgrade [RELEASE] [CHART] [flags]
+
+Flags:
+      --atomic                       if set, upgrade process rolls back changes made in case of failed upgrade. The --wait flag will be set automatically if --atomic is used
+      --ca-file string               verify certificates of HTTPS-enabled servers using this CA bundle
+      --cert-file string             identify HTTPS client using this SSL certificate file
+      --cleanup-on-fail              allow deletion of new resources created in this upgrade when upgrade fails
+      --create-namespace             if --install is set, create the release namespace if not present
+      --dependency-update            update dependencies if they are missing before installing the chart
+      --description string           add a custom description
+      --devel                        use development versions, too. Equivalent to version '>0.0.0-0'. If --version is set, this is ignored
+      --disable-openapi-validation   if set, the upgrade process will not validate rendered templates against the Kubernetes OpenAPI Schema
+      --dry-run                      simulate an upgrade
+      --force                        force resource updates through a replacement strategy
+  -h, --help                         help for upgrade
+      --history-max int              limit the maximum number of revisions saved per release. Use 0 for no limit (default 10)
+      --insecure-skip-tls-verify     skip tls certificate checks for the chart download
+  -i, --install                      if a release by this name doesn't already exist, run an install
+      --key-file string              identify HTTPS client using this SSL key file
+      --keyring string               location of public keys used for verification (default "/root/.gnupg/pubring.gpg")
+      --no-hooks                     disable pre/post upgrade hooks
+  -o, --output format                prints the output in the specified format. Allowed values: table, json, yaml (default table)
+      --pass-credentials             pass credentials to all domains
+      --password string              chart repository password where to locate the requested chart
+      --post-renderer postrenderer   the path to an executable to be used for post rendering. If it exists in $PATH, the binary will be used, otherwise it will try to look for the executable at the given path (default exec)
+      --render-subchart-notes        if set, render subchart notes along with the parent
+      --repo string                  chart repository url where to locate the requested chart
+      --reset-values                 when upgrading, reset the values to the ones built into the chart
+      --reuse-values                 when upgrading, reuse the last release's values and merge in any overrides from the command line via --set and -f. If '--reset-values' is specified, this is ignored
+      --set stringArray              set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --set-file stringArray         set values from respective files specified via the command line (can specify multiple or separate values with commas: key1=path1,key2=path2)
+      --set-string stringArray       set STRING values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --skip-crds                    if set, no CRDs will be installed when an upgrade is performed with install flag enabled. By default, CRDs are installed if not already present, when an upgrade is performed with install flag enabled
+      --timeout duration             time to wait for any individual Kubernetes operation (like Jobs for hooks) (default 5m0s)
+      --username string              chart repository username where to locate the requested chart
+  -f, --values strings               specify values in a YAML file or a URL (can specify multiple)
+      --verify                       verify the package before using it
+      --version string               specify a version constraint for the chart version to use. This constraint can be a specific tag (e.g. 1.1.1) or it may reference a valid range (e.g. ^2.0.0). If this is not specified, the latest version is used
+      --wait                         if set, will wait until all Pods, PVCs, Services, and minimum number of Pods of a Deployment, StatefulSet, or ReplicaSet are in a ready state before marking the release as successful. It will wait for as long as --timeout
+      --wait-for-jobs                if set and --wait enabled, will wait until all Jobs have been completed before marking the release as successful. It will wait for as long as --timeout
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Verify that the given chart has a valid provenance file.
+
+Provenance files provide cryptographic verification that a chart has not been
+tampered with, and was packaged by a trusted provider.
+
+This command can be used to verify a local chart. Several other commands provide
+'--verify' flags that run the same validation. To generate a signed package, use
+the 'helm package --sign' command.
+
+Usage:
+  helm verify PATH [flags]
+
+Flags:
+  -h, --help             help for verify
+      --keyring string   keyring containing public keys (default "/root/.gnupg/pubring.gpg")
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+
+
+Show the version for Helm.
+
+This will print a representation the version of Helm.
+The output will look something like this:
+
+version.BuildInfo{Version:"v3.2.1", GitCommit:"fe51cd1e31e6a202cba7dead9552a6d418ded79a", GitTreeState:"clean", GoVersion:"go1.13.10"}
+
+- Version is the semantic version of the release.
+- GitCommit is the SHA for the commit that this version was built from.
+- GitTreeState is "clean" if there are no local code changes when this binary was
+  built, and "dirty" if the binary was built from locally modified code.
+- GoVersion is the version of Go that was used to compile Helm.
+
+When using the --template flag the following properties are available to use in
+the template:
+
+- .Version contains the semantic version of Helm
+- .GitCommit is the git commit
+- .GitTreeState is the state of the git tree when Helm was built
+- .GoVersion contains the version of Go that Helm was compiled with
+
+For example, --template='Version: {{.Version}}' outputs 'Version: v3.2.1'.
+
+Usage:
+  helm version [flags]
+
+Flags:
+  -h, --help              help for version
+      --short             print the version number
+      --template string   template for version string format
+
+Global Flags:
+      --debug                       enable verbose output
+      --kube-apiserver string       the address and the port for the Kubernetes API server
+      --kube-as-group stringArray   group to impersonate for the operation, this flag can be repeated to specify multiple groups.
+      --kube-as-user string         username to impersonate for the operation
+      --kube-ca-file string         the certificate authority file for the Kubernetes API server connection
+      --kube-context string         name of the kubeconfig context to use
+      --kube-token string           bearer token used for authentication
+      --kubeconfig string           path to the kubeconfig file
+  -n, --namespace string            namespace scope for this request
+      --registry-config string      path to the registry config file (default "/root/.config/helm/registry.json")
+      --repository-cache string     path to the file containing cached repository indexes (default "/root/.cache/helm/repository")
+      --repository-config string    path to the file containing repository names and URLs (default "/root/.config/helm/repositories.yaml")
+
+------------------------------------------------------------
+

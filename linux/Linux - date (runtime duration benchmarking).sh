@@ -1,26 +1,55 @@
 #!/bin/bash
-
 # ------------------------------------------------------------
-# Filename Timestamp
+#
+# Timestamp - Filename friendly
+#
 
 DATETIME="$(date +'%Y%m%d_%H%M%S')";     # 20210623_012648
 echo "DATETIME_RFC3339 = [${DATETIME}]";
 
 
 # ------------------------------------------------------------
-# RFC-3339 Timestamp
+#
+# Timestamp - RFC-3339 compatible
+#
 
 DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";     # 2021-06-23T01:26:58-0400
 echo "DATETIME_RFC3339 = [${DATETIME_RFC3339}]";
 
 
 # ------------------------------------------------------------
-# Default Format
+#
+# Benchmark (simplistic)
+#
+
+if [ 1 -eq 1 ]; then
+  BENCHMARK_START=$(date +'%s.%N');
+  # ------------------------------
+  # vvv----- DO ACTIONS TO BENCHMARK, HERE
+
+  sleep 3;
+
+  # ^^^----- DO ACTIONS TO BENCHMARK, HERE
+  # ------------------------------
+  if [ -n "$(command -v bc 2>'/dev/null';)" ]; then
+    BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l;);
+  else
+    BENCHMARK_DELTA=$(perl -le "print($(date +'%s.%N') - ${BENCHMARK_START})");
+  fi;
+  echo "  |--> Finished after ${BENCHMARK_DELTA}s";
+fi;
+
+
+# ------------------------------------------------------------
+#
+# date - Determine the default output format
+#
 
 # As-of mid 2019, the default output-format is '%a %b %d %H:%M:%S %Z %Y' for date
 if [ "$(date)" == "$(date +'%a %b %d %H:%M:%S %Z %Y')" ]; then
 	echo "Output strings use the same (default) format of '%a %b %d %H:%M:%S %Z %Y'!";
 fi;
+
 
 # Convert from epoch seconds (seconds since 'the epoch', e.g. "1970-01-01 00:00:00") and output using MySQL's DateTime format (YYYY-MM-DD hh:mm:ss)
 date --date=@1298589405 +'%Y-%m-%d %H:%M:%S';
@@ -28,33 +57,20 @@ date --date=@1298589405 +'%Y-%m-%d %H:%M:%S';
 # Ex) Get the datetime 1 second just-before the epoch
 date --utc --date='1969-12-31 23:59:59' +'%s';
 
+
 # ------------------------------------------------------------
-# Convert between longhand & shorthand date formats
+#
+# date - Convert between longhand & shorthand date formats
+#
 
 # Ex) Convert a longhand date to shorthand date format (in UTC)
 date --utc --date="Feb 15 03:37:34 2022 EST" +'%Y-%m-%dT%H:%M:%SZ';
 
 
 # ------------------------------------------------------------
-# Simple Benchmark
-
-if [ 1 -eq 1 ]; then
-
-BENCHMARK_START=$(date +'%s.%N');
-sleep 3;
-if [ $(which bc 2>'/dev/null' | wc -l;) -gt 0 ]; then
-BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l;);
-else
-BENCHMARK_DELTA=$(perl -le "print($(date +'%s.%N') - ${BENCHMARK_START})");
-fi;
-echo "  |--> Finished after ${BENCHMARK_DELTA}s";
-
-fi;
-
-
-# ------------------------------------------------------------
-# Detailed Benchmark
-#  |--> Calls "date" only once before & once after benchmarked-command(s) (e.g. forces single-source, parameter-based referencing of start & end timestamps).
+#
+# Benchmark (detailed)
+#   |--> Calls "date" only once before & once after benchmarked-command(s) (e.g. forces single-source, parameter-based referencing of start & end timestamps).
 #       Also, performs date-time calculations & datetime/string re-formatting operations >AFTER< the benchmark has finished, not during.
 #       This way, we can format the strings as-needed while minimizing inaccuracies with the datetime values.
 #

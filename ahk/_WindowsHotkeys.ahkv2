@@ -1256,13 +1256,21 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe")
+#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe") && !WinActive("ahk_exe HaloInfinite.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
 ;
 #c::
 	Open_Chrome()
+	Return
+#If WinActive("ahk_exe HaloInfinite.exe")
+;
+;   HOTKEY:  Left Mouse-Click
+;   ACTION:  Halo Infinite - Send XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button - Bind button as "Mark" hotkey)
+;
+LButton::
+	Send, {XButton1}
 	Return
 #If WinActive("ahk_exe Overwatch.exe")
 ;

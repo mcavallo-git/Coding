@@ -197,9 +197,18 @@ echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g"
 
 # sed - Trim leading whitespace && trailing whitespace (method 1)
 echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
+    # Example before
+    echo "[$(echo "  a  b  c  d  ";)]";
+    # Example after
+    echo "[$(echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)]";
 
 # sed - Trim leading whitespace && trailing whitespace (method 2)
 echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
+    # Example before
+    echo "[$(echo "  a  b  c  d  ";)]";
+    # Example after
+    echo "[$(echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';)]";
+
 
 # echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
 # echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n"  | sed -e 's/^[ \t]*//;s/[ \t]*$//';

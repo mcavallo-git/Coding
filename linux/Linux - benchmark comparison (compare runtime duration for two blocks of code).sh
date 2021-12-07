@@ -70,9 +70,9 @@ if [ 1 -eq 1 ]; then
   if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc;) -eq 1 ]; then
     # Code Block #1 ran faster
     echo "";
-    echo "  CODE BLOCK #1  ! ! !";
-    echo "    ^--  Ran [ ${BENCHMARK_2_DIV_1_DECIMAL} ] times as fast as Code Block #2";
-    echo "    ^--  Completed in [ ${BENCHMARK_1_DIV_2_PERCENTAGE}% ] of the time that it took Code Block #2 to complete";
+    echo "  ! ! !     CODE BLOCK #1    ! ! !";
+    echo "  -  Ran [ ${BENCHMARK_2_DIV_1_DECIMAL} ] times as fast as Code Block #2";
+    echo "  -  Completed in [ ${BENCHMARK_1_DIV_2_PERCENTAGE}% ] of the time that it took Code Block #2 to complete";
 
   else
     # Code Block #2 ran faster

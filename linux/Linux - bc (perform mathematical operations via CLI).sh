@@ -40,10 +40,10 @@ if [ 1 -eq 1 ]; then
   BENCHMARK_2_DIV_1_PERCENTAGE=$(echo "scale=2; (${BENCHMARK_2_DIV_1_DECIMAL}*100)/1" | bc -l;);
   echo "";
   if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc) -eq 1 ]; then
-    # Code Block #1 ran faster than Code Block #2
+    # Code Block #1 completed more quickly than Code Block #2
     echo "Result:  Code Block #1 (${BENCHMARK_1_DELTA}s) is faster - it completed in ${BENCHMARK_1_DIV_2_PERCENTAGE}% of the time that it took to complete Code Block #2 (${BENCHMARK_2_DELTA}s)";
   else
-    # Code Block #2 ran faster than Code Block #1
+    # Code Block #1 completed more quickly than Code Block #2
     echo "Result:  Code Block #2 (${BENCHMARK_2_DELTA}s) is faster - it completed in ${BENCHMARK_2_DIV_1_PERCENTAGE}% of the time that it took to complete Code Block #1 (${BENCHMARK_1_DELTA}s)";
   fi;
   echo "";

@@ -203,7 +203,7 @@ echo ".7213" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';
 # sed - Trim leading whitespace
 echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g";
 
-# sed - Trim leading whitespace && trailing whitespace (method 1 - 2x faster than method 2)
+# sed - Trim leading whitespace && trailing whitespace (method 1 - twice as fast as method 2)
 echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
     # Example before
     echo "[$(echo "  a  b  c  d  ";)]";

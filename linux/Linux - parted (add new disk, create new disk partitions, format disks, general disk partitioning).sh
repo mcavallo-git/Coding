@@ -117,14 +117,14 @@ else
 	# Pull default bootup-mount-config-values from existing device's values
 	echo "echo \"UUID=${DEVICE_UUID} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)\" >> \"/etc/fstab\";";
 	echo " |";
-	read -p " |--> Apply this change to \"/etc/fstab\", now? (y/n)  " -n 1 -t 60 <'/dev/tty';
+	read -p " |--> Apply this change to \"/etc/fstab\", now?  (press 'y' to confirm)" -n 1 -t 60 <'/dev/tty';
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		# echo "${DEVICE} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)" >> "/etc/fstab";
 		echo "UUID=${DEVICE_UUID} ${MOUNT_PATH} $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $3}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $4}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $5}';) $(cat '/etc/fstab' | grep '^/dev' | head -n 1 | awk '{print $6}';)" >> "/etc/fstab";
 		REPLY="";
 		echo "$(date +'%Y-%m-%d_%H-%M-%S')  |  System reboot is required to apply change(s)";
-		read -p "  |--> Reboot, now? (y/n)  " -n 1 -t 60 <'/dev/tty';
+		read -p "  |--> Reboot, now?  (press 'y' to confirm)" -n 1 -t 60 <'/dev/tty';
 		echo "";
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			reboot now;

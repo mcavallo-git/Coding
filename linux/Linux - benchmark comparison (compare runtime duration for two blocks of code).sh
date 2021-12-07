@@ -46,17 +46,15 @@ if [ 1 -eq 1 ]; then
   # Calculate Results
   #
 
-  echo -e "------------------------------------------------------------\n";
-  echo -e "";
-  echo -e "Results:";
-
+  echo "";
   if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc) -eq 1 ]; then
     BENCHMARK_2_MINUS_1_DELTA=$(perl -le "print(${BENCHMARK_2_DELTA} - ${BENCHMARK_1_DELTA})";);
-    echo "Code Block #1 ran faster than Code Block #2 by ${BENCHMARK_2_MINUS_1_DELTA}s";
+    echo "  Code Block #1 ran faster than Code Block #2 by ${BENCHMARK_2_MINUS_1_DELTA}s";
   else
     BENCHMARK_1_MINUS_2_DELTA=$(perl -le "print(${BENCHMARK_1_DELTA} - ${BENCHMARK_2_DELTA})";);
-    echo "Code Block #2 ran faster than Code Block #1 by ${BENCHMARK_1_MINUS_2_DELTA}s";
+    echo "  Code Block #2 ran faster than Code Block #1 by ${BENCHMARK_1_MINUS_2_DELTA}s";
   fi;
-  echo -e "------------------------------------------------------------\n";
+
+  echo "";
 
 fi;

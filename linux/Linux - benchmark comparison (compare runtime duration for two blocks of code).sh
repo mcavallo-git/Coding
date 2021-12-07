@@ -90,10 +90,10 @@ if [ 1 -eq 1 ]; then
   echo "------------------------------";
   echo "Winner:";
   echo "";
-  echo "  ! ! !     CODE BLOCK #${WINNER_BLOCK}    ! ! !";
+  echo "  CODE BLOCK #${WINNER_BLOCK}    ! ! !";
   echo "";
-  echo "  -  Completed [ ${DEC_DIFF} ] times as fast as Code Block #${LOSER_BLOCK}";
-  echo "  -  Took only [ ${PERC_DIFF}% ] as long as Code Block #${LOSER_BLOCK} did to complete";
+  echo "    -  Completed [  ${DEC_DIFF}x ] as fast as Code Block #${LOSER_BLOCK}";
+  echo "    -  Took only [  ${PERC_DIFF}%  ] as long as Code Block #${LOSER_BLOCK} did to complete";
   echo "";
   echo "------------------------------";
   echo "";

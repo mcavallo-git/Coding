@@ -77,9 +77,10 @@ if [ 1 -eq 1 ]; then
   else
     # Code Block #2 ran faster
     echo "";
-    echo "  CODE BLOCK #2  ! ! !";
-    echo "    ^--  Ran [ ${BENCHMARK_1_DIV_2_DECIMAL} ] times as fast as Code Block #1";
-    echo "    ^--  Completed in [ ${BENCHMARK_2_DIV_1_PERCENTAGE}% ] of the time that it took Code Block #1 to complete";
+    echo "  ! ! !     CODE BLOCK #2    ! ! !";
+    echo "";
+    echo "  -  Ran [ ${BENCHMARK_1_DIV_2_DECIMAL} ] times as fast as Code Block #1";
+    echo "  -  Completed in [ ${BENCHMARK_2_DIV_1_PERCENTAGE}% ] of the time that it took Code Block #1 to complete";
   fi;
   echo "";
   echo "------------------------------";

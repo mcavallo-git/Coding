@@ -200,22 +200,28 @@ echo ".7213" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';
 #  sed - Trim leading/trailing whitespace off of a string   (e.g. remove spaces at the beginning & end of a string)
 #
 
-# sed - Trim leading whitespace
-echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g";
 
-# sed - Trim leading whitespace && trailing whitespace (method 1 - twice as fast as method 2)
+# sed - Trim leading/trailing whitespace
+#  |--> Method #1 - Runs ~twice as fast as Method #2
 echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
     # Example before
     echo "[$(echo "  a  b  c  d  ";)]";
     # Example after
     echo "[$(echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)]";
 
-# sed - Trim leading whitespace && trailing whitespace (method 2 - takes twice as long to run as method 1)
+
+# sed - Trim leading/trailing whitespace
+#  |--> Method #2 - Takes ~twice as long to run as Method #1
 echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
     # Example before
     echo "[$(echo "  a  b  c  d  ";)]";
     # Example after
     echo "[$(echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';)]";
+
+
+# sed - Trim leading whitespace (do not trim trailing whitespace
+#  |--> Takes ~twice as long to run as Method #1
+echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g";
 
 
 # ------------------------------------------------------------

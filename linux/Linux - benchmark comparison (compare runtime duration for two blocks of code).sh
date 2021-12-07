@@ -90,7 +90,7 @@ if [ 1 -eq 1 ]; then
   #
   echo "";
   echo "------------------------------";
-  echo "Winner:  >>>  #${WINNER_BLOCK}  <<<";
+  echo "Winner:  #${WINNER_BLOCK}";
   echo "  -  Completed [  ${DEC_DIFF}x  ] as fast as Code Block #${LOSER_BLOCK}";
   echo "  -  Took only [  ${PERC_DIFF}%   ] as long as Code Block #${LOSER_BLOCK} did to complete";
 

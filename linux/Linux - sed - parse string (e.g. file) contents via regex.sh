@@ -189,6 +189,14 @@ echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "/^\s*$/d";
 
 # ------------------------------------------------------------
 #
+#  sed - Add a leading zero before the decimal point on a number
+#
+
+echo ".7213" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';
+
+
+# ------------------------------------------------------------
+#
 #  sed - Trim leading/trailing whitespace off of a string   (e.g. remove spaces at the beginning & end of a string)
 #
 
@@ -405,15 +413,17 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #
 #   stackoverflow.com  |  "bash - Disable beep in WSL terminal on Windows 10 - Stack Overflow"  |  https://stackoverflow.com/a/36726662
 #
+#   stackoverflow.com  |  "bash - How to add leading zeros before decimal points in a file - Stack Overflow"  |  https://stackoverflow.com/a/40787442
+#
 #   stackoverflow.com  |  "Delete lines in a text file that contain a specific string"  |  https://stackoverflow.com/a/5410784
 #
 #   stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292
 #
 #   stackoverflow.com  |  "How can I reverse the order of lines in a file?"  |  https://stackoverflow.com/a/744093
 #
-#   stackoverflow.com  |  "Sed - An Introduction and Tutorial by Bruce Barnett"  |  https://www.grymoire.com/Unix/Sed.html#uh-42
-#
 #   stackoverflow.com  |  "regex - sed one-liner to convert all uppercase to lowercase? - Stack Overflow"  |  https://stackoverflow.com/a/4581564
+#
+#   stackoverflow.com  |  "Sed - An Introduction and Tutorial by Bruce Barnett"  |  https://www.grymoire.com/Unix/Sed.html#uh-42
 #
 #   unix.stackexchange.com  |  "How can I use sed to replace a multi-line string?"  |  https://unix.stackexchange.com/a/26290
 #

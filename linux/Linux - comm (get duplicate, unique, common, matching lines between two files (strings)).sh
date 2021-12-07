@@ -1,7 +1,7 @@
 #!/bin/bash
 # ------------------------------------------------------------
 
-# Print lines present in both files
+# Print lines present in both files (e.g. matching/common/duplicate lines)
 comm -12 file1 file2
 
 # Print lines unique to either file

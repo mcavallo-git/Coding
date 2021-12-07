@@ -85,8 +85,8 @@ if [ 1 -eq 1 ]; then
   echo "";
   echo "------------------------------";
   echo "Winner:  Code Block #${WINNER_BLOCK}";
-  echo "  -  Took [  ${PERC_DIFF}%  ] the time that it took Code Block #${LOSER_BLOCK} to complete";
-  echo "  -  Ran  [  ${DEC_DIFF}  ] times faster than Code Block #${LOSER_BLOCK}";
+  echo "  |-->  Took [  ${PERC_DIFF}%  ] the time that it took Code Block #${LOSER_BLOCK} to complete";
+  echo "  |-->  Ran  [  ${DEC_DIFF}  ] times faster than Code Block #${LOSER_BLOCK}";
   echo "------------------------------";
 
   # ------------------------------------------------------------

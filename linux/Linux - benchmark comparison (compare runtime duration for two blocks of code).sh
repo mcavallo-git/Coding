@@ -29,10 +29,7 @@ if [ 1 -eq 1 ]; then
   done;
   BENCHMARK_1_END=$(date +'%s.%N';)
   BENCHMARK_1_DELTA=$(echo "scale=4; (${BENCHMARK_1_END} - ${BENCHMARK_1_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
-  echo "";
-  echo "------------------------------";
-  echo "Results:  Code Block #1";
-  echo "  -  Runtime Duration:  ${BENCHMARK_1_DELTA}s";
+  echo "Code Block #1:  ${BENCHMARK_1_DELTA}s  (runtime duration)";
 
   # ------------------------------------------------------------
   #
@@ -51,10 +48,7 @@ if [ 1 -eq 1 ]; then
   done;
   BENCHMARK_2_END=$(date +'%s.%N';)
   BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_1_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
-  echo "";
-  echo "------------------------------";
-  echo "Results:  Code Block #2";
-  echo "  -  Runtime Duration:  ${BENCHMARK_2_DELTA}s";
+  echo "Code Block #2:  ${BENCHMARK_2_DELTA}s  (runtime duration)";
 
   # ------------------------------------------------------------
   #
@@ -91,13 +85,12 @@ if [ 1 -eq 1 ]; then
   echo "";
   echo "------------------------------";
   echo "Winner:  #${WINNER_BLOCK}";
-  echo "  -  Completed [  ${DEC_DIFF}x  ] as fast as Code Block #${LOSER_BLOCK}";
-  echo "  -  Took only [  ${PERC_DIFF}%   ] as long as Code Block #${LOSER_BLOCK} did to complete";
+  echo "  -  Completed [  ${DEC_DIFF} x  ] as fast as Code Block #${LOSER_BLOCK}";
+  echo "  -  Took only [  ${PERC_DIFF} %   ] as long as Code Block #${LOSER_BLOCK} did to complete";
+  echo "------------------------------";
 
   # ------------------------------------------------------------
 
-  echo "";
-  echo "------------------------------";
   echo "";
 
 fi;

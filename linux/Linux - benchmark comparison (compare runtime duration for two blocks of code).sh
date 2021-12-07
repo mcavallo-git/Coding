@@ -10,6 +10,7 @@ if [ 1 -eq 1 ]; then
     apt-get update -y; apt-get install -y bc;
   fi;
 
+  echo -e "\n";
 
   # ------------------------------------------------------------
   #
@@ -24,7 +25,7 @@ if [ 1 -eq 1 ]; then
   done; # ------------------------------------- END CODE BLOCK #1
   BENCHMARK_1_END=$(date +'%s.%N';)
   BENCHMARK_1_DELTA=$(echo "scale=4; (${BENCHMARK_1_END} - ${BENCHMARK_1_START})/1" | bc -l;);
-  echo -e "\nRuntime Duration - Code Block #1:  ${BENCHMARK_1_DELTA}s";
+  echo -e "Runtime Duration - Code Block #1:  ${BENCHMARK_1_DELTA}s";
 
   # ------------------------------------------------------------
   #
@@ -39,20 +40,33 @@ if [ 1 -eq 1 ]; then
   done; # ------------------------------------- END CODE BLOCK #2
   BENCHMARK_2_END=$(date +'%s.%N';)
   BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_1_START})/1" | bc -l;);
-  echo -e "\nRuntime Duration - Code Block #2:  ${BENCHMARK_2_DELTA}s";
+  echo -e "Runtime Duration - Code Block #2:  ${BENCHMARK_2_DELTA}s";
 
   # ------------------------------------------------------------
   #
   # Calculate Results
   #
 
+
+  BENCHMARK_1_MINUS_2_DELTA=$(echo "scale=4; (${BENCHMARK_1_DELTA} - ${BENCHMARK_2_DELTA})/1" | bc -l;);
+  BENCHMARK_2_MINUS_1_DELTA=$(echo "scale=4; (${BENCHMARK_2_DELTA} - ${BENCHMARK_1_DELTA})/1" | bc -l;);
+
+
+  BENCHMARK_1_DIV_2_DECIMAL=$(echo "scale=4; (${BENCHMARK_1_DELTA}/${BENCHMARK_2_DELTA})" | bc -l;);
+  BENCHMARK_1_DIV_2_PERCENTAGE=$(echo "scale=2; (${BENCHMARK_1_DIV_2_DECIMAL}*100)/1" | bc -l;);
+
+
+  BENCHMARK_2_DIV_1_DECIMAL=$(echo "scale=4; (${BENCHMARK_2_DELTA}/${BENCHMARK_1_DELTA})" | bc -l;);
+  BENCHMARK_2_DIV_1_PERCENTAGE=$(echo "scale=2; (${BENCHMARK_2_DIV_1_DECIMAL}*100)/1" | bc -l;);
+
   echo "";
   if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc) -eq 1 ]; then
-    BENCHMARK_2_MINUS_1_DELTA=$(perl -le "print(${BENCHMARK_2_DELTA} - ${BENCHMARK_1_DELTA})";);
-    echo "  Code Block #1 ran faster than Code Block #2 by ${BENCHMARK_2_MINUS_1_DELTA}s";
+
+    echo "Result:  Code Block #1 (${BENCHMARK_1_DELTA}s) is faster - it completed in ${BENCHMARK_1_DIV_2_PERCENTAGE}% of the time that it took to complete Code Block #2 (${BENCHMARK_2_DELTA}s)";
+
   else
-    BENCHMARK_1_MINUS_2_DELTA=$(perl -le "print(${BENCHMARK_1_DELTA} - ${BENCHMARK_2_DELTA})";);
-    echo "  Code Block #2 ran faster than Code Block #1 by ${BENCHMARK_1_MINUS_2_DELTA}s";
+    # Code Block #2 ran faster than Code Block #1
+    echo "Result:  Code Block #2 (${BENCHMARK_2_DELTA}s) is faster - it completed in ${BENCHMARK_2_DIV_1_PERCENTAGE}% of the time that it took to complete Code Block #1 (${BENCHMARK_1_DELTA}s)";
   fi;
 
   echo "";

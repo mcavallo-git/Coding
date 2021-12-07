@@ -5,7 +5,7 @@
 #
 
 If ($True) {
-	Write-Output "Info:  Yes or no? (y/n)";
+	Write-Output "Info:  Yes or no?  (press 'y' to confirm)";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If ($KeyPress.Character -Eq "y") {
 		Write-Host "Info:  Confirmed (received `"y`" keypress)";
@@ -52,12 +52,12 @@ Write-Output "You typed `"${SecureString_ToPlainText}`"";
 
 If ($True) {
 	Write-Output "`n`n";
-	Write-Output "         Do you wish to set the service `"Log On`" user for [SERVICE_TYPE] services, now? (y/n)";
+	Write-Output "         Do you wish to set the service `"Log On`" user for [SERVICE_TYPE] services, now?  (press 'y' to confirm)";
 	$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 	If ($KeyPress.Character -Eq "y") {
 		<# Suggest a domainname\username for service user #>
 		$CommonServiceUser = "${Env:USERDNSDOMAIN}\[COMMON_SERVICE_USERNAME]";
-		Write-Output "`nPrompt:  Suggested service user is `"${CommonServiceUser}`" - Use this username? (y/n)";
+		Write-Output "`nPrompt:  Suggested service user is `"${CommonServiceUser}`" - Use this username?  (press 'y' to confirm)";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		If ($KeyPress.Character -Eq "y") {
 			$UsernamePlaintext = ${CommonServiceUser};

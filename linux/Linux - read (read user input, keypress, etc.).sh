@@ -13,14 +13,14 @@ read -p "Press any key to continue...  " -n 1 -t 60 <'/dev/tty'; # Await single 
 
 if [ 1 -eq 1 ]; then
   READ_TIMEOUT=60;
-  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
+  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=$?;
   echo "";
-  if [ ${RETURN_CODE_READ} -le 128 ] && [ -n "${USER_RESPONSE}" ]; then
+  if [ ${EXIT_CODE} -le 128 ] && [ -n "${USER_RESPONSE}" ]; then
     echo "Info:  Response received: \"${USER_RESPONSE}\"";
-  elif [ ${RETURN_CODE_READ} -gt 128 ]; then
+  elif [ ${EXIT_CODE} -gt 128 ]; then
     echo "Error:  Response timed out after ${READ_TIMEOUT}s";
   else
-    echo "Info:  Response's string-length is zero (empty/unset)";
+    echo "Info:  Response's string length is zero (empty)";
   fi;
 fi;
 
@@ -41,16 +41,37 @@ fi;
 if [ 1 -eq 1 ]; then
   ACTION_DESCRIPTION="ACTION_DESCRIPTION_HERE";
   READ_TIMEOUT=3;
-  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now? (y/n)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; RETURN_CODE_READ=$?;
-  
+  USER_RESPONSE="";
+  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now?  (press 'y' to confirm)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=$?;
   echo "";
-  if [ ${RETURN_CODE_READ} -gt 128 ]; then
+  if [ ${EXIT_CODE} -gt 128 ]; then
     echo "Error:  Response timed out after ${READ_TIMEOUT}s";
   elif [ -n "${USER_RESPONSE}" ] && [[ ${USER_RESPONSE} =~ ^[Yy]$ ]]; then
     echo "Info:  Confirmed - Performing Action [ ${ACTION_DESCRIPTION} ] ...";
   else
     echo "Info:  Denied - Skipping action [ ${ACTION_DESCRIPTION} ]";
   fi;
+  if [ ${EXIT_CODE} -le 128 ] && [ -n "${USER_RESPONSE}" ] && [[ ${USER_RESPONSE} =~ ^[Yy]$ ]]; then
+    echo "Info:  Response received: \"${USER_RESPONSE}\"";
+    if [[ ${USER_RESPONSE} =~ ^[Yy]$ ]]; then
+      # DO THE ACTION
+      echo "Info:  CONFIRMED  -  Performing Action [ ${ACTION_DESCRIPTION} ] ...";
+    else
+      # SKIP THE ACTION
+      echo "Info:  DENIED  -  Skipping action [ ${ACTION_DESCRIPTION} ]";
+    fi;
+  else
+    # ERROR + SKIP THE ACTION
+    echo -n "Info:  DENIED  -  Skipping action [ ${ACTION_DESCRIPTION} ]";
+    if [ ${EXIT_CODE} -gt 128 ]; then
+      echo " (response timed out after ${READ_TIMEOUT}s)";
+    elif [ -z "${USER_RESPONSE}" ]; then
+      echo " (empty response received)";
+    else
+      echo " (response does not match confirmation format)";
+    fi;
+  fi;
+
 fi;
 
 
@@ -68,11 +89,11 @@ if [ 1 -eq 1 ]; then
   echo -e "! ! NOTICE ! !  THIS IS A DOUBLE CONFIRMATION MESSAGE  ! ! NOTICE ! !";
   echo -e "! !   |    ! !  PLEASE READ IT BEFORE HITTING Y (YES)  ! !        ! !";
   echo -e "      |";
-  read -p "      |--> Are you sure you want to continue? (y/n)  " -n 1 -t 60 <'/dev/tty'; # Await single keypress
+  read -p "      |--> Are you sure you want to continue?  (press 'y' to confirm)" -n 1 -t 60 <'/dev/tty'; # Await single keypress
   echo -e "";
   if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
     echo -e "      |";
-    read -p "      |--> Are you completely positive you wish to continue? (y/n)  " -n 1 -t 60 <'/dev/tty'; # Await single keypress
+    read -p "      |--> Are you completely positive you wish to continue?  (press 'y' to confirm)" -n 1 -t 60 <'/dev/tty'; # Await single keypress
     echo -e "";
     if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then
       echo "Confirmed twice!";

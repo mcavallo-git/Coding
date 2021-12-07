@@ -34,7 +34,7 @@ fi;
 # ------------------------------------------------------------
 #
 # IF USER CONFIRMS-YES
-#  |--> Prompt for user confirmation (y/n)
+#  |--> Prompt for user confirmation  (press 'y' to confirm)
 #
 read -p "Are you sure you want to continue?  (press 'y' to confirm)" -n 1 -t 20 <'/dev/tty'; # Await single keypress
 if [ -n "${REPLY}" ] && [ "$(echo ${REPLY} | tr '[:lower:]' '[:upper:]';)" == "Y" ]; then

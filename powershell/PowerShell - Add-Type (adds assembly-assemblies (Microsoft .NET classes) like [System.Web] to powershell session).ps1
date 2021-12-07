@@ -28,7 +28,7 @@ If ($True) {
 	If (${Class_ExistsLocally}) {
 		Write-Host "Info:  Skipped [ Add-Type `"$(${Assembly}.Namespace)`" ]  ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) ) - (assembly already exists locally)";
 	} Else {
-		Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) )? (y/n)" -BackgroundColor "Black" -ForegroundColor "Yellow";
+		Write-Host "`n"; Write-Host -NoNewline "CONFIRMATION REQUIRED:  Add-Type `"$(${Assembly}.Namespace)`" ( required to use method [$(${Assembly}.Class)]::$(${Assembly}.Method)(...) )?  (press 'y' to confirm)" -BackgroundColor "Black" -ForegroundColor "Yellow";
 		$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 		If ($KeyPress.Character -Eq "y") {
 			Write-Host "Info:  Confirmed (received `"y`" keypress)";

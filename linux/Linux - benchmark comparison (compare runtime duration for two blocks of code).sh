@@ -25,7 +25,6 @@ if [ 1 -eq 1 ]; then
   done; # ------------------------------------- END CODE BLOCK #1
   BENCHMARK_1_END=$(date +'%s.%N';)
   BENCHMARK_1_DELTA=$(echo "scale=4; (${BENCHMARK_1_END} - ${BENCHMARK_1_START})/1" | bc -l;);
-  echo -e "Runtime Duration - Code Block #1:  ${BENCHMARK_1_DELTA}s";
 
   # ------------------------------------------------------------
   #
@@ -40,35 +39,49 @@ if [ 1 -eq 1 ]; then
   done; # ------------------------------------- END CODE BLOCK #2
   BENCHMARK_2_END=$(date +'%s.%N';)
   BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_1_START})/1" | bc -l;);
-  echo -e "Runtime Duration - Code Block #2:  ${BENCHMARK_2_DELTA}s";
 
   # ------------------------------------------------------------
   #
   # Calculate Results
   #
 
-
   BENCHMARK_1_MINUS_2_DELTA=$(echo "scale=4; (${BENCHMARK_1_DELTA} - ${BENCHMARK_2_DELTA})/1" | bc -l;);
   BENCHMARK_2_MINUS_1_DELTA=$(echo "scale=4; (${BENCHMARK_2_DELTA} - ${BENCHMARK_1_DELTA})/1" | bc -l;);
-
 
   BENCHMARK_1_DIV_2_DECIMAL=$(echo "scale=4; (${BENCHMARK_1_DELTA}/${BENCHMARK_2_DELTA})" | bc -l;);
   BENCHMARK_1_DIV_2_PERCENTAGE=$(echo "scale=2; (${BENCHMARK_1_DIV_2_DECIMAL}*100)/1" | bc -l;);
 
-
   BENCHMARK_2_DIV_1_DECIMAL=$(echo "scale=4; (${BENCHMARK_2_DELTA}/${BENCHMARK_1_DELTA})" | bc -l;);
   BENCHMARK_2_DIV_1_PERCENTAGE=$(echo "scale=2; (${BENCHMARK_2_DIV_1_DECIMAL}*100)/1" | bc -l;);
 
+  # ------------------------------------------------------------
+  #
+  # Show Results
+  #
   echo "";
-  if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc) -eq 1 ]; then
-
-    echo "Result:  Code Block #1 (${BENCHMARK_1_DELTA}s) is faster - it completed in ${BENCHMARK_1_DIV_2_PERCENTAGE}% of the time that it took to complete Code Block #2 (${BENCHMARK_2_DELTA}s)";
-
+  echo "------------------------------";
+  echo "Results:";
+  echo "";
+  echo "  Runtime Duration - Code Block #1:  ${BENCHMARK_1_DELTA}s";
+  echo "  Runtime Duration - Code Block #2:  ${BENCHMARK_2_DELTA}s";
+  echo "";
+  echo "------------------------------";
+  echo "Winner:";
+  if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc;) -eq 1 ]; then
+    # Code Block #1 ran faster
+    echo "";
+    echo "  Code Block #1";
+    echo "    -  Ran faster than Code Block #2 w/ a ratio of [ 1:${BENCHMARK_2_DIV_1_DECIMAL} ]";
+    echo "    -  Completed in ${BENCHMARK_1_DIV_2_PERCENTAGE}% of the time that it took to complete Code Block #2";
   else
-    # Code Block #2 ran faster than Code Block #1
-    echo "Result:  Code Block #2 (${BENCHMARK_2_DELTA}s) is faster - it completed in ${BENCHMARK_2_DIV_1_PERCENTAGE}% of the time that it took to complete Code Block #1 (${BENCHMARK_1_DELTA}s)";
+    # Code Block #2 ran faster
+    echo "";
+    echo "  Code Block #1";
+    echo "    -  Ran faster than Code Block #2 w/ a ratio of [ 1:${BENCHMARK_1_DIV_2_DECIMAL} ]";
+    echo "    -  Completed in ${BENCHMARK_2_DIV_1_PERCENTAGE}% of the time that it took to complete Code Block #2";
   fi;
-
+  echo "";
+  echo "------------------------------";
   echo "";
 
 fi;

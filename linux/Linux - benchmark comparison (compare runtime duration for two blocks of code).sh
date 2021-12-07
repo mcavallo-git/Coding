@@ -12,7 +12,7 @@ if [ 1 -eq 1 ]; then
     apt-get update -y; apt-get install -y bc;
   fi;
 
-  echo -e "\nRuntime Duration - Code Block #2:  ${BENCHMARK_2_DELTA}s";
+  echo "";
 
   # ------------------------------------------------------------
   #

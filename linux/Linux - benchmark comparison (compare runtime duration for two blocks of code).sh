@@ -7,13 +7,13 @@
 if [ 1 -eq 1 ]; then
   BENCHMARK_1_START=$(date +'%s.%N';);
   # ------------------------------
-  # vvv----- Code Block #1 - DO ACTIONS TO BENCHMARK, HERE
+  # START CODE BLOCK #1
   if [ 1 -eq 1 ]; then
 
-    sleep 2;
+    sleep 3;
 
   fi;
-  # ^^^----- Code Block #1 - DO ACTIONS TO BENCHMARK, HERE
+  # END CODE BLOCK #1
   # ------------------------------
   BENCHMARK_1_END=$(date +'%s.%N';)
   if [ -n "$(command -v bc 2>'/dev/null';)" ]; then
@@ -26,13 +26,13 @@ if [ 1 -eq 1 ]; then
   #
   BENCHMARK_2_START=$(date +'%s.%N';);
   # ------------------------------
-  # vvv----- Code Block #2 - DO ACTIONS TO BENCHMARK, HERE
+  # START CODE BLOCK #2
   if [ 1 -eq 1 ]; then
 
-    sleep 3;
+    sleep 2;
 
   fi;
-  # ^^^----- Code Block #2 - DO ACTIONS TO BENCHMARK, HERE
+  # END CODE BLOCK #2
   # ------------------------------
   BENCHMARK_2_END=$(date +'%s.%N';)
   if [ -n "$(command -v bc 2>'/dev/null';)" ]; then

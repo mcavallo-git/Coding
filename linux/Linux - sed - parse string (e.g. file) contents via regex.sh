@@ -195,7 +195,7 @@ echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "/^\s*$/d";
 # sed - Trim leading whitespace
 echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g";
 
-# sed - Trim leading whitespace && trailing whitespace
+# sed - Trim leading whitespace && trailing whitespace (method 1)
 echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
 
 # sed - Trim leading whitespace && trailing whitespace (method 2)

@@ -62,6 +62,20 @@ if [ 1 -eq 1 ]; then
   BENCHMARK_2_DIV_1_DECIMAL=$(echo "scale=4; (${BENCHMARK_2_DELTA}/${BENCHMARK_1_DELTA})" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
   BENCHMARK_2_DIV_1_PERCENTAGE=$(echo "scale=2; (${BENCHMARK_2_DIV_1_DECIMAL}*100)/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
 
+  if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc;) -eq 1 ]; then
+    # Code Block #1 ran faster
+    WINNER_BLOCK=1;
+    LOSER_BLOCK=2;
+    DEC_DIFF="${BENCHMARK_2_DIV_1_DECIMAL}";
+    PERC_DIFF="${BENCHMARK_1_DIV_2_PERCENTAGE}";
+  else
+    # Code Block #2 ran faster
+    WINNER_BLOCK=2;
+    LOSER_BLOCK=1;
+    DEC_DIFF="${BENCHMARK_1_DIV_2_DECIMAL}";
+    PERC_DIFF="${BENCHMARK_2_DIV_1_PERCENTAGE}";
+  fi;
+
   # ------------------------------------------------------------
   #
   # Show Results
@@ -75,22 +89,11 @@ if [ 1 -eq 1 ]; then
   echo "";
   echo "------------------------------";
   echo "Winner:";
-  if [ $(echo "${BENCHMARK_1_DELTA} < ${BENCHMARK_2_DELTA}" | bc;) -eq 1 ]; then
-    # Code Block #1 ran faster
-    echo "";
-    echo "  ! ! !     CODE BLOCK #1    ! ! !";
-    echo "";
-    echo "  -  Ran [ ${BENCHMARK_2_DIV_1_DECIMAL} ] times as fast as Code Block #2";
-    echo "  -  Completed in [ ${BENCHMARK_1_DIV_2_PERCENTAGE}% ] of the time that it took Code Block #2 to complete";
-
-  else
-    # Code Block #2 ran faster
-    echo "";
-    echo "  ! ! !     CODE BLOCK #2    ! ! !";
-    echo "";
-    echo "  -  Ran [ ${BENCHMARK_1_DIV_2_DECIMAL} ] times as fast as Code Block #1";
-    echo "  -  Completed in [ ${BENCHMARK_2_DIV_1_PERCENTAGE}% ] of the time that it took Code Block #1 to complete";
-  fi;
+  echo "";
+  echo "  ! ! !     CODE BLOCK #${WINNER_BLOCK}    ! ! !";
+  echo "";
+  echo "  -  Completed [ ${DEC_DIFF} ] times as fast as Code Block #${LOSER_BLOCK}";
+  echo "  -  Took only [ ${PERC_DIFF}% ] as long as Code Block #${LOSER_BLOCK} did to complete";
   echo "";
   echo "------------------------------";
   echo "";

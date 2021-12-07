@@ -180,28 +180,29 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/pattern to match/d' ./infile
 
 # ------------------------------------------------------------
 #
-#  sed - Trim leading/trailing whitespace off of a string   (e.g. remove spaces at the beginning & end of a string)
+#  sed - Remove empty/blank/whitespace-only lines
 #
 
-# sed - Trim leading/trailing whitespace (method 1)
-echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
-
-# sed - Trim leading/trailing whitespace (method 2)
-echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
+# sed - Remove empty/blank/whitespace-only lines
+echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "/^\s*$/d";
 
 
 # ------------------------------------------------------------
 #
-#        -i[SUFFIX], --in-place[=SUFFIX]
-#               edit files in place (makes backup if SUFFIX supplied)
+#  sed - Trim leading/trailing whitespace off of a string   (e.g. remove spaces at the beginning & end of a string)
 #
 
-
-# sed - remove empty/whitespace-only lines
-echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "/^\s*$/d";
-
-# sed - trim leading whitespace
+# sed - Trim leading whitespace
 echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g";
+
+# sed - Trim leading whitespace && trailing whitespace
+echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
+
+# sed - Trim leading whitespace && trailing whitespace (method 2)
+echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
+
+# echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
+# echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n"  | sed -e 's/^[ \t]*//;s/[ \t]*$//';
 
 
 # ------------------------------------------------------------

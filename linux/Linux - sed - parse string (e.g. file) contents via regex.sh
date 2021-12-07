@@ -196,11 +196,31 @@ echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
 #               edit files in place (makes backup if SUFFIX supplied)
 #
 
-sed_remove_whitespace_lines='/^\s*$/d';
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "${sed_remove_whitespace_lines}" "FILEPATH";
 
-sed_remove_starting_whitespace='s/^\s*//g';
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "${sed_remove_starting_whitespace}" "FILEPATH";
+# sed - remove empty/whitespace-only lines
+echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "/^\s*$/d";
+
+# sed - trim leading whitespace
+
+
+
+# ------------------------------------------------------------
+#
+#        -i[SUFFIX], --in-place[=SUFFIX]
+#               edit files in place (makes backup if SUFFIX supplied)
+#
+
+# Example - sed -i (inline edit - modifies target filepath)
+FILEPATH="${HOME}/test-sed-i.example-1.txt";
+echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" > "${FILEPATH}";
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^\s*$/d" "${FILEPATH}";  # sed - remove empty/whitespace-only lines
+echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; rm -rfv "${FILEPATH}";
+
+# Example - sed -i (inplace edit - modifies target filepath)
+FILEPATH="${HOME}/test-sed-i.example-2.txt";
+echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" > "${FILEPATH}";
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "s/^\s*//g" "${FILEPATH}";  # sed - trim leading whitespace
+echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; rm -rfv "${FILEPATH}";
 
 
 # ------------------------------------------------------------

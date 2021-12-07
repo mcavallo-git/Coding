@@ -134,28 +134,44 @@
 ***
 ### Lookaround
 
-* ```?=```		Lookahead   (or "Positive Lookahead", subcategory of "LookArounds")  -  Syntax:  (?=RegexHere)
+* ```?=```		Lookahead   (a.k.a. "Positive Lookahead", subcategory of "LookArounds")
+							  |
+							  |-->   Lookahead Syntax:  ```(?=RegexHere)```
 
 								Positive Lookaheads assert that what immediately follows the current position in the string is "RegexHere"
 
-									Ex:   ```q(?=u)```   -   matches a "q" followed by a "u"
+									Ex:   ```q(?=u)```
+									       |-->   matches a "q" followed by a "u"
 
-* ```?!```		Negative Lookahead   (subcategory of "LookArounds")  -  Syntax:  (?!RegexHere)
+* ```?!```		Negative Lookahead   (subcategory of "LookArounds")
+									       |-->   Negative Lookahead Syntax:  ```(?!RegexHere)```
+
 * ```[^]```		Often performs similarly to a Negated Character Class, or [^abc] to match anthing other than a, b, or c
+
+(if \[)( ((?!(then))[^\]])+ )(\]; then)
 
 								Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
 
-									Ex:   ```q(?!u)```   -   matches a "q" NOT followed by a "u"
+									Ex:   ```q(?!u)```
+									       |-->   matches a "q" NOT followed by a "u"
 
-									Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```  -  match lines which do NOT have the word 'ignoreme' or 'ignoreme2' anywhere in them
+									Ex:   ```^((?!foobar).)*$```
+									       |-->   match lines which do NOT have the word 'foobar' anywhere in them
 
-									Ex:   ```^((?!foobar).)*$```  -  match lines which do NOT have the word 'foobar' anywhere in them
+									Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```
+									       |-->   match lines which do NOT have the word 'ignoreme' or 'ignoreme2' anywhere in them
 
-									Ex:   ```^((?!<a).)*</a>```  -  match lines which have a closing HTML DOM </a> block without a matching opening HTML DOM <a> blocks before it on that same line
+									Ex:   ```if \[ ((?!(then))[^\]])+ \]; then```
+									       |-->   find lines containing "if [ ... ]; then" (shellscript if-conditional blocks) which do NOT contain the word "then" in the side the blocked conditional (e.g. no "then" exists within the "[ ... ]" block)
 
-									Ex:   ```^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$```  -  match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
+									Ex:   ```^((?!<a).)*</a>```
+									       |-->   match lines which have a closing HTML DOM </a> block without a matching opening HTML DOM <a> blocks before it on that same line
 
-									Ex:   ```^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$```    -  match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
+									Ex:   ```^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$```
+									       |-->   match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
+
+									Ex:   ```^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$```  
+									       |-->   match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
 * ```?<=```		Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
 
@@ -165,17 +181,21 @@
 
 								Negative Lookbehinds assert that what immediately precedes the current position in the string is NOT "RegexHere"
 
-									Ex: (?<=q)u   -   matches a "u" preceded by a "q"
+									Ex: ```(?<=q)u```
+									       |-->   matches a "u" preceded by a "q"
 
-									Ex: (?<!q)u   -   matches a "u" NOT preceded by a "q"
+									Ex: ```(?<!q)u```
+									       |-->   matches a "u" NOT preceded by a "q"
 
-									Ex: (?<!host)\.com   -   matches ".com" NOT preceded by "host"
+									Ex: ```(?<!host)\.com```
+									       |-->   matches ".com" NOT preceded by "host"
 
 								NOTE: Javascript only supports Negative-Lookbehinds in the latest version of Chrome (as-of 2019-08-01)
 									|
 									|--> As a workaround, Negative Lookbehinds can be rebuilt as a negative lookahead (which is commonly supported in Javascript) as follows:
 
-									Ex: ((?!q).|^)u   -   matches a "u" NOT preceded by a "q"
+									Ex: ```((?!q).|^)u```
+									       |-->   matches a "u" NOT preceded by a "q"
 
 
 ***

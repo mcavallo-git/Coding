@@ -83,6 +83,11 @@ if [ 1 -eq 1 ]; then
   # Final Results
   #
   echo "";
+  echo "Results:";
+  echo "";
+  echo "Code Block #1:  ${BENCHMARK_1_DELTA}s  (runtime duration)";
+  echo "Code Block #2:  ${BENCHMARK_2_DELTA}s  (runtime duration)";
+  echo "";
   echo "------------------------------";
   echo "Winner:  Code Block #${WINNER_BLOCK}";
   echo "  -  Ran  [  ${DEC_DIFF}x  ] faster than Code Block #${LOSER_BLOCK}";

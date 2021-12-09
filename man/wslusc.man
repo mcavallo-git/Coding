@@ -1,0 +1,41 @@
+WSLUSC(1)                                                                                                                                                          WSLUSC                                                                                                                                                         WSLUSC(1)
+
+wslusc
+
+NAME
+       wslusc - Component of Windows 10 Linux Subsystem Utility
+
+Synopsis
+       wslusc (--env [PATH]|--name [NAME]|--icon [ICO FILE]|--gui|--interactive|--help|--version) [COMMAND]
+
+Description
+       This is a WSL shortcut creator to create shortcut on Windows Desktop
+
+COMMANDS
+       -h, --help - print a simple help
+
+       -v, --version - print current version
+
+       -g, --gui - create a shortcut that links to a GUI application
+
+       -i, --icon - add an icon to the Windows Shortcut. Supports .ico/.png/.svg.
+
+       -n, --name - add a different name other than the command name.
+
+       -e, --env - add a custom environment to your command. For example, if you want HiDPI support for a GTK app, add export GDK_SCALE=2; in your command, like this: wslusc ... -e "export GDK_SCALE=2;" ...
+
+       -I, --interactive - interactive mode.
+
+SEE ALSO
+       https://github.com/wslutilities/wslu
+
+AUTHOR
+       Created by Patrick Wu mailto:wotingwu@live.com
+
+REPORTING BUGS
+       Report bugs to https://github.com/wslutilities/wslu/issues
+
+COPYRIGHT
+       This is free software; you can redistribute it and/or modify it under the terms of the GNU GPL version 3 or (at your option) any later version. There is NO warranty; not even MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Patrick Wu                                                                                                                                                       July 2019                                                                                                                                                        WSLUSC(1)

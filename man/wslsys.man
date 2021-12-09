@@ -1,0 +1,47 @@
+WSLSYS(1)                                                                                                                                                          WSLSYS                                                                                                                                                         WSLSYS(1)
+
+wslsys
+
+NAME
+       wslsys - Component of Windows 10 Linux Subsystem Utility
+
+SYNOSIS
+       wslsys (-h|-v|-I|-b|-B|-fB|-U|-R|-K|-P) -s
+
+DESCRIPTION
+       This is a WSL system information printer to print out some basic system information.
+
+COMMANDS
+       Default will print out the overall system information. more options are following(add -s flag to print only value):
+
+       -h, --help - print a simple help
+
+       -v, --version - print current version
+
+       -U, --uptime - print current uptime
+
+       -b, --branch - print windows build information
+
+       -B, --build - print Windows build information
+
+       -fB, --full-build - print full Windows build information
+
+       -K, --kernel - print WSL kernel info
+
+       -R, --release - print WSL system release info
+
+       -P, --package - print total installed packages
+
+SEE ALSO
+       https://github.com/wslutilities/wslu
+
+AUTHOR
+       Created by Patrick Wu mailto:wotingwu@live.com
+
+REPORTING BUGS
+       Report bugs to https://github.com/wslutilities/wslu/issues
+
+COPYRIGHT
+       This is free software; you can redistribute it and/or modify it under the terms of the GNU GPL version 3 or (at your option) any later version. There is NO warranty; not even MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Patrick Wu                                                                                                                                                       July 2019                                                                                                                                                        WSLSYS(1)

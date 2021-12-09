@@ -26,7 +26,7 @@ if [ 1 -eq 1 ]; then
   BENCHMARK_2_START=$(date +'%s.%N';);
   sleep 3;
   BENCHMARK_2_END=$(date +'%s.%N';)
-  BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_1_START})/1" | bc -l;);
+  BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_2_START})/1" | bc -l;);
   echo -e "Runtime Duration - Code Block #2:  ${BENCHMARK_2_DELTA}s";
   # ------------------------------------------------------------
   #

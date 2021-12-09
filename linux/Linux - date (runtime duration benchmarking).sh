@@ -32,9 +32,9 @@ if [ 1 -eq 1 ]; then
   # ^^^----- DO ACTIONS TO BENCHMARK, HERE
   # ------------------------------
   if [ -n "$(command -v bc 2>'/dev/null';)" ]; then
-    BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l;);
+    BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
   else
-    BENCHMARK_DELTA=$(perl -le "print($(date +'%s.%N') - ${BENCHMARK_START})");
+    BENCHMARK_DELTA=$(perl -le "print($(date +'%s.%N') - ${BENCHMARK_START})" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g');
   fi;
   echo "  |--> Finished after ${BENCHMARK_DELTA}s";
 fi;

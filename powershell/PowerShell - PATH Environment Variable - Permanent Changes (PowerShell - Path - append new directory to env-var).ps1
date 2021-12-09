@@ -12,18 +12,19 @@ Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) 
 
 # Set Environment Variables
 
-# env:REPOS_DIR  (SYSTEM-SCOPED)
-$Env_Name = "REPOS_DIR";
-$Env_Value = "C:\_REPOS";
-Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
-
 
 # env:REPOS_DIR  (USER-SCOPED)
 $Env_Name = "REPOS_DIR";
-$Env_Value = "C:\_REPOS";
+$Env_Value = "${HOME}\Documents\GitHub";
 Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
 [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+
+
+# env:REPOS_DIR  (SYSTEM-SCOPED)
+# $Env_Name = "REPOS_DIR";
+# $Env_Value = "C:\_REPOS";
+# Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+# [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
 
 
 # ------------------------------

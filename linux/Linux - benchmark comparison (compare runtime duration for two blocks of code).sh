@@ -47,7 +47,7 @@ if [ 1 -eq 1 ]; then
     # ---- END CODE BLOCK #2
   done;
   BENCHMARK_2_END=$(date +'%s.%N';)
-  BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_1_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
+  BENCHMARK_2_DELTA=$(echo "scale=4; (${BENCHMARK_2_END} - ${BENCHMARK_2_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
   echo "Code Block #2:  ${BENCHMARK_2_DELTA}s  (runtime duration)";
 
   # ------------------------------------------------------------

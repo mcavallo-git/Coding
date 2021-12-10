@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - PATH Environment Variable - Permanent Changes (PowerShell - Path - append new directory to env-var)
+# PowerShell - Set Environment Variables
 #
 # ------------------------------------------------------------
 
@@ -10,7 +10,6 @@ Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) 
 
 # ------------------------------------------------------------
 
-# Set Environment Variables
 
 
 # env:REPOS_DIR  (USER-SCOPED)
@@ -20,15 +19,20 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
 
 
-# env:REPOS_DIR  (SYSTEM-SCOPED)
-# $Env_Name = "REPOS_DIR";
-# $Env_Value = "C:\_REPOS";
-# Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-# [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+# ------------------------------------------------------------
+#
+# env:WSLENV  (USER-SCOPED)
+#
+
+$Env_Name = "WSLENV";
+$Env_Value = "REPOS_DIR/up:TEMP/up:TMP/up";
+Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
 
 
 # ------------------------------
 
+# PowerShell - PATH Environment Variable - Permanent Changes (PowerShell - Path - append new directory to env-var)
 
 #
 # env:PATH  (SYSTEM-SCOPED)
@@ -87,6 +91,10 @@ $Env:Path += ";C:\Program Files (x86)\VMware\VMware Workstation";  # Temporarily
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   devblogs.microsoft.com  |  "Share Environment Vars between WSL and Windows - Windows Command Line"  |  https://devblogs.microsoft.com/commandline/share-environment-vars-between-wsl-and-windows/
+#
+#   docs.microsoft.com  |  "Working across file systems | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/wsl/filesystems
 #
 #   docs.microsoft.com  |  "SetEnvironmentVariable function (winbase.h) - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setenvironmentvariable
 #

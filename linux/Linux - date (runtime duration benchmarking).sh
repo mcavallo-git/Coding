@@ -36,7 +36,7 @@ if [ 1 -eq 1 ]; then
   else
     BENCHMARK_DELTA=$(perl -le "print($(date +'%s.%N') - ${BENCHMARK_START})" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g');
   fi;
-  echo "  |--> Finished after ${BENCHMARK_DELTA}s";
+  echo "Finished after ${BENCHMARK_DELTA}s";
 fi;
 
 

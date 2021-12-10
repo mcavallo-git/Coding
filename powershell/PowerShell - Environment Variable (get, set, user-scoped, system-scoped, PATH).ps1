@@ -1,18 +1,18 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Set Environment Variables
+# PowerShell - Environment Variables (get/set)
 #
 # ------------------------------------------------------------
 
-# Get Environment Variables (one-liner)
+# One-Liner:  Get all environment variables - Also, show all separate filepaths held in env:PATH
 Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem env: | Format-Table -AutoSize; Write-Output ---` env:PATH` ---; (${env:Path}).Split([String][Char]59) | Sort-Object; Write-Output ----------------;
 
 
 # ------------------------------------------------------------
-
-
-
+#
 # env:REPOS_DIR  (USER-SCOPED)
+#
+
 $Env_Name = "REPOS_DIR";
 $Env_Value = "${HOME}\Documents\GitHub";
 Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
@@ -31,9 +31,6 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 
 
 # ------------------------------
-
-# PowerShell - PATH Environment Variable - Permanent Changes (PowerShell - Path - append new directory to env-var)
-
 #
 # env:PATH  (SYSTEM-SCOPED)
 #  |--> Permanently adds a directory to current system's PATH
@@ -46,7 +43,6 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
   Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
   [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
 }
-
 
 #
 # env:PATH  (USER-SCOPED)

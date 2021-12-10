@@ -10,7 +10,7 @@ If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else 
 
 
 <# PowerShell - Run as admin - Run an AutoHotkey script #> 
-Start-Process -Filepath ("${ENV:ProgramFiles}\AutoHotkey-v2\AutoHotkeyU64.exe") -ArgumentList ("${ENV:USERPROFILE}\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2") -Verb RunAs;
+Start-Process -Filepath ("${env:ProgramFiles}\AutoHotkey-v2\AutoHotkeyU64.exe") -ArgumentList ("${env:USERPROFILE}\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2") -Verb RunAs;
 
 
 <# PowerShell/pwsh - Run as admin (child terminal) - Run 'whoami' #>

@@ -4,13 +4,13 @@
 #
 # ------------------------------------------------------------
 
-# One-Liner:  Get all environment variables - Also, show all separate filepaths held in env:PATH
-Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem env: | Format-Table -AutoSize; Write-Output ---` env:PATH` ---; (${env:Path}).Split([String][Char]59) | Sort-Object; Write-Output ----------------;
+# List all environment variables (One-Liner)
+Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem env: | Format-Table -AutoSize; Write-Output ---` env:PATH` ---; (${env:Path}).Split([String][Char]59) | Sort-Object; Write-Output ----------------; <# List all environment variables (One-Liner) #>
 
 
 # ------------------------------------------------------------
 #
-# env:REPOS_DIR  (USER-SCOPED)
+# env:REPOS_DIR  (User-Scoped)
 #
 
 $Env_Name = "REPOS_DIR";
@@ -21,7 +21,7 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 
 # ------------------------------------------------------------
 #
-# env:WSLENV  (USER-SCOPED)
+# env:WSLENV  (User-Scoped)
 #
 
 $Env_Name = "WSLENV";
@@ -32,7 +32,7 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 
 # ------------------------------
 #
-# env:HELM_EXPERIMENTAL_OCI  (SYSTEM-SCOPED)
+# env:HELM_EXPERIMENTAL_OCI  (System-Scoped)
 #  |--> Applies change to all users on current system
 #
 $Env_Name = "HELM_EXPERIMENTAL_OCI";
@@ -43,7 +43,7 @@ Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 
 # ------------------------------
 #
-# env:NG_CLI_ANALYTICS  (SYSTEM-SCOPED)
+# env:NG_CLI_ANALYTICS  (System-Scoped)
 #  |--> Applies change to all users on current system
 #
 $Env_Name = "NG_CLI_ANALYTICS";
@@ -54,7 +54,7 @@ Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 
 # ------------------------------
 #
-# env:PATH  (SYSTEM-SCOPED)
+# env:PATH  (System-Scoped)
 #  |--> Permanently adds a directory to current system's PATH
 #  |--> Applies change to all users on current system
 #
@@ -66,7 +66,7 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 }
 
 #
-# env:PATH  (USER-SCOPED)
+# env:PATH  (User-Scoped)
 #  |--> Permanently adds a directory to current user's PATH
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
@@ -78,28 +78,35 @@ If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath
 
 
 # ------------------------------------------------------------
+# ------------------------------------------------------------
+# ------------------------------------------------------------
+
+
 #
-# Output all PATH components to the console
+# List the combined PATH components from both [ SYSTEM ], [ USER ], and anywhere else that gets added into the PATH environment variable scope
 #
-(${Env:Path}).Split([String][Char]59);
+
+(${Env:Path}).Split([String][Char]59); <# List all items in the current PATH (combined User + System + other) #>
 
 
-# Get the current Environment "Path" Directories (Combined System + User Dirs) & store them in the variable $EnvPath
-$EnvPath = (${Env:Path}).Split([String][Char]59);
 
+#
+# Check the PATH for results matching a given string
+#
 
-# Search the PATH for results matching a given string
 (${Env:Path}).Split([String][Char]59) | Select-String 'git'; <# Non-exact matching #>
+
 (${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" } | ForEach-Object { $_ }; <# Exact matching #>
+
 ((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count; <# Count the number of pre-existing exact matches #>
 
 
-# ------------------------------------------------------------
-# 
-# TEMPORARILY modify session environment variables in Windows
-# 
+#
+# Temporarily modify session environment variables in Windows
+#
 
 $Env:Path = "C:\Trash";  # Temporarily REPLACES existing path
+
 $Env:Path += ";C:\Program Files (x86)\VMware\VMware Workstation";  # Temporarily APPENDS TO existing path
 
 

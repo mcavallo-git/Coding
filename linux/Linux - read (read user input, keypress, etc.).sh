@@ -12,14 +12,14 @@ read -p "Press any key to continue...  " -a KEY_PRESSED -n 1 -t 60 <'/dev/tty'; 
 
 if [ 1 -eq 1 ]; then
   READ_TIMEOUT=60;
-  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=$?;
+  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=${?};
   echo "";
-  if [ ${EXIT_CODE} -le 128 ] && [ -n "${USER_RESPONSE}" ]; then
-    echo "Info:  Response received: \"${USER_RESPONSE}\"";
-  elif [ ${EXIT_CODE} -gt 128 ]; then
+  if [ ${EXIT_CODE} -gt 128 ]; then
     echo "Error:  Response timed out after ${READ_TIMEOUT}s";
+  elif [ ${#USER_RESPONSE} -eq 0 ]; then
+    echo "Error:  Response's string length is zero (empty)";
   else
-    echo "Info:  Response's string length is zero (empty)";
+    echo "Info:  Response received: \"${USER_RESPONSE}\"";
   fi;
 fi;
 
@@ -41,7 +41,7 @@ if [ 1 -eq 1 ]; then
   ACTION_DESCRIPTION="ACTION_DESCRIPTION_HERE";
   READ_TIMEOUT=3;
   USER_RESPONSE="";
-  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now?  (press 'y' to confirm)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=$?;
+  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now?  (press 'y' to confirm)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=${?};
   echo "";
   if [ ${EXIT_CODE} -gt 128 ]; then
     echo "Error:  Response timed out after ${READ_TIMEOUT}s";

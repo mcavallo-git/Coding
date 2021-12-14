@@ -1,4 +1,10 @@
 ------------------------------------------------------------
+------------------------------
+
+docs.google.com  |  "Hotswappable Keyboard Masterlist (wip)"  |  https://docs.google.com/spreadsheets/d/1t-8SxjYVUE3AyvuyUQTaQE6XYxZjt4y4B1-NmkOBJKQ/edit#gid=1381238794
+
+------------------------------
+------------------------------------------------------------
 
 Glorious GMMK-BRN - https://www.amazon.com/dp/B01D8YNJH0
 
@@ -6,7 +12,7 @@ Glorious GMMK-RGB (PCB & Case, only) - https://www.amazon.com/dp/B01MXUL6D3
 
 ------------------------------------------------------------
 
-Durgod Taurus K310 - https://www.amazon.com/dp/B07YQSMRTC
+Keychron K10 - https://www.keychron.com/products/keychron-k10-wireless-mechanical-keyboard?variant=39426678325337
 
 ------------------------------------------------------------
 

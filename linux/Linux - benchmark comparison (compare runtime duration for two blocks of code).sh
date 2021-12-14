@@ -94,9 +94,9 @@ if [ 1 -eq 1 ]; then
   echo "";
   echo "------------------------------";
   echo "Winner:  Code Block #${WINNER_BLOCK}";
-  echo "  -  Ran  [  ${DEC_DIFF}x  ] faster than Code Block #${LOSER_BLOCK}";
-  echo "  -  Ran  [  ${PERC_DIFF_FASTER}%  ] faster than Code Block #${LOSER_BLOCK}";
-  echo "  -  Took [  ${PERC_TOOK}%  ] the time that it took Code Block #${LOSER_BLOCK} to complete";
+  echo "  -  Code Block #${WINNER_BLOCK} ran  [  $(printf '%10s' "${DEC_DIFF}";)x  ] faster than Code Block #${LOSER_BLOCK}";
+  echo "  -  Code Block #${WINNER_BLOCK} ran  [  $(printf '%10s' "${PERC_DIFF_FASTER}";)%  ] faster than Code Block #${LOSER_BLOCK}";
+  echo "  -  Code Block #${WINNER_BLOCK} took [  $(printf '%10s' "${PERC_TOOK}";)%  ] the time that it took Code Block #${LOSER_BLOCK} to complete";
   echo "------------------------------";
 
   # ------------------------------------------------------------

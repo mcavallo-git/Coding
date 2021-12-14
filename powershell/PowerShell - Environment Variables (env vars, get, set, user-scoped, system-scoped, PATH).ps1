@@ -10,7 +10,7 @@ Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) 
 
 # ------------------------------------------------------------
 #
-# env:REPOS_DIR  (User-Scoped)
+# User  -  env:REPOS_DIR
 #
 
 $Env_Name = "REPOS_DIR";
@@ -21,7 +21,7 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 
 # ------------------------------------------------------------
 #
-# env:WSLENV  (User-Scoped)
+# User  -  env:WSLENV
 #
 
 $Env_Name = "WSLENV";
@@ -32,7 +32,7 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 
 # ------------------------------
 #
-# env:HELM_EXPERIMENTAL_OCI  (System-Scoped)
+# System  -  env:HELM_EXPERIMENTAL_OCI
 #  |--> Applies change to all users on current system
 #
 $Env_Name = "HELM_EXPERIMENTAL_OCI";
@@ -43,7 +43,7 @@ Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 
 # ------------------------------
 #
-# env:NG_CLI_ANALYTICS  (System-Scoped)
+# System  -  env:NG_CLI_ANALYTICS
 #  |--> Applies change to all users on current system
 #
 $Env_Name = "NG_CLI_ANALYTICS";
@@ -54,8 +54,8 @@ Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 
 # ------------------------------
 #
-# env:PATH  (System-Scoped)
-#  |--> Permanently adds a directory to current system's PATH
+# System  -  env:PATH
+#  |--> Permanently adds a directory to current system's PATH (if not already on current PATH variable)
 #  |--> Applies change to all users on current system
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
@@ -66,8 +66,8 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 }
 
 #
-# env:PATH  (User-Scoped)
-#  |--> Permanently adds a directory to current user's PATH
+# User  -  env:PATH
+#  |--> Permanently adds a directory to current user's PATH (if not already on current PATH variable)
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);

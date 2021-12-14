@@ -3,7 +3,11 @@
 
 
 # printf - right-pad (rpad) a string with spaces
-TEST_PADDING="tester"; echo "[$(printf '%-10s' "$TEST_PADDING";)]"
+TEST_PADDING="rpad"; echo "[$(printf '%-10s' "$TEST_PADDING";)]";
+
+
+# printf - left-pad (lpad) a string with spaces
+TEST_PADDING="lpad"; echo "[$(printf '%10s' "$TEST_PADDING";)]";
 
 
 # ------------------------------------------------------------

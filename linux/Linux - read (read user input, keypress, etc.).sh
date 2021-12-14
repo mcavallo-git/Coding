@@ -2,8 +2,7 @@
 
 # ------------------------------------------------------------
 
-read -p "Press any key to continue...  " -n 1 -t 60 <'/dev/tty'; # Await single keypress (works with curl'ed scripts)
-
+read -p "Press any key to continue...  " -a KEY_PRESSED -n 1 -t 60 <'/dev/tty'; echo -e "\nKEY_PRESSED=[ ${KEY_PRESSED} ]";  # Await single keypress (works with curl'ed scripts)
 
 # AVOID USING [ -r ] --> USE ABOVE METHODOLOGY OF [ <'/dev/tty' ], INSTEAD
 # read -p "Press any key to continue...  " -n 1 -t 60 -r;  # !!! Note: [ -r ] breaks on curl commands (fails read immediately, returning exit code 1)

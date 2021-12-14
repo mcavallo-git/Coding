@@ -3,7 +3,7 @@
 
 docs.google.com  |  "Switch data sheet"  |  https://docs.google.com/spreadsheets/d/1_h6m9-uVLrGwdeIYT7fiMwCVT5jNkijPGHPK2jfhiRI/edit#gid=0
 
-docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets/d/161QQynxAtsbUrHK81T7RnCztNaHFYbJXSrnz8kuApJo/edit#gid=870951345
+docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets/d/161QQynxAtsbUrHK81T7RnCztNaHFYbJXSrnz8kuApJo/edit#gid=0
 
 www.convertunits.com  |  "Convert cN to gram-force"  |  https://www.convertunits.com/from/cN/to/gram-force
 

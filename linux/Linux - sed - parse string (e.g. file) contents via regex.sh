@@ -202,21 +202,21 @@ echo ".7213" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';
 
 
 # sed - Trim leading/trailing whitespace
-#  |--> Method #1 - Runs slightly faster than Method #2
-echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
-    # Example before
-    echo "[$(echo "  a  b  c  d  ";)]";
-    # Example after
-    echo "[$(echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';)]";
-
-
-# sed - Trim leading/trailing whitespace
-#  |--> Method #2 - Runs slightly slower than Method #1 (potentially due to Method #2 having two "-e" arguments vs Method #1 having one)
+#  |--> Method #1 - Runs between -3% and 3% as fast as Method #2
 echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
     # Example before
     echo "[$(echo "  a  b  c  d  ";)]";
     # Example after
     echo "[$(echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)]";
+
+
+# sed - Trim leading/trailing whitespace
+#  |--> Method #2 - Runs between -3% and 3% as fast as Method #1
+echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
+    # Example before
+    echo "[$(echo "  a  b  c  d  ";)]";
+    # Example after
+    echo "[$(echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';)]";
 
 
 # sed - Trim leading whitespace (do not trim trailing whitespace

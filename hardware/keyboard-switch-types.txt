@@ -10,60 +10,60 @@ docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets
 
 Cherry Switches - https://www.cherrymx.de/en/mx-original/mx-brown.html
 
-Cherry MX Brown (Non-clicky, Tactile Bump, 55 cN Actuation Force)
+  Cherry MX Brown (Non-Clicky, Tactile Bump, 55 cN Actuation Force)
 
-Cherry MX Clear (Non-clicky, Tactile Bump, 65 cN Actuation Force)
+  Cherry MX Clear (Non-Clicky, Tactile Bump, 65 cN Actuation Force)
 
-Cherry MX Grey (Non-clicky, Tactile Bump, 80 cN Actuation Force)
+  Cherry MX Grey (Non-Clicky, Tactile Bump, 80 cN Actuation Force)
 
 ------------------------------------------------------------
 
 Razer Switches - https://www.razer.com/razer-mechanical-switches
 
-Razer Orange (Non-clicky, Tactile Bump, 44 cN Actuation Force)
+  Razer Orange (Non-Clicky, Tactile Bump, 44 cN Actuation Force)
 
 ------------------------------------------------------------
 
 Logitech Switches - https://www.logitechg.com/en-us/innovation/mechanical-switches.html
 
-Logitech Romer-G Tactile (Slightly-clicky, Tactile Bump, 54 cN Actuation Force)
+  Logitech Romer-G Tactile (Slightly-clicky, Tactile Bump, 54 cN Actuation Force)
 
-Logitech GX Brown (Non-clicky, Tactile Bump, 59 cN Actuation Force)
+  Logitech GX Brown (Non-Clicky, Tactile Bump, 59 cN Actuation Force)
 
 ------------------------------------------------------------
 
 ASUS TUF Optical-Mech Switches - https://www.asus.com/Keyboards-Mice/TUF-Gaming-K7/#switches
 
-TUF Optical-Mesh Tactile ( AUDIBLE Click, Tactile Bump, 49 cN Actuation Force)
+  TUF Optical-Mesh Tactile ( Is-Clicky, Tactile Bump, 49 cN Actuation Force)
 
 ------------------------------------------------------------
 
 SteelSeries QX2 Switches - https://www.tomshardware.com/news/steelseries-apex-m750-mechanical-keyboard-qx2-switches,35233.html
 
-SteelSeries QX2 Brown ( ???-Clicky, Tactile Bump, 44 cN Actuation Force)
+  SteelSeries QX2 Brown ( ??? Is-Clicky/Non-Clicky ??? , Tactile Bump, 44 cN Actuation Force)
 
 ------------------------------------------------------------
 
 Greetech Switches - https://novelkeys.xyz/products/greetech-switches
 
-Greetech Brown ( ???-Clicky, Tactile Bump, 54 cN Actuation Force)
+  Greetech Brown ( ??? Is-Clicky/Non-Clicky ???, Tactile Bump, 54 cN Actuation Force)
 
 ------------------------------------------------------------
 
 Gateron Switches - https://novelkeys.xyz/products/gateron-switches
 
-Gateron Brown ( ???-Clicky, Tactile Bump, 54 cN Actuation Force)
+  Gateron Brown ( ??? Is-Clicky/Non-Clicky ???, Tactile Bump, 54 cN Actuation Force)
 
 ------------------------------------------------------------
 
 Kalih Switches - https://novelkeys.xyz/products/kailh-switches
 
-Kalih BOX Switches - https://novelkeys.xyz/products/kailh-box-switches
+  Kalih BOX Switches - https://novelkeys.xyz/products/kailh-box-switches
 
-Kalih Brown, Kalih BOX Brown ( ???-Clicky, Tactile Bump, 49 cN Actuation Force)
+  Kalih Brown, Kalih BOX Brown ( ??? Is-Clicky/Non-Clicky ???, Tactile Bump, 49 cN Actuation Force)
 
 ------------------------------------------------------------
 
-Convert cN to gram-force - https://www.convertunits.com/from/cN/to/gram-force
+  Convert cN to gram-force - https://www.convertunits.com/from/cN/to/gram-force
 
 ------------------------------------------------------------

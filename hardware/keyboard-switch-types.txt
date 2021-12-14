@@ -38,7 +38,7 @@ Zeal (ZealPC) Switches (manufactured by Gateron) - [ https://kbdfans.com/product
 
   Tealios v2 Linear (Non-Clicky, No Tactile Bump, [ 66 cN (67g) ] Actuation Force)
 
-  Zealios v2 Linear (Non-Clicky, No Tactile Bump, [ 61 cN (62g) ]/[ 64 cN (65g) ]/[ 66 cN (67g) ]/[ 76 cN (78g) ] Actuation Force)
+  Zealios v2 Tactile (Non-Clicky, Tactile Bump, [ 61 cN (62g) ]/[ 64 cN (65g) ]/[ 66 cN (67g) ]/[ 76 cN (78g) ] Actuation Force)
 
   Zilents v2 Tactile (Non-Clicky, Tactile Bump, [ 61 cN (62g) ]/[ 64 cN (65g) ]/[ 66 cN (67g) ]/[ 76 cN (78g) ] Actuation Force)
 

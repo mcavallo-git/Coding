@@ -7,6 +7,8 @@ docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets
 
 www.convertunits.com  |  "Convert cN to gram-force"  |  https://www.convertunits.com/from/cN/to/gram-force
 
+www.convertunits.com  |  "Convert gram-force to cN"  |  https://www.convertunits.com/from/gram-force/to/cN
+
 ------------------------------
 ------------------------------------------------------------
 
@@ -17,6 +19,28 @@ Cherry Switches - https://www.cherrymx.de/en/mx-original/mx-brown.html
   Cherry MX Clear (Non-Clicky, Tactile Bump, 65 cN Actuation Force)
 
   Cherry MX Grey (Non-Clicky, Tactile Bump, 80 cN Actuation Force)
+
+------------------------------------------------------------
+
+Boba Switches (manufactured by Outemu, designed by Gazzew) - https://www.rgbkb.net/products/rgb-silent-tactile-switch
+
+  Boba U4 RGB Silent Tactile (Non-Clicky, Tactile Bump, [ 61 cN (62g) ]/[ 66 cN (67g) ]  Actuation Force)
+
+------------------------------------------------------------
+
+Zeal (ZealPC) Switches (manufactured by Gateron) - [ https://kbdfans.com/products/zealios-tealios-zilents ] & [ https://kbdfans.com/products/roselios-sakurios-silent-linear-switches ]
+
+  Healios v2 Linear (Non-Clicky, No Tactile Bump, [ 62 cN (63.5g) ]/[ 66 cN (67g) ] Actuation Force)
+
+  Rosélios v2 Silent Linear (Non-Clicky, No Tactile Bump, [ 66 cN (67g) ] Actuation Force)
+
+  Sakurios v2 Silent Linear (Non-Clicky, No Tactile Bump, [ 61 cN (62g) ] Actuation Force)
+
+  Tealios v2 Linear (Non-Clicky, No Tactile Bump, [ 66 cN (67g) ] Actuation Force)
+
+  Zealios v2 Linear (Non-Clicky, No Tactile Bump, [ 61 cN (62g) ]/[ 64 cN (65g) ]/[ 66 cN (67g) ]/[ 76 cN (78g) ] Actuation Force)
+
+  Zilents v2 Tactile (Non-Clicky, Tactile Bump, [ 61 cN (62g) ]/[ 64 cN (65g) ]/[ 66 cN (67g) ]/[ 76 cN (78g) ] Actuation Force)
 
 ------------------------------------------------------------
 

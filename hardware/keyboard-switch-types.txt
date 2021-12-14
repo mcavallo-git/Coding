@@ -5,6 +5,8 @@ docs.google.com  |  "Switch data sheet"  |  https://docs.google.com/spreadsheets
 
 docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets/d/161QQynxAtsbUrHK81T7RnCztNaHFYbJXSrnz8kuApJo/edit#gid=870951345
 
+www.convertunits.com  |  "Convert cN to gram-force"  |  https://www.convertunits.com/from/cN/to/gram-force
+
 ------------------------------
 ------------------------------------------------------------
 
@@ -61,9 +63,5 @@ Kalih Switches - https://novelkeys.xyz/products/kailh-switches
   Kalih BOX Switches - https://novelkeys.xyz/products/kailh-box-switches
 
   Kalih Brown, Kalih BOX Brown ( ??? Is-Clicky/Non-Clicky ???, Tactile Bump, 49 cN Actuation Force)
-
-------------------------------------------------------------
-
-  Convert cN to gram-force - https://www.convertunits.com/from/cN/to/gram-force
 
 ------------------------------------------------------------

@@ -1354,6 +1354,8 @@ LButton::
 	; SpaceUp_Loop(50, WinTitle)
 	; SpaceUp_Loop(50)
 	; ClickLoop(1724,749,1000)
+	MouseGetPos, MouseX, MouseY
+	ClickLoop(MouseX, MouseY, 500)  ; ClickLoop(MouseX,MouseY,Timeout)
 	Return
 
 
@@ -1731,7 +1733,7 @@ ClearTooltip(Period) {
 
 ;
 ;	ClickLoop
-;   |--> Clicks indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
+;   |--> Send left click indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
 ;
 ClickLoop(MouseX,MouseY,Timeout) {
 	CoordMode, Mouse, Screen

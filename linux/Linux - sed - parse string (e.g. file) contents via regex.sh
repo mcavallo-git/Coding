@@ -111,24 +111,24 @@ sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/def
 
 # ------------------------------------------------------------
 #
-# Example)  Comment-out lines starting-with or containing a specific substring
+# Example)  Comment out lines starting-with or containing a specific substring
 #  |
 #  |--> Uses the sed regex-replacement syntax of [ s/^#*/#/ ] or [ s/^#*/# / ] (for a space after the pound-sign "# ") to replace [ matched lines ] with [ their same value but with a pound-sign "#" prepended to them ]  -  https://www.gnu.org/software/sed/manual/html_node/The-_0022s_0022-Command.html
 #
 
 
-### Bash - Comment-out specific line(s) in local "/etc/hosts" file (to disable local dns resolution overrides for them)
+### Bash - Comment out specific line(s) in local "/etc/hosts" file (to disable local dns resolution overrides for them)
 ###  |--> Note that the "/etc/hosts" file requires you to get its value, edit the value, then overwrite the files's contents completely (cannot edit it direcly using sed's "-i" argument)
 HOSTS_IP="8.8.8.8"; HOSTS_FQDN="dns.google.com"; echo "$(sed -re "/^${HOSTS_IP} ${HOSTS_FQDN}\$/ s/^#*/# /" '/etc/hosts';)" > '/etc/hosts';
 
 
-### Bash - Comment-out specific line(s) in local "/etc/profile" file (to disable "You have new mail in /var/spool/mail/..." alerts at login)
+### Bash - Comment out specific line(s) in local "/etc/profile" file (to disable "You have new mail in /var/spool/mail/..." alerts at login)
 if [ -n "$(sed -rne 's/^\s*MAIL=.*$/\0/p' '/etc/profile' 2>'/dev/null';)" ]; then \
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/# /' "/etc/profile"; \
 fi;
 
 
-### MongoDB - Comment-out specific line(s) in "/etc/mongod.conf" file (to disable replication)
+### MongoDB - Comment out specific line(s) in "/etc/mongod.conf" file (to disable replication)
 systemctl stop mongod; \
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/^replication:/ s/^#*/# /' "/etc/mongod.conf"; \
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/^  replSetName:/ s/^#*/# /' "/etc/mongod.conf"; \

@@ -32,10 +32,31 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 
 # ------------------------------
 #
+# env:HELM_EXPERIMENTAL_OCI  (SYSTEM-SCOPED)
+#  |--> Applies change to all users on current system
+#
+$Env_Name = "HELM_EXPERIMENTAL_OCI";
+$Env_Value = "1";
+Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+
+
+# ------------------------------
+#
+# env:NG_CLI_ANALYTICS  (SYSTEM-SCOPED)
+#  |--> Applies change to all users on current system
+#
+$Env_Name = "NG_CLI_ANALYTICS";
+$Env_Value = "ci";
+Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+
+
+# ------------------------------
+#
 # env:PATH  (SYSTEM-SCOPED)
 #  |--> Permanently adds a directory to current system's PATH
 #  |--> Applies change to all users on current system
-#  |--> Change persists through machine/session restarts
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
@@ -47,8 +68,6 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 #
 # env:PATH  (USER-SCOPED)
 #  |--> Permanently adds a directory to current user's PATH
-#  |--> Doesn't apply change to other users on current system
-#  |--> Change persists through machine/session restarts
 #
 $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
 $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);

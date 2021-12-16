@@ -116,6 +116,26 @@ Chassis Fan Speed (%)
     Channel Name:  Speed
     Unit String:   %
 
+Pump Speed (%)
+
+  Sensor Name:     Fan Speed (%) - Pump (W_PUMP+) (Avg)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump.avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
+
+  Sensor Name:     Fan Speed (%) - Pump (W_PUMP+) (Max)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump.max.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
+
+  Sensor Name:     Fan Speed (%) - Pump (W_PUMP+) (Min)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump.min.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
+
 
 Radiator Fan Speed (%)
 
@@ -159,27 +179,6 @@ SSD Fan Speed (%)
     Unit String:   %
 
 
-Water Pump Speed (%)
-
-  Sensor Name:     Fan Speed (%) - Water Pump (W_PUMP+) (Avg)
-    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump.avg.bat
-    Value Type:    Float
-    Channel Name:  Speed
-    Unit String:   %
-
-  Sensor Name:     Fan Speed (%) - Water Pump (W_PUMP+) (Max)
-    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump.max.bat
-    Value Type:    Float
-    Channel Name:  Speed
-    Unit String:   %
-
-  Sensor Name:     Fan Speed (%) - Water Pump (W_PUMP+) (Min)
-    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump.min.bat
-    Value Type:    Float
-    Channel Name:  Speed
-    Unit String:   %
-
-
 ------------------------------------------------------------
 ---
 ---  Fan Speed (RPM)
@@ -202,6 +201,27 @@ Chassis Fan Speed (RPM)
 
   Sensor Name:     Fan Speed (RPM) - Chassis Fans (CHA_FAN2) (Min)
     EXE/Script:    get-openhardwaremonitor-fanrpm-chassis.min.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
+
+
+Pump Speed (RPM)
+
+  Sensor Name:     Fan Speed (RPM) - Pump (W_PUMP+) (Avg)
+    EXE/Script:    get-openhardwaremonitor-fanrpm-pump.avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
+
+  Sensor Name:     Fan Speed (RPM) - Pump (W_PUMP+) (Max)
+    EXE/Script:    get-openhardwaremonitor-fanrpm-pump.max.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
+
+  Sensor Name:     Fan Speed (RPM) - Pump (W_PUMP+) (Min)
+    EXE/Script:    get-openhardwaremonitor-fanrpm-pump.min.bat
     Value Type:    Float
     Channel Name:  Speed
     Unit String:   RPM
@@ -244,27 +264,6 @@ SSD Fan Speed (RPM)
 
   Sensor Name:     Fan Speed (RPM) - SSD Fan (CHA_FAN3) (Min)
     EXE/Script:    get-openhardwaremonitor-fanrpm-ssd.min.bat
-    Value Type:    Float
-    Channel Name:  Speed
-    Unit String:   RPM
-
-
-Water Pump Speed (RPM)
-
-  Sensor Name:     Fan Speed (RPM) - Water Pump (W_PUMP+) (Avg)
-    EXE/Script:    get-openhardwaremonitor-fanrpm-pump.avg.bat
-    Value Type:    Float
-    Channel Name:  Speed
-    Unit String:   RPM
-
-  Sensor Name:     Fan Speed (RPM) - Water Pump (W_PUMP+) (Max)
-    EXE/Script:    get-openhardwaremonitor-fanrpm-pump.max.bat
-    Value Type:    Float
-    Channel Name:  Speed
-    Unit String:   RPM
-
-  Sensor Name:     Fan Speed (RPM) - Water Pump (W_PUMP+) (Min)
-    EXE/Script:    get-openhardwaremonitor-fanrpm-pump.min.bat
     Value Type:    Float
     Channel Name:  Speed
     Unit String:   RPM

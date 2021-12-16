@@ -61,15 +61,77 @@ if [ 1 -eq 1 ]; then
   PAM_DUO_CONF="/etc/duo/pam_duo.conf";
   if [[ -f "${PAM_DUO_CONF}" ]]; then
 
+
+    MAX_LOOPS=5;
+    READ_TIMEOUT=60;
+
+    # ---------------
+    #
+    # Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters
+    #
+    duo_ikey="${duo_ikey}";
+    for i in $(seq ${MAX_LOOPS}); do
+      if [[ -z "${duo_ikey}" ]]; then
+        # Get the value from user input
+        echo "";
+        echo "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
+        read -p "Type or paste your integration key (attempt ${i}/${MAX_LOOPS}):  " -a duo_ikey -t ${READ_TIMEOUT} <'/dev/tty';
+      fi;
+      if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then
+        break;
+      else
+        duo_ikey="";
+      fi;
+    done;
+
+    # ---------------
+    #
+    # Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)
+    #
+    duo_skey="${duo_skey}";
+    for i in $(seq ${MAX_LOOPS}); do
+      if [[ -z "${duo_skey}" ]]; then
+        # Get the value from user input
+        echo "";
+        echo "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
+        read -p "Type or paste your secret key (attempt ${i}/${MAX_LOOPS}):  " -a duo_skey -t ${READ_TIMEOUT} <'/dev/tty';
+      fi;
+      if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then
+        break;
+      else
+        duo_skey="";
+      fi;
+    done;
+
+    # ---------------
+    #
+    # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[^\.\s]{8}\.duosecurity\.com'
+    #
+    duo_host="${duo_host}";
+    for i in $(seq ${MAX_LOOPS}); do
+      if [[ -z "${duo_host}" ]]; then
+        # Get the value from user input
+        echo "";
+        echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[^\.\s]{8}\.duosecurity\.com\$'";
+        read -p "Type or paste your API host (attempt ${i}/${MAX_LOOPS}):  " -a duo_host -t ${READ_TIMEOUT} <'/dev/tty';
+      fi;
+      if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[^\.\s]{8}\.duosecurity\.com$ ]]; then
+        break;
+      else
+        duo_host="";
+      fi;
+    done;
+
+
     # Setup options to apply to [ /etc/duo/pam_duo.conf ] as an array of key-value pairs
 
     unset PAM_DUO_OPTS; declare -A PAM_DUO_OPTS; # [Re-]Instantiate bash array
 
-    PAM_DUO_OPTS+=(["ikey"]="SECRET");  # Duo integration key (required)  -  20 characters long
+    PAM_DUO_OPTS+=(["ikey"]="${duo_ikey}");  # Duo integration key (required)  -  20 characters long
 
-    PAM_DUO_OPTS+=(["skey"]="SECRET");  # Duo secret key (required)  -  40 characters long
+    PAM_DUO_OPTS+=(["skey"]="${duo_skey}");  # Duo secret key (required)  -  40 characters long
 
-    PAM_DUO_OPTS+=(["host"]="SECRET");  # Duo API host (required)  -  matches regex "api-[^\.\s]{8}\.duosecurity\.com"
+    PAM_DUO_OPTS+=(["host"]="${duo_host}");  # Duo API host (required)  -  matches regex "api-[^\.\s]{8}\.duosecurity\.com"
 
     PAM_DUO_OPTS+=(["failmode"]="safe");  # On service or configuration errors that prevent Duo authentication, fail "safe" (allow access) or "secure" (deny access) - Default is "safe"
 

@@ -100,23 +100,24 @@ IF 1==1 (
   SET KeyName=HKCU\Control Panel\Desktop
   SET ValueName=AutoEndTasks
   SET DataType=REG_SZ
-  SET DataValue=0
+  SET DataValue=1
+  SET REG_ADD_REQUIRED=1
   REM Note: Use  [ %%a ] if running from within a batch script
   REM Note: Use  [  %a ] if running directly in a CMD terminal
-  FOR /F "tokens=* USEBACKQ" %a IN (
-  `REG QUERY "%KeyName%" /v "AutoEndTasks" /t "%DataType%" /f "%DataValue%"`
+  FOR /F "tokens=3 USEBACKQ" %a IN (
+    `REG QUERY "%KeyName%" /v "%ValueName%" /t "%DataType%" ^| findstr "%DataType%"`
   ) DO (
-    SET QUERY_KEY_VAL=%a
+    SET Current_DataValue=%a
+    IF %Current_DataValue%==%DataValue% (
+      SET REG_ADD_REQUIRED=0
+    ) ELSE (
+      SET REG_ADD_REQUIRED=1
+    )
   )
-  SET ARE_REGEDITS_NEEDED=%QUERY_KEY_VAL:End of search: 1 match(es) found.=NO_REGEDITS_ARE_NEEDED%
-  IF "%ARE_REGEDITS_NEEDED%"=="NO_REGEDITS_ARE_NEEDED" (
-    ECHO %KeyName%
-    ECHO   %ValueName% ^(%DataType%^) - No update^(s^) required - property is already set to "%DataValue%"^
-  ) ELSE (
-    ECHO %KeyName%
-    ECHO   %ValueName% ^(%DataType%^) - Setting to "%DataValue%" ...
-    REM REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%DataValue%" /f
+  IF %REG_ADD_REQUIRED%==1 (
+    REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%DataValue%" /f
   )
+  REG QUERY "%KeyName%" /v "%ValueName%"
   ECHO.
   @ECHO ON
 )

@@ -87,6 +87,8 @@ for EACH_OPTION_KEY in "${!PAM_DUO_OPTS[@]}"; do
   EACH_OPTION_COUNT_DEFINITIONS="$(sed -rne "s/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/\0/p" "${PAM_DUO_CONF}" | wc -l;)";
 
   echo "";
+  echo -e "------------------------------------------------------------\n";
+  echo "";
   echo "EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
   echo "EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
   echo "EACH_OPTION_COUNT_DEFINITIONS = [ ${EACH_OPTION_COUNT_DEFINITIONS} ]";
@@ -105,8 +107,8 @@ for EACH_OPTION_KEY in "${!PAM_DUO_OPTS[@]}"; do
     if [[ "${EACH_OPTION_VAL_CURRENT}" == "${EACH_OPTION_VAL_INTENDED}" ]]; then
       echo " |";
       echo " |--> Values match (between intended value & currently defined value)";
-      echo " |";
-      echo " |--> Do not perform any action (continue on & parse next option (if any exist))";
+      echo "       |";
+      echo "       |--> Do not perform any action (continue on & parse next option (if any exist))";
     else
       echo " |";
       echo " |--> Values do NOT match";

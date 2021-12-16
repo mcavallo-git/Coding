@@ -98,6 +98,7 @@ IF 1==1 (
   ECHO.
   ECHO.
 
+  REM HKCU\Control Panel\Desktop > AutoEndTasks > Setting to "1" disables the 'This App is Preventing Shutdown or Restart' screen on reboot-shutdown)
   SET KeyName=HKCU\Control Panel\Desktop
   SET ValueName=AutoEndTasks
   SET DataType=REG_SZ

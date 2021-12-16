@@ -1,7 +1,6 @@
 @ECHO OFF
 SET LOGFILE=C:\ISO\OpenHardwareMonitor\OHW-Current-Load-CPU-Avg.txt
 IF NOT EXIST "%LOGFILE%" (
-ECHO :DOWN
 EXIT 1
 ) ELSE (
 TYPE %LOGFILE%

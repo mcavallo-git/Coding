@@ -8,11 +8,12 @@
 # ------------------------------------------------------------
 
 if [ 1 -eq 1 ]; then
-
   # ------------------------------
   #
   # Start of [ install duo_unix ] code block
   #
+
+  echo -e "\n\n------------------------------------------------------------\n\n";
 
   # Verify that duo_unix is not already installed
   if [[ -z "$(command -v login_duo 2>'/dev/null';)" ]]; then
@@ -54,18 +55,18 @@ if [ 1 -eq 1 ]; then
   #
   # ------------------------------
   #
-  # Start of [ pam_duo.conf ] code block
+  # Start of [ integration-key/secret-key/api-host validation ] code block
   #
+
+  echo -e "\n\n------------------------------------------------------------\n\n";
 
   # Verify that pam_duo's config exists before continuing
   PAM_DUO_CONF="/etc/duo/pam_duo.conf";
   if [[ -f "${PAM_DUO_CONF}" ]]; then
 
-
     MAX_LOOPS=5;
     READ_TIMEOUT=60;
 
-    # ---------------
     #
     # Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters
     #
@@ -90,7 +91,6 @@ if [ 1 -eq 1 ]; then
       fi;
     done;
 
-    # ---------------
     #
     # Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)
     #
@@ -115,7 +115,6 @@ if [ 1 -eq 1 ]; then
       fi;
     done;
 
-    # ---------------
     #
     # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[a-zA-Z0-9]{8}\.duosecurity\.com'
     #
@@ -139,6 +138,16 @@ if [ 1 -eq 1 ]; then
         duo_host="";
       fi;
     done;
+
+    #
+    # End of [ integration-key/secret-key/api-host validation ] code block
+    #
+    # ------------------------------
+    #
+    # Start of [ pam_duo.conf ] code block
+    #
+
+    echo -e "\n\n------------------------------------------------------------\n\n";
 
     #
     # Verify Duo integration key, secret key, & API host are set as-intended
@@ -259,10 +268,6 @@ if [ 1 -eq 1 ]; then
 
       done;
 
-      echo "";
-      echo -e "------------------------------------------------------------\n";
-      echo "";
-
     fi;
 
   fi;
@@ -271,9 +276,7 @@ if [ 1 -eq 1 ]; then
   # End of [ pam_duo.conf ] code block
   #
   # ------------------------------
-
-  echo -e "\n\n";
-
+  echo -e "\n\n------------------------------------------------------------\n\n";
 fi;
 
 

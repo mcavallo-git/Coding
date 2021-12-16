@@ -1,12 +1,16 @@
 REM ------------------------------------------------------------
 
 
-REM notepad.exe - Edit hostsfile  (AS ADMIN)
-PowerShell -NoProfile "Start-Process 'C:\Windows\System32\notepad.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs';"
+REM
+REM   Edit hostsfile in:  [  Notepad ]  (AS ADMIN)
+REM
+PowerShell -NoProfile "Start-Process -FilePath 'C:\Windows\System32\notepad.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs';"
 
 
-REM notepad++.exe - Edit hostsfile  (AS ADMIN)
-PowerShell -NoProfile "If (Test-Path C:\Program` Files\Notepad++\notepad++.exe) { Start-Process C:\Program` Files\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } ElseIf (Test-Path C:\Program` Files` `(x86`)\Notepad++\notepad++.exe) { Start-Process C:\Program` Files` `(x86`)\Notepad++\notepad++.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; } Else { Start-Process C:\Windows\System32\notepad.exe -ArgumentList C:\Windows\System32\drivers\etc\hosts -Verb RunAs; };"
+REM
+REM   Edit hostsfile in:  [  Notepad++ ]  (AS ADMIN)
+REM
+PowerShell -NoProfile "If (Test-Path 'C:\Program Files\Notepad++\notepad++.exe') { SV NP_PATH 'C:\Program Files\Notepad++\notepad++.exe'; } ElseIf (Test-Path 'C:\Program Files (x86)\Notepad++\notepad++.exe') { SV NP_PATH 'C:\Program Files (x86)\Notepad++\notepad++.exe'; } Else { SV NP_PATH 'C:\Windows\System32\notepad.exe'; }; Start-Process -FilePath ((GV NP_PATH).Value) -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs';"
 
 
 REM ------------------------------------------------------------

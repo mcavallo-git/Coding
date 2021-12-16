@@ -1,0 +1,71 @@
+------------------------------------------------------------
+---
+---  TEMP SENSORS
+---
+
+
+Sensor Name:     Temperature - CPU (Max)
+  EXE/Script:    get-openhardwaremonitor-cpu_sensor-max.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - GPU (Max)
+  EXE/Script:    get-openhardwaremonitor-gpu_sensor-max.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - SSD (Max)
+  EXE/Script:    get-openhardwaremonitor-ssd_sensor-max.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - T_SENSOR (Max)
+  EXE/Script:    get-openhardwaremonitor-temp-t_sensor-max.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - CPU (Min)
+  EXE/Script:    get-openhardwaremonitor-cpu_sensor-min.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - GPU (Min)
+  EXE/Script:    get-openhardwaremonitor-gpu_sensor-min.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - SSD (Min)
+  EXE/Script:    get-openhardwaremonitor-ssd_sensor-min.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+Sensor Name:     Temperature - T_SENSOR (Min)
+  EXE/Script:    get-openhardwaremonitor-temp-t_sensor-min.bat
+  Value Type:    Float
+  Channel Name:  Temperature
+  Unit String:   °C
+
+
+------------------------------------------------------------
+---
+---  SPEED (RPM/%) SENSORS
+---
+
+
+
+
+------------------------------------------------------------

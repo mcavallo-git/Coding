@@ -9,7 +9,9 @@ REM
 REM General syntax
 REM
 
-If (condition) (do_something) ELSE (do_something_else)
+If condition (do_something) ELSE (do_something_else)
+
+If NOT condition (do_something) ELSE (do_something_else)
 
 
 REM ------------------------------------------------------------
@@ -19,12 +21,22 @@ REM
 
 
 REM Example - IF EQUAL
-If a==b (ECHO 1) ELSE (ECHO 0)
-0   REM Value output by command
+If 1==1 (ECHO 1) ELSE (ECHO 0)
+1   REM Value output by command
 
 
 REM Example - IF EQUAL
-If a==a (ECHO 1) ELSE (ECHO 0)
+If 0==1 (ECHO 1) ELSE (ECHO 0)
+0   REM Value output by command
+
+
+REM Example - IF NOT EQUAL
+IF NOT 1==1 ( ECHO 1 ) ELSE ( ECHO 0 )
+0   REM Value output by command
+
+
+REM Example - IF NOT EQUAL
+IF NOT 0==1 ( ECHO 1 ) ELSE ( ECHO 0 )
 1   REM Value output by command
 
 
@@ -88,7 +100,7 @@ IF 1==1 (
   SET KeyName=HKCU\Control Panel\Desktop
   SET ValueName=AutoEndTasks
   SET DataType=REG_SZ
-  SET DataValue=1
+  SET DataValue=0
   REM Note: Use  [ %%a ] if running from within a batch script
   REM Note: Use  [  %a ] if running directly in a CMD terminal
   FOR /F "tokens=* USEBACKQ" %a IN (

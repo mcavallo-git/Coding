@@ -1,22 +1,37 @@
-
-# Following Guide:  https://duo.com/docs/duounix
-
-# TO INSTALL:  pam_duo
-
+#!/bin/bash
 # ------------------------------------------------------------
+#
+# Following Guide:  https://duo.com/docs/duounix
+#
+# TO INSTALL:  pam_duo
+#
+# ------------------------------------------------------------
+
+if [ 1 -eq 1 ]; then
 
 # Install PAM & Duo prerequisite packages
 apt-get -y update; apt-get -y install gcc libpam-dev libssl-dev make zlib1g-dev;
 
+# Setup duo_unix variables - working directory / source url / local install path
+WORKING_DIR="${HOME}/pam_duo_install";
+DUO_UNIX_LATEST_REMOTE="https://dl.duosecurity.com/duo_unix-latest.tar.gz";
+DUO_UNIX_LATEST_LOCAL="${WORKING_DIR}/$(basename "${DUO_UNIX_LATEST_REMOTE}";)";
+
+# Create working dir
+mkdir -pv "${WORKING_DIR}";
+
 # Download duo_unix
-mkdir -p "${HOME}/pam_duo_install";
-cd "${HOME}/pam_duo_install";
-# curl -H 'Cache-Control: no-cache' -o "/usr/local/sbin/add_user" -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/add_user"
-wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz";
-tar zxf "duo_unix-latest.tar.gz"; cd "${HOME}/pam_duo_install/duo_unix-"*;
+curl -H 'Cache-Control:no-cache' -sL "${DOWNLOAD_URL}" -o "${DUO_UNIX_LATEST_LOCAL}";
+
+# Unpack duo_unix
+cd "${WORKING_DIR}";
+tar zxf "${DUO_UNIX_LATEST_LOCAL}";
+cd "${WORKING_DIR}/duo_unix-"*;
 
 # Install duo_unix
 ./configure --with-pam --prefix=/usr && make && sudo make install;
+
+fi;
 
 # ------------------------------------------------------------
 

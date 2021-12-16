@@ -117,8 +117,11 @@ for EACH_OPTION_KEY in "${!PAM_DUO_OPTS[@]}"; do
       echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
       echo " |";
       echo " |--> Updating option definition to use intended value";
-sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" "${PAM_DUO_CONF}";
-# sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
+      
+      echo "       |--> Calling [ sed -rne \"s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p\" -i \"${PAM_DUO_CONF}\"; ]...";
+      sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" "${PAM_DUO_CONF}";
+      # sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
+
     fi;
 
   else
@@ -128,21 +131,27 @@ sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VA
       echo "Multiple pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
       echo " |";
       echo " |--> Comment out all existing option definitions";
-sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" "${PAM_DUO_CONF}";
-# sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
+      echo "       |--> Calling [ sed -re \"/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /\" -i \"${PAM_DUO_CONF}\"; ]...";
+      sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" "${PAM_DUO_CONF}";
+      # sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
+
     else
       echo "";
       echo "No pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
     fi;
     echo " |";
     echo " |--> Append intended option definition to the end of the file";
-
-echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n\" >> \"${PAM_DUO_CONF}\"";
-# echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
+    echo "       |--> Calling [ echo -e \"\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n\" >> \"${PAM_DUO_CONF}\"; ]...";
+    # echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
 
   fi;
 
 done;
+
+  echo "";
+  echo -e "------------------------------------------------------------\n";
+  echo "";
+
 
 fi;
 

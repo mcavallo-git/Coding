@@ -9,13 +9,13 @@
 
 if [ 1 -eq 1 ]; then
 
-# Install PAM & Duo prerequisite packages
+# Install prerequisite packages for PAM & Duo
 apt-get -y update; apt-get -y install gcc libpam-dev libssl-dev make zlib1g-dev;
 
-# Setup duo_unix variables - working directory / source url / local install path
-WORKING_DIR="${HOME}/pam_duo_install";
-DUO_UNIX_LATEST_REMOTE="https://dl.duosecurity.com/duo_unix-latest.tar.gz";
-DUO_UNIX_LATEST_LOCAL="${WORKING_DIR}/$(basename "${DUO_UNIX_LATEST_REMOTE}";)";
+# Setup runtime variables
+DUO_UNIX_LATEST_REMOTE="https://dl.duosecurity.com/duo_unix-latest.tar.gz"; # duo_unix source - https://duo.com/docs/duounix
+WORKING_DIR="${HOME}/pam_duo_install"; # Working directory
+DUO_UNIX_LATEST_LOCAL="${WORKING_DIR}/$(basename "${DUO_UNIX_LATEST_REMOTE}";)";  # Filepath to download duo_unix to
 
 # Create working dir
 mkdir -pv "${WORKING_DIR}";
@@ -30,10 +30,13 @@ cd "${WORKING_DIR}"; tar zxf "${DUO_UNIX_LATEST_LOCAL}";
 UNPACKED_DIR="$(find "${WORKING_DIR}/" -maxdepth "1" -mindepth "1" -type "d" -iname "duo_unix-*" -not -path "${DUO_UNIX_LATEST_LOCAL}" | head -n 1;)";
 
 if [[ -d "${UNPACKED_DIR}" ]] && [[ "${UNPACKED_DIR}" != "${WORKING_DIR}" ]]; then
+
 cd "${UNPACKED_DIR}"; pwd;
+
 # Install duo_unix
 echo "Calling [ ./configure --with-pam --prefix=/usr && make && sudo make install; ] from working directory [ $(pwd;) ]...";
 ./configure --with-pam --prefix=/usr && make && sudo make install;
+
 fi;
 
 fi;

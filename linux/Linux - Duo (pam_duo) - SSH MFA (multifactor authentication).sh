@@ -242,7 +242,7 @@ if [ 1 -eq 1 ]; then
           fi;
           echo " |";
           echo " |--> Appending option definition onto the config file...";
-          echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
+          echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}" >> "${PAM_DUO_CONF}";
 
         fi;
 

@@ -26,9 +26,9 @@ REM
 	)
 	IF "!PingResponse!"=="offline" (
 		REM	Log on failed pings
-		ECHO [%date:~-4%-%date:~4,2%-%date:~7,2% @ %time:~0,2%:%time:~3,2%:%time:~6,2%] FAILED PING to %PingNickname% at {%PingHostname%} >> "%~dp0PingTest_Log.txt"
+		ECHO [%date:~0,4%-%date:~5,2%-%date:~8,2% @ %time:~0,2%:%time:~3,2%:%time:~6,2%] FAILED PING to %PingNickname% at {%PingHostname%} >> "%~dp0PingTest_Log.txt"
 	) ELSE (
 		REM	Log on successful pings
-		REM ECHO [%date:~-4%-%date:~4,2%-%date:~7,2% @ %time:~0,2%:%time:~3,2%:%time:~6,2%] SUCCESSFUL PING to %PingNickname% at {%PingHostname%} >> "%~dp0PingTest_Log.txt"
+		REM ECHO [%date:~0,4%-%date:~5,2%-%date:~8,2% @ %time:~0,2%:%time:~3,2%:%time:~6,2%] SUCCESSFUL PING to %PingNickname% at {%PingHostname%} >> "%~dp0PingTest_Log.txt"
 	)
 	EXIT /B

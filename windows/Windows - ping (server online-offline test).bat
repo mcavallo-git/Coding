@@ -25,6 +25,6 @@ REM
 		IF "x%%a"=="xReceived" IF "x%%c"=="x1," SET ping_response=online
 	)
 	IF "!ping_response!"=="offline" (
-		ECHO [%date:~-4%-%date:~4,2%-%date:~7,2% @ %time:~0,2%:%time:~3,2%:%time:~6,2%] FAILED PING to %ping_nickname% at {%ping_hostname%} >> "%~dp0ping_test.log"
+		ECHO [%date:~0,4%-%date:~5,2%-%date:~8,2% @ %time:~0,2%:%time:~3,2%:%time:~6,2%] FAILED PING to %ping_nickname% at {%ping_hostname%} >> "%~dp0ping_test.log"
 	)
 	EXIT /B

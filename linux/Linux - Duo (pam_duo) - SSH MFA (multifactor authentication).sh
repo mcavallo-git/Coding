@@ -71,22 +71,21 @@ if [ 1 -eq 1 ]; then
     # Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters
     #
     echo -e "\n\n";
-    echo -n "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
+    echo "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
     duo_ikey="${duo_ikey}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_ikey}" ]]; then
         # Get the value from user input
-        echo "";
         read -p "  Type or paste your integration key (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_ikey -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
       # Trim leading/trailing whitespace off of string
       duo_ikey="$(echo -e "${duo_ikey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then
-        echo "   |-->  VALID syntax detected";
+        echo -e "\n   |-->  VALID syntax detected";
         break;
       else
-        echo "   |-->  INVALID syntax detected";
+        echo -e "\n   |-->  INVALID syntax detected";
         duo_ikey="";
       fi;
     done;
@@ -95,22 +94,21 @@ if [ 1 -eq 1 ]; then
     # Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)
     #
     echo -e "\n\n";
-    echo -n "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
+    echo "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
     duo_skey="${duo_skey}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_skey}" ]]; then
         # Get the value from user input
-        echo "";
         read -p "  Type or paste your secret key (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_skey -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
       # Trim leading/trailing whitespace off of string
       duo_skey="$(echo -e "${duo_skey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then
-        echo "   |-->  VALID syntax detected";
+        echo -e "\n   |-->  VALID syntax detected";
         break;
       else
-        echo "   |-->  INVALID syntax detected";
+        echo -e "\n   |-->  INVALID syntax detected";
         duo_skey="";
       fi;
     done;
@@ -119,22 +117,21 @@ if [ 1 -eq 1 ]; then
     # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[a-zA-Z0-9]{8}\.duosecurity\.com'
     #
     echo -e "\n\n";
-    echo -n "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
+    echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
     duo_host="${duo_host}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_host}" ]]; then
         # Get the value from user input
-        echo "";
         read -p "  Type or paste your API host (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_host -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
       # Trim leading/trailing whitespace off of string
       duo_host="$(echo -e "${duo_host}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then
-        echo "   |-->  VALID syntax detected";
+        echo -e "\n   |-->  VALID syntax detected";
         break;
       else
-        echo "   |-->  INVALID syntax detected";
+        echo -e "\n   |-->  INVALID syntax detected";
         duo_host="";
       fi;
     done;

@@ -1,4 +1,9 @@
 {
+	"[bat]": {
+		"editor.autoIndent": "full",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
 	"[helm]": {
 		"editor.autoIndent": "full",
 		"editor.insertSpaces": true,

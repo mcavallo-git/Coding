@@ -77,6 +77,9 @@ if [ 1 -eq 1 ]; then
         echo "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
         read -p "Type or paste your integration key (attempt ${i}/${MAX_LOOPS}):  " -a duo_ikey -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
+      # Trim leading/trailing whitespace off of string
+      duo_ikey="$(echo -e "${duo_ikey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+      # Test string for validity
       if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then
         break;
       else
@@ -96,6 +99,9 @@ if [ 1 -eq 1 ]; then
         echo "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
         read -p "Type or paste your secret key (attempt ${i}/${MAX_LOOPS}):  " -a duo_skey -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
+      # Trim leading/trailing whitespace off of string
+      duo_skey="$(echo -e "${duo_skey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+      # Test string for validity
       if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then
         break;
       else
@@ -105,122 +111,150 @@ if [ 1 -eq 1 ]; then
 
     # ---------------
     #
-    # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[^\.\s]{8}\.duosecurity\.com'
+    # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[a-zA-Z0-9]{8}\.duosecurity\.com'
     #
     duo_host="${duo_host}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_host}" ]]; then
         # Get the value from user input
         echo "";
-        echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[^\.\s]{8}\.duosecurity\.com\$'";
+        echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
         read -p "Type or paste your API host (attempt ${i}/${MAX_LOOPS}):  " -a duo_host -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
-      if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[^\.\s]{8}\.duosecurity\.com$ ]]; then
+      # Trim leading/trailing whitespace off of string
+      duo_host="$(echo -e "${duo_host}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+      # Test string for validity
+      if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then
         break;
       else
         duo_host="";
       fi;
     done;
 
+    #
+    # Verify Duo integration key, secret key, & API host are set as-intended
+    #
+    if [[ -z "${duo_ikey}" ]] || [[ -z "${duo_skey}" ]] || [[ -z "${duo_host}" ]]; then
 
-    # Setup options to apply to [ /etc/duo/pam_duo.conf ] as an array of key-value pairs
+      #
+      # Invalid Duo integration key, secret key, and/or API host
+      #
+      echo "Error:  Invalid value exists amongst Duo integration key, secret key, & API host";
+      echo " |";
+      echo " |--> Duo integration key:  $(if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then echo "PASSED"; else echo "FAILED"; fi;) regex test '^[A-Z0-9]{20}\$'";
+      echo " |";
+      echo " |--> Duo secret key:  $(if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then echo "PASSED"; else echo "FAILED"; fi;) regex test '^[a-zA-Z0-9]{40}\$'";
+      echo " |";
+      echo " |--> Duo API host:  $(if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then echo "PASSED"; else echo "FAILED"; fi;) regex test '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
+      #
+      #  ^-- Help user to determine which value they gave contains invalid syntax
+      #
 
-    unset PAM_DUO_OPTS; declare -A PAM_DUO_OPTS; # [Re-]Instantiate bash array
+    else
+      #
+      # VALID Duo integration key, secret key, & API host
+      #
 
-    PAM_DUO_OPTS+=(["ikey"]="${duo_ikey}");  # Duo integration key (required)  -  20 characters long
+      # Setup options to apply to [ /etc/duo/pam_duo.conf ] as an array of key-value pairs
 
-    PAM_DUO_OPTS+=(["skey"]="${duo_skey}");  # Duo secret key (required)  -  40 characters long
+      unset PAM_DUO_OPTS; declare -A PAM_DUO_OPTS; # [Re-]Instantiate bash array
 
-    PAM_DUO_OPTS+=(["host"]="${duo_host}");  # Duo API host (required)  -  matches regex "api-[^\.\s]{8}\.duosecurity\.com"
+      PAM_DUO_OPTS+=(["ikey"]="${duo_ikey}");  # Duo integration key (required)  -  20 characters long
 
-    PAM_DUO_OPTS+=(["failmode"]="safe");  # On service or configuration errors that prevent Duo authentication, fail "safe" (allow access) or "secure" (deny access) - Default is "safe"
+      PAM_DUO_OPTS+=(["skey"]="${duo_skey}");  # Duo secret key (required)  -  40 characters long
 
-    PAM_DUO_OPTS+=(["pushinfo"]="yes");  # Send command to be approved via Duo Push authentication - Default is "no"
+      PAM_DUO_OPTS+=(["host"]="${duo_host}");  # Duo API host (required)  -  matches regex "api-[a-zA-Z0-9]{8}\.duosecurity\.com"
 
-    PAM_DUO_OPTS+=(["autopush"]="yes");  # Automatically send a login request to the first factor (usually push), instead of prompting the user - Default is "no"
+      PAM_DUO_OPTS+=(["failmode"]="safe");  # On service or configuration errors that prevent Duo authentication, fail "safe" (allow access) or "secure" (deny access) - Default is "safe"
 
-    PAM_DUO_OPTS+=(["prompts"]="1");  # Set the maxiumum number of prompts pam_duo will show before denying access - Default is 3
+      PAM_DUO_OPTS+=(["pushinfo"]="yes");  # Send command to be approved via Duo Push authentication - Default is "no"
 
-    # Walk through the array of config variables
-    for EACH_OPTION_KEY in "${!PAM_DUO_OPTS[@]}"; do
+      PAM_DUO_OPTS+=(["autopush"]="yes");  # Automatically send a login request to the first factor (usually push), instead of prompting the user - Default is "no"
 
-      EACH_OPTION_VAL_INTENDED="${PAM_DUO_OPTS[${EACH_OPTION_KEY}]}";
+      PAM_DUO_OPTS+=(["prompts"]="1");  # Set the maxiumum number of prompts pam_duo will show before denying access - Default is 3
 
-      EACH_OPTION_COUNT_DEFINITIONS="$(sed -rne "s/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/\0/p" "${PAM_DUO_CONF}" | wc -l;)";
+      # Walk through the array of config variables
+      for EACH_OPTION_KEY in "${!PAM_DUO_OPTS[@]}"; do
+
+        EACH_OPTION_VAL_INTENDED="${PAM_DUO_OPTS[${EACH_OPTION_KEY}]}";
+
+        EACH_OPTION_COUNT_DEFINITIONS="$(sed -rne "s/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/\0/p" "${PAM_DUO_CONF}" | wc -l;)";
+
+        echo "";
+        echo -e "------------------------------------------------------------\n";
+
+        if [[ "${EACH_OPTION_COUNT_DEFINITIONS}" -eq 1 ]]; then
+
+          echo "";
+          echo "Exactly one (1) pre-existing definition exists for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
+          echo " |";
+          echo " |--> Compare the value defined in pam_duo.conf against the intended value";
+
+          EACH_OPTION_VAL_CURRENT="$(sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\2/p" "${PAM_DUO_CONF}";)";
+          echo " |     |";
+          echo " |     |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
+          echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+          echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
+
+          if [[ "${EACH_OPTION_VAL_CURRENT}" == "${EACH_OPTION_VAL_INTENDED}" ]]; then
+
+            echo " |";
+            echo " |--> Values MATCH (between intended value & currently defined value)";
+            echo "       |";
+            echo "       |--> Do not perform any action (continue on & parse next option (if any exist))";
+
+          else
+
+            echo " |";
+            echo " |--> Values do NOT match";
+            echo " |     |";
+            echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
+            echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+            echo " |";
+            echo " |--> Updating option definition to use intended value";
+            
+            echo "       |--> Calling [ sed -rne \"s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p\" -i \"${PAM_DUO_CONF}\"; ]...";
+            sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" "${PAM_DUO_CONF}";
+            # sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
+
+          fi;
+
+        else
+
+          if [[ "${EACH_OPTION_COUNT_DEFINITIONS}" -gt 1 ]]; then
+
+            echo "";
+            echo "Multiple pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
+            echo " |";
+            echo " |--> Comment out all existing option definitions";
+            echo "       |--> Calling [ sed -re \"/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /\" -i \"${PAM_DUO_CONF}\"; ]...";
+            sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" "${PAM_DUO_CONF}";
+            # sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
+
+          else
+
+            echo "";
+            echo "No pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
+
+          fi;
+          echo " |";
+          echo " |--> Append intended option definition to the end of the file";
+          echo "       |";
+          echo "       |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
+          echo "       |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+          echo "       |";
+          echo "       |--> Calling [ echo -e \"\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n\" >> \"${PAM_DUO_CONF}\"; ]...";
+          # echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
+
+        fi;
+
+      done;
 
       echo "";
       echo -e "------------------------------------------------------------\n";
+      echo "";
 
-      if [[ "${EACH_OPTION_COUNT_DEFINITIONS}" -eq 1 ]]; then
-
-        echo "";
-        echo "Exactly one (1) pre-existing definition exists for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
-        echo " |";
-        echo " |--> Compare the value defined in pam_duo.conf against the intended value";
-
-        EACH_OPTION_VAL_CURRENT="$(sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\2/p" "${PAM_DUO_CONF}";)";
-        echo " |     |";
-        echo " |     |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
-        echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-        echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
-
-        if [[ "${EACH_OPTION_VAL_CURRENT}" == "${EACH_OPTION_VAL_INTENDED}" ]]; then
-
-          echo " |";
-          echo " |--> Values MATCH (between intended value & currently defined value)";
-          echo "       |";
-          echo "       |--> Do not perform any action (continue on & parse next option (if any exist))";
-
-        else
-
-          echo " |";
-          echo " |--> Values do NOT match";
-          echo " |     |";
-          echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
-          echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-          echo " |";
-          echo " |--> Updating option definition to use intended value";
-          
-          echo "       |--> Calling [ sed -rne \"s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p\" -i \"${PAM_DUO_CONF}\"; ]...";
-          sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" "${PAM_DUO_CONF}";
-          # sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
-
-        fi;
-
-      else
-
-        if [[ "${EACH_OPTION_COUNT_DEFINITIONS}" -gt 1 ]]; then
-
-          echo "";
-          echo "Multiple pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
-          echo " |";
-          echo " |--> Comment out all existing option definitions";
-          echo "       |--> Calling [ sed -re \"/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /\" -i \"${PAM_DUO_CONF}\"; ]...";
-          sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" "${PAM_DUO_CONF}";
-          # sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
-
-        else
-
-          echo "";
-          echo "No pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
-
-        fi;
-        echo " |";
-        echo " |--> Append intended option definition to the end of the file";
-        echo "       |";
-        echo "       |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
-        echo "       |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-        echo "       |";
-        echo "       |--> Calling [ echo -e \"\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n\" >> \"${PAM_DUO_CONF}\"; ]...";
-        # echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
-
-      fi;
-
-    done;
-
-    echo "";
-    echo -e "------------------------------------------------------------\n";
-    echo "";
+    fi;
 
   fi;
 

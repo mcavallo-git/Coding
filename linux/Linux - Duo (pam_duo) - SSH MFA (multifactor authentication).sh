@@ -255,9 +255,7 @@ if [ 1 -eq 1 ]; then
 
   fi;
 
-  #
   # Cleanup variables which may contain secrets before exiting (so that we don't leave said secrets lying around)
-  #
   unset PAM_DUO_OPTS; declare -A PAM_DUO_OPTS; # [Re-]Instantiate bash array
   duo_ikey="";
   duo_skey="";
@@ -306,7 +304,6 @@ if [ 1 -eq 1 ]; then
   #
   # Start of [ PAM Configuration ] code block
   #
-
 
   # Update Pam's "common-auth" config file
   if [ 1 -eq 1 ]; then

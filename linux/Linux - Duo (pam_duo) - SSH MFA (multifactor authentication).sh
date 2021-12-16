@@ -75,7 +75,7 @@ if [ 1 -eq 1 ]; then
         # Get the value from user input
         echo "";
         echo "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
-        read -p "Type or paste your integration key (attempt ${i}/${MAX_LOOPS}):  " -a duo_ikey -t ${READ_TIMEOUT} <'/dev/tty';
+        read -p "Type or paste your integration key (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_ikey -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
       # Trim leading/trailing whitespace off of string
       duo_ikey="$(echo -e "${duo_ikey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
@@ -97,7 +97,7 @@ if [ 1 -eq 1 ]; then
         # Get the value from user input
         echo "";
         echo "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
-        read -p "Type or paste your secret key (attempt ${i}/${MAX_LOOPS}):  " -a duo_skey -t ${READ_TIMEOUT} <'/dev/tty';
+        read -p "Type or paste your secret key (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_skey -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
       # Trim leading/trailing whitespace off of string
       duo_skey="$(echo -e "${duo_skey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
@@ -119,7 +119,7 @@ if [ 1 -eq 1 ]; then
         # Get the value from user input
         echo "";
         echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
-        read -p "Type or paste your API host (attempt ${i}/${MAX_LOOPS}):  " -a duo_host -t ${READ_TIMEOUT} <'/dev/tty';
+        read -p "Type or paste your API host (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_host -t ${READ_TIMEOUT} <'/dev/tty';
       fi;
       # Trim leading/trailing whitespace off of string
       duo_host="$(echo -e "${duo_host}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";

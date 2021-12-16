@@ -17,7 +17,7 @@ IF 1==1 (
   REM Note: Use  [ %%a ] if running from within a batch script
   REM Note: Use  [  %a ] if running directly in a CMD terminal
   FOR /F "tokens=3 USEBACKQ" %a IN (
-    `REG QUERY "%KeyName%" /v "%ValueName%" /t "%DataType%" ^| findstr "%DataType%"`
+    `REG QUERY "%KeyName%" /v "%ValueName%" /t "%DataType%" ^| findstr "%ValueName%" ^| findstr "%DataType%"`
   ) DO (
     SET Current_DataValue=%a
     IF %Current_DataValue%==%DataValue% (

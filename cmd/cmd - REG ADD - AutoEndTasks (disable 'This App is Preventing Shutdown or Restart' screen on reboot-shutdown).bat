@@ -23,7 +23,7 @@ IF 1==1 (
     REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%DataValue%" /f
   )
   ECHO.
-  ECHO ON
+  @ECHO ON
 )
 
 @REM ECHO.

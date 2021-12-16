@@ -92,7 +92,7 @@ Water Pump Speed (%)
 
 ------------------------------------------------------------
 ---
----  Power
+---  Fan Speed (RPM)
 ---
 
 
@@ -182,56 +182,142 @@ Water Pump Speed (RPM)
 
 ------------------------------------------------------------
 ---
----  Power (Watts)
+---  Load (%)
 ---
+
+
+get-openhardwaremonitor-load-cpu-avg.bat
+get-openhardwaremonitor-load-cpu-max.bat
+get-openhardwaremonitor-load-cpu-min.bat
+get-openhardwaremonitor-load-gpu-avg.bat
+get-openhardwaremonitor-load-gpu-max.bat
+get-openhardwaremonitor-load-gpu-memory-avg.bat
+get-openhardwaremonitor-load-gpu-memory-max.bat
+get-openhardwaremonitor-load-gpu-memory-min.bat
+get-openhardwaremonitor-load-gpu-min.bat
+get-openhardwaremonitor-load-gpu.bat
 
 
 CPU Temperature
 
-  Sensor Name:     Temperature - CPU (Avg)
-    EXE/Script:    get-openhardwaremonitor-temp-cpu-avg.bat
+  Sensor Name:     Power - CPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-power-cpu-avg.bat
     Value Type:    Float
-    Channel Name:  Temperature
-    Unit String:   °C
+    Channel Name:  Power
+    Unit String:   Watts
 
-  Sensor Name:     Temperature - CPU (Max)
-    EXE/Script:    get-openhardwaremonitor-temp-cpu-max.bat
+  Sensor Name:     Power - CPU (Max)
+    EXE/Script:    get-openhardwaremonitor-power-cpu-max.bat
     Value Type:    Float
-    Channel Name:  Temperature
-    Unit String:   °C
+    Channel Name:  Power
+    Unit String:   Watts
 
-  Sensor Name:     Temperature - CPU (Min)
-    EXE/Script:    get-openhardwaremonitor-temp-cpu-min.bat
+  Sensor Name:     Power - CPU (Min)
+    EXE/Script:    get-openhardwaremonitor-power-cpu-min.bat
     Value Type:    Float
-    Channel Name:  Temperature
-    Unit String:   °C
+    Channel Name:  Power
+    Unit String:   Watts
 
 
-GPU Temperature
+GPU Power
 
-  Sensor Name:     Temperature - GPU (Avg)
-    EXE/Script:    get-openhardwaremonitor-temp-gpu-avg.bat
+  Sensor Name:     Power - GPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-power-gpu-avg.bat
     Value Type:    Float
-    Channel Name:  Temperature
-    Unit String:   °C
+    Channel Name:  Power
+    Unit String:   Watts
 
-  Sensor Name:     Temperature - GPU (Max)
-    EXE/Script:    get-openhardwaremonitor-temp-gpu-max.bat
+  Sensor Name:     Power - GPU (Max)
+    EXE/Script:    get-openhardwaremonitor-power-gpu-max.bat
     Value Type:    Float
-    Channel Name:  Temperature
-    Unit String:   °C
+    Channel Name:  Power
+    Unit String:   Watts
 
-  Sensor Name:     Temperature - GPU (Min)
-    EXE/Script:    get-openhardwaremonitor-temp-gpu-min.bat
+  Sensor Name:     Power - GPU (Min)
+    EXE/Script:    get-openhardwaremonitor-power-gpu-min.bat
     Value Type:    Float
-    Channel Name:  Temperature
-    Unit String:   °C
+    Channel Name:  Power
+    Unit String:   Watts
+
+
+------------------------------------------------------------
+---
+---  Power (Watts)
+---
+
+
+get-openhardwaremonitor-power-cpu-avg.bat
+get-openhardwaremonitor-power-cpu-max.bat
+get-openhardwaremonitor-power-cpu-min.bat
+get-openhardwaremonitor-power-gpu-avg.bat
+get-openhardwaremonitor-power-gpu-max.bat
+get-openhardwaremonitor-power-gpu-min.bat
+
+
+CPU Temperature
+
+  Sensor Name:     Power - CPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-power-cpu-avg.bat
+    Value Type:    Float
+    Channel Name:  Power
+    Unit String:   Watts
+
+  Sensor Name:     Power - CPU (Max)
+    EXE/Script:    get-openhardwaremonitor-power-cpu-max.bat
+    Value Type:    Float
+    Channel Name:  Power
+    Unit String:   Watts
+
+  Sensor Name:     Power - CPU (Min)
+    EXE/Script:    get-openhardwaremonitor-power-cpu-min.bat
+    Value Type:    Float
+    Channel Name:  Power
+    Unit String:   Watts
+
+
+GPU Power
+
+  Sensor Name:     Power - GPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-power-gpu-avg.bat
+    Value Type:    Float
+    Channel Name:  Power
+    Unit String:   Watts
+
+  Sensor Name:     Power - GPU (Max)
+    EXE/Script:    get-openhardwaremonitor-power-gpu-max.bat
+    Value Type:    Float
+    Channel Name:  Power
+    Unit String:   Watts
+
+  Sensor Name:     Power - GPU (Min)
+    EXE/Script:    get-openhardwaremonitor-power-gpu-min.bat
+    Value Type:    Float
+    Channel Name:  Power
+    Unit String:   Watts
 
 
 ------------------------------------------------------------
 ---
 ---  Temperature (°C)
 ---
+
+
+get-openhardwaremonitor-temp-cpu-avg.bat
+get-openhardwaremonitor-temp-cpu-max.bat
+get-openhardwaremonitor-temp-cpu-min.bat
+get-openhardwaremonitor-temp-cpu.bat
+get-openhardwaremonitor-temp-gpu-avg.bat
+get-openhardwaremonitor-temp-gpu-max.bat
+get-openhardwaremonitor-temp-gpu-min.bat
+get-openhardwaremonitor-temp-gpu.bat
+get-openhardwaremonitor-temp-ssd-avg.bat
+get-openhardwaremonitor-temp-ssd-max.bat
+get-openhardwaremonitor-temp-ssd-min.bat
+get-openhardwaremonitor-temp-ssd.bat
+get-openhardwaremonitor-temp-t_sensor-avg.bat
+get-openhardwaremonitor-temp-t_sensor-max.bat
+get-openhardwaremonitor-temp-t_sensor-min.bat
+get-openhardwaremonitor-temp-t_sensor.bat
 
 
 CPU Temperature
@@ -316,6 +402,78 @@ T_SENSOR Temperature
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
+
+
+------------------------------------------------------------
+
+get-openhardwaremonitor-clock------------------------------------------------------------.bat
+
+
+get-openhardwaremonitor-clock-cpu-core-avg.bat
+get-openhardwaremonitor-clock-cpu-core-max.bat
+get-openhardwaremonitor-clock-cpu-core-min.bat
+get-openhardwaremonitor-clock-cpu-core.bat
+get-openhardwaremonitor-clock-gpu-core-avg.bat
+get-openhardwaremonitor-clock-gpu-core-max.bat
+get-openhardwaremonitor-clock-gpu-core-min.bat
+get-openhardwaremonitor-clock-gpu-core.bat
+get-openhardwaremonitor-clock-gpu-mem-avg.bat
+get-openhardwaremonitor-clock-gpu-mem-max.bat
+get-openhardwaremonitor-clock-gpu-mem-min.bat
+get-openhardwaremonitor-clock-gpu-mem.bat
+get-openhardwaremonitor-clock-gpu-shad-avg.bat
+get-openhardwaremonitor-clock-gpu-shad-max.bat
+get-openhardwaremonitor-clock-gpu-shad-min.bat
+get-openhardwaremonitor-clock-gpu-shad.bat
+
+
+get-openhardwaremonitor-fanpercentage------------------------------------------------------------.bat
+
+
+get-openhardwaremonitor-fanpercentage-chassis-avg.bat
+get-openhardwaremonitor-fanpercentage-chassis-max.bat
+get-openhardwaremonitor-fanpercentage-chassis-min.bat
+get-openhardwaremonitor-fanpercentage-chassis.bat
+get-openhardwaremonitor-fanpercentage-pump-avg.bat
+get-openhardwaremonitor-fanpercentage-pump-max.bat
+get-openhardwaremonitor-fanpercentage-pump-min.bat
+get-openhardwaremonitor-fanpercentage-pump.bat
+get-openhardwaremonitor-fanpercentage-rad-avg.bat
+get-openhardwaremonitor-fanpercentage-rad-max.bat
+get-openhardwaremonitor-fanpercentage-rad-min.bat
+get-openhardwaremonitor-fanpercentage-rad.bat
+get-openhardwaremonitor-fanpercentage-ssd-avg.bat
+get-openhardwaremonitor-fanpercentage-ssd-max.bat
+get-openhardwaremonitor-fanpercentage-ssd-min.bat
+get-openhardwaremonitor-fanpercentage-ssd.bat
+
+
+
+
+get-openhardwaremonitor-fanrpm-chassis-avg.bat
+get-openhardwaremonitor-fanrpm-chassis-max.bat
+get-openhardwaremonitor-fanrpm-chassis-min.bat
+get-openhardwaremonitor-fanrpm-chassis.bat
+get-openhardwaremonitor-fanrpm-pump-avg.bat
+get-openhardwaremonitor-fanrpm-pump-max.bat
+get-openhardwaremonitor-fanrpm-pump-min.bat
+get-openhardwaremonitor-fanrpm-pump.bat
+get-openhardwaremonitor-fanrpm-rad-avg.bat
+get-openhardwaremonitor-fanrpm-rad-max.bat
+get-openhardwaremonitor-fanrpm-rad-min.bat
+get-openhardwaremonitor-fanrpm-rad.bat
+get-openhardwaremonitor-fanrpm-ssd-avg.bat
+get-openhardwaremonitor-fanrpm-ssd-max.bat
+get-openhardwaremonitor-fanrpm-ssd-min.bat
+get-openhardwaremonitor-fanrpm-ssd.bat
+
+
+
+
+
+
+
+
 
 
 ------------------------------------------------------------

@@ -187,19 +187,19 @@ Water Pump Speed (RPM)
 CPU Temperature
 
   Sensor Name:     Temperature - CPU (Avg)
-    EXE/Script:    get-openhardwaremonitor-cpu_sensor-avg.bat
+    EXE/Script:    get-openhardwaremonitor-temp-cpu-avg.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - CPU (Max)
-    EXE/Script:    get-openhardwaremonitor-cpu_sensor-max.bat
+    EXE/Script:    get-openhardwaremonitor-temp-cpu-max.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - CPU (Min)
-    EXE/Script:    get-openhardwaremonitor-cpu_sensor-min.bat
+    EXE/Script:    get-openhardwaremonitor-temp-cpu-min.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
@@ -208,19 +208,19 @@ CPU Temperature
 GPU Temperature
 
   Sensor Name:     Temperature - GPU (Avg)
-    EXE/Script:    get-openhardwaremonitor-gpu_sensor-avg.bat
+    EXE/Script:    get-openhardwaremonitor-temp-gpu-avg.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - GPU (Max)
-    EXE/Script:    get-openhardwaremonitor-gpu_sensor-max.bat
+    EXE/Script:    get-openhardwaremonitor-temp-gpu-max.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - GPU (Min)
-    EXE/Script:    get-openhardwaremonitor-gpu_sensor-min.bat
+    EXE/Script:    get-openhardwaremonitor-temp-gpu-min.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
@@ -229,19 +229,19 @@ GPU Temperature
 SSD Temperature
 
   Sensor Name:     Temperature - SSD (Avg)
-    EXE/Script:    get-openhardwaremonitor-ssd_sensor-avg.bat
+    EXE/Script:    get-openhardwaremonitor-temp-ssd-avg.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - SSD (Max)
-    EXE/Script:    get-openhardwaremonitor-ssd_sensor-max.bat
+    EXE/Script:    get-openhardwaremonitor-temp-ssd-max.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - SSD (Min)
-    EXE/Script:    get-openhardwaremonitor-ssd_sensor-min.bat
+    EXE/Script:    get-openhardwaremonitor-temp-ssd-min.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
@@ -250,19 +250,19 @@ SSD Temperature
 T_SENSOR Temperature
 
   Sensor Name:     Temperature - T_SENSOR (Avg)
-    EXE/Script:    get-openhardwaremonitor-temp-t_sensor-avg.bat
+    EXE/Script:    get-openhardwaremonitor-temp-temp-t-avg.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - T_SENSOR (Max)
-    EXE/Script:    get-openhardwaremonitor-temp-t_sensor-max.bat
+    EXE/Script:    get-openhardwaremonitor-temp-temp-t-max.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C
 
   Sensor Name:     Temperature - T_SENSOR (Min)
-    EXE/Script:    get-openhardwaremonitor-temp-t_sensor-min.bat
+    EXE/Script:    get-openhardwaremonitor-temp-temp-t-min.bat
     Value Type:    Float
     Channel Name:  Temperature
     Unit String:   °C

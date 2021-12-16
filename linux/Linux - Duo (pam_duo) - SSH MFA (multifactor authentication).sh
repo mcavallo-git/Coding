@@ -205,31 +205,22 @@ if [ 1 -eq 1 ]; then
           echo " |--> Compare the value defined in pam_duo.conf against the intended value";
 
           EACH_OPTION_VAL_CURRENT="$(sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\2/p" "${PAM_DUO_CONF}";)";
-          echo " |     |";
-          echo " |     |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
-          echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-          echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
+
+          # echo " |     |";
+          # echo " |     |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
+          # echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+          # echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
 
           if [[ "${EACH_OPTION_VAL_CURRENT}" == "${EACH_OPTION_VAL_INTENDED}" ]]; then
 
             echo " |";
-            echo " |--> Values MATCH (between intended value & currently defined value)";
-            echo "       |";
-            echo "       |--> Do not perform any action (continue on & parse next option (if any exist))";
+            echo " |--> Values already up-to-date (between intended value & currently defined value)";
 
           else
 
             echo " |";
-            echo " |--> Values do NOT match";
-            echo " |     |";
-            echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
-            echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-            echo " |";
-            echo " |--> Updating option definition to use intended value";
-            
-            echo "       |--> Calling [ sed -rne \"s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p\" -i \"${PAM_DUO_CONF}\"; ]...";
-            sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" "${PAM_DUO_CONF}";
-            # sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
+            echo " |--> Updating option definition to use intended value...";
+            sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
 
           fi;
 
@@ -240,10 +231,8 @@ if [ 1 -eq 1 ]; then
             echo "";
             echo "Multiple pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
             echo " |";
-            echo " |--> Comment out all existing option definitions";
-            echo "       |--> Calling [ sed -re \"/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /\" -i \"${PAM_DUO_CONF}\"; ]...";
-            sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" "${PAM_DUO_CONF}";
-            # sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
+            echo " |--> Commenting out all existing option definitions...";
+            sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
 
           else
 
@@ -252,13 +241,8 @@ if [ 1 -eq 1 ]; then
 
           fi;
           echo " |";
-          echo " |--> Append intended option definition to the end of the file";
-          echo "       |";
-          echo "       |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
-          echo "       |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-          echo "       |";
-          echo "       |--> Calling [ echo -e \"\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n\" >> \"${PAM_DUO_CONF}\"; ]...";
-          # echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
+          echo " |--> Appending option definition onto the config file...";
+          echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
 
         fi;
 

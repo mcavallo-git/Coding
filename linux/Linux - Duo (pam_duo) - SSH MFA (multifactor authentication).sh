@@ -9,6 +9,7 @@
 
 
 if [ 1 -eq 1 ]; then
+
   # ------------------------------
   #
   # Start of [ install duo_unix ] code block

@@ -419,7 +419,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# Time_Range
 	If ([String]::IsNullOrEmpty(${Time_Range}.(${_}))) {
-		Write-Output "$(${Time_Range}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Time_Range}-${_}.txt";
+		Write-Output "$(${Time_Range}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Time_Range}-${_}.txt";
 	} Else {
 		Write-Output "$(${Time_Range}.${_}):OK" | Out-File -NoNewline "${Logfile_Time_Range}-${_}.txt";
 	}
@@ -428,7 +428,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# CPU Load
 	If ([String]::IsNullOrEmpty(${Load_CPU}.(${_}))) {
-		Write-Output "$(${Load_CPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Load_CPU}-${_}.txt";
+		Write-Output "$(${Load_CPU}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Load_CPU}-${_}.txt";
 	} Else {
 		Write-Output "$(${Load_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_CPU}-${_}.txt";
 	}
@@ -437,7 +437,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# CPU Power
 	If ([String]::IsNullOrEmpty(${Power_CPU}.(${_}))) {
-		Write-Output "$(${Power_CPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Power_CPU}-${_}.txt";
+		Write-Output "$(${Power_CPU}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Power_CPU}-${_}.txt";
 	} Else {
 		Write-Output "$(${Power_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Power_CPU}-${_}.txt";
 	}
@@ -446,13 +446,13 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# GPU Load
 	If ([String]::IsNullOrEmpty(${Load_GPU}.(${_}))) {
-		Write-Output "$(${Load_GPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Load_GPU}-${_}.txt";
+		Write-Output "$(${Load_GPU}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Load_GPU}-${_}.txt";
 	} Else {
 		Write-Output "$(${Load_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_GPU}-${_}.txt";
 	}
 	# GPU Memory Load
 	If ([String]::IsNullOrEmpty(${GPU_Memory_Load}.(${_}))) {
-		Write-Output "$(${GPU_Memory_Load}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}-${_}.txt";
+		Write-Output "$(${GPU_Memory_Load}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}-${_}.txt";
 	} Else {
 		Write-Output "$(${GPU_Memory_Load}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}-${_}.txt";
 	}
@@ -461,7 +461,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# GPU Power
 	If ([String]::IsNullOrEmpty(${Power_GPU}.(${_}))) {
-		Write-Output "$(${Power_GPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Power_GPU}-${_}.txt";
+		Write-Output "$(${Power_GPU}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Power_GPU}-${_}.txt";
 	} Else {
 		Write-Output "$(${Power_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Power_GPU}-${_}.txt";
 	}
@@ -470,25 +470,25 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# CPU Temp
 	If ([String]::IsNullOrEmpty(${Temp_CPU}.(${_}))) {
-		Write-Output "$(${Temp_CPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_CPU}-${_}.txt";
+		Write-Output "$(${Temp_CPU}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Temperature_CPU}-${_}.txt";
 	} Else {
 		Write-Output "$(${Temp_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_CPU}-${_}.txt";
 	}
 	# GPU Temp
 	If ([String]::IsNullOrEmpty(${Temp_GPU}.(${_}))) {
-		Write-Output "$(${Temp_GPU}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_GPU}-${_}.txt";
+		Write-Output "$(${Temp_GPU}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Temperature_GPU}-${_}.txt";
 	} Else {
 		Write-Output "$(${Temp_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_GPU}-${_}.txt";
 	}
 	# SSD Temp
 	If ([String]::IsNullOrEmpty(${Temp_SSD}.(${_}))) {
-		Write-Output "$(${Temp_SSD}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_SSD}-${_}.txt";
+		Write-Output "$(${Temp_SSD}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Temperature_SSD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Temp_SSD}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_SSD}-${_}.txt";
 	}
 	# T_SENSOR Temp
 	If ([String]::IsNullOrEmpty(${Temp_T_SENSOR}.(${_}))) {
-		Write-Output "$(${Temp_T_SENSOR}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}-${_}.txt";
+		Write-Output "$(${Temp_T_SENSOR}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}-${_}.txt";
 	} Else {
 		Write-Output "$(${Temp_T_SENSOR}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}-${_}.txt";
 	}
@@ -498,25 +498,25 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# Frequency/Clock - CPU Temp
 	If ([String]::IsNullOrEmpty(${Clock_CPU_Core}.(${_}))) {
-		Write-Output "$(${Clock_CPU_Core}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}-${_}.txt";
+		Write-Output "$(${Clock_CPU_Core}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}-${_}.txt";
 	} Else {
 		Write-Output "$(${Clock_CPU_Core}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}-${_}.txt";
 	}
 	# Frequency/Clock - GPU Core
 	If ([String]::IsNullOrEmpty(${Clock_GPU_Core}.(${_}))) {
-		Write-Output "$(${Clock_GPU_Core}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}-${_}.txt";
+		Write-Output "$(${Clock_GPU_Core}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}-${_}.txt";
 	} Else {
 		Write-Output "$(${Clock_GPU_Core}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}-${_}.txt";
 	}
 	# Frequency/Clock - GPU Memory
 	If ([String]::IsNullOrEmpty(${Clock_GPU_Mem}.(${_}))) {
-		Write-Output "$(${Clock_GPU_Mem}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}-${_}.txt";
+		Write-Output "$(${Clock_GPU_Mem}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}-${_}.txt";
 	} Else {
 		Write-Output "$(${Clock_GPU_Mem}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}-${_}.txt";
 	}
 	# Frequency/Clock - GPU Shader
 	If ([String]::IsNullOrEmpty(${Clock_GPU_Shad}.(${_}))) {
-		Write-Output "$(${Clock_GPU_Shad}.${_}):DOWN" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}-${_}.txt";
+		Write-Output "$(${Clock_GPU_Shad}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}-${_}.txt";
 	} Else {
 		Write-Output "$(${Clock_GPU_Shad}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}-${_}.txt";
 	}
@@ -526,25 +526,25 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# Water-Pump Fan-Speed (RPM)  (W_PUMP+)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_PMP}.(${_}))) {
-		Write-Output "$(${Speed_FAN_PMP}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}-${_}.txt";
+		Write-Output "$(${Speed_FAN_PMP}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_PMP}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}-${_}.txt";
 	}
 	# Radiator Fan-Speed (RPM)  (CHA_FAN1)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_RAD}.(${_}))) {
-		Write-Output "$(${Speed_FAN_RAD}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}-${_}.txt";
+		Write-Output "$(${Speed_FAN_RAD}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_RAD}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}-${_}.txt";
 	}
 	# Chassis Fan-Speed (RPM)  (CHA_FAN2)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_CHA}.(${_}))) {
-		Write-Output "$(${Speed_FAN_CHA}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}-${_}.txt";
+		Write-Output "$(${Speed_FAN_CHA}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_CHA}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}-${_}.txt";
 	}
 	# SSD Fan-Speed (RPM)  (CHA_FAN3)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_SSD}.(${_}))) {
-		Write-Output "$(${Speed_FAN_SSD}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}-${_}.txt";
+		Write-Output "$(${Speed_FAN_SSD}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_SSD}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}-${_}.txt";
 	}
@@ -554,25 +554,25 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
 	# Water-Pump Fan-Speed (% Max)  (W_PUMP+)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_PMP_PRC}.(${_}))) {
-		Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}-${_}.txt";
+		Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}-${_}.txt";
 	}
 	# Radiator Fan-Speed (% Max)  (CHA_FAN1)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_RAD_PRC}.(${_}))) {
-		Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}-${_}.txt";
+		Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}-${_}.txt";
 	}
 	# Chassis Fan-Speed (% Max)  (CHA_FAN2)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_CHA_PRC}.(${_}))) {
-		Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}-${_}.txt";
+		Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}-${_}.txt";
 	}
 	# SSD Fan-Speed (% Max)  (CHA_FAN3)
 	If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC}.(${_}))) {
-		Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):DOWN" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}-${_}.txt";
+		Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}-${_}.txt";
 	} Else {
 		Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}-${_}.txt";
 	}
@@ -587,7 +587,7 @@ For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 $Benchmark.Stop();
 $RunDuration=("$(${Benchmark}.Elapsed)");
 If ([String]::IsNullOrEmpty(${RunDuration})) {
-	Write-Output "${RunDuration}:DOWN" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
+	Write-Output "${RunDuration}:OpenHardwareMonitor reading returned a null or empty value" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
 } Else {
 	Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
 }

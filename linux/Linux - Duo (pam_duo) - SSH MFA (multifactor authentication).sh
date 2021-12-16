@@ -154,13 +154,13 @@ if [ 1 -eq 1 ]; then
       #
       # Invalid Duo integration key, secret key, and/or API host
       #
-      echo "Error:  Invalid value exists amongst Duo integration key, secret key, & API host";
+      echo "Error:  One or more invalid values exist amongst the following:";
       echo " |";
-      echo " |--> Duo integration key:  $(if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then echo "PASSED"; else echo "FAILED"; fi;) regex test '^[A-Z0-9]{20}\$'";
+      echo " |--> Duo integration key:  $(if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then echo "VALID - Passed"; else echo "INVALID - Failed"; fi;) regex test '^[A-Z0-9]{20}\$'";
       echo " |";
-      echo " |--> Duo secret key:  $(if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then echo "PASSED"; else echo "FAILED"; fi;) regex test '^[a-zA-Z0-9]{40}\$'";
+      echo " |--> Duo secret key:  $(if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then echo "VALID - Passed"; else echo "INVALID - Failed"; fi;) regex test '^[a-zA-Z0-9]{40}\$'";
       echo " |";
-      echo " |--> Duo API host:  $(if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then echo "PASSED"; else echo "FAILED"; fi;) regex test '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
+      echo " |--> Duo API host:  $(if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then echo "VALID - Passed"; else echo "INVALID - Failed"; fi;) regex test '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
       #
       #  ^-- Help user to determine which value they gave contains invalid syntax
       #

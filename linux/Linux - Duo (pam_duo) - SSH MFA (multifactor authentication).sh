@@ -220,7 +220,7 @@ if [ 1 -eq 1 ]; then
 
             echo " |";
             echo " |--> Updating option definition to use intended value...";
-            sed -re "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/" -i "${PAM_DUO_CONF}";
+            sed -re "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S*)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/" -i "${PAM_DUO_CONF}";
 
           fi;
 
@@ -232,7 +232,7 @@ if [ 1 -eq 1 ]; then
             echo "Multiple pre-existing definitions exist for option \"${EACH_OPTION_KEY}\" in file \"${PAM_DUO_CONF}\"";
             echo " |";
             echo " |--> Commenting out all existing option definitions...";
-            sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
+            sed -re "/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S*)?\s*\$/ s/^#*/# /" -i "${PAM_DUO_CONF}";
 
           else
 

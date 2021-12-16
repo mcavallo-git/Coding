@@ -1,1 +1,5 @@
-TYPE C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-CPU-Core-Min.txt
+@ECHO OFF
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\OHW-Current-Clock-CPU-Core-Min.txt
+TYPE %LOGFILE%
+FOR /F "tokens=* delims=: USEBACKQ" %%a IN ( `TYPE %LOGFILE% ^| FINDSTR "DOWN"` ) DO ( EXIT 1 )
+EXIT 0

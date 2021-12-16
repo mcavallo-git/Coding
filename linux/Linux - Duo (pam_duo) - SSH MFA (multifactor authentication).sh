@@ -88,11 +88,6 @@ if [ 1 -eq 1 ]; then
 
       echo "";
       echo -e "------------------------------------------------------------\n";
-      echo "";
-      echo "EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
-      echo "EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
-      echo "EACH_OPTION_COUNT_DEFINITIONS = [ ${EACH_OPTION_COUNT_DEFINITIONS} ]";
-      # echo "PAM_DUO_OPTS[${EACH_OPTION_KEY}] = ${EACH_OPTION_VAL_INTENDED}";
 
       if [[ "${EACH_OPTION_COUNT_DEFINITIONS}" -eq 1 ]]; then
 
@@ -102,14 +97,15 @@ if [ 1 -eq 1 ]; then
         echo " |--> Compare the value defined in pam_duo.conf against the intended value";
 
         EACH_OPTION_VAL_CURRENT="$(sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\2/p" "${PAM_DUO_CONF}";)";
-        echo "       |";
-        echo "       |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
-        echo "       |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+        echo " |     |";
+        echo " |     |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
+        echo " |     |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+        echo " |     |--> EACH_OPTION_VAL_CURRENT = [ ${EACH_OPTION_VAL_CURRENT} ]";
 
         if [[ "${EACH_OPTION_VAL_CURRENT}" == "${EACH_OPTION_VAL_INTENDED}" ]]; then
 
           echo " |";
-          echo " |--> Values match (between intended value & currently defined value)";
+          echo " |--> Values MATCH (between intended value & currently defined value)";
           echo "       |";
           echo "       |--> Do not perform any action (continue on & parse next option (if any exist))";
 
@@ -149,6 +145,10 @@ if [ 1 -eq 1 ]; then
         fi;
         echo " |";
         echo " |--> Append intended option definition to the end of the file";
+        echo "       |";
+        echo "       |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
+        echo "       |--> EACH_OPTION_VAL_INTENDED = [ ${EACH_OPTION_VAL_INTENDED} ]";
+        echo "       |";
         echo "       |--> Calling [ echo -e \"\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n\" >> \"${PAM_DUO_CONF}\"; ]...";
         # echo -e "\n${EACH_OPTION_KEY} = ${EACH_OPTION_VAL_INTENDED}\n" >> "${PAM_DUO_CONF}";
 

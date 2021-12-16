@@ -3,8 +3,12 @@ REM
 REM REG QUERY + REG ADD  -  Set a registry key property (if not already set as-intended)
 REM
 
+
+REM @SETLOCAL DisableDelayedExpansion
+@SETLOCAL EnableDelayedExpansion
 IF 1==1 (
   @ECHO OFF
+
   ECHO.
   ECHO.
 
@@ -12,33 +16,41 @@ IF 1==1 (
   SET KeyName=HKCU\Control Panel\Desktop
   SET ValueName=AutoEndTasks
   SET DataType=REG_SZ
-  SET DataValue=1
-  SET REG_ADD_REQUIRED=1
+  SET Set_Value=1
+  SET Current_Value=VALUE_IS_UNDEFINED
+
+  REM ------------------
   REM Note: Use  [ %%a ] if running from within a batch script
   REM Note: Use  [  %a ] if running directly in a CMD terminal
   FOR /F "tokens=3 USEBACKQ" %a IN (
     `REG QUERY "%KeyName%" /v "%ValueName%" /t "%DataType%" ^| findstr "%ValueName%" ^| findstr "%DataType%"`
   ) DO (
-    SET Current_DataValue=%a
-    IF %Current_DataValue%==%DataValue% (
-      SET REG_ADD_REQUIRED=0
-    ) ELSE (
-      SET REG_ADD_REQUIRED=1
-    )
+    SET Current_Value=%a
   )
-  IF %REG_ADD_REQUIRED%==1 (
-    REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%DataValue%" /f
+
+  ECHO Set_Value = [ %Set_Value% ]
+
+  ECHO Current_Value = [ %Current_Value% ]
+
+  IF NOT %Current_Value% == %Set_Value% (
+    ECHO.
+    ECHO Calling [ REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f ]...
+    REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f
   )
 
   REG QUERY "%KeyName%" /v "%ValueName%"
   ECHO.
+
   @ECHO ON
 )
 
-REM	------------------------------------------------------------
+
+REM ------------------------------------------------------------
 REM
-REM	Citation(s)
+REM Citation(s)
 REM
-REM		askvg.com  |  "Disable 'This App is Preventing Shutdown or Restart' Screen"  |  https://www.askvg.com/windows-tip-disable-this-app-is-preventing-shutdown-or-restart-screen
+REM   ss64.com  |  "Setlocal - Local variables - Windows CMD - SS64.com"  |  https://ss64.com/nt/setlocal.html
 REM
-REM	------------------------------------------------------------
+REM   www.askvg.com  |  "Disable 'This App is Preventing Shutdown or Restart' Screen"  |  https://www.askvg.com/windows-tip-disable-this-app-is-preventing-shutdown-or-restart-screen
+REM
+REM ------------------------------------------------------------

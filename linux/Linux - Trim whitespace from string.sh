@@ -1,6 +1,9 @@
 #!/bin/bash
 
-STRING_WITH_LEADING_TRAILING_WHITESPACE="$(echo -e "${STRING_WITH_LEADING_TRAILING_WHITESPACE}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')";
+STRING="  a  b  c  d  ";
+STRING_TRIMMED="$(echo -e "${STRING}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+echo "STRING=[${STRING}]";
+echo "STRING_TRIMMED=[${STRING_TRIMMED}]";
 
 
 # ------------------------------------------------------------

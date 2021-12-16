@@ -32,7 +32,7 @@ if [ 1 -eq 1 ]; then
     mkdir -pv "${WORKING_DIR}";
 
     # Download duo_unix
-    curl -H 'Cache-Control:no-cache' -sL "${DUO_UNIX_LATEST_REMOTE}" -o "${DUO_UNIX_LATEST_LOCAL}";
+    curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "${DUO_UNIX_LATEST_REMOTE}" -o "${DUO_UNIX_LATEST_LOCAL}";
 
     # Unpack duo_unix
     cd "${WORKING_DIR}"; tar zxf "${DUO_UNIX_LATEST_LOCAL}";
@@ -47,6 +47,9 @@ if [ 1 -eq 1 ]; then
       # Install duo_unix
       echo "Calling [ ./configure --with-pam --prefix=/usr && make && sudo make install; ] from working directory [ $(pwd;) ]...";
       ./configure --with-pam --prefix=/usr && make && sudo make install;
+
+      # Look into "Install from Linux Packages"  -  https://duo.com/docs/duounix#install-from-linux-packages
+      # deb [arch=amd64] https://pkg.duosecurity.com/Ubuntu focal main;
 
     fi;
 
@@ -140,7 +143,7 @@ if [ 1 -eq 1 ]; then
     #
     # ------------------------------
     #
-    # Start of [ pam_duo.conf ] code block
+    # Start of [ Duo Configuration ] code block
     #
 
     echo -e "\n------------------------------------------------------------\n";
@@ -261,7 +264,43 @@ if [ 1 -eq 1 ]; then
   duo_host="";
 
   #
-  # End of [ pam_duo.conf ] code block
+  # End of [ Duo Configuration ] code block
+  #
+  # ------------------------------
+  #
+  # Start of [ SSH/SSHD Configuration ] code block
+  #
+
+  if [ 1 -eq 1 ]; then
+
+    echo -e "\n------------------------------------------------------------\n";
+
+    SSHD_CONFIG_REMOTE="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/etc/ssh/sshd_config.mfa";
+    SSHD_CONFIG_LOCAL="/etc/ssh/sshd_config";
+
+    # Backup the local SSH config file
+    cp -fv "${SSHD_CONFIG_LOCAL}" "${SSHD_CONFIG_LOCAL}.$(date +'%Y%m%d_%H%M%S').bak";
+    
+    # Overwrite the local SSH config file with a verified Duo-compatible SSH config file
+    curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "${SSHD_CONFIG_REMOTE}" -o "${SSHD_CONFIG_LOCAL}";
+    
+    # Apply file permissions as-intended
+    chmod 0644 "${SSHD_CONFIG_LOCAL}";
+
+    # Restart the SSH service to apply changes
+    SERVICE_NAME="sshd";
+    SERVICE_RET_CODE=$(/bin/systemctl list-unit-files --no-legend --no-pager --full "${SERVICE_NAME}.service" | grep "^${SERVICE_NAME}.service" 1>'/dev/null' 2>&1; echo $?;);
+    if [[ ${SERVICE_RET_CODE} -eq 0 ]]; then
+      /usr/sbin/service "${SERVICE_NAME}" restart;
+      /usr/sbin/service "${SERVICE_NAME}" status --no-pager --full;
+    else
+      echo "Skipped restart of the \"${SERVICE_NAME}\" service (not found as a local service)";
+    fi;
+    
+  fi;
+
+  #
+  # End of [ SSH/SSHD Configuration ] code block
   #
   # ------------------------------
 

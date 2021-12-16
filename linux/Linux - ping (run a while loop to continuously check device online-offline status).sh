@@ -1,8 +1,8 @@
 #!/bin/bash
 # ------------------------------------------------------------
 
-# ping (run a while loop to continuously check device online-offline status)
-PING_HOST="8.8.8.8"; while [ 1 -eq 1 ]; do echo -n "Pinging \"${PING_HOST}\":   "; ping -w 1 -c 1 "${PING_HOST}" | grep ms | head -n 1; sleep 1; done;
+# Call method 'ping_loop'
+curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/bin/ping_loop?t=$(date +'%s.%N')" | bash;
 
 
 # ------------------------------------------------------------

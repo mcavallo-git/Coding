@@ -56,10 +56,10 @@ $Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core";
 $Logfile_Clock_GPU_Mem = "${Logfile_Basename}-Clock-GPU-Mem";
 $Logfile_Clock_GPU_Shad = "${Logfile_Basename}-Clock-GPU-Shad";
 
-$Logfile_FanSpeed_CHA = "${Logfile_Basename}-Fan-Chassis";
-$Logfile_FanSpeed_PMP = "${Logfile_Basename}-Fan-Pump";
-$Logfile_FanSpeed_RAD = "${Logfile_Basename}-Fan-Radiator";
-$Logfile_FanSpeed_SSD = "${Logfile_Basename}-Fan-SSD";
+$Logfile_FanSpeed_CHA = "${Logfile_Basename}-FanRPM-Chassis";
+$Logfile_FanSpeed_PMP = "${Logfile_Basename}-FanRPM-Pump";
+$Logfile_FanSpeed_RAD = "${Logfile_Basename}-FanRPM-Radiator";
+$Logfile_FanSpeed_SSD = "${Logfile_Basename}-FanRPM-SSD";
 
 $Logfile_FanPercentage_CHA = "${Logfile_Basename}-FanPercentage-Chassis";
 $Logfile_FanPercentage_PMP = "${Logfile_Basename}-FanPercentage-Pump";

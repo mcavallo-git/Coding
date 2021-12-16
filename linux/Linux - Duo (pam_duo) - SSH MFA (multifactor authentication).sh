@@ -71,8 +71,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters
     #
-    echo -e "\n";
-    echo "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
+    echo -e "\nDuo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
     duo_ikey="${duo_ikey}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_ikey}" ]]; then
@@ -94,8 +93,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)
     #
-    echo -e "\n";
-    echo "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
+    echo -e "\nDuo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
     duo_skey="${duo_skey}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_skey}" ]]; then
@@ -117,8 +115,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[a-zA-Z0-9]{8}\.duosecurity\.com'
     #
-    echo -e "\n";
-    echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
+    echo -e "\nDuo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
     duo_host="${duo_host}";
     for i in $(seq ${MAX_LOOPS}); do
       if [[ -z "${duo_host}" ]]; then

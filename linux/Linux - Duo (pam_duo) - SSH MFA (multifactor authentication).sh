@@ -307,6 +307,8 @@ if [ 1 -eq 1 ]; then
   # Start of [ PAM Configuration ] code block
   #
 
+
+  # Update Pam's "common-auth" config file
   if [ 1 -eq 1 ]; then
 
     echo -e "\n------------------------------------------------------------\n";
@@ -325,6 +327,7 @@ if [ 1 -eq 1 ]; then
     
   fi;
 
+  # Update Pam's "sshd" config file
   if [ 1 -eq 1 ]; then
 
     echo -e "\n------------------------------------------------------------\n";
@@ -343,10 +346,13 @@ if [ 1 -eq 1 ]; then
     
   fi;
 
+  # Redirect "login_duo" to use the "pam_duo" configuration that was just applied
   if [ 1 -eq 1 ]; then
-    
-    # Redirect "login_duo" to use the "pam_duo" configuration that was just applied
+
+    # Backup the local config file
     mv -fv "/etc/duo/login_duo.conf" "/etc/duo/login_duo.conf.$(date +'%Y%m%d_%H%M%S').bak";
+
+    # Redirect the original path of the local config file
     ln -sf "/etc/duo/pam_duo.conf" "/etc/duo/login_duo.conf";
 
   fi;

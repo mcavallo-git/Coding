@@ -6,6 +6,12 @@
 
 Chassis Fan Speed (%)
 
+  Sensor Name:     Fan Speed (%) - Chassis Fans (Avg) (CHA_FAN2)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-chassis-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
+
   Sensor Name:     Fan Speed (%) - Chassis Fans (Max) (CHA_FAN2)
     EXE/Script:    get-openhardwaremonitor-fanpercentage-chassis-max.bat
     Value Type:    Float
@@ -20,6 +26,12 @@ Chassis Fan Speed (%)
 
 
 Radiator Fan Speed (%)
+
+  Sensor Name:     Fan Speed (%) - Radiator Fans (Avg) (CHA_FAN1)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-rad-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
 
   Sensor Name:     Fan Speed (%) - Radiator Fans (Max) (CHA_FAN1)
     EXE/Script:    get-openhardwaremonitor-fanpercentage-rad-max.bat
@@ -36,6 +48,12 @@ Radiator Fan Speed (%)
 
 SSD Fan Speed (%)
 
+  Sensor Name:     Fan Speed (%) - SSD Fan (Avg) (CHA_FAN3)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-ssd-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
+
   Sensor Name:     Fan Speed (%) - SSD Fan (Max) (CHA_FAN3)
     EXE/Script:    get-openhardwaremonitor-fanpercentage-ssd-max.bat
     Value Type:    Float
@@ -50,6 +68,12 @@ SSD Fan Speed (%)
 
 
 Water Pump Speed (%)
+
+  Sensor Name:     Fan Speed (%) - Water Pump (Avg) (W_PUMP+)
+    EXE/Script:    get-openhardwaremonitor-fanpercentage-pump-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   %
 
   Sensor Name:     Fan Speed (%) - Water Pump (Max) (W_PUMP+)
     EXE/Script:    get-openhardwaremonitor-fanpercentage-pump-max.bat
@@ -72,6 +96,12 @@ Water Pump Speed (%)
 
 Chassis Fan Speed (RPM)
 
+  Sensor Name:     Fan Speed (RPM) - Chassis Fans (Avg) (CHA_FAN2)
+    EXE/Script:    get-openhardwaremonitor-fan-chassis-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
+
   Sensor Name:     Fan Speed (RPM) - Chassis Fans (Max) (CHA_FAN2)
     EXE/Script:    get-openhardwaremonitor-fan-chassis-max.bat
     Value Type:    Float
@@ -86,6 +116,12 @@ Chassis Fan Speed (RPM)
 
 
 Radiator Fan Speed (RPM)
+
+  Sensor Name:     Fan Speed (RPM) - Radiator Fans (Avg) (CHA_FAN1)
+    EXE/Script:    get-openhardwaremonitor-fan-rad-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
 
   Sensor Name:     Fan Speed (RPM) - Radiator Fans (Max) (CHA_FAN1)
     EXE/Script:    get-openhardwaremonitor-fan-rad-max.bat
@@ -102,6 +138,12 @@ Radiator Fan Speed (RPM)
 
 SSD Fan Speed (RPM)
 
+  Sensor Name:     Fan Speed (RPM) - SSD Fan (Avg) (CHA_FAN3)
+    EXE/Script:    get-openhardwaremonitor-fan-ssd-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
+
   Sensor Name:     Fan Speed (RPM) - SSD Fan (Max) (CHA_FAN3)
     EXE/Script:    get-openhardwaremonitor-fan-ssd-max.bat
     Value Type:    Float
@@ -116,6 +158,12 @@ SSD Fan Speed (RPM)
 
 
 Water Pump Speed (RPM)
+
+  Sensor Name:     Fan Speed (RPM) - Water Pump (Avg) (W_PUMP+)
+    EXE/Script:    get-openhardwaremonitor-fan-pump-avg.bat
+    Value Type:    Float
+    Channel Name:  Speed
+    Unit String:   RPM
 
   Sensor Name:     Fan Speed (RPM) - Water Pump (Max) (W_PUMP+)
     EXE/Script:    get-openhardwaremonitor-fan-pump-max.bat
@@ -138,6 +186,12 @@ Water Pump Speed (RPM)
 
 CPU Temperature
 
+  Sensor Name:     Temperature - CPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-cpu_sensor-avg.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
   Sensor Name:     Temperature - CPU (Max)
     EXE/Script:    get-openhardwaremonitor-cpu_sensor-max.bat
     Value Type:    Float
@@ -152,6 +206,12 @@ CPU Temperature
 
 
 GPU Temperature
+
+  Sensor Name:     Temperature - GPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-gpu_sensor-avg.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
 
   Sensor Name:     Temperature - GPU (Max)
     EXE/Script:    get-openhardwaremonitor-gpu_sensor-max.bat
@@ -168,6 +228,12 @@ GPU Temperature
 
 SSD Temperature
 
+  Sensor Name:     Temperature - SSD (Avg)
+    EXE/Script:    get-openhardwaremonitor-ssd_sensor-avg.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
   Sensor Name:     Temperature - SSD (Max)
     EXE/Script:    get-openhardwaremonitor-ssd_sensor-max.bat
     Value Type:    Float
@@ -182,6 +248,12 @@ SSD Temperature
 
 
 T_SENSOR Temperature
+
+  Sensor Name:     Temperature - T_SENSOR (Avg)
+    EXE/Script:    get-openhardwaremonitor-temp-t_sensor-avg.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
 
   Sensor Name:     Temperature - T_SENSOR (Max)
     EXE/Script:    get-openhardwaremonitor-temp-t_sensor-max.bat

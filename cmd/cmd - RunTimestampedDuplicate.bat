@@ -59,12 +59,12 @@ REM ECHO. >> %logfile%
 	: GET_TIMESTAMP
 		SET hour=%time:~0,2%
 		SET yyyy_mm_dd=%date:~0,4%-%date:~5,2%-%date:~8,2%
-		SET dt_underscores9=%yyyy_mm_dd%_0%time:~1,1%-%time:~3,2%-%time:~6,2%
-		SET dt_underscores24=%yyyy_mm_dd%_%time:~0,2%-%time:~3,2%-%time:~6,2%
-		IF "%hour:~0,1%" == " " (set timestamp=%dt_underscores9%) else (set timestamp=%dt_underscores24%)
-		SET dt_spaces9=%yyyy_mm_dd% 0%time:~1,1%:%time:~3,2%:%time:~6,2%
-		SET dt_spaces24=%yyyy_mm_dd% %time:~0,2%:%time:~3,2%:%time:~6,2%
-		IF "%hour:~0,1%" == " " (set timestamp_spaces=%dt_spaces9%) else (set timestamp_spaces=%dt_spaces24%)
+		SET dt_underscores_1d_hour=%yyyy_mm_dd%_0%time:~1,1%-%time:~3,2%-%time:~6,2%
+		SET dt_underscores_2d_hour=%yyyy_mm_dd%_%time:~0,2%-%time:~3,2%-%time:~6,2%
+		IF "%hour:~0,1%" == " " (set timestamp=%dt_underscores_1d_hour%) else (set timestamp=%dt_underscores_2d_hour%)
+		SET dt_spaces_1d_hour=%yyyy_mm_dd% 0%time:~1,1%:%time:~3,2%:%time:~6,2%
+		SET dt_spaces_2d_hour=%yyyy_mm_dd% %time:~0,2%:%time:~3,2%:%time:~6,2%
+		IF "%hour:~0,1%" == " " (set timestamp_spaces=%dt_spaces_1d_hour%) else (set timestamp_spaces=%dt_spaces_2d_hour%)
 		EXIT /B
 	
 	

@@ -49,13 +49,13 @@ REM **********************
 : SETUP_DATETIME
 	set hour=%time:~0,2%
 	REM  \*/*\   Datetime with underscores (no spaces, for filenames etc.)
-	set dt_underscores9=%date:~0,4%-%date:~5,2%-%date:~8,2%_0%time:~1,1%-%time:~3,2%-%time:~6,2% 
-	set dt_underscores24=%date:~0,4%-%date:~5,2%-%date:~8,2%_%time:~0,2%-%time:~3,2%-%time:~6,2%
-	if "%hour:~0,1%" == " " (set dt_underscores=%dt_underscores9%) else (set dt_underscores=%dt_underscores24%)
+	set dt_underscores_1d_hour=%date:~0,4%-%date:~5,2%-%date:~8,2%_0%time:~1,1%-%time:~3,2%-%time:~6,2% 
+	set dt_underscores_2d_hour=%date:~0,4%-%date:~5,2%-%date:~8,2%_%time:~0,2%-%time:~3,2%-%time:~6,2%
+	if "%hour:~0,1%" == " " (set dt_underscores=%dt_underscores_1d_hour%) else (set dt_underscores=%dt_underscores_2d_hour%)
 	REM  \*/*\   Datetime with spaces, for cleaner viewing
-	set dt_spaces9=%date:~0,4%-%date:~5,2%-%date:~8,2% 0%time:~1,1%:%time:~3,2%:%time:~6,2% 
-	set dt_spaces24=%date:~0,4%-%date:~5,2%-%date:~8,2% %time:~0,2%:%time:~3,2%:%time:~6,2%
-	if "%hour:~0,1%" == " " (set dt_spaces=%dt_spaces9%) else (set dt_spaces=%dt_spaces24%)
+	set dt_spaces_1d_hour=%date:~0,4%-%date:~5,2%-%date:~8,2% 0%time:~1,1%:%time:~3,2%:%time:~6,2% 
+	set dt_spaces_2d_hour=%date:~0,4%-%date:~5,2%-%date:~8,2% %time:~0,2%:%time:~3,2%:%time:~6,2%
+	if "%hour:~0,1%" == " " (set dt_spaces=%dt_spaces_1d_hour%) else (set dt_spaces=%dt_spaces_2d_hour%)
 	EXIT /b
 	
 REM *****************

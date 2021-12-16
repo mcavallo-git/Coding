@@ -5,11 +5,11 @@
 
 # ------------------------------------------------------------
 
-# Prep PAM & Prerequisites
-apt-get update -y && apt-get install -y gcc libpam-dev libssl-dev make zlib1g-dev;
+# Install PAM & Duo prerequisite packages
+apt-get -y update; apt-get -y install gcc libpam-dev libssl-dev make zlib1g-dev;
 
 # Download duo_unix
-mkdir -p "${HOME}/pam_duo_install"; cd "${HOME}/pam_duo_install"; wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz"; tar zxf "duo_unix-latest.tar.gz" && cd "duo_unix-1.11.1";
+mkdir -p "${HOME}/pam_duo_install"; cd "${HOME}/pam_duo_install"; wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz"; tar zxf "duo_unix-latest.tar.gz" && cd "${HOME}/pam_duo_install/duo_unix-"*;
 
 # Install duo_unix
 ./configure --with-pam --prefix=/usr && make && sudo make install;

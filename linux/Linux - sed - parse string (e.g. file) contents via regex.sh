@@ -203,25 +203,26 @@ echo ".7213" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';
 
 # sed - Trim leading/trailing whitespace
 #  |--> Method #1 - Runs between -3% and 3% as fast as Method #2
-echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';
-    # Example before
-    echo "[$(echo "  a  b  c  d  ";)]";
-    # Example after
-    echo "[$(echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)]";
+STRING="  a  b  c  d  ";
+STRING_TRIMMED="$(echo -e "${STRING}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+echo "STRING=[${STRING}]";
+echo "STRING_TRIMMED=[${STRING_TRIMMED}]";
 
 
 # sed - Trim leading/trailing whitespace
 #  |--> Method #2 - Runs between -3% and 3% as fast as Method #1
-echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';
-    # Example before
-    echo "[$(echo "  a  b  c  d  ";)]";
-    # Example after
-    echo "[$(echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//';)]";
+STRING="  a  b  c  d  ";
+STRING_TRIMMED="$(echo -e "${STRING}" | sed -e 's/^[ \t]*//;s/[ \t]*$//';)";
+echo "STRING=[${STRING}]";
+echo "STRING_TRIMMED=[${STRING_TRIMMED}]";
 
 
 # sed - Trim leading whitespace (do not trim trailing whitespace
 #  |--> Takes ~twice as long to run as Method #1
-echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" | sed -e "s/^\s*//g";
+STRING="  a  b  c  d  ";
+STRING_TRIMMED="$(echo -e "${STRING}" | sed -e "s/^\s*//g";)";
+echo "STRING=[${STRING}]";
+echo "STRING_TRIMMED=[${STRING_TRIMMED}]";
 
 
 # ------------------------------------------------------------

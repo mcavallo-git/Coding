@@ -9,10 +9,10 @@
 
 if [ 1 -eq 1 ]; then
 
-# ------------------------------
-#
-# Start of [ install duo_unix ] code block
-#
+  # ------------------------------
+  #
+  # Start of [ install duo_unix ] code block
+  #
 
   # Verify that duo_unix is not already installed
   if [[ -z "$(command -v login_duo 2>'/dev/null';)" ]]; then

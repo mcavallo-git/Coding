@@ -1,6 +1,7 @@
 @ECHO OFF
 SET LOGFILE=C:\ISO\OpenHardwareMonitor\OHW-Current-Temp-T_SENSOR-Min.txt
 IF NOT EXIST "%LOGFILE%" (
+ECHO :File not found: %LOGFILE%
 EXIT 2
 ) ELSE (
 TYPE %LOGFILE%

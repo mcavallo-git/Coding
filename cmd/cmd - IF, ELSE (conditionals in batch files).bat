@@ -90,17 +90,16 @@ ECHO dt_spaces_2d_hour = [ %dt_spaces_2d_hour% ]
 
 REM ------------------------------------------------------------
 REM
-REM Check if file contents are equal to a specific value
+REM Check if file contents contain a specific string - if they do, throw an error & exit (via process exit code = 1), otherwise, exit without errors (via process exit code = 0)
 REM
 
-@ECHO OFF
-FOR /F "tokens=* delims=: USEBACKQ" %a IN (
-  `TYPE %USERPROFILE%\Desktop\down.log ^| FINDSTR `
-) DO (
-  ECHO ------------------------------------------------------------
-  ECHO %a
-)
-@ECHO ON
+
+SET LOGFILE=C:\PRTG-EXAMPLE\SENSOR-OUTPUT.log
+TYPE %LOGFILE%
+REM Note: Use  [ %%a ] if running from within a batch script
+REM Note: Use  [  %a ] if running directly in a CMD terminal
+FOR /F "tokens=* delims=: USEBACKQ" %%a IN ( `TYPE %LOGFILE% ^| FINDSTR "DOWN"` ) DO ( EXIT 1 )
+EXIT 0
 
 
 REM ------------------------------------------------------------

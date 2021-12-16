@@ -17,7 +17,7 @@ if [ 1 -eq 1 ]; then
   if [[ -z "$(command -v login_duo 2>'/dev/null';)" ]]; then
     # Duo is not installed --> Install it
 
-    echo -e "\n\n------------------------------------------------------------\n\n";
+    echo -e "\n------------------------------------------------------------\n";
 
     # Install prerequisite packages for PAM & Duo
     apt-get -y update; apt-get -y install gcc libpam-dev libssl-dev make zlib1g-dev;
@@ -59,7 +59,7 @@ if [ 1 -eq 1 ]; then
   # Start of [ integration-key/secret-key/api-host validation ] code block
   #
 
-  echo -e "\n\n------------------------------------------------------------\n\n";
+  echo -e "\n------------------------------------------------------------\n";
 
   # Verify that pam_duo's config exists before continuing
   PAM_DUO_CONF="/etc/duo/pam_duo.conf";
@@ -71,7 +71,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters
     #
-    echo -e "\n\n";
+    echo -e "\n";
     echo "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
     duo_ikey="${duo_ikey}";
     for i in $(seq ${MAX_LOOPS}); do
@@ -94,7 +94,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)
     #
-    echo -e "\n\n";
+    echo -e "\n";
     echo "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
     duo_skey="${duo_skey}";
     for i in $(seq ${MAX_LOOPS}); do
@@ -117,7 +117,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[a-zA-Z0-9]{8}\.duosecurity\.com'
     #
-    echo -e "\n\n";
+    echo -e "\n";
     echo "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
     duo_host="${duo_host}";
     for i in $(seq ${MAX_LOOPS}); do
@@ -145,7 +145,7 @@ if [ 1 -eq 1 ]; then
     # Start of [ pam_duo.conf ] code block
     #
 
-    echo -e "\n\n------------------------------------------------------------\n\n";
+    echo -e "\n------------------------------------------------------------\n";
 
     #
     # Verify Duo integration key, secret key, & API host are set as-intended
@@ -283,7 +283,7 @@ if [ 1 -eq 1 ]; then
   #
   # ------------------------------
 
-  echo -e "\n\n------------------------------------------------------------\n\n";
+  echo -e "\n------------------------------------------------------------\n";
 
 fi;
 

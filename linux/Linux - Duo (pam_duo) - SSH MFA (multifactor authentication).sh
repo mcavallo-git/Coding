@@ -21,17 +21,23 @@ DUO_UNIX_LATEST_LOCAL="${WORKING_DIR}/$(basename "${DUO_UNIX_LATEST_REMOTE}";)";
 mkdir -pv "${WORKING_DIR}";
 
 # Download duo_unix
-curl -H 'Cache-Control:no-cache' -sL "${DOWNLOAD_URL}" -o "${DUO_UNIX_LATEST_LOCAL}";
+curl -H 'Cache-Control:no-cache' -sL "${DUO_UNIX_LATEST_REMOTE}" -o "${DUO_UNIX_LATEST_LOCAL}";
 
 # Unpack duo_unix
-cd "${WORKING_DIR}";
-tar zxf "${DUO_UNIX_LATEST_LOCAL}";
-cd "${WORKING_DIR}/duo_unix-"*;
+cd "${WORKING_DIR}"; tar zxf "${DUO_UNIX_LATEST_LOCAL}";
 
+# Set the directory which was just unpacked (from the latest duo_unix tarball) as the current working directory
+UNPACKED_DIR="$(find "${WORKING_DIR}/" -maxdepth "1" -mindepth "1" -type "d" -iname "duo_unix-*" -not -path "${DUO_UNIX_LATEST_LOCAL}" | head -n 1;)";
+
+if [[ -d "${UNPACKED_DIR}" ]] && [[ "${UNPACKED_DIR}" != "${WORKING_DIR}" ]]; then
+cd "${UNPACKED_DIR}"; pwd;
 # Install duo_unix
+echo "Calling [ ./configure --with-pam --prefix=/usr && make && sudo make install; ] from working directory [ $(pwd;) ]...";
 ./configure --with-pam --prefix=/usr && make && sudo make install;
+fi;
 
 fi;
+
 
 # ------------------------------------------------------------
 

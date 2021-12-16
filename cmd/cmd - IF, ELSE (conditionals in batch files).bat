@@ -90,6 +90,18 @@ ECHO dt_spaces_2d_hour = [ %dt_spaces_2d_hour% ]
 
 REM ------------------------------------------------------------
 REM
+REM Check if file contents are equal to a specific value
+REM
+
+FOR /F "tokens=* USEBACKQ" %a IN (
+  `TYPE prtg-sensors.txt`
+) DO (
+  SET Current_Value=%a
+)
+
+
+REM ------------------------------------------------------------
+REM
 REM Use Case (Conditionals)  -  Set a registry key property (if not already set as-intended)
 REM
 
@@ -121,11 +133,7 @@ IF 1==1 (
 
   ECHO Current_Value = [ %Current_Value% ]
 
-  IF NOT %Current_Value% == %Set_Value% (
-    ECHO.
-    ECHO Calling [ REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f ]...
-    REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f
-  )
+  IF NOT %Current_Value%==%Set_Value% ( REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f )
 
   REG QUERY "%KeyName%" /v "%ValueName%"
   ECHO.
@@ -137,6 +145,10 @@ IF 1==1 (
 REM ------------------------------------------------------------
 REM
 REM Citation(s)
+REM
+REM   ss64.com  |  "For - Loop through command output - Windows CMD - SS64.com"  |  https://ss64.com/nt/for_cmd.html
+REM
+REM   ss64.com  |  "Setlocal - Local variables - Windows CMD - SS64.com"  |  https://ss64.com/nt/setlocal.html
 REM
 REM   www.tutorialspoint.com  |  "Batch Script - If/else Statement"  |  https://www.tutorialspoint.com/batch_script/batch_script_if_else_statement.htm
 REM

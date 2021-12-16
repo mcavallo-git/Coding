@@ -192,7 +192,7 @@ if [ 1 -eq 1 ]; then
 
         EACH_OPTION_VAL_INTENDED="${PAM_DUO_OPTS[${EACH_OPTION_KEY}]}";
 
-        EACH_OPTION_COUNT_DEFINITIONS="$(sed -rne "s/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S+)?\s*\$/\0/p" "${PAM_DUO_CONF}" | wc -l;)";
+        EACH_OPTION_COUNT_DEFINITIONS="$(sed -rne "s/^\s*(${EACH_OPTION_KEY//\//\\/})\s*=\s*(\S*)\s*\$/\0/p" "${PAM_DUO_CONF}" | wc -l;)";
 
         echo "";
         echo -e "------------------------------------------------------------\n";
@@ -204,7 +204,7 @@ if [ 1 -eq 1 ]; then
           echo " |";
           echo " |--> Compare the value defined in pam_duo.conf against the intended value";
 
-          EACH_OPTION_VAL_CURRENT="$(sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\2/p" "${PAM_DUO_CONF}";)";
+          EACH_OPTION_VAL_CURRENT="$(sed -rne "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S*)\s*\$/\2/p" "${PAM_DUO_CONF}";)";
 
           # echo " |     |";
           # echo " |     |--> EACH_OPTION_KEY = [ ${EACH_OPTION_KEY} ]";
@@ -220,7 +220,7 @@ if [ 1 -eq 1 ]; then
 
             echo " |";
             echo " |--> Updating option definition to use intended value...";
-            sed -re "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/p" -i "${PAM_DUO_CONF}";
+            sed -re "s/^(\s*${EACH_OPTION_KEY//\//\\/}\s*=\s*)(\S+)\s*\$/\1${EACH_OPTION_VAL_INTENDED//\//\\/}/" -i "${PAM_DUO_CONF}";
 
           fi;
 

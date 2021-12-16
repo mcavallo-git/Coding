@@ -124,7 +124,7 @@ $Time_Range = @{Avg="";Max="";Min="";};
 # $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
 # $XmlOutput_Array_All = @();
 
-$Sensor_ErrorMessage="Open Hardware Monitor reading returned a null or empty value";
+$Sensor_ErrorMessage="ERROR - Open Hardware Monitor reading returned a null or empty value";
 
 <# Make sure the OHW Logfile exists #>
 If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
@@ -134,7 +134,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 	<# End the current run #>
 	# Exit 1;
 
-	$Sensor_ErrorMessage="Open Hardware Monitor logfile not found: ${Logfile_Fullpath}";
+	$Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Fullpath}";
 
 } Else {
 

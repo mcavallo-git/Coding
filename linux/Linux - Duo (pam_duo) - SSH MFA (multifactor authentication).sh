@@ -9,7 +9,11 @@
 apt-get -y update; apt-get -y install gcc libpam-dev libssl-dev make zlib1g-dev;
 
 # Download duo_unix
-mkdir -p "${HOME}/pam_duo_install"; cd "${HOME}/pam_duo_install"; wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz"; tar zxf "duo_unix-latest.tar.gz" && cd "${HOME}/pam_duo_install/duo_unix-"*;
+mkdir -p "${HOME}/pam_duo_install";
+cd "${HOME}/pam_duo_install";
+# curl -H 'Cache-Control: no-cache' -o "/usr/local/sbin/add_user" -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/add_user"
+wget "https://dl.duosecurity.com/duo_unix-latest.tar.gz";
+tar zxf "duo_unix-latest.tar.gz"; cd "${HOME}/pam_duo_install/duo_unix-"*;
 
 # Install duo_unix
 ./configure --with-pam --prefix=/usr && make && sudo make install;

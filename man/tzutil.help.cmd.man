@@ -1,0 +1,27 @@
+Windows Time Zone Utility
+
+Usage:
+TZUTIL </? | /g | /s TimeZoneID[_dstoff] | /l>
+
+Parameters:
+    /? Displays usage information.
+
+    /g Displays the current time zone ID.
+
+    /s TimeZoneID[_dstoff]
+       Sets the current time zone using the specified time zone ID.
+       The _dstoff suffix disables Daylight Saving Time adjustments
+       for the time zone (where applicable).
+
+    /l Lists all valid time zone IDs and display names. The output will
+       be: 
+           <display name>
+           <time zone ID>
+
+Examples:
+    TZUTIL /g
+    TZUTIL /s "Pacific Standard Time"
+    TZUTIL /s "Pacific Standard Time_dstoff"
+
+Remarks:
+    An exit code of 0 indicates the command completed successfully.

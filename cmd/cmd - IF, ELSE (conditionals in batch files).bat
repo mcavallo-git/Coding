@@ -93,11 +93,14 @@ REM
 REM Check if file contents are equal to a specific value
 REM
 
-FOR /F "tokens=* USEBACKQ" %a IN (
-  `TYPE prtg-sensors.txt`
+@ECHO OFF
+FOR /F "tokens=* delims=: USEBACKQ" %a IN (
+  `TYPE %USERPROFILE%\Desktop\down.log ^| FINDSTR `
 ) DO (
-  SET Current_Value=%a
+  ECHO ------------------------------------------------------------
+  ECHO %a
 )
+@ECHO ON
 
 
 REM ------------------------------------------------------------
@@ -118,7 +121,7 @@ REM ------------------
 REM Note: Use  [ %%a ] if running from within a batch script
 REM Note: Use  [  %a ] if running directly in a CMD terminal
 FOR /F "tokens=3 USEBACKQ" %a IN (
-  `REG QUERY "%KeyName%" /v "%ValueName%" /t "%DataType%" ^| findstr "%ValueName%" ^| findstr "%DataType%"`
+  `REG QUERY "%KeyName%" /v "%ValueName%" /t "%DataType%" ^| FINDSTR "%ValueName%" ^| FINDSTR "%DataType%"`
 ) DO (
   SET Current_Value=%a
 )

@@ -1,6 +1,8 @@
 ------------------------------------------------------------
+PRTG Open Hardware Monitor Sensors
+------------------------------------------------------------
 ---
----  Speed (%) Sensors
+---  Fan Speed (%)
 ---
 
 
@@ -90,7 +92,7 @@ Water Pump Speed (%)
 
 ------------------------------------------------------------
 ---
----  Speed (RPM) Sensors
+---  Power
 ---
 
 
@@ -180,7 +182,55 @@ Water Pump Speed (RPM)
 
 ------------------------------------------------------------
 ---
----  Temperature Sensors
+---  Power (Watts)
+---
+
+
+CPU Temperature
+
+  Sensor Name:     Temperature - CPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-temp-cpu-avg.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
+  Sensor Name:     Temperature - CPU (Max)
+    EXE/Script:    get-openhardwaremonitor-temp-cpu-max.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
+  Sensor Name:     Temperature - CPU (Min)
+    EXE/Script:    get-openhardwaremonitor-temp-cpu-min.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
+
+GPU Temperature
+
+  Sensor Name:     Temperature - GPU (Avg)
+    EXE/Script:    get-openhardwaremonitor-temp-gpu-avg.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
+  Sensor Name:     Temperature - GPU (Max)
+    EXE/Script:    get-openhardwaremonitor-temp-gpu-max.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
+  Sensor Name:     Temperature - GPU (Min)
+    EXE/Script:    get-openhardwaremonitor-temp-gpu-min.bat
+    Value Type:    Float
+    Channel Name:  Temperature
+    Unit String:   °C
+
+
+------------------------------------------------------------
+---
+---  Temperature (°C)
 ---
 
 

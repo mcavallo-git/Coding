@@ -97,6 +97,7 @@ IF 1==1 (
   @ECHO OFF
   ECHO.
   ECHO.
+
   SET KeyName=HKCU\Control Panel\Desktop
   SET ValueName=AutoEndTasks
   SET DataType=REG_SZ
@@ -117,6 +118,7 @@ IF 1==1 (
   IF %REG_ADD_REQUIRED%==1 (
     REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%DataValue%" /f
   )
+
   REG QUERY "%KeyName%" /v "%ValueName%"
   ECHO.
   @ECHO ON

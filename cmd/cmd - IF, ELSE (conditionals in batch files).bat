@@ -58,7 +58,7 @@ ECHO -3
 
 REM ------------------------------------------------------------
 REM
-REM Create directory (if it doesn't already exist)
+REM Use Case (Conditionals)  -  Create directory (if it doesn't already exist)
 REM
 
 SET "DIRNAME=C:\temp\"
@@ -67,7 +67,7 @@ IF NOT EXIST "%DIRNAME%" MKDIR "%DIRNAME%"
 
 REM ------------------------------------------------------------
 REM
-REM Get the current timestamp in a format with a static character length
+REM Use Case (Conditionals)  -  Get the current timestamp in a format with a static character length
 REM
 
 SET hour=%time:~0,2%
@@ -90,7 +90,7 @@ ECHO dt_spaces_2d_hour = [ %dt_spaces_2d_hour% ]
 
 REM ------------------------------------------------------------
 REM
-REM REG ADD - AutoEndTasks (disable 'This App is Preventing Shutdown or Restart' screen on reboot-shutdown)
+REM Use Case (Conditionals)  -  Set a registry key property (if not already set as-intended)
 REM
 
 IF 1==1 (

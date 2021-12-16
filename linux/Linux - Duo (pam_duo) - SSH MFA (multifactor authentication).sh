@@ -13,10 +13,10 @@ if [ 1 -eq 1 ]; then
   # Start of [ install duo_unix ] code block
   #
 
-  echo -e "\n\n------------------------------------------------------------\n\n";
-
-  # Verify that duo_unix is not already installed
   if [[ -z "$(command -v login_duo 2>'/dev/null';)" ]]; then
+    # Duo is not installed --> Install it
+
+    echo -e "\n\n------------------------------------------------------------\n\n";
 
     # Install prerequisite packages for PAM & Duo
     apt-get -y update; apt-get -y install gcc libpam-dev libssl-dev make zlib1g-dev;
@@ -276,7 +276,9 @@ if [ 1 -eq 1 ]; then
   # End of [ pam_duo.conf ] code block
   #
   # ------------------------------
+
   echo -e "\n\n------------------------------------------------------------\n\n";
+
 fi;
 
 

@@ -77,15 +77,16 @@ if [ 1 -eq 1 ]; then
       if [[ -z "${duo_ikey}" ]]; then
         # Get the value from user input
         read -p "  Type or paste your integration key (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_ikey -t ${READ_TIMEOUT} <'/dev/tty';
+        echo "";
       fi;
       # Trim leading/trailing whitespace off of string
       duo_ikey="$(echo -e "${duo_ikey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then
-        echo -e "\n   |-->  VALID syntax detected";
+        echo "   |-->  VALID syntax detected";
         break;
       else
-        echo -e "\n   |-->  INVALID syntax detected";
+        echo "   |-->  INVALID syntax detected";
         duo_ikey="";
       fi;
     done;
@@ -100,15 +101,16 @@ if [ 1 -eq 1 ]; then
       if [[ -z "${duo_skey}" ]]; then
         # Get the value from user input
         read -p "  Type or paste your secret key (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_skey -t ${READ_TIMEOUT} <'/dev/tty';
+        echo "";
       fi;
       # Trim leading/trailing whitespace off of string
       duo_skey="$(echo -e "${duo_skey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then
-        echo -e "\n   |-->  VALID syntax detected";
+        echo "   |-->  VALID syntax detected";
         break;
       else
-        echo -e "\n   |-->  INVALID syntax detected";
+        echo "   |-->  INVALID syntax detected";
         duo_skey="";
       fi;
     done;
@@ -123,15 +125,16 @@ if [ 1 -eq 1 ]; then
       if [[ -z "${duo_host}" ]]; then
         # Get the value from user input
         read -p "  Type or paste your API host (attempt ${i}/${MAX_LOOPS}):  " -s -a duo_host -t ${READ_TIMEOUT} <'/dev/tty';
+        echo "";
       fi;
       # Trim leading/trailing whitespace off of string
       duo_host="$(echo -e "${duo_host}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then
-        echo -e "\n   |-->  VALID syntax detected";
+        echo "   |-->  VALID syntax detected";
         break;
       else
-        echo -e "\n   |-->  INVALID syntax detected";
+        echo "   |-->  INVALID syntax detected";
         duo_host="";
       fi;
     done;

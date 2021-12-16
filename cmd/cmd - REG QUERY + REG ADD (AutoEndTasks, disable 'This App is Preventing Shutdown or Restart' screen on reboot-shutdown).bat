@@ -32,11 +32,7 @@ IF 1==1 (
 
   ECHO Current_Value = [ %Current_Value% ]
 
-  IF NOT %Current_Value% == %Set_Value% (
-    ECHO.
-    ECHO Calling [ REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f ]...
-    REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f
-  )
+  IF NOT %Current_Value%==%Set_Value% ( REG ADD "%KeyName%" /v "%ValueName%" /t "%DataType%" /d "%Set_Value%" /f )
 
   REG QUERY "%KeyName%" /v "%ValueName%"
   ECHO.
@@ -48,6 +44,8 @@ IF 1==1 (
 REM ------------------------------------------------------------
 REM
 REM Citation(s)
+REM
+REM   ss64.com  |  "For - Loop through command output - Windows CMD - SS64.com"  |  https://ss64.com/nt/for_cmd.html
 REM
 REM   ss64.com  |  "Setlocal - Local variables - Windows CMD - SS64.com"  |  https://ss64.com/nt/setlocal.html
 REM

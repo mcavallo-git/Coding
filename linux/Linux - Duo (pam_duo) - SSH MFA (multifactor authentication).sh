@@ -69,7 +69,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters
     #
-    echo "";
+    echo -e "\n\n";
     echo -n "Duo integration key  -  Must be 20 characters long, consisting of only uppercase alphanumeric characters";
     duo_ikey="${duo_ikey}";
     for i in $(seq ${MAX_LOOPS}); do
@@ -82,8 +82,10 @@ if [ 1 -eq 1 ]; then
       duo_ikey="$(echo -e "${duo_ikey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_ikey}" ]] && [[ "${duo_ikey}" =~ ^[A-Z0-9]{20}$ ]]; then
+        echo "   |-->  VALID syntax detected";
         break;
       else
+        echo "   |-->  INVALID syntax detected";
         duo_ikey="";
       fi;
     done;
@@ -92,7 +94,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)
     #
-    echo "";
+    echo -e "\n\n";
     echo -n "Duo secret key  -  Must be 40 characters long, consisting of only alphanumeric characters (upper and lower)";
     duo_skey="${duo_skey}";
     for i in $(seq ${MAX_LOOPS}); do
@@ -105,8 +107,10 @@ if [ 1 -eq 1 ]; then
       duo_skey="$(echo -e "${duo_skey}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_skey}" ]] && [[ "${duo_skey}" =~ ^[a-zA-Z0-9]{40}$ ]]; then
+        echo "   |-->  VALID syntax detected";
         break;
       else
+        echo "   |-->  INVALID syntax detected";
         duo_skey="";
       fi;
     done;
@@ -115,7 +119,7 @@ if [ 1 -eq 1 ]; then
     #
     # Duo API host  -  Must be 28 characters long & must match the regular expression 'api-[a-zA-Z0-9]{8}\.duosecurity\.com'
     #
-    echo "";
+    echo -e "\n\n";
     echo -n "Duo API host  -  Must be 28 characters long & must match the regular expression '^api-[a-zA-Z0-9]{8}\.duosecurity\.com\$'";
     duo_host="${duo_host}";
     for i in $(seq ${MAX_LOOPS}); do
@@ -128,8 +132,10 @@ if [ 1 -eq 1 ]; then
       duo_host="$(echo -e "${duo_host}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
       # Test string for validity
       if [[ -n "${duo_host}" ]] && [[ "${duo_host}" =~ ^api-[a-zA-Z0-9]{8}\.duosecurity\.com$ ]]; then
+        echo "   |-->  VALID syntax detected";
         break;
       else
+        echo "   |-->  INVALID syntax detected";
         duo_host="";
       fi;
     done;

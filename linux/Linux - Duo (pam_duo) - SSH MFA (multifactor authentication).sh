@@ -275,19 +275,19 @@ if [ 1 -eq 1 ]; then
 
     echo -e "\n------------------------------------------------------------\n";
 
-    SSHD_CONFIG_REMOTE="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/etc/ssh/sshd_config.mfa";
     SSHD_CONFIG_LOCAL="/etc/ssh/sshd_config";
+    SSHD_CONFIG_REMOTE="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master${SSHD_CONFIG_LOCAL}.mfa";
 
-    # Backup the local SSH config file
+    # Backup the local config file
     cp -fv "${SSHD_CONFIG_LOCAL}" "${SSHD_CONFIG_LOCAL}.$(date +'%Y%m%d_%H%M%S').bak";
     
-    # Overwrite the local SSH config file with a verified Duo-compatible SSH config file
+    # Overwrite the local config file with a verified Duo-compatible config file
     curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "${SSHD_CONFIG_REMOTE}" -o "${SSHD_CONFIG_LOCAL}";
     
     # Apply file permissions as-intended
     chmod 0644 "${SSHD_CONFIG_LOCAL}";
 
-    # Restart the SSH service to apply changes
+    # Restart the associated service to apply changes
     SERVICE_NAME="sshd";
     SERVICE_RET_CODE=$(/bin/systemctl list-unit-files --no-legend --no-pager --full "${SERVICE_NAME}.service" | grep "^${SERVICE_NAME}.service" 1>'/dev/null' 2>&1; echo $?;);
     if [[ ${SERVICE_RET_CODE} -eq 0 ]]; then
@@ -303,6 +303,73 @@ if [ 1 -eq 1 ]; then
   # End of [ SSH/SSHD Configuration ] code block
   #
   # ------------------------------
+  #
+  # Start of [ PAM Configuration ] code block
+  #
+
+  if [ 1 -eq 1 ]; then
+
+    echo -e "\n------------------------------------------------------------\n";
+
+    COMMON_AUTH_LOCAL="/etc/pam.d/common-auth";
+    COMMON_AUTH_REMOTE="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master${COMMON_AUTH_LOCAL}";
+
+    # Backup the local config file
+    cp -fv "${COMMON_AUTH_LOCAL}" "${COMMON_AUTH_LOCAL}.$(date +'%Y%m%d_%H%M%S').bak";
+    
+    # Overwrite the local config file with a verified Duo-compatible config file
+    curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "${COMMON_AUTH_REMOTE}" -o "${COMMON_AUTH_LOCAL}";
+    
+    # Apply file permissions as-intended
+    chmod 0644 "${COMMON_AUTH_LOCAL}";
+    
+  fi;
+
+  if [ 1 -eq 1 ]; then
+
+    echo -e "\n------------------------------------------------------------\n";
+
+    PAM_D_SSHD_LOCAL="/etc/pam.d/sshd";
+    PAM_D_SSHD_REMOTE="https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master${PAM_D_SSHD_LOCAL}";
+
+    # Backup the local config file
+    cp -fv "${PAM_D_SSHD_LOCAL}" "${PAM_D_SSHD_LOCAL}.$(date +'%Y%m%d_%H%M%S').bak";
+    
+    # Overwrite the local config file with a verified Duo-compatible config file
+    curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "${PAM_D_SSHD_REMOTE}" -o "${PAM_D_SSHD_LOCAL}";
+    
+    # Apply file permissions as-intended
+    chmod 0644 "${PAM_D_SSHD_LOCAL}";
+    
+  fi;
+
+  if [ 1 -eq 1 ]; then
+    
+    # Redirect "login_duo" to use the "pam_duo" configuration that was just applied
+    mv -fv "/etc/duo/login_duo.conf" "/etc/duo/login_duo.conf.$(date +'%Y%m%d_%H%M%S').bak";
+    ln -sf "/etc/duo/pam_duo.conf" "/etc/duo/login_duo.conf";
+
+  fi;
+
+  # !!! DONE !!!
+
+  # Keep the current terminal open, and open a side terminal to the same server to test Duo push requests to your mobile device for SSH authentication
+
+  if [ 0 -eq 1 ]; then
+    #
+    # DEBUGGING ONLY
+    #  |--> If you wish to test manual authentication/authorization requests to Duo's servers, run the following command:
+    #
+    chmod 4755 "/usr/sbin/login_duo" && "/usr/sbin/login_duo"; 
+    #
+    # ^-- This command will return a URL --> Open this URL on a mobile device with the Duo Authentication app installed (NOT on your desktop/workstation - Duo mobile app is required, here. Could possibly get away with a VM of a mobile OS (Android/iOS) running in Windows)
+    #
+  fi;
+
+  #
+  # End of [ PAM Configuration ] code block
+  #
+  # ------------------------------
 
   echo -e "\n------------------------------------------------------------\n";
 
@@ -312,94 +379,94 @@ fi;
 # ------------------------------------------------------------
 # ------------------------------------------------------------
 # ------------------------------------------------------------
-
-
-vi "/etc/duo/pam_duo.conf";
-
+# 
+# 
+# vi "/etc/duo/pam_duo.conf";
+# 
 ### At the top of pam_duo.conf, set:
-
-[duo]
-; Duo integration key
-ikey = [INTEGRATION-KEY-HERE]
-; Duo secret key
-skey = [SECRET-KEY-HERE]
-; Duo API host
-host = [HOST-API-HERE]
-
+# 
+# [duo]
+# ; Duo integration key
+# ikey = [INTEGRATION-KEY-HERE]
+# ; Duo secret key
+# skey = [SECRET-KEY-HERE]
+# ; Duo API host
+# host = [HOST-API-HERE]
+# 
 ## At the bottom of pam_duo.conf, set:
-pushinfo = yes
-autopush = yes
-prompts = 1
+# pushinfo = yes
+# autopush = yes
+# prompts = 1
 ## ^-- This sets up automatic push-notifications whenever user attempts to BASH-into the environment
-
-
+# 
+# 
 # ------------------------------------------------------------
-
+# 
 # Configure "/etc/ssh/sshd_config" with the following settings (for public-key based authentication):
-
-vi "/etc/ssh/sshd_config"
-
-# Public Key Authentication
-PubkeyAuthentication yes
-PasswordAuthentication no
-AuthenticationMethods publickey
-ChallengeResponseAuthentication yes
-UseDNS no
-PermitTunnel no
-AllowTcpForwarding no
-
+# 
+# vi "/etc/ssh/sshd_config"
+# 
+# # Public Key Authentication
+# PubkeyAuthentication yes
+# PasswordAuthentication no
+# AuthenticationMethods publickey
+# ChallengeResponseAuthentication yes
+# UseDNS no
+# PermitTunnel no
+# AllowTcpForwarding no
+# 
 # ------------------------------------------------------------
-
-### Ubuntu 18.04
-### SSH Public Key Authentication via PAM
-
-## Prep
-find / -name 'pam_duo.so'; find / -name 'pam_deny.so'; find / -name 'pam_permit.so'; find / -name 'pam_cap.so';
-
-vi "/etc/pam.d/sshd";
-
-##  Before:
-@include common-auth
-
-##  After:
-#@include common-auth
-auth [success=1 default=ignore] /lib64/security/pam_duo.so
-auth requisite /lib/x86_64-linux-gnu/security/pam_deny.so
-auth required /lib/x86_64-linux-gnu/security/pam_permit.so
-
+# 
+# ### Ubuntu 18.04
+# ### SSH Public Key Authentication via PAM
+# 
+# ## Prep
+# find / -name 'pam_duo.so'; find / -name 'pam_deny.so'; find / -name 'pam_permit.so'; find / -name 'pam_cap.so';
+# 
+# vi "/etc/pam.d/sshd";
+# 
+# ##  Before:
+# @include common-auth
+# 
+# ##  After:
+# #@include common-auth
+# auth [success=1 default=ignore] /lib64/security/pam_duo.so
+# auth requisite /lib/x86_64-linux-gnu/security/pam_deny.so
+# auth required /lib/x86_64-linux-gnu/security/pam_permit.so
+# 
 # ------------------------------------------------------------
-
-### System-wide Authentication
-
-## Prep
-find / -name 'common-auth'
-vi "/etc/pam.d/common-auth";
-
-##  Before:
-auth [success=1 default=ignore] /lib/x86_64-linux-gnu/security/pam_unix.so nullok_secure
-auth requisite pam_deny.so
-auth required pam_permit.so
-
-##  After:
-# auth  [success=1 default=ignore] pam_unix.so nullok_secure
-auth requisite /lib/x86_64-linux-gnu/security/pam_unix.so nullok_secure
-auth [success=1 default=ignore] /lib64/security/pam_duo.so
-auth requisite /lib/x86_64-linux-gnu/security/pam_deny.so
-auth required /lib/x86_64-linux-gnu/security/pam_permit.so
-
+# 
+# ### System-wide Authentication
+# 
+# ## Prep
+# find / -name 'common-auth'
+# vi "/etc/pam.d/common-auth";
+# 
+# ##  Before:
+# auth [success=1 default=ignore] /lib/x86_64-linux-gnu/security/pam_unix.so nullok_secure
+# auth requisite pam_deny.so
+# auth required pam_permit.so
+# 
+# ##  After:
+# # auth  [success=1 default=ignore] pam_unix.so nullok_secure
+# auth requisite /lib/x86_64-linux-gnu/security/pam_unix.so nullok_secure
+# auth [success=1 default=ignore] /lib64/security/pam_duo.so
+# auth requisite /lib/x86_64-linux-gnu/security/pam_deny.so
+# auth required /lib/x86_64-linux-gnu/security/pam_permit.so
+# 
 # ------------------------------------------------------------
-
-# Finally, connect the application to your duo
-
-# NOTE: This command will return a URL hyperlink
-# ^^^>>> on your MOBILE, browse to this url (not desktop)
-
+# 
+# # Finally, connect the application to your duo
+# # 
+# # NOTE: This command will return a URL hyperlink
+# # ^^^>>> on your MOBILE, browse to this url (not desktop)
+# 
 # cat "/etc/duo/pam_duo.conf" > "/etc/duo/login_duo.conf";
-ln -sf "/etc/duo/pam_duo.conf" "/etc/duo/login_duo.conf";
-
-chmod 4755 "/usr/sbin/login_duo" && "/usr/sbin/login_duo";
-
-
+# mv -fv "/etc/duo/login_duo.conf" "/etc/duo/login_duo.conf.$(date +'%Y%m%d_%H%M%S').bak";
+# ln -sf "/etc/duo/pam_duo.conf" "/etc/duo/login_duo.conf";
+# chmod 4755 "/usr/sbin/login_duo" && "/usr/sbin/login_duo";
+# 
+# 
 # ------------------------------------------------------------
 #
 # Citation(s)

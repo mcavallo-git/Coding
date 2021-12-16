@@ -1,0 +1,55 @@
+
+REG COMPARE KeyName1 KeyName2 [/v ValueName | /ve] [Output] [/s]
+            [/reg:32 | /reg:64]
+
+  KeyName    [\\Machine\]FullKey
+    Machine  Name of remote machine - omitting defaults to the current machine.
+             Only HKLM and HKU are available on remote machines.
+    FullKey  ROOTKEY\SubKey
+             If FullKey2 is not specified, FullKey2 is the same as FullKey1.
+    ROOTKEY  [ HKLM | HKCU | HKCR | HKU | HKCC ]
+    SubKey   The full name of a registry key under the selected ROOTKEY.
+
+  ValueName  The value name, under the selected Key, to compare.
+             When omitted, all values under the Key are compared.
+
+  /ve        compare the value of empty value name (Default).
+
+  /s         Compare all subkeys and values.
+
+  /reg:32    Specifies the key should be accessed using the 32-bit registry
+             view.
+
+  /reg:64    Specifies the key should be accessed using the 64-bit registry
+             view.
+
+  Output     [/oa | /od | /os | /on]
+             When omitted, output only differences.
+    /oa      Output all of differences and matches.
+    /od      Output only differences.
+    /os      Output only matches.
+    /on      No output.
+
+Return Code:
+
+  0 - Successful, the result compared is identical
+  1 - Failed
+  2 - Successful, the result compared is different
+
+Note:
+  The symbols at the front of each outputted line are defined as:
+  = means FullKey1 data is equal to FullKey2 data
+  < refers to FullKey1 data and is different than FullKey2 data
+  > refers to FullKey2 data and is different than Fullkey1 data
+
+Examples:
+
+  REG COMPARE HKLM\Software\MyCo\MyApp HKLM\Software\MyCo\SaveMyApp
+    Compares all values under the key MyApp with SaveMyApp
+
+  REG COMPARE HKLM\Software\MyCo HKLM\Software\MyCo1 /v Version
+    Compares the value Version under the key MyCo and MyCo1
+
+  REG COMPARE \\ZODIAC\HKLM\Software\MyCo \\. /s
+    Compares all subkeys and values under HKLM\Software\MyCo on ZODIAC
+    with the same key on the current machine

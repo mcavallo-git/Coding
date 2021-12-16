@@ -1,0 +1,14 @@
+
+REG IMPORT FileName [/reg:32 | /reg:64]
+
+  FileName  The name of the disk file to import (local machine only).
+
+  /reg:32  Specifies the key should be accessed using the 32-bit registry view.
+
+  /reg:64  Specifies the key should be accessed using the 64-bit registry view.
+
+Examples:
+
+  REG IMPORT AppBkUp.reg
+    Imports registry entries from the file AppBkUp.reg
+

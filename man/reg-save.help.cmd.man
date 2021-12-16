@@ -1,0 +1,20 @@
+
+REG SAVE KeyName FileName [/y] [/reg:32 | /reg:64]
+
+  KeyName    ROOTKEY\SubKey
+    ROOTKEY  [ HKLM | HKCU | HKCR | HKU | HKCC ]
+    SubKey   The full name of a registry key under the selected ROOTKEY.
+
+  FileName   The name of the disk file to save. If no path is specified, the
+             file is created in the current folder of the calling process.
+
+  /y       Force overwriting the existing file without prompt.
+
+  /reg:32  Specifies the key should be accessed using the 32-bit registry view.
+
+  /reg:64  Specifies the key should be accessed using the 64-bit registry view.
+
+Examples:
+
+  REG SAVE HKLM\Software\MyCo\MyApp AppBkUp.hiv
+    Saves the hive MyApp to the file AppBkUp.hiv in the current folder

@@ -1,0 +1,25 @@
+
+REG FLAGS KeyName [QUERY |
+                   SET [DONT_VIRTUALIZE] [DONT_SILENT_FAIL] [RECURSE_FLAG]]
+                  [/reg:32 | /reg:64]
+
+  Keyname    "HKLM\Software"[\SubKey] (Restricted to these keys on
+        local machine only).
+    SubKey   The full name of a registry key under HKLM\Software.
+  DONT_VIRTUALIZE DONT_SILENT_FAIL RECURSE_FLAG
+    Used with SET; flags specified on the command line will be set,
+        while those not specified will be cleared.
+
+  /reg:32  Specifies the key should be accessed using the 32-bit registry view.
+
+  /reg:64  Specifies the key should be accessed using the 64-bit registry view.
+
+Examples:
+
+  REG FLAGS HKLM\Software\MyCo\MyApp QUERY
+    Displays the current flags of the key MyApp.
+
+  REG FLAGS HKLM\Software\MyCo\MyApp SET DONT_VIRTUALIZE /s
+    Sets the DONT_VIRTUALIZE flag (and clears DONT_SILENT_FAIL and
+    RECURSE_FLAG) on MyApp and all its subkeys
+

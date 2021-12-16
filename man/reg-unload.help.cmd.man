@@ -1,0 +1,11 @@
+
+REG UNLOAD KeyName
+
+  KeyName    ROOTKEY\SubKey (local machine only)
+    ROOTKEY  [ HKLM | HKU ]
+    SubKey   The key name of the hive to unload.
+
+Examples:
+
+  REG UNLOAD HKLM\TempHive
+    Unloads the hive TempHive in HKLM

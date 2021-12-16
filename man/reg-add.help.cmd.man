@@ -1,0 +1,46 @@
+
+REG ADD KeyName [/v ValueName | /ve] [/t Type] [/s Separator] [/d Data] [/f]
+        [/reg:32 | /reg:64]
+
+  KeyName  [\\Machine\]FullKey
+           Machine  Name of remote machine - omitting defaults to the
+                    current machine. Only HKLM and HKU are available on remote
+                    machines.
+           FullKey  ROOTKEY\SubKey
+           ROOTKEY  [ HKLM | HKCU | HKCR | HKU | HKCC ]
+           SubKey   The full name of a registry key under the selected ROOTKEY.
+
+  /v       The value name, under the selected Key, to add.
+
+  /ve      adds an empty value name (Default) for the key.
+
+  /t       RegKey data types
+           [ REG_SZ    | REG_MULTI_SZ | REG_EXPAND_SZ |
+             REG_DWORD | REG_QWORD    | REG_BINARY    | REG_NONE ]
+           If omitted, REG_SZ is assumed.
+
+  /s       Specify one character that you use as the separator in your data
+           string for REG_MULTI_SZ. If omitted, use "\0" as the separator.
+
+  /d       The data to assign to the registry ValueName being added.
+
+  /f       Force overwriting the existing registry entry without prompt.
+
+  /reg:32  Specifies the key should be accessed using the 32-bit registry view.
+
+  /reg:64  Specifies the key should be accessed using the 64-bit registry view.
+
+Examples:
+
+  REG ADD \\ABC\HKLM\Software\MyCo
+    Adds a key HKLM\Software\MyCo on remote machine ABC
+
+  REG ADD HKLM\Software\MyCo /v Data /t REG_BINARY /d fe340ead
+    Adds a value (name: Data, type: REG_BINARY, data: fe340ead)
+
+  REG ADD HKLM\Software\MyCo /v MRU /t REG_MULTI_SZ /d fax\0mail
+    Adds a value (name: MRU, type: REG_MULTI_SZ, data: fax\0mail\0\0)
+
+  REG ADD HKLM\Software\MyCo /v Path /t REG_EXPAND_SZ /d ^%systemroot^%
+    Adds a value (name: Path, type: REG_EXPAND_SZ, data: %systemroot%)
+    Notice:  Use the caret symbol ( ^ ) inside the expand string

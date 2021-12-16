@@ -1,0 +1,19 @@
+
+REG EXPORT KeyName FileName [/y] [/reg:32 | /reg:64]
+
+  Keyname    ROOTKEY[\SubKey] (local machine only).
+    ROOTKEY  [ HKLM | HKCU | HKCR | HKU | HKCC ]
+    SubKey   The full name of a registry key under the selected ROOTKEY.
+
+  FileName   The name of the disk file to export.
+
+  /y       Force overwriting the existing file without prompt.
+
+  /reg:32  Specifies the key should be accessed using the 32-bit registry view.
+
+  /reg:64  Specifies the key should be accessed using the 64-bit registry view.
+
+Examples:
+
+  REG EXPORT HKLM\Software\MyCo\MyApp AppBkUp.reg
+    Exports all subkeys and values of the key MyApp to the file AppBkUp.reg

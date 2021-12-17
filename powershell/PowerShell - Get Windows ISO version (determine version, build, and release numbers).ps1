@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Determine Windows ISO's version, build, and release numbers
+# PowerShell - Get Windows ISO version (determine version, build, and release numbers)
 #
 # ------------------------------------------------------------
 If ($False) { # RUN THIS SCRIPT:

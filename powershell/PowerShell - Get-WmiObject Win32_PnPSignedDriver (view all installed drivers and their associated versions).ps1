@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get installed drivers versions via Get-WmiObject Win32_PnPSignedDriver
+# PowerShell - Get-WmiObject Win32_PnPSignedDriver (view all installed drivers and their associated versions)
 #
 
 

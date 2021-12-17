@@ -1,16 +1,15 @@
-
 # ------------------------------------------------------------- #
-
-# Regex-Matching using separate ^(Capture)(Groups)$ in the output
-
+#
+# PowerShell - Regex-Matching using separate ^(Capture)(Groups)$ in the output
+#
 # ------------------------------------------------------------- #
 #
 # General Syntax
 #
-$Needle = [Regex]::Match($Haystack, $RegexPattern);
+[Regex]::Match('Haystack','Pattern');
 
 
-# Note: Microsoft UUIDs
+# Note: Microsoft UUID Regex Pattern
 $Pattern_UUID  = '^\b[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}\b$';
 $Pattern_UUID  = '^{[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}}$';
 

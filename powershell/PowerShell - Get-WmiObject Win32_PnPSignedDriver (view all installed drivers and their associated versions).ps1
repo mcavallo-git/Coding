@@ -4,7 +4,7 @@
 #
 
 
-Get-WmiObject Win32_PnPSignedDriver | ForEach-Object { If ([String]::IsNullOrEmpty(${_}.DeviceName) -Eq $True) { ${_}.DeviceName=${_}.DeviceID;}; ${_}; } | Select-Object -Property @("DeviceName","DriverVersion") | Sort-Object -Property "DeviceName";
+Get-WmiObject Win32_PnPSignedDriver | ForEach-Object { If ([String]::IsNullOrEmpty(${_}.DeviceName) -Eq $True) { ${_}.DeviceName="DeviceID=[$(${_}.DeviceID)]"; }; ${_}; } | Select-Object -Property @("DeviceName","DriverVersion") | Sort-Object -Property "DeviceName";
 
 
 # ------------------------------------------------------------

@@ -1,21 +1,43 @@
-# ------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 # PowerShell - Regex-Matching using separate ^(Capture)(Groups)$ in the output
 #
-# ------------------------------------------------------------- #
+# ------------------------------------------------------------
+
 #
 # General Syntax
 #
 [Regex]::Match('Haystack','Pattern');
 
 
-# Note: Microsoft UUID Regex Pattern
-$Pattern_UUID  = '^\b[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}\b$';
-$Pattern_UUID  = '^{[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}}$';
+#
+# General Syntax - NO capture groups
+#
+[Regex]::Match('hello world','^hello world$').Success;  # Returns "True"
+[Regex]::Match('hello world','^hello world$').Captures.Groups[0].Value;  # Returns "hello world"
 
 
+#
+# General Syntax - WITH capture groups
+#
+[Regex]::Match('hello world','^(hello)\s(world)$').Success;  # Returns "True"
+[Regex]::Match('hello -----','^(hello)\s(world)$').Success;  # Returns "False"
+[Regex]::Match('hello world','^(hello)\s(world)$').Captures.Groups[0].Value;  # Returns "hello world"
+[Regex]::Match('hello world','^(hello)\s(world)$').Captures.Groups[1].Value;  # Returns "hello"
+[Regex]::Match('hello world','^(hello)\s(world)$').Captures.Groups[2].Value;  # Returns "world"
 
-# ------------------------------------------------------------- #
+
+# ------------------------------------------------------------
+#
+#  Regex Patterns
+#
+
+$Pattern_UUID='^\b[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}\b$';  # Regex Patterns:  Microsoft UUIDs
+
+$Pattern_UUID='^{[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\b[0-9A-Fa-f]{12}}$';  # Regex Patterns:  Microsoft UUIDs
+
+
+# ------------------------------------------------------------
 #
 # Ex 1)  Hello World
 #
@@ -31,7 +53,7 @@ If ($Needle.Success -ne $False) {
 Write-Output ("`$Needle.Success = [ $($Needle.Success) ]");
 
 
-# ------------------------------------------------------------- #
+# ------------------------------------------------------------
 #
 # Ex 2)  Obtain the version of local Azure-CLI Module
 #
@@ -54,7 +76,7 @@ If ($Needle.Success -eq $True) {
 }
 
 
-# ------------------------------------------------------------- #
+# ------------------------------------------------------------
 
 # Ex ) String & Integer regex-matching
 $Distro_Name = "CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc";
@@ -63,4 +85,10 @@ $MatchResults = ($Distro_Basename -match $RegexTest);
 $MatchResults;
 
 
-# ------------------------------------------------------------- #
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   dodocs.microsoft.commain  |  "Regex.Match Method (System.Text.RegularExpressions) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex.match
+#
+# ------------------------------------------------------------

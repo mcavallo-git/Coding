@@ -4,8 +4,13 @@
 #
 # ------------------------------------------------------------
 
+# Get all Filesystem drives in the current session
+Get-PSDrive -PSProvider "FileSystem" | Select-Object -Property "Root";
 
-Get-PSDrive -PSProvider "FileSystem";
+
+# Get all Filesystem drives matching syntax "A:\" (for all letters) in the current session
+Get-PSDrive -PSProvider "FileSystem" | Where-Object { [Regex]::Match(${_}.Root,'^[a-zA-Z]:\\$').Success -Eq $True; } | Select-Object -Property "Root";
+
 
 
 # ------------------------------------------------------------

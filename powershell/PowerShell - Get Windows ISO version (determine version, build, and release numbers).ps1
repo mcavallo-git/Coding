@@ -63,18 +63,24 @@ If ($True) {
 			$ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);
 			$ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_BuildNum})","${Regex_Win10_BuildNum}").Captures.Groups[1].Value);
 
-			Write-Output "Verbose Info - `${DISM_Info}:";
-			Write-Output "------------------------------";
-			${DISM_Info};
-			Write-Output "------------------------------";
-			Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
-			Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
-			Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
+			If ($False) {
+				Write-Output "Verbose Info - `${DISM_Info}:";
+				Write-Output "------------------------------";
+				${DISM_Info};
+				Write-Output "------------------------------";
+				Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
+				Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
+				Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
+			}
 
+			Write-Output "";
+			Write-Output "------------------------------";
+			Write-Output "ISO Filepath:   ${ISO_FullPath}";
+			Write-Output "Windows Name:   ${ISO_Name}";
+			Write-Output "Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
 			Write-Output "------------------------------";
 
-			Write-Output "Info:  Version information for ISO file `"${ISO_FullPath}`":";
-			Write-Output "${ISO_VersionNumber}.${ISO_BuildNumber}";
+			Write-Output "";
 
 		}
 

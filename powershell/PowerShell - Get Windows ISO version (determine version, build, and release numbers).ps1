@@ -39,10 +39,10 @@ If ($True) {
 	} Else {
 
 		# ISO file mounted successfully
-		Write-Host "Info:  Successfully mounted ISO file `"${ISO_FullPath}`" to drive letter `"${Mounted_DriveLetter}`"";
+		Write-Host "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
 
 		# Get the version # of Windows (stored within the .iso file)
-		$Install_Esd_MountPath = ( "${Mounted_DriveLetter}:\sources\install.esd" );
+		$Install_Esd_MountPath = ("${Mounted_DriveLetter}:\sources\install.esd");
 
 		$DISM_Info = (Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
 

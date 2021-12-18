@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get-PSDrive (list connected disk volumes-drives, C-Drive, D-Drive, etc.)
+# PowerShell - Get-PSDrive (list filesystem drives).ps1
 #
 # ------------------------------------------------------------
 
@@ -10,7 +10,8 @@ Get-PSDrive -PSProvider "FileSystem" | Select-Object -Property "Root";
 
 # Get all Filesystem drives matching syntax "A:\" (for all letters) in the current session
 Get-PSDrive -PSProvider "FileSystem" | Where-Object { [Regex]::Match(${_}.Root,'^[a-zA-Z]:\\$').Success -Eq $True; } | Select-Object -Property "Root";
-
+# ^
+# ^-- !! USE [ Get-Volume ], INSTEAD!
 
 
 # ------------------------------------------------------------

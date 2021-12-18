@@ -55,13 +55,13 @@ If ($True) {
 
 		} Else {
 
-			$Regex_Win10_Name = "^Name\s*:\s*(.+)";
+			$Regex_Win10_Name = "^Name : (.+)";
 
-			$Regex_Win10_VersionNum = "^Version\s*:\s*(.+)";
-			# $Regex_Win10_VersionNum = "^Version\s*:\s*([\d]+\.[\d]+\.[\d]+)\s*$";
+			$Regex_Win10_VersionNum = "^Version : (.+)";
+			# $Regex_Win10_VersionNum = "^Version : ([\d]+\.[\d]+\.[\d]+)\s*$";
 
-			# $Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*(\S+)\s*$";
-			$Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*(.+)";
+			$Regex_Win10_BuildNum = "^ServicePack\s+Build : (.+)";
+			# $Regex_Win10_BuildNum = "^ServicePack\s+Build : (\S+)\s*$";
 
 			$ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_Name})","${Regex_Win10_Name}").Captures.Groups[1].Value);
 			$ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);

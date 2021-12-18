@@ -55,14 +55,16 @@ If ($True) {
 
 		} Else {
 
-			$Regex_Win10_Name = "^Name\s*:\s*.+\s*$";
-			$Regex_Win10_VersionNum = "^Version\s*:\s*[\d]+\.[\d]+\.[\d]+\s*$";
-			$Regex_Win10_BuildNum = "^ServicePack\s*Build\s*:\s*[\d]+\s*$";
-			
+			$Regex_Win10_Name = "^Name\s*:\s*([^\s+])\s*$";
+			$Regex_Win10_VersionNum = "^Version\s*:\s*([\d]+\.[\d]+\.[\d]+)\s*$";
+			$Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*([^\s+])\s*$";
+
 			$ISO_Name = ((((${DISM_Info} -match ${Regex_Win10_Name}) -Replace "Name","") -Replace ":","") -Replace " ","");
 			$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 			$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
 			$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
+
+			[Regex]::Match('hello world','^(hello)\s(world)$').Captures.Groups[0].Value;  # Returns "hello world"
 
 			Write-Output "Verbose Info - `${DISM_Info}:";
 			Write-Output "------------------------------";

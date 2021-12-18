@@ -55,16 +55,13 @@ If ($True) {
 
 		} Else {
 
-			$Regex_Win10_Name = "^Name\s*:\s*([^\s+])\s*$";
-			$Regex_Win10_VersionNum = "^Version\s*:\s*([\d]+\.[\d]+\.[\d]+)\s*$";
-			$Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*([^\s+])\s*$";
+			$Regex_Win10_Name = "^Name\s*:\s*(\S+)\s*";
+			$Regex_Win10_VersionNum = "^Version\s*:\s*([\d]+\.[\d]+\.[\d]+)\s*";
+			$Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*(\S+)\s*";
 
-			$ISO_Name = ((((${DISM_Info} -match ${Regex_Win10_Name}) -Replace "Name","") -Replace ":","") -Replace " ","");
-			$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
-			$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
-			$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
-
-			[Regex]::Match('hello world','^(hello)\s(world)$').Captures.Groups[0].Value;  # Returns "hello world"
+			$ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_Name})","${Regex_Win10_Name}").Captures.Groups[1].Value);
+			$ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);
+			$ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_BuildNum})","${Regex_Win10_BuildNum}").Captures.Groups[1].Value);
 
 			Write-Output "Verbose Info - `${DISM_Info}:";
 			Write-Output "------------------------------";
@@ -73,12 +70,11 @@ If ($True) {
 			Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
 			Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
 			Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
-			Write-Output "`${ISO_Version_Combined} = [ ${ISO_Version_Combined} ]";
 
 			Write-Output "------------------------------";
 
 			Write-Output "Info:  Version information for ISO file `"${ISO_FullPath}`":";
-			Write-Output "${ISO_Version_Combined}";
+			Write-Output "${ISO_VersionNumber}.${ISO_BuildNumber}";
 
 		}
 

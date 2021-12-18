@@ -19,9 +19,9 @@ Get-Volume
 # Determine if an ISO file is mounted or not
 $ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
 If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {  # If iso file is not already mounted...
-	Write-Host "ISO file NOT mounted";
+	Write-Output "ISO file NOT mounted";
 } Else {
-	Write-Host "ISO file IS mounted";
+	Write-Output "ISO file IS mounted";
 }
 
 
@@ -47,12 +47,12 @@ $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume
 If (([String]::IsNullOrEmpty("${Mounted_DriveLetter}")) -Eq $True) {
 
 	# Error(s) mounting ISO file
-	Write-Host "Error:  Unable to mount ISO file";
+	Write-Output "Error:  Unable to mount ISO file";
 
 } Else {
 
 	# ISO file mounted successfully
-	Write-Host "Info:  Mounted_DriveLetter = [ ${Mounted_DriveLetter} ]";
+	Write-Output "Info:  Mounted_DriveLetter = [ ${Mounted_DriveLetter} ]";
 
 	# Unmount the iso file
 	Get-DiskImage -ImagePath "${ISO_FullPath}" | Dismount-DiskImage | Out-Null;

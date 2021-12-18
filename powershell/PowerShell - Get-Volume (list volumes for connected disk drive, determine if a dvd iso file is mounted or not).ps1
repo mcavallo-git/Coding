@@ -5,34 +5,61 @@
 # ------------------------------------------------------------
 
 
-# Gets all Volume objects
+#
+# Get all volume objects
+#
 Get-Volume
 
 
 # ------------------------------------------------------------
-
+#
+#  Get-DiskImage  +  Get-Volume
+#
 
 # Determine if an ISO file is mounted or not
+$ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
 If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {  # If iso file is not already mounted...
-	Mount-DiskImage -ImagePath ("${ISO_FullPath}"); # Mount the iso
+	Write-Host "ISO file NOT mounted";
 } Else {
-	Write-Host "ISO `"${ISO_FullPath}`" already mounted";
+	Write-Host "ISO file IS mounted";
 }
 
 
+#
+# EXAMPLE:  Mount an iso file > get the mounted iso file's drive letter > unmount the iso file
+#
 
-# Mount an iso file, then get the mounted iso file's drive letter
-$ISO_FullPath = "${HOME}\Desktop\Windows.iso";
-If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {  # If iso file is not already mounted...
-	Mount-DiskImage -ImagePath ("${ISO_FullPath}"); # Mount the iso
+If ($True) {
+
+$ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
+
+# Determine if the iso file is already mounted
+$Mount_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
+
+# If iso file is not already mounted, then mount it now
+If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {
+	Mount-DiskImage -ImagePath ("${ISO_FullPath}") | Out-Null;
 }
-($Mount_DiskImage | Get-Volume).DriveLetter; $Mount_DriveLetter; # Get the mount's drive letter
-$Mount_DiskImage | Dismount-DiskImage | Out-Null; # Unmount the iso file
 
+# Get the mounted iso file's drive letter
+$Mount_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter); $Mount_DriveLetter;
 
+If (([String]::IsNullOrEmpty("${Mount_DriveLetter}")) -Eq $True) {
 
-(Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume)
+	# Error(s) mounting ISO file
+	Write-Host "Error:  Unable to mount ISO file";
 
+} Else {
+
+	# ISO file mounted successfully
+	Write-Host "Info:  Mount_DriveLetter = [ ${Mount_DriveLetter} ]";
+
+	# Unmount the iso file
+	Get-DiskImage -ImagePath "${ISO_FullPath}" | Dismount-DiskImage | Out-Null;
+
+}
+
+}
 
 
 # ------------------------------------------------------------

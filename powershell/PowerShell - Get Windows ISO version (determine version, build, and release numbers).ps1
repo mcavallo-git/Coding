@@ -16,39 +16,50 @@ If ($True) {
 
 	$ISO_FullPath = "${HOME}\Desktop\Windows.iso";
 
-	$Possible_DriveLetters = @("D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
-	ForEach ($EachDriveLetter In (${Possible_DriveLetters})) {
-		If ((Test-Path -Path ("${EachDriveLetter}:\")) -Eq $False) {
-			Set-Variable -Name "DriveLetter" -Scope "Script" -Value "${EachDriveLetter}";
-			Break;
-		};
-	};
 
-	Write-Output "`$DriveLetter = [ ${DriveLetter} ]";
+	$ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
 
-	$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_FullPath}");
+	# Determine if the iso file is already mounted
+	$Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
 
-	Start-Sleep -Seconds (1);
+	# If iso file is not already mounted, then mount it now
+	If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {
+		Mount-DiskImage -ImagePath ("${ISO_FullPath}") | Out-Null;
+		Start-Sleep -Seconds (1);
+	}
 
-	<# Get the version # of Windows (stored within the .iso file) #>
-	$Install_Esd_MountPath = ( "${DriveLetter}:\sources\install.esd" );
+	# Get the mounted iso file's drive letter
+	$Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter); $Mounted_DriveLetter;
 
-	$DISM_Info = (Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+	If (([String]::IsNullOrEmpty("${Mounted_DriveLetter}")) -Eq $True) {
 
-	$Regex_Win10_VersionNum = "Version\s+:\s+[\d]+\.[\d]+\.[\d]+\s*";
-	$Regex_Win10_BuildNum = "ServicePack\s+Build\s+:\s+[\d]+\s*";
-	
-	$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
-	$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
-	$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
+		# Error(s) mounting ISO file
+		Write-Host "Error:  Unable to mount ISO file `"${ISO_FullPath}`"";
 
-	Write-Output "${ISO_Version_Combined}";
-	# Write-Output "${DISM_Info}";
+	} Else {
 
-	Start-Sleep -Seconds (1);
+		# ISO file mounted successfully
+		Write-Host "Info:  Successfully mounted ISO file `"${ISO_FullPath}`" to drive letter `"${Mounted_DriveLetter}`"";
 
-	${Mounted_ISO} | Dismount-DiskImage | Out-Null;
+		# Get the version # of Windows (stored within the .iso file)
+		$Install_Esd_MountPath = ( "${Mounted_DriveLetter}:\sources\install.esd" );
 
+		$DISM_Info = (Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+
+		$Regex_Win10_VersionNum = "Version\s+:\s+[\d]+\.[\d]+\.[\d]+\s*";
+		$Regex_Win10_BuildNum = "ServicePack\s+Build\s+:\s+[\d]+\s*";
+		
+		$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
+		$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
+		$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
+
+		Write-Output "${ISO_Version_Combined}";
+		# Write-Output "${DISM_Info}";
+
+		# Unmount the iso file
+		Get-DiskImage -ImagePath "${ISO_FullPath}" | Dismount-DiskImage | Out-Null;
+
+	}
 }
 
 
@@ -57,5 +68,13 @@ If ($True) {
 # Citation(s)
 #
 #   answers.microsoft.com  |  "How to identify windows version and OS build of any windows disc image - Microsoft Community"  |  https://answers.microsoft.com/en-us/windows/forum/all/how-to-identify-windows-version-and-os-build-of/f8f8fe67-9554-4e63-a4d3-87f5dd58184e
+#
+#   docs.microsoft.com  |  "Get-Volume (Storage) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/storage/get-volume
+#
+#   docs.microsoft.com  |  "Get-DiskImage (Storage) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/storage/get-diskimage
+#
+#   docs.microsoft.com  |  "Mount-DiskImage (Storage) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/storage/mount-diskimage
+#
+#   docs.microsoft.com  |  "Dismount-DiskImage (Storage) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/storage/dismount-diskimage
 #
 # ------------------------------------------------------------

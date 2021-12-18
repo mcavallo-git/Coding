@@ -34,12 +34,12 @@ If ($True) {
 	If (([String]::IsNullOrEmpty("${Mounted_DriveLetter}")) -Eq $True) {
 
 		# Error(s) mounting ISO file
-		Write-Host "Error:  Unable to mount ISO file `"${ISO_FullPath}`"";
+		Write-Output "Error:  Unable to mount ISO file `"${ISO_FullPath}`"";
 
 	} Else {
 
 		# ISO file mounted successfully
-		Write-Host "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
+		Write-Output "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
 
 		# Get the version # of Windows (stored within the .iso file)
 		$Install_Esd_MountPath = ("${Mounted_DriveLetter}:\sources\install.esd");
@@ -55,15 +55,28 @@ If ($True) {
 
 		} Else {
 
-			$Regex_Win10_VersionNum = "Version\s+:\s+[\d]+\.[\d]+\.[\d]+\s*";
-			$Regex_Win10_BuildNum = "ServicePack\s+Build\s+:\s+[\d]+\s*";
+			$Regex_Win10_Name = "^Name\s*:\s*.+\s*$";
+			$Regex_Win10_VersionNum = "^Version\s*:\s*[\d]+\.[\d]+\.[\d]+\s*$";
+			$Regex_Win10_BuildNum = "^ServicePack\s*Build\s*:\s*[\d]+\s*$";
 			
+			$ISO_Name = ((((${DISM_Info} -match ${Regex_Win10_Name}) -Replace "Name","") -Replace ":","") -Replace " ","");
 			$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
 			$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
 			$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
 
+			Write-Output "Verbose Info - `${DISM_Info}:";
+			Write-Output "------------------------------";
+			${DISM_Info};
+			Write-Output "------------------------------";
+			Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
+			Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
+			Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
+			Write-Output "`${ISO_Version_Combined} = [ ${ISO_Version_Combined} ]";
+
+			Write-Output "------------------------------";
+
+			Write-Output "Info:  Version information for ISO file `"${ISO_FullPath}`":";
 			Write-Output "${ISO_Version_Combined}";
-			# Write-Output "${DISM_Info}";
 
 		}
 

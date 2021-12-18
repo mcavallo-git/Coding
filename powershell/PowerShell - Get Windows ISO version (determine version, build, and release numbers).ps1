@@ -44,22 +44,34 @@ If ($True) {
 		# Get the version # of Windows (stored within the .iso file)
 		$Install_Esd_MountPath = ("${Mounted_DriveLetter}:\sources\install.esd");
 
-		$DISM_Info = (Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1);
+		$DISM_Info=(Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1); $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
 
-		$Regex_Win10_VersionNum = "Version\s+:\s+[\d]+\.[\d]+\.[\d]+\s*";
-		$Regex_Win10_BuildNum = "ServicePack\s+Build\s+:\s+[\d]+\s*";
-		
-		$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
-		$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
-		$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
+		If (${EXIT_CODE} -NE 0) {
 
-		Write-Output "${ISO_Version_Combined}";
-		# Write-Output "${DISM_Info}";
+			Write-Output "Error: Unable to get info using DISM - Error message:";
+			Write-Output "------------------------------";
+			${DISM_Info};
+			Write-Output "------------------------------";
+
+		} Else {
+
+			$Regex_Win10_VersionNum = "Version\s+:\s+[\d]+\.[\d]+\.[\d]+\s*";
+			$Regex_Win10_BuildNum = "ServicePack\s+Build\s+:\s+[\d]+\s*";
+			
+			$ISO_VersionNumber = ((((${DISM_Info} -match ${Regex_Win10_VersionNum}) -Replace "Version","") -Replace ":","") -Replace " ","");
+			$ISO_BuildNumber = ((((${DISM_Info} -match ${Regex_Win10_BuildNum}) -Replace "ServicePack Build","") -Replace ":","") -Replace " ","");
+			$ISO_Version_Combined = "${ISO_VersionNumber}.${ISO_BuildNumber}";
+
+			Write-Output "${ISO_Version_Combined}";
+			# Write-Output "${DISM_Info}";
+
+		}
 
 		# Unmount the iso file
 		Get-DiskImage -ImagePath "${ISO_FullPath}" | Dismount-DiskImage | Out-Null;
 
 	}
+
 }
 
 

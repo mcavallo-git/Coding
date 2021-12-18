@@ -80,10 +80,10 @@ If ($True) {
 			Write-Output "";
 			Write-Output "------------------------------";
 			Write-Output "";
-			Write-Output "Filepath:       ${ISO_FullPath}";
+			Write-Output "  Filepath:       ${ISO_FullPath}";
 			Write-Output "";
-			Write-Output "Windows Name:   ${ISO_Name}";
-			Write-Output "Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
+			Write-Output "  Windows Name:   ${ISO_Name}";
+			Write-Output "  Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
 			Write-Output "";
 			Write-Output "------------------------------";
 

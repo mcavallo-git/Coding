@@ -26,7 +26,7 @@
 #   > Not tested in an environment where every single drive letter is already taken/reserved by an existing disk/partition
 #    > Approach seems somewhat archaic - need to (ideally) update this methodology to work directly on/within a target .iso
 #
-$ISO_Fullpath = "${Home}\Desktop\Windows.iso";
+$ISO_FullPath = "${Home}\Desktop\Windows.iso";
 $MountDir = "${Home}\Desktop\Mount";
 $Install_Wim = "${MountDir}\sources\install.wim";
 $Install_Esd = "${MountDir}\sources\install.esd";
@@ -34,7 +34,7 @@ $Install_Esd = "${MountDir}\sources\install.esd";
 $DriveLetter = "";
 $Possible_DriveLetters = @("C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 $Possible_DriveLetters | ForEach-Object { If ((Test-Path -Path ("$($_):\")) -Eq $False) { $DriveLetter = $_; Break; }; };
-$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
+$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_FullPath}");
 If ((Test-Path ("${MountDir}")) -Eq $False) {
 	New-Item -ItemType ("Directory") -Path ("${MountDir}") | Out-Null;
 	Start-Sleep -Seconds (1);

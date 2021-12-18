@@ -14,7 +14,7 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.Servic
 
 If ($True) {
 
-	$ISO_Fullpath = "${Home}\Desktop\Windows.iso";
+	$ISO_FullPath = "${HOME}\Desktop\Windows.iso";
 
 	$Possible_DriveLetters = @("D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 	ForEach ($EachDriveLetter In (${Possible_DriveLetters})) {
@@ -26,7 +26,7 @@ If ($True) {
 
 	Write-Output "`$DriveLetter = [ ${DriveLetter} ]";
 
-	$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_Fullpath}");
+	$Mounted_ISO = Mount-DiskImage -ImagePath ("${ISO_FullPath}");
 
 	Start-Sleep -Seconds (1);
 

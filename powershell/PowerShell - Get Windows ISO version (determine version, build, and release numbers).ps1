@@ -55,9 +55,13 @@ If ($True) {
 
 		} Else {
 
-			$Regex_Win10_Name = "^Name\s*:\s*(\S+)\s*";
-			$Regex_Win10_VersionNum = "^Version\s*:\s*([\d]+\.[\d]+\.[\d]+)\s*";
-			$Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*(\S+)\s*";
+			$Regex_Win10_Name = "^Name\s*:\s*(.+)";
+
+			$Regex_Win10_VersionNum = "^Version\s*:\s*(.+)";
+			# $Regex_Win10_VersionNum = "^Version\s*:\s*([\d]+\.[\d]+\.[\d]+)\s*$";
+
+			# $Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*(\S+)\s*$";
+			$Regex_Win10_BuildNum = "^ServicePack\s+Build\s*:\s*(.+)";
 
 			$ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_Name})","${Regex_Win10_Name}").Captures.Groups[1].Value);
 			$ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);
@@ -75,9 +79,12 @@ If ($True) {
 
 			Write-Output "";
 			Write-Output "------------------------------";
-			Write-Output "ISO Filepath:   ${ISO_FullPath}";
+			Write-Output "";
+			Write-Output "Filepath:       ${ISO_FullPath}";
+			Write-Output "";
 			Write-Output "Windows Name:   ${ISO_Name}";
 			Write-Output "Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
+			Write-Output "";
 			Write-Output "------------------------------";
 
 			Write-Output "";

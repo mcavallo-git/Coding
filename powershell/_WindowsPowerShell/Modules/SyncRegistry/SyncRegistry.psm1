@@ -314,357 +314,6 @@ function SyncRegistry {
 		};
 
 
-		# Explorer Settings ('OneDrive' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Troubleshoot compatibility' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$False;
-				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$False;
-				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Cast to Device' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
-					Type="String";
-					Val_Default="";
-					Value="Play to menu";
-					Delete=$False;
-				},
-				# @{
-				# 	Description="Explorer Settings - Enable [ hiding of 'OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-				# 	Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
-				# 	Type="String";
-				# 	Val_Default="";
-				# 	Value="";
-				# 	Delete=$False;
-				# },
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
-					Type="String";
-					Val_Default="";
-					Value="Play to menu";
-					Delete=$False;
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Microsoft Defender' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\EPP";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 1/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 2/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\EPP";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 3/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Drive\shellex\ContextMenuHandlers\EPP";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 4/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Share' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\ModernSharing";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Share' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Send to' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Send to' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ setting this property's value to blank ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="{7BA4C740-9E81-11CF-99D3-00AA004AE837}";
-					Value="";
-					Delete=$False;
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Include in library' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Library Location";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Include in library' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="{3DAD6C5D-2167-4CAE-9914-F99E41C12CFA}";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Pin to Quick access' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
-					Name="(Default)";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Edit' right-click context menu option(s)) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))
-		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
-		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
-			$RegEdits += @{
-				Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\image\shell\edit\command";
-				Props=@(
-					@{
-						Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
-						Name="(Default)";
-						Type="REG_EXPAND_SZ";
-						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
-						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
-						Delete=$False;
-					}
-				)
-			};
-			$RegEdits += @{
-				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\edit\command";
-				Props=@(
-					@{
-						Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
-						Name="(Default)";
-						Type="REG_EXPAND_SZ";
-						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
-						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
-						Delete=$False;
-					}
-				)
-			};
-		}
-		# Explorer Settings ('Edit' right-click context menu option(s)) (.ps1 file extension)
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.ps1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		# Explorer Settings ('Edit' right-click context menu option(s)) (.psd1 file extension)
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psd1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psd1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		# Explorer Settings ('Edit' right-click context menu option(s)) (.psm1 file extension)
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psm1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Script file extension (.ps1))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Microsoft.PowerShellScript.1\Shell\Open\Command";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Script file extension (.ps1), then selects the `"Open`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellScript.1\Shell\Open\Command";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Script file extension (.ps1), then selects the `"Open`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
-				}
-			)
-		};
-
-
-		# Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Module file extension (.psd1, .psm1, ...))
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\Microsoft.PowerShellModule.1\Shell\Open\Command";
-			Props=@(
-				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Module file extension (.psd1, .psm1, ...), then selects the `"Open`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
-				}
-			)
-		};
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellModule.1\Shell\Open\Command";
-			Props=@(
-				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Module file extension (.psd1, .psm1, ...), then selects the `"Open`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
-				}
-			)
-		};
-
-
 		# Explorer Settings (cont.)
 		$RegEdits += @{
 			Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer";
@@ -766,6 +415,363 @@ function SyncRegistry {
 					Name="(Default)";
 					# Type="REG_SZ";
 					Type="String";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Edit' right-click context menu option(s)) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))
+		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
+		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
+			$RegEdits += @{
+				Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\image\shell\edit\command";
+				Props=@(
+					@{
+						Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
+						Name="(Default)";
+						Type="REG_EXPAND_SZ";
+						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
+						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
+						Delete=$False;
+					}
+				)
+			};
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\image\shell\edit\command";
+				Props=@(
+					@{
+						Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
+						Name="(Default)";
+						Type="REG_EXPAND_SZ";
+						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
+						Value=(("`"")+(${DefaultPictureEditor})+("`" `"%1`""));
+						Delete=$False;
+					}
+				)
+			};
+		}
+
+
+		# Explorer Settings ('Edit' right-click context menu option(s)) (.ps1 file extension)
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.ps1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Edit' right-click context menu option(s)) (.psd1 file extension)
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psd1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psd1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Edit' right-click context menu option(s)) (.psm1 file extension)
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psm1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Include in library' right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Folder\shellex\ContextMenuHandlers\Library Location";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Include in library' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="{3DAD6C5D-2167-4CAE-9914-F99E41C12CFA}";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Microsoft Defender' right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\EPP";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 1/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\CLSID\{09A47860-11B0-4DA5-AFA5-26D86198A780}";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 2/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Directory\shellex\ContextMenuHandlers\EPP";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 3/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Drive\shellex\ContextMenuHandlers\EPP";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Scan with Microsoft Defender...' (pt. 4/4) context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="{09A47860-11B0-4DA5-AFA5-26D86198A780}";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('OneDrive' right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Troubleshoot compatibility' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Cast to Device' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				},
+				# @{
+				# 	Description="Explorer Settings - Enable [ hiding of 'OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+				# 	Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
+				# 	Type="String";
+				# 	Val_Default="";
+				# 	Value="";
+				# 	Delete=$False;
+				# },
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Script file extension (.ps1))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Microsoft.PowerShellScript.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Script file extension (.ps1), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellScript.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Script file extension (.ps1), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Module file extension (.psd1, .psm1, ...))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Microsoft.PowerShellModule.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Module file extension (.psd1, .psm1, ...), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellModule.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Module file extension (.psd1, .psm1, ...), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Pin to Quick access' right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Folder\shell\pintohome";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick access' (pt. 1/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Pin to Quick access' (pt. 2/2) context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Send to' right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Send to' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ setting this property's value to blank ]. Disable (show the context menu option(s)) by [ setting this key to its default value ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="{7BA4C740-9E81-11CF-99D3-00AA004AE837}";
+					Value="";
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings ('Share' right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\*\shellex\ContextMenuHandlers\ModernSharing";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Share' context menu option(s) when right-clicking files/folders in Windows Explorer ] by [ deleting this key ]. Disable (show the context menu option(s)) by [ creating this key ]";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
 					Value="";
 					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}

@@ -682,6 +682,48 @@ function SyncRegistry {
 		};
 
 
+		# Explorer Settings ('Run with PowerShell' right-click context menu option(s)) (.ps1 file extension)
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\0";
+			Props=@(
+				@{
+					Description="Explorer Settings - Delete this key to hide the `"Run with PowerShell`" command from the dropdown context menu for files with the `".ps1`" file extension";
+					Name="(Default)";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\0";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the text shown on the right-click context menu for associated file type(s) - when this text is clicked (from the context menu) it will run CLI script contained in the nested `"Command`" registry key's `"(Default)`" property";
+					Name="MUIVerb";
+					Type="REG_EXPAND_SZ";
+					Val_Default="@`"%systemroot%\system32\windowspowershell\v1.0\powershell.exe `",-108";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\0\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Run with PowerShell`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe`" `"-Command`" `"if((Get-ExecutionPolicy ) -ne 'AllSigned') { Set-ExecutionPolicy -Scope Process Bypass }; & '%1'`"";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
 		# Explorer Settings ('Send to' right-click context menu option(s))
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo";

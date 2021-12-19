@@ -666,6 +666,47 @@ function SyncRegistry {
 		};
 
 
+		# Explorer Settings ('Open with Code' right-click context menu option(s)) (all file extensions)
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Drive\shell\VSCode";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"command`") - Defines the application opened when a user right-clicks a file/directory (in Windows Explorer) then selects the `"Open with Code`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Program Files\Microsoft VS Code\Code.exe`" `"%1`"";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Directory\shell\VSCode";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"command`") - Defines the application opened when a user right-clicks a file/directory (in Windows Explorer) then selects the `"Open with Code`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Program Files\Microsoft VS Code\Code.exe`" `"%V`"";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shell\VSCode";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"command`") - Defines the application opened when a user right-clicks a file/directory (in Windows Explorer) then selects the `"Open with Code`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Program Files\Microsoft VS Code\Code.exe`" `"%1`"";
+					Value="";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
 		# Explorer Settings ('Pin to Quick access' right-click context menu option(s))
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";

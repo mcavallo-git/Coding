@@ -1563,7 +1563,7 @@ function SyncRegistry {
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							$EachRegEdit.LogOutput += "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)";
+							If ($PSBoundParameters.ContainsKey('Verbose')) { $EachRegEdit.LogOutput += "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)"; };
 
 						}
 
@@ -1587,7 +1587,7 @@ function SyncRegistry {
 							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								$EachRegEdit.LogOutput += "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date)";
+								If ($PSBoundParameters.ContainsKey('Verbose')) { $EachRegEdit.LogOutput += "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date)"; };
 
 							} Else {
 

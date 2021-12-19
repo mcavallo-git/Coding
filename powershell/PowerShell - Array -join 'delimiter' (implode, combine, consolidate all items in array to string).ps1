@@ -6,8 +6,7 @@ $Arr += "!!!";
 
 Write-Host ($Arr); <# Normal array view (not imploded #>
 
-Write-Host ($Arr -join ';'); <# Imploded array (string of string which are delimited by the delimiter given as the argument to the right-of "-join" #>
-
+Write-Host ($Arr -join '`n`n'); <# Implode the array into a string using the delimiter specified after '-join' #>
 
 # ------------------------------------------------------------
 #

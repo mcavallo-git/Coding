@@ -406,7 +406,7 @@ function HardenCrypto {
 				#
 				If ((${Each_RegEdit}.Path).StartsWith("Registry::") -Eq $False) {
 					$Each_RegEdit_DriveName=((${Each_RegEdit}.Path).Split(':\')[0]);
-					If ((Test-Path -Path (("")+(${Each_RegEdit_DriveName})+(":\"))) -Eq $False) {
+					If ((Test-Path -Path (("${Each_RegEdit_DriveName}:\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
 						DoLogging -LogFile "${LogFile}" -Text "";

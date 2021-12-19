@@ -1,7 +1,9 @@
 function SyncRegistry {
 	Param(
 
-		[String]$UserSID=""   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
+		[String]$UserSID="",   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
+
+		[Switch]$Verbose
 
 	)
 	# ------------------------------------------------------------
@@ -70,13 +72,13 @@ function SyncRegistry {
 		#  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 
 		$PSDrives = @();
-		$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
+		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_DYN_DATA";         };
+		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_PERFORMANCE_DATA"; };
 		$PSDrives += @{ Name="HKCC"; PSProvider="Registry"; Root="HKEY_CURRENT_CONFIG";   };
 		$PSDrives += @{ Name="HKCR"; PSProvider="Registry"; Root="HKEY_CLASSES_ROOT";     };
-		$PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
 		$PSDrives += @{ Name="HKCU"; PSProvider="Registry"; Root="HKEY_CURRENT_USER";     };
-		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_PERFORMANCE_DATA"; };
-		$PSDrives += @{ Name=$Null ; PSProvider="Registry"; Root="HKEY_DYN_DATA";         };
+		$PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
+		$PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
 
 
 		# ------------------------------------------------------------
@@ -1473,12 +1475,21 @@ function SyncRegistry {
 		} Else {
 			<# Script >> IS << running as Admin - Continue #>
 
+			# ------------------------------------------------------------
 			ForEach ($EachRegEdit In $RegEdits) {
 				#
 				# Root-Keys
 				#   |--> Ensure that this registry key's Root-Key has been mapped as a network drive
 				#   |--> Mapping this as a network drive grants this script read & write access to said Root-Key's registry values (which would otherwise be inaccessible)
 				#
+
+				$EachRegEdit.ChangesMade = $False;
+
+				$EachRegEdit.LogOutput = @();
+
+				$EachRegEdit.LogOutput += ("$($EachRegEdit.Path)");
+
+				# Ensure base level references exist (HKCU, HKLM, etc.)
 				If (($EachRegEdit.Path).StartsWith("Registry::") -Eq $False) {
 					$Each_RegEdit_DriveName=(($EachRegEdit.Path).Split(':\')[0]);
 					If ((Test-Path -Path (("${Each_RegEdit_DriveName}:\"))) -Eq $False) {
@@ -1493,13 +1504,13 @@ function SyncRegistry {
 							}
 						}
 						If ($Each_PSDrive_Root -Ne $Null) {
-							Write-Output "  |-->  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
+							Write-Output "  |-->  Info:  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
 							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 						}
 					}
 				}
 
-				Write-Output ("`n$($EachRegEdit.Path)");
+				# ------------------------------------------------------------
 				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key
@@ -1509,7 +1520,8 @@ function SyncRegistry {
 							# Key SHOULD be deleted
 							Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
-								Write-Output "  |-->  !! Deleted this Registry Key";
+								$EachRegEdit.ChangesMade = $True;
+								$EachRegEdit.LogOutput += "  |-->  !! Deleted this Registry Key";
 								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
 							}
 						}
@@ -1525,7 +1537,8 @@ function SyncRegistry {
 							#
 							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
-								Write-Output (("  |-->  !! Created this Registry Key"));
+								$EachRegEdit.ChangesMade = $True;
+								$EachRegEdit.LogOutput += "  |-->  !! Created this Registry Key";
 							}
 						}
 					}
@@ -1543,13 +1556,14 @@ function SyncRegistry {
 						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
-							Write-Output "  |-->  !! Adding Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`"";
+							$EachRegEdit.ChangesMade = $True;
+							$EachRegEdit.LogOutput += "  |-->  !! Adding Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`"";
 							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
 
 						} Else {
 
 							# Do nothing to the Property (already deleted)
-							Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)";
+							$EachRegEdit.LogOutput += "  |-->  Skipping Property `"$($EachProp.Name)`" (already deleted)";
 
 						}
 
@@ -1560,7 +1574,8 @@ function SyncRegistry {
 							# Property SHOULD be deleted
 
 							# Delete the Property
-							Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
+							$EachRegEdit.ChangesMade = $True;
+							$EachRegEdit.LogOutput += "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
 							Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
 
 
@@ -1572,12 +1587,13 @@ function SyncRegistry {
 							If (($EachProp.LastValue) -Eq ($EachProp.Value)) {
 
 								# Do nothing to the Property (already exists with matching type & value)
-								Write-Output "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date)";
+								$EachRegEdit.LogOutput += "  |-->  Skipping Property `"$($EachProp.Name)`" (already up-to-date)";
 
 							} Else {
 
 								# Update the Property
-								Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`"";
+								$EachRegEdit.ChangesMade = $True;
+								$EachRegEdit.LogOutput += "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`"";
 								Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
 							}
@@ -1587,8 +1603,20 @@ function SyncRegistry {
 					}
 
 				}
+				# ^-- End of ForEach Property
+				# ------------------------------------------------------------
+
+				If (($EachRegEdit.ChangesMade) -Eq $True) {
+					# At least one non-skipped change was made
+					Write-Output ($EachRegEdit.LogOutput -join "`n");
+				} Else {
+					# All keys/properties skipped
+					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ($EachRegEdit.LogOutput -join "`n"); };
+				}
 
 			}
+			# ^-- End of ForEach Key
+			# ------------------------------------------------------------
 
 		}
 

@@ -65,6 +65,7 @@
 	"editor.formatOnPaste": false,
 	"editor.formatOnSave": false,
 	"editor.formatOnType": false,
+	"editor.inlineSuggest.enabled": false,
 	"editor.insertSpaces": false,
 	"editor.lineNumbers": "on",
 	"editor.maxTokenizationLineLength": 1048576,

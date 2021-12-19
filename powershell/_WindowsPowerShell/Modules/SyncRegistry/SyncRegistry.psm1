@@ -707,6 +707,7 @@ function SyncRegistry {
 			)
 		};
 
+
 		# Explorer Settings ('Pin to Quick access' right-click context menu option(s))
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";

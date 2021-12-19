@@ -1399,18 +1399,14 @@ function SyncRegistry {
 
 		Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
 
-
 		$HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
 		$Name="MaxCompressionLevel";
 		$Type="DWord";
 		[UInt32]$Value = 0x00000002;
 		If ($False) {
-			Write-Output "";
-			Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]";
-			Write-Output "`n";
+			Write-Output "`n`bThe following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]`n`n";
 		}
 		Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
-
 
 		# $HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- https://getadmx.com/?Category=Windows_10_2016&Policy=Microsoft.Policies.TerminalServer::TS_SERVER_WDDM_GRAPHICS_DRIVER
 		# $Name="fEnableWddmDriver";
@@ -1420,7 +1416,6 @@ function SyncRegistry {
 		# Write-Output "The following property sets the value to for Group Policy (gpedit.msc) titled 'Use WDDM graphics display driver for Remote Desktop Connections' to:  [ 0 (Disabled) - 'If you disable this policy setting, Remote Desktop Connections will NOT use WDDM graphics display driver. In this case, the Remote Desktop Connections will use XDDM graphics display driver.' ],  [ 1 (Enabled) - 'If you enable or do not configure this policy setting, Remote Desktop Connections will use WDDM graphics display driver.' ]";
 		# Write-Output "`n";
 		# Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
-
 
 		# ------------------------------------------------------------
 		# Environment-specific registry settings
@@ -1513,7 +1508,7 @@ function SyncRegistry {
 					}
 				}
 
-				# ------------------------------------------------------------
+				# ------------------------------
 				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key
@@ -1523,9 +1518,12 @@ function SyncRegistry {
 							# Key SHOULD be deleted
 							Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
+								$Count_ChangesMade++;
 								$EachRegEdit.ChangesMade = $True;
 								$EachRegEdit.LogOutput += "  |-->  !! Deleted this Registry Key";
 								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+							} Else {
+								$EachRegEdit.LogOutput += "  |-->  !! Error:  Unable to delete this Registry Key";
 							}
 						}
 					} Else {
@@ -1540,8 +1538,11 @@ function SyncRegistry {
 							#
 							New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
 							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
+								$Count_ChangesMade++;
 								$EachRegEdit.ChangesMade = $True;
 								$EachRegEdit.LogOutput += "  |-->  !! Created this Registry Key";
+							} Else {
+								$EachRegEdit.LogOutput += "  |-->  !! Error:  Unable to create this Registry Key";
 							}
 						}
 					}
@@ -1559,6 +1560,7 @@ function SyncRegistry {
 						If (($EachProp.Delete) -Eq $False) {
 
 							# Create the Property
+							$Count_ChangesMade++;
 							$EachRegEdit.ChangesMade = $True;
 							$EachRegEdit.LogOutput += "  |-->  !! Adding Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`"";
 							New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
@@ -1577,6 +1579,7 @@ function SyncRegistry {
 							# Property SHOULD be deleted
 
 							# Delete the Property
+							$Count_ChangesMade++;
 							$EachRegEdit.ChangesMade = $True;
 							$EachRegEdit.LogOutput += "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
 							Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
@@ -1595,6 +1598,7 @@ function SyncRegistry {
 							} Else {
 
 								# Update the Property
+								$Count_ChangesMade++;
 								$EachRegEdit.ChangesMade = $True;
 								$EachRegEdit.LogOutput += "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`"";
 								Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
@@ -1607,12 +1611,11 @@ function SyncRegistry {
 
 				}
 				# ^-- End of ForEach Property
-				# ------------------------------------------------------------
+				# ------------------------------
 
 				If (($EachRegEdit.ChangesMade) -Eq $True) {
 					# At least one non-skipped change was made
 					Write-Output ($EachRegEdit.LogOutput -join "`n");
-					$Total_KeysUpdated++;
 				} Else {
 					# All keys/properties skipped
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ($EachRegEdit.LogOutput -join "`n"); };

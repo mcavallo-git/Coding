@@ -512,6 +512,38 @@ function SyncRegistry {
 			};
 
 
+			# Explorer Settings ('Edit with Notepad++' right-click context menu option(s))
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\ANotepad++64";
+				Props=@(
+					@{
+						Description="Explorer Settings - Defines the CLSID referenced when a user right-clicks a file (in Windows Explorer) then selects the `"Edit with Notepad++`" command from the dropdown context menu.";
+						Name="(Default)";
+						Type="String";
+						Val_Default="{B298D29A-A6ED-11DE-BA8C-A68E55D89593}";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+					}
+				)
+			};
+
+
+			# Explorer Settings ('GpgEX' right-click context menu option(s))
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\GpgEX";
+				Props=@(
+					@{
+						Description="Explorer Settings - Defines the CLSID referenced when a user right-clicks a file (in Windows Explorer) then selects the `"GpgEX`" command from the dropdown context menu.";
+						Name="(Default)";
+						Type="String";
+						Val_Default="{CCD955E4-5C16-4A33-AFDA-A8947A94946B}";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+					}
+				)
+			};
+
+
 			# Explorer Settings ('Include in library' right-click context menu option(s))
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\Library Location";
@@ -623,6 +655,101 @@ function SyncRegistry {
 						Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
 						Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
 						Delete=$False;
+					}
+				)
+			};
+
+
+			# Explorer Settings ('Open With' right-click context menu option(s)) (Excel.exe)
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\Excel.exe";
+				Props=@(
+					@{
+						Description="Explorer Settings - If this property is a blank string '', then add it to the 'Open With' default suggested applications - If this property is set to '(value not set)', then hide it from the 'Open With' default suggested applications";
+						Name="(Default)";
+						Type="String";
+						Val_Default="`(value not set)";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+					}
+				)
+			};
+
+
+			# Explorer Settings ('Open With' right-click context menu option(s)) (IExplore.exe)
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\IExplore.exe";
+				Props=@(
+					@{
+						Description="Explorer Settings - If this property is a blank string '', then add it to the 'Open With' default suggested applications - If this property is set to '(value not set)', then hide it from the 'Open With' default suggested applications";
+						Name="(Default)";
+						Type="String";
+						Val_Default="`(value not set)";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+					}
+				)
+			};
+
+
+			# Explorer Settings ('Open With' right-click context menu option(s)) (MSPaint.exe)
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\MSPaint.exe";
+				Props=@(
+					@{
+						Description="Explorer Settings - If this property is a blank string '', then add it to the 'Open With' default suggested applications - If this property is set to '(value not set)', then hide it from the 'Open With' default suggested applications";
+						Name="(Default)";
+						Type="String";
+						Val_Default="";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+					}
+				)
+			};
+
+			# Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe)
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\notepad.exe";
+				Props=@(
+					@{
+						Description="Explorer Settings - If this property is a blank string '', then add it to the 'Open With' default suggested applications - If this property is set to '(value not set)', then hide it from the 'Open With' default suggested applications";
+						Name="(Default)";
+						Type="String";
+						Val_Default="";
+						Value="";
+						Delete=$False;
+					}
+				)
+			};
+
+
+			# Explorer Settings ('Open With' right-click context menu option(s)) (Winword.exe)
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\Winword.exe";
+				Props=@(
+					@{
+						Description="Explorer Settings - If this property is a blank string '', then add it to the 'Open With' default suggested applications - If this property is set to '(value not set)', then hide it from the 'Open With' default suggested applications";
+						Name="(Default)";
+						Type="String";
+						Val_Default="`(value not set)";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+					}
+				)
+			};
+
+
+			# Explorer Settings ('Open With' right-click context menu option(s)) (WordPad.exe)
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\WordPad.exe";
+				Props=@(
+					@{
+						Description="Explorer Settings - If this property is a blank string '', then add it to the 'Open With' default suggested applications - If this property is set to '(value not set)', then hide it from the 'Open With' default suggested applications";
+						Name="(Default)";
+						Type="String";
+						Val_Default="`(value not set)";
+						Value="";
+						Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 					}
 				)
 			};

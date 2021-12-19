@@ -602,16 +602,14 @@ function SyncRegistry {
 		};
 
 
-		# Explorer Settings (Right-Click -> "Edit" commands) (Image file extensions (.bmp, .jpeg, .jpg, .png, ...))
+		# Explorer Settings (Right-Click -> "Edit" command) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))
 		$DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
 		If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
-			# Set default application to use when user clicks "Edit" after right-clicking an image-file in Explorer
-			#   |--> Explorer -> Image-File (.png, .jpg, ...) -> Right-Click -> Edit -> Opens app held in [v THIS v] RegEdit Key/Val
 			$RegEdits += @{
 				Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\image\shell\edit\command";
 				Props=@(
 					@{
-						Description="Explorer Settings - Defines the application opened when a user right-clicks an Image file (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+						Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
 						Name="(Default)";
 						Type="REG_EXPAND_SZ";
 						Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
@@ -621,17 +619,17 @@ function SyncRegistry {
 				)
 			};
 		}
-		# Explorer Settings (Right-Click -> "Edit" commands) (.ps1 file extension)
+		# Explorer Settings (Right-Click -> "Edit" command) (.ps1 file extension)
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\Edit\Command";
 			Props=@(
 				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file which has a `".ps1`" file extension (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
 					Name="(Default)";
 					Type="String";
 					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
 					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -639,26 +637,26 @@ function SyncRegistry {
 			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.ps1\Shell\Edit\Command";
 			Props=@(
 				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file which has a `".ps1`" file extension (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".ps1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
 					Name="(Default)";
 					Type="String";
 					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
 					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
-		# Explorer Settings (Right-Click -> "Edit" commands) (.psd1 file extension)
+		# Explorer Settings (Right-Click -> "Edit" command) (.psd1 file extension)
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psd1\Shell\Edit\Command";
 			Props=@(
 				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file which has a `".psd1`" file extension (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
 					Name="(Default)";
 					Type="String";
 					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
 					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -666,26 +664,26 @@ function SyncRegistry {
 			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psd1\Shell\Edit\Command";
 			Props=@(
 				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file which has a `".psd1`" file extension (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
 					Name="(Default)";
 					Type="String";
 					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
 					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
-		# Explorer Settings (Right-Click -> "Edit" commands) (.psm1 file extension)
+		# Explorer Settings (Right-Click -> "Edit" command) (.psm1 file extension)
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit\Command";
 			Props=@(
 				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file which has a `".psm1`" file extension (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
 					Name="(Default)";
 					Type="String";
 					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
 					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$False;
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
 				}
 			)
 		};
@@ -693,10 +691,68 @@ function SyncRegistry {
 			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psm1\Shell\Edit\Command";
 			Props=@(
 				@{
-					Description="Explorer Settings - Defines the application opened when a user right-clicks a file which has a `".psm1`" file extension (in Windows Explorer), then selects the `"Edit`" command from the dropdown context menu.";
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
 					Name="(Default)";
 					Type="String";
 					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings (Right-Click -> "Open" command) (PowerShell Script file extension (.ps1))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Microsoft.PowerShellScript.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Script file extension (.ps1), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellScript.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Script file extension (.ps1), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+
+
+		# Explorer Settings (Right-Click -> "Open" command) (PowerShell Module file extension (.psd1, .psm1, ...))
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\Microsoft.PowerShellModule.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Module file extension (.psd1, .psm1, ...), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$False;
+				}
+			)
+		};
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellModule.1\Shell\Open\Command";
+			Props=@(
+				@{
+					Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a PowerShell Module file extension (.psd1, .psm1, ...), then selects the `"Open`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\notepad.exe`" `"%1`"";
 					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
 					Delete=$False;
 				}

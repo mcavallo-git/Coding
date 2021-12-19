@@ -1452,6 +1452,7 @@ function SyncRegistry {
 
 		}
 
+		$Count_ChangesMade=0;
 
 		<# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
 		$RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
@@ -1469,8 +1470,6 @@ function SyncRegistry {
 			}
 		} Else {
 			<# Script >> IS << running as Admin - Continue #>
-
-			$Count_ChangesMade=0;
 
 			# ------------------------------------------------------------
 			ForEach ($EachRegEdit In $RegEdits) {
@@ -1626,6 +1625,11 @@ function SyncRegistry {
 			# ------------------------------------------------------------
 
 		}
+
+		If (${Count_ChangesMade} -Eq 0) {
+			Write-Output "`n`n  No changes made (local registry is already up-to-date)`n   |--> Info:  Run using argument `"-Verbose`" for additional info";
+		}
+
 
 	}
 

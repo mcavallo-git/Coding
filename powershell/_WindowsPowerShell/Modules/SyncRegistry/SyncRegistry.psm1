@@ -469,6 +469,7 @@ function SyncRegistry {
 			)
 		};
 
+
 		# Explorer Settings ('Edit' right-click context menu option(s)) (.psd1 file extension)
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psd1\Shell\Edit";

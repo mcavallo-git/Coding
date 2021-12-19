@@ -20,7 +20,7 @@ else {
 #
 # One True Brace style (1TBS/OTBS)
 #  |
-#  |--> Similar to K&R style, All "if", "else", "while", and "for" statements have opening and closing braces
+#  |--> Similar to K&R style, but all "if", "else", "while", and "for" statements have opening and closing braces
 #
 if (x) {
   a();

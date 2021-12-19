@@ -512,19 +512,19 @@ function SyncRegistry {
 
 
 		# Explorer Settings ('Edit' right-click context menu option(s)) (.psm1 file extension)
-		# $RegEdits += @{
-		# 	Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psm1\Shell\Edit";
-		# 	Props=@(
-		# 		@{
-		# 			Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-		# 			Name="(Default)";
-		# 			Type="String";
-		# 			Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-		# 			Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-		# 			Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-		# 		}
-		# 	)
-		# };
+		$RegEdits += @{
+			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psm1\Shell\Edit";
+			Props=@(
+				@{
+					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+					Name="(Default)";
+					Type="String";
+					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit";
 			Props=@(

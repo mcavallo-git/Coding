@@ -2698,7 +2698,6 @@ Open_VisualStudioCode() {
 	Win_fullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
 	WinTitle := "ahk_exe %Win_ahk_exe%"
 	WinWait_TimeoutSeconds := 5
-	; GetWindowSpecs(WinTitle)
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
 		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")

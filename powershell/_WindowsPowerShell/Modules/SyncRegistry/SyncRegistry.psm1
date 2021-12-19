@@ -1539,7 +1539,7 @@ function SyncRegistry {
 			$Type="DWord";
 			[UInt32]$Value = 0x00000002;
 			If ($False) {
-				Write-Output "`n`bThe following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]`n`n";
+				Write-Output "`n`nThe following property sets the value to for Group Policy (gpedit.msc) titled 'Configure compression for RemoteFX data' to:  [ 0 - 'Do not use an RDP compression algorithm' ],  [ 1 - 'Optimized to use less memory' ],  [ 2 - 'Balances memory and network bandwidth' ],  or  [ 3 - 'Optimized to use less network bandwidth' ]`n`n";
 			}
 			Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
@@ -1619,7 +1619,7 @@ function SyncRegistry {
 
 					$EachRegEdit.LogOutput = @();
 
-					$EachRegEdit.LogOutput += ("$($EachRegEdit.Path)");
+					$EachRegEdit.LogOutput += ("`n$($EachRegEdit.Path)");
 
 					# Ensure base level references exist (HKCU, HKLM, etc.)
 					If (($EachRegEdit.Path).StartsWith("Registry::") -Eq $False) {

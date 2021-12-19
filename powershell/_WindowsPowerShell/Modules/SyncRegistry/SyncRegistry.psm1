@@ -1475,6 +1475,8 @@ function SyncRegistry {
 		} Else {
 			<# Script >> IS << running as Admin - Continue #>
 
+			$Count_ChangesMade=0;
+
 			# ------------------------------------------------------------
 			ForEach ($EachRegEdit In $RegEdits) {
 				#
@@ -1495,7 +1497,7 @@ function SyncRegistry {
 					If ((Test-Path -Path (("${Each_RegEdit_DriveName}:\"))) -Eq $False) {
 						$Each_PSDrive_PSProvider=$Null;
 						$Each_PSDrive_Root=$Null;
-						Write-Output "`nInfo:  Root-Key `"${Each_RegEdit_DriveName}`" not found";
+						If ($PSBoundParameters.ContainsKey('Verbose')) { $EachRegEdit.LogOutput += "  |-->  Verbose:  Root-Key `"${Each_RegEdit_DriveName}`" not found"; };
 						ForEach ($Each_PSDrive In $PSDrives) {
 							If ((($Each_PSDrive.Name) -Ne $Null) -And (($Each_PSDrive.Name) -Eq $Each_RegEdit_DriveName)) {
 								$Each_PSDrive_PSProvider=($Each_PSDrive.PSProvider);
@@ -1504,7 +1506,8 @@ function SyncRegistry {
 							}
 						}
 						If ($Each_PSDrive_Root -Ne $Null) {
-							Write-Output "  |-->  Info:  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`"";
+							# Create maps from shorthand registry syntaxes (ex: "HKCU") to their root registry path (ex: "HKEY_CURRENT_USERS")
+							If ($PSBoundParameters.ContainsKey('Verbose')) { $EachRegEdit.LogOutput += "  |-->  Verbose:  Adding Session-Based ${Each_PSDrive_PSProvider} Network-Map from drive name `"${Each_RegEdit_DriveName}`" to data store location `"${Each_PSDrive_Root}`""; };
 							New-PSDrive -Name "${Each_RegEdit_DriveName}" -PSProvider "${Each_PSDrive_PSProvider}" -Root "${Each_PSDrive_Root}" | Out-Null;
 						}
 					}
@@ -1609,6 +1612,7 @@ function SyncRegistry {
 				If (($EachRegEdit.ChangesMade) -Eq $True) {
 					# At least one non-skipped change was made
 					Write-Output ($EachRegEdit.LogOutput -join "`n");
+					$Total_KeysUpdated++;
 				} Else {
 					# All keys/properties skipped
 					If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ($EachRegEdit.LogOutput -join "`n"); };

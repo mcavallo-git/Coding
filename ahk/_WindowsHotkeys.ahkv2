@@ -1406,7 +1406,7 @@ LButton::
 ; <+RShift::        ;<+ = LShift (Modifier)
 RShift & LShift::
 LShift & RShift::
-	ActiveWindow_ToggleRestoreMaximize()
+	Win_ToggleRestoreMaximize()
 	Return
 
 
@@ -1652,39 +1652,6 @@ ActiveWindow_Maximize() {
 	Win_min_max_state := WinGetMinMax("A")
 	If (Win_min_max_state<=0) { ; Window is not maximized - maximize it
 		WinMaximize "A"
-	}
-	Return
-}
-
-
-;
-; ActiveWindow_ToggleRestoreMaximize
-;   |--> Toggle currently-active window between "Maximized" and "Non-Maximized" (or "Restored") states
-;
-ActiveWindow_ToggleRestoreMaximize() {
-	Global DebugMode
-	Win_min_max_state := WinGetMinMax("A")
-	DebugString := "Win_min_max_state=[ %Win_min_max_state% ]"
-	If ("%Win_min_max_state%" = "") {  ; ??? Window-state not pulled as-intended
-		WinMaximize("A")
-		DebugString := DebugString "`n" " |--> Do WinMaximize"
-	} Else {
-		If (Win_min_max_state == 0) {  ; 0: The window is neither minimized nor maximized
-			WinMaximize("A")
-			DebugString := DebugString "`n" " |--> Do WinMaximize"
-		} Else If (Win_min_max_state == -1) {  ; -1: The window is minimized (WinRestore can unminimize it)
-			WinRestore("A")
-			DebugString := DebugString "`n" " |--> Do WinRestore"
-		} Else If (Win_min_max_state == 1) {  ; 1: The window is maximized (WinRestore can unmaximize it)
-			WinRestore("A")
-			DebugString := DebugString "`n" " |--> Do WinRestore"
-		} Else {  ; Fallthrough-catch
-			WinMaximize("A")
-			DebugString := DebugString "`n" " |--> Do WinMaximize"
-		}
-	}
-	If (DebugMode == 1) {
-		TrayTip, AHK, % ( DebugString )  ; Toast Notification
 	}
 	Return
 }
@@ -2135,12 +2102,12 @@ GetTimezoneOffset_P(ByRef Output_TZ_P) {
 ; GetWindowSpecs
 ;   |--> Gets Specs for currently-active window
 ;
-GetWindowSpecs() {
+GetWindowSpecs(WinTitle:="A") {
 	; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
 	Gui, WindowSpecs:Default
 	Gui, Destroy
 
-	Win_ahk_id := WinGetID("A")
+	Win_ahk_id := WinGetID(WinTitle)
 	Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
 	Win_text := WinGetText("ahk_id %Win_ahk_id%")
 	Win_ahk_class := WinGetClass("ahk_id %Win_ahk_id%")
@@ -2158,10 +2125,10 @@ GetWindowSpecs() {
 	Win_longest_field := StrLen_Max(Win_longest_field, Win_control_names)
 	Win_longest_field := StrLen_Max(Win_longest_field, Win_ahk_class)
 
-	Win_is_win10_app := WinGet_is_win10_app("A")
+	Win_is_win10_app := WinGet_is_win10_app(WinTitle)
 	If (Win_is_win10_app == 1) {
 		; Get the Win10-App's stats
-		Win10_ahk_id := WinGet_ahk_id("A")
+		Win10_ahk_id := WinGet_ahk_id(WinTitle)
 		Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
 		Win10_text := WinGetText("ahk_id %Win10_ahk_id%")
 		Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
@@ -2433,6 +2400,107 @@ Monitor_ShowScreenSaver() {
 
 
 ;
+; MoveIt
+;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
+;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
+;
+MoveIt(Q:=4, WinTitle:="A") {
+	; Get the windows pos
+	WinGetPos(X, Y, W, H, WinTitle)
+	M := WinGetMinMax(WinTitle)
+	; Calculate the top center edge
+	CX := X + W/2
+	CY := Y + 20  ; Compensate for the height of the taskbar (20px)
+	Count := MonitorGetCount()
+	num := 1
+	Loop % Count
+	{
+		MonitorGetWorkArea % num, MonLeft, MonTop, MonRight, MonBottom  ; Checks if the specified monitor exists and optionally retrieves the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+		if( CX >= MonLeft && CX <= MonRight && CY >= MonTop && CY <= MonBottom ) {
+			MW := (MonRight - MonLeft)
+			MH := (MonBottom - MonTop)
+			MHW := (MW / 2)
+			MHH := (MH / 2)
+			MMX := MonLeft + MHW
+			MMY := MonTop + MHH
+			if( M != 0 ) {
+				WinRestore,A
+			}
+			if( Q == 5 ) {
+				; toggle restore/maximized
+				if( M == 0 ) {
+					WinMaximize,A
+				} else {
+					WinRestore,A
+				}
+			} Else {
+				if( Q == 1 ) {
+					; bottom-left quadrant
+					WinMove_X := MonLeft
+					WinMove_Y := MMY
+					WinMove_Width := MHW
+					WinMove_Height := MHH
+				}
+				if( Q == 2 ) {
+					; bottom half
+					WinMove_X := MonLeft
+					WinMove_Y := MMY
+					WinMove_Width := MW
+					WinMove_Height := MHH
+				}
+				if( Q == 3 ) {
+					; bottom-right quadrant
+					WinMove_X := MMX
+					WinMove_Y := MMY
+					WinMove_Width := MHW
+					WinMove_Height := MHH
+				}
+				if( Q == 4 ) {
+					; left half
+					WinMove_X := MonLeft
+					WinMove_Y := MonTop
+					WinMove_Width := MHW
+					WinMove_Height := MH
+				}
+				if( Q == 6 ) {
+					; right half
+					WinMove_X := MMX
+					WinMove_Y := MonTop
+					WinMove_Width := MHW
+					WinMove_Height := MH
+				}
+				if( Q == 7 ) {
+					; top-left quadrant
+					WinMove_X := MonLeft
+					WinMove_Y := MonTop
+					WinMove_Width := MHW
+					WinMove_Height := MHH
+				}
+				if( Q == 8 ) {
+					; top half
+					WinMove_X := MonLeft
+					WinMove_Y := MonTop
+					WinMove_Width := MW
+					WinMove_Height := MHH
+				}
+				if( Q == 9 ) {
+					; top-right quadrant
+					WinMove_X := MMX
+					WinMove_Y := MonTop
+					WinMove_Width := MHW
+					WinMove_Height := MHH
+				}
+				WinMove(WinTitle,, WinMove_X, WinMove_Y, WinMove_Width, WinMove_Height)  ; Move the window to specified x/y position and resize it to have specified width/height
+			}
+			Break
+		}
+		num += 1
+	}
+	Return
+}
+
+
+;
 ;	Open_Exe
 ;   |--> Opens target exeutable & sets its window to be active
 ;
@@ -2489,9 +2557,9 @@ Open_ControlPanel_NetworkConnections() {
 		; Run % (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
 		; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
 		Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
-		WinWait, %WinTitle%,, 10  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+		WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2530,9 +2598,9 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 		Run % (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
 		; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
 		; Run control.exe /name Microsoft.Sound
-		WinWait, %WinTitle%,, 10  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+		WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2542,30 +2610,35 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 ;   |--> Opens the "Google Chrome" Application
 ;
 Open_Chrome() {
+	Global DebugMode
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	Exe_Path := ""
-	Exe_Path_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
-	Exe_Path_x86 := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-	If (FileExist(Exe_Path_x64)) {
-		Exe_Path := Exe_Path_x64
-	} Else If (FileExist(Exe_Path_x86)) {
-		Exe_Path := Exe_Path_x86
+	FullPath_RunExe := ""
+	FullPath_RunExe_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
+	FullPath_RunExe_x86 := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	If (FileExist(FullPath_RunExe_x64)) {
+		FullPath_RunExe := FullPath_RunExe_x64
+	} Else If (FileExist(FullPath_RunExe_x86)) {
+		FullPath_RunExe := FullPath_RunExe_x86
 	}
 	WinTitle := " - Google Chrome"
 	WinWait_TimeoutSeconds := 5
+	If (DebugMode == 1) {
+		GetWindowSpecs(WinTitle)
+		Sleep 500
+	}
 	If (!WinExist(WinTitle)) {
-		If (Exe_Path != "") {
+		If (FullPath_RunExe != "") {
 			;
 			; Run a NON-admin version of Google Chrome
 			;
-			RunExe_NON_Admin(Exe_Path)
+			RunExe_NON_Admin(FullPath_RunExe)
 		} Else {
 			TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
 			ShowTooltip(TextToolTip,5000)
 		}
 	}
-	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	WinActivate, %WinTitle%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2619,13 +2692,24 @@ Open_RoboformPasswordGenerator() {
 ;   |--> Opens Microsoft's "Visual Studio Code" application (e.g. "VS Code" or "VSCode") - VS Code is a Free Source Code Editor & IDE
 ;
 Open_VisualStudioCode() {
+	Global DebugMode
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	Exe_Path := "C:\Windows\System32\notepad.exe"
-	WinTitle := " - Visual Studio Code"
-	WinText := "Chrome Legacy Window"
+	Win_ahk_exe := "Code.exe"
+	Win_fullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
+	WinTitle := "ahk_exe %Win_ahk_exe%"
 	WinWait_TimeoutSeconds := 5
-	; If (!WinExist(WinTitle)) {
-	If (!WinExist(WinTitle,WinText)) {
+	; GetWindowSpecs(WinTitle)
+	If (WinExist(WinTitle)) {
+		; If program is running but its window is minimized/not-shown, then restore it
+		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
+		WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
+		If ((Win_size_state == "minimized") || ((Win_Width == 0) && (Win_Height == 0))) {
+			; WinRestore(WinTitle)
+			; Sleep 500
+			WinActivate, %WinTitle%
+			MoveIt(4)
+		}
+	} Else {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)
 		;  |
@@ -2633,10 +2717,11 @@ Open_VisualStudioCode() {
 		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to
 		;       open file in admin instance of code.exe', etc.
 		;
-		RunExe_NON_Admin(Exe_Path)
+		FullPath_RunExe := "C:\Windows\System32\notepad.exe"
+		RunExe_NON_Admin(FullPath_RunExe)  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
+		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
-	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	WinActivate, %WinTitle%, %WinText%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2648,11 +2733,11 @@ Open_VisualStudioCode() {
 Open_WindowsTerminal() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	; ------------------------------
-	Exe_Path := "explorer.exe"
+	FullPath_RunExe := "C:\Windows\explorer.exe"
 	Exe_Args := ( "shell:AppsFolder\" "Microsoft.WindowsTerminal_8wekyb3d8bbwe" "!App")  ; App name acquired via powershell call [ (Get-AppxPackage Microsoft.WindowsTerminal).PackageFamilyName; ]
 	; ------------------------------
 	; ;;;  Deprecated approach (doesn't work if not acting as an admin while opening it..?)
-	; Exe_Path := "C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe"  ;  Acquired via powershell call [ Get-ChildItem ((Get-AppxPackage "*WindowsTerminal*").InstallLocation); ]
+	; FullPath_RunExe := "C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe"  ;  Acquired via powershell call [ Get-ChildItem ((Get-AppxPackage "*WindowsTerminal*").InstallLocation); ]
 	; Exe_Args := ""
 	; ------------------------------
 	WinTitle := ""
@@ -2662,10 +2747,10 @@ Open_WindowsTerminal() {
 		;
 		; Run a NON-admin version of Windows Terminal
 		;
-		RunExe_NON_Admin(Exe_Path, Exe_Args)
+		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 	}
-	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Waits until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	WinActivate, %WinTitle%, %WinText%  ;  Activates the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	WinActivate, %WinTitle%, %WinText%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2791,9 +2876,11 @@ PrintEnv() {
 	USERPROFILE := EnvGet("USERPROFILE")
 	WINDIR := EnvGet("WINDIR")
 
-	Viewport_Width := SysGet(78)
-	Viewport_Height := SysGet(79)
-	Monitor_Count := SysGet(80)
+	Viewport_TopLeft_Coords_X := SysGet(76)  ; SM_XVIRTUALSCREEN
+	Viewport_TopLeft_Coords_Y := SysGet(77)  ; SM_YVIRTUALSCREEN
+	Viewport_Width := SysGet(78)  ; SM_CXVIRTUALSCREEN
+	Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
+	Monitor_Count := SysGet(80)  ; SM_CMONITORS
 
 	;
 	; *** Windows Env-Vars ***
@@ -2889,6 +2976,8 @@ PrintEnv() {
 
 	----------------------------- SysGet Values -----------------------------
 
+	76 - Viewport_TopLeft_Coords_X :=	%Viewport_TopLeft_Coords_X%
+	77 - Viewport_TopLeft_Coords_Y :=	%Viewport_TopLeft_Coords_Y%
 	78 - Viewport_Width :=	%Viewport_Width%
 	79 - Viewport_Height :=	%Viewport_Height%
 	80 - Monitor_Count :=	%Monitor_Count%
@@ -2953,7 +3042,7 @@ RemoveToolTip() {
 ; RunExe_NON_Admin
 ;   |--> Opens target program without administrative rights (by using a Scheduled Task de-escalation workaround)
 ;
-RunExe_NON_Admin(Exe_Path, Exe_Args:="") {
+RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 	If (DebugMode == 1) {
 		TrayTip, AHK,
 		(LTrim
@@ -2969,7 +3058,7 @@ RunExe_NON_Admin(Exe_Path, Exe_Args:="") {
 		(
 			powershell.exe -WindowStyle Hidden -Command "
 			If ([Boolean](1)) {
-				SV TEMP_Execute '%Exe_Path%'%Semicolon%
+				SV TEMP_Execute '%FullPath_RunExe%'%Semicolon%
 				SV TEMP_Name (Get-Date -UFormat `%s)%Semicolon%
 				SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value)%Add_Args%)%Semicolon%
 				SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date))%Semicolon%
@@ -3554,6 +3643,39 @@ WinGet_size_state(WinTitle) {
 
 
 ;
+; Win_ToggleRestoreMaximize
+;   |--> Toggle target window between "Maximized" and "Non-Maximized" (or "Restored") states
+;
+Win_ToggleRestoreMaximize(WinTitle:="A") {
+	Global DebugMode
+	Win_min_max_state := WinGetMinMax(WinTitle)
+	DebugString := "Win_min_max_state=[ %Win_min_max_state% ]"
+	If ("%Win_min_max_state%" = "") {  ; ??? Window-state not pulled as-intended
+		WinMaximize(WinTitle)
+		DebugString := DebugString "`n" " |--> Do WinMaximize"
+	} Else {
+		If (Win_min_max_state == 0) {  ; 0: The window is restored (neither minimized nor maximized) - do WinMaximize to maximize it
+			WinMaximize(WinTitle)
+			DebugString := DebugString "`n" " |--> Do WinMaximize"
+		} Else If (Win_min_max_state == -1) {  ; -1: The window is minimized - do WinRestore to unminimize it
+			WinRestore(WinTitle)
+			DebugString := DebugString "`n" " |--> Do WinRestore"
+		} Else If (Win_min_max_state == 1) {  ; 1: The window is maximized - do WinRestore to unmaximize it
+			WinRestore(WinTitle)
+			DebugString := DebugString "`n" " |--> Do WinRestore"
+		} Else {  ; Fallthrough-catch
+			WinMaximize(WinTitle)
+			DebugString := DebugString "`n" " |--> Do WinMaximize"
+		}
+	}
+	If (DebugMode == 1) {
+		TrayTip, AHK, % ( DebugString )  ; Toast Notification
+	}
+	Return
+}
+
+
+;
 ; XBox_DownloadDelete_GameClips
 ;   |--> Win10 Download & Delete Recordings via XBox Win10 App
 ;
@@ -3683,7 +3805,7 @@ XBox_DownloadDelete_GameClips() {
 							Sleep 1000
 						}
 						WinActivate("ahk_id %Win_ahk_id%")
-						WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800) ; Move the window to a known static location to build off-of
+						WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800) ; Move the window to specified x/y position and resize it to have specified width/height
 						Sleep 500
 						Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 						Sleep 500
@@ -4016,7 +4138,7 @@ Youtube_EditDraft_Submit() {
 		;
 		WinActivate(WinTitle)
 		Sleep 100
-		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to a known static location to build off-of
+		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to specified x/y position and resize it to have specified width/height
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"
 			Tooltip, % ( Tooltip_Header ), 1, 112
@@ -4632,6 +4754,8 @@ If (False) {
 ;
 ;   www.autohotkey.com  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
 ; 
+;   www.autohotkey.com  |  "Move window to half / quarter of current monitor - Scripts and Functions - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
+;
 ;   www.autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
 ;
 ;   www.autohotkey.com  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options

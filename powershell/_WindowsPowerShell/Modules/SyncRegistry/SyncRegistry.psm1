@@ -483,19 +483,19 @@ function SyncRegistry {
 		};
 
 		# Explorer Settings ('Edit' right-click context menu option(s)) (.psd1 file extension)
-		$RegEdits += @{
-			Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psd1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
+		# $RegEdits += @{
+		# 	Path="Registry::HKEY_CLASSES_ROOT\SystemFileAssociations\.psd1\Shell\Edit";
+		# 	Props=@(
+		# 		@{
+		# 			Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psd1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+		# 			Name="(Default)";
+		# 			Type="String";
+		# 			Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+		# 			Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+		# 			Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+		# 		}
+		# 	)
+		# };
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psd1\Shell\Edit";
 			Props=@(
@@ -525,19 +525,19 @@ function SyncRegistry {
 				}
 			)
 		};
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit";
-			Props=@(
-				@{
-					Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
-					Name="(Default)";
-					Type="String";
-					Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
-					Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
-					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-				}
-			)
-		};
+		# $RegEdits += @{
+		# 	Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit";
+		# 	Props=@(
+		# 		@{
+		# 			Description="Explorer Settings (subkey `"Command`") - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has a `".psm1`" file extension, then selects the `"Edit`" command from the dropdown context menu.";
+		# 			Name="(Default)";
+		# 			Type="String";
+		# 			Val_Default="`"C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe`" `"%1`"";
+		# 			Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
+		# 			Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+		# 		}
+		# 	)
+		# };
 
 
 		# Explorer Settings ('Include in library' right-click context menu option(s))
@@ -1483,7 +1483,18 @@ function SyncRegistry {
 				ForEach ($EachProp In $EachRegEdit.Props) {
 
 					# Check for each Key
-					If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) { # Key doesn't exist (yet)
+					If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
+						# Key exists
+						If ((($EachProp.Delete) -eq $True) -And (($EachProp.Name) -Eq "(Default)")) {
+							# Key SHOULD be deleted
+							Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
+							If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
+								Write-Output "  |-->  !! Deleted this Registry Key";
+								Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
+							}
+						}
+					} Else {
+						# Key doesn't exist (yet)
 						If (($EachProp.Delete) -eq $False) {  # Property isn't to-be-deleted
 							# Create the key
 							#
@@ -1507,6 +1518,7 @@ function SyncRegistry {
 					};
 
 					If ($GetEachItemProp -Eq $Null) {
+						# Key doesn't exist (yet)
 
 						If (($EachProp.Delete) -Eq $False) {
 
@@ -1521,9 +1533,19 @@ function SyncRegistry {
 
 						}
 
-					} Else {  # Property exists
+					} Else {
+						# Property exists
 
-						If (($EachProp.Delete) -Eq $False) {  # Property should NOT be deleted
+						If (($EachProp.Delete) -Eq $True) {
+							# Property SHOULD be deleted
+
+							# Delete the Property
+							Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
+							Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
+
+
+						} Else {
+							# Property should NOT be deleted
 
 							$EachProp.LastValue = $GetEachItemProp;
 
@@ -1537,25 +1559,6 @@ function SyncRegistry {
 								# Update the Property
 								Write-Output "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`"";
 								Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
-
-							}
-
-						} Else { # Property (or Key) SHOULD be deleted
-
-							If (($EachProp.Name) -Eq "(Default)") {
-
-								# Delete the Registry-Key
-								Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
-								If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
-									Write-Output "  |-->  !! Deleted Key";
-									Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
-								}
-
-							} Else {
-
-								# Delete the Property
-								Write-Output "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
-								Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
 
 							}
 

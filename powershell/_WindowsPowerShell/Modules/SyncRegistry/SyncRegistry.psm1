@@ -1639,7 +1639,7 @@ function SyncRegistry {
 
 			# If ZERO changes were made, report it
 			If (${Count_ChangesMade} -Eq 0) {
-				Write-Output "`n  No changes made (registry is already up-to-date)$(If (($PSBoundParameters.ContainsKey('Verbose')) -Eq ($False)) { Write-Output "  (for more info, run using argument '-Verbose')"; };)";
+				Write-Output "`n  No changes made  -->  Registry is already up-to-date$(If (($PSBoundParameters.ContainsKey('Verbose')) -Eq ($False)) { Write-Output "                   -->  For additional info, run using argument `"-Verbose`""; };)";
 			}
 
 		}

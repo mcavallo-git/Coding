@@ -167,7 +167,7 @@ done;
 
 unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY=("Item-One" "Item-One" "Item-Two" "Item-A" "Item-A" "Item-B");
-DAT_ARRAY_SORTED_NO_DUPES=($(echo "${DAT_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
+DAT_ARRAY_SORTED_NO_DUPES=($(echo "${DAT_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
 for DAT_ITEM in "${DAT_ARRAY_SORTED_NO_DUPES[@]}"; do
 echo "${DAT_ITEM}";
 done;
@@ -211,7 +211,7 @@ echo -e "\n\n";
 
 echo "\$ALL_ITEMS_ARRAY=(${ALL_ITEMS_ARRAY[@]})";
 
-unset ALL_ITEMS_SORTED_UNIQUE; ALL_ITEMS_SORTED_UNIQUE=($(echo "${ALL_ITEMS_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
+unset ALL_ITEMS_SORTED_UNIQUE; ALL_ITEMS_SORTED_UNIQUE=($(echo "${ALL_ITEMS_ARRAY[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
 
 echo -e "\n\n";
 

@@ -13,7 +13,7 @@ declare -a FINGERPRINTS_TO_REMOVE=( \
 "6543210ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456" \
 );
 
-UNIQUE_FINGERPRINTS_ARR=($(echo "${FINGERPRINTS_TO_REMOVE[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
+UNIQUE_FINGERPRINTS_ARR=($(echo "${FINGERPRINTS_TO_REMOVE[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
 for EACH_FINGERPRINT in "${UNIQUE_FINGERPRINTS_ARR[@]}"; do
 	if [ ${#EACH_FINGERPRINT} -ne 40 ]; then
 		echo "  Error: Fingerprint is not a 40-character long hash: \"${EACH_FINGERPRINT}\". Skipping...";

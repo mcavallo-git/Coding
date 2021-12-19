@@ -159,7 +159,7 @@ ARR_USERNAMES+=("nginx");
 ARR_USERNAMES+=("$(whoami)");
 ARR_USERNAMES+=("$(whoami)");
 
-ARR_UNIQUE_USERNAMES=($(echo "${ARR_USERNAMES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '));
+ARR_UNIQUE_USERNAMES=($(echo "${ARR_USERNAMES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
 
 for EACH_UNIQUE_USER in "${ARR_UNIQUE_USERNAMES[@]}"; do
 EACH_HOME_DIR=$(getent passwd "${EACH_UNIQUE_USER}" | cut --delimiter=: --fields=6); # $(eval echo ~${EACH_UNIQUE_USER});

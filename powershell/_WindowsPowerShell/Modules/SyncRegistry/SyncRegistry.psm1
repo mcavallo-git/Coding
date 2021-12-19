@@ -573,54 +573,6 @@ function SyncRegistry {
 		};
 
 
-		# Explorer Settings ('OneDrive' right-click context menu option(s))
-		$RegEdits += @{
-			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
-			Props=@(
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Cast to Device' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
-					Type="String";
-					Val_Default="";
-					Value="Play to menu";
-					Delete=$False;
-				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
-					Type="String";
-					Val_Default="";
-					Value="Play to menu";
-					Delete=$False;
-				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Move to OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$False;
-				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$False;
-				},
-				@{
-					Description="Explorer Settings - Enable [ hiding of 'Troubleshoot compatibility' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
-					Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
-					Type="String";
-					Val_Default="";
-					Value="";
-					Delete=$False;
-				}
-			)
-		};
-
-
 		# Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Script file extension (.ps1))
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellScript.1\Shell\Open\Command";
@@ -793,6 +745,54 @@ function SyncRegistry {
 					Val_Default="";
 					Value="";
 					Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+				}
+			)
+		};
+
+
+		# Explorer Settings (Blocked right-click context menu option(s))
+		$RegEdits += @{
+			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
+			Props=@(
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Cast to Device' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
+					Type="String";
+					Val_Default="";
+					Value="Play to menu";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Move to OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
+				},
+				@{
+					Description="Explorer Settings - Enable [ hiding of 'Troubleshoot compatibility' context menu option(s) in Windows Explorer's right-click dropdown menu ] by [ creating this property ]. Disable (show the context menu option(s)) by [ deleting this property ]";
+					Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
+					Type="String";
+					Val_Default="";
+					Value="";
+					Delete=$False;
 				}
 			)
 		};

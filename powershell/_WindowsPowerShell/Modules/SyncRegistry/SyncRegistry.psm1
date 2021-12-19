@@ -286,7 +286,7 @@ function SyncRegistry {
 					Type="String";
 					Val_Default="OneDrive - Personal";
 					Value="OneDrive - Personal";
-					Delete=$True;
+					Delete=$False;
 				}
 			)
 		};

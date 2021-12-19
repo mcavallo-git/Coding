@@ -1152,7 +1152,6 @@ function SyncRegistry {
 		};
 
 
-
 		# SmartScreen for Microsoft Edge, Microsoft Store Apps
 		$RegEdits += @{
 			Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System";

@@ -29,7 +29,7 @@ $EventLogs_LogonLogoffs[0] | Format-List; <# Show the first item in the returned
 
 If ($True) {
 
-	$Logfile = (("${HOME}\Desktop\Logon-Logoffs")+(${Env:COMPUTERNAME})+("_")+(Get-Date -UFormat "%Y-%m-%d_%H-%M-%S")+(".log"));
+	$Logfile = "${HOME}\Desktop\Logon-Logoffs${Env:COMPUTERNAME}_$(Get-Date -UFormat "%Y-%m-%d_%H-%M-%S").log";
 
 	$AllLogTimestamps = @();
 

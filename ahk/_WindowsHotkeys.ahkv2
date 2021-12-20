@@ -2449,9 +2449,10 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			EachMonitor_HalfHeight := (EachMonitor_Height / 2)
 			EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
 			EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
-			if( Win_MinMaxState != 0 ) {
-				; Window is Minimized --> Restore it
+			If (Win_MinMaxState!=0) {
+				; Window is not restored --> Restore it
 				WinRestore(WinTitle)
+				Win_MinMaxState := WinGetMinMax(WinTitle)
 			}
 			If (Destination_Direction=="Maximized") {
 				; Toggle Restore/Maximized
@@ -2529,10 +2530,10 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		MsgBox % Error_Message
 	} Else {
 		If (DebugMode == 1) {
-			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( " WinTitle " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
+			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( `"%WinTitle%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
 		}
 		; Move the window to specified x/y position and resize it to have specified width/height
-		WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
+		WinMove("%WinTitle%",, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
 	}
 	Return
 }
@@ -2666,20 +2667,22 @@ Open_Chrome() {
 		GetWindowSpecs(WinTitle)
 		Sleep 500
 	}
-	If (!WinExist(WinTitle)) {
-		If (FullPath_RunExe != "") {
+	If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
+		TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
+		ShowTooltip(TextToolTip,5000)
+
+	} Else {
+		If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
 			;
 			; Run a NON-admin version of Google Chrome
 			;
 			RunExe_NON_Admin(FullPath_RunExe)
-		} Else {
-			TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
-			ShowTooltip(TextToolTip,5000)
+			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
+		
+		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
+		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
-	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
-	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2744,7 +2747,8 @@ Open_VisualStudioCode() {
 	Exe_Args:=""
 	; ------------------------------
 	Win_ahk_exe := "Code.exe"
-	WinTitle := "ahk_exe %Win_ahk_exe%"
+	WinTitle := WinGetTitle("ahk_exe %Win_ahk_exe%")
+	; WinTitle := " - Visual Studio Code"
 	WinWait_TimeoutSeconds := 5
 	If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)

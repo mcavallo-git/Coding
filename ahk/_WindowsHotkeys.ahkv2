@@ -2542,7 +2542,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		TextToolTip := TextToolTip "    |--> Script:  " A_ScriptFullPath "   " "`n"
 		TextToolTip := TextToolTip "                 " "`n"
 		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"A`", `"`" )" "   " "`n"
-		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"CurrentMonitor`" , `"A`", `"`" )" "   " "`n"
+		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
 		TextToolTip := TextToolTip "                 "
 		ShowTooltip(TextToolTip,60000)
 	} Else {

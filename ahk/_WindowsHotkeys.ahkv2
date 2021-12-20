@@ -2418,10 +2418,14 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	} Else {
 		; Get the window's current xpos, ypos, width & height
 		WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
-		; Check if window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height)
+		; Check if window is Maximized/Minimized, then prep accordingly
 		Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-		If ((Win_MinMaxState==-1) || ((Win_Width<=0) && (Win_Height<=0))) {
-			; Window is Minimized --> Restore it
+		If (Win_MinMaxState==1) {
+			; Window is Maximized --> Adjust its xpos and ypos by +8 (as WIndows (for some reason) sets the top-left coords of maximized windows to -8,-8 x,y relative to the top-left coords of the monitor it's on)
+			Win_XPos := Win_XPos + 8
+			Win_YPos := Win_YPos + 8
+		} Else If ((Win_MinMaxState==-1) || ((Win_MinMaxState!=1) && (Win_Width<=0) && (Win_Height<=0))) {
+			; Window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height) --> Restore it
 			WinRestore(WinTitle, WinText)
 			Sleep 750
 			Win_MinMaxState := WinGetMinMax(WinTitle, WinText)

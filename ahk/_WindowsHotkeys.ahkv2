@@ -878,12 +878,12 @@ AppsKey & ]::
 		CurrentVerticalResolution := StrReplace(StrReplace(StrReplace(CurrentVerticalResolution, "`n", ""), "`v", ""), "`r", "")
 		; Read the registry to check for display scaling
 		KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
-		PropertyName := "DpiScalingVer"
-			RegRead, DpiScalingVer, %KeyName%, %PropertyName%
-		PropertyName := "Win8DpiScaling"
-			RegRead, Win8DpiScaling, %KeyName%, %PropertyName%
-		PropertyName := "DpiScalingVer"
-			RegRead, LogPixels, %KeyName%, %PropertyName%
+			PropertyName := "DpiScalingVer"
+				RegRead, DpiScalingVer, %KeyName%, %PropertyName%
+			PropertyName := "Win8DpiScaling"
+				RegRead, Win8DpiScaling, %KeyName%, %PropertyName%
+			PropertyName := "DpiScalingVer"
+				RegRead, LogPixels, %KeyName%, %PropertyName%
 		; ------------------------------------------------------------
 		;
 		; DpiScalingVer    ; originally 1000

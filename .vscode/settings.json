@@ -39,7 +39,9 @@
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
+	"ahk++.compilePath": "",
 	"ahk++.enableIntellisense": false,
+	"ahk++.executePath": "",
 	"ahk++.helpPath": "",
 	"breadcrumbs.enabled": true,
 	"breadcrumbs.filePath": "on",

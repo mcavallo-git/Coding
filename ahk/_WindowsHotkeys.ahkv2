@@ -2529,7 +2529,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		MsgBox % Error_Message
 	} Else {
 		If (DebugMode == 1) {
-			MsgBox % "Matched_MonitorNumber=[" Each_MonitorNumber "]" "`n" "WinMove(" WinTitle ",, " WinMove_XPos ", " WinMove_YPos ", " WinMove_Width ", " WinMove_Height ")"
+			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( " WinTitle " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
 		}
 		; Move the window to specified x/y position and resize it to have specified width/height
 		WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
@@ -2697,6 +2697,10 @@ Open_RoboformPasswordGenerator() {
 	WinTitle := "Password Generator - RoboForm"
 	WinTitle_Login := "RoboForm Log In"
 	WinWait_TimeoutSeconds := 5
+	If (DebugMode == 1) {
+		GetWindowSpecs(WinTitle)
+		Sleep 500
+	}
 	If (WinExist(WinTitle_Login)) {
 		WinActivate, %WinTitle_Login%
 	} Else If (WinExist(WinTitle)) {
@@ -2742,6 +2746,10 @@ Open_VisualStudioCode() {
 	Win_ahk_exe := "Code.exe"
 	WinTitle := "ahk_exe %Win_ahk_exe%"
 	WinWait_TimeoutSeconds := 5
+	If (DebugMode == 1) {
+		GetWindowSpecs(WinTitle)
+		Sleep 500
+	}
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
 		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
@@ -2784,6 +2792,10 @@ Open_WindowsTerminal() {
 	Win_ahk_exe := "WindowsTerminal.exe"
 	WinTitle := "ahk_exe %Win_ahk_exe%"
 	WinWait_TimeoutSeconds := 5
+	If (DebugMode == 1) {
+		GetWindowSpecs(WinTitle)
+		Sleep 500
+	}
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
 		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")

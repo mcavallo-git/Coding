@@ -2430,9 +2430,15 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
 		Destination_MonitorNum:=1
 	}
+	Do_Maximized := False
+	Do_Restored := False
 	Loop % Monitor_Count {
+
 		Each_MonitorNumber := A_Index
+
 		MonitorGetWorkArea % Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+
+		; Determine if the current iteration's monitor is the destination monitor
 		MoveTo_ThisMonitor := False
 		If (Destination_MonitorNum=="CurrentMonitor") {
 			; If argument "Destination_MonitorNum" is set to its default of "CurrentMonitor", then use the target window's center x/y position to determine which monitor it will end up on
@@ -2446,6 +2452,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 				MoveTo_ThisMonitor := True
 			}
 		}
+
 		If (MoveTo_ThisMonitor==True) {
 			; Monitor is to be used as the window's destination
 			Matched_MonitorNumber := Each_MonitorNumber
@@ -2457,26 +2464,19 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
 			If (Destination_Direction=="Maximized") {
 				; Set window state to "Maximized"
-				Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				If (Win_MinMaxState!=1) {
-					; Window is not maximized --> Maximize it
-					WinMaximize(WinTitle, WinText)
-					Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				}
+				Do_Maximized := True
+				WinMove_XPos := EachMonitor_LeftCoord
+				WinMove_YPos := EachMonitor_TopCoord
+				WinMove_Width := EachMonitor_Width
+				WinMove_Height := EachMonitor_Height
 			} Else If (Destination_Direction=="Restored") {
 				; Set window state to "Restored"
-				Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				If (Win_MinMaxState!=0) {
-					; Window is restored --> Restore it
-					WinRestore(WinTitle, WinText)
-					Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				}
+				Do_Restored := True
+				WinMove_XPos := Win_XPos
+				WinMove_YPos := Win_YPos
+				WinMove_Width := Win_Width
+				WinMove_Height := Win_Height
 			} Else {
-				If (Win_MinMaxState==1) {
-					; Window is maximized --> Restore it (in preparation for resizing)
-					WinRestore(WinTitle, WinText)
-					Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				}
 				Destination_Combined := ( Destination_Direction "-" Destination_Size )
 				If (Destination_Combined=="Left-Half") {
 					; Left Half
@@ -2546,10 +2546,25 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		ShowTooltip(TextToolTip,60000)
 	} Else {
 		If (DebugMode == 1) {
-			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
+			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
 		}
+		; If (Do_Maximized==False) {
+		; 	Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
+		; 	If (Win_MinMaxState==1) {
+		; 		; Window is maximized --> Restore it (in preparation for resizing)
+		; 		WinRestore(WinTitle, WinText)
+		; 	}
+		; }
 		; Move the window to specified x/y position and resize it to have specified width/height
 		WinMove("%WinTitle%", "%WinText%", WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
+		If (Do_Maximized==True) {
+			; Maximize the Window on the target monitor
+			Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
+			If (Win_MinMaxState!=1) {
+				; Window is not maximized --> Maximize it
+				WinMaximize(WinTitle, WinText)
+			}
+		}
 	}
 	Return
 }
@@ -2584,9 +2599,7 @@ Open_Chrome() {
 		ShowTooltip(TextToolTip,5000)
 	} Else {
 		If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
-			;
-			; Run a NON-admin version of Google Chrome
-			;
+			; Run a NON-admin version of target exe
 			RunExe_NON_Admin(FullPath_RunExe)
 			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
@@ -2735,13 +2748,7 @@ Open_VisualStudioCode() {
 	; 	}
 	; } Else {
 	If (!WinExist(WinTitle)) {
-		;
-		; Run a NON-admin version of Visual Studio Code (VS Code)
-		;  |
-		;  |--> Otherwise the functionality of opening files directly from windows explorer into VS code is entirely lost/broken (while VS
-		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to
-		;       open file in admin instance of code.exe', etc.
-		;
+		; Run a NON-admin version of target exe
 		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
@@ -2773,18 +2780,17 @@ Open_WindowsTerminal() {
 		GetWindowSpecs(WinTitle)
 		Sleep 500
 	}
-	If (WinExist(WinTitle)) {
-		; If program is running but its window is minimized/not-shown, then restore it
-		Win_size_state := WinGet_size_state(WinTitle, WinText)
-		WinGetPos(xpos, ypos, Win_width, Win_height, WinTitle, WinTitle, WinText)
-		If ((Win_size_state=="minimized") || ((Win_width<=0) && (Win_height<=0))) {
-			WinRestore(WinTitle)
-			Sleep 500
-		}
-	} Else {
-		;
-		; Run a NON-admin version of Windows Terminal
-		;
+	; If (WinExist(WinTitle)) {
+	; 	; If program is running but its window is minimized/not-shown, then restore it
+	; 	Win_size_state := WinGet_size_state(WinTitle, WinText)
+	; 	WinGetPos(xpos, ypos, Win_width, Win_height, WinTitle, WinTitle, WinText)
+	; 	If ((Win_size_state=="minimized") || ((Win_width<=0) && (Win_height<=0))) {
+	; 		WinRestore(WinTitle)
+	; 		Sleep 500
+	; 	}
+	; } Else {
+	If (!WinExist(WinTitle)) {
+		; Run a NON-admin version of target exe
 		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}

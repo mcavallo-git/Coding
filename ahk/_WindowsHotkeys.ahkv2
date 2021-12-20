@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2419,27 +2419,30 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	WinMove_YPos := -1
 	WinMove_Width := -1
 	WinMove_Height := -1
+	Matched_MonitorNumber := -1
 	If ((Destination_MonitorNum!="CurrentMonitor") && ("%Destination_MonitorNum%"!="1") && (Monitor_Count==1)) {
 		; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
 		Destination_MonitorNum:=1
 	}
 	Loop % Monitor_Count {
-		EachMonitor_Number := A_Index
-		MonitorGetWorkArea % EachMonitor_Number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+		Each_MonitorNumber := A_Index
+		MonitorGetWorkArea % Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
 		MoveTo_ThisMonitor := False
 		If (Destination_MonitorNum=="CurrentMonitor") {
 			; If argument "Destination_MonitorNum" is set to its default of "CurrentMonitor", then use the target window's center x/y position to determine which monitor it will end up on
 			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+				; Center of target window is within the bounds of the current monitor's work area
 				MoveTo_ThisMonitor := True
 			}
 		} Else {
 			; If argument "Destination_MonitorNum" is set to anything other than "CurrentMonitor", use it as a monitor number to match-to
-			If (Destination_MonitorNum == EachMonitor_Number) {
+			If (Destination_MonitorNum == Each_MonitorNumber) {
 				MoveTo_ThisMonitor := True
 			}
 		}
 		If (MoveTo_ThisMonitor==True) {
-			; Center of window is within the bounds of the current monitor
+			; Monitor is to be used as the destination target for the window
+			Matched_MonitorNumber := Each_MonitorNumber
 			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
 			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
 			EachMonitor_HalfWidth := (EachMonitor_Width / 2)
@@ -2526,7 +2529,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		MsgBox % Error_Message
 	} Else {
 		If (DebugMode == 1) {
-			MsgBox % "EachMonitor_Number=[%EachMonitor_Number%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
+			MsgBox % "Each_MonitorNumber=[%Each_MonitorNumber%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
 		}
 		; Move the window to specified x/y position and resize it to have specified width/height
 		WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)

@@ -1492,11 +1492,11 @@ function SyncRegistry {
 
 			# Windows/Microsoft Defender - Disable 'Send file samples when further analysis is required'
 			$RegEdits += @{
-				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SubmitSamplesConsent";
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
 				Props=@(
 					@{
 						Description="0=[Always prompt], 1=[Send safe samples], 2=[Never send], 3=[Send all samples] - This policy setting configures behaviour of samples submission when opt-in for MAPS telemetry is set. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SubmitSamplesConsent";
-						Name="Spynet";
+						Name="SubmitSamplesConsent ";
 						Type="DWord";
 						Value=2;
 						Delete=$False;

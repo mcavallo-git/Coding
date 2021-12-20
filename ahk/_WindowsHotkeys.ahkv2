@@ -2116,7 +2116,7 @@ GetWindowSpecs(WinTitle:="A") {
 	Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
 	Win_control_names := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
 	Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
-	WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
+	WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
 
 	; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
 	Win_longest_field := 0
@@ -2201,11 +2201,11 @@ GetWindowSpecs(WinTitle:="A") {
 	LV_Add("", "Win_size_state", Win_size_state)
 	; LV_Add("", "xpos", xpos)
 	; LV_Add("", "ypos", ypos)
-	; LV_Add("", "Width", Win_Width)
-	; LV_Add("", "height", Win_Height)
+	; LV_Add("", "Width", Win_width)
+	; LV_Add("", "height", Win_height)
 	LV_Add("", "xpos, ypos", ( xpos ", " ypos ) )
-	LV_Add("", "width, height", ( Win_Width ", " Win_Height ) )
-	; LV_Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_Width%,%Win_Height%")
+	LV_Add("", "width, height", ( Win_width ", " Win_height ) )
+	; LV_Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_width%,%Win_height%")
 
 	; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
 	LV_Add("", "", "")
@@ -2406,95 +2406,90 @@ Monitor_ShowScreenSaver() {
 ;
 MoveIt(Q:=4, WinTitle:="A") {
 	; Get the windows pos
-	WinGetPos(X, Y, W, H, WinTitle)
-	M := WinGetMinMax(WinTitle)
+	WinGetPos(Win_xpos, Win_ypos, Win_width, Win_height, WinTitle)
+	Win_min_max_state := WinGetMinMax(WinTitle)
 	; Calculate the top center edge
-	CX := X + W/2
-	CY := Y + 20  ; Compensate for the height of the taskbar (20px)
+	Win_center_xpos := Win_xpos + Win_width/2
+	Win_center_ypos := Win_ypos + 20  ; Compensate for the height of the taskbar (20px)
 	Count := MonitorGetCount()
-	num := 1
 	Loop % Count
 	{
-		MonitorGetWorkArea % num, MonLeft, MonTop, MonRight, MonBottom  ; Checks if the specified monitor exists and optionally retrieves the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-		if( CX >= MonLeft && CX <= MonRight && CY >= MonTop && CY <= MonBottom ) {
-			MW := (MonRight - MonLeft)
-			MH := (MonBottom - MonTop)
+		Monitor_number := A_Index
+		msgbox % "A_Index=[%A_Index%]" "`n" "Monitor_number=[%Monitor_number%]"
+		MonitorGetWorkArea % Monitor_number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+		if((Win_center_xpos>=EachMonitor_LeftCoord) && (Win_center_xpos<=EachMonitor_RightCoord) && (Win_center_ypos>=EachMonitor_TopCoord) && (Win_center_ypos<=EachMonitor_BottomCoord)) {
+			MW := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
+			MH := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
 			MHW := (MW / 2)
 			MHH := (MH / 2)
-			MMX := MonLeft + MHW
-			MMY := MonTop + MHH
-			if( M != 0 ) {
-				WinRestore,A
+			MMX := EachMonitor_LeftCoord + MHW
+			MMY := EachMonitor_TopCoord + MHH
+			if( Win_min_max_state != 0 ) {
+				; Window is minimized --> Restore it
+				WinRestore(WinTitle)
 			}
-			if( Q == 5 ) {
-				; toggle restore/maximized
-				if( M == 0 ) {
-					WinMaximize,A
+			if( Q == 5 ) {  ; MoveIt(5) toggle restore/maximized
+				if( Win_min_max_state == 0 ) {
+					WinMaximize(WinTitle)
 				} else {
-					WinRestore,A
+					WinRestore(WinTitle)
 				}
 			} Else {
-				if( Q == 1 ) {
-					; bottom-left quadrant
-					WinMove_X := MonLeft
-					WinMove_Y := MMY
+				if( Q == 1 ) {  ; MoveIt(1) - bottom-left quadrant
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := MMY
 					WinMove_Width := MHW
 					WinMove_Height := MHH
 				}
-				if( Q == 2 ) {
-					; bottom half
-					WinMove_X := MonLeft
-					WinMove_Y := MMY
+				if( Q == 2 ) {  ; MoveIt(2) - bottom half
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := MMY
 					WinMove_Width := MW
 					WinMove_Height := MHH
 				}
-				if( Q == 3 ) {
-					; bottom-right quadrant
-					WinMove_X := MMX
-					WinMove_Y := MMY
+				if( Q == 3 ) {  ; MoveIt(___) - bottom-right quadrant
+					WinMove_XPos := MMX
+					WinMove_YPos := MMY
 					WinMove_Width := MHW
 					WinMove_Height := MHH
 				}
-				if( Q == 4 ) {
-					; left half
-					WinMove_X := MonLeft
-					WinMove_Y := MonTop
+				if( Q == 4 ) {  ; MoveIt(___) - left half
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := EachMonitor_TopCoord
 					WinMove_Width := MHW
 					WinMove_Height := MH
 				}
-				if( Q == 6 ) {
-					; right half
-					WinMove_X := MMX
-					WinMove_Y := MonTop
+				if( Q == 6 ) {  ; MoveIt(___) - right half
+					WinMove_XPos := MMX
+					WinMove_YPos := EachMonitor_TopCoord
 					WinMove_Width := MHW
 					WinMove_Height := MH
 				}
-				if( Q == 7 ) {
-					; top-left quadrant
-					WinMove_X := MonLeft
-					WinMove_Y := MonTop
+				if( Q == 7 ) {  ; MoveIt(___) - top-left quadrant
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := EachMonitor_TopCoord
 					WinMove_Width := MHW
 					WinMove_Height := MHH
 				}
-				if( Q == 8 ) {
-					; top half
-					WinMove_X := MonLeft
-					WinMove_Y := MonTop
+				if( Q == 8 ) {  ; MoveIt(___) - top half
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := EachMonitor_TopCoord
 					WinMove_Width := MW
 					WinMove_Height := MHH
 				}
-				if( Q == 9 ) {
-					; top-right quadrant
-					WinMove_X := MMX
-					WinMove_Y := MonTop
+				if( Q == 9 ) {  ; MoveIt(___) - top-right quadrant
+					WinMove_XPos := MMX
+					WinMove_YPos := EachMonitor_TopCoord
 					WinMove_Width := MHW
 					WinMove_Height := MHH
 				}
-				WinMove(WinTitle,, WinMove_X, WinMove_Y, WinMove_Width, WinMove_Height)  ; Move the window to specified x/y position and resize it to have specified width/height
+				MsgBox % "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
+
+				WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)  ; Move the window to specified x/y position and resize it to have specified width/height
+
 			}
 			Break
 		}
-		num += 1
 	}
 	Return
 }
@@ -2701,13 +2696,13 @@ Open_VisualStudioCode() {
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
 		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
-		WinGetPos(xpos, ypos, Win_Width, Win_Height, "ahk_id %Win_ahk_id%")
-		If ((Win_size_state == "minimized") || ((Win_Width == 0) && (Win_Height == 0))) {
+		WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
+		If ((Win_size_state == "minimized") || ((Win_width == 0) && (Win_height == 0))) {
 			; WinRestore(WinTitle)
 			; Sleep 500
-			WinActivate, %WinTitle%
-			MoveIt(4)
 		}
+		WinActivate, %WinTitle%
+		MoveIt(4)
 	} Else {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)
@@ -4521,25 +4516,21 @@ BrightnessSetter_new() {
 ;
 ; ------------------------------------------------------------
 ;
-If (False) {
-
-	EXAMPLE_ControlClick() {
-		;;;
-		;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
-		;;;
-		CoordMode, Mouse, Screen
-		SetDefaultMouseSpeed, 0
-		SetControlDelay, -1
-		; WinGetTitle, WinTitle, A
-		WinTitle := "NoxPlayer"
-		xpos := (A_ScreenWidth - 20)
-		ypos := 315
-		ControlClick, x%xpos% y%ypos%, %WinTitle%
-	}
-
-}
-
-
+; EXAMPLE_ControlClick() {
+; 	;;;
+; 	;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+; 	;;;
+; 	CoordMode, Mouse, Screen
+; 	SetDefaultMouseSpeed, 0
+; 	SetControlDelay, -1
+; 	; WinGetTitle, WinTitle, A
+; 	WinTitle := "NoxPlayer"
+; 	xpos := (A_ScreenWidth - 20)
+; 	ypos := 315
+; 	ControlClick, x%xpos% y%ypos%, %WinTitle%
+; }
+;
+; ------------------------------------------------------------
 ;
 ; MsgBox has tons of options for confirmations on popups ( Manual @ https://www.autohotkey.com/docs/commands/MsgBox.htm )
 ; ...::
@@ -4604,46 +4595,43 @@ If (False) {
 ; 	Return
 ; }
 ; ------------------------------------------------------------
-
-; Example:  Custom Popups
-If (False) {
-
-	CustomPopupButtons_Demo() {
-
-		SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
-		; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
-
-		MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
-
-		If (A_MsgBoxResult = "Yes") {
-			TrayTip, AHK, % ( "Leftmost Button Selected" )  ; Toast Notification
-		}
-		If (A_MsgBoxResult = "No") {
-			TrayTip, AHK, % ( "Center Button Selected" )  ; Toast Notification
-		}
-		If (A_MsgBoxResult = "Cancel") {
-			TrayTip, AHK, % ( "Rightmost Button Selected" )  ; Toast Notification
-		}
-
-		Return
-
-	}
-
-	CustomMsgboxButtons_UNIQUE_NAME_HERE() {
-		If (WinExist(Popup_MsgBox_WindowTitle)) {
-			Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
-		}
-		SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 
-		WinActivate
-		ControlSetText, Button1, &LEFT_BUTTON
-		ControlSetText, Button2, &CENTER_BUTTON
-		ControlSetText, Button3, &RIGHT_BUTTON
-		Return
-	}
-
-}
-
-
+;
+; ;;; Example:  Custom Popups
+; 
+; CustomPopupButtons_Demo() {
+; 
+; 	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
+; 	; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
+; 
+; 	MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
+; 
+; 	If (A_MsgBoxResult = "Yes") {
+; 		TrayTip, AHK, % ( "Leftmost Button Selected" )  ; Toast Notification
+; 	}
+; 	If (A_MsgBoxResult = "No") {
+; 		TrayTip, AHK, % ( "Center Button Selected" )  ; Toast Notification
+; 	}
+; 	If (A_MsgBoxResult = "Cancel") {
+; 		TrayTip, AHK, % ( "Rightmost Button Selected" )  ; Toast Notification
+; 	}
+; 
+; 	Return
+; 
+; }
+; 
+; CustomMsgboxButtons_UNIQUE_NAME_HERE() {
+; 	If (WinExist(Popup_MsgBox_WindowTitle)) {
+; 		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+; 	}
+; 	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 
+; 	WinActivate
+; 	ControlSetText, Button1, &LEFT_BUTTON
+; 	ControlSetText, Button2, &CENTER_BUTTON
+; 	ControlSetText, Button3, &RIGHT_BUTTON
+; 	Return
+; }
+; 
+; 
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/

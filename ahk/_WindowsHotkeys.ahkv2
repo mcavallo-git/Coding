@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2517,17 +2517,18 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	}
 	; Check for error(s)
 	If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
-		Error_Message := ""
-		Error_Message := Error_Message "Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`""
-		Error_Message := Error_Message "`n" " |"
-		Error_Message := Error_Message "`n" " |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNum "`" , `"" WinTitle "`" )"
-		Error_Message := Error_Message "`n" " |"
-		Error_Message := Error_Message "`n" " |--> Script:  " A_ScriptFullPath
-		Error_Message := Error_Message "`n" "`n"
-		Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"" WinTitle "`" )"
-		Error_Message := Error_Message "`n"
-		Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"CurrentMonitor`" , `"" WinTitle "`" )"
-		MsgBox % Error_Message
+		TextToolTip := ""
+		TextToolTip := TextToolTip "                 " "`n"
+		TextToolTip := TextToolTip "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
+		TextToolTip := TextToolTip "    |" "`n"
+		TextToolTip := TextToolTip "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNum "`" , `"" WinTitle "`" )" "   " "`n"
+		TextToolTip := TextToolTip "    |" "`n"
+		TextToolTip := TextToolTip "    |--> Script:  " A_ScriptFullPath "   " "`n"
+		TextToolTip := TextToolTip "                 " "`n"
+		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"" WinTitle "`" )" "   " "`n"
+		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"CurrentMonitor`" , `"" WinTitle "`" )" "   " "`n"
+		TextToolTip := TextToolTip "                 "
+		ShowTooltip(TextToolTip,60000)
 	} Else {
 		If (DebugMode == 1) {
 			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( `"%WinTitle%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
@@ -2660,17 +2661,17 @@ Open_Chrome() {
 		FullPath_RunExe := FullPath_RunExe_x86
 	}
 	Win_ahk_exe := "chrome.exe"
-	WinTitle := "ahk_exe %Win_ahk_exe%"
-	; WinTitle := " - Google Chrome"
+	WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
+	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
+	WinTitle := " - Google Chrome"
 	WinWait_TimeoutSeconds := 5
-	If (DebugMode == 1) {
+	; If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
-		Sleep 500
-	}
+		; Sleep 500
+	; }
 	If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
-		TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
+		TextToolTip := % "Chrome executable not found (neither x64 or x86 version)"
 		ShowTooltip(TextToolTip,5000)
-
 	} Else {
 		If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
 			;
@@ -2679,7 +2680,6 @@ Open_Chrome() {
 			RunExe_NON_Admin(FullPath_RunExe)
 			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
-		
 		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
 		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}

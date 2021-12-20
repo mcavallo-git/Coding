@@ -2414,6 +2414,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	If ((Win_MinMaxState==-1) || ((Win_Width<=0) && (Win_Height<=0))) {
 		; Window is Minimized (e.g. not shown & cant get its width, height, etc.) --> Restore it
 		WinRestore(WinTitle)
+		Sleep 500
 		Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 		WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
 	}
@@ -2557,6 +2558,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		; }
 		; Move the window to specified x/y position and resize it to have specified width/height
 		WinMove("%WinTitle%", "%WinText%", WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
+		Sleep 500
 		If (Do_Maximized==True) {
 			; Maximize the Window on the target monitor
 			Win_MinMaxState := WinGetMinMax(WinTitle, WinText)

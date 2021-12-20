@@ -1649,8 +1649,8 @@ NumLock::
 ;   |--> Maximize active window (if not maximized, already)
 ;
 ActiveWindow_Maximize() {
-	Win_min_max_state := WinGetMinMax("A")
-	If (Win_min_max_state<=0) { ; Window is not maximized - maximize it
+	Win_MinMaxState := WinGetMinMax("A")
+	If (Win_MinMaxState<=0) { ; Window is not maximized - maximize it
 		WinMaximize "A"
 	}
 	Return
@@ -2404,89 +2404,113 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-MoveIt(Q:=4, WinTitle:="A") {
+MoveIt(Destination_Direction:="Left", Destination_Size:="Half", WinTitle:="A") {
+	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized" ]
+	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
+	Global DebugMode
 	; Get the windows pos
-	WinGetPos(Win_xpos, Win_ypos, Win_width, Win_height, WinTitle)
-	Win_min_max_state := WinGetMinMax(WinTitle)
+	WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle)
+	Win_MinMaxState := WinGetMinMax(WinTitle)
 	; Calculate the top center edge
-	Win_center_xpos := Win_xpos + Win_width/2
-	Win_center_ypos := Win_ypos + 20  ; Compensate for the height of the taskbar (20px)
+	Win_Center_XPos := Win_XPos + Win_Width/2
+	Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
 	Count := MonitorGetCount()
-	Loop % Count
-	{
-		Monitor_number := A_Index
-		msgbox % "A_Index=[%A_Index%]" "`n" "Monitor_number=[%Monitor_number%]"
-		MonitorGetWorkArea % Monitor_number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-		if((Win_center_xpos>=EachMonitor_LeftCoord) && (Win_center_xpos<=EachMonitor_RightCoord) && (Win_center_ypos>=EachMonitor_TopCoord) && (Win_center_ypos<=EachMonitor_BottomCoord)) {
-			MW := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
-			MH := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
-			MHW := (MW / 2)
-			MHH := (MH / 2)
-			MMX := EachMonitor_LeftCoord + MHW
-			MMY := EachMonitor_TopCoord + MHH
-			if( Win_min_max_state != 0 ) {
-				; Window is minimized --> Restore it
+	Loop % Count {
+		Monitor_Number := A_Index
+		MonitorGetWorkArea % Monitor_Number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+		If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+			; Center of window is within the bounds of the current monitor
+			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
+			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
+			EachMonitor_HalfWidth := (EachMonitor_Width / 2)
+			EachMonitor_HalfHeight := (EachMonitor_Height / 2)
+			EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
+			EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
+			if( Win_MinMaxState != 0 ) {
+				; Window is Minimized --> Restore it
 				WinRestore(WinTitle)
 			}
-			if( Q == 5 ) {  ; MoveIt(5) toggle restore/maximized
-				if( Win_min_max_state == 0 ) {
+			WinMove_XPos := -1
+			WinMove_YPos := -1
+			WinMove_Width := -1
+			WinMove_Height := -1
+			If (Destination_Direction=="Maximized") {
+				; Toggle Restore/Maximized
+				If (Win_MinMaxState==0) {
 					WinMaximize(WinTitle)
-				} else {
+				} Else {
 					WinRestore(WinTitle)
 				}
 			} Else {
-				if( Q == 1 ) {  ; MoveIt(1) - bottom-left quadrant
-					WinMove_XPos := EachMonitor_LeftCoord
-					WinMove_YPos := MMY
-					WinMove_Width := MHW
-					WinMove_Height := MHH
-				}
-				if( Q == 2 ) {  ; MoveIt(2) - bottom half
-					WinMove_XPos := EachMonitor_LeftCoord
-					WinMove_YPos := MMY
-					WinMove_Width := MW
-					WinMove_Height := MHH
-				}
-				if( Q == 3 ) {  ; MoveIt(___) - bottom-right quadrant
-					WinMove_XPos := MMX
-					WinMove_YPos := MMY
-					WinMove_Width := MHW
-					WinMove_Height := MHH
-				}
-				if( Q == 4 ) {  ; MoveIt(___) - left half
+				Destination_Combined := ( Destination_Direction "-" Destination_Size )
+				If (Destination_Combined=="Left-Half") {
+					; Left Half
 					WinMove_XPos := EachMonitor_LeftCoord
 					WinMove_YPos := EachMonitor_TopCoord
-					WinMove_Width := MHW
-					WinMove_Height := MH
-				}
-				if( Q == 6 ) {  ; MoveIt(___) - right half
-					WinMove_XPos := MMX
-					WinMove_YPos := EachMonitor_TopCoord
-					WinMove_Width := MHW
-					WinMove_Height := MH
-				}
-				if( Q == 7 ) {  ; MoveIt(___) - top-left quadrant
+					WinMove_Width := EachMonitor_HalfWidth
+					WinMove_Height := EachMonitor_Height
+				} Else If (Destination_Combined=="Right-Half") {
 					WinMove_XPos := EachMonitor_LeftCoord
 					WinMove_YPos := EachMonitor_TopCoord
-					WinMove_Width := MHW
-					WinMove_Height := MHH
-				}
-				if( Q == 8 ) {  ; MoveIt(___) - top half
+					WinMove_Width := EachMonitor_HalfWidth
+					WinMove_Height := EachMonitor_Height
+				} Else If (Destination_Combined=="Top-Half") {
+					; Top Half
 					WinMove_XPos := EachMonitor_LeftCoord
 					WinMove_YPos := EachMonitor_TopCoord
-					WinMove_Width := MW
-					WinMove_Height := MHH
-				}
-				if( Q == 9 ) {  ; MoveIt(___) - top-right quadrant
-					WinMove_XPos := MMX
+					WinMove_Width := EachMonitor_Width
+					WinMove_Height := EachMonitor_HalfHeight
+				} Else If (Destination_Combined=="Bottom-Half") {
+					; Bottom Half
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := EachMonitor_Center_YPos
+					WinMove_Width := EachMonitor_Width
+					WinMove_Height := EachMonitor_HalfHeight
+				} Else If ((Destination_Combined=="Top-Left") || (Destination_Combined=="Left-Top")) {
+					; Top-Left Quadrant
+					WinMove_XPos := EachMonitor_LeftCoord
 					WinMove_YPos := EachMonitor_TopCoord
-					WinMove_Width := MHW
-					WinMove_Height := MHH
+					WinMove_Width := EachMonitor_HalfWidth
+					WinMove_Height := EachMonitor_HalfHeight
+				} Else If ((Destination_Combined=="Bottom-Left") || (Destination_Combined=="Left-Bottom")) {
+					; Bottom-Left Quadrant
+					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_YPos := EachMonitor_Center_YPos
+					WinMove_Width := EachMonitor_HalfWidth
+					WinMove_Height := EachMonitor_HalfHeight
+				} Else If ((Destination_Combined=="Top-Right") || (Destination_Combined=="Right-Top")) {
+					; Top-Right Quadrant
+					WinMove_XPos := EachMonitor_Center_XPos
+					WinMove_YPos := EachMonitor_TopCoord
+					WinMove_Width := EachMonitor_HalfWidth
+					WinMove_Height := EachMonitor_HalfHeight
+				} Else If ((Destination_Combined=="Bottom-Right") || (Destination_Combined=="Right-Bottom")) {
+					; Bottom-Right Quadrant
+					WinMove_XPos := EachMonitor_Center_XPos
+					WinMove_YPos := EachMonitor_Center_YPos
+					WinMove_Width := EachMonitor_HalfWidth
+					WinMove_Height := EachMonitor_HalfHeight
 				}
-				MsgBox % "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
-
-				WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)  ; Move the window to specified x/y position and resize it to have specified width/height
-
+			}
+			; Check for error(s)
+			If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
+				Error_Message := ""
+				Error_Message := Error_Message "Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`""
+				Error_Message := Error_Message "`n" " |"
+				Error_Message := Error_Message "`n" " |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" WinTitle "`" )"
+				Error_Message := Error_Message "`n" " |"
+				Error_Message := Error_Message "`n" " |--> Script:  " A_ScriptFullPath
+				Error_Message := Error_Message "`n" "`n"
+				Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"" WinTitle "`" )"
+				Error_Message := Error_Message "`n"
+				Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"" WinTitle "`" )"
+				MsgBox % Error_Message
+			} Else {
+				If (DebugMode == 1) {
+					MsgBox % "Monitor_Number=[%Monitor_Number%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
+				}
+				; Move the window to specified x/y position and resize it to have specified width/height
+				WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
 			}
 			Break
 		}
@@ -2702,7 +2726,7 @@ Open_VisualStudioCode() {
 			; Sleep 500
 		}
 		WinActivate, %WinTitle%
-		MoveIt(4)
+		MoveIt("Left","Half",WinTitle)  ; left half
 	} Else {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)
@@ -3623,13 +3647,13 @@ WinGet_is_win10_app(WinTitle) {
 ;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
 ;
 WinGet_size_state(WinTitle) {
-	Win_min_max_state := WinGetMinMax(WinTitle)
+	Win_MinMaxState := WinGetMinMax(WinTitle)
 	Win_size_state := ""
-	If (Win_min_max_state == 0) {
+	If (Win_MinMaxState == 0) {
 		Win_size_state := "restored"
-	} Else If (Win_min_max_state == -1) {
+	} Else If (Win_MinMaxState == -1) {
 		Win_size_state := "minimized"
-	} Else If (Win_min_max_state == 1) {
+	} Else If (Win_MinMaxState == 1) {
 		Win_size_state := "maximized"
 	}
 	Return Win_size_state
@@ -3642,19 +3666,19 @@ WinGet_size_state(WinTitle) {
 ;
 Win_ToggleRestoreMaximize(WinTitle:="A") {
 	Global DebugMode
-	Win_min_max_state := WinGetMinMax(WinTitle)
-	DebugString := "Win_min_max_state=[ %Win_min_max_state% ]"
-	If ("%Win_min_max_state%" = "") {  ; ??? Window-state not pulled as-intended
+	Win_MinMaxState := WinGetMinMax(WinTitle)
+	DebugString := "Win_MinMaxState=[ %Win_MinMaxState% ]"
+	If ("%Win_MinMaxState%" = "") {  ; ??? Window-state not pulled as-intended
 		WinMaximize(WinTitle)
 		DebugString := DebugString "`n" " |--> Do WinMaximize"
 	} Else {
-		If (Win_min_max_state == 0) {  ; 0: The window is restored (neither minimized nor maximized) - do WinMaximize to maximize it
+		If (Win_MinMaxState == 0) {  ; 0: The window is restored (neither minimized nor maximized) - do WinMaximize to maximize it
 			WinMaximize(WinTitle)
 			DebugString := DebugString "`n" " |--> Do WinMaximize"
-		} Else If (Win_min_max_state == -1) {  ; -1: The window is minimized - do WinRestore to unminimize it
+		} Else If (Win_MinMaxState == -1) {  ; -1: The window is minimized - do WinRestore to unminimize it
 			WinRestore(WinTitle)
 			DebugString := DebugString "`n" " |--> Do WinRestore"
-		} Else If (Win_min_max_state == 1) {  ; 1: The window is maximized - do WinRestore to unmaximize it
+		} Else If (Win_MinMaxState == 1) {  ; 1: The window is maximized - do WinRestore to unmaximize it
 			WinRestore(WinTitle)
 			DebugString := DebugString "`n" " |--> Do WinRestore"
 		} Else {  ; Fallthrough-catch
@@ -3712,7 +3736,7 @@ XBox_DownloadDelete_GameClips() {
 	Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
 	Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
 
-	Win_min_max_state := WinGetMinMax("ahk_id %Win_ahk_id%")
+	Win_MinMaxState := WinGetMinMax("ahk_id %Win_ahk_id%")
 
 	Tooltip_Header := A_ThisFunc "`n" "----------"
 
@@ -3799,7 +3823,8 @@ XBox_DownloadDelete_GameClips() {
 							Sleep 1000
 						}
 						WinActivate("ahk_id %Win_ahk_id%")
-						WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800) ; Move the window to specified x/y position and resize it to have specified width/height
+						; Move the window to specified x/y position and resize it to have specified width/height
+						WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800)
 						Sleep 500
 						Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 						Sleep 500
@@ -4132,7 +4157,8 @@ Youtube_EditDraft_Submit() {
 		;
 		WinActivate(WinTitle)
 		Sleep 100
-		WinMove(WinTitle,, -7, 0, 1734, 1407) ; Move the window to specified x/y position and resize it to have specified width/height
+		; Move the window to specified x/y position and resize it to have specified width/height
+		WinMove(WinTitle,, -7, 0, 1734, 1407)
 		Loop {
 			Tooltip_Header := "Chrome - Click 'Refresh'"
 			Tooltip, % ( Tooltip_Header ), 1, 112

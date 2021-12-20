@@ -1475,6 +1475,36 @@ function SyncRegistry {
 			};
 
 
+			# Windows/Microsoft Defender - Disable 'Join Microsoft MAPS'
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
+				Props=@(
+					@{
+						Description="0=[Disabled], 1=[Basic MAPS], 2=[Advanced MAPS] - This policy setting allows you to join Microsoft MAPS. Microsoft MAPS is the online community that helps you choose how to respond to potential threats. The community also helps stop the spread of new malicious software infections. You can choose to send basic or additional information about detected software. Additional information helps Microsoft create new security intelligence and help it to protect your computer. This information can include things like location of detected items on your computer if harmful software was removed. The information will be automatically collected and sent. In some instances, personal information might unintentionally be sent to Microsoft. However, Microsoft will not use this information to identify you or contact you. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SpynetReporting";
+						Name="SpynetReporting";
+						Type="DWord";
+						Value=0;
+						Delete=$False;
+					}
+				)
+			};
+
+
+			# Windows/Microsoft Defender - Disable 'Send file samples when further analysis is required'
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\SubmitSamplesConsent";
+				Props=@(
+					@{
+						Description="0=[Always prompt], 1=[Send safe samples], 2=[Never send], 3=[Send all samples] - This policy setting configures behaviour of samples submission when opt-in for MAPS telemetry is set. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SubmitSamplesConsent";
+						Name="Spynet";
+						Type="DWord";
+						Value=2;
+						Delete=$False;
+					}
+				)
+			};
+
+
 			# Windows Update - Force-pull from Windows instead of local server
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
@@ -1890,6 +1920,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
+#
+#   www.reddit.com  |  "The quest for removing the yellow warning sign on the Windows Defender Security Center icon : Windows10"  |  https://www.reddit.com/r/Windows10/comments/6v532u/the_quest_for_removing_the_yellow_warning_sign_on/
 #
 #   www.tenforums.com  |  "Add or Remove Scan with Microsoft Defender Context Menu in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/18145-add-remove-scan-microsoft-defender-context-menu-windows-10-a.html
 #

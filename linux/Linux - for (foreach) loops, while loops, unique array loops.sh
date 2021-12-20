@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#	Linux - for loops (examples)
+# Linux - for loops (examples)
 #
 # ------------------------------------------------------------
 #
@@ -83,11 +83,11 @@ fi;
 # For-loop, ITERATE + CONDITIONAL (counts from 1 to n - defined in $(seq X), breaks if given conditional is matched)
 MAX_ITERATIONS=120;
 for i in $(seq ${MAX_ITERATIONS}); do
-	VM_HEARTBEAT_STATUS=$(sshpass -p ${ESXI_CREDS_PASS} ssh "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";);
-	if [ "${VM_HEARTBEAT_STATUS}" == "green" ]; then
-		break;
-	fi;
-	sleep 1;
+  VM_HEARTBEAT_STATUS=$(sshpass -p ${ESXI_CREDS_PASS} ssh "${ESXI_CREDS_USER}@${ESXi_HOSTNAME_IPV4}" -C "vim-cmd vmsvc/get.guestheartbeatStatus ${ID_VM}";);
+  if [ "${VM_HEARTBEAT_STATUS}" == "green" ]; then
+    break;
+  fi;
+  sleep 1;
 done;
 
 
@@ -150,27 +150,30 @@ while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/www) ]
 
 # ------------------------------------------------------------
 #
-# for each item in an array
+# ForEach item in an array
 #
 
 if [ 1 -eq 1 ]; then
-ARR_USERNAMES=();
-ARR_USERNAMES+=("root");
-ARR_USERNAMES+=("root");
-ARR_USERNAMES+=("$(whoami)");
-ARR_USERNAMES+=("ubuntu");
-ARR_USERNAMES+=("www-data");
-ARR_USERNAMES+=("nginx");
-ARR_USERNAMES+=("nginx");
-ARR_USERNAMES+=("$(whoami)");
-ARR_USERNAMES+=("$(whoami)");
-ARR_UNIQUE_USERNAMES=($(echo "${ARR_USERNAMES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
-for EACH_UNIQUE_USER in "${ARR_UNIQUE_USERNAMES[@]}"; do
-EACH_HOME_DIR=$(getent passwd "${EACH_UNIQUE_USER}" | cut --delimiter=: --fields=6); # $(eval echo ~${EACH_UNIQUE_USER});
-if [ -d "${EACH_HOME_DIR}" ]; then
-echo "User \"$EACH_UNIQUE_USER\" has a home-directory located at \"${EACH_HOME_DIR}\"";
-fi;
-done;
+
+  ARR_USERNAMES=();
+  ARR_USERNAMES+=("root");
+  ARR_USERNAMES+=("root");
+  ARR_USERNAMES+=("$(whoami)");
+  ARR_USERNAMES+=("ubuntu");
+  ARR_USERNAMES+=("www-data");
+  ARR_USERNAMES+=("nginx");
+  ARR_USERNAMES+=("nginx");
+  ARR_USERNAMES+=("$(whoami;)");
+
+  ARR_UNIQUE_USERNAMES=($(echo "${ARR_USERNAMES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
+
+  for EACH_UNIQUE_USER in "${ARR_UNIQUE_USERNAMES[@]}"; do
+    EACH_HOME_DIR=$(getent passwd "${EACH_UNIQUE_USER}" | cut --delimiter=: --fields=6); # $(eval echo ~${EACH_UNIQUE_USER});
+    if [ -d "${EACH_HOME_DIR}" ]; then
+      echo "User \"$EACH_UNIQUE_USER\" has a home-directory located at \"${EACH_HOME_DIR}\"";
+    fi;
+  done;
+
 fi;
 
 
@@ -179,20 +182,25 @@ fi;
 # ForEach line in a file - using IFS=$'\n'
 
 if [ 1 -eq 1 ]; then
+
   # Create a mock file
   MOCK_FILE="/tmp/test-foreach-$(date +'%Y%m%d_%H%M%S')";
   if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+
   # Add "Line 1", "Line 2", ..., "Line N" to the mock file
   N_LINES=10; for i in $(seq ${N_LINES}); do echo "Line ${i}" >> "${MOCK_FILE}"; done;
-  ROLLBACK_IFS="${IFS}"; IFS=$'\n'; # Set the global for-loop delimiter
+
   # Parse each line in the mock file
+  ROLLBACK_IFS="${IFS}"; IFS=$'\n'; # Set the global for-loop delimiter
   for EACH_LINE in $(cat "${MOCK_FILE}";); do
     echo "------------------------------";
     echo "${EACH_LINE}";
   done;
   IFS="${ROLLBACK_IFS}"; # Restore the global for-loop delimiter
+
   # Clean up the mock file
   if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+
 fi;
 
 
@@ -202,24 +210,31 @@ fi;
 #
 
 if [ 1 -eq 1 ]; then
+
   # Create a mock file
   MOCK_FILE="/tmp/test-foreach-$(date +'%Y%m%d_%H%M%S')";
   if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+
   # Add "Line 1", "Line 2", ..., "Line N" to the mock file
   N_LINES=10; for i in $(seq ${N_LINES}); do echo "Line ${i}" >> "${MOCK_FILE}"; done;
+
   # Parse each line in the mock file
   cat "${MOCK_FILE}" | while read EACH_LINE; do
     echo "------------------------------";
     echo "${EACH_LINE}";
   done;
+
   # Clean up the mock file
   if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+
 fi;
 
 # ------------------------------------------------------------
 #
 # find + while-loop
 #
+
+if [ 1 -eq 1 ]; then
 
 DIR_WIN32_USERS=$(find /mnt/*/Users -mindepth 0 -maxdepth 0 -type d);
 find "${DIR_WIN32_USERS}" \
@@ -231,16 +246,17 @@ find "${DIR_WIN32_USERS}" \
 -not -path "${DIR_WIN32_USERS}/Public" \
 -print0 \
 | while IFS= read -r -d $'\0' EachUserDir; do
-	LastExitCode=$([[ -r "${EachUserDir}/Documents" ]]; echo $?);
-	if [ "${LastExitCode}" == "0" ]; then
-		if [ "${1}" == "verbose" ]; then echo "PASS - Can read \"${EachUserDir}\" - Current session has sufficient privilege(s)"; fi;
-		echo "$(basename ${EachUserDir})" >> "${PotentialUsersFile}";
-	else
-		if [ "${1}" == "verbose" ]; then echo "FAIL - Cannot read \"${EachUserDir}\" - Current session lacks sufficient privilege(s)"; fi;
-		echo "$(basename ${EachUserDir})" >> "${InvalidUsersFile}";
-	fi;
+  LastExitCode=$([[ -r "${EachUserDir}/Documents" ]]; echo $?);
+  if [ "${LastExitCode}" == "0" ]; then
+    if [ "${1}" == "verbose" ]; then echo "PASS - Can read \"${EachUserDir}\" - Current session has sufficient privilege(s)"; fi;
+    echo "$(basename ${EachUserDir})" >> "${PotentialUsersFile}";
+  else
+    if [ "${1}" == "verbose" ]; then echo "FAIL - Cannot read \"${EachUserDir}\" - Current session lacks sufficient privilege(s)"; fi;
+    echo "$(basename ${EachUserDir})" >> "${InvalidUsersFile}";
+  fi;
 done;
 
+fi;
 
 # ------------------------------------------------------------
 # Example
@@ -248,7 +264,7 @@ done;
 #  |--> Walk though a list of ".log" extensioned files in alphabetical-order
 
 for EACH_FILE in $(ls /var/log/*.log | sort -V); do
-	echo "Found file matching filepath \"/var/log/*.log\": \"${EACH_FILE}\"";
+  echo "Found file matching filepath \"/var/log/*.log\": \"${EACH_FILE}\"";
 done;
 
 

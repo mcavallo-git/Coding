@@ -3102,9 +3102,10 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 	If (Exe_Args != "") {
 		Add_Args := " -Argument (Write-Output %Exe_Args%)"
 	}
-	RunCommand_NonAdmin := "
+
+	; Prep the output powershell script's contents (which will get nested into a vbs script so that it can run silently via wscript.exe)
+	PowerShell_Script_Block := "
 		(
-			powershell.exe -WindowStyle Hidden -Command "
 			If ([Boolean](1)) {
 				SV TEMP_Execute '%FullPath_RunExe%'%Semicolon%
 				SV TEMP_Name (Get-Date -UFormat `%s)%Semicolon%
@@ -3114,9 +3115,34 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 				Start-ScheduledTask -TaskName ((GV TEMP_Name).Value)%Semicolon%
 				Start-Sleep -Seconds 1%Semicolon%
 				Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0))%Semicolon%
-			}"
+			}
 		)"
-	Run, %RunCommand_NonAdmin%
+	PowerShell_Script_Block := StrReplace(StrReplace(PowerShell_Script_Block,"`t",""),"`n"," ")
+
+	; Prep the output VBS script's contents
+	VbsScript_Contents := % "CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PowerShell_Script_Block "`"`" `", 0, True"
+
+	; Build the output directory
+	FullPath_RunNonAdmin_Dirname := % A_Temp "\" A_ScriptName "\" A_ThisFunc
+	; Build the output filename
+	SplitPath %FullPath_RunExe%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+	FullPath_RunNonAdmin_VbsScript := % FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs"
+
+	; Create the VBS script file (if it doesn't already exist)
+	If (!FileExist(FullPath_RunNonAdmin_VbsScript)) {
+		; Create the VBS script's directory (if it doesn't already exist)
+		If (!FileExist(FullPath_RunNonAdmin_Dirname)) {
+			DirCreate % FullPath_RunNonAdmin_Dirname
+		}
+		FileAppend, %VbsScript_Contents%, %FullPath_RunNonAdmin_VbsScript%
+	}
+
+	; Run_PowerShellScript_NonAdmin := % "powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`""
+	; Run, %Run_PowerShellScript_NonAdmin%
+
+	Run_VbsScript_NonAdmin := % "C:\Windows\System32\wscript.exe `"" FullPath_RunNonAdmin_VbsScript "`""
+	Run, %Run_VbsScript_NonAdmin%
+
 	Return
 }
 

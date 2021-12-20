@@ -2404,7 +2404,7 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-MoveIt(Destination_Direction:="Left", Destination_Size:="Half", WinTitle:="A") {
+MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum="Current", WinTitle:="A") {
 	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
@@ -2416,9 +2416,21 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", WinTitle:="A") {
 	Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
 	Count := MonitorGetCount()
 	Loop % Count {
-		Monitor_Number := A_Index
-		MonitorGetWorkArea % Monitor_Number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-		If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+		EachMonitor_Number := A_Index
+		MonitorGetWorkArea % EachMonitor_Number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+		MoveTo_ThisMonitor := False
+		If (Destination_MonitorNum=="Current") {
+			; If argument "Destination_MonitorNum" is set to its default of "Current", then use the target window's center x/y position to determine which monitor it will end up on
+			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+				MoveTo_ThisMonitor := True
+			}
+		} Else {
+			; If argument "Destination_MonitorNum" is set to anything other than "Current", use it as a monitor number to match-to
+			If (Destination_MonitorNum == EachMonitor_Number) {
+				MoveTo_ThisMonitor := True
+			}
+		}
+		If (MoveTo_ThisMonitor==True) {
 			; Center of window is within the bounds of the current monitor
 			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
 			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
@@ -2507,7 +2519,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", WinTitle:="A") {
 				MsgBox % Error_Message
 			} Else {
 				If (DebugMode == 1) {
-					MsgBox % "Monitor_Number=[%Monitor_Number%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
+					MsgBox % "EachMonitor_Number=[%EachMonitor_Number%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
 				}
 				; Move the window to specified x/y position and resize it to have specified width/height
 				WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
@@ -2726,7 +2738,7 @@ Open_VisualStudioCode() {
 			; Sleep 500
 		}
 		WinActivate, %WinTitle%
-		MoveIt("Left","Half",WinTitle)  ; left half
+		MoveIt("Left", "Half", WinTitle)  ; Resize window to left-half of it's current monitor
 	} Else {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)

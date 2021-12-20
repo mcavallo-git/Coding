@@ -147,7 +147,11 @@ while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/www) ]
 
 
 # ------------------------------------------------------------
+#
+# for each item in an array
+#
 
+if [ 1 -eq 1 ]; then
 ARR_USERNAMES=();
 ARR_USERNAMES+=("root");
 ARR_USERNAMES+=("root");
@@ -158,19 +162,64 @@ ARR_USERNAMES+=("nginx");
 ARR_USERNAMES+=("nginx");
 ARR_USERNAMES+=("$(whoami)");
 ARR_USERNAMES+=("$(whoami)");
-
 ARR_UNIQUE_USERNAMES=($(echo "${ARR_USERNAMES[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' ';));
-
 for EACH_UNIQUE_USER in "${ARR_UNIQUE_USERNAMES[@]}"; do
 EACH_HOME_DIR=$(getent passwd "${EACH_UNIQUE_USER}" | cut --delimiter=: --fields=6); # $(eval echo ~${EACH_UNIQUE_USER});
 if [ -d "${EACH_HOME_DIR}" ]; then
 echo "User \"$EACH_UNIQUE_USER\" has a home-directory located at \"${EACH_HOME_DIR}\"";
 fi;
 done;
+fi;
 
 
 # ------------------------------------------------------------
+#
+# ForEach line in a file - using IFS=$'\n'
+
+if [ 1 -eq 1 ]; then
+  # Create a mock file
+  MOCK_FILE="/tmp/test-foreach-$(date +'%Y%m%d_%H%M%S')";
+  if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+  # Add "Line 1", "Line 2", ..., "Line N" to the mock file
+  N_LINES=10; for i in $(seq ${N_LINES}); do echo "Line ${i}" >> "${MOCK_FILE}"; done;
+  # Set the for-loop global delimiter
+  ROLLBACK_IFS="${IFS}"; IFS=$'\n';
+  # Parse each line in the mock file
+  for EACH_LINE in $(cat "${MOCK_FILE}";); do
+    echo "------------------------------";
+    echo "${EACH_LINE}";
+  done;
+  # Restore the global for-loop delimiter
+  IFS="${ROLLBACK_IFS}";
+  # Clean up the mock file
+  if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+fi;
+
+
+# ------------------------------------------------------------
+#
+# ForEach line in a file - using 'while read'
+#
+
+if [ 1 -eq 1 ]; then
+  # Create a mock file
+  MOCK_FILE="/tmp/test-foreach-$(date +'%Y%m%d_%H%M%S')";
+  if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+  # Add "Line 1", "Line 2", ..., "Line N" to the mock file
+  N_LINES=10; for i in $(seq ${N_LINES}); do echo "Line ${i}" >> "${MOCK_FILE}"; done;
+  # Parse each line in the mock file
+  cat "${MOCK_FILE}" | while read EACH_LINE; do
+    echo "------------------------------";
+    echo "${EACH_LINE}";
+  done;
+  # Clean up the mock file
+  if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
+fi;
+
+# ------------------------------------------------------------
+#
 # find + while-loop
+#
 
 DIR_WIN32_USERS=$(find /mnt/*/Users -mindepth 0 -maxdepth 0 -type d);
 find "${DIR_WIN32_USERS}" \

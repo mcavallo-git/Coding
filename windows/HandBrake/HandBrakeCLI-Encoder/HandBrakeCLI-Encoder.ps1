@@ -221,7 +221,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 		# Expand-Archive -LiteralPath ("${FullPath_HandBrakeCLI_Zip}") -DestinationPath ("${FullPath_HandBrakeCLI_Dir}") -Force;
 		[System.IO.Compression.ZipFile]::ExtractToDirectory(("${FullPath_HandBrakeCLI_Zip}"),("${FullPath_HandBrakeCLI_Dir}")) | Out-Null;
 
-		# Clean-up the archive once it has been unpacked
+		# Clean up the archive once it has been unpacked
 		[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${FullPath_HandBrakeCLI_Zip}",'OnlyErrorDialogs','SendToRecycleBin');
 
 		# Ensure we have located all necessary HandBrake CLI path locations

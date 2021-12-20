@@ -2405,7 +2405,7 @@ Monitor_ShowScreenSaver() {
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
 MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum:="CurrentMonitor", WinTitle:="A", WinText:="") {
-	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized" ]
+	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
 	; Get the windows pos
@@ -2606,6 +2606,7 @@ Open_Chrome() {
 			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
 		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
+		MoveIt("Maximize","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
 		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
 	Return

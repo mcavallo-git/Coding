@@ -2441,7 +2441,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			}
 		}
 		If (MoveTo_ThisMonitor==True) {
-			; Monitor is to be used as the destination target for the window
+			; Monitor is to be used as the window's destination
 			Matched_MonitorNumber := Each_MonitorNumber
 			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
 			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)

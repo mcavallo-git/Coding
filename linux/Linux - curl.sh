@@ -32,7 +32,7 @@ if [ 1 -eq 1 ]; then
 # check if a URL is valid (or not)
 TARGET_URL="https://www.google.com";
 echo "";
-echo "Info:  Calling  [ curl -ILs ${TARGET_URL} | grep '^HTTP/' | tail -n 1 | awk '{print \$2}' ]...";
+echo "Info:  Calling  [ curl -ILs \"${TARGET_URL}\" | grep '^HTTP/' | tail -n 1 | awk '{print \$2}' ]...";
 RESPONSE_HTTP_CODE="$(curl -ILs ${TARGET_URL} | grep '^HTTP/' | tail -n 1 | awk '{print $2}';)";
 echo "Info:  HTTP response code returned:  [ ${RESPONSE_HTTP_CODE} ]";
 # check whether URL returns an HTTP code of 200 (e.g. if the website exists and responds 'normally')

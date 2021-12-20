@@ -114,13 +114,15 @@ done;
 #   ForEach-Loop(s)
 #
 
-# ForEach-Loop using newline delimiter
-ROLLBACK_IFS="${IFS}"; IFS=$'\n'; \
-for EACH_LINE in $(ps aux); do \
-echo "------------------------------------------------------------"; \
-echo "${EACH_LINE}"; \
-done; \
-IFS="${ROLLBACK_IFS}";
+# ForEach loop using newline delimiter
+if [ 1 -eq 1 ]; then
+  ROLLBACK_IFS="${IFS}"; IFS=$'\n'; # Set the global for-loop delimiter
+  for EACH_LINE in $(ps aux); do
+  echo "------------------------------------------------------------";
+  echo "${EACH_LINE}";
+  done;
+  IFS="${ROLLBACK_IFS}"; # Restore the global for-loop delimiter
+fi;
 
 
 # ------------------------------------------------------------
@@ -182,15 +184,13 @@ if [ 1 -eq 1 ]; then
   if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
   # Add "Line 1", "Line 2", ..., "Line N" to the mock file
   N_LINES=10; for i in $(seq ${N_LINES}); do echo "Line ${i}" >> "${MOCK_FILE}"; done;
-  # Set the for-loop global delimiter
-  ROLLBACK_IFS="${IFS}"; IFS=$'\n';
+  ROLLBACK_IFS="${IFS}"; IFS=$'\n'; # Set the global for-loop delimiter
   # Parse each line in the mock file
   for EACH_LINE in $(cat "${MOCK_FILE}";); do
     echo "------------------------------";
     echo "${EACH_LINE}";
   done;
-  # Restore the global for-loop delimiter
-  IFS="${ROLLBACK_IFS}";
+  IFS="${ROLLBACK_IFS}"; # Restore the global for-loop delimiter
   # Clean up the mock file
   if [ -f "${MOCK_FILE}" ]; then rm -rfv "${MOCK_FILE}"; fi;
 fi;

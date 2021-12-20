@@ -17,7 +17,7 @@ FL="${HOME}/flush-dhcp-leases"; QM="$(printf \\x3f;)"; echo "LV=\"/var/run/dnsma
 
 # Decompressed one-liner (above)'s source code
 sudo -i;
-if [ 1 ]; then \
+if [ 1 -eq 1 ]; then
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
 CACHE_DNSMASQ_LEASES="/config/$(basename ${LIVE_DNSMASQ_LEASES})" && \
 REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \
@@ -25,15 +25,15 @@ REGEX_MATCH_NETMASK_BITS='(3[0-2]|[1-2]?[0-9])' && \
 REGEX_MATCH_LAST_OCTET='(25[0-5]|2[0-4][0-9]|[01]?[0-9]?[0-9])' && \
 SED_SUBNET_CIDRS="s/^\\S+_eth1_(${REGEX_MATCH_IPv4_ADDRESS}\\-${REGEX_MATCH_NETMASK_BITS})\\ .+\$/\\1/p" && \
 SUBNET_CIDRS="$(ip addr show | grep 'inet' | grep 'scope global' | awk '{ print $2; }' | sed 's/\/.*$//' | grep '\.' | sed -rne 's/^((10|172|192)\.[0-9]{1,3}\.[0-9]{1,3})\.[0-9]{1,3}$/\1.0-24/p';)" && \
-ROLLBACK_IFS="${IFS}" && IFS=$'\n'; \
-for EACH_SUBNET_CIDR in ${SUBNET_CIDRS}; do \
+ROLLBACK_IFS="${IFS}" && IFS=$'\n';
+for EACH_SUBNET_CIDR in ${SUBNET_CIDRS}; do
 echo "Info:  [ Step 1 ]  Flushing DHCP leases for CIDR \"${EACH_SUBNET_CIDR}\" from cache-file \"${LIVE_DNSMASQ_LEASES}\"" && \
-ETH1_NETWORK_IPv4=$(echo "${EACH_SUBNET_CIDR}" | cut -d '-' -f 1); \
-ETH1_NETMASK_BITS=$(echo "${EACH_SUBNET_CIDR}" | cut -d '-' -f 2); \
-ETH1_NETWORK_FIRST_THREE_OCTETS=$(echo "${ETH1_NETWORK_IPv4}" | cut -d '.' -f 1-3); \
-SED_DNSMASQ_LEASES="/^.+ ${ETH1_NETWORK_FIRST_THREE_OCTETS}.${REGEX_MATCH_LAST_OCTET} .+\$/d"; \
-sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -re "${SED_DNSMASQ_LEASES}" "${LIVE_DNSMASQ_LEASES}"; \
-done; \
+ETH1_NETWORK_IPv4=$(echo "${EACH_SUBNET_CIDR}" | cut -d '-' -f 1);
+ETH1_NETMASK_BITS=$(echo "${EACH_SUBNET_CIDR}" | cut -d '-' -f 2);
+ETH1_NETWORK_FIRST_THREE_OCTETS=$(echo "${ETH1_NETWORK_IPv4}" | cut -d '.' -f 1-3);
+SED_DNSMASQ_LEASES="/^.+ ${ETH1_NETWORK_FIRST_THREE_OCTETS}.${REGEX_MATCH_LAST_OCTET} .+\$/d";
+sed --in-place=".$(date +'%Y-%m-%d_%H-%M-%S').bak" -re "${SED_DNSMASQ_LEASES}" "${LIVE_DNSMASQ_LEASES}";
+done;
 IFS="${ROLLBACK_IFS}" && \
 echo "Info:  [ Step 2 ]  Copying file \"${LIVE_DNSMASQ_LEASES}\" over file \"${CACHE_DNSMASQ_LEASES}\"" && \
 cp -f "${LIVE_DNSMASQ_LEASES}" "${CACHE_DNSMASQ_LEASES}" && \
@@ -41,7 +41,7 @@ service dhcpd restart && \
 sleep 3 && \
 echo "Info:  [ Step 3 ]  Flushing contents of cache-files '/var/run/dhcpd.leases' && '/config/dhcpd.leases'" && \
 clear dhcp leases && \
-echo "Info:  Done - All DHCP leases have been flushed"; \
+echo "Info:  Done - All DHCP leases have been flushed";
 fi;
 
 # SUBNET_CIDRS=$(show dhcp statistics | sed -rne "${SED_SUBNET_CIDRS}";) && \

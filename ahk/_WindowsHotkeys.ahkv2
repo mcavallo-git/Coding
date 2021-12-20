@@ -2404,13 +2404,13 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum:="CurrentMonitor", WinTitle:="A") {
+MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum:="CurrentMonitor", WinTitle:="A", WinText:="") {
 	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
 	; Get the windows pos
-	WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle)
-	Win_MinMaxState := WinGetMinMax(WinTitle)
+	WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
+	Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 	; Calculate the top center edge
 	Win_Center_XPos := Win_XPos + Win_Width/2
 	Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
@@ -2451,15 +2451,15 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
 			If (Win_MinMaxState!=0) {
 				; Window is not restored --> Restore it
-				WinRestore(WinTitle)
-				Win_MinMaxState := WinGetMinMax(WinTitle)
+				WinRestore(WinTitle, WinText)
+				Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 			}
 			If (Destination_Direction=="Maximized") {
 				; Toggle Restore/Maximized
 				If (Win_MinMaxState==0) {
-					WinMaximize(WinTitle)
+					WinMaximize(WinTitle, WinText)
 				} Else {
-					WinRestore(WinTitle)
+					WinRestore(WinTitle, WinText)
 				}
 			} Else {
 				Destination_Combined := ( Destination_Direction "-" Destination_Size )
@@ -2521,20 +2521,20 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		TextToolTip := TextToolTip "                 " "`n"
 		TextToolTip := TextToolTip "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
 		TextToolTip := TextToolTip "    |" "`n"
-		TextToolTip := TextToolTip "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNum "`" , `"" WinTitle "`" )" "   " "`n"
+		TextToolTip := TextToolTip "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNum "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
 		TextToolTip := TextToolTip "    |" "`n"
 		TextToolTip := TextToolTip "    |--> Script:  " A_ScriptFullPath "   " "`n"
 		TextToolTip := TextToolTip "                 " "`n"
-		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"" WinTitle "`" )" "   " "`n"
-		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"CurrentMonitor`" , `"" WinTitle "`" )" "   " "`n"
+		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"A`", `"`" )" "   " "`n"
+		TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"CurrentMonitor`" , `"A`", `"`" )" "   " "`n"
 		TextToolTip := TextToolTip "                 "
 		ShowTooltip(TextToolTip,60000)
 	} Else {
 		If (DebugMode == 1) {
-			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( `"%WinTitle%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
+			MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
 		}
 		; Move the window to specified x/y position and resize it to have specified width/height
-		WinMove("%WinTitle%",, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
+		WinMove("%WinTitle%", "%WinText%", WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
 	}
 	Return
 }
@@ -2665,10 +2665,10 @@ Open_Chrome() {
 	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
 	WinTitle := " - Google Chrome"
 	WinWait_TimeoutSeconds := 5
-	; If (DebugMode == 1) {
+	If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
-		; Sleep 500
-	; }
+		Sleep 500
+	}
 	If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
 		TextToolTip := % "Chrome executable not found (neither x64 or x86 version)"
 		ShowTooltip(TextToolTip,5000)
@@ -2688,54 +2688,6 @@ Open_Chrome() {
 
 
 ;
-;	Open_RoboformPasswordGenerator
-;   |--> Opens Roboform's Password Generator executable
-;
-Open_RoboformPasswordGenerator() {
-	Global DebugMode
-	AwaitModifierKeyup()  ; Wait until all modifier keys are released
-	SetTitleMatchMode, 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-	; SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
-	ProcessPath := "C:\Program Files (x86)\Siber Systems\AI RoboForm\passwordgenerator.exe"
-	WinTitle := "Password Generator - RoboForm"
-	WinTitle_Login := "RoboForm Log In"
-	WinWait_TimeoutSeconds := 5
-	If (DebugMode == 1) {
-		GetWindowSpecs(WinTitle)
-		Sleep 500
-	}
-	If (WinExist(WinTitle_Login)) {
-		WinActivate, %WinTitle_Login%
-	} Else If (WinExist(WinTitle)) {
-		If (DebugMode == 1) {
-			Text_TrayTip := "Activating existing instance of `"" WinTitle "`""
-			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		WinActivate, %WinTitle%
-	} Else If (FileExist(ProcessPath)) {
-		If (DebugMode == 1) {
-			Text_TrayTip := "Opening new-instance of `"" WinTitle "`""
-			; TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-		Run, %ProcessPath%
-		WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%
-		If (WinExist(WinTitle)) {
-			WinActivate, %WinTitle%
-		} Else If (WinExist(WinTitle_Login)) {
-			WinActivate, %WinTitle_Login%
-		} Else {
-			Text_TrayTip := "Error - Max wait-timeout of " WinWait_TimeoutSeconds "s reached while waiting for `"" WinTitle "`""
-			TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-		}
-	} Else {
-		Text_TrayTip := "Error - ProcessPath not found:  `"" ProcessPath "`""
-		TrayTip, AHK, %Text_TrayTip%  ; Toast Notification
-	}
-	Return
-}
-
-
-;
 ; Open_VisualStudioCode
 ;   |--> Opens Microsoft's "Visual Studio Code" application (e.g. "VS Code" or "VSCode") - VS Code is a Free Source Code Editor & IDE
 ;
@@ -2748,12 +2700,12 @@ Open_VisualStudioCode() {
 	; ------------------------------
 	Win_ahk_exe := "Code.exe"
 	WinTitle := WinGetTitle("ahk_exe %Win_ahk_exe%")
-	; WinTitle := " - Visual Studio Code"
+	WinTitle := " - Visual Studio Code"
 	WinWait_TimeoutSeconds := 5
-	If (DebugMode == 1) {
+	; If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
 		Sleep 500
-	}
+	; }
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
 		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")

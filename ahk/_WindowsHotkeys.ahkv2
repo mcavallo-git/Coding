@@ -2605,8 +2605,9 @@ Open_Chrome() {
 			RunExe_NON_Admin(FullPath_RunExe)
 			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
-		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
-		MoveIt("Maximize","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
+		; MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
+		; MoveIt("Maximized","",2,WinTitle)  ; Resize window to left-half of monitor #2
+		MoveIt("Restored","",2,WinTitle)  ; Resize window to left-half of monitor #2
 		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
 	Return

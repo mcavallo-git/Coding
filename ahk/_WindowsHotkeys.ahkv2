@@ -2462,7 +2462,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 					WinMove_Width := EachMonitor_HalfWidth
 					WinMove_Height := EachMonitor_Height
 				} Else If (Destination_Combined=="Right-Half") {
-					WinMove_XPos := EachMonitor_LeftCoord
+					WinMove_XPos := EachMonitor_Center_XPos
 					WinMove_YPos := EachMonitor_TopCoord
 					WinMove_Width := EachMonitor_HalfWidth
 					WinMove_Height := EachMonitor_Height
@@ -2651,7 +2651,9 @@ Open_Chrome() {
 	} Else If (FileExist(FullPath_RunExe_x86)) {
 		FullPath_RunExe := FullPath_RunExe_x86
 	}
-	WinTitle := " - Google Chrome"
+	Win_ahk_exe := "chrome.exe"
+	WinTitle := "ahk_exe %Win_ahk_exe%"
+	; WinTitle := " - Google Chrome"
 	WinWait_TimeoutSeconds := 5
 	If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
@@ -2669,6 +2671,7 @@ Open_Chrome() {
 		}
 	}
 	WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
 	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
@@ -2725,8 +2728,11 @@ Open_RoboformPasswordGenerator() {
 Open_VisualStudioCode() {
 	Global DebugMode
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	; ------------------------------
+	FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
+	Exe_Args:=""
+	; ------------------------------
 	Win_ahk_exe := "Code.exe"
-	Win_fullpath := "C:\Program Files\Microsoft VS Code\Code.exe"
 	WinTitle := "ahk_exe %Win_ahk_exe%"
 	WinWait_TimeoutSeconds := 5
 	If (WinExist(WinTitle)) {
@@ -2734,11 +2740,9 @@ Open_VisualStudioCode() {
 		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
 		WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
 		If ((Win_size_state == "minimized") || ((Win_width == 0) && (Win_height == 0))) {
-			; WinRestore(WinTitle)
-			; Sleep 500
+			WinRestore(WinTitle)
+			Sleep 500
 		}
-		WinActivate, %WinTitle%
-		MoveIt("Left", "Half", "", WinTitle)  ; Resize window to left-half of it's current monitor
 	} Else {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)
@@ -2747,11 +2751,11 @@ Open_VisualStudioCode() {
 		;       Code is running in admin mode and explorer isn't), as VS code throws errors stating something like 'non-admin attempt to
 		;       open file in admin instance of code.exe', etc.
 		;
-		FullPath_RunExe := "C:\Windows\System32\notepad.exe"
-		RunExe_NON_Admin(FullPath_RunExe)  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
+		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
+	MoveIt("Left","Half",,WinTitle)  ; Resize window to left-half of it's current monitor
+	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2770,17 +2774,26 @@ Open_WindowsTerminal() {
 	; FullPath_RunExe := "C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe"  ;  Acquired via powershell call [ Get-ChildItem ((Get-AppxPackage "*WindowsTerminal*").InstallLocation); ]
 	; Exe_Args := ""
 	; ------------------------------
-	WinTitle := ""
-	WinText := "DesktopWindowXamlSource"
+	Win_ahk_exe := "WindowsTerminal.exe"
+	WinTitle := "ahk_exe %Win_ahk_exe%"
 	WinWait_TimeoutSeconds := 5
-	If (!WinExist(WinTitle,WinText)) {
+	If (WinExist(WinTitle)) {
+		; If program is running but its window is minimized/not-shown, then restore it
+		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
+		WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
+		If ((Win_size_state == "minimized") || ((Win_width == 0) && (Win_height == 0))) {
+			WinRestore(WinTitle)
+			Sleep 500
+		}
+	} Else {
 		;
 		; Run a NON-admin version of Windows Terminal
 		;
 		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
+		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	WinWait, %WinTitle%, %WinText%, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
-	WinActivate, %WinTitle%, %WinText%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	MoveIt("Right","Half",,WinTitle)  ; Resize window to right-half of it's current monitor
+	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

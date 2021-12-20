@@ -26,10 +26,14 @@ fi;
 
 
 # ------------------------------------------------------------
+#
+# CHECK URL VALIDITY (e.g. check for a 200 response)
+#
 
 
+# Quick single-url test
 if [ 1 -eq 1 ]; then
-# check if a URL is valid (or not)
+#  check if a URL is valid (or not)
 TARGET_URL="https://www.google.com";
 echo "";
 echo "Info:  Calling  [ curl -ILs \"${TARGET_URL}\" | grep '^HTTP/' | tail -n 1 | awk '{print \$2}' ]...";
@@ -37,12 +41,16 @@ RESPONSE_HTTP_CODE="$(curl -ILs ${TARGET_URL} | grep '^HTTP/' | tail -n 1 | awk 
 echo "Info:  HTTP response code returned:  [ ${RESPONSE_HTTP_CODE} ]";
 # check whether URL returns an HTTP code of 200 (e.g. if the website exists and responds 'normally')
 if [ "${RESPONSE_HTTP_CODE}" == "200" ]; then
-echo "";
-echo "Info:  URL validated";
+echo ""; echo "Info:  URL validated";
 else
-echo "";
-echo "Error:  Invalid URL";
+echo ""; echo "Error:  Invalid URL";
 fi;
+fi;
+
+
+if [ 1 -eq 1 ]; then
+# Microsoft's Linux Software Repository --> Ad-hoc test distro compatibility against multiple distributions (major v. 14 thru 24 --> minor v. 00 thru 24 (for every major))
+echo -e "\n"; for OS_VERSION_MAJOR in {14..24}; do for OS_VERSION_MINOR in {00..24}; do DOWNLOAD_URL="https://packages.microsoft.com/config/ubuntu/${OS_VERSION_MAJOR}.${OS_VERSION_MINOR}/packages-microsoft-prod.deb"; RESPONSE_HTTP_CODE="$(curl -ILs "${DOWNLOAD_URL}" | grep '^HTTP/' | tail -n 1 | awk '{print $2}';)"; if [ "${RESPONSE_HTTP_CODE}" == "200" ]; then echo "  Info:  URL validated for Ubuntu ${OS_VERSION_MAJOR}.${OS_VERSION_MINOR}"; fi; done; done; echo -e "\n";
 fi;
 
 

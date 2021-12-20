@@ -2414,12 +2414,16 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	; Calculate the top center edge
 	Win_Center_XPos := Win_XPos + Win_Width/2
 	Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
-	Count := MonitorGetCount()
+	Monitor_Count := MonitorGetCount()
 	WinMove_XPos := -1
 	WinMove_YPos := -1
 	WinMove_Width := -1
 	WinMove_Height := -1
-	Loop % Count {
+	If ((Destination_MonitorNum!="CurrentMonitor") && ("%Destination_MonitorNum%"!="1") && (Monitor_Count==1)) {
+		; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
+		Destination_MonitorNum:=1
+	}
+	Loop % Monitor_Count {
 		EachMonitor_Number := A_Index
 		MonitorGetWorkArea % EachMonitor_Number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
 		MoveTo_ThisMonitor := False

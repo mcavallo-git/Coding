@@ -2449,19 +2449,29 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			EachMonitor_HalfHeight := (EachMonitor_Height / 2)
 			EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
 			EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
-			If (Win_MinMaxState!=0) {
-				; Window is not restored --> Restore it
-				WinRestore(WinTitle, WinText)
+			If ((Win_MinMaxState==-1) || ((Win_Width==0) && (Win_Height==0))) {
+				; Window is Minimized (Not-Shown) --> Restore it
+				WinRestore(WinTitle)
 				Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
+				WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
 			}
 			If (Destination_Direction=="Maximized") {
-				; Toggle Restore/Maximized
-				If (Win_MinMaxState==0) {
+				; Toggle between Maximized & Restored
+				If (Win_MinMaxState!=1) {
+					; Window is not maximized --> Maximize it
 					WinMaximize(WinTitle, WinText)
+					Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 				} Else {
+					; Window is maximized --> Restore it
 					WinRestore(WinTitle, WinText)
+					Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 				}
 			} Else {
+				If (Win_MinMaxState==1) {
+					; Window is maximized --> Restore it (in preparation for resizing)
+					WinRestore(WinTitle, WinText)
+					Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
+				}
 				Destination_Combined := ( Destination_Direction "-" Destination_Size )
 				If (Destination_Combined=="Left-Half") {
 					; Left Half
@@ -2541,41 +2551,42 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 
 
 ;
-;	Open_Exe
-;   |--> Opens target exeutable & sets its window to be active
+;	Open_Chrome
+;   |--> Opens the "Google Chrome" Application
 ;
-Open_Exe(ExeFullpath) {
+Open_Chrome() {
 	Global DebugMode
-	Timeout := 10
-	SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
-	If (ProcessExist(ExeBasename) == True) {
-		; Executable IS running
-		If (DebugMode == 1) {
-			TextToolTip := "Activating `"" ExeBasename "`""
-			ToolTip, %TextToolTip%
-			ClearTooltip(2000)
-		}
-		ExePID := GetPID(ExeBasename)
-		WinActivate, ahk_pid %ExePID%
-	} Else If (FileExist(ExeFullpath)) {
-		; Executable NOT running but IS found locally
-		If (DebugMode == 1) {
-			TextToolTip := "Opening `"" ExeBasename "`""
-			ToolTip, %TextToolTip%
-			ClearTooltip(2000)
-		}
-		; Run, %ExeFullpath%
-		ExitCode := RunWait(%ExeFullpath%,,, ExePID)
-		; WinWait "ahk_pid " ExePID
-		; ExePID := GetPID(ExeBasename)
-		WinActivate, ahk_pid %ExePID%
+	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
+	FullPath_RunExe := ""
+	FullPath_RunExe_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
+	FullPath_RunExe_x86 := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+	If (FileExist(FullPath_RunExe_x64)) {
+		FullPath_RunExe := FullPath_RunExe_x64
+	} Else If (FileExist(FullPath_RunExe_x86)) {
+		FullPath_RunExe := FullPath_RunExe_x86
+	}
+	Win_ahk_exe := "chrome.exe"
+	WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
+	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
+	WinTitle := " - Google Chrome"
+	WinWait_TimeoutSeconds := 5
+	If (DebugMode == 1) {
+		GetWindowSpecs(WinTitle)
+		Sleep 500
+	}
+	If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
+		TextToolTip := % "Chrome executable not found (neither x64 or x86 version)"
+		ShowTooltip(TextToolTip,5000)
 	} Else {
-		; Executable NOT running & NOT found locally
-		If (DebugMode == 1) {
-			TextToolTip := "File not found: `"" ExeFullpath "`""
-			ToolTip, %TextToolTip%
-			ClearTooltip(2000)
+		If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
+			;
+			; Run a NON-admin version of Google Chrome
+			;
+			RunExe_NON_Admin(FullPath_RunExe)
+			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
+		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
+		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
 	Return
 }
@@ -2646,42 +2657,41 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 
 
 ;
-;	Open_Chrome
-;   |--> Opens the "Google Chrome" Application
+;	Open_Exe
+;   |--> Opens target exeutable & sets its window to be active
 ;
-Open_Chrome() {
+Open_Exe(ExeFullpath) {
 	Global DebugMode
-	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
-	FullPath_RunExe := ""
-	FullPath_RunExe_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
-	FullPath_RunExe_x86 := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
-	If (FileExist(FullPath_RunExe_x64)) {
-		FullPath_RunExe := FullPath_RunExe_x64
-	} Else If (FileExist(FullPath_RunExe_x86)) {
-		FullPath_RunExe := FullPath_RunExe_x86
-	}
-	Win_ahk_exe := "chrome.exe"
-	WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
-	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
-	WinTitle := " - Google Chrome"
-	WinWait_TimeoutSeconds := 5
-	If (DebugMode == 1) {
-		GetWindowSpecs(WinTitle)
-		Sleep 500
-	}
-	If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
-		TextToolTip := % "Chrome executable not found (neither x64 or x86 version)"
-		ShowTooltip(TextToolTip,5000)
-	} Else {
-		If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
-			;
-			; Run a NON-admin version of Google Chrome
-			;
-			RunExe_NON_Admin(FullPath_RunExe)
-			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+	Timeout := 10
+	SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+	If (ProcessExist(ExeBasename) == True) {
+		; Executable IS running
+		If (DebugMode == 1) {
+			TextToolTip := "Activating `"" ExeBasename "`""
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
 		}
-		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
-		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+		ExePID := GetPID(ExeBasename)
+		WinActivate, ahk_pid %ExePID%
+	} Else If (FileExist(ExeFullpath)) {
+		; Executable NOT running but IS found locally
+		If (DebugMode == 1) {
+			TextToolTip := "Opening `"" ExeBasename "`""
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
+		}
+		; Run, %ExeFullpath%
+		ExitCode := RunWait(%ExeFullpath%,,, ExePID)
+		; WinWait "ahk_pid " ExePID
+		; ExePID := GetPID(ExeBasename)
+		WinActivate, ahk_pid %ExePID%
+	} Else {
+		; Executable NOT running & NOT found locally
+		If (DebugMode == 1) {
+			TextToolTip := "File not found: `"" ExeFullpath "`""
+			ToolTip, %TextToolTip%
+			ClearTooltip(2000)
+		}
 	}
 	Return
 }
@@ -2698,19 +2708,23 @@ Open_VisualStudioCode() {
 	FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
 	Exe_Args:=""
 	; ------------------------------
-	Win_ahk_exe := "Code.exe"
-	WinTitle := WinGetTitle("ahk_exe %Win_ahk_exe%")
+
+	; Win_ahk_exe := "Code.exe"
+	; WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
+	; WinTitle := WinTitle_ahk_exe
+	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
 	WinTitle := " - Visual Studio Code"
+	WinText := "Chrome Legacy Window"
 	WinWait_TimeoutSeconds := 5
-	; If (DebugMode == 1) {
+	If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
 		Sleep 500
-	; }
+	}
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
-		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
-		WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
-		If ((Win_size_state == "minimized") || ((Win_width == 0) && (Win_height == 0))) {
+		Win_size_state := WinGet_size_state(WinTitle)
+		WinGetPos(xpos, ypos, Win_width, Win_height, WinTitle)
+		If ((Win_size_state=="minimized") || ((Win_width==0) && (Win_height==0))) {
 			WinRestore(WinTitle)
 			Sleep 500
 		}
@@ -2747,6 +2761,7 @@ Open_WindowsTerminal() {
 	; ------------------------------
 	Win_ahk_exe := "WindowsTerminal.exe"
 	WinTitle := "ahk_exe %Win_ahk_exe%"
+	WinText := "DesktopWindowXamlSource"
 	WinWait_TimeoutSeconds := 5
 	If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
@@ -2754,9 +2769,9 @@ Open_WindowsTerminal() {
 	}
 	If (WinExist(WinTitle)) {
 		; If program is running but its window is minimized/not-shown, then restore it
-		Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
-		WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
-		If ((Win_size_state == "minimized") || ((Win_width == 0) && (Win_height == 0))) {
+		Win_size_state := WinGet_size_state(WinTitle, WinText)
+		WinGetPos(xpos, ypos, Win_width, Win_height, WinTitle, WinTitle, WinText)
+		If ((Win_size_state=="minimized") || ((Win_width==0) && (Win_height==0))) {
 			WinRestore(WinTitle)
 			Sleep 500
 		}
@@ -3646,8 +3661,8 @@ WinGet_is_win10_app(WinTitle) {
 ;   |
 ;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
 ;
-WinGet_size_state(WinTitle) {
-	Win_MinMaxState := WinGetMinMax(WinTitle)
+WinGet_size_state(WinTitle,WinText:="") {
+	Win_MinMaxState := WinGetMinMax(WinTitle,WinText)
 	Win_size_state := ""
 	If (Win_MinMaxState == 0) {
 		Win_size_state := "restored"

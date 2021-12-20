@@ -2404,7 +2404,7 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum="Current", WinTitle:="A") {
+MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum:="CurrentMonitor", WinTitle:="A") {
 	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
@@ -2415,17 +2415,21 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	Win_Center_XPos := Win_XPos + Win_Width/2
 	Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
 	Count := MonitorGetCount()
+	WinMove_XPos := -1
+	WinMove_YPos := -1
+	WinMove_Width := -1
+	WinMove_Height := -1
 	Loop % Count {
 		EachMonitor_Number := A_Index
 		MonitorGetWorkArea % EachMonitor_Number, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
 		MoveTo_ThisMonitor := False
-		If (Destination_MonitorNum=="Current") {
-			; If argument "Destination_MonitorNum" is set to its default of "Current", then use the target window's center x/y position to determine which monitor it will end up on
+		If (Destination_MonitorNum=="CurrentMonitor") {
+			; If argument "Destination_MonitorNum" is set to its default of "CurrentMonitor", then use the target window's center x/y position to determine which monitor it will end up on
 			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
 				MoveTo_ThisMonitor := True
 			}
 		} Else {
-			; If argument "Destination_MonitorNum" is set to anything other than "Current", use it as a monitor number to match-to
+			; If argument "Destination_MonitorNum" is set to anything other than "CurrentMonitor", use it as a monitor number to match-to
 			If (Destination_MonitorNum == EachMonitor_Number) {
 				MoveTo_ThisMonitor := True
 			}
@@ -2442,10 +2446,6 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 				; Window is Minimized --> Restore it
 				WinRestore(WinTitle)
 			}
-			WinMove_XPos := -1
-			WinMove_YPos := -1
-			WinMove_Width := -1
-			WinMove_Height := -1
 			If (Destination_Direction=="Maximized") {
 				; Toggle Restore/Maximized
 				If (Win_MinMaxState==0) {
@@ -2504,28 +2504,28 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 					WinMove_Height := EachMonitor_HalfHeight
 				}
 			}
-			; Check for error(s)
-			If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
-				Error_Message := ""
-				Error_Message := Error_Message "Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`""
-				Error_Message := Error_Message "`n" " |"
-				Error_Message := Error_Message "`n" " |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" WinTitle "`" )"
-				Error_Message := Error_Message "`n" " |"
-				Error_Message := Error_Message "`n" " |--> Script:  " A_ScriptFullPath
-				Error_Message := Error_Message "`n" "`n"
-				Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"" WinTitle "`" )"
-				Error_Message := Error_Message "`n"
-				Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"" WinTitle "`" )"
-				MsgBox % Error_Message
-			} Else {
-				If (DebugMode == 1) {
-					MsgBox % "EachMonitor_Number=[%EachMonitor_Number%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
-				}
-				; Move the window to specified x/y position and resize it to have specified width/height
-				WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
-			}
 			Break
 		}
+	}
+	; Check for error(s)
+	If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
+		Error_Message := ""
+		Error_Message := Error_Message "Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`""
+		Error_Message := Error_Message "`n" " |"
+		Error_Message := Error_Message "`n" " |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNum "`" , `"" WinTitle "`" )"
+		Error_Message := Error_Message "`n" " |"
+		Error_Message := Error_Message "`n" " |--> Script:  " A_ScriptFullPath
+		Error_Message := Error_Message "`n" "`n"
+		Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"" WinTitle "`" )"
+		Error_Message := Error_Message "`n"
+		Error_Message := Error_Message "Example call:  " A_ThisFunc " ( `"Top`" , `"Right`" , `"CurrentMonitor`" , `"" WinTitle "`" )"
+		MsgBox % Error_Message
+	} Else {
+		If (DebugMode == 1) {
+			MsgBox % "EachMonitor_Number=[%EachMonitor_Number%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
+		}
+		; Move the window to specified x/y position and resize it to have specified width/height
+		WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
 	}
 	Return
 }
@@ -2738,7 +2738,7 @@ Open_VisualStudioCode() {
 			; Sleep 500
 		}
 		WinActivate, %WinTitle%
-		MoveIt("Left", "Half", WinTitle)  ; Resize window to left-half of it's current monitor
+		MoveIt("Left", "Half", "", WinTitle)  ; Resize window to left-half of it's current monitor
 	} Else {
 		;
 		; Run a NON-admin version of Visual Studio Code (VS Code)

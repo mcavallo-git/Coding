@@ -815,9 +815,11 @@ AppsKey & ]::
 		StartMilliseconds := A_TickCount
 		Loop {
 			LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
-			WinGetTitle, WinTitle, A
-			WinGetClass, Win_ahk_class, A
-			If ((WinTitle = "Project") && (Win_ahk_class = "Windows.UI.Core.CoreWindow")) {
+			WinTitle := "A"
+			Win_title := WinGetTitle(WinTitle)
+			Win_ahk_class := WinGetClass(WinTitle)
+			Win_ahk_exe := WinGetProcessName(WinTitle)
+			If ((Win_title=="Project") && (Win_ahk_class=="Windows.UI.Core.CoreWindow") && (Win_ahk_exe=="ShellExperienceHost.exe")) {
 				; Projection menu detected --> select related option (duplicate/extend)
 				Sleep 250
 				Random, RandomSleep, 1000, 1500
@@ -2404,7 +2406,7 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNum:="CurrentMonitor", WinTitle:="A", WinText:="") {
+MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNumber:="CurrentMonitor", WinTitle:="A", WinText:="") {
 	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
@@ -2419,50 +2421,51 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		; Get the window's current xpos, ypos, width & height
 		WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
 		; Check if window is Maximized/Minimized, then prep accordingly
-		Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-		If (Win_MinMaxState==1) {
-			; Window is Maximized --> Adjust its xpos and ypos by +8 (as WIndows (for some reason) sets the top-left coords of maximized windows to -8,-8 x,y relative to the top-left coords of the monitor it's on)
-			Win_XPos := Win_XPos + 8
-			Win_YPos := Win_YPos + 8
-		} Else If ((Win_MinMaxState==-1) || ((Win_MinMaxState!=1) && (Win_Width<=0) && (Win_Height<=0))) {
+		If (WinGetMinMax(WinTitle,WinText)==1) {
+			; Window is Maximized --> Adjust its xpos and ypos by +8 (as Windows (for some reason) sets the top-left coords of maximized windows to -8,-8 x,y relative to the top-left coords of the monitor it's on)
+			; Win_XPos := Win_XPos + 8
+			; Win_YPos := Win_YPos + 8
+		} Else If ((WinGetMinMax(WinTitle,WinText)==-1) || ((WinGetMinMax(WinTitle,WinText)!=1) && (Win_Width < -8) && (Win_Height < -8))) {  ; Note: Maximized xpos,ypos == -8,-8 (commonly)
 			; Window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height) --> Restore it
 			WinRestore(WinTitle, WinText)
 			Sleep 750
-			Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 			WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
 		}
 		; Calculate the top center edge
 		Win_Center_XPos := Win_XPos + Win_Width/2
 		Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
+		Win_Center_MonitorNumber := 0
 		Monitor_Count := MonitorGetCount()
 		WinMove_XPos := -1
 		WinMove_YPos := -1
 		WinMove_Width := -1
 		WinMove_Height := -1
 		Matched_MonitorNumber := -1
-		If ((Destination_MonitorNum!="CurrentMonitor") && ("%Destination_MonitorNum%"!="1") && (Monitor_Count==1)) {
+		If ((Destination_MonitorNumber!="CurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (Monitor_Count==1)) {
 			; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
-			Destination_MonitorNum:=1
+			Destination_MonitorNumber:=1
 		}
 		Do_Maximized := False
 		Do_Restored := False
 		Loop % Monitor_Count {
-
 			Each_MonitorNumber := A_Index
-
-			MonitorGetWorkArea % Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord  ; Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area -  https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-
+			; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+			MonitorGetWorkArea(Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
 			; Determine if the current iteration's monitor is the destination monitor
 			MoveTo_ThisMonitor := False
-			If (Destination_MonitorNum=="CurrentMonitor") {
-				; If argument "Destination_MonitorNum" is set to its default of "CurrentMonitor", then use the target window's center x/y position to determine which monitor it will end up on
-				If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
-					; Center of target window is within the bounds of the current monitor's work area
+			; Determine if the center of target window is currently located within the bounds of this monitor's work area 
+			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+				; Window is located on this monitor
+				Win_Center_MonitorNumber := Monitor_Count
+			}
+			If (Destination_MonitorNumber=="CurrentMonitor") {
+				; Set the destination monitor equal to the window's current monitor
+				If (Win_Center_MonitorNumber==Monitor_Count) {
 					MoveTo_ThisMonitor := True
 				}
 			} Else {
-				; If argument "Destination_MonitorNum" is set to anything other than "CurrentMonitor", use it as a monitor number to match-to
-				If (Destination_MonitorNum == Each_MonitorNumber) {
+				; Set the destination monitor equal to a predefined monitor
+				If (Destination_MonitorNumber == Each_MonitorNumber) {
 					MoveTo_ThisMonitor := True
 				}
 			}
@@ -2478,10 +2481,14 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 				If (Destination_Direction=="Maximized") {
 					; Set window state to "Maximized"
 					Do_Maximized := True
-					WinMove_XPos := EachMonitor_LeftCoord
-					WinMove_YPos := EachMonitor_TopCoord
-					WinMove_Width := EachMonitor_Width
-					WinMove_Height := EachMonitor_Height
+					; WinMove_XPos := EachMonitor_LeftCoord - 8
+					; WinMove_YPos := EachMonitor_TopCoord - 8
+					; WinMove_Width := EachMonitor_Width + 16
+					; WinMove_Height := EachMonitor_Height + 16
+						WinMove_XPos := EachMonitor_LeftCoord
+						WinMove_YPos := EachMonitor_TopCoord
+						WinMove_Width := EachMonitor_HalfWidth
+						WinMove_Height := EachMonitor_HalfHeight
 				} Else If (Destination_Direction=="Restored") {
 					; Set window state to "Restored"
 					;
@@ -2537,9 +2544,34 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 						WinMove_Width := EachMonitor_HalfWidth
 						WinMove_Height := EachMonitor_HalfHeight
 					}
+					If ((WinMove_XPos!=-1) && (WinMove_YPos!=-1) && (WinMove_Width!=-1) && (WinMove_Height!=-1)) {
+						;
+						; Half/Quarter sized 'snap' windows --> Add strange proprietary pixel deltas which Windows uses for half-screen sized windows
+						;  |--> May vary for specific applications...
+						;
+						Win_ahk_exe := WinGetProcessName(WinTitle,WinText)
+						If (Win_ahk_exe=="Code.exe") {
+							; VS Code ignores this offset, and is sized as-expected (using an offset of 0px)
+							DeltaPixels := 0
+						} Else If (Win_ahk_exe=="firefox.exe") {
+							; Firefox uses a 5px base offset
+							DeltaPixels := 5
+						} Else {
+							; Everything else, and what seems to be the default, is a 5px base offset
+							DeltaPixels := 7
+						}
+						WinMove_XPos := WinMove_XPos - DeltaPixels
+						WinMove_YPos := WinMove_YPos - 0
+						WinMove_Width := WinMove_Width + ( 2 * DeltaPixels )
+						WinMove_Height := WinMove_Height + DeltaPixels
+					}
 				}
 				Break
 			}
+		}
+		; If we are using the "Current" monitor as the destination, then set it respectively
+		If (Destination_MonitorNumber=="CurrentMonitor") {
+			Destination_MonitorNumber := Win_Center_MonitorNumber
 		}
 		; Check for error(s)
 		If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
@@ -2547,7 +2579,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			TextToolTip := TextToolTip "                 " "`n"
 			TextToolTip := TextToolTip "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
 			TextToolTip := TextToolTip "    |" "`n"
-			TextToolTip := TextToolTip "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNum "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
+			TextToolTip := TextToolTip "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNumber "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
 			TextToolTip := TextToolTip "    |" "`n"
 			TextToolTip := TextToolTip "    |--> Script:  " A_ScriptFullPath "   " "`n"
 			TextToolTip := TextToolTip "                 " "`n"
@@ -2560,25 +2592,23 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 				MsgBox % "Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )"
 			}
 			If (Do_Maximized==False) {
-				Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				If (Win_MinMaxState==1) {
+				If (WinGetMinMax(WinTitle,WinText)==1) {
 					; Window is maximized --> Restore it (in preparation for resizing)
-					WinRestore(WinTitle, WinText)
+					WinRestore(WinTitle,WinText)
 				}
 			}
 			; If the window is where it already needs to be, then don't move it
-			WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
+			WinGetPos(Win_XPos,Win_YPos,Win_Width,Win_Height,WinTitle,WinText)
 			If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
 				; Move the window to specified x/y position and resize it to have specified width/height
-				WinMove("%WinTitle%", "%WinText%", WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)
-				Sleep 250
+				WinMove("%WinTitle%","%WinText%",WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height)
+				Sleep 500
 			}
 			If (Do_Maximized==True) {
 				; Maximize the Window on the target monitor
-				Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-				If (Win_MinMaxState!=1) {
+				If (WinGetMinMax(WinTitle,WinText)!=1) {
 					; Window is not maximized --> Maximize it
-					WinMaximize(WinTitle, WinText)
+					WinMaximize(WinTitle,WinText)
 				}
 			}
 		}
@@ -2622,7 +2652,6 @@ Open_Chrome() {
 		}
 		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
 		; MoveIt("Maximized","",2,WinTitle)  ; Resize window to left-half of monitor #2
-		; MoveIt("Restored","",2,WinTitle)  ; Resize window to left-half of monitor #2
 		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
 	Return

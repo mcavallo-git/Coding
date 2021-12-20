@@ -2529,7 +2529,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		MsgBox % Error_Message
 	} Else {
 		If (DebugMode == 1) {
-			MsgBox % "Each_MonitorNumber=[%Each_MonitorNumber%]" "`n" "WinMove(%WinTitle%,, %WinMove_XPos%, %WinMove_YPos%, %WinMove_Width%, %WinMove_Height%)"
+			MsgBox % "Matched_MonitorNumber=[" Each_MonitorNumber "]" "`n" "WinMove(" WinTitle ",, " WinMove_XPos ", " WinMove_YPos ", " WinMove_Width ", " WinMove_Height ")"
 		}
 		; Move the window to specified x/y position and resize it to have specified width/height
 		WinMove(WinTitle,, WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height)

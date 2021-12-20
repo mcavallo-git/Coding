@@ -39,6 +39,7 @@
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
+	"ahk++.enableIntellisense": false,
 	"breadcrumbs.enabled": true,
 	"breadcrumbs.filePath": "on",
 	"breadcrumbs.symbolPath": "off",

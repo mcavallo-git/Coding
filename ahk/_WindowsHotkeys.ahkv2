@@ -2408,20 +2408,18 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
-	; Get the windows pos
-	WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
-	Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
-
 	; Check if action to be performed is a simple window restore
 	If (Destination_Direction=="Restored") {
-
+		;
 		; Set window state to "Restored"
 		;  |--> Do not handle window restoration onto other monitors, as the dimensions of a window could skew it outside of the bounds of target monitor (and I'm too lazy to do the coding for making sure the window from monitor "1" (for example) fits onto a potentially-smaller monitor "2", but also if you resize the window in the process, it wouldn't truly be a 'restore' action anymore, so yeah just skip the 'feature' of restoring to any monitor other than the window's current monitor)
+		;
 		WinRestore(WinTitle, WinText)
-
 	} Else {
-
+		; Get the window's current xpos, ypos, width & height
+		WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
 		; Check if window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height)
+		Win_MinMaxState := WinGetMinMax(WinTitle, WinText)
 		If ((Win_MinMaxState==-1) || ((Win_Width<=0) && (Win_Height<=0))) {
 			; Window is Minimized --> Restore it
 			WinRestore(WinTitle, WinText)

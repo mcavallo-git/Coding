@@ -76,6 +76,11 @@
 	"editor.mouseWheelScrollSensitivity": 3,
 	"editor.mouseWheelZoom": true,
 	"editor.multiCursorModifier": "alt",
+  "editor.quickSuggestions": {
+    "other": false,
+    "comments": false,
+    "strings": false
+  },
 	"editor.renderIndentGuides": true,
 	"editor.renderLineHighlight": "all",
 	"editor.renderWhitespace": "all",

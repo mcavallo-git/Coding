@@ -2503,6 +2503,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 						WinMove_Width := EachMonitor_HalfWidth
 						WinMove_Height := EachMonitor_Height
 					} Else If (Destination_Combined=="Right-Half") {
+						; Right Half
 						WinMove_XPos := EachMonitor_Center_XPos
 						WinMove_YPos := EachMonitor_TopCoord
 						WinMove_Width := EachMonitor_HalfWidth
@@ -2557,7 +2558,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 							; Firefox uses a 5px base offset
 							DeltaPixels := 5
 						} Else {
-							; Everything else, and what seems to be the default, is a 5px base offset
+							; Everything else seems to use a 5px base offset (default..?)
 							DeltaPixels := 7
 						}
 						WinMove_XPos := WinMove_XPos - DeltaPixels

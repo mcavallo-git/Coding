@@ -69,6 +69,7 @@
 	"editor.formatOnPaste": false,
 	"editor.formatOnSave": false,
 	"editor.formatOnType": false,
+	"editor.hover.enabled": false,
 	"editor.inlineSuggest.enabled": false,
 	"editor.insertSpaces": false,
 	"editor.lineNumbers": "on",

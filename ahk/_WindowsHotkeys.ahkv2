@@ -2647,8 +2647,7 @@ Open_Chrome() {
 			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
 		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
-		; MoveIt("Maximized","",2,WinTitle)  ; Resize window to left-half of monitor #2
-		WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+		WinActivate,%WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
 	Return
 }
@@ -2788,8 +2787,7 @@ Open_VisualStudioCode() {
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
 	MoveIt("Left","Half",1,WinTitle)  ; Resize window to left-half of monitor #1
-	; MoveIt("Left","Half",,WinTitle)  ; Resize window to left-half of it's current monitor
-	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinActivate,%WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 
@@ -2821,9 +2819,8 @@ Open_WindowsTerminal() {
 		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	MoveIt("Right", "Half", 1, WinTitle, WinText)  ; Resize window to right-half of monitor #1
-	; MoveIt("Right", "Half",, WinTitle, WinText)  ; Resize window to right-half of it's current monitor
-	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	MoveIt("Right","Half",1,WinTitle,WinText)  ; Resize window to right-half of monitor #1
+	WinActivate,%WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

@@ -3562,31 +3562,25 @@ ShowVolumeLevel() {
 	ToolTip_YPos := 50  ; Fallback/default values
 	; ------------------------------
 	MouseGetPos, MouseX, MouseY
+	; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
 	Loop % MonitorGetCount() {
-		; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
 		MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
 		; Determine if the current iteration's monitor is the destination monitor
 		MoveTo_ThisMonitor := False
 		; Determine if the center of target window is currently located within the bounds of this monitor's work area 
-		If ((MouseX >= EachMonitor_LeftCoord) && (MouseX <= EachMonitor_RightCoord) && (MouseY >= EachMonitor_TopCoord) && (MouseY <= EachMonitor_BottomCoord)) {
-			;
-			; Mouse cursor is on this monitor
-			;
-			EachMonitor_Number := A_Index
-			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
-			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
-			ToolTip_XPos := Round( EachMonitor_LeftCoord + ((EachMonitor_Width-ToolTip_Width)/2) )
-			ToolTip_YPos := Round( EachMonitor_Height - StartMenu_Height - ( ToolTip_Height * 2 ) )
-			; ToolTip_YPos := Round( ( EachMonitor_Height - ToolTip_Height - StartMenu_Height + 39) * ( 1 - ( NewVolumeLevel / 100 ) ))
-			Break
+		If ((MouseX >= EachMonitor_LeftCoord) && (MouseX <= EachMonitor_RightCoord)) {
+			If ((MouseY >= EachMonitor_TopCoord) && (MouseY <= EachMonitor_BottomCoord)) {
+				; Mouse cursor is on this monitor
+				EachMonitor_Number := A_Index
+				EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
+				EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
+				ToolTip_XPos := Round(EachMonitor_LeftCoord+((EachMonitor_Width-ToolTip_Width)/2))
+				ToolTip_YPos := Round(EachMonitor_Height-ToolTip_Height-StartMenu_Height+20)
+				; ToolTip_YPos:=Round((EachMonitor_Height-ToolTip_Height-StartMenu_Height+39)*(1-(NewVolumeLevel/100)))
+				Break
+			}
 		}
 	}
-	; ------------------------------
-	; ; On-Screen Tooltip Location - X Coordinate (Left to Right)
-	; ToolTip_XPos := Round( ( A_ScreenWidth - ToolTip_Width ) / 2 )
-	; ; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
-	; ToolTip_YPos := ( A_ScreenHeight - ( ToolTip_Height * 3 ) )
-	; ------------------------------
 	ToolTip, %Echo_Tooltip%, %ToolTip_XPos%, %ToolTip_YPos%
 	ClearTooltip(750)
 	Return

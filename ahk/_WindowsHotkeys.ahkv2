@@ -2441,12 +2441,11 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		WinMove_Width := -1
 		WinMove_Height := -1
 		Matched_MonitorNumber := -1
-		Monitor_Count := MonitorGetCount()
-		If ((Destination_MonitorNumber!="UseCurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (Monitor_Count==1)) {
+		If ((Destination_MonitorNumber!="UseCurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (MonitorGetCount()==1)) {
 			; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
 			Destination_MonitorNumber:=1
 		}
-		Loop % Monitor_Count {
+		Loop % MonitorGetCount() {
 			Each_MonitorNumber := A_Index
 			; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
 			MonitorGetWorkArea(Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
@@ -2455,7 +2454,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			; Determine if the center of target window is currently located within the bounds of this monitor's work area 
 			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
 				; Window is located on this monitor
-				Win_Center_MonitorNumber := Monitor_Count
+				Win_Center_MonitorNumber := A_Index
 				If (Destination_MonitorNumber=="UseCurrentMonitor") {
 					; Set the destination monitor equal to the window's current monitor
 					MoveTo_ThisMonitor := True

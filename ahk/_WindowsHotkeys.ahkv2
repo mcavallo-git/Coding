@@ -3574,7 +3574,7 @@ ShowVolumeLevel() {
 				EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
 				EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
 				ToolTip_XPos := Round(EachMonitor_LeftCoord+((EachMonitor_Width-ToolTip_Width)/2))
-				ToolTip_YPos := Round(EachMonitor_Height-ToolTip_Height-StartMenu_Height+20)
+				ToolTip_YPos := Round(EachMonitor_Height-StartMenu_Height-(ToolTip_Height*2))
 				; ToolTip_YPos:=Round((EachMonitor_Height-ToolTip_Height-StartMenu_Height+39)*(1-(NewVolumeLevel/100)))
 				Break
 			}

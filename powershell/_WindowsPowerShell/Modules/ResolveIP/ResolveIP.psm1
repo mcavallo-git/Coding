@@ -67,12 +67,13 @@ function ResolveIP {
 	$IPv4_Resolvers += "https://v4.ident.me";
 	$IPv4_Resolvers += "https://ipinfo.io/ip";
 	$IPv4_Resolvers += "https://ipecho.net/plain";
-	$IPv6_Resolvers = @();
 
+	$IPv6_Resolvers = @();
 	$IPv6_Resolvers += "https://ipv6.icanhazip.com";
 	$IPv6_Resolvers += "https://v6.ident.me";
 	$IPv6_Resolvers += "https://bot.whatismyipaddress.com";
-	$IPv6_Resolvers += "https://checkip.amazonaws.com";
+	$IPv6_Resolvers += "https://checkip.amazonaws.com"
+
 
 	$WAN_JSON_TestServer_1 = @{};
 	$WAN_JSON_TestServer_1.url = "https://ipinfo.io/json";

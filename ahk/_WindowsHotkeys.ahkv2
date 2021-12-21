@@ -2406,7 +2406,7 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNumber:="CurrentMonitor", WinTitle:="A", WinText:="") {
+MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNumber:="UseCurrentMonitor", WinTitle:="A", WinText:="") {
 	; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
 	; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
 	Global DebugMode
@@ -2442,7 +2442,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 		WinMove_Height := -1
 		Matched_MonitorNumber := -1
 		Monitor_Count := MonitorGetCount()
-		If ((Destination_MonitorNumber!="CurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (Monitor_Count==1)) {
+		If ((Destination_MonitorNumber!="UseCurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (Monitor_Count==1)) {
 			; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
 			Destination_MonitorNumber:=1
 		}
@@ -2456,7 +2456,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
 				; Window is located on this monitor
 				Win_Center_MonitorNumber := Monitor_Count
-				If (Destination_MonitorNumber=="CurrentMonitor") {
+				If (Destination_MonitorNumber=="UseCurrentMonitor") {
 					; Set the destination monitor equal to the window's current monitor
 					MoveTo_ThisMonitor := True
 				}
@@ -2567,7 +2567,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			}
 		}
 		; If we are using the "Current" monitor as the destination, then set it respectively
-		If (Destination_MonitorNumber=="CurrentMonitor") {
+		If (Destination_MonitorNumber=="UseCurrentMonitor") {
 			Destination_MonitorNumber := Win_Center_MonitorNumber
 		}
 		; Check for error(s)
@@ -2580,7 +2580,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			TextToolTip := TextToolTip "    |" "`n"
 			TextToolTip := TextToolTip "    |--> Script:  " A_ScriptFullPath "   " "`n"
 			TextToolTip := TextToolTip "                 " "`n"
-			TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"CurrentMonitor`" , `"A`", `"`" )" "   " "`n"
+			TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
 			TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
 			TextToolTip := TextToolTip "                 "
 			ShowTooltip(TextToolTip,60000)
@@ -2822,8 +2822,7 @@ Open_WindowsTerminal() {
 		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	MoveIt("Right", "Half", "CurrentMonitor", WinTitle, WinText)  ; Resize window to right-half of monitor #1
-	; MoveIt("Right", "Half", 1, WinTitle, WinText)  ; Resize window to right-half of monitor #1
+	MoveIt("Right", "Half", 1, WinTitle, WinText)  ; Resize window to right-half of monitor #1
 	; MoveIt("Right", "Half",, WinTitle, WinText)  ; Resize window to right-half of it's current monitor
 	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return

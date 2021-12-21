@@ -1,10 +1,18 @@
 <?php
 
-$IP_RESOLVERS = array();
-$IP_RESOLVERS[] = "https://icanhazip.com";
-$IP_RESOLVERS[] = "https://ipecho.net/plain";
-$IP_RESOLVERS[] = "https://ident.me";
-$IP_RESOLVERS[] = "https://bot.whatismyipaddress.com";
+$IP_RESOLVERS = @();
+
+# IPv4 Resolvers
+$IP_RESOLVERS += "https://ipv4.icanhazip.com";
+$IP_RESOLVERS += "https://v4.ident.me";
+$IP_RESOLVERS += "https://ipinfo.io/ip";
+$IP_RESOLVERS += "https://ipecho.net/plain";
+
+# IPv6 Resolvers
+$IP_RESOLVERS += "https://ipv6.icanhazip.com";
+$IP_RESOLVERS += "https://v6.ident.me";
+$IP_RESOLVERS += "https://bot.whatismyipaddress.com";
+$IP_RESOLVERS += "https://checkip.amazonaws.com"
 
 $WAN_IPv4 = '';
 foreach ($IP_RESOLVERS as $EACH_RESOLVER) {

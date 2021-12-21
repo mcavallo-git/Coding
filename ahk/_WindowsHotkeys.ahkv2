@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2431,22 +2431,21 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			Sleep 750
 			WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
 		}
+		Do_Maximized := False
 		; Calculate the top center edge
 		Win_Center_XPos := Win_XPos + Win_Width/2
-		Win_Center_YPos := Win_YPos + 20  ; Compensate for the height of the taskbar (20px)
+		Win_Center_YPos := Win_YPos + 20  ; Compensate for ??? with this 20px add? taskbar is 40px...
 		Win_Center_MonitorNumber := 0
-		Monitor_Count := MonitorGetCount()
 		WinMove_XPos := -1
 		WinMove_YPos := -1
 		WinMove_Width := -1
 		WinMove_Height := -1
 		Matched_MonitorNumber := -1
+		Monitor_Count := MonitorGetCount()
 		If ((Destination_MonitorNumber!="CurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (Monitor_Count==1)) {
 			; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
 			Destination_MonitorNumber:=1
 		}
-		Do_Maximized := False
-		Do_Restored := False
 		Loop % Monitor_Count {
 			Each_MonitorNumber := A_Index
 			; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
@@ -3537,7 +3536,7 @@ ShowVolumeLevel() {
 		Echo_Middle_Center := Mute_Padding NewVolumeLevel Mute_Padding
 	} Else If ( NewVolumeLevel >= 10 ) {
 		; Mute_AddSpaces := Mute_AddSpaces + 1
-		Echo_Middle_Center := Mute_Padding A_Space NewVolumeLevel A_Space Mute_Padding
+		Echo_Middle_Center := Mute_Padding A_Space A_Space NewVolumeLevel Mute_Padding
 	} Else {
 		; Mute_AddSpaces := Mute_AddSpaces + 2
 		Echo_Middle_Center := Mute_Padding A_Space A_Space NewVolumeLevel A_Space A_Space Mute_Padding
@@ -3547,15 +3546,44 @@ ShowVolumeLevel() {
 	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf "`n"
 	Echo_Tooltip := Echo_Tooltip Echo_Middle_LeftHalf Echo_Middle_Center Echo_Middle_RightHalf "`n"
 	Echo_Tooltip := Echo_Tooltip Echo_TopBot_LeftHalf Echo_TopBot_Center Echo_TopBot_RightHalf
-	OutputWidth := 317
+	; ------------------------------
+	; End of text-formatting calculations
+	; Start of windows-placement calculations
+	; ------------------------------
+	OutputWidth := 254
 	OutputHeight := 50
 	StartMenuHeight := 40
-	; On-Screen Tooltip Location - X Coordinate (Left to Right)
-	xpos := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
-	; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
-	ypos := ( A_ScreenHeight - ( OutputHeight * 3 ) )
-	ToolTip, %Echo_Tooltip%, %xpos%, %ypos%
-	ClearTooltip(750)
+	ToolTip_XPos := 50  ; Fallback/default values
+	ToolTip_YPos := 50  ; Fallback/default values
+	MouseGetPos, MouseX, MouseY
+	Loop % MonitorGetCount() {
+		; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+		MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
+		; Determine if the current iteration's monitor is the destination monitor
+		MoveTo_ThisMonitor := False
+		; Determine if the center of target window is currently located within the bounds of this monitor's work area 
+		If ((MouseX>=EachMonitor_LeftCoord) && (MouseX<=EachMonitor_RightCoord) && (MouseY>=EachMonitor_TopCoord) && (MouseY<=EachMonitor_BottomCoord)) {
+			;
+			; Mouse cursor is on this monitor
+			;
+			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
+			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
+			ToolTip_XPos := Round( ( EachMonitor_Width - OutputWidth ) / 2 )
+			ToolTip_YPos := Round( EachMonitor_Height - StartMenuHeight - ( OutputHeight * 2 ) )
+			If (WinGetClass("A") == "ClassicShell.CMenuContainer") {
+				ToolTip_YPos := EachMonitor_Height * ( NewVolumeLevel / 100 )
+			}
+			break
+		}
+	}
+	; ;;; On-Screen Tooltip Location - X Coordinate (Left to Right)
+	; xpos := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
+	; ;;; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
+	; ypos := ( A_ScreenHeight - ( OutputHeight * 3 ) )
+	; ToolTip, %Echo_Tooltip%, %xpos%, %ypos%
+	ToolTip, %Echo_Tooltip%, %ToolTip_XPos%, %ToolTip_YPos%
+	; ClearTooltip(750)
+	ClearTooltip(2000)
 	Return
 }
 

@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2456,23 +2456,20 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 			If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
 				; Window is located on this monitor
 				Win_Center_MonitorNumber := Monitor_Count
-			}
-			If (Destination_MonitorNumber=="CurrentMonitor") {
-				; Set the destination monitor equal to the window's current monitor
-				If (Win_Center_MonitorNumber==Monitor_Count) {
+				If (Destination_MonitorNumber=="CurrentMonitor") {
+					; Set the destination monitor equal to the window's current monitor
 					MoveTo_ThisMonitor := True
 				}
-			} Else {
+			}
+			If (Destination_MonitorNumber == Each_MonitorNumber) {
 				; Set the destination monitor equal to a predefined monitor
-				If (Destination_MonitorNumber == Each_MonitorNumber) {
-					MoveTo_ThisMonitor := True
-				}
+				MoveTo_ThisMonitor := True
 			}
-			If (MoveTo_ThisMonitor==True) {
+			If (MoveTo_ThisMonitor == True) {
 				; Monitor is to be used as the window's destination
 				Matched_MonitorNumber := Each_MonitorNumber
-				EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
-				EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
+				EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
+				EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
 				EachMonitor_HalfWidth := (EachMonitor_Width / 2)
 				EachMonitor_HalfHeight := (EachMonitor_Height / 2)
 				EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
@@ -2825,7 +2822,8 @@ Open_WindowsTerminal() {
 		RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
-	MoveIt("Right", "Half", 1, WinTitle, WinText)  ; Resize window to right-half of monitor #1
+	MoveIt("Right", "Half", "CurrentMonitor", WinTitle, WinText)  ; Resize window to right-half of monitor #1
+	; MoveIt("Right", "Half", 1, WinTitle, WinText)  ; Resize window to right-half of monitor #1
 	; MoveIt("Right", "Half",, WinTitle, WinText)  ; Resize window to right-half of it's current monitor
 	WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
@@ -2983,7 +2981,9 @@ PrintEnv() {
 	; WINDIR			%WINDIR%
 	;
 
-	; KnownWinEnvVars :=
+	; KnownWinEnvVars := 
+
+	; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
 	Msgbox,
 	(LTrim
 	----------------------------- AHK Env-Vars -----------------------------
@@ -2992,6 +2992,11 @@ PrintEnv() {
 	A_AhkVersion:		%A_AhkVersion%
 	A_AutoTrim:		%A_AutoTrim%
 	A_ControlDelay:		%A_ControlDelay%
+	A_CoordModeCaret:	%A_CoordModeCaret%
+	A_CoordModeMenu:	%A_CoordModeMenu%
+	A_CoordModeMouse:	%A_CoordModeMouse%
+	A_CoordModePixel:	%A_CoordModePixel%
+	A_CoordModeToolTip:		%A_CoordModeToolTip%
 	A_Cursor:		%A_Cursor%
 	A_DefaultGui:		%A_DefaultGui%
 	A_DefaultListView:	%A_DefaultListView%
@@ -3489,6 +3494,7 @@ ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
 ;
 ShowVolumeLevel() {
 	CoordMode, Mouse, Screen
+	CoordMode, ToolTip, Screen
 	Icon_MutedSpeaker := "🔇"
 	Icon_SpeakerLowVolume := "🔈"
 	Icon_SpeakerMediumVolume := "🔉"
@@ -3550,11 +3556,12 @@ ShowVolumeLevel() {
 	; End of text-formatting calculations
 	; Start of windows-placement calculations
 	; ------------------------------
-	OutputWidth := 254
-	OutputHeight := 50
-	StartMenuHeight := 40
+	ToolTip_Width := 254
+	ToolTip_Height := 50
+	StartMenu_Height := 40
 	ToolTip_XPos := 50  ; Fallback/default values
 	ToolTip_YPos := 50  ; Fallback/default values
+	; ------------------------------
 	MouseGetPos, MouseX, MouseY
 	Loop % MonitorGetCount() {
 		; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
@@ -3562,28 +3569,27 @@ ShowVolumeLevel() {
 		; Determine if the current iteration's monitor is the destination monitor
 		MoveTo_ThisMonitor := False
 		; Determine if the center of target window is currently located within the bounds of this monitor's work area 
-		If ((MouseX>=EachMonitor_LeftCoord) && (MouseX<=EachMonitor_RightCoord) && (MouseY>=EachMonitor_TopCoord) && (MouseY<=EachMonitor_BottomCoord)) {
+		If ((MouseX >= EachMonitor_LeftCoord) && (MouseX <= EachMonitor_RightCoord) && (MouseY >= EachMonitor_TopCoord) && (MouseY <= EachMonitor_BottomCoord)) {
 			;
 			; Mouse cursor is on this monitor
 			;
+			EachMonitor_Number := A_Index
 			EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
 			EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
-			ToolTip_XPos := Round( ( EachMonitor_Width - OutputWidth ) / 2 )
-			ToolTip_YPos := Round( EachMonitor_Height - StartMenuHeight - ( OutputHeight * 2 ) )
-			If (WinGetClass("A") == "ClassicShell.CMenuContainer") {
-				ToolTip_YPos := EachMonitor_Height * ( NewVolumeLevel / 100 )
-			}
-			break
+			ToolTip_XPos := Round( EachMonitor_LeftCoord + ((EachMonitor_Width-ToolTip_Width)/2) )
+			ToolTip_YPos := Round( EachMonitor_Height - StartMenu_Height - ( ToolTip_Height * 2 ) )
+			; ToolTip_YPos := Round( ( EachMonitor_Height - ToolTip_Height - StartMenu_Height + 39) * ( 1 - ( NewVolumeLevel / 100 ) ))
+			Break
 		}
 	}
-	; ;;; On-Screen Tooltip Location - X Coordinate (Left to Right)
-	; xpos := Round( ( A_ScreenWidth - OutputWidth ) / 2 )
-	; ;;; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
-	; ypos := ( A_ScreenHeight - ( OutputHeight * 3 ) )
-	; ToolTip, %Echo_Tooltip%, %xpos%, %ypos%
+	; ------------------------------
+	; ; On-Screen Tooltip Location - X Coordinate (Left to Right)
+	; ToolTip_XPos := Round( ( A_ScreenWidth - ToolTip_Width ) / 2 )
+	; ; On-Screen Tooltip Location - Y Coordinate (Top to Bottom)
+	; ToolTip_YPos := ( A_ScreenHeight - ( ToolTip_Height * 3 ) )
+	; ------------------------------
 	ToolTip, %Echo_Tooltip%, %ToolTip_XPos%, %ToolTip_YPos%
-	; ClearTooltip(750)
-	ClearTooltip(2000)
+	ClearTooltip(750)
 	Return
 }
 

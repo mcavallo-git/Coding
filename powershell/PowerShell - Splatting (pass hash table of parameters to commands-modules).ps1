@@ -3,6 +3,12 @@
 # PowerShell - Use "splatting" to pass command parameters
 #
 
+
+# Splatting --> Shorter Example
+$P=@{Object="`nParameter splatting demo - Passing parameters to the [ Write-Host ] command`n";ForegroundColor="Yellow";BackgroundColor="Magenta"}; Write-Host @P;
+
+
+# Splatting --> Longer Example
 If ($True) {
 $WriteHost_SplatParams = @{};
 $WriteHost_SplatParams.("Object")=("`nParameter splatting demo - Passing parameters to the [ Write-Host ] command`n");

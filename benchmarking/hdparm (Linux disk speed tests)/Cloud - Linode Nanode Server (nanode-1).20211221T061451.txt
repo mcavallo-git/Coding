@@ -1,0 +1,25 @@
+# ------------------------------------------------------------
+### 
+### 2021-12-21 @ 05:12:21 ► DISK_PATH=$(lsblk | grep disk | awk '{print $1}' | head -n 1;); hdparm -Tt "/dev/${DISK_PATH}";
+### 
+
+
+/dev/sda:
+ Timing cached reads:   16754 MB in  1.99 seconds = 8423.83 MB/sec
+SG_IO: bad/missing sense data, sb[]:  70 00 05 00 00 00 00 0a 00 00 00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ Timing buffered disk reads: 1784 MB in  3.00 seconds = 594.65 MB/sec
+
+
+# ------------------------------------------------------------
+###
+### 2021-12-21 @ 05:13:02 ► DISK_PATH=$(lsblk | grep disk | awk '{print $1}' | head -n 1;); hdparm -Tt "/dev/${DISK_PATH}";
+###
+
+
+/dev/sda:
+ Timing cached reads:   17160 MB in  1.99 seconds = 8628.57 MB/sec
+SG_IO: bad/missing sense data, sb[]:  70 00 05 00 00 00 00 0a 00 00 00 00 20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ Timing buffered disk reads: 2096 MB in  3.00 seconds = 698.60 MB/sec
+
+
+# ------------------------------------------------------------

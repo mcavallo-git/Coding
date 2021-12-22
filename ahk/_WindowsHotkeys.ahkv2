@@ -2820,7 +2820,7 @@ Open_WindowsTerminal() {
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
 	MoveIt("Right","Half",1,WinTitle,WinText)  ; Resize window to right-half of monitor #1
-	WinActivate,%WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

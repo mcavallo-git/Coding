@@ -2630,8 +2630,8 @@ Open_Chrome() {
 	}
 	Win_ahk_exe := "chrome.exe"
 	WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
-	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
 	WinTitle := " - Google Chrome"
+	WinText := "Chrome Legacy Window"
 	WinWait_TimeoutSeconds := 5
 	If (DebugMode == 1) {
 		GetWindowSpecs(WinTitle)
@@ -2647,7 +2647,7 @@ Open_Chrome() {
 			WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 		}
 		MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
-		WinActivate,%WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+		WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	}
 	Return
 }
@@ -2769,11 +2769,10 @@ Open_VisualStudioCode() {
 	FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
 	Exe_Args:=""
 	; ------------------------------
-
-	; Win_ahk_exe := "Code.exe"
-	; WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
-	; WinTitle := WinTitle_ahk_exe
-	; WinTitle := WinGetTitle(WinTitle_ahk_exe)
+	; Win_ahk_exe := "Code.exe"                    ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+	; WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+	; WinTitle := WinTitle_ahk_exe                 ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+	; WinTitle := WinGetTitle(WinTitle_ahk_exe)    ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
 	WinTitle := " - Visual Studio Code"
 	WinText := "Chrome Legacy Window"
 	WinWait_TimeoutSeconds := 5
@@ -2787,7 +2786,7 @@ Open_VisualStudioCode() {
 		WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
 	}
 	MoveIt("Left","Half",1,WinTitle)  ; Resize window to left-half of monitor #1
-	WinActivate,%WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+	WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
 	Return
 }
 

@@ -6,8 +6,8 @@
 #
 # ------------------------------------------------------------
 
-# [LIST ROLES]  Get-WindowsFeature & output to desktop (ALL)
-Get-WindowsFeature | Select-Object -Property Name,Installed | Sort-Object -Property Name | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
+# [LIST ROLES]  Get-WindowsFeature & output to desktop (ALL)  (use DISM if 'Get-WindowsFeature' command is missing)
+$Features = If ((Get-Command -Name "Get-WindowsFeature" 2>$Null) -NE $Null) { Get-WindowsFeature | Select-Object -Property Name,Installed | Sort-Object -Property Name | Format-Table } Else { dism /online /get-features }; $Features >> "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";
 
 # [LIST ROLES]  Get-WindowsFeature & output to desktop (ONLY INSTALLED)
 Get-WindowsFeature | Where-Object { $_.Installed -Match "True" } | Select-Object -Property Name | Sort-Object -Property Name | Format-Table > "${ENV:USERPROFILE}\Desktop\Get-WindowsFeature.Installed_True.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.$(Get-Date -UFormat '%Y%m%d-%H%M%S').log";

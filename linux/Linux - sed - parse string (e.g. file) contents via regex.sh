@@ -10,8 +10,25 @@ echo "hello world" | sed -e 's|world|not world|g';
 
 
 # ------------------------------------------------------------
+#
+# Regex w/ Capture Groups
+#
+
+
+PATTERN="^([0-9]{1})$"; # Only match lines with 1 digit
+OUTPUT="\1";
+echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\/}/${OUTPUT}/pi";
+
+
+PATTERN="^([0-9]{2})$"; # Only match lines with 2 digits
+OUTPUT="\1";
+echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\/}/${OUTPUT}/pi";
+
+
 # 
-# Use sed with regex capture group(s) (which are referenced using \1 \2 ... \n - e.g. backslashed-numbers, instead of regex's usual $1 $2 ... $n - e.g. dollar-number syntax)
+# Note: sed capture groups are referenced using backslashes before the capture group number, e.g. [ \1 \2 ... \n ]
+#  |
+#  |--> this is in contrade to traditional regex capture group syntax, which uses a dollar sign before the capture group number, e.g. [ $1 $2 ... $n ]
 #
 
 
@@ -58,12 +75,12 @@ Example_CommaDelimitedList_RemoveMatchedItems="$(echo 'abc,defghij,klm' | sed 's
 
 WorkingDir="${HOME}\Downloads"; # Location containing files to-be-matched
 Regex_FilenameMatches="Statement_(.+)_(.+)_(.+)\.pdf"; # Syntax for filenames to match
-Sed_RegexExpression="s/${Regex_FilenameMatches}/\Statement_\3_\1_\2.pdf/"; # Syntax for filename replacement
+Sed_RegexExpression="s/${Regex_FilenameMatches}/\Statement_\3_\1_\2.pdf/pi"; # Syntax for filename replacement
 if [ -d "${WorkingDir}" ]; then
 echo "Setting working-directory to \"${WorkingDir}\"";
 cd "${WorkingDir}";
 find . -type f | while read EACH_FILENAME; do
-NEW_FILENAME=$(echo ${EACH_FILENAME} | sed -re "${Sed_RegexExpression}";); # Pass the filename through the regex filter using sed
+NEW_FILENAME=$(echo ${EACH_FILENAME} | sed -rne "${Sed_RegexExpression}";); # Pass the filename through the regex filter using sed
 if [ -n "${NEW_FILENAME}" ] && [ "${EACH_FILENAME}" != "${NEW_FILENAME}" ]; then # If new filename is not blank (regex match) and is not equal to original filename, rename it
 echo "  Renaming \"${EACH_FILENAME}\" to \"${NEW_FILENAME}\"";
 mv "${EACH_FILENAME}" "${NEW_FILENAME}";
@@ -320,6 +337,7 @@ echo -e "${TEST_STR}" | sed -n "${SED_REVERSE_METHOD2}" | head -n -${TOP_LINES_T
 # 
 # Example)  Remove windows-newlines (e.g. remove CR's)
 #
+
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 
 
@@ -327,6 +345,7 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
 #
 # Example)  Escape forward slashes using sed
 #
+
 EXAMPLE_SUBNETS_LIST="10.0.0.0/8"$'\n'"172.16.0.0/12"$'\n'"192.168.0.0/16";
 EXAMPLE_SUBNET_TO_REMOVE="172.16.0.0/12";
 SED_ESCAPED_FORWARD_SLASHES="$(echo ${EXAMPLE_SUBNET_TO_REMOVE} | sed 's/\//\\\//g')";
@@ -338,22 +357,25 @@ echo "${EXAMPLE_SUBNETS_LIST}" | sed ${SED_EXPRESSION};
 #
 # Example)  MySQL Exports - Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 #
-sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"
 
-sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql"
+sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql";
+
+sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql";
 
 
 # ------------------------------------------------------------
 #
 # Example)  MySQL Exports - Replace Trigger definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 #
-sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql"
+
+sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql";
 
 
 # ------------------------------------------------------------
 # 
 # Example)  Parse GnuPG key_id's out of the fingerprints held in gpg (using 'LONG' format-syntax)
 #
+
 GnuPG_KeyIDs=$(gpg --list-secret-keys --keyid-format 'LONG' | sed -rne 's/^sec\ +([A-Za-z0-9]+)\/([A-F0-9]{16})\ +([0-9\-]{1,10})\ +(.+)$/\2/p');
 echo "GnuPG_KeyIDs=\"${GnuPG_KeyIDs}\"";
 
@@ -399,7 +421,7 @@ fi;
 #
 # Example)  GREP + SED - Get single line from file, then get substring from that line --> Note: This should probably be done exclusively with SED
 #
-echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s/ssl_ciphers '\(.*\)';/\1/"
+echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s/ssl_ciphers '\(.*\)';/\1/";
 
 
 # ------------------------------------------------------------

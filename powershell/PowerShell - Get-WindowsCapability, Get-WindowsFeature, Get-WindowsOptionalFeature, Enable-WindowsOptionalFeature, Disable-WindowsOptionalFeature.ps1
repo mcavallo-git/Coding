@@ -69,10 +69,18 @@ If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsys
 	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 }
 
+# ------------------------------------------------------------
+#
+# Enable Optional Feature(s) via 'Get-WindowsCapability' + 'Add-WindowsCapability'
+#
+
+# Enable Optional Feature "Simple Network Management Protocol (SNMP)"
+Get-WindowsCapability -Online | Where-Object { [Regex]::Match(($_.Name),(Write-Output ^SNMP.Client.+$)).Success } | Where-Object { $_.State -Eq (Write-Output NotPresent) } | Add-WindowsCapability -Online;  <# Enable the [ Simple Network Management Protocol (SNMP) ] Windows Optional Feature (does nothing if SNMP is already enabled) #>
+
 
 # ------------------------------------------------------------
 #
-# Enable Optional Feature(s)
+# Enable Optional Feature(s) via 'Enable-WindowsOptionalFeature'
 #
 
 Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3";

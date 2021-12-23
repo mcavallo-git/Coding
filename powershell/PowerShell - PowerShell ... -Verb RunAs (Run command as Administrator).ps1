@@ -17,6 +17,9 @@ Start-Process -Filepath ("${env:ProgramFiles}\AutoHotkey-v2\AutoHotkeyU64.exe") 
 PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Invoke-Expression ((GCM whoami).Source); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 
 
+<# PowerShell/pwsh - Run as admin (child terminal) - Enable SNMP (Windows 10) --> Add Capabilities "Simple Network Management Protocol (SNMP)" and "WMI SNMP Provider" #>
+PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command Get-WindowsCapability -Online | Where-Object { [Regex]::Match((((GV _).Value).Name),(Write-Output SNMP)).Success } | Where-Object { (((GV _).Value).State) -Eq (Write-Output NotPresent) } | ForEach-Object { ((Write-Output Add-WindowsCapability:)+([String][Char]32)+(((GV _).Value).Name)); Add-WindowsCapability -Online -Name (((GV _).Value).Name); }; Write-Output ((Write-Output Waiting)+([String][Char]32)+(Write-Output 60s...)); Start-Sleep -Seconds 60;') -Verb RunAs -Wait -PassThru | Out-Null;";
+
 <# PowerShell/pwsh - Run as admin (child terminal) - Install choco package manager #>
 PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; If ((GCM choco -ErrorAction SilentlyContinue) -Eq ((GV null).Value)) { Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://chocolatey.org/install.ps1))); }; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 

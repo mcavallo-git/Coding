@@ -71,27 +71,33 @@ If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsys
 
 # ------------------------------------------------------------
 #
-# Enable Optional Feature(s) via 'Get-WindowsCapability' + 'Add-WindowsCapability'
+# Enable/Disable (Add/Remove) Features via:
+#   Add-WindowsCapability
+#   Get-WindowsCapability
+#   Remove-WindowsCapability
 #
 
-# Enable Optional Feature "Simple Network Management Protocol (SNMP)"
+
+# Enable SNMP 
 Get-WindowsCapability -Online | Where-Object { [Regex]::Match(($_.Name),(Write-Output ^SNMP.Client.+$)).Success } | Where-Object { $_.State -Eq (Write-Output NotPresent) } | Add-WindowsCapability -Online;  <# Enable the [ Simple Network Management Protocol (SNMP) ] Windows Optional Feature (does nothing if SNMP is already enabled) #>
+
+
+# Disable SNMP 
+Get-WindowsCapability -Online | Where-Object { [Regex]::Match(($_.Name),(Write-Output ^SNMP.Client.+$)).Success } | Where-Object { $_.State -Eq (Write-Output Installed) } | Remove-WindowsCapability -Online;  <# Enable the [ Simple Network Management Protocol (SNMP) ] Windows Optional Feature (does nothing if SNMP is already enabled) #>
 
 
 # ------------------------------------------------------------
 #
-# Enable Optional Feature(s) via 'Enable-WindowsOptionalFeature'
+# Enable/Disable (Add/Remove) Features via:
+#   Disable-WindowsOptionalFeature
+#   Enable-WindowsOptionalFeature
 #
+
 
 Enable-WindowsOptionalFeature -Online -FeatureName "NetFx3";
 Enable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45";
 Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
 
-
-# ------------------------------------------------------------
-#
-# Disable Optional Feature(s)
-#
 
 Disable-WindowsOptionalFeature -Online -FeatureName "NetFx3";
 Disable-WindowsOptionalFeature -Online -FeatureName "NetFx4Extended-ASPNET45";
@@ -101,16 +107,20 @@ Disable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem
 # ------------------------------------------------------------
 # Citation(s)
 #
-#		docs.microsoft.com  |  "Get-WindowsCapability (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowscapability
+#   docs.microsoft.com  |  "Add-WindowsCapability (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/add-windowscapability
 #
-#		docs.microsoft.com  |  "Get-WindowsFeature (ServerManager) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/servermanager/get-windowsfeature
+#   docs.microsoft.com  |  "Disable-WindowsOptionalFeature (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/disable-windowsoptionalfeature
 #
-#		docs.microsoft.com  |  "Get-WindowsOptionalFeature (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowsoptionalfeature
+#   docs.microsoft.com  |  "DISM Global Options for Command-Line Syntax | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-global-options-for-command-line-syntax
 #
-#		docs.microsoft.com  |  "Enable-WindowsOptionalFeature (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/enable-windowsoptionalfeature
+#   docs.microsoft.com  |  "Get-WindowsCapability (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowscapability
 #
-#		docs.microsoft.com  |  "Disable-WindowsOptionalFeature (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/disable-windowsoptionalfeature
+#   docs.microsoft.com  |  "Get-WindowsFeature (ServerManager) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/servermanager/get-windowsfeature
 #
-#		docs.microsoft.com  |  "DISM Global Options for Command-Line Syntax | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/dism-global-options-for-command-line-syntax
+#   docs.microsoft.com  |  "Get-WindowsOptionalFeature (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/get-windowsoptionalfeature
+#
+#   docs.microsoft.com  |  "Enable-WindowsOptionalFeature (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/enable-windowsoptionalfeature
+#
+#   docs.microsoft.com  |  "Remove-WindowsCapability (DISM) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/dism/remove-windowscapability
 #
 # ------------------------------------------------------------

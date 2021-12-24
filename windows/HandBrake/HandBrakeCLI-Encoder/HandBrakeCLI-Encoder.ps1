@@ -14,7 +14,9 @@
 #
 If ($False) { # RUN THIS SCRIPT REMOTELY:
 
-<# Run HandBrakeCLI-Encoder #> SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
+<# HandBrakeCLI #> SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
+
+<# HandBrakeCLI + GPU Acceleration #> ${Env:HandBrake_Preset}="H.265 NVENC 2160p 4K"; SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
 
 }
 #
@@ -40,14 +42,14 @@ If ("${Env:HandBrake_Preset}" -NE "") {
 	$HandBrake_Preset = "Very Fast 1080p30";
 	# $HandBrake_Preset = "Fast 1080p30";
 	# $HandBrake_Preset = "H.265 MKV 2160p60";
-	# $HandBrake_Preset = "H.265 NVENC 2160p 4K";
-	# $HandBrake_Preset = "H.265 NVENC 1080p";
+	# $HandBrake_Preset = "H.265 NVENC 2160p 4K";  <# Nvidia GPU Req'd #>
+	# $HandBrake_Preset = "H.265 NVENC 1080p";  <# Nvidia GPU Req'd #>
 	# ------------------------------
 	# ${Env:HandBrake_Preset}="Very Fast 1080p30";
 	# ${Env:HandBrake_Preset}="Fast 1080p30";
 	# ${Env:HandBrake_Preset}="H.265 MKV 2160p60";
-	# ${Env:HandBrake_Preset}="H.265 NVENC 2160p 4K";
-	# ${Env:HandBrake_Preset}="H.265 NVENC 1080p";
+	# ${Env:HandBrake_Preset}="H.265 NVENC 2160p 4K";  <# Nvidia GPU Req'd #>
+	# ${Env:HandBrake_Preset}="H.265 NVENC 1080p";  <# Nvidia GPU Req'd #>
 	# ------------------------------
 }
 

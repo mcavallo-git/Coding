@@ -263,7 +263,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
 
 		# Download HandBrakeCLI
 		Write-Output "";
-		Write-Output "Info:  Downloading portable version of HandBrakeCLI...";
+		Write-Output "Info:  Downloading HandBrakeCLI...";
 		Write-Output "        |--> Source:       `"${URL_HandBrakeCLI_Zip}`"";
 		Write-Output "        |--> Destination:  `"${FullPath_HandBrakeCLI_Zip}`"";
 

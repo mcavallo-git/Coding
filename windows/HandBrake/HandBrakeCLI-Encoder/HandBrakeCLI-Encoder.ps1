@@ -33,9 +33,17 @@ $InputDir = ("${WorkingDir}\InputVideos");
 
 $OutputDir = ("${WorkingDir}\OutputVideos");
 
-$HandBrake_Preset = "Very Fast 1080p30";
+If ("${Env:HandBrake_Preset}" -NE "") {
+	$HandBrake_Preset = "${Env:HandBrake_Preset}";
+} Else {
+	$HandBrake_Preset = "Very Fast 1080p30";
+}
 
-$OutputExtension = "mp4";
+If ("${Env:OutputExtension}" -NE "") {
+	$OutputExtension = "${Env:OutputExtension}";
+} Else {
+	$OutputExtension = "mp4";
+}
 
 $MaxRetries_NameCollision = 500;
 

@@ -121,7 +121,7 @@ exit 0;
 #
 COMMAND_LOOKUP="docker";
 COMMAND_FOUND=0;
-echo ""
+echo "";
 echo "Checking for Linux Command \"${COMMAND_LOOKUP}\" on \"$(hostname)\"...";
 if ! COMMAND_RESOLVED_PATH="$(type -p "$COMMAND_LOOKUP")" || [ -z "$COMMAND_RESOLVED_PATH" ]; then
 	echo "  Command NOT found: \"${COMMAND_LOOKUP}\"";

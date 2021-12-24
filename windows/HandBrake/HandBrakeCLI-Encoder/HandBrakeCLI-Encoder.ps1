@@ -33,6 +33,7 @@ $InputDir = ("${WorkingDir}\InputVideos");
 
 $OutputDir = ("${WorkingDir}\OutputVideos");
 
+# HandBrake_Preset - Default to "Very Fast 1080p30"
 If ("${Env:HandBrake_Preset}" -NE "") {
 	$HandBrake_Preset = "${Env:HandBrake_Preset}";
 } Else {
@@ -40,6 +41,7 @@ If ("${Env:HandBrake_Preset}" -NE "") {
 	# $HandBrake_Preset = "H.265 MKV 2160p60";
 }
 
+# OutputExtension - Default to "mp4"
 If ("${Env:OutputExtension}" -NE "") {
 	$OutputExtension = "${Env:OutputExtension}";
 } Else {

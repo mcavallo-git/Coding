@@ -138,7 +138,8 @@ Write-Output "";
 Write-Output "Info:  Using working directory `"${WorkingDir}`"...";
 
 $Benchmark = New-Object System.Diagnostics.Stopwatch;
-
+${Benchmark}.Reset();
+${Benchmark}.Start();
 
 # ------------------------------------------------------------
 #
@@ -395,6 +396,7 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 	Write-Output "";
 	Write-Output "------------------------------------------------------------";
 	Write-Output "";
+	$EachBenchmark = New-Object System.Diagnostics.Stopwatch;
 
 	<# Walk through the input directory's contained video files, one-by-one #>
 	For ($i=0; ($i -LT $InputFullNames_Arr.Count); $i++) {
@@ -442,20 +444,20 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 			#                                                 #
 			#   ! ! !   Perform the actual encoding   ! ! !   #
 			#                                                 #
-			${Benchmark}.Reset();
-			${Benchmark}.Start();
+			${EachBenchmark}.Reset();
+			${EachBenchmark}.Start();
 			If (${DoEncoding_InSameWindow} -Eq $False) {
 				$EachConversion = (Start-Process -Filepath ("${FullPath_HandBrakeCLI_Exe}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"")  -Wait); $EachExitCode=$?;
 			} Else {
 				$EachConversion = (Start-Process -Filepath ("${FullPath_HandBrakeCLI_Exe}") -ArgumentList ("--preset `"${HandBrake_Preset}`" ${ExtraOptions}-i `"${EachInput_FullName}`" -o `"${EachOutput_FullName}`"") -NoNewWindow -Wait -PassThru); $EachExitCode=$?;
 			}
-			${Benchmark}.Stop();
+			${EachBenchmark}.Stop();
 			If ((Test-Path -Path ("${EachOutput_FullName}")) -Eq $True) {
 				$TotalVideoEncodes++;
 				Write-Output "`n`n";
 				Write-Output "Info:  Output file exists with path:   `"${EachOutput_FullName}`"";
 				Write-Output "  |";
-				Write-Output "  |-->  Encoding duration:  $(${Benchmark}.Elapsed.TotalSeconds) seconds";
+				Write-Output "  |-->  Encoding duration:  $(${EachBenchmark}.Elapsed.TotalSeconds) seconds";
 				Write-Output "  |";
 				Write-Output "  |-->  Input filepath:  `"${EachInput_FullName}`"";
 				Write-Output "  |-->  Output filepath:  `"${EachOutput_FullName}`"";
@@ -469,13 +471,17 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $True) {
 		}
 
 	}
+	${Benchmark}.Stop();
 
 	# Open the exported-files directory
 	If ($TotalVideoEncodes -GT 0) {
 		Write-Output "";
-		Write-Output "Info:   Encoding Complete";
+		Write-Output "Info:   HandBrakeCLI-Encoder Runtime Finished";
 		Write-Output "  |";
-		Write-Output "  |-->  Total Encoding Count:  `"${TotalVideoEncodes}`"";
+		Write-Output "  |-->  Total Encoded Files (Count):  `"${TotalVideoEncodes}`"";
+		Write-Output "  |";
+		Write-Output "  |-->  Total Time Elapsed (Runtime Duration):  $(${Benchmark}.Elapsed.TotalSeconds) seconds";
+
 		# Write-Output "  |";
 		# Write-Output "  |-->  Opening output directory (in Windows Explorer):  ...";
 		Write-Output "";

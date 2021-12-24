@@ -2799,7 +2799,9 @@ Open_WindowsTerminal() {
 	SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
 	; ------------------------------
 	FullPath_RunExe := "C:\Windows\explorer.exe"
-	Exe_Args := ( "shell:AppsFolder\" "Microsoft.WindowsTerminal_8wekyb3d8bbwe" "!App")  ; App name acquired via powershell call [ (Get-AppxPackage Microsoft.WindowsTerminal).PackageFamilyName; ]
+	Win10_AppName := "Microsoft.WindowsTerminal_8wekyb3d8bbwe"
+	Exe_Args := ( "shell:AppsFolder\" Win10_AppName "!App")  ; App name acquired via powershell call [ (Get-AppxPackage Microsoft.WindowsTerminal).PackageFamilyName; ]
+	; "C:\Windows\explorer.exe" "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
 	; ------------------------------
 	; ;;;  Deprecated approach (doesn't work if not acting as an admin while opening it..?)
 	; FullPath_RunExe := "C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe"  ;  Acquired via powershell call [ Get-ChildItem ((Get-AppxPackage "*WindowsTerminal*").InstallLocation); ]

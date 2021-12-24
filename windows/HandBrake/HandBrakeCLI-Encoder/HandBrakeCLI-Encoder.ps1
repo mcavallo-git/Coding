@@ -20,7 +20,7 @@ If ($False) { # RUN THIS SCRIPT REMOTELY:
 #
 # ------------------------------------------------------------
 #
-# Instantiate Runtime Variable(s)
+# Instantiate runtime variable(s)
 #
 
 <# Determine if running locally or remotely - handle both scenarios #>
@@ -37,6 +37,7 @@ If ("${Env:HandBrake_Preset}" -NE "") {
 	$HandBrake_Preset = "${Env:HandBrake_Preset}";
 } Else {
 	$HandBrake_Preset = "Very Fast 1080p30";
+	# $HandBrake_Preset = "H.265 MKV 2160p60";
 }
 
 If ("${Env:OutputExtension}" -NE "") {
@@ -47,23 +48,57 @@ If ("${Env:OutputExtension}" -NE "") {
 
 $MaxRetries_NameCollision = 500;
 
-$Audio_MaxPreservation = $False;
-# $Audio_MaxPreservation = $True;
+# ------------------------------
+#
+# Runtime variables to default to [ False ]
+#
 
-$AspectRatio_MatchSource = $True;
-# $AspectRatio_MatchSource = $False;
+# Audio_MaxPreservation - Default to False
+If (("${Env:Audio_MaxPreservation}" -Eq "1") -Or ("${Env:Audio_MaxPreservation}".ToLower() -Eq "true")) {
+	$Audio_MaxPreservation = $True;
+} Else {
+	$Audio_MaxPreservation = $False;
+}
 
-$Framerate_MatchSource = $True;
-# $Framerate_MatchSource = $False;
+# NoWait - Default to False
+If (("${Env:NoWait}" -Eq "1") -Or ("${Env:NoWait}".ToLower() -Eq "true")) {
+	$NoWait = $True;
+} Else {
+	$NoWait = $False;
+}
 
-$Timestamps_IncludeDecimalSeconds = $False;
-# $Timestamps_IncludeDecimalSeconds = $True;
+# Timestamps_IncludeDecimalSeconds - Default to False
+If (("${Env:Timestamps_IncludeDecimalSeconds}" -Eq "1") -Or ("${Env:Timestamps_IncludeDecimalSeconds}".ToLower() -Eq "true")) {
+	$Timestamps_IncludeDecimalSeconds = $True;
+} Else {
+	$Timestamps_IncludeDecimalSeconds = $False;
+}
 
-$DoEncoding_InSameWindow = $True;
-# $DoEncoding_InSameWindow = $False;
+# ------------------------------
+#
+# Runtime variables to default to [ True ]
+#
 
-$NoWait = $False;
-# $NoWait = $True;
+# AspectRatio_MatchSource - Default to True
+If (("${Env:AspectRatio_MatchSource}" -Eq "0") -Or ("${Env:AspectRatio_MatchSource}".ToLower() -Eq "false")) {
+	$AspectRatio_MatchSource = $False;
+} Else {
+	$AspectRatio_MatchSource = $True;
+}
+
+# Framerate_MatchSource - Default to True
+If (("${Env:Framerate_MatchSource}" -Eq "0") -Or ("${Env:Framerate_MatchSource}".ToLower() -Eq "false")) {
+	$Framerate_MatchSource = $False;
+} Else {
+	$Framerate_MatchSource = $True;
+}
+
+# DoEncoding_InSameWindow - Default to True
+If (("${Env:DoEncoding_InSameWindow}" -Eq "0") -Or ("${Env:DoEncoding_InSameWindow}".ToLower() -Eq "false")) {
+	$DoEncoding_InSameWindow = $False;
+} Else {
+	$DoEncoding_InSameWindow = $True;
+}
 
 # ------------------------------
 

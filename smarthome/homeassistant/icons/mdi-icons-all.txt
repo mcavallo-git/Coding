@@ -6593,4 +6593,12 @@ mdi:zodiac-sagittarius
 mdi:zodiac-scorpio
 mdi:zodiac-taurus
 mdi:zodiac-virgo
-# ------------------------------------------------------------\n#\n# Citation(s)\n#\n#   materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com/\n#\n# ------------------------------------------------------------
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com/
+#
+# ------------------------------------------------------------

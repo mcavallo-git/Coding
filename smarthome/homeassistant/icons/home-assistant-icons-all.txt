@@ -129,6 +129,7 @@ hass:lock-open
 hass:login-variant
 hass:mailbox
 hass:map-marker
+hass:math-log
 hass:menu
 hass:menu-down
 hass:menu-up
@@ -249,10 +250,12 @@ hass:z-wave
 hass:zigbee
 
 
-------------------------------------------------------------
-
-Citation(s)
-
-  materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com/
-
-------------------------------------------------------------
+# ------------------------------------------------------------
+# 
+# Citation(s)
+# 
+#   community.home-assistant.io  |  "Documentation of built-in symbols / icons - Configuration - Home Assistant Community"  |  https://community.home-assistant.io/t/documentation-of-built-in-symbols-icons/225969
+# 
+#   materialdesignicons.com  |  "Material Design Icons"  |  https://materialdesignicons.com/
+# 
+# ------------------------------------------------------------

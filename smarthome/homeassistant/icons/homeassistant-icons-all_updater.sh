@@ -7,7 +7,7 @@
 
 cd "$(wslpath -u "$(wslvar --sys "USERPROFILE";)\Documents\GitHub\Coding\smarthome\homeassistant\icons";)";
 
-curl -sL "https://pictogrammers.github.io/@mdi/font/6.5.95/" | grep 'var icons = ' | head -n 1 | tr "{" "\n" | sed -rne "s/name:\"([^\"]+)\".+$/mdi:\1/pi" > "mdi-icons-all.txt";
+curl -sL "https://pictogrammers.github.io/@mdi/font/6.5.95/" | grep 'var icons = ' | head -n 1 | tr "{" "\n" | sed -rne "s/name:\"([^\"]+)\".+$/mdi:\1/pi" | sort -u > "mdi-icons-all.txt";
 
 
 # ------------------------------------------------------------

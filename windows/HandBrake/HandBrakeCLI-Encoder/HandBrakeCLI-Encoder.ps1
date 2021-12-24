@@ -40,13 +40,13 @@ If ("${Env:HandBrake_Preset}" -NE "") {
 	$HandBrake_Preset = "Very Fast 1080p30";
 	# $HandBrake_Preset = "Fast 1080p30";
 	# $HandBrake_Preset = "H.265 MKV 2160p60";
-	# $HandBrake_Preset = "H.265 NVENC 2160P 4K";
+	# $HandBrake_Preset = "H.265 NVENC 2160p 4K";
 	# $HandBrake_Preset = "H.265 NVENC 1080p";
 	# ------------------------------
 	# ${Env:HandBrake_Preset}="Very Fast 1080p30";
 	# ${Env:HandBrake_Preset}="Fast 1080p30";
 	# ${Env:HandBrake_Preset}="H.265 MKV 2160p60";
-	# ${Env:HandBrake_Preset}="H.265 NVENC 2160P 4K";
+	# ${Env:HandBrake_Preset}="H.265 NVENC 2160p 4K";
 	# ${Env:HandBrake_Preset}="H.265 NVENC 1080p";
 	# ------------------------------
 }

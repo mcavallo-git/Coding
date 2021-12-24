@@ -8,7 +8,11 @@
 cd "$(wslpath -u "$(wslvar --sys "USERPROFILE" 2>'/dev/null';)\Documents\GitHub\Coding\smarthome\homeassistant\icons";)";
 
 # Update 'mdi-icons-all.txt'
-curl -sL "https://pictogrammers.github.io/@mdi/font/6.5.95/" | grep 'var icons = ' | head -n 1 | tr "{" "\n" | sed -rne "s/name:\"([^\"]+)\".+$/mdi:\1/pi" | sort -u > "mdi-icons-all.txt"; echo "# ------------------------------------------------------------\n#\n# Citation(s)\n#\n#   materialdesignicons.com  |  \"Material Design Icons\"  |  https://materialdesignicons.com/\n#\n# ------------------------------------------------------------" >> "mdi-icons-all.txt";
+if [[ 1 -eq 1 ]]; then
+cd "$(if [[ -n "$(command -v "wslvar" 2>'/dev/null';)" ]]; then wslpath -u "$(wslvar --sys "USERPROFILE";)"; else echo "${HOME}"; fi;)/Documents/GitHub/Coding/smarthome/homeassistant/icons";
+curl -sL "https://pictogrammers.github.io/@mdi/font/6.5.95/" | grep 'var icons = ' | head -n 1 | tr "{" "\n" | sed -rne "s/name:\"([^\"]+)\".+$/mdi:\1/pi" | sort -u > "mdi-icons-all.txt";
+echo -e -n "\n\n# ------------------------------------------------------------\n#\n# Citation(s)\n#\n#   materialdesignicons.com  |  \"Material Design Icons\"  |  https://materialdesignicons.com/\n#\n# ------------------------------------------------------------" >> "mdi-icons-all.txt";
+fi;
 
 # ------------------------------------------------------------
 # 

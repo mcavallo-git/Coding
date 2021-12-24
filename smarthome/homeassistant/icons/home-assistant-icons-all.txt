@@ -12,6 +12,7 @@ hass:arrow-right
 hass:arrow-top-right
 hass:arrow-up
 hass:autorenew
+hass:backup-restore
 hass:bag-personal
 hass:bag-personal-outline
 hass:battery
@@ -215,6 +216,7 @@ hass:timer-off
 hass:timer-sand
 hass:tooltip-account
 hass:undo
+hass:update
 hass:user-icon
 hass:vibrate
 hass:video

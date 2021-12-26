@@ -46,10 +46,10 @@ Mostly Linux compatible:
 —					Em Dash (Longer than hyphen & En Dash)  |  https://www.compart.com/en/unicode/U+2014
 
 
-→					Rightwards Arrow (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
-←					Leftwards Arrow  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
-↑					Upwards Arrow    (&uarr;)  |  https://www.compart.com/en/unicode/U+2191
-↓					Downwards Arrow  (&darr;)  |  https://www.compart.com/en/unicode/U+2193
+↑					Upwards Arrow    (Up Arrow)    (&uarr;)  |  https://www.compart.com/en/unicode/U+2191
+↓					Downwards Arrow  (Down Arrow)  (&darr;)  |  https://www.compart.com/en/unicode/U+2193
+←					Leftwards Arrow  (Left Arrow)  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
+→					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
 ↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
 ↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
 ↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195

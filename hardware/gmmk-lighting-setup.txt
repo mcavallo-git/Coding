@@ -1,0 +1,26 @@
+------------------------------------------------------------
+---
+--- GMMK Keyboard Lighting Config (White Spiral)
+---
+------------------------------------------------------------
+
+
+Step 1:  Press * 3  [ "Fn" + "Del" ]  to activate lighting animation  [ Wave Effect #3 - Oval Shape ]
+
+
+Step 2:  Press * X  [ "Fn" + "-" (minus) ]  to  [ switch LED animation running direction between clockwise & counter-clockwise rotation ]  where  [ X is 0 if rotating clockwise, 1 if rotating counter-clockwise ]
+
+
+Step 3:  Press * 3  [ "Fn" + "←" (left arrow) ]  to   [ change LED animation speed to the slowest speed ]
+
+
+Step 4:  Press * 4  [ "Fn" + "↓" (down arrow) ]  to   [ change LED brightness to 0% (landmark) ]
+
+
+Step 5:  Press * 2  [ "Fn" + "↑" (up arrow) ]  to   [ change LED brightness to 50% ]
+
+
+Step 6:  Press * X  [ "Fn" + "=" (equals) ]  to   [ change LED back light color ]  where  [ X is 0 if color is white, 8 if rainbow, 7 if red, 6 if orange, 5 if yellow, 4 if green, 3 if teal, 2 if blue, 1 if magenta ]
+
+
+------------------------------------------------------------

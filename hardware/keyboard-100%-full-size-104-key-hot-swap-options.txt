@@ -1,21 +1,41 @@
 ------------------------------------------------------------
-------------------------------
-
-docs.google.com  |  "Hotswappable Keyboard Masterlist (wip)"  |  https://docs.google.com/spreadsheets/d/1t-8SxjYVUE3AyvuyUQTaQE6XYxZjt4y4B1-NmkOBJKQ/edit#gid=1381238794
-
-------------------------------
+---
+--- Full Size (100%, 104-Key) Keyboard Recommendations
+---
 ------------------------------------------------------------
-
-Glorious GMMK-BRN - https://www.amazon.com/dp/B01D8YNJH0
-
-Glorious GMMK-RGB (PCB & Case, only) - https://www.amazon.com/dp/B01MXUL6D3
-
 ------------------------------------------------------------
-
-Keychron K10 - https://www.keychron.com/products/keychron-k10-wireless-mechanical-keyboard?variant=39426678325337
-
-------------------------------------------------------------
+---
+--- Ducky  -  https://www.duckychannel.com.tw/en/Keyboards
+---
 
 Ducky One 3 - https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=8803
 
+
+------------------------------------------------------------
+---
+--- GMMK (Glorious Modular Mechanical Keyboard)  -  https://www.pcgamingrace.com/products/gmmk-full-brown-switch
+---
+
+
+GMMK Modular - https://www.amazon.com/dp/B01D8YNJH0
+
+GMMK Barebone (PCB & Case Only) - https://www.amazon.com/dp/B01MXUL6D3
+
+
+------------------------------------------------------------
+---
+--- Keychron  -  https://www.keychron.com
+---
+
+Keychron K10 - https://www.keychron.com/products/keychron-k10-wireless-mechanical-keyboard?variant=39426678325337
+
+
+------------------------------------------------------------
+------------------------------
+---
+--- Citations
+---
+---   docs.google.com  |  "Hotswappable Keyboard Masterlist (wip)"  |  https://docs.google.com/spreadsheets/d/1t-8SxjYVUE3AyvuyUQTaQE6XYxZjt4y4B1-NmkOBJKQ/edit#gid=1381238794
+---
+------------------------------
 ------------------------------------------------------------

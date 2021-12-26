@@ -1,11 +1,5 @@
 ------------------------------------------------------------
 
-Boba Switches (manufactured by Outemu, designed by Gazzew) - https://www.rgbkb.net/products/rgb-silent-tactile-switch
-
-  Boba U4 (Silent Tactile Swtich, 62g/67g  Actuation Force)
-
-------------------------------------------------------------
-
 Cherry Switches - https://www.cherrymx.de/en/mx-original/mx-brown.html
 
   Cherry MX Brown (Tactile Swtich, 55g Actuation Force)
@@ -19,6 +13,12 @@ Cherry Switches - https://www.cherrymx.de/en/mx-original/mx-brown.html
 Gateron Switches - https://novelkeys.xyz/products/gateron-switches
 
   Gateron Brown (Tactile Swtich, 45g Actuation Force)
+
+------------------------------------------------------------
+
+Gazzew Switches (manufactured by Outemu) - https://www.rgbkb.net/products/rgb-silent-tactile-switch
+
+  Gazzew Boba U4 (Silent Tactile Swtich, 62g/67g  Actuation Force)
 
 ------------------------------------------------------------
 

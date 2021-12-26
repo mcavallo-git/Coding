@@ -1,82 +1,78 @@
 ------------------------------------------------------------
 
-Cherry Switches - https://www.cherrymx.de/en/mx-original/mx-brown.html
-
-  Cherry MX Brown (Non-Clicky, Tactile Bump, [ 55g ] Actuation Force)
-
-  Cherry MX Clear (Non-Clicky, Tactile Bump, [ 65g ] Actuation Force)
-
-  Cherry MX Grey (Non-Clicky, Tactile Bump, [ 80g ] Actuation Force)
-
-------------------------------------------------------------
-
 Boba Switches (manufactured by Outemu, designed by Gazzew) - https://www.rgbkb.net/products/rgb-silent-tactile-switch
 
-  Boba U4 RGB Silent Tactile (Non-Clicky, Tactile Bump, [ 62g ]/[ 67g ]  Actuation Force)
+  Boba U4 (Silent Tactile Swtich, 62g/67g  Actuation Force)
 
 ------------------------------------------------------------
 
-Zeal (ZealPC) Switches (manufactured by Gateron) - [ https://kbdfans.com/products/zealios-tealios-zilents ] & [ https://kbdfans.com/products/roselios-sakurios-silent-linear-switches ]
+Cherry Switches - https://www.cherrymx.de/en/mx-original/mx-brown.html
 
-  Healios v2 Linear (Non-Clicky, No Tactile Bump, [ 63.5g ]/[ 67g ] Actuation Force)
+  Cherry MX Brown (Tactile Swtich, 55g Actuation Force)
 
-  Rosélios v2 Silent Linear (Non-Clicky, No Tactile Bump, [ 67g ] Actuation Force)
+  Cherry MX Clear (Tactile Swtich, 65g Actuation Force)
 
-  Sakurios v2 Silent Linear (Non-Clicky, No Tactile Bump, [ 62g ] Actuation Force)
-
-  Tealios v2 Linear (Non-Clicky, No Tactile Bump, [ 67g ] Actuation Force)
-
-  Zealios v2 Tactile (Non-Clicky, Tactile Bump, [ 62g ]/[ 65g ]/[ 67g ]/[ 78g ] Actuation Force)
-
-  Zilents v2 Tactile (Non-Clicky, Tactile Bump, [ 62g ]/[ 65g ]/[ 67g ]/[ 78g ] Actuation Force)
-
-------------------------------------------------------------
-
-Razer (Greetech) Switches - https://www.razer.com/razer-mechanical-switches
-
-  Razer (Greetech) Orange (Non-Clicky, Tactile Bump, [ 45g ] Actuation Force)
-
-------------------------------------------------------------
-
-Logitech Switches - https://www.logitechg.com/en-us/innovation/mechanical-switches.html
-
-  Logitech Romer-G Tactile (Slightly-Clicky, Tactile Bump, [ 55g ] Actuation Force)
-
-  Logitech GX Brown (Non-Clicky, Tactile Bump, [ 60g ] Actuation Force)
-
-------------------------------------------------------------
-
-ASUS TUF Optical-Mech Switches - https://www.asus.com/Keyboards-Mice/TUF-Gaming-K7/#switches
-
-  TUF Optical-Mesh Tactile (Is-Clicky, Tactile Bump, [ 50g ] Actuation Force)
-
-------------------------------------------------------------
-
-SteelSeries QX2 Switches - https://www.tomshardware.com/news/steelseries-apex-m750-mechanical-keyboard-qx2-switches,35233.html
-
-  SteelSeries QX2 Brown (Non-Clicky, Tactile Bump, [ 45g ] Actuation Force)
-
-------------------------------------------------------------
-
-Greetech Switches - https://novelkeys.xyz/products/greetech-switches
-
-  Greetech Brown (Non-Clicky, Tactile Bump, [ 45g ] Actuation Force)
+  Cherry MX Grey (Tactile Swtich, 80g Actuation Force)
 
 ------------------------------------------------------------
 
 Gateron Switches - https://novelkeys.xyz/products/gateron-switches
 
-  Gateron Brown (Non-Clicky, Tactile Bump, [ 45g ] Actuation Force)
+  Gateron Brown (Tactile Swtich, 45g Actuation Force)
+
+------------------------------------------------------------
+
+Greetech Switches - https://novelkeys.xyz/products/greetech-switches
+
+  Greetech Brown (Tactile Swtich, 45g Actuation Force)
 
 ------------------------------------------------------------
 
 Kalih Switches - https://novelkeys.xyz/products/kailh-switches
 
-  Kalih Brown (Non-Clicky, Tactile Bump, [ 50g ] Actuation Force)
+  Kalih Brown (Tactile Swtich, 50g Actuation Force)
+
+------------------------------------------------------------
 
 Kalih BOX Switches - https://novelkeys.xyz/products/kailh-box-switches
 
-  Kalih BOX Brown (Non-Clicky, Tactile Bump, [ 45g ] Actuation Force)
+  Kalih BOX Brown (Tactile Swtich, 45g Actuation Force)
+
+------------------------------------------------------------
+
+Logitech Switches - https://www.logitechg.com/en-us/innovation/mechanical-switches.html
+
+  Logitech Romer-G (Tactile Swtich, 55g Actuation Force)
+
+  Logitech GX Brown (Tactile Swtich, 60g Actuation Force)
+
+------------------------------------------------------------
+
+Razer Switches (manufactured by Greetech) - https://www.razer.com/razer-mechanical-switches
+
+  Razer Orange (Tactile Swtich, 45g Actuation Force)
+
+------------------------------------------------------------
+
+SteelSeries QX2 Switches - https://www.tomshardware.com/news/steelseries-apex-m750-mechanical-keyboard-qx2-switches,35233.html
+
+  SteelSeries QX2 Brown (Tactile Swtich, 45g Actuation Force)
+
+------------------------------------------------------------
+
+ZealPC Switches (manufactured by Gateron) - [ https://zealpc.net/products/zilent ]
+
+  Healio v2 (Silent Linear Swtich, 63.5g/67g Actuation Force)
+
+  Rosélio v2 (Silent Linear Swtich, 67g Actuation Force)
+
+  Sakurio v2 (Silent Linear Swtich, 62g Actuation Force)
+
+  Tealio v2 (Linear Swtich, 67g Actuation Force)
+
+  Zealio v2 (Tactile Swtich, 62g/65g/67g/78g Actuation Force)
+
+  Zilent v2 (Silent Tactile Swtich, 62g/65g/67g/78g Actuation Force)
 
 ------------------------------------------------------------
 ------------------------------

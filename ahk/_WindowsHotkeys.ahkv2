@@ -385,7 +385,6 @@ Pause::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
 ;
-; #If WinActive("Xbox Console Companion")
 #If WinExist("Xbox Console Companion")
 	;
 	; HOTKEY:  WinKey + F3  (or "#SC03D")
@@ -393,6 +392,16 @@ Pause::
 	;
 	#F3::
 		XBox_DownloadDelete_GameClips()
+		Return
+#If
+; ------------------------------------------------------------
+#If !WinExist("Xbox Console Companion")
+	;
+	; HOTKEY:  WinKey + F3
+	; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
+	;
+	#F3::
+		BrowserHover()
 		Return
 #If
 
@@ -1673,6 +1682,30 @@ AwaitModifierKeyup() {
 	KeyWait RShift  ; Wait for [ Right-Shift ] to be released
 	KeyWait RWin    ; Wait for [ Right-Win ] to be released
 	Sleep 10
+}
+
+
+;
+; BrowserHover
+;   |--> Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
+;
+BrowserHover() {
+	CoordMode, Mouse, Screen
+	SetDefaultMouseSpeed, 0
+	SetControlDelay, -1
+	AwaitModifierKeyup()
+	If (FileExist("Cached-Flipped.ico")) {
+		Menu, Tray, Icon, Cached-Flipped.ico
+	}
+	MoveDistance := 1
+	Loop {
+		If (A_TimeIdlePhysical >= 240000) {
+			MouseMove, %MoveDistance%, 0, 0, R
+			Sleep 1000
+			MouseMove, -%MoveDistance%, 0, 0, R
+		}
+		Sleep 15000
+	}
 }
 
 

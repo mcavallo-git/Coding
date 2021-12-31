@@ -1704,10 +1704,21 @@ BrowserHover() {
 	MoveDistance := 1
 	Updated_TrayIcon := 0
 	HoverAfter_Seconds := 240
+	If (FileExist(TrayIcon_Cached)) {
+		BusyIcon := TrayIcon_Cached
+	} Else {
+		BusyIcon := TrayIcon_Default
+	}
+	If (FileExist(TrayIcon_Gray)) {
+		WaitIcon := TrayIcon_Gray
+	} Else {
+		WaitIcon := TrayIcon_Default
+	}
+	Menu("Tray","Icon",WaitIcon)
 	Loop {
 		If (A_TimeIdlePhysical >= (HoverAfter_Seconds * 1000)) {
-			If ((FileExist(TrayIcon_Cached)) && (Updated_TrayIcon==0)) {
-				Menu("Tray","Icon",TrayIcon_Cached)
+			If (Updated_TrayIcon==0) {
+				Menu("Tray","Icon",BusyIcon)
 				Updated_TrayIcon := 1
 			}
 			MouseMove, %MoveDistance%, 0, 0, R
@@ -1715,11 +1726,7 @@ BrowserHover() {
 			MouseMove, -%MoveDistance%, 0, 0, R
 		} Else {
 			If (Updated_TrayIcon==1) {
-				If (FileExist(TrayIcon_Gray)) {
-					Menu("Tray","Icon",TrayIcon_Gray)
-				} Else {
-					Menu("Tray","Icon",TrayIcon_Default)
-				}
+				Menu("Tray","Icon",WaitIcon)
 				Updated_TrayIcon := 0
 			}
 		}

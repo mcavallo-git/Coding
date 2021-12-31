@@ -93,9 +93,11 @@ If (DebugMode == 1) {
 ;
 ; Tray-Icon - Use a custom one instead of default AHK Icon (in Notification area next to clock, bottom-right)
 ;
-DefaultTrayIcon := "_WindowsHotkeys.ico"
-If (FileExist(DefaultTrayIcon)) {
-	Menu("Tray","Icon",DefaultTrayIcon)
+TrayIcon_Cached := "_WindowsHotkeys.cached.ico"
+TrayIcon_Default := "_WindowsHotkeys.ico"
+TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
+If (FileExist(TrayIcon_Default)) {
+	Menu("Tray","Icon",TrayIcon_Default)
 }
 
 
@@ -1691,19 +1693,21 @@ AwaitModifierKeyup() {
 ;   |--> Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
 ;
 BrowserHover() {
-	Global DefaultTrayIcon
+	Global TrayIcon_Cached
+	Global TrayIcon_Default
+	Global TrayIcon_Gray
 	CoordMode, Mouse, Screen
 	SetDefaultMouseSpeed, 0
 	SetControlDelay, -1
 	AwaitModifierKeyup()
-	TrayIcon := "Cached-Flipped.ico"
+	TrayIcon := TrayIcon_Cached
 	MoveDistance := 1
 	Updated_TrayIcon := 0
 	HoverAfter_Seconds := 240
 	Loop {
 		If (A_TimeIdlePhysical >= (HoverAfter_Seconds * 1000)) {
-			If ((FileExist(TrayIcon)) && (Updated_TrayIcon==0)) {
-				Menu("Tray","Icon",TrayIcon)
+			If ((FileExist(TrayIcon_Cached)) && (Updated_TrayIcon==0)) {
+				Menu("Tray","Icon",TrayIcon_Cached)
 				Updated_TrayIcon := 1
 			}
 			MouseMove, %MoveDistance%, 0, 0, R
@@ -1711,7 +1715,11 @@ BrowserHover() {
 			MouseMove, -%MoveDistance%, 0, 0, R
 		} Else {
 			If (Updated_TrayIcon==1) {
-				Menu("Tray","Icon",DefaultTrayIcon)
+				If (FileExist(TrayIcon_Gray)) {
+					Menu("Tray","Icon",TrayIcon_Gray)
+				} Else {
+					Menu("Tray","Icon",TrayIcon_Default)
+				}
 				Updated_TrayIcon := 0
 			}
 		}

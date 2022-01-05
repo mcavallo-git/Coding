@@ -1,0 +1,41 @@
+ATD(8)                                                                System Manager's Manual                                                                ATD(8)
+
+NAME
+       atd - run jobs queued for later execution
+
+SYNOPSIS
+       atd [-l load_avg] [-b batch_interval] [-d] [-f] [-s]
+
+DESCRIPTION
+       atd runs jobs queued by at(1).
+
+OPTIONS
+       -l      Specifies  a  limiting  load  factor,  over which batch jobs should not be run, instead of the compile-time choice of 1.5.  For an SMP system with n
+               CPUs, you will probably want to set this higher than n-1.
+
+       -b      Specify the minimum interval in seconds between the start of two batch jobs (60 default).
+
+       -d      Debug; print error messages to standard error instead of using syslog(3).  This option also implies -f.
+
+       -f      Run atd in the foreground.
+
+       -s      Process the at/batch queue only once.  This is primarily of use for compatibility with old versions of at; atd -s is equivalent  to  the  old  atrun
+               command.
+
+WARNING
+       atd won't work if its spool directory is mounted via NFS even if no_root_squash is set.
+
+FILES
+       /var/spool/cron/atjobs The directory for storing jobs; this should be mode 700, owner daemon.
+
+       /var/spool/cron/atspool The directory for storing output; this should be mode 700, owner daemon.
+
+       /etc/at.allow, /etc/at.deny determine who can use the at system.
+
+SEE ALSO
+       at(1), at.deny(5), at.allow(5), cron(8), crontab(1), syslog(3).
+
+BUGS
+       The functionality of atd should be merged into cron(8).
+
+                                                                             2009-11-14                                                                      ATD(8)

@@ -6,24 +6,27 @@
 #
 # Simple Example ) Replace substrings within strings
 #
+
 echo "hello world" | sed -e 's|world|not world|g';
 
+echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/^([0-9]{1})$/\1/pi";
 
 # ------------------------------------------------------------
 #
 # Regex w/ Capture Groups
 #
 
-
-PATTERN="^([0-9]{1})$"; # Only match lines with 1 digit
-OUTPUT="\1";
+# Only match lines with 1 digit
+PATTERN="^([0-9]{1})$"; OUTPUT="\1";
 echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\/}/${OUTPUT}/pi";
 
 
-PATTERN="^([0-9]{2})$"; # Only match lines with 2 digits
-OUTPUT="\1";
+# Only match lines with 2 digits
+PATTERN="^([0-9]{2})$"; OUTPUT="\1";
 echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\/}/${OUTPUT}/pi";
 
+
+# -----
 
 # 
 # Note: sed capture groups are referenced using backslashes before the capture group number, e.g. [ \1 \2 ... \n ]

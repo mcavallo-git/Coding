@@ -120,8 +120,11 @@ if [[ 1 -eq 1 ]]; then
   DASH_NL="------------------------------------------------------------\n";
   for EACH_SERVICE_FILE in $(find "/etc/init.d" -type "f";); do
     if [[ "$(cat "${EACH_SERVICE_FILE}" | grep 'status)' | wc -l;)" -gt 0 ]]; then
-      EACH_SERVICE_STATUS="$(${EACH_SERVICE_FILE} status 2>&1;)";
-      if [[ -n "${EACH_SERVICE_STATUS}" ]]; then
+      EACH_SERVICE_STATUS_EXIT_CODE="$(${EACH_SERVICE_FILE} status 2>&1; echo "${?}";)";
+      EACH_SERVICE_STATUS="$(echo "${EACH_SERVICE_STATUS_EXIT_CODE}" | head -n -1)";
+      EACH_SERVICE_EXIT_CODE="$(echo "${EACH_SERVICE_STATUS_EXIT_CODE}" | tail -n 1;)";
+      # Get only services which are stopped, failed, or contain other errors
+      if [[ "${EACH_SERVICE_EXIT_CODE}" -ne 0 ]]; then
         echo -e "${DASH_NL}\nCalling [ ${EACH_SERVICE_FILE} status; ]...\n";
         ${EACH_SERVICE_FILE} status; SERVICE_EXIT_CODE=${?};
         echo "";

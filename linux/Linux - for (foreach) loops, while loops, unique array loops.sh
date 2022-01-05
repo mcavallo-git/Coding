@@ -123,7 +123,9 @@ if [[ 1 -eq 1 ]]; then
       EACH_SERVICE_STATUS="$(${EACH_SERVICE_FILE} status 2>&1;)";
       if [[ -n "${EACH_SERVICE_STATUS}" ]]; then
         echo -e "${DASH_NL}\nCalling [ ${EACH_SERVICE_FILE} status; ]...\n";
-        ${EACH_SERVICE_FILE} status;
+        ${EACH_SERVICE_FILE} status; SERVICE_EXIT_CODE=${?};
+        echo "";
+        echo "SERVICE_EXIT_CODE = [ ${SERVICE_EXIT_CODE} ]";
         echo "";
       fi;
     fi;

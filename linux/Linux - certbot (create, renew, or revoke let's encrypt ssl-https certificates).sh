@@ -14,20 +14,25 @@ exit 0;
 #
 
 
-# Install just certbot (not certbot+nginx
-apt-get -y update; apt-get -y install letsencrypt;
+# Install just certbot (not certbot+nginx)
+apt-get --yes update;
+apt-get --yes install "letsencrypt";
 
 
 if [ 0 -eq 1 ]; then # Install Certbot + NGINX
 
 # To Install Certbot on Debian-based Linux Distros (e.g. Debian, Ubuntu) EXCLUDING Raspbian
-add-apt-repository --yes --update ppa:certbot/certbot; apt-get -y install python-certbot-nginx;
+add-apt-repository --yes --update "ppa:certbot/certbot";
+apt-get --yes install "python-certbot-nginx";
 
 # To Install Certbot on Fedora-based Linux Distros (e.g. Oracle Linux, Red Hat Enterprise Linux, or CentOS)
 wget "https://dl.eff.org/certbot-auto" && chmod 755 certbot-auto;
 
 # To Install Certbot on Raspbian (e.g. Raspberry-Pi 3 / Raspberry-Pi 4)
-sed -i "$ a\deb http://ftp.debian.org/debian jessie-backports main" /etc/apt/sources.list; apt-get -y update; apt-get -y install certbot -t jessie-backports -y --force-yes; apt-get -y install python-certbot-nginx -t jessie-backports -y --force-yes;
+sed "$ a\deb http://ftp.debian.org/debian jessie-backports main" -i "/etc/apt/sources.list";
+apt-get --yes update;
+apt-get --yes install "certbot" --target-release "jessie-backports" --force-yes;
+apt-get --yes install "python-certbot-nginx" --target-release "jessie-backports" --force-yes;
 
 fi;
 

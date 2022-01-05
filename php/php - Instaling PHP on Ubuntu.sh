@@ -5,39 +5,47 @@
 # Install [ PHP v7.2 ]
 #
 
-apt-get update -y;
+apt-get --yes update;
 
-apt-get install -y software-properties-common;
+apt-get --yes install "software-properties-common";
 
-add-add-apt-repository --yes --update ppa:ondrej/php;
+add-add-apt-repository --yes --update "ppa:ondrej/php";
 
-apt-get install -y php7.2 php7.2-cli php7.2-common php7.2-curl php7.2-gd php7.2-json php7.2-mbstring php7.2-intl php7.2-mysql php7.2-xml php7.2-zip;
+apt-get --yes install "php7.2" "php7.2-cli" "php7.2-common" "php7.2-curl" "php7.2-gd" "php7.2-json" "php7.2-mbstring" "php7.2-intl" "php7.2-mysql" "php7.2-xml" "php7.2-zip";
+
 
 # ------------------------------------------------------------
 #
 # Install [ Apache v2.4 ] && [ PHP v5.6 ] in [ Ubuntu (for WSL - Windows Subsystem for Linux) ]
 #
 
-add-apt-repository --yes --update ppa:ondrej/php;
+add-apt-repository --yes --update "ppa:ondrej/php";
 
-add-apt-repository --yes --update ppa:ondrej/apache2;
+add-apt-repository --yes --update "ppa:ondrej/apache2";
 
 # Install php5.6 (installs apache2 + prerequisites)
-apt-get install -y php5.6;
+apt-get --yes install "php5.6";
+
 
 # ------------------------------------------------------------
 #
 # Removing apache / apache2 (httpd)
 #
 
-apt remove -y apache*; apt-get autoremove -y; apt-get clean -y;
+apt-get --yes remove apache*;
+apt-get --yes autoremove;
+apt-get --yes clean;
+
 
 # ------------------------------------------------------------
 #
 # Wrap-up with a set of updates/upgrades/cleaning
 #
 
-apt-get update -y; apt-get dist-upgrade -y; apt-get autoremove -y; apt-get clean -y;
+apt-get --yes update;
+apt-get --yes dist-upgrade;
+apt-get --yes autoremove;
+apt-get --yes clean;
 
 
 # ------------------------------------------------------------

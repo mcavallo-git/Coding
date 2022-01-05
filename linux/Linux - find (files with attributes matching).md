@@ -98,8 +98,8 @@ find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/j
 	</summary>
 <pre><code>
 filesize_GREATER_THAN="1048576c"; # > 1MB
-MAX_RETENTION_DAYS="1"; 
-find /var/lib/jenkins/jobs/ -type 'f' -mtime +${MAX_RETENTION_DAYS} -size "+${filesize_GREATER_THAN}" -iname "*.msi" -exec rm -rf '{}' \;
+RETENTION_DAYS="1"; 
+find /var/lib/jenkins/jobs/ -type 'f' -mtime +${RETENTION_DAYS} -size "+${filesize_GREATER_THAN}" -iname "*.msi" -exec rm -rf '{}' \;
 </code></pre>
 <hr /></details></li><br />
 
@@ -305,10 +305,10 @@ find "${JENKINS_HOME}/" \
 	<p>ex) Cleanup NGINX Logs</p>
 <pre><code>
 DIRECTORY_TO_CLEAN="/var/log/nginx/";
-MAX_RETENTION_DAYS=7;
+RETENTION_DAYS=7;
 find ${DIRECTORY_TO_CLEAN} \
 -type f \
--mtime +${MAX_RETENTION_DAYS} \
+-mtime +${RETENTION_DAYS} \
 -exec printf "$(date +'%Y-%m-%d %H:%M:%S') $(whoami)@$(hostname) | " \; \
 -exec rm -v -- '{}' \; \
 ;

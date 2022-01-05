@@ -44,7 +44,7 @@ fi;
 # SAME AS ABOVE - Just using shorthand syntax
 #
 
-if [ 0 -eq 1 ]; then
+if [[ 0 -eq 1 ]]; then
 
 # Building the "?" character in a roundabout way
 printf \\%03o 63;  # Returns "\077"

@@ -4,7 +4,7 @@ exit $?;
 
 # ------------------------------------------------------------
 
-if [ 0 -eq 1 ]; then 
+if [[ 0 -eq 1 ]]; then 
 # Update the source listing
 apt-get --yes update;
 

@@ -19,7 +19,7 @@ apt-get --yes update;
 apt-get --yes install "letsencrypt";
 
 
-if [ 0 -eq 1 ]; then # Install Certbot + NGINX
+if [[ 0 -eq 1 ]]; then # Install Certbot + NGINX
 
 # To Install Certbot on Debian-based Linux Distros (e.g. Debian, Ubuntu) EXCLUDING Raspbian
 add-apt-repository --yes --update "ppa:certbot/certbot";

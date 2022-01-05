@@ -6,7 +6,7 @@
 #  |--> Many of these commands are tools which may be found in the Java Developer's Toolkit
 #
 # ------------------------------------------------------------
-if [ 0 -eq 1 ]; then
+if [[ 0 -eq 1 ]]; then
 
 # install_java
 curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_java?t=$(date +'%s.%N')" | bash;
@@ -85,7 +85,7 @@ fi;
 
 
 # WARNING:  CLSTATS OFTEN LOCKS UP THE MACHINE & ITS SERVICE(S)
-if [ 0 -eq 1 ]; then
+if [[ 0 -eq 1 ]]; then
 	echo "Info:  Calling  [ jmap -clstats ]  which  [ Prints class loader wise statistics of Java heap. For each class loader, its name, how active it is, address, parent class loader, and the number and size of classes it has loaded are printed. ]";
 	SERVICE_USER="jenkins";
 	JMAP_CLSTATS="$(jmap -clstats -F $(ps u -C 'java' | grep -vEi ^USER | grep -Ei ^${SERVICE_USER} | awk '{print $2}');)";
@@ -93,7 +93,7 @@ if [ 0 -eq 1 ]; then
 fi;
 
 # WARNING:  HISTO OFTEN LOCKS UP THE MACHINE & ITS SERVICE(S)
-if [ 0 -eq 1 ]; then
+if [[ 0 -eq 1 ]]; then
 	echo "Info:  Calling  [ jmap -histo ]  which  [ Prints a histogram of the heap. For each Java class, the number of objects, memory size in bytes, and the fully qualified class names are printed. The JVM internal class names are printed with an asterisk (*) prefix. ]";
 	SERVICE_USER="jenkins";
 	JMAP_HISTO="$(jmap -histo -F $(ps u -C 'java' | grep -vEi ^USER | grep -Ei ^${SERVICE_USER} | awk '{print $2}');)";

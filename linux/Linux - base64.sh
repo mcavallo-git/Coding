@@ -37,7 +37,7 @@ echo -e "\n""PRIVATE_KEY_ENCODED = [ ${PRIVATE_KEY_ENCODED} ]""\n";
 # MongoDB Replica-Set Keyfile
 #
 
-if [ 0 -eq 1 ]; then
+if [[ 0 -eq 1 ]]; then
 # Convert keyfile to Base64 (to transport to associated replica servers as well as to store as a one-liner in password manager)
 Keyfile_Base64=$(echo -n "$(cat /var/lib/mongo/keyfile)" | base64 --wrap=0); echo -e "\n""Keyfile_Base64 = [ ${Keyfile_Base64} ]""\n";
 # Expand keyfile from Base64 into filepath "/var/lib/mongo/keyfile", which must be referenced by "/etc/mongod.conf" as [ keyFile: /var/lib/mongo/keyfile ] under the [ security: ] category)

@@ -6,7 +6,7 @@
 #  |--> Appens a date-created timestamp onto the filename for Game clips downloaded from 'Xbox Console Companion' (Windows 10) app
 #
 # ------------------------------------------------------------
-if [ 0 -eq 1 ]; then # RUN THIS SCRIPT REMOTELY:
+if [[ 0 -eq 1 ]]; then # RUN THIS SCRIPT REMOTELY:
 
 
 curl -H 'Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' -ssL 'https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh' | bash -s -- --dry-run 0;  # Xbox Game clip Renamer - Add date-created timestamp to downloaded clips' filenames

@@ -126,8 +126,8 @@ if [[ 1 -eq 1 ]]; then
       # Get only services which are stopped, failed, or contain other errors
       if [[ "${EACH_SERVICE_EXIT_CODE}" -ne 0 ]]; then
         echo -e "${DASH_NL}\nCalling [ ${EACH_SERVICE_FILE} status; ]...\n";
-        ${EACH_SERVICE_FILE} status; SERVICE_EXIT_CODE=${?};
-        echo -e "\nSERVICE_EXIT_CODE = [ ${SERVICE_EXIT_CODE} ]\n";
+        ${EACH_SERVICE_FILE} status; EXIT_CODE=${?};
+        echo -e "\nEXIT_CODE = [ ${EXIT_CODE} ]\n";
       fi;
     fi;
   done;

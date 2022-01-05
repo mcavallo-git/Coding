@@ -1,0 +1,208 @@
+MULTIPATHD(8)                                                         System Manager's Manual                                                         MULTIPATHD(8)
+
+NAME
+       multipathd - Multipath daemon.
+
+SYNOPSIS
+       multipathd [-d|-k] [-s] [-v verbosity] [-B] [-w]
+
+DESCRIPTION
+       The  multipathd daemon is in charge of checking for failed paths. When this happens, it will reconfigure the multipath map the path belongs to, so that this
+       map regains its maximum performance and redundancy.
+
+       This daemon executes the external multipath tool when events occur.  In turn, the multipath tool signals the multipathd daemon when it is done  with  devmap
+       reconfiguration, so that it can refresh its failed path list.
+
+OPTIONS
+       -d     Foreground Mode. Don't daemonize, and print all messages to stdout and stderr.
+
+       -s     Suppress timestamps. Do not prefix logging messages with a timestamp.
+
+       -v level
+              Verbosity  level. Print additional information while running multipathd. A  level of 0 means only print errors. A level of 3 or greater prints debug‐
+              ging information as well.
+
+       -B     Read-only bindings file. multipathd will not write to the user_friendly_names bindings file. If a user_friendly_name doesn't already exist for a  de‐
+              vice, it will use its WWID as its alias.
+
+       -k     multipathd  will enter interactive mode. From this mode, the available commands can be viewed by entering 'help'. When you are finished entering com‐
+              mands, press CTRL-D to quit.
+
+       -n     IGNORED. Use the option find_multipaths to control the treatment of newly detected devices by multipathd. See multipath.conf(5).
+
+       -w     Since kernel 4.14 a new device-mapper event polling interface is used for updating multipath devices on dmevents. Use this flag to force  it  to  use
+              the old event waiting method, based on creating a seperate thread for each device.
+
+COMMANDS
+       The following commands can be used in interactive mode:
+
+       list|show paths
+              Show the paths that multipathd is monitoring, and their state.
+
+       list|show paths format $format
+              Show the paths that multipathd is monitoring, using a format string with path format wildcards.
+
+       list|show maps|multipaths
+              Show the multipath devices that the multipathd is monitoring.
+
+       list|show maps|multipaths format $format
+              Show the status of all multipath devices that the multipathd is monitoring, using a format string with multipath format wildcards.
+
+       list|show maps|multipaths status
+              Show the status of all multipath devices that the multipathd is monitoring.
+
+       list|show maps|multipaths stats
+              Show some statistics of all multipath devices that the multipathd is monitoring.
+
+       list|show maps|multipaths topology
+              Show the current multipath topology. Same as 'multipath -ll'.
+
+       list|show topology
+              Show the current multipath topology. Same as 'multipath -ll'.
+
+       list|show map|multipath $map topology
+              Show  topology  of  a single multipath device specified by $map, for example 36005076303ffc56200000000000010aa. This map could be obtained from 'list
+              maps'.
+
+       list|show wildcards
+              Show the format wildcards used in interactive commands taking $format.
+
+       list|show config
+              Show the currently used configuration, derived from default values and values specified within the configuration file /etc/multipath.conf.
+
+       list|show config local
+              Show the currently used configuration like show config, but limiting the devices section to those devices that are actually present in the system.
+
+       list|show blacklist
+              Show the currently used blacklist rules, derived from default values and values specified within the configuration file /etc/multipath.conf.
+
+       list|show devices
+              Show all available block devices by name including the information if they are blacklisted or not.
+
+       list|show status
+              Show the number of path checkers in each possible state, the number of monitored paths, and whether multipathd is currently handling a uevent.
+
+       list|show daemon
+              Show the current state of the multipathd daemon.
+
+       add path $path
+              Add a path to the list of monitored paths. $path is as listed in /sys/block (e.g. sda).
+
+       remove|del path $path
+              Stop monitoring a path. $path is as listed in /sys/block (e.g. sda).
+
+       add map|multipath $map
+              Add a multipath device to the list of monitored devices. $map can either be a device-mapper device as listed in /sys/block (e.g. dm-0) or it  can  be
+              the alias for the multipath device (e.g. mpath1) or the uid of the multipath device (e.g. 36005076303ffc56200000000000010aa).
+
+       remove|del map|multipath $map
+              Stop monitoring a multipath device.
+
+       resize map|multipath $map
+              Resizes map $map to the given size.
+
+       switch|switchgroup map|multipath $map group $group
+              Force a multipath device to switch to a specific path group. $group is the path group index, starting with 1.
+
+       reconfigure
+              Reconfigures the multipaths. This should be triggered automatically after anyi hotplug event.
+
+       suspend map|multipath $map
+              Sets map $map into suspend state.
+
+       resume map|multipath $map
+              Resumes map $map from suspend state.
+
+       reset map|multipath $map
+              Reassign existing device-mapper table(s) use use the multipath device, instead of its path devices.
+
+       reload map|multipath $map
+              Reload a multipath device.
+
+       fail path $path
+              Sets path $path into failed state.
+
+       reinstate path $path
+              Resumes path $path from failed state.
+
+       disablequeueing maps|multipaths
+              Disable queueing on all multipath devices.
+
+       restorequeueing maps|multipaths
+              Restore queueing on all multipath devices.
+
+       disablequeueing map|multipath $map
+              Disable queuing on multipathed map $map.
+
+       restorequeueing map|multipath $map
+              Restore queuing on multipahted map $map.
+
+       forcequeueing daemon
+              Forces multipathd into queue_without_daemon mode, so that no_path_retry queueing will not be disabled when the daemon stops.
+
+       restorequeueing daemon
+              Restores configured queue_without_daemon mode.
+
+       map|multipath $map setprstatus
+              Enable persistent reservation management on $map.
+
+       map|multipath $map unsetprstatus
+              Disable persistent reservation management on $map.
+
+       map|multipath $map getprstatus
+              Get the current persistent reservation management status of $map.
+
+       map|multipath $map getprkey
+              Get the current persistent reservation key associated with $map.
+
+       map|multipath $map setprkey key $key
+              Set  the  persistent  reservation key associated with $map to $key in the prkeys_file. This key will only be used by multipathd if reservation_key is
+              set to file in /etc/multipath.conf.
+
+       map|multipath $map unsetprkey
+              Remove the persistent reservation key associated with $map from the prkeys_file. This will only unset the key used by multipathd  if  reservation_key
+              is set to file in /etc/multipath.conf.
+
+       path $path setmarginal
+              move  $path  to  a  marginal pathgroup. The path will remain in the marginal path group until unsetmarginal is called. This command will only work if
+              marginal_pathgroups is enabled and there is no Shaky paths detection method configured (see the multipath.conf man page for details).
+
+       path $path unsetmarginal
+              return marginal path $path to its normal pathgroup. This command will only work if marginal_pathgroups is enabled and there is no Shaky paths  detec‐
+              tion method configured (see the multipath.conf man page for details).
+
+       map $map unsetmarginal
+              return  all  marginal  paths  in $map to their normal pathgroups. This command will only work if marginal_pathgroups is enabled and there is no Shaky
+              paths detection method configured (see the multipath.conf man page for details).
+
+       quit|exit
+              End interactive session.
+
+       shutdown
+              Stop multipathd.
+
+SYSTEMD INTEGRATION
+       When compiled with systemd support two systemd service files are installed, multipathd.service and multipathd.socket The multipathd.socket service instructs
+       systemd  to  intercept the CLI command socket, so that any call to the CLI interface will start-up the daemon if required.  The multipathd.service file car‐
+       ries the definitions for controlling the multipath daemon. The daemon itself uses the sd_notify(3) interface to communicate with systemd. The following unit
+       keywords are recognized:
+
+       WatchdogSec=
+              Enables  the  internal  watchdog from systemd. multipath will send a notification via sd_notify(3) to systemd to reset the watchdog. If specified the
+              polling_interval and max_polling_interval settings will be overridden by the watchdog settings.  Please note that systemd prior to  version  207  has
+              issues which prevent the systemd-provided watchdog from working correctly. So the watchdog is not enabled per default, but has to be enabled manually
+              by updating the multipathd.service file.
+
+       OOMScoreAdjust=
+              Overrides the internal OOM adjust mechanism.
+
+       LimitNOFILE=
+              Overrides the max_fds configuration setting.
+
+SEE ALSO
+       multipath(8), kpartx(8), sd_notify(3), system.service(5).
+
+AUTHORS
+       multipath-tools was developed by Christophe Varoqui <christophe.varoqui@opensvc.com> and others.
+
+Linux                                                                        2016-10-27                                                               MULTIPATHD(8)

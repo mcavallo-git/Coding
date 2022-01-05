@@ -67,6 +67,21 @@ if [[ 1 -eq 1 ]]; then
   #
 
   echo -e "\n------------------------------------------------------------\n";
+  echo -e "Info:  To protect a new application through Duo Security";
+  echo -e " |      (e.g. to obtain a Integration key, Secret key, & API hostname):";
+  echo -e " |";
+  echo -e " |--> Login to your Duo Administrator portal (or create a new Duo Admin account, if you haven't already)";
+  echo -e " |     |";
+  echo -e " |     |--> Login URL: https://admin.duosecurity.com/login";
+  echo -e " |";
+  echo -e " |--> On the Admin Dashboard's leftmost column:";
+  echo -e "       |--> Click 'Applications'";
+  echo -e "        |--> Click 'Protect an Application'";
+  echo -e "         |--> Locate (or filter by keyword) 'UNIX Application' and click 'Protect' to the right of 'UNIX Application'";
+  echo -e "          |--> Set a name using syntax 'SSH (HOSTNAME) (pam_duo)', replacing 'HOSTNAME' with your server's hostname";
+  echo -e "           |--> Copy the Integration key, Secret key, and API hostname down to your password manager of choice, then click 'Save'";
+  echo -e "            |--> Done";
+  echo -e "\n------------------------------------------------------------\n";
 
   # Verify that pam_duo's config exists before continuing
   PAM_DUO_CONF="/etc/duo/pam_duo.conf";

@@ -11,7 +11,7 @@ if [[ 0 -eq 1 ]]; then # RUN THIS SCRIPT REMOTELY:
 curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/Linux%20-%20Duo%20(pam_duo)%20-%20SSH%20MFA%20(multifactor%20authentication).sh?t=$(date +'%s.%N')" | bash;
 
 fi;
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
   # ------------------------------
   #
@@ -268,7 +268,7 @@ if [ 1 -eq 1 ]; then
       # Start of [ SSH/SSHD Configuration ] code block
       #
 
-      if [ 1 -eq 1 ]; then
+      if [[ 1 -eq 1 ]]; then
 
         echo -e "\n------------------------------------------------------------\n";
 
@@ -305,7 +305,7 @@ if [ 1 -eq 1 ]; then
       #
 
       # Update Pam's "common-auth" config file
-      if [ 1 -eq 1 ]; then
+      if [[ 1 -eq 1 ]]; then
 
         echo -e "\n------------------------------------------------------------\n";
 
@@ -324,7 +324,7 @@ if [ 1 -eq 1 ]; then
       fi;
 
       # Update Pam's "sshd" config file
-      if [ 1 -eq 1 ]; then
+      if [[ 1 -eq 1 ]]; then
 
         echo -e "\n------------------------------------------------------------\n";
 
@@ -343,7 +343,7 @@ if [ 1 -eq 1 ]; then
       fi;
 
       # Redirect "login_duo" to use the "pam_duo" configuration that was just applied
-      if [ 1 -eq 1 ]; then
+      if [[ 1 -eq 1 ]]; then
 
         # Backup the local config file
         mv -fv "/etc/duo/login_duo.conf" "/etc/duo/login_duo.conf.$(date +'%Y%m%d_%H%M%S').bak";
@@ -357,7 +357,7 @@ if [ 1 -eq 1 ]; then
 
       # Keep the current terminal open, and open a side terminal to the same server to test Duo push requests to your mobile device for SSH authentication
 
-      if [ 0 -eq 1 ]; then
+      if [[ 0 -eq 1 ]]; then
         #
         # DEBUGGING ONLY
         #  |--> If you wish to test manual authentication/authorization requests to Duo's servers, run the following command:

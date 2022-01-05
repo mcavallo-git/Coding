@@ -6,8 +6,11 @@
 # TO INSTALL:  pam_duo
 #
 # ------------------------------------------------------------
+if [[ 0 -eq 1 ]]; then # RUN THIS SCRIPT REMOTELY:
 
+curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/Linux%20-%20Duo%20(pam_duo)%20-%20SSH%20MFA%20(multifactor%20authentication).sh?t=$(date +'%s.%N')" | bash;
 
+fi;
 if [ 1 -eq 1 ]; then
 
   # ------------------------------

@@ -389,6 +389,8 @@ fi;
 #
 # Citation(s)
 #
+#   duo.com  |  "Duo Unix - 2FA for SSH with PAM Support (pam_duo) | Duo Security"  |  https://duo.com/docs/duounix
+#
 #   manpages.debian.org  |  "pam_duo(8) — libpam-duo — Debian buster — Debian Manpages"  |  https://manpages.debian.org/buster/libpam-duo/pam_duo.8.en.html
 #
 # ------------------------------------------------------------

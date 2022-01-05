@@ -35,6 +35,17 @@ ARRAY_LENGTH=${#DAT_ARRAY[@]};
 echo "\${ARRAY_LENGTH} = [ ${ARRAY_LENGTH} ]";
 
 
+# IMPLODE FUNCTION
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY=();
+DAT_ARRAY+=("Val-1");
+DAT_ARRAY+=("Val-2");
+DAT_ARRAY+=("Val-3");
+DAT_ARRAY+=("Val-4");
+function implode { local IFS="$1"; shift; echo "$*"; };
+implode $'\n' "${DAT_ARRAY[@]}";
+
+
 # ------------------------------------------------------------
 #
 # Associative Arrays (in Bash)

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$(id -un)" != "root" ]; then
+if [[ "$(id -un)" != "root" ]]; then
 
 echo "Error:  Must run ${0} as user 'root'";
 exit 1;

@@ -29,7 +29,7 @@ fi;
 # ------------------------------------------------------------
 # jq - Check if a specific JSON property exists (or not)
 #
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
 echo "------------------------------";
 echo "EXAMPLE_JSON = ${EXAMPLE_JSON}";
@@ -54,7 +54,7 @@ fi;
 # ------------------------------------------------------------
 # jq - Modify the value held by a specific JSON property
 #
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
 MODIFIED_JSON=$(echo "${EXAMPLE_JSON}" | jq '.key3.key31 = "replaced-value"';);
 MODIFIED_JSON_COMPRESSED=$(echo "${MODIFIED_JSON}" | jq -c .;);
@@ -174,7 +174,7 @@ fi;
 # jq - Example:  Find files named "appsettings.json" in target directory (Visual Studio Project) & perform replacements on each matching .json file via jq
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   #
   # Inputs variables (override with values relative to target deployment environment)
   AQMP_SERVICE_NAME="${AQMP_SERVICE_NAME:-Azure Service Bus}";  # "Azure Service Bus" or "RabbitMQ"

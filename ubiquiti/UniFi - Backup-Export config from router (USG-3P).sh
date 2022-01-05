@@ -3,7 +3,7 @@
 sudo -i;
 
 
-if [ 1 -eq 1 ]; then 
+if [[ 1 -eq 1 ]]; then 
 
 EXPORT_DIR="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/backup.$(hostname).$(date +'%Y%m%d_%H%M%S')"; 
 

@@ -2,7 +2,7 @@
 
 # ------------------------------------------------------------
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 # parse domain from a given URL
 TARGET_URL="https://www.google.com";
 TARGET_DOMAIN="$(echo ${TARGET_URL} | awk -F[/:] '{print $4}')";
@@ -13,7 +13,7 @@ fi;
 # ------------------------------------------------------------
 
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 # check if current device is connected to the internet (or not)
 WAN_TEST_IPV4="8.8.8.8";
 WAN_TEST_RETURN_CODE="$(ping -c 1 -w 1 -W 1 ${WAN_TEST_IPV4} 1>'/dev/null' 2>&1; echo $?;)";
@@ -32,7 +32,7 @@ fi;
 
 
 # Quick single-url test
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 #  check if a URL is valid (or not)
 TARGET_URL="https://www.google.com";
 echo "";
@@ -48,7 +48,7 @@ fi;
 fi;
 
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 # Microsoft's Linux Software Repository --> Ad-hoc test distro compatibility against multiple distributions (major v. 14 thru 24 --> minor v. 00 thru 24 (for every major))
 echo -e "\n"; for OS_VERSION_MAJOR in {14..24}; do for OS_VERSION_MINOR in {00..24}; do DOWNLOAD_URL="https://packages.microsoft.com/config/ubuntu/${OS_VERSION_MAJOR}.${OS_VERSION_MINOR}/packages-microsoft-prod.deb"; RESPONSE_HTTP_CODE="$(curl -ILs "${DOWNLOAD_URL}" | grep '^HTTP/' | tail -n 1 | awk '{print $2}';)"; if [ "${RESPONSE_HTTP_CODE}" == "200" ]; then echo "  Info:  URL validated for Ubuntu ${OS_VERSION_MAJOR}.${OS_VERSION_MINOR}"; fi; done; done; echo -e "\n";
 fi;

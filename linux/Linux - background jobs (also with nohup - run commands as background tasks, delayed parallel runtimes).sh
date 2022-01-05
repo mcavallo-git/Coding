@@ -16,7 +16,7 @@ nohup command &
 # ------------------------------------------------------------
 
 # Example - Background job in Linux
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   echo "$(date +'%D %r')";
   LOGFILE="${HOME}/tester_$(date +'%s';)";
   ( sleep 3; echo "$(date +'%D %r')">"${LOGFILE}"; echo "whoami: $(whoami);">>"${LOGFILE}"; ) & echo "";

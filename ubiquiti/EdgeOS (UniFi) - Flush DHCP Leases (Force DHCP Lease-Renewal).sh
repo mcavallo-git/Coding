@@ -17,7 +17,7 @@ FL="${HOME}/flush-dhcp-leases"; QM="$(printf \\x3f;)"; echo "LV=\"/var/run/dnsma
 
 # Decompressed one-liner (above)'s source code
 sudo -i;
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \
 CACHE_DNSMASQ_LEASES="/config/$(basename ${LIVE_DNSMASQ_LEASES})" && \
 REGEX_MATCH_IPv4_ADDRESS='(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))' && \

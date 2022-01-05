@@ -22,7 +22,7 @@ echo "DATETIME_RFC3339 = [${DATETIME_RFC3339}]";
 # Benchmark (simplistic)
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   BENCHMARK_START=$(date +'%s.%N');
   # ------------------------------
   # vvv----- DO ACTIONS TO BENCHMARK, HERE
@@ -75,7 +75,7 @@ date --utc --date="Feb 15 03:37:34 2022 EST" +'%Y-%m-%dT%H:%M:%SZ';
 #       This way, we can format the strings as-needed while minimizing inaccuracies with the datetime values.
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 VERBOSE_OUTPUT=1;
 

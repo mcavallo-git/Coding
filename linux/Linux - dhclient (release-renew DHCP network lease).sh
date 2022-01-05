@@ -7,7 +7,7 @@ dhclient -r; dhclient;  # Release the current DHCP lease & pull a new one
 #
 # Expanded version:
 #
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 PRIMARY_INET_INTERFACE=$(ifconfig | tr ":" "\n" | head -n 1;);
 dhclient -r "${PRIMARY_INET_INTERFACE}";   # Release the current DHCP lease
 dhclient "${PRIMARY_INET_INTERFACE}";  # Pull a new DHCP lease

@@ -64,7 +64,7 @@ for EACH_DEVICE in /dev/sd? ; do parted -m "${EACH_DEVICE}" unit B print; done;
 # Script to create partitions using desired space on target device
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 DEVICE="/dev/sdb";           #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)
 START_BYTE="107374182400B";  #  !!! ENTER VALUE(S), HERE !!!  (see above for determining this parameter's value)

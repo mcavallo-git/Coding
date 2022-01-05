@@ -12,7 +12,7 @@ fi;
 # Example - bc (mathematical operations via CLI)
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   echo -e "\n";
   # ------------------------------------------------------------
   # Setup/run benchmark #1

@@ -91,7 +91,7 @@ fi;
 #
 
 # Example - (Substr) Find a needle in a haystack
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   HAYSTACK_TO_SEARCH="localhost";
   NEEDLE_TO_FIND=".";
   ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}"; # Required middleman var
@@ -103,7 +103,7 @@ fi;
 
 
 # Example - (Substr) Find a needle in a haystack
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   HAYSTACK_TO_SEARCH="www.example.com";
   NEEDLE_TO_FIND=".";
   ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}"; # Required middleman var
@@ -120,7 +120,7 @@ fi;
 #
 
 # Example 2.1
-# if [ 1 -eq 1 ]; then
+# if [[ 1 -eq 1 ]]; then
 #   HAYSTACK_TO_SEARCH="localhost";
 #   NEEDLE_TO_FIND=".";
 #   ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}";

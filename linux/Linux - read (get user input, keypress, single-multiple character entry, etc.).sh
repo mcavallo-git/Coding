@@ -9,7 +9,7 @@
 # Single character entry
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   ACTION_DESCRIPTION="Sleep for 2 seconds";
   READ_TIMEOUT=60;
   USER_RESPONSE="";
@@ -39,7 +39,7 @@ fi;
 #
 
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   ACTION_DESCRIPTION="Sleep for 2 seconds";
   READ_TIMEOUT=60;
   USER_RESPONSE="";
@@ -65,7 +65,7 @@ fi;
 #
 
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   echo -e "";
   echo -e "! !        ! !                                         ! !        ! !";
   echo -e "! ! NOTICE ! !  THIS IS A DOUBLE CONFIRMATION MESSAGE  ! ! NOTICE ! !";
@@ -89,7 +89,7 @@ fi;
 # Hide typed text (for a more secure string entry, password entry, etc.)
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   read -p "Enter certificate password for file \"FULLPATH_PFX_CERT\" (or hit enter for no password):  " -s -a CERT_PASS -t 60 <'/dev/tty'; echo "";
   echo "Password is [ ${#CERT_PASS} ] characters long";
 fi;

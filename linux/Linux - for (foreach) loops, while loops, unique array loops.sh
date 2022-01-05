@@ -115,7 +115,7 @@ done;
 #
 
 # ForEach loop using newline delimiter
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   ROLLBACK_IFS="${IFS}"; IFS=$'\n'; # Set the global for-loop delimiter
   for EACH_LINE in $(ps aux); do
   echo "------------------------------------------------------------";
@@ -153,7 +153,7 @@ while [ 1 ]; do echo "$(date +'%Y-%m-%d %H:%M:%S') | size: [ $(du -s /var/www) ]
 # ForEach item in an array
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
   ARR_USERNAMES=();
   ARR_USERNAMES+=("root");
@@ -181,7 +181,7 @@ fi;
 #
 # ForEach line in a file - using IFS=$'\n'
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
   # Create a mock file
   MOCK_FILE="/tmp/test-foreach-$(date +'%Y%m%d_%H%M%S')";
@@ -209,7 +209,7 @@ fi;
 # ForEach line in a file - using 'while read'
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
   # Create a mock file
   MOCK_FILE="/tmp/test-foreach-$(date +'%Y%m%d_%H%M%S')";
@@ -234,7 +234,7 @@ fi;
 # find + while-loop
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 DIR_WIN32_USERS=$(find /mnt/*/Users -mindepth 0 -maxdepth 0 -type d);
 find "${DIR_WIN32_USERS}" \

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 echo "" > "/tmp/hostsvc-hostsummary.$(hostname).log"; # Save output to a logfile in /tmp
 

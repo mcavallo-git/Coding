@@ -10,7 +10,7 @@
 #        |--> Update variable ${FIRMWARE_URL} (below) with updated URL
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 # Firmware - UniFi OS - Cloud Key Gen2 x.xx.xx
 
@@ -35,7 +35,7 @@ fi;
 #        |--> Update variable ${SOFTWARE_URL} (below) with updated URL
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 # Software -  UniFi Network Application x.x.xx for Debian/Ubuntu Linux and UniFi Cloud Key
 
@@ -66,7 +66,7 @@ fi;
 curl -o "${LOCAL_INSTALL}" "${SOFTWARE_URL}";
 
 # 8. Wait for the firmware download process to complete and install the new version using the dpkg command:
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 dpkg -i "${LOCAL_INSTALL}";
 fi;
 

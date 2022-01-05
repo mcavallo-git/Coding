@@ -1,4 +1,4 @@
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 ARG=""; docker-compose ${ARG} --help > "${HOME}/man/docker-compose.help.man";
 ARG="build"; docker-compose ${ARG} --help > "${HOME}/man/docker-compose-${ARG}.help.man";
 ARG="config"; docker-compose ${ARG} --help > "${HOME}/man/docker-compose-${ARG}.help.man";

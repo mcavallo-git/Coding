@@ -5,7 +5,7 @@
 #
 
 # Char-to-Int
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 ASCII_CHAR="/";
 ASCII_INTEGER=$(LC_CTYPE=C printf '%d' "'${ASCII_CHAR}";);
 ASCII_HEXADECIMAL="$(printf \\x%x ${ASCII_INTEGER} 2>'/dev/null';)";  # convert integer to hexadecimal
@@ -23,7 +23,7 @@ fi;
 
 
 # Int-to-Char
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 ASCII_INTEGER=47;
 ASCII_HEXADECIMAL="$(printf \\x%x ${ASCII_INTEGER} 2>'/dev/null';)";  # convert integer to hexadecimal
 ASCII_OCTAL="$(printf \\%03o ${ASCII_INTEGER} 2>'/dev/null';)";  # convert integer to octal

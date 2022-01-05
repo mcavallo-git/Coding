@@ -1,4 +1,4 @@
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
   # ------------------------------
   # Set how many times to run each code block
   LOOP_ITERATIONS=10;

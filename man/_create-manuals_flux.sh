@@ -1,4 +1,4 @@
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 
 MANFILE="${HOME}/man/flux.help.man";
 NEWDOCS="\n------------------------------------------------------------\n";

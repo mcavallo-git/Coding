@@ -5,7 +5,7 @@
 #   Convert from [ PFX (pkcs12) certificate format ] to [ Privacy-Enhanced Mail (PEM) certificate format ]
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 FULLPATH_PFX_CERT="/path/to/pfx/certificate.pfx";
 read -p "Enter certificate password for file \"${FULLPATH_PFX_CERT}\" (or hit enter for no password):  " -s -a CERT_PASS -t 60 <'/dev/tty'; echo "";
 openssl pkcs12 -in "${FULLPATH_PFX_CERT}" -password "pass:${CERT_PASS}" -clcerts -nokeys | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > "${FULLPATH_PFX_CERT}.crt.pem";
@@ -25,7 +25,7 @@ fi;
 #   Convert from [ Privacy-Enhanced Mail (PEM) certificate format ] to [ PFX (pkcs12) certificate format ]
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 echo "";
 echo "Calling [ openssl pkcs12 -export -in \"${FULLPATH_FULLCHAIN}\" -inkey \"${FULLPATH_PRIVKEY}\" -out \"${FULLPATH_OUTPUT_CERT}\" ]";
 openssl pkcs12 -export -in "${FULLPATH_FULLCHAIN}" -inkey "${FULLPATH_PRIVKEY}" -out "${FULLPATH_OUTPUT_CERT}";

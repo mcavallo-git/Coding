@@ -15,7 +15,7 @@ echo -e "12characters\n18stringcharacters\n6chars" | awk '{ print length, $0 }' 
 # Advanced sorting using 'LC_COLLATE=...' declaration
 #
 
-if [ 1 -eq 1 ]; then
+if [[ 1 -eq 1 ]]; then
 echo -e "1\na\nB\n2\nA\nb" > test-sort.txt;
 SORT="(none)"; echo -e "-----\nSORT=[ ${SORT} ]"; cat test-sort.txt;
 SORT="general-numeric"; echo -e "-----\nSORT=[ ${SORT} ]"; sort --sort="${SORT}" test-sort.txt;

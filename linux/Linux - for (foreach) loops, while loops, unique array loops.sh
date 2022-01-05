@@ -114,6 +114,24 @@ done;
 #   ForEach-Loop(s)
 #
 
+
+# ForEach file returned by a 'find' query
+if [[ 1 -eq 1 ]]; then
+  DASH_NL="------------------------------------------------------------\n";
+  for EACH_SERVICE_FILE in $(find "/etc/init.d" -type "f";); do
+    if [[ "$(cat "${EACH_SERVICE_FILE}" | grep 'status)' | wc -l;)" -gt 0 ]]; then
+      EACH_SERVICE_STATUS="$(${EACH_SERVICE_FILE} status 2>&1;)";
+      if [[ -n "${EACH_SERVICE_STATUS}" ]]; then
+        echo -e "${DASH_NL}\nCalling [ ${EACH_SERVICE_FILE} status; ]...\n";
+        ${EACH_SERVICE_FILE} status;
+        echo "";
+      fi;
+    fi;
+  done;
+  echo -e "${DASH_NL}";
+fi;
+
+
 # ForEach loop using newline delimiter
 if [[ 1 -eq 1 ]]; then
   ROLLBACK_IFS="${IFS}"; IFS=$'\n'; # Set the global for-loop delimiter

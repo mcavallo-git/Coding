@@ -27,39 +27,71 @@ fi;
 
 
 # ------------------------------------------------------------
-# jq - Check if a specific JSON property exists (or not)
+#
+# jq - get [ one (1) key's value ]
+#
+echo '{"id":"1","name":"obj1","value":"val1"}' | jq -r '.name';
+
+
+#
+# jq - get [ one (1) key's value ] from [ each object in a top-level JSON array ]
+#
+JQ_QUERY='.[].name';
+JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
+echo "${JSON}" | jq -r "${JQ_QUERY}";
+
+
+# ------------------------------------------------------------
+#
+# jq - get [ multiple (N) keys' values ]
+#
+echo '{"id":"1","name":"obj1","value":"val1"}' | jq -r '{name:.name,value:.value}';
+
+
+#
+# jq - get [ multiple (N) keys' values ] from [ each object in a top-level JSON array ]
+#
+JQ_QUERY='.[]|{value:.value,name:.name}';
+JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
+echo "${JSON}" | jq "${JQ_QUERY}";
+
+
+# ------------------------------------------------------------
+#
+# jq - Verify that a key exists and is set
 #
 if [[ 1 -eq 1 ]]; then
-EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
+JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
 echo "------------------------------";
-echo "EXAMPLE_JSON = ${EXAMPLE_JSON}";
+echo "JSON = ${JSON}";
 echo "------------------------------";
-PROPERTY_KEY_TO_GET=".key3";
-if [ "$(echo "${EXAMPLE_JSON}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
-echo "Info - JSON property verified to exist: \"${PROPERTY_KEY_TO_GET}\"";
+KEY_TO_GET=".key3";
+if [ "$(echo "${JSON}" | jq -r "${KEY_TO_GET}";)" != "null" ]; then
+echo "Info - JSON key verified to exist: \"${KEY_TO_GET}\"";
 else
-echo "Error - JSON property not found: \"${PROPERTY_KEY_TO_GET}\"";
+echo "Error - JSON key not found: \"${KEY_TO_GET}\"";
 fi;
 echo "------------------------------";
-PROPERTY_KEY_TO_GET=".key4";
-if [ "$(echo "${EXAMPLE_JSON}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
-echo "Info - JSON property verified to exist: \"${PROPERTY_KEY_TO_GET}\"";
+KEY_TO_GET=".key4";
+if [ "$(echo "${JSON}" | jq -r "${KEY_TO_GET}";)" != "null" ]; then
+echo "Info - JSON key verified to exist: \"${KEY_TO_GET}\"";
 else
-echo "Error - JSON property not found: \"${PROPERTY_KEY_TO_GET}\"";
+echo "Error - JSON key not found: \"${KEY_TO_GET}\"";
 fi;
 echo "------------------------------";
 fi;
 
 
 # ------------------------------------------------------------
-# jq - Modify the value held by a specific JSON property
+#
+# jq - Modify the value held by a specific JSON key
 #
 if [[ 1 -eq 1 ]]; then
-EXAMPLE_JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
-MODIFIED_JSON=$(echo "${EXAMPLE_JSON}" | jq '.key3.key31 = "replaced-value"';);
+JSON='{"key1":"val1","key2":"val2","key3":{"key31":"val31","key32":"val32"}}';
+MODIFIED_JSON=$(echo "${JSON}" | jq '.key3.key31 = "replaced-value"';);
 MODIFIED_JSON_COMPRESSED=$(echo "${MODIFIED_JSON}" | jq -c .;);
 echo "------------------------------";
-echo "EXAMPLE_JSON = ${EXAMPLE_JSON}";
+echo "JSON = ${JSON}";
 echo "------------------------------";
 echo "MODIFIED_JSON = ${MODIFIED_JSON}";
 echo "------------------------------";
@@ -69,6 +101,7 @@ fi;
 
 
 # ------------------------------------------------------------
+#
 # jq - Convert a bash associative array to a JSON object
 #
 unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
@@ -82,6 +115,7 @@ echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMP
 
 
 # ------------------------------------------------------------
+#
 # jq - Convert a bash indexed array (non-associative) to a JSON object
 #
 unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
@@ -96,25 +130,28 @@ echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMP
 
 
 # ------------------------------------------------------------
-# jq - Get the first 2 items in the "items" property's array (which is within/just-under the main JSON object)
+#
+# jq - Get the first 2 items in the "items" key's array (which is within/just-under the main JSON object)
 #
 JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
 echo "${JSON_INPUT}" | jq '.items[0:2]';
 
 
 # ------------------------------------------------------------
+#
 # jq - Grab JSON from the given URL
-#   |--> Parse the "items" property from the top-level JSON object
-#   |---> Parse all nested "cidr" properties within said "item" property
+#   |--> Parse the "items" key from the top-level JSON object
+#   |---> Parse all nested "cidr" keys within said "item" key
 #
 JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
 echo "${JSON_INPUT}" | jq '.items[] | .cidr';
 
 
 # ------------------------------------------------------------
+#
 # jq - Grab JSON from the given URL
-#   |--> Parse the "items" property from the top-level JSON object
-#   |---> Parse all nested "cidr" properties within said "item" property
+#   |--> Parse the "items" key from the top-level JSON object
+#   |---> Parse all nested "cidr" keys within said "item" key
 #   |----> Slice off all double-quotes (prepping for output)
 #
 JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
@@ -122,9 +159,10 @@ echo "${JSON_INPUT}" | jq '.items[] | .cidr' | tr -d '"';
 
 
 # ------------------------------------------------------------
+#
 # jq - Grab JSON from the given URL
-#   |--> Parse the "items" property from the top-level JSON object
-#   |---> Parse all nested "cidr" properties within said "item" property
+#   |--> Parse the "items" key from the top-level JSON object
+#   |---> Parse all nested "cidr" keys within said "item" key
 #   |----> Slice off all double-quotes (prepping for output)
 #   |-----> Wrap the jq call in a for-loop and add some string to the beginning/end of each line to prep it to-be-used-by as an NGINX IPv4 whitelist
 #
@@ -132,6 +170,7 @@ for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .c
 
 
 # ------------------------------------------------------------
+#
 # jq - Replace JSON Dynamically
 #
 cat "/etc/docker/daemon.json" | jq;
@@ -143,7 +182,9 @@ cat "/etc/docker/daemon.json" | jq;
 
 
 # ------------------------------------------------------------
+#
 # jq - Search a JSON array for a specific value
+#
 
 if [ "1" == "1" ]; then
 echo "------------------------------------------------------------";
@@ -171,6 +212,7 @@ fi;
 
 
 # ------------------------------------------------------------
+#
 # jq - Example:  Find files named "appsettings.json" in target directory (Visual Studio Project) & perform replacements on each matching .json file via jq
 #
 
@@ -195,71 +237,71 @@ if [[ 1 -eq 1 ]]; then
     EACH_JSON_CONTENTS="$(cat "${EACH_FILE_TO_JQ}";)";
     UPDATED_JSON_CONTENTS="${EACH_JSON_CONTENTS}";
     #
-    # jq - replace/set/update property [ .applicationUrl ]
+    # jq - replace/set/update key [ .applicationUrl ]
     #
-    PROPERTY_KEY_TO_GET=".applicationUrl";
-    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
-      PROPERTY_DESCRIPTION="Application URL/FQDN";
-      PROPERTY_KEY_TO_SET="${PROPERTY_KEY_TO_GET}";
-      PROPERTY_VAL_TO_SET="\"${HOST_SCHEME_FQDN}\"";
-      UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
-      echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+    KEY_TO_GET=".applicationUrl";
+    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${KEY_TO_GET}";)" != "null" ]; then
+      KEY_DESCRIPTION="Application URL/FQDN";
+      KEY_TO_SET="${KEY_TO_GET}";
+      KEY_VAL_TO_SET="\"${HOST_SCHEME_FQDN}\"";
+      UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${KEY_TO_SET} |= ${KEY_VAL_TO_SET}";);
+      echo -e " (Updated) $(printf '%-35s' "$KEY_DESCRIPTION";) ( ${KEY_TO_SET} )";
     fi;
     #
-    # jq - check-for/get property [ .Bus ]
+    # jq - check-for/get key [ .Bus ]
     #
-    PROPERTY_KEY_TO_GET=".Bus";
-    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
+    KEY_TO_GET=".Bus";
+    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${KEY_TO_GET}";)" != "null" ]; then
       # Service Bus Update
       if [ "${AQMP_SERVICE_NAME}" == "Azure Service Bus" ]; then
         #
-        # jq - replace/set/update property [ .Bus.ServiceBus.ConnectionString ]
+        # jq - replace/set/update key [ .Bus.ServiceBus.ConnectionString ]
         #
-        PROPERTY_DESCRIPTION="Service Bus Connection String";
-        PROPERTY_KEY_TO_SET=".Bus.ServiceBus.ConnectionString";
-        PROPERTY_VAL_TO_SET="\"${SERVICE_BUS_CONNECTION_STRING}\"";
-        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
-        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+        KEY_DESCRIPTION="Service Bus Connection String";
+        KEY_TO_SET=".Bus.ServiceBus.ConnectionString";
+        KEY_VAL_TO_SET="\"${SERVICE_BUS_CONNECTION_STRING}\"";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${KEY_TO_SET} |= ${KEY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$KEY_DESCRIPTION";) ( ${KEY_TO_SET} )";
         #
-        # jq - replace/set/update property [ .Bus.ServiceBus.ServiceUri ]
+        # jq - replace/set/update key [ .Bus.ServiceBus.ServiceUri ]
         #
-        PROPERTY_DESCRIPTION="Service Bus Service URI";
-        PROPERTY_KEY_TO_SET=".Bus.ServiceBus.ServiceUri";
-        PROPERTY_VAL_TO_SET="\"${SERVICE_BUS_URI}\"";
-        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
-        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+        KEY_DESCRIPTION="Service Bus Service URI";
+        KEY_TO_SET=".Bus.ServiceBus.ServiceUri";
+        KEY_VAL_TO_SET="\"${SERVICE_BUS_URI}\"";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${KEY_TO_SET} |= ${KEY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$KEY_DESCRIPTION";) ( ${KEY_TO_SET} )";
       fi;
       # RabbitMQ Update/Remove
       if [ "${AQMP_SERVICE_NAME}" == "RabbitMQ" ]; then
         #
-        # jq - replace/set/update property [ .Bus.RabbitMq.Host ]
+        # jq - replace/set/update key [ .Bus.RabbitMq.Host ]
         #
-        PROPERTY_DESCRIPTION="RabbitMQ Hostname";
-        PROPERTY_KEY_TO_SET=".Bus.RabbitMq.Host";
-        PROPERTY_VAL_TO_SET="\"${RABBITMQ_HOSTNAME}\"";
-        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
-        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+        KEY_DESCRIPTION="RabbitMQ Hostname";
+        KEY_TO_SET=".Bus.RabbitMq.Host";
+        KEY_VAL_TO_SET="\"${RABBITMQ_HOSTNAME}\"";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${KEY_TO_SET} |= ${KEY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$KEY_DESCRIPTION";) ( ${KEY_TO_SET} )";
       else
         #
-        # jq - delete property [ .Bus.RabbitMq ]
+        # jq - delete key [ .Bus.RabbitMq ]
         #
-        PROPERTY_DESCRIPTION="Remove RabbitMQ from JSON";
-        PROPERTY_KEY_TO_SET=".Bus";
-        PROPERTY_VAL_TO_SET="del(.RabbitMq)";
-        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
-        echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+        KEY_DESCRIPTION="Remove RabbitMQ from JSON";
+        KEY_TO_SET=".Bus";
+        KEY_VAL_TO_SET="del(.RabbitMq)";
+        UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${KEY_TO_SET} |= ${KEY_VAL_TO_SET}";);
+        echo -e " (Updated) $(printf '%-35s' "$KEY_DESCRIPTION";) ( ${KEY_TO_SET} )";
       fi;
     fi;
     #
-    # jq - replace/set/update property [ .SqlServer.FilesDbConnection ]
+    # jq - replace/set/update key [ .SqlServer.FilesDbConnection ]
     #
-    PROPERTY_KEY_TO_GET=".SqlServer.FilesDbConnection";
-    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${PROPERTY_KEY_TO_GET}";)" != "null" ]; then
-      PROPERTY_DESCRIPTION="SQL Server Connection String";
-      PROPERTY_KEY_TO_SET="${PROPERTY_KEY_TO_GET}";
-      PROPERTY_VAL_TO_SET="\"${SQL_CONNECTION_STRING}\"";
-      UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${PROPERTY_KEY_TO_SET} |= ${PROPERTY_VAL_TO_SET}";);
-      echo -e " (Updated) $(printf '%-35s' "$PROPERTY_DESCRIPTION";) ( ${PROPERTY_KEY_TO_SET} )";
+    KEY_TO_GET=".SqlServer.FilesDbConnection";
+    if [ "$(echo "${EACH_JSON_CONTENTS}" | jq -r "${KEY_TO_GET}";)" != "null" ]; then
+      KEY_DESCRIPTION="SQL Server Connection String";
+      KEY_TO_SET="${KEY_TO_GET}";
+      KEY_VAL_TO_SET="\"${SQL_CONNECTION_STRING}\"";
+      UPDATED_JSON_CONTENTS=$(echo "${UPDATED_JSON_CONTENTS}" | jq "${KEY_TO_SET} |= ${KEY_VAL_TO_SET}";);
+      echo -e " (Updated) $(printf '%-35s' "$KEY_DESCRIPTION";) ( ${KEY_TO_SET} )";
     fi;
     if [ "${UPDATED_JSON_CONTENTS}" == "${EACH_JSON_CONTENTS}" ]; then
       # No changes required - Do not update target [ appsettings.json ] file
@@ -284,6 +326,7 @@ fi;
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   github.com  |  "Releases · stedolan/jq · GitHub"  |  https://github.com/stedolan/jq/releases
@@ -303,6 +346,10 @@ fi;
 #   stackoverflow.com  |  "Constructing a json hash from a bash associative array - Stack Overflow"  |  https://stackoverflow.com/a/44792751
 #
 #   stackoverflow.com  |  "How to format a bash array as a JSON array"  |  https://stackoverflow.com/a/26809318
+#
+#   stackoverflow.com  |  "How do I select multiple fields in jq? - Stack Overflow"  |  https://stackoverflow.com/a/34835208
+#
+#   stackoverflow.com  |  "iteration - Output specific key value in object for each element in array with jq for JSON - Stack Overflow"  |  https://stackoverflow.com/a/35677443
 #
 #   stackoverflow.com  |  "json - How to check if element exists in array with jq - Stack Overflow"  |  https://stackoverflow.com/a/43269105
 #

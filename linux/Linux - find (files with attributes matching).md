@@ -98,7 +98,7 @@ find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/j
 	</summary>
 <pre><code>
 filesize_GREATER_THAN="1048576c"; # > 1MB
-RETENTION_DAYS="1"; 
+RETENTION_DAYS=60; 
 find /var/lib/jenkins/jobs/ -type 'f' -mtime +${RETENTION_DAYS} -size "+${filesize_GREATER_THAN}" -iname "*.msi" -exec rm -rf '{}' \;
 </code></pre>
 <hr /></details></li><br />
@@ -305,7 +305,7 @@ find "${JENKINS_HOME}/" \
 	<p>ex) Cleanup NGINX Logs</p>
 <pre><code>
 DIRECTORY_TO_CLEAN="/var/log/nginx/";
-RETENTION_DAYS=7;
+RETENTION_DAYS=60;
 find ${DIRECTORY_TO_CLEAN} \
 -type f \
 -mtime +${RETENTION_DAYS} \

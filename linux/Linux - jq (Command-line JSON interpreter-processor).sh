@@ -9,7 +9,7 @@ if [ $(which jq 2>'/dev/null' | wc -l;) -eq 0 ]; then
     # Install jq for Linux
     if [[ -n "$(command -v apt 2>'/dev/null';)" ]]; then  # Distros: Debian, Ubuntu, etc.
       apt-get update -y; apt-get install -y "jq";
-    elif [ $(which yum 1>'/dev/null' 2>&1; echo $?;) -eq 0 ]; then  # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
+    elif [[ -n "$(command -v yum 2>'/dev/null';)" ]]; then  # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
       curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
     fi;
   elif [[ "${OSTYPE}" == "darwin"* ]]; then

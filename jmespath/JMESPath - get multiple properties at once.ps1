@@ -1,10 +1,18 @@
-# ------------------------------------------------------------
+# ------------------------------
+# JMESPath - get multiple properties at once
+# ------------------------------
 
 
-# Get an Azure DevOps Project's UID (most importantly), as well as its name & endpoint URL, all in one query (grabs 3 properties at once)
+# JMESPath - Get 3 properties from output JSON at once (ID, Name & URL) - Approach 1 (outputs an object)
 $DEVOPS_ORG_URL="https://dev.azure.com/COMPANY_NAME";
 $DEVOPS_PROJECT="PROJECT_NAME";
 az devops project show --project "${DEVOPS_PROJECT}" --organization "${DEVOPS_ORG_URL}" --query "{id:id,name:name,url:url}";
+
+
+# JMESPath - Get 3 properties from output JSON at once (ID, Name & URL) - Approach A (outputs an array)
+$DEVOPS_ORG_URL="https://dev.azure.com/COMPANY_NAME";
+$DEVOPS_PROJECT="PROJECT_NAME";
+az devops project show --project "${DEVOPS_PROJECT}" --organization "${DEVOPS_ORG_URL}" --query "[id,name,url]";
 
 
 # ------------------------------------------------------------

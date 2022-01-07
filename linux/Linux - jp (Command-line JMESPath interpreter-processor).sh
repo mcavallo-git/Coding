@@ -1,40 +1,37 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Install jp
+# Install JP (command-line JMESPath interpreter-processor)
 #
 
-curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_jp?t=$(date +'%s.%N')" | bash;
-
-
-curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_jp?t=$(date +'%s.%N')" | env GITHUB_OWNER="jmespath" GITHUB_REPO="jp" VERSION_CLI="--version 2>'/dev/null' | rev | cut -d' ' -f1 | rev" bash;  # jp
+curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_jp?t=$(date +'%s.%N')" | env GITHUB_OWNER="jmespath" GITHUB_REPO="jp" VERSION_CLI="--version 2>'/dev/null' | rev | cut -d' ' -f1 | rev" bash;  # install jp
 
 # ------------------------------------------------------------
 #
 # jp - get [ one (1) key's value ]
 #
-echo '{"id":"1","name":"obj1","value":"val1"}' | jp -r '.name';
+echo '{"id":"1","name":"obj1","value":"val1"}' | jp --unquoted 'name'
 
 
 #
 # jp - get [ one (1) key's value ] from [ each object in a top-level JSON array ]
 #
-JP_QUERY='.[].name';
+JP_QUERY='[].name';
 JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
-echo "${JSON}" | jp -r "${JP_QUERY}";
+echo "${JSON}" | jp --compact "${JP_QUERY}";
 
 
 # ------------------------------------------------------------
 #
 # jp - get [ multiple (N) keys' values ]
 #
-echo '{"id":"1","name":"obj1","value":"val1"}' | jp -r '{name:.name,value:.value}';
+echo '{"id":"1","name":"obj1","value":"val1"}' | jp '{name:name,value:value}';
 
 
 #
 # jp - get [ multiple (N) keys' values ] from [ each object in a top-level JSON array ]
 #
-JP_QUERY='.[]|{value:.value,name:.name}';
+JP_QUERY='[].{value:value,name:name}';
 JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
 echo "${JSON}" | jp "${JP_QUERY}";
 

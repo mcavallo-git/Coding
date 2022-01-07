@@ -8,6 +8,15 @@ curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo
 
 # ------------------------------------------------------------
 #
+# jp - format JSON into a more easy-to-read syntax
+#
+JP_QUERY='[]';
+JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
+echo -e "\nBEFORE:\n${JSON}\n\nAFTER:\n$(echo "${JSON}" | jp "${JP_QUERY}";)\n";
+
+
+# ------------------------------------------------------------
+#
 # jp - get [ one (1) key's value ]
 #
 echo '{"id":"1","name":"obj1","value":"val1"}' | jp --unquoted 'name'
@@ -18,7 +27,7 @@ echo '{"id":"1","name":"obj1","value":"val1"}' | jp --unquoted 'name'
 #
 JP_QUERY='[].name';
 JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
-echo "${JSON}" | jp --compact "${JP_QUERY}";
+echo -e "\nBEFORE:\n${JSON}\n\nAFTER:\n$(echo "${JSON}" | jp "${JP_QUERY}";)\n";
 
 
 # ------------------------------------------------------------
@@ -33,7 +42,7 @@ echo '{"id":"1","name":"obj1","value":"val1"}' | jp '{name:name,value:value}';
 #
 JP_QUERY='[].{value:value,name:name}';
 JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
-echo "${JSON}" | jp "${JP_QUERY}";
+echo -e "\nBEFORE:\n${JSON}\n\nAFTER:\n$(echo "${JSON}" | jp "${JP_QUERY}";)\n";
 
 
 # ------------------------------------------------------------

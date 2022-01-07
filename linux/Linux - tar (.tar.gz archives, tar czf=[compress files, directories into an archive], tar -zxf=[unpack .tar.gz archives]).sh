@@ -39,7 +39,7 @@ tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 mv -vf "${ARCHIVE_FILEPATH}" "${DIR_TO_UNPACK_INTO}/$(basename "${ARCHIVE_FILEPATH}")";
 echo -e "\nListing files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
-echo -e "\nCleanup leftover files";
+echo -e "\nCleaning up leftover files...";
 rm -rfv "${ARCHIVE_FILEPATH}";
 rm -rfv "${DIR_TO_COMPRESS_1}";
 rm -rfv "${DIR_TO_COMPRESS_2}";

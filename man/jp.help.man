@@ -1,0 +1,20 @@
+NAME:
+   jp - jp [<options>] <expression>
+
+USAGE:
+   jp [global options] command [command options] [arguments...]
+
+VERSION:
+   0.2.1
+
+COMMANDS:
+   help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --compact, -c                Produce compact JSON output that omits nonessential whitespace.
+   --filename value, -f value   Read input JSON from a file instead of stdin.
+   --expr-file value, -e value  Read JMESPath expression from the specified file.
+   --unquoted, -u               If the final result is a string, it will be printed without quotes. [$JP_UNQUOTED]
+   --ast                        Only print the AST of the parsed expression.  Do not rely on this output, only useful for debugging purposes.
+   --help, -h                   show help
+   --version, -v                print the version

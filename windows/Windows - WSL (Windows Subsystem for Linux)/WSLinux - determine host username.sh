@@ -5,13 +5,13 @@ INVALID_USERS_FILE="/tmp/invalid_wsl_hosts_$(date +'%s%N')"; if [ -f "${INVALID_
 
 EXACT_MATCH="";
 
-find "/mnt/c/Users" \
+find "$(wslpath -u "$(wslvar -s "SystemDrive")/Users";)" \
 -mindepth 1 \
 -maxdepth 1 \
 -name '*' \
 -type 'd' \
--not -path "/mnt/c/Users/Default" \
--not -path "/mnt/c/Users/Public" \
+-not -path "$(wslpath -u "$(wslvar -s "HOMEDRIVE")\\Default";)" \
+-not -path "$(wslpath -u "$(wslvar -s "HOMEDRIVE")\\Public";)" \
 -print0 \
 | while IFS= read -r -d $'\0' EACH_USER_DIR; do
 

@@ -1,5 +1,8 @@
 #!/bin/bash
 # ------------------------------
+# git - git log (get date of last commit, get commit sha-1 hash, get the last X commits)
+# ------------------------------
+
 
 git log --oneline --max-count 10;  # Get the latest 10 commits for the current branch
 
@@ -8,7 +11,9 @@ git log --max-count=30 --format="%H | %ad | %s | %b" --date=format:'%Y-%m-%dT%H:
 
 
 # ------------------------------
-
+#
+# git log - Example(s)
+#
 
 CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)"; \
 echo -e "CHECKOUT_BRANCH = [\n${CHECKOUT_BRANCH}\n]";

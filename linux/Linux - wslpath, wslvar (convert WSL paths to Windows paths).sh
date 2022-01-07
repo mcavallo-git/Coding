@@ -68,7 +68,7 @@ echo "$(wslpath -w "/tmp";)"; # Outputs:   \\wsl$\Ubuntu\tmp
 
 # ------------------------------
 #
-# Prebuilt queries to locate essential exes
+# Prebuilt queries to locate essential .exe files
 #
 
 

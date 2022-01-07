@@ -37,7 +37,7 @@ CERT_EXP_DATE_FILENAME="$(date --utc --date="${CERT_EXP_DATE}" +'%Y-%m-%dT%H-%M-
 if [ -z "${DN}" ]; then read -p "Enter domain name to create/renew SSL/TLS certificates for:  " -a DN -t 60 <'/dev/tty'; fi;
 
 # Copy certs to output dir
-OUTDIR="/mnt/c/ISO/Certificates_SSL/wildcard-${DN//./-}.expires-${CERT_EXP_DATE_FILENAME}";
+OUTDIR="$(wslpath -u "$(wslvar -s "SystemDrive")/ISO/Certificates_SSL/wildcard-${DN//./-}.expires-${CERT_EXP_DATE_FILENAME}";)";
 mkdir -p "${OUTDIR}";
 CERT="cert";      cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";
 CERT="chain";     cp -rfv "$(realpath /etc/letsencrypt/live/${DN}/${CERT}.pem)" "${OUTDIR}/${CERT}.pem";

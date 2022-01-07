@@ -44,11 +44,11 @@ echo -e "\n\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
 echo "";
 echo -e "\nCleanup leftover files";
-echo "";
 rm -rfv "${ARCHIVE_FILEPATH}";
 rm -rfv "${DIR_TO_COMPRESS_1}";
 rm -rfv "${DIR_TO_COMPRESS_2}";
 rm -rfv "${DIR_TO_UNPACK_INTO}";
+echo "";
 fi;
 
 

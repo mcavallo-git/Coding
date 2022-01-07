@@ -37,7 +37,7 @@ echo -e "\nUnpacking archive \"${ARCHIVE_FILEPATH}\" into directory \"${DIR_TO_U
 tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 # ------------------------------
 mv -vf "${ARCHIVE_FILEPATH}" "${DIR_TO_UNPACK_INTO}/$(basename "${ARCHIVE_FILEPATH}")";
-echo -e "\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
+echo -e "\nListing files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
 echo -e "\nCleanup leftover files";
 rm -rfv "${ARCHIVE_FILEPATH}";

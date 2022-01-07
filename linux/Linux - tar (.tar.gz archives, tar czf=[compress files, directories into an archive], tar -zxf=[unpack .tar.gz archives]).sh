@@ -40,7 +40,6 @@ tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 echo "";
 # ------------------------------
 mv -vf "${ARCHIVE_FILEPATH}" "${DIR_TO_UNPACK_INTO}/$(basename "${ARCHIVE_FILEPATH}")";
-cd "${DIR_TO_UNPACK_INTO}";
 echo -e "\n\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
 echo "";

@@ -241,7 +241,8 @@ done;
 #					if [ $A -eq $B ]     :::  True if $A is equal to $B
 #					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching)
 #					if [ $a == z* ]      :::  File globbing and word splitting take place
-#					if [[ $A == z* ]]    :::  True if $A starts with an "z" (string pattern matching)
+#					if [[ $A == z* ]]    :::  True if $A starts with a "z" (string pattern matching)
+#					if [[ $A == *z ]]    :::  True if $A ends with a "z" (string pattern matching)
 #					if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching)
 #					if [[ $a == "z*" ]]  :::  True if $a is equal to z* (literal matching)
 #  ==		Floats/Doubles:

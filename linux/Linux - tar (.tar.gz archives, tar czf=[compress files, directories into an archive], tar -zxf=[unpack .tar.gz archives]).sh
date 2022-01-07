@@ -19,7 +19,7 @@ tar -zxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 # Example - COMPRESS --THEN-> DECOMPRESS
 if [[ 1 -eq 1 ]]; then
 ARCHIVE_FILEPATH="${HOME}/archive.tar.gz";
-TMP_DIR_TO_COMP="/tmp/${PKG_NAME}_$(date +'%Y%m%d_%H%M%S')";
+TMP_DIR_TO_COMP="/tmp/dir-to-compress_$(date +'%Y%m%d_%H%M%S')";
 DIR_TO_COMPRESS_1="${TMP_DIR_TO_COMP}-1"; mkdir -pv "${DIR_TO_COMPRESS_1}";  # create mock directory to compress
 DIR_TO_COMPRESS_2="${TMP_DIR_TO_COMP}-2"; mkdir -pv "${DIR_TO_COMPRESS_2}";  # create mock directory to compress
 touch "${DIR_TO_COMPRESS_1}/a"; touch "${DIR_TO_COMPRESS_1}/b"; touch "${DIR_TO_COMPRESS_1}/c";  # create mock files to compress

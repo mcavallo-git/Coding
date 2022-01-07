@@ -92,7 +92,7 @@ MODIFIED_STRING="${HAYSTACK//${NEEDLE}/${REPLACEMENT}}" && echo "${MODIFIED_STRI
 # Bash Substring Replacement Example:  Slice one static substring out of another string
 HAYSTACK="/var/log/long/filepath";
 SLICE_OUT="/var/log/";
-REMAINDER="${HAYSTACK//${SLICE_OUT//\//\\/}/}";
+REMAINDER="${HAYSTACK//${SLICE_OUT//\//\\\/}/}";
 echo "HAYSTACK:   [ ${HAYSTACK} ]"; \
 echo "SLICE_OUT:  [ ${SLICE_OUT} ]"; \
 echo "REMAINDER:  [ ${REMAINDER} ]";

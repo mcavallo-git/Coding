@@ -31,6 +31,7 @@ tar czf "${ARCHIVE_FILEPATH}" "${DIR_TO_COMPRESS_1}" "${DIR_TO_COMPRESS_2}";
 echo "";
 # ------------------------------
 ls -al "${ARCHIVE_FILEPATH}";
+echo "";
 # ------------------------------
 # Unpack target archive into a given directory
 DIR_TO_UNPACK_INTO="${HOME}/unpacked_$(date +'%Y%m%d_%H%M%S')"; mkdir -pv "${DIR_TO_UNPACK_INTO}";  # create directory to unpack into

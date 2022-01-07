@@ -24,15 +24,23 @@ DIR_TO_COMPRESS_1="${TMP_DIR_TO_COMP}-1"; mkdir -pv "${DIR_TO_COMPRESS_1}";  # c
 DIR_TO_COMPRESS_2="${TMP_DIR_TO_COMP}-2"; mkdir -pv "${DIR_TO_COMPRESS_2}";  # create mock directory to compress
 touch "${DIR_TO_COMPRESS_1}/a"; touch "${DIR_TO_COMPRESS_1}/b"; touch "${DIR_TO_COMPRESS_1}/c";  # create mock files to compress
 touch "${DIR_TO_COMPRESS_2}/a"; touch "${DIR_TO_COMPRESS_2}/b"; touch "${DIR_TO_COMPRESS_2}/c";  # create mock files to compress
+# ------------------------------
 # Compress target files/directories into a given archive filepath
 tar czf "${ARCHIVE_FILEPATH}" "${DIR_TO_COMPRESS_1}" "${DIR_TO_COMPRESS_2}";
+# ------------------------------
 rm -rfv "${DIR_TO_COMPRESS_1}";
 rm -rfv "${DIR_TO_COMPRESS_2}";
 ls -al "${ARCHIVE_FILEPATH}";
+# ------------------------------
 # Unpack target archive into a given directory
 DIR_TO_UNPACK_INTO="${HOME}/unpacked_$(date +'%Y%m%d_%H%M%S')"; mkdir -pv "${DIR_TO_UNPACK_INTO}";  # create directory to unpack into
 tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
+# ------------------------------
 mv -vf "${ARCHIVE_FILEPATH}" "${DIR_TO_UNPACK_INTO}/$(basename "${ARCHIVE_FILEPATH}")";
+cd "${DIR_TO_UNPACK_INTO}";
+echo -e "\n\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
+find "${DIR_TO_UNPACK_INTO}/"*;
+echo "";
 fi;
 
 

@@ -15,7 +15,7 @@ FL="${HOME}/flush-dhcp-leases"; QM="$(printf \\x3f;)"; echo "LV=\"/var/run/dnsma
 #
 # ------------------------------
 
-# Decompressed one-liner (above)'s source code
+# Unpacked one-liner (above)'s source code
 sudo -i;
 if [[ 1 -eq 1 ]]; then
 LIVE_DNSMASQ_LEASES="/var/run/dnsmasq-dhcp.leases" && \

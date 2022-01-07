@@ -45,6 +45,7 @@ cd "${DIR_TO_UNPACK_INTO}";
 echo -e "\n\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
 echo "";
+rm -rfv "${DIR_TO_UNPACK_INTO}";
 fi;
 
 

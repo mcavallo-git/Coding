@@ -20,18 +20,19 @@ tar -zxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 if [[ 1 -eq 1 ]]; then
 ARCHIVE_FILEPATH="${HOME}/archive.tar.gz";
 TMP_DIR_TO_COMP="/tmp/dir-to-compress_$(date +'%Y%m%d_%H%M%S')";
+# ------------------------------
 DIR_TO_COMPRESS_1="${TMP_DIR_TO_COMP}-1"; mkdir -pv "${DIR_TO_COMPRESS_1}";  # create mock directory to compress
 DIR_TO_COMPRESS_2="${TMP_DIR_TO_COMP}-2"; mkdir -pv "${DIR_TO_COMPRESS_2}";  # create mock directory to compress
 touch "${DIR_TO_COMPRESS_1}/a"; touch "${DIR_TO_COMPRESS_1}/b"; touch "${DIR_TO_COMPRESS_1}/c";  # create mock files to compress
 touch "${DIR_TO_COMPRESS_2}/a"; touch "${DIR_TO_COMPRESS_2}/b"; touch "${DIR_TO_COMPRESS_2}/c";  # create mock files to compress
 # ------------------------------
+DIR_TO_UNPACK_INTO="${HOME}/unpacked_$(date +'%Y%m%d_%H%M%S')"; mkdir -pv "${DIR_TO_UNPACK_INTO}";  # create directory to unpack into
+# ------------------------------
 # Compress target files/directories into a given archive filepath
 echo -e "\nCompressing directories \"${DIR_TO_COMPRESS_1}\" and \"${DIR_TO_COMPRESS_2}\" into archive \"${ARCHIVE_FILEPATH}\"...";
 tar czf "${ARCHIVE_FILEPATH}" "${DIR_TO_COMPRESS_1}" "${DIR_TO_COMPRESS_2}";
-echo "";
 # ------------------------------
 # Unpack target archive into a given directory
-DIR_TO_UNPACK_INTO="${HOME}/unpacked_$(date +'%Y%m%d_%H%M%S')"; mkdir -pv "${DIR_TO_UNPACK_INTO}";  # create directory to unpack into
 echo -e "\nUnpacking archive \"${ARCHIVE_FILEPATH}\" into directory \"${DIR_TO_UNPACK_INTO}\"...";
 tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 # ------------------------------

@@ -13,7 +13,7 @@ echo "DATETIME_RFC3339 = [${DATETIME}]";
 # Timestamp - RFC-3339 compatible
 #
 
-DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";  # 2021-06-23T01:26:58-0400   <# BEST FOR LOG-OUTPUTS #>
+DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";  # 2021-06-23T01:26:58-0400   <# BEST FOR LOG OUTPUTS #>
 echo "DATETIME_RFC3339 = [${DATETIME_RFC3339}]";
 
 

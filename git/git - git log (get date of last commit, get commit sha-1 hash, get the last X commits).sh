@@ -1,21 +1,37 @@
 #!/bin/bash
 # ------------------------------
 
-
-CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)"; echo "CHECKOUT_BRANCH=[${CHECKOUT_BRANCH}]";
-
-
-COMMIT_HASH="$(git rev-parse HEAD;)";  echo "COMMIT_HASH=[${COMMIT_HASH}]";
+git log --oneline --max-count 10;  # Get the latest 10 commits for the current branch
 
 
-COMMIT_TIMESTAMP="$(git log -1 --format="%h %ad" --date=format:'%Y%m%dT%H%M%S%z';)";  echo "COMMIT_TIMESTAMP=[${COMMIT_TIMESTAMP}]";
+git log --max-count=30 --format="%H | %ad | %s | %b" --date=format:'%Y-%m-%dT%H:%M:%S%z';  # Get the latest 30 commits w/ full commit hash & timetamp shown for each
 
 
 # ------------------------------
 
 
-# Get the last 10 commits
-git log --oneline --max-count 10;
+CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)"; \
+echo -e "CHECKOUT_BRANCH = [\n${CHECKOUT_BRANCH}\n]";
+
+
+COMMIT_HASH="$(git rev-parse HEAD;)"; \
+echo -e "COMMIT_HASH = [\n${COMMIT_HASH}\n]";
+
+
+LATEST_COMMIT_TIMESTAMP_RFC3339="$(git log -1 --format="%ad" --date=format:'%Y-%m-%dT%H:%M:%S%z';)"; \
+echo -e "LATEST_COMMIT_TIMESTAMP_RFC3339 = [ ${LATEST_COMMIT_TIMESTAMP_RFC3339} ]";  # <# BEST FOR LOG OUTPUTS #>
+
+
+LATEST_COMMIT_TIMESTAMP_FILENAME="$(git log -1 --format="%ad" --date=format::'%Y%m%dT%H%M%S%z';)"; \
+echo -e "LATEST_COMMIT_TIMESTAMP_FILENAME = [ ${LATEST_COMMIT_TIMESTAMP_FILENAME} ]";  # <# BEST FOR FILENAMES #>
+
+
+RFC3339_SHORT_HASHES="$(git log --max-count=30 --format="%h | %ad | %s%n" --date=format:'%Y-%m-%dT%H:%M:%S%z';)"; \
+echo -e "RFC3339_SHORT_HASHES = [\n${RFC3339_SHORT_HASHES}\n]";
+
+
+RFC3339_LONG_HASHES="$(git log --max-count=30 --format="%H | %ad | %s%n" --date=format:'%Y-%m-%dT%H:%M:%S%z';)"; \
+echo -e "RFC3339_LONG_HASHES = [\n${RFC3339_LONG_HASHES}\n]";
 
 
 # ------------------------------

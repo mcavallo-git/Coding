@@ -26,7 +26,7 @@ touch "${DIR_TO_COMPRESS_1}/a"; touch "${DIR_TO_COMPRESS_1}/b"; touch "${DIR_TO_
 touch "${DIR_TO_COMPRESS_2}/a"; touch "${DIR_TO_COMPRESS_2}/b"; touch "${DIR_TO_COMPRESS_2}/c";  # create mock files to compress
 # ------------------------------
 # Compress target files/directories into a given archive filepath
-echo -e "\n\nCompressing directories \"${DIR_TO_COMPRESS_1}\" and \"${DIR_TO_COMPRESS_2}\" into archive \"${ARCHIVE_FILEPATH}\"...";
+echo -e "\nCompressing directories \"${DIR_TO_COMPRESS_1}\" and \"${DIR_TO_COMPRESS_2}\" into archive \"${ARCHIVE_FILEPATH}\"...";
 tar czf "${ARCHIVE_FILEPATH}" "${DIR_TO_COMPRESS_1}" "${DIR_TO_COMPRESS_2}";
 echo "";
 # ------------------------------
@@ -35,12 +35,11 @@ echo "";
 # ------------------------------
 # Unpack target archive into a given directory
 DIR_TO_UNPACK_INTO="${HOME}/unpacked_$(date +'%Y%m%d_%H%M%S')"; mkdir -pv "${DIR_TO_UNPACK_INTO}";  # create directory to unpack into
-echo -e "\n\nUnpacking archive \"${ARCHIVE_FILEPATH}\" into directory \"${DIR_TO_UNPACK_INTO}\"...";
+echo -e "\nUnpacking archive \"${ARCHIVE_FILEPATH}\" into directory \"${DIR_TO_UNPACK_INTO}\"...";
 tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
-echo "";
 # ------------------------------
 mv -vf "${ARCHIVE_FILEPATH}" "${DIR_TO_UNPACK_INTO}/$(basename "${ARCHIVE_FILEPATH}")";
-echo -e "\n\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
+echo -e "\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
 echo "";
 echo -e "\nCleanup leftover files";

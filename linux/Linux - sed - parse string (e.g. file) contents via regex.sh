@@ -18,12 +18,12 @@ echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/^([0-9]{1})$/\1/pi";
 
 # Only match lines with 1 digit
 PATTERN="^([0-9]{1})$"; OUTPUT="\1";
-echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\/}/${OUTPUT}/pi";
+echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 
 # Only match lines with 2 digits
 PATTERN="^([0-9]{2})$"; OUTPUT="\1";
-echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\/}/${OUTPUT}/pi";
+echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 
 # -----

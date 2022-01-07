@@ -29,6 +29,7 @@ esxcfg-advcfg -g "/UserVars/SuppressShellWarning"; esxcfg-advcfg -s 1 "/UserVars
 # 
 # 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   kb.vmware.com  |  "Configuring advanced options for ESXi/ESX (1038578)"  |  https://kb.vmware.com/s/article/1038578

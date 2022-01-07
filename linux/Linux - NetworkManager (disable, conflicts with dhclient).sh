@@ -27,6 +27,7 @@ unlink "/etc/systemd/system/dbus-org.freedesktop.NetworkManager.service"
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   bbs.archlinux.org |  "[SOLVED] NetworkManager auto restart even though I stop it. / Networking, Server, and Protection / Arch Linux Forums"  |  https://bbs.archlinux.org/viewtopic.php?pid=1207260#p1207260

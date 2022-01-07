@@ -50,6 +50,7 @@ ForEach ($EachService In $IRSA_Enterprise_Services) { `
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #  docs.microsoft.com  |  "Restart-Service (Microsoft.PowerShell.Management) - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/restart-service

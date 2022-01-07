@@ -61,6 +61,7 @@ systemctl list-unit-files --type service --state enabled,generated;
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   askubuntu.com  |  "systemd - How to list all enabled services from systemctl? - Ask Ubuntu"  |  https://askubuntu.com/a/1060852

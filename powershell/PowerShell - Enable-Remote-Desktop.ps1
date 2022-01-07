@@ -25,6 +25,7 @@ Enable-NetFirewallRule -DisplayGroup "Remote Desktop"; # Enable the [ Inbound ru
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   docs.microsoft.com  |  "Disable-NetFirewallRule - Disables a firewall rule"  |  https://docs.microsoft.com/en-us/powershell/module/netsecurity/disable-netfirewallrule

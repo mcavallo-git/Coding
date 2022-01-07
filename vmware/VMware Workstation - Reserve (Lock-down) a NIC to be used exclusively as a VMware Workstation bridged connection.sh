@@ -6,6 +6,7 @@ Similar to setting a static IP in windows, open "View Network Connections" (or r
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   kb.vmware.com  |  "Using a network adapter only with the VMware Workstation guest virtual machine (1020359)"  |  https://kb.vmware.com/s/article/1020359

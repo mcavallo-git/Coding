@@ -15,6 +15,7 @@ exec 2>&1;
 exec &>/dev/tty
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   unix.stackexchange.com  |  "Restoring output to the terminal after having issued “exec &>filename”"  |  https://unix.stackexchange.com/a/91716

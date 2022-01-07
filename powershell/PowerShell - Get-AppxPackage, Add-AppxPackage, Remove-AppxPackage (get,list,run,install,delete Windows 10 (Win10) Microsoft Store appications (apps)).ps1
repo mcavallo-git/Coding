@@ -65,6 +65,7 @@ Get-ChildItem -Path ("${Home}\Desktop") -File -Recurse -Force -ErrorAction "Sile
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #  docs.microsoft.com  |  "Add-AppxPackage - Adds a signed app package to a user account"  |  https://docs.microsoft.com/en-us/powershell/module/appx/add-appxpackage?view=win10-ps

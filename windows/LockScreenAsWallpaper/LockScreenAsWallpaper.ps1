@@ -10,6 +10,7 @@ Start-Process "explorer.exe" -ArgumentList ("shell:AppsFolder\$(Get-AppxPackage 
 #   Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\windows\LockScreenAsWallpaper\LockScreenAsWallpaper.ps1"
 # 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #  stackoverflow.com  |  "How to Start a Universal Windows App (UWP) from PowerShell in Windows 10?"  |  https://stackoverflow.com/a/48856168

@@ -64,6 +64,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   gallery.technet.microsoft.com  |  "Script Get-FileMetaData"  |  https://gallery.technet.microsoft.com/scriptcenter/Get-FileMetaData-3a7ddea7

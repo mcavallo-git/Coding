@@ -24,6 +24,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   stackoverflow.com  |  "Stop “explorer” process completely using PowerShell"  |  https://stackoverflow.com/a/8610349

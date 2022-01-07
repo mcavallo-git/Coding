@@ -84,6 +84,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   stackoverflow.com  |  "How do I take ownership of a registry key via Powershell?"  |  https://stackoverflow.com/a/35843420

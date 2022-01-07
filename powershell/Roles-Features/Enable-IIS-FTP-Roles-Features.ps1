@@ -211,6 +211,7 @@ Write-Host "";
 [System.Console]::BackgroundColor = "${Revert_BackgroundColor}";
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   docs.microsoft.com  |  "New-ItemProperty - Creates a new property for an item and sets its value"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-itemproperty

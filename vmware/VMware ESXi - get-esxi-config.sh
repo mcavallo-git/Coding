@@ -73,6 +73,7 @@ esxcli storage filesystem rescan;  # Issue a rescan operation to the VMkernel to
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   pubs.vmware.com  |  "vSphere Command-Line Interface Reference"  |  https://pubs.vmware.com/vsphere-50/index.jsp?topic=%2Fcom.vmware.vcli.ref.doc_50%2Fvcli-right.html

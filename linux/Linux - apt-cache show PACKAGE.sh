@@ -24,6 +24,7 @@ PACKAGE_NAME="jq";
 apt-cache rdepends "${PACKAGE_NAME}";
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   linux.die.net  |  "apt-cache(8) - Linux man page"  |  https://linux.die.net/man/8/apt-cache

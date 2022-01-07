@@ -140,6 +140,7 @@ esac
 echo $Message
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   tldp.org  |  "7.3. Using case statements"  |  https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html
@@ -147,6 +148,7 @@ echo $Message
 # ------------------------------------------------------------
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   community.hpe.com  |  "difference between filesystem and mountpoint"  |  https://community.hpe.com/t5/System-Administration/difference-between-filesystem-and-mountpoint/m-p/5260291#M52653

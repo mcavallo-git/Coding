@@ -145,6 +145,7 @@ echo "${VAR_NOT_SET:-${VAR_ALSO_NOT_SET:-72}}";
 
 
 # ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   betterprogramming.pub  |  "24 Bashism To Avoid for POSIX-Compliant Shell Scripts | by Shinichi Okada | Aug, 2021 | Better Programming"  |  https://betterprogramming.pub/24-bashism-to-avoid-for-posix-compliant-shell-scripts-8e7c09e0f49a

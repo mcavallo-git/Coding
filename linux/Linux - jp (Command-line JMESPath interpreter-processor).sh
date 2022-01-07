@@ -18,23 +18,21 @@ if [[ 1 -eq 1 ]]; then
   INSTALL_PKG=1;
   # Determine OS and processor architecture
   OS_NAME="";
-  if [[ -z "${FULLPATH_LOCAL_PKG}" ]]; then
-    if [ "$(uname -s)" == "Linux" ] || [[ "${OSTYPE}" == "linux"* ]]; then
-      # Install pkg for Linux
-      FULLPATH_LOCAL_PKG="/usr/bin/${GITHUB_REPO}";
-      OS_NAME="linux";
-      if [[ -n "$(command -v dpkg 2>'/dev/null';)" ]]; then
-        PROCESSOR_ARCH="$(dpkg --print-architecture;)";
-      fi;
-    elif [[ "${OSTYPE}" == "darwin"* ]]; then
-      # Install pkg for MacOS
-      FULLPATH_LOCAL_PKG="/usr/bin/${GITHUB_REPO}";
-      OS_NAME="darwin";
-    else
-      # Install pkg for Windows
-      FULLPATH_LOCAL_PKG="${HOME}/bin/${GITHUB_REPO}.exe";
-      OS_NAME="windows";
+  if [ "$(uname -s)" == "Linux" ] || [[ "${OSTYPE}" == "linux"* ]]; then
+    # Install pkg for Linux
+    FULLPATH_LOCAL_PKG="/usr/bin/${GITHUB_REPO}";
+    OS_NAME="linux";
+    if [[ -n "$(command -v dpkg 2>'/dev/null';)" ]]; then
+      PROCESSOR_ARCH="$(dpkg --print-architecture;)";
     fi;
+  elif [[ "${OSTYPE}" == "darwin"* ]]; then
+    # Install pkg for MacOS
+    FULLPATH_LOCAL_PKG="/usr/bin/${GITHUB_REPO}";
+    OS_NAME="darwin";
+  else
+    # Install pkg for Windows
+    FULLPATH_LOCAL_PKG="${HOME}/bin/${GITHUB_REPO}.exe";
+    OS_NAME="windows";
   fi;
   PKG_NAME="$(basename "${FULLPATH_LOCAL_PKG}")";
   # ------------------------------
@@ -121,30 +119,30 @@ fi;
 #
 # jp - get [ one (1) key's value ]
 #
-echo '{"id":"1","name":"obj1","value":"val1"}' | jp -r '.name';
+# echo '{"id":"1","name":"obj1","value":"val1"}' | jp -r '.name';
 
 
 #
 # jp - get [ one (1) key's value ] from [ each object in a top-level JSON array ]
 #
-JP_QUERY='.[].name';
-JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
-echo "${JSON}" | jp -r "${JP_QUERY}";
+# JP_QUERY='.[].name';
+# JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
+# echo "${JSON}" | jp -r "${JP_QUERY}";
 
 
 # ------------------------------------------------------------
 #
 # jp - get [ multiple (N) keys' values ]
 #
-echo '{"id":"1","name":"obj1","value":"val1"}' | jp -r '{name:.name,value:.value}';
+# echo '{"id":"1","name":"obj1","value":"val1"}' | jp -r '{name:.name,value:.value}';
 
 
 #
 # jp - get [ multiple (N) keys' values ] from [ each object in a top-level JSON array ]
 #
-JP_QUERY='.[]|{value:.value,name:.name}';
-JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
-echo "${JSON}" | jp "${JP_QUERY}";
+# JP_QUERY='.[]|{value:.value,name:.name}';
+# JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
+# echo "${JSON}" | jp "${JP_QUERY}";
 
 
 # ------------------------------------------------------------

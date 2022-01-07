@@ -81,4 +81,10 @@ POWERSHELL_EXE="$(if [[ -n "$(command -v powershell.exe 2>'/dev/null';)" ]]; the
 WSL_EXE="$(if [[ -n "$(command -v wsl.exe 2>'/dev/null';)" ]]; then echo "$(realpath "$(command -v "wsl.exe";)" 2>'/dev/null';)"; elif [[ -f "$(find /mnt/*/Windows/System32/wsl.exe -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]]; then find /mnt/*/Windows/System32/wsl.exe -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(wslpath -u "$(wslvar -s "ComSpec";)";)"; fi;)";
 
 
-# ------------------------------
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.microsoft.com  |  "Working across file systems | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/wsl/filesystems
+#
+# ------------------------------------------------------------

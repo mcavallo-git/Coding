@@ -30,9 +30,6 @@ echo -e "\nCompressing directories \"${DIR_TO_COMPRESS_1}\" and \"${DIR_TO_COMPR
 tar czf "${ARCHIVE_FILEPATH}" "${DIR_TO_COMPRESS_1}" "${DIR_TO_COMPRESS_2}";
 echo "";
 # ------------------------------
-ls -al "${ARCHIVE_FILEPATH}";
-echo "";
-# ------------------------------
 # Unpack target archive into a given directory
 DIR_TO_UNPACK_INTO="${HOME}/unpacked_$(date +'%Y%m%d_%H%M%S')"; mkdir -pv "${DIR_TO_UNPACK_INTO}";  # create directory to unpack into
 echo -e "\nUnpacking archive \"${ARCHIVE_FILEPATH}\" into directory \"${DIR_TO_UNPACK_INTO}\"...";
@@ -41,7 +38,6 @@ tar -vzxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 mv -vf "${ARCHIVE_FILEPATH}" "${DIR_TO_UNPACK_INTO}/$(basename "${ARCHIVE_FILEPATH}")";
 echo -e "\nFinding all files under filepath \"${DIR_TO_UNPACK_INTO}\"...";
 find "${DIR_TO_UNPACK_INTO}/"*;
-echo "";
 echo -e "\nCleanup leftover files";
 rm -rfv "${ARCHIVE_FILEPATH}";
 rm -rfv "${DIR_TO_COMPRESS_1}";

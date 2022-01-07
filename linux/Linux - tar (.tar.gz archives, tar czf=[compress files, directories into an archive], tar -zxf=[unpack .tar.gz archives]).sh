@@ -16,7 +16,7 @@ tar czf "${ARCHIVE_FILEPATH}" "${DIR_TO_COMPRESS_1}" "${DIR_TO_COMPRESS_2}";
 tar -zxf "${ARCHIVE_FILEPATH}" --one-top-level=${DIR_TO_UNPACK_INTO};
 
 
-# Example - compress files/directories
+# Example - COMPRESS & THEN DECOMPRESS
 if [[ 1 -eq 1 ]]; then
 ARCHIVE_FILEPATH="${HOME}/archive.tar.gz";
 TMP_DIR_TO_COMP="/tmp/${PKG_NAME}_$(date +'%Y%m%d_%H%M%S')";

@@ -19,6 +19,11 @@
     "editor.insertSpaces": true,
     "editor.tabSize": 2
   },
+  "[powershell]": {
+    "editor.autoIndent": "full",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2
+  },
   "[shellscript]": {
     "editor.autoIndent": "full",
     "editor.insertSpaces": true,

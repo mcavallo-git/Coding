@@ -24,16 +24,16 @@
 # Microsoft Excel - Do a lookup of a table
 ```
 =VLOOKUP(
-	A1,
-	Table1[#All],
-	INT(
-		MATCH(
-			"ColumnName",
-			Table1[#Headers],
-			0
-		)
-	),
-	0
+  A1,
+  TableName[#All],
+  INT(
+    MATCH(
+      "HeaderName",
+      TableName[#Headers],
+      0
+    )
+  ),
+  0
 )
 ```
 

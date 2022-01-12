@@ -9,10 +9,13 @@ echo "enable" ; echo "configure" ; echo "interface 0/38" ; echo "poe opmode shut
 
 # ------------------------------
 #
-# Oneliner thanks to xsherlock on UniFi forums (see citation(s), below)
+# Bash one-liner for cycling switch PoE power on a specific port (thanks to xsherlock on UniFi forums - see Citation(s), below)
 #
 
-sshpass -p xxxxxxx ssh admin@172.16.10.6 '(echo "enable" ; echo "configure" ; echo "interface 0/38" ; echo "poe opmode shutdown" ; echo  "poe opmode auto" ; echo "exit" ; echo "exit"; echo "exit"  ) | telnet localhost 23 ; exit;'
+UNIFI_SSH_USERNAME="${UNIFI_SSH_USERNAME:-admin}";
+UNIFI_SSH_USERPASS="${UNIFI_SSH_USERPASS}";
+UNIFI_CONTROLLER_IPV4="${UNIFI_CONTROLLER_IPV4:-192.168.1.15}";
+sshpass -p ${UNIFI_SSH_USERPASS} ssh ${UNIFI_SSH_USERNAME}@${UNIFI_CONTROLLER_IPV4} '(echo "enable" ; echo "configure" ; echo "interface 0/38" ; echo "poe opmode shutdown" ; echo  "poe opmode auto" ; echo "exit" ; echo "exit"; echo "exit"  ) | telnet localhost 23 ; exit;';
 
 
 # ------------------------------------------------------------

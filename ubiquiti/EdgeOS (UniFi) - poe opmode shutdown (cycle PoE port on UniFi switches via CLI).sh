@@ -7,18 +7,26 @@
 # UniFi Switch Lite 16 PoE
 #  |--> SKU:  USW-LITE-16-PoE
 #
-echo "cli";
-echo "configure";
-echo "interface GigabitEthernet 2";  # Replace 2 with the port number you wish to cycle PoE power for
-echo "shutdown"; # Port shuts down
-echo "no shutdown"; # Port is re-enabled and comes back on
-echo "exit";
-echo "exit";
-echo "exit";
-echo "exit";
+
+PORT_NUMBER="${PORT_NUMBER:-2}";
+
+SLEEP_SECONDS_POE_CYCLE=5;
 
 
-# echo "poe opmode shutdown"; echo  "poe opmode auto"; echo "exit"; echo "exit"; echo "exit"  ) | telnet localhost 23; exit;
+# Get the status of the target PoE port
+cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}";
+
+
+# Restart the PoE port
+cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown" && sleep ${SLEEP_SECONDS_POE_CYCLE:-5} && cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
+
+
+# Shutdown the PoE port
+cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown"
+
+
+# Start (Re-Enable) the PoE port
+cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
 
 
 # ------------------------------

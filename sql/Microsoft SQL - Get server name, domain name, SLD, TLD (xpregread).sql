@@ -1,9 +1,9 @@
-
-/* Microsoft SQL (MSSQL) - Get server name, domain name, SLD, TLD (xpregread) */
-
 -- ----------------------------------------------------------
+--
+-- Microsoft SQL (MSSQL) - Get server name, domain name, SLD, TLD (xpregread)
+--
 
-/* Get just the SLD (pre-Windows 2000 compatible domain name) */
+-- Get just the SLD (pre-Windows 2000 compatible domain name)
 SELECT DEFAULT_DOMAIN() AS DomainName;
 
 

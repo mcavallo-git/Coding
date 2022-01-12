@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Get the column name for the IsPrimaryKey column (for a given table) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Get the column name for the IsPrimaryKey column (for a given table)
+--
 
 SELECT
   COLUMN_NAME

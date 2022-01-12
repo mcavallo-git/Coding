@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Backup database from remote server to remote or local disk (via SQL query or via SSMS (SQL Server Management Studio)) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Backup database from remote server to remote or local disk (via SQL query or via SSMS (SQL Server Management Studio))
+--
 
 /*
 Manual Method 1 --> Manual Backup Method via Microsoft SSMS (SQL Server Management Studio)

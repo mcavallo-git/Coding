@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Get column names, their data types, and their is_primary_key values (for given table) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Get column names, their data types, and their is_primary_key values (for given table)
+--
 
 SELECT
   c.name 'Column Name',

@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Get the disk size of every table current database */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Get the disk size of every table current database
+--
 
 SELECT
   t.NAME AS TableName

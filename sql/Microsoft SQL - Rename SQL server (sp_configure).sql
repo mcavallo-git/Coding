@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Rename SQL server (sp_configure) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Rename SQL server (sp_configure)
+--
 
 -- List local server names
 sp_helpserver;

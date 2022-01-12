@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Enable the SQL Server Agent XPs (extended stored procedures, sp_configure) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Enable the SQL Server Agent XPs (extended stored procedures, sp_configure)
+--
 
 sp_configure 'show advanced options', 1;
 GO

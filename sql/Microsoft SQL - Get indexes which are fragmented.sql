@@ -1,9 +1,11 @@
-
-/* Microsoft SQL (MSSQL) - Get fragmented indices (indexes) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Get fragmented indices (indexes)
+--
 
-SELECT OBJECT_NAME(i.OBJECT_ID) AS TableName, i.name AS IndexName, indexstats.avg_fragmentation_in_percent
+SELECT
+OBJECT_NAME(i.OBJECT_ID) AS TableName, i.name AS IndexName, indexstats.avg_fragmentation_in_percent
 FROM sys.dm_db_index_physical_stats(DB_ID(), NULL, NULL, NULL, 'DETAILED') indexstats
 INNER JOIN sys.indexes i ON i.OBJECT_ID = indexstats.OBJECT_ID
 WHERE i.index_id = indexstats.index_id;

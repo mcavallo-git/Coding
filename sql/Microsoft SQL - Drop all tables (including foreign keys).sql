@@ -1,7 +1,8 @@
-
-/* Microsoft SQL (MSSQL) - Drop all tables (including foreign keys) */
-
 -- ------------------------------------------------------------
+--
+--
+-- Microsoft SQL (MSSQL) - Drop all tables (including foreign keys)
+--
 
 USE "DATABASE_NAME"
 GO

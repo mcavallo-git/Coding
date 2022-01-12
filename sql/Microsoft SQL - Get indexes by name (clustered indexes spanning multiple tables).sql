@@ -1,7 +1,7 @@
-
-/* Microsoft SQL (MSSQL) - Get indexes by-name (for clustered indexes spanning multiple tables) */
-
 -- ------------------------------------------------------------
+--
+-- Microsoft SQL (MSSQL) - Get indexes by-name (for clustered indexes spanning multiple tables)
+--
 
 SELECT
   a.name AS Index_Name,
@@ -22,16 +22,14 @@ WHERE
 ;
 
 
-/*
-----------------------------------------------------------
-
- Citation(s)
-
-   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
-
-   stackoverflow.com  |  "tsql - List of all index & index columns in SQL Server DB - Stack Overflow"  |  https://stackoverflow.com/a/765892
-
-   www.mytecbits.com  |  "Find Indexes On A Table In SQL Server | My Tec Bits"  |  https://www.mytecbits.com/microsoft/sql-server/find-indexes-on-a-table
-
-----------------------------------------------------------
-*/
+-- ----------------------------------------------------------
+--
+-- Citation(s)
+--
+--   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--
+--   stackoverflow.com  |  "tsql - List of all index & index columns in SQL Server DB - Stack Overflow"  |  https://stackoverflow.com/a/765892
+--
+--   www.mytecbits.com  |  "Find Indexes On A Table In SQL Server | My Tec Bits"  |  https://www.mytecbits.com/microsoft/sql-server/find-indexes-on-a-table
+--
+-- ----------------------------------------------------------

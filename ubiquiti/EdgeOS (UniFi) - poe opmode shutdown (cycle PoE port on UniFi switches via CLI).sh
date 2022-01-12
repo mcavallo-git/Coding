@@ -32,7 +32,7 @@ if [[ 1 -eq 1 ]]; then
   LOOP_ITERATIONS=10;
   TIMEOUT_EACH_LOOP=5;
   echo "";
-  for i in $(seq ${LOOP_ITERATIONS}); do # i==1 denotes shutdown step. i==2 denotes re-enable step
+  for i in $(seq 2); do # i==1 denotes shutdown step. i==2 denotes re-enable step
     for j in $(seq ${LOOP_ITERATIONS}); do
       PORT_STATUS="$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}";)";
       echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${PORT_STATUS}  (i=${i}, j=${j})";

@@ -1,26 +1,22 @@
 
-/* Microsoft SQL (MSSQL) - Rename SQL server (sp_configure) */
+/* Microsoft SQL (MSSQL) - Enable the SQL Server Agent XPs (extended stored procedures, sp_configure) */
 
 -- ------------------------------------------------------------
 
--- List local server names
-sp_helpserver;
-
-
--- ------------------------------------------------------------
-
--- Rename Server
-sp_dropserver 'OLD-NAME';
+sp_configure 'show advanced options', 1;
 GO
-sp_addserver 'NEW-NAME', local;
+RECONFIGURE;
 GO
-
+sp_configure 'Agent XPs', 1;
+GO
+RECONFIGURE
+GO
 
 -- ------------------------------------------------------------
 --
 -- Citation(s)
 --
---   docs.microsoft.com  |  "Rename computer hosting instance - SQL Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/sql/database-engine/install-windows/rename-a-computer-that-hosts-a-stand-alone-instance-of-sql-server?view=sql-server-ver15
+--   docs.microsoft.com  |  "Agent XPs Server Configuration Option - SQL Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/sql/database-engine/configure-windows/agent-xps-server-configuration-option?view=sql-server-ver15
 --
 --   docs.microsoft.com  |  "sp_configure (Transact-SQL) - SQL Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-configure-transact-sql?view=sql-server-ver15
 --

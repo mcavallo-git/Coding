@@ -3,7 +3,7 @@
 
 -- ------------------------------------------------------------
 
-USE "DATABASE_TO_DROP_TABLES_FROM"
+USE "DATABASE_NAME"
 GO
 
 DECLARE @Sql NVARCHAR(500) DECLARE @Cursor CURSOR
@@ -28,14 +28,12 @@ EXEC sp_MSforeachtable 'DROP TABLE ?'
 GO
 
 
-/*
-------------------------------------------------------------
-
- Citation(s)
-
-   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
-
-   stackoverflow.com  |  "How to drop all tables in a SQL Server database? - Stack Overflow"  |  https://stackoverflow.com/a/8439798
-
-------------------------------------------------------------
-*/
+-- ------------------------------------------------------------
+--
+-- Citation(s)
+--
+--   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--
+--   stackoverflow.com  |  "How to drop all tables in a SQL Server database? - Stack Overflow"  |  https://stackoverflow.com/a/8439798
+--
+-- ------------------------------------------------------------

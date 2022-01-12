@@ -4,14 +4,14 @@
 -- ------------------------------------------------------------
 
 SELECT
-	OBJECT_NAME(object_id) As Table_Name,
-	*
+  OBJECT_NAME(object_id) As Table_Name,
+  *
 FROM
-	sys.indexes
+  sys.indexes
 WHERE
-	is_hypothetical = 0
-	AND index_id != 0
-	AND OBJECT_NAME(object_id) = 'TABLE_NAME'
+  is_hypothetical = 0
+  AND index_id != 0
+  AND OBJECT_NAME(object_id) = 'TABLE_NAME'
 ;
 
 

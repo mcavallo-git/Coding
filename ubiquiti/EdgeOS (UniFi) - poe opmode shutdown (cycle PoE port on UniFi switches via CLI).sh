@@ -29,11 +29,8 @@ cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown
 # Verbosely
 if [[ 1 -eq 1 ]]; then
   POE_PORT="${POE_PORT:-2}";
-  LOOP_ITERATIONS=10;
-  TIMEOUT_EACH_LOOP=5;
-  echo "";
   for i in $(seq 2); do # i==1 denotes shutdown step. i==2 denotes re-enable step
-    for j in $(seq ${LOOP_ITERATIONS}); do
+    for j in $(seq 10); do
       PORT_STATUS="$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}";)";
       echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${PORT_STATUS}  (i=${i}, j=${j})";
       if [[ "$(echo "${PORT_STATUS}" | cut -d' ' -f3;)" == "up" ]]; then
@@ -51,9 +48,9 @@ if [[ 1 -eq 1 ]]; then
           cli -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
         fi;
       fi;
-      sleep ${TIMEOUT_EACH_LOOP:-5};
+      sleep 1;
     done;
-    sleep ${TIMEOUT_EACH_LOOP:-5};
+    sleep 1;
   done;
 fi;
 

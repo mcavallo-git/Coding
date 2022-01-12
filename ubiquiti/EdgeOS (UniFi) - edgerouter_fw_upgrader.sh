@@ -92,7 +92,7 @@ if [ ${tars_found} -gt 0 ]; then
 		echo "" && echo "Removing .tar file..." && rm -f "${NEWEST_TAR}" && echo "✓ Removed .tar File (already applied)"
 		
 		# Reboot the system 
-		echo "" && echo "✓ Rebooting to Complete the Firmware Upgrade   -   $(date +'%D  %r')  " && sudo reboot
+		echo "" && echo "✓ Rebooting to Complete the Firmware Upgrade   -   $(date +'%D  %r')  " && sudo reboot now
 		exit 0
 		
 	else

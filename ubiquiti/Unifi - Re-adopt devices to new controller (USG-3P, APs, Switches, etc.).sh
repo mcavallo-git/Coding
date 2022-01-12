@@ -45,7 +45,7 @@ set-inform http://unifi:8080/inform
 mca-cli
 set-inform http://unifi:8080/inform
 exit
-reboot
+reboot now
 
 
 # ------------------------------------------------------------

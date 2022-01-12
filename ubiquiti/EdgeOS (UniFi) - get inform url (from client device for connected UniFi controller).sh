@@ -1,35 +1,19 @@
 #!/bin/sh
 #
-# EdgeOS (UniFi) - set-inform url (send adoption request from device to controller)
+# EdgeOS (UniFi) - get inform url (from client device for connected UniFi controller)
 #
 # ------------------------------------------------------------
+#
+# Get a UniFi device's outgoing inform URL:
+#
 
-# GET INFORM URL
+info | grep inform;
 
-info
-
-
-# ------------------------------------------------------------
-
-# SET INFORM URL
-
-UNIFI_CONTROLLER_IPv4="192.168.1.15"; sudo set-inform "http://${UNIFI_CONTROLLER_IPv4}:8080/inform";
-
-# Note: if performing this action on a USG-3P, you must first run "mca-cli" to enter edit mode for the USG-3P's UniFi config
-# 
-# mca-cli
-# set-inform http://192.168.1.15:8080/inform
-# exit
-# reboot now
-
-
-###
-### Adoption request sent to 'http://192.168.1.15:8080/inform'.
-### 
-### 1. please adopt it on the controller
-### 2. issue the set-inform command again
-### 3. <inform_url> will be saved after device is successfully managed
-### 
+# ^
+# |-- Output is similar to: --|
+#                             v
+#   Status:      Connected (http://unifi:8080/inform)
+#
 
 # ------------------------------------------------------------
 #

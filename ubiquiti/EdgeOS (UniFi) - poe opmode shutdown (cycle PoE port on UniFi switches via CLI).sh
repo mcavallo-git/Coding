@@ -25,7 +25,7 @@ cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUM
 cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown"
 
 
-# Start (Re-Enable) the PoE port
+# Start (re-enable) the PoE port
 cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
 
 

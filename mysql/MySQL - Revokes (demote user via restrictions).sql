@@ -1,67 +1,105 @@
--- ----------------------------------------------------------------------------------------------------------------------------
--- NOTES
---   MySQL says the user has "Usage" on a instance/database if they have no privileges)
--- ----------------------------------------------------------------------------------------------------------------------------
+-- ------------------------------------------------------------
+--
+-- Revoke specific user-privilege grants attached to target [ USER ]
+--
+REVOKE
+  -- ALTER ROUTINE,
+  -- ALTER,
+  -- CREATE ROUTINE,
+  -- CREATE TEMPORARY TABLES,
+  -- CREATE USER,
+  -- CREATE VIEW,
+  -- CREATE,
+  DELETE,
+  -- DROP,
+  -- EVENT,
+  -- EXECUTE,
+  -- INDEX,
+  INSERT,
+  -- LOCK TABLES,
+  -- PROCESS,
+  -- REFERENCES,
+  -- RELOAD,
+  -- REPLICATION CLIENT,
+  -- REPLICATION SLAVE,
+  SELECT,
+  -- SHOW DATABASES,
+  -- SHOW VIEW,
+  -- TRIGGER,
+  UPDATE
+ON
+  *.*
+FROM
+  'UserName_1'@'%',
+  'UserName_2'@'%',
+  'UserName_3'@'%'
+;
 
--- ===================================== --
--- ==        GLOBAL PRIVILEGES        == --
--- ===================================== --
 
--- REVOKE ALL PRIVILEGES
-  REVOKE
-    ALL PRIVILEGES
-  ON
-    *.*
-  FROM
-    'some_user'@'%', 'boneal_rfq'@'%', 'boneal_user'@'%';
-
--- REVOKE SPECIFICS
-  REVOKE
-    SELECT,CREATE,INSERT,UPDATE,DELETE,DROP,RELOAD,PROCESS,REFERENCES,INDEX,ALTER,SHOW DATABASES,CREATE TEMPORARY TABLES,LOCK TABLES,
-    REPLICATION SLAVE,REPLICATION CLIENT,CREATE VIEW,EVENT,TRIGGER,SHOW VIEW,CREATE ROUTINE,ALTER ROUTINE,CREATE USER,EXECUTE
-  ON
-    *.*
-  FROM
-    'some_user'@'%', 'boneal_rfq'@'%', 'boneal_user'@'%';
-
-
-
--- REVOKE USER-PRIVILEGES FROM A SPECIFIC [ USER ]
+-- ------------------------------------------------------------
+--
+-- Revoke all user-privilege grants attached to target [ USER ]
+--
 REVOKE
   ALL PRIVILEGES
 ON
   *.*
 FROM
-  'some_user'@'%', 'some_other_user'@'%', 'some_really_mean_user'@'%';
+  'UserName_1'@'%',
+  'UserName_2'@'%',
+  'UserName_3'@'%'
+;
 
 
-
--- REVOKE USER-PRIVILEGES FROM A SPECIFIC [ DATABASE ]
+-- ------------------------------------------------------------
+--
+-- Revoke all user-privilege grants attached to target [ DATABASE ]
+--
 REVOKE
   ALL PRIVILEGES
 ON
-  `some_database`.*
+  `DatabaseName`.*
 FROM
-  'some_user'@'%', 'some_other_user'@'%', 'some_really_mean_user'@'%';
+  'UserName_1'@'%',
+  'UserName_2'@'%',
+  'UserName_3'@'%'
+;
 
 
-
--- REVOKE USER-PRIVILEGES FROM A SPECIFIC [ TABLE ]
+-- ------------------------------------------------------------
+--
+-- Revoke all user-privilege grants attached to target [ TABLE ]
+--
 REVOKE
   ALL PRIVILEGES
 ON
-  `some_database`.`some_table_name`
+  `DatabaseName`.`TableName`
 FROM
-  'some_user'@'%', 'some_other_user'@'%', 'some_really_mean_user'@'%';
+  'UserName_1'@'%',
+  'UserName_2'@'%',
+  'UserName_3'@'%'
+;
 
 
-
--- REVOKE USER-PRIVILEGES FROM A SPECIFIC [ COLUMN ]
+-- ------------------------------------------------------------
+--
+-- Revoke all user-privilege grants attached to target [ COLUMN ]
+--
 REVOKE
-  SELECT (column_1, column_a)
+  SELECT (column_1, column2)
 ON
-  `some_database`.`some_table_name`
+  `DatabaseName`.`TableName`
 FROM
-  'some_user'@'%', 'some_other_user'@'%', 'some_really_mean_user'@'%';
+  'UserName_1'@'%',
+  'UserName_2'@'%',
+  'UserName_3'@'%'
+;
 
 
+-- ------------------------------------------------------------
+--
+-- Note: MySQL defines "Usage" as the scenario when a user has zero privileges granted allowing access to a given database/table/column, but is still a user within the database
+--  |
+--  |--> E.g. they cannot select/update/insert/etc. any data, but they still exist as a user within the SQL Database - e.g. the user still has "Usage" on the database
+--
+-- ------------------------------------------------------------

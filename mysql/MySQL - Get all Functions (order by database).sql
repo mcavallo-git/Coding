@@ -5,6 +5,6 @@ SELECT
 FROM
   information_schema.ROUTINES
 WHERE
-  ROUTINE_SCHEMA = 'boneal_dev'
+  ROUTINE_SCHEMA = 'DatabaseName'
 AND
   ROUTINE_TYPE = 'FUNCTION'

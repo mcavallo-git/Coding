@@ -30,10 +30,10 @@ cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUM
 
 # ----------
 #
-# Shutdown the PoE port
+# Shutdown the PoE port (if it is up)
 #
 
-cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown";
+if [[ -n "$(cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}" | grep "GigabitEthernet${PORT_NUMBER:-2} is up";)" ]]; then echo "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${PORT_NUMBER:-2} is up - Shutting it down, now...\n"; cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown"; sleep 5; fi;
 
 # GigabitEthernet2 is down
 #   Hardware is Gigabit Ethernet
@@ -44,10 +44,12 @@ cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUM
 
 # ----------
 #
-# Start (re-enable) the PoE port
+# Start (re-enable) the PoE port (if it is down)
 #
 
-cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
+if [[ -n "$(cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}" | grep "GigabitEthernet${PORT_NUMBER:-2} is down";)" ]]; then echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${PORT_NUMBER:-2} is down - Starting/Re-Enabling it, now...\n"; cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown"; sleep 5; fi;
+
+
 
 # GigabitEthernet2 is up
 #   Hardware is Gigabit Ethernet

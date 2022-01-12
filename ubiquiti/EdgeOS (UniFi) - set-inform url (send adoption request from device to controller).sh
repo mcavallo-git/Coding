@@ -20,7 +20,6 @@ UNIFI_CONTROLLER_IPv4="192.168.1.15"; sudo set-inform "http://${UNIFI_CONTROLLER
 # mca-cli
 # set-inform http://192.168.1.15:8080/inform
 # exit
-# reboot now
 
 
 ###
@@ -29,7 +28,11 @@ UNIFI_CONTROLLER_IPv4="192.168.1.15"; sudo set-inform "http://${UNIFI_CONTROLLER
 ### 1. please adopt it on the controller
 ### 2. issue the set-inform command again
 ### 3. <inform_url> will be saved after device is successfully managed
-### 
+###
+
+
+# reboot now
+
 
 # ------------------------------------------------------------
 #

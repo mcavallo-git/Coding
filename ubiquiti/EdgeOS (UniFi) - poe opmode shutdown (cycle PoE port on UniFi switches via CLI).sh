@@ -117,16 +117,12 @@ echo "?";
 
 echo "shutdown"; # Port shuts down
 
-echo "exit";
-echo "exit";
-echo "exit";
-echo "exit";
-
-echo "cli";
-echo "configure";
-echo "interface GigabitEthernet 2";
 echo "no shutdown"; # Port is re-enabled and comes back on
 
+echo "exit";
+echo "exit";
+echo "exit";
+echo "exit";
 
 
 

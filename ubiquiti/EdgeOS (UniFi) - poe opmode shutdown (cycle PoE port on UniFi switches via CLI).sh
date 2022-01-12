@@ -13,23 +13,50 @@ PORT_NUMBER="${PORT_NUMBER:-2}";
 SLEEP_SECONDS_POE_CYCLE=5;
 
 
+# ----------
+#
 # Get the status of the target PoE port
+#
+
 cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}";
 
 
+# ----------
+#
 # Restart the PoE port
+#
+
 cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown" && sleep ${SLEEP_SECONDS_POE_CYCLE:-5} && cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
 
-
+# ----------
+#
 # Shutdown the PoE port
-cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown"
+#
+
+cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown";
+
+# GigabitEthernet2 is down
+#   Hardware is Gigabit Ethernet
+#   Auto-duplex, Auto-speed, media type is Copper
+#   flow-control is off
+#   back-pressure is enabled
 
 
+# ----------
+#
 # Start (re-enable) the PoE port
+#
+
 cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
 
+# GigabitEthernet2 is up
+#   Hardware is Gigabit Ethernet
+#   Auto-duplex, Auto-speed, media type is Copper
+#   flow-control is off
+#   back-pressure is enabled
 
-# ------------------------------
+
+# ------------------------------------------------------------
 #
 # Bash one-liner for cycling switch PoE power on a specific port (thanks to xsherlock on UniFi forums - see Citation(s), below)
 #

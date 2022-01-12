@@ -24,7 +24,7 @@ cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}";
 # Restart the PoE port
 #
 
-cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown" && sleep ${TIMEOUT_EACH_LOOP:-5} && cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
+cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown" && sleep 5 && cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
 
 # Verbosely
 if [[ 1 -eq 1 ]]; then

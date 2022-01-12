@@ -1,42 +1,83 @@
-------------------------------------------------------------
+-- ------------------------------------------------------------
+--
+-- Google Image Search - Specifying exact width/height dimensions via GET variables
+--
+-- ------------------------------------------------------------
+--
+-- General Syntax:
+--
 
-	Google Image Search - Specifying Exact Dimensions
-		|
-		|--> Add these GET variables to [Google Search -> Images] URLs
-
-
-------------------------------------------------------------
-
-	Large (Wallpapers):
-
-		6880 x 1440:    &tbs=islt:2mp,isz:ex,iszw:6880,iszh:1440
-
-		3440 x 1440:    &tbs=islt:2mp,isz:ex,iszw:3440,iszh:1440
-
-		1920 x 1080:    &tbs=islt:2mp,isz:ex,iszw:1920,iszh:1080
-
-
-------------------------------------------------------------
-
-	Mobile (Wallpapers):
-
-		1440 x 3088:    &tbs=islt:2mp,isz:ex,iszw:1440,iszh:3088
+    WIDTH x HEIGHT:    &tbs=islt:2mp,isz:ex,iszw:WIDTH,iszh:HEIGHT
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:WIDTH,iszh:HEIGHT
 
 
 ------------------------------------------------------------
 
 
-	Tiny (Icons):
+  Large (Desktop Wallpapers):
 
-		12h x 12w:    &tbs=islt:2mp,isz:ex,iszw:12,iszh:12
 
-		14h x 14w:    &tbs=islt:2mp,isz:ex,iszw:14,iszh:14
+    6880 x 1440:    &tbs=islt:2mp,isz:ex,iszw:6880,iszh:1440
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:6880,iszh:1440
 
-		16h x 16w:    &tbs=islt:2mp,isz:ex,iszw:16,iszh:16
 
-		20h x 20w:    &tbs=islt:2mp,isz:ex,iszw:20,iszh:20
+    3440 x 1440:    &tbs=islt:2mp,isz:ex,iszw:3440,iszh:1440
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:3440,iszh:1440
 
-		30h x 15w:    &tbs=islt:2mp,isz:ex,iszw:30,iszh:15
+
+    1920 x 1080:    &tbs=islt:2mp,isz:ex,iszw:1920,iszh:1080
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:1920,iszh:1080
+
+
+------------------------------------------------------------
+
+
+  Mobile (Wallpapers):
+
+
+    1170 x 2532  (Apple iPhone 13 Pro)
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:1170,iszh:2532
+
+
+    1440 x 3088  (Samsung Galaxy Note20 Ultra 5G)
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:1440,iszh:3088
+
+
+------------------------------------------------------------
+
+
+  Tiny (Icons):
+
+
+    12h x 12w:    &tbs=islt:2mp,isz:ex,iszw:12,iszh:12
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:12,iszh:12
+
+
+    14h x 14w:    &tbs=islt:2mp,isz:ex,iszw:14,iszh:14
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:14,iszh:14
+
+
+    16h x 16w:    &tbs=islt:2mp,isz:ex,iszw:16,iszh:16
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:16,iszh:16
+
+
+    20h x 20w:    &tbs=islt:2mp,isz:ex,iszw:20,iszh:20
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:20,iszh:20
+
+
+    30h x 15w:    &tbs=islt:2mp,isz:ex,iszw:30,iszh:15
+     |
+     |-->  https://www.google.com/search?q=wallpaper&source=lnms&tbm=isch&sa=X&ved=2ahUKEwib5s2_qdjmAhVZZ80KHRoGA2EQ_AUoAXoECBIQAw&biw=3127&bih=1179&tbs=islt:2mp,isz:ex,iszw:30,iszh:30
 
 
 ------------------------------------------------------------

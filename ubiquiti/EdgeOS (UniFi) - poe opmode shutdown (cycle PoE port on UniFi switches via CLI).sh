@@ -35,10 +35,10 @@ if [[ 1 -eq 1 ]]; then
   for i in $(seq 2); do # i==1 denotes shutdown step. i==2 denotes re-enable step
     for j in $(seq ${LOOP_ITERATIONS}); do
       PORT_STATUS="$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}";)";
-      echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${PORT_STATUS}  (i=${i}, j=${j})";
+      echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${PORT_STATUS}  (i=${i}, j=${j})";
       if [[ "$(echo "${PORT_STATUS}" | cut -d' ' -f3;)" == "up" ]]; then
         if [[ "${i}" -eq 1 ]]; then # shutdown step
-          echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Shutting down port # ${POE_PORT:-2}...\n";
+          echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] Shutting down port # ${POE_PORT:-2}...";
           cli -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown";
         else # re-enable step
           break;
@@ -47,7 +47,7 @@ if [[ 1 -eq 1 ]]; then
         if [[ "${i}" -eq 1 ]]; then # shutdown step
           break;
         else # re-enable step
-          echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Starting/Re-Enabling port # ${POE_PORT:-2}...\n";
+          echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')] Starting/Re-Enabling port # ${POE_PORT:-2}...";
           cli -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
         fi;
       fi;

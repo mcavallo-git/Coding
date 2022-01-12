@@ -1,0 +1,14 @@
+Usage : cli [OPTION...]
+
+Integrated shell for Quagga routing software suite.
+
+-b, --boot               Execute boot startup configuration
+-c, --command            Execute argument as command
+-d, --daemon             Connect only to the specified daemon
+-E, --echo               Echo prompt and command in -c mode
+-C, --dryrun             Check configuration for validity and exit
+-h, --help               Display this help and exit
+
+Note that multiple commands may be executed from the command
+line by passing multiple -c args, or by embedding linefeed
+characters in one or more of the commands.

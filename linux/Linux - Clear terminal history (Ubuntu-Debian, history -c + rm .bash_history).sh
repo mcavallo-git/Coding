@@ -4,7 +4,7 @@
 # Linux - Clear the cached/saved terminal history
 #    Distros: Debian, Ubuntu, etc.
 
-history -c; if [ -f "${HOME}/.bash_history" ]; then rm --verbose "${HOME}/.bash_history"; fi;
+history -c; if [[ -f "${HOME}/.bash_history" ]]; then rm -rfv "${HOME}/.bash_history"; fi; if [[ -d "${HOME}/.bash-logs" ]]; then rm -rfv "${HOME}/.bash-logs"; mkdir -pv "${HOME}/.bash-logs"; chmod -v 0700 "${HOME}/.bash-logs"; fi;
 
 
 # ------------------------------------------------------------

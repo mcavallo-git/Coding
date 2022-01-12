@@ -21,6 +21,19 @@
 ```
 
 
+# Microsoft Excel - For the current row, show nothing ("") if column A's value is "INVALID" or "NULL", otherwise show column B's value
+```
+=IF(
+  OR(
+    INDIRECT(CONCAT("A",ROW()))="INVALID",
+    INDIRECT(CONCAT("A",ROW()))="NULL"
+  ),
+  "",
+  INDIRECT(CONCAT("B",ROW())))
+)
+```
+
+
 <!--
  ------------------------------------------------------------
 

@@ -10,8 +10,6 @@
 
 POE_PORT="${POE_PORT:-2}";
 
-SLEEP_SECONDS_POE_CYCLE=5;
-
 
 # ----------
 #
@@ -26,21 +24,37 @@ cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}";
 # Restart the PoE port
 #
 
-cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown" && sleep ${SLEEP_SECONDS_POE_CYCLE:-5} && cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
+cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown" && sleep ${TIMEOUT_EACH_LOOP:-5} && cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
 
 # Verbosely
 if [[ 1 -eq 1 ]]; then
-  if [[ -n "$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}" | grep 'is up';)" ]]; then
-    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${POE_PORT:-2} is up - Shutting it down, now...\n";
-    cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown";
-    sleep 5;
-    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port shutdown"; fi;
-  if [[ -n "$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}" | grep 'is down';)" ]]; then
-    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${POE_PORT:-2} is down - Starting/Re-Enabling it, now...\n";
-    cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
-    sleep 5;
-    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port started";
-  fi;
+  POE_PORT="${POE_PORT:-2}";
+  LOOP_ITERATIONS=10;
+  TIMEOUT_EACH_LOOP=5;
+  echo "";
+  for i in $(seq ${LOOP_ITERATIONS}); do # i==1 denotes shutdown step. i==2 denotes re-enable step
+    for j in $(seq ${LOOP_ITERATIONS}); do
+      PORT_STATUS="$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}";)";
+      echo -e "[$(date +'%Y-%m-%dT%H:%M:%S%z')] ${PORT_STATUS}  (i=${i}, j=${j})";
+      if [[ "$(echo "${PORT_STATUS}" | cut -d' ' -f3;)" == "up" ]]; then
+        if [[ "${i}" -eq 1 ]]; then # shutdown step
+          echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Shutting down port # ${POE_PORT:-2}...\n";
+          cli -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown";
+        else # re-enable step
+          break;
+        fi;
+      elif [[ "$(echo "${PORT_STATUS}" | cut -d' ' -f3;)" == "down" ]]; then
+        if [[ "${i}" -eq 1 ]]; then # shutdown step
+          break;
+        else # re-enable step
+          echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Starting/Re-Enabling port # ${POE_PORT:-2}...\n";
+          cli -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
+        fi;
+      fi;
+      sleep ${TIMEOUT_EACH_LOOP:-5};
+    done;
+    sleep ${TIMEOUT_EACH_LOOP:-5};
+  done;
 fi;
 
 # ----------

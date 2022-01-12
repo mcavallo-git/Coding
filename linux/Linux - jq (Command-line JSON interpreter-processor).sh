@@ -58,6 +58,14 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 
 # ------------------------------------------------------------
 #
+# jq - select array items based on their object's property values
+#
+
+helm list --all --all-namespaces --output json | jq -r '.[] | select(.chart | test("ingress-nginx-.+")) | .';
+
+
+# ------------------------------------------------------------
+#
 # jq - Verify that a key exists and is set
 #
 if [[ 1 -eq 1 ]]; then

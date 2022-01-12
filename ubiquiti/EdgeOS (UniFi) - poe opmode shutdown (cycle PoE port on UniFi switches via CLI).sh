@@ -8,7 +8,7 @@
 #  |--> SKU:  USW-LITE-16-PoE
 #
 
-PORT_NUMBER="${PORT_NUMBER:-2}";
+POE_PORT="${POE_PORT:-2}";
 
 SLEEP_SECONDS_POE_CYCLE=5;
 
@@ -18,7 +18,7 @@ SLEEP_SECONDS_POE_CYCLE=5;
 # Get the status of the target PoE port
 #
 
-cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}";
+cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}";
 
 
 # ----------
@@ -26,14 +26,29 @@ cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}";
 # Restart the PoE port
 #
 
-cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown" && sleep ${SLEEP_SECONDS_POE_CYCLE:-5} && cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown";
+cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown" && sleep ${SLEEP_SECONDS_POE_CYCLE:-5} && cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
+
+# Verbosely
+if [[ 1 -eq 1 ]]; then
+  if [[ -n "$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}" | grep 'is up';)" ]]; then
+    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${POE_PORT:-2} is up - Shutting it down, now...\n";
+    cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown";
+    sleep 5;
+    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port shutdown"; fi;
+  if [[ -n "$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2}" | grep 'is down';)" ]]; then
+    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${POE_PORT:-2} is down - Starting/Re-Enabling it, now...\n";
+    cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown";
+    sleep 5;
+    echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port started";
+  fi;
+fi;
 
 # ----------
 #
 # Shutdown the PoE port (if it is up)
 #
 
-if [[ -n "$(cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}" | grep "GigabitEthernet${PORT_NUMBER:-2} is up";)" ]]; then echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${PORT_NUMBER:-2} is up - Shutting it down, now...\n"; cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "shutdown"; sleep 5; fi;
+if [[ -n "$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2} is up";)" ]]; then echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${POE_PORT:-2} is up - Shutting it down, now...\n"; cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "shutdown"; sleep 5; fi;
 
 # GigabitEthernet2 is down
 #   Hardware is Gigabit Ethernet
@@ -47,7 +62,7 @@ if [[ -n "$(cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:
 # Start (re-enable) the PoE port (if it is down)
 #
 
-if [[ -n "$(cli --echo --command "show interfaces GigabitEthernet ${PORT_NUMBER:-2}" | grep "GigabitEthernet${PORT_NUMBER:-2} is down";)" ]]; then echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${PORT_NUMBER:-2} is down - Starting/Re-Enabling it, now...\n"; cli --echo --command "configure" --command "interface GigabitEthernet ${PORT_NUMBER:-2}" --command "no shutdown"; sleep 5; fi;
+if [[ -n "$(cli -E -c "show interfaces GigabitEthernet ${POE_PORT:-2}" | grep "GigabitEthernet${POE_PORT:-2} is down";)" ]]; then echo -e "\n[$(date +'%Y-%m-%dT%H:%M:%S%z')] Port ${POE_PORT:-2} is down - Starting/Re-Enabling it, now...\n"; cli -E -c "configure" -c "interface GigabitEthernet ${POE_PORT:-2}" -c "no shutdown"; sleep 5; fi;
 
 
 

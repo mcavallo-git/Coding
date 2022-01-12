@@ -1,9 +1,7 @@
 
-# Microsoft Excel - Compare two dates using DATEDIF
+# Microsoft Excel - Get the previous column's data (from the cell left of current cell)
 ```
-=DATEDIF(F10,TODAY(),"y")&" years "
-&DATEDIF(F10,TODAY(),"ym")&" months "
-&DATEDIF(F10,TODAY(),"md")&" days "
+=(INDIRECT(CONCAT("$",CHAR(64+COLUMN()-1),ROW())))
 ```
 
 

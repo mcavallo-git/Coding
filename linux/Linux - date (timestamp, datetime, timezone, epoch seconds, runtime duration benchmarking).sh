@@ -8,24 +8,26 @@
 # Timestamp_Filename               20220117T044440
 echo "$(date +'%Y%m%dT%H%M%S')";
 
+# Timestamp_Filename_ms_TZ         20220117T044440.308-0500
+echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-3;)$(date +'%z')";
 
-# Timestamp_Filename_μs_TZ         20220117T044440.308068-0500          <# BEST FOR FILENAMES #>
+# Timestamp_Filename_μs_TZ         20220117T044440.308068-0500
 echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-6;)$(date +'%z')";
+
+# Timestamp_Filename_μs_TZ         20220117T044440.308068410-0500       <# BEST FOR FILENAMES #>
+echo "$(date +'%Y%m%dT%H%M%S.%N%z')";
 
 
 # Timestamp_RFC3339                2022-01-17T04:44:40-0500
 echo "$(date +'%Y-%m-%dT%H:%M:%S%z')";
 
-
-# Timestamp_RFC3339_ms             2022-01-17T04:44:40.308-0500         <# BEST FOR LOG OUTPUTS #>
+# Timestamp_RFC3339_ms             2022-01-17T04:44:40.308-0500
 echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-3;)$(date +'%z')";
-
 
 # Timestamp_RFC3339_μs             2022-01-17T04:44:40.308068-0500
 echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z')";
 
-
-# Timestamp_RFC3339_ns             2022-01-17T04:44:40.308068410-0500
+# Timestamp_RFC3339_ns             2022-01-17T04:44:40.308068410-0500   <# BEST FOR LOG OUTPUTS #>
 echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";
 
 

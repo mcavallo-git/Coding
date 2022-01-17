@@ -1,22 +1,23 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Timestamp - Filename friendly
+# Timestamp formats
 #
 
-DATETIME="$(date +'%Y%m%d_%H%M%S')";                # 20210623_012648            <# BEST FOR FILENAMES #>
-echo "DATETIME_RFC3339 = [${DATETIME}]";
+# Filename friendly timestamp
+Timestamp_Filename="$(date +'%Y%m%d_%H%M%S')";         # 20210623_012648               <# BEST FOR FILENAMES #>
+echo "Timestamp_Filename = [${Timestamp_Filename}]";
 
 
-# ------------------------------------------------------------
-#
-# Timestamp - RFC-3339 compatible
-#
+# RFC3339 timestamp
+RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";              # 2021-06-23T01:26:58-0400
+echo "RFC3339 = [${RFC3339}]";
 
-DATETIME_RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";  # 2021-06-23T01:26:58-0400   <# BEST FOR LOG OUTPUTS #>
-echo "DATETIME_RFC3339 = [${DATETIME_RFC3339}]";
 
-echo "[$(date +'%Y-%m-%dT%H:%M:%S%z')]";  # RFC-3339
+# RFC3339_ns timestamp (nanoseconds)
+RFC3339_ns="$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";        # 2022-01-17T03:34:03.608343903-0500   <# BEST FOR LOG OUTPUTS #>
+echo "RFC3339_ns = [${RFC3339_ns}]";
+
 
 
 # ------------------------------------------------------------

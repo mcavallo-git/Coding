@@ -309,7 +309,7 @@ RETENTION_DAYS=60;
 find ${DIRECTORY_TO_CLEAN} \
 -type f \
 -mtime +${RETENTION_DAYS} \
--exec printf "$(date +'%Y-%m-%d %H:%M:%S') $(whoami)@$(hostname) | " \; \
+-exec printf "$(date --utc +'%Y-%m-%dT%H:%M:%S.%NZ';) $(whoami)@$(hostname) | " \; \
 -exec rm -v -- '{}' \; \
 ;
 </code></pre>

@@ -1,7 +1,7 @@
 if [[ 1 -eq 1 ]]; then
   # ------------------------------
   # Set how many times to run each code block
-  LOOP_ITERATIONS=10;
+  LOOP_ITERATIONS=1000;
   # ------------------------------
   # Ensure command "bc" exists
   if [ -z "$(command -v bc 2>'/dev/null';)" ]; then
@@ -16,7 +16,7 @@ if [[ 1 -eq 1 ]]; then
   for i in $(seq ${LOOP_ITERATIONS}); do
     # ---- START CODE BLOCK #1
 
-    echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' 1>'/dev/null' 2>&1;
+    echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z')" 1>'/dev/null' 2>&1;
 
     # ---- END CODE BLOCK #1
   done;
@@ -31,7 +31,7 @@ if [[ 1 -eq 1 ]]; then
   for i in $(seq ${LOOP_ITERATIONS}); do
     # ---- START CODE BLOCK #2
 
-    echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//' 1>'/dev/null' 2>&1;
+    echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z')" 1>'/dev/null' 2>&1;
 
     # ---- END CODE BLOCK #2
   done;

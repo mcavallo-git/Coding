@@ -26,7 +26,7 @@ FLOAT="123.45"; LENGTH="10"; LENGTH_DECIMALS="3"; echo "[$(printf "%0${LENGTH}.$
 find "/var/log/" \
 -type f \
 -iname syslog* \
--exec printf "$(date +'%Y-%m-%d %H:%M:%S') $(whoami)@$(hostname) | " \; \
+-exec printf "$(date --utc +'%Y-%m-%dT%H:%M:%S.%NZ';) $(whoami)@$(hostname) | " \; \
 -exec echo "------------------------------------------------------------" \; \
 -exec cat '{}' \; \
 -exec echo "------------------------------------------------------------" \; \

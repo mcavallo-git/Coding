@@ -4,20 +4,62 @@
 # Timestamp formats
 #
 
+Timestamp_Filename = [20220117_041012]
+RFC3339 = [2022-01-17T04:10:12-0500]
+RFC3339_ms = [2022-01-17T04:10:12.9558-0500]
+RFC3339_us = [2022-01-17T04:10:12.955845-0500]
+RFC3339_ns = [2022-01-17T04:10:12.955845910-0500]
+
 # Filename friendly timestamp
-Timestamp_Filename="$(date +'%Y%m%d_%H%M%S')";         # 20210623_012648               <# BEST FOR FILENAMES #>
+Timestamp_Filename="$(date +'%Y%m%d_%H%M%S')";         # 20220117_041012               <# BEST FOR FILENAMES #>
 echo "Timestamp_Filename = [${Timestamp_Filename}]";
 
 
 # RFC3339 timestamp
-RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";              # 2021-06-23T01:26:58-0400
+RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";              # 2022-01-17T04:10:12-0500
 echo "RFC3339 = [${RFC3339}]";
 
 
-# RFC3339_ns timestamp (nanoseconds)
-RFC3339_ns="$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";        # 2022-01-17T03:34:03.608343903-0500   <# BEST FOR LOG OUTPUTS #>
-echo "RFC3339_ns = [${RFC3339_ns}]";
+# RFC3339_ms timestamp (milliseconds)
+RFC3339_ms="$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-4;)$(date +'%z')";   # 2022-01-17T04:10:12.9558-0500
+echo "RFC3339_ms = [${RFC3339_ms}]";
 
+
+# RFC3339_ms timestamp (microseconds)
+# Timestamp_RFC3339_μs             2022-01-17T04:10:12.955845-0500
+RFC3339_us="$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z')";
+echo "RFC3339_us = [${RFC3339_us}]";
+
+
+# RFC3339_ns timestamp (nanoseconds)
+echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";  #     <# BEST FOR LOG OUTPUTS #>     # 2022-01-17T04:10:12.955845910-0500
+
+# ------------------------------------------------------------
+#
+# Get Timezone Offset
+#
+
+if [[ 1 -eq 1 ]]; then
+CURRENT_HOUR="$(date +'%H';)";
+CURRENT_MINUTE="$(date +'%M';)";
+CURRENT_HOUR_UTC="$(env TZ=UTC date +'%H';)";
+CURRENT_MINUTE_UTC="$(env TZ=UTC date +'%M';)";
+SUMMED_MINUTES="$(echo "((${CURRENT_HOUR}-${CURRENT_HOUR_UTC})*60)+(${CURRENT_MINUTE}-${CURRENT_MINUTE_UTC})"|bc;)";
+RAW_OFFSET_HOURS="$(echo "${SUMMED_MINUTES}/60" | bc;)";
+RAW_OFFSET_MINUTES="$(echo "${SUMMED_MINUTES}%60"|bc;)";
+if [[ ! "${RAW_OFFSET_HOURS:0:1}" =~ [0-9] ]]; then 
+  OFFSET_HOURS="${RAW_OFFSET_HOURS:0:1}$(printf "%02d" "${RAW_OFFSET_HOURS:1}";)";
+else
+  OFFSET_HOURS="$(printf "%02d" "${RAW_OFFSET_HOURS}";)";
+fi;
+if [[ ! "${RAW_OFFSET_MINUTES:0:1}" =~ [0-9] ]]; then 
+  OFFSET_MINUTES="$(printf "%02d" "${RAW_OFFSET_MINUTES:1}";)";
+else
+  OFFSET_MINUTES="$(printf "%02d" "${RAW_OFFSET_MINUTES}";)";
+fi;
+TZ_UTC_OFFSET="${OFFSET_HOURS}:${OFFSET_MINUTES}";
+echo "TZ_UTC_OFFSET = [ ${TZ_UTC_OFFSET} ]";
+fi;
 
 
 # ------------------------------------------------------------

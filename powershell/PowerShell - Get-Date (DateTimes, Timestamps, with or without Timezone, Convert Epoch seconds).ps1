@@ -48,6 +48,9 @@ $(Get-Date -Format 'yyyy-MM-ddTHH:mm:ss.fffffffzzz')
 
 
 # ------------------------------------------------------------
+#
+# Get Timezone Offset
+#
 
 $TzOffset_WithColon = ((Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",':$3'));
 $TzOffset_NoColon = ((Get-Date -UFormat ('%Z'))+(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",'$3'));

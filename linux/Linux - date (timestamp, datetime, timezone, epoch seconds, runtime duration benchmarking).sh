@@ -27,8 +27,11 @@ echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-3;)$(date +'%z';)";
 # Timestamp_RFC3339_μs             2022-01-17T04:44:40.308068-0500
 echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z';)";
 
-# Timestamp_RFC3339_ns             2022-01-17T04:44:40.308068410-0500   <# BEST FOR LOG OUTPUTS #>
+# Timestamp_RFC3339_ns             2022-01-17T04:44:40.308068410-0500
 echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z';)";
+
+# Timestamp_UTC_RFC3339_ns         2022-01-17T09:44:40.308068410Z       <# BEST FOR LOG OUTPUTS #>
+echo "$(date --utc +'%Y-%m-%dT%H:%M:%S.%NZ';)";
 
 
 # ------------------------------------------------------------

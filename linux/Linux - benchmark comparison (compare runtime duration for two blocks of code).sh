@@ -16,7 +16,7 @@ if [[ 1 -eq 1 ]]; then
   for i in $(seq ${LOOP_ITERATIONS}); do
     # ---- START CODE BLOCK #1
 
-    echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' 1>/dev/null 2>&1;  # sed - Trim leading whitespace && trailing whitespace (method 1)
+    echo "  a  b  c  d  " | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' 1>'/dev/null' 2>&1;
 
     # ---- END CODE BLOCK #1
   done;
@@ -31,7 +31,7 @@ if [[ 1 -eq 1 ]]; then
   for i in $(seq ${LOOP_ITERATIONS}); do
     # ---- START CODE BLOCK #2
 
-    echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//' 1>/dev/null 2>&1;  # sed - Trim leading whitespace && trailing whitespace (method 2)
+    echo "  a  b  c  d  " | sed -e 's/^[ \t]*//;s/[ \t]*$//' 1>'/dev/null' 2>&1;
 
     # ---- END CODE BLOCK #2
   done;

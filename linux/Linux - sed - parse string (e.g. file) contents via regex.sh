@@ -1,7 +1,12 @@
 #!/bin/sh
-#
-# Linux - sed
-#
+# ------------------------------------------------------------
+# Linux - sed - parse string (e.g. file) contents via regex
+# ------------------------------------------------------------
+
+# Determine if running GNU sed (1) or not (0)
+IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -gt 0 ]]; then echo 1; else echo 0; fi;)"; echo "IS_GNU_SED = [ ${IS_GNU_SED} ]";
+
+
 # ------------------------------------------------------------
 #
 # Simple Example ) Replace substrings within strings

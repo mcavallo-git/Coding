@@ -6,29 +6,29 @@
 
 
 # Timestamp_Filename               20220117T044440
-echo "$(date +'%Y%m%dT%H%M%S')";
+echo "$(date +'%Y%m%dT%H%M%S';)";
 
 # Timestamp_Filename_ms_TZ         20220117T044440.308-0500
-echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-3;)$(date +'%z')";
+echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-3;)$(date +'%z';)";
 
 # Timestamp_Filename_μs_TZ         20220117T044440.308068-0500
-echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-6;)$(date +'%z')";
+echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-6;)$(date +'%z';)";
 
 # Timestamp_Filename_μs_TZ         20220117T044440.308068410-0500       <# BEST FOR FILENAMES #>
-echo "$(date +'%Y%m%dT%H%M%S.%N%z')";
+echo "$(date +'%Y%m%dT%H%M%S.%N%z';)";
 
 
 # Timestamp_RFC3339                2022-01-17T04:44:40-0500
-echo "$(date +'%Y-%m-%dT%H:%M:%S%z')";
+echo "$(date +'%Y-%m-%dT%H:%M:%S%z';)";
 
 # Timestamp_RFC3339_ms             2022-01-17T04:44:40.308-0500
-echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-3;)$(date +'%z')";
+echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-3;)$(date +'%z';)";
 
 # Timestamp_RFC3339_μs             2022-01-17T04:44:40.308068-0500
-echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z')";
+echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z';)";
 
 # Timestamp_RFC3339_ns             2022-01-17T04:44:40.308068410-0500   <# BEST FOR LOG OUTPUTS #>
-echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";
+echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z';)";
 
 
 # ------------------------------------------------------------
@@ -142,23 +142,23 @@ START_EPOCHSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --f
 START_NANOSECONDS=$(echo ${START_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
 START_MICROSECONDS=$(echo ${START_NANOSECONDS} | cut --characters 1-6);
 START_MILLISECONDS=$(echo ${START_NANOSECONDS} | cut --characters 1-3);
-START_DATETIME="$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%dT%H:%M:%S')";
-START_TIMEZONE="$(date --date=@${START_EPOCHSECONDS} +'%z')";
-START_TIMESTAMP="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d_%H%M%S')";
-START_TIMESTAMP_FILENAME="$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%d_%H-%M-%S')";
-START_TIMESTAMP_COMPACT="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d%H%M%S')";
-START_SECONDS="$(date --date=@${START_EPOCHSECONDS} +'%s')";
-START_DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d')";
-START_DATE_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a')";
+START_DATETIME="$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%dT%H:%M:%S';)";
+START_TIMEZONE="$(date --date=@${START_EPOCHSECONDS} +'%z';)";
+START_TIMESTAMP="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d_%H%M%S';)";
+START_TIMESTAMP_FILENAME="$(date --date=@${START_EPOCHSECONDS} +'%Y-%m-%d_%H-%M-%S';)";
+START_TIMESTAMP_COMPACT="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d%H%M%S';)";
+START_SECONDS="$(date --date=@${START_EPOCHSECONDS} +'%s';)";
+START_DATE_AS_YMD="$(date --date=@${START_EPOCHSECONDS} +'%Y%m%d';)";
+START_DATE_AS_WEEKDAY="$(date --date=@${START_EPOCHSECONDS} +'%a';)";
 
 END_EPOCHSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 1);
 END_NANOSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-9);
 END_MICROSECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-6);
 END_MILLISECONDS=$(echo ${END_SECONDS_NANOSECONDS} | cut --delimiter '.' --fields 2 | cut --characters 1-3);
 END_DATETIME=$(date --date=@${END_SECONDS_NANOSECONDS} +'%Y-%m-%dT%H:%M:%S');
-END_TIMEZONE="$(date --date=@${END_SECONDS_NANOSECONDS} +'%z')";
-END_DATE_AS_YMD="$(date --date=@${END_SECONDS_NANOSECONDS} +'%Y%m%d')";
-END_DATE_AS_WEEKDAY="$(date --date=@${END_SECONDS_NANOSECONDS} +'%a')";
+END_TIMEZONE="$(date --date=@${END_SECONDS_NANOSECONDS} +'%z';)";
+END_DATE_AS_YMD="$(date --date=@${END_SECONDS_NANOSECONDS} +'%Y%m%d';)";
+END_DATE_AS_WEEKDAY="$(date --date=@${END_SECONDS_NANOSECONDS} +'%a';)";
 
 TOTAL_DECIMALSECONDS=$(echo "${END_SECONDS_NANOSECONDS} - ${START_SECONDS_NANOSECONDS}" | bc);
 TOTAL_EPOCHSECONDS=$(printf '%d' $(echo ${TOTAL_DECIMALSECONDS} | cut --delimiter '.' --fields 1));

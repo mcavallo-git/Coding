@@ -41,7 +41,7 @@ if [[ 0 -eq 1 ]]; then
 # Convert keyfile to Base64 (to transport to associated replica servers as well as to store as a one-liner in password manager)
 Keyfile_Base64=$(echo -n "$(cat /var/lib/mongo/keyfile;)" | base64 --wrap=0;); echo -e "\n""Keyfile_Base64 = [ ${Keyfile_Base64} ]""\n";
 # Expand keyfile from Base64 into filepath "/var/lib/mongo/keyfile", which must be referenced by "/etc/mongod.conf" as [ keyFile: /var/lib/mongo/keyfile ] under the [ security: ] category)
-Keyfile_Base64="PASTE_YOUR_BASE64_KEY_HERE"; Keyfile_AbsPath="/var/lib/mongo/keyfile"; Keyfile_Chown="mongod:mongod"; Keyfile_Chmod="0400"; if [ -f "${Keyfile_AbsPath}" ]; then cp "${Keyfile_AbsPath}" "${Keyfile_AbsPath}.$(date +'%Y%m%d_%H%M%S';).bak"; fi; Keyfile_Plaintext=$(echo -e "${Keyfile_Base64}" | base64 --decode;); Keyfile_Plaintext=$(echo -e "${Keyfile_Base64}" | base64 --decode;); echo -e "${Keyfile_Plaintext}" > "${Keyfile_AbsPath}"; chown "${Keyfile_Chown}" "${Keyfile_AbsPath}"; chmod "${Keyfile_Chmod}" "${Keyfile_AbsPath}";
+Keyfile_Base64="PASTE_YOUR_BASE64_KEY_HERE"; Keyfile_AbsPath="/var/lib/mongo/keyfile"; Keyfile_Chown="mongod:mongod"; Keyfile_Chmod="0400"; if [ -f "${Keyfile_AbsPath}" ]; then cp "${Keyfile_AbsPath}" "${Keyfile_AbsPath}.$(date --utc +'%Y%m%dT%H%M%SZ';).bak"; fi; Keyfile_Plaintext=$(echo -e "${Keyfile_Base64}" | base64 --decode;); Keyfile_Plaintext=$(echo -e "${Keyfile_Base64}" | base64 --decode;); echo -e "${Keyfile_Plaintext}" > "${Keyfile_AbsPath}"; chown "${Keyfile_Chown}" "${Keyfile_AbsPath}"; chmod "${Keyfile_Chmod}" "${Keyfile_AbsPath}";
 fi;
 
 

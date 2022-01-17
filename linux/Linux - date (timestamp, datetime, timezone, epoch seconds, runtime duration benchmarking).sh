@@ -4,35 +4,30 @@
 # Timestamp formats
 #
 
-Timestamp_Filename = [20220117_041012]
-RFC3339 = [2022-01-17T04:10:12-0500]
-RFC3339_ms = [2022-01-17T04:10:12.9558-0500]
-RFC3339_us = [2022-01-17T04:10:12.955845-0500]
-RFC3339_ns = [2022-01-17T04:10:12.955845910-0500]
 
-# Filename friendly timestamp
-Timestamp_Filename="$(date +'%Y%m%d_%H%M%S')";         # 20220117_041012               <# BEST FOR FILENAMES #>
-echo "Timestamp_Filename = [${Timestamp_Filename}]";
+# Timestamp_Filename               20220117T044440
+echo "$(date +'%Y%m%dT%H%M%S')";
 
 
-# RFC3339 timestamp
-RFC3339="$(date +'%Y-%m-%dT%H:%M:%S%z')";              # 2022-01-17T04:10:12-0500
-echo "RFC3339 = [${RFC3339}]";
+# Timestamp_Filename_μs_TZ         20220117T044440.308068-0500          <# BEST FOR FILENAMES #>
+echo "$(date +'%Y%m%dT%H%M%S').$(date +'%N' | cut -c1-6;)$(date +'%z')";
 
 
-# RFC3339_ms timestamp (milliseconds)
-RFC3339_ms="$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-4;)$(date +'%z')";   # 2022-01-17T04:10:12.9558-0500
-echo "RFC3339_ms = [${RFC3339_ms}]";
+# Timestamp_RFC3339                2022-01-17T04:44:40-0500
+echo "$(date +'%Y-%m-%dT%H:%M:%S%z')";
 
 
-# RFC3339_ms timestamp (microseconds)
-# Timestamp_RFC3339_μs             2022-01-17T04:10:12.955845-0500
-RFC3339_us="$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z')";
-echo "RFC3339_us = [${RFC3339_us}]";
+# Timestamp_RFC3339_ms             2022-01-17T04:44:40.308-0500         <# BEST FOR LOG OUTPUTS #>
+echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-3;)$(date +'%z')";
 
 
-# RFC3339_ns timestamp (nanoseconds)
-echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";  #     <# BEST FOR LOG OUTPUTS #>     # 2022-01-17T04:10:12.955845910-0500
+# Timestamp_RFC3339_μs             2022-01-17T04:44:40.308068-0500
+echo "$(date +'%Y-%m-%dT%H:%M:%S';).$(date +'%N' | cut -c1-6;)$(date +'%z')";
+
+
+# Timestamp_RFC3339_ns             2022-01-17T04:44:40.308068410-0500
+echo "$(date +'%Y-%m-%dT%H:%M:%S.%N%z')";
+
 
 # ------------------------------------------------------------
 #

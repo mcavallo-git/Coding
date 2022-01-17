@@ -8,31 +8,53 @@
 # Count the # of characters in a string (e.g. Get the length of a string as an integer value)
 #
 
-VAR="12345"; echo "${#VAR}";        # Outputs "5"
-VAR="1234567890"; echo "${#VAR}";   # Outputs "10"
 
-echo -n "12345" | wc -c;        # Outputs "5"
-echo -n "1234567890" | wc -c;   # Outputs "10"
+# Get string length via  [ ${#VAR} ]
+VAR="12345"; echo "${#VAR}";       # Outputs "5"
+VAR="1234567890"; echo "${#VAR}";  # Outputs "10"
+
+
+# Get string length via  [ wc -c ]
+echo -n "12345" | wc -c;       # Outputs "5"
+echo -n "1234567890" | wc -c;  # Outputs "10"
 
 
 # ------------------------------------------------------------
 #
-# Trim the last N characters off a string
+# Trim N characters off of either the left or right side of a string
 #
 
-# Syntax - Right-Trim
-VAR="1234567890"; echo "${VAR: 0: 5}";   # Outputs "12345"
-VAR="1234567890"; echo "${VAR: 0: 10}";  # Outputs "1234567890"
-VAR="1234567890"; echo "${VAR: 0: 100}"; # Outputs "1234567890" as well (doesn't repeat string, etc.)
 
-# Syntax - Left-Trim
-VAR="1234567890"; echo "${VAR: -5}";     # Outputs "67890"
-VAR="1234567890"; echo "${VAR: -9}";     # Outputs "234567890"
-VAR="1234567890"; echo "${VAR: -10}";    # Outputs "1234567890"
+# Right trim via  [ ${Bashism:0:N} ]
+N=5;   VAR="1234567890"; echo "${VAR:0:${N}}";  # Outputs "12345"
+N=7;   VAR="1234567890"; echo "${VAR:0:${N}}";  # Outputs "1234567"
+N=10;  VAR="1234567890"; echo "${VAR:0:${N}}";  # Outputs "1234567890"
+N=100; VAR="1234567890"; echo "${VAR:0:${N}}";  # Outputs "1234567890" as well
 
-# Boundary cases to look out for
-VAR="1234567890"; echo "${VAR: -11}";    # Outputs ""   !!! BOUNDARY CASE - NEGATIVE VALUE GREATER THAN STRING LENGTH
-VAR="1234567890"; echo "${VAR:-5}";      # Outputs "1234567890"   !!! BOUNDARY CASE - SPACE MISSING AFTER COLON ":"
+# Right trim via  [ cut -c1-N ]
+N=5;   VAR="1234567890"; echo "${VAR}" | cut -c1-${N};  # Outputs "12345"
+N=7;   VAR="1234567890"; echo "${VAR}" | cut -c1-${N};  # Outputs "1234567"
+N=10;  VAR="1234567890"; echo "${VAR}" | cut -c1-${N};  # Outputs "1234567890"
+N=100; VAR="1234567890"; echo "${VAR}" | cut -c1-${N};  # Outputs "1234567890" as well
+
+
+# Left trim via   [ ${Bashism: -N} ]
+#  |                          ^
+#  |-->  ! NOTE ! At least 1 space is required after the colon but before the numeric trim argument
+#                             v
+N=5;  VAR="1234567890"; echo "${VAR: -${N}}";  # Outputs "67890"
+N=7;  VAR="1234567890"; echo "${VAR: -${N}}";  # Outputs "4567890"
+N=9;  VAR="1234567890"; echo "${VAR: -${N}}";  # Outputs "234567890"
+
+# Left trim via  [ cut --complement -c1-N ]
+N=5;  VAR="1234567890"; echo "${VAR}" | cut --complement -c1-$(echo "$(echo -n "${VAR}"|wc -c;)-${N}"|bc;);  # Outputs "67890"
+N=7;  VAR="1234567890"; echo "${VAR}" | cut --complement -c1-$(echo "$(echo -n "${VAR}"|wc -c;)-${N}"|bc;);  # Outputs "4567890"
+N=10; VAR="1234567890"; echo "${VAR}" | cut --complement -c1-$(echo "$(echo -n "${VAR}"|wc -c;)-${N}"|bc;);  # Outputs "234567890"
+
+
+# Left trim Bashism - Boundary Cases:
+VAR="1234567890"; echo "${VAR: -11}";  # Outputs ""   !!! BOUNDARY CASE - NEGATIVE VALUE GREATER THAN STRING LENGTH
+VAR="1234567890"; echo "${VAR:-5}";    # Outputs "1234567890"   !!! BOUNDARY CASE - SPACE MISSING AFTER COLON ":"
 
 
 # ---------------
@@ -93,7 +115,7 @@ fi;
 if [[ 1 -eq 1 ]]; then
   HAYSTACK_TO_SEARCH="localhost";
   NEEDLE_TO_FIND=".";
-  ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}"; # Required middleman var
+  ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}";  # Required middleman var
   NEEDLE_TOTAL_COUNT=${#ALL_NEEDLES_FOUND};
   echo "HAYSTACK_TO_SEARCH = \"${HAYSTACK_TO_SEARCH}\"";
   echo "NEEDLE_TO_FIND = \"${NEEDLE_TO_FIND}\"";
@@ -105,7 +127,7 @@ fi;
 if [[ 1 -eq 1 ]]; then
   HAYSTACK_TO_SEARCH="www.example.com";
   NEEDLE_TO_FIND=".";
-  ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}"; # Required middleman var
+  ALL_NEEDLES_FOUND="${HAYSTACK_TO_SEARCH//[^${NEEDLE_TO_FIND}]}";  # Required middleman var
   NEEDLE_TOTAL_COUNT=${#ALL_NEEDLES_FOUND};
   echo "HAYSTACK_TO_SEARCH = \"${HAYSTACK_TO_SEARCH}\"";
   echo "NEEDLE_TO_FIND = \"${NEEDLE_TO_FIND}\"";

@@ -60,6 +60,7 @@ fi;
 echo ${OUTPUT};
 fi;
 
+
 # ---------------
 
 # Example - (Trim) Given a PREFIX (string) & a SUFFIX (string), trim the >>> SUFFIX <<< down if the concatenation of both PREFIX+SUFFIX is greater than a given character limit
@@ -81,8 +82,6 @@ else
 fi;
 echo ${OUTPUT};
 fi;
-
-
 
 
 # ------------------------------------------------------------
@@ -130,7 +129,6 @@ fi;
 #   echo "NEEDLE_TOTAL_COUNT = \"${NEEDLE_TOTAL_COUNT}\"";
 # 	tr -d -c '"\n' < dat | awk '{ print length; }';
 # fi;
-
 
 
 # ------------------------------------------------------------

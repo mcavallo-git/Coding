@@ -59,7 +59,7 @@ printf '%d' "${VALUE_DECIMAL}"; echo "    (Decimal --> Decimal)";
 #
 # Decimal --> Hexadecimal
 #
-echo -n "0x"; printf '%x' "${VALUE_DECIMAL}"; echo "    (Decimal --> Hexadecimal)";
+echo -n "0x"; printf '%x' "${VALUE_DECIMAL}"; echo "   (Decimal --> Hexadecimal)";
 echo "";
 fi;
 

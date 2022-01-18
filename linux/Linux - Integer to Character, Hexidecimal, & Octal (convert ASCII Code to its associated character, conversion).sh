@@ -15,19 +15,21 @@
 #
 
 if [[ 1 -eq 1 ]]; then
-VALUE_OCTAL="0100";
+echo "";
+VALUE_OCTAL="0100"; echo "VALUE_OCTAL = \"${VALUE_OCTAL}\"";
 #
 # Octal --> Octal
 #
-printf '%o' "${VALUE_OCTAL}";
+printf '%o' "${VALUE_OCTAL}"; echo "  (Octal --> Octal)";
 #
 # Octal --> Decimal
 #
-printf '%d' "${VALUE_OCTAL}";
+printf '%d' "${VALUE_OCTAL}"; echo "  (Octal --> Decimal)";
 #
 # Octal --> Hexadecimal
 #
-printf '%x' "${VALUE_OCTAL}";
+printf '%x' "${VALUE_OCTAL}"; echo "  (Octal --> Hexadecimal)";
+echo "";
 fi;
 
 
@@ -44,19 +46,21 @@ fi;
 #
 
 if [[ 1 -eq 1 ]]; then
-VALUE_DECIMAL="10";
+echo "";
+VALUE_DECIMAL="100"; echo "VALUE_DECIMAL = \"${VALUE_DECIMAL}\"";
 #
 # Decimal --> Octal
 #
-printf '%o' "${VALUE_DECIMAL}";
+printf '%o' "${VALUE_DECIMAL}"; echo "  (Decimal --> Octal)";
 #
 # Decimal --> Decimal
 #
-printf '%d' "${VALUE_DECIMAL}";
+printf '%d' "${VALUE_DECIMAL}"; echo "  (Decimal --> Decimal)";
 #
 # Decimal --> Hexadecimal
 #
-printf '%x' "${VALUE_DECIMAL}";
+printf '%x' "${VALUE_DECIMAL}"; echo "  (Decimal --> Hexadecimal)";
+echo "";
 fi;
 
 
@@ -75,19 +79,21 @@ fi;
 
 
 if [[ 1 -eq 1 ]]; then
-VALUE_HEXADECIMAL="0x10";
+echo "";
+VALUE_HEXADECIMAL="0x100"; echo "VALUE_HEXADECIMAL = \"${VALUE_HEXADECIMAL}\"";
 #
 # Hexadecimal --> Octal
 #
-printf '%o' "${VALUE_HEXADECIMAL}";
+printf '%o' "${VALUE_HEXADECIMAL}"; echo "  (Hexadecimal --> Octal)";
 #
 # Hexadecimal --> Decimal
 #
-printf '%d' "${VALUE_HEXADECIMAL}";
+printf '%d' "${VALUE_HEXADECIMAL}"; echo "  (Hexadecimal --> Decimal)";
 #
 # Hexadecimal --> Hexadecimal
 #
-printf '%x' "${VALUE_HEXADECIMAL}";
+printf '%x' "${VALUE_HEXADECIMAL}"; echo "  (Hexadecimal --> Hexadecimal)";
+echo "";
 fi;
 
 

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - Integer to Character, Hexidecimal, & Octal (convert ASCII Code to its associated character, conversion)
+# Linux - Decimal, Hexadecimal, Octal & ASCII character code conversion-converter
 # ------------------------------------------------------------
 #
 # Octal (Base 8)
@@ -20,15 +20,15 @@ VALUE_OCTAL="0100"; echo "VALUE_OCTAL = \"${VALUE_OCTAL}\"";
 #
 # Octal --> Octal
 #
-echo -n "0"; printf '%o' "${VALUE_OCTAL}"; echo "  (Octal --> Octal)";
+echo -n "0"; printf '%o' "${VALUE_OCTAL}"; echo "   (Octal --> Octal)";
 #
 # Octal --> Decimal
 #
-printf '%d' "${VALUE_OCTAL}"; echo "  (Octal --> Decimal)";
+printf '%d' "${VALUE_OCTAL}"; echo "     (Octal --> Decimal)";
 #
 # Octal --> Hexadecimal
 #
-echo -n "0x"; printf '%x' "${VALUE_OCTAL}"; echo "  (Octal --> Hexadecimal)";
+echo -n "0x"; printf '%x' "${VALUE_OCTAL}"; echo "   (Octal --> Hexadecimal)";
 echo "";
 fi;
 
@@ -51,15 +51,15 @@ VALUE_DECIMAL="100"; echo "VALUE_DECIMAL = \"${VALUE_DECIMAL}\"";
 #
 # Decimal --> Octal
 #
-echo -n "0"; printf '%o' "${VALUE_DECIMAL}"; echo "  (Decimal --> Octal)";
+echo -n "0"; printf '%o' "${VALUE_DECIMAL}"; echo "   (Decimal --> Octal)";
 #
 # Decimal --> Decimal
 #
-printf '%d' "${VALUE_DECIMAL}"; echo "  (Decimal --> Decimal)";
+printf '%d' "${VALUE_DECIMAL}"; echo "    (Decimal --> Decimal)";
 #
 # Decimal --> Hexadecimal
 #
-echo -n "0x"; printf '%x' "${VALUE_DECIMAL}"; echo "  (Decimal --> Hexadecimal)";
+echo -n "0x"; printf '%x' "${VALUE_DECIMAL}"; echo "    (Decimal --> Hexadecimal)";
 echo "";
 fi;
 
@@ -84,11 +84,11 @@ VALUE_HEXADECIMAL="0x100"; echo "VALUE_HEXADECIMAL = \"${VALUE_HEXADECIMAL}\"";
 #
 # Hexadecimal --> Octal
 #
-echo -n "0"; printf '%o' "${VALUE_HEXADECIMAL}"; echo "  (Hexadecimal --> Octal)";
+echo -n "0"; printf '%o' "${VALUE_HEXADECIMAL}"; echo "   (Hexadecimal --> Octal)";
 #
 # Hexadecimal --> Decimal
 #
-printf '%d' "${VALUE_HEXADECIMAL}"; echo "  (Hexadecimal --> Decimal)";
+printf '%d' "${VALUE_HEXADECIMAL}"; echo "    (Hexadecimal --> Decimal)";
 #
 # Hexadecimal --> Hexadecimal
 #
@@ -99,10 +99,8 @@ fi;
 
 # ------------------------------------------------------------
 #
-#  Linux - Char-to-Int / Int-to-Char (convert ASCII Code to its associated character, conversion)
+#  ASCII Character Code  -->  Decimal / Hexadecimal / Octal (ASCII Character Code)
 #
-
-# Char-to-Int
 if [[ 1 -eq 1 ]]; then
 ASCII_CHAR="/";
 ASCII_INTEGER=$(LC_CTYPE=C printf '%d' "'${ASCII_CHAR}";);
@@ -120,7 +118,10 @@ echo "SHORT_COMMAND_GET_CHAR_OCT=[ printf ${ASCII_OCTAL//\\/\\\\}; ]";
 fi;
 
 
-# Int-to-Char
+# ------------------------------------------------------------
+#
+#  Decimal (ASCII Character Code)  -->  ASCII Character Code
+#
 if [[ 1 -eq 1 ]]; then
 ASCII_INTEGER=47;
 ASCII_HEXADECIMAL="$(printf \\x%x ${ASCII_INTEGER} 2>'/dev/null';)";  # convert integer to hexadecimal

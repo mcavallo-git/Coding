@@ -1,5 +1,97 @@
 #!/bin/bash
 # ------------------------------------------------------------
+# Linux - Integer to Character, Hexidecimal, & Octal (convert ASCII Code to its associated character, conversion)
+# ------------------------------------------------------------
+#
+# Octal (Base 8)
+#  |
+#  |--> Syntax:  Leading character "0" before the octal value - such as "010" for 10 as an octal value, or "0100" for 100 as an octal value
+#        |
+#        |--> Example: "010" is interpreted as the octal value of 10
+#        |             "010" is equal to the decimal (base 10) value of 8, being calculated from ((0*8^0)+(1*8))
+#        |
+#        |--> Example: "0100" is interpreted as the octal value of 100
+#                      "0100" is equal to the decimal (base 10) value of 64, being calculated from ((0*8^0)+(0*8)+(1*8^2))
+#
+
+if [[ 1 -eq 1 ]]; then
+VALUE_OCTAL="0100";
+#
+# Octal --> Octal
+#
+printf '%o' "${VALUE_OCTAL}";
+#
+# Octal --> Decimal
+#
+printf '%d' "${VALUE_OCTAL}";
+#
+# Octal --> Hexadecimal
+#
+printf '%x' "${VALUE_OCTAL}";
+fi;
+
+
+# ------------------------------------------------------------
+#
+# Decimal (Base 10)
+#  |
+#  |--> Syntax:  No leading character(s) before the decimal value - Trying to explain base 10 would be very difficult as it is inherently understood by anyone who would be reading this.
+#        |
+#        |--> Example: "10" is 10
+#        |
+#        |--> Example: "100" is 100
+#
+#
+
+if [[ 1 -eq 1 ]]; then
+VALUE_DECIMAL="10";
+#
+# Decimal --> Octal
+#
+printf '%o' "${VALUE_DECIMAL}";
+#
+# Decimal --> Decimal
+#
+printf '%d' "${VALUE_DECIMAL}";
+#
+# Decimal --> Hexadecimal
+#
+printf '%x' "${VALUE_DECIMAL}";
+fi;
+
+
+# ------------------------------------------------------------
+#
+# Hexadecimal (Base 16)
+#  |
+#  |--> Syntax:  Leading character(s) "0x" before the hexadecimal value
+#        |
+#        |--> Example: "0x10" is interpreted as the hexadecimal value of 10
+#        |             "0x10" is equal to the decimal (base 10) value of 16, being calculated from ((0*16^0)+(1*16))
+#        |
+#        |--> Example: "0x100" is interpreted as the hexadecimal value of 100
+#                      "0x100" is equal to the decimal (base 10) value of 256, being calculated from ((0*16^0)+(0*16)+(1*16^2))
+#
+
+
+if [[ 1 -eq 1 ]]; then
+VALUE_HEXADECIMAL="0x10";
+#
+# Hexadecimal --> Octal
+#
+printf '%o' "${VALUE_HEXADECIMAL}";
+#
+# Hexadecimal --> Decimal
+#
+printf '%d' "${VALUE_HEXADECIMAL}";
+#
+# Hexadecimal --> Hexadecimal
+#
+printf '%x' "${VALUE_HEXADECIMAL}";
+fi;
+
+
+# ------------------------------------------------------------
 #
 #  Linux - Char-to-Int / Int-to-Char (convert ASCII Code to its associated character, conversion)
 #

@@ -1,7 +1,7 @@
 #!/bin/bash
 exit 1;
-
 # ------------------------------------------------------------
+
 # Check current disks/partitions
 fdisk -l;
 
@@ -13,6 +13,21 @@ fdisk -l | grep sectors | grep '^Disk';
 # check that file-system doesn't just say "data", otherwise it must be formatted
 sudo file -s /dev/sda1;
 sudo file -s /dev/xvda1;
+
+
+# ------------------------------------------------------------
+
+# WSL - Mount a 'removable media' (or other) disk shared into Linux (WSL) from Windows
+DRIVE_LETTER="d";
+echo "Mounting disk \"${DRIVE_LETTER^^}:\" to path \"/mnt/${DRIVE_LETTER,,}\"";
+mkdir -pv "/mnt/${DRIVE_LETTER,,}";
+mount -v -t drvfs "${DRIVE_LETTER^^}:" "/mnt/${DRIVE_LETTER,,}";
+
+# WSL - Unmount a 'removable media' (or other) disk shared into Linux (WSL) from Windows
+DRIVE_LETTER="d";
+echo "Mounting disk \"${DRIVE_LETTER^^}:\" from path \"/mnt/${DRIVE_LETTER,,}\"";
+umount -v "/mnt/${DRIVE_LETTER,,}";
+
 
 # ------------------------------------------------------------
 # Mounting devices/drives/disks to a locally resolvable filepath
@@ -74,9 +89,10 @@ fi;
 #
 # ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
-#		https://serverfault.com/questions/778759/how-to-convert-a-unencrypted-ebs-to-be-encrypted
+#   serverfault.com  |  "amazon ec2 - How to convert a unencrypted EBS to be encrypted - Server Fault"  |  https://serverfault.com/a/778847
 #
+#   superuser.com  |  "Accessing removable media in Bash on Windows - Super User"  |  https://superuser.com/a/1209701
 #
 # ------------------------------------------------------------

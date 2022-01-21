@@ -1,0 +1,21 @@
+List all Dapr instances. Supported platforms: Kubernetes and self-hosted
+
+Usage:
+  dapr list [flags]
+
+Examples:
+
+# List Dapr instances in self-hosted mode
+dapr list
+
+# List Dapr instances in Kubernetes mode
+dapr list -k
+
+
+Flags:
+  -h, --help            Print this help message
+  -k, --kubernetes      List all Dapr pods in a Kubernetes cluster
+  -o, --output string   The output format of the list. Valid values are: json, yaml, or table (default)
+
+Global Flags:
+      --log-as-json   Log output in JSON format

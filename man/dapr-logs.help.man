@@ -1,0 +1,20 @@
+Get Dapr sidecar logs for an application. Supported platforms: Kubernetes
+
+Usage:
+  dapr logs [flags]
+
+Examples:
+
+# Get logs of sample app from target pod in custom namespace
+dapr logs -k --app-id sample --pod-name target --namespace custom
+
+
+Flags:
+  -a, --app-id string      The application id for which logs are needed
+  -h, --help               Print this help message
+  -k, --kubernetes         Get logs from a Kubernetes cluster (default true)
+  -n, --namespace string   The Kubernetes namespace in which your application is deployed (default "default")
+  -p, --pod-name string    The name of the pod in Kubernetes, in case your application has multiple pods (optional)
+
+Global Flags:
+      --log-as-json   Log output in JSON format

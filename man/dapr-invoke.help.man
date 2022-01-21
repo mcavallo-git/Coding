@@ -1,0 +1,28 @@
+Invoke a method on a given Dapr application. Supported platforms: Self-hosted
+
+Usage:
+  dapr invoke [flags]
+
+Examples:
+
+# Invoke a sample method on target app with POST Verb
+dapr invoke --app-id target --method sample --data '{"key":"value"}
+
+# Invoke a sample method on target app with GET Verb
+dapr invoke --app-id target --method sample --verb GET
+
+# Invoke a sample method on target app with GET Verb using Unix domain socket
+dapr invoke --unix-domain-socket --app-id target --method sample --verb GET
+
+
+Flags:
+  -a, --app-id string               The application id to invoke
+  -d, --data string                 The JSON serialized data string (optional)
+  -f, --data-file string            A file containing the JSON serialized data (optional)
+  -h, --help                        Print this help message
+  -m, --method string               The method to invoke
+  -u, --unix-domain-socket string   Path to a unix domain socket dir. If specified, Dapr API servers will use Unix Domain Sockets
+  -v, --verb string                 The HTTP verb to use (default "POST")
+
+Global Flags:
+      --log-as-json   Log output in JSON format

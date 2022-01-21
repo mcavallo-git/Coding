@@ -1,0 +1,16 @@
+Print build info of Dapr CLI and runtime
+
+Usage:
+  dapr build-info [flags]
+
+Examples:
+
+# Print build info
+dapr build-info
+
+
+Flags:
+  -h, --help   Print this help message
+
+Global Flags:
+      --log-as-json   Log output in JSON format

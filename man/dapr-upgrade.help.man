@@ -1,0 +1,22 @@
+Upgrades or downgrades a Dapr control plane installation in a cluster. Supported platforms: Kubernetes
+
+Usage:
+  dapr upgrade [flags]
+
+Examples:
+
+# Upgrade Dapr in Kubernetes
+dapr upgrade -k
+
+# See more at: https://docs.dapr.io/getting-started/
+
+
+Flags:
+  -h, --help                     Print this help message
+  -k, --kubernetes               Upgrade or downgrade Dapr in a Kubernetes cluster
+      --runtime-version string   The version of the Dapr runtime to upgrade or downgrade to, for example: 1.0.0
+      --set stringArray          set values on the command line (can specify multiple or separate values with commas: key1=val1,key2=val2)
+      --timeout uint             The timeout for the Kubernetes upgrade (default 300)
+
+Global Flags:
+      --log-as-json   Log output in JSON format

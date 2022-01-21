@@ -1,0 +1,19 @@
+List all Dapr configurations. Supported platforms: Kubernetes
+
+Usage:
+  dapr configurations [flags]
+
+Examples:
+
+# List Kubernetes Dapr configurations
+dapr configurations -k
+
+
+Flags:
+  -h, --help            Print this help message
+  -k, --kubernetes      List all Dapr configurations in a Kubernetes cluster
+  -n, --name string     The configuration name to be printed (optional)
+  -o, --output string   Output format (options: json or yaml or list) (default "list")
+
+Global Flags:
+      --log-as-json   Log output in JSON format

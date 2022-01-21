@@ -1,0 +1,17 @@
+Stop Dapr instances and their associated apps. Supported platforms: Self-hosted
+
+Usage:
+  dapr stop [flags]
+
+Examples:
+
+# Stop Dapr application
+dapr stop --app-id <ID>
+
+
+Flags:
+  -a, --app-id string   The application id to be stopped
+  -h, --help            Print this help message
+
+Global Flags:
+      --log-as-json   Log output in JSON format

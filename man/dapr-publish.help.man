@@ -1,0 +1,25 @@
+Publish a pub-sub event. Supported platforms: Self-hosted
+
+Usage:
+  dapr publish [flags]
+
+Examples:
+
+# Publish to sample topic in target pubsub via a publishing app
+dapr publish --publish-app-id myapp --pubsub target --topic sample --data '{"key":"value"}'
+
+# Publish to sample topic in target pubsub via a publishing app using Unix domain socket
+dapr publish --enable-domain-socket --publish-app-id myapp --pubsub target --topic sample --data '{"key":"value"}'
+
+
+Flags:
+  -d, --data string                 The JSON serialized data string (optional)
+  -f, --data-file string            A file containing the JSON serialized data (optional)
+  -h, --help                        Print this help message
+  -i, --publish-app-id string       The ID of the publishing app
+  -p, --pubsub string               The name of the pub/sub component
+  -t, --topic string                The topic to be published to
+  -u, --unix-domain-socket string   Path to a unix domain socket dir. If specified, Dapr API servers will use Unix Domain Sockets
+
+Global Flags:
+      --log-as-json   Log output in JSON format

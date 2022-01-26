@@ -1507,7 +1507,7 @@ function SyncRegistry {
 
 			# Windows Update - Block update to Windows 11
 			$RegEdits += @{
-				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
 				Props=@(
 					@{
 						Description="Version of Windows to get updates for";

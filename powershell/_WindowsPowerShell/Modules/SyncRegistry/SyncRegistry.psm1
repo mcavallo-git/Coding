@@ -1517,14 +1517,14 @@ function SyncRegistry {
 						Delete=$False;
 					},
 					@{
-						Description="0=[Disabled], 1=[Enabled] to to specify which feature update version of Windows 10 you would like your computer to move to and/or stay on until the version reaches end of service or you reconfigure this policy.";
+						Description="0=[Disabled], 1=[Enabled] to only pull updates for a specific type/version of Windows";
 						Name="TargetReleaseVersion";
 						Type="DWord";
 						Value=1;
 						Delete=$False;
 					},
 					@{
-						Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
+						Description="Set this value to the specific release/version of Windows which you want to get updates for";
 						Name="TargetReleaseVersionInfo";
             Type="String";
 						Value="21H2";

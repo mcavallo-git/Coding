@@ -1505,6 +1505,34 @@ function SyncRegistry {
 			};
 
 
+			# Windows Update - Block update to Windows 11
+			$RegEdits += @{
+				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
+				Props=@(
+					@{
+						Description="Version of Windows to get updates for";
+						Name="ProductVersion";
+            Type="String";
+						Value="Windows 10";
+						Delete=$False;
+					},
+					@{
+						Description="0=[Disabled], 1=[Enabled] to to specify which feature update version of Windows 10 you would like your computer to move to and/or stay on until the version reaches end of service or you reconfigure this policy.";
+						Name="TargetReleaseVersion";
+						Type="DWord";
+						Value=1;
+						Delete=$False;
+					},
+					@{
+						Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
+						Name="TargetReleaseVersionInfo";
+            Type="String";
+						Value="21H2";
+						Delete=$False;
+					}
+				)
+			};
+
 			# Windows Update - Force-pull from Windows instead of local server
 			$RegEdits += @{
 				Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
@@ -1926,6 +1954,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.tenforums.com  |  "Add or Remove Scan with Microsoft Defender Context Menu in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/18145-add-remove-scan-microsoft-defender-context-menu-windows-10-a.html
 #
 #   www.tenforums.com  |  "How to Enable or Disable Aero Shake in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4417-how-enable-disable-aero-shake-windows-10-a.html
+#
+#   www.tenforums.com  |  "How to Specify Target Feature Update Version in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/159624-how-specify-target-feature-update-version-windows-10-a.html#6
 #
 #   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
 #

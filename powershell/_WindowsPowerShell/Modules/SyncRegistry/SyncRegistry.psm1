@@ -1512,7 +1512,7 @@ function SyncRegistry {
 					@{
 						Description="Version of Windows to get updates for";
 						Name="ProductVersion";
-            Type="String";
+						Type="String";
 						Value="Windows 10";
 						Delete=$False;
 					},
@@ -1526,7 +1526,7 @@ function SyncRegistry {
 					@{
 						Description="Set this value to the specific release/version of Windows which you want to get updates for";
 						Name="TargetReleaseVersionInfo";
-            Type="String";
+						Type="String";
 						Value="21H2";
 						Delete=$False;
 					}

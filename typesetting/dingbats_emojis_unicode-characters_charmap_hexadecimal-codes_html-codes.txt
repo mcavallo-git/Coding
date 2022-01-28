@@ -21,6 +21,7 @@ Mostly Linux compatible:
 
 
 ×					Multiplication Sign  |  https://www.compart.com/en/unicode/U+00D7
+✘					Heavy Ballot X  |  https://www.compart.com/en/unicode/U+2718
 
 
 ✓					Check Mark  |  https://www.compart.com/en/unicode/U+2713
@@ -394,27 +395,30 @@ Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 [　]			IDEOGRAPHIC SPACE  |  https://www.compart.com/en/unicode/U+3000
 
 
-//	------------------------------------------------------------
-//	Citation(s)
+// ------------------------------------------------------------
 //
-//		compart.com  |  "Unicode - Compart"  |  https://www.compart.com/en/unicode
+// Citation(s)
 //
-//		compart.com  |  "Character Set “x-Adobe-Zapf-Dingbats-Encoding”"  |  https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
+//   compart.com  |  "Unicode - Compart"  |  https://www.compart.com/en/unicode
 //
-//		emojipedia.org  |  "Emojipedia 5.0 Emoji List"  |  https://emojipedia.org/emojipedia/5.0/
+//   compart.com  |  "Character Set “x-Adobe-Zapf-Dingbats-Encoding”"  |  https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
 //
-//		en.wikipedia.org  |  "Dingbat - Wikipedia"  |  https://en.wikipedia.org/wiki/Dingbat
+//   emojipedia.org  |  "Emojipedia 5.0 Emoji List"  |  https://emojipedia.org/emojipedia/5.0/
 //
-//		jkorpela.fi  |  "Unicode spaces"  |  https://jkorpela.fi/chars/spaces.html
+//   en.wikipedia.org  |  "Dingbat - Wikipedia"  |  https://en.wikipedia.org/wiki/Dingbat
 //
-//		stackoverflow.com  |  "HTML character codes for this ▲ or this ▼"  |  https://stackoverflow.com/a/11537979
+//   jkorpela.fi  |  "Unicode spaces"  |  https://jkorpela.fi/chars/spaces.html
 //
-//		stackoverflow.com  |  "Some emojis (e.g. ☁) have two unicode, u'\u2601' and u'\u2601\ufe0f'. What does u'\ufe0f' mean? Is it the same if I delete it?"  |  https://stackoverflow.com/a/38100803
+//   stackoverflow.com  |  "HTML character codes for this ▲ or this ▼"  |  https://stackoverflow.com/a/11537979
 //
-//		support.microsoft.com  |  "Keyboard shortcuts in Word"  |  https://support.microsoft.com/en-us/topic/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2
+//   stackoverflow.com  |  "Some emojis (e.g. ☁) have two unicode, u'\u2601' and u'\u2601\ufe0f'. What does u'\ufe0f' mean? Is it the same if I delete it?"  |  https://stackoverflow.com/a/38100803
 //
-//		unicode.org  |  "Dingbats"  |  https://unicode.org/charts/nameslist/n_2700.html
+//   support.microsoft.com  |  "Keyboard shortcuts in Word"  |  https://support.microsoft.com/en-us/topic/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2
 //
-//		www.mauvecloud.net  |  "Character Code Finder"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html
+//   unicode.org  |  "Dingbats"  |  https://unicode.org/charts/nameslist/n_2700.html
+//
+//   www.fileformat.info  |  "Dingbats characters supported by the Linux Libertine font"  |  https://www.fileformat.info/info/unicode/font/linux_libertine/blockview.htm?block=dingbats
+//
+//   www.mauvecloud.net  |  "Character Code Finder"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html
 //
 // ------------------------------------------------------------

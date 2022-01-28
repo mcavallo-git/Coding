@@ -20,7 +20,6 @@ Lookup description/etc. regarding unicode characters  -->  https://www.compart.c
 Mostly Linux compatible:
 
 
-×					Multiplication Sign  |  https://www.compart.com/en/unicode/U+00D7
 ✘					Heavy Ballot X  |  https://www.compart.com/en/unicode/U+2718
 
 

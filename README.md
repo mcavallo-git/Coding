@@ -525,7 +525,7 @@ This file (on GitHub):
 			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Enhanced spell check"</h4></li>
 			<li><h4>Browse to <code>chrome://settings/syncSetup</code> & disable "Google Drive search suggestions"</h4></li>
 			<li><h4>Browse to <code>https://myaccount.google.com/permissions</code> & disable option "Google Account sign-in prompts"</h4></li>
-			<li><h4>Browse to <code>chrome://flags/#read-later</code> & enable option "Reading List" <sub><i>(note: chrome's setting description for this is backward/reversed relative its value)</i></sub></h4></li>
+			<li><h4>Browse to <code>chrome://flags/#read-later</code> & <u><b>enable</b></u> option "Reading List" <sub><i>(note: chrome's setting description for this is backward/reversed relative its value)</i></sub></h4></li>
 				<ul>
 					<li><h6>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the "&#9734; Add bookmark"/"&#9733; Edit bookmark" button</h6></li>
 				</ul></li>

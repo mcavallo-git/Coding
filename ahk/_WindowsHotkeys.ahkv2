@@ -1127,8 +1127,8 @@ AppsKey & XButton2::
 	Alt & Up::
 	Ctrl & Up::
 	Shift & Up::
-		VolumeLevel_Increment := 2
-		SoundSet , % ( "+" VolumeLevel_Increment )
+		VolDelta := 2
+		SoundSet , % ( "+" VolDelta )
 		ShowVolumeLevel()
 		Return
 	;
@@ -1137,8 +1137,8 @@ AppsKey & XButton2::
 	Alt & Down::
 	Ctrl & Down::
 	Shift & Down::
-		VolumeLevel_Increment := 2
-		SoundSet , % ( "-" VolumeLevel_Increment )
+		VolDelta := 2
+		SoundSet , % ( "-" VolDelta )
 		ShowVolumeLevel()
 		Return	
 	;
@@ -1178,6 +1178,9 @@ AppsKey & XButton2::
 		Send {Media_Play_Pause}
 		Return
 #If
+#F10::
+#F11::
+#F12::
 #MButton::
 #WheelUp::
 #WheelDown::
@@ -1186,22 +1189,42 @@ AppsKey & XButton2::
 ^#WheelDown::
 AppsKey & WheelUp::
 AppsKey & WheelDown::
-	VolumeLevel_Increment := 2
-	If ((A_ThisHotkey=="#MButton") || (A_ThisHotkey=="^#MButton")) {  ; Mute On/Off
-		SoundSet, +1, , MUTE
+	VolDelta := 2
+	If (A_ThisHotkey=="#F10") {
+		SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
+	} Else If (A_ThisHotkey=="#MButton") {
+		SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
+	} Else If (A_ThisHotkey=="^#MButton") {
+		SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
 	} Else {
-		If ((A_ThisHotkey=="+#Up") || (A_ThisHotkey=="!#Up") || (A_ThisHotkey=="^#Up") || (A_ThisHotkey=="AppsKey & WheelUp")) {
-			vDelta := "+" ( VolumeLevel_Increment )  ; Volume Up
+		If (A_ThisHotkey=="#F12") {
+			vDelta := "+" ( VolDelta )  ; Volume Up
+		} Else If (A_ThisHotkey=="+#Up") {
+			vDelta := "+" ( VolDelta )  ; Volume Up
+		} Else If (A_ThisHotkey=="!#Up") {
+			vDelta := "+" ( VolDelta )  ; Volume Up
+		} Else If (A_ThisHotkey=="^#Up") {
+			vDelta := "+" ( VolDelta )  ; Volume Up
+		} Else If (A_ThisHotkey=="AppsKey & WheelUp") {
+			vDelta := "+" ( VolDelta )  ; Volume Up
 		} Else If (A_ThisHotkey=="#WheelUp") {
-			vDelta := "+" ( VolumeLevel_Increment )  ; Volume Up
+			vDelta := "+" ( VolDelta )  ; Volume Up
 		} Else If (A_ThisHotkey=="^#WheelUp") {
-			vDelta := "+" ( VolumeLevel_Increment * 2 )  ; Volume Up ( double )
-		} Else If ((A_ThisHotkey=="+#Down") || (A_ThisHotkey=="!#Down") || (A_ThisHotkey=="^#Down") || (A_ThisHotkey=="AppsKey & WheelDown")) {
-			vDelta := "-" ( VolumeLevel_Increment )  ; Volume Down
+			vDelta := "+" ( VolDelta * 2 )  ; Volume Up x2
+		} Else If (A_ThisHotkey=="+#Down") {
+			vDelta := "-" ( VolDelta )  ; Volume Down
+		} Else If (A_ThisHotkey=="#F11") {
+			vDelta := "-" ( VolDelta )  ; Volume Down
+		} Else If (A_ThisHotkey=="!#Down") {
+			vDelta := "-" ( VolDelta )  ; Volume Down
+		} Else If (A_ThisHotkey=="^#Down") {
+			vDelta := "-" ( VolDelta )  ; Volume Down
+		} Else If (A_ThisHotkey=="AppsKey & WheelDown") {
+			vDelta := "-" ( VolDelta )  ; Volume Down
 		} Else If (A_ThisHotkey=="#WheelDown") {
-			vDelta := "-" ( VolumeLevel_Increment )  ; Volume Down
+			vDelta := "-" ( VolDelta )  ; Volume Down
 		} Else If (A_ThisHotkey=="^#WheelDown") {
-			vDelta := "-" ( VolumeLevel_Increment * 2 )  ; Volume Down ( double )
+			vDelta := "-" ( VolDelta * 2 )  ; Volume Down x2
 		}
 		SoundSet , %vDelta%
 	}

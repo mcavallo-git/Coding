@@ -13,7 +13,8 @@ HomeAssistant - Install Zigbee2MQTT
 
 02. Search-for & install Add-on [ Zigbee2mqtt ]
 
-03. Get USB Zigbee device's "by-id" path, and add to zigbee2mqtt > configuration YAML
+03. Get USB Zigbee controller using the "/dev/serial/by-id/..." target
+     |--> Add the "/dev/serial/by-id/..." target for the zigbee controller to zigbee2mqtt's configuration YAML
 
 04. Install Add-on [ Mosquitto broker ]  (MQTT broker)
 

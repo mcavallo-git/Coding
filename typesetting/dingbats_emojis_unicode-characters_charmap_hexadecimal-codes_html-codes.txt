@@ -162,6 +162,7 @@ Mostly Linux compatible:
 ❓					Black Question Mark Ornament  |  https://www.compart.com/en/unicode/U+65039
 
 
+💾				Floppy Disk  |  https://www.compart.com/en/unicode/U+1F4BE
 📁				File Folder  |  https://www.compart.com/en/unicode/U+1F4C1
 📂				Open File Folder  |  https://www.compart.com/en/unicode/U+1F4C2
 💬 				Speech Balloon  |  https://www.compart.com/en/unicode/U+1F4AC

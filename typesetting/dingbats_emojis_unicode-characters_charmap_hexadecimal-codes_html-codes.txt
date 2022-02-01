@@ -50,6 +50,9 @@ Mostly Linux compatible:
 ↓					Downwards Arrow  (Down Arrow)  (&darr;)  |  https://www.compart.com/en/unicode/U+2193
 ←					Leftwards Arrow  (Left Arrow)  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
 →					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
+
+↻					Clockwise Open Circle Arrow (Refresh Icon) (&circlearrowright;)  |  https://www.compart.com/en/unicode/U+21BB
+
 ↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
 ↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
 ↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195

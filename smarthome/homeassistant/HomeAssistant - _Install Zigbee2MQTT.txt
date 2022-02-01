@@ -23,7 +23,8 @@ HomeAssistant - Install Zigbee2MQTT
 05. Create a homeassistant user for the Zigbee2mqtt <--> Moquitto Broker MQTT handoffs
      |--> Username:  USERNAME_HERE  (such as "zigbee2mqtt_user")
      |--> Password:  PASSWORD_HERE
-     |--> Enable "Allow person to login" on the user
+     |--> Enable "Allow person to login"
+     |--> Enable "Can only log in from the local network"
      |--> Disable "Administrator"
 
 06. Add the user to the "Zigbee2mqtt" Add-on's Configuration

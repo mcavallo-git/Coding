@@ -90,7 +90,7 @@ zwave:
    |--> Open "Z-Wave JS to MQTT" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT" > "Open Web UI")
          |
          |--> Setup USB Z-Wave controller by-id & Generate new Z-Wave security keys
-         |     |--> Open Add-on "Z-Wave JS to MQTT" > Open settings via the cog ⚙️ on the left menu > dropdown "Z-Wave"
+         |     |--> Open Add-on "Z-Wave JS to MQTT" > Open settings via the cog ⚙️ on the left menu > Dropdown "Z-Wave"
          |           |
          |           |--> Paste your Z-Wave controller's "/dev/serial/by-id/..." value into the "Serial Port" field
          |           |

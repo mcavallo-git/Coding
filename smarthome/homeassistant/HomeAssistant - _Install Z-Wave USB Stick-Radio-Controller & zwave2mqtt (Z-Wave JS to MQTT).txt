@@ -55,15 +55,15 @@ zwave:
    |     |--> Open the Add-on "Z-Wave JS to MQTT"
    |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
    |     |           |--> Enable "Watchdog"         (under tab "Info" (top))
-   |     |           |--> Click "Configuration" (top)
-   |     |     !!!         |--> Under "Network", set the value for "Host" (port) to "3000"  (under tab "Configuration" (top))
+   |     |
+   |     |--> Reboot HomeAssistant via "Reboot Host"
    |     |
    |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave Integration/Add-on, get the Network path of said key it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart the HomeAssistant host (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
    |
    |
    |--> Enable the websockets server for the "Z-Wave JS to MQTT" Supervisor Add-on to communicate with the "Z-Wave JS" Integration
    |     |
-   |     |--> Click "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT"
+   |     |--> Open the Add-on "Z-Wave JS to MQTT"
    |     |     |--> Click "Configuration" (top)
    |     |           |--> Under "Network", enter the value "3000" under the column titled "Host" (should say "Disabled" by default)
    |     |           |--> Click "Save" bottom-left > Confirm the popup to restart the "Z-Wave JS to MQTT" server/service
@@ -82,7 +82,10 @@ zwave:
    |                 |     |--> UNCHECK/DISABLE the "Use the Z-Wave JS Supervisor add-on" checkbox > "Submit"
    |                 |
    |                 |--> Popup titled "Z-Wave JS" should appear
-   |                       |--> Set field titled "URL" to value "ws://localhost:3000" (default) > "Submit"
+   |                 |     |--> Set field titled "URL" to value "ws://localhost:3000" (default) > "Submit"
+   |                 |
+   |                 |--> Popup should list all devices found in "Z-Wave JS to MQTT" Add-On
+   |                       |--> Add Z-Wave stick to the room "Hubs" (create it if it doesn't already exist)
    |
    |--> Open "Z-Wave JS to MQTT" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT" > "Open Web UI")
          |

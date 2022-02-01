@@ -52,6 +52,7 @@ Mostly Linux compatible:
 →					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
 
 ↻					Clockwise Open Circle Arrow (Refresh Icon) (&circlearrowright;)  |  https://www.compart.com/en/unicode/U+21BB
+🗘				 Clockwise Right and Left Semicircle Arrows  |  https://www.compart.com/en/unicode/U+1F5D8
 
 ↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
 ↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3

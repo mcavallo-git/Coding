@@ -49,9 +49,10 @@ zwave:
    |     |--> "Supervisor" > "System" > "Reboot Host" > "Reboot Host"
    |
    |--> Install the "Z-Wave JS to MQTT" Supervisor Add-on
-   |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install"
-   |     |--> Configure the Add-on (once installed)
-   |     |     |--> Open the Add-on "Z-Wave JS to MQTT"
+   |     |
+   |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install" (wait for installation to complete)
+   |     |
+   |     |--> Open the Add-on "Z-Wave JS to MQTT"
    |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
    |     |           |--> Enable "Watchdog"         (under tab "Info" (top))
    |     |           |--> Click "Configuration" (top)

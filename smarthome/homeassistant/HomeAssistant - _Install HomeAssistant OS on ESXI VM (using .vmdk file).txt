@@ -43,9 +43,9 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
    |--> Guide - Reference:  https://www.youtube.com/watch?v=W0HD5mTqocA
    |--> Physically plug-in USB device into ESXi host box
    |--> In ESXi, on the HomeAssistant VM (to attach USB device to):
-   |     |--> Shut down VM
-   |     |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
-   |     |--> Start VM
+         |--> Shut down VM
+         |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
+         |--> Start VM
 
 
 # ------------------------------------------------------------

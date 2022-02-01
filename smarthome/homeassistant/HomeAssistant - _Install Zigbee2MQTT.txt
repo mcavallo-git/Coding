@@ -5,6 +5,7 @@ HomeAssistant - Install Zigbee2MQTT
 - Refer to Citation(s), below
 
 01. Add Add-on Repository [ https://github.com/danielwelch/hassio-zigbee2mqtt ]
+     |--> Go to "Add-ons" > click "Add-on Store" (bottom right) > click "⋮" (top right menu) > click "Repositories" > paste & add
 
 02. Install Add-on [ Zigbee2mqtt ]
 

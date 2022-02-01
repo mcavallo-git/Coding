@@ -51,12 +51,11 @@ zwave:
    |--> Install the "Z-Wave JS to MQTT" Supervisor Add-on
    |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install"
    |     |--> Configure the Add-on (once installed)
-   |     |     |--> Click "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT"
+   |     |     |--> Open the Add-on "Z-Wave JS to MQTT"
    |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
    |     |           |--> Enable "Watchdog"         (under tab "Info" (top))
-   |     |           |--> Enable "Show in sidebar"  (under tab "Info" (top))
    |     |           |--> Click "Configuration" (top)
-   |     |     !!!         |--> Set the value for "Host" (port) to "3000"  (under tab "Configuration" (top))
+   |     |     !!!         |--> Under "Network", set the value for "Host" (port) to "3000"  (under tab "Configuration" (top))
    |     |
    |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave Integration/Add-on, get the Network path of said key it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart the HomeAssistant host (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
    |

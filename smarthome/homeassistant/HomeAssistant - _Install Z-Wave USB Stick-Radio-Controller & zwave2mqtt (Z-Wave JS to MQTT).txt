@@ -89,6 +89,19 @@ zwave:
    |
    |--> Open "Z-Wave JS to MQTT" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT" > "Open Web UI")
          |
+         |--> Setup USB Z-Wave controller by-id & Generate new Z-Wave security keys
+         |     |--> Open Add-on "Z-Wave JS to MQTT" > Open settings via the cog ⚙️ on the left menu > dropdown "Z-Wave"
+         |           |
+         |           |--> Paste your Z-Wave controller's "/dev/serial/by-id/..." value into the "Serial Port" field
+         |           |
+         |           |--> Generate Security Keys (if missing:
+         |           |     |--> S2 Unauthenticated  (if blank, click "🗘" to generate a key)
+         |           |     |--> S2 Authenticated    (if blank, click "🗘" to generate a key)
+         |           |     |--> S2 Access Control   (if blank, click "🗘" to generate a key)
+         |           |     |--> S0 Legacy           (if blank, click "🗘" to generate a key)
+         |           |
+         |           |--> Click "Save 💾" at the bottom-right to save changes
+         |
          |--> Add Z-Wave controller (Z-Wave USB Stick)
          |     |--> Add your Z-Wave controller (USB device/key) using the initial Add-on's dropdown menus (make sure to select the intended "USB Device Path" as found earlier under "Supervisor" > "System" > "︙" > "Hardware")
          |

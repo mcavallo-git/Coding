@@ -1,8 +1,18 @@
 # ------------------------------------------------------------
 HomeAssistant - Install Zigbee2MQTT
 # ------------------------------------------------------------
+#
+# Raspi-3B
+#
 
-- Refer to Citation(s), below
+01. Use integration "Zigbee Home Automation" for Raspberry Pi 3B (w/ Ha-OS formatted SD Card)
+
+
+# ------------------------------------------------------------
+#
+# ESXi VM
+#
+
 
 01. Add the Zigbee2mqtt Add-on Repository
      |--> Go to "Add-ons" > Click "Add-on Store" (bottom right) > Click "⋮" (top right) > Click "Repositories"

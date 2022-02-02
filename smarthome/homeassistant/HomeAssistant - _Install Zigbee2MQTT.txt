@@ -51,7 +51,7 @@
 mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://core-mosquitto:1883
-  user: USERNAME_HERE   (username for homeassistant zigbee2mqtt user)
+  user: USERNAME_HERE       (username for homeassistant zigbee2mqtt user)
   password: PASSWORD_HERE   (password for homeassistant zigbee2mqtt user)
 
 

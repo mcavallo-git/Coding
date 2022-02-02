@@ -53,7 +53,6 @@ mqtt:
   password: PASSWORD_HERE   (password for homeassistant zigbee2mqtt user)
 
 
-
 08. Add the user to the "Mosquitto broker" Add-on's Configuration
 logins:
   - username: USERNAME_HERE   (username for homeassistant zigbee2mqtt user)

@@ -59,11 +59,21 @@ if [ -n "${EXACT_MATCH}" ]; then
 	echo "Current Linux-Instance hosted by Windows-User \"${EXACT_MATCH}\"";
 fi;
 
+if [[ -n "${POTENTIAL_USERS_FILE}" ]] && [[ -f "${POTENTIAL_USERS_FILE}" ]]; then
+  rm -fv "${POTENTIAL_USERS_FILE}";
+fi;
+
+if [[ -n "${INVALID_USERS_FILE}" ]] && [[ -f "${INVALID_USERS_FILE}" ]]; then
+  rm -fv "${INVALID_USERS_FILE}";
+fi;
 
 echo -e "\n";
 
+
+# ------------------------------------------------------------
 #
 # Citation(s)
-#	
-#		Thanks to StackOverflow user [ dogbane ] on forum [ https://stackoverflow.com/questions/15065010/how-do-i-use-a-for-each-loop-to-iterate-over-file-paths-in-bash ]
 #
+#   stackoverflow.com  |  "linux - How to perform a for-each loop over all the files under a specified path? - Stack Overflow"  |  https://stackoverflow.com/a/15066129
+#
+# ------------------------------------------------------------

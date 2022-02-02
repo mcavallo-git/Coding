@@ -1,16 +1,16 @@
 # ------------------------------------------------------------
-HomeAssistant - Install Zigbee2MQTT
+#  HomeAssistant - Install Zigbee2MQTT
 # ------------------------------------------------------------
 #
-# Raspi-3B
+# Nortek HUSBZB-1
 #
 
-01. Use integration "Zigbee Home Automation" for Raspberry Pi 3B (w/ Ha-OS formatted SD Card)
+01. If using the Nortek HUSBZB-1 "QuickStick" (ZigBee + Z-Wave USB Adapter), you will have to use the built-in integration called ZHA, or "Zigbee Home Automation", in place of Zigbee2mqtt, because (as-of 20220202T013245) Zigbee2mqtt does not support the Zigbee adapter in the HUSBZB-1
 
 
 # ------------------------------------------------------------
 #
-# ESXi VM
+# All Other Zigbee Adapters
 #
 
 

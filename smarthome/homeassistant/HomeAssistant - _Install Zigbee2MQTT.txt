@@ -21,16 +21,21 @@
      |--> Click "⋮" (top right) > Click "Check for updates"
            |--> Give your HomeAssistant install a few seconds to pull updates, then refresh the page before continuing
 
+
 02. Search-for & install Add-on [ Zigbee2mqtt ]
+
 
 03. Get USB Zigbee controller using the "/dev/serial/by-id/..." target
      |--> Open the "Zigbee2mqtt" Add-on > Click "Configuration" (top)
      |--> Under the yaml value for "serial:" > "port:" > Paste your "/dev/serial/by-id/..." controller's target
      |--> Click "Save" (bottom-right of current textarea's card)
 
+
 04. Install Add-on [ Mosquitto broker ]  (MQTT broker)
 
+
 05. Install Integration [ Mosquitto broker ]  (based off of Add-on)
+
 
 06. Create a homeassistant user for the Zigbee2mqtt <--> Moquitto Broker MQTT handoffs
      |--> Username:  USERNAME_HERE  (such as "zigbee2mqtt_user")
@@ -39,21 +44,20 @@
      |--> Enable "Can only log in from the local network"
      |--> Disable "Administrator"
 
+
 07. Add the user to the "Zigbee2mqtt" Add-on's Configuration
-------------------------------
 mqtt:
   base_topic: zigbee2mqtt
   server: mqtt://core-mosquitto:1883
   user: USERNAME_HERE   (username for homeassistant zigbee2mqtt user)
   password: PASSWORD_HERE   (password for homeassistant zigbee2mqtt user)
-------------------------------
+
+
 
 08. Add the user to the "Mosquitto broker" Add-on's Configuration
-------------------------------
 logins:
   - username: USERNAME_HERE   (username for homeassistant zigbee2mqtt user)
     password: PASSWORD_HERE   (password for homeassistant zigbee2mqtt user)
-------------------------------
 
 
 # ------------------------------------------------------------

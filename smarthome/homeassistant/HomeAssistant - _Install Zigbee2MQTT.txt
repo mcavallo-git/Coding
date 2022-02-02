@@ -32,9 +32,11 @@
 
 
 04. Install Add-on [ Mosquitto broker ]  (MQTT broker)
+     |--> Once it is installed, start it & enable "Watchdog"
 
 
-05. Install Integration [ Mosquitto broker ]  (based off of Add-on)
+05. Install Integration [ MQTT ]  (based off of Mosquitto broker Add-on (which must be started to make this integration appear on integrations))
+     |--> Select "Submit" to accept all defaults (assumed to pull in from Mosquitto broker)
 
 
 06. Create a homeassistant user for the Zigbee2mqtt <--> Moquitto Broker MQTT handoffs

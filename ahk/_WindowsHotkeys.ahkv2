@@ -1301,16 +1301,16 @@ WheelRight::
 #c::
 	Open_Chrome()
 	Return
-#If WinActive("ahk_exe HaloInfinite.exe")
-;
-;   HOTKEY:  Left Mouse-Click
-;   ACTION:  Halo Infinite - Send XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button - Bind button as "Mark" hotkey)
-;
-LButton::
-	Send, {XButton1}
-	; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
-	Sleep 2000
-	Return
+; #If WinActive("ahk_exe HaloInfinite.exe")
+; ;
+; ;   HOTKEY:  Left Mouse-Click
+; ;   ACTION:  Halo Infinite - Send XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button - Bind button as "Mark" hotkey)
+; ;
+; LButton::
+; 	Send, {XButton1}
+; 	; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
+; 	Sleep 2000
+; 	Return
 #If WinActive("ahk_exe Overwatch.exe")
 ;
 ;   HOTKEY:  WinKey + C

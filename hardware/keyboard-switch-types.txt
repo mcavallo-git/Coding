@@ -81,6 +81,8 @@ docs.google.com  |  "Switch data sheet"  |  https://docs.google.com/spreadsheets
 
 docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets/d/161QQynxAtsbUrHK81T7RnCztNaHFYbJXSrnz8kuApJo/edit#gid=0
 
+thegamingsetup.com  |  "Mechanical Keyboard Switch Chart & Table"  |  https://thegamingsetup.com/gaming-keyboard/buying-guides/keyboard-switch-chart-table
+
 www.convertunits.com  |  "Convert cN to gram-force"  |  https://www.convertunits.com/from/cN/to/gram-force
 
 www.convertunits.com  |  "Convert gram-force to cN"  |  https://www.convertunits.com/from/gram-force/to/cN

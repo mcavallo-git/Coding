@@ -211,7 +211,6 @@
   "workbench.enableExperiments": false,
   "workbench.list.horizontalScrolling": true,
   "workbench.list.keyboardNavigation": "filter",
-  "workbench.panel.defaultLocation": "right",
   "workbench.settings.editor": "json",
   "workbench.settings.openDefaultKeybindings": true,
   "workbench.startupEditor": "newUntitledFile",

@@ -82,6 +82,7 @@
   "editor.formatOnPaste": false,
   "editor.formatOnSave": false,
   "editor.formatOnType": false,
+  "editor.guides.indentation": true,
   "editor.hover.enabled": false,
   "editor.inlineSuggest.enabled": false,
   "editor.insertSpaces": false,
@@ -99,7 +100,6 @@
     "comments": false,
     "strings": false
   },
-  "editor.renderIndentGuides": true,
   "editor.renderLineHighlight": "all",
   "editor.renderWhitespace": "all",
   "editor.suggestFontSize": 16,
@@ -216,6 +216,7 @@
   "workbench.settings.openDefaultKeybindings": true,
   "workbench.startupEditor": "newUntitledFile",
   "workbench.tips.enabled": false,
+  "workbench.tree.renderIndentGuides": "always",
   "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
   "xmlTools.xmlFormatterImplementation": "classic",
   "zenMode.hideActivityBar": false,

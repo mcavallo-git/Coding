@@ -11,11 +11,13 @@
   },
   "[json]": {
     "editor.autoIndent": "full",
+    "editor.hover.enabled": true,
     "editor.insertSpaces": true,
     "editor.tabSize": 2
   },
   "[jsonc]": {
     "editor.autoIndent": "full",
+    "editor.hover.enabled": true,
     "editor.insertSpaces": true,
     "editor.tabSize": 2
   },
@@ -41,6 +43,7 @@
   },
   "[typescript]": {
     "editor.autoIndent": "full",
+    "editor.hover.enabled": true,
     "editor.insertSpaces": true,
     "editor.tabSize": 2
   },

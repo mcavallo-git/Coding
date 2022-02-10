@@ -3,87 +3,88 @@ HomeAssistant - Get events for devices with missing entities-triggers (Z-Wave or
 ------------------------------------------------------------
 
 
-Z-Wave Devices  ( zwave_js_value_notification ):
-
-In the HomeAssistant Portal/GUI:
- |
- |
- |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
- |     |
- |     |--> Enter "zwave_js_value_notification" in the "Event to subscribe to" field
- |     |
- |     |--> Click "Start Listening"
- |
- |
- |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
-       |
-       |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
-             |
-             |--> "event_type"
-             |
-             |--> "device_id"
-             |
-             |--> "label"
-             |
-             |--> "value"
-
-
-------------------------------------------------------------
-
-
-Zigbee Devices  ( zha_event ):
-
-
-In the HomeAssistant Portal/GUI:
- |
- |
- |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
- |     |
- |     |--> Enter "zha_event" in the "Event to subscribe to" field
- |     |
- |     |--> Click "Start Listening"
- |
- |
- |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
-       |
-       |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
-             |
-             |--> "event_type"
-             |
-             |--> "device_id"
-             |
-             |--> "command"
+Z-Wave Devices  ⭐  zwave_js_value_notification  ⭐
+  |
+  |--> Open your Home Assistant instance's portal/web-GUI  ( http://homeassistant:8123/developer-tools/event )
+  |     |
+  |     |--> Click "Developer Tools" (left sidebar)
+  |     |
+  |     |--> Click "Events" (top tab)
+  |     |
+  |     |--> ⭐ Enter "zwave_js_value_notification" in the "Event to subscribe to" field ⭐
+  |     |
+  |     |--> Click "Start Listening"
+  |
+  |
+  |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
+        |
+        |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
+              |
+              |--> "event_type"
+              |
+              |--> "device_id"
+              |
+              |--> "label"
+              |
+              |--> "value"
 
 
 ------------------------------------------------------------
 
 
-Philips Hue Devices  ( hue_event ):
+Zigbee Devices  ⭐  zha_event  ⭐
+  |
+  |--> Open your Home Assistant instance's portal/web-GUI  ( http://homeassistant:8123/developer-tools/event )
+  |     |
+  |     |--> Click "Developer Tools" (left sidebar)
+  |     |
+  |     |--> Click "Events" (top tab)
+  |     |
+  |     |--> ⭐ Enter "zha_event" in the "Event to subscribe to" field ⭐
+  |     |
+  |     |--> Click "Start Listening"
+  |
+  |
+  |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
+        |
+        |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
+              |
+              |--> "event_type"
+              |
+              |--> "device_id"
+              |
+              |--> "command"
 
 
-In the HomeAssistant Portal/GUI:
- |
- |
- |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
- |     |
- |     |--> Enter "hue_event" in the "Event to subscribe to" field
- |     |
- |     |--> Click "Start Listening"
- |
- |
- |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
-       |
-       |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
-             |
-             |--> "event_type"
-             |
-             |--> "data.device_id"
-             |
-             |--> "data.unique_id"
-             |
-             |--> "data.type"
-             |
-             |--> "data.subtype"
+------------------------------------------------------------
+
+
+Philips Hue Devices  ⭐  hue_event  ⭐
+  |
+  |--> Open your Home Assistant instance's portal/web-GUI  ( http://homeassistant:8123/developer-tools/event )
+  |     |
+  |     |--> Click "Developer Tools" (left sidebar)
+  |     |
+  |     |--> Click "Events" (top tab)
+  |     |
+  |     |--> ⭐ Enter "hue_event" in the "Event to subscribe to" field ⭐
+  |     |
+  |     |--> Click "Start Listening"
+  |
+  |
+  |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
+        |
+        |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
+              |
+              |--> "event_type"
+              |
+              |--> "data.device_id"
+              |
+              |--> "data.unique_id"
+              |
+              |--> "data.type"
+              |
+              |--> "data.subtype"
 
 
 ------------------------------------------------------------

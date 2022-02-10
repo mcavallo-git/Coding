@@ -11,7 +11,7 @@ Z-Wave Devices  ⭐  zwave_js_value_notification  ⭐
   |     |
   |     |--> Click "Events" (top tab)
   |     |
-  |     |--> ⭐ Enter "zwave_js_value_notification" in the "Event to subscribe to" field ⭐
+  |     |--> Enter "zwave_js_value_notification" in the "Event to subscribe to" field
   |     |
   |     |--> Click "Start Listening"
   |
@@ -40,7 +40,7 @@ Zigbee Devices  ⭐  zha_event  ⭐
   |     |
   |     |--> Click "Events" (top tab)
   |     |
-  |     |--> ⭐ Enter "zha_event" in the "Event to subscribe to" field ⭐
+  |     |--> Enter "zha_event" in the "Event to subscribe to" field
   |     |
   |     |--> Click "Start Listening"
   |
@@ -67,7 +67,7 @@ Philips Hue Devices  ⭐  hue_event  ⭐
   |     |
   |     |--> Click "Events" (top tab)
   |     |
-  |     |--> ⭐ Enter "hue_event" in the "Event to subscribe to" field ⭐
+  |     |--> Enter "hue_event" in the "Event to subscribe to" field
   |     |
   |     |--> Click "Start Listening"
   |

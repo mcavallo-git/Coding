@@ -2,13 +2,18 @@
 HomeAssistant - Get events for devices with missing entities-triggers (Z-Wave or Zigbee)
 ------------------------------------------------------------
 
-Z-WAVE:
+
+Z-Wave Devices  ( zwave_js_value_notification ):
 
 In the HomeAssistant Portal/GUI:
  |
- |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
  |
- |--> Under "Listen to events" > Enter "zwave_js_value_notification" in the "Event to subscribe to" field > Click "Start Listening"
+ |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
+ |     |
+ |     |--> Enter "zwave_js_value_notification" in the "Event to subscribe to" field
+ |     |
+ |     |--> Click "Start Listening"
+ |
  |
  |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
        |
@@ -23,39 +28,21 @@ In the HomeAssistant Portal/GUI:
              |--> "value"
 
 
-Create an automation based on the info returned by the event listener
- |
- |--> Click "Configuration" > "Automations" > "+ Add Automation" > "Start with an empty automation"
- |
- |--> Set the following fields to their corresponding values (below):
- |     |
- |     |--> Trigger Type: "Event"
- |     |
- |     |--> Event Type:   "zwave_js_value_notification"
- |     |
- |     |--> Event Data:
-device_id: (VALUE FROM LISTENER'S JSON FIELD "device_id")
-label: (VALUE FROM LISTENER'S JSON FIELD "label")
-value: (VALUE FROM LISTENER'S JSON FIELD "value")
-|
-|
-|--> If desired, define automation Condition(s) (below Triggers)
-|
-|--> Define automation Action(s) (below Condition)
-|
-|--> Click "Save" & attempt to physically trigger your automation (to put the newly created automation through its paces)
-
-
 ------------------------------------------------------------
 
-ZIGBEE:
+
+Zigbee Devices  ( zha_event ):
 
 
 In the HomeAssistant Portal/GUI:
  |
- |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
  |
- |--> Under "Listen to events" > Enter "zha_event" in the "Event to subscribe to" field > Click "Start Listening"
+ |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
+ |     |
+ |     |--> Enter "zha_event" in the "Event to subscribe to" field
+ |     |
+ |     |--> Click "Start Listening"
+ |
  |
  |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
        |
@@ -68,31 +55,42 @@ In the HomeAssistant Portal/GUI:
              |--> "command"
 
 
-Create an automation based on the info returned by the event listener
+------------------------------------------------------------
+
+
+Philips Hue Devices  ( hue_event ):
+
+
+In the HomeAssistant Portal/GUI:
  |
- |--> Click "Configuration" > "Automations" > "+ Add Automation" > "Start with an empty automation"
  |
- |--> Set the following fields to their corresponding values (below):
+ |--> Click "Developer Tools" > "Events"  ( http://homeassistant:8123/developer-tools/event )
  |     |
- |     |--> Trigger Type: "Event"
+ |     |--> Enter "hue_event" in the "Event to subscribe to" field
  |     |
- |     |--> Event Type:   "zha_event"
- |     |
- |     |--> Event Data:
-device_id: (VALUE FROM LISTENER'S JSON FIELD "device_id")
-command: (VALUE FROM LISTENER'S JSON FIELD "command")
-|
-|
-|--> If desired, define automation Condition(s) (below Triggers)
-|
-|--> Define automation Action(s) (below Condition)
-|
-|--> Click "Save" & attempt to physically trigger your automation (to put the newly created automation through its paces)
+ |     |--> Click "Start Listening"
+ |
+ |
+ |--> Physically/Manually trigger the event on the device which is not showing up as an entity (push a button, trigger motion, etc.)
+       |
+       |--> Copy-down the JSON info returned by the listener - pay specific attention to the following fields (and their corresponding values):
+             |
+             |--> "event_type"
+             |
+             |--> "data.device_id"
+             |
+             |--> "data.unique_id"
+             |
+             |--> "data.type"
+             |
+             |--> "data.subtype"
 
 
 ------------------------------------------------------------
 
  Citation(s)
+
+   community.home-assistant.io  |  "Hue Tap switch controlling using event (hue event) - Configuration - Home Assistant Community"  |  https://community.home-assistant.io/t/hue-tap-switch-controlling-using-event-hue-event/355468
 
    pcbisolation.com  |  "Integrate Zooz ZEN34 with Home Assistant – PCB Isolation"  |  https://pcbisolation.com/blog/integrate-zooz-zen34-with-home-assistant/
 

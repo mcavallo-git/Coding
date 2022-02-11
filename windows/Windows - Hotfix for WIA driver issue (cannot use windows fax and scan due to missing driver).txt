@@ -1,0 +1,21 @@
+
+
+When trying to scan, if you are presented with an error similar to "You need a WIA driver to use this device", do one of the following two options:
+
+  Either via
+    PowerShell:   Restart-Service STISVC
+
+  Or via
+    Manual (Windows GUI):  Open "services.msc" --> Locate service "Windows Image Acquisition (WIA)" --> Right click and select "Restart" on the service
+
+
+Wait ~10-15 seconds for the WIA service to have ample time to start back up, then attempt to scan again
+
+
+------------------------------------------------------------
+
+Citation(s)
+
+  answers.microsoft.com  |  "computer does not recognize scanner says WIA driver missing - Microsoft Community"  |  https://answers.microsoft.com/en-us/windows/forum/all/computer-does-not-recognize-scanner-says-wia/05ee9bff-b0cd-4330-8526-a0a47831ef22
+
+------------------------------------------------------------

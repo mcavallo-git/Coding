@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-HomeAssistant - Install Z-Wave USB Stick-Radio-Controller (Zooz ZST10).txt
+HomeAssistant - Install Zwavejs2Mqtt
 # ------------------------------------------------------------
 
 - Attaching a Z-Wave USB controller (device/key) to HomeAssistant

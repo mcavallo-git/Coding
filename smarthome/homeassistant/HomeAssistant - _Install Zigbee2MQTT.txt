@@ -15,7 +15,7 @@
 
 
 01. Add the Zigbee2mqtt Add-on Repository
-     |--> Go to "Add-ons" > Click "Add-on Store" (bottom right) > Click "⋮" (top right) > Click "Repositories"
+     |--> Go to "Add-ons" > Click "Add-on Store" (bottom right) > Click "⋮" Kebab (top right) > Click "Repositories"
      |--> Copy-Paste [ https://github.com/danielwelch/hassio-zigbee2mqtt ] into the "Add" text field
      |     |--> Click "Add" > Wait for loading icon to finish > Click "Close"
      |--> Click "⋮" (top right) > Click "Check for updates"
@@ -25,10 +25,13 @@
 02. Search-for & install Add-on [ Zigbee2mqtt ]
 
 
-03. Get USB Zigbee controller using the "/dev/serial/by-id/..." target
+03. Setup Zigbee2Mqtt to use your USB Zigbee adapter
+     |--> Get Device ID from "Supervisor" > "System" (top tab) > Click "⋮" Kebab next to "Shutdown Host" > Click "Hardware"
+     |--> Locate USB device >> BY ID << similar to "/dev/serial/by-id/..." > Copy the value
      |--> Open the "Zigbee2mqtt" Add-on > Click "Configuration" (top)
-     |--> Under the yaml value for "serial:" > "port:" > Paste your "/dev/serial/by-id/..." controller's target
+     |--> Under the yaml value for "port:" (below "serial:") paste your "/dev/serial/by-id/..." controller's USB ID
      |--> Click "Save" (bottom-right of current textarea's card)
+     |--> Popup should appear to restart the add-on - Confirm & restart add-on
 
 
 04. Install Add-on [ Mosquitto broker ]  (MQTT broker)

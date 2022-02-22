@@ -205,7 +205,7 @@ This file (on GitHub):
 <tr>
 	<td><strong>Windows Terminal</strong> <i><sub>
 		<br />&nbsp;&nbsp;&nbsp;Multi-tabbed terminal emulator by Microsoft
-		<br />&nbsp;&nbsp;&nbsp;Load good settigns via <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Windows%20Terminal/settings.json">settings.json</a> (requires <a href="https://github.com/tonsky/FiraCode/releases">Fira Code</a> font)
+		<br />&nbsp;&nbsp;&nbsp;Load good <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Windows%20Terminal/settings.json">settings.json</a> (requires <a href="https://github.com/tonsky/FiraCode/releases">Fira Code</a> font)
 		<br />&nbsp;&nbsp;&nbsp;
 		<details><summary>Add a "Git Bash" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Git Bash</code></li><li><code>Command Line:  %ProgramFiles%\Git\bin\bash.exe --login -i</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  %ProgramFiles%/Git/mingw64/share/git/git-for-windows.ico</code></li></ul></li></ul></pre></p></details>
 		<details><summary>Add an "Ubuntu 20.04" (WSL) profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Ubuntu 20.04</code></li><li><code>Command Line:  %windir%\System32\wsl.exe -d Ubuntu-20.04</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png</code></li></ul></li></ul></pre></p></details>

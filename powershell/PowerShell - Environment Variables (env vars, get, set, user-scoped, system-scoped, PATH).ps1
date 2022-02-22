@@ -38,7 +38,7 @@ If ($True) {
 
 If ($True) {
   $Env_Name = "WSLENV";
-  $Env_Value = "REPOS_DIR/up:TEMP/up:TMP/up";
+  $Env_Value = "HELM_EXPERIMENTAL_OCI:NG_CLI_ANALYTICS:REPOS_DIR/up:TEMP/up:TMP/up";
   Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
   [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
 }

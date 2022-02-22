@@ -19,26 +19,29 @@ Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) 
 
 
 # ------------------------------------------------------------
-
 #
-# User  -  env:REPOS_DIR
+#   env:REPOS_DIR   (USER-SCOPED)
 #
 
-$Env_Name = "REPOS_DIR";
-$Env_Value = "${HOME}\Documents\GitHub";
-Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+If ($True) {
+  $Env_Name = "REPOS_DIR";
+  $Env_Value = "${HOME}\Documents\GitHub";
+  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+}
 
 
 # ------------------------------------------------------------
 #
-# User  -  env:WSLENV
+#   env:WSLENV   (USER-SCOPED)
 #
 
-$Env_Name = "WSLENV";
-$Env_Value = "REPOS_DIR/up:TEMP/up:TMP/up";
-Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+If ($True) {
+  $Env_Name = "WSLENV";
+  $Env_Value = "REPOS_DIR/up:TEMP/up:TMP/up";
+  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+}
 
 
 # ------------------------------
@@ -47,10 +50,12 @@ Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Na
 #  |--> Applies change to all users on current system
 #
 
-$Env_Name = "HELM_EXPERIMENTAL_OCI";
-$Env_Value = "1";
-Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+If ($True) {
+  $Env_Name = "HELM_EXPERIMENTAL_OCI";
+  $Env_Value = "1";
+  Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+}
 
 
 # ------------------------------
@@ -59,10 +64,12 @@ Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 #  |--> Applies change to all users on current system
 #
 
-$Env_Name = "NG_CLI_ANALYTICS";
-$Env_Value = "false";
-Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-[System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+If ($True) {
+  $Env_Name = "NG_CLI_ANALYTICS";
+  $Env_Value = "false";
+  Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+}
 
 
 # ------------------------------
@@ -72,11 +79,13 @@ Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 #  |--> Applies change to all users on current system
 #
 
-$AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
-$SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
-If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-  Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
-  [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+If ($True) {
+  $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
+  $SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
+  If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+    Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
+    [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+  }
 }
 
 
@@ -85,13 +94,14 @@ If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPa
 #  |--> Permanently adds a directory to current user's PATH (if not already on current PATH variable)
 #
 
-$AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
-$UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
-If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
-  [System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
+If ($True) {
+  $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
+  $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
+  If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+    Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
+    [System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
+  }
 }
-
 
 # ------------------------------------------------------------
 # ============================================================

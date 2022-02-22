@@ -1,0 +1,30 @@
+------------------------------------------------------------
+
+WSLENV - Windows Environment variable which contains the names of OTHER Windows environment variables which should be shared with WSL
+
+------------------------------------------------------------
+
+
+/l
+This flag indicates the value is a list of paths. In WSL, it is a colon-delimited list. In Win32, it is a semicolon-delimited list. See in the example below how PATHLIST is appropriately converted to a semi-colon separated list.
+
+
+/p
+This flag indicates that a path should be translated between WSL paths and Win32 paths. Notice in the example below how we set the var in WSL, add it to WSLENV with the ‘/p’ flag, and then read the variable from cmd.exe and the path translates accordingly.
+
+
+/u
+This flag indicates the value should only be included when invoking WSL from Win32. In the example below, we set FORWSL from cmd and it will show up in WSL.
+
+
+/w
+This flag indicates the value should only be included when invoking Win32 from WSL.
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   devblogs.microsoft.com  |  "Share Environment Vars between WSL and Windows - Windows Command Line"  |  https://devblogs.microsoft.com/commandline/share-environment-vars-between-wsl-and-windows/#wsl-and-environment-variables-after-insider-17063
+
+------------------------------------------------------------

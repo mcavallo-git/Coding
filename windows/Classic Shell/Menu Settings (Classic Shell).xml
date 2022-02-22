@@ -69,10 +69,10 @@
 		<Line>Item7.Icon=C:\Program Files\Cryptomator\Cryptomator.exe, 1</Line>
 		<Line>Item7.Settings=ITEM_DISABLED</Line>
 		<Line>Item8.Command=separator</Line>
-		<Line>Item9.Command=C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe</Line>
-		<Line>Item9.Link=C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe</Line>
+		<Line>Item9.Command=%windir%\explorer.exe "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"</Line>
+		<Line>Item9.Link=%windir%\explorer.exe "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"</Line>
 		<Line>Item9.Label=Windows Terminal</Line>
-		<Line>Item9.Icon=C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\WindowsTerminal.exe, 101</Line>
+		<Line>Item9.Icon=shell32.dll, 181</Line>
 		<Line>Item9.Settings=NOEXPAND</Line>
 		<Line>Item10.Command=%windir%\System32\wsl.exe</Line>
 		<Line>Item10.Link=%windir%\System32\wsl.exe</Line>

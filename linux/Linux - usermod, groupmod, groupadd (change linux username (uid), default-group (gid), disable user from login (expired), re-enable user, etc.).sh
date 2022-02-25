@@ -1,6 +1,19 @@
 #!/bin/bash
 # ------------------------------------------------------------
 
+# Add a user to a group
+USER_NAME="username";
+GROUPS_TO_JOIN="group1";
+usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
+
+# Add a user to many groups
+USER_NAME="username";
+GROUPS_TO_JOIN="group1,group2,group3";
+usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
+
+
+# ------------------------------------------------------------
+
 # GENERAL USER DISABLE:
 USER_NAME="ubuntu"; usermod --expiredate "1" --shell "$(which nologin)" "${USER_NAME}";
 
@@ -52,15 +65,6 @@ usermod --uid "${UPDATED_UID}" "${USER_NAME}";
 GROUP_NAME="foo";
 UPDATED_GID="500";
 groupmod --gid "${UPDATED_GID}" "${GROUP_NAME}";
-
-
-# ------------------------------------------------------------
-
-
-# Add user to multiple groups, simultaneously
-USER_NAME="bar";
-GROUPS_TO_JOIN="foo,bar";
-usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
 
 
 # ------------------------------------------------------------

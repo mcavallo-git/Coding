@@ -1,12 +1,18 @@
 #!/bin/bash
 # ------------------------------------------------------------
 
-# Add a user to a group
+# Debian,Ubuntu,Raspbian - Add 1 user to 1 group
 USER_NAME="username";
 GROUPS_TO_JOIN="group1";
 usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
 
-# Add a user to many groups
+# Alpine - Add 1 user to 1 group
+USER_NAME="username";
+GROUPS_TO_JOIN="group1";
+addgroup -g "${GROUPS_TO_JOIN}" "${USER_NAME}";
+
+
+# Debian,Ubuntu,Raspbian - Add 1 user to many groups
 USER_NAME="username";
 GROUPS_TO_JOIN="group1,group2,group3";
 usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";

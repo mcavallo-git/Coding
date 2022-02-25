@@ -7,18 +7,17 @@ USER_NAME="username";
 GROUP_NAME="groupname";
 usermod --append --groups "${GROUP_NAME}" "${USER_NAME}";
 
+# Debian,Ubuntu,Raspbian - Add 1 user to many groups
+USER_NAME="username";
+GROUPS_TO_JOIN="groupname1,groupname2,groupname3";
+usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
+
 
 # Alpine - Add 1 user to 1 group
 #  Note: Alpine uses "addgroup", which requires a group ID (GID) and not a group name
 USER_NAME="username";
 GROUP_NAME="groupname";
 addgroup "${GROUP_NAME}" "${USER_NAME}";
-
-
-# Debian,Ubuntu,Raspbian - Add 1 user to many groups
-USER_NAME="username";
-GROUPS_TO_JOIN="groupname1,groupname2,groupname3";
-usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
 
 
 # ------------------------------------------------------------

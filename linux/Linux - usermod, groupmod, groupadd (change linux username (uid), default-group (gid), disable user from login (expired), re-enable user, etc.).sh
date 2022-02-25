@@ -12,8 +12,7 @@ usermod --append --groups "${GROUP_NAME}" "${USER_NAME}";
 #  Note: Alpine uses "addgroup", which requires a group ID (GID) and not a group name
 USER_NAME="username";
 GROUP_NAME="groupname";
-GROUP_ID="$(getent group "${GROUP_NAME}" | tr ':' ' ' | awk '{print $3}';)";
-addgroup -g "${GROUP_ID}" "${USER_NAME}";
+addgroup "${GROUP_NAME}" "${USER_NAME}";
 
 
 # Debian,Ubuntu,Raspbian - Add 1 user to many groups

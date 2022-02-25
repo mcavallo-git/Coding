@@ -14,7 +14,6 @@ usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
 
 
 # Alpine - Add 1 user to 1 group
-#  Note: Alpine uses "addgroup", which requires a group ID (GID) and not a group name
 USER_NAME="username";
 GROUP_NAME="groupname";
 addgroup "${GROUP_NAME}" "${USER_NAME}";

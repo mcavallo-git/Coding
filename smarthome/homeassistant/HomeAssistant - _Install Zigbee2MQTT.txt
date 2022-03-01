@@ -16,7 +16,7 @@
 
 01. Add the Zigbee2mqtt Add-on Repository
      |--> Go to "Add-ons" > Click "Add-on Store" (bottom right) > Click "⋮" Kebab (top right) > Click "Repositories"
-     |--> Copy-Paste [ https://github.com/danielwelch/hassio-zigbee2mqtt ] into the "Add" text field
+     |--> Copy-Paste [ https://github.com/zigbee2mqtt/hassio-zigbee2mqtt ] into the "Add" text field
      |     |--> Click "Add" > Wait for loading icon to finish > Click "Close"
      |--> Click "⋮" (top right) > Click "Check for updates"
            |--> Give your HomeAssistant install a few seconds to pull updates, then refresh the page before continuing

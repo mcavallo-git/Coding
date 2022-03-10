@@ -115,7 +115,6 @@
   "explorer.sortOrder": "default",
   "extensions.closeExtensionDetailsOnViewChange": true,
   "extensions.ignoreRecommendations": true,
-  "extensions.showRecommendationsOnlyOnDemand": true,
   "files.associations": {
     "*.txt": "plaintext",
     "**/{settings.json,vscode.settings,*.code-workspace}": "jsonc",

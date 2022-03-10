@@ -111,6 +111,7 @@
   "explorer.autoReveal": true,
   "explorer.confirmDelete": true,
   "explorer.confirmDragAndDrop": true,
+  "explorer.copyRelativePathSeparator": "/",
   "explorer.enableDragAndDrop": false,
   "explorer.sortOrder": "default",
   "extensions.closeExtensionDetailsOnViewChange": true,
@@ -194,9 +195,6 @@
   "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
   "typescript.tsc.autoDetect": "off",
   "update.showReleaseNotes": false,
-  "vs-kubernetes": {
-    "vs-kubernetes.suppress-kubectl-not-found-alerts": true
-  },
   "window.closeWhenEmpty": true,
   "window.newWindowDimensions": "maximized",
   "window.openFoldersInNewWindow": "on",

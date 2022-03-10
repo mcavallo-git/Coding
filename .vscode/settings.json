@@ -96,8 +96,8 @@
   "editor.mouseWheelZoom": true,
   "editor.multiCursorModifier": "alt",
   "editor.quickSuggestions": {
-    "other": false,
     "comments": false,
+    "other": false,
     "strings": false
   },
   "editor.renderLineHighlight": "all",
@@ -115,6 +115,7 @@
   "explorer.sortOrder": "default",
   "extensions.closeExtensionDetailsOnViewChange": true,
   "extensions.ignoreRecommendations": true,
+  "extensions.showRecommendationsOnlyOnDemand": true,
   "files.associations": {
     "*.txt": "plaintext",
     "**/{settings.json,vscode.settings,*.code-workspace}": "jsonc",
@@ -194,6 +195,9 @@
   "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
   "typescript.tsc.autoDetect": "off",
   "update.showReleaseNotes": false,
+  "vs-kubernetes": {
+    "vs-kubernetes.suppress-kubectl-not-found-alerts": true
+  },
   "window.closeWhenEmpty": true,
   "window.newWindowDimensions": "maximized",
   "window.openFoldersInNewWindow": "on",

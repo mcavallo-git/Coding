@@ -1,4 +1,0 @@
-
-Excel Hotkey - Show Header, Footer (specifically goes to the header)
-
-While holding ALT, press V (and un-press it), then H

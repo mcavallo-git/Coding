@@ -1,9 +1,10 @@
 
-Microsoft Word - hexadecimal to unicode character conversion-converting
+# Microsoft Word - hexadecimal to unicode character conversion-converting
 
-  > Type the 4-digit hexadecimal code for a given unicode symbol, then press combo-keypress [ Alt + X ] to convert the 4-digit hex code to the code's associated unicode character (Note: Microsoft Word will attempt to convert the 4 characters previous to the flashing cursor (which, in this case should be the hex code) when Alt+X is pressed)
+- Type the 4-digit hexadecimal code for a given unicode symbol, then press combo-keypress [ Alt + X ] to convert the 4-digit hex code to the code's associated unicode character (Note: Microsoft Word will attempt to convert the 4 characters previous to the flashing cursor (which, in this case should be the hex code) when Alt+X is pressed)
 
 
+<!--
 ------------------------------------------------------------
 
  Citation(s)
@@ -15,3 +16,4 @@ Microsoft Word - hexadecimal to unicode character conversion-converting
    www.mauvecloud.net  |  "Character Code Finder/Lookup (Decimal, Hexadecimal) - Get Character Code (ASCII)"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html
 
 ------------------------------------------------------------
+-->

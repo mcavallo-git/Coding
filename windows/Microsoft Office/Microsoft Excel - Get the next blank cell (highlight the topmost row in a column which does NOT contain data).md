@@ -17,6 +17,7 @@
 )
 ```
 
+
 <!-- ------------------------------------------------------------ -->
 
 ### Excel - Highlight the topmost row in a column which does NOT contain data
@@ -69,7 +70,6 @@ Paste the following formula into 'Formula values where this formula is true:'
 	)
 )=TRUE
 ```
-
 
 
 <!--

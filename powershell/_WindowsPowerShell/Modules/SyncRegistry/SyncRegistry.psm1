@@ -246,8 +246,8 @@ function SyncRegistry {
 					@{
 						Description="Explorer Settings - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
 						Name="Hidden";
-						Type="String";
-						Value="SHOW";
+						Type="DWord";
+						Value=1;
 						Delete=$False;
 					},
 					@{

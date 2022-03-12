@@ -1,10 +1,11 @@
 
+# Microsoft Outlook - Set Dark Mode (Theme)
 
-Open Outlook
- > File (top left)
-  > Office Account
-   > Office Theme
-    > Black
+1. Open `Microsoft Outlook`
+2. Select `File` (top left)
+3. Select `Office Account`
+4. Select `Office Theme`
+5. Select `Black`
 
 
 <!--

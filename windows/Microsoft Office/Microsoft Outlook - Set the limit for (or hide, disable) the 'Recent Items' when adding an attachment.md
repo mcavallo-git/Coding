@@ -1,24 +1,12 @@
-<!--
-------------------------------------------------------------
-
-Microsoft Outlook - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment
-
-------------------------------------------------------------
--->
+# Microsoft Outlook - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment
 
 1. Open regedit.exe (Registry Editor)
 
-2. Set the current value:
+2. Browse to Registry key `HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail`
 
-```
-  Key:  HKEY_CURRENT_USER\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail
-  Property: MaxAttachmentMenuItems
-  Type: DWORD
-  Value: 00000000
-```
+3. Set property `MaxAttachmentMenuItems` as a `DWORD` with value `0`
 
-### Note:
-- If you have to run regedit.exe as an admin user WHICH IS A DIFFERENT USER than the user you want to apply the change to, open [ HKEY_USERS\USER_SID\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail ], where [ USER_SID ] is the SID for the user you want to apply the change to - Acquire user SID by running the following command in a powershell AS THE USER YOU WANT TO APPLY THE CHANGE TO:   (whoami /user /fo table /nh).Split(" ")[1]
+- Note: If you have to run regedit.exe as an admin user WHICH IS A DIFFERENT USER than the user you want to apply the change to, open [ HKEY_USERS\USER_SID\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail ], where [ USER_SID ] is the SID for the user you want to apply the change to - Acquire user SID by running the following command in a powershell AS THE USER YOU WANT TO APPLY THE CHANGE TO:   (whoami /user /fo table /nh).Split(" ")[1]
 
 
 <!--

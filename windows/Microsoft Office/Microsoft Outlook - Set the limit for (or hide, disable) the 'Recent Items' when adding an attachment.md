@@ -7,6 +7,7 @@ Microsoft Outlook - Set the limit for (or hide, disable) the 'Recent Items' when
 -->
 
 1. Open regedit.exe (Registry Editor)
+
 2. Set the current value:
 
 ```

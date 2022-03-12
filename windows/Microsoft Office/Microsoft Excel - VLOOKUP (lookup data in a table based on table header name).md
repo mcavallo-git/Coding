@@ -1,6 +1,6 @@
 
 # Microsoft Excel - VLOOKUP (general syntax)
-```
+```vb
 =VLOOKUP(
 	(What you want to look up)
 	(Where you want to look for it),
@@ -11,7 +11,7 @@
 
 
 # Microsoft Excel - VLOOKUP (descriptive syntax)
-```
+```vb
 =VLOOKUP(
 	(What you want to look up)
 	(Where you want to look for it),
@@ -22,7 +22,7 @@
 
 
 # Microsoft Excel - Do a lookup of a table
-```
+```vb
 =VLOOKUP(
   A1,
   TableName[#All],

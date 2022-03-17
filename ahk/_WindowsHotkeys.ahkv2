@@ -1030,11 +1030,10 @@ AppsKey & l::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  WinKey + E
-;   ACTION:  Opens "USERPROFILE" directory
+;   ACTION:  Opens directory pointed to by Windows' USERPROFILE environment variable
 ; 
 #e::
-	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	Run "%OutDirname%"
+	Run % EnvGet("USERPROFILE")
 	Return
 
 

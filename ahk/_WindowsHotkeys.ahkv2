@@ -649,16 +649,28 @@ Pause::
 		If (ExeToRequire_Fullpath != "") {
 			AwaitModifierKeyup()  ; Wait until all modifier keys are released
 			Sleep 250
-			SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_asenameNoExt, ExeToRequire_Drivename
+			SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_BasenameNoExt, ExeToRequire_Drivename
 			WinActivate, ahk_exe %ExeToRequire_Basename%
+			VarSetCapacity(ExeToRequire_Basename,0)
+			VarSetCapacity(ExeToRequire_Dirname,0)
+			VarSetCapacity(ExeToRequire_Extension,0)
+			VarSetCapacity(ExeToRequire_BasenameNoExt,0)
+			VarSetCapacity(ExeToRequire_Drivename,0)
+			; VarSetStrCapacity(&ExeToRequire_Basename,0)       ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+			; VarSetStrCapacity(&ExeToRequire_Dirname,0)        ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+			; VarSetStrCapacity(&ExeToRequire_Extension,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+			; VarSetStrCapacity(&ExeToRequire_BasenameNoExt,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+			; VarSetStrCapacity(&ExeToRequire_Drivename,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
 		}
 		; Paste the contents of target file
 		FileRead, FileToPaste_Contents, %FileToPaste_Legend%
 		SendInput, %FileToPaste_Contents%
 	}
-	; Clear variable-contents to avoid unintentional caching of file-contents (especially to avoid large file caching)
-	FileToPaste_Contents := ""
-	ExeToRequire_Fullpath := ""
+	; Free variables from memory to avoid caching of secrets or large files  -  https://www.autohotkey.com/docs/commands/VarSetCapacity.htm
+	VarSetCapacity(FileToPaste_Contents,0)
+	VarSetCapacity(ExeToRequire_Fullpath,0)
+	; VarSetStrCapacity(&FileToPaste_Contents,0)   ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+	; VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
 	Return
 
 

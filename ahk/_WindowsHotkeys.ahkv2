@@ -645,6 +645,13 @@ Pause::
 		}
 	}
 	If (DoPaste == 1) {
+		; If the start menu pops up, wait a (half) second then reactivate desired exe's window
+		If (ExeToRequire_Fullpath != "") {
+			AwaitModifierKeyup()  ; Wait until all modifier keys are released
+			Sleep 250
+			SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_asenameNoExt, ExeToRequire_Drivename
+			WinActivate, ahk_exe %ExeToRequire_Basename%
+		}
 		; Paste the contents of target file
 		FileRead, FileToPaste_Contents, %FileToPaste_Legend%
 		SendInput, %FileToPaste_Contents%

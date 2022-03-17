@@ -179,8 +179,7 @@ Pause::
 ;   ACTION:  Open the current user's Videos directory
 ;
 +Pause::
-	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	Fullpath_OpenInExplorer := ( OutDirname "\Videos" )
+	Fullpath_OpenInExplorer := ( EnvGet("USERPROFILE") "\Videos" )
 	TrayTip, AHK, % ( "Opening Directory [ " Fullpath_OpenInExplorer " ]" )  ; Toast Notification
 	Run "%Fullpath_OpenInExplorer%"  ; Open the directory
 	Return
@@ -605,8 +604,7 @@ Pause::
 #g::
 #w::
 	KeysPressed := A_ThisHotkey
-	SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-	FileToPaste_Legend := OutDirname "\.ahk\" KeysPressed
+	FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" KeysPressed
 	ExeToRequire_Legend := FileToPaste_Legend "-exe"
 	FileToPaste_Contents := ""
 	ExeToRequire_Fullpath := ""
@@ -1031,7 +1029,7 @@ AppsKey & l::
 ;
 ;   HOTKEY:  WinKey + E
 ;   ACTION:  Opens directory pointed to by Windows' USERPROFILE environment variable
-; 
+;
 #e::
 	Run % EnvGet("USERPROFILE")
 	Return
@@ -1409,7 +1407,7 @@ WheelRight::
 		efs := "\Effective File Search.efsp"
 		; iso=C:\ISO
 		ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
-		ExeFilepath2 := A_MyDocuments efs
+		ExeFilepath2 := % EnvGet("USERPROFILE") efs
 		; MsgBox, % ExeFilepath2
 		If (FileExist(ExeFilepath)) {
 			Run, %ExeFilepath%
@@ -4304,14 +4302,13 @@ XBox_DownloadDelete_GameClips() {
 			; Open the timestamping script (renames files to their basename plus their metadata created-on date)
 			Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
 			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-			Run, Notepad "%A_MyDocuments%\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh"
+			Run, Notepad ( EnvGet("USERPROFILE") "\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh" )
 			Sleep 2000
 
 			; Open the output-videos directory
 			Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
 			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-			SplitPath %A_MyDocuments%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-			Fullpath_XboxCaptures := OutDirname "\Videos\Captures"
+			Fullpath_XboxCaptures := ( EnvGet("USERPROFILE") "\Videos\Captures" )
 			Run "%Fullpath_XboxCaptures%"
 			Sleep 2000
 

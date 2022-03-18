@@ -648,7 +648,7 @@ Pause::
 		; If the start menu pops up, wait a (half) second then reactivate desired exe's window
 		If (ExeToRequire_Fullpath != "") {
 			AwaitModifierKeyup()  ; Wait until all modifier keys are released
-			Sleep 250
+			Sleep 10
 			SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_BasenameNoExt, ExeToRequire_Drivename
 			WinActivate, ahk_exe %ExeToRequire_Basename%
 			VarSetCapacity(ExeToRequire_Basename,0)

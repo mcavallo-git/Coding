@@ -281,22 +281,42 @@ echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; r
 seq 10 | sed -e '/7/i\' -e hello;
 
 
-# Example)  Using a\ i\ c\
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\BEFORE" -e "a\\AFTER" -e "c\\MATCHED" -e "}";
+# Example)  Using [ i\ ] to [ add line(s) before matched pattern ]
+PATTERN="^5$"; \
+echo -e "$(seq 10;)\n$(seq 10;)" | \
+sed -r -e "/${PATTERN//\//\\\/}/{" \
+-e "i\\${BEFORE:-DAT_BEFORE}" \
+-e "}" \
+;
 
 
-# Example)  Using a\ i\ c\ with variables
-BEFORE="DAT_BEFORE_STRING"; AFTER="DAT_AFTER_STRING"; MATCHED="DAT_MATCHED_STRING";
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\${BEFORE}" -e "a\\${AFTER}" -e "c\\${MATCHED}" -e "}";
+# Example)  Using [ a\ ] to [ add line(s) after matched pattern ]
+PATTERN="^5$"; \
+echo -e "$(seq 10;)\n$(seq 10;)" | \
+sed -r -e "/${PATTERN//\//\\\/}/{" \
+-e "a\\${AFTER:-DAT_AFTER}" \
+-e "}" \
+;
 
 
-# Example)  Using a\ i\ (adds text before / after match)
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\BEFORE" -e "a\\AFTER" -e "}";
+# Example)  Using [ c\ ] to [ modify line(s) matched by pattern ]
+PATTERN="^5$"; \
+echo -e "$(seq 10;)\n$(seq 10;)" | \
+sed -r -e "/${PATTERN//\//\\\/}/{" \
+-e "c\\${MATCHED:-DAT_MATCHED}" \
+-e "}" \
+;
 
 
-# Example)  Using a\ i\ with variables (adds text before / after match)
-BEFORE="DAT_BEFORE_STRING"; AFTER="DAT_AFTER_STRING";
-echo -e "$(seq 10;)\n$(seq 10;)" | sed -r -e "/^5$/{" -e "i\\${BEFORE}" -e "a\\${AFTER}" -e "}";
+# Example)  COMBINED - Using [ a\ ], [ i\ ] & [ c\ ] simultaneously
+PATTERN="^5$"; \
+echo -e "$(seq 10;)\n$(seq 10;)" | \
+sed -r -e "/${PATTERN//\//\\\/}/{" \
+-e "i\\${BEFORE:-DAT_BEFORE}" \
+-e "a\\${AFTER:-DAT_AFTER}" \
+-e "c\\${MATCHED:-DAT_MATCHED}" \
+-e "}" \
+;
 
 
 

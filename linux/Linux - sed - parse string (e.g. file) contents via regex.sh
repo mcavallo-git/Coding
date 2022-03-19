@@ -33,7 +33,7 @@ seq 500 | sed -rne "s/^([0-9]{1})$/\1/pi";
 seq 500 | sed -rne "s/^49([0-9]{1})$/Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]/pi";
 
 
-# sed -r (regex)  -  Parse "curl" output:  Parse the version number corresponding to Terraform's "latest" release by curl'ng their release page url
+# sed -r (regex)  -  Parse "curl" output:  Parse the version number corresponding to Terraform's "latest" release by curl'ng their release page's url
 TERRAFORM_LATEST_VERSION="$(curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";)"; echo "TERRAFORM_LATEST_VERSION = [ ${TERRAFORM_LATEST_VERSION} ]";
 
 

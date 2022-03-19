@@ -11,7 +11,6 @@ if [[ 0 -eq 1 ]]; then
 # install_java
 curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_java?t=$(date +'%s.%N')" | bash;
 
-
 fi;
 # ------------------------------------------------------------
 #

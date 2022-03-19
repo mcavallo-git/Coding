@@ -43,15 +43,15 @@ else
 fi;
 
 
-# sed + regex  -  Match lines AND update file (using argument -i"...")
+# sed + regex  -  Update a file:  Update grub's default config by prepending " crashkernel=auto" onto variable GRUB_CMDLINE_LINUX
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
 
 
-# sed + regex  -  Find & replace lines which match either [ hostname: ] or [ container_name: ] (update the value which comes after them)
-NEW_DOCKER_NAME="dat-docker-name"; sed -i -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"${NEW_DOCKER_NAME}\"\3/" "./docker-compose.yml";
+# sed + regex  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
+FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
 
 
-# sed + regex  -  Match lines from a curl request
+# sed + regex  -  Parse a curl request: Curl the releases page for Terraform & parse out the number corresponding to the "latest" version
 TERRAFORM_LATEST_VERSION="$(curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";)"; echo "TERRAFORM_LATEST_VERSION = [ ${TERRAFORM_LATEST_VERSION} ]";
 
 

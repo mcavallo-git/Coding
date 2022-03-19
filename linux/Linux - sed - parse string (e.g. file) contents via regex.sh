@@ -3,35 +3,38 @@
 # Linux - sed - parse string (e.g. file) contents via regex
 # ------------------------------------------------------------
 
-# Determine if running GNU sed (1) or not (0)
+# Determine if running GNU sed (returns 1) or not (returns 0)
 IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -gt 0 ]]; then echo 1; else echo 0; fi;)"; echo "IS_GNU_SED = [ ${IS_GNU_SED} ]";
 
 
 # ------------------------------------------------------------
 #
-# Simple Example ) Replace substrings within strings
+# Ex)  Replace substrings
 #
 
 echo "hello world" | sed -e 's|world|not world|g';
 
-echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/^([0-9]{1})$/\1/pi";
 
 # ------------------------------------------------------------
 #
-# Regex w/ Capture Groups
+# Ex)  Regex Capture Groups
 #
 
-# Only match lines with 1 digit
-PATTERN="^([0-9]{1})$"; OUTPUT="\1";
-echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
+
+# Regex capture groups via sed  -  Match lines containing exactly 1 numeric (0-9) character
+PATTERN="^([0-9]{1})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 
-# Only match lines with 2 digits
-PATTERN="^([0-9]{2})$"; OUTPUT="\1";
-echo -e "1\n2\n3\n10\n20\n30" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
+# Regex capture groups via sed  -  Match lines containing exactly 2 numeric (0-9) characters
+INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)";
+PATTERN="^([0-9]{2})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 
-# -----
+# Regex capture groups via sed  -  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
+PATTERN="^49([0-9]{1})$"; OUTPUT="Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]"; INPUT="$(seq 500;)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
+
+
+# ------------------------------------------------------------
 
 # 
 # Note: sed capture groups are referenced using backslashes before the capture group number, e.g. [ \1 \2 ... \n ]

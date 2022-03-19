@@ -1,6 +1,6 @@
 #!/bin/sh
 # ------------------------------------------------------------
-# Linux - printf (string right pad (rpad) & left pad (lpad))
+# Linux - printf (pad left (lpad), pad right (rpad) strings)
 # ------------------------------------------------------------
 
 

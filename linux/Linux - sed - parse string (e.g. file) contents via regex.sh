@@ -9,7 +9,7 @@ IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -g
 
 # ------------------------------------------------------------
 #
-# Ex)  Replace substrings
+# Substring replacement
 #
 
 # sed string replacement  -  Replace "world" with "not world"
@@ -18,7 +18,7 @@ echo "hello world" | sed -e 's|world|not world|g';
 
 # ------------------------------------------------------------
 #
-# Regex Capture Groups
+# Regex capture groups
 #  |
 #  |--> Note: regex capture groups are referenced in sed using backslashes before the regex capture group's number, e.g. [ \1 \2 ... \n ]
 #        |

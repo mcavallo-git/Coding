@@ -26,7 +26,6 @@ PATTERN="^([0-9]{1})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; 
 
 
 # Regex capture groups via sed  -  Match lines containing exactly 2 numeric (0-9) characters
-INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)";
 PATTERN="^([0-9]{2})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 

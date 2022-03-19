@@ -9,7 +9,7 @@ printf -- "-%.0s" {1..60};  # Repeat "-" 60 times
 
 
 # Repeat string  -  General syntax (variable count)
-COUNT=60; CHAR="-"; printf -- "${CHAR}%.0s" $(seq ${COUNT});  # Repeat "-" 60 times
+CHAR="-"; COUNT=60; printf -- "${CHAR}%.0s" $(seq ${COUNT});  # Repeat "-" 60 times
 
 
 # ------------------------------------------------------------

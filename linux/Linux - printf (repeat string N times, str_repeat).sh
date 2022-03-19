@@ -1,6 +1,6 @@
 #!/bin/sh
 # ------------------------------------------------------------
-# Linux - printf (string repeat)
+# Linux - printf (repeat string N times, str_repeat)
 # ------------------------------------------------------------
 
 

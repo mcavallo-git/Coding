@@ -1,4 +1,4 @@
-STRESS(1)                                                            User Commands                                                           STRESS(1)
+STRESS(1)                                                          User Commands                                                         STRESS(1)
 
 NAME
        stress - tool to impose load on and stress test systems
@@ -62,11 +62,11 @@ DESCRIPTION
        Note: Numbers may be suffixed with s,m,h,d,y (time) or B,K,M,G (size).
 
 SEE ALSO
-       The  full documentation for stress is maintained as a Texinfo manual.  If the info and stress programs are properly installed at your site, the
-       command
+       The  full documentation for stress is maintained as a Texinfo manual.  If the info and stress programs are properly installed at your site,
+       the command
 
               info stress
 
        should give you access to the complete manual.
 
-stress 1.0.4                                                          March 2010                                                             STRESS(1)
+stress 1.0.4                                                        March 2010                                                           STRESS(1)

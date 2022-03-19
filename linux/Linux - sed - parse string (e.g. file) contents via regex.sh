@@ -33,16 +33,6 @@ seq 500 | sed -rne "s/^([0-9]{1})$/\1/pi";
 seq 500 | sed -rne "s/^49([0-9]{1})$/Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]/pi";
 
 
-# sed + regex  -  Match lines in a file
-if [ $(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root" | wc -l;) -eq 0 ]; then
-  echo "No lines matched";
-else
-  echo "At least one line matched!";
-  MATCHED_LINES=$(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root";);
-  echo "\${MATCHED_LINES}=[${MATCHED_LINES}]";
-fi;
-
-
 # sed + regex  -  Update a file:  Update grub's default config by prepending " crashkernel=auto" onto variable GRUB_CMDLINE_LINUX
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
 
@@ -54,6 +44,17 @@ FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name)
 # sed + regex  -  Parse a curl request: Curl the releases page for Terraform & parse out the number corresponding to the "latest" version
 TERRAFORM_LATEST_VERSION="$(curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";)"; echo "TERRAFORM_LATEST_VERSION = [ ${TERRAFORM_LATEST_VERSION} ]";
 
+
+# sed + regex  -  Conditional based on Regex match passing/failing
+if [ $(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root" | wc -l;) -eq 0 ]; then
+  # regex match failed
+  echo "No lines matched";
+else
+  # regex match passed
+  echo "At least one line matched!";
+  MATCHED_LINES=$(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root";);
+  echo "\${MATCHED_LINES}=[${MATCHED_LINES}]";
+fi;
 
 # ------------------------------------------------------------
 # 

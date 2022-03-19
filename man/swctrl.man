@@ -1,0 +1,23 @@
+------------------------------------------------------------
+--- swctrl help
+
+Usage: swctrl [ OPTIONS ] FUNCTION { COMMAND | help }
+
+where  FUNCTION  := { port | poe | env | mac | sfp | led | vlan | lldp | mgmt }
+       OPTIONS   := { }
+
+------------------------------------------------------------
+--- swctrl poe help
+
+Usage: swctrl poe restart [ id PORT_ID ]
+
+       swctrl poe show [ id PORT_ID ]
+
+       swctrl poe set [ COMMANDS ]
+
+Commands:
+       { auto | poe | poeplus | poeplusplus | off | pasv24 | passthrough } [ id PORT_ID ]
+
+where  PORT_ID := a list of target port, e.g., 3 or 5-7 or 1,4,9-12
+
+------------------------------------------------------------

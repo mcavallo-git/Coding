@@ -5,7 +5,7 @@
 
 
 # Repeat string  -  General syntax (hardcoded count)
-CHAR="-"; printf -- "${CHAR}%.0s" {1..60};  # Repeat "-" 60 times
+printf -- "-%.0s" {1..60};  # Repeat "-" 60 times
 
 
 # Repeat string  -  General syntax (variable count)

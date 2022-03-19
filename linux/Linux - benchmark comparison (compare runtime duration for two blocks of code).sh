@@ -1,3 +1,24 @@
+#!/bin/bash
+# ------------------------------------------------------------
+#
+# Single Benchmark
+#
+if [[ 1 -eq 1 ]]; then
+  BENCHMARK_START=$(date +'%s.%N';);
+  # ---- START CODE BLOCK
+
+  sleep 3;
+
+  # ---- END CODE BLOCK
+  BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N';) - ${BENCHMARK_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
+  echo "Runtime Duration:  ${BENCHMARK_DELTA}s";
+fi;
+
+
+# ------------------------------------------------------------
+#
+# Double Benchmark (Comparisons)
+#
 if [[ 1 -eq 1 ]]; then
   # ------------------------------
   # Set how many times to run each code block

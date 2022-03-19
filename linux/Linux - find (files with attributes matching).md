@@ -165,6 +165,25 @@ find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq 
 <!-- ------------------------------------------------------------ -->
 
 <li><details open><summary>
+		<span>Prepend Each Line - Find files in  [ /var/log ] matching [ syslog* ] then use printf to prepend string text onto each line returned by find</span>
+	</summary>
+<pre><code>
+# Linux - find + printf (prepending strings before each result)
+find "/var/log/" \
+-type f \
+-iname syslog* \
+-exec printf "$(date --utc +'%Y-%m-%dT%H:%M:%S.%NZ';) $(whoami)@$(hostname) | " \; \
+-exec echo "------------------------------------------------------------" \; \
+-exec cat '{}' \; \
+-exec echo "------------------------------------------------------------" \; \
+;
+</code></pre>
+<hr /></details></li><br />
+
+
+<!-- ------------------------------------------------------------ -->
+
+<li><details open><summary>
 		<span>Last Modified - Find files modified [ in the last X minutes ( see variable LAST_X_MINUTES ) ]</span>
 	</summary>
 <pre><code>

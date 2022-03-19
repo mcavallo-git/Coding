@@ -10,7 +10,8 @@ if [[ 1 -eq 1 ]]; then
   sleep 3;
 
   # ---- END CODE BLOCK
-  BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N';) - ${BENCHMARK_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
+  BENCHMARK_END=$(date +'%s.%N';)
+  BENCHMARK_DELTA=$(echo "scale=4; (${BENCHMARK_END} - ${BENCHMARK_START})/1" | bc -l | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';);
   echo "Runtime Duration:  ${BENCHMARK_DELTA}s";
 fi;
 

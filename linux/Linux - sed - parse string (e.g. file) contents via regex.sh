@@ -12,24 +12,25 @@ IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -g
 # Ex)  Replace substrings
 #
 
+# sed string replacement  -  Replace "world" with "not world"
 echo "hello world" | sed -e 's|world|not world|g';
 
 
 # ------------------------------------------------------------
 #
 # Ex)  Regex Capture Groups
+#       |-->  -r      |-->  \1, \2, \3, ...
 #
 
-
-# Regex capture groups via sed  -  Match lines containing exactly 1 numeric (0-9) character
+# sed + regex capture groups  -  Match lines containing exactly 1 numeric (0-9) character
 PATTERN="^([0-9]{1})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 
-# Regex capture groups via sed  -  Match lines containing exactly 2 numeric (0-9) characters
+# sed + regex capture groups  -  Match lines containing exactly 2 numeric (0-9) characters
 PATTERN="^([0-9]{2})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 
-# Regex capture groups via sed  -  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
+# sed + regex capture groups  -  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
 PATTERN="^49([0-9]{1})$"; OUTPUT="Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]"; INPUT="$(seq 500;)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
 
 

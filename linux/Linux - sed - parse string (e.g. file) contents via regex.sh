@@ -18,32 +18,22 @@ echo "hello world" | sed -e 's|world|not world|g';
 
 # ------------------------------------------------------------
 #
-# Ex)  Regex Capture Groups
-#       |-->  -r      |-->  \1, \2, \3, ...
-#
-
-# sed + regex capture groups  -  Match lines containing exactly 1 numeric (0-9) character
-PATTERN="^([0-9]{1})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
-
-
-# sed + regex capture groups  -  Match lines containing exactly 2 numeric (0-9) characters
-PATTERN="^([0-9]{2})$"; OUTPUT="\1"; INPUT="$(echo -e "1\n2\n3\n10\n20\n30";)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
-
-
-# sed + regex capture groups  -  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
-PATTERN="^49([0-9]{1})$"; OUTPUT="Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]"; INPUT="$(seq 500;)"; echo "${INPUT}" | sed -rne "s/${PATTERN//\//\\\/}/${OUTPUT}/pi";
-
-
-# ------------------------------------------------------------
-
-# 
-# Note: sed capture groups are referenced using backslashes before the capture group number, e.g. [ \1 \2 ... \n ]
+# Regex Capture Groups
 #  |
-#  |--> this is in contrade to traditional regex capture group syntax, which uses a dollar sign before the capture group number, e.g. [ $1 $2 ... $n ]
+#  |--> Note: regex capture groups are referenced in sed using backslashes before the capture group number, e.g. [ \1 \2 ... \n ]
+#        |
+#        |--> this is in contrast to traditional regex capture group syntax which uses dollar signs instead of backslashes, e.g. [ $1 $2 ... $n ]
 #
 
+# sed + regex  -  Match lines containing exactly 1 numeric (0-9) character
+seq 500 | sed -rne "s/^([0-9]{1})$/\1/pi";
 
-# Match lines in a file
+
+# sed + regex  -  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
+seq 500 | sed -rne "s/^49([0-9]{1})$/Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]/pi";
+
+
+# sed + regex  -  Match lines in a file
 if [ $(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root" | wc -l;) -eq 0 ]; then
   echo "No lines matched";
 else
@@ -53,14 +43,15 @@ else
 fi;
 
 
-# Match lines AND update file (using argument -i"...")
+# sed + regex  -  Match lines AND update file (using argument -i"...")
 sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
 
 
-# Find & replace lines which match either [ hostname: ] or [ container_name: ] (update the value which comes after them)
+# sed + regex  -  Find & replace lines which match either [ hostname: ] or [ container_name: ] (update the value which comes after them)
 NEW_DOCKER_NAME="dat-docker-name"; sed -i -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"${NEW_DOCKER_NAME}\"\3/" "./docker-compose.yml";
 
-# Match lines from a curl request
+
+# sed + regex  -  Match lines from a curl request
 TERRAFORM_LATEST_VERSION="$(curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";)"; echo "TERRAFORM_LATEST_VERSION = [ ${TERRAFORM_LATEST_VERSION} ]";
 
 

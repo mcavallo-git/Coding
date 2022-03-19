@@ -18,7 +18,7 @@ echo "hello world" | sed -e 's|world|not world|g';
 
 # ------------------------------------------------------------
 #
-# Regex capture groups
+# Regex matching & capture groups
 #  |
 #  |--> Note: regex capture groups are referenced in sed using backslashes before the regex capture group's number, e.g. [ \1 \2 ... \n ]
 #        |

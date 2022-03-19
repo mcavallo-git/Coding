@@ -36,6 +36,7 @@ seq 500 | sed -rne "s/^49([0-9]{1})$/Regex Capture Group #0: [ \0 ],  Regex Capt
 # sed -r (regex)  -  Parse "curl" output:  Parse the version number corresponding to Terraform's "latest" release by curl'ng their release page's url
 curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";
 
+
 # sed -r (regex)  -  Parse "printenv" output:  Parse out the path component from any environment variables which contain the string 'onedrive'
 printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 

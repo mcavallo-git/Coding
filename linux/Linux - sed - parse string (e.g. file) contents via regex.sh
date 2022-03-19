@@ -20,7 +20,7 @@ echo "hello world" | sed -e 's|world|not world|g';
 #
 # Regex Capture Groups
 #  |
-#  |--> Note: regex capture groups are referenced in sed using backslashes before the capture group number, e.g. [ \1 \2 ... \n ]
+#  |--> Note: regex capture groups are referenced in sed using backslashes before the regex capture group's number, e.g. [ \1 \2 ... \n ]
 #        |
 #        |--> this is in contrast to traditional regex capture group syntax which uses dollar signs instead of backslashes, e.g. [ $1 $2 ... $n ]
 #

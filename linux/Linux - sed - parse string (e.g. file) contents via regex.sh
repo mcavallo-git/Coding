@@ -25,31 +25,27 @@ echo "hello world" | sed -e 's|world|not world|g';
 #        |--> this is in contrast to traditional regex capture group syntax which uses dollar signs instead of backslashes, e.g. [ $1 $2 ... $n ]
 #
 
-# sed -r (regex)  -  Match lines containing exactly 1 numeric (0-9) character
+# sed -r (regex)  -  Basic:  Match lines containing exactly 1 numeric (0-9) character
 seq 500 | sed -rne "s/^([0-9]{1})$/\1/pi";
 
 
-# sed -r (regex)  -  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
+# sed -r (regex)  -  Basic:  Match lines starting with "49" followed by exactly 1 numeric (0-9) character
 seq 500 | sed -rne "s/^49([0-9]{1})$/Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]/pi";
 
 
-# sed -r (regex)  -  Update a file:  Update grub's default config by prepending " crashkernel=auto" onto variable GRUB_CMDLINE_LINUX
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
-
-
-# sed -r (regex)  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
-FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
-
-
-# sed -r (regex)  -  Curl parsing: Curl the releases page for Terraform & parse out the number corresponding to the "latest" version
+# sed -r (regex)  -  Parse "curl" output:  Curl the Terraform releases page & parse the "latest" version number out of the returned HTML
 TERRAFORM_LATEST_VERSION="$(curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";)"; echo "TERRAFORM_LATEST_VERSION = [ ${TERRAFORM_LATEST_VERSION} ]";
 
 
-# sed -r (regex)  -  Env var parsing: Parse out the path component from any environment variables which contain the string 'onedrive'
+# sed -r (regex)  -  Parse "printenv" output:  Parse out the path component from any environment variables which contain the string 'onedrive'
 printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 
 
-# sed -r (regex)  -  Remove substring: Remove a specific string from a comma-delimited list of strings
+# sed -r (regex)  -  Parse "stress-ng" output:  Get the number of cores output by a "stress-ng" dry run test using all cores (cpu "0" + method "all")
+stress-ng --cpu 0 --cpu-method all --dry-run 2>&1 | sed -rne "s/^.+dispatching hogs: ([0-9]{1,}) cpu\s*$/\1/pi";
+
+
+# sed -r (regex)  -  Slice:  Remove a specific string from a comma-delimited list of strings
 echo -n 'abc,defghij,klm' | sed 's/,/\n/g' | sed -r "/^def*/d" | tr '\n' ',';
 
 
@@ -63,6 +59,14 @@ else
   MATCHED_LINES=$(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root";);
   echo "\${MATCHED_LINES}=[${MATCHED_LINES}]";
 fi;
+
+
+# sed -r (regex)  -  Update a file:  Update grub's default config by prepending " crashkernel=auto" onto variable GRUB_CMDLINE_LINUX
+sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
+
+
+# sed -r (regex)  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
+FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
 
 
 # ------------------------------------------------------------

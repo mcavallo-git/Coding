@@ -41,8 +41,16 @@ sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 c
 FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
 
 
-# sed + regex  -  Parse a curl request: Curl the releases page for Terraform & parse out the number corresponding to the "latest" version
+# sed + regex  -  Curl parsing: Curl the releases page for Terraform & parse out the number corresponding to the "latest" version
 TERRAFORM_LATEST_VERSION="$(curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";)"; echo "TERRAFORM_LATEST_VERSION = [ ${TERRAFORM_LATEST_VERSION} ]";
+
+
+# sed + regex  -  Env var parsing: Parse out the path component from any environment variables which contain the string 'onedrive'
+printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
+
+
+# sed + regex  -  Remove substring: Remove a specific string from a comma-delimited list of strings
+echo -n 'abc,defghij,klm' | sed 's/,/\n/g' | sed "/^def*/d" | tr '\n' ',';
 
 
 # sed + regex  -  Conditional based on Regex match passing/failing
@@ -55,20 +63,6 @@ else
   MATCHED_LINES=$(sed -rne "s/^(No issues found.)$/\1/p" "/var/log/npm-output/root";);
   echo "\${MATCHED_LINES}=[${MATCHED_LINES}]";
 fi;
-
-
-# ------------------------------------------------------------
-# 
-# Use sed with piped-commands to parse their output, line-by-line
-#
-
-
-# Example 1.1
-printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
-
-
-# Example 1.2
-Example_CommaDelimitedList_RemoveMatchedItems="$(echo 'abc,defghij,klm' | sed 's/,/\n/g' | sed /^def*/d)"; echo "${Example_CommaDelimitedList_RemoveMatchedItems}";
 
 
 # ------------------------------------------------------------

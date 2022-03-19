@@ -50,7 +50,7 @@ printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 
 
 # sed + regex  -  Remove substring: Remove a specific string from a comma-delimited list of strings
-echo -n 'abc,defghij,klm' | sed 's/,/\n/g' | sed "/^def*/d" | tr '\n' ',';
+echo -n 'abc,defghij,klm' | sed 's/,/\n/g' | sed -r "/^def*/d" | tr '\n' ',';
 
 
 # sed + regex  -  Conditional based on Regex match passing/failing

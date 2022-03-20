@@ -62,11 +62,7 @@ fi;
 
 
 # sed -r (regex)  -  Update a file:  Update grub's default config by prepending " crashkernel=auto" onto variable GRUB_CMDLINE_LINUX
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" "/etc/default/grub";
-
-
-# sed -r (regex)  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
-FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
+sed -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" -i".$(date +'%Y%m%d_%H%M%S').bak" "/etc/default/grub";
 
 
 # ------------------------------------------------------------
@@ -121,10 +117,10 @@ cat "${TEMP_SSHD}";
 #
 
 # Disable MOTD (Message of the Day) by replacing the whole line containing ENABLED
-sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=0" "/etc/default/motd-news";
+sudo sed -e "/^ENABLED=/c\ENABLED=0" -i".$(date +'%Y%m%d_%H%M%S').bak" "/etc/default/motd-news";
 
 # Enable MOTD (Message of the Day)
-sudo sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^ENABLED=/c\ENABLED=1" "/etc/default/motd-news";
+sudo sed -e "/^ENABLED=/c\ENABLED=1" -i".$(date +'%Y%m%d_%H%M%S').bak" "/etc/default/motd-news";
 
 
 # ------------------------------------------------------------
@@ -142,14 +138,14 @@ HOSTS_IP="8.8.8.8"; HOSTS_FQDN="dns.google.com"; echo "$(sed -re "/^${HOSTS_IP} 
 
 ### Bash - Comment out specific line(s) in local "/etc/profile" file (to disable "You have new mail in /var/spool/mail/..." alerts at login)
 if [ -n "$(sed -rne 's/^\s*MAIL=.*$/\0/p' '/etc/profile' 2>'/dev/null';)" ]; then \
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -re '/^\s*MAIL=.*$/ s/^#*/# /' "/etc/profile"; \
+sed -re '/^\s*MAIL=.*$/ s/^#*/# /' -i".$(date +'%Y%m%d_%H%M%S').bak" "/etc/profile"; \
 fi;
 
 
 ### MongoDB - Comment out specific line(s) in "/etc/mongod.conf" file (to disable replication)
 systemctl stop mongod; \
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/^replication:/ s/^#*/# /' "/etc/mongod.conf"; \
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/^  replSetName:/ s/^#*/# /' "/etc/mongod.conf"; \
+sed -e '/^replication:/ s/^#*/# /' -i".$(date +'%Y%m%d_%H%M%S').bak" "/etc/mongod.conf"; \
+sed -e '/^  replSetName:/ s/^#*/# /' -i".$(date +'%Y%m%d_%H%M%S').bak" "/etc/mongod.conf"; \
 systemctl start mongod;
 
 
@@ -164,7 +160,7 @@ if [ -f '/etc/inputrc' ]; then
     ### Bash - Disable the bell sound effect (specifically intended for WSL (Windows Subsystem for Linux)) - https://stackoverflow.com/a/36726662
     BENCHMARK_START=$(date +'%s.%N');
     echo -e "\n""Info:  Setting bell-style the bell sound effect in \"/etc/inputrc\")";
-    sed -i".${START_TIMESTAMP}.bak" -r -e 's/^#\s*(set\s+bell-style\s+none\s*)$/\1/' '/etc/inputrc';
+    sed -r -e 's/^#\s*(set\s+bell-style\s+none\s*)$/\1/' -i".${START_TIMESTAMP}.bak" '/etc/inputrc';
     BENCHMARK_DELTA=$(echo "scale=4; ($(date +'%s.%N') - ${BENCHMARK_START})/1" | bc -l);
     test ${ARGS_DEBUG_MODE} -eq 1 && echo "  |--> Finished after ${BENCHMARK_DELTA}s";
   fi;
@@ -193,7 +189,7 @@ sed -e '/^\s*$/d' "/etc/hosts";
 #  |-->  -i"..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
 #
 
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e '/pattern to match/d' ./infile
+sed -e '/pattern to match/d' -i".$(date +'%Y%m%d_%H%M%S').bak" "./infile";
 
 
 # ------------------------------------------------------------
@@ -249,17 +245,39 @@ echo "STRING_TRIMMED=[${STRING_TRIMMED}]";
 #               edit files in place (makes backup if SUFFIX supplied)
 #
 
-# Example - sed -i (inline edit - modifies target filepath)
+
+# sed -i (inline edit - modifies target filepath)
 FILEPATH="${HOME}/test-sed-i.example-1.txt";
 echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" > "${FILEPATH}";
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "/^\s*$/d" "${FILEPATH}";  # sed - remove empty/whitespace-only lines
+sed -e "/^\s*$/d" -i".$(date +'%Y%m%d_%H%M%S').bak" "${FILEPATH}";  # sed - remove empty/whitespace-only lines
 echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; rm -rfv "${FILEPATH}";
 
-# Example - sed -i (inplace edit - modifies target filepath)
+
+# sed -i (inplace edit - modifies target filepath)
 FILEPATH="${HOME}/test-sed-i.example-2.txt";
 echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" > "${FILEPATH}";
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e "s/^\s*//g" "${FILEPATH}";  # sed - trim leading whitespace
+sed -e "s/^\s*//g" -i".$(date +'%Y%m%d_%H%M%S').bak" "${FILEPATH}";  # sed - trim leading whitespace
 echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; rm -rfv "${FILEPATH}";
+
+
+# sed -i (inplace edit - modifies target filepath)  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
+FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
+
+
+# sed -i (inplace edit - modifies target filepath)  -  Remove Windows newlines (e.g. remove CR's) from a file
+sed -e 's/\r$//' -i".$(date +'%Y%m%d_%H%M%S').bak" "~/sftp/uploaded_file";
+
+
+# sed -i (inplace edit - modifies target filepath)  -  MySQL Exports: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+sed 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' -i "Functions.sql";
+
+
+# sed -i (inplace edit - modifies target filepath)  -  MySQL Exports: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+sed 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' -i "Functions.sql";
+
+
+# sed -i (inplace edit - modifies target filepath)  -  MySQL Exports - Replace Trigger definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+sed 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' -i "Triggers.sql";
 
 
 # ------------------------------------------------------------
@@ -355,14 +373,6 @@ echo -e "${TEST_STR}" | sed -n "${SED_REVERSE_METHOD2}" | head -n -${TOP_LINES_T
 
 
 # ------------------------------------------------------------
-# 
-# Example)  Remove windows-newlines (e.g. remove CR's)
-#
-
-sed -i".$(date +'%Y%m%d_%H%M%S').bak" -e 's/\r$//' "~/sftp/uploaded_file";
-
-
-# ------------------------------------------------------------
 #
 # Example)  Escape forward slashes using sed
 #
@@ -372,24 +382,6 @@ EXAMPLE_SUBNET_TO_REMOVE="172.16.0.0/12";
 SED_ESCAPED_FORWARD_SLASHES="$(echo ${EXAMPLE_SUBNET_TO_REMOVE} | sed 's/\//\\\//g')";
 SED_EXPRESSION="/^${SED_ESCAPED_FORWARD_SLASHES}*/d";
 echo "${EXAMPLE_SUBNETS_LIST}" | sed ${SED_EXPRESSION};
-
-
-# ------------------------------------------------------------
-#
-# Example)  MySQL Exports - Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
-#
-
-sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql";
-
-sed -i 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' "Functions.sql";
-
-
-# ------------------------------------------------------------
-#
-# Example)  MySQL Exports - Replace Trigger definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
-#
-
-sed -i 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' "Triggers.sql";
 
 
 # ------------------------------------------------------------

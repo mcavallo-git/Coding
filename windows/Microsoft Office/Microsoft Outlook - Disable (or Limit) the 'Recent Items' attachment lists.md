@@ -1,6 +1,6 @@
 
 ***
-# Microsoft Outlook - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment
+# Microsoft Outlook - Disable (or Limit) the 'Recent Items' attachment lists
 
 1. Open regedit.exe (Registry Editor)
 

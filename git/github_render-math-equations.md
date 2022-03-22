@@ -6,13 +6,15 @@
 
 # GitHub Math Equation Rendering
 
-<br /><hr />
+
+<hr />
 
 ## General Syntax
 - HTML:
 ```<img src="https://render.githubusercontent.com/render/math?math={_____}">```&nbsp;&nbsp;&nbsp;*(replacing the `_____` in the URL with the math equation to be rendered)*
 
-<br /><hr />
+
+<hr />
 
 ## Example 1
 
@@ -23,7 +25,7 @@
 <img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">
 
 
-<br /><hr />
+<hr />
 
 ## Example 2
 
@@ -34,7 +36,7 @@
 <img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">
 
 
-<br /><hr />
+<hr />
 
 ## Example 3
 
@@ -45,4 +47,4 @@
 <img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}">
 
 
-<br /><hr />
+<hr />

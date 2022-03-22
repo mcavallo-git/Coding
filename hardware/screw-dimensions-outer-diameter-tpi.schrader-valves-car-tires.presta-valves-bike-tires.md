@@ -26,7 +26,7 @@
             - `12 threads` / `0.3937in` = `30.48 TPI`
               - `30.48TPI` (threads per inch) is acceptably close to `32TPI` for the roughness of the measurements taken for the measured screw length (`10mm`)
   - ## Nut size
-      - > Thread designation is .305-32 or 7.7-32 [for a TR 418 valve stem]<sup><a href="https://www.homeownershub.com/maintenance/what-size-nut-goes-onto-a-typical-us-passenger-tire-schrader-1116784-.htm">Citation</a></sup>
+      - > Thread designation is `.305-32` or `7.7-32` [for a TR 418 valve stem]<sup><a href="https://www.homeownershub.com/maintenance/what-size-nut-goes-onto-a-typical-us-passenger-tire-schrader-1116784-.htm">Citation</a></sup>
 
 
 <br /><hr />

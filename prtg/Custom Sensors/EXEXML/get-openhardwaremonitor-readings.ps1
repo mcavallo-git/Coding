@@ -171,7 +171,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 
 	$GetCulture=(Get-Culture); <# Get the system's display format of items such as numbers #>
 
-
 	For ($i=0; $i -LT ((${CsvImport}["Paths"]).Count); $i++) {
 
 		$Each_HeaderPath=(${CsvImport}["Paths"][$i]);
@@ -344,8 +343,12 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 
 		@("Avg","Max","Min") | ForEach-Object {
 
+			# ------------------------------
+
 			If (${Each_SensorDescription} -Eq "Time") {
 				${Time_Range}.(${_}) = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value}.(${_}))))) -UFormat ("%m/%d/%Y %H:%M:%S"));
+
+				# ------------------------------
 
 			} ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
 				${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
@@ -359,6 +362,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 			} ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
 				${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
 
+				# ------------------------------
 
 			} ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
 				${Load_GPU}.(${_}) = (${Each_Value}.(${_}));
@@ -380,6 +384,8 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 
 			} ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
 				${Clock_GPU_Shad}.(${_}) = (${Each_Value}.(${_}));
+
+				# ------------------------------
 
 			} ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
 				${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
@@ -423,7 +429,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 
 		}
 
-	};
+	}
 
 }
 
@@ -470,8 +476,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 		Write-Output "$(${Clock_GPU_Shad}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}.${_}.txt";
 	}
 
-
-
 	# ------------------------------
 
 	# Fan Speed (RPM) - Water-Pump (W_PUMP+)
@@ -498,7 +502,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 	} Else {
 		Write-Output "$(${Speed_FAN_SSD}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}.${_}.txt";
 	}
-
 
 	# ------------------------------
 
@@ -527,7 +530,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 		Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}.${_}.txt";
 	}
 
-
 	# ------------------------------
 
 	# Load - CPU
@@ -550,7 +552,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 		Write-Output "$(${GPU_Memory_Load}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}.${_}.txt";
 	}
 
-
 	# ------------------------------
 
 	# Power - CPU
@@ -565,7 +566,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 	} Else {
 		Write-Output "$(${Power_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Power_GPU}.${_}.txt";
 	}
-
 
 	# ------------------------------
 
@@ -594,7 +594,6 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 		Write-Output "$(${Temp_T_SENSOR}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}.${_}.txt";
 	}
 
-
 	# ------------------------------
 
 }
@@ -609,7 +608,6 @@ Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
 | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
 | Remove-Item -Recurse -Force -Confirm:$False `
 ;
-
 
 # ------------------------------
 

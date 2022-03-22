@@ -52,7 +52,7 @@ certbot certificates;
 #  |--> Same command required for both (as-of June-2020) for wildcard certs through Let's Encrypt (as no simplified/all-in-one certbot renew command exists for LE cert-renewal):
 #
 
-DN="example.com"; certbot certonly --manual --manual-public-ip-logging-ok --server https://acme-v02.api.letsencrypt.org/directory --preferred-challenges dns-01 -d "${DN}" -d "*.${DN}"; certbot certificates -d "${DN}"; test -x "/usr/local/sbin/reload_nginx" && /usr/local/sbin/reload_nginx;
+DN="example.com"; certbot certonly --no-eff-email --manual --manual-public-ip-logging-ok --server https://acme-v02.api.letsencrypt.org/directory --preferred-challenges dns-01 -d "${DN}" -d "*.${DN}"; certbot certificates -d "${DN}"; test -x "/usr/local/sbin/reload_nginx" && /usr/local/sbin/reload_nginx;
 
 
 # ------------------------------------------------------------

@@ -1,3 +1,7 @@
+<!-- ------------------------------------------------------------ -->
+<!-- https://github.com/mcavallo-git/Coding/blob/master/git/github_render-math-equations.md -->
+<!-- ------------------------------------------------------------ -->
+
 <hr />
 
 # GitHub - Math equation rendering

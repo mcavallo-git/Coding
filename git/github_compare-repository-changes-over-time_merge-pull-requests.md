@@ -6,8 +6,6 @@
 
 # GitHub - Compare repository changes over time
 
-<br /><hr />
-
 1. On GitHub, create a new pull request for the repo in-question (which you wish to compare over a given time period)
 2. For the FROM branch (right branch-dropdown within the pull-request):
   - Type the name of the branch in-question (or type 'master' for the trunk)
@@ -17,6 +15,7 @@
   - Type the same branch as the FROM branch
   - Append your time period's ***START*** date, wrapped in curly braces and matching format @{MM-DD-YY}, onto the right-side of the branch-name
     - Example format: `master@{MM-DD-YY}`
+
 
 <br /><hr />
 

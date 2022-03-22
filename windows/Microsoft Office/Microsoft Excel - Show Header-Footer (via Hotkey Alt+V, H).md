@@ -1,6 +1,6 @@
 
 ***
-# Microsoft Excel - Hotkey for Show Header, Footer
+# Microsoft Excel - Show Header-Footer (via Hotkey Alt+V, H)
 
 - Hotkey: `ALT V -> H`
 

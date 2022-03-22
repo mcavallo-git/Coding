@@ -1,16 +1,16 @@
 
 ***
-# Microsoft Word - Disable Comments (Hide Markup) when printing
+# Microsoft Word - Hide comments while printing
 
 1. Open Microsoft Word
 
-2. Click "File" (top-left) *shows 'Home' screen*
+2. Click `File` (top-left) *shows Home screen*
 
-3. Click "Print" (left) *shows 'Print' screen*
+3. Click `Print` (left) *shows Print screen*
 
-4. Click "Print All Pages" *opens dropdown menu*
+4. Click `Print All Pages` *opens dropdown menu*
 
-5. Make sure "Print Markup" is UN-checked (near bottom of dropdown options)
+5. Make sure `Print Markup` is UN-checked (near bottom of dropdown options)
 
 
 ***

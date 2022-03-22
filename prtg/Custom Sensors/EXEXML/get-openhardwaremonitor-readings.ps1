@@ -604,7 +604,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 #
 
 Add-Type -AssemblyName "Microsoft.VisualBasic";  <# Required to use Recycle Bin action 'SendToRecycleBin' #>
-$Retention_Days = "29";
+$Retention_Days = "20";
 $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
 Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
 | Where-Object { ($_.Name -Like "${Logfile_StartsWith}*") } `

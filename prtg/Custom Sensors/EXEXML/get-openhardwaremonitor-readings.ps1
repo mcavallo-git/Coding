@@ -407,7 +407,10 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 				#           ↓
 				#     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 40.0 ]
 				#
-				${Temp_T_SENSOR}.(${_}) = ([Double](${Each_Value}.(${_})) - [Double](40.00));
+				$T_SENSOR_TEMP = ([Double](${Each_Value}.(${_})) - [Double](40.00));
+				If (${T_SENSOR_TEMP} -GT 0.0) {
+					${Temp_T_SENSOR}.(${_}) = ${T_SENSOR_TEMP};
+				}
 
 			} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  <# W_PUMP+ #>
 				${Speed_FAN_PMP}.(${_}) = (${Each_Value}.(${_}));

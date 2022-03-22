@@ -246,23 +246,8 @@ function SyncRegistry {
 				)
 			};
 
-			# Desktop/Explorer - Accent Color (cont.) (customization)
-			$RegEdits += @{
-				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Colors";
-				Props=@(
-					@{
-						Description="Set the value for option 'Choose your accent color' found under [ Windows 10 Settings > Personalizaiton > Colors > 'Choose your accent color' ]";
-						Name="HotTrackingColor";
-						Type="String";
-						Val_Default="";
-						Value="77 77 255";
-						Delete=$False;
-					}
-				)
-			};
 
-
-			# Desktop/Explorer - Accent Color (cont.) (customization)
+			# Desktop/Explorer - Accent Color - Start, taskbar, and action center (customization)
 			$RegEdits += @{
 				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
 				Props=@(
@@ -272,6 +257,27 @@ function SyncRegistry {
 						Type="DWord";
 						Val_Default="";
 						Value=1;
+						Delete=$False;
+					}
+				)
+			};
+			$RegEdits += @{
+				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Accent";
+				Props=@(
+					@{
+						Description="Set the value for option 'Choose your accent color' found under [ Windows 10 Settings > Personalizaiton > Colors > 'Choose your accent color' ]";
+						Name="AccentColorMenu";
+						Type="DWord";
+						Val_Default="";
+						Value=[uint32]"0xFFFF4D4D"; <# Hex to Decimal conversion #>
+						Delete=$False;
+					},
+					@{
+						Description="Set the value for option 'Choose your accent color' found under [ Windows 10 Settings > Personalizaiton > Colors > 'Choose your accent color' ]";
+						Name="StartColorMenu";
+						Type="DWord";
+						Val_Default="";
+						Value=[uint32]"0xFFFF3333"; <# Hex to Decimal conversion #>
 						Delete=$False;
 					}
 				)
@@ -2011,6 +2017,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   www.askvg.org  |  "[Windows 10 Tip] Registry Tweaks to Customize UI of Alt+Tab, Task View and Snap Assistant Screens – AskVG"  |  https://www.askvg.com/windows-10-tip-registry-tweaks-to-customize-ui-of-alttab-task-view-and-snap-assistant-screens/
 #
+#   www.elevenforum.com  |  "Change Accent Color in Windows 11 Tutorial | Windows 11 Forum"  |  https://www.elevenforum.com/t/change-accent-color-in-windows-11.1146/
+#
 #   www.ghacks.net  |  "Remove Windows 10 Context Menu bloat - gHacks Tech News"  |  https://www.ghacks.net/2017/07/09/remove-windows-10-context-menu-bloat/
 #
 #   www.howtogeek.com  |  "How to Make Windows 10’s Taskbar Clock Display Seconds"  |  https://www.howtogeek.com/325096/how-to-make-windows-10s-taskbar-clock-display-seconds/
@@ -2036,8 +2044,6 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.thewindowsclub.net  |  "Processor Scheduling in Windows 10 for better performance"  |  https://www.thewindowsclub.com/processor-scheduling-in-windows-7-8
 #
 #   www.windows-security.org  |  "Configure compression for RemoteFX data | Windows security encyclopedia"  |  https://www.windows-security.org/e1ff617ad228f804ca6ac298beee92a1/configure-compression-for-remotefx-data
-#
-#   www.windowsphoneinfo.com  |  "Colors Registry is not being applied"  |  https://www.windowsphoneinfo.com/threads/colors-registry-is-not-being-applied.227898/#post-1307123
 #
 #   www.winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
 #

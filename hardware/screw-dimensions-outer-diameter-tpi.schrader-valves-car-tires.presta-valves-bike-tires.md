@@ -23,7 +23,7 @@
           - OD (Outer Diameter, Measured):  `7.63mm` (metric), `0.3004in` (imperial)
           - Thread Spacing (Measured): `12 threads` in `10mm` (`0.3937in`)
             - `12 threads` / `0.3937 in` = `30.48TPI`
-            - <img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{#888888}\frac{12%20threads}{0.3937%20in}=30.48TPI}"> <sup><a href="https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b">Citation</a></sup>
+            - <img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{gray}\frac{12%20threads}{0.3937%20in}=30.48TPI}"> <sup><a href="https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b">Citation</a></sup>
               - `30.48TPI` is acceptably close to `32TPI` for the roughness of the measurements taken for the measured screw length (`10mm`)
 
 

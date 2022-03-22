@@ -1,6 +1,6 @@
 
 ***
-# Microsoft Word - hexadecimal to unicode character conversion-converting
+# Microsoft Word - Convert Hexadecimal to ASCII Unicode Character
 
 - Type the 4-digit hexadecimal code for a given unicode symbol, then press combo-keypress `Alt + X` to convert the 4-digit hex code to the code's associated unicode character (Note: Microsoft Word will attempt to convert the 4 characters previous to the flashing cursor (which, in this case should be the hex code) when `Alt+X` is pressed)
 

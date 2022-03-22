@@ -1,6 +1,6 @@
 
 ***
-# Microsoft Word - Save to Computer by default (instead of OneDrive)
+# Microsoft Word - Start with a blank file (and skip the start screen).md
 
 1. Open `Microsoft Word`
 

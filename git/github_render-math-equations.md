@@ -6,15 +6,15 @@
 <br /><hr />
 
 ## Example
-- HTML: ```<img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{gray}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">```
-- Output:  <img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{gray}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}"> <sup><a href="https://github.com/mcavallo-git/Coding/blob/master/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions">Citation</a></sup>
+- HTML: ```<img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">```
+- Output:  <img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}"> <sup><a href="https://github.com/mcavallo-git/Coding/blob/master/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions">Citation</a></sup>
 
 
 <br /><hr />
 
 ## Example
-  - HTML: ```<img src="https://render.githubusercontent.com/render/math?math=\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">```
-  - Output: <img src="https://render.githubusercontent.com/render/math?math=\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}"> <sup><a href="https://tex.stackexchange.com/q/566327">Citation</a></sup>
+  - HTML: ```<img src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">```
+  - Output:  <img src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}"> <sup><a href="https://tex.stackexchange.com/q/566327">Citation</a></sup>
 
 
 <br /><hr />

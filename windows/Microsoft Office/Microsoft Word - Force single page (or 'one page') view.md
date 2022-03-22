@@ -1,6 +1,6 @@
 
 ***
-# Microsoft Word - Steps to force single-page (or 'one-page') view
+# Microsoft Word - Force single page (or 'one page') view
 
 1. Create & Save the Template File
    - Open `Microsoft Word`

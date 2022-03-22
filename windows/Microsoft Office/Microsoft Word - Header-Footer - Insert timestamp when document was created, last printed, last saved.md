@@ -1,6 +1,6 @@
 
 ***
-# Microsoft Word - Insert the date and time a document was created, last printed, or last saved (into header, footer)
+# Microsoft Word - Header-Footer - Insert timestamp when document was created, last printed, last saved
 
 1. Open `Microsoft Word`
 

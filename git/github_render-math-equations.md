@@ -9,8 +9,8 @@
 <br /><hr />
 
 ## General Syntax
-- ```<img src="https://render.githubusercontent.com/render/math?math={_____}">```
-  - The `_____` in the URL (above) is a placeholder for the math equation to be rendered (see examples, below)
+- HTML:
+```<img src="https://render.githubusercontent.com/render/math?math={_____}">``` (replacing the `_____` in the URL with the math equation to be rendered)
 
 <br /><hr />
 

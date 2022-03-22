@@ -6,12 +6,17 @@
 
 # GitHub - Math equation rendering
 
+<br /><hr />
+
+## General Syntax
+- ```<img src="https://render.githubusercontent.com/render/math?math={_____}">```
+  - Replacing the `_____` with your math equation (see examples below)
 
 <br /><hr />
 
 ## Example
-- HTML: ```<img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">```
-- Output:  <img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}"> <sup><a href="https://github.com/mcavallo-git/Coding/blob/master/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions">Citation</a></sup>
+- HTML: ```<img src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">```
+- Output:  <img src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}"> <sup><a href="https://github.com/mcavallo-git/Coding/blob/master/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions">Citation</a></sup>
 
 
 <br /><hr />

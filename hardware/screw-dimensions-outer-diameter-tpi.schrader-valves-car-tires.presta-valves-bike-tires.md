@@ -2,7 +2,7 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/master/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions -->
 <!-- ------------------------------------------------------------ -->
 
-<br /><hr />
+<hr />
 
 # Schrader (car tire) valves
   - ## Description

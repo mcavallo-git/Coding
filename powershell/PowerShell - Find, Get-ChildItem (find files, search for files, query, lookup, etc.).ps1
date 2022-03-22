@@ -48,9 +48,30 @@ If ($True) {
 }
 
 
-# Filename EQUALS (matches exactly) ...
-#   &&  Only return the first matched file found
+# File [ matches filename ... (exactly) ]  &&  [ stop after finding a single file (do not search for more) ]
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | Select-Object -First 1 | ForEach-Object { $_.FullName; };
+
+
+# Date-based (based on CreationTime) --> File [ matches filename syntax ... ]  &&  [ is older than ... ]
+$FullPath_Pattern = "C:\ISO\*";
+$Retention_Days = "90";
+$Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
+Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File -Recurse -Force -EA:0 `
+| Where-Object { ($_.Name -Like "$(Split-Path -Path ("${FullPath_Pattern}") -Leaf;)") } `
+| Where-Object { $_.CreationTime -LT ${Retention_OldestAllowedDate} } `
+| ForEach-Object { $_.FullName; } `
+;
+
+
+# Date-based (based on LastWriteTime) --> File [ matches filename syntax ... ]  &&  [ is older than ... ]
+$FullPath_Pattern = "C:\ISO\*";
+$Retention_Days = "90";
+$Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
+Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File -Recurse -Force -EA:0 `
+| Where-Object { ($_.Name -Like "$(Split-Path -Path ("${FullPath_Pattern}") -Leaf;)") } `
+| Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+| ForEach-Object { $_.FullName; } `
+;
 
 
 # ------------------------------------------------------------
@@ -93,12 +114,12 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { @("deve
 
 # ------------------------------------------------------------
 #
-# TO-DO:  Debug & resolve most effective syntax for using "[System.IO.Directory]::EnumerateFiles(...)" in place of "Get-Childitem ..." (if applicable)
+# TO-DO:  Debug & determine the most effective syntax for file searches between [ [System.IO.Directory]::EnumerateFiles(...) ] and [ Get-Childitem ... ]  (also how to use the former in place of the latter (GCI) in all use cases where GCI can be used)
 #
-
-# [System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
-
-
+#
+#   [System.IO.Directory]::EnumerateFiles("C:\","*.*","AllDirectories"); # MUCH LIGHTER-WEIGHT THAN 'Get-ChildItem' METHOD
+#
+#
 # ------------------------------------------------------------
 #
 #	Citation(s)
@@ -115,10 +136,14 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { @("deve
 #
 #   docs.microsoft.com  |  "Get-ChildItem - Gets the items and child items in one or more specified locations"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem?view=powershell-5.1
 #
+#   stackoverflow.com  |  "Delete files older than 15 days using PowerShell - Stack Overflow"  |  https://stackoverflow.com/a/19326146
+#
 #   stackoverflow.com  |  "Variables in nested Foreach-Object and Where-Object"  |  https://stackoverflow.com/a/26715697
 #
 #   superuser.com  |  "Powershell to delete all files with a certain file extension"  |  https://superuser.com/a/1233722
 #
 #   powershell-guru.com  |  "# The fastest Powershell 4 : Count all files in a large network share"  |  https://powershell-guru.com/fastest-powershell-2-count-all-files-in-large-network-share/
+#
+#   www.thomasmaurer.ch  |  "PowerShell: Delete Files older than - Thomas Maurer"  |  https://www.thomasmaurer.ch/2010/12/powershell-delete-files-older-than/
 #
 # ------------------------------------------------------------

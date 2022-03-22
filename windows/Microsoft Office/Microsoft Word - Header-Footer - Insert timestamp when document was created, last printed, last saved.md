@@ -1,4 +1,5 @@
 
+***
 # Microsoft Word - Insert the date and time a document was created, last printed, or last saved (into header, footer)
 
 1. Open `Microsoft Word`
@@ -14,12 +15,6 @@
 7. Click `OK` to confirm the change and close the options window
 
 
-<!--
-------------------------------------------------------------
-
- Citation(s)
-
-   support.microsoft.com  |  "Insert the date and time a document was created, last printed, or last saved - Word"  |  https://support.microsoft.com/en-us/office/insert-the-date-and-time-a-document-was-created-last-printed-or-last-saved-a2c4e3cc-b096-4c50-9395-5dca9f3beed1
-
-------------------------------------------------------------
--->
+***
+# Citation(s)
+- [support.microsoft.com  |  "Insert the date and time a document was created, last printed, or last saved - Word"](https://support.microsoft.com/en-us/office/insert-the-date-and-time-a-document-was-created-last-printed-or-last-saved-a2c4e3cc-b096-4c50-9395-5dca9f3beed1)

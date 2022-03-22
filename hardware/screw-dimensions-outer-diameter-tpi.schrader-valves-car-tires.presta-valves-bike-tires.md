@@ -1,6 +1,6 @@
 <br /><hr />
 
-# Schrader value (Car tire valves)
+# Schrader (car tire) valves
   - > **The Schrader valve is used on virtually all automobile tires and motorcycle tires and most wider rimmed bicycle tires.** <sup><a href="https://en.wikipedia.org/wiki/Schrader_valve">Citation</a></sup>
   - > Schrader valves are usually found on budget-friendly mountain, hybrid, and city bikes. <sup><a href="https://bikespalmbeach.com/resources/presta-vs-schrader-valves">Citation</a></sup>
   - ## Dimensions
@@ -15,7 +15,7 @@
 
 <br /><hr />
 
-# Presta value (Bike tire valves)
+# Presta (bike tire) valves
   - > **Presta valves were specifically designed to be used on bicycles, so you won’t see them on cars or motorcycles**. <sup><a href="https://bikespalmbeach.com/resources/presta-vs-schrader-valves">Citation</a></sup>
   - > The Presta valve (also French valve (FV) or Sclaverand valve) is a valve commonly found in high pressure road style and some mountain bicycle inner tubes. <sup><a href="https://en.wikipedia.org/wiki/Presta_valve">Citation</a></sup>
 

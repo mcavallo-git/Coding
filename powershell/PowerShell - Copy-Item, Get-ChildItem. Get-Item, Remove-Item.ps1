@@ -90,6 +90,23 @@ Get-ChildItem -Path ("C:\Windows\System32") -File -Recurse -Depth (1) -Force -Er
 
 # ------------------------------------------------------------
 #
+# Delete files (to the recycle bin)
+#  |--> Date-based (based on LastWriteTime) --> File [ matches filename syntax ... ]  &&  [ is older than ... ]
+#
+
+Add-Type -AssemblyName "Microsoft.VisualBasic"; <# Required to use Recycle Bin action 'SendToRecycleBin' #>
+$FullPath_Pattern = "C:\ISO\*";
+$Retention_Days = "90";
+$Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
+Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File -Recurse -Force -EA:0 `
+| Where-Object { ($_.Name -Like "$(Split-Path -Path ("${FullPath_Pattern}") -Leaf;)") } `
+| Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+| ForEach-Object { [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("$(${_}.FullName)",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #> } `
+;
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   docs.microsoft.com  |  "about_Properties - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_properties?view=powershell-5.1

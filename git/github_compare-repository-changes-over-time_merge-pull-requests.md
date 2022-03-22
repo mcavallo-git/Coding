@@ -6,24 +6,25 @@
 
 # GitHub - Compare repository changes over time
 
-1. On GitHub, create a new pull request for the repo in-question (which you wish to compare over a given time period)
-2. For the FROM branch (right branch-dropdown within the pull-request):
-  - Type the name of the branch in-question (or type 'master' for the trunk)
-  - Append your time period's ***END*** date, wrapped in curly braces and matching format @{MM-DD-YY}, onto the right-side of the branch-name
-    - Example format: `master@{MM-DD-YY}`
-3. For the TO branch (left branch-dropdown within the pull-request)
-  - Type the same branch as the FROM branch
-  - Append your time period's ***START*** date, wrapped in curly braces and matching format @{MM-DD-YY}, onto the right-side of the branch-name
-    - Example format: `master@{MM-DD-YY}`
-
-
-<hr />
-
-# Example(s)
-  - ```
-    TO:    master@{08-01-19}
-    FROM:  master
-    ```
+1. On GitHub, create a new PR (pull request) for the repo in question (which you wish to compare over a given time period)
+2. Choose one of the following (2) methods of comparisons:
+   - Using date syntax in the `FROM` branch field on a PR
+      - Type the branch name into the `TO` branch field
+      - Type the same branch name into the `FROM` branch field, then append your time period's ***START*** date using format `@{MM-DD-YY}` onto the branch name using format `branch-name@{MM-DD-YY}`
+      - Example: 
+        - ```
+          TO:    main
+          FROM:  main@{08-01-19}
+          ```
+   - Using date syntax in the `TO` branch field on a PR
+      - Type the branch name into the `FROM` branch field
+      - Type the same branch name into the `TO` branch field, then append your time period's ***END*** date using format `@{MM-DD-YY}` onto the branch name using format `branch-name@{MM-DD-YY}`
+      - Example: 
+        - ```
+          TO:    main@{08-01-19}
+          FROM:  main
+          ```
+3. Inspect any differences between files on the PR
 
 
 <hr />

@@ -603,16 +603,16 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 # Cleanup old logfiles
 #
 
-Add-Type -AssemblyName "Microsoft.VisualBasic";  <# Required to use Recycle Bin action 'SendToRecycleBin' #>
-$Retention_Days = "20";
+# Add-Type -AssemblyName "Microsoft.VisualBasic";  <# Required to use Recycle Bin action 'SendToRecycleBin' #>
+# | ForEach-Object { [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("$(${_}.FullName)",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #> } `
+
+$Retention_Days = "7";
 $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
 Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
 | Where-Object { ($_.Name -Like "${Logfile_StartsWith}*") } `
 | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
-| ForEach-Object { [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("$(${_}.FullName)",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #> } `
+| Remove-Item -Recurse -Force -Confirm:$False `
 ;
-
-# | Remove-Item -Recurse -Force -Confirm:$False `
 
 # ------------------------------
 

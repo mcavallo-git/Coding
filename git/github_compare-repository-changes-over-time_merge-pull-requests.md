@@ -29,7 +29,7 @@
 <br /><hr />
 
 # Citation(s)
- - <sup><a href="https://help.github.com/en/articles/comparing-commits-across-time#comparisons-across-time">Comparing commits across time</a></sup>
+ - <a href="https://help.github.com/en/articles/comparing-commits-across-time#comparisons-across-time">Comparing commits across time</a>
 
 
 <br /><hr />

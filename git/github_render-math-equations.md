@@ -10,7 +10,7 @@
 
 ## General Syntax
 - ```<img src="https://render.githubusercontent.com/render/math?math={_____}">```
-  - Replacing the `_____` with your math equation (see examples below)
+  - The `_____` in the URL gets replaced with the math equation to render (see examples below)
 
 <br /><hr />
 

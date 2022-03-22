@@ -6,8 +6,12 @@
 
 # GitHub - Compare repository changes over time
 
+<hr />
+
 - General Syntax:
   - `branch-name@{MM-DD-YY}`
+
+<hr />
 
 1. On GitHub, create a new PR (pull request) for the repo in question (which you wish to compare over a given time period)
 2. Choose one of the following methods of comparing the differences between the current state of a branch and the state it was in on a given date:

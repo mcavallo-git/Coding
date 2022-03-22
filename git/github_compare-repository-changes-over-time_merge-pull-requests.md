@@ -17,7 +17,7 @@
     - Example format: `master@{MM-DD-YY}`
 
 
-<br /><hr />
+<hr />
 
 # Example(s)
   - ```
@@ -26,10 +26,10 @@
     ```
 
 
-<br /><hr />
+<hr />
 
 # Citation(s)
  - <a href="https://help.github.com/en/articles/comparing-commits-across-time#comparisons-across-time">Comparing commits across time</a>
 
 
-<br /><hr />
+<hr />

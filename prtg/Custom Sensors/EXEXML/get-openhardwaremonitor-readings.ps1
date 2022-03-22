@@ -45,7 +45,8 @@ $Benchmark.Start();
 #
 
 $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
-$Logfile_FullPath = "${Logfile_Dirname}\OpenHardwareMonitorLog-$(Get-Date -UFormat '%Y-%m-%d').csv";
+$Logfile_StartsWith = "OpenHardwareMonitorLog-";
+$Logfile_FullPath = "${Logfile_Dirname}\${Logfile_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
 
 # ------------------------------------------------------------
 
@@ -597,6 +598,20 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 	# ------------------------------
 
 }
+
+# ------------------------------
+#
+# Cleanup old logfiles
+#
+$Retention_Days = "30";   $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1); `
+Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
+| Where-Object { ($_.Name -Like "${Logfile_StartsWith}*") } `
+| Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+| Remove-Item -Recurse -Force -Confirm:$False `
+;
+
+
+# ------------------------------
 
 # Benchmark (KEEP AS FINAL RUNTIME (e.g. keep at the very very end of this script)
 

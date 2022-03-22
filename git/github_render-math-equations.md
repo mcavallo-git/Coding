@@ -10,7 +10,7 @@
 
 ## General Syntax
 - HTML:
-```<img src="https://render.githubusercontent.com/render/math?math={_____}">``` (replacing the `_____` in the URL with the math equation to be rendered)
+```<img src="https://render.githubusercontent.com/render/math?math={_____}">```&nbsp;&nbsp;&nbsp;*(replacing the `_____` in the URL with the math equation to be rendered)*
 
 <br /><hr />
 

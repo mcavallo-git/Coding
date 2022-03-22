@@ -1,5 +1,5 @@
 
-***  
+***
 # Microsoft Excel - Get the current Date
 ```excel
 =TEXT(NOW(),"mmm-dd, yyyy")
@@ -11,7 +11,7 @@
 =TEXT(NOW(),"yyyy-mm-dd")
 ```
 
-***  
+***
 # Microsoft Excel - Get the current Time
 ```excel
 =TEXT(NOW(),"hh:mm AM/PM")
@@ -21,7 +21,7 @@
 ```
 
 
-***  
+***
 # Microsoft Excel - Get a DateTime/Timestamp
 ```excel
 =CONCAT(TEXT(NOW(),"yyyy-mm-dd")," @ ",TEXT(NOW(),"hh:mm AM/PM"))

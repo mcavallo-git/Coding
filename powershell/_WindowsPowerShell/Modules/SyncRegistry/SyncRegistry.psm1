@@ -202,7 +202,7 @@ function SyncRegistry {
 			};
 
 
-			# Desktop Background Color
+			# Desktop/Explorer - Background (Wallpaper) Color
 			$RegEdits += @{
 				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Colors";
 				Props=@(
@@ -215,6 +215,53 @@ function SyncRegistry {
 					}
 				)
 			};
+
+			# Desktop/Explorer - Accent Color (customization)
+			$RegEdits += @{
+				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\DWM";
+				Props=@(
+					@{
+						Description="Set the value for option 'Choose your accent color' found under [ Windows 10 Settings > Personalizaiton > Colors > 'Choose your accent color' ]";
+						Name="AccentColor";
+						Type="DWord";
+						Val_Default="";
+						Value=[uint32]"0xFFFF4D4D"; <# Hex to Decimal conversion #>
+						Delete=$False;
+					},
+					@{
+						Description="Explorer Settings - Setting to [ 0 ] disables, [ 1 ] enables: `"Show accent color on the following surfaces: Title bars`"";
+						Name="ColorPrevalence";
+						Type="DWord";
+						Val_Default="";
+						Value=1;
+						Delete=$False;
+					},
+					@{
+						Description="Explorer Settings - Setting to [ 0 ] disables `"Aero Peek`", setting to [ 1 ] enables `"Aero Peek`"";
+						Name="EnableAeroPeek";
+						Type="DWord";
+						Value=0;
+						Delete=$False;
+					}
+				)
+			};
+
+
+			# Desktop/Explorer - Accent Color (cont.) (customization)
+			$RegEdits += @{
+				Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
+				Props=@(
+					@{
+						Description="Explorer Settings - Setting to [ 0 ] disables, [ 1 ] enables: `"Show accent color on the following surfaces: Start, taskbar, and action center`"";
+						Name="ColorPrevalence";
+						Type="DWord";
+						Val_Default="";
+						Value=1;
+						Delete=$False;
+					}
+				)
+			};
+
 
 			# Explorer Settings
 			$RegEdits += @{
@@ -238,6 +285,13 @@ function SyncRegistry {
 					@{
 						Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 2/2)";
 						Name="DisallowShaking";
+						Type="DWord";
+						Value=1;
+						Delete=$False;
+					},
+					@{
+						Description="Explorer Settings - Setting to [ 0 ] enables `"Preview Desktop`", setting to [ 1 ] disables `"Preview Desktop`"";
+						Name="DisablePreviewDesktop";
 						Type="DWord";
 						Value=1;
 						Delete=$False;
@@ -1912,6 +1966,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   ss64.com  |  "Windows 10 registry - How-To: Windows 10 registry - user interface settings - Windows CMD - SS64.com"  |  https://ss64.com/nt/syntax-reghacks.html
 #
+#   stackoverflow.com  |  "Hex to Decimal Conversion - PowerShell 5 - Stack Overflow"  |  https://stackoverflow.com/a/38567654
+#
 #   stackoverflow.com  |  "New-Item recursive registry keys"  |  https://stackoverflow.com/a/21770519
 #
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
@@ -1921,6 +1977,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   superuser.com  |  "My 'Edit' context action when right-clicking a Powershell file has disappeared - Super User"  |  https://superuser.com/a/656681
+#
+#   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
 #

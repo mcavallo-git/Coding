@@ -25,6 +25,9 @@
             - <img style="height:30px" src="https://render.githubusercontent.com/render/math?math={\color{gray}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}"> <sup><a href="https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b?permalink_comment_id=4051474#gistcomment-4051474">Citation</a></sup>
             - `12 threads` / `0.3937in` = `30.48 TPI`
               - `30.48TPI` (threads per inch) is acceptably close to `32TPI` for the roughness of the measurements taken for the measured screw length (`10mm`)
+  - ## Nut size
+      - Valve stem form factor: `TR 418`
+      - > Thread designation is .305-32 or 7.7-32<sup><a href="https://www.homeownershub.com/maintenance/what-size-nut-goes-onto-a-typical-us-passenger-tire-schrader-1116784-.htm">Citation</a></sup>
 
 
 <br /><hr />

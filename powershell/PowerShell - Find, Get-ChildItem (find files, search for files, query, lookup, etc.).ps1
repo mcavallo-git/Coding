@@ -52,7 +52,9 @@ If ($True) {
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | Select-Object -First 1 | ForEach-Object { $_.FullName; };
 
 
-# Date-based (based on CreationTime) --> File [ matches filename syntax ... ]  &&  [ is older than ... ]
+# ------------------------------------------------------------
+
+# Find old files
 $FullPath_Pattern = "C:\ISO\*";
 $Retention_Days = "90";
 $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
@@ -63,8 +65,7 @@ Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File
 ;
 
 
-# Delete files (to the recycle bin)
-#  |--> Date-based (based on LastWriteTime) --> File [ matches filename syntax ... ]  &&  [ is older than ... ]
+# Delete old files (to the recycle bin)
 Add-Type -AssemblyName "Microsoft.VisualBasic"; <# Required to use Recycle Bin action 'SendToRecycleBin' #>
 $FullPath_Pattern = "C:\ISO\*";
 $Retention_Days = "90";
@@ -73,6 +74,17 @@ Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File
 | Where-Object { ($_.Name -Like "$(Split-Path -Path ("${FullPath_Pattern}") -Leaf;)") } `
 | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
 | ForEach-Object { [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("$(${_}.FullName)",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #> } `
+;
+
+
+# Delete old files (permanently)
+$FullPath_Pattern = "C:\ISO\*";
+$Retention_Days = "90";
+$Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
+Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File -Recurse -Force -EA:0 `
+| Where-Object { ($_.Name -Like "$(Split-Path -Path ("${FullPath_Pattern}") -Leaf;)") } `
+| Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+| Remove-Item -Recurse -Force -Confirm:$False `
 ;
 
 

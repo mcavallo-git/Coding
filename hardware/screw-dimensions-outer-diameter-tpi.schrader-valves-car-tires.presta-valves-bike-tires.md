@@ -30,4 +30,5 @@
       - `12 threads` / `0.3937 in` = `30.48TPI`
         - `30.48TPI` is acceptably close to `32TPI` for the roughness of the measurements taken for the measured screw length (`10mm`)
 
+
 <br /><hr />

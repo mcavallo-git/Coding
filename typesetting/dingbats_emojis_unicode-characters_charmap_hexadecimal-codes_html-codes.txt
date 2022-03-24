@@ -39,7 +39,7 @@ Mostly Linux compatible:
 
 
 °					Degree Sign (Degrees, Temperature - °C, °F)  |  https://www.compart.com/en/unicode/U+00B0
-⌀					Diameter Sign  |  https://www.compart.com/en/unicode/U+2300
+⌀					Diameter Sign (&#8960;)  |  https://www.compart.com/en/unicode/U+2300
 
 
 -					Hyphen-Minus (keyboard key)  |  https://www.compart.com/en/unicode/U+002D

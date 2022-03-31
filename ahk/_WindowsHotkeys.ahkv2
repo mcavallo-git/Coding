@@ -1298,9 +1298,8 @@ WheelRight::
 ;   HOTKEY:  Ctrl + WinKey + X
 ;            Ctrl + Alt  + X
 ;            Ctrl + Shift  + X
-;   ACTION:  Send a Checkmark
+;   ACTION:  Send a Red X ("Cross Mark")
 ;
-+^x::
 ^!x::
 ^#x::
 	SetKeyDelay, 0, -1

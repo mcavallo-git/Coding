@@ -435,6 +435,8 @@ Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 //
 //   www.fileformat.info  |  "Dingbats characters supported by the Linux Libertine font"  |  https://www.fileformat.info/info/unicode/font/linux_libertine/blockview.htm?block=dingbats
 //
+//   www.fileformat.info  |  "Unicode Character 'VARIATION SELECTOR-16' (U+FE0F)"  |  https://www.fileformat.info/info/unicode/char/fe0f/index.htm
+//
 //   www.mauvecloud.net  |  "Character Code Finder"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html
 //
 // ------------------------------------------------------------

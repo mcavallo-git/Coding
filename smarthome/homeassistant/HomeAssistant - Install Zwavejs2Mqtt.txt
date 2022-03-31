@@ -35,16 +35,6 @@ HomeAssistant - Install Zwavejs2Mqtt
    |                 |--> Enable "Start on boot"    (under tab "Info" (top))
    |                 |--> Enable "Show in sidebar"  (under tab "Info" (top))
    |
-   |
-   |--> Update the HomeAssistant config with your Z-Wave USB Device's "Device path" value
-   |     |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
-   |           |--> Open "/config/configuration.yaml" & add the following code to the bottom of the file:
-zwave:
- usb_path: /dev/serial/by-id/...
-   |     |--> NOTE: Replace the value of "/dev/serial/by-id/..." with the "Device path" value from above (on the system hardware page)
-   |     |--> Save the file via the [ Red floppy save icon ]
-   |     |--> Validate the configuration via "Supervisor" > "Check Home Assistant configuration" > "Start" > "Log" (top right)
-   |
    |--> Reboot the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
    |     |--> "Supervisor" > "System" > "Reboot Host" > "Reboot Host"
    |
@@ -111,7 +101,20 @@ zwave:
          |--> Remove Z-Wave nodes (Z-Wave Exclusion)
                 |--> "Z-Wave JS" > "Actions" > "Add/Remove Device" > "Exclusion" > "Start" > [perform exclusion action/steps on target device (refer to specific device's manual) to exclude it from the network]
 
-
+# ------------------------------------------------------------
+#
+#   ! ! DEPRECATED ! ! DO NOT USE "zwave" (Z-Wave (deprecated)) BUILT-IN INTEGRATION FOR HASSIO - https://www.home-assistant.io/integrations/zwave/
+#
+#  Update the HomeAssistant config with your Z-Wave USB Device's "Device path" value
+#   |--> Open "File editor" Add-on via sidebar option "File editor" (or "Supervisor" > "Dashboard" > "File editor" > "Open Web UI")
+#   |     |--> Open "/config/configuration.yaml" & add the following code to the bottom of the file:
+#   |              zwave:
+#   |                usb_path: /dev/serial/by-id/...
+#   |                   ! ! DEPRECATED ! !
+#   |--> NOTE: Replace the value of "/dev/serial/by-id/..." with the "Device path" value from above (on the system hardware page)
+#   |--> Save the file via the [ Red floppy save icon ]
+#   |--> Validate the configuration via "Supervisor" > "Check Home Assistant configuration" > "Start" > "Log" (top right)
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

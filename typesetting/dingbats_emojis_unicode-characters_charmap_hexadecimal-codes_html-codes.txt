@@ -177,7 +177,7 @@ Mostly Linux compatible:
 📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
 🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1
-🗑️				 Wastebasket Emoji  |  https://emojipedia.org/wastebasket/
+🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/
 
 
 ⌨ 				Keyboard  |  https://www.compart.com/en/unicode/U+2328
@@ -424,6 +424,8 @@ Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 //   support.microsoft.com  |  "Keyboard shortcuts in Word"  |  https://support.microsoft.com/en-us/topic/keyboard-shortcuts-in-word-95ef89dd-7142-4b50-afb2-f762f663ceb2
 //
 //   unicode.org  |  "Dingbats"  |  https://unicode.org/charts/nameslist/n_2700.html
+//
+//   unicode.org  |  "Full Emoji List, v14.0"  |  https://unicode.org/emoji/charts/full-emoji-list.html
 //
 //   www.fileformat.info  |  "Dingbats characters supported by the Linux Libertine font"  |  https://www.fileformat.info/info/unicode/font/linux_libertine/blockview.htm?block=dingbats
 //

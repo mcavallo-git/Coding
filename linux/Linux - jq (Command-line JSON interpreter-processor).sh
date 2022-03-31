@@ -163,7 +163,7 @@ echo "${JSON_INPUT}" | jq '.items[] | .cidr';
 #   |----> Slice off all double-quotes (prepping for output)
 #
 JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
-echo "${JSON_INPUT}" | jq '.items[] | .cidr' | tr -d '"';
+echo "${JSON_INPUT}" | jq -re '.items[] | .cidr';
 
 
 # ------------------------------------------------------------
@@ -174,7 +174,7 @@ echo "${JSON_INPUT}" | jq '.items[] | .cidr' | tr -d '"';
 #   |----> Slice off all double-quotes (prepping for output)
 #   |-----> Wrap the jq call in a for-loop and add some string to the beginning/end of each line to prep it to-be-used-by as an NGINX IPv4 whitelist
 #
-for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq '.items[] | .cidr' | tr -d '"' | sort); do echo "allow ${EACH_CIDR};"; done;
+for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq -re '.items[] | .cidr' | sort;); do echo "allow ${EACH_CIDR};"; done;
 
 
 # ------------------------------------------------------------

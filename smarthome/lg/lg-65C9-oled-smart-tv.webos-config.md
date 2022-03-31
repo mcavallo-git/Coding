@@ -4,60 +4,57 @@
 
 <hr />
 
-Open `All Settings` via:
-  - Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
-  - Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
-  - Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
+## Open the `All Settings` page
+  1. Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
+  2. Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
+  3. Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
 
 <br /><hr />
 
-# Picture
-  Picture Mode Settings
-    Picture Mode: `Game (User)`
-    AI Picture: `Off`
-    OLED Light: `20`
-    Contrast: `85`
-    Brightness: 50
-    Sharpness: 10
-    Color: 55
-    Tint: 0
-    Expert Controls
-      Dynamic Contrast: `Off`
-      Super Resolution: Low
-      Color Gamut: Auto
-      White Balance: (Grayed out)
-      Color Management: (Defaults)
-        Color: Red/Green/Blue/Cyan/Magenta/Yellow
-        Saturation: 0
-        Tint: 0
-        Luminance: 0
-          Peak Brightness: (Off - Grayed out)
+# All Settings
 
-  Aspect Ratio Settings
-    Aspect Ratio: Original
-    Just Scan: Auto
-
-  Energy Saving: Off
-
-  Additional Settings
-    Eye Comfort Mode: On
-    HDMI Ultra Deep Color 
-      HDMI 1: On
-      HDMI 2: On
-      HDMI 3: On
-      HDMI 4: On
-    Instant Game Response
-      HDMI 1: On
-      HDMI 2: On
-      HDMI 3: On
-      HDMI 4: On
-    Fine Tune Dark Areas: 0
-    OLED Panel Settings
-      Pixel Refresher  (run this like once a year)
-      Screen Shift: On  (extends OLED lifespan)
-      Logo Luminance Adjustment: Low
-
-<br /><hr />
+## Picture
+- Picture Mode Settings
+  - Picture Mode: `Game (User)`
+  - AI Picture: `Off`
+  - OLED Light: `20`
+  - Contrast: `85`
+  - Brightness: 50
+  - Sharpness: 10
+  - Color: 55
+  - Tint: 0
+  - Expert Controls
+    - Dynamic Contrast: `Off`
+    - Super Resolution: Low
+    - Color Gamut: Auto
+    - White Balance: (Grayed out)
+    - Color Management: (Defaults)
+      - Color: Red/Green/Blue/Cyan/Magenta/Yellow
+      - Saturation: 0
+      - Tint: 0
+      - Luminance: 0
+        - Peak Brightness: (Off - Grayed out)
+- Aspect Ratio Settings
+  - Aspect Ratio: Original
+  - Just Scan: Auto
+- Energy Saving: Off
+- Additional Settings
+  - Eye Comfort Mode: On
+  - HDMI Ultra Deep Color 
+    - HDMI 1: On
+    - HDMI 2: On
+    - HDMI 3: On
+    - HDMI 4: On
+  - Instant Game Response
+    - HDMI 1: `On`
+    - HDMI 2: On
+    - HDMI 3: On
+    - HDMI 4: On
+  - Fine Tune Dark Areas: 0
+  - OLED Panel Settings
+    - Pixel Refresher  (run this like once a year)
+    - Screen Shift: On  (extends OLED lifespan)
+    - Logo Luminance Adjustment: Low
 
 # Sound
 
@@ -95,8 +92,6 @@ Open `All Settings` via:
       HDMI 3: `Bitstream`
       HDMI 4: `Bitstream`
 
-<br /><hr />
-
 # Channels
 
   Channel Tuning `(Skip)` (Run later to pull cable/air channels)
@@ -104,8 +99,6 @@ Open `All Settings` via:
   Channel Manager `(Skip)`
 
   LG Channels: Off
-
-<br /><hr />
 
 # Connection
 
@@ -129,8 +122,6 @@ Open `All Settings` via:
     Auto Power Sync: On
 
   Link To Devices for Voice Control:  `(Skip)`
-
-<br /><hr />
 
 # General
 
@@ -192,14 +183,10 @@ Open `All Settings` via:
 
   Reset to Initial Settings `(Skip)`
 
-<br /><hr />
-
 # Safety
   On/Off: `Off` (top-right slider, could be useful if you have kids)
 
-<br /><hr />
-
-Accessibility
+# Accessibility
 
   Audio Guidance: Off
 
@@ -213,12 +200,14 @@ Accessibility
 
   TV Power Sound: Off
 
-  High Contrast: Off
-
-<br /><hr />
+  - High Contrast: Off
 
 # Secret Menu
 
-Menu > All SEttings > Channel > Channel Tuning (Hover) > Press button '1' five times
+- Open `All Settings`
+- Open the `Channel` tab
+- Hover the cursor over `Channel Tuning`
+- Press the `1` button on the `LG Magic Remote` five times
+
 
 <br /><hr />

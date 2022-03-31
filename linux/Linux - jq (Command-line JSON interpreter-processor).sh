@@ -60,8 +60,14 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 #
 # jq - select array items based on their object's property values
 #
-
 helm list --all --all-namespaces --output json | jq -r '.[] | select(.chart | test("ingress-nginx-.+")) | .';
+
+
+# ------------------------------------------------------------
+#
+# jq - count the number of items in an array (get the length of target object/array)
+#
+CIDR_ARR="$(curl -s "https://ip-ranges.atlassian.com" | jq -e '.items';)"; echo "${CIDR_ARR}" | jq -e 'length';
 
 
 # ------------------------------------------------------------
@@ -174,7 +180,7 @@ echo "${JSON_INPUT}" | jq -re '.items[] | .cidr';
 #   |----> Slice off all double-quotes (prepping for output)
 #   |-----> Wrap the jq call in a for-loop and add some string to the beginning/end of each line to prep it to-be-used-by as an NGINX IPv4 whitelist
 #
-for EACH_CIDR in $(curl -s "https://ip-ranges.atlassian.com" | jq -re '.items[] | .cidr' | sort;); do echo "allow ${EACH_CIDR};"; done;
+CIDR_ARR="$(curl -s "https://ip-ranges.atlassian.com" | jq -e '.items';)"; for EACH_CIDR in $(echo "${CIDR_ARR}" | jq -re '.[].cidr' | sort;); do echo "allow ${EACH_CIDR};"; done;  echo "--- $(echo "${CIDR_ARR}" | jq -e 'length';) total entries ---";
 
 
 # ------------------------------------------------------------

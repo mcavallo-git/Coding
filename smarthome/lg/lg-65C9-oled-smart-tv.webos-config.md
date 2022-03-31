@@ -2,16 +2,19 @@
 
 # LG WebOS Settings
 
+
 <hr />
 
 ## Open the `All Settings` page
-  1. Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
-  2. Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
-  3. Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
+- 1. Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
+- 2. Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
+- 3. Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
+
 
 <br /><hr />
 
 # All Settings
+
 
 ## Picture
 - Picture Mode Settings
@@ -56,158 +59,119 @@
     - Screen Shift: On  (extends OLED lifespan)
     - Logo Luminance Adjustment: Low
 
-# Sound
 
-  Dolby Atmos: On
+## Sound
+- Dolby Atmos: On
+- AI Sound: On
+- Sound Mode Settings:
+  - Sound Mode: (Grayed out - Standard (User))
+  - Balance: 0
+  - Dolby Surround: (Grayed out - On)
+  - Equalizer: (Grayed out - Off)
+- Sound Out:
+  - TV Speaker + Wired Headphones
+  - Headphone Volume: 10
+- AI Acoustic Tuning: Standard  (Run whenever you move the TV)
+- Sound Test  `(Skip)`
+- Additional Settings
+  - Volume Mode
+    - Auto Volume: Off
+    - Volume Increase Amount: Low
+  - AV Sync Adjustment: Off
+  - HDMI Input Format
+    - HDMI 1: `Bitstream`
+    - HDMI 2: `Bitstream`
+    - HDMI 3: `Bitstream`
+    - HDMI 4: `Bitstream`
 
-  AI Sound: On
 
-  Sound Mode Settings:
-    Sound Mode: (Grayed out - Standard (User))
-    Balance: 0
-    Dolby Surround: (Grayed out - On)
-    Equalizer: (Grayed out - Off)
+## Channels
+- Channel Tuning `(Skip)` (Run later to pull cable/air channels)
+- Channel Manager `(Skip)`
+  - ### Secret Menu - Hover the cursor over `Channel Tuning` and press the `1` button on the `LG Magic Remote` five times
+- LG Channels: Off
 
-  Sound Out:
-    TV Speaker + Wired Headphones
-    Headphone Volume: 10
 
-  AI Acoustic Tuning: Standard  (Run whenever you move the TV)
+## Connection
+- TV Name:  (setup specific)
+- Wired Connection:  (setup specific)
+- Wi-Fi Connection:  (setup specific)
+- Device Connector:  `(Skip)`
+- Mobile TV On
+  - Turn on via Wi-Fi: On
+  - Turn on via Bluetooth: Off
+- Screen Share Settings: `(Skip)`
+- HDMI Device Settings
+  - Auto Device Detection: Off
+  - SIMPLILINK(HDMI/CEC): On
+  - Auto Power Sync: On
+- Link To Devices for Voice Control:  `(Skip)`
 
-  Sound Test  `(Skip)`
 
-  Additional Settings
+## General
+- Language
+  - Menu Language: English
+  - Audio Language: English
+  - Keyboard Language: English
+- Location
+  - Service Area Zip Code: (setup specific)
+  - LG Services Country: Set Automatically
+- Time & Date
+  - Set Automatically: On
+  - Time Zone:  (setup specific)
+- Timers
+  - Sleep Timer: Off
+  - Timer Power On: Off
+  - Timer Power Off: Off
+  - 2 Hours Auto Power Off: On
+- AI Service
+  - Voice Recognition
+    - Voice Recognition Service: Not Selected
+  - Who. Where. What?: Off
+  - Personalized Recommendations: Off
+  - AI Recommendation: Off
+- Account Management (Skip - login later with LG Account if you want)
+- Power Saving Mode
+  - HDD Power Saving Mode: Off
+- About this TV
+  - Allow Automatic Updates: Off (it notifies you anyway)
+  - TV Information (shows MAC addresses, serial, model number, disk space)
+  - Notifications `(Skip)`
+  - User Guide `(Skip)`
+  - Quick Help `(Skip)`
+  - User Agreements `(Skip)`
+  - Legal Notice `(Skip)`
+  - Open Source Software Notice `(Skip)`
+  - Set ID: 1
+- Additional Settings
+  - Home Settings
+    - Home Auto Launch: `Off`
+    - Home Promotion: `Off`
+    - Home Animation: `Off`
+  - Quick Start+: `Off`
+  - Live Plus: `Off`
+  - Advertisement `(Grayed out)`
+  - Standby Light: `On`
+  - LG Wireless Keyboard `(Skip)`
+  - Settings Help: `On`
+  - No Signal Image: `Off`
+  - Home/Store Mode: `Home Mode`
+- Reset to Initial Settings `(Skip)`
 
-    Volume Mode
 
-      Auto Volume: Off
+## Safety
+- On/Off: `Off` (top-right slider, could be useful if you have kids)
 
-      Volume Increase Amount: Low
 
-    AV Sync Adjustment: Off
-
-    HDMI Input Format
-      HDMI 1: `Bitstream`
-      HDMI 2: `Bitstream`
-      HDMI 3: `Bitstream`
-      HDMI 4: `Bitstream`
-
-# Channels
-
-  Channel Tuning `(Skip)` (Run later to pull cable/air channels)
-
-  Channel Manager `(Skip)`
-
-  LG Channels: Off
-
-# Connection
-
-  TV Name:  (setup specific)
-
-  Wired Connection:  (setup specific)
-
-  Wi-Fi Connection:  (setup specific)
-
-  Device Connector:  `(Skip)`
-
-  Mobile TV On
-    Turn on via Wi-Fi: On
-    Turn on via Bluetooth: Off
-
-  Screen Share Settings: `(Skip)`
-
-  HDMI Device Settings
-    Auto Device Detection: Off
-    SIMPLILINK(HDMI/CEC): On
-    Auto Power Sync: On
-
-  Link To Devices for Voice Control:  `(Skip)`
-
-# General
-
-  Language
-    Menu Language: English
-    Audio Language: English
-    Keyboard Language: English
-
-  Location
-    Service Area Zip Code: (setup specific)
-    LG Services Country: Set Automatically
-
-  Time & Date
-    Set Automatically: On
-    Time Zone:  (setup specific)
-
-  Timers
-    Sleep Timer: Off
-    Timer Power On: Off
-    Timer Power Off: Off
-    2 Hours Auto Power Off: On
-
-  AI Service
-    Voice Recognition
-      Voice Recognition Service: Not Selected
-    Who. Where. What?: Off
-    Personalized Recommendations: Off
-    AI Recommendation: Off
-
-  Account Management (Skip - login later with LG Account if you want)
-
-  Power Saving Mode
-    HDD Power Saving Mode: Off
-
-  About this TV
-    Allow Automatic Updates: Off (it notifies you anyway)
-    TV Information (shows MAC addresses, serial, model number, disk space)
-    Notifications `(Skip)`
-    User Guide `(Skip)`
-    Quick Help `(Skip)`
-    User Agreements `(Skip)`
-    Legal Notice `(Skip)`
-    Open Source Software Notice `(Skip)`
-    Set ID: 1
-
-  Additional Settings
-    Home Settings
-      Home Auto Launch: `Off`
-      Home Promotion: `Off`
-      Home Animation: `Off`
-    Quick Start+: `Off`
-    Live Plus: `Off`
-    Advertisement `(Grayed out)`
-    Standby Light: `On`
-    LG Wireless Keyboard `(Skip)`
-    Settings Help: `On`
-    No Signal Image: `Off`
-    Home/Store Mode: `Home Mode`
-
-  Reset to Initial Settings `(Skip)`
-
-# Safety
-  On/Off: `Off` (top-right slider, could be useful if you have kids)
-
-# Accessibility
-
-  Audio Guidance: Off
-
-  Pointer Options
-    Tracking Speed: Normal
-    Pointer Size: “Use a small pointer.” (leftmost)
-
-  Menu Transparency: On
-
-  Closed Captions: Off (on if you use WebOS)
-
-  TV Power Sound: Off
-
+## Accessibility
+- Audio Guidance: Off
+- Pointer Options
+  - Tracking Speed: Normal
+  - Pointer Size: “Use a small pointer.” (leftmost)
+- Menu Transparency: On
+- Closed Captions: Off (on if you use WebOS)
+- TV Power Sound: Off
   - High Contrast: Off
-
-# Secret Menu
-
-- Open `All Settings`
-- Open the `Channel` tab
-- Hover the cursor over `Channel Tuning`
-- Press the `1` button on the `LG Magic Remote` five times
 
 
 <br /><hr />

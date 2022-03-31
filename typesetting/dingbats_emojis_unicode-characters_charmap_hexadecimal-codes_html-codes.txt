@@ -137,7 +137,7 @@ Mostly Linux compatible:
 
 🔤					Input Symbol For Latin Letters &#x1F524;  |  https://www.compart.com/en/unicode/U+1F524
 🆓					Squared Free &#x1F193;  |  https://www.compart.com/en/unicode/U+1F193
-🆕					Squared New &#x1F195;  |  https://www.compart.com/en/unicode/U+1F195
+🆕					Squared New &#x1F195;  |  https://www.compart.com/en/unicode/U+1F195  |  echo -e "\\xF0\\x9F\\x86\\x95";
 🆗					Squared Ok &#x1F197;  |  https://www.compart.com/en/unicode/U+1F197
 
 
@@ -182,8 +182,8 @@ Mostly Linux compatible:
 📨				Incoming Envelope  |  https://www.compart.com/en/unicode/U+1F4E8
 📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
-🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1
-🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/
+🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";
+🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/  |  echo -e "\\xF0\\x9F\\x97\\x91\\xEF\\xB8\\x8F";
 
 
 ⌨ 				Keyboard  |  https://www.compart.com/en/unicode/U+2328

@@ -1,5 +1,9 @@
 <hr />
 
+# LG WebOS Settings
+
+<hr />
+
 Open `All Settings` via:
   - Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
   - Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
@@ -8,21 +12,17 @@ Open `All Settings` via:
 <br /><hr />
 
 # Picture
-
   Picture Mode Settings
-
-    Picture Mode:  Game (User)
-
-    AI Picture:  Off
-    OLED Light:  20
-    Contrast:  85
+    Picture Mode: `Game (User)`
+    AI Picture: `Off`
+    OLED Light: `20`
+    Contrast: `85`
     Brightness: 50
     Sharpness: 10
     Color: 55
     Tint: 0
-
     Expert Controls
-      Dynamic Contrast:  Off
+      Dynamic Contrast: `Off`
       Super Resolution: Low
       Color Gamut: Auto
       White Balance: (Grayed out)
@@ -195,7 +195,7 @@ Open `All Settings` via:
 <br /><hr />
 
 # Safety
-  On/Off:  `Off` (top-right slider, could be useful if you have kids)
+  On/Off: `Off` (top-right slider, could be useful if you have kids)
 
 <br /><hr />
 
@@ -214,5 +214,11 @@ Accessibility
   TV Power Sound: Off
 
   High Contrast: Off
+
+<br /><hr />
+
+# Secret Menu
+
+Menu > All SEttings > Channel > Channel Tuning (Hover) > Press button '1' five times
 
 <br /><hr />

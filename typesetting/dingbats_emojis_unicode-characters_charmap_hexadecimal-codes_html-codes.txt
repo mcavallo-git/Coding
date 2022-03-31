@@ -135,6 +135,11 @@ Mostly Linux compatible:
 ⅀					Double-Struck N-Ary Summation  |  https://www.compart.com/en/unicode/U+2140
 
 
+🆓					Squared Free &#x1F193;  |  https://www.compart.com/en/unicode/U+1F193
+🆕					Squared New &#x1F195;  |  https://www.compart.com/en/unicode/U+1F195
+🆗					Squared Ok &#x1F197;  |  https://www.compart.com/en/unicode/U+1F197
+
+
 👁				Eye  |  https://www.compart.com/en/unicode/U+1F441
 👆				White Up Pointing Backhand Index  |  https://www.compart.com/en/unicode/U+1F446
 👇				White Down Pointing Backhand Index  |  https://www.compart.com/en/unicode/U+1F447

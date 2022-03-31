@@ -135,6 +135,7 @@ Mostly Linux compatible:
 ⅀					Double-Struck N-Ary Summation  |  https://www.compart.com/en/unicode/U+2140
 
 
+🔤					Input Symbol For Latin Letters &#x1F524;  |  https://www.compart.com/en/unicode/U+1F524
 🆓					Squared Free &#x1F193;  |  https://www.compart.com/en/unicode/U+1F193
 🆕					Squared New &#x1F195;  |  https://www.compart.com/en/unicode/U+1F195
 🆗					Squared Ok &#x1F197;  |  https://www.compart.com/en/unicode/U+1F197

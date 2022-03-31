@@ -506,7 +506,7 @@ Pause::
 ;   HOTKEY:  Ctrl + WinKey + V
 ;   ACTION:  Paste the Clipboard
 ;
-*^+v::
+*+^v::
 *^!v::
 *^#v::
 	PasteClipboardAsBinary()
@@ -1277,18 +1277,37 @@ WheelRight::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Ctrl + WinKey + K
-;   HOTKEY:  Ctrl + Shift  + K
-;   HOTKEY:  Right-WinKey  + K
+;            Ctrl + Alt  + K
+;            Ctrl + Shift  + K
+;            Right-WinKey  + K
 ;   ACTION:  Send a Checkmark
 ;
-^+k::
++^k::
 ^!k::
 ^#k::
 >#k::
 	SetKeyDelay, 0, -1
-	; Send ✔
 	; Send 🗸  ; Light Check Mark
-	Send ✔️  ; Check Mark
+	; Send ✔  ; Heavy Check Mark
+	Send ✔️  ; Heavy Check Mark (Colored)
+	Return
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Ctrl + WinKey + X
+;            Ctrl + Alt  + X
+;            Ctrl + Shift  + X
+;   ACTION:  Send a Checkmark
+;
++^x::
+^!x::
+^#x::
+	SetKeyDelay, 0, -1
+	; Send ✕  ; Multiplication X
+	; Send ✖  ; Heavy Multiplication X
+	; Send ✘  ; Heavy Ballot X
+	Send ❌️   ; Cross Mark
 	Return
 
 

@@ -77,7 +77,7 @@ Open `All Settings` via:
 
   AI Acoustic Tuning: Standard  (Run whenever you move the TV)
 
-  Sound Test  (Skip)
+  Sound Test  `(Skip)`
 
   Additional Settings
 
@@ -90,24 +90,24 @@ Open `All Settings` via:
     AV Sync Adjustment: Off
 
     HDMI Input Format
-      HDMI 1: Bitstream
-      HDMI 2: Bitstream
-      HDMI 3: Bitstream
-      HDMI 4: Bitstream
+      HDMI 1: `Bitstream`
+      HDMI 2: `Bitstream`
+      HDMI 3: `Bitstream`
+      HDMI 4: `Bitstream`
 
 <br /><hr />
 
-Channels
+# Channels
 
-  Channel Tuning (Skip) (Run later to pull cable/air channels)
+  Channel Tuning `(Skip)` (Run later to pull cable/air channels)
 
-  Channel Manager (Skip)
+  Channel Manager `(Skip)`
 
   LG Channels: Off
 
 <br /><hr />
 
-Connection
+# Connection
 
   TV Name:  (setup specific)
 
@@ -115,24 +115,24 @@ Connection
 
   Wi-Fi Connection:  (setup specific)
 
-  Device Connector:  (Skip)
+  Device Connector:  `(Skip)`
 
   Mobile TV On
     Turn on via Wi-Fi: On
     Turn on via Bluetooth: Off
 
-  Screen Share Settings: (Skip)
+  Screen Share Settings: `(Skip)`
 
   HDMI Device Settings
     Auto Device Detection: Off
     SIMPLILINK(HDMI/CEC): On
     Auto Power Sync: On
 
-  Link To Devices for Voice Control:  (Skip)
+  Link To Devices for Voice Control:  `(Skip)`
 
 <br /><hr />
 
-General
+# General
 
   Language
     Menu Language: English
@@ -168,33 +168,34 @@ General
   About this TV
     Allow Automatic Updates: Off (it notifies you anyway)
     TV Information (shows MAC addresses, serial, model number, disk space)
-    Notifications (Skip)
-    User Guide (Skip)
-    Quick Help (Skip)
-    User Agreements (Skip)
-    Legal Notice (Skip)
-    Open Source Software Notice (Skip)
+    Notifications `(Skip)`
+    User Guide `(Skip)`
+    Quick Help `(Skip)`
+    User Agreements `(Skip)`
+    Legal Notice `(Skip)`
+    Open Source Software Notice `(Skip)`
     Set ID: 1
 
   Additional Settings
     Home Settings
-      Home Auto Launch: Off
-      Home Promotion: Off
-      Home Animation: Off
-    Quick Start+: Off
-    Live Plus: Off
-    Advertisement (Grayed out)
-    Standby Light: On
-    LG Wireless Keyboard (Skip)
-    Settings Help: On
-    No Signal Image: Off
-    Home/Store Mode: Home Mode
+      Home Auto Launch: `Off`
+      Home Promotion: `Off`
+      Home Animation: `Off`
+    Quick Start+: `Off`
+    Live Plus: `Off`
+    Advertisement `(Grayed out)`
+    Standby Light: `On`
+    LG Wireless Keyboard `(Skip)`
+    Settings Help: `On`
+    No Signal Image: `Off`
+    Home/Store Mode: `Home Mode`
 
-  Reset to Initial Settings (Skip)
+  Reset to Initial Settings `(Skip)`
 
 <br /><hr />
 
-Safety:  Off  (useful if you have kids, potentially)
+# Safety
+  On/Off:  `Off` (top-right slider, could be useful if you have kids)
 
 <br /><hr />
 

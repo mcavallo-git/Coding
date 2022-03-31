@@ -118,7 +118,7 @@ DAT_ARRAY+=(["Key B"]="Val Two");
 DAT_ARRAY+=(["Key 100"]="100");
 DAT_ARRAY+=(["Key 200"]="200");
 JSON_OUTPUT=$(for i in "${!DAT_ARRAY[@]}"; do echo "$i"; echo "${DAT_ARRAY[$i]}"; done | jq -n -R 'reduce inputs as $i ({}; . + { ($i): (input|(tonumber? // .)) })');
-JSON_COMPRESSED=$(echo ${JSON_OUTPUT} | jq -c .);
+JSON_COMPRESSED=$(echo ${JSON_OUTPUT} | jq -c '.';);
 echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMPRESSED}";
 
 
@@ -132,8 +132,8 @@ DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
 DAT_ARRAY+=("Val-4");
-JSON_OUTPUT=$(printf '%s\n' "${DAT_ARRAY[@]}" | jq -R . | jq -s .);
-JSON_COMPRESSED=$(echo ${JSON_OUTPUT} | jq -c .);
+JSON_OUTPUT=$(printf '%s\n' "${DAT_ARRAY[@]}" | jq -R '.' | jq -s '.';);
+JSON_COMPRESSED=$(echo ${JSON_OUTPUT} | jq -c '.';);
 echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMPRESSED}";
 
 
@@ -141,7 +141,7 @@ echo "\${JSON_OUTPUT} = ${JSON_OUTPUT}"; echo "\${JSON_COMPRESSED} = ${JSON_COMP
 #
 # jq - Get the first 2 items in the "items" key's array (which is within/just-under the main JSON object)
 #
-JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
+JSON_INPUT=$(curl "https://ip-ranges.atlassian.com";);
 echo "${JSON_INPUT}" | jq '.items[0:2]';
 
 
@@ -151,7 +151,7 @@ echo "${JSON_INPUT}" | jq '.items[0:2]';
 #   |--> Parse the "items" key from the top-level JSON object
 #   |---> Parse all nested "cidr" keys within said "item" key
 #
-JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
+JSON_INPUT=$(curl "https://ip-ranges.atlassian.com";);
 echo "${JSON_INPUT}" | jq '.items[] | .cidr';
 
 
@@ -162,7 +162,7 @@ echo "${JSON_INPUT}" | jq '.items[] | .cidr';
 #   |---> Parse all nested "cidr" keys within said "item" key
 #   |----> Slice off all double-quotes (prepping for output)
 #
-JSON_INPUT=$(curl "https://ip-ranges.atlassian.com");
+JSON_INPUT=$(curl "https://ip-ranges.atlassian.com";);
 echo "${JSON_INPUT}" | jq -re '.items[] | .cidr';
 
 
@@ -197,7 +197,7 @@ cat "/etc/docker/daemon.json" | jq;
 if [ "1" == "1" ]; then
 echo "------------------------------------------------------------";
 CONTENTS_JSON="[\"refs/heads/dev\",\"refs/heads/main\",\"refs/heads/master\"]";
-TEMP_JSON=$(mktemp);
+TEMP_JSON=$(mktemp;);
 echo -e "\n${CONTENTS_JSON}" > "${TEMP_JSON}";
 echo -e "\nCreated temporary file \"${TEMP_JSON}\" with (JSON) contents: ${CONTENTS_JSON}";
 echo -e "\n------------------------------------------------------------";

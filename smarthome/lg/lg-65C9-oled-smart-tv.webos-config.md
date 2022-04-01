@@ -1,10 +1,7 @@
 <hr />
 
-# LG WebOS Settings
-
-<br /><hr />
-
-# All Settings
+# LG WebOS
+### All Settings
   - To Open `All Settings`:
     - On the `LG Magic Remote`, press and hold the Settings `⚙️` button (middle right) for `more than 1 second`
 

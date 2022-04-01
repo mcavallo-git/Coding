@@ -6,7 +6,7 @@
 
 # All Settings
   - To Open `All Settings`:
-    - On the `LG Magic Remote`, press and hold the Settings `⚙️` button (middle right) for `more than 1 second`
+    - On the `LG Magic Remote`, press and hold the Settings `⚙️` button (middle right) for `more than 1 second` <sup><a href="https://www.lg.com/us/support/product/lg-AN-MR19BA.AUS"></a></sup>
 
 
 ### Picture

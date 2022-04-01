@@ -166,7 +166,7 @@
 
 <br /><hr />
 
-### Citation(s)
+## Citation(s)
 - <a href="https://manuals.plus/_lg/magic-remote-manual">manuals.plus  |  LG Magic Remote Owner's Manual - Manuals+</a>
 - <a href="https://www.lg.com/us/support/product/lg-AN-MR19BA.AUS">www.lg.com  |  LG AN-MR19BA.AUS: Support, Manuals, Warranty & More | LG USA Support</a>
 

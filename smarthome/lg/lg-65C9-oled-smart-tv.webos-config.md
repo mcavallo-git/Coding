@@ -50,7 +50,8 @@
   - Fine Tune Dark Areas: `0`
   - OLED Panel Settings
     - Pixel Refresher  `(run this ~once a year)`
-    - Screen Shift: `On` `(helps to prevent OLED pixels getting "stuck" (unable to change color))`
+    - Screen Shift: `On`
+      - *Note: Screen Shift helps to prevent OLED pixels from getting "stuck" (unable to change color)*
     - Logo Luminance Adjustment: `Low`
 
 

@@ -1,12 +1,12 @@
 <hr />
 
 # LG WebOS
-### All Settings
+## All Settings
   - To Open `All Settings`:
     - On the `LG Magic Remote`, press and hold the Settings `⚙️` button (middle right) for `more than 1 second`
 
 
-### Picture
+## Picture
 - Picture Mode Settings
   - Picture Mode: `Game (User)`
   - AI Picture: `Off`

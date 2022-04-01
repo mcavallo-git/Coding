@@ -81,10 +81,10 @@
 
 
 ## Channels
-- ###### Secret Menu - Hover the cursor over `Channel Tuning` and press the `1` button on the `LG Magic Remote` five times
 - Channel Tuning `(Skip)` (Run later to pull cable/air channels)
 - Channel Manager `(Skip)`
 - LG Channels: `Off`
+- ###### Secret Menu - Hover the cursor over `Channel Tuning` and press the `1` button on the `LG Magic Remote` five times
 
 
 ## Connection

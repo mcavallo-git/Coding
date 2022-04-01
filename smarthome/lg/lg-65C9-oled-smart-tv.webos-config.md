@@ -169,6 +169,7 @@
 <br /><hr />
 
 ## Citation(s)
+- <a href="https://github.com/mcavallo-git/Coding/blob/master/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md">github.com  |  "Coding/lg-65C9-oled-smart-tv.webos-config.md at master · mcavallo-git/Coding · GitHub"</a>
 - <a href="https://manuals.plus/_lg/magic-remote-manual">manuals.plus  |  "LG Magic Remote Owner's Manual - Manuals+"</a>
 - <a href="https://www.lg.com/us/support/product/lg-AN-MR19BA.AUS">www.lg.com  |  "LG AN-MR19BA.AUS: Support, Manuals, Warranty & More | LG USA Support"</a>
 

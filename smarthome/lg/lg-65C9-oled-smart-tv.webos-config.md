@@ -2,6 +2,8 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/master/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md -->
 <!-- ------------------------------------------------------------ -->
 
+<div style="white-space:nowrap;">
+
 <hr />
 
 # LG WebOS
@@ -175,3 +177,5 @@
 
 
 <br /><hr />
+
+</div>

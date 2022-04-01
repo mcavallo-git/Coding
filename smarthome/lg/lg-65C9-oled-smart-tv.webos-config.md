@@ -2,18 +2,13 @@
 
 # LG WebOS Settings
 
-
-<hr />
-
-## Open the `All Settings` page
-- Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
-  - Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
-    - Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
-
-
 <br /><hr />
 
 # All Settings
+  - To Open `All Settings`, Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
+  - Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
+    - Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
+      - Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
 
 
 ## Picture

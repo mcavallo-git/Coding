@@ -2,7 +2,7 @@
 
 # LG WebOS
 ## All Settings
-- On the `LG Magic Remote`, press and hold the `Settings` `⚙️` button (middle right) for `more than 1 second` to open the `All Settings` menu
+- On the `LG Magic Remote`, press and hold the `Quick Settings` `⚙️` button (middle right) for `more than 1 second` to open the `All Settings` menu
 
 ## Picture
 - Picture Mode Settings

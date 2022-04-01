@@ -6,9 +6,9 @@
 <hr />
 
 ## Open the `All Settings` page
-- 1. Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
-- 2. Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
-- 3. Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
+- Press the `⚙️` (Settings, cog icon) button on the `LG Magic Remote`
+  - Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
+    - Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
 
 
 <br /><hr />
@@ -22,62 +22,62 @@
   - AI Picture: `Off`
   - OLED Light: `20`
   - Contrast: `85`
-  - Brightness: 50
-  - Sharpness: 10
-  - Color: 55
-  - Tint: 0
+  - Brightness: `50`
+  - Sharpness: `10`
+  - Color: `55`
+  - Tint: `0`
   - Expert Controls
     - Dynamic Contrast: `Off`
-    - Super Resolution: Low
-    - Color Gamut: Auto
-    - White Balance: (Grayed out)
-    - Color Management: (Defaults)
-      - Color: Red/Green/Blue/Cyan/Magenta/Yellow
+    - Super Resolution: `Low`
+    - Color Gamut: `Auto`
+    - White Balance: `(Grayed out)`
+    - Color Management: `(Defaults)`
+      - Color: `Red`/`Green`/`Blue`/`Cyan`/`Magenta`/`Yellow`
       - Saturation: 0
       - Tint: 0
       - Luminance: 0
-        - Peak Brightness: (Off - Grayed out)
+        - Peak Brightness: `(Grayed out, Off)`
 - Aspect Ratio Settings
-  - Aspect Ratio: Original
-  - Just Scan: Auto
-- Energy Saving: Off
+  - Aspect Ratio: `Original`
+  - Just Scan: `Auto`
+- Energy Saving: `Off`
 - Additional Settings
-  - Eye Comfort Mode: On
+  - Eye Comfort Mode: `On`
   - HDMI Ultra Deep Color 
-    - HDMI 1: On
-    - HDMI 2: On
-    - HDMI 3: On
-    - HDMI 4: On
+    - HDMI 1: `On`
+    - HDMI 2: `On`
+    - HDMI 3: `On`
+    - HDMI 4: `On`
   - Instant Game Response
     - HDMI 1: `On`
-    - HDMI 2: On
-    - HDMI 3: On
-    - HDMI 4: On
-  - Fine Tune Dark Areas: 0
+    - HDMI 2: `On`
+    - HDMI 3: `On`
+    - HDMI 4: `On`
+  - Fine Tune Dark Areas: `0`
   - OLED Panel Settings
-    - Pixel Refresher  (run this like once a year)
-    - Screen Shift: On  (extends OLED lifespan)
-    - Logo Luminance Adjustment: Low
+    - Pixel Refresher  `(run this ~once a year)`
+    - Screen Shift: `On` `(helps to prevent OLED pixels getting "stuck" (unable to change color))`
+    - Logo Luminance Adjustment: `Low`
 
 
 ## Sound
-- Dolby Atmos: On
-- AI Sound: On
+- Dolby Atmos: `On`
+- AI Sound: `On`
 - Sound Mode Settings:
-  - Sound Mode: (Grayed out - Standard (User))
-  - Balance: 0
-  - Dolby Surround: (Grayed out - On)
-  - Equalizer: (Grayed out - Off)
+  - Sound Mode: `(Grayed out, Standard (User))`
+  - Balance: `0`
+  - Dolby Surround: `(Grayed out, On)`
+  - Equalizer: `(Grayed out, Off)`
 - Sound Out:
-  - TV Speaker + Wired Headphones
-  - Headphone Volume: 10
-- AI Acoustic Tuning: Standard  (Run whenever you move the TV)
+  - `TV Speaker + Wired Headphones`
+  - Headphone Volume: `10`
+- AI Acoustic Tuning: `Standard` (Run whenever you move the TV)
 - Sound Test  `(Skip)`
 - Additional Settings
   - Volume Mode
-    - Auto Volume: Off
-    - Volume Increase Amount: Low
-  - AV Sync Adjustment: Off
+    - Auto Volume: `Off`
+    - Volume Increase Amount: `Low`
+  - AV Sync Adjustment: `Off`
   - HDMI Input Format
     - HDMI 1: `Bitstream`
     - HDMI 2: `Bitstream`
@@ -89,52 +89,52 @@
 - Channel Tuning `(Skip)` (Run later to pull cable/air channels)
 - Channel Manager `(Skip)`
   - ### Secret Menu - Hover the cursor over `Channel Tuning` and press the `1` button on the `LG Magic Remote` five times
-- LG Channels: Off
+- LG Channels: `Off`
 
 
 ## Connection
-- TV Name:  (setup specific)
-- Wired Connection:  (setup specific)
-- Wi-Fi Connection:  (setup specific)
-- Device Connector:  `(Skip)`
+- TV Name: `(user-specific)`
+- Wired Connection: `(user-specific)`
+- Wi-Fi Connection: `(user-specific)`
+- Device Connector: `(Skip)`
 - Mobile TV On
-  - Turn on via Wi-Fi: On
-  - Turn on via Bluetooth: Off
+  - Turn on via Wi-Fi: `On`
+  - Turn on via Bluetooth: `Off`
 - Screen Share Settings: `(Skip)`
 - HDMI Device Settings
-  - Auto Device Detection: Off
-  - SIMPLILINK(HDMI/CEC): On
-  - Auto Power Sync: On
-- Link To Devices for Voice Control:  `(Skip)`
+  - Auto Device Detection: `Off`
+  - SIMPLILINK(HDMI/CEC): `On`
+  - Auto Power Sync: `On`
+- Link To Devices for Voice Control: `(Skip)`
 
 
 ## General
 - Language
-  - Menu Language: English
-  - Audio Language: English
-  - Keyboard Language: English
+  - Menu Language: `English`
+  - Audio Language: `English`
+  - Keyboard Language: `English`
 - Location
-  - Service Area Zip Code: (setup specific)
-  - LG Services Country: Set Automatically
+  - Service Area Zip Code: `(user-specific)`
+  - LG Services Country: `Set Automatically`
 - Time & Date
-  - Set Automatically: On
-  - Time Zone:  (setup specific)
+  - Set Automatically: `On`
+  - Time Zone: `(user-specific)`
 - Timers
-  - Sleep Timer: Off
-  - Timer Power On: Off
-  - Timer Power Off: Off
-  - 2 Hours Auto Power Off: On
+  - Sleep Timer: `Off`
+  - Timer Power On: `Off`
+  - Timer Power Off: `Off`
+  - 2 Hours Auto Power Off: `On`
 - AI Service
   - Voice Recognition
-    - Voice Recognition Service: Not Selected
-  - Who. Where. What?: Off
-  - Personalized Recommendations: Off
-  - AI Recommendation: Off
-- Account Management (Skip - login later with LG Account if you want)
+    - Voice Recognition Service: `Not Selected`
+  - Who. Where. What?: `Off`
+  - Personalized Recommendations: `Off`
+  - AI Recommendation: `Off`
+- Account Management (Skip, login later with LG Account if you want)
 - Power Saving Mode
-  - HDD Power Saving Mode: Off
+  - HDD Power Saving Mode: `Off`
 - About this TV
-  - Allow Automatic Updates: Off (it notifies you anyway)
+  - Allow Automatic Updates: `Off` (it notifies you anyway)
   - TV Information (shows MAC addresses, serial, model number, disk space)
   - Notifications `(Skip)`
   - User Guide `(Skip)`
@@ -142,7 +142,7 @@
   - User Agreements `(Skip)`
   - Legal Notice `(Skip)`
   - Open Source Software Notice `(Skip)`
-  - Set ID: 1
+  - Set ID: `1`
 - Additional Settings
   - Home Settings
     - Home Auto Launch: `Off`
@@ -164,14 +164,14 @@
 
 
 ## Accessibility
-- Audio Guidance: Off
+- Audio Guidance: `Off`
 - Pointer Options
-  - Tracking Speed: Normal
-  - Pointer Size: “Use a small pointer.” (leftmost)
-- Menu Transparency: On
-- Closed Captions: Off (on if you use WebOS)
-- TV Power Sound: Off
-  - High Contrast: Off
+  - Tracking Speed: `Normal`
+  - Pointer Size: `Use a small pointer.` (leftmost)
+- Menu Transparency: `On`
+- Closed Captions: `Off`
+- TV Power Sound: `Off`
+  - High Contrast: `Off`
 
 
 <br /><hr />

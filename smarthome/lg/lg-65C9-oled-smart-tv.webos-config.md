@@ -11,7 +11,7 @@
       - Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
 
 
-## Picture
+### Picture
 - Picture Mode Settings
   - Picture Mode: `Game (User)`
   - AI Picture: `Off`

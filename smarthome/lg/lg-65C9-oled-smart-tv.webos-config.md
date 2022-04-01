@@ -6,7 +6,7 @@
 
 # All Settings
   - To Open `All Settings`:
-    - Press the `⚙️` (Settings) button near the middle-right of the `LG Magic Remote`
+    - On the `LG Magic Remote`, press the Settings `⚙️` button (middle right)
       - Press `down` on the circular D-Pad until the bottom-left `All Settings` icon is highlighted on the screen
         - Confirm selection by pressing in the `trackball` on the `LG Magic Remote`
 

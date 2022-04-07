@@ -794,8 +794,6 @@ Pause::
 !#r::
 ^#r::
 +#r::
-+!r::
-+^r::
 	Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
 	Return
 

@@ -6,7 +6,8 @@
 
 <hr />
 
-# LG WebOS
+# LG 65C9 WebOS Config
+
 ## All Settings
 - On the `LG Magic Remote`, press and hold the `Quick Settings` `⚙️` button (middle right) for `more than 1 second` to open the `All Settings` menu
 
@@ -54,7 +55,6 @@
       - *Note: Screen Shift helps to prevent OLED pixels from getting "stuck" (unable to change color)*
     - Logo Luminance Adjustment: `Low`
 
-
 ## Sound
 - Dolby Atmos: `On`
 - AI Sound: `On`
@@ -79,13 +79,11 @@
     - HDMI 3: `Bitstream`
     - HDMI 4: `Bitstream`
 
-
 ## Channels
 - Channel Tuning `(Skip)` (Run later to pull cable/air channels)
 - Channel Manager `(Skip)`
 - LG Channels: `Off`
 - ###### Secret Menu - Hover the cursor over `Channel Tuning` and press the `1` button on the `LG Magic Remote` five times
-
 
 ## Connection
 - TV Name: `(user-specific)`
@@ -101,7 +99,6 @@
   - SIMPLILINK(HDMI/CEC): `On`
   - Auto Power Sync: `On`
 - Link To Devices for Voice Control: `(Skip)`
-
 
 ## General
 - Language
@@ -153,10 +150,8 @@
   - Home/Store Mode: `Home Mode`
 - Reset to Initial Settings `(Skip)`
 
-
 ## Safety
 - On/Off: `Off` (top-right slider, could be useful if you have kids)
-
 
 ## Accessibility
 - Audio Guidance: `Off`
@@ -168,14 +163,15 @@
 - TV Power Sound: `Off`
   - High Contrast: `Off`
 
-
 <br /><hr />
 
 ## Citation(s)
 - <a href="https://github.com/mcavallo-git/Coding/blob/master/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md">github.com  |  "Coding/lg-65C9-oled-smart-tv.webos-config.md at master · mcavallo-git/Coding · GitHub"</a>
+- <a href="https://gscs-b2c.lge.com/downloadFile?fileId=yXFnEz2ZB9ypMx0DGQ25jg">gscs-b2c.lge.com  |  "Owner's Manual - LG Magic Remote"</a>
+- <a href="https://gscs-b2c.lge.com/downloadFile?fileId=qReQV6oTTnLYU1AYxsVBkg">gscs-b2c.lge.com  |  "Owner's Manual - LG OLED TV"</a>
 - <a href="https://manuals.plus/_lg/magic-remote-manual">manuals.plus  |  "LG Magic Remote Owner's Manual - Manuals+"</a>
 - <a href="https://www.lg.com/us/support/product/lg-AN-MR19BA.AUS">www.lg.com  |  "LG AN-MR19BA.AUS: Support, Manuals, Warranty & More | LG USA Support"</a>
-
+- <a href="https://www.lg.com/us/tvs/lg-OLED65C9PUA-oled-4k-tv">www.lg.com  |  "LG C9 65-inch OLED 4K Smart TV w/AI ThinQ® | LG USA"</a>
 
 <br /><hr />
 

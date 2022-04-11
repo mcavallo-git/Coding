@@ -6,7 +6,7 @@
 
 <hr />
 
-# LG 65C9 WebOS Config
+# LG C9 OLED TV - WebOS Settings
 
 ## All Settings
 - On the `LG Magic Remote`, press and hold the `Quick Settings` `⚙️` button (middle right) for `more than 1 second` to open the `All Settings` menu

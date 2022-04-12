@@ -1,9 +1,14 @@
 #!/bin/bash
 # ------------------------------------------------------------
+# Linux - trim string (trim to length, trim whitespace)
+# ------------------------------------------------------------
 
 # trim string to specific length
-STRING="$(seq 0 9 | tr -d "\n";)";  # Repeat "-" 60 times)";
-STRING_TRIMMED="$(echo -e "${STRING}" | awk "{print substr(\$0,5,${#STRING})}";)";
+
+STRING="$(seq 0 9 | tr -d "\n";)";
+START_CHAR="5";
+END_CHAR="${#STRING}";
+STRING_TRIMMED="$(echo -e "${STRING}" | awk "{print substr(\$0,${START_CHAR},${END_CHAR})}";)";
 echo -e "\nSTRING=[${STRING}]\nSTRING_TRIMMED=[${STRING_TRIMMED}]\n";
 # returns:
 # STRING=[0123456789]

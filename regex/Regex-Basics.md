@@ -165,10 +165,10 @@
 									        |-->  match lines containing the string 'if [ * ]; then' where the '*' does NOT contain the word 'then'
 
                   Ex:   ```<i>((?!</i>).)+$```
-                          |-->  match lines which have more opening HTML DOM blocks than they do closing
+                          |-->  match lines which have more opening HTML DOM <i> blocks than they do closing
 
 									Ex:   ```^((?!<a).)*</a>```
-									        |-->  match lines which have more closing HTML DOM blocks than they do opening
+									        |-->  match lines which have more closing HTML DOM <a> blocks than they do opening
 
 									Ex:   ```^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$```
 									        |-->  match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks

@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# tr - "translate or delete characters" (e.g. splits strings on a given character)
+# Linux - tr (split string on given character, remove character from string)
 # ------------------------------------------------------------
 
 # tr - remove newlines from string
@@ -10,7 +10,7 @@ seq 0 9 | tr -d "\n";
 
 # ------------------------------------------------------------
 
-
+# tr - splits strings on a given character
 for EACH_PATH in $(manpath | tr ":" "\n"); do echo -e "\n${EACH_PATH}"; ls -al "${EACH_PATH}"; done;
 
 

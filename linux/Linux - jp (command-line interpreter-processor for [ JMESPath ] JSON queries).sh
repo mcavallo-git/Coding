@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - jp (command-line interpreter-processor for JMESPath (a JSON query language))
+# Linux - jp (command-line interpreter-processor for [ JMESPath ] JSON queries)
 # ------------------------------------------------------------
 #
 # jp - install

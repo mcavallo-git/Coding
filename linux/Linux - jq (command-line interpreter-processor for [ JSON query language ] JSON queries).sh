@@ -1,7 +1,9 @@
 #!/bin/bash
 # ------------------------------------------------------------
+# Linux - jq (command-line interpreter-processor for [ JSON query language ] JSON queries)
+# ------------------------------------------------------------
 #
-# Install jq
+# jq - install
 #
 if [ $(which jq 2>'/dev/null' | wc -l;) -eq 0 ]; then
   echo "Downloading/Installing jq...";

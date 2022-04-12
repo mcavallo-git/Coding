@@ -52,11 +52,10 @@ dig google.com MX
 dig google.com TXT
 
 
-
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
-# 	linux.die.net, "dig(1) - Linux man page", https://linux.die.net/man/1/dig
+#   linux.die.net  |  "dig(1): DNS lookup utility - Linux man page"  |  https://linux.die.net/man/1/dig
 #
 # ------------------------------------------------------------

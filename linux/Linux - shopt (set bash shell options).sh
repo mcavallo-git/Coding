@@ -51,10 +51,10 @@ shopt -s lastpipe;  # If set, and job control is not active, the shell runs the 
 #
 # Citation(s)
 #
-# 	gnu.org, "4.2 Bash Builtin Commands", https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html#Bash-Builtins
+#   ss64.com  |  "shopt Man Page - Linux - SS64.com"  |  https://ss64.com/bash/shopt.html
 #
-# 	gnu.org, "4.3.2 The Shopt Builtin", https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
+#   www.gnu.org  |  "Bash Builtins (Bash Reference Manual)"  |  https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html#Bash-Builtins
 #
-# 	ss64.com, "shopt Man Page - Linux - SS64.com", https://ss64.com/bash/shopt.html
+#   www.gnu.org  |  "The Shopt Builtin (Bash Reference Manual)"  |  https://www.gnu.org/software/bash/manual/html_node/The-Shopt-Builtin.html
 #
 # ------------------------------------------------------------

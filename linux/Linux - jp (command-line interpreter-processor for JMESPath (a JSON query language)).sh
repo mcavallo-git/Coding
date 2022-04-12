@@ -1,7 +1,9 @@
 #!/bin/bash
 # ------------------------------------------------------------
+# Linux - jp (command-line interpreter-processor for JMESPath (a JSON query language))
+# ------------------------------------------------------------
 #
-# Install JP (command-line JMESPath interpreter-processor)
+# jp - Install
 #
 
 curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_jp?t=$(date +'%s.%N')" | env GITHUB_OWNER="jmespath" GITHUB_REPO="jp" VERSION_CLI="--version 2>'/dev/null' | rev | cut -d' ' -f1 | rev" bash;  # install jp

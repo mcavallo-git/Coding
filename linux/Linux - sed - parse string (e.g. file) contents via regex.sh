@@ -253,31 +253,35 @@ sed -e "/^\s*$/d" -i".$(date +'%Y%m%d_%H%M%S').bak" "${FILEPATH}";  # sed - remo
 echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; rm -rfv "${FILEPATH}";
 
 
-# sed -i (inplace edit - modifies target filepath)
+# sed -i (modify file)
 FILEPATH="${HOME}/test-sed-i.example-2.txt";
 echo -e "  line1\n\n  line3\n\n\n  line6\n\n\n\n  line10\n" > "${FILEPATH}";
 sed -e "s/^\s*//g" -i".$(date +'%Y%m%d_%H%M%S').bak" "${FILEPATH}";  # sed - trim leading whitespace
 echo "FILEPATH=[${FILEPATH}]"; echo -e "CONTENTS=[\n$(cat "${FILEPATH}";)\n]"; rm -rfv "${FILEPATH}";
 
 
-# sed -i (inplace edit - modifies target filepath)  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
+# sed -i (modify file)  -  Update a file: Replace yaml properties "hostname:" and "container_name:" properties to have value "dat-docker-image"
 FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name):\s+).+\$/\1\"dat-docker-name\"\3/" -i "${FILE_TO_UPDATE}";
 
 
-# sed -i (inplace edit - modifies target filepath)  -  Remove Windows newlines (e.g. remove CR's) from a file
+# sed -i (modify file)  -  Remove Windows newlines (e.g. remove CR's) from a file
 sed -e 's/\r$//' -i".$(date +'%Y%m%d_%H%M%S').bak" "~/sftp/uploaded_file";
 
 
-# sed -i (inplace edit - modifies target filepath)  -  MySQL Exports: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+# sed -i (modify file)  -  MySQL: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 sed 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' -i "Functions.sql";
 
 
-# sed -i (inplace edit - modifies target filepath)  -  MySQL Exports: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+# sed -i (modify file)  -  MySQL: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 sed 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' -i "Functions.sql";
 
 
-# sed -i (inplace edit - modifies target filepath)  -  MySQL Exports - Replace Trigger definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
+# sed -i (modify file)  -  MySQL: Replace Trigger definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 sed 's|DEFINER=[^ ]*\*/ |DEFINER=CURRENT_USER()*/ |g' -i "Triggers.sql";
+
+
+# sed -i (modify file)  -  Microsoft SQL:  Append " IF EXISTS" immediately after any "DROP TABLE" commands (intended to be used on Entity Framework exported Microsoft SQL schema file to make its contents idempotent)
+sed -re "s/^(DROP\s*TABLE)(\s*.+;)\$/\1 IF EXISTS\2/" -i "${FULLPATH_ENTITY_FRAMEWORK_SQL}";
 
 
 # ------------------------------------------------------------

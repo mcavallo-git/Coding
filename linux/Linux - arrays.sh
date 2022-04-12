@@ -183,6 +183,18 @@ for DAT_ITEM in "${DAT_ARRAY_SORTED_NO_DUPES[@]}"; do
 echo "${DAT_ITEM}";
 done;
 
+# -------------------------------------------------------------
+#
+#	Check an array for a given value
+#
+
+CONTAINS_ELEMENT(){ local X Y="$1";shift;for X;do [[ "$X" == "$Y" ]] && return 0;done;return 1; };
+
+# Ex - Using CONTAINS_ELEMENT
+
+TEST_ARRAY=("value 1" "value 2" "value 3");
+CONTAINS_ELEMENT "value 1" "${TEST_ARRAY[@]}"; echo ${?};  # returns 0
+CONTAINS_ELEMENT "value x" "${TEST_ARRAY[@]}"; echo ${?};  # returns 1
 
 
 # -------------------------------------------------------------
@@ -234,18 +246,20 @@ echo -e "\n\n";
 #
 # Citation(s)
 #
-#   www.cyberciti.biz  |  "How To Find BASH Shell Array Length ( number of elements ) - nixCraft"  |  https://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/
-#
-#   gnu.org  |  "6.7 Arrays"  |  https://www.gnu.org/software/bash/manual/html_node/Arrays.html
-#
-#   linuxjournal.com  |  "Bash Associative Arrays"  |  https://www.linuxjournal.com/content/bash-associative-arrays
-#
 #   serverfault.com  |  "Check if array is empty in Bash"  |  https://serverfault.com/a/477506
 #
 #   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
 #
+#   stackoverflow.com  |  "Check if a Bash array contains a value - Stack Overflow"  |  https://stackoverflow.com/a/8574392
+#
 #   stackoverflow.com  |  "Loop through an array of strings in Bash?"  |  https://stackoverflow.com/a/8880633
 #
 #   stackoverflow.com  |  "Multidimensional associative arrays in Bash"  |  https://stackoverflow.com/a/6151190
+#
+#   www.cyberciti.biz  |  "How To Find BASH Shell Array Length ( number of elements ) - nixCraft"  |  https://www.cyberciti.biz/faq/finding-bash-shell-array-length-elements/
+#
+#   www.gnu.org  |  "Arrays (Bash Reference Manual)"  |  https://www.gnu.org/software/bash/manual/html_node/Arrays.html
+#
+#   www.linuxjournal.com  |  "Bash Associative Arrays | Linux Journal"  |  https://www.linuxjournal.com/content/bash-associative-arrays
 #
 # ------------------------------------------------------------

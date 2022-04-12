@@ -24,11 +24,24 @@
 $TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",":`$3"); $TZ_MinutesOffset; <# Returns ":00" (minutes offset for current system's timezone) #>
 
 
-# ------------------------------------------------------------
+# ------------------------------
+#
+# Example - Perform regex replacements to remove semi-colons from the end of a string
+#
 
 "htmlfile;" -replace "^((?:(?!;).)+)(;)?$","`$1";  <# Returns "htmlfile" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
 
 "htmlfile:" -replace "^((?:(?!;).)+)(;)?$","`$1";  <# Returns "htmlfile:" (attempts to remove any semi-colons at the end of the string, and returns the whole string if no semi-colon exists as the last character in the string #>
+
+
+# ------------------------------
+#
+# Example - Perform regex replacements on an Entity Framework exported SQL file to make its contents idempotent
+#
+
+(Get-Content "${env:FULLPATH_SQL_SCHEMA_FILE}").replace('DROP TABLE [', 'DROP TABLE IF EXISTS [') | Set-Content "${env:FULLPATH_SQL_SCHEMA_FILE}";  # Add " IF EXISTS" immediately after any "DROP TABLE" commands
+
+(Get-Content "${env:FULLPATH_SQL_SCHEMA_FILE}") -replace "(^\s*(?:EXEC\(N')?)(CREATE (?:UNIQUE )?INDEX )(\[[^\]]+\])(\s+ON\s+)(\[[^\s]+)(\s[^';]+)((?:'|;).*)$","`$1DROP INDEX IF EXISTS `$3 ON `$5; `$2`$3`$4`$5`$6`$7" | Set-Content "${env:FULLPATH_SQL_SCHEMA_FILE}";  # Prepend "DROP INDEX IF EXISTS [INDEX_NAME] ON [DB_NAME].[TABLE_NAME];" before all "CREATE INDEX" & "CREATE UNIQUE INDEX" commands
 
 
 # ------------------------------------------------------------

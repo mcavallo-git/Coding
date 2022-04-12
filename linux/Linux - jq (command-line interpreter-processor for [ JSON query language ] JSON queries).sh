@@ -60,9 +60,21 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 
 # ------------------------------------------------------------
 #
-# jq - select array items based on their object's property values
+# jq - select objects/array-items/properties based on their value(s)/nested-value(s)
+#  |
+#  |--> NOTE:  " | select(...)" is type-sensitive (ints require no quotes, strings require quotes around their compared value(s))
 #
-helm list --all --all-namespaces --output json | jq -r '.[] | select(.chart | test("ingress-nginx-.+")) | .';
+
+# jq - Select array item(s) based on their value(s)
+JQ_QUERY='.[] | select(.id=="1") | .';
+JSON='[{"id":"1","name":"obj1","value":"val1"},{"id":"2","name":"obj2","value":"val2"}]';
+echo "${JSON}" | jq "${JQ_QUERY}";
+
+
+# jq - Select object property's nested array item(s) based on its value(s)
+JQ_QUERY='.value[] | select(.definition.id==1) | .';
+JSON='{"count":3,"value":[{"definition":{"id":1}},{"definition":{"id":2}},{"definition":{"id":3}}]}';
+echo "${JSON}" | jq "${JQ_QUERY}";
 
 
 # ------------------------------------------------------------
@@ -368,5 +380,7 @@ fi;
 #   stackoverflow.com  |  "iteration - Output specific key value in object for each element in array with jq for JSON - Stack Overflow"  |  https://stackoverflow.com/a/35677443
 #
 #   stackoverflow.com  |  "json - How to check if element exists in array with jq - Stack Overflow"  |  https://stackoverflow.com/a/43269105
+#
+#   stackoverflow.com  |  "json - Select objects based on value of variable in object using jq - Stack Overflow"  |  https://stackoverflow.com/a/18608100
 #
 # ------------------------------------------------------------

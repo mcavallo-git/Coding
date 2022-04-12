@@ -344,9 +344,9 @@ sed -r -e "/${PATTERN//\//\\\/}/{" \
 
 # Example) Only return lines which start with "from" and end with "where"
 if [ -n "$(sed -n -e '/from/,/where/ p' file.txt)" ]; then
-	echo "File DOES contain substring"; # ==> Note: outputs entire file-contents if a match is found
+  echo "File DOES contain substring"; # ==> Note: outputs entire file-contents if a match is found
 else
-	echo "File does NOT contain substring";
+  echo "File does NOT contain substring";
 fi;
 
 
@@ -354,7 +354,16 @@ fi;
 #
 # Remove top 1 line from piped output using [ sed + head + sed ]
 #
+
 df -h | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d'; 
+
+
+# ------------------------------------------------------------
+#
+# tr - remove newlines from string
+#
+
+seq 0 9 | tr -d "\n";
 
 
 # ------------------------------------------------------------

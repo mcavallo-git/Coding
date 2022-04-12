@@ -5,14 +5,14 @@
 
 # trim string to specific length
 
-STRING="$(seq 0 9 | tr -d "\n";)";
-START_CHAR="5";
+STRING="12345678901234567890123456789012345678901234567890";
+START_CHAR="25";
 END_CHAR="${#STRING}";
 STRING_TRIMMED="$(echo -e "${STRING}" | awk "{print substr(\$0,${START_CHAR},${END_CHAR})}";)";
 echo -e "\nSTRING=[${STRING}]\nSTRING_TRIMMED=[${STRING_TRIMMED}]\n";
 # returns:
-# STRING=[0123456789]
-# STRING_TRIMMED=[456789]
+# STRING=[12345678901234567890123456789012345678901234567890]
+# STRING_TRIMMED=[56789012345678901234567890]
 
 
 # ------------------------------------------------------------

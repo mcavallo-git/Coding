@@ -26,8 +26,9 @@ seq 5;
 
 # seq - Example: Output a list of numbers (define first & last numbers)
 
-SEQ_FIRST="5"; SEQ_LAST="10";
-seq ${SEQ_FIRST} ${SEQ_LAST};
+SEQ_FIRST="5"; SEQ_LAST="10"; seq ${SEQ_FIRST} ${SEQ_LAST};
+# or
+seq 5 10;
 # returns:
 # 5
 # 6
@@ -41,8 +42,9 @@ seq ${SEQ_FIRST} ${SEQ_LAST};
 
 # seq - Example: Output a list of numbers (define first, increment & last numbers)
 
-SEQ_FIRST="15"; SEQ_LAST="30"; SEQ_INCREMENT="3";
-seq ${SEQ_FIRST} ${SEQ_INCREMENT} ${SEQ_LAST};
+SEQ_FIRST="15"; SEQ_LAST="30"; SEQ_INCREMENT="3"; seq ${SEQ_FIRST} ${SEQ_INCREMENT} ${SEQ_LAST};
+# or
+seq 15 3 30;
 # returns:
 # 15
 # 18
@@ -57,6 +59,8 @@ seq ${SEQ_FIRST} ${SEQ_INCREMENT} ${SEQ_LAST};
 # seq - Example: Output a list of numbers left-padded with leading zeroes
 
 seq --equal-width 1 10;
+# or
+seq -w 1 10;
 # returns:
 # 01
 # 02

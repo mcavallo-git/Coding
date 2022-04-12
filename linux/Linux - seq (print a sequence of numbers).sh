@@ -3,10 +3,16 @@
 # Linux - seq (print a sequence of numbers)
 # ------------------------------------------------------------
 #
-# SYNOPSIS
-#        seq [OPTION]... LAST
-#        seq [OPTION]... FIRST LAST
-#        seq [OPTION]... FIRST INCREMENT LAST
+# Syntax - seq:
+#          seq [OPTION]... LAST
+#          seq [OPTION]... FIRST LAST
+#          seq [OPTION]... FIRST INCREMENT LAST
+#
+# ------------------------------------------------------------
+#
+# Syntax - Bash Range (optional replacement for seq):
+#
+#        {START..STOP[..INCREMENT]}
 #
 # ------------------------------------------------------------
 
@@ -19,7 +25,6 @@ seq 5;
 # 3
 # 4
 # 5
-
 
 
 # ------------------------------------------------------------
@@ -77,6 +82,8 @@ seq -w 1 10;
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   linuxhint.com  |  "Bash Range"  |  https://linuxhint.com/bash_range/
 #
 #   stackoverflow.com  |  "bash sequence 00 01 ... 10 - Stack Overflow"  |  https://stackoverflow.com/a/11891206
 #

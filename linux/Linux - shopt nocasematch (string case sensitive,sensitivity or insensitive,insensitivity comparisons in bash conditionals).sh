@@ -29,4 +29,6 @@ if [[ "${ROLLBACK_SHOPT_NOCASEMATCH}" == "off" ]]; then shopt -u nocasematch; fi
 #
 #   stackoverflow.com  |  "bash - Why isn't the case statement case-sensitive when nocasematch is off? - Stack Overflow"  |  https://stackoverflow.com/a/10695111
 #
+#   stackoverflow.com  |  "Case insensitive comparison of strings in shell script - Stack Overflow"  |  https://stackoverflow.com/a/1728814
+#
 # ------------------------------------------------------------

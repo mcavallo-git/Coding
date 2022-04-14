@@ -16,6 +16,10 @@ IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -g
 echo "hello world" | sed -e 's|world|not world|g';
 
 
+# sed regex replacement (removal/slicing)
+echo "123abc456def789ghi" | sed -re "s/[^0-9\.]//g";
+
+
 # ------------------------------------------------------------
 #
 # Regex matching & capture groups

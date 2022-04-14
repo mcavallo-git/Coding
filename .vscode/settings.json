@@ -210,9 +210,9 @@
   "window.zoomLevel": 0,
   "workbench.colorTheme": "Default Dark+",
   "workbench.colorCustomizations": {
-    "tab.activeBorder": "#4F6A0A",
-    "statusBar.background": "#4F6A0A",
-    "statusBar.foreground": "#FFFFFF",
+    "tab.activeBorder": "#4D4DFF",
+    "statusBar.background": "#4D4DFF",
+    "statusBar.foreground": "#FFFFFF"
   },
   "workbench.editor.closeOnFileDelete": true,
   "workbench.editor.enablePreview": false,

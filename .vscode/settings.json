@@ -208,16 +208,6 @@
   "window.openFoldersInNewWindow": "on",
   "window.restoreFullscreen": true,
   "window.zoomLevel": 0,
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#151547",
-    "statusBar.foreground": "#FFFFFF",
-    "tab.activeBackground": "#151547",
-    "tab.activeBorder": "#0F0FFF",
-    "tab.activeForeground": "#FFFFFF",
-    "tab.hoverBackground": "#4D4DFF",
-    "tab.hoverForeground": "#FFFFFF",
-    "tab.inactiveForeground": "#FFFFFF"
-  },
   "workbench.colorTheme": "Default Dark+",
   "workbench.editor.closeOnFileDelete": true,
   "workbench.editor.enablePreview": false,

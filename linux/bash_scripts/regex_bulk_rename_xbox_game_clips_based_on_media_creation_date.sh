@@ -1,7 +1,7 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
-# Xbox Console Companion Game clip renamer
+# Xbox Console Companion Game clip downloads renamer
 #  |
 #  |--> Appens a date-created timestamp onto the filename for Game clips downloaded from 'Xbox Console Companion' (Windows 10) app
 #

@@ -4085,12 +4085,12 @@ XBox_DownloadDelete_GameClips() {
 						Tooltip_NewStats := ( "Loading 'On Xbox Live' (tab): " WaitDuration_Seconds "s ..." )
 						Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 						If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
-							WinActivate("ahk_id %Win_ahk_id%")
 							;
 							; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
 							;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
 							;
-							If ( PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0) ) {
+							WinActivate("ahk_id %Win_ahk_id%")
+							If ( (PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0)) || (WaitDuration_Seconds > 20) ) {
 								Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 								Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 								Sleep 500
@@ -4331,7 +4331,7 @@ XBox_DownloadDelete_GameClips() {
 			Sleep 2000
 		}
 	}
-	If (MediaFiles_Processed > 0) {
+	; If (MediaFiles_Processed > 0) {
 		;
 		; Open the timestamping script (renames files to their basename plus their metadata created-on date)
 		;
@@ -4351,7 +4351,7 @@ XBox_DownloadDelete_GameClips() {
 		Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
 		Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 		Sleep 2000
-	}
+	; }
 	ClearTooltip(10000)
 	Return
 }

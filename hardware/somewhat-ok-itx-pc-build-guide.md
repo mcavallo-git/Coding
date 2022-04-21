@@ -1,10 +1,8 @@
-------------------------------------------------------------
+<hr />
 
+# Somewhat-OK ITX-PC Build Guide
 
-Somewhat-OK ITX-PC Build Guide
-
-
-------------------------------------------------------------
+<hr />
 
 
 **Note: I say "Float" a lot --> For this scenario, it means to hold (with your main-hand) something heavy/costly just-barely over something else, in an attempt to gauge distances, line things up, etc.

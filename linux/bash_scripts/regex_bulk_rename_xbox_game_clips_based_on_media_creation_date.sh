@@ -24,9 +24,11 @@ echo "test 2";
 
 DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
-if [ -n "$(command -v wslpath 2>'/dev/null';)" ]; then  # WSL OS
+if [[ -n "$(command -v wslpath 2>'/dev/null';)" ]] && [[ -n "$(command -v wslvar 2>'/dev/null';)" ]]; then
+  # WSL Linux Distro
   DEFAULT_WORKING_DIR="$(wslpath -u "$(wslvar -s "USERPROFILE";)";)/Videos/Captures";
-else  # Non-WSL OS
+else
+  # Non-WSL Linux Distro
   DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
 fi;
 

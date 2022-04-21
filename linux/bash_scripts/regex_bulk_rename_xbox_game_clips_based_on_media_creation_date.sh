@@ -100,7 +100,7 @@ else
       EXIFTOOL_APT_PKG="libimage-exiftool-perl";
       echo "";
       echo "Info:  Installing linux package \"exiftool\" via its apt package \"${EXIFTOOL_APT_PKG}\"...";
-      apt-get -y update; apt-get -y install ${EXIFTOOL_APT_PKG};
+      sudo apt-get -y update; sudo apt-get -y install ${EXIFTOOL_APT_PKG};
     fi;
   fi;
 

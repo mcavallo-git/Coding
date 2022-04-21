@@ -7,7 +7,7 @@
 #
 # ------------------------------------------------------------
 
-printenv | sort -u;
+echo "test 1";
 
 if [[ 0 -eq 1 ]]; then # RUN THIS SCRIPT REMOTELY:
 
@@ -20,6 +20,8 @@ curl -H 'Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, m
 fi;
 # ------------------------------------------------------------
 
+echo "test 2";
+
 DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
 if [ -n "$(command -v wslpath 2>'/dev/null';)" ]; then  # WSL OS
@@ -28,11 +30,15 @@ else  # Non-WSL OS
   DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
 fi;
 
+echo "test 3";
+
 # ------------------------------------------------------------
 # Parse inline arguments (passed to current script)
 
 ARGS=("$@");
 ARGS_COUNT=${#ARGS[@]};
+
+echo "test 4";
 
 for (( i=0;i<$ARGS_COUNT;i++ )); do # Walk through any inline-arguments passed to this function
 
@@ -70,6 +76,8 @@ for (( i=0;i<$ARGS_COUNT;i++ )); do # Walk through any inline-arguments passed t
 
 done;
 
+echo "test 5";
+
 # ------------------------------------------------------------
 #
 # Instantiate essential runtime variables (which were not passed as inline-arguments to this script)
@@ -80,6 +88,8 @@ if [ ! -v WORKING_DIR ]; then
     WORKING_DIR="${DEFAULT_WORKING_DIR}";
   fi;
 fi;
+
+echo "test 6";
 
 echo "";
 echo "DEFAULT_WORKING_DIR=[ ${DEFAULT_WORKING_DIR} ]";
@@ -203,3 +213,5 @@ else
   done;
 
 fi;
+
+echo "test 7";

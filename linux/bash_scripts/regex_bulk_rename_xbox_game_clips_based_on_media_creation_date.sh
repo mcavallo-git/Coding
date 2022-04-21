@@ -16,7 +16,7 @@ curl -H 'Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, m
 # curl -H 'Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' -ssL 'https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh' | bash;  # Xbox Game clip Renamer - Dry-run
 
 
-### !!! WORKING DIR AS INLINE-ARG IS NON-FUNCTIONAL - NEED TO TROUBLESHOOT !!!
+### ! ! WORKING DIR AS INLINE-ARG IS NON-FUNCTIONAL - NEED TO TROUBLESHOOT ! !
 # curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -ssL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh?t=$(date +'%s.%N')" | bash -s -- --dry-run 0 --working-dir "${HOME}/Videos/Captures";
 
 
@@ -177,7 +177,7 @@ else
             echo "------------------------------------------------------------";
             echo "EACH_FILENAME:       ${EACH_FILENAME}";
             echo "EACH_CREATE_DATE:    ${EACH_CREATE_DATE}";
-            echo "EACH_NEW_FILENAME:   ${EACH_NEW_FILENAME}   !!! Skipping File-Rename (Dry-Run Mode) !!!";
+            echo "EACH_NEW_FILENAME:   ${EACH_NEW_FILENAME}   ! ! Skipping File-Rename (Dry-Run Mode) ! !";
 
           else  # NOT running in dry-run mode
 

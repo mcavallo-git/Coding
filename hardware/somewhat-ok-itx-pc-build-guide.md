@@ -2,7 +2,7 @@
 
 <br /><hr /><br />
 
-# Somewhat-OK ITX-PC Build Guide
+# Somewhat OK Mini ITX PC Build Guide
 
 <br /><hr /><br />
 

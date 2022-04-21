@@ -1,3 +1,5 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/master/hardware/somewhat-ok-itx-pc-build-guide.md -->
+
 <br /><hr /><br />
 
 # Somewhat-OK ITX-PC Build Guide

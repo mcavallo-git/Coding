@@ -25,7 +25,11 @@ fi;
 
 DRY_RUN=1;  # DEBUG ON - DRY RUNS THE SCRIPT, DOES NOT RENAME FILES
 
-DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
+if [ -n "$(command -v wslpath 2>'/dev/null';)" ]; then  # WSL OS
+  DEFAULT_WORKING_DIR="$(wslpath -u "$(wslvar -s "USERPROFILE";)";)/Videos/Captures";
+else  # Non-WSL OS
+  DEFAULT_WORKING_DIR="${HOME}/Videos/Captures";
+fi;
 
 # ------------------------------------------------------------
 # Parse inline arguments (passed to current script)

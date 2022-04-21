@@ -4366,7 +4366,7 @@ XBox_DownloadDelete_GameClips() {
 
 		}
 
-		; If (MediaFiles_Processed > 0) {
+		If (MediaFiles_Processed > 0) {
 
 			; Open the timestamping script (renames files to their basename plus their metadata created-on date)
 			Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
@@ -4386,7 +4386,7 @@ XBox_DownloadDelete_GameClips() {
 			Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 			Sleep 2000
 
-		; }
+		}
 
 	}
 

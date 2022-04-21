@@ -4065,7 +4065,9 @@ XBox_DownloadDelete_GameClips() {
 							Sleep 1000
 						}
 						WinActivate("ahk_id %Win_ahk_id%")
+						;
 						; Move the window to specified x/y position and resize it to have specified width/height
+						;
 						WinMove("ahk_id %Win_ahk_id%",, -7, 0, 1280, 800)
 						Sleep 500
 						Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
@@ -4088,7 +4090,7 @@ XBox_DownloadDelete_GameClips() {
 								WinActivate("ahk_id %Win_ahk_id%")
 								;
 								; Check the color of each pixel in a 2-D horizontal line which passes over the "On This PC" and "On Xbox Live" tab name texts
-								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
+								;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
 								;
 								If (PixelSearch(Px, Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
@@ -4118,7 +4120,7 @@ XBox_DownloadDelete_GameClips() {
 								WinActivate("ahk_id %Win_ahk_id%")
 								;
 								; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
-								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
+								;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
 								;
 								If ( PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0) ) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
@@ -4194,9 +4196,12 @@ XBox_DownloadDelete_GameClips() {
 					; Processing File #x / y
 					;
 					If (MaxFilesToDownload > 0) {
+						;
+						; If option "MaxFilesToDownload" is set no a non-zero value, use its value as the maximum number of files to be downloaded
+						;
 						Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Processing File # " MediaFile_Iteration "/" MaxFilesToDownload ":"
 						If (MediaFile_Iteration >= MaxFilesToDownload) {
-							Break  ; Allow limiting the total # of files to download
+							Break
 						}
 					} Else {
 						Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Processing File # " MediaFile_Iteration ":"
@@ -4212,14 +4217,20 @@ XBox_DownloadDelete_GameClips() {
 						Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
 						If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
 							WinActivate("ahk_id %Win_ahk_id%")
-							If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {  ; Check a line of pixels which runs across the filename for the top line-item (on the left area of the 'Captures' tab) for text matching any color between a medium-light gray (0xD4D4D4) and white (0xFFFFFF), which appears as the file's line-item becomes selectable (and begins to buffer if already selected)
+							;
+							; Check the color of each pixel in a 2-D horizontal line which passes over the top Game clip / Screenshot's filename text
+							;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the file line item has become selectable)
+							;
+							If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {
 								NextDownloadExists_Passed := 1
 								Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
 								Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
 								Break
 							} Else {
-								If ( WaitDuration_Seconds > 10 ) {
-									; First file still not found - Assume no more files exist
+								If (WaitDuration_Seconds > 10) {
+									;
+									; Top row-item (filename) not found - Assume no more files exist
+									;
 									NextDownloadExists_Passed := 0
 									Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Not found" )
 									Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1

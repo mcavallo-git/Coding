@@ -6,6 +6,9 @@
 #  |--> Appens a date-created timestamp onto the filename for Game clips downloaded from 'Xbox Console Companion' (Windows 10) app
 #
 # ------------------------------------------------------------
+
+printenv | sort -u;
+
 if [[ 0 -eq 1 ]]; then # RUN THIS SCRIPT REMOTELY:
 
 

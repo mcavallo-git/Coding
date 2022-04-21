@@ -23,8 +23,8 @@
 ## 2.0 - Mobo
 - Take mobo out of its magnetic shielding bag, place that bag flat back where it came out of, and place the motherboard back ontop of it as a static-free workbench.
 
-## 2.1 - I/O Shield
-- Take the long rectangular I/O Shield (which matches your motherboard to your case) and attach it to your case by placing it inside where the motherboard will go, then moving it towards the back of the case (you'll see the slot on the case) - make sure up-is-up (orientation-wise), verify this respective to CPU slot on mobo, looking back and forth from case to motherboard to double-check
+  ## 2.1 - I/O Shield
+  - Take the long rectangular I/O Shield (which matches your motherboard to your case) and attach it to your case by placing it inside where the motherboard will go, then moving it towards the back of the case (you'll see the slot on the case) - make sure up-is-up (orientation-wise), verify this respective to CPU slot on mobo, looking back and forth from case to motherboard to double-check
 
 
 <br /><hr /><br />
@@ -51,7 +51,7 @@
 <br /><hr /><br />
 
 ## 6 - I/O Shield
--  Don’t skip putting the I/O Shield into your case. I've ran into situations where I'm cleaning up and find the I/O shield and I'm just like "We've gone too far" - We're not too far, yet! Get the I/O Shield on if it isn't yet! 
+- Don’t skip putting the I/O Shield into your case. I've ran into situations where I'm cleaning up and find the I/O shield and I'm just like "We've gone too far" - We're not too far, yet! Get the I/O Shield on if it isn't yet! 
 
 
 <br /><hr /><br />
@@ -71,11 +71,8 @@
 ## 9.0 - GPU - Prep
 - Determine your target PCIEx16 slot to place GPU into (recommended topmost PCIEx16 slot - for ITX builds usually only have one slot to choose from). Unscrew PCIE brackets on case which align with the slot by floating the GPU over said slot, then eyeballing which brackets will need to be removed from chassis. Place GPU aside, remove brackets from case. Unlock PCIE slot on the right-side by pushing the right-most side of the lever towards the motherboard. it should tily 'away' from the PCIE slot, somewhat-similar to the RAM-stick locking mechanism.
 
-
-<br /><hr /><br />
-
-## 9.1 - GPU - Install
-- Similar to RAM, not a rocking motion for this install, but rather it should be straight down-and-in. Float GPU into place - Two things to line up here: 1-[ make sure the copper pins on the bottom of the GPU are aligned with PCIEx16 slot before pushing it down ], 2-[ make sure the metal PCIE brackets which go towards the outside of the case are going down and into your motherboard tray correctly (as these can block the left side of the GPU from going down and in) ]. Once things are lined up and ready to go in, rest the GPU into PCIEx16 slot and push it towards the motherboard until all of the copper lanes on the GPU are no longer visible (they should be down far enough into the Motherboard PCIE slot to where you cant see them anymore) - make sure the PCIE-latch clicks closed, with importance being on the copper lanes being fully matched with the board. Screw in the brackets on the top-left of the GPU onto the case, bottom screw first, top screw second.
+  ## 9.1 - GPU - Install
+  - Similar to RAM, not a rocking motion for this install, but rather it should be straight down-and-in. Float GPU into place - Two things to line up here: 1-[ make sure the copper pins on the bottom of the GPU are aligned with PCIEx16 slot before pushing it down ], 2-[ make sure the metal PCIE brackets which go towards the outside of the case are going down and into your motherboard tray correctly (as these can block the left side of the GPU from going down and in) ]. Once things are lined up and ready to go in, rest the GPU into PCIEx16 slot and push it towards the motherboard until all of the copper lanes on the GPU are no longer visible (they should be down far enough into the Motherboard PCIE slot to where you cant see them anymore) - make sure the PCIE-latch clicks closed, with importance being on the copper lanes being fully matched with the board. Screw in the brackets on the top-left of the GPU onto the case, bottom screw first, top screw second.
 
 
 <br /><hr /><br />
@@ -98,14 +95,11 @@
 
 <br /><hr /><br />
 
-## 12 - Case-to-Motherboard Connectors
+## 12.0 - Case-to-Motherboard Connectors
 - See https://imgur.com/2272GL0   (otherwise see ASUS User's Manual - Section 1.1.2 "Motherboard layout")
 
-
-<br /><hr /><br />
-
-## 12.1 - Power-LED, Power-SW, Reset-SW, HDD-LED
-- Your board likely comes with an Ezpz dongle to plug these into, which you then plug as a whole-unit onto your mobo. ASUS is great at these little quality-of-life things, which help you (or at least me) to feel like you're gettin' what you paid for.
+  ## 12.1 - Power-LED, Power-SW, Reset-SW, HDD-LED
+  - Your board likely comes with an Ezpz dongle to plug these into, which you then plug as a whole-unit onto your mobo. ASUS is great at these little quality-of-life things, which help you (or at least me) to feel like you're gettin' what you paid for.
 
 
 <br /><hr /><br />

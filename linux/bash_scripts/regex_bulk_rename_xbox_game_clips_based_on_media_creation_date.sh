@@ -99,6 +99,14 @@ if [ ! -d "${WORKING_DIR}" ]; then # Ensure working-directory exists
 
 else
 
+  if [[ -z "$(command -v exiftool 2>'/dev/null';)" ]]; then
+    if [[ -n "$(command -v apt 2>'/dev/null';)" ]]; then
+      EXIFTOOL_APT_PKG="libimage-exiftool-perl";
+      echo -e "\nInfo:  Calling [ apt-get -y update; apt-get -y install ${EXIFTOOL_APT_PKG}; ]...";
+      apt-get -y update; apt-get -y install ${EXIFTOOL_APT_PKG};
+    fi;
+  fi;
+
   echo "";
   echo "Info:  Setting working-directory to \"${WORKING_DIR}\"";
   cd "${WORKING_DIR}";

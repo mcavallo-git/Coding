@@ -141,11 +141,15 @@ Mostly Linux compatible:
 🆗					Squared Ok &#x1F197;  |  https://www.compart.com/en/unicode/U+1F197
 
 
-👁				Eye  |  https://www.compart.com/en/unicode/U+1F441
 👆				White Up Pointing Backhand Index  |  https://www.compart.com/en/unicode/U+1F446
 👇				White Down Pointing Backhand Index  |  https://www.compart.com/en/unicode/U+1F447
 👍				Thumbs Up Sign  |  https://www.compart.com/en/unicode/U+1F44D
 👎				Thumbs Down Sign  |  https://www.compart.com/en/unicode/U+1F44E
+
+
+👁				Eye  |  https://www.compart.com/en/unicode/U+1F441
+❤					Heavy Black Heart  |  https://www.compart.com/en/unicode/U+2764
+❤️				Red Heart Emoji  |  https://emojipedia.org/red-heart/
 
 
 📅				Calendar  |  https://www.compart.com/en/unicode/U+1F4C5

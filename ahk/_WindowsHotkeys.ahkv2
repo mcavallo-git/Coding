@@ -4337,7 +4337,7 @@ XBox_DownloadDelete_GameClips() {
 		;
 		Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
 		Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-		Timestamping_Script := % ( EnvGet("USERPROFILE") "\Documents\GitHub\Coding\linux\bash_scripts\regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh" )
+		Timestamping_Script := % ( EnvGet("USERPROFILE") "\Documents\GitHub\cloud-infrastructure/usr/local/bin/bulk_rename_based_on_media_creation_date" )
 		Run, Notepad "%Timestamping_Script%"
 		Sleep 2000
 		;

@@ -155,9 +155,7 @@
 
    [asus.com  |  "User's Manual, ROG STRIX X570-I GAMING" ](https://dlcdnets.asus.com/pub/ASUS/mb/SocketAM4/ROG_STRIX_X570-I_GAMING/E15891_ROG_STRIX_X570-I_GAMING_UM_V2_WEB.pdf)
 
-   [github.com  |  "Somewhat-OK ITX-PC Build Guide" ](https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.txt)
-
-   [imgur.com  |  "Somewhat-OK ITX-PC Build Guide" ](https://imgur.com/2272GL0)
+   [imgur.com  |  "Somewhat-OK ITX-PC Build Guide" ](https://github.com/mcavallo-git/Coding/blob/master/hardware/somewhat-ok-itx-pc-build-guide.md)
 
    [instructables.com  |  "Build a Gaming Computer: 23 Steps" ](https://www.instructables.com/id/Build-a-Gaming-Computer/)
 

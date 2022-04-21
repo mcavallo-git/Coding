@@ -4331,7 +4331,7 @@ XBox_DownloadDelete_GameClips() {
 			Sleep 2000
 		}
 	}
-	; If (MediaFiles_Processed > 0) {
+	If (MediaFiles_Processed > 0) {
 		;
 		; Open the timestamping script (renames files to their basename plus their metadata created-on date)
 		;
@@ -4351,7 +4351,7 @@ XBox_DownloadDelete_GameClips() {
 		Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
 		Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
 		Sleep 2000
-	; }
+	}
 	ClearTooltip(10000)
 	Return
 }

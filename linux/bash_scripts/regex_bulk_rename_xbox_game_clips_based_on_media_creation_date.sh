@@ -103,7 +103,7 @@ else
     if [[ -n "$(command -v apt 2>'/dev/null';)" ]]; then
       EXIFTOOL_APT_PKG="libimage-exiftool-perl";
       echo "";
-      echo "Info:  Installing linux module \"exiftool\" (part of apt package \"${EXIFTOOL_APT_PKG}\")...";
+      echo "Info:  Installing linux package \"exiftool\" (part of apt package \"${EXIFTOOL_APT_PKG}\")...";
       apt-get -y update; apt-get -y install ${EXIFTOOL_APT_PKG};
     fi;
   fi;

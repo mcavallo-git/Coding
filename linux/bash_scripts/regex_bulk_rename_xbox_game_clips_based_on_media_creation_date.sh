@@ -84,6 +84,10 @@ if [ ! -v WORKING_DIR ]; then
   fi;
 fi;
 
+echo "";
+echo "DEFAULT_WORKING_DIR=[ ${DEFAULT_WORKING_DIR} ]";
+echo "WORKING_DIR=[ ${WORKING_DIR} ]";
+
 # ------------------------------------------------------------
 if [ ! -d "${WORKING_DIR}" ]; then # Ensure working-directory exists
 

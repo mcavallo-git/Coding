@@ -4089,7 +4089,9 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 							If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 								WinActivate("ahk_id %Win_ahk_id%")
-								If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xF0F0F0, 0) || PixelSearch(Px, Py, 61, 140, 280, 140, 0x2E2E2E, 0)) {  ; Check a line of pixels which runs across the "On This PC" and "On Xbox Live" tabs for text matching a near-white color (0xF0F0F0) or near-black color (0x2E2E2E), which appears as the tab loads
+								; Check the color of each pixel in a 2-D horizontal line which passes over the "On This PC" and "On Xbox Live" tab name texts
+								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
+								If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xFFFFFF, 0)) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 									Sleep 500
@@ -4114,7 +4116,9 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 							If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 								WinActivate("ahk_id %Win_ahk_id%")
-								If ( PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0) ) {  ; Check a line of pixels which runs across the "By date" and "Everything" dropdowns for text matching a white color (0xFFFFFF), which appears as the tab loads
+								; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
+								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
+								If ( PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0) ) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 									Sleep 500

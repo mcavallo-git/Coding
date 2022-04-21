@@ -14,16 +14,8 @@ if [[ 0 -eq 1 ]]; then # RUN THIS SCRIPT REMOTELY:
 
 curl -H 'Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' -sL 'https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh' | bash -s -- --dry-run 0;  # Xbox Game clip Renamer - Add date-created timestamp to downloaded clips' filenames
 
-curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/sync_cloud_infrastructure?t=$(date +'%s.%N')" | bash;
-
-
 ### Run in "dry run" mode...
 # curl -H 'Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0' -sL 'https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh' | bash;  # Xbox Game clip Renamer - Dry-run
-
-
-### ! ! WORKING DIR AS INLINE-ARG IS NON-FUNCTIONAL - NEED TO TROUBLESHOOT ! !
-# curl -H "Cache-Control: no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0" -sL "https://raw.githubusercontent.com/mcavallo-git/Coding/master/linux/bash_scripts/regex_bulk_rename_xbox_game_clips_based_on_media_creation_date.sh?t=$(date +'%s.%N')" | bash -s -- --dry-run 0 --working-dir "${HOME}/Videos/Captures";
-
 
 fi;
 # ------------------------------------------------------------
@@ -187,13 +179,17 @@ else
           else  # NOT running in dry-run mode
 
             if [ -n "${EACH_CREATE_DATE}" ]; then  # If the created-on date resolved as-intended
+
               if [ -n "${EACH_NEW_FILENAME}" ]; then   # If new filename is not blank
+
                 if [ "${EACH_FILENAME}" != "${EACH_NEW_FILENAME}" ]; then   # If new filename is not equal to original filename
                   # Rename the file
                   echo "  Renaming \"${EACH_FILENAME}\" to \"${EACH_NEW_FILENAME}\"";
                   mv "${EACH_FILENAME}" "${EACH_NEW_FILENAME}";
                 fi;
+
               fi;
+
             fi;
 
           fi;

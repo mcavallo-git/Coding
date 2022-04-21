@@ -50,7 +50,7 @@
 
 <br /><hr /><br />
 
-## 6 - I/O Shield
+## 6 - I/O Shield *(double check)*
 - Don’t skip putting the I/O Shield into your case. I've ran into situations where I'm cleaning up and find the I/O shield and I'm just like "We've gone too far" - We're not too far, yet! Get the I/O Shield on if it isn't yet! 
 
 

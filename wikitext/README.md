@@ -10,6 +10,10 @@
 
 - [community.fandom.com  |  "Help:Wikitext | Community Central | Fandom" ](https://community.fandom.com/wiki/Help:Wikitext)
 
+- [en.wikipedia.org  |  "Help:Cheatsheet - Wikipedia" ](https://en.wikipedia.org/wiki/Help:Cheatsheet)
+
+- [en.wikipedia.org  |  "Help:Wikitext - Wikipedia" ](https://en.wikipedia.org/wiki/Help:Wikitext)
+
 - [meta.wikimedia.org  |  "Help:Wikitext examples - Meta" ](https://meta.wikimedia.org/wiki/Help:Wikitext_examples)
 
 - [www.mediawiki.org  |  "Wikitext - MediaWiki" ](https://www.mediawiki.org/wiki/Wikitext)

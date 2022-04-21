@@ -4032,10 +4032,14 @@ XBox_DownloadDelete_GameClips() {
 				Download_MediaType := "Screenshots"  ;  Download "Screenshots"
 			}
 			If ((Download_MediaType == "Game clips") && (Download_GameClips == 0)) {
-				; Skip specific type of media from being downloaded/deleted if associated option is disabled
+				;
+				; If option "Download_GameClips" is disabled (set to 0), skip downloading/deleting Xbox Live Game clips
+				;
 				Continue
 			} Else If ((Download_MediaType == "Screenshots") && (Download_Screenshots == 0)) {
-				; Skip specific type of media from being downloaded/deleted if associated option is disabled
+				;
+				; If option "Download_Screenshots" is disabled (set to 0), skip downloading/deleting Xbox Live Screenshots
+				;
 				Continue
 			} Else {
 				Tooltip_StartupJobs := Tooltip_Header
@@ -4082,8 +4086,10 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 							If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 								WinActivate("ahk_id %Win_ahk_id%")
+								;
 								; Check the color of each pixel in a 2-D horizontal line which passes over the "On This PC" and "On Xbox Live" tab name texts
 								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
+								;
 								If (PixelSearch(Px, Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
@@ -4110,8 +4116,10 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 							If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 								WinActivate("ahk_id %Win_ahk_id%")
+								;
 								; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
 								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
+								;
 								If ( PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0) ) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
@@ -4171,7 +4179,6 @@ XBox_DownloadDelete_GameClips() {
 						}
 					}
 				}
-
 				Loop {
 					Tooltip_EachFile_Stats := Tooltip_Header
 					Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net " Download_MediaType " processed: " MediaFiles_Processed
@@ -4223,11 +4230,11 @@ XBox_DownloadDelete_GameClips() {
 							}
 						}
 					}
+					; ------------------------------
+					;
+					; Buffering...
+					;
 					If ( NextDownloadExists_Passed == 1 ) {
-						; ------------------------------
-						;
-						; Buffering...
-						;
 						TickCount_StartBuffer := A_TickCount
 						Loop {
 							Sleep 100
@@ -4289,13 +4296,12 @@ XBox_DownloadDelete_GameClips() {
 								}
 							}
 						}
-						; ------------------------------
 					}
+					; ------------------------------
+					;
+					; Deleting...
+					;
 					If ((NextDownloadExists_Passed == 1) && (Buffer_Passed == 1) && (Download_Passed == 1)) {
-						; ------------------------------
-						;
-						; Deleting...
-						;
 						DeleteBtn_XPos_TrashCan := 853  ; Same xpos for [ Game clips ] & [ Screenshots ]
 						If (Download_MediaType == "Game clips") {
 							DeleteBtn_YPos_Center := 731  ; Game clips

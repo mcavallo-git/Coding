@@ -3,11 +3,7 @@
 <br /><hr /><br />
 
 # Somewhat OK Mini ITX PC Build Guide
-
-<br /><hr /><br />
-
-
-*Note: The word "float" in this guide references an individual holding (with their hands) something heavy or costly just-barely over something else, in an attempt to gauge distances, line things up, etc.*
+  - *Note: The word "float" in this guide refers to the action of holding something heavy **just** above something else, in an attempt to gauge distances, line things up, etc.*
 
 
 <br /><hr /><br />

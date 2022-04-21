@@ -4018,44 +4018,36 @@ XBox_DownloadDelete_GameClips() {
 		; ControlClick, x%xpos% y%ypos%, %WinTitle%
 
 	} Else {
-
 		MediaFiles_Processed := 0
-
 		Color_Buffering_GameClips := "0x2E2E2E"
 		Color_Buffering_Screenshots := "0x171717"
-
 		Color_DL_Button_NotDownloading := "0x171717"
 		Color_DL_Button_Downloading := "0x595758"
-
+		Color_Loaded_CapturesPage := "0xFFFFFF"
+		Color_Loaded_OnXboxLiveTab := "0xFFFFFF"
 		Loop 2 {
-
 			If ( A_Index == 1 ) {
 				Download_MediaType := "Game clips"   ;  Download "Game clips"
 			} Else {
 				Download_MediaType := "Screenshots"  ;  Download "Screenshots"
 			}
-
 			If ((Download_MediaType == "Game clips") && (Download_GameClips == 0)) {
-				Continue  ; Block specific type of media from being downloaded/deleted if associated option is disabled
-
+				; Skip specific type of media from being downloaded/deleted if associated option is disabled
+				Continue
 			} Else If ((Download_MediaType == "Screenshots") && (Download_Screenshots == 0)) {
-				Continue  ; Block specific type of media from being downloaded/deleted if associated option is disabled
-
+				; Skip specific type of media from being downloaded/deleted if associated option is disabled
+				Continue
 			} Else {
-
 				Tooltip_StartupJobs := Tooltip_Header
-
 				If (Download_MediaType == "Game clips") {
 					WaitDuration_MediaType := 1.5
 				} Else {
 					WaitDuration_MediaType := 1.0
 				}
-
 				Loop 4 {
-
 					Tooltip_NewStats := ""
-
 					If (A_Index == 1) {
+						; ------------------------------
 						;
 						; Resizing 'Xbox Console Companion' Window
 						;
@@ -4075,6 +4067,7 @@ XBox_DownloadDelete_GameClips() {
 						Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 						Sleep 500
 					} Else If (A_Index == 2) {
+						; ------------------------------
 						;
 						; Loading 'Captures' tab ...
 						;
@@ -4091,7 +4084,7 @@ XBox_DownloadDelete_GameClips() {
 								WinActivate("ahk_id %Win_ahk_id%")
 								; Check the color of each pixel in a 2-D horizontal line which passes over the "On This PC" and "On Xbox Live" tab name texts
 								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
-								If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xFFFFFF, 0)) {
+								If (PixelSearch(Px, Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 									Sleep 500
@@ -4102,6 +4095,7 @@ XBox_DownloadDelete_GameClips() {
 							}
 						}
 					} Else If (A_Index == 3) {
+						; ------------------------------
 						;
 						; Loading 'On Xbox Live' (tab)...
 						;
@@ -4118,7 +4112,7 @@ XBox_DownloadDelete_GameClips() {
 								WinActivate("ahk_id %Win_ahk_id%")
 								; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
 								;  |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
-								If ( PixelSearch(Px, Py, 61, 180, 280, 180, 0xFFFFFF, 0) ) {
+								If ( PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0) ) {
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 									Sleep 500
@@ -4130,6 +4124,7 @@ XBox_DownloadDelete_GameClips() {
 						}
 					} Else If (A_Index == 4) {
 						If (Download_MediaType == "Game clips") {
+							; ------------------------------
 							;
 							; Loading 'Game clips' (filter)...
 							;
@@ -4153,6 +4148,7 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 							Sleep 1000
 						} Else {
+							; ------------------------------
 							;
 							; Loading 'Screenshots' (filter)...
 							;
@@ -4177,20 +4173,18 @@ XBox_DownloadDelete_GameClips() {
 				}
 
 				Loop {
-
 					Tooltip_EachFile_Stats := Tooltip_Header
 					Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net " Download_MediaType " processed: " MediaFiles_Processed
 					Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
 					Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Net Runtime Duration: " Total_RuntimeDuration_Seconds "s"
-
 					MediaFile_Iteration := A_Index
 					TickCount_FileExists := A_TickCount
-
 					NextDownloadExists_Passed := 0
 					Buffer_Passed := 0
 					Download_Passed := 0
+					; ------------------------------
 					;
-					; Processing File # ... / ...
+					; Processing File #x / y
 					;
 					If (MaxFilesToDownload > 0) {
 						Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Processing File # " MediaFile_Iteration "/" MaxFilesToDownload ":"
@@ -4200,7 +4194,7 @@ XBox_DownloadDelete_GameClips() {
 					} Else {
 						Tooltip_EachFile_Stats := Tooltip_EachFile_Stats "`n" "Processing File # " MediaFile_Iteration ":"
 					}
-
+					; ------------------------------
 					;
 					; File-check duration ...
 					;
@@ -4229,9 +4223,8 @@ XBox_DownloadDelete_GameClips() {
 							}
 						}
 					}
-
 					If ( NextDownloadExists_Passed == 1 ) {
-
+						; ------------------------------
 						;
 						; Buffering...
 						;
@@ -4261,7 +4254,7 @@ XBox_DownloadDelete_GameClips() {
 								}
 							}
 						}
-
+						; ------------------------------
 						;
 						; Downloading...
 						;
@@ -4296,10 +4289,10 @@ XBox_DownloadDelete_GameClips() {
 								}
 							}
 						}
-
+						; ------------------------------
 					}
-
 					If ((NextDownloadExists_Passed == 1) && (Buffer_Passed == 1) && (Download_Passed == 1)) {
+						; ------------------------------
 						;
 						; Deleting...
 						;
@@ -4340,9 +4333,11 @@ XBox_DownloadDelete_GameClips() {
 						Sleep 2500
 						Break
 					}
-
 				}
-
+				; ------------------------------
+				;
+				; Net Files Processed  &&  Net Runtime Duration
+				;
 				Tooltip_Closer_Stats := Tooltip_Header
 				Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net Files Processed: " MediaFiles_Processed
 				Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)

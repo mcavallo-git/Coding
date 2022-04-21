@@ -967,7 +967,8 @@ AppsKey & ]::
 ;
 #RButton::
 	FollowDuration_Seconds := 20
-	ShowCursorCoordinates(FollowDuration_Seconds)
+	; ShowCursorCoordinates(FollowDuration_Seconds)
+	ShowCursorPixelColor(FollowDuration_Seconds)
 	Return
 
 
@@ -981,7 +982,8 @@ AppsKey & ]::
 +#RButton::
 !#RButton::
 ^#RButton::
-	FollowDuration_Seconds := 10
+	FollowDuration_Seconds := 20
+	; ShowCursorCoordinates(FollowDuration_Seconds)
 	ShowCursorPixelColor(FollowDuration_Seconds)
 	Return
 
@@ -3454,7 +3456,7 @@ SendSpace() {
 ;	ShowCursorCoordinates
 ;   |--> Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
-ShowCursorCoordinates(FollowDuration_Seconds) {
+ShowCursorCoordinates(FollowDuration_Seconds:=10) {
 	PollDuration_ms := 10
 	Loop_Iterations := Floor((1000 * FollowDuration_Seconds) / PollDuration_ms)
 	Loop Loop_Iterations {
@@ -3491,9 +3493,8 @@ ShowCursorCoordinates(FollowDuration_Seconds) {
 ;	ShowCursorPixelColor
 ;   |--> Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
 ;
-ShowCursorPixelColor(FollowDuration_Seconds) {
+ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 	Global DebugMode
-	CoordMode, Mouse, Screen
 	CoordMode, Pixel, Screen
 	FollowDuration_ms := (1000 * FollowDuration_Seconds)
 	If (DebugMode == 1) {
@@ -3522,8 +3523,22 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 		} Else {
 			Sleep %PollDuration_ms%
 		}
-		MouseGetPos, MouseX, MouseY
-		Color := PixelGetColor(MouseX, MouseY)  ; PixelGetColor, Color, MouseX, MouseY
+		;
+		; Screen: "Coordinates are relative to the desktop (entire screen)."
+		;
+		CoordMode, Mouse, Screen
+		MouseGetPos, MouseX_Screen, MouseY_Screen
+		;
+		; Window: "Coordinates are relative to the active window."
+		;
+		CoordMode, Mouse, Window
+		MouseGetPos, MouseX_Window, MouseY_Window
+		;
+		; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
+		;
+		CoordMode, Mouse, Client
+		MouseGetPos, MouseX_Client, MouseY_Client
+		Color := PixelGetColor(MouseX_Screen, MouseY_Screen)  ; PixelGetColor, Color, MouseX, MouseY
 		ColorComponent_Blue := (Color & 0xFF)
 		ColorComponent_Green := ((Color & 0xFF00) >> 8)
 		ColorComponent_Red := ((Color & 0xFF0000) >> 16)
@@ -3547,27 +3562,30 @@ ShowCursorPixelColor(FollowDuration_Seconds) {
 			}
 		}
 		TooltipOutput := ""
-		TooltipOutput := TooltipOutput "Coords=[ x" MouseX " y" MouseY " ]" "`n"
-		TooltipOutput := TooltipOutput "Color=[" Color "]" "`n"
-		TooltipOutput := TooltipOutput "Color=[rgb( " ColorComponent_Red " , " ColorComponent_Green " , " ColorComponent_Blue " )]" "`n"
-		TooltipOutput := TooltipOutput "Blue=[" ColorComponent_Blue "]" "`n"
-		TooltipOutput := TooltipOutput "Green=[" ColorComponent_Green "]" "`n"
-		TooltipOutput := TooltipOutput "Red=[" ColorComponent_Red "]" "`n"
+		TooltipOutput := TooltipOutput "Mouse Coords:" "`n"
+		TooltipOutput := TooltipOutput "  x" MouseX_Screen "  y" MouseY_Screen "  (Screen)" "`n"
+		TooltipOutput := TooltipOutput "  x" MouseX_Window "  y" MouseY_Window "  (Window)" "`n"
+		TooltipOutput := TooltipOutput "  x" MouseX_Client "  y" MouseY_Client "  (Client)" "`n"
+		TooltipOutput := TooltipOutput "`n"
+		TooltipOutput := TooltipOutput "Pixel Color:" "`n"
+		TooltipOutput := TooltipOutput "  " Color "  (Hex)" "`n"
+		TooltipOutput := TooltipOutput "  rgb(" ColorComponent_Red "," ColorComponent_Green "," ColorComponent_Blue ")" "`n"
+		TooltipOutput := TooltipOutput "`n"
 		If (Show_ResolvedColorName == 1) {
 			TooltipOutput := TooltipOutput "Color_ResolvedName=[" Color_ResolvedName "] " "`n"
 		}
 		If (DebugMode == 1) {
 			TooltipOutput := TooltipOutput "OutputFile=[" OutputFile "] " "`n"
 		}
-		If ((Last_MouseX != MouseX) || (Last_MouseY != MouseY) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red)) {
+		If ((Last_MouseX != MouseX_Screen) || (Last_MouseY != MouseY_Screen) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red)) {
 			Tooltip, %TooltipOutput%
 			; Only perform updates if any discernible change is detected (amongst colors & mouse position values)
 			If (DebugMode == 1) {
 				LogfileOutput := StrReplace(TooltipOutput,"`n"," ")
 				Logfile.write("%LogfileOutput%`n")
 			}
-			Last_MouseX := MouseX
-			Last_MouseY := MouseY
+			Last_MouseX := MouseX_Screen
+			Last_MouseY := MouseY_Screen
 			Last_Blue := ColorComponent_Blue
 			Last_Green := ColorComponent_Green
 			Last_Red := ColorComponent_Red
@@ -4071,7 +4089,7 @@ XBox_DownloadDelete_GameClips() {
 							Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
 							If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
 								WinActivate("ahk_id %Win_ahk_id%")
-								If ( PixelSearch(Px, Py, 61, 140, 280, 140, 0xF0F0F0, 0) ) {  ; Check a line of pixels which runs across the "On This PC" and "On Xbox Live" tabs for text matching a near-white color (0xF0F0F0), which appears as the tab loads
+								If (PixelSearch(Px, Py, 61, 140, 280, 140, 0xF0F0F0, 0) || PixelSearch(Px, Py, 61, 140, 280, 140, 0x2E2E2E, 0)) {  ; Check a line of pixels which runs across the "On This PC" and "On Xbox Live" tabs for text matching a near-white color (0xF0F0F0) or near-black color (0x2E2E2E), which appears as the tab loads
 									Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
 									Tooltip, % ( Tooltip_StartupJobs ), 1, 1
 									Sleep 500

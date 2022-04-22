@@ -1,59 +1,7 @@
 {
-  "[ahk]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": false,
-    "editor.tabSize": 2
-  },
-  "[bat]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[helm]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[json]": {
-    "editor.autoIndent": "full",
-    "editor.hover.enabled": true,
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[jsonc]": {
-    "editor.autoIndent": "full",
-    "editor.hover.enabled": true,
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[powershell]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": false,
-    "editor.tabSize": 2
-  },
-  "[shellscript]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[sql]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[tf]": {
-    "editor.autoIndent": "full",
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
   "[typescript]": {
     "editor.autoIndent": "full",
     "editor.hover.enabled": true,
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2
-  },
-  "[yaml]": {
-    "editor.autoIndent": "full",
     "editor.insertSpaces": true,
     "editor.tabSize": 2
   },
@@ -88,7 +36,7 @@
   "editor.formatOnSave": false,
   "editor.formatOnType": false,
   "editor.guides.indentation": true,
-  "editor.hover.enabled": false,
+  "editor.hover.enabled": true,
   "editor.inlineSuggest.enabled": false,
   "editor.insertSpaces": true,
   "editor.lineNumbers": "on",

@@ -172,8 +172,7 @@ Mostly Linux compatible:
 ⚠️				Warning Sign (Colored)  |  https://emojipedia.org/warning/
 ⚠					Warning Sign  |  https://www.compart.com/en/unicode/U+9888
 ❗					Heavy Exclamation Mark Symbol  |  https://www.compart.com/en/unicode/U+2757
-❓					Black Question Mark Ornament  |  https://www.compart.com/en/unicode/U+2753
-❓					Black Question Mark Ornament  |  https://www.compart.com/en/unicode/U+65039
+❓					Black Question Mark Ornament &#10067; &#x2753;  |  https://www.compart.com/en/unicode/U+2753
 
 
 💾				Floppy Disk  |  https://www.compart.com/en/unicode/U+1F4BE

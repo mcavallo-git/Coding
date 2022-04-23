@@ -432,7 +432,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="office"><br />Office<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="office"><br />Office/Productivity Utilities<br /><br /></h5></th></tr>
 <tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Excel, Outlook, PowerPoint, Word, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;Login &rarr; Select "Install Office"<br />&nbsp;&nbsp;&nbsp;<a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Microsoft To Do</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Lists, Tasks & Reminders<br />&nbsp;&nbsp;&nbsp;(successor to Wunderlist)</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/microsoft-to-do-lists-tasks-reminders/9nblggh5r558">Download (source)</a></td></tr>
@@ -494,6 +494,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="troubleshooting"><br />Troubleshooting<br /><br /></h5></th></tr>
 <tr><td><strong>AIDA64</strong> <sub><br />&nbsp;&nbsp;&nbsp;Mobile Specsheet (High Verbosity)<br />&nbsp;&nbsp;&nbsp;Mobile version is Free w/ ads<br />&nbsp;&nbsp;&nbsp;Desktop version is Paid $$</i></sub></td><td><a href="https://www.aida64.com/downloads">Download (source)</a></td></tr>
+<tr><td><strong>Apple App Store Search Utility</strong> <sub><br />&nbsp;&nbsp;&nbsp;Allows in-browser searches of Apple's iOS/iPadOS App Store & iTunes Store</i></sub></td><td><a href="https://fnd.io/">View (source)</a></td></tr>
 <tr><td><strong>Autologon</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Sysinternals</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sysinternals/downloads/autologon">Download (source)</a></td></tr>
 <tr><td><strong>BlueScreenView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Nirsoft</i></sub></td><td><a href="https://www.nirsoft.net/utils/blue_screen_view.html">Download (source)</a></td></tr>
 <tr><td><strong>CCleaner</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Piriform<br />&nbsp;&nbsp;&nbsp;Automated disk & registry cleaning tool</i></sub></td><td><a href="https://www.ccleaner.com/ccleaner/download/standard">Download (source)</a></td></tr>

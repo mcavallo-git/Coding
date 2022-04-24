@@ -14,6 +14,8 @@
 
 - [en.wikipedia.org  |  "Help:Wikitext - Wikipedia" ](https://en.wikipedia.org/wiki/Help:Wikitext)
 
+- [en.wikipedia.org  |  "Template:Cite web - Wikipedia" ](https://en.wikipedia.org/wiki/Template:Cite_web)
+
 - [meta.wikimedia.org  |  "Help:Wikitext examples - Meta" ](https://meta.wikimedia.org/wiki/Help:Wikitext_examples)
 
 - [www.mediawiki.org  |  "Wikitext - MediaWiki" ](https://www.mediawiki.org/wiki/Wikitext)

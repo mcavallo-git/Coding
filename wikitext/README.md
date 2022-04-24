@@ -12,6 +12,8 @@
 
 - [en.wikipedia.org  |  "Help:Cheatsheet - Wikipedia" ](https://en.wikipedia.org/wiki/Help:Cheatsheet)
 
+- [en.wikipedia.org  |  "Help:Citations quick reference - Wikipedia" ](https://en.wikipedia.org/wiki/Help:Citations_quick_reference)
+
 - [en.wikipedia.org  |  "Help:Wikitext - Wikipedia" ](https://en.wikipedia.org/wiki/Help:Wikitext)
 
 - [en.wikipedia.org  |  "Template:Cite web - Wikipedia" ](https://en.wikipedia.org/wiki/Template:Cite_web)

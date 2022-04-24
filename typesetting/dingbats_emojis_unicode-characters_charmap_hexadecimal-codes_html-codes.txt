@@ -34,7 +34,7 @@ Mostly Linux compatible:
 ------------------------------------------------------------
 
 
-•					Bullet &#x2022; &#8226; |  https://www.compart.com/en/unicode/U+2022
+•					Bullet &bull; &#x2022; &#8226; |  https://www.compart.com/en/unicode/U+2022
 ∙					Bullet Operator  |  https://www.compart.com/en/unicode/U+2219
 
 

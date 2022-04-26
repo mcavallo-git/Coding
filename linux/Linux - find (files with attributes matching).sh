@@ -5,44 +5,44 @@
 
 # Name - Match using case <strong>sensitive</strong> search
 
-find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search
+find "/var/log" -type 'f' -name "*error*";  # -name 'filepath' --> case-sensitive search
 
 
 # ------------------------------
 
 # Name - Match using case <strong>insensitive</strong> search
 
-find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search
+find "/var/log" -type 'f' -iname "*error*";  # -iname 'filepath' --> case-insensitive search
 
 
 # ------------------------------
 
 # Filetype - Match Files, only
 
-find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only
+find "/var/log" -type 'f' -iname "*error*";  # -type d --> return files, only
 
 
 # ------------------------------
 
 # Filetype - Match Directories, only
 
-find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only
+find "/var/log" -type 'd' -iname "*error*";  # -type d --> return directories, only
 
 
 # ------------------------------
 
 # Ignore Path - Exclude a given sub-directory or filepath from returned results
 
-find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'
+find "/var/log" -not -path "/var/log/nginx/*";  # -not -path 'filepath' -->  excludes 'filepath'
 
 
 # ------------------------------
 
 # Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)
 
-find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'
+find "/var/log" -type "f" -printf "%p %A@\n";  # printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'
 
-find "/var/log" -type "f" -printf "%A+ %p\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'
+find "/var/log" -type "f" -printf "%A+ %p\n";  # printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'
 
 
 # ------------------------------

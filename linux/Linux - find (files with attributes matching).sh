@@ -1,46 +1,42 @@
-Linux - find (files with attributes matching)
-<!-- ------------------------------------------------------------ ---
-
-This file (on GitHub):
-
-  https://github.com/mcavallo-git/Coding/blob/master/linux/Linux%20-%20find%20(files%20with%20attributes%20matching).md
-
---- ------------------------------------------------------------- -->
+#!/bin/sh
+# ------------------------------------------------------------
+# Linux - find (files with attributes matching)
+# ------------------------------------------------------------
 
 # Name - Match using case <strong>sensitive</strong> search
 
 find "/var/log" -type 'f' -name "*error*";     ### -name 'filepath' --> case-sensitive search
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Name - Match using case <strong>insensitive</strong> search
 
 find "/var/log" -type 'f' -iname "*error*";    ### -iname 'filepath' --> case-insensitive search
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Filetype - Match Files, only
 
 find "/var/log" -type 'f' -iname "*error*";    ### -type d --> return files, only
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Filetype - Match Directories, only
 
 find "/var/log" -type 'd' -iname "*error*";    ### -type d --> return directories, only
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Ignore Path - Exclude a given sub-directory or filepath from returned results
 
 find "/var/log" -not -path "/var/log/nginx/*"; ### -not -path 'filepath' -->  excludes 'filepath'
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Format Styling - Format the returned results with one (or multiple) file-attributes (as defined by the user)
 
@@ -49,21 +45,21 @@ find "/var/log" -type "f" -printf "%p %A@\n";  ### printf "%p %A@\n" --> return 
 find "/var/log" -type "f" -printf "%A+ %p\n";  ### printf "%p %A@\n" --> return %p=[fullpath] %A@=[last-modified timestamp (in Unix time)]'
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # No-Recursion - Limit matched results to a specific depth of sub-directories - using a maxdepth of 1 only searches within the given directory
 
 find '.' -maxdepth 1 -type 'd' -iname '*matched_name*' | wc -l;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Ignore Sub-Directory - Find Files in a given directory while IGNORING a given sub-directory
 
 find "/var/lib/jenkins" -type 'f' -iname "favicon.ico" -a -not -path "/var/lib/jenkins/workspace/*";
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Cleanup old Jenkins' build-artifacts
 
@@ -74,28 +70,28 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Count Files - Count the total number of files within a given directory & its sub-directories
 
 find "/var/log" -type 'f' -name "*" | wc -l;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Extensions - List unique file extensions (sorted) for all files contained within a directory & subdirectories
 
 for EACH_FILE in $(find "/var/log" -type "f";); do echo "${EACH_FILE##*.}"; done | sort -u;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Extension (single) - Find files matching one, single extension
 
 Refer to script 'find_basenames_extensions.sh' (in this same repo)
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Extension (list) - Find files matching at least one extension in a list of extensions (defined by user)
 
@@ -106,7 +102,7 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Extensions (count) - Count the number of EACH type of file-extension for files within a given directory (and subdirectories)
 
@@ -115,7 +111,7 @@ fi;
 find "/var/log" -type 'f' | sed -e 's/.*\.//' | sed -e 's/.*\///' | sort | uniq -c | sort -rn;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Prepend Each Line - Find files in  [ /var/log ] matching [ syslog* ] then use printf to prepend string text onto each line returned by find
 
@@ -131,7 +127,7 @@ find "/var/log/" \
 ;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Last Modified - Find files modified [ in the last X minutes ( see variable LAST_X_MINUTES ) ]
 
@@ -139,14 +135,14 @@ LAST_X_MINUTES=120; \
 find "/var/log" -mmin -${LAST_X_MINUTES} -ls;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Last Modified - Find files modified since [ given timestamp ]
 
 find "/var/log" -type 'f' -newermt "2018-09-21 13:25:18";
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Last Modified - Find files modified since [ given timestamp ] --> ROBUSTIFIED
 
@@ -159,7 +155,7 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Last Modified - Find files modified since [ given timestamp (formatted in Epoch seconds) ]
 
@@ -172,7 +168,7 @@ find "/var/log" -type 'f' -newermt "$(date --date=@1533742394 +'%Y-%m-%d %H:%M:%
 find "/var/log" -type 'f' ! -newermt "2018-09-21 13:25:18";
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Last Modified - Find files modified NO LATER THAN [ given timestamp ] --> ROBUSTIFIED
 
@@ -185,7 +181,7 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Last Modified - Find files modified BETWEEN [ given timestamp ] and [ given timestamp ]
 
@@ -196,20 +192,20 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Ownership (Group) - Find files w/ group ownership equal to GID "1000", then update their group ownership to GID "500"
 
 find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Encoding - Determine a file's encoding (utf-8, ascii, etc.)
 file -bi '/var/log/nginx/error.log';
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Get all config.xml files within the "Jenkins" user's home-directory (job to backup/export jenkins-config)
 
@@ -225,7 +221,7 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Delete items within a directory older than X days
 
@@ -242,7 +238,7 @@ find ${DIRECTORY_TO_CLEAN} \
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Update any files-found which match the source-file's exact same filename & extension
 
@@ -261,7 +257,7 @@ find "/" -name "$(basename ${PMA_LOGO_LOGIN})" -type f -not -path "$(dirname ${P
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Perform multiple actions within a for-loop on any items matching given find-command
 
@@ -279,7 +275,7 @@ done;
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # Find files whose file-size is [ GREATER-THAN ], [ LESS-THAN ], or [ BETWEEN ] given value(s)
 
@@ -306,7 +302,7 @@ find '/var/log' -type 'f' -size "+${filesize_GREATER_THAN}" -size "-${filesize_L
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
+# ------------------------------
 
 # List items whose absolute filepath matches a given name, but do not end with a given extension
 
@@ -332,36 +328,33 @@ find "/etc/apt/sources.list"* \
 fi;
 
 
-<!-- ------------------------------------------------------------ -->
-
-# # MAN (manual) - The following is a paraphrased excerpt from running the command [ man find ] on Ubuntu 18.04, 2019-06-03 18-11-11:
-
-man find
-...
-     -size n[cwbkMG]
-      'b' for 512-byte blocks (default)
-      'c' for bytes
-      'w' for two-byte words
-      'k' for Kibibytes (KiB, 1024 bytes)
-      'M' for Mebibytes (MiB, 1048576 bytes)
-      'G' for Gibibytes (GiB, 1073741824 bytes)
-...
-       The size does not count indirect blocks, but it does count blocks in sparse files that are not actually
-       allocated.  Bear in mind that the `%k' and `%b' format specifiers of -printf handle sparse  files  dif‐
-       ferently.  The `b' suffix always denotes 512-byte blocks and never 1024-byte blocks, which is different
-       to the behaviour of -ls.
-...
-       The + and - prefixes signify greater than and less than, as usual; i.e., an exact size of n units  does
-       not  match.   Bear  in  mind  that  the size is rounded up to the next unit. Therefore -size -1M is not
-       equivalent to -size -1048576c.  The former only matches empty files, the latter matches files from 0 to
-       1,048,575 bytes.
-...
-
-<!-- ------------------------------------------------------------ -->
-
+# ------------------------------
+#
+# man find
+# ...
+#      -size n[cwbkMG]
+#       'b' for 512-byte blocks (default)
+#       'c' for bytes
+#       'w' for two-byte words
+#       'k' for Kibibytes (KiB, 1024 bytes)
+#       'M' for Mebibytes (MiB, 1048576 bytes)
+#       'G' for Gibibytes (GiB, 1073741824 bytes)
+# ...
+#        The size does not count indirect blocks, but it does count blocks in sparse files that are not actually
+#        allocated.  Bear in mind that the `%k' and `%b' format specifiers of -printf handle sparse  files  dif‐
+#        ferently.  The `b' suffix always denotes 512-byte blocks and never 1024-byte blocks, which is different
+#        to the behaviour of -ls.
+# ...
+#        The + and - prefixes signify greater than and less than, as usual; i.e., an exact size of n units  does
+#        not  match.   Bear  in  mind  that  the size is rounded up to the next unit. Therefore -size -1M is not
+#        equivalent to -size -1048576c.  The former only matches empty files, the latter matches files from 0 to
+#        1,048,575 bytes.
+# ...
+#
+# ------------------------------------------------------------
+#
 # Citation(s)
-
-linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find
-
-<!-- ------------------------------------------------------------ -->
-
+#
+#   linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find
+#
+# ------------------------------------------------------------

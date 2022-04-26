@@ -150,31 +150,34 @@
 
 (if \[)( ((?!(then))[^\]])+ )(\]; then)
 
-								Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
+                Negative Lookaheads assert that what immediately follows the current position in the string is NOT "RegexHere"
 
-									Ex:   ```q(?!u)```
-									        |-->  matches a "q" NOT followed by a "u"
+                  Ex:   ```q(?!u)```
+                            |-->  matches a "q" NOT followed by a "u"
 
-									Ex:   ```^((?!foobar).)*$```
-									        |-->  match lines which do NOT have the word 'foobar' anywhere in them
+                  Ex:   ```^((?!foobar).)*$```
+                            |-->  match lines which do NOT have the word 'foobar' anywhere in them
 
-									Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```
-									        |-->  match lines which do NOT have the word 'ignoreme' or 'ignoreme2' anywhere in them
+                  Ex:   ```^(?!ignoreme|ignoreme2)([a-z0-9]+)$```
+                            |-->  match lines which do NOT have the word 'ignoreme' or 'ignoreme2' anywhere in them
 
-									Ex:   ```if \[ ((?!(then))[^\]])+ \]; then```
-									        |-->  match lines containing the string 'if [ * ]; then' where the '*' does NOT contain the word 'then'
+                  Ex:   ```if \[ ((?!(then))[^\]])+ \]; then```
+                            |-->  match lines containing the string 'if [ * ]; then' where the '*' does NOT contain the word 'then'
 
                   Ex:   ```<i>((?!</i>).)+$```
-                          |-->  match lines which have more opening HTML DOM <i> blocks than they do closing
+                            |-->  match lines which have more opening HTML DOM <i> blocks than they do closing
 
-									Ex:   ```^((?!<a).)*</a>```
-									        |-->  match lines which have more closing HTML DOM <a> blocks than they do opening
+                  Ex:   ```<span>(((?!(</span)).)+)</span>```
+                            |-->  get the content between the opening & closing <span> DOM elements
 
-									Ex:   ```^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$```
-									        |-->  match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
+                  Ex:   ```^((?!<a).)*</a>```
+                            |-->  match lines which have more closing HTML DOM <a> blocks than they do opening
 
-									Ex:   ```^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$```  
-									        |-->  match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
+                  Ex:   ```^((?!<sub>).)*(<sub>((?!<sub>).)*){1}((?!<sub>).)*(</sub>((?!<sub>).)*){2,}$```
+                            |-->  match lines with more closing HTML DOM </sub> blocks than opening HTML DOM <sub> blocks
+
+                  Ex:   ```^((?!</sub>).)*(<sub>((?!</sub>).)*){2}((?!</sub>).)*</sub>((?!</sub>).)*$```  
+                            |-->  match lines with more opening HTML DOM <sub> blocks than closing HTML DOM </sub> blocks
 
 * ```?<=```		Lookbehind   (or "Positive Lookbehind", subcategory of "LookArounds")  -  Syntax:  (?<=RegexHere)
 

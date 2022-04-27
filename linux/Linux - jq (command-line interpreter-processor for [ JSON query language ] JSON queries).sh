@@ -381,6 +381,8 @@ fi;
 #
 #   stackoverflow.com  |  "json - How to check if element exists in array with jq - Stack Overflow"  |  https://stackoverflow.com/a/43269105
 #
+#   stackoverflow.com  |  "json - jq not working on tag name with dashes and numbers - Stack Overflow"  |  https://stackoverflow.com/a/37344498
+#
 #   stackoverflow.com  |  "json - Select objects based on value of variable in object using jq - Stack Overflow"  |  https://stackoverflow.com/a/18608100
 #
 # ------------------------------------------------------------

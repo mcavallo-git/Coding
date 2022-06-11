@@ -1,0 +1,131 @@
+------------------------------
+
+$ vim-cmd help
+
+Usage: vim-cmd [options]... command [cmd_arg1] [cmd_arg2] ...
+Options:
+   -h                Display this help message and exit
+   -v                Display version information and exit
+   -H <host>         Host name to connect
+   -O <port>         Port number to connect
+   -t <thumbprint>   Expected thumbprint of the specified host
+   -U <user>         User name to use for login
+   -P <pass>         Password to use for login
+   -d <level>        Show verbose debug output. (info, verbose, trivia)
+   -c <config>       Full path of the config file to use
+
+------------------------------
+
+$ vim-cmd
+
+Commands available under /:
+hbrsvc/       internalsvc/  solo/         vmsvc/
+hostsvc/      proxysvc/     vimsvc/       help
+
+------------------------------
+
+$ vim-cmd hbrsvc/
+
+Commands available under hbrsvc/:
+vmreplica.abort                  vmreplica.pause
+vmreplica.create                 vmreplica.queryReplicationState
+vmreplica.disable                vmreplica.reconfig
+vmreplica.diskDisable            vmreplica.resume
+vmreplica.diskEnable             vmreplica.startOfflineInstance
+vmreplica.enable                 vmreplica.stopOfflineInstance
+vmreplica.getConfig              vmreplica.sync
+vmreplica.getState
+
+------------------------------
+
+$ vim-cmd internalsvc/
+
+Commands available under internalsvc/:
+perfcount/          loglist             refresh_datastores  shutdown
+vprobes/            redirect_stderr     refresh_gateway     throw_exception
+access_address      redirect_stdout     refresh_network     use_fds
+cold_quit           refresh             refresh_pnic
+host_mode_lock      refresh_consolenic  set_log_level
+
+------------------------------
+
+$ vim-cmd solo/
+
+Commands available under solo/:
+environment      querycfgopt      querycfgoptdesc  registervm
+
+------------------------------
+
+$ vim-cmd vmsvc/
+
+Commands available under vmsvc/:
+acquiremksticket                 get.snapshotinfo
+acquireticket                    get.spaceNeededForConsolidation
+createdummyvm                    get.summary
+destroy                          get.tasklist
+device.connection                getallvms
+device.connusbdev                gethostconstraints
+device.ctlradd                   message
+device.ctlrremove                power.getstate
+device.disconnusbdev             power.hibernate
+device.diskadd                   power.off
+device.diskaddexisting           power.on
+device.diskextend                power.reboot
+device.diskremove                power.reset
+device.getdevices                power.shutdown
+device.nvdimmadd                 power.suspend
+device.nvdimmremove              power.suspendResume
+device.toolsSyncSet              queryftcompat
+devices.createnic                reload
+get.capability                   setscreenres
+get.config                       snapshot.create
+get.config.cpuidmask             snapshot.dumpoption
+get.configoption                 snapshot.get
+get.datastores                   snapshot.remove
+get.disabledmethods              snapshot.removeall
+get.environment                  snapshot.revert
+get.filelayout                   snapshot.setoption
+get.filelayoutex                 tools.cancelinstall
+get.guest                        tools.install
+get.guestheartbeatStatus         tools.upgrade
+get.managedentitystatus          unregister
+get.networks                     upgrade
+get.runtime
+
+------------------------------
+
+$ vim-cmd hostsvc/
+
+Commands available under hostsvc/:
+advopt/                   enable_ssh                refresh_services
+autostartmanager/         firewall_disable_ruleset  reset_service
+datastore/                firewall_enable_ruleset   runtimeinfo
+datastorebrowser/         get_service_status        set_hostid
+firmware/                 hostconfig                standby_mode_enter
+net/                      hosthardware              standby_mode_exit
+rsrc/                     hostsummary               start_esx_shell
+storage/                  maintenance_mode_enter    start_service
+summary/                  maintenance_mode_exit     start_ssh
+vmotion/                  pci_add                   stop_esx_shell
+cpuinfo                   pci_remove                stop_service
+disable_esx_shell         queryconnectioninfo       stop_ssh
+disable_ssh               querydisabledmethods      task_list
+enable_esx_shell          refresh_firewall          updateSSLThumbprintsInfo
+
+------------------------------
+
+$ vim-cmd proxysvc/
+
+Commands available under proxysvc/:
+add_np_service   port_info        service_list
+add_tcp_service  remove_service
+
+------------------------------
+
+$ vim-cmd vimsvc/
+
+Commands available under vimsvc/:
+auth/             property_dump     task_description  task_list
+license           task_cancel       task_info
+
+------------------------------

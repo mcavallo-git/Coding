@@ -173,6 +173,7 @@ function ExclusionsListUpdate {
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Malwarebytes"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Mailbird"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\McAfee"));
+		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft Office"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft Office 15"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\Microsoft VS Code"));
 		$ExcludedFilepaths += ((${ProgFilesX64})+("\nodejs"));

@@ -3,14 +3,34 @@
 #
 # Linux - grep (print lines matching a pattern, scour file contents)
 #
+#   iportant grep cli options (taken from "man grep"):
+#        -r     perform a recursive search
+#        -R     perform a recursive search AND follow sym-links
+#        -n     get line number where a match was found
+#        -l     (lower-case L) show the file name, not the result itself
+#        -w     match whole word only
+#        -i     ignore case (perform a case-insensitive search)
+#        -v     invert the sense of matching, to select non-matching lines.
+#
 # ------------------------------------------------------------
 #
+# Example) Removing empty lines (e.g. remove lines containing only whitespace)
+#
 
-# Example 1.1 - Removing empty lines (e.g. remove lines containing only whitespace)
 EXAMPLE_REMOVE_EMPTY_LINES="Line 01"$'\n'$'\n'$'\n'"Line 04"$'\n'$'\n'$'\n'"Line 07\n\n\nLine 10";
-echo "Example 1.1 - Before removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}";
-echo "Method 1.1.1 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep '\S'; # Method 1.1.1 - Remove lines containing only whitespace characters (spaces/tabs)
-echo "Method 1.1.2 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep '^$'; # Method 1.1.2 - Keep lines with at least 1 whitespace (space/tab) character
+echo "Example)- Before removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}";
+echo "Method 1 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep '\S'; # Method 1.1.1 - Remove lines containing only whitespace characters (spaces/tabs)
+echo "Method A - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMPTY_LINES}" | grep '^$'; # Method 1.1.2 - Keep lines with at least 1 whitespace (space/tab) character
+
+
+# ------------------------------------------------------------
+#
+# Example) grep + regex (must use backslashes for special regex chars) - Find lines which do NOT contain any of a given set of strings
+#
+
+echo "Do not match" | grep -v "\(Don't match\)\|\(Do not match\)";  # Returns ""
+echo "Don't match"  | grep -v "\(Don't match\)\|\(Do not match\)";  # Returns ""
+echo "Do match"     | grep -v "\(Don't match\)\|\(Do not match\)";  # Returns "Do match"
 
 
 # ------------------------------------------------------------
@@ -19,28 +39,27 @@ echo "Method 1.1.2 - After removing empty lines:"; echo -e "${EXAMPLE_REMOVE_EMP
 #    ...
 #      options
 #        -r     perform a recursive search
+#        -R     perform a recursive search AND follow sym-links
 #        -n     get line number where a match was found
 #        -l     (lower-case L) show the file name, not the result itself
-#    ...
-#      options (cont.)
-#        -R     perform a recursive search AND follow sym-links
 #        -w     match whole word only
 #        -i     ignore case (perform a case-insensitive search)
+#        -v     invert the sense of matching, to select non-matching lines.
 #
 # ------------------------------------------------------------
 #
-# Example 2.1: Search syslogs for crontab edits
+# Example) Search syslogs for crontab edits
 #
 
 grep -rn /var/log/syslog* --regexp='crontab' | sort --numeric-sort;
 
 
+# ------------------------------------------------------------
 #
-# Example 2.2: Search [docker ps] to count the number of containers running
+# Example) Search [docker ps] to count the number of containers running
 #
 
 docker_instances_running=$(sudo docker ps --all | grep -c  '\<Up .* hours\>'); echo "docker_instances_running: ${docker_instances_running}";
-
 
 
 # ------------------------------------------------------------

@@ -9,6 +9,14 @@ IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -g
 
 # ------------------------------------------------------------
 #
+# String parsing
+#
+
+KOMPOSE_LATEST_VERSION=$(curl -sL https://github.com/kubernetes/kompose/releases | sed -rne "s/^.+\/kubernetes\/kompose\/releases\/download\/v([0-9\.]+)\/kompose-linux-amd64.+$/\1/p" | head -n 1;);
+echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";
+
+# ------------------------------------------------------------
+#
 # Substring replacement
 #
 
@@ -440,9 +448,7 @@ echo "\${TERRAFORM_LATEST_VERSION}=[${TERRAFORM_LATEST_VERSION}]";
 # Example)  Parse Kompose's latest version from their GitHub releases page (https://github.com/kubernetes/kompose/releases)
 #
 KOMPOSE_LATEST_VERSION=$(curl -sL https://github.com/kubernetes/kompose/releases | sed -rne "s/^.+\/kubernetes\/kompose\/releases\/download\/v([0-9\.]+)\/kompose-linux-amd64.+$/\1/p" | head -n 1;);
-if [ -n "${KOMPOSE_LATEST_VERSION}" ]; then
-  echo "Latest version of \"kompose\":  [ ${KOMPOSE_LATEST_VERSION} ]";
-fi;
+echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";
 
 
 # ------------------------------------------------------------

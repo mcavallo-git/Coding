@@ -1,0 +1,31 @@
+The argument 'Config' is required
+Usage - vsts-npm-auth -options
+
+GlobalOption             Description
+Help (-?)                Shows this help
+NonInteractive (-N)      Don't allow interactively prompting for credentials
+                         to obtain a token
+Config* (-C)             Comma-separated list of paths to npm configuration
+                         file containing package sources to acquire
+                         authentication tokens for
+TargetConfig (-T)        npm configuration file to write the generated
+                         tokens to. Usually user tokens are written to
+                         %USERPROFILE%/.npmrc, ~/.npmrc or $HOME/.npmrc
+ExpirationMinutes (-E)   Minutes until acquired tokens should expire.
+                         [Default='129600'] 
+ReadOnly (-R)            Request a read-only token. If absent or false, a
+                         read-write token will be requested. This parameter
+                         is effective only if the target configuration file
+                         has no token or a token that is near or past
+                         expiration. To force token acquisition, use the
+                         -Force parameter. [Default='False'] 
+Force (-F)               Force token acquisition. If absent or false, an
+                         existing token in the target configuration file
+                         will only be replaced if it is near or past
+                         expiration. [Default='False'] 
+Verbosity (-V)           Display this amount of detail in the output:
+                         silent, quiet, normal, detailed.
+                         Silent
+                         Quiet
+                         Normal
+                         Detailed

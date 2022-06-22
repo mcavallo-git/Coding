@@ -9,11 +9,27 @@ IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -g
 
 # ------------------------------------------------------------
 #
-# String parsing
+# Regex string parsing
 #
 
+
+# sed regex parsing (Ex 1)
+echo "a b c 1 2 3 d e f 4 5 6" | sed -rne "s/^[^0-9]+([0-9 ]+)[^0-9]*.*$/\1/p";  # Returns "1 2 3"
+
+
+# sed regex parsing (Ex 2)
+echo "a b c 1 2 3 d e f 4 5 6" | sed -rne "s/^[^0-9]+([0-9 ]+)[^0-9]*/\1/p";  # Returns "1 2 3 4 5 6"
+
+
+# sed regex parsing (Ex 3)
+DOCKER_VERSION="$(docker --version | sed -rne "s/^[^0-9]+([0-9\.]+)[,\s].+$/\1/p";)";
+echo "\${DOCKER_VERSION}=[${DOCKER_VERSION}]";  # Returns the current docker version (such as "20.10.17")
+
+
+# sed regex parsing (Ex 4)
 KOMPOSE_LATEST_VERSION=$(curl -sL https://github.com/kubernetes/kompose/releases | sed -rne "s/^.+\/kubernetes\/kompose\/releases\/download\/v([0-9\.]+)\/kompose-linux-amd64.+$/\1/p" | head -n 1;);
-echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";
+echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";  # Returns the latest version of kompose (such as "1.26.1")
+
 
 # ------------------------------------------------------------
 #

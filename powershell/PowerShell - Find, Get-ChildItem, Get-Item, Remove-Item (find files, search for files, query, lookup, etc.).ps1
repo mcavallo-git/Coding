@@ -35,10 +35,12 @@ Get-ChildItem -Path ("C:\ISO") -File -Recurse -Force -EA:0 | Where-Object { ($_.
 #
 If ($True) {
 	$Dirname_TopLevel="${Env:LOCALAPPDATA}\Packages"; # Directory to search within
-	$Basename_FindFilesMatching="*"; # Filename like ....
-	$Basename_ParentDirectory="Settings"; # Parent directory matches ...
-	$Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # Grandparent directory like ...
+	$Basename_FindFilesMatching="*"; # Filename pattern to match against
+	$Basename_ParentDirectory="Settings"; # Parent directory pattern to match against
+	$Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # Grandparent directory pattern to match against
+	$Basename_ParentsParentsParentsDirectory="*"; # Great Grandparent directory pattern to match against
 	Get-ChildItem -Path ("${Dirname_TopLevel}") -File -Recurse -Force -EA:0 `
+		| Where-Object { $_.Directory.Parent.Parent.Name -Like "${Basename_ParentsParentsParentsDirectory}" } `
 		| Where-Object { $_.Directory.Parent.Name -Like "${Basename_ParentsParentsDirectory}" } `
 		| Where-Object { $_.Directory.Name -Like "${Basename_ParentDirectory}" } `
 		| Where-Object { $_.Name -Like "${Basename_FindFilesMatching}" } `

@@ -115,13 +115,15 @@ If (FileExist(TrayIcon_Default)) {
 ;
 ; #Escape::
 ~#Escape::
+  Global DebugMode
   BlockInPut, Off  ;  Stop blocking input (e.g. restore full interaction)
   Reload  ; Reload this script
   Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
-  MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
-  ; IfMsgBox, Yes, Edit
-  If (A_MsgBoxResult = "Yes") {
-    Edit
+  If (DebugMode == 1) {
+    MsgBox, 4,, The script could not be reloaded. Would you like to open it for editing?
+    If (A_MsgBoxResult = "Yes") {
+      Edit
+    }
   }
   Return
 
@@ -602,6 +604,7 @@ Pause::
 ;
 #g::
 #w::
+  Global DebugMode
   KeysPressed := A_ThisHotkey
   FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" KeysPressed
   ExeToRequire_Legend := FileToPaste_Legend "-exe"
@@ -686,6 +689,7 @@ Pause::
 +^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
 +!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
 +!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
+  Global DebugMode
   Global RFC3339_YearMonthDay_Separator
   Global RFC3339_HourMinuteSecond_Separator
   Global RFC3339_DecimalSeconds_Separator
@@ -1916,6 +1920,7 @@ DoLogging(LogText) {
 ;   |--> Get user-entered keypress & repeatedly send a duplicate (mock) keypress indefinitely afterwards
 ;
 Duplicate_Keypress() {
+  Global DebugMode
   KeyPressed := ""
   Loop {
     TooltipOutput := ( "Press a key (will be duplicated)" )
@@ -2220,6 +2225,8 @@ GetTimezoneOffset_P(ByRef Output_TZ_P) {
 ;   |--> Gets Specs for currently-active window
 ;
 GetWindowSpecs(WinTitle:="A") {
+  Global DebugMode
+
   ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
   Gui, WindowSpecs:Default
   Gui, Destroy
@@ -2522,9 +2529,9 @@ Monitor_ShowScreenSaver() {
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
 MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_MonitorNumber:="UseCurrentMonitor", WinTitle:="A", WinText:="") {
+  Global DebugMode
   ; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
   ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
-  Global DebugMode
   ; Check if action to be performed is a simple window restore
   If (Destination_Direction=="Restored") {
     ;
@@ -2766,7 +2773,11 @@ Open_Chrome() {
     } Else {
       MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
     }
-    WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    If (WinExist(WinTitle,WinText)) {
+      WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    } Else If (WinExist(WinTitle)) {
+      WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    }
   }
   Return
 }
@@ -2778,6 +2789,7 @@ Open_Chrome() {
 ;   |--> Open manually via [ Start Menu search for "View Network Connections" ] or [ "Settings (Win10 App)" > "Network & Internet" > "Ethernet" (left menu) > "Change adapter options" (top right) ]
 ;
 Open_ControlPanel_NetworkConnections() {
+  Global DebugMode
   WinTitle := "Network Connections"
   SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
@@ -2801,6 +2813,7 @@ Open_ControlPanel_NetworkConnections() {
 ;   |--> Open manually via [ Start Menu search for "Change system sounds" ] or [ "Settings (Win10 App)" > "System" > "Sound" (left menu) > "Sound Control Panel" (top right) ]
 ;
 Open_ControlPanel_Sound(TabToOpen:="Playback") {
+  Global DebugMode
   WinTitle := "Sound"
   SetTitleMatchMode, 3  ; 3: A window's title must exactly match WinTitle to be a match.
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
@@ -2906,6 +2919,7 @@ Open_VisualStudioCode() {
   }
   MoveIt("Left","Half",1,WinTitle)  ; Resize window to left-half of monitor #1
   WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  
   Return
 }
 
@@ -2915,6 +2929,7 @@ Open_VisualStudioCode() {
 ;   |--> Opens Microsoft's "Windows Terminal" application - Windows Terminal is a tabbed terminal utility for Windows
 ;
 Open_WindowsTerminal() {
+  Global DebugMode
   SetTitleMatchMode, 2  ; Title must CONTAIN [ WinTitle ] as a substring
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\explorer.exe"
@@ -2940,7 +2955,11 @@ Open_WindowsTerminal() {
     WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   MoveIt("Right","Half",1,WinTitle,WinText)  ; Resize window to right-half of monitor #1
-  WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  If (WinExist(WinTitle,WinText)) {
+    WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  } Else If (WinExist(WinTitle)) {
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  }
   Return
 }
 
@@ -3240,6 +3259,7 @@ RemoveToolTip() {
 ;   |--> Opens target program without administrative rights (by using a Scheduled Task de-escalation workaround)
 ;
 RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
+  Global DebugMode
   If (DebugMode == 1) {
     TrayTip, AHK,
     (LTrim
@@ -3303,6 +3323,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 ;          MsgBox % RunWaitOne("dir " A_ScriptDir)
 ;
 RunWaitOne(CMD_Command) {
+  Global DebugMode
   WScript_Shell := ComObjCreate("WScript.Shell")
   Run_Command := A_ComSpec " /C `"" CMD_Command "`" "
   If (DebugMode == 1) {
@@ -3396,6 +3417,7 @@ SendHostname() {
 ;   |--> Sends/Copies a psuedo-random string of characters
 ;
 SendPseudoRandomString(CopyStringToClipboard:=1) {
+  Global DebugMode
   SpecialChar := "@"
   PseudoRandomString := ""
   PseudoRandomString := PseudoRandomString . GetRandomString(1, 0, 0, 1, 0)  ; 1 Uppercase
@@ -3418,6 +3440,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
 ;   |--> Sends/Copies a random string of characters
 ;
 SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetters:=1, EnableUppercaseLetters:=0, EnableSpecialCharacters:=0, CopyStringToClipboard:=1, DoConfirmationPopup:=1) {
+  Global DebugMode
   BlockAction := 1
   If (DoConfirmationPopup==0) {
     BlockAction := 0
@@ -4374,48 +4397,37 @@ Youtube_EditDraft_Submit() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinTitle := "Channel content - YouTube Studio - Google Chrome"
   If (WinExist(WinTitle)) {
-    ;
-    ; !!! MAKE SURE TO FILTER TO:  "Visibility: Draft"  !!!
-    ;
     WinActivate(WinTitle)
     Sleep 100
-    ; Move the window to specified x/y position and resize it to have specified width/height
-    WinMove(WinTitle,, -7, 0, 1734, 1407)
-    Loop {
-      Tooltip_Header := "Chrome - Click 'Refresh'"
-      Tooltip, % ( Tooltip_Header ), 1, 112
-      xpos := 94
-      ypos := 61
-      ControlClick, x%xpos% y%ypos%, %WinTitle%
-      Sleep 2000
-      Tooltip_Header := "Youtube - Click 'Edit Draft'"
-      Tooltip, % ( Tooltip_Header ), 1, 112
-      xpos := 1601
-      ypos := 414
-      xpos_rightedge := xpos + 20
-      Loop {
-        Sleep 100
-        Color_xpos_ypos := PixelGetColor(xpos, ypos)
-        PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
-        PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
-        Tooltip_Debug := ( Tooltip_Header "`n" )
-        Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
-        Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
-        Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-        Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
-        If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
-          Break
-        }
-      }
-      Sleep 250
-      ControlClick, x%xpos% y%ypos%, %WinTitle%
+    ; Make sure that the user enables filter [ "Visibility: Draft" ] before continuing with this script
+    LF := "`n"
+    Echo_Tooltip := ""
+    Echo_Tooltip := Echo_Tooltip "YouTube Channel content"
+    Echo_Tooltip := Echo_Tooltip LF A_Space
+    Echo_Tooltip := Echo_Tooltip LF A_Space
+    Echo_Tooltip := Echo_Tooltip LF A_Space A_Space A_Space "Please apply the following filter:"
+    Echo_Tooltip := Echo_Tooltip LF A_Space
+    Echo_Tooltip := Echo_Tooltip LF A_Space A_Space A_Space A_Space A_Space A_Space "Visibility: Draft"
+    Echo_Tooltip := Echo_Tooltip LF A_Space
+    Echo_Tooltip := Echo_Tooltip LF A_Space
+    Echo_Tooltip := Echo_Tooltip LF A_Space A_Space A_Space "Has this filter been applied?"
+    MsgBox, 4,, %Echo_Tooltip%
+    If (A_MsgBoxResult = "Yes") {
       Sleep 100
-      Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
-      Tooltip, % ( Tooltip_Header ), 1, 112
-      xpos := 1274
-      ypos := 1313
-      xpos_rightedge := xpos + 20
-      Loop 3 {
+      ; Move the window to specified x/y position and resize it to have specified width/height
+      WinMove(WinTitle,, -7, 0, 1734, 1407)
+      Loop {
+        Tooltip_Header := "Chrome - Click 'Refresh'"
+        Tooltip, % ( Tooltip_Header ), 1, 112
+        xpos := 94
+        ypos := 61
+        ControlClick, x%xpos% y%ypos%, %WinTitle%
+        Sleep 2000
+        Tooltip_Header := "Youtube - Click 'Edit Draft'"
+        Tooltip, % ( Tooltip_Header ), 1, 112
+        xpos := 1601
+        ypos := 414
+        xpos_rightedge := xpos + 20
         Loop {
           Sleep 100
           Color_xpos_ypos := PixelGetColor(xpos, ypos)
@@ -4430,31 +4442,55 @@ Youtube_EditDraft_Submit() {
             Break
           }
         }
+        Sleep 250
         ControlClick, x%xpos% y%ypos%, %WinTitle%
         Sleep 100
-      }
-      Sleep 100
-      Tooltip_Header := "Youtube - Click 'Close'"
-      Tooltip, % ( Tooltip_Header ), 1, 112
-      xpos := 1056
-      ypos := 955
-      xpos_rightedge := xpos + 20
-      Loop {
-        Sleep 100
-        Color_xpos_ypos := PixelGetColor(xpos, ypos)
-        PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
-        PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
-        Tooltip_Debug := ( Tooltip_Header "`n" )
-        Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
-        Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
-        Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-        Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
-        If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
-          Break
+        Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
+        Tooltip, % ( Tooltip_Header ), 1, 112
+        xpos := 1274
+        ypos := 1313
+        xpos_rightedge := xpos + 20
+        Loop 3 {
+          Loop {
+            Sleep 100
+            Color_xpos_ypos := PixelGetColor(xpos, ypos)
+            PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+            PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+            Tooltip_Debug := ( Tooltip_Header "`n" )
+            Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
+            Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
+            Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
+            Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+            If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
+              Break
+            }
+          }
+          ControlClick, x%xpos% y%ypos%, %WinTitle%
+          Sleep 100
         }
+        Sleep 100
+        Tooltip_Header := "Youtube - Click 'Close'"
+        Tooltip, % ( Tooltip_Header ), 1, 112
+        xpos := 1056
+        ypos := 955
+        xpos_rightedge := xpos + 20
+        Loop {
+          Sleep 100
+          Color_xpos_ypos := PixelGetColor(xpos, ypos)
+          PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+          PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+          Tooltip_Debug := ( Tooltip_Header "`n" )
+          Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
+          Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
+          Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
+          Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
+          If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
+            Break
+          }
+        }
+        ControlClick, x%xpos% y%ypos%, %WinTitle%
+        Sleep 250
       }
-      ControlClick, x%xpos% y%ypos%, %WinTitle%
-      Sleep 250
     }
   }
   ClearTooltip(10000)
@@ -4799,7 +4835,7 @@ BrightnessSetter_new() {
 ; 
 ; Menu, tray, add  ; Creates a separator line.
 ; Menu, tray, add, "Lineage-2", MenuHandler  ; Creates a new menu item.
-; return
+; return43
 ; 
 ; MenuHandler:
 ; MsgBox You selected %A_ThisMenuItem% from menu %A_ThisMenu%.
@@ -4831,14 +4867,14 @@ BrightnessSetter_new() {
 ; Example: Compare two Strings' Displayed Character-Widths (Strlen doesn't have a whole lot to do with actual/displayed character-widths)
 ;
 ; CompareCharacterWidths() {
-; 	Newline=`n
-; 	Echo1= String = [ chr(0x0061) ]   Strlen = [ StrLen( chr(0x0061) ) ]
-; 	Echo2= String = [ chr(0x030a) ]   Strlen = [ StrLen( chr(0x030a) ) ]
-; 	Echo_Tooltip=
-; 	Echo_Tooltip := Echo_Tooltip Newline "  String=|" chr(0x0061) "|   StrLen=|" StrLen( chr(0x0061) ) "|"
-; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
-; 	Echo_Tooltip := Echo_Tooltip Newline "  String=|" chr(0x030a) "|   StrLen=|" StrLen( chr(0x030a) ) "|"
-; 	Echo_Tooltip := Echo_Tooltip Newline A_Space
+; 	LF := "`n"
+; 	Echo1 := String = [ Chr(0x0061) ]   Strlen = [ StrLen( Chr(0x0061) ) ]
+; 	Echo2 := String = [ Chr(0x030a) ]   Strlen = [ StrLen( Chr(0x030a) ) ]
+; 	Echo_Tooltip := ""
+; 	Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x0061) "|   StrLen=|" StrLen( Chr(0x0061) ) "|"
+; 	Echo_Tooltip := Echo_Tooltip LF A_Space
+; 	Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x030a) "|   StrLen=|" StrLen( Chr(0x030a) ) "|"
+; 	Echo_Tooltip := Echo_Tooltip LF A_Space
 ; 	MsgBox, %Echo_Tooltip%
 ; 	Return
 ; }

@@ -38,10 +38,10 @@ If ($True) {
 	$Basename_FindFilesMatching="*"; # Filename like ....
 	$Basename_ParentDirectory="Settings"; # Parent directory matches ...
 	$Basename_ParentsParentsDirectory="Microsoft.Windows.ContentDeliveryManager_*"; # Grandparent directory like ...
-	Get-ChildItem -Path ("${Env:LOCALAPPDATA}\Packages") -File -Recurse -Force -EA:0 `
-		| Where-Object { $_.Directory.Parent.Name -Like "$Basename_ParentsParentsDirectory" } `
-		| Where-Object { $_.Directory.Name -Like "$Basename_ParentDirectory" } `
-		| Where-Object { $_.Name -Like "$Basename_FindFilesMatching" } `
+	Get-ChildItem -Path ("${Dirname_TopLevel}") -File -Recurse -Force -EA:0 `
+		| Where-Object { $_.Directory.Parent.Name -Like "${Basename_ParentsParentsDirectory}" } `
+		| Where-Object { $_.Directory.Name -Like "${Basename_ParentDirectory}" } `
+		| Where-Object { $_.Name -Like "${Basename_FindFilesMatching}" } `
 		| ForEach-Object { $_.FullName; } `
 	;
 }
@@ -204,7 +204,7 @@ Get-ChildItem -Path ("C:\Windows\System32") -File -Recurse -Depth (1) -Force -Er
 | ForEach-Object { `
 	$Each_Fullpath = ("$($_.FullName)");
 	Write-Host "Removing file with path  `"${Each_Fullpath}`"  ..."; `
-	Remove-Item -Path ("$Each_Fullpath") -Recurse -Force -Confirm:$False; `
+	Remove-Item -Path ("${Each_Fullpath}") -Recurse -Force -Confirm:$False; `
 } `
 ;
 

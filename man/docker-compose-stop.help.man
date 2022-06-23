@@ -1,9 +1,0 @@
-Stop running containers without removing them.
-
-They can be started again with `docker-compose start`.
-
-Usage: stop [options] [--] [SERVICE...]
-
-Options:
-  -t, --timeout TIMEOUT      Specify a shutdown timeout in seconds.
-                             (default: 10)

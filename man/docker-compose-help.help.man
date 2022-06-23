@@ -1,3 +1,0 @@
-Get help on a command.
-
-Usage: help [COMMAND]

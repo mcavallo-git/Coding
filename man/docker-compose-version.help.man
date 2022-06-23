@@ -1,6 +1,0 @@
-Show version information and quit.
-
-Usage: version [--short]
-
-Options:
-    --short     Shows only Compose's version number.

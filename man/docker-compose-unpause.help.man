@@ -1,3 +1,0 @@
-Unpause services.
-
-Usage: unpause [SERVICE...]

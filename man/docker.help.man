@@ -1,0 +1,3266 @@
+------------------------------------------------------------
+[ docker --help ]
+
+Usage:  docker [OPTIONS] COMMAND
+
+A self-sufficient runtime for containers
+
+Options:
+      --config string      Location of client config files (default "/root/.docker")
+  -c, --context string     Name of the context to use to connect to the daemon (overrides DOCKER_HOST env var and default context set with "docker context use")
+  -D, --debug              Enable debug mode
+  -H, --host list          Daemon socket(s) to connect to
+  -l, --log-level string   Set the logging level ("debug"|"info"|"warn"|"error"|"fatal") (default "info")
+      --tls                Use TLS; implied by --tlsverify
+      --tlscacert string   Trust certs signed only by this CA (default "/root/.docker/ca.pem")
+      --tlscert string     Path to TLS certificate file (default "/root/.docker/cert.pem")
+      --tlskey string      Path to TLS key file (default "/root/.docker/key.pem")
+      --tlsverify          Use TLS and verify the remote
+  -v, --version            Print version information and quit
+
+Management Commands:
+  app*        Docker App (Docker Inc., v0.9.1-beta3)
+  builder     Manage builds
+  config      Manage Docker configs
+  container   Manage containers
+  context     Manage contexts
+  image       Manage images
+  manifest    Manage Docker image manifests and manifest lists
+  network     Manage networks
+  node        Manage Swarm nodes
+  plugin      Manage plugins
+  secret      Manage Docker secrets
+  service     Manage services
+  stack       Manage Docker stacks
+  swarm       Manage Swarm
+  system      Manage Docker
+  trust       Manage trust on Docker images
+  volume      Manage volumes
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  build       Build an image from a Dockerfile
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  events      Get real time events from the server
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  history     Show the history of an image
+  images      List images
+  import      Import the contents from a tarball to create a filesystem image
+  info        Display system-wide information
+  inspect     Return low-level information on Docker objects
+  kill        Kill one or more running containers
+  load        Load an image from a tar archive or STDIN
+  login       Log in to a Docker registry
+  logout      Log out from a Docker registry
+  logs        Fetch the logs of a container
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  ps          List containers
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  rmi         Remove one or more images
+  run         Run a command in a new container
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  search      Search the Docker Hub for images
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  version     Show the Docker version information
+  wait        Block until one or more containers stop, then print their exit codes
+
+Invalid Plugins:
+  buildx      failed to fetch metadata: fork/exec /usr/local/lib/docker/cli-plugins/docker-buildx: no such file or directory
+  compose     failed to fetch metadata: fork/exec /usr/local/lib/docker/cli-plugins/docker-compose: no such file or directory
+  scan        failed to fetch metadata: fork/exec /usr/local/lib/docker/cli-plugins/docker-scan: no such file or directory
+
+Run 'docker COMMAND --help' for more information on a command.
+
+[1mTo get more help with docker, check out our guides at https://docs.docker.com/go/guides/[0m
+
+------------------------------------------------------------
+[ docker attach --help ]
+
+Usage:  docker attach [OPTIONS] CONTAINER
+
+Attach local standard input, output, and error streams to a running container
+
+Options:
+      --detach-keys string   Override the key sequence for detaching a container
+      --no-stdin             Do not attach STDIN
+      --sig-proxy            Proxy all received signals to the process (default true)
+
+------------------------------------------------------------
+[ docker build --help ]
+
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --cgroup-parent string    Optional parent cgroup for the container
+      --compress                Compress the build context using gzip
+      --cpu-period int          Limit the CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int           Limit the CPU CFS (Completely Fair Scheduler) quota
+  -c, --cpu-shares int          CPU shares (relative weight)
+      --cpuset-cpus string      CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string      MEMs in which to allow execution (0-3, 0,1)
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is 'PATH/Dockerfile')
+      --force-rm                Always remove intermediate containers
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+  -m, --memory bytes            Memory limit
+      --memory-swap bytes       Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --network string          Set the networking mode for the RUN instructions during build (default "default")
+      --no-cache                Do not use cache when building the image
+      --pull                    Always attempt to pull a newer version of the image
+  -q, --quiet                   Suppress the build output and print image ID on success
+      --rm                      Remove intermediate containers after a successful build (default true)
+      --security-opt strings    Security options
+      --shm-size bytes          Size of /dev/shm
+  -t, --tag list                Name and optionally a tag in the 'name:tag' format
+      --target string           Set the target build stage to build.
+      --ulimit ulimit           Ulimit options (default [])
+
+------------------------------------------------------------
+[ docker builder build --help ]
+
+Usage:  docker builder build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --cgroup-parent string    Optional parent cgroup for the container
+      --compress                Compress the build context using gzip
+      --cpu-period int          Limit the CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int           Limit the CPU CFS (Completely Fair Scheduler) quota
+  -c, --cpu-shares int          CPU shares (relative weight)
+      --cpuset-cpus string      CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string      MEMs in which to allow execution (0-3, 0,1)
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is 'PATH/Dockerfile')
+      --force-rm                Always remove intermediate containers
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+  -m, --memory bytes            Memory limit
+      --memory-swap bytes       Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --network string          Set the networking mode for the RUN instructions during build (default "default")
+      --no-cache                Do not use cache when building the image
+      --pull                    Always attempt to pull a newer version of the image
+  -q, --quiet                   Suppress the build output and print image ID on success
+      --rm                      Remove intermediate containers after a successful build (default true)
+      --security-opt strings    Security options
+      --shm-size bytes          Size of /dev/shm
+  -t, --tag list                Name and optionally a tag in the 'name:tag' format
+      --target string           Set the target build stage to build.
+      --ulimit ulimit           Ulimit options (default [])
+
+------------------------------------------------------------
+[ docker builder prune --help ]
+
+Usage:  docker builder prune
+
+Remove build cache
+
+Options:
+  -a, --all                  Remove all unused build cache, not just dangling ones
+      --filter filter        Provide filter values (e.g. 'until=24h')
+  -f, --force                Do not prompt for confirmation
+      --keep-storage bytes   Amount of disk space to keep for cache
+
+------------------------------------------------------------
+[ docker builder --help ]
+
+Usage:  docker builder COMMAND
+
+Manage builds
+
+Commands:
+  build       Build an image from a Dockerfile
+  prune       Remove build cache
+
+Run 'docker builder COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker commit --help ]
+
+Usage:  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+Create a new image from a container's changes
+
+Options:
+  -a, --author string    Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+  -c, --change list      Apply Dockerfile instruction to the created image
+  -m, --message string   Commit message
+  -p, --pause            Pause container during commit (default true)
+
+------------------------------------------------------------
+[ docker compose build --help ]
+
+Usage:  docker compose build [SERVICE...]
+
+Build or rebuild services
+
+Options:
+      --build-arg stringArray   Set build-time variables for services.
+      --no-cache                Do not use cache when building the image
+      --progress string         Set type of progress output (auto, tty, plain, quiet) (default "auto")
+      --pull                    Always attempt to pull a newer version of the image.
+  -q, --quiet                   Don't print anything to STDOUT
+      --ssh string              Set SSH authentications used when building service images. (use 'default' for using your default SSH Agent)
+
+------------------------------------------------------------
+[ docker compose convert --help ]
+
+Usage:  docker compose convert SERVICES
+
+Converts the compose file to platform's canonical format
+
+Aliases:
+  convert, config
+
+Options:
+      --format string           Format the output. Values: [yaml | json] (default "yaml")
+      --hash string             Print the service config hash, one per line.
+      --images                  Print the image names, one per line.
+      --no-interpolate          Don't interpolate environment variables.
+      --no-normalize            Don't normalize compose model.
+  -o, --output string           Save to file (default to stdout)
+      --profiles                Print the profile names, one per line.
+  -q, --quiet                   Only validate the configuration, don't print anything.
+      --resolve-image-digests   Pin image tags to digests.
+      --services                Print the service names, one per line.
+      --volumes                 Print the volume names, one per line.
+
+------------------------------------------------------------
+[ docker compose cp --help ]
+
+Usage:  docker compose cp [OPTIONS] SERVICE:SRC_PATH DEST_PATH|-
+	docker compose cp [OPTIONS] SRC_PATH|- SERVICE:DEST_PATH
+
+Copy files/folders between a service container and the local filesystem
+
+Options:
+  -a, --archive       Archive mode (copy all uid/gid information)
+  -L, --follow-link   Always follow symbol link in SRC_PATH
+      --index int     Index of the container if there are multiple instances of a service .
+
+------------------------------------------------------------
+[ docker compose create --help ]
+
+Usage:  docker compose create [SERVICE...]
+
+Creates containers for a service.
+
+Options:
+      --build            Build images before starting containers.
+      --force-recreate   Recreate containers even if their configuration and image haven't changed.
+      --no-build         Don't build an image, even if it's missing.
+      --no-recreate      If containers already exist, don't recreate them. Incompatible with --force-recreate.
+
+------------------------------------------------------------
+[ docker compose down --help ]
+
+Usage:  docker compose down
+
+Stop and remove containers, networks
+
+Options:
+      --remove-orphans    Remove containers for services not defined in the Compose file.
+      --rmi string        Remove images used by services. "local" remove only images that don't have a custom tag ("local"|"all")
+  -t, --timeout int       Specify a shutdown timeout in seconds (default 10)
+  -v, --volumes volumes    Remove named volumes declared in the volumes section of the Compose file and anonymous volumes attached to containers.
+
+------------------------------------------------------------
+[ docker compose events --help ]
+
+Usage:  docker compose events [options] [--] [SERVICE...]
+
+Receive real time events from containers.
+
+Options:
+      --json   Output events as a stream of json objects
+
+------------------------------------------------------------
+[ docker compose exec --help ]
+
+Usage:  docker compose exec [options] [-e KEY=VAL...] [--] SERVICE COMMAND [ARGS...]
+
+Execute a command in a running container.
+
+Options:
+  -d, --detach                       Detached mode: Run command in the background.
+  -e, --env stringArray              Set environment variables
+      --index int                    index of the container if there are multiple instances of a service [default: 1]. (default 1)
+  -T, --no-TTY docker compose exec   Disable pseudo-TTY allocation. By default docker compose exec allocates a TTY. (default true)
+      --privileged                   Give extended privileges to the process.
+  -u, --user string                  Run the command as this user.
+  -w, --workdir string               Path to workdir directory for this command.
+
+------------------------------------------------------------
+[ docker compose images --help ]
+
+Usage:  docker compose images [SERVICE...]
+
+List images used by the created containers
+
+Options:
+  -q, --quiet   Only display IDs
+
+------------------------------------------------------------
+[ docker compose kill --help ]
+
+Usage:  docker compose kill [options] [SERVICE...]
+
+Force stop service containers.
+
+Options:
+  -s, --signal string   SIGNAL to send to the container. (default "SIGKILL")
+
+------------------------------------------------------------
+[ docker compose logs --help ]
+
+Usage:  docker compose logs [SERVICE...]
+
+View output from containers
+
+Options:
+  -f, --follow          Follow log output.
+      --no-color        Produce monochrome output.
+      --no-log-prefix   Don't print prefix in logs.
+      --since string    Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+      --tail string     Number of lines to show from the end of the logs for each container. (default "all")
+  -t, --timestamps      Show timestamps.
+      --until string    Show logs before a timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+
+------------------------------------------------------------
+[ docker compose ls --help ]
+
+Usage:  docker compose ls
+
+List running compose projects
+
+Options:
+  -a, --all             Show all stopped Compose projects
+      --filter filter   Filter output based on conditions provided.
+      --format string   Format the output. Values: [pretty | json]. (default "pretty")
+  -q, --quiet           Only display IDs.
+
+------------------------------------------------------------
+[ docker compose pause --help ]
+
+Usage:  docker compose pause [SERVICE...]
+
+Pause services
+
+------------------------------------------------------------
+[ docker compose port --help ]
+
+Usage:  docker compose port [options] [--] SERVICE PRIVATE_PORT
+
+Print the public port for a port binding.
+
+Options:
+      --index int         index of the container if service has multiple replicas (default 1)
+      --protocol string   tcp or udp (default "tcp")
+
+------------------------------------------------------------
+[ docker compose ps --help ]
+
+Usage:  docker compose ps [SERVICE...]
+
+List containers
+
+Options:
+  -a, --all                  Show all stopped containers (including those created by the run command)
+      --filter string        Filter services by a property (supported filters: status).
+      --format string        Format the output. Values: [pretty | json] (default "pretty")
+  -q, --quiet                Only display IDs
+      --services             Display services
+      --status stringArray   Filter services by status. Values: [paused | restarting | removing | running | dead | created | exited]
+
+------------------------------------------------------------
+[ docker compose pull --help ]
+
+Usage:  docker compose pull [SERVICE...]
+
+Pull service images
+
+Options:
+      --ignore-pull-failures   Pull what it can and ignores images with pull failures
+      --include-deps           Also pull services declared as dependencies
+  -q, --quiet                  Pull without printing progress information
+
+------------------------------------------------------------
+[ docker compose push --help ]
+
+Usage:  docker compose push [SERVICE...]
+
+Push service images
+
+Options:
+      --ignore-push-failures   Push what it can and ignores images with push failures
+
+------------------------------------------------------------
+[ docker compose restart --help ]
+
+Usage:  docker compose restart
+
+Restart containers
+
+Options:
+  -t, --timeout int   Specify a shutdown timeout in seconds (default 10)
+
+------------------------------------------------------------
+[ docker compose rm --help ]
+
+Usage:  docker compose rm [SERVICE...]
+
+Removes stopped service containers
+
+By default, anonymous volumes attached to containers will not be removed. You
+can override this with -v. To list all volumes, use "docker volume ls".
+
+Any data which is not in a volume will be lost.
+
+Options:
+  -f, --force     Don't ask to confirm removal
+  -s, --stop      Stop the containers, if required, before removing
+  -v, --volumes   Remove any anonymous volumes attached to containers
+
+------------------------------------------------------------
+[ docker compose run --help ]
+
+Usage:  docker compose run [options] [-v VOLUME...] [-p PORT...] [-e KEY=VAL...] [-l KEY=VALUE...] SERVICE [COMMAND] [ARGS...]
+
+Run a one-off command on a service.
+
+Options:
+  -d, --detach                Run container in background and print container ID
+      --entrypoint string     Override the entrypoint of the image
+  -e, --env stringArray       Set environment variables
+  -i, --interactive           Keep STDIN open even if not attached. (default true)
+  -l, --label stringArray     Add or override a label
+      --name string            Assign a name to the container
+  -T, --no-TTY                Disable pseudo-TTY allocation (default: auto-detected). (default true)
+      --no-deps               Don't start linked services.
+  -p, --publish stringArray   Publish a container's port(s) to the host.
+      --quiet-pull            Pull without printing progress information.
+      --rm                    Automatically remove the container when it exits
+      --service-ports         Run command with the service's ports enabled and mapped to the host.
+      --use-aliases           Use the service's network useAliases in the network(s) the container connects to.
+  -u, --user string           Run as specified username or uid
+  -v, --volume stringArray    Bind mount a volume.
+  -w, --workdir string        Working directory inside the container
+
+------------------------------------------------------------
+[ docker compose start --help ]
+
+Usage:  docker compose start [SERVICE...]
+
+Start services
+
+------------------------------------------------------------
+[ docker compose stop --help ]
+
+Usage:  docker compose stop [SERVICE...]
+
+Stop services
+
+Options:
+  -t, --timeout int   Specify a shutdown timeout in seconds (default 10)
+
+------------------------------------------------------------
+[ docker compose top --help ]
+
+Usage:  docker compose top [SERVICES...]
+
+Display the running processes
+
+------------------------------------------------------------
+[ docker compose unpause --help ]
+
+Usage:  docker compose unpause [SERVICE...]
+
+Unpause services
+
+------------------------------------------------------------
+[ docker compose up --help ]
+
+Usage:  docker compose up [SERVICE...]
+
+Create and start containers
+
+Options:
+      --abort-on-container-exit   Stops all containers if any container was stopped. Incompatible with -d
+      --always-recreate-deps      Recreate dependent containers. Incompatible with --no-recreate.
+      --attach stringArray        Attach to service output.
+      --attach-dependencies       Attach to dependent containers.
+      --build                     Build images before starting containers.
+  -d, --detach                    Detached mode: Run containers in the background
+      --exit-code-from string     Return the exit code of the selected service container. Implies --abort-on-container-exit
+      --force-recreate            Recreate containers even if their configuration and image haven't changed.
+      --no-build                  Don't build an image, even if it's missing.
+      --no-color                  Produce monochrome output.
+      --no-deps                   Don't start linked services.
+      --no-log-prefix             Don't print prefix in logs.
+      --no-recreate               If containers already exist, don't recreate them. Incompatible with --force-recreate.
+      --no-start                  Don't start the services after creating them.
+      --quiet-pull                Pull without printing progress information.
+      --remove-orphans            Remove containers for services not defined in the Compose file.
+  -V, --renew-anon-volumes        Recreate anonymous volumes instead of retrieving data from the previous containers.
+      --scale scale               Scale SERVICE to NUM instances. Overrides the scale setting in the Compose file if present.
+  -t, --timeout int               Use this timeout in seconds for container shutdown when attached or when containers are already running. (default 10)
+      --wait                      Wait for services to be running|healthy. Implies detached mode.
+
+------------------------------------------------------------
+[ docker compose version --help ]
+
+Usage:  docker compose version
+
+Show the Docker Compose version information
+
+Options:
+  -f, --format string   Format the output. Values: [pretty | json]. (Default: pretty)
+      --short           Shows only Compose's version number.
+
+------------------------------------------------------------
+[ docker compose --help ]
+
+Usage:  docker compose [OPTIONS] COMMAND
+
+Docker Compose
+
+Options:
+      --ansi string                Control when to print ANSI control characters ("never"|"always"|"auto") (default "auto")
+      --compatibility              Run compose in backward compatibility mode
+      --env-file string            Specify an alternate environment file.
+  -f, --file stringArray           Compose configuration files
+      --profile stringArray        Specify a profile to enable
+      --project-directory string   Specify an alternate working directory
+                                   (default: the path of the, first specified, Compose file)
+  -p, --project-name string        Project name
+
+Commands:
+  build       Build or rebuild services
+  convert     Converts the compose file to platform's canonical format
+  cp          Copy files/folders between a service container and the local filesystem
+  create      Creates containers for a service.
+  down        Stop and remove containers, networks
+  events      Receive real time events from containers.
+  exec        Execute a command in a running container.
+  images      List images used by the created containers
+  kill        Force stop service containers.
+  logs        View output from containers
+  ls          List running compose projects
+  pause       Pause services
+  port        Print the public port for a port binding.
+  ps          List containers
+  pull        Pull service images
+  push        Push service images
+  restart     Restart containers
+  rm          Removes stopped service containers
+  run         Run a one-off command on a service.
+  start       Start services
+  stop        Stop services
+  top         Display the running processes
+  unpause     Unpause services
+  up          Create and start containers
+  version     Show the Docker Compose version information
+
+Run 'docker compose COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker config create --help ]
+
+Usage:  docker config create [OPTIONS] CONFIG file|-
+
+Create a config from a file or STDIN
+
+Options:
+  -l, --label list               Config labels
+      --template-driver string   Template driver
+
+------------------------------------------------------------
+[ docker config inspect --help ]
+
+Usage:  docker config inspect [OPTIONS] CONFIG [CONFIG...]
+
+Display detailed information on one or more configs
+
+Options:
+  -f, --format string   Format the output using the given Go template
+      --pretty          Print the information in a human friendly format
+
+------------------------------------------------------------
+[ docker config ls --help ]
+
+Usage:  docker config ls [OPTIONS]
+
+List configs
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print configs using a Go template
+  -q, --quiet           Only display IDs
+
+------------------------------------------------------------
+[ docker config rm --help ]
+
+Usage:  docker config rm CONFIG [CONFIG...]
+
+Remove one or more configs
+
+Aliases:
+  rm, remove
+
+------------------------------------------------------------
+[ docker config --help ]
+
+Usage:  docker config COMMAND
+
+Manage Docker configs
+
+Commands:
+  create      Create a config from a file or STDIN
+  inspect     Display detailed information on one or more configs
+  ls          List configs
+  rm          Remove one or more configs
+
+Run 'docker config COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker container attach --help ]
+
+Usage:  docker container attach [OPTIONS] CONTAINER
+
+Attach local standard input, output, and error streams to a running container
+
+Options:
+      --detach-keys string   Override the key sequence for detaching a container
+      --no-stdin             Do not attach STDIN
+      --sig-proxy            Proxy all received signals to the process (default true)
+
+------------------------------------------------------------
+[ docker container commit --help ]
+
+Usage:  docker container commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+
+Create a new image from a container's changes
+
+Options:
+  -a, --author string    Author (e.g., "John Hannibal Smith <hannibal@a-team.com>")
+  -c, --change list      Apply Dockerfile instruction to the created image
+  -m, --message string   Commit message
+  -p, --pause            Pause container during commit (default true)
+
+------------------------------------------------------------
+[ docker container cp --help ]
+
+Usage:  docker container cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+	docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+
+Copy files/folders between a container and the local filesystem
+
+Use '-' as the source to read a tar archive from stdin
+and extract it to a directory destination in a container.
+Use '-' as the destination to stream a tar archive of a
+container source to stdout.
+
+Options:
+  -a, --archive       Archive mode (copy all uid/gid information)
+  -L, --follow-link   Always follow symbol link in SRC_PATH
+
+------------------------------------------------------------
+[ docker container create --help ]
+
+Usage:  docker container create [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Create a new container
+
+Options:
+      --add-host list                  Add a custom host-to-IP mapping (host:ip)
+  -a, --attach list                    Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16            Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --blkio-weight-device list       Block IO weight (relative device weight) (default [])
+      --cap-add list                   Add Linux capabilities
+      --cap-drop list                  Drop Linux capabilities
+      --cgroup-parent string           Optional parent cgroup for the container
+      --cgroupns string                Cgroup namespace to use (host|private)
+                                       'host':    Run the container in the Docker host's cgroup namespace
+                                       'private': Run the container in its own private cgroup namespace
+                                       '':        Use the cgroup namespace as configured by the
+                                                  default-cgroupns-mode option on the daemon (default)
+      --cidfile string                 Write the container ID to the file
+      --cpu-period int                 Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int                  Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int              Limit CPU real-time period in microseconds
+      --cpu-rt-runtime int             Limit CPU real-time runtime in microseconds
+  -c, --cpu-shares int                 CPU shares (relative weight)
+      --cpus decimal                   Number of CPUs
+      --cpuset-cpus string             CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string             MEMs in which to allow execution (0-3, 0,1)
+      --device list                    Add a host device to the container
+      --device-cgroup-rule list        Add a rule to the cgroup allowed devices list
+      --device-read-bps list           Limit read rate (bytes per second) from a device (default [])
+      --device-read-iops list          Limit read rate (IO per second) from a device (default [])
+      --device-write-bps list          Limit write rate (bytes per second) to a device (default [])
+      --device-write-iops list         Limit write rate (IO per second) to a device (default [])
+      --disable-content-trust          Skip image verification (default true)
+      --dns list                       Set custom DNS servers
+      --dns-option list                Set DNS options
+      --dns-search list                Set custom DNS search domains
+      --domainname string              Container NIS domain name
+      --entrypoint string              Overwrite the default ENTRYPOINT of the image
+  -e, --env list                       Set environment variables
+      --env-file list                  Read in a file of environment variables
+      --expose list                    Expose a port or a range of ports
+      --gpus gpu-request               GPU devices to add to the container ('all' to pass all GPUs)
+      --group-add list                 Add additional groups to join
+      --health-cmd string              Command to run to check health
+      --health-interval duration       Time between running the check (ms|s|m|h) (default 0s)
+      --health-retries int             Consecutive failures needed to report unhealthy
+      --health-start-period duration   Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
+      --health-timeout duration        Maximum time to allow one check to run (ms|s|m|h) (default 0s)
+      --help                           Print usage
+  -h, --hostname string                Container host name
+      --init                           Run an init inside the container that forwards signals and reaps processes
+  -i, --interactive                    Keep STDIN open even if not attached
+      --ip string                      IPv4 address (e.g., 172.30.100.104)
+      --ip6 string                     IPv6 address (e.g., 2001:db8::33)
+      --ipc string                     IPC mode to use
+      --isolation string               Container isolation technology
+      --kernel-memory bytes            Kernel memory limit
+  -l, --label list                     Set meta data on a container
+      --label-file list                Read in a line delimited file of labels
+      --link list                      Add link to another container
+      --link-local-ip list             Container IPv4/IPv6 link-local addresses
+      --log-driver string              Logging driver for the container
+      --log-opt list                   Log driver options
+      --mac-address string             Container MAC address (e.g., 92:d0:c6:0a:29:33)
+  -m, --memory bytes                   Memory limit
+      --memory-reservation bytes       Memory soft limit
+      --memory-swap bytes              Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --memory-swappiness int          Tune container memory swappiness (0 to 100) (default -1)
+      --mount mount                    Attach a filesystem mount to the container
+      --name string                    Assign a name to the container
+      --network network                Connect a container to a network
+      --network-alias list             Add network-scoped alias for the container
+      --no-healthcheck                 Disable any container-specified HEALTHCHECK
+      --oom-kill-disable               Disable OOM Killer
+      --oom-score-adj int              Tune host's OOM preferences (-1000 to 1000)
+      --pid string                     PID namespace to use
+      --pids-limit int                 Tune container pids limit (set -1 for unlimited)
+      --platform string                Set platform if server is multi-platform capable
+      --privileged                     Give extended privileges to this container
+  -p, --publish list                   Publish a container's port(s) to the host
+  -P, --publish-all                    Publish all exposed ports to random ports
+      --pull string                    Pull image before creating ("always"|"missing"|"never") (default "missing")
+      --read-only                      Mount the container's root filesystem as read only
+      --restart string                 Restart policy to apply when a container exits (default "no")
+      --rm                             Automatically remove the container when it exits
+      --runtime string                 Runtime to use for this container
+      --security-opt list              Security Options
+      --shm-size bytes                 Size of /dev/shm
+      --stop-signal string             Signal to stop a container (default "SIGTERM")
+      --stop-timeout int               Timeout (in seconds) to stop a container
+      --storage-opt list               Storage driver options for the container
+      --sysctl map                     Sysctl options (default map[])
+      --tmpfs list                     Mount a tmpfs directory
+  -t, --tty                            Allocate a pseudo-TTY
+      --ulimit ulimit                  Ulimit options (default [])
+  -u, --user string                    Username or UID (format: <name|uid>[:<group|gid>])
+      --userns string                  User namespace to use
+      --uts string                     UTS namespace to use
+  -v, --volume list                    Bind mount a volume
+      --volume-driver string           Optional volume driver for the container
+      --volumes-from list              Mount volumes from the specified container(s)
+  -w, --workdir string                 Working directory inside the container
+
+------------------------------------------------------------
+[ docker container diff --help ]
+
+Usage:  docker container diff CONTAINER
+
+Inspect changes to files or directories on a container's filesystem
+
+------------------------------------------------------------
+[ docker container exec --help ]
+
+Usage:  docker container exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Run a command in a running container
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a container
+  -e, --env list             Set environment variables
+      --env-file list        Read in a file of environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format: <name|uid>[:<group|gid>])
+  -w, --workdir string       Working directory inside the container
+
+------------------------------------------------------------
+[ docker container export --help ]
+
+Usage:  docker container export [OPTIONS] CONTAINER
+
+Export a container's filesystem as a tar archive
+
+Options:
+  -o, --output string   Write to a file, instead of STDOUT
+
+------------------------------------------------------------
+[ docker container inspect --help ]
+
+Usage:  docker container inspect [OPTIONS] CONTAINER [CONTAINER...]
+
+Display detailed information on one or more containers
+
+Options:
+  -f, --format string   Format the output using the given Go template
+  -s, --size            Display total file sizes
+
+------------------------------------------------------------
+[ docker container kill --help ]
+
+Usage:  docker container kill [OPTIONS] CONTAINER [CONTAINER...]
+
+Kill one or more running containers
+
+Options:
+  -s, --signal string   Signal to send to the container (default "KILL")
+
+------------------------------------------------------------
+[ docker container logs --help ]
+
+Usage:  docker container logs [OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+Options:
+      --details        Show extra details provided to logs
+  -f, --follow         Follow log output
+      --since string   Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+  -n, --tail string    Number of lines to show from the end of the logs (default "all")
+  -t, --timestamps     Show timestamps
+      --until string   Show logs before a timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+
+------------------------------------------------------------
+[ docker container ls --help ]
+
+Usage:  docker container ls [OPTIONS]
+
+List containers
+
+Aliases:
+  ls, ps, list
+
+Options:
+  -a, --all             Show all containers (default shows just running)
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print containers using a Go template
+  -n, --last int        Show n last created containers (includes all states) (default -1)
+  -l, --latest          Show the latest created container (includes all states)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only display container IDs
+  -s, --size            Display total file sizes
+
+------------------------------------------------------------
+[ docker container pause --help ]
+
+Usage:  docker container pause CONTAINER [CONTAINER...]
+
+Pause all processes within one or more containers
+
+------------------------------------------------------------
+[ docker container port --help ]
+
+Usage:  docker container port CONTAINER [PRIVATE_PORT[/PROTO]]
+
+List port mappings or a specific mapping for the container
+
+------------------------------------------------------------
+[ docker container prune --help ]
+
+Usage:  docker container prune [OPTIONS]
+
+Remove all stopped containers
+
+Options:
+      --filter filter   Provide filter values (e.g. 'until=<timestamp>')
+  -f, --force           Do not prompt for confirmation
+
+------------------------------------------------------------
+[ docker container rename --help ]
+
+Usage:  docker container rename CONTAINER NEW_NAME
+
+Rename a container
+
+------------------------------------------------------------
+[ docker container restart --help ]
+
+Usage:  docker container restart [OPTIONS] CONTAINER [CONTAINER...]
+
+Restart one or more containers
+
+Options:
+  -t, --time int   Seconds to wait for stop before killing the container (default 10)
+
+------------------------------------------------------------
+[ docker container rm --help ]
+
+Usage:  docker container rm [OPTIONS] CONTAINER [CONTAINER...]
+
+Remove one or more containers
+
+Options:
+  -f, --force     Force the removal of a running container (uses SIGKILL)
+  -l, --link      Remove the specified link
+  -v, --volumes   Remove anonymous volumes associated with the container
+
+------------------------------------------------------------
+[ docker container run --help ]
+
+Usage:  docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container
+
+Options:
+      --add-host list                  Add a custom host-to-IP mapping (host:ip)
+  -a, --attach list                    Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16            Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --blkio-weight-device list       Block IO weight (relative device weight) (default [])
+      --cap-add list                   Add Linux capabilities
+      --cap-drop list                  Drop Linux capabilities
+      --cgroup-parent string           Optional parent cgroup for the container
+      --cgroupns string                Cgroup namespace to use (host|private)
+                                       'host':    Run the container in the Docker host's cgroup namespace
+                                       'private': Run the container in its own private cgroup namespace
+                                       '':        Use the cgroup namespace as configured by the
+                                                  default-cgroupns-mode option on the daemon (default)
+      --cidfile string                 Write the container ID to the file
+      --cpu-period int                 Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int                  Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int              Limit CPU real-time period in microseconds
+      --cpu-rt-runtime int             Limit CPU real-time runtime in microseconds
+  -c, --cpu-shares int                 CPU shares (relative weight)
+      --cpus decimal                   Number of CPUs
+      --cpuset-cpus string             CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string             MEMs in which to allow execution (0-3, 0,1)
+  -d, --detach                         Run container in background and print container ID
+      --detach-keys string             Override the key sequence for detaching a container
+      --device list                    Add a host device to the container
+      --device-cgroup-rule list        Add a rule to the cgroup allowed devices list
+      --device-read-bps list           Limit read rate (bytes per second) from a device (default [])
+      --device-read-iops list          Limit read rate (IO per second) from a device (default [])
+      --device-write-bps list          Limit write rate (bytes per second) to a device (default [])
+      --device-write-iops list         Limit write rate (IO per second) to a device (default [])
+      --disable-content-trust          Skip image verification (default true)
+      --dns list                       Set custom DNS servers
+      --dns-option list                Set DNS options
+      --dns-search list                Set custom DNS search domains
+      --domainname string              Container NIS domain name
+      --entrypoint string              Overwrite the default ENTRYPOINT of the image
+  -e, --env list                       Set environment variables
+      --env-file list                  Read in a file of environment variables
+      --expose list                    Expose a port or a range of ports
+      --gpus gpu-request               GPU devices to add to the container ('all' to pass all GPUs)
+      --group-add list                 Add additional groups to join
+      --health-cmd string              Command to run to check health
+      --health-interval duration       Time between running the check (ms|s|m|h) (default 0s)
+      --health-retries int             Consecutive failures needed to report unhealthy
+      --health-start-period duration   Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
+      --health-timeout duration        Maximum time to allow one check to run (ms|s|m|h) (default 0s)
+      --help                           Print usage
+  -h, --hostname string                Container host name
+      --init                           Run an init inside the container that forwards signals and reaps processes
+  -i, --interactive                    Keep STDIN open even if not attached
+      --ip string                      IPv4 address (e.g., 172.30.100.104)
+      --ip6 string                     IPv6 address (e.g., 2001:db8::33)
+      --ipc string                     IPC mode to use
+      --isolation string               Container isolation technology
+      --kernel-memory bytes            Kernel memory limit
+  -l, --label list                     Set meta data on a container
+      --label-file list                Read in a line delimited file of labels
+      --link list                      Add link to another container
+      --link-local-ip list             Container IPv4/IPv6 link-local addresses
+      --log-driver string              Logging driver for the container
+      --log-opt list                   Log driver options
+      --mac-address string             Container MAC address (e.g., 92:d0:c6:0a:29:33)
+  -m, --memory bytes                   Memory limit
+      --memory-reservation bytes       Memory soft limit
+      --memory-swap bytes              Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --memory-swappiness int          Tune container memory swappiness (0 to 100) (default -1)
+      --mount mount                    Attach a filesystem mount to the container
+      --name string                    Assign a name to the container
+      --network network                Connect a container to a network
+      --network-alias list             Add network-scoped alias for the container
+      --no-healthcheck                 Disable any container-specified HEALTHCHECK
+      --oom-kill-disable               Disable OOM Killer
+      --oom-score-adj int              Tune host's OOM preferences (-1000 to 1000)
+      --pid string                     PID namespace to use
+      --pids-limit int                 Tune container pids limit (set -1 for unlimited)
+      --platform string                Set platform if server is multi-platform capable
+      --privileged                     Give extended privileges to this container
+  -p, --publish list                   Publish a container's port(s) to the host
+  -P, --publish-all                    Publish all exposed ports to random ports
+      --pull string                    Pull image before running ("always"|"missing"|"never") (default "missing")
+      --read-only                      Mount the container's root filesystem as read only
+      --restart string                 Restart policy to apply when a container exits (default "no")
+      --rm                             Automatically remove the container when it exits
+      --runtime string                 Runtime to use for this container
+      --security-opt list              Security Options
+      --shm-size bytes                 Size of /dev/shm
+      --sig-proxy                      Proxy received signals to the process (default true)
+      --stop-signal string             Signal to stop a container (default "SIGTERM")
+      --stop-timeout int               Timeout (in seconds) to stop a container
+      --storage-opt list               Storage driver options for the container
+      --sysctl map                     Sysctl options (default map[])
+      --tmpfs list                     Mount a tmpfs directory
+  -t, --tty                            Allocate a pseudo-TTY
+      --ulimit ulimit                  Ulimit options (default [])
+  -u, --user string                    Username or UID (format: <name|uid>[:<group|gid>])
+      --userns string                  User namespace to use
+      --uts string                     UTS namespace to use
+  -v, --volume list                    Bind mount a volume
+      --volume-driver string           Optional volume driver for the container
+      --volumes-from list              Mount volumes from the specified container(s)
+  -w, --workdir string                 Working directory inside the container
+
+------------------------------------------------------------
+[ docker container start --help ]
+
+Usage:  docker container start [OPTIONS] CONTAINER [CONTAINER...]
+
+Start one or more stopped containers
+
+Options:
+  -a, --attach               Attach STDOUT/STDERR and forward signals
+      --detach-keys string   Override the key sequence for detaching a container
+  -i, --interactive          Attach container's STDIN
+
+------------------------------------------------------------
+[ docker container stats --help ]
+
+Usage:  docker container stats [OPTIONS] [CONTAINER...]
+
+Display a live stream of container(s) resource usage statistics
+
+Options:
+  -a, --all             Show all containers (default shows just running)
+      --format string   Pretty-print images using a Go template
+      --no-stream       Disable streaming stats and only pull the first result
+      --no-trunc        Do not truncate output
+
+------------------------------------------------------------
+[ docker container stop --help ]
+
+Usage:  docker container stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+
+Options:
+  -t, --time int   Seconds to wait for stop before killing it (default 10)
+
+------------------------------------------------------------
+[ docker container top --help ]
+
+Usage:  docker container top CONTAINER [ps OPTIONS]
+
+Display the running processes of a container
+
+------------------------------------------------------------
+[ docker container unpause --help ]
+
+Usage:  docker container unpause CONTAINER [CONTAINER...]
+
+Unpause all processes within one or more containers
+
+------------------------------------------------------------
+[ docker container update --help ]
+
+Usage:  docker container update [OPTIONS] CONTAINER [CONTAINER...]
+
+Update configuration of one or more containers
+
+Options:
+      --blkio-weight uint16        Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --cpu-period int             Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int              Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int          Limit the CPU real-time period in microseconds
+      --cpu-rt-runtime int         Limit the CPU real-time runtime in microseconds
+  -c, --cpu-shares int             CPU shares (relative weight)
+      --cpus decimal               Number of CPUs
+      --cpuset-cpus string         CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string         MEMs in which to allow execution (0-3, 0,1)
+      --kernel-memory bytes        Kernel memory limit
+  -m, --memory bytes               Memory limit
+      --memory-reservation bytes   Memory soft limit
+      --memory-swap bytes          Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --pids-limit int             Tune container pids limit (set -1 for unlimited)
+      --restart string             Restart policy to apply when a container exits
+
+------------------------------------------------------------
+[ docker container wait --help ]
+
+Usage:  docker container wait CONTAINER [CONTAINER...]
+
+Block until one or more containers stop, then print their exit codes
+
+------------------------------------------------------------
+[ docker container --help ]
+
+Usage:  docker container COMMAND
+
+Manage containers
+
+Commands:
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
+
+Run 'docker container COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker context create --help ]
+
+Usage:  docker context create [OPTIONS] CONTEXT
+
+Create a context
+
+Docker endpoint config:
+
+NAME                DESCRIPTION
+from                Copy named context's Docker endpoint configuration
+host                Docker endpoint on which to connect
+ca                  Trust certs signed only by this CA
+cert                Path to TLS certificate file
+key                 Path to TLS key file
+skip-tls-verify     Skip TLS certificate validation
+
+Kubernetes endpoint config:
+
+NAME                 DESCRIPTION
+from                 Copy named context's Kubernetes endpoint configuration
+config-file          Path to a Kubernetes config file
+context-override     Overrides the context set in the kubernetes config file
+namespace-override   Overrides the namespace set in the kubernetes config file
+
+Example:
+
+$ docker context create my-context --description "some description" --docker "host=tcp://myserver:2376,ca=~/ca-file,cert=~/cert-file,key=~/key-file"
+
+Options:
+      --default-stack-orchestrator string   Default orchestrator for stack operations to use with this context (swarm|kubernetes|all)
+      --description string                  Description of the context
+      --docker stringToString               set the docker endpoint (default [])
+      --from string                         create context from a named context
+      --kubernetes stringToString           set the kubernetes endpoint (default [])
+
+------------------------------------------------------------
+[ docker context export --help ]
+
+Usage:  docker context export [OPTIONS] CONTEXT [FILE|-]
+
+Export a context to a tar or kubeconfig file
+
+Options:
+      --kubeconfig   Export as a kubeconfig file
+
+------------------------------------------------------------
+[ docker context import --help ]
+
+Usage:  docker context import CONTEXT FILE|-
+
+Import a context from a tar or zip file
+
+------------------------------------------------------------
+[ docker context inspect --help ]
+
+Usage:  docker context inspect [OPTIONS] [CONTEXT] [CONTEXT...]
+
+Display detailed information on one or more contexts
+
+Options:
+  -f, --format string   Format the output using the given Go template
+
+------------------------------------------------------------
+[ docker context ls --help ]
+
+Usage:  docker context ls [OPTIONS]
+
+List contexts
+
+Aliases:
+  ls, list
+
+Options:
+      --format string   Pretty-print contexts using a Go template
+  -q, --quiet           Only show context names
+
+------------------------------------------------------------
+[ docker context rm --help ]
+
+Usage:  docker context rm CONTEXT [CONTEXT...]
+
+Remove one or more contexts
+
+Aliases:
+  rm, remove
+
+Options:
+  -f, --force   Force the removal of a context in use
+
+------------------------------------------------------------
+[ docker context update --help ]
+
+Usage:  docker context update [OPTIONS] CONTEXT
+
+Update a context
+
+Docker endpoint config:
+
+NAME                DESCRIPTION
+from                Copy named context's Docker endpoint configuration
+host                Docker endpoint on which to connect
+ca                  Trust certs signed only by this CA
+cert                Path to TLS certificate file
+key                 Path to TLS key file
+skip-tls-verify     Skip TLS certificate validation
+
+Kubernetes endpoint config:
+
+NAME                 DESCRIPTION
+from                 Copy named context's Kubernetes endpoint configuration
+config-file          Path to a Kubernetes config file
+context-override     Overrides the context set in the kubernetes config file
+namespace-override   Overrides the namespace set in the kubernetes config file
+
+Example:
+
+$ docker context update my-context --description "some description" --docker "host=tcp://myserver:2376,ca=~/ca-file,cert=~/cert-file,key=~/key-file"
+
+Options:
+      --default-stack-orchestrator string   Default orchestrator for stack operations to use with this context (swarm|kubernetes|all)
+      --description string                  Description of the context
+      --docker stringToString               set the docker endpoint (default [])
+      --kubernetes stringToString           set the kubernetes endpoint (default [])
+
+------------------------------------------------------------
+[ docker context use --help ]
+
+Usage:  docker context use CONTEXT
+
+Set the current docker context
+
+------------------------------------------------------------
+[ docker context --help ]
+
+Usage:  docker context COMMAND
+
+Manage contexts
+
+Commands:
+  create      Create a context
+  export      Export a context to a tar or kubeconfig file
+  import      Import a context from a tar or zip file
+  inspect     Display detailed information on one or more contexts
+  ls          List contexts
+  rm          Remove one or more contexts
+  update      Update a context
+  use         Set the current docker context
+
+Run 'docker context COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker cp --help ]
+
+Usage:  docker cp [OPTIONS] CONTAINER:SRC_PATH DEST_PATH|-
+	docker cp [OPTIONS] SRC_PATH|- CONTAINER:DEST_PATH
+
+Copy files/folders between a container and the local filesystem
+
+Use '-' as the source to read a tar archive from stdin
+and extract it to a directory destination in a container.
+Use '-' as the destination to stream a tar archive of a
+container source to stdout.
+
+Options:
+  -a, --archive       Archive mode (copy all uid/gid information)
+  -L, --follow-link   Always follow symbol link in SRC_PATH
+
+------------------------------------------------------------
+[ docker create --help ]
+
+Usage:  docker create [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Create a new container
+
+Options:
+      --add-host list                  Add a custom host-to-IP mapping (host:ip)
+  -a, --attach list                    Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16            Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --blkio-weight-device list       Block IO weight (relative device weight) (default [])
+      --cap-add list                   Add Linux capabilities
+      --cap-drop list                  Drop Linux capabilities
+      --cgroup-parent string           Optional parent cgroup for the container
+      --cgroupns string                Cgroup namespace to use (host|private)
+                                       'host':    Run the container in the Docker host's cgroup namespace
+                                       'private': Run the container in its own private cgroup namespace
+                                       '':        Use the cgroup namespace as configured by the
+                                                  default-cgroupns-mode option on the daemon (default)
+      --cidfile string                 Write the container ID to the file
+      --cpu-period int                 Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int                  Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int              Limit CPU real-time period in microseconds
+      --cpu-rt-runtime int             Limit CPU real-time runtime in microseconds
+  -c, --cpu-shares int                 CPU shares (relative weight)
+      --cpus decimal                   Number of CPUs
+      --cpuset-cpus string             CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string             MEMs in which to allow execution (0-3, 0,1)
+      --device list                    Add a host device to the container
+      --device-cgroup-rule list        Add a rule to the cgroup allowed devices list
+      --device-read-bps list           Limit read rate (bytes per second) from a device (default [])
+      --device-read-iops list          Limit read rate (IO per second) from a device (default [])
+      --device-write-bps list          Limit write rate (bytes per second) to a device (default [])
+      --device-write-iops list         Limit write rate (IO per second) to a device (default [])
+      --disable-content-trust          Skip image verification (default true)
+      --dns list                       Set custom DNS servers
+      --dns-option list                Set DNS options
+      --dns-search list                Set custom DNS search domains
+      --domainname string              Container NIS domain name
+      --entrypoint string              Overwrite the default ENTRYPOINT of the image
+  -e, --env list                       Set environment variables
+      --env-file list                  Read in a file of environment variables
+      --expose list                    Expose a port or a range of ports
+      --gpus gpu-request               GPU devices to add to the container ('all' to pass all GPUs)
+      --group-add list                 Add additional groups to join
+      --health-cmd string              Command to run to check health
+      --health-interval duration       Time between running the check (ms|s|m|h) (default 0s)
+      --health-retries int             Consecutive failures needed to report unhealthy
+      --health-start-period duration   Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
+      --health-timeout duration        Maximum time to allow one check to run (ms|s|m|h) (default 0s)
+      --help                           Print usage
+  -h, --hostname string                Container host name
+      --init                           Run an init inside the container that forwards signals and reaps processes
+  -i, --interactive                    Keep STDIN open even if not attached
+      --ip string                      IPv4 address (e.g., 172.30.100.104)
+      --ip6 string                     IPv6 address (e.g., 2001:db8::33)
+      --ipc string                     IPC mode to use
+      --isolation string               Container isolation technology
+      --kernel-memory bytes            Kernel memory limit
+  -l, --label list                     Set meta data on a container
+      --label-file list                Read in a line delimited file of labels
+      --link list                      Add link to another container
+      --link-local-ip list             Container IPv4/IPv6 link-local addresses
+      --log-driver string              Logging driver for the container
+      --log-opt list                   Log driver options
+      --mac-address string             Container MAC address (e.g., 92:d0:c6:0a:29:33)
+  -m, --memory bytes                   Memory limit
+      --memory-reservation bytes       Memory soft limit
+      --memory-swap bytes              Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --memory-swappiness int          Tune container memory swappiness (0 to 100) (default -1)
+      --mount mount                    Attach a filesystem mount to the container
+      --name string                    Assign a name to the container
+      --network network                Connect a container to a network
+      --network-alias list             Add network-scoped alias for the container
+      --no-healthcheck                 Disable any container-specified HEALTHCHECK
+      --oom-kill-disable               Disable OOM Killer
+      --oom-score-adj int              Tune host's OOM preferences (-1000 to 1000)
+      --pid string                     PID namespace to use
+      --pids-limit int                 Tune container pids limit (set -1 for unlimited)
+      --platform string                Set platform if server is multi-platform capable
+      --privileged                     Give extended privileges to this container
+  -p, --publish list                   Publish a container's port(s) to the host
+  -P, --publish-all                    Publish all exposed ports to random ports
+      --pull string                    Pull image before creating ("always"|"missing"|"never") (default "missing")
+      --read-only                      Mount the container's root filesystem as read only
+      --restart string                 Restart policy to apply when a container exits (default "no")
+      --rm                             Automatically remove the container when it exits
+      --runtime string                 Runtime to use for this container
+      --security-opt list              Security Options
+      --shm-size bytes                 Size of /dev/shm
+      --stop-signal string             Signal to stop a container (default "SIGTERM")
+      --stop-timeout int               Timeout (in seconds) to stop a container
+      --storage-opt list               Storage driver options for the container
+      --sysctl map                     Sysctl options (default map[])
+      --tmpfs list                     Mount a tmpfs directory
+  -t, --tty                            Allocate a pseudo-TTY
+      --ulimit ulimit                  Ulimit options (default [])
+  -u, --user string                    Username or UID (format: <name|uid>[:<group|gid>])
+      --userns string                  User namespace to use
+      --uts string                     UTS namespace to use
+  -v, --volume list                    Bind mount a volume
+      --volume-driver string           Optional volume driver for the container
+      --volumes-from list              Mount volumes from the specified container(s)
+  -w, --workdir string                 Working directory inside the container
+
+------------------------------------------------------------
+[ docker diff --help ]
+
+Usage:  docker diff CONTAINER
+
+Inspect changes to files or directories on a container's filesystem
+
+------------------------------------------------------------
+[ docker events --help ]
+
+Usage:  docker events [OPTIONS]
+
+Get real time events from the server
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Format the output using the given Go template
+      --since string    Show all events created since timestamp
+      --until string    Stream events until this timestamp
+
+------------------------------------------------------------
+[ docker exec --help ]
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Run a command in a running container
+
+Options:
+  -d, --detach               Detached mode: run command in the background
+      --detach-keys string   Override the key sequence for detaching a container
+  -e, --env list             Set environment variables
+      --env-file list        Read in a file of environment variables
+  -i, --interactive          Keep STDIN open even if not attached
+      --privileged           Give extended privileges to the command
+  -t, --tty                  Allocate a pseudo-TTY
+  -u, --user string          Username or UID (format: <name|uid>[:<group|gid>])
+  -w, --workdir string       Working directory inside the container
+
+------------------------------------------------------------
+[ docker export --help ]
+
+Usage:  docker export [OPTIONS] CONTAINER
+
+Export a container's filesystem as a tar archive
+
+Options:
+  -o, --output string   Write to a file, instead of STDOUT
+
+------------------------------------------------------------
+[ docker history --help ]
+
+Usage:  docker history [OPTIONS] IMAGE
+
+Show the history of an image
+
+Options:
+      --format string   Pretty-print images using a Go template
+  -H, --human           Print sizes and dates in human readable format (default true)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+
+------------------------------------------------------------
+[ docker image build --help ]
+
+Usage:  docker image build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+
+Options:
+      --add-host list           Add a custom host-to-IP mapping (host:ip)
+      --build-arg list          Set build-time variables
+      --cache-from strings      Images to consider as cache sources
+      --cgroup-parent string    Optional parent cgroup for the container
+      --compress                Compress the build context using gzip
+      --cpu-period int          Limit the CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int           Limit the CPU CFS (Completely Fair Scheduler) quota
+  -c, --cpu-shares int          CPU shares (relative weight)
+      --cpuset-cpus string      CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string      MEMs in which to allow execution (0-3, 0,1)
+      --disable-content-trust   Skip image verification (default true)
+  -f, --file string             Name of the Dockerfile (Default is 'PATH/Dockerfile')
+      --force-rm                Always remove intermediate containers
+      --iidfile string          Write the image ID to the file
+      --isolation string        Container isolation technology
+      --label list              Set metadata for an image
+  -m, --memory bytes            Memory limit
+      --memory-swap bytes       Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --network string          Set the networking mode for the RUN instructions during build (default "default")
+      --no-cache                Do not use cache when building the image
+      --pull                    Always attempt to pull a newer version of the image
+  -q, --quiet                   Suppress the build output and print image ID on success
+      --rm                      Remove intermediate containers after a successful build (default true)
+      --security-opt strings    Security options
+      --shm-size bytes          Size of /dev/shm
+  -t, --tag list                Name and optionally a tag in the 'name:tag' format
+      --target string           Set the target build stage to build.
+      --ulimit ulimit           Ulimit options (default [])
+
+------------------------------------------------------------
+[ docker image history --help ]
+
+Usage:  docker image history [OPTIONS] IMAGE
+
+Show the history of an image
+
+Options:
+      --format string   Pretty-print images using a Go template
+  -H, --human           Print sizes and dates in human readable format (default true)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+
+------------------------------------------------------------
+[ docker image import --help ]
+
+Usage:  docker image import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
+
+Import the contents from a tarball to create a filesystem image
+
+Options:
+  -c, --change list       Apply Dockerfile instruction to the created image
+  -m, --message string    Set commit message for imported image
+      --platform string   Set platform if server is multi-platform capable
+
+------------------------------------------------------------
+[ docker image inspect --help ]
+
+Usage:  docker image inspect [OPTIONS] IMAGE [IMAGE...]
+
+Display detailed information on one or more images
+
+Options:
+  -f, --format string   Format the output using the given Go template
+
+------------------------------------------------------------
+[ docker image load --help ]
+
+Usage:  docker image load [OPTIONS]
+
+Load an image from a tar archive or STDIN
+
+Options:
+  -i, --input string   Read from tar archive file, instead of STDIN
+  -q, --quiet          Suppress the load output
+
+------------------------------------------------------------
+[ docker image ls --help ]
+
+Usage:  docker image ls [OPTIONS] [REPOSITORY[:TAG]]
+
+List images
+
+Aliases:
+  ls, list
+
+Options:
+  -a, --all             Show all images (default hides intermediate images)
+      --digests         Show digests
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print images using a Go template
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+
+------------------------------------------------------------
+[ docker image prune --help ]
+
+Usage:  docker image prune [OPTIONS]
+
+Remove unused images
+
+Options:
+  -a, --all             Remove all unused images, not just dangling ones
+      --filter filter   Provide filter values (e.g. 'until=<timestamp>')
+  -f, --force           Do not prompt for confirmation
+
+------------------------------------------------------------
+[ docker image pull --help ]
+
+Usage:  docker image pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+Pull an image or a repository from a registry
+
+Options:
+  -a, --all-tags                Download all tagged images in the repository
+      --disable-content-trust   Skip image verification (default true)
+      --platform string         Set platform if server is multi-platform capable
+  -q, --quiet                   Suppress verbose output
+
+------------------------------------------------------------
+[ docker image push --help ]
+
+Usage:  docker image push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+
+Options:
+  -a, --all-tags                Push all tagged images in the repository
+      --disable-content-trust   Skip image signing (default true)
+  -q, --quiet                   Suppress verbose output
+
+------------------------------------------------------------
+[ docker image rm --help ]
+
+Usage:  docker image rm [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+
+Aliases:
+  rm, rmi, remove
+
+Options:
+  -f, --force      Force removal of the image
+      --no-prune   Do not delete untagged parents
+
+------------------------------------------------------------
+[ docker image save --help ]
+
+Usage:  docker image save [OPTIONS] IMAGE [IMAGE...]
+
+Save one or more images to a tar archive (streamed to STDOUT by default)
+
+Options:
+  -o, --output string   Write to a file, instead of STDOUT
+
+------------------------------------------------------------
+[ docker image tag --help ]
+
+Usage:  docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+
+Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+------------------------------------------------------------
+[ docker image --help ]
+
+Usage:  docker image COMMAND
+
+Manage images
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Run 'docker image COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker images --help ]
+
+Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
+
+List images
+
+Options:
+  -a, --all             Show all images (default hides intermediate images)
+      --digests         Show digests
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print images using a Go template
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only show image IDs
+
+------------------------------------------------------------
+[ docker import --help ]
+
+Usage:  docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]
+
+Import the contents from a tarball to create a filesystem image
+
+Options:
+  -c, --change list       Apply Dockerfile instruction to the created image
+  -m, --message string    Set commit message for imported image
+      --platform string   Set platform if server is multi-platform capable
+
+------------------------------------------------------------
+[ docker info --help ]
+
+Usage:  docker info [OPTIONS]
+
+Display system-wide information
+
+Options:
+  -f, --format string   Format the output using the given Go template
+
+------------------------------------------------------------
+[ docker inspect --help ]
+
+Usage:  docker inspect [OPTIONS] NAME|ID [NAME|ID...]
+
+Return low-level information on Docker objects
+
+Options:
+  -f, --format string   Format the output using the given Go template
+  -s, --size            Display total file sizes if the type is container
+      --type string     Return JSON for specified type
+
+------------------------------------------------------------
+[ docker kill --help ]
+
+Usage:  docker kill [OPTIONS] CONTAINER [CONTAINER...]
+
+Kill one or more running containers
+
+Options:
+  -s, --signal string   Signal to send to the container (default "KILL")
+
+------------------------------------------------------------
+[ docker load --help ]
+
+Usage:  docker load [OPTIONS]
+
+Load an image from a tar archive or STDIN
+
+Options:
+  -i, --input string   Read from tar archive file, instead of STDIN
+  -q, --quiet          Suppress the load output
+
+------------------------------------------------------------
+[ docker login --help ]
+
+Usage:  docker login [OPTIONS] [SERVER]
+
+Log in to a Docker registry.
+If no server is specified, the default is defined by the daemon.
+
+Options:
+  -p, --password string   Password
+      --password-stdin    Take the password from stdin
+  -u, --username string   Username
+
+------------------------------------------------------------
+[ docker logout --help ]
+
+Usage:  docker logout [SERVER]
+
+Log out from a Docker registry.
+If no server is specified, the default is defined by the daemon.
+
+------------------------------------------------------------
+[ docker logs --help ]
+
+Usage:  docker logs [OPTIONS] CONTAINER
+
+Fetch the logs of a container
+
+Options:
+      --details        Show extra details provided to logs
+  -f, --follow         Follow log output
+      --since string   Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+  -n, --tail string    Number of lines to show from the end of the logs (default "all")
+  -t, --timestamps     Show timestamps
+      --until string   Show logs before a timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+
+------------------------------------------------------------
+[ docker network connect --help ]
+
+Usage:  docker network connect [OPTIONS] NETWORK CONTAINER
+
+Connect a container to a network
+
+Options:
+      --alias strings           Add network-scoped alias for the container
+      --driver-opt strings      driver options for the network
+      --ip string               IPv4 address (e.g., 172.30.100.104)
+      --ip6 string              IPv6 address (e.g., 2001:db8::33)
+      --link list               Add link to another container
+      --link-local-ip strings   Add a link-local address for the container
+
+------------------------------------------------------------
+[ docker network create --help ]
+
+Usage:  docker network create [OPTIONS] NETWORK
+
+Create a network
+
+Options:
+      --attachable           Enable manual container attachment
+      --aux-address map      Auxiliary IPv4 or IPv6 addresses used by Network driver (default map[])
+      --config-from string   The network from which to copy the configuration
+      --config-only          Create a configuration only network
+  -d, --driver string        Driver to manage the Network (default "bridge")
+      --gateway strings      IPv4 or IPv6 Gateway for the master subnet
+      --ingress              Create swarm routing-mesh network
+      --internal             Restrict external access to the network
+      --ip-range strings     Allocate container ip from a sub-range
+      --ipam-driver string   IP Address Management Driver (default "default")
+      --ipam-opt map         Set IPAM driver specific options (default map[])
+      --ipv6                 Enable IPv6 networking
+      --label list           Set metadata on a network
+  -o, --opt map              Set driver specific options (default map[])
+      --scope string         Control the network's scope
+      --subnet strings       Subnet in CIDR format that represents a network segment
+
+------------------------------------------------------------
+[ docker network disconnect --help ]
+
+Usage:  docker network disconnect [OPTIONS] NETWORK CONTAINER
+
+Disconnect a container from a network
+
+Options:
+  -f, --force   Force the container to disconnect from a network
+
+------------------------------------------------------------
+[ docker network inspect --help ]
+
+Usage:  docker network inspect [OPTIONS] NETWORK [NETWORK...]
+
+Display detailed information on one or more networks
+
+Options:
+  -f, --format string   Format the output using the given Go template
+  -v, --verbose         Verbose output for diagnostics
+
+------------------------------------------------------------
+[ docker network ls --help ]
+
+Usage:  docker network ls [OPTIONS]
+
+List networks
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Provide filter values (e.g. 'driver=bridge')
+      --format string   Pretty-print networks using a Go template
+      --no-trunc        Do not truncate the output
+  -q, --quiet           Only display network IDs
+
+------------------------------------------------------------
+[ docker network prune --help ]
+
+Usage:  docker network prune [OPTIONS]
+
+Remove all unused networks
+
+Options:
+      --filter filter   Provide filter values (e.g. 'until=<timestamp>')
+  -f, --force           Do not prompt for confirmation
+
+------------------------------------------------------------
+[ docker network rm --help ]
+
+Usage:  docker network rm NETWORK [NETWORK...]
+
+Remove one or more networks
+
+Aliases:
+  rm, remove
+
+------------------------------------------------------------
+[ docker network --help ]
+
+Usage:  docker network COMMAND
+
+Manage networks
+
+Commands:
+  connect     Connect a container to a network
+  create      Create a network
+  disconnect  Disconnect a container from a network
+  inspect     Display detailed information on one or more networks
+  ls          List networks
+  prune       Remove all unused networks
+  rm          Remove one or more networks
+
+Run 'docker network COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker node demote --help ]
+
+Usage:  docker node demote NODE [NODE...]
+
+Demote one or more nodes from manager in the swarm
+
+------------------------------------------------------------
+[ docker node inspect --help ]
+
+Usage:  docker node inspect [OPTIONS] self|NODE [NODE...]
+
+Display detailed information on one or more nodes
+
+Options:
+  -f, --format string   Format the output using the given Go template
+      --pretty          Print the information in a human friendly format
+
+------------------------------------------------------------
+[ docker node ls --help ]
+
+Usage:  docker node ls [OPTIONS]
+
+List nodes in the swarm
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print nodes using a Go template
+  -q, --quiet           Only display IDs
+
+------------------------------------------------------------
+[ docker node promote --help ]
+
+Usage:  docker node promote NODE [NODE...]
+
+Promote one or more nodes to manager in the swarm
+
+------------------------------------------------------------
+[ docker node ps --help ]
+
+Usage:  docker node ps [OPTIONS] [NODE...]
+
+List tasks running on one or more nodes, defaults to current node
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print tasks using a Go template
+      --no-resolve      Do not map IDs to Names
+      --no-trunc        Do not truncate output
+  -q, --quiet           Only display task IDs
+
+------------------------------------------------------------
+[ docker node rm --help ]
+
+Usage:  docker node rm [OPTIONS] NODE [NODE...]
+
+Remove one or more nodes from the swarm
+
+Aliases:
+  rm, remove
+
+Options:
+  -f, --force   Force remove a node from the swarm
+
+------------------------------------------------------------
+[ docker node update --help ]
+
+Usage:  docker node update [OPTIONS] NODE
+
+Update a node
+
+Options:
+      --availability string   Availability of the node ("active"|"pause"|"drain")
+      --label-add list        Add or update a node label (key=value)
+      --label-rm list         Remove a node label if exists
+      --role string           Role of the node ("worker"|"manager")
+
+------------------------------------------------------------
+[ docker node --help ]
+
+Usage:  docker node COMMAND
+
+Manage Swarm nodes
+
+Commands:
+  demote      Demote one or more nodes from manager in the swarm
+  inspect     Display detailed information on one or more nodes
+  ls          List nodes in the swarm
+  promote     Promote one or more nodes to manager in the swarm
+  ps          List tasks running on one or more nodes, defaults to current node
+  rm          Remove one or more nodes from the swarm
+  update      Update a node
+
+Run 'docker node COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker pause --help ]
+
+Usage:  docker pause CONTAINER [CONTAINER...]
+
+Pause all processes within one or more containers
+
+------------------------------------------------------------
+[ docker plugin create --help ]
+
+Usage:  docker plugin create [OPTIONS] PLUGIN PLUGIN-DATA-DIR
+
+Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
+
+Options:
+      --compress   Compress the context using gzip
+
+------------------------------------------------------------
+[ docker plugin disable --help ]
+
+Usage:  docker plugin disable [OPTIONS] PLUGIN
+
+Disable a plugin
+
+Options:
+  -f, --force   Force the disable of an active plugin
+
+------------------------------------------------------------
+[ docker plugin enable --help ]
+
+Usage:  docker plugin enable [OPTIONS] PLUGIN
+
+Enable a plugin
+
+Options:
+      --timeout int   HTTP client timeout (in seconds) (default 30)
+
+------------------------------------------------------------
+[ docker plugin inspect --help ]
+
+Usage:  docker plugin inspect [OPTIONS] PLUGIN [PLUGIN...]
+
+Display detailed information on one or more plugins
+
+Options:
+  -f, --format string   Format the output using the given Go template
+
+------------------------------------------------------------
+[ docker plugin install --help ]
+
+Usage:  docker plugin install [OPTIONS] PLUGIN [KEY=VALUE...]
+
+Install a plugin
+
+Options:
+      --alias string            Local name for plugin
+      --disable                 Do not enable the plugin on install
+      --disable-content-trust   Skip image verification (default true)
+      --grant-all-permissions   Grant all permissions necessary to run the plugin
+
+------------------------------------------------------------
+[ docker plugin ls --help ]
+
+Usage:  docker plugin ls [OPTIONS]
+
+List plugins
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Provide filter values (e.g. 'enabled=true')
+      --format string   Pretty-print plugins using a Go template
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only display plugin IDs
+
+------------------------------------------------------------
+[ docker plugin push --help ]
+
+Usage:  docker plugin push [OPTIONS] PLUGIN[:TAG]
+
+Push a plugin to a registry
+
+Options:
+      --disable-content-trust   Skip image signing (default true)
+
+------------------------------------------------------------
+[ docker plugin rm --help ]
+
+Usage:  docker plugin rm [OPTIONS] PLUGIN [PLUGIN...]
+
+Remove one or more plugins
+
+Aliases:
+  rm, remove
+
+Options:
+  -f, --force   Force the removal of an active plugin
+
+------------------------------------------------------------
+[ docker plugin set --help ]
+
+Usage:  docker plugin set PLUGIN KEY=VALUE [KEY=VALUE...]
+
+Change settings for a plugin
+
+------------------------------------------------------------
+[ docker plugin upgrade --help ]
+
+Usage:  docker plugin upgrade [OPTIONS] PLUGIN [REMOTE]
+
+Upgrade an existing plugin
+
+Options:
+      --disable-content-trust   Skip image verification (default true)
+      --grant-all-permissions   Grant all permissions necessary to run the plugin
+      --skip-remote-check       Do not check if specified remote plugin matches existing plugin image
+
+------------------------------------------------------------
+[ docker plugin --help ]
+
+Usage:  docker plugin COMMAND
+
+Manage plugins
+
+Commands:
+  create      Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
+  disable     Disable a plugin
+  enable      Enable a plugin
+  inspect     Display detailed information on one or more plugins
+  install     Install a plugin
+  ls          List plugins
+  push        Push a plugin to a registry
+  rm          Remove one or more plugins
+  set         Change settings for a plugin
+  upgrade     Upgrade an existing plugin
+
+Run 'docker plugin COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker port --help ]
+
+Usage:  docker port CONTAINER [PRIVATE_PORT[/PROTO]]
+
+List port mappings or a specific mapping for the container
+
+------------------------------------------------------------
+[ docker ps --help ]
+
+Usage:  docker ps [OPTIONS]
+
+List containers
+
+Options:
+  -a, --all             Show all containers (default shows just running)
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print containers using a Go template
+  -n, --last int        Show n last created containers (includes all states) (default -1)
+  -l, --latest          Show the latest created container (includes all states)
+      --no-trunc        Don't truncate output
+  -q, --quiet           Only display container IDs
+  -s, --size            Display total file sizes
+
+------------------------------------------------------------
+[ docker pull --help ]
+
+Usage:  docker pull [OPTIONS] NAME[:TAG|@DIGEST]
+
+Pull an image or a repository from a registry
+
+Options:
+  -a, --all-tags                Download all tagged images in the repository
+      --disable-content-trust   Skip image verification (default true)
+      --platform string         Set platform if server is multi-platform capable
+  -q, --quiet                   Suppress verbose output
+
+------------------------------------------------------------
+[ docker push --help ]
+
+Usage:  docker push [OPTIONS] NAME[:TAG]
+
+Push an image or a repository to a registry
+
+Options:
+  -a, --all-tags                Push all tagged images in the repository
+      --disable-content-trust   Skip image signing (default true)
+  -q, --quiet                   Suppress verbose output
+
+------------------------------------------------------------
+[ docker rename --help ]
+
+Usage:  docker rename CONTAINER NEW_NAME
+
+Rename a container
+
+------------------------------------------------------------
+[ docker restart --help ]
+
+Usage:  docker restart [OPTIONS] CONTAINER [CONTAINER...]
+
+Restart one or more containers
+
+Options:
+  -t, --time int   Seconds to wait for stop before killing the container (default 10)
+
+------------------------------------------------------------
+[ docker rm --help ]
+
+Usage:  docker rm [OPTIONS] CONTAINER [CONTAINER...]
+
+Remove one or more containers
+
+Options:
+  -f, --force     Force the removal of a running container (uses SIGKILL)
+  -l, --link      Remove the specified link
+  -v, --volumes   Remove anonymous volumes associated with the container
+
+------------------------------------------------------------
+[ docker rmi --help ]
+
+Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+
+Options:
+  -f, --force      Force removal of the image
+      --no-prune   Do not delete untagged parents
+
+------------------------------------------------------------
+[ docker run --help ]
+
+Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Run a command in a new container
+
+Options:
+      --add-host list                  Add a custom host-to-IP mapping (host:ip)
+  -a, --attach list                    Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16            Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --blkio-weight-device list       Block IO weight (relative device weight) (default [])
+      --cap-add list                   Add Linux capabilities
+      --cap-drop list                  Drop Linux capabilities
+      --cgroup-parent string           Optional parent cgroup for the container
+      --cgroupns string                Cgroup namespace to use (host|private)
+                                       'host':    Run the container in the Docker host's cgroup namespace
+                                       'private': Run the container in its own private cgroup namespace
+                                       '':        Use the cgroup namespace as configured by the
+                                                  default-cgroupns-mode option on the daemon (default)
+      --cidfile string                 Write the container ID to the file
+      --cpu-period int                 Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int                  Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int              Limit CPU real-time period in microseconds
+      --cpu-rt-runtime int             Limit CPU real-time runtime in microseconds
+  -c, --cpu-shares int                 CPU shares (relative weight)
+      --cpus decimal                   Number of CPUs
+      --cpuset-cpus string             CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string             MEMs in which to allow execution (0-3, 0,1)
+  -d, --detach                         Run container in background and print container ID
+      --detach-keys string             Override the key sequence for detaching a container
+      --device list                    Add a host device to the container
+      --device-cgroup-rule list        Add a rule to the cgroup allowed devices list
+      --device-read-bps list           Limit read rate (bytes per second) from a device (default [])
+      --device-read-iops list          Limit read rate (IO per second) from a device (default [])
+      --device-write-bps list          Limit write rate (bytes per second) to a device (default [])
+      --device-write-iops list         Limit write rate (IO per second) to a device (default [])
+      --disable-content-trust          Skip image verification (default true)
+      --dns list                       Set custom DNS servers
+      --dns-option list                Set DNS options
+      --dns-search list                Set custom DNS search domains
+      --domainname string              Container NIS domain name
+      --entrypoint string              Overwrite the default ENTRYPOINT of the image
+  -e, --env list                       Set environment variables
+      --env-file list                  Read in a file of environment variables
+      --expose list                    Expose a port or a range of ports
+      --gpus gpu-request               GPU devices to add to the container ('all' to pass all GPUs)
+      --group-add list                 Add additional groups to join
+      --health-cmd string              Command to run to check health
+      --health-interval duration       Time between running the check (ms|s|m|h) (default 0s)
+      --health-retries int             Consecutive failures needed to report unhealthy
+      --health-start-period duration   Start period for the container to initialize before starting health-retries countdown (ms|s|m|h) (default 0s)
+      --health-timeout duration        Maximum time to allow one check to run (ms|s|m|h) (default 0s)
+      --help                           Print usage
+  -h, --hostname string                Container host name
+      --init                           Run an init inside the container that forwards signals and reaps processes
+  -i, --interactive                    Keep STDIN open even if not attached
+      --ip string                      IPv4 address (e.g., 172.30.100.104)
+      --ip6 string                     IPv6 address (e.g., 2001:db8::33)
+      --ipc string                     IPC mode to use
+      --isolation string               Container isolation technology
+      --kernel-memory bytes            Kernel memory limit
+  -l, --label list                     Set meta data on a container
+      --label-file list                Read in a line delimited file of labels
+      --link list                      Add link to another container
+      --link-local-ip list             Container IPv4/IPv6 link-local addresses
+      --log-driver string              Logging driver for the container
+      --log-opt list                   Log driver options
+      --mac-address string             Container MAC address (e.g., 92:d0:c6:0a:29:33)
+  -m, --memory bytes                   Memory limit
+      --memory-reservation bytes       Memory soft limit
+      --memory-swap bytes              Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --memory-swappiness int          Tune container memory swappiness (0 to 100) (default -1)
+      --mount mount                    Attach a filesystem mount to the container
+      --name string                    Assign a name to the container
+      --network network                Connect a container to a network
+      --network-alias list             Add network-scoped alias for the container
+      --no-healthcheck                 Disable any container-specified HEALTHCHECK
+      --oom-kill-disable               Disable OOM Killer
+      --oom-score-adj int              Tune host's OOM preferences (-1000 to 1000)
+      --pid string                     PID namespace to use
+      --pids-limit int                 Tune container pids limit (set -1 for unlimited)
+      --platform string                Set platform if server is multi-platform capable
+      --privileged                     Give extended privileges to this container
+  -p, --publish list                   Publish a container's port(s) to the host
+  -P, --publish-all                    Publish all exposed ports to random ports
+      --pull string                    Pull image before running ("always"|"missing"|"never") (default "missing")
+      --read-only                      Mount the container's root filesystem as read only
+      --restart string                 Restart policy to apply when a container exits (default "no")
+      --rm                             Automatically remove the container when it exits
+      --runtime string                 Runtime to use for this container
+      --security-opt list              Security Options
+      --shm-size bytes                 Size of /dev/shm
+      --sig-proxy                      Proxy received signals to the process (default true)
+      --stop-signal string             Signal to stop a container (default "SIGTERM")
+      --stop-timeout int               Timeout (in seconds) to stop a container
+      --storage-opt list               Storage driver options for the container
+      --sysctl map                     Sysctl options (default map[])
+      --tmpfs list                     Mount a tmpfs directory
+  -t, --tty                            Allocate a pseudo-TTY
+      --ulimit ulimit                  Ulimit options (default [])
+  -u, --user string                    Username or UID (format: <name|uid>[:<group|gid>])
+      --userns string                  User namespace to use
+      --uts string                     UTS namespace to use
+  -v, --volume list                    Bind mount a volume
+      --volume-driver string           Optional volume driver for the container
+      --volumes-from list              Mount volumes from the specified container(s)
+  -w, --workdir string                 Working directory inside the container
+
+------------------------------------------------------------
+[ docker save --help ]
+
+Usage:  docker save [OPTIONS] IMAGE [IMAGE...]
+
+Save one or more images to a tar archive (streamed to STDOUT by default)
+
+Options:
+  -o, --output string   Write to a file, instead of STDOUT
+
+------------------------------------------------------------
+[ docker search --help ]
+
+Usage:  docker search [OPTIONS] TERM
+
+Search the Docker Hub for images
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print search using a Go template
+      --limit int       Max number of search results (default 25)
+      --no-trunc        Don't truncate output
+
+------------------------------------------------------------
+[ docker secret create --help ]
+
+Usage:  docker secret create [OPTIONS] SECRET [file|-]
+
+Create a secret from a file or STDIN as content
+
+Options:
+  -d, --driver string            Secret driver
+  -l, --label list               Secret labels
+      --template-driver string   Template driver
+
+------------------------------------------------------------
+[ docker secret inspect --help ]
+
+Usage:  docker secret inspect [OPTIONS] SECRET [SECRET...]
+
+Display detailed information on one or more secrets
+
+Options:
+  -f, --format string   Format the output using the given Go template
+      --pretty          Print the information in a human friendly format
+
+------------------------------------------------------------
+[ docker secret ls --help ]
+
+Usage:  docker secret ls [OPTIONS]
+
+List secrets
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print secrets using a Go template
+  -q, --quiet           Only display IDs
+
+------------------------------------------------------------
+[ docker secret rm --help ]
+
+Usage:  docker secret rm SECRET [SECRET...]
+
+Remove one or more secrets
+
+Aliases:
+  rm, remove
+
+------------------------------------------------------------
+[ docker secret --help ]
+
+Usage:  docker secret COMMAND
+
+Manage Docker secrets
+
+Commands:
+  create      Create a secret from a file or STDIN as content
+  inspect     Display detailed information on one or more secrets
+  ls          List secrets
+  rm          Remove one or more secrets
+
+Run 'docker secret COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker service create --help ]
+
+Usage:  docker service create [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Create a new service
+
+Options:
+      --cap-add list                       Add Linux capabilities
+      --cap-drop list                      Drop Linux capabilities
+      --config config                      Specify configurations to expose to the service
+      --constraint list                    Placement constraints
+      --container-label list               Container labels
+      --credential-spec credential-spec    Credential spec for managed service account (Windows only)
+  -d, --detach                             Exit immediately instead of waiting for the service to converge
+      --dns list                           Set custom DNS servers
+      --dns-option list                    Set DNS options
+      --dns-search list                    Set custom DNS search domains
+      --endpoint-mode string               Endpoint mode (vip or dnsrr) (default "vip")
+      --entrypoint command                 Overwrite the default ENTRYPOINT of the image
+  -e, --env list                           Set environment variables
+      --env-file list                      Read in a file of environment variables
+      --generic-resource list              User defined resources
+      --group list                         Set one or more supplementary user groups for the container
+      --health-cmd string                  Command to run to check health
+      --health-interval duration           Time between running the check (ms|s|m|h)
+      --health-retries int                 Consecutive failures needed to report unhealthy
+      --health-start-period duration       Start period for the container to initialize before counting retries towards unstable (ms|s|m|h)
+      --health-timeout duration            Maximum time to allow one check to run (ms|s|m|h)
+      --host list                          Set one or more custom host-to-IP mappings (host:ip)
+      --hostname string                    Container hostname
+      --init                               Use an init inside each service container to forward signals and reap processes
+      --isolation string                   Service container isolation mode
+  -l, --label list                         Service labels
+      --limit-cpu decimal                  Limit CPUs
+      --limit-memory bytes                 Limit Memory
+      --limit-pids int                     Limit maximum number of processes (default 0 = unlimited)
+      --log-driver string                  Logging driver for service
+      --log-opt list                       Logging driver options
+      --max-concurrent uint                Number of job tasks to run concurrently (default equal to --replicas)
+      --mode string                        Service mode (replicated, global, replicated-job, or global-job) (default "replicated")
+      --mount mount                        Attach a filesystem mount to the service
+      --name string                        Service name
+      --network network                    Network attachments
+      --no-healthcheck                     Disable any container-specified HEALTHCHECK
+      --no-resolve-image                   Do not query the registry to resolve image digest and supported platforms
+      --placement-pref pref                Add a placement preference
+  -p, --publish port                       Publish a port as a node port
+  -q, --quiet                              Suppress progress output
+      --read-only                          Mount the container's root filesystem as read only
+      --replicas uint                      Number of tasks
+      --replicas-max-per-node uint         Maximum number of tasks per node (default 0 = unlimited)
+      --reserve-cpu decimal                Reserve CPUs
+      --reserve-memory bytes               Reserve Memory
+      --restart-condition string           Restart when condition is met ("none"|"on-failure"|"any") (default "any")
+      --restart-delay duration             Delay between restart attempts (ns|us|ms|s|m|h) (default 5s)
+      --restart-max-attempts uint          Maximum number of restarts before giving up
+      --restart-window duration            Window used to evaluate the restart policy (ns|us|ms|s|m|h)
+      --rollback-delay duration            Delay between task rollbacks (ns|us|ms|s|m|h) (default 0s)
+      --rollback-failure-action string     Action on rollback failure ("pause"|"continue") (default "pause")
+      --rollback-max-failure-ratio float   Failure rate to tolerate during a rollback (default 0)
+      --rollback-monitor duration          Duration after each task rollback to monitor for failure (ns|us|ms|s|m|h) (default 5s)
+      --rollback-order string              Rollback order ("start-first"|"stop-first") (default "stop-first")
+      --rollback-parallelism uint          Maximum number of tasks rolled back simultaneously (0 to roll back all at once) (default 1)
+      --secret secret                      Specify secrets to expose to the service
+      --stop-grace-period duration         Time to wait before force killing a container (ns|us|ms|s|m|h) (default 10s)
+      --stop-signal string                 Signal to stop the container
+      --sysctl list                        Sysctl options
+  -t, --tty                                Allocate a pseudo-TTY
+      --ulimit ulimit                      Ulimit options (default [])
+      --update-delay duration              Delay between updates (ns|us|ms|s|m|h) (default 0s)
+      --update-failure-action string       Action on update failure ("pause"|"continue"|"rollback") (default "pause")
+      --update-max-failure-ratio float     Failure rate to tolerate during an update (default 0)
+      --update-monitor duration            Duration after each task update to monitor for failure (ns|us|ms|s|m|h) (default 5s)
+      --update-order string                Update order ("start-first"|"stop-first") (default "stop-first")
+      --update-parallelism uint            Maximum number of tasks updated simultaneously (0 to update all at once) (default 1)
+  -u, --user string                        Username or UID (format: <name|uid>[:<group|gid>])
+      --with-registry-auth                 Send registry authentication details to swarm agents
+  -w, --workdir string                     Working directory inside the container
+
+------------------------------------------------------------
+[ docker service inspect --help ]
+
+Usage:  docker service inspect [OPTIONS] SERVICE [SERVICE...]
+
+Display detailed information on one or more services
+
+Options:
+  -f, --format string   Format the output using the given Go template
+      --pretty          Print the information in a human friendly format
+
+------------------------------------------------------------
+[ docker service logs --help ]
+
+Usage:  docker service logs [OPTIONS] SERVICE|TASK
+
+Fetch the logs of a service or task
+
+Options:
+      --details        Show extra details provided to logs
+  -f, --follow         Follow log output
+      --no-resolve     Do not map IDs to Names in output
+      --no-task-ids    Do not include task IDs in output
+      --no-trunc       Do not truncate output
+      --raw            Do not neatly format logs
+      --since string   Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
+  -n, --tail string    Number of lines to show from the end of the logs (default "all")
+  -t, --timestamps     Show timestamps
+
+------------------------------------------------------------
+[ docker service ls --help ]
+
+Usage:  docker service ls [OPTIONS]
+
+List services
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print services using a Go template
+  -q, --quiet           Only display IDs
+
+------------------------------------------------------------
+[ docker service ps --help ]
+
+Usage:  docker service ps [OPTIONS] SERVICE [SERVICE...]
+
+List the tasks of one or more services
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Pretty-print tasks using a Go template
+      --no-resolve      Do not map IDs to Names
+      --no-trunc        Do not truncate output
+  -q, --quiet           Only display task IDs
+
+------------------------------------------------------------
+[ docker service rm --help ]
+
+Usage:  docker service rm SERVICE [SERVICE...]
+
+Remove one or more services
+
+Aliases:
+  rm, remove
+
+------------------------------------------------------------
+[ docker service rollback --help ]
+
+Usage:  docker service rollback [OPTIONS] SERVICE
+
+Revert changes to a service's configuration
+
+Options:
+  -d, --detach   Exit immediately instead of waiting for the service to converge
+  -q, --quiet    Suppress progress output
+
+------------------------------------------------------------
+[ docker service scale --help ]
+
+Usage:  docker service scale SERVICE=REPLICAS [SERVICE=REPLICAS...]
+
+Scale one or multiple replicated services
+
+Options:
+  -d, --detach   Exit immediately instead of waiting for the service to converge
+
+------------------------------------------------------------
+[ docker service update --help ]
+
+Usage:  docker service update [OPTIONS] SERVICE
+
+Update a service
+
+Options:
+      --args command                       Service command args
+      --cap-add list                       Add Linux capabilities
+      --cap-drop list                      Drop Linux capabilities
+      --config-add config                  Add or update a config file on a service
+      --config-rm list                     Remove a configuration file
+      --constraint-add list                Add or update a placement constraint
+      --constraint-rm list                 Remove a constraint
+      --container-label-add list           Add or update a container label
+      --container-label-rm list            Remove a container label by its key
+      --credential-spec credential-spec    Credential spec for managed service account (Windows only)
+  -d, --detach                             Exit immediately instead of waiting for the service to converge
+      --dns-add list                       Add or update a custom DNS server
+      --dns-option-add list                Add or update a DNS option
+      --dns-option-rm list                 Remove a DNS option
+      --dns-rm list                        Remove a custom DNS server
+      --dns-search-add list                Add or update a custom DNS search domain
+      --dns-search-rm list                 Remove a DNS search domain
+      --endpoint-mode string               Endpoint mode (vip or dnsrr)
+      --entrypoint command                 Overwrite the default ENTRYPOINT of the image
+      --env-add list                       Add or update an environment variable
+      --env-rm list                        Remove an environment variable
+      --force                              Force update even if no changes require it
+      --generic-resource-add list          Add a Generic resource
+      --generic-resource-rm list           Remove a Generic resource
+      --group-add list                     Add an additional supplementary user group to the container
+      --group-rm list                      Remove a previously added supplementary user group from the container
+      --health-cmd string                  Command to run to check health
+      --health-interval duration           Time between running the check (ms|s|m|h)
+      --health-retries int                 Consecutive failures needed to report unhealthy
+      --health-start-period duration       Start period for the container to initialize before counting retries towards unstable (ms|s|m|h)
+      --health-timeout duration            Maximum time to allow one check to run (ms|s|m|h)
+      --host-add list                      Add a custom host-to-IP mapping (host:ip)
+      --host-rm list                       Remove a custom host-to-IP mapping (host:ip)
+      --hostname string                    Container hostname
+      --image string                       Service image tag
+      --init                               Use an init inside each service container to forward signals and reap processes
+      --isolation string                   Service container isolation mode
+      --label-add list                     Add or update a service label
+      --label-rm list                      Remove a label by its key
+      --limit-cpu decimal                  Limit CPUs
+      --limit-memory bytes                 Limit Memory
+      --limit-pids int                     Limit maximum number of processes (default 0 = unlimited)
+      --log-driver string                  Logging driver for service
+      --log-opt list                       Logging driver options
+      --max-concurrent uint                Number of job tasks to run concurrently (default equal to --replicas)
+      --mount-add mount                    Add or update a mount on a service
+      --mount-rm list                      Remove a mount by its target path
+      --network-add network                Add a network
+      --network-rm list                    Remove a network
+      --no-healthcheck                     Disable any container-specified HEALTHCHECK
+      --no-resolve-image                   Do not query the registry to resolve image digest and supported platforms
+      --placement-pref-add pref            Add a placement preference
+      --placement-pref-rm pref             Remove a placement preference
+      --publish-add port                   Add or update a published port
+      --publish-rm port                    Remove a published port by its target port
+  -q, --quiet                              Suppress progress output
+      --read-only                          Mount the container's root filesystem as read only
+      --replicas uint                      Number of tasks
+      --replicas-max-per-node uint         Maximum number of tasks per node (default 0 = unlimited)
+      --reserve-cpu decimal                Reserve CPUs
+      --reserve-memory bytes               Reserve Memory
+      --restart-condition string           Restart when condition is met ("none"|"on-failure"|"any")
+      --restart-delay duration             Delay between restart attempts (ns|us|ms|s|m|h)
+      --restart-max-attempts uint          Maximum number of restarts before giving up
+      --restart-window duration            Window used to evaluate the restart policy (ns|us|ms|s|m|h)
+      --rollback                           Rollback to previous specification
+      --rollback-delay duration            Delay between task rollbacks (ns|us|ms|s|m|h)
+      --rollback-failure-action string     Action on rollback failure ("pause"|"continue")
+      --rollback-max-failure-ratio float   Failure rate to tolerate during a rollback
+      --rollback-monitor duration          Duration after each task rollback to monitor for failure (ns|us|ms|s|m|h)
+      --rollback-order string              Rollback order ("start-first"|"stop-first")
+      --rollback-parallelism uint          Maximum number of tasks rolled back simultaneously (0 to roll back all at once)
+      --secret-add secret                  Add or update a secret on a service
+      --secret-rm list                     Remove a secret
+      --stop-grace-period duration         Time to wait before force killing a container (ns|us|ms|s|m|h)
+      --stop-signal string                 Signal to stop the container
+      --sysctl-add list                    Add or update a Sysctl option
+      --sysctl-rm list                     Remove a Sysctl option
+  -t, --tty                                Allocate a pseudo-TTY
+      --ulimit-add ulimit                  Add or update a ulimit option (default [])
+      --ulimit-rm list                     Remove a ulimit option
+      --update-delay duration              Delay between updates (ns|us|ms|s|m|h)
+      --update-failure-action string       Action on update failure ("pause"|"continue"|"rollback")
+      --update-max-failure-ratio float     Failure rate to tolerate during an update
+      --update-monitor duration            Duration after each task update to monitor for failure (ns|us|ms|s|m|h)
+      --update-order string                Update order ("start-first"|"stop-first")
+      --update-parallelism uint            Maximum number of tasks updated simultaneously (0 to update all at once)
+  -u, --user string                        Username or UID (format: <name|uid>[:<group|gid>])
+      --with-registry-auth                 Send registry authentication details to swarm agents
+  -w, --workdir string                     Working directory inside the container
+
+------------------------------------------------------------
+[ docker service --help ]
+
+Usage:  docker service COMMAND
+
+Manage services
+
+Commands:
+  create      Create a new service
+  inspect     Display detailed information on one or more services
+  logs        Fetch the logs of a service or task
+  ls          List services
+  ps          List the tasks of one or more services
+  rm          Remove one or more services
+  rollback    Revert changes to a service's configuration
+  scale       Scale one or multiple replicated services
+  update      Update a service
+
+Run 'docker service COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker stack deploy --help ]
+
+Usage:  docker stack deploy [OPTIONS] STACK
+
+Deploy a new stack or update an existing stack
+
+Aliases:
+  deploy, up
+
+Options:
+  -c, --compose-file strings   Path to a Compose file, or "-" to read from stdin
+      --orchestrator string    Orchestrator to use (swarm|kubernetes|all)
+      --prune                  Prune services that are no longer referenced
+      --resolve-image string   Query the registry to resolve image digest and supported platforms ("always"|"changed"|"never") (default "always")
+      --with-registry-auth     Send registry authentication details to Swarm agents
+
+------------------------------------------------------------
+[ docker stack ls --help ]
+
+Usage:  docker stack ls [OPTIONS]
+
+List stacks
+
+Aliases:
+  ls, list
+
+Options:
+      --format string         Pretty-print stacks using a Go template
+      --orchestrator string   Orchestrator to use (swarm|kubernetes|all)
+
+------------------------------------------------------------
+[ docker stack ps --help ]
+
+Usage:  docker stack ps [OPTIONS] STACK
+
+List the tasks in the stack
+
+Options:
+  -f, --filter filter         Filter output based on conditions provided
+      --format string         Pretty-print tasks using a Go template
+      --no-resolve            Do not map IDs to Names
+      --no-trunc              Do not truncate output
+      --orchestrator string   Orchestrator to use (swarm|kubernetes|all)
+  -q, --quiet                 Only display task IDs
+
+------------------------------------------------------------
+[ docker stack rm --help ]
+
+Usage:  docker stack rm [OPTIONS] STACK [STACK...]
+
+Remove one or more stacks
+
+Aliases:
+  rm, remove, down
+
+Options:
+      --orchestrator string   Orchestrator to use (swarm|kubernetes|all)
+
+------------------------------------------------------------
+[ docker stack services --help ]
+
+Usage:  docker stack services [OPTIONS] STACK
+
+List the services in the stack
+
+Options:
+  -f, --filter filter         Filter output based on conditions provided
+      --format string         Pretty-print services using a Go template
+      --orchestrator string   Orchestrator to use (swarm|kubernetes|all)
+  -q, --quiet                 Only display IDs
+
+------------------------------------------------------------
+[ docker stack --help ]
+
+Usage:  docker stack [OPTIONS] COMMAND
+
+Manage Docker stacks
+
+Options:
+      --orchestrator string   Orchestrator to use (swarm|kubernetes|all)
+
+Commands:
+  deploy      Deploy a new stack or update an existing stack
+  ls          List stacks
+  ps          List the tasks in the stack
+  rm          Remove one or more stacks
+  services    List the services in the stack
+
+Run 'docker stack COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker start --help ]
+
+Usage:  docker start [OPTIONS] CONTAINER [CONTAINER...]
+
+Start one or more stopped containers
+
+Options:
+  -a, --attach               Attach STDOUT/STDERR and forward signals
+      --detach-keys string   Override the key sequence for detaching a container
+  -i, --interactive          Attach container's STDIN
+
+------------------------------------------------------------
+[ docker stats --help ]
+
+Usage:  docker stats [OPTIONS] [CONTAINER...]
+
+Display a live stream of container(s) resource usage statistics
+
+Options:
+  -a, --all             Show all containers (default shows just running)
+      --format string   Pretty-print images using a Go template
+      --no-stream       Disable streaming stats and only pull the first result
+      --no-trunc        Do not truncate output
+
+------------------------------------------------------------
+[ docker stop --help ]
+
+Usage:  docker stop [OPTIONS] CONTAINER [CONTAINER...]
+
+Stop one or more running containers
+
+Options:
+  -t, --time int   Seconds to wait for stop before killing it (default 10)
+
+------------------------------------------------------------
+[ docker swarm ca --help ]
+
+Usage:  docker swarm ca [OPTIONS]
+
+Display and rotate the root CA
+
+Options:
+      --ca-cert pem-file          Path to the PEM-formatted root CA certificate to use for the new cluster
+      --ca-key pem-file           Path to the PEM-formatted root CA key to use for the new cluster
+      --cert-expiry duration      Validity period for node certificates (ns|us|ms|s|m|h) (default 2160h0m0s)
+  -d, --detach                    Exit immediately instead of waiting for the root rotation to converge
+      --external-ca external-ca   Specifications of one or more certificate signing endpoints
+  -q, --quiet                     Suppress progress output
+      --rotate                    Rotate the swarm CA - if no certificate or key are provided, new ones will be generated
+
+------------------------------------------------------------
+[ docker swarm init --help ]
+
+Usage:  docker swarm init [OPTIONS]
+
+Initialize a swarm
+
+Options:
+      --advertise-addr string                  Advertised address (format: <ip|interface>[:port])
+      --autolock                               Enable manager autolocking (requiring an unlock key to start a stopped manager)
+      --availability string                    Availability of the node ("active"|"pause"|"drain") (default "active")
+      --cert-expiry duration                   Validity period for node certificates (ns|us|ms|s|m|h) (default 2160h0m0s)
+      --data-path-addr string                  Address or interface to use for data path traffic (format: <ip|interface>)
+      --data-path-port uint32                  Port number to use for data path traffic (1024 - 49151). If no value is set or is set to 0, the default port
+                                               (4789) is used.
+      --default-addr-pool ipNetSlice           default address pool in CIDR format (default [])
+      --default-addr-pool-mask-length uint32   default address pool subnet mask length (default 24)
+      --dispatcher-heartbeat duration          Dispatcher heartbeat period (ns|us|ms|s|m|h) (default 5s)
+      --external-ca external-ca                Specifications of one or more certificate signing endpoints
+      --force-new-cluster                      Force create a new cluster from current state
+      --listen-addr node-addr                  Listen address (format: <ip|interface>[:port]) (default 0.0.0.0:2377)
+      --max-snapshots uint                     Number of additional Raft snapshots to retain
+      --snapshot-interval uint                 Number of log entries between Raft snapshots (default 10000)
+      --task-history-limit int                 Task history retention limit (default 5)
+
+------------------------------------------------------------
+[ docker swarm join --help ]
+
+Usage:  docker swarm join [OPTIONS] HOST:PORT
+
+Join a swarm as a node and/or manager
+
+Options:
+      --advertise-addr string   Advertised address (format: <ip|interface>[:port])
+      --availability string     Availability of the node ("active"|"pause"|"drain") (default "active")
+      --data-path-addr string   Address or interface to use for data path traffic (format: <ip|interface>)
+      --listen-addr node-addr   Listen address (format: <ip|interface>[:port]) (default 0.0.0.0:2377)
+      --token string            Token for entry into the swarm
+
+------------------------------------------------------------
+[ docker swarm join-token --help ]
+
+Usage:  docker swarm join-token [OPTIONS] (worker|manager)
+
+Manage join tokens
+
+Options:
+  -q, --quiet    Only display token
+      --rotate   Rotate join token
+
+------------------------------------------------------------
+[ docker swarm leave --help ]
+
+Usage:  docker swarm leave [OPTIONS]
+
+Leave the swarm
+
+Options:
+  -f, --force   Force this node to leave the swarm, ignoring warnings
+
+------------------------------------------------------------
+[ docker swarm unlock --help ]
+
+Usage:  docker swarm unlock
+
+Unlock swarm
+
+------------------------------------------------------------
+[ docker swarm unlock-key --help ]
+
+Usage:  docker swarm unlock-key [OPTIONS]
+
+Manage the unlock key
+
+Options:
+  -q, --quiet    Only display token
+      --rotate   Rotate unlock key
+
+------------------------------------------------------------
+[ docker swarm update --help ]
+
+Usage:  docker swarm update [OPTIONS]
+
+Update the swarm
+
+Options:
+      --autolock                        Change manager autolocking setting (true|false)
+      --cert-expiry duration            Validity period for node certificates (ns|us|ms|s|m|h) (default 2160h0m0s)
+      --dispatcher-heartbeat duration   Dispatcher heartbeat period (ns|us|ms|s|m|h) (default 5s)
+      --external-ca external-ca         Specifications of one or more certificate signing endpoints
+      --max-snapshots uint              Number of additional Raft snapshots to retain
+      --snapshot-interval uint          Number of log entries between Raft snapshots (default 10000)
+      --task-history-limit int          Task history retention limit (default 5)
+
+------------------------------------------------------------
+[ docker swarm --help ]
+
+Usage:  docker swarm COMMAND
+
+Manage Swarm
+
+Commands:
+  ca          Display and rotate the root CA
+  init        Initialize a swarm
+  join        Join a swarm as a node and/or manager
+  join-token  Manage join tokens
+  leave       Leave the swarm
+  unlock      Unlock swarm
+  unlock-key  Manage the unlock key
+  update      Update the swarm
+
+Run 'docker swarm COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker system df --help ]
+
+Usage:  docker system df [OPTIONS]
+
+Show docker disk usage
+
+Options:
+      --format string   Pretty-print images using a Go template
+  -v, --verbose         Show detailed information on space usage
+
+------------------------------------------------------------
+[ docker system events --help ]
+
+Usage:  docker system events [OPTIONS]
+
+Get real time events from the server
+
+Options:
+  -f, --filter filter   Filter output based on conditions provided
+      --format string   Format the output using the given Go template
+      --since string    Show all events created since timestamp
+      --until string    Stream events until this timestamp
+
+------------------------------------------------------------
+[ docker system info --help ]
+
+Usage:  docker system info [OPTIONS]
+
+Display system-wide information
+
+Options:
+  -f, --format string   Format the output using the given Go template
+
+------------------------------------------------------------
+[ docker system prune --help ]
+
+Usage:  docker system prune [OPTIONS]
+
+Remove unused data
+
+Options:
+  -a, --all             Remove all unused images not just dangling ones
+      --filter filter   Provide filter values (e.g. 'label=<key>=<value>')
+  -f, --force           Do not prompt for confirmation
+      --volumes         Prune volumes
+
+------------------------------------------------------------
+[ docker system --help ]
+
+Usage:  docker system COMMAND
+
+Manage Docker
+
+Commands:
+  df          Show docker disk usage
+  events      Get real time events from the server
+  info        Display system-wide information
+  prune       Remove unused data
+
+Run 'docker system COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker tag --help ]
+
+Usage:  docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+
+Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+------------------------------------------------------------
+[ docker top --help ]
+
+Usage:  docker top CONTAINER [ps OPTIONS]
+
+Display the running processes of a container
+
+------------------------------------------------------------
+[ docker trust inspect --help ]
+
+Usage:  docker trust inspect IMAGE[:TAG] [IMAGE[:TAG]...]
+
+Return low-level information about keys and signatures
+
+Options:
+      --pretty   Print the information in a human friendly format
+
+------------------------------------------------------------
+[ docker trust key --help ]
+
+Usage:  docker trust key COMMAND
+
+Manage keys for signing Docker images
+
+Commands:
+  generate    Generate and load a signing key-pair
+  load        Load a private key file for signing
+
+Run 'docker trust key COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker trust revoke --help ]
+
+Usage:  docker trust revoke [OPTIONS] IMAGE[:TAG]
+
+Remove trust for an image
+
+Options:
+  -y, --yes   Do not prompt for confirmation
+
+------------------------------------------------------------
+[ docker trust sign --help ]
+
+Usage:  docker trust sign IMAGE:TAG
+
+Sign an image
+
+Options:
+      --local   Sign a locally tagged image
+
+------------------------------------------------------------
+[ docker trust signer --help ]
+
+Usage:  docker trust signer COMMAND
+
+Manage entities who can sign Docker images
+
+Commands:
+  add         Add a signer
+  remove      Remove a signer
+
+Run 'docker trust signer COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker trust --help ]
+
+Usage:  docker trust COMMAND
+
+Manage trust on Docker images
+
+Management Commands:
+  key         Manage keys for signing Docker images
+  signer      Manage entities who can sign Docker images
+
+Commands:
+  inspect     Return low-level information about keys and signatures
+  revoke      Remove trust for an image
+  sign        Sign an image
+
+Run 'docker trust COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker unpause --help ]
+
+Usage:  docker unpause CONTAINER [CONTAINER...]
+
+Unpause all processes within one or more containers
+
+------------------------------------------------------------
+[ docker update --help ]
+
+Usage:  docker update [OPTIONS] CONTAINER [CONTAINER...]
+
+Update configuration of one or more containers
+
+Options:
+      --blkio-weight uint16        Block IO (relative weight), between 10 and 1000, or 0 to disable (default 0)
+      --cpu-period int             Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int              Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int          Limit the CPU real-time period in microseconds
+      --cpu-rt-runtime int         Limit the CPU real-time runtime in microseconds
+  -c, --cpu-shares int             CPU shares (relative weight)
+      --cpus decimal               Number of CPUs
+      --cpuset-cpus string         CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string         MEMs in which to allow execution (0-3, 0,1)
+      --kernel-memory bytes        Kernel memory limit
+  -m, --memory bytes               Memory limit
+      --memory-reservation bytes   Memory soft limit
+      --memory-swap bytes          Swap limit equal to memory plus swap: '-1' to enable unlimited swap
+      --pids-limit int             Tune container pids limit (set -1 for unlimited)
+      --restart string             Restart policy to apply when a container exits
+
+------------------------------------------------------------
+[ docker version --help ]
+
+Usage:  docker version [OPTIONS]
+
+Show the Docker version information
+
+Options:
+  -f, --format string       Format the output using the given Go template
+      --kubeconfig string   Kubernetes config file
+
+------------------------------------------------------------
+[ docker volume create --help ]
+
+Usage:  docker volume create [OPTIONS] [VOLUME]
+
+Create a volume
+
+Options:
+  -d, --driver string   Specify volume driver name (default "local")
+      --label list      Set metadata for a volume
+  -o, --opt map         Set driver specific options (default map[])
+
+------------------------------------------------------------
+[ docker volume inspect --help ]
+
+Usage:  docker volume inspect [OPTIONS] VOLUME [VOLUME...]
+
+Display detailed information on one or more volumes
+
+Options:
+  -f, --format string   Format the output using the given Go template
+
+------------------------------------------------------------
+[ docker volume ls --help ]
+
+Usage:  docker volume ls [OPTIONS]
+
+List volumes
+
+Aliases:
+  ls, list
+
+Options:
+  -f, --filter filter   Provide filter values (e.g. 'dangling=true')
+      --format string   Pretty-print volumes using a Go template
+  -q, --quiet           Only display volume names
+
+------------------------------------------------------------
+[ docker volume prune --help ]
+
+Usage:  docker volume prune [OPTIONS]
+
+Remove all unused local volumes
+
+Options:
+      --filter filter   Provide filter values (e.g. 'label=<label>')
+  -f, --force           Do not prompt for confirmation
+
+------------------------------------------------------------
+[ docker volume rm --help ]
+
+Usage:  docker volume rm [OPTIONS] VOLUME [VOLUME...]
+
+Remove one or more volumes. You cannot remove a volume that is in use by a container.
+
+Aliases:
+  rm, remove
+
+Examples:
+
+$ docker volume rm hello
+hello
+
+
+Options:
+  -f, --force   Force the removal of one or more volumes
+
+------------------------------------------------------------
+[ docker volume --help ]
+
+Usage:  docker volume COMMAND
+
+Manage volumes
+
+Commands:
+  create      Create a volume
+  inspect     Display detailed information on one or more volumes
+  ls          List volumes
+  prune       Remove all unused local volumes
+  rm          Remove one or more volumes
+
+Run 'docker volume COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
+[ docker wait --help ]
+
+Usage:  docker wait CONTAINER [CONTAINER...]
+
+Block until one or more containers stop, then print their exit codes
+

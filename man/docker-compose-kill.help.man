@@ -1,7 +1,0 @@
-Force stop service containers.
-
-Usage: kill [options] [--] [SERVICE...]
-
-Options:
-    -s SIGNAL         SIGNAL to send to the container.
-                      Default signal is SIGKILL.

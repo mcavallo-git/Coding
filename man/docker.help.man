@@ -138,6 +138,19 @@ Options:
       --ulimit ulimit           Ulimit options (default [])
 
 ------------------------------------------------------------
+[ docker builder --help ]
+
+Usage:  docker builder COMMAND
+
+Manage builds
+
+Commands:
+  build       Build an image from a Dockerfile
+  prune       Remove build cache
+
+Run 'docker builder COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
 [ docker builder build --help ]
 
 Usage:  docker builder build [OPTIONS] PATH | URL | -
@@ -188,19 +201,6 @@ Options:
       --keep-storage bytes   Amount of disk space to keep for cache
 
 ------------------------------------------------------------
-[ docker builder --help ]
-
-Usage:  docker builder COMMAND
-
-Manage builds
-
-Commands:
-  build       Build an image from a Dockerfile
-  prune       Remove build cache
-
-Run 'docker builder COMMAND --help' for more information on a command.
-
-------------------------------------------------------------
 [ docker commit --help ]
 
 Usage:  docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
@@ -212,6 +212,52 @@ Options:
   -c, --change list      Apply Dockerfile instruction to the created image
   -m, --message string   Commit message
   -p, --pause            Pause container during commit (default true)
+
+------------------------------------------------------------
+[ docker compose --help ]
+
+Usage:  docker compose [OPTIONS] COMMAND
+
+Docker Compose
+
+Options:
+      --ansi string                Control when to print ANSI control characters ("never"|"always"|"auto") (default "auto")
+      --compatibility              Run compose in backward compatibility mode
+      --env-file string            Specify an alternate environment file.
+  -f, --file stringArray           Compose configuration files
+      --profile stringArray        Specify a profile to enable
+      --project-directory string   Specify an alternate working directory
+                                   (default: the path of the, first specified, Compose file)
+  -p, --project-name string        Project name
+
+Commands:
+  build       Build or rebuild services
+  convert     Converts the compose file to platform's canonical format
+  cp          Copy files/folders between a service container and the local filesystem
+  create      Creates containers for a service.
+  down        Stop and remove containers, networks
+  events      Receive real time events from containers.
+  exec        Execute a command in a running container.
+  images      List images used by the created containers
+  kill        Force stop service containers.
+  logs        View output from containers
+  ls          List running compose projects
+  pause       Pause services
+  port        Print the public port for a port binding.
+  ps          List containers
+  pull        Pull service images
+  push        Push service images
+  restart     Restart containers
+  rm          Removes stopped service containers
+  run         Run a one-off command on a service.
+  start       Start services
+  stop        Stop services
+  top         Display the running processes
+  unpause     Unpause services
+  up          Create and start containers
+  version     Show the Docker Compose version information
+
+Run 'docker compose COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker compose build --help ]
@@ -544,50 +590,19 @@ Options:
       --short           Shows only Compose's version number.
 
 ------------------------------------------------------------
-[ docker compose --help ]
+[ docker config --help ]
 
-Usage:  docker compose [OPTIONS] COMMAND
+Usage:  docker config COMMAND
 
-Docker Compose
-
-Options:
-      --ansi string                Control when to print ANSI control characters ("never"|"always"|"auto") (default "auto")
-      --compatibility              Run compose in backward compatibility mode
-      --env-file string            Specify an alternate environment file.
-  -f, --file stringArray           Compose configuration files
-      --profile stringArray        Specify a profile to enable
-      --project-directory string   Specify an alternate working directory
-                                   (default: the path of the, first specified, Compose file)
-  -p, --project-name string        Project name
+Manage Docker configs
 
 Commands:
-  build       Build or rebuild services
-  convert     Converts the compose file to platform's canonical format
-  cp          Copy files/folders between a service container and the local filesystem
-  create      Creates containers for a service.
-  down        Stop and remove containers, networks
-  events      Receive real time events from containers.
-  exec        Execute a command in a running container.
-  images      List images used by the created containers
-  kill        Force stop service containers.
-  logs        View output from containers
-  ls          List running compose projects
-  pause       Pause services
-  port        Print the public port for a port binding.
-  ps          List containers
-  pull        Pull service images
-  push        Push service images
-  restart     Restart containers
-  rm          Removes stopped service containers
-  run         Run a one-off command on a service.
-  start       Start services
-  stop        Stop services
-  top         Display the running processes
-  unpause     Unpause services
-  up          Create and start containers
-  version     Show the Docker Compose version information
+  create      Create a config from a file or STDIN
+  inspect     Display detailed information on one or more configs
+  ls          List configs
+  rm          Remove one or more configs
 
-Run 'docker compose COMMAND --help' for more information on a command.
+Run 'docker config COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker config create --help ]
@@ -637,19 +652,40 @@ Aliases:
   rm, remove
 
 ------------------------------------------------------------
-[ docker config --help ]
+[ docker container --help ]
 
-Usage:  docker config COMMAND
+Usage:  docker container COMMAND
 
-Manage Docker configs
+Manage containers
 
 Commands:
-  create      Create a config from a file or STDIN
-  inspect     Display detailed information on one or more configs
-  ls          List configs
-  rm          Remove one or more configs
+  attach      Attach local standard input, output, and error streams to a running container
+  commit      Create a new image from a container's changes
+  cp          Copy files/folders between a container and the local filesystem
+  create      Create a new container
+  diff        Inspect changes to files or directories on a container's filesystem
+  exec        Run a command in a running container
+  export      Export a container's filesystem as a tar archive
+  inspect     Display detailed information on one or more containers
+  kill        Kill one or more running containers
+  logs        Fetch the logs of a container
+  ls          List containers
+  pause       Pause all processes within one or more containers
+  port        List port mappings or a specific mapping for the container
+  prune       Remove all stopped containers
+  rename      Rename a container
+  restart     Restart one or more containers
+  rm          Remove one or more containers
+  run         Run a command in a new container
+  start       Start one or more stopped containers
+  stats       Display a live stream of container(s) resource usage statistics
+  stop        Stop one or more running containers
+  top         Display the running processes of a container
+  unpause     Unpause all processes within one or more containers
+  update      Update configuration of one or more containers
+  wait        Block until one or more containers stop, then print their exit codes
 
-Run 'docker config COMMAND --help' for more information on a command.
+Run 'docker container COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker container attach --help ]
@@ -1134,40 +1170,23 @@ Usage:  docker container wait CONTAINER [CONTAINER...]
 Block until one or more containers stop, then print their exit codes
 
 ------------------------------------------------------------
-[ docker container --help ]
+[ docker context --help ]
 
-Usage:  docker container COMMAND
+Usage:  docker context COMMAND
 
-Manage containers
+Manage contexts
 
 Commands:
-  attach      Attach local standard input, output, and error streams to a running container
-  commit      Create a new image from a container's changes
-  cp          Copy files/folders between a container and the local filesystem
-  create      Create a new container
-  diff        Inspect changes to files or directories on a container's filesystem
-  exec        Run a command in a running container
-  export      Export a container's filesystem as a tar archive
-  inspect     Display detailed information on one or more containers
-  kill        Kill one or more running containers
-  logs        Fetch the logs of a container
-  ls          List containers
-  pause       Pause all processes within one or more containers
-  port        List port mappings or a specific mapping for the container
-  prune       Remove all stopped containers
-  rename      Rename a container
-  restart     Restart one or more containers
-  rm          Remove one or more containers
-  run         Run a command in a new container
-  start       Start one or more stopped containers
-  stats       Display a live stream of container(s) resource usage statistics
-  stop        Stop one or more running containers
-  top         Display the running processes of a container
-  unpause     Unpause all processes within one or more containers
-  update      Update configuration of one or more containers
-  wait        Block until one or more containers stop, then print their exit codes
+  create      Create a context
+  export      Export a context to a tar or kubeconfig file
+  import      Import a context from a tar or zip file
+  inspect     Display detailed information on one or more contexts
+  ls          List contexts
+  rm          Remove one or more contexts
+  update      Update a context
+  use         Set the current docker context
 
-Run 'docker container COMMAND --help' for more information on a command.
+Run 'docker context COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker context create --help ]
@@ -1300,25 +1319,6 @@ Options:
 Usage:  docker context use CONTEXT
 
 Set the current docker context
-
-------------------------------------------------------------
-[ docker context --help ]
-
-Usage:  docker context COMMAND
-
-Manage contexts
-
-Commands:
-  create      Create a context
-  export      Export a context to a tar or kubeconfig file
-  import      Import a context from a tar or zip file
-  inspect     Display detailed information on one or more contexts
-  ls          List contexts
-  rm          Remove one or more contexts
-  update      Update a context
-  use         Set the current docker context
-
-Run 'docker context COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker cp --help ]
@@ -1505,6 +1505,29 @@ Options:
   -q, --quiet           Only show image IDs
 
 ------------------------------------------------------------
+[ docker image --help ]
+
+Usage:  docker image COMMAND
+
+Manage images
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Run 'docker image COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
 [ docker image build --help ]
 
 Usage:  docker image build [OPTIONS] PATH | URL | -
@@ -1674,29 +1697,6 @@ Usage:  docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
 
 ------------------------------------------------------------
-[ docker image --help ]
-
-Usage:  docker image COMMAND
-
-Manage images
-
-Commands:
-  build       Build an image from a Dockerfile
-  history     Show the history of an image
-  import      Import the contents from a tarball to create a filesystem image
-  inspect     Display detailed information on one or more images
-  load        Load an image from a tar archive or STDIN
-  ls          List images
-  prune       Remove unused images
-  pull        Pull an image or a repository from a registry
-  push        Push an image or a repository to a registry
-  rm          Remove one or more images
-  save        Save one or more images to a tar archive (streamed to STDOUT by default)
-  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
-
-Run 'docker image COMMAND --help' for more information on a command.
-
-------------------------------------------------------------
 [ docker images --help ]
 
 Usage:  docker images [OPTIONS] [REPOSITORY[:TAG]]
@@ -1803,6 +1803,24 @@ Options:
       --until string   Show logs before a timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)
 
 ------------------------------------------------------------
+[ docker network --help ]
+
+Usage:  docker network COMMAND
+
+Manage networks
+
+Commands:
+  connect     Connect a container to a network
+  create      Create a network
+  disconnect  Disconnect a container from a network
+  inspect     Display detailed information on one or more networks
+  ls          List networks
+  prune       Remove all unused networks
+  rm          Remove one or more networks
+
+Run 'docker network COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
 [ docker network connect --help ]
 
 Usage:  docker network connect [OPTIONS] NETWORK CONTAINER
@@ -1901,22 +1919,22 @@ Aliases:
   rm, remove
 
 ------------------------------------------------------------
-[ docker network --help ]
+[ docker node --help ]
 
-Usage:  docker network COMMAND
+Usage:  docker node COMMAND
 
-Manage networks
+Manage Swarm nodes
 
 Commands:
-  connect     Connect a container to a network
-  create      Create a network
-  disconnect  Disconnect a container from a network
-  inspect     Display detailed information on one or more networks
-  ls          List networks
-  prune       Remove all unused networks
-  rm          Remove one or more networks
+  demote      Demote one or more nodes from manager in the swarm
+  inspect     Display detailed information on one or more nodes
+  ls          List nodes in the swarm
+  promote     Promote one or more nodes to manager in the swarm
+  ps          List tasks running on one or more nodes, defaults to current node
+  rm          Remove one or more nodes from the swarm
+  update      Update a node
 
-Run 'docker network COMMAND --help' for more information on a command.
+Run 'docker node COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker node demote --help ]
@@ -1999,29 +2017,32 @@ Options:
       --role string           Role of the node ("worker"|"manager")
 
 ------------------------------------------------------------
-[ docker node --help ]
-
-Usage:  docker node COMMAND
-
-Manage Swarm nodes
-
-Commands:
-  demote      Demote one or more nodes from manager in the swarm
-  inspect     Display detailed information on one or more nodes
-  ls          List nodes in the swarm
-  promote     Promote one or more nodes to manager in the swarm
-  ps          List tasks running on one or more nodes, defaults to current node
-  rm          Remove one or more nodes from the swarm
-  update      Update a node
-
-Run 'docker node COMMAND --help' for more information on a command.
-
-------------------------------------------------------------
 [ docker pause --help ]
 
 Usage:  docker pause CONTAINER [CONTAINER...]
 
 Pause all processes within one or more containers
+
+------------------------------------------------------------
+[ docker plugin --help ]
+
+Usage:  docker plugin COMMAND
+
+Manage plugins
+
+Commands:
+  create      Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
+  disable     Disable a plugin
+  enable      Enable a plugin
+  inspect     Display detailed information on one or more plugins
+  install     Install a plugin
+  ls          List plugins
+  push        Push a plugin to a registry
+  rm          Remove one or more plugins
+  set         Change settings for a plugin
+  upgrade     Upgrade an existing plugin
+
+Run 'docker plugin COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker plugin create --help ]
@@ -2133,27 +2154,6 @@ Options:
       --disable-content-trust   Skip image verification (default true)
       --grant-all-permissions   Grant all permissions necessary to run the plugin
       --skip-remote-check       Do not check if specified remote plugin matches existing plugin image
-
-------------------------------------------------------------
-[ docker plugin --help ]
-
-Usage:  docker plugin COMMAND
-
-Manage plugins
-
-Commands:
-  create      Create a plugin from a rootfs and configuration. Plugin data directory must contain config.json and rootfs directory.
-  disable     Disable a plugin
-  enable      Enable a plugin
-  inspect     Display detailed information on one or more plugins
-  install     Install a plugin
-  ls          List plugins
-  push        Push a plugin to a registry
-  rm          Remove one or more plugins
-  set         Change settings for a plugin
-  upgrade     Upgrade an existing plugin
-
-Run 'docker plugin COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker port --help ]
@@ -2377,6 +2377,21 @@ Options:
       --no-trunc        Don't truncate output
 
 ------------------------------------------------------------
+[ docker secret --help ]
+
+Usage:  docker secret COMMAND
+
+Manage Docker secrets
+
+Commands:
+  create      Create a secret from a file or STDIN as content
+  inspect     Display detailed information on one or more secrets
+  ls          List secrets
+  rm          Remove one or more secrets
+
+Run 'docker secret COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
 [ docker secret create --help ]
 
 Usage:  docker secret create [OPTIONS] SECRET [file|-]
@@ -2425,19 +2440,24 @@ Aliases:
   rm, remove
 
 ------------------------------------------------------------
-[ docker secret --help ]
+[ docker service --help ]
 
-Usage:  docker secret COMMAND
+Usage:  docker service COMMAND
 
-Manage Docker secrets
+Manage services
 
 Commands:
-  create      Create a secret from a file or STDIN as content
-  inspect     Display detailed information on one or more secrets
-  ls          List secrets
-  rm          Remove one or more secrets
+  create      Create a new service
+  inspect     Display detailed information on one or more services
+  logs        Fetch the logs of a service or task
+  ls          List services
+  ps          List the tasks of one or more services
+  rm          Remove one or more services
+  rollback    Revert changes to a service's configuration
+  scale       Scale one or multiple replicated services
+  update      Update a service
 
-Run 'docker secret COMMAND --help' for more information on a command.
+Run 'docker service COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker service create --help ]
@@ -2708,26 +2728,6 @@ Options:
   -w, --workdir string                     Working directory inside the container
 
 ------------------------------------------------------------
-[ docker service --help ]
-
-Usage:  docker service COMMAND
-
-Manage services
-
-Commands:
-  create      Create a new service
-  inspect     Display detailed information on one or more services
-  logs        Fetch the logs of a service or task
-  ls          List services
-  ps          List the tasks of one or more services
-  rm          Remove one or more services
-  rollback    Revert changes to a service's configuration
-  scale       Scale one or multiple replicated services
-  update      Update a service
-
-Run 'docker service COMMAND --help' for more information on a command.
-
-------------------------------------------------------------
 [ docker stack deploy --help ]
 
 Usage:  docker stack deploy [OPTIONS] STACK
@@ -2854,6 +2854,25 @@ Options:
   -t, --time int   Seconds to wait for stop before killing it (default 10)
 
 ------------------------------------------------------------
+[ docker swarm --help ]
+
+Usage:  docker swarm COMMAND
+
+Manage Swarm
+
+Commands:
+  ca          Display and rotate the root CA
+  init        Initialize a swarm
+  join        Join a swarm as a node and/or manager
+  join-token  Manage join tokens
+  leave       Leave the swarm
+  unlock      Unlock swarm
+  unlock-key  Manage the unlock key
+  update      Update the swarm
+
+Run 'docker swarm COMMAND --help' for more information on a command.
+
+------------------------------------------------------------
 [ docker swarm ca --help ]
 
 Usage:  docker swarm ca [OPTIONS]
@@ -2964,23 +2983,19 @@ Options:
       --task-history-limit int          Task history retention limit (default 5)
 
 ------------------------------------------------------------
-[ docker swarm --help ]
+[ docker system --help ]
 
-Usage:  docker swarm COMMAND
+Usage:  docker system COMMAND
 
-Manage Swarm
+Manage Docker
 
 Commands:
-  ca          Display and rotate the root CA
-  init        Initialize a swarm
-  join        Join a swarm as a node and/or manager
-  join-token  Manage join tokens
-  leave       Leave the swarm
-  unlock      Unlock swarm
-  unlock-key  Manage the unlock key
-  update      Update the swarm
+  df          Show docker disk usage
+  events      Get real time events from the server
+  info        Display system-wide information
+  prune       Remove unused data
 
-Run 'docker swarm COMMAND --help' for more information on a command.
+Run 'docker system COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker system df --help ]
@@ -3030,21 +3045,6 @@ Options:
       --volumes         Prune volumes
 
 ------------------------------------------------------------
-[ docker system --help ]
-
-Usage:  docker system COMMAND
-
-Manage Docker
-
-Commands:
-  df          Show docker disk usage
-  events      Get real time events from the server
-  info        Display system-wide information
-  prune       Remove unused data
-
-Run 'docker system COMMAND --help' for more information on a command.
-
-------------------------------------------------------------
 [ docker tag --help ]
 
 Usage:  docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
@@ -3057,6 +3057,24 @@ Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
 Usage:  docker top CONTAINER [ps OPTIONS]
 
 Display the running processes of a container
+
+------------------------------------------------------------
+[ docker trust --help ]
+
+Usage:  docker trust COMMAND
+
+Manage trust on Docker images
+
+Management Commands:
+  key         Manage keys for signing Docker images
+  signer      Manage entities who can sign Docker images
+
+Commands:
+  inspect     Return low-level information about keys and signatures
+  revoke      Remove trust for an image
+  sign        Sign an image
+
+Run 'docker trust COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker trust inspect --help ]
@@ -3115,24 +3133,6 @@ Commands:
 Run 'docker trust signer COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
-[ docker trust --help ]
-
-Usage:  docker trust COMMAND
-
-Manage trust on Docker images
-
-Management Commands:
-  key         Manage keys for signing Docker images
-  signer      Manage entities who can sign Docker images
-
-Commands:
-  inspect     Return low-level information about keys and signatures
-  revoke      Remove trust for an image
-  sign        Sign an image
-
-Run 'docker trust COMMAND --help' for more information on a command.
-
-------------------------------------------------------------
 [ docker unpause --help ]
 
 Usage:  docker unpause CONTAINER [CONTAINER...]
@@ -3173,6 +3173,22 @@ Show the Docker version information
 Options:
   -f, --format string       Format the output using the given Go template
       --kubeconfig string   Kubernetes config file
+
+------------------------------------------------------------
+[ docker volume --help ]
+
+Usage:  docker volume COMMAND
+
+Manage volumes
+
+Commands:
+  create      Create a volume
+  inspect     Display detailed information on one or more volumes
+  ls          List volumes
+  prune       Remove all unused local volumes
+  rm          Remove one or more volumes
+
+Run 'docker volume COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker volume create --help ]
@@ -3240,22 +3256,6 @@ hello
 
 Options:
   -f, --force   Force the removal of one or more volumes
-
-------------------------------------------------------------
-[ docker volume --help ]
-
-Usage:  docker volume COMMAND
-
-Manage volumes
-
-Commands:
-  create      Create a volume
-  inspect     Display detailed information on one or more volumes
-  ls          List volumes
-  prune       Remove all unused local volumes
-  rm          Remove one or more volumes
-
-Run 'docker volume COMMAND --help' for more information on a command.
 
 ------------------------------------------------------------
 [ docker wait --help ]

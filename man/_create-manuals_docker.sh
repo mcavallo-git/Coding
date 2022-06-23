@@ -11,10 +11,11 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND}");
   COMMANDS_ARRAY+=("${COMMAND} attach");
   COMMANDS_ARRAY+=("${COMMAND} build");
+  COMMANDS_ARRAY+=("${COMMAND} builder");
   COMMANDS_ARRAY+=("${COMMAND} builder build");
   COMMANDS_ARRAY+=("${COMMAND} builder prune");
-  COMMANDS_ARRAY+=("${COMMAND} builder");
   COMMANDS_ARRAY+=("${COMMAND} commit");
+  COMMANDS_ARRAY+=("${COMMAND} compose");
   COMMANDS_ARRAY+=("${COMMAND} compose build");
   COMMANDS_ARRAY+=("${COMMAND} compose convert");
   COMMANDS_ARRAY+=("${COMMAND} compose cp");
@@ -40,12 +41,12 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} compose unpause");
   COMMANDS_ARRAY+=("${COMMAND} compose up");
   COMMANDS_ARRAY+=("${COMMAND} compose version");
-  COMMANDS_ARRAY+=("${COMMAND} compose");
+  COMMANDS_ARRAY+=("${COMMAND} config");
   COMMANDS_ARRAY+=("${COMMAND} config create");
   COMMANDS_ARRAY+=("${COMMAND} config inspect");
   COMMANDS_ARRAY+=("${COMMAND} config ls");
   COMMANDS_ARRAY+=("${COMMAND} config rm");
-  COMMANDS_ARRAY+=("${COMMAND} config");
+  COMMANDS_ARRAY+=("${COMMAND} container");
   COMMANDS_ARRAY+=("${COMMAND} container attach");
   COMMANDS_ARRAY+=("${COMMAND} container commit");
   COMMANDS_ARRAY+=("${COMMAND} container cp");
@@ -71,7 +72,7 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} container unpause");
   COMMANDS_ARRAY+=("${COMMAND} container update");
   COMMANDS_ARRAY+=("${COMMAND} container wait");
-  COMMANDS_ARRAY+=("${COMMAND} container");
+  COMMANDS_ARRAY+=("${COMMAND} context");
   COMMANDS_ARRAY+=("${COMMAND} context create");
   COMMANDS_ARRAY+=("${COMMAND} context export");
   COMMANDS_ARRAY+=("${COMMAND} context import");
@@ -80,7 +81,6 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} context rm");
   COMMANDS_ARRAY+=("${COMMAND} context update");
   COMMANDS_ARRAY+=("${COMMAND} context use");
-  COMMANDS_ARRAY+=("${COMMAND} context");
   COMMANDS_ARRAY+=("${COMMAND} cp");
   COMMANDS_ARRAY+=("${COMMAND} create");
   COMMANDS_ARRAY+=("${COMMAND} diff");
@@ -88,6 +88,7 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} exec");
   COMMANDS_ARRAY+=("${COMMAND} export");
   COMMANDS_ARRAY+=("${COMMAND} history");
+  COMMANDS_ARRAY+=("${COMMAND} image");
   COMMANDS_ARRAY+=("${COMMAND} image build");
   COMMANDS_ARRAY+=("${COMMAND} image history");
   COMMANDS_ARRAY+=("${COMMAND} image import");
@@ -100,7 +101,6 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} image rm");
   COMMANDS_ARRAY+=("${COMMAND} image save");
   COMMANDS_ARRAY+=("${COMMAND} image tag");
-  COMMANDS_ARRAY+=("${COMMAND} image");
   COMMANDS_ARRAY+=("${COMMAND} images");
   COMMANDS_ARRAY+=("${COMMAND} import");
   COMMANDS_ARRAY+=("${COMMAND} info");
@@ -110,6 +110,7 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} login");
   COMMANDS_ARRAY+=("${COMMAND} logout");
   COMMANDS_ARRAY+=("${COMMAND} logs");
+  COMMANDS_ARRAY+=("${COMMAND} network");
   COMMANDS_ARRAY+=("${COMMAND} network connect");
   COMMANDS_ARRAY+=("${COMMAND} network create");
   COMMANDS_ARRAY+=("${COMMAND} network disconnect");
@@ -117,7 +118,7 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} network ls");
   COMMANDS_ARRAY+=("${COMMAND} network prune");
   COMMANDS_ARRAY+=("${COMMAND} network rm");
-  COMMANDS_ARRAY+=("${COMMAND} network");
+  COMMANDS_ARRAY+=("${COMMAND} node");
   COMMANDS_ARRAY+=("${COMMAND} node demote");
   COMMANDS_ARRAY+=("${COMMAND} node inspect");
   COMMANDS_ARRAY+=("${COMMAND} node ls");
@@ -125,8 +126,8 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} node ps");
   COMMANDS_ARRAY+=("${COMMAND} node rm");
   COMMANDS_ARRAY+=("${COMMAND} node update");
-  COMMANDS_ARRAY+=("${COMMAND} node");
   COMMANDS_ARRAY+=("${COMMAND} pause");
+  COMMANDS_ARRAY+=("${COMMAND} plugin");
   COMMANDS_ARRAY+=("${COMMAND} plugin create");
   COMMANDS_ARRAY+=("${COMMAND} plugin disable");
   COMMANDS_ARRAY+=("${COMMAND} plugin enable");
@@ -137,7 +138,6 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} plugin rm");
   COMMANDS_ARRAY+=("${COMMAND} plugin set");
   COMMANDS_ARRAY+=("${COMMAND} plugin upgrade");
-  COMMANDS_ARRAY+=("${COMMAND} plugin");
   COMMANDS_ARRAY+=("${COMMAND} port");
   COMMANDS_ARRAY+=("${COMMAND} ps");
   COMMANDS_ARRAY+=("${COMMAND} pull");
@@ -149,11 +149,12 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} run");
   COMMANDS_ARRAY+=("${COMMAND} save");
   COMMANDS_ARRAY+=("${COMMAND} search");
+  COMMANDS_ARRAY+=("${COMMAND} secret");
   COMMANDS_ARRAY+=("${COMMAND} secret create");
   COMMANDS_ARRAY+=("${COMMAND} secret inspect");
   COMMANDS_ARRAY+=("${COMMAND} secret ls");
   COMMANDS_ARRAY+=("${COMMAND} secret rm");
-  COMMANDS_ARRAY+=("${COMMAND} secret");
+  COMMANDS_ARRAY+=("${COMMAND} service");
   COMMANDS_ARRAY+=("${COMMAND} service create");
   COMMANDS_ARRAY+=("${COMMAND} service inspect");
   COMMANDS_ARRAY+=("${COMMAND} service logs");
@@ -163,7 +164,6 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} service rollback");
   COMMANDS_ARRAY+=("${COMMAND} service scale");
   COMMANDS_ARRAY+=("${COMMAND} service update");
-  COMMANDS_ARRAY+=("${COMMAND} service");
   COMMANDS_ARRAY+=("${COMMAND} stack deploy");
   COMMANDS_ARRAY+=("${COMMAND} stack ls");
   COMMANDS_ARRAY+=("${COMMAND} stack ps");
@@ -173,6 +173,7 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} start");
   COMMANDS_ARRAY+=("${COMMAND} stats");
   COMMANDS_ARRAY+=("${COMMAND} stop");
+  COMMANDS_ARRAY+=("${COMMAND} swarm");
   COMMANDS_ARRAY+=("${COMMAND} swarm ca");
   COMMANDS_ARRAY+=("${COMMAND} swarm init");
   COMMANDS_ARRAY+=("${COMMAND} swarm join");
@@ -181,29 +182,28 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} swarm unlock");
   COMMANDS_ARRAY+=("${COMMAND} swarm unlock-key");
   COMMANDS_ARRAY+=("${COMMAND} swarm update");
-  COMMANDS_ARRAY+=("${COMMAND} swarm");
+  COMMANDS_ARRAY+=("${COMMAND} system");
   COMMANDS_ARRAY+=("${COMMAND} system df");
   COMMANDS_ARRAY+=("${COMMAND} system events");
   COMMANDS_ARRAY+=("${COMMAND} system info");
   COMMANDS_ARRAY+=("${COMMAND} system prune");
-  COMMANDS_ARRAY+=("${COMMAND} system");
   COMMANDS_ARRAY+=("${COMMAND} tag");
   COMMANDS_ARRAY+=("${COMMAND} top");
+  COMMANDS_ARRAY+=("${COMMAND} trust");
   COMMANDS_ARRAY+=("${COMMAND} trust inspect");
   COMMANDS_ARRAY+=("${COMMAND} trust key");
   COMMANDS_ARRAY+=("${COMMAND} trust revoke");
   COMMANDS_ARRAY+=("${COMMAND} trust sign");
   COMMANDS_ARRAY+=("${COMMAND} trust signer");
-  COMMANDS_ARRAY+=("${COMMAND} trust");
   COMMANDS_ARRAY+=("${COMMAND} unpause");
   COMMANDS_ARRAY+=("${COMMAND} update");
   COMMANDS_ARRAY+=("${COMMAND} version");
+  COMMANDS_ARRAY+=("${COMMAND} volume");
   COMMANDS_ARRAY+=("${COMMAND} volume create");
   COMMANDS_ARRAY+=("${COMMAND} volume inspect");
   COMMANDS_ARRAY+=("${COMMAND} volume ls");
   COMMANDS_ARRAY+=("${COMMAND} volume prune");
   COMMANDS_ARRAY+=("${COMMAND} volume rm");
-  COMMANDS_ARRAY+=("${COMMAND} volume");
   COMMANDS_ARRAY+=("${COMMAND} wait");
 
   # ------------------------------

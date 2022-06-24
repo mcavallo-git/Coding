@@ -5,27 +5,7 @@
 #
 # jq - install
 #
-if [ $(which jq 2>'/dev/null' | wc -l;) -eq 0 ]; then
-  echo "Downloading/Installing jq...";
-  if [ "$(uname -s)" == "Linux" ] || [[ "${OSTYPE}" == linux-gnu* ]]; then
-    # Install jq for Linux
-    if [[ -n "$(command -v apt 2>'/dev/null';)" ]]; then  # Distros: Debian, Ubuntu, etc.
-      apt-get update -y; apt-get install -y "jq";
-    elif [[ -n "$(command -v yum 2>'/dev/null';)" ]]; then  # Distros: Fedora, Oracle Linux, Red Hat Enterprise Linux, CentOS, etc.
-      curl -o "/usr/bin/jq" "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64" && chmod 0755 "/usr/bin/jq";
-    fi;
-  elif [[ "${OSTYPE}" == "darwin"* ]]; then
-    # Install jq for MacOS
-    echo "Error - Need install logic for [ jq ] on MacOS environments";
-  else
-    # Install jq for Windows
-    mkdir -p "${HOME}/bin";
-    curl -L -o "${HOME}/bin/jq.exe" "https://github.com/stedolan/jq/releases/latest/download/jq-win64.exe";
-  fi;
-  echo "";
-  echo "which jq = [ $(which jq 2>'/dev/null';) ]";
-  echo "";
-fi;
+curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_jq?t=$(date +'%s.%N')" | bash;
 
 
 # ------------------------------------------------------------

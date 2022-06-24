@@ -453,18 +453,26 @@ fi;
 
 # ------------------------------------------------------------
 # 
-# Example)  Parse Terraform's latest version from their downloads URL ( as they intentionally do not provide a pointer to the "latest" version of Terraform - reference: https://github.com/hashicorp/terraform/issues/9803 )
+# Example)  Parse jq's latest version from its GitHub releases page ( https://github.com/stedolan/jq/releases )
 #
-TERRAFORM_LATEST_VERSION="$(curl https://www.terraform.io/downloads.html | grep 'https://releases.hashicorp.com/terraform/' | grep -i 'linux' | head -n 1 | sed -re "s/^.+https:\/\/releases\.hashicorp\.com\/terraform\/([0-9\.]+)\/.+$/\1/";)";
-echo "\${TERRAFORM_LATEST_VERSION}=[${TERRAFORM_LATEST_VERSION}]";
+JQ_LATEST_VERSION=$(curl -sL https://github.com/stedolan/jq/releases | sed -rne "s/^.+\/stedolan\/jq\/releases\/download\/jq-([0-9\.]+)\/jq-linux64.+$/\1/p" | head -n 1;);
+echo "\${KOMPOSE_LATEST_VERSION}=[${JQ_LATEST_VERSION}]";
 
 
 # ------------------------------------------------------------
 # 
-# Example)  Parse Kompose's latest version from their GitHub releases page (https://github.com/kubernetes/kompose/releases)
+# Example)  Parse kompose's latest version from its GitHub releases page ( https://github.com/kubernetes/kompose/releases )
 #
 KOMPOSE_LATEST_VERSION=$(curl -sL https://github.com/kubernetes/kompose/releases | sed -rne "s/^.+\/kubernetes\/kompose\/releases\/download\/v([0-9\.]+)\/kompose-linux-amd64.+$/\1/p" | head -n 1;);
 echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";
+
+
+# ------------------------------------------------------------
+# 
+# Example)  Parse terraform's latest version from its downloads page ( as they intentionally do not provide a pointer to the "latest" version of Terraform - reference: https://github.com/hashicorp/terraform/issues/9803 )
+#
+TERRAFORM_LATEST_VERSION="$(curl https://www.terraform.io/downloads.html | grep 'https://releases.hashicorp.com/terraform/' | grep -i 'linux' | head -n 1 | sed -re "s/^.+https:\/\/releases\.hashicorp\.com\/terraform\/([0-9\.]+)\/.+$/\1/";)";
+echo "\${TERRAFORM_LATEST_VERSION}=[${TERRAFORM_LATEST_VERSION}]";
 
 
 # ------------------------------------------------------------

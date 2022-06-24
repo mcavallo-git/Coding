@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - jq (command-line interpreter-processor for [ JSON query language ] JSON queries)
+# Linux - jq (command-line JSON interpreter-processor for [ JSON query language ])
 # ------------------------------------------------------------
 #
 # jq - install

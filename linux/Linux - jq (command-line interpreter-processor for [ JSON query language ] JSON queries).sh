@@ -84,7 +84,7 @@ echo -e "Sorted:\n$(echo "${JSON}" | jq -r 'sort_by(.name) | .[].name';)";
 
 
 # jq - Sort by PROPERTY using 'sort_by(...)'   (ex 2)
-#  |-->  Get the list of preview features enabled for the user's default Microsoft Azure Cloud Subscription
+#  |--> az cli - Get the list of preview features enabled for the user's default Microsoft Azure Cloud Subscription
 az feature list | jq -r 'sort_by(.name) | .[] | select(.properties.state=="Registered") | .name';
 
 

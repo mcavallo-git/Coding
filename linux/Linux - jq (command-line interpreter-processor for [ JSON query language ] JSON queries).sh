@@ -61,7 +61,31 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 #
 # jq - count the number of items in an array (get the length of target object/array)
 #
+
+# jq 'length'
 CIDR_ARR="$(curl -s "https://ip-ranges.atlassian.com" | jq -e '.items';)"; echo "${CIDR_ARR}" | jq -e 'length';
+
+
+# ------------------------------------------------------------
+#
+# jq - Sorting
+#
+
+# jq - Sort by KEY using --sort-keys   (ex 1)
+JSON='{"CCC":"CCC","BBB":"BBB","AAA":"AAA"}';
+echo -e "Unsorted:\n$(echo "${JSON}" | jq;)";
+echo -e "Sorted:\n$(echo "${JSON}" | jq --sort-keys;)";
+
+
+# jq - Sort by PROPERTY using 'sort_by(...)'   (ex 1)
+JSON='[{"name":"CCC","num":"333"},{"name":"BBB","num":"222"},{"name":"AAA","num":"111"}]';
+echo -e "Unsorted:\n$(echo "${JSON}" | jq -r '.[].name';)";
+echo -e "Sorted:\n$(echo "${JSON}" | jq -r 'sort_by(.name) | .[].name';)";
+
+
+# jq - Sort by PROPERTY using 'sort_by(...)'   (ex 2)
+#  |-->  Get the list of preview features enabled for the user's default Microsoft Azure Cloud Subscription
+az feature list | jq -r 'sort_by(.name) | .[] | select(.properties.state=="Registered") | .name'
 
 
 # ------------------------------------------------------------
@@ -194,7 +218,7 @@ cat "/etc/docker/daemon.json" | jq;
 # jq - Search a JSON array for a specific value
 #
 
-if [ "1" == "1" ]; then
+if [[ 1 -eq 1 ]]; then
 echo "------------------------------------------------------------";
 CONTENTS_JSON="[\"refs/heads/dev\",\"refs/heads/main\",\"refs/heads/master\"]";
 TEMP_JSON=$(mktemp;);
@@ -342,6 +366,8 @@ fi;
 #   github.com  |  "GitHub - stedolan/jq: Command-line JSON processor"  |  https://github.com/stedolan/jq/
 #
 #   github.io  |  "[jq] Tutorial"  |  https://stedolan.github.io/jq/tutorial/
+#
+#   phpfog.com  |  "Sorting JSON by Value with JQ (Command Line JSON Processor) - PHPFog.com"  |  https://phpfog.com/sorting-json-by-value-with-jq
 #
 #   serverfault.com  |  "How to install jq on RHEL6.5 - Server Fault"  |  https://serverfault.com/a/768061
 #

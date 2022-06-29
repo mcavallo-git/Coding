@@ -593,9 +593,8 @@ function ExclusionsListUpdate {
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for extension:  `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
-            Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
-            Write-Output "EXIT_CODE=[${EXIT_CODE}]";
-            If (${EXIT_CODE} -Eq 0) {
+            Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue";
+            If (${?} -Eq $True) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
@@ -628,9 +627,8 @@ function ExclusionsListUpdate {
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:  `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
-            Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
-            Write-Output "EXIT_CODE=[${EXIT_CODE}]";
-            If (${EXIT_CODE} -Eq 0) {
+            Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue";
+            If (${?} -Eq $True) {
               If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:     `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for process:    `"$_`""); }
@@ -665,8 +663,8 @@ function ExclusionsListUpdate {
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath:  `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
-            Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
-            If (${EXIT_CODE} -Eq 0) {
+            Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue";
+            If (${?} -Eq $True) {
               If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:     `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }

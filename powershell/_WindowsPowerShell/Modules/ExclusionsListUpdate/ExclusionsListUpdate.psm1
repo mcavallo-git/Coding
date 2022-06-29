@@ -763,11 +763,13 @@ function ExclusionsListUpdate {
 
       $DefenderExclusions_Removed = ((${ProcessExclusions_Removed}.Count) + (${FilepathExclusions_Removed}.Count));
       Write-Output "";
-      Write-Output "Windows Defender exclusions (Added):   ${DefenderExclusions_Added}";
-      Write-Output "Windows Defender exclusions (Skipped): ${DefenderExclusions_Skipped}";
+      Write-Output "Windows Defender exclusions (Added):    ${DefenderExclusions_Added}";
+      Write-Output "";
+      Write-Output "Windows Defender exclusions (Skipped):  ${DefenderExclusions_Skipped}";
       Write-Output "";
       Write-Output "Windows Defender exclusions (Removed):  ${DefenderExclusions_Removed}";
-      Write-Output "Windows Defender exclusions (Errors):  ${DefenderExclusions_Errors}";
+      Write-Output "";
+      Write-Output "Windows Defender exclusions (Errors):   ${DefenderExclusions_Errors}";
       Write-Output "";
 
     }

@@ -594,10 +594,10 @@ function ExclusionsListUpdate {
           }
           <# Add exclusion via Registry edit #>
           If (${AddMpPref_Errors} -GT 0) {
-            If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null {
+            If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null) {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
-              If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null {
+              If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null) {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:     `"$_`""); }
               } Else {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension:   `"$_`""); }
@@ -629,10 +629,10 @@ function ExclusionsListUpdate {
           }
           <# Add exclusion via Registry edit #>
           If (${AddMpPref_Errors} -GT 0) {
-            If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null {
+            If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null) {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
-              If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null {
+              If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null) {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
               } Else {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for process:   `"$_`""); }
@@ -664,10 +664,10 @@ function ExclusionsListUpdate {
           }
           <# Add exclusion via Registry edit #>
           If (${AddMpPref_Errors} -GT 0) {
-            If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null {
+            If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null) {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
-              If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null {
+              If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null) {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:     `"$_`""); }
               } Else {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for filepath:   `"$_`""); }
@@ -740,7 +740,7 @@ function ExclusionsListUpdate {
       Write-Output "Windows Defender exclusions (Active)  - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";
 
     }
-    #
+
     # ------------------------------------------------------------
     #
     $WaitCloseSeconds = 60;
@@ -788,7 +788,7 @@ function ESET_ExportModifier {
     Set-Content -Path ($Fullpath_NewImport) -Value (Get-Content -Path ("$ESET_ExportToCopyFrom"));
     $XmlDoc = New-Object -TypeName "System.Xml.XmlDocument";
     $XmlDoc.Load($Fullpath_NewImport);
-    #
+
     # ------------------------------------------------------------
     #
     # [ ESET ] All Process exclusions

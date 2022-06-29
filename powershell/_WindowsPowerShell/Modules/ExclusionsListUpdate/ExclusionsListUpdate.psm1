@@ -593,7 +593,7 @@ function ExclusionsListUpdate {
         $FoundExtensions | Select-Object -Unique | ForEach-Object {
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for extension:   `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
-            <# Add exclusion via the "Add-MpPreference" cmdlet #>
+            <# Add exclusion via the 'Add-MpPreference' cmdlet #>
             Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue";
             If (${?} -Eq $True) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension:   `"$_`""); }
@@ -630,8 +630,8 @@ Write-Output ("Create registry key");
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:   `"$_`"..."; }
 Write-Output ("1 - AddMpPref_Errors = [ ${AddMpPref_Errors} ]");
           If (${AddMpPref_Errors} -Eq 0) {
-            <# Add exclusion via the "Add-MpPreference" cmdlet #>
-Write-Output 'Add exclusion via the "Add-MpPreference" cmdlet';
+            <# Add exclusion via the 'Add-MpPreference' cmdlet #>
+Write-Output ("Add exclusion via the 'Add-MpPreference' cmdlet");
             Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue";
             If (${?} -Eq $True) {
               If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:   `"$_`""); }
@@ -677,7 +677,7 @@ Write-Output ("Skipping exclusion (already exists) for process:   `"$_`"");
         (${FoundFilepaths} + ${FoundProcesses}) | Select-Object -Unique | ForEach-Object {
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath:   `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
-            <# Add exclusion via the "Add-MpPreference" cmdlet #>
+            <# Add exclusion via the 'Add-MpPreference' cmdlet #>
             Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue";
             If (${?} -Eq $True) {
               If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:   `"$_`""); }

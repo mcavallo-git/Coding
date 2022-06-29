@@ -9,11 +9,17 @@
 #   |      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
 #   |
 #   |--> Example Call(s):
+#
 #          ExclusionsListUpdate -Defender -DryRun;
+#
 #          ExclusionsListUpdate -Defender -Entertainment;
+#          ExclusionsListUpdate -Defender -Entertainment -DryRun;
 #          ExclusionsListUpdate -Defender -Entertainment -NoSys32;
 #          ExclusionsListUpdate -Defender -Entertainment -SkipMpPref;
 #          ExclusionsListUpdate -Defender -Entertainment -NoSys32 -SkipMpPref;
+#
+#          ExclusionsListUpdate -DisableControlledFolders;
+#
 #          ExclusionsListUpdate -ESET -MalwarebytesAntiRansomware -Defender;
 #
 # ------------------------------------------------------------
@@ -132,7 +138,10 @@ function ExclusionsListUpdate {
       Write-Output "`nDisabling `"Controlled folder access`" setting (e.g. allowing access to `"Controlled`" folders)";
       If (${RunMode_DryRun} -Eq $False) {
         <# Allow access to controlled folders (disables "Controlled folder access" setting)  -  https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess #>
-        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") | Out-Null; };
+        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access"))) {
+          <# Create registry key #>
+          New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") | Out-Null;
+        };
         Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") -Name ("EnableControlledFolderAccess") -Value (0) | Out-Null;
       }
     }
@@ -756,10 +765,16 @@ function ExclusionsListUpdate {
       Write-Output "`nSetting registry key(s) to ensure that exclusion lists are used by Windows Defender";
       If (${RunMode_DryRun} -Eq $False) {
         <# Configure local setting override for monitoring file and program activity on your computer - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection #>
-        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") | Out-Null; };
+        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"))) {
+          <# Create registry key #>
+          New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") | Out-Null;
+        };
         Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") -Name ("LocalSettingOverrideDisableOnAccessProtection") -Value (1) | Out-Null;
         <# Configure local administrator merge behavior for lists  -  https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::DisableLocalAdminMerge #>
-        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") | Out-Null; };
+        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender"))) {
+          <# Create registry key #>
+          New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") | Out-Null;
+        };
         Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") -Name ("DisableLocalAdminMerge") -Value (0) | Out-Null;
       }
 

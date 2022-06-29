@@ -9,9 +9,11 @@
 #   |      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
 #   |
 #   |--> Example Call(s):
+#          ExclusionsListUpdate -Defender -DryRun;
 #          ExclusionsListUpdate -Defender -Entertainment;
 #          ExclusionsListUpdate -Defender -Entertainment -NoSys32;
-#          ExclusionsListUpdate -Defender -DryRun;
+#          ExclusionsListUpdate -Defender -Entertainment -SkipMpPref;
+#          ExclusionsListUpdate -Defender -Entertainment -NoSys32 -SkipMpPref;
 #          ExclusionsListUpdate -ESET -MalwarebytesAntiRansomware -Defender;
 #
 # ------------------------------------------------------------

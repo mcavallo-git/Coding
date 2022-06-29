@@ -4354,21 +4354,29 @@ XBox_DownloadDelete_GameClips() {
       Sleep 2000
     }
   }
-  If (MediaFiles_Processed > 0) {
+
+
+  Fullpath_Output_XboxCaptures := ( EnvGet("USERPROFILE") "\Videos\Captures" )
+  XboxCapture_FileCount := 0
+  Loop Files, % Fullpath_Output_XboxCaptures "\*"
+  {
+    XboxCapture_FileCount++
+  }
+  If ((MediaFiles_Processed > 0) || (XboxCapture_FileCount > 0)) {
     ;
     ; Open the timestamping script (renames files to their basename plus their metadata created-on date)
     ;
+    Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "XboxCapture_FileCount = [ " XboxCapture_FileCount " ]"
     Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Running metadata-timestamper script..."
     Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-    Run, WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0; echo 'Closing in 30s...'; sleep 30;"
+    Run, WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0;"
     Sleep 2000
     ;
     ; Open the output-videos directory
     ;
     Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
     Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-    Fullpath_XboxCaptures := ( EnvGet("USERPROFILE") "\Videos\Captures" )
-    Run "%Fullpath_XboxCaptures%"
+    Run "%Fullpath_Output_XboxCaptures%"
     Sleep 2000
     Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
     Tooltip, % ( Tooltip_Closer_Stats ), 1, 1

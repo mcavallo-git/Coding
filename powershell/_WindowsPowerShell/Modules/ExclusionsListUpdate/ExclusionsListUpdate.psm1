@@ -9,9 +9,9 @@
 #   |      Updates/Adds exclusions (to anti-virus/anti-malware software) for files/runtimes which exist on local device
 #   |
 #   |--> Example Call(s):
-#          ExclusionsListUpdate -Defender -Entertainment -RemoveMissing;
-#          ExclusionsListUpdate -ESET -MalwarebytesAntiRansomware -Defender;
+#          ExclusionsListUpdate -Defender -Entertainment;
 #          ExclusionsListUpdate -Defender -DryRun;
+#          ExclusionsListUpdate -ESET -MalwarebytesAntiRansomware -Defender;
 #
 # ------------------------------------------------------------
 function ExclusionsListUpdate {

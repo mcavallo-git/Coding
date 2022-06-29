@@ -4358,10 +4358,9 @@ XBox_DownloadDelete_GameClips() {
     ;
     ; Open the timestamping script (renames files to their basename plus their metadata created-on date)
     ;
-    Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening metadata-timestamper script..."
+    Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Running metadata-timestamper script..."
     Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
-    Timestamping_Script := % ( EnvGet("USERPROFILE") "\Documents\GitHub\cloud-infrastructure/usr/local/bin/bulk_rename_based_on_media_creation_date" )
-    Run, Notepad "%Timestamping_Script%"
+    Run, WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0; echo 'Closing in 30s...'; sleep 30;"
     Sleep 2000
     ;
     ; Open the output-videos directory

@@ -4354,27 +4354,22 @@ XBox_DownloadDelete_GameClips() {
       Sleep 2000
     }
   }
-  ;
   ; Even if no files were processed, check to see if there are any files to rename
-  ;
   Fullpath_Output_XboxCaptures := ( EnvGet("USERPROFILE") "\Videos\Captures" )
   XboxCapture_FileCount := 0
+  ; Count files in a directory --> https://lexikos.github.io/v2/docs/commands/LoopFiles.htm
   Loop Files, % Fullpath_Output_XboxCaptures "\*"
   {
     XboxCapture_FileCount++
   }
   If ((MediaFiles_Processed > 0) || (XboxCapture_FileCount > 0)) {
-    ;
-    ; Open the timestamping script (renames files to their basename plus their metadata created-on date)
-    ;
+    ; Run the timestamping script (renames files to their basename plus their metadata created-on date)
     Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "XboxCapture_FileCount = [ " XboxCapture_FileCount " ]"
     Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Running metadata-timestamper script..."
     Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
     Run, WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0;"
     Sleep 2000
-    ;
-    ; Open the output-videos directory
-    ;
+    ; Open the output videos directory
     Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
     Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
     Run "%Fullpath_Output_XboxCaptures%"

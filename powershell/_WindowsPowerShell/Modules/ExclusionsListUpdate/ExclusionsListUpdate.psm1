@@ -578,7 +578,7 @@ function ExclusionsListUpdate {
 
         $AddMpPref_Errors=0;
 
-        <# Apply extension exclusions #>
+        <# Windows Defender - Extension Exclusions #>
         $RegistryExclusions_Extensions="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions";
         If ((Test-Path -LiteralPath ("${RegistryExclusions_Extensions}")) -Eq $False) {
           New-Item -Force -Path ("${RegistryExclusions_Extensions}") | Out-Null;
@@ -611,7 +611,7 @@ function ExclusionsListUpdate {
           }
         }
 
-        <# Apply process exclusions (for matching files found locally) #>
+        <# Windows Defender - Process Exclusions #>
         $RegistryExclusions_Processes="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Processes";
         If ((Test-Path -LiteralPath ("${RegistryExclusions_Processes}")) -Eq $False) {
           New-Item -Force -Path ("${RegistryExclusions_Processes}") | Out-Null;
@@ -646,7 +646,7 @@ function ExclusionsListUpdate {
           }
         }
 
-        <# Apply filepath exclusions (for matching files found locally) #>
+        <# Windows Defender - Filepath Exclusions #>
         $RegistryExclusions_Filepaths="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths";
         If ((Test-Path -LiteralPath ("${RegistryExclusions_Filepaths}")) -Eq $False) {
           New-Item -Force -Path ("${RegistryExclusions_Filepaths}") | Out-Null;

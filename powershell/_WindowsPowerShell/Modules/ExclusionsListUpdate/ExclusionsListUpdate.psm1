@@ -10,6 +10,7 @@
 #   |
 #   |--> Example Call(s):
 #          ExclusionsListUpdate -Defender -Entertainment;
+#          ExclusionsListUpdate -Defender -Entertainment -NoSys32;
 #          ExclusionsListUpdate -Defender -DryRun;
 #          ExclusionsListUpdate -ESET -MalwarebytesAntiRansomware -Defender;
 #
@@ -33,10 +34,11 @@ function ExclusionsListUpdate {
     $ExcludedProcesses = @(),
     $ExcludedExtensions = @(),
 
-    [Switch]$DisableControlledFolders,
 
+    [Switch]$DisableControlledFolders,
     [Switch]$DryRun,
     [Switch]$Entertainment,
+    [Switch]$NoSys32,
     [Switch]$Quiet,
     [Switch]$RemoveMissing,
     [Switch]$UseAdminUserDirs,
@@ -60,7 +62,7 @@ function ExclusionsListUpdate {
 
   $IncludeEntertainment = If ($PSBoundParameters.ContainsKey('Entertainment')) { $True } Else { $False };
 
-  $RunMode_DryRun = If ($PSBoundParameters.ContainsKey('DryRun') -Eq $True) { $True } Else { $False };
+  $RunMode_DryRun = If ($PSBoundParameters.ContainsKey('DryRun')) { $True } Else { $False };
 
   Write-Output "";
   Write-Output "  Exclusions List Update  ";
@@ -214,7 +216,9 @@ function ExclusionsListUpdate {
     $ExcludedFilepaths += ((${ProgData})+("\Sage"));
     $ExcludedFilepaths += ((${ProgData})+("\Sage Software"));
     # -- FILEPATHS -- Sys32
-    # -
+    If (!($PSBoundParameters.ContainsKey('NoSys32'))) {
+      # -
+    }
     # -- FILEPATHS -- SysDrive
     $ExcludedFilepaths += ((${SysDrive})+("\Sage"));
     $ExcludedFilepaths += ((${SysDrive})+("\BingBackground"));
@@ -384,44 +388,46 @@ function ExclusionsListUpdate {
     # -- PROCESSES -- ProgData
     # $ExcludedProcesses += ((${ProgData})+("\..."));
     # -- PROCESSES -- Sys32
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="ApplicationFrameHost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="AUDIODG.EXE"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="BackgroundTransferHost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="conhost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="csrss.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="CxAudMsg64.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dashost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="DbxSvc.exe"; }; # Dropbox
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="DllHost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dwm.exe"; }; # Desktop Window Manager
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dxdiag.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="fontdrvhost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="lsass.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mfevtps.exe"; }; # McAfee Process Validation service
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mmc.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="rundll32.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="RuntimeBroker.exe"; }; # Used by Windows 10 Style Apps (Speculation)
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="SearchIndexer.exe"; }; # Microsoft Windows Search Indexer
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="sihost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smartscreen.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smss.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="Taskmgr.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wininit.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="winlogon.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WLANExt.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wsl.exe"; }; # WSL (Windows Subsystem for Linux)
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WUDFHost.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="GfxDownloadWrapper.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxCUIService.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEM.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEMN.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxext.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxextN.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="IntelCpHDCPSvc.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="IntelCpHeciSvc.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Depth="1"; Parent=""; Basename="unsecapp.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Depth="1"; Parent=""; Basename="WmiPrvSE.exe"; };
-    $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="WindowsPowerShell\v1.0"; Depth="1"; Parent=""; Basename="powershell.exe"; };
+    If (!($PSBoundParameters.ContainsKey('NoSys32'))) {
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="ApplicationFrameHost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="AUDIODG.EXE"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="BackgroundTransferHost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="conhost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="csrss.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="CxAudMsg64.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dashost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="DbxSvc.exe"; }; # Dropbox
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="DllHost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dwm.exe"; }; # Desktop Window Manager
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="dxdiag.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="fontdrvhost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="lsass.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mfevtps.exe"; }; # McAfee Process Validation service
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="mmc.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="rundll32.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="RuntimeBroker.exe"; }; # Used by Windows 10 Style Apps (Speculation)
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="SearchIndexer.exe"; }; # Microsoft Windows Search Indexer
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="sihost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smartscreen.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="smss.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="Taskmgr.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wininit.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="winlogon.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WLANExt.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="wsl.exe"; }; # WSL (Windows Subsystem for Linux)
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir=""; Depth="0"; Parent=""; Basename="WUDFHost.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="GfxDownloadWrapper.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxCUIService.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEM.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxEMN.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxext.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="igfxextN.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="IntelCpHDCPSvc.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="DriverStore\FileRepository"; Depth=""; Parent=""; Basename="IntelCpHeciSvc.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Depth="1"; Parent=""; Basename="unsecapp.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="wbem"; Depth="1"; Parent=""; Basename="WmiPrvSE.exe"; };
+      $ExcludedProcesses += @{ Dirname=${Sys32}; AddDir="WindowsPowerShell\v1.0"; Depth="1"; Parent=""; Basename="powershell.exe"; };
+    }
     # -- PROCESSES -- SysDrive
     $ExcludedProcesses += @{ Dirname=${SysDrive}; AddDir="ProgramData\Logishrd"; Depth=""; Parent=""; Basename="Logi*.exe"; };
     $ExcludedProcesses += @{ Dirname=${SysDrive}; AddDir="ProgramData\Microsoft\Windows Defender\Platform"; Depth=""; Parent=""; Basename="MsMpEng.exe"; };

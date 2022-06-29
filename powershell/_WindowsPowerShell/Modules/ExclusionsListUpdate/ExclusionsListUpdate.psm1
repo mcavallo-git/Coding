@@ -661,7 +661,7 @@ Write-Output ("Successfully added exclusion for process:   `"$_`"");
               }
             } Else {
               <# Property already exists #>
-Write-Output ("Property already exists"); }
+Write-Output ("Property already exists");
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (already exists) for process:   `"$_`""); }
 Write-Output ("Skipping exclusion (already exists) for process:   `"$_`"");
             }

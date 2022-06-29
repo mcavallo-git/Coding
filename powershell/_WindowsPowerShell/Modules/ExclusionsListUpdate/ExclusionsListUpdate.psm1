@@ -588,6 +588,7 @@ function ExclusionsListUpdate {
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
             Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
+            Write-Output "EXIT_CODE=[${EXIT_CODE}]";
             If (${EXIT_CODE} -Eq 0) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
             } Else {
@@ -622,6 +623,7 @@ function ExclusionsListUpdate {
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
             Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
+            Write-Output "EXIT_CODE=[${EXIT_CODE}]";
             If (${EXIT_CODE} -Eq 0) {
               If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:     `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {

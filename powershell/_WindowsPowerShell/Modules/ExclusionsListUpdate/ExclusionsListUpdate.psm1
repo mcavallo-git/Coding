@@ -590,15 +590,15 @@ function ExclusionsListUpdate {
           New-Item -Force -Path ("${RegistryExclusions_Extensions}") | Out-Null;
         }
         $FoundExtensions | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for extension:  `"$_`"..."; }
+          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for extension:   `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
             Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue";
             If (${?} -Eq $True) {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension:   `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:     `"$_`""); }
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:   `"$_`""); }
             }
           }
           <# Add exclusion via Registry edit #>
@@ -607,7 +607,7 @@ function ExclusionsListUpdate {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
               If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null) {
-                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:     `"$_`""); }
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:   `"$_`""); }
               } Else {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension:   `"$_`""); }
               }
@@ -624,17 +624,17 @@ function ExclusionsListUpdate {
           New-Item -Force -Path ("${RegistryExclusions_Processes}") | Out-Null;
         }
         $FoundProcesses | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:  `"$_`"..."; }
+          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:   `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
             Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue";
             If (${?} -Eq $True) {
-              If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:     `"$_`""); }
+              If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:   `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for process:    `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:   `"$_`""); }
             }
           }
           <# Add exclusion via Registry edit #>
@@ -643,7 +643,7 @@ function ExclusionsListUpdate {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
               If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null) {
-                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:   `"$_`""); }
               } Else {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for process:   `"$_`""); }
               }
@@ -660,17 +660,17 @@ function ExclusionsListUpdate {
           New-Item -Force -Path ("${RegistryExclusions_Filepaths}") | Out-Null;
         }
         (${FoundFilepaths} + ${FoundProcesses}) | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath:  `"$_`"..."; }
+          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath:   `"$_`"..."; }
           If (${AddMpPref_Errors} -Eq 0) {
             <# Add exclusion via the "Add-MpPreference" cmdlet #>
             Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue";
             If (${?} -Eq $True) {
-              If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:     `"$_`""); }
+              If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:   `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:     `"$_`""); }
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:   `"$_`""); }
             }
           }
           <# Add exclusion via Registry edit #>
@@ -679,7 +679,7 @@ function ExclusionsListUpdate {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
               If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null) {
-                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:     `"$_`""); }
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:   `"$_`""); }
               } Else {
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for filepath:   `"$_`""); }
               }

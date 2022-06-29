@@ -448,21 +448,13 @@ function ExclusionsListUpdate {
     #
     #   APPLY THE EXCLUSIONS
     #
+
     $ExcludedExtensions | Select-Object -Unique | ForEach-Object {
       If ($_ -NE $Null) {
         $FoundExtensions += $_;
-        If ($WindowsDefender -Eq $True) {
-          If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
-            Add-MpPreference -ExclusionExtension "$_" -ErrorAction "Continue";
-            If ($? -Eq $True) {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
-            } Else {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to exlude extension:   `"$_`""); }
-            }
-          }
-        }
       }
     }
+
     # Determine which filepaths exist locally
     $ExcludedFilepaths | Select-Object -Unique | ForEach-Object {
       If ($_ -NE $Null) {
@@ -478,6 +470,7 @@ function ExclusionsListUpdate {
         }
       }
     }
+
     # Determine which processes exist locally
     $ExcludedProcesses | ForEach-Object {
       If ($_ -NE $Null) {
@@ -514,33 +507,33 @@ function ExclusionsListUpdate {
         }
       }
     }
-    # ------------------------------------------------------------
-    #
+
     # Show Filepaths/Processes found locally (before applying exclusions for them)
-    #
     If (!($PSBoundParameters.ContainsKey('Quiet'))) {
       Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -Eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
       Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -Eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
       Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -Eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
       Write-Output "`n";
     }
-    #
-    #
+
     # ------------------------------------------------------------
     #
     # ESET exclusions 
     #   Construct an Import-file which contains all exclusions
     #
+
     If ($ESET -Eq $True) {
       If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
         $ExitCode = ESET_ExportModifier -ESET_ExportToCopyFrom ($ESET_ExportToCopyFrom) -ESET_ExcludeFilepaths ($FoundFilepaths) -ESET_ExcludeExtensions ($FoundExtensions) -ESET_ExcludeProcesses ($FoundProcesses);
       }
     }
+
     # ------------------------------------------------------------
     #
     # Malwarebytes Anti-Ransomware
     #   Use [ malwarebytes_assistant.exe --exclusions add "FILEPATH" ] to add exclusions
     #
+
     If ($MalwarebytesAntiRansomware -Eq $True) {
 
       $MBAR_SearchDirname = ((${ProgFilesX64})+("\Malwarebytes"));
@@ -570,46 +563,124 @@ function ExclusionsListUpdate {
 
       }
     }
+
     # ------------------------------------------------------------
     #
     # Windows Defender exclusions
     #   Apply directly via PowerShell built-in command(s)
     #
+
     If ($WindowsDefender -Eq $True) {
 
       If (${RunMode_DryRun} -Eq $False) { <# NOT running in Dry Run mode #>
-        <# Apply process exclusions for matching files found locally #>
+
+        $AddMpPref_Errors=0;
+
+        <# Apply extension exclusions #>
+        $RegistryExclusions_Extensions="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions";
+        If ((Test-Path -LiteralPath ("${RegistryExclusions_Extensions}")) -Eq $False) {
+          New-Item -Force -Path ("${RegistryExclusions_Extensions}") | Out-Null;
+        }
+        $FoundExtensions | Select-Object -Unique | ForEach-Object {
+          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for extension:  `"$_`"..."; }
+          If (${AddMpPref_Errors} -Eq 0) {
+            <# Add exclusion via the "Add-MpPreference" cmdlet #>
+            Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
+            If (${EXIT_CODE} -Eq 0) {
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
+            } Else {
+              $AddMpPref_Errors++;
+            }
+          }
+          <# Add exclusion via Registry edit #>
+          If (${AddMpPref_Errors} -GT 0) {
+            If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null {
+              <# Property doesn't exist (yet) - Create it #>
+              New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
+              If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null {
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:     `"$_`""); }
+              } Else {
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension:   `"$_`""); }
+              }
+            } Else {
+              <# Property already exists #>
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (already exists) for extension:   `"$_`""); }
+            }
+          }
+        }
+
+        <# Apply process exclusions (for matching files found locally) #>
+        $RegistryExclusions_Processes="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Processes";
+        If ((Test-Path -LiteralPath ("${RegistryExclusions_Processes}")) -Eq $False) {
+          New-Item -Force -Path ("${RegistryExclusions_Processes}") | Out-Null;
+        }
         $FoundProcesses | Select-Object -Unique | ForEach-Object {
           If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:  `"$_`"..."; }
-          $EXIT_CODE=0;
-          Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
-          If (${EXIT_CODE} -Eq 0) {
-            If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:     `"$_`""); }
-          } Else {
-            If (Test-Path $_) {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
+          If (${AddMpPref_Errors} -Eq 0) {
+            <# Add exclusion via the "Add-MpPreference" cmdlet #>
+            Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
+            If (${EXIT_CODE} -Eq 0) {
+              If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for process:     `"$_`""); }
+            } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for process:    `"$_`""); }
             } Else {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
+              $AddMpPref_Errors++;
+            }
+          }
+          <# Add exclusion via Registry edit #>
+          If (${AddMpPref_Errors} -GT 0) {
+            If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null {
+              <# Property doesn't exist (yet) - Create it #>
+              New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
+              If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null {
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
+              } Else {
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for process:   `"$_`""); }
+              }
+            } Else {
+              <# Property already exists #>
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (already exists) for process:   `"$_`""); }
             }
           }
         }
-        <# Apply filepath exclusions for matching files found locally #>
+
+        <# Apply filepath exclusions (for matching files found locally) #>
+        $RegistryExclusions_Filepaths="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths";
+        If ((Test-Path -LiteralPath ("${RegistryExclusions_Filepaths}")) -Eq $False) {
+          New-Item -Force -Path ("${RegistryExclusions_Filepaths}") | Out-Null;
+        }
         (${FoundFilepaths} + ${FoundProcesses}) | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath: `"$_`"..."; }
-          $EXIT_CODE=0;
-          Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue"; $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
-          If (${EXIT_CODE} -Eq 0) {
-            If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:    `"$_`""); }
-          } Else {
-            If (Test-Path $_) {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:    `"$_`""); }
+          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath:  `"$_`"..."; }
+          If (${AddMpPref_Errors} -Eq 0) {
+            <# Add exclusion via the "Add-MpPreference" cmdlet #>
+            Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue"; $EXIT_CODE=([int](!${?}));
+            If (${EXIT_CODE} -Eq 0) {
+              If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output ("Successfully added exclusion for filepath:     `"$_`""); }
+            } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
             } Else {
-              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for process:     `"$_`""); }
+              $AddMpPref_Errors++;
+            }
+          }
+          <# Add exclusion via Registry edit #>
+          If (${AddMpPref_Errors} -GT 0) {
+            If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null {
+              <# Property doesn't exist (yet) - Create it #>
+              New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
+              If (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null {
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:     `"$_`""); }
+              } Else {
+                If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for filepath:   `"$_`""); }
+              }
+            } Else {
+              <# Property already exists #>
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (already exists) for filepath:   `"$_`""); }
             }
           }
         }
+
         If ($PSBoundParameters.ContainsKey('RemoveMissing')) {
-          <# Remove filepath exclusions for files NOT found locally #>
+          <# Remove filepath exclusions (for files NOT found locally) #>
           $FilepathExclusions_Removed = @();
           ((Get-MpPreference).ExclusionPath) | ForEach-Object {
             If ((Test-Path -LiteralPath ("$_")) -NE $True) {
@@ -620,7 +691,7 @@ function ExclusionsListUpdate {
               }
             }
           }
-          <# Remove process exclusions for files NOT found locally #>
+          <# Remove process exclusions (for files NOT found locally) #>
           $ProcessExclusions_Removed = @();
           ((Get-MpPreference).ExclusionProcess) | ForEach-Object {
             If ((Test-Path -LiteralPath ("$_")) -NE $True) {
@@ -632,9 +703,10 @@ function ExclusionsListUpdate {
             }
           }
         }
-        <# Ensure that exclusions lists set by "Add-MpPreference" are actually used #>
+
+        <# Ensure that exclusions lists are actually used by Windows Defender #>
         If ($True) {
-          Write-Output "`nSetting Registry Key values to ensure that exclusions lists set by `"Add-MpPreference`" are actually used";
+          Write-Output "`nSetting Registry Key value(s) to ensure that exclusions lists are used by Windows Defender";
           <# Configure local setting override for monitoring file and program activity on your computer - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection #>
           If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") | Out-Null; };
           Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection") -Name ("LocalSettingOverrideDisableOnAccessProtection") -Value (1) | Out-Null;
@@ -642,17 +714,21 @@ function ExclusionsListUpdate {
           If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") | Out-Null; };
           Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") -Name ("DisableLocalAdminMerge") -Value (0) | Out-Null;
         }
+
         <# Disable "Controlled folders" setting in Windows 10 #>
         If ($True) {
           <# Allow access to controlled folders (disables "Controlled folder access" setting)  -  https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess #>
           If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") | Out-Null; };
           Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") -Name ("EnableControlledFolderAccess") -Value (0) | Out-Null;
         }
+
       }
+
       # $FinalExclusions = @{};
       # ${FinalExclusions}.ExclusionExtension = ((Get-MpPreference).ExclusionExtension);
       # ${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
       # ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
+
       $FinalExclusions = (Get-MpPreference);
       Write-Output "";
       Write-Output "Windows Defender exclusions (Removed) - Filepaths: $(If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output (${FilepathExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
@@ -662,6 +738,7 @@ function ExclusionsListUpdate {
       Write-Output "Windows Defender exclusions (Active)  - Processes: $(If (${FinalExclusions}.ExclusionProcess -NE $Null) { Write-Output (${FinalExclusions}.ExclusionProcess.Count); } Else { Write-Output "0"; };)";
       Write-Output "";
       Write-Output "Windows Defender exclusions (Active)  - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";
+
     }
     #
     # ------------------------------------------------------------

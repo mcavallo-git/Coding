@@ -596,7 +596,7 @@ function ExclusionsListUpdate {
           New-Item -Force -Path ("${RegistryExclusions_Extensions}") | Out-Null;
         }
         $FoundExtensions | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for extension:   `"$_`"..."; }
+          If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output "Adding Defender exclusion for extension:   `"$_`"..."; }
           If (${Skip_MpPref} -Eq 0) {
             <# Add exclusion via the 'Add-MpPreference' cmdlet #>
             Add-MpPreference -ExclusionExtension "${_}" -ErrorAction "Continue";
@@ -631,7 +631,7 @@ function ExclusionsListUpdate {
           New-Item -Force -Path ("${RegistryExclusions_Processes}") | Out-Null;
         }
         $FoundProcesses | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for process:   `"$_`"..."; }
+          If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output "Adding Defender exclusion for process:   `"$_`"..."; }
           If (${Skip_MpPref} -Eq 0) {
             <# Add exclusion via the 'Add-MpPreference' cmdlet #>
             Add-MpPreference -ExclusionProcess "$_" -ErrorAction "Continue";
@@ -668,7 +668,7 @@ function ExclusionsListUpdate {
           New-Item -Force -Path ("${RegistryExclusions_Filepaths}") | Out-Null;
         }
         (${FoundFilepaths} + ${FoundProcesses}) | Select-Object -Unique | ForEach-Object {
-          If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output "Adding Defender exclusion for filepath:   `"$_`"..."; }
+          If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output "Adding Defender exclusion for filepath:   `"$_`"..."; }
           If (${Skip_MpPref} -Eq 0) {
             <# Add exclusion via the 'Add-MpPreference' cmdlet #>
             Add-MpPreference -ExclusionPath "$_" -ErrorAction "Continue";

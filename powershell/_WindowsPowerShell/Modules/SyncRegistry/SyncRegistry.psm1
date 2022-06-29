@@ -1824,7 +1824,7 @@ function SyncRegistry {
             };
 
             If ($GetEachItemProp -Eq $Null) {
-              # Key doesn't exist (yet)
+              # Property doesn't exist (yet)
 
               If (($EachProp.Delete) -Eq $False) {
 

@@ -625,6 +625,7 @@ function ExclusionsListUpdate {
               }
             } Else {
               <# Property already exists #>
+              $DefenderExclusions_Skipped++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion for extension:    `"$_`"  (already exists)"); }
             }
           }
@@ -645,6 +646,7 @@ function ExclusionsListUpdate {
               $DefenderExclusions_Added++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Added new exclusion for process:   `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
+              $DefenderExclusions_Skipped++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion for process:    `"$_`"  (path not found)"); }
             } Else {
               $Skip_MpPref=1;
@@ -664,6 +666,7 @@ function ExclusionsListUpdate {
               }
             } Else {
               <# Property already exists #>
+              $DefenderExclusions_Skipped++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion for process:    `"$_`"  (already exists)"); }
             }
           }
@@ -684,6 +687,7 @@ function ExclusionsListUpdate {
               $DefenderExclusions_Added++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Added new exclusion for filepath:   `"$_`""); }
             } ElseIf (Test-Path -Path ("${_}") -Eq $False) {
+              $DefenderExclusions_Skipped++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion for filepath:    `"$_`"  (path not found)"); }
             } Else {
               $Skip_MpPref=1;
@@ -703,6 +707,7 @@ function ExclusionsListUpdate {
               }
             } Else {
               <# Property already exists #>
+              $DefenderExclusions_Skipped++;
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion for filepath:    `"$_`"  (already exists)"); }
             }
           }
@@ -746,20 +751,24 @@ function ExclusionsListUpdate {
 
       }
 
-      # $FinalExclusions = @{};
-      # ${FinalExclusions}.ExclusionExtension = ((Get-MpPreference).ExclusionExtension);
-      # ${FinalExclusions}.ExclusionPath = ((Get-MpPreference).ExclusionPath);
-      # ${FinalExclusions}.ExclusionProcess = ((Get-MpPreference).ExclusionProcess);
+      # $FinalExclusions = (Get-MpPreference);
+      # Write-Output "";
+      # Write-Output "Windows Defender exclusions (Removed) - Filepaths: $(If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output (${FilepathExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
+      # Write-Output "Windows Defender exclusions (Active)  - Filepaths: $(If (${FinalExclusions}.ExclusionPath -NE $Null) { Write-Output (${FinalExclusions}.ExclusionPath.Count); } Else { Write-Output "0"; };)";
+      # Write-Output "";
+      # Write-Output "Windows Defender exclusions (Removed) - Processes: $(If (Test-Path -Path ("Variable:\ProcessExclusions_Removed")) { Write-Output (${ProcessExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
+      # Write-Output "Windows Defender exclusions (Active)  - Processes: $(If (${FinalExclusions}.ExclusionProcess -NE $Null) { Write-Output (${FinalExclusions}.ExclusionProcess.Count); } Else { Write-Output "0"; };)";
+      # Write-Output "";
+      # Write-Output "Windows Defender exclusions (Active)  - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";
 
-      $FinalExclusions = (Get-MpPreference);
+      $DefenderExclusions_Removed = ((${ProcessExclusions_Removed}.Count) + (${FilepathExclusions_Removed}.Count));
       Write-Output "";
-      Write-Output "Windows Defender exclusions (Removed) - Filepaths: $(If (Test-Path -Path ("Variable:\FilepathExclusions_Removed")) { Write-Output (${FilepathExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
-      Write-Output "Windows Defender exclusions (Active)  - Filepaths: $(If (${FinalExclusions}.ExclusionPath -NE $Null) { Write-Output (${FinalExclusions}.ExclusionPath.Count); } Else { Write-Output "0"; };)";
+      Write-Output "Windows Defender exclusions (Added):   ${DefenderExclusions_Added}";
+      Write-Output "Windows Defender exclusions (Skipped): ${DefenderExclusions_Skipped}";
       Write-Output "";
-      Write-Output "Windows Defender exclusions (Removed) - Processes: $(If (Test-Path -Path ("Variable:\ProcessExclusions_Removed")) { Write-Output (${ProcessExclusions_Removed}.Count); } Else { Write-Output "0"; };)";
-      Write-Output "Windows Defender exclusions (Active)  - Processes: $(If (${FinalExclusions}.ExclusionProcess -NE $Null) { Write-Output (${FinalExclusions}.ExclusionProcess.Count); } Else { Write-Output "0"; };)";
+      Write-Output "Windows Defender exclusions (Removed):  ${DefenderExclusions_Removed}";
+      Write-Output "Windows Defender exclusions (Errors):  ${DefenderExclusions_Errors}";
       Write-Output "";
-      Write-Output "Windows Defender exclusions (Active)  - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";
 
     }
 

@@ -592,6 +592,7 @@ function ExclusionsListUpdate {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Successfully added exclusion for extension   `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:     `"$_`""); }
             }
           }
           <# Add exclusion via Registry edit #>
@@ -627,6 +628,7 @@ function ExclusionsListUpdate {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for process:    `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:     `"$_`""); }
             }
           }
           <# Add exclusion via Registry edit #>
@@ -662,6 +664,7 @@ function ExclusionsListUpdate {
               If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Skipping exclusion (path doesn't exist) for filepath:    `"$_`""); }
             } Else {
               $AddMpPref_Errors++;
+              If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:     `"$_`""); }
             }
           }
           <# Add exclusion via Registry edit #>

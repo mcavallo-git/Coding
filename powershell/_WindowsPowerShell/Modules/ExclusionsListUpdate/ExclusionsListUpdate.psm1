@@ -587,6 +587,7 @@ function ExclusionsListUpdate {
         <# Windows Defender - Extension Exclusions #>
         $RegistryExclusions_Extensions="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Extensions";
         If ((Test-Path -LiteralPath ("${RegistryExclusions_Extensions}")) -Eq $False) {
+          <# Create registry key #>
           New-Item -Force -Path ("${RegistryExclusions_Extensions}") | Out-Null;
         }
         $FoundExtensions | Select-Object -Unique | ForEach-Object {
@@ -621,6 +622,8 @@ function ExclusionsListUpdate {
         <# Windows Defender - Process Exclusions #>
         $RegistryExclusions_Processes="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Processes";
         If ((Test-Path -LiteralPath ("${RegistryExclusions_Processes}")) -Eq $False) {
+          <# Create registry key #>
+Write-Output ("Create registry key");
           New-Item -Force -Path ("${RegistryExclusions_Processes}") | Out-Null;
         }
         $FoundProcesses | Select-Object -Unique | ForEach-Object {
@@ -668,6 +671,7 @@ Write-Output ("Skipping exclusion (already exists) for process:   `"$_`"");
         <# Windows Defender - Filepath Exclusions #>
         $RegistryExclusions_Filepaths="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths";
         If ((Test-Path -LiteralPath ("${RegistryExclusions_Filepaths}")) -Eq $False) {
+          <# Create registry key #>
           New-Item -Force -Path ("${RegistryExclusions_Filepaths}") | Out-Null;
         }
         (${FoundFilepaths} + ${FoundProcesses}) | Select-Object -Unique | ForEach-Object {

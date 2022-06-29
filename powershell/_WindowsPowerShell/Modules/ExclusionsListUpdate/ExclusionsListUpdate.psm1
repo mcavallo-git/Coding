@@ -33,6 +33,8 @@ function ExclusionsListUpdate {
     $ExcludedProcesses = @(),
     $ExcludedExtensions = @(),
 
+    [Switch]$DisableControlledFolders,
+
     [Switch]$DryRun,
     [Switch]$Entertainment,
     [Switch]$Quiet,
@@ -715,13 +717,6 @@ function ExclusionsListUpdate {
           Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender") -Name ("DisableLocalAdminMerge") -Value (0) | Out-Null;
         }
 
-        <# Disable "Controlled folders" setting in Windows 10 #>
-        If ($True) {
-          <# Allow access to controlled folders (disables "Controlled folder access" setting)  -  https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess #>
-          If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") | Out-Null; };
-          Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") -Name ("EnableControlledFolderAccess") -Value (0) | Out-Null;
-        }
-
       }
 
       # $FinalExclusions = @{};
@@ -739,6 +734,18 @@ function ExclusionsListUpdate {
       Write-Output "";
       Write-Output "Windows Defender exclusions (Active)  - File-Extensions: $(If (${FinalExclusions}.ExclusionExtension -NE $Null) { Write-Output (${FinalExclusions}.ExclusionExtension.Count); } Else { Write-Output "0"; };)";
 
+    }
+
+    # ------------------------------------------------------------
+
+    <# Disable "Controlled folder access" setting in Windows 10 #>
+    If ($PSBoundParameters.ContainsKey('DisableControlledFolders')) {
+      Write-Output "`nDisabling `"Controlled folder access`" setting (e.g. allowing access to `"Controlled`" folders)";
+      If (${RunMode_DryRun} -Eq $False) {
+        <# Allow access to controlled folders (disables "Controlled folder access" setting)  -  https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::ExploitGuard_ControlledFolderAccess_EnableControlledFolderAccess #>
+        If (-Not (Test-Path -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access"))) { New-Item -Force -Path ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") | Out-Null; };
+        Set-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Windows Defender Exploit Guard\Controlled Folder Access") -Name ("EnableControlledFolderAccess") -Value (0) | Out-Null;
+      }
     }
 
     # ------------------------------------------------------------

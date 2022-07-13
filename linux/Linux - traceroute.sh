@@ -4,7 +4,7 @@
 
 apt-get update -y; apt-get install -y traceroute;
 
-traceroute -m 5 -w 1 -T www.google.com;
+traceroute --max-hops=30 --wait=1 --tcp 'example.com';
 
 
 # ------------------------------------------------------------

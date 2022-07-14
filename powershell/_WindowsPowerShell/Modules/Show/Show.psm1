@@ -35,7 +35,7 @@ Function Show() {
 	$ShowValue = (-Not $PSBoundParameters.ContainsKey('NoValue'));
 
 	ForEach ($EachArg in ($inline_args+$args)) {
-		If ($EachArg -Eq $Null) {
+		If ($null -eq $EachArg) {
 			Write-Output "`$Null"
 		} Else {
 			$AnyValueDetected = $False;
@@ -81,7 +81,7 @@ Function Show() {
 				Write-Output "`n=====  PROPERTIES  =====  ( hide via -NoProperties )  ======`n";
 				If ($ListProperties -Ne $Null) {
 					$ListProperties | ForEach-Object {
-						$EachVal = If ($EachArg.($($_.Name)) -eq $Null) { "`$NULL" } Else { $EachArg.($($_.Name)) };
+						$EachVal = If ($EachArg.($($_.Name))) { "`$NULL" } Else { $EachArg.($($_.Name)) };
 						Write-Output "    $($_.Name) = $($EachVal)";
 						$AnyValueDetected = $True;
 					};

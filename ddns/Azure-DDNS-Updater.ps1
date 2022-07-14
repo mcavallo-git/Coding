@@ -26,7 +26,7 @@ $DDNS_UIDS | ForEach {
 			-QuickTimeout `
 			-NoHostsFile `
 	);
-	If ($DnsRecord_A.IPAddress -eq $null) {
+	If ($null -eq ($DnsRecord_A.IPAddress)) {
 		Write-Host (("Error: Unable to resolve hostname: ")+($_.Host)) -BackgroundColor Black -ForegroundColor Yellow;
 	} ElseIf (!$ResolvedIPv4s.Contains((($DnsRecord_A.IPAddress)+("/32")))) {
 		$ResolvedIPv4s += @((($DnsRecord_A.IPAddress)+("/32")));
@@ -51,7 +51,7 @@ if ($ResolvedIPv4s.Length -eq 0)  {
 
 	# $NsgShowRuleDDNS;
 
-	if (($NsgShowRuleDDNS) -eq $null) {
+	if ($null -eq ($NsgShowRuleDDNS)) {
 
 		$NsgRuleCreate = `
 			JsonDecoder -InputObject ( `

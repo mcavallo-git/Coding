@@ -42,7 +42,7 @@ If (Test-Path -Path ("Env:ARTIFACTSEXPORTDIRECTORY") -PathType ("Leaf")) {
 <# Get the first non-expired code signing certificate found in the windows certificate store which has been imported onto the current Local Machine #>
 $Cert_CodeSigning = (Get-ChildItem "Cert:\LocalMachine\My" -CodeSigningCert | Where-Object { ($_ -NE $Null) } | Where-Object { ($_.NotAfter) -GT (Get-Date) }); If ($Cert_CodeSigning -NE $Null) { $Cert_CodeSigning = (${Cert_CodeSigning}[0]); };
 
-If ($Cert_CodeSigning -Eq $Null) {
+If ($null -eq $Cert_CodeSigning) {
 	Write-Output "`nError:  No code signing certificate(s) found in the Local Machine certificate store.`n`nInfo:  Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";
 	Start-Sleep 10;
 
@@ -51,7 +51,7 @@ If ($Cert_CodeSigning -Eq $Null) {
 	$Cert_CodeSigning | Format-List;
 
 	<# Sign files within the working directory #>
-	If ($WorkingDir -Eq $Null) {
+	If ($null -eq $WorkingDir) {
 		Write-Output "`nError - Unable to detetermine working directory. You may manually define the working directory by setting
 		 it as the value of environment variable `${Env:WORKSPACE}`n";
 		Start-Sleep 10;
@@ -61,7 +61,7 @@ If ($Cert_CodeSigning -Eq $Null) {
 		| Where-Object { ($_.FullName -Like "*.dll") -Or ($_.FullName -Like "*.exe") -Or ($_.FullName -Like "*.msi") -Or ($_.FullName -Like "*.sys") } `
 		| ForEach-Object { `
 			$CheckSig=(Get-AuthenticodeSignature -FilePath ("$($_.FullName)"));
-			If (($CheckSig.Status -NE "Valid") -Or ($CheckSig.TimeStamperCertificate -Eq $Null)) {
+			If (($CheckSig.Status -NE "Valid") -Or ($null -eq $CheckSig.TimeStamperCertificate)) {
 				Write-Output "Info - Signing file `"$($_.FullName)`"...";
 				Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
 			}
@@ -75,7 +75,7 @@ If ($Cert_CodeSigning -Eq $Null) {
 		| Where-Object { ((Get-AuthenticodeSignature -FilePath ("$($_.FullName)")).Status -NE "Valid") } `
 		| ForEach-Object { ``
 			$CheckSig=(Get-AuthenticodeSignature -FilePath ("$($_.FullName)"));
-			If (($CheckSig.Status -NE "Valid") -Or ($CheckSig.TimeStamperCertificate -Eq $Null)) {
+			If (($CheckSig.Status -NE "Valid") -Or ($null -eq $CheckSig.TimeStamperCertificate)) {
 				Write-Output "Info - Signing artifact `"$($_.FullName)`"...";
 				Set-AuthenticodeSignature -FilePath ("$($_.FullName)") -Certificate (${Cert_CodeSigning}) -IncludeChain All -TimestampServer ("http://timestamp.digicert.com") | Out-Null;
 			}

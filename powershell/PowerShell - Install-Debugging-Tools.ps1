@@ -20,7 +20,7 @@ If ($True) {
 	$ProtoBak=([System.Net.ServicePointManager]::SecurityProtocol);
 	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12
 	Clear-DnsClientCache;
-	If ((Get-Command "choco" -ErrorAction "SilentlyContinue") -Eq $Null) {
+	If ($null -eq (Get-Command "choco" -ErrorAction "SilentlyContinue")) {
 		<# Install Chocolatey -  Chocolatey is a software management automation tool for Windows that wraps installers, executables, zips, and scripts into compiled packages #>
 		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 	}

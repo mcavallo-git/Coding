@@ -23,7 +23,7 @@ If ($True) {
 	$Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
 
 	# If iso file is not already mounted, then mount it now
-	If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {
+	If ($null -eq (Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume)) {
 		Mount-DiskImage -ImagePath ("${ISO_FullPath}") | Out-Null;
 		Start-Sleep -Seconds (1);
 	}

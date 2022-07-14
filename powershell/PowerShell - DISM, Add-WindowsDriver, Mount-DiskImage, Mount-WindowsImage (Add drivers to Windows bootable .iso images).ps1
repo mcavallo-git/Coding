@@ -53,7 +53,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 	If ((Test-Path ("${Install_Esd}")) -Eq $True) {
 		# Determine which image you want to convert (as each, separate image will require a few minutes to update)
 		12..1 | ForEach-Object {
-			If (${WimIndexSource} -Eq $Null) {
+			If ($null -eq ${WimIndexSource}) {
 				$EachIndex = $_;
 				$pinfo = New-Object System.Diagnostics.ProcessStartInfo;
 				$pinfo.FileName = "C:\Windows\system32\Dism.exe";
@@ -90,7 +90,7 @@ If ((Test-Path ("${Install_Wim}")) -Eq $False) {
 }
 
 
-If (($WimIndexSource) -Eq ($Null)) {
+If ($null -eq ($WimIndexSource)) {
 	Write-Host "";
 	Write-Host "Error: Unable to determine index to use on target Windows image";
 		

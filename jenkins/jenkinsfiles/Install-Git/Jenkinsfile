@@ -11,7 +11,7 @@ pipeline {
 					returnStatus:true,
 					script:'''
 						$PackageProvider = "NuGet";
-						If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+						If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 							$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 							[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 								Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
@@ -28,7 +28,7 @@ pipeline {
 					returnStatus:true,
 					script:'''
 						$PackageProvider = "NuGet";
-						If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+						If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 							$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 							[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 								Write-Host "`n`nInstalling Git..."; Start-Process -Filepath ("choco") -ArgumentList (@("install","git.install")) -NoNewWindow -Wait -PassThru;

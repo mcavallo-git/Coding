@@ -84,7 +84,7 @@ function NET_Framework_Check {
 			}
 		}
 
-		If ((($NetFrameworks[$EachVer].Version) -Eq "-") -Or (($NetFrameworks[$EachVer].Version) -Eq $Null)) {
+		If ((($NetFrameworks[$EachVer].Version) -Eq "-") -Or ($null -eq ($NetFrameworks[$EachVer].Version))) {
 			$NetFrameworks[$EachVer].Installed = $False;
 		} Else {
 			$NetFrameworks[$EachVer].Installed = $True;

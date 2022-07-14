@@ -33,7 +33,7 @@ function EnsureCommandExists {
 	$ValidLevels = $Null;
 	$LeftmostIndexExceeded = $Null;
 
-	If($GetCommand -eq $null) {
+	If($null -eq $GetCommand) {
 		#
 		# Fail - Command not found
 		#
@@ -64,7 +64,7 @@ function EnsureCommandExists {
 						}
 						$MinimumVersion += [String]$VersionMinLevels[$EachKey];
 						$CurrentVersion += [String]$Needle.Groups[$EachKey].Value;
-						If ($LeftmostIndexExceeded -eq $Null) { # If a previous (more-leftmost) index has a higher version, don't worry any to the right of it being lower-or-not
+						If ($null -eq $LeftmostIndexExceeded) { # If a previous (more-leftmost) index has a higher version, don't worry any to the right of it being lower-or-not
 							If (([int]$Needle.Groups[$EachKey].Value) -gt ([int]$VersionMinLevels[$EachKey])) {
 								If ($ValidLevels -ne $False) { # Leave fail-out status as False if its already False
 									$ValidLevels = $True; # Require at least one minimum-version-level to be matched (if we're performing matching)
@@ -132,7 +132,7 @@ function EnsureCommandExists {
 
 	}
 
-	If ($ErrorMessage -eq $null) {
+	If ($null -eq $ErrorMessage) {
 		
 		# Pass - Command exists
 		$CommandExists = 1;
@@ -157,7 +157,7 @@ function EnsureCommandExists {
 				Write-Host (("For Info on troubleshooting, download/installation references, etc. please visit Url: ")+($OnErrorShowUrl));
 			}
 
-			$StartCmdExists = If($GetStartCommand -eq $null){0}Else{1};
+			$StartCmdExists = If($null -eq $GetStartCommand){0}Else{1};
 			If ($StartCmdExists -eq 1) {
 
 				# On windows devices, calling [ Start $URL ] will open a browser to target URL

@@ -7,13 +7,13 @@
 If ($True) {
   $PSModule_Name=("SqlServer");
   # $PSModule_Name=("VMware.PowerCLI");
-  If ((Get-Module -ListAvailable -Name "${PSModule_Name}" -ErrorAction SilentlyContinue) -Eq $Null) {
+  If ($null -eq (Get-Module -ListAvailable -Name "${PSModule_Name}" -ErrorAction SilentlyContinue)) {
     [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
     $ProgressPreference="SilentlyContinue";
     $PackageProvider_Name=("NuGet");
     Install-PackageProvider -Name ("${PackageProvider_Name}") -MinimumVersion ("2.8.5.208") -Force -Confirm:$False;
     $PSRepository_Name=("PSGallery");
-    If ((Get-PSRepository -Name ("${PSRepository_Name}") -ErrorAction SilentlyContinue) -Eq $Null) {
+    If ($null -eq (Get-PSRepository -Name ("${PSRepository_Name}") -ErrorAction SilentlyContinue)) {
       Register-PSRepository -Default -Verbose;
     }
     Set-PSRepository -Name ("${PSRepository_Name}") -PackageManagementProvider ("${PackageProvider_Name}") -InstallationPolicy ("Trusted") -ErrorAction SilentlyContinue;

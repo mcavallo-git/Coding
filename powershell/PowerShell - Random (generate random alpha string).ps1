@@ -23,7 +23,7 @@ $ASCII.Alpha_Mixed = [char[]](65..90) + (97..122); # ABCDEFGHIJKLMNOPQRSTUVWXYZa
 
 $RandomStrings = @{};
 ForEach ($EachKey In $ASCII.Keys) {
-	If ($RandomStrings[$EachKey] -eq $null) { $RandomStrings[$EachKey] = "" };
+	If ($null -eq $RandomStrings[$EachKey]) { $RandomStrings[$EachKey] = "" };
 	For ($i = 0; $i -lt $CharacterCount; $i++) { $RandomStrings[$EachKey] += (Get-Random -InputObject ($ASCII[$EachKey])) };
 }
 # $RandomStrings | Sort-Object -Property Name | Format-Table;

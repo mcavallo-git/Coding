@@ -41,12 +41,12 @@ function JsonDecoder {
 		}
 
 		$IsRecursiveCall = $false;
-		If ($Env:ConvertToHashtable_RecursiveCall -eq $null) {
+		If ($null -eq $Env:ConvertToHashtable_RecursiveCall) {
 			$Env:ConvertToHashtable_RecursiveCall = $true;
 			$IsRecursiveCall = $true;
 		}
 
-		If ($InputObject -eq $null) {
+		If ($null -eq $InputObject) {
 			#
 			# --> Nulls
 			#

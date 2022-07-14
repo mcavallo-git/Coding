@@ -1823,7 +1823,7 @@ function SyncRegistry {
               $GetEachItemProp = $Null;
             };
 
-            If ($GetEachItemProp -Eq $Null) {
+            If ($null -eq $GetEachItemProp) {
               # Property doesn't exist (yet)
 
               If (($EachProp.Delete) -Eq $False) {

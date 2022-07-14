@@ -45,10 +45,10 @@ If ($True) {
 	Write-Output "`$ESXi_LoginPass = [ $(${ESXi_LoginPass}) ]";
 
 	# Pre-Reqs: Check-for (and install if not found) the VMware PowerCLI PowerShell Module
-	If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {
+	If ($null -eq (Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue")) {
 		# Pre-Reqs: Check-for (and install if not found) the NuGet PowerShell Module-Repository
 		$PackageProvider = "NuGet";
-		If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+		If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 			$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 			[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 				Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
@@ -62,13 +62,13 @@ If ($True) {
 		Set-PowerCLIConfiguration -InvalidCertificateAction "Ignore" -Confirm:$False;
 	}
 
-	If ($ESXi_Server -Eq $Null) {
+	If ($null -eq $ESXi_Server) {
 		$ESXi_Server = (Read-Host -Prompt ("`nEnter FQDN/IP of vSphere Server"));
 	}
-	If ($ESXi_LoginUser -Eq $Null) {
+	If ($null -eq $ESXi_LoginUser) {
 		$ESXi_LoginUser = (Read-Host -Prompt ("`nEnter Username"));
 	}
-	If ($ESXi_LoginPass -Eq $Null) {
+	If ($null -eq $ESXi_LoginPass) {
 		$ESXi_LoginPass = (Read-Host -AsSecureString -Prompt ("`nEnter Password"));
 	}
 

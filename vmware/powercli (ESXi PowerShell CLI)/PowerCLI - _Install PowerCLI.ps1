@@ -6,10 +6,10 @@
 
 If ($True) {
 	# Pre-Reqs: Check-for (and install if not found) the VMware PowerCLI PowerShell Module
-	If ((Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue") -Eq $Null) {
+	If ($null -eq (Get-Module -ListAvailable -Name ("VMware.PowerCLI") -ErrorAction "SilentlyContinue")) {
 		# Pre-Reqs: Check-for (and install if not found) the NuGet PowerShell Module-Repository
 		$PackageProvider = "NuGet";
-		If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+		If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 			$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 			[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 				Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624

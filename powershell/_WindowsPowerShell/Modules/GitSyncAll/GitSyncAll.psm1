@@ -36,7 +36,7 @@ function GitSyncAll {
 
 	$Dashes = "`n--------------------------------`n";
 
-	If((Get-Command $CommandName -ErrorAction "SilentlyContinue") -eq $Null) {
+	If($null -eq (Get-Command $CommandName -ErrorAction "SilentlyContinue")) {
 		## Fail - Command [ $CommandName ] not found Locally
 		$OnErrorShowUrl="https://git-scm.com/downloads";
 		Write-Host (("$($MyInvocation.MyCommand.Name) - Fail: Command [ ")+($CommandName)+(" ] not found locally")) -ForegroundColor Yellow;

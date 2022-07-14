@@ -11,7 +11,7 @@ pipeline {
 					returnStatus:true,
 					script:'''
 						$PackageProvider = "NuGet";
-						If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+						If ($null -Eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 							$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 							[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 								Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;

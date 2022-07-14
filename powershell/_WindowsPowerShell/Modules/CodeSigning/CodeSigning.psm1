@@ -49,7 +49,7 @@ Function CodeSigning() {
 	If ($LocalMachineCerts_CodeSigning -NE $Null) {
 		$FirstCert_CodeSigning = (${LocalMachineCerts_CodeSigning}[0]);
 	}
-	If ($FirstCert_CodeSigning -Eq $Null) {
+	If ($null -eq $FirstCert_CodeSigning) {
 		<# No code signing certs found in the [ local machine ] certificate store #>
 		Write-Output "`nError:  No code signing certificate(s) found in the Local Machine certificate store.`n`nInfo:  Please retry after installing a code-signing (.pfx) certificate onto the Local Machine certificate store`n";
 
@@ -64,25 +64,25 @@ Function CodeSigning() {
 		}
 
 		<# TeamCity build's working directory 'system.teamcity.build.checkoutDir' #>
-		If (($TargetPath -Eq $Null) -And (("%system.teamcity.build.checkoutDir%") -NE (("%")+(@("system","teamcity","build","checkoutDir") -join ".")+("%")))) {
+		If (($null -eq $TargetPath) -And (("%system.teamcity.build.checkoutDir%") -NE (("%")+(@("system","teamcity","build","checkoutDir") -join ".")+("%")))) {
 			$TargetPath = "%system.teamcity.build.checkoutDir%";
 			Write-Output "`nSigning target: [ TeamCity build's working directory 'system.teamcity.build.checkoutDir' ] with value `"${TargetPath}`"`n";
 		}
 	
 		<# TeamCity build's working directory 'system.teamcity.build.workingDir' #>
-		If (($TargetPath -Eq $Null) -And (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%")))) {
+		If (($null -eq $TargetPath) -And (("%system.teamcity.build.workingDir%") -NE (("%")+(@("system","teamcity","build","workingDir") -join ".")+("%")))) {
 			$TargetPath = "%system.teamcity.build.workingDir%";
 			Write-Output "`nSigning target: [ TeamCity build's working directory 'system.teamcity.build.workingDir' ] with value `"${TargetPath}`"`n";
 		}
 	
 		<# Jenkins build's working directory '`${Env:WORKSPACE}' #>
-		If (($TargetPath -Eq $Null) -And (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf"))) {
+		If (($null -eq $TargetPath) -And (Test-Path -Path ("Env:WORKSPACE") -PathType ("Leaf"))) {
 			$TargetPath = "${Env:WORKSPACE}";
 			Write-Output "`nSigning target: [ Jenkins build's working directory '`${Env:WORKSPACE}' ] with value `"${TargetPath}`"`n";
 		}
 	
 		<# TeamCity build's artifact output directory  -->  orking directory 'system.teamcity.build.workingDir' #>
-		If (($TargetPath -Eq $Null) -And ((Test-Path -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%") -PathType ("Leaf") -ErrorAction ("SilentlyContinue")) -Eq $True)) {
+		If (($null -eq $TargetPath) -And ((Test-Path -Path ("%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%") -PathType ("Leaf") -ErrorAction ("SilentlyContinue")) -Eq $True)) {
 			<# TeamCity's artifact-output-directory exists #>
 			$TargetPath = "%env.TEAMCITY_DATA_PATH%\system\artifacts\%teamcity.project.id%\%system.teamcity.buildConfName%\%teamcity.build.id%";
 			Write-Output "`nSigning target: [ TeamCity build's artifact output directory  -->  'env.TEAMCITY_DATA_PATH' + '\system\artifacts\' + 'teamcity.project.id' + '\' 'system.teamcity.buildConfName' + '\' + 'teamcity.build.id' ] with value `"${TargetPath}`"`n";
@@ -91,7 +91,7 @@ Function CodeSigning() {
 		Write-Output "`nInfo:  Using code signing certificate from the Local Machine certificate store:`n";
 		$FirstCert_CodeSigning | Format-List;
 
-		If ($TargetPath -Eq $Null) {
+		If ($null -eq $TargetPath) {
 			Write-Output "${ErrorMessage__NoTarget}";
 
 		} Else {

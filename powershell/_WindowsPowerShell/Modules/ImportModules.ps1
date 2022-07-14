@@ -37,7 +37,7 @@ $PSM1.Verbosity = 0;
 # ------------------------------------------------------------
 
 ## Determine if we just ran this script (before updating it) or not
-If ($Env:UpdatedCodebase -eq $Null) {
+If ($null -eq $Env:UpdatedCodebase) {
 	$PSM1.Iteration = 1;
 } Else {
 	$PSM1.Iteration = 2;
@@ -72,7 +72,7 @@ If ( -not ($ReadOnlyVars -match ("IsCoreCLR"))) {
 # ------------------------------------------------------------
 # Install the "NuGet PowerShell Gallery" package provider
 $PackageProvider = "NuGet";
-If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 		Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
@@ -420,7 +420,7 @@ Foreach ($EachModule In $PowerShellModulesArr) {
 
 $CommandExists = @{};
 
-If ($Env:UpdatedCodebase -eq $Null) {
+If ($null -eq $Env:UpdatedCodebase) {
 
 	# Iteration 1/2: Upon login, before [ updating from git-repo ]
 

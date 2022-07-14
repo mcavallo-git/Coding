@@ -18,7 +18,7 @@ Get-Volume
 
 # Determine if an ISO file is mounted or not
 $ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
-If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {  # If iso file is not already mounted...
+If ($null -eq (Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume)) {  # If iso file is not already mounted...
 	Write-Output "ISO file NOT mounted";
 } Else {
 	Write-Output "ISO file IS mounted";
@@ -37,7 +37,7 @@ $ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
 $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
 
 # If iso file is not already mounted, then mount it now
-If ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume) -Eq $Null) {
+If ($null -eq (Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume)) {
 	Mount-DiskImage -ImagePath ("${ISO_FullPath}") | Out-Null;
 }
 

@@ -152,7 +152,7 @@ If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Nam
 	| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
 	| ForEach-Object {
 		$Each_Key = "$($_.Name)";
-		If ($Var.(${Each_Key}) -eq $Null) {
+		If ($null -eq ($Var.(${Each_Key}))) {
 			$Each_Val="`$Null";
 		} Else {
 			$Each_Val=$Var.(${Each_Key});

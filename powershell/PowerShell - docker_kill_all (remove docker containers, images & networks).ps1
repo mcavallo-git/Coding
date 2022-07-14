@@ -3,7 +3,7 @@ If ($True) {
 $DASH_NL="------------------------------------------------------------`n";
 
 <# Docker - Ensure Docker Desktop is running #>
-If ((Get-Process -Name "Docker Desktop" -ErrorAction "SilentlyContinue") -Eq $Null) {
+If ($null -eq (Get-Process -Name "Docker Desktop" -ErrorAction "SilentlyContinue")) {
 Write-Host "${DASH_NL}[ $(Get-Date -Format 'yyyy-MM-ddTHH:mm:sszzz') ] Starting Docker Desktop...";
 Start-Process -Filepath ("C:\Program Files\Docker\Docker\Docker Desktop.exe") -ArgumentList (@("restart","${ServiceName}")) -PassThru;
 Start-Sleep -Seconds 60;

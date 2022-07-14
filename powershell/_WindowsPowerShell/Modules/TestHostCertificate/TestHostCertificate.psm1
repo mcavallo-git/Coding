@@ -33,7 +33,7 @@ Function TestHostCertificate() {
 	);
 
 	<# If user didn't pass any domains to this script, then demo some test-domains to test the certificates of #>
-	If ($DomainsToCheck -Eq $Null) {
+	If ($null -eq $DomainsToCheck) {
 		$DomainsToCheck = ${Demo_DomainsToCheck};
 	}
 

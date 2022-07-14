@@ -40,17 +40,17 @@ $Vibs
 
 # $Vibs.Depends | Select-Object -First 20
 
-# $Vibs.Depends | Where-Object { $_.Version -Eq $Null } | Select-Object -First 20
+# $Vibs.Depends | Where-Object { $null -eq $_.Version } | Select-Object -First 20
 
-# ($Vibs | Where-Object { $_.Depends -Eq $Null } | Sort-Object -Property "Name").Depends
+# ($Vibs | Where-Object { $null -eq $_.Depends } | Sort-Object -Property "Name").Depends
 
-# ($Vibs | Where-Object { $_.Depends.Version -Eq $Null } | Sort-Object -Property "Name").Depends.Version
+# ($Vibs | Where-Object { $null -eq $_.Depends.Version } | Sort-Object -Property "Name").Depends.Version
 
 # $Vibs | Sort-Object -Property "Name" | Select-Object -Property Name,Depends | Select-Object -First 20
 
-# $Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Version -Eq $Null } | Select-Object -Property Name,Depends | Select-Object -First 20
+# $Vibs | Sort-Object -Property "Name" | Where-Object { $null -eq $_.Depends.Version } | Select-Object -Property Name,Depends | Select-Object -First 20
 
-# ($Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Version -Eq $Null } | Select-Object -Property Name,Depends).Depends.Version | Select-Object -First 20
+# ($Vibs | Sort-Object -Property "Name" | Where-Object { $null -eq $_.Depends.Version } | Select-Object -Property Name,Depends).Depends.Version | Select-Object -First 20
 
 # ($Vibs | Sort-Object -Property "Name" | Where-Object { $_.Depends.Version -Ne $Null } | Select-Object -Property Name,Depends).Depends.Version | Select-Object -First 20
 
@@ -145,7 +145,7 @@ $Vibs
 # };
 
 
-# $Depends=@{Version="6.7"}; (([Int][String](($Version)[0]) -GE 6) -And (((($Version)[2]) -Eq $Null) -Or ([Int][String](($Version)[2]) -GE 5)))
+# $Depends=@{Version="6.7"}; (([Int][String](($Version)[0]) -GE 6) -And (($null -eq (($Version)[2])) -Or ([Int][String](($Version)[2]) -GE 5)))
 
 # $Version="6.0.0-3.96"; ([Decimal](($Version.Split('.')[1])));
 

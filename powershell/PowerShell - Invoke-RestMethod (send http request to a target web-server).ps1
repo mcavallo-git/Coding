@@ -142,7 +142,7 @@ If ($True) {
 		If ($Region_MatchAnyOf.Contains($EachRegion)) {
 			
 
-			If ($RegionCIDR[$EachRegion] -eq $null) {
+			If ($null -eq $RegionCIDR[$EachRegion]) {
 				$RegionCIDR[$EachRegion] = @{};
 			}
 
@@ -155,10 +155,10 @@ If ($True) {
 
 			If ($Service_MatchAnyOf.Contains($EachSystemService)) {
 
-				If ($RegionCIDR[$EachRegion][$EachSystemService] -eq $null) {
+				If ($null -eq $RegionCIDR[$EachRegion][$EachSystemService]) {
 					$RegionCIDR[$EachRegion][$EachSystemService] = @();
 				}
-				If ($RegionCIDR[$EachRegion]['_AllServices'] -eq $null) {
+				If ($null -eq $RegionCIDR[$EachRegion]['_AllServices']) {
 					$RegionCIDR[$EachRegion]['_AllServices'] = @();
 				}
 				

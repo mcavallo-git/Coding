@@ -93,7 +93,7 @@ function EnsureProcessIsRunning {
 			}
 		}
 
-		If (${GetProcess} -Eq $Null) {
+		If ($null -eq ${GetProcess}) {
 
 			# Need to start the process (as it was not found to already be running)
 
@@ -140,7 +140,7 @@ function EnsureProcessIsRunning {
 				$Returned_PIDs = (Get-Process | Where-Object { $_.Path -eq "${Path}"; } | Select-Object -ExpandProperty "Id");
 			}
 
-			If ($Returned_PIDs -Eq $Null) {
+			If ($null -eq $Returned_PIDs) {
 				Write-Host "EnsureProcessIsRunning:  Error: Failed to start Process `"${Path}`"" -ForegroundColor "Red";
 			} Else {
 				If (!($PSBoundParameters.ContainsKey('Quiet'))) {

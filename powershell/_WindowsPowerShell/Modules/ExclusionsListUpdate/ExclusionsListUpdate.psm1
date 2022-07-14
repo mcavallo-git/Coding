@@ -541,9 +541,9 @@ function ExclusionsListUpdate {
 
     # Show Filepaths/Processes found locally (before applying exclusions for them)
     If (!($PSBoundParameters.ContainsKey('Quiet'))) {
-      Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($FoundFilepaths -Eq $Null) { Write-Output "None"; } Else { $FoundFilepaths; }
-      Write-Output "`nExclusions - Processes (which exist locally):"; If ($FoundProcesses -Eq $Null) { Write-Output "None"; } Else { $FoundProcesses; }
-      Write-Output "`nExclusions - Extensions:"; If ($FoundExtensions -Eq $Null) { Write-Output "None"; } Else { $FoundExtensions; }
+      Write-Output "`nExclusions - Filepaths (which exist locally):"; If ($null -eq $FoundFilepaths) { Write-Output "None"; } Else { $FoundFilepaths; }
+      Write-Output "`nExclusions - Processes (which exist locally):"; If ($null -eq $FoundProcesses) { Write-Output "None"; } Else { $FoundProcesses; }
+      Write-Output "`nExclusions - Extensions:"; If ($null -eq $FoundExtensions) { Write-Output "None"; } Else { $FoundExtensions; }
       Write-Output "`n";
     }
 
@@ -572,7 +572,7 @@ function ExclusionsListUpdate {
 
       $MalwarebytesAssistant = (Get-ChildItem -Path ("${MBAR_SearchDirname}") -Filter ("${MBAR_FindBasename}") -File -Recurse -Force -ErrorAction "SilentlyContinue" | ForEach-Object { $_.FullName; });
 
-      If ($MalwarebytesAssistant -Eq $Null) {
+      If ($null -eq $MalwarebytesAssistant) {
 
         # Cannot find Malwarebytes' exclusions tool/utility
         Write-Output "";
@@ -634,10 +634,10 @@ function ExclusionsListUpdate {
           }
           <# Add exclusion via Registry edit #>
           If (${Skip_MpPref} -NE 0) {
-            If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null) {
+            If ($null -eq (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null)) {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
-              If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null) -Eq $Null) {
+              If ($null -eq (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Extensions}") -Name ("${_}") 2>$Null)) {
                 $DefenderExclusions_Errors++;
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for extension:   `"$_`""); }
               } Else {
@@ -675,10 +675,10 @@ function ExclusionsListUpdate {
           }
           <# Add exclusion via Registry edit #>
           If (${Skip_MpPref} -NE 0) {
-            If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null) {
+            If ($null -eq (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null)) {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
-              If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null) -Eq $Null) {
+              If ($null -eq (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Processes}") -Name ("${_}") 2>$Null)) {
                 $DefenderExclusions_Errors++;
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for process:   `"$_`""); }
               } Else {
@@ -716,10 +716,10 @@ function ExclusionsListUpdate {
           }
           <# Add exclusion via Registry edit #>
           If (${Skip_MpPref} -NE 0) {
-            If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null) {
+            If ($null -eq (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null)) {
               <# Property doesn't exist (yet) - Create it #>
               New-ItemProperty -Force -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") -PropertyType ("DWord") -Value (0) | Out-Null;
-              If ((Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null) -Eq $Null) {
+              If ($null -eq (Get-ItemProperty -LiteralPath ("${RegistryExclusions_Filepaths}") -Name ("${_}") 2>$Null)) {
                 $DefenderExclusions_Errors++;
                 If (!($PSBoundParameters.ContainsKey('Quiet'))) { Write-Output ("Error(s) encountered while trying to add exclusion for filepath:   `"$_`""); }
               } Else {

@@ -80,7 +80,7 @@ Function ESXi_BootMedia() {
 				# PowerShell - Install VMware PowerCLI module
 				If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
 					$PackageProvider = "NuGet";
-					If ((Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue") -Eq $Null) {
+					If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
 						$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 						[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
 							Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
@@ -302,7 +302,7 @@ Function ESXi_BootMedia() {
 				}
 					
 				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
-					If (${FallbackVibNames_Valid} -Eq $Null) {
+					If ($null -eq ${FallbackVibNames_Valid}) {
 						Write-Host "";
 						Write-Host "PS $(Get-Location)>  Error:  No defined Fallback Vib-Names for ESXi v${VersionArg} - Unable to create Fallback ISO";
 

@@ -175,6 +175,8 @@ Mostly Linux compatible:
 ❓					Black Question Mark Ornament &#10067; &#x2753;  |  https://www.compart.com/en/unicode/U+2753
 
 
+🗇				 Empty Note Pad (Copy/Paste Files)  |  https://www.compart.com/en/unicode/U+1F5C7  |  echo -e "\\xF0\\x9F\\x97\\x87";
+🗊				 Note Pad (Copy/Paste Files)  |  https://www.compart.com/en/unicode/U+1F5CA  |  echo -e "\\xF0\\x9F\\x97\\x8A";
 💾				Floppy Disk  |  https://www.compart.com/en/unicode/U+1F4BE
 📁				File Folder  |  https://www.compart.com/en/unicode/U+1F4C1
 📂				Open File Folder  |  https://www.compart.com/en/unicode/U+1F4C2

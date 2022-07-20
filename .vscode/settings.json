@@ -269,6 +269,8 @@
     "sideBar.background": "#252525",
     "sideBar.foreground": "#CCCCCC",
     "statusBar.background": "#0F0F0F",
+    "statusBar.noFolderBackground": "#0F0F0F",
+    "statusBar.debuggingBackground": "#0F0F0F",
     "statusBar.foreground": "#CCCCCC",
     "statusBar.multiFolderBackground": "#0F0F0F",
     "statusBar.multiFolderForeground": "#CCCCCC",

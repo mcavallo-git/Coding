@@ -3,15 +3,48 @@
 # Install datamash
 apt-get -y update; apt-get -y install "datamash";
 
-# ------------------------------------------------------------
+# ------------------------------
+#
+# datamash mean  -  get the average number of from a group of numbers
+#
 
-# datamash - Get the mean/average value from a list of numbers
-seq 100 | datamash mean 1 --round=2;
+# mean  -  ex 1
+seq 100 | datamash mean 1 --round=2;  # Outputs "50.50"
 
-# datamash - Get the mean/average value from a list of numbers
-echo "82.05 76.42 75.44 77.46" | tr " " "\n" | datamash mean 1 --round=2;
+# mean  -  ex 2
+echo "75.44 76.42 77.46 82.05" | tr " " "\n" | datamash mean 1 --round=2;  # Outputs "77.84"
 
-# datamash - Get the max, min, mean & median from a list of numbers:
+
+# ------------------------------
+#
+# datamash max  -  get the highest/largest number of from a group of numbers
+#
+
+# max  -  ex 1
+seq 100 | datamash max 1;  # Outputs "100"
+
+# max  -  ex 2
+echo "75.44 76.42 77.46 82.05" | tr " " "\n" | datamash max 1 --round=2;  # Outputs "82.05"
+
+
+# ------------------------------
+#
+# datamash min  -  get the lowest/smallest number of from a group of numbers
+#
+
+# min  -  ex 1
+seq 100 | datamash min 1;  # Outputs "1"
+
+# min  -  ex 2
+echo "75.44 76.42 77.46 82.05" | tr " " "\n" | datamash min 1 --round=2;  # Outputs "75.44"
+
+
+# ------------------------------
+#
+# datamash multi-value  -  get multiple values at once
+#
+
+# max min mean median  -  ex 1
 seq 100 | datamash max 1 min 1 mean 1 median 1 --round=2;
 
 

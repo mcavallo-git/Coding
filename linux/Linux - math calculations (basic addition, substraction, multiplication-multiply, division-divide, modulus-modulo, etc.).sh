@@ -6,6 +6,7 @@
 # Addition
 echo $(( 5 + 3 ));  # Outputs "8"
 expr 5 + 3;         # Outputs "8"
+EXIT_CODE=$(( ${EXIT_CODE:-0} + 1 )); echo "${EXIT_CODE}";  # Outputs "1"
 
 
 # ------------------------------------------------------------
@@ -39,7 +40,13 @@ expr 10 % 6;         # Outputs "4"
 # ------------------------------------------------------------
 
 # Mean/Average
-echo "82.05 76.42 75.44 77.46" | tr " " "\n" | datamash mean 1 --round=2;  # Outputs "77.84"
+echo "75.44 76.42 77.46 82.05" | tr " " "\n" | datamash mean 1 --round=2;  # Outputs "77.84"
+
+# Maximum
+echo "75.44 76.42 77.46 82.05" | tr " " "\n" | datamash max 1 --round=2;  # Outputs "82.05"
+
+# Minimum
+echo "75.44 76.42 77.46 82.05" | tr " " "\n" | datamash min 1 --round=2;  # Outputs "75.44"
 
 
 # ------------------------------------------------------------

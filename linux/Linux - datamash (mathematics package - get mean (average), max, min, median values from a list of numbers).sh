@@ -9,7 +9,7 @@ apt-get -y update; apt-get -y install "datamash";
 seq 100 | datamash mean 1 --round=2;
 
 # datamash - Get the mean/average value from a list of numbers
-echo "82.052 76.418 75.444 77.46" | tr " " "\n" | datamash mean 1 --round=2;
+echo "82.05 76.42 75.44 77.46" | tr " " "\n" | datamash mean 1 --round=2;
 
 # datamash - Get the max, min, mean & median from a list of numbers:
 seq 100 | datamash max 1 min 1 mean 1 median 1 --round=2;

@@ -141,19 +141,10 @@ ui.com
 <h3>Windstream</h3>
 <pre><code>
 
-windstream.net,
-auth-gateway.net
-
-</code></pre>
-<hr />
-
-<!-- ------------------------------------------------------------ -->
-
-<h3>Windstream Kinetic</h3>
-<pre><code>
-
+auth-gateway.net,
+gokinetic.com,
 windstream.com,
-gokinetic.com
+windstream.net
 
 </code></pre>
 <hr />

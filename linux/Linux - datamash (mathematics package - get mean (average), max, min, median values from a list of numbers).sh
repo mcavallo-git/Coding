@@ -15,8 +15,6 @@ echo "82.052 76.418 75.444 77.46" | tr " " "\n" | datamash mean 1
 seq 100 | datamash max 1 min 1 mean 1 median 1;
 
 
-
-
 # ------------------------------------------------------------
 #
 # Citation(s)

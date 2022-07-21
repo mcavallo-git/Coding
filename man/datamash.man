@@ -1,0 +1,496 @@
+DATAMASH(1)                                                        User Commands                                                       DATAMASH(1)
+
+NAME
+       datamash - command-line calculations
+
+SYNOPSIS
+       datamash [OPTION] op [fld] [op fld ...]
+
+DESCRIPTION
+       Performs numeric/string operations on input from stdin.
+
+       'op' is the operation to perform.  If a primary operation is used, it must be listed first, optionally followed by other operations.  'fld'
+       is the input field to use.  'fld' can be a number (1=first field), or a field name when using the -H or --header-in options.  Multiple
+       fields can be listed with a comma (e.g. 1,6,8).  A range of fields can be listed with a dash (e.g. 2-8).  Use colons for operations which
+       require a pair of fields (e.g. 'pcov 2:6').
+
+   Primary operations:
+              groupby, crosstab, transpose, reverse, check
+
+   Line-Filtering operations:
+              rmdup
+
+   Per-Line operations:
+              base64, debase64, md5, sha1, sha256, sha512, bin, strbin, round, floor, ceil, trunc, frac
+
+   Numeric Grouping operations:
+              sum, min, max, absmin, absmax, range
+
+   Textual/Numeric Grouping operations:
+              count, first, last, rand, unique, collapse, countunique
+
+   Statistical Grouping operations:
+              mean, trimmean, median, q1, q3, iqr, perc, mode, antimode, pstdev, sstdev, pvar, svar, mad, madraw, pskew, sskew, pkurt, skurt, dpo,
+              jarque, scov, pcov, spearson, ppearson
+
+   Grouping Options:
+       -C, --skip-comments
+              skip comment lines (starting with '#' or ';' and optional whitespace)
+
+       -f, --full
+              print entire input line before op results (default: print only the grouped keys)
+
+       -g, --group=X[,Y,Z]
+              group via fields X,[Y,Z]; equivalent to primary operation 'groupby'
+
+       --header-in
+              first input line is column headers
+
+       --header-out
+              print column headers as first line
+
+       -H, --headers
+              same as '--header-in --header-out'
+
+       -i, --ignore-case
+              ignore upper/lower case when comparing text; this affects grouping, and string operations
+
+       -s, --sort
+              sort the input before grouping; this removes the need to manually pipe the input through 'sort'
+
+   File Operation Options:
+       --no-strict
+              allow lines with varying number of fields
+
+       --filler=X
+              fill missing values with X (default %s)
+
+   General Options:
+       -t, --field-separator=X
+              use X instead of TAB as field delimiter
+
+       --format=FORMAT
+              print numeric values with printf style floating-point FORMAT.
+
+       --output-delimiter=X
+              use X instead as output field delimiter (default: use same delimiter as -t/-W)
+
+       --narm skip NA/NaN values
+
+       -R, --round=N
+              round numeric output to N decimal places
+
+       -W, --whitespace
+              use whitespace (one or more spaces and/or tabs) for field delimiters
+
+       -z, --zero-terminated
+              end lines with 0 byte, not newline
+
+       --help display this help and exit
+
+       --version
+              output version information and exit
+
+OPTIONS
+AVAILABLE OPERATIONS
+   Primary Operations
+       Primary operations affect the way the file is processed. If used, the primary operation must be listed first. Some operations require field
+       numbers (groupby, crosstab) while others do not (reverse,check,transpose).  If primary operation is not listed the entire file is processed
+       - either line-by-line (for 'per-line' operations) or all lines as one group (for grouping operations). See Examples section below.
+
+       groupby X,Y,... op fld ...
+                   group the file by given fields. Equivalent to option '-g'.  For each group perform operation op on field fld.
+
+       crosstab X,Y [op fld ...]
+                   cross-tabulate a file by two fields (cross-tabulation is also known as pivot tables). If no operation is specified, counts how
+                   many incidents exist of X,Y.
+
+       transpose   transpose rows, columns of the input file
+
+       reverse     reverse field order in each line
+
+       check [N lines] [N fields]
+                   verify the input file has same number of fields in all lines, or the expected number of lines/fields.  number of lines and
+                   fields are printed to STDOUT. Exits with non-zero code and prints the offending line if there's a mismatch in the number of
+                   lines/ fields.
+
+   Line-Filtering operations
+       rmdup       remove lines with duplicated key value
+
+   Per-Line operations
+       base64      Encode the field as base64
+
+       debase64    Decode the field as base64, exit with error if invalid base64 string
+
+       md5/sha1/sha256/sha512
+                   Calculate md5/sha1/sha256/sha512 hash of the field value
+
+       bin[:BUCKET-SIZE]
+                   bin numeric values into buckets of size BUCKET-SIZE (defaults to 100).
+
+       strbin[:BUCKET-SIZE]
+                   hashes the input and returns a numeric integer value between zero and BUCKET-SIZE (defaults to 10).
+
+       round/floor/ceil/trunc/frac
+                   numeric rounding operations. round (round half away from zero), floor (round up), ceil (ceiling, round down), trunc (truncate,
+                   round towards zero), frac (fraction, return fraction part of a decimal-point value).
+
+   Numeric Grouping operations
+       sum         sum the of values
+
+       min         minimum value
+
+       max         maximum value
+
+       absmin      minimum of the absolute values
+
+       absmax      maximum of the absolute values
+
+       range       the values range (max-min)
+
+   Textual/Numeric Grouping operations
+       count       count number of elements in the group
+
+       first       the first value of the group
+
+       last        the last value of the group
+
+       rand        one random value from the group
+
+       unique      comma-separated sorted list of unique values
+
+       collapse    comma-separated list of all input values
+
+       countunique number of unique/distinct values
+
+   Statistical Grouping operations
+       A p/s prefix indicates the variant: population or sample.  Typically, the sample variant is equivalent with GNU R's internal functions (e.g
+       datamash's sstdev operation is equivalent to R's sd() function).
+
+       mean        mean of the values
+
+       trimmean[:PERCENT]
+                   trimmed mean of the values. PERCENT should be between 0 and 0.5.  (trimmean:0 is equivalent to mean. trimmean:0.5 is equivalent
+                   to median).
+
+       median      median value
+
+       q1          1st quartile value
+
+       q3          3rd quartile value
+
+       iqr         inter-quartile range
+
+       perc[:PERCENTILE]
+                   percentile value PERCENTILE (defaults to 95).
+
+       mode        mode value (most common value)
+
+       antimode    anti-mode value (least common value)
+
+       pstdev/sstdev
+                   population/sample standard deviation
+
+       pvar/svar   population/sample variance
+
+       mad         median absolute deviation, scaled by constant 1.4826 for normal distributions
+
+       madraw      median absolute deviation, unscaled
+
+       pskew/sskew skewness of the group
+                     values x reported by 'sskew' and 'pskew' operations:
+                             x > 0       -  positively skewed / skewed right
+                         0 > x           -  negatively skewed / skewed left
+                             x > 1       -  highly skewed right
+                         1 > x >  0.5    -  moderately skewed right
+                       0.5 > x > -0.5    -  approximately symmetric
+                      -0.5 > x > -1      -  moderately skewed left
+                        -1 > x           -  highly skewed left
+
+       pkurt/skurt excess Kurtosis of the group
+
+       jarque/dpo  p-value of the Jarque-Beta (jarque) and D'Agostino-Pearson Omnibus (dpo) tests for normality:
+                      null hypothesis is normality;
+                      low p-Values indicate non-normal data;
+                      high p-Values indicate null-hypothesis cannot be rejected.
+
+       pcov/scov [X:Y]
+                   covariance of fields X and Y
+
+       ppearson/spearson [X:Y]
+                   Pearson product-moment correlation coefficient [Pearson's R] of fields X and Y
+
+EXAMPLES
+   Basic usage
+       Print the sum and the mean of values from field 1:
+
+              $ seq 10 | datamash sum 1 mean 1
+              55  5.5
+
+       Group input based on field 1, and sum values (per group) on field 2:
+
+              $ cat example.txt
+              A  10
+              A  5
+              B  9
+              B  11
+
+              $ datamash -g 1 sum 2 < example.txt
+              A  15
+              B  20
+
+              $ datamash groupby 1 sum 2 < example.txt
+              A  15
+              B  20
+
+       Unsorted input must be sorted (with '-s'):
+
+              $ cat example.txt
+              A  10
+              C  4
+              B  9
+              C  1
+              A  5
+              B  11
+
+              $ datamash -s -g1 sum 2 < example.txt
+              A  15
+              B  20
+              C  5
+
+       Which is equivalent to:
+
+              $ cat example.txt | sort -k1,1 | datamash -g 1 sum 2
+
+   Header lines
+       Use -h (--headers) if the input file has a header line:
+
+              # Given a file with student name, field, test score...
+              $ head -n5 scores_h.txt
+              Name           Major            Score
+              Shawn          Engineering      47
+              Caleb          Business         87
+              Christian      Business         88
+              Derek          Arts             60
+
+              # Calculate the mean and standard devian for each major
+              $ datamash --sort --headers --group 2 mean 3 pstdev 3 < scores_h.txt
+
+               (or use short form)
+
+              $ datamash -sH -g2 mean 3 pstdev 3 < scores_h.txt
+
+               (or use named fields)
+
+              $ datamash -sH -g Major mean Score pstdev Score < scores_h.txt
+              GroupBy(Major)    mean(Score)   pstdev(Score)
+              Arts              68.9          10.1
+              Business          87.3           4.9
+              Engineering       66.5          19.1
+              Health-Medicine   90.6           8.8
+              Life-Sciences     55.3          19.7
+              Social-Sciences   60.2          16.6
+
+   Skipping comment lines
+       Use -C (--skip-comments) to skip lines starting with ´#´ or ´;´ characters (and optional whitespace before them):
+
+              $ cat in.txt
+               #foo   3
+              bar     5
+              ;baz    7
+
+              $ datamash sum 2 < in.txt
+              15
+
+              $ datamash -C sum 2 < in.txt
+              5
+
+   Multiple fields
+       Use comma or dash to specify multiple fields. The following are equivalent:
+              $ seq 9 | paste - - -
+              1   2   3
+              4   5   6
+              7   8   9
+
+              $ seq 9 | paste - - - | datamash sum 1 sum 2 sum 3
+              12  15  18
+
+              $ seq 9 | paste - - - | datamash sum 1,2,3
+              12  15  18
+
+              $ seq 9 | paste - - - | datamash sum 1-3
+              12  15  18
+
+   Rounding
+       The following demonstrate the different rounding operations:
+       $ ( echo X ; seq -1.25 0.25 1.25 ) \
+             | datamash --full -H round 1 ceil 1 floor 1 trunc 1 frac 1
+
+         X     round(X)  ceil(X)  floor(X)  trunc(X)   frac(X)
+       -1.25   -1        -1       -2        -1         -0.25
+       -1.00   -1        -1       -1        -1          0
+       -0.75   -1         0       -1         0         -0.75
+       -0.50   -1         0       -1         0         -0.5
+       -0.25    0         0       -1         0         -0.25
+        0.00    0         0        0         0          0
+        0.25    0         1        0         0          0.25
+        0.50    1         1        0         0          0.5
+        0.75    1         1        0         0          0.75
+        1.00    1         1        1         1          0
+        1.25    1         2        1         1          0.25
+
+   Reversing fields
+              $ seq 6 | paste - - | datamash reverse
+              2    1
+              4    3
+              6    5
+
+   Transposing a file
+              $ seq 6 | paste - - | datamash transpose
+              1    3    5
+              2    4    6
+
+   Removing Duplicated lines
+       Remove lines with duplicate key value from field 1 (Unlike first,last operations, rmdup is much faster and does not require sorting the
+       file with -s):
+
+              # Given a list of files and sample IDs:
+              $ cat INPUT
+              SampleID  File
+              2         cc.txt
+              3         dd.txt
+              1         ab.txt
+              2         ee.txt
+              3         ff.txt
+
+              # Remove lines with duplicated Sample-ID (field 1):
+              $ datamash rmdup 1 < INPUT
+
+              # or use named field:
+              $ datamash -H rmdup SampleID < INPUT
+              SampleID  File
+              2         cc.txt
+              3         dd.txt
+              1         ab.txt
+
+   Checksums
+       Calculate the sha1 hash value of each TXT file, after calculating the sha1 value of each file's content:
+
+              $ sha1sum *.txt | datamash -Wf sha1 2
+
+   Check file structure
+       Check the structure of the input file: ensure all lines have the same number of fields, or expected number of lines/fields:
+
+              $ seq 10 | paste - - | datamash check && echo ok || echo fail
+              5 lines, 2 fields
+              ok
+
+              $ seq 13 | paste - - - | datamash check && echo ok || echo fail
+              line 4 (3 fields):
+                10  11  12
+              line 5 (2 fields):
+                13
+              datamash: check failed: line 5 has 2 fields (previous line had 3)
+              fail
+
+              $ seq 10 | paste - - | datamash check 2 fields 5 lines
+              5 lines, 2 fields
+
+              $ seq 10 | paste - - | datamash check 4 fields
+              line 1 (2 fields):
+                1     2
+              datamash: check failed: line 1 has 2 fields (expecting 4)
+
+              $ seq 10 | paste - - | datamash check 7 lines
+              datamash: check failed: input had 5 lines (expecting 7)
+
+   Cross-Tabulation
+       Cross-tabulation compares the relationship between two fields.  Given the following input file:
+              $ cat input.txt
+              a    x    3
+              a    y    7
+              b    x    21
+              a    x    40
+
+       Show cross-tabulation between the first field (a/b) and the second field (x/y) - counting how many times each pair appears (note: sorting
+       is required):
+
+              $ datamash -s crosstab 1,2 < input.txt
+                   x    y
+              a    2    1
+              b    1    N/A
+
+       An optional grouping operation can be used instead of counting:
+
+              $ datamash -s crosstab 1,2 sum 3 < input.txt
+                   x    y
+              a    43   7
+              b    21   N/A
+
+              $ datamash -s crosstab 1,2 unique 3 < input.txt
+                   x    y
+              a    3,40 7
+              b    21   N/A
+
+   Binning numeric values
+       Bin input values into buckets of size 5:
+
+              $  ( echo X ; seq -10 2.5 10 ) \
+                    | datamash -H --full bin:5 1
+                  X  bin(X)
+              -10.0    -15
+               -7.5    -10
+               -5.0    -10
+               -2.5     -5
+                0.0      0
+                2.5      0
+                5.0      5
+                7.5      5
+               10.0     10
+
+   Binning string values
+       Hash any input value into a numeric integer.  A typical usage would be to split an input file into N chunks, ensuring that all values of a
+       certain key will be stored in the same chunk:
+
+              $ cat input.txt
+              PatientA   10
+              PatientB   11
+              PatientC   12
+              PatientA   14
+              PatientC   15
+
+       Each patient ID is hashed into a bin between 0 and 9
+       and printed in the last field:
+
+              $ datamash --full strbin 1 < input.txt
+              PatientA   10    5
+              PatientB   11    6
+              PatientC   12    7
+              PatientA   14    5
+              PatientC   15    7
+
+       Splitting the input into chunks can be done with awk:
+
+              $ cat input.txt \
+                  | datamash --full strbin 1 \
+                  | awk '{print > $NF ".txt"}'
+
+ADDITIONAL INFORMATION
+       See GNU Datamash Website (https://www.gnu.org/software/datamash)
+
+AUTHOR
+       Written by Assaf Gordon.
+
+COPYRIGHT
+       Copyright © 2018 Assaf Gordon License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.
+       This is free software: you are free to change and redistribute it.  There is NO WARRANTY, to the extent permitted by law.
+
+SEE ALSO
+       The full documentation for datamash is maintained as a Texinfo manual.  If the info and datamash programs are properly installed at your
+       site, the command
+
+              info datamash
+
+       should give you access to the complete manual.
+
+datamash 1.4                                                       December 2018                                                       DATAMASH(1)

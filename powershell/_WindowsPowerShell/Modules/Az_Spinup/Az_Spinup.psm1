@@ -270,6 +270,9 @@ function Az_Spinup {
 		$CommandDescription = "Performing User Authentication/Authorization";
 		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
 
+		# Open the Azure login screen in the browser specified by variable ${env:BROWSER}
+		# ${env:BROWSER}="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe";
+
 		$az.login = `
 			az login `
 			| ConvertFrom-Json;

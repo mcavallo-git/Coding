@@ -40,6 +40,17 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 
 # ------------------------------------------------------------
 #
+# jq - regex match/select
+#
+
+# jq  -  “test” (regex)  -  example: get array objects whose “name” property matches regex pattern (starts with at least 3 digits (0-9)))
+JQ_QUERY='.[] | select(.name | test("^[0-9]{3,}")) | .name';
+JSON='[{"name":"alpha"},{"name":"1-one"},{"name":"22-two"},{"name":"333-three"},{"name":"4444-four"}]';
+echo "${JSON}" | jq -r "${JQ_QUERY}";
+
+
+# ------------------------------------------------------------
+#
 # jq - select objects/array-items/properties based on their value(s)/nested-value(s)
 #  |
 #  |--> NOTE:  " | select(...)" is type-sensitive (ints require no quotes, strings require quotes around their compared value(s))
@@ -384,6 +395,8 @@ fi;
 #   stackoverflow.com  |  "How do I select multiple fields in jq? - Stack Overflow"  |  https://stackoverflow.com/a/34835208
 #
 #   stackoverflow.com  |  "iteration - Output specific key value in object for each element in array with jq for JSON - Stack Overflow"  |  https://stackoverflow.com/a/35677443
+#
+#   stackoverflow.com  |  "json - Filter by Regex in JQ - Stack Overflow"  |  https://stackoverflow.com/a/50868294
 #
 #   stackoverflow.com  |  "json - How to check if element exists in array with jq - Stack Overflow"  |  https://stackoverflow.com/a/43269105
 #

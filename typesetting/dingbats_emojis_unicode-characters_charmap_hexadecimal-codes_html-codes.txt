@@ -187,8 +187,8 @@ Mostly Linux compatible:
 📨				Incoming Envelope  |  https://www.compart.com/en/unicode/U+1F4E8
 📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
-🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";
-🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/  |  echo -e "\\xF0\\x9F\\x97\\x91\\xEF\\xB8\\x8F";
+🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";  |  "$([char]0x26A0+[char]0xFE0F)"
+🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/  |  echo -e "\\xF0\\x9F\\x97\\x91\\xEF\\xB8\\x8F";  |  "$([char]0xD83D+[char]0xDDD1+[char]0xFE0F)"
 
 
 ⌨ 				Keyboard  |  https://www.compart.com/en/unicode/U+2328

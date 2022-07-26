@@ -266,6 +266,7 @@ Mostly Linux compatible:
 
 ==--  iOS Emojis - Audio-Related  --==
 
+
 🎧 				Headphone  |  https://www.compart.com/en/unicode/U+1F3A7
 🎤
 🎚
@@ -280,6 +281,7 @@ Mostly Linux compatible:
 
 
 ==--  iOS Emojis - Squares, Circles, Diamonds  --==
+
 
 🔺
 🔻
@@ -389,7 +391,7 @@ Mostly Linux compatible:
 ⓴	Dingbat negative circled number twenty
 
 
-// ------------------------------------------------------------
+------------------------------------------------------------
 
 Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 

@@ -153,7 +153,7 @@ Mostly Linux compatible:
 
 
 📅				Calendar  |  https://www.compart.com/en/unicode/U+1F4C5
-⏳					Hourglass with Flowing Sand  |  https://www.compart.com/en/unicode/U+23F3
+⏳					Hourglass with Flowing Sand  |  https://www.compart.com/en/unicode/U+23F3  |  echo -e "\\xE2\\x8F\\xB3";  |  "$([char]0x23F3)"
 ⏱					Stopwatch  |  https://www.compart.com/en/unicode/U+23F1
 ⏱️				 Stopwatch (Colored)  |  https://www.compart.com/en/unicode/U+23F1
 ⌚					Watch  |  https://www.compart.com/en/unicode/U+231A
@@ -167,10 +167,10 @@ Mostly Linux compatible:
 🔏				Lock with Ink Pen  |  https://www.compart.com/en/unicode/U+1F50F
 
 
+⚠					Warning Sign  |  https://www.compart.com/en/unicode/U+26A0  |  echo -e "\\xE2\\x9A\\xA0";  |  "$([char]0x26A0)"
+⚠️				Warning Sign (Colored)  |  https://emojipedia.org/warning/  |  echo -e "\\xE2\\x9A\\xA0\\xEF\\xB8\\x8F";  |  "$([char]0x26A0+[char]0xFE0F)"
 ⛔				 No Entry  |  https://www.compart.com/en/unicode/U+26D4
 🚫				No Entry Sign  |  https://www.compart.com/en/unicode/U+1F6AB
-⚠️				Warning Sign (Colored)  |  https://emojipedia.org/warning/
-⚠					Warning Sign  |  https://www.compart.com/en/unicode/U+9888
 ❗					Heavy Exclamation Mark Symbol  |  https://www.compart.com/en/unicode/U+2757
 ❓					Black Question Mark Ornament &#10067; &#x2753;  |  https://www.compart.com/en/unicode/U+2753
 

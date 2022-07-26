@@ -80,8 +80,8 @@ Mostly Linux compatible:
 ------------------------------------------------------------
 
 
-✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714
-✔️				Heavy Check Mark (Colored)  |  https://www.compart.com/en/unicode/U+2714
+✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714  |  echo -e "\\xE2\\x9C\\x94";
+✔️				Heavy Check Mark (Colored)  |  https://emojipedia.org/check-mark/
 🗸				 Light Check Mark  |  https://www.compart.com/en/unicode/U+1F5F8
 ✓					Check Mark (&check;)  |  https://www.compart.com/en/unicode/U+2713
 √					Square Root  |  https://www.compart.com/en/unicode/U+221a
@@ -96,7 +96,7 @@ Mostly Linux compatible:
 ✗					Ballot X  |  https://www.compart.com/en/unicode/U+2717
 ✘					Heavy Ballot X  |  https://www.compart.com/en/unicode/U+2718
 🗙				 Cancellation X  |  https://www.compart.com/en/unicode/U+1F5D9
-❌				 Cross Mark  |  https://www.compart.com/en/unicode/U+274C
+❌				 Cross Mark  |  https://www.compart.com/en/unicode/U+274C  |  echo -e "\\xE2\\x9D\\x8C";
 ❎					Negative Squared Cross Mark  |  https://www.compart.com/en/unicode/U+274E
 ✅					White Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2705
 

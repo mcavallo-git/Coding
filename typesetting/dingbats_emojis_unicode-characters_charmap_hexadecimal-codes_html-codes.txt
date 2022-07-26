@@ -175,8 +175,10 @@ Mostly Linux compatible:
 ❓					Black Question Mark Ornament &#10067; &#x2753;  |  https://www.compart.com/en/unicode/U+2753
 
 
-🗇				 Empty Note Pad (Copy/Paste Files)  |  https://www.compart.com/en/unicode/U+1F5C7  |  echo -e "\\xF0\\x9F\\x97\\x87";
-🗊				 Note Pad (Copy/Paste Files)  |  https://www.compart.com/en/unicode/U+1F5CA  |  echo -e "\\xF0\\x9F\\x97\\x8A";
+🗇				 Empty Note Pad  |  https://www.compart.com/en/unicode/U+1F5C7  |  echo -e "\\xF0\\x9F\\x97\\x87";  |  "$([char]0xD83D+[char]0xDDC7)"
+🗇️				 Empty Note Pad Emoji (Copy/Paste Files)  |  https://emojipedia.org/empty-note-pad/  |  echo -e "\\xF0\\x9F\\x97\\x87\\xEF\\xB8\\x8F";  |  "$([char]0xD83D+[char]0xDDC7+[char]0xFE0F)"
+🗊				 Note Pad (Copy/Paste Files)  |  https://www.compart.com/en/unicode/U+1F5CA  |  echo -e "\\xF0\\x9F\\x97\\x8A";  |  "$([char]0xD83D+[char]0xDDCA)"
+🗊️				 Note Pad Emoji (Copy/Paste Files)  |  https://emojipedia.org/note-pad/  |  echo -e "\\xF0\\x9F\\x97\\x8A\\xEF\\xB8\\x8F";  |  "$([char]0xD83D+[char]0xDDCA+[char]0xFE0F)"
 💾				Floppy Disk  |  https://www.compart.com/en/unicode/U+1F4BE
 📁				File Folder  |  https://www.compart.com/en/unicode/U+1F4C1
 📂				Open File Folder  |  https://www.compart.com/en/unicode/U+1F4C2
@@ -187,7 +189,7 @@ Mostly Linux compatible:
 📨				Incoming Envelope  |  https://www.compart.com/en/unicode/U+1F4E8
 📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
-🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";  |  "$([char]0x26A0+[char]0xFE0F)"
+🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";  |  "$([char]0xD83D+[char]0xDDD1)"
 🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/  |  echo -e "\\xF0\\x9F\\x97\\x91\\xEF\\xB8\\x8F";  |  "$([char]0xD83D+[char]0xDDD1+[char]0xFE0F)"
 
 

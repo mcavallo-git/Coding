@@ -9,9 +9,6 @@ if [[ 1 -eq 1 ]]; then
   # ------------------------------
 
   unset COMMANDS_ARRAY; declare -a COMMANDS_ARRAY; # [Re-]Instantiate bash array
-
-  # ------------------------------
-
   COMMANDS_ARRAY+=("${COMMAND}");
   COMMANDS_ARRAY+=("${COMMAND} attach");
   COMMANDS_ARRAY+=("${COMMAND} build");

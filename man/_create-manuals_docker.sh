@@ -4,6 +4,10 @@ if [[ 1 -eq 1 ]]; then
 
   COMMAND="docker";
 
+  MANFILE="$(realpath "${HOME}/man/${COMMAND}.help.man";)";
+
+  # ------------------------------
+
   unset COMMANDS_ARRAY; declare -a COMMANDS_ARRAY; # [Re-]Instantiate bash array
 
   # ------------------------------
@@ -207,8 +211,6 @@ if [[ 1 -eq 1 ]]; then
   COMMANDS_ARRAY+=("${COMMAND} wait");
 
   # ------------------------------
-
-  MANFILE="$(realpath "${HOME}/man/${COMMAND}.help.man";)";
 
   if [[ -f "${MANFILE}" ]]; then
     rm -fv "${MANFILE}";

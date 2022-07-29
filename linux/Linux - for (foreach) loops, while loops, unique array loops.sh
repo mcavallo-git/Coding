@@ -17,12 +17,16 @@
 for i in {1..10}; do echo "\$i = ${i}"; done;
 
 
+# For-loop - Integer iteration ( using range {START..END..INCREMENT} syntax ) - Bash ??? only
+LOOP_ITERATIONS=50; for ((i=0;i<LOOP_ITERATIONS;i++)); do echo "\$i = ${i}"; done;
+
+
 # For-loop - Integer iteration ( using 'seq' command and a variable iteration counter)
-LOOP_ITERATIONS=1000; for i in $(seq ${LOOP_ITERATIONS}); do echo "\$i = ${i}"; done;
+LOOP_ITERATIONS=50; for i in $(seq ${LOOP_ITERATIONS}); do echo "\$i = ${i}"; done;
 
 
 # For-loop - Integer iteration - BREAK the loop if a specific condition occurs
-LOOP_ITERATIONS=1000; for i in $(seq ${LOOP_ITERATIONS}); do echo "\$i = ${i}"; if [[ "${i}" -eq 257 ]]; then break; fi; done;
+LOOP_ITERATIONS=50; for i in $(seq ${LOOP_ITERATIONS}); do echo "\$i = ${i}"; if [[ "${i}" -eq 257 ]]; then break; fi; done;
 
 
 # For-loop - Integer iteration ( using range {START..END..INCREMENT} syntax ) - Bash 4.0+ only

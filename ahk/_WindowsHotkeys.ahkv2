@@ -787,17 +787,28 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  WinKey + R
+;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
+;
+#r::
+  Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
+  Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Alt + WinKey + R
 ;            Ctrl + WinKey + R
 ;            Shift + WinKey + R
 ;            Shift + Alt + R
 ;            Shift + Ctrl + R
-;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
+;   ACTION:  Open Windows 10's "Run" Command
 ;
 !#r::
 ^#r::
 +#r::
-  Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
+  CMD_Command := "explorer.exe shell:" ":" ":" "{2559a1f3-21d7-11d4-bdaf-00c04f60b9f0}"
+  RunWaitOne(CMD_Command)
   Return
 
 

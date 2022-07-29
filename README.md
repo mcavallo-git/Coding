@@ -163,7 +163,7 @@ This file (on GitHub):
 <tr><td><strong>WSL</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">View Docs (Install WSL on Windows 10)</a><br />&nbsp;&nbsp;&nbsp;WSL EXE Shortcut (static): <code>%WINDIR%\System32\wsl.exe</code><br />&nbsp;&nbsp;&nbsp;WSL Directory Shortcut (from Windows) (static): <code>\\wsl$\</code></i></sub></td><td>
   <a href="https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW">Download (Ubuntu 22.04 LTS)</a>
   <sub>
-    <details><summary>Install WSL Ubuntu-22.04 (PowerShell one-liner)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
+    <br />&nbsp;&nbsp;&nbsp;<details><summary>Install WSL Ubuntu-22.04 (PowerShell one-liner)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-2004/9N6SVWS3RX71">Download (Ubuntu 20.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Download (Ubuntu 18.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Download (Ubuntu 16.04 LTS)</a>

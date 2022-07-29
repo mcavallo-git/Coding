@@ -161,13 +161,14 @@ This file (on GitHub):
 <tr><td><strong>VMware PowerCLI PowerShell Module</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;vSphere Hypervisor (ESXi) PowerShell Tools<br />&nbsp;&nbsp;&nbsp;Also known as "vSphere CLI"<br />&nbsp;&nbsp;&nbsp;<a href="https://code.vmware.com/web/tool/11.5.0/vmware-powercli">View Documentation (source)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://powercli-core.readthedocs.io/">View Documentation (core)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.vmware.com/support/developer/PowerCLI/">View Documentation (developer)</a></i></sub></td><td><a href="https://www.powershellgallery.com/packages/VMware.PowerCLI/11.5.0.14912921">Download (VMware PowerCLI)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/group/vmware/get-download?downloadGroup=VS-CLI-670">Download (vSphere CLI)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://code.vmware.com/tools">Download (other tools)</a><br />&nbsp;&nbsp;&nbsp;<details><summary>Install VMware PowerCLI (PowerShell one-liner)</summary><p><ol><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name VMware.PowerCLI -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ol></p></details></sub></td></tr>
 <tr><td><strong>WiX</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Installer XML Toolset<br />&nbsp;&nbsp;&nbsp;Builds Windows Installer packages from XML</i></sub></td><td><a href="https://wixtoolset.org/releases/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/wixtoolset/wix3/releases">Download (GitHub)</a></sub></td></tr>
 <tr><td><strong>WSL</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">View Docs (Install WSL on Windows 10)</a><br />&nbsp;&nbsp;&nbsp;WSL EXE Shortcut (static): <code>%WINDIR%\System32\wsl.exe</code><br />&nbsp;&nbsp;&nbsp;WSL Directory Shortcut (from Windows) (static): <code>\\wsl$\</code></i></sub></td>
-<td><a href="https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW">Download (Ubuntu 22.04 LTS)</a>
+<td><a href="https://apps.microsoft.com/store/search?hl=en-us&gl=US&publisher=Canonical%20Group%20Limited">View (All Ubuntu WSL Distros)</a>
   <sub>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW">Download (Ubuntu 22.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<details><summary>Install WSL Ubuntu-22.04 (PowerShell one-liner)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-2004/9N6SVWS3RX71">Download (Ubuntu 20.04 LTS)</a>
+    <br />&nbsp;&nbsp;&nbsp;<details><summary>Install WSL Ubuntu-20.04 (PowerShell one-liner)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-20.04") -Verb RunAs;</code></pre></li></ol></p></details>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Download (Ubuntu 18.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Download (Ubuntu 16.04 LTS)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/search?hl=en-us&gl=US&publisher=Canonical%20Group%20Limited">View (All Ubuntu Distros)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (Offline/Manual Installers)</a>
   </sub>
 </td></tr>
@@ -417,7 +418,17 @@ This file (on GitHub):
 <tr><td><strong>Microsoft Server 2016</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows-server/get-started/system-requirements">View System Requirements (Minimum)</a></i></sub></td><td><a href="https://www.microsoft.com/en-us/evalcenter/evaluate-windows-server-2016?filetype=ISO">Download (source)</a></td></tr>
 <tr><td><strong>Raspberry Pi OS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Renamed from "Raspbian" in mid 2020 for 64-bit OS release<br />&nbsp;&nbsp;&nbsp;Install OS onto Raspi's SD card using Rufus</i></sub></td><td><a href="https://www.raspberrypi.org/software/operating-systems/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://ubuntu.com/download/raspberry-pi">Download (Ubuntu for Raspi)</a></sub></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
-<tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Download (Ubuntu 20.04 LTS)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Download (Ubuntu 18.04 LTS)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Download (Ubuntu 16.04 LTS)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Download (Ubuntu 14.04 LTS)</a></sub></td></tr>
+<tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td>
+<td>
+  <a href="https://ubuntu.com/download/server">Download (source)</a>
+  <sub>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Download (Ubuntu 22.04 LTS)</a>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Download (Ubuntu 20.04 LTS)</a>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Download (Ubuntu 18.04 LTS)</a>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Download (Ubuntu 16.04 LTS)</a>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Download (Ubuntu 14.04 LTS)</a>
+  </sub>
+</td></tr>
 <tr><td><strong>VMware (All Downloads)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere/Workstation/Fusion/Player/etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
 <tr><td><strong>VMware ESXi</strong> <sub>
 	<i>

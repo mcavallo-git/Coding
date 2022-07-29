@@ -124,6 +124,7 @@
 		},
 		"Windows 10 Applications": {
 			"explorer.exe shell:Appsfolder\\Microsoft.WindowsAlarms_8wekyb3d8bbwe!App": "Alarms & Clock",
+			"cmd /c explorer.exe shell:::{2559a1f3-21d7-11d4-bdaf-00c04f60b9f0}": "Run",
 			"explorer.exe shell:AppsFolder\\Microsoft.XboxGamingOverlay_8wekyb3d8bbwe!App": "Xbox Game Bar",
 			"explorer.exe shell:AppsFolder\\Microsoft.GamingApp_8wekyb3d8bbwe!Microsoft.Xbox.App": "Xbox"
 		}

@@ -166,7 +166,6 @@ This file (on GitHub):
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW">Download (Ubuntu 22.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<details><summary>Install WSL Ubuntu-22.04 (PowerShell one-liner)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-2004/9N6SVWS3RX71">Download (Ubuntu 20.04 LTS)</a>
-    <br />&nbsp;&nbsp;&nbsp;<details><summary>Install WSL Ubuntu-20.04 (PowerShell one-liner)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-20.04") -Verb RunAs;</code></pre></li></ol></p></details>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Download (Ubuntu 18.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Download (Ubuntu 16.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (Offline/Manual Installers)</a>

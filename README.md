@@ -432,7 +432,7 @@ This file (on GitHub):
 <tr><td><strong>VMware ESXi</strong> <sub>
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
-		<br />&nbsp;&nbsp;&nbsp;Requires a "My VMware" account (free to create)
+		<br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
 		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
 			<h5>
 				<ul>

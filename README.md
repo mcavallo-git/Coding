@@ -433,7 +433,7 @@ This file (on GitHub):
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
 		<br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
-		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
+		<!-- <br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary> -->
 			<h5>
 				<ul>
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
@@ -442,7 +442,7 @@ This file (on GitHub):
 					<li>&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
 				</ul>
 			</h5>
-		</details>
+		<!-- </details> -->
 		&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Docs) Creating a bootable USB-drive w/ Rufus</a>
 	</i></sub></td>
 	<td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>

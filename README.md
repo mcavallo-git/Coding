@@ -433,15 +433,14 @@ This file (on GitHub):
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
 		<br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
-		<br />&nbsp;&nbsp;&nbsp;<details open><summary>(Docs) ESXi Installation/Setup</summary>
-<h5 id="user-content-esxi-install-docs">
-<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
-<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
-<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
-<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
-</h5>
-		</details>
-		&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Docs) Creating a bootable USB-drive w/ Rufus</a>
+    <h5 id="esxi-install-docs">(Docs) ESXi Installation/Setup
+      <br />&nbsp;&nbsp;&nbsp;(Docs) ESXi Installation/Setup
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://rufus.ie/">(Docs) Rufus - Creating a bootable USB-drive</a>
+    </h5>
 	</i></sub></td>
 	<td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>

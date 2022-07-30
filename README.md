@@ -433,8 +433,7 @@ This file (on GitHub):
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
 		<br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
-    <h5 id="esxi-install-docs">(Docs) ESXi Installation/Setup
-      <br />&nbsp;&nbsp;&nbsp;(Docs) ESXi Installation/Setup
+    <h5 id="esxi-install-docs">&nbsp;&nbsp;&nbsp;(Docs) ESXi Installation/Setup
       <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
       <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
       <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>

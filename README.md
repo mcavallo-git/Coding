@@ -198,11 +198,11 @@ This file (on GitHub):
 
 <tr><td><strong>Tortoise Git</strong>
 &nbsp;<sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Recommendation: Disable the <code>Status cache</code> (to prevent high CPU usage)&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup></sub>
-<ol>
+<sub><ol>
 <li>Open <code>Tortoise Git Settings</code></li>
 <li>Select <code>Icon Overlays</code> (left menu item)</li>
 <li>Under <code>Status Cache</code> header, select <code>None</code></li>
-</ol>
+</ol></sub>
 </i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 
 <tr><td><strong>Typora</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Markdown editing/reading utility (GUI-based)<br />&nbsp;&nbsp;&nbsp;Paid Software (Closed Source)</i></sub></td><td><a href="https://typora.io/">View (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://typora.io/windows/typora-setup-x64.exe">Download (direct)</a></sub></td></tr>

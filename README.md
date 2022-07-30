@@ -432,6 +432,7 @@ This file (on GitHub):
 <tr><td><strong>VMware ESXi</strong> <sub>
 	<i>
 		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
+		<br />&nbsp;&nbsp;&nbsp;Requires a "My VMware" account (free to create)
 		<br />&nbsp;&nbsp;&nbsp;<details><summary>(Docs) ESXi Installation/Setup</summary>
 			<h5>
 				<ul>
@@ -443,7 +444,6 @@ This file (on GitHub):
 			</h5>
 		</details>
 		&nbsp;&nbsp;&nbsp;<a href="https://rufus.ie/">(Docs) Creating a bootable USB-drive w/ Rufus</a>
-		<br />&nbsp;&nbsp;&nbsp;Note: Requires a "My VMware" account (free)
 	</i></sub></td>
 	<td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>

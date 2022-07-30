@@ -195,7 +195,17 @@ This file (on GitHub):
 <tr><td><strong>Notepad Replacer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Redirects notepad.exe calls to use an alternative text editor, instead<br />&nbsp;&nbsp;&nbsp;Text Editor Path:  <b>C:\Program Files\Microsoft VS Code\Code.exe</b></i></sub></td><td><a href="https://www.binaryfortress.com/NotepadReplacer/Download/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.binaryfortress.com/Data/Download/?package=notepadreplacer&log=100">Download (direct)</a></sub></td></tr>
 <tr><td><strong>NuGet</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Package Manager designed for the<br />&nbsp;&nbsp;&nbsp;Microsoft development platform</i></sub></td><td><a href="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe">Download (source)</a></td></tr>
 <tr><td><strong>PoshGui</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source tools & cmdlets for SysAdmins</i></sub></td><td><a href="https://poshgui.com/">Download (source)</a></td></tr>
-<tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Recommendation: Disable the <code>Status cache</code> (to prevent high CPU usage)&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup><br />&nbsp;&nbsp;&nbsp;<p><ol><li>Open <code>Tortoise Git Settings</code></li><li>Select <code>Icon Overlays</code> (left menu item)</li><li>Under <code>Status Cache</code> header, select <code>None</code></li></ol></p></i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
+
+<tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Recommendation: Disable the <code>Status cache</code> (to prevent high CPU usage)&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup><br />&nbsp;&nbsp;&nbsp;
+<p>
+<ol>
+<li>Open <code>Tortoise Git Settings</code></li>
+<li>Select <code>Icon Overlays</code> (left menu item)</li>
+<li>Under <code>Status Cache</code> header, select <code>None</code></li>
+</ol>
+</p>
+</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
+
 <tr><td><strong>Typora</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Markdown editing/reading utility (GUI-based)<br />&nbsp;&nbsp;&nbsp;Paid Software (Closed Source)</i></sub></td><td><a href="https://typora.io/">View (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://typora.io/windows/typora-setup-x64.exe">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Windows 10 SDK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Provides the following (for building Windows 10 Apps):<br />&nbsp;&nbsp;&nbsp;Headers, libraries, & tools for Win10 apps</i></sub></td><td><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://go.microsoft.com/fwlink/p/?linkid=2083338&clcid=0x409">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Windows ADK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Assessment and Deployment Kit<br />&nbsp;&nbsp;&nbsp;Includes Deployment Tools (Windows image/.iso tools):<sub><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISM, DISM API, & OSCDIMG</sub></i></sub></td><td><a href="https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install?WT.mc_id=thomasmaurer-blog-thmaure#other-adk-downloads">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://go.microsoft.com/fwlink/?linkid=2086042">Download (direct)</a></sub></td></tr>

@@ -199,9 +199,9 @@ This file (on GitHub):
 <tr><td><strong>Tortoise Git</strong>
 &nbsp;<sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Recommendation: Disable the <code>Status cache</code> (to prevent high CPU usage)&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup></sub>
 <ol>
-<sub><li>Open <code>Tortoise Git Settings</code></li></sub>
-<sub><li>Select <code>Icon Overlays</code> (left menu item)</li></sub>
-<sub><li>Under <code>Status Cache</code> header, select <code>None</code></li></sub>
+<li><sub>Open <code>Tortoise Git Settings</code></sub></li>
+<li><sub>Select <code>Icon Overlays</code> (left menu item)</sub></li>
+<li><sub>Under <code>Status Cache</code> header, select <code>None</code></sub></li>
 </ol>
 </i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 

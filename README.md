@@ -196,13 +196,7 @@ This file (on GitHub):
 <tr><td><strong>NuGet</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Package Manager designed for the<br />&nbsp;&nbsp;&nbsp;Microsoft development platform</i></sub></td><td><a href="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe">Download (source)</a></td></tr>
 <tr><td><strong>PoshGui</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source tools & cmdlets for SysAdmins</i></sub></td><td><a href="https://poshgui.com/">Download (source)</a></td></tr>
 
-<tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Recommendation: Disable the <code>Status cache</code> (to prevent high CPU usage)&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup>
-
-Open <code>Tortoise Git Settings</code>
-Select <code>Icon Overlays</code> (left menu item)
-Under <code>Status Cache</code> header, select <code>None</code>
-
-</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
+<tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Recommendation: Disable the <code>Status cache</code> (to prevent high CPU usage)&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Open <code>Tortoise Git Settings</code><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Select <code>Icon Overlays</code> (left menu item)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Under <code>Status Cache</code> header, select <code>None</code></i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 
 <tr><td><strong>Typora</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Markdown editing/reading utility (GUI-based)<br />&nbsp;&nbsp;&nbsp;Paid Software (Closed Source)</i></sub></td><td><a href="https://typora.io/">View (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://typora.io/windows/typora-setup-x64.exe">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Windows 10 SDK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Provides the following (for building Windows 10 Apps):<br />&nbsp;&nbsp;&nbsp;Headers, libraries, & tools for Win10 apps</i></sub></td><td><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-10-sdk">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://go.microsoft.com/fwlink/p/?linkid=2083338&clcid=0x409">Download (direct)</a></sub></td></tr>

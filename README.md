@@ -132,7 +132,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="communication"><br />Communication<br /><br /></h5></th></tr>
 <tr><td><strong>Discord</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VoIP & Digital Distribution</i></sub></td><td><a href="https://discordapp.com/download">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86">Download (direct)</a></sub></td></tr>
-<tr><td><strong>Microsoft Teams</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Chat & App/File-Sharing</i></sub></td><td><a href="https://products.office.com/en-us/microsoft-teams/download-app">Download (source)</a></td></tr>
+<tr><td><strong>Microsoft Teams</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Business Communication & Team Collaboration Utility</i></sub></td><td><a href="https://products.office.com/en-us/microsoft-teams/download-app">Download (source)</a></td></tr>
 <tr><td><strong>Skype</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Free Video & Voice Calls</i></sub></td><td><a href="https://www.skype.com/en/get-skype/">Download (source)</a></td></tr>
 <tr><td><strong>Skype for Business</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;<a href="https://support.microsoft.com/en-us/help/4511540/retirement-of-skype-for-business-online">View Docs (Skype for Business retired after July 31, 2021)</a></i></sub></td><td><a href="https://products.office.com/en-us/skype-for-business/download-app">Download (source)</a></td></tr>
 <!-- -->

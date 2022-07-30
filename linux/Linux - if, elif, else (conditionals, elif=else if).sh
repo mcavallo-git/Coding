@@ -6,7 +6,7 @@
 if [ ! -v var ]; then
   # UNSET
   echo "\$var is unset";
-if [ -z ${var+x} ]; then # Note: Do NOT wrap ${var+x} with quotes
+elif [ -z ${var+x} ]; then # Note: Do NOT wrap ${var+x} with quotes
   # UNSET
   echo "\$var is unset";
 elif [ -z "${var}" ]; then

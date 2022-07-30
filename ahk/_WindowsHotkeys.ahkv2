@@ -528,16 +528,23 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  Shift + Ctrl + P
+;   ACTION:  Reserved for VS Code's "Command Palette..." default hotkey
+;
+; +^p::
+;   Return
+
+
+; ------------------------------------------------------------
+;
 ;   HOTKEY:  Ctrl + WinKey + P
 ;   HOTKEY:  Shift + Alt + P
-;   HOTKEY:  Shift + Ctrl + P
 ;   HOTKEY:  Shift + WinKey + P
 ;   ACTION:  Ask user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 ^#p::
 +#p::
 +!p::
-+^p::
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   PasteClipboard_TextOrBinary()
   Return

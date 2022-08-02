@@ -333,6 +333,7 @@ function ExclusionsListUpdate {
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Palo Alto Networks\Traps"; Depth="1"; Parent=""; Basename="*.exe"; }; # Palo Alto Traps (Endpoint Security Manager)
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="PowerShell"; Depth="2"; Parent=""; Basename="*.exe"; }; # PowerShell 7+
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Qualys\QualysAgent"; Depth="3"; Parent=""; Basename="*.exe"; }; # Qualys Cloud Agent (Remote patching via vendor CDNs)
+    $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Shotcut"; Depth="0"; Parent=""; Basename="melt.exe"; }; # Shotcut (video editor - melt.exe = primary encoding runtime)
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Synaptics"; Depth=""; Parent=""; Basename="SynTPEnh*.exe"; }; # Synaptics
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="TortoiseGit"; Depth=""; Parent=""; Basename="*.exe"; }; # TortoiseGit
     # $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="WindowsApps"; Depth="2"; Parent=""; Basename="DiskMark64.exe"; }; # Crystal Disk Mark

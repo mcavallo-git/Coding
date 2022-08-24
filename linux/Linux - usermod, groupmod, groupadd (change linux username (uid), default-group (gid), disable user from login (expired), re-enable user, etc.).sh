@@ -17,7 +17,7 @@ usermod --append --groups "${GROUPS_TO_JOIN}" "${USER_NAME}";
 # Alpine - Add 1 user to 1 group
 USER_NAME="username";
 GROUP_NAME="groupname";
-addgroup "${GROUP_NAME}" "${USER_NAME}";
+addgroup "${USER_NAME}" "${GROUP_NAME}";
 
 
 # ------------------------------------------------------------

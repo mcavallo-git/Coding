@@ -1,5 +1,18 @@
 #!/bin/bash
+# ------------------------------------------------------------
+#
+# EdgeOS (UniFi) - show configuration commands (outputs/reverse-engineers the cli config commands needed to recreate the current device's config)
+#
+# ------------------------------------------------------------
 
-show configuration commands > "${HOME}/show configuration commands.$(date +'%Y%m%d_%H%M%S').$(hostname).sh";
-#  |
-#  |--> Reverse-engineers the current config and outputs what it would take to rebuild it (as a set of shell-commands)
+# Step 1 - SSH into your Unifi device (USG, for example)
+
+
+# Step 2 - Export the config as a set of CLI commands
+OUTFILE="$(getent passwd ${SUDO_USER:-${USER}} | cut -d : -f 6)/show-configuration-commands.$(date +'%Y%m%d_%H%M%S').$(hostname).sh"; show configuration commands > "${OUTFILE}"; echo "OUTFILE=[ ${OUTFILE} ]";
+
+
+# Step 3 - Download the exported file via your SFTP tool of choice (it will have been placed in user's home directory)
+
+
+# ------------------------------------------------------------

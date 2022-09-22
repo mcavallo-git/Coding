@@ -2,7 +2,9 @@
 HomeAssistant - Install HomeAssistant OS on ESXI VM (using .vmdk file)
 # ------------------------------------------------------------
 
+
 Installing HomeAssistant (as a VM onto an ESXi instance):
+
 
 - Format a side PC with ESXi (v6.5 or higher) as the OS
    |--> To download a .ISO image for ESXI 6.5, refer to PowerShell module "ESXI_BootMedia.psm1"
@@ -32,6 +34,7 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
                |--> Add hard disk > Existing hard disk > (locate .vmdk file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
                |--> VM Options > Boot Options > Firmware > Set to "EFI"
 
+
 - Perform initial HomeAssistant setup
    |--> In ESXi, start the HomeAssistant VM
    |--> Wait for console to show the URL of the HomeAssistant portal, or (alternatively)...
@@ -46,6 +49,11 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
          |--> Shut down VM
          |--> Edit settings > Add other device > USB device > (Select USB device to attach to VM)
          |--> Start VM
+
+
+- Quick Guide: Using the shell terminal in HomeAssistant (direct or physical access to machine or VM running HA)
+   |--> At the HomeAssistant terminal which shows a large ascii art "Home Assistant" logo, type the following command to login as the root user:
+         ha >   login
 
 
 # ------------------------------------------------------------

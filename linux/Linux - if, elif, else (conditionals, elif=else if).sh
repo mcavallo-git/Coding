@@ -110,7 +110,7 @@ if [ -n "$0" ]; then
     echo -e "\n\n$ 0: Un-handled Bash Command: \"${0}\"\n\n";
     exit 1;
   fi;
-else 
+else
   echo -e "\n\n$ 0: Variable is either unset or contains a null value\n\n";
   exit 1;
 fi;
@@ -150,7 +150,7 @@ fi;
 # USING [ test ] COMMAND INSTEAD OF [ if-elif-else-fi ] CONDITIONAL BLOCK(S)
 #
 
-# test - ex 1 
+# test - ex 1
 test "1" == "0" && echo 1 || echo 0;
 
 # test - ex 2
@@ -254,6 +254,41 @@ done;
 
 # ------------------------------------------------------------
 #
+#  Check whether a string contains non-numeric characters
+#    |--> Replace all digit characters with blanks (remove them) then get the final length of the string
+#    |--> Any value greater than 0 for the length of the string means non-integer character(s) were found
+#
+
+if [ -n "${foo}" ] && [[ -z ${foo//[0-9]/} ]]; then
+  echo "foo is an integer!";
+fi;
+
+
+# ------------------------------------------------------------
+#
+#  Compare [ the value of a variable evaluated in arithmetic context ] to [ the value of the same variable in non-arithmetic (e.g. string) context ]
+#  If the value of the two contexts are equal to each other, the string is an integer
+#
+
+# BASMISM - REQUIRES THE  [ /etc/bash ]  SHELL
+if [ -n "${foo}" ] && [[ $((foo)) == $foo ]]; then
+  echo "foo is an integer!";
+fi;
+
+# ------------------------------------------------------------
+#
+# Check if an array index is set (1) or not (0)
+#
+
+if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then
+  echo "1 key is set";
+else
+  echo "0 key not set";
+fi;
+
+
+# ------------------------------------------------------------
+#
 # Variable Comparators
 #   |--> Integer Comparators
 #   |--> Float/Double Comparators
@@ -314,7 +349,7 @@ done;
 #         if [ "$A" \> "$B" ]  :::  Same as previous? --> Note that the ">" needs to be escaped within a [ ] construct
 #  >   Floats/Doubles:
 #         if [ $(echo "$A > $B" | bc) -eq 1 ]; then echo "$A IS greater than $B"; else echo "$A ISNT greater than $B"; fi;
-# 
+#
 #
 #
 #  >=   Integers:
@@ -324,31 +359,6 @@ done;
 #         if [ $(echo "$A >= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A ISNT greater than or equal to $B"; fi;
 #
 #
-#
-# ------------------------------------------------------------
-#
-#  Check whether a string contains non-numeric characters
-#    |--> Replace all digit characters with blanks (remove them) then get the final length of the string
-#    |--> Any value greater than 0 for the length of the string means non-integer character(s) were found
-#
-
-if [ -n "${foo}" ] && [[ -z ${foo//[0-9]/} ]]; then
-  echo "foo is an integer!";
-fi;
-
-
-# ------------------------------------------------------------
-#  
-#  Compare [ the value of a variable evaluated in arithmetic context ] to [ the value of the same variable in non-arithmetic (e.g. string) context ]
-#  If the value of the two contexts are equal to each other, the string is an integer
-#
-
-# BASMISM - REQUIRES THE  [ /etc/bash ]  SHELL
-if [ -n "${foo}" ] && [[ $((foo)) == $foo ]]; then
-  echo "foo is an integer!";
-fi;
-
-
 # ------------------------------------------------------------
 #
 #  null
@@ -362,59 +372,55 @@ fi;
 #
 # Bash Conditional Expressions
 #
-
--a FILE  :::  True if file exists
--b FILE  :::  True if file exists and is a block special file
--c FILE  :::  True if file exists and is a character special file
--d FILE  :::  True if file exists and is a directory
--e FILE  :::  True if file exists
--f FILE  :::  True if file exists and is a regular file
--g FILE  :::  True if file exists and its set-group-id bit is set
--h FILE  :::  True if file exists and is a symbolic link
--k FILE  :::  True if file exists and its "sticky" bit is set
--p FILE  :::  True if file exists and is a named pipe (FIFO)
--r FILE  :::  True if file exists and is readable
--s FILE  :::  True if file exists and has a non-zero filesize
--t FD    :::  True if file descriptor fd is open and refers to a terminal
--u FILE  :::  True if file exists and its set-user-id bit is set
--w FILE  :::  True if file exists and is writable
--x FILE  :::  True if file exists and is executable
--G FILE  :::  True if file exists and is owned by the effective group id
--L FILE  :::  True if file exists and is a symbolic link
--N FILE  :::  True if file exists and has been modified since it was last read
--O FILE  :::  True if file exists and is owned by the effective user id
--S FILE  :::  True if file exists and is a socket
-
-
-FILE1 -ef FILE2  :::  True if file1 and file2 refer to the same device and inode numbers
-FILE1 -nt FILE2  :::  True if file1 is newer (according to modification date) than file2, or if file1 exists and file2 does not
-FILE1 -ot FILE2  :::  True if file1 is older than file2, or if file2 exists and file1 does not
-
--o OPT_NAME  :::  True if the shell option OPT_NAME is enabled | The list of options appears in the description of the -o option to the set builtin (see The Set Builtin)
-
--v VAR  :::  True if the shell variable VAR is set (has been assigned a value)
--R VAR  :::  True if the shell variable VAR is set and is a name reference
-
--z STRING  :::  True if the length of string is zero
--n STRING  :::  True if the length of string is non-zero
-STR1 == STR2  :::  True if the strings are equal. Using '[[' evaluates using pattern matching
-STR1 = STR2   :::  True if the strings are equal. '=' should be used with 'test' command for POSIX conformance
-STR1 != STR2  :::  True if the strings are not equal
-STR1 < STR2   :::  True if string1 sorts before string2 lexicographically
-STR1 > STR2   :::  True if string1 sorts after string2 lexicographically
-
-
-INT1 -eq INT2  :::  True if arg1 is [ equal to ]                     arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-INT1 -ne INT2  :::  True if arg1 is [ not equal to ]                 arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-INT1 -lt INT2  :::  True if arg1 is [ less than ]                    arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-INT1 -le INT2  :::  True if arg1 is [ less than ] or [ equal to ]    arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-INT1 -gt INT2  :::  True if arg1 is [ greater than ]                 arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-INT1 -ge INT2  :::  True if arg1 is [ greater than ] or [ equal to ] arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-
-
-if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then echo "1 key is set"; else echo "0 key not set"; fi;     :::    Test if an array index is set (1) or not (0)
-
-
+#   -a FILE  :::  True if file exists
+#   -b FILE  :::  True if file exists and is a block special file
+#   -c FILE  :::  True if file exists and is a character special file
+#   -d FILE  :::  True if file exists and is a directory
+#   -e FILE  :::  True if file exists
+#   -f FILE  :::  True if file exists and is a regular file
+#   -g FILE  :::  True if file exists and its set-group-id bit is set
+#   -h FILE  :::  True if file exists and is a symbolic link
+#   -k FILE  :::  True if file exists and its "sticky" bit is set
+#   -p FILE  :::  True if file exists and is a named pipe (FIFO)
+#   -r FILE  :::  True if file exists and is readable
+#   -s FILE  :::  True if file exists and has a non-zero filesize
+#   -t FD    :::  True if file descriptor fd is open and refers to a terminal
+#   -u FILE  :::  True if file exists and its set-user-id bit is set
+#   -w FILE  :::  True if file exists and is writable
+#   -x FILE  :::  True if file exists and is executable
+#   -G FILE  :::  True if file exists and is owned by the effective group id
+#   -L FILE  :::  True if file exists and is a symbolic link
+#   -N FILE  :::  True if file exists and has been modified since it was last read
+#   -O FILE  :::  True if file exists and is owned by the effective user id
+#   -S FILE  :::  True if file exists and is a socket
+#
+#
+#   FILE1 -ef FILE2  :::  True if file1 and file2 refer to the same device and inode numbers
+#   FILE1 -nt FILE2  :::  True if file1 is newer (according to modification date) than file2, or if file1 exists and file2 does not
+#   FILE1 -ot FILE2  :::  True if file1 is older than file2, or if file2 exists and file1 does not
+#
+#   -o OPT_NAME  :::  True if the shell option OPT_NAME is enabled | The list of options appears in the description of the -o option to the set builtin (see The Set Builtin)
+#
+#   -v VAR  :::  True if the shell variable VAR is set (has been assigned a value)
+#   -R VAR  :::  True if the shell variable VAR is set and is a name reference
+#
+#   -z STRING  :::  True if the length of string is zero
+#   -n STRING  :::  True if the length of string is non-zero
+#   STR1 == STR2  :::  True if the strings are equal. Using '[[' evaluates using pattern matching
+#   STR1 = STR2   :::  True if the strings are equal. '=' should be used with 'test' command for POSIX conformance
+#   STR1 != STR2  :::  True if the strings are not equal
+#   STR1 < STR2   :::  True if string1 sorts before string2 lexicographically
+#   STR1 > STR2   :::  True if string1 sorts after string2 lexicographically
+#
+#
+#   INT1 -eq INT2  :::  True if arg1 is [ equal to ]                     arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#   INT1 -ne INT2  :::  True if arg1 is [ not equal to ]                 arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#   INT1 -lt INT2  :::  True if arg1 is [ less than ]                    arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#   INT1 -le INT2  :::  True if arg1 is [ less than ] or [ equal to ]    arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#   INT1 -gt INT2  :::  True if arg1 is [ greater than ]                 arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#   INT1 -ge INT2  :::  True if arg1 is [ greater than ] or [ equal to ] arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

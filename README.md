@@ -415,7 +415,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="office"><br />Productivity Tools</h5><sub>Office Suites<br /><br /></sub></th></tr>
 <tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
-<tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Excel, Outlook, PowerPoint, Word, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;&#8627;<code>Login</code>&nbsp;&rarr; Select <code>Install Office</code><br />&nbsp;&nbsp;&nbsp;<a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us">Download (direct)</a></sub></td></tr>
+<tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Excel, Outlook, PowerPoint, Word, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;&#8627; Login&nbsp;&rarr; Select <code>Install Office</code><br />&nbsp;&nbsp;&nbsp;<a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Microsoft To Do</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Lists, tasks & reminders (successor to Wunderlist)</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/microsoft-to-do-lists-tasks-reminders/9nblggh5r558">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

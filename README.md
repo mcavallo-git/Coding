@@ -263,7 +263,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="multimedia"><br />Multimedia<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="multimedia"><br />Multimedia</h5><sub>Audio / Video / Image Utilities<br /><br /></sub></th></tr>
 <tr><td><strong>AirServer Universal</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Airplay+, Google Cast+, Miracast</i></sub></td><td><a href="https://www.airserver.com/Download/MacPC">Download (mirror)</a></td></tr>
 <tr><td><strong>Audacity</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source source, Cross Platform audio editing software</i></sub></td><td><a href="https://www.fosshub.com/Audacity.html?download">Download (mirror)</a></td></tr>
 <tr><td><strong>Color Converter</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Color syntax conversion between Hexadecimal (<code>#111111</code>) and RGB (<code>rgb(17,17,17)</code>)</i></sub></td><td><a href="https://www.webfx.com/web-design/hex-to-rgb/#111111">View (source)</a></td></tr>

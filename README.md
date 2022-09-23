@@ -81,7 +81,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5 id="software">Software</h5>
+<strong id="software">Software</strong>
 <details open><summary><i>Show/Hide Content</i></summary>
 <br />
 

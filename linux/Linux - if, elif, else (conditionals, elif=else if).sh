@@ -1,3 +1,4 @@
+#!/bin/bash
 # ------------------------------------------------------------
 #
 # IF VARIABLE IS SET/EMPTY
@@ -118,22 +119,30 @@ exit 0;
 
 # ------------------------------------------------------------
 #
+# test ...  (acts as an inline if-conditional)
+#
+
+test "1" == "0" && echo 1 || echo 0;
+
+TEST_PATH="${HOME}/.bashrc"; test -e "${TEST_PATH}" && echo "Path \"${TEST_PATH}\" DOES exist" || echo "Path \"${TEST_PATH}\" does NOT exist";
+
+
+# ------------------------------------------------------------
+#
 # IF COMMAND EXISTS
 #  |--> Determine if a given Linux-Command exists
 #
 
-COMMAND_LOOKUP="docker";
-COMMAND_FOUND=0;
-echo "";
-echo "Checking for Linux Command \"${COMMAND_LOOKUP}\" on \"$(hostname)\"...";
-if ! COMMAND_RESOLVED_PATH="$(type -p "$COMMAND_LOOKUP")" || [ -z "$COMMAND_RESOLVED_PATH" ]; then
-  echo "  Command NOT found: \"${COMMAND_LOOKUP}\"";
-  COMMAND_FOUND=0;
-else
-  echo "  Command FOUND: \"${COMMAND_LOOKUP}\" -> \"${COMMAND_RESOLVED_PATH}\"";
-  COMMAND_FOUND=1;
+if [[ 1 -eq 1 ]]; then
+  COMMAND_LOOKUP="docker";
+  echo "";
+  echo "Checking for Linux Command \"${COMMAND_LOOKUP}\" on \"$(hostname)\"...";
+  if ! COMMAND_RESOLVED_PATH="$(type -p "$COMMAND_LOOKUP")" || [ -z "$COMMAND_RESOLVED_PATH" ]; then
+    echo "  Command NOT found: \"${COMMAND_LOOKUP}\"";
+  else
+    echo "  Command FOUND: \"${COMMAND_LOOKUP}\" -> \"${COMMAND_RESOLVED_PATH}\"";
+  fi;
 fi;
-IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 
 
 # ------------------------------------------------------------
@@ -141,8 +150,10 @@ IS_DOCKER_INSTALLED=${COMMAND_FOUND};
 # USING [ test ] COMMAND INSTEAD OF [ if-elif-else-fi ] CONDITIONAL BLOCK(S)
 #
 
+# test - ex 1 
 test "1" == "0" && echo 1 || echo 0;
 
+# test - ex 2
 TEST_PATH="${HOME}/.bashrc"; test -e "${TEST_PATH}" && echo "Path \"${TEST_PATH}\" DOES exist" || echo "Path \"${TEST_PATH}\" does NOT exist";
 
 
@@ -415,6 +426,8 @@ if [ ${DAT_ARRAY[${DAT_KEY}]+X} ]; then echo "1 key is set"; else echo "0 key no
 #   www.tldp.org  |  "7.3. Other Comparison Operators" (Integer/String Conditionals)  |  https://www.tldp.org/LDP/abs/html/comparison-ops.html
 #
 #   pubs.opengroup.org  |  "2.6.2 Parameter Expansion"  |  https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_06_02
+#
+#   ss64.com  |  "test Man Page - Linux - SS64.com"  |  https://ss64.com/bash/test.html
 #
 #   stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
 #

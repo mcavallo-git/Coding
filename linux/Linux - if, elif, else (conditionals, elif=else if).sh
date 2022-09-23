@@ -437,7 +437,9 @@ fi;
 #
 #   ss64.com  |  "test Man Page - Linux - SS64.com"  |  https://ss64.com/bash/test.html
 #
-#   stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
+#   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
+#
+#   stackoverflow.com  |  "bash - How can I detect if my shell script is running through a pipe? - Stack Overflow"  |  https://stackoverflow.com/a/911213
 #
 #   stackoverflow.com  |  "Case insensitive comparison of strings in shell script"  |  https://stackoverflow.com/a/19411918
 #
@@ -445,6 +447,6 @@ fi;
 #
 #   stackoverflow.com  |  "Is there an easy way to determine if user input is an integer in bash?"  |  https://stackoverflow.com/a/4141321
 #
-#   stackoverflow.com  |  "bash - Easiest way to check for an index or a key in an array? - Stack Overflow"  |  https://stackoverflow.com/a/13221491
+#   stackexchange.com  |  "Bash regex =~ operator"  |  https://unix.stackexchange.com/a/340485
 #
 # ------------------------------------------------------------

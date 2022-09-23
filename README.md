@@ -231,7 +231,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="dns"><br />DNS (+CAbundles/CA bundles)</h5><h6>Domain Name System <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle">Certificate Authority Bundles</a><br />SSL/TLS (HTTPS) Intermediate/Root Certificates<br /><br /></h6></th></tr>
+<tr><th colspan="2"><h5 id="dns"><br />DNS (+CAbundles/CA bundles)</h5><sub>Domain Name System <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle">Certificate Authority Bundles</a><br />SSL/TLS (HTTPS) Intermediate/Root Certificates<br /><br /></sub></th></tr>
 <tr><td><strong>COMODO</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
 <tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>
 <tr><td><strong>IdenTrust</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Timestamping Authority (Code-Signing)</i></sub></td><td><a href="https://www.identrust.com/timestamping-authority-server">Download (source)</a></td></tr>

@@ -295,7 +295,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="mfa"><br />MFA/2FA<sub><br />Multifactor Authentication<br />Two-Factor Authentication</sub><br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="mfa"><br />MFA/2FA</h5><sub><br />Multifactor Authentication<br />Two-Factor Authentication</sub><br /><br /></th></tr>
 <tr><td><strong>Authy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Two-factor Authentication (2FA) App</i></sub></td><td><a href="https://authy.com/">Download (source)</a></td></tr>
 <tr><td><strong>Duo Security</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Two-Factor Authentication & Endpoint Security</i></sub></td><td><a href="https://duo.com/">Download (source)</a></td></tr>
 <tr><td><strong>Okta</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Identity-as-a-Service (IDaaS)</i></sub></td><td><a href="https://www.okta.com/">Download (source)</a></td></tr>
@@ -399,15 +399,13 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="operating-systems"><br />OS (Operating Systems)<br /><br /></h5></th></tr>
 <tr><td><strong>CentOS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Community Enterprise Operating System</i></sub></td><td>
-	<details><summary>CentOS Mirror(s)</summary>
-		<h5>
-			<ul>
-				<li><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></li>
-				<li><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></li>
-				<li><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></li>
-				<li><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></li>
-			</ul>
-		</h5>
+  <details><summary>CentOS Mirror(s)</summary>
+    <ul>
+      <li><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></li>
+      <li><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></li>
+      <li><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></li>
+      <li><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></li>
+    </ul>
 	</details>
 </td></tr>
 <tr><td><strong>Dell PowerEdge Bootable ISOs</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Official Dell Driver + Firmware Bootlable ISOs<br />&nbsp;&nbsp;&nbsp;View <a href="https://www.dell.com/support/article/en-us/sln296511/update-poweredge-servers-with-platform-specific-bootable-iso?lang=en#2">Update PowerEdge Servers with Platform Specific Bootable ISO</a><br />&nbsp;&nbsp;&nbsp;View <a href="https://www.dell.com/support/article/en-us/sln296810/how-to-create-a-bootable-usb-device-with-rufus-to-update-dell-servers?lang=en">Create Bootable Dell Server ISO</a></i></sub></td><td><a href="https://www.dell.com/support/article/en-us/sln296511/update-poweredge-servers-with-platform-specific-bootable-iso?lang=en#2">Download (source)</a></td></tr>
@@ -535,7 +533,7 @@ This file (on GitHub):
 <!-- -->
 <tr><th colspan="2"><h5 id="web-browsers"><br />Web Browsers<br /><br /></h5></th></tr>
 <tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;<a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">View Docs (Chrome keyboard shortcuts)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://peter.sh/experiments/chromium-command-line-switches/">View Docs (Chromium command line switches)</a><br />&nbsp;&nbsp;&nbsp;</i>
-	</sub><details><summary><sub>Google Account & Google Chrome - settings to apply</sub></summary>
+	</sub><details><summary>Google Account & Google Chrome - settings to apply</summary>
 		<ul>
 			<li>Browse to <code>chrome://settings/content/camera</code> & select "Don't allow sites to use your camera"</li>
 			<li>Browse to <code>chrome://settings/content/location</code> & select "Don't allow sites to see your location"</li>

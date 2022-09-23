@@ -238,7 +238,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="mfa"><br />MFA/2FA</h5><sub><br />Multifactor Authentication<br />Two-Factor Authentication</sub><br /><br /></th></tr>
+<tr><th colspan="2"><h5 id="mfa"><br />MFA/2FA</h5><sub>Multifactor Authentication<br />Two-Factor Authentication</sub><br /><br /></th></tr>
 <tr><td><strong>Authy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Two-factor Authentication (2FA) App</i></sub></td><td><a href="https://authy.com/">Download (source)</a></td></tr>
 <tr><td><strong>Duo Security</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Two-Factor Authentication & Endpoint Security</i></sub></td><td><a href="https://duo.com/">Download (source)</a></td></tr>
 <tr><td><strong>Okta</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Identity-as-a-Service (IDaaS)</i></sub></td><td><a href="https://www.okta.com/">Download (source)</a></td></tr>

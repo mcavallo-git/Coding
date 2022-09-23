@@ -5,7 +5,7 @@
 #
 
 cd "/var/log";
-du --max-depth=0 "$(pwd)/"* 2> '/dev/null' | sort --numeric-sort;
+du --max-depth=0 "$(pwd)/"* 2>'/dev/null' | sort --numeric-sort;
 
 
 # ------------------------------------------------------------
@@ -14,7 +14,7 @@ du --max-depth=0 "$(pwd)/"* 2> '/dev/null' | sort --numeric-sort;
 #
 
 cd "/";
-du --max-depth=0 "$(pwd)/"* 2> '/dev/null' | sort --numeric-sort;
+du --max-depth=0 "$(pwd)/"* 2>'/dev/null' | sort --numeric-sort;
 
 # |--> NEXT STEP:   look at bottom of list to determine which directories need to be delved into deeper
 

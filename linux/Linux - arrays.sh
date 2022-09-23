@@ -15,7 +15,6 @@ unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
-DAT_ARRAY+=("Val-4");
 for DAT_ITEM in "${DAT_ARRAY[@]}"; do
 echo "------------------------------";
 echo "${DAT_ITEM}";
@@ -27,23 +26,11 @@ DAT_ARRAY=();
 DAT_ARRAY+=("Val-1");
 DAT_ARRAY+=("Val-2");
 DAT_ARRAY+=("Val-3");
-DAT_ARRAY+=("Val-4");
 for (( i=0; i<${#DAT_ARRAY[@]}; i++ )); do
 echo "\${DAT_ARRAY[$i]} = [ ${DAT_ARRAY[$i]} ]";
 done;
 ARRAY_LENGTH=${#DAT_ARRAY[@]};
 echo "\${ARRAY_LENGTH} = [ ${ARRAY_LENGTH} ]";
-
-
-# IMPLODE FUNCTION
-unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
-DAT_ARRAY=();
-DAT_ARRAY+=("Val-1");
-DAT_ARRAY+=("Val-2");
-DAT_ARRAY+=("Val-3");
-DAT_ARRAY+=("Val-4");
-function implode { local IFS="$1"; shift; echo "$*"; };
-implode $'\n' "${DAT_ARRAY[@]}";
 
 
 # ------------------------------------------------------------
@@ -56,12 +43,39 @@ implode $'\n' "${DAT_ARRAY[@]}";
 unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
 DAT_ARRAY+=(["Key A"]="Val One");
 DAT_ARRAY+=(["Key B"]="Val Two");
+DAT_ARRAY+=(["Key C"]="Val Three");
 DAT_ARRAY+=(["Key A"]="Overwrite A");
 DAT_ARRAY+=(["Key B"]="Overwrite B");
 for DAT_KEY in "${!DAT_ARRAY[@]}"; do
 DAT_ITEM="${DAT_ARRAY[${DAT_KEY}]}";
 echo "DAT_ARRAY[${DAT_KEY}] = ${DAT_ITEM}";
 done;
+
+
+# ------------------------------------------------------------
+#
+# Implode Array
+#  |--> Combine items in an array using a given delimiter
+#
+
+# Implode - Indexed Array
+unset DAT_ARRAY; declare -a DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY=();
+DAT_ARRAY+=("Val-1");
+DAT_ARRAY+=("Val-2");
+DAT_ARRAY+=("Val-3");
+function implode { local IFS="$1"; shift; echo "$*"; };
+implode $'\n' "${DAT_ARRAY[@]}";
+
+
+# Implode - Associative Array
+unset DAT_ARRAY; declare -A DAT_ARRAY; # [Re-]Instantiate bash array
+DAT_ARRAY+=(["Key A"]="Val One");
+DAT_ARRAY+=(["Key B"]="Val Two");
+DAT_ARRAY+=(["Key C"]="Val Three");
+function implode { local IFS="$1"; shift; echo "$*"; };
+implode $'\n' "${!DAT_ARRAY[@]}";  # Implode Keys
+implode $'\n' "${DAT_ARRAY[@]}";   # Implode Vals
 
 
 # ------------------------------------------------------------

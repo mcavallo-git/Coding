@@ -536,9 +536,7 @@ This file (on GitHub):
 <tr><th colspan="2"><h5 id="web-browsers"><br />Web Browsers<br /><br /></h5></th></tr>
 <tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;<a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">View Docs (Chrome keyboard shortcuts)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://peter.sh/experiments/chromium-command-line-switches/">View Docs (Chromium command line switches)</a><br />&nbsp;&nbsp;&nbsp;</i>
 	<details><summary>Google Account & Google Chrome - settings to apply</summary>
-		<pre><ul>
-			<li>Browse to <code>chrome://settings/content/camera</code> & select "Don't allow sites to use your camera"</li>
-			<li>Browse to <code>chrome://settings/content/location</code> & select "Don't allow sites to see your location"</li>
+		<pre><ul><li>Browse to <code>chrome://settings/content/camera</code> & select "Don't allow sites to use your camera"</li><li>Browse to <code>chrome://settings/content/location</code> & select "Don't allow sites to see your location"</li>
 			<li>Browse to <code>chrome://settings/content/microphone</code> & select "Don't allow sites to use your microphone"</li>
 			<li>Browse to <code>chrome://settings/content/notifications</code> & select "Don't allow sites to send notifications"</li>
 			<li>Browse to <code>chrome://settings/content/popups</code> & select "Don't allow sites to send pop-ups or use redirects"</li>

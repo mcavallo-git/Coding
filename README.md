@@ -389,13 +389,6 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="office"><br />Productivity Tools</h5><sub>Office Suites<br /><br /></sub></th></tr>
-<tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
-<tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Excel, Outlook, PowerPoint, Word, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;Login &rarr; Select "Install Office"<br />&nbsp;&nbsp;&nbsp;<a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us">Download (direct)</a></sub></td></tr>
-<tr><td><strong>Microsoft To Do</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Lists, tasks & reminders (successor to Wunderlist)</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/microsoft-to-do-lists-tasks-reminders/9nblggh5r558">Download (source)</a></td></tr>
-<!-- -->
-<!-- ------------------------------------------------------------ -->
-<!-- -->
 <tr><th colspan="2"><h5 id="password-managers"><br />Password Managers<br /><br /></h5></th></tr>
 <tr><td><strong>LastPass</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://lastpass.com/download">Download (source)</a></td></tr>
 <tr><td><strong>RoboForm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-platform secure password manager</i></sub></td><td><a href="https://www.roboform.com/download">Download (source)</a></td></tr>
@@ -417,6 +410,13 @@ This file (on GitHub):
 <tr><td><strong>Ninite Package Manager</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Package Management System</i></sub></td><td><a href="https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;Includes 7-Zip, Audacity, Chrome, Classic Shell,<br />&nbsp;&nbsp;&nbsp;DropBox, FileZilla, FireFox, GreenShot, HandBrake,<br />&nbsp;&nbsp;&nbsp;NotePad++, Paint.Net, VLC, VS-Code, & WinDirStat</i></sub></td></tr>
 <tr><td><strong>ShellMenuView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Modifies explorer's right-click menu/dropdown options</i></sub></td><td><a href="https://www.nirsoft.net/utils/shell_menu_view.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.nirsoft.net/utils/shmnview-x64.zip">Download (source)</a></sub></td></tr>
 <tr><td><strong>ShellExView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Displays installed shell extensions<br />&nbsp;&nbsp;&nbsp;Allows enabling/disabling shell extensions</i></sub></td><td><a href="https://www.nirsoft.net/utils/shexview.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.nirsoft.net/utils/shexview-x64.zip">Download (source)</a></sub></td></tr>
+<!-- -->
+<!-- ------------------------------------------------------------ -->
+<!-- -->
+<tr><th colspan="2"><h5 id="office"><br />Productivity Tools</h5><sub>Office Suites<br /><br /></sub></th></tr>
+<tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
+<tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Excel, Outlook, PowerPoint, Word, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;Login &rarr; Select "Install Office"<br />&nbsp;&nbsp;&nbsp;<a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us">Download (direct)</a></sub></td></tr>
+<tr><td><strong>Microsoft To Do</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Lists, tasks & reminders (successor to Wunderlist)</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/microsoft-to-do-lists-tasks-reminders/9nblggh5r558">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

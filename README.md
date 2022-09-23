@@ -203,7 +203,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="remote-access"><br />Remote Access</h5><sub>Desktop Sharing<br /><br /></sub></th></tr>
+<tr><th colspan="2"><h5 id="remote-access"><br />Remote Access</h5><sub>Desktop/Screen Sharing Utilities<br /><br /></sub></th></tr>
 <tr><td><strong>IPMIView</strong> <sub>by Supermicro</sub><sub><i><br />&nbsp;&nbsp;&nbsp;Windows-Based IPMI Tool</i></sub></td><td><a href="https://www.supermicro.com/en/solutions/management-software/ipmi-utilities#resources">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.supermicro.com/SwDownload/SwSelect_Free.aspx?cat=IPMI">Download (direct)</a></sub></td></tr>
 <tr><td><strong>LogMeIn Rescue</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;e.g. "LogMeIn Rescue Technician Console"<br />&nbsp;&nbsp;&nbsp;Screen-sharing & Remote-support application</i></sub></td><td><a href="https://help.logmein.com/articles/en_US/Downloads/Technician-Console-Desktop-App">Download (source)</a></td></tr>
 <tr><td><strong>MobaXterm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;XServer for Windows</i></sub></td><td><a href="https://mobaxterm.mobatek.net/download-home-edition.html">Download (source)</a></td></tr>
@@ -376,7 +376,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="network-tools"><br />Network Tools/Utilities<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="network-tools"><br />Networking Utilities<br /><br /></h5></th></tr>
 <tr><td><strong>Burp Suite <sub>Community Edition</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Manual Toolkit for Exploring Web Security</i></sub></td><td><a href="https://portswigger.net/burp/communitydownload">Download (source)</a></td></tr>
 <tr><td><strong>Cipher Suites in TLS/SSL (Schannel SSP)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;A cipher suite must have algorithms for the tasks:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Key exchange<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Bulk encryption<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Message authentication</i></sub></td><td><a href="https://docs.microsoft.com/en-us/windows/win32/secauthn/cipher-suites-in-schannel">Download (source)</a></td></tr>
 <tr><td><strong>DigiCert Certificate Utility</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Certificate Inspection Tool (DigiCertUtil.exe)</i></sub></td><td><a href="https://www.digicert.com/util/">Download (source)</a></td></tr>
@@ -476,7 +476,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="server-runtimes"><br />Server Applications (Backend)<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="server-runtimes"><br />Server Runtimes<br /><br /></h5></th></tr>
 <tr><td><strong>Apache httpd</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform Web Server</i></sub></td><td><a href="https://httpd.apache.org/download.cgi">Download (source)</a></td></tr>
 <tr><td><strong>Artifactory</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Binary Repository Manager (relative to Source Code Repo)<br />&nbsp;&nbsp;&nbsp;Artifact Storage for Build Servers</i></sub></td><td><a href="https://www.jfrog.com/confluence/display/JFROG/Installing+Artifactory">Install (source)</a></td></tr>
 <tr><td><strong>Docker - Containerized</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Linux LXC Container Management</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>

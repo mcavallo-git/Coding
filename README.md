@@ -340,7 +340,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="operating-systems"><br />OS (Operating Systems)<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="operating-systems"><br />Operating Systems (OS)<br /><br /></h5></th></tr>
 <tr><td><strong>CentOS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Community Enterprise Operating System</i></sub></td><td>
   <details><summary>CentOS Mirror(s)</summary>
     <ul>

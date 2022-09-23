@@ -295,9 +295,12 @@ fi;
 #   |--> ASCII String Comparators
 #
 #
-#  ==   String (IS_INTEGER TEST):
-#         if [[ $A =~ ^-?[0-9]+$ ]]   :::   True if $A is an integer (string input, only)
+#
+#  =~   Strings:
+#         if [[ $A =~ ^-?[0-9]+$ ]]     :::   True if $A is an integer (string input, only)
+#       Integers, Floats/Doubles:
 #         if [[ "$A" =~ ^-?[0-9]+$ ]]   :::   True if $A is an integer (strings, integer, or float input)
+#
 #
 #
 #  ==   Strings:
@@ -314,6 +317,7 @@ fi;
 #         if [ $(echo "$A == $B" | bc) -eq 1 ]; then echo "$A IS equal to $B"; else echo "$A ISNT equal to $B"; fi;
 #
 #
+#
 #  !=   Strings:
 #         if [ "$A" != "$B" ] :::  True if $A not equal to $B
 #  !=   Integers:
@@ -321,6 +325,7 @@ fi;
 #         if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see '==' section, above)
 #  !=   Floats/Doubles:
 #         if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A ISNT a different value than $B"; fi;
+#
 #
 #
 #  <    Integers:
@@ -359,7 +364,8 @@ fi;
 #         if [ $(echo "$A >= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A ISNT greater than or equal to $B"; fi;
 #
 #
-# ------------------------------------------------------------
+# ------------------------------
+#
 #
 #  null
 #         if [ -z $A ]      :::  True if A is a string and is null (has zero length)
@@ -368,9 +374,8 @@ fi;
 #         if [ -n $A ]      :::  True if A is a string and ISNT null (non-zero string-length)
 #
 #
-# ------------------------------------------------------------
+# ------------------------------
 #
-# Bash Conditional Expressions
 #
 #   -a FILE  :::  True if file exists
 #   -b FILE  :::  True if file exists and is a block special file

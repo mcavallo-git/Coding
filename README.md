@@ -537,22 +537,22 @@ This file (on GitHub):
 <tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;<a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">View Docs (Chrome keyboard shortcuts)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://peter.sh/experiments/chromium-command-line-switches/">View Docs (Chromium command line switches)</a><br />&nbsp;&nbsp;&nbsp;</i>
 	<details><summary>Google Account & Google Chrome - settings to apply</summary>
 		<ul>
-			<li>Browse to <pre>chrome://settings/content/camera</pre> & select "Don't allow sites to use your camera"</li>
-			<li>Browse to <pre>chrome://settings/content/location</pre> & select "Don't allow sites to see your location"</li>
-			<li>Browse to <pre>chrome://settings/content/microphone</pre> & select "Don't allow sites to use your microphone"</li>
-			<li>Browse to <pre>chrome://settings/content/notifications</pre> & select "Don't allow sites to send notifications"</li>
-			<li>Browse to <pre>chrome://settings/content/popups</pre> & select "Don't allow sites to send pop-ups or use redirects"</li>
-			<li>Browse to <pre>chrome://settings/syncSetup</pre> & disable "Autocomplete searches and URLs"</li>
-			<li>Browse to <pre>chrome://settings/syncSetup</pre> & disable "Help improve Chrome's features and performance"</li>
-			<li>Browse to <pre>chrome://settings/syncSetup</pre> & disable "Make searches and browsing better"</li>
-			<li>Browse to <pre>chrome://settings/syncSetup</pre> & disable "Enhanced spell check"</li>
-			<li>Browse to <pre>chrome://settings/syncSetup</pre> & disable "Google Drive search suggestions"</li>
-			<li>Browse to <pre>https://myaccount.google.com/permissions</pre> & disable option "Google Account sign-in prompts"</li>
-			<li>Browse to <pre>chrome://flags/#read-later</pre> & <u><b>enable</b></u> option "Reading List" <sub><i>(note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li>
+			<li>Browse to <code>chrome://settings/content/camera</code> & select "Don't allow sites to use your camera"</li>
+			<li>Browse to <code>chrome://settings/content/location</code> & select "Don't allow sites to see your location"</li>
+			<li>Browse to <code>chrome://settings/content/microphone</code> & select "Don't allow sites to use your microphone"</li>
+			<li>Browse to <code>chrome://settings/content/notifications</code> & select "Don't allow sites to send notifications"</li>
+			<li>Browse to <code>chrome://settings/content/popups</code> & select "Don't allow sites to send pop-ups or use redirects"</li>
+			<li>Browse to <code>chrome://settings/syncSetup</code> & disable "Autocomplete searches and URLs"</li>
+			<li>Browse to <code>chrome://settings/syncSetup</code> & disable "Help improve Chrome's features and performance"</li>
+			<li>Browse to <code>chrome://settings/syncSetup</code> & disable "Make searches and browsing better"</li>
+			<li>Browse to <code>chrome://settings/syncSetup</code> & disable "Enhanced spell check"</li>
+			<li>Browse to <code>chrome://settings/syncSetup</code> & disable "Google Drive search suggestions"</li>
+			<li>Browse to <code>https://myaccount.google.com/permissions</code> & disable option "Google Account sign-in prompts"</li>
+			<li>Browse to <code>chrome://flags/#read-later</code> & <u><b>enable</b></u> option "Reading List" <sub><i>(note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li>
 				<ul>
-					<li>Alternatively, use hotkey <pre>CTRL+D</pre> instead of clicking the "&#9734; Add bookmark"/"&#9733; Edit bookmark" button</li>
+					<li>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the "&#9734; Add bookmark"/"&#9733; Edit bookmark" button</li>
 				</ul></li>
-		</ul></pre>
+		</ul>
 	</details></sub></td>
 	<td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a><br />&nbsp;&nbsp;&nbsp;<details><summary>Install Google Chrome (PowerShell one-liner)</summary><p><ul><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV LocalTempDir ((GCI env:\TEMP).Value); SV ChromeInstaller (Write-Output ChromeInstaller.exe); SV Process2Monitor ([IO.Path]::GetFileNameWithoutExtension((GV ChromeInstaller).Value)); (New-Object System.Net.WebClient).DownloadFile((Write-Output http://dl.google.com/chrome/install/latest/chrome_installer.exe), (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) ); & (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) /silent /install; Do { SV ProcessesFound (Get-Process | Where-Object { ((GV Process2Monitor).Value) -contains (((GV _).Value).Name); } | Select-Object -ExpandProperty Name); If ((GV ProcessesFound).Value) { ((Write-Output Still`` running:`` )+(((GV ProcessesFound).Value) -join (Write-Output ``,`` ))) | Write-Host; Start-Sleep -Seconds 2; } Else { Remove-Item -Verbose -Path (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) -ErrorAction SilentlyContinue; } } Until (!((GV ProcessesFound).Value)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ul></p></details></sub>
 	</td>

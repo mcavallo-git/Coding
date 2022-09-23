@@ -10,8 +10,7 @@ This file (on GitHub):
 <br />
 <div style="text-align:left;"><a href="https://github.com/mcavallo-git"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></a></div>
 
-<h3 >DevOps Resource Reference</h3>
-<!-- <sub> [ <a href="https://mcavallo.com">https://mcavallo.com</a> , <a href="https://cava.lol">https://cava.lol</a> ] </sub> -->
+<h3 ><a href="https://mcavallo.com">DevOps Resource Reference</a></h3>
 <br />
 
 <details><summary>What is DevOps?</summary>

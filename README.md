@@ -203,7 +203,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="remote-access"><br />Remote Control, Desktop Sharing<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="remote-access"><br />Remote Access</h5><sub>Desktop Sharing<br /><br /></sub></th></tr>
 <tr><td><strong>IPMIView</strong> <sub>by Supermicro</sub><sub><i><br />&nbsp;&nbsp;&nbsp;Windows-Based IPMI Tool</i></sub></td><td><a href="https://www.supermicro.com/en/solutions/management-software/ipmi-utilities#resources">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.supermicro.com/SwDownload/SwSelect_Free.aspx?cat=IPMI">Download (direct)</a></sub></td></tr>
 <tr><td><strong>LogMeIn Rescue</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;e.g. "LogMeIn Rescue Technician Console"<br />&nbsp;&nbsp;&nbsp;Screen-sharing & Remote-support application</i></sub></td><td><a href="https://help.logmein.com/articles/en_US/Downloads/Technician-Console-Desktop-App">Download (source)</a></td></tr>
 <tr><td><strong>MobaXterm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;XServer for Windows</i></sub></td><td><a href="https://mobaxterm.mobatek.net/download-home-edition.html">Download (source)</a></td></tr>
@@ -252,7 +252,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="hardware-utilities"><br />Hardware Utilities/Controllers<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="hardware-controllers"><br />Hardware Controllers<br /><br /></h5></th></tr>
 <tr><td><strong>AMD Ryzen/Radeon Chipset Drivers</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Amongst other things, resolves issues with "? PCI Device" in Device Manager</i></sub></td><td><a href="https://www.amd.com/en/support">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.amd.com/en/support/chipsets/amd-socket-am4/x570">Download (source, X570)</a></sub></td></tr>
 <tr><td><strong>APC PowerChute <sub>(Back UPS - Personal Edition)</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Personal Edition - Requires APC "Back UPS" (Desktop/Workstation) type/model device<br />&nbsp;&nbsp;&nbsp;Provides safe system shutdown in the event of an extended power outage</i></sub></td><td><a href="https://www.apc.com/shop/us/en/categories/power/uninterruptible-power-supply-ups-/ups-management/powerchute-personal-edition/N-1b6nbpp">Download (source)</a></td></tr>
 <tr><td><strong>APC PowerChute <sub>(Smart UPS - Business Edition)</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Business Edition - Requires APC "Smart UPS" (Server) type/model device<br />&nbsp;&nbsp;&nbsp;Provides safe system shutdown in the event of an extended power outage</i></sub></td><td><a href="https://www.apc.com/shop/us/en/categories/power/uninterruptible-power-supply-ups-/ups-management/powerchute-business-edition/N-o29ysx">Download (source)</a></td></tr>

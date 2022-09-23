@@ -139,6 +139,14 @@ fi;
 
 # ------------------------------------------------------------
 #
+# jq - lowercase/uppercase a string
+#
+
+echo "${RBAC_JSON}" | jq -r ".[] | select((.principalId | ascii_downcase==\"IDENTITY_ID\") and (.roleDefinitionName | ascii_downcase==\"ROLE\") and (.scope | ascii_downcase==\"SCOPE\")).id";
+
+
+# ------------------------------------------------------------
+#
 # jq - Modify the value held by a specific JSON key
 #
 if [[ 1 -eq 1 ]]; then

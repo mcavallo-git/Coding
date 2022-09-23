@@ -26,7 +26,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5>Bash (Shellscript) Module Sync to [ <a href="https://github.com/mcavallo-git/cloud-infrastructure/tree/master/">mcavallo-git/cloud-infrastructure</a> ] GitHub Repo</h5>
+<strong>Bash (Shellscript) Module Sync to [ <a href="https://github.com/mcavallo-git/cloud-infrastructure/tree/master/">mcavallo-git/cloud-infrastructure</a> ] GitHub Repo</strong>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>
@@ -49,7 +49,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<h5>PowerShell Module Sync to [ <a href="https://github.com/mcavallo-git/Coding/tree/master/powershell/_WindowsPowerShell/Modules">mcavallo-git/Coding</a> ] GitHub Repo</h5>
+<strong>PowerShell Module Sync to [ <a href="https://github.com/mcavallo-git/Coding/tree/master/powershell/_WindowsPowerShell/Modules">mcavallo-git/Coding</a> ] GitHub Repo</strong>
 <details><summary><i>Show/Hide Content</i></summary>
 	<p>
 		<ol>

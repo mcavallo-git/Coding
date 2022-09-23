@@ -102,7 +102,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="benchmarking-tools"><br />Benchmarking Utilities<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="benchmarking-tools"><br />Benchmarking<br /><br /></h5></th></tr>
 <tr><td><strong>3DMark Fire Strike</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU Benchmarking Utility<br />&nbsp;&nbsp;&nbsp;DirectX 11 Benchmark (Graphics Cards, GPU)</i></sub></td><td><a href="https://store.steampowered.com/app/402290/3DMark_Fire_Strike_benchmarks/">Download (source)</a></td></tr>
 <tr><td><strong>3DMark Results (CPU/GPU)</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Based on results from various 3DMark software<br/>&nbsp;&nbsp;&nbsp;Quickly compare processors and/or video cards<br/>&nbsp;&nbsp;&nbsp;</i></sub></td><td>View Results:<sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.3dmark.com/search#/?mode=basic">3DMark Search - Basic</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.3dmark.com/search#/?mode=advanced">3DMark Search - Advanced</a></sub></td></tr>
 <tr><td><strong>3DMark Time Spy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU Benchmarking Utility<br />&nbsp;&nbsp;&nbsp;DirectX 12 Benchmark (Graphics Cards, GPU)</i></sub></td><td><a href="https://store.steampowered.com/app/496100/3DMark_Time_Spy_benchmark/">Download (source)</a></td></tr>
@@ -319,7 +319,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="network-tools"><br />Networking Utilities<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="network-tools"><br />Networking<br /><br /></h5></th></tr>
 <tr><td><strong>Burp Suite <sub>Community Edition</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Manual Toolkit for Exploring Web Security</i></sub></td><td><a href="https://portswigger.net/burp/communitydownload">Download (source)</a></td></tr>
 <tr><td><strong>Cipher Suites in TLS/SSL (Schannel SSP)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;A cipher suite must have algorithms for the tasks:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Key exchange<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Bulk encryption<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Message authentication</i></sub></td><td><a href="https://docs.microsoft.com/en-us/windows/win32/secauthn/cipher-suites-in-schannel">Download (source)</a></td></tr>
 <tr><td><strong>DigiCert Certificate Utility</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Certificate Inspection Tool (DigiCertUtil.exe)</i></sub></td><td><a href="https://www.digicert.com/util/">Download (source)</a></td></tr>
@@ -389,7 +389,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="office"><br />Productivity Utilities</h5><sub>Office Suites<br /><br /></sub></th></tr>
+<tr><th colspan="2"><h5 id="office"><br />Productivity</h5><sub>Office Suites<br /><br /></sub></th></tr>
 <tr><td><strong>Mailbird</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Desktop Email client for Windows 7/8/10</i></sub></td><td><a href="https://www.getmailbird.com">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.getmailbird.com/downloading/">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Microsoft Office 365</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Excel, Outlook, PowerPoint, Word, etc.</i></sub></td><td><a href="https://www.office.com/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;Login &rarr; Select "Install Office"<br />&nbsp;&nbsp;&nbsp;<a href="https://c2rsetup.officeapps.live.com/c2r/download.aspx?productReleaseID=O365ProPlusRetail&platform=Def&language=en-us">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Microsoft To Do</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Lists, tasks & reminders (successor to Wunderlist)</i></sub></td><td><a href="https://www.microsoft.com/en-us/p/microsoft-to-do-lists-tasks-reminders/9nblggh5r558">Download (source)</a></td></tr>
@@ -414,6 +414,7 @@ This file (on GitHub):
 <tr><td><strong>Fonts - Roboto</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Mechanical skeleton w/ mostly geometric forms</i></sub></td><td><a href="https://fonts.google.com/specimen/Roboto">Download (source)</a></td></tr>
 <tr><td><strong>Glyphrstudio Font Editor</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Rename TTF/OTF font-name (held within font file)<br />&nbsp;&nbsp;&nbsp;Convert between TTF & OTF font filetypes<br />&nbsp;&nbsp;&nbsp;Remove non-latin unicode characters out of font</i></sub></td><td><a href="http://www.glyphrstudio.com/online/">View (source)</a></td></tr>
 <tr><td><strong>Lockscreen as wallpaper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Use 'Dynamic Theme', instead<br />&nbsp;&nbsp;&nbsp;Mirrors LockScreen Background onto Desktop</i></sub></td><td><a href="https://www.microsoft.com/store/productId/9NBLGGH4WR7C">Download (source)</a></td></tr>
+<tr><td><strong>Ninite Package Manager</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Package Management System</i></sub></td><td><a href="https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;Includes 7-Zip, Audacity, Chrome, Classic Shell,<br />&nbsp;&nbsp;&nbsp;DropBox, FileZilla, FireFox, GreenShot, HandBrake,<br />&nbsp;&nbsp;&nbsp;NotePad++, Paint.Net, VLC, VS-Code, & WinDirStat</i></sub></td></tr>
 <tr><td><strong>ShellMenuView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Modifies explorer's right-click menu/dropdown options</i></sub></td><td><a href="https://www.nirsoft.net/utils/shell_menu_view.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.nirsoft.net/utils/shmnview-x64.zip">Download (source)</a></sub></td></tr>
 <tr><td><strong>ShellExView</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Displays installed shell extensions<br />&nbsp;&nbsp;&nbsp;Allows enabling/disabling shell extensions</i></sub></td><td><a href="https://www.nirsoft.net/utils/shexview.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.nirsoft.net/utils/shexview-x64.zip">Download (source)</a></sub></td></tr>
 <!-- -->
@@ -551,11 +552,6 @@ This file (on GitHub):
 	</td>
 </tr>
 <tr><td><strong>Mozilla Firefox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open source web browser developed by the Mozilla Foundation</i></sub></td><td><a href="https://www.mozilla.org/en-US/firefox/download/thanks/">Download (source)</a></td></tr>
-<!-- -->
-<!-- ------------------------------------------------------------ -->
-<!-- -->
-<tr><th colspan="2"><h5 id="pre-packaged"><br />Pre-Packaged<br /><br /></h5></th></tr>
-<tr><td><strong>Ninite Package Manager</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Package Management System</i></sub></td><td><a href="https://ninite.com/7zip-audacity-chrome-classicstart-dropbox-filezilla-firefox-greenshot-handbrake-notepadplusplus-paint.net-vlc-vscode-windirstat/">Download (source)</a><sub><i><br />&nbsp;&nbsp;&nbsp;Includes 7-Zip, Audacity, Chrome, Classic Shell,<br />&nbsp;&nbsp;&nbsp;DropBox, FileZilla, FireFox, GreenShot, HandBrake,<br />&nbsp;&nbsp;&nbsp;NotePad++, Paint.Net, VLC, VS-Code, & WinDirStat</i></sub></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

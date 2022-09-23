@@ -231,7 +231,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="dns"><br />DNS (+CAbundles/CA bundles)</h5><sub>Domain Name System <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle">Certificate Authority Bundles</a><br />SSL/TLS (HTTPS) Intermediate/Root Certificates<br /><br /></sub></th></tr>
+<tr><th colspan="2"><h5 id="dns"><br />DNS & CAbundles</h5><sub>Domain Name System <a href="https://www.namecheap.com/support/knowledgebase/article.aspx/986/69/what-is-ca-bundle">Certificate Authority Bundles</a><br />SSL/TLS (HTTPS) Intermediate/Root Certificates<br /><br /></sub></th></tr>
 <tr><td><strong>COMODO</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://support.comodo.com/index.php?/comodo/Knowledgebase/List/Index/75/instantsslenterprisesslintranetssl">Download (source)</a></td></tr>
 <tr><td><strong>GoDaddy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DNS Authority & CABUNDLEs</i></sub></td><td><a href="https://ssl-ccp.godaddy.com/repository?origin=CALLISTO">Download (source)</a></td></tr>
 <tr><td><strong>IdenTrust</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Timestamping Authority (Code-Signing)</i></sub></td><td><a href="https://www.identrust.com/timestamping-authority-server">Download (source)</a></td></tr>
@@ -304,7 +304,7 @@ This file (on GitHub):
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2"><h5 id="monitoring"><br />Monitoring & Overclocking (Hardware, Service-Status)<br /><br /></h5></th></tr>
+<tr><th colspan="2"><h5 id="monitoring"><br />Monitoring & Overclocking</h5><sub>(Hardware, Service-Status)<br /><br /></sub></th></tr>
 <tr><td><strong>Core Temp</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU temperature monitoring/logging</i></sub></td><td><a href="https://www.alcpu.com/CoreTemp/">Download (source)</a></td></tr>
 <tr><td><strong>CPU-Z</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Freeware System Profiling and Monitoring Application<br />&nbsp;&nbsp;&nbsp;Shows CPU, Memory, Motherboard, and GPU Hardware Info</i></sub></td><td><a href="https://www.cpuid.com/softwares/cpu-z.html">Download (source)</a></td></tr>
 <tr><td><strong>Custom Resolution Utility (CRU)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;EDID (Extended Display Identification Data) editor<br />&nbsp;&nbsp;&nbsp;Allows adding custom monitor resolutions, refresh rates, etc.</i></sub></td><td><a href="https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU">Download (source)</a></td></tr>

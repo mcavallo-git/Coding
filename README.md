@@ -10,7 +10,7 @@ This file (on GitHub):
 <br />
 <div style="text-align:left;"><a href="https://github.com/mcavallo-git"><img src="images/icons-avatars/mtrip.281px-borderless.bluepurp.png" height="120" /></a></div>
 
-<h3 ><a href="https://mcavallo.com">DevOps Resource Reference</a></h3>
+<h3><a href="https://mcavallo.com">DevOps Resource Reference</a></h3>
 <br />
 
 <details><summary>What is DevOps?</summary>
@@ -81,7 +81,7 @@ This file (on GitHub):
 
 <!-- ------------------------------------------------------------ -->
 
-<strong id="software">Software</strong>
+<h3 id="software">Software</h3>
 <details open><summary><i>Show/Hide Content</i></summary>
 <br />
 

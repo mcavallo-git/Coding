@@ -289,6 +289,18 @@ fi;
 
 # ------------------------------------------------------------
 #
+# Check if current shell is a TTY terminal
+#
+
+if [ -t 1 ]; then
+  echo "Current shell IS a TTY terminal";
+else
+  echo "Current shell is NOT a TTY terminal";
+fi;
+
+
+# ------------------------------------------------------------
+#
 # Variable Comparators
 #   |--> Integer Comparators
 #   |--> Float/Double Comparators

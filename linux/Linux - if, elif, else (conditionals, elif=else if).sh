@@ -298,15 +298,21 @@ fi;
 #
 #  =~   Strings:
 #         if [[ $A =~ ^-?[0-9]+$ ]]     :::   True if $A is an integer (string input, only)
-#       Integers, Floats/Doubles:
+#  =~   Integers, Floats/Doubles:
 #         if [[ "$A" =~ ^-?[0-9]+$ ]]   :::   True if $A is an integer (strings, integer, or float input)
 #
 #
 #
+#  =    Strings:
+#         if [ "$A" = "$B" ]    :::  True if the strings are equal. '=' should be used with 'test' command for POSIX conformance
+#
+#
+#
 #  ==   Strings:
-#         if [ "$A" == "$B" ]  :::  True if $A is equal to $B
+#         if [ "$A" == "$B" ]    :::  True if $A is equal to $B
+#         if [[ "$A" == "$B" ]]  :::  True if $A is equal to $B using pattern matching
 #  ==   Integers:
-#         if [ $A -eq $B ]     :::  True if $A is equal to $B
+#         if [ $A -eq $B ]     :::  True if $A is equal to $B  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #         if [ "$a" == "z*" ]  :::  True if $A is equal to z* (literal matching)
 #         if [ $a == z* ]      :::  File globbing and word splitting take place
 #         if [[ $A == z* ]]    :::  True if $A starts with a "z" (string pattern matching)
@@ -321,15 +327,17 @@ fi;
 #  !=   Strings:
 #         if [ "$A" != "$B" ] :::  True if $A not equal to $B
 #  !=   Integers:
-#         if [ $A -ne $B ]    :::  True if $A not equal to $B
+#         if [ $A -ne $B ]    :::  True if $A not equal to $B  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #         if [ "$A" != "$B" ] :::  True if $A not equal to $B (can also pattern match, see '==' section, above)
 #  !=   Floats/Doubles:
 #         if [ $(echo "$A != $B" | bc) -eq 1 ]; then echo "$A IS a different value than $B"; else echo "$A ISNT a different value than $B"; fi;
 #
 #
 #
+#  <    Strings:
+#         if [[ $A < $B ]]     :::  True if $A sorts before $B lexicographically
 #  <    Integers:
-#         if [ $A -lt $B ]     :::  True if $A is less than $B
+#         if [ $A -lt $B ]     :::  True if $A is less than $B  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #         if (("$A" < "$B"))   :::  True if $A is less than $B
 #         if [[ "$A" < "$B" ]] :::  True if $A, as a string, has a lesser ASCII value than $B does, also as a string
 #         if [ "$A" \< "$B" ]  :::  Same as previous? --> Note that the "<" needs to be escaped within a [ ] construct
@@ -339,16 +347,18 @@ fi;
 #
 #
 #  <=   Integers:
-#         if [ $A -le $B ]     :::  True if $A is less than or equal to $B
+#         if [ $A -le $B ]     :::  True if $A is less than or equal to $B  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #         if (("$A" <= "$B"))  :::  True if $A is less than or equal to $B
 #  <=   Floats/Doubles:
 #         if [ $(echo "$A <= $B" | bc) -eq 1 ]; then echo "$A IS less than or equal to $B"; else echo "$A ISNT less than or equal to $B"; fi;
 #
 #
 #
+#  >    Strings:
+#         if [[ $A > $B ]]     :::  True if $A sorts after $B lexicographically
 #  >   Integers:
-#         if [ $A -gt $B ]     :::  True if $A (as an int) is greater than $B (as an int)
-#         if [ "$A" -gt "$B" ] :::  True if $A (as an int) is greater than $B (as an int)
+#         if [ $A -gt $B ]     :::  True if $A (as an int) is greater than $B (as an int)  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
+#         if [ "$A" -gt "$B" ] :::  True if $A (as an int) is greater than $B (as an int)  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #         if (("$A" > "$B"))   :::  True if $A is greater than $B
 #         if [[ "$A" > "$B" ]] :::  True if $A (as a string) is greater than $B (as a string) - the greater ASCII value trumps
 #         if [ "$A" \> "$B" ]  :::  Same as previous? --> Note that the ">" needs to be escaped within a [ ] construct
@@ -358,7 +368,7 @@ fi;
 #
 #
 #  >=   Integers:
-#         if [ $A -ge $B ]    :::  True if $A is greater than or equal to $B
+#         if [ $A -ge $B ]    :::  True if $A is greater than or equal to $B  -  Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #         if (("$A" >= "$B")) :::  True if $A is greater than or equal to $B
 #  >=   Floats/Doubles:
 #         if [ $(echo "$A >= $B" | bc) -eq 1 ]; then echo "$A IS greater than or equal to $B"; else echo "$A ISNT greater than or equal to $B"; fi;
@@ -368,10 +378,11 @@ fi;
 #
 #
 #  null
-#         if [ -z $A ]      :::  True if A is a string and is null (has zero length)
+#         if [ -z $A ]      :::  True if the length of string $A is zero
+#
 #
 #  not-null
-#         if [ -n $A ]      :::  True if A is a string and ISNT null (non-zero string-length)
+#         if [ -n $A ]      :::  True if the length of string $A is non-zero
 #
 #
 # ------------------------------
@@ -404,26 +415,12 @@ fi;
 #   FILE1 -nt FILE2  :::  True if file1 is newer (according to modification date) than file2, or if file1 exists and file2 does not
 #   FILE1 -ot FILE2  :::  True if file1 is older than file2, or if file2 exists and file1 does not
 #
+#
 #   -o OPT_NAME  :::  True if the shell option OPT_NAME is enabled | The list of options appears in the description of the -o option to the set builtin (see The Set Builtin)
+#
 #
 #   -v VAR  :::  True if the shell variable VAR is set (has been assigned a value)
 #   -R VAR  :::  True if the shell variable VAR is set and is a name reference
-#
-#   -z STRING  :::  True if the length of string is zero
-#   -n STRING  :::  True if the length of string is non-zero
-#   STR1 == STR2  :::  True if the strings are equal. Using '[[' evaluates using pattern matching
-#   STR1 = STR2   :::  True if the strings are equal. '=' should be used with 'test' command for POSIX conformance
-#   STR1 != STR2  :::  True if the strings are not equal
-#   STR1 < STR2   :::  True if string1 sorts before string2 lexicographically
-#   STR1 > STR2   :::  True if string1 sorts after string2 lexicographically
-#
-#
-#   INT1 -eq INT2  :::  True if arg1 is [ equal to ]                     arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-#   INT1 -ne INT2  :::  True if arg1 is [ not equal to ]                 arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-#   INT1 -lt INT2  :::  True if arg1 is [ less than ]                    arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-#   INT1 -le INT2  :::  True if arg1 is [ less than ] or [ equal to ]    arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-#   INT1 -gt INT2  :::  True if arg1 is [ greater than ]                 arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
-#   INT1 -ge INT2  :::  True if arg1 is [ greater than ] or [ equal to ] arg2. Wrapping w/ '[' evaluates as a logical expression, '[[' as an arithmetic expression
 #
 #
 # ------------------------------------------------------------

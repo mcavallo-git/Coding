@@ -4,32 +4,42 @@
 
 
 #
-# Ex) Get the version of local extension(s) matching a given name
+# Match objects within an array using:
+#    1 equals "==" conditional
 #
-az extension list --query "[? name=='${EXTENSION_NAME}' ].version" --output "tsv";
+az extension list --query "[? name=='${EXTENSION_NAME}' ].version" --output "tsv";  # Match local extensions by name
 
 
 #
-# Ex) Get AKS Pod Managed Identities matching a given namespace & ending with a given substring
+# Match objects within an array using:
+#    1 equals "==" conditional
+#  + 1 ends_width(...) conditional
 #
-az aks pod-identity list --cluster-name "${AKS_NAME}" --resource-group "${RESOURCE_GROUP}" --query "podIdentityProfile.userAssignedIdentities[? namespace=='${NAMESPACE}' && ends_with(identity.resourceId, '/${MANAGED_IDENTITY_NAME}')].identity.resourceId" --output "tsv";
+az aks pod-identity list --cluster-name "${AKS_NAME}" --resource-group "${RESOURCE_GROUP}" --query "podIdentityProfile.userAssignedIdentities[? namespace=='${NAMESPACE}' && ends_with(identity.resourceId, '/${MANAGED_IDENTITY_NAME}')].identity.resourceId" --output "tsv";  # Match AKS Pod Identities by Namespace & Identity Name (ends with)
 
 
 #
-# Ex) Get Managed Identities matching a given name
+# Match objects within an array using:
+#    1 equals "==" conditional
 #
-az identity list --subscription "${SUBSCRIPTION_ID}" --query "[? name=='${IDENTITY_NAME}'].id" --output "tsv";
+az identity list --subscription "${SUBSCRIPTION_ID}" --query "[? name=='${IDENTITY_NAME}'].id" --output "tsv";  # Match Managed Identities by name
 
 
 #
-# Ex) Get AKS nodepools matching a given mode ("System", in this case)
+# Match objects within an array using:
+#    1 equals "==" conditional
 #
-az resource show --name "${AKS_NAME}" --resource-group "${RESOURCE_GROUP}" --resource-type "${AKS_RESOURCE_TYPE}" --query "properties.agentPoolProfiles[?mode=='System'] | [0].name" --output "tsv";
+# Then with the matched items:
+#    Get the first item matched
+#
+az resource show --name "${AKS_NAME}" --resource-group "${RESOURCE_GROUP}" --resource-type "${AKS_RESOURCE_TYPE}" --query "properties.agentPoolProfiles[?mode=='System'] | [0].name" --output "tsv";  # Match AKS Nodepools in "System" mode
+
 
 #
-# Ex) Get RBAC assignments matching a given Identity ID, Role Name, & Scope
+# Match objects within an array using:
+#    3 equals "==" conditionals
 #
-az role assignment list --all --query "[?principalId=='${IDENTITY_ID}' && roleDefinitionName=='${EACH_ROLE}' && scope=='${SCOPE}'].id" --output "tsv";
+az role assignment list --all --query "[?principalId=='${IDENTITY_ID}' && roleDefinitionName=='${EACH_ROLE}' && scope=='${SCOPE}'].id" --output "tsv";  # Match RBAC assignments against Identity, Role & Scope
 
 
 # ------------------------------------------------------------

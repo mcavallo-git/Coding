@@ -40,6 +40,18 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 
 # ------------------------------------------------------------
 #
+# jq - implode an array
+#
+
+# jq - implode (ex 1)
+echo '[1,2,3,false,true,"a","b","c"]' | jq -r "join(\" \")";
+
+# jq - implode (ex 2) - nested property
+echo '{"key":[1,2,3,false,true,"a","b","c"]}' | jq -r ".key | join(\" \")";
+
+
+# ------------------------------------------------------------
+#
 # jq - regex match/select
 #
 
@@ -387,6 +399,8 @@ fi;
 #   stackoverflow.com  |  "bash - jq returning null as string if the json is empty - Stack Overflow"  |  https://stackoverflow.com/a/53135202
 #
 #   stackoverflow.com  |  "bash - Modify a key-value in a json using jq - Stack Overflow"  |  https://stackoverflow.com/a/42717073
+#
+#   stackoverflow.com  |  "bash - Replace \n with space in jq query/command output without tr and sed commands - Stack Overflow"  |  https://stackoverflow.com/a/63239101
 #
 #   stackoverflow.com  |  "Constructing a json hash from a bash associative array - Stack Overflow"  |  https://stackoverflow.com/a/44792751
 #

@@ -1465,18 +1465,6 @@ function SyncRegistry {
 
       # Windows/Microsoft Defender - Don't allow Group Policy settings to block the usage of local exclusions list
       $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection";
-        Props=@(
-          @{
-            Description="0=[DISABLED], 1=[ENABLED] - Configure local setting override for monitoring file and program activity on your computer. This policy setting configures a local override for the configuration of monitoring for file and program activity on your computer. This setting can only be set by Group Policy. If you ENABLE (1) this setting, the local preference setting will take priority over Group Policy. If you DISABLE (0) or do not configure this setting (DELETED), Group Policy will take priority over the local preference setting. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection";
-            Name="LocalSettingOverrideDisableOnAccessProtection";
-            Type="DWord";
-            Value=1;
-            Delete=$False;
-          }
-        )
-      };
-      $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender";
         Props=@(
           @{
@@ -1484,6 +1472,18 @@ function SyncRegistry {
             Name="DisableLocalAdminMerge";
             Type="DWord";
             Value=0;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection";
+        Props=@(
+          @{
+            Description="0=[DISABLED], 1=[ENABLED] - Configure local setting override for monitoring file and program activity on your computer. This policy setting configures a local override for the configuration of monitoring for file and program activity on your computer. This setting can only be set by Group Policy. If you ENABLE (1) this setting, the local preference setting will take priority over Group Policy. If you DISABLE (0) or do not configure this setting (DELETED), Group Policy will take priority over the local preference setting. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection";
+            Name="LocalSettingOverrideDisableOnAccessProtection";
+            Type="DWord";
+            Value=1;
             Delete=$False;
           }
         )

@@ -1408,7 +1408,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shut Down or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
             Name="AutoEndTasks";
             Type="String";
             Value=1;

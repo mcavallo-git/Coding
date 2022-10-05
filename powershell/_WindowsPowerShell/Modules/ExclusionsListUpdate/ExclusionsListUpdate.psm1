@@ -90,45 +90,21 @@ function ExclusionsListUpdate {
   $FoundExtensions = @();
   $FoundProcesses = @();
 
-  <# Import Module 'RunningAsAdministrator' #>
-  If (-Not (Get-Command -Name 'RunningAsAdministrator' -ErrorAction 'SilentlyContinue')) { 
-    $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/RunningAsAdministrator/RunningAsAdministrator.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'RunningAsAdministrator' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\RunningAsAdministrator\RunningAsAdministrator.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-  }
-
-  # Require Escalated Privileges
-  If ((RunningAsAdministrator) -NE ($True)) {
-
-    Write-Output "  ! ! ! ERROR - Requires elevated permissions - Please re-run as Administrator  ! ! !`n";
-
-    If ($False) {
-      # Rebuild the run-string to execute current script with elevated privileges (e.g. using "Run as administrator")
-      $PSCommandArgs = @();
-      $i=0;
-      While ($i -lt $args.Length) {
-        $PSCommandArgs += $args[$i];
-        $i++;
-      }
-      $CommandString="SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; ";
-      $CommandString+=" ExclusionsListUpdate";
-      If ($ESET -Eq $True) {                                    $CommandString+=" -ESET"; }
-      If ($MalwarebytesAntiMalware -Eq $True) {                 $CommandString+=" -MalwarebytesAntiMalware"; }
-      If ($MalwarebytesAntiRansomware -Eq $True) {              $CommandString+=" -MalwarebytesAntiRansomware"; }
-      If ($MalwarebytesAntiExploit -Eq $True) {                 $CommandString+=" -MalwarebytesAntiExploit"; }
-      If ($WindowsDefender -Eq $True) {                         $CommandString+=" -WindowsDefender"; }
-      If ($PSBoundParameters.ContainsKey('DryRun')) {           $CommandString+=" -DryRun"; }
-      If ($PSBoundParameters.ContainsKey('Entertainment')) {    $CommandString+=" -Entertainment"; }
-      If ($PSBoundParameters.ContainsKey('Quiet')) {            $CommandString+=" -Quiet"; }
-      If ($PSBoundParameters.ContainsKey('RemoveMissing')) {    $CommandString+=" -RemoveMissing"; }
-      If ($PSBoundParameters.ContainsKey('UseAdminUserDirs')) { $CommandString+=" -UseAdminUserDirs"; }
-      If ($PSBoundParameters.ContainsKey('Verbose')) {          $CommandString+=" -Verbose"; }
-      # Import Module 'PrivilegeEscalation'
-      If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { 
-        $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/PrivilegeEscalation/PrivilegeEscalation.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'PrivilegeEscalation' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\PrivilegeEscalation\PrivilegeEscalation.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-      }
-      # Re-run this command w/ Administrator privileges
-      PrivilegeEscalation -Command ("${CommandString}");
+  <# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
+  $RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
+  If ($RunningAsAdmin -Eq $False) {
+    <# Script is >> NOT << running as admin  -->  Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator) #>
+    $LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
+    $CurrentUser = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name);
+    $CurrentUserWinNT = ("WinNT://$($CurrentUser.Replace("\","/"))");
+    If (($LocalAdmins.Contains($CurrentUser)) -Or ($LocalAdmins.Contains($CurrentUserWinNT))) {
+      $CommandString = $MyInvocation.MyCommand.Name;
+      $PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
+      Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
+    } Else {
+      $EXIT_CODE=1;
+      Write-Output "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n";
     }
-
   } Else {
 
     # ------------------------------------------------------------

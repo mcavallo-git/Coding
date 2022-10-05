@@ -1545,7 +1545,7 @@ function SyncRegistry {
         )
       };
 
-      # Windows Update - Force-pull from Windows instead of local/WSUS server
+      # Windows Update - Force-pull from Microsoft servers instead of local/WSUS servers
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
         Props=@(

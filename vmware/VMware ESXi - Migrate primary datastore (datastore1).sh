@@ -7,7 +7,7 @@ esxcli system coredump file list;  # Show the current coredump file
 
 esxcli system coredump file set --unconfigure;  # Unconfigure the core dump file (while in transitionary state)
 
-esxcli system coredump file remove --file="/vmfs/volumes/DATASTORE_2_ID/vmkdump/DUMPFILE_ID.dumpfile";  # Remove the core dump file
+esxcli system coredump file remove --file=/vmfs/volumes/DATASTORE_2_ID/vmkdump/DUMPFILE_ID.dumpfile;  # Remove the core dump file
 
 esxcli system coredump file set --enable true --smart;  # Reconfigure the core dump file automatically (once migration is complete)
 

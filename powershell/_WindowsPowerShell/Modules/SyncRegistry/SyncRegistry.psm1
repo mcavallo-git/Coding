@@ -82,11 +82,9 @@ function SyncRegistry {
       $PSDrives += @{ Name="HKLM"; PSProvider="Registry"; Root="HKEY_LOCAL_MACHINE";    };
       $PSDrives += @{ Name="HKU" ; PSProvider="Registry"; Root="HKEY_USERS";            };
 
-
       # ------------------------------------------------------------
 
       $RegEdits = @();
-
 
       # Cortana/Search Settings
       $RegEdits += @{
@@ -123,7 +121,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Cortana/Search Settings (cont.)
       $RegEdits += @{
@@ -174,7 +171,6 @@ function SyncRegistry {
         )
       };
 
-
       # DateTimes
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters";
@@ -195,7 +191,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Desktop/Explorer - Background (Wallpaper) Color
       $RegEdits += @{
@@ -241,7 +236,6 @@ function SyncRegistry {
         )
       };
 
-
       # Desktop/Explorer - Accent Color - Start, taskbar, and action center (customization)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
@@ -278,7 +272,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Explorer";
@@ -292,7 +285,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings (cont.)
       $RegEdits += @{
@@ -350,7 +342,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings (cont.)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
@@ -391,7 +382,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings (cont.)
       $RegEdits += @{
@@ -500,7 +490,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Edit' right-click context menu option(s)) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))
       $DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
       If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
@@ -532,7 +521,6 @@ function SyncRegistry {
         };
       }
 
-
       # Explorer Settings ('Edit' right-click context menu option(s)) (.ps1 file extension)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.ps1\Shell\Edit";
@@ -547,7 +535,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Edit' right-click context menu option(s)) (.psd1 file extension)
       $RegEdits += @{
@@ -564,7 +551,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Edit' right-click context menu option(s)) (.psm1 file extension)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\SystemFileAssociations\.psm1\Shell\Edit";
@@ -579,7 +565,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Edit with Notepad++' right-click context menu option(s))
       $RegEdits += @{
@@ -596,7 +581,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('GpgEX' right-click context menu option(s))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\GpgEX";
@@ -612,7 +596,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Include in library' right-click context menu option(s))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\Library Location";
@@ -627,7 +610,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Microsoft Defender' right-click context menu option(s))
       $RegEdits += @{
@@ -683,7 +665,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Script file extension (.ps1))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellScript.1\Shell\Open\Command";
@@ -712,7 +693,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Open' right-click context menu option(s)) (PowerShell Module file extension (.psd1, .psm1, ...))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Microsoft.PowerShellModule.1\Shell\Open\Command";
@@ -727,7 +707,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Open With' right-click context menu option(s)) (Excel.exe)
       $RegEdits += @{
@@ -744,7 +723,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Open With' right-click context menu option(s)) (IExplore.exe)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\IExplore.exe";
@@ -759,7 +737,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Open With' right-click context menu option(s)) (MSPaint.exe)
       $RegEdits += @{
@@ -791,7 +768,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Open With' right-click context menu option(s)) (Winword.exe)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\Winword.exe";
@@ -807,7 +783,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Open With' right-click context menu option(s)) (WordPad.exe)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\WordPad.exe";
@@ -822,7 +797,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Open with Code' right-click context menu option(s)) (all file extensions)
       $RegEdits += @{
@@ -865,7 +839,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Pin to Quick access' right-click context menu option(s))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shell\pintohome";
@@ -880,7 +853,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings ('Run with PowerShell' right-click context menu option(s)) (.ps1 file extension)
       $RegEdits += @{
@@ -923,7 +895,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Send to' right-click context menu option(s))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\SendTo";
@@ -939,7 +910,6 @@ function SyncRegistry {
         )
       };
 
-
       # Explorer Settings ('Share' right-click context menu option(s))
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\shellex\ContextMenuHandlers\ModernSharing";
@@ -954,7 +924,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Explorer Settings (Blocked right-click context menu option(s))
       $RegEdits += @{
@@ -1003,7 +972,6 @@ function SyncRegistry {
         )
       };
 
-
       # IPv6
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters";
@@ -1018,7 +986,6 @@ function SyncRegistry {
         )
       };
 
-
       # Lock Workstation (Enable/Disable)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
@@ -1032,7 +999,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Multimedia - Gaming Priority
       $RegEdits += @{
@@ -1049,7 +1015,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Multimedia - System Responsiveness
       $RegEdits += @{
@@ -1093,7 +1058,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Multitasking - Snap windows (half-screen left/right snapping of windows)
       $RegEdits += @{
@@ -1143,7 +1107,6 @@ function SyncRegistry {
         )
       };
 
-
       # Multitasking - Task view (thumbnail grid layout & wallpaper dimming customization)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView";
@@ -1178,7 +1141,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Multitasking - Alt+Tab view (thumbnail grid layout & wallpaper dimming customization)
       $RegEdits += @{
@@ -1215,7 +1177,6 @@ function SyncRegistry {
         )
       };
 
-
       # Multitasking - Snap Assist view (thumbnail grid layout & wallpaper dimming customization)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\SnapAssistView";
@@ -1251,7 +1212,6 @@ function SyncRegistry {
         )
       };
 
-
       # Multitasking - Timeline
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
@@ -1265,7 +1225,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Notification Area Icons
       $RegEdits += @{
@@ -1282,7 +1241,6 @@ function SyncRegistry {
         )
       };
 
-
       # Office 2013 Settings - Excel
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\15.0\Common\General";
@@ -1297,7 +1255,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Office 2016 Settings - Excel
       $RegEdits += @{
@@ -1328,7 +1285,6 @@ function SyncRegistry {
         )
       };
 
-
       # Office (Windows 10 Application, ~2019+) Settings
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Classes\ms-officeapp\Shell\Open\Command";
@@ -1342,7 +1298,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Power Settings
       $RegEdits += @{
@@ -1372,7 +1327,6 @@ function SyncRegistry {
         )
       };
 
-
       # Prefetch
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
@@ -1386,7 +1340,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Processor resource designations
       $RegEdits += @{
@@ -1402,7 +1355,6 @@ function SyncRegistry {
         )
       };
 
-
       # Shut down/Restart Settings
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
@@ -1416,7 +1368,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Mouse - Cursor/Pointer Appearance
       $RegEdits += @{
@@ -1432,7 +1383,6 @@ function SyncRegistry {
         )
       };
 
-
       # Mouse - Set Sensitivity
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Mouse";
@@ -1446,7 +1396,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # SmartScreen for Microsoft Edge, Microsoft Store Apps
       $RegEdits += @{
@@ -1486,7 +1435,6 @@ function SyncRegistry {
         )
       };
 
-
       # Taskbar - Hide News & Interests
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds";
@@ -1501,7 +1449,6 @@ function SyncRegistry {
         )
       };
 
-
       # Telemetry - Disable (as much as possible)  -  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::AllowTelemetry
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DataCollection";
@@ -1515,7 +1462,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Windows/Microsoft Defender - Don't allow Group Policy settings to block the usage of local exclusions list
       $RegEdits += @{
@@ -1543,7 +1489,6 @@ function SyncRegistry {
         )
       };
 
-
       # Windows/Microsoft Defender - Disable 'Join Microsoft MAPS'
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
@@ -1558,7 +1503,6 @@ function SyncRegistry {
         )
       };
 
-
       # Windows/Microsoft Defender - Disable 'Send file samples when further analysis is required'
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
@@ -1572,7 +1516,6 @@ function SyncRegistry {
           }
         )
       };
-
 
       # Windows Update - Block update to Windows 11
       $RegEdits += @{
@@ -1642,9 +1585,7 @@ function SyncRegistry {
         )
       };
 
-
       # Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services!MaxCompressionLevel"; <# Example of Registry Path w/ inline Property name #>
-
 
       # ------------------------------------------------------------
       # Group-Policy Setting(s)
@@ -1848,7 +1789,6 @@ function SyncRegistry {
                 $EachRegEdit.LogOutput += "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
                 Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
 
-
               } Else {
                 # Property should NOT be deleted
 
@@ -1916,7 +1856,6 @@ function SyncRegistry {
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
   Export-ModuleMember -Function "SyncRegistry" -ErrorAction "SilentlyContinue";
 }
-
 
 # ------------------------------------------------------------
 #

@@ -1550,17 +1550,66 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
         Props=@(
           @{
-            Description="HTTP(S) URL of the WSUS server used by Automatic Updates and (by default) API callers. This policy is paired with WUStatusServer; both must be set to the same value in order for them to be valid. ( from https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499 )";
-            Name="WUServer";
-            Type="String";
-            Value="";
+            Description="(self explanatory)";
+            Name="AcceptTrustedPublisherCerts";
+            Type="DWord";
+            Value=1;
             Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
           },
           @{
-            Description="The HTTP(S) URL of the server to which reporting information will be sent for client computers that use the WSUS server configured by the WUServer key. This policy is paired with WUServer; both must be set to the same value in order for them to be valid. ( from https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499 )";
-            Name="WUStatusServer";
-            Type="String";
-            Value="";
+            Description="(self explanatory)";
+            Name="DisableDualScan";
+            Type="DWord";
+            Value=1;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="DoNotEnforceEnterpriseTLSCertPinningForUpdateDetection";
+            Type="DWord";
+            Value=0;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="FillEmptyContentUrls";
+            Type="DWord";
+            Value=0;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="SetPolicyDrivenUpdateSourceForDriverUpdates";
+            Type="DWord";
+            Value=0;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="SetPolicyDrivenUpdateSourceForFeatureUpdates";
+            Type="DWord";
+            Value=0;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="SetPolicyDrivenUpdateSourceForOtherUpdates";
+            Type="DWord";
+            Value=0;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="SetPolicyDrivenUpdateSourceForQualityUpdates";
+            Type="DWord";
+            Value=0;
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="(self explanatory)";
+            Name="SetProxyBehaviorForUpdateDetection";
+            Type="DWord";
+            Value=0;
             Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
           },
           @{
@@ -1573,6 +1622,20 @@ function SyncRegistry {
           @{
             Description="WSUS Alternate URL";
             Name="UpdateServiceUrlAlternate";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="HTTP(S) URL of the WSUS server used by Automatic Updates and (by default) API callers. This policy is paired with WUStatusServer; both must be set to the same value in order for them to be valid. ( from https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499 )";
+            Name="WUServer";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="The HTTP(S) URL of the server to which reporting information will be sent for client computers that use the WSUS server configured by the WUServer key. This policy is paired with WUServer; both must be set to the same value in order for them to be valid. ( from https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499 )";
+            Name="WUStatusServer";
             Type="String";
             Value="";
             Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>

@@ -1545,7 +1545,40 @@ function SyncRegistry {
         )
       };
 
-      # Windows Update - Force-pull from Windows instead of local server
+      # Windows Update - Force-pull from Windows instead of local/WSUS server
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
+        Props=@(
+          @{
+            Description="HTTP(S) URL of the WSUS server used by Automatic Updates and (by default) API callers. This policy is paired with WUStatusServer; both must be set to the same value in order for them to be valid. ( from https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499 )";
+            Name="WUServer";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="The HTTP(S) URL of the server to which reporting information will be sent for client computers that use the WSUS server configured by the WUServer key. This policy is paired with WUServer; both must be set to the same value in order for them to be valid. ( from https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499 )";
+            Name="WUStatusServer";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="WSUS URL";
+            Name="UpdateServiceUrl";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          },
+          @{
+            Description="WSUS Alternate URL";
+            Name="UpdateServiceUrlAlternate";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          }
+        )
+      };
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
         Props=@(
@@ -1912,6 +1945,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   getadmx.com  |  "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services"  |  https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
 #
 #   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
+#
+#   learn.microsoft.com  |  "Configure Automatic Updates in a Non–Active Directory Environment | Microsoft Learn"  |  https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499
 #
 #   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
 #

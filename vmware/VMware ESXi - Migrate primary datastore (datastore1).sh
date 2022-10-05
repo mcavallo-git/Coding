@@ -1,14 +1,24 @@
 #!/bin/sh
 # ------------------------------------------------------------
 
+# Migrate core dump file
 
 esxcli system coredump file list;  # Show the current coredump file
 
 esxcli system coredump file set --unconfigure;  # Unconfigure the core dump file (while in transitionary state)
 
-esxcli system coredump file remove --file="/vmfs/volumes/DATASTORE_ID/vmkdump/DUMPFILE_ID.dumpfile";  # Remove the core dump file
+esxcli system coredump file remove --file="/vmfs/volumes/DATASTORE_2_ID/vmkdump/DUMPFILE_ID.dumpfile";  # Remove the core dump file
 
 esxcli system coredump file set --enable true --smart;  # Reconfigure the core dump file automatically (once migration is complete)
+
+
+# ------------------------------------------------------------
+
+# Migrate scratch file
+
+ScratchConfig.ConfiguredScratchLocation  # Update property manually
+# |--> set to value "/vmfs/volumes/DATASTORE_2_ID/.locker"
+#       |-->  (Might not be necessary) Make sure to create directory via GUI or shell "mkdir /vmfs/volumes/DATASTORE_2_ID/.locker"
 
 
 # ------------------------------------------------------------

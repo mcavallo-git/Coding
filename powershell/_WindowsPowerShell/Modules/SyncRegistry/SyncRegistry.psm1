@@ -22,10 +22,6 @@ function SyncRegistry {
 
   $EXIT_CODE=0;
 
-  # If ((RunningAsAdministrator) -Ne ($True)) {
-  #   PrivilegeEscalation -Command ("SyncRegistry") {
-  # } Else {
-
   <# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
   $RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
   If ($RunningAsAdmin -Eq $False) {
@@ -43,7 +39,6 @@ function SyncRegistry {
     }
   } Else {
     <# Script >> IS << running as Admin - Continue #>
-
 
     <# Check if using HKEY_CURRENT_USERS or HKEY_USERS/[SID] #>
     $HKEY_USERS_SID_OR_CURRENT_USER="";

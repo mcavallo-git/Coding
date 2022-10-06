@@ -1,5 +1,5 @@
 # ------------------------------
-# PowerShell - String IsNullorEmpty, IsNullOrWhiteSpace (detect blank strings, conditional)
+# PowerShell - String Empty, IsNullorEmpty, IsNullOrWhiteSpace (detect blank strings conditionally)
 # ------------------------------
 #
 # [String]::Empty

@@ -1,12 +1,23 @@
 # ------------------------------
 # PowerShell - String IsNullorEmpty, IsNullOrWhiteSpace (detect blank strings, conditional)
 # ------------------------------
+#
+# [String]::Empty
+#
 
+[String]::Empty -Eq "";        # True
+[String]::Empty -Eq $True;     # True
+
+([String]::Empty) -Eq $False;  # False
+([String]::Empty) -Eq $Null;   # False
+
+
+# Test if a string is empty
 $StringVar="";
-If ([String]::IsNullOrEmpty(${StringVar}) -Eq $True) {
-	Write-Host "String is null or empty";
+If (([String]::Empty) -Eq ("${StringVar}")) {
+	Write-Host "String IS [ empty ]";
 } Else {
-	Write-Host "String is NOT null or empty";
+	Write-Host "String is NOT [ empty ]";
 }
 
 
@@ -17,18 +28,39 @@ If ([String]::IsNullOrEmpty(${StringVar}) -Eq $True) {
 
 [String]::IsNullOrEmpty($Null);        # True
 [String]::IsNullOrEmpty("");           # True
+
 [String]::IsNullOrEmpty("  ");         # False
 [String]::IsNullOrEmpty("abc");        # False
+
+
+# Test if a string is null or empty
+$StringVar="";
+If ([String]::IsNullOrEmpty(${StringVar}) -Eq $True) {
+	Write-Host "String IS [ null or empty ]";
+} Else {
+	Write-Host "String is NOT [ null or empty ]";
+}
 
 
 # ------------------------------
 #
 # [String]::IsNullOrWhiteSpace
 #
+
 [String]::IsNullOrWhiteSpace($Null)    # True
 [String]::IsNullOrWhiteSpace("");      # True
 [String]::IsNullOrWhiteSpace("  ");    # True   # <--- The main difference between [ IsNullOrWhiteSpace ] and [ IsNullOrEmpty ]
+
 [String]::IsNullOrWhiteSpace("abc");   # False
+
+
+# Test if a string is null, empty or blank (whitespace only)
+$StringVar="";
+If ([String]::IsNullOrWhiteSpace(${StringVar}) -Eq $True) {
+	Write-Host "String IS [ null, empty or blank (whitespace only) ]";
+} Else {
+	Write-Host "String is NOT [ null, empty or blank (whitespace only) ]";
+}
 
 
 # ------------------------------------------------------------

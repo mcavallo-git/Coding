@@ -6,6 +6,14 @@ REM   |--> PnPUtil (PnPUtil.exe) is a command line tool that lets an administrat
 REM
 REM ------------------------------------------------------------
 REM
+REM LIST (ENUMERATE) ALL DRIVERS
+REM
+
+pnputil.exe /enum-drivers
+
+
+REM ------------------------------------------------------------
+REM
 REM INSTALL/ADD DRIVERS VIA ".inf" EXTENSIONED FILES
 REM   |
 REM   |--> Example: Add all drivers by recursively searching for "*.inf" files under the "C:\Drivers\" directory

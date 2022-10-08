@@ -1355,20 +1355,6 @@ function SyncRegistry {
         )
       };
 
-      # Shut down/Restart Settings
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
-        Props=@(
-          @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
-            Name="AutoEndTasks";
-            Type="String";
-            Value=1;
-            Delete=$False;
-          }
-        )
-      };
-
       # Mouse - Cursor/Pointer Appearance
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Cursors";
@@ -1378,6 +1364,20 @@ function SyncRegistry {
             Name="(Default)";
             Type="String";
             Value="Windows Black (extra large)";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Shut down/Restart Settings
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
+        Props=@(
+          @{
+            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+            Name="AutoEndTasks";
+            Type="String";
+            Value=1;
             Delete=$False;
           }
         )

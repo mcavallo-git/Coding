@@ -1,0 +1,150 @@
+Microsoft PnP Utility
+
+PNPUTIL [/add-driver <...> | /delete-driver <...> |
+         /export-driver <...> | /enum-drivers |
+         /enum-devices [<...>] | /enum-interfaces [<...>] |
+         /disable-device <...> | /enable-device <...> |
+         /restart-device <...> | /remove-device <...> |
+         /scan-devices [<...>] | /?]
+
+Commands:
+
+  /add-driver <filename.inf | *.inf> [/subdirs] [/install] [/reboot]
+
+    Add driver package(s) into the driver store.
+      /subdirs - traverse sub directories for driver packages.
+      /install - install/update drivers on any matching devices.
+      /reboot - reboot system if needed to complete the operation.
+
+    Examples:
+      Add driver package:
+        pnputil /add-driver x:\driver.inf
+      Add multiple driver packages:
+        pnputil /add-driver c:\oem\*.inf
+      Add and install driver package:
+        pnputil /add-driver device.inf /install
+
+  /delete-driver <oem#.inf> [/uninstall] [/force] [/reboot]
+
+    Delete driver package from the driver store.
+      /uninstall - uninstall driver package from any devices using it.
+      /force - delete driver package even when it is in use by devices.
+      /reboot - reboot system if needed to complete the operation.
+
+    Examples:
+      Delete driver package:
+        pnputil /delete-driver oem0.inf
+      Force delete driver package:
+        pnputil /delete-driver oem1.inf /force
+
+  /export-driver <oem#.inf | *> <target directory>
+
+    Export driver package(s) from the driver store into a target directory.
+
+    Examples:
+      Export driver package:
+        pnputil /export-driver oem6.inf .
+      Export all driver packages:
+        pnputil /export-driver * c:\backup
+
+  /enum-drivers
+
+    Enumerate all 3rd party driver packages in the driver store.
+
+    Examples:
+      Enumerate all OEM driver packages:
+        pnputil /enum-drivers
+
+  /disable-device <instance ID> [/reboot]
+
+    Disable devices on the system.
+      /reboot - reboot system if needed to complete the operation.
+
+    Examples:
+      Disable device:
+        pnputil /disable-device "USB\VID_045E&PID_00DB\6&870CE29&0&1"
+
+  /enable-device <instance ID> [/reboot]
+
+    Enable devices on the system.
+      /reboot - reboot system if needed to complete the operation.
+
+    Examples:
+      Enable device:
+        pnputil /enable-device "USB\VID_045E&PID_00DB\6&870CE29&0&1"
+
+  /restart-device <instance ID> [/reboot]
+
+    Restart devices on the system.
+      /reboot - reboot system if needed to complete the operation.
+
+    Examples:
+      Restart device:
+        pnputil /restart-device "USB\VID_045E&PID_00DB\6&870CE29&0&1"
+
+  /remove-device <instance ID> [/subtree] [/reboot]
+
+    Attempt to remove a device from the system.
+      /subtree - remove entire device subtree, including any child devices.
+      /reboot - reboot system if needed to complete the operation.
+
+    Examples:
+      Remove device:
+        pnputil /remove-device "USB\VID_045E&PID_00DB\6&870CE29&0&1"
+
+  /scan-devices [/instanceid <instance ID>] [/async]
+
+    Scan the system for any device hardware changes.
+      /instanceid <instance ID> - scan device subtree for changes.
+      /async - scan for changes asynchronously.
+
+    Examples:
+      Scan devices:
+        pnputil /scan-devices
+
+  /enum-devices [/connected | /disconnected] [/instanceid <instance ID>]
+                [/class <name | GUID>] [/problem [<code>]] [/ids] [/relations]
+                [/drivers]
+
+    Enumerate all devices on the system.
+      /connected | /disconnected - filter by connected devices or
+                                   filter by disconnected devices.
+      /instanceid <instance ID> - filter by device instance ID.
+      /class <name | GUID> - filter by device class name or GUID.
+      /problem [<code>] - filter by devices with problems or
+                          filter by specific problem code.
+      /ids - display hardware IDs and compatible IDs.
+      /relations - display parent and child device relations.
+      /drivers - display matching and installed drivers.
+
+    Examples:
+      Enumerate only connected devices on the system:
+        pnputil /enum-devices /connected
+      Enumerate device with specific instance ID:
+        pnputil /enum-devices /instanceid "ACPI\PNP0A08\1"
+      Enumerate all devices with specific class:
+        pnputil /enum-devices /class Display
+        pnputil /enum-devices /class {4d36e97d-e325-11ce-bfc1-08002be10318}
+      Enumerate all devices with specific problem code:
+        pnputil /enum-devices /problem 28
+        pnputil /enum-devices /problem 0xA
+      Enumerate all devices with problems and display hardware/compatible IDs:
+        pnputil /enum-devices /problem /ids
+
+  /enum-interfaces [/enabled | /disabled] [/class <GUID>]
+
+    Enumerate all device interfaces on the system.
+      /enabled | /disabled - filter by enabled interfaces or
+                             filter by disabled interfaces.
+      /class <GUID> - filter by interface class GUID.
+
+    Examples:
+      Enumerate only enabled interfaces on the system:
+        pnputil /enum-interfaces /enabled
+      Enumerate all interfaces with specific interface class GUID:
+        pnputil /enum-interfaces /class {884b96c3-56ef-11d1-bc8c-00a0c91405dd}
+
+  /?
+
+    Show usage screen.
+

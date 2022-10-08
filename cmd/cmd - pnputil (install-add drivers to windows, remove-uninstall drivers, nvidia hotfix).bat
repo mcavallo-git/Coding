@@ -1,8 +1,8 @@
 REM ------------------------------------------------------------
 REM
-REM	pnputil
-REM   |
-REM   |--> PnPUtil (PnPUtil.exe) is a command line tool that lets an administrator perform actions on driver packages. Some examples include:
+REM pnputil
+REM  |
+REM  |--> PnPUtil (PnPUtil.exe) is a command line tool that lets an administrator perform actions on driver packages. Some examples include:
 REM
 REM ------------------------------------------------------------
 REM
@@ -15,8 +15,8 @@ pnputil.exe /enum-drivers
 REM ------------------------------------------------------------
 REM
 REM INSTALL/ADD DRIVERS VIA ".inf" EXTENSIONED FILES
-REM   |
-REM   |--> Example: Add all drivers by recursively searching for "*.inf" files under the "C:\Drivers\" directory
+REM  |
+REM  |--> Example: Add all drivers by recursively searching for "*.inf" files under the "C:\Drivers\" directory
 REM
 
 pnputil.exe /add-driver C:\Drivers\*.inf /subdirs /install /reboot
@@ -25,26 +25,29 @@ pnputil.exe /add-driver C:\Drivers\*.inf /subdirs /install /reboot
 REM ------------------------------------------------------------
 REM
 REM REMOVE DRIVERS  (hotfix example)
-REM   |
-REM   |--> Removing corrupt DCH nvidia driver on 2019-06-13_08-15-29
+REM  |
+REM  |--> Removing corrupt DCH nvidia driver on 2019-06-13_08-15-29
 REM
-REM   Correct driver wouldn't install, and was throwing an error similar to:
+REM  Correct driver wouldn't install, and was throwing an error similar to:
 REM      "The standard NVIDIA graphics driver is not compatible with this version of Windows"
 REM 
 
 
 REM
-REM	STEP 1 - Acquite .inf file which is corrupt/bad and currently attached to graphics card as the primary driver
+REM STEP 1 - Acquite "_____.inf" file which is corrupt/bad and currently attached to graphics card as the primary driver
 REM
-REM Goto device manager, locate your GPU which is experiencing issues
-REM		Right-click -> Properties -> Goto tab "Details" -> Copy the value from property "Inf name"
-REM		The copied value should be similar to "oem_.inf" where "_" is an integer which varies per-environment (e.g. per-installed, corrupt driver)
-REM		This example uses value "oem3.inf"
+
+pnputil /enum-drivers
+
+REM Alternatively, open devmgmt.msc (Device Manager) -> Locate your GPU which is experiencing issues
+REM   -> Right-click -> Properties -> Goto tab "Details" -> Copy the value from property "Inf name"
+REM   The copied value should be similar to "oem_.inf" where "_" is an integer which varies per-environment (e.g. per-installed, corrupt driver)
+REM   This example uses value "oem3.inf"
 REM
 
 
 REM
-REM	STEP 2 - Uninstall the corrupt driver
+REM STEP 2 - Uninstall the corrupt driver
 REM
 pnputil /delete-driver oem3.inf /uninstall
 

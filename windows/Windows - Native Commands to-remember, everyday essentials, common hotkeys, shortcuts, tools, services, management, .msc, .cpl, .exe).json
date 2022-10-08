@@ -66,7 +66,7 @@
       "netstat": "Displays all active network connections",
       "nslookup": "Returns your local DNS server",
       "odbcad32": "ODBC Data Source Administrator",
-      "optionalFeatures.exe": "Windows Features - 'Turn Windows Features On of Off'",
+      "OptionalFeatures.exe": "Windows Features - 'Turn Windows Features On of Off'",
       "ping": "Sends data to a specified host/IP",
       "regedit": "registry Editor",
       "regsvr32": "register/de-register DLL/OCX/ActiveX",

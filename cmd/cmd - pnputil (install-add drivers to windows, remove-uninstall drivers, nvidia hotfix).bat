@@ -6,7 +6,7 @@ REM   |--> PnPUtil (PnPUtil.exe) is a command line tool that lets an administrat
 REM
 REM ------------------------------------------------------------
 REM
-REM INSTALL/ADD DRIVERS VIA ".inf" EXTENSIONED-FILES
+REM INSTALL/ADD DRIVERS VIA ".inf" EXTENSIONED FILES
 REM   |
 REM   |--> Example: Add all drivers by recursively searching for "*.inf" files under the "C:\Drivers\" directory
 REM
@@ -26,7 +26,7 @@ REM
 
 
 REM
-REM	STEP 1 - Acquite .inf file which is corrupt/bad and currently attached to graphics-card as the primary driver
+REM	STEP 1 - Acquite .inf file which is corrupt/bad and currently attached to graphics card as the primary driver
 REM
 REM Goto device manager, locate your GPU which is experiencing issues
 REM		Right-click -> Properties -> Goto tab "Details" -> Copy the value from property "Inf name"

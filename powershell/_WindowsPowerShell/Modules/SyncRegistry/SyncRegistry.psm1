@@ -1397,6 +1397,48 @@ function SyncRegistry {
         )
       };
 
+      # Date and time formats
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\International";
+        Props=@(
+          @{
+            Description="Date and time formats - Long date";
+            Name="sLongDate";
+            Type="String";
+            Value="dddd   dd MMMM, yyyy";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - Short date";
+            Name="sShortDate";
+            Type="String";
+            Value="yyyy-MM-dd";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - Short time";
+            Name="sShortTime";
+            Type="String";
+            Value="HH:mm";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - Long time";
+            Name="sTimeFormat";
+            Type="String";
+            Value="HH:mm:ss";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - _____";
+            Name="sYearMonth";
+            Type="String";
+            Value="MMMM yyyy";
+            Delete=$False;
+          }
+        )
+      };
+
       # SmartScreen for Microsoft Edge, Microsoft Store Apps
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System";
@@ -2022,6 +2064,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   stackoverflow.com  |  "Hex to Decimal Conversion - PowerShell 5 - Stack Overflow"  |  https://stackoverflow.com/a/38567654
 #
 #   stackoverflow.com  |  "New-Item recursive registry keys"  |  https://stackoverflow.com/a/21770519
+#
+#   stackoverflow.com  |  "powershell - Changing Windows Time and Date Format - Stack Overflow"  |  https://stackoverflow.com/a/28749587
 #
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #

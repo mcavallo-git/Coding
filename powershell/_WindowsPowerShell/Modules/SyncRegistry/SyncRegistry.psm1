@@ -1505,7 +1505,7 @@ function SyncRegistry {
         )
       };
 
-      # Windows/Microsoft Defender - Don't allow Group Policy settings to block the usage of local exclusions list
+      # Microsoft Windows Defender - Don't allow Group Policy settings to block the usage of local exclusions list
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender";
         Props=@(
@@ -1531,7 +1531,7 @@ function SyncRegistry {
         )
       };
 
-      # Windows/Microsoft Defender - Disable 'Join Microsoft MAPS'
+      # Microsoft Windows Defender - Disable 'Join Microsoft MAPS'
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
         Props=@(
@@ -1545,7 +1545,7 @@ function SyncRegistry {
         )
       };
 
-      # Windows/Microsoft Defender - Disable 'Send file samples when further analysis is required'
+      # Microsoft Windows Defender - Disable 'Send file samples when further analysis is required'
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
         Props=@(

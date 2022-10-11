@@ -11,7 +11,11 @@ OTHER (Not sure exactly what these are)
 %APPDATA%\Microsoft\Internet Explorer\Quick Launch
 
 
---> Pinned Items, Start Menu (Classic Shell) (Shortcut)
+--> Pinned Items, Start Menu (Open-Shell) (Shortcut)
+%APPDATA%\OpenShell\Pinned
+
+
+--> Pinned Items, Start Menu (Classic Shell - Deprecated) (Shortcut)
 %APPDATA%\ClassicShell\Pinned
 
 

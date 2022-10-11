@@ -1299,6 +1299,20 @@ function SyncRegistry {
         )
       };
 
+      # Windows To Go
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control";
+        Props=@(
+          @{
+            Description="Windows To Go - Enable (1) or Disable (0)";
+            Name="PortableOperatingSystem";
+            Type="DWord";
+            Value=("0");
+            Delete=$False;
+          }
+        )
+      };
+
       # Power Settings
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power";

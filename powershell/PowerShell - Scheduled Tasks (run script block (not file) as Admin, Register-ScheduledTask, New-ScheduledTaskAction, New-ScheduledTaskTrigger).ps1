@@ -1,6 +1,17 @@
 # ------------------------------------------------------------
 # PowerShell - Scheduled Tasks (run script block (not file) as Admin, Register-ScheduledTask, New-ScheduledTaskAction, New-ScheduledTaskTrigger)
 # ------------------------------------------------------------
+
+
+# Template (NON-Admin)
+$Args_SchedTask=@{ TaskName="____TASKNAME_____"; Description="____DESCRIPTION_____"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((GCM powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ('-Command ____POWERSHELL_CLI_____;') -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
+
+
+# Template (ADMIN)
+$Args_SchedTask=@{ TaskName="____TASKNAME_____"; Description="____DESCRIPTION_____"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((GCM powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ('-Command ____POWERSHELL_CLI_____') -Verb 'RunAs' -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
+
+
+# ------------------------------------------------------------
 #
 # QuickNoteSniper  (Runs as NON-Admin)
 #
@@ -10,7 +21,7 @@ $Args_SchedTask=@{ TaskName="QuickNoteSniper"; Description="QuickNoteSniper"; Tr
 
 # ------------------------------------------------------------
 #
-# SetHomepage_Chrome  (Runs as Admin)
+# SetHomepage_Chrome  (Runs as ADMIN)
 #
 
 $Args_SchedTask=@{ TaskName="SetHomepage_Chrome"; Description="SetHomepage_Chrome"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((GCM powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ('-Command New-ItemProperty -LiteralPath ((Write-Output Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\RestoreOnStartupURLs)) -Name (1) -Value ((Write-Output https://google.com)) -PropertyType ((Write-Output String)) -ErrorAction SilentlyContinue; Set-ItemProperty -LiteralPath ((Write-Output Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\RestoreOnStartupURLs)) -Name (1) -Value ((Write-Output https://google.com)) -ErrorAction SilentlyContinue;') -Verb 'RunAs' -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
@@ -18,7 +29,7 @@ $Args_SchedTask=@{ TaskName="SetHomepage_Chrome"; Description="SetHomepage_Chrom
 
 # ------------------------------------------------------------
 #
-# SetHomepage_Edge  (Runs as Admin)
+# SetHomepage_Edge  (Runs as ADMIN)
 #
 
 $Args_SchedTask=@{ TaskName="SetHomepage_Edge"; Description="SetHomepage_Edge"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((GCM powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ('-Command New-ItemProperty -LiteralPath ((Write-Output Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs)) -Name (1) -Value ((Write-Output https://google.com)) -PropertyType ((Write-Output String)) -ErrorAction SilentlyContinue; Set-ItemProperty -LiteralPath ((Write-Output Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs)) -Name (1) -Value ((Write-Output https://google.com)) -ErrorAction SilentlyContinue;') -Verb 'RunAs' -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
@@ -26,10 +37,18 @@ $Args_SchedTask=@{ TaskName="SetHomepage_Edge"; Description="SetHomepage_Edge"; 
 
 # ------------------------------------------------------------
 #
-# Startup_StopProcesses  (Runs as Admin)
+# Startup_StopProcesses  (Runs as ADMIN)
 #
 
 $Args_SchedTask=@{ TaskName="Startup_StopProcesses"; Description="Startup_StopProcesses"; Trigger=(New-ScheduledTaskTrigger -AtStartup); Action=(New-ScheduledTaskAction -Execute ((GCM powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ('-Command While (1) { Get-Process -Name redcloak* 2>`$Null | Stop-Process -Force <# redcloak #>; Get-Process -Name flow 2>`$Null | Stop-Process -Force <# bang & olufsen #>; Get-Process -Name smartaudio* 2>`$Null | Stop-Process -Force <# bang & olufsen #>; Get-Process -Name tanium* 2>`$Null | Stop-Process -Force <# tanium #>; Get-Process -Name fc* 2>`$Null | Stop-Process -Force <# mcafee #>; Start-Sleep -Seconds (1); };') -Verb 'RunAs' -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
+
+
+# ------------------------------------------------------------
+#
+# WakeOnLan  (Runs as NON-Admin)
+#
+
+$Args_SchedTask=@{ TaskName="WakeOnLan"; Description="WakeOnLan"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((GCM powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ('-Command sv mac (write A1:B2:C3:D4:E5:F6); sv split_mac (@(((gv mac).Value).split((write :)) | foreach {((gv _).Value).insert(0,(write 0x))})); sv mac_byte_array ([Byte[]](((gv split_mac).Value)[0],((gv split_mac).Value)[1],((gv split_mac).Value)[2],((gv split_mac).Value)[3],((gv split_mac).Value)[4],((gv split_mac).Value)[5])); sv magic_packet ([Byte[]](,0xFF * 102)); 6..101 | ForEach-Object { ((gv magic_packet).Value)[((gv _).Value)] = ((gv mac_byte_array).Value)[(((gv _).Value)%6)]}; sv UDPclient (New-Object System.Net.Sockets.UdpClient); ((gv UDPclient).Value).Connect(([System.Net.IPAddress]::Broadcast),4000); ((gv UDPclient).Value).Send(((gv magic_packet).Value), ((gv magic_packet).Value).Length) | Out-Null;') -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
 
 
 # ------------------------------------------------------------

@@ -33,6 +33,7 @@ Resource | Source
 --- | ---
 **Pinned Items** <sub>*Win10 Taskbar (Stock)*</sub> | ```%APPDATA%\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar```
 **Pinned Items** <sub>*Classic Shell (App)*</sub> | ```%USERPROFILE%\AppData\Roaming\ClassicShell\Pinned```
+**Pinned Items** <sub>*Open Shell (App)*</sub> | ```%USERPROFILE%\AppData\Roaming\OpenShell\Pinned```
 **Startup Items** <sub>*Win10 (Current User)*</sub> | ```%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup```
 **Startup Items** <sub>*Win10 (All Users)*</sub> | ```%PROGRAMDATA%\Microsoft\Windows\Start Menu\Programs\StartUp```
 **Windows Sounds** <sub>*.wav files (for the most part)*</sub> | ```%SYSTEMROOT%\Media```

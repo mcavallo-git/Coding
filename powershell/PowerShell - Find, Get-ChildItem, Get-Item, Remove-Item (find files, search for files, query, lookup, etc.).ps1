@@ -23,15 +23,15 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Nam
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*___") } | ForEach-Object { $_.FullName; };
 
 
-#   Filename STARTS WITH ...
-#     &&  Filename ENDS WITH ...
+# Filename STARTS WITH ...
+#  &&  Filename ENDS WITH ...
 Get-ChildItem -Path ("C:\ISO") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "MATCH_STARTSWITH*") -And ($_.Name -Like "*MATCH_ENDSWITH") } | ForEach-Object { $_.FullName; };
 
 
 #
-#   Filename CONTAINS ...
-#     &&  Parent directory's basename CONTAINS ...
-#     &&  Grandparent directory's basename CONTAINS ...
+# Filename CONTAINS ...
+#  &&  Parent directory's basename CONTAINS ...
+#  &&  Grandparent directory's basename CONTAINS ...
 #
 If ($True) {
 	$Dirname_TopLevel="${Env:LOCALAPPDATA}\Packages"; # Directory to search within
@@ -51,6 +51,22 @@ If ($True) {
 
 # File [ matches filename ... (exactly) ]  &&  [ stop after finding a single file (do not search for more) ]
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Eq "MATCH_EXACTLY.exe" } | Select-Object -First 1 | ForEach-Object { $_.FullName; };
+
+
+# ------------------------------------------------------------
+#
+# WARNING:  Using Remove-Item DOES NOT allow file to be recovered (cannot restore from Recycle Bin)
+#
+
+# Permanently delete a file (skips recycle bin)
+Remove-Item -Path ("${env:USERPROFILE}\Desktop\tester") -Force -Confirm:$False;
+
+# Permanently delete a directory (skips recycle bin)
+Remove-Item -Path ("${env:USERPROFILE}\Desktop\tester") -Recurse -Force -Confirm:$False;
+
+
+# Delete files/directories to the recycle bin:
+$Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester.txt"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
 
 
 # ------------------------------------------------------------

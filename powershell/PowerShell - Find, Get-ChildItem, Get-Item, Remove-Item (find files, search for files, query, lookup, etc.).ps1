@@ -274,7 +274,9 @@ Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File
 #
 #   docs.microsoft.com  |  "Get-Item - Gets the item at the specified location"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-item?view=powershell-5.1
 #
-#   docs.microsoft.com  |  "Remove-Item - Deletes the specified items"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-5.1
+#   learn.microsoft.com  |  "FileSystem.DeleteDirectory Method (Microsoft.VisualBasic.FileIO) | Microsoft Learn"  |  https://learn.microsoft.com/en-us/dotnet/api/microsoft.visualbasic.fileio.filesystem.deletedirectory
+#
+#   learn.microsoft.com  |  "Remove-Item (Microsoft.PowerShell.Management) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item
 #
 #   powershell-guru.com  |  "# The fastest Powershell 4 : Count all files in a large network share"  |  https://powershell-guru.com/fastest-powershell-2-count-all-files-in-large-network-share/
 #

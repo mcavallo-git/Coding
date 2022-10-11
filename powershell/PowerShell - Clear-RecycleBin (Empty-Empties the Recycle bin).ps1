@@ -2,9 +2,7 @@
 # 
 # Delete file by sending to Recycle Bin
 # 
-Add-Type -AssemblyName Microsoft.VisualBasic; <# Required to use Recycle Bin action 'SendToRecycleBin' #>
-${Filepath_ToDelete} = "${Home}\Desktop\tester.txt";
-[Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
+$Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester.txt"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
 
 
 # ------------------------------------------------------------

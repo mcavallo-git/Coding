@@ -17,6 +17,7 @@ Function WakeOnLAN() {
     WakeOnLAN 'A1:B2:C3:D4:E5:F6';
 
   }
+  
   # ------------------------------------------------------------
   # Validate the Syntax of the user-defined MAC Address
   If (!(($mac -Like "*:*:*:*:*:*") -Or ($mac -Like "*-*-*-*-*-*"))) {
@@ -45,6 +46,12 @@ Function WakeOnLAN() {
   }
 
   Return;
+
+  If ($False) {
+    # FOR USE IN SCHEDULED TASKS/COMMAND LINE SCRIPTS (No quotes, no dollar signs)
+    sv mac (write A1:B2:C3:D4:E5:F6); sv split_mac (@(((gv mac).Value).split((write :)) | foreach {((gv _).Value).insert(0,(write 0x))})); sv mac_byte_array ([Byte[]](((gv split_mac).Value)[0],((gv split_mac).Value)[1],((gv split_mac).Value)[2],((gv split_mac).Value)[3],((gv split_mac).Value)[4],((gv split_mac).Value)[5])); sv magic_packet ([Byte[]](,0xFF * 102)); 6..101 | ForEach-Object { ((gv magic_packet).Value)[((gv _).Value)] = ((gv mac_byte_array).Value)[(((gv _).Value)%6)]}; sv UDPclient (New-Object System.Net.Sockets.UdpClient); ((gv UDPclient).Value).Connect(([System.Net.IPAddress]::Broadcast),4000); ((gv UDPclient).Value).Send(((gv magic_packet).Value), ((gv magic_packet).Value).Length) | Out-Null;
+
+  }
 
 }
 

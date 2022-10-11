@@ -59,14 +59,17 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name
 #
 
 # Permanently delete a file (skips recycle bin)
-Remove-Item -Path ("${env:USERPROFILE}\Desktop\tester") -Force -Confirm:$False;
+Remove-Item -Path ("${env:USERPROFILE}\Desktop\tester.txt") -Force -Confirm:$False;
 
 # Permanently delete a directory (skips recycle bin)
 Remove-Item -Path ("${env:USERPROFILE}\Desktop\tester") -Recurse -Force -Confirm:$False;
 
 
-# Delete files/directories to the recycle bin:
+# Delete a file (to the recycle bin)
 $Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester.txt"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
+
+# Delete a directory (to the recycle bin)
+$Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
 
 
 # ------------------------------------------------------------
@@ -94,7 +97,7 @@ Get-ChildItem -Path "$(Split-Path -Path ("${FullPath_Pattern}") -Parent;)" -File
 ;
 
 
-# Delete old files (permanently)
+# Delete old files (permanently - skips recycle bin)
 $FullPath_Pattern = "C:\ISO\*";
 $Retention_Days = "90";
 $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);

@@ -40,7 +40,6 @@ fi;
 
 
 if [[ 1 -eq 1 ]]; then
-  ACTION_DESCRIPTION="Sleep for 2 seconds";
   READ_TIMEOUT=60;
   USER_RESPONSE="";
   read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=${?};

@@ -1,6 +1,8 @@
 #!/bin/sh
 # ------------------------------
-# Get S.M.A.R.T. disk values (if they exist) for each attached disk
+#
+# Get S.M.A.R.T. disk values for all disks (if they exist)
+#
 
 esxcli storage core device list | grep -i 'Other UIDs:' | awk '{print $3}' | while read EACH_DEVICE_ID; do echo -e "\n\n------------------------------\nEACH_DEVICE_ID:  ${EACH_DEVICE_ID}\nListing Smart Device Parameters...\n"; esxcli storage core device smart get -d "${EACH_DEVICE_ID}"; done; echo -e "\n";
 

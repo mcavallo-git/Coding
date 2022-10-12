@@ -62,17 +62,22 @@ vi "/etc/rc.local.d/local.sh";
 
 # Poll the SMART daemon every 5 minutes (instead of the default of every 30)
 SMARTD_POLL_INTERVAL=5
-/etc/init.d/smartd stop
-sed -i "s/^SMARTD_SCHED_PARAM.*/SMARTD_SCHED_PARAM=\"-i ${SMARTD_POLL_INTERVAL} ++group=smartd\"/g" /etc/init.d/smartd
-/etc/init.d/smartd start
+/etc/init.d/smartd stop;
+sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(.+$)/\1-i ${SMARTD_POLL_INTERVAL:-5} \2/g" -i "/etc/init.d/smartd";
+/etc/init.d/smartd start;
 
 
 
 # ------------------------------
 
-# Verify the configuration was applied as-intended
+# Pre-Check - Get the config & service status before running the update
+cat /etc/init.d/smartd;  ps -c | grep smartd | grep -v grep; 
 
-ps -c | grep smartd | grep -v grep
+# Run the update
+/etc/rc.local.d/local.sh
+
+# Post-Check - Verify the configuration was applied as-intended
+cat /etc/init.d/smartd;  ps -c | grep smartd | grep -v grep; 
 
 
 # ------------------------------------------------------------

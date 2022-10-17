@@ -3,7 +3,7 @@
 # ------------------------------------------------------------
 
 # Option 1 - WQL Query
-# Set-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE "USB\\%" OR InstanceName LIKE "PCI\\%"' -Property @{Enable=$false};
+Set-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE "USB\\%" OR InstanceName LIKE "PCI\\%"' -Property @{Enable=$false};
 
 # Option 1 - WQL Query (prepped for scheduled task)
 Set-CimInstance -Namespace root/WMI -Query ((write SELECT` *` FROM` MSPower_DeviceEnable` WHERE` InstanceName` LIKE` )+([string][char]34)+(write USB\\%)+([string][char]34)+([string][char]32)+(write OR` InstanceName` LIKE` )+([string][char]34)+(write PCI\\%)+([string][char]34)) -Property @{Enable=((gv false).Value)};

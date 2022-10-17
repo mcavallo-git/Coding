@@ -15,6 +15,8 @@
 "Hello City!" -Replace "city","World";  <# Returns "Hello World!" - CASE INsensitive #>
 
 
+# Regex replacements using capture groups
+
 '00:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";  <# Returns "[] [00] [00] [00]" #>
 
 '-05:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";  <# Returns "[-] [05] [00] [00]" #>
@@ -42,6 +44,14 @@ $TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d
 (Get-Content "${env:FULLPATH_SQL_SCHEMA_FILE}").replace('DROP TABLE [', 'DROP TABLE IF EXISTS [') | Set-Content "${env:FULLPATH_SQL_SCHEMA_FILE}";  <# Append " IF EXISTS" immediately after any "DROP TABLE" commands #>
 
 (Get-Content "${env:FULLPATH_SQL_SCHEMA_FILE}") -replace "(^\s*(?:EXEC\(N')?)(CREATE (?:UNIQUE )?INDEX )(\[[^\]]+\])(\s+ON\s+)(\[[^\s]+)(\s[^';]+)((?:'|;).*)$","`$1DROP INDEX IF EXISTS `$3 ON `$5; `$2`$3`$4`$5`$6`$7" | Set-Content "${env:FULLPATH_SQL_SCHEMA_FILE}";  <# Prepend "DROP INDEX IF EXISTS [INDEX_NAME] ON [DB_NAME].[TABLE_NAME];" before all "CREATE INDEX" & "CREATE UNIQUE INDEX" commands #>
+
+
+# ------------------------------
+#
+# Example - Perform regex replacements using capture groups by converting the md5 checksum for a given string to GUID format
+#
+
+(Get-FileHash -Algorithm ("MD5") -InputStream ([System.IO.MemoryStream]::New([System.Text.Encoding]::ASCII.GetBytes("tester")))).Hash -replace '([0-9A-F]{8})([0-9A-F]{4})([0-9A-F]{4})([0-9A-F]{4})([0-9A-F]{12})','$1-$2-$3-$4-$5';
 
 
 # ------------------------------------------------------------

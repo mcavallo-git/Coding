@@ -4,6 +4,7 @@
 # ------------------------------------------------------------
 
 # Get the checksum for a given string
+
 echo -n "tester" | cksum  | awk '{print $1}';
 
 

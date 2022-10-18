@@ -1,6 +1,9 @@
 function SyncRegistry {
   Param(
 
+    [ValidateSet('Ctrl+Shift','Disabled','Left-Alt+Shift','Thai')]
+    [String]$Hotkey_SwitchInputLanguage="Disabled",
+
     [String]$UserSID="",   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
 
     [Switch]$Verbose
@@ -967,6 +970,20 @@ function SyncRegistry {
             Type="String";
             Val_Default="";
             Value="";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Hotkey - Language Switching
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Keyboard Layout\Toggle";
+        Props=@(
+          @{
+            Description="Determines whether a key sequence can be used to shift between input locales";
+            Name="Hotkey";
+            Type="DWord";
+            Value=If ("${Hotkey_SwitchInputLanguage}" -Eq "Disabled") { 3 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Ctrl+Shift") { 2 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Left-Alt+Shift") { 1 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Thai") { 4 };
             Delete=$False;
           }
         )
@@ -2066,6 +2083,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
 #
 #   learn.microsoft.com  |  "Configure Automatic Updates in a Non–Active Directory Environment | Microsoft Learn"  |  https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499
+#
+#   learn.microsoft.com  |  "Hotkey | Microsoft Learn"  |  https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc976564(v=technet.10)?redirectedfrom=MSDN
 #
 #   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
 #

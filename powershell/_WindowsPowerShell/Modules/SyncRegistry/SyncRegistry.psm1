@@ -1976,7 +1976,7 @@ function SyncRegistry {
                   # Update the Property
                   $Count_ChangesMade++;
                   $EachRegEdit.ChangesMade = $True;
-                  $EachRegEdit.LogOutput += "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to have value `"$($EachProp.Value)`" instead of (previous) value `"$($EachProp.LastValue)`"";
+                  $EachRegEdit.LogOutput += "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to value `"$($EachProp.Value)`" (previous value was `"$($EachProp.LastValue)`")";
                   Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
 
                 }

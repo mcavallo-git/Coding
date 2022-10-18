@@ -1,8 +1,8 @@
 function SyncRegistry {
   Param(
 
-    [ValidateSet('Ctrl+Shift','Disabled','Left-Alt+Shift','Thai')]
-    [String]$Hotkey_SwitchInputLanguage="Disabled",
+    [ValidateSet('Ctrl+Shift','Left-Alt+Shift','Thai')]
+    [String]$Hotkey_SwitchInputLanguage="",
 
     [String]$UserSID="",   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
 
@@ -983,7 +983,7 @@ function SyncRegistry {
             Description="Determines whether a key sequence can be used to shift between input locales";
             Name="Hotkey";
             Type="DWord";
-            Value=If ("${Hotkey_SwitchInputLanguage}" -Eq "Disabled") { 3 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Ctrl+Shift") { 2 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Left-Alt+Shift") { 1 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Thai") { 4 };
+            Value=If ("${Hotkey_SwitchInputLanguage}" -Eq "Ctrl+Shift") { 2 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Left-Alt+Shift") { 1 } ElseIf ("${Hotkey_SwitchInputLanguage}" -Eq "Thai") { 4 } Else { 3 <# Disabled #> };
             Delete=$False;
           }
         )

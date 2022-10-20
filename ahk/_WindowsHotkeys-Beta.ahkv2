@@ -839,7 +839,7 @@ Pause::
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
     TooltipOutput := ( TooltipOutput "`n" )
-    ToolTip %TooltipOutput%
+    ToolTip(TooltipOutput)
     ClearTooltip(7500)
   }
   ; ------------------------------
@@ -2012,8 +2012,7 @@ ClearSplashText(Period) {
 ;   |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
 ;
 ClearTooltip(Period) {
-  Label := "RemoveToolTip"
-  SetTimer(%Label%, -%Period%)
+  SetTimer RemoveToolTip, (Period * -1)
   Return
 }
 
@@ -2045,6 +2044,7 @@ ClickLoop(MouseX,MouseY,Timeout) {
 CreateCitationsFooter() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Revert_A_KeyDelay := A_KeyDelay
+  MsgBox "Revert_A_KeyDelay = [ " Revert_A_KeyDelay " ]"
   SetKeyDelay 0, -1
   LF := "`n"
   SendInput LF
@@ -2072,7 +2072,7 @@ CreateCitationsFooter() {
   SendInput "{LControl Down}{q}{LControl Up}"
   SendInput "{Up 2}{Left 26}{Space 2}"
   SendInput "{End}{Shift Down}{Left 3}{Shift Up}"
-  SetKeyDelay %Revert_A_KeyDelay%, -1
+  SetKeyDelay Revert_A_KeyDelay, -1
   Return
 }
 
@@ -3593,7 +3593,7 @@ SendDashedLine(LineLength:=60) {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   SetKeyDelay 0, -1
   ; StringToType := StringRepeat("-",60)
-  SendInput "{- %LineLength%}"
+  SendInput ("{- " LineLength "}")
   Return
 }
 

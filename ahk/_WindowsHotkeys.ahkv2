@@ -713,11 +713,6 @@ Pause::
   Add_Microseconds := 0
   Add_Timezone := 0
   ; ------------------------------
-  YMD_Separator := RFC3339_YearMonthDay_Separator
-  HMS_Separator := RFC3339_HourMinuteSecond_Separator
-  DT_Field_Separator := RFC3339_DateAndTimeField_Separator
-  Microseconds_Separator := RFC3339_DecimalSeconds_Separator
-  ; ------------------------------
   Add_Microseconds := 0
   Add_Timezone := 0
   ; ------------------------------
@@ -725,16 +720,18 @@ Pause::
   CtrlPressed := InStr(A_ThisHotkey,"^")
   ShiftPressed := InStr(A_ThisHotkey,"+")
   ; ------------------------------
-  ; Default format
+  ; Default timestamp format
   ;  |--> Shorter filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
   YMD_Separator := ""
   HMS_Separator := ""
   DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+  Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+  ; ------------------------------
+  ; Special timestamp formats (based on hotkey pressed)
   If ((ShiftPressed != 0)) {  ; w/ Shift
-    ; Add microsecons onto timestamp
+    ; Add microseconds onto timestamp
     Add_Microseconds := 1
   }
-  ; ------------------------------
   If ((CtrlPressed != 0) && (AltPressed != 0)) {  ; w/ Alt, w/ Ctrl
     ; RFC3339 timestamp w/ timezone
     YMD_Separator := RFC3339_YearMonthDay_Separator

@@ -1893,7 +1893,7 @@ NumLock::
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 0) {
       SetNumLockState On
-      ; SetNumLockState % GetKeyState("NumLock", "T") ? "Off" : "On"
+      ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
       TextToolTip := "Disable NumLock via Shift+NumLock"
       ToolTip(%TextToolTip%)
@@ -1904,7 +1904,7 @@ NumLock::
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 1) {
       SetNumLockState Off
-      ; SetNumLockState % GetKeyState("NumLock", "T") ? "Off" : "On"
+      ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
       TextToolTip := "Enable NumLock via Shift+NumLock"
       ToolTip(%TextToolTip%)
@@ -2073,28 +2073,28 @@ CreateCitationsFooter() {
   Revert_A_KeyDelay := A_KeyDelay
   SetKeyDelay 0, -1
   LF := "`n"
-  SendInput % LF
+  SendInput LF
   SendInput {Space}{Shift Down}{Home}{Shift Up}{Delete}
-  SendInput % LF
-  SendInput % "------------------------------------------------------------"
+  SendInput LF
+  SendInput "------------------------------------------------------------"
   SendInput {LControl Down}{q}{LControl Up}
-  SendInput % LF
-  SendInput {LControl Down}{q}{LControl Up}
-  SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
-  SendInput % LF
-  SendInput % "Citation(s)"
-  SendInput {LControl Down}{q}{LControl Up}
-  SendInput % LF
+  SendInput LF
   SendInput {LControl Down}{q}{LControl Up}
   SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
-  SendInput % LF
-  SendInput % "domain  |  `"title`"  |  url"
+  SendInput LF
+  SendInput "Citation(s)"
   SendInput {LControl Down}{q}{LControl Up}
-  SendInput % LF
+  SendInput LF
   SendInput {LControl Down}{q}{LControl Up}
   SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
-  SendInput % LF
-  SendInput % "------------------------------------------------------------"
+  SendInput LF
+  SendInput "domain  |  `"title`"  |  url"
+  SendInput {LControl Down}{q}{LControl Up}
+  SendInput LF
+  SendInput {LControl Down}{q}{LControl Up}
+  SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+  SendInput LF
+  SendInput "------------------------------------------------------------"
   SendInput {LControl Down}{q}{LControl Up}
   SendInput {Up 2}{Left 26}{Space 2}
   SendInput {End}{Shift Down}{Left 3}{Shift Up}
@@ -2162,7 +2162,7 @@ Duplicate_Keypress() {
   TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
   Loop {
     ToolTip(TooltipOutput)
-    Send % KeyPressed
+    Send(%KeyPressed%)
     Sleep 10
   }
   ClearTooltip(10)
@@ -2679,7 +2679,7 @@ GetNanoseconds(ByRef OutputVar) {
   vIntervals := 0
   DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
   ; vDate := 1601
-  ; EnvAdd, vDate, % vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+  ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
   OutputVar := Format("{:07}00", Mod(vIntervals, 10000000))
   Return
 }
@@ -2788,7 +2788,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       ; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
       Destination_MonitorNumber:=1
     }
-    Loop % MonitorGetCount() {
+    Loop MonitorGetCount() {
       Each_MonitorNumber := A_Index
       ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
       MonitorGetWorkArea(Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
@@ -3200,7 +3200,7 @@ PasteClipboardAsBinary() {
   If (StrLen(Clipboard)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
-  SendInput % EscapeSpecialCharacters(Clipboard)
+  SendInput(EscapeSpecialCharacters(Clipboard))
   Sleep, 25
   Return
 }
@@ -3219,7 +3219,7 @@ PasteClipboardAsText(StringToPaste:="") {
   If (StrLen(StringToPaste)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(StringToPaste) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
-  Loop, Parse, % RegexConsolidateNewlines(StringToPaste)
+  Loop, Parse, RegexConsolidateNewlines(StringToPaste)
   {
     ; DoSleep := 0
     SendChar := ""
@@ -3522,7 +3522,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   If (!FileExist(FullPath_RunNonAdmin_VbsScript)) {
     ; Create the VBS script's directory (if it doesn't already exist)
     If (!FileExist(FullPath_RunNonAdmin_Dirname)) {
-      DirCreate % FullPath_RunNonAdmin_Dirname
+      DirCreate %FullPath_RunNonAdmin_Dirname%
     }
     FileAppend, %VbsScript_Contents%, %FullPath_RunNonAdmin_VbsScript%
   }
@@ -3724,7 +3724,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
     Tooltip( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
-    Sleep % ( PollDuration_ms )
+    Sleep(PollDuration_ms)
 
   }
   ClearTooltip(0)
@@ -3939,7 +3939,7 @@ ShowVolumeLevel() {
   ; ------------------------------
   MouseGetPos MouseX, MouseY
   ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-  Loop % MonitorGetCount() {
+  Loop MonitorGetCount() {
     MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
     ; Determine if the current iteration's monitor is the destination monitor
     MoveTo_ThisMonitor := False
@@ -3973,7 +3973,7 @@ ShowWindowTitles() {
   Window := WinGetList("A")
   Loop Window {
     Id:=Window%A_Index%
-    WinGetTitle TVar , % "ahk_id " Id
+    WinGetTitle(TVar,("ahk_id " Id))
     If (Tvar != "") {
       LV_Add("", TVar)
       Window%A_Index%:=TVar ;use this if you want an array
@@ -4600,7 +4600,7 @@ Xbox_ExportCaptures() {
     ;
     Count_FilesInOutputDir := 0
     Fullpath_Output_XboxCaptures := ( EnvGet("USERPROFILE") "\Videos\Captures" )
-    Loop Files, % Fullpath_Output_XboxCaptures "\*"
+    Loop Files (Fullpath_Output_XboxCaptures "\*")
     {
       ; Exclude files matching a given regex pattern - https://lexikos.github.io/v2/docs/commands/RegExMatch.htm
       RegexPattern_Exclude := "(.*).(ini|lnk)$"
@@ -4907,7 +4907,7 @@ class BrightnessSetter {
   }
   _On_WM_POWERBROADCAST(wParam, lParam)
   {
-    ;OutputDebug % &this
+    ;OutputDebug (&this)
     if (wParam == 0x8013 && lParam && NumGet(lParam+0, 0, "UInt") == NumGet(BrightnessSetter._GUID_ACDC_POWER_SOURCE()+0, 0, "UInt")) { ; PBT_POWERSETTINGCHANGE and a lazy comparison
       this._AC := NumGet(lParam+0, 20, "UChar") == 0
       Return True

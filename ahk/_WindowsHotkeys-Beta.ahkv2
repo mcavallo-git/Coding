@@ -397,7 +397,7 @@ Pause::
 ; Joy31::
 ; Joy32::
 ;   ; If (DebugMode == 1) {
-;   Tooltip, ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
+;   Tooltip ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
 ;   ; }
 ;   Return
 
@@ -797,7 +797,7 @@ Pause::
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
     TooltipOutput := ( TooltipOutput "`n" )
-    Tooltip, %TooltipOutput%
+    ToolTip %TooltipOutput%
     ClearTooltip(7500)
   }
   ; ------------------------------
@@ -1471,15 +1471,15 @@ WheelRight::
     Loop {
       Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
       If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
-        Tooltip, % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
+        ToolTip % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
         Break
       } Else {
         If (WinActive(WinTitle)) {
-          Tooltip, % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+          ToolTip % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
           MouseClick, Left
           Sleep %Milliseconds_BetweenClicks%
         } Else {
-          Tooltip, % "Stopped Minecraft auto-clicker (MC window lost focus"
+          ToolTip % "Stopped Minecraft auto-clicker (MC window lost focus"
           Break
         }
       }
@@ -3801,7 +3801,7 @@ ShowVolumeLevel() {
       }
     }
   }
-  ToolTip, %Echo_Tooltip%, %ToolTip_XPos%, %ToolTip_YPos%
+  ToolTip %Echo_Tooltip%, %ToolTip_XPos%, %ToolTip_YPos%
   ClearTooltip(750)
   Return
 }
@@ -4131,7 +4131,7 @@ Xbox_ExportCaptures() {
             ; Resizing 'Xbox Console Companion' Window
             ;
             Tooltip_NewStats := ( "Prepping Xbox window..." )
-            Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+            ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
             Sleep 500
             If (Win_size_state != "restored") {
@@ -4160,7 +4160,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
               Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
-              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
                 WinActivate("ahk_id %Win_ahk_id%")
                 ;
@@ -4169,7 +4169,7 @@ Xbox_ExportCaptures() {
                 ;
                 If (PixelSearch(Px, Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, ( Tooltip_StartupJobs ), 1, 1
+                  ToolTip ( Tooltip_StartupJobs ), 1, 1
                   Sleep 500
                   Break
                 } Else {
@@ -4190,7 +4190,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
               Tooltip_NewStats := ( "Loading 'On Xbox Live' (tab): " WaitDuration_Seconds "s ..." )
-              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
                 ;
                 ; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
@@ -4199,7 +4199,7 @@ Xbox_ExportCaptures() {
                 WinActivate("ahk_id %Win_ahk_id%")
                 If ( (PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0)) || (WaitDuration_Seconds > 20) ) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, ( Tooltip_StartupJobs ), 1, 1
+                  ToolTip ( Tooltip_StartupJobs ), 1, 1
                   Sleep 500
                   Break
                 } Else {
@@ -4214,7 +4214,7 @@ Xbox_ExportCaptures() {
               ; Loading 'Game clips' (filter)...
               ;
               Tooltip_NewStats := ( "Showing 'Game clips' (filter) ..." )
-              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               WinActivate("ahk_id %Win_ahk_id%")
               MouseClick, Left, 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
               Sleep 500
@@ -4230,7 +4230,7 @@ Xbox_ExportCaptures() {
               WinActivate("ahk_id %Win_ahk_id%")
               Send {Enter}
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-              Tooltip, ( Tooltip_StartupJobs ), 1, 1
+              ToolTip ( Tooltip_StartupJobs ), 1, 1
               Sleep 1000
             } Else {
               ; ------------------------------
@@ -4238,7 +4238,7 @@ Xbox_ExportCaptures() {
               ; Loading 'Screenshots' (filter)...
               ;
               Tooltip_NewStats := ( "Showing 'Screenshots' (filter) ..." )
-              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               WinActivate("ahk_id %Win_ahk_id%")
               MouseClick, Left, 221, 181  ; Show 'Screeshots', only - (under the "Everything v" dropdown/filter - bottom option)
               Sleep 500
@@ -4251,7 +4251,7 @@ Xbox_ExportCaptures() {
               WinActivate("ahk_id %Win_ahk_id%")
               Send {Enter}
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-              Tooltip, ( Tooltip_StartupJobs ), 1, 1
+              ToolTip ( Tooltip_StartupJobs ), 1, 1
               Sleep 1000
             }
           }
@@ -4289,7 +4289,7 @@ Xbox_ExportCaptures() {
             Sleep 100
             WaitDuration_Seconds := Round(((A_TickCount-TickCount_FileExists)/1000), 1)
             Tooltip_NewStats := ( "File-check duration: " WaitDuration_Seconds "s ..." )
-            Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+            ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
               WinActivate("ahk_id %Win_ahk_id%")
               ;
@@ -4299,7 +4299,7 @@ Xbox_ExportCaptures() {
               If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {
                 NextDownloadExists_Passed := 1
                 Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-                Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
+                ToolTip ( Tooltip_EachFile_Stats ), 1, 1
                 Break
               } Else {
                 If (WaitDuration_Seconds > 10) {
@@ -4308,7 +4308,7 @@ Xbox_ExportCaptures() {
                   ;
                   NextDownloadExists_Passed := 0
                   Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Not found" )
-                  Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
+                  ToolTip ( Tooltip_EachFile_Stats ), 1, 1
                   Break
                 } Else {
                   Continue
@@ -4326,7 +4326,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
               Tooltip_NewStats := ( "Buffer duration: " WaitDuration_Seconds "s ..." )
-              Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+              ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
                 ; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
                 WinActivate("ahk_id %Win_ahk_id%")
@@ -4341,7 +4341,7 @@ Xbox_ExportCaptures() {
                 } Else {
                   Buffer_Passed := 1
                   Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
+                  ToolTip ( Tooltip_EachFile_Stats ), 1, 1
                   Sleep 1000
                   Break
                 }
@@ -4367,7 +4367,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
               Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
-              Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+              ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
                 MouseMove, 0, 0
                 ; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
@@ -4376,7 +4376,7 @@ Xbox_ExportCaptures() {
                 If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
                   Download_Passed := 1
                   Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
+                  ToolTip ( Tooltip_EachFile_Stats ), 1, 1
                   Sleep 1500
                   Break
                 }
@@ -4395,17 +4395,17 @@ Xbox_ExportCaptures() {
               DeleteBtn_YPos_Center := 618  ; Screenshots
             }
             Tooltip_NewStats := "Deleting ..."
-            Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+            ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
             MouseClick, Left, %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
             Sleep 1000
             Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
-            Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+            ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
             MouseClick, Left, 519, 449  ; Confirm file-deletion (via "OK" button on popup)
             Sleep 500
             Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-            Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
+            ToolTip ( Tooltip_EachFile_Stats ), 1, 1
             Sleep 1500
             Count_FilesProcessed := Count_FilesProcessed + 1
           } Else {
@@ -4421,7 +4421,7 @@ Xbox_ExportCaptures() {
               }
             }
             Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats )
-            Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
+            ToolTip ( Tooltip_EachFile_Stats ), 1, 1
             Sleep 2500
             Break
           }
@@ -4434,7 +4434,7 @@ Xbox_ExportCaptures() {
         Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net Files Processed: " Count_FilesProcessed
         Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
         Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net Runtime Duration: " Total_RuntimeDuration_Seconds "s"
-        Tooltip, ( Tooltip_Closer_Stats ), 1, 1
+        ToolTip ( Tooltip_Closer_Stats ), 1, 1
         Sleep 2000
       }
     }
@@ -4457,16 +4457,16 @@ Xbox_ExportCaptures() {
       ; Run the timestamping script (renames files to their basename plus their metadata created-on date)
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Count_FilesInOutputDir = [ " Count_FilesInOutputDir " ]"
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Running metadata-timestamper script..."
-      Tooltip, ( Tooltip_Closer_Stats ), 1, 1
+      ToolTip ( Tooltip_Closer_Stats ), 1, 1
       Run, WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0;"
       Sleep 2000
       ; Open the output videos directory
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
-      Tooltip, ( Tooltip_Closer_Stats ), 1, 1
+      ToolTip ( Tooltip_Closer_Stats ), 1, 1
       Run "%Fullpath_Output_XboxCaptures%"
       Sleep 2000
       Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
-      Tooltip, ( Tooltip_Closer_Stats ), 1, 1
+      ToolTip ( Tooltip_Closer_Stats ), 1, 1
       Sleep 2000
     }
     ClearTooltip(10000)
@@ -4513,13 +4513,13 @@ Youtube_EditDraft_Submit() {
       WinMove(WinTitle,, -7, 0, 1734, 1407)
       Loop {
         Tooltip_Header := "Chrome - Click 'Refresh'"
-        Tooltip, ( Tooltip_Header ), 1, 112
+        ToolTip ( Tooltip_Header ), 1, 112
         xpos := 94
         ypos := 61
         ControlClick, x%xpos% y%ypos%, %WinTitle%
         Sleep 2000
         Tooltip_Header := "Youtube - Click 'Edit Draft'"
-        Tooltip, ( Tooltip_Header ), 1, 112
+        ToolTip ( Tooltip_Header ), 1, 112
         xpos := 1601
         ypos := 414
         xpos_rightedge := xpos + 20
@@ -4532,7 +4532,7 @@ Youtube_EditDraft_Submit() {
           Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-          Tooltip, ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+          ToolTip ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
           If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
             Break
           }
@@ -4541,7 +4541,7 @@ Youtube_EditDraft_Submit() {
         ControlClick, x%xpos% y%ypos%, %WinTitle%
         Sleep 100
         Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
-        Tooltip, ( Tooltip_Header ), 1, 112
+        ToolTip ( Tooltip_Header ), 1, 112
         xpos := 1274
         ypos := 1313
         xpos_rightedge := xpos + 20
@@ -4555,7 +4555,7 @@ Youtube_EditDraft_Submit() {
             Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
             Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
             Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-            Tooltip, ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+            ToolTip ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
             If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
               Break
             }
@@ -4565,7 +4565,7 @@ Youtube_EditDraft_Submit() {
         }
         Sleep 100
         Tooltip_Header := "Youtube - Click 'Close'"
-        Tooltip, ( Tooltip_Header ), 1, 112
+        ToolTip ( Tooltip_Header ), 1, 112
         xpos := 1056
         ypos := 955
         xpos_rightedge := xpos + 20
@@ -4578,7 +4578,7 @@ Youtube_EditDraft_Submit() {
           Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-          Tooltip, ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
+          ToolTip ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
           If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
             Break
           }

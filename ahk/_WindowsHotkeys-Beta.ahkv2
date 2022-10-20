@@ -3595,7 +3595,7 @@ RunWaitMany(CMD_Commands) {
   ; WScript_Shell := ComObjCreate("WScript.Shell")
   WScript_Shell := ComObject("WScript.Shell")
   ; Open cmd.exe with echoing of commands disabled
-  WScript_Shell_Exec := WScript_Shell.Exec(ComSpec " /Q /K echo off")
+  WScript_Shell_Exec := WScript_Shell.Exec(A_ComSpec " /Q /K echo off")
   ; Send the commands to execute, separated by newline
   WScript_Shell_Exec.StdIn.WriteLine(CMD_Commands "`nexit")  ; Always exit at the end!
   ; Read and return the output of all commands

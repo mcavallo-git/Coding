@@ -444,7 +444,8 @@ function Az_Tutorial {
 		-MessageOnSuccess ("Runtime Complete, connecting to remote app-service(s) via local web-browser");
 
 	# Azure Portal URL(s) - Resource Group(s), etc.
-	$azure_group_portal_direct_url = (('https://portal.azure.com/#@programmersboneal.onmicrosoft.com/resource')+($az.group.create.id)+('/overview'));
+  $ORGANIZATION_NAME="";
+	$azure_group_portal_direct_url = ("https://portal.azure.com/#@programmers${ORGANIZATION_NAME}.onmicrosoft.com/resource$($az.group.create.id)/overview");
 	Write-Host (("`n Opening [ ") + ($azure_group_portal_direct_url) + (" ] in local web-browser...")); Start ($azure_group_portal_direct_url);
 	Write-Host (("`n Opening [ ") + ($statics.url.services.azure.portal) + (" ] in local web-browser...")); Start ($statics.url.services.azure.portal);
 

@@ -715,7 +715,7 @@ Pause::
       AwaitModifierKeyup()  ; Wait until all modifier keys are released
       Sleep 10
       SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_BasenameNoExt, ExeToRequire_Drivename
-      WinActivate, ahk_exe %ExeToRequire_Basename%
+      WinActivate ahk_exe %ExeToRequire_Basename%
       VarSetCapacity(ExeToRequire_Basename,0)
       VarSetCapacity(ExeToRequire_Dirname,0)
       VarSetCapacity(ExeToRequire_Extension,0)
@@ -946,9 +946,9 @@ AppsKey & ]::
   SetControlDelay -1
   SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
   ; Save current monitor config (to compare against once it's been updated)
-  SysGet, MonitorCountBefore, 80
-  SysGet, ViewportWidthBefore, 78
-  SysGet, ViewportHeightBefore, 79
+  SysGet MonitorCountBefore, 80
+  SysGet ViewportWidthBefore, 78
+  SysGet ViewportHeightBefore, 79
   ; Save current mouse coordinates
   MouseGetPos MouseX, MouseY
   ; Send an Escape keypress to close any old Projection menus
@@ -1000,7 +1000,7 @@ AppsKey & ]::
           Sleep 100
           Random, RandomSleep, 1000, 1500
           Sleep %RandomSleep%
-          SysGet, MonitorCountAfter, 80
+          SysGet MonitorCountAfter, 80
           If (MonitorCountAfter != MonitorCountBefore) {
             Break
           }
@@ -1031,9 +1031,9 @@ AppsKey & ]::
   }
   MouseMove %MouseX%, %MouseY%
   If (DebugMode == 1) {
-    SysGet, MonitorCountAfter, 80
-    SysGet, ViewportWidthAfter, 78
-    SysGet, ViewportHeightAfter, 79
+    SysGet MonitorCountAfter, 80
+    SysGet ViewportWidthAfter, 78
+    SysGet ViewportHeightAfter, 79
     ; Check-for Windows' percentage (%) based display scaling
     Get_CurrentVerticalResolution := "PowerShell.exe -Command '([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).Trim();'"
     CurrentVerticalResolution := GetCommandOutput(Get_CurrentVerticalResolution)
@@ -1779,7 +1779,7 @@ LShift & RShift::
 ;     Increment_Width := 14
 ;     Increment_Height := 7
 ;     ; Prep Monitor Widths/Heights
-;     SysGet, DesktopMonitorCount, 80 , N
+;     SysGet DesktopMonitorCount, 80 , N
 ;     BoundsLeft = -1
 ;     BoundsRight = -1
 ;     BoundsTop = -1
@@ -1787,7 +1787,7 @@ LShift & RShift::
 ;     BoundsCenterHoriz = 0
 ;     BoundsCenterVert = 0
 ;     Loop, %DesktopMonitorCount% {
-;       SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+;       SysGet MonitorWorkArea, MonitorWorkArea, %A_Index%
 ;       ; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
 ;       If (BoundsLeft < MonitorWorkAreaLeft)
 ;       {
@@ -3023,7 +3023,7 @@ Open_ControlPanel_NetworkConnections() {
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
     WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  WinActivate %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   Return
 }
 
@@ -3065,7 +3065,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
     ; Run control.exe /name Microsoft.Sound
     WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  WinActivate %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   Return
 }
 
@@ -3086,7 +3086,7 @@ Open_Exe(ExeFullpath) {
       ClearTooltip(2000)
     }
     ExePID := GetPID(ExeBasename)
-    WinActivate, ahk_pid %ExePID%
+    WinActivate ahk_pid %ExePID%
   } Else If (FileExist(ExeFullpath)) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
@@ -3098,7 +3098,7 @@ Open_Exe(ExeFullpath) {
     ExitCode := RunWait(%ExeFullpath%,,, ExePID)
     ; WinWait "ahk_pid " ExePID
     ; ExePID := GetPID(ExeBasename)
-    WinActivate, ahk_pid %ExePID%
+    WinActivate ahk_pid %ExePID%
   } Else {
     ; Executable NOT running & NOT found locally
     If (DebugMode == 1) {

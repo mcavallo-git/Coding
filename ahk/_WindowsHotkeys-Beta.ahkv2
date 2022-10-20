@@ -1027,7 +1027,7 @@ AppsKey & ]::
       }
     }
   }
-  MouseMove %MouseX%, %MouseY%
+  MouseMove MouseX, MouseY
   If (DebugMode == 1) {
     MonitorCountAfter := SysGet(80)
     ViewportWidthAfter := SysGet(78)
@@ -1039,11 +1039,11 @@ AppsKey & ]::
     ; Read the registry to check for display scaling
     KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
       PropertyName := "DpiScalingVer"
-        DpiScalingVer := RegRead(%KeyName%,%PropertyName%)
+        DpiScalingVer := RegRead(KeyName,PropertyName)
       PropertyName := "Win8DpiScaling"
-        Win8DpiScaling:= RegRead(%KeyName%,%PropertyName%)
+        Win8DpiScaling:= RegRead(KeyName,PropertyName)
       PropertyName := "DpiScalingVer"
-        LogPixels := RegRead(%KeyName%,%PropertyName%)
+        LogPixels := RegRead(KeyName,PropertyName)
     ; ------------------------------------------------------------
     ;
     ; DpiScalingVer    ; originally 1000
@@ -1073,20 +1073,7 @@ AppsKey & ]::
     ; From:  https://superuser.com/a/1050763
     ;
     ; ------------------------------------------------------------
-    MsgBox("
-    (LTrim
-      xpos = %xpos%
-      ypos = %ypos%
-
-      ViewportWidthBefore = %ViewportWidthBefore%
-      ViewportWidthAfter = %ViewportWidthAfter%
-      ViewportHeightBefore = %ViewportHeightBefore%
-      ViewportHeightAfter = %ViewportHeightAfter%
-
-      DpiScalingVer = %DpiScalingVer%
-      Win8DpiScaling = %Win8DpiScaling%
-      LogPixels = %LogPixels%
-    )", A_ScriptName " - " A_ThisFunc)
+    MsgBox(("`nxpos = " xpos "`nypos = " ypos "`n`nViewportWidthBefore =  " ViewportWidthBefore "`nViewportWidthAfter =   " ViewportWidthAfter "`nViewportHeightBefore = " ViewportHeightBefore "`nViewportHeightAfter =  " ViewportHeightAfter "`n`nDpiScalingVer =  " DpiScalingVer "`nWin8DpiScaling = " Win8DpiScaling "`nLogPixels =      " LogPixels "`n"), A_ScriptName " - " A_ThisFunc)
   }
   Return
 }

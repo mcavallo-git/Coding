@@ -2226,7 +2226,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
 ;
 Get_ahk_id_from_pid(WinPid) {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  ControlGet, OutputVar, Hwnd,,, ahk_pid %WinPid%
+  ControlGet OutputVar, Hwnd,,, ahk_pid %WinPid%
   Return ahk_id %OutputVar%
   ; dat_ahk_id=ahk_id %output_var%
   ; Return dat_ahk_id
@@ -2240,7 +2240,7 @@ Get_ahk_id_from_pid(WinPid) {
 ;
 Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  ControlGet, OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
+  ControlGet OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
   Return ahk_id %OutputVar%
 }
 
@@ -2261,9 +2261,10 @@ GetCommandOutput(CMD_Command) {
 ;   |--> Returns 0 if process is NOT found
 ;
 GetPID(ProcName) {
-  ProcessExist,, %ProcName%
+  PID := ProcessExist(%ProcName%)
+  Return %PID%
   ; ProcessExist, OutputVar, %ProcName%
-  Return %ErrorLevel%
+  ; Return %ErrorLevel%
 }
 
 
@@ -4102,7 +4103,7 @@ TempFile() {
 WinGet_ahk_id(WinTitle) {
   Win_ahk_exe := WinGetProcessName(WinTitle)
   If (Win_ahk_exe = "ApplicationFrameHost.exe") {
-    ControlGet, Win_ahk_id, Hwnd,, Windows.UI.Core.CoreWindow1, %WinTitle%
+    ControlGet Win_ahk_id, Hwnd,, Windows.UI.Core.CoreWindow1, %WinTitle%
     ; Win_ahk_id := ControlGetHwnd("Windows.UI.Core.CoreWindow1", "A")
   } Else {
     Win_ahk_id := WinGetID(WinTitle)

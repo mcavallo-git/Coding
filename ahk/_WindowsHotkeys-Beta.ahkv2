@@ -2142,14 +2142,15 @@ Duplicate_Keypress() {
   Loop {
     TooltipOutput := ( "Press a key (will be duplicated)" )
     If (DebugMode == 1) {
-      TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
+      TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" )
+      ; TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
     }
     ToolTip(TooltipOutput)
     ; Get the key to duplicate from the user
     Input(KeyPressed,"L1 T1")
-    If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
-      Break
-    }
+    ; If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
+    ;   Break
+    ; }
   }
   TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
   Loop {

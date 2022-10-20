@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 1
-; DebugMode := 0
+; DebugMode := 1
+DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2392,19 +2392,21 @@ GetWindowSpecs(WinTitle:="A") {
   ; MyGui.Destroy()
 
   Win_ahk_id := WinGetID(WinTitle)
-  Win_title := WinGetTitle("ahk_id " Win_ahk_id)
-  Win_text := WinGetText("ahk_id " Win_ahk_id)
-  Win_ahk_class := WinGetClass("ahk_id " Win_ahk_id)
-  Win_ahk_pid := WinGetPID("ahk_id " Win_ahk_id)
-  Win_ahk_exe := WinGetProcessName("ahk_id " Win_ahk_id)
-  Win_fullpath := WinGetProcessPath("ahk_id " Win_ahk_id)
-  Win_control_names := WinGetControls("ahk_id " Win_ahk_id)  ; Get all control names in this window
-  Win_size_state := WinGet_size_state("ahk_id " Win_ahk_id)
-  WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "ahk_id " Win_ahk_id)
+  WinHwnd := ("ahk_id " Win_ahk_id)
+
+  WinTitle := WinGetTitle(WinHwnd)
+  Win_text := WinGetText(WinHwnd)
+  Win_ahk_class := WinGetClass(WinHwnd)
+  Win_ahk_pid := WinGetPID(WinHwnd)
+  Win_ahk_exe := WinGetProcessName(WinHwnd)
+  Win_fullpath := WinGetProcessPath(WinHwnd)
+  Win_control_names := WinGetControls(WinHwnd)  ; Get all control names in this window
+  Win_size_state := WinGet_size_state(WinHwnd)
+  WinGetPos(&xpos, &ypos, &Win_width, &Win_height, WinHwnd)
 
   ; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
   Win_longest_field := 0
-  Win_longest_field := StrLen_Max(Win_longest_field, Win_title)
+  Win_longest_field := StrLen_Max(Win_longest_field, WinTitle)
   Win_longest_field := StrLen_Max(Win_longest_field, Win_fullpath)
   Win_longest_field := StrLen_Max(Win_longest_field, Win_control_names)
   Win_longest_field := StrLen_Max(Win_longest_field, Win_ahk_class)
@@ -2477,7 +2479,7 @@ GetWindowSpecs(WinTitle:="A") {
   LV.OnEvent("ContextMenu", GetWindowSpecs_OnRightClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
 
   LV.Add("", "", "")
-  LV.Add("", "Win_title", Win_title)
+  LV.Add("", "WinTitle", WinTitle)
   LV.Add("", "Win_text", Win_text)
   LV.Add("", "Win_ahk_class", Win_ahk_class)
   LV.Add("", "Win_ahk_exe", Win_ahk_exe)
@@ -2896,7 +2898,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       WinGetPos(&Win_XPos,&Win_YPos,&Win_Width,&Win_Height,WinTitle,WinText)
       If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
         ; Move the window to specified x/y position and resize it to have specified width/height
-        WinMove(WinTitle,WinText,WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height)
+        WinMove(WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height,WinTitle,WinText)
         Sleep 500
       }
       If (Do_Maximized==True) {
@@ -4149,11 +4151,13 @@ Xbox_ExportCaptures() {
 
     ; Win_ahk_id := WinGetID("A")
     Win_ahk_id := WinGetID(WinTitle)
-    Win_title := WinGetTitle("ahk_id " Win_ahk_id)
-    Win_ahk_class := WinGetClass("ahk_id " Win_ahk_id)
-    Win_ahk_exe := WinGetProcessName("ahk_id " Win_ahk_id)
-    Win_ahk_pid := WinGetPID("ahk_id " Win_ahk_id)
-    Win_size_state := WinGet_size_state("ahk_id " Win_ahk_id)
+    WinHwnd := ("ahk_id " Win_ahk_id)
+
+    WinTitle := WinGetTitle(WinHwnd)
+    Win_ahk_class := WinGetClass(WinHwnd)
+    Win_ahk_exe := WinGetProcessName(WinHwnd)
+    Win_ahk_pid := WinGetPID(WinHwnd)
+    Win_size_state := WinGet_size_state(WinHwnd)
 
     Win10_ahk_id := WinGet_ahk_id(WinTitle)
     Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)
@@ -4161,7 +4165,7 @@ Xbox_ExportCaptures() {
     Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
     Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
 
-    Win_MinMaxState := WinGetMinMax("ahk_id " Win_ahk_id)
+    Win_MinMaxState := WinGetMinMax(WinHwnd)
     Tooltip_Header := A_ThisFunc "`n" "----------"
     TickCount_RuntimeStart := A_TickCount
 
@@ -4208,18 +4212,18 @@ Xbox_ExportCaptures() {
             ;
             Tooltip_NewStats := ( "Prepping Xbox window..." )
             ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
-            WinActivate("ahk_id " Win_ahk_id)
+            WinActivate(WinHwnd)
             Sleep 500
             If (Win_size_state != "restored") {
-              WinActivate("ahk_id " Win_ahk_id)
-              WinRestore("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
+              WinRestore(WinHwnd)
               Sleep 1000
             }
-            WinActivate("ahk_id " Win_ahk_id)
+            WinActivate(WinHwnd)
             ;
             ; Move the window to specified x/y position and resize it to have specified width/height
             ;
-            WinMove("ahk_id " Win_ahk_id,, -7, 0, 1280, 800)
+            WinMove(-7,0,1280,800,WinTitle)
             Sleep 500
             Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
             Sleep 500
@@ -4229,7 +4233,7 @@ Xbox_ExportCaptures() {
             ; Loading 'Captures' tab ...
             ;
             TickCount_LoadCaptures := A_TickCount
-            WinActivate("ahk_id " Win_ahk_id)
+            WinActivate(WinHwnd)
             MouseClick "Left", 23, 314  ; Load 'Captures' tab (left-panel)
             Sleep 500
             Loop {
@@ -4238,7 +4242,7 @@ Xbox_ExportCaptures() {
               Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
               ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
-                WinActivate("ahk_id " Win_ahk_id)
+                WinActivate(WinHwnd)
                 ;
                 ; Check the color of each pixel in a 2-D horizontal line which passes over the "On This PC" and "On Xbox Live" tab name texts
                 ;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
@@ -4259,7 +4263,7 @@ Xbox_ExportCaptures() {
             ; Loading 'On Xbox Live' (tab)...
             ;
             TickCount_LoadXboxLive := A_TickCount
-            WinActivate("ahk_id " Win_ahk_id)
+            WinActivate(WinHwnd)
             MouseClick "Left", 220, 138  ; Load 'On Xbox Live' tab (top-option within 'Captures')
             Sleep 500
             Loop {
@@ -4272,7 +4276,7 @@ Xbox_ExportCaptures() {
                 ; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
                 ;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
                 ;
-                WinActivate("ahk_id " Win_ahk_id)
+                WinActivate(WinHwnd)
                 If ( (PixelSearch(&Px, &Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0)) || (WaitDuration_Seconds > 20) ) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
                   ToolTip ( Tooltip_StartupJobs ), 1, 1
@@ -4291,19 +4295,19 @@ Xbox_ExportCaptures() {
               ;
               Tooltip_NewStats := ( "Showing 'Game clips' (filter) ..." )
               ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               MouseClick "Left", 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
               Sleep 500
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Up}"
               Sleep 250
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Up}"
               Sleep 250
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Down}"
               Sleep 250
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Enter}"
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
               ToolTip ( Tooltip_StartupJobs ), 1, 1
@@ -4315,16 +4319,16 @@ Xbox_ExportCaptures() {
               ;
               Tooltip_NewStats := ( "Showing 'Screenshots' (filter) ..." )
               ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               MouseClick "Left", 221, 181  ; Show 'Screeshots', only - (under the "Everything v" dropdown/filter - bottom option)
               Sleep 500
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Down}"
               Sleep 250
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Down}"
               Sleep 250
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               Send "{Enter}"
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
               ToolTip ( Tooltip_StartupJobs ), 1, 1
@@ -4367,7 +4371,7 @@ Xbox_ExportCaptures() {
             Tooltip_NewStats := ( "File-check duration: " WaitDuration_Seconds "s ..." )
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
-              WinActivate("ahk_id " Win_ahk_id)
+              WinActivate(WinHwnd)
               ;
               ; Check the color of each pixel in a 2-D horizontal line which passes over the top Game clip / Screenshot's filename text
               ;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the file line item has become selectable)
@@ -4405,7 +4409,7 @@ Xbox_ExportCaptures() {
               ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
                 ; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
-                WinActivate("ahk_id " Win_ahk_id)
+                WinActivate(WinHwnd)
                 Color_Thumbnail_BotLeft := PixelGetColor(425, 470)
                 Color_Thumbnail_TopLeft := PixelGetColor(425, 215)
                 Color_Thumbnail_TopRight := PixelGetColor(900, 215)
@@ -4437,7 +4441,7 @@ Xbox_ExportCaptures() {
             }
             Loop {
               If (A_Index == 1) {
-                WinActivate("ahk_id " Win_ahk_id)
+                WinActivate(WinHwnd)
                 MouseClick "Left", DownloadBtn_XPos_Center, DownloadBtn_YPos_Center  ; Click "Download" on currently-selected  file
               }
               Sleep 100
@@ -4447,7 +4451,7 @@ Xbox_ExportCaptures() {
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
                 MouseMove 0, 0
                 ; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
-                WinActivate("ahk_id " Win_ahk_id)
+                WinActivate(WinHwnd)
                 Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
                 If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
                   Download_Passed := 1
@@ -4472,12 +4476,12 @@ Xbox_ExportCaptures() {
             }
             Tooltip_NewStats := "Deleting ..."
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
-            WinActivate("ahk_id " Win_ahk_id)
+            WinActivate(WinHwnd)
             MouseClick "Left", DeleteBtn_XPos_TrashCan, DeleteBtn_YPos_Center  ; Click "Delete" once download has finished
             Sleep 1000
             Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
-            WinActivate("ahk_id " Win_ahk_id)
+            WinActivate(WinHwnd)
             MouseClick "Left", 519, 449  ; Confirm file-deletion (via "OK" button on popup)
             Sleep 500
             Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
@@ -4586,7 +4590,7 @@ Youtube_EditDraft_Submit() {
     If (A_MsgBoxResult = "Yes") {
       Sleep 100
       ; Move the window to specified x/y position and resize it to have specified width/height
-      WinMove(WinTitle,, -7, 0, 1734, 1407)
+      WinMove(WinTitle,,-7,0,1734,1407)
       Loop {
         Tooltip_Header := "Chrome - Click 'Refresh'"
         ToolTip ( Tooltip_Header ), 1, 112

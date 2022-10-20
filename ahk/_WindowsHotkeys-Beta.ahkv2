@@ -123,7 +123,7 @@ If (FileExist(TrayIcon_Default)) {
   Reload  ; Reload this script
   Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
   If (DebugMode == 1) {
-    A_MsgBoxResult := MsgBox(4,, "The script could not be reloaded. Would you like to open it for editing?")
+    A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
     If (A_MsgBoxResult = "Yes") {
       Edit
     }
@@ -1018,10 +1018,7 @@ AppsKey & ]::
         Sleep %RandomSleep%
         Break
       } Else If (LoopingForMilliseconds > 2000) {
-        MsgBox("
-        (LTrim
-          Error: Unable to locate Projection window
-        )")
+        MsgBox("Error: Unable to locate Projection window", A_ScriptName " - " A_ThisFunc)
         Break
       } Else {
         Sleep 10
@@ -1089,7 +1086,7 @@ AppsKey & ]::
       DpiScalingVer = %DpiScalingVer%
       Win8DpiScaling = %Win8DpiScaling%
       LogPixels = %LogPixels%
-    )")
+    )", A_ScriptName " - " A_ThisFunc)
   }
   Return
 }
@@ -1627,7 +1624,7 @@ WheelRight::
     ; iso=C:\ISO
     ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
     ExeFilepath2 := EnvGet("USERPROFILE") efs
-    ; MsgBox(ExeFilepath2)
+    ; MsgBox(ExeFilepath2, A_ScriptName " - " A_ThisFunc)
     If (FileExist(ExeFilepath)) {
       Run(ExeFilepath)
     } Else {
@@ -1636,7 +1633,7 @@ WheelRight::
       } Else {
         ; If EFS does NOT exist, offer user the URL to download it
         exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
-        A_MsgBoxResult := MsgBox(4, "Download EFS?", "Effective File Search not found`n`nDownload EFS Now?")
+        A_MsgBoxResult := MsgBox("Effective File Search not found`n`nDownload EFS Now?", A_ScriptName " - " A_ThisFunc,4)
         If (A_MsgBoxResult = "Yes") {
           Run("chrome.exe " exe_download_url)
         }
@@ -1740,11 +1737,7 @@ LShift & RShift::
 ;   WinTitle_Postman=Postman
 ;   ; - -
 ;   if ((!FileExist(GIT_REPO)) || (!InStr(FileExist(GIT_REPO), "D"))) {
-;     MsgBox("
-;     (LTrim
-;       Error: Required directory not-found:
-;       %GIT_REPO%
-;     )")
+;     MsgBox(("Error: Required directory not-found:`n" GIT_REPO), A_ScriptName " - " A_ThisFunc)
 ;   } Else {
 ;     ; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
 ;     Increment_Left := -7
@@ -1764,7 +1757,7 @@ LShift & RShift::
 ;       ; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
 ;       If (BoundsLeft < MonitorWorkAreaLeft)
 ;       {
-;         ; MsgBox(Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft))
+;         ; MsgBox((Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)), A_ScriptName " - " A_ThisFunc)
 ;         ; Widths
 ;         BoundsLeft := MonitorWorkAreaLeft
 ;         BoundsRight := MonitorWorkAreaRight
@@ -1772,7 +1765,7 @@ LShift & RShift::
 ;         BoundsTop := MonitorWorkAreaTop
 ;         BoundsBottom := MonitorWorkAreaBottom
 ;       } Else {
-;         ; MsgBox(Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft))
+;         ; MsgBox((Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)), A_ScriptName " - " A_ThisFunc)
 ;       }
 ;     }
 ;     ; Widths
@@ -2278,9 +2271,9 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
   }
   MinimumCharacters_NeededForCharTypes := ( EnableNumbers + EnableLowercaseLetters + EnableUppercaseLetters + EnableSpecialCharacters )
   If ( DesiredStringLength < MinimumCharacters_NeededForCharTypes ) {
-    MsgBox(0, A_ThisFunc, ( "Error - String must be at least " MinimumCharacters_NeededForCharTypes " characters long (to meet character type requirements)" ))
+    MsgBox(( "Error - String must be at least " MinimumCharacters_NeededForCharTypes " characters long (to meet character type requirements)" ), A_ScriptName " - " A_ThisFunc,0)
   } Else If (StrLen(AllowedCharacters) <= 0) {
-    MsgBox(0, A_ThisFunc, ( "Error - No character types were selected (unable to generate a random string from nothing)" ))
+    MsgBox(( "Error - No character types were selected (unable to generate a random string from nothing)" ), A_ScriptName " - " A_ThisFunc,0)
   } Else {
     ; Enforce that at least 1 of each allowed character type appears in the string
     Pos_ForceNum := -1
@@ -2516,7 +2509,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; Gui Add, ListView, %GUI_OPT%, Key|Value
   LV := MyGui.Add("ListView",GUI_OPT,["Key","Value"])
   LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
-  LV.OnEvent("ContextMenu", GetWindowSpecs_OnDoubleClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
+  LV.OnEvent("ContextMenu", GetWindowSpecs_OnRightClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
 
   LV.Add("", "", "")
   LV.Add("", "Win_title", Win_title)
@@ -2574,28 +2567,30 @@ GetWindowSpecs(WinTitle:="A") {
   Return
 }
 ;
-; GetWindowSpecs_OnDoubleClick  ^^^ NEEDED BY GetWindowSpecs()  ^^^
-;   |--> Sub-Function of "GetWindowSpecs()"
+; GetWindowSpecs_OnDoubleClick  -  Sub-Function of "GetWindowSpecs()"
 ;
 GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
   global DebugMode
-  KeySelected := LV.GetText(RowNumber,1)  ; Grab the key (col. 1) associated with the double-click event
-  ValSelected := LV.GetText(RowNumber,2)  ; Grab the val (col. 2) associated with the double-click event
-  A_MsgBoxResult := MsgBox(4, %A_ScriptName%,"
-  (LTrim
-    Value selected:
-    %ValSelected%
-
-    Copy this value to the clipboard?
-  )")
+  KeySelected := LV.GetText(RowNumber,1)  ; Grab the key (col. 1) from the selected row
+  ValSelected := LV.GetText(RowNumber,2)  ; Grab the val (col. 2) from the selected row
+  A_MsgBoxResult := MsgBox(("Value selected:`n  " ValSelected "`n`nCopy this value to the clipboard?"), A_ScriptName " - " A_ThisFunc,4)
   If (A_MsgBoxResult = "Yes") {
     A_Clipboard := ValSelected
   }
-  ; ; Gui WindowSpecs:Default
-  ; MyGui := Gui()
-  ; MyGui.Name := "WindowSpecs"
-  MyGui.Destroy()
+  Return
+}
+;
+; GetWindowSpecs_OnRightClick  -  Sub-Function of "GetWindowSpecs()"
+;
 
+GetWindowSpecs_OnRightClick(LV, Item, IsRightClick, X, Y) {
+  global DebugMode
+  KeySelected := LV.GetText(Item,1)  ; Grab the key (col. 1) from the selected row
+  ValSelected := LV.GetText(Item,2)  ; Grab the val (col. 2) from the selected row
+  A_MsgBoxResult := MsgBox(("Value selected:`n  " ValSelected "`n`nCopy this value to the clipboard?"), A_ScriptName " - " A_ThisFunc,4)
+  If (A_MsgBoxResult = "Yes") {
+    A_Clipboard := ValSelected
+  }
   Return
 }
 
@@ -2924,7 +2919,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       ShowTooltip(TextToolTip,60000)
     } Else {
       If (DebugMode == 1) {
-        MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )")
+        MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
       }
       If (Do_Maximized==False) {
         If (WinGetMinMax(WinTitle,WinText)==1) {
@@ -3194,7 +3189,7 @@ PasteClipboardAsBinary() {
   A_Clipboard := A_Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
   Sleep 25
   If (StrLen(A_Clipboard)>=5000) {
-    MsgBox("Warning! You are about to paste [ " StrLen(A_Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
+    MsgBox("Warning! You are about to paste [ " StrLen(A_Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel", A_ScriptName " - " A_ThisFunc)
   }
   SendInput(EscapeSpecialCharacters(A_Clipboard))
   Sleep 25
@@ -3213,7 +3208,7 @@ PasteClipboardAsText(StringToPaste:="") {
   Sleep 250
   StringToPaste := ((StrLen(StringToPaste)<=0)?(A_Clipboard):(StringToPaste))
   If (StrLen(StringToPaste)>=5000) {
-    MsgBox("Warning! You are about to paste [ " StrLen(StringToPaste) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
+    MsgBox("Warning! You are about to paste [ " StrLen(StringToPaste) " ] characters. This may take some type to type. Press WinKey + ESC to cancel", A_ScriptName " - " A_ThisFunc)
   }
   Loop Parse RegexConsolidateNewlines(StringToPaste)
   {
@@ -3250,7 +3245,7 @@ PasteClipboardAsText(StringToPaste:="") {
 ;
 PasteClipboard_TextOrBinary() {
   SetTimer(CustomMsgBox_PasteClipboard_TextOrBinary,50)
-  A_MsgBoxResult := MsgBox(3, "Text or Binary", "Paste the Clipboard as Text or Binary?")
+  A_MsgBoxResult := MsgBox("Paste the Clipboard as Text or Binary?", A_ScriptName " - " A_ThisFunc,3)
   If (A_MsgBoxResult = "Yes") {
     ; Paste the Text version of the Clipboard
     PasteClipboardAsText()
@@ -3416,7 +3411,7 @@ PrintEnv() {
   80 - Monitor_Count :=	%Monitor_Count%
 
   --------------------------------------------------------------------------------------------
-  )")
+  )", A_ScriptName " - " A_ThisFunc)
 
   ; Note: For some reason, adding newlines to MsgBox makes it not wrap text
 
@@ -3664,7 +3659,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
   If (DoConfirmationPopup==0) {
     BlockAction := 0
   } Else {
-    A_MsgBoxResult := MsgBox(4,,"Generate Random String (overwrites clipboard contents)?")
+    A_MsgBoxResult := MsgBox("Generate Random String (overwrites clipboard contents)?", A_ScriptName " - " A_ThisFunc,4)
     If (A_MsgBoxResult = "Yes") {
       BlockAction := 0
     }
@@ -4216,14 +4211,14 @@ Xbox_ExportCaptures() {
   ; ------------------------------
 
   ; Download Game clips?
-  A_MsgBoxResult := MsgBox(3, A_ScriptName " - " A_ThisFunc, "Download Game Clips?")
+  A_MsgBoxResult := MsgBox("Download Game Clips?", A_ScriptName " - " A_ThisFunc,3)
   If (A_MsgBoxResult = "Yes") {
     Download_GameClips := 1
   }
 
   ; Download Screenshots ?
   If (A_MsgBoxResult != "Cancel") {
-    A_MsgBoxResult := MsgBox(3, A_ScriptName " - " A_ThisFunc, "Download Screenshots?")
+    A_MsgBoxResult := MsgBox("Download Screenshots?", A_ScriptName " - " A_ThisFunc,3)
     If (A_MsgBoxResult = "Yes") {
       Download_Screenshots := 1
     }
@@ -4670,7 +4665,7 @@ Youtube_EditDraft_Submit() {
     Echo_Tooltip := Echo_Tooltip LF A_Space
     Echo_Tooltip := Echo_Tooltip LF A_Space
     Echo_Tooltip := Echo_Tooltip LF A_Space A_Space A_Space "Has this filter been applied?"
-    A_MsgBoxResult := MsgBox(4,, %Echo_Tooltip%)
+    A_MsgBoxResult := MsgBox(%Echo_Tooltip%, A_ScriptName " - " A_ThisFunc,4)
     If (A_MsgBoxResult = "Yes") {
       Sleep 100
       ; Move the window to specified x/y position and resize it to have specified width/height
@@ -5100,11 +5095,11 @@ Youtube_EditDraft_Submit() {
 ; ...::
   ; WinGetActiveStats, WinTitle, Width, Height, X, Y
   ; WinGetText, WinText, A
-  ; A_MsgBoxResult := MsgBox(4, , WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10)  ; 10-second timeout.
+  ; A_MsgBoxResult := MsgBox(WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, A_ScriptName " - " A_ThisFunc,4)  ; 10-second timeout.
   ; If (A_MsgBoxResult = "Yes")
     ; Return
   ; If (A_MsgBoxResult = "No")
-    ; MsgBox(WinText `n%WinText%)
+    ; MsgBox(("WinText `n" WinText), A_ScriptName " - " A_ThisFunc)
     ; Return
   ; If (A_MsgBoxResult = "Timeout")
     ; Return
@@ -5118,8 +5113,8 @@ Youtube_EditDraft_Submit() {
 ; return43
 ;
 ; MenuHandler:
-; MsgBox(You selected %A_ThisMenuItem% from menu %A_ThisMenu%.)
-; MsgBox(A_TitleMatchMode[%A_TitleMatchMode%], A_TitleMatchModeSpeed=[%A_TitleMatchModeSpeed%])
+; MsgBox(("You selected " A_ThisMenuItem " from menu " A_ThisMenu), A_ScriptName " - " A_ThisFunc)
+; MsgBox(("A_TitleMatchMode[" A_TitleMatchMode "], A_TitleMatchModeSpeed=[" A_TitleMatchModeSpeed "]", A_ScriptName " - " A_ThisFunc)
 ; Return
 ;
 ; Menu, FileMenu, Add, Script Icon, MenuHandler_FileMenu
@@ -5156,7 +5151,7 @@ Youtube_EditDraft_Submit() {
 ;   Echo_Tooltip := Echo_Tooltip LF A_Space
 ;   Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x030a) "|   StrLen=|" StrLen( Chr(0x030a) ) "|"
 ;   Echo_Tooltip := Echo_Tooltip LF A_Space
-;   MsgBox(%Echo_Tooltip%)
+;   MsgBox(Echo_Tooltip, A_ScriptName " - " A_ThisFunc)
 ;   Return
 ; }
 ; ------------------------------------------------------------
@@ -5168,7 +5163,7 @@ Youtube_EditDraft_Submit() {
 ;   SetTimer(CustomMsgBox_DemoCustomPopups,50)
 ;   ; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
 ;
-;   A_MsgBoxResult := MsgBox(3, Popup_MsgBox_WindowTitle, "Popup MsgBox Question? or Statement!")
+;   A_MsgBoxResult := MsgBox("Popup MsgBox Question? or Statement!", A_ScriptName " - " A_ThisFunc,3)
 ;
 ;   If (A_MsgBoxResult = "Yes") {
 ;     TrayTip("AHK",( "Leftmost Button Selected" ))  ; Toast Notification

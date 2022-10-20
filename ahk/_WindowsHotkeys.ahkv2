@@ -4005,14 +4005,14 @@ Xbox_ExportCaptures() {
   ; ------------------------------
 
   ; Download Game clips?
-  MsgBox, 3, % A_ThisFunc, % "Download Game Clips?"
+  MsgBox, 3, % A_ScriptName " - " A_ThisFunc, % "Download Game Clips?"
   If (A_MsgBoxResult = "Yes") {
     Download_GameClips := 1
   }
 
   ; Download Screenshots ?
   If (A_MsgBoxResult != "Cancel") {
-    MsgBox, 3, % A_ThisFunc, % "Download Screenshots?"
+    MsgBox, 3, % A_ScriptName " - " A_ThisFunc, % "Download Screenshots?"
     If (A_MsgBoxResult = "Yes") {
       Download_Screenshots := 1
     }

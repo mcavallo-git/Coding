@@ -817,13 +817,13 @@ Pause::
   SendKeys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
   ; Append microseconds onto timestamp
   If (Add_Microseconds = 1) {
-    GetMicroseconds(Current_Microseconds)
+    GetMicroseconds(&Current_Microseconds)
     SendKeys := SendKeys "." Current_Microseconds
   }
   ; Append timezone onto timestamp
   If (Add_Timezone = 1) {
     Current_TZ := ""
-    GetTimezoneOffset(Current_TZ, HMS_Separator)
+    GetTimezoneOffset(&Current_TZ, HMS_Separator)
     SendKeys := SendKeys Current_TZ
   }
   ; ------------------------------
@@ -2428,7 +2428,7 @@ GetTimezoneOffset(&Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", Strip
 ;
 GetTimezoneOffset_P(&Output_TZ_P) {
   Output_TZ_P := ""
-  GetTimezoneOffset(Output_TZ_P)
+  GetTimezoneOffset(&Output_TZ_P)
   Output_TZ_P := StrReplace(Output_TZ_P, "+", "P")
   Return
 }
@@ -2656,7 +2656,7 @@ LockWorkstation() {
 ; GetMicroseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
 ;   |--> Example call:
-;          GetMicroseconds(CurrentMicroseconds)
+;          GetMicroseconds(&CurrentMicroseconds)
 ;
 GetMicroseconds(&OutputVar) {
   vIntervals := 0
@@ -2670,7 +2670,7 @@ GetMicroseconds(&OutputVar) {
 ; GetMilliseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
 ;   |--> Example call:
-;          GetMilliseconds(CurrentMilliseconds)
+;          GetMilliseconds(&CurrentMilliseconds)
 ;
 GetMilliseconds(&OutputVar) {
   OutputVar := A_MSec
@@ -2681,7 +2681,7 @@ GetMilliseconds(&OutputVar) {
 ; GetNanoseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
 ;   |--> Example call:
-;          GetNanoseconds(CurrentNanoseconds)
+;          GetNanoseconds(&CurrentNanoseconds)
 ;
 GetNanoseconds(&OutputVar) {
   vIntervals := 0
@@ -4783,7 +4783,7 @@ class BrightnessSetter {
   ; https://github.com/qwerty12/AutoHotkeyScripts/tree/master/LaptopBrightnessSetter
   static _WM_POWERBROADCAST := 0x218, _osdHwnd := 0, hPowrprofMod := DllCall("LoadLibrary", "Str", "powrprof.dll", "Ptr")
   __New() {
-    if (BrightnessSetter.IsOnAc(AC))
+    if (BrightnessSetter.IsOnAc(&AC))
       this._AC := AC
     if ((this.pwrAcNotifyHandle := DllCall("RegisterPowerSettingNotification", "Ptr", A_ScriptHwnd, "Ptr", BrightnessSetter._GUID_ACDC_POWER_SOURCE(), "UInt", DEVICE_NOTIFY_WINDOW_HANDLE := 0x00000000, "Ptr"))) ; Sadly the callback passed to *PowerSettingRegister*Notification runs on a new threadl
       OnMessage(this._WM_POWERBROADCAST, ((this.pwrBroadcastFunc := ObjBindMethod(this, "_On_WM_POWERBROADCAST"))))
@@ -4813,7 +4813,7 @@ class BrightnessSetter {
         if (this != BrightnessSetter) {
           AC := this._AC
         } else {
-          if (!BrightnessSetter.IsOnAc(AC)) {
+          if (!BrightnessSetter.IsOnAc(&AC)) {
             DllCall("LocalFree", "Ptr", currSchemeGuid, "Ptr")
             Return
           }

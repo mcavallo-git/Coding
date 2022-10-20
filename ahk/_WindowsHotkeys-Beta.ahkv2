@@ -2217,10 +2217,11 @@ EscapeSpecialCharacters(StringToEscape:="") {
 ;   |--> Input: WinPID to Target
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
-Get_ahk_id_from_pid(WinPid) {
+Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   ; ControlGet OutputVar, Hwnd,,, "ahk_pid %WinPid%"
-  OutputVar := ControlGetHwnd(,"ahk_pid %WinPid%")
+  WinTitle := "ahk_pid " WinPid
+  OutputVar := WinGetID(WinTitle,,ExcludeTitle)
   Return "ahk_id %OutputVar%"
   ; dat_ahk_id := "ahk_id %output_var%"
   ; Return dat_ahk_id
@@ -2232,10 +2233,10 @@ Get_ahk_id_from_pid(WinPid) {
 ;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
-Get_ahk_id_from_title(WinTitle,ExcludeTitle:="") {
+Get_ahk_id_from_title(WinTitle, ExcludeTitle:="") {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   ; ControlGet OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-  OutputVar := ControlGetHwnd(,WinTitle,,ExcludeTitle)
+  OutputVar := WinGetID(WinTitle,,ExcludeTitle)
   Return "ahk_id %OutputVar%"
 }
 

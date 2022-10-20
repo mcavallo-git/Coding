@@ -3593,7 +3593,7 @@ SendUnderscoreLine(LineLength:=60) {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   SetKeyDelay 0, -1
   ; StringToType := StringRepeat("-",60)
-  SendInput "{_ %LineLength%}"
+  SendInput ("{_ " LineLength "}")
   Return
 }
 
@@ -3618,9 +3618,9 @@ SendHostname() {
   If (HostName_VerbosityLevel >= 1) {
     NowTimestamp := FormatTime("","yyyy-MM-dd_HH-mm-ss")
     EchoStr := A_ComputerName " " NowTimestamp " " Win_ahk_exe
-    Send "{Blind}{Text}%EchoStr%"
+    Send ("{Blind}{Text}" EchoStr)
   } Else {
-    Send "{Blind}{Text}%A_ComputerName%"
+    Send ("{Blind}{Text}" A_ComputerName)
   }
   Return
 }
@@ -3736,7 +3736,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   If (DebugMode == 1) {
     OutputFile := A_Desktop "\rgblogging.txt"
     Logfile := FileOpen(OutputFile, "w")
-    If (FileExist("%OutputFile%")) {
+    If (FileExist(OutputFile)) {
       FileDelete OutputFile
     }
     Logfile.write("`n")
@@ -3817,7 +3817,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
       ; Only perform updates if any discernible change is detected (amongst colors & mouse position values)
       If (DebugMode == 1) {
         LogfileOutput := StrReplace(TooltipOutput,"`n"," ")
-        Logfile.write("%LogfileOutput%`n")
+        Logfile.write(LogfileOutput "`n")
       }
       Last_MouseX := MouseX_Screen
       Last_MouseY := MouseY_Screen
@@ -3843,7 +3843,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
   StartMilliseconds := A_TickCount
   Loop {
-    ToolTip(%TextToolTip%)
+    ToolTip(TextToolTip)
     LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
     If (LoopingForMilliseconds > LoopDuration_ms) {
       Break
@@ -3980,7 +3980,7 @@ ShowWindowTitles() {
     }
   }
 
-  ; Gui Add, Text,, %tList%
+  ; Gui Add, Text,, tList
   ; MyGui.Add(...)
   ; Gui Show
   MyGui.Show()
@@ -4105,7 +4105,6 @@ TempFile() {
 WinGet_ahk_id(WinTitle) {
   Win_ahk_exe := WinGetProcessName(WinTitle)
   If (Win_ahk_exe = "ApplicationFrameHost.exe") {
-    ; ControlGet Win_ahk_id, Hwnd,, Windows.UI.Core.CoreWindow1, %WinTitle%
     Win_ahk_id := ControlGetHwnd("Windows.UI.Core.CoreWindow1",WinTitle)
   } Else {
     Win_ahk_id := WinGetID(WinTitle)

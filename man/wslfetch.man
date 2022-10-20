@@ -1,4 +1,4 @@
-WSLFETCH(1)                                                                                                                                                       WSLFETCH                                                                                                                                                      WSLFETCH(1)
+WSLFETCH(1)                                                          WSLFETCH                                                          WSLFETCH(1)
 
 NAME
        wslfetch - Component of Windows 10 Linux Subsystem Utility
@@ -28,6 +28,7 @@ REPORTING BUGS
        Report bugs to https://github.com/wslutilities/wslu/issues
 
 COPYRIGHT
-       This is free software; you can redistribute it and/or modify it under the terms of the GNU GPL version 3 or (at your option) any later version. There is NO warranty; not even MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+       This is free software; you can redistribute it and/or modify it under the terms of the GNU GPL version 3 or (at your option) any later
+       version. There is NO warranty; not even MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-Patrick Wu                                                                                                                                                       July 2019                                                                                                                                                      WSLFETCH(1)
+Patrick Wu                                                           July 2019                                                         WSLFETCH(1)

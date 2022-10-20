@@ -1042,11 +1042,11 @@ AppsKey & ]::
     ; Read the registry to check for display scaling
     KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
       PropertyName := "DpiScalingVer"
-        RegRead DpiScalingVer, %KeyName%, %PropertyName%
+        DpiScalingVer := RegRead(%KeyName%,%PropertyName%)
       PropertyName := "Win8DpiScaling"
-        RegRead Win8DpiScaling, %KeyName%, %PropertyName%
+        Win8DpiScaling:= RegRead(%KeyName%,%PropertyName%)
       PropertyName := "DpiScalingVer"
-        RegRead LogPixels, %KeyName%, %PropertyName%
+        LogPixels := RegRead(%KeyName%,%PropertyName%)
     ; ------------------------------------------------------------
     ;
     ; DpiScalingVer    ; originally 1000

@@ -2962,10 +2962,10 @@ Open_Chrome() {
       WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
     If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
-      ; If (DebugMode == 1) {
-      ;   GetWindowSpecs(WinTitle)
-      ;   Sleep 500
-      ; }
+      If (DebugMode == 1) {
+        GetWindowSpecs(WinTitle)
+        Sleep 500
+      }
       If (MonitorGetCount()==1) {
         WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right-half of monitor #1
       } Else {
@@ -3107,10 +3107,10 @@ Open_VisualStudioCode() {
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20
-  ; If (DebugMode == 1) {
-  ;   GetWindowSpecs(WinTitle)
-  ;   Sleep 500
-  ; }
+  If (DebugMode == 1) {
+    GetWindowSpecs(WinTitle)
+    Sleep 500
+  }
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
@@ -3143,10 +3143,10 @@ Open_WindowsTerminal() {
   WinTitle := ("ahk_exe " Win_ahk_exe)
   WinText := "DesktopWindowXamlSource"
   WinWait_TimeoutSeconds := 20
-  ; If (DebugMode == 1) {
-  ;   GetWindowSpecs(WinTitle)
-  ;   Sleep 500
-  ; }
+  If (DebugMode == 1) {
+    GetWindowSpecs(WinTitle)
+    Sleep 500
+  }
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)

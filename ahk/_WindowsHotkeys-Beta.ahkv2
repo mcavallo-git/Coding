@@ -3878,8 +3878,8 @@ ShowVolumeLevel() {
   Icon_VolumeFilled := "⬛️"
   Icon_VolumeBlanks := "⬜️"
   ; Get the volume & mute current-settings
-  SoundGet, NewVolumeLevel
-  SoundGet, MasterMute, , MUTE
+  SoundGet(NewVolumeLevel)
+  SoundGet(MasterMute,,MUTE)
   ; Final volume level
   NewVolumeLevel := Round( NewVolumeLevel )
   NewVolumeLevelPercentage := NewVolumeLevel "`%"

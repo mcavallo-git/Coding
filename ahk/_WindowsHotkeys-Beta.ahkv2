@@ -2141,13 +2141,13 @@ Duplicate_Keypress() {
   KeyPressed := ""
   Loop {
     TooltipOutput := ( "Press a key (will be duplicated)" )
+    ToolTip(TooltipOutput)
+    ; Get the key to duplicate from the user
+    KeyPressed := KeyWaitAny("L1 T1")
     If (DebugMode == 1) {
       TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" )
       ; TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
     }
-    ToolTip(TooltipOutput)
-    ; Get the key to duplicate from the user
-    Input(KeyPressed,"L1 T1")
     ; If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
     ;   Break
     ; }
@@ -2637,6 +2637,23 @@ GetWindowSpecs_OnDoubleClick() {
 ;
 IfProcessExist(ProcName) {
   Return (GetPID(ProcName)>0) ? True : False
+}
+
+
+;
+; KeyWaitAny
+;  |--> Waits for the user to press any single key (and returns it)
+;  |--> Source: https://lexikos.github.io/v2/docs/commands/InputHook.htm#ExKeyWaitAny
+;
+KeyWaitAny(Options:="")
+{
+  ih := InputHook(Options)
+  if !InStr(Options, "V")
+    ih.VisibleNonText := false
+  ih.KeyOpt("{All}", "E")  ; End
+  ih.Start()
+  ih.Wait()
+  Return ih.EndKey  ; Return the key name
 }
 
 

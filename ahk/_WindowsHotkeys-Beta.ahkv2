@@ -288,7 +288,7 @@ Pause::
     If (Use_ControlClick == 1) {
       ControlClick x%xpos% y%ypos%, %Win_title%
     } Else {
-      MouseGetPos MouseX, MouseY
+      MouseGetPos &MouseX, &MouseY
       MouseClick Left, %xpos%, %ypos%
       MouseMove %MouseX%, %MouseY%
     }
@@ -951,7 +951,7 @@ AppsKey & ]::
   SysGet ViewportWidthBefore, 78
   SysGet ViewportHeightBefore, 79
   ; Save current mouse coordinates
-  MouseGetPos MouseX, MouseY
+  MouseGetPos &MouseX, &MouseY
   ; Send an Escape keypress to close any old Projection menus
   Send "{Escape}"
   Sleep 250
@@ -1228,7 +1228,7 @@ AppsKey & l::
 ; {
 ;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
-;   MouseGetPos MouseX, MouseY
+;   MouseGetPos &MouseX, &MouseY
 ;   MouseClick Left, %MouseX%, %MouseY%
 ;   Sleep 10
 ;   Return
@@ -1623,7 +1623,7 @@ WheelRight::
   ; SpaceUp_Loop(50, WinTitle)
   ; SpaceUp_Loop(50)
   ; ClickLoop(1724,749,1000)
-  MouseGetPos MouseX, MouseY
+  MouseGetPos &MouseX, &MouseY
   ClickLoop(MouseX, MouseY, 500)  ; ClickLoop(MouseX,MouseY,Timeout)
   Return
 }
@@ -2457,7 +2457,7 @@ GetWindowSpecs(WinTitle:="A") {
   Win_fullpath := WinGetProcessPath("ahk_id %Win_ahk_id%")
   Win_control_names := WinGetControls("ahk_id %Win_ahk_id%")  ; Get all control names in this window
   Win_size_state := WinGet_size_state("ahk_id %Win_ahk_id%")
-  WinGetPos(xpos, ypos, Win_width, Win_height, "ahk_id %Win_ahk_id%")
+  WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "ahk_id %Win_ahk_id%")
 
   ; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
   Win_longest_field := 0
@@ -2478,7 +2478,7 @@ GetWindowSpecs(WinTitle:="A") {
     Win10_fullpath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
     Win10_control_names := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
     Win10_size_state := WinGet_size_state("ahk_id %Win10_ahk_id%")
-    WinGetPos(Win10_xpos, Win10_ypos, Win10_Width, Win10_Height, "ahk_id %Win10_ahk_id%")
+    WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, "ahk_id %Win10_ahk_id%")
 
     ; Update the longest text-field
     Win_longest_field := StrLen_Max(Win_longest_field, Win10_title)
@@ -2770,7 +2770,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
     WinRestore(WinTitle, WinText)
   } Else {
     ; Get the window's current xpos, ypos, width & height
-    WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
+    WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
     ; Check if window is Maximized/Minimized, then prep accordingly
     If (WinGetMinMax(WinTitle,WinText)==1) {
       ; Window is Maximized --> Adjust its xpos and ypos by +8 (as Windows (for some reason) sets the top-left coords of maximized windows to -8,-8 x,y relative to the top-left coords of the monitor it's on)
@@ -2780,7 +2780,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       ; Window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height) --> Restore it
       WinRestore(WinTitle, WinText)
       Sleep 750
-      WinGetPos(Win_XPos, Win_YPos, Win_Width, Win_Height, WinTitle, WinText)
+      WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
     }
     Do_Maximized := False
     ; Calculate the top center edge
@@ -2945,7 +2945,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
         }
       }
       ; If the window is where it already needs to be, then don't move it
-      WinGetPos(Win_XPos,Win_YPos,Win_Width,Win_Height,WinTitle,WinText)
+      WinGetPos(&Win_XPos,&Win_YPos,&Win_Width,&Win_Height,WinTitle,WinText)
       If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
         ; Move the window to specified x/y position and resize it to have specified width/height
         WinMove("%WinTitle%","%WinText%",WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height)
@@ -3716,19 +3716,19 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
     ;
     CoordMode "Mouse", "Screen"
-    MouseGetPos MouseX_Screen, MouseY_Screen
+    MouseGetPos &MouseX_Screen, &MouseY_Screen
     Tooltip_Coords_Screen := "x" MouseX_Screen "  y" MouseY_Screen "  (Screen)"
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
     CoordMode "Mouse", "Window"
-    MouseGetPos MouseX_Window, MouseY_Window
+    MouseGetPos &MouseX_Window, &MouseY_Window
     Tooltip_Coords_Window := "x" MouseX_Window "  y" MouseY_Window "  (Window)"
     ;
     ; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
     ;
     CoordMode "Mouse", "Client"
-    MouseGetPos MouseX_Client, MouseY_Client
+    MouseGetPos &MouseX_Client, &MouseY_Client
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
     Tooltip( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
@@ -3778,17 +3778,17 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
     ;
     CoordMode "Mouse", "Screen"
-    MouseGetPos MouseX_Screen, MouseY_Screen
+    MouseGetPos &MouseX_Screen, &MouseY_Screen
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
     CoordMode "Mouse", "Window"
-    MouseGetPos MouseX_Window, MouseY_Window
+    MouseGetPos &MouseX_Window, &MouseY_Window
     ;
     ; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
     ;
     CoordMode "Mouse", "Client"
-    MouseGetPos MouseX_Client, MouseY_Client
+    MouseGetPos &MouseX_Client, &MouseY_Client
     Color := PixelGetColor(MouseX_Screen, MouseY_Screen)  ; PixelGetColor, Color, MouseX, MouseY
     ColorComponent_Blue := (Color & 0xFF)
     ColorComponent_Green := ((Color & 0xFF00) >> 8)
@@ -3945,7 +3945,7 @@ ShowVolumeLevel() {
   ToolTip_XPos := 50  ; Fallback/default values
   ToolTip_YPos := 50  ; Fallback/default values
   ; ------------------------------
-  MouseGetPos MouseX, MouseY
+  MouseGetPos &MouseX, &MouseY
   ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
   Loop MonitorGetCount() {
     MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)

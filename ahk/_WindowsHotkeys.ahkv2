@@ -1671,9 +1671,8 @@ LShift & RShift::
 ;     ; Start Node.JS in Git-Bash
 ;     IfWinNotExist,%WinTitle_NodeJS%
 ;     {
-;       GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
-;       GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
-;       GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
+;       GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/repo_name/build/_start_frontend.sh rest-api start-localhost;"
+;       GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/repo_name/build/_start_frontend.sh project-manager start-localhost;"
 ;       Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
 ;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
 ;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%

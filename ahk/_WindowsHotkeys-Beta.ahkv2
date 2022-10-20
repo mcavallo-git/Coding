@@ -13,8 +13,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 
 ; ------------------------------------------------------------
@@ -2902,9 +2902,9 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         TooltipOutput := TooltipOutput "                 "
         ShowTooltip(TooltipOutput,,,,60000)
       } Else {
-        If (DebugMode == 1) {
-          MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
-        }
+        ; If (DebugMode == 1) {
+        ;   MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
+        ; }
         If (Do_Maximized==False) {
           If (WinGetMinMax(WinTitle,WinText)==1) {
             ; Window is maximized --> Restore it (in preparation for resizing)
@@ -2962,10 +2962,10 @@ Open_Chrome() {
       WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
     If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
-      If (DebugMode == 1) {
-        GetWindowSpecs(WinTitle)
-        Sleep 500
-      }
+      ; If (DebugMode == 1) {
+      ;   GetWindowSpecs(WinTitle)
+      ;   Sleep 500
+      ; }
       If (MonitorGetCount()==1) {
         WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right-half of monitor #1
       } Else {
@@ -3107,10 +3107,10 @@ Open_VisualStudioCode() {
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20
-  If (DebugMode == 1) {
-    GetWindowSpecs(WinTitle)
-    Sleep 500
-  }
+  ; If (DebugMode == 1) {
+  ;   GetWindowSpecs(WinTitle)
+  ;   Sleep 500
+  ; }
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
@@ -3143,10 +3143,10 @@ Open_WindowsTerminal() {
   WinTitle := ("ahk_exe " Win_ahk_exe)
   WinText := "DesktopWindowXamlSource"
   WinWait_TimeoutSeconds := 20
-  If (DebugMode == 1) {
-    GetWindowSpecs(WinTitle)
-    Sleep 500
-  }
+  ; If (DebugMode == 1) {
+  ;   GetWindowSpecs(WinTitle)
+  ;   Sleep 500
+  ; }
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
@@ -3803,24 +3803,24 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm
 ;
 ShowTooltip(Text:="", X:="", Y:="", WhichToolTip:=1, LoopDuration_ms:=5000) {
+  global DebugMode
   StartMilliseconds := A_TickCount
-  If (IsInteger(X)) {
-    X := Format("{:d}", X)
-  }
-  If (IsInteger(Y)) {
-    Y := Format("{:d}", Y)
-  }
   Loop {
-    If (IsInteger(X) && IsInteger(Y)) {
-      ToolTip Text, X, Y, WhichToolTip
-    } Else If (IsInteger(X)) {
-      ToolTip Text, X,, WhichToolTip
-    } Else If (IsInteger(Y)) {
-      ToolTip Text,, Y, WhichToolTip
-    } Else {
-      ToolTip Text,,, WhichToolTip
-    }
     LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
+    Remaining_DecimalSeconds := Round(((LoopDuration_ms-LoopingForMilliseconds)/1000),3)
+    EachText := Text
+    If (DebugMode == 1) {
+      EachText := EachText "`n" Remaining_DecimalSeconds
+    }
+    If (IsInteger(X) && IsInteger(Y)) {
+      ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip
+    } Else If (IsInteger(X)) {
+      ToolTip EachText, Format("{:d}",X),, WhichToolTip
+    } Else If (IsInteger(Y)) {
+      ToolTip EachText,, Format("{:d}",Y), WhichToolTip
+    } Else {
+      ToolTip EachText,,, WhichToolTip
+    }
     If (LoopingForMilliseconds > LoopDuration_ms) {
       Break
     } Else {

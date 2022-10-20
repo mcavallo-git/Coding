@@ -288,7 +288,7 @@ Pause::
     If (Use_ControlClick == 1) {
       ControlClick x%xpos% y%ypos%, %WinTitle%
     } Else {
-      MouseGetPos, MouseX, MouseY
+      MouseGetPos MouseX, MouseY
       MouseClick, Left, %xpos%, %ypos%
       MouseMove, %MouseX%, %MouseY%
     }
@@ -895,7 +895,7 @@ AppsKey & ]::
   SysGet, ViewportWidthBefore, 78
   SysGet, ViewportHeightBefore, 79
   ; Save current mouse coordinates
-  MouseGetPos, MouseX, MouseY
+  MouseGetPos MouseX, MouseY
   ; Send an Escape keypress to close any old Projection menus
   Send {Escape}
   Sleep 250
@@ -1152,7 +1152,7 @@ AppsKey & l::
 ; AppsKey & WheelDown::
 ;   CoordMode Mouse, Screen
 ;   SetDefaultMouseSpeed 0
-;   MouseGetPos, MouseX, MouseY
+;   MouseGetPos MouseX, MouseY
 ;   MouseClick, Left, %MouseX%, %MouseY%
 ;   Sleep 10
 ;   Return
@@ -1503,7 +1503,7 @@ WheelRight::
   ; SpaceUp_Loop(50, WinTitle)
   ; SpaceUp_Loop(50)
   ; ClickLoop(1724,749,1000)
-  MouseGetPos, MouseX, MouseY
+  MouseGetPos MouseX, MouseY
   ClickLoop(MouseX, MouseY, 500)  ; ClickLoop(MouseX,MouseY,Timeout)
   Return
 
@@ -3552,19 +3552,19 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
     ;
     CoordMode Mouse, Screen
-    MouseGetPos, MouseX_Screen, MouseY_Screen
+    MouseGetPos MouseX_Screen, MouseY_Screen
     Tooltip_Coords_Screen := "x" MouseX_Screen "  y" MouseY_Screen "  (Screen)"
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
     CoordMode Mouse, Window
-    MouseGetPos, MouseX_Window, MouseY_Window
+    MouseGetPos MouseX_Window, MouseY_Window
     Tooltip_Coords_Window := "x" MouseX_Window "  y" MouseY_Window "  (Window)"
     ;
     ; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
     ;
     CoordMode Mouse, Client
-    MouseGetPos, MouseX_Client, MouseY_Client
+    MouseGetPos MouseX_Client, MouseY_Client
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
     Tooltip( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
@@ -3614,17 +3614,17 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
     ;
     CoordMode Mouse, Screen
-    MouseGetPos, MouseX_Screen, MouseY_Screen
+    MouseGetPos MouseX_Screen, MouseY_Screen
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
     CoordMode Mouse, Window
-    MouseGetPos, MouseX_Window, MouseY_Window
+    MouseGetPos MouseX_Window, MouseY_Window
     ;
     ; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
     ;
     CoordMode Mouse, Client
-    MouseGetPos, MouseX_Client, MouseY_Client
+    MouseGetPos MouseX_Client, MouseY_Client
     Color := PixelGetColor(MouseX_Screen, MouseY_Screen)  ; PixelGetColor, Color, MouseX, MouseY
     ColorComponent_Blue := (Color & 0xFF)
     ColorComponent_Green := ((Color & 0xFF00) >> 8)
@@ -3781,7 +3781,7 @@ ShowVolumeLevel() {
   ToolTip_XPos := 50  ; Fallback/default values
   ToolTip_YPos := 50  ; Fallback/default values
   ; ------------------------------
-  MouseGetPos, MouseX, MouseY
+  MouseGetPos MouseX, MouseY
   ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
   Loop % MonitorGetCount() {
     MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)

@@ -4089,7 +4089,7 @@ StrLen_Max(Str_1, Str_2) {
 ;   |--> Get String-Length for unicode string(s)? (Need better description)
 ;
 StrLenUnicode(data) {
-  RegExReplace(data, "s).", "", i)
+  RegExReplace(data, "s).", "", &i)
   Return i
 }
 

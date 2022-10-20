@@ -3765,7 +3765,6 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   CoordMode "Pixel", "Screen"
   FollowDuration_ms := (1000 * FollowDuration_Seconds)
   If (DebugMode == 1) {
-    TrayTip("AHK",( DebugString ))  ; Toast Notification
     OutputFile := A_Desktop "\rgblogging.txt"
     Logfile := FileOpen(OutputFile, "w")
     If (FileExist("%OutputFile%")) {

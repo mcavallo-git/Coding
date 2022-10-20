@@ -1554,7 +1554,7 @@ WheelRight::
 #c::
 {
   Loop {
-    WinActivate Cyberpunk
+    WinActivate "Cyberpunk"
     Send "{Space}"  ; Jump Spam
     ; MouseClick "Left"  ; Attack Spam
     Sleep 10

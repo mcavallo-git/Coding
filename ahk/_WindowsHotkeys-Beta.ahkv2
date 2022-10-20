@@ -87,7 +87,7 @@ GroupAdd("Explorer", "ahk_class CabinetWClass")
 ; Show the Version of AHK currently being used to compile this code
 ;
 If (DebugMode == 1) {
-  TrayTip(AHK, "Version:" "`n" A_AhkVersion )  ; Toast Notification
+  TrayTip("AHK","Version:" "`n" A_AhkVersion )  ; Toast Notification
 }
 
 
@@ -119,7 +119,7 @@ If (FileExist(TrayIcon_Default)) {
 ~#Escape::
 {
   global DebugMode
-  BlockInput(Off)  ;  Stop blocking input (e.g. restore full interaction)
+  BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
   Reload  ; Reload this script
   Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
   If (DebugMode == 1) {
@@ -178,7 +178,7 @@ ScrollLock::
 Pause::
 {
   Send "!{F10}"
-  TrayTip(AHK, ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" ))  ; Toast Notification
+  TrayTip("AHK",( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" ))  ; Toast Notification
   Return
 }
 
@@ -191,7 +191,7 @@ Pause::
 +Pause::
 {
   Fullpath_OpenInExplorer := ( EnvGet("USERPROFILE") "\Videos" )
-  TrayTip(AHK, ( "Opening Directory [ " Fullpath_OpenInExplorer " ]" ))  ; Toast Notification
+  TrayTip("AHK",( "Opening Directory [ " Fullpath_OpenInExplorer " ]" ))  ; Toast Notification
   Run "%Fullpath_OpenInExplorer%"  ; Open the directory
   Return
 }
@@ -227,7 +227,7 @@ Pause::
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
     WinGetTitle WinTitle, A
     If (DebugMode == 1) {
-      TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
+      TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
@@ -253,7 +253,7 @@ Pause::
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
     WinGetTitle WinTitle, A
     If (DebugMode == 1) {
-      TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
+      TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
@@ -279,7 +279,7 @@ Pause::
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
     WinGetTitle WinTitle, A
     If (DebugMode == 1) {
-      TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
+      TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
     }
     ; Click the "Redo" button
     xpos := 187
@@ -684,30 +684,30 @@ Pause::
         ; Exe path-matching succeeded
         DoPaste := 1
         If (DebugMode == 1) {
-          TrayTip(AHK, ( "Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
+          TrayTip("AHK",( "Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
         }
       } Else {
         ; Exe path-matching failed
         DoPaste := 0
         If (DebugMode == 1) {
-          TrayTip(AHK, ( "Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
+          TrayTip("AHK",( "Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
         } Else {
           ; !! Always show at-least the shortened form of this error !!
-          TrayTip(AHK, ( "Error (invalid exe) - Blocking paste" ))  ; Toast Notification
+          TrayTip("AHK",( "Error (invalid exe) - Blocking paste" ))  ; Toast Notification
         }
       }
     } Else {
       ; Skip matching on the active window's executable fullpath
       DoPaste := 1
       If (DebugMode == 1) {
-        TrayTip(AHK, ( "Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])" ))  ; Toast Notification
+        TrayTip("AHK",( "Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])" ))  ; Toast Notification
       }
     }
   } Else {
     ; Paste file not found
     DoPaste := 0
     If (DebugMode == 1) {
-        TrayTip(AHK, ( "Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]" ))  ; Toast Notification
+        TrayTip("AHK",( "Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]" ))  ; Toast Notification
     }
   }
   If (DoPaste == 1) {
@@ -1692,9 +1692,9 @@ LShift & RShift::
 #8::
 {
   Random RandomSleep_15s_to_20s, 15000, 20000
-  TrayTip(AHK, ( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
+  TrayTip("AHK",( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
   Sleep %RandomSleep_15s_to_20s%
-  TrayTip(AHK, ( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
+  TrayTip("AHK",( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
   Return
 }
 
@@ -3024,7 +3024,7 @@ Open_ControlPanel_NetworkConnections() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
-      TrayTip(AHK, ( "Opening '" WinTitle "'" ))  ; Toast Notification
+      TrayTip("AHK",( "Opening '" WinTitle "'" ))  ; Toast Notification
     }
     ; Run (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
     ; Run (EnvGet("WINDIR") "\System32\ncpa.cpl")
@@ -3066,7 +3066,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
   }
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
-      TrayTip(AHK, ( "Opening '" WinTitle "' > '" Tab_Desc "'" ))  ; Toast Notification
+      TrayTip("AHK",( "Opening '" WinTitle "' > '" Tab_Desc "'" ))  ; Toast Notification
     }
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
     ; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
@@ -3277,7 +3277,7 @@ CustomMsgBox_PasteClipboard_TextOrBinary() {
   If (WinExist("Text or Binary")=0) {
     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
   }
-  SetTimer(%A_ThisFunc%,Off)
+  SetTimer(%A_ThisFunc%,"Off")
   WinActivate
   ControlSetText Button1, &Text
   ControlSetText Button2, &Binary
@@ -3490,7 +3490,7 @@ RemoveToolTip() {
 RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   global DebugMode
   If (DebugMode == 1) {
-    TrayTip(AHK,"
+    TrayTip("AHK","
     (LTrim
       Opening NON-Admin version of Exe: "%Execute%"...
     )") ; Toast Notification
@@ -3658,7 +3658,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
     Clipboard := PseudoRandomString
     If (DebugMode == 1) {
       Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
-      TrayTip(AHK, %Text_TrayTip%)  ; Toast Notification
+      TrayTip("AHK",%Text_TrayTip%)  ; Toast Notification
     }
   }
 }
@@ -3686,7 +3686,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
       Clipboard := RandomString
       If (DebugMode == 1) {
         Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
-        TrayTip(AHK, %Text_TrayTip%)  ; Toast Notification
+        TrayTip("AHK",%Text_TrayTip%)  ; Toast Notification
       }
     }
   }
@@ -3749,7 +3749,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   CoordMode Pixel, Screen
   FollowDuration_ms := (1000 * FollowDuration_Seconds)
   If (DebugMode == 1) {
-    TrayTip(AHK, ( DebugString ))  ; Toast Notification
+    TrayTip("AHK",( DebugString ))  ; Toast Notification
     OutputFile := A_Desktop "\rgblogging.txt"
     Logfile := FileOpen(OutputFile, "w")
     If (FileExist("%OutputFile%")) {
@@ -4197,7 +4197,7 @@ Win_ToggleRestoreMaximize(WinTitle:="A") {
     }
   }
   If (DebugMode == 1) {
-    TrayTip(AHK, ( DebugString ))  ; Toast Notification
+    TrayTip("AHK",( DebugString ))  ; Toast Notification
   }
   Return
 }
@@ -5163,13 +5163,13 @@ BrightnessSetter_new() {
 ;   MsgBox(3, Popup_MsgBox_WindowTitle, "Popup MsgBox Question? or Statement!")
 ;
 ;   If (A_MsgBoxResult = "Yes") {
-;     TrayTip(AHK, ( "Leftmost Button Selected" ))  ; Toast Notification
+;     TrayTip("AHK",( "Leftmost Button Selected" ))  ; Toast Notification
 ;   }
 ;   If (A_MsgBoxResult = "No") {
-;     TrayTip(AHK, ( "Center Button Selected" ))  ; Toast Notification
+;     TrayTip("AHK",( "Center Button Selected" ))  ; Toast Notification
 ;   }
 ;   If (A_MsgBoxResult = "Cancel") {
-;     TrayTip(AHK, ( "Rightmost Button Selected" ))  ; Toast Notification
+;     TrayTip("AHK",( "Rightmost Button Selected" ))  ; Toast Notification
 ;   }
 ;
 ;   Return
@@ -5180,7 +5180,7 @@ BrightnessSetter_new() {
 ;   If (WinExist(Popup_MsgBox_WindowTitle)) {
 ;     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
 ;   }
-;   SetTimer(%A_ThisFunc%,Off)
+;   SetTimer(%A_ThisFunc%,"Off")
 ;   WinActivate
 ;   ControlSetText Button1, &LEFT_BUTTON
 ;   ControlSetText Button2, &CENTER_BUTTON

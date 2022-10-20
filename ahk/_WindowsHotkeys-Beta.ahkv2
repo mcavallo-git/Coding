@@ -40,7 +40,7 @@ DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHidden
 
 SetWorkingDir %A_ScriptDir%  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
 
-SetCapsLockState Off  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 
 ; FileEncoding, UTF-8  ; https://lexikos.github.io/v2/docs/commands/FileEncoding.htm
 
@@ -328,12 +328,13 @@ Pause::
   !CapsLock::
   #CapsLock::
   {
-    SetCapsLockState(Off)
+    SetCapsLockState "Off"
     Return
   }
   +CapsLock::
   {
-    SetCapsLockState(GetKeyState("CapsLock", "T") ? "Off" : "On")
+    ; Toggles CapsLock to its opposite state
+    SetCapsLockState !GetKeyState("CapsLock", "T")
     Return
   }
 #HotIf
@@ -1882,7 +1883,7 @@ NumLock::
     ; Default - Keep NumLock enabled
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 0) {
-      SetNumLockState On
+      SetNumLockState "On"
       ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
       TextToolTip := "Disable NumLock via Shift+NumLock"
@@ -1893,7 +1894,7 @@ NumLock::
     ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 1) {
-      SetNumLockState Off
+      SetNumLockState "Off"
       ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
       TextToolTip := "Enable NumLock via Shift+NumLock"
@@ -1911,15 +1912,16 @@ NumLock::
     ; Default - Allow Shift+NumLock to toggle NumLock
     ; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     ; If (NumLockEnabled_BeforeKeypress == 1) {
-    ;   ; SetNumLockState Off
+    ;   ; SetNumLockState "Off"
     ;   SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     ; }
-    SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
+    ; Toggles NumLock to its opposite state.
+    SetNumLockState !GetKeyState("NumLock", "T")
   } Else {
     ; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 0) {
-      SetNumLockState On
+      SetNumLockState "On"
     }
   }
   Return

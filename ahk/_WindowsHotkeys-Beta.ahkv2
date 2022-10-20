@@ -2615,7 +2615,7 @@ GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
     Copy this value to the clipboard?
   )")
   If (A_MsgBoxResult = "Yes") {
-    Clipboard := ValSelected
+    A_Clipboard := ValSelected
   }
   ; ; Gui WindowSpecs:Default
   ; MyGui := Gui()
@@ -3215,14 +3215,14 @@ PasteClipboardAsBinary() {
   SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Sleep 250
-  Clipboard := ClipboardAll
+  A_Clipboard := ClipboardAll()
   Sleep 25
-  Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
+  A_Clipboard := A_Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
   Sleep 25
-  If (StrLen(Clipboard)>=5000) {
-    MsgBox("Warning! You are about to paste [ " StrLen(Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
+  If (StrLen(A_Clipboard)>=5000) {
+    MsgBox("Warning! You are about to paste [ " StrLen(A_Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
-  SendInput(EscapeSpecialCharacters(Clipboard))
+  SendInput(EscapeSpecialCharacters(A_Clipboard))
   Sleep 25
   Return
 }
@@ -3237,7 +3237,7 @@ PasteClipboardAsText(StringToPaste:="") {
   SetKeyDelay 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Sleep 250
-  StringToPaste := ((StrLen(StringToPaste)<=0)?(Clipboard):(StringToPaste))
+  StringToPaste := ((StrLen(StringToPaste)<=0)?(A_Clipboard):(StringToPaste))
   If (StrLen(StringToPaste)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(StringToPaste) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
@@ -3289,7 +3289,7 @@ PasteClipboard_TextOrBinary() {
 }
 CustomMsgBox_PasteClipboard_TextOrBinary() {
   If (WinExist("Text or Binary")=0) {
-    Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+    Return  ; Continue waiting for the "A_Clipboard or ClipboardAll" window to appear
   }
   SetTimer(%A_ThisFunc%,"Off")
   WinActivate
@@ -3669,7 +3669,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
   PseudoRandomString := PseudoRandomString . GetRandomString(9, 1, 1, 0, 0)  ; 9 Lowercase & Numbers
   PasteClipboardAsText(PseudoRandomString)
   If (CopyStringToClipboard == 1) {
-    Clipboard := PseudoRandomString
+    A_Clipboard := PseudoRandomString
     If (DebugMode == 1) {
       Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
       TrayTip("AHK",%Text_TrayTip%)  ; Toast Notification
@@ -3697,7 +3697,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
     RandomString := GetRandomString(DesiredStringLength, EnableNumbers, EnableLowercaseLetters, EnableUppercaseLetters, EnableSpecialCharacters)
     PasteClipboardAsText(RandomString)
     If (CopyStringToClipboard == 1) {
-      Clipboard := RandomString
+      A_Clipboard := RandomString
       If (DebugMode == 1) {
         Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
         TrayTip("AHK",%Text_TrayTip%)  ; Toast Notification
@@ -5190,7 +5190,7 @@ BrightnessSetter_new() {
 ;
 ; CustomMsgBox_DemoCustomPopups() {
 ;   If (WinExist(Popup_MsgBox_WindowTitle)) {
-;     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+;     Return  ; Continue waiting for the "A_Clipboard or ClipboardAll" window to appear
 ;   }
 ;   SetTimer(%A_ThisFunc%,"Off")
 ;   WinActivate
@@ -5204,7 +5204,7 @@ BrightnessSetter_new() {
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
-;   |--> Clipboard:       https://www.autohotkey.com/docs/misc/Clipboard.htm
+;   |--> A_Clipboard:       https://www.autohotkey.com/docs/misc/Clipboard.htm
 ;   |--> ControlGetText:  https://www.autohotkey.com/docs/commands/ControlGetText.htm
 ;   |--> For Each:        https://www.autohotkey.com/docs/commands/For.htm
 ;   |--> GetKeyState:     https://www.autohotkey.com/docs/commands/GetKeyState.htm

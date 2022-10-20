@@ -2396,10 +2396,10 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
     LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
     MsgBox, 4, %A_ScriptName%,
     (LTrim
-      You selected:
+      Value selected:
       %ValSelected%
 
-      Copy this to the clipboard?
+      Copy this value to the clipboard?
     )
     If (A_MsgBoxResult = "Yes") {
       Clipboard := ValSelected

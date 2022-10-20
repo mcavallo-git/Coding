@@ -1749,7 +1749,7 @@ LShift & RShift::
 ; #j::
 ; {
 ;   ; - -
-;   GIT_REPO=%USERPROFILE%/Documents/GitHub/repo_name
+;   GIT_REPO := EnvGet("USERPROFILE") "\Documents\GitHub\repo_name"
 ;   ; - -
 ;   POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
 ;   GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
@@ -1878,7 +1878,7 @@ NumLock::
 !NumLock::
 #NumLock::
 {
-  ConfigFilepath_KeepNumLockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
+  ConfigFilepath_KeepNumLockDisabled := EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config"
   If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
     ; Default - Keep NumLock enabled
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
@@ -1907,7 +1907,7 @@ NumLock::
 
 +NumLock::
 {
-  ConfigFilepath_KeepNumLockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
+  ConfigFilepath_KeepNumLockDisabled := EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config"
   If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
     ; Default - Allow Shift+NumLock to toggle NumLock
     ; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")

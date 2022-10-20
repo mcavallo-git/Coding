@@ -2449,9 +2449,9 @@ GetTimezoneOffset_P(&Output_TZ_P) {
 GetWindowSpecs(WinTitle:="A") {
   global DebugMode
 
-  ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui, ... ] and [ LV_Add(...) ])
-  Gui, WindowSpecs:Default
-  Gui, Destroy
+  ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui ... ] and [ LV_Add(...) ])
+  Gui WindowSpecs:Default
+  Gui Destroy
 
   Win_ahk_id := WinGetID(WinTitle)
   Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
@@ -2527,14 +2527,14 @@ GetWindowSpecs(WinTitle:="A") {
   ; GUI_OPT = %GUI_OPT% AltSubmit
 
   ; Draw the 'ListView' (grid/table) with two columns
-  ;  |--> Note that [ Gui, {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui, Add, ... ]
-  Gui, Font, s10, Tahoma
-  Gui, Font, s10, Consolas
-  Gui, Font, s10, Courier New
-  Gui, Font, s10, Open Sans
-  Gui, Font, s10, Fira Code
-  Gui, Color, 1E1E1E
-  Gui, Add, ListView, %GUI_OPT%, Key|Value
+  ;  |--> Note that [ Gui {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui Add, ... ]
+  Gui Font, s10, Tahoma
+  Gui Font, s10, Consolas
+  Gui Font, s10, Courier New
+  Gui Font, s10, Open Sans
+  Gui Font, s10, Fira Code
+  Gui Color, 1E1E1E
+  Gui Add, ListView, %GUI_OPT%, Key|Value
   LV_Add("", "", "")
   LV_Add("", "Win_title", Win_title)
   LV_Add("", "Win_text", Win_text)
@@ -2585,7 +2585,7 @@ GetWindowSpecs(WinTitle:="A") {
   LV_ModifyCol(2, "AutoHdr Text Left")
   ; LV_ModifyCol()  ; Auto-size each column to fit its contents.
   ; Display the window and return. The script will be notified whenever the user double clicks a row.
-  Gui, Show
+  Gui Show
   Return
 }
 ;
@@ -2608,8 +2608,8 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
     If (A_MsgBoxResult = "Yes") {
       Clipboard := ValSelected
     }
-    ; Gui, WindowSpecs:Default
-    ; Gui, Destroy
+    ; Gui WindowSpecs:Default
+    ; Gui Destroy
   }
   ; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
   LV_Verbosity := 0
@@ -3969,8 +3969,8 @@ ShowVolumeLevel() {
 ;   |--> Lists all window-titles (in current user's environment)
 ;
 ShowWindowTitles() {
-  Gui, WinTitles:Default
-  Gui, Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
+  Gui WinTitles:Default
+  Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
   Window := WinGetList("A")
   Loop Window {
     Id:=Window%A_Index%
@@ -3981,8 +3981,8 @@ ShowWindowTitles() {
       tList.=TVar "`n" ;use this if you just want the list
     }
   }
-  ; Gui, Add, Text,, %tList%
-  Gui, Show
+  ; Gui Add, Text,, %tList%
+  Gui Show
   ; MsgBox(tList)
   Return
 }
@@ -3994,8 +3994,8 @@ ShowWindowTitles() {
 ;
 ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
   If (A_GuiEvent = "DoubleClick") {
-    Gui, WinTitles:Default
-    Gui, Destroy
+    Gui WinTitles:Default
+    Gui Destroy
   }
   Return
 }
@@ -5101,9 +5101,9 @@ BrightnessSetter_new() {
 ; Menu, FileMenu, Icon, Suspend Icon, %A_AhkPath%, -206 ;Use icon with resource identifier 206
 ; Menu, FileMenu, Icon, Pause Icon, %A_AhkPath%, -207 ;Use icon with resource identifier 207
 ; Menu, MyMenuBar, Add, &File, :FileMenu
-; Gui, Menu, MyMenuBar
-; Gui, Add, Button, gExit, Exit This Example
-; Gui, Show
+; Gui Menu, MyMenuBar
+; Gui Add, Button, gExit, Exit This Example
+; Gui Show
 ; MenuHandler_FileMenu:
 ; Return
 ;

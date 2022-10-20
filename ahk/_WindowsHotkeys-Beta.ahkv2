@@ -2536,6 +2536,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; Gui Add, ListView, %GUI_OPT%, Key|Value
   LV := MyGui.Add("ListView", %GUI_OPT%, [Key|Value])
   LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
+  LV.OnEvent("ContextMenu", GetWindowSpecs_OnDoubleClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
 
   LV.Add("", "", "")
   LV.Add("", "Win_title", Win_title)
@@ -2598,27 +2599,25 @@ GetWindowSpecs(WinTitle:="A") {
 ;
 GetWindowSpecs_OnDoubleClick() {
   global DebugMode
-  ; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
-  Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
-  If (Obj_EventTriggers[A_GuiEvent]) {
-    LV.GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
-    LV.GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
-    MsgBox(4, %A_ScriptName%,"
-    (LTrim
-      Value selected:
-      %ValSelected%
 
-      Copy this value to the clipboard?
-    )")
-    If (A_MsgBoxResult = "Yes") {
-      Clipboard := ValSelected
-    }
-    ; ; Gui WindowSpecs:Default
-    ; MyGui := Gui(Default)
-    ; MyGui.Name := "WindowSpecs"
-    ; ; Gui Destroy
-    ; MyGui.Destroy()
+  LV.GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
+  LV.GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
+  MsgBox(4, %A_ScriptName%,"
+  (LTrim
+    Value selected:
+    %ValSelected%
+
+    Copy this value to the clipboard?
+  )")
+  If (A_MsgBoxResult = "Yes") {
+    Clipboard := ValSelected
   }
+  ; ; Gui WindowSpecs:Default
+  ; MyGui := Gui(Default)
+  ; MyGui.Name := "WindowSpecs"
+  ; ; Gui Destroy
+  ; MyGui.Destroy()
+
   If (DebugMode == 1) {
     TooltipOutput := "A_GuiEvent=[" A_GuiEvent "], A_EventInfo=[" A_EventInfo "]"
     ToolTip(TooltipOutput)

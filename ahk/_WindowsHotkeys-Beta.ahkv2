@@ -225,7 +225,7 @@ Pause::
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinGetTitle, WinTitle, A
+    WinGetTitle WinTitle, A
     If (DebugMode == 1) {
       TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
     }
@@ -251,7 +251,7 @@ Pause::
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinGetTitle, WinTitle, A
+    WinGetTitle WinTitle, A
     If (DebugMode == 1) {
       TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
     }
@@ -277,7 +277,7 @@ Pause::
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinGetTitle, WinTitle, A
+    WinGetTitle WinTitle, A
     If (DebugMode == 1) {
       TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
     }
@@ -3817,7 +3817,7 @@ ShowWindowTitles() {
   Window := WinGetList("A")
   Loop Window {
     Id:=Window%A_Index%
-    WinGetTitle, TVar , % "ahk_id " Id
+    WinGetTitle TVar , % "ahk_id " Id
     If (Tvar != "") {
       LV_Add("", TVar)
       Window%A_Index%:=TVar ;use this if you want an array
@@ -4902,7 +4902,7 @@ BrightnessSetter_new() {
 ;   CoordMode Mouse, Screen
 ;   SetDefaultMouseSpeed 0
 ;   SetControlDelay -1
-;   ; WinGetTitle, WinTitle, A
+;   ; WinGetTitle WinTitle, A
 ;   WinTitle := "NoxPlayer"
 ;   xpos := (A_ScreenWidth - 20)
 ;   ypos := 315

@@ -2154,7 +2154,7 @@ Duplicate_Keypress() {
     }
     ToolTip(TooltipOutput)
     ; Get the key to duplicate from the user
-    Input, KeyPressed, "L1 T1"
+    Input(KeyPressed,"L1 T1")
     If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
       Break
     }
@@ -2184,7 +2184,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
     For EachKey, EachLine in StrSplit(StringConsolidated,"`n")
     {
       ; Multi-line string - Iterate over each character in each line
-      Loop, Parse, %EachLine%
+      Loop Parse %EachLine%
       {
         If (A_LoopField == "{") {
           ReturnedString := ReturnedString "{{}"
@@ -2202,7 +2202,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
     ReturnedString := SubStr(ReturnedString, 1, -1)
   } Else {
     ; Single-line string - Iterate over each character in each line
-    Loop, Parse, %StringConsolidated%
+    Loop Parse %StringConsolidated%
     {
       If (A_LoopField == "{") {
         ReturnedString := ReturnedString "{{}"
@@ -3219,7 +3219,7 @@ PasteClipboardAsText(StringToPaste:="") {
   If (StrLen(StringToPaste)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(StringToPaste) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
-  Loop, Parse, RegexConsolidateNewlines(StringToPaste)
+  Loop Parse RegexConsolidateNewlines(StringToPaste)
   {
     ; DoSleep := 0
     SendChar := ""

@@ -1,0 +1,9 @@
+{
+  "load-balance": {
+    "group": {
+      "wan_failover": {
+        "flush-on-active": "enable"
+      }
+    }
+  }
+}

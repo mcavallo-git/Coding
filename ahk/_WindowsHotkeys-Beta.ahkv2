@@ -2540,7 +2540,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; Gui Color, 1E1E1E
   MyGui.BackColor := "1E1E1E"
   ; Gui Add, ListView, %GUI_OPT%, Key|Value
-  LV := MyGui.Add("ListView", %GUI_OPT%, [Key|Value])
+  LV := MyGui.Add("ListView",GUI_OPT,["Key","Value"])
   LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
   LV.OnEvent("ContextMenu", GetWindowSpecs_OnDoubleClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
 
@@ -4003,7 +4003,7 @@ ShowWindowTitles() {
 
   ; Create the ListView with two columns, Name and Size:
   ; Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
-  LV := MyGui.Add("ListView", "r50 w1000", [WindowTitle])
+  LV := MyGui.Add("ListView","r50 w1000",["WindowTitle"])
   LV.OnEvent("DoubleClick", ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles)
 
   Window := WinGetList("A")

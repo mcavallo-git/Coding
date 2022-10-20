@@ -2439,9 +2439,12 @@ GetTimezoneOffset_P(&Output_TZ_P) {
 GetWindowSpecs(WinTitle:="A") {
   global DebugMode
 
-  ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui ... ] and [ LV_Add(...) ])
-  Gui WindowSpecs:Default
-  Gui Destroy
+  ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui ... ] and [ LV.Add(...) ])
+  ; Gui WindowSpecs:Default
+  MyGui := Gui(Default)
+  MyGui.Name := "WindowSpecs"
+  ; Gui Destroy
+  MyGui.Destroy()
 
   Win_ahk_id := WinGetID(WinTitle)
   Win_title := WinGetTitle("ahk_id %Win_ahk_id%")
@@ -2509,7 +2512,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
   GUI_OPT := "r" GUI_ROWCOUNT
   GUI_OPT := GUI_OPT " w" GUI_WIDTH
-  GUI_OPT := GUI_OPT " gGetWindowSpecs_OnClick_LV_WindowSpecs"
+  ; GUI_OPT := GUI_OPT " gGetWindowSpecs_OnDoubleClick"
   GUI_OPT := GUI_OPT " Background" GUI_BACKGROUND_COLOR
   GUI_OPT := GUI_OPT " C" GUI_TEXT_COLOR
   GUI_OPT := GUI_OPT " Grid"
@@ -2518,76 +2521,88 @@ GetWindowSpecs(WinTitle:="A") {
 
   ; Draw the 'ListView' (grid/table) with two columns
   ;  |--> Note that [ Gui {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui Add, ... ]
-  Gui Font, s10, Tahoma
-  Gui Font, s10, Consolas
-  Gui Font, s10, Courier New
-  Gui Font, s10, Open Sans
-  Gui Font, s10, Fira Code
-  Gui Color, 1E1E1E
-  Gui Add, ListView, %GUI_OPT%, Key|Value
-  LV_Add("", "", "")
-  LV_Add("", "Win_title", Win_title)
-  LV_Add("", "Win_text", Win_text)
-  LV_Add("", "Win_ahk_class", Win_ahk_class)
-  LV_Add("", "Win_ahk_exe", Win_ahk_exe)
-  LV_Add("", "Win_ahk_id", Win_ahk_id)
-  LV_Add("", "Win_ahk_pid", Win_ahk_pid)
-  LV_Add("", "Win_fullpath", Win_fullpath)
-  LV_Add("", "Win_control_names", Win_control_names)
-  LV_Add("", "Win_size_state", Win_size_state)
-  ; LV_Add("", "xpos", xpos)
-  ; LV_Add("", "ypos", ypos)
-  ; LV_Add("", "Width", Win_width)
-  ; LV_Add("", "height", Win_height)
-  LV_Add("", "xpos, ypos", ( xpos ", " ypos ) )
-  LV_Add("", "width, height", ( Win_width ", " Win_height ) )
-  ; LV_Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_width%,%Win_height%")
+  ; Gui Font, s10, Tahoma
+  MyGui.SetFont("s10", "Tahoma")
+  ; Gui Font, s10, Consolas
+  MyGui.SetFont("s10", "Consolas")
+  ; Gui Font, s10, Courier New
+  MyGui.SetFont("s10", "Courier New")
+  ; Gui Font, s10, Open Sans
+  MyGui.SetFont("s10", "Open Sans")
+  ; Gui Font, s10, Fira Code
+  MyGui.SetFont("s10", "Fira Code")
+  ; Gui Color, 1E1E1E
+  MyGui.BackColor := "1E1E1E"
+  ; Gui Add, ListView, %GUI_OPT%, Key|Value
+  LV := MyGui.Add("ListView", %GUI_OPT%, [Key|Value])
+  LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
+
+  LV.Add("", "", "")
+  LV.Add("", "Win_title", Win_title)
+  LV.Add("", "Win_text", Win_text)
+  LV.Add("", "Win_ahk_class", Win_ahk_class)
+  LV.Add("", "Win_ahk_exe", Win_ahk_exe)
+  LV.Add("", "Win_ahk_id", Win_ahk_id)
+  LV.Add("", "Win_ahk_pid", Win_ahk_pid)
+  LV.Add("", "Win_fullpath", Win_fullpath)
+  LV.Add("", "Win_control_names", Win_control_names)
+  LV.Add("", "Win_size_state", Win_size_state)
+  ; LV.Add("", "xpos", xpos)
+  ; LV.Add("", "ypos", ypos)
+  ; LV.Add("", "Width", Win_width)
+  ; LV.Add("", "height", Win_height)
+  LV.Add("", "xpos, ypos", ( xpos ", " ypos ) )
+  LV.Add("", "width, height", ( Win_width ", " Win_height ) )
+  ; LV.Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_width%,%Win_height%")
 
   ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
-  LV_Add("", "", "")
-  LV_Add("", "Is Win10 App?", ((Win_is_win10_app==1) ? ("Yes"):("No")))
+  LV.Add("", "", "")
+  LV.Add("", "Is Win10 App?", ((Win_is_win10_app==1) ? ("Yes"):("No")))
   If (Win_is_win10_app == 1) {
     ; Show the Win10-App's stats
-    LV_Add("", "Win10_title", Win10_title)
-    LV_Add("", "Win10_text", Win10_text)
-    LV_Add("", "Win10_ahk_class", Win10_ahk_class)
-    LV_Add("", "Win10_ahk_exe", Win10_ahk_exe)
-    LV_Add("", "Win10_ahk_id", Win10_ahk_id)
-    LV_Add("", "Win10_ahk_pid", Win10_ahk_pid)
-    LV_Add("", "Win10_fullpath", Win10_fullpath)
-    LV_Add("", "Win10_control_names", Win10_control_names)
-    LV_Add("", "Win10_size_state", Win10_size_state)
-    ; LV_Add("", "Win10_xpos", Win10_xpos)
-    ; LV_Add("", "Win10_ypos", Win10_ypos)
-    ; LV_Add("", "Win10_Width", Win10_Width)
-    ; LV_Add("", "Win10_Height", Win10_Height)
-    LV_Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
-    LV_Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
+    LV.Add("", "Win10_title", Win10_title)
+    LV.Add("", "Win10_text", Win10_text)
+    LV.Add("", "Win10_ahk_class", Win10_ahk_class)
+    LV.Add("", "Win10_ahk_exe", Win10_ahk_exe)
+    LV.Add("", "Win10_ahk_id", Win10_ahk_id)
+    LV.Add("", "Win10_ahk_pid", Win10_ahk_pid)
+    LV.Add("", "Win10_fullpath", Win10_fullpath)
+    LV.Add("", "Win10_control_names", Win10_control_names)
+    LV.Add("", "Win10_size_state", Win10_size_state)
+    ; LV.Add("", "Win10_xpos", Win10_xpos)
+    ; LV.Add("", "Win10_ypos", Win10_ypos)
+    ; LV.Add("", "Win10_Width", Win10_Width)
+    ; LV.Add("", "Win10_Height", Win10_Height)
+    LV.Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
+    LV.Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
   }
   If (DebugMode == 1) {
-    LV_Add("", "", "")
-    LV_Add("", "GUI_LONGEST_FIELD", GUI_LONGEST_FIELD)
-    LV_Add("", "GUI_WIDTH", GUI_WIDTH)
-    ; LV_Add("", "GUI_OPT", GUI_OPT)
+    LV.Add("", "", "")
+    LV.Add("", "GUI_LONGEST_FIELD", GUI_LONGEST_FIELD)
+    LV.Add("", "GUI_WIDTH", GUI_WIDTH)
+    ; LV.Add("", "GUI_OPT", GUI_OPT)
   }
-  LV_Add("", "", "")
-  LV_ModifyCol(1, "AutoHdr Text Left")
-  LV_ModifyCol(2, "AutoHdr Text Left")
-  ; LV_ModifyCol()  ; Auto-size each column to fit its contents.
+  LV.Add("", "", "")
+  LV.ModifyCol(1, "AutoHdr Text Left")
+  LV.ModifyCol(2, "AutoHdr Text Left")
+  ; LV.ModifyCol()  ; Auto-size each column to fit its contents.
+
   ; Display the window and return. The script will be notified whenever the user double clicks a row.
-  Gui Show
+  ; Gui Show
+  MyGui.Show
   Return
 }
 ;
-; GetWindowSpecs_OnClick_LV_WindowSpecs  ^^^ NEEDED BY GetWindowSpecs()  ^^^
+; GetWindowSpecs_OnDoubleClick  ^^^ NEEDED BY GetWindowSpecs()  ^^^
 ;   |--> Sub-Function of "GetWindowSpecs()"
 ;
-GetWindowSpecs_OnClick_LV_WindowSpecs() {
+GetWindowSpecs_OnDoubleClick() {
+  global DebugMode
   ; Obj_EventTriggers := {"Normal": 1, "DoubleClick": 1, "RightClick": 1, "R": 1}
   Obj_EventTriggers := {"DoubleClick": 1, "RightClick": 1, "R": 1}
   If (Obj_EventTriggers[A_GuiEvent]) {
-    LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
-    LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
+    LV.GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
+    LV.GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
     MsgBox(4, %A_ScriptName%,"
     (LTrim
       Value selected:
@@ -2598,12 +2613,13 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
     If (A_MsgBoxResult = "Yes") {
       Clipboard := ValSelected
     }
-    ; Gui WindowSpecs:Default
-    ; Gui Destroy
+    ; ; Gui WindowSpecs:Default
+    ; MyGui := Gui(Default)
+    ; MyGui.Name := "WindowSpecs"
+    ; ; Gui Destroy
+    ; MyGui.Destroy()
   }
-  ; DEBUGGING-ONLY (Set "%LV_Verbosity%" to 1 to enable verbose debug-logging)
-  LV_Verbosity := 0
-  If ( LV_Verbosity = 1 ) {
+  If (DebugMode == 1) {
     TooltipOutput := "A_GuiEvent=[" A_GuiEvent "], A_EventInfo=[" A_EventInfo "]"
     ToolTip(TooltipOutput)
     ClearTooltip(2500)
@@ -3959,20 +3975,30 @@ ShowVolumeLevel() {
 ;   |--> Lists all window-titles (in current user's environment)
 ;
 ShowWindowTitles() {
-  Gui WinTitles:Default
-  Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
+  ; Gui WinTitles:Default
+  MyGui := Gui(Default)
+  MyGui.Name := "WinTitles"
+
+  ; Create the ListView with two columns, Name and Size:
+  ; Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
+  LV := MyGui.Add("ListView", "r50 w1000", [WindowTitle])
+  LV.OnEvent("DoubleClick", ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles)
+
   Window := WinGetList("A")
   Loop Window {
     Id:=Window%A_Index%
     WinGetTitle(TVar,("ahk_id " Id))
     If (Tvar != "") {
-      LV_Add("", TVar)
+      LV.Add("", TVar)
       Window%A_Index%:=TVar ;use this if you want an array
       tList.=TVar "`n" ;use this if you just want the list
     }
   }
+
   ; Gui Add, Text,, %tList%
-  Gui Show
+  ; MyGui.Add(...)
+  ; Gui Show
+  MyGui.Show
   ; MsgBox(tList)
   Return
 }
@@ -3984,8 +4010,11 @@ ShowWindowTitles() {
 ;
 ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
   If (A_GuiEvent = "DoubleClick") {
-    Gui WinTitles:Default
-    Gui Destroy
+    ; Gui WinTitles:Default
+    MyGui := Gui(Default)
+    MyGui.Name := "WinTitles"
+    ; Gui Destroy
+    MyGui.Destroy()
   }
   Return
 }
@@ -5094,6 +5123,7 @@ BrightnessSetter_new() {
 ; Gui Menu, MyMenuBar
 ; Gui Add, Button, gExit, Exit This Example
 ; Gui Show
+; MyGui.Show
 ; MenuHandler_FileMenu:
 ; Return
 ;

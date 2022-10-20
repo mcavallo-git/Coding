@@ -1351,21 +1351,21 @@ AppsKey & XButton2::
   ;
   ;   ACTION:  Decrease screen brightness
   ;
-  Alt & Left::
-  {
-    BS := new BrightnessSetter()
-    BS.SetBrightness(-1)
-    Return
-  }
+  ; Alt & Left::
+  ; {
+  ;   BS := new BrightnessSetter()
+  ;   BS.SetBrightness(-1)
+  ;   Return
+  ; }
   ;
   ;   ACTION:  Increase screen brightness
   ;
-  Alt & Right::
-  {
-    BS := new BrightnessSetter()
-    BS.SetBrightness(+1)
-    Return
-  }
+  ; Alt & Right::
+  ; {
+  ;   BS := new BrightnessSetter()
+  ;   BS.SetBrightness(+1)
+  ;   Return
+  ; }
   ;
   ;   ACTION:  Pause current track  (in active media player)
   ;

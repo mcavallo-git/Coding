@@ -77,9 +77,9 @@ RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, mon
 ; Setup targeting [ Windows Explorer ]-classed windows
 ;
 
-GroupAdd(Explorer, ahk_class ExploreWClass) ; Unused on Vista and later
+GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
 
-GroupAdd(Explorer, ahk_class CabinetWClass)
+GroupAdd("Explorer", "ahk_class CabinetWClass")
 
 
 ; ------------------------------------------------------------
@@ -649,7 +649,7 @@ Pause::
     Send "!z"
     ; Win_ahk_id := WinGetID("A")
     ; Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
-    ; ControlSend,, !z, ahk_pid %Win_ahk_pid%
+    ; ControlSend,, !z, "ahk_pid %Win_ahk_pid%"
     ; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid %Win_ahk_pid%"
   } Else {
     ; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
@@ -716,7 +716,7 @@ Pause::
       AwaitModifierKeyup()  ; Wait until all modifier keys are released
       Sleep 10
       SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_BasenameNoExt, ExeToRequire_Drivename
-      WinActivate ahk_exe %ExeToRequire_Basename%
+      WinActivate "ahk_exe %ExeToRequire_Basename%"
       VarSetCapacity(ExeToRequire_Basename,0)
       VarSetCapacity(ExeToRequire_Dirname,0)
       VarSetCapacity(ExeToRequire_Extension,0)
@@ -2218,9 +2218,9 @@ EscapeSpecialCharacters(StringToEscape:="") {
 ;
 Get_ahk_id_from_pid(WinPid) {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  ControlGet OutputVar, Hwnd,,, ahk_pid %WinPid%
-  Return ahk_id %OutputVar%
-  ; dat_ahk_id=ahk_id %output_var%
+  ControlGet OutputVar, Hwnd,,, "ahk_pid %WinPid%"
+  Return "ahk_id %OutputVar%"
+  ; dat_ahk_id := "ahk_id %output_var%"
   ; Return dat_ahk_id
 }
 
@@ -2233,7 +2233,7 @@ Get_ahk_id_from_pid(WinPid) {
 Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   ControlGet OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
-  Return ahk_id %OutputVar%
+  Return "ahk_id %OutputVar%"
 }
 
 
@@ -3094,7 +3094,7 @@ Open_Exe(ExeFullpath) {
       ClearTooltip(2000)
     }
     ExePID := GetPID(ExeBasename)
-    WinActivate ahk_pid %ExePID%
+    WinActivate "ahk_pid %ExePID%"
   } Else If (FileExist(ExeFullpath)) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
@@ -3106,7 +3106,7 @@ Open_Exe(ExeFullpath) {
     ExitCode := RunWait(%ExeFullpath%,,, ExePID)
     ; WinWait "ahk_pid " ExePID
     ; ExePID := GetPID(ExeBasename)
-    WinActivate ahk_pid %ExePID%
+    WinActivate "ahk_pid %ExePID%"
   } Else {
     ; Executable NOT running & NOT found locally
     If (DebugMode == 1) {

@@ -1026,7 +1026,7 @@ AppsKey & l::
 ;
 ;   HOTKEY:  WinKey + N
 ;   ACTION:  Opens "View Network Connections" (control panel window)
-; 
+;
 #n::
   Open_ControlPanel_NetworkConnections()
   Return
@@ -1035,7 +1035,7 @@ AppsKey & l::
 ; ------------------------------------------------------------
 ; HOTKEY:  WinKey + S
 ; ACTION:  Opens "Sound" > "Playback" (control panel window)
-; 
+;
 #s::
   Open_ControlPanel_Sound("Playback")
   ; Open_ControlPanel_Sound("Recording")
@@ -1047,7 +1047,7 @@ AppsKey & l::
 ;          Ctrl + WinKey + S
 ;          Shift + WinKey + S
 ; ACTION:  Opens "Sound" > "Recording" (control panel window)
-; 
+;
 !#s::
 ^#s::
 +#s::
@@ -4811,9 +4811,9 @@ BrightnessSetter_new() {
 ;   //  Key:    Refer to the "Key" column to acquire the "Hotstring" of any keys pressed (string, length varies)
 ;
 ;   //  NOTE:  If the above method fails, refer to: https://www.autohotkey.com/docs/commands/GetKey.htm
-; 
+;
 ; ------------------------------------------------------------
-; 
+;
 ; *** TO DETERMINE THE COMMAND BEING SENT:
 ;			SC029::
 ;			SplashTextOn, 250, 40, Debugging, Command Sent
@@ -4822,9 +4822,9 @@ BrightnessSetter_new() {
 ;			Sleep %RandomSleep%
 ;			SplashTextOff
 ; 		-- Remainder of your script
-; 
+;
 ; ------------------------------------------------------------
-; 
+;
 ;			MouseClick,[Button],[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative]
 ;
 ;          PARAMS:
@@ -4835,7 +4835,7 @@ BrightnessSetter_new() {
 ;	         		     [Speed]  =  { Movement speed of mouse across the screen - 0 is Instant --- DEFAULTS TO DEFAULT MOUSE MOVE SPEED SET BY [SetDefaultMouseSpeed, Speed], OTHERWISE DEFAULTS TO 2 }
 ;	         		       [U|D]  =  { Only do a Click-Down (D) or Click-Up (U) click-event --- DEFAULTS A *DOWN* FOLLOWED BY AN *UP* EVENT, IF OMITTED}
 ;	         		  [Relative]  =  { If set to (R), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
-; 
+;
 ; ------------------------------------------------------------
 ;
 ; MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, R]
@@ -4878,16 +4878,16 @@ BrightnessSetter_new() {
 ;
 ; ------------------------------------------------------------
 ;
-; 
+;
 ; Menu, tray, add  ; Creates a separator line.
 ; Menu, tray, add, "Lineage-2", MenuHandler  ; Creates a new menu item.
 ; return43
-; 
+;
 ; MenuHandler:
 ; MsgBox You selected %A_ThisMenuItem% from menu %A_ThisMenu%.
 ; MsgBox A_TitleMatchMode[%A_TitleMatchMode%], A_TitleMatchModeSpeed=[%A_TitleMatchModeSpeed%]
 ; Return
-; 
+;
 ; Menu, FileMenu, Add, Script Icon, MenuHandler_FileMenu
 ; Menu, FileMenu, Add, Suspend Icon, MenuHandler_FileMenu
 ; Menu, FileMenu, Add, Pause Icon, MenuHandler_FileMenu
@@ -4900,12 +4900,12 @@ BrightnessSetter_new() {
 ; Gui, Show
 ; MenuHandler_FileMenu:
 ; Return
-; 
+;
 ; Exit:
 ; ExitApp
-; 
+;
 ; Example: Using in-line if conditional(s)
-; 
+;
 ; y := ( ( y = 8 ) ? ( 2008 ) : ( ( y = 9 ) ? ( 2009 ) : ( ( y = 0 ) ? ( 2010 ) : ( 2011 ) ) ) )
 ;
 ; ------------------------------------------------------------
@@ -4927,14 +4927,14 @@ BrightnessSetter_new() {
 ; ------------------------------------------------------------
 ;
 ; ;;; Example:  Custom Popups
-; 
+;
 ; CustomPopupButtons_Demo() {
-; 
+;
 ; 	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
 ; 	; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
-; 
+;
 ; 	MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
-; 
+;
 ; 	If (A_MsgBoxResult = "Yes") {
 ; 		TrayTip, AHK, % ( "Leftmost Button Selected" )  ; Toast Notification
 ; 	}
@@ -4944,11 +4944,11 @@ BrightnessSetter_new() {
 ; 	If (A_MsgBoxResult = "Cancel") {
 ; 		TrayTip, AHK, % ( "Rightmost Button Selected" )  ; Toast Notification
 ; 	}
-; 
+;
 ; 	Return
-; 
+;
 ; }
-; 
+;
 ; CustomMsgboxButtons_UNIQUE_NAME_HERE() {
 ; 	If (WinExist(Popup_MsgBox_WindowTitle)) {
 ; 		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
@@ -4960,8 +4960,8 @@ BrightnessSetter_new() {
 ; 	ControlSetText, Button3, &RIGHT_BUTTON
 ; 	Return
 ; }
-; 
-; 
+;
+;
 ; ------------------------------------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
@@ -5052,9 +5052,9 @@ BrightnessSetter_new() {
 ;   www.autohotkey.com  |  "Detect Current Windows Domain - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/77940-detect-current-windows-domain/?p=495386
 ;
 ;   www.autohotkey.com  |  "determine if scaling is not 100% for monitor of a window, change PerMonitorSettings in registry, reflect change, verify - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=160615#p160615
-; 
+;
 ;   www.autohotkey.com  |  "escape double quote - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=14082
-; 
+;
 ;   www.autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
 ;
 ;   www.autohotkey.com  |  "Get Highest and Lowest value - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88376-get-highest-and-lowest-value/?p=560579
@@ -5062,7 +5062,7 @@ BrightnessSetter_new() {
 ;   www.autohotkey.com  |  "How to make AHK to type braces (curly brackets) - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=346714&sid=cf868beb68d8b6fefc7e3e69e7cdaeea#p346714
 ;
 ;   www.autohotkey.com  |  "How to paste multiline text - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/65421-how-to-paste-multiline-text/
-; 
+;
 ;   www.autohotkey.com  |  "How to quickly generate random strings? - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=76052
 ;
 ;   www.autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
@@ -5070,7 +5070,7 @@ BrightnessSetter_new() {
 ;   www.autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
 ;
 ;   www.autohotkey.com  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
-; 
+;
 ;   www.autohotkey.com  |  "Move window to half / quarter of current monitor - Scripts and Functions - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
 ;   www.autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
@@ -5082,9 +5082,9 @@ BrightnessSetter_new() {
 ;   www.autohotkey.com  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
 ;
 ;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
-; 
+;
 ;   www.autohotkey.com  |  "SendInput %Clipboard% adds double linebreaks for Multiline - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88346-sendinput-clipboard-adds-double-linebreaks-for-multiline/
-; 
+;
 ;   www.autohotkey.com  |  "Single line if statements"  |  https://www.autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ;
 ;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097

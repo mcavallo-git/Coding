@@ -4910,7 +4910,7 @@ class BrightnessSetter {
       }
       ; who knows if the SID & IID above will work for future versions of Windows 10 (or Windows 8). Fall back to this if needs must
       Loop 2 {
-        SendEvent {Volume_Mute 2}
+        SendEvent "{Volume_Mute 2}"
         if (BrightnessSetter._FindAndSetOSDWindow())
           Return
         Sleep 100

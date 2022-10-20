@@ -1440,12 +1440,12 @@ AppsKey & WheelDown::
 ;
 !WheelUp::
 {
-  MouseClick("WheelUp",,,15,0,D,R)
+  MouseClick("WheelUp",,,15,0,"D","R")
   Return
 }
 !WheelDown::
 {
-  MouseClick("WheelDown",,,15,0,D,R)
+  MouseClick("WheelDown",,,15,0,"D","R")
   Return
 }
 
@@ -5051,7 +5051,7 @@ BrightnessSetter_new() {
 ;
 ; ------------------------------------------------------------
 ;
-; MouseClick("[Button]",[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative])
+; MouseClick("[Button]",[X_Coord],[Y_Coord],[ClickCount],[Speed],"[U|D]","[Relative]")
 ;
 ;   PARAMS:
 ;        [Button]  =  { Left, Right, Middle, X1, X2, WheelUp (or WU), WheelDown (or WD), WheelLeft (or WL), WheelRight (or WR) --- DEFAULTS TO LEFT IF OMITTED }

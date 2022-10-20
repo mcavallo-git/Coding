@@ -1837,8 +1837,8 @@ LShift & RShift::
 ;     }
 ;     ;
 ;     ; Wait until the script(s)/program(s) start before moving them around
-;     ; WinWait,%WinTitle_Postman%,,5
-;     ; WinWait,%WinTitle_NodeJS%,,3
+;     ; WinWait %WinTitle_Postman%,,5
+;     ; WinWait %WinTitle_NodeJS%,,3
 ;     ; Move the window to occupy the right-half of the Right-Most monitor
 ;     ; WinMove(%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%)
 ;     ; WinMove(%WinTitle_Postman%,,953,0,974,1047)  ; (1st Monitor, Right, Actual)
@@ -2988,7 +2988,7 @@ Open_Chrome() {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
       RunExe_NON_Admin(FullPath_RunExe)
-      WinWait, %WinTitle%,, %WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+      WinWait %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
     If (MonitorGetCount()==1) {
       MoveIt("Right","Half",1,WinTitle)  ; Resize window to right-half of monitor #1
@@ -3022,7 +3022,7 @@ Open_ControlPanel_NetworkConnections() {
     ; Run (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
     ; Run (EnvGet("WINDIR") "\System32\ncpa.cpl")
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
-    WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait %WinTitle%,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinActivate %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   Return
@@ -3064,7 +3064,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
     ; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
     ; Run control.exe /name Microsoft.Sound
-    WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait %WinTitle%,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinActivate %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   Return
@@ -3137,7 +3137,7 @@ Open_VisualStudioCode() {
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
-    WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   MoveIt("Left","Half",1,WinTitle)  ; Resize window to left-half of monitor #1
   WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
@@ -3173,7 +3173,7 @@ Open_WindowsTerminal() {
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
-    WinWait, %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   MoveIt("Right","Half",1,WinTitle,WinText)  ; Resize window to right-half of monitor #1
   If (WinExist(WinTitle,WinText)) {

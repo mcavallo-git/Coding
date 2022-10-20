@@ -121,7 +121,7 @@ If (FileExist(TrayIcon_Default)) {
   global DebugMode
   BlockInput(Off)  ;  Stop blocking input (e.g. restore full interaction)
   Reload  ; Reload this script
-  Sleep 1000 ; If successful, the reload will close this instance during the Sleep, so the line below will never be reached.
+  Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
   If (DebugMode == 1) {
     MsgBox(4,, "The script could not be reloaded. Would you like to open it for editing?")
     If (A_MsgBoxResult = "Yes") {
@@ -3193,16 +3193,16 @@ PasteClipboardAsBinary() {
   global DebugMode
   SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Sleep, 250
+  Sleep 250
   Clipboard := ClipboardAll
-  Sleep, 25
+  Sleep 25
   Clipboard := Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
-  Sleep, 25
+  Sleep 25
   If (StrLen(Clipboard)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
   SendInput(EscapeSpecialCharacters(Clipboard))
-  Sleep, 25
+  Sleep 25
   Return
 }
 

@@ -2132,10 +2132,10 @@ CommentCurrentLine_NoSpace() {
 DoLogging(LogText) {
   ; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
   OutputLogfile := "C:\Users\" A_UserName "\Desktop" "\debug-logging.txt"
-  FileAppend,
+  FileAppend(
   (
 %LogText%
-  ), %OutputLogfile%
+  ), %OutputLogfile%)
   Return
 }
 
@@ -3429,7 +3429,7 @@ PrintEnv() {
   ; Logfile_EnvVars := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
   ; Logfile_EnvVars_Timestamp := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
   ;
-  ; FileAppend, %KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%
+  ; FileAppend(%KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%)
   ; Run(Notepad "%Logfile_EnvVars_Timestamp%")
   ;
   Return
@@ -3524,7 +3524,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
     If (!FileExist(FullPath_RunNonAdmin_Dirname)) {
       DirCreate %FullPath_RunNonAdmin_Dirname%
     }
-    FileAppend, %VbsScript_Contents%, %FullPath_RunNonAdmin_VbsScript%
+    FileAppend(%VbsScript_Contents%, %FullPath_RunNonAdmin_VbsScript%)
   }
 
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`"")
